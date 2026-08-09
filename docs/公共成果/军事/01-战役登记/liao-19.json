@@ -1,0 +1,471 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "liao",
+  "bucket": 19,
+  "bucket_count": 24,
+  "record_count": 2,
+  "records_fingerprint": "9127384da4896d588d8c80407c8c613fc4a7af124d97919954ecd6e7ad1bb1bc",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-3D5AC23D821993D4E871",
+      "dynasty": "辽",
+      "dynasty_partition": "liao",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-LIAO-SONG-NORTHERN-INVASION-COUNTEROFFENSIVE-986",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。",
+      "period": {
+        "start": "统和四年三月至五月",
+        "end": "986"
+      },
+      "observable_result": "辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-LIAO-V11-SONG-NORTHERN-INVASION-AND-SOUTHERN-COUNTEROFFENSIVE-986"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/辽史/volume-11.registry.json"
+        ],
+        "source_revision_refs": [
+          "遼史/卷11@1745919#岐溝、涿州、固安、新城皆陷。",
+          "遼史/卷11@1745919#休哥等敗宋軍，獻所獲器甲、貨財，賜詔褒美。",
+          "遼史/卷11@1745919#遼師與曹彬、米信戰於歧溝關，大敗之，追至拒馬河",
+          "遼史/卷11@1745919#餘眾奔高陽，又為遼師沖擊，死者數萬，棄戈甲若丘陵。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "遼史/卷11@1745919#岐溝、涿州、固安、新城皆陷。",
+        "遼史/卷11@1745919#休哥等敗宋軍，獻所獲器甲、貨財，賜詔褒美。",
+        "遼史/卷11@1745919#遼師與曹彬、米信戰於歧溝關，大敗之，追至拒馬河",
+        "遼史/卷11@1745919#餘眾奔高陽，又為遼師沖擊，死者數萬，棄戈甲若丘陵。"
+      ],
+      "uncertainties": [
+        "双方总兵力、具体战场分布与军事占领持续时间未载。"
+      ],
+      "cost_or_burden": "飞狐战不利，辽将大鹏翼、马赟、何万通陷；宋军溺死不可胜纪、死者数万的记载存在，辽军完整伤亡、边民损失和各城恢复未载。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-E3FF601739E70753",
+          "actor_name": "曹彬",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "已验收事实卡明确闭合曹彬的实际行动与本人结果：宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。；辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合曹彬的实际行动与本人结果：宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。；辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "遼史/卷11@1745919#岐溝、涿州、固安、新城皆陷。",
+              "遼史/卷11@1745919#休哥等敗宋軍，獻所獲器甲、貨財，賜詔褒美。",
+              "遼史/卷11@1745919#遼師與曹彬、米信戰於歧溝關，大敗之，追至拒馬河",
+              "遼史/卷11@1745919#餘眾奔高陽，又為遼師沖擊，死者數萬，棄戈甲若丘陵。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-ADD1179BC4C0C22D72D3",
+              "result_label": "宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。；辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。",
+              "result_direction": "negative",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "已验收事实卡明确闭合曹彬的实际行动与本人结果：宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。；辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "遼史/卷11@1745919#岐溝、涿州、固安、新城皆陷。",
+                "遼史/卷11@1745919#休哥等敗宋軍，獻所獲器甲、貨財，賜詔褒美。",
+                "遼史/卷11@1745919#遼師與曹彬、米信戰於歧溝關，大敗之，追至拒馬河",
+                "遼史/卷11@1745919#餘眾奔高陽，又為遼師沖擊，死者數萬，棄戈甲若丘陵。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "已验收事实卡明确闭合曹彬的实际行动与本人结果：宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。；辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "遼史/卷11@1745919#岐溝、涿州、固安、新城皆陷。",
+                  "遼史/卷11@1745919#休哥等敗宋軍，獻所獲器甲、貨財，賜詔褒美。",
+                  "遼史/卷11@1745919#遼師與曹彬、米信戰於歧溝關，大敗之，追至拒馬河",
+                  "遼史/卷11@1745919#餘眾奔高陽，又為遼師沖擊，死者數萬，棄戈甲若丘陵。"
+                ]
+              },
+              "capability_episode_ref": "MIL-EPISODE-CAOBIN-QIGOU-986"
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-D55E396F7D9E3B75",
+          "actor_name": "米信",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "已验收事实卡明确闭合米信的实际行动与本人结果：宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。；辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合米信的实际行动与本人结果：宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。；辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "遼史/卷11@1745919#岐溝、涿州、固安、新城皆陷。",
+              "遼史/卷11@1745919#休哥等敗宋軍，獻所獲器甲、貨財，賜詔褒美。",
+              "遼史/卷11@1745919#遼師與曹彬、米信戰於歧溝關，大敗之，追至拒馬河",
+              "遼史/卷11@1745919#餘眾奔高陽，又為遼師沖擊，死者數萬，棄戈甲若丘陵。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-9B516E06274D6D7F9E21",
+              "result_label": "宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。；辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。",
+              "result_direction": "negative",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "已验收事实卡明确闭合米信的实际行动与本人结果：宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。；辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "遼史/卷11@1745919#岐溝、涿州、固安、新城皆陷。",
+                "遼史/卷11@1745919#休哥等敗宋軍，獻所獲器甲、貨財，賜詔褒美。",
+                "遼史/卷11@1745919#遼師與曹彬、米信戰於歧溝關，大敗之，追至拒馬河",
+                "遼史/卷11@1745919#餘眾奔高陽，又為遼師沖擊，死者數萬，棄戈甲若丘陵。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "已验收事实卡明确闭合米信的实际行动与本人结果：宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。；辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "遼史/卷11@1745919#岐溝、涿州、固安、新城皆陷。",
+                  "遼史/卷11@1745919#休哥等敗宋軍，獻所獲器甲、貨財，賜詔褒美。",
+                  "遼史/卷11@1745919#遼師與曹彬、米信戰於歧溝關，大敗之，追至拒馬河",
+                  "遼史/卷11@1745919#餘眾奔高陽，又為遼師沖擊，死者數萬，棄戈甲若丘陵。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-856DDABCE4B38AE2",
+          "actor_name": "耶律休哥",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "已验收事实卡明确闭合耶律休哥的实际行动与本人结果：宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。；辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "co_decisive",
+            "result_direction": "positive",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合耶律休哥的实际行动与本人结果：宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。；辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "遼史/卷11@1745919#岐溝、涿州、固安、新城皆陷。",
+              "遼史/卷11@1745919#休哥等敗宋軍，獻所獲器甲、貨財，賜詔褒美。",
+              "遼史/卷11@1745919#遼師與曹彬、米信戰於歧溝關，大敗之，追至拒馬河",
+              "遼史/卷11@1745919#餘眾奔高陽，又為遼師沖擊，死者數萬，棄戈甲若丘陵。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-1C6BAB7492FD79299A41",
+              "result_label": "宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。；辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。",
+              "result_direction": "positive",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "已验收事实卡明确闭合耶律休哥的实际行动与本人结果：宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。；辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "遼史/卷11@1745919#岐溝、涿州、固安、新城皆陷。",
+                "遼史/卷11@1745919#休哥等敗宋軍，獻所獲器甲、貨財，賜詔褒美。",
+                "遼史/卷11@1745919#遼師與曹彬、米信戰於歧溝關，大敗之，追至拒馬河",
+                "遼史/卷11@1745919#餘眾奔高陽，又為遼師沖擊，死者數萬，棄戈甲若丘陵。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "co_decisive",
+                "basis": "已验收事实卡明确闭合耶律休哥的实际行动与本人结果：宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。；辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "遼史/卷11@1745919#岐溝、涿州、固安、新城皆陷。",
+                  "遼史/卷11@1745919#休哥等敗宋軍，獻所獲器甲、貨財，賜詔褒美。",
+                  "遼史/卷11@1745919#遼師與曹彬、米信戰於歧溝關，大敗之，追至拒馬河",
+                  "遼史/卷11@1745919#餘眾奔高陽，又為遼師沖擊，死者數萬，棄戈甲若丘陵。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-FC748CE52AD2BEF3",
+          "actor_name": "耶律斜轸",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "已验收事实卡明确闭合耶律斜轸的实际行动与本人结果：宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。；辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "co_decisive",
+            "result_direction": "positive",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合耶律斜轸的实际行动与本人结果：宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。；辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "遼史/卷11@1745919#岐溝、涿州、固安、新城皆陷。",
+              "遼史/卷11@1745919#休哥等敗宋軍，獻所獲器甲、貨財，賜詔褒美。",
+              "遼史/卷11@1745919#遼師與曹彬、米信戰於歧溝關，大敗之，追至拒馬河",
+              "遼史/卷11@1745919#餘眾奔高陽，又為遼師沖擊，死者數萬，棄戈甲若丘陵。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-6229BD7821880EDD1729",
+              "result_label": "宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。；辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。",
+              "result_direction": "positive",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "已验收事实卡明确闭合耶律斜轸的实际行动与本人结果：宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。；辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "遼史/卷11@1745919#岐溝、涿州、固安、新城皆陷。",
+                "遼史/卷11@1745919#休哥等敗宋軍，獻所獲器甲、貨財，賜詔褒美。",
+                "遼史/卷11@1745919#遼師與曹彬、米信戰於歧溝關，大敗之，追至拒馬河",
+                "遼史/卷11@1745919#餘眾奔高陽，又為遼師沖擊，死者數萬，棄戈甲若丘陵。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "co_decisive",
+                "basis": "已验收事实卡明确闭合耶律斜轸的实际行动与本人结果：宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。；辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "遼史/卷11@1745919#岐溝、涿州、固安、新城皆陷。",
+                  "遼史/卷11@1745919#休哥等敗宋軍，獻所獲器甲、貨財，賜詔褒美。",
+                  "遼史/卷11@1745919#遼師與曹彬、米信戰於歧溝關，大敗之，追至拒馬河",
+                  "遼史/卷11@1745919#餘眾奔高陽，又為遼師沖擊，死者數萬，棄戈甲若丘陵。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-A2F21D0CDCCC058B",
+          "actor_name": "蒲领",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "已验收事实卡明确闭合蒲领的实际行动与本人结果：宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。；辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "stage_executor",
+            "result_direction": "positive",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合蒲领的实际行动与本人结果：宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。；辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "遼史/卷11@1745919#岐溝、涿州、固安、新城皆陷。",
+              "遼史/卷11@1745919#休哥等敗宋軍，獻所獲器甲、貨財，賜詔褒美。",
+              "遼史/卷11@1745919#遼師與曹彬、米信戰於歧溝關，大敗之，追至拒馬河",
+              "遼史/卷11@1745919#餘眾奔高陽，又為遼師沖擊，死者數萬，棄戈甲若丘陵。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-84A2C45D68900157B41D",
+              "result_label": "宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。；辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。",
+              "result_direction": "positive",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "已验收事实卡明确闭合蒲领的实际行动与本人结果：宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。；辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "遼史/卷11@1745919#岐溝、涿州、固安、新城皆陷。",
+                "遼史/卷11@1745919#休哥等敗宋軍，獻所獲器甲、貨財，賜詔褒美。",
+                "遼史/卷11@1745919#遼師與曹彬、米信戰於歧溝關，大敗之，追至拒馬河",
+                "遼史/卷11@1745919#餘眾奔高陽，又為遼師沖擊，死者數萬，棄戈甲若丘陵。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "tactical_execution",
+                "decisive_relation": "stage_executor",
+                "basis": "已验收事实卡明确闭合蒲领的实际行动与本人结果：宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。；辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "遼史/卷11@1745919#岐溝、涿州、固安、新城皆陷。",
+                  "遼史/卷11@1745919#休哥等敗宋軍，獻所獲器甲、貨財，賜詔褒美。",
+                  "遼史/卷11@1745919#遼師與曹彬、米信戰於歧溝關，大敗之，追至拒馬河",
+                  "遼史/卷11@1745919#餘眾奔高陽，又為遼師沖擊，死者數萬，棄戈甲若丘陵。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [
+        {
+          "actor_ref": "PERSON-POST-E3FF601739E70753",
+          "actor_name": "曹彬",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "C",
+          "severity": 0.2,
+          "basis": "已验收事实卡明确闭合曹彬的实际行动与本人结果：宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。；辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "source_refs": [
+            "遼史/卷11@1745919#岐溝、涿州、固安、新城皆陷。",
+            "遼史/卷11@1745919#休哥等敗宋軍，獻所獲器甲、貨財，賜詔褒美。",
+            "遼史/卷11@1745919#遼師與曹彬、米信戰於歧溝關，大敗之，追至拒馬河",
+            "遼史/卷11@1745919#餘眾奔高陽，又為遼師沖擊，死者數萬，棄戈甲若丘陵。"
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-D55E396F7D9E3B75",
+          "actor_name": "米信",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "C",
+          "severity": 0.2,
+          "basis": "已验收事实卡明确闭合米信的实际行动与本人结果：宋军分三路来侵并陷岐沟、涿州、固安、新城；辽廷征诸部兵援休哥，斜轸、蒲领等统军反击，收复涿州，攻破固安，并在歧沟关、高阳连败曹彬、米信所部。；辽军止住宋军攻势，收复涿州和固安，并在歧沟关至高阳重创宋军。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "source_refs": [
+            "遼史/卷11@1745919#岐溝、涿州、固安、新城皆陷。",
+            "遼史/卷11@1745919#休哥等敗宋軍，獻所獲器甲、貨財，賜詔褒美。",
+            "遼史/卷11@1745919#遼師與曹彬、米信戰於歧溝關，大敗之，追至拒馬河",
+            "遼史/卷11@1745919#餘眾奔高陽，又為遼師沖擊，死者數萬，棄戈甲若丘陵。"
+          ]
+        }
+      ],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "important_objective",
+      "land_strategic_value": "strategic_gateway",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记B；土地轴=strategic_gateway，对手轴=regional_major，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "B",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-1F9253079A6DFDDDC76F",
+      "dynasty": "辽",
+      "dynasty_partition": "liao",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-LIAO-XIA-RAID-AND-RETURN-1045",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "辽军督数路兵掩袭，杀数千人，萧胡睹被夏人俘；元昊归还先被执者，辽廷亦放还所留夏使，后赏有功将校、班师，并将云州改为西京。",
+      "period": {
+        "start": "重熙十三年十月至十二月",
+        "end": "1045"
+      },
+      "observable_result": "西征发生数千人死亡和辽将被俘，双方交换被留者后辽军班师，云州改为西京。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-LIAO-V19-XIA-RAID-PRISONER-EXCHANGE-AND-WAR-END-1045"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/辽史/volume-19.registry.json"
+        ],
+        "source_revision_refs": [
+          "遼史/卷19@1747939#督數路兵掩襲，殺數千人，駙馬都尉蕭胡睹為夏人所執。",
+          "遼史/卷19@1747939#元昊遣使以先被執者來歸，詔所留夏使亦還其國。",
+          "遼史/卷19@1747939#賜有功將校有差。甲子，班師。",
+          "遼史/卷19@1747939#改雲州為西京。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "遼史/卷19@1747939#督數路兵掩襲，殺數千人，駙馬都尉蕭胡睹為夏人所執。",
+        "遼史/卷19@1747939#元昊遣使以先被執者來歸，詔所留夏使亦還其國。",
+        "遼史/卷19@1747939#賜有功將校有差。甲子，班師。",
+        "遼史/卷19@1747939#改雲州為西京。"
+      ],
+      "uncertainties": [
+        "死者所属、战场位置、战果分布和西京改制细节未载。"
+      ],
+      "cost_or_burden": "掩袭杀数千人，萧胡睹被俘后归还；双方总伤亡、被俘数与战争费用未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "逐项复核后只构成局部平叛、阶段攻取、重大败责或未闭合的多阶段战争；未证明长期独立战略方向或第一梯队硬路径，明确保留A。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "REVIEWED_RETAINED_A",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "事实只载数路军袭击、萧胡睹被俘及班师交换，不能仅凭官职把总体胜败归给萧胡睹。",
+      "detail_expansion_status": "complete_unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    }
+  ]
+}

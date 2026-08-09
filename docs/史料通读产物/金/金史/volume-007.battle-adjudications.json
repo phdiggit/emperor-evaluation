@@ -1,0 +1,297 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "金史/卷007",
+  "source_identity": {
+    "source_unit_id": "SRC-JINSHI-007-2432706",
+    "source_url": "https://zh.wikisource.org/wiki/金史/卷7",
+    "revision_ref": "2432706",
+    "raw_sha256": "44c8503133e394bb0e5484b9bb50229c76e6031777d801337c8309954886b14c",
+    "paragraph_count": 95
+  },
+  "cards": [
+    {
+      "battle_id": "JIN007-B01",
+      "battle_label": "洛阳贼众攻卢氏县—杀县令后亡入宋",
+      "campaign_group": "JINSHI-LUOYANG-LUSHI-REBELLION-1173",
+      "source_anchor_refs": [
+        "SRC-JINSHI-007-2432706-P0012"
+      ],
+      "source_quotes": [
+        "洛阳县贼聚众攻卢氏县，杀县令李庭才，亡入于宋"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金卢氏县地方政权与县治 × 遭贼众攻县阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "洛阳县贼众结集后进攻卢氏县，县令李庭才被杀；叙事随后直接记贼众逃入宋境，未见卢氏县被长期占领。",
+          "cost_axes": {
+            "P": "P1",
+            "S": "S1",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=1；明确1名县令死亡为P1，单一县治遭武装攻击且长官被杀为S1；P1与S1同居基础最高档，按P/S同档规则抬至WC2。",
+          "P_inference": null,
+          "cost_axis_basis": {
+            "P": "仅计本评价主体实际承担的死亡、未归、被俘被掳、流亡和明确伤残；人数失载且可证实际武装接触时，按合同作受约束推定。",
+            "S": "仅计本主体统治区、生产、交通、财政、行政或军政体系的实际受损与失控；不由敌方伤亡反推。",
+            "M": "仅计已经发生的动员、服役、驻屯、民夫与运输负担；兵力、距离或战名本身不自动抬档。",
+            "A": "仅计可识别军资、粮秣、畜力、船械、营栅、城防、府库和财政资产投入或损失。"
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN1"
+          },
+          "strategic_security": "SB0/SN1",
+          "strategic_security_detail": "县治遭实际武装袭击且行政长官被杀，形成一次局部安全恶化；贼众随后入宋，但原文未显示这是金方军事行动造成，故不把其离境记为金方SB。",
+          "material_return": "WR0",
+          "material_return_detail": "未见金方缴获、资源回收或可识别物资所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "卢氏县"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "本段只见受袭、县令被杀及贼众离境，未见卢氏县发生持续控制权转移。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-JINSHI-007-2432706-P0012"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "已付出人员与县治受扰成本，却没有可归因于本阶段金方行动的安全、资源或控制收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成金朝地方治安事件，不属于开国、复国或新政权取得稳定统治基础过程。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-007-2432706-P0012"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-007-2432706-P0012"
+            ],
+            "material_return": [
+              "SRC-JINSHI-007-2432706-P0012"
+            ],
+            "border_control": [
+              "SRC-JINSHI-007-2432706-P0012"
+            ]
+          },
+          "carry_in": "承卷006宋金大战已进入讲和与常备戍防状态；本次为金境内独立地方武装治安事件。",
+          "carry_out": "贼众“亡入于宋”后的处置本卷及卷008未见；后续若出现同一集团、宋方收容／交还或再度越境，应沿用本campaign_group核验。"
+        },
+        {
+          "evaluation_subject_phase": "洛阳贼众 × 聚众攻卢氏并逃入宋阶段",
+          "subject_role": "ATTACKER_REBEL",
+          "actual_process": "贼众由洛阳县聚集，主动攻击卢氏县并杀县令李庭才，随后离开金境逃入宋；未见其取得并维持县城控制。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1（P1估、M1）；S0、A0，不触发P/S同档抬档，WC1。",
+          "P_inference": {
+            "P_observed": "原文仅明确其杀县令，未载贼众自身死伤；但可证已经实施武装攻县并在事后离境。",
+            "range": "1—99死亡当量",
+            "center_equivalent": 10,
+            "P_scoring": "P1估",
+            "basis": "实际武装攻县且叙事简略，不能用史书沉默证明攻击方无人受害；按单一县级短时袭击、无大规模败亡后效作最低档受约束推定。",
+            "upper_bound_reason": "无百人级本方死伤、围歼、主力溃败、补兵或大批俘亡下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-007-2432706-P0012"
+            ]
+          },
+          "cost_axis_basis": {
+            "P": "仅计本评价主体实际承担的死亡、未归、被俘被掳、流亡和明确伤残；人数失载且可证实际武装接触时，按合同作受约束推定。",
+            "S": "仅计本主体统治区、生产、交通、财政、行政或军政体系的实际受损与失控；不由敌方伤亡反推。",
+            "M": "仅计已经发生的动员、服役、驻屯、民夫与运输负担；兵力、距离或战名本身不自动抬档。",
+            "A": "仅计可识别军资、粮秣、畜力、船械、营栅、城防、府库和财政资产投入或损失。"
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN1"
+          },
+          "strategic_security": "SB0/SN1",
+          "strategic_security_detail": "虽杀死县令，但未建立可持续安全优势，且随后必须离开金境入宋；其本地活动空间至少发生一次局部退却。",
+          "material_return": "WR0",
+          "material_return_detail": "人口伤亡不计WR，且未见军资、府库、粮草或稳定税源所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "卢氏县"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未见取得卢氏县稳定控制；离境入宋也不足以判定其原有基地控制发生可量化净变化。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-JINSHI-007-2432706-P0012"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "攻击虽造成县令死亡，但没有稳定控制或资源回报，最终离开金境，阶段性政治军事成果不足抵补已发生动员与潜在人员损害。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "地方贼众未形成可由本卷确认的建国、复国或割据政权基础。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-007-2432706-P0012"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-007-2432706-P0012"
+            ],
+            "material_return": [
+              "SRC-JINSHI-007-2432706-P0012"
+            ],
+            "border_control": [
+              "SRC-JINSHI-007-2432706-P0012"
+            ]
+          },
+          "carry_in": "无可确认的前卷同一战役阶段。",
+          "carry_out": "入宋后的组织存续、是否受宋方处置及后续活动均待后卷或他源核验。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "linear_reread": {
+      "range": "SRC-JINSHI-007-2432706-P0001—P0095",
+      "paragraph_count": 95,
+      "status": "COMPLETED",
+      "method": "初稿后从P0001逐段复读至P0095；逐一重查所有“谋反／谋叛／叛／内附／戍兵／边储”等可能触发战争账户的段落。只有P0012明确出现聚众攻县、杀县令和越境逃亡，建立双方主体阶段卡；其余仅政治处刑、外交归附、常备军给养或战后人口政策者均标NOT_A_BATTLE。",
+      "ps_tie_raise_checked": true,
+      "textual_gap_note": "P0032明载“十五年正月。此下阙”，缺文区不以沉默推定无战事。"
+    },
+    "card_coverage": {
+      "battle_cards": 1,
+      "subject_phase_cards": 2,
+      "adjudicated_anchor_entries": 1,
+      "not_a_battle_anchor_entries": 18,
+      "status": "PASS"
+    },
+    "ps_tie_raise_cases": [
+      {
+        "battle_id": "JIN007-B01",
+        "evaluation_subject_phase": "金卢氏县地方政权与县治 × 遭贼众攻县阶段",
+        "result": "P1/S1同为base_WC=1，抬为WC2"
+      }
+    ],
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-JINSHI-007-2432706-P0003",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "北京曹贵等仅记“谋反，伏诛”，未见起兵、据城、接战或军事讨伐。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-007-2432706-P0004",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "西北路纳合七斤等仅记“谋反，伏诛”，无实际武装过程。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-007-2432706-P0007",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "鄜州李方等仅记“谋反，伏诛”，无实际武装过程。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-007-2432706-P0009",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "同州屈立等仅记“谋反，伏诛”，无实际武装过程。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-007-2432706-P0010",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "冀州王琼等、德州防御使文仅记谋反与处刑，无可证武装阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-007-2432706-P0012",
+        "disposition": "ADJUDICATED",
+        "battle_label": "洛阳贼众攻卢氏县—杀县令后亡入宋"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-007-2432706-P0018",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "大名府僧李智究等仅记“谋反，伏诛”，无实际武装过程。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-007-2432706-P0033",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "粘拔恩及所部内附为政治归附，未记接战、追击或控制争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-007-2432706-P0034",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "高丽赵位宠“叛其君”并请四十余城内附，金方只见拒纳；本段未记起兵、攻守、军队调动或金军介入。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-007-2432706-P0035",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "仅由高丽国王奏告赵位宠伏诛，属于外交告知的结果，不足以在本卷重构实际战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-007-2432706-P0046",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "西边和籴、备储属于承平期边防粮储政策，无具体敌军与实际战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-007-2432706-P0048",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "追叙粘割韩奴奉旨招契丹大石并死节，仅为旧事追录，非本卷当前战役阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-007-2432706-P0050",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "对旧叛契丹民户分类处置、迁徙耕作属于战后人口治理。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-007-2432706-P0055",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "西北戍兵岁赐羊三万属于常备军给养，不是具体战役行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-007-2432706-P0063",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "献州殷小二等仅记“谋反，伏诛”，无实际武装过程。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-007-2432706-P0080",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "密州许通等仅记“谋反，伏诛”，无实际武装过程。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-007-2432706-P0081",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "济南刘溪忠仅记“谋反，伏诛”，无实际武装过程。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-007-2432706-P0092",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "蒲速宛群牧老忽仅记“谋叛，伏诛”，无实际武装过程。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-007-2432706-P0093",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "罢西北进贡率敛与迁徙两猛安属于财政／人口／边防治理，无接战。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      "P0012贼众攻卢氏后“亡入于宋”。卷007与卷008均未续载其在宋境结局；后续若见同一集团、宋方收容／交还或再次越境，沿用campaign_group=JINSHI-LUOYANG-LUSHI-REBELLION-1173核验，不倒灌本阶段收益。",
+      "P0032为原书缺文标志；若其他史源补出大定十五年正月至七月战事，应另立补证，不以本卷缺载判定P0或无战事。"
+    ],
+    "dedup_check": "PASS：县令李庭才死亡只计入金方P，不重复作为贼众成本；贼众杀官只形成金方安全损失，不虚构为金方资源损失；无稳定城地转移则BCP/BCN均为0。"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "契丹国志/卷024",
+  "source_identity": {
+    "source_unit_id": "SRC-QIDANGUOZHI-024-333747",
+    "source_url": "https://zh.wikisource.org/wiki/%E5%A5%91%E4%B8%B9%E5%9C%8B%E5%BF%97/%E5%8D%B7%E4%BA%8C%E5%8D%81%E5%9B%9B",
+    "revision_ref": "333747",
+    "raw_sha256": "d504b1267b1f6ce10cfcb06fdc09dde53802f264222b125a940079b96d3c654c"
+  },
+  "cards": [],
+  "review": {
+    "linear_reread": {
+      "range": "SRC-QIDANGUOZHI-024-333747-P0001—P0015",
+      "paragraph_count": 15,
+      "body_end": "P0015",
+      "edit_markers": [
+        "P0002",
+        "P0008",
+        "P0011",
+        "P0014"
+      ],
+      "metadata_tail": [],
+      "status": "COMPLETED"
+    },
+    "card_coverage": {
+      "adjudicated_cards": 0,
+      "adjudicated_subject_phase_cards": 0,
+      "raw_battle_anchor_inventory_count": 4,
+      "adjudicated_anchor_count": 0,
+      "not_a_battle_anchor_count": 4,
+      "coverage_note": "逐段复读后未发现可分辨的本卷实际接战。旧征辽阵亡纪念、古北口防御设施与泛指近期犯边路线、军器制造及游猎均不满足战役准入条件。"
+    },
+    "quality_checks": {
+      "ps_uplift_checked": true,
+      "p_inference_checked": true,
+      "asset_axis_checked": "铁冶、军器制造、造车均为常态生产事实，没有本卷具体战争投入或毁损，不进入A轴。",
+      "control_axis_checked": "驿路、古北口咽喉、奚地与契丹旧境的地理描述均不构成本阶段控制权净变化，故不虚构BCP/BCN。",
+      "ps_uplift_note": "本卷无战役主体阶段卡，不存在PS抬档。",
+      "cross_volume_checked": true
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-024-333747-P0004",
+        "disposition": "NOT_A_BATTLE",
+        "note": "闵忠寺为唐太宗征辽阵亡将士所造，是旧战争纪念与城市历史，不是本卷时段的实际武装行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-024-333747-P0005",
+        "disposition": "NOT_A_BATTLE",
+        "note": "古北口旧有防扼设施及“自顷犯边，多由斯出”只给出战略通道和泛化边患路线，缺乏可辨主体、时间、接战、成本和结果；同段铁冶、军器制造为常态生产。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-024-333747-P0006",
+        "disposition": "NOT_A_BATTLE",
+        "note": "逐水草射猎是边地生活方式，不属于战争行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-024-333747-P0009",
+        "disposition": "NOT_A_BATTLE",
+        "note": "契丹旧境、奚地、上京及凉淀均为地理和人口分布描述，没有控制权发生阶段性变化。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      "卷023盐池伏兵统一八部父链在卷024没有新增武装阶段，本卷不得用交通、军器生产或地理描述补算其成本与收益。",
+      "P0004唐太宗征辽阵亡纪念不另造战役卡；如全书其他卷出现同一唐辽战争的实际行动，只在相应具体锚点裁决。",
+      "P0005“自顷犯边，多由斯出”仅表明幽州东趋营、平州为常用入侵路线，缺少单一可分辨阶段，不能据此生成泛化边患卡。",
+      "卷025 `SRC-QIDANGUOZHI-025-2258650-P0010`将压缩重述太宗灭后晋并俘出帝北归；应沿卷014既有 `QDGZ-LIAO-LATERJIN-WAR-944-947` 父链核对，只记卷025新增事实，避免重复累计灭晋终局。"
+    ]
+  }
+}

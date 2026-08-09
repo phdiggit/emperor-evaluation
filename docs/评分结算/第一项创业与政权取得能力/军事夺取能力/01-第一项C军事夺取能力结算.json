@@ -16,6 +16,7 @@
       "S+": 18
     },
     "C1_formula": "sum(non-overlapping accepted personal campaign result values); negative results subtract at the same tier value",
+    "parent_cycle_deduplication": "per ruler + campaign_group_id + result_direction; parallel source windows consume one directional personal result",
     "C1_bands": {
       "1": [
         0.0,
@@ -90,7 +91,7 @@
     "territorial_control": "config/first-item-c-territorial-control-adjudications.json"
   },
   "source_registry_fingerprints": {
-    "battle": "892c5c4a6590984c9a4014f19defde7f4d8c782705320f05c5e65a99453a1ccd",
+    "battle": "410e099dcc3968e00d9a26610e76da46bc24169f070e50ee78f3133555a8515d",
     "talent": "d64cb8d2e9e4e111cb8e55dab5214e780d5c82903d31088da21d6e12b4374d2a"
   },
   "control_validation": {
@@ -1571,7 +1572,7 @@
       "canonical_rank": 3
     },
     {
-      "ruler_id": "RULER-ROSTER-E89283EAF44AD214",
+      "ruler_id": "RULER-FD-LI-CUNXU",
       "ruler_name": "李存勖",
       "polity": "后唐",
       "scope_status": "APPLICABLE_DYNASTY_FOUNDER",
@@ -2547,293 +2548,6 @@
       "canonical_rank": 6
     },
     {
-      "ruler_id": "RULER-ROSTER-84CBDD3D820DF77A",
-      "ruler_name": "朱温",
-      "polity": "后梁",
-      "scope_status": "APPLICABLE_DYNASTY_FOUNDER",
-      "score_applicable": true,
-      "C1": {
-        "axis": "C1",
-        "raw_index": 38.0,
-        "grade": 5,
-        "position": "MID",
-        "rate": 95,
-        "weight": 50,
-        "points": 47.5,
-        "positive_result_value": 40.0,
-        "negative_result_value": -2.0,
-        "campaign_results": [
-          {
-            "result_ref": "TALENT-SUPPLEMENT:WAR-LEAD-262-HEBEI-END:positive",
-            "window_ref": "TALENT-SUPPLEMENT:朱温",
-            "campaign_group_id": "WAR-LEAD-262-HEBEI-END",
-            "result_direction": "positive",
-            "personal_result_tier": "S-",
-            "result_value": 6.0,
-            "basis": "消费河北诸镇服汴的S-级总体战略交付，不继承葛从周、张存敬实际前线D3。",
-            "source_refs": [
-              "docs/史料通读产物/唐以前编年/唐/卷262-通读总结.md"
-            ]
-          },
-          {
-            "result_ref": "TALENT-SUPPLEMENT:WAR-LEAD-264-PINGLU-END:positive",
-            "window_ref": "TALENT-SUPPLEMENT:朱温",
-            "campaign_group_id": "WAR-LEAD-264-PINGLU-END",
-            "result_direction": "positive",
-            "personal_result_tier": "S-",
-            "result_value": 6.0,
-            "basis": "朱全忠在前军受挫后亲率二十万重新统合攻势，连续夺取淄青诸州并迫王师范请降，独立完成汴方区域终局。",
-            "source_refs": [
-              "資治通鑑/卷263@1502862",
-              "資治通鑑/卷264@1775896",
-              "WAR-LEAD-263-PINGLU-OPEN",
-              "WAR-LEAD-264-PINGLU-END"
-            ]
-          },
-          {
-            "result_ref": "UCP-ANNEXATION-LATE-TANG-HEBEI:WAR-LEAD-262-HEBEI-END:朱温",
-            "window_ref": "UCP-ANNEXATION-LATE-TANG-HEBEI",
-            "campaign_group_id": "WAR-LEAD-262-HEBEI-END",
-            "result_direction": "positive",
-            "personal_result_tier": "S-",
-            "result_value": 6.0,
-            "basis": "消费河北诸镇服汴的S-级总体战略交付，不继承葛从周、张存敬实际前线D3。",
-            "source_refs": [
-              "docs/史料通读产物/唐以前编年/唐/卷262-通读总结.md"
-            ]
-          },
-          {
-            "result_ref": "TALENT-SUPPLEMENT:WAR-LEAD-257-QINZONGQUAN-END:positive",
-            "window_ref": "TALENT-SUPPLEMENT:朱温",
-            "campaign_group_id": "WAR-LEAD-257-QINZONGQUAN-END",
-            "result_direction": "positive",
-            "personal_result_tier": "A",
-            "result_value": 4.0,
-            "basis": "从汴州解围、连续摧毁蔡军分路到边孝村重创主力并转入围蔡，实际摧毁秦宗权的主要军事扩张能力，消费A/D2主战成果；父级D3还包含馈运不继后的撤围转换与内部兵变终局，不能整体移给朱全忠本人。",
-            "source_refs": [
-              "WAR-LEAD-257-QINZONGQUAN-END"
-            ]
-          },
-          {
-            "result_ref": "TALENT-SUPPLEMENT:WAR-LEAD-258-BIANWEI-END:positive",
-            "window_ref": "TALENT-SUPPLEMENT:朱温",
-            "campaign_group_id": "WAR-LEAD-258-BIANWEI-END",
-            "result_direction": "positive",
-            "personal_result_tier": "A",
-            "result_value": 4.0,
-            "basis": "统大军渡河攻魏并下令止掠归俘。",
-            "source_refs": [
-              "資治通鑑/卷258@1554177",
-              "WAR-LEAD-258-BIANWEI-END"
-            ]
-          },
-          {
-            "result_ref": "TALENT-SUPPLEMENT:WAR-LEAD-259-XUBIAN-END:positive",
-            "window_ref": "TALENT-SUPPLEMENT:朱温",
-            "campaign_group_id": "WAR-LEAD-259-XUBIAN-END",
-            "result_direction": "positive",
-            "personal_result_tier": "A",
-            "result_value": 4.0,
-            "basis": "亲临徐州并统多年围攻。",
-            "source_refs": [
-              "資治通鑑/卷257@803268",
-              "資治通鑑/卷258@1554177",
-              "資治通鑑/卷259@803270",
-              "WAR-LEAD-257-XUBIAN-OPEN",
-              "WAR-LEAD-258-XUBIAN-OPEN",
-              "WAR-LEAD-259-XUBIAN-END"
-            ]
-          },
-          {
-            "result_ref": "TALENT-SUPPLEMENT:WAR-LEAD-261-BIANYUN-END:positive",
-            "window_ref": "TALENT-SUPPLEMENT:朱温",
-            "campaign_group_id": "WAR-LEAD-261-BIANYUN-END",
-            "result_direction": "positive",
-            "personal_result_tier": "A",
-            "result_value": 4.0,
-            "basis": "朱全忠消费A级战争统筹成果，不继承庞师古、葛从周实际闭合的终局执行和十年父链D3前线难度。",
-            "source_refs": [
-              "資治通鑑/卷257@803268",
-              "資治通鑑/卷258@1554177",
-              "資治通鑑/卷259@803270",
-              "資治通鑑/卷260@1764806",
-              "資治通鑑/卷261@cache-ec8509975efe4376",
-              "WAR-LEAD-257-BIANYUN-OPEN",
-              "WAR-LEAD-258-BIANYUN-OPEN",
-              "WAR-LEAD-259-BIANYUN-OPEN",
-              "WAR-LEAD-260-BIANYUN-OPEN",
-              "WAR-LEAD-261-BIANYUN-END"
-            ]
-          },
-          {
-            "result_ref": "TALENT-SUPPLEMENT:WAR-LEAD-263-FENGXIANG-END:positive",
-            "window_ref": "TALENT-SUPPLEMENT:朱温",
-            "campaign_group_id": "WAR-LEAD-263-FENGXIANG-END",
-            "result_direction": "positive",
-            "personal_result_tier": "A",
-            "result_value": 4.0,
-            "basis": "朱全忠持续统合汴军围城，以五寨、蚰蜒壕和援地封锁迫使凤翔交还昭宗，完整实现本人一方的当次危机解除结果。",
-            "source_refs": [
-              "資治通鑑/卷262@1764816",
-              "資治通鑑/卷263@1502862",
-              "WAR-LEAD-262-FENGXIANG-SIEGE-OPEN",
-              "WAR-LEAD-263-FENGXIANG-END"
-            ]
-          },
-          {
-            "result_ref": "TALENT-SUPPLEMENT:WAR-LEAD-257-WEIBO-END:negative",
-            "window_ref": "TALENT-SUPPLEMENT:朱温",
-            "campaign_group_id": "WAR-LEAD-257-WEIBO-END",
-            "result_direction": "negative",
-            "personal_result_tier": "B",
-            "result_value": -2.0,
-            "basis": "朱全忠出兵支持乐从训，汴军虽有渡河取镇等局部战果，但乐氏被围歼、扶持目标失败；事后与罗弘信修好不能反写为本次战争胜利，按B/D2失败消费。",
-            "source_refs": [
-              "資治通鑑/卷257@803268",
-              "WAR-LEAD-257-WEIBO-END"
-            ]
-          },
-          {
-            "result_ref": "TALENT-SUPPLEMENT:WAR-LEAD-265-XIANGJING-END:positive",
-            "window_ref": "TALENT-SUPPLEMENT:朱温",
-            "campaign_group_id": "WAR-LEAD-265-XIANGJING-END",
-            "result_direction": "positive",
-            "personal_result_tier": "B",
-            "result_value": 2.0,
-            "basis": "朱全忠发起战役并率大军继进，形成可核实的战争统筹；七州攻取、浮桥渡汉、汉滨破敌和迫降终局均由杨师厚完成，朱全忠只消费A档统筹结果，不继承前线难度。",
-            "source_refs": [
-              "資治通鑑/卷265@1106676"
-            ]
-          }
-        ]
-      },
-      "C2": {
-        "axis": "C2",
-        "raw_index": 4.9,
-        "peak_quality_index": 4.9,
-        "grade": 4,
-        "position": "MID",
-        "rate": 74,
-        "weight": 50,
-        "points": 37.0,
-        "grade_path": "S_MINUS_D2_OR_MULTI_A_D3",
-        "grade_cap": 5,
-        "cap_reasons": [],
-        "positive_context_count": 5,
-        "high_difficulty_context_count": 1,
-        "negative_context_count": 1,
-        "command_failure_count": 0,
-        "negative_position_steps": 0,
-        "abundant_grade_5_validation": false,
-        "frontline_results": [
-          {
-            "capability_episode_ref": "TALENT-SUPPLEMENT:WAR-LEAD-264-PINGLU-END:positive",
-            "window_ref": "TALENT-SUPPLEMENT:朱温",
-            "campaign_group_id": "WAR-LEAD-264-PINGLU-END",
-            "result_direction": "positive",
-            "personal_result_tier": "S-",
-            "combat_difficulty": "D3",
-            "quality_index": 4.9,
-            "basis": "朱全忠在前军受挫后亲率二十万重新统合攻势，连续夺取淄青诸州并迫王师范请降，独立完成汴方区域终局。",
-            "source_refs": [
-              "資治通鑑/卷263@1502862",
-              "資治通鑑/卷264@1775896",
-              "WAR-LEAD-263-PINGLU-OPEN",
-              "WAR-LEAD-264-PINGLU-END"
-            ]
-          },
-          {
-            "capability_episode_ref": "TALENT-SUPPLEMENT:WAR-LEAD-257-QINZONGQUAN-END:positive",
-            "window_ref": "TALENT-SUPPLEMENT:朱温",
-            "campaign_group_id": "WAR-LEAD-257-QINZONGQUAN-END",
-            "result_direction": "positive",
-            "personal_result_tier": "A",
-            "combat_difficulty": "D2",
-            "quality_index": 3.6,
-            "basis": "从汴州解围、连续摧毁蔡军分路到边孝村重创主力并转入围蔡，实际摧毁秦宗权的主要军事扩张能力，消费A/D2主战成果；父级D3还包含馈运不继后的撤围转换与内部兵变终局，不能整体移给朱全忠本人。",
-            "source_refs": [
-              "WAR-LEAD-257-QINZONGQUAN-END"
-            ]
-          },
-          {
-            "capability_episode_ref": "TALENT-SUPPLEMENT:WAR-LEAD-258-BIANWEI-END:positive",
-            "window_ref": "TALENT-SUPPLEMENT:朱温",
-            "campaign_group_id": "WAR-LEAD-258-BIANWEI-END",
-            "result_direction": "positive",
-            "personal_result_tier": "A",
-            "combat_difficulty": "D2",
-            "quality_index": 3.6,
-            "basis": "统大军渡河攻魏并下令止掠归俘。",
-            "source_refs": [
-              "資治通鑑/卷258@1554177",
-              "WAR-LEAD-258-BIANWEI-END"
-            ]
-          },
-          {
-            "capability_episode_ref": "TALENT-SUPPLEMENT:WAR-LEAD-259-XUBIAN-END:positive",
-            "window_ref": "TALENT-SUPPLEMENT:朱温",
-            "campaign_group_id": "WAR-LEAD-259-XUBIAN-END",
-            "result_direction": "positive",
-            "personal_result_tier": "A",
-            "combat_difficulty": "D2",
-            "quality_index": 3.6,
-            "basis": "亲临徐州并统多年围攻。",
-            "source_refs": [
-              "資治通鑑/卷257@803268",
-              "資治通鑑/卷258@1554177",
-              "資治通鑑/卷259@803270",
-              "WAR-LEAD-257-XUBIAN-OPEN",
-              "WAR-LEAD-258-XUBIAN-OPEN",
-              "WAR-LEAD-259-XUBIAN-END"
-            ]
-          },
-          {
-            "capability_episode_ref": "TALENT-SUPPLEMENT:WAR-LEAD-263-FENGXIANG-END:positive",
-            "window_ref": "TALENT-SUPPLEMENT:朱温",
-            "campaign_group_id": "WAR-LEAD-263-FENGXIANG-END",
-            "result_direction": "positive",
-            "personal_result_tier": "A",
-            "combat_difficulty": "D2",
-            "quality_index": 3.6,
-            "basis": "朱全忠持续统合汴军围城，以五寨、蚰蜒壕和援地封锁迫使凤翔交还昭宗，完整实现本人一方的当次危机解除结果。",
-            "source_refs": [
-              "資治通鑑/卷262@1764816",
-              "資治通鑑/卷263@1502862",
-              "WAR-LEAD-262-FENGXIANG-SIEGE-OPEN",
-              "WAR-LEAD-263-FENGXIANG-END"
-            ]
-          },
-          {
-            "capability_episode_ref": "TALENT-SUPPLEMENT:WAR-LEAD-257-WEIBO-END:negative",
-            "window_ref": "TALENT-SUPPLEMENT:朱温",
-            "campaign_group_id": "WAR-LEAD-257-WEIBO-END",
-            "result_direction": "negative",
-            "personal_result_tier": "B",
-            "combat_difficulty": "D2",
-            "quality_index": 2.6,
-            "basis": "朱全忠出兵支持乐从训，汴军虽有渡河取镇等局部战果，但乐氏被围歼、扶持目标失败；事后与罗弘信修好不能反写为本次战争胜利，按B/D2失败消费。",
-            "source_refs": [
-              "資治通鑑/卷257@803268",
-              "WAR-LEAD-257-WEIBO-END"
-            ]
-          }
-        ],
-        "command_failures": []
-      },
-      "C_score_points": 84.5,
-      "window_refs": [
-        "TALENT-SUPPLEMENT:朱温",
-        "UCP-ANNEXATION-LATE-TANG-HEBEI"
-      ],
-      "military_talent_grade": "top",
-      "coverage_status": "CALIBRATED_C_WINDOW_RESULT",
-      "default_applied": false,
-      "default_basis": null,
-      "unresolved_gaps": [],
-      "score_ready": true,
-      "canonical_rank": 7
-    },
-    {
       "ruler_id": "RULER-ROSTER-F56222DCE0E5900C",
       "ruler_name": "朱元璋",
       "polity": "明",
@@ -3188,10 +2902,10 @@
       "default_basis": null,
       "unresolved_gaps": [],
       "score_ready": true,
-      "canonical_rank": 8
+      "canonical_rank": 7
     },
     {
-      "ruler_id": "RULER-ROSTER-35DFC0F8EBC094F9",
+      "ruler_id": "RULER-FD-LI-SIYUAN",
       "ruler_name": "李嗣源",
       "polity": "后唐",
       "scope_status": "APPLICABLE_DYNASTY_FOUNDER",
@@ -3502,7 +3216,7 @@
       "default_basis": null,
       "unresolved_gaps": [],
       "score_ready": true,
-      "canonical_rank": 9
+      "canonical_rank": 8
     },
     {
       "ruler_id": "RULER-ROSTER-6E925E92C6F5ECA5",
@@ -3652,74 +3366,153 @@
       "default_basis": null,
       "unresolved_gaps": [],
       "score_ready": true,
-      "canonical_rank": 10
+      "canonical_rank": 9
     },
     {
-      "ruler_id": "RULER-ROSTER-E68C49B0C2F4A31D",
-      "ruler_name": "王建",
-      "polity": "前蜀",
+      "ruler_id": "RULER-FD-ZHU-WEN",
+      "ruler_name": "朱温",
+      "polity": "后梁",
       "scope_status": "APPLICABLE_DYNASTY_FOUNDER",
       "score_applicable": true,
       "C1": {
         "axis": "C1",
-        "raw_index": 20.0,
-        "grade": 4,
-        "position": "MID",
-        "rate": 82,
+        "raw_index": 32.0,
+        "grade": 5,
+        "position": "LOW",
+        "rate": 90,
         "weight": 50,
-        "points": 41.0,
-        "positive_result_value": 20.0,
-        "negative_result_value": 0,
+        "points": 45.0,
+        "positive_result_value": 34.0,
+        "negative_result_value": -2.0,
         "campaign_results": [
           {
-            "result_ref": "TALENT-SUPPLEMENT:WAR-LEAD-258-XICHUAN-END:positive",
-            "window_ref": "TALENT-SUPPLEMENT:王建",
-            "campaign_group_id": "WAR-LEAD-258-XICHUAN-END",
+            "result_ref": "TALENT-SUPPLEMENT:WAR-LEAD-264-PINGLU-END:positive",
+            "window_ref": "TALENT-SUPPLEMENT:朱温",
+            "campaign_group_id": "WAR-LEAD-264-PINGLU-END",
             "result_direction": "positive",
             "personal_result_tier": "S-",
             "result_value": 6.0,
-            "basis": "王建接收印节后独立围城、筑烽堑并完成成都受降与西川接管。",
+            "basis": "朱全忠在前军受挫后亲率二十万重新统合攻势，连续夺取淄青诸州并迫王师范请降，独立完成汴方区域终局。",
+            "source_refs": [
+              "資治通鑑/卷263@1502862",
+              "資治通鑑/卷264@1775896",
+              "WAR-LEAD-263-PINGLU-OPEN",
+              "WAR-LEAD-264-PINGLU-END"
+            ]
+          },
+          {
+            "result_ref": "UCP-ANNEXATION-LATE-TANG-HEBEI:WAR-LEAD-262-HEBEI-END:朱温",
+            "window_ref": "UCP-ANNEXATION-LATE-TANG-HEBEI",
+            "campaign_group_id": "WAR-LEAD-262-HEBEI-END",
+            "result_direction": "positive",
+            "personal_result_tier": "S-",
+            "result_value": 6.0,
+            "basis": "消费河北诸镇服汴的S-级总体战略交付，不继承葛从周、张存敬实际前线D3。",
+            "source_refs": [
+              "docs/史料通读产物/唐以前编年/唐/卷262-通读总结.md"
+            ]
+          },
+          {
+            "result_ref": "TALENT-SUPPLEMENT:WAR-LEAD-257-QINZONGQUAN-END:positive",
+            "window_ref": "TALENT-SUPPLEMENT:朱温",
+            "campaign_group_id": "WAR-LEAD-257-QINZONGQUAN-END",
+            "result_direction": "positive",
+            "personal_result_tier": "A",
+            "result_value": 4.0,
+            "basis": "从汴州解围、连续摧毁蔡军分路到边孝村重创主力并转入围蔡，实际摧毁秦宗权的主要军事扩张能力，消费A/D2主战成果；父级D3还包含馈运不继后的撤围转换与内部兵变终局，不能整体移给朱全忠本人。",
+            "source_refs": [
+              "WAR-LEAD-257-QINZONGQUAN-END"
+            ]
+          },
+          {
+            "result_ref": "TALENT-SUPPLEMENT:WAR-LEAD-258-BIANWEI-END:positive",
+            "window_ref": "TALENT-SUPPLEMENT:朱温",
+            "campaign_group_id": "WAR-LEAD-258-BIANWEI-END",
+            "result_direction": "positive",
+            "personal_result_tier": "A",
+            "result_value": 4.0,
+            "basis": "统大军渡河攻魏并下令止掠归俘。",
+            "source_refs": [
+              "資治通鑑/卷258@1554177",
+              "WAR-LEAD-258-BIANWEI-END"
+            ]
+          },
+          {
+            "result_ref": "TALENT-SUPPLEMENT:WAR-LEAD-259-XUBIAN-END:positive",
+            "window_ref": "TALENT-SUPPLEMENT:朱温",
+            "campaign_group_id": "WAR-LEAD-259-XUBIAN-END",
+            "result_direction": "positive",
+            "personal_result_tier": "A",
+            "result_value": 4.0,
+            "basis": "亲临徐州并统多年围攻。",
             "source_refs": [
               "資治通鑑/卷257@803268",
-              "資治通鑑/卷258@1554177"
+              "資治通鑑/卷258@1554177",
+              "資治通鑑/卷259@803270",
+              "WAR-LEAD-257-XUBIAN-OPEN",
+              "WAR-LEAD-258-XUBIAN-OPEN",
+              "WAR-LEAD-259-XUBIAN-END"
             ]
           },
           {
-            "result_ref": "TALENT-SUPPLEMENT:WAR-LEAD-261-TWOSICHUAN-END:positive",
-            "window_ref": "TALENT-SUPPLEMENT:王建",
-            "campaign_group_id": "WAR-LEAD-261-TWOSICHUAN-END",
+            "result_ref": "TALENT-SUPPLEMENT:WAR-LEAD-261-BIANYUN-END:positive",
+            "window_ref": "TALENT-SUPPLEMENT:朱温",
+            "campaign_group_id": "WAR-LEAD-261-BIANYUN-END",
             "result_direction": "positive",
-            "personal_result_tier": "S-",
-            "result_value": 6.0,
-            "basis": "统合三年五十余战、五万级多路进攻及后期政治军事孤立，完成东川终局和两川统一，消费S-/D3。",
+            "personal_result_tier": "A",
+            "result_value": 4.0,
+            "basis": "朱全忠消费A级战争统筹成果，不继承庞师古、葛从周实际闭合的终局执行和十年父链D3前线难度。",
             "source_refs": [
-              "docs/史料通读产物/唐以前编年/唐/卷261-通读总结.md"
+              "資治通鑑/卷257@803268",
+              "資治通鑑/卷258@1554177",
+              "資治通鑑/卷259@803270",
+              "資治通鑑/卷260@1764806",
+              "資治通鑑/卷261@cache-ec8509975efe4376",
+              "WAR-LEAD-257-BIANYUN-OPEN",
+              "WAR-LEAD-258-BIANYUN-OPEN",
+              "WAR-LEAD-259-BIANYUN-OPEN",
+              "WAR-LEAD-260-BIANYUN-OPEN",
+              "WAR-LEAD-261-BIANYUN-END"
             ]
           },
           {
-            "result_ref": "UCP-ANNEXATION-LATE-TANG-SICHUAN:WAR-LEAD-261-TWOSICHUAN-END:王建",
-            "window_ref": "UCP-ANNEXATION-LATE-TANG-SICHUAN",
-            "campaign_group_id": "WAR-LEAD-261-TWOSICHUAN-END",
+            "result_ref": "TALENT-SUPPLEMENT:WAR-LEAD-263-FENGXIANG-END:positive",
+            "window_ref": "TALENT-SUPPLEMENT:朱温",
+            "campaign_group_id": "WAR-LEAD-263-FENGXIANG-END",
             "result_direction": "positive",
-            "personal_result_tier": "S-",
-            "result_value": 6.0,
-            "basis": "统合三年五十余战、五万级多路进攻及后期政治军事孤立，完成东川终局和两川统一，消费S-/D3。",
+            "personal_result_tier": "A",
+            "result_value": 4.0,
+            "basis": "朱全忠持续统合汴军围城，以五寨、蚰蜒壕和援地封锁迫使凤翔交还昭宗，完整实现本人一方的当次危机解除结果。",
             "source_refs": [
-              "docs/史料通读产物/唐以前编年/唐/卷261-通读总结.md"
+              "資治通鑑/卷262@1764816",
+              "資治通鑑/卷263@1502862",
+              "WAR-LEAD-262-FENGXIANG-SIEGE-OPEN",
+              "WAR-LEAD-263-FENGXIANG-END"
             ]
           },
           {
-            "result_ref": "TALENT-SUPPLEMENT:WAR-LEAD-259-YANGFUGONG-END:positive",
-            "window_ref": "TALENT-SUPPLEMENT:王建",
-            "campaign_group_id": "WAR-LEAD-259-YANGFUGONG-END",
+            "result_ref": "TALENT-SUPPLEMENT:WAR-LEAD-257-WEIBO-END:negative",
+            "window_ref": "TALENT-SUPPLEMENT:朱温",
+            "campaign_group_id": "WAR-LEAD-257-WEIBO-END",
+            "result_direction": "negative",
+            "personal_result_tier": "B",
+            "result_value": -2.0,
+            "basis": "朱全忠出兵支持乐从训，汴军虽有渡河取镇等局部战果，但乐氏被围歼、扶持目标失败；事后与罗弘信修好不能反写为本次战争胜利，按B/D2失败消费。",
+            "source_refs": [
+              "資治通鑑/卷257@803268",
+              "WAR-LEAD-257-WEIBO-END"
+            ]
+          },
+          {
+            "result_ref": "TALENT-SUPPLEMENT:WAR-LEAD-265-XIANGJING-END:positive",
+            "window_ref": "TALENT-SUPPLEMENT:朱温",
+            "campaign_group_id": "WAR-LEAD-265-XIANGJING-END",
             "result_direction": "positive",
             "personal_result_tier": "B",
             "result_value": 2.0,
-            "basis": "梓绵方向击破杨氏诸军并接受绵州归降，属于独立完成成果。",
+            "basis": "朱全忠发起战役并率大军继进，形成可核实的战争统筹；七州攻取、浮桥渡汉、汉滨破敌和迫降终局均由杨师厚完成，朱全忠只消费A档统筹结果，不继承前线难度。",
             "source_refs": [
-              "資治通鑑/卷258@1554177",
-              "資治通鑑/卷259@803270",
-              "WAR-LEAD-259-YANGFUGONG-END"
+              "資治通鑑/卷265@1106676"
             ]
           }
         ]
@@ -3728,83 +3521,119 @@
         "axis": "C2",
         "raw_index": 4.9,
         "peak_quality_index": 4.9,
-        "grade": 5,
-        "position": "LOW",
-        "rate": 84,
+        "grade": 4,
+        "position": "MID",
+        "rate": 74,
         "weight": 50,
-        "points": 42.0,
-        "grade_path": "SUSTAINED_MULTI_CONTEXT_HIGH_COMMAND",
+        "points": 37.0,
+        "grade_path": "S_MINUS_D2_OR_MULTI_A_D3",
         "grade_cap": 5,
         "cap_reasons": [],
-        "positive_context_count": 4,
-        "high_difficulty_context_count": 3,
-        "negative_context_count": 0,
+        "positive_context_count": 5,
+        "high_difficulty_context_count": 1,
+        "negative_context_count": 1,
         "command_failure_count": 0,
         "negative_position_steps": 0,
-        "abundant_grade_5_validation": true,
+        "abundant_grade_5_validation": false,
         "frontline_results": [
           {
-            "capability_episode_ref": "TALENT-SUPPLEMENT:WAR-LEAD-258-XICHUAN-END:positive",
-            "window_ref": "TALENT-SUPPLEMENT:王建",
-            "campaign_group_id": "WAR-LEAD-258-XICHUAN-END",
+            "capability_episode_ref": "TALENT-SUPPLEMENT:WAR-LEAD-264-PINGLU-END:positive",
+            "window_ref": "TALENT-SUPPLEMENT:朱温",
+            "campaign_group_id": "WAR-LEAD-264-PINGLU-END",
             "result_direction": "positive",
             "personal_result_tier": "S-",
             "combat_difficulty": "D3",
             "quality_index": 4.9,
-            "basis": "王建接收印节后独立围城、筑烽堑并完成成都受降与西川接管。",
+            "basis": "朱全忠在前军受挫后亲率二十万重新统合攻势，连续夺取淄青诸州并迫王师范请降，独立完成汴方区域终局。",
+            "source_refs": [
+              "資治通鑑/卷263@1502862",
+              "資治通鑑/卷264@1775896",
+              "WAR-LEAD-263-PINGLU-OPEN",
+              "WAR-LEAD-264-PINGLU-END"
+            ]
+          },
+          {
+            "capability_episode_ref": "TALENT-SUPPLEMENT:WAR-LEAD-257-QINZONGQUAN-END:positive",
+            "window_ref": "TALENT-SUPPLEMENT:朱温",
+            "campaign_group_id": "WAR-LEAD-257-QINZONGQUAN-END",
+            "result_direction": "positive",
+            "personal_result_tier": "A",
+            "combat_difficulty": "D2",
+            "quality_index": 3.6,
+            "basis": "从汴州解围、连续摧毁蔡军分路到边孝村重创主力并转入围蔡，实际摧毁秦宗权的主要军事扩张能力，消费A/D2主战成果；父级D3还包含馈运不继后的撤围转换与内部兵变终局，不能整体移给朱全忠本人。",
+            "source_refs": [
+              "WAR-LEAD-257-QINZONGQUAN-END"
+            ]
+          },
+          {
+            "capability_episode_ref": "TALENT-SUPPLEMENT:WAR-LEAD-258-BIANWEI-END:positive",
+            "window_ref": "TALENT-SUPPLEMENT:朱温",
+            "campaign_group_id": "WAR-LEAD-258-BIANWEI-END",
+            "result_direction": "positive",
+            "personal_result_tier": "A",
+            "combat_difficulty": "D2",
+            "quality_index": 3.6,
+            "basis": "统大军渡河攻魏并下令止掠归俘。",
+            "source_refs": [
+              "資治通鑑/卷258@1554177",
+              "WAR-LEAD-258-BIANWEI-END"
+            ]
+          },
+          {
+            "capability_episode_ref": "TALENT-SUPPLEMENT:WAR-LEAD-259-XUBIAN-END:positive",
+            "window_ref": "TALENT-SUPPLEMENT:朱温",
+            "campaign_group_id": "WAR-LEAD-259-XUBIAN-END",
+            "result_direction": "positive",
+            "personal_result_tier": "A",
+            "combat_difficulty": "D2",
+            "quality_index": 3.6,
+            "basis": "亲临徐州并统多年围攻。",
             "source_refs": [
               "資治通鑑/卷257@803268",
-              "資治通鑑/卷258@1554177"
+              "資治通鑑/卷258@1554177",
+              "資治通鑑/卷259@803270",
+              "WAR-LEAD-257-XUBIAN-OPEN",
+              "WAR-LEAD-258-XUBIAN-OPEN",
+              "WAR-LEAD-259-XUBIAN-END"
             ]
           },
           {
-            "capability_episode_ref": "TALENT-SUPPLEMENT:WAR-LEAD-261-TWOSICHUAN-END:positive",
-            "window_ref": "TALENT-SUPPLEMENT:王建",
-            "campaign_group_id": "WAR-LEAD-261-TWOSICHUAN-END",
+            "capability_episode_ref": "TALENT-SUPPLEMENT:WAR-LEAD-263-FENGXIANG-END:positive",
+            "window_ref": "TALENT-SUPPLEMENT:朱温",
+            "campaign_group_id": "WAR-LEAD-263-FENGXIANG-END",
             "result_direction": "positive",
-            "personal_result_tier": "S-",
-            "combat_difficulty": "D3",
-            "quality_index": 4.9,
-            "basis": "统合三年五十余战、五万级多路进攻及后期政治军事孤立，完成东川终局和两川统一，消费S-/D3。",
+            "personal_result_tier": "A",
+            "combat_difficulty": "D2",
+            "quality_index": 3.6,
+            "basis": "朱全忠持续统合汴军围城，以五寨、蚰蜒壕和援地封锁迫使凤翔交还昭宗，完整实现本人一方的当次危机解除结果。",
             "source_refs": [
-              "docs/史料通读产物/唐以前编年/唐/卷261-通读总结.md"
+              "資治通鑑/卷262@1764816",
+              "資治通鑑/卷263@1502862",
+              "WAR-LEAD-262-FENGXIANG-SIEGE-OPEN",
+              "WAR-LEAD-263-FENGXIANG-END"
             ]
           },
           {
-            "capability_episode_ref": "UCP-ANNEXATION-LATE-TANG-SICHUAN:WAR-LEAD-261-TWOSICHUAN-END:王建",
-            "window_ref": "UCP-ANNEXATION-LATE-TANG-SICHUAN",
-            "campaign_group_id": "WAR-LEAD-261-TWOSICHUAN-END",
-            "result_direction": "positive",
-            "personal_result_tier": "S-",
-            "combat_difficulty": "D3",
-            "quality_index": 4.9,
-            "basis": "统合三年五十余战、五万级多路进攻及后期政治军事孤立，完成东川终局和两川统一，消费S-/D3。",
-            "source_refs": [
-              "docs/史料通读产物/唐以前编年/唐/卷261-通读总结.md"
-            ]
-          },
-          {
-            "capability_episode_ref": "TALENT-SUPPLEMENT:WAR-LEAD-259-YANGFUGONG-END:positive",
-            "window_ref": "TALENT-SUPPLEMENT:王建",
-            "campaign_group_id": "WAR-LEAD-259-YANGFUGONG-END",
-            "result_direction": "positive",
+            "capability_episode_ref": "TALENT-SUPPLEMENT:WAR-LEAD-257-WEIBO-END:negative",
+            "window_ref": "TALENT-SUPPLEMENT:朱温",
+            "campaign_group_id": "WAR-LEAD-257-WEIBO-END",
+            "result_direction": "negative",
             "personal_result_tier": "B",
             "combat_difficulty": "D2",
             "quality_index": 2.6,
-            "basis": "梓绵方向击破杨氏诸军并接受绵州归降，属于独立完成成果。",
+            "basis": "朱全忠出兵支持乐从训，汴军虽有渡河取镇等局部战果，但乐氏被围歼、扶持目标失败；事后与罗弘信修好不能反写为本次战争胜利，按B/D2失败消费。",
             "source_refs": [
-              "資治通鑑/卷258@1554177",
-              "資治通鑑/卷259@803270",
-              "WAR-LEAD-259-YANGFUGONG-END"
+              "資治通鑑/卷257@803268",
+              "WAR-LEAD-257-WEIBO-END"
             ]
           }
         ],
         "command_failures": []
       },
-      "C_score_points": 83.0,
+      "C_score_points": 82.0,
       "window_refs": [
-        "TALENT-SUPPLEMENT:王建",
-        "UCP-ANNEXATION-LATE-TANG-SICHUAN"
+        "TALENT-SUPPLEMENT:朱温",
+        "UCP-ANNEXATION-LATE-TANG-HEBEI"
       ],
       "military_talent_grade": "top",
       "coverage_status": "CALIBRATED_C_WINDOW_RESULT",
@@ -3812,7 +3641,7 @@
       "default_basis": null,
       "unresolved_gaps": [],
       "score_ready": true,
-      "canonical_rank": 11
+      "canonical_rank": 10
     },
     {
       "ruler_id": "RULER-HAN-LIUXIU",
@@ -4028,7 +3857,7 @@
       "default_basis": null,
       "unresolved_gaps": [],
       "score_ready": true,
-      "canonical_rank": 12
+      "canonical_rank": 11
     },
     {
       "ruler_id": "RULER-ROSTER-2035C039E3532021",
@@ -4377,7 +4206,7 @@
       "default_basis": null,
       "unresolved_gaps": [],
       "score_ready": true,
-      "canonical_rank": 13
+      "canonical_rank": 12
     },
     {
       "ruler_id": "RULER-SHADOW-陈霸先",
@@ -4584,7 +4413,7 @@
       "default_basis": null,
       "unresolved_gaps": [],
       "score_ready": true,
-      "canonical_rank": 14
+      "canonical_rank": 13
     },
     {
       "ruler_id": "RULER-WEI-CAOCAO",
@@ -5014,7 +4843,7 @@
       "default_basis": null,
       "unresolved_gaps": [],
       "score_ready": true,
-      "canonical_rank": 15
+      "canonical_rank": 14
     },
     {
       "ruler_id": "RULER-SHADOW-石勒",
@@ -5243,7 +5072,7 @@
       "default_basis": null,
       "unresolved_gaps": [],
       "score_ready": true,
-      "canonical_rank": 16
+      "canonical_rank": 15
     },
     {
       "ruler_id": "RULER-SHADOW-石虎",
@@ -5408,7 +5237,7 @@
       "default_basis": null,
       "unresolved_gaps": [],
       "score_ready": true,
-      "canonical_rank": 17
+      "canonical_rank": 16
     },
     {
       "ruler_id": "RULER-ROSTER-D1D97E55484E1CF0",
@@ -5630,6 +5459,141 @@
         "TALENT-SUPPLEMENT:李元昊"
       ],
       "military_talent_grade": "elite",
+      "coverage_status": "CALIBRATED_C_WINDOW_RESULT",
+      "default_applied": false,
+      "default_basis": null,
+      "unresolved_gaps": [],
+      "score_ready": true,
+      "canonical_rank": 17
+    },
+    {
+      "ruler_id": "RULER-FD-WANG-JIAN",
+      "ruler_name": "王建",
+      "polity": "前蜀",
+      "scope_status": "APPLICABLE_DYNASTY_FOUNDER",
+      "score_applicable": true,
+      "C1": {
+        "axis": "C1",
+        "raw_index": 14.0,
+        "grade": 3,
+        "position": "HIGH",
+        "rate": 74,
+        "weight": 50,
+        "points": 37.0,
+        "positive_result_value": 14.0,
+        "negative_result_value": 0,
+        "campaign_results": [
+          {
+            "result_ref": "TALENT-SUPPLEMENT:WAR-LEAD-258-XICHUAN-END:positive",
+            "window_ref": "TALENT-SUPPLEMENT:王建",
+            "campaign_group_id": "WAR-LEAD-258-XICHUAN-END",
+            "result_direction": "positive",
+            "personal_result_tier": "S-",
+            "result_value": 6.0,
+            "basis": "王建接收印节后独立围城、筑烽堑并完成成都受降与西川接管。",
+            "source_refs": [
+              "資治通鑑/卷257@803268",
+              "資治通鑑/卷258@1554177"
+            ]
+          },
+          {
+            "result_ref": "UCP-ANNEXATION-LATE-TANG-SICHUAN:WAR-LEAD-261-TWOSICHUAN-END:王建",
+            "window_ref": "UCP-ANNEXATION-LATE-TANG-SICHUAN",
+            "campaign_group_id": "WAR-LEAD-261-TWOSICHUAN-END",
+            "result_direction": "positive",
+            "personal_result_tier": "S-",
+            "result_value": 6.0,
+            "basis": "统合三年五十余战、五万级多路进攻及后期政治军事孤立，完成东川终局和两川统一，消费S-/D3。",
+            "source_refs": [
+              "docs/史料通读产物/唐以前编年/唐/卷261-通读总结.md"
+            ]
+          },
+          {
+            "result_ref": "TALENT-SUPPLEMENT:WAR-LEAD-259-YANGFUGONG-END:positive",
+            "window_ref": "TALENT-SUPPLEMENT:王建",
+            "campaign_group_id": "WAR-LEAD-259-YANGFUGONG-END",
+            "result_direction": "positive",
+            "personal_result_tier": "B",
+            "result_value": 2.0,
+            "basis": "梓绵方向击破杨氏诸军并接受绵州归降，属于独立完成成果。",
+            "source_refs": [
+              "資治通鑑/卷258@1554177",
+              "資治通鑑/卷259@803270",
+              "WAR-LEAD-259-YANGFUGONG-END"
+            ]
+          }
+        ]
+      },
+      "C2": {
+        "axis": "C2",
+        "raw_index": 4.9,
+        "peak_quality_index": 4.9,
+        "grade": 4,
+        "position": "MID",
+        "rate": 74,
+        "weight": 50,
+        "points": 37.0,
+        "grade_path": "S_MINUS_D2_OR_MULTI_A_D3",
+        "grade_cap": 5,
+        "cap_reasons": [],
+        "positive_context_count": 3,
+        "high_difficulty_context_count": 2,
+        "negative_context_count": 0,
+        "command_failure_count": 0,
+        "negative_position_steps": 0,
+        "abundant_grade_5_validation": false,
+        "frontline_results": [
+          {
+            "capability_episode_ref": "TALENT-SUPPLEMENT:WAR-LEAD-258-XICHUAN-END:positive",
+            "window_ref": "TALENT-SUPPLEMENT:王建",
+            "campaign_group_id": "WAR-LEAD-258-XICHUAN-END",
+            "result_direction": "positive",
+            "personal_result_tier": "S-",
+            "combat_difficulty": "D3",
+            "quality_index": 4.9,
+            "basis": "王建接收印节后独立围城、筑烽堑并完成成都受降与西川接管。",
+            "source_refs": [
+              "資治通鑑/卷257@803268",
+              "資治通鑑/卷258@1554177"
+            ]
+          },
+          {
+            "capability_episode_ref": "UCP-ANNEXATION-LATE-TANG-SICHUAN:WAR-LEAD-261-TWOSICHUAN-END:王建",
+            "window_ref": "UCP-ANNEXATION-LATE-TANG-SICHUAN",
+            "campaign_group_id": "WAR-LEAD-261-TWOSICHUAN-END",
+            "result_direction": "positive",
+            "personal_result_tier": "S-",
+            "combat_difficulty": "D3",
+            "quality_index": 4.9,
+            "basis": "统合三年五十余战、五万级多路进攻及后期政治军事孤立，完成东川终局和两川统一，消费S-/D3。",
+            "source_refs": [
+              "docs/史料通读产物/唐以前编年/唐/卷261-通读总结.md"
+            ]
+          },
+          {
+            "capability_episode_ref": "TALENT-SUPPLEMENT:WAR-LEAD-259-YANGFUGONG-END:positive",
+            "window_ref": "TALENT-SUPPLEMENT:王建",
+            "campaign_group_id": "WAR-LEAD-259-YANGFUGONG-END",
+            "result_direction": "positive",
+            "personal_result_tier": "B",
+            "combat_difficulty": "D2",
+            "quality_index": 2.6,
+            "basis": "梓绵方向击破杨氏诸军并接受绵州归降，属于独立完成成果。",
+            "source_refs": [
+              "資治通鑑/卷258@1554177",
+              "資治通鑑/卷259@803270",
+              "WAR-LEAD-259-YANGFUGONG-END"
+            ]
+          }
+        ],
+        "command_failures": []
+      },
+      "C_score_points": 74.0,
+      "window_refs": [
+        "TALENT-SUPPLEMENT:王建",
+        "UCP-ANNEXATION-LATE-TANG-SICHUAN"
+      ],
+      "military_talent_grade": "top",
       "coverage_status": "CALIBRATED_C_WINDOW_RESULT",
       "default_applied": false,
       "default_basis": null,
@@ -7289,7 +7253,7 @@
       "canonical_rank": 34
     },
     {
-      "ruler_id": "RULER-ROSTER-21F30C9AD2C6298E",
+      "ruler_id": "RULER-NS-ZHAO-KUANGYIN",
       "ruler_name": "赵匡胤",
       "polity": "北宋",
       "scope_status": "APPLICABLE_DYNASTY_FOUNDER",
@@ -7979,7 +7943,7 @@
       "canonical_rank": 40
     },
     {
-      "ruler_id": "RULER-ROSTER-300C71027253133C",
+      "ruler_id": "RULER-FD-CHAI-RONG",
       "ruler_name": "柴荣",
       "polity": "后周",
       "scope_status": "APPLICABLE_DYNASTY_FOUNDER",
@@ -7998,7 +7962,7 @@
           {
             "result_ref": "DRAFT-PCR-CHAIRONG-CHUZHOU-956",
             "window_ref": "PUBLIC-PERSON-SUPPLEMENT:柴荣",
-            "campaign_group_id": "WAR-POST-5A5D665F238AA67FC926",
+            "campaign_group_id": "WAR-FD-5BBD5B7C2142B0068991",
             "result_direction": "positive",
             "personal_result_tier": "A",
             "result_value": 4.0,
@@ -8014,7 +7978,7 @@
           {
             "result_ref": "DRAFT-PCR-CHAIRONG-HAOZHOU-957",
             "window_ref": "PUBLIC-PERSON-SUPPLEMENT:柴荣",
-            "campaign_group_id": "WAR-POST-ADAC273C23AB160D2C24",
+            "campaign_group_id": "WAR-FD-94BC9E431A3BAF3AC07C",
             "result_direction": "positive",
             "personal_result_tier": "C",
             "result_value": 1.0,
@@ -8052,7 +8016,7 @@
           {
             "capability_episode_ref": "DRAFT-PCR-CHAIRONG-CHUZHOU-956",
             "window_ref": "PUBLIC-PERSON-SUPPLEMENT:柴荣",
-            "campaign_group_id": "WAR-POST-5A5D665F238AA67FC926",
+            "campaign_group_id": "WAR-FD-5BBD5B7C2142B0068991",
             "result_direction": "positive",
             "personal_result_tier": "A",
             "combat_difficulty": "D2",
@@ -8069,7 +8033,7 @@
           {
             "capability_episode_ref": "DRAFT-PCR-CHAIRONG-HAOZHOU-957",
             "window_ref": "PUBLIC-PERSON-SUPPLEMENT:柴荣",
-            "campaign_group_id": "WAR-POST-ADAC273C23AB160D2C24",
+            "campaign_group_id": "WAR-FD-94BC9E431A3BAF3AC07C",
             "result_direction": "positive",
             "personal_result_tier": "C",
             "combat_difficulty": "D1",
@@ -8252,7 +8216,7 @@
       "canonical_rank": 42
     },
     {
-      "ruler_id": "RULER-ROSTER-AE13650F7C4E4B4E",
+      "ruler_id": "RULER-NS-ZHAO-GUANGYI",
       "ruler_name": "赵光义",
       "polity": "北宋",
       "scope_status": "APPLICABLE_DYNASTY_FOUNDER",
@@ -8750,7 +8714,7 @@
       "canonical_rank": 48
     },
     {
-      "ruler_id": "RULER-ROSTER-294F5BD84A857D93",
+      "ruler_id": "RULER-FD-GUO-WEI",
       "ruler_name": "郭威",
       "polity": "后周",
       "scope_status": "APPLICABLE_DYNASTY_FOUNDER",
@@ -8769,7 +8733,7 @@
           {
             "result_ref": "DRAFT-PCR-GUOWEI-LIUZIPO-950",
             "window_ref": "PUBLIC-PERSON-SUPPLEMENT:郭威",
-            "campaign_group_id": "WAR-POST-3E1DBF6C463923021EFC",
+            "campaign_group_id": "WAR-FD-4EB2D06F9A06F863C24A",
             "result_direction": "positive",
             "personal_result_tier": "B",
             "result_value": 2.0,
@@ -8807,7 +8771,7 @@
           {
             "capability_episode_ref": "DRAFT-PCR-GUOWEI-LIUZIPO-950",
             "window_ref": "PUBLIC-PERSON-SUPPLEMENT:郭威",
-            "campaign_group_id": "WAR-POST-3E1DBF6C463923021EFC",
+            "campaign_group_id": "WAR-FD-4EB2D06F9A06F863C24A",
             "result_direction": "positive",
             "personal_result_tier": "B",
             "combat_difficulty": "D1",
@@ -8982,7 +8946,7 @@
       "canonical_rank": 51
     },
     {
-      "ruler_id": "RULER-ROSTER-62F74E6019E121A1",
+      "ruler_id": "RULER-FD-SHI-JINGTANG",
       "ruler_name": "石敬瑭",
       "polity": "后晋",
       "scope_status": "APPLICABLE_DYNASTY_FOUNDER",
@@ -9295,7 +9259,7 @@
       "canonical_rank": 56
     },
     {
-      "ruler_id": "RULER-ROSTER-1134343285B44635",
+      "ruler_id": "RULER-FD-LIU-YAN",
       "ruler_name": "刘龑",
       "polity": "南汉",
       "scope_status": "APPLICABLE_DYNASTY_FOUNDER",
@@ -9736,7 +9700,7 @@
       "canonical_rank": 65
     },
     {
-      "ruler_id": "RULER-ROSTER-DEBCBFCF35F26662",
+      "ruler_id": "RULER-FD-LI-BIAN",
       "ruler_name": "李昪",
       "polity": "南唐",
       "scope_status": "APPLICABLE_DYNASTY_FOUNDER",
@@ -10432,9 +10396,9 @@
       "canonical_rank": null
     },
     {
-      "ruler_id": "RULER-ROSTER-C79F197BCDD68831",
+      "ruler_id": "RULER-NS-LIU-E",
       "ruler_name": "刘娥",
-      "polity": null,
+      "polity": "北宋",
       "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
       "score_applicable": false,
       "C1": null,
@@ -10864,9 +10828,9 @@
       "canonical_rank": null
     },
     {
-      "ruler_id": "RULER-ROSTER-BEFC93A902BBCA44",
+      "ruler_id": "RULER-FD-MENG-CHANG",
       "ruler_name": "孟昶",
-      "polity": null,
+      "polity": "后蜀",
       "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
       "score_applicable": false,
       "C1": null,
@@ -11152,9 +11116,9 @@
       "canonical_rank": null
     },
     {
-      "ruler_id": "RULER-ROSTER-E33D1227E0E6FC2C",
+      "ruler_id": "RULER-FD-ZHU-YOUZHEN",
       "ruler_name": "朱友贞",
-      "polity": null,
+      "polity": "后梁",
       "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
       "score_applicable": false,
       "C1": null,
@@ -11512,9 +11476,9 @@
       "canonical_rank": null
     },
     {
-      "ruler_id": "RULER-ROSTER-FC886EDB002E9982",
+      "ruler_id": "RULER-FD-LI-YU",
       "ruler_name": "李煜",
-      "polity": null,
+      "polity": "南唐",
       "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
       "score_applicable": false,
       "C1": null,
@@ -11944,9 +11908,9 @@
       "canonical_rank": null
     },
     {
-      "ruler_id": "RULER-ROSTER-32A77C54B54A0158",
+      "ruler_id": "RULER-NS-ZHAO-HENG",
       "ruler_name": "赵恒",
-      "polity": null,
+      "polity": "北宋",
       "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
       "score_applicable": false,
       "C1": null,
@@ -12034,9 +11998,9 @@
       "canonical_rank": null
     },
     {
-      "ruler_id": "RULER-ROSTER-4FB5C3C0C75FC590",
+      "ruler_id": "RULER-NS-ZHAO-SHU",
       "ruler_name": "赵曙",
-      "polity": null,
+      "polity": "北宋",
       "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
       "score_applicable": false,
       "C1": null,
@@ -12052,9 +12016,9 @@
       "canonical_rank": null
     },
     {
-      "ruler_id": "RULER-ROSTER-5FFF6E982A43AA74",
+      "ruler_id": "RULER-NS-ZHAO-XU-ZHEZONG",
       "ruler_name": "赵煦",
-      "polity": null,
+      "polity": "北宋",
       "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
       "score_applicable": false,
       "C1": null,
@@ -12070,9 +12034,9 @@
       "canonical_rank": null
     },
     {
-      "ruler_id": "RULER-ROSTER-6D78EBFC4374EBA3",
+      "ruler_id": "RULER-NS-ZHAO-ZHEN",
       "ruler_name": "赵祯",
-      "polity": null,
+      "polity": "北宋",
       "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
       "score_applicable": false,
       "C1": null,
@@ -12088,9 +12052,9 @@
       "canonical_rank": null
     },
     {
-      "ruler_id": "RULER-ROSTER-882ABE1F426084A2",
+      "ruler_id": "RULER-NS-ZHAO-XU",
       "ruler_name": "赵顼",
-      "polity": null,
+      "polity": "北宋",
       "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
       "score_applicable": false,
       "C1": null,
@@ -12232,9 +12196,9 @@
       "canonical_rank": null
     },
     {
-      "ruler_id": "RULER-ROSTER-95527D26390FFB2C",
+      "ruler_id": "RULER-NS-GAO-TAOTAO",
       "ruler_name": "高滔滔",
-      "polity": null,
+      "polity": "北宋",
       "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
       "score_applicable": false,
       "C1": null,

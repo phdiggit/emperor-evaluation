@@ -1,0 +1,157 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "liao",
+  "bucket": 18,
+  "bucket_count": 24,
+  "record_count": 2,
+  "records_fingerprint": "1fa5622eb20f4a8bd85e3b2f3b42066c1d99f76afa4bfa31fc69f89aa4a5624b",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-D12F04E201DE0FE27A43",
+      "dynasty": "辽",
+      "dynasty_partition": "liao",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-LIAO-SHIJINGTANG-RESCUE-936",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "石敬瑭受后唐讨伐而求救，辽廷同意兴师，太宗自将入雁门、至太原，与高行周、符彦卿等军交战。",
+      "period": {
+        "start": "天顯十一年七月至九月",
+        "end": "936"
+      },
+      "observable_result": "辽军以伏兵截断后唐军并大败之，斩首数万级，石敬瑭率官属来见，晋安寨随即被围。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-LIAO-V03-SHIJINGTANG-RESCUE-BATTLE-936"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/辽史/volume-03.registry.json"
+        ],
+        "source_revision_refs": [
+          "遼史/卷3@2325080#急，遂許興師。\n",
+          "遼史/卷3@2325080#自將以援敬瑭。",
+          "遼史/卷3@2325080#行周、彥卿為伏兵所斷，首尾不相救。",
+          "遼史/卷3@2325080#敬達、光遠大敗，棄仗如山，斬首數萬級。",
+          "遼史/卷3@2325080#癸卯，圍晉安。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "遼史/卷3@2325080#急，遂許興師。\n",
+        "遼史/卷3@2325080#自將以援敬瑭。",
+        "遼史/卷3@2325080#行周、彥卿為伏兵所斷，首尾不相救。",
+        "遼史/卷3@2325080#敬達、光遠大敗，棄仗如山，斬首數萬級。",
+        "遼史/卷3@2325080#癸卯，圍晉安。"
+      ],
+      "uncertainties": [
+        "辽河东联军兵力、后唐战死与俘虏构成、太原民损和围寨补给未载。"
+      ],
+      "cost_or_burden": "记有斩首数万级，辽将的鲁在晋安作战中死亡；双方其余伤亡和战区民损未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "important_objective",
+      "land_strategic_value": "strategic_gateway",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记B；土地轴=strategic_gateway，对手轴=regional_major，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "B",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "已逐项反查全部source_card_ids；现有事实未同时闭合具名人物的实际控制、本人完成范围与可观察结果，unknown保持unknown。",
+      "detail_expansion_status": "complete_unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-821421A81D599E33F7F3",
+      "dynasty": "辽",
+      "dynasty_partition": "liao",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-LIAO-ZUBU-CAMPAIGN-982-984",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "耶律速撒讨阻卜并献俘，朝廷因其击破阻卜下诏褒美；统和二年再讨阻卜并杀其酋长撻剌干。",
+      "period": {
+        "start": "乾亨四年十二月至统和二年十一月",
+        "end": "982至984"
+      },
+      "observable_result": "辽军连续打击阻卜，取得俘虏并杀其酋长。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-LIAO-V10-ZUBU-CAMPAIGN-982-984"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/辽史/volume-10.registry.json"
+        ],
+        "source_revision_refs": [
+          "遼史/卷10@1745918#耶律速撒討阻卜。",
+          "遼史/卷10@1745918#速撒獻阻卜俘。",
+          "遼史/卷10@1745918#以速撒破阻卜，下詔褒美",
+          "遼史/卷10@1745918#速撒等討阻卜，殺其酋長撻剌幹。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "遼史/卷10@1745918#耶律速撒討阻卜。",
+        "遼史/卷10@1745918#速撒獻阻卜俘。",
+        "遼史/卷10@1745918#以速撒破阻卜，下詔褒美",
+        "遼史/卷10@1745918#速撒等討阻卜，殺其酋長撻剌幹。"
+      ],
+      "uncertainties": [
+        "各次战斗地点、兵力伤亡、俘获人数和杀酋后阻卜的政治安排未载。"
+      ],
+      "cost_or_burden": "阻卜酋长被杀且有人被俘，双方兵力、伤亡、俘虏数和部众后续状况未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    }
+  ]
+}

@@ -1,0 +1,363 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "jin",
+  "bucket": 3,
+  "bucket_count": 24,
+  "record_count": 3,
+  "records_fingerprint": "1a3798dce141d94a7e044f40f7c200bdfe77f2657234bdf30a5cde53883a13e2",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-9B2D355D5160A3ABF784",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-GUIDE-GUANNU-MUTINY-1233",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "归德粮乏散军就食后，官奴率忠孝军作乱，杀右丞以下从官三百余人并拘禁哀宗；哀宗密谋反制，至六月诛官奴及阿里合、白进。",
+      "period": {
+        "start": "天兴二年三月",
+        "end": "天兴二年六月"
+      },
+      "observable_result": "近侍军变一度控制皇帝，核心官僚遭大规模杀害；哀宗恢复人身与政权控制。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V18-GUIDE-GUANNU-MUTINY-1233"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-18.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷18@2432702#官奴以忠孝軍為亂",
+          "金史/卷18@2432702#從官右丞已下三百餘人。",
+          "金史/卷18@2432702#官奴及其党阿裏合、白進皆伏誅。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷18@2432702#官奴以忠孝軍為亂",
+        "金史/卷18@2432702#從官右丞已下三百餘人。",
+        "金史/卷18@2432702#官奴及其党阿裏合、白進皆伏誅。"
+      ],
+      "uncertainties": [
+        "忠孝军参与人数、平民伤亡和余党处置未载。"
+      ],
+      "cost_or_burden": "从官右丞以下三百余人被杀，官奴及主要党羽伏诛。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-A48A7A0A378B697B",
+          "actor_name": "官奴",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "已验收事实卡明确闭合官奴的实际行动与本人结果：率忠孝军作乱并控制哀宗，后被反制诛杀；正负阶段不可压成单向结果。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "mixed_review",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合官奴的实际行动与本人结果：率忠孝军作乱并控制哀宗，后被反制诛杀；正负阶段不可压成单向结果。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "金史/卷18@2432702#官奴以忠孝軍為亂",
+              "金史/卷18@2432702#從官右丞已下三百餘人。",
+              "金史/卷18@2432702#官奴及其党阿裏合、白進皆伏誅。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-67AAB6D0704F6F85A11C",
+              "result_label": "率忠孝军作乱并控制哀宗，后被反制诛杀；正负阶段不可压成单向结果。",
+              "result_direction": "mixed_review",
+              "result_tier": "B",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "NOT_APPLICABLE",
+              "basis": "已验收事实卡明确闭合官奴的实际行动与本人结果：率忠孝军作乱并控制哀宗，后被反制诛杀；正负阶段不可压成单向结果。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "金史/卷18@2432702#官奴以忠孝軍為亂",
+                "金史/卷18@2432702#從官右丞已下三百餘人。",
+                "金史/卷18@2432702#官奴及其党阿裏合、白進皆伏誅。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "已验收事实卡明确闭合官奴的实际行动与本人结果：率忠孝军作乱并控制哀宗，后被反制诛杀；正负阶段不可压成单向结果。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "金史/卷18@2432702#官奴以忠孝軍為亂",
+                  "金史/卷18@2432702#從官右丞已下三百餘人。",
+                  "金史/卷18@2432702#官奴及其党阿裏合、白進皆伏誅。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "important_objective",
+      "land_strategic_value": "strategic_gateway",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记B；土地轴=strategic_gateway，对手轴=regional_major，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "B",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "single_integrated_command",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-4E0341D8AD3884C70E87",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-LIAO-YINSHAN-PURSUIT-1123",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "金军袭击辽主阴山方向，在白水泺击败喝离质，继而追及辽主并决战。",
+      "period": {
+        "start": "天辅七年四月",
+        "end": "天辅七年五月"
+      },
+      "observable_result": "辽军大败，辽主之子赵王习泥烈、林牙大石及传国玺被俘获；辽主本人仍逃脱。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V02-LIAO-RULER-PURSUIT-1123"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-02.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷2@7906448#宗望追及遼主，決戰，大敗之，獲其子趙王習泥烈及傳國璽。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷2@7906448#宗望追及遼主，決戰，大敗之，獲其子趙王習泥烈及傳國璽。"
+      ],
+      "uncertainties": [
+        "辽主逃脱路线和双方伤亡未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-419B85C97E4D7438",
+          "actor_name": "完颜宗望",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "追及辽主并决战，大败辽军、俘赵王及传国玺。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "追及辽主并决战，大败辽军、俘赵王及传国玺。",
+            "source_refs": [
+              "金史/卷2@7906448#宗望追及遼主，決戰，大敗之，獲其子趙王習泥烈及傳國璽。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-D56977CD58069674CB58",
+              "result_label": "追及辽主并决战，大败辽军、俘赵王及传国玺。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "追及辽主并决战，大败辽军、俘赵王及传国玺。",
+              "source_refs": [
+                "金史/卷2@7906448#宗望追及遼主，決戰，大敗之，獲其子趙王習泥烈及傳國璽。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "追及辽主并决战，大败辽军、俘赵王及传国玺。",
+                "source_refs": [
+                  "金史/卷2@7906448#宗望追及遼主，決戰，大敗之，獲其子趙王習泥烈及傳國璽。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-AE8B1AEE37BC6112",
+          "actor_name": "耶律延禧",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "作为辽方实际统帅决战失败后逃脱；无充分材料确定个人因果过错。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "作为辽方实际统帅决战失败后逃脱；无充分材料确定个人因果过错。",
+            "source_refs": [
+              "金史/卷2@7906448#宗望追及遼主，決戰，大敗之，獲其子趙王習泥烈及傳國璽。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-75614967CD34E2F25E59",
+              "result_label": "作为辽方实际统帅决战失败后逃脱；无充分材料确定个人因果过错。",
+              "result_direction": "negative",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "作为辽方实际统帅决战失败后逃脱；无充分材料确定个人因果过错。",
+              "source_refs": [
+                "金史/卷2@7906448#宗望追及遼主，決戰，大敗之，獲其子趙王習泥烈及傳國璽。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "作为辽方实际统帅决战失败后逃脱；无充分材料确定个人因果过错。",
+                "source_refs": [
+                  "金史/卷2@7906448#宗望追及遼主，決戰，大敗之，獲其子趙王習泥烈及傳國璽。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "unification_portfolio_ref": "UCP-POST-JIN-1114-1126",
+      "unification_stage_order": 4,
+      "account_routing": [
+        "UNIFICATION_ONLY"
+      ],
+      "defense_consumption": "EXCLUDED_UNIFICATION",
+      "settlement_scope": "BATTLE_LEDGER_ONLY",
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "逐项复核后只构成局部平叛、征讨未克、统一战争阶段执行或未闭合的多线推进；未达到强区域独立方向或第一梯队决定性终局，明确保留A。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "REVIEWED_RETAINED_A",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。"
+    },
+    {
+      "war_event_id": "WAR-POST-49D029D60A9F2C1D514F",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-TEMAN-KHITAN-REVOLT-1196",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "特满群牧契丹陀锁、德寿起兵反叛，泰州军出击并将其击败。",
+      "period": {
+        "start": "承安元年十一月",
+        "end": "承安元年十一月"
+      },
+      "observable_result": "该处契丹叛乱被泰州军击败；后续招降和处置未载。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V10-DAYANLU-BORDER-REVOLT-1196"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-10.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷10@2432703#特滿群牧契丹陀鎖、德壽反，泰州軍擊敗之。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷10@2432703#特滿群牧契丹陀鎖、德壽反，泰州軍擊敗之。"
+      ],
+      "uncertainties": [
+        "乱众规模、战斗地点细节与首领结局未载。"
+      ],
+      "cost_or_burden": "双方伤亡未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    }
+  ]
+}

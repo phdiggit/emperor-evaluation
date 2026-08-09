@@ -452,7 +452,6 @@
       "internal_cycle_refs": [],
       "c_major_success_refs": [],
       "admitted_large_rebellion_refs": [
-        "WAR-LEAD-HAN-WESTERN-QIANG-61-60",
         "WAR-LEAD-HAN-ZHUYAI-52-46"
       ]
     },
@@ -3012,6 +3011,12 @@
       "ruler_name": "萧衍",
       "ruler_event_class_overrides": [
         {
+          "override": "DROP_NOT_RULER_SUBJECT_OR_REIGN",
+          "war_event_id": "WAR-LEAD-152-06",
+          "fields": [],
+          "rationale": "六镇之乱是北魏内部战争；与梁武帝同期不能构成梁朝军事投资或成本收益周期。"
+        },
+        {
           "fields": [
             "border_control_grade",
             "cost_axes",
@@ -5125,8 +5130,7 @@
         "WAR-PARENT-SUI-TURK-599-603"
       ],
       "admitted_large_rebellion_refs": [
-        "WAR-PARENT-SUI-SOUTH-CONSOLIDATION-590",
-        "WAR-LEAD-SUI-HANWANG-604"
+        "WAR-PARENT-SUI-SOUTH-CONSOLIDATION-590"
       ]
     },
     {
@@ -5159,6 +5163,7 @@
       "internal_cycle_refs": [],
       "c_major_success_refs": [],
       "admitted_large_rebellion_refs": [
+        "WAR-LEAD-SUI-HANWANG-604",
         "WAR-PARENT-SUI-REBELLIONS-613-615",
         "WAR-PARENT-SUI-COLLAPSE-616-618"
       ]
@@ -6335,7 +6340,7 @@
       ]
     }
   ],
-  "semantic_fingerprint": "4b5dab971eae176a9535f7638c577ef1627a8dfcb04e32403d16d8edee4e3f7d",
+  "semantic_fingerprint": "08e208b1e78850ef5c4c24ddd136e7c290ea40a6775019a9be782784fead8416",
   "large_rebellion_admission_policy": {
     "selection_basis": "ALL_RULERS_SAME_STANDARD_CURATED_AUDIT",
     "qualifying_conditions": [

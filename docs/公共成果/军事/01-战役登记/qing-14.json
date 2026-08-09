@@ -1,0 +1,751 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "qing",
+  "bucket": 14,
+  "bucket_count": 24,
+  "record_count": 5,
+  "records_fingerprint": "581b7b57219db976361fd0953b7c44a405dde59834548dd4c097e261077cf1dd",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-B302B73E71497141729E",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-AMURSANA-REBELLION-1755",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "阿睦尔撒纳图谋独据伊犁，入觐途中叛逃并攻伊犁；班第、鄂容安军败身死，清廷重组诸路军队继续征讨。",
+      "period": {
+        "start": "乾隆二十年六月",
+        "end": "乾隆二十年十二月"
+      },
+      "observable_result": "刚完成的准部平定迅速转为阿睦尔撒纳战争，伊犁控制再次动荡。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V11-AMURSANA-REBELLION-1755"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-11.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷11@2616671#，圖據伊犁。溫",
+          "清史稿/卷11@2616671#阿睦爾撒納入覲，至烏隴古，叛",
+          "清史稿/卷11@2616671#阿睦爾撒納犯伊犁。",
+          "清史稿/卷11@2616671#將軍班第、尚書鄂容安敗績於烏蘭庫圖勒，死之。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷11@2616671#，圖據伊犁。溫",
+        "清史稿/卷11@2616671#阿睦爾撒納入覲，至烏隴古，叛",
+        "清史稿/卷11@2616671#阿睦爾撒納犯伊犁。",
+        "清史稿/卷11@2616671#將軍班第、尚書鄂容安敗績於烏蘭庫圖勒，死之。"
+      ],
+      "uncertainties": [
+        "叛军兵力、伊犁伤亡和清军损失总数未载。"
+      ],
+      "cost_or_burden": "班第、鄂容安战死，萨喇勒被俘。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-5D8E5907D91849CF",
+          "actor_name": "班第",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "只消费本人所部失败。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "只消费本人所部失败。",
+            "source_refs": [
+              "清史稿/卷11@2616671#，圖據伊犁。溫",
+              "清史稿/卷11@2616671#阿睦爾撒納入覲，至烏隴古，叛",
+              "清史稿/卷11@2616671#阿睦爾撒納犯伊犁。",
+              "清史稿/卷11@2616671#將軍班第、尚書鄂容安敗績於烏蘭庫圖勒，死之。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-21B036EA7C61AA2461B5",
+              "result_label": "伊犁方向军败并身死。",
+              "result_direction": "negative",
+              "result_tier": "B",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "只消费本人所部失败。",
+              "source_refs": [
+                "清史稿/卷11@2616671#，圖據伊犁。溫",
+                "清史稿/卷11@2616671#阿睦爾撒納入覲，至烏隴古，叛",
+                "清史稿/卷11@2616671#阿睦爾撒納犯伊犁。",
+                "清史稿/卷11@2616671#將軍班第、尚書鄂容安敗績於烏蘭庫圖勒，死之。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "只消费本人所部失败。",
+                "source_refs": [
+                  "清史稿/卷11@2616671#，圖據伊犁。溫",
+                  "清史稿/卷11@2616671#阿睦爾撒納入覲，至烏隴古，叛",
+                  "清史稿/卷11@2616671#阿睦爾撒納犯伊犁。",
+                  "清史稿/卷11@2616671#將軍班第、尚書鄂容安敗績於烏蘭庫圖勒，死之。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-699A92C5AFBC28D8",
+          "actor_name": "鄂容安",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "只消费本人所部失败。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "只消费本人所部失败。",
+            "source_refs": [
+              "清史稿/卷11@2616671#，圖據伊犁。溫",
+              "清史稿/卷11@2616671#阿睦爾撒納入覲，至烏隴古，叛",
+              "清史稿/卷11@2616671#阿睦爾撒納犯伊犁。",
+              "清史稿/卷11@2616671#將軍班第、尚書鄂容安敗績於烏蘭庫圖勒，死之。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-0180A1D4E9461C34B045",
+              "result_label": "伊犁方向军败并身死。",
+              "result_direction": "negative",
+              "result_tier": "B",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "只消费本人所部失败。",
+              "source_refs": [
+                "清史稿/卷11@2616671#，圖據伊犁。溫",
+                "清史稿/卷11@2616671#阿睦爾撒納入覲，至烏隴古，叛",
+                "清史稿/卷11@2616671#阿睦爾撒納犯伊犁。",
+                "清史稿/卷11@2616671#將軍班第、尚書鄂容安敗績於烏蘭庫圖勒，死之。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "只消费本人所部失败。",
+                "source_refs": [
+                  "清史稿/卷11@2616671#，圖據伊犁。溫",
+                  "清史稿/卷11@2616671#阿睦爾撒納入覲，至烏隴古，叛",
+                  "清史稿/卷11@2616671#阿睦爾撒納犯伊犁。",
+                  "清史稿/卷11@2616671#將軍班第、尚書鄂容安敗績於烏蘭庫圖勒，死之。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-1304D17AEFDDB692",
+          "actor_name": "阿睦尔撒纳",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "补消费已验收事实卡中具名实际作战人物；只登记本人可观察阶段，不继承父项终局。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "补消费已验收事实卡中具名实际作战人物；只登记本人可观察阶段，不继承父项终局。",
+            "source_refs": [
+              "清史稿/卷11@2616671#，圖據伊犁。溫",
+              "清史稿/卷11@2616671#阿睦爾撒納入覲，至烏隴古，叛",
+              "清史稿/卷11@2616671#阿睦爾撒納犯伊犁。",
+              "清史稿/卷11@2616671#將軍班第、尚書鄂容安敗績於烏蘭庫圖勒，死之。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-0AFFD6DC3C5E97D5E575",
+              "result_label": "叛逃后实际攻伊犁并击败班第、鄂容安军。",
+              "result_direction": "positive",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "叛逃后实际攻伊犁并击败班第、鄂容安军。；原差分审计未裁决人物级档位，现按可观察本人局部阶段保守登记C/D1（且不超过父项难度），unknown不向上推断。",
+              "source_refs": [
+                "清史稿/卷11@2616671#，圖據伊犁。溫",
+                "清史稿/卷11@2616671#阿睦爾撒納入覲，至烏隴古，叛",
+                "清史稿/卷11@2616671#阿睦爾撒納犯伊犁。",
+                "清史稿/卷11@2616671#將軍班第、尚書鄂容安敗績於烏蘭庫圖勒，死之。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "叛逃后实际攻伊犁并击败班第、鄂容安军。；原差分审计未裁决人物级档位，现按可观察本人局部阶段保守登记C/D1（且不超过父项难度），unknown不向上推断。",
+                "source_refs": [
+                  "清史稿/卷11@2616671#，圖據伊犁。溫",
+                  "清史稿/卷11@2616671#阿睦爾撒納入覲，至烏隴古，叛",
+                  "清史稿/卷11@2616671#阿睦爾撒納犯伊犁。",
+                  "清史稿/卷11@2616671#將軍班第、尚書鄂容安敗績於烏蘭庫圖勒，死之。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [
+        {
+          "actor_ref": "PERSON-POST-5D8E5907D91849CF",
+          "actor_name": "班第",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "B",
+          "severity": 0.3,
+          "basis": "只消费本人所部失败。",
+          "source_refs": [
+            "清史稿/卷11@2616671#，圖據伊犁。溫",
+            "清史稿/卷11@2616671#阿睦爾撒納入覲，至烏隴古，叛",
+            "清史稿/卷11@2616671#阿睦爾撒納犯伊犁。",
+            "清史稿/卷11@2616671#將軍班第、尚書鄂容安敗績於烏蘭庫圖勒，死之。"
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-699A92C5AFBC28D8",
+          "actor_name": "鄂容安",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "B",
+          "severity": 0.3,
+          "basis": "只消费本人所部失败。",
+          "source_refs": [
+            "清史稿/卷11@2616671#，圖據伊犁。溫",
+            "清史稿/卷11@2616671#阿睦爾撒納入覲，至烏隴古，叛",
+            "清史稿/卷11@2616671#阿睦爾撒納犯伊犁。",
+            "清史稿/卷11@2616671#將軍班第、尚書鄂容安敗績於烏蘭庫圖勒，死之。"
+          ]
+        }
+      ],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "逐项复核后只构成局部平叛、单次进剿、短期受降、未闭合战争开端或与主分区重复的同一战役；不因用兵规模、艰苦程度或平定字样升档，其他项明确保留A。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "REVIEWED_RETAINED_A",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-1FA39B7BDB72E5C19D22",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-GALDAN-FINAL-1696-1697",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "康熙多次亲征噶尔丹，费扬古在昭莫多等地获胜；次年康熙再出宁夏进军，噶尔丹最终服毒而死，部众陆续归降。",
+      "period": {
+        "start": "康熙三十五年",
+        "end": "康熙三十六年四月"
+      },
+      "observable_result": "噶尔丹政权瓦解，漠北主要军事威胁暂时解除。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V07-GALDAN-FINAL-CAMPAIGNS-1696-1697"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-07.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷7@1794686#昭莫多之役",
+          "清史稿/卷7@1794686#上親征噶爾丹",
+          "清史稿/卷7@1794686#噶爾丹仰藥死",
+          "清史稿/卷7@1794686#敕諸路班師。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷7@1794686#昭莫多之役",
+        "清史稿/卷7@1794686#上親征噶爾丹",
+        "清史稿/卷7@1794686#噶爾丹仰藥死",
+        "清史稿/卷7@1794686#敕諸路班師。"
+      ],
+      "uncertainties": [
+        "昭莫多战斗总伤亡、噶尔丹死因细节和归降人数未完整载明。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-9C1FB093FF83916E",
+          "actor_name": "费扬古",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "实际统率西路在昭莫多形成终局决定性战斗，消费A/D3前线成果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "实际统率西路在昭莫多形成终局决定性战斗，消费A/D3前线成果。",
+            "source_refs": [
+              "清史稿/卷7@1794686#昭莫多之役",
+              "清史稿/卷7@1794686#上親征噶爾丹",
+              "清史稿/卷7@1794686#噶爾丹仰藥死",
+              "清史稿/卷7@1794686#敕諸路班師。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-10C07EA9F5D387859CDB",
+              "result_label": "统西路军在昭莫多截击并摧毁噶尔丹主力",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "实际统率西路在昭莫多形成终局决定性战斗，消费A/D3前线成果。",
+              "source_refs": [
+                "清史稿/卷7@1794686#昭莫多之役",
+                "清史稿/卷7@1794686#上親征噶爾丹",
+                "清史稿/卷7@1794686#噶爾丹仰藥死",
+                "清史稿/卷7@1794686#敕諸路班師。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "实际统率西路在昭莫多形成终局决定性战斗，消费A/D3前线成果。",
+                "source_refs": [
+                  "清史稿/卷7@1794686#昭莫多之役",
+                  "清史稿/卷7@1794686#上親征噶爾丹",
+                  "清史稿/卷7@1794686#噶爾丹仰藥死",
+                  "清史稿/卷7@1794686#敕諸路班師。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-5B02E75C191C9829",
+          "actor_name": "玄烨",
+          "actor_kind": "person",
+          "role_code": "not_in_command_chain",
+          "contribution_scope": "本人决定三路进剿，亲统中路逼近克鲁伦并率轻骑追击，使噶尔丹西遁进入费扬古截击方向；次年再度亲征并持续封锁招降至终局。只消费A级统筹结果，不继承费扬古前线D3。",
+          "person_command_index": {
+            "consumption_mode": "operational_result",
+            "command_scope": "operational_strategy",
+            "capability_mode": "operational_design",
+            "decisive_relation": "none",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": null,
+            "detail_status": "resolved_person_result",
+            "basis": "本人决定三路进剿，亲统中路逼近克鲁伦并率轻骑追击，使噶尔丹西遁进入费扬古截击方向；次年再度亲征并持续封锁招降至终局。只消费A级统筹结果，不继承费扬古前线D3。",
+            "source_refs": [
+              "清史稿/卷7@1794686#昭莫多之役",
+              "清史稿/卷7@1794686#上親征噶爾丹",
+              "清史稿/卷7@1794686#噶爾丹仰藥死",
+              "清史稿/卷7@1794686#敕諸路班師。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-EA17E270FFDAADCE1467",
+              "result_label": "组织三路进剿、亲统中路逼退追击并持续封锁至噶尔丹政权瓦解",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": null,
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "本人决定三路进剿，亲统中路逼近克鲁伦并率轻骑追击，使噶尔丹西遁进入费扬古截击方向；次年再度亲征并持续封锁招降至终局。只消费A级统筹结果，不继承费扬古前线D3。",
+              "source_refs": [
+                "清史稿/卷7@1794686#昭莫多之役",
+                "清史稿/卷7@1794686#上親征噶爾丹",
+                "清史稿/卷7@1794686#噶爾丹仰藥死",
+                "清史稿/卷7@1794686#敕諸路班師。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "operational_design",
+                "decisive_relation": "none",
+                "basis": "本人决定三路进剿，亲统中路逼近克鲁伦并率轻骑追击，使噶尔丹西遁进入费扬古截击方向；次年再度亲征并持续封锁招降至终局。只消费A级统筹结果，不继承费扬古前线D3。",
+                "source_refs": [
+                  "清史稿/卷7@1794686#昭莫多之役",
+                  "清史稿/卷7@1794686#上親征噶爾丹",
+                  "清史稿/卷7@1794686#噶爾丹仰藥死",
+                  "清史稿/卷7@1794686#敕諸路班師。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "independent_direction",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "strong",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "military_system_collapsed",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "1696年噶尔丹已失准噶尔本部并依靠流动残军作战；清军三路远征、昭莫多摧毁主力并持续封锁至其死亡，按O3残余方向定A，远程补给与协同难度仍独立保留D3。",
+      "tier_review_source_tier": "C",
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT",
+      "combat_difficulty": "D3",
+      "combat_difficulty_basis": "漠北远程补给、三路协同与噶尔丹强机动主力相互强化，清军须连续两年组织追击、截击、封锁和招降直至终局，取D3。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-D1D699B279A359733CEB",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-MIAO-REBELLION-1795-1796",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "清军继续进攻平陇等苗寨，擒石三保，福康安、孙士毅、和琳相继卒于军，年底宣布湖南苗乱平定。",
+      "period": {
+        "start": "嘉庆元年正月至十二月",
+        "end": "1796"
+      },
+      "observable_result": "卷15延续的苗疆战争主要战事结束，并调整湘西军政设置。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V16-MIAO-REBELLION-END-1796"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-16.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷16@1811978#辦理苗疆大學士福康安等奏攻克朗坡，進攻平隴。",
+          "清史稿/卷16@1811978#和琳奏獲苗匪石三保，解京誅之。",
+          "清史稿/卷16@1811978#湖南苗匪平"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷16@1811978#辦理苗疆大學士福康安等奏攻克朗坡，進攻平隴。",
+        "清史稿/卷16@1811978#和琳奏獲苗匪石三保，解京誅之。",
+        "清史稿/卷16@1811978#湖南苗匪平"
+      ],
+      "uncertainties": [
+        "起事余波、总伤亡与安置情况未载。"
+      ],
+      "cost_or_burden": "多名高级将领卒于军，双方总伤亡和军费未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-E18EA9A77A60561A1754",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-ULA-YEHE-1612-1613",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "努尔哈齐因乌拉屡次背盟连续攻取六城，次年击败布占泰三万军并灭乌拉；随即攻叶赫、降兀苏并焚十九寨，因明调解撤军。",
+      "period": {
+        "start": "万历四十年九月",
+        "end": "万历四十一年九月"
+      },
+      "observable_result": "乌拉灭亡，布占泰逃叶赫；叶赫遭破坏但在明干预下暂时存续。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V01-ULA-YEHE-CAMPAIGNS-1612-1613"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-01.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷1@2589312#克六城，焚積聚。",
+          "清史稿/卷1@2589312#大敗之，遂入其城。",
+          "清史稿/卷1@2589312#，遂滅烏拉。使",
+          "清史稿/卷1@2589312#降兀蘇城，焚其十九城寨。",
+          "清史稿/卷1@2589312#明遣使爲解。師還"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷1@2589312#克六城，焚積聚。",
+        "清史稿/卷1@2589312#大敗之，遂入其城。",
+        "清史稿/卷1@2589312#，遂滅烏拉。使",
+        "清史稿/卷1@2589312#降兀蘇城，焚其十九城寨。",
+        "清史稿/卷1@2589312#明遣使爲解。師還"
+      ],
+      "uncertainties": [
+        "乌拉人口处置、叶赫焚寨平民损失和明调解条件未载。"
+      ],
+      "cost_or_burden": "乌拉军称三万，叶赫十九城寨被焚；双方伤亡未载。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-6E925E92C6F5ECA5",
+          "actor_name": "努尔哈赤",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "本人连续发动、作战和终局闭合。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "本人连续发动、作战和终局闭合。",
+            "source_refs": [
+              "清史稿/卷1@2589312#克六城，焚積聚。",
+              "清史稿/卷1@2589312#大敗之，遂入其城。",
+              "清史稿/卷1@2589312#，遂滅烏拉。使",
+              "清史稿/卷1@2589312#降兀蘇城，焚其十九城寨。",
+              "清史稿/卷1@2589312#明遣使爲解。師還"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-CE53B9D9ADDE518844B0",
+              "result_label": "连续攻乌拉六城、破三万军灭乌拉，继攻叶赫十九寨。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "本人连续发动、作战和终局闭合。",
+              "source_refs": [
+                "清史稿/卷1@2589312#克六城，焚積聚。",
+                "清史稿/卷1@2589312#大敗之，遂入其城。",
+                "清史稿/卷1@2589312#，遂滅烏拉。使",
+                "清史稿/卷1@2589312#降兀蘇城，焚其十九城寨。",
+                "清史稿/卷1@2589312#明遣使爲解。師還"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "本人连续发动、作战和终局闭合。",
+                "source_refs": [
+                  "清史稿/卷1@2589312#克六城，焚積聚。",
+                  "清史稿/卷1@2589312#大敗之，遂入其城。",
+                  "清史稿/卷1@2589312#，遂滅烏拉。使",
+                  "清史稿/卷1@2589312#降兀蘇城，焚其十九城寨。",
+                  "清史稿/卷1@2589312#明遣使爲解。師還"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "unification_portfolio_ref": "UCP-POST-QING-FOUNDING-1607-1662",
+      "unification_stage_order": 2,
+      "account_routing": [
+        "UNIFICATION_ONLY"
+      ],
+      "defense_consumption": "EXCLUDED_UNIFICATION",
+      "settlement_scope": "BATTLE_LEDGER_ONLY",
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "core_base",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "independent_regional_pole",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "military_system_collapsed",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "乌拉终结仍属于海西O3体系阶段；叶赫尚存，不能提前取得更高系统终局档。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT",
+      "combat_difficulty": "D3",
+      "combat_difficulty_basis": "乌拉三万主力与六城、叶赫十九寨连续据点并存，后金须跨年会战攻城并处理明方干预，取D3。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "single_integrated_command",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。"
+    },
+    {
+      "war_event_id": "WAR-POST-47C4C5D6C9EE52CE10D1",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-YONGLI-END-1661-1662",
+      "candidate_destination": "REDIRECT_NON_BATTLE_OUTCOME",
+      "public_outcome_registered": false,
+      "canonical_label": "清军进入缅甸，缅方交出南明永历帝朱由榔，白文选降清；清廷随后以滇南平定告庙赦天下并安辑新附官民。",
+      "period": {
+        "start": "顺治十八年十二月",
+        "end": "康熙元年三月"
+      },
+      "observable_result": "南明永历政权失去君主和云南残余基地，清廷宣告滇南平定。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V06-YONGLI-END-1661-1662"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-06.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷6@1789307#報大軍入緬",
+          "清史稿/卷6@1789307#緬人執明永曆帝朱由榔以獻。",
+          "清史稿/卷6@1789307#將白文選降。",
+          "清史稿/卷6@1789307#以滇南平，告廟祭陵，赦天下。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷6@1789307#報大軍入緬",
+        "清史稿/卷6@1789307#緬人執明永曆帝朱由榔以獻。",
+        "清史稿/卷6@1789307#將白文選降。",
+        "清史稿/卷6@1789307#以滇南平，告廟祭陵，赦天下。"
+      ],
+      "uncertainties": [
+        "缅方交付条件、永历帝后续处置和军民伤亡未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "unification_portfolio_ref": "UCP-POST-QING-FOUNDING-1607-1662",
+      "unification_stage_order": 18,
+      "account_routing": [
+        "UNIFICATION_ONLY"
+      ],
+      "defense_consumption": "EXCLUDED_UNIFICATION",
+      "settlement_scope": "BATTLE_LEDGER_ONLY",
+      "disposition": "REDIRECTED_NON_BATTLE_OUTCOME",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "缅方交出永历帝、白文选降清及告庙安辑主要是受降交接和政治终局，未载独立清军战斗结果。"
+    }
+  ]
+}

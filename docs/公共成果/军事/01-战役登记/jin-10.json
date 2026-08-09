@@ -1,0 +1,407 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "jin",
+  "bucket": 10,
+  "bucket_count": 24,
+  "record_count": 2,
+  "records_fingerprint": "806a82c617d0bcb4d331d5df6d93fcd1070bb40f83329cc1a90ecc399732fb82",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-4ED81972E8DC9581D620",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-MONGOL-WAR-1224-1232",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "金军曾复泽潞平阳等地，蒙古军随后灭西夏并集中攻金，连取德顺、临洮、凤翔、河中等地；正大八年突破嶢峰关，金军在三峰山大溃，主力将帅多死，蒙古军围攻汴京。",
+      "period": {
+        "start": "正大元年九月",
+        "end": "天兴元年三月"
+      },
+      "observable_result": "三峰山后金军主力不复振，潼关等降，汴京被围并转入极端守城。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V17-MONGOL-WAR-1224-1232"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-17.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷17@2432675#大元兵征西夏，平中興府。",
+          "金史/卷17@2432675#大元兵平鳳翔府。",
+          "金史/卷17@2432675#大元進兵嶢峰關",
+          "金史/卷17@2432675#大元兵渡漢江而北",
+          "金史/卷17@2432675#兩省軍大潰",
+          "金史/卷17@2432675#城破皆死之。",
+          "金史/卷17@2432675#自是，兵不復振",
+          "金史/卷17@2432675#大元兵攻汴城"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷17@2432675#大元兵征西夏，平中興府。",
+        "金史/卷17@2432675#大元兵平鳳翔府。",
+        "金史/卷17@2432675#大元進兵嶢峰關",
+        "金史/卷17@2432675#大元兵渡漢江而北",
+        "金史/卷17@2432675#兩省軍大潰",
+        "金史/卷17@2432675#城破皆死之。",
+        "金史/卷17@2432675#自是，兵不復振",
+        "金史/卷17@2432675#大元兵攻汴城"
+      ],
+      "uncertainties": [
+        "完整兵力、总伤亡、各城围攻细节与和议条件未载。"
+      ],
+      "cost_or_burden": "合达、陈和尚、杨沃衍、蒲阿等主将死亡，数十万军民受围；伤亡总数未完整载明。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-A40627ADCF279FAA",
+          "actor_name": "完颜合达",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "与蒲阿连续控制两省主力，拒援凤翔、畏缩河中，后在三峰山主力崩溃。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "S",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "与蒲阿连续控制两省主力，拒援凤翔、畏缩河中，后在三峰山主力崩溃。",
+            "source_refs": [
+              "金史/卷17@2432675#大元兵征西夏，平中興府。",
+              "金史/卷17@2432675#大元兵平鳳翔府。",
+              "金史/卷17@2432675#大元進兵嶢峰關",
+              "金史/卷17@2432675#大元兵渡漢江而北",
+              "金史/卷17@2432675#兩省軍大潰",
+              "金史/卷17@2432675#城破皆死之。",
+              "金史/卷17@2432675#自是，兵不復振",
+              "金史/卷17@2432675#大元兵攻汴城"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-3C0756B08526DCC39A84",
+              "result_label": "与蒲阿连续控制两省主力，拒援凤翔、畏缩河中，后在三峰山主力崩溃。",
+              "result_direction": "negative",
+              "result_tier": "S",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "与蒲阿连续控制两省主力，拒援凤翔、畏缩河中，后在三峰山主力崩溃。",
+              "source_refs": [
+                "金史/卷17@2432675#大元兵征西夏，平中興府。",
+                "金史/卷17@2432675#大元兵平鳳翔府。",
+                "金史/卷17@2432675#大元進兵嶢峰關",
+                "金史/卷17@2432675#大元兵渡漢江而北",
+                "金史/卷17@2432675#兩省軍大潰",
+                "金史/卷17@2432675#城破皆死之。",
+                "金史/卷17@2432675#自是，兵不復振",
+                "金史/卷17@2432675#大元兵攻汴城"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "与蒲阿连续控制两省主力，拒援凤翔、畏缩河中，后在三峰山主力崩溃。",
+                "source_refs": [
+                  "金史/卷17@2432675#大元兵征西夏，平中興府。",
+                  "金史/卷17@2432675#大元兵平鳳翔府。",
+                  "金史/卷17@2432675#大元進兵嶢峰關",
+                  "金史/卷17@2432675#大元兵渡漢江而北",
+                  "金史/卷17@2432675#兩省軍大潰",
+                  "金史/卷17@2432675#城破皆死之。",
+                  "金史/卷17@2432675#自是，兵不復振",
+                  "金史/卷17@2432675#大元兵攻汴城"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-CB1D1ABAFA13143A",
+          "actor_name": "移剌蒲阿",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "与合达连续控制两省主力并在三峰山崩溃后被执。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "S",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "与合达连续控制两省主力并在三峰山崩溃后被执。",
+            "source_refs": [
+              "金史/卷17@2432675#大元兵征西夏，平中興府。",
+              "金史/卷17@2432675#大元兵平鳳翔府。",
+              "金史/卷17@2432675#大元進兵嶢峰關",
+              "金史/卷17@2432675#大元兵渡漢江而北",
+              "金史/卷17@2432675#兩省軍大潰",
+              "金史/卷17@2432675#城破皆死之。",
+              "金史/卷17@2432675#自是，兵不復振",
+              "金史/卷17@2432675#大元兵攻汴城"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-2663D9A19C6FBE143309",
+              "result_label": "与合达连续控制两省主力并在三峰山崩溃后被执。",
+              "result_direction": "negative",
+              "result_tier": "S",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "与合达连续控制两省主力并在三峰山崩溃后被执。",
+              "source_refs": [
+                "金史/卷17@2432675#大元兵征西夏，平中興府。",
+                "金史/卷17@2432675#大元兵平鳳翔府。",
+                "金史/卷17@2432675#大元進兵嶢峰關",
+                "金史/卷17@2432675#大元兵渡漢江而北",
+                "金史/卷17@2432675#兩省軍大潰",
+                "金史/卷17@2432675#城破皆死之。",
+                "金史/卷17@2432675#自是，兵不復振",
+                "金史/卷17@2432675#大元兵攻汴城"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "与合达连续控制两省主力并在三峰山崩溃后被执。",
+                "source_refs": [
+                  "金史/卷17@2432675#大元兵征西夏，平中興府。",
+                  "金史/卷17@2432675#大元兵平鳳翔府。",
+                  "金史/卷17@2432675#大元進兵嶢峰關",
+                  "金史/卷17@2432675#大元兵渡漢江而北",
+                  "金史/卷17@2432675#兩省軍大潰",
+                  "金史/卷17@2432675#城破皆死之。",
+                  "金史/卷17@2432675#自是，兵不復振",
+                  "金史/卷17@2432675#大元兵攻汴城"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-FDA56F454A3A94E3",
+          "actor_name": "陈和尚",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "率部会师并参加三峰山战，败后死于钧州；无锚支持将全链失败单独归责于本人。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "率部会师并参加三峰山战，败后死于钧州；无锚支持将全链失败单独归责于本人。",
+            "source_refs": [
+              "金史/卷17@2432675#大元兵征西夏，平中興府。",
+              "金史/卷17@2432675#大元兵平鳳翔府。",
+              "金史/卷17@2432675#大元進兵嶢峰關",
+              "金史/卷17@2432675#大元兵渡漢江而北",
+              "金史/卷17@2432675#兩省軍大潰",
+              "金史/卷17@2432675#城破皆死之。",
+              "金史/卷17@2432675#自是，兵不復振",
+              "金史/卷17@2432675#大元兵攻汴城"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-F2E98F6904346CB61174",
+              "result_label": "率部会师并参加三峰山战，败后死于钧州；无锚支持将全链失败单独归责于本人。",
+              "result_direction": "negative",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "率部会师并参加三峰山战，败后死于钧州；无锚支持将全链失败单独归责于本人。",
+              "source_refs": [
+                "金史/卷17@2432675#大元兵征西夏，平中興府。",
+                "金史/卷17@2432675#大元兵平鳳翔府。",
+                "金史/卷17@2432675#大元進兵嶢峰關",
+                "金史/卷17@2432675#大元兵渡漢江而北",
+                "金史/卷17@2432675#兩省軍大潰",
+                "金史/卷17@2432675#城破皆死之。",
+                "金史/卷17@2432675#自是，兵不復振",
+                "金史/卷17@2432675#大元兵攻汴城"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "率部会师并参加三峰山战，败后死于钧州；无锚支持将全链失败单独归责于本人。",
+                "source_refs": [
+                  "金史/卷17@2432675#大元兵征西夏，平中興府。",
+                  "金史/卷17@2432675#大元兵平鳳翔府。",
+                  "金史/卷17@2432675#大元進兵嶢峰關",
+                  "金史/卷17@2432675#大元兵渡漢江而北",
+                  "金史/卷17@2432675#兩省軍大潰",
+                  "金史/卷17@2432675#城破皆死之。",
+                  "金史/卷17@2432675#自是，兵不復振",
+                  "金史/卷17@2432675#大元兵攻汴城"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [
+        {
+          "actor_ref": "PERSON-POST-A40627ADCF279FAA",
+          "actor_name": "完颜合达",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "S",
+          "severity": 0.2,
+          "basis": "与蒲阿连续控制两省主力，拒援凤翔、畏缩河中，后在三峰山主力崩溃。",
+          "source_refs": [
+            "金史/卷17@2432675#大元兵征西夏，平中興府。",
+            "金史/卷17@2432675#大元兵平鳳翔府。",
+            "金史/卷17@2432675#大元進兵嶢峰關",
+            "金史/卷17@2432675#大元兵渡漢江而北",
+            "金史/卷17@2432675#兩省軍大潰",
+            "金史/卷17@2432675#城破皆死之。",
+            "金史/卷17@2432675#自是，兵不復振",
+            "金史/卷17@2432675#大元兵攻汴城"
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-CB1D1ABAFA13143A",
+          "actor_name": "移剌蒲阿",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "S",
+          "severity": 0.2,
+          "basis": "与合达连续控制两省主力并在三峰山崩溃后被执。",
+          "source_refs": [
+            "金史/卷17@2432675#大元兵征西夏，平中興府。",
+            "金史/卷17@2432675#大元兵平鳳翔府。",
+            "金史/卷17@2432675#大元進兵嶢峰關",
+            "金史/卷17@2432675#大元兵渡漢江而北",
+            "金史/卷17@2432675#兩省軍大潰",
+            "金史/卷17@2432675#城破皆死之。",
+            "金史/卷17@2432675#自是，兵不復振",
+            "金史/卷17@2432675#大元兵攻汴城"
+          ]
+        }
+      ],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "negative",
+      "campaign_tier": "S",
+      "result_class": "single_pole_decisive_defeat",
+      "land_strategic_value": "national_core",
+      "opponent_strategic_weight": "first_tier_pole",
+      "opponent_condition": "first_tier_pole",
+      "battle_result": "defeat",
+      "objective_completion": "failed",
+      "objective_shortfalls": [
+        "共享层未闭合全部战略目标，保持证据下限。"
+      ],
+      "opponent_force_effect": "main_force_destroyed",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "1224至1232年蒙古连续压缩金朝核心方向，三峰山使两省军主力大溃且‘兵不复振’，继而围汴；国家主力不可恢复性崩溃和首都终局足以支持S草案。",
+      "tier_review_source_tier": "C",
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT",
+      "combat_difficulty": "D3",
+      "combat_difficulty_basis": "金军一度收复州郡且仍保有关隘主力，蒙古军又须跨德顺、凤翔、河中至三峰山连续推进，两项约束相互强化，取D3。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-25662C59A966A17E46ED",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "BATTLE-JIN-REDCOATS-XUPI-1217-1219",
+      "split_from_source_target_ref": "CAMPAIGN-JIN-NORTHERN-INTERNAL-WARS-1217-1219",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "canonical_label": "金行枢密院军在徐邳击败红袄军",
+      "period": {
+        "start": "1217",
+        "end": "1219"
+      },
+      "observable_result": "金行枢密院军在徐邳击败红袄军",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "tier_basis": "混合父项中该战区有独立攻取或击破结果，但人物统帅未载，只取B档证据下限。",
+      "tier_review_source_tier": null,
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT_SPLIT_CHILD",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按该子方向逐字锚可证的攻陷、平定或归降结果取证据下限。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "混合父项未保存可归责的连续子方向指挥，不从官职推定。",
+      "members": [],
+      "attributable_failures": [],
+      "detail_expansion_status": "complete_unknown",
+      "source_lineage": {
+        "source_card_ids": [],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-15.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷15@2432740#紅襖賊犯徐、邳，行樞密院兵大破之。"
+        ],
+        "lineage_basis": "同一共享事实含多个互不连续战区；父项持有fact_id，子项只持定点逐字锚，避免事实ID重复消费。"
+      },
+      "source_refs": [
+        "金史/卷15@2432740#紅襖賊犯徐、邳，行樞密院兵大破之。"
+      ],
+      "uncertainties": [],
+      "cost_or_burden": "unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "merged_into": null,
+      "limitations": [
+        "不得把混合父项的总兵力、四百余处规模或其他战区结果复制到本子项。"
+      ],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "basis": "混合父项中该战区有独立攻取或击破结果，但人物统帅未载，只取B档证据下限。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    }
+  ]
+}

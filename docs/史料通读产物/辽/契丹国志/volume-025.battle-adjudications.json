@@ -1,0 +1,418 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "契丹国志/卷025",
+  "source_identity": {
+    "source_unit_id": "SRC-QIDANGUOZHI-025-2258650",
+    "source_url": "https://zh.wikisource.org/wiki/%E5%A5%91%E4%B8%B9%E5%9C%8B%E5%BF%97/%E5%8D%B7%E4%BA%8C%E5%8D%81%E4%BA%94",
+    "revision_ref": "2258650",
+    "raw_sha256": "aca85efd866d9bd28a9c8af68267537a7760db0e904910c910a7de0a9d6e1d4d"
+  },
+  "cards": [
+    {
+      "battle_label": "沙河继承冲突—述律太后败退、独树渡被追并囚扑马山",
+      "campaign_group": "QDGZ-LIAO-SUCCESSION-SHIQIAO-947",
+      "source_anchor_refs": [
+        "SRC-QIDANGUOZHI-025-2258650-P0003"
+      ],
+      "source_quotes": [
+        "蕭翰與世宗兀欲相及，遂及述律后，戰於沙河",
+        "述律兵敗而北，兀欲追至獨樹渡",
+        "遂囚述律于撲馬山"
+      ],
+      "aggregation_disposition": "DUPLICATE_NARRATION_DO_NOT_DOUBLE_COUNT",
+      "duplicate_historical_phase_of": {
+        "source_volume": "契丹国志/卷013",
+        "source_anchor_ref": "SRC-QIDANGUOZHI-013-2258658-P0012",
+        "campaign_group": "QDGZ-LIAO-SUCCESSION-SHIQIAO-947",
+        "note": "卷013已记兀欲—伟王军与述律太后军在石桥交锋、太后军大败；卷025胡峤见闻以“沙河”记同一继承战事，并新增追至独树渡、囚太后于扑马山等细节。"
+      },
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "兀欲—萧翰军 × 追击并收束述律太后武装阶段（重复补叙）",
+          "subject_role": "SUCCESSION_ARMY",
+          "actual_process": "兀欲、萧翰与述律太后军在沙河交战，太后军败退；兀欲继续追至独树渡，并最终把述律太后囚于扑马山。该历史阶段已由卷013石桥之战裁决，本卡只补追击和幽囚细节。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1；P1/M1为最高档而S0，不触发PS抬档；仅为同一阶段的重复事实视图，不二次累计。",
+          "P_inference": {
+            "P_observed": "本卷只记交战、追击和胜方终局控制，未载胜方伤亡。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "发生实际交战和追击，不能定P0；但胜方未见败退、主将受创或百人级损失后效。",
+            "upper_bound_reason": "无百人级胜方死伤、伤俘、未归或成建制受损事实。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-025-2258650-P0003"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB3",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB3/SN0",
+          "strategic_security_detail": "本卷新增追击与幽囚结果，进一步确认述律太后掌兵争位能力被收束；该安全收益已在卷013同父链落账。",
+          "material_return": "WR0",
+          "material_return_detail": "没有公共军资、财政或土地所得；囚禁太后不构成WR。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [],
+            "control_change_mode": "NONE",
+            "control_outcome": "中央继承与军政控制收束，不是边疆空间变化。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-025-2258650-P0003"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "与卷013同一历史阶段：低可见战斗成本击败并追收对手，完成中央继承武装对峙收束；本卷不新增聚合收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "辽朝既成政权内部继承战争，不属于新政权创业。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-QIDANGUOZHI-025-2258650-P0003"
+            ],
+            "strategic_security": [
+              "SRC-QIDANGUOZHI-025-2258650-P0003"
+            ],
+            "material_return": [
+              "SRC-QIDANGUOZHI-025-2258650-P0003"
+            ],
+            "border_control": [
+              "SRC-QIDANGUOZHI-025-2258650-P0003"
+            ]
+          },
+          "carry_in": "直接承卷013 P0012石桥继承冲突；卷025为胡峤旅行记中的地点与终局补证。",
+          "carry_out": "聚合时按campaign_group及duplicate标记去重；不得把沙河、石桥两个地名视为两场可重复累计的胜利。"
+        },
+        {
+          "evaluation_subject_phase": "述律太后军 × 沙河败退、被追并失去掌军能力阶段（重复补叙）",
+          "subject_role": "SUCCESSION_DEFENDER",
+          "actual_process": "述律太后军在沙河交战后败退，兀欲追至独树渡；太后最终被囚于扑马山。该历史阶段已在卷013按石桥之战裁决。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=1；P1与S1同为基础最高档，触发PS抬档至WC2；仅为重复事实视图，不二次累计。",
+          "P_inference": {
+            "P_observed": "本卷记兵败与追击，但具体死伤仍失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际交战、败退与追击支持最低非零损害；政治终局由S/SN单独记录，不把幽囚反推成人员死亡。",
+            "upper_bound_reason": "无百人级死伤、俘兵、追歼数量或成建制覆灭数字。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-025-2258650-P0003"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN3"
+          },
+          "strategic_security": "SB0/SN3",
+          "strategic_security_detail": "败退后太后本人被幽囚，继续掌兵争位的中央军政能力丧失；与卷013判定一致。",
+          "material_return": "WR0",
+          "material_return_detail": "无所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [],
+            "control_change_mode": "NONE",
+            "control_outcome": "中央权力斗争，不涉及边疆空间净变化。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-025-2258650-P0003"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "交战败退且核心领导者被幽囚，争位能力终结；为同一阶段重复补证，不二次累计。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成辽朝内部继承失败阶段。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-QIDANGUOZHI-025-2258650-P0003"
+            ],
+            "strategic_security": [
+              "SRC-QIDANGUOZHI-025-2258650-P0003"
+            ],
+            "material_return": [
+              "SRC-QIDANGUOZHI-025-2258650-P0003"
+            ],
+            "border_control": [
+              "SRC-QIDANGUOZHI-025-2258650-P0003"
+            ]
+          },
+          "carry_in": "承卷013 P0012。",
+          "carry_out": "聚合去重；本卷新增的扑马山幽囚只加强既有终局证据。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "太宗灭后晋、执出帝母后大臣北归（既有灭晋终局补叙）",
+      "campaign_group": "QDGZ-LIAO-LATERJIN-WAR-944-947",
+      "source_anchor_refs": [
+        "SRC-QIDANGUOZHI-025-2258650-P0010"
+      ],
+      "source_quotes": [
+        "怒晉出帝不稟北命，擅登大寶",
+        "自將兵南下",
+        "執出帝幷母、后、大臣北歸"
+      ],
+      "aggregation_disposition": "DUPLICATE_NARRATION_DO_NOT_DOUBLE_COUNT",
+      "duplicate_historical_phase_of": {
+        "source_volume": "契丹国志/卷014",
+        "source_anchor_ref": "SRC-QIDANGUOZHI-014-2258657-P0009",
+        "campaign_group": "QDGZ-LIAO-LATERJIN-WAR-944-947",
+        "note": "卷014已裁决“太宗破石晋，入中原”的灭晋终局；本卷只新增战争动机、自将南下以及俘出帝、母、后、大臣北归。"
+      },
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "契丹太宗军 × 灭后晋并押送统治集团北归阶段（重复补叙）",
+          "subject_role": "ATTACKER_CONQUEST",
+          "actual_process": "太宗因后晋出帝未禀契丹而即位，亲自领兵南下；最终执出帝及其母、后、大臣北归。灭晋控制终局已在卷014同父链裁决。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A0",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3；M3为基础最高档，P2/S0不触发PS抬档；同一终局重复补叙，不二次累计。",
+          "P_inference": {
+            "P_observed": "本卷没有契丹方独立伤亡数字。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "沿卷014已裁决的国家级征服终局保留百人级阶段估计；卷013已另记全父链“契丹人畜亦多死”，不能在本卷重复上推。",
+            "upper_bound_reason": "本卷没有千人级本终局阶段独立损失下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-025-2258650-P0010"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB4",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB4/SN0",
+          "strategic_security_detail": "后晋这一持续敌对国家在同一父链终局中被终结；本卷新增俘获其统治集团的强终局证据，但不二次累计SB。",
+          "material_return": "WR4",
+          "material_return_detail": "同一阶段已实际接管后晋核心政权空间；俘获皇帝、母后和大臣本身不是公共资产，不额外抬WR。",
+          "border_control": {
+            "BCP": "BCP4",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "后晋核心辖境/中原"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "与卷014同一终局：契丹实际取得后晋核心国家空间；本卷仅补统治集团被押北归。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-025-2258650-P0010"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "同一灭晋终局完成国家级征服与统治集团俘获；本卷不增加重复回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "辽朝既成政权对外征服，不属于其建国启动阶段。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-QIDANGUOZHI-025-2258650-P0010"
+            ],
+            "strategic_security": [
+              "SRC-QIDANGUOZHI-025-2258650-P0010"
+            ],
+            "material_return": [
+              "SRC-QIDANGUOZHI-025-2258650-P0010"
+            ],
+            "border_control": [
+              "SRC-QIDANGUOZHI-025-2258650-P0010"
+            ]
+          },
+          "carry_in": "承卷013 P0010连年战争成本总括与卷014 P0009灭晋入中原终局。",
+          "carry_out": "本段随后记太宗北归途中得疾并崩，属于终局后的政治/君主死亡事实；聚合时不得再次累计灭晋WC/SB/WR/BCP。"
+        },
+        {
+          "evaluation_subject_phase": "后晋军政体系 × 出帝及统治集团被俘北迁、政权终结阶段（重复补叙）",
+          "subject_role": "DEFENDER_COLLAPSE",
+          "actual_process": "后晋出帝及其母、后和大臣被契丹俘执北归，进一步确认后晋中央统治集团整体失去国家控制；灭国阶段已在卷014裁决。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S5",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC5"
+          },
+          "wc_basis": "base_WC=5；S5为基础最高档，P2不与S同档，不触发PS抬档；重复终局不二次累计。",
+          "P_inference": {
+            "P_observed": "明确有出帝、母、后、大臣被俘北归；总战争人员损失仍失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "沿卷014终局卡保留百人级估计；少数高层被俘按1/5折算不足以单独抬档，国家崩解由S/SN/BCN独立记录。",
+            "upper_bound_reason": "本卷没有千人级死伤、流亡或被俘下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-025-2258650-P0010"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN5"
+          },
+          "strategic_security": "SB0/SN5",
+          "strategic_security_detail": "皇帝及中央统治集团被俘北迁，国家安全秩序彻底失效；与卷014同一终局判定。",
+          "material_return": "WR0",
+          "material_return_detail": "败方无正向回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN5",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "后晋国家核心空间"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "国家级控制体系被外敌接管，中央统治集团被押离。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-025-2258650-P0010"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "政权终结、统治集团被俘北迁且核心控制空间丧失；同一历史终局重复补证。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "后晋既成政权灭亡阶段。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-QIDANGUOZHI-025-2258650-P0010"
+            ],
+            "strategic_security": [
+              "SRC-QIDANGUOZHI-025-2258650-P0010"
+            ],
+            "material_return": [
+              "SRC-QIDANGUOZHI-025-2258650-P0010"
+            ],
+            "border_control": [
+              "SRC-QIDANGUOZHI-025-2258650-P0010"
+            ]
+          },
+          "carry_in": "承卷013—014同一后晋战争父链。",
+          "carry_out": "本卷没有新的后晋复国或控制恢复阶段；聚合严格去重。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "linear_reread": {
+      "range": "SRC-QIDANGUOZHI-025-2258650-P0001—P0031",
+      "paragraph_count": 31,
+      "body_end": "P0031",
+      "edit_markers": [
+        "P0002",
+        "P0007",
+        "P0009",
+        "P0012",
+        "P0015",
+        "P0018",
+        "P0021",
+        "P0024",
+        "P0027",
+        "P0030"
+      ],
+      "metadata_tail": [],
+      "status": "COMPLETED"
+    },
+    "card_coverage": {
+      "adjudicated_cards": 2,
+      "adjudicated_subject_phase_cards": 4,
+      "raw_battle_anchor_inventory_count": 8,
+      "adjudicated_anchor_count": 2,
+      "not_a_battle_anchor_count": 6,
+      "coverage_note": "逐段复读确认实际武装历史叙述仅P0003继承战争与P0010灭后晋终局；两者均是前卷已裁决父链的重复补叙，本卷保留新增地点、追击、幽囚及俘获统治集团事实，并明确禁止重复累计。"
+    },
+    "quality_checks": {
+      "ps_uplift_checked": true,
+      "p_inference_checked": true,
+      "asset_axis_checked": "上京市场、盐鱼、皮毛、金属、百里马、兽医与猎犬均为非战役经济/社会事实；后晋被俘人口及述律太后被囚均不作公共资产WR。",
+      "control_axis_checked": "继承战争为中央权力争夺，BCP/BCN均0；灭后晋控制变化沿卷014同一终局维持辽方BCP4、后晋BCN5，但aggregation_disposition要求本卷不二次累计。",
+      "ps_uplift_note": "述律太后方P1/S1触发WC1→WC2；其余三张主体阶段卡均不触发PS抬档。",
+      "cross_volume_checked": true
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-025-2258650-P0003",
+        "disposition": "ADJUDICATED",
+        "note": "沙河交战、述律兵败、独树渡追击及扑马山幽囚为实际继承战争；与卷013石桥父链重复，已做duplicate去重。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-025-2258650-P0003",
+        "disposition": "NOT_A_BATTLE",
+        "note": "同段唐太宗北伐鸡鸣山传说、契丹破回纥后得西瓜种等均为历史传闻/物种来源，不具有本卷可分辨战役阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-025-2258650-P0004",
+        "disposition": "NOT_A_BATTLE",
+        "note": "“人好杀戮”“邻国不敢侵”“契丹五骑遇一韈刼子则散走”等为族俗、威慑或传闻，不是具体实际战役。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-025-2258650-P0005",
+        "disposition": "NOT_A_BATTLE",
+        "note": "契丹人对晋败“主暗而臣不忠”的评论属于政治评价。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-025-2258650-P0010",
+        "disposition": "ADJUDICATED",
+        "note": "太宗自将南下、执后晋出帝母后大臣北归为灭晋终局补叙；沿卷013—014同父链并标记重复去重。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-025-2258650-P0016",
+        "disposition": "NOT_A_BATTLE",
+        "note": "割马肝为兽医手段，虽“十丧八九”造成马匹高死亡，但不是战争行动或本卷战役资产损失。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-025-2258650-P0019",
+        "disposition": "NOT_A_BATTLE",
+        "note": "雕窠猎犬及狩猎效率属于游猎资产和风俗。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-025-2258650-P0025",
+        "disposition": "NOT_A_BATTLE",
+        "note": "银牌“宜速”用于使者驰驿和需索，是行政命令与供给制度，不等于具体军事动员。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      "P0003与卷013 `QDGZ-LIAO-SUCCESSION-SHIQIAO-947`同一继承战争。沙河/石桥地名差异不足以拆成两次可累计战役；本卷新增独树渡追击和扑马山幽囚，只强化终局证据。",
+      "P0010与卷013—014 `QDGZ-LIAO-LATERJIN-WAR-944-947`同一灭晋终局。本卷新增出帝、母、后、大臣被俘北归；人口本身不作WR，灭晋SB/WR/BCP不得重复累计。",
+      "P0003上京中国人和P0004卫州俘民说明战争强迁/俘掳对人口结构的长期影响，但这些是卷025观察到的社会后效，不倒灌为前卷P或WR新档。",
+      "卷026将出现奚被太祖击灭后复立奚王、契丹监兵，以及东京渤海故地与金代强迁等材料；须分别与卷022、卷014既有父链核对，严格做新增阶段/后效去重。"
+    ]
+  }
+}

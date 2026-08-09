@@ -1,0 +1,80 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "jin",
+  "bucket": 6,
+  "bucket_count": 24,
+  "record_count": 1,
+  "records_fingerprint": "d7332f7a7b9bb9648411c55bd5928f2c448780252fdd81cac8abb7b6aec4ae51",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-2B72594ADB6EC69FB3E4",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-SONG-MONGOL-CAIZHOU-FINAL-1233-1234",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": false,
+      "canonical_label": "蒙古与宋军先后攻取唐州并围蔡州；宋派江海、孟珙率万人、粮三十万石助攻，双方决练江、柴潭引水，先后破外城、毁西城，最终攻入蔡州。",
+      "period": {
+        "start": "天兴二年七月",
+        "end": "天兴三年正月"
+      },
+      "observable_result": "蔡州防御被联合军水攻与强攻突破，金朝最后都城陷落。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V18-SONG-MONGOL-CAIZHOU-CAMPAIGN-1233-1234"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-18.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷18@2432702#大元兵築長壘圍蔡城。",
+          "金史/卷18@2432702#宋遣其將江海、孟珙帥兵萬人，獻糧三十萬石助大元兵攻蔡。",
+          "金史/卷18@2432702#大元兵決練江，宋兵決柴潭入汝水。",
+          "金史/卷18@2432702#大元兵破外城",
+          "金史/卷18@2432702#大元兵墮西城"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷18@2432702#大元兵築長壘圍蔡城。",
+        "金史/卷18@2432702#宋遣其將江海、孟珙帥兵萬人，獻糧三十萬石助大元兵攻蔡。",
+        "金史/卷18@2432702#大元兵決練江，宋兵決柴潭入汝水。",
+        "金史/卷18@2432702#大元兵破外城",
+        "金史/卷18@2432702#大元兵墮西城"
+      ],
+      "uncertainties": [
+        "联军总兵力、河水影响范围、城内外伤亡和俘虏数未载。"
+      ],
+      "cost_or_burden": "宋军万人并供粮三十万石；唐州蔡州军民伤亡未完整载明。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": "WAR-POST-56A637C8718BA84BC938",
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "MERGED_CROSS_SOURCE_DUPLICATE",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED_MERGED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "跨书同一统一阶段已并入主分区记录，不重复产生人物信用。",
+      "detail_expansion_status": "merged_cross_source_duplicate",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "跨书重复观察并入CAMPAIGN-YUAN-JIN-CAIZHOU-1233-1234；本记录只保留lineage，不重复登记战果。"
+    }
+  ]
+}

@@ -19,6 +19,10 @@ from emperor_v4.evaluation.battle_outcome_worklist import (
 from emperor_v4.evaluation.post_tang_battle_registry import (
     merge_post_tang_battle_registry,
 )
+from emperor_v4.evaluation.battle_registry_store import write_battle_registry
+from emperor_v4.evaluation.battle_adjudication_store import (
+    load_battle_parent_adjudications,
+)
 
 
 SCHEMA_VERSION = "battle-parent-contract-registry-v1"
@@ -2458,11 +2462,8 @@ def write_battle_parent_contract_registry(
             workspace_root / "config/ordinary-campaign-adjudications.json"
         ).read_text(encoding="utf-8")
     )
-    contract_adjudications = json.loads(
-        (
-            workspace_root
-            / "config/battle-parent-contract-adjudications.json"
-        ).read_text(encoding="utf-8")
+    contract_adjudications = load_battle_parent_adjudications(
+        workspace_root / "config/battle-parent-contract-adjudications.json"
     )
     settlements = load_military_settlements(
         workspace_root
@@ -2501,10 +2502,7 @@ def write_battle_parent_contract_registry(
     target.mkdir(parents=True, exist_ok=True)
     json_path = target / "01-战役登记.json"
     markdown_path = target / "01-战役登记.md"
-    json_path.write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
+    write_battle_registry(json_path, payload)
     markdown_path.write_text(
         render_battle_parent_contract_registry_markdown(payload),
         encoding="utf-8",

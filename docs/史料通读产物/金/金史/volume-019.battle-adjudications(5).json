@@ -1,0 +1,1783 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "金史/卷019",
+  "source_identity": {
+    "source_unit_id": "SRC-JINSHI-019-2432672",
+    "source_url": "https://zh.wikisource.org/wiki/%E9%87%91%E5%8F%B2/%E5%8D%B719",
+    "revision_ref": "2432672",
+    "raw_sha256": "72fca89ee6d6f2f49bb6e041d9fd6cc045913d507e29a8efd95923db4920cf7e",
+    "paragraph_count": 41,
+    "historical_text_range": [
+      "SRC-JINSHI-019-2432672-P0001",
+      "SRC-JINSHI-019-2432672-P0041"
+    ]
+  },
+  "volume_type_note": "列传/追尊帝纪回叙卷；P0004—P0013的战争时间早于卷018，必须按既有历史事件键跨卷去重。",
+  "cards": [
+    {
+      "battle_id": "JIN019-B01",
+      "battle_label": "景宣宗峻参与鸳鸯泺追击—西京浮图攻取",
+      "campaign_group": "JSH-JIN-LIAO-XIJING-1122",
+      "source_anchor_refs": [
+        "SRC-JINSHI-019-2432672-P0004"
+      ],
+      "source_quotes": [
+        "與杲俱襲遼主於鴛鴦濼",
+        "帝與宗翰等擊走之",
+        "先取是，則西京可下",
+        "攻浮圖，克下，遂下西京"
+      ],
+      "cross_source_relation": {
+        "type": "BIOGRAPHICAL_SUPPLEMENT",
+        "prior_volume": "金史/卷002",
+        "dedup_required": true
+      },
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金景宣宗峻部 × 鸳鸯泺—西京阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "宗峻别领合扎猛安，随杲追辽主；又与宗翰等击退耿守忠援军。西京城南浮图为辽军先据、下射致金军多伤，宗峻主张先夺浮图，克后遂下西京。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3（max(P,S,M,A)）；P/S未同时位于基础最高档，不抬档；最终WC3。",
+          "security_axes": {
+            "SB": "SB3",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB3/SN0",
+          "strategic_security_detail": "夺取辽核心都城并击退援军，形成重要战略安全收益。",
+          "material_return": "WR3",
+          "material_return_detail": "取得西京都城军政、城防资源；人口不计WR。",
+          "border_control": {
+            "BCP": "BCP4",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "辽西京及城南浮图"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "本来源确认攻下关键外部据点并随即下西京；整体控制连续性仍并入卷002同父链。",
+            "continuity_status": "HELD_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0004"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "以中等可见成本击退援军、突破关键高点并取得国家核心都城。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "金建国扩张期夺取辽核心都城，显著扩大可治理战略空间。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-019-2432672-P0004"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-019-2432672-P0004"
+            ],
+            "material_return": [
+              "SRC-JINSHI-019-2432672-P0004"
+            ],
+            "border_control": [
+              "SRC-JINSHI-019-2432672-P0004"
+            ]
+          },
+          "carry_in": "承卷002“鸳鸯濼追辽主—西京降、复叛与再取”父链；本卷为景宣列传补人物角色与浮图战术。",
+          "carry_out": "不得把本列传的西京成果与卷002同事件重复累计。",
+          "P_inference": {
+            "P_observed": "“士卒多伤”，具体人数失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "明确有较多金军受伤及实际攻坚，按百人级死亡当量中心估计。",
+            "upper_bound_reason": "无千人级死亡、未归或成建制覆没下限。",
+            "confidence": "medium-low",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0004"
+            ]
+          }
+        },
+        {
+          "evaluation_subject_phase": "辽耿守忠援军—西京守军 × 援救与守城失败阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "耿守忠救西京被宗峻等击退；守军先据城南浮图射击金军，最终浮图被攻克，西京随之失守。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S4",
+            "M": "M2",
+            "A": "A3",
+            "WC": "WC4"
+          },
+          "wc_basis": "base_WC=4（max(P,S,M,A)）；P/S未同时位于基础最高档，不抬档；最终WC4。",
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN4"
+          },
+          "strategic_security": "SB0/SN4",
+          "strategic_security_detail": "西京这一国家核心节点丧失，战略安全显著恶化。",
+          "material_return": "WR0",
+          "material_return_detail": "",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN4",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "辽西京及城南浮图"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "援军失败且核心都城失守。",
+            "continuity_status": "LOST_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0004"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "人员、城防、核心都城控制和战略安全同时受损。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权的常规战争或内乱，不属于本阶段可确认的新建政权启动过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-019-2432672-P0004"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-019-2432672-P0004"
+            ],
+            "material_return": [
+              "SRC-JINSHI-019-2432672-P0004"
+            ],
+            "border_control": [
+              "SRC-JINSHI-019-2432672-P0004"
+            ]
+          },
+          "carry_in": "承卷002同一西京父链。",
+          "carry_out": "卷002所见西京后续复叛—再取属于同一控制链，不在本卷重复制造新收益。",
+          "P_inference": {
+            "P_observed": "援军被击走、浮图及西京失守，具体死伤失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "多阶段实际接战与攻城支持百人级中心。",
+            "upper_bound_reason": "无千人级死亡或俘获明确下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0004"
+            ]
+          }
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_id": "JIN019-B02",
+      "battle_label": "安福哥诱新降民叛—睿宗乌古乃讨平",
+      "campaign_group": "JSH-JIN-HUANGLONG-REBELLION-1122",
+      "source_anchor_refs": [
+        "SRC-JINSHI-019-2432672-P0009"
+      ],
+      "source_quotes": [
+        "安福哥誘新降之民以叛",
+        "帝與烏古乃討平之"
+      ],
+      "cross_source_relation": {
+        "type": "BIOGRAPHICAL_RECAP",
+        "prior_volume": "金史/卷002",
+        "dedup_required": true
+      },
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金睿宗—乌古乃军 × 黄龙府新降民平叛阶段",
+          "subject_role": "SUPPRESSION_ATTACKER",
+          "actual_process": "安福哥诱新降之民叛乱，睿宗与乌古乃出兵讨平。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1（max(P,S,M,A)）；P/S未同时位于基础最高档，不抬档；最终WC1。",
+          "security_axes": {
+            "SB": "SB2",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB2/SN0",
+          "strategic_security_detail": "一次新附地区武装威胁被解除。",
+          "material_return": "WR1",
+          "material_return_detail": "",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "黄龙府新降民控制区"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "恢复对该新附节点和人群的控制。",
+            "continuity_status": "HELD_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0009"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以有限可见成本终止一次新附地区叛乱并恢复控制。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "金扩张后对新附黄龙府地区的再控制，属于新政权巩固。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-019-2432672-P0009"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-019-2432672-P0009"
+            ],
+            "material_return": [
+              "SRC-JINSHI-019-2432672-P0009"
+            ],
+            "border_control": [
+              "SRC-JINSHI-019-2432672-P0009"
+            ]
+          },
+          "carry_in": "卷002 P0071亦见“黄龙府叛，宗辅讨平之”，本卷为睿宗列传补叙。",
+          "carry_out": "同一叛乱跨来源只累计一次。",
+          "P_inference": {
+            "P_observed": "明确实际讨平，金方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "有真实武装处置，不按P0；无高损后效。",
+            "upper_bound_reason": "无百人级己方人员损失下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0009"
+            ]
+          }
+        },
+        {
+          "evaluation_subject_phase": "安福哥叛军 × 被讨平阶段",
+          "subject_role": "INSURGENT_DEFENDER",
+          "actual_process": "诱集新降民起事，遭睿宗、乌古乃军讨平，独立武装控制终止。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=2（max(P,S,M,A)）；P/S同为基础最高档，按合同抬1档；最终WC3。",
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN2"
+          },
+          "strategic_security": "SB0/SN2",
+          "strategic_security_detail": "叛乱集团继续武装行动能力终止。",
+          "material_return": "WR0",
+          "material_return_detail": "",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "黄龙府新降民控制区"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "叛乱据点和组织控制被清除。",
+            "continuity_status": "LOST_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0009"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "叛乱组织被平定且无可确认收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权的常规战争或内乱，不属于本阶段可确认的新建政权启动过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-019-2432672-P0009"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-019-2432672-P0009"
+            ],
+            "material_return": [
+              "SRC-JINSHI-019-2432672-P0009"
+            ],
+            "border_control": [
+              "SRC-JINSHI-019-2432672-P0009"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "无。",
+          "P_inference": {
+            "P_observed": "叛乱被“讨平”，具体死伤、俘降失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "成建制地方叛乱终止，保守按百人级中心估计。",
+            "upper_bound_reason": "无千人级死亡、俘获或失踪下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0009"
+            ]
+          }
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_id": "JIN019-B03",
+      "battle_label": "乐安击破马括二十万—因农时还师",
+      "campaign_group": "JSH-JIN-SONG-QINGWEI-1128",
+      "source_anchor_refs": [
+        "SRC-JINSHI-019-2432672-P0010"
+      ],
+      "source_quotes": [
+        "宋馬括兵二十萬至樂安，帝率師擊破之",
+        "時東作方興，留大軍夾河屯田而還"
+      ],
+      "cross_source_relation": {
+        "type": "BIOGRAPHICAL_SUPPLEMENT",
+        "prior_volume": "金史/卷003",
+        "dedup_required": true
+      },
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金睿宗军 × 乐安击破马括阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "自河间徇淄青后，在乐安击破马括所率二十万宋军；因春耕方兴停止继续追袭宋主，留大军夹河屯田后还。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3（max(P,S,M,A)）；P/S未同时位于基础最高档，不抬档；最终WC3。",
+          "security_axes": {
+            "SB": "SB2",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB2/SN0",
+          "strategic_security_detail": "击退一支大规模宋军，使山东方向阶段性威胁下降。",
+          "material_return": "WR0",
+          "material_return_detail": "",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "乐安战场"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "击破大军但本锚点没有确认新增州城控制。",
+            "continuity_status": "HELD_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "获得显著战术和安全收益，但因农时停止继续推进，且无本段独立控地/资源收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权的常规战争或内乱，不属于本阶段可确认的新建政权启动过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ],
+            "material_return": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ],
+            "border_control": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ]
+          },
+          "carry_in": "承卷003 P0054“青潍—乐安阶段”；本卷新增马括兵力二十万与屯田细节。",
+          "carry_out": "本卡只记乐安本阶段，不把卷003青州、潍州控制收益倒灌进来。",
+          "P_inference": {
+            "P_observed": "实际大规模接战，金军完整伤亡失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "与二十万级敌军会战但无金方重损后效，保守百人级。",
+            "upper_bound_reason": "无千人级金军死亡、被俘或未归证据。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ]
+          }
+        },
+        {
+          "evaluation_subject_phase": "宋马括军 × 乐安败战阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "马括率二十万军到乐安，被睿宗军击破；本卷不载具体死伤和是否成建制覆没。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S1",
+            "M": "M4",
+            "A": "A2",
+            "WC": "WC4"
+          },
+          "wc_basis": "base_WC=4（max(P,S,M,A)）；P/S未同时位于基础最高档，不抬档；最终WC4。",
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN2"
+          },
+          "strategic_security": "SB0/SN2",
+          "strategic_security_detail": "该支大规模进军被击退，局部作战能力受损。",
+          "material_return": "WR0",
+          "material_return_detail": "",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "乐安战场"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "遭败但本锚点未确认州城控制变化。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "国家级大军出动后战败且无所得。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权的常规战争或内乱，不属于本阶段可确认的新建政权启动过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ],
+            "material_return": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ],
+            "border_control": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ]
+          },
+          "carry_in": "承卷003同一乐安事件。",
+          "carry_out": "须与卷003同源事件去重。",
+          "P_inference": {
+            "P_observed": "二十万级部队被“击破”，完整伤亡失载。",
+            "range": "1,000—9,999死亡当量",
+            "center": 3162,
+            "P_scoring": "P3估",
+            "basis": "结合超大规模会战与明确败绩，按千人级中心约束；不把出兵数直接换算死亡。",
+            "upper_bound_reason": "无万人级死亡、伤俘或未归明确下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ]
+          }
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_id": "JIN019-B04",
+      "battle_label": "大名两败台宗雋、宋忠五万军",
+      "campaign_group": "JSH-JIN-SONG-DAMING-1128",
+      "source_anchor_refs": [
+        "SRC-JINSHI-019-2432672-P0010"
+      ],
+      "source_quotes": [
+        "台宗雋、宋忠軍五萬於大名",
+        "明日再破之，獲宗雋、忠而還"
+      ],
+      "cross_source_relation": {
+        "type": "BIOGRAPHICAL_SUPPLEMENT",
+        "prior_volume": "金史/卷003",
+        "dedup_required": true
+      },
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金移剌古军 × 大名连续两战阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "移剌古在大名击败台宗雋、宋忠所率五万宋军，次日再败其军并擒两名主将。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=2（max(P,S,M,A)）；P/S未同时位于基础最高档，不抬档；最终WC2。",
+          "security_axes": {
+            "SB": "SB3",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB3/SN0",
+          "strategic_security_detail": "该支五万级宋军和指挥体系遭持续削弱。",
+          "material_return": "WR0",
+          "material_return_detail": "",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "大名战场"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "连续两胜并俘主将，但本阶段不单独确认大名城控制变化。",
+            "continuity_status": "HELD_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "以有限可见成本连续击溃一支五万军并破坏其指挥体系。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权的常规战争或内乱，不属于本阶段可确认的新建政权启动过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ],
+            "material_return": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ],
+            "border_control": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ]
+          },
+          "carry_in": "承卷003 P0055“大名两败台宗雋军”；本卷补兵力五万。",
+          "carry_out": "大名府后续实际攻克另见本卷河北终局卡，不在此战重复记BCP。",
+          "P_inference": {
+            "P_observed": "两次实际会战，金军损失失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "连续两战支持百人级中心；未见金方高损。",
+            "upper_bound_reason": "无千人级金军损失下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ]
+          }
+        },
+        {
+          "evaluation_subject_phase": "宋台宗雋、宋忠军 × 大名两败阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "五万军在大名连续两日被击败，台宗雋、宋忠二将被俘。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S1",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3（max(P,S,M,A)）；P/S未同时位于基础最高档，不抬档；最终WC3。",
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN3"
+          },
+          "strategic_security": "SB0/SN3",
+          "strategic_security_detail": "该支机动军及其指挥体系受到重大削弱。",
+          "material_return": "WR0",
+          "material_return_detail": "",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "大名战场"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "指挥层被俘、部队显著受创，但本阶段未直接失城。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "五万级军队连续败战并失去主要指挥官。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权的常规战争或内乱，不属于本阶段可确认的新建政权启动过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ],
+            "material_return": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ],
+            "border_control": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "无。",
+          "P_inference": {
+            "P_observed": "五万军连续两败且两主将被俘，具体总伤亡失载。",
+            "range": "1,000—9,999死亡当量",
+            "center": 3162,
+            "P_scoring": "P3估",
+            "basis": "连续败战及指挥体系崩解支持千人级中心。",
+            "upper_bound_reason": "无万人级死亡、伤俘或未归明确下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ]
+          }
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_id": "JIN019-B05",
+      "battle_label": "冀州夜袭照里营—金军击退",
+      "campaign_group": "JSH-JIN-SONG-JIZHOU-ZHAOLI-1128",
+      "source_anchor_refs": [
+        "SRC-JINSHI-019-2432672-P0010"
+      ],
+      "source_quotes": [
+        "冀州人乘夜出兵襲照裏營",
+        "照裏擊敗之"
+      ],
+      "cross_source_relation": {
+        "type": "BIOGRAPHICAL_SUPPLEMENT",
+        "prior_volume": null,
+        "dedup_required": true,
+        "note": "当前卷002—003卡审计未锁定完全同名卡；汇总前仍按事件键检索去重。"
+      },
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金照里营军 × 反击冀州夜袭阶段",
+          "subject_role": "DEFENDER_COUNTERATTACK",
+          "actual_process": "冀州方面乘夜出兵袭击照里营，照里军反击并将其击败。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1（max(P,S,M,A)）；P/S未同时位于基础最高档，不抬档；最终WC1。",
+          "security_axes": {
+            "SB": "SB1",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB1/SN0",
+          "strategic_security_detail": "一次局部营地威胁被解除。",
+          "material_return": "WR0",
+          "material_return_detail": "",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "照里营及冀州方向"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "营地守住，未见新增控制。",
+            "continuity_status": "HELD_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "成功保营并击退一次夜袭，安全收益局部。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权的常规战争或内乱，不属于本阶段可确认的新建政权启动过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ],
+            "material_return": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ],
+            "border_control": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "无。",
+          "P_inference": {
+            "P_observed": "遭夜袭并反击，金军伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际近距离武装接触，不按P0。",
+            "upper_bound_reason": "无百人级己方人员损失下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ]
+          }
+        },
+        {
+          "evaluation_subject_phase": "冀州出击军 × 夜袭失败阶段",
+          "subject_role": "ATTACKER_RAID",
+          "actual_process": "乘夜出兵袭金照里营，遭反击而败。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=2（max(P,S,M,A)）；P/S未同时位于基础最高档，不抬档；最终WC2。",
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN1"
+          },
+          "strategic_security": "SB0/SN1",
+          "strategic_security_detail": "一次主动出击失败。",
+          "material_return": "WR0",
+          "material_return_detail": "",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "照里营"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未能夺营或形成控制收益。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "夜袭失败且无所得。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权的常规战争或内乱，不属于本阶段可确认的新建政权启动过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ],
+            "material_return": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ],
+            "border_control": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "无。",
+          "P_inference": {
+            "P_observed": "夜袭部队被“击败”，损失数字失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "战术性袭营败退，保守按百人级中心。",
+            "upper_bound_reason": "无千人级死亡、伤俘或未归下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ]
+          }
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_id": "JIN019-B06",
+      "battle_label": "河北终局：滑州降—开德大名攻取—河北平",
+      "campaign_group": "JSH-JIN-SONG-KAIDE-DAMING-1128",
+      "source_anchor_refs": [
+        "SRC-JINSHI-019-2432672-P0010"
+      ],
+      "source_quotes": [
+        "降滑州，取開德府",
+        "攻大名府，克之，河北平"
+      ],
+      "cross_source_relation": {
+        "type": "BIOGRAPHICAL_RECAP_AND_SUPPLEMENT",
+        "prior_volume": "金史/卷003",
+        "dedup_required": true
+      },
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金睿宗军 × 滑州—开德—大名收束阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "再度伐宋后由河北推进，滑州降，取开德府，攻克大名府；传文明言“河北平”。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3（max(P,S,M,A)）；P/S未同时位于基础最高档，不抬档；最终WC3。",
+          "security_axes": {
+            "SB": "SB3",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB3/SN0",
+          "strategic_security_detail": "河北宋方成片抵抗被显著削弱，金取得该方向阶段性区域主动。",
+          "material_return": "WR3",
+          "material_return_detail": "取得多处府州的城防、行政与军政资源；未把人口本身计作WR。",
+          "border_control": {
+            "BCP": "BCP4",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "滑州",
+              "开德府",
+              "大名府",
+              "河北阶段性控制区"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "多个重要节点转入金控制并形成区域性收束。",
+            "continuity_status": "HELD_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "以可见中等成本获得重要府州与区域级实际控制。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "金继续把对宋战争转化为河北区域的实际统治空间。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ],
+            "material_return": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ],
+            "border_control": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ]
+          },
+          "carry_in": "承卷003开德、大名等攻取材料。",
+          "carry_out": "卷003及其他列传同一攻取成果不得再次累计。",
+          "P_inference": {
+            "P_observed": "含攻大名等实际战斗，金方伤亡失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "连续攻取重要节点，支持百人级中心。",
+            "upper_bound_reason": "无千人级己方人员损失下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ]
+          }
+        },
+        {
+          "evaluation_subject_phase": "宋河北军政体系 × 滑州—开德—大名失控阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "滑州投降，开德、大名相继被金军取得，河北方向阶段性整体失守。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S4",
+            "M": "M2",
+            "A": "A3",
+            "WC": "WC4"
+          },
+          "wc_basis": "base_WC=4（max(P,S,M,A)）；P/S未同时位于基础最高档，不抬档；最终WC4。",
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN4"
+          },
+          "strategic_security": "SB0/SN4",
+          "strategic_security_detail": "河北方向重要防御与行政控制结构显著恶化。",
+          "material_return": "WR0",
+          "material_return_detail": "",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN4",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "滑州",
+              "开德府",
+              "大名府",
+              "河北阶段性控制区"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "多个重要府州与区域性控制丧失。",
+            "continuity_status": "LOST_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "地方军政、城防与区域控制均明显受损。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权的常规战争或内乱，不属于本阶段可确认的新建政权启动过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ],
+            "material_return": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ],
+            "border_control": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "无。",
+          "P_inference": {
+            "P_observed": "多处重要节点通过降、取、克而失守，整体人员损害失载。",
+            "range": "1,000—9,999死亡当量",
+            "center": 3162,
+            "P_scoring": "P3估",
+            "basis": "按跨多个府州的连续攻防保守估千人级；不从失地规模直接换算死亡。",
+            "upper_bound_reason": "无万人级死亡、被俘或未归下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0010"
+            ]
+          }
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_id": "JIN019-B07",
+      "battle_label": "东平—徐州攻取与济南降附",
+      "campaign_group": "JSH-JIN-SONG-DONGPING-XUZHOU-JINAN-1129",
+      "source_anchor_refs": [
+        "SRC-JINSHI-019-2432672-P0011"
+      ],
+      "source_quotes": [
+        "遂取東平及徐州",
+        "盡得宋人江淮運致金幣在徐州官庫者",
+        "劉豫遂以濟南降"
+      ],
+      "cross_source_relation": {
+        "type": "BIOGRAPHICAL_RECAP_OR_SUPPLEMENT",
+        "prior_volume": "金史/卷003",
+        "dedup_required": true
+      },
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金宗翰等军 × 东平徐州济南阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "平河北后继续取东平、徐州，取得宋自江淮运至徐州官库的金币并分给诸军；刘豫随后以济南降。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3（max(P,S,M,A)）；P/S未同时位于基础最高档，不抬档；最终WC3。",
+          "security_axes": {
+            "SB": "SB3",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB3/SN0",
+          "strategic_security_detail": "山东—徐州方向宋方军政节点显著减少。",
+          "material_return": "WR4",
+          "material_return_detail": "徐州官库中宋自江淮运致的金币被“尽得”并分军，属于明确的高价值国家军资回报。",
+          "border_control": {
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "东平",
+              "徐州",
+              "济南"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "取得三个重要区域节点并接收徐州官库军费资产。",
+            "continuity_status": "HELD_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0011"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "连续取得重要州府，又获得大批已运至前线官库的金币，资源与控制收益均显著。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "金继续取得可治理州府和前线财政资源。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-019-2432672-P0011"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-019-2432672-P0011"
+            ],
+            "material_return": [
+              "SRC-JINSHI-019-2432672-P0011"
+            ],
+            "border_control": [
+              "SRC-JINSHI-019-2432672-P0011"
+            ]
+          },
+          "carry_in": "承河北平定后继续南东推进。",
+          "carry_out": "该段为列传回叙；汇总前须与卷003相关东平、徐州、济南事件去重。",
+          "P_inference": {
+            "P_observed": "“取东平及徐州”但金军具体损失失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "重要城市攻取支持百人级中心，且无金方重损后效。",
+            "upper_bound_reason": "无千人级金军死亡、俘获或未归下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0011"
+            ]
+          }
+        },
+        {
+          "evaluation_subject_phase": "宋东平—徐州—济南体系 × 连续失控阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "东平、徐州被金军攻取，徐州官库中前运金币全部失去；刘豫又以济南降金。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S3",
+            "M": "M2",
+            "A": "A3",
+            "WC": "WC4"
+          },
+          "wc_basis": "base_WC=3（max(P,S,M,A)）；P/S同为基础最高档，按合同抬1档；最终WC4。",
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN3"
+          },
+          "strategic_security": "SB0/SN3",
+          "strategic_security_detail": "山东—淮北方向区域防御与财政支撑同步削弱。",
+          "material_return": "WR0",
+          "material_return_detail": "",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN3",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "东平",
+              "徐州",
+              "济南"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "三个重要节点连续脱离宋方控制，前线官库资产一并丧失。",
+            "continuity_status": "LOST_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0011"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "人员、州府控制和前线财政军资均遭明显损失。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权的常规战争或内乱，不属于本阶段可确认的新建政权启动过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-019-2432672-P0011"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-019-2432672-P0011"
+            ],
+            "material_return": [
+              "SRC-JINSHI-019-2432672-P0011"
+            ],
+            "border_control": [
+              "SRC-JINSHI-019-2432672-P0011"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "无。",
+          "P_inference": {
+            "P_observed": "多个重要城市失守，具体作战伤亡失载。",
+            "range": "1,000—9,999死亡当量",
+            "center": 3162,
+            "P_scoring": "P3估",
+            "basis": "多节点连续攻取支持千人级综合人员损害中心。",
+            "upper_bound_reason": "无万人级死亡、伤俘或未归明确下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0011"
+            ]
+          }
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_id": "JIN019-B08",
+      "battle_label": "扬州—杭州追袭宋主未获",
+      "campaign_group": "JSH-JIN-SONG-PURSUIT-GAOZONG-1129",
+      "source_anchor_refs": [
+        "SRC-JINSHI-019-2432672-P0011"
+      ],
+      "source_quotes": [
+        "使拔高速等襲宋主於揚州",
+        "前夕已渡江矣",
+        "宗弼追宋主",
+        "復遁入海，宗弼乃還"
+      ],
+      "cross_source_relation": {
+        "type": "BIOGRAPHICAL_RECAP_OR_SUPPLEMENT",
+        "prior_volume": "金史/卷003",
+        "dedup_required": true
+      },
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金拔高速—宗弼军 × 扬州杭州追袭阶段",
+          "subject_role": "PURSUIT_ATTACKER",
+          "actual_process": "拔高速等赴扬州袭宋主时对方已于前夜渡江；其后宗弼继续追至宋主入杭州、再遁入海，最终还军，未能捕获宋主。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3（max(P,S,M,A)）；P/S未同时位于基础最高档，不抬档；最终WC3。",
+          "security_axes": {
+            "SB": "SB1",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB1/SN0",
+          "strategic_security_detail": "对宋中央造成持续压力，但未结构性终结其政权或主力。",
+          "material_return": "WR0",
+          "material_return_detail": "",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "扬州—杭州—沿海追击路线"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "迫使目标连续转移，但本段没有确认稳定新增城地控制。",
+            "continuity_status": "HELD_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0011"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "phase_return_basis": "远程追袭投入明显，主要目标未捕获；只有迫使行在继续迁避的有限安全收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权的常规战争或内乱，不属于本阶段可确认的新建政权启动过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-019-2432672-P0011"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-019-2432672-P0011"
+            ],
+            "material_return": [
+              "SRC-JINSHI-019-2432672-P0011"
+            ],
+            "border_control": [
+              "SRC-JINSHI-019-2432672-P0011"
+            ]
+          },
+          "carry_in": "承金军已深入宋境、宋主主动求存社稷。",
+          "carry_out": "宋主成功入海避开追捕，后续战争需由其他卷继续；本卷不倒推其长期结果。"
+        },
+        {
+          "evaluation_subject_phase": "宋主行在与护卫体系 × 被连续追袭迁避阶段",
+          "subject_role": "RETREATING_DEFENDER",
+          "actual_process": "宋主在金军抵达扬州前已渡江，后入杭州又遁入海，成功避免被捕，但中央行在被迫持续迁移。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S2",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3（max(P,S,M,A)）；P/S未同时位于基础最高档，不抬档；最终WC3。",
+          "security_axes": {
+            "SB": "SB1",
+            "SN": "SN2"
+          },
+          "strategic_security": "SB1/SN2",
+          "strategic_security_detail": "避免政权被一击终结，但金军追逼造成持续安全压力。",
+          "material_return": "WR0",
+          "material_return_detail": "",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "扬州—杭州—海上行在"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "行在成功脱离追兵，但战略与行政稳定性受扰。",
+            "continuity_status": "HELD_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0011"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "phase_return_basis": "避免最高政治领导层被俘是止损，但连续迁避付出较高机动与行政成本。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权的常规战争或内乱，不属于本阶段可确认的新建政权启动过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-019-2432672-P0011"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-019-2432672-P0011"
+            ],
+            "material_return": [
+              "SRC-JINSHI-019-2432672-P0011"
+            ],
+            "border_control": [
+              "SRC-JINSHI-019-2432672-P0011"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "无。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_id": "JIN019-B09",
+      "battle_label": "富平—泾原熙河—陕西五路战役群",
+      "campaign_group": "JSH-JIN-SONG-FUPING-SHAANXI-1130-1131",
+      "source_anchor_refs": [
+        "SRC-JINSHI-019-2432672-P0013"
+      ],
+      "source_quotes": [
+        "騎兵六萬，步卒十二萬壁富平",
+        "自日中至於昏暮，凡六合戰，破之",
+        "破宋熙河路副總管軍三萬，獲馬千余",
+        "於是涇原、熙河兩路皆平"
+      ],
+      "cross_source_relation": {
+        "type": "BIOGRAPHICAL_SUPPLEMENT",
+        "prior_volume": "金史/卷003",
+        "dedup_required": true
+      },
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金睿宗—娄室—宗弼等军 × 富平至陕西五路收束阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "睿宗至洛水治兵，在富平与张浚骑六万、步十二万主力六次交战取胜；随后耀、凤翔、泾、渭、原等州府及多寨相继降取，又破熙河军三万、获马千余，最终泾原熙河两路皆平并以骑兵六千屯冲要。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S0",
+            "M": "M4",
+            "A": "A3",
+            "WC": "WC4"
+          },
+          "wc_basis": "base_WC=4（max(P,S,M,A)）；P/S未同时位于基础最高档，不抬档；最终WC4。",
+          "security_axes": {
+            "SB": "SB3",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB3/SN0",
+          "strategic_security_detail": "宋陕西五路主要反攻体系遭持续削弱；但后续和尚原等战显示西部威胁并未完全终结，故不上SB4。",
+          "material_return": "WR4",
+          "material_return_detail": "取得大批州府城寨及明确千余战马；按重大区域资源回报记WR4。",
+          "border_control": {
+            "BCP": "BCP4",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "富平",
+              "泾原路",
+              "熙河路",
+              "陕西五路多州堡"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "把主力会战胜利转化为大片州府、寨堡与两路实际控制。",
+            "continuity_status": "HELD_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0013"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "国家级战区会战获胜后形成区域性控制和大批军马/军政资源收益，远高于可见本方损失。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "金将对宋扩张推进至陕西主要战略区域，并建立六千骑分屯的控制基础。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-019-2432672-P0013"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-019-2432672-P0013"
+            ],
+            "material_return": [
+              "SRC-JINSHI-019-2432672-P0013"
+            ],
+            "border_control": [
+              "SRC-JINSHI-019-2432672-P0013"
+            ]
+          },
+          "carry_in": "承卷003 P0079、P0081—P0083同一富平—泾原熙河父链。",
+          "carry_out": "卷003后续和尚原失利说明陕西控制仍需维持；本卷列传补充不得再次累计同一两路收益。",
+          "P_inference": {
+            "P_observed": "富平自日中至昏六次交战，后续连续攻取多州堡；金方总伤亡失载。",
+            "range": "1,000—9,999死亡当量",
+            "center": 3162,
+            "P_scoring": "P3估",
+            "basis": "多阶段国家级战区作战支持千人级死亡当量中心，但胜方无重损实数。",
+            "upper_bound_reason": "无万人级金军死亡、伤俘或未归下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0013"
+            ]
+          }
+        },
+        {
+          "evaluation_subject_phase": "宋张浚—泾原熙河体系 × 富平败战至两路失控阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "张浚十八万主力在富平六战败北；随后刘倪、吴玠及熙河三万军等多线受挫，多个州府寨堡投降或失守，最终泾原、熙河两路主要控制丧失。",
+          "cost_axes": {
+            "P": "P4估",
+            "S": "S4",
+            "M": "M4",
+            "A": "A3",
+            "WC": "WC5"
+          },
+          "wc_basis": "base_WC=4（max(P,S,M,A)）；P/S同为基础最高档，按合同抬1档；最终WC5。",
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN4"
+          },
+          "strategic_security": "SB0/SN4",
+          "strategic_security_detail": "西北两路主要防御体系持续失效，战略安全严重恶化。",
+          "material_return": "WR0",
+          "material_return_detail": "",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN4",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "富平",
+              "泾原路",
+              "熙河路",
+              "陕西五路多州堡"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "国家级战区主力受挫并伴随两路系统性退控。",
+            "continuity_status": "LOST_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0013"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "国家级兵力投入后发生主力败战、区域性失地与军资损失。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权的常规战争或内乱，不属于本阶段可确认的新建政权启动过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-019-2432672-P0013"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-019-2432672-P0013"
+            ],
+            "material_return": [
+              "SRC-JINSHI-019-2432672-P0013"
+            ],
+            "border_control": [
+              "SRC-JINSHI-019-2432672-P0013"
+            ]
+          },
+          "carry_in": "承卷003同一战役群。",
+          "carry_out": "后续局部反攻仍存在，故不把本阶段解释为宋在整个西北永久失去全部军事能力。",
+          "P_inference": {
+            "P_observed": "富平投入骑六万、步十二万，另有熙河三万军败；完整死伤失载。",
+            "range": "10,000—99,999死亡当量",
+            "center": 31623,
+            "P_scoring": "P4估",
+            "basis": "结合超大规模会战、多线追击与区域性崩解，沿既有卷003裁决取万级中心；不以出兵数直接当死亡。",
+            "upper_bound_reason": "无十万级死亡、伤俘或未归明确下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-019-2432672-P0013"
+            ]
+          }
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "linear_reread": {
+      "range": "SRC-JINSHI-019-2432672-P0001—P0041",
+      "paragraph_count": 41,
+      "status": "COMPLETED",
+      "method": "初稿后自P0001逐段复读至P0041；复核战、袭、攻、克、击败、讨平、叛、追、降、取等触发词，并区分实际武装阶段、纯战略计划、人物总评、谋叛传闻和礼政财政材料。",
+      "ps_tie_raise_checked": true,
+      "biographical_recap_dedup_checked": true
+    },
+    "card_coverage": {
+      "battle_cards": 9,
+      "subject_phase_cards": 18,
+      "paragraph_inventory": "41/41",
+      "adjudicated_paragraphs": 5,
+      "not_a_battle_paragraphs": 36,
+      "status": "PASS"
+    },
+    "quality_checks": {
+      "wc_formula": "PASS：逐阶段机械复算base_WC=max(P,S,M,A)；只有P/S同时处于基础最高档时抬1档。富平宋方P4/S4触发WC5，其余不得因M/A并列抬档。",
+      "estimated_P": "PASS：所有Px估均填写观察值、区间、中心、依据、上限理由、置信度；兵力数字不直接当死亡数，“击破/讨平”不机械换算伤亡。",
+      "biographical_recap": "PASS：卷019为列传回叙，西京、黄龙府、乐安、大名、陕西等均显式标注与卷002—003去重，不制造第二份历史收益。",
+      "plans_not_battles": "PASS：P0012陕西用兵讨论只作战略计划，不单独成卡；P0029胡剌谋叛仅传闻且要求复核，不当作已发生叛乱。",
+      "population_not_booty": "PASS：降附人口与新降民均未作为WR资产；徐州官库金币、战马等才进入WR。",
+      "later_results_no_backfill": "PASS：同一父链只利用本卷实际补证；既有后续控制反复写入carry，不倒灌改写本阶段已发生事实。",
+      "status": "PASS"
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0001",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "人物篇标题。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0002",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "页面编辑标记。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0003",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "景宣帝世系、嫡庶与姓名。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0004",
+        "disposition": "ADJUDICATED",
+        "card_ids": [
+          "JIN019-B01"
+        ],
+        "reason": "本段含实际武装接战、平叛、攻守、追袭或控制变化，已按主体和实际阶段成卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0005",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "追尊、降号、复号、改葬与子嗣。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0006",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "人物篇标题。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0007",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "页面编辑标记。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0008",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "睿宗姓名、性格与概括性从军评价；“常在帷幄”非独立战役过程。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0009",
+        "disposition": "ADJUDICATED",
+        "card_ids": [
+          "JIN019-B02"
+        ],
+        "reason": "本段含实际武装接战、平叛、攻守、追袭或控制变化，已按主体和实际阶段成卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0010",
+        "disposition": "ADJUDICATED",
+        "card_ids": [
+          "JIN019-B03",
+          "JIN019-B04",
+          "JIN019-B05",
+          "JIN019-B06"
+        ],
+        "reason": "本段含实际武装接战、平叛、攻守、追袭或控制变化，已按主体和实际阶段成卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0011",
+        "disposition": "ADJUDICATED",
+        "card_ids": [
+          "JIN019-B07",
+          "JIN019-B08"
+        ],
+        "reason": "本段含实际武装接战、平叛、攻守、追袭或控制变化，已按主体和实际阶段成卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0012",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "对陕西用兵的战略讨论与派将命令，实际战斗从P0013开始，不单独造卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0013",
+        "disposition": "ADJUDICATED",
+        "card_ids": [
+          "JIN019-B09"
+        ],
+        "reason": "本段含实际武装接战、平叛、攻守、追袭或控制变化，已按主体和实际阶段成卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0014",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "睿宗死亡、封号、追尊与改葬。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0015",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "人物篇标题。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0016",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "页面编辑标记。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0017",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "显宗出生、世系、品行。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0018",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "封王及随世宗至中都。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0019",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "立太子、读书、东宫礼制。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0020",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "师傅礼遇与狩猎分赐。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0021",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "婚礼及车驾礼制纠错。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0022",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "太子册礼、太庙礼制争议。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0023",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "疾病与调治。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0024",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "改名与受册。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0025",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "避暑、道路费与起居礼。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0026",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "太子供膳财政安排。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0027",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "经筵、用人争论及钱荒/府库积钱政策。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0028",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "圆丘礼。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0029",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "谋叛传闻仅请求复核，无实际发动；另有太庙礼。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0030",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "奉诏田猎，无武装敌对行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0031",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "兄弟伦理与训诫。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0032",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "官员谢见礼制。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0033",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "宴饮事故宽免与太庙礼。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0034",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "祭祀、皇后改葬、宗干削帝号。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0035",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "监国制度、刑名复核、宫禁和政务。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0036",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "谦抑礼制、春水、久旱祈雨。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0037",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "显宗病逝、丧礼及社会哀悼。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0038",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "立皇太孙与章宗继位。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0039",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "追谥、庙号、祔庙与陵号。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0040",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "宽刑、赈饥、问民疾苦及节制狩猎。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-019-2432672-P0041",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "史臣赞语与既有战争概括，无新增实际武装阶段。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      {
+        "campaign_group": "JSH-JIN-LIAO-XIJING-1122",
+        "followup": "P0004为景宣列传补证，与卷002西京父链必须只累计一次；新增可用信息是宗峻所部角色、耿守忠援军被击退、浮图先取后下西京以及“士卒多伤”。"
+      },
+      {
+        "campaign_group": "JSH-JIN-HUANGLONG-REBELLION-1122",
+        "followup": "P0009安福哥叛与卷002末“黄龙府叛，宗辅讨平”视为同一事件优先；汇总时按事件键核重。"
+      },
+      {
+        "campaign_group": "JSH-JIN-SONG-QINGWEI-1128",
+        "followup": "P0010补马括兵力二十万及农时还师/夹河屯田；不得把卷003青州、潍州控制收益重复写入本卷乐安卡。"
+      },
+      {
+        "campaign_group": "JSH-JIN-SONG-DAMING-1128",
+        "followup": "P0010补台宗雋、宋忠军五万及连续两日败战；后续大名府攻克另以控制阶段成卡，人员损害与BCP不得重复。"
+      },
+      {
+        "campaign_group": "JSH-JIN-SONG-JIZHOU-ZHAOLI-1128",
+        "followup": "冀州夜袭照里营在本卷有明确实际接战；当前卷002—003卡审计未锁定完全同名既有卡，正式跨来源汇总前再以事件键核重。"
+      },
+      {
+        "campaign_group": "JSH-JIN-SONG-DONGPING-XUZHOU-JINAN-1129",
+        "followup": "P0011补徐州官库中江淮运致金币被尽取并分军这一WR关键锚点；与其他纪传重复记载只累计一次。"
+      },
+      {
+        "campaign_group": "JSH-JIN-SONG-FUPING-SHAANXI-1130-1131",
+        "followup": "P0013与卷003富平—泾原熙河卡为同一父链；本卷新增十八万主力、六合战、熙河三万、获马千余、堡寨四十余、屯骑六千等校准信息，后续和尚原失利继续约束SB与控制持续性。"
+      },
+      {
+        "campaign_group": "JINSHI-VOLUME-019-CLOSEOUT",
+        "followup": "卷019为本轮《金史》史料范围最后一卷；P0041以后无本任务指定后卷。遗留项仅为跨来源去重与既有战争父链校准，不再新增《金史》卷次。"
+      }
+    ],
+    "closeout_status": "PASS：卷019完成后，本轮《金史》卷017—019顺序通读闭合。"
+  }
+}

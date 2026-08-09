@@ -30,6 +30,8 @@ from emperor_v4.evaluation.five_dynasties_third_item import (
     _high_return_tier,
     _normalize_qin_tang_bc_parent_cycles,
     _normalize_formal_d_records,
+    _cycle_exposure_index,
+    _major_non_rebellion_cycle,
     _rollup_parent_axes,
     _recalculate_qin_tang_d_records,
     _third_item_cycles,
@@ -44,6 +46,10 @@ from emperor_v4.evaluation.five_dynasties_third_item import (
     _render_formal_markdown,
     _replace_partition_records,
     _semantic_internal_route,
+)
+from emperor_v4.evaluation.battle_registry_store import (
+    load_battle_registry,
+    write_battle_registry,
 )
 
 
@@ -524,11 +530,9 @@ def build_promotion_audit(registry: Mapping[str, Any]) -> dict[str, Any]:
 
 def write_promoted_battle_registry(workspace_root: Path) -> dict[str, Any]:
     path = workspace_root / REGISTRY_PATH
-    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload = load_battle_registry(path)
     promoted = promote_north_song_battle_registry(payload, workspace_root)
-    _write_text_atomic(
-        path, json.dumps(promoted, ensure_ascii=False, indent=2) + "\n"
-    )
+    write_battle_registry(path, promoted)
     from emperor_v4.evaluation.battle_parent_contract_registry import render_battle_parent_contract_registry_markdown
     _write_text_atomic(
         workspace_root / REGISTRY_MARKDOWN_PATH,
@@ -561,31 +565,96 @@ def _aggregate_d_cycle(cycle: Mapping[str, Any]) -> dict[str, Any]:
                 raise ValueError(f"{cycle['campaign_group_ref']}父级收益轴{axis}非法")
             benefits[axis] = parsed
             unknown_axes = [item for item in unknown_axes if item != axis]
-    material = max(costs[key] for key in ("P", "S", "M", "A")) >= 3 or max(benefits.values()) >= 3
     route = str(cycle.get("d_route") or _semantic_internal_route(phases))
-    if unknown_axes:
+    exposure_index = _cycle_exposure_index(costs, benefits, s_attributable=True)
+    if bool(cycle.get("large_rebellion_admitted")):
+        material = True
+        material_admission_basis = "ALL_RULERS_LARGE_REBELLION_AUDIT"
+    elif bool(cycle.get("material_cumulative_admitted")):
+        material = True
+        material_admission_basis = "EXPLICIT_CUMULATIVE_STRATEGIC_BURDEN"
+    elif bool(cycle.get("material_internal_admitted")):
+        material = True
+        material_admission_basis = "EXPLICIT_MAJOR_INTERNAL_STRATEGIC_ADMISSION"
+    elif route in {"D_INTERNAL_STRATEGIC", "D_INTERNAL_RESTORATION"}:
+        material = False
+        material_admission_basis = "ORDINARY_INTERNAL_EVENT_EXCLUDED"
+    else:
+        material = _major_non_rebellion_cycle(costs, benefits)
+        material_admission_basis = (
+            "MAJOR_STRATEGIC_INVESTMENT_FACTS"
+            if material
+            else "LOW_INTENSITY_OBSERVATION_EXCLUDED"
+        )
+    explicit_parent_class = cycle.get("parent_return_class")
+    if explicit_parent_class:
+        final_class = str(explicit_parent_class)
+        class_basis = "EXPLICIT_PARENT_RETURN_ADJUDICATION"
+        class_rationale = "父战役裁决已明确给出净回报类别；未知轴继续保留，不以0代填。"
+    elif unknown_axes and cycle.get("allow_explicit_phase_return_fallback"):
+        phase_classes = [
+            str(phase.get("phase_return_class"))
+            for phase in phases
+            if str(phase.get("phase_return_class") or "")
+            in {"HIGH_RETURN", "PROPORTIONATE_RETURN", "LOW_RETURN", "NEGATIVE_RETURN"}
+        ]
+        distinct_classes = set(phase_classes)
+        if len(phase_classes) == len(phases) and len(distinct_classes) == 1:
+            final_class = phase_classes[0]
+            class_basis = "UNIFORM_EXPLICIT_PHASE_RETURN_FALLBACK"
+            class_rationale = (
+                "旧卡全部主体阶段的明确净回报类别一致；沿用该方向闭合父周期，"
+                "未知轴继续保留，不以0代填。"
+            )
+        elif benefits["BCN"] >= 4 and distinct_classes & {"LOW_RETURN", "NEGATIVE_RETURN"}:
+            final_class = "NEGATIVE_RETURN"
+            class_basis = "EXPLICIT_PHASE_RETURN_WITH_TERMINAL_CONTROL_LOSS"
+            class_rationale = (
+                "旧卡阶段裁决含低或负回报，且已知终局控制损失达到BCN4以上；"
+                "据已知负向事实闭合为负回报，未知轴继续保留。"
+            )
+        elif (
+            route == "D_INTERNAL_RESTORATION"
+            and benefits["BCN"] >= 3
+            and distinct_classes & {"LOW_RETURN", "NEGATIVE_RETURN"}
+        ):
+            final_class = "NEGATIVE_RETURN"
+            class_basis = "EXPLICIT_PHASE_RETURN_WITH_INTERNAL_CONTROL_LOSS"
+            class_rationale = (
+                "平乱周期已有BCN3以上控制损失，且阶段裁决含低或负回报；"
+                "按内部恢复规则闭合为负回报，未知轴继续保留。"
+            )
+        else:
+            final_class = "UNKNOWN"
+            class_basis = "UNRESOLVED_PARENT_AXES"
+            class_rationale = "父级关键轴未知且阶段裁决不足以唯一确定净方向，继续保留UNKNOWN。"
+    elif unknown_axes:
         final_class = "UNKNOWN"
+        class_basis = "UNRESOLVED_PARENT_AXES"
         class_rationale = "父级关键成本或终局收益轴仍为UNKNOWN，禁止以0或负收益代填。"
     else:
         final_class, class_rationale = _axis_closed_return_class(
             costs, benefits, s_attributable=True, route=route
         )
+        class_basis = "PARENT_AXES_DIRECT_MAPPING"
     high_return_tier = _high_return_tier(benefits, final_class)
     return {
         "campaign_group_ref": cycle["campaign_group_ref"], "war_event_refs": cycle["war_event_refs"],
         "phase_ids": cycle["phase_ids"], "return_class": final_class, "cost_axes": costs,
         "benefit_axes": benefits, "unknown_axes": unknown_axes, "material": material,
+        "material_exposure_index": exposure_index,
+        "material_admission_basis": material_admission_basis,
         "high_return_tier": high_return_tier,
         "major_high_return": high_return_tier in {"MAJOR", "TOP"},
         "top_high_return": high_return_tier == "TOP",
         "national_negative": final_class == "NEGATIVE_RETURN" and (
             costs["P"] >= 5
             or costs["S"] >= 5
-            or max(costs["M"], costs["A"]) >= 4
-            or max(benefits["SN"], benefits["BCN"]) >= 4
+            or costs["A"] >= 5
+            or max(benefits["SN"], benefits["BCN"]) >= 5
         ),
         "route": route,
-        "return_class_basis": "PARENT_AXES_DIRECT_MAPPING",
+        "return_class_basis": class_basis,
         "return_class_rationale": class_rationale,
         "parent_axis_basis": (
             "EXPLICIT_PARENT_AXIS_ADJUDICATION"
@@ -670,7 +739,11 @@ def build_north_song_c_records(registry: Mapping[str, Any], decisions: Sequence[
         usable, _ = _third_item_cycles(decision, cycles)
         c1, c2, c3 = (int(decision["C"][key]) for key in ("C1", "C2", "C3"))
         evidence_ceiling = 3 if len(usable) <= 1 else 4 if len(usable) == 2 else 5
-        if not usable and not decision.get("C", {}).get("non_war_evidence_refs"):
+        if (
+            not usable
+            and not decision.get("C", {}).get("non_war_evidence_refs")
+            and any(value > 0 for value in (c1, c2, c3))
+        ):
             raise ValueError(f"{decision['ruler_name']} C项无独立任务或非战争体系证据，不得直接结算")
         if c1 > evidence_ceiling or c3 > evidence_ceiling:
             raise ValueError(
@@ -701,6 +774,10 @@ def build_north_song_c_records(registry: Mapping[str, Any], decisions: Sequence[
             raise ValueError(
                 f"{decision['ruler_name']} C项重大胜负必须引用本人已结算的去重战役群"
             )
+        if max(c1, c2, c3) >= 4 and not successes:
+            raise ValueError(
+                f"{decision['ruler_name']} 任一C子轴到4档必须引用至少一项重大体系成功"
+            )
         if min(c1, c2, c3) == 5 and failures:
             raise ValueError(f"{decision['ruler_name']} C5不得保留重大体系失败引用")
         record = {
@@ -718,7 +795,9 @@ def build_north_song_c_records(registry: Mapping[str, Any], decisions: Sequence[
             "settled_event_refs": _unique(ref for cycle in usable for ref in cycle["war_event_refs"]), "cross_reign_slice_refs": [], "non_war_evidence_refs": [],
             "major_system_failure_refs": failures,
             "major_system_success_refs": successes,
-            "score_ready": True, "coverage_status": "FULL_REIGN_WAR_EVENT_BINDING", "unresolved_gaps": [],
+            "score_ready": True,
+            "coverage_status": "FULL_REIGN_WAR_EVENT_BINDING" if usable else "NO_BOUND_WAR_EVENT_ZERO_SCORE",
+            "unresolved_gaps": [] if usable else ["公共战役登记无本主政窗口主体阶段，C项不取得正收益。"],
             "combat_delivery_grade": f"C1-{c1}", "operational_sustainability_cap": f"C2-{c2}", "system_reliability_cap": f"C3-{c3}",
             "C_overall_grade": overall, "C_score_rate": rate, "C_score_points": points, "C_score_support_surplus": surplus,
             "C_score_band": {"lower_rate": lower, "upper_rate": upper}, "adjudication_method": "SUBJECT_PHASE_CONTRACT_ADJUDICATION",
@@ -784,7 +863,8 @@ def build_north_song_d_records(registry: Mapping[str, Any], decisions: Sequence[
             ),
             "portfolio_status": "FORMAL_CURRENT" if score is not None else "UNASSESSED_NO_MATERIAL_CYCLE",
             "D_portfolio_metrics": metrics,
-            "unresolved_cycle_refs": [cycle["campaign_group_ref"] for cycle in included if cycle["return_class"] == "UNKNOWN" or cycle["unknown_axes"]],
+            "unresolved_cycle_refs": [cycle["campaign_group_ref"] for cycle in included if cycle["return_class"] == "UNKNOWN"],
+            "residual_unknown_axis_cycle_refs": [cycle["campaign_group_ref"] for cycle in included if cycle["unknown_axes"]],
             "unresolved_source_refs": [], "positive_benefit_cycle_refs": [cycle["campaign_group_ref"] for cycle in positive],
             "negative_benefit_cycle_refs": [cycle["campaign_group_ref"] for cycle in negative], "high_cost_cycle_refs": [cycle["campaign_group_ref"] for cycle in high_cost],
             "zero_return_high_cost_cycle_refs": [cycle["campaign_group_ref"] for cycle in high_cost if cycle["return_class"] in {"LOW_RETURN", "NEGATIVE_RETURN"}],
@@ -850,7 +930,7 @@ def build_north_song_formal_payloads(workspace_root: Path, registry: Mapping[str
     d = _replace_partition_records(json.loads((workspace_root / D_PATH).read_text(encoding="utf-8")), d_rows)
     _recalculate_qin_tang_d_records(workspace_root, d["records"], ab["records"], c["records"])
     _normalize_formal_d_records(d["records"])
-    _align_bc_to_system_stress_parent_cycles(ab["records"], c["records"], d["records"])
+    _align_bc_to_system_stress_parent_cycles(workspace_root, ab["records"], c["records"], d["records"])
     _validate_bc_parent_cycle_alignment(ab["records"], c["records"])
     _validate_formal_abc_contracts(ab["records"], c["records"])
     _validate_d_empirical_calibration(d["records"])
@@ -861,6 +941,23 @@ def build_north_song_formal_payloads(workspace_root: Path, registry: Mapping[str
     _sync_formal_c_into_combined(c["records"], combined["records"])
     _sync_formal_d_into_combined(d["records"], combined["records"])
     _assign_global(combined["records"])
+    for row in combined["records"]:
+        row["military_long_term_debt"] = {
+            "status": "PENDING_ITEM_7_SETTLEMENT",
+            "score_points": None,
+            "included_in_third_item_total": False,
+        }
+    partition_ids = {str(row["ruler_id"]) for row in partition_rows}
+    final_partition_rows = [
+        row for row in combined["records"]
+        if str(row.get("ruler_id")) in partition_ids
+    ]
+    eligible_partition = sorted(
+        (row for row in final_partition_rows if row.get("third_item_score_points") is not None),
+        key=lambda row: (-float(row["third_item_score_points"]), str(row["ruler_name"])),
+    )
+    for partition_rank, row in enumerate(eligible_partition, start=1):
+        row["partition_rank"] = partition_rank
     total = len(combined["records"])
     for payload, count_key in ((ab, "ruler_count"), (c, "record_count"), (d, "record_count")):
         payload[count_key] = len(payload["records"]); payload["scope"] = f"秦至唐95人可复核当前值 + 五代十国12人 + 北宋11人当前结算"
@@ -868,22 +965,25 @@ def build_north_song_formal_payloads(workspace_root: Path, registry: Mapping[str
     ab.update({"reviewed_count": sum(row.get("adjudication_status") == "REVIEWED" for row in ab["records"]), "pending_count": sum(not row.get("score_ready") for row in ab["records"]), "score_ready_count": sum(bool(row.get("score_ready")) for row in ab["records"])})
     c.update({"score_ready_count": sum(bool(row.get("score_ready")) for row in c["records"]), "partition_counts": dict(sorted(Counter(str(row.get("partition")) for row in c["records"]).items())), "grade_distribution": dict(sorted(Counter(str(row.get("C_overall_grade")) for row in c["records"]).items()))})
     d["grade_distribution"] = dict(sorted(Counter(str(row.get("D_grade")) for row in d["records"]).items()))
+    combined.pop("D_unassessed_neutral_count", None)
     combined.update({
         "scope": f"秦至唐95人当前分值 + 五代十国12人 + 北宋11人；第三项{total}人统一排名",
         "record_count": total, "score_ready_count": sum(row.get("third_item_score_points") is not None for row in combined["records"]),
-        "D_unassessed_neutral_count": sum(row.get("D_score_points") is None for row in combined["records"]),
+        "D_no_material_exposure_count": sum((row.get("axes") or {}).get("D") == "D-N" for row in combined["records"]),
+        "D_pending_count": sum(row.get("D_score_points") is None for row in combined["records"]),
         "north_song_source_fingerprint": SOURCE_SET_FINGERPRINT,
-        "north_song_ready_count": sum(row.get("third_item_score_points") is not None for row in partition_rows),
-        "north_song_pending_count": sum(row.get("third_item_score_points") is None for row in partition_rows),
+        "north_song_ready_count": sum(row.get("third_item_score_points") is not None for row in final_partition_rows),
+        "north_song_pending_count": sum(row.get("third_item_score_points") is None for row in final_partition_rows),
         "north_song_partial_exclusions": [],
+        "military_long_term_debt_policy": "PENDING_ITEM_7_NOT_INCLUDED_IN_THIRD_ITEM_STAGE_TOTAL",
         "score_recalculation_policy": "ALL_RECORDS_REVIEWABLE_CURRENT_VALUE", "global_ranking_enabled": True, "rank_tie_policy": "COMPETITION_RANK", "shared_source_root": "docs/史料通读产物",
     })
-    return {"AB": ab, "C": c, "D": d, "combined": combined, "partition_records": partition_rows}
+    return {"AB": ab, "C": c, "D": d, "combined": combined, "partition_records": final_partition_rows}
 
 
 def write_north_song_third_item(workspace_root: Path) -> dict[str, Any]:
     promotion_audit = write_promoted_battle_registry(workspace_root)
-    registry = json.loads((workspace_root / REGISTRY_PATH).read_text(encoding="utf-8"))
+    registry = load_battle_registry(workspace_root / REGISTRY_PATH)
     payloads = build_north_song_formal_payloads(workspace_root, registry)
     paths = {"AB": AB_PATH, "C": C_PATH, "D": D_PATH, "combined": FORMAL_PATH}
     for kind, path in paths.items():

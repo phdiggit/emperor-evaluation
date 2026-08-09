@@ -1,0 +1,936 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "qing",
+  "bucket": 17,
+  "bucket_count": 24,
+  "record_count": 8,
+  "records_fingerprint": "5d8cdb61cb522dfcbaad46b8df94aef6b1172b0c749f939ca63fd5124a01f008",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-E33404B71ECB02060ED8",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-GUIZHOU-WAR-END-1867-1872",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "清军持续收复都匀、丹江、凯里、黄平等地，攻破苗寨并在同治十一年宣布贵州苗乱平定。",
+      "period": {
+        "start": "同治六年八月",
+        "end": "同治十一年十一月"
+      },
+      "observable_result": "贵州主要战事结束，全省被宣布底定。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V22-GUIZHOU-WAR-END-1867-1872"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-22.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷22@2294671#黔軍克都勻",
+          "清史稿/卷22@2294671#援黔湘軍復丹江、凱里等城",
+          "清史稿/卷22@2294671#貴州苗匪平，賞席寶田騎都尉。",
+          "清史稿/卷22@2294671#。全黔底定。丙"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷22@2294671#黔軍克都勻",
+        "清史稿/卷22@2294671#援黔湘軍復丹江、凱里等城",
+        "清史稿/卷22@2294671#貴州苗匪平，賞席寶田騎都尉。",
+        "清史稿/卷22@2294671#。全黔底定。丙"
+      ],
+      "uncertainties": [
+        "各寨伤亡、迁徙和战后安置未载。"
+      ],
+      "cost_or_burden": "黄润昌、邓子垣、刘长槐等战死；军民总伤亡未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-8B1C5A73AC155E308860",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "BATTLE-QING-V20-REGIONAL-FUJIAN-HAICHENG-HUIFEI-01",
+      "split_from_source_target_ref": "CAMPAIGN-QING-REGIONAL-REBELLIONS-1853-1861",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "canonical_label": "海澄会匪连续攻陷同安、安溪、厦门。",
+      "period": {
+        "start": "UNKNOWN_WITHIN_1853_1861",
+        "end": "UNKNOWN_WITHIN_1853_1861"
+      },
+      "observable_result": "海澄会匪连续攻陷同安、安溪、厦门。",
+      "result_direction": "negative",
+      "campaign_tier": "B",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "local_organized",
+      "opponent_condition": "unclear",
+      "battle_result": "defeat",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "localized_gain",
+      "tier_basis": "同一对手在同一闽南战区连续攻陷三城，足以构成独立区域阶段；但无成建制国家对手、清军主力毁灭或最终控制终局，不继承父级A，只定B。",
+      "tier_review_source_tier": null,
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT_SPLIT_CHILD",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按该子方向逐字锚可证的攻陷、平定或归降结果取证据下限。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "混合父项未保存可归责的连续子方向指挥，不从官职推定。",
+      "members": [],
+      "attributable_failures": [],
+      "detail_expansion_status": "complete_unknown",
+      "source_lineage": {
+        "source_card_ids": [],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-20.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷20@2433519#海澄會匪陷同安、安谿、廈門"
+        ],
+        "lineage_basis": "同一共享事实含多个互不连续战区；父项持有fact_id，子项只持定点逐字锚，避免事实ID重复消费。"
+      },
+      "source_refs": [
+        "清史稿/卷20@2433519#海澄會匪陷同安、安谿、廈門"
+      ],
+      "uncertainties": [
+        "具体年月、会匪首领、兵力、清方守将与后续收复未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "merged_into": null,
+      "limitations": [
+        "不得把混合父项的总兵力、四百余处规模或其他战区结果复制到本子项。"
+      ],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "basis": "同一对手在同一闽南战区连续攻陷三城，足以构成独立区域阶段；但无成建制国家对手、清军主力毁灭或最终控制终局，不继承父级A，只定B。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-856B37DB7CD9F39C9146",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-SECOND-JINCHUAN-1771-1776",
+      "candidate_destination": "REDIRECTED_MIXED_PARENT",
+      "public_outcome_registered": false,
+      "canonical_label": "阿桂围噶喇依，索诺木等出降；清廷安插降众、献俘受俘并处死索诺木等，结束第二次金川战争。",
+      "period": {
+        "start": "乾隆四十一年正月至四月",
+        "end": "1776"
+      },
+      "observable_result": "两金川平定，降众被分置土司地方，雅州设将军、金川设提督和总兵驻防。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V14-SECOND-JINCHUAN-VICTORY-1776"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-14.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷14@1809472#阿桂率諸軍進圍噶喇依，索諾木之母及其姑姊妹出降。",
+          "清史稿/卷14@1809472#阿桂請安插降眾於綽斯甲布十二土司地方，從之。",
+          "清史稿/卷14@1809472#阿桂等奏索諾木等出降，檻送京師，兩金川平。",
+          "清史稿/卷14@1809472#索諾木等皆磔於市。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷14@1809472#阿桂率諸軍進圍噶喇依，索諾木之母及其姑姊妹出降。",
+        "清史稿/卷14@1809472#阿桂請安插降眾於綽斯甲布十二土司地方，從之。",
+        "清史稿/卷14@1809472#阿桂等奏索諾木等出降，檻送京師，兩金川平。",
+        "清史稿/卷14@1809472#索諾木等皆磔於市。"
+      ],
+      "uncertainties": [
+        "降众人数、安置条件和战后长期影响未载。"
+      ],
+      "cost_or_burden": "战争前期伤亡与军费见卷13，本卷未载新增总数。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REDIRECTED_MIXED_PARENT",
+      "result_direction": "positive",
+      "campaign_tier": null,
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "逐项复核后只构成局部平叛、单次进剿、短期受降、未闭合战争开端或与主分区重复的同一战役；不因用兵规模、艰苦程度或平定字样升档，其他项明确保留A。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "REVIEWED_RETAINED_A",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "定点复核：难度只由连续作战、远征环境、兵力/地形约束与成建制对手共同成立；未用名望、官衔或父项档位换算。",
+      "command_status": "NOT_REQUIRED_SPLIT_PARENT",
+      "campaign_command_topology": "single_integrated_command",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "split_into_independent_children",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "混合父项按战区、对手和连续指挥链拆分；父项只持共享fact_id，不登记战果。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-EEC823A39B7D18DE0328",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-TAIPING-MIDDLE-YANGTZE-1855-1858",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "清军围绕武昌、汉阳、九江及皖赣展开反攻，复武昌汉阳、湖北全境和九江，继攻桐城、潜山、安庆外围；三河之战李续宾部失败。",
+      "period": {
+        "start": "咸丰五年正月",
+        "end": "咸丰八年十二月"
+      },
+      "observable_result": "湖北和九江被清军控制，战线向安徽推进，但三河惨败显示战局尚未闭合。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V20-TAIPING-MIDDLE-YANGTZE-COUNTEROFFENSIVE-1855-1858"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-20.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷20@2433519#胡林翼克復武昌，癸未，官文克復漢陽",
+          "清史稿/卷20@2433519#官文、胡林翼奏湖北全境肅清。",
+          "清史稿/卷20@2433519#湖北官軍克復九江",
+          "清史稿/卷20@2433519#官文、胡林翼奏李續賓、都興阿分路克復桐城、潛山",
+          "清史稿/卷20@2433519#李續賓進剿安徽，敗績於三河集，死之"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷20@2433519#胡林翼克復武昌，癸未，官文克復漢陽",
+        "清史稿/卷20@2433519#官文、胡林翼奏湖北全境肅清。",
+        "清史稿/卷20@2433519#湖北官軍克復九江",
+        "清史稿/卷20@2433519#官文、胡林翼奏李續賓、都興阿分路克復桐城、潛山",
+        "清史稿/卷20@2433519#李續賓進剿安徽，敗績於三河集，死之"
+      ],
+      "uncertainties": [
+        "各阶段军费、总伤亡和民间损失未载。"
+      ],
+      "cost_or_burden": "李续宾、曾国华等死于三河；双方总伤亡未载。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-138ADAD9CC1E737A",
+          "actor_name": "官文",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "已验收事实卡明确闭合官文的实际行动与本人结果：与胡林翼收复武昌汉阳湖北并推进皖线。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "co_decisive",
+            "result_direction": "positive",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合官文的实际行动与本人结果：与胡林翼收复武昌汉阳湖北并推进皖线。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "清史稿/卷20@2433519#胡林翼克復武昌，癸未，官文克復漢陽",
+              "清史稿/卷20@2433519#官文、胡林翼奏湖北全境肅清。",
+              "清史稿/卷20@2433519#湖北官軍克復九江",
+              "清史稿/卷20@2433519#官文、胡林翼奏李續賓、都興阿分路克復桐城、潛山",
+              "清史稿/卷20@2433519#李續賓進剿安徽，敗績於三河集，死之"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-CB64366E4C2EB7D0E2E1",
+              "result_label": "与胡林翼收复武昌汉阳湖北并推进皖线。",
+              "result_direction": "positive",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "已验收事实卡明确闭合官文的实际行动与本人结果：与胡林翼收复武昌汉阳湖北并推进皖线。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "清史稿/卷20@2433519#胡林翼克復武昌，癸未，官文克復漢陽",
+                "清史稿/卷20@2433519#官文、胡林翼奏湖北全境肅清。",
+                "清史稿/卷20@2433519#湖北官軍克復九江",
+                "清史稿/卷20@2433519#官文、胡林翼奏李續賓、都興阿分路克復桐城、潛山",
+                "清史稿/卷20@2433519#李續賓進剿安徽，敗績於三河集，死之"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "co_decisive",
+                "basis": "已验收事实卡明确闭合官文的实际行动与本人结果：与胡林翼收复武昌汉阳湖北并推进皖线。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "清史稿/卷20@2433519#胡林翼克復武昌，癸未，官文克復漢陽",
+                  "清史稿/卷20@2433519#官文、胡林翼奏湖北全境肅清。",
+                  "清史稿/卷20@2433519#湖北官軍克復九江",
+                  "清史稿/卷20@2433519#官文、胡林翼奏李續賓、都興阿分路克復桐城、潛山",
+                  "清史稿/卷20@2433519#李續賓進剿安徽，敗績於三河集，死之"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-5854DC38A1E1DB4B",
+          "actor_name": "李续宾",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "已验收事实卡明确闭合李续宾的实际行动与本人结果：先收复桐城潜山，后在三河集败绩战死。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "mixed_review",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合李续宾的实际行动与本人结果：先收复桐城潜山，后在三河集败绩战死。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "清史稿/卷20@2433519#胡林翼克復武昌，癸未，官文克復漢陽",
+              "清史稿/卷20@2433519#官文、胡林翼奏湖北全境肅清。",
+              "清史稿/卷20@2433519#湖北官軍克復九江",
+              "清史稿/卷20@2433519#官文、胡林翼奏李續賓、都興阿分路克復桐城、潛山",
+              "清史稿/卷20@2433519#李續賓進剿安徽，敗績於三河集，死之"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-DE156543C924089036C5",
+              "result_label": "先收复桐城潜山，后在三河集败绩战死。",
+              "result_direction": "mixed_review",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "NOT_APPLICABLE",
+              "basis": "已验收事实卡明确闭合李续宾的实际行动与本人结果：先收复桐城潜山，后在三河集败绩战死。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "清史稿/卷20@2433519#胡林翼克復武昌，癸未，官文克復漢陽",
+                "清史稿/卷20@2433519#官文、胡林翼奏湖北全境肅清。",
+                "清史稿/卷20@2433519#湖北官軍克復九江",
+                "清史稿/卷20@2433519#官文、胡林翼奏李續賓、都興阿分路克復桐城、潛山",
+                "清史稿/卷20@2433519#李續賓進剿安徽，敗績於三河集，死之"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "已验收事实卡明确闭合李续宾的实际行动与本人结果：先收复桐城潜山，后在三河集败绩战死。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "清史稿/卷20@2433519#胡林翼克復武昌，癸未，官文克復漢陽",
+                  "清史稿/卷20@2433519#官文、胡林翼奏湖北全境肅清。",
+                  "清史稿/卷20@2433519#湖北官軍克復九江",
+                  "清史稿/卷20@2433519#官文、胡林翼奏李續賓、都興阿分路克復桐城、潛山",
+                  "清史稿/卷20@2433519#李續賓進剿安徽，敗績於三河集，死之"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-9A23E0650B4B565E",
+          "actor_name": "胡林翼",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "已验收事实卡明确闭合胡林翼的实际行动与本人结果：与官文收复武昌汉阳湖北并推进皖线。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "co_decisive",
+            "result_direction": "positive",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合胡林翼的实际行动与本人结果：与官文收复武昌汉阳湖北并推进皖线。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "清史稿/卷20@2433519#胡林翼克復武昌，癸未，官文克復漢陽",
+              "清史稿/卷20@2433519#官文、胡林翼奏湖北全境肅清。",
+              "清史稿/卷20@2433519#湖北官軍克復九江",
+              "清史稿/卷20@2433519#官文、胡林翼奏李續賓、都興阿分路克復桐城、潛山",
+              "清史稿/卷20@2433519#李續賓進剿安徽，敗績於三河集，死之"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-984726D6C3E4A7559AC4",
+              "result_label": "与官文收复武昌汉阳湖北并推进皖线。",
+              "result_direction": "positive",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "已验收事实卡明确闭合胡林翼的实际行动与本人结果：与官文收复武昌汉阳湖北并推进皖线。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "清史稿/卷20@2433519#胡林翼克復武昌，癸未，官文克復漢陽",
+                "清史稿/卷20@2433519#官文、胡林翼奏湖北全境肅清。",
+                "清史稿/卷20@2433519#湖北官軍克復九江",
+                "清史稿/卷20@2433519#官文、胡林翼奏李續賓、都興阿分路克復桐城、潛山",
+                "清史稿/卷20@2433519#李續賓進剿安徽，敗績於三河集，死之"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "co_decisive",
+                "basis": "已验收事实卡明确闭合胡林翼的实际行动与本人结果：与官文收复武昌汉阳湖北并推进皖线。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "清史稿/卷20@2433519#胡林翼克復武昌，癸未，官文克復漢陽",
+                  "清史稿/卷20@2433519#官文、胡林翼奏湖北全境肅清。",
+                  "清史稿/卷20@2433519#湖北官軍克復九江",
+                  "清史稿/卷20@2433519#官文、胡林翼奏李續賓、都興阿分路克復桐城、潛山",
+                  "清史稿/卷20@2433519#李續賓進剿安徽，敗績於三河集，死之"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-FEFE1F3B73CEB7B9",
+          "actor_name": "都兴阿",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "已验收事实卡明确闭合都兴阿的实际行动与本人结果：与李续宾分路克复桐城潜山。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "co_decisive",
+            "result_direction": "positive",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合都兴阿的实际行动与本人结果：与李续宾分路克复桐城潜山。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "清史稿/卷20@2433519#胡林翼克復武昌，癸未，官文克復漢陽",
+              "清史稿/卷20@2433519#官文、胡林翼奏湖北全境肅清。",
+              "清史稿/卷20@2433519#湖北官軍克復九江",
+              "清史稿/卷20@2433519#官文、胡林翼奏李續賓、都興阿分路克復桐城、潛山",
+              "清史稿/卷20@2433519#李續賓進剿安徽，敗績於三河集，死之"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-541EF3E8E9F6A57FC268",
+              "result_label": "与李续宾分路克复桐城潜山。",
+              "result_direction": "positive",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "已验收事实卡明确闭合都兴阿的实际行动与本人结果：与李续宾分路克复桐城潜山。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "清史稿/卷20@2433519#胡林翼克復武昌，癸未，官文克復漢陽",
+                "清史稿/卷20@2433519#官文、胡林翼奏湖北全境肅清。",
+                "清史稿/卷20@2433519#湖北官軍克復九江",
+                "清史稿/卷20@2433519#官文、胡林翼奏李續賓、都興阿分路克復桐城、潛山",
+                "清史稿/卷20@2433519#李續賓進剿安徽，敗績於三河集，死之"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "co_decisive",
+                "basis": "已验收事实卡明确闭合都兴阿的实际行动与本人结果：与李续宾分路克复桐城潜山。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "清史稿/卷20@2433519#胡林翼克復武昌，癸未，官文克復漢陽",
+                  "清史稿/卷20@2433519#官文、胡林翼奏湖北全境肅清。",
+                  "清史稿/卷20@2433519#湖北官軍克復九江",
+                  "清史稿/卷20@2433519#官文、胡林翼奏李續賓、都興阿分路克復桐城、潛山",
+                  "清史稿/卷20@2433519#李續賓進剿安徽，敗績於三河集，死之"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "important_objective",
+      "land_strategic_value": "strategic_gateway",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记B；土地轴=strategic_gateway，对手轴=regional_major，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "B",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-1B37E15542FCFE4EF559",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "SPLIT-QING-COASTAL-RECONQUEST-1663-1664",
+      "split_from_source_target_ref": "CAMPAIGN-QING-TAIWAN-COAST-1661-1664",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "canonical_label": "清军会荷兰船队攻取厦门、浯屿、金门并迫郑锦退台",
+      "period": {
+        "end": "康熙三年",
+        "start": "康熙二年"
+      },
+      "observable_result": "清军取得郑氏大陆沿海主要岛屿基地，郑锦退往台湾；台湾本岛未在本役取得。",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "viable",
+      "battle_result": "victory",
+      "objective_completion": "partial",
+      "objective_shortfalls": [
+        "只闭合本子方向；混合父项其他战区不传播。"
+      ],
+      "opponent_force_effect": "major_degradation",
+      "tier_basis": "多岛海战并夺取郑氏大陆基地、迫其退台，构成重大阶段A；未取得台湾且既有锚未闭合两项相互强化重大难点，取D2。",
+      "tier_review_source_tier": null,
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT_SPLIT_CHILD",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按该子方向逐字锚可证的攻陷、平定或归降结果取证据下限。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "混合父项未保存可归责的连续子方向指挥，不从官职推定。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-420C74100B81D7BA",
+          "actor_name": "施琅",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "现有事实卡明确会师与攻取结果；具体战术分工未知，按共同信用。 沿用CAMPAIGN-QING-TAIWAN-COAST-1661-1664既有人物裁决；父级拆分后A/D2升档不得覆盖人物C/D1。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "shared_local_battle",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "co_decisive",
+            "result_direction": "positive",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "现有事实卡明确会师与攻取结果；具体战术分工未知，按共同信用。 沿用CAMPAIGN-QING-TAIWAN-COAST-1661-1664既有人物裁决；父级拆分后A/D2升档不得覆盖人物C/D1。",
+            "source_refs": [
+              "清史稿/卷6@1789307#會荷蘭師船剿海寇，克廈門，取浯嶼、金門二島",
+              "清史稿/卷6@1789307#鄭錦遁於台灣。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-45CD393DD1A27E09FFA4",
+              "result_label": "与耿继茂及荷兰船队攻取厦门、浯屿、金门，迫郑锦退台。",
+              "result_direction": "positive",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": true,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "现有事实卡明确会师与攻取结果；具体战术分工未知，按共同信用。 沿用CAMPAIGN-QING-TAIWAN-COAST-1661-1664既有人物裁决；父级拆分后A/D2升档不得覆盖人物C/D1。",
+              "source_refs": [
+                "清史稿/卷6@1789307#會荷蘭師船剿海寇，克廈門，取浯嶼、金門二島",
+                "清史稿/卷6@1789307#鄭錦遁於台灣。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "co_decisive",
+                "basis": "现有事实卡明确会师与攻取结果；具体战术分工未知，按共同信用。 沿用CAMPAIGN-QING-TAIWAN-COAST-1661-1664既有人物裁决；父级拆分后A/D2升档不得覆盖人物C/D1。",
+                "source_refs": [
+                  "清史稿/卷6@1789307#會荷蘭師船剿海寇，克廈門，取浯嶼、金門二島",
+                  "清史稿/卷6@1789307#鄭錦遁於台灣。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-1F72E8FEE82037C3",
+          "actor_name": "耿继茂",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "现有事实卡明确会师与攻取结果；具体战术分工未知，按共同信用。 沿用CAMPAIGN-QING-TAIWAN-COAST-1661-1664既有人物裁决；父级拆分后A/D2升档不得覆盖人物C/D1。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "shared_local_battle",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "co_decisive",
+            "result_direction": "positive",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "现有事实卡明确会师与攻取结果；具体战术分工未知，按共同信用。 沿用CAMPAIGN-QING-TAIWAN-COAST-1661-1664既有人物裁决；父级拆分后A/D2升档不得覆盖人物C/D1。",
+            "source_refs": [
+              "清史稿/卷6@1789307#會荷蘭師船剿海寇，克廈門，取浯嶼、金門二島",
+              "清史稿/卷6@1789307#鄭錦遁於台灣。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-1045D6BA4E5C117729C3",
+              "result_label": "与施琅及荷兰船队攻取厦门、浯屿、金门，迫郑锦退台。",
+              "result_direction": "positive",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": true,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "现有事实卡明确会师与攻取结果；具体战术分工未知，按共同信用。 沿用CAMPAIGN-QING-TAIWAN-COAST-1661-1664既有人物裁决；父级拆分后A/D2升档不得覆盖人物C/D1。",
+              "source_refs": [
+                "清史稿/卷6@1789307#會荷蘭師船剿海寇，克廈門，取浯嶼、金門二島",
+                "清史稿/卷6@1789307#鄭錦遁於台灣。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "co_decisive",
+                "basis": "现有事实卡明确会师与攻取结果；具体战术分工未知，按共同信用。 沿用CAMPAIGN-QING-TAIWAN-COAST-1661-1664既有人物裁决；父级拆分后A/D2升档不得覆盖人物C/D1。",
+                "source_refs": [
+                  "清史稿/卷6@1789307#會荷蘭師船剿海寇，克廈門，取浯嶼、金門二島",
+                  "清史稿/卷6@1789307#鄭錦遁於台灣。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "source_lineage": {
+        "source_card_ids": [],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-06.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷6@1789307#會荷蘭師船剿海寇，克廈門，取浯嶼、金門二島",
+          "清史稿/卷6@1789307#鄭錦遁於台灣。"
+        ],
+        "lineage_basis": "同一共享事实含多个互不连续战区；父项持有fact_id，子项只持定点逐字锚，避免事实ID重复消费。"
+      },
+      "source_refs": [
+        "清史稿/卷6@1789307#會荷蘭師船剿海寇，克廈門，取浯嶼、金門二島",
+        "清史稿/卷6@1789307#鄭錦遁於台灣。"
+      ],
+      "uncertainties": [
+        "施琅、耿继茂与荷兰船队具体分工未详，只作共同信用。"
+      ],
+      "cost_or_burden": "unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "merged_into": null,
+      "limitations": [
+        "不得把混合父项的总兵力、四百余处规模或其他战区结果复制到本子项。"
+      ],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "basis": "多岛海战并夺取郑氏大陆基地、迫其退台，构成重大阶段A；未取得台湾且既有锚未闭合两项相互强化重大难点，取D2。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-F187019B8B3D7C156A9C",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-TAIWAN-UPRISING-1862-1863",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "台湾会匪攻陷彰化、斗六门并围嘉义，清军与民团逐步解围收复，戴万生等首领被诛。",
+      "period": {
+        "start": "同治元年四月",
+        "end": "同治二年十二月"
+      },
+      "observable_result": "至同治二年底台湾两路起事被平定。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V21-TAIWAN-DAI-CHAOSHUN-UPRISING-1862-1863"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-21.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷21@1814546#台灣會匪陷彰化。",
+          "清史稿/卷21@1814546#台灣會匪陷斗六門。",
+          "清史稿/卷21@1814546#台灣軍解嘉義圍。",
+          "清史稿/卷21@1814546#彰化匪首戴萬生伏誅。",
+          "清史稿/卷21@1814546#復彰化，台灣兩路賊平。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷21@1814546#台灣會匪陷彰化。",
+        "清史稿/卷21@1814546#台灣會匪陷斗六門。",
+        "清史稿/卷21@1814546#台灣軍解嘉義圍。",
+        "清史稿/卷21@1814546#彰化匪首戴萬生伏誅。",
+        "清史稿/卷21@1814546#復彰化，台灣兩路賊平。"
+      ],
+      "uncertainties": [
+        "起事原因、军民伤亡和株连情况未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "逐项复核后只构成局部平叛、单次进剿、短期受降、未闭合战争开端或与主分区重复的同一战役；不因用兵规模、艰苦程度或平定字样升档，其他项明确保留A。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "REVIEWED_RETAINED_A",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "清军与民团多路解围复城，未给个人连续主语。",
+      "detail_expansion_status": "complete_unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-9EFC299ADD3A44DD5D6A",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-TIBET-BORDER-1909-1911",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "清廷在西藏设关、练兵兴学并在川边改土归流，川军入藏导致达赖出奔、被褫名号。",
+      "period": {
+        "start": "宣统元年三月",
+        "end": "宣统三年二月"
+      },
+      "observable_result": "清廷加强西藏川边直接治理，但与达赖关系决裂并引发新的边疆紧张。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V25-TIBET-BORDER-REFORM-1909-1911"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-25.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷25@2692357#亞東、江孜、噶大克開埠設關。",
+          "清史稿/卷25@2692357#西藏籌辦練兵興學事宜。",
+          "清史稿/卷25@2692357#藏番不靖，趙爾豐剿定之。",
+          "清史稿/卷25@2692357#達賴喇嘛患川兵至，出奔。",
+          "清史稿/卷25@2692357#詔奪阿旺羅布藏吐布丹甲錯濟寨汪曲卻勒朗結達賴喇嘛名號。",
+          "清史稿/卷25@2692357#四川德格、春科、高日三土司改設流官"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷25@2692357#亞東、江孜、噶大克開埠設關。",
+        "清史稿/卷25@2692357#西藏籌辦練兵興學事宜。",
+        "清史稿/卷25@2692357#藏番不靖，趙爾豐剿定之。",
+        "清史稿/卷25@2692357#達賴喇嘛患川兵至，出奔。",
+        "清史稿/卷25@2692357#詔奪阿旺羅布藏吐布丹甲錯濟寨汪曲卻勒朗結達賴喇嘛名號。",
+        "清史稿/卷25@2692357#四川德格、春科、高日三土司改設流官"
+      ],
+      "uncertainties": [
+        "军民伤亡、地方承受、税赋与长期治理结果未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-0C31DDB067FBE0398541",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-XINJIANG-UPRISINGS-1864-1866",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "库车起乱后，喀喇沙尔、乌鲁木齐、叶尔羌、阿克苏、伊犁、塔城等相继失守，多名办事大臣和将领死难。",
+      "period": {
+        "start": "同治三年六月",
+        "end": "同治五年五月"
+      },
+      "observable_result": "清廷在新疆大部的驻防体系崩溃，仅部分城地反复收复或坚守。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V21-XINJIANG-UPRISINGS-1864-1866"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-21.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷21@1814546#庫車漢、回亂，辦事大臣文藝、回子郡王愛默特死之。",
+          "清史稿/卷21@1814546#回匪陷烏魯木齊滿城及綏來",
+          "清史稿/卷21@1814546#回匪陷葉爾羌",
+          "清史稿/卷21@1814546#回匪陷阿克蘇、烏什",
+          "清史稿/卷21@1814546#回匪陷塔爾巴哈台，武隆額死之。",
+          "清史稿/卷21@1814546#回匪陷伊犁，明緒等死之。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷21@1814546#庫車漢、回亂，辦事大臣文藝、回子郡王愛默特死之。",
+        "清史稿/卷21@1814546#回匪陷烏魯木齊滿城及綏來",
+        "清史稿/卷21@1814546#回匪陷葉爾羌",
+        "清史稿/卷21@1814546#回匪陷阿克蘇、烏什",
+        "清史稿/卷21@1814546#回匪陷塔爾巴哈台，武隆額死之。",
+        "清史稿/卷21@1814546#回匪陷伊犁，明緒等死之。"
+      ],
+      "uncertainties": [
+        "各地起事组织关系、人口伤亡和城镇损失未载。"
+      ],
+      "cost_or_burden": "文艺、奎栋、平瑞、明绪、武隆额等死难；军民总伤亡未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "important_objective",
+      "land_strategic_value": "strategic_gateway",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记B；土地轴=strategic_gateway，对手轴=regional_major，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "B",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "已逐项反查全部source_card_ids；现有事实未同时闭合具名人物的实际控制、本人完成范围与可观察结果，unknown保持unknown。",
+      "detail_expansion_status": "complete_unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    }
+  ]
+}

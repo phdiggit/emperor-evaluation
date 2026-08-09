@@ -84,10 +84,64 @@ historical_person_profile_registry:
   audit_before_ruler_window_binding: true
   formal_writes_allowed: false
 
+battle_registry_store:
+  manifest: docs/公共成果/军事/01-战役登记.json
+  shard_root: docs/公共成果/军事/01-战役登记
+  manifest_schema: battle-registry-manifest-v1
+  content_schema: battle-parent-contract-registry-v5
+  stable_bucket_count: 24
+  unique_loader: emperor_v4.evaluation.battle_registry_store.load_battle_registry
+  public_parent_scope: canonical_campaign_family
+  third_item_d_parent_scope: canonical_ruler_window_investment_cycle
+  direct_raw_card_consumption_by_scorers: false
+
+battle_parent_adjudication_store:
+  manifest: config/battle-parent-contract-adjudications.json
+  shard_root: config/battle-parent-contract-adjudications
+  manifest_schema: battle-parent-adjudication-manifest-v1
+  stable_bucket_count: 8
+  unique_loader: emperor_v4.evaluation.battle_adjudication_store.load_battle_parent_adjudications
+
+post_tang_third_item_expansion:
+  public_registry_loader: emperor_v4.evaluation.battle_registry_store.load_battle_registry
+  ruler_window_config: config/post-tang-third-item-ruler-windows.json
+  canonical_phase_promotion: emperor_v4.evaluation.post_tang_canonical_battle_promotion.write_post_tang_canonical_phase_records
+  phase_consumer: emperor_v4.evaluation.post_tang_third_item_consumption.build_post_tang_third_item_consumption_audit
+  south_song_cycle_admission: emperor_v4.evaluation.south_song_third_item.build_south_song_cycle_admission_audit
+  south_song_parent_cycle_adjudications: config/south-song-third-item-cycle-adjudications.json
+  south_song_parent_cycle_audit: emperor_v4.evaluation.south_song_third_item.build_south_song_parent_cycle_audit
+  south_song_d_preview: emperor_v4.evaluation.south_song_third_item.build_south_song_d_preview
+  south_song_abc_preview: emperor_v4.evaluation.south_song_third_item.build_south_song_abc_preview
+  south_song_formal_writer: emperor_v4.evaluation.south_song_third_item.write_south_song_third_item
+  yuan_cycle_adjudications: config/yuan-third-item-cycle-adjudications.json
+  yuan_cycle_admission: emperor_v4.evaluation.yuan_third_item.build_yuan_cycle_admission_audit
+  yuan_parent_cycle_audit: emperor_v4.evaluation.yuan_third_item.build_yuan_parent_cycle_audit
+  yuan_d_preview: emperor_v4.evaluation.yuan_third_item.build_yuan_d_preview
+  yuan_abc_preview: emperor_v4.evaluation.yuan_third_item.build_yuan_abc_preview
+  yuan_formal_writer: emperor_v4.evaluation.yuan_third_item.write_yuan_third_item
+  ming_cycle_adjudications: config/ming-third-item-cycle-adjudications.json
+  ming_cycle_admission: emperor_v4.evaluation.ming_third_item.build_ming_cycle_admission_audit
+  ming_parent_cycle_audit: emperor_v4.evaluation.ming_third_item.build_ming_parent_cycle_audit
+  ming_d_preview: emperor_v4.evaluation.ming_third_item.build_ming_d_preview
+  ming_abc_preview: emperor_v4.evaluation.ming_third_item.build_ming_abc_preview
+  ming_formal_writer: emperor_v4.evaluation.ming_third_item.write_ming_third_item
+  readiness_builder: emperor_v4.evaluation.post_tang_third_item_readiness.build_post_tang_third_item_readiness
+  completed_partitions: [south_song, yuan, ming]
+  active_partitions: []
+  direct_chronicle_card_consumption_allowed: false
+  phase_containers_are_public_outcomes: false
+  source_partition_is_not_subject_polity: true
+  required_before_scoring: [resolve_ambiguous_ruler_window_bindings, consume_third_ab_axes, aggregate_third_d_parent_cycles]
+
 military_talent_grade_registry:
   source_registry: docs/公共成果/军事/01-战役登记.json
   current_json: docs/公共成果/军事/02-武将人才等级.json
   current_markdown: docs/公共成果/军事/02-武将人才等级.md
+  shard_root: docs/公共成果/军事/02-武将人才等级
+  manifest_schema: military-talent-registry-manifest-v1
+  stable_bucket_count: 16
+  unique_loader: emperor_v4.evaluation.talent_registry_store.load_talent_registry
+  canonical_identity_continuity_gate: true
   supersedes_prior_military_talent_grades: true
   formal_score_write: false
 

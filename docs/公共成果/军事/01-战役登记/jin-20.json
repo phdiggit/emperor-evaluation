@@ -1,0 +1,772 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "jin",
+  "bucket": 20,
+  "bucket_count": 24,
+  "record_count": 6,
+  "records_fingerprint": "075dc993f8577a34d3ef2ed2cbaf3f9f172e398681a5f0bb78aa5013bf078f5d",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-AFF23EC1B3359AB0CE53",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-CUI-LI-BIANJING-COUP-1233",
+      "candidate_destination": "REDIRECT_NON_BATTLE_OUTCOME",
+      "public_outcome_registered": false,
+      "canonical_label": "崔立发动政变，杀完颜奴申等执政，拥梁王监国并向蒙古军送款；其后搜括城中财货，将两宫北送，并在青城杀害宗室男女五百余人。",
+      "period": {
+        "start": "天兴二年正月",
+        "end": "天兴二年四月"
+      },
+      "observable_result": "汴京守城政权瓦解，城市与皇族被交付敌军，崔立掌握的临时政权以暴力搜括告终。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V18-CUI-LI-COUP-AND-SURRENDER-1233"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-18.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷18@2432702#殺參知政事完顏奴申",
+          "金史/卷18@2432702#遂送款大元軍前。",
+          "金史/卷18@2432702#諸宗室男女五百餘人至青城，皆及於難。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷18@2432702#殺參知政事完顏奴申",
+        "金史/卷18@2432702#遂送款大元軍前。",
+        "金史/卷18@2432702#諸宗室男女五百餘人至青城，皆及於難。"
+      ],
+      "uncertainties": [
+        "被搜括财货总额、其他死者数和两宫北迁人员结局未完整载明。"
+      ],
+      "cost_or_burden": "多名执政被杀，宗室男女五百余人遇害，城中财货遭搜括。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REDIRECTED_NON_BATTLE_OUTCOME",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-CA1589A1F4C8F007BEBD",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-LIAO-NINGJIANG-1114",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "完颜诸路二千五百人会师后进入辽境，击溃来攻中军的渤海军并围攻宁江州。",
+      "period": {
+        "start": "二年甲午九月",
+        "end": "二年甲午十月朔"
+      },
+      "observable_result": "辽军奔溃并大量相互践踏，十月朔宁江州被攻克，防御使大药师奴被俘后秘密释放用于招谕。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V02-NINGJIANG-1114"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-02.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷2@7906448#諸路兵皆會于來流水，得二千五百人。",
+          "金史/卷2@7906448#敵大奔，相蹂踐死者十七八。",
+          "金史/卷2@7906448#十月朔，克其城，獲防禦使大藥師奴"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷2@7906448#諸路兵皆會于來流水，得二千五百人。",
+        "金史/卷2@7906448#敵大奔，相蹂踐死者十七八。",
+        "金史/卷2@7906448#十月朔，克其城，獲防禦使大藥師奴"
+      ],
+      "uncertainties": [
+        "死者十七八为比例表述，绝对伤亡未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [
+        {
+          "actor_ref": "PERSON-JIN-AGUDA",
+          "actor_name": "阿骨打",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "统军击溃辽军并攻克宁江州",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "共享层显式person_ref与行动，按单一事实结果作证据下限定档。",
+            "source_refs": [
+              "金史/卷2@7906448#諸路兵皆會于來流水，得二千五百人。",
+              "金史/卷2@7906448#敵大奔，相蹂踐死者十七八。",
+              "金史/卷2@7906448#十月朔，克其城，獲防禦使大藥師奴"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-42B3E022E537CBC322CC",
+              "result_label": "完颜诸路二千五百人会师后进入辽境，击溃来攻中军的渤海军并围攻宁江州。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "共享事实显式列出阿骨打统军击溃辽军并攻克宁江州；只消费该事实可观察结果，不继承同群其他阶段。",
+              "source_refs": [
+                "金史/卷2@7906448#諸路兵皆會于來流水，得二千五百人。",
+                "金史/卷2@7906448#敵大奔，相蹂踐死者十七八。",
+                "金史/卷2@7906448#十月朔，克其城，獲防禦使大藥師奴"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "仅按共享层显式行动与结果建立阿骨打的人物下限。",
+                "source_refs": [
+                  "金史/卷2@7906448#諸路兵皆會于來流水，得二千五百人。",
+                  "金史/卷2@7906448#敵大奔，相蹂踐死者十七八。",
+                  "金史/卷2@7906448#十月朔，克其城，獲防禦使大藥師奴"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "unification_portfolio_ref": "UCP-POST-JIN-1114-1126",
+      "unification_stage_order": 1,
+      "account_routing": [
+        "UNIFICATION_ONLY"
+      ],
+      "defense_consumption": "EXCLUDED_UNIFICATION",
+      "settlement_scope": "BATTLE_LEDGER_ONLY",
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "逐项复核后只构成局部平叛、征讨未克、统一战争阶段执行或未闭合的多线推进；未达到强区域独立方向或第一梯队决定性终局，明确保留A。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "REVIEWED_RETAINED_A",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "single_integrated_command",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。"
+    },
+    {
+      "war_event_id": "WAR-POST-DE32CDC88573475B87D7",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-NORTHERN-BORDER-WAR-1194-1196",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "朝廷选军三万备次年会兵，征驼五千并储银钱金帛军赏，出师后金军数次报捷，又在望云和大盐泺遭败，最终还军。",
+      "period": {
+        "start": "明昌五年九月",
+        "end": "承安元年二月"
+      },
+      "observable_result": "大规模北边军事行动经历动员、进攻、胜败与撤军，未在本卷形成彻底平边结果。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V10-NORTHERN-WAR-MOBILIZATION-1194-1196"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-10.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷10@2432703#選軍三萬，俟來春調發",
+          "金史/卷10@2432703#括群牧所、三招討司猛安謀克、隨糺及迭剌、唐古部諸抹、西京、太原官民駝五千充之",
+          "金史/卷10@2432703#左丞相清臣遣使來獻捷。",
+          "金史/卷10@2432703#報敗敵於望雲。",
+          "金史/卷10@2432703#分兵攻取諸營。",
+          "金史/卷10@2432703#為廣吉剌部兵所取敗，死之。",
+          "金史/卷10@2432703#，複命還軍。幸"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷10@2432703#選軍三萬，俟來春調發",
+        "金史/卷10@2432703#括群牧所、三招討司猛安謀克、隨糺及迭剌、唐古部諸抹、西京、太原官民駝五千充之",
+        "金史/卷10@2432703#左丞相清臣遣使來獻捷。",
+        "金史/卷10@2432703#報敗敵於望雲。",
+        "金史/卷10@2432703#分兵攻取諸營。",
+        "金史/卷10@2432703#為廣吉剌部兵所取敗，死之。",
+        "金史/卷10@2432703#，複命還軍。幸"
+      ],
+      "uncertainties": [
+        "敌军主体全称、各役地点对应关系、参战总数与伤亡未完整载明。"
+      ],
+      "cost_or_burden": "征驼五千；备银五十五万两、钱二十三万六千九百贯及金帛衣物；双方伤亡不详。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "mixed",
+      "campaign_tier": "C",
+      "result_class": "local_tactical",
+      "land_strategic_value": "local_point",
+      "opponent_strategic_weight": "minor",
+      "opponent_condition": "unclear",
+      "battle_result": "unclear",
+      "objective_completion": "unclear",
+      "objective_shortfalls": [
+        "共享层未闭合全部战略目标，保持证据下限。"
+      ],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记C；土地轴=local_point，对手轴=minor，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "C",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "已逐项反查全部source_card_ids；现有事实未同时闭合具名人物的实际控制、本人完成范围与可观察结果，unknown保持unknown。",
+      "detail_expansion_status": "complete_unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-343DFC3B398436073120",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-XIA-BORDER-WAR-1210-1213",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "夏军先后侵葭州两次，继而攻保安州、庆阳府并杀当地刺史和同知府事。",
+      "period": {
+        "start": "大安二年八月",
+        "end": "至宁元年六月"
+      },
+      "observable_result": "金夏边境持续遭袭，两名地方长官被杀；本卷未载金方彻底反击结果。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V13-XIA-BORDER-WAR-1210-1213"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-13.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷13@2432650#夏人侵葭州。",
+          "金史/卷13@2432650#夏人犯葭州",
+          "金史/卷13@2432650#夏人犯保安州，殺刺史，犯慶陽府，殺同知府事。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷13@2432650#夏人侵葭州。",
+        "金史/卷13@2432650#夏人犯葭州",
+        "金史/卷13@2432650#夏人犯保安州，殺刺史，犯慶陽府，殺同知府事。"
+      ],
+      "uncertainties": [
+        "参战人数、城寨得失、军民伤亡与议和结果未载。"
+      ],
+      "cost_or_burden": "保安州刺史、庆阳府同知被杀；其余伤亡未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "mixed",
+      "campaign_tier": "C",
+      "result_class": "local_tactical",
+      "land_strategic_value": "local_point",
+      "opponent_strategic_weight": "minor",
+      "opponent_condition": "unclear",
+      "battle_result": "unclear",
+      "objective_completion": "unclear",
+      "objective_shortfalls": [
+        "共享层未闭合全部战略目标，保持证据下限。"
+      ],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记C；土地轴=local_point，对手轴=minor，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "C",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "已逐项反查全部source_card_ids；现有事实未同时闭合具名人物的实际控制、本人完成范围与可观察结果，unknown保持unknown。",
+      "detail_expansion_status": "complete_unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-9D50263047DAEEB83338",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-PROTO-JIN-LAPEI-MACHAN",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "臘醅、麻产多次侵掠野居女直和牧马，劾里钵在负伤后继续征讨并围攻暮稜水据点。",
+      "period": {
+        "start": "世祖在位后期",
+        "end": "世祖在位后期"
+      },
+      "observable_result": "据点被克，姑里甸兵尽被俘，臘醅和婆诸刊被擒后献辽；麻产逃走，尚未在本事件闭合。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V01-HELIPU-LAPEI-MACHAN"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-01.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷1@2432749#世祖圍而克之，盡獲姑里甸兵。麻產遁去。遂擒臘醅及婆諸刊，皆獻之遼。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷1@2432749#世祖圍而克之，盡獲姑里甸兵。麻產遁去。遂擒臘醅及婆諸刊，皆獻之遼。"
+      ],
+      "uncertainties": [
+        "麻产在本段逃走，直至肃宗时期才被擒杀，不在此反填。"
+      ],
+      "cost_or_burden": "劾里钵中四处创伤；其余伤亡未载。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-99625731804BBA7D",
+          "actor_name": "劾里钵",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "负伤后仍连续征讨，围克暮稜水据点并擒臘醅。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "负伤后仍连续征讨，围克暮稜水据点并擒臘醅。",
+            "source_refs": [
+              "金史/卷1@2432749#世祖圍而克之，盡獲姑里甸兵。麻產遁去。遂擒臘醅及婆諸刊，皆獻之遼。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-1C63C526E32F697CA0CB",
+              "result_label": "负伤后仍连续征讨，围克暮稜水据点并擒臘醅。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "负伤后仍连续征讨，围克暮稜水据点并擒臘醅。",
+              "source_refs": [
+                "金史/卷1@2432749#世祖圍而克之，盡獲姑里甸兵。麻產遁去。遂擒臘醅及婆諸刊，皆獻之遼。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "负伤后仍连续征讨，围克暮稜水据点并擒臘醅。",
+                "source_refs": [
+                  "金史/卷1@2432749#世祖圍而克之，盡獲姑里甸兵。麻產遁去。遂擒臘醅及婆諸刊，皆獻之遼。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-470C7C5065CE6092",
+          "actor_name": "臘醅",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "补消费已验收事实卡中具名实际作战人物；只登记本人可观察阶段，不继承父项终局。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "补消费已验收事实卡中具名实际作战人物；只登记本人可观察阶段，不继承父项终局。",
+            "source_refs": [
+              "金史/卷1@2432749#世祖圍而克之，盡獲姑里甸兵。麻產遁去。遂擒臘醅及婆諸刊，皆獻之遼。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-5E166FC1E0A84C338BB9",
+              "result_label": "多次侵掠并据点抵抗，最终据点被克且本人被擒献辽。",
+              "result_direction": "negative",
+              "result_tier": "A",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "多次侵掠并据点抵抗，最终据点被克且本人被擒献辽。",
+              "source_refs": [
+                "金史/卷1@2432749#世祖圍而克之，盡獲姑里甸兵。麻產遁去。遂擒臘醅及婆諸刊，皆獻之遼。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "多次侵掠并据点抵抗，最终据点被克且本人被擒献辽。",
+                "source_refs": [
+                  "金史/卷1@2432749#世祖圍而克之，盡獲姑里甸兵。麻產遁去。遂擒臘醅及婆諸刊，皆獻之遼。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [
+        {
+          "actor_ref": "PERSON-POST-470C7C5065CE6092",
+          "actor_name": "臘醅",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "A",
+          "severity": 0.4,
+          "basis": "多次侵掠并据点抵抗，最终据点被克且本人被擒献辽。",
+          "source_refs": [
+            "金史/卷1@2432749#世祖圍而克之，盡獲姑里甸兵。麻產遁去。遂擒臘醅及婆諸刊，皆獻之遼。"
+          ]
+        }
+      ],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "逐项复核后只构成局部平叛、征讨未克、统一战争阶段执行或未闭合的多线推进；未达到强区域独立方向或第一梯队决定性终局，明确保留A。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "REVIEWED_RETAINED_A",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-3EDBCEE2AE36B2CBC081",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-PROTO-JIN-LIUKE-ROUTES",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "留可、诈都、敌库德等在米里迷石罕城起兵，盈歌分军征讨并派阿骨打处理主攻次序。",
+      "period": {
+        "start": "穆宗三年后、七年前",
+        "end": "穆宗三年后、七年前"
+      },
+      "observable_result": "米里迷石罕城和留可城被攻下，钝恩、敌库德被俘后获释，塢塔与诈都投降；诸路恢复控制。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V01-YINGGE-LIUKE-ROUTES"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-01.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷1@2432749#大敗之，降米里迷石罕城，獲鈍恩、敵庫德，釋弗殺。",
+          "金史/卷1@2432749#攻破留可城",
+          "金史/卷1@2432749#於是撫寧諸路如舊時。太祖因致穆宗，教統門、渾蠢、耶悔、星顯四路及嶺東諸部自今勿復稱都部長。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷1@2432749#大敗之，降米里迷石罕城，獲鈍恩、敵庫德，釋弗殺。",
+        "金史/卷1@2432749#攻破留可城",
+        "金史/卷1@2432749#於是撫寧諸路如舊時。太祖因致穆宗，教統門、渾蠢、耶悔、星顯四路及嶺東諸部自今勿復稱都部長。"
+      ],
+      "uncertainties": [
+        "原文没有把各路行动标为同一正式战役，本条仅按同段统一部署合并。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-69B7013E7736D241",
+          "actor_name": "撒改",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "任都统征讨留可，限于分路执行。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "stage_executor",
+            "result_direction": "positive",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "任都统征讨留可，限于分路执行。",
+            "source_refs": [
+              "金史/卷1@2432749#大敗之，降米里迷石罕城，獲鈍恩、敵庫德，釋弗殺。",
+              "金史/卷1@2432749#攻破留可城",
+              "金史/卷1@2432749#於是撫寧諸路如舊時。太祖因致穆宗，教統門、渾蠢、耶悔、星顯四路及嶺東諸部自今勿復稱都部長。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-FD62422E955ADE9103D1",
+              "result_label": "任都统征讨留可，限于分路执行。",
+              "result_direction": "positive",
+              "result_tier": "B",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "任都统征讨留可，限于分路执行。",
+              "source_refs": [
+                "金史/卷1@2432749#大敗之，降米里迷石罕城，獲鈍恩、敵庫德，釋弗殺。",
+                "金史/卷1@2432749#攻破留可城",
+                "金史/卷1@2432749#於是撫寧諸路如舊時。太祖因致穆宗，教統門、渾蠢、耶悔、星顯四路及嶺東諸部自今勿復稱都部長。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "tactical_execution",
+                "decisive_relation": "stage_executor",
+                "basis": "任都统征讨留可，限于分路执行。",
+                "source_refs": [
+                  "金史/卷1@2432749#大敗之，降米里迷石罕城，獲鈍恩、敵庫德，釋弗殺。",
+                  "金史/卷1@2432749#攻破留可城",
+                  "金史/卷1@2432749#於是撫寧諸路如舊時。太祖因致穆宗，教統門、渾蠢、耶悔、星顯四路及嶺東諸部自今勿復稱都部長。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-2130B6EB0579C7CB",
+          "actor_name": "盈歌",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "分派多路征讨并恢复诸路控制，承担全局指挥。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "分派多路征讨并恢复诸路控制，承担全局指挥。",
+            "source_refs": [
+              "金史/卷1@2432749#大敗之，降米里迷石罕城，獲鈍恩、敵庫德，釋弗殺。",
+              "金史/卷1@2432749#攻破留可城",
+              "金史/卷1@2432749#於是撫寧諸路如舊時。太祖因致穆宗，教統門、渾蠢、耶悔、星顯四路及嶺東諸部自今勿復稱都部長。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-A676BC098EEC61FD8127",
+              "result_label": "分派多路征讨并恢复诸路控制，承担全局指挥。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "分派多路征讨并恢复诸路控制，承担全局指挥。",
+              "source_refs": [
+                "金史/卷1@2432749#大敗之，降米里迷石罕城，獲鈍恩、敵庫德，釋弗殺。",
+                "金史/卷1@2432749#攻破留可城",
+                "金史/卷1@2432749#於是撫寧諸路如舊時。太祖因致穆宗，教統門、渾蠢、耶悔、星顯四路及嶺東諸部自今勿復稱都部長。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "分派多路征讨并恢复诸路控制，承担全局指挥。",
+                "source_refs": [
+                  "金史/卷1@2432749#大敗之，降米里迷石罕城，獲鈍恩、敵庫德，釋弗殺。",
+                  "金史/卷1@2432749#攻破留可城",
+                  "金史/卷1@2432749#於是撫寧諸路如舊時。太祖因致穆宗，教統門、渾蠢、耶悔、星顯四路及嶺東諸部自今勿復稱都部長。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-9EE8173E0324A7A0",
+          "actor_name": "阿骨打",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "协调主攻次序并攻破留可城。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "co_decisive",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "协调主攻次序并攻破留可城。",
+            "source_refs": [
+              "金史/卷1@2432749#大敗之，降米里迷石罕城，獲鈍恩、敵庫德，釋弗殺。",
+              "金史/卷1@2432749#攻破留可城",
+              "金史/卷1@2432749#於是撫寧諸路如舊時。太祖因致穆宗，教統門、渾蠢、耶悔、星顯四路及嶺東諸部自今勿復稱都部長。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-F962CD134355A680B283",
+              "result_label": "协调主攻次序并攻破留可城。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "协调主攻次序并攻破留可城。",
+              "source_refs": [
+                "金史/卷1@2432749#大敗之，降米里迷石罕城，獲鈍恩、敵庫德，釋弗殺。",
+                "金史/卷1@2432749#攻破留可城",
+                "金史/卷1@2432749#於是撫寧諸路如舊時。太祖因致穆宗，教統門、渾蠢、耶悔、星顯四路及嶺東諸部自今勿復稱都部長。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "co_decisive",
+                "basis": "协调主攻次序并攻破留可城。",
+                "source_refs": [
+                  "金史/卷1@2432749#大敗之，降米里迷石罕城，獲鈍恩、敵庫德，釋弗殺。",
+                  "金史/卷1@2432749#攻破留可城",
+                  "金史/卷1@2432749#於是撫寧諸路如舊時。太祖因致穆宗，教統門、渾蠢、耶悔、星顯四路及嶺東諸部自今勿復稱都部長。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "逐项复核后只构成局部平叛、征讨未克、统一战争阶段执行或未闭合的多线推进；未达到强区域独立方向或第一梯队决定性终局，明确保留A。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "REVIEWED_RETAINED_A",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    }
+  ]
+}

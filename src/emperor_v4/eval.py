@@ -40,8 +40,46 @@ from emperor_v4.evaluation.ordinary_battle_outcome_pack import (
 from emperor_v4.evaluation.battle_parent_contract_registry import (
     write_battle_parent_contract_registry,
 )
+from emperor_v4.evaluation.battle_registry_store import load_battle_registry
+from emperor_v4.evaluation.post_tang_canonical_battle_promotion import (
+    build_post_tang_canonical_binding_audit,
+    build_post_tang_canonical_phase_records,
+    write_post_tang_canonical_phase_records,
+)
+from emperor_v4.evaluation.post_tang_third_item_consumption import (
+    build_post_tang_third_item_consumption_audit,
+)
+from emperor_v4.evaluation.south_song_third_item import (
+    build_south_song_abc_preview,
+    build_south_song_cycle_admission_audit,
+    build_south_song_d_preview,
+    build_south_song_parent_cycle_audit,
+    build_south_song_formal_payloads,
+    write_south_song_third_item,
+)
+from emperor_v4.evaluation.yuan_third_item import (
+    build_yuan_abc_preview,
+    build_yuan_cycle_admission_audit,
+    build_yuan_d_preview,
+    build_yuan_formal_payloads,
+    build_yuan_parent_cycle_audit,
+    write_yuan_third_item,
+)
+from emperor_v4.evaluation.ming_third_item import (
+    build_ming_abc_preview,
+    build_ming_cycle_admission_audit,
+    build_ming_d_preview,
+    build_ming_formal_payloads,
+    build_ming_parent_cycle_audit,
+    write_ming_third_item,
+)
 from emperor_v4.evaluation.military_talent_grade_registry import (
     write_military_talent_grade_registry,
+)
+from emperor_v4.evaluation.talent_registry_store import load_talent_registry
+from emperor_v4.evaluation.post_tang_third_item_readiness import (
+    SUPPORTED_PARTITIONS,
+    build_post_tang_third_item_readiness,
 )
 from emperor_v4.evaluation.first_item_a_registry import write_first_item_a_registry
 from emperor_v4.evaluation.first_item_b_registry import write_first_item_b_registry
@@ -140,6 +178,105 @@ def _parser() -> argparse.ArgumentParser:
     battle_parent_registry.add_argument(
         "--workspace-root", type=Path, default=Path(".")
     )
+
+    post_tang_third_readiness = commands.add_parser(
+        "post-tang-third-item-readiness"
+    )
+    post_tang_third_readiness.add_argument(
+        "--workspace-root", type=Path, default=Path(".")
+    )
+    post_tang_third_readiness.add_argument(
+        "--partitions",
+        nargs="+",
+        choices=SUPPORTED_PARTITIONS,
+        default=list(SUPPORTED_PARTITIONS),
+    )
+    post_tang_promotion = commands.add_parser(
+        "post-tang-canonical-phase-promotion"
+    )
+    post_tang_promotion.add_argument(
+        "--workspace-root", type=Path, default=Path(".")
+    )
+    post_tang_promotion.add_argument("--write", action="store_true")
+    post_tang_consumption = commands.add_parser(
+        "post-tang-third-item-consumption-audit"
+    )
+    post_tang_consumption.add_argument(
+        "--workspace-root", type=Path, default=Path(".")
+    )
+    south_song_admission = commands.add_parser(
+        "south-song-third-item-cycle-admission"
+    )
+    south_song_admission.add_argument(
+        "--workspace-root", type=Path, default=Path(".")
+    )
+    south_song_parents = commands.add_parser(
+        "south-song-third-item-parent-cycles"
+    )
+    south_song_parents.add_argument(
+        "--workspace-root", type=Path, default=Path(".")
+    )
+    south_song_d = commands.add_parser(
+        "south-song-third-item-d-preview"
+    )
+    south_song_d.add_argument(
+        "--workspace-root", type=Path, default=Path(".")
+    )
+    south_song_abc = commands.add_parser(
+        "south-song-third-item-abc-preview"
+    )
+    south_song_abc.add_argument(
+        "--workspace-root", type=Path, default=Path(".")
+    )
+    south_song_formal = commands.add_parser(
+        "south-song-third-item-formal"
+    )
+    south_song_formal.add_argument(
+        "--workspace-root", type=Path, default=Path(".")
+    )
+    south_song_formal.add_argument("--write", action="store_true")
+    yuan_admission = commands.add_parser(
+        "yuan-third-item-cycle-admission"
+    )
+    yuan_admission.add_argument(
+        "--workspace-root", type=Path, default=Path(".")
+    )
+    yuan_parents = commands.add_parser(
+        "yuan-third-item-parent-cycles"
+    )
+    yuan_parents.add_argument(
+        "--workspace-root", type=Path, default=Path(".")
+    )
+    yuan_d = commands.add_parser(
+        "yuan-third-item-d-preview"
+    )
+    yuan_d.add_argument(
+        "--workspace-root", type=Path, default=Path(".")
+    )
+    yuan_abc = commands.add_parser(
+        "yuan-third-item-abc-preview"
+    )
+    yuan_abc.add_argument(
+        "--workspace-root", type=Path, default=Path(".")
+    )
+    yuan_formal = commands.add_parser(
+        "yuan-third-item-formal"
+    )
+    yuan_formal.add_argument(
+        "--workspace-root", type=Path, default=Path(".")
+    )
+    yuan_formal.add_argument("--write", action="store_true")
+    ming_admission = commands.add_parser("ming-third-item-cycle-admission")
+    ming_admission.add_argument("--workspace-root", type=Path, default=Path("."))
+    ming_parents = commands.add_parser("ming-third-item-parent-cycles")
+    ming_parents.add_argument("--workspace-root", type=Path, default=Path("."))
+    ming_d = commands.add_parser("ming-third-item-d-preview")
+    ming_d.add_argument("--workspace-root", type=Path, default=Path("."))
+    ming_abc = commands.add_parser("ming-third-item-abc-preview")
+    ming_abc.add_argument("--workspace-root", type=Path, default=Path("."))
+    ming_formal = commands.add_parser("ming-third-item-formal")
+    ming_formal.add_argument("--workspace-root", type=Path, default=Path("."))
+    ming_formal.add_argument("--write", action="store_true")
 
     military_talent_grades = commands.add_parser(
         "military-talent-grade-registry"
@@ -609,7 +746,7 @@ def _run_ordinary_battle_outcome_packs(args: argparse.Namespace) -> int:
 def _run_battle_parent_contract_registry(args: argparse.Namespace) -> int:
     workspace_root = args.workspace_root.resolve()
     written = write_battle_parent_contract_registry(workspace_root)
-    payload = json.loads(written["json"].read_text(encoding="utf-8"))
+    payload = load_battle_registry(written["json"])
     print(f"普通候选：{payload['ordinary_candidate_count']}")
     print(
         f"普通父结果登记："
@@ -630,10 +767,291 @@ def _run_battle_parent_contract_registry(args: argparse.Namespace) -> int:
     return 0
 
 
+def _run_post_tang_third_item_readiness(args: argparse.Namespace) -> int:
+    payload = build_post_tang_third_item_readiness(
+        args.workspace_root.resolve(),
+        partitions=args.partitions,
+    )
+    for row in payload["partitions"]:
+        print(
+            f"{row['partition']}：登记{row['registered_record_count']}，"
+            f"公共成果{row['public_outcome_count']}，"
+            f"人物结果{row['person_result_count']}，"
+            f"阶段容器{row['canonical_phase_container_count']}，"
+            f"主体阶段{row['canonical_subject_phase_count']}，"
+            f"皇帝窗口绑定{row['canonical_bound_phase_count']}，"
+            f"AB轴{row['third_ab_axis_ready_record_count']}，"
+            f"D轴{row['third_d_axis_ready_record_count']}"
+        )
+    print(f"状态：{payload['readiness_status']}")
+    return 0
+
+
+def _run_post_tang_canonical_phase_promotion(args: argparse.Namespace) -> int:
+    workspace_root = args.workspace_root.resolve()
+    if args.write:
+        audit = write_post_tang_canonical_phase_records(workspace_root)
+    else:
+        payload = build_post_tang_canonical_phase_records(workspace_root)
+        audit = build_post_tang_canonical_binding_audit(
+            {"records": payload["records"]}
+        )
+    print(f"第三项阶段容器：{audit['record_count']}")
+    print(f"主体阶段：{audit['subject_phase_count']}")
+    print(f"唯一皇帝窗口绑定：{audit['bound_phase_count']}")
+    print(f"重复阶段ID：{audit['duplicate_phase_id_count']}")
+    print("状态：" + " / ".join(
+        f"{key}={value}"
+        for key, value in audit["binding_status_counts"].items()
+    ))
+    return 0
+
+
+def _run_post_tang_third_item_consumption_audit(
+    args: argparse.Namespace,
+) -> int:
+    payload = build_post_tang_third_item_consumption_audit(
+        args.workspace_root.resolve()
+    )
+    print(f"皇帝：{payload['ruler_count']}")
+    print(f"已有绑定阶段皇帝：{payload['ruler_with_bound_phase_count']}")
+    print(f"已消费主体阶段：{payload['consumed_phase_count']}")
+    print(f"D父周期候选：{payload['provisional_parent_cycle_count']}")
+    print(f"缺失原始轴阶段：{payload['missing_required_raw_axis_phase_count']}")
+    print(f"含UNKNOWN轴阶段：{payload['unknown_raw_axis_phase_count']}")
+    print(f"创业链标记阶段：{payload['founding_flagged_phase_count']}")
+    return 0
+
+
+def _run_south_song_third_item_cycle_admission(
+    args: argparse.Namespace,
+) -> int:
+    payload = build_south_song_cycle_admission_audit(
+        args.workspace_root.resolve()
+    )
+    for row in payload["rulers"]:
+        print(
+            f"{row['ruler_name']}：原始{row['raw_bound_cycle_count']}，"
+            f"准入{row['admitted_cycle_count']}，"
+            f"第一项创业链排除{row['excluded_first_item_founding_cycle_count']}，"
+            f"平乱候选{row['internal_restoration_candidate_count']}"
+        )
+    print(f"准入周期：{payload['admitted_cycle_count']}")
+    print(f"创业链排除：{payload['excluded_first_item_founding_cycle_count']}")
+    print(f"UNKNOWN轴周期：{payload['unknown_axis_cycle_count']}")
+    return 0
+
+
+def _run_south_song_third_item_parent_cycles(
+    args: argparse.Namespace,
+) -> int:
+    payload = build_south_song_parent_cycle_audit(
+        args.workspace_root.resolve()
+    )
+    for row in payload["rulers"]:
+        print(
+            f"{row['ruler_name']}：父周期{row['reviewed_parent_cycle_count']}，"
+            f"合并裁决{row['cycle_merge_count']}，"
+            f"实质周期{row['material_parent_cycle_count']}，"
+            f"UNKNOWN轴{row['unknown_axis_parent_cycle_count']}"
+        )
+    print(f"父周期：{payload['reviewed_parent_cycle_count']}")
+    print(f"合并成员：{payload['merged_member_cycle_count']}")
+    print(f"消费阶段：{payload['consumed_phase_count']}")
+    return 0
+
+
+def _run_south_song_third_item_d_preview(args: argparse.Namespace) -> int:
+    payload = build_south_song_d_preview(args.workspace_root.resolve())
+    for row in payload["rulers"]:
+        print(
+            f"{row['ruler_name']}：D预览{row['D_preview_grade']}，"
+            f"分数{row['D_preview_score_points']}，"
+            f"实质父周期{row['material_parent_cycle_count']}，"
+            f"闭合率{row['material_return_closure_rate']:.4f}，"
+            f"UNKNOWN实质周期{len(row['material_unknown_cycle_refs'])}"
+        )
+    print("正式写分：否")
+    return 0
+
+
+def _run_south_song_third_item_abc_preview(args: argparse.Namespace) -> int:
+    payload = build_south_song_abc_preview(args.workspace_root.resolve())
+    for row in payload["rulers"]:
+        print(
+            f"{row['ruler_name']}：AB {row['AB_preview_score_points']}，"
+            f"C {row['C_preview_score_points']}，"
+            f"D {row['D_preview_score_points']}，"
+            f"第三项预览 {row['third_item_preview_score_points']}"
+        )
+    print("正式写分：否")
+    return 0
+
+
+def _run_south_song_third_item_formal(args: argparse.Namespace) -> int:
+    workspace_root = args.workspace_root.resolve()
+    if args.write:
+        payload = write_south_song_third_item(workspace_root)
+        rows = payload["records"]
+    else:
+        registry = load_battle_registry(
+            workspace_root / "docs/公共成果/军事/01-战役登记.json"
+        )
+        built = build_south_song_formal_payloads(workspace_root, registry)
+        rows = built["partition_records"]
+    for row in rows:
+        print(
+            f"{row['ruler_name']}：第三项 {row['third_item_score_points']}，"
+            f"南宋内部第{row['partition_rank']}，总榜第{row['rank']}"
+        )
+    print(f"正式写入：{'是' if args.write else '否'}")
+    return 0
+
+
+def _run_yuan_third_item_cycle_admission(args: argparse.Namespace) -> int:
+    payload = build_yuan_cycle_admission_audit(args.workspace_root.resolve())
+    for row in payload["rulers"]:
+        print(
+            f"{row['ruler_name']}：原始{row['raw_bound_cycle_count']}，"
+            f"第一项排除{row['excluded_first_item_cycle_count']}，"
+            f"第三项准入{row['admitted_cycle_count']}，"
+            f"实质候选{row['material_cycle_count']}"
+        )
+    print(f"元朝第三项准入周期：{payload['admitted_cycle_count']}")
+    return 0
+
+
+def _run_yuan_third_item_parent_cycles(args: argparse.Namespace) -> int:
+    payload = build_yuan_parent_cycle_audit(args.workspace_root.resolve())
+    for row in payload["rulers"]:
+        print(
+            f"{row['ruler_name']}：父周期{row['reviewed_parent_cycle_count']}，"
+            f"合并裁决{row['cycle_merge_count']}，"
+            f"实质周期{row['material_parent_cycle_count']}，"
+            f"UNKNOWN轴{row['unknown_axis_parent_cycle_count']}"
+        )
+    print(f"元朝第三项父周期：{payload['reviewed_parent_cycle_count']}")
+    print(f"合并成员：{payload['merged_member_cycle_count']}")
+    print(f"消费阶段：{payload['consumed_phase_count']}")
+    return 0
+
+
+def _run_yuan_third_item_d_preview(args: argparse.Namespace) -> int:
+    payload = build_yuan_d_preview(args.workspace_root.resolve())
+    for row in payload["rulers"]:
+        print(
+            f"{row['ruler_name']}：D预览{row['D_preview_grade']}，"
+            f"分数{row['D_preview_score_points']}，"
+            f"实质父周期{row['material_parent_cycle_count']}，"
+            f"闭合率{row['material_return_closure_rate']:.4f}，"
+            f"UNKNOWN实质周期{len(row['material_unknown_cycle_refs'])}"
+        )
+    print("正式写分：否")
+    return 0
+
+
+def _run_yuan_third_item_abc_preview(args: argparse.Namespace) -> int:
+    payload = build_yuan_abc_preview(args.workspace_root.resolve())
+    for row in payload["rulers"]:
+        print(
+            f"{row['ruler_name']}：AB {row['AB_preview_score_points']}，"
+            f"C {row['C_preview_score_points']}，"
+            f"D {row['D_preview_score_points']}，"
+            f"第三项预览 {row['third_item_preview_score_points']}"
+        )
+    print("正式写分：否")
+    return 0
+
+
+def _run_yuan_third_item_formal(args: argparse.Namespace) -> int:
+    workspace_root = args.workspace_root.resolve()
+    if args.write:
+        payload = write_yuan_third_item(workspace_root)
+        rows = payload["records"]
+    else:
+        registry = load_battle_registry(
+            workspace_root / "docs/公共成果/军事/01-战役登记.json"
+        )
+        built = build_yuan_formal_payloads(workspace_root, registry)
+        rows = built["partition_records"]
+    for row in rows:
+        print(
+            f"{row['ruler_name']}：第三项 {row['third_item_score_points']}，"
+            f"元朝内部第{row['partition_rank']}，总榜第{row['rank']}"
+        )
+    print(f"正式写入：{'是' if args.write else '否'}")
+    return 0
+
+
+def _run_ming_third_item_cycle_admission(args: argparse.Namespace) -> int:
+    payload = build_ming_cycle_admission_audit(args.workspace_root.resolve())
+    for row in payload["rulers"]:
+        print(
+            f"{row['ruler_name']}：原始{row['raw_bound_cycle_count']}，"
+            f"第一项排除{row['excluded_first_item_cycle_count']}，"
+            f"第三项准入{row['admitted_cycle_count']}，实质候选{row['material_cycle_count']}"
+        )
+    print(f"明朝第三项准入周期：{payload['admitted_cycle_count']}")
+    return 0
+
+
+def _run_ming_third_item_parent_cycles(args: argparse.Namespace) -> int:
+    payload = build_ming_parent_cycle_audit(args.workspace_root.resolve())
+    for row in payload["rulers"]:
+        print(
+            f"{row['ruler_name']}：父周期{row['reviewed_parent_cycle_count']}，"
+            f"合并裁决{row['cycle_merge_count']}，实质周期{row['material_parent_cycle_count']}，"
+            f"UNKNOWN轴{row['unknown_axis_parent_cycle_count']}"
+        )
+    print(f"明朝第三项父周期：{payload['reviewed_parent_cycle_count']}")
+    return 0
+
+
+def _run_ming_third_item_d_preview(args: argparse.Namespace) -> int:
+    payload = build_ming_d_preview(args.workspace_root.resolve())
+    for row in payload["rulers"]:
+        print(
+            f"{row['ruler_name']}：D预览{row['D_preview_grade']}，分数{row['D_preview_score_points']}，"
+            f"实质父周期{row['material_parent_cycle_count']}，闭合率{row['material_return_closure_rate']:.4f}，"
+            f"UNKNOWN实质周期{len(row['material_unknown_cycle_refs'])}"
+        )
+    print("正式写分：否")
+    return 0
+
+
+def _run_ming_third_item_abc_preview(args: argparse.Namespace) -> int:
+    payload = build_ming_abc_preview(args.workspace_root.resolve())
+    for row in payload["rulers"]:
+        print(
+            f"{row['ruler_name']}：AB {row['AB_preview_score_points']}，"
+            f"C {row['C_preview_score_points']}，D {row['D_preview_score_points']}，"
+            f"第三项预览 {row['third_item_preview_score_points']}"
+        )
+    print("正式写分：否")
+    return 0
+
+
+def _run_ming_third_item_formal(args: argparse.Namespace) -> int:
+    workspace_root = args.workspace_root.resolve()
+    if args.write:
+        payload = write_ming_third_item(workspace_root)
+        rows = payload["records"]
+    else:
+        registry = load_battle_registry(workspace_root / "docs/公共成果/军事/01-战役登记.json")
+        rows = build_ming_formal_payloads(workspace_root, registry)["partition_records"]
+    for row in rows:
+        print(
+            f"{row['ruler_name']}：第三项 {row['third_item_score_points']}，"
+            f"明朝内部第{row['partition_rank']}，总榜第{row['rank']}"
+        )
+    print(f"正式写入：{'是' if args.write else '否'}")
+    return 0
+
+
 def _run_military_talent_grade_registry(args: argparse.Namespace) -> int:
     workspace_root = args.workspace_root.resolve()
     written = write_military_talent_grade_registry(workspace_root)
-    payload = json.loads(written["json"].read_text(encoding="utf-8"))
+    payload = load_talent_registry(written["json"])
     print(f"武将人物：{payload['profile_count']}")
     print(
         "等级："
@@ -713,6 +1131,42 @@ def main(argv: Sequence[str] | None = None) -> int:
         return _run_ordinary_battle_outcome_packs(args)
     if args.command == "battle-parent-contract-registry":
         return _run_battle_parent_contract_registry(args)
+    if args.command == "post-tang-third-item-readiness":
+        return _run_post_tang_third_item_readiness(args)
+    if args.command == "post-tang-canonical-phase-promotion":
+        return _run_post_tang_canonical_phase_promotion(args)
+    if args.command == "post-tang-third-item-consumption-audit":
+        return _run_post_tang_third_item_consumption_audit(args)
+    if args.command == "south-song-third-item-cycle-admission":
+        return _run_south_song_third_item_cycle_admission(args)
+    if args.command == "south-song-third-item-parent-cycles":
+        return _run_south_song_third_item_parent_cycles(args)
+    if args.command == "south-song-third-item-d-preview":
+        return _run_south_song_third_item_d_preview(args)
+    if args.command == "south-song-third-item-abc-preview":
+        return _run_south_song_third_item_abc_preview(args)
+    if args.command == "south-song-third-item-formal":
+        return _run_south_song_third_item_formal(args)
+    if args.command == "yuan-third-item-cycle-admission":
+        return _run_yuan_third_item_cycle_admission(args)
+    if args.command == "yuan-third-item-parent-cycles":
+        return _run_yuan_third_item_parent_cycles(args)
+    if args.command == "yuan-third-item-d-preview":
+        return _run_yuan_third_item_d_preview(args)
+    if args.command == "yuan-third-item-abc-preview":
+        return _run_yuan_third_item_abc_preview(args)
+    if args.command == "yuan-third-item-formal":
+        return _run_yuan_third_item_formal(args)
+    if args.command == "ming-third-item-cycle-admission":
+        return _run_ming_third_item_cycle_admission(args)
+    if args.command == "ming-third-item-parent-cycles":
+        return _run_ming_third_item_parent_cycles(args)
+    if args.command == "ming-third-item-d-preview":
+        return _run_ming_third_item_d_preview(args)
+    if args.command == "ming-third-item-abc-preview":
+        return _run_ming_third_item_abc_preview(args)
+    if args.command == "ming-third-item-formal":
+        return _run_ming_third_item_formal(args)
     if args.command == "military-talent-grade-registry":
         return _run_military_talent_grade_registry(args)
     if args.command == "first-item-a-registry":

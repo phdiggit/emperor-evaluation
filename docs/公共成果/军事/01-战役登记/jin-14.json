@@ -1,0 +1,758 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "jin",
+  "bucket": 14,
+  "bucket_count": 24,
+  "record_count": 4,
+  "records_fingerprint": "00bbe1e0e57d6a0edf70feca80c26ce8937877e98ff9471832cfbfceae796f4b",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-338B5CB56AFF7769DE9B",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-LIAO-DALUGU-1115",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "辽以骑二十万、步卒七万戍边，阿骨打进逼达鲁古城，集中攻击辽军中坚。",
+      "period": {
+        "start": "收国元年正月",
+        "end": "收国元年正月"
+      },
+      "observable_result": "辽军败溃，完颜军追至阿娄冈，辽步卒几乎全灭，并取得数千耕具供军使用。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V02-DALUGU-1115"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-02.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷2@7906448#遼遣都統耶律訛里朵、左副統蕭乙薛、右副統耶律張奴、都監蕭謝佛留，騎二十萬、步卒七萬戍邊。",
+          "金史/卷2@7906448#遼步卒盡殪，得其耕具數千以給諸軍。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷2@7906448#遼遣都統耶律訛里朵、左副統蕭乙薛、右副統耶律張奴、都監蕭謝佛留，騎二十萬、步卒七萬戍邊。",
+        "金史/卷2@7906448#遼步卒盡殪，得其耕具數千以給諸軍。"
+      ],
+      "uncertainties": [
+        "辽军数字为本纪记载，金军总数未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-7E852D60738F74E1",
+          "actor_name": "完颜娄室",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "与银术可九次冲击辽军中坚。 九次冲击辽军中坚是A级决定战术方向，不覆盖全军统合。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "independent_direction",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "co_decisive",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "与银术可九次冲击辽军中坚。 九次冲击辽军中坚是A级决定战术方向，不覆盖全军统合。",
+            "source_refs": [
+              "金史/卷2@7906448#遼遣都統耶律訛里朵、左副統蕭乙薛、右副統耶律張奴、都監蕭謝佛留，騎二十萬、步卒七萬戍邊。",
+              "金史/卷2@7906448#遼步卒盡殪，得其耕具數千以給諸軍。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-E2CA0860B7091F0EDEC7",
+              "result_label": "与银术可九次冲击辽军中坚。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "与银术可九次冲击辽军中坚。 九次冲击辽军中坚是A级决定战术方向，不覆盖全军统合。",
+              "source_refs": [
+                "金史/卷2@7906448#遼遣都統耶律訛里朵、左副統蕭乙薛、右副統耶律張奴、都監蕭謝佛留，騎二十萬、步卒七萬戍邊。",
+                "金史/卷2@7906448#遼步卒盡殪，得其耕具數千以給諸軍。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "tactical_execution",
+                "decisive_relation": "co_decisive",
+                "basis": "与银术可九次冲击辽军中坚。 九次冲击辽军中坚是A级决定战术方向，不覆盖全军统合。",
+                "source_refs": [
+                  "金史/卷2@7906448#遼遣都統耶律訛里朵、左副統蕭乙薛、右副統耶律張奴、都監蕭謝佛留，騎二十萬、步卒七萬戍邊。",
+                  "金史/卷2@7906448#遼步卒盡殪，得其耕具數千以給諸軍。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-22440661CC3FFC66",
+          "actor_name": "完颜宗干",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "奉命为疑兵，贡献限于该战术阶段。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "stage_executor",
+            "result_direction": "positive",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "奉命为疑兵，贡献限于该战术阶段。",
+            "source_refs": [
+              "金史/卷2@7906448#遼遣都統耶律訛里朵、左副統蕭乙薛、右副統耶律張奴、都監蕭謝佛留，騎二十萬、步卒七萬戍邊。",
+              "金史/卷2@7906448#遼步卒盡殪，得其耕具數千以給諸軍。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-06DF133A517895C9BCBE",
+              "result_label": "奉命为疑兵，贡献限于该战术阶段。",
+              "result_direction": "positive",
+              "result_tier": "B",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "奉命为疑兵，贡献限于该战术阶段。",
+              "source_refs": [
+                "金史/卷2@7906448#遼遣都統耶律訛里朵、左副統蕭乙薛、右副統耶律張奴、都監蕭謝佛留，騎二十萬、步卒七萬戍邊。",
+                "金史/卷2@7906448#遼步卒盡殪，得其耕具數千以給諸軍。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "tactical_execution",
+                "decisive_relation": "stage_executor",
+                "basis": "奉命为疑兵，贡献限于该战术阶段。",
+                "source_refs": [
+                  "金史/卷2@7906448#遼遣都統耶律訛里朵、左副統蕭乙薛、右副統耶律張奴、都監蕭謝佛留，騎二十萬、步卒七萬戍邊。",
+                  "金史/卷2@7906448#遼步卒盡殪，得其耕具數千以給諸軍。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-ECB12CE4D4A5139D",
+          "actor_name": "完颜宗雄",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "右翼先驰辽左军，继而击辽右军促成全线崩溃。 右翼击辽左右军促成崩溃，只消费本人右翼方向。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "independent_direction",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "co_decisive",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "右翼先驰辽左军，继而击辽右军促成全线崩溃。 右翼击辽左右军促成崩溃，只消费本人右翼方向。",
+            "source_refs": [
+              "金史/卷2@7906448#遼遣都統耶律訛里朵、左副統蕭乙薛、右副統耶律張奴、都監蕭謝佛留，騎二十萬、步卒七萬戍邊。",
+              "金史/卷2@7906448#遼步卒盡殪，得其耕具數千以給諸軍。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-3A917470BAD25200FCA3",
+              "result_label": "右翼先驰辽左军，继而击辽右军促成全线崩溃。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "右翼先驰辽左军，继而击辽右军促成全线崩溃。 右翼击辽左右军促成崩溃，只消费本人右翼方向。",
+              "source_refs": [
+                "金史/卷2@7906448#遼遣都統耶律訛里朵、左副統蕭乙薛、右副統耶律張奴、都監蕭謝佛留，騎二十萬、步卒七萬戍邊。",
+                "金史/卷2@7906448#遼步卒盡殪，得其耕具數千以給諸軍。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "tactical_execution",
+                "decisive_relation": "co_decisive",
+                "basis": "右翼先驰辽左军，继而击辽右军促成全线崩溃。 右翼击辽左右军促成崩溃，只消费本人右翼方向。",
+                "source_refs": [
+                  "金史/卷2@7906448#遼遣都統耶律訛里朵、左副統蕭乙薛、右副統耶律張奴、都監蕭謝佛留，騎二十萬、步卒七萬戍邊。",
+                  "金史/卷2@7906448#遼步卒盡殪，得其耕具數千以給諸軍。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-17D3C6BF93B6DD4A",
+          "actor_name": "完颜银术可",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "与娄室九次冲击辽军中坚。 与娄室冲击中坚，只消费本人战术方向。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "independent_direction",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "co_decisive",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "与娄室九次冲击辽军中坚。 与娄室冲击中坚，只消费本人战术方向。",
+            "source_refs": [
+              "金史/卷2@7906448#遼遣都統耶律訛里朵、左副統蕭乙薛、右副統耶律張奴、都監蕭謝佛留，騎二十萬、步卒七萬戍邊。",
+              "金史/卷2@7906448#遼步卒盡殪，得其耕具數千以給諸軍。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-346AE65B3F50DD101254",
+              "result_label": "与娄室九次冲击辽军中坚。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "与娄室九次冲击辽军中坚。 与娄室冲击中坚，只消费本人战术方向。",
+              "source_refs": [
+                "金史/卷2@7906448#遼遣都統耶律訛里朵、左副統蕭乙薛、右副統耶律張奴、都監蕭謝佛留，騎二十萬、步卒七萬戍邊。",
+                "金史/卷2@7906448#遼步卒盡殪，得其耕具數千以給諸軍。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "tactical_execution",
+                "decisive_relation": "co_decisive",
+                "basis": "与娄室九次冲击辽军中坚。 与娄室冲击中坚，只消费本人战术方向。",
+                "source_refs": [
+                  "金史/卷2@7906448#遼遣都統耶律訛里朵、左副統蕭乙薛、右副統耶律張奴、都監蕭謝佛留，騎二十萬、步卒七萬戍邊。",
+                  "金史/卷2@7906448#遼步卒盡殪，得其耕具數千以給諸軍。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-323631DDD7CB22F6",
+          "actor_name": "完颜阿骨打",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "亲自选阵、控制主力并完成追围歼灭。 同一人物简名与全名重复出现，只保留一个current人物结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "S-",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "亲自选阵、控制主力并完成追围歼灭。 同一人物简名与全名重复出现，只保留一个current人物结果。",
+            "source_refs": [
+              "金史/卷2@7906448#遼遣都統耶律訛里朵、左副統蕭乙薛、右副統耶律張奴、都監蕭謝佛留，騎二十萬、步卒七萬戍邊。",
+              "金史/卷2@7906448#遼步卒盡殪，得其耕具數千以給諸軍。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-97AD6AB4A1AC4624DE16",
+              "result_label": "亲自选阵、控制主力并完成追围歼灭。",
+              "result_direction": "positive",
+              "result_tier": "S-",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "亲自选阵、控制主力并完成追围歼灭。 同一人物简名与全名重复出现，只保留一个current人物结果。",
+              "source_refs": [
+                "金史/卷2@7906448#遼遣都統耶律訛里朵、左副統蕭乙薛、右副統耶律張奴、都監蕭謝佛留，騎二十萬、步卒七萬戍邊。",
+                "金史/卷2@7906448#遼步卒盡殪，得其耕具數千以給諸軍。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "亲自选阵、控制主力并完成追围歼灭。 同一人物简名与全名重复出现，只保留一个current人物结果。",
+                "source_refs": [
+                  "金史/卷2@7906448#遼遣都統耶律訛里朵、左副統蕭乙薛、右副統耶律張奴、都監蕭謝佛留，騎二十萬、步卒七萬戍邊。",
+                  "金史/卷2@7906448#遼步卒盡殪，得其耕具數千以給諸軍。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "S-",
+      "result_class": "independent_direction",
+      "land_strategic_value": "independent_direction",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "strong",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "辽以骑二十万、步卒七万构成国家主力，达鲁古城战后步卒几乎全灭；与同年护步答冈终局属连续主力决战，应合并为一个S-战役群。",
+      "tier_review_source_tier": "C",
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT",
+      "combat_difficulty": "D3",
+      "combat_difficulty_basis": "辽方二十七万步骑主力与达鲁古城方向防御同时存在，金军须集中攻击中坚并维持攻城方向，取D3；己方极端劣势未闭合，不升D4。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-E9C883731C9A8FF767F3",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-SONG-JIANWAI-1132-1133",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "耶律余睹谋反出奔后被追斩；撒离喝获准进取剑外十三州，攻金州、破饶峰关、取洋州兴元府，后又与吴玠持续作战并克和尚原。",
+      "period": {
+        "start": "天会十年九月",
+        "end": "天会十一年十一月"
+      },
+      "observable_result": "余睹叛乱被清除，金军一度深入汉中并在和尚原方向恢复战果。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V03-YUDU-JIANWAI-1132-1133"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-03.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷3@2432693#元帥右都監耶律餘睹謀反，出奔。",
+          "金史/卷3@2432693#部族節度使土古廝捕斬余睹及其諸子",
+          "金史/卷3@2432693#撒離喝敗吳玠于饒峰關。",
+          "金史/卷3@2432693#宗弼克和尚原。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷3@2432693#元帥右都監耶律餘睹謀反，出奔。",
+        "金史/卷3@2432693#部族節度使土古廝捕斬余睹及其諸子",
+        "金史/卷3@2432693#撒離喝敗吳玠于饒峰關。",
+        "金史/卷3@2432693#宗弼克和尚原。"
+      ],
+      "uncertainties": [
+        "剑外十三州实际控制范围和持续时间未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-4D349B8503AC189CE89E",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-SONG-SECOND-KAIFENG-1126",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "金军击败种师中、姚古等援军，第二次分路伐宋，攻克太原、真定及河东河北多州，十一月会师汴京并攻城。",
+      "period": {
+        "start": "天会四年五月",
+        "end": "天会四年十二月"
+      },
+      "observable_result": "闰十一月汴城被克，十二月宋钦宗投降并回汴，北宋中央军事抵抗崩溃。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V03-SECOND-SONG-CAMPAIGN-1126"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-03.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷3@2432693#完顏活女敗之于殺熊嶺，斬師中于陣。",
+          "金史/卷3@2432693#九月丙寅，宗翰克太原",
+          "金史/卷3@2432693#丙辰，克汴城。",
+          "金史/卷3@2432693#十二月癸亥，宋主桓降"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷3@2432693#完顏活女敗之于殺熊嶺，斬師中于陣。",
+        "金史/卷3@2432693#九月丙寅，宗翰克太原",
+        "金史/卷3@2432693#丙辰，克汴城。",
+        "金史/卷3@2432693#十二月癸亥，宋主桓降"
+      ],
+      "uncertainties": [
+        "各地攻守伤亡与城市损失未完整载明。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-419B85C97E4D7438",
+          "actor_name": "完颜宗望",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "东路主帅，由真定趋汴，先到汴京击败出战宋军并与宗翰共同攻城受降。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "co_decisive",
+            "result_direction": "positive",
+            "projected_result_tier": "S",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "东路主帅，由真定趋汴，先到汴京击败出战宋军并与宗翰共同攻城受降。",
+            "source_refs": [
+              "金史/卷3@2432693#完顏活女敗之于殺熊嶺，斬師中于陣。",
+              "金史/卷3@2432693#九月丙寅，宗翰克太原",
+              "金史/卷3@2432693#丙辰，克汴城。",
+              "金史/卷3@2432693#十二月癸亥，宋主桓降"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-3C2E423FD72E86BBF4CC",
+              "result_label": "东路主帅，由真定趋汴，先到汴京击败出战宋军并与宗翰共同攻城受降。",
+              "result_direction": "positive",
+              "result_tier": "S",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "东路主帅，由真定趋汴，先到汴京击败出战宋军并与宗翰共同攻城受降。",
+              "source_refs": [
+                "金史/卷3@2432693#完顏活女敗之于殺熊嶺，斬師中于陣。",
+                "金史/卷3@2432693#九月丙寅，宗翰克太原",
+                "金史/卷3@2432693#丙辰，克汴城。",
+                "金史/卷3@2432693#十二月癸亥，宋主桓降"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "co_decisive",
+                "basis": "东路主帅，由真定趋汴，先到汴京击败出战宋军并与宗翰共同攻城受降。",
+                "source_refs": [
+                  "金史/卷3@2432693#完顏活女敗之于殺熊嶺，斬師中于陣。",
+                  "金史/卷3@2432693#九月丙寅，宗翰克太原",
+                  "金史/卷3@2432693#丙辰，克汴城。",
+                  "金史/卷3@2432693#十二月癸亥，宋主桓降"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-E4585AEFD9A46E44",
+          "actor_name": "完颜宗翰",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "西路主帅，击援、克太原并由太原趋汴，会师后共同攻城。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "co_decisive",
+            "result_direction": "positive",
+            "projected_result_tier": "S",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "西路主帅，击援、克太原并由太原趋汴，会师后共同攻城。",
+            "source_refs": [
+              "金史/卷3@2432693#完顏活女敗之于殺熊嶺，斬師中于陣。",
+              "金史/卷3@2432693#九月丙寅，宗翰克太原",
+              "金史/卷3@2432693#丙辰，克汴城。",
+              "金史/卷3@2432693#十二月癸亥，宋主桓降"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-9871A7D3D4BB2C2B4FE5",
+              "result_label": "西路主帅，击援、克太原并由太原趋汴，会师后共同攻城。",
+              "result_direction": "positive",
+              "result_tier": "S",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "西路主帅，击援、克太原并由太原趋汴，会师后共同攻城。",
+              "source_refs": [
+                "金史/卷3@2432693#完顏活女敗之于殺熊嶺，斬師中于陣。",
+                "金史/卷3@2432693#九月丙寅，宗翰克太原",
+                "金史/卷3@2432693#丙辰，克汴城。",
+                "金史/卷3@2432693#十二月癸亥，宋主桓降"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "co_decisive",
+                "basis": "西路主帅，击援、克太原并由太原趋汴，会师后共同攻城。",
+                "source_refs": [
+                  "金史/卷3@2432693#完顏活女敗之于殺熊嶺，斬師中于陣。",
+                  "金史/卷3@2432693#九月丙寅，宗翰克太原",
+                  "金史/卷3@2432693#丙辰，克汴城。",
+                  "金史/卷3@2432693#十二月癸亥，宋主桓降"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-4C8B2590A7AFA20D",
+          "actor_name": "完颜活女",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "杀熊岭击败种师中援军并斩其于阵，限于西路援军阻击阶段。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "stage_executor",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "杀熊岭击败种师中援军并斩其于阵，限于西路援军阻击阶段。",
+            "source_refs": [
+              "金史/卷3@2432693#完顏活女敗之于殺熊嶺，斬師中于陣。",
+              "金史/卷3@2432693#九月丙寅，宗翰克太原",
+              "金史/卷3@2432693#丙辰，克汴城。",
+              "金史/卷3@2432693#十二月癸亥，宋主桓降"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-E7CDE64EF644C0C3F505",
+              "result_label": "杀熊岭击败种师中援军并斩其于阵，限于西路援军阻击阶段。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "杀熊岭击败种师中援军并斩其于阵，限于西路援军阻击阶段。",
+              "source_refs": [
+                "金史/卷3@2432693#完顏活女敗之于殺熊嶺，斬師中于陣。",
+                "金史/卷3@2432693#九月丙寅，宗翰克太原",
+                "金史/卷3@2432693#丙辰，克汴城。",
+                "金史/卷3@2432693#十二月癸亥，宋主桓降"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "tactical_execution",
+                "decisive_relation": "stage_executor",
+                "basis": "杀熊岭击败种师中援军并斩其于阵，限于西路援军阻击阶段。",
+                "source_refs": [
+                  "金史/卷3@2432693#完顏活女敗之于殺熊嶺，斬師中于陣。",
+                  "金史/卷3@2432693#九月丙寅，宗翰克太原",
+                  "金史/卷3@2432693#丙辰，克汴城。",
+                  "金史/卷3@2432693#十二月癸亥，宋主桓降"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "unification_portfolio_ref": "UCP-POST-JIN-1114-1126",
+      "unification_stage_order": 7,
+      "account_routing": [
+        "UNIFICATION_ONLY"
+      ],
+      "defense_consumption": "EXCLUDED_UNIFICATION",
+      "settlement_scope": "BATTLE_LEDGER_ONLY",
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "S",
+      "result_class": "single_pole_or_state_terminal",
+      "land_strategic_value": "national_core",
+      "opponent_strategic_weight": "first_tier_pole",
+      "opponent_condition": "first_tier_pole",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "military_system_collapsed",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "金军击溃多路援军、攻克太原真定并会师汴京，城破后宋钦宗投降，北宋中央军事体系崩溃；按第一梯队国家终局裁为S。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT",
+      "combat_difficulty": "D3",
+      "combat_difficulty_basis": "种师中等援军与太原、真定、汴京连续坚城两项重大约束并存，金军须分路击援、攻城再会师，取D3。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。"
+    },
+    {
+      "war_event_id": "WAR-POST-C37D1D83D7EF46ED814D",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-PROTO-JIN-GORYEO-NINE-FORTS-1106",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "高丽违背归还逃人的约定，杀害完颜部两名使者，在曷懒甸筑九城并以数万兵进攻；完颜部击败来军并对筑九城。",
+      "period": {
+        "start": "康宗四年丙戌",
+        "end": "康宗四年丙戌九月"
+      },
+      "observable_result": "高丽同意归还逃人、撤退九城军并归还所侵故地，九月罢兵。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V01-WUYASHU-NINE-FORTS-1106"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-01.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷1@2432749#高麗背約，殺二使，築九城於曷懶甸，以兵數萬來攻。斡賽敗之。斡魯亦築九城，與高麗九城相對。",
+          "金史/卷1@2432749#高麗約以還逋逃之人，退九城之軍，復所侵故地。九月，乃罷兵。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷1@2432749#高麗背約，殺二使，築九城於曷懶甸，以兵數萬來攻。斡賽敗之。斡魯亦築九城，與高麗九城相對。",
+        "金史/卷1@2432749#高麗約以還逋逃之人，退九城之軍，復所侵故地。九月，乃罷兵。"
+      ],
+      "uncertainties": [
+        "九城的具体名称与最终拆除状态未载；对筑为边境军事设施，不按大型工程候选结算。"
+      ],
+      "cost_or_burden": "完颜部阿聒、胜昆两使被杀；其他伤亡未载。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-809FF011F31C8B1B",
+          "actor_name": "斡赛",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "已验收事实卡明确闭合斡赛的实际行动与本人结果：两次击败高丽来军，实际交战与结果明确。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "stage_executor",
+            "result_direction": "positive",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合斡赛的实际行动与本人结果：两次击败高丽来军，实际交战与结果明确。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "金史/卷1@2432749#高麗背約，殺二使，築九城於曷懶甸，以兵數萬來攻。斡賽敗之。斡魯亦築九城，與高麗九城相對。",
+              "金史/卷1@2432749#高麗約以還逋逃之人，退九城之軍，復所侵故地。九月，乃罷兵。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-78F4232C0DFCEEC2F9A0",
+              "result_label": "两次击败高丽来军，实际交战与结果明确。",
+              "result_direction": "positive",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "已验收事实卡明确闭合斡赛的实际行动与本人结果：两次击败高丽来军，实际交战与结果明确。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "金史/卷1@2432749#高麗背約，殺二使，築九城於曷懶甸，以兵數萬來攻。斡賽敗之。斡魯亦築九城，與高麗九城相對。",
+                "金史/卷1@2432749#高麗約以還逋逃之人，退九城之軍，復所侵故地。九月，乃罷兵。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "tactical_execution",
+                "decisive_relation": "stage_executor",
+                "basis": "已验收事实卡明确闭合斡赛的实际行动与本人结果：两次击败高丽来军，实际交战与结果明确。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "金史/卷1@2432749#高麗背約，殺二使，築九城於曷懶甸，以兵數萬來攻。斡賽敗之。斡魯亦築九城，與高麗九城相對。",
+                  "金史/卷1@2432749#高麗約以還逋逃之人，退九城之軍，復所侵故地。九月，乃罷兵。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "mixed",
+      "campaign_tier": "C",
+      "result_class": "local_tactical",
+      "land_strategic_value": "local_point",
+      "opponent_strategic_weight": "minor",
+      "opponent_condition": "unclear",
+      "battle_result": "unclear",
+      "objective_completion": "unclear",
+      "objective_shortfalls": [
+        "共享层未闭合全部战略目标，保持证据下限。"
+      ],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记C；土地轴=local_point，对手轴=minor，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "C",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "single_integrated_command",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    }
+  ]
+}

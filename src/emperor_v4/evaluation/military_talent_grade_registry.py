@@ -8,6 +8,12 @@ from typing import Any, Mapping, Sequence
 
 import yaml
 
+from emperor_v4.evaluation.battle_registry_store import load_battle_registry
+from emperor_v4.evaluation.talent_registry_store import (
+    load_talent_registry,
+    write_talent_registry,
+)
+
 
 SCHEMA_VERSION = "military-talent-grade-registry-v3"
 GRADE_ORDER = (
@@ -1456,7 +1462,7 @@ def render_military_talent_grade_markdown(payload: Mapping[str, Any]) -> str:
 
 def write_military_talent_grade_registry(workspace_root: Path) -> dict[str, Path]:
     battle_path = workspace_root / "docs/公共成果/军事/01-战役登记.json"
-    battle_registry = json.loads(battle_path.read_text(encoding="utf-8"))
+    battle_registry = load_battle_registry(battle_path)
     identity_registry = yaml.safe_load(
         (workspace_root / "config/historical-entity-identities.yml").read_text(
             encoding="utf-8"
@@ -1476,9 +1482,34 @@ def write_military_talent_grade_registry(workspace_root: Path) -> dict[str, Path
     target.mkdir(parents=True, exist_ok=True)
     json_path = target / "02-武将人才等级.json"
     markdown_path = target / "02-武将人才等级.md"
-    json_path.write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
-    )
+    if json_path.exists():
+        current = load_talent_registry(json_path)
+        current_by_name = {
+            str(row["person"]): row for row in current.get("profiles") or ()
+        }
+        rebuilt_by_name = {
+            str(row["person"]): row for row in payload.get("profiles") or ()
+        }
+        missing_names = sorted(set(current_by_name) - set(rebuilt_by_name))
+        identity_drift = sorted(
+            name
+            for name in set(current_by_name) & set(rebuilt_by_name)
+            if (
+                current_by_name[name].get("profile_ref"),
+                current_by_name[name].get("person_ref"),
+            )
+            != (
+                rebuilt_by_name[name].get("profile_ref"),
+                rebuilt_by_name[name].get("person_ref"),
+            )
+        )
+        if missing_names or identity_drift:
+            raise ValueError(
+                "武将人才重建会破坏canonical人物身份连续性；"
+                f"缺失既有人物{len(missing_names)}名，身份漂移{len(identity_drift)}名。"
+                "必须先闭合公共人物身份迁移，禁止覆盖当前人才登记。"
+            )
+    write_talent_registry(json_path, payload)
     markdown_path.write_text(
         render_military_talent_grade_markdown(payload), encoding="utf-8"
     )

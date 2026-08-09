@@ -1,0 +1,1035 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "qing",
+  "bucket": 9,
+  "bucket_count": 24,
+  "record_count": 10,
+  "records_fingerprint": "e9edf488a75f451d7630360a3eca06939fe80d0d16ccd9137087b2b109a4c0c4",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-8A97C2B58944A7A8ED79",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-BURMA-1766-1770",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "云南官军多次进攻缅甸，经历新街、底麻江、猛育等败绩；傅恒后大举进军老官屯，因烟瘴损失过半而接受缅方请降班师。",
+      "period": {
+        "start": "乾隆三十一年正月",
+        "end": "乾隆三十四年十二月"
+      },
+      "observable_result": "四年战争未实现征服，清军伤亡惨重，以缅方称臣纳贡结束。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V13-BURMA-WAR-1766-1770"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-13.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷13@1808316#雲南官軍剿莽匪於猛住，失利。",
+          "清史稿/卷13@1808316#明瑞等敗績於猛育，死之。",
+          "清史稿/卷13@1808316#官軍損失大半，命班師屯野牛壩",
+          "清史稿/卷13@1808316#緬酋猛駮稱臣納貢。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷13@1808316#雲南官軍剿莽匪於猛住，失利。",
+        "清史稿/卷13@1808316#明瑞等敗績於猛育，死之。",
+        "清史稿/卷13@1808316#官軍損失大半，命班師屯野牛壩",
+        "清史稿/卷13@1808316#緬酋猛駮稱臣納貢。"
+      ],
+      "uncertainties": [
+        "双方总伤亡、军费与边民损失未载。"
+      ],
+      "cost_or_burden": "明瑞、阿里衮等死于军，官军因烟瘴损失大半。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-0D1D429FD91D270E",
+          "actor_name": "傅恒",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "本人实际控制最终主攻与班师阶段，征服目标未达且本部损失过半；不把此前多次败绩或发动战争授权归给傅恒。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "S-",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "本人实际控制最终主攻与班师阶段，征服目标未达且本部损失过半；不把此前多次败绩或发动战争授权归给傅恒。",
+            "source_refs": [
+              "清史稿/卷13@1808316#雲南官軍剿莽匪於猛住，失利。",
+              "清史稿/卷13@1808316#明瑞等敗績於猛育，死之。",
+              "清史稿/卷13@1808316#官軍損失大半，命班師屯野牛壩",
+              "清史稿/卷13@1808316#緬酋猛駮稱臣納貢。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-62ACC21AED2F2CD32F6D",
+              "result_label": "后期大举进军老官屯，军队因烟瘴损失过半后接受请降并班师。",
+              "result_direction": "negative",
+              "result_tier": "S-",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "PARTLY_UNKNOWN",
+              "basis": "本人实际控制最终主攻与班师阶段，征服目标未达且本部损失过半；不把此前多次败绩或发动战争授权归给傅恒。",
+              "source_refs": [
+                "清史稿/卷13@1808316#雲南官軍剿莽匪於猛住，失利。",
+                "清史稿/卷13@1808316#明瑞等敗績於猛育，死之。",
+                "清史稿/卷13@1808316#官軍損失大半，命班師屯野牛壩",
+                "清史稿/卷13@1808316#緬酋猛駮稱臣納貢。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "本人实际控制最终主攻与班师阶段，征服目标未达且本部损失过半；不把此前多次败绩或发动战争授权归给傅恒。",
+                "source_refs": [
+                  "清史稿/卷13@1808316#雲南官軍剿莽匪於猛住，失利。",
+                  "清史稿/卷13@1808316#明瑞等敗績於猛育，死之。",
+                  "清史稿/卷13@1808316#官軍損失大半，命班師屯野牛壩",
+                  "清史稿/卷13@1808316#緬酋猛駮稱臣納貢。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-AB807B2BBCF44125",
+          "actor_name": "明瑞",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "逐字锚明确明瑞等在猛育败绩、本人死亡；只消费该次主力败绩，不把四年战争全部归于他。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "逐字锚明确明瑞等在猛育败绩、本人死亡；只消费该次主力败绩，不把四年战争全部归于他。",
+            "source_refs": [
+              "清史稿/卷13@1808316#雲南官軍剿莽匪於猛住，失利。",
+              "清史稿/卷13@1808316#明瑞等敗績於猛育，死之。",
+              "清史稿/卷13@1808316#官軍損失大半，命班師屯野牛壩",
+              "清史稿/卷13@1808316#緬酋猛駮稱臣納貢。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-0BF4D9279B25B44201B0",
+              "result_label": "猛育方向实际领军败绩并战死。",
+              "result_direction": "negative",
+              "result_tier": "A",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "逐字锚明确明瑞等在猛育败绩、本人死亡；只消费该次主力败绩，不把四年战争全部归于他。",
+              "source_refs": [
+                "清史稿/卷13@1808316#雲南官軍剿莽匪於猛住，失利。",
+                "清史稿/卷13@1808316#明瑞等敗績於猛育，死之。",
+                "清史稿/卷13@1808316#官軍損失大半，命班師屯野牛壩",
+                "清史稿/卷13@1808316#緬酋猛駮稱臣納貢。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "逐字锚明确明瑞等在猛育败绩、本人死亡；只消费该次主力败绩，不把四年战争全部归于他。",
+                "source_refs": [
+                  "清史稿/卷13@1808316#雲南官軍剿莽匪於猛住，失利。",
+                  "清史稿/卷13@1808316#明瑞等敗績於猛育，死之。",
+                  "清史稿/卷13@1808316#官軍損失大半，命班師屯野牛壩",
+                  "清史稿/卷13@1808316#緬酋猛駮稱臣納貢。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [
+        {
+          "actor_ref": "PERSON-POST-0D1D429FD91D270E",
+          "actor_name": "傅恒",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "PARTLY_UNKNOWN",
+          "failure_impact_tier": "S-",
+          "severity": 0.2,
+          "basis": "本人实际控制最终主攻与班师阶段，征服目标未达且本部损失过半；不把此前多次败绩或发动战争授权归给傅恒。",
+          "source_refs": [
+            "清史稿/卷13@1808316#雲南官軍剿莽匪於猛住，失利。",
+            "清史稿/卷13@1808316#明瑞等敗績於猛育，死之。",
+            "清史稿/卷13@1808316#官軍損失大半，命班師屯野牛壩",
+            "清史稿/卷13@1808316#緬酋猛駮稱臣納貢。"
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-AB807B2BBCF44125",
+          "actor_name": "明瑞",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "A",
+          "severity": 0.4,
+          "basis": "逐字锚明确明瑞等在猛育败绩、本人死亡；只消费该次主力败绩，不把四年战争全部归于他。",
+          "source_refs": [
+            "清史稿/卷13@1808316#雲南官軍剿莽匪於猛住，失利。",
+            "清史稿/卷13@1808316#明瑞等敗績於猛育，死之。",
+            "清史稿/卷13@1808316#官軍損失大半，命班師屯野牛壩",
+            "清史稿/卷13@1808316#緬酋猛駮稱臣納貢。"
+          ]
+        }
+      ],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "negative",
+      "campaign_tier": "S-",
+      "result_class": "independent_direction",
+      "land_strategic_value": "independent_direction",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "strong",
+      "battle_result": "defeat",
+      "objective_completion": "failed",
+      "objective_shortfalls": [
+        "共享层未闭合全部战略目标，保持证据下限。"
+      ],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "对成熟国家进行多年大举战争，明瑞战死、傅恒军因烟瘴损失过半，征服目标失败后班师；缅方称臣不改实际未征服。O4对手与重大负向终局支持S-。",
+      "tier_review_source_tier": "C",
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT",
+      "combat_difficulty": "D3",
+      "combat_difficulty_basis": "远征补给、烟瘴环境与缅军据点抵抗相互强化，且清军经历多次败绩后仍须组织老官屯攻势，取D3。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-5A200DA0BAFF31F755B5",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-DZUNGAR-MOBILIZATION-1714-1716",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "策旺阿拉布坦军掠哈密后，康熙部署三路进兵，调外藩、索伦和各路清军，设置噶斯口、哈密、西宁等防线并任命靖逆、振武诸将军。",
+      "period": {
+        "start": "康熙五十四年四月",
+        "end": "康熙五十六年三月"
+      },
+      "observable_result": "清廷建立从哈密、巴尔库尔到青海的多路战争动员和驻防体系。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V08-DZUNGAR-WAR-MOBILIZATION-1714-1716"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-08.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷8@2606645#策旺阿拉布坦兵掠哈密",
+          "清史稿/卷8@2606645#三路並進，大功必成。",
+          "清史稿/卷8@2606645#徵外籓兵集歸化城，調打牲索倫兵赴推河。",
+          "清史稿/卷8@2606645#以富寧安為靖逆將軍，傅爾丹為振武將軍"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷8@2606645#策旺阿拉布坦兵掠哈密",
+        "清史稿/卷8@2606645#三路並進，大功必成。",
+        "清史稿/卷8@2606645#徵外籓兵集歸化城，調打牲索倫兵赴推河。",
+        "清史稿/卷8@2606645#以富寧安為靖逆將軍，傅爾丹為振武將軍"
+      ],
+      "uncertainties": [
+        "各路实际兵数、军费和征运民力总额未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-469FD872C73B802B0735",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-EASTERN-SEA-1616-1617",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "努尔哈齐遣军取萨哈连三十六寨，渡黑龙江后又取十一寨并经略使犬、诺洛、石拉忻诸路，次年继续攻取岛上部众。",
+      "period": {
+        "start": "天命元年七月",
+        "end": "天命二年"
+      },
+      "observable_result": "后金控制向黑龙江和东海诸部扩张，大量人口被带回。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V01-EASTERN-SEA-CAMPAIGNS-1616-1617"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-01.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷1@2589312#伐東海薩哈連部，取三十六寨。",
+          "清史稿/卷1@2589312#月，渡黑龍江，",
+          "清史稿/卷1@2589312#合，取十一寨，",
+          "清史稿/卷1@2589312#遣兵取東海散居諸部負險諸島，各取其人以歸。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷1@2589312#伐東海薩哈連部，取三十六寨。",
+        "清史稿/卷1@2589312#月，渡黑龍江，",
+        "清史稿/卷1@2589312#合，取十一寨，",
+        "清史稿/卷1@2589312#遣兵取東海散居諸部負險諸島，各取其人以歸。"
+      ],
+      "uncertainties": [
+        "所取人口、安置方式、伤亡和寨岛长期控制未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "important_objective",
+      "land_strategic_value": "strategic_gateway",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记B；土地轴=strategic_gateway，对手轴=regional_major，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "B",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "已逐项反查全部source_card_ids；现有事实未同时闭合具名人物的实际控制、本人完成范围与可观察结果，unknown保持unknown。",
+      "detail_expansion_status": "complete_unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-25D74A834865A186118F",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-GANSU-NEW-SECT-1784",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "甘肃新教回民田五等起事，清廷多次换将增兵，通渭失陷后收复，最终攻平石峰堡并处死张文庆等。",
+      "period": {
+        "start": "乾隆四十九年四月至七月",
+        "end": "1784"
+      },
+      "observable_result": "甘肃起事被镇压，失机官员被褫职，清廷免甘肃当年额赋及积欠。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V14-GANSU-NEW-SECT-REBELLION-1784"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-14.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷14@1809472#甘肅新教回人田五等作亂",
+          "清史稿/卷14@1809472#甘肅回匪陷通渭縣，尋復之。",
+          "清史稿/卷14@1809472#甘肅石峰堡回匪平，俘賊首張文慶等。",
+          "清史稿/卷14@1809472#免甘肅本年額賦。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷14@1809472#甘肅新教回人田五等作亂",
+        "清史稿/卷14@1809472#甘肅回匪陷通渭縣，尋復之。",
+        "清史稿/卷14@1809472#甘肅石峰堡回匪平，俘賊首張文慶等。",
+        "清史稿/卷14@1809472#免甘肅本年額賦。"
+      ],
+      "uncertainties": [
+        "起事背景、伤亡和受牵连人数未载。"
+      ],
+      "cost_or_burden": "双方伤亡与军费未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-DB83A4A3713C7B6F769D",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-KASHGAR-1830",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "安集延部众再入喀什噶尔，围城并进犯叶尔羌；清廷调大军援剿，十二月奏喀什噶尔、英吉沙尔回乱平定。",
+      "period": {
+        "start": "道光十年九月至十二月",
+        "end": "1830"
+      },
+      "observable_result": "两城危机解除，起事在本卷内被镇压。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V17-KASHGAR-REBELLION-1830"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-17.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷17@1812282#安集延回匪復入喀什噶爾",
+          "清史稿/卷17@1812282#遂圍喀什噶爾城。",
+          "清史稿/卷17@1812282#回匪犯葉爾羌",
+          "清史稿/卷17@1812282#喀什噶爾、英吉沙爾回匪平。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷17@1812282#安集延回匪復入喀什噶爾",
+        "清史稿/卷17@1812282#遂圍喀什噶爾城。",
+        "清史稿/卷17@1812282#回匪犯葉爾羌",
+        "清史稿/卷17@1812282#喀什噶爾、英吉沙爾回匪平。"
+      ],
+      "uncertainties": [
+        "起事首领、双方总伤亡和善后措施未载。"
+      ],
+      "cost_or_burden": "喀什噶尔帮办大臣塔斯哈战死，双方总伤亡与军费未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-6107E5EB6FDAEFAC8A87",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "BATTLE-QING-V20-REGIONAL-YOUYANG-XIUSHAN-06",
+      "split_from_source_target_ref": "CAMPAIGN-QING-REGIONAL-REBELLIONS-1853-1861",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "canonical_label": "另一股地方武装攻陷酉阳、秀山。",
+      "period": {
+        "start": "UNKNOWN_WITHIN_1853_1861",
+        "end": "UNKNOWN_WITHIN_1853_1861"
+      },
+      "observable_result": "另一股地方武装攻陷酉阳、秀山。",
+      "result_direction": "negative",
+      "campaign_tier": "C",
+      "result_class": "localized_outcome",
+      "land_strategic_value": "local_strongpoint",
+      "opponent_strategic_weight": "local_organized",
+      "opponent_condition": "unclear",
+      "battle_result": "defeat",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "localized_gain",
+      "tier_basis": "‘另股’明确否定与叙州方向同一指挥链；两地失陷构成最低公共负向结果，但无更高档材料，只定C。",
+      "tier_review_source_tier": null,
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT_SPLIT_CHILD",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按该子方向逐字锚可证的攻陷、平定或归降结果取证据下限。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "混合父项未保存可归责的连续子方向指挥，不从官职推定。",
+      "members": [],
+      "attributable_failures": [],
+      "detail_expansion_status": "complete_unknown",
+      "source_lineage": {
+        "source_card_ids": [],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-20.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷20@2433519#滇匪陷敘州，另股陷酉陽、秀山。"
+        ],
+        "lineage_basis": "同一共享事实含多个互不连续战区；父项持有fact_id，子项只持定点逐字锚，避免事实ID重复消费。"
+      },
+      "source_refs": [
+        "清史稿/卷20@2433519#滇匪陷敘州，另股陷酉陽、秀山。"
+      ],
+      "uncertainties": [
+        "具体年月、武装来源与首领、双方兵力、伤亡和收复未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "merged_into": null,
+      "limitations": [
+        "不得把混合父项的总兵力、四百余处规模或其他战区结果复制到本子项。"
+      ],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "basis": "‘另股’明确否定与叙州方向同一指挥链；两地失陷构成最低公共负向结果，但无更高档材料，只定C。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-81AA8EF377BF80A2783B",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-REVOLUTIONARY-ATTACKS-1910-1911",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "广州新军起事被平，汪兆铭等谋炸摄政王被捕，革命党继而杀孚琦并由黄兴进攻广州总督衙署。",
+      "period": {
+        "start": "宣统二年正月",
+        "end": "宣统三年四月"
+      },
+      "observable_result": "多次起事虽被压制，革命网络已深入新军和省城，政治危机升级。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V25-REVOLUTIONARY-ATTACKS-1910-1911"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-25.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷25@2692357#廣州新軍作亂，練軍討平之。",
+          "清史稿/卷25@2692357#革命黨人汪兆銘、黃復生、羅世勛謀以藥彈轟擊攝政王",
+          "清史稿/卷25@2692357#革命黨人以藥彈擊殺署廣州將軍孚琦。",
+          "清史稿/卷25@2692357#革命黨人黃興率其黨於廣州焚總督衙署，擊走之。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷25@2692357#廣州新軍作亂，練軍討平之。",
+        "清史稿/卷25@2692357#革命黨人汪兆銘、黃復生、羅世勛謀以藥彈轟擊攝政王",
+        "清史稿/卷25@2692357#革命黨人以藥彈擊殺署廣州將軍孚琦。",
+        "清史稿/卷25@2692357#革命黨人黃興率其黨於廣州焚總督衙署，擊走之。"
+      ],
+      "uncertainties": [
+        "各次行动人数、伤亡、组织联系和经费未载。"
+      ],
+      "cost_or_burden": "孚琦及起事者伤亡，完整伤亡未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-07DCF416D573A227750E",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-SINO-FRENCH-WAR-1883-1885",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "法国在越南扩张并进攻北圻、福建和台湾，清廷宣战；马尾船厂受袭、基隆失陷，冯子材等在镇南关击败法军并复谅山。",
+      "period": {
+        "start": "光绪九年二月",
+        "end": "光绪十一年四月"
+      },
+      "observable_result": "中法双方停战并订立新约，清军撤出越南，法国在越南的地位被确认。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V23-SINO-FRENCH-WAR-1883-1885"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-23.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷23@2132469#法人陷北寧",
+          "清史稿/卷23@2132469#法人陷基隆。",
+          "清史稿/卷23@2132469#法人襲馬尾炮台及船廠",
+          "清史稿/卷23@2132469#詔與法人宣戰",
+          "清史稿/卷23@2132469#大敗法人於鎮南關外，遂復諒山。",
+          "清史稿/卷23@2132469#天津會訂中法新約成。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷23@2132469#法人陷北寧",
+        "清史稿/卷23@2132469#法人陷基隆。",
+        "清史稿/卷23@2132469#法人襲馬尾炮台及船廠",
+        "清史稿/卷23@2132469#詔與法人宣戰",
+        "清史稿/卷23@2132469#大敗法人於鎮南關外，遂復諒山。",
+        "清史稿/卷23@2132469#天津會訂中法新約成。"
+      ],
+      "uncertainties": [
+        "双方总伤亡、军费和条约全文未载。"
+      ],
+      "cost_or_burden": "马尾舰船船厂损失、杨玉科等阵亡；双方总伤亡与赔费未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-1AA2BB81FFEE8287E1B6",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "SPLIT-QING-XINHUI-1654",
+      "split_from_source_target_ref": "CAMPAIGN-QING-SOUTHWEST-1651-1652",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "canonical_label": "尚可喜、耿继茂新会击败李定国",
+      "period": {
+        "end": "顺治十一年",
+        "start": "顺治十一年"
+      },
+      "observable_result": "清军解新会方向危机，李定国败走。",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "important_objective",
+      "land_strategic_value": "strategic_gateway",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "viable",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "tier_basis": "珊洲交战、退保新会和清军继续进击构成解围与击退的重要目标；未闭合区域终局，取B/D2，并纠正原父项止于顺治九年的时间错误。",
+      "tier_review_source_tier": null,
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT_SPLIT_CHILD",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按该子方向逐字锚可证的攻陷、平定或归降结果取证据下限。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "混合父项未保存可归责的连续子方向指挥，不从官职推定。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-27CEA6EADC7256DC",
+          "actor_name": "尚可喜",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "赴援主语与新会结果连续闭合；不独占共同指挥信用。 沿用既有人物裁决的C/D1证据下限；拆分父级升B/D2不得传播。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "shared_local_battle",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "co_decisive",
+            "result_direction": "positive",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "赴援主语与新会结果连续闭合；不独占共同指挥信用。 沿用既有人物裁决的C/D1证据下限；拆分父级升B/D2不得传播。",
+            "source_refs": [
+              "清史稿/卷224@2433586#平南王尚可喜、靖南王耿繼茂赴援",
+              "清史稿/卷224@2433586#戰於珊洲，定國兵敗，退保新會。",
+              "清史稿/卷224@2433586#師進擊之，定國敗走。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-95F64F4D8DC45569C1EF",
+              "result_label": "与耿继茂等赴援并在新会方向击退李定国。",
+              "result_direction": "positive",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": true,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "赴援主语与新会结果连续闭合；不独占共同指挥信用。 沿用既有人物裁决的C/D1证据下限；拆分父级升B/D2不得传播。",
+              "source_refs": [
+                "清史稿/卷224@2433586#平南王尚可喜、靖南王耿繼茂赴援",
+                "清史稿/卷224@2433586#戰於珊洲，定國兵敗，退保新會。",
+                "清史稿/卷224@2433586#師進擊之，定國敗走。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "co_decisive",
+                "basis": "赴援主语与新会结果连续闭合；不独占共同指挥信用。 沿用既有人物裁决的C/D1证据下限；拆分父级升B/D2不得传播。",
+                "source_refs": [
+                  "清史稿/卷224@2433586#平南王尚可喜、靖南王耿繼茂赴援",
+                  "清史稿/卷224@2433586#戰於珊洲，定國兵敗，退保新會。",
+                  "清史稿/卷224@2433586#師進擊之，定國敗走。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-1F72E8FEE82037C3",
+          "actor_name": "耿继茂",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "赴援主语与新会结果连续闭合；不独占共同指挥信用。 沿用既有人物裁决的C/D1证据下限；拆分父级升B/D2不得传播。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "shared_local_battle",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "co_decisive",
+            "result_direction": "positive",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "赴援主语与新会结果连续闭合；不独占共同指挥信用。 沿用既有人物裁决的C/D1证据下限；拆分父级升B/D2不得传播。",
+            "source_refs": [
+              "清史稿/卷224@2433586#平南王尚可喜、靖南王耿繼茂赴援",
+              "清史稿/卷224@2433586#戰於珊洲，定國兵敗，退保新會。",
+              "清史稿/卷224@2433586#師進擊之，定國敗走。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-ACC7B52C365189EDE7C0",
+              "result_label": "与尚可喜等赴援并在新会方向击退李定国。",
+              "result_direction": "positive",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": true,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "赴援主语与新会结果连续闭合；不独占共同指挥信用。 沿用既有人物裁决的C/D1证据下限；拆分父级升B/D2不得传播。",
+              "source_refs": [
+                "清史稿/卷224@2433586#平南王尚可喜、靖南王耿繼茂赴援",
+                "清史稿/卷224@2433586#戰於珊洲，定國兵敗，退保新會。",
+                "清史稿/卷224@2433586#師進擊之，定國敗走。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "co_decisive",
+                "basis": "赴援主语与新会结果连续闭合；不独占共同指挥信用。 沿用既有人物裁决的C/D1证据下限；拆分父级升B/D2不得传播。",
+                "source_refs": [
+                  "清史稿/卷224@2433586#平南王尚可喜、靖南王耿繼茂赴援",
+                  "清史稿/卷224@2433586#戰於珊洲，定國兵敗，退保新會。",
+                  "清史稿/卷224@2433586#師進擊之，定國敗走。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-5FB66B82808221A0",
+          "actor_name": "李定国",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "实际主帅与败走结果闭合；败因未明，独立保存负向而不反写1652年峰值。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "实际主帅与败走结果闭合；败因未明，独立保存负向而不反写1652年峰值。",
+            "source_refs": [
+              "清史稿/卷224@2433586#平南王尚可喜、靖南王耿繼茂赴援",
+              "清史稿/卷224@2433586#戰於珊洲，定國兵敗，退保新會。",
+              "清史稿/卷224@2433586#師進擊之，定國敗走。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-9100A8694EAD035E40B5",
+              "result_label": "珊洲失利后退保新会，再被清军击退。",
+              "result_direction": "negative",
+              "result_tier": "B",
+              "combat_difficulty": "D2",
+              "stable_delivery": true,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "实际主帅与败走结果闭合；败因未明，独立保存负向而不反写1652年峰值。",
+              "source_refs": [
+                "清史稿/卷224@2433586#平南王尚可喜、靖南王耿繼茂赴援",
+                "清史稿/卷224@2433586#戰於珊洲，定國兵敗，退保新會。",
+                "清史稿/卷224@2433586#師進擊之，定國敗走。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "tactical_execution",
+                "decisive_relation": "none",
+                "basis": "实际主帅与败走结果闭合；败因未明，独立保存负向而不反写1652年峰值。",
+                "source_refs": [
+                  "清史稿/卷224@2433586#平南王尚可喜、靖南王耿繼茂赴援",
+                  "清史稿/卷224@2433586#戰於珊洲，定國兵敗，退保新會。",
+                  "清史稿/卷224@2433586#師進擊之，定國敗走。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [
+        {
+          "actor_ref": "PERSON-POST-5FB66B82808221A0",
+          "actor_name": "李定国",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "B",
+          "severity": 0.3,
+          "basis": "实际主帅与败走结果闭合；败因未明，独立保存负向而不反写1652年峰值。",
+          "source_refs": [
+            "清史稿/卷224@2433586#平南王尚可喜、靖南王耿繼茂赴援",
+            "清史稿/卷224@2433586#戰於珊洲，定國兵敗，退保新會。",
+            "清史稿/卷224@2433586#師進擊之，定國敗走。"
+          ]
+        }
+      ],
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "source_lineage": {
+        "source_card_ids": [],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-05.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷224@2433586#平南王尚可喜、靖南王耿繼茂赴援",
+          "清史稿/卷224@2433586#戰於珊洲，定國兵敗，退保新會。",
+          "清史稿/卷224@2433586#師進擊之，定國敗走。"
+        ],
+        "lineage_basis": "同一共享事实含多个互不连续战区；父项持有fact_id，子项只持定点逐字锚，避免事实ID重复消费。"
+      },
+      "source_refs": [
+        "清史稿/卷224@2433586#平南王尚可喜、靖南王耿繼茂赴援",
+        "清史稿/卷224@2433586#戰於珊洲，定國兵敗，退保新會。",
+        "清史稿/卷224@2433586#師進擊之，定國敗走。"
+      ],
+      "uncertainties": [
+        "尚可喜、耿继茂与珠玛喇的具体战术分工未详，正向信用按共同完成；李定国败责因果保持UNKNOWN。"
+      ],
+      "cost_or_burden": "unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "merged_into": null,
+      "limitations": [
+        "不得把混合父项的总兵力、四百余处规模或其他战区结果复制到本子项。"
+      ],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "basis": "珊洲交战、退保新会和清军继续进击构成解围与击退的重要目标；未闭合区域终局，取B/D2，并纠正原父项止于顺治九年的时间错误。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-6C9FE8AE0F6AA7ACBA1E",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-WANGLUN-1774",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "王伦在山东起事并围临清，清廷调健锐火器营等会剿，王伦自焚，叛乱平定。",
+      "period": {
+        "start": "乾隆三十九年九月至十月",
+        "end": "1774"
+      },
+      "observable_result": "临清危机解除，退避将领被处斩，地方获免赋。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V13-WANGLUN-REBELLION-1774"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-13.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷13@1808316#山東壽張縣奸民王倫等謀逆",
+          "清史稿/卷13@1808316#王倫圍臨清",
+          "清史稿/卷13@1808316#山東臨清賊平，王倫自焚死。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷13@1808316#山東壽張縣奸民王倫等謀逆",
+        "清史稿/卷13@1808316#王倫圍臨清",
+        "清史稿/卷13@1808316#山東臨清賊平，王倫自焚死。"
+      ],
+      "uncertainties": [
+        "起事社会背景、双方伤亡和株连人数未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    }
+  ]
+}

@@ -237,7 +237,7 @@
           "reason": "剥离创业兼并后，晋、岐、淮南等方向始终构成反复战略压力；任内有压制叛乱和局部进展，也有柏乡等重大失利，交班时仍处明显战略劣势。"
         },
         "A2": {
-          "start": 2,
+          "start": 3,
           "end": 2,
           "reason": "黄河、潞晋与关中方向存在若干可守节点，但未形成覆盖主要强敌的稳定边界体系；交班时结构性缺口仍在。"
         },
@@ -598,22 +598,40 @@
       "polity": "后周",
       "reign_range": "954-959",
       "coverage_complete": true,
+      "third_item_cycle_exclusions": [
+        {
+          "campaign_group_ref": "ZZTJ-291-292-ZHOU-TAIYUAN-0954",
+          "reason": "高平防御闭合后主动北伐太原属于柴荣继续兼并统一的取得链；即使终局失败，其军事成本与失败也应随第一项取得过程一并消费，第三项不得只剥离胜果而保留负债。"
+        },
+        {
+          "campaign_group_ref": "ZZTJ-292-293-ZHOU-TANG-HUAINAN-0955-0956",
+          "reason": "淮南连续攻取是第一项已实际消费楚州、濠州亲征成果的同一取得父链；第三项不得再消费整轮割地、控制和体系收益。"
+        },
+        {
+          "campaign_group_ref": "ZZTJ-292-ZHOU-SHU-QINFENG-0955",
+          "reason": "秦凤四州为后周继续兼并统一的领土取得链，成果归第一项，第三项不重复结算。"
+        },
+        {
+          "campaign_group_ref": "ZZTJ-293-ZHOU-NHAN-LINZHOU-0957",
+          "reason": "对北汉林州的主动兼并属于统一取得链，第三项不重复结算。"
+        },
+        {
+          "campaign_group_ref": "ZZTJ-294-ZHOU-KHITAN-GUANNAN-0959",
+          "reason": "北征关南并取得州县是柴荣未竟统一链的领土取得阶段，归第一项消费。"
+        },
+        {
+          "campaign_group_ref": "ZZTJ-294-ZHOU-NHAN-XIZHOU-0958",
+          "reason": "西州方向对北汉的主动兼并属于统一取得链，第三项不重复结算。"
+        },
+        {
+          "campaign_group_ref": "ZZTJ-294-ZHOU-SHU-GUIAN-0958",
+          "reason": "对后蜀贵安方向的主动扩张属于统一取得链；失败与成本亦随取得过程结算，不留在第三项形成单边扣分。"
+        }
+      ],
       "third_item_route_overrides": [
         {
           "campaign_group_ref": "ZZTJ-291-NH-KHITAN-GAOPING-CAMPAIGN-0954",
           "reason": "柴荣以合法继承者即位后，北汉趁丧入侵形成国家防御任务；这是登基后的拒止战争，不是夺取皇位或兼并建国，父卡的政权巩固标签不得把它排入第一项。"
-        },
-        {
-          "campaign_group_ref": "ZZTJ-291-292-ZHOU-TAIYUAN-0954",
-          "d_route": "D_EXTERNAL_OR_FRONTIER",
-          "parent_benefit_axes": {
-            "SB": "SB0",
-            "SN": "SN3",
-            "BCP": "BCP0",
-            "BCN": "BCN3",
-            "WR": "WR0"
-          },
-          "reason": "太原远征前段取得外围州县但围城失败、久雨疾疫撤军且弃毁军资，已得节点未保持，父级终局为安全和控制净损。"
         }
       ],
       "third_item_cycle_merges": [
@@ -643,48 +661,44 @@
         }
       ],
       "AB": {
-        "control_contribution_type": "NEW_RECOVERED_REBUILT",
+        "control_contribution_type": "SAVED_UNDER_MAJOR_PRESSURE",
         "A1": {
-          "start": 2,
-          "end": 4,
-          "reason": "高平解除北汉—契丹联军压力，随后在淮南、秦凤和关南多个方向取得并保持战略主动；交班仍有北汉、幽州未决，故止于4档。"
+          "start": 3,
+          "end": 3,
+          "reason": "接班复用郭威交班的竞争均势3档；剥离淮南、秦凤、关南等统一取得链后，高平解除北汉—契丹联军压力并保持基本战略主动，非取得链只支持维持该状态。"
         },
         "A2": {
-          "start": 2,
-          "end": 4,
-          "reason": "从孤立州镇推进为淮南纵深、秦凤门户和关南三州等多方向协同边界；幽州和北汉方向仍是主要缺口。"
+          "start": 3,
+          "end": 3,
+          "reason": "接班复用郭威交班的有效主要边界3档；取得州县与纵深成果全部退回第一项后，第三项仅认定高平及后续守御维持既有边界，不奖励新增领土。"
         },
         "B1": {
           "start_equivalent": 0.75,
-          "end_equivalent": 2.5,
-          "grade": 3,
+          "end_equivalent": 0.75,
+          "grade": 1,
           "position": "MID",
-          "reason": "淮南州地、秦凤四州和关南等实际控制形成显著净增；共同尺度加权值为2.05，机械落B1-3。"
+          "reason": "淮南、秦凤和关南净增均由第一项消费；第三项共同尺度净增为零，只保留既有控制的低档稳定贡献。"
         },
         "B2": {
-          "grade": 4,
-          "position": "HIGH",
-          "reason": "淮南交通财赋、秦凤门户和关南缓冲显著改变多个主要方向攻防条件，接近决定性但未闭合幽州与北汉。"
-        },
-        "B4": {
           "grade": 3,
           "position": "HIGH",
-          "reason": "主要成果已有驻防、漕运和州镇安排并能移交；取得时间短、部分方向仍承受高维持压力，止于3档高位。"
+          "reason": "高平胜利稳定后周核心方向并改善北面攻防条件，但排除取得链后不足以认定跨多个战略方向的决定性控制。"
+        },
+        "B4": {
+          "grade": 2,
+          "position": "HIGH",
+          "reason": "短期守御成果能够移交，但五年窗口和持续北方压力不足以证明成熟、低成本的长期边防体系。"
         }
       },
       "C": {
-        "C1": 4,
-        "C2": 4,
-        "C3": 4,
-        "major_system_failure_group_refs": [
-          "ZZTJ-291-292-ZHOU-TAIYUAN-0954"
-        ],
+        "C1": 3,
+        "C2": 3,
+        "C3": 3,
+        "major_system_failure_group_refs": [],
         "major_system_success_group_refs": [
-          "ZZTJ-291-NH-KHITAN-GAOPING-CAMPAIGN-0954",
-          "ZZTJ-292-293-ZHOU-TANG-HUAINAN-0955-0956",
-          "ZZTJ-292-ZHOU-SHU-QINFENG-0955"
+          "ZZTJ-291-NH-KHITAN-GAOPING-CAMPAIGN-0954"
         ],
-        "reason": "排除即位创业阶段的高平后，秦凤、淮南、关南等跨方向任务多数兑现，军令、后勤和多将协同经三项重大胜绩检验；三项重大胜绩覆盖太原一项重大体系失败，三轴均定4档。"
+        "reason": "统一取得链连同太原失败一并退回第一项后，第三项以高平国家级防御胜利及数项边境守御证明体系可用；短任期且缺少多轮独立高难任务，三轴定3档。"
       },
       "admitted_large_rebellion_refs": []
     },

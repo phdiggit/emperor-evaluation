@@ -1,0 +1,4331 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "five_dynasties",
+  "bucket": 6,
+  "bucket_count": 24,
+  "record_count": 22,
+  "records_fingerprint": "f5363c9895eb9c83e8567783ebdb473171db3d092afc9a7d6c08fd8434800948",
+  "records": [
+    {
+      "war_event_id": "WAR-FD-C74D4CD9739473D344CC",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "chronicle_battle_card",
+      "campaign_group_ref": "ZZTJ-263-YANGXINGMI-EZHOU-0903",
+      "canonical_label": "鄂州长期围攻终局：刘存拔鄂、杜洪败亡",
+      "period": {
+        "start": "903",
+        "end": "903"
+      },
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_SUBJECT_PHASE_CONTRACT",
+      "source_lineage": {
+        "source_card_ids": [
+          "SRC-ZZTJ-265-803276#CARD-003"
+        ],
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json",
+          "docs/史料通读产物/五代十国/资治通鉴/volume-265.source-summary.md"
+        ],
+        "source_revision_refs": [
+          "803276"
+        ],
+        "lineage_basis": "五代十国32卷配对通读总结与战役裁决卡；父卡只作容器，计分消费主体阶段。"
+      },
+      "source_refs": [
+        "SRC-ZZTJ-265-803276-P0022",
+        "SRC-ZZTJ-265-803276-P0043"
+      ],
+      "source_quotes": [
+        "李神福攻鄂州未下",
+        "淮南將劉存攻拔之",
+        "汴兵千餘人送廣陵，悉誅之"
+      ],
+      "subject_phase_views": [
+        {
+          "phase_id": "WAR-FD-C74D4CD9739473D344CC-P01",
+          "evaluation_subject_phase": "杨行密—淮南军 × 李神福撤换至刘存攻拔鄂州阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "李神福因病离开长期未下的鄂州，刘存接任招讨；至天祐二年二月攻克鄂州，擒杜洪、曹延祚及汴兵千余。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "长期围攻本方伤亡失载。",
+            "range": "100—900死亡当量",
+            "center": 300.0,
+            "basis": "跨卷持续围城并最终破城，应有百人级以上损害；淮南方无败溃或主将战死记录。",
+            "upper_bound_reason": "没有支持千人级淮南伤亡的直接后效，故不上P3。",
+            "confidence": "medium"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SB3",
+          "material_return": "WR3",
+          "border_control": {
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "鄂州、鄂岳军政节点"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "长期围攻最终攻克鄂州并设刘存为鄂岳观察使，形成实际控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-265-803276-P0022",
+              "SRC-ZZTJ-265-803276-P0043"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "消灭长期依附朱全忠的杜洪集团并取得鄂州，使杨氏政权长江中游控制显著稳固。"
+          },
+          "carry_in": "承卷264李神福围鄂、击败成汭援军后鄂州仍未下。",
+          "carry_out": "鄂州进入淮南实际控制，本父链在本卷闭合。",
+          "polity_binding": "吴",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-265-803276-P0022",
+            "SRC-ZZTJ-265-803276-P0043"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-C74D4CD9739473D344CC-P02",
+          "evaluation_subject_phase": "杜洪—鄂州守方及汴援军 × 城破被俘处决阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "曹延祚率汴兵与杜洪共守；城破后杜洪、延祚及汴兵千余被押送广陵并全部处死，鄂州控制终结。",
+          "cost_axes": {
+            "P": "P3",
+            "S": "S3",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC4"
+          },
+          "P_inference": {},
+          "cost_evidence": {},
+          "strategic_security": "SN4",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN3",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "鄂州、鄂岳军政节点"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "鄂州及杜洪军政集团被淮南接管。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-ZZTJ-265-803276-P0022",
+              "SRC-ZZTJ-265-803276-P0043"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的建国、扩张或政权巩固阶段。"
+          },
+          "carry_in": "承卷264长期被围、外援失败且守方补给条件恶化。",
+          "carry_out": "杜洪集团灭亡，无后续同一控制主体。",
+          "polity_binding": null,
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-265-803276-P0022",
+            "SRC-ZZTJ-265-803276-P0043"
+          ]
+        }
+      ],
+      "subject_phase_count": 2,
+      "non_battle_disposition": null,
+      "wc_grade": null,
+      "security_grade": null,
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": false,
+      "limitations": [
+        "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "WAR-FD-A4E7F0898894DA5C0E3F",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "chronicle_battle_card",
+      "campaign_group_ref": "ZZTJ-265-WEIBO-YAJUN-0906",
+      "canonical_label": "魏博牙军清洗—高唐叛乱—五州平乱",
+      "period": {
+        "start": "906",
+        "end": "906"
+      },
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_SUBJECT_PHASE_CONTRACT",
+      "source_lineage": {
+        "source_card_ids": [
+          "SRC-ZZTJ-265-803276#CARD-014"
+        ],
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json",
+          "docs/史料通读产物/五代十国/资治通鉴/volume-265.source-summary.md"
+        ],
+        "source_revision_refs": [
+          "803276"
+        ],
+        "lineage_basis": "五代十国32卷配对通读总结与战役裁决卡；父卡只作容器，计分消费主体阶段。"
+      },
+      "source_refs": [
+        "SRC-ZZTJ-265-803276-P0064",
+        "SRC-ZZTJ-265-803276-P0100",
+        "SRC-ZZTJ-265-803276-P0108",
+        "SRC-ZZTJ-265-803276-P0110",
+        "SRC-ZZTJ-265-803276-P0117"
+      ],
+      "source_quotes": [
+        "牙軍謀亂",
+        "闔營殪之，凡八千家，嬰孺無遺",
+        "聚眾數萬據高唐",
+        "城中兵民無少長皆死",
+        "蓄積為之一空"
+      ],
+      "subject_phase_views": [
+        {
+          "phase_id": "WAR-FD-A4E7F0898894DA5C0E3F-P01",
+          "evaluation_subject_phase": "罗绍威—魏博军政共同体 × 借汴军清洗牙军阶段",
+          "subject_role": "COUP_ATTACKER",
+          "actual_process": "李公佺谋乱后，罗绍威借朱全忠七万军在外声援，以会葬为名让马嗣勋携一千长直兵潜入魏州；夜间先断弓弦甲襻，再以奴客数百会合汴兵突袭牙军，八千家连婴孺全部被杀。",
+          "cost_axes": {
+            "P": "P4估",
+            "S": "S4",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC5"
+          },
+          "P_inference": {
+            "P_observed": "直接记“八千家，婴孺无遗”，无每户人数。",
+            "range": "16000—50000死亡当量",
+            "center": 28284.3,
+            "basis": "至少八千户被成户屠杀，按每户人口远大于二人计算，死亡当量必在万级至数万级。",
+            "upper_bound_reason": "缺少户均人口与在场成员细数，不上P5。",
+            "confidence": "medium"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SN3",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "魏州军政中心"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "罗绍威仍掌魏州，但核心牙军体系被摧毁并立刻引发更广泛军乱。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-265-803276-P0064",
+              "SRC-ZZTJ-265-803276-P0100",
+              "SRC-ZZTJ-265-803276-P0108",
+              "SRC-ZZTJ-265-803276-P0110",
+              "SRC-ZZTJ-265-803276-P0117"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的建国、扩张或政权巩固阶段。"
+          },
+          "carry_in": "P0064李公佺与牙军谋乱、焚府舍剽掠后奔沧州，促使罗绍威加速清洗。",
+          "carry_out": "魏博诸军惧怨，高唐史仁遇等随即发动数万人的大规模叛乱。",
+          "polity_binding": "后梁",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-265-803276-P0064",
+            "SRC-ZZTJ-265-803276-P0100",
+            "SRC-ZZTJ-265-803276-P0108",
+            "SRC-ZZTJ-265-803276-P0110",
+            "SRC-ZZTJ-265-803276-P0117"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-A4E7F0898894DA5C0E3F-P02",
+          "evaluation_subject_phase": "朱全忠—汴军 × 以七万外援和千人潜入协助清洗阶段",
+          "subject_role": "ALLY",
+          "actual_process": "朱全忠发河南诸镇兵七万声言讨沧州，又令一千长直兵伪作送葬担夫潜入魏州，配合罗绍威突袭牙军；次日全忠大军入城。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {},
+          "cost_evidence": {},
+          "strategic_security": "SB2",
+          "material_return": "WR1",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "魏博"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未直接吞并魏博，但强化了对罗绍威及魏博军政的控制力。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-265-803276-P0064",
+              "SRC-ZZTJ-265-803276-P0100"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "协助清除长期可废立节帅的魏博牙军，使罗绍威对朱全忠依附加深，是梁代唐前整合河北重要军镇的一步。"
+          },
+          "carry_in": "罗绍威长期畏惧牙军，曾多次求朱全忠援助。",
+          "carry_out": "清洗引发魏博多州军乱，朱全忠被迫长期驻魏平乱。",
+          "polity_binding": "后梁",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-265-803276-P0064",
+            "SRC-ZZTJ-265-803276-P0100",
+            "SRC-ZZTJ-265-803276-P0108",
+            "SRC-ZZTJ-265-803276-P0110",
+            "SRC-ZZTJ-265-803276-P0117"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-A4E7F0898894DA5C0E3F-P03",
+          "evaluation_subject_phase": "史仁遇等魏博叛军、高唐军民 × 反乱及高唐覆灭阶段",
+          "subject_role": "REBELLER",
+          "actual_process": "清洗牙军后魏博诸军猜怨。史仁遇聚众数万据高唐，自称留后，多县响应；行营魏兵亦在历亭响应，被李周彝、符道昭击杀近半。汴军再克高唐，城中兵民无少长皆死，史仁遇被锯杀。",
+          "cost_axes": {
+            "P": "P4",
+            "S": "S4",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC5"
+          },
+          "P_inference": {},
+          "cost_evidence": {},
+          "strategic_security": "SN4",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN3",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "高唐及魏博多州县"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "叛军控制的高唐及响应州县最终被平定。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-ZZTJ-265-803276-P0108",
+              "SRC-ZZTJ-265-803276-P0110",
+              "SRC-ZZTJ-265-803276-P0117"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的建国、扩张或政权巩固阶段。"
+          },
+          "carry_in": "直接由牙军清洗后魏博诸军恐惧猜怨引发。",
+          "carry_out": "残余乱兵仍散据贝、博、澶、相、卫等州，至七月方全部平定。",
+          "polity_binding": null,
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-265-803276-P0064",
+            "SRC-ZZTJ-265-803276-P0100",
+            "SRC-ZZTJ-265-803276-P0108",
+            "SRC-ZZTJ-265-803276-P0110",
+            "SRC-ZZTJ-265-803276-P0117"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-A4E7F0898894DA5C0E3F-P04",
+          "evaluation_subject_phase": "朱全忠—汴军 × 驻魏半年平定五州乱兵阶段",
+          "subject_role": "SUPPRESSOR",
+          "actual_process": "朱全忠移军魏州，召回行营兵，平高唐后再分诸将讨贝、博、澶、相、卫及魏境诸县散兵；至七月克相州后全线平定。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A3",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "汴军自身伤亡失载。",
+            "range": "1000—7000死亡当量",
+            "center": 2645.8,
+            "basis": "数月跨多州连续镇压、攻城并经历行营兵变，推定千人级本方损害。",
+            "upper_bound_reason": "原文明载大规模死亡主要发生在叛军和城民，缺乏汴军万级损失证据。",
+            "confidence": "low"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SB3",
+          "material_return": "WR1",
+          "border_control": {
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "魏博贝、博、澶、相、卫及诸县"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "恢复罗绍威名下魏博区域的军政秩序，并使其更依赖梁军。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-265-803276-P0108",
+              "SRC-ZZTJ-265-803276-P0110",
+              "SRC-ZZTJ-265-803276-P0117"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "以驻军平乱方式把魏博重新纳入可支配秩序，为朱全忠受禅前稳定河北后方。"
+          },
+          "carry_in": "承牙军清洗导致的魏博全面军乱。",
+          "carry_out": "魏博表面平定，但罗绍威财政储备和兵力体系被严重削弱。",
+          "polity_binding": "后梁",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-265-803276-P0064",
+            "SRC-ZZTJ-265-803276-P0100",
+            "SRC-ZZTJ-265-803276-P0108",
+            "SRC-ZZTJ-265-803276-P0110",
+            "SRC-ZZTJ-265-803276-P0117"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-A4E7F0898894DA5C0E3F-P05",
+          "evaluation_subject_phase": "罗绍威—魏博后勤体系 × 半年供给梁军阶段",
+          "subject_role": "HOST_SUPPORT",
+          "actual_process": "朱全忠留魏半年，罗绍威承担大规模供亿：牛羊猪近七十万，资粮数量相称，另有近百万赂遗，离去时蓄积为空；魏兵自此衰弱。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S4",
+            "M": "M3",
+            "A": "A4",
+            "WC": "WC4"
+          },
+          "P_inference": {},
+          "cost_evidence": {},
+          "strategic_security": "SB2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "魏博"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "乱兵被平定但疆域未新增，代价是魏博军政与财政能力显著衰弱。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-265-803276-P0117"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的建国、扩张或政权巩固阶段。"
+          },
+          "carry_in": "罗绍威主动借梁兵诛牙军后不得不依赖其继续平乱。",
+          "carry_out": "罗绍威自悔“六州四十三县铁不能为此错”，魏博长期军事自主性下降。",
+          "polity_binding": "后梁",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-265-803276-P0064",
+            "SRC-ZZTJ-265-803276-P0100",
+            "SRC-ZZTJ-265-803276-P0108",
+            "SRC-ZZTJ-265-803276-P0110",
+            "SRC-ZZTJ-265-803276-P0117"
+          ]
+        }
+      ],
+      "subject_phase_count": 5,
+      "non_battle_disposition": null,
+      "wc_grade": null,
+      "security_grade": null,
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": false,
+      "limitations": [
+        "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "WAR-FD-E08C62B4D6BC6230E87A",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "chronicle_battle_card",
+      "campaign_group_ref": "ZZTJ-266-CHU-HONGZHOU-0907",
+      "canonical_label": "楚军会彭玕攻洪州",
+      "period": {
+        "start": "907",
+        "end": "907"
+      },
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_SUBJECT_PHASE_CONTRACT",
+      "source_lineage": {
+        "source_card_ids": [
+          "SRC-ZZTJ-266-803277#CARD-009"
+        ],
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-266.battle-adjudications.json",
+          "docs/史料通读产物/五代十国/资治通鉴/volume-266.source-summary.md"
+        ],
+        "source_revision_refs": [
+          "803277"
+        ],
+        "lineage_basis": "五代十国32卷配对通读总结与战役裁决卡；父卡只作容器，计分消费主体阶段。"
+      },
+      "source_refs": [
+        "SRC-ZZTJ-266-803277-P0049"
+      ],
+      "source_quotes": [
+        "遣兵會吉州刺史彭玕攻洪州，不克"
+      ],
+      "subject_phase_views": [
+        {
+          "phase_id": "WAR-FD-E08C62B4D6BC6230E87A-P01",
+          "evaluation_subject_phase": "楚军、彭玕 × 攻洪州阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "楚王马殷遣兵会吉州刺史彭玕攻洪州，最终不克；原文没有具体兵数和战斗细节。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "仅见“攻洪州，不克”",
+            "range": "100—600死亡当量",
+            "center": 244.9,
+            "basis": "两方联军实际攻一战略州城，按百人级损害估计。",
+            "upper_bound_reason": "无长期围城、主将死亡或千人级失亡事实。",
+            "confidence": "low"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SN1",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "洪州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "攻城未克，没有形成控制变化。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-266-803277-P0049"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "楚试图向江西核心州域扩张，但未获得据点。"
+          },
+          "carry_in": "洪州刚由杨渥灭钟匡时后纳入淮南。",
+          "carry_out": "本卷当前阶段闭合为攻城失败。",
+          "polity_binding": "楚",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-266-803277-P0049"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-E08C62B4D6BC6230E87A-P02",
+          "evaluation_subject_phase": "淮南洪州守方 × 拒守楚、彭玕联军阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "洪州遭楚军与彭玕联合进攻，守方最终保住城池；具体守将与伤亡未载。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "守城成功，伤亡失载",
+            "range": "100—500死亡当量",
+            "center": 223.6,
+            "basis": "实际攻守发生，按百人级损害估计。",
+            "upper_bound_reason": "无城破、长期饥困或千人级守方损失。",
+            "confidence": "low"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SB1",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "洪州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "洪州未失。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-266-803277-P0049"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "保住新并入的江西军府核心，维持杨氏对洪州的统治。"
+          },
+          "carry_in": "承卷265秦裴攻取洪州。",
+          "carry_out": "无",
+          "polity_binding": null,
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-266-803277-P0049"
+          ]
+        }
+      ],
+      "subject_phase_count": 2,
+      "non_battle_disposition": null,
+      "wc_grade": null,
+      "security_grade": null,
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": false,
+      "limitations": [
+        "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "WAR-FD-116317D35CF9ED81B862",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "chronicle_battle_card",
+      "campaign_group_ref": "ZZTJ-276-KANGFU-LINGZHOU-0929",
+      "canonical_label": "康福万人护送入朔方与方渠—青刚峡战斗",
+      "period": {
+        "start": "929",
+        "end": "929"
+      },
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_SUBJECT_PHASE_CONTRACT",
+      "source_lineage": {
+        "source_card_ids": [
+          "SRC-ZZTJ-276-1767667#CARD-013"
+        ],
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-276.battle-adjudications.json",
+          "docs/史料通读产物/五代十国/资治通鉴/volume-276.source-summary.md"
+        ],
+        "source_revision_refs": [
+          "1767667"
+        ],
+        "lineage_basis": "五代十国32卷配对通读总结与战役裁决卡；父卡只作容器，计分消费主体阶段。"
+      },
+      "source_refs": [
+        "SRC-ZZTJ-276-1767667-P0118",
+        "SRC-ZZTJ-276-1767667-P0123"
+      ],
+      "source_quotes": [
+        "將軍牛知柔、河中都指揮使衛審𡷣等將兵萬人衛送之",
+        "羌胡出兵邀福，福擊走之",
+        "吐蕃野利、大蟲二族數千帳",
+        "大破之，殺獲殆盡",
+        "遂進至靈州，自是朔方始受代"
+      ],
+      "subject_phase_views": [
+        {
+          "phase_id": "WAR-FD-116317D35CF9ED81B862-P01",
+          "evaluation_subject_phase": "后唐康福—卫审𡷣万人护送军 × 方渠、青刚峡进军阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "后唐以万人护送新任朔方节度使康福入灵州。途中在方渠击退羌胡截击，又在青刚峡突袭吐蕃野利、大虫二族数千帐，杀获几尽，最终抵灵州完成换帅。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "后唐方伤亡失载。",
+            "range": "10—99死亡当量",
+            "center": 31,
+            "P_scoring": "P1估",
+            "basis": "两次实际交战但均取胜，无本方重大损失后效。",
+            "upper_bound_reason": "无百人级唐军死伤。",
+            "confidence": "low"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SB3",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "灵州、朔方军政中心及入境通道"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "确保中央任命进入灵州并恢复朔方受代秩序。",
+            "continuity_status": "HELD_AT_VOLUME_END",
+            "source_refs": [
+              "SRC-ZZTJ-276-1767667-P0118",
+              "SRC-ZZTJ-276-1767667-P0123"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的开国、复国或新政权稳定统治基础过程。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": "后唐",
+          "ruler_binding": {
+            "ruler_id": "RULER-FD-LI-SIYUAN",
+            "ruler_name": "李嗣源",
+            "status": "BOUND_YEAR_WINDOW",
+            "basis": "主体政权与卡片年代完整落入在位窗口。"
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-276-1767667-P0118",
+            "SRC-ZZTJ-276-1767667-P0123"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-116317D35CF9ED81B862-P02",
+          "evaluation_subject_phase": "方渠羌胡 × 截击康福失败阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "羌胡出兵截击康福护送军，被击退。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "羌胡损失失载。",
+            "range": "10—99死亡当量",
+            "center": 31,
+            "P_scoring": "P1估",
+            "basis": "一次明确败战但无斩获数。",
+            "upper_bound_reason": "无百人级伤亡证据。",
+            "confidence": "low"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SN1",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "方渠通道"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未形成控制变化。",
+            "continuity_status": "LOST_AS_THREAT",
+            "source_refs": [
+              "SRC-ZZTJ-276-1767667-P0118",
+              "SRC-ZZTJ-276-1767667-P0123"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的开国、复国或新政权稳定统治基础过程。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": null,
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-276-1767667-P0118",
+            "SRC-ZZTJ-276-1767667-P0123"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-116317D35CF9ED81B862-P03",
+          "evaluation_subject_phase": "吐蕃野利、大虫二族 × 青刚峡遭突袭阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "两族数千帐未察觉唐军到来，遭卫审𡷣突袭，原文称“杀获殆尽”。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S2",
+            "M": "M0",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "“数千帐”遭“杀获殆尽”；帐不是单纯战斗员人数，杀与俘构成不分。",
+            "range": "1,000—8,000死亡当量",
+            "center": 2828,
+            "P_scoring": "P3估",
+            "basis": "数千帐意味着大规模营群暴露，且原文明言几乎全部杀获；按死亡1、俘获1/5混合折算，中心为千人级。",
+            "upper_bound_reason": "缺少具体帐数、每帐人口和杀俘比例，不上P4。",
+            "confidence": "low"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SN3",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN1",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "青刚峡附近部族营地"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "营地武装与人口遭重创，但长期地域控制后果不明。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-ZZTJ-276-1767667-P0118",
+              "SRC-ZZTJ-276-1767667-P0123"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的开国、复国或新政权稳定统治基础过程。"
+          },
+          "carry_in": "无",
+          "carry_out": "该段存在明显非战斗人口暴露风险；后续战争行为/民生评价应保留此事实，但不反计为后唐自身WC。",
+          "polity_binding": null,
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-276-1767667-P0118",
+            "SRC-ZZTJ-276-1767667-P0123"
+          ]
+        }
+      ],
+      "subject_phase_count": 3,
+      "non_battle_disposition": null,
+      "wc_grade": null,
+      "security_grade": null,
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": false,
+      "limitations": [
+        "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "WAR-FD-1C6E8351486A9B0C2274",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "chronicle_battle_card",
+      "campaign_group_ref": "ZZTJ-281-KHITAN-YUNZHOU-0937",
+      "canonical_label": "云州闭城拒契丹与半年围城",
+      "period": {
+        "start": "937",
+        "end": "937"
+      },
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_SUBJECT_PHASE_CONTRACT",
+      "source_lineage": {
+        "source_card_ids": [
+          "SRC-ZZTJ-281-1769092#CARD-002"
+        ],
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-281.battle-adjudications.json",
+          "docs/史料通读产物/五代十国/资治通鉴/volume-281.source-summary.md"
+        ],
+        "source_revision_refs": [
+          "1769092"
+        ],
+        "lineage_basis": "五代十国32卷配对通读总结与战役裁决卡；父卡只作容器，计分消费主体阶段。"
+      },
+      "source_refs": [
+        "SRC-ZZTJ-281-1769092-P0022",
+        "SRC-ZZTJ-281-1769092-P0042"
+      ],
+      "source_quotes": [
+        "閉城不受契丹之命，契丹攻之，不克",
+        "契丹攻雲州，半歲不能下",
+        "命翟璋解圍去"
+      ],
+      "subject_phase_views": [
+        {
+          "phase_id": "WAR-FD-1C6E8351486A9B0C2274-P01",
+          "evaluation_subject_phase": "云州吴峦守军 × 闭城拒命与半年守城阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "吴峦在沙彦珣被契丹扣留后闭城拒绝接收命令，守云州半年，契丹始终未能攻下；后由后晋致书促成撤围。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "守城、围城伤亡均失载。",
+            "range": "100—700死亡当量",
+            "center": 264.6,
+            "P_scoring": "P2估",
+            "basis": "半年实质围城，存在多轮接战与守城损害，但无城破、主力覆灭或大规模死亡记载。",
+            "upper_bound_reason": "不以围城时长单独推到千人级，且后晋史文未见云州军大量死亡。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-281-1769092-P0022",
+              "SRC-ZZTJ-281-1769092-P0042"
+            ],
+            "S": [
+              "SRC-ZZTJ-281-1769092-P0022",
+              "SRC-ZZTJ-281-1769092-P0042"
+            ],
+            "M": [
+              "SRC-ZZTJ-281-1769092-P0022",
+              "SRC-ZZTJ-281-1769092-P0042"
+            ],
+            "A": [
+              "SRC-ZZTJ-281-1769092-P0022",
+              "SRC-ZZTJ-281-1769092-P0042"
+            ]
+          },
+          "strategic_security": "SB2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "云州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "云州在半年围攻中未被契丹攻取，本阶段为守住既有节点。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-281-1769092-P0022",
+              "SRC-ZZTJ-281-1769092-P0042"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "契丹取得幽州等地后继续接收云、应方向军镇。",
+          "carry_out": "契丹撤围后吴峦被后晋召归；云州其后实际归属需卷282以后继续核验。",
+          "polity_binding": null,
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-281-1769092-P0022",
+            "SRC-ZZTJ-281-1769092-P0042"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-1C6E8351486A9B0C2274-P02",
+          "evaluation_subject_phase": "契丹围城军 × 攻云州不克阶段",
+          "subject_role": "ATTACKER_SIEGE",
+          "actual_process": "契丹围攻云州半年未克，最终在后晋交涉后奉命撤围。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "契丹本方伤亡失载。",
+            "range": "100—900死亡当量",
+            "center": 300.0,
+            "P_scoring": "P2估",
+            "basis": "半年攻城和持续驻屯应有百人级累计战斗损害。",
+            "upper_bound_reason": "没有攻破城池、重大败退或千人级损失明文。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-281-1769092-P0022",
+              "SRC-ZZTJ-281-1769092-P0042"
+            ],
+            "S": [
+              "SRC-ZZTJ-281-1769092-P0022",
+              "SRC-ZZTJ-281-1769092-P0042"
+            ],
+            "M": [
+              "SRC-ZZTJ-281-1769092-P0022",
+              "SRC-ZZTJ-281-1769092-P0042"
+            ],
+            "A": [
+              "SRC-ZZTJ-281-1769092-P0022",
+              "SRC-ZZTJ-281-1769092-P0042"
+            ]
+          },
+          "strategic_security": "SB0",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "云州"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "未取得云州控制，最终撤围。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-ZZTJ-281-1769092-P0022",
+              "SRC-ZZTJ-281-1769092-P0042"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "承卷280十六州交割后契丹向新控制区推进。",
+          "carry_out": "撤围后北边仍存在契丹与后晋复杂控制边界。",
+          "polity_binding": "契丹",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-281-1769092-P0022",
+            "SRC-ZZTJ-281-1769092-P0042"
+          ]
+        }
+      ],
+      "subject_phase_count": 2,
+      "non_battle_disposition": null,
+      "wc_grade": null,
+      "security_grade": null,
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": false,
+      "limitations": [
+        "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "WAR-FD-5673D211809F45829888",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "chronicle_battle_card",
+      "campaign_group_ref": "ZZTJ-281-FENGXIANG-GARRISON-MUTINY-0938",
+      "canonical_label": "凤翔戍军兵变、入城剽掠与华州全歼",
+      "period": {
+        "start": "938",
+        "end": "938"
+      },
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_SUBJECT_PHASE_CONTRACT",
+      "source_lineage": {
+        "source_card_ids": [
+          "SRC-ZZTJ-281-1769092#CARD-009"
+        ],
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-281.battle-adjudications.json",
+          "docs/史料通读产物/五代十国/资治通鉴/volume-281.source-summary.md"
+        ],
+        "source_revision_refs": [
+          "1769092"
+        ],
+        "lineage_basis": "五代十国32卷配对通读总结与战役裁决卡；父卡只作容器，计分消费主体阶段。"
+      },
+      "source_refs": [
+        "SRC-ZZTJ-281-1769092-P0113"
+      ],
+      "source_quotes": [
+        "作亂，突門入城，剽掠於市",
+        "從曮發帳下兵擊之",
+        "張彥澤邀擊，盡誅之"
+      ],
+      "subject_phase_views": [
+        {
+          "phase_id": "WAR-FD-5673D211809F45829888-P01",
+          "evaluation_subject_phase": "凤翔乱兵 × 反入城剽掠并东逃阶段",
+          "subject_role": "MUTINEER",
+          "actual_process": "李从曮所发西边戍军出郊后作乱，突门返回凤翔并剽掠市中；被帐下兵击败后向东逃亡，试图赴朝廷自诉。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "乱军最终在华州“尽诛”，总数失载。",
+            "range": "100—1,500死亡当量",
+            "center": 387.3,
+            "P_scoring": "P2估",
+            "basis": "属成建制出戍部队，先与帐下兵交战后又被华州军截杀殆尽；至少百人级较可信。",
+            "upper_bound_reason": "无出戍兵确数，不上P3。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-281-1769092-P0113"
+            ],
+            "S": [
+              "SRC-ZZTJ-281-1769092-P0113"
+            ],
+            "M": [
+              "SRC-ZZTJ-281-1769092-P0113"
+            ],
+            "A": [
+              "SRC-ZZTJ-281-1769092-P0113"
+            ]
+          },
+          "strategic_security": "SN2",
+          "material_return": "WR1",
+          "border_control": {
+            "BCP": "BCP1",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "凤翔城、市区"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "乱兵短时闯入城内但未稳住，战败后退出凤翔。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-ZZTJ-281-1769092-P0113"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "长期厚文薄武、严士卒造成军将怨望。",
+          "carry_out": "残部在华州被张彦泽截击，没有继续形成叛军中心。",
+          "polity_binding": null,
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-281-1769092-P0113"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-5673D211809F45829888-P02",
+          "evaluation_subject_phase": "李从曮帐下兵 × 凤翔城内反击阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "李从曮发帐下兵攻击已入城剽掠的乱军，将其逐出凤翔。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "帐下兵本方伤亡无记载。",
+            "range": "10—99死亡当量",
+            "center": 31.5,
+            "P_scoring": "P1估",
+            "basis": "发生城内武装冲突，推定小规模非零损害。",
+            "upper_bound_reason": "无守方败退或百人级伤亡。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-281-1769092-P0113"
+            ],
+            "S": [
+              "SRC-ZZTJ-281-1769092-P0113"
+            ],
+            "M": [
+              "SRC-ZZTJ-281-1769092-P0113"
+            ],
+            "A": [
+              "SRC-ZZTJ-281-1769092-P0113"
+            ]
+          },
+          "strategic_security": "SB2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "凤翔城"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "迅速恢复州城及市区控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-281-1769092-P0113"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "乱军已突门入城剽掠。",
+          "carry_out": "东逃乱兵交由华州方向截击。",
+          "polity_binding": null,
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-281-1769092-P0113"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-5673D211809F45829888-P03",
+          "evaluation_subject_phase": "华州张彦泽军 × 截击尽诛乱兵阶段",
+          "subject_role": "INTERCEPTOR",
+          "actual_process": "乱兵东走至华州，张彦泽出兵截击并将其尽数诛杀，终结这支成建制叛军。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "华州军自身伤亡失载。",
+            "range": "10—99死亡当量",
+            "center": 31.5,
+            "P_scoring": "P1估",
+            "basis": "截击一支已败逃的乱军，推定小规模自身损害。",
+            "upper_bound_reason": "无激战、败退或百人级损失证据。",
+            "confidence": "low"
+          },
+          "cost_evidence": {
+            "P": [
+              "SRC-ZZTJ-281-1769092-P0113"
+            ],
+            "S": [
+              "SRC-ZZTJ-281-1769092-P0113"
+            ],
+            "M": [
+              "SRC-ZZTJ-281-1769092-P0113"
+            ],
+            "A": [
+              "SRC-ZZTJ-281-1769092-P0113"
+            ]
+          },
+          "strategic_security": "SB2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "华州交通线"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "主要结果是消灭叛军，并无新取得的疆域控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-281-1769092-P0113"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "NOT_APPLICABLE"
+          },
+          "carry_in": "乱军已被凤翔逐出。",
+          "carry_out": "本卷至此终结，未见残部。",
+          "polity_binding": null,
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-281-1769092-P0113"
+          ]
+        }
+      ],
+      "subject_phase_count": 3,
+      "non_battle_disposition": null,
+      "wc_grade": null,
+      "security_grade": null,
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": false,
+      "limitations": [
+        "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "WAR-FD-8C2828A4E4B8439F132F",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "chronicle_battle_card",
+      "campaign_group_ref": "ZZTJ-283-ZHANG-YUXIAN-SUPPRESSION",
+      "canonical_label": "南唐严恩边镐平定张遇贤",
+      "period": {
+        "start": "942",
+        "end": "944"
+      },
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_SUBJECT_PHASE_CONTRACT",
+      "source_lineage": {
+        "source_card_ids": [
+          "SRC-ZZTJ-283-810796#CARD-011"
+        ],
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-283.battle-adjudications.json",
+          "docs/史料通读产物/五代十国/资治通鉴/volume-283.source-summary.md"
+        ],
+        "source_revision_refs": [
+          "810796"
+        ],
+        "lineage_basis": "五代十国32卷配对通读总结与战役裁决卡；父卡只作容器，计分消费主体阶段。"
+      },
+      "source_refs": [
+        "SRC-ZZTJ-283-810796-P0085"
+      ],
+      "source_quotes": [
+        "擊張遇賢；屢破之",
+        "伐木開道，出其營後襲之",
+        "執遇賢以降"
+      ],
+      "subject_phase_views": [
+        {
+          "phase_id": "WAR-FD-8C2828A4E4B8439F132F-P01",
+          "evaluation_subject_phase": "南唐严恩、边镐军 × 连破与后营袭击阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "南唐严恩统军、边镐监军，白昌裕为谋主，连续击破张遇贤；又伐木开道从其营后突袭，张弃众而走，后被李台执送投降。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "连续多次作战与袭营，无唐军伤亡总数。",
+            "range": "100—900死亡当量",
+            "center": 300,
+            "basis": "屡战及袭营支持百人级本方人员损害。",
+            "upper_bound_reason": "无千人级唐军死亡或败退明文。",
+            "confidence": "low"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SB4",
+          "material_return": "WR1",
+          "border_control": {
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "虔州周边张遇贤控制区"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "南唐恢复此前被叛军夺取的地方控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-283-810796-P0085"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的建国、复国、割据政权形成、扩张或巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": "南唐",
+          "ruler_binding": {
+            "ruler_id": "RULER-FD-LI-BIAN",
+            "ruler_name": "李昪",
+            "status": "BOUND_REVIEWED_VOLUME_FALLBACK",
+            "basis": "战役群年代只能由卷级范围定位，但该主体政权在范围内只有一个合法统治窗口；按唯一候选绑定，不把对手或继任阶段倒灌。"
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-283-810796-P0085"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-8C2828A4E4B8439F132F-P02",
+          "evaluation_subject_phase": "张遇贤军 × 连败瓦解阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "张军屡败，后营被袭后张遇贤弃众逃走；其所投李台反将其执送，组织遂瓦解。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S3",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC4"
+          },
+          "P_inference": {
+            "P_observed": "连续遭破、营后受袭并整体瓦解，无总伤亡数。",
+            "range": "1,000—5,000死亡当量",
+            "center": 2236,
+            "basis": "大型叛军经历连续败战、弃众和组织解体，支持千人级中心当量。",
+            "upper_bound_reason": "无万级死亡或全军被杀明文。",
+            "confidence": "low"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SN4",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN3",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "虔州周边诸县",
+              "白云洞营署"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "此前扩张所得控制全部失去。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-ZZTJ-283-810796-P0085"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "政权性叛乱在试图巩固扩张区时被完全瓦解，建国启动链终止。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": null,
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-283-810796-P0085"
+          ]
+        }
+      ],
+      "subject_phase_count": 2,
+      "non_battle_disposition": null,
+      "wc_grade": null,
+      "security_grade": null,
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": false,
+      "limitations": [
+        "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "WAR-FD-6AACEEF1813F8084E778",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "chronicle_battle_card",
+      "campaign_group_ref": "ZZTJ-284-KHITAN-CHANZHOU-944",
+      "canonical_label": "澶州十余万契丹军大会战",
+      "period": {
+        "start": "944",
+        "end": "944"
+      },
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_SUBJECT_PHASE_CONTRACT",
+      "source_lineage": {
+        "source_card_ids": [
+          "SRC-ZZTJ-284-803293#CARD-007"
+        ],
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-284.battle-adjudications.json",
+          "docs/史料通读产物/五代十国/资治通鉴/volume-284.source-summary.md"
+        ],
+        "source_revision_refs": [
+          "803293"
+        ],
+        "lineage_basis": "五代十国32卷配对通读总结与战役裁决卡；父卡只作容器，计分消费主体阶段。"
+      },
+      "source_refs": [
+        "SRC-ZZTJ-284-803293-P0019"
+      ],
+      "source_quotes": [
+        "契丹主自將兵十餘萬陳於澶州城北",
+        "苦戰至暮，兩軍死者不可勝數",
+        "契丹引去"
+      ],
+      "subject_phase_views": [
+        {
+          "phase_id": "WAR-FD-6AACEEF1813F8084E778-P01",
+          "evaluation_subject_phase": "契丹主力 × 澶州会战",
+          "subject_role": "ATTACKER",
+          "actual_process": "十余万军整日进攻晋阵，苦战后退三十里并北归。",
+          "cost_axes": {
+            "P": "P4估",
+            "S": "S0",
+            "M": "M4",
+            "A": "A3",
+            "WC": "WC4"
+          },
+          "P_inference": {
+            "P_observed": "两军死者不可胜数",
+            "range": "10,000—50,000死亡当量",
+            "center": 22361,
+            "basis": "十余万主力整日苦战。",
+            "upper_bound_reason": "无十万级死亡或全军覆灭。",
+            "confidence": "medium"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SN3",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "澶州"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "未破晋阵、未取澶州。",
+            "continuity_status": "HELD_BY_OPPONENT",
+            "source_refs": [
+              "SRC-ZZTJ-284-803293-P0019"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的建国、复国、割据政权形成、扩张或巩固阶段。"
+          },
+          "carry_in": "承卷283契丹多路深入。",
+          "carry_out": "无",
+          "polity_binding": "契丹",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-284-803293-P0019"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-6AACEEF1813F8084E778-P02",
+          "evaluation_subject_phase": "后晋主力 × 澶州防御",
+          "subject_role": "DEFENDER",
+          "actual_process": "万弩齐发，守住中军与东偏，迫契丹退。",
+          "cost_axes": {
+            "P": "P4估",
+            "S": "S1",
+            "M": "M4",
+            "A": "A3",
+            "WC": "WC4"
+          },
+          "P_inference": {
+            "P_observed": "两军死者不可胜数",
+            "range": "10,000—50,000死亡当量",
+            "center": 22361,
+            "basis": "大型主力会战整日。",
+            "upper_bound_reason": "无十万级晋军死亡或崩溃。",
+            "confidence": "medium"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SB3",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "澶州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "澶州与晋阵保持。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-284-803293-P0019"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的建国、复国、割据政权形成、扩张或巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": "后晋",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-284-803293-P0019"
+          ]
+        }
+      ],
+      "subject_phase_count": 2,
+      "non_battle_disposition": null,
+      "wc_grade": null,
+      "security_grade": null,
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": false,
+      "limitations": [
+        "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "WAR-FD-B949A3213F917728701F",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "chronicle_battle_card",
+      "campaign_group_ref": "ZZTJ-284-KHITAN-QINGZHOU-RELIEF",
+      "canonical_label": "契丹援青州军被邀击",
+      "period": {
+        "start": "944",
+        "end": "945"
+      },
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_SUBJECT_PHASE_CONTRACT",
+      "source_lineage": {
+        "source_card_ids": [
+          "SRC-ZZTJ-284-803293#CARD-014"
+        ],
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-284.battle-adjudications.json",
+          "docs/史料通读产物/五代十国/资治通鉴/volume-284.source-summary.md"
+        ],
+        "source_revision_refs": [
+          "803293"
+        ],
+        "lineage_basis": "五代十国32卷配对通读总结与战役裁决卡；父卡只作容器，计分消费主体阶段。"
+      },
+      "source_refs": [
+        "SRC-ZZTJ-284-803293-P0029"
+      ],
+      "source_quotes": [
+        "契丹遣兵救青州",
+        "薛可言邀擊，敗之"
+      ],
+      "subject_phase_views": [
+        {
+          "phase_id": "WAR-FD-B949A3213F917728701F-P01",
+          "evaluation_subject_phase": "契丹援青州军 × 被击败",
+          "subject_role": "ATTACKER",
+          "actual_process": "援青州途中被齐州薛可言截击败退。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "援军败退，无伤亡数",
+            "range": "100—900死亡当量",
+            "center": 300,
+            "basis": "成建制援军遭截击。",
+            "upper_bound_reason": "无千人级损失明文。",
+            "confidence": "low"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SN2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "青州援军通道"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "未打通援助。",
+            "continuity_status": "HELD_BY_OPPONENT",
+            "source_refs": [
+              "SRC-ZZTJ-284-803293-P0029"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的建国、复国、割据政权形成、扩张或巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": "契丹",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-284-803293-P0029"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-B949A3213F917728701F-P02",
+          "evaluation_subject_phase": "后晋薛可言军 × 截击援军",
+          "subject_role": "DEFENDER",
+          "actual_process": "邀击并击败契丹援军。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "野战获胜，无伤亡数",
+            "range": "100—900死亡当量",
+            "center": 300,
+            "basis": "成建制野战。",
+            "upper_bound_reason": "无千人级本方损失。",
+            "confidence": "low"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SB2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "青州援军通道"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "阻断外援。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-284-803293-P0029"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的建国、复国、割据政权形成、扩张或巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": "后晋",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-284-803293-P0029"
+          ]
+        }
+      ],
+      "subject_phase_count": 2,
+      "non_battle_disposition": null,
+      "wc_grade": null,
+      "security_grade": null,
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": false,
+      "limitations": [
+        "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "WAR-FD-E259AEB2294B74744DDF",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "chronicle_battle_card",
+      "campaign_group_ref": "ZZTJ-285-FUZHOU-QUANZHOU",
+      "canonical_label": "李弘通万人攻泉州与留从效反击",
+      "period": {
+        "start": "945",
+        "end": "946"
+      },
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_SUBJECT_PHASE_CONTRACT",
+      "source_lineage": {
+        "source_card_ids": [
+          "SRC-ZZTJ-285-2554328#CARD-002"
+        ],
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-285.battle-adjudications.json",
+          "docs/史料通读产物/五代十国/资治通鉴/volume-285.source-summary.md"
+        ],
+        "source_revision_refs": [
+          "2554328"
+        ],
+        "lineage_basis": "五代十国32卷配对通读总结与战役裁决卡；父卡只作容器，计分消费主体阶段。"
+      },
+      "source_refs": [
+        "SRC-ZZTJ-285-2554328-P0039",
+        "SRC-ZZTJ-285-2554328-P0041"
+      ],
+      "source_quotes": [
+        "遣弟弘通將兵萬人伐之",
+        "勒兵擊李弘通，大破之"
+      ],
+      "subject_phase_views": [
+        {
+          "phase_id": "WAR-FD-E259AEB2294B74744DDF-P01",
+          "evaluation_subject_phase": "福州李弘通军 × 万人攻泉州阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "李弘义因泉州旧隶威武军，遣李弘通率万人伐泉州，被留从效整军大破。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "万人军遭“大破”，伤亡无总数。",
+            "range": "1,000—4,000死亡当量",
+            "center": 2000,
+            "basis": "万人级成建制进攻军遭大败，支持千人级死亡当量。",
+            "upper_bound_reason": "无万级死亡或全军覆没明文。",
+            "confidence": "low"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SN2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "泉州"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "未取得泉州。",
+            "continuity_status": "HELD_BY_OPPONENT",
+            "source_refs": [
+              "SRC-ZZTJ-285-2554328-P0039",
+              "SRC-ZZTJ-285-2554328-P0041"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "李弘义福州政权试图恢复对泉州的旧属控制，本阶段失败。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": null,
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-285-2554328-P0039",
+            "SRC-ZZTJ-285-2554328-P0041"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-E259AEB2294B74744DDF-P02",
+          "evaluation_subject_phase": "泉州留从效军 × 反击并掌军府阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "留从效以王继勋赏罚失当、军士不肯力战为由废王继勋，自领军府，勒兵击破李弘通；南唐随后正式任其泉州刺史。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "守方获大胜，己方伤亡失载。",
+            "range": "100—900死亡当量",
+            "center": 300,
+            "basis": "万人级来攻下实际野战并大胜，推定百人级本方人员损害。",
+            "upper_bound_reason": "无千人级泉州军死亡或败退后效。",
+            "confidence": "low"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SB3",
+          "material_return": "WR2",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "泉州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "守住泉州并由留从效形成稳定军府控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-285-2554328-P0039",
+              "SRC-ZZTJ-285-2554328-P0041"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "留从效通过击退福州军并获得南唐承认，建立泉州实际军政基础。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": null,
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-285-2554328-P0039",
+            "SRC-ZZTJ-285-2554328-P0041"
+          ]
+        }
+      ],
+      "subject_phase_count": 2,
+      "non_battle_disposition": null,
+      "wc_grade": null,
+      "security_grade": null,
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": false,
+      "limitations": [
+        "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "WAR-FD-D029EDF42AE0D1936B5C",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "chronicle_battle_card",
+      "campaign_group_ref": "ZZTJ-285-LINGZHOU-QIANGHU",
+      "canonical_label": "党项三族攻灵州与辉德反击",
+      "period": {
+        "start": "945",
+        "end": "946"
+      },
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_SUBJECT_PHASE_CONTRACT",
+      "source_lineage": {
+        "source_card_ids": [
+          "SRC-ZZTJ-285-2554328#CARD-003"
+        ],
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-285.battle-adjudications.json",
+          "docs/史料通读产物/五代十国/资治通鉴/volume-285.source-summary.md"
+        ],
+        "source_revision_refs": [
+          "2554328"
+        ],
+        "lineage_basis": "五代十国32卷配对通读总结与战役裁决卡；父卡只作容器，计分消费主体阶段。"
+      },
+      "source_refs": [
+        "SRC-ZZTJ-285-2554328-P0040",
+        "SRC-ZZTJ-285-2554328-P0054"
+      ],
+      "source_quotes": [
+        "三族共攻靈州，殺令溫弟令周",
+        "拓跋彥超眾數萬，為三陳",
+        "元福舉黃旗，暉引兵赴之，彥超大敗"
+      ],
+      "subject_phase_views": [
+        {
+          "phase_id": "WAR-FD-D029EDF42AE0D1936B5C-P01",
+          "evaluation_subject_phase": "拓跋彦超等三族 × 攻灵州阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "王令温失于抚治后，拓跋彦超、石存、也厮褒三族叛而攻灵州，杀王令温弟王令周。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "实际攻州并杀守方高层，双方伤亡失载。",
+            "range": "100—900死亡当量",
+            "center": 300,
+            "basis": "州级围攻和持续叛乱支持百人级本方损害估计。",
+            "upper_bound_reason": "无千人级本方死亡或重大败退明文。",
+            "confidence": "low"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SB1",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "灵州"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "本阶段围攻结果未闭合，后由冯晖反击解除。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-ZZTJ-285-2554328-P0040",
+              "SRC-ZZTJ-285-2554328-P0054"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的开国、复国或新政权建立与巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "P0054辉德战后拓跋彦超大败，灵州方向威胁被解除。",
+          "polity_binding": null,
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-285-2554328-P0040",
+            "SRC-ZZTJ-285-2554328-P0054"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-D029EDF42AE0D1936B5C-P02",
+          "evaluation_subject_phase": "后晋灵州军民 × 三族围攻阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "羌胡三族攻灵州并杀王令温弟王令周，灵州向朝廷告急。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "州城受攻并有王令周被杀，其他伤亡无数。",
+            "range": "100—900死亡当量",
+            "center": 300,
+            "basis": "州级围攻支持百人级军民死亡当量估计。",
+            "upper_bound_reason": "无千人级明确死亡或城陷。",
+            "confidence": "low"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SN3",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "灵州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "城尚未失，但一州方向进入高风险围攻。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-ZZTJ-285-2554328-P0040",
+              "SRC-ZZTJ-285-2554328-P0054"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的开国、复国或新政权建立与巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": "后晋",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-285-2554328-P0040",
+            "SRC-ZZTJ-285-2554328-P0054"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-D029EDF42AE0D1936B5C-P03",
+          "evaluation_subject_phase": "后晋冯晖、药元福军 × 辉德反击阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "冯晖军越旱海至辉德时粮尽，拓跋彦超数万人扼路据水；药元福以精骑冲西山精兵，小胜举黄旗后全军合击，拓跋彦超大败，次日冯晖入灵州。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "短兵力战并全军合击，晋军伤亡失载。",
+            "range": "100—900死亡当量",
+            "center": 300,
+            "basis": "数万人对峙与近战决胜支持百人级本方死亡当量。",
+            "upper_bound_reason": "无千人级晋军死亡或败退明文。",
+            "confidence": "low"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SB4",
+          "material_return": "WR1",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "辉德—灵州通道",
+              "灵州"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "打通灵州通道并恢复对灵州的稳定控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-285-2554328-P0040",
+              "SRC-ZZTJ-285-2554328-P0054"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的开国、复国或新政权建立与巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": "后晋",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-285-2554328-P0040",
+            "SRC-ZZTJ-285-2554328-P0054"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-D029EDF42AE0D1936B5C-P04",
+          "evaluation_subject_phase": "拓跋彦超军 × 辉德大败阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "数万军占据要路、水泉，试图以晋军饥渴拖延至暮；被药元福先破精兵后遭全军合击大败。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "数万军遭“大败”，伤亡无总数。",
+            "range": "1,000—5,000死亡当量",
+            "center": 2236,
+            "basis": "数万规模部队在主阵被击溃，支持千人级死亡当量。",
+            "upper_bound_reason": "无万级死亡、全军覆灭或俘斩明数。",
+            "confidence": "low"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SN4",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "辉德—灵州通道"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "失去封锁灵州的关键通道与继续围困能力。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-ZZTJ-285-2554328-P0040",
+              "SRC-ZZTJ-285-2554328-P0054"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的开国、复国或新政权建立与巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": null,
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-285-2554328-P0040",
+            "SRC-ZZTJ-285-2554328-P0054"
+          ]
+        }
+      ],
+      "subject_phase_count": 4,
+      "non_battle_disposition": null,
+      "wc_grade": null,
+      "security_grade": null,
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": false,
+      "limitations": [
+        "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "WAR-FD-FBE2E15BDFF689B15F4B",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "chronicle_battle_card",
+      "campaign_group_ref": "ZZTJ-285-JIN-KHITAN-CHANGCHENG",
+      "canonical_label": "李守贞长城北四十里转战",
+      "period": {
+        "start": "945",
+        "end": "946"
+      },
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_SUBJECT_PHASE_CONTRACT",
+      "source_lineage": {
+        "source_card_ids": [
+          "SRC-ZZTJ-285-2554328#CARD-005"
+        ],
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-285.battle-adjudications.json",
+          "docs/史料通读产物/五代十国/资治通鉴/volume-285.source-summary.md"
+        ],
+        "source_revision_refs": [
+          "2554328"
+        ],
+        "lineage_basis": "五代十国32卷配对通读总结与战役裁决卡；父卡只作容器，计分消费主体阶段。"
+      },
+      "source_refs": [
+        "SRC-ZZTJ-285-2554328-P0049"
+      ],
+      "source_quotes": [
+        "與契丹千餘騎遇於長城北，轉斗四十里",
+        "斬其酋帥解裏，擁餘眾入水溺死者甚眾"
+      ],
+      "subject_phase_views": [
+        {
+          "phase_id": "WAR-FD-FBE2E15BDFF689B15F4B-P01",
+          "evaluation_subject_phase": "后晋李守贞军 × 长城北转战阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "李守贞与契丹千余骑在长城北遭遇，转战四十里，斩其酋帅解里并迫余众入水，多有溺死。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "连续骑战，晋军损失未载。",
+            "range": "10—99死亡当量",
+            "center": 31,
+            "basis": "千余骑级遭遇战且获明显优势，推定十至数十死亡当量。",
+            "upper_bound_reason": "无百人级晋军伤亡或败退明文。",
+            "confidence": "low"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SB2",
+          "material_return": "WR1",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "长城北边境方向"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "取得边战胜利但未形成新控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-285-2554328-P0049"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的开国、复国或新政权建立与巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": "后晋",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-285-2554328-P0049"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-FBE2E15BDFF689B15F4B-P02",
+          "evaluation_subject_phase": "契丹千余骑 × 长城北败战阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "千余骑遭晋军转战追击，酋帅解里被斩，余众有甚多被逼入水溺死。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "总兵力“千余骑”，酋帅死，余众入水“溺死者甚众”。",
+            "range": "1,000—1,800死亡当量",
+            "center": 1342,
+            "basis": "“千余骑”群体中大比例陷水且甚众溺死，中心落千人级。",
+            "upper_bound_reason": "兵力基数仅千余，不支持万人级。",
+            "confidence": "medium"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SN2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "长城北边境方向"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "未取得控制并遭重大人员损失。",
+            "continuity_status": "HELD_BY_OPPONENT",
+            "source_refs": [
+              "SRC-ZZTJ-285-2554328-P0049"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的开国、复国或新政权建立与巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": "契丹",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-285-2554328-P0049"
+          ]
+        }
+      ],
+      "subject_phase_count": 2,
+      "non_battle_disposition": null,
+      "wc_grade": null,
+      "security_grade": null,
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": false,
+      "limitations": [
+        "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "WAR-FD-D7B61ACDF12FB5C32507",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "chronicle_battle_card",
+      "campaign_group_ref": "ZZTJ-285-286-SHU-TIAN-XINGGAO",
+      "canonical_label": "后蜀施州田行皋叛乱起始",
+      "period": {
+        "start": "945",
+        "end": "946"
+      },
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_SUBJECT_PHASE_CONTRACT",
+      "source_lineage": {
+        "source_card_ids": [
+          "SRC-ZZTJ-285-2554328#CARD-014"
+        ],
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-285.battle-adjudications.json",
+          "docs/史料通读产物/五代十国/资治通鉴/volume-285.source-summary.md"
+        ],
+        "source_revision_refs": [
+          "2554328"
+        ],
+        "lineage_basis": "五代十国32卷配对通读总结与战役裁决卡；父卡只作容器，计分消费主体阶段。"
+      },
+      "source_refs": [
+        "SRC-ZZTJ-285-2554328-P0071"
+      ],
+      "source_quotes": [
+        "蜀施州刺史田行皋叛",
+        "遣供奉官耿彥珣將兵討之"
+      ],
+      "subject_phase_views": [
+        {
+          "phase_id": "WAR-FD-D7B61ACDF12FB5C32507-P01",
+          "evaluation_subject_phase": "田行皋施州集团 × 叛乱起始阶段",
+          "subject_role": "INTERNAL",
+          "actual_process": "施州刺史田行皋叛，后蜀立即遣耿彦珣率军讨伐；本卷未载交战与控制终局。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {},
+          "cost_evidence": {},
+          "strategic_security": "SB1",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "施州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "田行皋本为施州刺史，叛乱是既有州权转为反叛，原文未确认新增夺取或后续保持。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-ZZTJ-285-2554328-P0071"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的开国、复国或新政权建立与巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "卷286/后续卷需核验田行皋叛乱是否发生实际接战及施州归属。",
+          "polity_binding": null,
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-285-2554328-P0071"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-D7B61ACDF12FB5C32507-P02",
+          "evaluation_subject_phase": "后蜀耿彦珣讨伐军 × 出师阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "后蜀遣耿彦珣将兵讨田行皋，本卷仅见出师。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {},
+          "cost_evidence": {},
+          "strategic_security": "SB1",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "施州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "只确认后蜀派军讨伐，卷285及卷286均未记克复结果。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-ZZTJ-285-2554328-P0071"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的开国、复国或新政权建立与巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "卷286未见田行皋叛乱终局，继续待卷287及后续卷核验。",
+          "polity_binding": "后蜀",
+          "ruler_binding": {
+            "ruler_id": "RULER-FD-MENG-CHANG",
+            "ruler_name": "孟昶",
+            "status": "BOUND_YEAR_WINDOW",
+            "basis": "主体政权与卡片年代完整落入在位窗口。"
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-285-2554328-P0071"
+          ]
+        }
+      ],
+      "subject_phase_count": 2,
+      "non_battle_disposition": null,
+      "wc_grade": null,
+      "security_grade": null,
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": false,
+      "limitations": [
+        "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "WAR-FD-2F2957082BAA28D11678",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "chronicle_battle_card",
+      "campaign_group_ref": "ZZTJ-285-KHITAN-ZHONGDUQIAO",
+      "canonical_label": "王清二千步卒夺桥死战",
+      "period": {
+        "start": "945",
+        "end": "946"
+      },
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_SUBJECT_PHASE_CONTRACT",
+      "source_lineage": {
+        "source_card_ids": [
+          "SRC-ZZTJ-285-2554328#CARD-015"
+        ],
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-285.battle-adjudications.json",
+          "docs/史料通读产物/五代十国/资治通鉴/volume-285.source-summary.md"
+        ],
+        "source_revision_refs": [
+          "2554328"
+        ],
+        "lineage_basis": "五代十国32卷配对通读总结与战役裁决卡；父卡只作容器，计分消费主体阶段。"
+      },
+      "source_refs": [
+        "SRC-ZZTJ-285-2554328-P0076"
+      ],
+      "source_quotes": [
+        "請以步卒二千為前鋒，奪橋開道",
+        "清獨帥麾下陳於水北力戰",
+        "清及士眾盡死"
+      ],
+      "subject_phase_views": [
+        {
+          "phase_id": "WAR-FD-2F2957082BAA28D11678-P01",
+          "evaluation_subject_phase": "后晋王清部 × 二千步卒夺桥阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "王清率步卒二千与宋彦筠前进夺桥，一度迫契丹小却；杜威拒绝主力跟进，宋彦筠败退，王清孤军水北力战至暮，全军尽死。",
+          "cost_axes": {
+            "P": "P3",
+            "S": "S0",
+            "M": "M1",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {},
+          "cost_evidence": {},
+          "strategic_security": "SN3",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "滹沱河渡桥通道"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未能打通通往恒州的渡河通道。",
+            "continuity_status": "HELD_BY_OPPONENT",
+            "source_refs": [
+              "SRC-ZZTJ-285-2554328-P0076"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的开国、复国或新政权建立与巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": "后唐",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-285-2554328-P0076"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-2F2957082BAA28D11678-P02",
+          "evaluation_subject_phase": "契丹军 × 阻击王清阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "契丹先被王清锐攻迫退，随后以新兵不断接战，最终歼灭王清二千步卒。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "与二千死战步卒持续接战至暮，本方伤亡失载。",
+            "range": "100—900死亡当量",
+            "center": 300,
+            "basis": "长时间近战且“互有杀伤”，支持百人级本方死亡当量。",
+            "upper_bound_reason": "无千人级契丹死亡明文。",
+            "confidence": "low"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SB3",
+          "material_return": "WR1",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "滹沱河渡桥通道"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "维持对渡河通道的控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-285-2554328-P0076"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的开国、复国或新政权建立与巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": "契丹",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-285-2554328-P0076"
+          ]
+        }
+      ],
+      "subject_phase_count": 2,
+      "non_battle_disposition": null,
+      "wc_grade": null,
+      "security_grade": null,
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": false,
+      "limitations": [
+        "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "WAR-FD-AC55E5C8C6BB948FEF3B",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "chronicle_battle_card",
+      "campaign_group_ref": "ZZTJ-287-HENG-XING-MING",
+      "canonical_label": "邢洺战线：攻邢不克、契丹反攻洺州与邢州归汉",
+      "period": {
+        "start": "947",
+        "end": "948"
+      },
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_SUBJECT_PHASE_CONTRACT",
+      "source_lineage": {
+        "source_card_ids": [
+          "SRC-ZZTJ-287-1329024#CARD-005"
+        ],
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-287.battle-adjudications.json",
+          "docs/史料通读产物/五代十国/资治通鉴/volume-287.source-summary.md"
+        ],
+        "source_revision_refs": [
+          "1329024"
+        ],
+        "lineage_basis": "五代十国32卷配对通读总结与战役裁决卡；父卡只作容器，计分消费主体阶段。"
+      },
+      "source_refs": [
+        "SRC-ZZTJ-287-1329024-P0049",
+        "SRC-ZZTJ-287-1329024-P0052",
+        "SRC-ZZTJ-287-1329024-P0053"
+      ],
+      "source_quotes": [
+        "郭從義將兵萬人會懷讓攻劉鐸於邢州，不克",
+        "楊安及前義武節度使李殷將千騎攻懷讓於洺州",
+        "劉鐸聞麻荅遁去，舉邢州降"
+      ],
+      "subject_phase_views": [
+        {
+          "phase_id": "WAR-FD-AC55E5C8C6BB948FEF3B-P01",
+          "evaluation_subject_phase": "后汉郭从义、薛怀让军 × 万人攻邢州失败阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "薛怀让杀契丹督运使后举洺州归汉，郭从义率一万人会师攻邢州刘铎，未能攻克。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "万人级实际攻州不克，伤亡失载。",
+            "range": "100—900死亡当量",
+            "center": 300,
+            "basis": "万人级攻城未克，推定百人级本方人员损害。",
+            "upper_bound_reason": "无千人级死伤、主力败溃或长期围城明文。",
+            "confidence": "low"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SN1",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "邢州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未取得邢州。",
+            "continuity_status": "HELD_BY_OPPONENT",
+            "source_refs": [
+              "SRC-ZZTJ-287-1329024-P0049",
+              "SRC-ZZTJ-287-1329024-P0052",
+              "SRC-ZZTJ-287-1329024-P0053"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的建国、复国或新政权扩张、巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": "后汉",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-287-1329024-P0049",
+            "SRC-ZZTJ-287-1329024-P0052",
+            "SRC-ZZTJ-287-1329024-P0053"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-AC55E5C8C6BB948FEF3B-P02",
+          "evaluation_subject_phase": "契丹杨安、李殷千骑 × 反攻洺州并掠邢洺阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "麻荅遣杨安、李殷率千骑攻洺州，薛怀让婴城自守；来军未能取城，转而纵兵大掠邢、洺之境。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "千骑攻州与劫掠，本方伤亡无数。",
+            "range": "10—99死亡当量",
+            "center": 31,
+            "basis": "千骑局部攻掠而未见大败，推定十至数十死亡当量。",
+            "upper_bound_reason": "无百人级契丹本方伤亡明文。",
+            "confidence": "low"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SB1",
+          "material_return": "WR1",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "洺州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未能取洺州。",
+            "continuity_status": "HELD_BY_OPPONENT",
+            "source_refs": [
+              "SRC-ZZTJ-287-1329024-P0049",
+              "SRC-ZZTJ-287-1329024-P0052",
+              "SRC-ZZTJ-287-1329024-P0053"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的建国、复国或新政权扩张、巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": "契丹",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-287-1329024-P0049",
+            "SRC-ZZTJ-287-1329024-P0052",
+            "SRC-ZZTJ-287-1329024-P0053"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-AC55E5C8C6BB948FEF3B-P03",
+          "evaluation_subject_phase": "邢洺军民 × 契丹千骑纵兵大掠阶段",
+          "subject_role": "CIVILIAN_VICTIM",
+          "actual_process": "契丹千骑攻洺州不克后在邢、洺境纵兵大掠。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S3",
+            "M": "M0",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "两州境遭大掠，死亡、被掳构成失载。",
+            "range": "100—900死亡当量",
+            "center": 300,
+            "basis": "跨两州境持续武装掠夺支持百人级死亡/被掳折算。",
+            "upper_bound_reason": "缺乏千人级死亡或被掳人数明文。",
+            "confidence": "low"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SN3",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "邢州境",
+              "洺州境"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "原文确认广域掠夺但未由此确认州城控制变化。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-ZZTJ-287-1329024-P0049",
+              "SRC-ZZTJ-287-1329024-P0052",
+              "SRC-ZZTJ-287-1329024-P0053"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的建国、复国或新政权扩张、巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": "契丹",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-287-1329024-P0049",
+            "SRC-ZZTJ-287-1329024-P0052",
+            "SRC-ZZTJ-287-1329024-P0053"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-AC55E5C8C6BB948FEF3B-P04",
+          "evaluation_subject_phase": "后汉 × 邢州受降接收阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "恒州麻荅被逐后，杨衮、杨安北撤，李殷率部降汉；刘铎随后举邢州降，后汉取得邢州控制。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {},
+          "cost_evidence": {},
+          "strategic_security": "SB2",
+          "material_return": "WR2",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "邢州"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "不战接收邢州。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-287-1329024-P0049",
+              "SRC-ZZTJ-287-1329024-P0052",
+              "SRC-ZZTJ-287-1329024-P0053"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "后汉趁契丹恒州体系崩解接收邢州，巩固河北南缘控制。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": "后汉",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-287-1329024-P0049",
+            "SRC-ZZTJ-287-1329024-P0052",
+            "SRC-ZZTJ-287-1329024-P0053"
+          ]
+        }
+      ],
+      "subject_phase_count": 4,
+      "non_battle_disposition": null,
+      "wc_grade": null,
+      "security_grade": null,
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": false,
+      "limitations": [
+        "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "WAR-FD-88DDC628A79BE82C7C0B",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "chronicle_battle_card",
+      "campaign_group_ref": "ZZTJ-286-288-DINGZHOU-RECOVERY",
+      "canonical_label": "狼山拒契丹与定州等晋末失地复归后汉",
+      "period": {
+        "start": "948",
+        "end": "950"
+      },
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_SUBJECT_PHASE_CONTRACT",
+      "source_lineage": {
+        "source_card_ids": [
+          "SRC-ZZTJ-288-1769130#CARD-003"
+        ],
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-288.battle-adjudications.json",
+          "docs/史料通读产物/五代十国/资治通鉴/volume-288.source-summary.md"
+        ],
+        "source_revision_refs": [
+          "1769130"
+        ],
+        "lineage_basis": "五代十国32卷配对通读总结与战役裁决卡；父卡只作容器，计分消费主体阶段。"
+      },
+      "source_refs": [
+        "SRC-ZZTJ-288-1769130-P0018"
+      ],
+      "source_quotes": [
+        "帥其黨三千人保狼山故寨，控守要害。契丹攻之，不克",
+        "焚掠定州，悉驅其人棄城北去",
+        "方簡自狼山帥其眾數百，還據定州",
+        "晉末州縣陷契丹者，皆復為漢有矣"
+      ],
+      "subject_phase_views": [
+        {
+          "phase_id": "WAR-FD-88DDC628A79BE82C7C0B-P01",
+          "evaluation_subject_phase": "孙方简狼山军 × 据寨拒契丹阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "孙方简拒绝契丹调任，率党三千退保狼山旧寨、控制要害，契丹进攻不能克；不久孙方简请降后汉并获复旧官。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "三千守军遭契丹攻寨而守住，伤亡失载。",
+            "range": "100—900死亡当量",
+            "center": 300,
+            "basis": "寨堡攻守支持百人级守方人员损害。",
+            "upper_bound_reason": "无千人级守方死亡或寨破明文。",
+            "confidence": "low"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SB2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "狼山寨"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "守住狼山要害据点。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-288-1769130-P0018"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "孙方简地方武装重新转附后汉，并以狼山据点成为河北抗契丹力量。"
+          },
+          "carry_in": "承卷285孙方简曾举狼山寨降契丹；卷286—287河北控制仍未完全闭合。",
+          "carry_out": "无",
+          "polity_binding": "契丹",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-288-1769130-P0018"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-88DDC628A79BE82C7C0B-P02",
+          "evaluation_subject_phase": "契丹攻狼山军 × 攻寨失败阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "契丹进攻孙方简三千人据守的狼山旧寨，未能攻克。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "实际攻寨不克，本方伤亡失载。",
+            "range": "100—900死亡当量",
+            "center": 300,
+            "basis": "数千守军据险防御，攻方接战支持百人级损害估计。",
+            "upper_bound_reason": "无千人级死亡或大败明文。",
+            "confidence": "low"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SN1",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "狼山寨"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未取得狼山控制。",
+            "continuity_status": "HELD_BY_OPPONENT",
+            "source_refs": [
+              "SRC-ZZTJ-288-1769130-P0018"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的建国、复国或新政权扩张、巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": "契丹",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-288-1769130-P0018"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-88DDC628A79BE82C7C0B-P03",
+          "evaluation_subject_phase": "契丹耶律忠、麻荅军 × 焚掠驱民弃定州阶段",
+          "subject_role": "OCCUPYING_FORCE",
+          "actual_process": "耶律忠、麻荅惧华人兵变，在后汉经略军尚未出动前焚掠定州，把全城人口驱往北方后主动弃城。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {},
+          "cost_evidence": {},
+          "strategic_security": "SN3",
+          "material_return": "WR2",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN3",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "定州"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "放弃定州及其周边战略控制。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-ZZTJ-288-1769130-P0018"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的建国、复国或新政权扩张、巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": "契丹",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-288-1769130-P0018"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-88DDC628A79BE82C7C0B-P04",
+          "evaluation_subject_phase": "定州居民 × 焚掠与全城强迁阶段",
+          "subject_role": "CIVILIAN_VICTIM",
+          "actual_process": "契丹撤离前焚掠定州，并把当地居民悉数驱赶北去。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S4",
+            "M": "M0",
+            "A": "A3",
+            "WC": "WC4"
+          },
+          "P_inference": {
+            "P_observed": "“悉驱其人”说明全城居民被强迁，但城市人口基数失载；被掳按1/5折算。",
+            "range": "1,000—9,000死亡当量",
+            "center": 3000,
+            "basis": "重要州城人口被整体强迁，即使按1/5折算也支持千人级死亡当量。",
+            "upper_bound_reason": "缺乏可证明五万人以上被掳的基数，不上P4。",
+            "confidence": "low"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SN4",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "定州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "记录居民与城市体系损害，控制丧失由契丹占领方另记。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-ZZTJ-288-1769130-P0018"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的建国、复国或新政权扩张、巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": null,
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-288-1769130-P0018"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-88DDC628A79BE82C7C0B-P05",
+          "evaluation_subject_phase": "后汉孙方简兄弟 × 还据定州并恢复晋末陷地阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "契丹弃城后，孙方简率数百从狼山还据定州，并奏弟孙行友守易州、孙方遇守泰州；原文总结晋末陷契丹州县至此皆复归汉。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {},
+          "cost_evidence": {},
+          "strategic_security": "SB4",
+          "material_return": "WR4",
+          "border_control": {
+            "BCP": "BCP4",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "定州",
+              "易州",
+              "泰州及晋末陷契丹州县"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "河北主要晋末失地整体复归后汉。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-288-1769130-P0018"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "后汉完成晋末契丹占领区的主要恢复，建国后的河北边防版图得到结构性巩固。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": "后汉",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-288-1769130-P0018"
+          ]
+        }
+      ],
+      "subject_phase_count": 5,
+      "non_battle_disposition": null,
+      "wc_grade": null,
+      "security_grade": null,
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": false,
+      "limitations": [
+        "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "WAR-FD-658CD9E5D1745FD890DB",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "chronicle_battle_card",
+      "campaign_group_ref": "ZZTJ-290-NH-ZHOU-SHANXI-0951",
+      "canonical_label": "北汉五道攻晋州、转攻隰州失败",
+      "period": {
+        "start": "951",
+        "end": "951"
+      },
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_SUBJECT_PHASE_CONTRACT",
+      "source_lineage": {
+        "source_card_ids": [
+          "SRC-ZZTJ-290-1554171#CARD-003"
+        ],
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-290.battle-adjudications.json",
+          "docs/史料通读产物/五代十国/资治通鉴/volume-290.source-summary.md"
+        ],
+        "source_revision_refs": [
+          "1554171"
+        ],
+        "lineage_basis": "五代十国32卷配对通读总结与战役裁决卡；父卡只作容器，计分消费主体阶段。"
+      },
+      "source_refs": [
+        "SRC-ZZTJ-290-1554171-P0030",
+        "SRC-ZZTJ-290-1554171-P0033"
+      ],
+      "source_quotes": [
+        "將步騎萬人寇晉州",
+        "北漢兵死傷者千餘人",
+        "攻隰州……死傷甚眾，乃引去"
+      ],
+      "subject_phase_views": [
+        {
+          "phase_id": "WAR-FD-658CD9E5D1745FD890DB-P01",
+          "evaluation_subject_phase": "北汉刘承钧军 × 晋州—隰州连续进攻阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "北汉以一万步骑先寇晋州，五道攻城并蚁附登城，被伏兵击退，死伤千余；安元宝奉命焚西城却投降。其后转攻隰州，又在长寿村和州城攻守中受挫，数日不克、死伤甚众而退。",
+          "cost_axes": {
+            "P": "P3",
+            "S": "S0",
+            "M": "M2",
+            "A": "A0",
+            "WC": "WC3"
+          },
+          "P_inference": {},
+          "cost_evidence": {},
+          "strategic_security": "SN3",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "晋州",
+              "隰州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "两州均未攻克，且出现将领投降和连续伤亡。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-ZZTJ-290-1554171-P0030",
+              "SRC-ZZTJ-290-1554171-P0033"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "北汉新建政权试图越太行向南恢复后汉旧土，但首轮扩张失败。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": "北汉",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-290-1554171-P0030",
+            "SRC-ZZTJ-290-1554171-P0033"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-658CD9E5D1745FD890DB-P02",
+          "evaluation_subject_phase": "后周晋州、隰州守军 × 守城与长寿村反击阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "王晏闭城诱使北汉蚁附后伏兵奋击；隰州耿继业又在长寿村迎战并擒杀北汉将程筠等，随后守住州城。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A0",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "两州持续接战但周方伤亡不载。",
+            "range": "100—900死亡当量",
+            "center": 300,
+            "basis": "按两处州城防御及一次野战估百人级死亡当量。",
+            "upper_bound_reason": "无千人级周方损失明文。",
+            "confidence": "low",
+            "P_scoring": "P2估"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SB3",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "晋州",
+              "隰州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "守住晋、隰两州并挫败北汉首次南攻。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-290-1554171-P0030",
+              "SRC-ZZTJ-290-1554171-P0033"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "后周建国初守住山西南部边防节点，稳定北线。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": "后周",
+          "ruler_binding": {
+            "ruler_id": "RULER-FD-GUO-WEI",
+            "ruler_name": "郭威",
+            "status": "BOUND_YEAR_WINDOW_BOUNDARY",
+            "basis": "主体政权与卡片年代完全落入在位窗口；边界年不含月日时单独标记复核。"
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-290-1554171-P0030",
+            "SRC-ZZTJ-290-1554171-P0033"
+          ]
+        }
+      ],
+      "subject_phase_count": 2,
+      "non_battle_disposition": null,
+      "wc_grade": null,
+      "security_grade": null,
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": false,
+      "limitations": [
+        "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "WAR-FD-67F493C688EE46EFA297",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "chronicle_battle_card",
+      "campaign_group_ref": "ZZTJ-291-NH-KHITAN-GAOPING-CAMPAIGN-0954",
+      "canonical_label": "北汉—契丹南侵与梁侯驿伏击",
+      "period": {
+        "start": "954",
+        "end": "954"
+      },
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_SUBJECT_PHASE_CONTRACT",
+      "source_lineage": {
+        "source_card_ids": [
+          "SRC-ZZTJ-291-1554151#CARD-013"
+        ],
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-291.battle-adjudications.json",
+          "docs/史料通读产物/五代十国/资治通鉴/volume-291.source-summary.md"
+        ],
+        "source_revision_refs": [
+          "1554151"
+        ],
+        "lineage_basis": "五代十国32卷配对通读总结与战役裁决卡；父卡只作容器，计分消费主体阶段。"
+      },
+      "source_refs": [
+        "SRC-ZZTJ-291-1554151-P0096",
+        "SRC-ZZTJ-291-1554151-P0098"
+      ],
+      "source_quotes": [
+        "北漢主自將兵三萬",
+        "張元徽與令均戰，陽不勝而北",
+        "伏發，殺令均，俘斬士卒千餘人"
+      ],
+      "subject_phase_views": [
+        {
+          "phase_id": "WAR-FD-67F493C688EE46EFA297-P01",
+          "evaluation_subject_phase": "北汉张元徽前锋 × 梁侯驿诱伏阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "刘旻率三万并会契丹万余南下；张元徽在梁侯驿对穆令均二千前锋佯败诱追，伏兵发动，杀穆令均并俘斩周兵千余，迫李筠退守上党。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "胜方损失无载。",
+            "range": "10—99死亡当量",
+            "center": 31,
+            "basis": "成功诱伏且无北汉重创记载，估十人级。",
+            "upper_bound_reason": "无百人级本方损失。",
+            "confidence": "low",
+            "P_scoring": "P1估"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SB2",
+          "material_return": "WR1",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "梁侯驿—潞州方向"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "获得战场推进条件但尚未夺潞州。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-ZZTJ-291-1554151-P0096",
+              "SRC-ZZTJ-291-1554151-P0098"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "北汉试图趁后周新君即位向潞州扩张，本阶段取得前锋胜利。"
+          },
+          "carry_in": "无",
+          "carry_out": "战役继续南进高平，见P0105起。",
+          "polity_binding": "北汉",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-291-1554151-P0096",
+            "SRC-ZZTJ-291-1554151-P0098"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-67F493C688EE46EFA297-P02",
+          "evaluation_subject_phase": "后周穆令均前锋 × 梁侯驿追击中伏阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "穆令均率步骑二千迎战，追击佯退军后中伏，主将被杀，所部俘斩千余，李筠退上党闭城。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "二千部队中‘俘斩士卒千余’，死亡与俘虏混合。",
+            "range": "300—900死亡当量",
+            "center": 520,
+            "basis": "千余俘斩的死亡当量稳在百人级。",
+            "upper_bound_reason": "总兵仅二千且并非千余全死，不上P3。",
+            "confidence": "medium",
+            "P_scoring": "P2估"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SN2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "梁侯驿—上党前沿"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "前锋败退至上党，但核心州城仍守。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-ZZTJ-291-1554151-P0096",
+              "SRC-ZZTJ-291-1554151-P0098"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的建国启动、扩张或政权巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "北汉继续逼潞州，接高平主战。",
+          "polity_binding": "后周",
+          "ruler_binding": {
+            "polity": "后周",
+            "ruler_id": "RULER-FD-CHAI-RONG",
+            "ruler_name": "柴荣",
+            "status": "BOUND_REVIEWED_TRANSITION_SLICE",
+            "basis": "高平、太原及其后续阶段均发生在郭威去世、柴荣即位之后；卷级年份横跨954边界，但事件锚明确属于柴荣窗口。"
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-291-1554151-P0096",
+            "SRC-ZZTJ-291-1554151-P0098"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-67F493C688EE46EFA297-P03",
+          "evaluation_subject_phase": "契丹杨衮万余骑 × 会师南侵阶段",
+          "subject_role": "ALLY",
+          "actual_process": "契丹应北汉求援，杨衮率万余骑赴晋阳并与刘旻军南趋潞州；梁侯驿未载契丹直接接战。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M2",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {},
+          "cost_evidence": {},
+          "strategic_security": "SB0",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "潞州方向"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "完成会师南进，未形成节点控制。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-ZZTJ-291-1554151-P0096",
+              "SRC-ZZTJ-291-1554151-P0098"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的建国启动、扩张或政权巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "契丹军在高平列西军，见P0105—P0107。",
+          "polity_binding": "契丹",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-291-1554151-P0096",
+            "SRC-ZZTJ-291-1554151-P0098"
+          ]
+        }
+      ],
+      "subject_phase_count": 3,
+      "non_battle_disposition": null,
+      "wc_grade": null,
+      "security_grade": null,
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": false,
+      "limitations": [
+        "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "WAR-FD-336D17E208E1ED91389A",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "chronicle_battle_card",
+      "campaign_group_ref": "ZZTJ-292-293-ZHOU-TANG-HUAINAN-0956-CHUZHOU",
+      "canonical_label": "清流关—滁州之战",
+      "period": {
+        "start": "956",
+        "end": "956"
+      },
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_SUBJECT_PHASE_CONTRACT",
+      "source_lineage": {
+        "source_card_ids": [
+          "SRC-ZZTJ-292-1769707#CARD-015"
+        ],
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-292.battle-adjudications.json",
+          "docs/史料通读产物/五代十国/资治通鉴/volume-292.source-summary.md"
+        ],
+        "source_revision_refs": [
+          "1769707"
+        ],
+        "lineage_basis": "五代十国32卷配对通读总结与战役裁决卡；父卡只作容器，计分消费主体阶段。"
+      },
+      "source_refs": [
+        "SRC-ZZTJ-292-1769707-P0088",
+        "SRC-ZZTJ-292-1769707-P0093"
+      ],
+      "source_quotes": [
+        "倍道襲清流關",
+        "引兵出山後",
+        "生擒之，並擒姚鳳，遂克滁州",
+        "皇甫暉……後數日卒"
+      ],
+      "subject_phase_views": [
+        {
+          "phase_id": "WAR-FD-336D17E208E1ED91389A-P01",
+          "evaluation_subject_phase": "后周赵匡胤军 × 迂回清流关、攻克滁州阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "赵匡胤倍道袭清流关，从山后迂回迫皇甫晖、姚凤退入滁州；又涉水突阵，重伤并生擒皇甫晖、擒姚凤，遂克滁州。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "连续关隘、城下接战，周方损失无载。",
+            "range": "100—900死亡当量",
+            "center": 300,
+            "basis": "重要节点连续作战估百人级。",
+            "upper_bound_reason": "无千人级周方损失。",
+            "confidence": "low",
+            "P_scoring": "P2估"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SB3",
+          "material_return": "WR2",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "清流关",
+              "滁州"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "取得淮南东部关键关口和州城。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-292-1769707-P0088",
+              "SRC-ZZTJ-292-1769707-P0093"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的建国启动、扩张或政权巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": "后周",
+          "ruler_binding": {
+            "ruler_id": "RULER-FD-CHAI-RONG",
+            "ruler_name": "柴荣",
+            "status": "BOUND_YEAR_WINDOW",
+            "basis": "主体政权与卡片年代完整落入在位窗口。"
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-292-1769707-P0088",
+            "SRC-ZZTJ-292-1769707-P0093"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-336D17E208E1ED91389A-P02",
+          "evaluation_subject_phase": "南唐皇甫晖、姚凤军 × 清流关退守滁州并败亡阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "被周军迂回后退滁州，再列阵迎战失败；皇甫晖重伤被俘后数日死，姚凤被擒，滁州失守。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S3",
+            "M": "M2",
+            "A": "A0",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "主将重伤后死、另一主将被俘，部队败退，死伤无总数。",
+            "range": "100—900死亡当量",
+            "center": 300,
+            "basis": "重要节点败战估百人级。",
+            "upper_bound_reason": "无千人级死亡明文。",
+            "confidence": "low",
+            "P_scoring": "P2估"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SN3",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "清流关",
+              "滁州"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "关键关口和州城连续失守。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-ZZTJ-292-1769707-P0088",
+              "SRC-ZZTJ-292-1769707-P0093"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的建国启动、扩张或政权巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": "南唐",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-292-1769707-P0088",
+            "SRC-ZZTJ-292-1769707-P0093"
+          ]
+        }
+      ],
+      "subject_phase_count": 2,
+      "non_battle_disposition": null,
+      "wc_grade": null,
+      "security_grade": null,
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": false,
+      "limitations": [
+        "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "WAR-FD-3C9734A7EDE97496D8C8",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "chronicle_battle_card",
+      "campaign_group_ref": "ZZTJ-292-HUNAN-TANG-EZHOU-0956",
+      "canonical_label": "王逵鄂州战线与长山寨攻取",
+      "period": {
+        "start": "956",
+        "end": "956"
+      },
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_SUBJECT_PHASE_CONTRACT",
+      "source_lineage": {
+        "source_card_ids": [
+          "SRC-ZZTJ-292-1769707#CARD-017"
+        ],
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-292.battle-adjudications.json",
+          "docs/史料通读产物/五代十国/资治通鉴/volume-292.source-summary.md"
+        ],
+        "source_revision_refs": [
+          "1769707"
+        ],
+        "lineage_basis": "五代十国32卷配对通读总结与战役裁决卡；父卡只作容器，计分消费主体阶段。"
+      },
+      "source_refs": [
+        "SRC-ZZTJ-292-1769707-P0085",
+        "SRC-ZZTJ-292-1769707-P0086",
+        "SRC-ZZTJ-292-1769707-P0098"
+      ],
+      "source_quotes": [
+        "使攻唐之鄂州",
+        "拔鄂州長山寨",
+        "執其將陳澤等"
+      ],
+      "subject_phase_views": [
+        {
+          "phase_id": "WAR-FD-3C9734A7EDE97496D8C8-P01",
+          "evaluation_subject_phase": "湖南王逵军 × 鄂州长山寨进攻阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "王逵受后周命为南面行营都统攻鄂州，后攻拔长山寨并俘其将陈泽等；武昌主城在本卷未见攻克。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "攻寨获胜，本方伤亡无载。",
+            "range": "10—99死亡当量",
+            "center": 31,
+            "basis": "局部寨战估十人级。",
+            "upper_bound_reason": "无百人级损失。",
+            "confidence": "low",
+            "P_scoring": "P1估"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SB1",
+          "material_return": "WR1",
+          "border_control": {
+            "BCP": "BCP1",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "鄂州长山寨"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "取得单一外围寨点，未改变鄂州主城控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-292-1769707-P0085",
+              "SRC-ZZTJ-292-1769707-P0086",
+              "SRC-ZZTJ-292-1769707-P0098"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的建国启动、扩张或政权巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "王逵回军途中与潘叔嗣冲突并被杀，见P0105。",
+          "polity_binding": null,
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-292-1769707-P0085",
+            "SRC-ZZTJ-292-1769707-P0086",
+            "SRC-ZZTJ-292-1769707-P0098"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-3C9734A7EDE97496D8C8-P02",
+          "evaluation_subject_phase": "南唐鄂州长山寨守军 × 寨失阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "长山寨被王逵军攻破，将领陈泽等被俘；何敬洙仍组织鄂州主防务。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "攻寨败守，人员伤亡无数。",
+            "range": "10—99死亡当量",
+            "center": 31,
+            "basis": "单寨失守估十人级。",
+            "upper_bound_reason": "无百人级伤亡明文。",
+            "confidence": "low",
+            "P_scoring": "P1估"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SN1",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN1",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "鄂州长山寨"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "失一外围寨点，鄂州主城仍在。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-ZZTJ-292-1769707-P0085",
+              "SRC-ZZTJ-292-1769707-P0086",
+              "SRC-ZZTJ-292-1769707-P0098"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的建国启动、扩张或政权巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": "南唐",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-292-1769707-P0085",
+            "SRC-ZZTJ-292-1769707-P0086",
+            "SRC-ZZTJ-292-1769707-P0098"
+          ]
+        }
+      ],
+      "subject_phase_count": 2,
+      "non_battle_disposition": null,
+      "wc_grade": null,
+      "security_grade": null,
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": false,
+      "limitations": [
+        "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "WAR-FD-2651A11EE60F30F4C3F5",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "chronicle_battle_card",
+      "campaign_group_ref": "ZZTJ-293-TANG-FUZHOU-NANTAIJIANG-0956",
+      "canonical_label": "南台江之战",
+      "period": {
+        "start": "956",
+        "end": "956"
+      },
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_SUBJECT_PHASE_CONTRACT",
+      "source_lineage": {
+        "source_card_ids": [
+          "SRC-ZZTJ-293-1502955#CARD-015"
+        ],
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-293.battle-adjudications.json",
+          "docs/史料通读产物/五代十国/资治通鉴/volume-293.source-summary.md"
+        ],
+        "source_revision_refs": [
+          "1502955"
+        ],
+        "lineage_basis": "五代十国32卷配对通读总结与战役裁决卡；父卡只作容器，计分消费主体阶段。"
+      },
+      "source_refs": [
+        "SRC-ZZTJ-293-1502955-P0040"
+      ],
+      "source_quotes": [
+        "陳誨敗福州兵於南台江",
+        "俘斬千餘級"
+      ],
+      "subject_phase_views": [
+        {
+          "phase_id": "WAR-FD-2651A11EE60F30F4C3F5-P01",
+          "evaluation_subject_phase": "南唐陈诲军 × 南台江反击阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "陈诲在南台江击败福州方向部队，俘斩千余。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "胜方伤亡不载。",
+            "range": "10—99死亡当量",
+            "center": 31,
+            "basis": "局部水陆战获胜，估十人级。",
+            "upper_bound_reason": "无百人级南唐损失。",
+            "confidence": "low",
+            "P_scoring": "P1估"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SB2",
+          "material_return": "WR1",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "南台江"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "击退来军，维持本方向控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-293-1502955-P0040"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的建国启动、扩张或政权巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": "南唐",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-293-1502955-P0040"
+          ]
+        },
+        {
+          "phase_id": "WAR-FD-2651A11EE60F30F4C3F5-P02",
+          "evaluation_subject_phase": "福州兵 × 南台江败退阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "福州兵被陈诲击败，合计“俘斩千余级”。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "“俘斩千余级”混合死亡与被俘，具体构成不明。",
+            "range": "300—900死亡当量",
+            "center": 520,
+            "basis": "若全为被俘仅约二百当量，若含较多斩杀则更高，保守落百人级。",
+            "upper_bound_reason": "无法证明千人以上死亡当量。",
+            "confidence": "medium",
+            "P_scoring": "P2估"
+          },
+          "cost_evidence": {},
+          "strategic_security": "SN2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "南台江"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "攻势失败。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-ZZTJ-293-1502955-P0040"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的建国启动、扩张或政权巩固阶段。"
+          },
+          "carry_in": "无",
+          "carry_out": "无",
+          "polity_binding": null,
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-293-1502955-P0040"
+          ]
+        }
+      ],
+      "subject_phase_count": 2,
+      "non_battle_disposition": null,
+      "wc_grade": null,
+      "security_grade": null,
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": false,
+      "limitations": [
+        "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    },
+    {
+      "war_event_id": "WAR-FD-8E0EE336B4B61342B461",
+      "dynasty": "五代十国",
+      "dynasty_partition": "five_dynasties",
+      "record_level": "chronicle_battle_card",
+      "campaign_group_ref": "ZZTJ-292-293-WUYUE-TANG-EASTERN-FRONT-0956",
+      "canonical_label": "吴越大舰队会师与停战撤归",
+      "period": {
+        "start": "956",
+        "end": "956"
+      },
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_SUBJECT_PHASE_CONTRACT",
+      "source_lineage": {
+        "source_card_ids": [
+          "SRC-ZZTJ-294-2594143#CARD-009"
+        ],
+        "source_files": [
+          "docs/史料通读产物/五代十国/资治通鉴/volume-294.battle-adjudications.json",
+          "docs/史料通读产物/五代十国/资治通鉴/volume-294.source-summary.md"
+        ],
+        "source_revision_refs": [
+          "2594143"
+        ],
+        "lineage_basis": "五代十国32卷配对通读总结与战役裁决卡；父卡只作容器，计分消费主体阶段。"
+      },
+      "source_refs": [
+        "SRC-ZZTJ-294-2594143-P0028",
+        "SRC-ZZTJ-294-2594143-P0030",
+        "SRC-ZZTJ-294-2594143-P0032"
+      ],
+      "source_quotes": [
+        "戰艦四百艘、士卒萬七千人屯通州南岸",
+        "沿江諸軍及兩浙、湖南、荊南兵並當罷歸",
+        "詔吳越、荊南軍又歸本道"
+      ],
+      "subject_phase_views": [
+        {
+          "phase_id": "WAR-FD-8E0EE336B4B61342B461-P01",
+          "evaluation_subject_phase": "吴越援周军 × 通州南岸会师阶段",
+          "subject_role": "ALLY",
+          "actual_process": "吴越遣战舰四百艘、士卒一万七千屯通州南岸；南唐交割江北后，后周令吴越军撤回本道。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M2",
+            "A": "A3",
+            "WC": "WC3"
+          },
+          "P_inference": {},
+          "cost_evidence": {},
+          "strategic_security": "SB2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "通州南岸"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "形成对南唐东线的强大联盟压力，但停战后未再攻取新地即撤。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-ZZTJ-294-2594143-P0028",
+              "SRC-ZZTJ-294-2594143-P0030",
+              "SRC-ZZTJ-294-2594143-P0032"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本主体可由本卷确认的建国启动、扩张或政权巩固阶段。"
+          },
+          "carry_in": "承卷293常州、宣州东线攻势失利；本卷为新的会师部署。",
+          "carry_out": "无",
+          "polity_binding": "吴越",
+          "ruler_binding": {
+            "ruler_id": null,
+            "ruler_name": null,
+            "status": "OUTSIDE_CONFIGURED_RULER_WINDOWS",
+            "basis": "主体不属于本轮12人或年代不在其统治窗口。",
+            "candidate_ruler_ids": []
+          },
+          "source_anchor_refs": [
+            "SRC-ZZTJ-294-2594143-P0028",
+            "SRC-ZZTJ-294-2594143-P0030",
+            "SRC-ZZTJ-294-2594143-P0032"
+          ]
+        }
+      ],
+      "subject_phase_count": 1,
+      "non_battle_disposition": null,
+      "wc_grade": null,
+      "security_grade": null,
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": false,
+      "limitations": [
+        "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ]
+    }
+  ]
+}

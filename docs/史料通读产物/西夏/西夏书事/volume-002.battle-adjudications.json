@@ -1,0 +1,2021 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "西夏书事/卷002",
+  "source_identity": {
+    "source_unit_id": "SRC-XIXIASHUSHI-002-2284100",
+    "source_url": "https://zh.wikisource.org/wiki/西夏書事/02",
+    "revision_ref": "2284100",
+    "raw_sha256": "d45ccd2db076e5a7e94d695ae1b2a56dd4cffefba43959cca1a0d118a962dc42",
+    "paragraph_count": 84
+  },
+  "cards": [
+    {
+      "battle_label": "绥州—银州军乱与讨定",
+      "campaign_group": "XSS-SUIYIN-MUTINY-926",
+      "source_anchor_refs": [
+        "SRC-XIXIASHUSHI-002-2284100-P0004",
+        "SRC-XIXIASHUSHI-002-2284100-P0005"
+      ],
+      "source_quotes": [
+        "綏、銀軍亂，剽州城",
+        "兩州兵以細故相仇殺…鬨而起，縱掠二州城市",
+        "李仁顏與綏州刺史李彝敏討定之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "绥银乱军 × 两州军乱剽掠阶段",
+          "subject_role": "MILITARY_MUTINY",
+          "actual_process": "绥、银两州军士因细故仇杀，继而哄起，纵掠两州城市。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S3",
+            "M": "M1",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3；P、S未同时位于基础最高档，不触发PS抬档；最终WC3。",
+          "P_inference": {
+            "P_observed": "两州兵相仇杀并纵掠城市，具体人数失载",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "跨两州军乱并实际仇杀、掠城，取百人级中心；不因“剽州城”直接推到千人级。",
+            "upper_bound_reason": "无千人级明确死亡或大规模人口逃亡下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0004",
+              "SRC-XIXIASHUSHI-002-2284100-P0005"
+            ]
+          },
+          "cost_axis_basis": {
+            "S": "只按本主体统治区、生产、交通、财政、行政或军政体系在本阶段的实际受扰、破坏或失控定档；不由敌方伤亡或战役名望反推。",
+            "M": "只记本阶段已经发生的征兵、驻屯、运输、围攻、服役、民夫和重复动员负担；距离本身不单独加档。",
+            "A": "只记本阶段可识别的战马、粮秣、军械、攻具、城防、运输与其他军资资产投入或损失；不由兵数自动反推。"
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN3"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "两州城市与军政秩序同时受扰，构成区域性内部安全恶化。",
+          "material_return": "WR0",
+          "material_return_detail": "内乱掠夺属于内部转移，不作为国家战争回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "绥州",
+              "银州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "发生军乱和城市掠夺，但未见形成稳定替代政权或持续占领。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0004",
+              "SRC-XIXIASHUSHI-002-2284100-P0005"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "造成两州城市秩序和生产—行政环境破坏，且无可持续收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不适用。"
+          },
+          "civilian_harm_caused": "乱军“纵掠二州城市”，对本地民众与财产造成伤害，进入S与战争行为负面。",
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-002-2284100-P0004",
+              "SRC-XIXIASHUSHI-002-2284100-P0005"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-002-2284100-P0004",
+              "SRC-XIXIASHUSHI-002-2284100-P0005"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-002-2284100-P0004",
+              "SRC-XIXIASHUSHI-002-2284100-P0005"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-002-2284100-P0004",
+              "SRC-XIXIASHUSHI-002-2284100-P0005"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "李仁颜—李彝敏军 × 讨定绥银军乱阶段",
+          "subject_role": "COUNTERREBELLION_COMMAND",
+          "actual_process": "银州防御使李仁颜与绥州刺史李彝敏出兵讨平军乱，恢复两州秩序。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1；P、S未同时位于基础最高档，不触发PS抬档；最终WC1。",
+          "P_inference": {
+            "P_observed": "平乱方死伤失载",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "讨定行动成功且未见本方重损后效。",
+            "upper_bound_reason": "无百人级本方损失证据。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0004",
+              "SRC-XIXIASHUSHI-002-2284100-P0005"
+            ]
+          },
+          "cost_axis_basis": {
+            "S": "只按本主体统治区、生产、交通、财政、行政或军政体系在本阶段的实际受扰、破坏或失控定档；不由敌方伤亡或战役名望反推。",
+            "M": "只记本阶段已经发生的征兵、驻屯、运输、围攻、服役、民夫和重复动员负担；距离本身不单独加档。",
+            "A": "只记本阶段可识别的战马、粮秣、军械、攻具、城防、运输与其他军资资产投入或损失；不由兵数自动反推。"
+          },
+          "security_axes": {
+            "SB": "SB3",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "两州军乱被平定，区域军政与城市秩序恢复。",
+          "material_return": "WR0",
+          "material_return_detail": "恢复内部旧有资源，不另记回报。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "绥州",
+              "银州"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "恢复两州既有军政控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0004",
+              "SRC-XIXIASHUSHI-002-2284100-P0005"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "较低可见成本恢复两州秩序。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "定难政权在两州军乱后恢复地方控制，巩固四州体系的内部统治。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-002-2284100-P0004",
+              "SRC-XIXIASHUSHI-002-2284100-P0005"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-002-2284100-P0004",
+              "SRC-XIXIASHUSHI-002-2284100-P0005"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-002-2284100-P0004",
+              "SRC-XIXIASHUSHI-002-2284100-P0005"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-002-2284100-P0004",
+              "SRC-XIXIASHUSHI-002-2284100-P0005"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "追叙：夏州党项寇延州—追至贺兰山",
+      "campaign_group": "XSS-XIA-YANZHOU-RAID-BEFORE-933",
+      "source_anchor_refs": [
+        "SRC-XIXIASHUSHI-002-2284100-P0013"
+      ],
+      "source_quotes": [
+        "夏州党項寇延州，守臣擊敗之，追至賀蘭山而還"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "夏州党项军 × 入寇延州败退阶段",
+          "subject_role": "ATTACKER_RAID",
+          "actual_process": "夏州党项入寇延州，被当地守军击败并一路追至贺兰山。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=2；P、S未同时位于基础最高档，不触发PS抬档；最终WC2。",
+          "P_inference": {
+            "P_observed": "败退并被追至贺兰山，具体死伤失载",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "跨区入寇后被持续追击，取百人级中心。",
+            "upper_bound_reason": "无千人级明确死伤、全军覆没或主将阵亡。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0013"
+            ]
+          },
+          "cost_axis_basis": {
+            "S": "只按本主体统治区、生产、交通、财政、行政或军政体系在本阶段的实际受扰、破坏或失控定档；不由敌方伤亡或战役名望反推。",
+            "M": "只记本阶段已经发生的征兵、驻屯、运输、围攻、服役、民夫和重复动员负担；距离本身不单独加档。",
+            "A": "只记本阶段可识别的战马、粮秣、军械、攻具、城防、运输与其他军资资产投入或损失；不由兵数自动反推。"
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN2"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "进攻失败并遭长距离追击，阶段性威胁能力受挫。",
+          "material_return": "WR0",
+          "material_return_detail": "无所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "未取得延州控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0013"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "出兵成本与败退损失均存在，目标落空。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不适用。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-002-2284100-P0013"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-002-2284100-P0013"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-002-2284100-P0013"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-002-2284100-P0013"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "延州守军 × 击败入寇并追击阶段",
+          "subject_role": "DEFENDER_COUNTERATTACK",
+          "actual_process": "延州守臣击败夏州党项，并追击至贺兰山后返回。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=2；P、S未同时位于基础最高档，不触发PS抬档；最终WC2。",
+          "P_inference": {
+            "P_observed": "本方死伤失载",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "取胜且无重损后效。",
+            "upper_bound_reason": "无百人级本方损失证据。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0013"
+            ]
+          },
+          "cost_axis_basis": {
+            "S": "只按本主体统治区、生产、交通、财政、行政或军政体系在本阶段的实际受扰、破坏或失控定档；不由敌方伤亡或战役名望反推。",
+            "M": "只记本阶段已经发生的征兵、驻屯、运输、围攻、服役、民夫和重复动员负担；距离本身不单独加档。",
+            "A": "只记本阶段可识别的战马、粮秣、军械、攻具、城防、运输与其他军资资产投入或损失；不由兵数自动反推。"
+          },
+          "security_axes": {
+            "SB": "SB2",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "击退一次入寇并把威胁推离延州。",
+          "material_return": "WR0",
+          "material_return_detail": "无明确缴获。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "延州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "维持延州既有控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0013"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "以较低可见成本击退并远追来敌。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不适用。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-002-2284100-P0013"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-002-2284100-P0013"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-002-2284100-P0013"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-002-2284100-P0013"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "长兴四年后唐征夏：青岭门—芦关—夏州围城与败退",
+      "campaign_group": "XSS-HOUTANG-XIAZHOU-933",
+      "source_anchor_refs": [
+        "SRC-XIXIASHUSHI-002-2284100-P0015",
+        "SRC-XIXIASHUSHI-002-2284100-P0016",
+        "SRC-XIXIASHUSHI-002-2284100-P0017",
+        "SRC-XIXIASHUSHI-002-2284100-P0018"
+      ],
+      "source_quotes": [
+        "集境內党項諸胡以自救",
+        "党項抄掠糧運及攻具",
+        "四面党項萬餘騎，抄掠糧運",
+        "關中民輸斗粟束藁，費錢數緡，困敝不能供",
+        "官軍遺戈棄甲，失亡甚夥"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "李彝超定难军 × 守夏州并袭扰补给阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "后唐强行移镇后，彝超布守青岭门，集合境内党项诸部袭扰粮运；虽有数千骑在金明附近被宋温击退，但随后凭坚城、万余骑持续抄掠补给，迫后唐军撤退并追击其散乱军伍。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=2；P/S同为基础最高档，按PS并列规则抬1档；最终WC3。",
+          "P_inference": {
+            "P_observed": "实际有数千骑接战、长期守城与袭扰，彝超方完整死伤失载",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "多阶段接战但最终守城成功，未见本方大败、主将阵亡或千人级损失后效。",
+            "upper_bound_reason": "无千人级本方死伤下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0015",
+              "SRC-XIXIASHUSHI-002-2284100-P0016",
+              "SRC-XIXIASHUSHI-002-2284100-P0017",
+              "SRC-XIXIASHUSHI-002-2284100-P0018"
+            ]
+          },
+          "cost_axis_basis": {
+            "S": "只按本主体统治区、生产、交通、财政、行政或军政体系在本阶段的实际受扰、破坏或失控定档；不由敌方伤亡或战役名望反推。",
+            "M": "只记本阶段已经发生的征兵、驻屯、运输、围攻、服役、民夫和重复动员负担；距离本身不单独加档。",
+            "A": "只记本阶段可识别的战马、粮秣、军械、攻具、城防、运输与其他军资资产投入或损失；不由兵数自动反推。"
+          },
+          "security_axes": {
+            "SB": "SB3",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "成功阻止中央强制换镇，保住夏州核心及定难世袭控制，中央短期再难以军事替换。",
+          "material_return": "WR2",
+          "material_return_detail": "追击中后唐军遗戈弃甲，构成可识别军资回收，但数量未详。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "夏州",
+              "青岭门方向"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "核心夏州及外围守势保持。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0015",
+              "SRC-XIXIASHUSHI-002-2284100-P0016",
+              "SRC-XIXIASHUSHI-002-2284100-P0017",
+              "SRC-XIXIASHUSHI-002-2284100-P0018"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "承担围城与守备成本后保住核心政权，并造成对方高额后勤与撤退损失；P2/S2并列抬为WC3但收益仍显著。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "原文称“此李氏显据夏州之始”；抵抗中央移镇并守住夏州，使世袭边镇从名义朝命进一步转为事实自治。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-002-2284100-P0015",
+              "SRC-XIXIASHUSHI-002-2284100-P0016",
+              "SRC-XIXIASHUSHI-002-2284100-P0017",
+              "SRC-XIXIASHUSHI-002-2284100-P0018"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-002-2284100-P0015",
+              "SRC-XIXIASHUSHI-002-2284100-P0016",
+              "SRC-XIXIASHUSHI-002-2284100-P0017",
+              "SRC-XIXIASHUSHI-002-2284100-P0018"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-002-2284100-P0015",
+              "SRC-XIXIASHUSHI-002-2284100-P0016",
+              "SRC-XIXIASHUSHI-002-2284100-P0017",
+              "SRC-XIXIASHUSHI-002-2284100-P0018"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-002-2284100-P0015",
+              "SRC-XIXIASHUSHI-002-2284100-P0016",
+              "SRC-XIXIASHUSHI-002-2284100-P0017",
+              "SRC-XIXIASHUSHI-002-2284100-P0018"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "后唐药彦稠—安重进军 × 五万送镇、围夏州与班师败退阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "后唐发五万军送安重进赴夏州，先在芦关—金明方向行动，继而围攻夏州；地道攻城不成，补给受万余党项骑袭扰，关中运输极其昂贵且民力困敝，最终班师并在追击下遗弃大量兵甲、失亡甚多。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S2",
+            "M": "M3",
+            "A": "A3",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3；P、S未同时位于基础最高档，不触发PS抬档；最终WC3。",
+          "P_inference": {
+            "P_observed": "“失亡甚夥”，具体人数失载",
+            "range": "1,000—9,999死亡当量",
+            "center": 3162,
+            "P_scoring": "P3估",
+            "basis": "五万军长期攻坚后班师不整并遭追击，原文明确失亡甚多，取千人级中心。",
+            "upper_bound_reason": "无万级死亡、全军覆没或大量俘虏下限。",
+            "confidence": "medium",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0015",
+              "SRC-XIXIASHUSHI-002-2284100-P0016",
+              "SRC-XIXIASHUSHI-002-2284100-P0017",
+              "SRC-XIXIASHUSHI-002-2284100-P0018"
+            ]
+          },
+          "cost_axis_basis": {
+            "S": "只按本主体统治区、生产、交通、财政、行政或军政体系在本阶段的实际受扰、破坏或失控定档；不由敌方伤亡或战役名望反推。",
+            "M": "只记本阶段已经发生的征兵、驻屯、运输、围攻、服役、民夫和重复动员负担；距离本身不单独加档。",
+            "A": "只记本阶段可识别的战马、粮秣、军械、攻具、城防、运输与其他军资资产投入或损失；不由兵数自动反推。"
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN3"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "中央强制换镇失败，关中供应受重压，且退军狼狈，边镇控制威信明显下降。",
+          "material_return": "WR0",
+          "material_return_detail": "无所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "夏州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未能取得夏州，后唐自身既有领土未在本阶段直接丧失。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0015",
+              "SRC-XIXIASHUSHI-002-2284100-P0016",
+              "SRC-XIXIASHUSHI-002-2284100-P0017",
+              "SRC-XIXIASHUSHI-002-2284100-P0018"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "五万级远征、跨区运输与攻城资产投入明显，且目标完全落空；关中民力困敝是已发生的战争成本。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不适用。"
+          },
+          "civilian_harm_caused": "关中民众承担粮草转输，“斗粟束藁费钱数缗，困敝不能供”，属于M3及S2级区域负担。",
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-002-2284100-P0015",
+              "SRC-XIXIASHUSHI-002-2284100-P0016",
+              "SRC-XIXIASHUSHI-002-2284100-P0017",
+              "SRC-XIXIASHUSHI-002-2284100-P0018"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-002-2284100-P0015",
+              "SRC-XIXIASHUSHI-002-2284100-P0016",
+              "SRC-XIXIASHUSHI-002-2284100-P0017",
+              "SRC-XIXIASHUSHI-002-2284100-P0018"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-002-2284100-P0015",
+              "SRC-XIXIASHUSHI-002-2284100-P0016",
+              "SRC-XIXIASHUSHI-002-2284100-P0017",
+              "SRC-XIXIASHUSHI-002-2284100-P0018"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-002-2284100-P0015",
+              "SRC-XIXIASHUSHI-002-2284100-P0016",
+              "SRC-XIXIASHUSHI-002-2284100-P0017",
+              "SRC-XIXIASHUSHI-002-2284100-P0018"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "绥州李彝敏之乱",
+      "campaign_group": "XSS-SUIZHOU-YIMIN-943",
+      "source_anchor_refs": [
+        "SRC-XIXIASHUSHI-002-2284100-P0029",
+        "SRC-XIXIASHUSHI-002-2284100-P0030"
+      ],
+      "source_quotes": [
+        "結夏州衙內指揮拓跋崇斌襲州城，事泄",
+        "彝殷擒斬崇斌，出兵襲擊",
+        "彝敏敗…棄州…奔延州"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "李彝敏集团 × 谋袭夏州后败弃绥州阶段",
+          "subject_role": "REBELLION",
+          "actual_process": "彝敏联络夏州衙内指挥拓跋崇斌谋袭州城，事泄后崇斌被擒斩；彝殷出兵反击，彝敏败，携亲属二百七十口弃绥州奔延州。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=2；P/S同为基础最高档，按PS并列规则抬1档；最终WC3。",
+          "P_inference": {
+            "P_observed": "崇斌被斩，彝敏集团败走并有270口家属迁逃；战斗死伤失载",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "实际出兵互击、集团败逃；270口迁逃按1/5折算仅约54当量，叠加战斗损失取百人级中心。",
+            "upper_bound_reason": "无千人级人员损害下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0029",
+              "SRC-XIXIASHUSHI-002-2284100-P0030"
+            ]
+          },
+          "cost_axis_basis": {
+            "S": "只按本主体统治区、生产、交通、财政、行政或军政体系在本阶段的实际受扰、破坏或失控定档；不由敌方伤亡或战役名望反推。",
+            "M": "只记本阶段已经发生的征兵、驻屯、运输、围攻、服役、民夫和重复动员负担；距离本身不单独加档。",
+            "A": "只记本阶段可识别的战马、粮秣、军械、攻具、城防、运输与其他军资资产投入或损失；不由兵数自动反推。"
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN2"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "叛乱失败并丧失绥州根据，集团被迫逃散。",
+          "material_return": "WR0",
+          "material_return_detail": "无所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "绥州"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "彝敏集团弃绥州，失去本地控制。",
+            "continuity_status": "LOST_AT_PHASE_END",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0029",
+              "SRC-XIXIASHUSHI-002-2284100-P0030"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "叛乱目标失败，人员与控制均受损。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不适用。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-002-2284100-P0029",
+              "SRC-XIXIASHUSHI-002-2284100-P0030"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-002-2284100-P0029",
+              "SRC-XIXIASHUSHI-002-2284100-P0030"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-002-2284100-P0029",
+              "SRC-XIXIASHUSHI-002-2284100-P0030"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-002-2284100-P0029",
+              "SRC-XIXIASHUSHI-002-2284100-P0030"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "李彝殷定难军 × 平定彝敏之乱阶段",
+          "subject_role": "COUNTERREBELLION_COMMAND",
+          "actual_process": "彝殷先擒斩内应拓跋崇斌，再出兵击败彝敏，恢复绥州秩序。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1；P、S未同时位于基础最高档，不触发PS抬档；最终WC1。",
+          "P_inference": {
+            "P_observed": "平乱方死伤失载",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "成功反击且无本方重损后效。",
+            "upper_bound_reason": "无百人级本方损失证据。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0029",
+              "SRC-XIXIASHUSHI-002-2284100-P0030"
+            ]
+          },
+          "cost_axis_basis": {
+            "S": "只按本主体统治区、生产、交通、财政、行政或军政体系在本阶段的实际受扰、破坏或失控定档；不由敌方伤亡或战役名望反推。",
+            "M": "只记本阶段已经发生的征兵、驻屯、运输、围攻、服役、民夫和重复动员负担；距离本身不单独加档。",
+            "A": "只记本阶段可识别的战马、粮秣、军械、攻具、城防、运输与其他军资资产投入或损失；不由兵数自动反推。"
+          },
+          "security_axes": {
+            "SB": "SB2",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "消除一处内部夺权风险并恢复绥州。",
+          "material_return": "WR0",
+          "material_return_detail": "恢复内部旧地，不重复记资源回报。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "绥州"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "恢复绥州实际控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0029",
+              "SRC-XIXIASHUSHI-002-2284100-P0030"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "较低可见成本平定内乱并保住属州。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "定难政权在家族内部冲突中维持对绥州和核心军权的控制。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-002-2284100-P0029",
+              "SRC-XIXIASHUSHI-002-2284100-P0030"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-002-2284100-P0029",
+              "SRC-XIXIASHUSHI-002-2284100-P0030"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-002-2284100-P0029",
+              "SRC-XIXIASHUSHI-002-2284100-P0030"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-002-2284100-P0029",
+              "SRC-XIXIASHUSHI-002-2284100-P0030"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "开运元年李彝殷四万兵侵契丹西境",
+      "campaign_group": "XSS-JIN-LIAO-DIVERSION-944",
+      "source_anchor_refs": [
+        "SRC-XIXIASHUSHI-002-2284100-P0036",
+        "SRC-XIXIASHUSHI-002-2284100-P0037"
+      ],
+      "source_quotes": [
+        "𢑴殷合蕃、漢兵四萬自麟州渡河，侵契丹西境，以牽制之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "李彝殷蕃汉军 × 四万渡河侵契丹西境阶段",
+          "subject_role": "ATTACKER_RAID",
+          "actual_process": "为牵制契丹南侵后晋，彝殷合蕃汉兵四万自麟州渡河进入契丹西境；本段未记具体接战、伤亡、缴获或控制后效。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=2；P、S未同时位于基础最高档，不触发PS抬档；最终WC2。",
+          "P_inference": {
+            "P_observed": "四万兵实际越境，接战与本方伤亡失载",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "仅见“侵契丹西境”而无会战、败退或重损后效，保守取百人以下中心。",
+            "upper_bound_reason": "无百人级以上本方伤亡下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0036",
+              "SRC-XIXIASHUSHI-002-2284100-P0037"
+            ]
+          },
+          "cost_axis_basis": {
+            "S": "只按本主体统治区、生产、交通、财政、行政或军政体系在本阶段的实际受扰、破坏或失控定档；不由敌方伤亡或战役名望反推。",
+            "M": "只记本阶段已经发生的征兵、驻屯、运输、围攻、服役、民夫和重复动员负担；距离本身不单独加档。",
+            "A": "只记本阶段可识别的战马、粮秣、军械、攻具、城防、运输与其他军资资产投入或损失；不由兵数自动反推。"
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB0/SN0",
+          "strategic_security_detail": "是否实际牵制契丹兵势缺少本卷后效证据。",
+          "material_return": "WR0",
+          "material_return_detail": "无明确所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [],
+            "control_change_mode": "NONE",
+            "control_outcome": "未见取得城地或稳定据点。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0036",
+              "SRC-XIXIASHUSHI-002-2284100-P0037"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "phase_return_basis": "大规模出兵成本已发生，但战果、对契丹兵力牵制效果和后续控制均未明。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不适用。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-002-2284100-P0036",
+              "SRC-XIXIASHUSHI-002-2284100-P0037"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-002-2284100-P0036",
+              "SRC-XIXIASHUSHI-002-2284100-P0037"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-002-2284100-P0036",
+              "SRC-XIXIASHUSHI-002-2284100-P0037"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-002-2284100-P0036",
+              "SRC-XIXIASHUSHI-002-2284100-P0037"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "若后卷出现契丹回师、边地损失或彝殷军撤退细节，应另立后续阶段，不倒灌本卷。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "西羌㖡母族乱—李仁裕战败身死",
+      "campaign_group": "XSS-YEMU-REBELLION-944",
+      "source_anchor_refs": [
+        "SRC-XIXIASHUSHI-002-2284100-P0039",
+        "SRC-XIXIASHUSHI-002-2284100-P0040"
+      ],
+      "source_quotes": [
+        "㖡母舉族謀亂，走南山",
+        "仁裕率所部追擊，戰敗，爲所殺"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "绥州李仁裕军 × 追击㖡母族败死阶段",
+          "subject_role": "COUNTERREBELLION_COMMAND",
+          "actual_process": "㖡母熟户举族作乱逃入南山，绥州刺史李仁裕率部追击，战败并被杀。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=2；P/S同为基础最高档，按PS并列规则抬1档；最终WC3。",
+          "P_inference": {
+            "P_observed": "明确李仁裕被杀，部队战败，其他死伤失载",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "成建制追击败绩且主将死亡，取百人级中心。",
+            "upper_bound_reason": "无千人级人员损害下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0039",
+              "SRC-XIXIASHUSHI-002-2284100-P0040"
+            ]
+          },
+          "cost_axis_basis": {
+            "S": "只按本主体统治区、生产、交通、财政、行政或军政体系在本阶段的实际受扰、破坏或失控定档；不由敌方伤亡或战役名望反推。",
+            "M": "只记本阶段已经发生的征兵、驻屯、运输、围攻、服役、民夫和重复动员负担；距离本身不单独加档。",
+            "A": "只记本阶段可识别的战马、粮秣、军械、攻具、城防、运输与其他军资资产投入或损失；不由兵数自动反推。"
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN2"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "地方主官战死且叛乱集团保持活动能力，绥州方向安全恶化。",
+          "material_return": "WR0",
+          "material_return_detail": "无所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN1",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "南山—绥州边缘控制"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "至少失去对叛羌活动区的即时控制能力。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0039",
+              "SRC-XIXIASHUSHI-002-2284100-P0040"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "主官战死、讨叛失败；P2/S2并列按PS规则抬为WC3。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不适用。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-002-2284100-P0039",
+              "SRC-XIXIASHUSHI-002-2284100-P0040"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-002-2284100-P0039",
+              "SRC-XIXIASHUSHI-002-2284100-P0040"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-002-2284100-P0039",
+              "SRC-XIXIASHUSHI-002-2284100-P0040"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-002-2284100-P0039",
+              "SRC-XIXIASHUSHI-002-2284100-P0040"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "㖡母族武装 × 南山反击阶段",
+          "subject_role": "REBELLION",
+          "actual_process": "㖡母族举族逃南山后击败追击的绥州军并杀李仁裕。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1；P、S未同时位于基础最高档，不触发PS抬档；最终WC1。",
+          "P_inference": {
+            "P_observed": "本方死伤失载",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "胜利且无本方重损后效。",
+            "upper_bound_reason": "无百人级损失证据。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0039",
+              "SRC-XIXIASHUSHI-002-2284100-P0040"
+            ]
+          },
+          "cost_axis_basis": {
+            "S": "只按本主体统治区、生产、交通、财政、行政或军政体系在本阶段的实际受扰、破坏或失控定档；不由敌方伤亡或战役名望反推。",
+            "M": "只记本阶段已经发生的征兵、驻屯、运输、围攻、服役、民夫和重复动员负担；距离本身不单独加档。",
+            "A": "只记本阶段可识别的战马、粮秣、军械、攻具、城防、运输与其他军资资产投入或损失；不由兵数自动反推。"
+          },
+          "security_axes": {
+            "SB": "SB1",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "暂时击退追讨，获得一次局部喘息，但未见形成稳定政权或区域控制。",
+          "material_return": "WR0",
+          "material_return_detail": "无明确所得。",
+          "border_control": {
+            "BCP": "BCP1",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "南山据地"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "保持南山活动空间，但后续持续性未知。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0039",
+              "SRC-XIXIASHUSHI-002-2284100-P0040"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以低可见成本击退一次追讨，但长期安全与控制未明。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不适用。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-002-2284100-P0039",
+              "SRC-XIXIASHUSHI-002-2284100-P0040"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-002-2284100-P0039",
+              "SRC-XIXIASHUSHI-002-2284100-P0040"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-002-2284100-P0039",
+              "SRC-XIXIASHUSHI-002-2284100-P0040"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-002-2284100-P0039",
+              "SRC-XIXIASHUSHI-002-2284100-P0040"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "后续是否被彝殷再讨、是否恢复绥州控制，本卷未记。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "援李守贞：李彝殷出兵逼延州后撤",
+      "campaign_group": "XSS-HAN-LI-SHOUZHEN-948",
+      "source_anchor_refs": [
+        "SRC-XIXIASHUSHI-002-2284100-P0047",
+        "SRC-XIXIASHUSHI-002-2284100-P0048",
+        "SRC-XIXIASHUSHI-002-2284100-P0049",
+        "SRC-XIXIASHUSHI-002-2284100-P0050"
+      ],
+      "source_quotes": [
+        "賫蠟書、重幣至夏州求援",
+        "𢑴殷出兵逼延州，爲守貞聲援",
+        "遂抽師囘"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "李彝殷定难军 × 出兵逼延州声援李守贞阶段",
+          "subject_role": "ALLY_COERCIVE_DEPLOYMENT",
+          "actual_process": "李守贞以蜡书、重币求援后，彝殷出兵逼近延州为其声援；郭威赴河中并筑长堑连城后，彝殷抽军返回。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1；P、S未同时位于基础最高档，不触发PS抬档；最终WC1。",
+          "P_inference": null,
+          "cost_axis_basis": {
+            "S": "只按本主体统治区、生产、交通、财政、行政或军政体系在本阶段的实际受扰、破坏或失控定档；不由敌方伤亡或战役名望反推。",
+            "M": "只记本阶段已经发生的征兵、驻屯、运输、围攻、服役、民夫和重复动员负担；距离本身不单独加档。",
+            "A": "只记本阶段可识别的战马、粮秣、军械、攻具、城防、运输与其他军资资产投入或损失；不由兵数自动反推。"
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB0/SN0",
+          "strategic_security_detail": "未见实际接战或形成新的安全状态。",
+          "material_return": "WR1",
+          "material_return_detail": "李守贞送至夏州的“重币”属于可识别但数量不明的有限资源回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "未取得延州或其他城地，最终撤军。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0047",
+              "SRC-XIXIASHUSHI-002-2284100-P0048",
+              "SRC-XIXIASHUSHI-002-2284100-P0049",
+              "SRC-XIXIASHUSHI-002-2284100-P0050"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "phase_return_basis": "投入兵力与行军成本，虽获重币但未改变守贞败局或取得控制。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不适用。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-002-2284100-P0047",
+              "SRC-XIXIASHUSHI-002-2284100-P0048",
+              "SRC-XIXIASHUSHI-002-2284100-P0049",
+              "SRC-XIXIASHUSHI-002-2284100-P0050"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-002-2284100-P0047",
+              "SRC-XIXIASHUSHI-002-2284100-P0048",
+              "SRC-XIXIASHUSHI-002-2284100-P0049",
+              "SRC-XIXIASHUSHI-002-2284100-P0050"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-002-2284100-P0047",
+              "SRC-XIXIASHUSHI-002-2284100-P0048",
+              "SRC-XIXIASHUSHI-002-2284100-P0049",
+              "SRC-XIXIASHUSHI-002-2284100-P0050"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-002-2284100-P0047",
+              "SRC-XIXIASHUSHI-002-2284100-P0048",
+              "SRC-XIXIASHUSHI-002-2284100-P0049",
+              "SRC-XIXIASHUSHI-002-2284100-P0050"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "后汉延州方向 × 受夏州兵逼迫阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "彝殷军逼延州构成外部压力，但本段未记攻城或交战；随后夏州军撤回。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1；P、S未同时位于基础最高档，不触发PS抬档；最终WC1。",
+          "P_inference": null,
+          "cost_axis_basis": {
+            "S": "只按本主体统治区、生产、交通、财政、行政或军政体系在本阶段的实际受扰、破坏或失控定档；不由敌方伤亡或战役名望反推。",
+            "M": "只记本阶段已经发生的征兵、驻屯、运输、围攻、服役、民夫和重复动员负担；距离本身不单独加档。",
+            "A": "只记本阶段可识别的战马、粮秣、军械、攻具、城防、运输与其他军资资产投入或损失；不由兵数自动反推。"
+          },
+          "security_axes": {
+            "SB": "SB1",
+            "SN": "SN1"
+          },
+          "strategic_security": "SB1/SN1",
+          "strategic_security_detail": "短期受军事逼迫，随后对方无战撤退，安全状态恢复。",
+          "material_return": "WR0",
+          "material_return_detail": "无所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "延州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "延州始终未见失控。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0047",
+              "SRC-XIXIASHUSHI-002-2284100-P0048",
+              "SRC-XIXIASHUSHI-002-2284100-P0049",
+              "SRC-XIXIASHUSHI-002-2284100-P0050"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "承受短期扰动但未付出明显战斗成本并维持控制。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不适用。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-002-2284100-P0047",
+              "SRC-XIXIASHUSHI-002-2284100-P0048",
+              "SRC-XIXIASHUSHI-002-2284100-P0049",
+              "SRC-XIXIASHUSHI-002-2284100-P0050"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-002-2284100-P0047",
+              "SRC-XIXIASHUSHI-002-2284100-P0048",
+              "SRC-XIXIASHUSHI-002-2284100-P0049",
+              "SRC-XIXIASHUSHI-002-2284100-P0050"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-002-2284100-P0047",
+              "SRC-XIXIASHUSHI-002-2284100-P0048",
+              "SRC-XIXIASHUSHI-002-2284100-P0049",
+              "SRC-XIXIASHUSHI-002-2284100-P0050"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-002-2284100-P0047",
+              "SRC-XIXIASHUSHI-002-2284100-P0048",
+              "SRC-XIXIASHUSHI-002-2284100-P0049",
+              "SRC-XIXIASHUSHI-002-2284100-P0050"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "郡羌围麟州—杨崇训求援与后续归周",
+      "campaign_group": "XSS-LINZHOU-QIANG-SIEGE-952-957",
+      "source_anchor_refs": [
+        "SRC-XIXIASHUSHI-002-2284100-P0064",
+        "SRC-XIXIASHUSHI-002-2284100-P0065",
+        "SRC-XIXIASHUSHI-002-2284100-P0074",
+        "SRC-XIXIASHUSHI-002-2284100-P0075"
+      ],
+      "source_quotes": [
+        "爲郡羌所圍，乃求救于夏州",
+        "屢被蕃部攻圍，乞歸"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "麟州杨崇训政权 × 反复受羌围困阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "杨崇训归北汉后反复遭当地羌部围困，向夏州求援而彝殷不赴；压力延续到显德四年，成为其转归后周的重要背景。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=2；P、S未同时位于基础最高档，不触发PS抬档；最终WC2。",
+          "P_inference": {
+            "P_observed": "围城死伤失载",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "反复围困但无破城、主将战死或大规模伤亡记录。",
+            "upper_bound_reason": "无百人级人员损害下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0064",
+              "SRC-XIXIASHUSHI-002-2284100-P0065",
+              "SRC-XIXIASHUSHI-002-2284100-P0074",
+              "SRC-XIXIASHUSHI-002-2284100-P0075"
+            ]
+          },
+          "cost_axis_basis": {
+            "S": "只按本主体统治区、生产、交通、财政、行政或军政体系在本阶段的实际受扰、破坏或失控定档；不由敌方伤亡或战役名望反推。",
+            "M": "只记本阶段已经发生的征兵、驻屯、运输、围攻、服役、民夫和重复动员负担；距离本身不单独加档。",
+            "A": "只记本阶段可识别的战马、粮秣、军械、攻具、城防、运输与其他军资资产投入或损失；不由兵数自动反推。"
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN2"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "反复围困使麟州局部安全与政治归属持续恶化。",
+          "material_return": "WR0",
+          "material_return_detail": "无所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "麟州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "本卷未记麟州被攻陷；实际城地仍由杨氏掌握，后续政治改属不等同战败失城。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0064",
+              "SRC-XIXIASHUSHI-002-2284100-P0065",
+              "SRC-XIXIASHUSHI-002-2284100-P0074",
+              "SRC-XIXIASHUSHI-002-2284100-P0075"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "持续承受围困压力且求援无应，最终被迫改变政治归属。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不适用。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-002-2284100-P0064",
+              "SRC-XIXIASHUSHI-002-2284100-P0065",
+              "SRC-XIXIASHUSHI-002-2284100-P0074",
+              "SRC-XIXIASHUSHI-002-2284100-P0075"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-002-2284100-P0064",
+              "SRC-XIXIASHUSHI-002-2284100-P0065",
+              "SRC-XIXIASHUSHI-002-2284100-P0074",
+              "SRC-XIXIASHUSHI-002-2284100-P0075"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-002-2284100-P0064",
+              "SRC-XIXIASHUSHI-002-2284100-P0065",
+              "SRC-XIXIASHUSHI-002-2284100-P0074",
+              "SRC-XIXIASHUSHI-002-2284100-P0075"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-002-2284100-P0064",
+              "SRC-XIXIASHUSHI-002-2284100-P0065",
+              "SRC-XIXIASHUSHI-002-2284100-P0074",
+              "SRC-XIXIASHUSHI-002-2284100-P0075"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "P0074—P0075记其转归后周，但该政治归附不倒灌为本战BCN。"
+        },
+        {
+          "evaluation_subject_phase": "麟州郡羌武装 × 反复围困阶段",
+          "subject_role": "ATTACKER_SIEGE",
+          "actual_process": "郡羌反复围困麟州，迫使杨崇训多次处于军事压力并寻求外援。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1；P、S未同时位于基础最高档，不触发PS抬档；最终WC1。",
+          "P_inference": {
+            "P_observed": "攻方死伤失载",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "反复围困但无强攻破城或重大伤亡证据。",
+            "upper_bound_reason": "无百人级损失下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0064",
+              "SRC-XIXIASHUSHI-002-2284100-P0065",
+              "SRC-XIXIASHUSHI-002-2284100-P0074",
+              "SRC-XIXIASHUSHI-002-2284100-P0075"
+            ]
+          },
+          "cost_axis_basis": {
+            "S": "只按本主体统治区、生产、交通、财政、行政或军政体系在本阶段的实际受扰、破坏或失控定档；不由敌方伤亡或战役名望反推。",
+            "M": "只记本阶段已经发生的征兵、驻屯、运输、围攻、服役、民夫和重复动员负担；距离本身不单独加档。",
+            "A": "只记本阶段可识别的战马、粮秣、军械、攻具、城防、运输与其他军资资产投入或损失；不由兵数自动反推。"
+          },
+          "security_axes": {
+            "SB": "SB1",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "形成持续局部压迫，但未攻陷麟州。",
+          "material_return": "WR0",
+          "material_return_detail": "无明确所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "麟州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未见取得麟州实际控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0064",
+              "SRC-XIXIASHUSHI-002-2284100-P0065",
+              "SRC-XIXIASHUSHI-002-2284100-P0074",
+              "SRC-XIXIASHUSHI-002-2284100-P0075"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "phase_return_basis": "能持续施压但未取得城地或结构性安全收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不适用。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-002-2284100-P0064",
+              "SRC-XIXIASHUSHI-002-2284100-P0065",
+              "SRC-XIXIASHUSHI-002-2284100-P0074",
+              "SRC-XIXIASHUSHI-002-2284100-P0075"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-002-2284100-P0064",
+              "SRC-XIXIASHUSHI-002-2284100-P0065",
+              "SRC-XIXIASHUSHI-002-2284100-P0074",
+              "SRC-XIXIASHUSHI-002-2284100-P0075"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-002-2284100-P0064",
+              "SRC-XIXIASHUSHI-002-2284100-P0065",
+              "SRC-XIXIASHUSHI-002-2284100-P0074",
+              "SRC-XIXIASHUSHI-002-2284100-P0075"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-002-2284100-P0064",
+              "SRC-XIXIASHUSHI-002-2284100-P0065",
+              "SRC-XIXIASHUSHI-002-2284100-P0074",
+              "SRC-XIXIASHUSHI-002-2284100-P0075"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "显德二年夏州兵塞府州路",
+      "campaign_group": "XSS-XIA-FUZHOU-BLOCKADE-955",
+      "source_anchor_refs": [
+        "SRC-XIXIASHUSHI-002-2284100-P0071",
+        "SRC-XIXIASHUSHI-002-2284100-P0072",
+        "SRC-XIXIASHUSHI-002-2284100-P0073"
+      ],
+      "source_quotes": [
+        "以兵塞府州路，不許通詔使",
+        "乃遣供奉官齊藏珍賫詔責之",
+        "𢑴殷惶恐，撤兵謝罪"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "李彝殷定难军 × 武装封锁府州道路阶段",
+          "subject_role": "ARMED_BLOCKADE",
+          "actual_process": "因不满折德扆获节度使，彝殷以兵封塞府州道路，不许周朝诏使通行；世宗以诏责之并利用夏州贸易依赖施压，彝殷撤兵谢罪。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1；P、S未同时位于基础最高档，不触发PS抬档；最终WC1。",
+          "P_inference": null,
+          "cost_axis_basis": {
+            "S": "只按本主体统治区、生产、交通、财政、行政或军政体系在本阶段的实际受扰、破坏或失控定档；不由敌方伤亡或战役名望反推。",
+            "M": "只记本阶段已经发生的征兵、驻屯、运输、围攻、服役、民夫和重复动员负担；距离本身不单独加档。",
+            "A": "只记本阶段可识别的战马、粮秣、军械、攻具、城防、运输与其他军资资产投入或损失；不由兵数自动反推。"
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN1"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "短期阻断府州通道但未形成长期安全收益，最终在政治经济压力下撤除。",
+          "material_return": "WR0",
+          "material_return_detail": "无所得。",
+          "border_control": {
+            "BCP": "BCP1",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "府州通道"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "短时控制并封锁一条对外通道。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0071",
+              "SRC-XIXIASHUSHI-002-2284100-P0072",
+              "SRC-XIXIASHUSHI-002-2284100-P0073"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "phase_return_basis": "投入武装封锁却未达成政治目标，控制旋即撤销。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不适用。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-002-2284100-P0071",
+              "SRC-XIXIASHUSHI-002-2284100-P0072",
+              "SRC-XIXIASHUSHI-002-2284100-P0073"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-002-2284100-P0071",
+              "SRC-XIXIASHUSHI-002-2284100-P0072",
+              "SRC-XIXIASHUSHI-002-2284100-P0073"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-002-2284100-P0071",
+              "SRC-XIXIASHUSHI-002-2284100-P0072",
+              "SRC-XIXIASHUSHI-002-2284100-P0073"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-002-2284100-P0071",
+              "SRC-XIXIASHUSHI-002-2284100-P0072",
+              "SRC-XIXIASHUSHI-002-2284100-P0073"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "后周—府州体系 × 通道受阻后恢复阶段",
+          "subject_role": "DEFENDER_RECOVERY",
+          "actual_process": "府州对朝廷的诏使通路一度被夏州军封塞；世宗拒绝放弃折德扆，遣使责令后彝殷撤兵。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S1",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1；P、S未同时位于基础最高档，不触发PS抬档；最终WC1。",
+          "P_inference": null,
+          "cost_axis_basis": {
+            "S": "只按本主体统治区、生产、交通、财政、行政或军政体系在本阶段的实际受扰、破坏或失控定档；不由敌方伤亡或战役名望反推。",
+            "M": "只记本阶段已经发生的征兵、驻屯、运输、围攻、服役、民夫和重复动员负担；距离本身不单独加档。",
+            "A": "只记本阶段可识别的战马、粮秣、军械、攻具、城防、运输与其他军资资产投入或损失；不由兵数自动反推。"
+          },
+          "security_axes": {
+            "SB": "SB1",
+            "SN": "SN1"
+          },
+          "strategic_security": "SB1/SN1",
+          "strategic_security_detail": "短期交通与政令通达受扰，后以低成本恢复。",
+          "material_return": "WR0",
+          "material_return_detail": "无物质回报。",
+          "border_control": {
+            "BCP": "BCP1",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "府州通道"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "恢复诏使通行与既有道路控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-002-2284100-P0071",
+              "SRC-XIXIASHUSHI-002-2284100-P0072",
+              "SRC-XIXIASHUSHI-002-2284100-P0073"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "几乎无军事成本即恢复关键通道和政治权威。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不适用。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-002-2284100-P0071",
+              "SRC-XIXIASHUSHI-002-2284100-P0072",
+              "SRC-XIXIASHUSHI-002-2284100-P0073"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-002-2284100-P0071",
+              "SRC-XIXIASHUSHI-002-2284100-P0072",
+              "SRC-XIXIASHUSHI-002-2284100-P0073"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-002-2284100-P0071",
+              "SRC-XIXIASHUSHI-002-2284100-P0072",
+              "SRC-XIXIASHUSHI-002-2284100-P0073"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-002-2284100-P0071",
+              "SRC-XIXIASHUSHI-002-2284100-P0072",
+              "SRC-XIXIASHUSHI-002-2284100-P0073"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "linear_reread": {
+      "range": "SRC-XIXIASHUSHI-002-2284100-P0001—P0084",
+      "paragraph_count": 84,
+      "body_end": "P0082",
+      "metadata_tail": [
+        "P0083",
+        "P0084"
+      ],
+      "status": "COMPLETED",
+      "method": "初稿后自P0001逐段复读至P0084，复核军乱、寇、击败、追、守、抄掠粮运、围城、失亡、作乱、侵契丹、羌乱、逼延州、围麟州、兵塞道路等武装触发词；拟议出兵、战后处刑与政治策反均按合同排除或分流。",
+      "ps_tie_raise_checked": true
+    },
+    "card_coverage": {
+      "battle_cards": 9,
+      "subject_phase_cards": 17,
+      "adjudicated_anchor_entries": 24,
+      "not_a_battle_anchor_entries": 60,
+      "coverage_result": "84/84段逐段过账；正文P0001—P0082及两段版权元数据均已登记。",
+      "wc_formula_check": "PASS：卷内夏州守城P2/S2→WC3、李仁裕追叛P2/S2→WC3等PS并列抬档均已复核。",
+      "dedup_check": "PASS：后唐征夏的关中转输困敝只进入后唐主体WC，不在非战役总结重复作为财政正负；彝敏战败与后续伏诛分开；麟州围困与杨崇训政治归周不互相倒灌。",
+      "control_check": "PASS：夏州守城为HOLD/BCP0；府州道路短封标REVERSED；政治归附不自动当作战役城地取得。"
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0001",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0002",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0003",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0004",
+        "disposition": "ADJUDICATED",
+        "battle_label": "绥州—银州军乱与讨定"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0005",
+        "disposition": "ADJUDICATED",
+        "battle_label": "绥州—银州军乱与讨定"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0006",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0007",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0008",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0009",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0010",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0011",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0012",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "仅记后唐移彝超为延州留后及彝超不受代，是P0015—P0018战争的政治前奏，本段未接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0013",
+        "disposition": "ADJUDICATED",
+        "battle_label": "追叙：夏州党项寇延州—追至贺兰山"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0014",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0015",
+        "disposition": "ADJUDICATED",
+        "battle_label": "长兴四年后唐征夏：青岭门—芦关—夏州围城与败退"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0016",
+        "disposition": "ADJUDICATED",
+        "battle_label": "长兴四年后唐征夏：青岭门—芦关—夏州围城与败退"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0017",
+        "disposition": "ADJUDICATED",
+        "battle_label": "长兴四年后唐征夏：青岭门—芦关—夏州围城与败退"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0018",
+        "disposition": "ADJUDICATED",
+        "battle_label": "长兴四年后唐征夏：青岭门—芦关—夏州围城与败退"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0019",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0020",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0021",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0022",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0023",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0024",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0025",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0026",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0027",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0028",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0029",
+        "disposition": "ADJUDICATED",
+        "battle_label": "绥州李彝敏之乱"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0030",
+        "disposition": "ADJUDICATED",
+        "battle_label": "绥州李彝敏之乱"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0031",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0032",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0033",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "彝敏后续被朝廷命令处决，属于战后司法处置，不把处刑作为战争P重复计算。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0034",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "同上，战后处刑与政治问责，不是新的战役阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0035",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0036",
+        "disposition": "ADJUDICATED",
+        "battle_label": "开运元年李彝殷四万兵侵契丹西境"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0037",
+        "disposition": "ADJUDICATED",
+        "battle_label": "开运元年李彝殷四万兵侵契丹西境"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0038",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0039",
+        "disposition": "ADJUDICATED",
+        "battle_label": "西羌㖡母族乱—李仁裕战败身死"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0040",
+        "disposition": "ADJUDICATED",
+        "battle_label": "西羌㖡母族乱—李仁裕战败身死"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0041",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0042",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0043",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0044",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0045",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "请求讨㖡母族属于拟议军事行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0046",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "虽率众屯境上，但朝廷谕止，未形成接战或城地争夺；不立卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0047",
+        "disposition": "ADJUDICATED",
+        "battle_label": "援李守贞：李彝殷出兵逼延州后撤"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0048",
+        "disposition": "ADJUDICATED",
+        "battle_label": "援李守贞：李彝殷出兵逼延州后撤"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0049",
+        "disposition": "ADJUDICATED",
+        "battle_label": "援李守贞：李彝殷出兵逼延州后撤"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0050",
+        "disposition": "ADJUDICATED",
+        "battle_label": "援李守贞：李彝殷出兵逼延州后撤"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0051",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0052",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0053",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0054",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0055",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "仅概括彝殷常以兵暗助叛镇索取重赂，缺具体时间、对象与战斗过程，作为政治财政模式写入总结，不伪造战役卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0056",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0057",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0058",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0059",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0060",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0061",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "遣使附北汉为外交归附，无接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0062",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "同上。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0063",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0064",
+        "disposition": "ADJUDICATED",
+        "battle_label": "郡羌围麟州—杨崇训求援与后续归周"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0065",
+        "disposition": "ADJUDICATED",
+        "battle_label": "郡羌围麟州—杨崇训求援与后续归周"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0066",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0067",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0068",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0069",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0070",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0071",
+        "disposition": "ADJUDICATED",
+        "battle_label": "显德二年夏州兵塞府州路"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0072",
+        "disposition": "ADJUDICATED",
+        "battle_label": "显德二年夏州兵塞府州路"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0073",
+        "disposition": "ADJUDICATED",
+        "battle_label": "显德二年夏州兵塞府州路"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0074",
+        "disposition": "ADJUDICATED",
+        "battle_label": "郡羌围麟州—杨崇训求援与后续归周"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0075",
+        "disposition": "ADJUDICATED",
+        "battle_label": "郡羌围麟州—杨崇训求援与后续归周"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0076",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0077",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0078",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0079",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0080",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0081",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "作者总论“兵不事战征，民不睹金革”是概括性史论，不能覆盖本卷已记具体战事。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0082",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0083",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-002-2284100-P0084",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、任官封爵、社会习俗、赦令税债、外交臣属、战后司法、史论或页面元数据；未形成需要单列裁决的实际武装接战、围城、夺城或军事政变阶段。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      "卷003需优先核显德末李彝殷五州控制、对周臣属及府州—麟州关系是否延续到宋初；后续若出现实质失控或再扩张，另立阶段卡。",
+      "开运元年四万兵侵契丹西境的接战、撤军与实际牵制效果本卷缺失；若后卷或旁证出现明确后效，应补后续阶段，不倒灌本卷P/M。",
+      "㖡母族在南山击杀李仁裕后的终局未见；后续若平定、招抚或继续作乱，应延续同一campaign_group。",
+      "卷末作者称五州“兵不事战征，民不睹金革”属于长期史论，与本卷具体军乱、围城等不完全相容；后续使用时必须保留其概括性、不可作为逐年零战争事实。"
+    ]
+  }
+}

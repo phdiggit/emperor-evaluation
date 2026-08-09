@@ -1,0 +1,413 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "jin",
+  "bucket": 19,
+  "bucket_count": 24,
+  "record_count": 1,
+  "records_fingerprint": "e692e3175a4debf4d5dad165a8a194b756bb87ed5efb9c7220e352a923d04971",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-91FB2917965E77C4C302",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-SONG-SHAANXI-FUPING-1130-1131",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "金朝册立刘豫为大齐皇帝并都大名；宗辅在富平击败张浚军，随后攻取泾原熙河多州，但宗弼在和尚原败于吴玠。",
+      "period": {
+        "start": "天会八年九月",
+        "end": "天会九年十月"
+      },
+      "observable_result": "金以大齐承接部分中原统治并控制陕西多州，西线仍因和尚原败绩存在反复。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V03-DAQI-FUPING-1130"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-03.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷3@2432693#立劉豫爲大齊皇帝，世修子禮，都大名府。",
+          "金史/卷3@2432693#宗輔等敗宋張浚軍于富平。",
+          "金史/卷3@2432693#涇原、熙河兩路皆平。",
+          "金史/卷3@2432693#宗弼與宋吳玠戰于和尚原，敗績。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷3@2432693#立劉豫爲大齊皇帝，世修子禮，都大名府。",
+        "金史/卷3@2432693#宗輔等敗宋張浚軍于富平。",
+        "金史/卷3@2432693#涇原、熙河兩路皆平。",
+        "金史/卷3@2432693#宗弼與宋吳玠戰于和尚原，敗績。"
+      ],
+      "uncertainties": [
+        "大齐实际自主程度与富平双方伤亡未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-B072EAE78D6F1DFC",
+          "actor_name": "吴玠",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "已验收事实卡明确闭合吴玠的实际行动与本人结果：和尚原击败宗弼，正向阶段结果明确。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。 和尚原链同时具备军储匮乏、部众动摇的内部崩溃风险，以及金军两路会合压力；吴玠兄弟歃血重整、四战阻断会师，后又以强弩轮射、断粮三日大破宗弼，满足两项相互强化的重大困难。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "co_decisive",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合吴玠的实际行动与本人结果：和尚原击败宗弼，正向阶段结果明确。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。 和尚原链同时具备军储匮乏、部众动摇的内部崩溃风险，以及金军两路会合压力；吴玠兄弟歃血重整、四战阻断会师，后又以强弩轮射、断粮三日大破宗弼，满足两项相互强化的重大困难。",
+            "source_refs": [
+              "金史/卷3@2432693#立劉豫爲大齊皇帝，世修子禮，都大名府。",
+              "金史/卷3@2432693#宗輔等敗宋張浚軍于富平。",
+              "金史/卷3@2432693#涇原、熙河兩路皆平。",
+              "金史/卷3@2432693#宗弼與宋吳玠戰于和尚原，敗績。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-FF27F64845811379D77E",
+              "result_label": "和尚原击败宗弼，正向阶段结果明确。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "已验收事实卡明确闭合吴玠的实际行动与本人结果：和尚原击败宗弼，正向阶段结果明确。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。 和尚原链同时具备军储匮乏、部众动摇的内部崩溃风险，以及金军两路会合压力；吴玠兄弟歃血重整、四战阻断会师，后又以强弩轮射、断粮三日大破宗弼，满足两项相互强化的重大困难。",
+              "source_refs": [
+                "金史/卷3@2432693#立劉豫爲大齊皇帝，世修子禮，都大名府。",
+                "金史/卷3@2432693#宗輔等敗宋張浚軍于富平。",
+                "金史/卷3@2432693#涇原、熙河兩路皆平。",
+                "金史/卷3@2432693#宗弼與宋吳玠戰于和尚原，敗績。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "co_decisive",
+                "basis": "已验收事实卡明确闭合吴玠的实际行动与本人结果：和尚原击败宗弼，正向阶段结果明确。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。 和尚原链同时具备军储匮乏、部众动摇的内部崩溃风险，以及金军两路会合压力；吴玠兄弟歃血重整、四战阻断会师，后又以强弩轮射、断粮三日大破宗弼，满足两项相互强化的重大困难。",
+                "source_refs": [
+                  "金史/卷3@2432693#立劉豫爲大齊皇帝，世修子禮，都大名府。",
+                  "金史/卷3@2432693#宗輔等敗宋張浚軍于富平。",
+                  "金史/卷3@2432693#涇原、熙河兩路皆平。",
+                  "金史/卷3@2432693#宗弼與宋吳玠戰于和尚原，敗績。"
+                ]
+              },
+              "capability_episode_ref": "MIL-EPISODE-WUJIE-HESHANGYUAN-1131"
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-B74E9FF17FC1281E",
+          "actor_name": "吴璘",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "与金史和尚原卡是同一能力情境，只消费一次；三日作战、断粮道、宗弼中箭及大批缴获不宜维持B/D1。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "co_decisive",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "与金史和尚原卡是同一能力情境，只消费一次；三日作战、断粮道、宗弼中箭及大批缴获不宜维持B/D1。",
+            "source_refs": [
+              "金史/卷3@2432693#立劉豫爲大齊皇帝，世修子禮，都大名府。",
+              "金史/卷3@2432693#宗輔等敗宋張浚軍于富平。",
+              "金史/卷3@2432693#涇原、熙河兩路皆平。",
+              "金史/卷3@2432693#宗弼與宋吳玠戰于和尚原，敗績。",
+              "續資治通鑑/卷110@2307160#選勁弓強弩與戰",
+              "續資治通鑑/卷110@2307160#分番迭射，號駐隊",
+              "續資治通鑑/卷110@2307160#斷其糧道，凡三日",
+              "續資治通鑑/卷110@2307160#大破之，俘馘首領及甲兵以萬計",
+              "續資治通鑑/卷110@2307160#宗弼中流矢二，僅以身免"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-F4C2E5DA9B0F8DED5A76",
+              "result_label": "与吴玠轮番强弩射击并以奇兵断粮道，三日后大破宗弼军。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "与金史和尚原卡是同一能力情境，只消费一次；三日作战、断粮道、宗弼中箭及大批缴获不宜维持B/D1。 和尚原链同时具备军储匮乏、部众动摇的内部崩溃风险，以及金军两路会合压力；吴玠兄弟歃血重整、四战阻断会师，后又以强弩轮射、断粮三日大破宗弼，满足两项相互强化的重大困难。",
+              "source_refs": [
+                "金史/卷3@2432693#立劉豫爲大齊皇帝，世修子禮，都大名府。",
+                "金史/卷3@2432693#宗輔等敗宋張浚軍于富平。",
+                "金史/卷3@2432693#涇原、熙河兩路皆平。",
+                "金史/卷3@2432693#宗弼與宋吳玠戰于和尚原，敗績。",
+                "續資治通鑑/卷110@2307160#選勁弓強弩與戰",
+                "續資治通鑑/卷110@2307160#分番迭射，號駐隊",
+                "續資治通鑑/卷110@2307160#斷其糧道，凡三日",
+                "續資治通鑑/卷110@2307160#大破之，俘馘首領及甲兵以萬計",
+                "續資治通鑑/卷110@2307160#宗弼中流矢二，僅以身免"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "co_decisive",
+                "basis": "与金史和尚原卡是同一能力情境，只消费一次；三日作战、断粮道、宗弼中箭及大批缴获不宜维持B/D1。 和尚原链同时具备军储匮乏、部众动摇的内部崩溃风险，以及金军两路会合压力；吴玠兄弟歃血重整、四战阻断会师，后又以强弩轮射、断粮三日大破宗弼，满足两项相互强化的重大困难。",
+                "source_refs": [
+                  "金史/卷3@2432693#立劉豫爲大齊皇帝，世修子禮，都大名府。",
+                  "金史/卷3@2432693#宗輔等敗宋張浚軍于富平。",
+                  "金史/卷3@2432693#涇原、熙河兩路皆平。",
+                  "金史/卷3@2432693#宗弼與宋吳玠戰于和尚原，敗績。",
+                  "續資治通鑑/卷110@2307160#選勁弓強弩與戰",
+                  "續資治通鑑/卷110@2307160#分番迭射，號駐隊",
+                  "續資治通鑑/卷110@2307160#斷其糧道，凡三日",
+                  "續資治通鑑/卷110@2307160#大破之，俘馘首領及甲兵以萬計",
+                  "續資治通鑑/卷110@2307160#宗弼中流矢二，僅以身免"
+                ]
+              },
+              "capability_episode_ref": "MIL-EPISODE-WUJIE-HESHANGYUAN-1131"
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-2CE19FC69DD70DAA",
+          "actor_name": "完颜宗弼",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "已验收事实卡明确闭合完颜宗弼的实际行动与本人结果：在和尚原与吴玠交战败绩明确；不得用此前区域平定抵销。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。 和尚原链同时具备军储匮乏、部众动摇的内部崩溃风险，以及金军两路会合压力；吴玠兄弟歃血重整、四战阻断会师，后又以强弩轮射、断粮三日大破宗弼，满足两项相互强化的重大困难。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合完颜宗弼的实际行动与本人结果：在和尚原与吴玠交战败绩明确；不得用此前区域平定抵销。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。 和尚原链同时具备军储匮乏、部众动摇的内部崩溃风险，以及金军两路会合压力；吴玠兄弟歃血重整、四战阻断会师，后又以强弩轮射、断粮三日大破宗弼，满足两项相互强化的重大困难。",
+            "source_refs": [
+              "金史/卷3@2432693#立劉豫爲大齊皇帝，世修子禮，都大名府。",
+              "金史/卷3@2432693#宗輔等敗宋張浚軍于富平。",
+              "金史/卷3@2432693#涇原、熙河兩路皆平。",
+              "金史/卷3@2432693#宗弼與宋吳玠戰于和尚原，敗績。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-F11E71430C16BEF7B8AA",
+              "result_label": "在和尚原与吴玠交战败绩明确；不得用此前区域平定抵销。",
+              "result_direction": "negative",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "已验收事实卡明确闭合完颜宗弼的实际行动与本人结果：在和尚原与吴玠交战败绩明确；不得用此前区域平定抵销。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。 和尚原链同时具备军储匮乏、部众动摇的内部崩溃风险，以及金军两路会合压力；吴玠兄弟歃血重整、四战阻断会师，后又以强弩轮射、断粮三日大破宗弼，满足两项相互强化的重大困难。",
+              "source_refs": [
+                "金史/卷3@2432693#立劉豫爲大齊皇帝，世修子禮，都大名府。",
+                "金史/卷3@2432693#宗輔等敗宋張浚軍于富平。",
+                "金史/卷3@2432693#涇原、熙河兩路皆平。",
+                "金史/卷3@2432693#宗弼與宋吳玠戰于和尚原，敗績。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "已验收事实卡明确闭合完颜宗弼的实际行动与本人结果：在和尚原与吴玠交战败绩明确；不得用此前区域平定抵销。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。 和尚原链同时具备军储匮乏、部众动摇的内部崩溃风险，以及金军两路会合压力；吴玠兄弟歃血重整、四战阻断会师，后又以强弩轮射、断粮三日大破宗弼，满足两项相互强化的重大困难。",
+                "source_refs": [
+                  "金史/卷3@2432693#立劉豫爲大齊皇帝，世修子禮，都大名府。",
+                  "金史/卷3@2432693#宗輔等敗宋張浚軍于富平。",
+                  "金史/卷3@2432693#涇原、熙河兩路皆平。",
+                  "金史/卷3@2432693#宗弼與宋吳玠戰于和尚原，敗績。"
+                ]
+              },
+              "capability_episode_ref": "MIL-EPISODE-WUJIE-HESHANGYUAN-1131"
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-50B40153004503FC",
+          "actor_name": "完颜宗辅",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "已验收事实卡明确闭合完颜宗辅的实际行动与本人结果：在富平击败张浚军并推进泾原熙河；与和尚原负向阶段分开。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "stage_executor",
+            "result_direction": "positive",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合完颜宗辅的实际行动与本人结果：在富平击败张浚军并推进泾原熙河；与和尚原负向阶段分开。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "金史/卷3@2432693#立劉豫爲大齊皇帝，世修子禮，都大名府。",
+              "金史/卷3@2432693#宗輔等敗宋張浚軍于富平。",
+              "金史/卷3@2432693#涇原、熙河兩路皆平。",
+              "金史/卷3@2432693#宗弼與宋吳玠戰于和尚原，敗績。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-59AD80F2172E87637855",
+              "result_label": "在富平击败张浚军并推进泾原熙河；与和尚原负向阶段分开。",
+              "result_direction": "positive",
+              "result_tier": "B",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "已验收事实卡明确闭合完颜宗辅的实际行动与本人结果：在富平击败张浚军并推进泾原熙河；与和尚原负向阶段分开。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "金史/卷3@2432693#立劉豫爲大齊皇帝，世修子禮，都大名府。",
+                "金史/卷3@2432693#宗輔等敗宋張浚軍于富平。",
+                "金史/卷3@2432693#涇原、熙河兩路皆平。",
+                "金史/卷3@2432693#宗弼與宋吳玠戰于和尚原，敗績。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "tactical_execution",
+                "decisive_relation": "stage_executor",
+                "basis": "已验收事实卡明确闭合完颜宗辅的实际行动与本人结果：在富平击败张浚军并推进泾原熙河；与和尚原负向阶段分开。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "金史/卷3@2432693#立劉豫爲大齊皇帝，世修子禮，都大名府。",
+                  "金史/卷3@2432693#宗輔等敗宋張浚軍于富平。",
+                  "金史/卷3@2432693#涇原、熙河兩路皆平。",
+                  "金史/卷3@2432693#宗弼與宋吳玠戰于和尚原，敗績。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-73772B156419D291",
+          "actor_name": "张浚",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "已验收事实卡明确闭合张浚的实际行动与本人结果：所统宋军在富平败于宗辅；仅登记该阶段败绩。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合张浚的实际行动与本人结果：所统宋军在富平败于宗辅；仅登记该阶段败绩。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "金史/卷3@2432693#立劉豫爲大齊皇帝，世修子禮，都大名府。",
+              "金史/卷3@2432693#宗輔等敗宋張浚軍于富平。",
+              "金史/卷3@2432693#涇原、熙河兩路皆平。",
+              "金史/卷3@2432693#宗弼與宋吳玠戰于和尚原，敗績。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-A98BDB542976D42BAC2B",
+              "result_label": "所统宋军在富平败于宗辅；仅登记该阶段败绩。",
+              "result_direction": "negative",
+              "result_tier": "B",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "已验收事实卡明确闭合张浚的实际行动与本人结果：所统宋军在富平败于宗辅；仅登记该阶段败绩。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "金史/卷3@2432693#立劉豫爲大齊皇帝，世修子禮，都大名府。",
+                "金史/卷3@2432693#宗輔等敗宋張浚軍于富平。",
+                "金史/卷3@2432693#涇原、熙河兩路皆平。",
+                "金史/卷3@2432693#宗弼與宋吳玠戰于和尚原，敗績。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "已验收事实卡明确闭合张浚的实际行动与本人结果：所统宋军在富平败于宗辅；仅登记该阶段败绩。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "金史/卷3@2432693#立劉豫爲大齊皇帝，世修子禮，都大名府。",
+                  "金史/卷3@2432693#宗輔等敗宋張浚軍于富平。",
+                  "金史/卷3@2432693#涇原、熙河兩路皆平。",
+                  "金史/卷3@2432693#宗弼與宋吳玠戰于和尚原，敗績。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [
+        {
+          "actor_ref": "PERSON-POST-2CE19FC69DD70DAA",
+          "actor_name": "完颜宗弼",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "A",
+          "severity": 0.4,
+          "basis": "已验收事实卡明确闭合完颜宗弼的实际行动与本人结果：在和尚原与吴玠交战败绩明确；不得用此前区域平定抵销。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。 和尚原链同时具备军储匮乏、部众动摇的内部崩溃风险，以及金军两路会合压力；吴玠兄弟歃血重整、四战阻断会师，后又以强弩轮射、断粮三日大破宗弼，满足两项相互强化的重大困难。",
+          "source_refs": [
+            "金史/卷3@2432693#立劉豫爲大齊皇帝，世修子禮，都大名府。",
+            "金史/卷3@2432693#宗輔等敗宋張浚軍于富平。",
+            "金史/卷3@2432693#涇原、熙河兩路皆平。",
+            "金史/卷3@2432693#宗弼與宋吳玠戰于和尚原，敗績。"
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-73772B156419D291",
+          "actor_name": "张浚",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "B",
+          "severity": 0.3,
+          "basis": "已验收事实卡明确闭合张浚的实际行动与本人结果：所统宋军在富平败于宗辅；仅登记该阶段败绩。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "source_refs": [
+            "金史/卷3@2432693#立劉豫爲大齊皇帝，世修子禮，都大名府。",
+            "金史/卷3@2432693#宗輔等敗宋張浚軍于富平。",
+            "金史/卷3@2432693#涇原、熙河兩路皆平。",
+            "金史/卷3@2432693#宗弼與宋吳玠戰于和尚原，敗績。"
+          ]
+        }
+      ],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "mixed",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "mixed",
+      "objective_completion": "partial",
+      "objective_shortfalls": [
+        "共享层未闭合全部战略目标，保持证据下限。"
+      ],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "富平败战与和尚原逆转在同一卡中分人物阶段；和尚原三日作战、断粮道并大破宗弼军，父项按A/D2混合下限。",
+      "tier_review_source_tier": "B",
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    }
+  ]
+}

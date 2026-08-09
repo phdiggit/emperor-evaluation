@@ -1,0 +1,1006 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "金史/卷010",
+  "source_identity": {
+    "source_unit_id": "SRC-JINSHI-010-2432703",
+    "source_url": "https://zh.wikisource.org/wiki/金史/卷10",
+    "revision_ref": "2432703",
+    "raw_sha256": "65ab24334bb39dcafaf9c195aaf20dca76bf67458c9a9d5290104e0770bdb707",
+    "paragraph_count": 61
+  },
+  "cards": [
+    {
+      "battle_id": "JIN010-B01",
+      "battle_label": "明昌六年北边出师—累报捷至望云败敌",
+      "campaign_group": "JINSHI-NORTH-FRONTIER-QINGCHEN-1195",
+      "source_anchor_refs": [
+        "SRC-JINSHI-010-2432703-P0020",
+        "SRC-JINSHI-010-2432703-P0027",
+        "SRC-JINSHI-010-2432703-P0029",
+        "SRC-JINSHI-010-2432703-P0030",
+        "SRC-JINSHI-010-2432703-P0032",
+        "SRC-JINSHI-010-2432703-P0035",
+        "SRC-JINSHI-010-2432703-P0043"
+      ],
+      "source_quotes": [
+        "命上京等九路并诸抹及糺等处选军三万，俟来春调发",
+        "以出师，遣礼部尚书张暐告于庙社",
+        "左丞相清臣遣使来献捷",
+        "行省都事独吉永中来报捷",
+        "报败敌于望云",
+        "命有司收瘗西北路阵亡骸骨"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金夹谷清臣北边出师军 × 出师、累报捷至望云阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "明昌五年先选军三万备次年调发，并为北边粮运括驼五千、准备大批钱银物资；明昌六年正式“出师”，夹谷清臣连续遣使报捷，十一月又报在望云败敌。承安元年七月收瘗西北路阵亡骸骨，确认这一轮北边实际接战存在金方阵亡，但无法分配到某一单场。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3（M3）；P1估、S0、A2均未与P/S同居顶档，不触发抬档，最终WC3。",
+          "P_inference": {
+            "P_observed": "P0029后明确出师，P0030、P0032连续报捷，P0035明确“败敌于望云”；P0043又命收瘗西北路阵亡骸骨，证明金方确有战斗死亡，但人数不载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "多次实际武装行动及阵亡骸骨足以排除P0；但本卷没有百人级金军死亡、被俘、成建制败损或补兵数字。",
+            "upper_bound_reason": "阵亡骸骨无人数，且连续报捷、无主将战死或大批伤俘记录，不足以上P2。",
+            "confidence": "medium",
+            "source_refs": [
+              "SRC-JINSHI-010-2432703-P0020",
+              "SRC-JINSHI-010-2432703-P0027",
+              "SRC-JINSHI-010-2432703-P0029",
+              "SRC-JINSHI-010-2432703-P0030",
+              "SRC-JINSHI-010-2432703-P0032",
+              "SRC-JINSHI-010-2432703-P0035",
+              "SRC-JINSHI-010-2432703-P0043"
+            ]
+          },
+          "cost_axis_basis": {
+            "P": "P0043明确西北路有阵亡骸骨，但无人数；结合前文实际出师、报捷，按1—99死亡当量推P1估。",
+            "S": "本阶段所见战斗在北边，未见金方州县、生产、交通或行政体系直接被破坏，记S0。",
+            "M": "P0020选军三万备调发，P0027为北边粮运跨多个路分实际括驼五千，属于不足十万人但有显著跨区运输与持续服役负担的单一战略方向，记M3。",
+            "A": "P0027明确大额钱银、绢帛等“以备支给/赏劳”，构成显著战略方向资产承诺；但未证明全部耗尽，保守记A2而不上A3/A4。"
+          },
+          "security_axes": {
+            "SB": "SB1",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB1/SN0",
+          "strategic_security_detail": "连续捷报与望云败敌证明取得一轮战术性缓解，但卷后仍称“边事未宁”，不能据捷报抬成持续结构性安全改善。",
+          "material_return": "WR0",
+          "material_return_detail": "《金史》本卷没有记载本阶段缴获、府库、牲畜或稳定资源所得；战术胜利不自动生成WR。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "望云及北边战区"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未见取得并稳定保持城塞、通道、牧地或新边线；报捷、败敌本身不构成BCP。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-JINSHI-010-2432703-P0020",
+              "SRC-JINSHI-010-2432703-P0027",
+              "SRC-JINSHI-010-2432703-P0029",
+              "SRC-JINSHI-010-2432703-P0030",
+              "SRC-JINSHI-010-2432703-P0032",
+              "SRC-JINSHI-010-2432703-P0035",
+              "SRC-JINSHI-010-2432703-P0043"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "phase_return_basis": "已经发生跨区粮运、括驼和较重动员，且存在阵亡；本卷只证实战术捷报，没有稳定控制或资源回报，后段边事仍未宁，因此阶段回报偏低。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成金朝统治期的边防、内乱或治安阶段，不属于开国、复国、割据建政或新政权创业过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-010-2432703-P0020",
+              "SRC-JINSHI-010-2432703-P0027",
+              "SRC-JINSHI-010-2432703-P0029",
+              "SRC-JINSHI-010-2432703-P0030",
+              "SRC-JINSHI-010-2432703-P0032",
+              "SRC-JINSHI-010-2432703-P0035",
+              "SRC-JINSHI-010-2432703-P0043"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-010-2432703-P0020",
+              "SRC-JINSHI-010-2432703-P0027",
+              "SRC-JINSHI-010-2432703-P0029",
+              "SRC-JINSHI-010-2432703-P0030",
+              "SRC-JINSHI-010-2432703-P0032",
+              "SRC-JINSHI-010-2432703-P0035",
+              "SRC-JINSHI-010-2432703-P0043"
+            ],
+            "material_return": [
+              "SRC-JINSHI-010-2432703-P0020",
+              "SRC-JINSHI-010-2432703-P0027",
+              "SRC-JINSHI-010-2432703-P0029",
+              "SRC-JINSHI-010-2432703-P0030",
+              "SRC-JINSHI-010-2432703-P0032",
+              "SRC-JINSHI-010-2432703-P0035",
+              "SRC-JINSHI-010-2432703-P0043"
+            ],
+            "border_control": [
+              "SRC-JINSHI-010-2432703-P0020",
+              "SRC-JINSHI-010-2432703-P0027",
+              "SRC-JINSHI-010-2432703-P0029",
+              "SRC-JINSHI-010-2432703-P0030",
+              "SRC-JINSHI-010-2432703-P0032",
+              "SRC-JINSHI-010-2432703-P0035",
+              "SRC-JINSHI-010-2432703-P0043"
+            ]
+          },
+          "carry_in": "承卷009北边增军置堡的备边压力；本卷P0020—P0027进入更大规模动员，P0029正式出师。",
+          "carry_out": "P0036以后北边战争继续发展；大盐泺与广吉剌身份关系在本卷未明，另立父链。P0057仍称边事未宁，卷011须继续核安全后效。"
+        },
+        {
+          "evaluation_subject_phase": "北边敌军（原文未明具体部族） × 遭金军累捷并于望云败阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "《金史》只记金军连续报捷及“败敌于望云”，没有在这些段落明确敌方部族、兵数、伤俘、营地或控制状态，因此按未明具体主体的北边敌军实际败战阶段记账。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1（P1估、M1）；S0、A0，不触发P/S同档抬档。",
+          "P_inference": {
+            "P_observed": "北边敌军在望云等阶段被金军击败，自身伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际接战并战败不能机械记P0；原文未载斩首、俘获或成建制覆没数字。",
+            "upper_bound_reason": "无百人级伤亡下限或大批被俘记录。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-010-2432703-P0020",
+              "SRC-JINSHI-010-2432703-P0027",
+              "SRC-JINSHI-010-2432703-P0029",
+              "SRC-JINSHI-010-2432703-P0030",
+              "SRC-JINSHI-010-2432703-P0032",
+              "SRC-JINSHI-010-2432703-P0035",
+              "SRC-JINSHI-010-2432703-P0043"
+            ]
+          },
+          "cost_axis_basis": {
+            "P": "只计本评价主体实际承担的死亡、未归、被俘被掳、流亡和明确伤残；人数失载时按合同作受约束推定。",
+            "S": "只计本主体统治区、生产、交通、财政、行政或军政体系的实际受损与失控，不由敌方伤亡反推。",
+            "M": "只计已经发生的动员、服役、驻屯、民夫与运输负担，不由战名或距离自动抬档。",
+            "A": "只计可识别军资、粮秣、畜力、舟械、营栅、府库和财政资产投入或损失。"
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN1"
+          },
+          "strategic_security": "SB0/SN1",
+          "strategic_security_detail": "至少发生一次望云败战及前述捷报，形成战术性安全受挫；缺少对其组织能力和后续行动空间的持续证据。",
+          "material_return": "WR0",
+          "material_return_detail": "未见其获得资源或缴获。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "望云及北边战区"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "战败未伴随可确认的稳定地盘或节点丧失。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-JINSHI-010-2432703-P0020",
+              "SRC-JINSHI-010-2432703-P0027",
+              "SRC-JINSHI-010-2432703-P0029",
+              "SRC-JINSHI-010-2432703-P0030",
+              "SRC-JINSHI-010-2432703-P0032",
+              "SRC-JINSHI-010-2432703-P0035",
+              "SRC-JINSHI-010-2432703-P0043"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "实际战败且无可见资源、控制或安全抵补收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成金朝统治期的边防、内乱或治安阶段，不属于开国、复国、割据建政或新政权创业过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-010-2432703-P0020",
+              "SRC-JINSHI-010-2432703-P0027",
+              "SRC-JINSHI-010-2432703-P0029",
+              "SRC-JINSHI-010-2432703-P0030",
+              "SRC-JINSHI-010-2432703-P0032",
+              "SRC-JINSHI-010-2432703-P0035",
+              "SRC-JINSHI-010-2432703-P0043"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-010-2432703-P0020",
+              "SRC-JINSHI-010-2432703-P0027",
+              "SRC-JINSHI-010-2432703-P0029",
+              "SRC-JINSHI-010-2432703-P0030",
+              "SRC-JINSHI-010-2432703-P0032",
+              "SRC-JINSHI-010-2432703-P0035",
+              "SRC-JINSHI-010-2432703-P0043"
+            ],
+            "material_return": [
+              "SRC-JINSHI-010-2432703-P0020",
+              "SRC-JINSHI-010-2432703-P0027",
+              "SRC-JINSHI-010-2432703-P0029",
+              "SRC-JINSHI-010-2432703-P0030",
+              "SRC-JINSHI-010-2432703-P0032",
+              "SRC-JINSHI-010-2432703-P0035",
+              "SRC-JINSHI-010-2432703-P0043"
+            ],
+            "border_control": [
+              "SRC-JINSHI-010-2432703-P0020",
+              "SRC-JINSHI-010-2432703-P0027",
+              "SRC-JINSHI-010-2432703-P0029",
+              "SRC-JINSHI-010-2432703-P0030",
+              "SRC-JINSHI-010-2432703-P0032",
+              "SRC-JINSHI-010-2432703-P0035",
+              "SRC-JINSHI-010-2432703-P0043"
+            ]
+          },
+          "carry_in": "具体部族在本卷这些锚点不明，不与后段广吉剌、特满群牧契丹自动合并。",
+          "carry_out": "卷011或本传若明确望云之敌身份，再决定是否与其他北边父链合并；当前禁止凭地理邻近归并。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_id": "JIN010-B02",
+      "battle_label": "大盐泺进军攻营—广吉剌反击败群牧使",
+      "campaign_group": "JINSHI-DAYANLU-GUANGJILA-1195-1196",
+      "source_anchor_refs": [
+        "SRC-JINSHI-010-2432703-P0036",
+        "SRC-JINSHI-010-2432703-P0037",
+        "SRC-JINSHI-010-2432703-P0038"
+      ],
+      "source_quotes": [
+        "右丞相襄率驸马都尉仆散揆等进军大盐泺，分兵攻取诸营",
+        "大盐泺群牧使移剌睹等为广吉剌部兵所取败，死之",
+        "右丞相襄、左丞衡至自军前。己巳，复命还军"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金右丞相襄—仆散揆军 × 大盐泺分兵攻取诸营阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "金右丞相襄率仆散揆等进军大盐泺，分兵攻取多个营地；本卷不载营数、缴获和守军身份，也不说明这些营地是否长期驻守。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1（P1估、M1）；S0、A0，不触发P/S同档抬档。",
+          "P_inference": {
+            "P_observed": "襄、仆散揆等进军大盐泺并“分兵攻取诸营”，确认实际攻营；金方死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际攻营不能P0；结果至少完成若干营地攻取，未见本阶段金军大败或高损。",
+            "upper_bound_reason": "无百人级金方伤亡、败溃、主将战死或补兵材料。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-010-2432703-P0036",
+              "SRC-JINSHI-010-2432703-P0037",
+              "SRC-JINSHI-010-2432703-P0038"
+            ]
+          },
+          "cost_axis_basis": {
+            "P": "只计本评价主体实际承担的死亡、未归、被俘被掳、流亡和明确伤残；人数失载时按合同作受约束推定。",
+            "S": "只计本主体统治区、生产、交通、财政、行政或军政体系的实际受损与失控，不由敌方伤亡反推。",
+            "M": "只计已经发生的动员、服役、驻屯、民夫与运输负担，不由战名或距离自动抬档。",
+            "A": "只计可识别军资、粮秣、畜力、舟械、营栅、府库和财政资产投入或损失。"
+          },
+          "security_axes": {
+            "SB": "SB1",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB1/SN0",
+          "strategic_security_detail": "攻取诸营形成一次战术性局部缓解，但后续同方向金方群牧使又遭广吉剌击败，不能判持续安全改善。",
+          "material_return": "WR1",
+          "material_return_detail": "实际攻取若干军营可视作有限军事设施/阵地所得，但数量、物资和持续性不明，仅记WR1。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "大盐泺诸营"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "一次攻营成功不等于稳定占领；原文没有设守、设治或后续保持证据，不记BCP。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-JINSHI-010-2432703-P0036",
+              "SRC-JINSHI-010-2432703-P0037",
+              "SRC-JINSHI-010-2432703-P0038"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以低可见阶段成本取得若干营地，但没有稳定控制，后续同方向仍遭反击，故仅属有限相称回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成金朝统治期的边防、内乱或治安阶段，不属于开国、复国、割据建政或新政权创业过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-010-2432703-P0036",
+              "SRC-JINSHI-010-2432703-P0037",
+              "SRC-JINSHI-010-2432703-P0038"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-010-2432703-P0036",
+              "SRC-JINSHI-010-2432703-P0037",
+              "SRC-JINSHI-010-2432703-P0038"
+            ],
+            "material_return": [
+              "SRC-JINSHI-010-2432703-P0036",
+              "SRC-JINSHI-010-2432703-P0037",
+              "SRC-JINSHI-010-2432703-P0038"
+            ],
+            "border_control": [
+              "SRC-JINSHI-010-2432703-P0036",
+              "SRC-JINSHI-010-2432703-P0037",
+              "SRC-JINSHI-010-2432703-P0038"
+            ]
+          },
+          "carry_in": "承前一北边大出师背景，但本卷未证明大盐泺之敌就是望云之敌，故独立父链。",
+          "carry_out": "次年大盐泺群牧使被广吉剌部兵击败；本阶段所攻诸营是否即广吉剌营地仍不明。"
+        },
+        {
+          "evaluation_subject_phase": "大盐泺诸营守方（原文未明） × 营地被金军攻取阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "金军分兵攻取其多个营地；原文未明示守方部族，也没有死伤、退往何处或后续组织状态。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=1；P1估/S1同为基础最高档，按P/S同档规则抬1档为WC2。",
+          "P_inference": {
+            "P_observed": "诸营守方遭实际攻取，自身死伤失载，具体部族亦未在P0036明示。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "营地遭实际军事攻取，按最低非零损害推定；不能把后段广吉剌自动视作同一守营主体。",
+            "upper_bound_reason": "无百人级斩俘或成建制覆没数字。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-010-2432703-P0036",
+              "SRC-JINSHI-010-2432703-P0037",
+              "SRC-JINSHI-010-2432703-P0038"
+            ]
+          },
+          "cost_axis_basis": {
+            "P": "实际攻营，守方损失失载，按最低非零区间P1估。",
+            "S": "多个营地作为局部军事节点被攻取，但没有更大行政/生产区失控，记S1。",
+            "M": "守营部众实际承担局地战斗，规模不明，记M1。",
+            "A": "未载营中军资、牲畜、粮秣被毁或被夺的具体事实，记A0。"
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN1"
+          },
+          "strategic_security": "SB0/SN1",
+          "strategic_security_detail": "多个营地被攻取，至少构成一次局部安全受挫；后效不明。",
+          "material_return": "WR0",
+          "material_return_detail": "未见守方获得资源。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "大盐泺诸营"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "营地在战斗中被攻取，但没有证据证明金军长期保持，因此不把短时战场失守记成稳定BCN。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-JINSHI-010-2432703-P0036",
+              "SRC-JINSHI-010-2432703-P0037",
+              "SRC-JINSHI-010-2432703-P0038"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "实际丢失多个营地且发生战斗成本，未见抵补成果；P/S同档触发WC抬档。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成金朝统治期的边防、内乱或治安阶段，不属于开国、复国、割据建政或新政权创业过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-010-2432703-P0036",
+              "SRC-JINSHI-010-2432703-P0037",
+              "SRC-JINSHI-010-2432703-P0038"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-010-2432703-P0036",
+              "SRC-JINSHI-010-2432703-P0037",
+              "SRC-JINSHI-010-2432703-P0038"
+            ],
+            "material_return": [
+              "SRC-JINSHI-010-2432703-P0036",
+              "SRC-JINSHI-010-2432703-P0037",
+              "SRC-JINSHI-010-2432703-P0038"
+            ],
+            "border_control": [
+              "SRC-JINSHI-010-2432703-P0036",
+              "SRC-JINSHI-010-2432703-P0037",
+              "SRC-JINSHI-010-2432703-P0038"
+            ]
+          },
+          "carry_in": "本卷不支持把该守方直接等同后段广吉剌部。",
+          "carry_out": "后续若他源明确诸营归属和保持时间，应重判BC；在本卷内保持BC0。"
+        },
+        {
+          "evaluation_subject_phase": "金大盐泺群牧军政 × 被广吉剌部击败、群牧使战死阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "承安元年正月，大盐泺群牧使移剌睹等被广吉剌部兵击败并战死；本卷未载牧群损失、营地失守或退控范围。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=1；P1估/S1同为基础最高档，按P/S同档规则抬1档为WC2。",
+          "P_inference": {
+            "P_observed": "大盐泺群牧使移剌睹等被广吉剌部兵击败并战死；至少1名具名主官死亡，复数“等”人数不详。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "具名死亡和复数战死保证非零；但总数未载，无百人级损失下限。",
+            "upper_bound_reason": "无百人级死亡、被俘或群牧军成建制覆没数字。",
+            "confidence": "medium",
+            "source_refs": [
+              "SRC-JINSHI-010-2432703-P0036",
+              "SRC-JINSHI-010-2432703-P0037",
+              "SRC-JINSHI-010-2432703-P0038"
+            ]
+          },
+          "cost_axis_basis": {
+            "P": "至少移剌睹1名具名军官死亡且有“等”，总数不全，记P1估。",
+            "S": "一个群牧军事管理节点因主官战败死亡而短时受扰，未见大型牧区系统失效，记S1。",
+            "M": "地方群牧军实际接战，规模失载，记M1。",
+            "A": "未载牧群、马匹、军械或设施损失，不从“群牧”名称反推A。"
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN1"
+          },
+          "strategic_security": "SB0/SN1",
+          "strategic_security_detail": "本方在同一大盐泺方向遭明确败绩并损失群牧主官，形成一次局部安全恶化。",
+          "material_return": "WR0",
+          "material_return_detail": "无缴获或资源收益。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "大盐泺群牧方向"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "战败本身不等于牧场、营地或边线稳定丧失；本卷没有控制权转移记载。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-JINSHI-010-2432703-P0036",
+              "SRC-JINSHI-010-2432703-P0037",
+              "SRC-JINSHI-010-2432703-P0038"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "主官等战死、局部军政节点受扰且无可见收益；P/S同档使WC抬至2。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成金朝统治期的边防、内乱或治安阶段，不属于开国、复国、割据建政或新政权创业过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-010-2432703-P0036",
+              "SRC-JINSHI-010-2432703-P0037",
+              "SRC-JINSHI-010-2432703-P0038"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-010-2432703-P0036",
+              "SRC-JINSHI-010-2432703-P0037",
+              "SRC-JINSHI-010-2432703-P0038"
+            ],
+            "material_return": [
+              "SRC-JINSHI-010-2432703-P0036",
+              "SRC-JINSHI-010-2432703-P0037",
+              "SRC-JINSHI-010-2432703-P0038"
+            ],
+            "border_control": [
+              "SRC-JINSHI-010-2432703-P0036",
+              "SRC-JINSHI-010-2432703-P0037",
+              "SRC-JINSHI-010-2432703-P0038"
+            ]
+          },
+          "carry_in": "承前月襄军大盐泺攻营阶段，但不能证明群牧使败战是同一场战斗的即时反击。",
+          "carry_out": "二月襄等至自军前后复命还军；大盐泺方向后续控制与广吉剌再犯待后卷。"
+        },
+        {
+          "evaluation_subject_phase": "广吉剌部军 × 击败大盐泺群牧使阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "广吉剌部兵在大盐泺方向击败金方群牧使移剌睹等并使其战死；自身伤亡、掠获和后续占地均未记载。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1（P1估、M1）；S0、A0，不触发抬档。",
+          "P_inference": {
+            "P_observed": "广吉剌部兵实际击败大盐泺群牧使所部，自身损失失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际接战取胜不能机械P0；无其自身重大伤亡后效。",
+            "upper_bound_reason": "无百人级自身死伤或俘虏材料。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-010-2432703-P0036",
+              "SRC-JINSHI-010-2432703-P0037",
+              "SRC-JINSHI-010-2432703-P0038"
+            ]
+          },
+          "cost_axis_basis": {
+            "P": "只计本评价主体实际承担的死亡、未归、被俘被掳、流亡和明确伤残；人数失载时按合同作受约束推定。",
+            "S": "只计本主体统治区、生产、交通、财政、行政或军政体系的实际受损与失控，不由敌方伤亡反推。",
+            "M": "只计已经发生的动员、服役、驻屯、民夫与运输负担，不由战名或距离自动抬档。",
+            "A": "只计可识别军资、粮秣、畜力、舟械、营栅、府库和财政资产投入或损失。"
+          },
+          "security_axes": {
+            "SB": "SB1",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB1/SN0",
+          "strategic_security_detail": "取得一次明确战术胜利并杀死对方主官，但没有证据证明形成长期优势。",
+          "material_return": "WR0",
+          "material_return_detail": "未见缴获牧群、军资或其他可控制资产。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "大盐泺方向"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "没有可确认的稳定控制变化。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-JINSHI-010-2432703-P0036",
+              "SRC-JINSHI-010-2432703-P0037",
+              "SRC-JINSHI-010-2432703-P0038"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以低可见成本取得战术胜利，但无稳定控制或资源回报，属于有限相称回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本卷不足以证明广吉剌在此阶段形成新政权或创业基础。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-010-2432703-P0036",
+              "SRC-JINSHI-010-2432703-P0037",
+              "SRC-JINSHI-010-2432703-P0038"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-010-2432703-P0036",
+              "SRC-JINSHI-010-2432703-P0037",
+              "SRC-JINSHI-010-2432703-P0038"
+            ],
+            "material_return": [
+              "SRC-JINSHI-010-2432703-P0036",
+              "SRC-JINSHI-010-2432703-P0037",
+              "SRC-JINSHI-010-2432703-P0038"
+            ],
+            "border_control": [
+              "SRC-JINSHI-010-2432703-P0036",
+              "SRC-JINSHI-010-2432703-P0037",
+              "SRC-JINSHI-010-2432703-P0038"
+            ]
+          },
+          "carry_in": "本卷P0036未明示此前诸营守方是否即广吉剌，故不强行合并该收益。",
+          "carry_out": "后卷若继续与金交战，应沿用本campaign_group；若明确其与更大准布/北边政治结构关系，再在汇总层处理。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_id": "JIN010-B03",
+      "battle_label": "特满群牧契丹陀锁、德寿反—泰州军击败",
+      "campaign_group": "JINSHI-TEMAN-TUOSUO-DECHOU-1196",
+      "source_anchor_refs": [
+        "SRC-JINSHI-010-2432703-P0047"
+      ],
+      "source_quotes": [
+        "特满群牧契丹陀锁、德寿反，泰州军击败之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金泰州军 × 击败特满群牧契丹叛军阶段",
+          "subject_role": "COUNTERREBELLION",
+          "actual_process": "特满群牧契丹陀锁、德寿反叛，泰州军实际出战并击败之；本卷没有写擒首、斩杀、据城、收复城地或叛乱彻底终局。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1（P1估、M1）；S0、A0，不触发P/S同档抬档。",
+          "P_inference": {
+            "P_observed": "泰州军实际击败叛乱契丹，自身死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际接战不能P0；结果为击败叛军且无本方大损后效。",
+            "upper_bound_reason": "无百人级金军死伤、主将战死、被俘或补兵证据。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-010-2432703-P0047"
+            ]
+          },
+          "cost_axis_basis": {
+            "P": "只计本评价主体实际承担的死亡、未归、被俘被掳、流亡和明确伤残；人数失载时按合同作受约束推定。",
+            "S": "只计本主体统治区、生产、交通、财政、行政或军政体系的实际受损与失控，不由敌方伤亡反推。",
+            "M": "只计已经发生的动员、服役、驻屯、民夫与运输负担，不由战名或距离自动抬档。",
+            "A": "只计可识别军资、粮秣、畜力、舟械、营栅、府库和财政资产投入或损失。"
+          },
+          "security_axes": {
+            "SB": "SB1",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB1/SN0",
+          "strategic_security_detail": "击败一次地方叛乱武装，形成局部短期缓解；因首领结局和是否复叛不明，不上SB2/SB3。",
+          "material_return": "WR0",
+          "material_return_detail": "内部叛乱未见缴获；旧地、人口不作战利资源。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "特满群牧方向"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "原文没有叛军据城或金方收复新控制空间，故控制净变化为0。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-JINSHI-010-2432703-P0047"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以低可见成本击败一次地方叛军，但终局不明，成果限于一次性安全缓解。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成金朝地方平叛，不属于建国启动阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-010-2432703-P0047"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-010-2432703-P0047"
+            ],
+            "material_return": [
+              "SRC-JINSHI-010-2432703-P0047"
+            ],
+            "border_control": [
+              "SRC-JINSHI-010-2432703-P0047"
+            ]
+          },
+          "carry_in": "本卷此前北边战争持续，但没有证据证明该契丹叛乱与大盐泺广吉剌为同一集团。",
+          "carry_out": "卷后仍称边事未宁；卷011如再见陀锁、德寿或特满群牧叛乱，应沿用本campaign_group核验是否真正收束。"
+        },
+        {
+          "evaluation_subject_phase": "特满群牧契丹陀锁、德寿叛军 × 被泰州军击败阶段",
+          "subject_role": "REBELLER",
+          "actual_process": "陀锁、德寿率相关契丹发生实际叛乱，随后被泰州军击败；自身伤亡、撤退、首领结局和原有活动空间均未记载。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1（P1估、M1）；S0、A0，不触发抬档。",
+          "P_inference": {
+            "P_observed": "陀锁、德寿所部实际反叛并遭泰州军击败，自身损失失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际叛乱接战且被击败，不能P0；原文没有斩首、俘虏或大批伤亡数字。",
+            "upper_bound_reason": "无百人级叛军伤亡下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-010-2432703-P0047"
+            ]
+          },
+          "cost_axis_basis": {
+            "P": "只计本评价主体实际承担的死亡、未归、被俘被掳、流亡和明确伤残；人数失载时按合同作受约束推定。",
+            "S": "只计本主体统治区、生产、交通、财政、行政或军政体系的实际受损与失控，不由敌方伤亡反推。",
+            "M": "只计已经发生的动员、服役、驻屯、民夫与运输负担，不由战名或距离自动抬档。",
+            "A": "只计可识别军资、粮秣、畜力、舟械、营栅、府库和财政资产投入或损失。"
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN1"
+          },
+          "strategic_security": "SB0/SN1",
+          "strategic_security_detail": "叛乱武装遭一次明确战术败绩，行动受挫；但未见首领被擒或组织被彻底拆解。",
+          "material_return": "WR0",
+          "material_return_detail": "无可确认缴获或资源所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "特满群牧方向"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "原文没有证明此前取得稳定军政节点，也没有可量化的控制丧失。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-JINSHI-010-2432703-P0047"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "发动叛乱后即遭战术击败，未见安全、资源或控制收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本卷不足以证明叛军形成可持续割据政权或建国军政中心。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-010-2432703-P0047"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-010-2432703-P0047"
+            ],
+            "material_return": [
+              "SRC-JINSHI-010-2432703-P0047"
+            ],
+            "border_control": [
+              "SRC-JINSHI-010-2432703-P0047"
+            ]
+          },
+          "carry_in": "无可确认前卷同一集团武装阶段。",
+          "carry_out": "首领是否被擒、降服或再叛待卷011以后核验。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "linear_reread": {
+      "range": "SRC-JINSHI-010-2432703-P0001—P0061",
+      "paragraph_count": 61,
+      "status": "COMPLETED",
+      "method": "初稿后从P0001逐段复读至P0061，二次核对所有“北边、出师、捷、败敌、进军、攻取、阵亡、反、击败、军、戍、招募、军须”等段落。实际武装线收敛为三张战役卡；谋反处刑、屯驻、训练、军需、赏军与战略讨论按合同排除或作为成本/连续性辅助锚点。",
+      "ps_tie_raise_checked": true
+    },
+    "card_coverage": {
+      "battle_cards": 3,
+      "subject_phase_cards": 8,
+      "adjudicated_anchor_entries": 11,
+      "not_a_battle_anchor_entries": 14,
+      "candidate_not_adjudicated_entries": 1,
+      "status": "PASS"
+    },
+    "quality_checks": {
+      "ps_uplift_checked": "PASS：仅“大盐泺诸营守方”与“金大盐泺群牧军政”两卡为P1估/S1同顶，均从base_WC1抬至WC2；其他阶段不误抬。",
+      "war_finance_separation_checked": "PASS：北边度牒助军储、战后大赏、随路赋调、买牛五万等独立财政/兵役政策保留source-summary；只有能与正式出师阶段建立直接时序联系的选军与北边粮运用于M/A旁证。",
+      "asset_axis_checked": "PASS：大额钱银多为“以备支给/赏劳”，未假定全部耗尽，因此出师阶段A保守记A2；没有因兵数或战争名气自动上A3/A4。",
+      "control_checked": "PASS：望云败敌、攻取诸营、群牧使战败和泰州军击叛均未自动换算稳定BC；诸营短时攻取按BC0处理。",
+      "enemy_identity_checked": "PASS：望云之敌、P0036诸营守方、广吉剌部、特满群牧契丹未因同属北边而强行合并。"
+    },
+    "ps_tie_raise_cases": [
+      {
+        "battle_id": "JIN010-B02",
+        "evaluation_subject_phase": "大盐泺诸营守方（原文未明） × 营地被金军攻取阶段",
+        "result": "P1估/S1同顶，WC1抬至WC2"
+      },
+      {
+        "battle_id": "JIN010-B02",
+        "evaluation_subject_phase": "金大盐泺群牧军政 × 被广吉剌部击败、群牧使战死阶段",
+        "result": "P1估/S1同顶，WC1抬至WC2"
+      }
+    ],
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-JINSHI-010-2432703-P0011",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "郑王永蹈仅记“以谋反，伏诛”及财产分赐，未见起兵、据城、调军或接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-010-2432703-P0013",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "北边屯驻军马去留与相视营屯为备边政策，无当段接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-010-2432703-P0020",
+        "disposition": "ADJUDICATED",
+        "card": "明昌六年北边出师—累报捷至望云败敌",
+        "reason": "选军三万为后续实际出师的动员前置锚点，只用于同一实际出师阶段的M核验，不另造战役。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-010-2432703-P0021",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "张汝弼妻高陀斡以谋逆伏诛，未载实际武装阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-010-2432703-P0027",
+        "disposition": "ADJUDICATED",
+        "card": "明昌六年北边出师—累报捷至望云败敌",
+        "reason": "北边粮运括驼及战费准备为随后实际出师的成本锚点；其独立财政民生影响同时保留在source-summary。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-010-2432703-P0029",
+        "disposition": "ADJUDICATED",
+        "card": "明昌六年北边出师—累报捷至望云败敌",
+        "reason": "明确“以出师”。镐王永中赐死为政治处刑，另不入战役。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-010-2432703-P0030",
+        "disposition": "ADJUDICATED",
+        "card": "明昌六年北边出师—累报捷至望云败敌",
+        "reason": "清臣遣使献捷，证明出师后存在实际战斗成果。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-010-2432703-P0032",
+        "disposition": "ADJUDICATED",
+        "card": "明昌六年北边出师—累报捷至望云败敌",
+        "reason": "行省都事来报捷，与同一出师阶段连续。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-010-2432703-P0034",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "行省抚州、选亲军武卫各五百并给钱属于部署与财政支出，未写当段接战；不另造战役。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-010-2432703-P0035",
+        "disposition": "ADJUDICATED",
+        "card": "明昌六年北边出师—累报捷至望云败敌",
+        "reason": "明确“报败敌于望云”。同段计议官、射粮军规则属制度。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-010-2432703-P0036",
+        "disposition": "ADJUDICATED",
+        "card": "大盐泺进军攻营—广吉剌反击败群牧使",
+        "reason": "襄、仆散揆等进军大盐泺并分兵攻取诸营，为实际攻营阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-010-2432703-P0037",
+        "disposition": "ADJUDICATED",
+        "card": "大盐泺进军攻营—广吉剌反击败群牧使",
+        "reason": "广吉剌部兵明确击败大盐泺群牧使并造成战死。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-010-2432703-P0038",
+        "disposition": "ADJUDICATED",
+        "card": "大盐泺进军攻营—广吉剌反击败群牧使",
+        "reason": "襄等自军前还、旋复命还军，作为该阶段收束；虎符为军令制度。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-010-2432703-P0042",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "弓手选补和月给标准属于边防兵役制度，无具体接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-010-2432703-P0043",
+        "disposition": "ADJUDICATED",
+        "card": "明昌六年北边出师—累报捷至望云败敌",
+        "reason": "“收瘗西北路阵亡骸骨”确认北边实际战争存在金方死亡，用作P推定旁证；无法精确归到单一战斗，故只并入宽口径出师阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-010-2432703-P0045",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "仆散揆至自军、都人酒赐北边军吏为军后人事/赏给，无独立武装过程。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-010-2432703-P0046",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "亲军八百戍抚州、行省北京/行院抚州为驻防部署。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-010-2432703-P0047",
+        "disposition": "ADJUDICATED",
+        "card": "特满群牧契丹陀锁、德寿反—泰州军击败"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-010-2432703-P0048",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "对北边将士授官、赏赐为战后财政支出；不从授官/受赏人数反推单场参战或伤亡。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-010-2432703-P0051",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "阅军器及行省人事属于军备检查和部署。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-010-2432703-P0052",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "出售僧道度牒、紫褐师号以助军储是战争财政政策，无当段战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-010-2432703-P0053",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "军须随路赋调、基层催征及胥吏侵暴属于战争财政和民生负担，按合同保留非战役总结。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-010-2432703-P0057",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "边事未宁后集议攻守、任命元帅为战略讨论和军政人事，无当段接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-010-2432703-P0058",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "招募/签补汉军、置军器监、买牛五万头为兵源、军械、畜力准备，无当段战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-010-2432703-P0059",
+        "disposition": "CANDIDATE_NOT_ADJUDICATED",
+        "reason": "仅见“奖谕西南路招讨使仆散揆等有功将士”，证明此前存在军事功劳，但本段无敌手、接战、地点、结果或可分离阶段，暂不造卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-010-2432703-P0061",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "调查西京逃亡、劝沿边军民耕种及预画灾盗属于边地人口农业与治安规划。"
+      }
+    ],
+    "new_battle_candidates": [
+      {
+        "source_anchor_ref": "SRC-JINSHI-010-2432703-P0059",
+        "actual_fact": "“诏奖谕西南路招讨使仆散揆等有功将士”。只能确认此前有军事功劳，不能由本段识别敌手、接战、伤亡、控制或独立战役阶段；卷011或相关本传如补出具体武装事实，再转正式卡。"
+      }
+    ],
+    "cross_volume_followups": [
+      "明昌六年北边出师父链 `JINSHI-NORTH-FRONTIER-QINGCHEN-1195` 在卷末没有闭合：P0057仍称“边事未宁”，P0058继续募兵、置军器监、买牛五万。卷011优先核实际敌手、持续战斗及安全后效。",
+      "大盐泺广吉剌父链 `JINSHI-DAYANLU-GUANGJILA-1195-1196`：P0036诸营守方身份不明，不能仅因P0037出现广吉剌就倒推为同一主体；后卷或本传有明确身份关系后再合并。",
+      "特满群牧契丹父链 `JINSHI-TEMAN-TUOSUO-DECHOU-1196` 目前只到“泰州军击败之”，没有擒首、降服或据点恢复。卷011如见陀锁、德寿再叛、被擒或招抚，须继续本父链。",
+      "P0059西南路“有功将士”保留未登记战役候选；卷011/相关本传若补出敌手和接战事实再立卡。",
+      "卷008乌底改线在卷009—010均未复现，仍不以两卷沉默代替明确终局。"
+    ],
+    "dedup_check": "PASS：北边总体动员不向大盐泺、特满群牧每张卡重复灌入同一钱银和驼运成本；大盐泺攻营与次年群牧使败死拆成实际阶段；敌方伤亡不反向计金方WC，战术胜利不自动制造WR/BC。"
+  }
+}

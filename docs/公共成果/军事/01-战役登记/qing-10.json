@@ -1,0 +1,369 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "qing",
+  "bucket": 10,
+  "bucket_count": 24,
+  "record_count": 4,
+  "records_fingerprint": "51d98019a12c8a0d274d1ef8ec58d93b26e512e0e564c645791cd17e31aac465",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-E4E52E5914279308CFF1",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-DARGYELU-1700-1701",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "四川打箭炉土蛮起事，清廷遣满丕、唐希顺征讨并平定。",
+      "period": {
+        "start": "康熙三十九年十一月",
+        "end": "康熙四十年二月"
+      },
+      "observable_result": "一万二千户归附清廷，打箭炉地区重新受控。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V07-DARGYELU-REBELLION-1701"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-07.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷7@1794686#四川打箭爐土蠻作亂",
+          "清史稿/卷7@1794686#討打箭爐土蠻平之，蠻民萬二千戶內附。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷7@1794686#四川打箭爐土蠻作亂",
+        "清史稿/卷7@1794686#討打箭爐土蠻平之，蠻民萬二千戶內附。"
+      ],
+      "uncertainties": [
+        "双方伤亡、内附编管和土地赋役条件未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-55566BC3D5F2C066B12F",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-ILI-CONQUEST-1755",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "清军分北西两路进征，攻入伊犁并在格登山大败达瓦齐军，最终擒获达瓦齐。",
+      "period": {
+        "start": "乾隆二十年正月至六月",
+        "end": "1755"
+      },
+      "observable_result": "达瓦齐政权覆灭，清廷宣布准噶尔部平定并重设四卫拉特盟长。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V11-ILI-CONQUEST-1755"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-11.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷11@2616671#由北路進征",
+          "清史稿/卷11@2616671#由西路進征。",
+          "清史稿/卷11@2616671#阿睦爾撒納奏克定伊犁",
+          "清史稿/卷11@2616671#兵至格登山，大敗達瓦齊之兵。",
+          "清史稿/卷11@2616671#獲達瓦齊，准部平。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷11@2616671#由北路進征",
+        "清史稿/卷11@2616671#由西路進征。",
+        "清史稿/卷11@2616671#阿睦爾撒納奏克定伊犁",
+        "清史稿/卷11@2616671#兵至格登山，大敗達瓦齊之兵。",
+        "清史稿/卷11@2616671#獲達瓦齊，准部平。"
+      ],
+      "uncertainties": [
+        "双方总伤亡、伊犁民损和新制落实情况未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-1304D17AEFDDB692",
+          "actor_name": "阿睦尔撒纳",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "只按‘奏克定伊犁’消费阶段，不把格登山和擒达瓦齐归入。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "stage_executor",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "只按‘奏克定伊犁’消费阶段，不把格登山和擒达瓦齐归入。",
+            "source_refs": [
+              "清史稿/卷11@2616671#由北路進征",
+              "清史稿/卷11@2616671#由西路進征。",
+              "清史稿/卷11@2616671#阿睦爾撒納奏克定伊犁",
+              "清史稿/卷11@2616671#兵至格登山，大敗達瓦齊之兵。",
+              "清史稿/卷11@2616671#獲達瓦齊，准部平。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-56DC5059899010408A9C",
+              "result_label": "奏报克定伊犁的阶段；是否亲自完整控制该方向仍为证据下限。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "只按‘奏克定伊犁’消费阶段，不把格登山和擒达瓦齐归入。",
+              "source_refs": [
+                "清史稿/卷11@2616671#由北路進征",
+                "清史稿/卷11@2616671#由西路進征。",
+                "清史稿/卷11@2616671#阿睦爾撒納奏克定伊犁",
+                "清史稿/卷11@2616671#兵至格登山，大敗達瓦齊之兵。",
+                "清史稿/卷11@2616671#獲達瓦齊，准部平。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "tactical_execution",
+                "decisive_relation": "stage_executor",
+                "basis": "只按‘奏克定伊犁’消费阶段，不把格登山和擒达瓦齐归入。",
+                "source_refs": [
+                  "清史稿/卷11@2616671#由北路進征",
+                  "清史稿/卷11@2616671#由西路進征。",
+                  "清史稿/卷11@2616671#阿睦爾撒納奏克定伊犁",
+                  "清史稿/卷11@2616671#兵至格登山，大敗達瓦齊之兵。",
+                  "清史稿/卷11@2616671#獲達瓦齊，准部平。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "S",
+      "result_class": "single_pole_or_state_terminal",
+      "land_strategic_value": "national_core",
+      "opponent_strategic_weight": "first_tier_pole",
+      "opponent_condition": "external_first_tier_state",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "military_system_collapsed",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "清军两路攻入伊犁、格登山击溃达瓦齐主力并擒获其人，终结准噶尔国家中枢，裁为S；阿睦尔撒纳继叛证明安全秩序尚未持久闭合，不升S+。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "single_integrated_command",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-88DB02D9131408286F58",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-THREE-FEUDATORIES-OUTBREAK-1673-1674",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "清廷准尚可喜、吴三桂、耿精忠撤藩；吴三桂首先反叛并攻入湖南四川，耿精忠、孙延龄、王辅臣等相继叛清，战争扩展至西南、华南和西北。",
+      "period": {
+        "start": "康熙十二年三月",
+        "end": "康熙十三年十二月"
+      },
+      "observable_result": "撤藩转化为全国性三藩战争，清廷调禁旅及各地军队多线应战。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V06-THREE-FEUDATORIES-OUTBREAK-1673-1674"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-06.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷6@1789307#令其撤籓還駐遼東。",
+          "清史稿/卷6@1789307#吳三桂疏請撤籓。許之。",
+          "清史稿/卷6@1789307#史。吳三桂反，",
+          "清史稿/卷6@1789307#耿精忠反，執福建總督范承謨幽之，巡撫劉秉政降賊。",
+          "清史稿/卷6@1789307#孫延齡以廣西叛",
+          "清史稿/卷6@1789307#王輔臣叛，經略莫洛死之。上議親征。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷6@1789307#令其撤籓還駐遼東。",
+        "清史稿/卷6@1789307#吳三桂疏請撤籓。許之。",
+        "清史稿/卷6@1789307#史。吳三桂反，",
+        "清史稿/卷6@1789307#耿精忠反，執福建總督范承謨幽之，巡撫劉秉政降賊。",
+        "清史稿/卷6@1789307#孫延齡以廣西叛",
+        "清史稿/卷6@1789307#王輔臣叛，經略莫洛死之。上議親征。"
+      ],
+      "uncertainties": [
+        "各藩预谋程度、初期兵力、军民死亡与财政动员总量未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "unification_portfolio_ref": "UCP-POST-QING-REUNIFICATION-1673-1683",
+      "unification_stage_order": 1,
+      "account_routing": [
+        "UNIFICATION_ONLY"
+      ],
+      "defense_consumption": "EXCLUDED_UNIFICATION",
+      "settlement_scope": "BATTLE_LEDGER_ONLY",
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-C26EE174630475D72B79",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-YUNNAN-HUI-CONFLICTS-1846-1848",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "永昌、猛统、云州等地回民冲突接连发生，清廷调兵进剿并命林则徐审理回民控诉滥杀一万余人及杜文秀被诬案。",
+      "period": {
+        "start": "道光二十六年二月",
+        "end": "道光二十八年四月"
+      },
+      "observable_result": "若干武装事件被平定，但汉回积怨和滥杀指控仍待司法处理。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V19-YUNNAN-HUI-CONFLICTS-1846-1848"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-19.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷19@2630077#雲南永昌回匪作亂",
+          "清史稿/卷19@2630077#以上年殺永昌內應回民過多",
+          "清史稿/卷19@2630077#命林則徐讞雲南回民控訴香匪殺無辜一萬餘人之獄。",
+          "清史稿/卷19@2630077#命林則徐讞雲南回民杜文秀控訴被誣從逆之獄。",
+          "清史稿/卷19@2630077#雲南保山匪平。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷19@2630077#雲南永昌回匪作亂",
+        "清史稿/卷19@2630077#以上年殺永昌內應回民過多",
+        "清史稿/卷19@2630077#命林則徐讞雲南回民控訴香匪殺無辜一萬餘人之獄。",
+        "清史稿/卷19@2630077#命林則徐讞雲南回民杜文秀控訴被誣從逆之獄。",
+        "清史稿/卷19@2630077#雲南保山匪平。"
+      ],
+      "uncertainties": [
+        "控诉核验结果、各次伤亡和长期和解效果未载。"
+      ],
+      "cost_or_burden": "本纪转述控诉称被杀无辜一万余人，真实性与总伤亡未定。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "逐项复核后只构成局部平叛、单次进剿、短期受降、未闭合战争开端或与主分区重复的同一战役；不因用兵规模、艰苦程度或平定字样升档，其他项明确保留A。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "REVIEWED_RETAINED_A",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "进剿主将未载。",
+      "detail_expansion_status": "complete_unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    }
+  ]
+}

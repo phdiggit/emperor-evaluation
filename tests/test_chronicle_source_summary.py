@@ -15,6 +15,25 @@ from emperor_v4.adapters.chronicle_source_summary import (
     render_markdown,
     validate_summary,
 )
+from emperor_v4.evaluation.battle_registry_store import load_battle_registry
+from emperor_v4.evaluation.post_tang_canonical_battle_promotion import (
+    build_post_tang_canonical_binding_audit,
+    build_post_tang_canonical_phase_records,
+    promote_post_tang_canonical_phase_records,
+)
+from emperor_v4.evaluation.post_tang_third_item_readiness import (
+    build_post_tang_third_item_readiness,
+)
+from emperor_v4.evaluation.post_tang_third_item_consumption import (
+    build_post_tang_third_item_consumption_audit,
+)
+from emperor_v4.evaluation.south_song_third_item import (
+    build_south_song_abc_preview,
+    build_south_song_cycle_admission_audit,
+    build_south_song_d_preview,
+    build_south_song_formal_payloads,
+    build_south_song_parent_cycle_audit,
+)
 
 
 SOURCE = """---
@@ -32,6 +51,176 @@ paragraph_count: 2
 [SRC-TEST-001-1-P0002]
 州民輸錢修城。
 """
+
+
+def test_south_song_to_ming_third_item_readiness_only_consumes_public_registry() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    payload = build_post_tang_third_item_readiness(repo_root)
+    assert payload["direct_chronicle_card_consumption_allowed"] is False
+    assert payload["registered_record_count"] == 5695
+    assert payload["public_outcome_count"] == 495
+    assert payload["person_result_count"] == 562
+    assert payload["canonical_phase_container_count"] == 3795
+    assert payload["canonical_subject_phase_count"] == 8116
+    assert payload["canonical_bound_phase_count"] == 3384
+    assert payload["readiness_status"] == "PUBLIC_REGISTERED_NOT_SCORE_READY"
+    assert [row["partition"] for row in payload["partitions"]] == [
+        "south_song",
+        "yuan",
+        "ming",
+    ]
+    assert all(row["public_registration_ready"] for row in payload["partitions"])
+    assert all(
+        row["canonical_phase_registration_ready"] for row in payload["partitions"]
+    )
+    assert not any(row["ruler_window_binding_ready"] for row in payload["partitions"])
+    assert not any(row["third_ab_axes_ready"] for row in payload["partitions"])
+    assert not any(row["third_d_axes_ready"] for row in payload["partitions"])
+
+
+def test_post_tang_canonical_cards_promote_to_third_item_phase_containers() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    payload = build_post_tang_canonical_phase_records(repo_root)
+    assert payload["record_count"] == 3795
+    assert payload["subject_phase_count"] == 8116
+    assert payload["withheld_invalid_card_count"] == 31
+    assert payload["withheld_incompatible_file_count"] == 0
+    assert payload["normalized_legacy_file_count"] == 4
+    assert payload["semantic_fingerprint"] == (
+        "df68bd4c0dd9f31672543f04dab9e532beabff0380e576deafd7327697c52b99"
+    )
+    assert all(
+        record["third_item_phase_container"]
+        and record["public_outcome_registered"] is False
+        for record in payload["records"]
+    )
+
+    audit = build_post_tang_canonical_binding_audit(
+        {"records": payload["records"]}
+    )
+    assert audit["duplicate_phase_id_count"] == 0
+    assert audit["bound_phase_count"] == 3384
+    assert audit["binding_status_counts"] == {
+        "BOUND_EXCLUSIVE_GOVERNING_WINDOW": 3384,
+        "OUTSIDE_SELECTED_RULER_WINDOWS": 344,
+        "OUTSIDE_TARGET_POLITIES": 4215,
+        "UNRESOLVED_WINDOW_OVERLAP": 157,
+        "UNRESOLVED_YEAR": 16,
+    }
+
+
+def test_post_tang_phase_promotion_preserves_public_outcome_consumption() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    registry = load_battle_registry(repo_root / "docs/公共成果/军事/01-战役登记.json")
+    public_count = sum(
+        bool(record.get("public_outcome_registered"))
+        for record in registry["records"]
+    )
+    promoted = promote_post_tang_canonical_phase_records(registry, repo_root)
+    assert promoted["public_outcome_count"] == public_count
+    existing_non_container_count = sum(
+        not record.get("third_item_phase_container")
+        for record in registry["records"]
+    )
+    assert len(promoted["records"]) == existing_non_container_count + 3795
+    assert len({record["war_event_id"] for record in promoted["records"]}) == len(
+        promoted["records"]
+    )
+
+
+def test_post_tang_third_item_consumption_starts_from_public_bound_phases() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    payload = build_post_tang_third_item_consumption_audit(repo_root)
+    assert payload["direct_chronicle_card_consumption_allowed"] is False
+    assert payload["campaign_group_is_final_d_parent_cycle"] is False
+    assert payload["ruler_count"] == 30
+    assert payload["ruler_with_bound_phase_count"] == 27
+    assert payload["provisional_parent_cycle_count"] == 2001
+    assert payload["consumed_phase_count"] == 3384
+    assert payload["duplicate_consumed_phase_id_count"] == 0
+    assert payload["missing_required_raw_axis_phase_count"] == 0
+    assert payload["unknown_raw_axis_phase_count"] == 207
+    assert payload["founding_flagged_phase_count"] == 786
+    assert payload["semantic_fingerprint"] == (
+        "e43490d89e3b4f3da409f68d0182e6c6db8a88bf1b2882d521cbc6a1991954dc"
+    )
+
+
+def test_south_song_cross_item_admission_uses_actual_first_item_score() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    payload = build_south_song_cycle_admission_audit(repo_root)
+    assert payload["raw_bound_cycle_count"] == 582
+    assert payload["admitted_cycle_count"] == 304
+    assert payload["excluded_first_item_founding_cycle_count"] == 278
+    assert payload["retained_founding_flag_cycle_count"] == 1
+    assert payload["internal_restoration_candidate_count"] == 35
+    assert payload["material_cycle_count"] == 160
+    assert payload["unknown_axis_cycle_count"] == 46
+    by_name = {row["ruler_name"]: row for row in payload["rulers"]}
+    assert by_name["赵构"]["excluded_first_item_founding_cycle_count"] == 278
+    assert by_name["赵扩"]["retained_founding_flag_cycle_count"] == 1
+
+
+def test_south_song_parent_cycles_deduplicate_continuous_investments() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    payload = build_south_song_parent_cycle_audit(repo_root)
+    assert payload["raw_bound_cycle_count"] == 582
+    assert payload["reviewed_parent_cycle_count"] == 198
+    assert payload["excluded_first_item_founding_cycle_count"] == 278
+    assert payload["cycle_merge_count"] == 7
+    assert payload["merged_member_cycle_count"] == 113
+    assert payload["material_parent_cycle_count"] == 104
+    assert payload["unknown_axis_parent_cycle_count"] == 22
+    assert payload["consumed_phase_count"] == 415
+    assert payload["duplicate_consumed_phase_id_count"] == 0
+    by_name = {row["ruler_name"]: row for row in payload["rulers"]}
+    assert by_name["赵构"]["reviewed_parent_cycle_count"] == 18
+    assert by_name["赵扩"]["reviewed_parent_cycle_count"] == 34
+    assert by_name["赵昀"]["reviewed_parent_cycle_count"] == 124
+
+
+def test_south_song_d_preview_preserves_only_source_level_unknowns() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    payload = build_south_song_d_preview(repo_root)
+    assert payload["formal_score_write"] is False
+    by_name = {row["ruler_name"]: row for row in payload["rulers"]}
+    assert by_name["赵构"]["material_unknown_cycle_refs"] == []
+    assert by_name["赵昚"]["material_unknown_cycle_refs"] == []
+    assert by_name["赵惇"]["material_unknown_cycle_refs"] == []
+    assert by_name["赵扩"]["material_unknown_cycle_refs"] == []
+    assert by_name["赵昀"]["material_unknown_cycle_refs"] == [
+        "XZTJ-MONGOL-SONG-SICHUAN-1246-FOUR-ROUTES",
+        "XZTJ-SONG-MONGOL-FANGZHOU-1258",
+    ]
+    assert by_name["赵昀"]["material_return_closure_rate"] > 0.95
+
+
+def test_south_song_abc_preview_consumes_reviewed_parent_cycles() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    payload = build_south_song_abc_preview(repo_root)
+    assert payload["formal_score_write"] is False
+    assert payload["score_ceiling_points"] == 250
+    by_name = {row["ruler_name"]: row for row in payload["rulers"]}
+    assert by_name["赵构"]["C_preview_grade"] == "C-4"
+    assert by_name["赵昚"]["C_preview_grade"] == "C-2"
+    assert by_name["赵惇"]["control_contribution_type"] == "INHERITED_ONLY"
+    assert by_name["赵扩"]["C_preview_grade"] == "C-1"
+    assert by_name["赵昀"]["D_material_return_closure_rate"] > 0.95
+
+
+def test_south_song_formal_payloads_join_global_current_ranking() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    registry = load_battle_registry(
+        repo_root / "docs/公共成果/军事/01-战役登记.json"
+    )
+    payload = build_south_song_formal_payloads(repo_root, registry)
+    assert payload["combined"]["record_count"] == 123
+    assert payload["combined"]["south_song_ready_count"] == 5
+    assert payload["combined"]["south_song_pending_count"] == 0
+    by_name = {row["ruler_name"]: row for row in payload["partition_records"]}
+    assert by_name["赵构"]["third_item_score_points"] == 165.1
+    assert by_name["赵构"]["rank"] == 9
+    assert by_name["赵昀"]["third_item_score_points"] == 54.8
 
 
 def _summary() -> dict[str, object]:
@@ -205,7 +394,7 @@ def test_five_dynasties_third_item_promotes_subject_phases_and_settles_all_ruler
 
     repo_root = Path(__file__).resolve().parents[1]
     registry_path = repo_root / "docs/公共成果/军事/01-战役登记.json"
-    current = json.loads(registry_path.read_text(encoding="utf-8"))
+    current = load_battle_registry(registry_path)
     promoted = promote_five_dynasties_battle_registry(current, repo_root)
     partition = [
         row for row in promoted["records"]
@@ -237,9 +426,9 @@ def test_five_dynasties_third_item_promotes_subject_phases_and_settles_all_ruler
     formal = build_five_dynasties_formal_payloads(repo_root, promoted)
     rows = formal["partition_records"]
     assert len(rows) == 12
-    assert formal["combined"]["five_dynasties_ready_count"] == 9
-    assert formal["combined"]["five_dynasties_pending_count"] == 3
-    assert sum(row["third_item_score_points"] is None for row in rows) == 3
+    assert formal["combined"]["five_dynasties_ready_count"] == 12
+    assert formal["combined"]["five_dynasties_pending_count"] == 0
+    assert sum(row["third_item_score_points"] is None for row in rows) == 0
     assert {row["ruler_name"] for row in rows} == {
         "朱温", "朱友贞", "李存勖", "李嗣源", "石敬瑭", "郭威",
         "柴荣", "李昪", "李煜", "王建", "孟昶", "刘龑",
@@ -252,9 +441,9 @@ def test_five_dynasties_third_item_promotes_subject_phases_and_settles_all_ruler
     assert by_name["柴荣"]["axes"]["D"] == "D-4"
     assert by_name["柴荣"]["D_score_points"] == 33.7
     assert by_name["李忱"]["rank"] == 6
-    assert by_name["朱友贞"]["rank"] == 96
-    assert by_name["李煜"]["rank"] == 101
-    assert by_name["杨广"]["rank"] == 103
+    assert by_name["朱友贞"]["rank"] == 106
+    assert by_name["李煜"]["rank"] == 111
+    assert by_name["杨广"]["rank"] == 113
 
     binding_counts = Counter(
         phase["ruler_binding"]["status"] for phase in phases
@@ -277,6 +466,7 @@ def test_five_dynasties_third_item_promotes_subject_phases_and_settles_all_ruler
     assert d_by_name["石敬瑭"]["D_grade"] == "D-2"
     assert d_by_name["李昪"]["D_grade"] == "D-3"
     assert d_by_name["王建"]["D_score_points"] == 23.6
+    assert {d_by_name[name]["D_grade"] for name in ("朱温", "李嗣源", "郭威")} == {"D-N"}
     assert c_by_name["柴荣"]["independent_task_count"] == 6
     assert ab_by_name["柴荣"]["defense_event_count"] == 6
     assert (
@@ -302,8 +492,8 @@ def test_north_song_third_item_replaces_legacy_registry_and_settles_complete_win
     )
 
     repo_root = Path(__file__).resolve().parents[1]
-    current = json.loads(
-        (repo_root / "docs/公共成果/军事/01-战役登记.json").read_text(encoding="utf-8")
+    current = load_battle_registry(
+        repo_root / "docs/公共成果/军事/01-战役登记.json"
     )
     promoted = promote_north_song_battle_registry(current, repo_root)
     promoted_twice = promote_north_song_battle_registry(promoted, repo_root)
@@ -347,13 +537,13 @@ def test_north_song_third_item_replaces_legacy_registry_and_settles_complete_win
     rows = formal["partition_records"]
     assert len(rows) == 11
     assert formal["combined"]["record_count"] == 118
-    assert formal["combined"]["north_song_ready_count"] == 10
-    assert formal["combined"]["north_song_pending_count"] == 1
+    assert formal["combined"]["north_song_ready_count"] == 11
+    assert formal["combined"]["north_song_pending_count"] == 0
     assert {row["ruler_name"] for row in rows} == {
         "赵匡胤", "赵光义", "赵恒", "刘娥", "赵祯", "赵曙", "赵顼", "高滔滔", "赵煦", "赵佶", "赵桓",
     }
-    assert sum(row["third_item_score_points"] is None for row in rows) == 1
-    assert all(row["rank_status"] == "GLOBAL_CURRENT" for row in rows)
+    assert sum(row["third_item_score_points"] is None for row in rows) == 0
+    assert all(str(row["rank_status"]).startswith("GLOBAL_CURRENT_") for row in rows)
     assert formal["combined"]["north_song_partial_exclusions"] == []
     by_name = {row["ruler_name"]: row for row in rows}
     assert by_name["赵桓"]["AB_score_points"] == 0.0
@@ -364,6 +554,8 @@ def test_north_song_third_item_replaces_legacy_registry_and_settles_complete_win
     assert by_name["赵顼"]["D_score_points"] == 19.6
     assert all("confidence" not in row for row in formal["C"]["records"])
     assert by_name["赵匡胤"]["axes"]["C_overall"] == "C-3"
+    assert by_name["刘娥"]["axes"]["D"] == "D-N"
+    assert by_name["刘娥"]["D_score_points"] == 0.0
 
     d_by_name = {row["ruler_name"]: row for row in formal["D"]["records"]}
     c_by_name = {row["ruler_name"]: row for row in formal["C"]["records"]}
@@ -427,6 +619,22 @@ def test_north_song_d_unknown_axes_are_auditable_not_negative_returns() -> None:
     assert aggregated["unknown_axes"] == ["BCN", "BCP", "M", "P", "SB", "SN", "WR"]
     assert aggregated["material"] is False
     assert aggregated["national_negative"] is False
+
+
+def test_d_all_zero_axes_are_unknown_not_fabricated_low_returns() -> None:
+    from emperor_v4.evaluation.five_dynasties_third_item import (
+        _axis_closed_return_class,
+    )
+
+    result, rationale = _axis_closed_return_class(
+        {"P": 0, "S": 0, "M": 0, "A": 0},
+        {"SB": 0, "SN": 0, "BCP": 0, "BCN": 0, "WR": 0},
+        s_attributable=True,
+        route="D_INTERNAL_RESTORATION",
+    )
+
+    assert result == "UNKNOWN"
+    assert "裁为UNKNOWN" in rationale
 
 
 def test_five_dynasties_and_north_song_parent_cycle_reviews_cover_every_ruler() -> None:
@@ -727,7 +935,8 @@ def test_current_third_item_thick_thin_evidence_gates_are_globally_consistent() 
         metrics = row.get("D_portfolio_metrics") or {}
         known_material = int(metrics.get("known_material_cycle_count") or 0)
         expected_status = (
-            "UNDER_TESTED" if known_material <= 1
+            "NO_MATERIAL_EXPOSURE" if row.get("D_grade") == "D-N"
+            else "UNDER_TESTED" if known_material <= 1
             else "LIMITED_EXPOSURE" if known_material <= 4
             else "SUFFICIENT_EXPOSURE"
         )
@@ -773,6 +982,16 @@ def test_current_third_item_thick_thin_evidence_gates_are_globally_consistent() 
         "included_source_refs" not in row
         for row in direction_payload["records"]
     )
+    direction_by_name = {
+        row["ruler_name"]: row for row in direction_payload["records"]
+    }
+    post_wendi_rebellion = "WAR-LEAD-SUI-HANWANG-604"
+    assert post_wendi_rebellion not in direction_by_name["杨坚"][
+        "admitted_large_rebellion_refs"
+    ]
+    assert post_wendi_rebellion in direction_by_name["杨广"][
+        "admitted_large_rebellion_refs"
+    ]
 
     by_name = {row["ruler_name"]: row for row in d_rows}
     assert by_name["李雄"]["D_score_points"] == 23.6
@@ -873,12 +1092,13 @@ def test_current_third_item_thick_thin_evidence_gates_are_globally_consistent() 
     assert wu_zetian["D_portfolio_metrics"]["material_cycle_count"] == 8
     li_xuan = by_name["李儇"]
     assert li_xuan["D_grade"] == "D-2"
-    assert li_xuan["D_portfolio_metrics"]["portfolio_net_weight_sum"] == -12.0
-    assert li_xuan["D_portfolio_metrics"]["portfolio_efficiency_index"] == -2.6923
+    assert li_xuan["D_portfolio_metrics"]["portfolio_net_weight_sum"] == -8.0
+    assert li_xuan["D_portfolio_metrics"]["portfolio_efficiency_index"] == -1.7692
     assert li_xuan["D_portfolio_metrics"]["material_return_class_counts"] == {
         "HIGH_RETURN": 1,
-        "LOW_RETURN": 9,
+        "LOW_RETURN": 5,
         "NEGATIVE_RETURN": 3,
+        "UNKNOWN": 4,
     }
     for row in d_rows:
         metrics = row["D_portfolio_metrics"]

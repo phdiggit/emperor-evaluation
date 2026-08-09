@@ -1,0 +1,522 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "jin",
+  "bucket": 18,
+  "bucket_count": 24,
+  "record_count": 5,
+  "records_fingerprint": "8dc78f789ae7139e79c018527462e36b2652e70ee8134fcac52b20bcc2995e34",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-C91AEBE85D169ED0D935",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-SONG-NORTH-CHINA-1127-1128",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "金军在山西、河北、山东、河南连续攻取州县并镇压复叛，太宗要求先招辑、禁止军队为俘掠而毁城；天会六年继续夺取青州、大名、京兆、延安等地。",
+      "period": {
+        "start": "天会五年四月",
+        "end": "天会六年七月"
+      },
+      "observable_result": "河东河北及山东河南大片州县转入金控制，但多地叛服不常，军事占领仍需持续安抚。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V03-NORTH-CHINA-PACIFICATION-1127-1128"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-03.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷3@2432693#其申諭以理，招輯安全之。儻執不移，自當致討。若諸軍敢利于俘掠輒肆蕩毀者，底于罰。",
+          "金史/卷3@2432693#宗輔克大名府。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷3@2432693#其申諭以理，招輯安全之。儻執不移，自當致討。若諸軍敢利于俘掠輒肆蕩毀者，底于罰。",
+        "金史/卷3@2432693#宗輔克大名府。"
+      ],
+      "uncertainties": [
+        "合并战区内各州伤亡和破坏程度未完整载明。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "important_objective",
+      "land_strategic_value": "strategic_gateway",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记B；土地轴=strategic_gateway，对手轴=regional_major，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "B",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "已逐项反查全部source_card_ids；现有事实未同时闭合具名人物的实际控制、本人完成范围与可观察结果，unknown保持unknown。",
+      "detail_expansion_status": "complete_unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-9D80483A89720DBF8E53",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-SONG-SHAANXI-OFFENSIVE-1218",
+      "split_from_source_target_ref": "CAMPAIGN-JIN-SONG-WAR-1217-1219",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "canonical_label": "金陕西军鸡公山、和成州攻势",
+      "period": {
+        "start": "UNKNOWN_WITHIN_PARENT",
+        "end": "UNKNOWN_WITHIN_PARENT"
+      },
+      "observable_result": "金陕西军鸡公山、和成州攻势",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "tier_basis": "攻取鸡公山、和州、成州并获得军粮钱财，战果独立；直接统帅未由该节点具名，且仅是父级一路，定B/D2。",
+      "tier_review_source_tier": null,
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT_SPLIT_CHILD",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按该子方向逐字锚可证的攻陷、平定或归降结果取证据下限。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "混合父项未保存可归责的连续子方向指挥，不从官职推定。",
+      "members": [],
+      "attributable_failures": [],
+      "detail_expansion_status": "complete_unknown",
+      "source_lineage": {
+        "source_card_ids": [],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-15.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷15@2432740#前後獲糧九萬斛，錢數千萬",
+          "金史/卷15@2432740#陝西行省破宋雞公山，取和州、成州，至河池縣黑谷關，守者皆遁，前後獲糧九萬斛，錢數千萬，軍實不可勝計。"
+        ],
+        "lineage_basis": "同一共享事实含多个互不连续战区；父项持有fact_id，子项只持定点逐字锚，避免事实ID重复消费。"
+      },
+      "source_refs": [
+        "金史/卷15@2432740#前後獲糧九萬斛，錢數千萬",
+        "金史/卷15@2432740#陝西行省破宋雞公山，取和州、成州，至河池縣黑谷關，守者皆遁，前後獲糧九萬斛，錢數千萬，軍實不可勝計。"
+      ],
+      "uncertainties": [],
+      "cost_or_burden": "unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "merged_into": null,
+      "limitations": [
+        "不得把混合父项的总兵力、四百余处规模或其他战区结果复制到本子项。"
+      ],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "basis": "攻取鸡公山、和州、成州并获得军粮钱财，战果独立；直接统帅未由该节点具名，且仅是父级一路，定B/D2。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-55F0F76D02AFC906351C",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-XIA-WAR-1220-1223",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "夏军持续攻会州、西宁、定西、龛谷、通秦、来羌城、积石州等地，金军反复击退、收复或主动进攻，双方边战贯穿宣宗末年。",
+      "period": {
+        "start": "兴定四年四月",
+        "end": "元光二年十二月"
+      },
+      "observable_result": "会州西宁等一度陷落，来羌城和葭州等被金军收复，边界未形成稳定和平。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V16-XIA-WAR-1220-1223"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-16.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷16@2432683#夏人陷會州",
+          "金史/卷16@2432683#夏人陷西寧州",
+          "金史/卷16@2432683#夏因叛人竇趙兒之招，入據來羌城",
+          "金史/卷16@2432683#城，拔之。省試",
+          "金史/卷16@2432683#官軍復葭州。",
+          "金史/卷16@2432683#夏人犯積石州",
+          "金史/卷16@2432683#敗夏人於質孤堡。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷16@2432683#夏人陷會州",
+        "金史/卷16@2432683#夏人陷西寧州",
+        "金史/卷16@2432683#夏因叛人竇趙兒之招，入據來羌城",
+        "金史/卷16@2432683#城，拔之。省試",
+        "金史/卷16@2432683#官軍復葭州。",
+        "金史/卷16@2432683#夏人犯積石州",
+        "金史/卷16@2432683#敗夏人於質孤堡。"
+      ],
+      "uncertainties": [
+        "双方总兵力伤亡、寨州最终归属和和议进展未载。"
+      ],
+      "cost_or_burden": "多名守将战没或被俘；其余伤亡未完整载明。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "mixed",
+      "campaign_tier": "B",
+      "result_class": "important_objective",
+      "land_strategic_value": "strategic_gateway",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "mixed",
+      "objective_completion": "partial",
+      "objective_shortfalls": [
+        "共享层未闭合全部战略目标，保持证据下限。"
+      ],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记B；土地轴=strategic_gateway，对手轴=regional_major，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "B",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "已逐项反查全部source_card_ids；现有事实未同时闭合具名人物的实际控制、本人完成范围与可观察结果，unknown保持unknown。",
+      "detail_expansion_status": "complete_unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-66A38FDE843CD46B3ED9",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-PROTO-JIN-BAINAI-WUCHUN",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "桓𧹞、散达败后，卜灰被其党所杀，撒骨出被射死，杯乃再联合乌春起兵而遭肃宗击败。",
+      "period": {
+        "start": "辽大安七年后",
+        "end": "辽大安七年后"
+      },
+      "observable_result": "旧部陆续归附；杯乃被俘后交给辽朝，相关反对力量被拆解。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V01-HELIPU-OLD-TRIBES-RETURN"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-01.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷1@2432749#自是舊部悉歸。景祖時，斡勒部人盃乃來屬，及是，有他志。會其家失火，因以縱火誣歡都，世祖徵償如約。盃乃不自安，遂結烏春、窩謀罕舉兵。使肅宗與戰，敗之，獲盃乃，世祖獻之於遼。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷1@2432749#自是舊部悉歸。景祖時，斡勒部人盃乃來屬，及是，有他志。會其家失火，因以縱火誣歡都，世祖徵償如約。盃乃不自安，遂結烏春、窩謀罕舉兵。使肅宗與戰，敗之，獲盃乃，世祖獻之於遼。"
+      ],
+      "uncertainties": [
+        "本段未载作战年份和伤亡。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-99625731804BBA7D",
+          "actor_name": "劾里钵",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "持续招抚旧部并处置再叛者，控制总体处置。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "co_decisive",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "持续招抚旧部并处置再叛者，控制总体处置。",
+            "source_refs": [
+              "金史/卷1@2432749#自是舊部悉歸。景祖時，斡勒部人盃乃來屬，及是，有他志。會其家失火，因以縱火誣歡都，世祖徵償如約。盃乃不自安，遂結烏春、窩謀罕舉兵。使肅宗與戰，敗之，獲盃乃，世祖獻之於遼。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-60BA146B61E00DF24F5A",
+              "result_label": "持续招抚旧部并处置再叛者，控制总体处置。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "持续招抚旧部并处置再叛者，控制总体处置。",
+              "source_refs": [
+                "金史/卷1@2432749#自是舊部悉歸。景祖時，斡勒部人盃乃來屬，及是，有他志。會其家失火，因以縱火誣歡都，世祖徵償如約。盃乃不自安，遂結烏春、窩謀罕舉兵。使肅宗與戰，敗之，獲盃乃，世祖獻之於遼。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "co_decisive",
+                "basis": "持续招抚旧部并处置再叛者，控制总体处置。",
+                "source_refs": [
+                  "金史/卷1@2432749#自是舊部悉歸。景祖時，斡勒部人盃乃來屬，及是，有他志。會其家失火，因以縱火誣歡都，世祖徵償如約。盃乃不自安，遂結烏春、窩謀罕舉兵。使肅宗與戰，敗之，獲盃乃，世祖獻之於遼。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-F603007AAA9150ED",
+          "actor_name": "杯乃",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "补消费已验收事实卡中具名实际作战人物；只登记本人可观察阶段，不继承父项终局。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "补消费已验收事实卡中具名实际作战人物；只登记本人可观察阶段，不继承父项终局。",
+            "source_refs": [
+              "金史/卷1@2432749#自是舊部悉歸。景祖時，斡勒部人盃乃來屬，及是，有他志。會其家失火，因以縱火誣歡都，世祖徵償如約。盃乃不自安，遂結烏春、窩謀罕舉兵。使肅宗與戰，敗之，獲盃乃，世祖獻之於遼。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-DADA6AB36BC046EB2524",
+              "result_label": "再次联合乌春举兵并被肃宗击败俘获；这是后续独立反叛，不与前次火战双算。",
+              "result_direction": "negative",
+              "result_tier": "A",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "再次联合乌春举兵并被肃宗击败俘获；这是后续独立反叛，不与前次火战双算。",
+              "source_refs": [
+                "金史/卷1@2432749#自是舊部悉歸。景祖時，斡勒部人盃乃來屬，及是，有他志。會其家失火，因以縱火誣歡都，世祖徵償如約。盃乃不自安，遂結烏春、窩謀罕舉兵。使肅宗與戰，敗之，獲盃乃，世祖獻之於遼。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "再次联合乌春举兵并被肃宗击败俘获；这是后续独立反叛，不与前次火战双算。",
+                "source_refs": [
+                  "金史/卷1@2432749#自是舊部悉歸。景祖時，斡勒部人盃乃來屬，及是，有他志。會其家失火，因以縱火誣歡都，世祖徵償如約。盃乃不自安，遂結烏春、窩謀罕舉兵。使肅宗與戰，敗之，獲盃乃，世祖獻之於遼。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-9CFCA2BD64C5FC19",
+          "actor_name": "颇剌淑",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "实际击败杯乃、乌春并俘杯乃，完成战斗终段。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "terminal_finisher",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "实际击败杯乃、乌春并俘杯乃，完成战斗终段。",
+            "source_refs": [
+              "金史/卷1@2432749#自是舊部悉歸。景祖時，斡勒部人盃乃來屬，及是，有他志。會其家失火，因以縱火誣歡都，世祖徵償如約。盃乃不自安，遂結烏春、窩謀罕舉兵。使肅宗與戰，敗之，獲盃乃，世祖獻之於遼。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-09A11E72AD04858E1059",
+              "result_label": "实际击败杯乃、乌春并俘杯乃，完成战斗终段。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "实际击败杯乃、乌春并俘杯乃，完成战斗终段。",
+              "source_refs": [
+                "金史/卷1@2432749#自是舊部悉歸。景祖時，斡勒部人盃乃來屬，及是，有他志。會其家失火，因以縱火誣歡都，世祖徵償如約。盃乃不自安，遂結烏春、窩謀罕舉兵。使肅宗與戰，敗之，獲盃乃，世祖獻之於遼。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "terminal_finisher",
+                "basis": "实际击败杯乃、乌春并俘杯乃，完成战斗终段。",
+                "source_refs": [
+                  "金史/卷1@2432749#自是舊部悉歸。景祖時，斡勒部人盃乃來屬，及是，有他志。會其家失火，因以縱火誣歡都，世祖徵償如約。盃乃不自安，遂結烏春、窩謀罕舉兵。使肅宗與戰，敗之，獲盃乃，世祖獻之於遼。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [
+        {
+          "actor_ref": "PERSON-POST-F603007AAA9150ED",
+          "actor_name": "杯乃",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "A",
+          "severity": 0.4,
+          "basis": "再次联合乌春举兵并被肃宗击败俘获；这是后续独立反叛，不与前次火战双算。",
+          "source_refs": [
+            "金史/卷1@2432749#自是舊部悉歸。景祖時，斡勒部人盃乃來屬，及是，有他志。會其家失火，因以縱火誣歡都，世祖徵償如約。盃乃不自安，遂結烏春、窩謀罕舉兵。使肅宗與戰，敗之，獲盃乃，世祖獻之於遼。"
+          ]
+        }
+      ],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "逐项复核后只构成局部平叛、征讨未克、统一战争阶段执行或未闭合的多线推进；未达到强区域独立方向或第一梯队决定性终局，明确保留A。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "REVIEWED_RETAINED_A",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-CCB8BB340573C499B671",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-PROTO-JIN-GORYEO-1104",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "高丽再次进攻，石适欢两次击败来军。",
+      "period": {
+        "start": "康宗二年甲申",
+        "end": "康宗二年甲申"
+      },
+      "observable_result": "高丽请求议和并交还先前拘执的十四名团练使，石适欢随后抚定边民。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V01-WUYASHU-GORYEO-1104"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-01.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷1@2432749#二年甲申，高麗再來伐，石適歡再破之。高麗復請和，前所執團練十四人皆遣歸，石適歡撫定邊民而還。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷1@2432749#二年甲申，高麗再來伐，石適歡再破之。高麗復請和，前所執團練十四人皆遣歸，石適歡撫定邊民而還。"
+      ],
+      "uncertainties": [
+        "双方兵力和伤亡未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    }
+  ]
+}
