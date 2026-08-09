@@ -2087,6 +2087,18 @@
     {
       "ruler_id": "RULER-SHADOW-李雄",
       "ruler_name": "李雄",
+      "ab_axis_adjudication": {
+        "A1": {
+          "start": 2,
+          "end": 4,
+          "reason": "第一项已结算302—304年接掌流民集团和建立成国，第三项不得再以草创政权本身作为1档起点。304年后只看晋、仇池等非统一外部压力，起点为战略劣势2档；任内守住四川核心并取得涪城、南中方向成果，交班为稳定优势4档。"
+        },
+        "A2": {
+          "start": 2,
+          "end": 3,
+          "reason": "排除302—304建国启动链后，起点已有成都核心及局部可守节点，不能按边界破裂1档重复领取创业改善；至交班形成涪城门户和南中宁州方向，但汉中、仇池仍是显著缺口，结算2档至3档。"
+        }
+      },
       "ruler_event_class_overrides": [
         {
           "fields": [
@@ -2725,6 +2737,35 @@
     {
       "ruler_id": "RULER-SHADOW-刘裕",
       "ruler_name": "刘裕",
+      "ab_axis_adjudication": {
+        "A1": {
+          "start": 3,
+          "end": 3,
+          "reason": "404—420年桓楚、南燕、谯蜀、后秦等创业统一链统一归第一项并从第三项剥离。只看北魏、林邑等非统一外部安全条件，东晋—刘宋在主要方向均处攻守相持，未形成可脱离统一成果证明的跨档改善。"
+        },
+        "A2": {
+          "start": 3,
+          "end": 3,
+          "reason": "排除创业统一所得的建康恢复、南燕及关中控制后，起点和交班均保留既有淮河—长江主要防御体系；林邑行动未建立新的全国主要边界层级，故为3档稳定。"
+        },
+        "B1": {
+          "grade": 1,
+          "position": "HIGH",
+          "start_equivalent": 1.8,
+          "end_equivalent": 1.8,
+          "reason": "统一核心及南燕、谯蜀、后秦取得全部排除；非统一边疆只保守登记起终均已存在的淮河—长江外围控制1.8当量，净增0、加权值0.72，落B1-1高位。"
+        },
+        "B2": {
+          "grade": 0,
+          "position": "LOW",
+          "reason": "排除统一链后未发现本人任内新建、收复、重建或在重大失控压力下保全的独立边疆控制成果包；林邑作战未形成可计控制成果。"
+        },
+        "B4": {
+          "grade": 0,
+          "position": "LOW",
+          "reason": "B4必须与B2使用同一合格控制成果包；既无非统一控制成果包，不得以创业统一所得的州郡、驻防或行政成熟度回填。"
+        }
+      },
       "ruler_event_class_overrides": [],
       "internal_cycle_refs": [],
       "c_major_success_refs": [],
@@ -6294,7 +6335,7 @@
       ]
     }
   ],
-  "semantic_fingerprint": "ccea3e6040216b5b02cb67b335c9b493a49736fc39e94b0d57eac759e88b410e",
+  "semantic_fingerprint": "4b5dab971eae176a9535f7638c577ef1627a8dfcb04e32403d16d8edee4e3f7d",
   "large_rebellion_admission_policy": {
     "selection_basis": "ALL_RULERS_SAME_STANDARD_CURATED_AUDIT",
     "qualifying_conditions": [

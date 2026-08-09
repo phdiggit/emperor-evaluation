@@ -37,6 +37,7 @@ from emperor_v4.evaluation.five_dynasties_third_item import (
     _validate_formal_abc_contracts,
     _validate_d_empirical_calibration,
     _write_text_atomic,
+    _sync_formal_ab_into_combined,
     _sync_formal_d_into_combined,
     _sync_formal_c_into_combined,
     _render_combined_markdown,
@@ -856,6 +857,7 @@ def build_north_song_formal_payloads(workspace_root: Path, registry: Mapping[str
     combined = _replace_partition_records(json.loads((workspace_root / FORMAL_PATH).read_text(encoding="utf-8")), partition_rows)
     combined.pop("qin_tang_rank_freeze", None)
     combined.pop("qin_tang_value_freeze", None)
+    _sync_formal_ab_into_combined(ab["records"], combined["records"])
     _sync_formal_c_into_combined(c["records"], combined["records"])
     _sync_formal_d_into_combined(d["records"], combined["records"])
     _assign_global(combined["records"])

@@ -665,9 +665,13 @@ def test_current_third_item_thick_thin_evidence_gates_are_globally_consistent() 
     d_rows = json.loads(
         (base / "军事成本收益比/01-皇帝D项正式结算.json").read_text(encoding="utf-8")
     )["records"]
+    combined_rows = json.loads(
+        (base / "02-第三项正式结算.json").read_text(encoding="utf-8")
+    )["records"]
 
-    assert len(ab_rows) == len(c_rows) == len(d_rows) == 118
+    assert len(ab_rows) == len(c_rows) == len(d_rows) == len(combined_rows) == 118
     ab_by_id = {row["ruler_id"]: row for row in ab_rows}
+    combined_by_id = {row["ruler_id"]: row for row in combined_rows}
     for row in c_rows:
         grades = [
             int(str(row[key]).rsplit("-", 1)[-1])
@@ -690,6 +694,18 @@ def test_current_third_item_thick_thin_evidence_gates_are_globally_consistent() 
         ab_row = ab_by_id[row["ruler_id"]]
         assert ab_row["defense_event_count"] == row["independent_task_count"]
         assert ab_row["parent_cycle_refs"] == row["independent_task_groups"]
+        combined_row = combined_by_id[row["ruler_id"]]
+        assert combined_row["AB_score_points"] == ab_row["AB_score_points"]
+        assert combined_row["C_score_points"] == row["C_score_points"]
+        assert combined_row["axes"]["C1"] == row["combat_delivery_grade"]
+        assert combined_row["axes"]["C2"] == row["operational_sustainability_cap"]
+        assert combined_row["axes"]["C3"] == row["system_reliability_cap"]
+        assert combined_row["axes"]["C_overall"] == row["C_overall_grade"]
+        for axis in ("A1", "A2", "B1", "B2", "B4"):
+            assert combined_row["axes"][axis]["axis_points"] == ab_row["axes"][axis]["axis_points"]
+        assert len(row.get("cap_reasons") or []) == len(
+            set(row.get("cap_reasons") or [])
+        )
 
     c_by_name = {row["ruler_name"]: row for row in c_rows}
     assert c_by_name["柴荣"]["independent_task_count"] == 6
@@ -1164,6 +1180,16 @@ def test_founder_unification_accounts_are_absent_from_third_item_consumption() -
     excluded_by_name.setdefault("拓跋珪", set()).update(
         {"WAR-LEAD-112-WEI-MOYIGAN-402", "WAR-LEAD-115-WEI-SUCCESSION-409"}
     )
+    excluded_by_name.setdefault("李雄", set()).add(
+        "CAMPAIGN-JIN-YIZHOU-LI-300-OPEN"
+    )
+    excluded_by_name.setdefault("李渊", set()).update(
+        {
+            "CAMPAIGN-TANG-XUYUANLANG-621-623",
+            "CAMPAIGN-TANG-LIUHEITA-621-623",
+            "CAMPAIGN-TANG-FUGONGSHI-623-624",
+        }
+    )
     base = repo_root / "docs/评分结算/第三项军事与边疆净收益"
     payloads = (
         (base / "国防安全/01-皇帝AB项正式结算.json", "evidence_event_refs"),
@@ -1180,7 +1206,16 @@ def test_founder_unification_accounts_are_absent_from_third_item_consumption() -
 
     c_rows = json.loads(payloads[1][0].read_text(encoding="utf-8"))["records"]
     d_rows = json.loads(payloads[2][0].read_text(encoding="utf-8"))["records"]
+    ab_rows = json.loads(payloads[0][0].read_text(encoding="utf-8"))["records"]
     c_by_id = {row["ruler_id"]: row for row in c_rows}
+    ab_by_name = {row["ruler_name"]: row for row in ab_rows}
+    c_by_name = {row["ruler_name"]: row for row in c_rows}
+    d_by_name = {row["ruler_name"]: row for row in d_rows}
+    for ruler_name in ("李雄", "李渊"):
+        excluded = excluded_by_name[ruler_name]
+        assert not excluded & set(ab_by_name[ruler_name]["parent_cycle_refs"])
+        assert not excluded & set(c_by_name[ruler_name]["independent_task_groups"])
+        assert not excluded & set(d_by_name[ruler_name]["included_d_cycle_refs"])
     for row in d_rows:
         excluded = set(row.get("excluded_unification_cycle_refs") or [])
         if excluded:
