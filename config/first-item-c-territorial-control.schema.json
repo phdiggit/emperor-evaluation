@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "first-item-c-territorial-control.schema.json",
+  "title": "第一项C创业窗口区域控制与价值输入",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "formal_score_write", "region_catalog", "value_era_catalog", "era_region_value_profiles", "portfolio_adjudications", "manual_window_adjudications"],
+  "properties": {
+    "schema_version": {"const": "first-item-c-territorial-control-adjudications-v2"},
+    "status": {"const": "CURRENT_C_INPUT"},
+    "formal_score_write": {"const": false},
+    "region_catalog": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/region"}
+    },
+    "value_era_catalog": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/value_era"}
+    },
+    "era_region_value_profiles": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/era_region_profile"}
+    },
+    "portfolio_adjudications": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/portfolio"}
+    },
+    "manual_window_adjudications": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/manual_window"}
+    }
+  },
+  "$defs": {
+    "region": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["region_id", "region_name", "boundary_basis", "spatial_scale"],
+      "properties": {
+        "region_id": {"type": "string", "pattern": "^MR-[A-Z0-9-]+$"},
+        "region_name": {"type": "string", "minLength": 1},
+        "boundary_basis": {"type": "string", "minLength": 1},
+        "spatial_scale": {"enum": ["local_node", "corridor", "major_region", "macroregion"]}
+      }
+    },
+    "value_era": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["era_id", "era_name", "start_boundary", "end_boundary", "basis"],
+      "properties": {
+        "era_id": {"type": "string", "pattern": "^C-ERA-[A-Z0-9-]+$"},
+        "era_name": {"type": "string", "minLength": 1},
+        "start_boundary": {"type": "string", "minLength": 1},
+        "end_boundary": {"type": "string", "minLength": 1},
+        "basis": {"type": "string", "minLength": 1}
+      }
+    },
+    "snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["region_id", "control_fraction", "control_form", "basis"],
+      "properties": {
+        "region_id": {"type": "string"},
+        "control_fraction": {"enum": [0, 0.25, 0.5, 0.75, 1]},
+        "control_form": {"enum": ["direct_rule", "executable_suzerainty", "coalition_control", "military_occupation", "contested", "none"]},
+        "basis": {"type": "string", "minLength": 1},
+        "source_refs": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "era_region_profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value_profile_id", "era_id", "region_id", "region_name", "profile_status", "strategic_importance", "strategic_functions", "population_capacity", "fiscal_supply_capacity", "basis", "source_refs"],
+      "properties": {
+        "value_profile_id": {"type": "string", "minLength": 1},
+        "era_id": {"type": "string", "pattern": "^C-ERA-[A-Z0-9-]+$"},
+        "region_id": {"type": "string"},
+        "region_name": {"type": "string", "minLength": 1},
+        "profile_status": {"enum": ["CALIBRATED", "PARTIAL_SOURCE", "PENDING_SOURCE"]},
+        "strategic_importance": {"enum": ["ordinary", "important", "major", "core", "decisive", "unknown"]},
+        "strategic_functions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"enum": ["capital_core", "mobilization_base", "defensive_depth", "transport_corridor", "grain_supply", "fiscal_core", "frontier_buffer", "legitimacy_center"]}
+        },
+        "population_capacity": {"enum": ["sparse", "limited", "substantial", "dense", "population_core", "unknown"]},
+        "fiscal_supply_capacity": {"enum": ["low", "moderate", "high", "fiscal_core", "unknown"]},
+        "basis": {"type": "string", "minLength": 1},
+        "source_refs": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "region_value_override": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["region_id", "region_name", "profile_status", "strategic_importance", "strategic_functions", "population_capacity", "fiscal_supply_capacity", "override_reason", "basis", "source_refs"],
+      "properties": {
+        "region_id": {"type": "string"},
+        "region_name": {"type": "string", "minLength": 1},
+        "profile_status": {"enum": ["CALIBRATED", "PARTIAL_SOURCE", "PENDING_SOURCE"]},
+        "strategic_importance": {"enum": ["ordinary", "important", "major", "core", "decisive", "unknown"]},
+        "strategic_functions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"enum": ["capital_core", "mobilization_base", "defensive_depth", "transport_corridor", "grain_supply", "fiscal_core", "frontier_buffer", "legitimacy_center"]}
+        },
+        "population_capacity": {"enum": ["sparse", "limited", "substantial", "dense", "population_core", "unknown"]},
+        "fiscal_supply_capacity": {"enum": ["low", "moderate", "high", "fiscal_core", "unknown"]},
+        "override_reason": {"enum": ["war_devastation", "postwar_recovery", "capital_relocation", "transport_reconfiguration", "window_specific_evidence"]},
+        "basis": {"type": "string", "minLength": 1},
+        "source_refs": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "control_effect": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["region_id", "region_name", "control_change", "pre_control_fraction", "post_control_fraction", "window_end_control_fraction", "control_form", "first_net_control_credit", "basis"],
+      "properties": {
+        "region_id": {"type": "string"},
+        "region_name": {"type": "string", "minLength": 1},
+        "control_change": {"enum": ["first_acquisition", "recovery_within_window", "consolidation", "defense_held", "temporary_gain", "loss", "no_durable_control"]},
+        "pre_control_fraction": {"enum": [0, 0.25, 0.5, 0.75, 1]},
+        "post_control_fraction": {"enum": [0, 0.25, 0.5, 0.75, 1]},
+        "window_end_control_fraction": {"enum": [0, 0.25, 0.5, 0.75, 1]},
+        "control_form": {"enum": ["direct_rule", "executable_suzerainty", "coalition_control", "military_occupation", "contested", "none"]},
+        "first_net_control_credit": {"type": "boolean"},
+        "basis": {"type": "string", "minLength": 1},
+        "source_refs": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "group": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["campaign_group_id", "control_effects"],
+      "properties": {
+        "campaign_group_id": {"type": "string"},
+        "control_effects": {"type": "array", "items": {"$ref": "#/$defs/control_effect"}}
+      }
+    },
+    "portfolio": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["portfolio_ref", "scope_kind", "calibration_status", "control_subject", "window_start", "window_end", "value_era_id", "baseline_snapshot", "terminal_snapshot", "net_first_control_regions", "region_value_overrides", "group_control_results", "basis"],
+      "properties": {
+        "portfolio_ref": {"type": "string"},
+        "scope_kind": {"enum": ["FULL_REALM_UNIFICATION", "REGIONAL_REGIME_FOUNDATION", "REGIONAL_ANNEXATION"]},
+        "calibration_status": {"enum": ["CALIBRATED_FULL_REALM_CONTROL", "CALIBRATED_C_WINDOW_CONTROL", "PENDING_NON_FULL_REALM_CALIBRATION"]},
+        "control_subject": {"type": "string", "minLength": 1},
+        "window_start": {"type": "string", "minLength": 1},
+        "window_end": {"type": "string", "minLength": 1},
+        "value_era_id": {"type": "string", "pattern": "^C-ERA-[A-Z0-9-]+$"},
+        "baseline_snapshot": {"type": "array", "items": {"$ref": "#/$defs/snapshot"}},
+        "terminal_snapshot": {"type": "array", "items": {"$ref": "#/$defs/snapshot"}},
+        "net_first_control_regions": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "region_value_overrides": {"type": "array", "items": {"$ref": "#/$defs/region_value_override"}},
+        "group_control_results": {"type": "array", "items": {"$ref": "#/$defs/group"}},
+        "basis": {"type": "string", "minLength": 1},
+        "source_refs": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "manual_window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ruler_name", "calibration_status", "control_subject", "window_start", "window_end", "campaign_refs", "value_era_id", "baseline_snapshot", "terminal_snapshot", "net_first_control_regions", "region_value_overrides", "group_control_results", "basis"],
+      "properties": {
+        "ruler_name": {"type": "string", "minLength": 1},
+        "calibration_status": {"enum": ["CALIBRATED_C_WINDOW_CONTROL", "PENDING_C_WINDOW_CALIBRATION"]},
+        "control_subject": {"type": "string", "minLength": 1},
+        "window_start": {"type": "string", "minLength": 1},
+        "window_end": {"type": "string", "minLength": 1},
+        "campaign_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "value_era_id": {"type": "string", "pattern": "^C-ERA-[A-Z0-9-]+$"},
+        "baseline_snapshot": {"type": "array", "items": {"$ref": "#/$defs/snapshot"}},
+        "terminal_snapshot": {"type": "array", "items": {"$ref": "#/$defs/snapshot"}},
+        "net_first_control_regions": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "region_value_overrides": {"type": "array", "items": {"$ref": "#/$defs/region_value_override"}},
+        "group_control_results": {"type": "array", "items": {"$ref": "#/$defs/group"}},
+        "basis": {"type": "string", "minLength": 1},
+        "source_refs": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}

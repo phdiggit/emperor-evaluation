@@ -1,0 +1,987 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "续资治通鉴/卷141",
+  "source_identity": {
+    "source_unit_id": "SRC-XUZIZHITONGJIAN-141-2312444",
+    "revision_ref": "2312444",
+    "raw_sha256": "1b1e30e8bb201d71bdc4f45e557aa15b841766651690d42bbb6dda26d980585a"
+  },
+  "cards": [
+    {
+      "battle_label": "雅州沙平蛮寇边—焚碉门砦、宋军出讨失利",
+      "campaign_group": "XZTJ-SONG-SHAPING-MAN-1169-1170",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-141-2312444-P0092"
+      ],
+      "source_quotes": [
+        "雅州沙平蠻寇邊",
+        "焚碉門砦",
+        "四川制置使晁公武調兵討之",
+        "失利"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋雅州—四川军政体系 × 碉门砦被焚、出讨失利阶段",
+          "subject_role": "DEFENDER_COUNTERATTACK",
+          "actual_process": "沙平蛮进入雅州边境并焚毁碉门砦。四川制置使晁公武随后调兵出讨，但原文明确记为“失利”；本卷不载宋军伤亡、兵数和具体退路。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A2",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "宋方死伤失载；只知边砦被焚，调兵出讨后“失利”。",
+            "range": "1—99死亡当量",
+            "center": 30,
+            "P_scoring": "P1估",
+            "basis": "已经发生敌对袭击和官军出讨，不能因史料不记死伤而判P0；单一“失利”不足以直接推定百人级损害。",
+            "upper_bound_reason": "无斩杀、被俘、主将死亡、成建制溃败或百人级补兵后效。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "单一边防砦被毁且惩罚性出兵未能奏效，雅州该局部边境的防御与威慑明显变差；但没有扩展为州县大范围失控。",
+          "material_return": "WR0",
+          "material_return_detail": "未取得可识别物资、军资或控制回报；出讨没有形成可确认战果。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN1",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "碉门砦"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "碉门砦被焚毁，宋方失去这一单一边防砦作为可用控制节点；原文不支持沙平蛮稳定占领砦址或周边地区。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-141-2312444-P0092"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "边防砦被实际毁坏，随后出讨又失利；虽然人员数字不详，但已有S2、A2和局部控制损失，且没有抵补性成果。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既有南宋政权与雅州边蛮之间的边防冲突，不属于建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-141-2312444-P0092"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-141-2312444-P0092"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-141-2312444-P0092"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-141-2312444-P0092"
+            ]
+          },
+          "carry_in": "卷140末宋金主线仍处无大战的备边状态；沙平蛮属于四川南缘另一条独立边患线。",
+          "carry_out": "P0103王炎遣人约沙平蛮归部，并“稍捐边税与之”；这是战后政治收束，后卷需核是否持续归附、是否复叛。"
+        },
+        {
+          "evaluation_subject_phase": "沙平蛮 × 寇边焚砦、击退宋方出讨阶段",
+          "subject_role": "ATTACKER_RAID",
+          "actual_process": "沙平蛮进入雅州边境，焚毁碉门砦，并在宋四川制置司调兵出讨后取得一次明确的防御性胜利；原文不载其兵数、死伤或占地。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "沙平蛮自身死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 30,
+            "P_scoring": "P1估",
+            "basis": "既有焚砦又有与官军出讨相对的实际武装阶段，不能记P0；叙事无其重创、败退或大批伤俘。",
+            "upper_bound_reason": "无百人级人员损害、主将死亡或大规模溃散证据。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "一次寇边与击退出讨使其短期免于宋军惩罚，但本卷随后即出现以减税换归部，不能据本次胜利上推为结构性安全改善。",
+          "material_return": "WR0",
+          "material_return_detail": "原文只载焚砦，不载可控制的粮草、牲畜、军械或府库缴获；毁坏敌砦本身不作为物资回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "碉门砦及雅州边境"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "焚毁砦堡并击退讨军，但未见建立驻守、行政或稳定地盘控制。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-141-2312444-P0092"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以低可见成本完成一次边境袭击并击退宋方讨军，取得短期战术与安全收益；但没有已证稳定控制或物资回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既有南宋政权与雅州边蛮之间的边防冲突，不属于建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-141-2312444-P0092"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-141-2312444-P0092"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-141-2312444-P0092"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-141-2312444-P0092"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "P0103其接受宋方稍减边税后归部；归部本身属于政治结算，不倒灌为本战WR或BCP。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "linear_reread": {
+      "range": "SRC-XUZIZHITONGJIAN-141-2312444-P0001—P0159",
+      "paragraph_count": 159,
+      "body_end": "P0159",
+      "metadata_tail": [],
+      "status": "COMPLETED"
+    },
+    "card_coverage": {
+      "adjudicated_cards": 1,
+      "adjudicated_subject_phase_cards": 2,
+      "coverage_note": "逐段复读确认本卷只有P0092沙平蛮寇边、焚砦与宋军出讨失利达到实际武装准入线。P0009时旺为追叙性聚众/被获，缺实际交战过程；P0037张和谋反止于伏诛；P0139任得敬逼分西夏仍无起兵，均按合同排除。"
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0001",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0002",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0003",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0004",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0005",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0006",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0007",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0008",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "命楚州兵马钤辖专管沿海盗贼，属于治安部署。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0009",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "追述海州时旺曾聚众数千、后为金人所获，其徒多渡淮南来；本段没有交战、据城或武装俘获过程，不强行建战役卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0010",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0011",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0012",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0013",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0014",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0015",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0016",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "修庐州、和州城，属于边防工程。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0017",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0018",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0019",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0020",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "虞允文还朝、王炎代领四川宣抚，属于军政人事。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0021",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0022",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0023",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0024",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "要求淮西义兵只在适当时节教阅、避免妨碍耕作，属于民兵管理。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0025",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "武举人才转用于边军机幕、将佐的制度建议，属于军制。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0026",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0027",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "楚州沿海设置警察、管理二百余海船与间探粮运，属于海防部署。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0028",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0029",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0030",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "修襄阳府城，属于边防工程。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0031",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0032",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0033",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0034",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0035",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金牒索俘、宋廷拒尽遣时旺余党，属于外交与人口处置。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0036",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0037",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金冀州张和等“谋反，伏诛”，只有谋反与处刑，没有起兵、据城或武装交战，不准入战争账户。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0038",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0039",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "孝宗射箭伤目及陈俊卿劝戒骑射、击球，属于宫廷安全与战略建言。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0040",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "单时劝戒击球、饮酒，属于宫廷政治。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0041",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0042",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0043",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0044",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0045",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0046",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0047",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "把近期边事奏章分类存档备采，属于战略知识管理。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0048",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0049",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0050",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0051",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0052",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0053",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0054",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0055",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0056",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0057",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0058",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "整顿三衙主兵官减克、私占官兵、军器、军马和白直等十一类军政弊端，属于军政治理。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0059",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "淮西山水砦招集归正人垦官田，属于屯田与人口安置。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0060",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0061",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0062",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0063",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0064",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0065",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0066",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0067",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0068",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0069",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0070",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0071",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "复置淮东万弩手、号神劲军，属于军事编制。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0072",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0073",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0074",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0075",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0076",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0077",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "明州定海水军改为御前水军，属于水军编制。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0078",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0079",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "成闵复任镇江都统，属于军政人事。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0080",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0081",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0082",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0083",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0084",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "李显忠复节度使，属于人事。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0085",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0086",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0087",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0088",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0089",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0090",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0091",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0092",
+        "disposition": "ADJUDICATED",
+        "battle_label": "雅州沙平蛮寇边—焚碉门砦、宋军出讨失利"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0093",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "修楚州城，属于边防工程。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0094",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "陈敏论楚州水运与清河口战略，实际修城移守，属于边防工程与部署。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0095",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "黄中主张暂和亟备、内修政理，属于战略建言。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0096",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0097",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0098",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0099",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0100",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0101",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0102",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "和州屯田三千余官兵产出不足，决定罢屯田并收兵归军，属于军费屯田政策。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0103",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "王炎遣人约沙平蛮归部、稍减边税，属于P0092战后的政治和解，不是新的武装阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0104",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0105",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0106",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0107",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0108",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0109",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0110",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "宋使与金护卫宴射属于外交场合武艺比赛，不是战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0111",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "王抃专管三卫拣兵，属于军政人事。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0112",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0113",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "四川制置、宣抚机构因晁公武与王炎不协重新合并，属于军政组织。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0114",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金主讨论河堤差调、官吏临时科敛，属于工程与民役治理。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0115",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0116",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0117",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0118",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0119",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0120",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0121",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0122",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0123",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0124",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "淮东万弩手秋成后教阅，属于训练部署。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0125",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "拟扬州、和州各屯三万、三丁取一为义兵；因众议阻挠最终未成，不得按已实现动员或控制计入战争账户。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0126",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0127",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0128",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0129",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0130",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "追叙湖寇侵扰广东导致人口流移、土地荒芜，现正恢复；属于前战后效和民生恢复。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0131",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0132",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0133",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0134",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0135",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0136",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0137",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "陈俊卿反对过早遣金使求陵寝，属于外交战略争论。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0138",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "辛弃疾献《九议》《美芹十论》论恢复，因和议既定未实施，属于战略建言。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0139",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "任得敬逼西夏主请分国，金主威胁若西夏不能自正则出兵；本段仍是政治胁迫与潜在干预，没有实际军队调动或武装镇压，不准入战争账户。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0140",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0141",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "范成大任祈请使，属于外交。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0142",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "范成大出使前受书礼争议，属于外交。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0143",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0144",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "陈良祐反对遣使、担忧金军南侵与供输，属于战略争论。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0145",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0146",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0147",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0148",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0149",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0150",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0151",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0152",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0153",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "赵廓论州兵需正兵夹习，属于军制建言。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0154",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "张栻主张先内修外攘、形成必胜条件，属于战略建言。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0155",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "张栻指出金虽饥馑盗起，宋自身也岁饥民贫、兵弱财匮，属于战略与国力判断。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0156",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金主秋猎，扈从粮食官给、践踏禾稼者杖并赔偿，属于巡行与民生保护。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0157",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0158",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-141-2312444-P0159",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非战役段：属于纪年、人事、财政民生、工程灾害、司法、礼制、外交、制度或一般行政事实，不形成实际武装接战、军事政变或城地争夺。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      {
+        "campaign_group": "XZTJ-SONG-SHAPING-MAN-1169-1170",
+        "followup": "P0103沙平蛮已接受稍减边税而归部；卷142以后核是否持续归附、是否再寇边。"
+      },
+      {
+        "campaign_group": "XZTJ-XIXIA-RENDEJING-CRISIS-1168-1170",
+        "followup": "P0139任得敬已逼西夏主请求割西南路及灵州囉龐岭自立，金拒绝承认，夏主谋诛；卷142若出现实际调兵、武装镇压或内战，即从该实际阶段建卡。"
+      },
+      {
+        "campaign_group": "XZTJ-SONG-JIN-TOMBS-RITUAL-DIPLOMACY-1170",
+        "followup": "范成大已出使金国求陵寝地、议受书礼，外交后效未闭合；后卷只按实际战争或控制变化入战役账，单纯礼议不入。"
+      }
+    ],
+    "mechanical_checks": {
+      "wc_formula": "P/S并列最高档抬升已检查",
+      "ps_tandem_rule": "PASSED",
+      "estimated_P_fields": "PASSED",
+      "population_not_counted_as_WR": "REVIEWED",
+      "control_requires_actual_hold_or_transfer": "REVIEWED",
+      "plots_and_diplomacy_not_misclassified_as_battles": "REVIEWED"
+    }
+  }
+}

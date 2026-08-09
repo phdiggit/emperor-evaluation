@@ -1,0 +1,893 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "续资治通鉴/卷187",
+  "source_identity": {
+    "source_unit_id": "SRC-XUZIZHITONGJIAN-187-2331933",
+    "revision_ref": "2331933",
+    "raw_sha256": "f500f232206e032f94a0e7306496ad7da1d2f59949f736ed3485cf71cc647644"
+  },
+  "cards": [
+    {
+      "battle_label": "潮州、惠州山寨清剿—四十五寨平—百五十余寨招降",
+      "campaign_group": "XZTJ-YUAN-GUANGDONG-CHAOHUI-BANDITS-1285",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-187-2331933-P0026",
+        "SRC-XUZIZHITONGJIAN-187-2331933-P0061"
+      ],
+      "source_quotes": [
+        "討潮、惠二州盜郭逢貴等，四十五寨皆平",
+        "降民萬餘戶，軍三千六百餘人",
+        "山寨降者百五十餘所",
+        "其首拒敵者，臣已磔之矣；是皆招降者也"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "元广东宣慰使页特密实军 × 初拒敌清剿与大规模招降阶段",
+          "subject_role": "COUNTERINSURGENCY",
+          "actual_process": "页特密实讨潮、惠二州郭逢贵等，四十五寨皆平，后入觐时又说明山寨降者达150余所；大多数为招降，只有最初拒敌的首领遭惩治。战后他指出达珠兵后长期无人抚治、州县官不到，导致盗贼据地互攻、人口渐耗。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S3",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "明确有“首拒敌者”，但绝大多数寨属招降，本方战斗伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "存在实际初期抵抗，不能P0；但大规模寨众主要通过招降收束，无本方百人级损害证据。",
+            "upper_bound_reason": "无百人级本方死伤、败退或补兵。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "结束潮惠方向长期盗据土地、互相攻杀的区域性安全失序，并恢复官府介入。",
+          "material_return": "WR3",
+          "material_return_detail": "150余寨及其地域重新进入可治理体系；不把“降民万余户”人口本身当作物质战利。",
+          "border_control": {
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "潮州、惠州四十五寨及后续百五十余山寨"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "大批山寨从盗据状态转回元朝治理与州县秩序。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0026",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0061"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "武装接战成本较低，但该阶段承接的是达珠兵后长期行政缺位、人口耗损的S3社会安全损害；最终恢复大范围控制，回报与代价总体相称。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于本卷原文可确认的建国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0026",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0061"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0026",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0061"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0026",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0061"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0026",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0061"
+            ]
+          },
+          "carry_in": "承卷186广东新会罗平国及江南多处盗起的战后治理背景。",
+          "carry_out": "后卷需核良吏到任与山寨控制是否稳定。"
+        },
+        {
+          "evaluation_subject_phase": "潮惠山寨武装 × 据地互攻后失去寨堡网络阶段",
+          "subject_role": "INSURGENT_DEFENDER",
+          "actual_process": "潮惠盗贼长期据地互相攻杀，首拒敌者被打击，大多数山寨随后招降；四十五寨先平，累计百五十余寨归附。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S3",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "首拒敌者人数和战斗死伤失载；大部分为招降。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "只确认部分首领发生实际抵抗，不把3600军或万余户降民自动折成被俘/死亡。",
+            "upper_bound_reason": "无百人级直接战斗人员损害数字。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "山寨武装的区域控制网络和互相攻杀能力被瓦解。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN3",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "潮州、惠州百五十余山寨"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "失去大范围山寨实际据地，转入元朝治理。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0026",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0061"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "区域据地网络瓦解且无补偿收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于本卷原文可确认的建国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0026",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0061"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0026",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0061"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0026",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0061"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0026",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0061"
+            ]
+          },
+          "carry_in": "",
+          "carry_out": ""
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "元征安南：富良江突破—入城—疫病撤退—乾满江追击",
+      "campaign_group": "XZTJ-YUAN-ANNAM-WAR-1284-1285",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-187-2331933-P0038",
+        "SRC-XUZIZHITONGJIAN-187-2331933-P0039",
+        "SRC-XUZIZHITONGJIAN-187-2331933-P0052",
+        "SRC-XUZIZHITONGJIAN-187-2331933-P0053"
+      ],
+      "source_quotes": [
+        "陳日烜所逃天長、長安二處兵力復集，興道王船千餘艘，聚萬劫",
+        "渡富良江北，與日烜大戰，破之",
+        "遂入其城而還",
+        "軍中疾作，死傷者眾，而占城竟不可達，乃謀引兵還",
+        "交人邀于乾滿江，索多力戰而死"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "元镇南王脱欢军 × 富良江突破并短暂入城阶段",
+          "subject_role": "INVASION_ATTACKER",
+          "actual_process": "承卷186万劫初胜，安南兵力重新集结。脱欢架筏为桥渡富良江，与陈日烜大战并击败之，追入其城后又退出；陈益稷率属来降。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "大型渡江会战获胜，本方伤亡失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "跨河大规模会战与持续深入支持百人级损失估计；尚未进入后段疫病和撤退损失，不能倒灌。",
+            "upper_bound_reason": "无本阶段千人级本方死亡、未归或被俘数字。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "突破富良江并一度进入安南王城，获得短期主动。",
+          "material_return": "WR0",
+          "material_return_detail": "入城旋即退出，名义降附与人口不计稳定回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "富良江—安南王城"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "入城后即退出，且同阶段后续撤军；按净控制不记短暂占领。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0038",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0039",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0052",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0053"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "phase_return_basis": "取得重大短期战果但未形成稳定控制，且整个阶段很快进入疫病撤退，不能给高回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于本卷原文可确认的建国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0038",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0039",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0052",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0053"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0038",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0039",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0052",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0053"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0038",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0039",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0052",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0053"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0038",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0039",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0052",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0053"
+            ]
+          },
+          "carry_in": "承卷186 P0179入安南、万劫初胜。",
+          "carry_out": "同卡后段进入盛夏疫病与撤退。"
+        },
+        {
+          "evaluation_subject_phase": "安南陈日烜、兴道王军 × 富良江败退与王城短时被入阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "安南兵力在天长、长安重新集结，兴道王千余艘船聚万劫；富良江大战被脱欢击破，陈日烜遁走，元军一度进入其城。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "富良江大战败退，伤亡失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "主要河防会战与王城短时暴露支持百人级估计；没有千人级直接死伤数字。",
+            "upper_bound_reason": "无千人级斩首、俘虏或人口灾难数据。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "主要河防和王城安全短时失效。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "富良江—王城方向"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "王城虽被元军一度进入，但其后迅速恢复，按同阶段净控制不记永久失地。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0038",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0039",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0052",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0053"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "本阶段主防线被破、王城暴露且无抵补收益；后续反击另立阶段，不倒灌。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于本卷原文可确认的建国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0038",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0039",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0052",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0053"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0038",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0039",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0052",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0053"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0038",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0039",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0052",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0053"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0038",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0039",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0052",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0053"
+            ]
+          },
+          "carry_in": "",
+          "carry_out": ""
+        },
+        {
+          "evaluation_subject_phase": "元脱欢、索多军 × 疫病撤退与追击损失阶段",
+          "subject_role": "EXPEDITION_ATTACKER_COLLAPSE",
+          "actual_process": "盛夏霖潦使军中发疾，“死伤者众”，且始终不能抵达占城，遂决定撤军。交趾军持续追击；李恒殿后中毒矢，至思明州卒；索多与脱欢相距二百余里，赶赴主力途中在乾满江被截，力战而死。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "原文明言“军中疾作，死伤者众”，并有李恒、索多两名高级将领战死/伤死；总人数失载。",
+            "range": "1,000—9,999死亡当量",
+            "center": 3162,
+            "P_scoring": "P3估",
+            "basis": "大军远征在盛夏霖潦中出现集体疫亡且遭持续追击，两名高级将领死亡，推定千人级合理；但本卷没有万人级明确损失或“过半”可归到本战的独立基数。",
+            "upper_bound_reason": "后文P0074“死伤过半”是占城、交趾等数年多战总评，不能直接把该比例全部分摊到本阶段，故不上P4。",
+            "confidence": "medium"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "远征失败、两名高级将领死亡，安南威胁保持并迫使元廷继续筹划新征。",
+          "material_return": "WR0",
+          "material_return_detail": "此前短暂入城成果全部失效，无稳定回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "安南王城及富良江方向"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "元军撤离安南，回到战前无稳定占领状态；因战前本无安南领土控制，净BCN仍为0。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0038",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0039",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0052",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0053"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "千人级估计人员损害、长期远征动员与完全撤军并存，且主要战略目标占城未达、安南未服，属于明确负回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于本卷原文可确认的建国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0038",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0039",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0052",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0053"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0038",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0039",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0052",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0053"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0038",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0039",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0052",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0053"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0038",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0039",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0052",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0053"
+            ]
+          },
+          "carry_in": "",
+          "carry_out": ""
+        },
+        {
+          "evaluation_subject_phase": "安南军 × 追击元军并保全国土阶段",
+          "subject_role": "DEFENDER_COUNTERATTACK",
+          "actual_process": "安南在前段失利后兵势反而更盛，利用元军疫病与撤退连续追击；李恒中毒矢而死，索多在乾满江被截杀，元军最终撤出。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "追击反攻获胜，安南方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "对手已受疫病并处撤退态势，安南方未见百人级损害。",
+            "upper_bound_reason": "无百人级己方死伤或重大资产损失。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "击退一轮亲王统率的大规模入侵并杀其主要将领，使本轮入侵结构终止；但元廷P0062及至元二十三年仍计划再征，故不上SB4。",
+          "material_return": "WR0",
+          "material_return_detail": "无明确军资缴获。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "安南本土"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "恢复并保持战前本土控制，无新增疆域。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0038",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0039",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0052",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0053"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "以较低可见追击成本迫使大规模入侵军撤离并保全国土，阶段安全回报显著。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于本卷原文可确认的建国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0038",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0039",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0052",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0053"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0038",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0039",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0052",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0053"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0038",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0039",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0052",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0053"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0038",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0039",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0052",
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0053"
+            ]
+          },
+          "carry_in": "",
+          "carry_out": "元廷后续仍筹划再征安南，长期安全结构未终结。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "九溪十八峒再征：四路凿道千里—伏险袭击—诸酋长降",
+      "campaign_group": "XZTJ-YUAN-JIUXI-SHIBADONG-1283-1285",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-187-2331933-P0087"
+      ],
+      "source_quotes": [
+        "蠻獠叛服不常，往往劫掠邊民，乃詔四川行省討之",
+        "四軍分出黔中、思播、澧州南道、夔門",
+        "鑿山開道，綿亙千里",
+        "木弩、竹矢，伺間竊發",
+        "亡命迎敵者，皆盡殺之",
+        "酋長於是率眾來降，獨散毛洞譚順力屈始降"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "元四川行省四路军 × 凿道千里并平诸洞阶段",
+          "subject_role": "COUNTERINSURGENCY_CONQUEST",
+          "actual_process": "四川行省因九溪十八峒继续叛服、劫掠边民，分四军由黔中、思播、澧州南道、夔门进讨，凿山开道绵亘千里；诸蛮以木弩竹矢伏险袭击，迎敌者被尽杀，诸酋长率众来降，散毛洞谭顺亦力屈而降。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "四路山地战与伏击明确，本方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "元军虽遭伏险袭击，但叙事没有本方大败、百人级损失或补兵；主要可见成本在千里开道与四路长期动员。",
+            "upper_bound_reason": "无百人级本方人员损害证据。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "再次压制反复叛服、劫掠边民的区域威胁并迫使包括散毛洞在内酋长全部降附；后效仍需卷188核。",
+          "material_return": "WR3",
+          "material_return_detail": "恢复并强化卷186已设州县区域的行政与交通控制，千里开道改善军政进入能力。",
+          "border_control": {
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "九溪十八峒",
+              "散毛洞及既设州县区域"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "将再次活跃的溪峒武装压回元朝实际控制和州县体系。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0087"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "主要成本为四路山地动员与千里开道（M3/A2），人员损失低可见；换取区域性武装再度降附和控制恢复。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于本卷原文可确认的建国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0087"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0087"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0087"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0087"
+            ]
+          },
+          "carry_in": "承卷186 P0081讨平并改置州县；本卷复叛证明前段安全收益未永久闭合。",
+          "carry_out": "卷188以后需核是否再次复叛，当前SB止于3。"
+        },
+        {
+          "evaluation_subject_phase": "九溪十八峒武装 × 伏险抵抗后再次降附阶段",
+          "subject_role": "DEFENDER_LOCAL",
+          "actual_process": "各洞利用险隘、木弩竹矢伏击元军，主动迎敌者被尽杀；各酋长相继率众降附，散毛洞最后亦屈服。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S3",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "“亡命迎敌者，皆尽杀之”但人数失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "多个方向伏击与主动迎敌者被杀，推定百人级；不能由千里战线或“皆尽杀”直接推千人级。",
+            "upper_bound_reason": "无千人级斩首、被俘或人口数字。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "反复叛服、劫边的武装自治再度被压制，诸酋长全部降附。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN3",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "九溪十八峒",
+              "散毛洞"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "重新失去对溪峒活动空间的自主控制并回到元朝州县治理体系。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0087"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "人员遭杀、区域武装网络再次失去控制，无补偿收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于本卷原文可确认的建国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0087"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0087"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0087"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-187-2331933-P0087"
+            ]
+          },
+          "carry_in": "",
+          "carry_out": ""
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "linear_reread": {
+      "range": "P0001—P0177",
+      "paragraph_count": 177,
+      "body_end": "P0175",
+      "metadata_tail": [
+        "P0176",
+        "P0177"
+      ],
+      "editor_markers": [
+        "P0002",
+        "P0098"
+      ],
+      "status": "COMPLETED"
+    },
+    "card_coverage": {
+      "adjudicated_cards": 3,
+      "adjudicated_subject_phase_cards": 8,
+      "raw_battle_or_military_anchors_reviewed": 41,
+      "status": "COMPLETE"
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0003",
+        "disposition": "NOT_A_BATTLE",
+        "note": "发五卫及新附军浚漕渠，军役工程。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0009",
+        "disposition": "NOT_A_BATTLE",
+        "note": "芍陂军屯田增员，生产部署。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0011",
+        "disposition": "NOT_A_BATTLE",
+        "note": "赵和尚、刘驴儿谋不轨事觉处死，未形成武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0012",
+        "disposition": "NOT_A_BATTLE",
+        "note": "发诸卫军6800修寺，军役工程。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0013",
+        "disposition": "NOT_A_BATTLE",
+        "note": "宿卫士耕荒地，屯田。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0024",
+        "disposition": "NOT_A_BATTLE",
+        "note": "江淮江西军制改37翼，军政编制。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0026",
+        "disposition": "ADJUDICATED",
+        "note": "潮惠四十五寨平、军民大规模归附，后P0061补明首拒敌者与150余寨，已合并入卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0027",
+        "disposition": "NOT_A_BATTLE",
+        "note": "罢胶莱新河并调万人习水战、万人海运，军运部署。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0038",
+        "disposition": "ADJUDICATED",
+        "note": "安南前线请益兵，作为同一安南战役的态势锚点。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0039",
+        "disposition": "ADJUDICATED",
+        "note": "安南兵力复集、兴道王千余艘聚万劫，元军受夹，纳入安南父链。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0052",
+        "disposition": "ADJUDICATED",
+        "note": "脱欢击陈日烜并入城后撤、索多李恒战死，已入安南卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0053",
+        "disposition": "ADJUDICATED",
+        "note": "富良江大战、疫病撤军、交趾追击及乾满江索多死，安南卡核心锚点。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0054",
+        "disposition": "NOT_A_BATTLE",
+        "note": "造船200艘及征日本迎风船，第三次征日准备。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0061",
+        "disposition": "ADJUDICATED",
+        "note": "页特密实补述150余寨招降及少数首拒敌者，已入潮惠卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0062",
+        "disposition": "NOT_A_BATTLE",
+        "note": "拟再发5000军征交趾并议让久战军休息，战后补充部署。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0063",
+        "disposition": "NOT_A_BATTLE",
+        "note": "本年暂不征缅、拟先伐罗北甸等部，仅计划。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0071",
+        "disposition": "NOT_A_BATTLE",
+        "note": "宗王失律、巴延代总其军，边军人事。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0072",
+        "disposition": "NOT_A_BATTLE",
+        "note": "巴延边军储食与皮毛换衣，后勤。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0073",
+        "disposition": "NOT_A_BATTLE",
+        "note": "重立征东行省准备征日本，尚无接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0074",
+        "disposition": "NOT_A_BATTLE",
+        "note": "刘宣系统反对再征日本，回顾占城交趾长期军民成本，无本段战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0076",
+        "disposition": "NOT_A_BATTLE",
+        "note": "统计、括雇海船与募水工，征日准备。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0078",
+        "disposition": "NOT_A_BATTLE",
+        "note": "高丽发兵1万、船650及续造船，征日动员。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0079",
+        "disposition": "NOT_A_BATTLE",
+        "note": "盐军转屯田，军政民生处置。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0080",
+        "disposition": "NOT_A_BATTLE",
+        "note": "江淮米100万石等储高丽备征日，战争后勤。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0086",
+        "disposition": "NOT_A_BATTLE",
+        "note": "赦囚并招私盐军为水工征日，兵员征募。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0087",
+        "disposition": "ADJUDICATED",
+        "note": "九溪十八峒四路进讨、伏击与诸酋长降，已入卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0101",
+        "disposition": "NOT_A_BATTLE",
+        "note": "因日本孤远、重困民力正式罢征，止损政策。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0107",
+        "disposition": "NOT_A_BATTLE",
+        "note": "命议征安南事宜，计划。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0110",
+        "disposition": "NOT_A_BATTLE",
+        "note": "设置安南行省将帅并调军，部署。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0114",
+        "disposition": "NOT_A_BATTLE",
+        "note": "湖广造征交趾海船300艘，战备。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0115",
+        "disposition": "NOT_A_BATTLE",
+        "note": "将三省兵6万伐交趾，出征计划。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0117",
+        "disposition": "NOT_A_BATTLE",
+        "note": "封陈益稷并拟以兵纳之，政治—军事部署。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0139",
+        "disposition": "NOT_A_BATTLE",
+        "note": "董文用反对海东用兵造成急征，政策谏止。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0142",
+        "disposition": "NOT_A_BATTLE",
+        "note": "括诸路马，战争资源征发。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0145",
+        "disposition": "NOT_A_BATTLE",
+        "note": "湖南宣慰司详陈历年征日、占城的转输与死伤，反对再征交趾；属战争成本总评。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0146",
+        "disposition": "NOT_A_BATTLE",
+        "note": "湖广70余镇戍空虚、粮运压力，反对再征交趾；无新战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0147",
+        "disposition": "NOT_A_BATTLE",
+        "note": "刘宣估算安南粮运需40万夫及总用五六十万众，属拟议成本。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0148",
+        "disposition": "NOT_A_BATTLE",
+        "note": "正式罢征安南、士卒还营，本次计划未接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0159",
+        "disposition": "NOT_A_BATTLE",
+        "note": "高丽献日本俘，为旧战俘外交展示，无本卷新增战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0166",
+        "disposition": "NOT_A_BATTLE",
+        "note": "命张万等造战船、将兵6000征缅，部署，实际战果待后卷。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-187-2331933-P0167",
+        "disposition": "NOT_A_BATTLE",
+        "note": "高丽再献日本俘，旧战余波。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      "安南战役沿用 XZTJ-YUAN-ANNAM-WAR-1284-1285：卷186初胜、卷187富良江突破—入城—疫病撤退—索多李恒死亡必须合看；卷187后续P0062仍准备补军，至元二十三年P0110—P0117又有新一轮六万人计划，但P0148在接战前取消，不能新造战役成本。",
+      "九溪十八峒沿用 XZTJ-YUAN-JIUXI-SHIBADONG-1283-1285：卷186设州县后卷187仍需四路凿道千里再征，证明前卷未达SB4；卷188以后需核是否再次复叛。",
+      "第三次征日本在卷186—187虽有巨量造船、粮运、征兵和民船征雇，但至元二十三年P0101正式因‘重困民力’罢征，本轮未见对日接战，因此不产生战役裁决卡；后卷不得把本轮动员与卷185实战损失混并。",
+      "P0166再发6000兵、造战船征缅仅为部署；卷188以后须沿 XZTJ-YUAN-BURMA-WAR-1281-1286 核实际战斗、人员损失及江头—太公—十二部控制。",
+      "潮惠山寨本卷已从四十五寨扩大到百五十余寨归附，并明确主要为招降；后卷若再反叛，须按新阶段记录，不得把一万余户降民和3600军直接当战俘或物资回报。"
+    ],
+    "adjudication_revisions_after_reread": [
+      "安南P0053的‘军中疾作，死伤者众’与李恒、索多死亡足以支持元方P3估，但P0074‘死伤过半’是占城、交趾等数年多战总评，没有可分配到本战的独立兵力基数，故不上P4。",
+      "安南元军一度‘入其城而还’属于短暂占领，并在同阶段最终撤出；按BC净变化规则，元方不记BCP、安南方不记永久BCN，避免把一次入城写成稳定领土所得。",
+      "潮惠P0026的‘降民万余户、军三千六百余人’不能自动按被俘折P，P0061又明确百五十余寨大多是‘招降者’，因此双方人员轴均保持低档估计，核心收益/损失放在S3与BCP/BCN3。",
+      "九溪十八峒元军四路进讨、凿山开道千里主要抬M3/A2，不以距离和路程轴外加成本；本方人员仍仅P1估。",
+      "第三次征日本在P0073重设行省、P0076—P0080大规模征船征粮后，P0101因民力困敝取消；复读确认全卷没有新增登陆日本或海上接战，new_battle_candidates保持空。",
+      "1286年再征安南的P0110—P0117只到设帅、造300海船、发三省兵6万及册立陈益稷，P0148即撤销；所有拟议粮运和五六十万夫估算进入非战役财政民生总结，不写入未发生战役的M/A。"
+    ],
+    "yuanshi_targeted_supplement": {
+      "method": "HIGH_VALUE_GAP_SCAN",
+      "scope": "仅查可能改变P/S/M/A/WC、SB/SN、WR、BCP/BCN、建国启动账或跨卷终局的《元史》证据；无高价值增量即停止。",
+      "status": "SCANNED_NO_MATERIAL_CHANGE",
+      "checked_nodes": [
+        "第三次征日准备与罢征",
+        "安南再征准备"
+      ],
+      "material_changes": [],
+      "no_change_confirmations": [
+        "未接战的准备不伪造P/S。"
+      ],
+      "unresolved_after_scan": []
+    }
+  }
+}

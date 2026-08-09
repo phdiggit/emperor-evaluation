@@ -1,0 +1,243 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "续资治通鉴/卷079",
+  "source_identity": {
+    "source_unit_id": "SRC-XUZIZHITONGJIAN-079-2295970",
+    "revision_ref": "2295970",
+    "raw_sha256": "38be338b337bf8459ef1b790dc1f5753b5e152075adeda4fd08e17043ac114ff"
+  },
+  "cards": [
+    {
+      "battle_label": "元丰西师追叙：李宪兰州顿兵与王中正河东二十万军损",
+      "campaign_group": "XZTJ-SONG-XIA-YUANFENG-WESTERN-CAMPAIGN-1081-RETRO",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-079-2295970-P0095"
+      ],
+      "source_quotes": [
+        "李憲，貪功生事，漁斂生民膏血，興靈、夏之役，首違師期，乃頓兵蘭州，遺患今日",
+        "王中正將兵二十萬出河東，逗留違詔，精卒勁騎，死亡殆盡"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "宋李宪所部 × 兴灵夏役违期后兰州顿兵阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "本卷追叙李宪在兴、灵、夏用兵中首先违背师期，随后在兰州顿兵，并明确记其后果“遗患今日”。本段不提供具体接敌、伤亡或城地得失，只能裁决本段新增的动员与安全后效。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "本段确认已进入实际军役并在兰州顿兵，但没有本部伤亡数字，也没有明确写成无武装接触。",
+            "range": "1—99死亡当量（原文亦容许实际为零；为评分按最小非零区间处理）",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "属于已发动的边疆军事行动而非纯计划；本卷仅见违期、顿兵和后患，没有败溃、补兵、主将死伤或百人级损失后效。",
+            "upper_bound_reason": "本段无百人级本方死伤、被俘或未归证据，不能由“兴灵夏之役”名义或驻兵时长外推。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN2",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "兰州及兴灵夏方向"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "本段只记顿兵与后患，未交代本阶段城地实际归属变化。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-079-2295970-P0095"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "北宋既成政权的西北边疆行动，不属于开国、复国或新政权稳定基础阶段。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-079-2295970-P0095"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-079-2295970-P0095"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-079-2295970-P0095"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-079-2295970-P0095"
+            ]
+          },
+          "carry_in": "承元丰四年前后宋夏西师父链；本卷为政治追责中的回溯，不替代原始战事所在卷。",
+          "carry_out": "需与元丰西师原始卷逐阶段对齐，确认李宪该次兰州顿兵对应的具体兵力、接敌和城地结果；不得把其他路伤亡倒入本阶段。"
+        },
+        {
+          "evaluation_subject_phase": "宋王中正河东军 × 二十万出师逗留与精锐大量死亡阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "王中正率二十万军自河东出动，逗留并违诏；本卷直接追叙“精卒劲骑，死亡殆尽”。总军数明确，但死亡对象只是其中精锐步骑，不能把二十万人整体等同死亡。",
+          "cost_axes": {
+            "P": "P4估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A0",
+            "WC": "WC4"
+          },
+          "P_inference": {
+            "P_observed": "总出动兵力二十万；明确有“精卒劲骑，死亡殆尽”，但未给该精锐群体的编制或人数。",
+            "range": "10,000—99,999死亡当量",
+            "center": 31623,
+            "P_scoring": "P4估",
+            "basis": "二十万级单一战略方向实际出师，且一支被史书特指的精锐步骑群体近乎全灭，足以支持万人级中心；但不能把全军二十万作为死亡基数。",
+            "upper_bound_reason": "原文没有说“二十万皆死”或给出精锐群体达到十万人以上的独立基数，故上限止于P4。",
+            "confidence": "medium"
+          },
+          "strategic_security": "UNKNOWN",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "河东西出方向"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "本段没有交代战后城地归属，不能以重损或逗留反推控制变化。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-079-2295970-P0095"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "北宋既成政权的西北远征，不属于建国启动账。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-079-2295970-P0095"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-079-2295970-P0095"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-079-2295970-P0095"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-079-2295970-P0095"
+            ]
+          },
+          "carry_in": "承元丰西师父链；本卷只新增“二十万出河东”与“精卒劲骑死亡殆尽”的成本追叙。",
+          "carry_out": "后续与原始战事卷核实王中正一路具体战斗、撤退与控制结果；P4估应由更强原始人数证据替换，而非与旧估计叠加。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "吕惠卿延安边境擅领大众入戎境—不遇敌而退",
+      "campaign_group": "XZTJ-SONG-XIA-LVHUIQING-YANAN-BORDER-RETRO",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-079-2295970-P0108"
+      ],
+      "source_quotes": [
+        "西戎無變，妄奏警急，擅領大眾，涉入戎境，竟不見敵，遷延而歸",
+        "自是戎人怨叛，邊鄙騷擾，河、隴困竭，海內疲勞"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "宋吕惠卿所领边军 × 入戎境不遇敌撤回及其后效阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "吕惠卿在西戎本无变故时奏称警急，擅领大军越境；原文明载“竟不见敌”，随后迁延而归。追叙又把戎人怨叛、边鄙骚扰、河陇困竭与海内疲劳列为其后效。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S3",
+            "M": "M2",
+            "A": "A0",
+            "WC": "WC3"
+          },
+          "P_inference": null,
+          "strategic_security": "SN3",
+          "material_return": "WR0",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "延安—西戎边境方向"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "军队越境后未遇敌而归，本段没有形成可确认的持久占地或失地。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-079-2295970-P0108"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成北宋政权的边疆行动，不属于建国启动。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-079-2295970-P0108"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-079-2295970-P0108"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-079-2295970-P0108"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-079-2295970-P0108"
+            ]
+          },
+          "carry_in": "属吕惠卿此前延安边政的回溯材料；与本卷当年现实边境局势分开。",
+          "carry_out": "如前卷原始叙事能拆出具体征发、役期、转输或地方失控范围，应据原始锚点重估M/S；本卷只保留P0108能直接支持的后效。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-079-2295970-P0024",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "禁边民与夏人互市，属于边贸政策，没有当段武装行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-079-2295970-P0033",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "夏国遣使来贡，属于外交往来。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-079-2295970-P0095",
+        "disposition": "ADJUDICATED",
+        "reason": "追叙李宪兴灵夏役兰州顿兵及王中正二十万河东军大量死亡，包含新增实际军事成本事实。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-079-2295970-P0108",
+        "disposition": "ADJUDICATED",
+        "reason": "追叙吕惠卿实际领大众越境、不遇敌撤回及戎人怨叛、河陇困竭等后效；同段“永乐之败”仅为既有战役归责，不重复另卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-079-2295970-P0134",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "夏国索还兰州、米脂等砦及宋廷是否归地的讨论；“大则攻陷新城”为预测性风险，没有当段实际进攻。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      "P0095李宪、王中正两路均为元丰西师回溯；应在相应原始战事卷用更直接的兵数、伤亡、转输和城地结果替换本卷低/中置信度估计，不得重复累计。",
+      "P0108同段仅称“永乐之败”并追究吕惠卿荐徐禧之责，没有新增战场过程；永乐完整战役事实在卷077 P0075—P0086，卷079不重复造卡。卷077还记永乐陷后夏亦困敝并求和，须维持同一父链去重。",
+      "P0134关于兰州、米脂等城砦是否归还夏国尚未闭合；卷080 P0038出现以归还永乐陷没人民为条件的归地诏议，卷081 P0146出现实际归还米脂、葭芦、浮图、安疆四砦并划界，后卷按实际阶段另记控制变化。"
+    ]
+  }
+}

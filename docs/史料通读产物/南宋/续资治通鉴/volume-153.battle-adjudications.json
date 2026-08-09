@@ -1,0 +1,750 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "续资治通鉴/卷153",
+  "source_identity": {
+    "source_unit_id": "SRC-XUZIZHITONGJIAN-153-2315990",
+    "revision_ref": "2315990",
+    "raw_sha256": "0964b80522b72bcdd603ef4900a0599416828a8f4d25ca729eced31093d5b4d7"
+  },
+  "cards": [
+    {
+      "battle_label": "叙州蛮寇边—宋军讨平",
+      "campaign_group": "XZTJ-SONG-XUZHOU-MAN-1193",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-153-2315990-P0042"
+      ],
+      "source_quotes": [
+        "敘州蠻寇邊，遣兵討平之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋叙州方向官军 × 遣兵讨平阶段",
+          "subject_role": "DEFENDER_COUNTERATTACK",
+          "actual_process": "叙州蛮越边侵扰，宋方随后实际遣兵讨击，原文以“平之”确认本轮边患被压平；兵数、死伤、缴获和砦寨得失均失载。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "发生寇边与遣兵讨平，宋方死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际边境武装讨击不能用史料沉默判P0；但事件叙事极短、无本方败退、抚恤、补兵或百人级损害后效。",
+            "upper_bound_reason": "无百人级本方死伤、成建制覆没或大批伤俘证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "单一叙州边境方向遭一次实际侵扰，行政与生产未见持续中断，记S1。",
+            "M": "明确遣兵但无万人级或跨区动员证据，记M1。",
+            "A": "无可识别军资、粮秣或财政资产损失，记A0。"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "原文明确“讨平”，说明本轮局部来犯结构被压制；缺更长后效窗口，不抬为结构性终结。",
+          "material_return": "WR0",
+          "material_return_detail": "无缴获、税源或新增资源记载。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "叙州边境"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "只见寇边与讨平，没有稳定失地或新增控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0042"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以局地短期用兵结束一次边境侵扰，安全收益明确但范围有限；P1与S1并列基础最高档，按PS规则WC1→WC2。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期的边防、内乱或中央权力交接阶段，不属于本卷可确认的建国、复国、割据建立或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0042"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0042"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0042"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0042"
+            ]
+          },
+          "carry_in": "无可确认的前卷同一叙州部族实际战斗阶段。",
+          "carry_out": "卷154若同一部族或继承结构复发，再复核SB2持续性。"
+        },
+        {
+          "evaluation_subject_phase": "叙州来犯蛮部 × 寇边后被宋军讨平阶段",
+          "subject_role": "RAIDER_ATTACKER",
+          "actual_process": "部众进犯叙州边境，随后被宋军遣兵讨平；本卷不载其死伤、缴获或实际占地。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "来犯方败损人数失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "原文‘遣兵讨平’表明实际武装压制，来犯方人员成本不能机械记P0；但没有斩首、俘获或大批减员数字。",
+            "upper_bound_reason": "无百人级人员损害证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "未见其本部聚落或生产体系受破坏，记S0。",
+            "M": "一次地方边境进犯，记M1。",
+            "A": "无可识别资产损失，记A0。"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "本轮武装活动被宋军压平，继续在叙州方向公开行动的能力明显收缩。",
+          "material_return": "WR0",
+          "material_return_detail": "无可证掠获。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "叙州边境"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "没有形成稳定占地或节点控制。",
+            "continuity_status": "NO_CONTROL_GAIN",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0042"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "进犯没有形成可确认控制或资源所得，最终被讨平。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期的边防、内乱或中央权力交接阶段，不属于本卷可确认的建国、复国、割据建立或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0042"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0042"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0042"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0042"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "后卷核是否复发。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "辰州猺贼寇边（本卷结果失载）",
+      "campaign_group": "XZTJ-SONG-CHENZHOU-YAO-1194",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-153-2315990-P0105"
+      ],
+      "source_quotes": [
+        "辰州猺賊寇邊"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋辰州边境受治区域 × 遭猺贼寇边阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "本卷只确认辰州猺贼实际寇边，没有记录宋军回应、来犯规模、死伤、掠获、退走或降服。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "实际武装寇边成立，但受害人员数量失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "史料极简，不能把寇边阶段的人员损害直接判为零；同时没有死者甚众、掳掠人口、补兵或百人级后效。",
+            "upper_bound_reason": "缺百人级人员损害证据。",
+            "confidence": "very_low"
+          },
+          "cost_axis_basis": {
+            "S": "单一辰州边境方向发生实际武装侵扰，未见州县行政、生产持续中断，记S1。",
+            "M": "本卷未见宋方已发生调兵或转输，记M0。",
+            "A": "没有可识别资产损失，记A0。"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "至少形成一次边境实际受扰；因缺后效，不能判断是否扩大为持续方向退化。",
+          "material_return": "WR0",
+          "material_return_detail": "受侵方无资源收益。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "辰州边境"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "原文没有据砦、失城或持续占地，故不能从‘寇边’推导控制丧失。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0105"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "已确认边境武装侵扰和局部受扰，而本卷没有任何抵消性安全、资源或控制成果。P1与S1同为基础最高档，按PS规则WC1→WC2。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期的边防、内乱或中央权力交接阶段，不属于本卷可确认的建国、复国、割据建立或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0105"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0105"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0105"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0105"
+            ]
+          },
+          "carry_in": "卷152无同一辰州猺贼事件。",
+          "carry_out": "卷154优先核是否有讨击、退走、投降、伤亡或据点控制后续。"
+        },
+        {
+          "evaluation_subject_phase": "辰州猺贼 × 寇边阶段",
+          "subject_role": "RAIDER_ATTACKER",
+          "actual_process": "猺贼实际进入辰州边境活动；本卷没有记载其与宋军接战后的结果，也无掠获或占地信息。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "来犯方人员损害失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "已发生具体武装寇边，但材料极简、不能确认完全无人受损；同时没有被击败、斩俘或成建制损失信息。",
+            "upper_bound_reason": "无百人级人员损害证据。",
+            "confidence": "very_low"
+          },
+          "cost_axis_basis": {
+            "S": "未见本部生产或行政体系受损，记S0。",
+            "M": "一次地方性边境袭扰，规模不详，记M1。",
+            "A": "无可识别资产投入/损失，记A0。"
+          },
+          "strategic_security": "UNKNOWN",
+          "strategic_security_detail": "没有胜负、退走或后续活动信息，不能判定其安全状态实际改善或恶化。",
+          "material_return": "WR0",
+          "material_return_detail": "没有可确认掠获或资源所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "辰州边境"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "寇边不等于稳定占领；未见节点控制变化。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0105"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "phase_return_basis": "只有武装寇边本身，缺本阶段胜负、掠获、控制与后效，不能把一次进入边境自动判成回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期的边防、内乱或中央权力交接阶段，不属于本卷可确认的建国、复国、割据建立或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0105"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0105"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0105"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0105"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "卷154核实际结局。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "绍熙内禅定策：郭杲等夜分兵卫南北内、保障嘉王即位",
+      "campaign_group": "XZTJ-SONG-SHAOXI-SUCCESSION-MILITARY-1194",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-153-2315990-P0117",
+        "SRC-XUZIZHITONGJIAN-153-2315990-P0118",
+        "SRC-XUZIZHITONGJIAN-153-2315990-P0119",
+        "SRC-XUZIZHITONGJIAN-153-2315990-P0120",
+        "SRC-XUZIZHITONGJIAN-153-2315990-P0121",
+        "SRC-XUZIZHITONGJIAN-153-2315990-P0122"
+      ],
+      "source_quotes": [
+        "亟命殿帥郭杲等，夜以兵分衛南北內",
+        "皇子嘉王擴，可即皇帝位",
+        "命舜卿往南內請八寶……乃出寶與之",
+        "中外晏然"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋赵汝愚—郭杲定策集团与殿前卫兵 × 夜分兵卫南北内、保障权力交接阶段",
+          "subject_role": "MILITARY_SUCCESSION_SECURITY",
+          "actual_process": "在光宗长期不主丧、留正出走、人心摇动背景下，赵汝愚取得太皇太后授权，命殿帅郭杲等夜间实际分兵护卫南内、北内，并预制黄袍。次日太皇太后正式下诏嘉王即位，南内随后交出八宝。全程没有发生宫禁攻击或武装死伤。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": null,
+          "cost_axis_basis": {
+            "P": "原文详细叙述分兵、垂帘定策、即位和取八宝，没有武装交战、死伤、被俘或伤残，记P0。",
+            "S": "中央行政、宫城生产供应和社会秩序没有因军事部署发生破坏，原文反称交接后‘中外晏然’，记S0。",
+            "M": "殿帅等已在夜间实际分兵卫两宫，属一次小规模短期中央军事部署，记M1。",
+            "A": "无军械、府库、宫城设施或财政资产损失，记A0。"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "军事护卫与太皇太后定策共同把一个已经引发‘人心摇’、群臣担忧变乱的中央继承危机稳定收束，原文确认交接后‘中外晏然’；但军事部署只是政治解决的一部分，不把全部政权稳定成果独占为更高SB。",
+          "material_return": "WR0",
+          "material_return_detail": "八宝属于本朝皇权象征与内部移交，不是战争战利资源；不计WR。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "南内",
+              "北内及中央宫禁"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "分兵用途是护卫而非从敌对武装手中夺取宫禁；同一国家内部没有可确认领土或战略节点净控制转移。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0117",
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0118",
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0119",
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0120",
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0121",
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0122"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "实际M1军事部署在没有人员、生产或资产损害的情况下参与保障中央权力交接，并形成‘中外晏然’的短期安全结果；但成果主要依赖太皇太后政治授权，故不把军事一环单独判为更高回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "南宋既成王朝内部皇位交接，不属于建国、复国或新割据政权形成。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0117",
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0118",
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0119",
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0120",
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0121",
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0122"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0117",
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0118",
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0119",
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0120",
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0121",
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0122"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0117",
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0118",
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0119",
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0120",
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0121",
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0122"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0117",
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0118",
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0119",
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0120",
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0121",
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0122"
+            ]
+          },
+          "carry_in": "承P0109—P0119寿皇崩后光宗不主丧、群臣请建储、留正出走及太皇太后最终同意定策的中央继承危机。",
+          "carry_out": "宁宗即位后政治清洗和韩侂胄扩权属于后续政治秩序，不倒灌成本阶段；若后卷出现因本次内禅引发的实际武装反扑，再另立阶段。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "雅州蛮寇边—土丁拒退—来犯部众出降",
+      "campaign_group": "XZTJ-SONG-YAZHOU-MAN-1194",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-153-2315990-P0162"
+      ],
+      "source_quotes": [
+        "雅州蠻寇邊，土丁拒退之。尋出降"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋雅州土丁 × 拒退来犯蛮部并接受出降阶段",
+          "subject_role": "LOCAL_DEFENDER",
+          "actual_process": "雅州蛮越边进犯，当地土丁直接拒战并使其退却，随后来犯部众出降；兵数、死伤、掠获与据点变化均失载。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "土丁实际拒战，宋方死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "存在实际边境武装拒击，不能机械P0；但本方成功拒退，且无死亡、补兵、抚恤或大批伤俘后效。",
+            "upper_bound_reason": "无百人级损害证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "雅州单一边境方向受扰但很快被拒退，行政与生产连续，记S1。",
+            "M": "由本地土丁短期拒战，无跨区大军或长期转输，记M1。",
+            "A": "无可识别资产投入或损失，记A0。"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "来犯被当场拒退，随后出降，雅州局部方向形成阶段性安全改善；长期持续性仍需后卷。",
+          "material_return": "WR0",
+          "material_return_detail": "人员出降不是战利资产，且无军资缴获。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "雅州边境"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "守住原边境，没有稳定失地或新增控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0162"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以本地短期动员成功拒退一次进犯并促成出降，成果明确但局部；P1与S1同为基础最高档，按PS规则WC1→WC2。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期的边防、内乱或中央权力交接阶段，不属于本卷可确认的建国、复国、割据建立或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0162"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0162"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0162"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0162"
+            ]
+          },
+          "carry_in": "无可确认前卷同一雅州部族阶段。",
+          "carry_out": "卷154核同一部族或继承结构是否复犯，以验证SB2持续性。"
+        },
+        {
+          "evaluation_subject_phase": "雅州来犯蛮部 × 寇边被拒退并出降阶段",
+          "subject_role": "RAIDER_ATTACKER",
+          "actual_process": "部众进犯雅州，遭当地土丁拒退，随后出降；没有可确认掠获或占地。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "来犯方人员损害失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际接战后被拒退，不能以史料沉默判完全无损；但无斩获、俘虏或大批死亡数字。",
+            "upper_bound_reason": "无百人级人员损害证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "未见其本部生产、聚落或行政体系受损，记S0。",
+            "M": "一次地方边境进犯，记M1。",
+            "A": "无可识别资产损失，记A0。"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "本次进犯被拒退并转为出降，公开继续进攻的空间明显收缩。",
+          "material_return": "WR0",
+          "material_return_detail": "无可确认战利。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "雅州边境"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "没有形成稳定占地。",
+            "continuity_status": "NO_CONTROL_GAIN",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0162"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "进犯未形成控制或资源成果，且遭拒退后出降。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期的边防、内乱或中央权力交接阶段，不属于本卷可确认的建国、复国、割据建立或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0162"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0162"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0162"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-153-2315990-P0162"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "后卷核是否守约不再犯。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "linear_reread": {
+      "range": "SRC-XUZIZHITONGJIAN-153-2315990-P0001—P0203",
+      "paragraph_count": 203,
+      "body_end": "P0201",
+      "edit_markers": [
+        "P0002",
+        "P0079"
+      ],
+      "metadata_tail": [
+        "P0202",
+        "P0203"
+      ],
+      "status": "COMPLETED"
+    },
+    "card_coverage": {
+      "adjudicated_cards": 4,
+      "adjudicated_subject_phase_cards": 7,
+      "coverage_note": "逐段复读确认三条边地武装事件和一条已实际调兵的中央军事权力交接阶段。郑王永蹈、高陀干谋反案均在起兵/调军前败露，严格按准入边界排除。"
+    },
+    "quality_checks": {
+      "ps_uplift_checked": true,
+      "ps_uplift_note": "叙州宋方、辰州宋方、雅州宋方均为P1估/S1同档，WC1→WC2；其他阶段无P/S同顶。",
+      "asset_axis_checked": "没有从‘遣兵’‘土丁拒退’‘夜以兵分卫’自动推A；全部缺具体资产证据的阶段保持A0。",
+      "coup_admission_checked": "绍熙内禅不是因皇位重要性入账，而是P0120已实际调殿前兵分卫南北内，符合合同对军事政变/宫廷权力转移的准入线；同时未虚构战斗或P损失。",
+      "conspiracy_exclusion_checked": "郑王永蹈虽谋取河南军，但布萨揆拒绝且尚未实际调军即被告发；高陀干案亦无武装发动，均不入战争账。",
+      "control_checked": "三条‘寇边’均无据城/占地证据，BC保持0；内禅分兵属护卫，不把同一王朝宫禁内部交接虚构成BCP。"
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0004",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "讨论签军戍边及宋夏旧事，属军事政策与历史议论，无本卷接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0014",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "养马、签军、挑壕及边部不稳用于谏止巡幸，属民役与风险判断，没有本段实际战争。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0023",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "修巢县城，属防御工程。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0026",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "女真进士骑射考试，属选拔制度。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0032",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "吴挺生平及军纪追述，无本卷新战役。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0040",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "赵汝愚拟亲出经略西事而被劝止，计划未实施。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0042",
+        "disposition": "ADJUDICATED",
+        "card": "叙州蛮寇边—宋军讨平"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0054",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "西夏仁宗卒、纯祐即位，无武装继承冲突。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0061",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "黄裳所谓‘小人将起为乱’‘江外官军岂无它志’为风险警告，未发生实际军变。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0069",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "郑王永蹈谋反案开始，但尚无起兵、据点争夺或实际调军。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0070",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "永蹈企图谋取河南军，布萨揆拒绝，使者不敢复言，计划在调军前即败露。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0071",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "永蹈等审讯、自尽、处刑与王府管制，是未遂谋反后的司法政治处置；处刑人数不能伪装为战争P。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0090",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "张诏改任兴州诸军都统制，属边防人事调动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0091",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金相视北边营屯、经画长久之计，属边防规划。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0097",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "罗点称三军百姓皆无贰志为政治安全判断，没有实际军变。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0105",
+        "disposition": "ADJUDICATED",
+        "card": "辰州猺贼寇边（本卷结果失载）"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0109",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "孝宗崩后以宫钱百万缗赐军，属丧礼与军队赏赐，无敌对行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0113",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "先议建储、监国，尚未发生军事部署。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0117",
+        "disposition": "ADJUDICATED",
+        "card": "绍熙内禅定策—军事保障链的政治授权起点"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0118",
+        "disposition": "ADJUDICATED",
+        "card": "绍熙内禅定策—中央继承危机背景"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0119",
+        "disposition": "ADJUDICATED",
+        "card": "绍熙内禅定策—太皇太后授权"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0120",
+        "disposition": "ADJUDICATED",
+        "card": "绍熙内禅定策—郭杲等夜分兵卫南北内"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0121",
+        "disposition": "ADJUDICATED",
+        "card": "绍熙内禅定策—垂帘确认"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0122",
+        "disposition": "ADJUDICATED",
+        "card": "绍熙内禅定策—嘉王即位、南内交八宝、中外晏然"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0130",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "郭杲因定策受赏，属于战后/事后奖叙，不重复计军事成果。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0151",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金赏赐山后巡幸亲军，属巡幸赏赐。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0155",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "拟任京镗帅蜀的人事争议，无武装阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0162",
+        "disposition": "ADJUDICATED",
+        "card": "雅州蛮寇边—土丁拒退—来犯部众出降"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0166",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "高陀干、永中逆谋在起兵前败露并伏诛，无实际调军、攻击或据点争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-153-2315990-P0200",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金裁减营造军与都城所人数，属工程役制裁减。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      "卷152泸州兵变在卷153无同一骑射营复乱；不因一个卷期沉默把其SB3自动抬为SB4。",
+      "卷152金夏镇戎线在卷153无直接续战，P0004签军戍边属一般政策议论，不能并入该campaign_group。",
+      "卷152福建P0082‘盗发所部’在卷153未补出实际袭击/讨捕阶段，继续保留候选但不成卡。",
+      "叙州蛮本卷已讨平；卷154如同一部族复发，复核SB2持续性。",
+      "辰州猺贼P0105只有寇边事实、无终局，是卷154最高优先级跨卷待核事项。",
+      "雅州蛮被土丁拒退后出降；卷154核是否同一集团复犯，以判断SB2能否保持。",
+      "绍熙内禅的实际军事阶段仅为分兵护卫并保障交接；宁宗初年的韩侂胄政治清洗不得倒灌为该阶段战争收益或成本。"
+    ]
+  }
+}

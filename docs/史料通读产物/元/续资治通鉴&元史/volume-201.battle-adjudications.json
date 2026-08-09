@@ -1,0 +1,2378 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "续资治通鉴/卷201",
+  "source_identity": {
+    "source_unit_id": "SRC-XUZIZHITONGJIAN-201-2334525",
+    "revision_ref": "2334525",
+    "raw_sha256": "2d0a0c58b565ddec92218ebaf63bcf4e9a683ce852bdf7ffd91b68d4ad7806f7"
+  },
+  "cards": [
+    {
+      "battle_label": "诸王锡济伯数寇边—北口卢沟桥设防—遣使来降",
+      "campaign_group": "XZTJ-YUAN-XIJIBO-BORDER-RAIDS-1321-1323",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-201-2334525-P0085",
+        "SRC-XUZIZHITONGJIAN-201-2334525-P0234"
+      ],
+      "source_quotes": [
+        "諸王錫濟伯使者數入朝，發兵守北口及盧溝橋",
+        "諸王錫濟伯數寇邊，至是遣使來降",
+        "吾民不罹邊患，軍士免於勞役"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "元北口—卢沟桥边防军民 × 应对锡济伯反复寇边并促成来降阶段",
+          "subject_role": "BORDER_DEFENDER",
+          "actual_process": "锡济伯一方反复寇边，元廷在北口、卢沟桥等节点实际发兵守备。至至治三年六月，锡济伯遣使来降，英宗明确把结果理解为百姓免受边患、军士免于劳役。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "“数寇边”确认多次实际武装袭扰，但元方军民死亡、伤俘、被掳人数均失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "重复边患与实际守备说明不能判P0；无百人级杀掠、失城、遗属或补兵数字。",
+            "upper_bound_reason": "无百人级人员损害证据。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "一个反复寇边的地方威胁在本卷转为来降，直接减少边民受扰和北口—卢沟桥守军劳役；规模不足以证明国家级主要威胁结构终结。",
+          "material_return": "WR0",
+          "material_return_detail": "英宗明确称不求其土地人民，本卷也无缴获、税源或军资所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "北口",
+              "卢沟桥及相关边境"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "反复寇边期间守住既有防区；来降没有伴随领土取得。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0085",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0234"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "付出持续局部守备成本后结束一项反复边患，取得明确但局部的安全与减役收益，无土地和资源回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0085",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0234"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0085",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0234"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0085",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0234"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0085",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0234"
+            ]
+          },
+          "carry_in": "本卷P0085先见针对锡济伯的守备；P0234追述其此前“数寇边”，可把两段确定性连为同一父链。",
+          "carry_out": "本卷已来降；卷202只核是否同一集团复叛，不把名义来降自动抬为BCP或WR。"
+        },
+        {
+          "evaluation_subject_phase": "锡济伯集团 × 反复寇边后遣使来降阶段",
+          "subject_role": "BORDER_ATTACKER",
+          "actual_process": "锡济伯集团此前多次寇边，迫使元军守北口、卢沟桥；至本卷六月主动遣使来降。未见本方伤亡、领地损失或缴获。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "多次武装寇边成立，自身死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "重复武装行动不能确认零损害，但无百人级战败、斩俘或主力瓦解数字。",
+            "upper_bound_reason": "无百人级损失证据。",
+            "confidence": "very_low"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "反复寇边阶段以主动来降收束，其独立持续袭扰能力至少在本卷终点受到约束。",
+          "material_return": "WR0",
+          "material_return_detail": "没有可确认战争所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "元北口—卢沟桥方向"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "反复袭扰未形成稳定控制。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0085",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0234"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "多轮袭扰未取得稳定控制或资源成果，最终转入来降。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0085",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0234"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0085",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0234"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0085",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0234"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0085",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0234"
+            ]
+          },
+          "carry_in": "无可确认前卷同名父链。",
+          "carry_out": "后卷核来降是否保持。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "辰州沅陵县洞蛮为寇—遣民捕讨",
+      "campaign_group": "XZTJ-YUAN-YUANLING-DONGMAN-1322",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-201-2334525-P0137"
+      ],
+      "source_quotes": [
+        "辰州沅陵縣洞蠻為寇",
+        "遣民捕之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "元辰州沅陵军民 × 洞蛮为寇—遣民捕讨阶段",
+          "subject_role": "COUNTERREBELLION_DEFENDER",
+          "actual_process": "辰州沅陵县已出现实际武装为寇/作乱，元方启动捕讨；本卷没有写出最终战果、伤亡或稳定控制结果。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "实际武装扰动及捕讨均已发生，本方军民具体损害失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "史文简略不能确认零损害；又无百人级死亡、伤俘、被掳或补兵材料。",
+            "upper_bound_reason": "无百人级人数、比例、死事官员或成建制战损证据。",
+            "confidence": "very_low"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "辰州沅陵县地方安全已发生实际退化，捕讨是否成功本卷未知。",
+          "material_return": "WR0",
+          "material_return_detail": "无可确认战争所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "辰州沅陵县"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未见具体城寨、通道或行政节点实际转手。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0137"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "截至本卷只有武装扰动与捕讨成本，成果未闭合。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0137"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0137"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0137"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0137"
+            ]
+          },
+          "carry_in": "无可确认同名父链。",
+          "carry_out": "后卷核捕讨结果、人员损害与控制后效。",
+          "wc_uplift_note": "P1估与S1同为基础最高档1，按合同触发PS抬档：base_WC1 → WC2。"
+        },
+        {
+          "evaluation_subject_phase": "沅陵洞蛮武装 × 为寇并遭捕讨阶段",
+          "subject_role": "REBELLION_ATTACKER",
+          "actual_process": "辰州沅陵县武装已经实际为寇/作乱，并引发元方捕讨；自身伤亡和最终存续未见。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "实际敌对活动和官军捕讨成立，自身人员损害失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "材料过简不能确认零损害；又无大败、斩俘或百人级人员损失。",
+            "upper_bound_reason": "无百人级本方损失证据。",
+            "confidence": "very_low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "至少形成一次主动武装扰动能力；能否保持未知。",
+          "material_return": "WR0",
+          "material_return_detail": "无可识别、可持续缴获或税源。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "辰州沅陵县"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "“为寇/作乱”不自动等于取得稳定控制。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0137"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "phase_return_basis": "只见起事和捕讨开始，最终成本与成果未知。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0137"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0137"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0137"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0137"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "后卷核是否被捕平或继续活动。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "道州宁远符翼轸作乱—有司讨擒",
+      "campaign_group": "XZTJ-YUAN-FUYIZHEN-REBELLION-1322",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-201-2334525-P0146"
+      ],
+      "source_quotes": [
+        "道州寧遠縣民符翼軫作亂",
+        "有司討擒之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "元道州有司军民 × 讨擒符翼轸阶段",
+          "subject_role": "COUNTERREBELLION_DEFENDER",
+          "actual_process": "宁远县民符翼轸作乱，有司实际出讨并将其擒获；本段没有具体伤亡或缴获。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "实际讨捕发生，本方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "武装作乱与讨擒均成立，不能P0；未见百人级人员后果。",
+            "upper_bound_reason": "无百人级死伤、伤俘、被掳记录。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "首领被擒，本轮县级武装事件立即终止。",
+          "material_return": "WR0",
+          "material_return_detail": "无战争资产所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "宁远县"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "未见县城实际失守，讨擒后秩序恢复。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0146"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以低可见成本迅速擒获首领、终止县级武装事件。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0146"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0146"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0146"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0146"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "本轮已收束；后卷仅在同集团复起时另开阶段。",
+          "wc_uplift_note": "P1估与S1同为基础最高档1，按合同触发PS抬档：base_WC1 → WC2。"
+        },
+        {
+          "evaluation_subject_phase": "符翼轸集团 × 作乱后被讨擒阶段",
+          "subject_role": "REBELLION_ATTACKER",
+          "actual_process": "符翼轸发动县级作乱后被有司讨擒，组织未形成可见据点或持续控制。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "首领被擒且实际讨捕发生，自身战斗损害失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "讨擒保证敌对行动已发生，但被擒只按人员状态折算且人数极少，不支持P2。",
+            "upper_bound_reason": "无百人级伤亡或俘虏。",
+            "confidence": "medium"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "首领被捕，组织的本轮作乱能力被解除。",
+          "material_return": "WR0",
+          "material_return_detail": "无可确认所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "宁远县"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未见稳定控制。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0146"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "作乱未取得稳定成果即被讨擒。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0146"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0146"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0146"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0146"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "本轮闭合。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "来安岑世兴叛乱续阶段—元军讨捕后再招谕",
+      "campaign_group": "XZTJ-YUAN-CENSHIXING-LAIAN-1319-1323",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-201-2334525-P0183",
+        "SRC-XUZIZHITONGJIAN-201-2334525-P0238"
+      ],
+      "source_quotes": [
+        "兩江來安路總管岑世興……以其地作亂",
+        "並遣兵討捕之",
+        "招諭左右兩江黃勝許、岑世興"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "元两江来安方向军民 × 遣兵讨岑世兴而至七月仍须招谕阶段",
+          "subject_role": "COUNTERREBELLION_ATTACKER",
+          "actual_process": "承卷200岑世兴叛据唐兴州。本卷再次明确其“以其地作乱”，朝廷遣兵讨捕；到七月仍与黄胜许一道被招谕，说明本轮军事行动尚未形成可确认收复或降服。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "已经由单纯招谕升级为实际遣兵讨捕，双方死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "持续数月的讨捕不能判P0；但没有大败、斩获、死事官员或百人级伤亡。",
+            "upper_bound_reason": "无百人级人员损害证据。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "前卷州级叛乱结构本卷仍在，遣兵后仍需再次招谕，来安方向威胁尚未解除。",
+          "material_return": "WR0",
+          "material_return_detail": "未见收复节点或缴获。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "来安路及前卷唐兴州方向"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "本卷没有确认前卷失去的唐兴州已经收复，也没有新的净控制变化。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0183",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0238"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "phase_return_basis": "实际投入讨捕但到七月仍须招谕，安全与控制成果有限且未闭合。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0183",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0238"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0183",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0238"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0183",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0238"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0183",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0238"
+            ]
+          },
+          "carry_in": "承卷200 P0028：岑世兴叛并实际据唐兴州，朝廷只以玺书招谕。",
+          "carry_out": "卷202以后必须核岑世兴是否最终降服、唐兴州何时恢复及是否与黄胜许并线。"
+        },
+        {
+          "evaluation_subject_phase": "岑世兴集团 × 继续据地作乱并顶住一轮讨捕阶段",
+          "subject_role": "REBELLION_DEFENDER",
+          "actual_process": "岑世兴在前卷据州后，本卷仍以其地作乱；元军已遣兵讨捕，但至七月朝廷仍改用招谕，未见岑世兴降服。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "遭元军实际讨捕，自身伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "持续武装对抗成立，未见大败、首领被擒或百人级损失。",
+            "upper_bound_reason": "无百人级本方损失。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "至少在本卷讨捕后仍保持组织存续，迫使朝廷再次招谕；不等于长期安全优势。",
+          "material_return": "WR0",
+          "material_return_detail": "前卷唐兴州的取得已在前卷记录，本卷不得重复计算。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "来安路及唐兴州既有叛区"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "本卷未确认既有据点失去，但也无新增控制。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0183",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0238"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "付出持续对抗成本后仍维持本卷阶段存续，但没有新增资源或控制。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0183",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0238"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0183",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0238"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0183",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0238"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0183",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0238"
+            ]
+          },
+          "carry_in": "承卷200取得唐兴州的既有阶段。",
+          "carry_out": "后卷核降服与据点控制。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "葛蛮龙仁贵、柔远州把者两线作乱为寇—元军讨捕",
+      "campaign_group": "XZTJ-YUAN-LIANGJIANG-LONGRENGUI-BAZHE-1322",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-201-2334525-P0183"
+      ],
+      "source_quotes": [
+        "葛蠻安撫司副使龍仁貴……以其地作亂",
+        "柔遠州洞蠻把者為寇",
+        "並遣兵討捕之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "元两江地方军民 × 龙仁贵—把者两线作乱并遣兵讨捕阶段",
+          "subject_role": "COUNTERREBELLION_DEFENDER",
+          "actual_process": "葛蛮安抚司副使龙仁贵以其地作乱，柔远州洞蛮把者同时为寇，朝廷并遣兵讨捕；本卷未见两线结果。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "两个地方方向同时发生武装事件并遣兵讨捕，本方损害失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "多线行动不能判P0，但无百人级伤亡或失城数字。",
+            "upper_bound_reason": "无百人级人员后果。",
+            "confidence": "very_low"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "两江方向出现并行武装扰动，地方安全恶化；是否扩散、平定未知。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "葛蛮安抚司辖地",
+              "柔远州"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "“以其地作乱/为寇”未说明具体城寨或行政节点归属变化。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0183"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "多线扰动和军事动员已发生，尚无成果。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0183"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0183"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0183"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0183"
+            ]
+          },
+          "carry_in": "无可确认同名父链。",
+          "carry_out": "后卷分别核龙仁贵与把者是否被平定。"
+        },
+        {
+          "evaluation_subject_phase": "龙仁贵集团 × 以其地作乱并遭讨捕阶段",
+          "subject_role": "REBELLION_ATTACKER",
+          "actual_process": "龙仁贵以葛蛮安抚司副使身份在其地作乱，朝廷遣兵讨捕；伤亡和结果未知。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "实际作乱并遭讨捕，自身损害失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "敌对阶段成立，仅取低档估计。",
+            "upper_bound_reason": "无百人级损失证据。",
+            "confidence": "very_low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "形成局部武装行动空间，持续性未知。",
+          "material_return": "WR0",
+          "material_return_detail": "“以其地作乱”不等于新取得资源。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "葛蛮安抚司辖地"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "未见新取得或丧失具体节点。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0183"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "phase_return_basis": "结果未知。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0183"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0183"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0183"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0183"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "后卷核结果。"
+        },
+        {
+          "evaluation_subject_phase": "柔远州把者洞蛮武装 × 为寇并遭讨捕阶段",
+          "subject_role": "REBELLION_ATTACKER",
+          "actual_process": "把者在柔远州方向为寇，朝廷遣兵讨捕；伤亡、所得和结果未知。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "实际为寇并遭捕讨，自身损害失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "敌对行动成立，仅取低档估计。",
+            "upper_bound_reason": "无百人级损失证据。",
+            "confidence": "very_low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "形成一次主动扰动，持续性未知。",
+          "material_return": "WR0",
+          "material_return_detail": "无可识别所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "柔远州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "为寇不等于稳定占州。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0183"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "phase_return_basis": "结果未知。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0183"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0183"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0183"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0183"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "后卷核结果。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "思明州盗起—湖广行省督兵捕讨",
+      "campaign_group": "XZTJ-YUAN-SIMINGZHOU-BANDITS-1323",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-201-2334525-P0188"
+      ],
+      "source_quotes": [
+        "思明州盜起",
+        "湖廣行省督兵捕之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "元湖广行省及思明州军民 × 盗起—督兵捕讨阶段",
+          "subject_role": "COUNTERREBELLION_DEFENDER",
+          "actual_process": "思明州已出现实际武装为寇/作乱，元方启动捕讨；本卷没有写出最终战果、伤亡或稳定控制结果。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "实际武装扰动及捕讨均已发生，本方军民具体损害失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "史文简略不能确认零损害；又无百人级死亡、伤俘、被掳或补兵材料。",
+            "upper_bound_reason": "无百人级人数、比例、死事官员或成建制战损证据。",
+            "confidence": "very_low"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "思明州地方安全已发生实际退化，捕讨是否成功本卷未知。",
+          "material_return": "WR0",
+          "material_return_detail": "无可确认战争所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "思明州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未见具体城寨、通道或行政节点实际转手。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0188"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "截至本卷只有武装扰动与捕讨成本，成果未闭合。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0188"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0188"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0188"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0188"
+            ]
+          },
+          "carry_in": "无可确认同名父链。",
+          "carry_out": "后卷核捕讨结果、人员损害与控制后效。",
+          "wc_uplift_note": "P1估与S1同为基础最高档1，按合同触发PS抬档：base_WC1 → WC2。"
+        },
+        {
+          "evaluation_subject_phase": "思明州盗众 × 起事并遭督兵捕讨阶段",
+          "subject_role": "REBELLION_ATTACKER",
+          "actual_process": "思明州武装已经实际为寇/作乱，并引发元方捕讨；自身伤亡和最终存续未见。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "实际敌对活动和官军捕讨成立，自身人员损害失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "材料过简不能确认零损害；又无大败、斩俘或百人级人员损失。",
+            "upper_bound_reason": "无百人级本方损失证据。",
+            "confidence": "very_low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "至少形成一次主动武装扰动能力；能否保持未知。",
+          "material_return": "WR0",
+          "material_return_detail": "无可识别、可持续缴获或税源。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "思明州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "“为寇/作乱”不自动等于取得稳定控制。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0188"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "phase_return_basis": "只见起事和捕讨开始，最终成本与成果未知。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0188"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0188"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0188"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0188"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "后卷核是否被捕平或继续活动。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "静江、邕、柳诸郡獠为寇—湖广行省督兵捕讨",
+      "campaign_group": "XZTJ-YUAN-JINGJIANG-YONG-LIU-LIAO-1323",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-201-2334525-P0196"
+      ],
+      "source_quotes": [
+        "靜江、邕、柳諸郡獠為寇",
+        "命湖廣行省督兵捕之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "元湖广行省军民 × 静江邕柳多郡獠寇—督兵捕讨阶段",
+          "subject_role": "COUNTERREBELLION_DEFENDER",
+          "actual_process": "静江、邕、柳诸郡已出现实际武装为寇/作乱，元方启动捕讨；本卷没有写出最终战果、伤亡或稳定控制结果。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "实际武装扰动及捕讨均已发生，本方军民具体损害失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "史文简略不能确认零损害；又无百人级死亡、伤俘、被掳或补兵材料。",
+            "upper_bound_reason": "无百人级人数、比例、死事官员或成建制战损证据。",
+            "confidence": "very_low"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "静江、邕、柳诸郡地方安全已发生实际退化，捕讨是否成功本卷未知。",
+          "material_return": "WR0",
+          "material_return_detail": "无可确认战争所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "静江、邕、柳诸郡"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未见具体城寨、通道或行政节点实际转手。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0196"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "截至本卷只有武装扰动与捕讨成本，成果未闭合。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0196"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0196"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0196"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0196"
+            ]
+          },
+          "carry_in": "无可确认同名父链。",
+          "carry_out": "后卷核捕讨结果、人员损害与控制后效。"
+        },
+        {
+          "evaluation_subject_phase": "静江邕柳獠武装 × 多郡为寇并遭捕讨阶段",
+          "subject_role": "REBELLION_ATTACKER",
+          "actual_process": "静江、邕、柳诸郡武装已经实际为寇/作乱，并引发元方捕讨；自身伤亡和最终存续未见。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "实际敌对活动和官军捕讨成立，自身人员损害失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "材料过简不能确认零损害；又无大败、斩俘或百人级人员损失。",
+            "upper_bound_reason": "无百人级本方损失证据。",
+            "confidence": "very_low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "至少形成一次主动武装扰动能力；能否保持未知。",
+          "material_return": "WR0",
+          "material_return_detail": "无可识别、可持续缴获或税源。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "静江、邕、柳诸郡"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "“为寇/作乱”不自动等于取得稳定控制。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0196"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "phase_return_basis": "只见起事和捕讨开始，最终成本与成果未知。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0196"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0196"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0196"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0196"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "后卷核是否被捕平或继续活动。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "泉州留应总作乱—江浙行省遣兵捕讨",
+      "campaign_group": "XZTJ-YUAN-QUANZHOU-LIUYINGZONG-1323",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-201-2334525-P0197"
+      ],
+      "source_quotes": [
+        "泉州民留應總作亂",
+        "命江浙行省遣兵捕之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "元江浙行省及泉州军民 × 留应总作乱—遣兵捕讨阶段",
+          "subject_role": "COUNTERREBELLION_DEFENDER",
+          "actual_process": "泉州已出现实际武装为寇/作乱，元方启动捕讨；本卷没有写出最终战果、伤亡或稳定控制结果。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "实际武装扰动及捕讨均已发生，本方军民具体损害失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "史文简略不能确认零损害；又无百人级死亡、伤俘、被掳或补兵材料。",
+            "upper_bound_reason": "无百人级人数、比例、死事官员或成建制战损证据。",
+            "confidence": "very_low"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "泉州地方安全已发生实际退化，捕讨是否成功本卷未知。",
+          "material_return": "WR0",
+          "material_return_detail": "无可确认战争所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "泉州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未见具体城寨、通道或行政节点实际转手。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0197"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "截至本卷只有武装扰动与捕讨成本，成果未闭合。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0197"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0197"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0197"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0197"
+            ]
+          },
+          "carry_in": "无可确认同名父链。",
+          "carry_out": "后卷核捕讨结果、人员损害与控制后效。",
+          "wc_uplift_note": "P1估与S1同为基础最高档1，按合同触发PS抬档：base_WC1 → WC2。"
+        },
+        {
+          "evaluation_subject_phase": "留应总集团 × 泉州作乱并遭捕讨阶段",
+          "subject_role": "REBELLION_ATTACKER",
+          "actual_process": "泉州武装已经实际为寇/作乱，并引发元方捕讨；自身伤亡和最终存续未见。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "实际敌对活动和官军捕讨成立，自身人员损害失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "材料过简不能确认零损害；又无大败、斩俘或百人级人员损失。",
+            "upper_bound_reason": "无百人级本方损失证据。",
+            "confidence": "very_low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "至少形成一次主动武装扰动能力；能否保持未知。",
+          "material_return": "WR0",
+          "material_return_detail": "无可识别、可持续缴获或税源。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "泉州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "“为寇/作乱”不自动等于取得稳定控制。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0197"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "phase_return_basis": "只见起事和捕讨开始，最终成本与成果未知。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0197"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0197"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0197"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0197"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "后卷核是否被捕平或继续活动。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "西番参卜郎诸族叛—发兵讨而六月仍未平",
+      "campaign_group": "XZTJ-YUAN-CANGBULANG-TIBETAN-REBELLION-1323",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-201-2334525-P0213",
+        "SRC-XUZIZHITONGJIAN-201-2334525-P0230"
+      ],
+      "source_quotes": [
+        "西番參卜郎諸族叛",
+        "發兵討之",
+        "西番參卜郎諸寇未平，遣徽政使醜嚕往督師"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "元镇西武靖王军 × 讨参卜郎诸族而未平阶段",
+          "subject_role": "COUNTERREBELLION_ATTACKER",
+          "actual_process": "参卜郎诸族叛乱后，朝廷命镇西武靖王绰斯监等发兵讨伐。到六月原文明确“诸寇未平”，又遣徽政使丑噜督师，说明军事行动已持续且尚未完成目标。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "持续数月实际发兵讨伐，但本方死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "有持续战争和追加督师，不能P0；无百人级损害、败退或死事将领数字。",
+            "upper_bound_reason": "无百人级人员后果。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "西番一处地方威胁到六月仍未平，元方尚未恢复稳定安全状态。",
+          "material_return": "WR0",
+          "material_return_detail": "无可确认缴获或资源。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "西番参卜郎诸族活动区"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "原文未给城寨、通道或行政节点得失。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0213",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0230"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "phase_return_basis": "已经持续动员并追加督师，目标仍未完成，只有有限过程成果。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0213",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0230"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0213",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0230"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0213",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0230"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0213",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0230"
+            ]
+          },
+          "carry_in": "本卷三月首次出现参卜郎诸族叛。",
+          "carry_out": "卷202必须核是否最终平定、伤亡及控制结果。"
+        },
+        {
+          "evaluation_subject_phase": "参卜郎诸族武装 × 持续抵抗至六月仍未平阶段",
+          "subject_role": "REBELLION_DEFENDER",
+          "actual_process": "参卜郎诸族叛后遭元军持续讨伐，到六月仍未被平定，迫使朝廷增派督师；自身伤亡和控制区未知。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "持续数月遭实际讨伐，自身死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "持续敌对行动成立，但无大败、斩俘或百人级伤亡数字。",
+            "upper_bound_reason": "无百人级损失证据。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "到六月仍保持组织存续和抵抗能力，形成一次阶段性生存收益；不等于长期安全优势。",
+          "material_return": "WR0",
+          "material_return_detail": "无可确认所得。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "参卜郎诸族活动区"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "无具体控制对象。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0213",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0230"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "付出持续动员成本后仍未被平定，但没有明确资源或控制扩张。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0213",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0230"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0213",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0230"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0213",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0230"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0213",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0230"
+            ]
+          },
+          "carry_in": "本卷起事。",
+          "carry_out": "后卷核是否继续抵抗或被平。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "寇围宁都—州民出粮饷军",
+      "campaign_group": "XZTJ-YUAN-NINGDU-SIEGE-1323",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-201-2334525-P0229"
+      ],
+      "source_quotes": [
+        "寇圍寧都",
+        "州民孫王臣出糧餉軍"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "元宁都守军与州民 × 遭围并民间供粮守御阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "不明身份的武装围攻宁都，州民孙王臣主动出粮供应守军。原文没有写到解围、陷城、双方伤亡或后续追击。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "发生实际围城，本方人员损害失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "围城已越过单纯威胁，不能P0；但无死伤、饥死、失城或百人级人员后果。",
+            "upper_bound_reason": "无百人级人员损失证据。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "宁都这一州县节点已遭围攻，地方安全明显恶化；结局未知。",
+          "material_return": "WR0",
+          "material_return_detail": "民间出粮属于己方防守投入，不是战争回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "宁都"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "截至该段只见被围，未见陷城；但后续是否守住未知。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0229"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "phase_return_basis": "守城仍在进行，成本已发生但最终安全与控制结果未知。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0229"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0229"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0229"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0229"
+            ]
+          },
+          "carry_in": "不与延祐二年蔡五九旧乱自动合并；相隔多年且原文未提供同一集团标识。",
+          "carry_out": "卷202核解围、陷城、敌军身份与人员损害。"
+        },
+        {
+          "evaluation_subject_phase": "宁都围城寇众 × 围攻阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "不明寇众实际围攻宁都；本卷未写是否攻入、伤亡和后续去向。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "实际围城发生，攻击方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "攻城不能确认零损害，但无大败、斩俘或百人级损失。",
+            "upper_bound_reason": "无百人级损失证据。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "至少形成围困一个州县节点的阶段性进攻压力，能否兑现未知。",
+          "material_return": "WR0",
+          "material_return_detail": "未见陷城或缴获。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "宁都"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "围城不等于取得控制。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0229"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "phase_return_basis": "围城结果未闭合。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0229"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0229"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0229"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0229"
+            ]
+          },
+          "carry_in": "无可确认实名父链。",
+          "carry_out": "后卷核攻城结局。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "南坡之变：特克实以阿速卫为外应—杀拜珠弑英宗并夺中枢节点",
+      "campaign_group": "XZTJ-YUAN-NANPO-COUP-1323",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-201-2334525-P0243",
+        "SRC-XUZIZHITONGJIAN-201-2334525-P0244",
+        "SRC-XUZIZHITONGJIAN-201-2334525-P0248",
+        "SRC-XUZIZHITONGJIAN-201-2334525-P0249",
+        "SRC-XUZIZHITONGJIAN-201-2334525-P0257",
+        "SRC-XUZIZHITONGJIAN-201-2334525-P0264"
+      ],
+      "source_quotes": [
+        "以特克實所領阿蘇衛兵為外應",
+        "殺右丞相拜珠，而特克實直犯禁幄，手弒帝於臥所",
+        "特克實遣使至大都，封府庫，收百司印",
+        "晉王即皇帝位於龍居河"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "英宗—拜珠守序中枢 × 南坡突袭、弑帝与核心节点被夺阶段",
+          "subject_role": "COUP_VICTIM_DEFENDER",
+          "actual_process": "特克实集团此前已有逆谋，但战争账户从实际发动起算：阿速卫兵为外应，政变者杀右丞相拜珠，特克实直入禁幄弑英宗；同时其使者在大都封府库、收百司印，中央核心节点短时被政变集团控制。",
+          "cost_axes": {
+            "P": "P1",
+            "S": "S2",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": null,
+          "strategic_security": "SN3",
+          "strategic_security_detail": "皇帝与首相同时被杀，宿卫体系被内部军队突破，府库和百司印信被政变方控制，构成中央政治—军事安全结构的重大失灵；国家行政并未全国性瘫痪，故不上SN4/5。",
+          "material_return": "WR0",
+          "material_return_detail": "守序方没有战争所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "南坡禁幄",
+              "大都府库",
+              "百司印信等中央军政节点"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "政变集团实际控制禁幄并接管府库、百司印信，守序中枢在本阶段失去关键节点。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0243",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0244",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0248",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0249",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0257",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0264"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "人员损害虽为个位数，但中央宿卫、最高决策者与核心印信节点同时失守，安全和控制结果严重负面。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0244"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0244",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0264"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0244"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0244",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0264"
+            ]
+          },
+          "carry_in": "P0242—P0243只是奸党因惧罪形成逆谋、并向晋王通报推戴计划；晋王本人囚使告变，未发动阶段不计战争成本。",
+          "carry_out": "晋王随后即位，政变核心短期获官，但十月被新帝以政治司法方式诛杀、籍家；后续没有武装抵抗，不能另造“讨逆战役”。"
+        },
+        {
+          "evaluation_subject_phase": "特克实—阿速卫政变集团 × 外应突袭、弑帝夺印并促成改立阶段",
+          "subject_role": "MILITARY_COUP_ATTACKER",
+          "actual_process": "特克实利用自己所领阿速卫作为外应，与额森特穆尔等突袭南坡，杀拜珠、弑英宗；其使者同时封大都府库、收百司印。数日后晋王在龙居河即位，特克实及同党进入新中枢职位。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": null,
+          "strategic_security": "SB1",
+          "strategic_security_detail": "政变集团在当夜成功解除英宗—拜珠对自身的直接威胁并实现改立，但相邻数周即被新帝清算，因此只保留一次短期安全收益，不抬高。",
+          "material_return": "WR0",
+          "material_return_detail": "府库、印信和官位属于同一政权内部控制转移，不作为战争资产回报。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "南坡禁幄",
+              "大都府库",
+              "百司印信"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "政变集团在实际阶段内取得中央核心军政节点并促成改立；随后被新帝清洗，连续性为反转。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0243",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0244",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0248",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0249",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0257",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0264"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以低可见本方战斗成本完成弑帝、夺取核心节点和改立这一阶段目标，但收益极短且很快反转，不能定高回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0244"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0244",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0257"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0244",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0264"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0244",
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0264"
+            ]
+          },
+          "carry_in": "P0243逆谋已定但尚未发动；从P0244阿速卫外应、实际杀人和攻入禁幄开始入战争账。",
+          "carry_out": "P0257以后政变核心被新帝处刑、籍没，属于无武装抵抗的政治清算；作为控制连续性的REVERSED证据使用，不把处刑人数计入P。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "八番、顺元、静江、大理、威楚诸路猺兵为寇—湖广云南二省招谕",
+      "campaign_group": "XZTJ-YUAN-SOUTHWEST-YAO-MULTIREGION-1323",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-201-2334525-P0261"
+      ],
+      "source_quotes": [
+        "八番、順元及靜江、大理、威楚諸路猺兵為寇",
+        "敕湖廣、雲南二省招諭之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "元湖广—云南多路军民 × 多区域猺兵为寇—二省招谕阶段",
+          "subject_role": "MULTIREGION_REBELLION_VICTIM",
+          "actual_process": "八番、顺元、静江、大理、威楚诸路同时出现猺兵为寇，朝廷本段只命湖广、云南二省招谕，未见出兵、降服或节点恢复。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "多个路级方向同时出现武装为寇，本方军民损害失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "武装袭扰跨多路，不能P0；但没有百人级死伤、失城、流亡或补兵数据。",
+            "upper_bound_reason": "无百人级人员后果证据。",
+            "confidence": "very_low"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "武装扰动同时跨越湖广、云南多个路级方向，安全压力已明显超过单一地方事件；但未见行政网络大范围瘫痪，故不抬SN4。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "八番",
+              "顺元",
+              "静江",
+              "大理",
+              "威楚"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "多路为寇不自动等于城地失控，原文未写实际归属变化。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0261"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "多路武装压力已经形成，而元方本段只有招谕、无可确认安全或控制成果。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0261"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0261"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0261"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0261"
+            ]
+          },
+          "carry_in": "不与卷200上思州猺联交趾或卷199广西猺蛮自动合并；原文没有同一首领或组织连续性。",
+          "carry_out": "卷202以后核各路是否降服、发兵或继续扩散。"
+        },
+        {
+          "evaluation_subject_phase": "八番—顺元—静江—大理—威楚猺兵 × 多路为寇阶段",
+          "subject_role": "MULTIREGION_REBELLION_ATTACKER",
+          "actual_process": "多个路级地区的猺兵同时为寇，朝廷选择由两省招谕；自身伤亡、所得和稳定控制未知。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "多区域实际武装行动成立，自身损害失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "跨多路活动说明已形成较广动员，但不能据规模直接推伤亡；缺乏百人级损失。",
+            "upper_bound_reason": "无百人级损失证据。",
+            "confidence": "very_low"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "跨多个路形成并行行动空间，至少达到多点阶段性威胁；长期维持未知。",
+          "material_return": "WR0",
+          "material_return_detail": "没有具体缴获、税源或城地所得。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "八番",
+              "顺元",
+              "静江",
+              "大理",
+              "威楚"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "无具体节点控制事实。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0261"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "phase_return_basis": "活动范围广，但成果与后续完全未闭合。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0261"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0261"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0261"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0261"
+            ]
+          },
+          "carry_in": "无确定父链。",
+          "carry_out": "后卷分路核结果。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "广州新会县颒长弟作乱—广东副元帅率兵捕讨",
+      "campaign_group": "XZTJ-YUAN-XINHUI-HUICHANGDI-1323",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-201-2334525-P0270"
+      ],
+      "source_quotes": [
+        "廣州路新會縣民颒長弟作亂",
+        "廣東副元帥烏訥爾率兵捕之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "元广东副元帅军与新会军民 × 作乱—率兵捕讨阶段",
+          "subject_role": "COUNTERREBELLION_DEFENDER",
+          "actual_process": "广州路新会县已出现实际武装为寇/作乱，元方启动捕讨；本卷没有写出最终战果、伤亡或稳定控制结果。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "实际武装扰动及捕讨均已发生，本方军民具体损害失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "史文简略不能确认零损害；又无百人级死亡、伤俘、被掳或补兵材料。",
+            "upper_bound_reason": "无百人级人数、比例、死事官员或成建制战损证据。",
+            "confidence": "very_low"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "广州路新会县地方安全已发生实际退化，捕讨是否成功本卷未知。",
+          "material_return": "WR0",
+          "material_return_detail": "无可确认战争所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "广州路新会县"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "未见具体城寨、通道或行政节点实际转手。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0270"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "截至本卷只有武装扰动与捕讨成本，成果未闭合。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0270"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0270"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0270"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0270"
+            ]
+          },
+          "carry_in": "无可确认同名父链。",
+          "carry_out": "后卷核捕讨结果、人员损害与控制后效。",
+          "wc_uplift_note": "P1估与S1同为基础最高档1，按合同触发PS抬档：base_WC1 → WC2。"
+        },
+        {
+          "evaluation_subject_phase": "颒长弟集团 × 新会作乱并遭副元帅捕讨阶段",
+          "subject_role": "REBELLION_ATTACKER",
+          "actual_process": "广州路新会县武装已经实际为寇/作乱，并引发元方捕讨；自身伤亡和最终存续未见。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "实际敌对活动和官军捕讨成立，自身人员损害失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "材料过简不能确认零损害；又无大败、斩俘或百人级人员损失。",
+            "upper_bound_reason": "无百人级本方损失证据。",
+            "confidence": "very_low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "至少形成一次主动武装扰动能力；能否保持未知。",
+          "material_return": "WR0",
+          "material_return_detail": "无可识别、可持续缴获或税源。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "广州路新会县"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "“为寇/作乱”不自动等于取得稳定控制。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0270"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "phase_return_basis": "只见起事和捕讨开始，最终成本与成果未知。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0270"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0270"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0270"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0270"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "后卷核是否被捕平或继续活动。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "云南花脚蛮为寇—诏招谕",
+      "campaign_group": "XZTJ-YUAN-YUNNAN-HUAJIAO-1323",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-201-2334525-P0287"
+      ],
+      "source_quotes": [
+        "雲南花腳蠻為寇",
+        "詔招諭之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "元云南地方军民 × 花脚蛮为寇—仅招谕阶段",
+          "subject_role": "REBELLION_VICTIM_DEFENDER",
+          "actual_process": "云南花脚蛮已经为寇，朝廷到本卷末只见招谕，没有军队捕讨或降服结果。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "实际武装为寇，本方人员损害失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "为寇已发生，史料不能证明零损害；无百人级人员后果。",
+            "upper_bound_reason": "无百人级人员损失。",
+            "confidence": "very_low"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "云南一处地方方向出现武装袭扰，尚未见扩展。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "云南花脚蛮活动区"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "无具体城地转手。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0287"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "本卷末只有实际为寇造成的安全成本，招谕成果尚无。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0287"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0287"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0287"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0287"
+            ]
+          },
+          "carry_in": "无可确认同名父链。",
+          "carry_out": "卷202核招谕是否奏效及是否转入军事捕讨。",
+          "wc_uplift_note": "P1估与S1同为基础最高档1，按合同触发PS抬档：base_WC1 → WC2。"
+        },
+        {
+          "evaluation_subject_phase": "云南花脚蛮武装 × 为寇并受招谕阶段",
+          "subject_role": "REBELLION_ATTACKER",
+          "actual_process": "花脚蛮武装已为寇，朝廷到本卷末尚只采取招谕；其存续和成果未知。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "实际武装为寇，自身损害失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "敌对活动成立，但无战败、斩获或百人级损失。",
+            "upper_bound_reason": "无百人级损失证据。",
+            "confidence": "very_low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "至少形成一次局部主动袭扰，后效未知。",
+          "material_return": "WR0",
+          "material_return_detail": "无可识别所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "云南花脚蛮活动区"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "无稳定控制变化。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0287"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "phase_return_basis": "招谕尚未给出结果。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、地方叛乱或军事政变，不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0287"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0287"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0287"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-201-2334525-P0287"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "后卷核结果。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "linear_reread_completed": true,
+    "reread_range": "SRC-XUZIZHITONGJIAN-201-2334525-P0001 至 SRC-XUZIZHITONGJIAN-201-2334525-P0287",
+    "card_coverage": {
+      "card_count": 14,
+      "subject_phase_card_count": 29,
+      "raw_battle_anchor_inventory_count": 57,
+      "adjudicated_anchor_count": 18,
+      "not_a_battle_anchor_count": 39,
+      "coverage_result": "逐段复读后，所有明确武装为寇、作乱后发兵捕讨、围城、反复边寇以及南坡实际军事政变均已生成裁决卡；谋逆未遂、军事训练、宿卫编制、军役工程和政变后无抵抗处刑均明确排除。"
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0001",
+        "disposition": "NOT_A_BATTLE",
+        "note": "英宗身世及太子参政背景。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0009",
+        "disposition": "NOT_A_BATTLE",
+        "note": "中都威卫改忠翊侍卫属于宿卫建制。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0011",
+        "disposition": "NOT_A_BATTLE",
+        "note": "调军三千五百修寺属于军役工程。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0019",
+        "disposition": "NOT_A_BATTLE",
+        "note": "发民兵疏河属于民役水利工程，无敌对行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0026",
+        "disposition": "NOT_A_BATTLE",
+        "note": "军士造寺属于工役。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0029",
+        "disposition": "NOT_A_BATTLE",
+        "note": "特克实领忠翊侍卫属于宿卫人事。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0048",
+        "disposition": "NOT_A_BATTLE",
+        "note": "刘志先仅见以妖术“谋乱”并被捕，未见起兵、武装袭击或军队争夺节点。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0051",
+        "disposition": "NOT_A_BATTLE",
+        "note": "修上都城属于城建。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0052",
+        "disposition": "NOT_A_BATTLE",
+        "note": "修大都城属于城建。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0054",
+        "disposition": "NOT_A_BATTLE",
+        "note": "整治贫乏军士与禁扰害属于军户治理。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0069",
+        "disposition": "NOT_A_BATTLE",
+        "note": "雅克特穆尔巡边属于巡防，无接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0072",
+        "disposition": "NOT_A_BATTLE",
+        "note": "寺役卒三千属于军役工程。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0073",
+        "disposition": "NOT_A_BATTLE",
+        "note": "特克实领左右阿速卫属于军事人事，作为后续政变carry-in。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0074",
+        "disposition": "NOT_A_BATTLE",
+        "note": "阿速军三千七百余、宿卫屯田为历史建制背景，不把编制人数自动计入政变实际动员。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0085",
+        "disposition": "ADJUDICATED",
+        "note": "因锡济伯边患实际发兵守北口、卢沟桥，并由P0234闭合其反复寇边与来降。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0091",
+        "disposition": "NOT_A_BATTLE",
+        "note": "军民政十余条属于军政制度。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0096",
+        "disposition": "NOT_A_BATTLE",
+        "note": "禁汉人持兵器出猎习武属于治安政策。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0104",
+        "disposition": "NOT_A_BATTLE",
+        "note": "置左右奇彻卫亲军属于宿卫建制。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0111",
+        "disposition": "NOT_A_BATTLE",
+        "note": "罢营缮役卒四万余为减役政策。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0126",
+        "disposition": "NOT_A_BATTLE",
+        "note": "奉符临邑王驴儿等仅见谋逆后处刑流放，无起兵、军队或节点争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0127",
+        "disposition": "NOT_A_BATTLE",
+        "note": "置营收养蒙古子女属于社会安置。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0128",
+        "disposition": "NOT_A_BATTLE",
+        "note": "宗仁蒙古侍卫建制属于军政组织。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0135",
+        "disposition": "NOT_A_BATTLE",
+        "note": "特们德尔子知枢密院事属于军政人事。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0137",
+        "disposition": "ADJUDICATED",
+        "note": "沅陵洞蛮为寇并遣民捕讨。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0146",
+        "disposition": "ADJUDICATED",
+        "note": "符翼轸作乱，有司实际讨擒。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0147",
+        "disposition": "NOT_A_BATTLE",
+        "note": "筑宗仁卫营属于军营建设。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0149",
+        "disposition": "NOT_A_BATTLE",
+        "note": "寿安山寺役卒七千属于军役工程。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0157",
+        "disposition": "NOT_A_BATTLE",
+        "note": "官员杖谪云南属于行政处分。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0183",
+        "disposition": "ADJUDICATED",
+        "note": "岑世兴、龙仁贵、把者等实际作乱为寇并遣兵讨捕。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0188",
+        "disposition": "ADJUDICATED",
+        "note": "思明州盗起并督兵捕讨。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0190",
+        "disposition": "NOT_A_BATTLE",
+        "note": "行省平章兼总军政属于军事行政。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0195",
+        "disposition": "NOT_A_BATTLE",
+        "note": "回回炮手赴汝宁新蔡教习炮法属于军事训练。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0196",
+        "disposition": "ADJUDICATED",
+        "note": "静江、邕、柳多郡獠为寇并督兵捕讨。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0197",
+        "disposition": "ADJUDICATED",
+        "note": "泉州留应总作乱并遣兵捕讨。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0200",
+        "disposition": "NOT_A_BATTLE",
+        "note": "役军六千二百营寺和丞相第属于工程工役。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0201",
+        "disposition": "NOT_A_BATTLE",
+        "note": "军官袭职制度属于军政人事。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0213",
+        "disposition": "ADJUDICATED",
+        "note": "参卜郎诸族叛并实际发兵讨伐。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0215",
+        "disposition": "NOT_A_BATTLE",
+        "note": "以圆明、王道明旧乱为禁僧道度牒理由，只是历史追述。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0228",
+        "disposition": "NOT_A_BATTLE",
+        "note": "戍边士卒累功赏钞属于军功待遇，本段无战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0229",
+        "disposition": "ADJUDICATED",
+        "note": "不明寇众实际围宁都，州民出粮饷军。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0230",
+        "disposition": "ADJUDICATED",
+        "note": "参卜郎诸寇未平、再遣督师，为同一父链持续阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0234",
+        "disposition": "ADJUDICATED",
+        "note": "锡济伯反复寇边后遣使来降，闭合P0085父链。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0238",
+        "disposition": "ADJUDICATED",
+        "note": "再次招谕岑世兴，证明前卷及本卷讨捕仍未闭合；黄胜许本段仅招谕，不单造新战役。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0242",
+        "disposition": "NOT_A_BATTLE",
+        "note": "奸党借佛事、大赦自保并萌逆图，仍属政变前政治诱因。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0243",
+        "disposition": "NOT_A_BATTLE",
+        "note": "特克实向晋王通报推立计划但尚未发动，晋王反而囚使告变；战争账户从P0244实际军事行动开始。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0244",
+        "disposition": "ADJUDICATED",
+        "note": "阿速卫外应，杀拜珠、犯禁幄弑帝，实际军事政变成立。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0248",
+        "disposition": "ADJUDICATED",
+        "note": "晋王即位是政变阶段直接政治结果，不另造战役，但作为阶段收束锚点。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0257",
+        "disposition": "NOT_A_BATTLE",
+        "note": "新帝命诛特克实等，原文无武装抵抗，为政变后政治司法清算；不把处刑人数倒灌P。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0260",
+        "disposition": "NOT_A_BATTLE",
+        "note": "新任中枢兼阿速卫达鲁噶齐属于政变后军政接管。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0261",
+        "disposition": "ADJUDICATED",
+        "note": "八番、顺元、静江、大理、威楚多路猺兵实际为寇。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0264",
+        "disposition": "ADJUDICATED",
+        "note": "追述特克实使者封府库、收百司印，补强南坡政变实际控制节点。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0270",
+        "disposition": "ADJUDICATED",
+        "note": "新会颒长弟作乱，广东副元帅实际率兵捕讨。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0279",
+        "disposition": "NOT_A_BATTLE",
+        "note": "继续处死特们德尔子及特克实党，为政变后司法清算。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0280",
+        "disposition": "NOT_A_BATTLE",
+        "note": "守边诸王作佛事以却寇兵，只能确认宗教应对，缺具体来寇与接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0282",
+        "disposition": "NOT_A_BATTLE",
+        "note": "流放参与逆谋诸王为政变后处分。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0285",
+        "disposition": "NOT_A_BATTLE",
+        "note": "赏讨逆功属于政变后奖赏。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-201-2334525-P0287",
+        "disposition": "ADJUDICATED",
+        "note": "云南花脚蛮为寇并受招谕，实际武装事件未闭合。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      "卷200 P0028岑世兴叛据唐兴州，本卷P0183仍作乱并遭遣兵，P0238又被招谕；该父链仍未闭合，卷202以后核降服、唐兴州恢复和黄胜许是否与之构成共同战线。",
+      "卷200圆明父链已闭合；本卷P0215只是旧乱追述，不得重复计成本。",
+      "卷200 P0201上思州猺联交趾寇忠州，本卷没有同名后效；P0261多路猺兵为寇不能自动视为同一组织。",
+      "P0213—P0230西番参卜郎诸族到六月仍未平，卷202必须继续核战争结果和控制变化。",
+      "P0229宁都围城未写解围或失守，卷202核敌军身份、守城结局与战损。",
+      "P0183龙仁贵/把者、P0188思明州、P0196静江邕柳、P0197留应总、P0261多路猺兵、P0270新会及P0287花脚蛮均未闭合，后卷须逐名核验。",
+      "P0085—P0234锡济伯反复寇边已以遣使来降阶段收束；后卷只核同集团是否复叛，不把来降虚作土地或财政回报。",
+      "P0244南坡军事政变后，P0257起的诛逆属于无武装抵抗的政治司法清算；控制连续性可记REVERSED，但不得另开战役或把处刑人数加进P。"
+    ]
+  }
+}

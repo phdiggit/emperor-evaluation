@@ -39,8 +39,10 @@ from emperor_v4.evaluation.battle_parent_contract_registry import (
     _validate_residual_opponent_result_ceiling,
     _validate_single_pole_decisive_defeat,
     build_battle_parent_contract_registry,
+    render_battle_parent_contract_registry_markdown,
 )
 from emperor_v4.evaluation.military_talent_grade_registry import (
+    _achievement,
     _capability_episode_index,
     _failure_stability_rows,
     _grade,
@@ -49,6 +51,18 @@ from emperor_v4.evaluation.military_talent_grade_registry import (
     build_military_talent_grade_registry,
     render_military_talent_grade_markdown,
 )
+from emperor_v4.evaluation.first_item_c_registry import (
+    _c2_axis,
+    build_first_item_c_registry,
+    render_first_item_c_registry_markdown,
+    validate_first_item_c_territorial_control,
+)
+from emperor_v4.evaluation.first_item_a_registry import (
+    build_first_item_a_registry,
+    load_qin_qing_first_item_roster,
+    render_first_item_a_registry_markdown,
+)
+from emperor_v4.evaluation.first_item_b_registry import build_first_item_b_registry
 from emperor_v4.evaluation.historical_outcome_registry import (
     load_configured_dynasty_outcome_packs,
 )
@@ -56,6 +70,59 @@ from emperor_v4.persistence.canonical_refs import canonical_hashed_ref
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_battle_registry_markdown_only_lists_tiered_battles_and_has_dynasty_matrix() -> None:
+    payload = {
+        "ordinary_candidate_count": 3,
+        "ordinary_public_outcome_count": 2,
+        "unification_public_outcome_count": 0,
+        "post_tang_candidate_count": 0,
+        "public_outcome_count": 2,
+        "pending_count": 0,
+        "disposition_counts": {"REGISTERED_CONTRACT": 2, "EXCLUDED_BELOW_PUBLIC_THRESHOLD": 1},
+        "tier_counts": {"C": 1, "S": 1},
+        "records": [
+            {
+                "war_event_id": "WAR-QIN-TIERED",
+                "dynasty": "秦",
+                "disposition": "REGISTERED_CONTRACT",
+                "public_outcome_registered": True,
+                "campaign_tier": "C",
+                "combat_difficulty": "D1",
+                "observable_result": "秦定档战役",
+            },
+            {
+                "war_event_id": "WAR-TANG-TIERED",
+                "dynasty": "唐",
+                "disposition": "REGISTERED_CONTRACT",
+                "public_outcome_registered": True,
+                "campaign_tier": "S",
+                "combat_difficulty": "D3",
+                "observable_result": "唐定档战役",
+            },
+            {
+                "war_event_id": "WAR-QIN-BELOW",
+                "dynasty": "秦",
+                "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+                "public_outcome_registered": False,
+                "campaign_tier": None,
+                "combat_difficulty": "D_NOT_REQUIRED",
+                "observable_result": "门槛下战役",
+            },
+        ],
+        "semantic_fingerprint": "test-fingerprint",
+    }
+
+    markdown = render_battle_parent_contract_registry_markdown(payload)
+
+    assert "| 朝代 | S+ | S | S- | A | B | C | 合计 |" in markdown
+    assert "| 秦 | 0 | 0 | 0 | 0 | 0 | 1 | 1 |" in markdown
+    assert "| 唐 | 0 | 1 | 0 | 0 | 0 | 0 | 1 |" in markdown
+    assert "WAR-QIN-TIERED" in markdown
+    assert "WAR-TANG-TIERED" in markdown
+    assert "WAR-QIN-BELOW" not in markdown
+    assert "秦至清 S- 以上单项/战役群清单" not in markdown
 
 
 def test_resolved_person_consumption_requires_materialized_result() -> None:
@@ -193,16 +260,19 @@ def test_military_talent_grade_uses_tier_difficulty_and_consumption_mode() -> No
         row("major-1", "A", "D2"),
         row("major-2", "A", "D2"),
     ])[0] == "top"
+    assert _grade([
+        row("hard", "S-", "D3"),
+        row("major-1", "A", "D2"),
+        row("major-2", "A", "D2"),
+    ])[0] == "top"
     assert _grade([row("s-1", "S-", "D2"), row("s-2", "S-", "D2")])[0] == "elite"
-    assert _grade([row("s", "S", "D2"), row("s-minus", "S-", "D2")]) == (
+    assert _grade([row("s", "S", "D2"), row("s-minus", "S-", "D2", durable=True)]) == (
         "top",
         "top_national_strategic_peak",
     )
-    assert _grade([row("s-plus", "S+", "D3")]) == (
-        "top",
-        "top_national_strategic_peak",
-    )
-    assert _grade([row("s-plus", "S+", "D2"), row("hard", "S-", "D3")]) == (
+    assert _grade([row("s-plus", "S+", "D3")])[0] == "top"
+    assert _grade([row("stable-s", "S", "D3", durable=True)])[0] == "elite"
+    assert _grade([row("s-plus", "S+", "D3"), row("major", "A", "D3")]) == (
         "historic",
         "historic_era_defining_peak",
     )
@@ -212,10 +282,7 @@ def test_military_talent_grade_uses_tier_difficulty_and_consumption_mode() -> No
             row("durable-state-terminal", "S-", "D2", durable=True),
             row("independent-major", "A", "D2"),
         ]
-    ) == (
-        "historic",
-        "historic_extreme_problem_solver",
-    )
+    )[0] == "top"
     assert _grade(
         [
             row("extreme-terminal", "S", "D4"),
@@ -234,7 +301,24 @@ def test_military_talent_grade_uses_tier_difficulty_and_consumption_mode() -> No
         "top_hard_problem_solver",
     )
     four_major = [row(f"major-{index}", "A", "D2") for index in range(4)]
-    assert _grade(four_major)[0] == "top"
+    assert _grade(four_major)[0] == "elite"
+    four_major_with_hard_validation = [
+        row("major-hard", "A", "D3"),
+        *[row(f"major-{index}", "A", "D2") for index in range(3)],
+    ]
+    assert _grade(four_major_with_hard_validation) == (
+        "top",
+        "top_sustained_first_line_command",
+    )
+    assert _grade([
+        row("extreme-s", "S", "D4"),
+        row("hard-s-minus", "S-", "D3"),
+        row("major-validation", "A", "D2"),
+    ]) == ("historic", "historic_extreme_problem_solver")
+    assert _grade([
+        row("extreme-s", "S", "D4"),
+        row("hard-s-minus", "S-", "D3"),
+    ])[0] == "top"
     terminal_finishers = [
         {
             **row(f"terminal-{index}", "A", "D2"),
@@ -257,10 +341,30 @@ def test_military_talent_grade_uses_tier_difficulty_and_consumption_mode() -> No
         row("strategy-2", "S-", None, mode="operational_result"),
         row("strategy-3", "S-", None, mode="operational_result"),
     ]
-    assert _grade(operational_portfolio) == (
-        "historic",
-        "historic_sustained_grand_command",
-    )
+    assert _grade(operational_portfolio)[0] == "elite"
+    assert _grade([
+        row("frontline-s", "S", "D2"),
+        row("independent-strategy", "S", None, mode="operational_result"),
+        row("frontline-validation", "A", "D3"),
+    ]) == ("top", "top_national_strategic_peak")
+    assert _grade([
+        row("frontline-validation", "A", "D3"),
+        row("independent-strategy", "S", None, mode="operational_result"),
+    ])[0] == "elite"
+    assert _grade([
+        row("frontline-s", "S", "D2"),
+        row("independent-strategy", "S-", None, mode="operational_result"),
+        row("frontline-validation", "A", "D3"),
+    ])[0] == "elite"
+    assert _grade([
+        row("s-minus-1", "S-", "D2", durable=True),
+        row("s-minus-2", "S-", "D2"),
+    ])[0] == "elite"
+    assert _grade([
+        row("s-plus", "S+", "D2"),
+        row("s-minus", "S-", "D3"),
+        row("major", "A", "D3"),
+    ]) == ("historic", "historic_sustained_grand_command")
 
     comparable_defeat = {
         "campaign_ref": "comparable-defeat",
@@ -276,12 +380,22 @@ def test_military_talent_grade_uses_tier_difficulty_and_consumption_mode() -> No
         "stable_delivery": False,
     }
     assert _grade([row("anchor", "S-", "D3"), row("a", "A", "D2"), comparable_defeat])[0] == "elite"
+    assert _grade([
+        row("anchor", "S-", "D3"),
+        row("a-1", "A", "D2"),
+        row("a-2", "A", "D2"),
+        comparable_defeat,
+    ])[0] == "top"
+    comparable_mixed = {**comparable_defeat, "result_direction": "mixed_review"}
+    assert _grade(
+        [row("peak", "S", "D4"), row("a", "A", "D3"), comparable_mixed]
+    )[0] == "top"
     three_major = [
         row("anchor", "S-", "D3"),
         row("a-1", "A", "D2"),
         row("a-2", "A", "D2"),
     ]
-    assert _grade([*three_major, comparable_defeat])[0] == "elite"
+    assert _grade([*three_major, comparable_defeat])[0] == "top"
     secondary_defeat = {
         **comparable_defeat,
         "decisive_relation": "stage_executor",
@@ -291,7 +405,7 @@ def test_military_talent_grade_uses_tier_difficulty_and_consumption_mode() -> No
         **comparable_defeat,
         "decisive_relation": "none",
     }
-    assert _grade([*three_major, none_relation_defeat])[0] == "elite"
+    assert _grade([*three_major, none_relation_defeat])[0] == "top"
     assert _grade([
         row("anchor", "S-", "D3"), row("a-1", "A", "D2"),
         row("a-2", "A", "D2"), row("a-3", "A", "D2"), comparable_defeat,
@@ -305,10 +419,11 @@ def test_military_talent_grade_uses_tier_difficulty_and_consumption_mode() -> No
         "parent_campaign_tier": "A",
         "parent_combat_difficulty": "D2",
     }
-    assert _grade(four_major + [
+    # 重大败责只限制稳定性，不反写已由正向实绩成立的能力峰值。
+    assert _grade(four_major_with_hard_validation + [
         {**repeated_adverse, "campaign_ref": "adverse-1"},
         {**repeated_adverse, "campaign_ref": "adverse-2"},
-    ])[0] == "elite"
+    ])[0] == "top"
 
     attributable_failures = [
         {
@@ -322,13 +437,30 @@ def test_military_talent_grade_uses_tier_difficulty_and_consumption_mode() -> No
         for index in range(2)
     ]
     assert _grade(
-        [*four_major, *_failure_stability_rows(four_major, attributable_failures)]
-    )[0] == "elite"
+        [
+            *four_major_with_hard_validation,
+            *_failure_stability_rows(
+                four_major_with_hard_validation, attributable_failures
+            ),
+        ]
+    )[0] == "top"
     war_conduct_failures = [
         {**failure, "failure_domain": "war_conduct"}
         for failure in attributable_failures
     ]
     assert _failure_stability_rows(four_major, war_conduct_failures) == []
+    deduplicated_failures = _failure_stability_rows(
+        four_major,
+        attributable_failures,
+        person="同一人物",
+        episode_index={
+            ("同一人物", "failure-0"): "same-failure-operation",
+            ("同一人物", "failure-1"): "same-failure-operation",
+        },
+    )
+    assert {
+        row["capability_episode_ref"] for row in deduplicated_failures
+    } == {"same-failure-operation"}
     adverse_context = {
         **comparable_defeat,
         "result_direction": "mixed_review",
@@ -357,6 +489,49 @@ def test_military_talent_grade_uses_tier_difficulty_and_consumption_mode() -> No
         ],
         [],
     ) == {"same-adverse-context"}
+
+
+def test_person_subresults_only_share_capability_episode_when_explicitly_adjudicated() -> None:
+    record = {
+        "war_event_id": "WAR-POST-ONE-PARENT",
+        "source_target_ref": "CAMPAIGN-ONE-PARENT",
+        "campaign_tier": "A",
+        "combat_difficulty": "D3",
+        "post_tang_evidence_lower_bound": True,
+        "source_refs": ["source/ref"],
+    }
+    member = {
+        "role_code": "principal_commander",
+        "person_command_index": {
+            "consumption_mode": "person_result",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "co_decisive",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+        },
+    }
+    results = [
+        {
+            "result_ref": f"PCR-{index}",
+            "result_label": f"阶段{index}",
+            "result_direction": "positive",
+            "result_tier": "A",
+            "combat_difficulty": "D3",
+            "capability_episode_ref": "MIL-EPISODE-SAME-DIRECTION",
+            "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "co_decisive",
+            },
+        }
+        for index in (1, 2)
+    ]
+    achievements = [_achievement(record, member, item) for item in results]
+    assert {item["capability_episode_ref"] for item in achievements} == {
+        "MIL-EPISODE-SAME-DIRECTION"
+    }
+    assert _grade(achievements)[0] == "important"
 
 
 
@@ -725,7 +900,7 @@ def test_military_seven_grade_boundaries_separate_peak_from_repeatability() -> N
     assert _grade([result("a-hard", "A", "D2")])[0] == "important"
     assert _grade([result("strategic-peak", "S-", "D2")])[0] == "elite"
     assert _grade([
-        result("national-peak", "S", "D2"),
+        {**result("national-peak", "S", "D2"), "outcome_durability": True},
         result("strategic-validation", "S-", "D2"),
     ])[0] == "top"
     assert _grade([
@@ -940,7 +1115,7 @@ def test_non_ruler_strategic_director_consumes_operational_result() -> None:
 
 def test_current_zhu_quanzhong_keeps_top_without_losing_side_false_positive() -> None:
     payload = json.loads(
-        (ROOT / "docs/公共成果/军事/02-秦至唐武将人才等级.json").read_text(
+        (ROOT / "docs/公共成果/军事/02-武将人才等级.json").read_text(
             encoding="utf-8"
         )
     )
@@ -964,7 +1139,7 @@ def test_current_zhu_quanzhong_keeps_top_without_losing_side_false_positive() ->
 
 def test_current_operational_direction_requires_actual_control_and_consumes_signed_result() -> None:
     battles = json.loads(
-        (ROOT / "docs/公共成果/军事/01-秦至唐战役登记.json").read_text(
+        (ROOT / "docs/公共成果/军事/01-战役登记.json").read_text(
             encoding="utf-8"
         )
     )
@@ -1015,7 +1190,7 @@ def test_current_operational_direction_requires_actual_control_and_consumes_sign
 
 def test_current_net_values_are_auxiliary_sorted_values_not_grade_shortcuts() -> None:
     payload = json.loads(
-        (ROOT / "docs/公共成果/军事/02-秦至唐武将人才等级.json").read_text(
+        (ROOT / "docs/公共成果/军事/02-武将人才等级.json").read_text(
             encoding="utf-8"
         )
     )
@@ -1024,10 +1199,10 @@ def test_current_net_values_are_auxiliary_sorted_values_not_grade_shortcuts() ->
     assert values == sorted(values, reverse=True)
     by_name = {profile["person"]: profile for profile in profiles}
 
-    assert by_name["刘裕"]["military_grade"] == "historic"
+    assert by_name["刘裕"]["military_grade"] == "top"
     assert by_name["朱全忠"]["military_grade"] == "top"
     assert by_name["李光弼"]["military_grade"] == "top"
-    assert by_name["郭子仪"]["military_grade"] == "top"
+    assert by_name["郭子仪"]["military_grade"] == "elite"
     assert by_name["霍去病"]["military_grade"] == "top"
     assert by_name["刘裕"]["net_strategic_value"] > by_name["朱全忠"][
         "net_strategic_value"
@@ -1047,18 +1222,37 @@ def test_current_net_values_are_auxiliary_sorted_values_not_grade_shortcuts() ->
     ):
         assert alias not in by_name
         assert alias in by_name[canonical]["name_aliases"]
+    for canonical, aliases in {
+        "铁木真": {"铁木真", "成吉思汗", "蒙古太祖"},
+        "完颜阿骨打": {"完颜阿骨打", "阿骨打"},
+        "耶律阿保机": {"耶律阿保机", "阿保机"},
+        "耶律斜轸": {"耶律斜轸", "斜轸"},
+        "朱棣": {"燕王朱棣", "明成祖朱棣"},
+    }.items():
+        assert aliases <= set(by_name[canonical]["name_aliases"])
+        assert not (aliases - {canonical}) & set(by_name)
+    for canonical, alias in {
+        "完颜晟": "金太宗",
+        "赵光义": "宋太宗赵光义",
+        "耶律宗真": "辽兴宗耶律宗真",
+        "朱瞻基": "明宣宗朱瞻基",
+        "朱祁镇": "明英宗朱祁镇",
+    }.items():
+        assert canonical in by_name
+        assert alias not in by_name
+        assert alias in by_name[canonical]["name_aliases"]
     for cross_period_name, expected_dynasties in {
         "高颎": {"隋", "南北朝"},
         "叔孙建": {"两晋", "南北朝"},
-        "吴汉": {"汉", "东汉"},
-        "来歙": {"汉", "东汉"},
-        "梁习": {"汉", "三国"},
+            "吴汉": {"东汉"},
+            "来歙": {"东汉"},
+            "梁习": {"东汉", "三国"},
         "杜慧度": {"两晋", "南北朝"},
         "檀道济": {"两晋", "南北朝"},
         "于仲文": {"南北朝", "隋"},
         "虞庆则": {"南北朝", "隋"},
         "长孙晟": {"南北朝", "隋"},
-        "张既": {"汉", "三国"},
+            "张既": {"东汉", "三国"},
         "冯盎": {"隋", "唐"},
         "洗夫人": {"南北朝", "隋"},
         "李世民": {"隋", "唐"},
@@ -1071,7 +1265,7 @@ def test_current_net_values_are_auxiliary_sorted_values_not_grade_shortcuts() ->
 
 def test_current_battle_registry_drives_military_talent_grades_directly() -> None:
     battle_registry = json.loads(
-        (ROOT / "docs/公共成果/军事/01-秦至唐战役登记.json").read_text(
+        (ROOT / "docs/公共成果/军事/01-战役登记.json").read_text(
             encoding="utf-8"
         )
     )
@@ -1101,13 +1295,18 @@ def test_current_battle_registry_drives_military_talent_grades_directly() -> Non
     assert result["supersedes_prior_military_talent_grades"] is True
     assert result["profile_count"] == len(profiles)
     assert profiles[("汉", "韩信")]["military_grade"] == "historic"
+    assert profiles[("东汉", "耿弇")]["military_grade"] == "elite"
+    assert profiles[("东汉", "马成")]["military_grade"] == "elite"
+    assert profiles[("唐", "王雄诞")]["military_grade"] == "elite"
+    assert profiles[("唐", "钱镠")]["military_grade"] == "elite"
+    assert profiles[("东汉", "冯异")]["military_grade"] == "important"
     assert profiles[("唐", "李靖")]["military_grade"] == "historic"
     assert next(
         profile for profile in result["profiles"] if profile["person"] == "李世民"
     )["military_grade"] == "historic"
     liu_yu = profiles[("两晋", "刘裕")]
-    assert liu_yu["military_grade"] == "historic"
-    assert liu_yu["rule_path"] == "historic_sustained_grand_command"
+    assert liu_yu["military_grade"] == "top"
+    assert liu_yu["rule_path"] == "top_national_strategic_peak"
     liu_yu_achievements = {
         row["campaign_ref"]: row for row in liu_yu["consumed_achievements"]
     }
@@ -1120,13 +1319,15 @@ def test_current_battle_registry_drives_military_talent_grades_directly() -> Non
     assert liu_yu_achievements["WAR-LEAD-116-LIUYU-SHU-413"][
         "consumption_mode"
     ] == "operational_result"
-    assert len(profiles[("汉", "曹操")]["actor_ref_aliases"]) >= 2
+    cao_cao = next(profile for profile in result["profiles"] if profile["person"] == "曹操")
+    assert set(cao_cao["dynasty_aliases"]) == {"汉", "东汉"}
+    assert len(cao_cao["actor_ref_aliases"]) >= 2
     liu_bei_profiles = [
         profile for profile in result["profiles"] if profile["person"] == "刘备"
     ]
     assert len(liu_bei_profiles) == 1
     liu_bei = liu_bei_profiles[0]
-    assert liu_bei["dynasty_aliases"] == ["汉", "三国"]
+    assert liu_bei["dynasty_aliases"] == ["汉", "东汉", "三国"]
     assert liu_bei["military_grade"] == "elite"
     assert any(
         row["campaign_ref"] == "WAR-LEAD-SG-WU-HAN-YILING-221-222"
@@ -1134,13 +1335,11 @@ def test_current_battle_registry_drives_military_talent_grades_directly() -> Non
     )
     expected_top = {
         "慕容垂",
-        "刘邦",
         "李勣",
         "苏定方",
         "卫青",
         "陶侃",
         "石勒",
-        "宇文泰",
         "王翦",
         "杨素",
         "慕容皝",
@@ -1151,6 +1350,8 @@ def test_current_battle_registry_drives_military_talent_grades_directly() -> Non
         for profile in result["profiles"]
         if profile["military_grade"] in {"top", "historic"}
     })
+    assert profiles[("汉", "刘邦")]["military_grade"] == "elite"
+    assert profiles[("南北朝", "宇文泰")]["military_grade"] == "top"
     allowed_high_tier_paths = {
         "historic": {
             "historic_era_defining_peak",
@@ -1162,11 +1363,13 @@ def test_current_battle_registry_drives_military_talent_grades_directly() -> Non
             "top_hard_problem_solver",
             "top_sustained_first_line_command",
             "historic_blocked_by_repeated_major_failures",
+            "historic_blocked_by_failure_pressure",
         },
         "elite": {
             "elite_strategic_peak",
             "elite_hard_campaign_specialist",
             "elite_reliable_major_command",
+            "top_blocked_by_failure_pressure",
         },
     }
     for grade, allowed_paths in allowed_high_tier_paths.items():
@@ -1194,7 +1397,7 @@ def test_current_battle_registry_drives_military_talent_grades_directly() -> Non
             if profile["military_grade"] == "important"
         }
     )
-    assert profiles[("汉", "张辽")]["military_grade"] == "elite"
+    assert profiles[("东汉", "张辽")]["military_grade"] == "elite"
     assert profiles[("南北朝", "段韶")]["military_grade"] == "elite"
 
     yuwen_yong = profiles[("南北朝", "宇文邕")]
@@ -1270,11 +1473,10 @@ def test_current_battle_registry_drives_military_talent_grades_directly() -> Non
     assert baekje["capability_mode"] == "integrated_command"
     assert baekje["decisive_relation"] == "decisive_creator"
     assert su_dingfang["military_grade"] == "historic"
-    assert (
-        su_dingfang["rule_path"]
-        == "historic_extreme_problem_solver"
-    )
-    assert profiles[("汉", "公孙瓒")]["military_grade"] == "elite"
+    assert su_dingfang["rule_path"] == "historic_extreme_problem_solver"
+    assert next(
+        profile for profile in result["profiles"] if profile["person"] == "公孙瓒"
+    )["military_grade"] == "important"
     assert profiles[("三国", "司马懿")]["military_grade"] == "important"
     assert profiles[("三国", "邓艾")]["military_grade"] == "elite"
     murong_chui_profiles = [
@@ -1287,11 +1489,8 @@ def test_current_battle_registry_drives_military_talent_grades_directly() -> Non
     ]
     assert len(liu_xiu_profiles) == 1
     assert liu_xiu_profiles[0]["dynasty_aliases"] == ["汉", "东汉"]
-    assert liu_xiu_profiles[0]["military_grade"] == "historic"
-    assert (
-        liu_xiu_profiles[0]["rule_path"]
-        == "historic_sustained_grand_command"
-    )
+    assert liu_xiu_profiles[0]["military_grade"] == "top"
+    assert liu_xiu_profiles[0]["rule_path"] == "top_national_strategic_peak"
     assert any(
         failure["campaign_ref"] == "HAN-STARTUP-CENTRAL-25-26"
         and failure["responsibility"] == "primary"
@@ -2393,7 +2592,7 @@ def test_current_unification_tier_adjudications_cover_full_realm_and_head_releva
     }
     assert {
         child["payload"]["campaign_tier"] for child in liu_bang_children
-    } == {"A", "S-", "S+"}
+    } == {"A", "S-", "S"}
     liu_xiu_children = rows[
         "WAR-LEAD-HAN-STARTUP-UNIFICATION-23-36"
     ]["campaign_groups"]
@@ -2409,7 +2608,7 @@ def test_current_unification_tier_adjudications_cover_full_realm_and_head_releva
         for child in portfolio["campaign_groups"]
         if child["registration_role"] == "CAMPAIGN_GROUP"
     ]
-    assert len(formal_groups) == 76
+    assert len(formal_groups) == 75
     tang_fugongshi = next(
         child
         for portfolio in portfolios
@@ -2463,10 +2662,10 @@ def test_current_unification_tier_adjudications_cover_full_realm_and_head_releva
         for member in child["members"]
     ]
     assert Counter(index["consumption_mode"] for index in command_indices) == {
-        "full_parent": 48,
+        "full_parent": 47,
         "person_result": 87,
         "operational_result": 15,
-        "none": 35,
+        "none": 34,
     }
     jin_wu = next(
         child
@@ -2546,7 +2745,7 @@ def test_current_unification_tier_adjudications_cover_full_realm_and_head_releva
         geng_yan["person_command_index"]["projected_result_tier"],
         geng_yan["person_command_index"]["projected_combat_difficulty"],
         geng_yan["person_command_index"]["decisive_relation"],
-    ) == ("S-", "D3", "decisive_creator")
+        ) == ("S-", "D3", "decisive_creator")
     shu = next(
         child for child in liu_xiu_children
         if child["campaign_group_id"] == "HAN-STARTUP-SHU-33-36"
@@ -2711,7 +2910,7 @@ def test_current_unification_tier_adjudications_cover_full_realm_and_head_releva
     )
     assert Counter(
         child["payload"]["combat_difficulty"] for child in formal_groups
-    ) == {"D0": 2, "D1": 8, "D2": 30, "D3": 27, "D4": 9}
+    ) == {"D0": 2, "D1": 7, "D2": 30, "D3": 27, "D4": 9}
     sui_children = {
         child["campaign_group_id"]: child
         for event_id in (
@@ -2750,7 +2949,12 @@ def test_current_unification_tier_adjudications_cover_full_realm_and_head_releva
     assert difficulty_by_group["HAN-STARTUP-SHU-33-36"] == "D3"
     assert difficulty_by_group["SUI-SOUTH-CONSOLIDATION-JIANGNAN-590"] == "D2"
     assert difficulty_by_group["WAR-LEAD-TANG-HEDONG-RECOVERY"] == "D4"
-    assert difficulty_by_group["WAR-LEAD-TANG-HEXI-619"] == "D1"
+    assert next(
+        child
+        for portfolio in portfolios
+        for child in portfolio["campaign_groups"]
+        if child["campaign_group_id"] == "WAR-LEAD-TANG-HEXI-619"
+    )["registration_role"] == "REDIRECT_NON_BATTLE_OUTCOME"
     assert difficulty_by_group["WAR-LEAD-TANG-FUGONGSHI"] == "D3"
     assert difficulty_by_group["WAR-LEAD-TANG-LIUHEITA-622"] == "D4"
     assert difficulty_by_group["HAN-CHUHAN-GAIXIA-BCE203-202"] == "D2"
@@ -2785,7 +2989,7 @@ def test_current_unification_tier_adjudications_cover_full_realm_and_head_releva
         for child in li_yuan_children
         if child["campaign_group_id"] == "WAR-LEAD-SUI-LIYUAN-GUANZHONG-617"
     )
-    assert guanzhong["payload"]["campaign_tier"] == "S-"
+    assert guanzhong["payload"]["campaign_tier"] == "A"
     tang_lingnan = rows["WAR-LEAD-TANG-LINGNAN-620"]["campaign_groups"]
     assert tang_lingnan[0]["registration_role"] == "NEUTRAL_EVENT_ONLY"
     assert not any(
@@ -2886,7 +3090,7 @@ def test_current_ordinary_campaign_adjudications_cover_all_ordinary_candidates()
         ROOT / "config/ordinary-campaign-adjudications.json"
     )
 
-    assert len(rows) == 1200
+    assert len(rows) == 1201
     assert Counter(row["status"] for row in rows.values()) == {
         "HOLD_RESULT_UNCLOSED": 643,
         "HOLD_SOURCE_FINALIZATION_REQUIRED": 163,
@@ -2894,7 +3098,7 @@ def test_current_ordinary_campaign_adjudications_cover_all_ordinary_candidates()
         "HOLD_SOURCE_BACKFILL_REQUIRED": 100,
         "BELOW_PUBLIC_OUTCOME_THRESHOLD": 61,
         "REDIRECT_NON_BATTLE_OUTCOME": 54,
-        "CAMPAIGN_ADJUDICATION_REQUIRED": 1,
+        "CAMPAIGN_ADJUDICATION_REQUIRED": 2,
         "HOLD_MIXED_EVENT_CHAIN": 49,
         "MERGED_INTO_CAMPAIGN_GROUP": 5,
         "HOLD_AGGREGATE_SECURITY_STATE": 5,
@@ -3108,9 +3312,9 @@ def test_current_contract_parent_registry_closes_all_ordinary_candidates() -> No
         ),
     )
     combined_by_id = {row["war_event_id"]: row for row in combined["records"]}
-    assert combined["ordinary_public_outcome_count"] == 791
-    assert combined["unification_public_outcome_count"] == 76
-    assert combined["public_outcome_count"] == 867
+    assert combined["ordinary_public_outcome_count"] == 797
+    assert combined["unification_public_outcome_count"] == 75
+    assert combined["public_outcome_count"] == 872
     assert combined["unification_campaign_group_count"] == 85
     assert combined_by_id["WAR-LEAD-TANG-FUGONGSHI"]["campaign_tier"] == "A"
     assert {
@@ -3134,11 +3338,11 @@ def test_current_contract_parent_registry_closes_all_ordinary_candidates() -> No
             "major_stage_or_crisis",
             "D2",
         ),
-        "HAN-STARTUP-LIXIAN-JIANGHUAI-28-30": (
-            "A",
-            "major_stage_or_crisis",
-            "D2",
-        ),
+            "HAN-STARTUP-LIXIAN-JIANGHUAI-28-30": (
+                "S-",
+                "independent_direction",
+                "D2",
+            ),
         "WAR-LEAD-HAN-XUZHOU-LUBU-196-198": (
             "A",
             "major_stage_or_crisis",
@@ -3173,11 +3377,12 @@ def test_current_contract_parent_registry_closes_all_ordinary_candidates() -> No
     assert princes_members["张光辅"]["person_command_index"][
         "capability_mode"
     ] == "integrated_command"
-    assert all(
-        princes_members[name]["person_command_index"]["projected_result_tier"]
-        == "B"
+    assert {
+        name: princes_members[name]["person_command_index"][
+            "projected_result_tier"
+        ]
         for name in ("岑长倩", "麴崇裕", "张光辅")
-    )
+    } == {"岑长倩": "C", "麴崇裕": "C", "张光辅": "B"}
     dongxing_members = {
         row["actor_name"]: row
         for row in combined_by_id["WAR-LEAD-SG-WEI-WU-DONGXING-252"]["members"]
@@ -3648,7 +3853,7 @@ def test_current_contract_parent_registry_closes_all_ordinary_candidates() -> No
     ) == ("A", "D3")
 
     current = json.loads(
-            (ROOT / "docs/公共成果/军事/01-秦至唐战役登记.json").read_text(
+            (ROOT / "docs/公共成果/军事/01-战役登记.json").read_text(
             encoding="utf-8"
         )
     )
@@ -3670,22 +3875,22 @@ def test_current_contract_parent_registry_closes_all_ordinary_candidates() -> No
         for ref in (row.get("source_lineage") or {}).get("source_card_ids") or ()
     }
     assert scoped_refs.issubset(current_routed_refs)
-    assert current["unification_scope_unresolved_count"] == 19
+    assert current["unification_scope_unresolved_count"] == 18
 
-    assert len(records) == 1231
-    assert result["ordinary_candidate_count"] == 1201
-    assert result["ordinary_record_count"] == 1231
+    assert len(records) == 1235
+    assert result["ordinary_candidate_count"] == 1203
+    assert result["ordinary_record_count"] == 1235
     assert len(by_id) == len(records)
     assert result["pending_count"] == 0
-    assert result["prior_adjudication_count"] == 1200
-    assert result["new_direct_compile_count"] == 1
-    assert result["contract_adjudication_count"] == 957
-    assert not any(
-        "UNIFICATION_ONLY"
-        in set(candidate.get("account_routing") or ())
+    assert result["prior_adjudication_count"] == 1201
+    assert result["new_direct_compile_count"] == 2
+    assert result["contract_adjudication_count"] == 961
+    assert {
+        candidate["war_event_id"]
         for candidate in worklist["candidates"]
         if candidate["war_event_id"] in by_id
-    )
+        and "UNIFICATION_ONLY" in set(candidate.get("account_routing") or ())
+    } == set(contract_adjudications.get("ordinary_route_overrides") or ())
     assert all(
         row["campaign_tier"] is not None
         for row in records
@@ -4230,8 +4435,8 @@ def test_current_contract_parent_registry_closes_all_ordinary_candidates() -> No
     tiele = by_id["WAR-LEAD-TANG-TIELE-INTEGRATION"]
     assert tiele["disposition"] == "REGISTERED_CONTRACT"
     assert (tiele["campaign_tier"], tiele["result_class"]) == (
-        "S",
-        "single_pole_or_state_terminal",
+        "S-",
+        "independent_direction",
     )
     tiele_members = {row["actor_name"]: row for row in tiele["members"]}
     assert (
@@ -4241,7 +4446,7 @@ def test_current_contract_parent_registry_closes_all_ordinary_candidates() -> No
         tiele_members["李世民"]["person_command_index"][
             "projected_combat_difficulty"
         ],
-    ) == ("operational_result", "operational_design", "S", None)
+    ) == ("operational_result", "operational_design", "S-", None)
     assert "資治通鑑/卷198@1502841" in tiele_members["李世民"][
         "person_command_index"
     ]["source_refs"]
@@ -4282,3 +4487,1451 @@ def test_unification_full_parent_cannot_exceed_or_undershoot_parent(
 
     with pytest.raises(ValueError, match="完整父级消费必须与父战役档位和难度一致"):
         load_unification_tier_adjudications(broken)
+
+
+def _load_current_first_item_c_inputs() -> dict[str, dict]:
+    def load(relative_path: str) -> dict:
+        return json.loads((ROOT / relative_path).read_text(encoding="utf-8"))
+
+    return {
+        "battle_registry": load("docs/公共成果/军事/01-战役登记.json"),
+        "talent_registry": load("docs/公共成果/军事/02-武将人才等级.json"),
+        "roster": load_qin_qing_first_item_roster(
+            ROOT, load("config/first-item-a-strategic-efficiency-inputs.json")
+        ),
+        "scope_inputs": load("config/first-item-a-strategic-efficiency-inputs.json"),
+        "window_config": load("config/first-item-c-acquisition-windows.json"),
+        "control_registry": load(
+            "config/first-item-c-territorial-control-adjudications.json"
+        ),
+    }
+
+
+def test_first_item_c_control_is_private_to_c_and_fully_calibrated() -> None:
+    inputs = _load_current_first_item_c_inputs()
+    public = inputs["battle_registry"]
+    assert "territorial_control_pending_count" not in public
+    assert "campaign_tier_recalibration_pending_count" not in public
+    assert all(
+        "territorial_control_result" not in row
+        for row in public["unification_portfolios"]
+    )
+
+    summary = validate_first_item_c_territorial_control(
+        battle_registry=public,
+        window_config=inputs["window_config"],
+        control_registry=inputs["control_registry"],
+    )
+    assert summary["portfolio_count"] == 30
+    assert summary["manual_window_count"] == 14
+    assert summary["pending_window_count"] == 0
+    assert summary["pending_portfolio_refs"] == []
+    assert summary["pending_manual_rulers"] == []
+    assert summary["missing_profile_refs"] == {}
+    assert len(inputs["control_registry"]["manual_window_adjudications"]) == 14
+    assert summary["raw_net_control"]["MANUAL:冉闵"] == -1.0
+    assert summary["raw_net_control"]["MANUAL:姚苌"] == 0.0
+    assert summary["raw_net_control"]["MANUAL:苻坚"] > summary[
+        "raw_net_control"
+    ]["MANUAL:高欢"]
+    liu_bang = next(
+        row
+        for row in inputs["control_registry"]["portfolio_adjudications"]
+        if row["portfolio_ref"] == "UCP-HAN-LIUBANG-BCE207-BCE202"
+    )
+    assert liu_bang["value_era_id"] == "C-ERA-QIN-CHUHAN-BCE230-BCE202"
+    assert liu_bang["region_value_overrides"] == []
+    assert all(
+        "region_profiles" not in row
+        for section in ("portfolio_adjudications", "manual_window_adjudications")
+        for row in inputs["control_registry"][section]
+    )
+    assert len(inputs["control_registry"]["value_era_catalog"]) == 8
+    assert len(inputs["control_registry"]["era_region_value_profiles"]) == 120
+    assert summary["baseline_profile_status_counts"] == {
+        "CALIBRATED": 76,
+        "PENDING_SOURCE": 44,
+    }
+    assert summary["profile_status_counts"] == {"CALIBRATED": 132}
+    assert sum(summary["profile_status_counts"].values()) == sum(
+        sum(
+            1
+            for region_id in {
+                *(item["region_id"] for item in row["baseline_snapshot"]),
+                *(item["region_id"] for item in row["terminal_snapshot"]),
+            }
+            if next(
+                (
+                    item["control_fraction"]
+                    for item in row["baseline_snapshot"]
+                    if item["region_id"] == region_id
+                ),
+                0,
+            )
+            != next(
+                (
+                    item["control_fraction"]
+                    for item in row["terminal_snapshot"]
+                    if item["region_id"] == region_id
+                ),
+                0,
+            )
+        )
+        for section in ("portfolio_adjudications", "manual_window_adjudications")
+        for row in inputs["control_registry"][section]
+    )
+    net = summary["raw_net_control"]
+    assert net["UCP-TANG-LIYUAN-617-628"] > net["UCP-HAN-LIUXIU-23-36"]
+    assert net["UCP-HAN-LIUXIU-23-36"] >= net[
+        "UCP-HAN-LIUBANG-BCE207-BCE202"
+    ]
+    assert net["UCP-HAN-LIUBANG-BCE207-BCE202"] > net[
+        "UCP-QIN-YINGZHENG-230-221"
+    ]
+    assert net["UCP-QIN-YINGZHENG-230-221"] > 2 * net[
+        "UCP-SUI-YANGJIAN-587-591"
+    ]
+
+
+def test_first_item_c_registry_is_complete_and_matches_calibration_anchors() -> None:
+    inputs = _load_current_first_item_c_inputs()
+    payload = build_first_item_c_registry(**inputs)
+    markdown = render_first_item_c_registry_markdown(payload)
+    assert payload["record_count"] == 185
+    assert payload["score_ready_count"] == 185
+    assert payload["eligible_count"] == 77
+    assert payload["excluded_count"] == 108
+    assert payload["pending_count"] == 0
+    assert payload["default_count"] >= 3
+    assert sum(payload["coverage_status_counts"].values()) == 185
+    assert all(row["score_ready"] for row in payload["records"])
+    assert all(row["unresolved_gaps"] == [] for row in payload["records"])
+    assert payload["schema_version"] == "first-item-c-registry-v2"
+    assert "C1战役成果指数（非得分率）" in markdown
+    assert "C1实际得分" in markdown
+    assert payload["canonical_status"] == "CURRENT"
+    assert "C2_bands" not in payload["method"]
+    assert all(
+        row["C2"]["peak_quality_index"] <= 7.5
+        for row in payload["records"]
+        if row["score_applicable"]
+    )
+    assert {
+        row["ruler_name"]
+        for row in payload["records"]
+        if row["default_applied"]
+    } >= {"李雄", "刘玄", "冯跋"}
+
+    by_name = {row["ruler_name"]: row for row in payload["records"]}
+    assert by_name["李世民"]["canonical_rank"] < by_name["刘裕"]["canonical_rank"]
+    assert by_name["刘裕"]["canonical_rank"] < by_name["刘秀"]["canonical_rank"]
+    assert by_name["刘秀"]["canonical_rank"] < by_name["曹操"]["canonical_rank"]
+    assert by_name["曹操"]["canonical_rank"] < by_name["刘邦"]["canonical_rank"]
+    assert by_name["刘秀"]["C1"]["raw_index"] == 37.0
+    assert by_name["曹操"]["C1"]["raw_index"] == 34.0
+    assert by_name["刘邦"]["C1"]["raw_index"] == 14.0
+    assert payload["method"]["C1_result_values"] == {
+        "C": 1, "B": 2, "A": 4, "S-": 6, "S": 9, "S+": 18,
+    }
+    assert payload["method"]["C1_position_cutoffs"] == {"5": [36.0, 42.0]}
+    assert payload["method"]["C2_rate_table"]["5"] == {
+        "LOW": 84, "MID": 92, "HIGH": 100,
+    }
+    assert by_name["李世民"]["C1"]["raw_index"] == 42.0
+    assert by_name["李世民"]["C1"]["position"] == "HIGH"
+    assert by_name["刘裕"]["C1"]["raw_index"] == 40.0
+    assert by_name["刘裕"]["C1"]["position"] == "MID"
+    assert {
+        row["ruler_name"]
+        for row in payload["records"]
+        if row["score_applicable"] and row["C2"]["grade"] == 5
+    } >= {"李世民", "刘裕", "铁木真", "李存勖", "忽必烈"}
+    assert by_name["李世民"]["C2"]["peak_quality_index"] == 7.2
+    assert by_name["李世民"]["C2"]["position"] == "HIGH"
+    assert by_name["李世民"]["C2"]["points"] == 50.0
+    assert by_name["刘裕"]["C2"]["position"] == "LOW"
+    assert by_name["刘裕"]["C2"]["points"] == 42.0
+    assert by_name["高欢"]["C2"]["peak_quality_index"] == 6.2
+    assert by_name["高欢"]["C2"]["grade"] == 4
+    assert by_name["高欢"]["C2"]["position"] == "HIGH"
+    assert by_name["高欢"]["C2"]["positive_context_count"] == 2
+    assert by_name["刘邦"]["C2"]["negative_context_count"] == 1
+    assert by_name["刘邦"]["C2"]["grade_cap"] == 4
+    assert by_name["石勒"]["C2"]["negative_context_count"] == 2
+    assert by_name["曹操"]["C2"]["positive_context_count"] == 9
+    assert by_name["曹操"]["C2"]["negative_context_count"] == 3
+    assert by_name["曹操"]["C2"]["command_failure_count"] == 1
+    assert by_name["曹操"]["C2"]["grade"] == 4
+    assert by_name["曹操"]["C2"]["position"] == "LOW"
+    assert {
+        row["campaign_group_id"]
+        for row in by_name["郭威"]["C1"]["campaign_results"]
+    } == {"WAR-POST-3E1DBF6C463923021EFC"}
+    assert {
+        row["campaign_group_id"]
+        for row in by_name["柴荣"]["C1"]["campaign_results"]
+    } == {
+        "WAR-POST-5A5D665F238AA67FC926",
+        "WAR-POST-ADAC273C23AB160D2C24",
+    }
+    for ruler_name in ("福临", "玄烨"):
+        assert by_name[ruler_name]["C_score_points"] == 0.0
+        assert not by_name[ruler_name]["default_applied"]
+    for ruler_name in ("胤禛", "弘历"):
+        assert by_name[ruler_name]["scope_status"] == "NOT_APPLICABLE_NON_FOUNDER"
+        assert by_name[ruler_name]["C_score_points"] is None
+
+
+    assert by_name["刘秀"]["C2"]["positive_context_count"] == 3
+    assert by_name["刘秀"]["C2"]["negative_context_count"] == 1
+    assert {
+        row["campaign_group_id"] for row in by_name["刘秀"]["C1"]["campaign_results"]
+    } >= {"WAR-LEAD-XIN-COLLAPSE-23", "HAN-STARTUP-CENTRAL-25-26"}
+    assert by_name["沮渠蒙逊"]["C2"]["positive_context_count"] == 4
+    assert {
+        row["campaign_group_id"]
+        for row in by_name["沮渠蒙逊"]["C2"]["frontline_results"]
+    } >= {
+        "WAR-LEAD-115-SOUTHNORTHLIANG-410",
+        "WAR-LEAD-117-NORTHLIANG-WESTQIN-415",
+    }
+    assert sum(
+        row["C2"]["negative_context_count"]
+        for row in payload["records"]
+        if row["score_applicable"]
+    ) >= 9
+    assert sum(
+        row["C2"]["command_failure_count"]
+        for row in payload["records"]
+        if row["score_applicable"]
+    ) >= 1
+
+    windows = {row["window_ref"]: row for row in payload["window_metrics"]}
+    ordered = [
+        "UCP-TANG-LIYUAN-617-628",
+        "UCP-HAN-LIUXIU-23-36",
+        "UCP-HAN-LIUBANG-BCE207-BCE202",
+        "UCP-QIN-YINGZHENG-230-221",
+        "UCP-SUI-YANGJIAN-587-591",
+        "UCP-JIN-SIMAYAN-279-280",
+    ]
+    values = [windows[key]["calibrated_weighted_net_control"] for key in ordered]
+    assert values[:4] == sorted(values[:4], reverse=True)
+    assert values[3] > values[4]
+    assert values[4] >= values[5]
+
+
+def test_first_item_c2_peak_separates_s_d4_from_sustained_s_minus_quantity() -> None:
+    def result(ref: str, tier: str, difficulty: str, direction: str = "positive") -> dict:
+        tier_score = {"A": 3, "S-": 4, "S": 5}[tier]
+        difficulty_score = int(difficulty[1:])
+        return {
+            "capability_episode_ref": ref,
+            "result_direction": direction,
+            "personal_result_tier": tier,
+            "combat_difficulty": difficulty,
+            "quality_index": tier_score + 0.3 * difficulty_score,
+        }
+
+    sustained_s_minus = _c2_axis(
+        {
+            "s-minus-1": result("s-minus-1", "S-", "D3"),
+            "s-minus-2": result("s-minus-2", "S-", "D3"),
+            "a-d4": result("a-d4", "A", "D4"),
+        },
+        {},
+    )
+    higher_peak_with_thick_validation = _c2_axis(
+        {
+            "s-d4": result("s-d4", "S", "D4"),
+            "s-d3": result("s-d3", "S", "D3"),
+            "s-minus-d3": result("s-minus-d3", "S-", "D3"),
+            "a-loss": result("a-loss", "A", "D3", "negative"),
+        },
+        {},
+    )
+
+    assert sustained_s_minus["grade"] == 5
+    assert sustained_s_minus["position"] == "LOW"
+    assert sustained_s_minus["points"] == 42.0
+    assert higher_peak_with_thick_validation["grade"] == 5
+    assert higher_peak_with_thick_validation["position"] == "MID"
+    assert higher_peak_with_thick_validation["points"] == 46.0
+    assert higher_peak_with_thick_validation["abundant_grade_5_validation"] is True
+
+
+def test_first_item_c_registry_is_deterministic() -> None:
+    inputs = _load_current_first_item_c_inputs()
+    assert build_first_item_c_registry(**inputs) == build_first_item_c_registry(**inputs)
+
+
+def _load_current_first_item_b_inputs() -> dict[str, dict]:
+    def load(path: str) -> dict:
+        return json.loads((ROOT / path).read_text(encoding="utf-8"))
+
+    efficiency_inputs = load("config/first-item-a-strategic-efficiency-inputs.json")
+    return {
+        "adjudications": load(
+            "config/first-item-b-team-contribution-adjudications.json"
+        ),
+        "roster": load_qin_qing_first_item_roster(ROOT, efficiency_inputs),
+        "battle_registry": load("docs/公共成果/军事/01-战役登记.json"),
+        "talent_registry": load("docs/公共成果/军事/02-武将人才等级.json"),
+    }
+
+
+def test_first_item_b_registry_is_complete_non_founder_contribution_scoring() -> None:
+    inputs = _load_current_first_item_b_inputs()
+    payload = build_first_item_b_registry(**inputs)
+    assert payload == build_first_item_b_registry(**inputs)
+    assert payload["schema_version"] == "first-item-b-registry-v3"
+    assert payload["canonical_status"] == "CURRENT"
+    assert payload["record_count"] == 185
+    assert payload["eligible_count"] == 77
+    assert payload["excluded_count"] == 108
+    assert payload["score_ready_count"] == 185
+    assert payload["unresolved_count"] == 0
+    assert payload["unanchored_context_outcome_count"] == 0
+    assert payload["unanchored_scoring_outcome_count"] == 0
+    assert payload["formal_score_write"] is False
+    assert payload["database_write"] is False
+    assert payload["ranking_write"] is False
+
+    eligible = [row for row in payload["records"] if row["score_applicable"]]
+    assert all(row["B1"]["outcome_evidence"] for row in eligible)
+    assert all(0 <= row["B1"]["points"] <= 30 for row in eligible)
+    assert all(0 <= row["B2"]["points"] <= 30 for row in eligible)
+    assert all(len(row["B2"]["organization_axes"]) == 3 for row in eligible)
+    assert all(0 <= row["B_score_points"] <= 60 for row in eligible)
+    by_name = {row["ruler_name"]: row for row in payload["records"]}
+    assert by_name["刘邦"]["B_score_points"] == 58.0
+    assert by_name["刘邦"]["canonical_rank"] == 1
+    assert by_name["刘邦"]["B_score_points"] > by_name["刘秀"]["B_score_points"]
+    assert by_name["刘秀"]["B_score_points"] == 53.5
+    assert by_name["嬴政"]["B_score_points"] == 58.0
+    assert by_name["李渊"]["B1"]["points"] == 28.5
+    assert by_name["李渊"]["B2"]["points"] == 28.0
+    assert by_name["李渊"]["B_score_points"] == 56.5
+    assert by_name["李世民"]["B1"]["points"] == 19.5
+    assert by_name["李世民"]["B2"]["points"] == 22.0
+    assert by_name["李世民"]["B_score_points"] == 41.5
+    assert by_name["李世民"]["canonical_rank"] > 20
+    assert by_name["铁木真"]["B_score_points"] == 58.0
+    assert by_name["朱元璋"]["B_score_points"] == 56.5
+    assert by_name["刘聪"]["B_score_points"] == 41.4
+    assert by_name["洪秀全"]["B_score_points"] == 40.0
+    assert by_name["曹丕"]["B_score_points"] == 30.4
+    assert by_name["冉闵"]["B_score_points"] == 10.3
+    assert by_name["武则天"]["scope_status"] == "NOT_APPLICABLE_NON_FOUNDER"
+    assert by_name["武则天"]["B_score_points"] is None
+    li_yuan_chains = by_name["李渊"]["B1"]["outcome_evidence"]
+    assert any("李世民" in chain["actors"] for chain in li_yuan_chains)
+    li_shimin_chains = by_name["李世民"]["B1"]["outcome_evidence"]
+    assert all("李世民" not in chain["actors"] for chain in li_shimin_chains)
+    assert any(chain["chain"] == "陕东道大行台日常行政后勤" for chain in li_shimin_chains)
+    xiao_he_chains = [
+        chain for chain in by_name["刘邦"]["B1"]["outcome_evidence"]
+        if "萧何" in chain["actors"]
+    ]
+    assert xiao_he_chains[0]["outcome_level"] == "FOUNDATION_PILLAR"
+    assert len(by_name["刘邦"]["B1"]["scoring_outcomes"]) == 2
+    assert {
+        axis["axis"]: axis["level"]
+        for axis in by_name["刘邦"]["B2"]["organization_axes"]
+    } == {
+        "parallel_execution": 5,
+        "continuity_resilience": 4,
+        "heterogeneous_integration": 5,
+    }
+    assert payload["source_registry_fingerprints"]["battle"] == inputs[
+        "battle_registry"
+    ].get("semantic_fingerprint")
+    assert payload["source_registry_fingerprints"]["talent"] == inputs[
+        "talent_registry"
+    ]["registry_fingerprint"]
+    assert all(
+        row["B1"]["points"]
+        == round(min(30, row["B1"]["raw_points"]), 1)
+        for row in eligible
+    )
+
+
+def test_first_item_b_score_does_not_increase_when_more_names_are_listed() -> None:
+    inputs = _load_current_first_item_b_inputs()
+    baseline = build_first_item_b_registry(**inputs)
+    changed = json.loads(json.dumps(inputs["adjudications"], ensure_ascii=False))
+    li_bang = next(row for row in changed["records"] if row["ruler_name"] == "刘邦")
+    li_bang["outcome_evidence"][0]["actors"].extend(["后方属官甲", "后方属官乙", "后方属官丙"])
+    mutated = build_first_item_b_registry(**{**inputs, "adjudications": changed})
+    baseline_row = next(row for row in baseline["records"] if row["ruler_name"] == "刘邦")
+    mutated_row = next(row for row in mutated["records"] if row["ruler_name"] == "刘邦")
+    assert mutated_row["B_score_points"] == baseline_row["B_score_points"]
+    assert mutated_row["B1"]["points"] == baseline_row["B1"]["points"]
+    assert mutated_row["B2"]["points"] == baseline_row["B2"]["points"]
+
+
+def test_first_item_summary_matches_current_abc_results() -> None:
+    a_payload = json.loads((ROOT / "docs/评分结算/第一项创业与政权取得能力/战略决策能力/01-第一项A战略决策能力结算.json").read_text(encoding="utf-8"))
+    b_payload = json.loads((ROOT / "docs/评分结算/第一项创业与政权取得能力/政治整合能力/01-第一项B政治整合能力结算.json").read_text(encoding="utf-8"))
+    c_payload = json.loads((ROOT / "docs/评分结算/第一项创业与政权取得能力/军事夺取能力/01-第一项C军事夺取能力结算.json").read_text(encoding="utf-8"))
+    formal_payload = json.loads((ROOT / "docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.json").read_text(encoding="utf-8"))
+    formal_markdown = (ROOT / "docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.md").read_text(encoding="utf-8")
+    summary = (ROOT / "docs/评分结算/第一项创业与政权取得能力/02-第一项结算总结分析.md").read_text(encoding="utf-8")
+    by_b = {row["ruler_name"]: row for row in b_payload["records"]}
+    by_c = {row["ruler_name"]: row for row in c_payload["records"]}
+    totals = []
+    for a_row in a_payload["records"]:
+        if (
+            not a_row["score_applicable"]
+            or a_row["ruler_name"] not in by_b
+            or not by_b[a_row["ruler_name"]].get("score_applicable")
+        ):
+            continue
+        name = a_row["ruler_name"]
+        total = round(
+            a_row["A_score_points"]
+            + by_b[name]["B_score_points"]
+            + by_c[name]["C_score_points"],
+            1,
+        )
+        totals.append((name, total))
+        assert f"| {name} |" in formal_markdown
+    totals.sort(key=lambda item: (-item[1], item[0]))
+    assert len(totals) == 77
+    assert totals[:4] == [
+        ("李世民", 231.5),
+        ("朱元璋", 225.0),
+        ("铁木真", 221.2),
+        ("刘秀", 219.2),
+    ]
+    assert "李世民（231.5）" in summary
+    assert formal_payload["schema_version"] == "first-item-formal-settlement-v1"
+    assert formal_payload["record_count"] == 185
+    assert formal_payload["eligible_count"] == 77
+    assert formal_payload["excluded_count"] == 108
+    assert formal_payload["unresolved_count"] == 0
+    assert formal_payload["records"][0]["ruler_name"] == "李世民"
+    assert formal_payload["records"][0]["first_item_score_points"] == 231.5
+    assert not (ROOT / "docs/评分结算/第一项创业与政权取得能力/政治整合能力/01-秦至唐第一项B政治整合能力试算.json").exists()
+    assert not (ROOT / "docs/评分结算/第一项创业与政权取得能力/政治整合能力/01-秦至唐第一项B政治整合能力试算.md").exists()
+
+
+def _load_current_first_item_a_inputs() -> dict[str, dict]:
+    def load(path: str) -> dict:
+        return json.loads((ROOT / path).read_text(encoding="utf-8"))
+
+    return {
+        "efficiency_inputs": load(
+            "config/first-item-a-strategic-efficiency-inputs.json"
+        ),
+        "competitive_landscapes": load(
+            "config/first-item-a-competitive-landscapes.json"
+        ),
+        "battle_registry": load(
+            "docs/公共成果/军事/01-战役登记.json"
+        ),
+        "territorial_inputs": load(
+            "config/first-item-c-territorial-control-adjudications.json"
+        ),
+        "acquisition_windows": load(
+            "config/first-item-c-acquisition-windows.json"
+        ),
+        "roster": load_qin_qing_first_item_roster(
+            ROOT, load("config/first-item-a-strategic-efficiency-inputs.json")
+        ),
+    }
+
+
+def test_first_item_a_only_scores_dynasty_founders() -> None:
+    payload = build_first_item_a_registry(**_load_current_first_item_a_inputs())
+    eligible = {
+        row["ruler_name"] for row in payload["records"] if row["score_applicable"]
+    }
+    original_eligible = {
+        "李世民", "刘秀", "刘裕", "刘邦", "高欢", "萧衍", "慕容垂", "石勒",
+        "曹操", "陈霸先", "刘备", "宇文泰", "吕光", "慕容德", "苻健",
+        "赫连勃勃", "司马炎", "沮渠蒙逊", "拓跋珪", "萧道成", "刘渊",
+        "李暠", "李渊", "司马昭", "冉闵", "孙权", "姚苌", "冯跋", "刘玄",
+        "司马懿", "司马睿", "嬴政", "曹丕", "李雄", "杨坚",
+        "王莽", "高洋", "司马师",
+    }
+    assert original_eligible < eligible
+    assert {
+        "刘聪", "姚兴", "宇文邕", "拓跋焘", "石虎", "苻坚",
+        "朱温", "李存勖", "李嗣源", "耶律阿保机", "赵匡胤",
+        "铁木真", "窝阔台", "蒙哥", "忽必烈", "朱元璋",
+        "努尔哈赤", "皇太极", "多尔衮", "玄烨",
+    } < eligible
+    assert payload["record_count"] == 185
+    assert payload["eligible_count"] == 77
+    assert payload["excluded_count"] == 108
+    assert payload["unresolved_count"] == 0
+
+    by_name = {row["ruler_name"]: row for row in payload["records"]}
+    for ruler_name in ("刘恒", "李隆基", "武则天", "胤禛", "弘历"):
+        row = by_name[ruler_name]
+        assert row["scope_status"] == "NOT_APPLICABLE_NON_FOUNDER"
+        assert row["canonical_rank"] is None
+        assert row["A1"] is None
+        assert row["A2"] is None
+        assert row["A_score_points"] is None
+    for ruler_name in (
+        "曹操", "曹丕", "高欢", "高洋", "司马懿", "司马师", "司马昭", "司马炎",
+        "李渊", "李世民",
+    ):
+        assert by_name[ruler_name]["scope_status"] == "ELIGIBLE_DYNASTY_FOUNDER"
+
+
+def test_first_item_a_registry_is_complete_calibrated_and_deterministic() -> None:
+    inputs = _load_current_first_item_a_inputs()
+    payload = build_first_item_a_registry(**inputs)
+    assert payload == build_first_item_a_registry(**inputs)
+    assert payload["schema_version"] == "first-item-a-registry-v7"
+    assert payload["canonical_status"] == "CURRENT"
+    assert payload["score_ready_count"] == 185
+    assert payload["max_points"] == 100
+    assert payload["formal_score_write"] is False
+    assert payload["database_write"] is False
+    assert payload["ranking_write"] is False
+    assert payload["method"]["D_merge"].startswith("原D")
+    assert payload["strategic_positive_decision_event_count"] == 50
+    assert payload["a2_cap_count"] == 0
+
+    eligible = [row for row in payload["records"] if row["score_applicable"]]
+    assert [row["canonical_rank"] for row in eligible] == list(range(1, 78))
+    assert all(0 <= row["A_score_points"] <= 100 for row in eligible)
+    assert eligible[0]["ruler_name"] == "李世民"
+    by_name = {row["ruler_name"]: row for row in eligible}
+    landscapes = inputs["competitive_landscapes"]
+    assert landscapes["schema_version"] == "first-item-a-competitive-landscapes-v8"
+    assert "campaign_threat_sources" not in landscapes
+    assert len(landscapes["opponent_system_windows"]) == 59
+    assert len(landscapes["relative_only_threat_justifications"]) == 18
+    assert not (
+        set(landscapes["opponent_system_windows"])
+        & set(landscapes["relative_only_threat_justifications"])
+    )
+    assert by_name["李世民"]["A_score_points"] == 90.0
+    assert by_name["刘邦"]["A_score_points"] == 85.4
+    assert by_name["刘秀"]["A_score_points"] == 84.2
+    assert by_name["朱元璋"]["A_score_points"] == 84.0
+    assert by_name["李渊"]["A_score_points"] == 68.3
+    assert by_name["刘邦"]["A_score_points"] > by_name["刘秀"]["A_score_points"]
+    assert by_name["李世民"]["A_score_points"] > by_name["李渊"]["A_score_points"]
+    assert by_name["刘邦"]["A_score_points"] > by_name["李渊"]["A_score_points"]
+    assert by_name["刘邦"]["A_score_points"] > by_name["嬴政"]["A_score_points"]
+    assert by_name["赵匡胤"]["A2"]["created_net_control_value"] == 265.0
+    assert by_name["赵光义"]["A2"]["created_net_control_value"] == 60.0
+    assert by_name["完颜阿骨打"]["A2"]["created_net_control_value"] == 100.0
+    assert by_name["完颜吴乞买"]["A2"]["created_net_control_value"] == 225.0
+    assert by_name["铁木真"]["A2"]["created_net_control_value"] == 540.0
+    assert by_name["窝阔台"]["A2"]["created_net_control_value"] == 180.0
+    assert by_name["蒙哥"]["A2"]["created_net_control_value"] == 80.0
+    assert by_name["忽必烈"]["A2"]["created_net_control_value"] == 420.0
+    assert by_name["多尔衮"]["A2"]["created_net_control_value"] == 770.0
+    assert by_name["福临"]["A2"]["created_net_control_value"] == 40.0
+    assert by_name["玄烨"]["A2"]["created_net_control_value"] == 0.0
+    assert by_name["玄烨"]["A2"]["recovered_net_control_value"] == 300.0
+    assert by_name["玄烨"]["A2"]["gross_unification_control_value"] == 300.0
+    assert by_name["玄烨"]["A2"]["effective_unification_control_value"] == 150.0
+    assert all(
+        not ({
+            "created_net_control_value",
+            "recovered_net_control_value",
+            "gross_unification_control_value",
+            "effective_unification_control_value",
+            "raw_control_scale_rate",
+            "control_scale_score_rate",
+        } & set(row["A1"]))
+        for row in eligible
+    )
+    assert all("raw_control_scale_rate" in row["A2"] for row in eligible)
+    assert all("control_scale_score_rate" in row["A2"] for row in eligible)
+    assert all("a1_strategic_responsibility_factor" not in row["A2"] for row in eligible)
+    assert all(
+        event["source_refs"]
+        for row in eligible
+        for event in row["A2"]["strategic_positive_decisions"]
+    )
+    assert by_name["刘邦"]["A2"]["raw_control_scale_rate"] == 55.02
+    assert by_name["刘邦"]["A2"]["control_scale_score_rate"] == 74.18
+    assert by_name["刘邦"]["A_score_points"] > by_name["多尔衮"]["A_score_points"]
+    assert by_name["刘邦"]["A_score_points"] > by_name["王建"]["A_score_points"]
+    assert by_name["刘邦"]["A_score_points"] > by_name["石虎"]["A_score_points"]
+    assert by_name["王建"]["A2"]["strategic_positive_decisions"] == []
+    assert by_name["石虎"]["A2"]["strategic_positive_decisions"] == []
+    assert by_name["王建"]["A2"]["strategic_positive_decision_points"] == 0.0
+    assert by_name["石虎"]["A2"]["strategic_positive_decision_points"] == 0.0
+    assert by_name["曹操"]["A_score_points"] == 58.6
+    assert by_name["苻坚"]["A1"]["points"] == 33.5
+    assert by_name["苻坚"]["A2"]["strategic_error_points"] == 10.0
+    assert by_name["苻坚"]["A_score_points"] == 40.5
+    assert by_name["刘秀"]["A1"]["starting_resource_share"] == 0.5
+    assert by_name["嬴政"]["A1"]["starting_resource_share"] == 35.0
+    assert by_name["杨坚"]["A1"]["starting_resource_share"] == 8.0
+    assert by_name["杨坚"]["A1"]["project_start_resource_share"] == 65.0
+    assert by_name["宇文邕"]["A1"]["project_start_resource_share"] == 42.0
+    assert by_name["宇文邕"]["A1"]["difficulty_rate"] > by_name["杨坚"]["A1"]["difficulty_rate"]
+    assert by_name["高欢"]["A1"]["terminal_completion_rate"] == 55.0
+    assert by_name["司马懿"]["A2"]["created_net_control_value"] == 30.0
+    assert by_name["王莽"]["A_score_points"] == 7.0
+    assert by_name["司马懿"]["A_score_points"] < 55
+    assert by_name["高欢"]["A_score_points"] < 75
+    assert by_name["李世民"]["A2"]["strategic_error_points"] == 0.0
+    assert by_name["李世民"]["A2"]["strategic_positive_decisions"][0]["impact"] == "DECISIVE"
+    assert by_name["李世民"]["A2"]["strategic_positive_decision_points"] == 5.0
+    assert by_name["李世民"]["strategic_error_events"] == []
+    assert payload["strategic_error_review_counts"] == {
+        "REVIEWED_ERRORS": 27,
+        "REVIEWED_NO_THRESHOLD_ERROR": 50,
+    }
+    assert payload["strategic_error_event_count"] == 31
+    assert all(
+        row["strategic_error_review"]["searched_evidence_refs"]
+        and row["strategic_error_review"]["review_status"]
+        == (
+            "REVIEWED_ERRORS"
+            if row["strategic_error_events"]
+            else "REVIEWED_NO_THRESHOLD_ERROR"
+        )
+        for row in eligible
+    )
+    assert all(
+        event["source_refs"] and event["c_nonduplication_basis"]
+        for row in eligible
+        for event in row["strategic_error_events"]
+    )
+    assert by_name["铁木真"]["strategic_error_events"] == []
+    assert by_name["铁木真"]["A1"]["opponent_threat_source_status"] == (
+        "OPPONENT_SYSTEM_O_GRADE_WITH_RELATIVE_RESOURCES"
+    )
+    assert by_name["铁木真"]["A1"]["opponent_pressure"] == 68.22
+    assert by_name["铁木真"]["A1"]["opponent_system_pressure"] == 78.45
+    assert by_name["铁木真"]["A1"]["relative_resource_pressure"] == 44.36
+    assert by_name["铁木真"]["A1"]["major_opponent_count"] == 5
+    assert {
+        row["organization_grade"]
+        for row in by_name["铁木真"]["A1"]["major_opponent_systems"]
+    } == {"O4", "O5"}
+    assert all(
+        len(row["A1"]["major_opponent_systems"])
+        == len({system.get("opponent_system_ref") for system in row["A1"]["major_opponent_systems"]})
+        for row in eligible
+        if row["A1"]["opponent_system_pressure"] is not None
+    )
+    assert all(
+        not ({"campaign_tier", "combat_difficulty", "field_threat_rate"} & set(system))
+        for row in eligible
+        for system in row["A1"]["major_opponent_systems"]
+    )
+    assert by_name["铁木真"]["A1"]["opponent_pressure"] > by_name["嬴政"]["A1"]["opponent_pressure"]
+    assert by_name["铁木真"]["A1"]["difficulty_rate"] > by_name["嬴政"]["A1"]["difficulty_rate"]
+    assert by_name["努尔哈赤"]["strategic_error_events"] == []
+    assert by_name["李存勖"]["A2"]["strategic_error_points"] == 12.0
+    assert by_name["洪秀全"]["A2"]["strategic_error_points"] == 10.0
+    assert "foundation_coverage_rate" not in by_name["李世民"]["A2"]
+    assert by_name["李渊"]["A1"]["starting_resource_share"] == 4.0
+    assert by_name["李渊"]["A1"]["major_opponent_count"] == 13
+    assert by_name["李渊"]["A1"]["opponent_pressure"] > by_name["刘秀"]["A1"]["opponent_pressure"]
+    assert by_name["杨坚"]["A1"]["opponent_system_pressure"] == 52.5
+    assert by_name["杨坚"]["A1"]["relative_resource_pressure"] == 21.44
+    assert by_name["杨坚"]["A1"]["opponent_pressure"] == 43.18
+    assert {
+        row["organization_grade"]
+        for row in by_name["杨坚"]["A1"]["major_opponent_systems"]
+    } == {"O4"}
+    assert by_name["嬴政"]["A1"]["opponent_system_pressure"] == 80.45
+    assert by_name["嬴政"]["A1"]["relative_resource_pressure"] == 21.21
+    assert by_name["嬴政"]["A1"]["opponent_pressure"] == 62.68
+    assert by_name["杨坚"]["A1"]["opponent_pressure"] < by_name["刘裕"]["A1"]["opponent_pressure"]
+    assert not any(
+        "刘黑闼" in row["opponent_label"]
+        for row in by_name["李渊"]["A1"]["major_opponent_systems"]
+    )
+    eastern_turks = next(
+        row
+        for row in by_name["李世民"]["A1"]["major_opponent_systems"]
+        if row["opponent_label"] == "东突厥汗国战争机器"
+    )
+    assert eastern_turks["organization_grade"] == "O6"
+    assert by_name["李渊"]["A2"]["created_net_control_value"] == 934.25
+    assert by_name["李世民"]["A2"]["created_net_control_value"] == 934.25
+    assert by_name["李世民"]["A1"]["terminal_completion_rate"] == 100.0
+    assert "personal_route_coverage_rate" not in by_name["李渊"]["A1"]
+    assert "route_coverage_source_status" not in by_name["李世民"]["A1"]
+    assert "effective_net_control_value" not in by_name["李世民"]["A2"]
+    assert by_name["李渊"]["A2"]["strategic_error_points"] == 10.0
+    assert by_name["李渊"]["A2"]["strategic_positive_decision_points"] == 5.0
+    assert payload["opponent_threat_source_counts"] == {
+        "OPPONENT_SYSTEM_O_GRADE_WITH_RELATIVE_RESOURCES": 59,
+        "RELATIVE_RESOURCE_ONLY_EVIDENCE_LOWER_BOUND": 18,
+    }
+    fallback_rows = [
+        row for row in eligible
+        if row["A1"]["opponent_threat_source_status"]
+        == "RELATIVE_RESOURCE_ONLY_EVIDENCE_LOWER_BOUND"
+    ]
+    assert len(fallback_rows) == 18
+    assert all(row["A1"]["opponent_threat_routing_basis"] for row in fallback_rows)
+    zhao_decisions = by_name["赵匡胤"]["A2"]["strategic_positive_decisions"]
+    assert [row["impact"] for row in zhao_decisions] == ["EXCEPTIONAL"]
+    assert zhao_decisions[0]["source_refs"]
+    assert by_name["赵匡胤"]["A2"]["strategic_positive_decision_points"] == 8.0
+    assert by_name["赵匡胤"]["A2"]["points"] > by_name["杨坚"]["A2"]["points"]
+    markdown = render_first_item_a_registry_markdown(payload)
+    opponent_lines = [
+        line for line in markdown.splitlines()
+        if line.startswith("- 主要对手压力：")
+    ]
+    assert len(opponent_lines) == 77
+    assert all(
+        token not in line
+        for line in opponent_lines
+        for token in (
+            "WAR-",
+            "PUBLIC_BATTLE_",
+            "COMPLETE_DEFAULT_",
+            "负荷0.",
+            "对手路由依据",
+        )
+    )
+    assert "克烈部草原霸权体系（O4）" in markdown
+    assert "花剌子模国家机器（O5）" in markdown
+    assert "战场危险度" not in markdown
+    assert [event["severity"] for event in by_name["李渊"]["strategic_error_events"]] == ["MAJOR", "MAJOR"]
+    assert "处死窦建德" in by_name["李渊"]["strategic_error_events"][1]["event"]
+    assert by_name["李渊"]["A2"]["value_weighted_acquisition_years"] == 4.0
+    assert by_name["李渊"]["A2"]["closure_years"] == 10.0
+    assert by_name["李渊"]["A2"]["created_net_control_value"] > by_name["刘秀"]["A2"]["created_net_control_value"]
+    assert by_name["刘秀"]["A2"]["created_net_control_value"] > by_name["刘邦"]["A2"]["created_net_control_value"]
+    assert by_name["刘邦"]["A2"]["created_net_control_value"] > by_name["嬴政"]["A2"]["created_net_control_value"]
+    assert by_name["李世民"]["A2"]["control_acquisition_efficiency"] > by_name["刘邦"]["A2"]["control_acquisition_efficiency"]
+    assert by_name["刘邦"]["A2"]["control_acquisition_efficiency"] > by_name["刘秀"]["A2"]["control_acquisition_efficiency"]
+    assert "grade" not in by_name["刘秀"]["A1"]
+    assert all(
+        row["start_boundary"]
+        and row["end_boundary"]
+        and row["starting_position"]
+        and row["responsibility_basis"]
+        for row in eligible
+    )
+    assert by_name["冉闵"]["A_score_points"] < 20
+    assert by_name["刘玄"]["A_score_points"] < 20
+
+    public_liuheita = next(
+        row for row in inputs["battle_registry"]["records"]
+        if row["war_event_id"] == "WAR-LEAD-TANG-LIUHEITA-622"
+    )
+    members = {member["actor_name"]: member for member in public_liuheita["members"]}
+    assert members["李世民"]["person_command_index"]["projected_combat_difficulty"] == "D4"
+    assert members["李建成"]["person_command_result"]["combat_difficulty"] == "D2"
+    assert "与李世民第一次击毁主力的A/D4成果分开消费" in members["李建成"]["person_command_result"]["basis"]
+
+
+def test_post_tang_battle_partitions_cover_handoffs_exactly_once() -> None:
+    from emperor_v4.evaluation.post_tang_battle_registry import (
+        build_post_tang_battle_partitions,
+    )
+
+    with pytest.raises(ValueError, match="旧registry输入已退役"):
+        build_post_tang_battle_partitions(ROOT)
+
+    assert not (ROOT / "docs/史料通读产物/唐以后编年").exists()
+    assert (ROOT / "docs/史料通读产物/五代十国/资治通鉴").is_dir()
+    assert (ROOT / "docs/史料通读产物/北宋/续资治通鉴").is_dir()
+
+
+def test_current_battle_registry_preserves_qin_tang_and_accepts_post_tang() -> None:
+    payload = json.loads(
+        (ROOT / "docs/公共成果/军事/01-战役登记.json").read_text(encoding="utf-8")
+    )
+    post_records = [record for record in payload["records"] if record.get("post_tang_evidence_lower_bound")]
+    assert payload["schema_version"] == "battle-parent-contract-registry-v5"
+    assert payload["qin_tang_semantic_fingerprint"] == "d8bf11d3b8ad433c1c1e01ff3302a62bff1b66ecc2790574376babc61b3bdb9e"
+    tiered_dynasty_counts = Counter(
+        row["dynasty"] for row in payload["records"] if row.get("campaign_tier")
+    )
+    assert tiered_dynasty_counts["汉"] == 66
+    assert tiered_dynasty_counts["东汉"] == 102
+    assert len(post_records) == 2761
+    assert sum(record["public_outcome_registered"] for record in post_records) == 919
+    assert payload["post_tang_candidate_count"] == 4000
+    assert payload["post_tang_source_fact_count"] == 4090
+    promotion = payload["five_dynasties_promotion"]
+    assert promotion["battle_card_count"] == 521
+    assert promotion["subject_phase_count"] == 1434
+    assert promotion["supplemental_record_count"] == 2
+    assert promotion["retired_stale_record_count"] == 433
+    north_promotion = payload["north_song_promotion"]
+    assert north_promotion["volume_count"] == 97
+    assert north_promotion["battle_card_count"] == 716
+    assert north_promotion["subject_phase_count"] == 1586
+    assert north_promotion["retired_stale_record_count"] == 801
+    assert len({record["war_event_id"] for record in payload["records"]}) == len(payload["records"])
+    difficulty_review = payload["high_difficulty_contract_review_summary"]
+    assert difficulty_review["status"] == "ACCEPTED_CURRENT"
+    assert difficulty_review["current_d3_d4_count"] == 338
+    assert difficulty_review["current_difficulty_counts"] == {"D3": 312, "D4": 26}
+    assert difficulty_review["post_tang_source_reviewed_record_count"] == 104
+    assert difficulty_review["pending_count"] == 0
+    current_high_difficulty = [
+        record
+        for record in payload["records"]
+        if record.get("public_outcome_registered")
+        and record.get("combat_difficulty") in {"D3", "D4"}
+    ]
+    assert len(current_high_difficulty) == 338
+    assert all(record.get("combat_difficulty_basis") for record in current_high_difficulty)
+    assert {
+        record["source_target_ref"]
+        for record in post_records
+        if record.get("public_outcome_registered")
+        and record.get("combat_difficulty") == "D4"
+    } == {
+        "CAMPAIGN-MING-BEIJING-DEFENSE-1449",
+        "CAMPAIGN-QING-SARHU-AND-YEHE-1619",
+        "CAMPAIGN-YUAN-KERAIT-TERMINAL-1203",
+        "SPLIT-QING-AGUI-JINCHUAN-1773-1776",
+    }
+    assert all(
+        record.get("battle_result") in {"victory", "mixed"}
+        and record.get("objective_completion") == "complete"
+        for record in current_high_difficulty
+        if record["combat_difficulty"] == "D4"
+    )
+    zhangping = next(
+        record for record in payload["records"]
+        if record["war_event_id"] == "WAR-LEAD-100-ZHANGPING-358"
+    )
+    assert zhangping["combat_difficulty"] == "D2"
+    dengqiang = next(
+        member for member in zhangping["members"] if member["actor_name"] == "邓羌"
+    )
+    assert dengqiang["person_command_result"]["combat_difficulty"] == "D3"
+    for record in post_records:
+        if "UNIFICATION_ONLY" in set(record.get("account_routing") or ()):
+            assert record["defense_consumption"] == "EXCLUDED_UNIFICATION"
+            assert record["settlement_scope"] == "BATTLE_LEDGER_ONLY"
+
+    calibration = payload["unification_horizontal_calibration"]
+    benchmark = {
+        row["portfolio_ref"]: row for row in calibration["benchmark_records"]
+    }
+    assert benchmark["UCP-TANG-LIYUAN-617-628"]["horizontal_total_band"] == "H1"
+    assert benchmark["UCP-QIN-YINGZHENG-230-221"]["horizontal_total_band"] == "H1"
+    assert benchmark["UCP-HAN-LIUXIU-23-36"]["horizontal_total_band"] == "H2"
+    assert benchmark["UCP-JIN-SIMAYAN-279-280"]["horizontal_total_band"] == "H3"
+    assert benchmark["UCP-SUI-YANGJIAN-587-591"]["horizontal_total_band"] == "H5"
+    assert set(calibration["grade_groups"]["H1"]) == {
+        "UCP-POST-YUAN-1205-1279",
+        "UCP-TANG-LIYUAN-617-628",
+        "UCP-QIN-YINGZHENG-230-221",
+        "UCP-HAN-LIUBANG-BCE207-BCE202",
+    }
+    assert benchmark["UCP-TANG-LIYUAN-617-628"]["credited_opponent_counts"]["O5"] == 2
+    assert benchmark["UCP-HAN-LIUXIU-23-36"]["credited_opponent_counts"]["O5"] == 0
+    assert benchmark["UCP-HAN-LIUXIU-23-36"]["credited_opponent_counts"]["O4"] == 4
+
+    all_portfolios = payload["unification_campaign_portfolios"]
+    assert len(all_portfolios) == 17
+    assert len({tuple(sorted(row)) for row in all_portfolios}) == 1
+    assert len({tuple(sorted(row["control_audit"])) for row in all_portfolios}) == 1
+    assert "pre_tang_unification_control_calibrations" not in payload
+    assert "post_tang_unification_portfolios" not in payload
+    pre_tang_controls = {
+        row["dynasty"]: row
+        for row in all_portfolios
+        if row["chronology_scope"] == "PRE_TANG"
+    }
+    assert {
+        dynasty: row["created_net_control_value"]
+        for dynasty, row in pre_tang_controls.items()
+    } == {
+        "唐": 760.0,
+        "东汉": 825.0,
+        "西汉": 745.0,
+        "秦": 580.0,
+        "晋": 300.0,
+        "隋": 245.0,
+    }
+    assert all(
+        row["control_audit"]["source_configs"]
+        == [
+            "config/first-item-c-territorial-control-adjudications.json",
+            "config/pre-tang-unification-war-control-adjudications.json",
+            "config/period-war-region-value-adjudications.json",
+            "config/unification-chain-opponent-calibrations.json",
+        ]
+        and "baseline_snapshot" in row["control_audit"]
+        and row["control_audit"]["terminal_snapshot"]
+        and row["control_audit"]["group_control_results"]
+        and row["control_audit"]["control_deltas"]
+        and round(
+            sum(
+                delta["weighted_war_acquired_value"]
+                for delta in row["control_audit"]["control_deltas"]
+            ),
+            2,
+        )
+        == row["created_net_control_value"]
+        for row in pre_tang_controls.values()
+    )
+    tang_deltas = {
+        row["region_id"]: row
+        for row in pre_tang_controls["唐"]["control_audit"]["control_deltas"]
+    }
+    assert tang_deltas["MR-BASHU"]["war_acquired_retained_fraction"] == 0.0
+    assert tang_deltas["MR-BASHU"]["excluded_non_war_fraction"] == 1.0
+    assert tang_deltas["MR-BASHU"]["unknown_acquisition_fraction"] == 0.0
+    assert payload["high_tier_recalibration_summary"]["current_tier_counts"] == {
+        "S": 48,
+        "S+": 2,
+        "S-": 150,
+    }
+    assert payload["high_tier_recalibration_summary"]["current_high_tier_count"] == 200
+    assert payload["high_tier_recalibration_summary"]["changed_decision_count"] == 74
+    assert payload["high_tier_recalibration_summary"]["ordinary_opponent_audit_count"] == 160
+    assert payload["high_tier_recalibration_summary"]["current_ordinary_high_tier_count"] == 136
+    assert payload["high_tier_recalibration_summary"]["structural_a_promotion_pending_count"] == 0
+    assert {
+        row["campaign_group_id"]
+        for row in pre_tang_controls["隋"]["control_audit"]["excluded_non_battle_groups"]
+    } == {"WAR-LEAD-SUI-ABSORB-LIANG-587"}
+
+    portfolios = {
+        row["portfolio_ref"]: row
+        for row in all_portfolios
+        if row["chronology_scope"] == "POST_TANG"
+    }
+    assert set(portfolios) == {
+        "UCP-POST-GORYEO-936",
+        "UCP-POST-LIAO-901-926",
+        "UCP-POST-SONG-963-979",
+        "UCP-POST-PROTO-JIN-SHILU",
+        "UCP-POST-JIN-1114-1126",
+        "UCP-POST-YUAN-ANCESTRAL-BODONCHAR",
+        "UCP-POST-YUAN-ANCESTRAL-HAIDU",
+        "UCP-POST-YUAN-1205-1279",
+        "UCP-POST-MING-1353-1382",
+        "UCP-POST-QING-FOUNDING-1607-1662",
+        "UCP-POST-QING-REUNIFICATION-1673-1683",
+    }
+    assert all("portfolio_total_tier" not in row for row in portfolios.values())
+    assert portfolios["UCP-POST-GORYEO-936"]["campaign_group_refs"] == [
+        "WAR-FD-013B3B0607C76A755F16"
+    ]
+    assert portfolios["UCP-POST-SONG-963-979"]["created_net_control_value"] == 325.0
+    assert portfolios["UCP-POST-SONG-963-979"]["horizontal_total_band"] == "H2"
+    current_event_ids = {row["war_event_id"] for row in payload["records"]}
+    song_portfolio = portfolios["UCP-POST-SONG-963-979"]
+    assert len(song_portfolio["campaign_group_refs"]) == 22
+    assert set(song_portfolio["campaign_group_refs"]) <= current_event_ids
+    assert all(
+        set(opponent["source_campaign_refs"]) <= current_event_ids
+        for opponent in song_portfolio["opponent_systems"]
+    )
+    assert portfolios["UCP-POST-JIN-1114-1126"]["created_net_control_value"] == 325.0
+    assert portfolios["UCP-POST-JIN-1114-1126"]["horizontal_total_band"] == "H2"
+    assert portfolios["UCP-POST-YUAN-1205-1279"]["created_net_control_value"] == 1140.0
+    assert portfolios["UCP-POST-YUAN-1205-1279"]["horizontal_total_band"] == "H1"
+    assert portfolios["UCP-POST-MING-1353-1382"]["created_net_control_value"] == 957.0
+    assert portfolios["UCP-POST-MING-1353-1382"]["horizontal_total_band"] == "H2"
+    assert portfolios["UCP-POST-QING-FOUNDING-1607-1662"]["created_net_control_value"] == 910.0
+    assert portfolios["UCP-POST-QING-FOUNDING-1607-1662"]["horizontal_total_band"] == "H2"
+    assert portfolios["UCP-POST-QING-REUNIFICATION-1673-1683"]["created_net_control_value"] == 0.0
+    assert portfolios["UCP-POST-QING-REUNIFICATION-1673-1683"]["recovered_net_control_value"] == 300.0
+    assert portfolios["UCP-POST-QING-REUNIFICATION-1673-1683"]["horizontal_total_band"] == "H3"
+    assert all(
+        delta["region_value_period_id"] == row["region_value_period_id"]
+        and delta["war_region_grade"] in {"R2", "R3", "R4", "R5"}
+        and delta["region_value_weight"] in {40.0, 60.0, 80.0, 100.0}
+        for row in portfolios.values()
+        for delta in row["control_audit"].get("control_deltas") or ()
+    )
+    region_policy = json.loads(
+        (ROOT / "config/period-war-region-value-adjudications.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    period_profiles = {
+        row["period_id"]: row["regions"] for row in region_policy["period_profiles"]
+    }
+    assert period_profiles["WAR-REGION-TANG-617-628"]["MR-BASHU"]["R"] == "R3"
+    assert period_profiles["WAR-REGION-THREE-KINGDOMS-184-280"]["MR-BASHU"]["R"] == "R5"
+    assert all(
+        row["defense_consumption"] == "EXCLUDED_UNIFICATION"
+        for row in portfolios.values()
+    )
+    assert not any(row.get("campaign_tier") == "S+" for row in post_records)
+    by_target = {row.get("source_target_ref"): row for row in post_records}
+    assert by_target["CAMPAIGN-LIAO-PREACCESSION-EXPANSION-901-903"]["account_routing"] == ["UNIFICATION_ONLY"]
+    assert by_target["CAMPAIGN-PROTO-JIN-SHILU-TRIBAL-CONSOLIDATION"]["defense_consumption"] == "EXCLUDED_UNIFICATION"
+    assert by_target["CAMPAIGN-QING-TAIWAN-1683"]["campaign_tier"] == "S-"
+    assert by_target["CAMPAIGN-QING-TAIWAN-1683"]["defense_consumption"] == "EXCLUDED_UNIFICATION"
+    assert by_target["CAMPAIGN-MING-HUAI-EAST-CONQUEST-1366"]["merged_into"] == by_target["CAMPAIGN-MING-HUAIDONG-1365-1366"]["war_event_id"]
+    assert not by_target["CAMPAIGN-MING-HUAI-EAST-CONQUEST-1366"]["public_outcome_registered"]
+    five_dynasties = [
+        row for row in payload["records"]
+        if row.get("dynasty_partition") == "five_dynasties"
+    ]
+    assert len(five_dynasties) == 523
+    assert sum(row["subject_phase_count"] for row in five_dynasties) == 1436
+    assert all(row["wc_grade"] is None and row["security_grade"] is None for row in five_dynasties)
+    assert {
+        row["war_event_id"] for row in five_dynasties
+        if row["record_level"] == "targeted_primary_source_supplement"
+    } == {
+        "WAR-FD-SUPPLEMENT-LATER-SHU-COLLAPSE-965",
+        "WAR-FD-SUPPLEMENT-SOUTHERN-TANG-COLLAPSE-974-975",
+    }
+    north_song = [
+        row for row in payload["records"]
+        if row.get("dynasty_partition") == "north_song"
+    ]
+    assert len(north_song) == 716
+    assert sum(row["subject_phase_count"] for row in north_song) == 1586
+    assert all(row["record_level"] == "chronicle_battle_card" for row in north_song)
+    assert all(row["wc_grade"] is None and row["security_grade"] is None for row in north_song)
+    assert all(not row["war_event_id"].startswith("WAR-POST-") for row in north_song)
+    assert not any(
+        "docs/史料通读产物/唐以后编年/续资治通鉴-北宋" in source_file
+        for row in north_song
+        for source_file in row["source_lineage"]["source_files"]
+    )
+
+
+def test_current_talent_registry_keeps_card_partitions_outside_person_grade_consumption() -> None:
+    battle = json.loads(
+        (ROOT / "docs/公共成果/军事/01-战役登记.json").read_text(encoding="utf-8")
+    )
+    talent = json.loads(
+        (ROOT / "docs/公共成果/军事/02-武将人才等级.json").read_text(encoding="utf-8")
+    )
+    lower_bounds = [profile for profile in talent["profiles"] if profile["grade_status"] == "evidence_lower_bound"]
+    canonical_cards = [
+        row for row in battle["records"]
+        if row.get("dynasty_partition") in {"five_dynasties", "north_song"}
+    ]
+    assert talent["source_registry_fingerprint"] != battle["semantic_fingerprint"]
+    assert canonical_cards
+    assert all(not row.get("post_tang_evidence_lower_bound") for row in canonical_cards)
+    assert all(not row.get("members") for row in canonical_cards)
+    assert talent["evidence_lower_bound_profile_count"] == len(lower_bounds) == 733
+    assert Counter(profile["military_grade"] for profile in lower_bounds) == {
+        "capable": 23,
+        "elite": 27,
+        "historic": 4,
+        "important": 166,
+        "ordinary": 226,
+        "top": 17,
+        "usable": 270,
+    }
+
+
+def test_o4_recalibration_rejects_local_residual_and_duplicate_system_credit() -> None:
+    accepted_o3_refs = {
+        "BATTLE-LEAD-XZZTJ-167-WUXIAN-NINE-FORTS-1233",
+        "BATTLE-LEAD-XZZTJ-183-E043",
+        "CAMPAIGN-MING-JIAOZHI-REBELLION-1408-1414",
+        "CAMPAIGN-QING-TAIPING-NORTHERN-EXPEDITION-1853-1855",
+        "CAMPAIGN-QING-TIBET-CONQUEST-1720",
+        "CAMPAIGN-SONG204-UPPER-CAPITAL-WAR",
+        "CAMPAIGN-SONG210-XUZHOU-REDTURBAN",
+        "CAMPAIGN-YUAN-TANZHOU-1276",
+        "SPLIT-QING-ZHENG-TAIWAN-1661-1662",
+        "WAR-LEAD-259-HUAINAN-END",
+        "WAR-LEAD-261-BIANYUN-END",
+        "WAR-LEAD-265-XIANGJING-END",
+        "SPLIT-YUAN-NAYAN-MILITARY-1287",
+        "CAMPAIGN-QING-GALDAN-FINAL-1696-1697",
+    }
+    review = json.loads(
+        (ROOT / "config/high-tier-campaign-recalibrations.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    audit_by_ref = {
+        row["battle_ref"]: row
+        for row in review["ordinary_high_tier_opponent_audit"]["adjudications"]
+    }
+    battle = json.loads(
+        (ROOT / "docs/公共成果/军事/01-战役登记.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    battle_by_ref = {row["war_event_id"]: row for row in battle["records"]}
+    battle_by_ref.update(
+        {
+            row["source_target_ref"]: row
+            for row in battle["records"]
+            if row.get("source_target_ref") in accepted_o3_refs
+        }
+    )
+    assert all(
+        audit_by_ref[ref]["effective_opponent_grade"] == "O3"
+        and audit_by_ref[ref]["final_tier"] == "A"
+        and battle_by_ref[ref]["campaign_tier"] == "A"
+        for ref in accepted_o3_refs
+    )
+
+    a_payload = build_first_item_a_registry(**_load_current_first_item_a_inputs())
+    li_yuan = next(row for row in a_payload["records"] if row["ruler_name"] == "李渊")
+    system_refs = {
+        row["opponent_system_ref"] for row in li_yuan["A1"]["major_opponent_systems"]
+    }
+    assert "OPP-TANG-DOUJIANDE" in system_refs
+    assert "OPP-TANG-LIUHEITA" not in system_refs
+    assert next(
+        row
+        for row in li_yuan["A1"]["major_opponent_systems"]
+        if row["opponent_system_ref"] == "OPP-TANG-EASTERN-TURKS"
+    )["organization_grade"] == "O6"
+
+
+def test_post_tang_ruler_operational_results_require_actual_design_not_authorization() -> None:
+    battle = json.loads(
+        (ROOT / "docs/公共成果/军事/01-战役登记.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    talent = json.loads(
+        (ROOT / "docs/公共成果/军事/02-武将人才等级.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    by_target = {
+        record.get("source_target_ref"): record for record in battle["records"]
+    }
+
+    expected = {
+        "CAMPAIGN-YUAN-SONG-CONQUEST": ("忽必烈", "positive", "S"),
+        "CAMPAIGN-MING-NORTHERN-EXPEDITION-1367-1368": ("朱元璋", "positive", "S"),
+        "HANDOFF-XZZTJ-138-WULIN-RETREAT": ("赵昚", "negative", "S-"),
+        "CAMPAIGN-QING-GALDAN-FINAL-1696-1697": ("玄烨", "positive", "A"),
+    }
+    for target_ref, (ruler, direction, tier) in expected.items():
+        operational = [
+            member
+            for member in by_target[target_ref]["members"]
+            if member["person_command_index"]["consumption_mode"]
+            == "operational_result"
+        ]
+        assert [member["actor_name"] for member in operational] == [ruler]
+        index = operational[0]["person_command_index"]
+        assert index["capability_mode"] == "operational_design"
+        assert index["result_direction"] == direction
+        assert index["projected_result_tier"] == tier
+        assert index["projected_combat_difficulty"] is None
+
+    taiwan_names = {
+        member["actor_name"]
+        for member in by_target["CAMPAIGN-QING-TAIWAN-1683"]["members"]
+    }
+    assert "施琅" in taiwan_names
+    assert "玄烨" not in taiwan_names
+    assert "康熙" not in taiwan_names
+    assert not [
+        row
+        for row in battle["records"]
+        if row.get("public_outcome_registered")
+        and row.get("post_tang_evidence_lower_bound")
+        and row.get("command_status") == "PERSON_DETAIL_PENDING"
+    ]
+    assert Counter(
+        row["command_status"]
+        for row in battle["records"]
+        if row.get("post_tang_evidence_lower_bound")
+        and row.get("public_outcome_registered")
+    ) == {
+        "PERSON_COMMAND_UNKNOWN": 421,
+        "RESOLVED_EXPLICIT_ACTORS": 498,
+    }
+    person_adjudications = json.loads(
+        (ROOT / "config/post-tang-battle-person-adjudications.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    differential_gate = person_adjudications["public_outcome_person_coverage_gate"][
+        "resolved_record_differential_gate"
+    ]
+    assert differential_gate["reviewed_candidate_count"] == 98
+    assert differential_gate["integrated_candidate_count"] == 94
+    assert differential_gate["remaining_high_confidence_candidate_count"] == 0
+    assert differential_gate["explicit_exclusion_count"] == 4
+    by_person = {profile["person"]: profile for profile in talent["profiles"]}
+    assert by_person["赵匡胤"]["military_grade"] == "important"
+    assert len(by_person["赵匡胤"]["consumed_achievements"]) == 5
+    assert len(by_person["边镐"]["consumed_achievements"]) == 1
+    assert by_person["查文徽"]["military_grade"] == "ordinary"
+    assert len(by_person["查文徽"]["attributable_failures"]) == 1
+    assert len(by_person["张汉真"]["attributable_failures"]) == 1
+    assert by_person["李存勖"]["military_grade"] == "historic"
+    assert {
+        row["decisive_relation"]
+        for row in by_person["李存勖"]["consumed_achievements"]
+    } == {
+        "decisive_creator",
+        "decisive_successor",
+        "terminal_finisher",
+        "co_decisive",
+    }
+    assert len(by_person["李存勖"]["consumed_achievements"]) == 10
+    assert len(by_person["李存勖"]["attributable_failures"]) == 4
+    assert by_person["朱元璋"]["military_grade"] == "top"
+    assert len(by_person["朱元璋"]["consumed_achievements"]) == 9
+    assert not by_person["朱元璋"]["attributable_failures"]
+    assert by_person["徐达"]["military_grade"] == "historic"
+    assert len(by_person["徐达"]["consumed_achievements"]) == 9
+    assert len(by_person["徐达"]["attributable_failures"]) == 1
+    assert by_person["徐达"]["attributable_failures"][0]["failure_impact_tier"] == "A"
+    assert by_person["铁木真"]["name_aliases"] == ["成吉思汗", "蒙古太祖", "铁木真"]
+    assert by_person["铁木真"]["military_grade"] == "historic"
+    assert len(by_person["铁木真"]["consumed_achievements"]) == 11
+    assert len(by_person["铁木真"]["negative_or_mixed_command_records"]) == 5
+    assert len(by_person["铁木真"]["attributable_failures"]) == 3
+    assert any(
+        row["result_direction"] == "mixed_review"
+        and "十三翼之战胜负存在史源冲突" in row["canonical_label"]
+        and any(ref.startswith("元朝秘史/卷04@853105#") for ref in row["source_refs"])
+        for row in by_person["铁木真"]["negative_or_mixed_command_records"]
+    )
+    assert by_person["朱棣"]["military_grade"] == "top"
+    assert len(by_person["朱棣"]["consumed_achievements"]) == 10
+    assert len(by_person["朱棣"]["negative_or_mixed_command_records"]) == 3
+    assert len(by_person["朱棣"]["attributable_failures"]) == 3
+    assert {row["failure_impact_tier"] for row in by_person["朱棣"]["attributable_failures"]} == {"A", "B"}
+    assert by_person["李继迁"]["name_aliases"] == ["保吉", "李继迁", "赵保吉"]
+    assert by_person["李继迁"]["military_grade"] == "important"
+    assert len(by_person["李继迁"]["attributable_failures"]) == 5
+    assert by_person["朱厚照"]["name_aliases"] == ["明武宗朱厚照", "朱厚照"]
+    assert len(by_person["耶律阿保机"]["consumed_achievements"]) == 10
+    assert len(by_person["曹彬"]["attributable_failures"]) == 2
+    assert len(by_person["韩世忠"]["consumed_achievements"]) == 7
+    assert len(by_person["韩世忠"]["attributable_failures"]) == 3
+    assert len(by_person["刘法"]["attributable_failures"]) == 1
+    assert len(by_person["蒙哥"]["attributable_failures"]) == 1
+    assert len(by_person["僧格林沁"]["consumed_achievements"]) == 3
+    assert len(by_person["僧格林沁"]["attributable_failures"]) == 1
+    assert by_person["于谦"]["military_grade"] == "elite"
+    assert by_person["石亨"]["military_grade"] == "important"
+    assert by_person["蓝玉"]["military_grade"] == "elite"
+    assert by_person["阿里海牙"]["military_grade"] == "important"
+    assert by_person["吕文德"]["name_aliases"] == ["吕文德", "文德"]
+    assert len(by_person["吕文德"]["consumed_achievements"]) == 2
+    assert "文德" not in by_person
+    by_target = {row.get("source_target_ref"): row for row in battle["records"]}
+    for target_ref, actor_name in {
+        "CAMPAIGN-JIN-SONG-SOUTHERN-PURSUIT-1129-1130": "完颜宗弼",
+        "CAMPAIGN-XIXIA-HUANZHOU-BAIMAZU-1003": "赵保吉",
+        "CAMPAIGN-LIAO-SONG-CHANYUAN-1004": "萧挞凛",
+        "CAMPAIGN-SONG212-CHAHAN-HENAN": "察罕特穆尔",
+    }.items():
+        member = next(
+            row for row in by_target[target_ref]["members"] if row["actor_name"] == actor_name
+        )
+        assert {row["result_direction"] for row in member["person_command_result"]} == {
+            "positive",
+            "negative",
+        }
+        assert any(
+            row["actor_name"] == actor_name
+            for row in by_target[target_ref]["attributable_failures"]
+        )
+
+    five_dynasties_a = [
+        row for row in battle["records"]
+        if row.get("dynasty_partition") == "five_dynasties"
+        and row.get("tier_review_source_tier") == "A"
+        and row.get("tier_adjudication_status") in {"ADJUDICATED_EXPLICIT", "REVIEWED_RETAINED_A"}
+    ]
+    assert five_dynasties_a == []
+    assert all(
+        row.get("record_level")
+        in {"chronicle_battle_card", "targeted_primary_source_supplement"}
+        and not row.get("members")
+        and not row.get("attributable_failures")
+        for row in battle["records"]
+        if row.get("dynasty_partition") == "five_dynasties"
+    )
+    assert battle["post_tang_tier_review_summary"] == {
+        "reviewed_batch_count": 9,
+        "reviewed_record_count": 364,
+            "explicit_s_tier_count": 76,
+        "pending_a_review_count": 0,
+        "difficulty_contract_reviewed_record_count": 104,
+        "difficulty_contract_review_fingerprint": "f552e6042f5feef45521cd90764255649fadd53cee0df5a1345451f22f1bb2ec",
+        "difficulty_contract_pending_count": 0,
+    }
+
+    liao_a = [
+        row for row in battle["records"]
+        if row.get("dynasty_partition") == "liao"
+        and row.get("tier_review_source_tier") == "A"
+        and row.get("tier_adjudication_status") in {"ADJUDICATED_EXPLICIT", "REVIEWED_RETAINED_A"}
+    ]
+    assert len(liao_a) == 11
+    assert Counter(row["command_status"] for row in liao_a) == {
+        "RESOLVED_EXPLICIT_ACTORS": 5,
+        "PERSON_COMMAND_UNKNOWN": 6,
+    }
+    assert sum(len(row.get("members") or ()) for row in liao_a) == 8
+    assert sum(len(row.get("attributable_failures") or ()) for row in liao_a) == 4
+    assert not any(row["command_status"] == "PERSON_DETAIL_PENDING" for row in liao_a)
+    assert Counter(row["campaign_tier"] for row in liao_a) == {"A": 10, "S-": 1}
+    assert {
+        row["source_target_ref"]
+        for row in liao_a
+        if row["campaign_tier"] == "S-"
+        } == {
+            "CAMPAIGN-LIAO-SHANXI-RECOVERY-AND-YANG-YE-CAPTURE-986",
+        }
+
+
+def test_current_registry_does_not_duplicate_literal_full_parent_consumption() -> None:
+    battle = json.loads(
+        (ROOT / "docs/公共成果/军事/01-战役登记.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    records = battle["records"]
+
+    duplicate_full_parent = {
+        row["war_event_id"]: [
+            member["actor_name"]
+            for member in row.get("members") or ()
+            if (member.get("person_command_index") or {}).get("consumption_mode")
+            == "full_parent"
+        ]
+        for row in records
+    }
+    duplicate_full_parent = {
+        event_id: names
+        for event_id, names in duplicate_full_parent.items()
+        if len(names) > 1
+    }
+    assert duplicate_full_parent == {}
+
+    dali = next(
+        row
+        for row in records
+        if row["war_event_id"] == "WAR-POST-711EBFAACFECB8C58F08"
+    )
+    dali_members = {member["actor_name"]: member for member in dali["members"]}
+    assert (
+        dali_members["忽必烈"]["person_command_index"]["command_scope"],
+        dali_members["忽必烈"]["person_command_result"][0]["result_tier"],
+        dali_members["兀良合台"]["person_command_index"]["command_scope"],
+        dali_members["兀良合台"]["person_command_result"][0]["result_tier"],
+    ) == ("full_campaign", "S-", "scoped_stage", "A")
+
+    same_parent_scoped_exceptions = []
+    for row in records:
+        matching = []
+        for member in row.get("members") or ():
+            results = member.get("person_command_result") or ()
+            if isinstance(results, dict):
+                results = (results,)
+            if any(
+                result.get("result_direction") == "positive"
+                and result.get("result_tier") == row.get("campaign_tier")
+                and result.get("combat_difficulty") == row.get("combat_difficulty")
+                for result in results
+            ):
+                matching.append(member)
+        if len(matching) < 2 or row.get("campaign_tier") == "C":
+            continue
+        for member in matching:
+            index = member.get("person_command_index") or {}
+            if index.get("capability_mode") == "tactical_execution" or index.get(
+                "decisive_relation"
+            ) in {"stage_executor", "terminal_finisher"}:
+                same_parent_scoped_exceptions.append(
+                    (row["war_event_id"], member["actor_name"])
+                )
+    assert same_parent_scoped_exceptions == [
+        ("WAR-POST-8FB3095C479B065DB083", "阿骨打")
+    ]
+
+    strict_examples = {
+        row["war_event_id"]: {
+            member["actor_name"]: member
+            for member in row.get("members") or ()
+        }
+        for row in records
+        if row["war_event_id"]
+        in {
+            "WAR-LEAD-TANG-GOGURYEO-645",
+            "WAR-LEAD-TANG-ANSHI-END",
+            "WAR-POST-6553D2D79DD1103A1546",
+            "WAR-POST-967717D1C017F2D3443C",
+        }
+    }
+    assert strict_examples["WAR-LEAD-TANG-GOGURYEO-645"]["李世勣"][
+        "person_command_result"
+    ]["result_tier"] == "A"
+    assert strict_examples["WAR-LEAD-TANG-ANSHI-END"]["郭子仪"][
+        "person_command_result"
+    ][0]["result_tier"] == "A"
+    assert strict_examples["WAR-POST-6553D2D79DD1103A1546"]["速不台"][
+        "person_command_result"
+    ][0]["result_tier"] == "S-"
+    nian = strict_examples["WAR-POST-967717D1C017F2D3443C"]["年羹尧"]
+    assert (
+        nian["person_command_index"]["command_scope"],
+        nian["person_command_result"][0]["result_tier"],
+        nian["person_command_result"][0]["combat_difficulty"],
+    ) == ("full_campaign", "A", "D2")
+    talent = json.loads(
+        (ROOT / "docs/公共成果/军事/02-武将人才等级.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert not [
+        profile
+        for profile in talent["profiles"]
+        if profile["grade_status"] == "lower_bound_pending_person_result"
+    ]
+
+
+def test_elite_review_closes_major_defeat_accountability_and_applies_caps() -> None:
+    talent = json.loads(
+        (ROOT / "docs/公共成果/军事/02-武将人才等级.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    by_name = {profile["person"]: profile for profile in talent["profiles"]}
+    reviewed = [
+        profile
+        for profile in talent["profiles"]
+        if profile["military_grade"] in {"elite", "top", "historic"}
+        or "blocked_by_failure_pressure" in profile["rule_path"]
+    ]
+    for profile in reviewed:
+        for row in profile.get("failure_accountability") or ():
+            if row.get("campaign_tier") not in {"A", "S-", "S", "S+"}:
+                continue
+            if row.get("combat_difficulty") not in {"D2", "D3", "D4"}:
+                continue
+            assert row.get("outcome_responsibility")
+            assert row.get("causal_fault") not in {None, "", "UNKNOWN"}
+
+    assert by_name["苏定方"]["military_grade"] == "historic"
+    assert by_name["刘裕"]["military_grade"] == "top"
+    assert by_name["马援"]["military_grade"] == "elite"
+    assert by_name["铁木真"]["military_grade"] == "historic"
+    assert by_name["吴汉"]["military_grade"] == "elite"
+    assert by_name["郭子仪"]["military_grade"] == "elite"
+    assert by_name["吴璘"]["military_grade"] == "elite"
+    assert by_name["陈庆之"]["military_grade"] == "top"
+    assert any(
+        row.get("causal_fault") == "NO_FAULT_MANDATORY_ORDER"
+        for row in by_name["吴璘"]["failure_accountability"]
+    )
+    assert any(
+        row.get("causal_fault") == "NO_FAULT_EXTERNAL_DISASTER"
+        for row in by_name["陈庆之"]["failure_accountability"]
+    )
+    assert any(
+        row.get("causal_fault") == "ATTRIBUTABLE_ROUTE_SELECTION"
+        for row in by_name["马援"]["failure_accountability"]
+    )

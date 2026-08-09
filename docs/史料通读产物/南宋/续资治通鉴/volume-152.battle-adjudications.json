@@ -1,0 +1,648 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "续资治通鉴/卷152",
+  "source_identity": {
+    "source_unit_id": "SRC-XUZIZHITONGJIAN-152-2315793",
+    "revision_ref": "2315793",
+    "raw_sha256": "26ec208cba79a453ea9c08cb1d50f43172dc9e79db6328da48617960530f7f0e"
+  },
+  "cards": [
+    {
+      "battle_label": "金夏镇戎边境冲突：巡卒被执—阿嚕岱率兵诘问—西夏三千伏兵射杀",
+      "campaign_group": "XZTJ-JIN-XIA-ZHENRONG-BORDER-1191",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-152-2315793-P0134",
+        "SRC-XUZIZHITONGJIAN-152-2315793-P0135"
+      ],
+      "source_quotes": [
+        "夏人肆牧於鎮戎之境，邏卒逐之，夏人執邏卒而去",
+        "夏廂官吳明契、信陵都卜祥、徐餘立伏兵三千於澗中，阿嚕岱中流矢死"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金镇戎方向边军 × 巡卒被执、阿嚕岱率兵诘问遭伏击阶段",
+          "subject_role": "BORDER_DEFENDER",
+          "actual_process": "西夏人员在镇戎境内放牧，金邏卒驱逐时被执去；边将阿嚕岱随后率兵诘问，遭吴明契等预伏三千人伏击，阿嚕岱中箭死亡。其后金廷持续外交索取责任人属于战后处置，不重复计为战斗阶段。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "至少边将阿嚕岱1人战死，另有人数不详的邏卒被执。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "一名具名死亡已保证非零；被执巡卒按1/5折算但人数失载。边境短促伏击无成建制覆没、补兵或大批被俘后效。",
+            "upper_bound_reason": "要进入P2至少需百人死亡当量，而现有材料只有1名具名死亡和不详的小队巡卒被执，缺百人级证据。",
+            "confidence": "medium"
+          },
+          "cost_axis_basis": {
+            "S": "单一镇戎边境节点受扰，巡逻力量被执、边将遭伏击，但未见州城、砦寨或生产行政体系持续失控，记S1。",
+            "M": "阿嚕岱率一支边军短期出动，规模不详且未见跨区转输，记M1。",
+            "A": "无战马、军械、粮秣、堡垒或财政资产损失记载，记A0。"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "一次边境巡防处置被伏击，边将死亡，镇戎方向短期安全受挫，但未形成持续边界退控。",
+          "material_return": "WR0",
+          "material_return_detail": "无可确认战争资源所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "镇戎之境"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "西夏在境内放牧并伏击，但原文没有稳定占领砦寨、通道或土地；金方边境控制未形成可确认净变化。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0134",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0135"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "已付出边将战死、巡卒被执和一次军事出动成本，且本阶段结果为遭伏击失败，无安全、资源或控制收益。P1与S1同处基础最高档，按PS规则由WC1抬为WC2。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期的边防、内乱或中央权力交接阶段，不属于本卷可确认的建国、复国、割据建立或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0134",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0135"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0134",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0135"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0134",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0135"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0134",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0135"
+            ]
+          },
+          "carry_in": "卷151未见同一镇戎金夏冲突的实际接战阶段。",
+          "carry_out": "本卷后续转入金廷索取凶手、西夏最终杀吴明契等人的外交/司法处置；卷153如无新接战，不再补战果。"
+        },
+        {
+          "evaluation_subject_phase": "西夏吴明契等三千伏兵 × 镇戎伏击阶段",
+          "subject_role": "BORDER_ATTACKER_AMBUSH",
+          "actual_process": "西夏方面先执金邏卒，随后吴明契、都卜祥、徐餘等在涧中设伏三千，伏击阿嚕岱所率金军并射杀阿嚕岱。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "西夏方战斗损失未载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "三千伏兵与金边军发生实际武装接触，史料简略，不能以未载本方伤亡直接判P0；同时这是预伏成功的短促战斗，没有西夏败退、追击或重大减员后效。",
+            "upper_bound_reason": "无百人级西夏伤亡、斩俘或成建制受损证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "未见西夏本方生产、行政或聚落体系受战，记S0。",
+            "M": "明确设伏三千人，仍属万人以下短期边境行动，记M1。",
+            "A": "无可识别军资投入或损失，记A0。"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "伏击成功并杀死对方边将，只形成一次战术性缓解；随后金廷持续追责，未形成长期边境安全改善。",
+          "material_return": "WR0",
+          "material_return_detail": "被执邏卒属于人员，不作为战利资产；无其他物资缴获。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "镇戎边境"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "伏击与放牧没有形成可确认稳定控制空间。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0134",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0135"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以局部三千人伏击取得一次明确战术成果，但没有稳定控制、物资回报或可确认长期安全收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期的边防、内乱或中央权力交接阶段，不属于本卷可确认的建国、复国、割据建立或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0134",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0135"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0134",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0135"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0134",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0135"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0134",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0135"
+            ]
+          },
+          "carry_in": "本卷先有西夏人员在镇戎境内放牧并执走金邏卒。",
+          "carry_out": "金廷持续索取责任人后，西夏最终杀吴明契等；该后续属于外交/司法处置，不把处刑人数倒计为本战P。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "泸州骑射军张信兵变：杀帅据军政节点—张昌卞进反击收束",
+      "campaign_group": "XZTJ-SONG-LUZHOU-ZHANGXIN-MUTINY-1192",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-152-2315793-P0195",
+        "SRC-XUZIZHITONGJIAN-152-2315793-P0196",
+        "SRC-XUZIZHITONGJIAN-152-2315793-P0197",
+        "SRC-XUZIZHITONGJIAN-152-2315793-P0198",
+        "SRC-XUZIZHITONGJIAN-152-2315793-P0199"
+      ],
+      "source_quotes": [
+        "張信等作亂，晨，入帥府，殺孝芳及其家",
+        "信擐甲坐閱武堂……分其兵為五十二隊",
+        "昌、進擊殺信於坐",
+        "因執殺造逆者二十餘人，餘黨皆執獲"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋泸州军政体系 × 张信骑射军突入帅府、杀帅并短暂夺取军政节点阶段",
+          "subject_role": "STATE_DEFENDER",
+          "actual_process": "泸州骑射营因训练、役使和廪赐矛盾起乱，晨间突入帅府，杀知州张孝芳及其家，又杀节度推官杜美、兵马监押安彦斌、训练官雷世明、军校张明等；张信披甲坐阅武堂，自称第一将，分兵五十二队并向城中发布命令。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "至少张孝芳、杜美、安彦斌、雷世明、张明5名具名人员被杀，另有张孝芳家属多人被杀但人数失载。",
+            "range": "5—99死亡当量",
+            "center": 22,
+            "P_scoring": "P1估",
+            "basis": "至少五名具名死亡并有一户家属追加死亡，确定属于P1；材料未见百人级屠杀、军民大批被俘或流亡。",
+            "upper_bound_reason": "即使把未列名的张氏家属计入，现有文本也不足以支持百人级死亡当量。",
+            "confidence": "medium"
+          },
+          "cost_axis_basis": {
+            "S": "州级帅府与阅武堂这一军政指挥节点被本州禁军实际夺占，地方最高军政负责人及多名军官被杀，形成短期州级军政失控，记S2。",
+            "M": "本受袭阶段未见政府方已经调发新增军力，反制另分阶段，记M0。",
+            "A": "无府库、军械、城防设施或粮秣被毁失的明确记载，记A0。"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "本州禁军内部武装结构直接夺取军政中枢并杀死军政长官，泸州局部安全与指挥体系显著恶化。",
+          "material_return": "WR0",
+          "material_return_detail": "国家方无战争资源收益。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "泸州帅府",
+              "阅武堂及州级军事指挥节点"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "兵变者进入帅府、张信披甲坐阅武堂并向城中号令，构成州级军事指挥节点的实际短期失控。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0195",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0196",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0197",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0198",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0199"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "人员死亡、州级军政节点被夺和安全恶化均为已实现损害；后续迅速恢复不能倒灌抵消本阶段成本。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期的边防、内乱或中央权力交接阶段，不属于本卷可确认的建国、复国、割据建立或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0195",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0196"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0196"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0196"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0196"
+            ]
+          },
+          "carry_in": "起因是骑射营长期军政矛盾：前任厚赐使军士渐骄，新任张孝芳加紧训练役使而廪赐又不时给。",
+          "carry_out": "次日张昌、卞进利用大飨发动反击，军政节点随即恢复。"
+        },
+        {
+          "evaluation_subject_phase": "张信等泸州骑射军 × 突入帅府、杀帅并建立五十二队阶段",
+          "subject_role": "MUTINEER_ATTACKER",
+          "actual_process": "张信等以州禁兵身份起乱，突入帅府杀官，张信披甲据阅武堂，自称第一将，并把兵力编为五十二队，给同谋五十二人爵秩，公开向城中发布“不叛圣主，不杀良民”的政治宣示。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "兵变者在初起阶段自身伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "突入帅府并杀害多名官员属于实际武装夺权，文本没有足够信息确认兵变方完全无人受损，故不机械记P0；同时其行动迅速成功，未见初起阶段成建制损失。",
+            "upper_bound_reason": "无百人级兵变者死亡、被俘或溃散证据。",
+            "confidence": "low"
+          },
+          "cost_axis_basis": {
+            "S": "本阶段未见兵变者自身生产、聚落或后方体系受破坏，记S0。",
+            "M": "现成骑射营转为武装兵变，并分五十二队，规模不详但属局地短期行动，记M1。",
+            "A": "无可识别资产投入/损失，记A0。"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "兵变者短期夺取州级军事指挥节点并迫使其号令在城中生效，获得局部行动优势；但仅维持极短时间。",
+          "material_return": "WR0",
+          "material_return_detail": "未见取得府库、粮械或可控制财政资源。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "泸州帅府",
+              "阅武堂及州级军事指挥节点"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "兵变者实际占据帅府系统核心节点并公开发令，但次日即被逆转。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0195",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0196",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0197",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0198",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0199"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "初起阶段真实取得州级军事节点和局部号令权，但无稳定资源收益，且控制极短；只按本阶段已成事实记有限相称回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期的边防、内乱或中央权力交接阶段，不属于本卷可确认的建国、复国、割据建立或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0195",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0196"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0196"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0196"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0196"
+            ]
+          },
+          "carry_in": "骑射营为泸州禁兵，长期训练、役使与廪赐矛盾直接触发起乱。",
+          "carry_out": "次日大飨时张信被张昌、卞进击杀，集团迅速瓦解。"
+        },
+        {
+          "evaluation_subject_phase": "南宋张昌、卞进及泸州顺从诸军 × 大飨突击、击杀张信并恢复军政控制阶段",
+          "subject_role": "COUNTERMUTINY",
+          "actual_process": "张明之子张昌与甲士卞进密谋讨乱；大飨开始后突然击杀张信，在场诸军惊散，卞进呼“不叛者从我”，诸军响应。随后二十余名主要同谋被执杀，其余党被捕。京镗另调潼川御前后军时，因张信已经被诛而“未行”。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": null,
+          "cost_axis_basis": {
+            "P": "反击叙事具体：张昌、卞进突然击杀张信后，在场军众即惊散并服从，没有政府反击方死亡、伤俘或失联记载；潼川援军又明确未行，故本阶段记P0。",
+            "S": "反击没有造成新的州城、生产或行政破坏，既有S2已在前一受袭阶段记账，记S0。",
+            "M": "实际反击由少数本地军人和顺从军众完成，属小规模短期行动，记M1；拟调潼川军因“未行”不另抬M。",
+            "A": "无可识别军械、府库、粮秣或设施损失，记A0。"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "已经夺取州级军政节点的兵变核心在一日内被斩首，主要同谋与余党全部控制，本轮军变高强度活动能力被实质终结。",
+          "material_return": "WR0",
+          "material_return_detail": "恢复的是本国原有军政节点，无府库或战利资源记载。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "泸州帅府",
+              "阅武堂及州级军事指挥节点"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "张信被杀、诸军转从、余党被捕后，泸州州级军事指挥节点恢复国家控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0195",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0196",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0197",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0198",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0199"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "以极小实际动员和无可见本方人员损失迅速斩首兵变、收回州级军政节点，并使余党全部失去行动能力，成本未压过成果。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期的边防、内乱或中央权力交接阶段，不属于本卷可确认的建国、复国、割据建立或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0197",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0198"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0197",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0198"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0197"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0197",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0198"
+            ]
+          },
+          "carry_in": "承前一日张信据帅府、阅武堂并分兵五十二队。",
+          "carry_out": "P0198余党后来俱伏诛属于战后处置，不把处刑人数重复计入战争P；P0199转入三屯兵权重整。"
+        },
+        {
+          "evaluation_subject_phase": "张信兵变集团 × 张信被击杀、主要同谋被控制与节点丧失阶段",
+          "subject_role": "MUTINEER_SUPPRESSED",
+          "actual_process": "大飨中张信被张昌、卞进击杀；诸军立即转从政府方。二十余名造逆者随后被“执杀”，其余党皆被捕，兵变集团失去帅府、阅武堂及号令能力。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "张信1人在反击时被明确击杀；二十余名同谋随后‘执杀’，余党被捕，但‘执杀’可能包含制服后的处置，不全部直接折成战场死亡。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "至少张信的战斗死亡直接成立；余党被捕按1/5折算但人数不详。为避免把制服后的处刑伪装成战争P，不把二十余人全部按战斗死亡叠加。",
+            "upper_bound_reason": "现有材料不足以支持百人级死亡当量；即使考虑被捕余党，也无五百名被俘等P2门槛证据。",
+            "confidence": "medium"
+          },
+          "cost_axis_basis": {
+            "S": "不以兵变组织的政治瓦解自动折算生产体系破坏，记S0。",
+            "M": "集团已以五十二队形式武装组织，反击阶段仍属局地短期军人冲突，记M1。",
+            "A": "无可识别资产损失，记A0。"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "首领死亡、主要同谋与余党全部被控制，本轮武装结构彻底失去继续行动能力。",
+          "material_return": "WR0",
+          "material_return_detail": "没有已实现战争资源所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "泸州帅府",
+              "阅武堂及州级军事指挥节点"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "此前短暂取得的州级军政节点全部丧失。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0195",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0196",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0197",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0198",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0199"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "首领被杀、组织被瓦解、余党受控且此前取得的军政节点全部丧失，结果明确为负。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "既成政权统治期的边防、内乱或中央权力交接阶段，不属于本卷可确认的建国、复国、割据建立或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0197",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0198"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0197",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0198"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0197"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0197",
+              "SRC-XUZIZHITONGJIAN-152-2315793-P0198"
+            ]
+          },
+          "carry_in": "承兵变初期实际控制泸州帅府与阅武堂。",
+          "carry_out": "余党事后伏诛不再追加战争P；卷153如无同一骑射营复乱，维持本卷收束。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "linear_reread": {
+      "range": "SRC-XUZIZHITONGJIAN-152-2315793-P0001—P0227",
+      "paragraph_count": 227,
+      "body_end": "P0225",
+      "edit_markers": [
+        "P0003",
+        "P0070",
+        "P0149"
+      ],
+      "metadata_tail": [
+        "P0226",
+        "P0227"
+      ],
+      "status": "COMPLETED"
+    },
+    "card_coverage": {
+      "adjudicated_cards": 2,
+      "adjudicated_subject_phase_cards": 6,
+      "coverage_note": "逐段复读确认实际准入事件为金夏镇戎伏击与泸州张信兵变；福州盗发仅有泛称、沿边盗万人仅见事后刺配编军，均不足重建具体武装阶段。"
+    },
+    "quality_checks": {
+      "ps_uplift_checked": true,
+      "ps_uplift_note": "金镇戎受伏阶段P1估/S1同为基础最高档，WC1→WC2；其余阶段按独立四轴计算，无错误抬档。",
+      "asset_axis_checked": "未从出兵、伏击或夺帅府自动推A；没有明确战马、军械、粮秣、府库、设施损失的阶段均A0。",
+      "post_capture_execution_checked": "西夏战后处死吴明契等、泸州余党伏诛均未作为新的战场P重复累计；泸州‘执杀二十余人’按保守口径不全数当战斗死亡。",
+      "control_checked": "镇戎放牧/伏击没有虚构领地变化；泸州只有帅府、阅武堂确实被兵变者号令时才记BCP2/BCN2，随后反击阶段对称恢复。",
+      "nonbattle_mobilization_checked": "京镗拟调潼川御前后军时原文明言‘未行’，没有另记M1或新战役阶段。"
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-152-2315793-P0016",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "养兵、总领所和御前军财政结构批评，属军费制度。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-152-2315793-P0027",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "御史弹奏格涉及握兵将帅，属监察制度。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-152-2315793-P0040",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "修楚州城，属防御工程。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-152-2315793-P0056",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "军帅荐将才，属军官选拔制度。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-152-2315793-P0082",
+        "disposition": "CANDIDATE_NOT_ADJUDICATED",
+        "reason": "只见‘盗发所部’及官员因防盗失职降秩，没有具体袭击、接战、据点、死伤或可辨识对手阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-152-2315793-P0083",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "辛弃疾积备安库、拟籴米造甲募兵防盗；原文明言军备计划‘事未行’，属预防性军政。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-152-2315793-P0089",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "余古上书谈盗贼、将帅与兵器状态，属于政治奏议指控。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-152-2315793-P0096",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "边事令宰相与枢密院共议，为决策制度。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-152-2315793-P0129",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "筑福州外城，属防御工程。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-152-2315793-P0134",
+        "disposition": "ADJUDICATED",
+        "card": "金夏镇戎边境冲突"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-152-2315793-P0135",
+        "disposition": "ADJUDICATED",
+        "card": "金夏镇戎边境冲突"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-152-2315793-P0139",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "筑荆门军城，属防御工程。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-152-2315793-P0140",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "论荆门战略位置及筑城后民商税收收益，无敌对行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-152-2315793-P0141",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "蠲近边铜钱贴纳、训练军士与居民习射，属边防治理。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-152-2315793-P0145",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "楚州增更戍兵一千五百人，属驻防扩充。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-152-2315793-P0164",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "筑峡州城，属工程。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-152-2315793-P0172",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "任邱崈为四川制置使，属边防人事。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-152-2315793-P0173",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "处置吴氏世袭兵权的预案与军权整顿，无实际武装冲突。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-152-2315793-P0193",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "‘刺沿边盗万人为诸州禁军’只有事后刑罚/军籍吸纳结果，缺可重建的捕讨、接战、伤亡和地点，不据万人数字虚构战役。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-152-2315793-P0195",
+        "disposition": "ADJUDICATED",
+        "card": "泸州骑射军张信兵变"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-152-2315793-P0196",
+        "disposition": "ADJUDICATED",
+        "card": "泸州骑射军张信兵变"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-152-2315793-P0197",
+        "disposition": "ADJUDICATED",
+        "card": "泸州骑射军张信兵变"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-152-2315793-P0198",
+        "disposition": "ADJUDICATED",
+        "card": "泸州骑射军张信兵变；潼川援军未行仅作阶段边界"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-152-2315793-P0199",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "战后重申制置司节制三屯兵权，属军政善后，不重复计战果。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-152-2315793-P0208",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "修潭州城，属防御工程。"
+      }
+    ],
+    "new_battle_candidates": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-152-2315793-P0082",
+        "actual_fact": "福建安抚使赵汝愚等因‘盗发所部’被降秩。可确认所部发生盗贼事件，但本卷没有具体袭击、接战、据点、伤亡、调军或首领信息，暂不强制成卡；相邻卷或相关本传若补出实际阶段再转正。"
+      }
+    ],
+    "cross_volume_followups": [
+      "卷153核金夏镇戎冲突是否继续接战；若只见外交处置或边防议论，不追加SB/WR。",
+      "卷153核泸州骑射营/张信余党是否复乱；本卷已完成节点恢复与集团收束，后续处刑不得重复计P。",
+      "P0082福建‘盗发所部’若后卷出现同一事件的具体捕讨、接战或首领，应回接本候选。",
+      "卷151两宫关系风险在本卷升级后仅一度缓解，卷153应继续核是否再次中断朝见。"
+    ]
+  }
+}

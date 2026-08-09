@@ -1,0 +1,184 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "续资治通鉴/卷197",
+  "source_identity": {
+    "source_unit_id": "SRC-XUZIZHITONGJIAN-197-2334246",
+    "revision_ref": "2334246",
+    "raw_sha256": "888723c226142a68d99bc082f527f9786ee9890413c8ec54077bc182ada65856"
+  },
+  "cards": [
+    {
+      "battle_label": "仁宗再征八百媳妇—云南王、阿固岱率众出讨",
+      "campaign_group": "XZTJ-YUAN-EIGHT-HUNDRED-WIVES-CHELI-1309-1311",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-197-2334246-P0123"
+      ],
+      "source_quotes": [
+        "遣兵擊八百媳婦",
+        "先朝用兵不已，致亡失軍旅",
+        "命雲南王及阿固岱率眾討之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "元云南王—阿固岱军 × 奉命再征八百媳妇的出兵进击阶段",
+          "subject_role": "EXPEDITIONARY_ATTACKER",
+          "actual_process": "承卷196末八百媳妇、大小彻里诸部作乱与招谕失败，仁宗即位后不采赵世延“兵且勿用”的意见，明确遣兵击八百媳妇，并命云南王、阿固岱率众讨之。本卷只写到正式出兵进击，没有给出兵力、会战结果、城地得失或返军情况。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "本段使用“遣兵击”“率众讨之”，说明已进入敌对军事行动，但没有本方死亡、伤俘或未归数字。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "按合同，实际进击不能仅因本卷尚未写出伤亡而直接记P0；但本段没有败退、围困、补兵或百人级伤亡后效。",
+            "upper_bound_reason": "没有兵力基数、伤亡比例或百人级人员后果，不上P2。",
+            "confidence": "low"
+          },
+          "strategic_security": "UNKNOWN",
+          "strategic_security_detail": "本卷只见出兵，没有写八百媳妇威胁是否下降、继续扩散或反击，不能提前判SB/SN。",
+          "material_return": "WR0",
+          "material_return_detail": "尚无任何可确认缴获、资源或稳定控制所得。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "八百媳妇方向"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "本卷未载城寨、通道或边远行政区域的实际得失。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-197-2334246-P0123"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "phase_return_basis": "战争已经由招谕失败转为正式出兵，但结果完全未写到；按合同不得凭“遣兵击”提前写成胜利或高回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段属于既成元朝的边防、治安或地方叛乱，不属于开国、复国、割据建政或新政权创业过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-197-2334246-P0123"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-197-2334246-P0123"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-197-2334246-P0123"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-197-2334246-P0123"
+            ]
+          },
+          "carry_in": "承卷196 P0162：八百媳妇及大小彻里新一轮作乱，云南右丞索勒济尔威招谕受贿，诸部继续攻掠并使其败还。",
+          "carry_out": "卷198必须核云南王、阿固岱军是否实际接战、伤亡规模、撤军/继续进军、八百媳妇与大小彻里控制状态，以及本次出兵是否重复早年失败模式。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "linear_reread_completed": true,
+    "reread_range": "SRC-XUZIZHITONGJIAN-197-2334246-P0001 至 SRC-XUZIZHITONGJIAN-197-2334246-P0169",
+    "card_coverage": {
+      "card_count": 1,
+      "subject_phase_card_count": 1,
+      "raw_battle_anchor_inventory_count": 15,
+      "adjudicated_anchor_count": 1,
+      "not_a_battle_anchor_count": 14,
+      "coverage_result": "逐段复读后，本卷只有P0123形成新的实际军事进击阶段；谋反案、政治处刑、旧战功回顾、军政制度、驻防建制与总军费均未伪装成战役。"
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-197-2334246-P0016",
+        "disposition": "NOT_A_BATTLE",
+        "note": "库库楚等“谋为不轨”在发动前事觉，后续为审讯、流放与处刑，无调军、接战或军政节点争夺。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-197-2334246-P0019",
+        "disposition": "NOT_A_BATTLE",
+        "note": "察八儿之子彻伯尔来朝并获返旧积五户丝，属于卷196漠北平定的政治后效，无新武装阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-197-2334246-P0027",
+        "disposition": "NOT_A_BATTLE",
+        "note": "西北诸王朝会及追述诸藩始离终合，属于归附叙事与宴会告戒。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-197-2334246-P0047",
+        "disposition": "NOT_A_BATTLE",
+        "note": "张养浩以库库楚为例说明幸门风险，是政治警告，不是实际战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-197-2334246-P0072",
+        "disposition": "NOT_A_BATTLE",
+        "note": "郑阿尔斯兰等被诬“图为不轨”并处死，原文无实际武装行动，不把十七人处刑计入P。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-197-2334246-P0082",
+        "disposition": "NOT_A_BATTLE",
+        "note": "武宗死后罢尚书省并诛托克托等，属于政治清洗，无军队接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-197-2334246-P0083",
+        "disposition": "NOT_A_BATTLE",
+        "note": "继续流放、罢黜尚书省党附者并恢复中书，属于政治行政处置。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-197-2334246-P0086",
+        "disposition": "NOT_A_BATTLE",
+        "note": "禁百官役军人营造、守私第，是役使制度。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-197-2334246-P0107",
+        "disposition": "NOT_A_BATTLE",
+        "note": "即位诏追称仁宗有“削平内难之功”，仅回顾1307年旧事，无本卷新增武装阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-197-2334246-P0114",
+        "disposition": "NOT_A_BATTLE",
+        "note": "小云石海牙建议“释边戍以修文德”属于政策建议，未见实际撤军或战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-197-2334246-P0123",
+        "disposition": "ADJUDICATED",
+        "note": "正式遣兵击八百媳妇，云南王及阿固岱率众出讨，承卷196叛乱父链。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-197-2334246-P0127",
+        "disposition": "NOT_A_BATTLE",
+        "note": "西番军务须与枢密院同议，属于军政程序。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-197-2334246-P0139",
+        "disposition": "NOT_A_BATTLE",
+        "note": "居庸关增设万户府加强守备，属于边防建制，无接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-197-2334246-P0158",
+        "disposition": "NOT_A_BATTLE",
+        "note": "北边军需六七百万锭为总体财政军费底账，未对应本卷独立战役阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-197-2334246-P0159",
+        "disposition": "NOT_A_BATTLE",
+        "note": "禁术者出入诸王、驸马、大臣家，属于宫廷安全政策。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      "卷196 P0083察八儿诸王来降、漠北悉平，本卷P0019其子彻伯尔入朝，P0027又公开叙述西北诸藩“始离终合”，可确认至少到本卷未见同一集团复叛，卷196的SB4/BCP4后效获得相邻卷支持。",
+      "卷196 P0162八百媳妇—大小彻里作乱已在本卷P0123转入正式出兵；卷198必须沿`XZTJ-YUAN-EIGHT-HUNDRED-WIVES-CHELI-1309-1311`核接战、伤亡、控制变化和最终回报。",
+      "卷195 P0154琼州王文何“作乱伏诛”至本卷仍无更详武装过程，不补造战役卡。",
+      "1307年内难在P0107只作为仁宗既往功劳回顾，本卷无新增军队接战，`XZTJ-YUAN-SUCCESSION-COUP-1307`继续保持已闭合状态。"
+    ]
+  }
+}

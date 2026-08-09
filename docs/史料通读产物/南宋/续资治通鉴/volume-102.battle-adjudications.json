@@ -1,0 +1,4868 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "续资治通鉴/卷102",
+  "source_identity": {
+    "source_unit_id": "SRC-XUZIZHITONGJIAN-102-2300362",
+    "revision_ref": "2300362",
+    "raw_sha256": "c4deb8dcf3684c20d2e38e781574336595c7a563d1484edef4e9d46d5607e4e7"
+  },
+  "cards": [
+    {
+      "battle_label": "张俊杀赵叔近—秀州兵反戈纵火—次日平定",
+      "campaign_group": "XZTJ-JIANYAN-XIUZHOU-MUTINY-1128",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0008",
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0009"
+      ],
+      "source_quotes": [
+        "秀卒見叔近死，遂反戈嬰城，縱火毆掠",
+        "翼日，俊破關捕徐明等，斬之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋张俊军 × 平定秀州军变",
+          "subject_role": "COUNTERREBELLION",
+          "actual_process": "张俊军因王渊私怨先杀赵叔近，秀州兵随即反戈守城、纵火殴掠并杀辛安宗；次日张俊破关捕杀徐明等，恢复州城。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "赵叔近、辛安宗明确死亡；其余死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "短时城内冲突，至少2人死亡。",
+            "upper_bound_reason": "无百人级伤亡数字。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "军变很快终止、州城恢复，但官军私怨杀官是直接诱因。",
+          "material_return": "WR0",
+          "material_return_detail": "内部恢复旧城，不计新增资源。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "秀州"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "次日破关后恢复实际控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0008",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0009"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "恢复州城但自身诱发军变，收益被显著压低。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "恢复东南州城控制，但暴露官军私怨执法和军纪问题。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0008",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0009"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0008",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0009"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0008",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0009"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0008",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0009"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "秀州叛兵 × 守城后被破",
+          "subject_role": "REBELLION",
+          "actual_process": "秀州兵反戈嬰城、纵火殴掠，次日被张俊破关，首领被斩。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "首领徐明等被斩，守城破关有实战。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "集体军变被武力破关镇压。",
+            "upper_bound_reason": "无千人级军众或屠杀数字。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "组织和州城控制迅速丧失。",
+          "material_return": "WR1",
+          "material_return_detail": "短期掠夺，规模不明。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "秀州"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "短时据城后被恢复。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0008",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0009"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "短期夺控随即失败。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0008",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0009"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0008",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0009"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0008",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0009"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0008",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0009"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "西夏议和后掩取定边军",
+      "campaign_group": "XZTJ-SONG-XIA-DINGBIAN-1128",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0013"
+      ],
+      "source_quotes": [
+        "與約和罷兵，更用鈞敵禮",
+        "夏人隨之，以兵掩取定邊軍"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "西夏军 × 掩取定边军",
+          "subject_role": "ATTACKER",
+          "actual_process": "谢亮与西夏议定罢兵、对等礼后，西夏兵随宋使归程突然掩取定边军。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "自身伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "突袭成功且无高损后效。",
+            "upper_bound_reason": "无百人级损失。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "取得关键边防节点。",
+          "material_return": "WR2",
+          "material_return_detail": "取得定边军节点。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "定边军"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "西夏实际取得定边军。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0013"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "低可见成本突袭取得关键节点。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0013"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0013"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0013"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0013"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "南宋定边军方向 × 失城",
+          "subject_role": "DEFENDER",
+          "actual_process": "议和后突遭西夏兵掩取定边军。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M0",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "守方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "突然夺控更接近低损失。",
+            "upper_bound_reason": "无激战或大批伤亡。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "边防局部退缩。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "定边军"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "节点转入西夏控制。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0013"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "议和未换来实际安全反而失城。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "新政权西北边防控制继续收缩。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0013"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0013"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0013"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0013"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "王择仁二万众入长安—郭琬逐出",
+      "campaign_group": "XZTJ-JIANYAN-SHAANXI-ROUTED-TROOPS-1128",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0014"
+      ],
+      "source_quotes": [
+        "王澤仁以眾二萬入長安，復為經略使郭琬所逐",
+        "軍無見糧，故其人專以剽掠為事"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "王择仁武装 × 入长安后被逐",
+          "subject_role": "ARMED_ROAMING_FORCE",
+          "actual_process": "王择仁率二万人入长安，后被郭琬逐出；其部因无现粮而专以剽掠维持。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M2",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "驱逐过程伤亡不载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "有实际武装驱逐但无高损信息。",
+            "upper_bound_reason": "无百人级伤亡。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "未形成稳定据城并转为流动掠夺武装。",
+          "material_return": "WR1",
+          "material_return_detail": "剽掠取粮但无稳定资源。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "长安"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "进入后被逐，终局无稳定控制。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0014"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "二万众缺粮、被逐且转掠夺。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0014"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0014"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0014"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0014"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "叶浓破宁德政和松溪入浦城—建州城下败降",
+      "campaign_group": "XZTJ-JIANYAN-FUJIAN-YENONG-1128",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0021",
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0048",
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0081"
+      ],
+      "source_quotes": [
+        "破寧德縣，復還建州，既而又破政和、松溪二縣",
+        "葉濃入浦城縣",
+        "趙哲與葉濃戰於建州城下，大敗之",
+        "濃遂降"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "叶浓武装 × 多县扩张",
+          "subject_role": "REBELLION_ATTACKER",
+          "actual_process": "叶浓连续攻破宁德、政和、松溪，后入浦城，形成建州周边多县扩张。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "多次攻县，自身伤亡无载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "连续攻城取县，百人级累计损失合理。",
+            "upper_bound_reason": "无千人级损失。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "连续多县控制显著扩大行动空间。",
+          "material_return": "WR3",
+          "material_return_detail": "取得多个县级节点及可用地方资源。",
+          "border_control": {
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "宁德",
+              "政和",
+              "松溪",
+              "浦城"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "形成多县连续控制。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0021",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0048",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0081"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "多县扩张明确，但随后被逆转。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0021",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0048",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0081"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0021",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0048",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0081"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0021",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0048",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0081"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0021",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0048",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0081"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "南宋赵哲军 × 建州城下大败叶浓",
+          "subject_role": "COUNTERREBELLION",
+          "actual_process": "赵哲在建州城下大败叶浓，叶浓东走后受招而降。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S1",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "宋方战斗伤亡无载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "对多县武装形成明确大会战胜利。",
+            "upper_bound_reason": "无千人级宋方损失。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "终止福建多县扩张。",
+          "material_return": "WR0",
+          "material_return_detail": "恢复旧地，不计新增资源。",
+          "border_control": {
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "宁德",
+              "政和",
+              "松溪",
+              "浦城及建州周边"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "叶浓败降后其独立控制终结。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0021",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0048",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0081"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "一战配合招降恢复多县安全。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "恢复福建多县，稳住东南腹地。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0021",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0048",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0081"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0021",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0048",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0081"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0021",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0048",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0081"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0021",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0048",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0081"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "叶浓后至张俊军中复谋变被捕杀；不把处刑倒算战斗P。"
+        },
+        {
+          "evaluation_subject_phase": "叶浓武装 × 建州败降",
+          "subject_role": "REBELLION_DEFENDER",
+          "actual_process": "叶浓在建州城下大败，东逃后受降，失去多县控制。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "仅称大败，伤亡无数。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "明显败战并失去多县。",
+            "upper_bound_reason": "无千人级斩俘数字。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "独立扩张结构终结。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN3",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "宁德",
+              "政和",
+              "松溪",
+              "浦城"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "多县控制被逆转。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0021",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0048",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0081"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "大败、失地、受降。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0021",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0048",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0081"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0021",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0048",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0081"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0021",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0048",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0081"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0021",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0048",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0081"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "刘立芸燕山起兵攻破城邑",
+      "campaign_group": "XZTJ-JIANYAN-YANSHAN-LIULIYUN-1128",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0029"
+      ],
+      "source_quotes": [
+        "聚眾攻破城邑",
+        "所至不殺掠，但令饋糧",
+        "蕃、漢之民歸者甚眾"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "刘立芸武装 × 燕山攻城扩张",
+          "subject_role": "INSURGENT_ATTACKER",
+          "actual_process": "刘立芸聚众攻破若干城邑，不杀掠，只令供粮，蕃汉归附甚众；城名和持守未载。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "多次攻城，自身伤亡无载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "连续攻城支持百人级累计损害。",
+            "upper_bound_reason": "无千人级伤亡。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "形成局部抗金武装空间并吸引归附。",
+          "material_return": "WR1",
+          "material_return_detail": "取得粮食供应；人口不计战利资产。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "燕山若干城邑"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "破城明确但具体对象与持续控制不明。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0029"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "扩张与归附明确，控制后效不足。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "为建炎政权保留燕山敌后抵抗网络。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0029"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0029"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0029"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0029"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "后卷核所破城邑、持守及最终结局。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "邵兴朱家山苦战三日击败金军",
+      "campaign_group": "XZTJ-JIANYAN-SHAOXING-HEZHONG-1128",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0030"
+      ],
+      "source_quotes": [
+        "金洛索遣兵攻解州之朱家山",
+        "邵興苦戰三日，敗之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋邵兴忠义军 × 三日守战",
+          "subject_role": "DEFENDER",
+          "actual_process": "金军攻朱家山，邵兴苦战三日后击退。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "苦战三日，伤亡无数。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "连续三日实战支持百人级。",
+            "upper_bound_reason": "无千人级后效。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "守住据点并击退清剿。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "朱家山"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "据点保持。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0030"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "三日苦战守住山寨。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "维持河东忠义山寨。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0030"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0030"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0030"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0030"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "金朱家山攻军 × 败退",
+          "subject_role": "ATTACKER",
+          "actual_process": "连续攻朱家山三日后被邵兴击败。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "伤亡无载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "三日攻战且败退。",
+            "upper_bound_reason": "无千人级数字。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "一次清剿受挫。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "朱家山"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "未取得据点。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0030"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "进攻无所得。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0030"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0030"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0030"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0030"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "李成袭宿州、焚虹县—屯符离",
+      "campaign_group": "XZTJ-JIANYAN-LICHENG-REBELLION-1128",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0040",
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0041"
+      ],
+      "source_quotes": [
+        "縱火焚掠，盡驅強壯為軍",
+        "別將……焚虹縣而還",
+        "成遂屯符離，軍勢甚盛"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "李成武装 × 宿州夺城与符离集结",
+          "subject_role": "REBELLION_ATTACKER",
+          "actual_process": "李成叛变后突入宿州纵火焚掠、强征壮丁；别部焚虹县，后屯符离。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "多点袭城，自身伤亡无载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "实际夺州并分路行动。",
+            "upper_bound_reason": "无千人级损失。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "夺州扩军后形成淮北高强度独立武装。",
+          "material_return": "WR2",
+          "material_return_detail": "取得掠夺性财物与州城资源。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "宿州",
+              "符离据点"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "实际取得宿州并屯符离。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0040",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0041"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "夺州扩军显著，但后续持守待核。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0040",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0041"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0040",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0041"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0040",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0041"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0040",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0041"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "本卷后段刘光世将在上蔡、新息连续击败李成。"
+        },
+        {
+          "evaluation_subject_phase": "南宋宿州—虹县军民 × 焚掠强征",
+          "subject_role": "DEFENDER_POPULATION",
+          "actual_process": "宿州无备被突入，纵火焚掠并尽驱强壮为军；虹县亦被焚。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S3",
+            "M": "M0",
+            "A": "A1",
+            "WC": "WC4"
+          },
+          "P_inference": {
+            "P_observed": "‘尽驱强壮为军’，人数不载，按强征1/5折算。",
+            "range": "1,000—9,999死亡当量",
+            "center": 3162,
+            "P_scoring": "P3估",
+            "basis": "完整州城壮丁整体强征足以进入千人级中心；S3由州城失控和两地焚掠独立支持。",
+            "upper_bound_reason": "无人口基数，不上P4。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "两个节点遭焚掠，宿州失控并大范围强征人口。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "宿州"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "宿州失去。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0040",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0041"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "州城失控、焚掠和整体强征。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "淮北州县失控冲击行在北侧安全。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0040",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0041"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0040",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0041"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0040",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0041"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0040",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0041"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "丁进宗泽死后复叛犯淮西",
+      "campaign_group": "XZTJ-JIANYAN-DINGJIN-REBELLION-1128",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0043",
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0044"
+      ],
+      "source_quotes": [
+        "丁進叛，率眾犯淮西",
+        "進初受宗澤招，澤卒，乃去",
+        "命……劉正彥以所部收進"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "丁进武装 × 受招后复叛",
+          "subject_role": "REBELLION_ATTACKER",
+          "actual_process": "丁进此前受宗泽招安，宗泽死后脱离东京体系，率众进犯淮西；本卷未见具体夺城。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "实际复叛进犯，伤亡无载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "仅见进犯，无围城或败战。",
+            "upper_bound_reason": "不足百人级。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "重新构成淮西局部威胁。",
+          "material_return": "WR0",
+          "material_return_detail": "无已实现所得。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "淮西"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "进犯明确，控制结果未载。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0043",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0044"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "phase_return_basis": "复叛已发生但终局不足。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0043",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0044"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0043",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0044"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0043",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0044"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0043",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0044"
+            ]
+          },
+          "carry_in": "承卷100围寿春失败后受宗泽招安。",
+          "carry_out": "后卷核刘正彦追捕和丁进结局。"
+        },
+        {
+          "evaluation_subject_phase": "南宋韩世忠军 × 清理丁进旧部",
+          "subject_role": "INTERNAL_SECURITY",
+          "actual_process": "丁进复叛后，韩世忠将军中丁进旧部百余人在扬州竹西亭处死，王权获释。",
+          "cost_axes": {
+            "P": "P1",
+            "S": "S0",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": null,
+          "strategic_security": "SB0",
+          "strategic_security_detail": "不能证明丁进主力威胁因此下降。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "韩世忠军内部"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "无控制变化。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0043",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0044"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "百余旧部被处死，未形成可证战场收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "受招武装稳定性不足，引发官军内部严厉清洗。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0043",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0044"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0043",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0044"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0043",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0044"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0043",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0044"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "冀州李政多次退金—副将被诱杀李政—州城失守",
+      "campaign_group": "XZTJ-JIN-HEBEI-OCCUPATION-1128",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0049",
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0050"
+      ],
+      "source_quotes": [
+        "金人攻城，屢禦退之",
+        "或夜劫金人寨",
+        "數十人以濕氈裹身……力戰",
+        "金以計誘其副將使害政，故不能保"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋李政冀州守军 × 多轮守城夜袭",
+          "subject_role": "DEFENDER",
+          "actual_process": "李政多次击退金军并夜袭金营；一次门楼被焚，数十名士卒裹湿毡越火力战，迫金军败走。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "多次攻守、夜袭，伤亡无载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "持续高强度城战支持百人级。",
+            "upper_bound_reason": "无千人级损失。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "多次守住州城并重挫攻势。",
+          "material_return": "WR1",
+          "material_return_detail": "夜袭所得财物尽散士卒。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "冀州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "李政阶段仍守住冀州。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0049",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0050"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "多轮守城有效，但长期威胁未解除。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "维持河北州城支点。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0049",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0050"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0049",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0050"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0049",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0050"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0049",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0050"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "南宋冀州 × 李政被害后失守",
+          "subject_role": "DEFENDER",
+          "actual_process": "金军诱使副将害李政，州防失去核心，最终城破，权知州事单某自缢。",
+          "cost_axes": {
+            "P": "P1",
+            "S": "S3",
+            "M": "M0",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "P_inference": null,
+          "strategic_security": "SN3",
+          "strategic_security_detail": "河北重要州城失守。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "冀州"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "冀州被金军攻破。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0049",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0050"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "守将被内部杀害后失城。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "河北残余控制再收缩。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0049",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0050"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0049",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0050"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0049",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0050"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0049",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0050"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "金冀州攻城军 × 强攻受挫后离间夺城",
+          "subject_role": "ATTACKER",
+          "actual_process": "金军屡攻被退、夜营遭袭，转用离间计杀李政后取得冀州。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "多轮攻城且被夜袭，伤亡无载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "百人级累计损失合理。",
+            "upper_bound_reason": "无千人级数字。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "拔除顽强州城。",
+          "material_return": "WR2",
+          "material_return_detail": "取得冀州。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "冀州"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "金军取得冀州。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0049",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0050"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "前期多次受挫后夺城，收益明确但成本不低。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0049",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0050"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0049",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0050"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0049",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0050"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0049",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0050"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "马扩攻清平—金军合击大败—信王失踪",
+      "campaign_group": "XZTJ-JIANYAN-MAKUO-HEBEI-1128",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0057",
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0059"
+      ],
+      "source_quotes": [
+        "擴遂引兵攻清平縣",
+        "合兵與擴戰于城南",
+        "阮師中、鞏仲達及其子元忠皆死於陳",
+        "擴軍亂",
+        "信王不知所終"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋马扩军 × 清平败战",
+          "subject_role": "ATTACKER",
+          "actual_process": "马扩军粮匮乏、诸将逃散后攻清平；金军合击，多名统制阵亡，清平居民开门助金绕后，任琳叛、吴铢孙懋降，信王失踪，马扩经由济南逃归。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S1",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "多将阵亡，任琳率众叛去，两属官降金，信王失踪。",
+            "range": "1,000—9,999死亡当量",
+            "center": 2236,
+            "P_scoring": "P3估",
+            "basis": "死、降、叛、散并存，死亡/未归当量可落千人级。",
+            "upper_bound_reason": "无完整兵力和万人级损失。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "河北恢复体系主力严重瓦解。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "清平县"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "未取得清平。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0057",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0059"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "粮乏状态下主动攻县反遭组织性崩溃。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "河北恢复军政体系基本失败。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0057",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0059"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0057",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0059"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0057",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0059"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0057",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0059"
+            ]
+          },
+          "carry_in": "承卷101信王—马扩体系获中央授权。",
+          "carry_out": "马扩罢军职，信王去向待后卷核。"
+        },
+        {
+          "evaluation_subject_phase": "金宗辅等军 × 清平合击",
+          "subject_role": "DEFENDER_COUNTERATTACKER",
+          "actual_process": "金宗辅等合兵城南迎战，利用清平居民开门绕后，击溃马扩并获多名宋将投降。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "金方伤亡无载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "实际大会战取胜。",
+            "upper_bound_reason": "无高损后效。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "摧毁宋方河北恢复主力。",
+          "material_return": "WR1",
+          "material_return_detail": "获得投降将领和零散军资，数量不明。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "清平县"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "守住清平。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0057",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0059"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "中等成本击溃宋方河北核心反攻力量。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0057",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0059"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0057",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0059"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0057",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0059"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0057",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0059"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "宗翰侵澶渊不下—转围濮州三十三日破城",
+      "campaign_group": "XZTJ-JIN-SONG-PUZHOU-CHANYUAN-1128",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0082",
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0083"
+      ],
+      "source_quotes": [
+        "侵澶淵，守臣王棣禦之，不能下，進攻濮州",
+        "姚端……夜劫其營，直犯中軍，宗翰跣足而走",
+        "金攻城凡三十三日",
+        "城中無長少皆殺之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋澶渊王棣守方 × 初次守退金军",
+          "subject_role": "DEFENDER",
+          "actual_process": "宗翰由黎阳渡河侵澶渊，王棣拒守，金军不能下而转攻濮州。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "简略攻而不下。",
+            "upper_bound_reason": "无百人级材料。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "一次守住门户。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "澶渊/开德府"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "本阶段守住。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0082",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0083"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "低到中等成本迫敌转攻。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "东京东北门户阶段性止损。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0082",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0083"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0082",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0083"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0082",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0083"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0082",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0083"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "南宋姚端濮州守军 × 夜袭与三十三日守城",
+          "subject_role": "DEFENDER",
+          "actual_process": "姚端夜劫宗翰中军，迫宗翰赤足逃命；金军随后攻城三十三日，从西北角登城，姚端率死士突战，最终城破，全城无长少皆被杀。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S3",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC4"
+          },
+          "P_inference": {
+            "P_observed": "三十三日攻守；城破后‘无长少皆杀之’。",
+            "range": "1,000—9,999死亡当量",
+            "center": 4472,
+            "P_scoring": "P3估",
+            "basis": "完整州城无差别杀害至少支持千人级中心；S3由长期围城和社会体系毁坏独立支持。",
+            "upper_bound_reason": "无户口总数，不直接上P4。",
+            "confidence": "medium"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "虽长期延滞并重挫敌军，最终仍城破屠城。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "濮州"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "三十三日后濮州失守。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0082",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0083"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "战术有成但无法抵补失城与屠城。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "濮州失守与屠城重创东京东北安全。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0082",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0083"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0082",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0083"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0082",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0083"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0082",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0083"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "金宗翰军 × 濮州三十三日攻城",
+          "subject_role": "ATTACKER",
+          "actual_process": "宗翰先遭姚端夜袭直犯中军，后连续攻濮州三十三日，最终登城并屠杀居民。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "夜营遭袭，攻城三十三日。",
+            "range": "1,000—9,999死亡当量",
+            "center": 2236,
+            "P_scoring": "P3估",
+            "basis": "长期强攻合理推定千人级累计损失。",
+            "upper_bound_reason": "无万人级损失。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "拔除顽强州城。",
+          "material_return": "WR2",
+          "material_return_detail": "取得濮州节点，但屠城压低资源可持续性。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "濮州"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "取得濮州。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0082",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0083"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "最终夺城但长期攻坚且中军遭袭，成本明显。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0082",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0083"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0082",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0083"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0082",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0083"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0082",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0083"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "金军再攻澶渊开德—伪书扰军—城破杀戮无遗",
+      "campaign_group": "XZTJ-JIN-SONG-PUZHOU-CHANYUAN-1128",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0083"
+      ],
+      "source_quotes": [
+        "軍民聞之，欲殺棣",
+        "棣走至南門，為軍民踐死，城遂破",
+        "金怒其拒戰，殺戮無遺"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋开德军民 × 内乱与城破",
+          "subject_role": "DEFENDER",
+          "actual_process": "金军伪造王棣已降书信，诱发军民互疑；王棣被踩死、郑建古被乱兵杀，城破后金军因拒战而杀戮无遗。",
+          "cost_axes": {
+            "P": "P4估",
+            "S": "S3",
+            "M": "M1",
+            "A": "A2",
+            "WC": "WC4"
+          },
+          "P_inference": {
+            "P_observed": "原文‘杀戮无遗’，城市人口总数不载。",
+            "range": "10,000—99,999死亡当量",
+            "center": 22360,
+            "P_scoring": "P4估",
+            "basis": "府城军民近全灭表述支持万人级中心；S3由府城失守和社会毁坏独立支持。",
+            "upper_bound_reason": "缺人口基数，不上P5。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "府级门户彻底失守并遭大规模屠杀。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "开德府/澶渊"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "城破转入金军控制。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0083"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "心理战引发内部崩溃后遭屠城。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "开德失守使东京东北门户进一步崩解。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0083"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0083"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0083"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0083"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "金开德攻城军 × 伪书诱乱破城",
+          "subject_role": "ATTACKER",
+          "actual_process": "金军以伪书诱发城内崩溃，随后攻破城池。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "自身伤亡无载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "仍有攻城但城内先乱。",
+            "upper_bound_reason": "无千人级损失。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "低到中等成本取得府级节点。",
+          "material_return": "WR2",
+          "material_return_detail": "取得开德节点。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "开德府/澶渊"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "取得城池。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0083"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "心理战降低攻城成本并夺取关键府城。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0083"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0083"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0083"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0083"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "相州久围粮绝—赵不试约降自尽",
+      "campaign_group": "XZTJ-JIN-HEBEI-OCCUPATION-1128",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0084"
+      ],
+      "source_quotes": [
+        "相州圍久，糧食皆絕",
+        "請開門投拜，乞弗殺",
+        "具降書，啟門……以身赴井"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋相州军民 × 粮绝开城",
+          "subject_role": "DEFENDER",
+          "actual_process": "相州久围粮绝、外援不至，赵不试与军民商议开城求免杀，随后把家属投入井中并自尽。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S3",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "赵不试及家属自尽；其他死亡不载，饥饿本身不计P。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "明确死亡主要为守臣家族。",
+            "upper_bound_reason": "无百人级伤亡。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "长期围困后失去州城。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "相州"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "开门降金。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0084"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "长期粮绝、动员后仍失城。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "河北残余控制继续缩减。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0084"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0084"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0084"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0084"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "金相州围城军 × 长期封锁迫降",
+          "subject_role": "ATTACKER",
+          "actual_process": "长期包围相州直至粮绝，承诺不杀后接受开城。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "人员损失无载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "围困时长不能直接推高P。",
+            "upper_bound_reason": "无百人级伤亡。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "拔除长期守城节点。",
+          "material_return": "WR2",
+          "material_return_detail": "取得相州。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "相州"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "取得相州。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0084"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "长期围困成本较高但最终不强攻取得州城。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0084"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0084"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0084"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0084"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "杜充决黄河入清河阻金",
+      "campaign_group": "XZTJ-JIANYAN-DUCHONG-YELLOWRIVER-1128",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0085"
+      ],
+      "source_quotes": [
+        "乃決黃河入清河以沮敵",
+        "自是河流不復矣"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋杜充东京防务 × 决河阻敌",
+          "subject_role": "DEFENSIVE_ENGINEERING",
+          "actual_process": "杜充为阻金军主动决黄河入清河，原文明言自此河流不复原道；本卷没有证据显示因此阻止金军南下。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S4",
+            "M": "M2",
+            "A": "A3",
+            "WC": "WC4"
+          },
+          "P_inference": {
+            "P_observed": "本卷无明确淹死人数；大规模洪泛工程不能据沉默记P0。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "存在人口暴露但只能低置信度百人级估计；S4由河流永久改道独立支持。",
+            "upper_bound_reason": "无死亡、流亡人数，不推千人级。",
+            "confidence": "low"
+          },
+          "strategic_security": "UNKNOWN",
+          "strategic_security_detail": "阻敌后效不能确认。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "黄河—清河水系"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "改变河道但无直接疆域控制变化。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0085"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "造成大型河道体系长期改变，而本卷未见可证安全收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "为守东京实施高破坏性工程但未见能稳定核心支点。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0085"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0085"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0085"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0085"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "后卷优先核洪泛、民田、漕运、人口迁徙和阻敌后效。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "杨进再叛汝洛—鸣皋山击败翟进",
+      "campaign_group": "XZTJ-JIANYAN-YANGJIN-REBELLION-1128",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0062",
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0063"
+      ],
+      "source_quotes": [
+        "楊進亦叛，以數萬眾攻殘汝、洛間",
+        "翟進……為賊所害",
+        "官軍遂敗"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "杨进武装 × 鸣皋山胜战",
+          "subject_role": "REBELLION_ATTACKER",
+          "actual_process": "杨进数万众活动残破汝洛间，以骑兵优势在鸣皋山下击杀渡伊水先登的翟进并击败官军。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S1",
+            "M": "M3",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "自身伤亡无载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "数万级野战取胜。",
+            "upper_bound_reason": "无高损后效。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "杀宋方区域主将并迫翟兴退伊阳山寨。",
+          "material_return": "WR1",
+          "material_return_detail": "无大宗缴获，只记有限战场所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "汝洛间",
+              "伊阳方向"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "野战取胜但未明确夺州。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0062",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0063"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "数万众取得关键野战胜利。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0062",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0063"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0062",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0063"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0062",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0063"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0062",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0063"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "南宋翟进—翟兴军 × 鸣皋山败战",
+          "subject_role": "DEFENDER_COUNTERATTACKER",
+          "actual_process": "翟进欲除杨进，步军渡水迎骑军，中流矢坠塹被杀，官军随即败，翟兴收余兵保伊阳山寨。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "翟进明确战死，官军败散。",
+            "range": "1,000—9,999死亡当量",
+            "center": 2236,
+            "P_scoring": "P3估",
+            "basis": "区域军主力败散，死亡/未归可落千人级。",
+            "upper_bound_reason": "无完整兵力和万人级损失。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "河南地方军政骨干受重大打击。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "伊阳山寨"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "败后仍保山寨，州城变化不明。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0062",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0063"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "主将战死、官军败退。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "西京—汝洛地方军政体系受重创。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0062",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0063"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0062",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0063"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0062",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0063"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0062",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0063"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "刘光世上蔡—新息连续击败李成",
+      "campaign_group": "XZTJ-JIANYAN-LICHENG-REBELLION-1128",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0068",
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0069",
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0074"
+      ],
+      "source_quotes": [
+        "王德……與成遇于上蔡驛口橋，敗之",
+        "德潰圍拔光世以出",
+        "再戰皆勝，成遂循走",
+        "擒其謀主陶子思"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋刘光世—王德军 × 连续追击",
+          "subject_role": "COUNTERREBELLION",
+          "actual_process": "王德先败李成于上蔡；新息再战时刘光世一度被围，王德突围救出，随后官军再战皆胜，李成逃走、陶子思被擒。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S1",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "官军一度被围但成功突围，伤亡无载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "多次野战支持百人级。",
+            "upper_bound_reason": "无千人级损失。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "显著打散李成大股叛军，局部安全恢复。",
+          "material_return": "WR1",
+          "material_return_detail": "缴获李成提刀等少量军资。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "上蔡—新息方向"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "李成败走后该方向独立控制被清除。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0068",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0069",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0074"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "连续击败大股叛军并擒谋主。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "打散李成主力，稳定淮北内地。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0068",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0069",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0074"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0068",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0069",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0074"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0068",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0069",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0074"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0068",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0069",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0074"
+            ]
+          },
+          "carry_in": "承李成夺宿州屯符离。",
+          "carry_out": "李成本人仍在，后转寇淄州。"
+        },
+        {
+          "evaluation_subject_phase": "李成武装 × 连续败走",
+          "subject_role": "REBELLION_DEFENDER",
+          "actual_process": "先败于王德，收散卒再战仍败，谋主被擒，主力被打散后转为流动作乱。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "‘裒散卒再战’后再败，主力连续打散。",
+            "range": "1,000—9,999死亡当量",
+            "center": 2236,
+            "P_scoring": "P3估",
+            "basis": "大股武装多轮败散，死亡/俘虏/未归当量可落千人级。",
+            "upper_bound_reason": "无万人级斩俘数字。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "军事能力明显下降。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "上蔡—新息及此前宿州扩张链"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "主要活动区被官军夺回。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0068",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0069",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0074"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "连续败战、谋主被擒、控制逆转。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0068",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0069",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0074"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0068",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0069",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0074"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0068",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0069",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0074"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0068",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0069",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0074"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "后续转寇淄州。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "延安救援失协：吴玠拔华州—庞世才败—西城十三日失守",
+      "campaign_group": "XZTJ-JIN-SHAANXI-INVASION-1128-YANAN",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0075",
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0076",
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0077",
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0078"
+      ],
+      "source_quotes": [
+        "玠拔華州",
+        "世才與戰，下不用命，乃敗",
+        "金兵專圍西城，晝夜攻擊不息",
+        "閱十有三日，城之後大門破"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋吴玠军 × 乘虚拔华州",
+          "subject_role": "ATTACKER",
+          "actual_process": "曲端不直接救延安，令吴玠攻金后方华州；华州无守兵，吴玠拔城。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": null,
+          "strategic_security": "SB1",
+          "strategic_security_detail": "取得州级节点但未解延安之围。",
+          "material_return": "WR2",
+          "material_return_detail": "取得华州。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "华州"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "实际拔华州。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0075",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0076",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0077",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0078"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "低成本取州，但未实现救延安战略目标。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "恢复关中节点但不足保住鄜延核心。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0075",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0076",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0077",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0078"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0075",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0076",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0077",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0078"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0075",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0076",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0077",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0078"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0075",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0076",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0077",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0078"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "延安仍被集中攻破。"
+        },
+        {
+          "evaluation_subject_phase": "南宋庞世才援军 × 战败",
+          "subject_role": "RELIEF_DEFENDER",
+          "actual_process": "金军攻庞世才，部下不用命而败，延安外围援线进一步崩解。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "伤亡无载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "实际援战失败。",
+            "upper_bound_reason": "无千人级损失。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "援线失败。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "延安来路"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "未形成控制。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0075",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0076",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0077",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0078"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "援军因执行失效战败。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "救援失败削弱延安生存基础。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0075",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0076",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0077",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0078"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0075",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0076",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0077",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0078"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0075",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0076",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0077",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0078"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0075",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0076",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0077",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0078"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "南宋延安西城魏彦明等 × 十三日守城失守",
+          "subject_role": "DEFENDER",
+          "actual_process": "东城此前已失，西城被昼夜猛攻；魏彦明空家资赏士，王庶之子率老弱登城，士多死。十三日后后门破，刘选、马忠逃走，魏彦明死战拒降并与家属被杀。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S3",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC4"
+          },
+          "P_inference": {
+            "P_observed": "十三日昼夜攻守，原文明言‘士多死者’。",
+            "range": "1,000—9,999死亡当量",
+            "center": 2236,
+            "P_scoring": "P3估",
+            "basis": "完整府城持续高强度作战，千人级中心合理；S3独立由核心府城失守支持。",
+            "upper_bound_reason": "无万人级死伤。",
+            "confidence": "medium"
+          },
+          "strategic_security": "SN4",
+          "strategic_security_detail": "延安核心府城失守，鄜延防线结构性恶化。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN3",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "延安府"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "整个延安府失守。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0075",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0076",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0077",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0078"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "高强度守城仍失核心府城。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "延安失守重创西北稳定基础。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0075",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0076",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0077",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0078"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0075",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0076",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0077",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0078"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0075",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0076",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0077",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0078"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0075",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0076",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0077",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0078"
+            ]
+          },
+          "carry_in": "承卷101金军已破延安东城。",
+          "carry_out": "金军继续由缓德渡河攻晋宁。"
+        },
+        {
+          "evaluation_subject_phase": "金延安攻城军 × 集中破西城",
+          "subject_role": "ATTACKER",
+          "actual_process": "利用王庶曲端不协分兵攻康定、丹州、延安，集中围西城十三日后破门入城。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "十三日昼夜攻城，伤亡无载。",
+            "range": "1,000—9,999死亡当量",
+            "center": 2236,
+            "P_scoring": "P3估",
+            "basis": "长期强攻合理推定千人级。",
+            "upper_bound_reason": "无万人级损失。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB4",
+          "strategic_security_detail": "拔除鄜延核心。",
+          "material_return": "WR3",
+          "material_return_detail": "取得延安府重要区域。",
+          "border_control": {
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "延安府"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "取得延安。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0075",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0076",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0077",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0078"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "高成本攻坚后取得陕北核心。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0075",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0076",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0077",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0078"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0075",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0076",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0077",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0078"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0075",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0076",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0077",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0078"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0075",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0076",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0077",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0078"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "折可求降金—徐徽言晋宁屡败金军",
+      "campaign_group": "XZTJ-JIN-JINNING-1128",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0080"
+      ],
+      "source_quotes": [
+        "許封以關中地，可求遂降",
+        "金挾可求招徽言於城下",
+        "徽言屢敗之，斬洛索之子"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "折可求府州集团 × 受诱降金",
+          "subject_role": "DEFECTOR",
+          "actual_process": "徐徽言原约折可求夹击金军，洛索许封关中地后折可求投降，并被带至晋宁招降。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S1",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": null,
+          "strategic_security": "SN3",
+          "strategic_security_detail": "晋宁失去预定夹击援助。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "府州方向"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "投降明确，但府州即时实际控制变化不明。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0080"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "从预定援军转为敌方招降工具。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0080"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0080"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0080"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0080"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "南宋徐徽言晋宁守军 × 拒降屡胜",
+          "subject_role": "DEFENDER",
+          "actual_process": "徐徽言登城痛斥折可求并射箭；金军攻晋宁，徐徽言多次击败并斩洛索之子。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "多次接战，伤亡无载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "连续攻守支持百人级。",
+            "upper_bound_reason": "无千人级损失。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "失去援军仍守住晋宁并重创金军。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "晋宁"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "晋宁保持宋方控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0080"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "多次退敌并斩敌主帅之子。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "保住河东—陕北残余支点。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0080"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0080"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0080"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0080"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "后卷核晋宁长期持守。"
+        },
+        {
+          "evaluation_subject_phase": "金洛索晋宁军 × 屡攻受挫",
+          "subject_role": "ATTACKER",
+          "actual_process": "招降不成后多次攻晋宁均被击败，并损失洛索之子。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "主将之子被斩，多次败战。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "百人级中心合理。",
+            "upper_bound_reason": "无千人级数字。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "清剿失败。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "晋宁"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "未取得晋宁。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0080"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "多次进攻无果且损失高层亲属。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0080"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0080"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0080"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0080"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "金军攻破德州—赵叔晈战死",
+      "campaign_group": "XZTJ-JIN-SHANDONG-INVASION-1128",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0090"
+      ],
+      "source_quotes": [
+        "金人破德州，兵馬都監趙叔晈死之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋德州守方 × 失守",
+          "subject_role": "DEFENDER",
+          "actual_process": "金军攻破德州，兵马都监赵叔晈战死。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "赵叔晈明确战死，州城被破。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "州城攻破且主将死亡。",
+            "upper_bound_reason": "无千人级伤亡。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "山东一处州级节点失守。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "德州"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "德州被攻破。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0090"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "守将战死且失州。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "山东控制继续收缩。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0090"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0090"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0090"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0090"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "金德州攻城军 × 取州",
+          "subject_role": "ATTACKER",
+          "actual_process": "金军攻破德州。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "伤亡失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "实际攻破州城。",
+            "upper_bound_reason": "无千人级损失。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "取得州级节点。",
+          "material_return": "WR2",
+          "material_return_detail": "取得德州。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "德州"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "取得德州。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0090"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "中等可见成本取得州城。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0090"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0090"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0090"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0090"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "邵兴典沃县击败金军",
+      "campaign_group": "XZTJ-JIANYAN-SHAOXING-HEZHONG-1128",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0093"
+      ],
+      "source_quotes": [
+        "邵興敗金人於絳州典沃縣"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋邵兴军 × 典沃胜战",
+          "subject_role": "DEFENDER_COUNTERATTACKER",
+          "actual_process": "邵兴在绛州典沃县击败金军。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "单次简略胜战不能P0。",
+            "upper_bound_reason": "无百人级损失。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "一次局部击退。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "典沃县方向"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "无新控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0093"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "低成本局部取胜。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "维持河东忠义军抗金网络。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0093"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0093"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0093"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0093"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "金典沃方向军 × 败退",
+          "subject_role": "ATTACKER",
+          "actual_process": "金军在典沃被击败。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "简略败战低档估计。",
+            "upper_bound_reason": "无百人级材料。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "局部行动受挫。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "典沃县方向"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "无控制所得。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0093"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "战败无所得。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0093"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0093"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0093"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0093"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "李成攻淄州粮尽撤退—金骑来临居民误迎而降",
+      "campaign_group": "XZTJ-JIN-SHANDONG-INVASION-1128",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0094",
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0095"
+      ],
+      "source_quotes": [
+        "固守不下，成糧盡，引去",
+        "淄人望之曰：滄州救兵至矣",
+        "既而知為敵至，遂降",
+        "金人大喜，不入城而去"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋淄州守方 × 守退李成",
+          "subject_role": "DEFENDER",
+          "actual_process": "李成转攻淄州，权州事固守，李成粮尽撤离。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "守城伤亡失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "守至敌粮尽，百人级中心合理。",
+            "upper_bound_reason": "无千人级伤亡。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "迫退大股叛军。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "淄州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "对李成守住州城。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0094",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0095"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "承担围城成本但成功迫退李成。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "短暂维持山东州级节点。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0094",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0095"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0094",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0095"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0094",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0095"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0094",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0095"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "李成武装 × 攻淄粮尽撤退",
+          "subject_role": "ATTACKER",
+          "actual_process": "在刘光世追败后转攻淄州，因固守和己方粮尽而撤。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "攻城伤亡失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "实际围城至粮尽。",
+            "upper_bound_reason": "无千人级损失。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "再次攻城失败。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "淄州"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "未取淄州。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0094",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0095"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "耗粮无所得。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0094",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0095"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0094",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0095"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0094",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0095"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0094",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0095"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "淄州军民 × 误认金骑后投降",
+          "subject_role": "DEFENDER_SURRENDER",
+          "actual_process": "淄州求救沧州，见金骑来误以为援军并备香花；发现是金军后即降。金军不入城而去。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S1",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": null,
+          "strategic_security": "SN1",
+          "strategic_security_detail": "政治威慑形成，但稳定实际控制不明。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "淄州"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "投降明确，但金军不入城即离去。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0094",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0095"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "误判援军后被迫投降，实际设治待核。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "山东州县在援军缺失下出现政治性瓦解。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0094",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0095"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0094",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0095"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0094",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0095"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0094",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0095"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "后卷核淄州谁实际持守。"
+        },
+        {
+          "evaluation_subject_phase": "金淄州骑兵 × 威慑受降后离去",
+          "subject_role": "ATTACKER",
+          "actual_process": "金骑到城下即获投降，但未入城便离去。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": null,
+          "strategic_security": "SB1",
+          "strategic_security_detail": "获得一次低成本威慑成果但未确认占领。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "淄州"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "受降明确，实际持守不明。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0094",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0095"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "phase_return_basis": "无稳定控制与资源接收证据。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0094",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0095"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0094",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0095"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0094",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0095"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0094",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0095"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "后卷核实际控制。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "吴玠袭史斌—鸣犊镇擒斩—曲端杀张宗",
+      "campaign_group": "XZTJ-JIANYAN-SHIBIN-XINGZHOU-1127-1128",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0096",
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0097"
+      ],
+      "source_quotes": [
+        "吳玠襲叛賊史斌，斬之",
+        "斌走鳴犢鎮，為玠所擒",
+        "端自擊宗，殺之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋吴玠—曲端军 × 清除史斌残部",
+          "subject_role": "COUNTERREBELLION",
+          "actual_process": "史斌被张宗诱至长安并散其众，吴玠突袭后在鸣犊镇擒斩史斌，曲端又攻杀张宗。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "宋方伤亡无载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "以诱散、突袭、擒杀为主。",
+            "upper_bound_reason": "无百人级损失。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB4",
+          "strategic_security_detail": "跨卷史斌割据威胁至此失去首领和残余组织。",
+          "material_return": "WR0",
+          "material_return_detail": "内部平乱不计新增资源。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "史斌残部活动区"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "此前已失兴州，本阶段为组织终结。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0096",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0097"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "低到中等成本终结持续割据威胁。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "彻底清除陕南—关中割据残余。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0096",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0097"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0096",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0097"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0096",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0097"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0096",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0097"
+            ]
+          },
+          "carry_in": "承卷100史斌已失兴州但本人未灭。",
+          "carry_out": "父链可闭合。"
+        },
+        {
+          "evaluation_subject_phase": "史斌—张宗残部 × 组织终结",
+          "subject_role": "REBELLION_DEFENDER",
+          "actual_process": "史斌被擒斩，张宗亦被杀，残余失去关键首领。",
+          "cost_axes": {
+            "P": "P1",
+            "S": "S0",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": null,
+          "strategic_security": "SN4",
+          "strategic_security_detail": "持续割据威胁结构终结。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "史斌残部"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "州城控制此前已失。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0096",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0097"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "首领和关键骨干被清除。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0096",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0097"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0096",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0097"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0096",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0097"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0096",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0097"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "葛进围棣州—城破、姜刚之被害",
+      "campaign_group": "XZTJ-JIANYAN-DIZHOU-GEJIN-1128",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0098"
+      ],
+      "source_quotes": [
+        "葛進圍棣州",
+        "薑剛之與戰，城破，為所害"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "葛进武装 × 围破棣州",
+          "subject_role": "ATTACKER",
+          "actual_process": "葛进围攻棣州，击破守军并取得州城，姜刚之被杀。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "自身伤亡失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "围城并破城。",
+            "upper_bound_reason": "无千人级损失。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "取得州级节点。",
+          "material_return": "WR2",
+          "material_return_detail": "取得棣州。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "棣州"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "攻破棣州。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0098"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "中等攻坚成本取得州城。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0098"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0098"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0098"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0098"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "南宋姜刚之棣州守方 × 战败失城",
+          "subject_role": "DEFENDER",
+          "actual_process": "姜刚之与葛进战，城破后被害。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "姜刚之明确死亡，其他伤亡失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "州城被破、守臣战死。",
+            "upper_bound_reason": "无千人级死伤。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "棣州失守。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "棣州"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "州城失去。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0098"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "守臣战死且失州。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "山东残余州城再失。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0098"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0098"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0098"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0098"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "金侵东平—权邦彦范琼弃守—金得东平",
+      "campaign_group": "XZTJ-JIN-SHANDONG-INVASION-1128",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0100",
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0101"
+      ],
+      "source_quotes": [
+        "金人侵東平府",
+        "邦彥無兵，不能守，遂棄其家，與瓊俱南歸",
+        "金既得東平"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋权邦彦—范琼 × 东平弃守",
+          "subject_role": "DEFENDER_WITHDRAWAL",
+          "actual_process": "金军以优势兵力侵东平，权邦彦无兵，与援至的范琼一同南撤，金方取得东平。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S3",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "P_inference": null,
+          "strategic_security": "SN3",
+          "strategic_security_detail": "府级节点无战失守。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "东平府"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "主动撤离后失府。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0100",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0101"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "避免战斗伤亡但失去重要府城。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "山东—淮北防线进一步退缩。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0100",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0101"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0100",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0101"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0100",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0101"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0100",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0101"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "金东平军 × 迫弃受城",
+          "subject_role": "ATTACKER",
+          "actual_process": "优势兵力逼迫宋守臣及援军撤离，取得东平。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": null,
+          "strategic_security": "SB3",
+          "strategic_security_detail": "取得重要府级节点并为继续南下提供条件。",
+          "material_return": "WR2",
+          "material_return_detail": "取得东平府。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "东平府"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "取得东平。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0100",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0101"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "低人员成本取得府级节点。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0100",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0101"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0100",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0101"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0100",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0101"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0100",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0101"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "金攻济南—刘麟张东退敌—刘豫张东旋即通款",
+      "campaign_group": "XZTJ-JIN-SHANDONG-INVASION-1128",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0101",
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0103"
+      ],
+      "source_quotes": [
+        "麟與戰，金兵圍之數匝",
+        "張東益兵援之，乃去",
+        "豫遂縋城，軍前通款",
+        "二郡已降"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋刘麟—张东军 × 济南解围",
+          "subject_role": "DEFENDER",
+          "actual_process": "刘麟出战被金军数匝包围，张东增兵援救，金军退去。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "刘麟被围后获救，伤亡无载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "野战、被围与援战。",
+            "upper_bound_reason": "无千人级损失。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "一次解围成功但旋即被投降逆转。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "济南府"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "本战当下守住。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0101",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0103"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "phase_return_basis": "战术胜利很快失去长期价值。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "短暂维持济南支点。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0101",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0103"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0101",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0103"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0101",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0103"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0101",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0103"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "刘豫—张东集团 × 通款降金",
+          "subject_role": "DEFECTOR",
+          "actual_process": "金军退后以利益诱刘豫，刘豫与张东出城投拜、缒城通款；后文明确济南已降。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S3",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC3"
+          },
+          "P_inference": null,
+          "strategic_security": "SN3",
+          "strategic_security_detail": "济南控制转向金方。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "济南府"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "后文明示济南已降。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0101",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0103"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "刚退敌即主动投降，全部安全收益逆转。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "济南降金进一步削弱山东控制。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0101",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0103"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0101",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0103"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0101",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0103"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0101",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0103"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "金济南军 × 招降得府",
+          "subject_role": "ATTACKER",
+          "actual_process": "首次野战被援军迫退，随后以利益诱刘豫，接受济南通款。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "首次实战伤亡无载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "有实际围战。",
+            "upper_bound_reason": "无千人级损失。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "取得济南府。",
+          "material_return": "WR2",
+          "material_return_detail": "取得府级节点。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "济南府"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "济南转入金方控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0101",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0103"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "正面受阻后以招降取得府级节点。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0101",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0103"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0101",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0103"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0101",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0103"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0101",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0103"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "宗翰攻破北京大名—郭永死守拒降",
+      "campaign_group": "XZTJ-JIN-HEBEI-OCCUPATION-1128",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0102",
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0103",
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0104"
+      ],
+      "source_quotes": [
+        "自率兵晝夜乘城",
+        "金以斷碑殘礎為砲，櫓樓皆壞",
+        "至有碎首者",
+        "城破",
+        "斷所舉手，並其家害之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋郭永北京守方 × 昼夜守城失守",
+          "subject_role": "DEFENDER",
+          "actual_process": "郭永坚持大名死守并昼夜乘城、遣死士告急。金用断碑残础作炮摧毁橹楼，城破后张益谦、裴亿迎降；郭永拒降被断手并与家人杀害。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S4",
+            "M": "M3",
+            "A": "A3",
+            "WC": "WC4"
+          },
+          "P_inference": {
+            "P_observed": "昼夜守城、重炮毁楼，有碎首者，城破。",
+            "range": "1,000—9,999死亡当量",
+            "center": 2236,
+            "P_scoring": "P3估",
+            "basis": "大型府城高强度攻防合理推定千人级；S4由核心门户失守独立支持。",
+            "upper_bound_reason": "无屠城或万人级死亡数字。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN4",
+          "strategic_security_detail": "河北南缘核心门户失守。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN3",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "北京大名府"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "北京大名被攻破。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0102",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0103",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0104"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "高强度守城仍失去河北核心门户。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "大名失守使北方控制结构性受创。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0102",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0103",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0104"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0102",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0103",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0104"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0102",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0103",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0104"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0102",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0103",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0104"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "金宗翰军 × 攻破北京大名",
+          "subject_role": "ATTACKER",
+          "actual_process": "宗翰急攻北京，以重型投射物毁城楼并破城，接受部分官员投降。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "攻城激烈，伤亡无载。",
+            "range": "1,000—9,999死亡当量",
+            "center": 2236,
+            "P_scoring": "P3估",
+            "basis": "大型核心府城昼夜强攻，推定千人级。",
+            "upper_bound_reason": "无万人级损失。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB4",
+          "strategic_security_detail": "拔除河北南缘核心据点，打开继续南下通道。",
+          "material_return": "WR3",
+          "material_return_detail": "取得北京大名府重要战略区域。",
+          "border_control": {
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "北京大名府"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "取得大名府。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0102",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0103",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0104"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "高强度攻坚换取核心门户控制。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0102",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0103",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0104"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0102",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0103",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0104"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0102",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0103",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0104"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0102",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0103",
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0104"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "金军攻破袭庆府",
+      "campaign_group": "XZTJ-JIN-SHANDONG-INVASION-1128",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0105"
+      ],
+      "source_quotes": [
+        "金人破襲慶府",
+        "闕裡得全"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋袭庆府 × 失守",
+          "subject_role": "DEFENDER",
+          "actual_process": "金军攻破袭庆府，衍圣公孔端友已避兵南走；孔子墓因宗翰禁止而保全。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M0",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "伤亡失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "府级城池被攻破。",
+            "upper_bound_reason": "无千人级伤亡。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "府级节点失守。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "袭庆府"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "府城失去。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0105"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "府城失守。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "山东府级控制继续缩减。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0105"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0105"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0105"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0105"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "金袭庆攻城军 × 取府",
+          "subject_role": "ATTACKER",
+          "actual_process": "金军攻破袭庆府，并禁止侵犯孔子墓。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "伤亡失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "攻破府城。",
+            "upper_bound_reason": "无千人级损失。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "取得府级节点。",
+          "material_return": "WR2",
+          "material_return_detail": "取得袭庆府。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "袭庆府"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "取得袭庆府。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0105"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "中等攻坚成本取得府级节点。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0105"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0105"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0105"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0105"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "金军攻破虢州",
+      "campaign_group": "XZTJ-JIN-SHAANXI-INVASION-1128",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-102-2300362-P0107"
+      ],
+      "source_quotes": [
+        "金人破虢州"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "南宋虢州守方 × 失守",
+          "subject_role": "DEFENDER",
+          "actual_process": "金军攻破虢州，兵力、守将和伤亡失载。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "P_inference": {
+            "P_observed": "仅记破州。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "实际攻破州城，低置信度百人级。",
+            "upper_bound_reason": "无千人级材料。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "陕西东部又失一州。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "虢州"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "虢州失守。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0107"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "州城失守。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "关陕东缘控制继续受损。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0107"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0107"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0107"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0107"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "金虢州攻城军 × 取州",
+          "subject_role": "ATTACKER",
+          "actual_process": "金军攻破虢州。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "伤亡失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "攻破州城。",
+            "upper_bound_reason": "无千人级材料。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "取得州级节点。",
+          "material_return": "WR2",
+          "material_return_detail": "取得虢州。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "虢州"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "取得虢州。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0107"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "中等可见成本取得州级节点。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷确认的建国、复国、割据建立或新政权稳定基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0107"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0107"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0107"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-102-2300362-P0107"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0008",
+        "disposition": "ADJUDICATED",
+        "reason": "张俊入秀州、赵叔近被杀，直接触发下一段武装军变。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0009",
+        "disposition": "ADJUDICATED",
+        "reason": "秀州兵反戈守城、纵火殴掠，张俊次日破关平乱。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0011",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "沿江水军与战舰限期建设，写入summary。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0012",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "陕西六路节制与任命，属军政组织。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0013",
+        "disposition": "ADJUDICATED",
+        "reason": "西夏随宋使归程以兵掩取定边军，产生实际控制变化；议和部分写summary。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0014",
+        "disposition": "ADJUDICATED",
+        "reason": "王择仁二万众入长安并被逐是实际武装阶段；八百余万缗军费设想另写summary。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0016",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "宗泽病卒。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0017",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "宗泽临终言志，无新接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0019",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "释放此前拘留金使，属外交处置。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0021",
+        "disposition": "ADJUDICATED",
+        "reason": "叶浓实际攻破宁德、政和、松溪。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0025",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "宗泽死后东京将士、两河豪杰流失，属总体军政后效。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0026",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金廷南伐、平陕西战略决策与部署，尚非本段实际接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0029",
+        "disposition": "ADJUDICATED",
+        "reason": "刘立芸聚众攻破城邑，属于实际武装扩张。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0030",
+        "disposition": "ADJUDICATED",
+        "reason": "邵兴朱家山苦战三日击败金军。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0034",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "民兵核查制度。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0039",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "东京礼仪资产搬迁行在。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0040",
+        "disposition": "ADJUDICATED",
+        "reason": "李成引兵入宿州。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0041",
+        "disposition": "ADJUDICATED",
+        "reason": "李成叛变、宿州焚掠强征、虹县被焚并屯符离。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0043",
+        "disposition": "ADJUDICATED",
+        "reason": "丁进受招后复叛，率众犯淮西。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0044",
+        "disposition": "ADJUDICATED",
+        "reason": "韩世忠处死丁进旧部百余，作为复叛引发的内部安全阶段；刘正彦追捕结果待后卷。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0048",
+        "disposition": "ADJUDICATED",
+        "reason": "叶浓进入浦城，纳入多县扩张父链。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0049",
+        "disposition": "ADJUDICATED",
+        "reason": "金军破冀州。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0050",
+        "disposition": "ADJUDICATED",
+        "reason": "李政多次退金、夜袭、越火力战及被副将杀，补足冀州战役过程。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0053",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "沿江渡口管控，属战备。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0054",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "扬州修城浚濠、水战训练，属战备工程。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0055",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "韩世忠、张俊、马扩互援调动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0056",
+        "disposition": "ADJUDICATED",
+        "reason": "金围濮州起点。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0057",
+        "disposition": "ADJUDICATED",
+        "reason": "马扩攻清平遭金军合击大败，信王失踪。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0058",
+        "disposition": "ADJUDICATED",
+        "reason": "宗翰过河侵澶渊不下后转攻濮州；范琼等调动不另立部署卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0059",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "马扩败后降官罢军职，为战后处分。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0062",
+        "disposition": "ADJUDICATED",
+        "reason": "翟进战死结果。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0063",
+        "disposition": "ADJUDICATED",
+        "reason": "杨进数万复叛汝洛、鸣皋山击败翟进。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0064",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "宗泽体系崩散和盗军再起为总体军政后效，不虚构为单一战斗。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0067",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "范琼引兵至东京为调动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0068",
+        "disposition": "ADJUDICATED",
+        "reason": "刘光世新息败李成。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0069",
+        "disposition": "ADJUDICATED",
+        "reason": "补足上蔡驿口桥、围刘光世及连胜擒陶子思。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0074",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "李成败后家属六百余人分养、降卒释放，为战后人口政策；提刀缴获已并入李成败战WR。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0075",
+        "disposition": "ADJUDICATED",
+        "reason": "金破延安府。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0076",
+        "disposition": "ADJUDICATED",
+        "reason": "延安救援背景、金陷丹州和王庶部署纳入延安父链；丹州仅一句陷落不另拆低信息卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0077",
+        "disposition": "ADJUDICATED",
+        "reason": "吴玠拔华州、庞世才援军败，均为实际军事阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0078",
+        "disposition": "ADJUDICATED",
+        "reason": "延安西城十三日昼夜攻守、城破和魏彦明被杀。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0079",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "延安失守后王庶、曲端争权、夺印及王姪撤蜀，为军政内讧与调动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0080",
+        "disposition": "ADJUDICATED",
+        "reason": "折可求降金、金攻晋宁、徐徽言屡败金军并斩洛索之子。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0081",
+        "disposition": "ADJUDICATED",
+        "reason": "赵哲建州城下大败叶浓，叶浓受降。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0082",
+        "disposition": "ADJUDICATED",
+        "reason": "濮州失守。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0083",
+        "disposition": "ADJUDICATED",
+        "reason": "濮州三十三日围城屠杀及开德伪书破城屠杀，拆成两卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0084",
+        "disposition": "ADJUDICATED",
+        "reason": "相州久围粮绝、开门降金。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0085",
+        "disposition": "ADJUDICATED",
+        "reason": "杜充决黄河是已经实施的战争阻敌工程，并直接改变河道体系。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0086",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "魏行可等通问使被金扣留，为外交。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0090",
+        "disposition": "ADJUDICATED",
+        "reason": "金破德州、守将战死。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0093",
+        "disposition": "ADJUDICATED",
+        "reason": "邵兴典沃县败金。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0094",
+        "disposition": "ADJUDICATED",
+        "reason": "金破淄州结果。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0095",
+        "disposition": "ADJUDICATED",
+        "reason": "李成攻淄不下、金骑来临后居民误迎而降，分别拆主体阶段。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0096",
+        "disposition": "ADJUDICATED",
+        "reason": "吴玠袭史斌并斩之。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0097",
+        "disposition": "ADJUDICATED",
+        "reason": "补足史斌被诱散、鸣犊镇擒获及曲端杀张宗。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0098",
+        "disposition": "ADJUDICATED",
+        "reason": "葛进围棣州，姜刚之战败被害。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0100",
+        "disposition": "ADJUDICATED",
+        "reason": "金侵东平，权邦彦、范琼撤退，后文确认金已得东平。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0101",
+        "disposition": "ADJUDICATED",
+        "reason": "济南出战解围及刘豫、张东通款。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0102",
+        "disposition": "ADJUDICATED",
+        "reason": "宗翰破北京大名。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0103",
+        "disposition": "ADJUDICATED",
+        "reason": "大名昼夜守城、重炮破楼、城破及东平济南已降旁证。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0104",
+        "disposition": "ADJUDICATED",
+        "reason": "郭永拒降被杀及其家遇害，闭合大名守城。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0105",
+        "disposition": "ADJUDICATED",
+        "reason": "金破袭庆府；孔墓保全作为附带战后事实。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0107",
+        "disposition": "ADJUDICATED",
+        "reason": "金破虢州。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0112",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "山东金军往来、李成余乱及行在斥候失灵是总体战争态势与情报治理。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0113",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "吕颐浩、叶梦得、张俊、刘玨、张守提出防御方案，为军政筹划。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-102-2300362-P0114",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "北京破后张浚劝备战及教练长兵，为决策与训练。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      "秀州军变已在卷内次日平定；但赵叔近被张俊以王渊私怨杀死是军变直接诱因，后续汇总不得只记平乱收益而漏掉起因。",
+      "西夏在议和后随谢亮归使掩取定边军，卷内未见宋方恢复；卷103以后核实际持守与宋夏关系。",
+      "刘立芸破燕山城邑但具体城名和持续控制均失载，控制轴保持UNKNOWN；后卷若出现归附规模和败亡须补。",
+      "李成在宿州—符离阶段扩张，后被刘光世于上蔡、新息连败，又转攻淄州不下；本人卷末仍未被擒，卷103继续沿用XZTJ-JIANYAN-LICHENG-REBELLION-1128。",
+      "丁进宗泽死后再次复叛犯淮西，刘正彦奉命追捕但本卷无结果；后卷需核丁进结局。",
+      "马扩清平败战使河外元帅府体系基本瓦解，信王赵榛‘不知所终’；后卷若出现信王消息，应替换未归估计，不与旧估重复累加。",
+      "宗翰先攻澶渊不下、转濮州三十三日破城屠城，随后又破澶渊/开德；两个城池控制和人口损害已分阶段记录，不并成一个普通‘金军南下’卡。",
+      "杜充决黄河的阻敌效果本卷不能确认，但‘自是河流不复’为明确系统损害。卷103以后优先核洪泛、民田、漕运、人口迁徙及是否实际阻滞金军。",
+      "延安父链承卷101东城失守，本卷西城十三日后破；吴玠拔华州是同一救援战略旁线成果，但未解除延安之围。后卷核华州保持及曲端路线后果。",
+      "折可求已经降金但府州即时实际控制不明；晋宁徐徽言仍守住并斩洛索之子，后卷分别核府州与晋宁。",
+      "叶浓多县扩张在建州城下败后受降，后又谋变被张俊处死；该父链可闭合，不把受降后处刑当战斗P。",
+      "史斌自卷099据兴州称帝、卷100失兴州，本卷被吴玠擒斩且张宗被杀，割据威胁父链可闭合。",
+      "淄州对李成守住，但见金骑后投降，而金军不入城即离去，稳定控制仍UNKNOWN，后卷需核实际设治。",
+      "东平已明确被金取得；济南先击退金军后刘豫、张东通款，P0103再明言‘二郡已降’，可确认济南转控。后卷刘豫政治线从此状态承接。",
+      "北京大名失守后金军计划继续徐泗趋行在，行在斥候仍严重失灵；卷103优先核金军越淮、扬州和真州方向。"
+    ]
+  }
+}

@@ -1,0 +1,658 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "续资治通鉴/卷027",
+  "source_identity": {
+    "source_unit_id": "SRC-XUZIZHITONGJIAN-027-2611587",
+    "revision_ref": "2611587",
+    "raw_sha256": "ebdde7803a3c258bebc360f044a72171fa28bdb5529895a011f63a283b0284d2"
+  },
+  "cards": [
+    {
+      "battle_label": "宜州陈进之乱：象州解围与叛军核心瓦解",
+      "campaign_group": "XZTJ-YIZHOU-CHENJIN-REBELLION-1007",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-027-2611587-P0008"
+      ],
+      "source_quotes": [
+        "宜賊圍象州，久不克",
+        "曹利用等以大軍擊破之",
+        "盧成均挈其族來降，陳進伏誅"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "宋曹利用等军 × 象州解围击破叛军阶段",
+          "subject_role": "DEFENDER_RELIEF",
+          "actual_process": "承卷026中央下令进讨。陈进叛军久围象州未克，曹利用等率大军到场击破其主力；卢成均率族投降，陈进随后伏诛。官军入象州安抚军民，并继续分兵搜捕余寇。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S1",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "原文明确有长期围城与“大军击破”实战，但双方伤亡数字均失载。",
+            "range": "100—900死亡当量",
+            "center": 300,
+            "P_scoring": "P2估",
+            "basis": "久围一州城后由大军实施解围并击破叛军，接战规模应高于一次小型冲突；但没有千人级阵亡、成建制覆灭或大批遗属补兵线索。",
+            "upper_bound_reason": "缺少千人级直接死伤、数千俘虏或大战后大规模补充证据。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "叛乱核心军力被击破，名义首领卢成均率族降、陈进退出战争链；但本段仍有“余寇”待捕，不能写成所有武装威胁已永久终结。",
+          "material_return": "WR0",
+          "material_return_detail": "平定内乱主要是恢复既有秩序；未见可独立计入国家新增回报的战利资产。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "象州城"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "象州久围不克，宋方在本阶段保持该城控制；本段未明载宜州城收复时点。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0008"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "以可见但有限的解围成本击破叛军核心，守住象州并使主要首领退出战争链，形成显著安全改善。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据政权建立或新政权稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0008"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0008"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0008"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0008"
+            ]
+          },
+          "carry_in": "承卷026 `SRC-XUZIZHITONGJIAN-026-2615674-P0105`：陈进杀知州刘永规、拥卢成均称南平王据宜州，宋已命曹利用等进讨但尚未接战。",
+          "carry_out": "本段仍称“分兵捕余寇”；后续如出现残部再战或宜州正式收复时点，应沿同一campaign_group续记。"
+        },
+        {
+          "evaluation_subject_phase": "陈进—卢成均叛军 × 久围象州失败并被击破阶段",
+          "subject_role": "REBELLER",
+          "actual_process": "叛军围象州长期不能攻克，随后遭曹利用等大军击破；卢成均率族投降，陈进被诛，核心政治—军事组织崩解。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S1",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "实战失败且组织核心瓦解，具体伤亡、被俘人数失载。",
+            "range": "100—900死亡当量",
+            "center": 300,
+            "P_scoring": "P2估",
+            "basis": "长期围城后遭大军击破，支持百人级损害中心；但“陈进伏诛”属于战后处置，不能把其一人之外的处刑或假想俘虏计入P。",
+            "upper_bound_reason": "无千人级明确死伤、俘降人数或主力全歼证据。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "主要武装集团被打散，政治首领投降或死亡，继续维持割据中心的能力大幅丧失。",
+          "material_return": "WR0",
+          "material_return_detail": "象州久攻不克，未取得可确认的资源或控制回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "象州城"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "叛军未能取得象州；因原文未在本段明载宜州控制交接，不能虚构BCN。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0008"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "持续围城与实战成本均未换来象州控制，反而被大军击破并失去核心首领。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "承卷026的宜州割据政权萌芽；本阶段试图以围象州扩大并稳固控制失败，核心首领退出，建国／割据巩固进程实际崩解。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0008"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0008"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0008"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0008"
+            ]
+          },
+          "carry_in": "承卷026叛军已经杀州守、据宜州并建立“南平王”名号。",
+          "carry_out": "余寇仍被官军分兵搜捕；其是否形成新的持续武装中心需后续核验。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "辽萧托云讨准布",
+      "campaign_group": "XZTJ-LIAO-ZHUNBU-CAMPAIGN-1007",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-027-2611587-P0009"
+      ],
+      "source_quotes": [
+        "遼西北路招討使蕭托雲討准布，破之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "辽萧托云军 × 讨准布取胜阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "辽西北路招讨使萧托云出兵讨准布并击破之；原文没有兵力、地点、伤亡、缴获或设治信息。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "原文仅见“讨准布，破之”，确认有武装讨伐与战斗胜负，辽方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "一次西北边部讨伐并获胜，至少存在非零战斗风险；没有辽军败退、补兵、长期围困或重大伤亡后效。",
+            "upper_bound_reason": "无百人级辽方死伤、成建制损失或长期战争证据。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "一次局部威胁被击退／压制；准布是否长期失去再犯能力未载。",
+          "material_return": "WR0",
+          "material_return_detail": "未载缴获、贡赋、牲畜或实际控制所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "准布活动区域未详"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "只见战斗取胜，未见辽建立或扩展实际控制。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0009"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以低可见成本取得一次局部军事胜利，但结构性收益和资源回报均未证实。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据政权建立或新政权稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0009"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0009"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0009"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0009"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "后续如再见同一准布集团入寇、纳款或再讨，应据其复发情况复核SB。"
+        },
+        {
+          "evaluation_subject_phase": "准布武装 × 遭辽军击破阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "准布遭辽西北路招讨使萧托云军事讨伐并被击破；具体损失和退向失载。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "原文明确“破之”，但没有准布一方死伤、俘虏或溃散规模。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "有实战失败，不能记P0；但单一“破”字不能直接推成百人、千人级伤亡。",
+            "upper_bound_reason": "无百人级死伤、营寨失守或大批人口迁散证据。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "一次局部军事失败，短期行动能力受挫；长期威胁能力未知。",
+          "material_return": "WR0",
+          "material_return_detail": "无所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "准布活动区域未详"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "战败本身不能等同于控制丧失。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0009"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "发生实战损耗并战败，没有可确认的安全、资源或控制收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据政权建立或新政权稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0009"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0009"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0009"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0009"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "后续若出现准布重新活动，说明本次失败仅为一次性压制。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "赵德明使张浦率数千骑侵扰回鹘",
+      "campaign_group": "XZTJ-TANGUT-HUIHU-CONFLICT-1008-1010",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-027-2611587-P0034"
+      ],
+      "source_quotes": [
+        "趙德明邀留回鶻貢物，又令張浦率騎數千侵擾回鶻"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "赵德明—张浦部 × 数千骑侵扰回鹘阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "赵德明扣留回鹘贡物，并令张浦率数千骑对回鹘实施武装侵扰；原文没有载明此次袭扰的战果、缴获、占地或撤退结果。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "数千骑实际实施“侵扰”，本方死伤无载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "已发生跨境／边地武装袭扰，至少有非零战斗风险；但无本方败退、伤亡、补兵或围城线索。",
+            "upper_bound_reason": "无百人级本方损失或持续大会战证据。",
+            "confidence": "low"
+          },
+          "strategic_security": "UNKNOWN",
+          "strategic_security_detail": "原文没有说明回鹘威胁能力是否因此下降，也没有给出袭扰的后续安全结果。",
+          "material_return": "UNKNOWN",
+          "material_return_detail": "是否掠得牲畜、粮草、贡物以外的军用资源不明；扣留贡物属于战前外交行为，不把它重复当作战场所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "回鹘边地未详"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "“侵扰”本身不构成领土控制，原文亦未见占城设治。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0034"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "phase_return_basis": "只确认数千骑完成武装侵扰，战斗结果、回报及后效均不足，不能以“侵”字直接判高回报或负回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据政权建立或新政权稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0034"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0034"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0034"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0034"
+            ]
+          },
+          "carry_in": "承赵德明已完成对宋纳款与册封，但与回鹘关系转为武装冲突。",
+          "carry_out": "卷028 `P0076` 又见赵德明亲率部侵回鹘并无战果撤还，应沿同一campaign_group续记，不把后卷撤军倒灌到本阶段。"
+        },
+        {
+          "evaluation_subject_phase": "回鹘一方 × 遭张浦数千骑侵扰阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "回鹘边地遭张浦数千骑武装侵扰；原文未载其防御行动、伤亡、被掠规模或具体失地。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "确认遭数千骑实际武装侵扰，回鹘人员损害没有数字。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "数千骑进入其安全空间并实施侵扰，推定存在最低非零人员损害；同时“侵扰”独立支持单一边地节点受扰的S1。",
+            "upper_bound_reason": "无百人级死亡、州城失陷、人口大迁散或生产体系破坏证据。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "一次边地安全受扰；持续时间和是否形成长期高风险未知。",
+          "material_return": "WR0",
+          "material_return_detail": "无所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "回鹘边地未详"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "未见赵德明一方占城设治，不能推定回鹘发生实际退控。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0034"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "P1与S1同为基础最高档，按PS规则抬至WC2；本阶段只见受扰和人员风险，无抵补成果。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据政权建立或新政权稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0034"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0034"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0034"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0034"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "卷028仍见赵德明继续侵回鹘，说明这一方向的安全压力没有在本阶段消失。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "辽萧托云讨甘州回鹘并迫其王降",
+      "campaign_group": "XZTJ-LIAO-GANZHOU-HUIHU-EXPEDITION-1008",
+      "source_anchor_refs": [
+        "SRC-XUZIZHITONGJIAN-027-2611587-P0114"
+      ],
+      "source_quotes": [
+        "遼招討使蕭托雲奏討甘州回鶻，降其王伊囉勒，撫慰而還"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "辽萧托云军 × 讨甘州回鹘受降后撤阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "萧托云率辽军讨甘州回鹘，迫其王伊啰勒降服；辽军随后进行抚慰并撤回，没有记载留军设治或直接接管甘州。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "P_inference": {
+            "P_observed": "明确有军事讨伐并形成受降，辽方伤亡没有数字。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "“讨”说明实际军事行动，按最低非零战斗损害估计；未见苦战、败退或大批辽军伤亡后效。",
+            "upper_bound_reason": "无百人级辽方死伤、长期围城或大规模补给消耗证据。",
+            "confidence": "low"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "迫使甘州回鹘王在本阶段降服，形成一个局部方向的阶段性安全改善；但辽军随后撤回，降服的耐久性未证实。",
+          "material_return": "WR0",
+          "material_return_detail": "名义受降本身不算已实现资源回报；未载缴获、贡赋实际入库或稳定税源。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "甘州回鹘统治区"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "辽军抚慰后还，没有留下实际行政或军事控制，故不记BCP。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0114"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "低可见成本取得对方君主阶段性屈服并安全缓解，但没有稳定控制或物资回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据政权建立或新政权稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0114"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0114"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0114"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0114"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "后续如甘州回鹘再叛、再战或实际贡赋履约，应据后效复核SB；本卷不得把名义降服抬成BCP。"
+        },
+        {
+          "evaluation_subject_phase": "甘州回鹘政权 × 遭辽讨伐并受降阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "甘州回鹘遭辽军讨伐，其王伊啰勒被迫降服；辽军抚慰后撤，没有记载当地行政体系被直接接收。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "P_inference": {
+            "P_observed": "有实际军事讨伐与受降，回鹘伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "受军事压力而降说明至少有非零武装损害风险；S1由政权核心受到一次外来武力压迫独立支撑。",
+            "upper_bound_reason": "无百人级死伤、城市被毁、长期失地或人口迁散证据。",
+            "confidence": "low"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "君主在外来武力下被迫屈服，政治—安全自主性在本阶段明显受损；但辽军撤还使其未被直接吞并。",
+          "material_return": "WR0",
+          "material_return_detail": "无新增资源所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "甘州回鹘统治区"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "辽军撤回，原文未见地方行政控制转移。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0114"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "P1与S1同为基础最高档，PS抬档至WC2；本阶段承受军事压力并被迫降服，无可抵补成果。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于可由本卷原文确认的建国、复国、割据政权建立或新政权稳定统治基础过程。"
+          },
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0114"
+            ],
+            "strategic_security": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0114"
+            ],
+            "material_return": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0114"
+            ],
+            "border_control": [
+              "SRC-XUZIZHITONGJIAN-027-2611587-P0114"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "需后续材料确认此次降服是否稳定，或仅为一次性外交屈服。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "review_scope": "SRC-XUZIZHITONGJIAN-027-2611587-P0001 至 SRC-XUZIZHITONGJIAN-027-2611587-P0117；历史正文至P0115。初稿后按首尾锚点重新线性复读，重点复核“围、击破、讨、侵扰、受降、阅武、军储、边臣、捕余寇”等触发词及上下文。",
+    "card_coverage": {
+      "battle_cards": 4,
+      "subject_phase_cards": 8,
+      "coverage_result": "本卷已发生的四条武装行动链均已裁决；备战、阅武、军储制度、假设用兵、封禅警卫和外交均明确排除。"
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-027-2611587-P0007",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "回顾宜州乱因与地方用人，不是本段新发生武装行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-027-2611587-P0008",
+        "disposition": "ADJUDICATED",
+        "reason": "宜州叛军久围象州、官军大举击破并瓦解核心首领。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-027-2611587-P0009",
+        "disposition": "ADJUDICATED",
+        "reason": "辽萧托云实际出兵讨准布并击破。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-027-2611587-P0019",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "王钦若提出取幽蓟的假设方案，真宗明确不愿再用兵；未执行。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-027-2611587-P0021",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "宋军和平期常规阅武及对辽使说明，无接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-027-2611587-P0026",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "诸路军储登记制度，属军政后勤。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-027-2611587-P0034",
+        "disposition": "ADJUDICATED",
+        "reason": "张浦率数千骑实际侵扰回鹘。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-027-2611587-P0035",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "赵德明请粮与宋廷外交回应，无武装行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-027-2611587-P0040",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "赐边臣宴，属边防抚慰。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-027-2611587-P0046",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "封禅行营、道路、粮草和警卫筹备，非战争。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-027-2611587-P0047",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "东巡沿路禁采捕、保护田亩，属巡幸纪律。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-027-2611587-P0066",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "向辽通报封禅，属外交。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-027-2611587-P0091",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "封禅登山交通与从卒推引，属礼仪劳役。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-027-2611587-P0092",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "封禅警卫与登山人力，未发生武装冲突。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-027-2611587-P0110",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "寇准任天雄军并称北门锁钥，属边防任命。"
+      },
+      {
+        "source_anchor_ref": "SRC-XUZIZHITONGJIAN-027-2611587-P0114",
+        "disposition": "ADJUDICATED",
+        "reason": "辽萧托云实际讨甘州回鹘并迫其王降服。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      "宜州陈进之乱承卷026 `P0105`。卷027 `P0008`已确认叛军核心被击破、卢成均降、陈进伏诛，但仍有“余寇”被分兵搜捕；如后卷出现残部实战或宜州正式收复时点，沿用 `XZTJ-YIZHOU-CHENJIN-REBELLION-1007`。",
+      "卷027 `P0034`赵德明使张浦率数千骑侵扰回鹘，卷028 `P0076`又见赵德明亲率部侵回鹘后撤，应沿用 `XZTJ-TANGUT-HUIHU-CONFLICT-1008-1010`，不得把卷028撤军结果倒灌到本卷袭扰阶段。",
+      "辽 `P0009`讨准布只见一次“破之”，长期安全后效不足；后卷若见准布复扰、纳款或再讨，应重估SB。",
+      "辽 `P0114`迫甘州回鹘王降后即“抚慰而还”，没有实际占领；后卷若有持续贡赋、再叛或设治证据，再判此次名义降服的耐久性。"
+    ]
+  }
+}
