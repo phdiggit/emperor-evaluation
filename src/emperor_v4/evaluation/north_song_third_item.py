@@ -222,7 +222,7 @@ def _read_pair(path: Path, workspace_root: Path) -> tuple[dict[str, Any], Path]:
 
 def _load_adjudication_payload(workspace_root: Path) -> dict[str, Any]:
     payload = json.loads((workspace_root / ADJUDICATION_PATH).read_text(encoding="utf-8"))
-    if payload.get("schema_version") != "north-song-third-item-adjudications-v2":
+    if payload.get("schema_version") != "north-song-third-item-adjudications-v3":
         raise ValueError("北宋第三项裁决配置schema错误")
     if payload.get("source_set_fingerprint") != SOURCE_SET_FINGERPRINT:
         raise ValueError("北宋第三项裁决未绑定当前194份输入内容指纹")

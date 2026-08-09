@@ -19,6 +19,7 @@ D_PATH = Path("docs/评分结算/第三项军事与边疆净收益/军事成本�
 FORMAL_PATH = Path("docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json")
 QIN_TANG_BATTLE_INDEX_PATH = Path("docs/史料通读产物/唐以前编年/00-战争卡审计索引.json")
 QIN_TANG_D_DIRECTION_PATH = Path("config/qin-tang-d-cycle-direction-adjudications.json")
+BATTLE_PARENT_ADJUDICATION_PATH = Path("config/battle-parent-contract-adjudications.json")
 FIRST_ITEM_C_WINDOWS_PATH = Path("config/first-item-c-acquisition-windows.json")
 INPUT_SCHEMA = "chronicle-battle-adjudication-v2"
 REGISTRY_SCHEMA = "battle-parent-contract-registry-v5"
@@ -216,7 +217,7 @@ def _read_source_pair(path: Path, workspace_root: Path) -> tuple[dict[str, Any],
 
 def _load_adjudication_payload(workspace_root: Path) -> dict[str, Any]:
     payload = json.loads((workspace_root / ADJUDICATION_PATH).read_text(encoding="utf-8"))
-    if payload.get("schema_version") != "five-dynasties-third-item-adjudications-v2":
+    if payload.get("schema_version") != "five-dynasties-third-item-adjudications-v3":
         raise ValueError("五代十国第三项裁决配置schema错误")
     if payload.get("source_set_fingerprint") != SOURCE_SET_FINGERPRINT:
         raise ValueError("五代十国第三项裁决配置未绑定当前64份输入指纹")
@@ -665,7 +666,7 @@ D_BANDS = {
     "D-3": (22.0, 29.9), "D-4": (30.0, 35.9), "D-5": (36.0, 40.0),
 }
 D_EMPIRICAL_CALIBRATION = {
-    "schema_id": "d-normalized-risk-adjusted-efficiency-v1",
+    "schema_id": "d-normalized-risk-adjusted-efficiency-v2",
     "weights": {
         "NATIONAL_NEGATIVE": -8,
         "NEGATIVE_RETURN": -3,
@@ -683,7 +684,7 @@ D_EMPIRICAL_CALIBRATION = {
         "D-4_TO_D-5": 3.0,
         "D-5_TO_FULL_SCORE": 4.0,
     },
-    "minimum_exposure": {"D-4": 3, "D-5": 4},
+    "minimum_exposure": {"D-4": 5, "D-5": 8},
 }
 def _load_adjudications(workspace_root: Path) -> list[dict[str, Any]]:
     payload = _load_adjudication_payload(workspace_root)
@@ -774,11 +775,25 @@ def _third_item_cycles(
         for item in decision.get("third_item_route_overrides") or ()
     }
     known = {str(cycle["campaign_group_ref"]) for cycle in cycles}
+    admitted_rebellions = {
+        str(ref) for ref in decision.get("admitted_large_rebellion_refs") or ()
+    }
+    merge_specs = list(decision.get("third_item_cycle_merges") or ())
+    known_admission_refs = known | {
+        str(spec["canonical_cycle_ref"]) for spec in merge_specs
+    } | {
+        str(ref)
+        for spec in merge_specs
+        for ref in spec.get("member_campaign_group_refs") or ()
+    }
     exclusion_specs = {
         str(item["campaign_group_ref"]): item
         for item in decision.get("third_item_cycle_exclusions") or ()
     }
-    unknown = sorted((set(overrides) | set(exclusion_specs)) - known)
+    unknown = sorted(
+        (set(overrides) | set(exclusion_specs)) - known
+        | (admitted_rebellions - known_admission_refs)
+    )
     if unknown:
         raise ValueError(
             f"{decision['ruler_name']}第三项路由覆盖引用不存在: {unknown}"
@@ -809,6 +824,12 @@ def _third_item_cycles(
         )
         if not founding or cycle_ref in overrides:
             routed = dict(cycle)
+            routed["large_rebellion_admitted"] = cycle_ref in admitted_rebellions
+            routed["material_admission_basis"] = (
+                "ALL_RULERS_LARGE_REBELLION_AUDIT"
+                if cycle_ref in admitted_rebellions
+                else None
+            )
             override = overrides.get(cycle_ref)
             if override:
                 d_route = str(override.get("d_route") or "")
@@ -825,10 +846,14 @@ def _third_item_cycles(
                 if override.get("parent_benefit_axes"):
                     routed["parent_benefit_axes"] = dict(override["parent_benefit_axes"])
                 routed["route_override_reason"] = str(override["reason"])
+            if routed["large_rebellion_admitted"]:
+                routed["d_route"] = "D_INTERNAL_RESTORATION"
+                routed["route_override_reason"] = (
+                    "统一大型叛乱审计准入：平乱只恢复事前秩序，不按外部扩张收益结算。"
+                )
             included.append(routed)
         else:
             excluded.append(dict(cycle))
-    merge_specs = list(decision.get("third_item_cycle_merges") or ())
     used_members: set[str] = set()
     for spec in merge_specs:
         canonical_ref = str(spec["canonical_cycle_ref"])
@@ -858,10 +883,24 @@ def _third_item_cycles(
             "phases": [phase for cycle in selected for phase in cycle["phases"]],
             "merged_campaign_group_refs": members,
             "merge_reason": str(spec["reason"]),
-            "d_route": spec.get("d_route") or canonical_member.get("d_route"),
+            "d_route": (
+                "D_INTERNAL_RESTORATION"
+                if canonical_ref in admitted_rebellions
+                or any(bool(cycle.get("large_rebellion_admitted")) for cycle in selected)
+                else spec.get("d_route") or canonical_member.get("d_route")
+            ),
             "parent_cost_axes": spec.get("parent_cost_axes") or canonical_member.get("parent_cost_axes"),
             "parent_benefit_axes": spec.get("parent_benefit_axes") or canonical_member.get("parent_benefit_axes"),
             "route_override_reason": canonical_member.get("route_override_reason"),
+            "large_rebellion_admitted": canonical_ref in admitted_rebellions or any(
+                bool(cycle.get("large_rebellion_admitted")) for cycle in selected
+            ),
+            "material_admission_basis": (
+                "ALL_RULERS_LARGE_REBELLION_AUDIT"
+                if canonical_ref in admitted_rebellions
+                or any(bool(cycle.get("large_rebellion_admitted")) for cycle in selected)
+                else None
+            ),
         }
         first_index = min(
             index
@@ -1349,6 +1388,33 @@ def _resolve_qin_tang_failure_group(
     raise ValueError(f"C项重大体系失败{source_ref}无法确定其去重父周期")
 
 
+def _qin_tang_founding_refs_by_name(
+    workspace_root: Path,
+) -> dict[str, set[str]]:
+    first_item_payload = json.loads(
+        (workspace_root / FIRST_ITEM_C_WINDOWS_PATH).read_text(encoding="utf-8")
+    )
+    refs_by_name = {
+        str(item["ruler_name"]): {
+            str(ref) for ref in item.get("campaign_refs") or ()
+        }
+        for item in first_item_payload.get("manual_windows") or ()
+    }
+    refs_by_name.setdefault("刘秀", set()).add(
+        "WAR-LEAD-HAN-STARTUP-UNIFICATION-23-36"
+    )
+    refs_by_name.setdefault("杨坚", set()).add(
+        "WAR-LEAD-SUI-ABSORB-LIANG-587"
+    )
+    refs_by_name.setdefault("沮渠蒙逊", set()).add(
+        "WAR-LEAD-112-MENGXUN-401"
+    )
+    refs_by_name.setdefault("拓跋珪", set()).update(
+        {"WAR-LEAD-112-WEI-MOYIGAN-402", "WAR-LEAD-115-WEI-SUCCESSION-409"}
+    )
+    return refs_by_name
+
+
 def _normalize_qin_tang_bc_parent_cycles(
     workspace_root: Path,
     ab_records: Sequence[dict[str, Any]],
@@ -1362,24 +1428,7 @@ def _normalize_qin_tang_bc_parent_cycles(
     direction_by_id = {
         str(item["ruler_id"]): item for item in direction_payload["records"]
     }
-    first_item_payload = json.loads(
-        (workspace_root / FIRST_ITEM_C_WINDOWS_PATH).read_text(encoding="utf-8")
-    )
-    founding_refs_by_name = {
-        str(item["ruler_name"]): {
-            str(ref) for ref in item.get("campaign_refs") or ()
-        }
-        for item in first_item_payload.get("manual_windows") or ()
-    }
-    founding_refs_by_name.setdefault("杨坚", set()).add(
-        "WAR-LEAD-SUI-ABSORB-LIANG-587"
-    )
-    founding_refs_by_name.setdefault("沮渠蒙逊", set()).add(
-        "WAR-LEAD-112-MENGXUN-401"
-    )
-    founding_refs_by_name.setdefault("拓跋珪", set()).update(
-        {"WAR-LEAD-112-WEI-MOYIGAN-402", "WAR-LEAD-115-WEI-SUCCESSION-409"}
-    )
+    founding_refs_by_name = _qin_tang_founding_refs_by_name(workspace_root)
     curated_high_grade_failures = {
         "RULER-SHADOW-杨坚": ["SUI-LEAD-SUI-GOGURYEO-598"],
         "RULER-TANG-LICHUN": ["CAMPAIGN-TANG-238-01"],
@@ -1609,9 +1658,22 @@ def _aggregate_d_cycle(cycle: Mapping[str, Any]) -> dict[str, Any]:
             benefits[axis] = parsed
             unknown_axes = [item for item in unknown_axes if item != axis]
     route = str(cycle.get("d_route") or _semantic_internal_route(phases))
-    material, exposure_index = _material_cycle_exposure(
+    exposure_index = _cycle_exposure_index(
         costs, benefits, s_attributable=True
     )
+    if bool(cycle.get("large_rebellion_admitted")):
+        material = True
+        material_admission_basis = "ALL_RULERS_LARGE_REBELLION_AUDIT"
+    elif route in {"D_INTERNAL_STRATEGIC", "D_INTERNAL_RESTORATION"}:
+        material = False
+        material_admission_basis = "ORDINARY_INTERNAL_EVENT_EXCLUDED"
+    else:
+        material = _major_non_rebellion_cycle(costs, benefits)
+        material_admission_basis = (
+            "MAJOR_STRATEGIC_INVESTMENT_FACTS"
+            if material
+            else "LOW_INTENSITY_OBSERVATION_EXCLUDED"
+        )
     if unknown_axes:
         final_class = "UNKNOWN"
         class_rationale = "父级关键成本或终局收益轴仍为UNKNOWN，禁止以0或负收益代填。"
@@ -1623,14 +1685,15 @@ def _aggregate_d_cycle(cycle: Mapping[str, Any]) -> dict[str, Any]:
     national_negative = final_class == "NEGATIVE_RETURN" and (
         costs["P"] >= 5
         or costs["S"] >= 5
-        or max(costs["M"], costs["A"]) >= 4
-        or max(benefits["SN"], benefits["BCN"]) >= 4
+        or costs["A"] >= 5
+        or max(benefits["SN"], benefits["BCN"]) >= 5
     )
     return {
         "campaign_group_ref": cycle["campaign_group_ref"], "war_event_refs": cycle["war_event_refs"],
         "phase_ids": cycle["phase_ids"], "return_class": final_class,
         "cost_axes": costs, "benefit_axes": benefits, "material": material,
         "material_exposure_index": exposure_index,
+        "material_admission_basis": material_admission_basis,
         "unknown_axes": unknown_axes,
         "high_return_tier": high_return_tier,
         "major_high_return": high_return_tier in {"MAJOR", "TOP"},
@@ -1780,6 +1843,7 @@ def _d_grade_and_score(
             "material_exposure_index": int(
                 cycle.get("material_exposure_index") or 0
             ),
+            "material_admission_basis": cycle.get("material_admission_basis"),
             "high_return_tier": cycle.get("high_return_tier"),
             "q_contribution": int(empirical_weight(cycle)),
             "return_class_basis": cycle.get("return_class_basis"),
@@ -1829,9 +1893,9 @@ def _d_grade_and_score(
     grade_order = {"D-1": 1, "D-2": 2, "D-3": 3, "D-4": 4, "D-5": 5}
     grade_cap_reasons: list[str] = []
     if efficiency_index >= d45 and known_count < int(minimum_exposure["D-5"]):
-        grade_cap_reasons.append("D5_REQUIRES_FOUR_CLOSED_MATERIAL_CYCLES")
+        grade_cap_reasons.append("D5_MINIMUM_EXPOSURE_NOT_MET")
     if efficiency_index >= d34 and known_count < int(minimum_exposure["D-4"]):
-        grade_cap_reasons.append("D4_REQUIRES_THREE_CLOSED_MATERIAL_CYCLES")
+        grade_cap_reasons.append("D4_MINIMUM_EXPOSURE_NOT_MET")
 
     def cap_grade(max_grade: str, reason: str) -> None:
         nonlocal grade
@@ -1860,12 +1924,12 @@ def _d_grade_and_score(
     )
     grade_position = max(0.0, min(1.0, efficiency_position))
     evidence_position_limit = 1.0
-    if grade == "D-3" and "D4_REQUIRES_THREE_CLOSED_MATERIAL_CYCLES" in grade_cap_reasons:
+    if grade == "D-3" and "D4_MINIMUM_EXPOSURE_NOT_MET" in grade_cap_reasons:
         evidence_position_limit = min(
             evidence_position_limit,
             known_count / int(minimum_exposure["D-4"]),
         )
-    if grade == "D-4" and "D5_REQUIRES_FOUR_CLOSED_MATERIAL_CYCLES" in grade_cap_reasons:
+    if grade == "D-4" and "D5_MINIMUM_EXPOSURE_NOT_MET" in grade_cap_reasons:
         evidence_position_limit = min(
             evidence_position_limit,
             known_count / int(minimum_exposure["D-5"]),
@@ -1917,7 +1981,7 @@ def _d_grade_and_score(
         "efficiency_band_position": round(grade_position, 4),
         "grade_band_position": round(grade_position, 4),
         "national_negative_score_cap": None,
-        "evidence_status": "UNDER_TESTED" if len(known_material) <= 1 else "LIMITED_EXPOSURE" if len(known_material) <= 3 else "SUFFICIENT_EXPOSURE",
+        "evidence_status": "UNDER_TESTED" if len(known_material) <= 1 else "LIMITED_EXPOSURE" if len(known_material) <= 4 else "SUFFICIENT_EXPOSURE",
     }
 
 
@@ -2227,6 +2291,12 @@ def _axis_closed_return_class(
     highest_cost = max(cost_values)
     highest_positive = max(positive_axes.values())
     highest_negative = max(negative_axes.values())
+    irreversible_loss = max(
+        int(costs["P"]),
+        int(costs["A"]),
+        int(costs["S"]) if s_attributable else 0,
+        highest_negative,
+    )
     cost_profile = tuple(sorted(cost_values, reverse=True)[:3])
     cost_profile = cost_profile + (0,) * (3 - len(cost_profile))
     benefit_profile = tuple(sorted(positive_axes.values(), reverse=True))
@@ -2236,8 +2306,10 @@ def _axis_closed_return_class(
     if route == "D_INTERNAL_RESTORATION":
         if highest_negative >= 3 and highest_negative >= highest_positive:
             result = "NEGATIVE_RETURN"
+        elif irreversible_loss >= 4 and irreversible_loss > highest_positive:
+            result = "NEGATIVE_RETURN"
         elif highest_positive == 0:
-            result = "NEGATIVE_RETURN" if highest_cost > 0 else "LOW_RETURN"
+            result = "LOW_RETURN"
         elif benefit_profile < burden_profile:
             result = "LOW_RETURN"
         else:
@@ -2245,7 +2317,9 @@ def _axis_closed_return_class(
     elif highest_negative >= 4 and highest_positive <= highest_negative:
         result = "NEGATIVE_RETURN"
     elif highest_positive == 0:
-        result = "NEGATIVE_RETURN" if highest_cost > 0 or highest_negative > 0 else "LOW_RETURN"
+        result = "NEGATIVE_RETURN" if irreversible_loss >= 4 else "LOW_RETURN"
+    elif irreversible_loss >= 4 and benefit_profile < burden_profile:
+        result = "NEGATIVE_RETURN"
     elif highest_negative >= highest_positive and highest_negative > 0:
         result = "NEGATIVE_RETURN" if highest_cost >= highest_positive else "LOW_RETURN"
     elif highest_positive >= 3 and benefit_profile > burden_profile:
@@ -2265,19 +2339,13 @@ def _axis_closed_return_class(
     return result, rationale
 
 
-def _material_cycle_exposure(
+def _cycle_exposure_index(
     costs: Mapping[str, int],
     benefits: Mapping[str, int],
     *,
     s_attributable: bool,
-) -> tuple[bool, int]:
-    """Return a continuous exposure index and its substantive-cycle gate.
-
-    A single level-3 axis and a multi-axis 2/2/1 burden are both substantive.
-    A collection of isolated level-1 observations is not.  This prevents a
-    closed low/negative parent cycle from disappearing solely because no single
-    axis reaches 3, without allowing numerous petty observations to dominate Q.
-    """
+) -> int:
+    """Return a descriptive exposure index; it never decides admission."""
 
     burden_values = [int(costs[key]) for key in ("P", "M", "A")]
     if s_attributable:
@@ -2291,7 +2359,23 @@ def _material_cycle_exposure(
         sum(burden_profile),
         2 * highest_benefit,
     )
-    return exposure_index >= 5, exposure_index
+    return exposure_index
+
+
+def _major_non_rebellion_cycle(
+    costs: Mapping[str, int], benefits: Mapping[str, int]
+) -> bool:
+    """Admit major external campaigns/projects without reusing Q or I.
+
+    One level-4 strategic consequence is sufficient.  A project with at least
+    two independently evidenced level-3 cost axes is also major (for example a
+    large military engineering programme).  Ordinary internal unrest never
+    reaches D through this helper; it requires the all-ruler rebellion audit.
+    """
+
+    values = [int(costs[key]) for key in ("P", "S", "M", "A")]
+    values.extend(int(benefits[key]) for key in ("SB", "SN", "BCP", "BCN", "WR"))
+    return max(values) >= 4 or sum(int(costs[key]) >= 3 for key in ("P", "S", "M", "A")) >= 2
 
 
 def _high_return_tier(benefits: Mapping[str, int], return_class: str) -> str | None:
@@ -2413,6 +2497,8 @@ def _qin_tang_source_cycle(
     source_cache: dict[str, list[str]],
     override: Mapping[str, Any] | None,
     ambiguous_same_polity_ref: bool,
+    admitted_large_rebellion: bool,
+    major_campaign_contract: bool,
 ) -> dict[str, Any]:
     source_file = str(card_meta["source_file"])
     lines = source_cache.setdefault(
@@ -2491,14 +2577,33 @@ def _qin_tang_source_cycle(
             else "D_EXTERNAL_OR_FRONTIER"
         )
     )
+    if admitted_large_rebellion:
+        route = "D_INTERNAL_RESTORATION"
     s_attributable = (
         route in {"D_INTERNAL_STRATEGIC", "D_INTERNAL_RESTORATION"}
         or ref in attributable_s_refs
         or bool(override_values.get("s_effective_grade"))
     )
-    material, exposure_index = _material_cycle_exposure(
+    exposure_index = _cycle_exposure_index(
         costs, benefits, s_attributable=s_attributable
     )
+    if admitted_large_rebellion:
+        material = True
+        material_admission_basis = "ALL_RULERS_LARGE_REBELLION_AUDIT"
+    elif route in {"D_INTERNAL_STRATEGIC", "D_INTERNAL_RESTORATION"}:
+        material = False
+        material_admission_basis = "ORDINARY_INTERNAL_EVENT_EXCLUDED"
+    else:
+        material = bool(major_campaign_contract) or _major_non_rebellion_cycle(
+            costs, benefits
+        )
+        material_admission_basis = (
+            "MAJOR_CAMPAIGN_CONTRACT"
+            if major_campaign_contract
+            else "MAJOR_STRATEGIC_INVESTMENT_FACTS"
+            if material
+            else "LOW_INTENSITY_OBSERVATION_EXCLUDED"
+        )
     subject_window_ambiguous = ambiguous_same_polity_ref and not has_full_subject_override
     unknown_axes = _qin_tang_unknown_benefit_axes(section_text)
     if subject_window_ambiguous:
@@ -2534,6 +2639,7 @@ def _qin_tang_source_cycle(
         "benefit_axes": benefits,
         "material": material,
         "material_exposure_index": exposure_index,
+        "material_admission_basis": material_admission_basis,
         "unknown_axes": unknown_axes,
         "high_return_tier": high_return_tier,
         "major_high_return": material and high_return_tier in {"MAJOR", "TOP"},
@@ -2541,11 +2647,9 @@ def _qin_tang_source_cycle(
         "national_negative": material and return_class == "NEGATIVE_RETURN" and (
             costs["P"] >= 5
             or (s_attributable and costs["S"] >= 5)
-            or costs["M"] >= 4
-            or costs["A"] >= 4
-            or (s_attributable and costs["S"] >= 5)
-            or benefits["SN"] >= 4
-            or benefits["BCN"] >= 4
+            or costs["A"] >= 5
+            or benefits["SN"] >= 5
+            or benefits["BCN"] >= 5
         ),
         "route": route,
         "source_file": source_file,
@@ -2578,7 +2682,7 @@ def _recalculate_qin_tang_d_records(
     direction_payload = json.loads(
         (workspace_root / QIN_TANG_D_DIRECTION_PATH).read_text(encoding="utf-8")
     )
-    if direction_payload.get("schema_version") != "qin-tang-d-cycle-direction-adjudications-v3":
+    if direction_payload.get("schema_version") != "qin-tang-d-cycle-direction-adjudications-v5":
         raise ValueError("秦至唐D周期方向裁决输入schema错误")
     declared_direction_fingerprint = direction_payload.get("semantic_fingerprint")
     actual_direction_fingerprint = _digest(
@@ -2593,24 +2697,7 @@ def _recalculate_qin_tang_d_records(
     direction_by_id = {
         str(item["ruler_id"]): item for item in direction_payload["records"]
     }
-    first_item_payload = json.loads(
-        (workspace_root / FIRST_ITEM_C_WINDOWS_PATH).read_text(encoding="utf-8")
-    )
-    founding_refs_by_name = {
-        str(item["ruler_name"]): {
-            str(ref) for ref in item.get("campaign_refs") or ()
-        }
-        for item in first_item_payload.get("manual_windows") or ()
-    }
-    founding_refs_by_name.setdefault("杨坚", set()).add(
-        "WAR-LEAD-SUI-ABSORB-LIANG-587"
-    )
-    founding_refs_by_name.setdefault("沮渠蒙逊", set()).add(
-        "WAR-LEAD-112-MENGXUN-401"
-    )
-    founding_refs_by_name.setdefault("拓跋珪", set()).update(
-        {"WAR-LEAD-112-WEI-MOYIGAN-402", "WAR-LEAD-115-WEI-SUCCESSION-409"}
-    )
+    founding_refs_by_name = _qin_tang_founding_refs_by_name(workspace_root)
     qin_tang_ids = {
         str(row.get("ruler_id"))
         for row in records
@@ -2622,32 +2709,87 @@ def _recalculate_qin_tang_d_records(
     c_by_id = {str(row.get("ruler_id")): row for row in c_records}
     source_cache: dict[str, list[str]] = {}
     source_groups_by_ref = _qin_tang_campaign_groups_by_ref(workspace_root)
+    battle_parent_payload = json.loads(
+        (workspace_root / BATTLE_PARENT_ADJUDICATION_PATH).read_text(encoding="utf-8")
+    )
+    major_campaign_contract_refs = {
+        str(item["war_event_id"])
+        for item in (
+            list(battle_parent_payload.get("adjudications") or ())
+            + list(battle_parent_payload.get("supplemental_contract_adjudications") or ())
+        )
+        if item.get("disposition") == "REGISTERED_CONTRACT"
+        and item.get("campaign_tier") in {"A", "S-", "S", "S+"}
+    }
 
-    def source_refs_for(record: Mapping[str, Any]) -> list[str]:
-        direction = direction_by_id[str(record["ruler_id"])]
-        refs = [str(ref) for ref in direction.get("included_source_refs") or ()]
-        if not refs and (
-            bool(record.get("manual_portfolio_override"))
-            or record.get("D_grade") == "D-U"
-        ):
-            return []
-        if not refs:
-            raise ValueError(f"{record.get('ruler_name')}缺少D父周期正式输入引用")
-        missing = [ref for ref in refs if ref not in cards_by_id]
+    parent_source_aliases = {
+        "NC-V142-LEAD-142-03": "WAR-LEAD-142-03",
+        "NC-V142-LEAD-142-05": "WAR-LEAD-142-05",
+        "V175-LEAD-CHEN-SHULING-582": "WAR-LEAD-CHEN-SHULING-582",
+    }
+    source_bindings_cache: dict[str, dict[str, str]] = {}
+
+    def source_bindings_for(record: Mapping[str, Any]) -> dict[str, str]:
+        ruler_id = str(record["ruler_id"])
+        cached = source_bindings_cache.get(ruler_id)
+        if cached is not None:
+            return cached
+        target_groups = {
+            str(ref)
+            for ref in c_by_id[ruler_id].get("independent_task_groups") or ()
+        }
+        admitted_refs = {
+            str(ref)
+            for ref in direction_by_id[ruler_id].get(
+                "admitted_large_rebellion_refs", ()
+            )
+        }
+        missing_admitted_cards = sorted(admitted_refs - set(cards_by_id))
+        if missing_admitted_cards:
+            raise ValueError(
+                f"{record.get('ruler_name')}的大型叛乱准入引用无法回源："
+                f"{','.join(missing_admitted_cards)}"
+            )
+        for admitted_ref in admitted_refs:
+            source_groups = sorted(source_groups_by_ref.get(admitted_ref) or ())
+            target_groups.add(source_groups[0] if len(source_groups) == 1 else admitted_ref)
+        bindings: dict[str, str] = {}
+        represented: set[str] = set()
+        for source_ref in cards_by_id:
+            matches = target_groups.intersection(
+                source_groups_by_ref.get(source_ref) or ()
+            )
+            if source_ref in target_groups:
+                matches.add(source_ref)
+            event_ref = f"EVENT:{source_ref}"
+            if event_ref in target_groups:
+                matches.add(event_ref)
+            for parent_ref, aliased_source_ref in parent_source_aliases.items():
+                if parent_ref in target_groups and aliased_source_ref == source_ref:
+                    matches.add(parent_ref)
+            if len(matches) > 1:
+                raise ValueError(
+                    f"{record.get('ruler_name')}的D证据卡同时命中多个C/AB父任务：{source_ref}"
+                )
+            if not matches:
+                continue
+            parent_ref = next(iter(matches))
+            bindings[source_ref] = parent_ref
+            represented.add(parent_ref)
+        missing = sorted(target_groups - represented)
         if missing:
             raise ValueError(
-                f"{record.get('ruler_name')}的D周期无法回源：{','.join(missing)}"
+                f"{record.get('ruler_name')}的C/AB父任务无法绑定D证据卡：{','.join(missing)}"
             )
-        if len(refs) != len(set(refs)):
-            raise ValueError(f"{record.get('ruler_name')}的D正式输入引用重复")
-        return refs
+        source_bindings_cache[ruler_id] = bindings
+        return bindings
 
     ref_polity_owners: dict[str, list[str]] = defaultdict(list)
     for candidate_row in records:
         candidate_id = str(candidate_row.get("ruler_id") or "")
         if candidate_id.startswith(("RULER-FD-", "RULER-NS-")):
             continue
-        for candidate_ref in source_refs_for(candidate_row):
+        for candidate_ref in source_bindings_for(candidate_row):
             ref_polity_owners[str(candidate_ref)].append(
                 str(candidate_row.get("polity") or "")
             )
@@ -2669,7 +2811,12 @@ def _recalculate_qin_tang_d_records(
         row["ruler_event_class_overrides"] = list(
             direction.get("ruler_event_class_overrides") or ()
         )
-        refs = source_refs_for(row)
+        admitted_large_rebellion_refs = {
+            str(ref)
+            for ref in direction.get("admitted_large_rebellion_refs") or ()
+        }
+        source_parent_by_ref = source_bindings_for(row)
+        refs = list(source_parent_by_ref)
         candidates = [
             _qin_tang_source_cycle(
                 workspace_root,
@@ -2679,6 +2826,8 @@ def _recalculate_qin_tang_d_records(
                 source_cache,
                 overrides.get(ref),
                 len(ref_polity_owners[ref]) > len(set(ref_polity_owners[ref])),
+                ref in admitted_large_rebellion_refs,
+                ref in major_campaign_contract_refs,
             )
             for ref in refs
         ]
@@ -2694,8 +2843,7 @@ def _recalculate_qin_tang_d_records(
         canonical_by_source_ref: dict[str, str] = {}
         for cycle in cycles:
             ref = str(cycle["campaign_group_ref"])
-            source_groups = sorted(source_groups_by_ref.get(ref) or ())
-            canonical_ref = source_groups[0] if len(source_groups) == 1 else ref
+            canonical_ref = source_parent_by_ref[ref]
             canonical_parent_refs.append(canonical_ref)
             canonical_by_source_ref[ref] = canonical_ref
         if len(canonical_parent_refs) != len(set(canonical_parent_refs)):
@@ -2839,7 +2987,7 @@ def _normalize_formal_d_records(records: Sequence[dict[str, Any]]) -> None:
                 "UNDER_TESTED"
                 if known_material_count <= 1
                 else "LIMITED_EXPOSURE"
-                if known_material_count <= 3
+                if known_material_count <= 4
                 else "SUFFICIENT_EXPOSURE"
             )
         if (
