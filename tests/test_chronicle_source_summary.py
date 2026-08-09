@@ -252,7 +252,7 @@ def test_five_dynasties_third_item_promotes_subject_phases_and_settles_all_ruler
     assert by_name["柴荣"]["axes"]["D"] == "D-4"
     assert by_name["柴荣"]["D_score_points"] == 33.7
     assert by_name["李忱"]["rank"] == 6
-    assert by_name["朱友贞"]["rank"] == 97
+    assert by_name["朱友贞"]["rank"] == 96
     assert by_name["李煜"]["rank"] == 101
     assert by_name["杨广"]["rank"] == 103
 
@@ -358,10 +358,10 @@ def test_north_song_third_item_replaces_legacy_registry_and_settles_complete_win
     by_name = {row["ruler_name"]: row for row in rows}
     assert by_name["赵桓"]["AB_score_points"] == 0.0
     assert by_name["赵桓"]["axes"]["C_overall"] == "C-0"
-    assert by_name["赵恒"]["axes"]["D"] == "D-1"
-    assert by_name["赵恒"]["D_score_points"] == 14.9
-    assert by_name["赵祯"]["D_score_points"] == 18.7
-    assert by_name["赵顼"]["D_score_points"] == 17.1
+    assert by_name["赵恒"]["axes"]["D"] == "D-2"
+    assert by_name["赵恒"]["D_score_points"] == 16.8
+    assert by_name["赵祯"]["D_score_points"] == 20.4
+    assert by_name["赵顼"]["D_score_points"] == 19.6
     assert all("confidence" not in row for row in formal["C"]["records"])
     assert by_name["赵匡胤"]["axes"]["C_overall"] == "C-3"
 
@@ -543,11 +543,11 @@ def test_d_quantitative_index_normalizes_exposure_and_uses_integer_weights() -> 
     grade, score, metrics = _d_grade_and_score(cycles)
 
     assert all(isinstance(value, int) for value in D_EMPIRICAL_CALIBRATION["weights"].values())
-    assert D_EMPIRICAL_CALIBRATION["schema_id"] == "d-normalized-risk-adjusted-efficiency-v2"
+    assert D_EMPIRICAL_CALIBRATION["schema_id"] == "d-normalized-risk-adjusted-efficiency-v3"
     assert D_EMPIRICAL_CALIBRATION["efficiency_thresholds"]["D-4_TO_D-5"] == 3.0
     assert metrics["return_class_counts"]["NEGATIVE_RETURN"] == 2
     assert metrics["portfolio_net_weight_sum"] == 29.0
-    assert metrics["portfolio_efficiency_index"] == 2.6667
+    assert metrics["portfolio_efficiency_index"] == 2.5
     assert grade == "D-4"
     assert 30.0 <= score <= 35.9
 
@@ -632,7 +632,7 @@ def test_national_negative_is_penalized_once_in_the_quantitative_index() -> None
     grade, score, metrics = _d_grade_and_score(cycles)
     assert grade == "D-4"
     assert metrics["portfolio_net_weight_sum"] == 17.0
-    assert metrics["portfolio_efficiency_index"] == 2.8333
+    assert metrics["portfolio_efficiency_index"] == 2.6667
     assert metrics["national_negative_return_refs"] == ["TEST-D4-EXCEPTION-NATIONAL"]
     assert metrics["national_negative_score_cap"] is None
     assert 30.0 <= score <= 35.9
@@ -695,7 +695,11 @@ def test_current_third_item_thick_thin_evidence_gates_are_globally_consistent() 
     assert c_by_name["柴荣"]["independent_task_count"] == 6
     assert c_by_name["柴荣"]["C_overall_grade"] == "C-4"
     assert c_by_name["李世民"]["independent_task_count"] == 8
-    assert c_by_name["李世民"]["C_overall_grade"] == "C-4"
+    assert c_by_name["李世民"]["combat_delivery_grade"] == "C1-5"
+    assert c_by_name["李世民"]["operational_sustainability_cap"] == "C2-5"
+    assert c_by_name["李世民"]["system_reliability_cap"] == "C3-5"
+    assert c_by_name["李世民"]["C_overall_grade"] == "C-5"
+    assert c_by_name["李世民"]["C_score_points"] == 50.0
     assert c_by_name["拓跋焘"]["independent_task_count"] == 8
     assert c_by_name["拓跋焘"]["C_overall_grade"] == "C-4"
     assert c_by_name["赵祯"]["independent_task_count"] == 12
@@ -756,12 +760,12 @@ def test_current_third_item_thick_thin_evidence_gates_are_globally_consistent() 
 
     by_name = {row["ruler_name"]: row for row in d_rows}
     assert by_name["李雄"]["D_score_points"] == 23.6
-    assert by_name["陈蒨"]["D_score_points"] == 14.7
+    assert by_name["陈蒨"]["D_score_points"] == 16.0
     assert by_name["柴荣"]["D_score_points"] > by_name["苻健"]["D_score_points"]
     assert by_name["拓跋焘"]["D_grade"] == "D-3"
-    assert by_name["拓跋焘"]["D_score_points"] == 29.1
+    assert by_name["拓跋焘"]["D_score_points"] == 26.1
     assert by_name["李忱"]["D_grade"] == "D-3"
-    assert by_name["李忱"]["D_score_points"] == 26.7
+    assert by_name["李忱"]["D_score_points"] == 28.6
     assert by_name["李忱"]["D_score_points"] > by_name["司马曜"]["D_score_points"]
     assert by_name["李忱"]["D_score_points"] > by_name["李雄"]["D_score_points"]
     assert by_name["王建"]["D_score_points"] < 29.9
@@ -771,7 +775,7 @@ def test_current_third_item_thick_thin_evidence_gates_are_globally_consistent() 
     )
     li_shimin = by_name["李世民"]
     assert li_shimin["D_grade"] == "D-5"
-    assert li_shimin["D_score_points"] == 40.0
+    assert li_shimin["D_score_points"] == 39.0
     assert li_shimin["D_portfolio_metrics"]["material_cycle_count"] == 8
     assert li_shimin["D_portfolio_metrics"]["material_return_class_counts"] == {
         "HIGH_RETURN": 5,
@@ -826,7 +830,7 @@ def test_current_third_item_thick_thin_evidence_gates_are_globally_consistent() 
     li_zhi = by_name["李治"]
     assert li_zhi["D_grade"] == "D-2"
     assert li_zhi["D_portfolio_metrics"]["portfolio_net_weight_sum"] == 4.0
-    assert li_zhi["D_portfolio_metrics"]["portfolio_efficiency_index"] == -0.1
+    assert li_zhi["D_portfolio_metrics"]["portfolio_efficiency_index"] == -0.7
     assert li_zhi["D_portfolio_metrics"]["material_cycle_count"] == 10
     assert li_zhi["D_portfolio_metrics"]["material_return_class_counts"] == {
         "HIGH_RETURN": 3,
@@ -841,12 +845,12 @@ def test_current_third_item_thick_thin_evidence_gates_are_globally_consistent() 
     wu_zetian = by_name["武则天"]
     assert wu_zetian["D_grade"] == "D-2"
     assert wu_zetian["D_portfolio_metrics"]["portfolio_net_weight_sum"] == -5.0
-    assert wu_zetian["D_portfolio_metrics"]["portfolio_efficiency_index"] == -1.375
+    assert wu_zetian["D_portfolio_metrics"]["portfolio_efficiency_index"] == -2.125
     assert wu_zetian["D_portfolio_metrics"]["material_cycle_count"] == 8
     li_xuan = by_name["李儇"]
-    assert li_xuan["D_grade"] == "D-1"
+    assert li_xuan["D_grade"] == "D-2"
     assert li_xuan["D_portfolio_metrics"]["portfolio_net_weight_sum"] == -12.0
-    assert li_xuan["D_portfolio_metrics"]["portfolio_efficiency_index"] == -1.7692
+    assert li_xuan["D_portfolio_metrics"]["portfolio_efficiency_index"] == -2.6923
     assert li_xuan["D_portfolio_metrics"]["material_return_class_counts"] == {
         "HIGH_RETURN": 1,
         "LOW_RETURN": 9,
@@ -1038,8 +1042,8 @@ def test_third_item_formal_markdown_uses_one_cross_dynasty_ranking_table() -> No
             assert all("confidence" not in row for row in payload["records"])
         if kind == "D":
             assert "| 实质父级周期（含战略内战/军费周期） | 普通高收益 | 相称收益 | 低收益 | 负收益 | 回报未知 | 重大高收益 | 顶尖高收益 | 国家级负收益 |" in rendered
-            assert "| 2 | 柴荣 | 后周 | 954-959 | D-4 | 33.7 | 4.00 | 18.0 | 3.0 | 充分检验 | 5 | 1 | 0 | 0 | 1 | 0 | 3 | 0 | 0 |" in rendered
-            assert "| 1 | 李世民 | 唐 | 626-649 | D-5 | 40.0 | 4.12 | 30.0 | 6.0 | 充分检验 | 8 | 1 | 0 | 2 | 1 | 0 | 2 | 2 | 0 |" in rendered
+            assert "| 2 | 柴荣 | 后周 | 954-959 | D-4 | 33.7 | 3.80 | 18.0 | 3.0 | 充分检验 | 5 | 1 | 0 | 0 | 1 | 0 | 3 | 0 | 0 |" in rendered
+            assert "| 1 | 李世民 | 唐 | 626-649 | D-5 | 39.0 | 3.75 | 30.0 | 6.0 | 充分检验 | 8 | 1 | 0 | 2 | 1 | 0 | 2 | 2 | 0 |" in rendered
             assert "周期 `CAMPAIGN-TANG-EASTERN-TURKS-629-630`" in rendered
             for row in payload["records"]:
                 metrics = row.get("D_portfolio_metrics") or {}
@@ -1123,17 +1127,17 @@ def test_high_grade_gates_require_major_or_top_tier_counterevidence() -> None:
     grade, _, metrics = _d_grade_and_score(portfolio)
     assert grade == "D-3"
     assert metrics["portfolio_net_weight_sum"] == 7.0
-    assert metrics["portfolio_efficiency_index"] == 1.0
+    assert metrics["portfolio_efficiency_index"] == 0.8333
     portfolio[1]["top_high_return"] = True
     grade, _, metrics = _d_grade_and_score(portfolio)
     assert grade == "D-4"
     assert metrics["portfolio_net_weight_sum"] == 11.0
-    assert metrics["portfolio_efficiency_index"] == 1.8333
+    assert metrics["portfolio_efficiency_index"] == 1.6667
     portfolio.extend([cycle("R4", "PROPORTIONATE_RETURN"), cycle("R5", "PROPORTIONATE_RETURN")])
     grade, _, metrics = _d_grade_and_score(portfolio)
     assert grade == "D-4"
     assert metrics["portfolio_net_weight_sum"] == 13.0
-    assert metrics["portfolio_efficiency_index"] == 1.625
+    assert metrics["portfolio_efficiency_index"] == 1.5
 
 
 def test_founder_unification_accounts_are_absent_from_third_item_consumption() -> None:

@@ -666,7 +666,7 @@ D_BANDS = {
     "D-3": (22.0, 29.9), "D-4": (30.0, 35.9), "D-5": (36.0, 40.0),
 }
 D_EMPIRICAL_CALIBRATION = {
-    "schema_id": "d-normalized-risk-adjusted-efficiency-v2",
+    "schema_id": "d-normalized-risk-adjusted-efficiency-v3",
     "weights": {
         "NATIONAL_NEGATIVE": -8,
         "NEGATIVE_RETURN": -3,
@@ -678,8 +678,8 @@ D_EMPIRICAL_CALIBRATION = {
     },
     "efficiency_thresholds": {
         "D-1_FLOOR": -11.0,
-        "D-1_TO_D-2": -1.5,
-        "D-2_TO_D-3": 0.5,
+        "D-1_TO_D-2": -4.0,
+        "D-2_TO_D-3": 0.0,
         "D-3_TO_D-4": 1.2,
         "D-4_TO_D-5": 3.0,
         "D-5_TO_FULL_SCORE": 4.0,
@@ -1868,7 +1868,7 @@ def _d_grade_and_score(
     efficiency_index = (
         mean_cycle_weight
         + decisive_density
-        - adverse_share
+        - 2 * adverse_share
         - 2 * national_negative_share
     )
     thresholds = D_EMPIRICAL_CALIBRATION["efficiency_thresholds"]
@@ -3114,7 +3114,7 @@ def _validate_d_empirical_calibration(
         expected_efficiency = (
             float(metrics["mean_cycle_weight"])
             + float(metrics["decisive_density"])
-            - float(metrics["adverse_cycle_share"])
+            - 2 * float(metrics["adverse_cycle_share"])
             - 2 * float(metrics["national_negative_share"])
         )
         if abs(float(metrics["portfolio_efficiency_index"]) - expected_efficiency) > 0.001:
