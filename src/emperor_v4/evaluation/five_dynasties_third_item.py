@@ -1924,10 +1924,22 @@ def _d_grade_and_score(
     )
     grade_position = max(0.0, min(1.0, efficiency_position))
     evidence_position_limit = 1.0
+    evidence_position_limit_reasons: list[str] = []
+    if grade == "D-3" and known_count < 3:
+        evidence_position_limit = min(
+            evidence_position_limit,
+            known_count / 3,
+        )
+        evidence_position_limit_reasons.append(
+            "D3_THIN_EVIDENCE_K_OVER_3"
+        )
     if grade == "D-3" and "D4_MINIMUM_EXPOSURE_NOT_MET" in grade_cap_reasons:
         evidence_position_limit = min(
             evidence_position_limit,
             known_count / int(minimum_exposure["D-4"]),
+        )
+        evidence_position_limit_reasons.append(
+            "D4_MINIMUM_EXPOSURE_K_OVER_5"
         )
     if grade == "D-4" and "D5_MINIMUM_EXPOSURE_NOT_MET" in grade_cap_reasons:
         evidence_position_limit = min(
@@ -1978,6 +1990,7 @@ def _d_grade_and_score(
         "empirical_calibration": D_EMPIRICAL_CALIBRATION,
         "grade_cap_reasons": grade_cap_reasons,
         "evidence_score_position_limit": round(evidence_position_limit, 4),
+        "evidence_score_position_limit_reasons": evidence_position_limit_reasons,
         "efficiency_band_position": round(grade_position, 4),
         "grade_band_position": round(grade_position, 4),
         "national_negative_score_cap": None,

@@ -773,6 +773,14 @@ def test_current_third_item_thick_thin_evidence_gates_are_globally_consistent() 
         by_name["王建"]["D_portfolio_metrics"]["evidence_score_position_limit"]
         == 0.2
     )
+    assert by_name["李昪"]["D_portfolio_metrics"]["known_material_cycle_count"] == 1
+    assert (
+        by_name["李昪"]["D_portfolio_metrics"]["evidence_score_position_limit"]
+        == 0.3333
+    )
+    assert by_name["李昪"]["D_portfolio_metrics"][
+        "evidence_score_position_limit_reasons"
+    ] == ["D3_THIN_EVIDENCE_K_OVER_3"]
     li_shimin = by_name["李世民"]
     assert li_shimin["D_grade"] == "D-5"
     assert li_shimin["D_score_points"] == 39.0
