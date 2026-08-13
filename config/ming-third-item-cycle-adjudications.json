@@ -100,8 +100,8 @@
         4
       ],
       "B1": [
-        5.0,
-        5.0,
+        5,
+        5,
         3,
         "MID"
       ],
@@ -125,7 +125,57 @@
         "MING-LUCHUAN-DAO-GANMENG-1397-1398"
       ],
       "C_reason": "统一窗口结束后，纳哈出、捕鱼儿海—和林、乃儿不花及麓川刀干孟四个去重父周期均形成重大高收益，覆盖北方、西南和多名将领，证明国家军事体系能持续完成高难度投送；未见足以把任期体系压至中档的战役群级崩溃，三轴取4，不以北元仍存否定已兑现的体系能力。",
-      "reason": "剥离统一链后，洪武后段对北元保持明显优势并形成多方向卫所、宗藩与戍防网络；但北元主体仍存，北边仍需反复大规模远征，且指挥结构存在宗藩依赖，横向不足以与汉宣帝、唐太宗的5档体系并列，A1/A2均按高位4档交班。"
+      "reason": "剥离统一链后，洪武后段对北元保持明显优势并形成多方向卫所、宗藩与戍防网络；但北元主体仍存，北边仍需反复大规模远征，且指挥结构存在宗藩依赖，横向不足以与汉宣帝、唐太宗的5档体系并列，A1/A2均按高位4档交班。",
+      "B1_regions": [
+        {
+          "object_id": "MING_NORTHERN_MAIN_FRONTIER",
+          "object_name": "北方主防与边镇体系",
+          "start_equivalent": 2,
+          "end_equivalent": 2,
+          "control_form": "SAVED_UNDER_MAJOR_PRESSURE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MING-NORTHERN-YUAN-NAHACU-1387",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MING-LUCHUAN-DAO-GANMENG-1397-1398"
+          ],
+          "reason": "只计既有北方边防控制存量维持，不把塞外追击或敌军损失转为控制。"
+        },
+        {
+          "object_id": "MING_NORTHEAST_LIAODONG",
+          "object_name": "辽东边防体系",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "ROUTINE_MAINTENANCE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MING-NORTHERN-YUAN-NAHACU-1387",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MING-LUCHUAN-DAO-GANMENG-1397-1398"
+          ],
+          "reason": "按辽东既有卫所与防线维持计值。"
+        },
+        {
+          "object_id": "MING_SOUTHWEST_FRONTIER",
+          "object_name": "西南边疆体系",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "SAVED_UNDER_MAJOR_PRESSURE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MING-NORTHERN-YUAN-NAHACU-1387",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MING-LUCHUAN-DAO-GANMENG-1397-1398"
+          ],
+          "reason": "按西南既有军政节点在叛乱和平乱压力下维持计值，不把内部恢复算新增。"
+        },
+        {
+          "object_id": "MING_SOUTHEAST_COAST",
+          "object_name": "东南沿海防御节点",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "ROUTINE_MAINTENANCE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MING-NORTHERN-YUAN-NAHACU-1387",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MING-LUCHUAN-DAO-GANMENG-1397-1398"
+          ],
+          "reason": "沿海既有控制维持；倭寇受挫不制造新增领土。"
+        }
+      ]
     },
     {
       "ruler_id": "RULER-MING-ZHU-YUNWEN",
@@ -139,8 +189,8 @@
         1
       ],
       "B1": [
-        5.0,
-        0.0,
+        5,
+        0,
         0,
         "LOW"
       ],
@@ -157,7 +207,20 @@
         1,
         1
       ],
-      "reason": "接班复用洪武末A1/A2四档共享状态；靖难战争中中央军事体系失效并丧失政权，国防与控制终局均为崩解。"
+      "reason": "接班复用洪武末A1/A2四档共享状态；靖难战争中中央军事体系失效并丧失政权，国防与控制终局均为崩解。",
+      "B1_regions": [
+        {
+          "object_id": "MING_CENTRAL_AND_FRONTIER_AUTHORITY",
+          "object_name": "建文中央及继承边防控制",
+          "start_equivalent": 5,
+          "end_equivalent": 0,
+          "control_form": "TERMINAL_POLITY_CONTROL_LOSS",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MING-JINGNAN-1399-1402"
+          ],
+          "reason": "靖难终局为建文中枢及其可支配全国军政控制终止；按评价主体终局计0，不把继起永乐政权控制归还本人。"
+        }
+      ]
     },
     {
       "ruler_id": "RULER-MING-ZHU-DI",
@@ -171,8 +234,8 @@
         4
       ],
       "B1": [
-        5.0,
-        5.0,
+        5,
+        5,
         3,
         "MID"
       ],
@@ -194,7 +257,57 @@
         "MING-NORTHERN-YUAN-YONGLE1-1410",
         "MING-OIRAT-YONGLE2-1414"
       ],
-      "reason": "朱棣第一项未实际得分，故C/D按完整军事生涯消费靖难；但A/B只评价战略安全与边疆控制净变化，不把夺取既有明朝中央政权伪装成边疆体系跃升。1399年起点复用洪武末、建文初的高位4档；永乐北征维持优势而未形成同量级持久新增控制，安南占领失败及北边成果耐久性限制升至5档。"
+      "reason": "朱棣第一项未实际得分，故C/D按完整军事生涯消费靖难；但A/B只评价战略安全与边疆控制净变化，不把夺取既有明朝中央政权伪装成边疆体系跃升。1399年起点复用洪武末、建文初的高位4档；永乐北征维持优势而未形成同量级持久新增控制，安南占领失败及北边成果耐久性限制升至5档。",
+      "B1_regions": [
+        {
+          "object_id": "MING_NORTHERN_MAIN_FRONTIER",
+          "object_name": "北方主防与边镇体系",
+          "start_equivalent": 2,
+          "end_equivalent": 2,
+          "control_form": "SAVED_UNDER_MAJOR_PRESSURE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MING-ARUGHTAI-1421-1424",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MING-OIRAT-YONGLE2-1414"
+          ],
+          "reason": "只计既有北方边防控制存量维持，不把塞外追击或敌军损失转为控制。"
+        },
+        {
+          "object_id": "MING_NORTHEAST_LIAODONG",
+          "object_name": "辽东边防体系",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "ROUTINE_MAINTENANCE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MING-ARUGHTAI-1421-1424",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MING-OIRAT-YONGLE2-1414"
+          ],
+          "reason": "按辽东既有卫所与防线维持计值。"
+        },
+        {
+          "object_id": "MING_SOUTHWEST_FRONTIER",
+          "object_name": "西南边疆体系",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "SAVED_UNDER_MAJOR_PRESSURE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MING-ARUGHTAI-1421-1424",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MING-OIRAT-YONGLE2-1414"
+          ],
+          "reason": "按西南既有军政节点在叛乱和平乱压力下维持计值，不把内部恢复算新增。"
+        },
+        {
+          "object_id": "MING_SOUTHEAST_COAST",
+          "object_name": "东南沿海防御节点",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "ROUTINE_MAINTENANCE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MING-ARUGHTAI-1421-1424",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MING-OIRAT-YONGLE2-1414"
+          ],
+          "reason": "沿海既有控制维持；倭寇受挫不制造新增领土。"
+        }
+      ]
     },
     {
       "ruler_id": "RULER-MING-ZHU-ZHANJI",
@@ -208,8 +321,8 @@
         4
       ],
       "B1": [
-        5.0,
-        5.0,
+        5,
+        5,
         3,
         "MID"
       ],
@@ -230,7 +343,57 @@
         "MING-QUSIAN-1430"
       ],
       "C_reason": "曲先方向形成一项重大体系胜绩，交趾撤退体现止损而非体系崩溃；但当前只有两个体系压力父周期，且跨期、跨方向复制证据不足，三轴保守取3。",
-      "reason": "经洪熙短期空档桥承接永乐交班的A1/A2四档高位；宣德朝维持北边和内地安全，交趾撤退止损但不计新增控制，未形成升至5档的结构性新成果。"
+      "reason": "经洪熙短期空档桥承接永乐交班的A1/A2四档高位；宣德朝维持北边和内地安全，交趾撤退止损但不计新增控制，未形成升至5档的结构性新成果。",
+      "B1_regions": [
+        {
+          "object_id": "MING_NORTHERN_MAIN_FRONTIER",
+          "object_name": "北方主防与边镇体系",
+          "start_equivalent": 2,
+          "end_equivalent": 2,
+          "control_form": "SAVED_UNDER_MAJOR_PRESSURE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MING-HANPRINCE-REBELLION-1426",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MING-QUSIAN-1430"
+          ],
+          "reason": "只计既有北方边防控制存量维持，不把塞外追击或敌军损失转为控制。"
+        },
+        {
+          "object_id": "MING_NORTHEAST_LIAODONG",
+          "object_name": "辽东边防体系",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "ROUTINE_MAINTENANCE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MING-HANPRINCE-REBELLION-1426",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MING-QUSIAN-1430"
+          ],
+          "reason": "按辽东既有卫所与防线维持计值。"
+        },
+        {
+          "object_id": "MING_SOUTHWEST_FRONTIER",
+          "object_name": "西南边疆体系",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "SAVED_UNDER_MAJOR_PRESSURE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MING-HANPRINCE-REBELLION-1426",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MING-QUSIAN-1430"
+          ],
+          "reason": "按西南既有军政节点在叛乱和平乱压力下维持计值，不把内部恢复算新增。"
+        },
+        {
+          "object_id": "MING_SOUTHEAST_COAST",
+          "object_name": "东南沿海防御节点",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "ROUTINE_MAINTENANCE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MING-HANPRINCE-REBELLION-1426",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MING-QUSIAN-1430"
+          ],
+          "reason": "沿海既有控制维持；倭寇受挫不制造新增领土。"
+        }
+      ]
     },
     {
       "ruler_id": "RULER-MING-ZHU-QIZHEN",
@@ -244,10 +407,10 @@
         3
       ],
       "B1": [
-        5.0,
-        3.0,
-        0,
-        "LOW"
+        5,
+        4,
+        2,
+        "MID"
       ],
       "B2": [
         2,
@@ -265,7 +428,54 @@
       "C_failure_refs": [
         "MTJ-OIRAT-MING-1449-TUMU-BEIJING"
       ],
-      "reason": "首次接班复用宣德交班的A1/A2四档状态；土木堡造成全国级军事灾难，复辟后虽维持政权但不足抵销麓川与北边的系统性负债。"
+      "reason": "首次接班复用宣德交班的A1/A2四档状态；土木堡造成全国级军事灾难，复辟后虽维持政权但不足抵销麓川与北边的系统性负债。",
+      "B1_regions": [
+        {
+          "object_id": "MING_NORTHERN_MAIN_FRONTIER",
+          "object_name": "北方主防与河套方向",
+          "start_equivalent": 2,
+          "end_equivalent": 1,
+          "control_form": "PARTIAL_DURABLE_LOSS",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-OIRAT-MING-1449-TUMU-BEIJING",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-HETAO-BORDER-SHIFT-1461"
+          ],
+          "reason": "土木堡本身是军队灾难而非领土自动清零；只把其后河套边防持续后撤折为1.0控制退损。"
+        },
+        {
+          "object_id": "MING_NORTHEAST_LIAODONG",
+          "object_name": "辽东边防体系",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "ROUTINE_MAINTENANCE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-LUCHUAN-1438-1449"
+          ],
+          "reason": "辽东既有控制维持。"
+        },
+        {
+          "object_id": "MING_SOUTHWEST_FRONTIER",
+          "object_name": "西南边疆体系",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "SAVED_UNDER_MAJOR_PRESSURE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-LUCHUAN-1438-1449"
+          ],
+          "reason": "内部平乱只证明恢复既有控制，不计新增。"
+        },
+        {
+          "object_id": "MING_SOUTHEAST_COAST",
+          "object_name": "东南沿海防御节点",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "ROUTINE_MAINTENANCE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-LUCHUAN-1438-1449"
+          ],
+          "reason": "沿海既有控制维持。"
+        }
+      ]
     },
     {
       "ruler_id": "RULER-MING-ZHU-QIYU",
@@ -279,10 +489,10 @@
         3
       ],
       "B1": [
-        2.0,
-        3.0,
+        4,
+        4,
         3,
-        "HIGH"
+        "MID"
       ],
       "B2": [
         3,
@@ -300,7 +510,53 @@
       "C_success_refs": [
         "CAMPAIGN-MING-BEIJING-DEFENSE-1449"
       ],
-      "reason": "景泰即位时土木堡主力已覆灭、前任皇帝被俘，也先正向北京推进，首都与中央政权存续已经面临现实威胁，符合A1S0而非仅有潜在国家危机的A1S1；其压力强于李世民即位初渭水危机的S1。北京保卫战后中央政权获保全，但瓦剌仍能持续侵扰、边疆尚未恢复主动，终点为相互制衡的3档。A2仍按既有防线局部可守而结构受损的2档起步。"
+      "reason": "景泰即位时土木堡主力已覆灭、前任皇帝被俘，也先正向北京推进，首都与中央政权存续已经面临现实威胁，符合A1S0而非仅有潜在国家危机的A1S1；其压力强于李世民即位初渭水危机的S1。北京保卫战后中央政权获保全，但瓦剌仍能持续侵扰、边疆尚未恢复主动，终点为相互制衡的3档。A2仍按既有防线局部可守而结构受损的2档起步。",
+      "B1_regions": [
+        {
+          "object_id": "MING_NORTHERN_MAIN_FRONTIER",
+          "object_name": "北方主防与边镇体系",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "SAVED_UNDER_MAJOR_PRESSURE",
+          "evidence_refs": [
+            "docs/史料通读产物/明/明通鉴/volume-029.battle-adjudications.json#MTJ-MING-OIRAT-1450-BORDER"
+          ],
+          "reason": "按当前窗口可执行的北方边防存量维持计值。"
+        },
+        {
+          "object_id": "MING_NORTHEAST_LIAODONG",
+          "object_name": "辽东边防体系",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "ROUTINE_MAINTENANCE",
+          "evidence_refs": [
+            "docs/史料通读产物/明/明通鉴/volume-029.battle-adjudications.json#MTJ-MING-OIRAT-1450-BORDER"
+          ],
+          "reason": "辽东既有控制维持。"
+        },
+        {
+          "object_id": "MING_SOUTHWEST_FRONTIER",
+          "object_name": "西南边疆体系",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "SAVED_UNDER_MAJOR_PRESSURE",
+          "evidence_refs": [
+            "docs/史料通读产物/明/明通鉴/volume-029.battle-adjudications.json#MTJ-MING-OIRAT-1450-BORDER"
+          ],
+          "reason": "内部平乱只证明恢复既有控制，不计新增。"
+        },
+        {
+          "object_id": "MING_SOUTHEAST_COAST",
+          "object_name": "东南沿海防御节点",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "ROUTINE_MAINTENANCE",
+          "evidence_refs": [
+            "docs/史料通读产物/明/明通鉴/volume-029.battle-adjudications.json#MTJ-MING-OIRAT-1450-BORDER"
+          ],
+          "reason": "沿海既有控制维持。"
+        }
+      ]
     },
     {
       "ruler_id": "RULER-MING-ZHU-JIANSHEN",
@@ -314,8 +570,8 @@
         4
       ],
       "B1": [
-        3.0,
-        4.0,
+        4,
+        4,
         3,
         "MID"
       ],
@@ -337,7 +593,57 @@
         "MTJ-MING-JINGZHOU-MIAO-1466-1467"
       ],
       "C_reason": "河套边防与荆州苗乱形成两项重大体系胜绩，但同一组合仍有多项负收益父周期，不能仅凭重大胜绩上调为高稳定体系，三轴取3。",
-      "reason": "接班复用英宗复辟末A1/A2三档、B1控制当量3.0；成化朝多次平乱和边防行动使总体安全与主要边界恢复至4档，但河套等方向没有形成更高层级的净改善。"
+      "reason": "接班复用英宗复辟末A1/A2三档、B1控制当量3.0；成化朝多次平乱和边防行动使总体安全与主要边界恢复至4档，但河套等方向没有形成更高层级的净改善。",
+      "B1_regions": [
+        {
+          "object_id": "MING_NORTHERN_MAIN_FRONTIER",
+          "object_name": "北方主防与边镇体系",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "SAVED_UNDER_MAJOR_PRESSURE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-DATENGXIA-1465-1466",
+            "docs/史料通读产物/明/明通鉴/volume-036.battle-adjudications.json#MTJ-MING-HETAO-BORDER-1473"
+          ],
+          "reason": "按当前窗口可执行的北方边防存量维持计值。"
+        },
+        {
+          "object_id": "MING_NORTHEAST_LIAODONG",
+          "object_name": "辽东边防体系",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "ROUTINE_MAINTENANCE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-DATENGXIA-1465-1466",
+            "docs/史料通读产物/明/明通鉴/volume-036.battle-adjudications.json#MTJ-MING-HETAO-BORDER-1473"
+          ],
+          "reason": "辽东既有控制维持。"
+        },
+        {
+          "object_id": "MING_SOUTHWEST_FRONTIER",
+          "object_name": "西南边疆体系",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "SAVED_UNDER_MAJOR_PRESSURE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-DATENGXIA-1465-1466",
+            "docs/史料通读产物/明/明通鉴/volume-036.battle-adjudications.json#MTJ-MING-HETAO-BORDER-1473"
+          ],
+          "reason": "内部平乱只证明恢复既有控制，不计新增。"
+        },
+        {
+          "object_id": "MING_SOUTHEAST_COAST",
+          "object_name": "东南沿海防御节点",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "ROUTINE_MAINTENANCE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-DATENGXIA-1465-1466",
+            "docs/史料通读产物/明/明通鉴/volume-036.battle-adjudications.json#MTJ-MING-HETAO-BORDER-1473"
+          ],
+          "reason": "沿海既有控制维持。"
+        }
+      ]
     },
     {
       "ruler_id": "RULER-MING-ZHU-YOUCHENG",
@@ -351,9 +657,9 @@
         4
       ],
       "B1": [
-        4.0,
-        4.0,
+        4,
         3,
+        1,
         "MID"
       ],
       "B2": [
@@ -370,7 +676,53 @@
         3
       ],
       "C_reason": "三个体系压力父周期中存在普通交付和一项负收益，没有达到重大体系胜绩或战役群级崩溃；这支持中档胜负并存，而不是由零重大胜负默认到3档。",
-      "reason": "弘治朝军事态势以守成为主，边防和平乱能维持而缺少决定性新增成果。"
+      "reason": "弘治朝军事态势以守成为主，边防和平乱能维持而缺少决定性新增成果。",
+      "B1_regions": [
+        {
+          "object_id": "MING_HETAO_NORTHERN_FRONTIER",
+          "object_name": "河套北方防线",
+          "start_equivalent": 1,
+          "end_equivalent": 0,
+          "control_form": "LOST_DURING_REIGN",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-HEXITAO-ZHUHUI-1501-1502"
+          ],
+          "reason": "河套长期驻牧压力与捣巢无功使该方向有效控制终点退至0；不得以全局4→4抹平。"
+        },
+        {
+          "object_id": "MING_NORTHEAST_LIAODONG",
+          "object_name": "辽东边防体系",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "ROUTINE_MAINTENANCE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-PUAN-MILU-1499-1502"
+          ],
+          "reason": "辽东既有控制维持。"
+        },
+        {
+          "object_id": "MING_SOUTHWEST_FRONTIER",
+          "object_name": "西南边疆体系",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "SAVED_UNDER_MAJOR_PRESSURE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-PUAN-MILU-1499-1502"
+          ],
+          "reason": "内部平乱只证明恢复既有控制，不计新增。"
+        },
+        {
+          "object_id": "MING_SOUTHEAST_COAST",
+          "object_name": "东南沿海防御节点",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "ROUTINE_MAINTENANCE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-PUAN-MILU-1499-1502"
+          ],
+          "reason": "沿海既有控制维持。"
+        }
+      ]
     },
     {
       "ruler_id": "RULER-MING-ZHU-HOUZHAO",
@@ -384,10 +736,10 @@
         4
       ],
       "B1": [
-        4.0,
-        4.0,
         3,
-        "MID"
+        2,
+        1,
+        "LOW"
       ],
       "B2": [
         3,
@@ -403,7 +755,42 @@
         3
       ],
       "C_reason": "十五个体系压力父周期中高收益、相称收益、低收益和负收益并存；若干地方平乱虽有较大净收益，但不足单独证明跨战场高难度体系交付，故不登记重大体系胜绩，三轴按厚样本中位表现取3。",
-      "reason": "接班复用弘治交班A1/A2四档、B1控制当量4.0；宁王、安化王之乱被平定且北边有应州战果，成果真实但未改变长期边疆结构。"
+      "reason": "接班复用弘治交班A1/A2四档、B1控制当量4.0；宁王、安化王之乱被平定且北边有应州战果，成果真实但未改变长期边疆结构。",
+      "B1_regions": [
+        {
+          "object_id": "MING_NORTHERN_FORT_LINE",
+          "object_name": "宣府等北方堡寨线",
+          "start_equivalent": 1,
+          "end_equivalent": 0,
+          "control_form": "LOST_DURING_REIGN",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-TATAR-NORTH-1515-1516"
+          ],
+          "reason": "二十堡终点未证收复，显式计一方向控制退损；应州反击不抵销。"
+        },
+        {
+          "object_id": "MING_NORTHEAST_LIAODONG",
+          "object_name": "辽东边防体系",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "ROUTINE_MAINTENANCE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-TATAR-NORTH-1515-1516"
+          ],
+          "reason": "辽东既有控制未见本链终局退出。"
+        },
+        {
+          "object_id": "MING_SOUTHEAST_COAST",
+          "object_name": "东南沿海防御节点",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "SAVED_UNDER_MAJOR_PRESSURE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-GUANGXI-FUJIANG-1515"
+          ],
+          "reason": "只计既有节点维持。"
+        }
+      ]
     },
     {
       "ruler_id": "RULER-MING-ZHU-HOUCONG",
@@ -417,10 +804,10 @@
         3
       ],
       "B1": [
-        4.0,
-        3.0,
-        1,
-        "LOW"
+        2,
+        2,
+        2,
+        "MID"
       ],
       "B2": [
         2,
@@ -435,7 +822,31 @@
         2,
         2
       ],
-      "reason": "嘉靖朝最终压低东南倭患，但北边俺答压力、庚戌之变和长期高成本使净态势下降。"
+      "reason": "嘉靖朝最终压低东南倭患，但北边俺答压力、庚戌之变和长期高成本使净态势下降。",
+      "B1_regions": [
+        {
+          "object_id": "MING_NORTHEAST_CORE_FRONTIER",
+          "object_name": "东北核心边防存量",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "SAVED_UNDER_MAJOR_PRESSURE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-ALTAN-JINGSHI-1550"
+          ],
+          "reason": "俺答长期入侵恶化安全但未闭合该存量整体退出；不以SN倒推领土损失。"
+        },
+        {
+          "object_id": "MING_SOUTHEAST_COAST",
+          "object_name": "东南沿海防御节点",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "RECOVERED_WITHIN_INHERITED_CONTROL",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-FUJIAN-WOKOU-FINAL-1564"
+          ],
+          "reason": "倭患收束恢复既有沿海控制，不作为新增疆域。"
+        }
+      ]
     },
     {
       "ruler_id": "RULER-MING-ZHU-ZAIHOU",
@@ -449,9 +860,9 @@
         4
       ],
       "B1": [
-        3.0,
-        4.0,
-        3,
+        2,
+        2,
+        2,
         "MID"
       ],
       "B2": [
@@ -468,7 +879,31 @@
         3
       ],
       "C_reason": "当前仅两个体系压力父周期，其中一项高收益、另一项回报未知；短期样本足以证明通常可运行，但不足证明跨期复制或重大体系失效，三轴取3。",
-      "reason": "隆庆和议与边防调整使北边安全明显改善，短期样本限制军事体系上档。"
+      "reason": "隆庆和议与边防调整使北边安全明显改善，短期样本限制军事体系上档。",
+      "B1_regions": [
+        {
+          "object_id": "MING_NORTHEAST_CORE_FRONTIER",
+          "object_name": "东北核心边防存量",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "SAVED_UNDER_MAJOR_PRESSURE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-ALTAN-DATONG-1570-SEP"
+          ],
+          "reason": "隆庆议和改善威胁和运行条件，但不制造新增控制。"
+        },
+        {
+          "object_id": "MING_SOUTHEAST_COAST",
+          "object_name": "东南沿海防御节点",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "ROUTINE_MAINTENANCE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-ZENGYIBEN-1567-1569"
+          ],
+          "reason": "既有沿海控制维持。"
+        }
+      ]
     },
     {
       "ruler_id": "RULER-MING-ZHU-YIJUN",
@@ -482,10 +917,10 @@
         2
       ],
       "B1": [
-        4.0,
-        2.0,
+        2,
+        1,
         0,
-        "LOW"
+        "HIGH"
       ],
       "B2": [
         3,
@@ -505,7 +940,32 @@
         "MTJ-MING-NINGXIA-BOBAI-1592",
         "MTJ-MING-BOZHOU-YANGYINGLONG-1590-1600"
       ],
-      "reason": "万历三大征具有全国和跨国战略成果，但长期军费、体系耗损及辽东崩解使终局显著转差。"
+      "reason": "万历三大征具有全国和跨国战略成果，但长期军费、体系耗损及辽东崩解使终局显著转差。",
+      "B1_regions": [
+        {
+          "object_id": "MING_LIAODONG_FORWARD_CONTROL",
+          "object_name": "辽东前沿控制",
+          "start_equivalent": 1,
+          "end_equivalent": 0,
+          "control_form": "LOST_DURING_REIGN",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-LIAODONG-KUANDIAN-WITHDRAWAL-1606",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-QING-SARHU-1619"
+          ],
+          "reason": "宽甸撤守及萨尔浒后前沿战略主动与节点体系退出，计1.0退损。"
+        },
+        {
+          "object_id": "MING_SOUTHEAST_COAST",
+          "object_name": "东南沿海防御节点",
+          "start_equivalent": 1,
+          "end_equivalent": 1,
+          "control_form": "ROUTINE_MAINTENANCE",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-KOREA-IMJIN-1592-1598"
+          ],
+          "reason": "援朝成果改变外部威胁，不转换为朝鲜领土控制；只保留本方既有沿海节点。"
+        }
+      ]
     },
     {
       "ruler_id": "RULER-MING-ZHU-YOUJIAO",
@@ -519,10 +979,10 @@
         2
       ],
       "B1": [
-        2.0,
-        2.0,
-        2,
-        "LOW"
+        1,
+        0.5,
+        0,
+        "HIGH"
       ],
       "B2": [
         3,
@@ -537,7 +997,33 @@
         2,
         2
       ],
-      "reason": "接班复用万历交班A1三档、A2二档与B1控制当量2.0；辽沈失地后宁远防线和西南平乱取得局部恢复，但未扭转国家级战略劣势。"
+      "reason": "接班复用万历交班A1三档、A2二档与B1控制当量2.0；辽沈失地后宁远防线和西南平乱取得局部恢复，但未扭转国家级战略劣势。",
+      "B1_regions": [
+        {
+          "object_id": "MING_LIAODONG_LIAOXI_SYSTEM",
+          "object_name": "辽阳—辽西防御体系",
+          "start_equivalent": 1,
+          "end_equivalent": 0.25,
+          "control_form": "MAJOR_DURABLE_LOSS_WITH_SINGLE_NODE_HELD",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-QING-LIAOYANG-1621",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-QING-GUANGNING-1622",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-QING-NINGYUAN-1626"
+          ],
+          "reason": "辽阳、广宁及大批城寨退出，只以宁远单一节点保留0.25。"
+        },
+        {
+          "object_id": "MING_PENGHU_NODE",
+          "object_name": "澎湖海防节点",
+          "start_equivalent": 0.0,
+          "end_equivalent": 0.25,
+          "control_form": "RECOVERED_WITHIN_INHERITED_CONTROL",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-DUTCH-PENGHU-1622-1624"
+          ],
+          "reason": "迫荷兰驻军撤离并恢复澎湖节点，计0.25，不扩大为海疆体系重构。"
+        }
+      ]
     },
     {
       "ruler_id": "RULER-MING-ZHU-YOUJIAN",
@@ -551,8 +1037,8 @@
         0
       ],
       "B1": [
-        2.0,
-        0.0,
+        0.5,
+        0,
         0,
         "LOW"
       ],
@@ -569,7 +1055,21 @@
         1,
         1
       ],
-      "reason": "辽东、京畿与全国内战多线崩解并最终亡国，终局门禁使控制成果归零。"
+      "reason": "辽东、京畿与全国内战多线崩解并最终亡国，终局门禁使控制成果归零。",
+      "B1_regions": [
+        {
+          "object_id": "MING_REMAINING_CORE_DEFENSE",
+          "object_name": "宁远及京畿残余防御控制",
+          "start_equivalent": 0.5,
+          "end_equivalent": 0,
+          "control_form": "TERMINAL_POLITY_CONTROL_LOSS",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-MING-QING-SONGJIN-1641-1642",
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#MTJ-LI-ZICHENG-HENAN-1642"
+          ],
+          "reason": "松锦与全国内战终局叠加中央政权覆亡，评价主体无可移交控制存量。"
+        }
+      ]
     },
     {
       "ruler_id": "RULER-MING-ZHU-YOUSONG",
@@ -583,8 +1083,8 @@
         0
       ],
       "B1": [
-        1.0,
-        0.0,
+        1,
+        0,
         0,
         "LOW"
       ],
@@ -601,7 +1101,20 @@
         0,
         0
       ],
-      "reason": "当前公共登记没有可消费主体阶段，第三项保持未结算。"
+      "reason": "当前公共登记没有可消费主体阶段，第三项保持未结算。",
+      "B1_regions": [
+        {
+          "object_id": "SOUTHERN_MING_HONGGUANG_CORE",
+          "object_name": "弘光淮扬—南京核心",
+          "start_equivalent": 1,
+          "end_equivalent": 0,
+          "control_form": "TERMINAL_POLITY_CONTROL_LOSS",
+          "evidence_refs": [
+            "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#DINV::ZHU_YOUSONG::HONGGUANG-DEFENSE-COLLAPSE-1645"
+          ],
+          "reason": "淮扬突破、南京失守和君主被俘使弘光中枢控制终止。"
+        }
+      ]
     },
     {
       "ruler_id": "RULER-MING-ZHU-YUJIAN",
@@ -615,8 +1128,8 @@
         0
       ],
       "B1": [
-        1.0,
-        0.0,
+        1,
+        0,
         0,
         "LOW"
       ],
@@ -633,7 +1146,20 @@
         0,
         0
       ],
-      "reason": "当前公共登记没有可消费主体阶段，且恢复建基窗口由第一项消费，第三项保持未结算。"
+      "reason": "当前公共登记没有可消费主体阶段，且恢复建基窗口由第一项消费，第三项保持未结算。",
+      "B1_regions": [
+        {
+          "object_id": "SOUTHERN_MING_LONGWU_CORE",
+          "object_name": "隆武浙闽核心",
+          "start_equivalent": 1,
+          "end_equivalent": 0,
+          "control_form": "TERMINAL_POLITY_CONTROL_LOSS",
+          "evidence_refs": [
+            "docs/史料通读产物/清/清史稿/volume-004.battle-adjudications.json#QSG-SZ-ZHEJIANG-FUJIAN-1645-1646"
+          ],
+          "reason": "钱塘、仙霞关及福建诸府失守后隆武中枢终结。"
+        }
+      ]
     },
     {
       "ruler_id": "RULER-MING-ZHU-YOULANG",
@@ -647,8 +1173,8 @@
         0
       ],
       "B1": [
-        1.0,
-        0.0,
+        1,
+        0,
         0,
         "LOW"
       ],
@@ -665,24 +1191,37 @@
         0,
         0
       ],
-      "reason": "当前公共登记没有可消费主体阶段，且1646至1652恢复建基窗口由第一项消费，第三项保持未结算。"
+      "reason": "当前公共登记没有可消费主体阶段，且1646至1652恢复建基窗口由第一项消费，第三项保持未结算。",
+      "B1_regions": [
+        {
+          "object_id": "SOUTHERN_MING_YONGLI_CORE",
+          "object_name": "永历西南残余核心",
+          "start_equivalent": 1,
+          "end_equivalent": 0,
+          "control_form": "TERMINAL_POLITY_CONTROL_LOSS",
+          "evidence_refs": [
+            "https://zh.wikisource.org/wiki/明通鑑/卷100",
+            "https://zh.wikisource.org/wiki/永曆實錄"
+          ],
+          "reason": "永历后期西南军政核心持续退却并最终无可移交控制；本项只记终局控制，不把孙可望内乱另算外部收益。"
+        }
+      ]
     }
   ],
   "large_rebellion_supplements": [
     {
       "ruler_id": "RULER-MING-ZHU-YUANZHANG",
+      "admitted_large_rebellion_refs": [
+        "MTJ-MING-GUANGDONG-PACIFICATION-1380-1382",
+        "MTJ-MING-SICHUAN-PENGPUGUI-1379",
+        "MTJ-MING-YUNNAN-REBELLIONS-1382",
+        "MTJ-WUKAI-WUMIAN-1378-1385"
+      ],
       "reviewed_large_rebellion_exclusions": [
         {
           "campaign_group_ref": "MTJ-MING-XIA-WAR-1370-1371",
           "reason": "明夏战争是消灭外部政权的统一取得链，因阶段中出现叛退和平定字样被候选器命中，不属于内部叛乱。"
         }
-      ],
-      "admitted_large_rebellion_refs": [
-        "MTJ-HUGUANG-QINHOU-1370-1371",
-        "MTJ-MING-MAOZHOU-REBELLION-1378",
-        "MTJ-MING-SICHUAN-PENGPUGUI-1379",
-        "MTJ-MING-YUNNAN-REBELLIONS-1382",
-        "MTJ-WUKAI-WUMIAN-1378-1385"
       ]
     },
     {
@@ -695,7 +1234,6 @@
             "MTJ-ZHEMIN-MINING-REBELLION-1444-1449"
           ],
           "d_route": "D_INTERNAL_STRATEGIC",
-          "parent_return_class": "NEGATIVE_RETURN",
           "reason": "浙闽矿徒动乱与邓茂七扩张共享同一跨省失控和镇压链，合为一个父周期，避免重复结算。"
         }
       ],
@@ -703,7 +1241,6 @@
         {
           "campaign_group_ref": "MTJ-MING-LIANGGUANG-YAO-1463",
           "d_route": "D_INTERNAL_STRATEGIC",
-          "parent_return_class": "NEGATIVE_RETURN",
           "reason": "雷廉高肇多府受扰且梧州处置失当，当前周期未闭合恢复，按内部战略负收益结算。"
         }
       ],
@@ -724,15 +1261,24 @@
             "MTJ-MING-JINGXIANG-LIHUZI-1470-1471"
           ],
           "d_route": "D_INTERNAL_RESTORATION",
-          "parent_return_class": "PROPORTIONATE_RETURN",
           "reason": "荆襄流民武装由刘通、石龙至李胡子余部连续扩散和清剿，按同一跨年父周期结算。"
         }
       ],
       "route_overrides": [
         {
+          "campaign_group_ref": "MTJ-MING-DATENGXIA-1465-1466",
+          "parent_benefit_axes": {
+            "SB": "SB3",
+            "SN": "SN0",
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "WR": "WR2"
+          },
+          "reason": "成化总攻后残余很快再陷浔州、洛容、北流，且嘉靖期同源八寨威胁仍延续；本轮有重大削弱和恢复，但不得以同源复发前的阶段胜利登记SB4结构性终结。"
+        },
+        {
           "campaign_group_ref": "MTJ-MING-SHANDUZHANG-1465-1468",
           "d_route": "D_INTERNAL_STRATEGIC",
-          "parent_return_class": "NEGATIVE_RETURN",
           "reason": "山都掌扩张波及川南九县，当前轴只闭合反攻而未证明秩序恢复，按内部战略负收益结算。"
         }
       ],
@@ -748,6 +1294,7 @@
     {
       "ruler_id": "RULER-MING-ZHU-YOUCHENG",
       "admitted_large_rebellion_refs": [
+        "MTJ-MING-PUAN-MILU-1499-1502",
         "MTJ-MING-SIEN-TIANZHOU-CENJUN-1499-1505"
       ]
     },
@@ -765,7 +1312,6 @@
             "MTJ-MING-JIANGXI-XUJIULING-1515"
           ],
           "d_route": "D_INTERNAL_RESTORATION",
-          "parent_return_class": "PROPORTIONATE_RETURN",
           "reason": "1509至1515年江西跨府盗乱、复叛及俞谏—李隆连续清剿共享同一国家恢复目标和指挥链，合并为一个父周期。"
         },
         {
@@ -775,7 +1321,6 @@
             "MTJ-MING-SICHUAN-LIAOMAZI-1513-1514"
           ],
           "d_route": "D_INTERNAL_RESTORATION",
-          "parent_return_class": "LOW_RETURN",
           "reason": "1509至1514年四川盗乱余部、廖麻子集团及连续进剿属于同一轮跨年恢复性军事投资，前后段不得拆算。"
         },
         {
@@ -784,7 +1329,6 @@
             "MTJ-MING-TATAR-NORTH-1513-1514",
             "MTJ-MING-TATAR-NORTH-1515-1516"
           ],
-          "parent_return_class": "NEGATIVE_RETURN",
           "reason": "1513至1516年蓟宣大同方向连续入寇与京军迟援构成同一阶段北边防务压力，年度节点不得拆成两项父投资。"
         }
       ],
@@ -792,7 +1336,6 @@
         {
           "campaign_group_ref": "MTJ-MING-MANGBU-LONG-REBELLION-1520",
           "d_route": "D_INTERNAL_STRATEGIC",
-          "parent_return_class": "LOW_RETURN",
           "reason": "芒部多次复叛、失府与再恢复未形成稳定终局，按内部战略低回报结算。"
         }
       ],
@@ -809,23 +1352,22 @@
         {
           "campaign_group_ref": "MTJ-MING-DATONG-MUTINY-1533-1534",
           "d_route": "D_INTERNAL_STRATEGIC",
-          "parent_return_class": "NEGATIVE_RETURN",
           "reason": "大同军变损害关键北边军镇，当前周期未闭合体系恢复，按内部战略负收益结算。"
         },
         {
           "campaign_group_ref": "MTJ-MING-DONGCHUAN-ATANG-1560-1561",
           "d_route": "D_INTERNAL_STRATEGIC",
-          "parent_return_class": "NEGATIVE_RETURN",
           "reason": "擅调五万进剿并蹂躏地方，阿堂死后控制仍不稳，按内部战略负收益结算。"
         },
         {
           "campaign_group_ref": "MTJ-MING-SHISHANGZHAO-1553",
           "d_route": "D_INTERNAL_RESTORATION",
-          "parent_return_class": "LOW_RETURN",
           "reason": "跨河南南畿的四十余日失控和屠掠虽最终平定，成本与破坏显著，按恢复性低回报结算。"
         }
       ],
       "admitted_large_rebellion_refs": [
+        "MTJ-MING-DATENGXIA-1528",
+        "MTJ-MING-CAIBOGUAN-1566",
         "MTJ-MING-DATONG-MUTINY-1533-1534",
         "MTJ-MING-DONGCHUAN-ATANG-1560-1561",
         "MTJ-MING-SHISHANGZHAO-1553",
@@ -848,7 +1390,6 @@
             "MTJ-MING-GUIZHOU-MIAO-1616-1618"
           ],
           "d_route": "D_INTERNAL_RESTORATION",
-          "parent_return_class": "PROPORTIONATE_RETURN",
           "reason": "1616至1618年贵州多地苗乱的年度卡与完整周期卡重叠，按一次恢复性父投资结算。"
         }
       ],
@@ -869,10 +1410,42 @@
         "mode": "FOUNDING_FLAG_PLUS_EXPLICIT_WINDOW",
         "start_year": 1368,
         "end_year": 1382,
-        "retain_campaign_group_refs": [],
-        "reason": "第一项A明确以1353至1382云南平定为统一贡献窗口；本分区从1368年起绑定，故1368至1382默认排除，但经全人物大型叛乱审计准入者不受创业窗口机械排除。"
+        "retain_campaign_group_refs": [
+          "MTJ-MING-NORTHERN-WAR-1372",
+          "MTJ-MING-NORTHERN-WAR-EAST-1372",
+          "MTJ-MING-NORTHERN-WAR-WEST-1372",
+          "MTJ-MING-GUANGDONG-PACIFICATION-1380-1382",
+          "MTJ-MING-SICHUAN-PENGPUGUI-1379",
+          "MTJ-MING-YUNNAN-REBELLIONS-1382",
+          "MTJ-MING-WUKAI-WUMIAN-1378",
+          "MTJ-WUKAI-WUMIAN-1378-1385"
+        ],
+        "reason": "第一项A明确以1353至1382云南平定为统一贡献窗口；本分区从1368年起绑定，故1368至1382默认排除。但第一项C对朱元璋的正式窗口只有正向战果、未消费洪武五年三路北伐的岭北数万死亡、东路折将退师及西路收益；三路按同一国家投资的正负全貌保留在第三项D，避免只排成本不排收益的单向偏差。经全人物大型叛乱审计准入者也不受创业窗口机械排除。"
       },
       "cycle_merges": [
+        {
+          "canonical_cycle_ref": "MTJ-WUKAI-WUMIAN-1378-1385",
+          "member_campaign_group_refs": [
+            "MTJ-MING-WUKAI-WUMIAN-1378",
+            "MTJ-WUKAI-WUMIAN-1378-1385"
+          ],
+          "material_cumulative_admitted": true,
+          "parent_cost_axes": {
+            "P": "P1",
+            "S": "S2",
+            "M": "M3",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "parent_benefit_axes": {
+            "SB": "SB4",
+            "SN": "SN0",
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "WR": "WR1"
+          },
+          "reason": "1378年吴勉起事杀靖州卫指挥过兴、杨仲名平乱而吴勉逃脱，与1385年复叛、古州终局是同一未终结集团的连续父链；父成本必须卷入早期折将与军政受损，不能只消费终局胜利。"
+        },
         {
           "canonical_cycle_ref": "MING-NORTHERN-BORDER-1395",
           "member_campaign_group_refs": [
@@ -985,7 +1558,6 @@
             "MING-JIAOZHI-REBELLION-1408-1415",
             "MING-JIAOZHI-OCCUPATION-REBELLION-1417"
           ],
-          "parent_return_class": "LOW_RETURN",
           "reason": "安南征服、占领与持续反抗是同一项国家级占领投资的连续阶段，不能把初胜与后续治理失败拆成五次收益。"
         },
         {
@@ -1010,7 +1582,14 @@
           "campaign_group_ref": "MING-JINGNAN-1399-1402",
           "d_route": "D_INTERNAL_STRATEGIC",
           "material_internal_admitted": true,
-          "reason": "第一项未得分者的完整生涯取得战争必须进入第三项；靖难是国家级内战，按内部战略周期计入全部成本收益，不套平乱恢复上限。"
+          "parent_benefit_axes": {
+            "SB": "SB0",
+            "SN": "SN0",
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "WR": "WR0"
+          },
+          "reason": "第一项未得分者的完整生涯取得战争必须进入第三项；靖难是国家级内战，按内部战略周期计入全部成本。夺取既有中央、旧地与府库只是国内权力转手，不构成新增SB、BCP或WR。"
         }
       ]
     },
@@ -1044,7 +1623,6 @@
             "MTJ-MING-LUCHUAN-1438-1449",
             "MTJ-MING-LUCHUAN-MYANMAR-1443"
           ],
-          "parent_return_class": "LOW_RETURN",
           "reason": "麓川多次远征及缅甸外溢是同一项长期西南战争投资；终局收益有限而军役成本沉重。"
         }
       ],
@@ -1066,24 +1644,22 @@
             "MTJ-MING-GUIZHOU-MIAO-1449-1451",
             "MTJ-MING-GUIZHOU-MIAO-1451-1452",
             "MTJ-MING-HUANGXIAOYANG-1449-1450",
-        "MTJ-MING-HUGUANG-MIAO-1452",
-        "MTJ-MING-HUGUANG-MIAO-1453",
-        "MTJ-MING-MENGNENG-MIAO-1451",
-        "MTJ-MING-MENGNENG-MIAO-1451-1457",
+            "MTJ-MING-HUGUANG-MIAO-1452",
+            "MTJ-MING-HUGUANG-MIAO-1453",
+            "MTJ-MING-MENGNENG-MIAO-1451",
+            "MTJ-MING-MENGNENG-MIAO-1451-1457",
             "MTJ-MING-SICHUAN-MIAO-1454"
           ],
-          "parent_return_class": "PROPORTIONATE_RETURN",
           "reason": "景泰朝西南苗瑶动乱跨省延续并由同一轮国家平乱体系处置，按恢复控制的一项父投资结算。"
         },
         {
           "canonical_cycle_ref": "MTJ-MING-OIRAT-1450-BORDER",
           "member_campaign_group_refs": [
-        "MTJ-MING-OIRAT-1450-BORDER",
-        "MTJ-MING-OIRAT-1450-YANMEN",
-        "MTJ-MING-OIRAT-1451-DUSHIKOU",
-        "MTJ-MING-OIRAT-1453-LIAODONG"
+            "MTJ-MING-OIRAT-1450-BORDER",
+            "MTJ-MING-OIRAT-1450-YANMEN",
+            "MTJ-MING-OIRAT-1451-DUSHIKOU",
+            "MTJ-MING-OIRAT-1453-LIAODONG"
           ],
-          "parent_return_class": "PROPORTIONATE_RETURN",
           "reason": "北京保卫战后瓦剌边境压力的连续防御阶段，按一次边防稳定投资结算。"
         }
       ],
@@ -1108,7 +1684,6 @@
             "MTJ-MING-HETAO-SEARCH-1472",
             "MTJ-MING-HETAO-BORDER-1473"
           ],
-          "parent_return_class": "PROPORTIONATE_RETURN",
           "reason": "1472年河套失守与搜套无功、1473年反击恢复属于同一方向连续动员和恢复终局；不得把前段两负与后段一正拆成三次国家投资。"
         }
       ],
@@ -1160,7 +1735,6 @@
             "MTJ-MING-LITTLE-PRINCE-JILI-1544",
             "MTJ-MING-ALTAN-XUANFU-QINGYANG-1546"
           ],
-          "parent_return_class": "NEGATIVE_RETURN",
           "reason": "1542至1546年俺答、小王子对山西、宣大及庆阳的连续深入是同一阶段北边防御失效和重复动员，按一个父周期结算。"
         },
         {
@@ -1171,7 +1745,6 @@
             "MTJ-MING-ALTAN-DATONG-1550-JUN",
             "MTJ-MING-ALTAN-JINGSHI-1550"
           ],
-          "parent_return_class": "NEGATIVE_RETURN",
           "reason": "俺答由宣大深入京畿的1548至1550连续攻势属于同一轮北边防御失败。"
         },
         {
@@ -1183,7 +1756,6 @@
             "MTJ-MING-ALTAN-JIZHEN-1554-AUTUMN",
             "MTJ-MING-ALTAN-XUANJI-1555"
           ],
-          "parent_return_class": "LOW_RETURN",
           "reason": "庚戌之变后俺答对北边多镇的连续压力及局部反击是同一防务阶段，净改善不足。"
         },
         {
@@ -1195,7 +1767,6 @@
             "MTJ-MING-XINAI-DATONG-XUANFU-1559",
             "MTJ-MING-XINAI-LOUBATUER-JIZHOU-1559"
           ],
-          "parent_return_class": "NEGATIVE_RETURN",
           "reason": "辛爱等部1557至1559年对宣大、蓟州与西北边镇的连续侵扰按一次边防负债结算。"
         },
         {
@@ -1216,7 +1787,6 @@
             "MTJ-MING-XUHAI-CHENDONG-1556",
             "MTJ-MING-ZHENJIANG-GUAZHOU-1556"
           ],
-          "parent_return_class": "LOW_RETURN",
           "reason": "1553至1556东南倭患高峰是跨江浙闽的连续国家动员；局部胜负不得重复制造十三项独立收益。"
         },
         {
@@ -1230,7 +1800,6 @@
             "MTJ-MING-JIANGBEI-MIAOWAN-1559",
             "MTJ-MING-SANSHA-1559"
           ],
-          "parent_return_class": "PROPORTIONATE_RETURN",
           "reason": "1557至1559年东南剿倭转折阶段共享调兵、追剿和海防整顿，按一次父投资结算。"
         },
         {
@@ -1241,7 +1810,6 @@
             "MTJ-MING-XINGHUA-WOKOU-1562-1563",
             "MTJ-MING-CHAO-HUI-WOKOU-1563"
           ],
-          "parent_return_class": "PROPORTIONATE_RETURN",
           "reason": "1560至1563闽粤终局清剿属于东南倭患后段的一项连续恢复性投资。"
         }
       ],
@@ -1264,7 +1832,6 @@
             "MTJ-MING-XINAI-JINZHOU-1570",
             "MTJ-MING-ALTAN-DATONG-1570-SEP"
           ],
-          "parent_return_class": "NEGATIVE_RETURN",
           "material_cumulative_admitted": true,
           "reason": "1568至1570年柴沟、大同、锦州连续受压共享隆庆和议前的北边防务阶段；单卡虽低强度，合并后形成跨年累计战略负担。"
         }
@@ -1289,7 +1856,6 @@
             "MTJ-MING-LIAODONG-CHAOHA-1594-1602",
             "MTJ-MING-LIAODONG-TUMED-1599"
           ],
-          "parent_return_class": "NEGATIVE_RETURN",
           "reason": "1599年土默特入锦义属于1594至1602年绰哈—土默特持续辽东压力的一段，不另立父投资。"
         },
         {
@@ -1298,7 +1864,6 @@
             "MTJ-MING-QINGHAI-HAOLIQI-1590",
             "MTJ-MING-QINGHAI-HAOLIQI-1590-1596"
           ],
-          "parent_return_class": "PROPORTIONATE_RETURN",
           "reason": "火落赤自1590年入青海至1596年受挫退却是同一轮持续边防投资，前段失利与后段恢复不得拆成两项收益。"
         },
         {
@@ -1308,7 +1873,6 @@
             "MTJ-MING-WUTANG-LIAODONG-1580-1581",
             "MTJ-MING-WANGGAO-SUCCESSORS-1582"
           ],
-          "parent_return_class": "LOW_RETURN",
           "reason": "1578至1582辽东女真、土默特压力与王杲余部处置构成同一轮边防投资。"
         },
         {
@@ -1322,26 +1886,22 @@
             "MTJ-MING-QING-KAIYUAN-1619",
             "MTJ-MING-QING-TIELING-1619"
           ],
-          "parent_return_class": "NEGATIVE_RETURN",
           "reason": "抚顺失守至萨尔浒、开原铁岭陷落是同一场辽东战略崩解，按一次国家级负债结算。"
         }
       ],
       "route_overrides": [
         {
           "campaign_group_ref": "MTJ-MING-KOREA-IMJIN-1592-1598",
-          "parent_return_class": "PROPORTIONATE_RETURN",
           "reason": "援朝战争保全朝鲜并阻止日本大陆扩张，但以高额兵饷与持续动员换取，裁为相称回报。"
         },
         {
           "campaign_group_ref": "MTJ-MING-NINGXIA-BOBAI-1592",
-          "parent_return_class": "PROPORTIONATE_RETURN",
           "d_route": "D_INTERNAL_RESTORATION",
           "material_internal_admitted": true,
           "reason": "宁夏之役恢复控制但成本显著，按平乱恢复性相称回报结算。"
         },
         {
           "campaign_group_ref": "MTJ-MING-BOZHOU-YANGYINGLONG-1590-1600",
-          "parent_return_class": "PROPORTIONATE_RETURN",
           "d_route": "D_INTERNAL_RESTORATION",
           "material_internal_admitted": true,
           "reason": "播州之役最终恢复控制，长期围剿和财政负担使其不升高回报。"
@@ -1368,7 +1928,6 @@
             "MTJ-MING-QING-LIAOYANG-1621",
             "MTJ-MING-QING-SHENYANG-1621"
           ],
-          "parent_return_class": "NEGATIVE_RETURN",
           "reason": "浑河、沈阳与辽阳陷落是同一场1621年辽沈战役及战略失地。"
         },
         {
@@ -1379,7 +1938,6 @@
             "MTJ-MING-SHEAN-REBELLION-1622-1625",
             "MTJ-MING-SHEAN-REBELLION-1622-1626"
           ],
-          "parent_return_class": "LOW_RETURN",
           "reason": "奢安之乱各年度卡共享同一西南平乱动员，天启期仅获阶段性恢复且成本高。"
         },
         {
@@ -1388,14 +1946,12 @@
             "MTJ-MING-NINGYUAN-DEFENSE-1624-1626",
             "MTJ-MING-NINGYUAN-DEFENSE-1624-1627"
           ],
-          "parent_return_class": "PROPORTIONATE_RETURN",
           "reason": "宁远与后续宁锦防御是同一防线建设和守御投资，胜绩显著但未逆转辽东总态势。"
         }
       ],
       "route_overrides": [
         {
           "campaign_group_ref": "MTJ-MING-XUHONGRU-1622",
-          "parent_return_class": "PROPORTIONATE_RETURN",
           "d_route": "D_INTERNAL_RESTORATION",
           "reason": "徐鸿儒之乱被平定，存在明显成本但终局恢复控制。"
         }
@@ -1423,7 +1979,6 @@
             "MTJ-MING-ARMY-CIVILIAN-HARM-1639"
           ],
           "d_route": "D_INTERNAL_STRATEGIC",
-          "parent_return_class": "NEGATIVE_RETURN",
           "reason": "1636至1639年江淮楚豫流寇战争、乡防覆败、受抚武装再变及熊文灿军需军纪负担共享连续全国平乱投资，按一轮内部战争负债结算。"
         },
         {
@@ -1432,7 +1987,6 @@
             "MTJ-MING-QING-JISI-INVASION-1629-1630",
             "MTJ-MING-CAPITAL-RELIEF-PAY-MUTINY-1629"
           ],
-          "parent_return_class": "NEGATIVE_RETURN",
           "reason": "己巳之变入援与援军欠饷兵变共享同一次京畿救援动员和直接成本，按一个父级负收益周期结算。"
         },
         {
@@ -1444,7 +1998,6 @@
             "MTJ-MING-SHAANXI-SHANXI-REBELLION-1630-1634",
             "MTJ-MING-SHAANXI-SHANXI-REBELLION-1631"
           ],
-          "parent_return_class": "NEGATIVE_RETURN",
           "reason": "1628至1634陕晋民变扩张是同一轮持续国家平乱投资，阶段性招抚与胜利未阻止危机扩大。"
         },
         {
@@ -1454,7 +2007,6 @@
             "MTJ-MING-KONG-YOUDE-WUQIAO-REBELLION-1631-1632",
             "MTJ-MING-KONG-YOUDE-WUQIAO-REBELLION-1631-1633"
           ],
-          "parent_return_class": "NEGATIVE_RETURN",
           "reason": "大凌河入援动员直接引发吴桥兵变，短卡与完整周期卡又重叠；其后叛军投清形成同一轮长期战略负债。"
         },
         {
@@ -1468,23 +2020,32 @@
             "MTJ-ZHANG-XIANZHONG-REBELLION-1640-1641",
             "MTJ-ZHANG-XIANZHONG-JIANGBEI-1642"
           ],
-          "parent_return_class": "NEGATIVE_RETURN",
           "reason": "1640至1642李自成、张献忠与各地民变汇成同一轮全国性内战危机，开封等节点不得重复结算。"
         }
       ],
       "route_overrides": [
         {
+          "campaign_group_ref": "MTJ-MING-CHUANJUN-MUTINY-1635",
+          "d_route": "D_INTERNAL_STRATEGIC",
+          "reason": "樊城、卢氏两处兵变造成主将死亡并削弱五省平乱部署，属于国家军事体系内部的战略负债。"
+        },
+        {
+          "campaign_group_ref": "MTJ-MING-DONGJIANG-MUTINIES-1631",
+          "d_route": "D_INTERNAL_STRATEGIC",
+          "reason": "皮岛连续兵变虽诛叛首，却使东江指挥链持续瓦解，属于边防军镇结构性负债。"
+        },
+        {
           "campaign_group_ref": "MTJ-MING-QING-JISI-INVASION-1629-1630",
-          "parent_return_class": "NEGATIVE_RETURN",
           "reason": "己巳之变虽最终迫敌出塞，但京畿被深入、军政震荡与高额动员构成净负债。"
         },
         {
           "campaign_group_ref": "MTJ-MING-LIU-XIANG-PIRACY-1632-1635",
-          "parent_return_class": "PROPORTIONATE_RETURN",
           "reason": "刘香海盗集团最终被摧毁，成本与恢复海防收益大体相称。"
         }
       ],
       "admitted_large_rebellion_refs": [
+        "MTJ-MING-CHUANJUN-MUTINY-1635",
+        "MTJ-MING-DONGJIANG-MUTINIES-1631",
         "MTJ-MING-KONG-YOUDE-WUQIAO-REBELLION-1631-1633",
         "MTJ-MING-SHAANXI-SHANXI-REBELLION-1630-1634",
         "MTJ-MING-ARMY-CIVILIAN-HARM-1639",

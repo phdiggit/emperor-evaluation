@@ -116,7 +116,12 @@
           },
           "P_inference": {
             "method": "DIRECT_AND_ORDER_OF_MAGNITUDE",
-            "basis": "剑州杀蜀军万余，且主力多次溃败。"
+            "range": "10,000—19,999死亡当量",
+            "center": 14142,
+            "P_scoring": "P4",
+            "basis": "剑州明确杀蜀军万余，且主力多次溃败；按直接万余死亡取P4下段。",
+            "upper_bound_reason": "材料未给出两万以上本方死亡、未归或伤俘折算总数。",
+            "confidence": "medium"
           },
           "cost_evidence": {
             "P": "剑州杀蜀军万余",
@@ -181,15 +186,20 @@
           "subject_role": "DEFENDER",
           "actual_process": "宋军渡江架设采石浮梁，南唐水陆军与各地防线连续失败；朱全贇大规模援军覆灭，金陵长期被围后陷落，李煜奉表纳降。",
           "cost_axes": {
-            "P": "P5",
+            "P": "P3估",
             "S": "S4",
             "M": "M5",
             "A": "A5",
             "WC": "WC4"
           },
           "P_inference": {
-            "method": "DIRECT_AND_ORDER_OF_MAGNITUDE",
-            "basis": "多场万人级败战、十万级援军溃败及都城巷战。"
+            "method": "BOUNDED_ORDER_OF_MAGNITUDE",
+            "range": "1,000—9,999死亡当量",
+            "center": 3162,
+            "P_scoring": "P3估",
+            "basis": "采石二万余众败、朱全贇十万级援军溃散并发生金陵巷战，但败与溃散不能全部折算为死亡；按多场大规模实际接战保守取千人级。",
+            "upper_bound_reason": "材料未给出一万以上南唐本方死亡、未归或伤俘构成，禁止按参战或溃散人数机械上P4/P5。",
+            "confidence": "low"
           },
           "cost_evidence": {
             "P": "采石二万余众败、朱全贇十万级援军溃散并有巷战死者",
@@ -246,7 +256,21 @@
           "end_equivalent": 0.5,
           "grade": 1,
           "position": "LOW",
-          "reason": "创业核心领土全部排除；只保留非统一边防小规模守成，没有足以进入0.75共同尺度的净控制增益。"
+          "reason": "创业核心领土全部排除；只保留非统一边防小规模守成，没有足以进入0.75共同尺度的净控制增益。",
+          "regions": [
+            {
+              "object_id": "HENAN_BIANLUO_DEFENSE",
+              "object_name": "河南汴洛防御存量",
+              "start_equivalent": 0.5,
+              "end_equivalent": 0.5,
+              "control_form": "INHERITED_CONTROL_MAINTAINED",
+              "evidence_refs": [
+                "ZZTJ-267-LINGZHOU-BINNING-0909"
+              ],
+              "reason": "创业核心领土全部排除；只保留非统一边防小规模守成，没有足以进入0.75共同尺度的净控制增益。",
+              "counted": true
+            }
+          ]
         },
         "B2": {
           "grade": 2,
@@ -300,7 +324,23 @@
           "end_equivalent": 0.0,
           "grade": 0,
           "position": "LOW",
-          "reason": "终局门命中：交班时中央政权终结，边疆控制无可实际移交部分。"
+          "reason": "终局门命中：交班时中央政权终结，边疆控制无可实际移交部分。",
+          "regions": [
+            {
+              "object_id": "HENAN_BIANLUO_CORE",
+              "object_name": "河南汴洛核心控制",
+              "start_equivalent": 0.5,
+              "end_equivalent": 0,
+              "control_form": "TERMINAL_COLLAPSE",
+              "evidence_refs": [
+                "ZZTJ-269-LIANG-QI-QINGZHOU-0916",
+                "ZZTJ-270-LIANG-JIN-HUANGHE-0919",
+                "ZZTJ-270-LIANG-YANZHOU-ZHANGWANJIN-0918"
+              ],
+              "reason": "终局门命中：交班时中央政权终结，边疆控制无可实际移交部分。",
+              "counted": true
+            }
+          ]
         },
         "B2": {
           "grade": 0,
@@ -386,7 +426,21 @@
           "end_equivalent": 0.5,
           "grade": 1,
           "position": "LOW",
-          "reason": "灭梁灭蜀均属创业统一而排除；非统一边疆只形成小规模存量守成。"
+          "reason": "灭梁灭蜀均属创业统一而排除；非统一边疆只形成小规模存量守成。",
+          "regions": [
+            {
+              "object_id": "HEDONG_HEBEI_NORTH_FRONT",
+              "object_name": "河东河北北线存量",
+              "start_equivalent": 0.5,
+              "end_equivalent": 0.5,
+              "control_form": "INHERITED_CONTROL_MAINTAINED",
+              "evidence_refs": [
+                "ZZTJ-274-SUIYIN-MUTINY-0926"
+              ],
+              "reason": "灭梁灭蜀均属创业统一而排除；非统一边疆只形成小规模存量守成。",
+              "counted": true
+            }
+          ]
         },
         "B2": {
           "grade": 1,
@@ -442,7 +496,22 @@
           "end_equivalent": 1.0,
           "grade": 1,
           "position": "MID",
-          "reason": "恢复并稳住若干州镇控制，按共同尺度仍不足1.5，属于有限净增。"
+          "reason": "恢复并稳住若干州镇控制，按共同尺度仍不足1.5，属于有限净增。",
+          "regions": [
+            {
+              "object_id": "HEDONG_HEBEI_NORTH_FRONT",
+              "object_name": "河东河北北线",
+              "start_equivalent": 0.5,
+              "end_equivalent": 1,
+              "control_form": "NEW_RECOVERED_REBUILT",
+              "evidence_refs": [
+                "ZZTJ-276-DINGZHOU-WANGDU-0928",
+                "ZZTJ-277-LIANGCHUAN-0930"
+              ],
+              "reason": "恢复并稳住若干州镇控制，按共同尺度仍不足1.5，属于有限净增。",
+              "counted": true
+            }
+          ]
         },
         "B2": {
           "grade": 3,
@@ -509,7 +578,21 @@
           "end_equivalent": 0.25,
           "grade": 1,
           "position": "LOW",
-          "reason": "创业核心领土和建立政权条件排除；只剩小规模边防守成，没有共同尺度上的显著净增。"
+          "reason": "创业核心领土和建立政权条件排除；只剩小规模边防守成，没有共同尺度上的显著净增。",
+          "regions": [
+            {
+              "object_id": "HEDONG_NORTH_GATE",
+              "object_name": "河东北部门户",
+              "start_equivalent": 0.25,
+              "end_equivalent": 0.25,
+              "control_form": "INHERITED_CONTROL_MAINTAINED",
+              "evidence_refs": [
+                "ZZTJ-282-283-AN-CHONGRONG-ZHENZHOU"
+              ],
+              "reason": "创业核心领土和建立政权条件排除；只剩小规模边防守成，没有共同尺度上的显著净增。",
+              "counted": true
+            }
+          ]
         },
         "B2": {
           "grade": 1,
@@ -561,7 +644,21 @@
           "end_equivalent": 0.75,
           "grade": 1,
           "position": "MID",
-          "reason": "剥离创业核心后，边防控制有有限净增且交班存量不大。"
+          "reason": "剥离创业核心后，边防控制有有限净增且交班存量不大。",
+          "regions": [
+            {
+              "object_id": "JINXI_NORTH_FRONT",
+              "object_name": "晋隰北线门户",
+              "start_equivalent": 0.5,
+              "end_equivalent": 0.75,
+              "control_form": "NEW_RECOVERED_REBUILT",
+              "evidence_refs": [
+                "ZZTJ-291-KHITAN-LESHOU-MUTINY-0953"
+              ],
+              "reason": "剥离创业核心后，边防控制有有限净增且交班存量不大。",
+              "counted": true
+            }
+          ]
         },
         "B2": {
           "grade": 3,
@@ -677,7 +774,28 @@
           "end_equivalent": 0.75,
           "grade": 1,
           "position": "MID",
-          "reason": "淮南、秦凤和关南净增均由第一项消费；第三项共同尺度净增为零，只保留既有控制的低档稳定贡献。"
+          "reason": "淮南、秦凤和关南净增均由第一项消费；第三项共同尺度净增为零，只保留既有控制的低档稳定贡献。",
+          "regions": [
+            {
+              "object_id": "JINXI_NORTH_FRONT",
+              "object_name": "晋隰北线门户",
+              "start_equivalent": 0.75,
+              "end_equivalent": 0.75,
+              "control_form": "INHERITED_CONTROL_MAINTAINED",
+              "evidence_refs": [
+                "ZZTJ-291-NH-KHITAN-GAOPING-CAMPAIGN-0954",
+                "ZZTJ-291-292-ZHOU-TAIYUAN-0954",
+                "ZZTJ-292-293-ZHOU-TANG-HUAINAN-0955-0956",
+                "ZZTJ-292-ZHOU-SHU-QINFENG-0955",
+                "ZZTJ-293-ZHOU-NHAN-LINZHOU-0957",
+                "ZZTJ-294-ZHOU-KHITAN-GUANNAN-0959",
+                "ZZTJ-294-ZHOU-NHAN-XIZHOU-0958",
+                "ZZTJ-294-ZHOU-SHU-GUIAN-0958"
+              ],
+              "reason": "淮南、秦凤和关南净增均由第一项消费；第三项共同尺度净增为零，只保留既有控制的低档稳定贡献。",
+              "counted": true
+            }
+          ]
         },
         "B2": {
           "grade": 3,
@@ -737,7 +855,21 @@
           "end_equivalent": 0.75,
           "grade": 1,
           "position": "MID",
-          "reason": "创业取得的核心领土排除，现有卡片只支持小规模存量守成，不认定新增控制。"
+          "reason": "创业取得的核心领土排除，现有卡片只支持小规模存量守成，不认定新增控制。",
+          "regions": [
+            {
+              "object_id": "JIANGHUAI_YANGTZE_FRONT",
+              "object_name": "江淮长江防御存量",
+              "start_equivalent": 0.75,
+              "end_equivalent": 0.75,
+              "control_form": "INHERITED_CONTROL_MAINTAINED",
+              "evidence_refs": [
+                "ZZTJ-283-ZHANG-YUXIAN-QIANZHOU"
+              ],
+              "reason": "创业取得的核心领土排除，现有卡片只支持小规模存量守成，不认定新增控制。",
+              "counted": true
+            }
+          ]
         },
         "B2": {
           "grade": 2,
@@ -805,7 +937,21 @@
           "end_equivalent": 0.0,
           "grade": 0,
           "position": "LOW",
-          "reason": "终局门命中：975年国家终结，边疆控制无可实际移交部分。"
+          "reason": "终局门命中：975年国家终结，边疆控制无可实际移交部分。",
+          "regions": [
+            {
+              "object_id": "JIANGNAN_YANGTZE_CORE",
+              "object_name": "江南长江核心控制",
+              "start_equivalent": 0.5,
+              "end_equivalent": 0,
+              "control_form": "TERMINAL_COLLAPSE",
+              "evidence_refs": [
+                "續資治通鑑/卷008@2311074"
+              ],
+              "reason": "终局门命中：975年国家终结，边疆控制无可实际移交部分。",
+              "counted": true
+            }
+          ]
         },
         "B2": {
           "grade": 0,
@@ -863,7 +1009,35 @@
           "end_equivalent": 1.5,
           "grade": 2,
           "position": "MID",
-          "reason": "排除统一核心后，边境州镇与通道仍形成有限净增；加权值1.2，落B1-2。"
+          "reason": "排除统一核心后，边境州镇与通道仍形成有限净增；加权值1.2，落B1-2。",
+          "regions": [
+            {
+              "object_id": "QINFENG_NORTH_GATE",
+              "object_name": "秦凤北部门户",
+              "start_equivalent": 0.25,
+              "end_equivalent": 0.75,
+              "control_form": "NEW_RECOVERED_REBUILT",
+              "evidence_refs": [
+                "ZZTJ-269-JINGNAN-SHU-KUIZHOU-0914",
+                "ZZTJ-269-SHU-NANZHAO-LIZHOU-0914"
+              ],
+              "reason": "排除统一核心后，边境州镇与通道仍形成有限净增；加权值1.2，落B1-2。",
+              "counted": true
+            },
+            {
+              "object_id": "KUIXIA_EAST_GATE",
+              "object_name": "夔峡东部门户",
+              "start_equivalent": 0.25,
+              "end_equivalent": 0.75,
+              "control_form": "NEW_RECOVERED_REBUILT",
+              "evidence_refs": [
+                "ZZTJ-269-JINGNAN-SHU-KUIZHOU-0914",
+                "ZZTJ-269-SHU-NANZHAO-LIZHOU-0914"
+              ],
+              "reason": "排除统一核心后，边境州镇与通道仍形成有限净增；加权值1.2，落B1-2。",
+              "counted": true
+            }
+          ]
         },
         "B2": {
           "grade": 3,
@@ -912,7 +1086,21 @@
           "end_equivalent": 0.0,
           "grade": 0,
           "position": "LOW",
-          "reason": "终局门命中：965年国家终结，边疆控制无可实际移交部分。"
+          "reason": "终局门命中：965年国家终结，边疆控制无可实际移交部分。",
+          "regions": [
+            {
+              "object_id": "SHUDAO_JIANMEN_SYSTEM",
+              "object_name": "蜀道剑门防御体系",
+              "start_equivalent": 1,
+              "end_equivalent": 0,
+              "control_form": "TERMINAL_COLLAPSE",
+              "evidence_refs": [
+                "ZZTJ-293-SHU-LINGRONG-LIAO-REBELLION-0956"
+              ],
+              "reason": "终局门命中：965年国家终结，边疆控制无可实际移交部分。",
+              "counted": true
+            }
+          ]
         },
         "B2": {
           "grade": 0,
@@ -978,7 +1166,21 @@
           "end_equivalent": 0.75,
           "grade": 1,
           "position": "MID",
-          "reason": "剥离建国核心后，边疆控制只有有限净增，交州阶段取得又失去，未跨入中等规模。"
+          "reason": "剥离建国核心后，边疆控制只有有限净增，交州阶段取得又失去，未跨入中等规模。",
+          "regions": [
+            {
+              "object_id": "LINGNAN_NORTH_AND_JIAOZHOU",
+              "object_name": "岭南北部门户与交州方向",
+              "start_equivalent": 0.5,
+              "end_equivalent": 0.75,
+              "control_form": "NEW_RECOVERED_REBUILT",
+              "evidence_refs": [
+                "ZZTJ-283-ZHANG-YUXIAN-HAN"
+              ],
+              "reason": "剥离建国核心后，边疆控制只有有限净增，交州阶段取得又失去，未跨入中等规模。",
+              "counted": true
+            }
+          ]
         },
         "B2": {
           "grade": 2,

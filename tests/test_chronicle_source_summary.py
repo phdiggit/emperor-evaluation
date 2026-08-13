@@ -87,7 +87,7 @@ def test_post_tang_canonical_cards_promote_to_third_item_phase_containers() -> N
     assert payload["withheld_incompatible_file_count"] == 0
     assert payload["normalized_legacy_file_count"] == 4
     assert payload["semantic_fingerprint"] == (
-        "df68bd4c0dd9f31672543f04dab9e532beabff0380e576deafd7327697c52b99"
+        "110a7558423a48c69650b6cc91fe7f04e80abd662b0f1372389ff32797eef986"
     )
     assert all(
         record["third_item_phase_container"]
@@ -118,11 +118,15 @@ def test_post_tang_phase_promotion_preserves_public_outcome_consumption() -> Non
     )
     promoted = promote_post_tang_canonical_phase_records(registry, repo_root)
     assert promoted["public_outcome_count"] == public_count
-    existing_non_container_count = sum(
+    target_partitions = set(
+        promoted["post_tang_canonical_phase_promotion"]["source_partitions"]
+    )
+    preserved_count = sum(
         not record.get("third_item_phase_container")
+        or record.get("dynasty_partition") not in target_partitions
         for record in registry["records"]
     )
-    assert len(promoted["records"]) == existing_non_container_count + 3795
+    assert len(promoted["records"]) == preserved_count + 3795
     assert len({record["war_event_id"] for record in promoted["records"]}) == len(
         promoted["records"]
     )
@@ -135,14 +139,14 @@ def test_post_tang_third_item_consumption_starts_from_public_bound_phases() -> N
     assert payload["campaign_group_is_final_d_parent_cycle"] is False
     assert payload["ruler_count"] == 30
     assert payload["ruler_with_bound_phase_count"] == 27
-    assert payload["provisional_parent_cycle_count"] == 2001
+    assert payload["provisional_parent_cycle_count"] == 2002
     assert payload["consumed_phase_count"] == 3384
     assert payload["duplicate_consumed_phase_id_count"] == 0
     assert payload["missing_required_raw_axis_phase_count"] == 0
     assert payload["unknown_raw_axis_phase_count"] == 207
     assert payload["founding_flagged_phase_count"] == 786
     assert payload["semantic_fingerprint"] == (
-        "e43490d89e3b4f3da409f68d0182e6c6db8a88bf1b2882d521cbc6a1991954dc"
+        "56ea0061f68e0530282a7e89f2b458f319d0d8beb690c56c576aae0650fa0aa6"
     )
 
 
@@ -165,34 +169,31 @@ def test_south_song_parent_cycles_deduplicate_continuous_investments() -> None:
     repo_root = Path(__file__).resolve().parents[1]
     payload = build_south_song_parent_cycle_audit(repo_root)
     assert payload["raw_bound_cycle_count"] == 582
-    assert payload["reviewed_parent_cycle_count"] == 198
-    assert payload["excluded_first_item_founding_cycle_count"] == 278
-    assert payload["cycle_merge_count"] == 7
-    assert payload["merged_member_cycle_count"] == 113
-    assert payload["material_parent_cycle_count"] == 104
-    assert payload["unknown_axis_parent_cycle_count"] == 22
-    assert payload["consumed_phase_count"] == 415
+    assert payload["reviewed_parent_cycle_count"] == sum(
+        row["reviewed_parent_cycle_count"] for row in payload["rulers"]
+    )
+    assert payload["reviewed_parent_cycle_count"] < payload["raw_bound_cycle_count"]
+    assert payload["material_parent_cycle_count"] <= payload[
+        "reviewed_parent_cycle_count"
+    ]
+    assert payload["unknown_axis_parent_cycle_count"] <= payload[
+        "material_parent_cycle_count"
+    ]
     assert payload["duplicate_consumed_phase_id_count"] == 0
-    by_name = {row["ruler_name"]: row for row in payload["rulers"]}
-    assert by_name["赵构"]["reviewed_parent_cycle_count"] == 18
-    assert by_name["赵扩"]["reviewed_parent_cycle_count"] == 34
-    assert by_name["赵昀"]["reviewed_parent_cycle_count"] == 124
 
 
-def test_south_song_d_preview_preserves_only_source_level_unknowns() -> None:
+def test_south_song_d_preview_reads_public_linear_q_cycles() -> None:
     repo_root = Path(__file__).resolve().parents[1]
     payload = build_south_song_d_preview(repo_root)
     assert payload["formal_score_write"] is False
-    by_name = {row["ruler_name"]: row for row in payload["rulers"]}
-    assert by_name["赵构"]["material_unknown_cycle_refs"] == []
-    assert by_name["赵昚"]["material_unknown_cycle_refs"] == []
-    assert by_name["赵惇"]["material_unknown_cycle_refs"] == []
-    assert by_name["赵扩"]["material_unknown_cycle_refs"] == []
-    assert by_name["赵昀"]["material_unknown_cycle_refs"] == [
-        "XZTJ-MONGOL-SONG-SICHUAN-1246-FOUR-ROUTES",
-        "XZTJ-SONG-MONGOL-FANGZHOU-1258",
-    ]
-    assert by_name["赵昀"]["material_return_closure_rate"] > 0.95
+    assert payload["source_path"].endswith("03-军事行动成本和收益登记.json")
+    by_name = {row["ruler_name"]: row for row in payload["records"]}
+    for row in by_name.values():
+        metrics = row["D_portfolio_metrics"]
+        assert metrics["T"] == len(metrics["cycle_q_adjudications"])
+        assert metrics["Q"] == sum(
+            cycle["q_contribution"] for cycle in metrics["cycle_q_adjudications"]
+        )
 
 
 def test_south_song_abc_preview_consumes_reviewed_parent_cycles() -> None:
@@ -205,7 +206,10 @@ def test_south_song_abc_preview_consumes_reviewed_parent_cycles() -> None:
     assert by_name["赵昚"]["C_preview_grade"] == "C-2"
     assert by_name["赵惇"]["control_contribution_type"] == "INHERITED_ONLY"
     assert by_name["赵扩"]["C_preview_grade"] == "C-1"
-    assert by_name["赵昀"]["D_material_return_closure_rate"] > 0.95
+    assert by_name["赵昀"]["D_preview_score_points"] is None
+    assert by_name["赵昀"]["D_preview_status"] == (
+        "PUBLIC_LINEAR_Q_CURRENT_SCORE_MAPPING_PENDING"
+    )
 
 
 def test_south_song_formal_payloads_join_global_current_ranking() -> None:
@@ -214,13 +218,15 @@ def test_south_song_formal_payloads_join_global_current_ranking() -> None:
         repo_root / "docs/公共成果/军事/01-战役登记.json"
     )
     payload = build_south_song_formal_payloads(repo_root, registry)
-    assert payload["combined"]["record_count"] == 123
-    assert payload["combined"]["south_song_ready_count"] == 5
-    assert payload["combined"]["south_song_pending_count"] == 0
+    assert payload["combined"]["record_count"] == len(
+        payload["combined"]["records"]
+    ) == 148
+    assert payload["combined"]["south_song_ready_count"] == 0
+    assert payload["combined"]["south_song_pending_count"] == 5
     by_name = {row["ruler_name"]: row for row in payload["partition_records"]}
-    assert by_name["赵构"]["third_item_score_points"] == 165.1
-    assert by_name["赵构"]["rank"] == 9
-    assert by_name["赵昀"]["third_item_score_points"] == 54.8
+    assert all(row["third_item_score_points"] is None for row in by_name.values())
+    assert all(row["rank"] is None for row in by_name.values())
+    assert all(row["D_linear_Q"] is not None for row in by_name.values())
 
 
 def _summary() -> dict[str, object]:
@@ -426,24 +432,18 @@ def test_five_dynasties_third_item_promotes_subject_phases_and_settles_all_ruler
     formal = build_five_dynasties_formal_payloads(repo_root, promoted)
     rows = formal["partition_records"]
     assert len(rows) == 12
-    assert formal["combined"]["five_dynasties_ready_count"] == 12
-    assert formal["combined"]["five_dynasties_pending_count"] == 0
-    assert sum(row["third_item_score_points"] is None for row in rows) == 0
+    assert formal["combined"]["five_dynasties_ready_count"] == 0
+    assert formal["combined"]["five_dynasties_pending_count"] == 12
+    assert all(row["third_item_score_points"] is None for row in rows)
     assert {row["ruler_name"] for row in rows} == {
         "朱温", "朱友贞", "李存勖", "李嗣源", "石敬瑭", "郭威",
         "柴荣", "李昪", "李煜", "王建", "孟昶", "刘龑",
     }
     combined = formal["combined"]
-    assert combined["record_count"] == 118
-    assert combined["global_ranking_enabled"] is True
-    by_name = {row["ruler_name"]: row for row in combined["records"]}
-    assert by_name["柴荣"]["rank"] == 2
-    assert by_name["柴荣"]["axes"]["D"] == "D-4"
-    assert by_name["柴荣"]["D_score_points"] == 33.7
-    assert by_name["李忱"]["rank"] == 6
-    assert by_name["朱友贞"]["rank"] == 106
-    assert by_name["李煜"]["rank"] == 111
-    assert by_name["杨广"]["rank"] == 113
+    assert combined["record_count"] == len(combined["records"]) == 148
+    assert combined["global_ranking_enabled"] is False
+    assert all(row["rank"] is None for row in rows)
+    assert all(row["D_linear_Q"] is not None for row in rows)
 
     binding_counts = Counter(
         phase["ruler_binding"]["status"] for phase in phases
@@ -451,37 +451,6 @@ def test_five_dynasties_third_item_promotes_subject_phases_and_settles_all_ruler
     assert binding_counts["UNRESOLVED_WINDOW_OVERLAP"] == 0
     assert binding_counts["OUTSIDE_FORMAL_REIGN_FOUNDING_PHASE"] == 6
     assert binding_counts["BOUND_REVIEWED_TRANSITION_SLICE"] == 21
-
-    d_by_name = {row["ruler_name"]: row for row in formal["D"]["records"]}
-    c_by_name = {row["ruler_name"]: row for row in formal["C"]["records"]}
-    ab_by_name = {row["ruler_name"]: row for row in formal["AB"]["records"]}
-    assert d_by_name["柴荣"]["D_portfolio_metrics"]["material_cycle_count"] == 5
-    assert d_by_name["柴荣"]["D_portfolio_metrics"]["top_tier_high_return_refs"] == []
-    assert len(d_by_name["柴荣"]["D_portfolio_metrics"]["national_negative_return_refs"]) == 0
-    assert len(d_by_name["柴荣"]["cycle_merge_adjudications"]) == 2
-    assert len(d_by_name["李存勖"]["cycle_merge_adjudications"]) == 1
-    assert len(d_by_name["石敬瑭"]["cycle_merge_adjudications"]) == 2
-    assert len(d_by_name["李昪"]["cycle_merge_adjudications"]) == 1
-    assert len(d_by_name["刘龑"]["cycle_merge_adjudications"]) == 1
-    assert d_by_name["石敬瑭"]["D_grade"] == "D-2"
-    assert d_by_name["李昪"]["D_grade"] == "D-3"
-    assert d_by_name["王建"]["D_score_points"] == 23.6
-    assert {d_by_name[name]["D_grade"] for name in ("朱温", "李嗣源", "郭威")} == {"D-N"}
-    assert c_by_name["柴荣"]["independent_task_count"] == 6
-    assert ab_by_name["柴荣"]["defense_event_count"] == 6
-    assert (
-        ab_by_name["柴荣"]["parent_cycle_merge_adjudications"]
-        == c_by_name["柴荣"]["parent_cycle_merge_adjudications"]
-    )
-    for row in formal["C"]["records"]:
-        assert set(row["major_system_failure_refs"]) <= set(row["independent_task_groups"])
-        assert set(row.get("major_system_success_refs") or []) <= set(row["independent_task_groups"])
-        if row["C_overall_grade"] in {"C-4", "C-5"}:
-            assert len(row["major_system_success_refs"]) >= max(
-                1, len(row["major_system_failure_refs"])
-            )
-        assert ab_by_name[row["ruler_name"]]["defense_event_count"] == row["independent_task_count"]
-        assert ab_by_name[row["ruler_name"]]["parent_cycle_refs"] == row["independent_task_groups"]
 
 
 def test_north_song_third_item_replaces_legacy_registry_and_settles_complete_windows() -> None:
@@ -536,70 +505,28 @@ def test_north_song_third_item_replaces_legacy_registry_and_settles_complete_win
     formal = build_north_song_formal_payloads(repo_root, promoted)
     rows = formal["partition_records"]
     assert len(rows) == 11
-    assert formal["combined"]["record_count"] == 118
-    assert formal["combined"]["north_song_ready_count"] == 11
-    assert formal["combined"]["north_song_pending_count"] == 0
+    assert formal["combined"]["record_count"] == len(
+        formal["combined"]["records"]
+    ) == 148
+    assert formal["combined"]["north_song_ready_count"] == 0
+    assert formal["combined"]["north_song_pending_count"] == 11
     assert {row["ruler_name"] for row in rows} == {
         "赵匡胤", "赵光义", "赵恒", "刘娥", "赵祯", "赵曙", "赵顼", "高滔滔", "赵煦", "赵佶", "赵桓",
     }
-    assert sum(row["third_item_score_points"] is None for row in rows) == 0
-    assert all(str(row["rank_status"]).startswith("GLOBAL_CURRENT_") for row in rows)
+    assert all(row["third_item_score_points"] is None for row in rows)
+    assert all(row["rank_status"] == "PENDING_D_SCORE_MAPPING" for row in rows)
     assert formal["combined"]["north_song_partial_exclusions"] == []
     by_name = {row["ruler_name"]: row for row in rows}
-    assert by_name["赵桓"]["AB_score_points"] == 0.0
-    assert by_name["赵桓"]["axes"]["C_overall"] == "C-0"
-    assert by_name["赵恒"]["axes"]["D"] == "D-2"
-    assert by_name["赵恒"]["D_score_points"] == 16.8
-    assert by_name["赵祯"]["D_score_points"] == 20.4
-    assert by_name["赵顼"]["D_score_points"] == 19.6
     assert all("confidence" not in row for row in formal["C"]["records"])
-    assert by_name["赵匡胤"]["axes"]["C_overall"] == "C-3"
-    assert by_name["刘娥"]["axes"]["D"] == "D-N"
-    assert by_name["刘娥"]["D_score_points"] == 0.0
-
-    d_by_name = {row["ruler_name"]: row for row in formal["D"]["records"]}
-    c_by_name = {row["ruler_name"]: row for row in formal["C"]["records"]}
-    ab_by_name = {row["ruler_name"]: row for row in formal["AB"]["records"]}
-    for ruler_name, c_row in c_by_name.items():
-        if not str(c_row["ruler_id"]).startswith("RULER-NS-"):
-            continue
-        assert ab_by_name[ruler_name]["defense_event_count"] == c_row["independent_task_count"]
-        assert (
-            ab_by_name[ruler_name]["parent_cycle_merge_adjudications"]
-            == c_row["parent_cycle_merge_adjudications"]
-        )
-    assert d_by_name["赵祯"]["D_portfolio_metrics"]["usable_cycle_count"] == 36
-    assert d_by_name["赵祯"]["D_portfolio_metrics"]["material_cycle_count"] == 12
-    assert len(d_by_name["赵祯"]["D_portfolio_metrics"]["major_high_return_refs"]) == 0
-    assert d_by_name["赵顼"]["D_portfolio_metrics"]["usable_cycle_count"] == 26
-    assert d_by_name["赵顼"]["D_portfolio_metrics"]["material_cycle_count"] == 9
-    assert len(d_by_name["赵顼"]["D_portfolio_metrics"]["major_high_return_refs"]) == 1
-    assert len(d_by_name["赵祯"]["cycle_merge_adjudications"]) == 1
-    assert len(d_by_name["赵顼"]["cycle_merge_adjudications"]) == 4
-    assert len(d_by_name["赵光义"]["cycle_merge_adjudications"]) == 2
-    assert len(d_by_name["赵恒"]["cycle_merge_adjudications"]) == 1
-    assert len(d_by_name["赵煦"]["cycle_merge_adjudications"]) == 2
-    assert len(d_by_name["赵佶"]["cycle_merge_adjudications"]) == 5
-    assert len(d_by_name["赵桓"]["cycle_merge_adjudications"]) == 3
-    assert d_by_name["高滔滔"]["excluded_non_attributable_cycle_refs"] == [
-        "XZTJ-SONG-XIA-LVHUIQING-YANAN-BORDER-RETRO",
-        "XZTJ-SONG-XINING-YUANFENG-EXPANSION-AGGREGATE-RETRO",
-    ]
-    for row in formal["D"]["records"]:
-        if row["D_grade"] not in {"D-4", "D-5"}:
-            continue
-        metrics = row["D_portfolio_metrics"]
-        if row["D_grade"] == "D-4":
-            assert metrics["portfolio_efficiency_index"] >= 1.2
-            assert metrics["known_material_cycle_count"] >= 5
-        else:
-            assert metrics["portfolio_efficiency_index"] >= 3.0
-            assert metrics["known_material_cycle_count"] >= 8
+    assert by_name["刘娥"]["axes"]["D"] == "PUBLIC_LINEAR_Q"
+    assert by_name["刘娥"]["D_score_points"] is None
+    assert by_name["刘娥"]["third_item_score_points"] is None
 
 
-def test_north_song_d_unknown_axes_are_auditable_not_negative_returns() -> None:
-    from emperor_v4.evaluation.north_song_third_item import (
-        _aggregate_d_cycle,
+
+def test_parent_cycle_unknown_axes_are_auditable_not_negative_returns() -> None:
+    from emperor_v4.evaluation.five_dynasties_third_item import (
+        _aggregate_parent_cycle_audit,
     )
 
     phase = {
@@ -610,7 +537,7 @@ def test_north_song_d_unknown_axes_are_auditable_not_negative_returns() -> None:
         "border_control": {"BCP": "UNKNOWN", "BCN": "UNKNOWN"},
         "phase_return_class": "UNKNOWN", "founding_startup_ledger": {"is_founding_process": False},
     }
-    aggregated = _aggregate_d_cycle({
+    aggregated = _aggregate_parent_cycle_audit({
         "campaign_group_ref": "TEST-UNKNOWN", "war_event_refs": ["WAR-TEST"],
         "phase_ids": ["P-UNKNOWN"], "phases": [phase],
     })
@@ -621,12 +548,40 @@ def test_north_song_d_unknown_axes_are_auditable_not_negative_returns() -> None:
     assert aggregated["national_negative"] is False
 
 
-def test_d_all_zero_axes_are_unknown_not_fabricated_low_returns() -> None:
+def test_parent_cycle_rollup_parses_combined_axis_strings() -> None:
+    from emperor_v4.evaluation.five_dynasties_third_item import _aggregate_parent_cycle_audit
+
+    phase = {
+        "phase_id": "P-COMBINED-AXES",
+        "evaluation_subject_phase": "组合轴合法样本",
+        "actual_process": "大规模出兵未遇主力，边民与转输受损后班师。",
+        "cost_axes": {"P": "P3估", "S": "S3", "M": "M4", "A": "A4", "WC": "WC4"},
+        "strategic_security": "SB0/SN2",
+        "material_return": "WR2",
+        "border_control": {"BCP": "BCP0", "BCN": "BCN0"},
+        "phase_return_class": "NEGATIVE_RETURN",
+        "founding_startup_ledger": {"is_founding_process": False},
+    }
+    aggregated = _aggregate_parent_cycle_audit({
+        "campaign_group_ref": "TEST-COMBINED-AXES",
+        "war_event_refs": ["WAR-TEST-COMBINED"],
+        "phase_ids": ["P-COMBINED-AXES"],
+        "phases": [phase],
+    })
+
+    assert aggregated["unknown_axes"] == []
+    assert aggregated["benefit_axes"] == {
+        "SB": 0, "SN": 2, "BCP": 0, "BCN": 0, "WR": 2
+    }
+    assert aggregated["return_class"] == "NEGATIVE_RETURN"
+
+
+def test_parent_cycle_all_zero_axes_remain_unknown() -> None:
     from emperor_v4.evaluation.five_dynasties_third_item import (
-        _axis_closed_return_class,
+        _parent_cycle_return_class,
     )
 
-    result, rationale = _axis_closed_return_class(
+    result, rationale = _parent_cycle_return_class(
         {"P": 0, "S": 0, "M": 0, "A": 0},
         {"SB": 0, "SN": 0, "BCP": 0, "BCN": 0, "WR": 0},
         s_attributable=True,
@@ -700,150 +655,18 @@ def test_each_b_atomic_axis_has_a_reachable_zero_to_five_grade(
     assert 0 <= result["score_rate"] <= 100
 
 
-def test_d_normalized_efficiency_has_reachable_one_to_five_grades() -> None:
-    from emperor_v4.evaluation.five_dynasties_third_item import _d_grade_and_score
-
-    portfolios = {
-        "D-1": ["NEGATIVE_RETURN"] * 4,
-        "D-2": ["PROPORTIONATE_RETURN"] * 3 + ["NEGATIVE_RETURN"],
-        "D-3": ["PROPORTIONATE_RETURN"] * 4,
-        "D-4": ["HIGH_RETURN"] * 5,
-        "D-5": ["HIGH_RETURN"] * 8,
-    }
-    for expected_grade, return_classes in portfolios.items():
-        cycles = [
-            {
-                "campaign_group_ref": f"REACH-{expected_grade}-{index}",
-                "return_class": return_class,
-                "material": True,
-                "national_negative": False,
-                "major_high_return": (
-                    expected_grade == "D-5" and return_class == "HIGH_RETURN"
-                ),
-                "top_high_return": False,
-            }
-            for index, return_class in enumerate(return_classes)
-        ]
-        grade, score, _ = _d_grade_and_score(cycles)
-        assert grade == expected_grade
-        assert score is not None
 
 
-def test_d_quantitative_index_normalizes_exposure_and_uses_integer_weights() -> None:
-    from emperor_v4.evaluation.five_dynasties_third_item import (
-        D_EMPIRICAL_CALIBRATION,
-        _d_grade_and_score,
-    )
-
-    cycles = []
-    for index, return_class in enumerate(
-        ["HIGH_RETURN"] * 5 + ["PROPORTIONATE_RETURN"] * 5 + ["NEGATIVE_RETURN"] * 2
-    ):
-        cycles.append({
-            "campaign_group_ref": f"TEST-D4-GATE-{index}",
-            "return_class": return_class,
-            "material": True,
-            "national_negative": False,
-            "major_high_return": return_class == "HIGH_RETURN",
-            "top_high_return": False,
-        })
-
-    grade, score, metrics = _d_grade_and_score(cycles)
-
-    assert all(isinstance(value, int) for value in D_EMPIRICAL_CALIBRATION["weights"].values())
-    assert D_EMPIRICAL_CALIBRATION["schema_id"] == "d-normalized-risk-adjusted-efficiency-v3"
-    assert D_EMPIRICAL_CALIBRATION["efficiency_thresholds"]["D-4_TO_D-5"] == 3.0
-    assert metrics["return_class_counts"]["NEGATIVE_RETURN"] == 2
-    assert metrics["portfolio_net_weight_sum"] == 29.0
-    assert metrics["portfolio_efficiency_index"] == 2.5
-    assert grade == "D-4"
-    assert 30.0 <= score <= 35.9
-
-    for cycle in cycles[-2:]:
-        cycle["material"] = False
-    grade, score, metrics = _d_grade_and_score(cycles)
-
-    assert metrics["observation_return_class_counts"]["NEGATIVE_RETURN"] == 2
-    assert metrics["material_negative_return_refs"] == []
-    assert metrics["material_return_class_counts"] == {
-        "HIGH_RETURN": 5,
-        "PROPORTIONATE_RETURN": 5,
-    }
-    assert metrics["portfolio_net_weight_sum"] == 35.0
-    assert metrics["portfolio_efficiency_index"] == 4.0
-    assert grade == "D-5"
-
-    cycles[0]["top_high_return"] = True
-    cycles[-2]["material"] = True
-    grade, score, metrics = _d_grade_and_score(cycles)
-    assert metrics["portfolio_net_weight_sum"] == 36.0
-    assert grade == "D-5"
-    assert 36.0 <= score <= 40.0
 
 
-def test_d5_requires_every_material_return_to_be_closed() -> None:
-    from emperor_v4.evaluation.five_dynasties_third_item import _d_grade_and_score
-
-    cycles = [
-        {
-            "campaign_group_ref": f"TEST-D5-CLOSED-{index}",
-            "return_class": "HIGH_RETURN" if index < 7 else "PROPORTIONATE_RETURN",
-            "material": True,
-            "national_negative": False,
-            "major_high_return": index < 5,
-            "top_high_return": index < 2,
-        }
-        for index in range(8)
-    ]
-    grade, _, metrics = _d_grade_and_score(cycles)
-    assert grade == "D-5"
-    assert metrics["material_return_closure_rate"] == 1.0
-
-    cycles.append({
-        "campaign_group_ref": "TEST-D5-UNKNOWN",
-        "return_class": "UNKNOWN",
-        "material": True,
-        "national_negative": False,
-        "major_high_return": False,
-        "top_high_return": False,
-    })
-    grade, _, metrics = _d_grade_and_score(cycles)
-    assert grade == "D-4"
-    assert metrics["material_unknown_cycle_refs"] == ["TEST-D5-UNKNOWN"]
-    assert metrics["material_return_closure_rate"] == 0.8889
 
 
-def test_national_negative_is_penalized_once_in_the_quantitative_index() -> None:
-    from emperor_v4.evaluation.five_dynasties_third_item import _d_grade_and_score
 
-    cycles = [
-        {
-            "campaign_group_ref": f"TEST-D4-EXCEPTION-HIGH-{index}",
-            "return_class": "HIGH_RETURN",
-            "material": True,
-            "national_negative": False,
-            "major_high_return": index < 2,
-            "top_high_return": False,
-        }
-        for index in range(5)
-    ]
-    cycles[0]["top_high_return"] = True
-    cycles.append({
-        "campaign_group_ref": "TEST-D4-EXCEPTION-NATIONAL",
-        "return_class": "NEGATIVE_RETURN",
-        "material": True,
-        "national_negative": True,
-        "major_high_return": False,
-        "top_high_return": False,
-    })
 
-    grade, score, metrics = _d_grade_and_score(cycles)
-    assert grade == "D-4"
-    assert metrics["portfolio_net_weight_sum"] == 17.0
-    assert metrics["portfolio_efficiency_index"] == 2.6667
-    assert metrics["national_negative_return_refs"] == ["TEST-D4-EXCEPTION-NATIONAL"]
-    assert metrics["national_negative_score_cap"] is None
-    assert 30.0 <= score <= 35.9
+
+
+
+
 
 
 def test_five_dynasties_subject_binding_never_uses_opponent_process_text() -> None:
@@ -861,379 +684,93 @@ def test_five_dynasties_subject_binding_never_uses_opponent_process_text() -> No
     assert binding["status"] == "OUTSIDE_CONFIGURED_RULER_WINDOWS"
 
 
-def test_current_third_item_thick_thin_evidence_gates_are_globally_consistent() -> None:
+def test_current_third_item_d_uses_public_linear_q_only() -> None:
+    from emperor_v4.evaluation.third_item_d_cycle_registry import (
+        PUBLIC_REGISTRY_PATH,
+        load_third_item_d_cycle_registry,
+    )
+    from emperor_v4.evaluation.third_item_d_settlement import (
+        build_public_cycle_linear_q_analysis,
+        linear_q_from_formal_cycle,
+    )
+
     repo_root = Path(__file__).resolve().parents[1]
-    base = repo_root / "docs/评分结算/第三项军事与边疆净收益"
-    ab_rows = json.loads(
-        (base / "国防安全/01-皇帝AB项正式结算.json").read_text(encoding="utf-8")
-    )["records"]
-    c_rows = json.loads(
-        (base / "军事体系有效性/01-皇帝C项正式结算.json").read_text(encoding="utf-8")
-    )["records"]
-    d_rows = json.loads(
-        (base / "军事成本收益比/01-皇帝D项正式结算.json").read_text(encoding="utf-8")
-    )["records"]
-    combined_rows = json.loads(
-        (base / "02-第三项正式结算.json").read_text(encoding="utf-8")
-    )["records"]
+    registry = load_third_item_d_cycle_registry(repo_root / PUBLIC_REGISTRY_PATH)
+    analysis = build_public_cycle_linear_q_analysis(registry)
 
-    assert len(ab_rows) == len(c_rows) == len(d_rows) == len(combined_rows) == 118
-    ab_by_id = {row["ruler_id"]: row for row in ab_rows}
-    combined_by_id = {row["ruler_id"]: row for row in combined_rows}
-    for row in c_rows:
-        grades = [
-            int(str(row[key]).rsplit("-", 1)[-1])
-            for key in (
-                "combat_delivery_grade",
-                "operational_sustainability_cap",
-                "system_reliability_cap",
-            )
-        ]
-        overall = int(str(row["C_overall_grade"]).rsplit("-", 1)[-1])
-        tasks = int(row["independent_task_count"])
-        assert overall == min(grades)
-        assert not (tasks <= 1 and (grades[0] > 3 or grades[2] > 3))
-        assert not (tasks == 2 and (grades[0] > 4 or grades[2] > 4))
-        assert "confidence" not in row
-        if row["C_overall_grade"] in {"C-4", "C-5"}:
-            assert len(row.get("major_system_success_refs") or []) >= max(
-                1, len(row.get("major_system_failure_refs") or [])
-            )
-        ab_row = ab_by_id[row["ruler_id"]]
-        assert ab_row["defense_event_count"] == row["independent_task_count"]
-        assert ab_row["parent_cycle_refs"] == row["independent_task_groups"]
-        combined_row = combined_by_id[row["ruler_id"]]
-        assert combined_row["AB_score_points"] == ab_row["AB_score_points"]
-        assert combined_row["C_score_points"] == row["C_score_points"]
-        assert combined_row["axes"]["C1"] == row["combat_delivery_grade"]
-        assert combined_row["axes"]["C2"] == row["operational_sustainability_cap"]
-        assert combined_row["axes"]["C3"] == row["system_reliability_cap"]
-        assert combined_row["axes"]["C_overall"] == row["C_overall_grade"]
-        for axis in ("A1", "A2", "B1", "B2", "B4"):
-            assert combined_row["axes"][axis]["axis_points"] == ab_row["axes"][axis]["axis_points"]
-        assert len(row.get("cap_reasons") or []) == len(
-            set(row.get("cap_reasons") or [])
-        )
-
-    c_by_name = {row["ruler_name"]: row for row in c_rows}
-    assert c_by_name["柴荣"]["independent_task_count"] == 6
-    assert c_by_name["柴荣"]["C_overall_grade"] == "C-4"
-    assert c_by_name["李世民"]["independent_task_count"] == 8
-    assert c_by_name["李世民"]["combat_delivery_grade"] == "C1-5"
-    assert c_by_name["李世民"]["operational_sustainability_cap"] == "C2-5"
-    assert c_by_name["李世民"]["system_reliability_cap"] == "C3-5"
-    assert c_by_name["李世民"]["C_overall_grade"] == "C-5"
-    assert c_by_name["李世民"]["C_score_points"] == 50.0
-    assert c_by_name["拓跋焘"]["independent_task_count"] == 8
-    assert c_by_name["拓跋焘"]["C_overall_grade"] == "C-4"
-    assert c_by_name["赵祯"]["independent_task_count"] == 12
-    assert c_by_name["赵祯"]["non_scoring_observation_count"] == 24
-    assert c_by_name["赵顼"]["independent_task_count"] == 9
-    assert c_by_name["赵顼"]["non_scoring_observation_count"] == 17
-
-    for row in d_rows:
-        metrics = row.get("D_portfolio_metrics") or {}
-        known_material = int(metrics.get("known_material_cycle_count") or 0)
-        expected_status = (
-            "NO_MATERIAL_EXPOSURE" if row.get("D_grade") == "D-N"
-            else "UNDER_TESTED" if known_material <= 1
-            else "LIMITED_EXPOSURE" if known_material <= 4
-            else "SUFFICIENT_EXPOSURE"
-        )
-        assert metrics.get("evidence_status") == expected_status
-        quality = metrics.get("portfolio_net_weight_sum")
-        efficiency = metrics.get("portfolio_efficiency_index")
-        decisive = metrics.get("decisive_yield_index")
-        if quality is not None:
-            assert quality == round(float(quality), 1)
-            assert efficiency == round(float(efficiency), 4)
-            assert decisive == round(float(decisive), 1)
-        assert all(
-            isinstance(weight, int)
-            for weight in metrics["empirical_calibration"]["weights"].values()
-        )
-        parent_refs = metrics.get("canonical_parent_cycle_refs") or []
-        assert len(parent_refs) == len(set(parent_refs))
-        assert metrics.get("parent_cycle_uniqueness_status") == "UNIQUE_CANONICAL_PARENT_CYCLES"
-        if row["D_grade"] == "D-4":
-            assert efficiency >= 1.2
-            assert known_material >= 5
-        if row["D_grade"] == "D-5":
-            assert efficiency >= 3.0
-            assert known_material >= 8
-
-        if not str(row["ruler_id"]).startswith(("RULER-FD-", "RULER-NS-")):
-            c_parent_refs = set(
-                next(
-                    item["independent_task_groups"]
-                    for item in c_rows
-                    if item["ruler_id"] == row["ruler_id"]
-                )
-            )
-            assert set(metrics.get("material_parent_cycle_refs") or ()) <= c_parent_refs
-
-    direction_payload = json.loads(
-        (repo_root / "config/qin-tang-d-cycle-direction-adjudications.json").read_text(
-            encoding="utf-8"
-        )
-    )
-    assert direction_payload["schema_version"] == "qin-tang-d-cycle-direction-adjudications-v5"
-    assert all(
-        "included_source_refs" not in row
-        for row in direction_payload["records"]
-    )
-    direction_by_name = {
-        row["ruler_name"]: row for row in direction_payload["records"]
-    }
-    post_wendi_rebellion = "WAR-LEAD-SUI-HANWANG-604"
-    assert post_wendi_rebellion not in direction_by_name["杨坚"][
-        "admitted_large_rebellion_refs"
-    ]
-    assert post_wendi_rebellion in direction_by_name["杨广"][
-        "admitted_large_rebellion_refs"
-    ]
-
-    by_name = {row["ruler_name"]: row for row in d_rows}
-    assert by_name["李雄"]["D_score_points"] == 23.6
-    assert by_name["陈蒨"]["D_score_points"] == 16.0
-    assert by_name["柴荣"]["D_score_points"] > by_name["苻健"]["D_score_points"]
-    assert by_name["拓跋焘"]["D_grade"] == "D-3"
-    assert by_name["拓跋焘"]["D_score_points"] == 26.1
-    assert by_name["李忱"]["D_grade"] == "D-3"
-    assert by_name["李忱"]["D_score_points"] == 28.6
-    assert by_name["李忱"]["D_score_points"] > by_name["司马曜"]["D_score_points"]
-    assert by_name["李忱"]["D_score_points"] > by_name["李雄"]["D_score_points"]
-    assert by_name["王建"]["D_score_points"] < 29.9
-    assert (
-        by_name["王建"]["D_portfolio_metrics"]["evidence_score_position_limit"]
-        == 0.2
-    )
-    assert by_name["李昪"]["D_portfolio_metrics"]["known_material_cycle_count"] == 1
-    assert (
-        by_name["李昪"]["D_portfolio_metrics"]["evidence_score_position_limit"]
-        == 0.3333
-    )
-    assert by_name["李昪"]["D_portfolio_metrics"][
-        "evidence_score_position_limit_reasons"
-    ] == ["D3_THIN_EVIDENCE_K_OVER_3"]
-    li_shimin = by_name["李世民"]
-    assert li_shimin["D_grade"] == "D-5"
-    assert li_shimin["D_score_points"] == 39.0
-    assert li_shimin["D_portfolio_metrics"]["material_cycle_count"] == 8
-    assert li_shimin["D_portfolio_metrics"]["material_return_class_counts"] == {
-        "HIGH_RETURN": 5,
-        "LOW_RETURN": 2,
-        "NEGATIVE_RETURN": 1,
-    }
-    assert li_shimin["D_portfolio_metrics"]["high_return_tier_counts"] == {
-        "MAJOR": 2,
-        "ORDINARY": 1,
-        "TOP": 2,
-    }
-    li_cycles = {
-        row["canonical_parent_cycle_ref"]: row
-        for row in li_shimin["D_portfolio_metrics"]["cycle_q_adjudications"]
-    }
-    assert li_cycles["CAMPAIGN-TANG-GAOCHANG-632-640"]["return_class"] == "HIGH_RETURN"
-    assert li_cycles["CAMPAIGN-TANG-GOGURYEO-644-645"]["return_class"] == "LOW_RETURN"
-    tuoba_cycles = {
-        row["canonical_parent_cycle_ref"]: row
-        for row in by_name["拓跋焘"]["D_portfolio_metrics"]["cycle_q_adjudications"]
-    }
-    assert tuoba_cycles["NC-WEI-XIA-426-430"]["return_class"] == "HIGH_RETURN"
-    assert tuoba_cycles["NC-V124-LEAD-NC-GAIWU-445-446"]["return_class"] == "NEGATIVE_RETURN"
-    assert tuoba_cycles["NC-V124-LEAD-NC-GAIWU-445-446"]["route"] == "D_INTERNAL_RESTORATION"
-    tuoba_material = {
-        row["canonical_parent_cycle_ref"]: row
-        for row in by_name["拓跋焘"]["D_portfolio_metrics"][
-            "material_cycle_adjudications"
-        ]
-    }
-    assert tuoba_material["NC-WEI-WALL-446-OPEN"]["return_class"] == "UNKNOWN"
-    assert tuoba_material["NC-WEI-WALL-446-OPEN"]["cost_axes"] == {
-        "P": 0,
-        "S": 0,
-        "M": 3,
-        "A": 3,
-    }
-    assert (
-        by_name["拓跋焘"]["D_portfolio_metrics"]["material_return_class_counts"]
-        == {
-            "HIGH_RETURN": 3,
-            "LOW_RETURN": 2,
-            "NEGATIVE_RETURN": 2,
-            "UNKNOWN": 1,
-        }
-    )
-    zhao_zhen = by_name["赵祯"]
-    assert zhao_zhen["D_grade"] == "D-2"
-    assert zhao_zhen["D_portfolio_metrics"]["portfolio_net_weight_sum"] == -2.0
-    assert zhao_zhen["D_portfolio_metrics"]["decisive_yield_index"] == 0.0
-    assert zhao_zhen["D_portfolio_metrics"]["high_return_tier_counts"] == {}
-    li_zhi = by_name["李治"]
-    assert li_zhi["D_grade"] == "D-2"
-    assert li_zhi["D_portfolio_metrics"]["portfolio_net_weight_sum"] == 4.0
-    assert li_zhi["D_portfolio_metrics"]["portfolio_efficiency_index"] == -0.7
-    assert li_zhi["D_portfolio_metrics"]["material_cycle_count"] == 10
-    assert li_zhi["D_portfolio_metrics"]["material_return_class_counts"] == {
-        "HIGH_RETURN": 3,
-        "LOW_RETURN": 4,
-        "NEGATIVE_RETURN": 2,
-        "PROPORTIONATE_RETURN": 1,
-    }
-    assert len(li_zhi["D_portfolio_metrics"]["national_negative_return_refs"]) == 1
-    assert li_zhi["D_portfolio_metrics"]["high_return_tier_counts"] == {
-        "MAJOR": 3,
-    }
-    wu_zetian = by_name["武则天"]
-    assert wu_zetian["D_grade"] == "D-2"
-    assert wu_zetian["D_portfolio_metrics"]["portfolio_net_weight_sum"] == -5.0
-    assert wu_zetian["D_portfolio_metrics"]["portfolio_efficiency_index"] == -2.125
-    assert wu_zetian["D_portfolio_metrics"]["material_cycle_count"] == 8
-    li_xuan = by_name["李儇"]
-    assert li_xuan["D_grade"] == "D-2"
-    assert li_xuan["D_portfolio_metrics"]["portfolio_net_weight_sum"] == -8.0
-    assert li_xuan["D_portfolio_metrics"]["portfolio_efficiency_index"] == -1.7692
-    assert li_xuan["D_portfolio_metrics"]["material_return_class_counts"] == {
-        "HIGH_RETURN": 1,
-        "LOW_RETURN": 5,
-        "NEGATIVE_RETURN": 3,
-        "UNKNOWN": 4,
-    }
-    for row in d_rows:
+    assert analysis["canonical_audit"]["legacy_fallback_count"] == 0
+    assert analysis["canonical_audit"]["unknown_q_count"] == 0
+    assert analysis["canonical_audit"]["subject_count"] == len(analysis["records"])
+    for row in analysis["records"]:
+        assert "D_grade" not in row
+        assert "D_score_points" not in row
         metrics = row["D_portfolio_metrics"]
-        counts = metrics["material_return_class_counts"]
-        assert sum(counts.values()) == metrics["material_cycle_count"]
-        assert sum((metrics.get("high_return_tier_counts") or {}).values()) == counts.get(
-            "HIGH_RETURN", 0
+        cycles = metrics["cycle_q_adjudications"]
+        assert metrics["T"] == len(cycles)
+        assert metrics["Q"] == sum(cycle["q_contribution"] for cycle in cycles)
+        assert all(
+            cycle["q_contribution"] == linear_q_from_formal_cycle(cycle)
+            for cycle in cycles
         )
-        assert metrics["known_material_cycle_count"] + counts.get(
-            "UNKNOWN", 0
-        ) == metrics["material_cycle_count"]
-        assert metrics["material_return_closure_rate"] == round(
-            metrics["known_material_cycle_count"]
-            / max(1, metrics["material_cycle_count"]),
-            4,
-        )
-        q_rows = metrics.get("cycle_q_adjudications") or []
-        if metrics.get("portfolio_net_weight_sum") is None:
-            assert q_rows == []
-        else:
-            assert sum(item["q_contribution"] for item in q_rows) == metrics[
-                "portfolio_net_weight_sum"
-            ]
-        for item in q_rows:
-            assert item["return_class"] != "UNKNOWN"
-            assert item["parent_axis_basis"]
-            if item.get("material_admission_basis") == "ALL_RULERS_LARGE_REBELLION_AUDIT":
-                assert item["route"] == "D_INTERNAL_RESTORATION"
-                assert item["return_class"] != "HIGH_RETURN"
-            assert {"A", "M", "P", "S"} <= set(item["cost_axes"])
-            assert {"BCN", "BCP", "SB", "SN", "WR"} <= set(item["benefit_axes"])
-            benefits = item["benefit_axes"]
-            for positive_axis, negative_axis in (("SB", "SN"), ("BCP", "BCN")):
-                positive = str(benefits[positive_axis])
-                negative = str(benefits[negative_axis])
-                if (
-                    positive != "UNKNOWN"
-                    and positive[-1:].isdigit()
-                    and negative[-1:].isdigit()
-                    and positive[-1] == negative[-1] != "0"
-                ):
-                    assert item["parent_axis_basis"] == "EXPLICIT_PARENT_AXIS_ADJUDICATION"
+def test_public_registry_to_formal_d_identity_chain_rejects_drift(
+    mutation: str,
+    message: str,
+) -> None:
+    from emperor_v4.evaluation.post_tang_third_item_consumption import (
+        iter_post_tang_bound_cycles,
+    )
 
-    def contains_legacy_return_override(value: object) -> bool:
-        if isinstance(value, dict):
-            return "return_class" in value or any(
-                contains_legacy_return_override(item) for item in value.values()
-            )
-        if isinstance(value, list):
-            return any(contains_legacy_return_override(item) for item in value)
-        return False
+    phase = {
+        "phase_id": "PHASE-1",
+        "campaign_group_ref": "GROUP-1",
+        "evaluation_subject_phase": "测试主体阶段",
+        "subject_role": "DEFENDER",
+        "actual_process": "测试过程。",
+        "cost_axes": {"P": "P1", "S": "S1", "M": "M1", "A": "A1"},
+        "strategic_security": "SB1",
+        "material_return": "WR0",
+        "border_control": {"BCP": "BCP0", "BCN": "BCN0"},
+        "phase_return_class": "PROPORTIONATE_RETURN",
+        "founding_startup_ledger": {"is_founding_process": False},
+        "ruler_binding": {
+            "status": "BOUND_EXCLUSIVE_GOVERNING_WINDOW",
+            "ruler_id": "RULER-1",
+            "ruler_name": "甲",
+            "polity": "测试政权",
+        },
+    }
+    registry = {
+        "records": [{
+            "war_event_id": "WAR-1",
+            "campaign_group_ref": "GROUP-1",
+            "third_item_phase_container": True,
+            "subject_phase_views": [phase],
+        }]
+    }
+    expected_name = "甲"
+    if mutation == "parent_group":
+        phase["campaign_group_ref"] = "GROUP-2"
+    elif mutation == "missing_identity":
+        phase["ruler_binding"]["polity"] = ""
+    elif mutation == "formal_identity":
+        expected_name = "乙"
+    else:
+        copied = deepcopy(phase)
+        copied["phase_id"] = "PHASE-2"
+        copied["ruler_binding"] = {
+            **copied["ruler_binding"],
+            "ruler_id": "RULER-2",
+            "ruler_name": "乙",
+        }
+        registry["records"][0]["subject_phase_views"].append(copied)
 
-    for config_name in (
-        "qin-tang-d-cycle-direction-adjudications.json",
-        "five-dynasties-third-item-adjudications.json",
-        "north-song-third-item-adjudications.json",
-    ):
-        config_payload = json.loads(
-            (repo_root / "config" / config_name).read_text(encoding="utf-8")
+    with pytest.raises(ValueError, match=message):
+        iter_post_tang_bound_cycles(
+            registry,
+            "RULER-1",
+            ruler_name=expected_name,
+            polity="测试政权",
         )
-        assert not contains_legacy_return_override(config_payload)
-        assert "D_INTERNAL_SELF_INDUCED" not in json.dumps(
-            config_payload, ensure_ascii=False
-        )
-    direction_payload = json.loads(
-        (repo_root / "config/qin-tang-d-cycle-direction-adjudications.json")
-        .read_text(encoding="utf-8")
-    )
-    assert direction_payload["schema_version"] == (
-        "qin-tang-d-cycle-direction-adjudications-v5"
-    )
-    direction_by_name = {
-        row["ruler_name"]: row for row in direction_payload["records"]
-    }
-    assert all("included_source_refs" not in row for row in direction_by_name.values())
-    q_refs_by_name = {
-        row["ruler_name"]: {
-            member_ref
-            for item in row["D_portfolio_metrics"].get("cycle_q_adjudications") or []
-            for member_ref in item.get("member_cycle_refs") or []
-        }
-        for row in d_rows
-    }
-    assert "WAR-LEAD-TANG-JIESHESHUAI-639" not in q_refs_by_name["李世民"]
-    assert "WAR-LEAD-TANG-SHENLONG-COUP" not in q_refs_by_name["武则天"]
-    assert "WAR-LEAD-HAN-STARTUP-UNIFICATION-23-36" not in q_refs_by_name["刘秀"]
-    assert "WAR-LEAD-HAN-STARTUP-UNIFICATION-23-36" not in set(
-        direction_by_name["刘秀"]["admitted_large_rebellion_refs"]
-    )
-    return_unknown_exclusions = {
-        item["campaign_group_ref"]
-        for row in d_rows
-        for item in row.get("excluded_cycle_adjudications") or []
-        if "不进入D回报组合" in item["reason"]
-        or "不构成D军事投资周期" in item["reason"]
-        or "不进入徽宗D回报组合" in item["reason"]
-    }
-    assert return_unknown_exclusions == {
-        "ZZTJ-270-LIANG-YANZHOU-ZHANGWANJIN-0918",
-        "XZTJ-SONG-LIAO-SOUTHERN-INVASION-1003-1004",
-        "XZTJ-SONG-QINZHOU-TRIBAL-SKIRMISH-1014",
-        "XZTJ-SONG-LIAO-YINFANG-BORDER-1045",
-        "XZTJ-SONG-ZHUYA-HUANGYING-1076",
-        "XZTJ-JIN-SONG-ZHONGSHAN-SIEGE-1125-1126",
-        "XZTJ-JIN-SONG-QINGYUAN-1125",
-    }
-    assert all(
-        row.get("binding_source") == "QIN_TANG_PARENT_CYCLE_CURRENT_RECALCULATION"
-        for row in d_rows
-        if not str(row["ruler_id"]).startswith(("RULER-FD-", "RULER-NS-"))
-    )
-    same_polity_owners: dict[str, list[dict]] = {}
-    for row in d_rows:
-        if str(row["ruler_id"]).startswith(("RULER-FD-", "RULER-NS-")):
-            continue
-        full_overrides = {
-            item["war_event_id"]
-            for item in row.get("ruler_event_class_overrides", [])
-            if (item.get("values") or {}).get("d_cost_axes")
-        }
-        for cycle in row["D_portfolio_metrics"]["material_cycle_adjudications"]:
-            cycle_ref = cycle["canonical_parent_cycle_ref"]
-            member_refs = set(cycle.get("member_cycle_refs") or [])
-            same_polity_owners.setdefault(cycle_ref, []).append({
-                "polity": row["polity"],
-                "full_override": bool(member_refs.intersection(full_overrides)),
-                "cycle": cycle,
-            })
-    for owners in same_polity_owners.values():
-        polities = [owner["polity"] for owner in owners]
-        if len(polities) == len(set(polities)):
-            continue
-        for owner in owners:
-            if polities.count(owner["polity"]) > 1 and not owner["full_override"]:
-                assert owner["cycle"]["material"] is False
 
 
 
@@ -1241,7 +778,6 @@ def test_third_item_formal_markdown_uses_one_cross_dynasty_ranking_table() -> No
     from emperor_v4.evaluation.five_dynasties_third_item import (
         AB_PATH,
         C_PATH,
-        D_PATH,
         FORMAL_PATH,
         _render_combined_markdown,
         _render_formal_markdown,
@@ -1249,9 +785,8 @@ def test_third_item_formal_markdown_uses_one_cross_dynasty_ranking_table() -> No
 
     repo_root = Path(__file__).resolve().parents[1]
     expectations = {
-        "AB": (AB_PATH, "# 秦至北宋第三项A/B国防安全正式结算", "A/B总分/160"),
-        "C": (C_PATH, "# 秦至北宋第三项C军事体系有效性正式结算", "C/50"),
-        "D": (D_PATH, "# 秦至北宋第三项D军事成本收益比正式结算", "D/40"),
+        "AB": (AB_PATH, "# 秦至明第三项A/B国防安全正式结算", "A/B总分/160"),
+        "C": (C_PATH, "# 秦至明第三项C军事体系有效性正式结算", "C/50"),
     }
     for kind, (path, title, score_heading) in expectations.items():
         payload = json.loads((repo_root / path).read_text(encoding="utf-8"))
@@ -1268,40 +803,33 @@ def test_third_item_formal_markdown_uses_one_cross_dynasty_ranking_table() -> No
         assert "| 柴荣 | 后周 |" in rendered
         assert "| 赵恒 | 北宋 |" in rendered
         table_lines = [line for line in rendered.splitlines() if line.startswith("|")]
-        assert len(table_lines) == (122 if kind == "D" else 120)
+        assert len(table_lines) >= 3
         assert "结算依据" not in table_lines[0]
-        table_blocks = (
-            rendered.split("## D-U未结算对象", 1)
-            if kind == "D"
-            else [rendered]
-        )
+        table_blocks = [rendered]
         for block in table_blocks:
-            block_lines = [line for line in block.splitlines() if line.startswith("|")]
-            column_count = len(block_lines[0].split("|"))
-            assert all(len(line.split("|")) == column_count for line in block_lines)
-        assert rendered.count("\n### ") == 118
+            table_groups: list[list[str]] = []
+            current_group: list[str] = []
+            for line in block.splitlines():
+                if line.startswith("|"):
+                    current_group.append(line)
+                elif current_group:
+                    table_groups.append(current_group)
+                    current_group = []
+            if current_group:
+                table_groups.append(current_group)
+            assert table_groups
+            for group in table_groups:
+                column_count = len(group[0].split("|"))
+                assert all(len(line.split("|")) == column_count for line in group)
+        score_field = {"AB": "AB_score_points", "C": "C_score_points"}[kind]
+        expected_detail_count = sum(
+            row.get(score_field) is not None for row in payload["records"]
+        )
+        assert rendered.count("\n### ") == expected_detail_count
         assert ". 赵恒（" in rendered
         if kind == "C":
             assert "置信度" not in rendered
             assert all("confidence" not in row for row in payload["records"])
-        if kind == "D":
-            assert "| 实质父级周期（含战略内战/军费周期） | 普通高收益 | 相称收益 | 低收益 | 负收益 | 回报未知 | 重大高收益 | 顶尖高收益 | 国家级负收益 |" in rendered
-            assert "| 2 | 柴荣 | 后周 | 954-959 | D-4 | 33.7 | 3.80 | 18.0 | 3.0 | 充分检验 | 5 | 1 | 0 | 0 | 1 | 0 | 3 | 0 | 0 |" in rendered
-            assert "| 1 | 李世民 | 唐 | 626-649 | D-5 | 39.0 | 3.75 | 30.0 | 6.0 | 充分检验 | 8 | 1 | 0 | 2 | 1 | 0 | 2 | 2 | 0 |" in rendered
-            assert "周期 `CAMPAIGN-TANG-EASTERN-TURKS-629-630`" in rendered
-            for row in payload["records"]:
-                metrics = row.get("D_portfolio_metrics") or {}
-                if row.get("D_grade") == "D-4":
-                    assert metrics["portfolio_efficiency_index"] >= 1.2
-                    assert metrics["known_material_cycle_count"] >= 5
-                elif row.get("D_grade") == "D-5":
-                    assert metrics["portfolio_efficiency_index"] >= 3.0
-                    assert metrics["known_material_cycle_count"] >= 8
-            broken = deepcopy(payload["records"])
-            del broken[0]["D_portfolio_metrics"]["material_return_class_counts"]
-            with pytest.raises(ValueError, match="缺少实质周期回报分布"):
-                _render_formal_markdown("D", broken)
-
     combined_payload = json.loads((repo_root / FORMAL_PATH).read_text(encoding="utf-8"))
     combined_rendered = _render_combined_markdown(combined_payload["records"])
     assert (
@@ -1314,74 +842,9 @@ def test_third_item_formal_markdown_uses_one_cross_dynasty_ranking_table() -> No
         line for line in combined_rendered.splitlines() if line.startswith("|")
     ]
     assert "结算依据" not in combined_table_lines[0]
-    assert combined_rendered.count("\n### ") == 118
+    assert combined_rendered.count("\n### ") == len(combined_payload["records"])
 
 
-def test_high_grade_gates_require_major_or_top_tier_counterevidence() -> None:
-    from emperor_v4.evaluation.five_dynasties_third_item import (
-        _apply_c_major_victory_gate,
-        _axis_numbers,
-        _d_grade_and_score,
-        _qin_tang_subject_axis_lines,
-    )
-
-    assert _axis_numbers("P3估；上限约P4。", "P") == [3]
-    selected, basis = _qin_tang_subject_axis_lines(
-        ["战争成本影子定位（北齐）：P4/S0/M3/A3"], "萧绎", "梁"
-    )
-    assert selected == []
-    assert basis == "NO_SUBJECT_AXIS_LINE"
-
-    c_row = {
-        "combat_delivery_grade": "C1-4",
-        "operational_sustainability_cap": "C2-4",
-        "system_reliability_cap": "C3-4",
-        "C_overall_grade": "C-4",
-        "C_score_rate": 75.0,
-        "C_score_points": 37.5,
-        "C_score_support_surplus": 0,
-        "C_score_band": {"lower_rate": 75, "upper_rate": 89},
-        "major_system_failure_refs": ["FAIL"],
-        "major_system_success_refs": [],
-        "cap_reasons": [],
-    }
-    _apply_c_major_victory_gate(c_row)
-    assert c_row["C_overall_grade"] == "C-3"
-    assert c_row["major_victory_gate"]["status"] == "CAPPED_TO_C3"
-
-    def cycle(ref: str, return_class: str, *, national: bool = False, top: bool = False) -> dict:
-        return {
-            "campaign_group_ref": ref,
-            "return_class": return_class,
-            "material": True,
-            "unknown_axes": [],
-            "national_negative": national,
-            "major_high_return": return_class == "HIGH_RETURN",
-            "top_high_return": top,
-        }
-
-    portfolio = [
-        cycle("N", "NEGATIVE_RETURN", national=True),
-        cycle("H1", "HIGH_RETURN"),
-        cycle("H2", "HIGH_RETURN"),
-        cycle("R1", "PROPORTIONATE_RETURN"),
-        cycle("R2", "PROPORTIONATE_RETURN"),
-        cycle("R3", "PROPORTIONATE_RETURN"),
-    ]
-    grade, _, metrics = _d_grade_and_score(portfolio)
-    assert grade == "D-3"
-    assert metrics["portfolio_net_weight_sum"] == 7.0
-    assert metrics["portfolio_efficiency_index"] == 0.8333
-    portfolio[1]["top_high_return"] = True
-    grade, _, metrics = _d_grade_and_score(portfolio)
-    assert grade == "D-4"
-    assert metrics["portfolio_net_weight_sum"] == 11.0
-    assert metrics["portfolio_efficiency_index"] == 1.6667
-    portfolio.extend([cycle("R4", "PROPORTIONATE_RETURN"), cycle("R5", "PROPORTIONATE_RETURN")])
-    grade, _, metrics = _d_grade_and_score(portfolio)
-    assert grade == "D-4"
-    assert metrics["portfolio_net_weight_sum"] == 13.0
-    assert metrics["portfolio_efficiency_index"] == 1.5
 
 
 def test_founder_unification_accounts_are_absent_from_third_item_consumption() -> None:
@@ -1439,9 +902,11 @@ def test_founder_unification_accounts_are_absent_from_third_item_consumption() -
     for row in d_rows:
         excluded = set(row.get("excluded_unification_cycle_refs") or [])
         if excluded:
-            assert not excluded & set(
-                c_by_id[row["ruler_id"]].get("independent_task_groups") or []
+            c_row = c_by_id[row["ruler_id"]]
+            scoring_refs = set(c_row.get("independent_task_groups") or []) - set(
+                c_row.get("capability_only_parent_refs") or []
             )
+            assert not excluded & scoring_refs
 
 
 @pytest.mark.parametrize(

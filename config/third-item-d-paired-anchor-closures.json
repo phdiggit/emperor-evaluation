@@ -1,0 +1,3657 @@
+{
+  "schema_version": "third-item-d-paired-anchor-closures-v2",
+  "status": "FACT_CLOSED_CALIBRATION_PENDING",
+  "ruler_scope": [
+    "李世民",
+    "朱元璋"
+  ],
+  "legacy_input_count": 18,
+  "records": [
+    {
+      "ruler_name": "李世民",
+      "old_cycle_ref": "CAMPAIGN-TANG-QIANG-BETRAYAL-635",
+      "old_axes": {
+        "P": 4,
+        "S": 0,
+        "M": 2,
+        "A_scoring": 0,
+        "SB": 0,
+        "SN": 0,
+        "BCP": 0,
+        "BCN": 0,
+        "WR": 0
+      },
+      "old_q": -3,
+      "disposition": "ONE_TO_ONE_RECLOSED",
+      "final_cycles": [
+        {
+          "investment_cycle_ref": "CAMPAIGN-TANG-QIANG-BETRAYAL-635",
+          "member_cycle_refs": [
+            "WAR-LEAD-TANG-QIANG-BETRAYAL-635"
+          ],
+          "fact_summary": "唐军背盟掠取党项牛羊，盟军转敌并扼野狐峡，唐军死数万；战区不在唐统治区，唐方资产损失未载。",
+          "axes": {
+            "P": 4,
+            "S": 0,
+            "M": 2,
+            "A_scoring": 0,
+            "SB": 0,
+            "SN": 2,
+            "BCP": 0,
+            "BCN": 0,
+            "WR": 1
+          },
+          "q_contribution": -24,
+          "change_reason": "旧轴漏记盟约破裂造成的局部战略方向安全恶化SN2；所掠牛羊不作本国资产损失。",
+          "evidence_sufficiency": "SUFFICIENT",
+          "requires_backsource": false,
+          "source_refs": [
+            "資治通鑑/卷194@2031610#李靖之击吐谷浑也，厚赂党项"
+          ]
+        }
+      ]
+    },
+    {
+      "ruler_name": "李世民",
+      "old_cycle_ref": "WAR-LEAD-TANG-TIBET-638",
+      "old_axes": {
+        "P": 2,
+        "S": 1,
+        "M": 2,
+        "A_scoring": 0,
+        "SB": 2,
+        "SN": 0,
+        "BCP": 0,
+        "BCN": 0,
+        "WR": 0
+      },
+      "old_q": -1,
+      "disposition": "ONE_TO_ONE_RECLOSED",
+      "final_cycles": [
+        {
+          "investment_cycle_ref": "CAMPAIGN-TANG-TIBET-638",
+          "member_cycle_refs": [
+            "WAR-LEAD-TANG-TIBET-638"
+          ],
+          "fact_summary": "吐蕃围松州十余日并先败韩威；唐集结五万援军，夜袭后解围，吐蕃撤军谢罪。",
+          "axes": {
+            "P": 2,
+            "S": 1,
+            "M": 2,
+            "A_scoring": 0,
+            "SB": 1,
+            "SN": 0,
+            "BCP": 2,
+            "BCN": 0,
+            "WR": 0
+          },
+          "q_contribution": -4,
+          "change_reason": "松州短时受扰为S1；本轮只击退一次进攻，吐蕃再犯能力未发生结构性改变，故解围形成SB1。实际守住关键松州节点形成BCP2；后续婚盟不重复计为本周期收益。",
+          "evidence_sufficiency": "SUFFICIENT",
+          "requires_backsource": false,
+          "source_refs": [
+            "資治通鑑/卷195@1554157#初，上遣使者馮德遐撫慰吐蕃"
+          ]
+        }
+      ]
+    },
+    {
+      "ruler_name": "李世民",
+      "old_cycle_ref": "CAMPAIGN-TANG-GAOCHANG-632-640",
+      "old_axes": {
+        "P": 0,
+        "S": 0,
+        "M": 2,
+        "A_scoring": 0,
+        "SB": 2,
+        "SN": 0,
+        "BCP": 3,
+        "BCN": 0,
+        "WR": 4
+      },
+      "old_q": 6,
+      "disposition": "ONE_TO_ONE_RECLOSED",
+      "final_cycles": [
+        {
+          "investment_cycle_ref": "CAMPAIGN-TANG-GAOCHANG-632-640",
+          "member_cycle_refs": [
+            "WAR-LEAD-TANG-GAOCHANG-640"
+          ],
+          "fact_summary": "632年开路及高昌袭焉耆只作战前状态；640年唐军实际攻田城与高昌都城，以抛石、巢车、填堑等攻城并越碛供应，取二十二城、接收8046户17700口所支撑的完整军政资产基盘，设西州庭州安西并初始留兵。唐军伤亡、军需耗损及国家接收资产的逐项数量未完整记载。",
+          "axes": {
+            "P": 1,
+            "S": 0,
+            "M": 2,
+            "A_scoring": 1,
+            "SB": 2,
+            "SN": 0,
+            "BCP": 3,
+            "BCN": 0,
+            "WR": 2
+          },
+          "q_contribution": 14,
+          "change_reason": "632仅作战前威胁状态，不因campaign family并入640投入；P、A均按1—2区间统一取下中点1，S以全程敌控区肯定归零。人口和土地本身不进WR，但完整政权中枢、军队、府库与城防资产随君主投降、州县都护设置和留兵接管，按既定COMPLETE_FORCE_OR_CENTRAL_TRANSFER与PARTIAL_OR_UNCERTAIN形成WR[1,3]并取下中点2；私取珍宝只降低留存确定性。641—642驻防维持另周期消费，不重复初始控制与接收收益。",
+          "evidence_sufficiency": "SUFFICIENT_BOUNDED",
+          "requires_backsource": false,
+          "source_refs": [
+            "資治通鑑/卷195@1554157#高昌王麴文泰多遏絕西域朝貢",
+            "資治通鑑/卷195@1554157#下其二十二城",
+            "docs/史料通读产物/唐以前编年/唐/卷195-通读总结.md#640年高昌战役",
+            "docs/史料通读产物/唐以前编年/唐/卷196-通读总结.md#641—642年高昌占领维持"
+          ]
+        }
+      ]
+    },
+    {
+      "ruler_name": "李世民",
+      "old_cycle_ref": "CAMPAIGN-TANG-KUCHA-648",
+      "old_axes": {
+        "P": 1,
+        "S": 0,
+        "M": 2,
+        "A_scoring": 0,
+        "SB": 3,
+        "SN": 0,
+        "BCP": 2,
+        "BCN": 0,
+        "WR": 2
+      },
+      "old_q": 3,
+      "disposition": "ONE_TO_ONE_RECLOSED",
+      "final_cycles": [
+        {
+          "investment_cycle_ref": "CAMPAIGN-TANG-KUCHA-648",
+          "member_cycle_refs": [
+            "WAR-LEAD-TANG-KUCHA-PREP-648",
+            "WAR-LEAD-TANG-KUCHA-648"
+          ],
+          "fact_summary": "五路攻龟兹，克五大城并使七百余城请降；郭孝恪在反扑中战死，撤军后政权安排迅速反复。",
+          "axes": {
+            "P": 1,
+            "S": 0,
+            "M": 2,
+            "A_scoring": 0,
+            "SB": 3,
+            "SN": 0,
+            "BCP": 2,
+            "BCN": 0,
+            "WR": 2
+          },
+          "q_contribution": 16,
+          "change_reason": "龟兹威胁受到重大但非结构性终结的削弱，保留SB3；短期实际控制形成BCP2。人口和城邑本身不进WR，但军政中枢接收按固定三因子形成WR2。",
+          "evidence_sufficiency": "SUFFICIENT",
+          "requires_backsource": false,
+          "source_refs": [
+            "資治通鑑/卷199@1996786#昆丘道行軍大總管阿史那社爾擊處月、處密",
+            "資治通鑑/卷199@1996786#龜茲王布失畢既敗"
+          ]
+        }
+      ]
+    },
+    {
+      "ruler_name": "朱元璋",
+      "old_cycle_ref": "MING-HUGUANG-CHENGUI-1396",
+      "old_axes": {
+        "P": 2,
+        "S": 2,
+        "M": 2,
+        "A_scoring": 1,
+        "SB": 2,
+        "SN": 0,
+        "BCP": 2,
+        "BCN": 0,
+        "WR": 0
+      },
+      "old_q": -1,
+      "disposition": "ONE_TO_MANY_RECLOSED",
+      "excluded_members": [
+        {
+          "member_cycle_ref": "MING-SOUTHWEST-PUAN-ROAD-1389",
+          "reason": "仅见返程官员遇袭死亡，未见本周期国家授权、出兵或现役防御投入；不构成D investment cycle。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-013-2445862-P0124"
+          ]
+        }
+      ],
+      "final_cycles": [
+        {
+          "investment_cycle_ref": "MING-SOUTHWEST-YUNNAN-LOCAL-1386",
+          "member_cycle_refs": [
+            "WAR-CARD-0FC597B7C976D63E3396-P01"
+          ],
+          "fact_summary": "臻洞、西浦及平越附近相继作乱，傅友德另奉命移师讨平。",
+          "axes": {
+            "P": 1,
+            "S": 2,
+            "M": 2,
+            "A_scoring": 1,
+            "SB": 2,
+            "SN": 0,
+            "BCP": 1,
+            "BCN": 0,
+            "WR": 0
+          },
+          "q_contribution": -4,
+          "change_reason": "本轮为独立授权和动员；叛乱扰动地方控制，终局恢复正常军事—行政通行但未证完整州县长期失守，故BCP1。跨区调兵与控制受扰分别支持M2、S2。",
+          "evidence_sufficiency": "SUFFICIENT",
+          "requires_backsource": false,
+          "source_refs": [
+            "SRC-MINGTONGJIAN-013-2445862-P0010"
+          ]
+        },
+        {
+          "investment_cycle_ref": "MING-SOUTHWEST-DONGCHUAN-1388",
+          "member_cycle_refs": [
+            "WAR-CARD-A20FFAFFCD74A6DAF9B9-P01"
+          ],
+          "fact_summary": "东川据乌山路作乱，傅友德、沐英会讨，捕获五千余，原文明言东川平。",
+          "axes": {
+            "P": 2,
+            "S": 2,
+            "M": 2,
+            "A_scoring": 1,
+            "SB": 2,
+            "SN": 0,
+            "BCP": 2,
+            "BCN": 0,
+            "WR": 0
+          },
+          "q_contribution": -5,
+          "change_reason": "东川为独立区域和授权；S2保留区域受扰，BCP2记录恢复。",
+          "evidence_sufficiency": "SUFFICIENT",
+          "requires_backsource": false,
+          "source_refs": [
+            "SRC-MINGTONGJIAN-013-2445862-P0092",
+            "SRC-MINGTONGJIAN-013-2445862-P0104"
+          ]
+        },
+        {
+          "investment_cycle_ref": "MING-WUKAI-DUYUN-BIJIE-1391-1392",
+          "strategic_result_chain_ref": "CHAIN-MING-WUKAI-CONTROL-1378-1392",
+          "member_cycle_refs": [
+            "WAR-CARD-711727749D632046112C-P01",
+            "WAR-CARD-08512CABE9E3A4961CD3-P01"
+          ],
+          "fact_summary": "五开自1391年末复叛，茅鼎、何福连续处置至1392年二月；何福随后移师都匀，继而与陶文续处毕节复叛并留兵筑堡。",
+          "axes": {
+            "P": 2,
+            "S": 3,
+            "M": 3,
+            "A_scoring": 1,
+            "SB": 3,
+            "SN": 0,
+            "BCP": 3,
+            "BCN": 0,
+            "WR": 0
+          },
+          "q_contribution": -3,
+          "change_reason": "何福在五开终局后直接移师都匀并续留兵处置毕节，未证明军队复员、后勤重建或独立再征发；按同一连续投入合并，多个威胁和控制对象在父级重新聚合。",
+          "evidence_sufficiency": "SUFFICIENT",
+          "requires_backsource": false,
+          "source_refs": [
+            "SRC-MINGTONGJIAN-014-2445863-L0269",
+            "SRC-MINGTONGJIAN-014-2445863-L0301",
+            "SRC-MINGTONGJIAN-014-2445863-L0310"
+          ]
+        },
+        {
+          "investment_cycle_ref": "MING-HUGUANG-CHENGUI-1396",
+          "member_cycle_refs": [
+            "WAR-CARD-2E06F3D1F3B8B801493F-P01"
+          ],
+          "fact_summary": "郴州、桂阳方向作乱，胡冕奉命讨平；伤亡过程失载。",
+          "axes": {
+            "P": 2,
+            "S": 2,
+            "M": 2,
+            "A_scoring": 1,
+            "SB": 2,
+            "SN": 0,
+            "BCP": 1,
+            "BCN": 0,
+            "WR": 0
+          },
+          "q_contribution": -8,
+          "change_reason": "只保留1396本轮授权—动员；按相邻州域作乱、国家军事镇压与旧控制恢复建立规则推定桥梁，S取[1,2]上沿2；史料失载只限制上界。",
+          "evidence_sufficiency": "SUFFICIENT",
+          "requires_backsource": false,
+          "source_refs": [
+            "SRC-MINGTONGJIAN-015-2445864-L0183"
+          ]
+        }
+      ]
+    },
+    {
+      "ruler_name": "朱元璋",
+      "old_cycle_ref": "MING-HUGUANG-GUIZHOU-SHINAN-SANMAO-1390",
+      "old_axes": {
+        "P": 2,
+        "S": 3,
+        "M": 2,
+        "A_scoring": 2,
+        "SB": 3,
+        "SN": 0,
+        "BCP": 3,
+        "BCN": 0,
+        "WR": 0
+      },
+      "old_q": 1,
+      "disposition": "ONE_TO_ONE_RECLOSED",
+      "final_cycles": [
+        {
+          "investment_cycle_ref": "MING-HUGUANG-GUIZHOU-SHINAN-SANMAO-1390",
+          "member_cycle_refs": [
+            "WAR-CARD-0BDC7BFC9EAADDDD6AA2-P01",
+            "WAR-CARD-0BDC7BFC9EAADDDD6AA2-P03"
+          ],
+          "fact_summary": "施南、忠建、散毛等多地叛乱，连续攻寨、搜捕并设大田守御千户所；同年复叛后再讨平。",
+          "axes": {
+            "P": 2,
+            "S": 3,
+            "M": 2,
+            "A_scoring": 1,
+            "SB": 2,
+            "SN": 0,
+            "BCP": 2,
+            "BCN": 0,
+            "WR": 0
+          },
+          "q_contribution": -9,
+          "change_reason": "阶段共享同一年度授权链；同年复叛说明仅恢复旧控制，SB/BCP不按终局平定抬成结构性新增收益，A只读可证净负担A1。",
+          "evidence_sufficiency": "SUFFICIENT",
+          "requires_backsource": false,
+          "source_refs": [
+            "SRC-MINGTONGJIAN-014-2445863-L0139",
+            "SRC-MINGTONGJIAN-014-2445863-L0174"
+          ]
+        }
+      ]
+    },
+    {
+      "ruler_name": "朱元璋",
+      "old_cycle_ref": "MING-JIANCHANG-YILUTEMUER-1392",
+      "old_axes": {
+        "P": 2,
+        "S": 3,
+        "M": 3,
+        "A_scoring": 2,
+        "SB": 4,
+        "SN": 0,
+        "BCP": 3,
+        "BCN": 0,
+        "WR": 2
+      },
+      "old_q": 1,
+      "disposition": "ONE_TO_ONE_RECLOSED",
+      "final_cycles": [
+        {
+          "investment_cycle_ref": "MING-JIANCHANG-YILUTEMUER-1392",
+          "member_cycle_refs": [
+            "WAR-CARD-F6DB80FCDABFDFC19FDE-P01",
+            "WAR-CARD-F6DB80FCDABFDFC19FDE-P03"
+          ],
+          "fact_summary": "叛军攻建昌、苏州，明军退守并增援一万五千；反攻连续克寨，擒首领并恢复建昌周边。",
+          "axes": {
+            "P": 2,
+            "S": 3,
+            "M": 3,
+            "A_scoring": 1,
+            "SB": 3,
+            "SN": 0,
+            "BCP": 2,
+            "BCN": 0,
+            "WR": 0
+          },
+          "q_contribution": -6,
+          "change_reason": "内部牛马转手不作WR；多城受攻后的恢复不作新增控制满额奖励，A按正常消耗A1。",
+          "evidence_sufficiency": "SUFFICIENT",
+          "requires_backsource": false,
+          "source_refs": [
+            "SRC-MINGTONGJIAN-014-2445863-L0325",
+            "SRC-MINGTONGJIAN-014-2445863-L0357"
+          ]
+        }
+      ]
+    },
+    {
+      "ruler_name": "朱元璋",
+      "old_cycle_ref": "MING-LUCHUAN-DAO-GANMENG-1397-1398",
+      "old_axes": {
+        "P": 2,
+        "S": 0,
+        "M": 3,
+        "A_scoring": 3,
+        "SB": 4,
+        "SN": 0,
+        "BCP": 2,
+        "BCN": 0,
+        "WR": 1
+      },
+      "old_q": 6,
+      "disposition": "ONE_TO_ONE_RECLOSED",
+      "final_cycles": [
+        {
+          "investment_cycle_ref": "MING-LUCHUAN-DAO-GANMENG-1397-1398",
+          "member_cycle_refs": [
+            "WAR-CARD-FB8F5783A5ECB4402611-P03",
+            "WAR-CARD-FB8F5783A5ECB4402611-P05"
+          ],
+          "fact_summary": "五千军越山攻寨后一度粮械俱尽；后续滇黔蜀兵会合，斩刀幹孟、七万众降并恢复思伦发。",
+          "axes": {
+            "P": 2,
+            "S": 2,
+            "M": 3,
+            "A_scoring": 2,
+            "SB": 3,
+            "SN": 0,
+            "BCP": 2,
+            "BCN": 0,
+            "WR": 0
+          },
+          "q_contribution": -3,
+          "change_reason": "恢复客户缓冲控制为BCP2；未证明独立资源交付，A按实际耗尽和远征定2。",
+          "evidence_sufficiency": "SUFFICIENT",
+          "requires_backsource": false,
+          "source_refs": [
+            "SRC-MINGTONGJIAN-015-2445864-L0272",
+            "SRC-MINGTONGJIAN-015-2445864-L0346"
+          ]
+        }
+      ]
+    },
+    {
+      "ruler_name": "朱元璋",
+      "old_cycle_ref": "MING-NORTHERN-BORDER-1395",
+      "old_axes": {
+        "P": 1,
+        "S": 0,
+        "M": 3,
+        "A_scoring": 2,
+        "SB": 2,
+        "SN": 0,
+        "BCP": 0,
+        "BCN": 0,
+        "WR": 0
+      },
+      "old_q": -1,
+      "disposition": "ONE_TO_MANY_RECLOSED",
+      "final_cycles": [
+        {
+          "investment_cycle_ref": "MING-NORTHERN-BORDER-1395",
+          "strategic_result_chain_ref": "MING-NORTHERN-BORDER-1395",
+          "member_cycle_refs": [
+            "WAR-CARD-CD949A52DD8EB86354DE-P01"
+          ],
+          "fact_summary": "周、晋、燕王分率诸卫出塞屯田，无接敌、伤亡或战果。",
+          "axes": {
+            "P": 0,
+            "S": 0,
+            "M": 3,
+            "A_scoring": 1,
+            "SB": 0,
+            "SN": 0,
+            "BCP": 0,
+            "BCN": 0,
+            "WR": 0
+          },
+          "q_contribution": -4,
+          "change_reason": "国家级屯田动员独立成周期。",
+          "evidence_sufficiency": "SUFFICIENT",
+          "requires_backsource": false,
+          "source_refs": [
+            "SRC-MINGTONGJIAN-015-2445864-L0138"
+          ]
+        },
+        {
+          "investment_cycle_ref": "MING-NORTHERN-YUAN-REMAINDER-1395",
+          "strategic_result_chain_ref": "MING-NORTHERN-YUAN-REMAINDER-1395",
+          "member_cycle_refs": [
+            "WAR-CARD-827FFD5AC1E233025BCD-P01"
+          ],
+          "fact_summary": "自开原追元遗寇至甫答迷城，未及而还。",
+          "axes": {
+            "P": 0,
+            "S": 0,
+            "M": 1,
+            "A_scoring": 1,
+            "SB": 0,
+            "SN": 0,
+            "BCP": 0,
+            "BCN": 0,
+            "WR": 0
+          },
+          "q_contribution": -2,
+          "change_reason": "另一路追击、另一次低量动员。",
+          "evidence_sufficiency": "SUFFICIENT",
+          "requires_backsource": false,
+          "source_refs": [
+            "SRC-MINGTONGJIAN-015-2445864-L0150"
+          ]
+        },
+        {
+          "investment_cycle_ref": "MING-NORTHERN-BORDER-CHACHAER-1396",
+          "strategic_result_chain_ref": "MING-NORTHERN-BORDER-CHACHAER-1396",
+          "member_cycle_refs": [
+            "WAR-CARD-7C89E2D716CDCBA9B712-P01"
+          ],
+          "fact_summary": "巡大宁后北至察察儿击敌，擒将数十，追至乌梁海再胜后返。",
+          "axes": {
+            "P": 1,
+            "S": 0,
+            "M": 2,
+            "A_scoring": 1,
+            "SB": 2,
+            "SN": 0,
+            "BCP": 0,
+            "BCN": 0,
+            "WR": 1
+          },
+          "q_contribution": 3,
+          "change_reason": "1396重新出兵；追击后即还，无控制收益。",
+          "evidence_sufficiency": "SUFFICIENT",
+          "requires_backsource": false,
+          "source_refs": [
+            "SRC-MINGTONGJIAN-015-2445864-L0185",
+            "SRC-MINGTONGJIAN-015-2445864-L0191"
+          ]
+        }
+      ]
+    },
+    {
+      "ruler_name": "朱元璋",
+      "old_cycle_ref": "MING-NORTHERN-YUAN-NAIRBUQA-1390",
+      "old_axes": {
+        "P": 0,
+        "S": 0,
+        "M": 3,
+        "A_scoring": 1,
+        "SB": 4,
+        "SN": 0,
+        "BCP": 0,
+        "BCN": 0,
+        "WR": 2
+      },
+      "old_q": 6,
+      "disposition": "ONE_TO_ONE_RECLOSED",
+      "final_cycles": [
+        {
+          "investment_cycle_ref": "MING-NORTHERN-YUAN-NAIRBUQA-1390",
+          "member_cycle_refs": [
+            "WAR-CARD-3426DEA2F1ADA55E4A58-P01"
+          ],
+          "fact_summary": "燕、晋、齐多路出塞，鼐尔布哈及部众不战归降，降军随后交燕王调遣。",
+          "axes": {
+            "P": 0,
+            "S": 0,
+            "M": 3,
+            "A_scoring": 1,
+            "SB": 4,
+            "SN": 0,
+            "BCP": 0,
+            "BCN": 0,
+            "WR": 2
+          },
+          "q_contribution": 16,
+          "change_reason": "归降军队形成可支配军事资源WR2；无固定行政控制。",
+          "evidence_sufficiency": "SUFFICIENT",
+          "requires_backsource": false,
+          "source_refs": [
+            "SRC-MINGTONGJIAN-014-2445863-L0133",
+            "SRC-MINGTONGJIAN-014-2445863-L0167"
+          ]
+        }
+      ]
+    },
+    {
+      "ruler_name": "朱元璋",
+      "old_cycle_ref": "MING-SOUTHWEST-AZI-1388-1395",
+      "old_axes": {
+        "P": 2,
+        "S": 1,
+        "M": 2,
+        "A_scoring": 2,
+        "SB": 4,
+        "SN": 0,
+        "BCP": 2,
+        "BCN": 0,
+        "WR": 1
+      },
+      "old_q": 1,
+      "disposition": "ONE_TO_ONE_RECLOSED",
+      "final_cycles": [
+        {
+          "investment_cycle_ref": "MING-SOUTHWEST-AZI-1388-1395",
+          "member_cycle_refs": [
+            "WAR-CARD-009476A3E1263C6B747D-P01"
+          ],
+          "fact_summary": "阿资反复威胁区域多年，明军设营堡、封锁粮道、攻巢杀阿资，并续平广南、宁远。",
+          "axes": {
+            "P": 2,
+            "S": 2,
+            "M": 2,
+            "A_scoring": 1,
+            "SB": 3,
+            "SN": 0,
+            "BCP": 2,
+            "BCN": 0,
+            "WR": 0
+          },
+          "q_contribution": -1,
+          "change_reason": "多年反复威胁与交通封锁保留S2；终局恢复控制不作结构性新增收益，阿资及党二百四十人以外的俘斩不扩写为本方死亡或WR。",
+          "evidence_sufficiency": "SUFFICIENT",
+          "requires_backsource": false,
+          "source_refs": [
+            "SRC-MINGTONGJIAN-015-2445864-L0136"
+          ]
+        }
+      ]
+    },
+    {
+      "ruler_name": "朱元璋",
+      "old_cycle_ref": "MING-WOKOU-ZHEDONG-1394",
+      "old_axes": {
+        "P": 1,
+        "S": 1,
+        "M": 2,
+        "A_scoring": 1,
+        "SB": 0,
+        "SN": 1,
+        "BCP": 0,
+        "BCN": 0,
+        "WR": 0
+      },
+      "old_q": -1,
+      "disposition": "ONE_TO_MANY_RECLOSED",
+      "excluded_members": [
+        {
+          "member_cycle_ref": "WAR-CARD-C75B35EFDB9B344067D5-P01",
+          "status": "D_INPUT_UNRESOLVED",
+          "reason": "现有材料只记倭寇金州，未见国家军队接战、部署、调发或防御投入；不得由袭击事实自动虚构M/A与investment cycle。",
+          "requires_backsource": true,
+          "source_refs": [
+            "SRC-MINGTONGJIAN-014-2445863-L0476"
+          ]
+        }
+      ],
+      "final_cycles": [
+        {
+          "investment_cycle_ref": "MING-WOKOU-SOUTHCOAST-1391",
+          "strategic_result_chain_ref": "CHAIN-MING-WOKOU-1391-1394",
+          "member_cycle_refs": [
+            "WAR-CARD-142A987A232C93188ABF-P01"
+          ],
+          "fact_summary": "倭寇雷州，百户李玉、镇抚陶鼎战死；其余损害和驱逐过程失载。",
+          "axes": {
+            "P": 1,
+            "S": 1,
+            "M": 1,
+            "A_scoring": 1,
+            "SB": 0,
+            "SN": 1,
+            "BCP": 0,
+            "BCN": 0,
+            "WR": 0
+          },
+          "q_contribution": -14,
+          "change_reason": "雷州与三年后两处倭患没有共同授权或军队。",
+          "evidence_sufficiency": "SUFFICIENT",
+          "requires_backsource": false,
+          "source_refs": [
+            "SRC-MINGTONGJIAN-014-2445863-L0264"
+          ]
+        },
+        {
+          "investment_cycle_ref": "MING-WOKOU-ZHEDONG-1394",
+          "strategic_result_chain_ref": "CHAIN-MING-WOKOU-1391-1394",
+          "member_cycle_refs": [
+            "WAR-CARD-4A26BFEACA9D9C495A9E-P01"
+          ],
+          "fact_summary": "倭寇浙东，朝廷先派员巡视，后命练兵防倭；未载具体会战或斩俘。",
+          "axes": {
+            "P": 0,
+            "S": 1,
+            "M": 2,
+            "A_scoring": 1,
+            "SB": 0,
+            "SN": 1,
+            "BCP": 0,
+            "BCN": 0,
+            "WR": 0
+          },
+          "q_contribution": -11,
+          "change_reason": "另行巡视和练兵构成独立国家投资；无战损事实故P0。",
+          "evidence_sufficiency": "SUFFICIENT",
+          "requires_backsource": false,
+          "source_refs": [
+            "SRC-MINGTONGJIAN-014-2445863-L0449",
+            "SRC-MINGTONGJIAN-014-2445863-L0453"
+          ]
+        }
+      ]
+    },
+    {
+      "ruler_name": "朱元璋",
+      "old_cycle_ref": "MTJ-MING-GUANGDONG-PACIFICATION-1380-1382",
+      "old_axes": {
+        "P": 1,
+        "S": 0,
+        "M": 2,
+        "A_scoring": 1,
+        "SB": 3,
+        "SN": 0,
+        "BCP": 2,
+        "BCN": 0,
+        "WR": 0
+      },
+      "old_q": 1,
+      "disposition": "ONE_TO_ONE_RECLOSED",
+      "final_cycles": [
+        {
+          "investment_cycle_ref": "MTJ-MING-GUANGDONG-PACIFICATION-1380-1382",
+          "member_cycle_refs": [
+            "WAR-CARD-235F6DEDC1AA2EB2801A-P01",
+            "WAR-CARD-382854231147D74F117C-P01",
+            "WAR-CARD-382854231147D74F117C-P02",
+            "WAR-CARD-3D42BCC0089A337EA8BC-P01"
+          ],
+          "fact_summary": "赵庸获广东便宜进讨授权后连续处置阳山、归善、阳春及海寇；一名百户战死，最终多处平定。",
+          "axes": {
+            "P": 1,
+            "S": 3,
+            "M": 3,
+            "A_scoring": 1,
+            "SB": 3,
+            "SN": 0,
+            "BCP": 1,
+            "BCN": 0,
+            "WR": 0
+          },
+          "q_contribution": -5,
+          "change_reason": "同一持续授权下的跨年、多集团进讨合并为一个父周期。多府县受蛮叛和海寇攻掠、跨年调军支持S3与M3；多集团威胁被持续削弱支持SB3。史料未证明完整州县被长期占据，终局只证明恢复正常军事—行政通行，故BCP1；内部人口、俘斩和府库转手不进WR。",
+          "evidence_sufficiency": "SUFFICIENT",
+          "requires_backsource": false,
+          "source_refs": [
+            "SRC-MINGTONGJIAN-011-2445860-L0195",
+            "SRC-MINGTONGJIAN-011-2445860-L0366"
+          ]
+        }
+      ]
+    },
+    {
+      "ruler_name": "朱元璋",
+      "old_cycle_ref": "MTJ-MING-NORTHERN-WAR-EAST-1372",
+      "old_axes": {
+        "P": 3,
+        "S": 0,
+        "M": 3,
+        "A_scoring": 2,
+        "SB": 0,
+        "SN": 2,
+        "BCP": 0,
+        "BCN": 0,
+        "WR": 1
+      },
+      "old_q": -3,
+      "disposition": "DUPLICATE_SUPPRESSED",
+      "absorbed_into": "MTJ-MING-NORTHERN-WAR-1372",
+      "reason": "东路与中、西路同属甲戌一次授权和三路同时动员；curated父周期已消费东路成本和终局。",
+      "final_cycles": []
+    },
+    {
+      "ruler_name": "朱元璋",
+      "old_cycle_ref": "MTJ-MING-NORTHERN-WAR-WEST-1372",
+      "old_axes": {
+        "P": 1,
+        "S": 0,
+        "M": 3,
+        "A_scoring": 2,
+        "SB": 4,
+        "SN": 0,
+        "BCP": 4,
+        "BCN": 0,
+        "WR": 4
+      },
+      "old_q": 6,
+      "disposition": "DUPLICATE_SUPPRESSED",
+      "absorbed_into": "MTJ-MING-NORTHERN-WAR-1372",
+      "reason": "西路收益已与中、东路成本在同一甲戌授权父周期对称收束；单列会重复领取甘肃、河西收益。",
+      "final_cycles": []
+    },
+    {
+      "ruler_name": "朱元璋",
+      "old_cycle_ref": "MTJ-WUKAI-WUMIAN-1378-1385",
+      "old_axes": {
+        "P": 1,
+        "S": 2,
+        "M": 3,
+        "A_scoring": 1,
+        "SB": 4,
+        "SN": 0,
+        "BCP": 2,
+        "BCN": 0,
+        "WR": 1
+      },
+      "old_q": 1,
+      "disposition": "ONE_TO_MANY_RECLOSED",
+      "final_cycles": [
+        {
+          "investment_cycle_ref": "MTJ-MING-WUKAI-WUMIAN-1378",
+          "strategic_result_chain_ref": "CHAIN-MING-WUKAI-CONTROL-1378-1392",
+          "member_cycle_refs": [
+            "WAR-CARD-AC5372C01110727513D7-P02",
+            "WAR-CARD-AC5372C01110727513D7-P03"
+          ],
+          "fact_summary": "五开蛮杀靖州卫指挥过兴，杨仲名奉命讨平，但吴勉逃脱。",
+          "axes": {
+            "P": 1,
+            "S": 2,
+            "M": 2,
+            "A_scoring": 1,
+            "SB": 1,
+            "SN": 0,
+            "BCP": 1,
+            "BCN": 0,
+            "WR": 0
+          },
+          "q_contribution": -8,
+          "change_reason": "1378首领逃脱且同一状态链未终结；守将死亡只进入P，但本方卫所指挥受损、区域镇压、首领逃脱与后续复发共同建立S[2,3]推定桥梁；恢复旧控制仅记BCP1。",
+          "evidence_sufficiency": "SUFFICIENT",
+          "requires_backsource": false,
+          "source_refs": [
+            "SRC-MINGTONGJIAN-010-2445859-L0278",
+            "SRC-MINGTONGJIAN-010-2445859-L0294"
+          ]
+        },
+        {
+          "investment_cycle_ref": "MTJ-WUKAI-WUMIAN-1385",
+          "strategic_result_chain_ref": "CHAIN-MING-WUKAI-CONTROL-1378-1392",
+          "member_cycle_refs": [
+            "WAR-CARD-57E05E042476F296D8B9-P02"
+          ],
+          "fact_summary": "吴勉重新发动古州叛乱，汤和等另行进讨，擒吴勉并终结集团。",
+          "axes": {
+            "P": 1,
+            "S": 2,
+            "M": 3,
+            "A_scoring": 1,
+            "SB": 2,
+            "SN": 0,
+            "BCP": 1,
+            "BCN": 0,
+            "WR": 0
+          },
+          "q_contribution": -5,
+          "change_reason": "新授权和新军队构成独立投资，但沿用1378状态链；终局只记本链威胁解除和旧控制恢复，不重复计前次控制损害，且不由俘戮四万反推本方P或WR。",
+          "evidence_sufficiency": "SUFFICIENT",
+          "requires_backsource": false,
+          "source_refs": [
+            "SRC-MINGTONGJIAN-012-2445861-L0331",
+            "SRC-MINGTONGJIAN-012-2445861-L0344"
+          ]
+        }
+      ]
+    },
+    {
+      "ruler_name": "朱元璋",
+      "old_cycle_ref": "MTJ-MING-YUNNAN-REBELLIONS-1382",
+      "old_axes": {
+        "P": 1,
+        "S": 3,
+        "M": 3,
+        "A_scoring": 2,
+        "SB": 4,
+        "SN": 0,
+        "BCP": 3,
+        "BCN": 0,
+        "WR": 4
+      },
+      "old_q": 1,
+      "disposition": "ONE_TO_ONE_RECLOSED",
+      "final_cycles": [
+        {
+          "investment_cycle_ref": "MTJ-MING-YUNNAN-REBELLIONS-1382",
+          "member_cycle_refs": [
+            "WAR-CARD-CC4F33335F4EF9AD89FF-P01",
+            "WAR-CARD-9C7F94476F70B6F8D030-P01",
+            "WAR-CARD-9C7F94476F70B6F8D030-P02"
+          ],
+          "fact_summary": "乌撒等复叛与二十余万围云南城发生在同一云南平定军事链；主力回援后诸部悉定。",
+          "axes": {
+            "P": 2,
+            "S": 3,
+            "M": 3,
+            "A_scoring": 2,
+            "SB": 3,
+            "SN": 0,
+            "BCP": 2,
+            "BCN": 0,
+            "WR": 0
+          },
+          "q_contribution": -7,
+          "change_reason": "二十余万只作围城规模而非死亡；据明军败绩、云南城乏食和多地复叛给P2/S3，恢复旧控制不作满额新增收益，内部资源不作WR。",
+          "evidence_sufficiency": "SUFFICIENT",
+          "requires_backsource": false,
+          "source_refs": [
+            "SRC-MINGTONGJIAN-011-2445860-L0333",
+            "SRC-MINGTONGJIAN-011-2445860-L0362"
+          ]
+        }
+      ]
+    },
+    {
+      "ruler_name": "朱元璋",
+      "old_cycle_ref": "MTJ-YUNNAN-GUANGXI-WUFU-1383",
+      "old_axes": {
+        "P": 1,
+        "S": 0,
+        "M": 3,
+        "A_scoring": 2,
+        "SB": 3,
+        "SN": 0,
+        "BCP": 3,
+        "BCN": 0,
+        "WR": 2
+      },
+      "old_q": 3,
+      "disposition": "ONE_TO_ONE_RECLOSED",
+      "final_cycles": [
+        {
+          "investment_cycle_ref": "MTJ-YUNNAN-GUANGXI-WUFU-1383",
+          "member_cycle_refs": [
+            "WAR-CARD-C42A3B34F7DBB12220D9-P01"
+          ],
+          "fact_summary": "吴复开箐道通广西，克墨定苗并筑安庄、新城等堡，打通盘江转运。",
+          "axes": {
+            "P": 1,
+            "S": 0,
+            "M": 3,
+            "A_scoring": 2,
+            "SB": 3,
+            "SN": 0,
+            "BCP": 3,
+            "BCN": 0,
+            "WR": 0
+          },
+          "q_contribution": 12,
+          "change_reason": "本案不是普通干净平乱：斩获万计本身不直接换算本方P或WR；但开箐道、筑安庄与新城等堡并形成盘江转运，构成巩固兼扩展的实际通道—堡戍控制，故SB3、BCP3。跨区开道筑堡与供应分别支持M3、A2。",
+          "evidence_sufficiency": "SUFFICIENT",
+          "requires_backsource": false,
+          "source_refs": [
+            "SRC-MINGTONGJIAN-012-2445861-L0195"
+          ]
+        }
+      ]
+    }
+  ],
+  "cycle_contract_adjudications": {
+    "CAMPAIGN-TANG-QIANG-BETRAYAL-635": {
+      "system_damage_adjudication": {
+        "status": "S0_CONFIRMED",
+        "S0_basis": "战斗及通道争夺位于党项、吐谷浑方向；现有材料肯定未显示唐直接统治州县成为实际受扰对象。",
+        "source_refs": [
+          "資治通鑑/卷194@2031610#李靖之击吐谷浑也，厚赂党项"
+        ],
+        "confidence": "LOW"
+      },
+      "investment_boundary_adjudication": {
+        "status": "STANDALONE_OR_FIRST",
+        "decision_window": "0635-01-01/0635-12-31",
+        "mobilization_window": "0635-01-01/0635-12-31",
+        "force_refs": [
+          "FORCE-CAMPAIGN-TANG-QIANG-BETRAYAL-635"
+        ],
+        "logistics_refs": [
+          "LOGISTICS-CAMPAIGN-TANG-QIANG-BETRAYAL-635"
+        ],
+        "no_shared_continuous_input_basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "source_refs": [
+          "資治通鑑/卷194@2031610#李靖之击吐谷浑也，厚赂党项"
+        ]
+      },
+      "benefit_claims": [
+        {
+          "benefit_claim_ref": "CLAIM-CAMPAIGN-TANG-QIANG-BETRAYAL-635-NET-RESULT",
+          "historical_object_ref": "HIST-唐—党项盟约",
+          "from_state": "盟友合作",
+          "peak_state": "唐方掠夺后盟友转敌并伏击",
+          "to_state": "河西北—甘青合作与交通恶化",
+          "benefit_window_start": "0635-01-01",
+          "benefit_window_end": "0635-12-31",
+          "axis_grades": {
+            "SN": 2,
+            "WR": 1
+          },
+          "source_refs": [
+            "資治通鑑/卷194@2031610#李靖之击吐谷浑也，厚赂党项"
+          ],
+          "confidence": "MEDIUM",
+          "adjudication_basis": "平乱准入、行动成功和净正收益分开；只按战前—峰值—终局的实际改善或恶化赋轴，不把内部人口、府库、俘戮或俘斩当收益。",
+          "resource_object_ref": "RESOURCE-TANG-QIANG-CATTLE-SEIZED-635"
+        }
+      ],
+      "benefit_axis_rollup_basis": {
+        "SN": {
+          "grade": 2,
+          "claim_refs": [
+            "CLAIM-CAMPAIGN-TANG-QIANG-BETRAYAL-635-NET-RESULT"
+          ],
+          "basis": "SN2仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "資治通鑑/卷194@2031610#李靖之击吐谷浑也，厚赂党项"
+          ]
+        },
+        "WR": {
+          "grade": 1,
+          "claim_refs": [
+            "CLAIM-CAMPAIGN-TANG-QIANG-BETRAYAL-635-NET-RESULT"
+          ],
+          "basis": "史文明载唐军掠取党项牛羊，形成数量失载的有限显式资源所得；不冲销毁约、死数万和联盟恶化。",
+          "source_refs": [
+            "資治通鑑/卷194@2031610#李靖之击吐谷浑也，厚赂党项"
+          ]
+        }
+      },
+      "asset_components_adjudication": {
+        "gross_commitment_grade": 1,
+        "reusable_input_grade": 1,
+        "consumed_asset_grade": 0,
+        "lost_or_destroyed_asset_grade": null,
+        "A_scoring": 0,
+        "A_lower": 0,
+        "A_upper": 1,
+        "basis": "存在军事投入但未证明国家资产净消耗达到计分档；保留0—1区间，不由兵力规模反推。",
+        "source_refs": [
+          "資治通鑑/卷194@2031610#李靖之击吐谷浑也，厚赂党项"
+        ],
+        "confidence": "LOW"
+      },
+      "wr_evidence_adjudication": {
+        "wr_evidence_status": "EXPLICIT_REALIZED",
+        "asset_base_grade": 1,
+        "transfer_mode": "PARTIAL_FIELD_CAPTURE",
+        "realization_retention": "RETAINED_USABLE",
+        "WR_lower": 1,
+        "WR_upper": 1,
+        "WR_scoring": 1,
+        "selection_policy": "LOWER_MIDPOINT",
+        "resource_object_refs": [
+          "RESOURCE-TANG-QIANG-CATTLE-SEIZED-635"
+        ],
+        "source_refs": [
+          "資治通鑑/卷194@2031610#李靖之击吐谷浑也，厚赂党项"
+        ],
+        "confidence": "MEDIUM",
+        "system_scope": "EXTERNAL_OR_FRONTIER",
+        "basis": "史文明载唐军实际掠取党项牛羊，数量失载仅限制档位；按有限显式下限WR1，不把人口或联盟关系当资源。"
+      }
+    },
+    "CAMPAIGN-TANG-TIBET-638": {
+      "system_damage_adjudication": {
+        "status": "DIRECT",
+        "S_scoring": 1,
+        "affected_area_refs": [
+          "松州城及近郊"
+        ],
+        "functional_symptoms": [
+          "围城十余日",
+          "前锋败退后援军解围"
+        ],
+        "duration_basis": "吐蕃围松州十余日，扰动止于解围。",
+        "source_refs": [
+          "資治通鑑/卷195@1554157#初，上遣使者馮德遐撫慰吐蕃"
+        ],
+        "confidence": "HIGH"
+      },
+      "investment_boundary_adjudication": {
+        "status": "STANDALONE_OR_FIRST",
+        "decision_window": "0638-08-01/0638-12-31",
+        "mobilization_window": "0638-08-01/0638-12-31",
+        "force_refs": [
+          "FORCE-CAMPAIGN-TANG-TIBET-638"
+        ],
+        "logistics_refs": [
+          "LOGISTICS-CAMPAIGN-TANG-TIBET-638"
+        ],
+        "no_shared_continuous_input_basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "source_refs": [
+          "資治通鑑/卷195@1554157#初，上遣使者馮德遐撫慰吐蕃"
+        ]
+      },
+      "benefit_claims": [
+        {
+          "benefit_claim_ref": "CLAIM-CAMPAIGN-TANG-TIBET-638-NET-RESULT",
+          "historical_object_ref": "HIST-松州防御",
+          "from_state": "松州由唐控制",
+          "peak_state": "吐蕃围城且唐前锋受挫",
+          "to_state": "吐蕃撤军、松州控制保持",
+          "benefit_window_start": "0638-08-01",
+          "benefit_window_end": "0638-12-31",
+          "axis_grades": {
+            "SB": 1,
+            "BCP": 2
+          },
+          "source_refs": [
+            "資治通鑑/卷195@1554157#初，上遣使者馮德遐撫慰吐蕃"
+          ],
+          "confidence": "MEDIUM",
+          "adjudication_basis": "平乱准入、行动成功和净正收益分开；只按战前—峰值—终局的实际改善或恶化赋轴，不把内部人口、府库、俘戮或俘斩当收益。",
+          "threat_object_ref": "THREAT-吐蕃松州入侵",
+          "control_object_ref": "CONTROL-松州"
+        }
+      ],
+      "benefit_axis_rollup_basis": {
+        "SB": {
+          "grade": 1,
+          "claim_refs": [
+            "CLAIM-CAMPAIGN-TANG-TIBET-638-NET-RESULT"
+          ],
+          "basis": "SB1仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "資治通鑑/卷195@1554157#初，上遣使者馮德遐撫慰吐蕃"
+          ]
+        },
+        "BCP": {
+          "grade": 2,
+          "claim_refs": [
+            "CLAIM-CAMPAIGN-TANG-TIBET-638-NET-RESULT"
+          ],
+          "basis": "BCP2仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "資治通鑑/卷195@1554157#初，上遣使者馮德遐撫慰吐蕃"
+          ]
+        }
+      },
+      "asset_components_adjudication": {
+        "gross_commitment_grade": 1,
+        "reusable_input_grade": 1,
+        "consumed_asset_grade": 0,
+        "lost_or_destroyed_asset_grade": null,
+        "A_scoring": 0,
+        "A_lower": 0,
+        "A_upper": 1,
+        "basis": "存在军事投入但未证明国家资产净消耗达到计分档；保留0—1区间，不由兵力规模反推。",
+        "source_refs": [
+          "資治通鑑/卷195@1554157#初，上遣使者馮德遐撫慰吐蕃"
+        ],
+        "confidence": "LOW"
+      },
+      "wr_evidence_adjudication": {
+        "wr_evidence_status": "SIMPLIFIED_INFERRED",
+        "asset_base_grade": {
+          "lower": 1,
+          "upper": 2
+        },
+        "transfer_mode": "ROUT_WITH_ASSETS_ESCAPED",
+        "realization_retention": "PARTIAL_OR_UNCERTAIN",
+        "WR_lower": 0,
+        "WR_upper": 1,
+        "WR_scoring": 0,
+        "selection_policy": "LOWER_MIDPOINT",
+        "resource_object_refs": [],
+        "source_refs": [
+          "資治通鑑/卷195@1554157#初，上遣使者馮德遐撫慰吐蕃"
+        ],
+        "confidence": "LOW",
+        "system_scope": "EXTERNAL_OR_FRONTIER",
+        "basis": "吐蕃撤军但未见夺营、受降或资源清单；资产基盘可作小型军队级判断，主要资产随撤军去向不明。"
+      }
+    },
+    "CAMPAIGN-TANG-GAOCHANG-632-640": {
+      "system_damage_adjudication": {
+        "status": "S0_CONFIRMED",
+        "S0_basis": "640年田城、高昌都城及二十二城均属敌控空间；632仅为战前状态，未发现唐本方空间实际受扰。",
+        "source_refs": [
+          "資治通鑑/卷195@1554157#高昌王麴文泰多遏絕西域朝貢",
+          "資治通鑑/卷195@1554157#下其二十二城",
+          "docs/史料通读产物/唐以前编年/唐/卷195-通读总结.md#640年高昌战役",
+          "docs/史料通读产物/唐以前编年/唐/卷196-通读总结.md#641—642年高昌占领维持"
+        ],
+        "confidence": "HIGH"
+      },
+      "investment_boundary_adjudication": {
+        "status": "STANDALONE_OR_FIRST",
+        "decision_window": "0640-01-01/0640-12-31",
+        "mobilization_window": "0640-01-01/0640-12-31",
+        "force_refs": [
+          "FORCE-CAMPAIGN-TANG-GAOCHANG-632-640"
+        ],
+        "logistics_refs": [
+          "LOGISTICS-CAMPAIGN-TANG-GAOCHANG-632-640"
+        ],
+        "no_shared_continuous_input_basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "source_refs": [
+          "資治通鑑/卷195@1554157#高昌王麴文泰多遏絕西域朝貢",
+          "資治通鑑/卷195@1554157#下其二十二城",
+          "docs/史料通读产物/唐以前编年/唐/卷195-通读总结.md#640年高昌战役",
+          "docs/史料通读产物/唐以前编年/唐/卷196-通读总结.md#641—642年高昌占领维持"
+        ]
+      },
+      "benefit_claims": [
+        {
+          "benefit_claim_ref": "CLAIM-CAMPAIGN-TANG-GAOCHANG-632-640-NET-RESULT",
+          "historical_object_ref": "HIST-高昌—西域通道控制",
+          "from_state": "高昌阻断朝贡与通道",
+          "peak_state": "田城、都城及二十二城抵抗",
+          "to_state": "西州庭州安西直接行政驻军控制初建",
+          "benefit_window_start": "0640-09-01",
+          "benefit_window_end": "0640-12-31",
+          "axis_grades": {
+            "SB": 2,
+            "BCP": 3,
+            "WR": 2
+          },
+          "source_refs": [
+            "資治通鑑/卷195@1554157#高昌王麴文泰多遏絕西域朝貢",
+            "資治通鑑/卷195@1554157#下其二十二城",
+            "docs/史料通读产物/唐以前编年/唐/卷195-通读总结.md#640年高昌战役",
+            "docs/史料通读产物/唐以前编年/唐/卷196-通读总结.md#641—642年高昌占领维持"
+          ],
+          "confidence": "MEDIUM",
+          "adjudication_basis": "平乱准入、行动成功和净正收益分开；只按战前—峰值—终局的实际改善或恶化赋轴，不把内部人口、府库、俘戮或俘斩当收益。",
+          "threat_object_ref": "THREAT-高昌通道威胁",
+          "control_object_ref": "CONTROL-高昌二十二城",
+          "resource_object_ref": "RESOURCE-高昌政权中枢军队府库城防资产"
+        }
+      ],
+      "benefit_axis_rollup_basis": {
+        "SB": {
+          "grade": 2,
+          "claim_refs": [
+            "CLAIM-CAMPAIGN-TANG-GAOCHANG-632-640-NET-RESULT"
+          ],
+          "basis": "SB2仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "資治通鑑/卷195@1554157#高昌王麴文泰多遏絕西域朝貢",
+            "資治通鑑/卷195@1554157#下其二十二城",
+            "docs/史料通读产物/唐以前编年/唐/卷195-通读总结.md#640年高昌战役",
+            "docs/史料通读产物/唐以前编年/唐/卷196-通读总结.md#641—642年高昌占领维持"
+          ]
+        },
+        "BCP": {
+          "grade": 3,
+          "claim_refs": [
+            "CLAIM-CAMPAIGN-TANG-GAOCHANG-632-640-NET-RESULT"
+          ],
+          "basis": "BCP3仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "資治通鑑/卷195@1554157#高昌王麴文泰多遏絕西域朝貢",
+            "資治通鑑/卷195@1554157#下其二十二城",
+            "docs/史料通读产物/唐以前编年/唐/卷195-通读总结.md#640年高昌战役",
+            "docs/史料通读产物/唐以前编年/唐/卷196-通读总结.md#641—642年高昌占领维持"
+          ]
+        },
+        "WR": {
+          "grade": 2,
+          "claim_refs": [
+            "CLAIM-CAMPAIGN-TANG-GAOCHANG-632-640-NET-RESULT"
+          ],
+          "basis": "WR按正式三因子算法形成，不把人口、土地或行政控制本身当资源，并与BCP状态分开。",
+          "source_refs": [
+            "資治通鑑/卷195@1554157#高昌王麴文泰多遏絕西域朝貢",
+            "資治通鑑/卷195@1554157#下其二十二城",
+            "docs/史料通读产物/唐以前编年/唐/卷195-通读总结.md#640年高昌战役",
+            "docs/史料通读产物/唐以前编年/唐/卷196-通读总结.md#641—642年高昌占领维持"
+          ]
+        }
+      },
+      "asset_components_adjudication": {
+        "gross_commitment_grade": 3,
+        "reusable_input_grade": 2,
+        "consumed_asset_grade": 1,
+        "lost_or_destroyed_asset_grade": null,
+        "A_scoring": 1,
+        "A_lower": 1,
+        "A_upper": 2,
+        "basis": "抛石、巢车、填堑、越碛军需及初始留兵证明显著占用与消耗；器械可复用、实际损失失载，故区间1—2统一取下中点1，不重复641—642驻防成本。",
+        "source_refs": [
+          "資治通鑑/卷195@1554157#高昌王麴文泰多遏絕西域朝貢",
+          "資治通鑑/卷195@1554157#下其二十二城",
+          "docs/史料通读产物/唐以前编年/唐/卷195-通读总结.md#640年高昌战役",
+          "docs/史料通读产物/唐以前编年/唐/卷196-通读总结.md#641—642年高昌占领维持"
+        ],
+        "confidence": "MEDIUM",
+        "selection_policy": "LOWER_MIDPOINT"
+      },
+      "personnel_cost_adjudication": {
+        "P_lower": 1,
+        "P_upper": 2,
+        "P_scoring": 1,
+        "basis": "实际攻田城与都城并填堑越碛，不能以伤亡失载判P0；但没有可核实的唐军死亡数，故按攻城烈度和环境风险取1—2区间的低档1。",
+        "source_refs": [
+          "資治通鑑/卷195@1554157#高昌王麴文泰多遏絕西域朝貢",
+          "資治通鑑/卷195@1554157#下其二十二城",
+          "docs/史料通读产物/唐以前编年/唐/卷195-通读总结.md#640年高昌战役"
+        ],
+        "confidence": "LOW",
+        "selection_policy": "LOWER_MIDPOINT"
+      },
+      "q_interval_adjudication": {
+        "Q_lower": 7,
+        "Q_upper": 16,
+        "Q_scoring": 14,
+        "basis": "固定S0/M2/SB2/BCP3，联合传播P[1,2]、A[1,2]、WR[1,3]；P、A、WR均采用LOWER_MIDPOINT，计分点为P1/A1/WR2。"
+      },
+      "wr_evidence_adjudication": {
+        "wr_evidence_status": "SIMPLIFIED_INFERRED",
+        "asset_base_grade": {
+          "lower": 2,
+          "upper": 3
+        },
+        "transfer_mode": "COMPLETE_FORCE_OR_CENTRAL_TRANSFER",
+        "realization_retention": "PARTIAL_OR_UNCERTAIN",
+        "WR_lower": 1,
+        "WR_upper": 3,
+        "WR_scoring": 2,
+        "selection_policy": "LOWER_MIDPOINT",
+        "resource_object_refs": [
+          "RESOURCE-高昌政权中枢军队府库城防资产"
+        ],
+        "source_refs": [
+          "資治通鑑/卷195@1554157#高昌王麴文泰多遏絕西域朝貢",
+          "資治通鑑/卷195@1554157#下其二十二城",
+          "docs/史料通读产物/唐以前编年/唐/卷195-通读总结.md#640年高昌战役",
+          "docs/史料通读产物/唐以前编年/唐/卷196-通读总结.md#641—642年高昌占领维持"
+        ],
+        "confidence": "LOW",
+        "system_scope": "EXTERNAL_OR_FRONTIER",
+        "basis": "人口和土地不进WR，但二十二城、都城城防及可供养军队和行政的政权中枢证明资产基盘2—3；君主投降、设州县都护并留兵接管符合完整中枢转移，私取珍宝只降低留存下界。"
+      }
+    },
+    "CAMPAIGN-TANG-KUCHA-648": {
+      "system_damage_adjudication": {
+        "status": "S0_CONFIRMED",
+        "S0_basis": "攻坚、追击及留镇均在龟兹等敌控空间，未见唐本方州县或既有驻地受扰。",
+        "source_refs": [
+          "資治通鑑/卷199@1996786#昆丘道行軍大總管阿史那社爾擊處月、處密",
+          "資治通鑑/卷199@1996786#龜茲王布失畢既敗"
+        ],
+        "confidence": "MEDIUM"
+      },
+      "investment_boundary_adjudication": {
+        "status": "STANDALONE_OR_FIRST",
+        "decision_window": "0648-01-01/0649-03-31",
+        "mobilization_window": "0648-01-01/0649-03-31",
+        "force_refs": [
+          "FORCE-CAMPAIGN-TANG-KUCHA-648"
+        ],
+        "logistics_refs": [
+          "LOGISTICS-CAMPAIGN-TANG-KUCHA-648"
+        ],
+        "no_shared_continuous_input_basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "source_refs": [
+          "資治通鑑/卷199@1996786#昆丘道行軍大總管阿史那社爾擊處月、處密",
+          "資治通鑑/卷199@1996786#龜茲王布失畢既敗"
+        ]
+      },
+      "benefit_claims": [
+        {
+          "benefit_claim_ref": "CLAIM-CAMPAIGN-TANG-KUCHA-648-NET-RESULT",
+          "historical_object_ref": "HIST-龟兹—西域影响",
+          "from_state": "龟兹抗拒唐朝秩序",
+          "peak_state": "都城与野战军被击破",
+          "to_state": "唐影响与留镇建立但稳定性有限",
+          "benefit_window_start": "0648-10-01",
+          "benefit_window_end": "0649-03-31",
+          "axis_grades": {
+            "SB": 3,
+            "BCP": 2,
+            "WR": 2
+          },
+          "source_refs": [
+            "資治通鑑/卷199@1996786#昆丘道行軍大總管阿史那社爾擊處月、處密",
+            "資治通鑑/卷199@1996786#龜茲王布失畢既敗"
+          ],
+          "confidence": "MEDIUM",
+          "adjudication_basis": "平乱准入、行动成功和净正收益分开；只按战前—峰值—终局的实际改善或恶化赋轴，不把内部人口、府库、俘戮或俘斩当收益。",
+          "threat_object_ref": "THREAT-龟兹方向威胁",
+          "control_object_ref": "CONTROL-龟兹影响区",
+          "resource_object_ref": "RESOURCE-TANG-KUCHA-CENTRAL-MILITARY-ASSET-POOL-648"
+        }
+      ],
+      "benefit_axis_rollup_basis": {
+        "SB": {
+          "grade": 3,
+          "claim_refs": [
+            "CLAIM-CAMPAIGN-TANG-KUCHA-648-NET-RESULT"
+          ],
+          "basis": "SB3仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "資治通鑑/卷199@1996786#昆丘道行軍大總管阿史那社爾擊處月、處密",
+            "資治通鑑/卷199@1996786#龜茲王布失畢既敗"
+          ]
+        },
+        "BCP": {
+          "grade": 2,
+          "claim_refs": [
+            "CLAIM-CAMPAIGN-TANG-KUCHA-648-NET-RESULT"
+          ],
+          "basis": "BCP2仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "資治通鑑/卷199@1996786#昆丘道行軍大總管阿史那社爾擊處月、處密",
+            "資治通鑑/卷199@1996786#龜茲王布失畢既敗"
+          ]
+        },
+        "WR": {
+          "grade": 2,
+          "claim_refs": [
+            "CLAIM-CAMPAIGN-TANG-KUCHA-648-NET-RESULT"
+          ],
+          "basis": "WR按正式三因子算法形成，不把人口、土地或行政控制本身当资源，并与BCP状态分开。",
+          "source_refs": [
+            "資治通鑑/卷199@1996786#昆丘道行軍大總管阿史那社爾擊處月、處密",
+            "資治通鑑/卷199@1996786#龜茲王布失畢既敗"
+          ]
+        }
+      },
+      "asset_components_adjudication": {
+        "gross_commitment_grade": 1,
+        "reusable_input_grade": 1,
+        "consumed_asset_grade": 0,
+        "lost_or_destroyed_asset_grade": null,
+        "A_scoring": 0,
+        "A_lower": 0,
+        "A_upper": 1,
+        "basis": "存在军事投入但未证明国家资产净消耗达到计分档；保留0—1区间，不由兵力规模反推。",
+        "source_refs": [
+          "資治通鑑/卷199@1996786#昆丘道行軍大總管阿史那社爾擊處月、處密",
+          "資治通鑑/卷199@1996786#龜茲王布失畢既敗"
+        ],
+        "confidence": "LOW"
+      },
+      "wr_evidence_adjudication": {
+        "wr_evidence_status": "SIMPLIFIED_INFERRED",
+        "asset_base_grade": {
+          "lower": 2,
+          "upper": 3
+        },
+        "transfer_mode": "COMPLETE_FORCE_OR_CENTRAL_TRANSFER",
+        "realization_retention": "PARTIAL_OR_UNCERTAIN",
+        "WR_lower": 1,
+        "WR_upper": 3,
+        "WR_scoring": 2,
+        "selection_policy": "LOWER_MIDPOINT",
+        "resource_object_refs": [
+          "RESOURCE-TANG-KUCHA-CENTRAL-MILITARY-ASSET-POOL-648"
+        ],
+        "source_refs": [
+          "資治通鑑/卷199@1996786#昆丘道行軍大總管阿史那社爾擊處月、處密",
+          "資治通鑑/卷199@1996786#龜茲王布失畢既敗"
+        ],
+        "confidence": "LOW",
+        "system_scope": "EXTERNAL_OR_FRONTIER",
+        "basis": "克五大城并使七百余城请降，证明龟兹军政资产基盘与中枢接收；撤军后政权安排反复，故留存为部分或不确定。"
+      }
+    },
+    "MING-SOUTHWEST-YUNNAN-LOCAL-1386": {
+      "system_damage_adjudication": {
+        "status": "INFERRED_BOUNDED",
+        "S_scoring": 2,
+        "affected_area_refs": [
+          "云南地方控制区"
+        ],
+        "functional_symptoms": [
+          "地方反叛",
+          "跨区调兵镇压",
+          "控制恢复"
+        ],
+        "duration_basis": "具体功能损害失载，按地方控制受扰有界推定。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-013-2445862-P0010"
+        ],
+        "confidence": "MEDIUM",
+        "S_lower": 1,
+        "S_upper": 3,
+        "inference_basis": "具体功能损害失载，按地方控制受扰有界推定。"
+      },
+      "investment_boundary_adjudication": {
+        "status": "STANDALONE_OR_FIRST",
+        "decision_window": "1386-01-01/1386-12-31",
+        "mobilization_window": "1386-01-01/1386-12-31",
+        "force_refs": [
+          "FORCE-MING-SOUTHWEST-YUNNAN-LOCAL-1386"
+        ],
+        "logistics_refs": [
+          "LOGISTICS-MING-SOUTHWEST-YUNNAN-LOCAL-1386"
+        ],
+        "no_shared_continuous_input_basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-013-2445862-P0010"
+        ]
+      },
+      "benefit_claims": [
+        {
+          "benefit_claim_ref": "CLAIM-MING-SOUTHWEST-YUNNAN-LOCAL-1386-NET-RESULT",
+          "historical_object_ref": "HIST-云南地方控制",
+          "from_state": "地方控制处于明体系",
+          "peak_state": "地方叛乱扰动控制",
+          "to_state": "恢复原控制",
+          "benefit_window_start": "1386-01-01",
+          "benefit_window_end": "1386-12-31",
+          "axis_grades": {
+            "SB": 2,
+            "BCP": 1
+          },
+          "source_refs": [
+            "SRC-MINGTONGJIAN-013-2445862-P0010"
+          ],
+          "confidence": "MEDIUM",
+          "adjudication_basis": "平乱准入、行动成功和净正收益分开；只按战前—峰值—终局的实际改善或恶化赋轴，不把内部人口、府库、俘戮或俘斩当收益。",
+          "threat_object_ref": "THREAT-云南地方叛乱",
+          "control_object_ref": "CONTROL-云南地方控制"
+        }
+      ],
+      "benefit_axis_rollup_basis": {
+        "SB": {
+          "grade": 2,
+          "claim_refs": [
+            "CLAIM-MING-SOUTHWEST-YUNNAN-LOCAL-1386-NET-RESULT"
+          ],
+          "basis": "SB2仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-013-2445862-P0010"
+          ]
+        },
+        "BCP": {
+          "grade": 1,
+          "claim_refs": [
+            "CLAIM-MING-SOUTHWEST-YUNNAN-LOCAL-1386-NET-RESULT"
+          ],
+          "basis": "BCP1仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-013-2445862-P0010"
+          ]
+        }
+      },
+      "asset_components_adjudication": {
+        "gross_commitment_grade": 2,
+        "reusable_input_grade": 1,
+        "consumed_asset_grade": 1,
+        "lost_or_destroyed_asset_grade": null,
+        "A_scoring": 1,
+        "A_lower": 1,
+        "A_upper": 2,
+        "basis": "按军需、跨区调动、攻城或驻留的可确认消耗计分；内部人口、府库及状态不可拆的俘斩不作资产收益或损失。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-013-2445862-P0010"
+        ],
+        "confidence": "MEDIUM"
+      },
+      "wr_evidence_adjudication": {
+        "wr_evidence_status": "CONFIRMED_NONE",
+        "asset_base_grade": 0,
+        "transfer_mode": "NONE_OR_DESTROYED",
+        "realization_retention": "LOST_RETURNED_UNUSABLE",
+        "WR_lower": 0,
+        "WR_upper": 0,
+        "WR_scoring": 0,
+        "selection_policy": "LOWER_MIDPOINT",
+        "resource_object_refs": [],
+        "source_refs": [
+          "SRC-MINGTONGJIAN-013-2445862-P0010"
+        ],
+        "confidence": "HIGH",
+        "system_scope": "INTERNAL_SAME_STATE_SYSTEM",
+        "basis": "本周期属于同一国家系统内的平乱、恢复或接管；人口、土地、府库、军资及状态不可拆的俘戮俘斩均不构成国家净WR，且没有体系外独立资源对象进入。"
+      }
+    },
+    "MING-SOUTHWEST-DONGCHUAN-1388": {
+      "system_damage_adjudication": {
+        "status": "DIRECT",
+        "S_scoring": 2,
+        "affected_area_refs": [
+          "东川",
+          "乌撒",
+          "乌蒙"
+        ],
+        "functional_symptoms": [
+          "围城",
+          "明军败绩",
+          "复叛与再镇压"
+        ],
+        "duration_basis": "同年多地控制受扰并经再投入恢复。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-013-2445862-P0092",
+          "SRC-MINGTONGJIAN-013-2445862-P0104"
+        ],
+        "confidence": "HIGH"
+      },
+      "investment_boundary_adjudication": {
+        "status": "INDEPENDENT_AFTER_CLOSURE",
+        "decision_window": "1388-01-01/1388-12-31",
+        "mobilization_window": "1388-01-01/1388-12-31",
+        "force_refs": [
+          "FORCE-MING-SOUTHWEST-DONGCHUAN-1388"
+        ],
+        "logistics_refs": [
+          "LOGISTICS-MING-SOUTHWEST-DONGCHUAN-1388"
+        ],
+        "no_shared_continuous_input_basis": "前轮已有明确终局并停止连续投入；本轮重新形成独立兵力和后勤。",
+        "basis": "前轮已有明确终局并停止连续投入；本轮重新形成独立兵力和后勤。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-013-2445862-P0092",
+          "SRC-MINGTONGJIAN-013-2445862-P0104"
+        ],
+        "prior_investment_cycle_ref": "MING-SOUTHWEST-YUNNAN-LOCAL-1386",
+        "prior_cycle_closed": true,
+        "closure_basis": "1386地方处置已有终局；1388东川等地出现新威胁并重新集结。",
+        "independent_force": true,
+        "independent_logistics": true
+      },
+      "benefit_claims": [
+        {
+          "benefit_claim_ref": "CLAIM-MING-SOUTHWEST-DONGCHUAN-1388-NET-RESULT",
+          "historical_object_ref": "HIST-东川乌撒乌蒙控制",
+          "from_state": "地方控制不稳",
+          "peak_state": "围城、败绩与复叛",
+          "to_state": "多地控制恢复",
+          "benefit_window_start": "1388-01-01",
+          "benefit_window_end": "1388-12-31",
+          "axis_grades": {
+            "SB": 2,
+            "BCP": 2
+          },
+          "source_refs": [
+            "SRC-MINGTONGJIAN-013-2445862-P0092",
+            "SRC-MINGTONGJIAN-013-2445862-P0104"
+          ],
+          "confidence": "MEDIUM",
+          "adjudication_basis": "平乱准入、行动成功和净正收益分开；只按战前—峰值—终局的实际改善或恶化赋轴，不把内部人口、府库、俘戮或俘斩当收益。",
+          "threat_object_ref": "THREAT-东川等地叛乱",
+          "control_object_ref": "CONTROL-东川乌撒乌蒙"
+        }
+      ],
+      "benefit_axis_rollup_basis": {
+        "SB": {
+          "grade": 2,
+          "claim_refs": [
+            "CLAIM-MING-SOUTHWEST-DONGCHUAN-1388-NET-RESULT"
+          ],
+          "basis": "SB2仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-013-2445862-P0092",
+            "SRC-MINGTONGJIAN-013-2445862-P0104"
+          ]
+        },
+        "BCP": {
+          "grade": 2,
+          "claim_refs": [
+            "CLAIM-MING-SOUTHWEST-DONGCHUAN-1388-NET-RESULT"
+          ],
+          "basis": "BCP2仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-013-2445862-P0092",
+            "SRC-MINGTONGJIAN-013-2445862-P0104"
+          ]
+        }
+      },
+      "asset_components_adjudication": {
+        "gross_commitment_grade": 2,
+        "reusable_input_grade": 1,
+        "consumed_asset_grade": 1,
+        "lost_or_destroyed_asset_grade": null,
+        "A_scoring": 1,
+        "A_lower": 1,
+        "A_upper": 2,
+        "basis": "按军需、跨区调动、攻城或驻留的可确认消耗计分；内部人口、府库及状态不可拆的俘斩不作资产收益或损失。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-013-2445862-P0092",
+          "SRC-MINGTONGJIAN-013-2445862-P0104"
+        ],
+        "confidence": "MEDIUM"
+      },
+      "wr_evidence_adjudication": {
+        "wr_evidence_status": "CONFIRMED_NONE",
+        "asset_base_grade": 0,
+        "transfer_mode": "NONE_OR_DESTROYED",
+        "realization_retention": "LOST_RETURNED_UNUSABLE",
+        "WR_lower": 0,
+        "WR_upper": 0,
+        "WR_scoring": 0,
+        "selection_policy": "LOWER_MIDPOINT",
+        "resource_object_refs": [],
+        "source_refs": [
+          "SRC-MINGTONGJIAN-013-2445862-P0092",
+          "SRC-MINGTONGJIAN-013-2445862-P0104"
+        ],
+        "confidence": "HIGH",
+        "system_scope": "INTERNAL_SAME_STATE_SYSTEM",
+        "basis": "本周期属于同一国家系统内的平乱、恢复或接管；人口、土地、府库、军资及状态不可拆的俘戮俘斩均不构成国家净WR，且没有体系外独立资源对象进入。"
+      }
+    },
+    "MING-WUKAI-DUYUN-BIJIE-1391-1392": {
+      "system_damage_adjudication": {
+        "status": "INFERRED_BOUNDED",
+        "S_scoring": 3,
+        "affected_area_refs": [
+          "五开",
+          "都匀",
+          "毕节"
+        ],
+        "functional_symptoms": [
+          "多年复叛",
+          "移师跨区镇压",
+          "留兵筑堡"
+        ],
+        "duration_basis": "1391末至1392何福连续移师处置，多地控制与交通功能反复受扰。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-014-2445863-L0269",
+          "SRC-MINGTONGJIAN-014-2445863-L0301",
+          "SRC-MINGTONGJIAN-014-2445863-L0310"
+        ],
+        "confidence": "HIGH",
+        "S_lower": 2,
+        "S_upper": 4,
+        "inference_basis": "1391末至1392何福连续移师处置，多地控制与交通功能反复受扰。"
+      },
+      "investment_boundary_adjudication": {
+        "status": "INDEPENDENT_REINVESTMENT",
+        "decision_window": "1391-10-01/1392-12-31",
+        "mobilization_window": "1391-10-01/1392-12-31",
+        "force_refs": [
+          "FORCE-MING-WUKAI-DUYUN-BIJIE-1391-1392"
+        ],
+        "logistics_refs": [
+          "LOGISTICS-MING-WUKAI-DUYUN-BIJIE-1391-1392"
+        ],
+        "no_shared_continuous_input_basis": "何福自五开终局直接移师都匀并续处毕节，军队和后勤未复员，故三段合并；与1385轮之间有新授权、新动员和独立兵力后勤。",
+        "basis": "何福自五开终局直接移师都匀并续处毕节，军队和后勤未复员，故三段合并；与1385轮之间有新授权、新动员和独立兵力后勤。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-014-2445863-L0269",
+          "SRC-MINGTONGJIAN-014-2445863-L0301",
+          "SRC-MINGTONGJIAN-014-2445863-L0310"
+        ],
+        "prior_investment_cycle_ref": "MTJ-WUKAI-WUMIAN-1385",
+        "independent_authorization": true,
+        "new_mobilization": true,
+        "independent_force": true,
+        "independent_logistics": true
+      },
+      "benefit_claims": [
+        {
+          "benefit_claim_ref": "CLAIM-MING-WUKAI-DUYUN-BIJIE-1391-1392-NET-RESULT",
+          "historical_object_ref": "HIST-五开控制链",
+          "from_state": "1385轮后控制恢复",
+          "peak_state": "五开复叛并延及都匀毕节",
+          "to_state": "多地控制恢复并留兵筑堡",
+          "benefit_window_start": "1391-10-01",
+          "benefit_window_end": "1392-12-31",
+          "axis_grades": {
+            "SB": 3,
+            "BCP": 3
+          },
+          "source_refs": [
+            "SRC-MINGTONGJIAN-014-2445863-L0269",
+            "SRC-MINGTONGJIAN-014-2445863-L0301",
+            "SRC-MINGTONGJIAN-014-2445863-L0310"
+          ],
+          "confidence": "MEDIUM",
+          "adjudication_basis": "平乱准入、行动成功和净正收益分开；只按战前—峰值—终局的实际改善或恶化赋轴，不把内部人口、府库、俘戮或俘斩当收益。",
+          "threat_object_ref": "THREAT-五开都匀毕节复叛",
+          "control_object_ref": "CONTROL-五开都匀毕节"
+        }
+      ],
+      "benefit_axis_rollup_basis": {
+        "SB": {
+          "grade": 3,
+          "claim_refs": [
+            "CLAIM-MING-WUKAI-DUYUN-BIJIE-1391-1392-NET-RESULT"
+          ],
+          "basis": "SB3仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-014-2445863-L0269",
+            "SRC-MINGTONGJIAN-014-2445863-L0301",
+            "SRC-MINGTONGJIAN-014-2445863-L0310"
+          ]
+        },
+        "BCP": {
+          "grade": 3,
+          "claim_refs": [
+            "CLAIM-MING-WUKAI-DUYUN-BIJIE-1391-1392-NET-RESULT"
+          ],
+          "basis": "BCP3仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-014-2445863-L0269",
+            "SRC-MINGTONGJIAN-014-2445863-L0301",
+            "SRC-MINGTONGJIAN-014-2445863-L0310"
+          ]
+        }
+      },
+      "asset_components_adjudication": {
+        "gross_commitment_grade": 2,
+        "reusable_input_grade": 1,
+        "consumed_asset_grade": 1,
+        "lost_or_destroyed_asset_grade": null,
+        "A_scoring": 1,
+        "A_lower": 1,
+        "A_upper": 2,
+        "basis": "按军需、跨区调动、攻城或驻留的可确认消耗计分；内部人口、府库及状态不可拆的俘斩不作资产收益或损失。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-014-2445863-L0269",
+          "SRC-MINGTONGJIAN-014-2445863-L0301",
+          "SRC-MINGTONGJIAN-014-2445863-L0310"
+        ],
+        "confidence": "MEDIUM"
+      },
+      "recurrence_refs": [
+        "RECURRENCE-WUKAI-1391"
+      ],
+      "wr_evidence_adjudication": {
+        "wr_evidence_status": "CONFIRMED_NONE",
+        "asset_base_grade": 0,
+        "transfer_mode": "NONE_OR_DESTROYED",
+        "realization_retention": "LOST_RETURNED_UNUSABLE",
+        "WR_lower": 0,
+        "WR_upper": 0,
+        "WR_scoring": 0,
+        "selection_policy": "LOWER_MIDPOINT",
+        "resource_object_refs": [],
+        "source_refs": [
+          "SRC-MINGTONGJIAN-014-2445863-L0269",
+          "SRC-MINGTONGJIAN-014-2445863-L0301",
+          "SRC-MINGTONGJIAN-014-2445863-L0310"
+        ],
+        "confidence": "HIGH",
+        "system_scope": "INTERNAL_SAME_STATE_SYSTEM",
+        "basis": "本周期属于同一国家系统内的平乱、恢复或接管；人口、土地、府库、军资及状态不可拆的俘戮俘斩均不构成国家净WR，且没有体系外独立资源对象进入。"
+      }
+    },
+    "MING-HUGUANG-CHENGUI-1396": {
+      "system_damage_adjudication": {
+        "status": "INFERRED_BOUNDED",
+        "S_scoring": 2,
+        "affected_area_refs": [
+          "郴州",
+          "桂阳及邻近州县"
+        ],
+        "functional_symptoms": [
+          "州县叛乱",
+          "跨区调军",
+          "控制恢复"
+        ],
+        "duration_basis": "多州县叛乱与重兵恢复控制支持S>0；具体生产损害失载故保留区间。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-015-2445864-L0183"
+        ],
+        "confidence": "MEDIUM",
+        "S_lower": 1,
+        "S_upper": 3,
+        "inference_basis": "多州县叛乱与重兵恢复控制支持S>0；具体生产损害失载故保留区间。"
+      },
+      "investment_boundary_adjudication": {
+        "status": "INDEPENDENT_AFTER_CLOSURE",
+        "decision_window": "1396-01-01/1396-12-31",
+        "mobilization_window": "1396-01-01/1396-12-31",
+        "force_refs": [
+          "FORCE-MING-HUGUANG-CHENGUI-1396"
+        ],
+        "logistics_refs": [
+          "LOGISTICS-MING-HUGUANG-CHENGUI-1396"
+        ],
+        "no_shared_continuous_input_basis": "前轮已有明确终局并停止连续投入；本轮重新形成独立兵力和后勤。",
+        "basis": "前轮已有明确终局并停止连续投入；本轮重新形成独立兵力和后勤。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-015-2445864-L0183"
+        ],
+        "prior_investment_cycle_ref": "MING-WUKAI-DUYUN-BIJIE-1391-1392",
+        "prior_cycle_closed": true,
+        "closure_basis": "1392何福连续投入以留兵筑堡闭合；1396郴桂是四年后新威胁和新调军。",
+        "independent_force": true,
+        "independent_logistics": true
+      },
+      "benefit_claims": [
+        {
+          "benefit_claim_ref": "CLAIM-MING-HUGUANG-CHENGUI-1396-NET-RESULT",
+          "historical_object_ref": "HIST-郴桂控制",
+          "from_state": "地方控制处于明体系",
+          "peak_state": "多州县叛乱",
+          "to_state": "恢复战前控制",
+          "benefit_window_start": "1396-01-01",
+          "benefit_window_end": "1396-12-31",
+          "axis_grades": {
+            "SB": 2,
+            "BCP": 1
+          },
+          "source_refs": [
+            "SRC-MINGTONGJIAN-015-2445864-L0183"
+          ],
+          "confidence": "MEDIUM",
+          "adjudication_basis": "平乱准入、行动成功和净正收益分开；只按战前—峰值—终局的实际改善或恶化赋轴，不把内部人口、府库、俘戮或俘斩当收益。",
+          "threat_object_ref": "THREAT-郴桂叛乱",
+          "control_object_ref": "CONTROL-郴桂州县"
+        }
+      ],
+      "benefit_axis_rollup_basis": {
+        "SB": {
+          "grade": 2,
+          "claim_refs": [
+            "CLAIM-MING-HUGUANG-CHENGUI-1396-NET-RESULT"
+          ],
+          "basis": "SB2仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-015-2445864-L0183"
+          ]
+        },
+        "BCP": {
+          "grade": 1,
+          "claim_refs": [
+            "CLAIM-MING-HUGUANG-CHENGUI-1396-NET-RESULT"
+          ],
+          "basis": "BCP1仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-015-2445864-L0183"
+          ]
+        }
+      },
+      "asset_components_adjudication": {
+        "gross_commitment_grade": 2,
+        "reusable_input_grade": 1,
+        "consumed_asset_grade": 1,
+        "lost_or_destroyed_asset_grade": null,
+        "A_scoring": 1,
+        "A_lower": 1,
+        "A_upper": 2,
+        "basis": "按军需、跨区调动、攻城或驻留的可确认消耗计分；内部人口、府库及状态不可拆的俘斩不作资产收益或损失。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-015-2445864-L0183"
+        ],
+        "confidence": "MEDIUM"
+      },
+      "wr_evidence_adjudication": {
+        "wr_evidence_status": "CONFIRMED_NONE",
+        "asset_base_grade": 0,
+        "transfer_mode": "NONE_OR_DESTROYED",
+        "realization_retention": "LOST_RETURNED_UNUSABLE",
+        "WR_lower": 0,
+        "WR_upper": 0,
+        "WR_scoring": 0,
+        "selection_policy": "LOWER_MIDPOINT",
+        "resource_object_refs": [],
+        "source_refs": [
+          "SRC-MINGTONGJIAN-015-2445864-L0183"
+        ],
+        "confidence": "HIGH",
+        "system_scope": "INTERNAL_SAME_STATE_SYSTEM",
+        "basis": "本周期属于同一国家系统内的平乱、恢复或接管；人口、土地、府库、军资及状态不可拆的俘戮俘斩均不构成国家净WR，且没有体系外独立资源对象进入。"
+      }
+    },
+    "MING-HUGUANG-GUIZHOU-SHINAN-SANMAO-1390": {
+      "system_damage_adjudication": {
+        "status": "DIRECT",
+        "S_scoring": 3,
+        "affected_area_refs": [
+          "施南",
+          "忠建",
+          "散毛"
+        ],
+        "functional_symptoms": [
+          "控制丧失",
+          "人口被俘",
+          "跨区镇压"
+        ],
+        "duration_basis": "多地控制受损并经国家军力恢复。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-014-2445863-L0139",
+          "SRC-MINGTONGJIAN-014-2445863-L0174"
+        ],
+        "confidence": "HIGH"
+      },
+      "investment_boundary_adjudication": {
+        "status": "STANDALONE_OR_FIRST",
+        "decision_window": "1390-01-01/1390-12-31",
+        "mobilization_window": "1390-01-01/1390-12-31",
+        "force_refs": [
+          "FORCE-MING-HUGUANG-GUIZHOU-SHINAN-SANMAO-1390"
+        ],
+        "logistics_refs": [
+          "LOGISTICS-MING-HUGUANG-GUIZHOU-SHINAN-SANMAO-1390"
+        ],
+        "no_shared_continuous_input_basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-014-2445863-L0139",
+          "SRC-MINGTONGJIAN-014-2445863-L0174"
+        ]
+      },
+      "benefit_claims": [
+        {
+          "benefit_claim_ref": "CLAIM-MING-HUGUANG-GUIZHOU-SHINAN-SANMAO-1390-NET-RESULT",
+          "historical_object_ref": "HIST-施南忠建散毛控制",
+          "from_state": "地方控制受挑战",
+          "peak_state": "多地起事与人口被俘",
+          "to_state": "恢复多地控制",
+          "benefit_window_start": "1390-01-01",
+          "benefit_window_end": "1390-12-31",
+          "axis_grades": {
+            "SB": 2,
+            "BCP": 2
+          },
+          "source_refs": [
+            "SRC-MINGTONGJIAN-014-2445863-L0139",
+            "SRC-MINGTONGJIAN-014-2445863-L0174"
+          ],
+          "confidence": "MEDIUM",
+          "adjudication_basis": "平乱准入、行动成功和净正收益分开；只按战前—峰值—终局的实际改善或恶化赋轴，不把内部人口、府库、俘戮或俘斩当收益。",
+          "threat_object_ref": "THREAT-施南等地叛乱",
+          "control_object_ref": "CONTROL-施南忠建散毛"
+        }
+      ],
+      "benefit_axis_rollup_basis": {
+        "SB": {
+          "grade": 2,
+          "claim_refs": [
+            "CLAIM-MING-HUGUANG-GUIZHOU-SHINAN-SANMAO-1390-NET-RESULT"
+          ],
+          "basis": "SB2仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-014-2445863-L0139",
+            "SRC-MINGTONGJIAN-014-2445863-L0174"
+          ]
+        },
+        "BCP": {
+          "grade": 2,
+          "claim_refs": [
+            "CLAIM-MING-HUGUANG-GUIZHOU-SHINAN-SANMAO-1390-NET-RESULT"
+          ],
+          "basis": "BCP2仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-014-2445863-L0139",
+            "SRC-MINGTONGJIAN-014-2445863-L0174"
+          ]
+        }
+      },
+      "asset_components_adjudication": {
+        "gross_commitment_grade": 2,
+        "reusable_input_grade": 1,
+        "consumed_asset_grade": 1,
+        "lost_or_destroyed_asset_grade": null,
+        "A_scoring": 1,
+        "A_lower": 1,
+        "A_upper": 2,
+        "basis": "按军需、跨区调动、攻城或驻留的可确认消耗计分；内部人口、府库及状态不可拆的俘斩不作资产收益或损失。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-014-2445863-L0139",
+          "SRC-MINGTONGJIAN-014-2445863-L0174"
+        ],
+        "confidence": "MEDIUM"
+      },
+      "wr_evidence_adjudication": {
+        "wr_evidence_status": "CONFIRMED_NONE",
+        "asset_base_grade": 0,
+        "transfer_mode": "NONE_OR_DESTROYED",
+        "realization_retention": "LOST_RETURNED_UNUSABLE",
+        "WR_lower": 0,
+        "WR_upper": 0,
+        "WR_scoring": 0,
+        "selection_policy": "LOWER_MIDPOINT",
+        "resource_object_refs": [],
+        "source_refs": [
+          "SRC-MINGTONGJIAN-014-2445863-L0139",
+          "SRC-MINGTONGJIAN-014-2445863-L0174"
+        ],
+        "confidence": "HIGH",
+        "system_scope": "INTERNAL_SAME_STATE_SYSTEM",
+        "basis": "本周期属于同一国家系统内的平乱、恢复或接管；人口、土地、府库、军资及状态不可拆的俘戮俘斩均不构成国家净WR，且没有体系外独立资源对象进入。"
+      }
+    },
+    "MING-JIANCHANG-YILUTEMUER-1392": {
+      "system_damage_adjudication": {
+        "status": "DIRECT",
+        "S_scoring": 3,
+        "affected_area_refs": [
+          "建昌及邻近城寨"
+        ],
+        "functional_symptoms": [
+          "多城受攻",
+          "跨区调兵",
+          "地方控制恢复"
+        ],
+        "duration_basis": "多城实际受攻，影响跨越一个地方节点。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-014-2445863-L0325",
+          "SRC-MINGTONGJIAN-014-2445863-L0357"
+        ],
+        "confidence": "HIGH"
+      },
+      "investment_boundary_adjudication": {
+        "status": "STANDALONE_OR_FIRST",
+        "decision_window": "1392-01-01/1392-12-31",
+        "mobilization_window": "1392-01-01/1392-12-31",
+        "force_refs": [
+          "FORCE-MING-JIANCHANG-YILUTEMUER-1392"
+        ],
+        "logistics_refs": [
+          "LOGISTICS-MING-JIANCHANG-YILUTEMUER-1392"
+        ],
+        "no_shared_continuous_input_basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-014-2445863-L0325",
+          "SRC-MINGTONGJIAN-014-2445863-L0357"
+        ]
+      },
+      "benefit_claims": [
+        {
+          "benefit_claim_ref": "CLAIM-MING-JIANCHANG-YILUTEMUER-1392-NET-RESULT",
+          "historical_object_ref": "HIST-建昌控制",
+          "from_state": "地方控制处于明体系",
+          "peak_state": "多城受攻",
+          "to_state": "多城控制恢复",
+          "benefit_window_start": "1392-01-01",
+          "benefit_window_end": "1392-12-31",
+          "axis_grades": {
+            "SB": 3,
+            "BCP": 2
+          },
+          "source_refs": [
+            "SRC-MINGTONGJIAN-014-2445863-L0325",
+            "SRC-MINGTONGJIAN-014-2445863-L0357"
+          ],
+          "confidence": "MEDIUM",
+          "adjudication_basis": "平乱准入、行动成功和净正收益分开；只按战前—峰值—终局的实际改善或恶化赋轴，不把内部人口、府库、俘戮或俘斩当收益。",
+          "threat_object_ref": "THREAT-建昌叛乱",
+          "control_object_ref": "CONTROL-建昌城寨"
+        }
+      ],
+      "benefit_axis_rollup_basis": {
+        "SB": {
+          "grade": 3,
+          "claim_refs": [
+            "CLAIM-MING-JIANCHANG-YILUTEMUER-1392-NET-RESULT"
+          ],
+          "basis": "SB3仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-014-2445863-L0325",
+            "SRC-MINGTONGJIAN-014-2445863-L0357"
+          ]
+        },
+        "BCP": {
+          "grade": 2,
+          "claim_refs": [
+            "CLAIM-MING-JIANCHANG-YILUTEMUER-1392-NET-RESULT"
+          ],
+          "basis": "BCP2仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-014-2445863-L0325",
+            "SRC-MINGTONGJIAN-014-2445863-L0357"
+          ]
+        }
+      },
+      "asset_components_adjudication": {
+        "gross_commitment_grade": 2,
+        "reusable_input_grade": 1,
+        "consumed_asset_grade": 1,
+        "lost_or_destroyed_asset_grade": null,
+        "A_scoring": 1,
+        "A_lower": 1,
+        "A_upper": 2,
+        "basis": "按军需、跨区调动、攻城或驻留的可确认消耗计分；内部人口、府库及状态不可拆的俘斩不作资产收益或损失。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-014-2445863-L0325",
+          "SRC-MINGTONGJIAN-014-2445863-L0357"
+        ],
+        "confidence": "MEDIUM"
+      },
+      "wr_evidence_adjudication": {
+        "wr_evidence_status": "CONFIRMED_NONE",
+        "asset_base_grade": 0,
+        "transfer_mode": "NONE_OR_DESTROYED",
+        "realization_retention": "LOST_RETURNED_UNUSABLE",
+        "WR_lower": 0,
+        "WR_upper": 0,
+        "WR_scoring": 0,
+        "selection_policy": "LOWER_MIDPOINT",
+        "resource_object_refs": [],
+        "source_refs": [
+          "SRC-MINGTONGJIAN-014-2445863-L0325",
+          "SRC-MINGTONGJIAN-014-2445863-L0357"
+        ],
+        "confidence": "HIGH",
+        "system_scope": "INTERNAL_SAME_STATE_SYSTEM",
+        "basis": "本周期属于同一国家系统内的平乱、恢复或接管；人口、土地、府库、军资及状态不可拆的俘戮俘斩均不构成国家净WR，且没有体系外独立资源对象进入。"
+      }
+    },
+    "MING-LUCHUAN-DAO-GANMENG-1397-1398": {
+      "system_damage_adjudication": {
+        "status": "INFERRED_BOUNDED",
+        "S_scoring": 2,
+        "affected_area_refs": [
+          "麓川及西南通道"
+        ],
+        "functional_symptoms": [
+          "叛乱与追击",
+          "地方控制反复",
+          "终局恢复通道"
+        ],
+        "duration_basis": "控制与通道恢复的同一状态链证明此前本方空间实际受扰；规模保留区间。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-015-2445864-L0272",
+          "SRC-MINGTONGJIAN-015-2445864-L0346"
+        ],
+        "confidence": "MEDIUM",
+        "S_lower": 1,
+        "S_upper": 3,
+        "inference_basis": "控制与通道恢复的同一状态链证明此前本方空间实际受扰；规模保留区间。"
+      },
+      "investment_boundary_adjudication": {
+        "status": "STANDALONE_OR_FIRST",
+        "decision_window": "1397-01-01/1398-12-31",
+        "mobilization_window": "1397-01-01/1398-12-31",
+        "force_refs": [
+          "FORCE-MING-LUCHUAN-DAO-GANMENG-1397-1398"
+        ],
+        "logistics_refs": [
+          "LOGISTICS-MING-LUCHUAN-DAO-GANMENG-1397-1398"
+        ],
+        "no_shared_continuous_input_basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-015-2445864-L0272",
+          "SRC-MINGTONGJIAN-015-2445864-L0346"
+        ]
+      },
+      "benefit_claims": [
+        {
+          "benefit_claim_ref": "CLAIM-MING-LUCHUAN-DAO-GANMENG-1397-1398-NET-RESULT",
+          "historical_object_ref": "HIST-麓川及西南通道",
+          "from_state": "地方控制与通道受挑战",
+          "peak_state": "叛乱与追击",
+          "to_state": "控制及通道恢复",
+          "benefit_window_start": "1397-01-01",
+          "benefit_window_end": "1398-12-31",
+          "axis_grades": {
+            "SB": 3,
+            "BCP": 2
+          },
+          "source_refs": [
+            "SRC-MINGTONGJIAN-015-2445864-L0272",
+            "SRC-MINGTONGJIAN-015-2445864-L0346"
+          ],
+          "confidence": "MEDIUM",
+          "adjudication_basis": "平乱准入、行动成功和净正收益分开；只按战前—峰值—终局的实际改善或恶化赋轴，不把内部人口、府库、俘戮或俘斩当收益。",
+          "threat_object_ref": "THREAT-麓川叛乱",
+          "control_object_ref": "CONTROL-麓川与西南通道"
+        }
+      ],
+      "benefit_axis_rollup_basis": {
+        "SB": {
+          "grade": 3,
+          "claim_refs": [
+            "CLAIM-MING-LUCHUAN-DAO-GANMENG-1397-1398-NET-RESULT"
+          ],
+          "basis": "SB3仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-015-2445864-L0272",
+            "SRC-MINGTONGJIAN-015-2445864-L0346"
+          ]
+        },
+        "BCP": {
+          "grade": 2,
+          "claim_refs": [
+            "CLAIM-MING-LUCHUAN-DAO-GANMENG-1397-1398-NET-RESULT"
+          ],
+          "basis": "BCP2仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-015-2445864-L0272",
+            "SRC-MINGTONGJIAN-015-2445864-L0346"
+          ]
+        }
+      },
+      "asset_components_adjudication": {
+        "gross_commitment_grade": 3,
+        "reusable_input_grade": 1,
+        "consumed_asset_grade": 2,
+        "lost_or_destroyed_asset_grade": null,
+        "A_scoring": 2,
+        "A_lower": 1,
+        "A_upper": 3,
+        "basis": "按军需、跨区调动、攻城或驻留的可确认消耗计分；内部人口、府库及状态不可拆的俘斩不作资产收益或损失。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-015-2445864-L0272",
+          "SRC-MINGTONGJIAN-015-2445864-L0346"
+        ],
+        "confidence": "MEDIUM"
+      },
+      "wr_evidence_adjudication": {
+        "wr_evidence_status": "CONFIRMED_NONE",
+        "asset_base_grade": 0,
+        "transfer_mode": "NONE_OR_DESTROYED",
+        "realization_retention": "LOST_RETURNED_UNUSABLE",
+        "WR_lower": 0,
+        "WR_upper": 0,
+        "WR_scoring": 0,
+        "selection_policy": "LOWER_MIDPOINT",
+        "resource_object_refs": [],
+        "source_refs": [
+          "SRC-MINGTONGJIAN-015-2445864-L0272",
+          "SRC-MINGTONGJIAN-015-2445864-L0346"
+        ],
+        "confidence": "HIGH",
+        "system_scope": "INTERNAL_SAME_STATE_SYSTEM",
+        "basis": "本周期属于同一国家系统内的平乱、恢复或接管；人口、土地、府库、军资及状态不可拆的俘戮俘斩均不构成国家净WR，且没有体系外独立资源对象进入。"
+      }
+    },
+    "MING-NORTHERN-BORDER-1395": {
+      "system_damage_adjudication": {
+        "status": "S0_CONFIRMED",
+        "S0_basis": "北边屯田与持续动员未出现本方州县遭攻、围城或控制受损。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-015-2445864-L0138"
+        ],
+        "confidence": "MEDIUM"
+      },
+      "investment_boundary_adjudication": {
+        "status": "STANDALONE_OR_FIRST",
+        "decision_window": "1395-01-01/1395-12-31",
+        "mobilization_window": "1395-01-01/1395-12-31",
+        "force_refs": [
+          "FORCE-MING-NORTHERN-BORDER-1395"
+        ],
+        "logistics_refs": [
+          "LOGISTICS-MING-NORTHERN-BORDER-1395"
+        ],
+        "no_shared_continuous_input_basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-015-2445864-L0138"
+        ]
+      },
+      "benefit_claims": [],
+      "benefit_axis_rollup_basis": {},
+      "asset_components_adjudication": {
+        "gross_commitment_grade": 2,
+        "reusable_input_grade": 1,
+        "consumed_asset_grade": 1,
+        "lost_or_destroyed_asset_grade": null,
+        "A_scoring": 1,
+        "A_lower": 1,
+        "A_upper": 2,
+        "basis": "按军需、跨区调动、攻城或驻留的可确认消耗计分；内部人口、府库及状态不可拆的俘斩不作资产收益或损失。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-015-2445864-L0138"
+        ],
+        "confidence": "MEDIUM"
+      },
+      "wr_evidence_adjudication": {
+        "wr_evidence_status": "CONFIRMED_NONE",
+        "asset_base_grade": 0,
+        "transfer_mode": "NONE_OR_DESTROYED",
+        "realization_retention": "LOST_RETURNED_UNUSABLE",
+        "WR_lower": 0,
+        "WR_upper": 0,
+        "WR_scoring": 0,
+        "selection_policy": "LOWER_MIDPOINT",
+        "resource_object_refs": [],
+        "source_refs": [
+          "SRC-MINGTONGJIAN-015-2445864-L0138"
+        ],
+        "confidence": "HIGH",
+        "system_scope": "EXTERNAL_OR_FRONTIER",
+        "basis": "本周期只有出塞屯田且无接敌、投降、夺营或资源转移。"
+      }
+    },
+    "MING-NORTHERN-YUAN-REMAINDER-1395": {
+      "system_damage_adjudication": {
+        "status": "S0_CONFIRMED",
+        "S0_basis": "追击残元发生在塞外敌控空间，未出现明本方空间实际受扰对象。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-015-2445864-L0150"
+        ],
+        "confidence": "MEDIUM"
+      },
+      "investment_boundary_adjudication": {
+        "status": "INDEPENDENT_PARALLEL",
+        "decision_window": "1395-01-01/1395-12-31",
+        "mobilization_window": "1395-01-01/1395-12-31",
+        "force_refs": [
+          "FORCE-MING-NORTHERN-YUAN-REMAINDER-1395"
+        ],
+        "logistics_refs": [
+          "LOGISTICS-MING-NORTHERN-YUAN-REMAINDER-1395"
+        ],
+        "no_shared_continuous_input_basis": "同年但威胁对象、执行军队和后勤线路独立，不共享同一连续投入。",
+        "basis": "同年但威胁对象、执行军队和后勤线路独立，不共享同一连续投入。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-015-2445864-L0150"
+        ],
+        "independent_force": true,
+        "independent_logistics": true,
+        "independent_threat_or_control_object": true
+      },
+      "benefit_claims": [],
+      "benefit_axis_rollup_basis": {},
+      "asset_components_adjudication": {
+        "gross_commitment_grade": 2,
+        "reusable_input_grade": 1,
+        "consumed_asset_grade": 1,
+        "lost_or_destroyed_asset_grade": null,
+        "A_scoring": 1,
+        "A_lower": 1,
+        "A_upper": 2,
+        "basis": "按军需、跨区调动、攻城或驻留的可确认消耗计分；内部人口、府库及状态不可拆的俘斩不作资产收益或损失。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-015-2445864-L0150"
+        ],
+        "confidence": "MEDIUM"
+      },
+      "wr_evidence_adjudication": {
+        "wr_evidence_status": "CONFIRMED_NONE",
+        "asset_base_grade": 0,
+        "transfer_mode": "NONE_OR_DESTROYED",
+        "realization_retention": "LOST_RETURNED_UNUSABLE",
+        "WR_lower": 0,
+        "WR_upper": 0,
+        "WR_scoring": 0,
+        "selection_policy": "LOWER_MIDPOINT",
+        "resource_object_refs": [],
+        "source_refs": [
+          "SRC-MINGTONGJIAN-015-2445864-L0150"
+        ],
+        "confidence": "HIGH",
+        "system_scope": "EXTERNAL_OR_FRONTIER",
+        "basis": "追击未及而还，已知终局没有接敌、投降、夺营或资源转移。"
+      }
+    },
+    "MING-NORTHERN-BORDER-CHACHAER-1396": {
+      "system_damage_adjudication": {
+        "status": "S0_CONFIRMED",
+        "S0_basis": "查察哈尔方向行动位于塞外敌控空间，未见明本方州县或边堡受扰。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-015-2445864-L0185",
+          "SRC-MINGTONGJIAN-015-2445864-L0191"
+        ],
+        "confidence": "MEDIUM"
+      },
+      "investment_boundary_adjudication": {
+        "status": "INDEPENDENT_AFTER_CLOSURE",
+        "decision_window": "1396-01-01/1396-12-31",
+        "mobilization_window": "1396-01-01/1396-12-31",
+        "force_refs": [
+          "FORCE-MING-NORTHERN-BORDER-CHACHAER-1396"
+        ],
+        "logistics_refs": [
+          "LOGISTICS-MING-NORTHERN-BORDER-CHACHAER-1396"
+        ],
+        "no_shared_continuous_input_basis": "前轮已有明确终局并停止连续投入；本轮重新形成独立兵力和后勤。",
+        "basis": "前轮已有明确终局并停止连续投入；本轮重新形成独立兵力和后勤。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-015-2445864-L0185",
+          "SRC-MINGTONGJIAN-015-2445864-L0191"
+        ],
+        "prior_investment_cycle_ref": "MING-NORTHERN-YUAN-REMAINDER-1395",
+        "prior_cycle_closed": true,
+        "closure_basis": "1395追击已有终局，1396查察哈尔方向另行出兵。",
+        "independent_force": true,
+        "independent_logistics": true
+      },
+      "benefit_claims": [
+        {
+          "benefit_claim_ref": "CLAIM-MING-NORTHERN-BORDER-CHACHAER-1396-NET-RESULT",
+          "historical_object_ref": "HIST-查察哈尔威胁",
+          "from_state": "塞外敌军活动",
+          "peak_state": "明军施压作战",
+          "to_state": "局部威胁降低",
+          "benefit_window_start": "1396-01-01",
+          "benefit_window_end": "1396-12-31",
+          "axis_grades": {
+            "SB": 2,
+            "WR": 1
+          },
+          "source_refs": [
+            "SRC-MINGTONGJIAN-015-2445864-L0185",
+            "SRC-MINGTONGJIAN-015-2445864-L0191"
+          ],
+          "confidence": "MEDIUM",
+          "adjudication_basis": "平乱准入、行动成功和净正收益分开；只按战前—峰值—终局的实际改善或恶化赋轴，不把内部人口、府库、俘戮或俘斩当收益。",
+          "threat_object_ref": "THREAT-查察哈尔",
+          "resource_object_ref": "RESOURCE-MING-CHACHAER-FIELD-ASSET-POOL-1396"
+        }
+      ],
+      "benefit_axis_rollup_basis": {
+        "SB": {
+          "grade": 2,
+          "claim_refs": [
+            "CLAIM-MING-NORTHERN-BORDER-CHACHAER-1396-NET-RESULT"
+          ],
+          "basis": "SB2仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-015-2445864-L0185",
+            "SRC-MINGTONGJIAN-015-2445864-L0191"
+          ]
+        },
+        "WR": {
+          "grade": 1,
+          "claim_refs": [
+            "CLAIM-MING-NORTHERN-BORDER-CHACHAER-1396-NET-RESULT"
+          ],
+          "basis": "WR按正式三因子算法形成，不把人口、土地或行政控制本身当资源，并与BCP状态分开。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-015-2445864-L0185",
+            "SRC-MINGTONGJIAN-015-2445864-L0191"
+          ]
+        }
+      },
+      "asset_components_adjudication": {
+        "gross_commitment_grade": 2,
+        "reusable_input_grade": 1,
+        "consumed_asset_grade": 1,
+        "lost_or_destroyed_asset_grade": null,
+        "A_scoring": 1,
+        "A_lower": 1,
+        "A_upper": 2,
+        "basis": "按军需、跨区调动、攻城或驻留的可确认消耗计分；内部人口、府库及状态不可拆的俘斩不作资产收益或损失。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-015-2445864-L0185",
+          "SRC-MINGTONGJIAN-015-2445864-L0191"
+        ],
+        "confidence": "MEDIUM"
+      },
+      "wr_evidence_adjudication": {
+        "wr_evidence_status": "SIMPLIFIED_INFERRED",
+        "asset_base_grade": {
+          "lower": 1,
+          "upper": 2
+        },
+        "transfer_mode": "PARTIAL_FIELD_CAPTURE",
+        "realization_retention": "PARTIAL_OR_UNCERTAIN",
+        "WR_lower": 0,
+        "WR_upper": 2,
+        "WR_scoring": 1,
+        "selection_policy": "LOWER_MIDPOINT",
+        "resource_object_refs": [
+          "RESOURCE-MING-CHACHAER-FIELD-ASSET-POOL-1396"
+        ],
+        "source_refs": [
+          "SRC-MINGTONGJIAN-015-2445864-L0185",
+          "SRC-MINGTONGJIAN-015-2445864-L0191"
+        ],
+        "confidence": "LOW",
+        "system_scope": "EXTERNAL_OR_FRONTIER",
+        "basis": "擒将数十并连续击敌证明至少局部战场资产发生转移，但没有主要营地或具体资源清单，按局部缴获和不确定留存推定。"
+      }
+    },
+    "MING-NORTHERN-YUAN-NAIRBUQA-1390": {
+      "system_damage_adjudication": {
+        "status": "S0_CONFIRMED",
+        "S0_basis": "鼐尔不花方向行动在塞外，现有材料肯定未指向明本方州县受扰。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-014-2445863-L0133",
+          "SRC-MINGTONGJIAN-014-2445863-L0167"
+        ],
+        "confidence": "MEDIUM"
+      },
+      "investment_boundary_adjudication": {
+        "status": "STANDALONE_OR_FIRST",
+        "decision_window": "1390-01-01/1390-12-31",
+        "mobilization_window": "1390-01-01/1390-12-31",
+        "force_refs": [
+          "FORCE-MING-NORTHERN-YUAN-NAIRBUQA-1390"
+        ],
+        "logistics_refs": [
+          "LOGISTICS-MING-NORTHERN-YUAN-NAIRBUQA-1390"
+        ],
+        "no_shared_continuous_input_basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-014-2445863-L0133",
+          "SRC-MINGTONGJIAN-014-2445863-L0167"
+        ]
+      },
+      "benefit_claims": [
+        {
+          "benefit_claim_ref": "CLAIM-MING-NORTHERN-YUAN-NAIRBUQA-1390-NET-RESULT",
+          "historical_object_ref": "HIST-鼐尔不花方向北元威胁",
+          "from_state": "北元军力活动",
+          "peak_state": "鼐尔不花部受挫",
+          "to_state": "重大北方威胁降低且明确国家资源实现",
+          "benefit_window_start": "1390-01-01",
+          "benefit_window_end": "1390-12-31",
+          "axis_grades": {
+            "SB": 4,
+            "WR": 2
+          },
+          "source_refs": [
+            "SRC-MINGTONGJIAN-014-2445863-L0133",
+            "SRC-MINGTONGJIAN-014-2445863-L0167"
+          ],
+          "confidence": "MEDIUM",
+          "adjudication_basis": "平乱准入、行动成功和净正收益分开；只按战前—峰值—终局的实际改善或恶化赋轴，不把内部人口、府库、俘戮或俘斩当收益。",
+          "threat_object_ref": "THREAT-鼐尔不花部",
+          "resource_object_ref": "RESOURCE-NAIRBUQA-STATE-CONTROLLED"
+        }
+      ],
+      "benefit_axis_rollup_basis": {
+        "SB": {
+          "grade": 4,
+          "claim_refs": [
+            "CLAIM-MING-NORTHERN-YUAN-NAIRBUQA-1390-NET-RESULT"
+          ],
+          "basis": "SB4仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-014-2445863-L0133",
+            "SRC-MINGTONGJIAN-014-2445863-L0167"
+          ]
+        },
+        "WR": {
+          "grade": 2,
+          "claim_refs": [
+            "CLAIM-MING-NORTHERN-YUAN-NAIRBUQA-1390-NET-RESULT"
+          ],
+          "basis": "WR按正式三因子算法形成，不把人口、土地或行政控制本身当资源，并与BCP状态分开。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-014-2445863-L0133",
+            "SRC-MINGTONGJIAN-014-2445863-L0167"
+          ]
+        }
+      },
+      "asset_components_adjudication": {
+        "gross_commitment_grade": 2,
+        "reusable_input_grade": 1,
+        "consumed_asset_grade": 1,
+        "lost_or_destroyed_asset_grade": null,
+        "A_scoring": 1,
+        "A_lower": 1,
+        "A_upper": 2,
+        "basis": "按军需、跨区调动、攻城或驻留的可确认消耗计分；内部人口、府库及状态不可拆的俘斩不作资产收益或损失。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-014-2445863-L0133",
+          "SRC-MINGTONGJIAN-014-2445863-L0167"
+        ],
+        "confidence": "MEDIUM"
+      },
+      "wr_evidence_adjudication": {
+        "wr_evidence_status": "SIMPLIFIED_INFERRED",
+        "asset_base_grade": {
+          "lower": 2,
+          "upper": 3
+        },
+        "transfer_mode": "COMPLETE_FORCE_OR_CENTRAL_TRANSFER",
+        "realization_retention": "RETAINED_USABLE",
+        "WR_lower": 2,
+        "WR_upper": 3,
+        "WR_scoring": 2,
+        "selection_policy": "LOWER_MIDPOINT",
+        "resource_object_refs": [
+          "RESOURCE-NAIRBUQA-STATE-CONTROLLED"
+        ],
+        "source_refs": [
+          "SRC-MINGTONGJIAN-014-2445863-L0133",
+          "SRC-MINGTONGJIAN-014-2445863-L0167"
+        ],
+        "confidence": "LOW",
+        "system_scope": "EXTERNAL_OR_FRONTIER",
+        "basis": "鼐尔不花及部众成建制归降并交燕王调遣，证明完整军队资产随国家接收且继续可用；人口本身不计WR。"
+      }
+    },
+    "MING-SOUTHWEST-AZI-1388-1395": {
+      "system_damage_adjudication": {
+        "status": "INFERRED_BOUNDED",
+        "S_scoring": 2,
+        "affected_area_refs": [
+          "普安",
+          "阿资活动区"
+        ],
+        "functional_symptoms": [
+          "多次降而复叛",
+          "地方控制反复",
+          "跨年镇压"
+        ],
+        "duration_basis": "多年复叛和再镇压支持行政与交通持续受扰，具体损害保留区间。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-015-2445864-L0136"
+        ],
+        "confidence": "HIGH",
+        "S_lower": 1,
+        "S_upper": 3,
+        "inference_basis": "多年复叛和再镇压支持行政与交通持续受扰，具体损害保留区间。"
+      },
+      "investment_boundary_adjudication": {
+        "status": "STANDALONE_OR_FIRST",
+        "decision_window": "1388-01-01/1395-12-31",
+        "mobilization_window": "1388-01-01/1395-12-31",
+        "force_refs": [
+          "FORCE-MING-SOUTHWEST-AZI-1388-1395"
+        ],
+        "logistics_refs": [
+          "LOGISTICS-MING-SOUTHWEST-AZI-1388-1395"
+        ],
+        "no_shared_continuous_input_basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-015-2445864-L0136"
+        ]
+      },
+      "benefit_claims": [
+        {
+          "benefit_claim_ref": "CLAIM-MING-SOUTHWEST-AZI-1388-1395-NET-RESULT",
+          "historical_object_ref": "HIST-阿资—普安控制",
+          "from_state": "地方控制脆弱",
+          "peak_state": "多次降而复叛",
+          "to_state": "长期投入后恢复控制",
+          "benefit_window_start": "1388-01-01",
+          "benefit_window_end": "1395-12-31",
+          "axis_grades": {
+            "SB": 3,
+            "BCP": 2
+          },
+          "source_refs": [
+            "SRC-MINGTONGJIAN-015-2445864-L0136"
+          ],
+          "confidence": "MEDIUM",
+          "adjudication_basis": "平乱准入、行动成功和净正收益分开；只按战前—峰值—终局的实际改善或恶化赋轴，不把内部人口、府库、俘戮或俘斩当收益。",
+          "threat_object_ref": "THREAT-阿资叛乱",
+          "control_object_ref": "CONTROL-阿资普安"
+        }
+      ],
+      "benefit_axis_rollup_basis": {
+        "SB": {
+          "grade": 3,
+          "claim_refs": [
+            "CLAIM-MING-SOUTHWEST-AZI-1388-1395-NET-RESULT"
+          ],
+          "basis": "SB3仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-015-2445864-L0136"
+          ]
+        },
+        "BCP": {
+          "grade": 2,
+          "claim_refs": [
+            "CLAIM-MING-SOUTHWEST-AZI-1388-1395-NET-RESULT"
+          ],
+          "basis": "BCP2仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-015-2445864-L0136"
+          ]
+        }
+      },
+      "asset_components_adjudication": {
+        "gross_commitment_grade": 2,
+        "reusable_input_grade": 1,
+        "consumed_asset_grade": 1,
+        "lost_or_destroyed_asset_grade": null,
+        "A_scoring": 1,
+        "A_lower": 1,
+        "A_upper": 2,
+        "basis": "按军需、跨区调动、攻城或驻留的可确认消耗计分；内部人口、府库及状态不可拆的俘斩不作资产收益或损失。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-015-2445864-L0136"
+        ],
+        "confidence": "MEDIUM"
+      },
+      "wr_evidence_adjudication": {
+        "wr_evidence_status": "CONFIRMED_NONE",
+        "asset_base_grade": 0,
+        "transfer_mode": "NONE_OR_DESTROYED",
+        "realization_retention": "LOST_RETURNED_UNUSABLE",
+        "WR_lower": 0,
+        "WR_upper": 0,
+        "WR_scoring": 0,
+        "selection_policy": "LOWER_MIDPOINT",
+        "resource_object_refs": [],
+        "source_refs": [
+          "SRC-MINGTONGJIAN-015-2445864-L0136"
+        ],
+        "confidence": "HIGH",
+        "system_scope": "INTERNAL_SAME_STATE_SYSTEM",
+        "basis": "本周期属于同一国家系统内的平乱、恢复或接管；人口、土地、府库、军资及状态不可拆的俘戮俘斩均不构成国家净WR，且没有体系外独立资源对象进入。"
+      }
+    },
+    "MING-WOKOU-SOUTHCOAST-1391": {
+      "system_damage_adjudication": {
+        "status": "INFERRED_BOUNDED",
+        "S_scoring": 1,
+        "affected_area_refs": [
+          "南部沿海州县"
+        ],
+        "functional_symptoms": [
+          "倭患反复",
+          "沿海防务动员"
+        ],
+        "duration_basis": "倭患发生于本方沿海空间并触发防务投入，取低档。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-014-2445863-L0264"
+        ],
+        "confidence": "MEDIUM",
+        "S_lower": 1,
+        "S_upper": 2,
+        "inference_basis": "倭患发生于本方沿海空间并触发防务投入，取低档。"
+      },
+      "investment_boundary_adjudication": {
+        "status": "STANDALONE_OR_FIRST",
+        "decision_window": "1391-01-01/1391-12-31",
+        "mobilization_window": "1391-01-01/1391-12-31",
+        "force_refs": [
+          "FORCE-MING-WOKOU-SOUTHCOAST-1391"
+        ],
+        "logistics_refs": [
+          "LOGISTICS-MING-WOKOU-SOUTHCOAST-1391"
+        ],
+        "no_shared_continuous_input_basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-014-2445863-L0264"
+        ]
+      },
+      "benefit_claims": [
+        {
+          "benefit_claim_ref": "CLAIM-MING-WOKOU-SOUTHCOAST-1391-NET-RESULT",
+          "historical_object_ref": "HIST-南部沿海安全",
+          "from_state": "沿海安全基线",
+          "peak_state": "倭患反复侵扰",
+          "to_state": "威胁未获持久解除",
+          "benefit_window_start": "1391-01-01",
+          "benefit_window_end": "1391-12-31",
+          "axis_grades": {
+            "SN": 1
+          },
+          "source_refs": [
+            "SRC-MINGTONGJIAN-014-2445863-L0264"
+          ],
+          "confidence": "MEDIUM",
+          "adjudication_basis": "平乱准入、行动成功和净正收益分开；只按战前—峰值—终局的实际改善或恶化赋轴，不把内部人口、府库、俘戮或俘斩当收益。"
+        }
+      ],
+      "benefit_axis_rollup_basis": {
+        "SN": {
+          "grade": 1,
+          "claim_refs": [
+            "CLAIM-MING-WOKOU-SOUTHCOAST-1391-NET-RESULT"
+          ],
+          "basis": "SN1仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-014-2445863-L0264"
+          ]
+        }
+      },
+      "asset_components_adjudication": {
+        "gross_commitment_grade": 2,
+        "reusable_input_grade": 1,
+        "consumed_asset_grade": 1,
+        "lost_or_destroyed_asset_grade": null,
+        "A_scoring": 1,
+        "A_lower": 1,
+        "A_upper": 2,
+        "basis": "按军需、跨区调动、攻城或驻留的可确认消耗计分；内部人口、府库及状态不可拆的俘斩不作资产收益或损失。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-014-2445863-L0264"
+        ],
+        "confidence": "MEDIUM"
+      },
+      "wr_evidence_adjudication": {
+        "wr_evidence_status": "CONFIRMED_NONE",
+        "asset_base_grade": 0,
+        "transfer_mode": "NONE_OR_DESTROYED",
+        "realization_retention": "LOST_RETURNED_UNUSABLE",
+        "WR_lower": 0,
+        "WR_upper": 0,
+        "WR_scoring": 0,
+        "selection_policy": "LOWER_MIDPOINT",
+        "resource_object_refs": [],
+        "source_refs": [
+          "SRC-MINGTONGJIAN-014-2445863-L0264"
+        ],
+        "confidence": "MEDIUM",
+        "system_scope": "EXTERNAL_OR_FRONTIER",
+        "basis": "已知终局仅有倭寇袭扰及明方人员损失，没有明军夺营、受降或资源转移状态；本周期也未形成正向安全claim。"
+      }
+    },
+    "MING-WOKOU-ZHEDONG-1394": {
+      "system_damage_adjudication": {
+        "status": "INFERRED_BOUNDED",
+        "S_scoring": 1,
+        "affected_area_refs": [
+          "浙东沿海州县"
+        ],
+        "functional_symptoms": [
+          "倭患侵扰",
+          "地方防务动员"
+        ],
+        "duration_basis": "浙东沿海为实际受扰对象，功能后果失载不能归零。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-014-2445863-L0449",
+          "SRC-MINGTONGJIAN-014-2445863-L0453"
+        ],
+        "confidence": "MEDIUM",
+        "S_lower": 1,
+        "S_upper": 2,
+        "inference_basis": "浙东沿海为实际受扰对象，功能后果失载不能归零。"
+      },
+      "investment_boundary_adjudication": {
+        "status": "INDEPENDENT_AFTER_CLOSURE",
+        "decision_window": "1394-01-01/1394-12-31",
+        "mobilization_window": "1394-01-01/1394-12-31",
+        "force_refs": [
+          "FORCE-MING-WOKOU-ZHEDONG-1394"
+        ],
+        "logistics_refs": [
+          "LOGISTICS-MING-WOKOU-ZHEDONG-1394"
+        ],
+        "no_shared_continuous_input_basis": "前轮已有明确终局并停止连续投入；本轮重新形成独立兵力和后勤。",
+        "basis": "前轮已有明确终局并停止连续投入；本轮重新形成独立兵力和后勤。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-014-2445863-L0449",
+          "SRC-MINGTONGJIAN-014-2445863-L0453"
+        ],
+        "prior_investment_cycle_ref": "MING-WOKOU-SOUTHCOAST-1391",
+        "prior_cycle_closed": true,
+        "closure_basis": "1391南部沿海应对已收束；1394浙东是不同区域防务系统的新投入。",
+        "independent_force": true,
+        "independent_logistics": true
+      },
+      "benefit_claims": [
+        {
+          "benefit_claim_ref": "CLAIM-MING-WOKOU-ZHEDONG-1394-NET-RESULT",
+          "historical_object_ref": "HIST-浙东沿海安全",
+          "from_state": "沿海安全基线",
+          "peak_state": "倭患侵扰",
+          "to_state": "威胁未获持久解除",
+          "benefit_window_start": "1394-01-01",
+          "benefit_window_end": "1394-12-31",
+          "axis_grades": {
+            "SN": 1
+          },
+          "source_refs": [
+            "SRC-MINGTONGJIAN-014-2445863-L0449",
+            "SRC-MINGTONGJIAN-014-2445863-L0453"
+          ],
+          "confidence": "MEDIUM",
+          "adjudication_basis": "平乱准入、行动成功和净正收益分开；只按战前—峰值—终局的实际改善或恶化赋轴，不把内部人口、府库、俘戮或俘斩当收益。"
+        }
+      ],
+      "benefit_axis_rollup_basis": {
+        "SN": {
+          "grade": 1,
+          "claim_refs": [
+            "CLAIM-MING-WOKOU-ZHEDONG-1394-NET-RESULT"
+          ],
+          "basis": "SN1仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-014-2445863-L0449",
+            "SRC-MINGTONGJIAN-014-2445863-L0453"
+          ]
+        }
+      },
+      "asset_components_adjudication": {
+        "gross_commitment_grade": 2,
+        "reusable_input_grade": 1,
+        "consumed_asset_grade": 1,
+        "lost_or_destroyed_asset_grade": null,
+        "A_scoring": 1,
+        "A_lower": 1,
+        "A_upper": 2,
+        "basis": "按军需、跨区调动、攻城或驻留的可确认消耗计分；内部人口、府库及状态不可拆的俘斩不作资产收益或损失。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-014-2445863-L0449",
+          "SRC-MINGTONGJIAN-014-2445863-L0453"
+        ],
+        "confidence": "MEDIUM"
+      },
+      "wr_evidence_adjudication": {
+        "wr_evidence_status": "CONFIRMED_NONE",
+        "asset_base_grade": 0,
+        "transfer_mode": "NONE_OR_DESTROYED",
+        "realization_retention": "LOST_RETURNED_UNUSABLE",
+        "WR_lower": 0,
+        "WR_upper": 0,
+        "WR_scoring": 0,
+        "selection_policy": "LOWER_MIDPOINT",
+        "resource_object_refs": [],
+        "source_refs": [
+          "SRC-MINGTONGJIAN-014-2445863-L0449",
+          "SRC-MINGTONGJIAN-014-2445863-L0453"
+        ],
+        "confidence": "MEDIUM",
+        "system_scope": "EXTERNAL_OR_FRONTIER",
+        "basis": "本周期仅巡视、练兵与防务部署，未发生取得敌方资产的战斗或转移状态。"
+      }
+    },
+    "MTJ-MING-GUANGDONG-PACIFICATION-1380-1382": {
+      "system_damage_adjudication": {
+        "status": "INFERRED_BOUNDED",
+        "S_scoring": 3,
+        "affected_area_refs": [
+          "广东多州县"
+        ],
+        "functional_symptoms": [
+          "多府县遭蛮叛与海寇攻掠",
+          "军事行政通行受扰",
+          "跨年多路进讨"
+        ],
+        "duration_basis": "多府县遭攻掠并持续跨年进讨，支持广域受扰S3；不以完整州县失控为前提，也不机械放大人口与生产损害。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-011-2445860-L0195",
+          "SRC-MINGTONGJIAN-011-2445860-L0366"
+        ],
+        "confidence": "HIGH",
+        "S_lower": 2,
+        "S_upper": 4,
+        "inference_basis": "多府县实际攻掠、跨年受扰及多路军事恢复共同构成功能桥梁；未证明长期占领只限制控制轴，不把S短路为0。"
+      },
+      "investment_boundary_adjudication": {
+        "status": "STANDALONE_OR_FIRST",
+        "decision_window": "1380-01-01/1382-12-31",
+        "mobilization_window": "1380-01-01/1382-12-31",
+        "force_refs": [
+          "FORCE-MTJ-MING-GUANGDONG-PACIFICATION-1380-1382"
+        ],
+        "logistics_refs": [
+          "LOGISTICS-MTJ-MING-GUANGDONG-PACIFICATION-1380-1382"
+        ],
+        "no_shared_continuous_input_basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-011-2445860-L0195",
+          "SRC-MINGTONGJIAN-011-2445860-L0366"
+        ]
+      },
+      "benefit_claims": [
+        {
+          "benefit_claim_ref": "CLAIM-MTJ-MING-GUANGDONG-PACIFICATION-1380-1382-NET-RESULT",
+          "historical_object_ref": "HIST-广东多府县安全与军事行政通行",
+          "from_state": "多府县维持常态军事行政通行",
+          "peak_state": "蛮叛与海寇攻掠多府县并造成跨年受扰",
+          "to_state": "跨年进讨后恢复正常军事行政通行，未证完整州县长期失守",
+          "benefit_window_start": "1380-01-01",
+          "benefit_window_end": "1382-12-31",
+          "axis_grades": {
+            "SB": 3,
+            "BCP": 1
+          },
+          "source_refs": [
+            "SRC-MINGTONGJIAN-011-2445860-L0195",
+            "SRC-MINGTONGJIAN-011-2445860-L0366"
+          ],
+          "confidence": "MEDIUM",
+          "adjudication_basis": "平乱准入、行动成功和净正收益分开；只按战前—峰值—终局的实际改善或恶化赋轴，不把内部人口、府库、俘戮或俘斩当收益。",
+          "threat_object_ref": "THREAT-广东多地叛乱",
+          "control_object_ref": "CONTROL-广东多府县正常军事行政通行"
+        }
+      ],
+      "benefit_axis_rollup_basis": {
+        "SB": {
+          "grade": 3,
+          "claim_refs": [
+            "CLAIM-MTJ-MING-GUANGDONG-PACIFICATION-1380-1382-NET-RESULT"
+          ],
+          "basis": "SB3仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-011-2445860-L0195",
+            "SRC-MINGTONGJIAN-011-2445860-L0366"
+          ]
+        },
+        "BCP": {
+          "grade": 1,
+          "claim_refs": [
+            "CLAIM-MTJ-MING-GUANGDONG-PACIFICATION-1380-1382-NET-RESULT"
+          ],
+          "basis": "BCP1只记录受扰地区恢复正常军事—行政通行；史料未证明完整州县长期被占，不按地名数量升档。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-011-2445860-L0195",
+            "SRC-MINGTONGJIAN-011-2445860-L0366"
+          ]
+        }
+      },
+      "asset_components_adjudication": {
+        "gross_commitment_grade": 2,
+        "reusable_input_grade": 1,
+        "consumed_asset_grade": 1,
+        "lost_or_destroyed_asset_grade": null,
+        "A_scoring": 1,
+        "A_lower": 1,
+        "A_upper": 2,
+        "basis": "按军需、跨区调动、攻城或驻留的可确认消耗计分；内部人口、府库及状态不可拆的俘斩不作资产收益或损失。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-011-2445860-L0195",
+          "SRC-MINGTONGJIAN-011-2445860-L0366"
+        ],
+        "confidence": "MEDIUM"
+      },
+      "wr_evidence_adjudication": {
+        "wr_evidence_status": "CONFIRMED_NONE",
+        "asset_base_grade": 0,
+        "transfer_mode": "NONE_OR_DESTROYED",
+        "realization_retention": "LOST_RETURNED_UNUSABLE",
+        "WR_lower": 0,
+        "WR_upper": 0,
+        "WR_scoring": 0,
+        "selection_policy": "LOWER_MIDPOINT",
+        "resource_object_refs": [],
+        "source_refs": [
+          "SRC-MINGTONGJIAN-011-2445860-L0195",
+          "SRC-MINGTONGJIAN-011-2445860-L0366"
+        ],
+        "confidence": "HIGH",
+        "system_scope": "INTERNAL_SAME_STATE_SYSTEM",
+        "basis": "本周期属于同一国家系统内的平乱、恢复或接管；人口、土地、府库、军资及状态不可拆的俘戮俘斩均不构成国家净WR，且没有体系外独立资源对象进入。"
+      }
+    },
+    "MTJ-MING-WUKAI-WUMIAN-1378": {
+      "system_damage_adjudication": {
+        "status": "INFERRED_BOUNDED",
+        "S_scoring": 2,
+        "affected_area_refs": [
+          "五开及邻近州县"
+        ],
+        "functional_symptoms": [
+          "守将被杀",
+          "地方控制受损",
+          "重兵恢复"
+        ],
+        "duration_basis": "杀守将与州县控制受损共同支持S>0。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-010-2445859-L0278",
+          "SRC-MINGTONGJIAN-010-2445859-L0294"
+        ],
+        "confidence": "HIGH",
+        "S_lower": 1,
+        "S_upper": 3,
+        "inference_basis": "杀守将与州县控制受损共同支持S>0。"
+      },
+      "investment_boundary_adjudication": {
+        "status": "STANDALONE_OR_FIRST",
+        "decision_window": "1378-01-01/1380-12-31",
+        "mobilization_window": "1378-01-01/1380-12-31",
+        "force_refs": [
+          "FORCE-MTJ-MING-WUKAI-WUMIAN-1378"
+        ],
+        "logistics_refs": [
+          "LOGISTICS-MTJ-MING-WUKAI-WUMIAN-1378"
+        ],
+        "no_shared_continuous_input_basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-010-2445859-L0278",
+          "SRC-MINGTONGJIAN-010-2445859-L0294"
+        ]
+      },
+      "benefit_claims": [
+        {
+          "benefit_claim_ref": "CLAIM-MTJ-MING-WUKAI-WUMIAN-1378-NET-RESULT",
+          "historical_object_ref": "HIST-五开控制链",
+          "from_state": "地方控制处于明体系",
+          "peak_state": "守将被杀且控制受损",
+          "to_state": "局部控制恢复",
+          "benefit_window_start": "1378-01-01",
+          "benefit_window_end": "1380-12-31",
+          "axis_grades": {
+            "SB": 1,
+            "BCP": 1
+          },
+          "source_refs": [
+            "SRC-MINGTONGJIAN-010-2445859-L0278",
+            "SRC-MINGTONGJIAN-010-2445859-L0294"
+          ],
+          "confidence": "MEDIUM",
+          "adjudication_basis": "平乱准入、行动成功和净正收益分开；只按战前—峰值—终局的实际改善或恶化赋轴，不把内部人口、府库、俘戮或俘斩当收益。",
+          "threat_object_ref": "THREAT-五开叛乱",
+          "control_object_ref": "CONTROL-五开"
+        }
+      ],
+      "benefit_axis_rollup_basis": {
+        "SB": {
+          "grade": 1,
+          "claim_refs": [
+            "CLAIM-MTJ-MING-WUKAI-WUMIAN-1378-NET-RESULT"
+          ],
+          "basis": "SB1仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-010-2445859-L0278",
+            "SRC-MINGTONGJIAN-010-2445859-L0294"
+          ]
+        },
+        "BCP": {
+          "grade": 1,
+          "claim_refs": [
+            "CLAIM-MTJ-MING-WUKAI-WUMIAN-1378-NET-RESULT"
+          ],
+          "basis": "BCP1仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-010-2445859-L0278",
+            "SRC-MINGTONGJIAN-010-2445859-L0294"
+          ]
+        }
+      },
+      "asset_components_adjudication": {
+        "gross_commitment_grade": 2,
+        "reusable_input_grade": 1,
+        "consumed_asset_grade": 1,
+        "lost_or_destroyed_asset_grade": null,
+        "A_scoring": 1,
+        "A_lower": 1,
+        "A_upper": 2,
+        "basis": "按军需、跨区调动、攻城或驻留的可确认消耗计分；内部人口、府库及状态不可拆的俘斩不作资产收益或损失。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-010-2445859-L0278",
+          "SRC-MINGTONGJIAN-010-2445859-L0294"
+        ],
+        "confidence": "MEDIUM"
+      },
+      "wr_evidence_adjudication": {
+        "wr_evidence_status": "CONFIRMED_NONE",
+        "asset_base_grade": 0,
+        "transfer_mode": "NONE_OR_DESTROYED",
+        "realization_retention": "LOST_RETURNED_UNUSABLE",
+        "WR_lower": 0,
+        "WR_upper": 0,
+        "WR_scoring": 0,
+        "selection_policy": "LOWER_MIDPOINT",
+        "resource_object_refs": [],
+        "source_refs": [
+          "SRC-MINGTONGJIAN-010-2445859-L0278",
+          "SRC-MINGTONGJIAN-010-2445859-L0294"
+        ],
+        "confidence": "HIGH",
+        "system_scope": "INTERNAL_SAME_STATE_SYSTEM",
+        "basis": "本周期属于同一国家系统内的平乱、恢复或接管；人口、土地、府库、军资及状态不可拆的俘戮俘斩均不构成国家净WR，且没有体系外独立资源对象进入。"
+      }
+    },
+    "MTJ-WUKAI-WUMIAN-1385": {
+      "system_damage_adjudication": {
+        "status": "INFERRED_BOUNDED",
+        "S_scoring": 2,
+        "affected_area_refs": [
+          "五开及邻近州县"
+        ],
+        "functional_symptoms": [
+          "复叛",
+          "折将",
+          "再度重兵镇压"
+        ],
+        "duration_basis": "同源复叛造成新增控制受扰，但不重复计满旧轮损害。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-012-2445861-L0331",
+          "SRC-MINGTONGJIAN-012-2445861-L0344"
+        ],
+        "confidence": "HIGH",
+        "S_lower": 1,
+        "S_upper": 3,
+        "inference_basis": "同源复叛造成新增控制受扰，但不重复计满旧轮损害。"
+      },
+      "investment_boundary_adjudication": {
+        "status": "INDEPENDENT_REINVESTMENT",
+        "decision_window": "1385-01-01/1386-12-31",
+        "mobilization_window": "1385-01-01/1386-12-31",
+        "force_refs": [
+          "FORCE-MTJ-WUKAI-WUMIAN-1385"
+        ],
+        "logistics_refs": [
+          "LOGISTICS-MTJ-WUKAI-WUMIAN-1385"
+        ],
+        "no_shared_continuous_input_basis": "同源复叛但前轮投入已经闭合；本轮有独立授权、重新动员、独立兵力与后勤。",
+        "basis": "同源复叛但前轮投入已经闭合；本轮有独立授权、重新动员、独立兵力与后勤。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-012-2445861-L0331",
+          "SRC-MINGTONGJIAN-012-2445861-L0344"
+        ],
+        "prior_investment_cycle_ref": "MTJ-MING-WUKAI-WUMIAN-1378",
+        "independent_authorization": true,
+        "new_mobilization": true,
+        "independent_force": true,
+        "independent_logistics": true
+      },
+      "benefit_claims": [
+        {
+          "benefit_claim_ref": "CLAIM-MTJ-WUKAI-WUMIAN-1385-NET-RESULT",
+          "historical_object_ref": "HIST-五开控制链",
+          "from_state": "1378轮后局部恢复",
+          "peak_state": "复叛、折将并再度镇压",
+          "to_state": "1385轮后控制恢复",
+          "benefit_window_start": "1385-01-01",
+          "benefit_window_end": "1386-12-31",
+          "axis_grades": {
+            "SB": 2,
+            "BCP": 1
+          },
+          "source_refs": [
+            "SRC-MINGTONGJIAN-012-2445861-L0331",
+            "SRC-MINGTONGJIAN-012-2445861-L0344"
+          ],
+          "confidence": "MEDIUM",
+          "adjudication_basis": "平乱准入、行动成功和净正收益分开；只按战前—峰值—终局的实际改善或恶化赋轴，不把内部人口、府库、俘戮或俘斩当收益。",
+          "threat_object_ref": "THREAT-五开复叛",
+          "control_object_ref": "CONTROL-五开"
+        }
+      ],
+      "benefit_axis_rollup_basis": {
+        "SB": {
+          "grade": 2,
+          "claim_refs": [
+            "CLAIM-MTJ-WUKAI-WUMIAN-1385-NET-RESULT"
+          ],
+          "basis": "SB2仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-012-2445861-L0331",
+            "SRC-MINGTONGJIAN-012-2445861-L0344"
+          ]
+        },
+        "BCP": {
+          "grade": 1,
+          "claim_refs": [
+            "CLAIM-MTJ-WUKAI-WUMIAN-1385-NET-RESULT"
+          ],
+          "basis": "BCP1仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-012-2445861-L0331",
+            "SRC-MINGTONGJIAN-012-2445861-L0344"
+          ]
+        }
+      },
+      "asset_components_adjudication": {
+        "gross_commitment_grade": 2,
+        "reusable_input_grade": 1,
+        "consumed_asset_grade": 1,
+        "lost_or_destroyed_asset_grade": null,
+        "A_scoring": 1,
+        "A_lower": 1,
+        "A_upper": 2,
+        "basis": "按军需、跨区调动、攻城或驻留的可确认消耗计分；内部人口、府库及状态不可拆的俘斩不作资产收益或损失。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-012-2445861-L0331",
+          "SRC-MINGTONGJIAN-012-2445861-L0344"
+        ],
+        "confidence": "MEDIUM"
+      },
+      "recurrence_refs": [
+        "RECURRENCE-WUKAI-1385"
+      ],
+      "wr_evidence_adjudication": {
+        "wr_evidence_status": "CONFIRMED_NONE",
+        "asset_base_grade": 0,
+        "transfer_mode": "NONE_OR_DESTROYED",
+        "realization_retention": "LOST_RETURNED_UNUSABLE",
+        "WR_lower": 0,
+        "WR_upper": 0,
+        "WR_scoring": 0,
+        "selection_policy": "LOWER_MIDPOINT",
+        "resource_object_refs": [],
+        "source_refs": [
+          "SRC-MINGTONGJIAN-012-2445861-L0331",
+          "SRC-MINGTONGJIAN-012-2445861-L0344"
+        ],
+        "confidence": "HIGH",
+        "system_scope": "INTERNAL_SAME_STATE_SYSTEM",
+        "basis": "本周期属于同一国家系统内的平乱、恢复或接管；人口、土地、府库、军资及状态不可拆的俘戮俘斩均不构成国家净WR，且没有体系外独立资源对象进入。"
+      }
+    },
+    "MTJ-MING-YUNNAN-REBELLIONS-1382": {
+      "system_damage_adjudication": {
+        "status": "DIRECT",
+        "S_scoring": 3,
+        "affected_area_refs": [
+          "云南府",
+          "乌撒",
+          "乌蒙"
+        ],
+        "functional_symptoms": [
+          "围城",
+          "明军败绩",
+          "多地复叛"
+        ],
+        "duration_basis": "围城、败绩和复叛直接证明多地功能与控制受扰。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-011-2445860-L0333",
+          "SRC-MINGTONGJIAN-011-2445860-L0362"
+        ],
+        "confidence": "HIGH"
+      },
+      "investment_boundary_adjudication": {
+        "status": "STANDALONE_OR_FIRST",
+        "decision_window": "1382-01-01/1382-12-31",
+        "mobilization_window": "1382-01-01/1382-12-31",
+        "force_refs": [
+          "FORCE-MTJ-MING-YUNNAN-REBELLIONS-1382"
+        ],
+        "logistics_refs": [
+          "LOGISTICS-MTJ-MING-YUNNAN-REBELLIONS-1382"
+        ],
+        "no_shared_continuous_input_basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-011-2445860-L0333",
+          "SRC-MINGTONGJIAN-011-2445860-L0362"
+        ]
+      },
+      "benefit_claims": [
+        {
+          "benefit_claim_ref": "CLAIM-MTJ-MING-YUNNAN-REBELLIONS-1382-NET-RESULT",
+          "historical_object_ref": "HIST-云南府乌撒乌蒙控制",
+          "from_state": "明初进入后的控制不稳",
+          "peak_state": "云南府围城且乌撒乌蒙复叛",
+          "to_state": "关键控制恢复但仍有残余不稳",
+          "benefit_window_start": "1382-01-01",
+          "benefit_window_end": "1382-12-31",
+          "axis_grades": {
+            "SB": 3,
+            "BCP": 2
+          },
+          "source_refs": [
+            "SRC-MINGTONGJIAN-011-2445860-L0333",
+            "SRC-MINGTONGJIAN-011-2445860-L0362"
+          ],
+          "confidence": "MEDIUM",
+          "adjudication_basis": "平乱准入、行动成功和净正收益分开；只按战前—峰值—终局的实际改善或恶化赋轴，不把内部人口、府库、俘戮或俘斩当收益。",
+          "threat_object_ref": "THREAT-云南多地复叛",
+          "control_object_ref": "CONTROL-云南府乌撒乌蒙"
+        }
+      ],
+      "benefit_axis_rollup_basis": {
+        "SB": {
+          "grade": 3,
+          "claim_refs": [
+            "CLAIM-MTJ-MING-YUNNAN-REBELLIONS-1382-NET-RESULT"
+          ],
+          "basis": "SB3仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-011-2445860-L0333",
+            "SRC-MINGTONGJIAN-011-2445860-L0362"
+          ]
+        },
+        "BCP": {
+          "grade": 2,
+          "claim_refs": [
+            "CLAIM-MTJ-MING-YUNNAN-REBELLIONS-1382-NET-RESULT"
+          ],
+          "basis": "BCP2仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-011-2445860-L0333",
+            "SRC-MINGTONGJIAN-011-2445860-L0362"
+          ]
+        }
+      },
+      "asset_components_adjudication": {
+        "gross_commitment_grade": 3,
+        "reusable_input_grade": 1,
+        "consumed_asset_grade": 2,
+        "lost_or_destroyed_asset_grade": null,
+        "A_scoring": 2,
+        "A_lower": 1,
+        "A_upper": 3,
+        "basis": "按军需、跨区调动、攻城或驻留的可确认消耗计分；内部人口、府库及状态不可拆的俘斩不作资产收益或损失。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-011-2445860-L0333",
+          "SRC-MINGTONGJIAN-011-2445860-L0362"
+        ],
+        "confidence": "MEDIUM"
+      },
+      "wr_evidence_adjudication": {
+        "wr_evidence_status": "CONFIRMED_NONE",
+        "asset_base_grade": 0,
+        "transfer_mode": "NONE_OR_DESTROYED",
+        "realization_retention": "LOST_RETURNED_UNUSABLE",
+        "WR_lower": 0,
+        "WR_upper": 0,
+        "WR_scoring": 0,
+        "selection_policy": "LOWER_MIDPOINT",
+        "resource_object_refs": [],
+        "source_refs": [
+          "SRC-MINGTONGJIAN-011-2445860-L0333",
+          "SRC-MINGTONGJIAN-011-2445860-L0362"
+        ],
+        "confidence": "HIGH",
+        "system_scope": "INTERNAL_SAME_STATE_SYSTEM",
+        "basis": "本周期属于同一国家系统内的平乱、恢复或接管；人口、土地、府库、军资及状态不可拆的俘戮俘斩均不构成国家净WR，且没有体系外独立资源对象进入。"
+      }
+    },
+    "MTJ-YUNNAN-GUANGXI-WUFU-1383": {
+      "system_damage_adjudication": {
+        "status": "S0_CONFIRMED",
+        "S0_basis": "跨境追击与敌方空间行动，未见明本方州县、交通或行政节点受扰。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-012-2445861-L0195"
+        ],
+        "confidence": "MEDIUM"
+      },
+      "investment_boundary_adjudication": {
+        "status": "STANDALONE_OR_FIRST",
+        "decision_window": "1383-01-01/1383-12-31",
+        "mobilization_window": "1383-01-01/1383-12-31",
+        "force_refs": [
+          "FORCE-MTJ-YUNNAN-GUANGXI-WUFU-1383"
+        ],
+        "logistics_refs": [
+          "LOGISTICS-MTJ-YUNNAN-GUANGXI-WUFU-1383"
+        ],
+        "no_shared_continuous_input_basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "basis": "该父周期内成员共享同一连续军队、后勤与战略结果链，未按卡数、年份、换将或增援机械再拆。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-012-2445861-L0195"
+        ]
+      },
+      "benefit_claims": [
+        {
+          "benefit_claim_ref": "CLAIM-MTJ-YUNNAN-GUANGXI-WUFU-1383-NET-RESULT",
+          "historical_object_ref": "HIST-吴复方向军事结果",
+          "from_state": "敌军仍活动",
+          "peak_state": "敌军被击破",
+          "to_state": "区域威胁降低并建立控制",
+          "benefit_window_start": "1383-01-01",
+          "benefit_window_end": "1383-12-31",
+          "axis_grades": {
+            "SB": 3,
+            "BCP": 3
+          },
+          "source_refs": [
+            "SRC-MINGTONGJIAN-012-2445861-L0195"
+          ],
+          "confidence": "MEDIUM",
+          "adjudication_basis": "平乱准入、行动成功和净正收益分开；只按战前—峰值—终局的实际改善或恶化赋轴，不把内部人口、府库、俘戮或俘斩当收益。",
+          "threat_object_ref": "THREAT-吴复方向敌军",
+          "control_object_ref": "CONTROL-吴复行动区"
+        }
+      ],
+      "benefit_axis_rollup_basis": {
+        "SB": {
+          "grade": 3,
+          "claim_refs": [
+            "CLAIM-MTJ-YUNNAN-GUANGXI-WUFU-1383-NET-RESULT"
+          ],
+          "basis": "SB3仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-012-2445861-L0195"
+          ]
+        },
+        "BCP": {
+          "grade": 3,
+          "claim_refs": [
+            "CLAIM-MTJ-YUNNAN-GUANGXI-WUFU-1383-NET-RESULT"
+          ],
+          "basis": "BCP3仅由本父周期状态claim聚合；不因成员、阶段或内部人口转手重复累计。",
+          "source_refs": [
+            "SRC-MINGTONGJIAN-012-2445861-L0195"
+          ]
+        }
+      },
+      "asset_components_adjudication": {
+        "gross_commitment_grade": 3,
+        "reusable_input_grade": 1,
+        "consumed_asset_grade": 2,
+        "lost_or_destroyed_asset_grade": null,
+        "A_scoring": 2,
+        "A_lower": 1,
+        "A_upper": 3,
+        "basis": "按军需、跨区调动、攻城或驻留的可确认消耗计分；内部人口、府库及状态不可拆的俘斩不作资产收益或损失。",
+        "source_refs": [
+          "SRC-MINGTONGJIAN-012-2445861-L0195"
+        ],
+        "confidence": "MEDIUM"
+      },
+      "wr_evidence_adjudication": {
+        "wr_evidence_status": "CONFIRMED_NONE",
+        "asset_base_grade": 0,
+        "transfer_mode": "NONE_OR_DESTROYED",
+        "realization_retention": "LOST_RETURNED_UNUSABLE",
+        "WR_lower": 0,
+        "WR_upper": 0,
+        "WR_scoring": 0,
+        "selection_policy": "LOWER_MIDPOINT",
+        "resource_object_refs": [],
+        "source_refs": [
+          "SRC-MINGTONGJIAN-012-2445861-L0195"
+        ],
+        "confidence": "HIGH",
+        "system_scope": "INTERNAL_SAME_STATE_SYSTEM",
+        "basis": "本周期属于同一国家系统内的平乱、恢复或接管；人口、土地、府库、军资及状态不可拆的俘戮俘斩均不构成国家净WR，且没有体系外独立资源对象进入。"
+      }
+    }
+  },
+  "adjudication_batches": [
+    {
+      "batch_ref": "PAIR-LISHIMIN-01",
+      "ruler_name": "李世民",
+      "cycle_refs": [
+        "CAMPAIGN-TANG-QIANG-BETRAYAL-635",
+        "CAMPAIGN-TANG-TIBET-638",
+        "CAMPAIGN-TANG-GAOCHANG-632-640",
+        "CAMPAIGN-TANG-KUCHA-648"
+      ]
+    },
+    {
+      "batch_ref": "PAIR-ZHUYUANZHANG-01",
+      "ruler_name": "朱元璋",
+      "cycle_refs": [
+        "MING-SOUTHWEST-YUNNAN-LOCAL-1386",
+        "MING-SOUTHWEST-DONGCHUAN-1388",
+        "MING-HUGUANG-GUIZHOU-SHINAN-SANMAO-1390",
+        "MING-JIANCHANG-YILUTEMUER-1392",
+        "MTJ-MING-YUNNAN-REBELLIONS-1382",
+        "MTJ-YUNNAN-GUANGXI-WUFU-1383"
+      ]
+    },
+    {
+      "batch_ref": "PAIR-ZHUYUANZHANG-02",
+      "ruler_name": "朱元璋",
+      "cycle_refs": [
+        "MTJ-MING-WUKAI-WUMIAN-1378",
+        "MTJ-WUKAI-WUMIAN-1385",
+        "MING-WUKAI-DUYUN-BIJIE-1391-1392",
+        "MING-HUGUANG-CHENGUI-1396",
+        "MING-SOUTHWEST-AZI-1388-1395",
+        "MING-LUCHUAN-DAO-GANMENG-1397-1398"
+      ]
+    },
+    {
+      "batch_ref": "PAIR-ZHUYUANZHANG-03",
+      "ruler_name": "朱元璋",
+      "cycle_refs": [
+        "MING-NORTHERN-BORDER-1395",
+        "MING-NORTHERN-YUAN-REMAINDER-1395",
+        "MING-NORTHERN-BORDER-CHACHAER-1396",
+        "MING-NORTHERN-YUAN-NAIRBUQA-1390"
+      ]
+    },
+    {
+      "batch_ref": "PAIR-ZHUYUANZHANG-04",
+      "ruler_name": "朱元璋",
+      "cycle_refs": [
+        "MING-WOKOU-SOUTHCOAST-1391",
+        "MING-WOKOU-ZHEDONG-1394",
+        "MTJ-MING-GUANGDONG-PACIFICATION-1380-1382"
+      ]
+    }
+  ]
+}

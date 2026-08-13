@@ -44,7 +44,60 @@
           "end_equivalent": 1.5,
           "grade": 2,
           "position": "MID",
-          "reason": "统一战争新增核心疆域全部排除，只计算非统一边防节点与缓冲的有限净增；加权值落B1-2中位。"
+          "reason": "统一战争新增核心疆域全部排除，只计算非统一边防节点与缓冲的有限净增；加权值落B1-2中位。",
+          "regions": [
+            {
+              "object_id": "HEBEI_GUANNAN_BUFFER",
+              "object_name": "棣州—固安方向／大会寨／长平通道／北汉—辽南线缓冲",
+              "start_equivalent": 0.25,
+              "end_equivalent": 0.75,
+              "control_form": "INHERITED_PLUS_BORDER_NODE_RECOVERY",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XUZJ-001-LIYUN-ZELU-REBELLION-0960",
+                "SRC-XUZIZHITONGJIAN-001-2603334-P0052",
+                "SRC-XUZIZHITONGJIAN-001-2603334-P0057"
+              ],
+              "reason": "北汉、辽边方向有既有缓冲，李筠链明确夺取大会寨、长平通道；按相邻边线与局部走廊保守取0.25→0.75，不把一次野战胜利单独累加。",
+              "counted": true,
+              "status": "PROVISIONAL_REGION_SNAPSHOT",
+              "exclusions": []
+            },
+            {
+              "object_id": "HEDONG_NORTHHAN_FRONTIER",
+              "object_name": "麟州／府州／沙石寨／潞州—昭义军镇边缘",
+              "start_equivalent": 0.25,
+              "end_equivalent": 0.75,
+              "control_form": "BORDER_HOLD_AND_LIMITED_ADVANCE",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XUZJ-001-LIYUN-ZELU-REBELLION-0960",
+                "SRC-XUZIZHITONGJIAN-001-2603334-P0045",
+                "SRC-XUZIZHITONGJIAN-001-2603334-P0066"
+              ],
+              "reason": "麟州、河西边地守成，沙石寨为北汉边寨；仅将形成实际边防节点的连续控制记入，安全威慑不另加。",
+              "counted": true,
+              "status": "PROVISIONAL_REGION_SNAPSHOT",
+              "exclusions": []
+            },
+            {
+              "object_id": "UNIFICATION_CORE_AND_INTERNAL_RESTORATION",
+              "object_name": "汴京宫城／江陵、湖南／后蜀/南汉旧地／泽州、潞州州治／四川十七州及嘉州、普州、雅州",
+              "start_equivalent": 0.0,
+              "end_equivalent": 0.0,
+              "control_form": "EXCLUDED_UNIFICATION_OR_OLD_CONTROL_RECOVERY",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XUZJ-001-SONG-FOUNDING-CHENQIAO-0960",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XUZJ-004-SONG-SICHUAN-REBELLION-0965-0966",
+                "SRC-XUZIZHITONGJIAN-004-2299538-P0058"
+              ],
+              "reason": "创业统一核心与国内叛乱恢复只恢复事前秩序；不把收复旧州、首都或政权建置倒灌B1。",
+              "counted": false,
+              "status": "EXCLUDED_BY_CONTRACT",
+              "exclusions": [
+                "创业/统一控制量",
+                "国内旧地恢复"
+              ]
+            }
+          ]
         },
         "B2": {
           "grade": 4,
@@ -112,7 +165,57 @@
           "end_equivalent": 0.75,
           "grade": 0,
           "position": "LOW",
-          "reason": "北汉统一收益排除后，燕云无所得且西北控制受损；加权控制值为-0.15，依共同边界机械落B1-0，不以残余存量掩盖净退控。"
+          "reason": "北汉统一收益排除后，燕云无所得且西北控制受损；加权控制值为-0.15，依共同边界机械落B1-0，不以残余存量掩盖净退控。",
+          "regions": [
+            {
+              "object_id": "HEBEI_LIAO_FRONTIER",
+              "object_name": "燕云方向、河北诸关／君子馆—涿州—易州段／博州、代州、雄州既有边线",
+              "start_equivalent": 1.0,
+              "end_equivalent": 0.5,
+              "control_form": "INHERITED_FRONTIER_THEN_STRUCTURAL_RETREAT",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-LIAO-NORTHERN-WAR-0986-0996",
+                "SRC-XUZIZHITONGJIAN-014-2271043-P0052",
+                "SRC-XUZIZHITONGJIAN-014-2271043-P0061"
+              ],
+              "reason": "接班继承北方边线，雍熙北伐与辽军推进后涿州、易州及多个河北节点退控；守住博州/代州不抵销结构性退控。",
+              "counted": true,
+              "status": "PROVISIONAL_REGION_SNAPSHOT",
+              "exclusions": []
+            },
+            {
+              "object_id": "NORTHWEST_LIJIQIAN",
+              "object_name": "绥州／银州／三族寨／灵州—河西方向",
+              "start_equivalent": 0.5,
+              "end_equivalent": 0.25,
+              "control_form": "LIMITED_RECOVERY_OFFSET_BY_SILVER_STATE_LOSS",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-LIJIQIAN-0984-0992",
+                "SRC-XUZIZHITONGJIAN-017-2611601-P0058",
+                "SRC-XUZIZHITONGJIAN-012-1515100-P0097"
+              ],
+              "reason": "绥州有恢复，但银州、三族寨及持续西北压力形成更大净退控；短时入城与归附不当作稳定扩张。",
+              "counted": true,
+              "status": "PROVISIONAL_REGION_SNAPSHOT",
+              "exclusions": []
+            },
+            {
+              "object_id": "SICHUAN_INTERNAL_RESTORATION",
+              "object_name": "蜀、邛诸州／成都／剑州、绵州、阆州、巴州／嘉、戎、泸、渝、涪、忠、万、开八州",
+              "start_equivalent": 0.0,
+              "end_equivalent": 0.0,
+              "control_form": "EXCLUDED_INTERNAL_RESTORATION",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-WANGXIAOBO-LISHUN-0993-0995",
+                "SRC-XUZIZHITONGJIAN-017-2611601-P0034",
+                "SRC-XUZIZHITONGJIAN-017-2611601-P0069"
+              ],
+              "reason": "王小波—李顺为国内叛乱；成都及诸州收复只恢复旧控制，八州失控保留为负向安全/成本事实，不参与外部新增B1。",
+              "counted": false,
+              "status": "EXCLUDED_BY_CONTRACT",
+              "exclusions": []
+            }
+          ]
         },
         "B2": {
           "grade": 2,
@@ -216,11 +319,46 @@
           "reason": "河北防线经澶渊战争检验并转入常态边界体系，西北若干节点仍反复受扰，故止于总体安全有缺口。"
         },
         "B1": {
-          "start_equivalent": 0.75,
+          "start_equivalent": 1.0,
           "end_equivalent": 1.0,
           "grade": 1,
           "position": "MID",
-          "reason": "以守成为主，实际控制净增有限；边界稳定不等同领土扩张，按小规模净增定B1-1中位。"
+          "reason": "以守成为主，实际控制净增有限；边界稳定不等同领土扩张，按小规模净增定B1-1中位。",
+          "regions": [
+            {
+              "object_id": "HEBEI_LIAO_MAIN_FRONT",
+              "object_name": "河北宋辽主防方向",
+              "start_equivalent": 0.75,
+              "end_equivalent": 0.75,
+              "control_form": "SAVED_UNDER_MAJOR_PRESSURE",
+              "evidence_refs": [
+                "XZTJ-SONG-LIAO-CHANYUAN-1004"
+              ],
+              "reason": "澶渊之战与和议使既有河北主防方向保持并转入长期稳定；只计维持，不计领土新增。"
+            },
+            {
+              "object_id": "NORTHWEST_LINGZHOU",
+              "object_name": "灵州—河西粮道节点",
+              "start_equivalent": 0.25,
+              "end_equivalent": 0.0,
+              "control_form": "LOST_DURING_REIGN",
+              "evidence_refs": [
+                "XZTJ-SONG-LIJIQIAN-NORTHWEST-1000-1003"
+              ],
+              "reason": "灵州战争终局为长期失控，必须作为负向控制边界显式保留，不得被澶渊正向结果抵销后消失。"
+            },
+            {
+              "object_id": "QINZHOU_TIBET_FRONTIER_NODE",
+              "object_name": "秦州吐蕃边防节点",
+              "start_equivalent": 0.0,
+              "end_equivalent": 0.25,
+              "control_form": "NEW_RECOVERED_REBUILT",
+              "evidence_refs": [
+                "XZTJ-SONG-TIBET-QINZHOU-1015-1017"
+              ],
+              "reason": "只按秦州方向可闭合的有限边防节点计0.25；不把西北总体压力或大军投入倒推为更大控制。"
+            }
+          ]
         },
         "B2": {
           "grade": 4,
@@ -239,6 +377,9 @@
         "C3": 3,
         "major_system_failure_group_refs": [
           "XZTJ-SONG-LIJIQIAN-NORTHWEST-1000-1003"
+        ],
+        "major_system_success_group_refs": [
+          "XZTJ-SONG-LIAO-CHANYUAN-1004"
         ],
         "reason": "澶州等国家级防御最终兑现，长期守边系统通常可运行；灵州链的补给—守城失效、西北反复和高额战争负担使体系止于中档。"
       },
@@ -332,7 +473,38 @@
           "end_equivalent": 1.0,
           "grade": 1,
           "position": "MID",
-          "reason": "未见共同尺度上的新增控制，仅确认小规模存量守成。"
+          "reason": "未见共同尺度上的新增控制，仅确认小规模存量守成。",
+          "regions": [
+            {
+              "object_id": "HEBEI_LIAO_FRONTIER",
+              "object_name": "澶渊后河北主边界／河北—关南常态军镇",
+              "start_equivalent": 1.0,
+              "end_equivalent": 1.0,
+              "control_form": "INHERITED_MAINTENANCE",
+              "evidence_refs": [
+                "SRC-XUZIZHITONGJIAN-033-source-summary.md#L79",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-LIAO-CHANYUAN-1004"
+              ],
+              "reason": "本窗口没有可归责的新增控制周期；相邻交班快照同值复用，维持澶渊后主要边界，不把和平持续当领土净增。",
+              "counted": true,
+              "status": "PROVISIONAL_REGION_SNAPSHOT",
+              "exclusions": []
+            },
+            {
+              "object_id": "NORTHWEST_FRONTIER",
+              "object_name": "西北既有节点",
+              "start_equivalent": 0.0,
+              "end_equivalent": 0.0,
+              "control_form": "NO_NEW_CONTROL_EVIDENCE",
+              "evidence_refs": [
+                "SRC-XUZIZHITONGJIAN-033-source-summary.md#L79"
+              ],
+              "reason": "未发现本窗口可定位的新增或稳定恢复控制，安全状态不等于B1空间增加。",
+              "counted": false,
+              "status": "EXCLUDED_NO_CHANGE",
+              "exclusions": []
+            }
+          ]
         },
         "B2": {
           "grade": 2,
@@ -534,7 +706,57 @@
           "end_equivalent": 0.75,
           "grade": 1,
           "position": "LOW",
-          "reason": "对夏战争未形成稳定净扩张，若干节点得失相抵后略有退让，控制净包为小幅负变。"
+          "reason": "对夏战争未形成稳定净扩张，若干节点得失相抵后略有退让，控制净包为小幅负变。",
+          "regions": [
+            {
+              "object_id": "XIA_HEXI_FRONTIER",
+              "object_name": "金明寨／塞门寨／安远寨／青涧城／延州方向故堡／白豹城",
+              "start_equivalent": 0.75,
+              "end_equivalent": 0.5,
+              "control_form": "FRONTIER_LOSS_NET_OF_LIMITED_RECOVERY",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-XIA-WAR-1038-1044",
+                "SRC-XUZIZHITONGJIAN-042-2633669-P0047",
+                "SRC-XUZIZHITONGJIAN-042-2633669-P0164"
+              ],
+              "reason": "青涧、白豹和故堡恢复不能抵销金明、塞门、安远等关键寨堡失守；以父链终点净额取0.75→0.50。",
+              "counted": true,
+              "status": "PROVISIONAL_REGION_SNAPSHOT",
+              "exclusions": []
+            },
+            {
+              "object_id": "QINFENG_GUWEI_FRONTIER",
+              "object_name": "古渭寨／秦凤—泾原边寨",
+              "start_equivalent": 0.25,
+              "end_equivalent": 0.25,
+              "control_form": "LIMITED_BORDER_NODE_GAIN_WITH_BOUNDARY_CONCESSION",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-GUWEI-QIANG-1053",
+                "SRC-XUZIZHITONGJIAN-053-2311105-P0128",
+                "SRC-XUZIZHITONGJIAN-053-2311105-P0129"
+              ],
+              "reason": "古渭寨完成并驻守；返还争议土地是和解边界，不把安全稳定或争议地让渡改写为净增。",
+              "counted": true,
+              "status": "PROVISIONAL_REGION_SNAPSHOT",
+              "exclusions": []
+            },
+            {
+              "object_id": "INTERNAL_RESTORATION_NONGZHIGAO_WANGZE",
+              "object_name": "贝州／邕州、宾州／金州及京西湖北盗乱区",
+              "start_equivalent": 0.0,
+              "end_equivalent": 0.0,
+              "control_form": "EXCLUDED_INTERNAL_RESTORATION",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-049-SONG-WANGZE-BEIZHOU-1047-1048",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-050-NONGZHIGAO-NANTIAN-YONGZHOU-1049",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-JINGXI-BANDITRY-1043"
+              ],
+              "reason": "配置明确走D_INTERNAL_RESTORATION/STRATEGIC；失守与收复只恢复旧秩序，不能作为B1外部新增。",
+              "counted": false,
+              "status": "EXCLUDED_BY_CONTRACT",
+              "exclusions": []
+            }
+          ]
         },
         "B2": {
           "grade": 3,
@@ -588,7 +810,40 @@
           "end_equivalent": 0.75,
           "grade": 1,
           "position": "LOW",
-          "reason": "无可确认共同尺度净增，仅保留既有小规模控制存量。"
+          "reason": "无可确认共同尺度净增，仅保留既有小规模控制存量。",
+          "regions": [
+            {
+              "object_id": "QINFENG_JINGYUAN_FRONTIER",
+              "object_name": "秦凤、泾原边寨／大顺城／柔远寨／熟户/弓箭手活动区",
+              "start_equivalent": 0.75,
+              "end_equivalent": 0.75,
+              "control_form": "FRONTIER_HOLD_WITH_UNCERTAIN_EDGE_CONTROL",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-XIA-QINFENG-JINGYUAN-1064",
+                "SRC-XUZIZHITONGJIAN-062-2271060-P0089",
+                "SRC-XUZIZHITONGJIAN-064-2271098-P0095"
+              ],
+              "reason": "固定卡确认熟户与边缘控制受冲击，但大顺、柔远守住；具体归属未载，按既有0.75→0.75有界维持，不能把安全压力当BCN。",
+              "counted": true,
+              "status": "PROVISIONAL_REGION_SNAPSHOT",
+              "exclusions": []
+            },
+            {
+              "object_id": "UNRESOLVED_BORDER_EDGE",
+              "object_name": "秦凤、泾原八十余熟户活动区",
+              "start_equivalent": 0.0,
+              "end_equivalent": 0.0,
+              "control_form": "EXCLUDED_UNKNOWN_NO_STABLE_CONTROL_CHANGE",
+              "evidence_refs": [
+                "SRC-XUZIZHITONGJIAN-063-2270947-P0014",
+                "SRC-XUZIZHITONGJIAN-063-2270947-P0109"
+              ],
+              "reason": "史料只证明驱胁、内撤和压力，未闭合具体城寨/区域终局；保留为证据缺口，不填控制变化。",
+              "counted": false,
+              "status": "EXCLUDED_UNRESOLVED",
+              "exclusions": []
+            }
+          ]
         },
         "B2": {
           "grade": 2,
@@ -695,7 +950,77 @@
           "end_equivalent": 2.5,
           "grade": 3,
           "position": "MID",
-          "reason": "熙河、兰州等实际控制形成显著净增；扣除反复失地与脆弱节点后，加权值仍落B1-3中位。"
+          "reason": "熙河、兰州等实际控制形成显著净增；扣除反复失地与脆弱节点后，加权值仍落B1-3中位。",
+          "regions": [
+            {
+              "object_id": "HEXIHEDONG_FRONTIER",
+              "object_name": "河州、宕州、岷州、叠州、洮州／兰州古城、通远堡／淯井—纳溪要害线",
+              "start_equivalent": 0.25,
+              "end_equivalent": 1.25,
+              "control_form": "MULTI_NODE_FRONTIER_EXPANSION",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-TIBET-XIHE-1072-1074",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-XIA-FIVE-ROUTE-1081",
+                "SRC-XUZIZHITONGJIAN-069-2299555-P0157",
+                "SRC-XUZIZHITONGJIAN-076-2294773-P0071"
+              ],
+              "reason": "河湟五州与兰州—通远形成连续控制扩展；按相邻走廊保守取0.25→1.25，单次投降不另算第二次。",
+              "counted": true,
+              "status": "PROVISIONAL_REGION_SNAPSHOT",
+              "exclusions": []
+            },
+            {
+              "object_id": "XIA_FRONTIER",
+              "object_name": "米脂寨／平夏城前沿／囉兀城/抚宁／永乐城/银川砦",
+              "start_equivalent": 0.5,
+              "end_equivalent": 0.75,
+              "control_form": "RECOVERED_AND_NEW_FORTS_NET_OF_YONGLE_LOSS",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-XIA-FIVE-ROUTE-1081",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-XIA-LUOWU-FUNING-1071",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-XIA-YONGLE-1082",
+                "SRC-XUZIZHITONGJIAN-068-1374613-P0094",
+                "SRC-XUZIZHITONGJIAN-077-2295393-P0065"
+              ],
+              "reason": "米脂、平夏和若干前沿扩张被永乐城及囉兀体系失守部分抵销；终点取0.50→0.75，不用安全威慑替代控制。",
+              "counted": true,
+              "status": "PROVISIONAL_REGION_SNAPSHOT",
+              "exclusions": []
+            },
+            {
+              "object_id": "SOUTHWEST_LUSHU_FRONTIER",
+              "object_name": "泸夷后城、十三囤／乐共城、江山砦、梅岭、席帽谿堡",
+              "start_equivalent": 0.0,
+              "end_equivalent": 0.5,
+              "control_form": "LIMITED_NEW_FORTIFIED_CORRIDOR",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-LUHU-NAXI-1078-1080",
+                "SRC-XUZIZHITONGJIAN-073-2311113-P0060",
+                "SRC-XUZIZHITONGJIAN-077-2295393-P0011"
+              ],
+              "reason": "十三囤与乐共—江山等要害有实际攻取、筑防和连续据有，按局部走廊取0.50；不把单次深入或斩获另算。",
+              "counted": true,
+              "status": "PROVISIONAL_REGION_SNAPSHOT",
+              "exclusions": []
+            },
+            {
+              "object_id": "GUANGNAN_AND_INTERNAL_RESTORATION",
+              "object_name": "钦州、廉州、邕州／顺州、八隘外六县/宿桑诸峒／渝州—南平军／安化蛮、丰州军变",
+              "start_equivalent": 0.0,
+              "end_equivalent": 0.0,
+              "control_form": "EXCLUDED_LOSS_OR_INTERNAL_RECOVERY",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-DAIVIET-WAR-1075-1077",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-YUZHOU-NANPING-1071",
+                "SRC-XUZIZHITONGJIAN-071-2602746-P0098",
+                "SRC-XUZIZHITONGJIAN-074-2292219-P0094"
+              ],
+              "reason": "交趾战争的失守/割让和国内渝州平乱不转成正向净控制；安全缓解、请降和短期广源州取得均不在终点账中。",
+              "counted": false,
+              "status": "EXCLUDED_BY_CONTRACT",
+              "exclusions": []
+            }
+          ]
         },
         "B2": {
           "grade": 4,
@@ -784,7 +1109,57 @@
           "end_equivalent": 1.5,
           "grade": 0,
           "position": "LOW",
-          "reason": "对夏让渡若干争议地使控制存量下降；加权控制值为0，依共同边界机械落B1-0。收缩可改善安全与成熟度，但不得改写为控制净收益。"
+          "reason": "对夏让渡若干争议地使控制存量下降；加权控制值为0，依共同边界机械落B1-0。收缩可改善安全与成熟度，但不得改写为控制净收益。",
+          "regions": [
+            {
+              "object_id": "HEXIHEDONG_FRONTIER",
+              "object_name": "洮州／米脂砦、葭芦砦、浮图砦、安疆砦",
+              "start_equivalent": 1.5,
+              "end_equivalent": 1.0,
+              "control_form": "RECOVER_TAOZHOU_BUT_RETURN_FOUR_FORTS",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-TIBETAN-TAOZHOU-GUOZHUANG-1087",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-XIA-YUANYOU-WESTERN-SETTLEMENT-1086-1090",
+                "SRC-XUZIZHITONGJIAN-080-2299556-P0155",
+                "SRC-XUZIZHITONGJIAN-081-2296207-P0146"
+              ],
+              "reason": "洮州先失后复不形成净增；元丰四砦实际归还造成多节点退控，区域1.5→1.0。",
+              "counted": true,
+              "status": "PROVISIONAL_REGION_SNAPSHOT",
+              "exclusions": []
+            },
+            {
+              "object_id": "XIA_QINYUAN_FRONTIER",
+              "object_name": "渠阳砦／镇戎军、三川诸砦、环州—永和诸砦",
+              "start_equivalent": 1.0,
+              "end_equivalent": 0.5,
+              "control_form": "ABANDONED_NODE_AND_BORDER_MAINTENANCE",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-XIA-YUANYOU-BORDER-RAIDS-1087-1088",
+                "SRC-XUZIZHITONGJIAN-084-2299561-P0009",
+                "SRC-XUZIZHITONGJIAN-082-2297566-P0133"
+              ],
+              "reason": "渠阳砦明确弃置；环州、镇戎等仅守住既有线，不能以击退或议和抵销退控，1.0→0.5。",
+              "counted": true,
+              "status": "PROVISIONAL_REGION_SNAPSHOT",
+              "exclusions": []
+            },
+            {
+              "object_id": "SAFETY_ONLY_AND_UNKNOWN_EDGES",
+              "object_name": "南川砦／延安—西戎方向",
+              "start_equivalent": 0.0,
+              "end_equivalent": 0.0,
+              "control_form": "EXCLUDED_UNKNOWN_OR_SECURITY_ONLY",
+              "evidence_refs": [
+                "SRC-XUZIZHITONGJIAN-080-2299556-P0113",
+                "SRC-XUZIZHITONGJIAN-079-2295970-P0108"
+              ],
+              "reason": "终局未知或仅有安全影响，不能填BCP/BCN。",
+              "counted": false,
+              "status": "EXCLUDED_UNRESOLVED",
+              "exclusions": []
+            }
+          ]
         },
         "B2": {
           "grade": 3,
@@ -877,7 +1252,38 @@
           "end_equivalent": 2.5,
           "grade": 3,
           "position": "LOW",
-          "reason": "恢复并新增若干西北城寨控制；加权控制值1.6已跨共同边界，机械落B1-3低位，不因样本有限退回错误档位。"
+          "reason": "恢复并新增若干西北城寨控制；加权控制值1.6已跨共同边界，机械落B1-3低位，不因样本有限退回错误档位。",
+          "regions": [
+            {
+              "object_id": "XIA_NORTHWEST_FRONTIER",
+              "object_name": "平夏城／灵平砦／葫芦河川／沿边五十余所堡寨推进线",
+              "start_equivalent": 1.5,
+              "end_equivalent": 2.5,
+              "control_form": "CONTINUOUS_FORTRESS_AND_GARRISON_EXPANSION",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-XIA-PINGXIA-FORTRESS-CAMPAIGN-1097-1098",
+                "SRC-XUZIZHITONGJIAN-085-2311114-P0056"
+              ],
+              "reason": "唯一重大控制周期明确记载连续堡寨推进和驻防，1.5→2.5；不把体系可靠性或后继变化作为额外空间。",
+              "counted": true,
+              "status": "PROVISIONAL_REGION_SNAPSHOT",
+              "exclusions": []
+            },
+            {
+              "object_id": "OTHER_FRONTIER_DIRECTIONS",
+              "object_name": "其余宋夏边线",
+              "start_equivalent": 0.0,
+              "end_equivalent": 0.0,
+              "control_form": "EXCLUDED_NO_CONTROL_CHANGE",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-XIA-PINGXIA-FORTRESS-CAMPAIGN-1097-1098"
+              ],
+              "reason": "本批无另一条可确认净控制变化，安全压力只作C/D证据。",
+              "counted": false,
+              "status": "EXCLUDED_NO_CHANGE",
+              "exclusions": []
+            }
+          ]
         },
         "B2": {
           "grade": 4,
@@ -985,7 +1391,74 @@
           "end_equivalent": 0.0,
           "grade": 0,
           "position": "HIGH",
-          "reason": "西北局部开边不足抵消燕云空城接收后迅速丧失、山后与河东北部退控；严重净退控使加权控制值不大于0，按B1-0。"
+          "reason": "西北局部开边不足抵消燕云空城接收后迅速丧失、山后与河东北部退控；严重净退控使加权控制值不大于0，按B1-0。",
+          "regions": [
+            {
+              "object_id": "YANSHAN_SHANHOU_HEBEI",
+              "object_name": "燕山府所属州县／蔚州、飞狐、灵丘、应州／涿州及山后方向",
+              "start_equivalent": 1.5,
+              "end_equivalent": 0.0,
+              "control_form": "INHERITED_FRONTIER_COLLAPSE",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-JIN-SONG-FIRST-INVASION-EAST-1125-1126",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-JIN-SONG-SHANHOU-1124",
+                "SRC-XUZIZHITONGJIAN-095-2299598-P0109",
+                "SRC-XUZIZHITONGJIAN-095-2299598-P0203"
+              ],
+              "reason": "金军入侵导致燕山府所属州县和山后节点成片失控；短暂来降/前进不形成可交班控制，终点为0。",
+              "counted": true,
+              "status": "PROVISIONAL_REGION_SNAPSHOT",
+              "exclusions": []
+            },
+            {
+              "object_id": "XIA_NORTHWEST_FRONTIER",
+              "object_name": "清水河新城／定远、藏底河、同安、镇戎方向／广南/西北零散前沿",
+              "start_equivalent": 0.75,
+              "end_equivalent": 0.0,
+              "control_form": "FRONTIER_PRESSURE_WITH_TERMINAL_COLLAPSE",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-XIA-GUGULONG-QINGSHUI-1115",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-XIA-DINGYUAN-ZANGDIHE-1114-1115",
+                "SRC-XUZIZHITONGJIAN-092-2299369-P0013"
+              ],
+              "reason": "局部筑城和边线守住不足以抵御任末中枢崩解；终端状态无可移交控制，0.75→0。",
+              "counted": true,
+              "status": "PROVISIONAL_REGION_SNAPSHOT",
+              "exclusions": []
+            },
+            {
+              "object_id": "XIA_NORTHWEST_INHERITED_REMAINDER",
+              "object_name": "平夏城—灵平砦—葫芦河川沿边五十余堡寨中未在本父链拆分的交班余量",
+              "start_equivalent": 0.25,
+              "end_equivalent": 0.0,
+              "control_form": "INHERITED_FRONTIER_REMAINDER_TERMINAL_COLLAPSE",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-XIA-PINGXIA-FORTRESS-CAMPAIGN-1097-1098",
+                "SRC-XUZIZHITONGJIAN-085-2311114-P0056"
+              ],
+              "reason": "赵煦末年平夏—灵平及沿边堡寨交班总量为2.5；本批没有逐寨重建的新增事实，保留未拆分的0.25继承余量，不能因本任无新增事件自动归零；靖康终局后统一降为0。",
+              "counted": true,
+              "status": "PROVISIONAL_REGION_SNAPSHOT",
+              "exclusions": []
+            },
+            {
+              "object_id": "SOUTHEAST_INTERNAL_AND_SHORT_OCCUPATION",
+              "object_name": "杭州、睦州、青溪方腊区／广西南丹／梅岭堡、晏州及涿州短占",
+              "start_equivalent": 0.25,
+              "end_equivalent": 0.0,
+              "control_form": "EXCLUDED_INTERNAL_RECOVERY_OR_REVERSED_OCCUPATION",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-FANGLA-REBELLION-1120-1121",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-LUNAN-YANZHOU-REBELLION-1115",
+                "SRC-XUZIZHITONGJIAN-094-2299574-P0008",
+                "SRC-XUZIZHITONGJIAN-092-2299369-P0060"
+              ],
+              "reason": "方腊平乱恢复旧地；晏州等内乱/短暂前进不计新增；终端靖康覆亡后全部控制为0。",
+              "counted": false,
+              "status": "EXCLUDED_BY_CONTRACT",
+              "exclusions": []
+            }
+          ]
         },
         "B2": {
           "grade": 1,
@@ -1125,7 +1598,25 @@
           "end_equivalent": 0.0,
           "grade": 0,
           "position": "LOW",
-          "reason": "终端政权实际覆亡且无可向同一北宋中枢移交的防御控制能力，依合同交班绝对量与B1均为0。"
+          "reason": "终端政权实际覆亡且无可向同一北宋中枢移交的防御控制能力，依合同交班绝对量与B1均为0。",
+          "regions": [
+            {
+              "object_id": "NORTHERN_CORE_TERMINAL_COLLAPSE",
+              "object_name": "汤阴—浚州—黄河防线／真定府、井陉通道／东京开封中央军政体系",
+              "start_equivalent": 0.0,
+              "end_equivalent": 0.0,
+              "control_form": "NO_TRANSFERABLE_CONTROL_AFTER_CAPITAL_COLLAPSE",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-JIN-SONG-KAIFENG-SECOND-SIEGE-1126-1127",
+                "SRC-XUZIZHITONGJIAN-097-2309869-P0090",
+                "SRC-XUZIZHITONGJIAN-097-2309869-P0052"
+              ],
+              "reason": "接班快照承赵佶覆亡终点为0；金军攻陷真定、开封，援军退却，终端无可向同一北宋中枢移交的控制。",
+              "counted": true,
+              "status": "PROVISIONAL_REGION_SNAPSHOT",
+              "exclusions": []
+            }
+          ]
         },
         "B2": {
           "grade": 0,
@@ -1174,5 +1665,6 @@
       "刘渊—王如流民起兵：现有FIN导航事实未闭合D成本收益父卡",
       "赫连勃勃—夏宗室内战：现有通读材料未闭合可消费D父卡"
     ]
-  }
+  },
+  "semantic_fingerprint": "41a330cd3aede3392a4037d53d0a64ccf2a5098fb92bd5796b33d3cfe6597c7e"
 }

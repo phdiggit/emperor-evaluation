@@ -2348,12 +2348,18 @@
         },
         {
           "fields": [
-            "border_control_grade"
+            "border_control_grade",
+            "d_cost_axes"
           ],
           "override": "SUBJECT_PHASE_FACTS",
-          "rationale": "将同一正式D人工视图已列的本主体—任期阶段实际净控制变化持久化到机器读取入口；不改动成本、回报方向或其他裁决。",
+          "rationale": "龟兹远征由苻坚授权并使用前秦十万级国家军队；沿用父卡P1估、M2成本与已实现BCP4，避免把吕光军标签误作非国家成本。",
           "values": {
-            "border_control_grade": "BCP4"
+            "border_control_grade": "BCP4",
+            "d_cost_axes": {
+              "A": "A0",
+              "M": "M2",
+              "P": "P1估"
+            }
           },
           "war_event_id": "WAR-LEAD-105-KUCHA-383-384"
         },
@@ -2996,6 +3002,12 @@
             "border_control_grade": "BCP2"
           },
           "war_event_id": "WAR-LEAD-141-02"
+        },
+        {
+          "fields": [],
+          "override": "DROP_NOT_RULER_SUBJECT_OR_REIGN",
+          "rationale": "该父卡以宫禁夺权、宗室清洗和寻阳局部渗透为主，公共战役合同已标为REDIRECTED_MIXED_PARENT；不符合D项国家级内战或大型平乱准入门槛。",
+          "war_event_id": "WAR-PARENT-NC-QI-COUPS-494"
         }
       ],
       "internal_cycle_refs": [
@@ -5186,12 +5198,14 @@
       "ruler_event_class_overrides": [
         {
           "fields": [
-            "d_route"
+            "d_route",
+            "material_return_grade"
           ],
           "override": "PARENT_ROUTE_ADJUDICATION",
-          "rationale": "该周期统一按内部恢复路由结算；明载的征发与骚乱因果只用于父周期合并和P/S/M/A、SN/BCN归责，不再触发特殊回报上限。",
+          "rationale": "该周期由辽东造船征发直接诱发剑南骚乱，且遗诏罢役前没有形成可核验的恢复性治理或外部战略收益；已造船只按可见军事物资下限记WR1，不把去向与使用均未知的船队抬成高收益，也不能借“平乱”名义按内部恢复低回报封顶。",
           "values": {
-            "d_route": "D_INTERNAL_RESTORATION"
+            "d_route": "D_INTERNAL_STRATEGIC",
+            "material_return_grade": "WR1"
           },
           "war_event_id": "WAR-LEAD-TANG-SHIP-LABOR-REBELLION"
         },
@@ -5274,12 +5288,32 @@
         },
         {
           "fields": [
-            "border_control_grade"
+            "border_control_grade",
+            "cost_axes",
+            "d_cost_axes",
+            "s_attribution_rationale",
+            "s_attribution_status",
+            "s_effective_grade"
           ],
-          "override": "SUBJECT_PHASE_FACTS",
-          "rationale": "将同一正式D人工视图已列的本主体—任期阶段实际净控制变化持久化到机器读取入口；不改动成本、回报方向或其他裁决。",
+          "override": "CANONICAL_PARENT_COST_ROLLUP",
+          "rationale": "铁勒整合父周期吸收641年薛延陀南侵阶段；该阶段明载唐马多死并有多路大规模动员，成本不得因终局胜利卡未重复抄录而丢失；漠北羁縻控制的既有BCP4主体裁决同时保留，禁止同一事件的后置覆盖吞掉收益轴。",
           "values": {
-            "border_control_grade": "BCP4"
+            "border_control_grade": "BCP4",
+            "cost_axes": {
+              "P": "P0",
+              "S": "S2",
+              "M": "M3",
+              "A": "A3",
+              "WC": "WC3"
+            },
+            "d_cost_axes": {
+              "P": "P0",
+              "M": "M3",
+              "A": "A3"
+            },
+            "s_attribution_rationale": "卷196的唐马多死属于同一薛延陀—铁勒父周期且发生于太宗决策窗口，按父周期卷入S2。",
+            "s_attribution_status": "FULL_SELF_INDUCED",
+            "s_effective_grade": "S2"
           },
           "war_event_id": "WAR-LEAD-TANG-TIELE-INTEGRATION"
         },
@@ -6340,7 +6374,7 @@
       ]
     }
   ],
-  "semantic_fingerprint": "08e208b1e78850ef5c4c24ddd136e7c290ea40a6775019a9be782784fead8416",
+  "semantic_fingerprint": "209c3b24b4989a97781164b40cc15ad3487f4980054b3ff0c290d321ec2513dd",
   "large_rebellion_admission_policy": {
     "selection_basis": "ALL_RULERS_SAME_STANDARD_CURATED_AUDIT",
     "qualifying_conditions": [

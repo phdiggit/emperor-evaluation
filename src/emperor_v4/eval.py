@@ -50,31 +50,27 @@ from emperor_v4.evaluation.post_tang_third_item_consumption import (
     build_post_tang_third_item_consumption_audit,
 )
 from emperor_v4.evaluation.south_song_third_item import (
-    build_south_song_abc_preview,
     build_south_song_cycle_admission_audit,
-    build_south_song_d_preview,
     build_south_song_parent_cycle_audit,
-    build_south_song_formal_payloads,
-    write_south_song_third_item,
 )
 from emperor_v4.evaluation.yuan_third_item import (
-    build_yuan_abc_preview,
     build_yuan_cycle_admission_audit,
-    build_yuan_d_preview,
-    build_yuan_formal_payloads,
     build_yuan_parent_cycle_audit,
-    write_yuan_third_item,
 )
 from emperor_v4.evaluation.ming_third_item import (
-    build_ming_abc_preview,
     build_ming_cycle_admission_audit,
-    build_ming_d_preview,
-    build_ming_formal_payloads,
     build_ming_parent_cycle_audit,
-    write_ming_third_item,
 )
 from emperor_v4.evaluation.military_talent_grade_registry import (
     write_military_talent_grade_registry,
+)
+from emperor_v4.evaluation.third_item_d_cycle_registry import (
+    PUBLIC_REGISTRY_PATH as THIRD_ITEM_D_CYCLE_REGISTRY_PATH,
+    load_third_item_d_cycle_registry,
+)
+from emperor_v4.evaluation.third_item_d_settlement import (
+    build_public_cycle_linear_q_analysis,
+    write_third_item_d_formal_settlement,
 )
 from emperor_v4.evaluation.talent_registry_store import load_talent_registry
 from emperor_v4.evaluation.post_tang_third_item_readiness import (
@@ -216,25 +212,6 @@ def _parser() -> argparse.ArgumentParser:
     south_song_parents.add_argument(
         "--workspace-root", type=Path, default=Path(".")
     )
-    south_song_d = commands.add_parser(
-        "south-song-third-item-d-preview"
-    )
-    south_song_d.add_argument(
-        "--workspace-root", type=Path, default=Path(".")
-    )
-    south_song_abc = commands.add_parser(
-        "south-song-third-item-abc-preview"
-    )
-    south_song_abc.add_argument(
-        "--workspace-root", type=Path, default=Path(".")
-    )
-    south_song_formal = commands.add_parser(
-        "south-song-third-item-formal"
-    )
-    south_song_formal.add_argument(
-        "--workspace-root", type=Path, default=Path(".")
-    )
-    south_song_formal.add_argument("--write", action="store_true")
     yuan_admission = commands.add_parser(
         "yuan-third-item-cycle-admission"
     )
@@ -247,43 +224,24 @@ def _parser() -> argparse.ArgumentParser:
     yuan_parents.add_argument(
         "--workspace-root", type=Path, default=Path(".")
     )
-    yuan_d = commands.add_parser(
-        "yuan-third-item-d-preview"
-    )
-    yuan_d.add_argument(
-        "--workspace-root", type=Path, default=Path(".")
-    )
-    yuan_abc = commands.add_parser(
-        "yuan-third-item-abc-preview"
-    )
-    yuan_abc.add_argument(
-        "--workspace-root", type=Path, default=Path(".")
-    )
-    yuan_formal = commands.add_parser(
-        "yuan-third-item-formal"
-    )
-    yuan_formal.add_argument(
-        "--workspace-root", type=Path, default=Path(".")
-    )
-    yuan_formal.add_argument("--write", action="store_true")
     ming_admission = commands.add_parser("ming-third-item-cycle-admission")
     ming_admission.add_argument("--workspace-root", type=Path, default=Path("."))
     ming_parents = commands.add_parser("ming-third-item-parent-cycles")
     ming_parents.add_argument("--workspace-root", type=Path, default=Path("."))
-    ming_d = commands.add_parser("ming-third-item-d-preview")
-    ming_d.add_argument("--workspace-root", type=Path, default=Path("."))
-    ming_abc = commands.add_parser("ming-third-item-abc-preview")
-    ming_abc.add_argument("--workspace-root", type=Path, default=Path("."))
-    ming_formal = commands.add_parser("ming-third-item-formal")
-    ming_formal.add_argument("--workspace-root", type=Path, default=Path("."))
-    ming_formal.add_argument("--write", action="store_true")
-
     military_talent_grades = commands.add_parser(
         "military-talent-grade-registry"
     )
     military_talent_grades.add_argument(
         "--workspace-root", type=Path, default=Path(".")
     )
+
+    third_item_d_settlement = commands.add_parser(
+        "third-item-d-settlement"
+    )
+    third_item_d_settlement.add_argument(
+        "--workspace-root", type=Path, default=Path(".")
+    )
+    third_item_d_settlement.add_argument("--write", action="store_true")
 
     first_item_a_registry = commands.add_parser("first-item-a-registry")
     first_item_a_registry.add_argument(
@@ -861,53 +819,6 @@ def _run_south_song_third_item_parent_cycles(
     return 0
 
 
-def _run_south_song_third_item_d_preview(args: argparse.Namespace) -> int:
-    payload = build_south_song_d_preview(args.workspace_root.resolve())
-    for row in payload["rulers"]:
-        print(
-            f"{row['ruler_name']}：D预览{row['D_preview_grade']}，"
-            f"分数{row['D_preview_score_points']}，"
-            f"实质父周期{row['material_parent_cycle_count']}，"
-            f"闭合率{row['material_return_closure_rate']:.4f}，"
-            f"UNKNOWN实质周期{len(row['material_unknown_cycle_refs'])}"
-        )
-    print("正式写分：否")
-    return 0
-
-
-def _run_south_song_third_item_abc_preview(args: argparse.Namespace) -> int:
-    payload = build_south_song_abc_preview(args.workspace_root.resolve())
-    for row in payload["rulers"]:
-        print(
-            f"{row['ruler_name']}：AB {row['AB_preview_score_points']}，"
-            f"C {row['C_preview_score_points']}，"
-            f"D {row['D_preview_score_points']}，"
-            f"第三项预览 {row['third_item_preview_score_points']}"
-        )
-    print("正式写分：否")
-    return 0
-
-
-def _run_south_song_third_item_formal(args: argparse.Namespace) -> int:
-    workspace_root = args.workspace_root.resolve()
-    if args.write:
-        payload = write_south_song_third_item(workspace_root)
-        rows = payload["records"]
-    else:
-        registry = load_battle_registry(
-            workspace_root / "docs/公共成果/军事/01-战役登记.json"
-        )
-        built = build_south_song_formal_payloads(workspace_root, registry)
-        rows = built["partition_records"]
-    for row in rows:
-        print(
-            f"{row['ruler_name']}：第三项 {row['third_item_score_points']}，"
-            f"南宋内部第{row['partition_rank']}，总榜第{row['rank']}"
-        )
-    print(f"正式写入：{'是' if args.write else '否'}")
-    return 0
-
-
 def _run_yuan_third_item_cycle_admission(args: argparse.Namespace) -> int:
     payload = build_yuan_cycle_admission_audit(args.workspace_root.resolve())
     for row in payload["rulers"]:
@@ -936,53 +847,6 @@ def _run_yuan_third_item_parent_cycles(args: argparse.Namespace) -> int:
     return 0
 
 
-def _run_yuan_third_item_d_preview(args: argparse.Namespace) -> int:
-    payload = build_yuan_d_preview(args.workspace_root.resolve())
-    for row in payload["rulers"]:
-        print(
-            f"{row['ruler_name']}：D预览{row['D_preview_grade']}，"
-            f"分数{row['D_preview_score_points']}，"
-            f"实质父周期{row['material_parent_cycle_count']}，"
-            f"闭合率{row['material_return_closure_rate']:.4f}，"
-            f"UNKNOWN实质周期{len(row['material_unknown_cycle_refs'])}"
-        )
-    print("正式写分：否")
-    return 0
-
-
-def _run_yuan_third_item_abc_preview(args: argparse.Namespace) -> int:
-    payload = build_yuan_abc_preview(args.workspace_root.resolve())
-    for row in payload["rulers"]:
-        print(
-            f"{row['ruler_name']}：AB {row['AB_preview_score_points']}，"
-            f"C {row['C_preview_score_points']}，"
-            f"D {row['D_preview_score_points']}，"
-            f"第三项预览 {row['third_item_preview_score_points']}"
-        )
-    print("正式写分：否")
-    return 0
-
-
-def _run_yuan_third_item_formal(args: argparse.Namespace) -> int:
-    workspace_root = args.workspace_root.resolve()
-    if args.write:
-        payload = write_yuan_third_item(workspace_root)
-        rows = payload["records"]
-    else:
-        registry = load_battle_registry(
-            workspace_root / "docs/公共成果/军事/01-战役登记.json"
-        )
-        built = build_yuan_formal_payloads(workspace_root, registry)
-        rows = built["partition_records"]
-    for row in rows:
-        print(
-            f"{row['ruler_name']}：第三项 {row['third_item_score_points']}，"
-            f"元朝内部第{row['partition_rank']}，总榜第{row['rank']}"
-        )
-    print(f"正式写入：{'是' if args.write else '否'}")
-    return 0
-
-
 def _run_ming_third_item_cycle_admission(args: argparse.Namespace) -> int:
     payload = build_ming_cycle_admission_audit(args.workspace_root.resolve())
     for row in payload["rulers"]:
@@ -1007,43 +871,20 @@ def _run_ming_third_item_parent_cycles(args: argparse.Namespace) -> int:
     return 0
 
 
-def _run_ming_third_item_d_preview(args: argparse.Namespace) -> int:
-    payload = build_ming_d_preview(args.workspace_root.resolve())
-    for row in payload["rulers"]:
-        print(
-            f"{row['ruler_name']}：D预览{row['D_preview_grade']}，分数{row['D_preview_score_points']}，"
-            f"实质父周期{row['material_parent_cycle_count']}，闭合率{row['material_return_closure_rate']:.4f}，"
-            f"UNKNOWN实质周期{len(row['material_unknown_cycle_refs'])}"
-        )
-    print("正式写分：否")
-    return 0
-
-
-def _run_ming_third_item_abc_preview(args: argparse.Namespace) -> int:
-    payload = build_ming_abc_preview(args.workspace_root.resolve())
-    for row in payload["rulers"]:
-        print(
-            f"{row['ruler_name']}：AB {row['AB_preview_score_points']}，"
-            f"C {row['C_preview_score_points']}，D {row['D_preview_score_points']}，"
-            f"第三项预览 {row['third_item_preview_score_points']}"
-        )
-    print("正式写分：否")
-    return 0
-
-
-def _run_ming_third_item_formal(args: argparse.Namespace) -> int:
+def _run_third_item_d_settlement(args: argparse.Namespace) -> int:
     workspace_root = args.workspace_root.resolve()
     if args.write:
-        payload = write_ming_third_item(workspace_root)
-        rows = payload["records"]
+        payload = write_third_item_d_formal_settlement(workspace_root)
     else:
-        registry = load_battle_registry(workspace_root / "docs/公共成果/军事/01-战役登记.json")
-        rows = build_ming_formal_payloads(workspace_root, registry)["partition_records"]
-    for row in rows:
-        print(
-            f"{row['ruler_name']}：第三项 {row['third_item_score_points']}，"
-            f"明朝内部第{row['partition_rank']}，总榜第{row['rank']}"
+        registry = load_third_item_d_cycle_registry(
+            workspace_root / THIRD_ITEM_D_CYCLE_REGISTRY_PATH
         )
+        payload = build_public_cycle_linear_q_analysis(registry)
+    audit = payload["canonical_audit"]
+    print(f"D九轴周期：{audit['consumed_cycle_count']}")
+    print(f"D排除周期：{audit['excluded_cycle_count']}")
+    print(f"评价主体：{audit['subject_count']}")
+    print(f"旧周期回退：{audit['legacy_fallback_count']}")
     print(f"正式写入：{'是' if args.write else '否'}")
     return 0
 
@@ -1141,32 +982,16 @@ def main(argv: Sequence[str] | None = None) -> int:
         return _run_south_song_third_item_cycle_admission(args)
     if args.command == "south-song-third-item-parent-cycles":
         return _run_south_song_third_item_parent_cycles(args)
-    if args.command == "south-song-third-item-d-preview":
-        return _run_south_song_third_item_d_preview(args)
-    if args.command == "south-song-third-item-abc-preview":
-        return _run_south_song_third_item_abc_preview(args)
-    if args.command == "south-song-third-item-formal":
-        return _run_south_song_third_item_formal(args)
     if args.command == "yuan-third-item-cycle-admission":
         return _run_yuan_third_item_cycle_admission(args)
     if args.command == "yuan-third-item-parent-cycles":
         return _run_yuan_third_item_parent_cycles(args)
-    if args.command == "yuan-third-item-d-preview":
-        return _run_yuan_third_item_d_preview(args)
-    if args.command == "yuan-third-item-abc-preview":
-        return _run_yuan_third_item_abc_preview(args)
-    if args.command == "yuan-third-item-formal":
-        return _run_yuan_third_item_formal(args)
     if args.command == "ming-third-item-cycle-admission":
         return _run_ming_third_item_cycle_admission(args)
     if args.command == "ming-third-item-parent-cycles":
         return _run_ming_third_item_parent_cycles(args)
-    if args.command == "ming-third-item-d-preview":
-        return _run_ming_third_item_d_preview(args)
-    if args.command == "ming-third-item-abc-preview":
-        return _run_ming_third_item_abc_preview(args)
-    if args.command == "ming-third-item-formal":
-        return _run_ming_third_item_formal(args)
+    if args.command == "third-item-d-settlement":
+        return _run_third_item_d_settlement(args)
     if args.command == "military-talent-grade-registry":
         return _run_military_talent_grade_registry(args)
     if args.command == "first-item-a-registry":

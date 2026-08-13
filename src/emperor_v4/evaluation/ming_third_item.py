@@ -11,36 +11,32 @@ from emperor_v4.evaluation.five_dynasties_third_item import (
     AB_PATH,
     C_PATH,
     CONTROL_CONTRIBUTION_CAPS,
-    D_PATH,
     FORMAL_PATH,
-    _align_bc_to_system_stress_parent_cycles,
+    _build_public_d_analysis,
+    _partition_public_d_analysis,
+    _sync_public_d_q_into_combined,
+    _aggregate_parent_cycle_audit,
     _assign_global_third_item_ranks,
     _axis_a,
     _axis_b,
     _c_score,
-    _d_grade_and_score,
     _expected_b1_grade,
-    _normalize_formal_d_records,
     _normalize_qin_tang_bc_parent_cycles,
-    _recalculate_qin_tang_d_records,
     _render_combined_markdown,
     _render_formal_markdown,
     _replace_partition_records,
     _sync_formal_ab_into_combined,
     _sync_formal_c_into_combined,
-    _sync_formal_d_into_combined,
     _validate_bc_parent_cycle_alignment,
-    _validate_d_empirical_calibration,
     _validate_formal_abc_contracts,
     _write_text_atomic,
     validate_ab_shared_handoffs,
+    write_third_item_d_formal_settlement,
 )
 from emperor_v4.evaluation.north_song_third_item import (
-    _aggregate_d_cycle,
     _build_combined as _build_north_song_combined,
     build_north_song_ab_records,
     build_north_song_c_records,
-    build_north_song_d_records,
 )
 from emperor_v4.evaluation.post_tang_third_item_consumption import (
     REGISTRY_PATH,
@@ -110,7 +106,7 @@ def _load_adjudications(workspace_root: Path) -> list[dict[str, Any]]:
             "control_contribution_type": compact["control_contribution_type"],
             "A1": {"start": compact["A1"][0], "end": compact["A1"][1], "reason": reason},
             "A2": {"start": compact["A2"][0], "end": compact["A2"][1], "reason": reason},
-            "B1": {"start_equivalent": compact["B1"][0], "end_equivalent": compact["B1"][1], "grade": compact["B1"][2], "position": compact["B1"][3], "reason": b1_reason},
+            "B1": {"start_equivalent": compact["B1"][0], "end_equivalent": compact["B1"][1], "grade": compact["B1"][2], "position": compact["B1"][3], "reason": b1_reason, "regions": list(compact.get("B1_regions") or ())},
             "B2": {"grade": compact["B2"][0], "position": compact["B2"][1], "reason": b2_reason},
             "B4": {"grade": compact["B4"][0], "position": compact["B4"][1], "reason": b4_reason},
         }
@@ -152,7 +148,12 @@ def build_ming_cycle_admission_audit(workspace_root: Path) -> dict[str, Any]:
     first_by_name = _first_item_score_by_name(workspace_root)
     rows = []
     for decision in _load_adjudications(workspace_root):
-        raw_cycles = iter_post_tang_bound_cycles(registry, str(decision["ruler_id"]))
+        raw_cycles = iter_post_tang_bound_cycles(
+            registry,
+            str(decision["ruler_id"]),
+            ruler_name=str(decision["ruler_name"]),
+            polity="ming",
+        )
         first_row = first_by_name.get(str(decision["ruler_name"]))
         obtained = bool(first_row and first_row.get("score_applicable") and float(first_row.get("first_item_score_points") or 0) > 0)
         admitted = []
@@ -194,7 +195,7 @@ def build_ming_parent_cycle_audit(workspace_root: Path) -> dict[str, Any]:
     all_phase_ids: list[str] = []
     for decision in _load_adjudications(workspace_root):
         raw, cycles, excluded = _reviewed_cycles(workspace_root, registry, decision)
-        audits = [_aggregate_d_cycle(cycle) for cycle in cycles]
+        audits = [_aggregate_parent_cycle_audit(cycle) for cycle in cycles]
         phase_ids = [str(ref) for cycle in cycles for ref in cycle["phase_ids"]]
         all_phase_ids.extend(phase_ids)
         rows.append({
@@ -227,31 +228,21 @@ def build_ming_parent_cycle_audit(workspace_root: Path) -> dict[str, Any]:
 
 
 def build_ming_d_preview(workspace_root: Path) -> dict[str, Any]:
-    registry = load_battle_registry(workspace_root / REGISTRY_PATH)
-    rows = []
-    for decision in _load_adjudications(workspace_root):
-        _, cycles, _ = _reviewed_cycles(workspace_root, registry, decision)
-        aggregated = [_aggregate_d_cycle(cycle) for cycle in cycles]
-        grade, score, metrics = _d_grade_and_score(aggregated)
-        rows.append({
-            "ruler_id": decision["ruler_id"],
-            "ruler_name": decision["ruler_name"],
-            "D_preview_grade": grade,
-            "D_preview_score_points": score,
-            "reviewed_parent_cycle_count": len(cycles),
-            "material_parent_cycle_count": metrics["material_cycle_count"],
-            "known_material_parent_cycle_count": metrics["known_material_cycle_count"],
-            "material_return_closure_rate": metrics["material_return_closure_rate"],
-            "portfolio_efficiency_index": metrics["portfolio_efficiency_index"],
-            "return_class_counts": metrics["return_class_counts"],
-            "material_unknown_cycle_refs": metrics["material_unknown_cycle_refs"],
-        })
-    return {"schema_version": "ming-third-item-d-preview-v1", "formal_score_write": False, "ruler_count": len(rows), "rulers": rows}
+    payload = _partition_public_d_analysis(
+        _build_public_d_analysis(workspace_root),
+        (str(row["ruler_id"]) for row in _load_adjudications(workspace_root)),
+    )
+    payload["formal_score_write"] = False
+    payload["preview_only"] = True
+    return payload
 
 
 def build_ming_abc_preview(workspace_root: Path) -> dict[str, Any]:
     registry = load_battle_registry(workspace_root / REGISTRY_PATH)
-    d_by_id = {row["ruler_id"]: row for row in build_ming_d_preview(workspace_root)["rulers"]}
+    d_by_id = {
+        row["subject_ruler_id"]: row
+        for row in build_ming_d_preview(workspace_root)["records"]
+    }
     rows = []
     for decision in _load_adjudications(workspace_root):
         _, cycles, _ = _reviewed_cycles(workspace_root, registry, decision)
@@ -277,18 +268,17 @@ def build_ming_abc_preview(workspace_root: Path) -> dict[str, Any]:
         c_grade, _, c_points, c_surplus = _c_score(c1, c2, c3)
         ab_points = round(sum(axis["axis_points"] for axis in axes.values()), 2)
         d = d_by_id[decision["ruler_id"]]
-        d_points = d["D_preview_score_points"]
+        d_metrics = d["D_portfolio_metrics"]
         rows.append({
             "ruler_id": decision["ruler_id"], "ruler_name": decision["ruler_name"],
             "AB_preview_score_points": ab_points, "AB_axes": axes,
             "B1_weighted_control_value": weighted,
             "C_preview_grade": c_grade, "C_preview_score_points": c_points,
             "C_score_support_surplus": c_surplus,
-            "D_preview_grade": d["D_preview_grade"], "D_preview_score_points": d_points,
-            "third_item_preview_score_points": (
-                round(ab_points + c_points + float(d_points), 2)
-                if d_points is not None else None
-            ),
+            "D_preview_status": "PUBLIC_LINEAR_Q_CURRENT_SCORE_MAPPING_PENDING",
+            "D_linear_Q": d_metrics["Q"], "D_linear_Q_mean": d_metrics["Q_mean"],
+            "D_cycle_count": d_metrics["T"], "D_preview_score_points": None,
+            "third_item_preview_score_points": None,
         })
     return {
         "schema_version": "ming-third-item-abc-preview-v1", "formal_score_write": False,
@@ -306,7 +296,10 @@ def _formal_decisions(workspace_root: Path, registry: Mapping[str, Any]) -> list
     for raw in _load_adjudications(workspace_root):
         consumer_registry = _north_song_consumer_view(workspace_root, registry)
         raw_cycles = iter_post_tang_bound_cycles(
-            consumer_registry, str(raw["ruler_id"])
+            consumer_registry,
+            str(raw["ruler_id"]),
+            ruler_name=str(raw["ruler_name"]),
+            polity="ming",
         )
         from emperor_v4.evaluation.yuan_third_item import _route_decision
         route = _route_decision(raw, raw_cycles, first_by_name.get(str(raw["ruler_name"])))
@@ -322,7 +315,7 @@ def _formal_decisions(workspace_root: Path, registry: Mapping[str, Any]) -> list
             ref = str(cycle["campaign_group_ref"])
             if ref in excluded_refs:
                 continue
-            if any(
+            if ref not in route_overrides and any(
                 bool((phase.get("founding_startup_ledger") or {}).get("is_founding_process"))
                 for phase in cycle["phases"]
             ):
@@ -432,41 +425,34 @@ def build_ming_formal_payloads(workspace_root: Path, registry: Mapping[str, Any]
     consumer_registry = _north_song_consumer_view(workspace_root, registry)
     ab_rows = build_north_song_ab_records(consumer_registry, decisions)
     c_rows = build_north_song_c_records(consumer_registry, decisions)
-    d_rows = build_north_song_d_records(consumer_registry, decisions, ab_rows, c_rows)
-    for row in d_rows:
-        if row["ruler_id"] in {
-            "RULER-MING-ZHU-YOUSONG", "RULER-MING-ZHU-YUJIAN", "RULER-MING-ZHU-YOULANG"
-        }:
-            row["unresolved_source_refs"] = ["MING_CHRONICLE_PUBLIC_REGISTRY_COVERAGE_AFTER_1644"]
-    combined_rows = _build_north_song_combined(decisions, ab_rows, c_rows, d_rows)
+    d = _build_public_d_analysis(workspace_root)
+    partition_d = _partition_public_d_analysis(
+        d, (str(row["ruler_id"]) for row in decisions)
+    )
+    combined_rows = _build_north_song_combined(
+        decisions, ab_rows, c_rows, partition_d["records"]
+    )
     for row in ab_rows:
         row.update({"polity": "明", "partition": "明"})
         row["rationale"] = "按明朝主体阶段卡、第一项显式取得窗口及D父战役裁决完成结算。"
     for row in c_rows:
         row.update({"polity": "明", "partition": "明"})
-    for row in d_rows:
-        row["polity"] = "明"
     for row in combined_rows:
         row.update({"polity": "明", "partition": "明"})
 
     ab = _replace_partition_records(json.loads((workspace_root / AB_PATH).read_text(encoding="utf-8")), ab_rows)
     c = _replace_partition_records(json.loads((workspace_root / C_PATH).read_text(encoding="utf-8")), c_rows)
-    d = _replace_partition_records(json.loads((workspace_root / D_PATH).read_text(encoding="utf-8")), d_rows)
     combined = _replace_partition_records(json.loads((workspace_root / FORMAL_PATH).read_text(encoding="utf-8")), combined_rows)
     for row in c["records"]:
         row.pop("confidence", None)
     _normalize_qin_tang_bc_parent_cycles(workspace_root, ab["records"], c["records"])
     validate_ab_shared_handoffs(workspace_root, ab["records"])
     _validate_formal_abc_contracts(ab["records"], c["records"])
-    _recalculate_qin_tang_d_records(workspace_root, d["records"], ab["records"], c["records"])
-    _normalize_formal_d_records(d["records"])
-    _align_bc_to_system_stress_parent_cycles(workspace_root, ab["records"], c["records"], d["records"])
     _validate_bc_parent_cycle_alignment(ab["records"], c["records"])
     _validate_formal_abc_contracts(ab["records"], c["records"])
-    _validate_d_empirical_calibration(d["records"])
     _sync_formal_ab_into_combined(ab["records"], combined["records"])
     _sync_formal_c_into_combined(c["records"], combined["records"])
-    _sync_formal_d_into_combined(d["records"], combined["records"])
+    _sync_public_d_q_into_combined(d, combined["records"])
     _assign_global_third_item_ranks(combined["records"])
     for row in combined["records"]:
         row["military_long_term_debt"] = {
@@ -480,10 +466,11 @@ def build_ming_formal_payloads(workspace_root: Path, registry: Mapping[str, Any]
 def write_ming_third_item(workspace_root: Path) -> dict[str, Any]:
     registry = load_battle_registry(workspace_root / REGISTRY_PATH)
     payloads = build_ming_formal_payloads(workspace_root, registry)
-    targets = (("AB", AB_PATH, payloads["ab"]), ("C", C_PATH, payloads["c"]), ("D", D_PATH, payloads["d"]))
+    targets = (("AB", AB_PATH, payloads["ab"]), ("C", C_PATH, payloads["c"]))
     for kind, path, payload in targets:
         _write_text_atomic(workspace_root / path, json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
         _write_text_atomic((workspace_root / path).with_suffix(".md"), _render_formal_markdown(kind, payload["records"]))
+    write_third_item_d_formal_settlement(workspace_root)
     _write_text_atomic(workspace_root / FORMAL_PATH, json.dumps(payloads["combined"], ensure_ascii=False, indent=2) + "\n")
     _write_text_atomic((workspace_root / FORMAL_PATH).with_suffix(".md"), _render_combined_markdown(payloads["combined"]["records"]))
     return {"records": payloads["partition_records"], "hashes": {

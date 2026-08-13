@@ -11,6 +11,17 @@ from emperor_v4.evaluation.post_tang_canonical_battle_promotion import CONFIG_PA
 
 
 REGISTRY_PATH = Path("docs/公共成果/军事/01-战役登记.json")
+POLITY_IDENTITIES = {
+    "north_song": "北宋",
+    "south_song": "南宋",
+    "yuan": "元",
+    "ming": "明",
+}
+
+
+def _canonical_polity(value: object) -> str:
+    text = str(value or "")
+    return POLITY_IDENTITIES.get(text, text)
 
 
 def _digest(value: Any) -> str:
@@ -65,9 +76,64 @@ def _has_unknown_raw_axis(phase: Mapping[str, Any]) -> bool:
     return any(value is None or str(value).upper() == "UNKNOWN" for value in values)
 
 
+def _post_tang_bound_phase_index(
+    registry: Mapping[str, Any],
+) -> dict[str, list[tuple[Mapping[str, Any], Mapping[str, Any]]]]:
+    """Validate the public-registry identity chain once and index bound phases."""
+
+    indexed: dict[str, list[tuple[Mapping[str, Any], Mapping[str, Any]]]] = {}
+    phase_identity_by_id: dict[str, tuple[str, str, str, str]] = {}
+    semantic_owners: dict[tuple[str, str], set[str]] = {}
+    for record in registry.get("records") or ():
+        if not record.get("third_item_phase_container"):
+            continue
+        group = str(record.get("campaign_group_ref") or "")
+        war_event_id = str(record.get("war_event_id") or "")
+        if not group or not war_event_id:
+            raise ValueError("第三项阶段容器缺少war_event_id或campaign_group_ref")
+        for phase in record.get("subject_phase_views") or ():
+            if str(phase.get("campaign_group_ref") or "") != group:
+                raise ValueError(
+                    f"公共战役登记阶段与容器父级不一致：{war_event_id}/"
+                    f"{phase.get('phase_id')}"
+                )
+            binding = phase.get("ruler_binding") or {}
+            binding_status = str(binding.get("status") or "")
+            if not binding_status.startswith("BOUND_") or binding_status == (
+                "BOUND_YEAR_WINDOW_BOUNDARY"
+            ):
+                continue
+            phase_id = str(phase.get("phase_id") or "")
+            ruler_id = str(binding.get("ruler_id") or "")
+            ruler_name = str(binding.get("ruler_name") or "")
+            polity = _canonical_polity(
+                binding.get("polity") or phase.get("polity_binding")
+            )
+            subject = str(phase.get("evaluation_subject_phase") or "")
+            if not all((phase_id, ruler_id, ruler_name, polity, subject)):
+                raise ValueError(f"公共战役登记已绑定阶段身份字段不完整：{war_event_id}")
+            identity = (war_event_id, group, ruler_id, polity)
+            prior = phase_identity_by_id.setdefault(phase_id, identity)
+            if prior != identity:
+                raise ValueError(f"公共战役登记phase_id跨事件或主体重复：{phase_id}")
+            semantic_key = (group, _phase_semantic_fingerprint(phase))
+            owners = semantic_owners.setdefault(semantic_key, set())
+            owners.add(ruler_id)
+            if len(owners) > 1:
+                raise ValueError(
+                    f"公共战役登记同一主体阶段轴被复制给不同统治窗口："
+                    f"{group}/{sorted(owners)}"
+                )
+            indexed.setdefault(ruler_id, []).append((record, phase))
+    return indexed
+
+
 def iter_post_tang_bound_cycles(
     registry: Mapping[str, Any],
     ruler_id: str,
+    *,
+    ruler_name: str,
+    polity: str,
 ) -> list[dict[str, Any]]:
     """Consume only ruler-bound canonical phase containers from the public registry.
 
@@ -78,40 +144,48 @@ def iter_post_tang_bound_cycles(
     """
     grouped: dict[str, dict[str, Any]] = {}
     seen: set[tuple[str, str]] = set()
-    for record in registry.get("records") or ():
-        if not record.get("third_item_phase_container"):
-            continue
+    for record, phase in _post_tang_bound_phase_index(registry).get(ruler_id, []):
         group = str(record.get("campaign_group_ref") or "")
-        if not group:
-            raise ValueError("第三项阶段容器缺少campaign_group_ref")
-        for phase in record.get("subject_phase_views") or ():
-            binding = phase.get("ruler_binding") or {}
-            if binding.get("status") != "BOUND_EXCLUSIVE_GOVERNING_WINDOW":
-                continue
-            if str(binding.get("ruler_id") or "") != ruler_id:
-                continue
-            semantic = _phase_semantic_fingerprint(phase)
-            duplicate_key = (group, semantic)
-            if duplicate_key in seen:
-                continue
-            seen.add(duplicate_key)
-            cycle = grouped.setdefault(
-                group,
-                {
-                    "campaign_group_ref": group,
-                    "provisional_parent_cycle_status": (
-                        "REQUIRES_D_RULER_WINDOW_PARENT_REVIEW"
-                    ),
-                    "war_event_refs": [],
-                    "source_partitions": [],
-                    "phases": [],
-                },
+        binding = phase.get("ruler_binding") or {}
+        if (
+            str(binding.get("ruler_id") or "") != ruler_id
+            or str(binding.get("ruler_name") or "") != ruler_name
+            or _canonical_polity(
+                binding.get("polity") or phase.get("polity_binding")
+            ) != _canonical_polity(polity)
+        ):
+            raise ValueError(
+                f"公共战役登记主体/政权/统治窗口与正式对象不一致："
+                f"{phase.get('phase_id')}->{binding}"
             )
-            cycle["war_event_refs"].append(str(record["war_event_id"]))
-            cycle["source_partitions"].append(
-                str(record.get("dynasty_partition") or "")
-            )
-            cycle["phases"].append(dict(phase))
+        semantic = _phase_semantic_fingerprint(phase)
+        duplicate_key = (group, semantic)
+        if duplicate_key in seen:
+            continue
+        seen.add(duplicate_key)
+        cycle = grouped.setdefault(
+            group,
+            {
+                "campaign_group_ref": group,
+                "provisional_parent_cycle_status": (
+                    "REQUIRES_D_RULER_WINDOW_PARENT_REVIEW"
+                ),
+                "war_event_refs": [],
+                "source_partitions": [],
+                "phases": [],
+            },
+        )
+        cycle["war_event_refs"].append(str(record["war_event_id"]))
+        cycle["source_partitions"].append(
+            str(record.get("dynasty_partition") or "")
+        )
+        normalized_phase = dict(phase)
+        normalized_phase["ruler_binding"] = {
+            **dict(binding),
+            "polity": _canonical_polity(polity),
+        }
+        normalized_phase["polity_binding"] = _canonical_polity(polity)
+        cycle["phases"].append(normalized_phase)
     return [
         {
             **cycle,
@@ -134,7 +208,12 @@ def build_post_tang_third_item_consumption_audit(
     all_phase_ids: list[str] = []
     for polity, polity_config in (config.get("polities") or {}).items():
         for ruler in polity_config.get("rulers") or ():
-            cycles = iter_post_tang_bound_cycles(registry, str(ruler["ruler_id"]))
+            cycles = iter_post_tang_bound_cycles(
+                registry,
+                str(ruler["ruler_id"]),
+                ruler_name=str(ruler["ruler_name"]),
+                polity=str(polity),
+            )
             phases = [phase for cycle in cycles for phase in cycle["phases"]]
             phase_ids = [str(phase["phase_id"]) for phase in phases]
             all_phase_ids.extend(phase_ids)

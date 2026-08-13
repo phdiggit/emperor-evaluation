@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections import Counter, defaultdict
+from copy import deepcopy
 from hashlib import sha256
 import json
 from pathlib import Path
@@ -12,10 +13,18 @@ from emperor_v4.evaluation.battle_registry_store import (
     load_battle_registry,
     write_battle_registry,
 )
-from emperor_v4.evaluation.battle_adjudication_store import (
-    load_battle_parent_adjudications,
-)
 from emperor_v4.evaluation.talent_registry_store import load_talent_registry
+from emperor_v4.evaluation.post_tang_third_item_consumption import (
+    iter_post_tang_bound_cycles,
+)
+from emperor_v4.evaluation.third_item_d_cycle_registry import (
+    PUBLIC_REGISTRY_PATH as PUBLIC_D_REGISTRY_PATH,
+    load_third_item_d_cycle_registry,
+)
+from emperor_v4.evaluation.third_item_d_settlement import (
+    build_public_cycle_linear_q_analysis,
+    write_third_item_d_formal_settlement,
+)
 
 
 SOURCE_ROOT = Path("docs/史料通读产物/五代十国/资治通鉴")
@@ -28,7 +37,6 @@ D_PATH = Path("docs/评分结算/第三项军事与边疆净收益/军事成本�
 FORMAL_PATH = Path("docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json")
 QIN_TANG_BATTLE_INDEX_PATH = Path("docs/史料通读产物/唐以前编年/00-战争卡审计索引.json")
 QIN_TANG_D_DIRECTION_PATH = Path("config/qin-tang-d-cycle-direction-adjudications.json")
-BATTLE_PARENT_ADJUDICATION_PATH = Path("config/battle-parent-contract-adjudications.json")
 FIRST_ITEM_C_WINDOWS_PATH = Path("config/first-item-c-acquisition-windows.json")
 FIRST_ITEM_C_SETTLEMENT_PATH = Path(
     "docs/评分结算/第一项创业与政权取得能力/军事夺取能力/01-第一项C军事夺取能力结算.json"
@@ -45,6 +53,74 @@ SOURCE_SET_FINGERPRINT = (
     "d23622b8545ee5a49e06b93ad265a47e1a9643be844899eabd76ab92717fed57"
 )
 RETIRED_STALE_FIVE_DYNASTIES_RECORD_COUNT = 433
+
+
+def _build_public_d_analysis(workspace_root: Path) -> dict[str, Any]:
+    registry = load_third_item_d_cycle_registry(
+        workspace_root / PUBLIC_D_REGISTRY_PATH
+    )
+    return build_public_cycle_linear_q_analysis(registry)
+
+
+def _partition_public_d_analysis(
+    payload: Mapping[str, Any], ruler_ids: Iterable[str]
+) -> dict[str, Any]:
+    selected_ids = {str(ruler_id) for ruler_id in ruler_ids}
+    current = deepcopy(dict(payload))
+    current["records"] = [
+        row for row in current["records"]
+        if str(row["subject_ruler_id"]) in selected_ids
+    ]
+    current["ruler_summaries"] = [
+        row for row in current["ruler_summaries"]
+        if str(row["subject_ruler_id"]) in selected_ids
+    ]
+    audit = current["canonical_audit"]
+    audit["subject_count"] = len(current["records"])
+    audit["consumed_cycle_count"] = sum(
+        int(row["D_portfolio_metrics"]["T"]) for row in current["records"]
+    )
+    audit["zero_cycle_subject_count"] = sum(
+        int(row["D_portfolio_metrics"]["T"]) == 0
+        for row in current["records"]
+    )
+    audit["partition_filter_applied"] = True
+    return current
+
+
+def _sync_public_d_q_into_combined(
+    d_payload: Mapping[str, Any], combined_records: Sequence[dict[str, Any]]
+) -> None:
+    d_by_id = {
+        str(row["subject_ruler_id"]): row for row in d_payload["records"]
+    }
+    for row in combined_records:
+        d_row = d_by_id.get(str(row.get("ruler_id") or ""))
+        if d_row is None:
+            continue
+        metrics = d_row["D_portfolio_metrics"]
+        row["D_score_points"] = None
+        row["D_score_status"] = "PUBLIC_LINEAR_Q_CURRENT_SCORE_MAPPING_PENDING"
+        row["D_linear_Q"] = metrics["Q"]
+        row["D_linear_Q_mean"] = metrics["Q_mean"]
+        row["D_cycle_count"] = metrics["T"]
+        row.setdefault("axes", {})["D"] = "PUBLIC_LINEAR_Q"
+        row.setdefault("coverage_status", {})["D"] = "PUBLIC_LINEAR_Q_CURRENT"
+        row["third_item_score_points"] = None
+        row["third_item_score_rate"] = None
+        row["rank"] = None
+        row["partition_rank"] = None
+        row["rank_status"] = "PENDING_D_SCORE_MAPPING"
+        row["pending_reason"] = (
+            "D项线性Q已由军事行动成本和收益登记闭合；"
+            "本入口不再使用旧经验D档或旧九轴拼装生成40分映射。"
+        )
+
+PARENT_CYCLE_BENEFIT_STRENGTH: dict[str, tuple[int, ...]] = {
+    "SB": (0, 1, 2, 3, 5, 8),
+    "BCP": (0, 1, 2, 3, 4, 6),
+    "WR": (0, 1, 1, 2, 3, 4),
+}
 
 
 def _write_text_atomic(path: Path, text: str) -> None:
@@ -122,6 +198,17 @@ def _unique(values: Iterable[str]) -> list[str]:
 
 def _grade_number(value: object, prefix: str) -> int | None:
     match = re.fullmatch(rf"{prefix}(\d)(?:估)?", str(value or ""))
+    return int(match.group(1)) if match else None
+
+
+def _embedded_grade_number(value: object, prefix: str) -> int | None:
+    direct = _grade_number(value, prefix)
+    if direct is not None:
+        return direct
+    match = re.search(
+        rf"(?<![A-Z]){prefix}(\d)(?:估)?(?!\d)",
+        str(value or ""),
+    )
     return int(match.group(1)) if match else None
 
 
@@ -262,7 +349,12 @@ def build_five_dynasties_supplement_records(workspace_root: Path) -> list[dict[s
                 if key not in phase:
                     raise ValueError(f"补充裁决主体阶段缺少{key}: {item['war_event_id']}")
             phase["phase_id"] = f"{item['war_event_id']}-P{index:02d}"
+            phase["campaign_group_ref"] = item["campaign_group_ref"]
             phase["polity_binding"] = item["polity"]
+            phase["ruler_binding"] = {
+                "polity": item["polity"],
+                **dict(phase["ruler_binding"]),
+            }
             phase["source_anchor_refs"] = list(item["source_refs"])
             phases.append(phase)
         if not phases:
@@ -289,6 +381,7 @@ def build_five_dynasties_supplement_records(workspace_root: Path) -> list[dict[s
                 "source_quotes": list(item["source_quotes"]),
                 "subject_phase_views": phases,
                 "subject_phase_count": len(phases),
+                "third_item_phase_container": True,
                 "non_battle_disposition": None,
                 "wc_grade": None,
                 "security_grade": None,
@@ -347,8 +440,9 @@ def build_five_dynasties_battle_records(workspace_root: Path) -> dict[str, Any]:
                         "founding_startup_ledger": dict(phase["founding_startup_ledger"]),
                         "carry_in": phase.get("carry_in"),
                         "carry_out": phase.get("carry_out"),
+                        "campaign_group_ref": campaign_group,
                         "polity_binding": binding["polity"],
-                        "ruler_binding": {key: value for key, value in binding.items() if key != "polity"},
+                        "ruler_binding": binding,
                         "source_anchor_refs": anchors,
                     }
                 )
@@ -373,6 +467,7 @@ def build_five_dynasties_battle_records(workspace_root: Path) -> dict[str, Any]:
                     "source_quotes": list(card.get("source_quotes") or ()),
                     "subject_phase_views": phase_views,
                     "subject_phase_count": len(phase_views),
+                    "third_item_phase_container": True,
                     "non_battle_disposition": card.get("non_battle_disposition"),
                     "wc_grade": None,
                     "security_grade": None,
@@ -565,44 +660,13 @@ def promote_five_dynasties_battle_registry(
 def iter_bound_cycles(
     registry: Mapping[str, Any], ruler_id: str
 ) -> list[dict[str, Any]]:
-    grouped: dict[str, dict[str, Any]] = {}
-    seen_phase_fingerprints: set[tuple[str, str]] = set()
-    for record in registry.get("records") or ():
-        if record.get("dynasty_partition") != "five_dynasties":
-            continue
-        campaign_group = str(record["campaign_group_ref"])
-        for phase in record.get("subject_phase_views") or ():
-            binding = phase.get("ruler_binding") or {}
-            if binding.get("ruler_id") != ruler_id or binding.get("status") == "BOUND_YEAR_WINDOW_BOUNDARY":
-                continue
-            semantic = _digest(
-                {
-                    key: phase.get(key)
-                    for key in (
-                        "evaluation_subject_phase", "actual_process", "cost_axes",
-                        "strategic_security", "material_return", "border_control",
-                        "phase_return_class", "founding_startup_ledger",
-                    )
-                }
-            )
-            dedupe_key = (campaign_group, semantic)
-            if dedupe_key in seen_phase_fingerprints:
-                continue
-            seen_phase_fingerprints.add(dedupe_key)
-            cycle = grouped.setdefault(
-                campaign_group,
-                {"campaign_group_ref": campaign_group, "war_event_refs": [], "phases": []},
-            )
-            cycle["war_event_refs"].append(record["war_event_id"])
-            cycle["phases"].append(dict(phase))
-    return [
-        {
-            **cycle,
-            "war_event_refs": _unique(cycle["war_event_refs"]),
-            "phase_ids": [phase["phase_id"] for phase in cycle["phases"]],
-        }
-        for _, cycle in sorted(grouped.items())
-    ]
+    ruler = next(item for item in RULER_WINDOWS if item["ruler_id"] == ruler_id)
+    return iter_post_tang_bound_cycles(
+        registry,
+        ruler_id,
+        ruler_name=str(ruler["ruler_name"]),
+        polity=str(ruler["polity"]),
+    )
 
 
 def build_promotion_audit(registry: Mapping[str, Any]) -> dict[str, Any]:
@@ -676,31 +740,6 @@ B_RATES = {
     3: {"LOW": 60, "MID": 67, "HIGH": 74},
     4: {"LOW": 75, "MID": 82, "HIGH": 89},
     5: {"LOW": 90, "MID": 95, "HIGH": 100},
-}
-D_BANDS = {
-    "D-0": (0.0, 7.9), "D-1": (8.0, 15.9), "D-2": (16.0, 21.9),
-    "D-3": (22.0, 29.9), "D-4": (30.0, 35.9), "D-5": (36.0, 40.0),
-}
-D_EMPIRICAL_CALIBRATION = {
-    "schema_id": "d-normalized-risk-adjusted-efficiency-v3",
-    "weights": {
-        "NATIONAL_NEGATIVE": -8,
-        "NEGATIVE_RETURN": -3,
-        "LOW_RETURN": -1,
-        "PROPORTIONATE_RETURN": 1,
-        "HIGH_RETURN": 3,
-        "MAJOR_HIGH_RETURN": 6,
-        "TOP_HIGH_RETURN": 10,
-    },
-    "efficiency_thresholds": {
-        "D-1_FLOOR": -11.0,
-        "D-1_TO_D-2": -4.0,
-        "D-2_TO_D-3": 0.0,
-        "D-3_TO_D-4": 1.2,
-        "D-4_TO_D-5": 3.0,
-        "D-5_TO_FULL_SCORE": 4.0,
-    },
-    "minimum_exposure": {"D-4": 5, "D-5": 8},
 }
 def _load_adjudications(workspace_root: Path) -> list[dict[str, Any]]:
     payload = _load_adjudication_payload(workspace_root)
@@ -813,6 +852,16 @@ def _third_item_cycles(
         str(ref) for ref in decision.get("admitted_large_rebellion_refs") or ()
     }
     merge_specs = list(decision.get("third_item_cycle_merges") or ())
+    legacy_return_overrides = [
+        str(item.get("campaign_group_ref") or item.get("canonical_cycle_ref") or "")
+        for item in (*overrides.values(), *merge_specs)
+        if "parent_return_class" in item or "return_class" in item
+    ]
+    if legacy_return_overrides:
+        raise ValueError(
+            f"{decision['ruler_name']}仍配置显式父级回报类别，"
+            f"必须改为父级成本/收益轴后由公式生成：{legacy_return_overrides}"
+        )
     merged_canonical_refs = {
         str(spec["canonical_cycle_ref"]) for spec in merge_specs
     }
@@ -930,13 +979,10 @@ def _third_item_cycles(
                     routed["parent_cost_axes"] = dict(override["parent_cost_axes"])
                 if override.get("parent_benefit_axes"):
                     routed["parent_benefit_axes"] = dict(override["parent_benefit_axes"])
-                if override.get("parent_return_class"):
-                    parent_return_class = str(override["parent_return_class"])
-                    if parent_return_class not in {
-                        "HIGH_RETURN", "PROPORTIONATE_RETURN", "LOW_RETURN", "NEGATIVE_RETURN"
-                    }:
-                        raise ValueError(f"{decision['ruler_name']}父周期回报类别覆盖非法")
-                    routed["parent_return_class"] = parent_return_class
+                if override.get("strategic_result_chain_ref"):
+                    routed["strategic_result_chain_ref"] = str(
+                        override["strategic_result_chain_ref"]
+                    )
                 if override.get("allow_explicit_phase_return_fallback"):
                     routed["allow_explicit_phase_return_fallback"] = True
                 if override.get("material_internal_admitted"):
@@ -995,7 +1041,9 @@ def _third_item_cycles(
             ),
             "parent_cost_axes": spec.get("parent_cost_axes") or canonical_member.get("parent_cost_axes"),
             "parent_benefit_axes": spec.get("parent_benefit_axes") or canonical_member.get("parent_benefit_axes"),
-            "parent_return_class": spec.get("parent_return_class") or canonical_member.get("parent_return_class"),
+            "strategic_result_chain_ref": str(
+                spec.get("strategic_result_chain_ref") or canonical_ref
+            ),
             "allow_explicit_phase_return_fallback": any(
                 bool(cycle.get("allow_explicit_phase_return_fallback"))
                 for cycle in selected
@@ -1075,7 +1123,7 @@ def _is_large_internal_rebellion_candidate(cycle: Mapping[str, Any]) -> bool:
     )
     if not (internal_role or internal_text):
         return False
-    audit = _aggregate_d_cycle(cycle)
+    audit = _aggregate_parent_cycle_audit(cycle)
     return int(audit.get("material_exposure_index") or 0) >= 9
 
 
@@ -1193,19 +1241,43 @@ def build_five_dynasties_ab_records(
             raise ValueError(f"{decision['ruler_name']}控制成果归责类型非法: {contribution_type}")
         if any(int(decision["AB"][axis]["grade"]) > contribution_cap for axis in ("B2", "B4")):
             raise ValueError(f"{decision['ruler_name']} B2/B4超过控制成果归责上限{contribution_cap}")
+        has_explicit_region_ledger = "regions" in decision["AB"]["B1"]
+        region_decisions = decision["AB"]["B1"].get("regions") or []
+        if has_explicit_region_ledger:
+            counted_regions = [item for item in region_decisions if item.get("counted", True)]
+            region_start = round(sum(float(item["start_equivalent"]) for item in counted_regions), 3)
+            region_end = round(sum(float(item["end_equivalent"]) for item in counted_regions), 3)
+            if region_start != start or region_end != end:
+                raise ValueError(f"{decision['ruler_name']} B1逐区域账与汇总不一致")
+            region_control = {
+                "start": {str(item["object_id"]): float(item["start_equivalent"]) for item in counted_regions if float(item["start_equivalent"])},
+                "end": {str(item["object_id"]): float(item["end_equivalent"]) for item in counted_regions if float(item["end_equivalent"])},
+            }
+            region_adjudications = [{
+                "object_id": str(item["object_id"]), "object_name": str(item["object_name"]),
+                "anchors": ["start", "end"], "counted": bool(item.get("counted", True)),
+                "control_equivalent": {"start": float(item["start_equivalent"]), "end": float(item["end_equivalent"])},
+                "control_form": str(item["control_form"]),
+                "evidence_refs": [str(ref) for ref in item["evidence_refs"]],
+                "reason": str(item["reason"]),
+            } for item in region_decisions]
+            region_ledger_status = "EXPLICIT_REGION_LEDGER"
+        else:
+            region_control = {"start": {"AGGREGATE_REVIEWED": start}, "end": {"AGGREGATE_REVIEWED": end}}
+            region_adjudications = [{
+                "object_id": "FIVE_DYNASTIES_REIGN_CONTROL_PACKAGE", "object_name": "本皇帝非统一边疆控制净包",
+                "anchors": ["start", "end"], "counted": True,
+                "control_equivalent": {"start": start, "end": end}, "evidence_refs": control_refs,
+                "reason": decision["AB"]["B1"]["reason"],
+            }]
+            region_ledger_status = "LEGACY_AGGREGATE_REQUIRES_REGION_MIGRATION"
         base.update(
             {
                 "axes": axes,
                 "AB_score_points": round(sum(axis["axis_points"] for axis in axes.values()), 2),
-                "b1_region_control": {"start": {"AGGREGATE_REVIEWED": start}, "end": {"AGGREGATE_REVIEWED": end}},
-                "b1_region_adjudications": [{
-                    "object_id": "FIVE_DYNASTIES_REIGN_CONTROL_PACKAGE",
-                    "object_name": "本皇帝非统一边疆控制净包",
-                    "anchors": ["start", "end"], "counted": True,
-                    "control_equivalent": {"start": start, "end": end},
-                    "evidence_refs": control_refs,
-                    "reason": decision["AB"]["B1"]["reason"],
-                }],
+                "b1_region_control": region_control,
+                "b1_region_adjudications": region_adjudications,
+                "b1_region_ledger_status": region_ledger_status,
                 "b1_control_equivalents": {"start": start, "end": end, "net_change": round(end - start, 3), "weighted_value": weighted},
                 "control_contribution_type": contribution_type,
                 "control_contribution_grade_cap": contribution_cap,
@@ -1311,7 +1383,7 @@ def _apply_c_major_victory_gate(row: dict[str, Any]) -> None:
 
 
 def _apply_c_within_band_position(row: dict[str, Any]) -> None:
-    """Resolve audited within-band position without rewarding raw task volume."""
+    """Resolve position from axis surplus and outcome quality, not raw volume."""
     row.pop("C_score_major_result_position", None)
     axes = [
         _axis_grade(row["combat_delivery_grade"], "C1"),
@@ -1326,10 +1398,32 @@ def _apply_c_within_band_position(row: dict[str, Any]) -> None:
     surplus = sum(axis - grade for axis in axes)
     if grade == 5:
         axis_position = 1.0
+        outcome_position = 1.0
         band_position = 1.0
         rate = 100.0
     else:
         axis_position = surplus / (2 * (5 - grade))
+        outcome_profile = row.get("task_outcome_profile") or {}
+        counts = dict(outcome_profile.get("return_class_counts") or {})
+        known = sum(
+            int(count)
+            for outcome, count in counts.items()
+            if outcome != "UNKNOWN"
+        )
+        if known:
+            quality = (
+                int(counts.get("HIGH_RETURN", 0))
+                + 0.55 * int(counts.get("PROPORTIONATE_RETURN", 0))
+                + 0.2 * int(counts.get("LOW_RETURN", 0))
+            ) / known
+            successes = int(outcome_profile.get("major_system_success_count") or 0)
+            failures = int(outcome_profile.get("major_system_failure_count") or 0)
+            decisive_balance = (successes + 1) / (successes + failures + 2)
+            raw_outcome_position = 0.65 * quality + 0.35 * decisive_balance
+            confidence = min(1.0, known / 4)
+            outcome_position = 0.5 + (raw_outcome_position - 0.5) * confidence
+        else:
+            outcome_position = axis_position
         position_decision = row.get("C_score_within_band_adjudication") or {}
         position_code = str(position_decision.get("position") or "")
         adjudicated_position = {
@@ -1337,9 +1431,21 @@ def _apply_c_within_band_position(row: dict[str, Any]) -> None:
             "MID": 0.5,
             "HIGH": 0.75,
         }.get(position_code)
-        band_position = max(
-            axis_position,
-            adjudicated_position if adjudicated_position is not None else axis_position,
+        # Founding/unification capability may establish the C axis grade, but
+        # it must not also provide a second within-band bonus when the current
+        # Third Item contributes no independent stress cycle of its own.
+        if (
+            int(row.get("current_item_task_count") or 0) == 0
+            and row.get("capability_only_parent_refs")
+        ):
+            outcome_position = min(outcome_position, 0.5)
+            if adjudicated_position is not None:
+                adjudicated_position = min(adjudicated_position, 0.5)
+        evidence_position = max(axis_position, outcome_position)
+        band_position = (
+            max(axis_position, adjudicated_position)
+            if adjudicated_position is not None
+            else evidence_position
         )
         rate = lower + (upper - lower) * band_position
     row.update({
@@ -1347,11 +1453,12 @@ def _apply_c_within_band_position(row: dict[str, Any]) -> None:
         "C_score_points": round(50 * rate / 100, 1),
         "C_score_support_surplus": surplus,
         "C_score_axis_surplus_position": round(axis_position, 4),
+        "C_score_outcome_position": round(outcome_position, 4),
         "C_score_band_position": round(band_position, 4),
         "C_score_position_method": (
             "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION"
             if row.get("C_score_within_band_adjudication")
-            else "AXIS_SURPLUS_ONLY"
+            else "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY"
         ),
         "C_score_band": {"lower_rate": lower, "upper_rate": upper},
     })
@@ -1375,6 +1482,10 @@ def _apply_c5_axis_gate(
 
     gate = dict((decision or {}).get("c5_axis_gate") or {})
     stress_ref_set = set(stress_refs)
+    capability_only_ref_set = {
+        str(ref)
+        for ref in (decision or {}).get("capability_only_parent_refs") or ()
+    }
 
     def opponent_dimension_passed() -> tuple[bool, list[dict[str, Any]]]:
         items = list(gate.get("C1_high_difficulty_opponents") or ())
@@ -1502,6 +1613,9 @@ def _apply_c5_axis_gate(
         "C3_top_commander_profiles": sorted(set(commander_refs)),
         "C3_top_commander_names": sorted(set(commander_names)),
         "axis_status": axis_status,
+        "founding_capability_only_refs_admitted_for_C1_C2_gate": sorted(
+            capability_only_ref_set
+        ),
         "status": "PASSED" if all_requested_passed else "CAPPED_BELOW_AXIS_5",
     }
     if all_requested_passed:
@@ -1733,11 +1847,21 @@ def _validate_bc_parent_cycle_alignment(
     for c_row in c_records:
         ruler_id = str(c_row["ruler_id"])
         ab_row = ab_by_id[ruler_id]
-        if int(ab_row["defense_event_count"]) != int(
-            c_row["independent_task_count"]
+        capability_only_refs = {
+            str(ref) for ref in c_row.get("capability_only_parent_refs") or ()
+        }
+        ab_parent_refs = {
+            str(ref) for ref in ab_row.get("parent_cycle_refs") or ()
+        }
+        leaked_refs = sorted(capability_only_refs & ab_parent_refs)
+        if (
+            ab_row.get("parent_cycle_reference_policy")
+            == "AB_STATE_CHANGE_EVIDENCE_EXCLUDING_C_ONLY_FOUNDING_CAPABILITY"
+            and leaked_refs
         ):
             raise ValueError(
-                f"{c_row['ruler_name']}的B父周期数与C独立任务数不一致"
+                f"{c_row['ruler_name']}的C专用创业统一能力引用污染A/B追溯集合："
+                f"{leaked_refs}"
             )
         if list(ab_row.get("parent_cycle_merge_adjudications") or ()) != list(
             c_row.get("parent_cycle_merge_adjudications") or ()
@@ -1769,11 +1893,80 @@ def _qin_tang_source_index_rows(workspace_root: Path) -> list[dict[str, Any]]:
     index_payload = json.loads(
         (workspace_root / QIN_TANG_BATTLE_INDEX_PATH).read_text(encoding="utf-8")
     )
-    index_rows = list(
+    raw_index_rows = list(
         index_payload.get("cards") or index_payload.get("records") or index_payload
     )
-    seen = {str(row["source_card_id"]) for row in index_rows}
     chronicle_root = workspace_root / "docs/史料通读产物/唐以前编年"
+    source_cache: dict[str, list[str]] = {}
+    heading_cache: dict[str, dict[str, list[int]]] = {}
+    index_rows: list[dict[str, Any]] = []
+
+    def resolve_index_row(raw_row: Mapping[str, Any]) -> dict[str, Any]:
+        row = dict(raw_row)
+        source_card_id = str(row["source_card_id"])
+        actual_heading_id = str(row.get("actual_heading_id") or source_card_id)
+        source_file = str(row["source_file"])
+        lines = source_cache.setdefault(
+            source_file,
+            (workspace_root / source_file).read_text(encoding="utf-8").splitlines(),
+        )
+        headings = heading_cache.setdefault(source_file, defaultdict(list))
+        if not headings:
+            for line_number, line in enumerate(lines, start=1):
+                match = re.match(r"^###\s+([^\s|｜]+)", line)
+                if match:
+                    headings[match.group(1)].append(line_number)
+        matches = list(headings.get(actual_heading_id) or ())
+        if len(matches) != 1:
+            raise ValueError(
+                f"秦至唐战争卡索引标题ID必须唯一闭合：{source_card_id}→"
+                f"{actual_heading_id}，命中{matches}"
+            )
+        resolved_line = matches[0]
+        audit_line = int(row["heading_line"])
+        if audit_line != resolved_line:
+            raise ValueError(
+                f"秦至唐战争卡索引行号漂移：{source_card_id}记录L{audit_line}，"
+                f"实际标题{actual_heading_id}位于L{resolved_line}"
+            )
+        end = next(
+            (
+                index
+                for index in range(resolved_line, len(lines))
+                if lines[index].startswith("### ")
+            ),
+            len(lines),
+        )
+        section = "\n".join(lines[resolved_line - 1 : end])
+        owner_match = re.search(r"settlement_owner=([^`;\s]+)", section)
+        machine_match = re.search(r"machine_settlement=(yes|no)", section)
+        group_match = re.search(r"campaign_group=([^`;\s]+)", section)
+        settlement_owner = owner_match.group(1) if owner_match else None
+        if actual_heading_id != source_card_id:
+            if settlement_owner != source_card_id:
+                raise ValueError(
+                    f"秦至唐战争卡索引别名关系非法：{source_card_id}→"
+                    f"{actual_heading_id}，标题区段owner={settlement_owner}"
+                )
+            if not str(row.get("title") or "").startswith("父级结算键（源卡："):
+                raise ValueError(f"秦至唐战争卡索引别名缺少显式标题声明：{source_card_id}")
+        row.update(
+            {
+                "actual_heading_id": actual_heading_id,
+                "resolved_heading_line": resolved_line,
+                "source_settlement_owner": settlement_owner,
+                "source_machine_settlement": (
+                    machine_match.group(1) if machine_match else "UNKNOWN"
+                ),
+                "source_campaign_group": (
+                    group_match.group(1) if group_match else None
+                ),
+            }
+        )
+        return row
+
+    index_rows.extend(resolve_index_row(row) for row in raw_index_rows)
+    seen = {str(row["source_card_id"]) for row in index_rows}
     for source_path in sorted(chronicle_root.rglob("卷*-通读总结.md")):
         lines = source_path.read_text(encoding="utf-8").splitlines()
         for heading_line, line in enumerate(lines, start=1):
@@ -1789,7 +1982,7 @@ def _qin_tang_source_index_rows(workspace_root: Path) -> list[dict[str, Any]]:
             seen.add(source_card_id)
             relative = source_path.relative_to(workspace_root).as_posix()
             index_rows.append(
-                {
+                resolve_index_row({
                     "source_card_id": source_card_id,
                     "title": (match.group(2) or source_card_id).strip(),
                     "dynasty": source_path.parent.name,
@@ -1797,7 +1990,7 @@ def _qin_tang_source_index_rows(workspace_root: Path) -> list[dict[str, Any]]:
                     "source_file": relative,
                     "heading_line": heading_line,
                     "source_kind": "DEF",
-                }
+                })
             )
     return index_rows
 
@@ -1815,7 +2008,7 @@ def _qin_tang_campaign_groups_by_ref(
             source_file,
             (workspace_root / source_file).read_text(encoding="utf-8").splitlines(),
         )
-        start = int(card["heading_line"]) - 1
+        start = int(card["resolved_heading_line"]) - 1
         end = next(
             (
                 index
@@ -2194,8 +2387,50 @@ def _validate_formal_abc_contracts(
             raise ValueError(f"{row['ruler_name']}的C项双任务超过证据上限")
 
 
-def _aggregate_d_cycle(cycle: Mapping[str, Any]) -> dict[str, Any]:
+def _aggregate_parent_cycle_audit(cycle: Mapping[str, Any]) -> dict[str, Any]:
     phases = list(cycle["phases"])
+    canonical_ref = str(cycle["campaign_group_ref"])
+    member_refs = {
+        str(ref) for ref in cycle.get("merged_campaign_group_refs") or ()
+    } or {canonical_ref}
+    phase_group_refs = {
+        str(phase.get("campaign_group_ref"))
+        for phase in phases
+        if phase.get("campaign_group_ref")
+    }
+    if not phase_group_refs.issubset(member_refs):
+        raise ValueError(
+            f"{canonical_ref}父级合并含未声明成员阶段："
+            f"{sorted(phase_group_refs - member_refs)}"
+        )
+    binding_identities = {
+        (
+            str(
+                (phase.get("ruler_binding") or {}).get("polity")
+                or phase.get("polity_binding")
+                or ""
+            ),
+            str((phase.get("ruler_binding") or {}).get("ruler_id") or ""),
+            str((phase.get("ruler_binding") or {}).get("ruler_name") or ""),
+        )
+        for phase in phases
+        if (phase.get("ruler_binding") or {}).get("ruler_id")
+    }
+    if len(binding_identities) > 1:
+        raise ValueError(
+            f"{canonical_ref}父级周期混入不同主体或统治窗口："
+            f"{sorted(binding_identities)}"
+        )
+    subject_binding = (
+        {
+            "polity": next(iter(binding_identities))[0],
+            "ruler_id": next(iter(binding_identities))[1],
+            "ruler_name": next(iter(binding_identities))[2],
+            "status": "SINGLE_SUBJECT_RULER_WINDOW",
+        }
+        if binding_identities
+        else None
+    )
     costs, benefits, parent_axis_basis, unknown_axes = _rollup_parent_axes(phases)
     for axis, value in dict(cycle.get("parent_cost_axes") or {}).items():
         if axis in costs:
@@ -2212,8 +2447,9 @@ def _aggregate_d_cycle(cycle: Mapping[str, Any]) -> dict[str, Any]:
             benefits[axis] = parsed
             unknown_axes = [item for item in unknown_axes if item != axis]
     route = str(cycle.get("d_route") or _semantic_internal_route(phases))
+    s_attributable = True
     exposure_index = _cycle_exposure_index(
-        costs, benefits, s_attributable=True
+        costs, benefits, s_attributable=s_attributable
     )
     if bool(cycle.get("large_rebellion_admitted")):
         material = True
@@ -2234,20 +2470,72 @@ def _aggregate_d_cycle(cycle: Mapping[str, Any]) -> dict[str, Any]:
             if material
             else "LOW_INTENSITY_OBSERVATION_EXCLUDED"
         )
+    asset_component_profile = _asset_component_profile(
+        int(costs["A"]),
+        {"asset_component_split": cycle.get("asset_component_split")}
+        if cycle.get("asset_component_split")
+        else {},
+    )
+    asset_residual_grade = asset_component_profile[
+        "residual_or_permanent_harm_grade"
+    ]
     if unknown_axes:
         final_class = "UNKNOWN"
         class_rationale = "父级关键成本或终局收益轴仍为UNKNOWN，禁止以0或负收益代填。"
     else:
-        final_class, class_rationale = _axis_closed_return_class(
-            costs, benefits, s_attributable=True, route=route
+        final_class, class_rationale = _parent_cycle_return_class(
+            costs,
+            benefits,
+            s_attributable=s_attributable,
+            route=route,
+            asset_residual_grade=(
+                int(asset_residual_grade)
+                if asset_residual_grade is not None
+                else None
+            ),
         )
     high_return_tier = _high_return_tier(benefits, final_class)
     national_negative = final_class == "NEGATIVE_RETURN" and (
         costs["P"] >= 5
         or costs["S"] >= 5
-        or costs["A"] >= 5
+        or int(asset_residual_grade or 0) >= 5
         or max(benefits["SN"], benefits["BCN"]) >= 5
     )
+    p_inference_evidence = []
+    for phase in phases:
+        if not phase.get("P_inference"):
+            continue
+        inference = {
+            "phase_id": str(phase.get("phase_id") or ""),
+            **dict(phase["P_inference"]),
+        }
+        inference.setdefault(
+            "P_scoring",
+            str((phase.get("cost_axes") or {}).get("P") or "UNKNOWN"),
+        )
+        p_inference_evidence.append(inference)
+    cost_evidence: dict[str, list[dict[str, Any]]] = {}
+    for axis in ("P", "S", "M", "A"):
+        axis_evidence: list[dict[str, Any]] = []
+        for phase in phases:
+            raw_evidence = (phase.get("cost_evidence") or {}).get(axis)
+            if not raw_evidence:
+                continue
+            evidence_items = (
+                [str(raw_evidence)]
+                if isinstance(raw_evidence, str)
+                else [str(item) for item in raw_evidence]
+            )
+            axis_evidence.append({
+                "phase_id": str(phase.get("phase_id") or ""),
+                "evidence": evidence_items,
+            })
+        cost_evidence[axis] = axis_evidence
+    benefit_source_refs = sorted({
+        str(ref)
+        for phase in phases
+        for ref in phase.get("source_anchor_refs") or ()
+    })
     return {
         "campaign_group_ref": cycle["campaign_group_ref"], "war_event_refs": cycle["war_event_refs"],
         "phase_ids": cycle["phase_ids"], "return_class": final_class,
@@ -2260,6 +2548,8 @@ def _aggregate_d_cycle(cycle: Mapping[str, Any]) -> dict[str, Any]:
         "top_high_return": high_return_tier == "TOP",
         "national_negative": national_negative,
         "route": route,
+        "s_attributable": s_attributable,
+        "subject_binding": subject_binding,
         "return_class_basis": "PARENT_AXES_DIRECT_MAPPING",
         "return_class_rationale": class_rationale,
         "parent_axis_basis": (
@@ -2267,296 +2557,19 @@ def _aggregate_d_cycle(cycle: Mapping[str, Any]) -> dict[str, Any]:
             if cycle.get("parent_cost_axes") or cycle.get("parent_benefit_axes")
             else parent_axis_basis
         ),
+        "strategic_result_chain_ref": str(
+            cycle.get("strategic_result_chain_ref") or cycle["campaign_group_ref"]
+        ),
+        "asset_component_profile": asset_component_profile,
+        "P_inference_evidence": p_inference_evidence,
+        "cost_evidence": cost_evidence,
+        "benefit_source_refs": benefit_source_refs,
         "merged_campaign_group_refs": list(cycle.get("merged_campaign_group_refs") or ()),
         "merge_reason": cycle.get("merge_reason"),
         "route_override_reason": cycle.get("route_override_reason"),
     }
 
 
-def _d_grade_and_score(
-    cycles: Sequence[Mapping[str, Any]], *,
-    allow_exceptional_national_recovery: bool = False,
-) -> tuple[str, float | None, dict[str, Any]]:
-    # Kept in the signature for caller compatibility.  The quantitative model
-    # has no person-specific or dynasty-specific recovery exception.
-    _ = allow_exceptional_national_recovery
-    canonical_parent_refs = [str(cycle["campaign_group_ref"]) for cycle in cycles]
-    duplicate_parent_refs = sorted(
-        ref for ref, count in Counter(canonical_parent_refs).items() if count > 1
-    )
-    if duplicate_parent_refs:
-        raise ValueError(
-            "D项重复消费同一父级投资周期: " + ", ".join(duplicate_parent_refs)
-        )
-    counts = Counter(cycle["return_class"] for cycle in cycles)
-    material = [cycle for cycle in cycles if cycle["material"]]
-    known_material = [
-        cycle for cycle in material if cycle["return_class"] != "UNKNOWN"
-    ]
-    material_counts = Counter(cycle["return_class"] for cycle in material)
-    positive = material_counts["HIGH_RETURN"] + material_counts["PROPORTIONATE_RETURN"]
-    negative = material_counts["LOW_RETURN"] + material_counts["NEGATIVE_RETURN"]
-    material_negative = [
-        cycle
-        for cycle in material
-        if cycle["return_class"] == "NEGATIVE_RETURN"
-    ]
-    national = [cycle for cycle in material if cycle["national_negative"]]
-    major = [
-        cycle for cycle in known_material
-        if cycle["return_class"] == "HIGH_RETURN" and cycle["major_high_return"]
-    ]
-    top = [
-        cycle for cycle in known_material
-        if cycle["return_class"] == "HIGH_RETURN" and cycle["top_high_return"]
-    ]
-    material_unknown = [
-        cycle
-        for cycle in material
-        if cycle["return_class"] == "UNKNOWN"
-    ]
-    potential_material = [
-        cycle
-        for cycle in cycles
-        if not cycle["material"] and cycle.get("unknown_axes")
-    ]
-    high_return_tier_counts = Counter(
-        str(cycle.get("high_return_tier"))
-        for cycle in known_material
-        if cycle.get("high_return_tier")
-    )
-    if not material or not known_material:
-        return "D-U", None, {
-            "status": (
-                "NO_CLOSED_MATERIAL_RETURN"
-                if material
-                else
-                "NO_CONFIRMED_MATERIAL_CYCLE_WITH_UNRESOLVED_AXES"
-                if potential_material
-                else "NO_MATERIAL_CYCLE"
-            ),
-            "return_class_counts": dict(sorted(material_counts.items())),
-            "observation_return_class_counts": dict(sorted(counts.items())),
-            "material_return_class_counts": dict(sorted(material_counts.items())),
-            "usable_cycle_count": len(cycles),
-            "material_cycle_count": len(material),
-            "known_material_cycle_count": 0,
-            "material_return_closure_rate": 0.0,
-            "national_negative_return_refs": [],
-            "material_negative_return_refs": [],
-            "material_unknown_cycle_refs": [
-                cycle["campaign_group_ref"] for cycle in material_unknown
-            ],
-            "potential_material_cycle_refs": [
-                cycle["campaign_group_ref"] for cycle in potential_material
-            ],
-            "major_high_return_refs": [],
-            "top_tier_high_return_refs": [],
-            "portfolio_net_weight_sum": None,
-            "mean_cycle_weight": None,
-            "decisive_density": None,
-            "adverse_cycle_share": None,
-            "national_negative_share": None,
-            "portfolio_efficiency_index": None,
-            "decisive_yield_index": 0.0,
-            "high_return_tier_counts": dict(sorted(high_return_tier_counts.items())),
-            "cycle_q_adjudications": [],
-            "material_parent_cycle_refs": [
-                cycle["campaign_group_ref"] for cycle in material
-            ],
-            "canonical_parent_cycle_refs": canonical_parent_refs,
-            "parent_cycle_uniqueness_status": "UNIQUE_CANONICAL_PARENT_CYCLES",
-            "empirical_calibration": D_EMPIRICAL_CALIBRATION,
-            "grade_cap_reasons": ["NO_CLOSED_MATERIAL_RETURN"],
-            "evidence_status": "UNDER_TESTED",
-        }
-
-    weights = D_EMPIRICAL_CALIBRATION["weights"]
-
-    def empirical_weight(cycle: Mapping[str, Any]) -> float:
-        if cycle["national_negative"]:
-            return float(weights["NATIONAL_NEGATIVE"])
-        if cycle["return_class"] == "HIGH_RETURN":
-            tier = str(
-                cycle.get("high_return_tier")
-                or (
-                    "TOP"
-                    if cycle.get("top_high_return")
-                    else "MAJOR"
-                    if cycle.get("major_high_return")
-                    else "ORDINARY"
-                )
-            )
-            if tier == "TOP":
-                return float(weights["TOP_HIGH_RETURN"])
-            if tier == "MAJOR":
-                return float(weights["MAJOR_HIGH_RETURN"])
-        return float(weights[cycle["return_class"]])
-
-    cycle_q_adjudications = [
-        {
-            "canonical_parent_cycle_ref": cycle["campaign_group_ref"],
-            "route": cycle.get("route", "D_EXTERNAL_OR_FRONTIER"),
-            "cost_axes": dict(cycle.get("cost_axes") or {}),
-            "benefit_axes": dict(cycle.get("benefit_axes") or {}),
-            "return_class": cycle["return_class"],
-            "material_exposure_index": int(
-                cycle.get("material_exposure_index") or 0
-            ),
-            "material_admission_basis": cycle.get("material_admission_basis"),
-            "high_return_tier": cycle.get("high_return_tier"),
-            "q_contribution": int(empirical_weight(cycle)),
-            "return_class_basis": cycle.get("return_class_basis"),
-            "return_class_rationale": cycle.get("return_class_rationale"),
-            "parent_axis_basis": cycle.get("parent_axis_basis"),
-            "axis_selection_basis": cycle.get("axis_selection_basis"),
-        }
-        for cycle in known_material
-    ]
-    net_weight_sum = sum(item["q_contribution"] for item in cycle_q_adjudications)
-    decisive_yield = float(len(major) + len(top))
-    known_count = len(known_material)
-    material_count = len(material)
-    adverse_count = material_counts["LOW_RETURN"] + material_counts["NEGATIVE_RETURN"]
-    # UNKNOWN keeps its evidence boundary, but it still occupies a real material
-    # investment slot.  Using only closed cycles as the denominator would let a
-    # ruler gain efficiency merely because a costly cycle has no surviving result
-    # evidence.
-    mean_cycle_weight = net_weight_sum / material_count
-    decisive_density = decisive_yield / material_count
-    adverse_share = adverse_count / material_count
-    national_negative_share = len(national) / material_count
-    efficiency_index = (
-        mean_cycle_weight
-        + decisive_density
-        - 2 * adverse_share
-        - 2 * national_negative_share
-    )
-    thresholds = D_EMPIRICAL_CALIBRATION["efficiency_thresholds"]
-    d12 = float(thresholds["D-1_TO_D-2"])
-    d23 = float(thresholds["D-2_TO_D-3"])
-    d34 = float(thresholds["D-3_TO_D-4"])
-    d45 = float(thresholds["D-4_TO_D-5"])
-    d5_full = float(thresholds["D-5_TO_FULL_SCORE"])
-    minimum_exposure = D_EMPIRICAL_CALIBRATION["minimum_exposure"]
-
-    if efficiency_index >= d45 and known_count >= int(minimum_exposure["D-5"]):
-        grade = "D-5"
-    elif efficiency_index >= d34 and known_count >= int(minimum_exposure["D-4"]):
-        grade = "D-4"
-    elif efficiency_index >= d23:
-        grade = "D-3"
-    elif efficiency_index >= d12:
-        grade = "D-2"
-    else:
-        grade = "D-1"
-
-    grade_order = {"D-1": 1, "D-2": 2, "D-3": 3, "D-4": 4, "D-5": 5}
-    grade_cap_reasons: list[str] = []
-    if efficiency_index >= d45 and known_count < int(minimum_exposure["D-5"]):
-        grade_cap_reasons.append("D5_MINIMUM_EXPOSURE_NOT_MET")
-    if efficiency_index >= d34 and known_count < int(minimum_exposure["D-4"]):
-        grade_cap_reasons.append("D4_MINIMUM_EXPOSURE_NOT_MET")
-
-    def cap_grade(max_grade: str, reason: str) -> None:
-        nonlocal grade
-        if grade_order[grade] > grade_order[max_grade]:
-            grade = max_grade
-            grade_cap_reasons.append(reason)
-
-    closure_rate = len(known_material) / len(material)
-    if closure_rate < 2 / 3:
-        cap_grade("D-3", "MATERIAL_RETURN_CLOSURE_BELOW_TWO_THIRDS")
-    elif material_unknown:
-        cap_grade("D-4", "MATERIAL_RETURN_UNKNOWN_PRESENT")
-
-    efficiency_ranges = {
-        "D-1": (float(thresholds["D-1_FLOOR"]), d12),
-        "D-2": (d12, d23),
-        "D-3": (d23, d34),
-        "D-4": (d34, d45),
-        "D-5": (d45, d5_full),
-    }
-    efficiency_lower, efficiency_upper = efficiency_ranges[grade]
-    efficiency_position = (
-        (efficiency_index - efficiency_lower) / (efficiency_upper - efficiency_lower)
-        if efficiency_upper > efficiency_lower
-        else 0.0
-    )
-    grade_position = max(0.0, min(1.0, efficiency_position))
-    evidence_position_limit = 1.0
-    evidence_position_limit_reasons: list[str] = []
-    if grade == "D-3" and known_count < 3:
-        evidence_position_limit = min(
-            evidence_position_limit,
-            known_count / 3,
-        )
-        evidence_position_limit_reasons.append(
-            "D3_THIN_EVIDENCE_K_OVER_3"
-        )
-    if grade == "D-3" and "D4_MINIMUM_EXPOSURE_NOT_MET" in grade_cap_reasons:
-        evidence_position_limit = min(
-            evidence_position_limit,
-            known_count / int(minimum_exposure["D-4"]),
-        )
-        evidence_position_limit_reasons.append(
-            "D4_MINIMUM_EXPOSURE_K_OVER_5"
-        )
-    if grade == "D-4" and "D5_MINIMUM_EXPOSURE_NOT_MET" in grade_cap_reasons:
-        evidence_position_limit = min(
-            evidence_position_limit,
-            known_count / int(minimum_exposure["D-5"]),
-        )
-    if "MATERIAL_RETURN_CLOSURE_BELOW_TWO_THIRDS" in grade_cap_reasons:
-        evidence_position_limit = min(evidence_position_limit, closure_rate)
-    elif "MATERIAL_RETURN_UNKNOWN_PRESENT" in grade_cap_reasons:
-        evidence_position_limit = min(evidence_position_limit, closure_rate)
-    grade_position = min(grade_position, evidence_position_limit)
-    lower, upper = D_BANDS[grade]
-    score = round(lower + (upper - lower) * grade_position, 1)
-    return grade, score, {
-        "return_class_counts": dict(sorted(material_counts.items())),
-        "observation_return_class_counts": dict(sorted(counts.items())),
-        "usable_cycle_count": len(cycles),
-        "material_return_class_counts": dict(sorted(material_counts.items())),
-        "material_cycle_count": len(material),
-        "known_material_cycle_count": len(known_material),
-        "material_return_closure_rate": round(closure_rate, 4),
-        "national_negative_return_refs": [cycle["campaign_group_ref"] for cycle in national],
-        "material_negative_return_refs": [
-            cycle["campaign_group_ref"] for cycle in material_negative
-        ],
-        "material_unknown_cycle_refs": [
-            cycle["campaign_group_ref"] for cycle in material_unknown
-        ],
-        "potential_material_cycle_refs": [
-            cycle["campaign_group_ref"] for cycle in potential_material
-        ],
-        "major_high_return_refs": [cycle["campaign_group_ref"] for cycle in major],
-        "top_tier_high_return_refs": [cycle["campaign_group_ref"] for cycle in top],
-        "portfolio_net_weight_sum": round(net_weight_sum, 1),
-        "mean_cycle_weight": round(mean_cycle_weight, 4),
-        "decisive_yield_index": round(decisive_yield, 1),
-        "decisive_density": round(decisive_density, 4),
-        "adverse_cycle_share": round(adverse_share, 4),
-        "national_negative_share": round(national_negative_share, 4),
-        "portfolio_efficiency_index": round(efficiency_index, 4),
-        "high_return_tier_counts": dict(sorted(high_return_tier_counts.items())),
-        "cycle_q_adjudications": cycle_q_adjudications,
-        "material_parent_cycle_refs": [
-            cycle["campaign_group_ref"] for cycle in material
-        ],
-        "canonical_parent_cycle_refs": canonical_parent_refs,
-        "parent_cycle_uniqueness_status": "UNIQUE_CANONICAL_PARENT_CYCLES",
-        "empirical_calibration": D_EMPIRICAL_CALIBRATION,
-        "grade_cap_reasons": grade_cap_reasons,
-        "evidence_score_position_limit": round(evidence_position_limit, 4),
-        "evidence_score_position_limit_reasons": evidence_position_limit_reasons,
-        "efficiency_band_position": round(grade_position, 4),
-        "grade_band_position": round(grade_position, 4),
-        "national_negative_score_cap": None,
-        "evidence_status": "UNDER_TESTED" if len(known_material) <= 1 else "LIMITED_EXPOSURE" if len(known_material) <= 4 else "SUFFICIENT_EXPOSURE",
-    }
 
 
 def validate_ab_shared_handoffs(
@@ -2625,171 +2638,8 @@ def validate_ab_shared_handoffs(
         bridge_pairs.add(pair)
 
 
-def _d_grade_reasons(grade: str, metrics: Mapping[str, Any]) -> list[str]:
-    counts = metrics.get("material_return_class_counts") or {}
-    high = int(counts.get("HIGH_RETURN", 0))
-    proportionate = int(counts.get("PROPORTIONATE_RETURN", 0))
-    low = int(counts.get("LOW_RETURN", 0))
-    negative = int(counts.get("NEGATIVE_RETURN", 0))
-    unknown = int(counts.get("UNKNOWN", 0))
-    positive = high + proportionate
-    adverse = low + negative
-    material_count = int(metrics.get("material_cycle_count") or 0)
-    tier_counts = metrics.get("high_return_tier_counts") or {}
-    ordinary = int(tier_counts.get("ORDINARY", 0))
-    major = int(tier_counts.get("MAJOR", 0))
-    top = int(tier_counts.get("TOP", 0))
-    national_negative = len(metrics.get("national_negative_return_refs") or [])
-    net_weight = metrics.get("portfolio_net_weight_sum")
-    efficiency = metrics.get("portfolio_efficiency_index")
-    decisive = metrics.get("decisive_yield_index")
-    mean_weight = metrics.get("mean_cycle_weight")
-    decisive_density = metrics.get("decisive_density")
-    adverse_share = metrics.get("adverse_cycle_share")
-    national_share = metrics.get("national_negative_share")
-    caps = metrics.get("grade_cap_reasons") or []
-    if grade == "D-N":
-        return [
-            "全任期审计未发现达到D实质准入门槛的军事投入周期；不虚构成本收益表现，按未取得D正收益记0分，但已结算的A/B/C仍可进入阶段总榜。"
-        ]
-    if grade == "D-U":
-        status = str(metrics.get("status") or "NO_MATERIAL_CYCLE")
-        potential = list(metrics.get("potential_material_cycle_refs") or ())
-        audit_gaps = list(metrics.get("unresolved_evidence_gaps") or ())
-        if potential:
-            detail = "存在潜在实质周期但成本收益轴尚未闭合：" + "、".join(potential) + "。"
-        elif audit_gaps:
-            detail = "大型叛乱审计已发现事件但尚无可消费父周期：" + "；".join(audit_gaps) + "。"
-        else:
-            detail = "当前没有达到D实质准入门槛的已闭合父周期。"
-        return [
-            f"{detail}状态={status}；D项保持未结算，不赋中性分且不参与总分排名。"
-        ]
-    cap_note = f"；回报闭合门禁：{','.join(caps)}" if caps else ""
-    return [
-        f"{material_count}项实质父级周期中正向{positive}、负向{adverse}、回报未知{unknown}，"
-        f"普通高收益{ordinary}、重大高收益{major}、顶尖高收益{top}、国家级负收益{national_negative}；"
-        f"互斥权重和Q={float(net_weight):.1f}，周期均值={float(mean_weight):.2f}，"
-        f"决定性密度={float(decisive_density):.2f}（J={float(decisive):.1f}），"
-        f"负向占比={float(adverse_share):.2f}、国家级负收益占比={float(national_share):.2f}，"
-        f"风险调整效率N={float(efficiency):.2f}{cap_note}，按统一归一边界结算为{grade}。"
-    ]
 
 
-def build_five_dynasties_d_records(
-    registry: Mapping[str, Any], adjudications: Sequence[Mapping[str, Any]],
-    ab_records: Sequence[Mapping[str, Any]], c_records: Sequence[Mapping[str, Any]],
-) -> list[dict[str, Any]]:
-    ab_by_id = {row["ruler_id"]: row for row in ab_records}
-    c_by_id = {row["ruler_id"]: row for row in c_records}
-    records = []
-    for decision in adjudications:
-        cycles, event_refs, _ = _cycles_and_refs(registry, str(decision["ruler_id"]))
-        included_cycles, excluded = _third_item_cycles(decision, cycles)
-        included = [_aggregate_d_cycle(cycle) for cycle in included_cycles]
-        ready = bool(decision.get("score_ready", decision.get("coverage_complete", False)))
-        base = {
-            "ruler_id": decision["ruler_id"], "ruler_name": decision["ruler_name"],
-            "polity": decision["polity"], "reign_range": decision["reign_range"],
-            "schema_id": "emperor-v4-d-ruler-formal-settlement-v1", "canonical_status": "FORMAL_CURRENT" if ready else "PENDING",
-            "formal_repository_entry": True, "formal_score_write": False, "database_write": False,
-            "source_event_refs": event_refs,
-            "d_cycle_refs": [cycle["campaign_group_ref"] for cycle in cycles],
-            "included_d_cycle_refs": [cycle["campaign_group_ref"] for cycle in included],
-            "excluded_unification_cycle_refs": [
-                cycle["campaign_group_ref"]
-                for cycle in excluded
-                if not cycle.get("third_item_exclusion_reason")
-            ],
-            "excluded_non_attributable_cycle_refs": [
-                cycle["campaign_group_ref"]
-                for cycle in excluded
-                if cycle.get("third_item_exclusion_reason")
-            ],
-            "excluded_cycle_adjudications": [
-                {
-                    "campaign_group_ref": cycle["campaign_group_ref"],
-                    "reason": cycle["third_item_exclusion_reason"],
-                }
-                for cycle in excluded
-                if cycle.get("third_item_exclusion_reason")
-            ],
-            "strategic_binding_refs": [ref for cycle in included for ref in cycle["phase_ids"]],
-            "internal_cost_binding_refs": [
-                cycle["campaign_group_ref"]
-                for cycle in included
-                if str(cycle["route"]).startswith("D_INTERNAL_")
-            ],
-            "route_counts": dict(sorted(Counter(cycle["route"] for cycle in included).items())),
-            "cycle_merge_adjudications": [
-                {
-                    "canonical_cycle_ref": cycle["campaign_group_ref"],
-                    "member_campaign_group_refs": cycle["merged_campaign_group_refs"],
-                    "reason": cycle["merge_reason"],
-                }
-                for cycle in included
-                if cycle.get("merged_campaign_group_refs")
-            ],
-            "manual_portfolio_override": False,
-        }
-        if not ready:
-            base.update({
-                "D_grade": "UNKNOWN", "D_grade_reasons": [decision["pending_reason"]],
-                "D_score_points": None, "D_score_band": None, "portfolio_status": "PENDING_INSUFFICIENT_EVIDENCE",
-                "D_portfolio_metrics": {"evidence_status": "INCOMPLETE_REIGN_COVERAGE", "usable_cycle_count": len(included)},
-                "unresolved_cycle_refs": [cycle["campaign_group_ref"] for cycle in included],
-                "unresolved_source_refs": [decision["pending_reason"]], "positive_benefit_cycle_refs": [],
-                "negative_benefit_cycle_refs": [], "high_cost_cycle_refs": [], "zero_return_high_cost_cycle_refs": [],
-                "peak_d_cost_axes": {"P": None, "M": None, "A": None}, "readiness_counts": {"PENDING": len(included)},
-                "binding_source": "SUBJECT_PHASE_INCOMPLETE", "ruler_event_class_overrides": [],
-            })
-            records.append(base)
-            continue
-        ab_points = ab_by_id[decision["ruler_id"]]["AB_score_points"]
-        c_points = c_by_id[decision["ruler_id"]]["C_score_points"]
-        grade, score, metrics = _d_grade_and_score(included)
-        metrics["unknown_axis_cycle_count"] = sum(
-            bool(cycle.get("unknown_axes")) for cycle in included
-        )
-        positive = [cycle for cycle in included if cycle["return_class"] in {"HIGH_RETURN", "PROPORTIONATE_RETURN"}]
-        negative = [cycle for cycle in included if cycle["return_class"] in {"LOW_RETURN", "NEGATIVE_RETURN"}]
-        high_cost = [cycle for cycle in included if max(cycle["cost_axes"][key] for key in ("P", "S", "M", "A")) >= 4]
-        score_band = D_BANDS.get(grade)
-        metrics["abc_crosscheck"] = {
-            "ab_score_points": ab_points, "ab_threshold_points": 80.0,
-            "c_score_points": c_points, "c_threshold_points": 30.0,
-            "small_sample_high_grade_gate_applied": False,
-            "status": "SUFFICIENT_SUPPORT" if ab_points >= 80 and c_points >= 30 else "INSUFFICIENT_SUPPORT",
-        }
-        base.update({
-            "D_grade": grade, "D_grade_reasons": _d_grade_reasons(grade, metrics),
-            "D_score_points": score,
-            "D_score_band": (
-                {"lower_points": score_band[0], "upper_points": score_band[1]}
-                if score_band is not None else None
-            ),
-            "portfolio_status": "FORMAL_CURRENT" if score is not None else "UNASSESSED_NO_MATERIAL_CYCLE",
-            "D_portfolio_metrics": metrics,
-            "unresolved_cycle_refs": [cycle["campaign_group_ref"] for cycle in included if cycle["return_class"] == "UNKNOWN" or cycle.get("unknown_axes")],
-            "unresolved_source_refs": [],
-            "positive_benefit_cycle_refs": [cycle["campaign_group_ref"] for cycle in positive],
-            "negative_benefit_cycle_refs": [cycle["campaign_group_ref"] for cycle in negative],
-            "high_cost_cycle_refs": [cycle["campaign_group_ref"] for cycle in high_cost],
-            "zero_return_high_cost_cycle_refs": [cycle["campaign_group_ref"] for cycle in high_cost if cycle["return_class"] in {"LOW_RETURN", "NEGATIVE_RETURN"}],
-            "peak_d_cost_axes": {key: f"{key}{max((cycle['cost_axes'][key] for cycle in included), default=0)}" for key in ("P", "M", "A")},
-            "readiness_counts": {"HOLD": len(included)}, "binding_source": "SUBJECT_PHASE_FORMAL_CURRENT",
-            "ruler_event_class_overrides": [
-                {
-                    "campaign_group_ref": cycle["campaign_group_ref"],
-                    "return_class": cycle["return_class"],
-                    "reason": cycle["route_override_reason"],
-                }
-                for cycle in included
-                if cycle.get("route_override_reason")
-            ],
-        })
-        records.append(base)
-    return records
 
 
 def _replace_partition_records(
@@ -2808,17 +2658,16 @@ def _build_combined_records(
 ) -> list[dict[str, Any]]:
     ab_by_id = {row["ruler_id"]: row for row in ab_records}
     c_by_id = {row["ruler_id"]: row for row in c_records}
-    d_by_id = {row["ruler_id"]: row for row in d_records}
+    d_by_id = {row["subject_ruler_id"]: row for row in d_records}
     rows = []
     for decision in adjudications:
         ab = ab_by_id[decision["ruler_id"]]
         c = c_by_id[decision["ruler_id"]]
         d = d_by_id[decision["ruler_id"]]
-        ready = bool(ab["score_ready"] and c["score_ready"] and d["D_score_points"] is not None)
-        if ready:
+        abc_ready = bool(ab["score_ready"] and c["score_ready"])
+        if abc_ready:
             a_points = round(ab["axes"]["A1"]["axis_points"] + ab["axes"]["A2"]["axis_points"], 2)
             b_points = round(ab["axes"]["B1"]["axis_points"] + ab["axes"]["B2"]["axis_points"] + ab["axes"]["B4"]["axis_points"], 2)
-            total = round(ab["AB_score_points"] + c["C_score_points"] + d["D_score_points"], 1)
             axes = {
                 "A1": {key: ab["axes"]["A1"][key] for key in ("start", "end", "trajectory_value", "axis_points")},
                 "A2": {key: ab["axes"]["A2"][key] for key in ("start", "end", "trajectory_value", "axis_points")},
@@ -2826,11 +2675,13 @@ def _build_combined_records(
                 "B2": {key: ab["axes"]["B2"][key] for key in ("grade", "score_rate", "axis_points")},
                 "B4": {key: ab["axes"]["B4"][key] for key in ("grade", "score_rate", "axis_points")},
                 "C1": c["combat_delivery_grade"], "C2": c["operational_sustainability_cap"],
-                "C3": c["system_reliability_cap"], "C_overall": c["C_overall_grade"], "D": d["D_grade"],
+                "C3": c["system_reliability_cap"], "C_overall": c["C_overall_grade"],
+                "D": "PUBLIC_LINEAR_Q",
             }
         else:
-            a_points = b_points = total = None
-            axes = {"A1": "UNKNOWN", "A2": "UNKNOWN", "B1": "UNKNOWN", "B2": "UNKNOWN", "B4": "UNKNOWN", "C_overall": "UNKNOWN", "D": "UNKNOWN"}
+            a_points = b_points = None
+            axes = {"A1": "UNKNOWN", "A2": "UNKNOWN", "B1": "UNKNOWN", "B2": "UNKNOWN", "B4": "UNKNOWN", "C_overall": "UNKNOWN", "D": "PUBLIC_LINEAR_Q"}
+        d_metrics = d["D_portfolio_metrics"]
         rows.append({
             "ruler_id": decision["ruler_id"], "ruler_name": decision["ruler_name"],
             "polity": decision["polity"], "reign_range": decision["reign_range"],
@@ -2838,23 +2689,16 @@ def _build_combined_records(
             "partition": "五代十国", "partition_rank": None,
             "A_score_points": a_points, "B_score_points": b_points,
             "AB_score_points": ab["AB_score_points"], "C_score_points": c["C_score_points"],
-            "D_score_points": d["D_score_points"],
-            "D_score_status": "DIRECT_D_SCORE_ASSIGNED" if ready else "UNASSESSED",
-            "third_item_score_points": total,
-            "third_item_score_rate": round(total / 250 * 100, 2) if total is not None else None,
+            "D_score_points": None,
+            "D_score_status": "PUBLIC_LINEAR_Q_CURRENT_SCORE_MAPPING_PENDING",
+            "D_linear_Q": d_metrics["Q"], "D_linear_Q_mean": d_metrics["Q_mean"],
+            "D_cycle_count": d_metrics["T"],
+            "third_item_score_points": None, "third_item_score_rate": None,
             "axes": axes,
-            "coverage_status": {"AB": ab["coverage_status"], "C": c["coverage_status"], "D": d["portfolio_status"]},
-            "pending_reason": (
-                None
-                if ready
-                else decision.get("pending_reason")
-                or "D项无已闭合实质投资周期，不赋中性分。"
-            ),
+            "coverage_status": {"AB": ab["coverage_status"], "C": c["coverage_status"], "D": "PUBLIC_LINEAR_Q_CURRENT"},
+            "pending_reason": "D项线性Q已闭合；40分映射不再由旧经验D逻辑生成。",
             "formal_score_write": False, "database_write": False,
         })
-    eligible = sorted((row for row in rows if row["third_item_score_points"] is not None), key=lambda row: (-row["third_item_score_points"], row["ruler_name"]))
-    for rank, row in enumerate(eligible, start=1):
-        row["partition_rank"] = rank
     return rows
 
 
@@ -2875,68 +2719,60 @@ def _assign_global_third_item_ranks(records: Sequence[dict[str, Any]]) -> None:
         row["rank_status"] = f"GLOBAL_CURRENT_{eligible_count}"
 
 
-def _axis_numbers(text: str, axis: str) -> list[int]:
-    values: list[int] = []
-    for line in text.splitlines():
-        match = re.search(rf"(?<![A-Z]){axis}(?:=)?([0-6])(?:估)?", line)
-        if match:
-            values.append(int(match.group(1)))
-    return values
 
 
-def _qin_tang_polity_aliases(polity: str) -> tuple[str, ...]:
-    aliases = {
-        "蜀汉": ("蜀汉", "蜀方", "蜀"),
-        "东汉": ("东汉", "汉方", "汉"),
-        "西汉": ("西汉", "汉方", "汉"),
-        "东晋": ("东晋", "晋方", "晋"),
-        "西晋": ("西晋", "晋方", "晋"),
-        "前秦": ("前秦", "秦方"),
-        "后秦": ("后秦", "秦方"),
-        "北魏": ("北魏", "魏方"),
-        "曹魏": ("曹魏", "魏方", "魏"),
-    }.get(polity, (polity, f"{polity}方"))
-    return tuple(dict.fromkeys(alias for alias in aliases if alias))
 
 
-def _qin_tang_subject_axis_lines(
-    axis_lines: Sequence[str], ruler_name: str, polity: str
-) -> tuple[list[str], str]:
-    ruler_matches = [line for line in axis_lines if ruler_name and ruler_name in line]
-    if ruler_matches:
-        return ruler_matches, "RULER_AXIS_LINE"
-    aliases = _qin_tang_polity_aliases(polity)
-    subject_fragments: list[str] = []
-    for line in axis_lines:
-        markers = list(re.finditer(r"影子定位（([^）]+)）", line))
-        if markers:
-            for index, marker in enumerate(markers):
-                label = marker.group(1).strip()
-                if not any(alias in label for alias in aliases):
-                    continue
-                stop = markers[index + 1].start() if index + 1 < len(markers) else len(line)
-                subject_fragments.append(line[marker.start():stop])
-            continue
-        subject_match = re.search(
-            r"评价主体(?:为|[：:=])\s*([^；;，,。`〔（\s]+)", line
-        )
-        if subject_match and any(
-            alias in subject_match.group(1) for alias in aliases
-        ):
-            subject_fragments.append(line)
-    if subject_fragments:
-        return subject_fragments, "POLITY_AXIS_LINE"
-    if any("影子定位（" in line or "评价主体" in line for line in axis_lines):
-        return [], "NO_SUBJECT_AXIS_LINE"
-    return list(axis_lines), "CARD_AXIS_LINE"
+def _asset_component_profile(
+    asset_grade: int,
+    evidence: object,
+) -> dict[str, int | str | None]:
+    structured = evidence if isinstance(evidence, Mapping) else {}
+    component = structured.get("asset_component_split")
+    component = component if isinstance(component, Mapping) else {}
+    source_refs = [str(ref) for ref in component.get("source_refs") or ()]
+
+    def explicit_grade(field: str) -> int | None:
+        value = component.get(field)
+        if value is None:
+            return 0 if asset_grade == 0 else None
+        parsed = int(value)
+        if not 0 <= parsed <= asset_grade:
+            raise ValueError(f"A组件{field}={parsed}超出gross A{asset_grade}")
+        return parsed
+
+    reusable_grade = explicit_grade("reusable_input_grade")
+    loss_grade = explicit_grade("consumed_or_lost_asset_grade")
+    destruction_grade = explicit_grade("permanent_destruction_grade")
+    residual_grade = explicit_grade("residual_or_permanent_harm_grade")
+    if asset_grade == 0:
+        status = "NO_ASSET_BURDEN"
+    elif component and source_refs and all(
+        value is not None
+        for value in (reusable_grade, loss_grade, destruction_grade, residual_grade)
+    ):
+        status = "EXPLICIT_STRUCTURED_COMPONENT_SPLIT"
+    else:
+        status = "UNRESOLVED_REUSE_LOSS_DESTRUCTION_SPLIT"
+    return {
+        "gross_commitment_grade": asset_grade,
+        "reusable_input_grade": reusable_grade,
+        "consumed_or_lost_asset_grade": loss_grade,
+        "permanent_destruction_grade": destruction_grade,
+        "residual_or_permanent_harm_grade": residual_grade,
+        "component_split_status": status,
+        "source_refs": source_refs,
+    }
 
 
-def _axis_closed_return_class(
+def _parent_cycle_return_class(
     costs: Mapping[str, int],
     benefits: Mapping[str, int],
     *,
     s_attributable: bool,
     route: str = "D_EXTERNAL_OR_FRONTIER",
+    asset_residual_grade: int | None = None,
+    benefit_claim_bundle: Mapping[str, Any] | None = None,
 ) -> tuple[str, str]:
     positive_axes = {key: int(benefits[key]) for key in ("SB", "BCP", "WR")}
     negative_axes = {key: int(benefits[key]) for key in ("SN", "BCN")}
@@ -2948,13 +2784,28 @@ def _axis_closed_return_class(
     highest_negative = max(negative_axes.values())
     irreversible_loss = max(
         int(costs["P"]),
-        int(costs["A"]),
+        int(asset_residual_grade or 0),
         int(costs["S"]) if s_attributable else 0,
         highest_negative,
     )
     cost_profile = tuple(sorted(cost_values, reverse=True)[:3])
     cost_profile = cost_profile + (0,) * (3 - len(cost_profile))
-    benefit_profile = tuple(sorted(positive_axes.values(), reverse=True))
+    claim_bundle = dict(benefit_claim_bundle or {})
+    unresolved_high_axes = list(claim_bundle.get("unresolved_high_axes") or ())
+    if unresolved_high_axes:
+        return (
+            "UNKNOWN",
+            "高收益轴缺少显式历史对象或轴别终局证据："
+            + ",".join(unresolved_high_axes),
+        )
+    suppressed_axes = set(claim_bundle.get("supporting_axis_refs") or ())
+    benefit_strengths = [
+        0
+        if axis in suppressed_axes
+        else PARENT_CYCLE_BENEFIT_STRENGTH[axis][max(0, min(5, grade))]
+        for axis, grade in positive_axes.items()
+    ]
+    benefit_profile = tuple(sorted(benefit_strengths, reverse=True))
     burden_profile = tuple(
         sorted((*cost_profile, highest_negative), reverse=True)[:3]
     )
@@ -2973,13 +2824,19 @@ def _axis_closed_return_class(
             result = "PROPORTIONATE_RETURN"
     elif highest_negative >= 4 and highest_positive <= highest_negative:
         result = "NEGATIVE_RETURN"
+    elif (
+        route == "D_INTERNAL_STRATEGIC"
+        and cost_profile >= (3, 3, 3)
+        and highest_positive <= 1
+    ):
+        result = "NEGATIVE_RETURN"
     elif highest_positive == 0:
         result = "NEGATIVE_RETURN" if irreversible_loss >= 4 else "LOW_RETURN"
     elif irreversible_loss >= 4 and benefit_profile < burden_profile:
         result = "NEGATIVE_RETURN"
     elif highest_negative >= highest_positive and highest_negative > 0:
         result = "NEGATIVE_RETURN" if highest_cost >= highest_positive else "LOW_RETURN"
-    elif highest_positive >= 3 and benefit_profile > burden_profile:
+    elif max(benefit_strengths, default=0) >= 3 and benefit_profile > burden_profile:
         result = "HIGH_RETURN"
     elif benefit_profile >= burden_profile:
         result = "PROPORTIONATE_RETURN"
@@ -2992,6 +2849,8 @@ def _axis_closed_return_class(
         f"收益SB/SN/BCP/BCN/WR={benefits['SB']}/{benefits['SN']}/{benefits['BCP']}/"
         f"{benefits['BCN']}/{benefits['WR']}，收益强度剖面={benefit_profile}，"
         f"成本负收益剖面={burden_profile}，路由={route}；裁为{result}。"
+        f"A残余毁损={asset_residual_grade if asset_residual_grade is not None else 'UNRESOLVED'}。"
+        f"收益claim={claim_bundle.get('claim_ids') or []}；旁证轴不重复入主贡献。"
     )
     return result, rationale
 
@@ -3043,13 +2902,22 @@ def _major_non_rebellion_cycle(
     )
 
 
-def _high_return_tier(benefits: Mapping[str, int], return_class: str) -> str | None:
+def _high_return_tier(
+    benefits: Mapping[str, int],
+    return_class: str,
+    benefit_claim_bundle: Mapping[str, Any] | None = None,
+) -> str | None:
     if return_class != "HIGH_RETURN":
         return None
-    if any(int(benefits[axis]) >= 5 for axis in ("SB", "BCP", "WR")):
-        return "TOP"
-    if any(int(benefits[axis]) >= 4 for axis in ("SB", "BCP", "WR")):
-        return "MAJOR"
+    bundle = dict(benefit_claim_bundle or {})
+    primary_axis = str(bundle.get("primary_axis") or "")
+    primary_grade = int(bundle.get("primary_grade") or 0)
+    if primary_axis == "SB":
+        return "TOP" if primary_grade >= 5 else "MAJOR" if primary_grade >= 4 else "ORDINARY"
+    if primary_axis == "BCP":
+        return "TOP" if primary_grade >= 5 else "MAJOR" if primary_grade >= 4 else "ORDINARY"
+    if primary_axis == "WR":
+        return "MAJOR" if primary_grade >= 5 else "ORDINARY"
     return "ORDINARY"
 
 
@@ -3080,42 +2948,64 @@ def _semantic_internal_route(phases: Sequence[Mapping[str, Any]]) -> str:
 def _rollup_parent_axes(
     phases: Sequence[Mapping[str, Any]],
 ) -> tuple[dict[str, int], dict[str, int], str, list[str]]:
-    """Collapse source phases into one canonical parent investment cycle."""
+    """Collapse one ordered phase or require an explicit multi-phase terminal adjudication."""
+    sequence_numbers: list[int | None] = []
+    for phase in phases:
+        match = re.search(r"-P(\d+)$", str(phase.get("phase_id") or ""))
+        sequence_numbers.append(int(match.group(1)) if match else None)
+    ordered = list(phases)
+    ordered_status = "SINGLE_PHASE"
+    if len(phases) > 1:
+        if any(number is None for number in sequence_numbers):
+            ordered_status = "MULTI_PHASE_ORDER_UNRESOLVED"
+        elif len(set(sequence_numbers)) != len(sequence_numbers):
+            ordered_status = "MULTI_PHASE_ORDER_DUPLICATED"
+        else:
+            ordered = [
+                phase
+                for _, phase in sorted(
+                    zip(sequence_numbers, phases), key=lambda item: int(item[0])
+                )
+            ]
+            ordered_status = "MULTI_PHASE_ORDERED_REQUIRES_EXPLICIT_TERMINAL"
     costs: dict[str, int] = {}
     unknown_axes: set[str] = set()
     for axis in ("P", "S", "M", "A", "WC"):
         grades = [
             _grade_number((phase.get("cost_axes") or {}).get(axis), axis)
-            for phase in phases
+            for phase in ordered
         ]
         known = [grade for grade in grades if grade is not None]
-        costs[axis] = max(known, default=0)
+        if axis == "S" and grades:
+            costs[axis] = int(grades[-1] or 0)
+            if grades[-1] is None:
+                unknown_axes.add(axis)
+        else:
+            costs[axis] = max(known, default=0)
         if not known:
             unknown_axes.add(axis)
     benefits = {axis: 0 for axis in ("SB", "SN", "BCP", "BCN", "WR")}
+    if len(ordered) > 1:
+        unknown_axes.update(benefits)
+        return costs, benefits, ordered_status, sorted(unknown_axes)
+
+    phase = ordered[0] if ordered else {}
     for positive_axis, negative_axis, field in (
         ("SB", "SN", "strategic_security"),
         ("BCP", "BCN", "border_control"),
     ):
-        positive_grades: list[int] = []
-        negative_grades: list[int] = []
-        for phase in phases:
-            values = phase.get(field) or {}
-            positive_grade = _grade_number(
-                values.get(positive_axis) if isinstance(values, Mapping) else values,
-                positive_axis,
-            )
-            negative_grade = _grade_number(
-                values.get(negative_axis) if isinstance(values, Mapping) else values,
-                negative_axis,
-            )
-            if positive_grade is not None:
-                positive_grades.append(positive_grade)
-            if negative_grade is not None:
-                negative_grades.append(negative_grade)
-        if positive_grades or negative_grades:
-            positive = max(positive_grades, default=0)
-            negative = max(negative_grades, default=0)
+        values = phase.get(field) or {}
+        positive = _embedded_grade_number(
+            values.get(positive_axis) if isinstance(values, Mapping) else values,
+            positive_axis,
+        )
+        negative = _embedded_grade_number(
+            values.get(negative_axis) if isinstance(values, Mapping) else values,
+            negative_axis,
+        )
+        if positive is not None or negative is not None:
+            positive = int(positive or 0)
+            negative = int(negative or 0)
             if positive > negative:
                 benefits[positive_axis] = positive
             elif negative > positive:
@@ -3127,730 +3017,19 @@ def _rollup_parent_axes(
                 unknown_axes.discard(negative_axis)
         else:
             unknown_axes.update((positive_axis, negative_axis))
-    wr_grades = [
-        _grade_number(phase.get("material_return"), "WR") for phase in phases
-    ]
-    known_wr = [grade for grade in wr_grades if grade is not None]
-    benefits["WR"] = max(known_wr, default=0)
-    if not known_wr:
+    wr_grade = _grade_number(phase.get("material_return"), "WR")
+    benefits["WR"] = int(wr_grade or 0)
+    if wr_grade is None:
         unknown_axes.add("WR")
-    basis = (
-        "SINGLE_PHASE_AXIS_DIRECT"
-        if len(phases) == 1
-        else "PARENT_DIRECTIONAL_NET_ROLLUP"
-    )
-    return costs, benefits, basis, sorted(unknown_axes)
+    return costs, benefits, "SINGLE_PHASE_AXIS_DIRECT", sorted(unknown_axes)
 
 
-def _qin_tang_unknown_benefit_axes(section_text: str) -> list[str]:
-    unknown: list[str] = []
-    patterns = {
-        "SB": (
-            r"SB\s*(?:[:：=]?\s*)待后续",
-            r"SB后效[^。；\n]*(?:未闭合|待后续)",
-            r"SB由后续[^。；\n]*结算",
-        ),
-        "BCP": (r"BCP\s*(?:[:：=]?\s*)待后续",),
-        "BCN": (r"BCN\s*(?:[:：=]?\s*)待后续",),
-        "WR": (r"WR\s*(?:[:：=]?\s*)待后续",),
-    }
-    for axis, axis_patterns in patterns.items():
-        if any(re.search(pattern, section_text) for pattern in axis_patterns):
-            unknown.append(axis)
-    return unknown
 
 
-def _qin_tang_source_cycle(
-    workspace_root: Path,
-    ruler: Mapping[str, Any],
-    ref: str,
-    card_meta: Mapping[str, Any],
-    source_cache: dict[str, list[str]],
-    override: Mapping[str, Any] | None,
-    ambiguous_same_polity_ref: bool,
-    admitted_large_rebellion: bool,
-    major_campaign_contract: bool,
-) -> dict[str, Any]:
-    source_file = str(card_meta["source_file"])
-    lines = source_cache.setdefault(
-        source_file,
-        (workspace_root / source_file).read_text(encoding="utf-8").splitlines(),
-    )
-    start = int(card_meta["heading_line"]) - 1
-    end = next(
-        (index for index in range(start + 1, len(lines)) if lines[index].startswith("### ")),
-        len(lines),
-    )
-    section_lines = lines[start:end]
-    settlement_text = "\n".join(section_lines)
-    if not any(
-        re.search(r"`?P\s*=\s*P[0-5]", line) for line in section_lines
-    ):
-        # Early chronicle summaries separate the six-part WAR/DEF card from a
-        # later "...父卡" axis section.  Match that section by distinctive
-        # Chinese title bigrams instead of treating the first narrative block
-        # as a zero-axis card.
-        source_title = str(card_meta.get("title") or "")
-
-        def title_bigrams(value: str) -> set[str]:
-            text = re.sub(r"[^\u4e00-\u9fff]", "", value)
-            return {
-                text[index : index + 2]
-                for index in range(len(text) - 1)
-                if text[index : index + 2] not in {"父卡", "体系", "战争", "防御"}
-            }
-
-        source_bigrams = title_bigrams(source_title)
-        candidates: list[tuple[int, int, int]] = []
-        for heading_index in range(start + 1, len(lines)):
-            heading = lines[heading_index]
-            if not heading.startswith("### ") or "父卡" not in heading:
-                continue
-            candidate_end = next(
-                (
-                    index
-                    for index in range(heading_index + 1, len(lines))
-                    if lines[index].startswith("### ")
-                ),
-                len(lines),
-            )
-            body = lines[heading_index:candidate_end]
-            if not any(re.search(r"`?P\s*=\s*P[0-5]", line) for line in body):
-                continue
-            overlap = len(source_bigrams & title_bigrams(heading))
-            if overlap:
-                candidates.append((overlap, heading_index, candidate_end))
-        if candidates:
-            candidates.sort(reverse=True)
-            best_overlap, best_start, best_end = candidates[0]
-            if len(candidates) == 1 or best_overlap > candidates[1][0]:
-                section_lines = lines[best_start:best_end]
-    section_text = "\n".join(section_lines)
-    axis_lines = [
-        line
-        for line in section_lines
-        if (
-            "影子定位" in line
-            or "WC四轴迁移" in line
-            or "WC四轴复核" in line
-            or "成本四轴" in line
-            or re.search(r"`?(?:P|S|M|A)\s*=\s*(?:P|S|M|A)[0-5]", line)
-            or re.search(r"`?(?:SB|SN|BCP|BCN|WR)[0-5]", line)
-        )
-    ]
-    ruler_name = str(ruler.get("ruler_name") or "")
-    polity = str(ruler.get("polity") or "")
-    selected_lines, axis_selection_basis = _qin_tang_subject_axis_lines(
-        axis_lines, ruler_name, polity
-    )
-    cost_text = "\n".join(selected_lines)
-    # Once a card contains explicit subject-labelled axes, every cost and
-    # benefit value must come from the selected subject fragment.  Appending
-    # all SB/WR lines here used to let the opposing camp's positive result leak
-    # into a ruler whose own subject line was absent (for example 晋孝武帝 on
-    # 前秦攻陷襄阳).  Unlabelled single-subject cards may still use their whole
-    # axis block.
-    benefit_lines = list(selected_lines)
-    explicit_subject_line_count = sum(
-        1
-        for line in axis_lines
-        if "影子定位（" in line or "评价主体" in line
-    )
-    if axis_selection_basis == "CARD_AXIS_LINE" or (
-        axis_selection_basis in {"RULER_AXIS_LINE", "POLITY_AXIS_LINE"}
-        and explicit_subject_line_count == 1
-    ):
-        benefit_lines.extend(
-            line
-            for line in section_lines
-            if "SB/WR依据" in line
-            or re.search(r"`?(?:SB|SN|BCP|BCN|WR)[0-5]", line)
-        )
-    benefit_text = "\n".join(benefit_lines)
-    costs = {
-        axis: max(_axis_numbers(cost_text, axis) or [0])
-        for axis in ("P", "S", "M", "A")
-    }
-    benefits = {
-        axis: max(_axis_numbers(benefit_text, axis) or [0])
-        for axis in ("SB", "SN", "BCP", "BCN", "WR")
-    }
-    override_values = dict((override or {}).get("values") or {})
-    override_costs = override_values.get("d_cost_axes") or override_values.get("cost_axes") or {}
-    has_full_subject_override = bool(override_values.get("d_cost_axes"))
-    for axis in ("P", "M", "A"):
-        if axis in override_costs:
-            costs[axis] = max(_axis_numbers(str(override_costs[axis]), axis) or [costs[axis]])
-    if override_values.get("s_effective_grade") is not None:
-        costs["S"] = max(
-            _axis_numbers(str(override_values["s_effective_grade"]), "S")
-            or [costs["S"]]
-        )
-    for positive_axis, negative_axis, field in (
-        ("SB", "SN", "strategic_security_grade"),
-        ("BCP", "BCN", "border_control_grade"),
-    ):
-        value = override_values.get(field)
-        if value is None:
-            continue
-        benefits[positive_axis] = max(
-            benefits[positive_axis],
-            max(_axis_numbers(str(value), positive_axis) or [0]),
-        )
-        benefits[negative_axis] = max(
-            benefits[negative_axis],
-            max(_axis_numbers(str(value), negative_axis) or [0]),
-        )
-    metrics = ruler.get("D_portfolio_metrics") or {}
-    attributable_s_refs = set(metrics.get("hard_attributable_s4_plus_refs") or ()) | set(
-        metrics.get("attributable_s4_plus_refs") or ()
-    )
-    route = str(
-        override_values.get("d_route")
-        or (
-            "D_INTERNAL_RESTORATION"
-            if ref in set(ruler.get("internal_cost_binding_refs") or ())
-            else "D_EXTERNAL_OR_FRONTIER"
-        )
-    )
-    if admitted_large_rebellion:
-        route = "D_INTERNAL_RESTORATION"
-    s_attributable = (
-        route in {"D_INTERNAL_STRATEGIC", "D_INTERNAL_RESTORATION"}
-        or ref in attributable_s_refs
-        or bool(override_values.get("s_effective_grade"))
-    )
-    exposure_index = _cycle_exposure_index(
-        costs, benefits, s_attributable=s_attributable
-    )
-    if admitted_large_rebellion:
-        material = True
-        material_admission_basis = "ALL_RULERS_LARGE_REBELLION_AUDIT"
-    elif route in {"D_INTERNAL_STRATEGIC", "D_INTERNAL_RESTORATION"}:
-        material = False
-        material_admission_basis = "ORDINARY_INTERNAL_EVENT_EXCLUDED"
-    else:
-        material = bool(major_campaign_contract) or _major_non_rebellion_cycle(
-            costs, benefits
-        )
-        material_admission_basis = (
-            "MAJOR_CAMPAIGN_CONTRACT"
-            if major_campaign_contract
-            else "MAJOR_STRATEGIC_INVESTMENT_FACTS"
-            if material
-            else "LOW_INTENSITY_OBSERVATION_EXCLUDED"
-        )
-    subject_window_ambiguous = ambiguous_same_polity_ref and not has_full_subject_override
-    unknown_axes = _qin_tang_unknown_benefit_axes(section_text)
-    if axis_selection_basis == "NO_SUBJECT_AXIS_LINE" and not has_full_subject_override:
-        unknown_axes.append("SUBJECT_AXIS_UNRESOLVED")
-    if subject_window_ambiguous:
-        material = False
-        unknown_axes.append("SUBJECT_REIGN_COST_BENEFIT_SPLIT")
-    if unknown_axes:
-        return_class = "UNKNOWN"
-        return_class_rationale = (
-            "父级关键成本或终局收益轴仍为UNKNOWN，禁止以0或负收益代填。"
-        )
-    else:
-        return_class, return_class_rationale = _axis_closed_return_class(
-            costs,
-            benefits,
-            s_attributable=s_attributable,
-            route=route,
-        )
-    class_basis = "PARENT_AXES_DIRECT_MAPPING"
-    override_mode = str((override or {}).get("override") or "")
-    machine_settlement = (
-        "no" if override_mode == "DROP_NOT_RULER_SUBJECT_OR_REIGN"
-        else "no" if "machine_settlement=no" in settlement_text
-        else "yes" if "machine_settlement=yes" in settlement_text
-        else "UNKNOWN"
-    )
-    owner_match = re.search(r"settlement_owner=([^`;\s]+)", settlement_text)
-    settlement_owner = owner_match.group(1) if owner_match else None
-    high_return_tier = _high_return_tier(benefits, return_class)
-    return {
-        "campaign_group_ref": ref,
-        "war_event_refs": [ref],
-        "phase_ids": [],
-        "return_class": return_class,
-        "cost_axes": costs,
-        "benefit_axes": benefits,
-        "material": material,
-        "material_exposure_index": exposure_index,
-        "material_admission_basis": material_admission_basis,
-        "unknown_axes": unknown_axes,
-        "high_return_tier": high_return_tier,
-        "major_high_return": material and high_return_tier in {"MAJOR", "TOP"},
-        "top_high_return": material and high_return_tier == "TOP",
-        "national_negative": material and return_class == "NEGATIVE_RETURN" and (
-            costs["P"] >= 5
-            or (s_attributable and costs["S"] >= 5)
-            or costs["A"] >= 5
-            or benefits["SN"] >= 5
-            or benefits["BCN"] >= 5
-        ),
-        "route": route,
-        "source_file": source_file,
-        "source_heading_line": int(card_meta["heading_line"]),
-        "axis_selection_basis": (
-            "RULER_PHASE_OVERRIDE" if has_full_subject_override else axis_selection_basis
-        ),
-        "return_class_basis": class_basis,
-        "return_class_rationale": return_class_rationale,
-        "parent_axis_basis": (
-            "EXPLICIT_PARENT_AXIS_ADJUDICATION"
-            if override_costs
-            or override_values.get("strategic_security_grade") is not None
-            or override_values.get("border_control_grade") is not None
-            else "SOURCE_CARD_PARENT_AXIS_DIRECT"
-        ),
-        "machine_settlement": machine_settlement,
-        "settlement_owner": settlement_owner,
-    }
 
 
-def _recalculate_qin_tang_d_records(
-    workspace_root: Path,
-    records: Sequence[dict[str, Any]],
-    ab_records: Sequence[Mapping[str, Any]],
-    c_records: Sequence[Mapping[str, Any]],
-) -> None:
-    index_rows = _qin_tang_source_index_rows(workspace_root)
-    cards_by_id = {str(row["source_card_id"]): row for row in index_rows}
-    direction_payload = json.loads(
-        (workspace_root / QIN_TANG_D_DIRECTION_PATH).read_text(encoding="utf-8")
-    )
-    if direction_payload.get("schema_version") != "qin-tang-d-cycle-direction-adjudications-v5":
-        raise ValueError("秦至唐D周期方向裁决输入schema错误")
-    declared_direction_fingerprint = direction_payload.get("semantic_fingerprint")
-    actual_direction_fingerprint = _digest(
-        {
-            key: value
-            for key, value in direction_payload.items()
-            if key != "semantic_fingerprint"
-        }
-    )
-    if declared_direction_fingerprint != actual_direction_fingerprint:
-        raise ValueError("秦至唐D父级轴与路由裁决输入指纹漂移")
-    direction_by_id = {
-        str(item["ruler_id"]): item for item in direction_payload["records"]
-    }
-    unresolved_audit_gaps_by_name: dict[str, list[str]] = defaultdict(list)
-    for gap in (
-        direction_payload.get("large_rebellion_admission_policy", {}).get(
-            "unresolved_evidence_gaps", ()
-        )
-    ):
-        text = str(gap)
-        name = text.split("—", 1)[0].strip()
-        if name:
-            unresolved_audit_gaps_by_name[name].append(text)
-    founding_refs_by_name = _qin_tang_founding_refs_by_name(workspace_root)
-    qin_tang_ids = {
-        str(row.get("ruler_id"))
-        for row in records
-        if not str(row.get("ruler_id") or "").startswith(("RULER-FD-", "RULER-NS-", "RULER-SS-", "RULER-YUAN-", "RULER-MING-"))
-    }
-    if set(direction_by_id) != qin_tang_ids:
-        raise ValueError("秦至唐D周期方向裁决输入与95人正式集合不一致")
-    ab_by_id = {str(row.get("ruler_id")): row for row in ab_records}
-    c_by_id = {str(row.get("ruler_id")): row for row in c_records}
-    ab_new_control_refs_by_id: dict[str, set[str]] = {}
-    for ruler_id, ab_row in ab_by_id.items():
-        refs: set[str] = set()
-        for region in ab_row.get("b1_region_adjudications") or ():
-            anchors = {str(value) for value in region.get("anchors") or ()}
-            if "end" in anchors and "start" not in anchors:
-                refs.update(str(ref) for ref in region.get("evidence_refs") or ())
-        ab_new_control_refs_by_id[ruler_id] = refs
-    source_cache: dict[str, list[str]] = {}
-    source_groups_by_ref = _qin_tang_campaign_groups_by_ref(workspace_root)
-    battle_parent_payload = load_battle_parent_adjudications(
-        workspace_root / BATTLE_PARENT_ADJUDICATION_PATH
-    )
-    major_campaign_contract_refs = {
-        str(item["war_event_id"])
-        for item in (
-            list(battle_parent_payload.get("adjudications") or ())
-            + list(battle_parent_payload.get("supplemental_contract_adjudications") or ())
-        )
-        if item.get("disposition") == "REGISTERED_CONTRACT"
-        and item.get("campaign_tier") in {"A", "S-", "S", "S+"}
-    }
-
-    parent_source_aliases = {
-        "NC-V142-LEAD-142-03": "WAR-LEAD-142-03",
-        "NC-V142-LEAD-142-05": "WAR-LEAD-142-05",
-        "V175-LEAD-CHEN-SHULING-582": "WAR-LEAD-CHEN-SHULING-582",
-    }
-    source_bindings_cache: dict[str, dict[str, str]] = {}
-
-    def source_bindings_for(record: Mapping[str, Any]) -> dict[str, str]:
-        ruler_id = str(record["ruler_id"])
-        cached = source_bindings_cache.get(ruler_id)
-        if cached is not None:
-            return cached
-        c_row = c_by_id[ruler_id]
-        c_only_refs = {
-            str(ref)
-            for field in ("capability_only_parent_refs", "c_only_major_parent_refs")
-            for ref in c_row.get(field) or ()
-        }
-        target_groups = {
-            str(ref)
-            for ref in c_row.get("independent_task_groups") or ()
-            if str(ref) not in c_only_refs
-        }
-        # D evaluates the complete material military-investment portfolio.  C
-        # only selects system-stress tasks, so using C as D's source universe
-        # drops low-cost strategic successes (for example Western Protectorate
-        # construction and Xiongnu garrison support under Han Xuandi).  Preserve
-        # the ruler's independently reviewed D source set and AB control-package
-        # parent cards; material admission and return closure remain D-local.
-        target_groups.update(
-            str(ref)
-            for ref in record.get("source_event_refs") or ()
-            if str(ref) in cards_by_id or str(ref) in source_groups_by_ref
-        )
-        for region in ab_by_id[ruler_id].get("b1_region_adjudications") or ():
-            anchors = {str(value) for value in region.get("anchors") or ()}
-            # Start-and-end packages are inherited holdings, not this ruler's
-            # military investment.  Only a package first present at the end
-            # can contribute additional D source cards through AB.
-            if "end" not in anchors or "start" in anchors:
-                continue
-            target_groups.update(
-                str(ref)
-                for ref in region.get("evidence_refs") or ()
-                if str(ref) in cards_by_id or str(ref) in source_groups_by_ref
-            )
-        admitted_refs = {
-            str(ref)
-            for ref in direction_by_id[ruler_id].get(
-                "admitted_large_rebellion_refs", ()
-            )
-        }
-        missing_admitted_cards = sorted(admitted_refs - set(cards_by_id))
-        if missing_admitted_cards:
-            raise ValueError(
-                f"{record.get('ruler_name')}的大型叛乱准入引用无法回源："
-                f"{','.join(missing_admitted_cards)}"
-            )
-        for admitted_ref in admitted_refs:
-            source_groups = sorted(source_groups_by_ref.get(admitted_ref) or ())
-            target_groups.add(source_groups[0] if len(source_groups) == 1 else admitted_ref)
-        bindings: dict[str, str] = {}
-        represented: set[str] = set()
-        for source_ref in cards_by_id:
-            matches = target_groups.intersection(
-                source_groups_by_ref.get(source_ref) or ()
-            )
-            if source_ref in target_groups:
-                matches.add(source_ref)
-            event_ref = f"EVENT:{source_ref}"
-            if event_ref in target_groups:
-                matches.add(event_ref)
-            for parent_ref, aliased_source_ref in parent_source_aliases.items():
-                if parent_ref in target_groups and aliased_source_ref == source_ref:
-                    matches.add(parent_ref)
-            if not matches:
-                continue
-            # The same source card can now be named both directly by D/AB and
-            # through C's canonical task group.  That is one evidence cycle,
-            # not two competing parents; retain the non-source canonical group
-            # when unique and mark both selectors represented.
-            non_source_matches = matches - {source_ref, f"EVENT:{source_ref}"}
-            if len(non_source_matches) > 1:
-                raise ValueError(
-                    f"{record.get('ruler_name')}的D证据卡同时命中多个canonical父任务：{source_ref}"
-                )
-            parent_ref = (
-                next(iter(non_source_matches))
-                if non_source_matches
-                else source_ref
-            )
-            bindings[source_ref] = parent_ref
-            represented.update(matches)
-        missing = sorted(target_groups - represented)
-        if missing:
-            raise ValueError(
-                f"{record.get('ruler_name')}的C/AB父任务无法绑定D证据卡：{','.join(missing)}"
-            )
-        source_bindings_cache[ruler_id] = bindings
-        return bindings
-
-    ref_polity_owners: dict[str, list[str]] = defaultdict(list)
-    for candidate_row in records:
-        candidate_id = str(candidate_row.get("ruler_id") or "")
-        if candidate_id.startswith(("RULER-FD-", "RULER-NS-", "RULER-SS-", "RULER-YUAN-", "RULER-MING-")):
-            continue
-        for candidate_ref in source_bindings_for(candidate_row):
-            ref_polity_owners[str(candidate_ref)].append(
-                str(candidate_row.get("polity") or "")
-            )
-    for row in records:
-        ruler_id = str(row.get("ruler_id") or "")
-        if ruler_id.startswith(("RULER-FD-", "RULER-NS-", "RULER-SS-", "RULER-YUAN-", "RULER-MING-")):
-            continue
-        if ruler_id not in direction_by_id:
-            raise ValueError(f"{row.get('ruler_name')}缺少秦至唐D周期方向裁决输入")
-        direction = direction_by_id[ruler_id]
-        overrides = {
-            str(item.get("war_event_id")): item
-            for item in (direction.get("ruler_event_class_overrides") or ())
-        }
-        source_ruler = dict(row)
-        source_ruler["internal_cost_binding_refs"] = list(
-            direction.get("internal_cycle_refs") or ()
-        )
-        row["ruler_event_class_overrides"] = list(
-            direction.get("ruler_event_class_overrides") or ()
-        )
-        admitted_large_rebellion_refs = {
-            str(ref)
-            for ref in direction.get("admitted_large_rebellion_refs") or ()
-        }
-        source_parent_by_ref = source_bindings_for(row)
-        refs = list(source_parent_by_ref)
-        candidates = [
-            _qin_tang_source_cycle(
-                workspace_root,
-                source_ruler,
-                ref,
-                cards_by_id[ref],
-                source_cache,
-                overrides.get(ref),
-                len(ref_polity_owners[ref]) > len(set(ref_polity_owners[ref])),
-                ref in admitted_large_rebellion_refs,
-                ref in major_campaign_contract_refs,
-            )
-            for ref in refs
-        ]
-        founding_refs = founding_refs_by_name.get(str(row["ruler_name"]), set())
-        excluded = [
-            cycle
-            for cycle in candidates
-            if (
-                cycle["machine_settlement"] == "no"
-                and cycle["campaign_group_ref"]
-                not in ab_new_control_refs_by_id[ruler_id]
-            )
-            or cycle["campaign_group_ref"] in founding_refs
-            or source_parent_by_ref.get(str(cycle["campaign_group_ref"]))
-            in founding_refs
-        ]
-        cycles = [cycle for cycle in candidates if cycle not in excluded]
-        cycles_by_parent: dict[str, list[dict[str, Any]]] = defaultdict(list)
-        for cycle in cycles:
-            cycles_by_parent[source_parent_by_ref[str(cycle["campaign_group_ref"])]].append(cycle)
-        deduplicated_cycles: list[dict[str, Any]] = []
-        for parent_ref, members in cycles_by_parent.items():
-            if len(members) == 1:
-                deduplicated_cycles.append(members[0])
-                continue
-            terminal_members = [
-                cycle for cycle in members if cycle["machine_settlement"] == "yes"
-            ]
-            if len(terminal_members) != 1:
-                raise ValueError(
-                    f"{row.get('ruler_name')}的canonical父周期无法唯一选择terminal：{parent_ref}"
-                )
-            deduplicated_cycles.append(terminal_members[0])
-            excluded.extend(cycle for cycle in members if cycle not in terminal_members)
-        cycles = deduplicated_cycles
-        canonical_parent_refs = []
-        canonical_by_source_ref: dict[str, str] = {}
-        for cycle in cycles:
-            ref = str(cycle["campaign_group_ref"])
-            canonical_ref = source_parent_by_ref[ref]
-            canonical_parent_refs.append(canonical_ref)
-            canonical_by_source_ref[ref] = canonical_ref
-        if len(canonical_parent_refs) != len(set(canonical_parent_refs)):
-            raise ValueError(f"{row.get('ruler_name')}的D实质周期重复消费同一canonical父级战役")
-        ab_score = float(ab_by_id[ruler_id]["AB_score_points"])
-        raw_c_score = c_by_id[ruler_id].get("C_score_points")
-        c_score = float(raw_c_score) if raw_c_score is not None else None
-        grade, score, metrics = _d_grade_and_score(cycles)
-        metrics["unresolved_evidence_gaps"] = list(
-            unresolved_audit_gaps_by_name.get(str(row["ruler_name"]), ())
-        )
-        metrics["canonical_parent_cycle_refs"] = canonical_parent_refs
-        metrics["material_parent_cycle_refs"] = [
-            canonical_by_source_ref[str(ref)]
-            for ref in metrics.get("material_parent_cycle_refs") or ()
-        ]
-        for item in metrics.get("cycle_q_adjudications") or ():
-            source_ref = str(item["canonical_parent_cycle_ref"])
-            item["member_cycle_refs"] = [source_ref]
-            item["canonical_parent_cycle_ref"] = canonical_by_source_ref[source_ref]
-        metrics["parent_cycle_uniqueness_status"] = "UNIQUE_CANONICAL_PARENT_CYCLES"
-        manual_d0 = bool(row.get("manual_portfolio_override")) and row.get("D_grade") == "D-0"
-        if manual_d0:
-            grade = "D-0"
-            score = float(row["D_score_points"])
-        metrics["abc_crosscheck"] = {
-            "ab_score_points": ab_score,
-            "ab_threshold_points": 80.0,
-            "c_score_points": c_score,
-            "c_threshold_points": 30.0,
-            "small_sample_high_grade_gate_applied": False,
-            "status": (
-                "C_UNAVAILABLE_NOT_USED_FOR_D"
-                if c_score is None
-                else "SUFFICIENT_SUPPORT"
-                if ab_score >= 80 and c_score >= 30
-                else "INSUFFICIENT_SUPPORT"
-            ),
-        }
-        metrics["material_cycle_adjudications"] = [
-            {
-                "canonical_parent_cycle_ref": canonical_by_source_ref[
-                    str(cycle["campaign_group_ref"])
-                ],
-                "member_cycle_refs": [cycle["campaign_group_ref"]],
-                "material": cycle["material"],
-                "material_exposure_index": int(
-                    cycle.get("material_exposure_index") or 0
-                ),
-                "return_class": cycle["return_class"],
-                "cost_axes": cycle["cost_axes"],
-                "benefit_axes": cycle["benefit_axes"],
-                "route": cycle["route"],
-                "high_return_tier": cycle.get("high_return_tier"),
-                "axis_selection_basis": cycle["axis_selection_basis"],
-                "return_class_basis": cycle["return_class_basis"],
-                "return_class_rationale": cycle["return_class_rationale"],
-                "source_ref": f"{cycle['source_file']}#L{cycle['source_heading_line']}",
-            }
-            for cycle in cycles
-        ]
-        metrics["parent_cycle_policy"] = "TERMINAL_OR_LEGACY_PARENT_ONLY"
-        row["D_grade"] = grade
-        row["D_score_points"] = score
-        score_band = D_BANDS.get(grade)
-        row["D_score_band"] = (
-            {"lower_points": score_band[0], "upper_points": score_band[1]}
-            if score_band is not None else None
-        )
-        row["D_grade_reasons"] = (
-            row.get("D_grade_reasons")
-            if manual_d0
-            else _d_grade_reasons(grade, metrics)
-        )
-        if metrics["unresolved_evidence_gaps"] and grade != "D-U":
-            row["D_grade_reasons"].append(
-                "尚有已审计但未闭合可消费父周期的事件："
-                + "；".join(metrics["unresolved_evidence_gaps"])
-            )
-        row["D_portfolio_metrics"] = metrics
-        row["internal_cost_binding_refs"] = [
-            cycle["campaign_group_ref"]
-            for cycle in cycles
-            if str(cycle["route"]).startswith("D_INTERNAL_")
-        ]
-        row["route_counts"] = dict(
-            sorted(Counter(cycle["route"] for cycle in cycles).items())
-        )
-        row["included_d_cycle_refs"] = canonical_parent_refs
-        row["excluded_nonterminal_cycle_refs"] = [cycle["campaign_group_ref"] for cycle in excluded]
-        row["excluded_cycle_adjudications"] = [
-            {
-                "campaign_group_ref": cycle["campaign_group_ref"],
-                "reason": (
-                    "FOUNDING_UNIFICATION_ACCOUNT_EXCLUDED_FROM_THIRD_ITEM"
-                    if cycle["campaign_group_ref"] in founding_refs
-                    or source_parent_by_ref.get(str(cycle["campaign_group_ref"]))
-                    in founding_refs
-                    else "NON_TERMINAL_PARENT_STAGE_EXCLUDED_FROM_D"
-                ),
-                "settlement_owner": cycle["settlement_owner"],
-            }
-            for cycle in excluded
-        ]
-        row["positive_benefit_cycle_refs"] = [
-            cycle["campaign_group_ref"]
-            for cycle in cycles
-            if cycle["return_class"] in {"HIGH_RETURN", "PROPORTIONATE_RETURN"}
-        ]
-        row["negative_benefit_cycle_refs"] = [
-            cycle["campaign_group_ref"]
-            for cycle in cycles
-            if cycle["return_class"] in {"LOW_RETURN", "NEGATIVE_RETURN"}
-        ]
-        row["unresolved_cycle_refs"] = [
-            cycle["campaign_group_ref"]
-            for cycle in cycles
-            if cycle["return_class"] == "UNKNOWN"
-        ]
-        row["high_cost_cycle_refs"] = [
-            cycle["campaign_group_ref"]
-            for cycle in cycles
-            if max(cycle["cost_axes"][axis] for axis in ("P", "S", "M", "A")) >= 4
-        ]
-        row["zero_return_high_cost_cycle_refs"] = [
-            cycle["campaign_group_ref"]
-            for cycle in cycles
-            if cycle["campaign_group_ref"] in row["high_cost_cycle_refs"]
-            and cycle["return_class"] in {"LOW_RETURN", "NEGATIVE_RETURN"}
-        ]
-        row["peak_d_cost_axes"] = {
-            axis: f"{axis}{max((cycle['cost_axes'][axis] for cycle in cycles), default=0)}"
-            for axis in ("P", "M", "A")
-        }
-        row["binding_source"] = "QIN_TANG_PARENT_CYCLE_CURRENT_RECALCULATION"
-        row["portfolio_status"] = (
-            "FORMAL_CURRENT" if score is not None else "UNASSESSED_NO_MATERIAL_CYCLE"
-        )
 
 
-def _normalize_formal_d_records(records: Sequence[dict[str, Any]]) -> None:
-    for row in records:
-        metrics = row.get("D_portfolio_metrics") or {}
-        counts = dict(metrics.get("return_class_counts") or {})
-        legacy_proportionate = int(counts.pop("PROPORTIONATE", 0))
-        if legacy_proportionate:
-            counts["PROPORTIONATE_RETURN"] = (
-                int(counts.get("PROPORTIONATE_RETURN", 0)) + legacy_proportionate
-            )
-            metrics["return_class_counts"] = dict(sorted(counts.items()))
-        material_count = metrics.get("material_cycle_count")
-        if material_count is not None:
-            material_count = int(material_count)
-            known_material_count = int(
-                metrics.get("known_material_cycle_count", material_count)
-            )
-            metrics["evidence_status"] = (
-                "UNDER_TESTED"
-                if known_material_count <= 1
-                else "LIMITED_EXPOSURE"
-                if known_material_count <= 4
-                else "SUFFICIENT_EXPOSURE"
-            )
-        if (
-            row.get("D_grade") in {"D-4", "D-5"}
-            and int(counts.get("NEGATIVE_RETURN", 0)) == 0
-        ):
-            metrics.setdefault("material_negative_return_refs", [])
-        verified_no_exposure = bool(
-            row.get("D_grade") == "D-U"
-            and metrics.get("status") == "NO_MATERIAL_CYCLE"
-            and not metrics.get("potential_material_cycle_refs")
-            and not metrics.get("unresolved_evidence_gaps")
-            and not row.get("unresolved_cycle_refs")
-            and not row.get("unresolved_source_refs")
-        )
-        if verified_no_exposure:
-            row["D_grade"] = "D-N"
-            row["D_score_points"] = 0.0
-            row["D_score_band"] = {"lower_points": 0.0, "upper_points": 0.0}
-            row["portfolio_status"] = "VERIFIED_NO_MATERIAL_EXPOSURE"
-            metrics["evidence_status"] = "NO_MATERIAL_EXPOSURE"
-            row["D_grade_reasons"] = _d_grade_reasons("D-N", metrics)
-        elif row.get("D_grade") == "D-N":
-            metrics["evidence_status"] = "NO_MATERIAL_EXPOSURE"
-        metrics.pop("material_only_recalibration", None)
 
 
 def _align_bc_to_system_stress_parent_cycles(
@@ -4047,6 +3226,20 @@ def _align_bc_to_system_stress_parent_cycles(
         first_item_source_id = str(
             (first_item_source_row or {}).get("ruler_id") or ruler_id
         )
+        c_row["cross_item_identity"] = {
+            "join_key": str(c_row["ruler_name"]),
+            "first_item_ruler_id": (
+                first_item_source_id if first_item_source_row is not None else None
+            ),
+            "third_item_ruler_id": ruler_id,
+            "status": (
+                "EXPLICIT_NAME_CROSSWALK"
+                if first_item_source_row is not None and first_item_source_id != ruler_id
+                else "SAME_ID"
+                if first_item_source_row is not None
+                else "FIRST_ITEM_NOT_APPLICABLE"
+            ),
+        }
         first_refs_for_c = first_item_capability_refs_by_id.get(
             first_item_source_id, set()
         )
@@ -4136,32 +3329,10 @@ def _align_bc_to_system_stress_parent_cycles(
         if not set(explicit_first_aliases.values()).issubset(set(alias_candidates)):
             raise ValueError(f"{c_row['ruler_name']}的第一项C父任务别名目标引用越界")
         first_member_to_canonical.update(explicit_first_aliases)
-        for first_ref in sorted(first_refs_for_c):
-            if first_ref in first_member_to_canonical:
-                continue
-            source_refs = set(first_source_refs_for_c.get(first_ref) or ())
-            expected_unification_portfolio = str(
-                (outcome_decision or {}).get("unification_portfolio_ref") or ""
-            )
-            matches = sorted(
-                (
-                    len(source_refs & registry_source_refs_by_task.get(str(candidate), set())),
-                    str(candidate),
-                )
-                for candidate in alias_candidates
-                if str(candidate) != first_ref
-                and (
-                    str(candidate) not in public_unification_portfolio_by_ref
-                    or (
-                        expected_unification_portfolio
-                        and public_unification_portfolio_by_ref[str(candidate)]
-                        == expected_unification_portfolio
-                    )
-                )
-                and source_refs & registry_source_refs_by_task.get(str(candidate), set())
-            )
-            if matches:
-                first_member_to_canonical[first_ref] = matches[-1][1]
+        # Source overlap is lineage evidence, not campaign identity.  Automatic
+        # overlap matching previously joined adjacent but distinct wars (for
+        # example 苻坚代国战役与龟兹远征), which then leaked a founding-chain
+        # alias into D.  Cross-ID deduplication is therefore explicit-only.
         if founder_review:
             if founder_review.get("disposition") != "CONSUME_FIRST_ITEM_C_CAPABILITY":
                 raise ValueError(f"{c_row['ruler_name']}的第一项C能力复核处置非法")
@@ -4336,6 +3507,7 @@ def _align_bc_to_system_stress_parent_cycles(
         if founder_review:
             c_row["founder_capability_review"] = {
                 "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+                "cross_item_identity": dict(c_row["cross_item_identity"]),
                 "consumed_first_item_c_refs": sorted(
                     first_refs_for_c - {
                         str(ref) for ref in founder_review.get("excluded_refs") or ()
@@ -4361,6 +3533,7 @@ def _align_bc_to_system_stress_parent_cycles(
         elif founder_no_capability_review:
             c_row["founder_capability_review"] = {
                 "disposition": "HOLD_NO_FIRST_ITEM_C_CAPABILITY_REF",
+                "cross_item_identity": dict(c_row["cross_item_identity"]),
                 "consumed_first_item_c_refs": [],
                 "excluded_first_item_c_refs": [],
                 "opponent_system_evidence": [],
@@ -4374,6 +3547,7 @@ def _align_bc_to_system_stress_parent_cycles(
                     if first_refs_for_c
                     else "RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS"
                 ),
+                "cross_item_identity": dict(c_row["cross_item_identity"]),
                 "consumed_first_item_c_refs": sorted(
                     first_refs_for_c
                 ),
@@ -4412,7 +3586,14 @@ def _align_bc_to_system_stress_parent_cycles(
             canonicalize(item["canonical_parent_cycle_ref"]): item
             for item in metrics.get("cycle_q_adjudications") or ()
         }
-        selected_q = [q_by_ref[ref] for ref in stress_refs if ref in q_by_ref]
+        current_item_stress_refs = [
+            ref for ref in stress_refs if ref not in set(capability_only_refs)
+        ]
+        c_row["current_item_task_count"] = len(current_item_stress_refs)
+        c_row["current_item_task_refs"] = current_item_stress_refs
+        selected_q = [
+            q_by_ref[ref] for ref in current_item_stress_refs if ref in q_by_ref
+        ]
         if selected_q:
             outcome_counts = dict(sorted(Counter(
                 str(item.get("return_class") or "UNKNOWN") for item in selected_q
@@ -4426,7 +3607,7 @@ def _align_bc_to_system_stress_parent_cycles(
                 for outcome in outcome_counts
             }
             profile_source = "CLOSED_SYSTEM_STRESS_PARENT_CYCLES"
-        else:
+        elif current_item_stress_refs:
             outcome_counts = dict(sorted(
                 (str(key), int(value))
                 for key, value in dict(
@@ -4435,21 +3616,29 @@ def _align_bc_to_system_stress_parent_cycles(
             ))
             outcome_refs = {}
             profile_source = "LOW_INTENSITY_OBSERVATION_AGGREGATE"
+        else:
+            outcome_counts = {}
+            outcome_refs = {}
+            profile_source = "NO_CURRENT_ITEM_STRESS_CYCLE"
         known_outcomes = sum(
             count for outcome, count in outcome_counts.items() if outcome != "UNKNOWN"
         )
         c_row["task_outcome_profile"] = {
             "source": profile_source,
-            "selected_task_count": len(stress_refs),
+            "selected_task_count": len(current_item_stress_refs),
             "known_outcome_count": known_outcomes,
             "return_class_counts": outcome_counts,
             "return_class_refs": outcome_refs,
-            "major_system_success_count": len(success_refs),
-            "major_system_failure_count": len(failure_refs),
+            "major_system_success_count": len([
+                ref for ref in success_refs if ref not in set(capability_only_refs)
+            ]),
+            "major_system_failure_count": len([
+                ref for ref in failure_refs if ref not in set(capability_only_refs)
+            ]),
             "status": "QUANTIFIED" if known_outcomes else "UNQUANTIFIED",
         }
         c_row["current_task_basis_reason"] = (
-            f"当前C体系压力父周期{len(stress_refs)}项，已知结果{known_outcomes}项，"
+            f"当前第三项独立体系压力父周期{len(current_item_stress_refs)}项，已知结果{known_outcomes}项，"
             f"回报剖面={outcome_counts}；重大体系胜绩{len(success_refs)}项、"
             f"重大体系失败{len(failure_refs)}项。"
         )
@@ -4497,103 +3686,41 @@ def _align_bc_to_system_stress_parent_cycles(
                 str(c_row["ruler_name"])
             )
             if axes_after_gate == ("C1-4", "C2-4", "C3-4"):
-                if not position_decision:
-                    raise ValueError(f"{c_row['ruler_name']}的C4同轴档内位置尚未裁决")
-                if position_decision.get("position") not in {"LOW", "MID", "HIGH"}:
+                if position_decision and position_decision.get("position") not in {"LOW", "MID", "HIGH"}:
                     raise ValueError(f"{c_row['ruler_name']}的C4档内位置非法")
-                if not str(position_decision.get("reason") or "").strip():
+                if position_decision and not str(position_decision.get("reason") or "").strip():
                     raise ValueError(f"{c_row['ruler_name']}的C4档内位置缺少理由")
-                c_row["C_score_within_band_adjudication"] = position_decision
+                if position_decision:
+                    c_row["C_score_within_band_adjudication"] = position_decision
+                else:
+                    c_row.pop("C_score_within_band_adjudication", None)
             else:
                 c_row.pop("C_score_within_band_adjudication", None)
             _apply_c_within_band_position(c_row)
 
+        # A/B evaluates strategic-security and frontier-control state changes.
+        # C-only founding capability evidence must not overwrite its trace
+        # portfolio or event count.
         ab_row = ab_by_id[ruler_id]
+        existing_ab_refs = [
+            str(ref) for ref in ab_row.get("parent_cycle_refs") or ()
+        ]
         ab_row["observed_parent_cycle_count"] = int(
             ab_row.get("observed_parent_cycle_count")
             or ab_row.get("defense_event_count")
-            or 0
+            or len(existing_ab_refs)
         )
-        ab_row["parent_cycle_refs"] = stress_refs
-        ab_row["defense_event_count"] = len(stress_refs)
+        ab_row["parent_cycle_refs"] = [
+            ref for ref in existing_ab_refs if ref not in set(capability_only_refs)
+        ]
+        ab_row["defense_event_count"] = len(ab_row["parent_cycle_refs"])
         ab_row["parent_cycle_reference_policy"] = (
-            "RAW_EVIDENCE_REFS_PLUS_CLOSED_SYSTEM_STRESS_PARENT_CYCLES"
+            "AB_STATE_CHANGE_EVIDENCE_EXCLUDING_C_ONLY_FOUNDING_CAPABILITY"
         )
 
 
-def _validate_d_empirical_calibration(
-    records: Sequence[Mapping[str, Any]],
-) -> None:
-    for row in records:
-        metrics = row.get("D_portfolio_metrics") or {}
-        cycles = list(metrics.get("cycle_q_adjudications") or ())
-        declared_sum = metrics.get("portfolio_net_weight_sum")
-        if not cycles:
-            if declared_sum is not None:
-                raise ValueError(f"{row['ruler_name']}无闭合周期却保留D权重和")
-            continue
-        if declared_sum is None:
-            raise ValueError(f"{row['ruler_name']}有逐周期D贡献却缺少权重和")
-        actual_sum = sum(float(cycle["q_contribution"]) for cycle in cycles)
-        if float(declared_sum) != actual_sum:
-            raise ValueError(f"{row['ruler_name']}的D权重和与逐周期贡献不一致")
-        if len(cycles) != int(metrics.get("known_material_cycle_count") or 0):
-            raise ValueError(f"{row['ruler_name']}的D闭合实质周期数不一致")
-        expected_efficiency = (
-            float(metrics["mean_cycle_weight"])
-            + float(metrics["decisive_density"])
-            - 2 * float(metrics["adverse_cycle_share"])
-            - 2 * float(metrics["national_negative_share"])
-        )
-        if abs(float(metrics["portfolio_efficiency_index"]) - expected_efficiency) > 0.001:
-            raise ValueError(f"{row['ruler_name']}的D风险调整效率不闭合")
 
 
-def _sync_formal_d_into_combined(
-    d_records: Sequence[Mapping[str, Any]],
-    combined_records: Sequence[dict[str, Any]],
-) -> None:
-    d_by_id = {str(row.get("ruler_id")): row for row in d_records}
-    for row in combined_records:
-        ruler_id = str(row.get("ruler_id") or "")
-        if ruler_id not in d_by_id:
-            continue
-        d_row = d_by_id[ruler_id]
-        row["D_score_points"] = d_row["D_score_points"]
-        row["axes"]["D"] = d_row["D_grade"]
-        row["coverage_status"]["D"] = d_row["portfolio_status"]
-        if d_row["D_score_points"] is None:
-            row["D_score_status"] = "UNASSESSED_NO_MATERIAL_CYCLE"
-            row["third_item_score_points"] = None
-            row["third_item_score_rate"] = None
-            row["rank"] = None
-            row["rank_status"] = "PENDING_D_UNASSESSED"
-            row["pending_reason"] = (
-                "D项仍有潜在实质周期、回报轴或材料缺口未闭合，"
-                "不赋中性分。"
-            )
-            continue
-        row["D_score_status"] = (
-            "VERIFIED_NO_MATERIAL_EXPOSURE_ZERO_ACHIEVEMENT"
-            if d_row["D_grade"] == "D-N"
-            else "DIRECT_D_SCORE_ASSIGNED"
-        )
-        if row.get("C_score_points") is None:
-            row["third_item_score_points"] = None
-            row["third_item_score_rate"] = None
-            row["rank"] = None
-            row["rank_status"] = "PENDING_C_UNASSESSED"
-            row["pending_reason"] = "C项缺少体系压力父周期或非战争体系证据，保持未结算。"
-            continue
-        row["pending_reason"] = None
-        total = round(
-            float(row["AB_score_points"])
-            + float(row["C_score_points"])
-            + float(row["D_score_points"]),
-            1,
-        )
-        row["third_item_score_points"] = total
-        row["third_item_score_rate"] = round(total / 250 * 100, 2)
 
 
 def _sync_formal_ab_into_combined(
@@ -4687,8 +3814,13 @@ def build_five_dynasties_formal_payloads(
     ab_records = build_five_dynasties_ab_records(registry, adjudications)
     c_records = build_five_dynasties_c_records(registry, adjudications)
     _validate_bc_parent_cycle_alignment(ab_records, c_records)
-    d_records = build_five_dynasties_d_records(registry, adjudications, ab_records, c_records)
-    combined_records = _build_combined_records(adjudications, ab_records, c_records, d_records)
+    d = _build_public_d_analysis(workspace_root)
+    partition_d = _partition_public_d_analysis(
+        d, (str(row["ruler_id"]) for row in adjudications)
+    )
+    combined_records = _build_combined_records(
+        adjudications, ab_records, c_records, partition_d["records"]
+    )
 
     ab = _replace_partition_records(json.loads((workspace_root / AB_PATH).read_text(encoding="utf-8")), ab_records)
     existing_combined = json.loads((workspace_root / FORMAL_PATH).read_text(encoding="utf-8"))
@@ -4713,30 +3845,12 @@ def build_five_dynasties_formal_payloads(
         "grade_distribution": dict(sorted(Counter(str(row.get("C_overall_grade")) for row in c["records"]).items())),
         "five_dynasties_source_fingerprint": SOURCE_SET_FINGERPRINT,
     })
-    d = _replace_partition_records(json.loads((workspace_root / D_PATH).read_text(encoding="utf-8")), d_records)
-    _recalculate_qin_tang_d_records(
-        workspace_root,
-        d["records"],
-        ab["records"],
-        c["records"],
-    )
-    _normalize_formal_d_records(d["records"])
-    _align_bc_to_system_stress_parent_cycles(
-        workspace_root, ab["records"], c["records"], d["records"]
-    )
     _validate_bc_parent_cycle_alignment(ab["records"], c["records"])
     _validate_formal_abc_contracts(ab["records"], c["records"])
-    d.update({
-        "scope": f"秦至唐95人父级实质周期统一重算 + 五代十国12人当前结算{extension}",
-        "record_count": len(d["records"]),
-        "grade_distribution": dict(sorted(Counter(str(row.get("D_grade")) for row in d["records"]).items())),
-        "five_dynasties_source_fingerprint": SOURCE_SET_FINGERPRINT,
-        "score_recalculation_policy": "ALL_RECORDS_REVIEWABLE_CURRENT_VALUE",
-    })
     combined = _replace_partition_records(existing_combined, combined_records)
     _sync_formal_ab_into_combined(ab["records"], combined["records"])
     _sync_formal_c_into_combined(c["records"], combined["records"])
-    _sync_formal_d_into_combined(d["records"], combined["records"])
+    _sync_public_d_q_into_combined(d, combined["records"])
     _assign_global_third_item_ranks(combined["records"])
     for row in combined["records"]:
         row["military_long_term_debt"] = {
@@ -4761,8 +3875,8 @@ def build_five_dynasties_formal_payloads(
         "scope": f"秦至唐95人当前分值 + 五代十国12人{extension}；第三项{len(combined['records'])}人统一排名",
         "record_count": len(combined["records"]),
         "score_ready_count": sum(row.get("third_item_score_points") is not None for row in combined["records"]),
-        "D_no_material_exposure_count": sum(
-            (row.get("axes") or {}).get("D") == "D-N"
+        "D_zero_cycle_subject_count": sum(
+            int(row.get("D_cycle_count") or 0) == 0
             for row in combined["records"]
         ),
         "D_pending_count": sum(
@@ -4771,8 +3885,8 @@ def build_five_dynasties_formal_payloads(
         "five_dynasties_source_fingerprint": SOURCE_SET_FINGERPRINT,
         "five_dynasties_ready_count": sum(row.get("third_item_score_points") is not None for row in final_partition_records),
         "five_dynasties_pending_count": sum(row.get("third_item_score_points") is None for row in final_partition_records),
-        "score_recalculation_policy": "ALL_RECORDS_REVIEWABLE_CURRENT_VALUE",
-        "global_ranking_enabled": True,
+        "D_q_source_policy": "PUBLIC_MILITARY_ACTION_COST_BENEFIT_REGISTRY_ONLY",
+        "global_ranking_enabled": False,
         "rank_tie_policy": "COMPETITION_RANK",
         "shared_source_root": "docs/史料通读产物",
         "military_long_term_debt_policy": "PENDING_ITEM_7_NOT_INCLUDED_IN_THIRD_ITEM_STAGE_TOTAL",
@@ -4858,12 +3972,16 @@ def _combined_settlement_basis(row: Mapping[str, Any]) -> str:
 def _render_formal_markdown(
     kind: str, records: Sequence[Mapping[str, Any]]
 ) -> str:
-    score_key = {"AB": "AB_score_points", "C": "C_score_points", "D": "D_score_points"}[kind]
+    if kind not in {"AB", "C"}:
+        raise ValueError("正式分项Markdown仅支持AB或C；D由军事行动成本和收益登记专用renderer生成")
+    score_key = {"AB": "AB_score_points", "C": "C_score_points"}[kind]
     ranked = _competition_ranked_records(records, score_key)
     unscored = [row for row in records if row.get(score_key) is None]
     values = [float(row[score_key]) for _, row in ranked]
     scope_label = (
-        "秦至明"
+        "秦至清"
+        if any(str(row.get("polity", "")) in {"清", "后金（清前身）"} for row in records)
+        else "秦至明"
         if any(str(row.get("ruler_id", "")).startswith("RULER-MING-") for row in records)
         else "秦至元"
         if any(str(row.get("ruler_id", "")).startswith("RULER-YUAN-") for row in records)
@@ -4874,30 +3992,26 @@ def _render_formal_markdown(
     definitions = {
         "AB": {
             "title": f"# {scope_label}第三项A/B国防安全正式结算",
-            "rule": "[`A/B规则与结算合同`](../../../分项规则/第三项军事与边疆净收益/国防安全/00-规则与结算合同.md)",
+            "rule": "[A/B规则与结算合同](../../../分项规则/第三项军事与边疆净收益/国防安全/00-规则与结算合同.md)",
             "description": "A战略安全收益80分与B边疆控制净收益80分",
-            "maximum": 160,
         },
         "C": {
             "title": f"# {scope_label}第三项C军事体系有效性正式结算",
-            "rule": "[`C规则与计分合同`](../../../分项规则/第三项军事与边疆净收益/军事体系有效性/00-规则与计分合同.md)",
+            "rule": "[C规则与计分合同](../../../分项规则/第三项军事与边疆净收益/军事体系有效性/00-规则与计分合同.md)",
             "description": "C军事体系有效性50分",
-            "maximum": 50,
-        },
-        "D": {
-            "title": f"# {scope_label}第三项D军事成本收益比正式结算",
-            "rule": "[`D规则与结算合同`](../../../分项规则/第三项军事与边疆净收益/军事成本收益比/00-规则与结算合同.md)",
-            "description": "D军事成本收益比40分",
-            "maximum": 40,
         },
     }
     definition = definitions[kind]
+    range_text = (
+        f"得分范围{min(values):.1f}—{max(values):.1f}"
+        if values else "暂无已计分主体"
+    )
     lines = [
         definition["title"],
         "",
         f"规则见{definition['rule']}。本表是同名JSON的统一人工阅读视图，按{definition['description']}当前正式值从高到低排列。",
         "",
-        f"共{len(ranked)}位评价主体已计分，得分范围{min(values):.1f}—{max(values):.1f}；另有{len(unscored)}位保持未结算。同分并列，后一名次按竞赛排名顺延；所有分值统一显示一位小数。{scope_label}全部记录均为可复核当前值，所有朝代同等允许更新且不设保值例外。表后“逐人结算依据”展示当前裁决理由；机器读取仍以同名JSON为准。",
+        f"共{len(ranked)}位评价主体已计分，{range_text}；另有{len(unscored)}位保持未结算。同分并列，后一名次按竞赛排名顺延；所有分值统一显示一位小数。{scope_label}全部记录均为可复核当前值，所有朝代同等允许更新且不设保值例外。表后“逐人结算依据”展示当前裁决理由；机器读取仍以同名JSON为准。",
         "",
     ]
     if kind == "AB":
@@ -4917,7 +4031,7 @@ def _render_formal_markdown(
                 f"{a1:.1f} | {a2:.1f} | {a1 + a2:.1f} | {b1:.1f} | {b2:.1f} | "
                 f"{b4:.1f} | {b1 + b2 + b4:.1f} | {float(row[score_key]):.1f} |"
             )
-    elif kind == "C":
+    else:
         lines += [
             "| 排名 | 皇帝 | 政权 | 在位 | C1 | C2 | C3 | C总体 | 得分率 | C/50 | 体系压力父任务 |",
             "|---:|---|---|---|---:|---:|---:|---:|---:|---:|---:|",
@@ -4930,143 +4044,31 @@ def _render_formal_markdown(
                 f"{float(row['C_score_rate']):.1f}% | {float(row[score_key]):.1f} | "
                 f"{int(row['independent_task_count'])} |"
             )
-    else:
-        lines += [
-            "| 排名 | 皇帝 | 政权 | 在位 | D档 | D/40 | N风险调整效率 | Q权重和 | J决定性 | 检验状态 | 实质父级周期（含战略内战/军费周期） | 普通高收益 | 相称收益 | 低收益 | 负收益 | 回报未知 | 重大高收益 | 顶尖高收益 | 国家级负收益 |",
-            "|---:|---|---|---|---:|---:|---:|---:|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
-        ]
-        status_labels = {
-            "SUFFICIENT_EXPOSURE": "充分检验",
-            "LIMITED_EXPOSURE": "有限检验",
-            "UNDER_TESTED": "检验不足",
-            "UNASSESSED": "未检验",
-        }
-        for rank, row in ranked:
-            metrics = row.get("D_portfolio_metrics") or {}
-            counts = metrics.get("material_return_class_counts")
-            if counts is None:
-                raise ValueError(f"{row.get('ruler_name')}缺少实质周期回报分布，拒绝渲染为零")
-            tier_counts = metrics.get("high_return_tier_counts") or {}
-            ordinary_high = int(tier_counts.get("ORDINARY", 0))
-            major_high = int(tier_counts.get("MAJOR", 0))
-            top_high = int(tier_counts.get("TOP", 0))
-            if ordinary_high + major_high + top_high != int(counts.get("HIGH_RETURN", 0)):
-                raise ValueError(f"{row.get('ruler_name')}的互斥高收益档位与高收益总数不闭合")
-            count_cells = [
-                str(ordinary_high),
-                str(int(counts.get("PROPORTIONATE_RETURN", 0))),
-                str(int(counts.get("LOW_RETURN", 0))),
-                str(int(counts.get("NEGATIVE_RETURN", 0))),
-                str(int(counts.get("UNKNOWN", 0))),
-            ]
-            if ordinary_high + major_high + top_high + sum(
-                int(counts.get(key, 0))
-                for key in ("PROPORTIONATE_RETURN", "LOW_RETURN", "NEGATIVE_RETURN", "UNKNOWN")
-            ) != int(metrics.get("material_cycle_count", 0)):
-                raise ValueError(f"{row.get('ruler_name')}的实质周期总数与回报分布不闭合")
-            grade = str(row.get("D_grade") or "D-U")
-            evidence_status = str(metrics.get("evidence_status") or "UNASSESSED")
-            if grade == "D-U":
-                evidence_status = "UNASSESSED"
-            efficiency_value = metrics.get("portfolio_efficiency_index")
-            net_weight_value = metrics.get("portfolio_net_weight_sum")
-            decisive_value = metrics.get("decisive_yield_index")
-            efficiency_cell = "—" if efficiency_value is None else f"{float(efficiency_value):.2f}"
-            net_weight_cell = "—" if net_weight_value is None else f"{float(net_weight_value):.1f}"
-            decisive_cell = "—" if decisive_value is None else f"{float(decisive_value):.1f}"
-            lines.append(
-                f"| {rank} | {row['ruler_name']} | {row['polity']} | {_reign_range_label(row['reign_range'])} | "
-                f"{grade} | {float(row[score_key]):.1f} | "
-                f"{efficiency_cell} | "
-                f"{net_weight_cell} | "
-                f"{decisive_cell} | "
-                f"{status_labels.get(evidence_status, evidence_status)} | "
-                f"{int(metrics.get('material_cycle_count', 0))} | "
-                f"{' | '.join(count_cells)} | "
-                f"{major_high} | "
-                f"{top_high} | "
-                f"{len(metrics.get('national_negative_return_refs') or [])} |"
-            )
-    if kind == "D" and unscored:
-        lines += ["", "## D-U未结算对象", "", "| 皇帝 | 政权 | 在位 | 状态 | 原因 |", "|---|---|---|---|---|"]
-        for row in unscored:
-            reasons = "；".join(str(value) for value in row.get("D_grade_reasons") or [])
-            lines.append(
-                f"| {row['ruler_name']} | {row['polity']} | {_reign_range_label(row['reign_range'])} | D-U | {_markdown_cell(reasons)} |"
-            )
     lines += ["", "## 逐人结算依据", ""]
     for rank, row in ranked:
         lines += [f"### {rank}. {row['ruler_name']}（{float(row[score_key]):.1f}）", ""]
         if kind == "AB":
             lines += [f"- 裁决：{_ab_settlement_basis(row)}", ""]
-        elif kind == "C":
-            c_basis = _joined_reasons(row.get("cap_reasons") or []) or "按C1、C2、C3短板门槛与体系压力父任务暴露定档。"
-            success_refs = row.get("major_system_success_refs") or []
-            failure_refs = row.get("major_system_failure_refs") or []
-            profile = row.get("task_outcome_profile") or {}
-            position = row.get("C_score_within_band_adjudication") or {}
-            position_line = (
-                f"- 档内位置：{position['position']}；{_markdown_cell(str(position['reason']))}"
-                if position else
-                f"- 档内位置：按三轴差值计算，位置系数{float(row.get('C_score_band_position', 0)):.2f}。"
-            )
-            lines += [
-                f"- 档位路径：{row['combat_delivery_grade']}／{row['operational_sustainability_cap']}／{row['system_reliability_cap']}→{row['C_overall_grade']}。",
-                position_line,
-                f"- 样本：原始观察父周期{int(row.get('observed_parent_cycle_count', row['independent_task_count']))}项；体系压力父任务{int(row['independent_task_count'])}项；未进入C计分样本的低强度观察{int(row.get('non_scoring_observation_count', 0))}项。",
-                f"- 重大胜负：重大胜绩{len(success_refs)}项、重大体系失败{len(failure_refs)}项；胜绩门禁{(row.get('major_victory_gate') or {}).get('status', 'NOT_APPLICABLE')}。",
-                f"- 任务结果剖面：已知结果{int(profile.get('known_outcome_count', 0))}项，回报分类{profile.get('return_class_counts') or {}}；状态{profile.get('status', 'UNAVAILABLE')}。",
-                f"- 裁决：{_markdown_cell(c_basis)}",
-                "",
-            ]
-        else:
-            metrics = row.get("D_portfolio_metrics") or {}
-            counts = metrics.get("material_return_class_counts")
-            tier_counts = metrics.get("high_return_tier_counts") or {}
-            return_summary = (
-                f"普通高收益{int(tier_counts.get('ORDINARY', 0))}、重大高收益{int(tier_counts.get('MAJOR', 0))}、顶尖高收益{int(tier_counts.get('TOP', 0))}、相称收益{int(counts.get('PROPORTIONATE_RETURN', 0))}、低收益{int(counts.get('LOW_RETURN', 0))}、负收益{int(counts.get('NEGATIVE_RETURN', 0))}、回报未知{int(counts.get('UNKNOWN', 0))}"
-                if counts is not None
-                else "实质回报分布缺失"
-            )
-            d_basis = _joined_reasons(row.get("D_grade_reasons") or []) or "按去重战略周期的成本、回报与证据暴露定档。"
-            lines += [
-                f"- 组合：战术观察节点{int(metrics.get('usable_cycle_count', 0))}项（只作审计，不作为跨人物样本量）；去重实质投资周期{int(metrics.get('material_cycle_count', 0))}项，其中{return_summary}；国家级负收益{len(metrics.get('national_negative_return_refs') or [])}。",
-                f"- 裁决：{_markdown_cell(d_basis)}",
-            ]
-            for cycle in metrics.get("cycle_q_adjudications") or ():
-                costs = cycle.get("cost_axes") or {}
-                benefits = cycle.get("benefit_axes") or {}
-                members = "、".join(str(ref) for ref in cycle.get("member_cycle_refs") or ())
-                lines.append(
-                    f"- 周期 `{cycle.get('canonical_parent_cycle_ref')}`：成员{members or '未列'}；"
-                    f"P/S/M/A={costs.get('P')}/{costs.get('S')}/{costs.get('M')}/{costs.get('A')}；"
-                    f"SB/SN/BCP/BCN/WR={benefits.get('SB')}/{benefits.get('SN')}/{benefits.get('BCP')}/{benefits.get('BCN')}/{benefits.get('WR')}；"
-                    f"路由={cycle.get('route')}；回报={cycle.get('return_class')}"
-                    f"{('/' + str(cycle.get('high_return_tier'))) if cycle.get('high_return_tier') else ''}；"
-                    f"Q={float(cycle.get('q_contribution', 0)):+.0f}；父级轴={cycle.get('parent_axis_basis')}。"
-                )
-            excluded = row.get("excluded_cycle_adjudications") or []
-            if excluded:
-                exclusion_text = "；".join(
-                    f"{item['campaign_group_ref']}（{item['reason']}）"
-                    for item in excluded
-                )
-                lines.append(f"- 排除：{_markdown_cell(exclusion_text)}")
-            lines.append("")
-    if kind == "D":
-        for row in unscored:
-            metrics = row.get("D_portfolio_metrics") or {}
-            reasons = _joined_reasons(row.get("D_grade_reasons") or []) or str(
-                metrics.get("status") or "尚无闭合的实质投资回报周期。"
-            )
-            lines += [
-                f"### D-U. {row['ruler_name']}（未结算）",
-                "",
-                f"- 组合：实质投资周期{int(metrics.get('material_cycle_count', 0))}项，"
-                f"已闭合{int(metrics.get('known_material_cycle_count', 0))}项。",
-                f"- 裁决：{_markdown_cell(reasons)}",
-                "",
-            ]
+            continue
+        c_basis = _joined_reasons(row.get("cap_reasons") or []) or "按C1、C2、C3短板门槛与体系压力父任务暴露定档。"
+        success_refs = row.get("major_system_success_refs") or []
+        failure_refs = row.get("major_system_failure_refs") or []
+        profile = row.get("task_outcome_profile") or {}
+        position = row.get("C_score_within_band_adjudication") or {}
+        position_line = (
+            f"- 档内位置：{position['position']}；{_markdown_cell(str(position['reason']))}"
+            if position else
+            f"- 档内位置：按三轴差值计算，位置系数{float(row.get('C_score_band_position', 0)):.2f}。"
+        )
+        lines += [
+            f"- 档位路径：{row['combat_delivery_grade']}／{row['operational_sustainability_cap']}／{row['system_reliability_cap']}→{row['C_overall_grade']}。",
+            position_line,
+            f"- 样本：原始观察父周期{int(row.get('observed_parent_cycle_count', row['independent_task_count']))}项；体系压力父任务{int(row['independent_task_count'])}项；未进入C计分样本的低强度观察{int(row.get('non_scoring_observation_count', 0))}项。",
+            f"- 重大胜负：重大胜绩{len(success_refs)}项、重大体系失败{len(failure_refs)}项；胜绩门禁{(row.get('major_victory_gate') or {}).get('status', 'NOT_APPLICABLE')}。",
+            f"- 任务结果剖面：已知结果{int(profile.get('known_outcome_count', 0))}项，回报分类{profile.get('return_class_counts') or {}}；状态{profile.get('status', 'UNAVAILABLE')}。",
+            f"- 裁决：{_markdown_cell(c_basis)}",
+            "",
+        ]
     return "\n".join(lines).rstrip() + "\n"
 
 
@@ -5080,10 +4082,10 @@ def _render_combined_markdown(records: Sequence[Mapping[str, Any]]) -> str:
         key=lambda row: (str(row.get("polity")), str(row.get("ruler_name"))),
     )
     values = [float(row["third_item_score_points"]) for row in eligible]
-    north_song_count = sum(str(row.get("ruler_id", "")).startswith("RULER-NS-") for row in eligible)
-    south_song_count = sum(str(row.get("ruler_id", "")).startswith("RULER-SS-") for row in eligible)
-    yuan_count = sum(str(row.get("ruler_id", "")).startswith("RULER-YUAN-") for row in eligible)
-    ming_count = sum(str(row.get("ruler_id", "")).startswith("RULER-MING-") for row in eligible)
+    north_song_count = sum(str(row.get("ruler_id", "")).startswith("RULER-NS-") for row in records)
+    south_song_count = sum(str(row.get("ruler_id", "")).startswith("RULER-SS-") for row in records)
+    yuan_count = sum(str(row.get("ruler_id", "")).startswith("RULER-YUAN-") for row in records)
+    ming_count = sum(str(row.get("ruler_id", "")).startswith("RULER-MING-") for row in records)
     title = (
         "# 秦至明第三项军事与边疆正式结算"
         if ming_count
@@ -5113,12 +4115,18 @@ def _render_combined_markdown(records: Sequence[Mapping[str, Any]]) -> str:
             f"明朝{ming_count}人已完成显式统一窗口隔离、父战役去重及AB/C/D消费"
         )
     extension_note = "；".join(extensions) + "。"
+    score_summary = (
+        f"共{len(eligible)}位评价主体完成第三项计分，得分范围"
+        f"{min(values):.1f}—{max(values):.1f}。"
+        if values
+        else "当前D线性Q已由军事行动成本和收益登记闭合；旧经验D档与40分映射已停用，暂无主体进入第三项总分排名。"
+    )
     lines = [
         title,
         "",
         "规则总入口见[`docs/分项规则/第三项军事与边疆净收益`](../../分项规则/第三项军事与边疆净收益/README.md)。本表将A战略安全收益80分、B边疆控制净收益80分、C军事体系有效性50分、D军事成本收益比40分合并为第三项250分当前正式值；机器读取入口为同名JSON。战争造成且未被第三项充分覆盖的长期、结构性灾难仍待第七项结算，不进入本阶段总分。",
         "",
-        f"共{len(eligible)}位评价主体完成第三项计分，得分范围{min(values):.1f}—{max(values):.1f}。同分并列，后一名次按竞赛排名顺延。所有朝代同等允许更新且不设保值例外；{extension_note}D-N按未取得D正收益记0分进入阶段榜，D-U仍不赋分且不进入排名。表后“逐人结算依据”展示A/B/C/D档位合成路径，具体史实理由见三份分项正式结算。",
+        f"{score_summary}{extension_note}表后逐人列出当前未排名原因；D的Q事实只取公共登记。",
         "",
         "| 排名 | 皇帝 | 政权 | 在位 | A/80 | B/80 | C/50 | D/40 | 总分/250 |",
         "|---:|---|---|---|---:|---:|---:|---:|---:|",
@@ -5126,8 +4134,6 @@ def _render_combined_markdown(records: Sequence[Mapping[str, Any]]) -> str:
     for row in eligible:
         d_label = str((row.get("axes") or {}).get("D") or "UNKNOWN")
         d_value = f"{d_label}/{float(row['D_score_points']):.1f}"
-        if d_label == "D-U":
-            d_value += "（未检验）"
         lines.append(
             f"| {row['rank']} | {row['ruler_name']} | {row['polity']} | {_reign_range_label(row['reign_range'])} | "
             f"{float(row['A_score_points']):.1f} | {float(row['B_score_points']):.1f} | "
@@ -5148,7 +4154,7 @@ def _render_combined_markdown(records: Sequence[Mapping[str, Any]]) -> str:
             f"### 未结算. {row['ruler_name']}（不进入排名）",
             "",
             f"- 已结算部分：A/B {float(row.get('AB_score_points') or 0):.1f}，"
-            f"C {float(row.get('C_score_points') or 0):.1f}；D为D-U。",
+            f"C {float(row.get('C_score_points') or 0):.1f}；D仅保留公共线性Q，尚未映射40分。",
             f"- 裁决：{_markdown_cell(reason)}",
             "",
         ]
@@ -5159,10 +4165,10 @@ def write_five_dynasties_third_item(workspace_root: Path) -> dict[str, Any]:
     promotion_audit = write_promoted_battle_registry(workspace_root)
     registry = load_battle_registry(workspace_root / REGISTRY_PATH)
     payloads = build_five_dynasties_formal_payloads(workspace_root, registry)
-    paths = {"AB": AB_PATH, "C": C_PATH, "D": D_PATH, "combined": FORMAL_PATH}
+    paths = {"AB": AB_PATH, "C": C_PATH, "combined": FORMAL_PATH}
     md_paths = {
         "AB": AB_PATH.with_suffix(".md"), "C": C_PATH.with_suffix(".md"),
-        "D": D_PATH.with_suffix(".md"), "combined": FORMAL_PATH.with_suffix(".md"),
+        "combined": FORMAL_PATH.with_suffix(".md"),
     }
     for kind, path in paths.items():
         target = workspace_root / path
@@ -5178,6 +4184,8 @@ def write_five_dynasties_third_item(workspace_root: Path) -> dict[str, Any]:
             _write_text_atomic(
                 md_target, _render_formal_markdown(kind, payloads[kind]["records"])
             )
+    write_third_item_d_formal_settlement(workspace_root)
+    paths["D"] = D_PATH
     hashes = {kind: sha256((workspace_root / path).read_bytes()).hexdigest() for kind, path in paths.items()}
     hashes["battle_registry"] = sha256((workspace_root / REGISTRY_PATH).read_bytes()).hexdigest()
     return {

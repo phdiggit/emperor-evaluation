@@ -11,13 +11,79 @@
       "reign_range": "1127-1162",
       "AB": {
         "control_contribution_type": "SAVED_UNDER_MAJOR_PRESSURE",
-        "A1": {"start": 3, "end": 4, "reason": "创业恢复链已由第一项消费，第三项从稳定立足后的竞争均势起算；绍兴后期经1140年多线反击与1161年击退完颜亮，任末总体形成稳定优势。"},
-        "A2": {"start": 3, "end": 4, "reason": "剥离南宋政权重建后，淮河、川陕和长江防线由可争衡边界改善为总体安全但仍有缺口。"},
-        "B1": {"start_equivalent": 1.0, "end_equivalent": 1.5, "grade": 2, "position": "MID", "reason": "不计创业恢复疆域，只计淮河、川陕节点的守住与有限恢复；加权控制值0.9，机械落B1-2。"},
-        "B2": {"grade": 4, "position": "MID", "reason": "多战区防御反击共同稳住淮河—长江与川陕方向，在完颜亮大举南侵下产生全国级拒止作用。"},
-        "B4": {"grade": 4, "position": "LOW", "reason": "成果可由多将、多战区持续兑现并移交孝宗，但长期议和与若干方向退让使其未达完整成熟体系。"}
+        "A1": {
+          "start": 3,
+          "end": 4,
+          "reason": "创业恢复链已由第一项消费，第三项从稳定立足后的竞争均势起算；绍兴后期经1140年多线反击与1161年击退完颜亮，任末总体形成稳定优势。"
+        },
+        "A2": {
+          "start": 3,
+          "end": 4,
+          "reason": "剥离南宋政权重建后，淮河、川陕和长江防线由可争衡边界改善为总体安全但仍有缺口。"
+        },
+        "B1": {
+          "start_equivalent": 1.0,
+          "end_equivalent": 1.5,
+          "grade": 2,
+          "position": "MID",
+          "reason": "不计创业恢复疆域，只计创业链切点后淮河、川陕既有节点的守住与长江防御节点重建；加权控制值0.9，机械落B1-2。",
+          "regions": [
+            {
+              "object_id": "SOUTHERN_SONG_HUAI_DEFENSE",
+              "object_name": "淮河主防节点",
+              "start_equivalent": 0.5,
+              "end_equivalent": 0.5,
+              "control_form": "SAVED_UNDER_MAJOR_PRESSURE",
+              "evidence_refs": [
+                "XZTJ-SHUNCHANG-1140"
+              ],
+              "reason": "第一项创业恢复量不重复计入；第三项只从稳定立足切点记录淮河节点在后续高压下维持。"
+            },
+            {
+              "object_id": "SOUTHERN_SONG_CHUAN_SHAAN_DEFENSE",
+              "object_name": "川陕主防节点",
+              "start_equivalent": 0.5,
+              "end_equivalent": 0.5,
+              "control_form": "SAVED_UNDER_MAJOR_PRESSURE",
+              "evidence_refs": [
+                "XZTJ-SHUNCHANG-1140"
+              ],
+              "reason": "第一项已消费重建过程；第三项仅记录切点后的川陕节点维持。"
+            },
+            {
+              "object_id": "SOUTHERN_SONG_YANGTZE_CAISHI_DEFENSE",
+              "object_name": "长江采石防御节点",
+              "start_equivalent": 0.0,
+              "end_equivalent": 0.5,
+              "control_form": "NEW_RECOVERED_REBUILT",
+              "evidence_refs": [
+                "XZTJ-SONG-JIN-CAISHI-1161"
+              ],
+              "reason": "1161年大举南侵被击退后，长江主防节点形成可移交的有效控制；不把一次胜负扩大为北方领土恢复。"
+            }
+          ]
+        },
+        "B2": {
+          "grade": 4,
+          "position": "MID",
+          "reason": "多战区防御反击共同稳住淮河—长江与川陕方向，在完颜亮大举南侵下产生全国级拒止作用。"
+        },
+        "B4": {
+          "grade": 4,
+          "position": "LOW",
+          "reason": "成果可由多将、多战区持续兑现并移交孝宗，但长期议和与若干方向退让使其未达完整成熟体系。"
+        }
       },
-      "C": {"C1": 4, "C2": 4, "C3": 4, "major_system_failure_group_refs": [], "major_system_success_group_refs": ["XZTJ-SONG-JIN-CAISHI-1161"], "reason": "剥离创业链后仍有1140年全国多线作战和1161年抗金闭合，投送、持续与体系可靠性均有重大胜绩支持；保留高成本，止于C4。"},
+      "C": {
+        "C1": 4,
+        "C2": 4,
+        "C3": 4,
+        "major_system_failure_group_refs": [],
+        "major_system_success_group_refs": [
+          "XZTJ-SONG-JIN-CAISHI-1161"
+        ],
+        "reason": "剥离创业链后仍有1140年全国多线作战和1161年抗金闭合，投送、持续与体系可靠性均有重大胜绩支持；保留高成本，止于C4。"
+      },
       "cycle_merges": [
         {
           "canonical_cycle_ref": "XZTJ-SHUNCHANG-1140",
@@ -97,7 +163,13 @@
             "XZTJ-SONG-JIN-ZHENZHOU-1161",
             "XZTJ-SONG-JIN-ZHIPINGZHAI-1161"
           ],
-          "parent_benefit_axes": {"SB": "SB4", "SN": "SN0", "BCP": "BCP0", "BCN": "BCN0", "WR": "WR4"},
+          "parent_benefit_axes": {
+            "SB": "SB4",
+            "SN": "SN0",
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "WR": "WR4"
+          },
           "reason": "完颜亮南侵、宋军多线防御反击、金军北撤与失地恢复属于同一次国家级战争周期；采石、陈家岛及各州节点只作父周期成员。"
         },
         {
@@ -108,17 +180,54 @@
             "XZTJ-SOUTHERNSONG-YANGYAO-DONGTING-1133-1135"
           ],
           "d_route": "D_INTERNAL_RESTORATION",
-          "parent_return_class": "PROPORTIONATE_RETURN",
           "reason": "1133年至1135年多次会讨、早期失利与最终平定均属洞庭杨幺同一长期国家平乱投资，合为一个父周期，避免按年度重复增加Q。"
         }
       ],
       "route_overrides": [
-        {"campaign_group_ref": "XZTJ-FUJIAN-GUANTIANXIA-1145", "d_route": "D_INTERNAL_RESTORATION", "parent_benefit_axes": {"SB": "SB3", "SN": "SN0", "BCP": "BCP0", "BCN": "BCN0", "WR": "WR0"}, "reason": "管天下盗乱虽先有官军失利，终局明确土寇遂平；恢复原秩序，不制造新增领土收益。"},
-        {"campaign_group_ref": "XZTJ-HUBANGNING-CHEN-GUI-BANDITRY-1154", "d_route": "D_INTERNAL_STRATEGIC", "parent_benefit_axes": {"SB": "SB0", "SN": "SN3", "BCP": "BCP0", "BCN": "BCN0", "WR": "WR0"}, "reason": "郴桂地方官军因内地盗乱失城并捕讨受挫，本卡未闭合恢复；以战略安全净损结算，不虚构持续领土丧失。"},
-        {"campaign_group_ref": "XZTJ-SONG-LUOKE-REBELLION-1140", "d_route": "D_INTERNAL_STRATEGIC", "reason": "罗克叛乱造成湖南岭南多州受扰且本卡未闭合恢复，按内部战略损失计。"},
-        {"campaign_group_ref": "XZTJ-HUAIXI-LIQIONG-MUTINY-1137", "d_route": "D_INTERNAL_STRATEGIC", "parent_return_class": "NEGATIVE_RETURN", "reason": "淮西四万军叛变外逃造成主力与边防资源直接流失，当前周期没有恢复终局，按内部战略负收益结算。"},
-        {"campaign_group_ref": "XZTJ-JIANYAN-JINGXI-HUBEI-REBELLIONS-1127", "d_route": "D_INTERNAL_STRATEGIC", "parent_return_class": "NEGATIVE_RETURN", "reason": "京西湖北多州失守、焚掠和强征构成建炎初跨区内部秩序崩坏，本周期未闭合整体恢复，按内部战略负收益结算。"},
-        {"campaign_group_ref": "XZTJ-SONG-SHAANXI-POSTFUPING-MUTINY-1130", "d_route": "D_INTERNAL_STRATEGIC", "parent_return_class": "NEGATIVE_RETURN", "reason": "富平战败问罪引发军变并继续损害川陕防务，当前卡未闭合恢复，按内部战略负收益结算。"}
+        {
+          "campaign_group_ref": "XZTJ-FUJIAN-GUANTIANXIA-1145",
+          "d_route": "D_INTERNAL_RESTORATION",
+          "parent_benefit_axes": {
+            "SB": "SB3",
+            "SN": "SN0",
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "WR": "WR0"
+          },
+          "reason": "管天下盗乱虽先有官军失利，终局明确土寇遂平；恢复原秩序，不制造新增领土收益。"
+        },
+        {
+          "campaign_group_ref": "XZTJ-HUBANGNING-CHEN-GUI-BANDITRY-1154",
+          "d_route": "D_INTERNAL_STRATEGIC",
+          "parent_benefit_axes": {
+            "SB": "SB0",
+            "SN": "SN3",
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "WR": "WR0"
+          },
+          "reason": "郴桂地方官军因内地盗乱失城并捕讨受挫，本卡未闭合恢复；以战略安全净损结算，不虚构持续领土丧失。"
+        },
+        {
+          "campaign_group_ref": "XZTJ-SONG-LUOKE-REBELLION-1140",
+          "d_route": "D_INTERNAL_STRATEGIC",
+          "reason": "罗克叛乱造成湖南岭南多州受扰且本卡未闭合恢复，按内部战略损失计。"
+        },
+        {
+          "campaign_group_ref": "XZTJ-HUAIXI-LIQIONG-MUTINY-1137",
+          "d_route": "D_INTERNAL_STRATEGIC",
+          "reason": "淮西四万军叛变外逃造成主力与边防资源直接流失，当前周期没有恢复终局，按内部战略负收益结算。"
+        },
+        {
+          "campaign_group_ref": "XZTJ-JIANYAN-JINGXI-HUBEI-REBELLIONS-1127",
+          "d_route": "D_INTERNAL_STRATEGIC",
+          "reason": "京西湖北多州失守、焚掠和强征构成建炎初跨区内部秩序崩坏，本周期未闭合整体恢复，按内部战略负收益结算。"
+        },
+        {
+          "campaign_group_ref": "XZTJ-SONG-SHAANXI-POSTFUPING-MUTINY-1130",
+          "d_route": "D_INTERNAL_STRATEGIC",
+          "reason": "富平战败问罪引发军变并继续损害川陕防务，当前卡未闭合恢复，按内部战略负收益结算。"
+        }
       ],
       "admitted_large_rebellion_refs": [
         "XZTJ-JIANZHOU-BANDITRY-1149-1150",
@@ -142,13 +251,95 @@
       "reign_range": "1162-1189",
       "AB": {
         "control_contribution_type": "ROUTINE_MAINTENANCE",
-        "A1": {"start": 4, "end": 3, "reason": "承接高宗末期较稳定态势，隆兴北伐与符离崩溃使战略主动性下降；其后守边恢复但未重建优势。"},
-        "A2": {"start": 4, "end": 3, "reason": "隆兴战争造成多线退控和边界压力，随后维持住主体防线，任末仍为竞争均势而非总体安全。"},
-        "B1": {"start_equivalent": 1.5, "end_equivalent": 0.75, "grade": 0, "position": "HIGH", "reason": "隆兴所得均未保持且父周期存在重要退控；加权控制值-0.15，依机械规则落B1-0。"},
-        "B2": {"grade": 2, "position": "MID", "reason": "局部平乱和边寨恢复有区域作用，但未改变宋金总体攻防条件。"},
-        "B4": {"grade": 2, "position": "MID", "reason": "常态守边能够维持，重大主动战争却暴露投送和协同缺陷，结构成果限于例行维护。"}
+        "A1": {
+          "start": 4,
+          "end": 3,
+          "reason": "承接高宗末期较稳定态势，隆兴北伐与符离崩溃使战略主动性下降；其后守边恢复但未重建优势。"
+        },
+        "A2": {
+          "start": 4,
+          "end": 3,
+          "reason": "隆兴战争造成多线退控和边界压力，随后维持住主体防线，任末仍为竞争均势而非总体安全。"
+        },
+        "B1": {
+          "start_equivalent": 1.5,
+          "end_equivalent": 0.75,
+          "grade": 0,
+          "position": "HIGH",
+          "reason": "隆兴所得均未保持且父周期存在重要退控；加权控制值-0.15，依机械规则落B1-0。",
+          "regions": [
+            {
+              "object_id": "HUAI_DONG_JIN_FRONTIER",
+              "object_name": "灵壁／虹县／淮东—宿泗方向",
+              "start_equivalent": 1.0,
+              "end_equivalent": 0.5,
+              "control_form": "TRANSIENT_RECOVERY_NET_OF_NONRETENTION",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-JIN-LONXING-OFFENSIVE-1163",
+                "SRC-XUZIZHITONGJIAN-138-2312090-P0052",
+                "SRC-XUZIZHITONGJIAN-138-2312090-P0053"
+              ],
+              "reason": "隆兴北伐取得灵壁、虹县但未形成可持续终点控制；按交班可保持空间取1.0→0.5，不将一次恢复当永久净增。",
+              "counted": true,
+              "status": "PROVISIONAL_REGION_SNAPSHOT",
+              "exclusions": []
+            },
+            {
+              "object_id": "LINGNAN_HUNAN_FRONTIER",
+              "object_name": "郁林州、化州／道州、桂阳军、郴州局部／湖广边线",
+              "start_equivalent": 0.5,
+              "end_equivalent": 0.25,
+              "control_form": "INTERNAL_DISTURBANCE_WITH_PARTIAL_RESTORATION",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-GUANGXI-LIJIE-1179",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-HUNAN-CHENDONG-1179",
+                "SRC-XUZIZHITONGJIAN-147-2313631-P0013",
+                "SRC-XUZIZHITONGJIAN-146-2313408-P0152"
+              ],
+              "reason": "郁林、道州等有失守后恢复，但内部/地方武装恢复不产生新增；终点仍保留有限区域控制，0.5→0.25。",
+              "counted": true,
+              "status": "PROVISIONAL_REGION_SNAPSHOT",
+              "exclusions": []
+            },
+            {
+              "object_id": "INTERNAL_REBELLIONS_AND_SHORT_RECOVERIES",
+              "object_name": "湖南、广西、广东盗乱区／茶盗、李金等叛乱区",
+              "start_equivalent": 0.0,
+              "end_equivalent": 0.0,
+              "control_form": "EXCLUDED_INTERNAL_RESTORATION",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-HUNAN-GUANGDONG-BANDITS-1165",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-LAIWENZHENG-TEA-BANDITS-1175",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-LIJIN-REBELLION-1165"
+              ],
+              "reason": "平乱恢复旧控制不计外部新增；安全稳定和叛乱终止不替代空间快照。",
+              "counted": false,
+              "status": "EXCLUDED_BY_CONTRACT",
+              "exclusions": []
+            }
+          ]
+        },
+        "B2": {
+          "grade": 2,
+          "position": "MID",
+          "reason": "局部平乱和边寨恢复有区域作用，但未改变宋金总体攻防条件。"
+        },
+        "B4": {
+          "grade": 2,
+          "position": "MID",
+          "reason": "常态守边能够维持，重大主动战争却暴露投送和协同缺陷，结构成果限于例行维护。"
+        }
       },
-      "C": {"C1": 3, "C2": 2, "C3": 2, "major_system_failure_group_refs": ["XZTJ-SONG-JIN-LONXING-OFFENSIVE-1163"], "major_system_success_group_refs": [], "reason": "普通守边和平乱仍可交付，但隆兴父周期在投送、补给与体系可靠性上出现重大失败；战斗兑现略高于持续和可靠性。"},
+      "C": {
+        "C1": 3,
+        "C2": 2,
+        "C3": 2,
+        "major_system_failure_group_refs": [
+          "XZTJ-SONG-JIN-LONXING-OFFENSIVE-1163"
+        ],
+        "major_system_success_group_refs": [],
+        "reason": "普通守边和平乱仍可交付，但隆兴父周期在投送、补给与体系可靠性上出现重大失败；战斗兑现略高于持续和可靠性。"
+      },
       "cycle_merges": [
         {
           "canonical_cycle_ref": "XZTJ-SONG-JIN-LONXING-OFFENSIVE-1163",
@@ -165,10 +356,54 @@
         }
       ],
       "route_overrides": [
-        {"campaign_group_ref": "XZTJ-SONG-GUANGXI-LIJIE-1179", "d_route": "D_INTERNAL_RESTORATION", "parent_benefit_axes": {"SB": "SB3", "SN": "SN0", "BCP": "BCP2", "BCN": "BCN0", "WR": "WR0"}, "reason": "郁林先失后复，终局平乱并恢复旧控；收益受内部恢复上限约束。"},
-        {"campaign_group_ref": "XZTJ-SONG-HUNAN-CHENDONG-1179", "d_route": "D_INTERNAL_RESTORATION", "parent_benefit_axes": {"SB": "SB3", "SN": "SN0", "BCP": "BCP2", "BCN": "BCN0", "WR": "WR0"}, "reason": "湖南多县受乱后完成镇压恢复，父级终局按旧控恢复结算。"},
-        {"campaign_group_ref": "XZTJ-SONG-LAIWENZHENG-TEA-BANDITS-1175", "d_route": "D_INTERNAL_RESTORATION", "parent_benefit_axes": {"SB": "SB3", "SN": "SN0", "BCP": "BCP0", "BCN": "BCN0", "WR": "WR0"}, "reason": "茶寇链虽有多次官军失利，终局寇平且无稳定城地变更。"},
-        {"campaign_group_ref": "XZTJ-SONG-SICHUAN-QIANG-NUERJIE-1185", "d_route": "D_EXTERNAL_OR_FRONTIER", "parent_benefit_axes": {"SB": "SB3", "SN": "SN0", "BCP": "BCP2", "BCN": "BCN0", "WR": "WR0"}, "reason": "四川羌部攻寨后被捕获，边地旧控恢复；不把恢复旧控抬为扩张。"}
+        {
+          "campaign_group_ref": "XZTJ-SONG-GUANGXI-LIJIE-1179",
+          "d_route": "D_INTERNAL_RESTORATION",
+          "parent_benefit_axes": {
+            "SB": "SB3",
+            "SN": "SN0",
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "WR": "WR0"
+          },
+          "reason": "郁林先失后复，终局平乱并恢复旧控；收益受内部恢复上限约束。"
+        },
+        {
+          "campaign_group_ref": "XZTJ-SONG-HUNAN-CHENDONG-1179",
+          "d_route": "D_INTERNAL_RESTORATION",
+          "parent_benefit_axes": {
+            "SB": "SB3",
+            "SN": "SN0",
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "WR": "WR0"
+          },
+          "reason": "湖南多县受乱后完成镇压恢复，父级终局按旧控恢复结算。"
+        },
+        {
+          "campaign_group_ref": "XZTJ-SONG-LAIWENZHENG-TEA-BANDITS-1175",
+          "d_route": "D_INTERNAL_RESTORATION",
+          "parent_benefit_axes": {
+            "SB": "SB3",
+            "SN": "SN0",
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "WR": "WR0"
+          },
+          "reason": "茶寇链虽有多次官军失利，终局寇平且无稳定城地变更。"
+        },
+        {
+          "campaign_group_ref": "XZTJ-SONG-SICHUAN-QIANG-NUERJIE-1185",
+          "d_route": "D_EXTERNAL_OR_FRONTIER",
+          "parent_benefit_axes": {
+            "SB": "SB3",
+            "SN": "SN0",
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "WR": "WR0"
+          },
+          "reason": "四川羌部攻寨后被捕获，边地旧控恢复；不把恢复旧控抬为扩张。"
+        }
       ],
       "admitted_large_rebellion_refs": [
         "XZTJ-SONG-CHAOSHAN-SHENSHI-1181",
@@ -179,29 +414,200 @@
         "XZTJ-SONG-LIJIN-REBELLION-1165"
       ]
     },
-    {"ruler_id": "RULER-SS-ZHAO-DUN", "ruler_name": "赵惇", "reign_range": "1189-1194", "AB": {
-      "control_contribution_type": "INHERITED_ONLY",
-      "A1": {"start": 3, "end": 3, "reason": "短期主政窗口仅见有限守边和平乱，未形成足以改变总体战略态势的证据。"},
-      "A2": {"start": 3, "end": 3, "reason": "主要边界维持竞争均势，既无系统改善，也无显著崩坏。"},
-      "B1": {"start_equivalent": 0.75, "end_equivalent": 0.75, "grade": 1, "position": "LOW", "reason": "只确认小规模既有控制包维持；加权控制值0.3，机械落B1-1。"},
-      "B2": {"grade": 0, "position": "LOW", "reason": "没有可归责于本窗口的新建、恢复或重构控制成果。"},
-      "B4": {"grade": 0, "position": "LOW", "reason": "存量边防为继承所得，当前两项任务不足以证明新增可移交结构。"}
-    }, "C": {"C1": 3, "C2": 3, "C3": 3, "major_system_failure_group_refs": [], "major_system_success_group_refs": [], "reason": "两个独立父周期中守边和平乱均能完成，但样本少且无重大胜绩，三轴定C3。"}, "cycle_merges": [], "route_overrides": [
-      {"campaign_group_ref": "XZTJ-SONG-LUZHOU-ZHANGXIN-MUTINY-1192", "d_route": "D_INTERNAL_RESTORATION", "parent_benefit_axes": {"SB": "SB3", "SN": "SN0", "BCP": "BCP2", "BCN": "BCN0", "WR": "WR0"}, "reason": "泸州兵变夺取军政节点后旋即平定，终局为旧控恢复。"}
-    ], "admitted_large_rebellion_refs": ["XZTJ-SONG-LUZHOU-ZHANGXIN-MUTINY-1192"]},
+    {
+      "ruler_id": "RULER-SS-ZHAO-DUN",
+      "ruler_name": "赵惇",
+      "reign_range": "1189-1194",
+      "AB": {
+        "control_contribution_type": "INHERITED_ONLY",
+        "A1": {
+          "start": 3,
+          "end": 3,
+          "reason": "短期主政窗口仅见有限守边和平乱，未形成足以改变总体战略态势的证据。"
+        },
+        "A2": {
+          "start": 3,
+          "end": 3,
+          "reason": "主要边界维持竞争均势，既无系统改善，也无显著崩坏。"
+        },
+        "B1": {
+          "start_equivalent": 0.75,
+          "end_equivalent": 0.75,
+          "grade": 1,
+          "position": "LOW",
+          "reason": "只确认小规模既有控制包维持；加权控制值0.3，机械落B1-1。",
+          "regions": [
+            {
+              "object_id": "SICHUAN_LUZHOU_FRONTIER",
+              "object_name": "泸州帅府／阅武堂及州级军事指挥节点",
+              "start_equivalent": 0.75,
+              "end_equivalent": 0.75,
+              "control_form": "INHERITED_MAINTENANCE_AFTER_SHORT_MUTINY",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-LUZHOU-ZHANGXIN-MUTINY-1192",
+                "SRC-XUZIZHITONGJIAN-152-2315793-P0195"
+              ],
+              "reason": "兵变短期进入州级指挥节点后即恢复国家控制；终点无持久空间变化，0.75→0.75。",
+              "counted": true,
+              "status": "PROVISIONAL_REGION_SNAPSHOT",
+              "exclusions": []
+            },
+            {
+              "object_id": "OTHER_FRONTIERS",
+              "object_name": "南宋既有淮东、湖广边线",
+              "start_equivalent": 0.0,
+              "end_equivalent": 0.0,
+              "control_form": "EXCLUDED_NO_NEW_CONTROL_EVIDENCE",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-LUZHOU-ZHANGXIN-MUTINY-1192"
+              ],
+              "reason": "无可计新增或稳定退控证据，不能从少战或安全维持推加。",
+              "counted": false,
+              "status": "EXCLUDED_NO_CHANGE",
+              "exclusions": []
+            }
+          ]
+        },
+        "B2": {
+          "grade": 0,
+          "position": "LOW",
+          "reason": "没有可归责于本窗口的新建、恢复或重构控制成果。"
+        },
+        "B4": {
+          "grade": 0,
+          "position": "LOW",
+          "reason": "存量边防为继承所得，当前两项任务不足以证明新增可移交结构。"
+        }
+      },
+      "C": {
+        "C1": 3,
+        "C2": 3,
+        "C3": 3,
+        "major_system_failure_group_refs": [],
+        "major_system_success_group_refs": [],
+        "reason": "两个独立父周期中守边和平乱均能完成，但样本少且无重大胜绩，三轴定C3。"
+      },
+      "cycle_merges": [],
+      "route_overrides": [
+        {
+          "campaign_group_ref": "XZTJ-SONG-LUZHOU-ZHANGXIN-MUTINY-1192",
+          "d_route": "D_INTERNAL_RESTORATION",
+          "parent_benefit_axes": {
+            "SB": "SB3",
+            "SN": "SN0",
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "WR": "WR0"
+          },
+          "reason": "泸州兵变夺取军政节点后旋即平定，终局为旧控恢复。"
+        }
+      ],
+      "admitted_large_rebellion_refs": [
+        "XZTJ-SONG-LUZHOU-ZHANGXIN-MUTINY-1192"
+      ]
+    },
     {
       "ruler_id": "RULER-SS-ZHAO-KUO",
       "ruler_name": "赵扩",
       "reign_range": "1194-1224",
       "AB": {
         "control_contribution_type": "ROUTINE_MAINTENANCE",
-        "A1": {"start": 3, "end": 2, "reason": "开禧北伐失败后又遭金军多线反攻，虽有枣阳、淮东等防御胜绩，任末总体仍由竞争均势降为战略劣势。"},
-        "A2": {"start": 3, "end": 2, "reason": "开禧及1217年后四川、淮西多次退控，局部恢复不能抵消主要方向防线破口。"},
-        "B1": {"start_equivalent": 0.75, "end_equivalent": 0.5, "grade": 1, "position": "LOW", "reason": "接班复用赵惇交班0.75；京东短暂恢复与若干节点收复未形成稳定净增，四川和淮西退控更重；加权值0.05，落B1-1低段。"},
-        "B2": {"grade": 2, "position": "LOW", "reason": "枣阳、淮东等胜绩能改善局部战区，但不足以扭转开禧及四川方向总体劣势。"},
-        "B4": {"grade": 1, "position": "MID", "reason": "有效防御依赖少数将领与节点，跨战区复制和持续恢复能力弱。"}
+        "A1": {
+          "start": 3,
+          "end": 2,
+          "reason": "开禧北伐失败后又遭金军多线反攻，虽有枣阳、淮东等防御胜绩，任末总体仍由竞争均势降为战略劣势。"
+        },
+        "A2": {
+          "start": 3,
+          "end": 2,
+          "reason": "开禧及1217年后四川、淮西多次退控，局部恢复不能抵消主要方向防线破口。"
+        },
+        "B1": {
+          "start_equivalent": 0.75,
+          "end_equivalent": 0.5,
+          "grade": 1,
+          "position": "LOW",
+          "reason": "接班复用赵惇交班0.75；京东短暂恢复与若干节点收复未形成稳定净增，四川和淮西退控更重；加权值0.05，落B1-1低段。",
+          "regions": [
+            {
+              "object_id": "HUAI_JINGHU_FRONTIER",
+              "object_name": "黄州、蕲州、黄土关、梅林关、麻城／枣阳—襄阳防御区／唐邓外线",
+              "start_equivalent": 0.5,
+              "end_equivalent": 0.25,
+              "control_form": "FRONTIER_RETREAT_WITH_LOCAL_HOLD",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-JIN-HUANGQI-1221",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-JIN-ZAOYANG-1219",
+                "SRC-XUZIZHITONGJIAN-161-2318637-P0197",
+                "SRC-XUZIZHITONGJIAN-161-2318637-P0092"
+              ],
+              "reason": "黄蕲及关城失守形成退控；枣阳守住和活动线外推只能保留局部控制，0.5→0.25。",
+              "counted": true,
+              "status": "PROVISIONAL_REGION_SNAPSHOT",
+              "exclusions": []
+            },
+            {
+              "object_id": "SICHUAN_SHANXI_FRONTIER",
+              "object_name": "天水军、白环堡、阜郊堡、湫池堡、大散关／阶州、兴州及四川中枢",
+              "start_equivalent": 0.25,
+              "end_equivalent": 0.25,
+              "control_form": "RETREAT_WITH_RESIDUAL_CONTROL",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-JIN-SICHUAN-1217-1218",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-WUXI-SHUREGIME-1207",
+                "SRC-XUZIZHITONGJIAN-161-2318637-P0031",
+                "SRC-XUZIZHITONGJIAN-158-2316413-P0027"
+              ],
+              "reason": "陕蜀多堡关退控，但兴州等恢复及残余中枢仍在；保守维持0.25终点。",
+              "counted": true,
+              "status": "PROVISIONAL_REGION_SNAPSHOT",
+              "exclusions": []
+            },
+            {
+              "object_id": "JIANGXI_SHANDONG_INTERNAL_OR_UNRESOLVED",
+              "object_name": "吉郴—南雄—江西南部／遂宁、普州／山东十二郡／碉门寨",
+              "start_equivalent": 0.0,
+              "end_equivalent": 0.0,
+              "control_form": "EXCLUDED_INTERNAL_RECOVERY_OR_SHORT_UNRESOLVED_GAIN",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-LIYUANLI-REBELLION-1209-1210",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-SHANDONG-ZHANGLIN-1219",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-YAZHOU-GAOYINSHI-1206",
+                "SRC-XUZIZHITONGJIAN-159-2318416-P0014",
+                "SRC-XUZIZHITONGJIAN-161-2318637-P0128"
+              ],
+              "reason": "李元礼、张福、李高阴等为内部恢复；山东制度性接收和碉门恢复未闭合为交班稳定新增，排除。",
+              "counted": false,
+              "status": "EXCLUDED_BY_CONTRACT",
+              "exclusions": []
+            }
+          ]
+        },
+        "B2": {
+          "grade": 2,
+          "position": "LOW",
+          "reason": "枣阳、淮东等胜绩能改善局部战区，但不足以扭转开禧及四川方向总体劣势。"
+        },
+        "B4": {
+          "grade": 1,
+          "position": "MID",
+          "reason": "有效防御依赖少数将领与节点，跨战区复制和持续恢复能力弱。"
+        }
       },
-      "C": {"C1": 2, "C2": 1, "C3": 1, "major_system_failure_group_refs": ["XZTJ-SONG-JIN-KAIXI-WAR-1206-1208", "XZTJ-SONG-JIN-SICHUAN-1217-1218"], "major_system_success_group_refs": ["XZTJ-SONG-JIN-ZAOYANG-1219", "XZTJ-SONG-JIN-HUAI-1222"], "reason": "局部守城反击仍能交付，但开禧和四川两个国家级父周期重复暴露动员、补给、指挥与恢复缺陷；战斗兑现高于持续性和体系可靠性。"},
+      "C": {
+        "C1": 2,
+        "C2": 1,
+        "C3": 1,
+        "major_system_failure_group_refs": [
+          "XZTJ-SONG-JIN-KAIXI-WAR-1206-1208",
+          "XZTJ-SONG-JIN-SICHUAN-1217-1218"
+        ],
+        "major_system_success_group_refs": [
+          "XZTJ-SONG-JIN-ZAOYANG-1219",
+          "XZTJ-SONG-JIN-HUAI-1222"
+        ],
+        "reason": "局部守城反击仍能交付，但开禧和四川两个国家级父周期重复暴露动员、补给、指挥与恢复缺陷；战斗兑现高于持续性和体系可靠性。"
+      },
       "cycle_merges": [
         {
           "canonical_cycle_ref": "XZTJ-SONG-JIN-KAIXI-WAR-1206-1208",
@@ -233,7 +639,13 @@
             "XZTJ-SONG-JIN-KAIXI-XINXI-BAOXIN-HONG-1206",
             "XZTJ-SONG-JIN-XIHE-AMBUSCADE-1206"
           ],
-          "parent_benefit_axes": {"SB": "SB0", "SN": "SN4", "BCP": "BCP0", "BCN": "BCN0", "WR": "WR3"},
+          "parent_benefit_axes": {
+            "SB": "SB0",
+            "SN": "SN4",
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "WR": "WR3"
+          },
           "reason": "开禧北伐从试探、全面出兵、各战区溃退到四川持续作战及1208年终局属于同一战略决策与连续国家动员。"
         },
         {
@@ -247,11 +659,59 @@
         }
       ],
       "route_overrides": [
-        {"campaign_group_ref": "XZTJ-SONG-PENGYIBIN-SHANDONG-1222", "d_route": "D_EXTERNAL_OR_FRONTIER", "reason": "赵扩第一项未准入；彭义斌京东恢复虽有创业标记，必须保留在第三项外部战线，避免两项皆不计。"},
-        {"campaign_group_ref": "XZTJ-SONG-JIN-HUAINAN-1219", "d_route": "D_EXTERNAL_OR_FRONTIER", "parent_benefit_axes": {"SB": "SB4", "SN": "SN0", "BCP": "BCP0", "BCN": "BCN0", "WR": "WR1"}, "reason": "金军深入造成高成本，但淮东诸州终局守住且反击迫敌解围；按守成净安全收益闭合。"},
-        {"campaign_group_ref": "XZTJ-SONG-LIYUANLI-REBELLION-1209-1210", "d_route": "D_INTERNAL_RESTORATION", "parent_benefit_axes": {"SB": "SB4", "SN": "SN0", "BCP": "BCP3", "BCN": "BCN0", "WR": "WR1"}, "reason": "吉郴南雄链先失县、再连败，终局峒寇悉平并恢复失控区；按内部恢复结算。"},
-        {"campaign_group_ref": "XZTJ-SONG-YAZHOU-GAOYINSHI-1206", "d_route": "D_INTERNAL_RESTORATION", "parent_benefit_axes": {"SB": "SB3", "SN": "SN0", "BCP": "BCP2", "BCN": "BCN0", "WR": "WR0"}, "reason": "碉门先失后复，各部投降，父级终局为旧控恢复。"},
-        {"campaign_group_ref": "XZTJ-WUXI-SHUREGIME-1207", "d_route": "D_INTERNAL_RESTORATION", "parent_benefit_axes": {"SB": "SB4", "SN": "SN0", "BCP": "BCP3", "BCN": "BCN3", "WR": "WR1"}, "reason": "诛吴曦恢复四川军政中枢，但此前献金的阶州等节点未由本卡证明收复；保留外部控制净损，不以兴州恢复冲销。"}
+        {
+          "campaign_group_ref": "XZTJ-SONG-PENGYIBIN-SHANDONG-1222",
+          "d_route": "D_EXTERNAL_OR_FRONTIER",
+          "reason": "赵扩第一项未准入；彭义斌京东恢复虽有创业标记，必须保留在第三项外部战线，避免两项皆不计。"
+        },
+        {
+          "campaign_group_ref": "XZTJ-SONG-JIN-HUAINAN-1219",
+          "d_route": "D_EXTERNAL_OR_FRONTIER",
+          "parent_benefit_axes": {
+            "SB": "SB4",
+            "SN": "SN0",
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "WR": "WR1"
+          },
+          "reason": "金军深入造成高成本，但淮东诸州终局守住且反击迫敌解围；按守成净安全收益闭合。"
+        },
+        {
+          "campaign_group_ref": "XZTJ-SONG-LIYUANLI-REBELLION-1209-1210",
+          "d_route": "D_INTERNAL_RESTORATION",
+          "parent_benefit_axes": {
+            "SB": "SB4",
+            "SN": "SN0",
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "WR": "WR1"
+          },
+          "reason": "吉郴南雄链先失县、再连败，终局峒寇悉平并恢复失控区；按内部恢复结算。"
+        },
+        {
+          "campaign_group_ref": "XZTJ-SONG-YAZHOU-GAOYINSHI-1206",
+          "d_route": "D_INTERNAL_RESTORATION",
+          "parent_benefit_axes": {
+            "SB": "SB3",
+            "SN": "SN0",
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "WR": "WR0"
+          },
+          "reason": "碉门先失后复，各部投降，父级终局为旧控恢复。"
+        },
+        {
+          "campaign_group_ref": "XZTJ-WUXI-SHUREGIME-1207",
+          "d_route": "D_INTERNAL_RESTORATION",
+          "parent_benefit_axes": {
+            "SB": "SB4",
+            "SN": "SN0",
+            "BCP": "BCP3",
+            "BCN": "BCN3",
+            "WR": "WR1"
+          },
+          "reason": "诛吴曦恢复四川军政中枢，但此前献金的阶州等节点未由本卡证明收复；保留外部控制净损，不以兴州恢复冲销。"
+        }
       ],
       "admitted_large_rebellion_refs": [
         "XZTJ-SONG-LIYUANLI-REBELLION-1209-1210",
@@ -266,13 +726,121 @@
       "reign_range": "1224-1264",
       "AB": {
         "control_contribution_type": "ROUTINE_MAINTENANCE",
-        "A1": {"start": 2, "end": 1, "reason": "接班复用赵扩交班的战略劣势2档；联蒙灭金与局部守城胜绩未转化为总体主动，端平入洛失败后蒙古压力持续升级，任末已接近严重战略威胁。"},
-        "A2": {"start": 2, "end": 1, "reason": "接班复用赵扩交班的局部可守2档；四川、荆湖、淮西多线长期失城和反复恢复，襄樊封锁启动，主要边界进一步趋于破碎。"},
-        "B1": {"start_equivalent": 0.5, "end_equivalent": 0.25, "grade": 0, "position": "HIGH", "reason": "接班复用赵扩交班0.5；襄阳等局部恢复及若干堡寨守住，不能抵消四川、荆湖、淮西持续退控；加权值-0.05，落B1-0高段。"},
-        "B2": {"grade": 1, "position": "MID", "reason": "钓鱼山、泸州等成果具有重要局部拒止作用，但没有改善多战区总体攻防条件。"},
-        "B4": {"grade": 2, "position": "LOW", "reason": "四川山城防御形成一定可持续结构，然而全国多线体系失效和襄樊危机限制其成熟度。"}
+        "A1": {
+          "start": 2,
+          "end": 1,
+          "reason": "接班复用赵扩交班的战略劣势2档；联蒙灭金与局部守城胜绩未转化为总体主动，端平入洛失败后蒙古压力持续升级，任末已接近严重战略威胁。"
+        },
+        "A2": {
+          "start": 2,
+          "end": 1,
+          "reason": "接班复用赵扩交班的局部可守2档；四川、荆湖、淮西多线长期失城和反复恢复，襄樊封锁启动，主要边界进一步趋于破碎。"
+        },
+        "B1": {
+          "start_equivalent": 0.5,
+          "end_equivalent": 0.25,
+          "grade": 0,
+          "position": "HIGH",
+          "reason": "接班复用赵扩交班0.5；襄阳等局部恢复及若干堡寨守住，不能抵消四川、荆湖、淮西持续退控；加权值-0.05，落B1-0高段。",
+          "regions": [
+            {
+              "object_id": "JINGHU_XIANGFAN_FRONTIER",
+              "object_name": "随州、郢州、荆门军／襄阳、樊城、外援通道／鹿门山—白河口外围",
+              "start_equivalent": 0.15,
+              "end_equivalent": 0.0,
+              "control_form": "PROLONGED_EXTERNAL_COLLAPSE",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-MONGOL-SONG-JINGHU-1236",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-MONGOL-SONG-XIANGFAN-BLOCKADE-1263",
+                "SRC-XUZIZHITONGJIAN-168-2324258-P0105",
+                "SRC-XUZIZHITONGJIAN-180-2603111-P0028"
+              ],
+              "reason": "京湖节点、外围援路和襄樊本体连续失控，终点不保留交班控制。",
+              "counted": true,
+              "status": "PROVISIONAL_REGION_SNAPSHOT",
+              "exclusions": []
+            },
+            {
+              "object_id": "SICHUAN_HANZHONG_FRONTIER",
+              "object_name": "凤州、洋州、饶风关／沔州三关／成都、汉州、利州、隆庆、顺庆、阆州、蓬州、广安",
+              "start_equivalent": 0.1,
+              "end_equivalent": 0.0,
+              "control_form": "EXTERNAL_MULTIPREFECTURE_RETREAT",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-MONGOL-SONG-HANZHONG-1231",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-MONGOL-GUANZHONG-SICHUAN-1227",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-MONGOL-SONG-SICHUAN-MULTIPREFECTURE-COLLAPSE-1259",
+                "SRC-XUZIZHITONGJIAN-165-2324262-P0123",
+                "SRC-XUZIZHITONGJIAN-175-2334252-P0165"
+              ],
+              "reason": "汉中、三关、成都及多州郡成片失守；不从敌方推进规模反推额外成本，只登记控制终点。",
+              "counted": true,
+              "status": "PROVISIONAL_REGION_SNAPSHOT",
+              "exclusions": []
+            },
+            {
+              "object_id": "HUAI_DONG_REMAINING_CONTROL",
+              "object_name": "盐城、淮安五城／淮东残余防区",
+              "start_equivalent": 0.25,
+              "end_equivalent": 0.25,
+              "control_form": "RESIDUAL_FRONTIER_AFTER_PARTIAL_RECOVERY",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-LIQUAN-HUAIAN-FINAL-1231",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-LITAN-SONG-HAIZHOU-LIANSHUI-1258",
+                "SRC-XUZIZHITONGJIAN-165-2324262-P0112",
+                "SRC-XUZIZHITONGJIAN-175-2334252-P0150"
+              ],
+              "reason": "淮安/盐城曾恢复；海州、涟水后失但不足以证明全部淮东终点归零，保守保留0.25并标晚期边界待补。",
+              "counted": true,
+              "status": "PROVISIONAL_REGION_SNAPSHOT",
+              "exclusions": []
+            },
+            {
+              "object_id": "JIANGXI_SOUTHEAST_INTERNAL_RECOVERY",
+              "object_name": "赣州、江西闽广盗乱区／闽中受盗县域／泸州短期失而复得",
+              "start_equivalent": 0.0,
+              "end_equivalent": 0.0,
+              "control_form": "EXCLUDED_INTERNAL_RESTORATION",
+              "evidence_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-SONG-JIANGXI-BANDITRY-1231-1234",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json#XZTJ-LIUZHENG-LUZHOU-1261-1262",
+                "SRC-XUZIZHITONGJIAN-167-2323032-P0093",
+                "SRC-XUZIZHITONGJIAN-176-2327827-P0153"
+              ],
+              "reason": "盗乱、泸州复控为内部恢复；不把恢复旧地或改军名作新增空间。",
+              "counted": false,
+              "status": "EXCLUDED_BY_CONTRACT",
+              "exclusions": []
+            }
+          ]
+        },
+        "B2": {
+          "grade": 1,
+          "position": "MID",
+          "reason": "钓鱼山、泸州等成果具有重要局部拒止作用，但没有改善多战区总体攻防条件。"
+        },
+        "B4": {
+          "grade": 2,
+          "position": "LOW",
+          "reason": "四川山城防御形成一定可持续结构，然而全国多线体系失效和襄樊危机限制其成熟度。"
+        }
       },
-      "C": {"C1": 3, "C2": 1, "C3": 1, "major_system_failure_group_refs": ["XZTJ-SONG-MONGOL-DUANPING-1233", "XZTJ-MONGOL-SONG-HANZHONG-1231", "XZTJ-MONGOL-SICHUAN-MULTIPREFECTURE-COLLAPSE-1259", "XZTJ-MONGOL-SONG-XIANGFAN-BLOCKADE-1263"], "major_system_success_group_refs": ["XZTJ-MONGOL-SONG-HEZHOU-DIAOYUSHAN-1259", "XZTJ-SONG-MONGOL-JIN-CAIZHOU-1233-1234"], "reason": "钓鱼山、蔡州及多次局部防御证明仍有战斗兑现能力；同一轮蒙古多路攻势已经按战区父周期合并，不再把同年各州战斗冒充独立体系任务，但四十年间多线反复失守、补给与协同崩坏仍使持续性和可靠性只能定C1。"},
+      "C": {
+        "C1": 3,
+        "C2": 1,
+        "C3": 1,
+        "major_system_failure_group_refs": [
+          "XZTJ-SONG-MONGOL-DUANPING-1233",
+          "XZTJ-MONGOL-SONG-HANZHONG-1231",
+          "XZTJ-MONGOL-SICHUAN-MULTIPREFECTURE-COLLAPSE-1259",
+          "XZTJ-MONGOL-SONG-XIANGFAN-BLOCKADE-1263"
+        ],
+        "major_system_success_group_refs": [
+          "XZTJ-MONGOL-SONG-HEZHOU-DIAOYUSHAN-1259",
+          "XZTJ-SONG-MONGOL-JIN-CAIZHOU-1233-1234"
+        ],
+        "reason": "钓鱼山、蔡州及多次局部防御证明仍有战斗兑现能力；同一轮蒙古多路攻势已经按战区父周期合并，不再把同年各州战斗冒充独立体系任务，但四十年间多线反复失守、补给与协同崩坏仍使持续性和可靠性只能定C1。"
+      },
       "cycle_merges": [
         {
           "canonical_cycle_ref": "XZTJ-SONG-LIQUAN-HUAIAN-FINAL-1231",
@@ -286,7 +854,13 @@
             "XZTJ-SONG-LIQUAN-YANGZHOU-1230-1231"
           ],
           "d_route": "D_INTERNAL_RESTORATION",
-          "parent_benefit_axes": {"SB": "SB5", "SN": "SN0", "BCP": "BCP4", "BCN": "BCN0", "WR": "WR3"},
+          "parent_benefit_axes": {
+            "SB": "SB5",
+            "SN": "SN0",
+            "BCP": "BCP4",
+            "BCN": "BCN0",
+            "WR": "WR3"
+          },
           "reason": "李全体系从楚州兵变、内部分裂、扬州与临安破坏到淮安终局是同一内部军政失控和恢复链；恢复旧秩序不得按七次独立高收益计。"
         },
         {
@@ -364,12 +938,57 @@
         }
       ],
       "route_overrides": [
-        {"campaign_group_ref": "XZTJ-SONG-MONGOL-XIANGYANG-MUTINY-1236", "d_route": "D_INTERNAL_STRATEGIC", "reason": "襄阳因内部兵变失城后再投入收复，兼有边疆后果，但直接起因和国家成本属于内部战略失控。"},
-        {"campaign_group_ref": "XZTJ-MONGOL-SONG-GUSHI-HUAIWEST-MUTINY-1236", "d_route": "D_INTERNAL_STRATEGIC", "parent_return_class": "NEGATIVE_RETURN", "reason": "固始及淮西军溃散并导致城池失守，当前周期没有恢复终局，按内部军政失控的负收益结算。"},
-        {"campaign_group_ref": "XZTJ-SONG-OLD-PIRATES-1255", "d_route": "D_INTERNAL_RESTORATION", "reason": "两淮剿旧海贼只恢复境内秩序，不形成对外扩张收益。"},
-        {"campaign_group_ref": "XZTJ-LIUZHENG-LUZHOU-1261-1262", "d_route": "D_EXTERNAL_OR_FRONTIER", "parent_benefit_axes": {"SB": "SB2", "SN": "SN0", "BCP": "BCP2", "BCN": "BCN0", "WR": "WR2"}, "reason": "刘整献泸州、俞兴反攻失败后，吕文德最终恢复泸州；终局旧控恢复但高成本保留。"},
-        {"campaign_group_ref": "XZTJ-SONG-MONGOL-DUANPING-1233", "d_route": "D_EXTERNAL_OR_FRONTIER", "parent_benefit_axes": {"SB": "SB0", "SN": "SN4", "BCP": "BCP0", "BCN": "BCN0", "WR": "WR1"}, "reason": "端平入洛所得空城全部撤弃，未丧失战前既有领土；以战略失败和动员损失结算，不把短暂入城算净控制。"},
-        {"campaign_group_ref": "XZTJ-SONG-SOUTHEAST-BANDITRY-1228-1231", "d_route": "D_INTERNAL_RESTORATION", "parent_benefit_axes": {"SB": "SB4", "SN": "SN0", "BCP": "BCP2", "BCN": "BCN0", "WR": "WR1"}, "reason": "东南多县先失，闽衢主要受盗县域终局恢复；按内部旧控恢复闭合。"}
+        {
+          "campaign_group_ref": "XZTJ-SONG-MONGOL-XIANGYANG-MUTINY-1236",
+          "d_route": "D_INTERNAL_STRATEGIC",
+          "reason": "襄阳因内部兵变失城后再投入收复，兼有边疆后果，但直接起因和国家成本属于内部战略失控。"
+        },
+        {
+          "campaign_group_ref": "XZTJ-MONGOL-SONG-GUSHI-HUAIWEST-MUTINY-1236",
+          "d_route": "D_INTERNAL_STRATEGIC",
+          "reason": "固始及淮西军溃散并导致城池失守，当前周期没有恢复终局，按内部军政失控的负收益结算。"
+        },
+        {
+          "campaign_group_ref": "XZTJ-SONG-OLD-PIRATES-1255",
+          "d_route": "D_INTERNAL_RESTORATION",
+          "reason": "两淮剿旧海贼只恢复境内秩序，不形成对外扩张收益。"
+        },
+        {
+          "campaign_group_ref": "XZTJ-LIUZHENG-LUZHOU-1261-1262",
+          "d_route": "D_EXTERNAL_OR_FRONTIER",
+          "parent_benefit_axes": {
+            "SB": "SB2",
+            "SN": "SN0",
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "WR": "WR2"
+          },
+          "reason": "刘整献泸州、俞兴反攻失败后，吕文德最终恢复泸州；终局旧控恢复但高成本保留。"
+        },
+        {
+          "campaign_group_ref": "XZTJ-SONG-MONGOL-DUANPING-1233",
+          "d_route": "D_EXTERNAL_OR_FRONTIER",
+          "parent_benefit_axes": {
+            "SB": "SB0",
+            "SN": "SN4",
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "WR": "WR1"
+          },
+          "reason": "端平入洛所得空城全部撤弃，未丧失战前既有领土；以战略失败和动员损失结算，不把短暂入城算净控制。"
+        },
+        {
+          "campaign_group_ref": "XZTJ-SONG-SOUTHEAST-BANDITRY-1228-1231",
+          "d_route": "D_INTERNAL_RESTORATION",
+          "parent_benefit_axes": {
+            "SB": "SB4",
+            "SN": "SN0",
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "WR": "WR1"
+          },
+          "reason": "东南多县先失，闽衢主要受盗县域终局恢复；按内部旧控恢复闭合。"
+        }
       ],
       "admitted_large_rebellion_refs": [
         "XZTJ-SONG-GARRISON-MUTINIES-1235",

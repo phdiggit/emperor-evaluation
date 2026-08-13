@@ -386,10 +386,12 @@ def promote_post_tang_canonical_phase_records(
 ) -> dict[str, Any]:
     promotion = build_post_tang_canonical_phase_records(workspace_root)
     current = dict(registry)
+    target_partitions = set(promotion["source_partitions"])
     current["records"] = [
         dict(record)
         for record in registry.get("records") or ()
         if not record.get("third_item_phase_container")
+        or str(record.get("dynasty_partition") or "") not in target_partitions
     ] + list(promotion["records"])
     current["post_tang_canonical_phase_promotion"] = {
         key: value for key, value in promotion.items() if key != "records"

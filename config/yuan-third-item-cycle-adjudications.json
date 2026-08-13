@@ -3,8 +3,24 @@
   "status": "CURRENT",
   "large_rebellion_audit_status": "COMPLETE",
   "reviewed_large_rebellion_exclusions": [
-    {"ruler_id": "RULER-YUAN-MONGKE", "exclusions": [{"campaign_group_ref": "XZTJ-MONGOL-WUMAN-YUNNAN-1254", "reason": "云南乌蛮战争发生于蒙古征服和新控制建立过程，是对尚未纳入既有统治体系对象的取得战争，不属于内部叛乱。"}]},
-    {"ruler_id": "RULER-YUAN-KUBLAI", "exclusions": [{"campaign_group_ref": "XZTJ-YUAN-ANNAM-WAR-1287-1288", "reason": "安南战争是跨政权对外远征，因阶段文字出现平定而被候选器命中，不属于内部叛乱。"}]}
+    {
+      "ruler_id": "RULER-YUAN-MONGKE",
+      "exclusions": [
+        {
+          "campaign_group_ref": "XZTJ-MONGOL-WUMAN-YUNNAN-1254",
+          "reason": "云南乌蛮战争发生于蒙古征服和新控制建立过程，是对尚未纳入既有统治体系对象的取得战争，不属于内部叛乱。"
+        }
+      ]
+    },
+    {
+      "ruler_id": "RULER-YUAN-KUBLAI",
+      "exclusions": [
+        {
+          "campaign_group_ref": "XZTJ-YUAN-ANNAM-WAR-1287-1288",
+          "reason": "安南战争是跨政权对外远征，因阶段文字出现平定而被候选器命中，不属于内部叛乱。"
+        }
+      ]
+    }
   ],
   "cross_item_policy": "第一项实际取得正分者，排除其创业标记周期；若第一项A明确给出统一贡献窗口但原战役卡创业标记口径较窄，则按显式年份窗口排除，并以保留清单留下不属于第一项对手体系的周期。",
   "parent_cycle_policy": "同一战略目标、连续国家动员和共同终局只结算一个D父周期；跨来源重复卡及同一远征、叛乱或全国战役的分战区展开必须后置合并，同年或同一对手本身不足以合并。",
@@ -13,34 +29,101 @@
       "ruler_id": "RULER-YUAN-TEMUJI",
       "ruler_name": "铁木真",
       "reign_range": "1206-1227",
-      "first_item_exclusion": {"mode": "FOUNDING_FLAG_ONLY", "reason": "70个创业标记周期已覆盖本窗口内的蒙古建国、灭夏与攻金创业链。"},
+      "first_item_exclusion": {
+        "mode": "FOUNDING_FLAG_ONLY",
+        "reason": "70个创业标记周期已覆盖本窗口内的蒙古建国、灭夏与攻金创业链。"
+      },
       "AB": {
         "control_contribution_type": "INHERITED_ONLY",
-        "A1": {"start": 3, "end": 5, "reason": "1206年统一蒙古诸部、形成可独立评价的蒙古政权后，尚面对金、西夏及中亚强权，整体处于有竞争力而未支配的3档；至1227年主要外部威胁已被结构性压低并建立跨区域支配态势，终点为5档。第一项消费取得政权的战役成果，第三项A只消费1206年后本人留下的客观安全状态轨迹，不作整轴排除。"},
-        "A2": {"start": 3, "end": 5, "reason": "1206年蒙古核心已具有效防卫能力但战略纵深尚未闭合，整体为3档；至1227年形成覆盖主要威胁方向的广阔纵深与安全体系，终点为5档。第一项排除不抹去本人亲手建立并在交班时实际存在的边疆安全体系。"},
-        "B1": {"start_equivalent": 0.0, "end_equivalent": 0.0, "grade": 0, "position": "LOW", "reason": "第三项准入周期没有独立于第一项的稳定控制净增，加权值0，落B1-0。"},
-        "B2": {"grade": 0, "position": "LOW", "reason": "没有可从第一项创业链中独立拆出的新增区域控制成果。"},
-        "B4": {"grade": 0, "position": "LOW", "reason": "军事体系的建构成果已在创业链形成，本处不以存量结果重复赋结构分。"}
+        "A1": {
+          "start": 3,
+          "end": 5,
+          "reason": "1206年统一蒙古诸部、形成可独立评价的蒙古政权后，尚面对金、西夏及中亚强权，整体处于有竞争力而未支配的3档；至1227年主要外部威胁已被结构性压低并建立跨区域支配态势，终点为5档。第一项消费取得政权的战役成果，第三项A只消费1206年后本人留下的客观安全状态轨迹，不作整轴排除。"
+        },
+        "A2": {
+          "start": 3,
+          "end": 5,
+          "reason": "1206年蒙古核心已具有效防卫能力但战略纵深尚未闭合，整体为3档；至1227年形成覆盖主要威胁方向的广阔纵深与安全体系，终点为5档。第一项排除不抹去本人亲手建立并在交班时实际存在的边疆安全体系。"
+        },
+        "B1": {
+          "start_equivalent": 0.0,
+          "end_equivalent": 0.0,
+          "grade": 0,
+          "position": "LOW",
+          "reason": "第三项准入周期没有独立于第一项的稳定控制净增，加权值0，落B1-0。"
+        },
+        "B2": {
+          "grade": 0,
+          "position": "LOW",
+          "reason": "没有可从第一项创业链中独立拆出的新增区域控制成果。"
+        },
+        "B4": {
+          "grade": 0,
+          "position": "LOW",
+          "reason": "军事体系的建构成果已在创业链形成，本处不以存量结果重复赋结构分。"
+        }
       },
-      "C": {"C1": 3, "C2": 3, "C3": 3, "major_system_failure_group_refs": [], "major_system_success_group_refs": [], "reason": "三个非创业父周期规模有限，能够执行但不足以证明独立于创业链的高档投送、持续与可靠性，按C3下限结算。"},
+      "C": {
+        "C1": 3,
+        "C2": 3,
+        "C3": 3,
+        "major_system_failure_group_refs": [],
+        "major_system_success_group_refs": [],
+        "reason": "三个非创业父周期规模有限，能够执行但不足以证明独立于创业链的高档投送、持续与可靠性，按C3下限结算。"
+      },
       "cycle_merges": [],
       "route_overrides": [],
-      "admitted_large_rebellion_refs": ["XZTJ-MONGOL-ZHANGZHI-REBELLION-1215-1216"]
+      "admitted_large_rebellion_refs": [
+        "XZTJ-MONGOL-ZHANGZHI-REBELLION-1215-1216"
+      ]
     },
     {
       "ruler_id": "RULER-YUAN-OGEDEI",
       "ruler_name": "窝阔台",
       "reign_range": "1229-1241",
-      "first_item_exclusion": {"mode": "FOUNDING_FLAG_ONLY", "reason": "62个创业标记周期已覆盖灭金及帝国扩张创业链。"},
+      "first_item_exclusion": {
+        "mode": "FOUNDING_FLAG_ONLY",
+        "reason": "62个创业标记周期已覆盖灭金及帝国扩张创业链。"
+      },
       "AB": {
         "control_contribution_type": "ROUTINE_MAINTENANCE",
-        "A1": {"start": 5, "end": 5, "reason": "排除灭金及帝国创业扩张后，剩余对宋、高丽等方向未动摇蒙古的支配性战略态势。"},
-        "A2": {"start": 5, "end": 5, "reason": "既有大陆战略纵深和边疆安全体系稳定，第三项只计创业链之外的守持与试探。"},
-        "B1": {"start_equivalent": 0.0, "end_equivalent": 0.5, "grade": 1, "position": "LOW", "reason": "1240至1241年多路攻宋仅确认有限前沿控制改善；加权值0.5，机械落B1-1。"},
-        "B2": {"grade": 2, "position": "MID", "reason": "多战区进攻对宋西部和淮汉防务形成区域压力，但剥离统一扩张后不足以构成全国级新增成果。"},
-        "B4": {"grade": 2, "position": "MID", "reason": "跨战区动员可复制，但当前第三项独立成果主要是一次攻宋父周期，结构贡献限于例行维护档。"}
+        "A1": {
+          "start": 5,
+          "end": 5,
+          "reason": "排除灭金及帝国创业扩张后，剩余对宋、高丽等方向未动摇蒙古的支配性战略态势。"
+        },
+        "A2": {
+          "start": 5,
+          "end": 5,
+          "reason": "既有大陆战略纵深和边疆安全体系稳定，第三项只计创业链之外的守持与试探。"
+        },
+        "B1": {
+          "start_equivalent": 0,
+          "end_equivalent": 0,
+          "grade": 0,
+          "position": "LOW",
+          "reason": "1240—1241攻宋只有前沿战事，未闭合可在交班使用的区域、驻防或可执行宗主权；灭金、东夏、钦察等创业统一链已由第一项消费。",
+          "regions": []
+        },
+        "B2": {
+          "grade": 2,
+          "position": "MID",
+          "reason": "多战区进攻对宋西部和淮汉防务形成区域压力，但剥离统一扩张后不足以构成全国级新增成果。"
+        },
+        "B4": {
+          "grade": 2,
+          "position": "MID",
+          "reason": "跨战区动员可复制，但当前第三项独立成果主要是一次攻宋父周期，结构贡献限于例行维护档。"
+        }
       },
-      "C": {"C1": 3, "C2": 3, "C3": 3, "major_system_failure_group_refs": [], "major_system_success_group_refs": [], "reason": "合并后的攻宋父周期完成多路投送并取得区域收益，但独立于第一项的实质样本仅一项，不上调至需重大胜绩支持的C4。"},
+      "C": {
+        "C1": 3,
+        "C2": 3,
+        "C3": 3,
+        "major_system_failure_group_refs": [],
+        "major_system_success_group_refs": [],
+        "reason": "合并后的攻宋父周期完成多路投送并取得区域收益，但独立于第一项的实质样本仅一项，不上调至需重大胜绩支持的C4。"
+      },
       "cycle_merges": [
         {
           "canonical_cycle_ref": "XZTJ-MONGOL-SONG-SICHUAN-1241-CHENGDU-HANZHOU",
@@ -72,13 +155,59 @@
       },
       "AB": {
         "control_contribution_type": "NEW_RECOVERED_REBUILT",
-        "A1": {"start": 5, "end": 5, "reason": "南宋和大理取得链由第一项消费；安南、高丽两个独立方向的胜绩在既有支配态势上提供有限增量而不重复制造状态跃迁。"},
-        "A2": {"start": 5, "end": 5, "reason": "蒙古核心边疆安全体系保持完整，保留的两个外部方向均未造成防线净损。"},
-        "B1": {"start_equivalent": 0.5, "end_equivalent": 1.25, "grade": 2, "position": "MID", "reason": "高丽六城与安南方向形成约0.75控制增量；加权值0.95，落B1-2。"},
-        "B2": {"grade": 3, "position": "MID", "reason": "高丽六城取得和安南破城对东北、西南两个区域产生可识别战略改善。"},
-        "B4": {"grade": 2, "position": "MID", "reason": "两个方向可由将领体系交付，但样本少且安南控制持续性有限，结构成熟度止于B4-2。"}
+        "A1": {
+          "start": 5,
+          "end": 5,
+          "reason": "南宋和大理取得链由第一项消费；安南、高丽两个独立方向的胜绩在既有支配态势上提供有限增量而不重复制造状态跃迁。"
+        },
+        "A2": {
+          "start": 5,
+          "end": 5,
+          "reason": "蒙古核心边疆安全体系保持完整，保留的两个外部方向均未造成防线净损。"
+        },
+        "B1": {
+          "start_equivalent": 0.0,
+          "end_equivalent": 0.25,
+          "grade": 1,
+          "position": "LOW",
+          "reason": "六城0.25为唯一可确认本窗口控制增量；旧包把安南破城混入0.75，已剔除。",
+          "regions": [
+            {
+              "object_id": "GORYEO_SIX_CITIES",
+              "object_name": "高丽西北六城带",
+              "start_equivalent": 0.0,
+              "end_equivalent": 0.25,
+              "control_form": "蒙古驻军/城防节点",
+              "evidence_refs": [
+                "docs/史料通读产物/元/续资治通鉴&元史/volume-180.battle-adjudications.json#XZTJ-MONGOL-GORYEO-SIX-CITIES-1253",
+                "docs/史料通读产物/元/续资治通鉴&元史/volume-181.battle-adjudications.json#XZTJ-MONGOL-ANNAM-1257"
+              ],
+              "reason": "固定卡能闭合六城取得，但材料不足以证明全区直接统治，按0.50覆盖保守计0.25；1257安南攻入无耐久控制，排除。"
+            }
+          ]
+        },
+        "B2": {
+          "grade": 3,
+          "position": "MID",
+          "reason": "高丽六城取得和安南破城对东北、西南两个区域产生可识别战略改善。"
+        },
+        "B4": {
+          "grade": 2,
+          "position": "MID",
+          "reason": "两个方向可由将领体系交付，但样本少且安南控制持续性有限，结构成熟度止于B4-2。"
+        }
       },
-      "C": {"C1": 4, "C2": 3, "C3": 3, "major_system_failure_group_refs": [], "major_system_success_group_refs": ["XZTJ-MONGOL-ANNAM-1257", "XZTJ-MONGOL-GORYEO-SIX-CITIES-1253"], "reason": "安南与高丽两次独立远征均完成战斗投送，战斗兑现可到C4；持续占领和跨方向可靠性证据不足，C2/C3取3。"},
+      "C": {
+        "C1": 4,
+        "C2": 3,
+        "C3": 3,
+        "major_system_failure_group_refs": [],
+        "major_system_success_group_refs": [
+          "XZTJ-MONGOL-ANNAM-1257",
+          "XZTJ-MONGOL-GORYEO-SIX-CITIES-1253"
+        ],
+        "reason": "安南与高丽两次独立远征均完成战斗投送，战斗兑现可到C4；持续占领和跨方向可靠性证据不足，C2/C3取3。"
+      },
       "cycle_merges": [],
       "route_overrides": []
     },
@@ -102,13 +231,63 @@
       },
       "AB": {
         "control_contribution_type": "SAVED_UNDER_MAJOR_PRESSURE",
-        "A1": {"start": 4, "end": 4, "reason": "灭宋统一成果剥离后，从既成元朝稳定优势起算；海都、乃颜等压力被压制，但征日与两次安南远征失败使其未上升至支配秩序。"},
-        "A2": {"start": 4, "end": 4, "reason": "东北、西北和西南边疆总体守住，海外与东南亚远征失败未击穿本土防线，任末仍是总体安全但有缺口。"},
-        "B1": {"start_equivalent": 1.5, "end_equivalent": 2.0, "grade": 2, "position": "MID", "reason": "高丽、缅甸及若干西南节点带来有限净控制，征日、安南和爪哇未形成持久新增；加权值1.1，落B1-2。"},
-        "B2": {"grade": 3, "position": "MID", "reason": "平乃颜、应对海都及西南扩展产生跨区域战略作用，但多次远征失败限制全国级净改善。"},
-        "B4": {"grade": 3, "position": "MID", "reason": "行省、诸王和多战区军队具备重复交付能力，海外运输、补给和远征终局的不稳定使结构止于B4-3。"}
+        "A1": {
+          "start": 4,
+          "end": 4,
+          "reason": "灭宋统一成果剥离后，从既成元朝稳定优势起算；海都、乃颜等压力被压制，但征日与两次安南远征失败使其未上升至支配秩序。"
+        },
+        "A2": {
+          "start": 4,
+          "end": 4,
+          "reason": "东北、西北和西南边疆总体守住，海外与东南亚远征失败未击穿本土防线，任末仍是总体安全但有缺口。"
+        },
+        "B1": {
+          "start_equivalent": 0.0,
+          "end_equivalent": 0.25,
+          "grade": 1,
+          "position": "LOW",
+          "reason": "耽罗0.25为本窗口唯一保守、可执行的新增控制；灭宋统一由第一项消费，海外远征或朝贡未入B1。",
+          "regions": [
+            {
+              "object_id": "GORYEO_JEJU_MONGOL_CONTROL",
+              "object_name": "高丽耽罗（济州）蒙古军政控制",
+              "start_equivalent": 0.0,
+              "end_equivalent": 0.25,
+              "control_form": "三别抄终结后的驻军/牧马与军政控制",
+              "evidence_refs": [
+                "docs/史料通读产物/元/续资治通鉴&元史/volume-186.battle-adjudications.json#DINV::KUBLAI::BURMA-1281-1286",
+                "docs/史料通读产物/元/续资治通鉴&元史/volume-187.battle-adjudications.json#DINV::KUBLAI::ANNAM-1284-1285",
+                "docs/公共成果/军事/01-战役登记/yuan-12.json#XZTJ-YUAN-GORYEO-JINDO-JEJU-1271-1273"
+              ],
+              "reason": "1273终结后可确认耽罗由蒙古系统控制；取0.50覆盖，不把高丽整体、缅甸、安南、占城、爪哇或日本远征列入。"
+            }
+          ]
+        },
+        "B2": {
+          "grade": 3,
+          "position": "MID",
+          "reason": "平乃颜、应对海都及西南扩展产生跨区域战略作用，但多次远征失败限制全国级净改善。"
+        },
+        "B4": {
+          "grade": 3,
+          "position": "MID",
+          "reason": "行省、诸王和多战区军队具备重复交付能力，海外运输、补给和远征终局的不稳定使结构止于B4-3。"
+        }
       },
-      "C": {"C1": 4, "C2": 3, "C3": 3, "major_system_failure_group_refs": ["XZTJ-YUAN-JAPAN-EXPEDITION-1280-1281", "XZTJ-YUAN-ANNAM-WAR-1287-1288"], "major_system_success_group_refs": ["XZTJ-YUAN-KHAIDU-WAR-1288-1290", "XZTJ-YUAN-NAYAN-HATAN-REBELLION-1287-1290"], "reason": "大陆投送、平乱和边防反击具有高兑现能力，但征日、安南、爪哇反复暴露海运补给与远征可靠性缺陷，C2/C3均限3。"},
+      "C": {
+        "C1": 4,
+        "C2": 3,
+        "C3": 3,
+        "major_system_failure_group_refs": [
+          "XZTJ-YUAN-JAPAN-EXPEDITION-1280-1281",
+          "XZTJ-YUAN-ANNAM-WAR-1287-1288"
+        ],
+        "major_system_success_group_refs": [
+          "XZTJ-YUAN-KHAIDU-WAR-1288-1290",
+          "XZTJ-YUAN-NAYAN-HATAN-REBELLION-1287-1290"
+        ],
+        "reason": "大陆投送、平乱和边防反击具有高兑现能力，但征日、安南、爪哇反复暴露海运补给与远征可靠性缺陷，C2/C3均限3。"
+      },
       "cycle_merges": [
         {
           "canonical_cycle_ref": "XZTJ-YUAN-GORYEO-JINDO-JEJU-1271-1273",
@@ -134,12 +313,27 @@
             "XZTJ-YUAN-NAYAN-REMNANT-IWUNAR-1291"
           ],
           "d_route": "D_INTERNAL_RESTORATION",
-          "reason": "1291年亦兀纳余党是1287至1290年乃颜哈丹叛乱的残余延续，共享东北叛乱目标与清剿终局。"
+          "parent_benefit_axes": {
+            "SB": "SB3",
+            "SN": "SN0",
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "WR": "WR3"
+          },
+          "reason": "1291年亦兀纳余党是1287至1290年乃颜哈丹叛乱的残余延续，共享东北叛乱目标与清剿终局；余党再度追杀内附民且讨平结果失载，故主力胜利不得登记SB4结构性终结。"
         }
       ],
       "route_overrides": [
-        {"campaign_group_ref": "XZTJ-SHIRIGI-REBELLION-1277", "d_route": "D_INTERNAL_RESTORATION", "reason": "昔里吉叛乱为宗王内部叛乱，伯颜讨平只恢复帝国既有秩序。"},
-        {"campaign_group_ref": "XZTJ-YUAN-FUJIAN-GUANGDONG-BANDIT-WAVE-1288", "d_route": "D_INTERNAL_RESTORATION", "reason": "闽粤多点盗乱属于境内平乱，恢复旧秩序不得获得外战扩张收益。"}
+        {
+          "campaign_group_ref": "XZTJ-SHIRIGI-REBELLION-1277",
+          "d_route": "D_INTERNAL_RESTORATION",
+          "reason": "昔里吉叛乱为宗王内部叛乱，伯颜讨平只恢复帝国既有秩序。"
+        },
+        {
+          "campaign_group_ref": "XZTJ-YUAN-FUJIAN-GUANGDONG-BANDIT-WAVE-1288",
+          "d_route": "D_INTERNAL_RESTORATION",
+          "reason": "闽粤多点盗乱属于境内平乱，恢复旧秩序不得获得外战扩张收益。"
+        }
       ],
       "admitted_large_rebellion_refs": [
         "XZTJ-FUJIAN-CHENDIAOYAN-1280-1281",
@@ -152,82 +346,389 @@
         "XZTJ-YUAN-ZHONGLIANG-REBELLION-1288-1290"
       ]
     },
-    {"ruler_id": "RULER-YUAN-TEMUR", "ruler_name": "铁穆耳", "reign_range": "1294-1307", "first_item_exclusion": {"mode": "NONE", "reason": "第一项未取得正分。"},
+    {
+      "ruler_id": "RULER-YUAN-TEMUR",
+      "ruler_name": "铁穆耳",
+      "reign_range": "1294-1307",
+      "first_item_exclusion": {
+        "mode": "NONE",
+        "reason": "第一项未取得正分。"
+      },
       "AB": {
         "control_contribution_type": "ROUTINE_MAINTENANCE",
-        "A1": {"start": 4, "end": 4, "reason": "承接世祖末期稳定优势，西北与西南压力并未改变总体战略层级。"},
-        "A2": {"start": 4, "end": 4, "reason": "主要边疆维持总体安全，但八百媳妇远征造成显著西南负债。"},
-        "B1": {"start_equivalent": 2.0, "end_equivalent": 1.5, "grade": 1, "position": "LOW", "reason": "接班复用忽必烈交班2.0；祁连、西北等局部成果不能抵消西南失利和退控，净变化-0.5、加权值0.3，落B1-1低段。"},
-        "B2": {"grade": 2, "position": "MID", "reason": "若干边地胜绩和地方平乱具区域作用，不能抵消西南远征失败。"},
-        "B4": {"grade": 2, "position": "MID", "reason": "常态边防仍可运转，但跨区域远征动员与后勤出现重大失灵。"}
+        "A1": {
+          "start": 4,
+          "end": 4,
+          "reason": "承接世祖末期稳定优势，西北与西南压力并未改变总体战略层级。"
+        },
+        "A2": {
+          "start": 4,
+          "end": 4,
+          "reason": "主要边疆维持总体安全，但八百媳妇远征造成显著西南负债。"
+        },
+        "B1": {
+          "start_equivalent": 2.0,
+          "end_equivalent": 1.5,
+          "grade": 1,
+          "position": "LOW",
+          "reason": "接班复用忽必烈交班2.0；祁连、西北等局部成果不能抵消西南失利和退控，净变化-0.5、加权值0.3，落B1-1低段。",
+          "regions": [
+            {
+              "object_id": "YUAN_NORTHWEST_FRONTIER",
+              "object_name": "祁连—西北边防控制",
+              "start_equivalent": 1.0,
+              "end_equivalent": 1.0,
+              "control_form": "SAVED_UNDER_MAJOR_PRESSURE",
+              "evidence_refs": [
+                "docs/史料通读产物/元/续资治通鉴&元史/volume-190.battle-adjudications.json#XZTJ-YUAN-QILAN-CONQUEST-1296",
+                "docs/史料通读产物/元/续资治通鉴&元史/volume-191.battle-adjudications.json#XZTJ-YUAN-SOUTHWEST-SHEJIE-REBELLION-1301-1303"
+              ],
+              "reason": "祁连方向有局部成果并维持既有边防；不把胜负另算新增。"
+            },
+            {
+              "object_id": "YUAN_SOUTHWEST_FRONTIER",
+              "object_name": "云南—西南边疆控制",
+              "start_equivalent": 1.0,
+              "end_equivalent": 0.5,
+              "control_form": "PARTIAL_DURABLE_LOSS",
+              "evidence_refs": [
+                "docs/史料通读产物/元/续资治通鉴&元史/volume-190.battle-adjudications.json#XZTJ-YUAN-QILAN-CONQUEST-1296",
+                "docs/史料通读产物/元/续资治通鉴&元史/volume-191.battle-adjudications.json#XZTJ-YUAN-SOUTHWEST-SHEJIE-REBELLION-1301-1303"
+              ],
+              "reason": "西南战争失利与退控使有效覆盖由1.0降至0.5，保留非创业继承存量的实际退损。"
+            }
+          ]
+        },
+        "B2": {
+          "grade": 2,
+          "position": "MID",
+          "reason": "若干边地胜绩和地方平乱具区域作用，不能抵消西南远征失败。"
+        },
+        "B4": {
+          "grade": 2,
+          "position": "MID",
+          "reason": "常态边防仍可运转，但跨区域远征动员与后勤出现重大失灵。"
+        }
       },
-      "C": {"C1": 3, "C2": 2, "C3": 2, "major_system_failure_group_refs": ["XZTJ-YUAN-EIGHT-HUNDRED-WIVES-WAR-1297-1300"], "major_system_success_group_refs": ["XZTJ-YUAN-QILAN-CONQUEST-1296"], "reason": "一般平乱与边战可交付，八百媳妇连续远征却在动员、补给与终局可靠性上形成重大失败，C2/C3取2。"},
+      "C": {
+        "C1": 3,
+        "C2": 2,
+        "C3": 2,
+        "major_system_failure_group_refs": [
+          "XZTJ-YUAN-EIGHT-HUNDRED-WIVES-WAR-1297-1300"
+        ],
+        "major_system_success_group_refs": [
+          "XZTJ-YUAN-QILAN-CONQUEST-1296"
+        ],
+        "reason": "一般平乱与边战可交付，八百媳妇连续远征却在动员、补给与终局可靠性上形成重大失败，C2/C3取2。"
+      },
       "cycle_merges": [
-      {
-        "canonical_cycle_ref": "XZTJ-YUAN-EIGHT-HUNDRED-WIVES-WAR-1297-1300",
-        "member_campaign_group_refs": ["XZTJ-YUAN-EIGHT-HUNDRED-WIVES-WAR-1297-1300", "XZTJ-YUAN-EIGHT-HUNDRED-WIVES-SHUNYUAN-1301-1303"],
-        "parent_cost_axes": {"P": "P4", "S": "S4", "M": "M3", "A": "A3"},
-        "parent_benefit_axes": {"SB": "SB0", "SN": "SN4", "BCP": "BCP0", "BCN": "BCN3", "WR": "WR0"},
-        "reason": "1297至1303年八百媳妇用兵从首次征发、持续失败到顺元军溃败属于同一西南远征负债链；以后段明确终局闭合前段UNKNOWN。"
-      }
-    ], "route_overrides": [], "admitted_large_rebellion_refs": [
-      "XZTJ-YUAN-GANZHOU-LIULIUSHI-1296",
-      "XZTJ-YUAN-GUANGXI-CHENFEI-1296",
-      "XZTJ-YUAN-SOUTHWEST-SHEJIE-REBELLION-1301-1303",
-      "XZTJ-YUAN-YUNNAN-PUDING-REVOLT-1306"
-    ]},
-    {"ruler_id": "RULER-YUAN-KULUG", "ruler_name": "海山", "reign_range": "1307-1311", "first_item_exclusion": {"mode": "NONE", "reason": "第一项未取得正分。"},
+        {
+          "canonical_cycle_ref": "XZTJ-YUAN-EIGHT-HUNDRED-WIVES-WAR-1297-1300",
+          "member_campaign_group_refs": [
+            "XZTJ-YUAN-EIGHT-HUNDRED-WIVES-WAR-1297-1300",
+            "XZTJ-YUAN-EIGHT-HUNDRED-WIVES-SHUNYUAN-1301-1303"
+          ],
+          "parent_cost_axes": {
+            "P": "P4",
+            "S": "S4",
+            "M": "M3",
+            "A": "A3"
+          },
+          "parent_benefit_axes": {
+            "SB": "SB0",
+            "SN": "SN4",
+            "BCP": "BCP0",
+            "BCN": "BCN3",
+            "WR": "WR0"
+          },
+          "reason": "1297至1303年八百媳妇用兵从首次征发、持续失败到顺元军溃败属于同一西南远征负债链；以后段明确终局闭合前段UNKNOWN。"
+        }
+      ],
+      "route_overrides": [],
+      "admitted_large_rebellion_refs": [
+        "XZTJ-YUAN-GANZHOU-LIULIUSHI-1296",
+        "XZTJ-YUAN-GUANGXI-CHENFEI-1296",
+        "XZTJ-YUAN-SOUTHWEST-SHEJIE-REBELLION-1301-1303",
+        "XZTJ-YUAN-YUNNAN-PUDING-REVOLT-1306"
+      ]
+    },
+    {
+      "ruler_id": "RULER-YUAN-KULUG",
+      "ruler_name": "海山",
+      "reign_range": "1307-1311",
+      "first_item_exclusion": {
+        "mode": "NONE",
+        "reason": "第一项未取得正分。"
+      },
       "AB": {
         "control_contribution_type": "INHERITED_ONLY",
-        "A1": {"start": 4, "end": 4, "reason": "短期窗口继承稳定优势，当前两项低强度周期不足以证明总体态势变化。"},
-        "A2": {"start": 4, "end": 4, "reason": "主要边界维持总体安全，未见可归责的重大改善或破口。"},
-        "B1": {"start_equivalent": 1.5, "end_equivalent": 1.5, "grade": 1, "position": "LOW", "reason": "仅确认存量控制维持；加权值0.6，落B1-1。"},
-        "B2": {"grade": 0, "position": "LOW", "reason": "没有可归责于本窗口的新建或恢复控制成果。"},
-        "B4": {"grade": 0, "position": "LOW", "reason": "存量军事结构为继承所得，两项低强度任务不能证明新增结构贡献。"}
+        "A1": {
+          "start": 4,
+          "end": 4,
+          "reason": "短期窗口继承稳定优势，当前两项低强度周期不足以证明总体态势变化。"
+        },
+        "A2": {
+          "start": 4,
+          "end": 4,
+          "reason": "主要边界维持总体安全，未见可归责的重大改善或破口。"
+        },
+        "B1": {
+          "start_equivalent": 1.5,
+          "end_equivalent": 1.5,
+          "grade": 1,
+          "position": "LOW",
+          "reason": "仅确认存量控制维持；加权值0.6，落B1-1。",
+          "regions": [
+            {
+              "object_id": "YUAN_NORTHWEST_FRONTIER",
+              "object_name": "祁连—西北边防控制",
+              "start_equivalent": 1.0,
+              "end_equivalent": 1.0,
+              "control_form": "ROUTINE_MAINTENANCE",
+              "evidence_refs": [
+                "docs/史料通读产物/元/续资治通鉴&元史/volume-196.battle-adjudications.json#XZTJ-YUAN-EIGHT-HUNDRED-WIVES-CHELI-1309-1311"
+              ],
+              "reason": "接班复用铁穆耳交班的西北存量，未见本窗口整体退出。"
+            },
+            {
+              "object_id": "YUAN_SOUTHWEST_FRONTIER",
+              "object_name": "云南—西南边疆控制",
+              "start_equivalent": 0.5,
+              "end_equivalent": 0.5,
+              "control_form": "SAVED_UNDER_MAJOR_PRESSURE",
+              "evidence_refs": [
+                "docs/史料通读产物/元/续资治通鉴&元史/volume-196.battle-adjudications.json#XZTJ-YUAN-EIGHT-HUNDRED-WIVES-CHELI-1309-1311"
+              ],
+              "reason": "八百媳妇/车里行动不产生新控制，但现有材料也不足以把全部0.5存量清零。"
+            }
+          ]
+        },
+        "B2": {
+          "grade": 0,
+          "position": "LOW",
+          "reason": "没有可归责于本窗口的新建或恢复控制成果。"
+        },
+        "B4": {
+          "grade": 0,
+          "position": "LOW",
+          "reason": "存量军事结构为继承所得，两项低强度任务不能证明新增结构贡献。"
+        }
       },
-      "C": {"C1": 3, "C2": 3, "C3": 3, "major_system_failure_group_refs": [], "major_system_success_group_refs": [], "reason": "两项独立低强度任务能够完成，但样本和强度均不足以上调或证明重大系统失效。"},
-      "cycle_merges": [], "route_overrides": []},
-    {"ruler_id": "RULER-YUAN-AYURBARWADA", "ruler_name": "爱育黎拔力八达", "reign_range": "1311-1320", "first_item_exclusion": {"mode": "NONE", "reason": "第一项未取得正分。"},
+      "C": {
+        "C1": 3,
+        "C2": 3,
+        "C3": 3,
+        "major_system_failure_group_refs": [],
+        "major_system_success_group_refs": [],
+        "reason": "两项独立低强度任务能够完成，但样本和强度均不足以上调或证明重大系统失效。"
+      },
+      "cycle_merges": [],
+      "route_overrides": []
+    },
+    {
+      "ruler_id": "RULER-YUAN-AYURBARWADA",
+      "ruler_name": "爱育黎拔力八达",
+      "reign_range": "1311-1320",
+      "first_item_exclusion": {
+        "mode": "NONE",
+        "reason": "第一项未取得正分。"
+      },
       "AB": {
         "control_contribution_type": "INHERITED_ONLY",
-        "A1": {"start": 4, "end": 4, "reason": "九年窗口以内地治安任务为主，元朝总体仍处稳定优势。"},
-        "A2": {"start": 4, "end": 4, "reason": "地方骚乱未形成主要边界破口，边疆安全层级总体稳定。"},
-        "B1": {"start_equivalent": 1.5, "end_equivalent": 1.5, "grade": 1, "position": "LOW", "reason": "没有实质新增控制，只确认既有控制包维持；加权值0.6。"},
-        "B2": {"grade": 0, "position": "LOW", "reason": "当前材料没有新增或重建的区域级控制成果。"},
-        "B4": {"grade": 0, "position": "LOW", "reason": "平常治安处置不足以证明新增可移交军事结构。"}
+        "A1": {
+          "start": 4,
+          "end": 4,
+          "reason": "九年窗口以内地治安任务为主，元朝总体仍处稳定优势。"
+        },
+        "A2": {
+          "start": 4,
+          "end": 4,
+          "reason": "地方骚乱未形成主要边界破口，边疆安全层级总体稳定。"
+        },
+        "B1": {
+          "start_equivalent": 1.5,
+          "end_equivalent": 1.5,
+          "grade": 1,
+          "position": "LOW",
+          "reason": "没有实质新增控制，只确认既有控制包维持；加权值0.6。",
+          "regions": [
+            {
+              "object_id": "YUAN_NORTHWEST_FRONTIER",
+              "object_name": "祁连—西北边防控制",
+              "start_equivalent": 1.0,
+              "end_equivalent": 1.0,
+              "control_form": "ROUTINE_MAINTENANCE",
+              "evidence_refs": [
+                "docs/史料通读产物/元/续资治通鉴&元史/volume-199.battle-adjudications.json#XZTJ-YUAN-DAHASUN-BORDER-RAID-1317"
+              ],
+              "reason": "边境击退只证明既有西北控制维持，不计新增。"
+            },
+            {
+              "object_id": "YUAN_SOUTHWEST_FRONTIER",
+              "object_name": "云南—西南边疆控制",
+              "start_equivalent": 0.5,
+              "end_equivalent": 0.5,
+              "control_form": "SAVED_UNDER_MAJOR_PRESSURE",
+              "evidence_refs": [
+                "docs/史料通读产物/元/续资治通鉴&元史/volume-200.battle-adjudications.json#XZTJ-YUAN-SHANGSI-JIAOZHI-ZHONGZHOU-1320"
+              ],
+              "reason": "交趾方向受挫不产生新控制，也未闭合既有西南存量整体退出。"
+            }
+          ]
+        },
+        "B2": {
+          "grade": 0,
+          "position": "LOW",
+          "reason": "当前材料没有新增或重建的区域级控制成果。"
+        },
+        "B4": {
+          "grade": 0,
+          "position": "LOW",
+          "reason": "平常治安处置不足以证明新增可移交军事结构。"
+        }
       },
-      "C": {"C1": 3, "C2": 3, "C3": 3, "major_system_failure_group_refs": [], "major_system_success_group_refs": [], "reason": "十七项任务均未达到实质D投资门槛，能说明常态治安交付但不足以支持高档体系评价。"},
-      "cycle_merges": [], "route_overrides": []},
+      "C": {
+        "C1": 3,
+        "C2": 3,
+        "C3": 3,
+        "major_system_failure_group_refs": [],
+        "major_system_success_group_refs": [],
+        "reason": "十七项任务均未达到实质D投资门槛，能说明常态治安交付但不足以支持高档体系评价。"
+      },
+      "cycle_merges": [],
+      "route_overrides": []
+    },
     {
       "ruler_id": "RULER-YUAN-TOGHON-TEMUR",
       "ruler_name": "妥懽帖睦尔",
       "reign_range": "1333-1370",
-      "first_item_exclusion": {"mode": "NONE", "reason": "第一项未取得正分。"},
+      "first_item_exclusion": {
+        "mode": "NONE",
+        "reason": "第一项未取得正分。"
+      },
       "AB": {
         "control_contribution_type": "INHERITED_ONLY",
-        "A1": {"start": 4, "end": 0, "reason": "从仍具全国优势的元朝起点降至大都失守、退出中原的政权生存危机，战略态势完成全级崩塌。"},
-        "A2": {"start": 4, "end": 0, "reason": "河南、江淮、江南、湖广、四川直至北方核心依次失控，主要边界和核心防护体系均告破产。"},
-        "B1": {"start_equivalent": 4.0, "end_equivalent": 0.0, "grade": 0, "position": "LOW", "reason": "虽有察罕等阶段性恢复，终局丧失中原和大都；加权值-2.4，机械落B1-0。"},
-        "B2": {"grade": 0, "position": "LOW", "reason": "局部反攻无法形成任末仍存的区域控制改善，全国控制成果为净负。"},
-        "B4": {"grade": 0, "position": "LOW", "reason": "军阀内战、跨战区失协和中央动员失灵使军事结构不可持续、不可移交。"}
+        "A1": {
+          "start": 4,
+          "end": 0,
+          "reason": "从仍具全国优势的元朝起点降至大都失守、退出中原的政权生存危机，战略态势完成全级崩塌。"
+        },
+        "A2": {
+          "start": 4,
+          "end": 0,
+          "reason": "河南、江淮、江南、湖广、四川直至北方核心依次失控，主要边界和核心防护体系均告破产。"
+        },
+        "B1": {
+          "start_equivalent": 4.0,
+          "end_equivalent": 0.0,
+          "grade": 0,
+          "position": "LOW",
+          "reason": "旧合包4.0改拆为三块起点控制4.0、终点0；加权值-2.4，B1-0不变。",
+          "regions": [
+            {
+              "object_id": "YUAN_NORTH_CHINA_CORE",
+              "object_name": "中原—大都核心控制带",
+              "start_equivalent": 1.8,
+              "end_equivalent": 0.0,
+              "control_form": "直接行省与中央控制",
+              "evidence_refs": [
+                "docs/史料通读产物/元/续资治通鉴&元史/volume-218.battle-adjudications.json#XZTJ-YUAN-COASTAL-WOKOU-1358-1363",
+                "docs/评分结算/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json#妥懽帖睦尔"
+              ],
+              "reason": "起点可确认元朝中原—大都核心；1368终局失去，列为净退控。"
+            },
+            {
+              "object_id": "YUAN_JIANGNAN_CONTROL",
+              "object_name": "江南行省控制带",
+              "start_equivalent": 1.2,
+              "end_equivalent": 0.0,
+              "control_form": "直接行省控制",
+              "evidence_refs": [
+                "docs/史料通读产物/元/续资治通鉴&元史/volume-218.battle-adjudications.json#XZTJ-YUAN-COASTAL-WOKOU-1358-1363",
+                "docs/评分结算/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json#妥懽帖睦尔"
+              ],
+              "reason": "起点可确认行省体系，红巾与南方政权扩张后终局失去。"
+            },
+            {
+              "object_id": "YUAN_NORTHWEST_LIAODONG_REMAINDER",
+              "object_name": "西北—辽东剩余边疆控制",
+              "start_equivalent": 1.0,
+              "end_equivalent": 0.0,
+              "control_form": "行省/行枢密院与边镇控制",
+              "evidence_refs": [
+                "docs/史料通读产物/元/续资治通鉴&元史/volume-218.battle-adjudications.json#XZTJ-YUAN-COASTAL-WOKOU-1358-1363",
+                "docs/评分结算/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json#妥懽帖睦尔"
+              ],
+              "reason": "末年多方向退出；不把敌方伤亡或阶段恢复当作交班控制。"
+            }
+          ]
+        },
+        "B2": {
+          "grade": 0,
+          "position": "LOW",
+          "reason": "局部反攻无法形成任末仍存的区域控制改善，全国控制成果为净负。"
+        },
+        "B4": {
+          "grade": 0,
+          "position": "LOW",
+          "reason": "军阀内战、跨战区失协和中央动员失灵使军事结构不可持续、不可移交。"
+        }
       },
-      "C": {"C1": 3, "C2": 1, "C3": 0, "major_system_failure_group_refs": ["XZTJ-YUAN-TIANWAN-1351-1353", "XZTJ-ZHANG-SHICHENG-JIANGNAN-EXPANSION-1356", "XZTJ-MING-NORTHERN-EXPEDITION-CAPITAL-APPROACH-1368"], "major_system_success_group_refs": ["XZTJ-LIUFUTONG-NORTHERN-OFFENSIVE-1357-1359"], "reason": "察罕、扩廓等仍能取得若干战役和阶段性恢复，故C1不归零；但全国动员无法持续、军阀互斗并最终亡失中原，C2取1、C3取0。"},
+      "C": {
+        "C1": 3,
+        "C2": 1,
+        "C3": 0,
+        "major_system_failure_group_refs": [
+          "XZTJ-YUAN-TIANWAN-1351-1353",
+          "XZTJ-ZHANG-SHICHENG-JIANGNAN-EXPANSION-1356",
+          "XZTJ-MING-NORTHERN-EXPEDITION-CAPITAL-APPROACH-1368"
+        ],
+        "major_system_success_group_refs": [
+          "XZTJ-LIUFUTONG-NORTHERN-OFFENSIVE-1357-1359"
+        ],
+        "reason": "察罕、扩廓等仍能取得若干战役和阶段性恢复，故C1不归零；但全国动员无法持续、军阀互斗并最终亡失中原，C2取1、C3取0。"
+      },
       "cycle_merges": [
         {
           "canonical_cycle_ref": "XZTJ-YUAN-FANG-GUOZHEN-1348-1350",
-          "member_campaign_group_refs": ["MTJ-FANG-GUOZHEN-MARITIME-1348-1353", "XZTJ-YUAN-FANG-GUOZHEN-1348-1350"],
+          "member_campaign_group_refs": [
+            "MTJ-FANG-GUOZHEN-MARITIME-1348-1353",
+            "XZTJ-YUAN-FANG-GUOZHEN-1348-1350"
+          ],
           "d_route": "D_INTERNAL_RESTORATION",
-          "parent_benefit_axes": {"SB": "SB0", "SN": "SN4", "BCP": "BCP0", "BCN": "BCN3", "WR": "WR0"},
+          "parent_benefit_axes": {
+            "SB": "SB0",
+            "SN": "SN4",
+            "BCP": "BCP0",
+            "BCN": "BCN3",
+            "WR": "WR0"
+          },
           "reason": "两部编年对方国珍海上武装形成、招降失败与浙东控制受损的重复展开，属于同一1348至1353沿海叛乱父周期。"
         },
         {
           "canonical_cycle_ref": "XZTJ-YUAN-REDTURBAN-LIUFUTONG-1351-1352",
           "member_campaign_group_refs": [
-            "MTJ-LIU-FUTONG-EXPANSION-1352", "MTJ-YUAN-XUZHOU-1352", "XZTJ-YUAN-HENAN-NANYANG-1352", "XZTJ-YUAN-REDTURBAN-LIUFUTONG-1351-1352", "XZTJ-YUAN-XUZHOU-REDARMY-1351-1352"
+            "MTJ-LIU-FUTONG-EXPANSION-1352",
+            "MTJ-YUAN-XUZHOU-1352",
+            "XZTJ-YUAN-HENAN-NANYANG-1352",
+            "XZTJ-YUAN-REDTURBAN-LIUFUTONG-1351-1352",
+            "XZTJ-YUAN-XUZHOU-REDARMY-1351-1352"
           ],
           "d_route": "D_INTERNAL_RESTORATION",
-          "parent_cost_axes": {"P": "P4", "S": "S4", "M": "M3", "A": "A3"},
-          "parent_benefit_axes": {"SB": "SB0", "SN": "SN4", "BCP": "BCP1", "BCN": "BCN3", "WR": "WR1"},
+          "parent_cost_axes": {
+            "P": "P4",
+            "S": "S4",
+            "M": "M3",
+            "A": "A3"
+          },
+          "parent_benefit_axes": {
+            "SB": "SB0",
+            "SN": "SN4",
+            "BCP": "BCP1",
+            "BCN": "BCN3",
+            "WR": "WR1"
+          },
           "reason": "两部编年对1351至1352刘福通红巾军起事、扩张及元军初期应战的重复叙述合为起事初段父周期。"
         },
         {
@@ -253,8 +754,19 @@
             "XZTJ-YUAN-REDTURBAN-SHANDONG-1357-1362"
           ],
           "d_route": "D_INTERNAL_RESTORATION",
-          "parent_cost_axes": {"P": "P4", "S": "S5", "M": "M4", "A": "A3"},
-          "parent_benefit_axes": {"SB": "SB4", "SN": "SN0", "BCP": "BCP4", "BCN": "BCN0", "WR": "WR3"},
+          "parent_cost_axes": {
+            "P": "P4",
+            "S": "S5",
+            "M": "M4",
+            "A": "A3"
+          },
+          "parent_benefit_axes": {
+            "SB": "SB4",
+            "SN": "SN0",
+            "BCP": "BCP4",
+            "BCN": "BCN0",
+            "WR": "WR3"
+          },
           "reason": "刘福通北伐、毛贵逼近大都、关陕辽东展开与察罕父子收复汴梁山东是同一红巾北伐及反攻终局；跨来源和分战区不得拆成十八次国家投资。"
         },
         {
@@ -275,124 +787,359 @@
             "XZTJ-YUAN-JIANGXI-SANGJIE-1352"
           ],
           "d_route": "D_INTERNAL_RESTORATION",
-          "parent_cost_axes": {"P": "P4", "S": "S5", "M": "M4", "A": "A4"},
-          "parent_benefit_axes": {"SB": "SB0", "SN": "SN4", "BCP": "BCP2", "BCN": "BCN4", "WR": "WR3"},
+          "parent_cost_axes": {
+            "P": "P4",
+            "S": "S5",
+            "M": "M4",
+            "A": "A4"
+          },
+          "parent_benefit_axes": {
+            "SB": "SB0",
+            "SN": "SN4",
+            "BCP": "BCP2",
+            "BCN": "BCN4",
+            "WR": "WR3"
+          },
           "reason": "徐寿辉天完政权从蕲黄起事向湖广、江西、江浙和福建扩展，元军多次恢复节点但未消灭其体系；各方向共享持续动员与未闭合终局。"
         },
         {
           "canonical_cycle_ref": "XZTJ-CHAHAN-GUANZHONG-1357-1358",
-          "member_campaign_group_refs": ["XZTJ-CHAHAN-GUANZHONG-1356", "XZTJ-CHAHAN-GUANZHONG-1357-1358", "XZTJ-YUAN-GUANZHONG-1356", "XZTJ-YUAN-LIXIXI-GUANZHONG-1358"],
+          "member_campaign_group_refs": [
+            "XZTJ-CHAHAN-GUANZHONG-1356",
+            "XZTJ-CHAHAN-GUANZHONG-1357-1358",
+            "XZTJ-YUAN-GUANZHONG-1356",
+            "XZTJ-YUAN-LIXIXI-GUANZHONG-1358"
+          ],
           "d_route": "D_INTERNAL_RESTORATION",
-          "parent_benefit_axes": {"SB": "SB3", "SN": "SN0", "BCP": "BCP3", "BCN": "BCN0", "WR": "WR2"},
+          "parent_benefit_axes": {
+            "SB": "SB3",
+            "SN": "SN0",
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "WR": "WR2"
+          },
           "reason": "1356至1358年潼关、商州与关中反复争夺及察罕体系反攻属于同一关中恢复周期，以最终恢复主要节点闭合。"
         },
         {
           "canonical_cycle_ref": "XZTJ-YUAN-REDTURBAN-HENAN-1354-1356",
-          "member_campaign_group_refs": ["XZTJ-YUAN-CHAHAN-HENAN-HEBEI-1355", "XZTJ-YUAN-REDTURBAN-HENAN-1354-1356", "XZTJ-YUAN-REDTURBAN-HENAN-1355-1357", "XZTJ-YUAN-REDTURBAN-HUAI-HENAN-1354-1355"],
+          "member_campaign_group_refs": [
+            "XZTJ-YUAN-CHAHAN-HENAN-HEBEI-1355",
+            "XZTJ-YUAN-REDTURBAN-HENAN-1354-1356",
+            "XZTJ-YUAN-REDTURBAN-HENAN-1355-1357",
+            "XZTJ-YUAN-REDTURBAN-HUAI-HENAN-1354-1355"
+          ],
           "d_route": "D_INTERNAL_RESTORATION",
-          "parent_cost_axes": {"P": "P3", "S": "S3", "M": "M3", "A": "A2"},
-          "parent_benefit_axes": {"SB": "SB3", "SN": "SN0", "BCP": "BCP3", "BCN": "BCN0", "WR": "WR3"},
+          "parent_cost_axes": {
+            "P": "P3",
+            "S": "S3",
+            "M": "M3",
+            "A": "A2"
+          },
+          "parent_benefit_axes": {
+            "SB": "SB3",
+            "SN": "SN0",
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "WR": "WR3"
+          },
           "reason": "1354至1357年河南红巾军扩张、元军多次败退与察罕体系反攻是同一河南战区恢复周期，不按相邻年份和补叙卡重复计分。"
         },
         {
           "canonical_cycle_ref": "XZTJ-CHENYOU-LIANG-JIANGXI-EXPANSION-1358-1360",
           "member_campaign_group_refs": [
-            "MTJ-CHEN-ANQING-1358", "MTJ-CHEN-FUJIAN-1359", "MTJ-CHEN-GANZHOU-1358", "MTJ-CHEN-JIANGXI-1358", "MTJ-CHEN-XINZHOU-SIEGE-1359",
-            "XZTJ-CHENYOU-LIANG-ANQING-1357-1358", "XZTJ-CHENYOU-LIANG-EXPANSION-1359", "XZTJ-CHENYOU-LIANG-HUGUANG-1360", "XZTJ-CHENYOU-LIANG-JIANGXI-EXPANSION-1358-1360", "XZTJ-XINZHOU-1359"
+            "MTJ-CHEN-ANQING-1358",
+            "MTJ-CHEN-FUJIAN-1359",
+            "MTJ-CHEN-GANZHOU-1358",
+            "MTJ-CHEN-JIANGXI-1358",
+            "MTJ-CHEN-XINZHOU-SIEGE-1359",
+            "XZTJ-CHENYOU-LIANG-ANQING-1357-1358",
+            "XZTJ-CHENYOU-LIANG-EXPANSION-1359",
+            "XZTJ-CHENYOU-LIANG-HUGUANG-1360",
+            "XZTJ-CHENYOU-LIANG-JIANGXI-EXPANSION-1358-1360",
+            "XZTJ-XINZHOU-1359"
           ],
           "d_route": "D_INTERNAL_RESTORATION",
-          "parent_cost_axes": {"P": "P4", "S": "S4", "M": "M3", "A": "A3"},
-          "parent_benefit_axes": {"SB": "SB0", "SN": "SN4", "BCP": "BCP0", "BCN": "BCN4", "WR": "WR0"},
+          "parent_cost_axes": {
+            "P": "P4",
+            "S": "S4",
+            "M": "M3",
+            "A": "A3"
+          },
+          "parent_benefit_axes": {
+            "SB": "SB0",
+            "SN": "SN4",
+            "BCP": "BCP0",
+            "BCN": "BCN4",
+            "WR": "WR0"
+          },
           "reason": "陈友谅体系在1357至1360年对安庆、江西、福建与湖广的连续扩张是同一战略阶段；《明通鉴》与《续资治通鉴》分卡按共同终局合并。"
         },
         {
           "canonical_cycle_ref": "XZTJ-ZHANG-SHICHENG-JIANGNAN-EXPANSION-1356",
           "member_campaign_group_refs": [
-            "MTJ-ZHANG-JIANGNAN-1356", "MTJ-ZHANG-SHICHENG-FOUNDING-1353", "XZTJ-ZHANG-SHICHENG-EMERGENCE-1353", "XZTJ-ZHANG-SHICHENG-JIANGNAN-EXPANSION-1356", "XZTJ-ZHANGSHICHENG-HUAIBEI-1360"
+            "MTJ-ZHANG-JIANGNAN-1356",
+            "MTJ-ZHANG-SHICHENG-FOUNDING-1353",
+            "XZTJ-ZHANG-SHICHENG-EMERGENCE-1353",
+            "XZTJ-ZHANG-SHICHENG-JIANGNAN-EXPANSION-1356",
+            "XZTJ-ZHANGSHICHENG-HUAIBEI-1360"
           ],
           "d_route": "D_INTERNAL_RESTORATION",
-          "parent_cost_axes": {"P": "P3", "S": "S4", "M": "M4", "A": "A4"},
-          "parent_benefit_axes": {"SB": "SB0", "SN": "SN5", "BCP": "BCP0", "BCN": "BCN5", "WR": "WR0"},
+          "parent_cost_axes": {
+            "P": "P3",
+            "S": "S4",
+            "M": "M4",
+            "A": "A4"
+          },
+          "parent_benefit_axes": {
+            "SB": "SB0",
+            "SN": "SN5",
+            "BCP": "BCP0",
+            "BCN": "BCN5",
+            "WR": "WR0"
+          },
           "reason": "张士诚从高邮起事到江南扩张及淮北延续是同一割据体系造成的连续控制损失，跨来源重复叙述合为一项战略负债。"
         },
         {
           "canonical_cycle_ref": "XZTJ-MINGYUZHEN-SICHUAN-FOUNDING-1357-1362",
-          "member_campaign_group_refs": ["MTJ-MING-YUZHEN-YUNNAN-1362", "XZTJ-MINGYUZHEN-NORTHWEST-EXPANSION-1362", "XZTJ-MINGYUZHEN-SICHUAN-EXPANSION-1361", "XZTJ-MINGYUZHEN-SICHUAN-FOUNDING-1357-1362", "XZTJ-MINGYUZHEN-YUNNAN-1362"],
+          "member_campaign_group_refs": [
+            "MTJ-MING-YUZHEN-YUNNAN-1362",
+            "XZTJ-MINGYUZHEN-NORTHWEST-EXPANSION-1362",
+            "XZTJ-MINGYUZHEN-SICHUAN-EXPANSION-1361",
+            "XZTJ-MINGYUZHEN-SICHUAN-FOUNDING-1357-1362",
+            "XZTJ-MINGYUZHEN-YUNNAN-1362"
+          ],
           "d_route": "D_INTERNAL_RESTORATION",
-          "parent_cost_axes": {"P": "P3", "S": "S4", "M": "M3", "A": "A3"},
-          "parent_benefit_axes": {"SB": "SB0", "SN": "SN4", "BCP": "BCP0", "BCN": "BCN4", "WR": "WR0"},
+          "parent_cost_axes": {
+            "P": "P3",
+            "S": "S4",
+            "M": "M3",
+            "A": "A3"
+          },
+          "parent_benefit_axes": {
+            "SB": "SB0",
+            "SN": "SN4",
+            "BCP": "BCP0",
+            "BCN": "BCN4",
+            "WR": "WR0"
+          },
           "reason": "明玉珍从天完西征到据有四川、进取陕南与云南是同一西南割据形成阶段，元朝侧只结算一次区域体系失控。"
         },
         {
           "canonical_cycle_ref": "XZTJ-ZHU-YUANZHANG-JIQING-1355-1356",
           "member_campaign_group_refs": [
-            "MTJ-HAOZHOU-SIEGE-1352-1353", "MTJ-ZHU-DINGYUAN-CHUZHOU-1354", "MTJ-ZHU-HEZHOU-CAPTURE-1355", "MTJ-ZHU-HEZHOU-DEFENSE-1355", "MTJ-ZHU-JIANGNAN-1356", "MTJ-ZHU-LIUHE-1354", "MTJ-ZHU-YANGTZE-CROSSING-1355",
-            "XZTJ-ZHU-YUANZHANG-CHUZHOU-HEZHOU-1354-1355", "XZTJ-ZHU-YUANZHANG-CROSS-YANGTZE-1355-1356", "XZTJ-ZHU-YUANZHANG-EMERGENCE-1352-1353", "XZTJ-ZHU-YUANZHANG-JIQING-1355-1356"
+            "MTJ-HAOZHOU-SIEGE-1352-1353",
+            "MTJ-ZHU-DINGYUAN-CHUZHOU-1354",
+            "MTJ-ZHU-HEZHOU-CAPTURE-1355",
+            "MTJ-ZHU-HEZHOU-DEFENSE-1355",
+            "MTJ-ZHU-JIANGNAN-1356",
+            "MTJ-ZHU-LIUHE-1354",
+            "MTJ-ZHU-YANGTZE-CROSSING-1355",
+            "XZTJ-ZHU-YUANZHANG-CHUZHOU-HEZHOU-1354-1355",
+            "XZTJ-ZHU-YUANZHANG-CROSS-YANGTZE-1355-1356",
+            "XZTJ-ZHU-YUANZHANG-EMERGENCE-1352-1353",
+            "XZTJ-ZHU-YUANZHANG-JIQING-1355-1356"
           ],
           "d_route": "D_INTERNAL_RESTORATION",
-          "parent_cost_axes": {"P": "P3", "S": "S4", "M": "M3", "A": "A3"},
-          "parent_benefit_axes": {"SB": "SB0", "SN": "SN4", "BCP": "BCP0", "BCN": "BCN4", "WR": "WR0"},
+          "parent_cost_axes": {
+            "P": "P3",
+            "S": "S4",
+            "M": "M3",
+            "A": "A3"
+          },
+          "parent_benefit_axes": {
+            "SB": "SB0",
+            "SN": "SN4",
+            "BCP": "BCP0",
+            "BCN": "BCN4",
+            "WR": "WR0"
+          },
           "reason": "朱元璋从濠州体系崛起、定滁和、渡江到取得集庆是一个连续创业突破阶段；元朝侧不得按十一张卡重复结算同一江南防线崩解。"
         },
         {
           "canonical_cycle_ref": "XZTJ-WU-ZHEJIANG-EXPANSION-1357-1360",
           "member_campaign_group_refs": [
-            "MTJ-ZHU-CHUZHOU-1359", "MTJ-ZHU-GUANGDE-1356", "MTJ-ZHU-HUIZHOU-1357", "MTJ-ZHU-JIANDE-DEFENSE-1358", "MTJ-ZHU-NINGGUO-1357", "MTJ-ZHU-QUZHOU-1359", "MTJ-ZHU-WUZHOU-1358",
-            "XZTJ-WU-CHUZHOU-1359", "XZTJ-WU-CHUZHOU-1359-1360", "XZTJ-WU-QUZHOU-1359", "XZTJ-WU-WUZHOU-1358", "XZTJ-WU-ZHEJIANG-EXPANSION-1357-1360", "XZTJ-ZHU-YUANZHANG-JIANGNAN-EXPANSION-1356"
+            "MTJ-ZHU-CHUZHOU-1359",
+            "MTJ-ZHU-GUANGDE-1356",
+            "MTJ-ZHU-HUIZHOU-1357",
+            "MTJ-ZHU-JIANDE-DEFENSE-1358",
+            "MTJ-ZHU-NINGGUO-1357",
+            "MTJ-ZHU-QUZHOU-1359",
+            "MTJ-ZHU-WUZHOU-1358",
+            "XZTJ-WU-CHUZHOU-1359",
+            "XZTJ-WU-CHUZHOU-1359-1360",
+            "XZTJ-WU-QUZHOU-1359",
+            "XZTJ-WU-WUZHOU-1358",
+            "XZTJ-WU-ZHEJIANG-EXPANSION-1357-1360",
+            "XZTJ-ZHU-YUANZHANG-JIANGNAN-EXPANSION-1356"
           ],
           "d_route": "D_INTERNAL_RESTORATION",
-          "parent_cost_axes": {"P": "P4", "S": "S4", "M": "M3", "A": "A3"},
-          "parent_benefit_axes": {"SB": "SB0", "SN": "SN4", "BCP": "BCP0", "BCN": "BCN4", "WR": "WR0"},
+          "parent_cost_axes": {
+            "P": "P4",
+            "S": "S4",
+            "M": "M3",
+            "A": "A3"
+          },
+          "parent_benefit_axes": {
+            "SB": "SB0",
+            "SN": "SN4",
+            "BCP": "BCP0",
+            "BCN": "BCN4",
+            "WR": "WR0"
+          },
           "reason": "吴国公政权1356至1360年向皖南浙东连续扩张、元军反攻失败属于同一江浙控制崩解阶段；分城节点合为一个父周期。"
         },
         {
           "canonical_cycle_ref": "XZTJ-MING-NORTHERN-EXPEDITION-CAPITAL-APPROACH-1368",
           "member_campaign_group_refs": [
-            "MTJ-MING-NORTHERN-REMNANTS-1370", "MTJ-MING-NORTHERN-WAR-1370", "MTJ-ZHU-GUANGXI-1368", "MTJ-ZHU-GUANGXI-HUNAN-1368", "MTJ-ZHU-KOKO-GUANZHONG-1369", "MTJ-ZHU-NORTHERN-EXPEDITION-GANSHAN-1369", "MTJ-ZHU-NORTHERN-EXPEDITION-GUANZHONG-1369", "MTJ-ZHU-NORTHERN-EXPEDITION-HEBEI-1368", "MTJ-ZHU-NORTHERN-EXPEDITION-HENAN-1368", "MTJ-ZHU-NORTHERN-EXPEDITION-SHANDONG-1367-1368", "MTJ-ZHU-NORTHERN-EXPEDITION-SHANXI-1368", "MTJ-ZHU-NORTHERN-EXPEDITION-YUANDU-1368", "MTJ-ZHU-YUAN-ANFENG-1366", "MTJ-ZHU-YUAN-XUZHOU-1367",
-            "XZTJ-MING-HENAN-CAMPAIGN-1368", "XZTJ-MING-NORTHERN-EXPEDITION-CAPITAL-APPROACH-1368", "XZTJ-MING-NORTHERN-EXPEDITION-HEBEI-1368", "XZTJ-MING-SHANDONG-CAMPAIGN-1367", "XZTJ-MING-SHANDONG-CAMPAIGN-1367-1368", "XZTJ-MING-SHANDONG-CLEANUP-1368"
+            "MTJ-MING-NORTHERN-REMNANTS-1370",
+            "MTJ-MING-NORTHERN-WAR-1370",
+            "MTJ-ZHU-GUANGXI-1368",
+            "MTJ-ZHU-GUANGXI-HUNAN-1368",
+            "MTJ-ZHU-KOKO-GUANZHONG-1369",
+            "MTJ-ZHU-NORTHERN-EXPEDITION-GANSHAN-1369",
+            "MTJ-ZHU-NORTHERN-EXPEDITION-GUANZHONG-1369",
+            "MTJ-ZHU-NORTHERN-EXPEDITION-HEBEI-1368",
+            "MTJ-ZHU-NORTHERN-EXPEDITION-HENAN-1368",
+            "MTJ-ZHU-NORTHERN-EXPEDITION-SHANDONG-1367-1368",
+            "MTJ-ZHU-NORTHERN-EXPEDITION-SHANXI-1368",
+            "MTJ-ZHU-NORTHERN-EXPEDITION-YUANDU-1368",
+            "MTJ-ZHU-YUAN-ANFENG-1366",
+            "MTJ-ZHU-YUAN-XUZHOU-1367",
+            "XZTJ-MING-HENAN-CAMPAIGN-1368",
+            "XZTJ-MING-NORTHERN-EXPEDITION-CAPITAL-APPROACH-1368",
+            "XZTJ-MING-NORTHERN-EXPEDITION-HEBEI-1368",
+            "XZTJ-MING-SHANDONG-CAMPAIGN-1367",
+            "XZTJ-MING-SHANDONG-CAMPAIGN-1367-1368",
+            "XZTJ-MING-SHANDONG-CLEANUP-1368"
           ],
           "d_route": "D_INTERNAL_RESTORATION",
-          "parent_cost_axes": {"P": "P4", "S": "S5", "M": "M4", "A": "A4"},
-          "parent_benefit_axes": {"SB": "SB0", "SN": "SN5", "BCP": "BCP0", "BCN": "BCN5", "WR": "WR0"},
+          "parent_cost_axes": {
+            "P": "P4",
+            "S": "S5",
+            "M": "M4",
+            "A": "A4"
+          },
+          "parent_benefit_axes": {
+            "SB": "SB0",
+            "SN": "SN5",
+            "BCP": "BCP0",
+            "BCN": "BCN5",
+            "WR": "WR0"
+          },
           "reason": "朱元璋1366至1370年由淮北准备、北伐山东河南河北、攻取元都并追击关陕残余，是导致元朝退出中原的同一终局战争链。"
         },
         {
           "canonical_cycle_ref": "XZTJ-YUAN-GAOYOU-HUAI-1356",
-          "member_campaign_group_refs": ["MTJ-YUAN-GAOYOU-1354", "XZTJ-YUAN-ANQING-YUQUE-1352", "XZTJ-YUAN-ANQING-YUQUE-1356", "XZTJ-YUAN-GAOYOU-HUAI-1356", "XZTJ-YUAN-HUAIAN-1356"],
+          "member_campaign_group_refs": [
+            "MTJ-YUAN-GAOYOU-1354",
+            "XZTJ-YUAN-ANQING-YUQUE-1352",
+            "XZTJ-YUAN-ANQING-YUQUE-1356",
+            "XZTJ-YUAN-GAOYOU-HUAI-1356",
+            "XZTJ-YUAN-HUAIAN-1356"
+          ],
           "d_route": "D_INTERNAL_STRATEGIC",
-          "parent_cost_axes": {"P": "P4", "S": "S4", "M": "M4", "A": "A3", "WC": "WC4"},
-          "parent_benefit_axes": {"SB": "SB0", "SN": "SN4", "BCP": "BCP0", "BCN": "BCN4", "WR": "WR0"},
+          "parent_cost_axes": {
+            "P": "P4",
+            "S": "S4",
+            "M": "M4",
+            "A": "A3",
+            "WC": "WC4"
+          },
+          "parent_benefit_axes": {
+            "SB": "SB0",
+            "SN": "SN4",
+            "BCP": "BCP0",
+            "BCN": "BCN4",
+            "WR": "WR0"
+          },
           "reason": "1352至1356年安庆、淮安与高邮战线是红巾起事后同一淮河下游控制崩解和元军反复围剿链，五个州城节点合为一个国家级内战父周期。"
         },
         {
           "canonical_cycle_ref": "XZTJ-YUAN-HENAN-MIAO-1354",
-          "member_campaign_group_refs": ["XZTJ-YUAN-HENAN-HORSEBANDITS-1350", "XZTJ-YUAN-HENAN-MIAO-1354", "XZTJ-YUAN-HENAN-SHAHE-1352"],
+          "member_campaign_group_refs": [
+            "XZTJ-YUAN-HENAN-HORSEBANDITS-1350",
+            "XZTJ-YUAN-HENAN-MIAO-1354",
+            "XZTJ-YUAN-HENAN-SHAHE-1352"
+          ],
           "d_route": "D_INTERNAL_STRATEGIC",
-          "parent_cost_axes": {"P": "P3", "S": "S4", "M": "M3", "A": "A3", "WC": "WC4"},
-          "parent_benefit_axes": {"SB": "SB0", "SN": "SN4", "BCP": "BCP0", "BCN": "BCN3", "WR": "WR0"},
+          "parent_cost_axes": {
+            "P": "P3",
+            "S": "S4",
+            "M": "M3",
+            "A": "A3",
+            "WC": "WC4"
+          },
+          "parent_benefit_axes": {
+            "SB": "SB0",
+            "SN": "SN4",
+            "BCP": "BCP0",
+            "BCN": "BCN3",
+            "WR": "WR0"
+          },
           "reason": "1350至1354年河南马贼、沙河与苗军扩张共享中原治安崩坏和连续国家平乱投入，按一个河南父周期结算。"
         },
         {
           "canonical_cycle_ref": "XZTJ-YUAN-REDTURBAN-JIANGXI-1355",
-          "member_campaign_group_refs": ["XZTJ-YUAN-JIANGXI-JIANCHANG-1352", "XZTJ-YUAN-JIANGZHOU-1352", "XZTJ-YUAN-REDTURBAN-JIANGXI-1355"],
+          "member_campaign_group_refs": [
+            "XZTJ-YUAN-JIANGXI-JIANCHANG-1352",
+            "XZTJ-YUAN-JIANGZHOU-1352",
+            "XZTJ-YUAN-REDTURBAN-JIANGXI-1355"
+          ],
           "d_route": "D_INTERNAL_STRATEGIC",
-          "parent_cost_axes": {"P": "P3", "S": "S4", "M": "M3", "A": "A3", "WC": "WC4"},
-          "parent_benefit_axes": {"SB": "SB0", "SN": "SN4", "BCP": "BCP0", "BCN": "BCN4", "WR": "WR0"},
+          "parent_cost_axes": {
+            "P": "P3",
+            "S": "S4",
+            "M": "M3",
+            "A": "A3",
+            "WC": "WC4"
+          },
+          "parent_benefit_axes": {
+            "SB": "SB0",
+            "SN": "SN4",
+            "BCP": "BCP0",
+            "BCN": "BCN4",
+            "WR": "WR0"
+          },
           "reason": "建昌、江州至1355年江西红巾扩张属于同一江西战区失控链，不按州城和年度拆成三项负债。"
         },
         {
           "canonical_cycle_ref": "XZTJ-YUAN-SONGJIANG-MILITARY-BREAKDOWN-1356",
-          "member_campaign_group_refs": ["XZTJ-YUAN-MIAO-MUTINY-JIQING-1356", "XZTJ-YUAN-SONGJIANG-MILITARY-BREAKDOWN-1356", "XZTJ-YUAN-XUANZHOU-LONGSPEAR-1356"],
+          "member_campaign_group_refs": [
+            "XZTJ-YUAN-MIAO-MUTINY-JIQING-1356",
+            "XZTJ-YUAN-SONGJIANG-MILITARY-BREAKDOWN-1356",
+            "XZTJ-YUAN-XUANZHOU-LONGSPEAR-1356"
+          ],
           "d_route": "D_INTERNAL_STRATEGIC",
-          "parent_cost_axes": {"P": "P3", "S": "S4", "M": "M3", "A": "A3", "WC": "WC4"},
-          "parent_benefit_axes": {"SB": "SB0", "SN": "SN4", "BCP": "BCP0", "BCN": "BCN4", "WR": "WR0"},
+          "parent_cost_axes": {
+            "P": "P3",
+            "S": "S4",
+            "M": "M3",
+            "A": "A3",
+            "WC": "WC4"
+          },
+          "parent_benefit_axes": {
+            "SB": "SB0",
+            "SN": "SN4",
+            "BCP": "BCP0",
+            "BCN": "BCN4",
+            "WR": "WR0"
+          },
           "reason": "1356年集庆苗军变、松江军政崩坏与宣州长枪军属于同一江南军队失控和控制瓦解阶段，合为一个父周期。"
         },
         {
           "canonical_cycle_ref": "MTJ-YUAN-BOLOR-COUP-1364-1365",
-          "member_campaign_group_refs": ["MTJ-YUAN-BOLOR-COUP-1364-1365", "XZTJ-YUAN-BORO-CAPITAL-COUP-1364"],
+          "member_campaign_group_refs": [
+            "MTJ-YUAN-BOLOR-COUP-1364-1365",
+            "XZTJ-YUAN-BORO-CAPITAL-COUP-1364"
+          ],
           "d_route": "D_INTERNAL_RESTORATION",
-          "parent_benefit_axes": {"SB": "SB3", "SN": "SN3", "BCP": "BCP0", "BCN": "BCN0", "WR": "WR0"},
+          "parent_benefit_axes": {
+            "SB": "SB3",
+            "SN": "SN3",
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "WR": "WR0"
+          },
           "reason": "孛罗帖木儿入京、太子与扩廓反击及宫门刺杀是同一中央军阀政变终局；两部编年重复卡合并并保留内战安全损失。"
         }
       ],
@@ -423,8 +1170,16 @@
         "XZTJ-YUAN-LEHUMUTEMUR-REBELLION-1360"
       ],
       "route_overrides": [
-        {"campaign_group_ref": "XZTJ-YUAN-HAOZHOU-GUOZIXING-1352-1353", "d_route": "D_INTERNAL_STRATEGIC", "parent_return_class": "NEGATIVE_RETURN", "reason": "郭子兴军夺取濠州、元军围攻未克，周期终局为城池持续失控，按内部战争负收益结算。"},
-        {"campaign_group_ref": "XZTJ-YUAN-LEHUMUTEMUR-REBELLION-1360", "d_route": "D_INTERNAL_STRATEGIC", "parent_return_class": "NEGATIVE_RETURN", "reason": "内部叛乱分化未能闭合讨伐，元廷讨军失败，按内部战略负收益结算。"}
+        {
+          "campaign_group_ref": "XZTJ-YUAN-HAOZHOU-GUOZIXING-1352-1353",
+          "d_route": "D_INTERNAL_STRATEGIC",
+          "reason": "郭子兴军夺取濠州、元军围攻未克，周期终局为城池持续失控，按内部战争负收益结算。"
+        },
+        {
+          "campaign_group_ref": "XZTJ-YUAN-LEHUMUTEMUR-REBELLION-1360",
+          "d_route": "D_INTERNAL_STRATEGIC",
+          "reason": "内部叛乱分化未能闭合讨伐，元廷讨军失败，按内部战略负收益结算。"
+        }
       ]
     }
   ]

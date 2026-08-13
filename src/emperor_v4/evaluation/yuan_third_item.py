@@ -14,34 +14,31 @@ from emperor_v4.evaluation.five_dynasties_third_item import (
     CONTROL_CONTRIBUTION_CAPS,
     D_PATH,
     FORMAL_PATH,
-    _align_bc_to_system_stress_parent_cycles,
+    _build_public_d_analysis,
+    _partition_public_d_analysis,
+    _sync_public_d_q_into_combined,
+    _aggregate_parent_cycle_audit,
     _assign_global_third_item_ranks,
     _axis_a,
     _axis_b,
     _c_score,
-    _d_grade_and_score,
     _expected_b1_grade,
-    _normalize_formal_d_records,
     _normalize_qin_tang_bc_parent_cycles,
-    _recalculate_qin_tang_d_records,
     _render_combined_markdown,
     _render_formal_markdown,
     _replace_partition_records,
     _sync_formal_ab_into_combined,
     _sync_formal_c_into_combined,
-    _sync_formal_d_into_combined,
     _third_item_cycles,
     _validate_bc_parent_cycle_alignment,
-    _validate_d_empirical_calibration,
     _validate_formal_abc_contracts,
     _write_text_atomic,
+    write_third_item_d_formal_settlement,
 )
 from emperor_v4.evaluation.north_song_third_item import (
-    _aggregate_d_cycle,
     _build_combined as _build_north_song_combined,
     build_north_song_ab_records,
     build_north_song_c_records,
-    build_north_song_d_records,
 )
 from emperor_v4.evaluation.post_tang_third_item_consumption import (
     REGISTRY_PATH,
@@ -115,7 +112,12 @@ def build_yuan_cycle_admission_audit(workspace_root: Path) -> dict[str, Any]:
     first_by_name = {str(row["ruler_name"]): row for row in first["records"]}
     rows = []
     for decision in _load_adjudications(workspace_root):
-        raw_cycles = iter_post_tang_bound_cycles(registry, str(decision["ruler_id"]))
+        raw_cycles = iter_post_tang_bound_cycles(
+            registry,
+            str(decision["ruler_id"]),
+            ruler_name=str(decision["ruler_name"]),
+            polity="yuan",
+        )
         first_row = first_by_name.get(str(decision["ruler_name"]))
         obtained = bool(first_row and first_row.get("score_applicable") and float(first_row.get("first_item_score_points") or 0) > 0)
         admitted = []
@@ -190,13 +192,16 @@ def _route_decision(
                     "第三项不得机械重复消费。"
                 ),
             })
-        elif obtained and basis == "FOUNDING_FLAG_OUTSIDE_EXPLICIT_WINDOW_RETAINED":
+        elif obtained and basis in {
+            "FOUNDING_FLAG_OUTSIDE_EXPLICIT_WINDOW_RETAINED",
+            "EXPLICIT_NON_FIRST_ITEM_RETAIN",
+        }:
             generated_retain_overrides.append({
                 "campaign_group_ref": ref,
                 "d_route": "D_EXTERNAL_OR_FRONTIER",
                 "reason": (
-                    "公共阶段仍带创业标记，但父周期已经越出显式第一项窗口；"
-                    "第三项必须保留其后统一时期成本收益。"
+                    "本周期经显式裁决不属于第一项已消费结果；"
+                    "第三项必须保留其成本收益，创业标记不得再次吞掉该周期。"
                 ),
             })
         elif not obtained and _has_founding_phase(cycle):
@@ -227,7 +232,12 @@ def _reviewed_cycles(
     registry: Mapping[str, Any],
     decision: Mapping[str, Any],
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
-    raw_cycles = iter_post_tang_bound_cycles(registry, str(decision["ruler_id"]))
+    raw_cycles = iter_post_tang_bound_cycles(
+        registry,
+        str(decision["ruler_id"]),
+        ruler_name=str(decision["ruler_name"]),
+        polity="yuan",
+    )
     first_row = _first_item_score_by_name(workspace_root).get(
         str(decision["ruler_name"])
     )
@@ -245,7 +255,7 @@ def build_yuan_parent_cycle_audit(workspace_root: Path) -> dict[str, Any]:
         raw, cycles, excluded = _reviewed_cycles(
             workspace_root, registry, decision
         )
-        audits = [_aggregate_d_cycle(cycle) for cycle in cycles]
+        audits = [_aggregate_parent_cycle_audit(cycle) for cycle in cycles]
         phase_ids = [
             str(phase_id) for cycle in cycles for phase_id in cycle["phase_ids"]
         ]
@@ -296,40 +306,20 @@ def build_yuan_parent_cycle_audit(workspace_root: Path) -> dict[str, Any]:
 
 
 def build_yuan_d_preview(workspace_root: Path) -> dict[str, Any]:
-    registry = load_battle_registry(workspace_root / REGISTRY_PATH)
-    rows = []
-    for decision in _load_adjudications(workspace_root):
-        _, cycles, _ = _reviewed_cycles(workspace_root, registry, decision)
-        aggregated = [_aggregate_d_cycle(cycle) for cycle in cycles]
-        grade, score, metrics = _d_grade_and_score(aggregated)
-        rows.append({
-            "ruler_id": decision["ruler_id"],
-            "ruler_name": decision["ruler_name"],
-            "D_preview_grade": grade,
-            "D_preview_score_points": score,
-            "reviewed_parent_cycle_count": len(cycles),
-            "material_parent_cycle_count": metrics["material_cycle_count"],
-            "known_material_parent_cycle_count": metrics["known_material_cycle_count"],
-            "material_return_closure_rate": metrics["material_return_closure_rate"],
-            "portfolio_efficiency_index": metrics["portfolio_efficiency_index"],
-            "return_class_counts": metrics["return_class_counts"],
-            "national_negative_return_refs": metrics["national_negative_return_refs"],
-            "material_unknown_cycle_refs": metrics["material_unknown_cycle_refs"],
-            "preview_only": True,
-        })
-    return {
-        "schema_version": "yuan-third-item-d-preview-v1",
-        "formal_score_write": False,
-        "ruler_count": len(rows),
-        "rulers": rows,
-    }
+    payload = _partition_public_d_analysis(
+        _build_public_d_analysis(workspace_root),
+        (str(row["ruler_id"]) for row in _load_adjudications(workspace_root)),
+    )
+    payload["formal_score_write"] = False
+    payload["preview_only"] = True
+    return payload
 
 
 def build_yuan_abc_preview(workspace_root: Path) -> dict[str, Any]:
     registry = load_battle_registry(workspace_root / REGISTRY_PATH)
     d_by_id = {
-        row["ruler_id"]: row
-        for row in build_yuan_d_preview(workspace_root)["rulers"]
+        row["subject_ruler_id"]: row
+        for row in build_yuan_d_preview(workspace_root)["records"]
     }
     rows = []
     for decision in _load_adjudications(workspace_root):
@@ -385,7 +375,7 @@ def build_yuan_abc_preview(workspace_root: Path) -> dict[str, Any]:
             raise ValueError(f"{decision['ruler_name']} C4/C5重大胜绩门禁未通过")
         d = d_by_id[decision["ruler_id"]]
         ab_points = round(sum(axis["axis_points"] for axis in axes.values()), 2)
-        d_points = d["D_preview_score_points"]
+        d_metrics = d["D_portfolio_metrics"]
         rows.append({
             "ruler_id": decision["ruler_id"],
             "ruler_name": decision["ruler_name"],
@@ -395,12 +385,12 @@ def build_yuan_abc_preview(workspace_root: Path) -> dict[str, Any]:
             "C_preview_grade": c_grade,
             "C_preview_score_points": c_points,
             "C_score_support_surplus": c_surplus,
-            "D_preview_grade": d["D_preview_grade"],
-            "D_preview_score_points": d_points,
-            "third_item_preview_score_points": (
-                round(ab_points + c_points + float(d_points), 2)
-                if d_points is not None else None
-            ),
+            "D_preview_status": "PUBLIC_LINEAR_Q_CURRENT_SCORE_MAPPING_PENDING",
+            "D_linear_Q": d_metrics["Q"],
+            "D_linear_Q_mean": d_metrics["Q_mean"],
+            "D_cycle_count": d_metrics["T"],
+            "D_preview_score_points": None,
+            "third_item_preview_score_points": None,
         })
     return {
         "schema_version": "yuan-third-item-abc-preview-v1",
@@ -416,7 +406,12 @@ def _formal_decisions(
     first_by_name = _first_item_score_by_name(workspace_root)
     rows = []
     for raw in _load_adjudications(workspace_root):
-        raw_cycles = iter_post_tang_bound_cycles(registry, str(raw["ruler_id"]))
+        raw_cycles = iter_post_tang_bound_cycles(
+            registry,
+            str(raw["ruler_id"]),
+            ruler_name=str(raw["ruler_name"]),
+            polity="yuan",
+        )
         route = _route_decision(
             raw, raw_cycles, first_by_name.get(str(raw["ruler_name"]))
         )
@@ -456,19 +451,18 @@ def build_yuan_formal_payloads(
     consumer_registry = _north_song_consumer_view(registry)
     ab_rows = build_north_song_ab_records(consumer_registry, decisions)
     c_rows = build_north_song_c_records(consumer_registry, decisions)
-    d_rows = build_north_song_d_records(
-        consumer_registry, decisions, ab_rows, c_rows
+    d = _build_public_d_analysis(workspace_root)
+    partition_d = _partition_public_d_analysis(
+        d, (str(row["ruler_id"]) for row in decisions)
     )
     combined_rows = _build_north_song_combined(
-        decisions, ab_rows, c_rows, d_rows
+        decisions, ab_rows, c_rows, partition_d["records"]
     )
     for row in ab_rows:
         row.update({"polity": "元", "partition": "元"})
         row["rationale"] = "按元朝主体阶段卡、第一项显式统一窗口及D父周期裁决完成结算。"
     for row in c_rows:
         row.update({"polity": "元", "partition": "元"})
-    for row in d_rows:
-        row["polity"] = "元"
     for row in combined_rows:
         row.update({"polity": "元", "partition": "元"})
 
@@ -478,9 +472,6 @@ def build_yuan_formal_payloads(
     c = _replace_partition_records(
         json.loads((workspace_root / C_PATH).read_text(encoding="utf-8")), c_rows
     )
-    d = _replace_partition_records(
-        json.loads((workspace_root / D_PATH).read_text(encoding="utf-8")), d_rows
-    )
     combined = _replace_partition_records(
         json.loads((workspace_root / FORMAL_PATH).read_text(encoding="utf-8")),
         combined_rows,
@@ -489,17 +480,11 @@ def build_yuan_formal_payloads(
         row.pop("confidence", None)
     _normalize_qin_tang_bc_parent_cycles(workspace_root, ab["records"], c["records"])
     _validate_formal_abc_contracts(ab["records"], c["records"])
-    _recalculate_qin_tang_d_records(
-        workspace_root, d["records"], ab["records"], c["records"]
-    )
-    _normalize_formal_d_records(d["records"])
-    _align_bc_to_system_stress_parent_cycles(workspace_root, ab["records"], c["records"], d["records"])
     _validate_bc_parent_cycle_alignment(ab["records"], c["records"])
     _validate_formal_abc_contracts(ab["records"], c["records"])
-    _validate_d_empirical_calibration(d["records"])
     _sync_formal_ab_into_combined(ab["records"], combined["records"])
     _sync_formal_c_into_combined(c["records"], combined["records"])
-    _sync_formal_d_into_combined(d["records"], combined["records"])
+    _sync_public_d_q_into_combined(d, combined["records"])
     _assign_global_third_item_ranks(combined["records"])
     for row in combined["records"]:
         row["military_long_term_debt"] = {
@@ -537,19 +522,18 @@ def build_yuan_formal_payloads(
         "partition_counts": dict(sorted(Counter(str(row.get("partition")) for row in c["records"]).items())),
         "grade_distribution": dict(sorted(Counter(str(row.get("C_overall_grade")) for row in c["records"]).items())),
     })
-    d["grade_distribution"] = dict(sorted(Counter(str(row.get("D_grade")) for row in d["records"]).items()))
     combined.update({
         "scope": f"秦至元{total}人统一第三项当前排名",
         "record_count": total,
         "score_ready_count": sum(row.get("third_item_score_points") is not None for row in combined["records"]),
-        "D_no_material_exposure_count": sum((row.get("axes") or {}).get("D") == "D-N" for row in combined["records"]),
+        "D_zero_cycle_subject_count": sum(int(row.get("D_cycle_count") or 0) == 0 for row in combined["records"]),
         "D_pending_count": sum(row.get("D_score_points") is None for row in combined["records"]),
         "yuan_ready_count": sum(row.get("third_item_score_points") is not None for row in partition_rows),
         "yuan_pending_count": sum(row.get("third_item_score_points") is None for row in partition_rows),
         "yuan_parent_cycle_config": ADJUDICATION_PATH.as_posix(),
         "military_long_term_debt_policy": "PENDING_ITEM_7_NOT_INCLUDED_IN_THIRD_ITEM_STAGE_TOTAL",
-        "score_recalculation_policy": "ALL_RECORDS_REVIEWABLE_CURRENT_VALUE",
-        "global_ranking_enabled": True,
+        "D_q_source_policy": "PUBLIC_MILITARY_ACTION_COST_BENEFIT_REGISTRY_ONLY",
+        "global_ranking_enabled": False,
         "rank_tie_policy": "COMPETITION_RANK",
         "shared_source_root": "docs/史料通读产物",
     })
@@ -559,7 +543,7 @@ def build_yuan_formal_payloads(
 def write_yuan_third_item(workspace_root: Path) -> dict[str, Any]:
     registry = load_battle_registry(workspace_root / REGISTRY_PATH)
     payloads = build_yuan_formal_payloads(workspace_root, registry)
-    paths = {"AB": AB_PATH, "C": C_PATH, "D": D_PATH, "combined": FORMAL_PATH}
+    paths = {"AB": AB_PATH, "C": C_PATH, "combined": FORMAL_PATH}
     for kind, path in paths.items():
         _write_text_atomic(
             workspace_root / path,
@@ -574,6 +558,8 @@ def write_yuan_third_item(workspace_root: Path) -> dict[str, Any]:
             workspace_root / path.with_suffix(".md"),
             renderer(payloads[kind]["records"]),
         )
+    write_third_item_d_formal_settlement(workspace_root)
+    paths["D"] = D_PATH
     return {
         "formal_ready_count": sum(row["third_item_score_points"] is not None for row in payloads["partition_records"]),
         "formal_pending_count": sum(row["third_item_score_points"] is None for row in payloads["partition_records"]),
