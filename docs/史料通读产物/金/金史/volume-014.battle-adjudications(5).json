@@ -1,0 +1,4480 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "金史/卷014",
+  "source_identity": {
+    "source_unit_id": "SRC-JINSHI-014-2432741",
+    "source_url": "https://zh.wikisource.org/wiki/金史/卷14",
+    "revision_ref": "2432741",
+    "raw_sha256": "91f735b1379cd99fd7e44554db9b865c5ff0873351eac4ecc6d28018e36e0023",
+    "paragraph_count": 44
+  },
+  "cards": [
+    {
+      "battle_id": "JIN014-B01",
+      "battle_label": "贞祐元年至三年蒙古侵金：中都城北—河北山东横扫—中都陷落",
+      "campaign_group": "JINSHI-MONGOL-JIN-NORTH-1211-1215",
+      "source_anchor_refs": [
+        "SRC-JINSHI-014-2432741-P0005",
+        "SRC-JINSHI-014-2432741-P0006",
+        "SRC-JINSHI-014-2432741-P0008",
+        "SRC-JINSHI-014-2432741-P0010",
+        "SRC-JINSHI-014-2432741-P0011",
+        "SRC-JINSHI-014-2432741-P0017",
+        "SRC-JINSHI-014-2432741-P0019",
+        "SRC-JINSHI-014-2432741-P0024"
+      ],
+      "source_quotes": [
+        "朮虎高琪戰於城北，凡兩敗績而歸",
+        "大元兵下涿州",
+        "時山東、河北諸郡失守……河東州縣亦多殘毀",
+        "是日，中都破"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金中都守军 × 城北两败、涿州失守阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "高琪在中都城北两战皆败，同月涿州被蒙古攻下，中都戒严。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=2；P、S同时位于基础最高档2，按合同抬至WC3。",
+          "P_inference": {
+            "P_observed": "明确“凡两败绩”，死伤失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "连续首都近郊败绩并失州，P1偏低；无千人级损失材料。",
+            "upper_bound_reason": "无千人级死伤、俘虏或覆军证据。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0005"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN2"
+          },
+          "strategic_security": "SB0/SN2",
+          "strategic_security_detail": "首都外围和关键州城受损。",
+          "material_return": "WR0",
+          "material_return_detail": "无回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "涿州",
+              "中都北面防线"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "涿州失守，中都外围后退。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0005"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "连续两败并失去关键节点。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0005"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0005"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0005"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0005"
+            ]
+          },
+          "carry_in": "承卷013会河堡、居庸及北方多路失守。",
+          "carry_out": "后续扩展到河北、山东、河东。"
+        },
+        {
+          "evaluation_subject_phase": "蒙古军 × 城北取胜并攻下涿州阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "蒙古军使金军在中都北面连续败退，并攻下涿州。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=2；P、S未同时位于基础最高档，不触发抬档，最终WC2。",
+          "P_inference": {
+            "P_observed": "两次接战但蒙古自身损失失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际接战不能P0；无百人级自身损失后效。",
+            "upper_bound_reason": "无百人级蒙古方损失证据。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0005"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB2",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB2/SN0",
+          "strategic_security_detail": "取得首都外围关键节点。",
+          "material_return": "WR2",
+          "material_return_detail": "取得涿州控制。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "涿州"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "取得关键州城。",
+            "continuity_status": "HELD_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0005"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "有限可见成本取得连续胜利和节点控制。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "蒙古对金扩张推进到中都外围。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0005"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0005"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0005"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0005"
+            ]
+          },
+          "carry_in": "承卷013突破居庸。",
+          "carry_out": "继续横扫河北山东。"
+        },
+        {
+          "evaluation_subject_phase": "金河北—山东—河东军政体系 × 多州府失守并被迫议和阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "蒙古徇观、河间、沧、彰德、益都、怀州并下岚州；至四月山东河北仅少数城尚存，河东州县多残毁，金大括粟并求和。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S5",
+            "M": "M3",
+            "A": "A3",
+            "WC": "WC5"
+          },
+          "wc_basis": "base_WC=5；P、S未同时位于基础最高档，不触发抬档，最终WC5。",
+          "P_inference": {
+            "P_observed": "多州守臣战死、反复攻城及州县残毁，完整死伤失载。",
+            "range": "1,000—9,999死亡当量",
+            "center": 3162,
+            "P_scoring": "P3估",
+            "basis": "多州府实战支持千人级中心；不能按州数或人口机械推到万人级。",
+            "upper_bound_reason": "无万人级可证死亡、未归、伤俘数字。",
+            "confidence": "medium",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0006",
+              "SRC-JINSHI-014-2432741-P0008",
+              "SRC-JINSHI-014-2432741-P0010",
+              "SRC-JINSHI-014-2432741-P0011"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB1",
+            "SN": "SN5"
+          },
+          "strategic_security": "SB1/SN5",
+          "strategic_security_detail": "短暂停战不能抵消多个核心北方区域广泛失稳。",
+          "material_return": "WR0",
+          "material_return_detail": "无正向战争回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN5",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "河北大部",
+              "山东大部",
+              "河东多州县"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "多个主要战略方向成片丧失或残毁。",
+            "continuity_status": "LOST_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0006",
+              "SRC-JINSHI-014-2432741-P0008",
+              "SRC-JINSHI-014-2432741-P0010",
+              "SRC-JINSHI-014-2432741-P0011"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "广域失守、毁坏且被迫求和。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0006",
+              "SRC-JINSHI-014-2432741-P0008",
+              "SRC-JINSHI-014-2432741-P0010",
+              "SRC-JINSHI-014-2432741-P0011"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0006",
+              "SRC-JINSHI-014-2432741-P0008",
+              "SRC-JINSHI-014-2432741-P0010",
+              "SRC-JINSHI-014-2432741-P0011"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0006",
+              "SRC-JINSHI-014-2432741-P0008",
+              "SRC-JINSHI-014-2432741-P0010",
+              "SRC-JINSHI-014-2432741-P0011"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0006",
+              "SRC-JINSHI-014-2432741-P0008",
+              "SRC-JINSHI-014-2432741-P0010",
+              "SRC-JINSHI-014-2432741-P0011"
+            ]
+          },
+          "carry_in": "承城北、涿州阶段。",
+          "carry_out": "和议后战争复发并终于中都失陷。"
+        },
+        {
+          "evaluation_subject_phase": "蒙古军 × 河北山东河东广域横扫并迫金议和阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "蒙古军多路攻取州府，使金北方只剩少数孤城，随后暂时接受和议退兵。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3；P、S未同时位于基础最高档，不触发抬档，最终WC3。",
+          "P_inference": {
+            "P_observed": "多路连续攻城，蒙古损失失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "广域连续战斗使P1偏低；无千人级蒙古损失。",
+            "upper_bound_reason": "无千人级自身伤亡或大败材料。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0006",
+              "SRC-JINSHI-014-2432741-P0008",
+              "SRC-JINSHI-014-2432741-P0010",
+              "SRC-JINSHI-014-2432741-P0011"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB3",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB3/SN0",
+          "strategic_security_detail": "金北方地方防御能力遭持续重大削弱。",
+          "material_return": "WR4",
+          "material_return_detail": "取得大范围重要州府和战略区域控制。",
+          "border_control": {
+            "BCP": "BCP5",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "河北大部",
+              "山东大部",
+              "河东部分地区"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "多个主要方向的国家级战略空间转入蒙古控制。",
+            "continuity_status": "HELD_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0006",
+              "SRC-JINSHI-014-2432741-P0008",
+              "SRC-JINSHI-014-2432741-P0010",
+              "SRC-JINSHI-014-2432741-P0011"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "国家级控制与资源收益显著高于可见成本。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "蒙古在华北多个核心区域形成大范围实际控制。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0006",
+              "SRC-JINSHI-014-2432741-P0008",
+              "SRC-JINSHI-014-2432741-P0010",
+              "SRC-JINSHI-014-2432741-P0011"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0006",
+              "SRC-JINSHI-014-2432741-P0008",
+              "SRC-JINSHI-014-2432741-P0010",
+              "SRC-JINSHI-014-2432741-P0011"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0006",
+              "SRC-JINSHI-014-2432741-P0008",
+              "SRC-JINSHI-014-2432741-P0010",
+              "SRC-JINSHI-014-2432741-P0011"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0006",
+              "SRC-JINSHI-014-2432741-P0008",
+              "SRC-JINSHI-014-2432741-P0010",
+              "SRC-JINSHI-014-2432741-P0011"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "和议后继续进攻中都。"
+        },
+        {
+          "evaluation_subject_phase": "金中都及北方残存据点 × 顺成懿州受攻—中都失陷阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "和议后蒙古再徇顺州、收成州、徇懿州；金派兵援中都。贞祐三年五月中都破，承晖、任天宠、高霖等死。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S4",
+            "M": "M3",
+            "A": "A3",
+            "WC": "WC4"
+          },
+          "wc_basis": "base_WC=4；P、S未同时位于基础最高档，不触发抬档，最终WC4。",
+          "P_inference": {
+            "P_observed": "中都陷落并有多名高官战死，完整守城损失失载。",
+            "range": "1,000—9,999死亡当量",
+            "center": 3162,
+            "P_scoring": "P3估",
+            "basis": "大型核心城市陷落支持千人级；不能仅由城市人口推到万人级。",
+            "upper_bound_reason": "没有万人级死伤、俘掳数字。",
+            "confidence": "medium",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0017",
+              "SRC-JINSHI-014-2432741-P0019",
+              "SRC-JINSHI-014-2432741-P0024"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN4"
+          },
+          "strategic_security": "SB0/SN4",
+          "strategic_security_detail": "旧都和北方核心行政交通节点失守。",
+          "material_return": "WR0",
+          "material_return_detail": "无回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN4",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "中都",
+              "顺州",
+              "成州",
+              "懿州"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "旧都及多个北方节点最终丧失。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0017",
+              "SRC-JINSHI-014-2432741-P0019",
+              "SRC-JINSHI-014-2432741-P0024"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "持续援救仍未保住中都。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0017",
+              "SRC-JINSHI-014-2432741-P0019",
+              "SRC-JINSHI-014-2432741-P0024"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0017",
+              "SRC-JINSHI-014-2432741-P0019",
+              "SRC-JINSHI-014-2432741-P0024"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0017",
+              "SRC-JINSHI-014-2432741-P0019",
+              "SRC-JINSHI-014-2432741-P0024"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0017",
+              "SRC-JINSHI-014-2432741-P0019",
+              "SRC-JINSHI-014-2432741-P0024"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "后续战线转向河南、河东、关陕。"
+        },
+        {
+          "evaluation_subject_phase": "蒙古军 × 再攻北方残存据点并取得中都阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "蒙古军再取顺、成、懿州并最终攻破中都。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3；P、S未同时位于基础最高档，不触发抬档，最终WC3。",
+          "P_inference": {
+            "P_observed": "连续攻城并破中都，蒙古自身损失失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "连续攻城不能按无损处理；无千人级自身损失后效。",
+            "upper_bound_reason": "未见千人级蒙古方伤亡。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0017",
+              "SRC-JINSHI-014-2432741-P0019",
+              "SRC-JINSHI-014-2432741-P0024"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB3",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB3/SN0",
+          "strategic_security_detail": "夺取旧都进一步削弱金北方防御和政治节点。",
+          "material_return": "WR4",
+          "material_return_detail": "取得中都及重要节点。",
+          "border_control": {
+            "BCP": "BCP4",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "中都",
+              "顺州",
+              "成州",
+              "懿州"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "旧都核心区转入实际控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0017",
+              "SRC-JINSHI-014-2432741-P0019",
+              "SRC-JINSHI-014-2432741-P0024"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "取得旧都，战略与控制收益重大。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "蒙古扩张推进到金旧都核心区。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0017",
+              "SRC-JINSHI-014-2432741-P0019",
+              "SRC-JINSHI-014-2432741-P0024"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0017",
+              "SRC-JINSHI-014-2432741-P0019",
+              "SRC-JINSHI-014-2432741-P0024"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0017",
+              "SRC-JINSHI-014-2432741-P0019",
+              "SRC-JINSHI-014-2432741-P0024"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0017",
+              "SRC-JINSHI-014-2432741-P0019",
+              "SRC-JINSHI-014-2432741-P0024"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "继续向河南、河东、关陕推进。"
+        }
+      ]
+    },
+    {
+      "battle_id": "JIN014-B02",
+      "battle_label": "朮虎高琪以兵杀胡沙虎于第",
+      "campaign_group": "JINSHI-HUSHahu-COUP-1213",
+      "source_anchor_refs": [
+        "SRC-JINSHI-014-2432741-P0005"
+      ],
+      "source_quotes": [
+        "就以兵殺胡沙虎於其第，持其首詣闕待罪"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "朮虎高琪所部 × 武装清除胡沙虎阶段",
+          "subject_role": "COUNTERCOUP_ATTACKER",
+          "actual_process": "高琪城北败归后带兵至胡沙虎府第将其杀死，持首级入宫待罪。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1；P、S未同时位于基础最高档，不触发抬档，最终WC1。",
+          "P_inference": {
+            "P_observed": "以兵杀胡沙虎，攻击方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际武装袭击不能凭沉默定P0。",
+            "upper_bound_reason": "无百人级攻击方死伤。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0005"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB3",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB3/SN0",
+          "strategic_security_detail": "清除此前夺宫弑君的主要政变首领。",
+          "material_return": "WR0",
+          "material_return_detail": "无资源回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "胡沙虎府第"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "主要结果为清除武装威胁而非领土变化。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0005"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "低可见成本消除主要内部武装威胁。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0005"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0005"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0005"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0005"
+            ]
+          },
+          "carry_in": "承卷013胡沙虎夺宫弑君。",
+          "carry_out": "胡沙虎本人威胁终结。"
+        },
+        {
+          "evaluation_subject_phase": "胡沙虎武装集团 × 首领在府第被杀阶段",
+          "subject_role": "COUP_DEFENDER",
+          "actual_process": "胡沙虎在其第遭高琪带兵杀死，集团失去核心首领；未载大规模抵抗。",
+          "cost_axes": {
+            "P": "P1",
+            "S": "S1",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=1；P、S同时位于基础最高档1，按合同抬至WC2。",
+          "P_inference": null,
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN3"
+          },
+          "strategic_security": "SB0/SN3",
+          "strategic_security_detail": "核心领导被清除，继续控制中央的能力显著下降。",
+          "material_return": "WR0",
+          "material_return_detail": "无回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "胡沙虎府第"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "无可确认领土变化。",
+            "continuity_status": "DESTROYED_AS_LEADERSHIP_CORE",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0005"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "首领被杀且中央控制已丧失。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0005"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0005"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0005"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0005"
+            ]
+          },
+          "carry_in": "承卷013政变成功但宣宗已经即位。",
+          "carry_out": "无"
+        }
+      ]
+    },
+    {
+      "battle_id": "JIN014-B03",
+      "battle_label": "贞祐元年至三年金夏边战：会州—入边—环州",
+      "campaign_group": "JINSHI-JIN-XIA-BORDER-1213-1215",
+      "source_anchor_refs": [
+        "SRC-JINSHI-014-2432741-P0006",
+        "SRC-JINSHI-014-2432741-P0015",
+        "SRC-JINSHI-014-2432741-P0020",
+        "SRC-JINSHI-014-2432741-P0021"
+      ],
+      "source_quotes": [
+        "夏人攻會州，徒單醜兒兵擊走之",
+        "夏人入邊",
+        "夏人犯環州",
+        "敗夏人於州境"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金会州守军 × 击退夏军阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "夏攻会州，徒单丑儿所部击走之。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=1；P、S同时位于基础最高档1，按合同抬至WC2。",
+          "P_inference": {
+            "P_observed": "实际接战，金方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实战不能P0。",
+            "upper_bound_reason": "无百人级金军损失。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0006"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB1",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB1/SN0",
+          "strategic_security_detail": "解除一次会州攻击。",
+          "material_return": "WR0",
+          "material_return_detail": "未载缴获。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "会州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "会州保持。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0006"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "守住原有节点。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0006"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0006"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0006"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0006"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "西夏军 × 攻会州被击走阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "夏军攻会州后被击走。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1；P、S未同时位于基础最高档，不触发抬档，最终WC1。",
+          "P_inference": {
+            "P_observed": "战败但伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "不能由“击走”推百人级。",
+            "upper_bound_reason": "无百人级损失证据。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0006"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN1"
+          },
+          "strategic_security": "SB0/SN1",
+          "strategic_security_detail": "一次进攻受挫。",
+          "material_return": "WR0",
+          "material_return_detail": "无回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "会州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "无控制所得。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0006"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "进攻无果。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0006"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0006"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0006"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0006"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "西夏入边军 × 贞祐二年八月入边阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "原文只载夏人入边，未交代战果。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1；P、S未同时位于基础最高档，不触发抬档，最终WC1。",
+          "P_inference": {
+            "P_observed": "确认武装入边，伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际敌对行动不能P0。",
+            "upper_bound_reason": "无百人级材料。",
+            "confidence": "very_low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0015"
+            ]
+          },
+          "security_axes": {
+            "SB": "UNKNOWN",
+            "SN": "UNKNOWN"
+          },
+          "strategic_security": "UNKNOWN",
+          "strategic_security_detail": "后效未明.",
+          "material_return": "UNKNOWN",
+          "material_return_detail": "所得未明。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "金夏边境"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "无法确认控制变化。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0015"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "phase_return_basis": "只有入边事实。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0015"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0015"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0015"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0015"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "次年再犯环州。"
+        },
+        {
+          "evaluation_subject_phase": "金边防体系 × 遭西夏入边阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "西夏入边，金仅移文责之；接战结果未载。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=1；P、S同时位于基础最高档1，按合同抬至WC2。",
+          "P_inference": {
+            "P_observed": "武装入境，金方损失失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "不能以沉默定P0。",
+            "upper_bound_reason": "无百人级伤亡证据。",
+            "confidence": "very_low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0015"
+            ]
+          },
+          "security_axes": {
+            "SB": "UNKNOWN",
+            "SN": "UNKNOWN"
+          },
+          "strategic_security": "UNKNOWN",
+          "strategic_security_detail": "只能确认边境武装扰动。",
+          "material_return": "WR0",
+          "material_return_detail": "无回报。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "金夏边境"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "据点得失不明。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0015"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "phase_return_basis": "终局材料不足。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0015"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0015"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0015"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0015"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "金环州守军 × 击败夏军阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "夏军犯环州，乌古论延寿、斜卯毛良虎等在州境击败之。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=1；P、S同时位于基础最高档1，按合同抬至WC2。",
+          "P_inference": {
+            "P_observed": "实际接战获胜，金方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "无较大金方损失后效。",
+            "upper_bound_reason": "无百人级损失材料。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0020",
+              "SRC-JINSHI-014-2432741-P0021"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB1",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB1/SN0",
+          "strategic_security_detail": "解除一次环州入侵。",
+          "material_return": "WR0",
+          "material_return_detail": "未载缴获。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "环州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "环州保持。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0020",
+              "SRC-JINSHI-014-2432741-P0021"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "击退入侵并守住州境。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0020",
+              "SRC-JINSHI-014-2432741-P0021"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0020",
+              "SRC-JINSHI-014-2432741-P0021"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0020",
+              "SRC-JINSHI-014-2432741-P0021"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0020",
+              "SRC-JINSHI-014-2432741-P0021"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "西夏军 × 环州进攻被击败阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "进犯环州后被金军击败。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1；P、S未同时位于基础最高档，不触发抬档，最终WC1。",
+          "P_inference": {
+            "P_observed": "战败，伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "“败”不能直接推百人级。",
+            "upper_bound_reason": "无百人级伤亡证据。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0020",
+              "SRC-JINSHI-014-2432741-P0021"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN1"
+          },
+          "strategic_security": "SB0/SN1",
+          "strategic_security_detail": "一次进攻受挫。",
+          "material_return": "WR0",
+          "material_return_detail": "无回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "环州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "无控制变化。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0020",
+              "SRC-JINSHI-014-2432741-P0021"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "被击退且无所得。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0020",
+              "SRC-JINSHI-014-2432741-P0021"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0020",
+              "SRC-JINSHI-014-2432741-P0021"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0020",
+              "SRC-JINSHI-014-2432741-P0021"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0020",
+              "SRC-JINSHI-014-2432741-P0021"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ]
+    },
+    {
+      "battle_id": "JIN014-B04",
+      "battle_label": "宋攻秦州—石抹仲温击却",
+      "campaign_group": "JINSHI-SONG-JIN-QINZHOU-1214",
+      "source_anchor_refs": [
+        "SRC-JINSHI-014-2432741-P0008"
+      ],
+      "source_quotes": [
+        "宋人攻秦州，統軍使石抹仲溫擊卻之"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金秦州守军 × 击退宋军阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "宋军攻秦州，石抹仲温击退。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=1；P、S同时位于基础最高档1，按合同抬至WC2。",
+          "P_inference": {
+            "P_observed": "实际接战，金军伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "接战不能P0。",
+            "upper_bound_reason": "无百人级损失材料。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0008"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB1",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB1/SN0",
+          "strategic_security_detail": "解除一次秦州进攻。",
+          "material_return": "WR0",
+          "material_return_detail": "未载缴获。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "秦州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "秦州未失。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0008"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "守住秦州。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0008"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0008"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0008"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0008"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "宋攻秦州军 × 进攻被却阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "宋军进攻秦州，被金守军击退。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1；P、S未同时位于基础最高档，不触发抬档，最终WC1。",
+          "P_inference": {
+            "P_observed": "战败，宋军伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "不能从“击却”推百人级。",
+            "upper_bound_reason": "无百人级伤亡证据。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0008"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN1"
+          },
+          "strategic_security": "SB0/SN1",
+          "strategic_security_detail": "一次进攻失败。",
+          "material_return": "WR0",
+          "material_return_detail": "无回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "秦州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "无控制变化。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0008"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "付出进攻成本而无所得。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0008"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0008"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0008"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0008"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ]
+    },
+    {
+      "battle_id": "JIN014-B05",
+      "battle_label": "北京军乱杀宣抚使—蒲察七斤率军降蒙古",
+      "campaign_group": "JINSHI-BEIJING-MUTINY-DEFECTION-1215",
+      "source_anchor_refs": [
+        "SRC-JINSHI-014-2432741-P0020"
+      ],
+      "source_quotes": [
+        "北京軍亂，殺宣撫使奧屯襄",
+        "右副元帥蒲察七斤以其軍降於大元"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金北京军政体系 × 军变并主将率军降蒙古阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "北京军变杀宣抚使奥屯襄，右副元帅蒲察七斤又率其军降蒙古。",
+          "cost_axes": {
+            "P": "P1",
+            "S": "S3",
+            "M": "M1",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3；P、S未同时位于基础最高档，不触发抬档，最终WC3。",
+          "P_inference": null,
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN3"
+          },
+          "strategic_security": "SB0/SN3",
+          "strategic_security_detail": "重要北方军政方向指挥与忠诚同时崩解。",
+          "material_return": "WR0",
+          "material_return_detail": "成建制军队与军资转入敌方。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "北京路军政体系"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "原文未明确北京城地同时易手。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0020"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "军变杀帅并有成建制投敌。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0020"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0020"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0020"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0020"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "北京叛乱军 × 杀宣抚使阶段",
+          "subject_role": "MUTINEER",
+          "actual_process": "北京军发生武装兵变并杀奥屯襄；自身伤亡未载。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1；P、S未同时位于基础最高档，不触发抬档，最终WC1。",
+          "P_inference": {
+            "P_observed": "叛军杀奥屯襄，自身损失失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际军变存在。",
+            "upper_bound_reason": "无百人级伤亡材料。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0020"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB2",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB2/SN0",
+          "strategic_security_detail": "短期压制当地最高军政长官。",
+          "material_return": "WR1",
+          "material_return_detail": "至少短期控制本军组织与军械。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "北京军政节点"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "是否据城或长期控制未载。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0020"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "完成杀帅，但稳定控制不明。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0020"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0020"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0020"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0020"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "朝廷随后曲赦招抚作乱者。"
+        },
+        {
+          "evaluation_subject_phase": "蒙古军政体系 × 接受蒲察七斤所部投降阶段",
+          "subject_role": "BENEFICIARY",
+          "actual_process": "蒲察七斤率所属军队投降蒙古，蒙古方未见为此付出战斗成本。",
+          "cost_axes": {
+            "P": "P0",
+            "S": "S0",
+            "M": "M0",
+            "A": "A0",
+            "WC": "WC0"
+          },
+          "wc_basis": "base_WC=0；P、S未同时位于基础最高档，不触发抬档，最终WC0。",
+          "P_inference": null,
+          "security_axes": {
+            "SB": "SB2",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB2/SN0",
+          "strategic_security_detail": "无战取得敌方成建制军力并削弱金方。",
+          "material_return": "WR2",
+          "material_return_detail": "接收一支成建制军队及其军用组织资产；不把士卒人口本身当战利财富。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "蒲察七斤所部"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "无明确城地交割。",
+            "continuity_status": "HELD_AS_FORCE",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0020"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "零可见战斗成本获得敌方成建制军力。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "扩张过程中吸收敌方成建制军力，强化后续作战能力。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0020"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0020"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0020"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0020"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ]
+    },
+    {
+      "battle_id": "JIN014-B06",
+      "battle_label": "僕散留家破杨安儿步骑三万",
+      "campaign_group": "JINSHI-YANGANER-REBEL-1215",
+      "source_anchor_refs": [
+        "SRC-JINSHI-014-2432741-P0021"
+      ],
+      "source_quotes": [
+        "破賊楊安兒步騎三萬，殲其眾，降偽頭目三百餘人、脅從民三萬餘戶"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金山东宣抚军 × 破杨安儿三万军阶段",
+          "subject_role": "COUNTERREBELLION",
+          "actual_process": "僕散安贞遣僕散留家等进击杨安儿步骑三万，击溃主力，三百余头目降，三万余户胁从民脱离其控制。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=2；P、S未同时位于基础最高档，不触发抬档，最终WC2。",
+          "P_inference": {
+            "P_observed": "实际攻击三万叛军，金方伤亡失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "三万级成建制敌军且完成歼击，P1偏低；无千人级金军损失。",
+            "upper_bound_reason": "无千人级金军伤亡或覆军证据。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0021"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB3",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB3/SN0",
+          "strategic_security_detail": "三万级叛军主力被摧毁，威胁重大削弱。",
+          "material_return": "WR1",
+          "material_return_detail": "主要收益是地方治理恢复；人口不计战利资产。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "山东杨安儿势力区"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "区域性叛军控制明显收缩。",
+            "continuity_status": "HELD_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0021"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "中等动员摧毁三万级叛军主力并恢复地方控制。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0021"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0021"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0021"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0021"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "杨安儿叛军 × 三万主力被歼破阶段",
+          "subject_role": "REBELLION_DEFENDER",
+          "actual_process": "杨安儿步骑三万遭破，原文称“殲其众”；三百余头目降，三万余户胁从民脱离其控制。",
+          "cost_axes": {
+            "P": "P4估",
+            "S": "S3",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC4"
+          },
+          "wc_basis": "base_WC=4；P、S未同时位于基础最高档，不触发抬档，最终WC4。",
+          "P_inference": {
+            "P_observed": "步骑三万且称“殲其众”，但死亡、被俘、逃散构成未拆分。",
+            "range": "10,000—30,000死亡当量",
+            "center": 17321,
+            "P_scoring": "P4估",
+            "basis": "“殲其众”结合明确三万主力支持万人级中心；不把三万全数机械视作死亡。",
+            "upper_bound_reason": "上限不超过已知三万主力，三万余户人口另不计P。",
+            "confidence": "medium",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0021"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN3"
+          },
+          "strategic_security": "SB0/SN3",
+          "strategic_security_detail": "主要野战力量与区域组织网络遭重大打击。",
+          "material_return": "WR0",
+          "material_return_detail": "无回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "山东杨安儿势力区"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "区域控制明显收缩。",
+            "continuity_status": "LOST_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0021"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "主力遭歼破、头目和胁从人口大量脱离。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0021"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0021"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0021"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0021"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ]
+    },
+    {
+      "battle_id": "JIN014-B07",
+      "battle_label": "大沫堌讨刘二祖：擒斩首领、前后杀贼近万",
+      "campaign_group": "JINSHI-LIUERZU-DAMOGU-1215",
+      "source_anchor_refs": [
+        "SRC-JINSHI-014-2432741-P0020",
+        "SRC-JINSHI-014-2432741-P0022"
+      ],
+      "source_quotes": [
+        "詔宣撫阿海、總管合住討賊劉二祖、張汝楫",
+        "大沫堌之捷……擒賊渠劉二祖等斬之，前後殆賊萬計"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金山东讨贼军 × 大沫堌破刘二祖阶段",
+          "subject_role": "COUNTERREBELLION",
+          "actual_process": "朝廷先命阿海、合住讨刘二祖、张汝楫；山东宣抚司后报大沫堌捷，擒刘二祖等斩之，前后杀贼近万。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=2；P、S未同时位于基础最高档，不触发抬档，最终WC2。",
+          "P_inference": {
+            "P_observed": "多轮讨击，金方伤亡失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "“前后”多轮实战支持百人级中心；敌损不等量反推金损。",
+            "upper_bound_reason": "无金军千人级损失或覆军证据。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0020",
+              "SRC-JINSHI-014-2432741-P0022"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB3",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB3/SN0",
+          "strategic_security_detail": "刘二祖核心集团和大批武装被摧毁。",
+          "material_return": "WR0",
+          "material_return_detail": "未载军资缴获。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "大沫堌及相关叛区"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "叛军活动空间显著压缩。",
+            "continuity_status": "HELD_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0020",
+              "SRC-JINSHI-014-2432741-P0022"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "摧毁首领与大批叛军，安全收益明显。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0020",
+              "SRC-JINSHI-014-2432741-P0022"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0020",
+              "SRC-JINSHI-014-2432741-P0022"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0020",
+              "SRC-JINSHI-014-2432741-P0022"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0020",
+              "SRC-JINSHI-014-2432741-P0022"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "张汝楫后获招抚授官；后来“将谋复叛”被杀属非战役政治处置。"
+        },
+        {
+          "evaluation_subject_phase": "刘二祖等叛军 × 大沫堌及前后讨击中瓦解阶段",
+          "subject_role": "REBELLION_DEFENDER",
+          "actual_process": "刘二祖等在连续讨击中损失近万人，刘二祖等首领被擒斩；张汝楫另线未在此阶段终结。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3；P、S未同时位于基础最高档，不触发抬档，最终WC3。",
+          "P_inference": {
+            "P_observed": "“前后殆贼万计”，接近万人但非精确死亡数。",
+            "range": "3,000—9,999死亡当量",
+            "center": 5477,
+            "P_scoring": "P3估",
+            "basis": "措辞支持高位千人级，不足硬定P4。",
+            "upper_bound_reason": "未区分死亡、俘获、逃散，上限压在P3。",
+            "confidence": "medium",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0020",
+              "SRC-JINSHI-014-2432741-P0022"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN3"
+          },
+          "strategic_security": "SB0/SN3",
+          "strategic_security_detail": "核心首领和大批武装损失，主要威胁能力严重下降。",
+          "material_return": "WR0",
+          "material_return_detail": "无回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "大沫堌叛区"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "主要叛区和组织能力收缩。",
+            "continuity_status": "LOST_IN_PART",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0020",
+              "SRC-JINSHI-014-2432741-P0022"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "近万人级累计损失并失去首领。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0020",
+              "SRC-JINSHI-014-2432741-P0022"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0020",
+              "SRC-JINSHI-014-2432741-P0022"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0020",
+              "SRC-JINSHI-014-2432741-P0022"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0020",
+              "SRC-JINSHI-014-2432741-P0022"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ]
+    },
+    {
+      "battle_id": "JIN014-B08",
+      "battle_label": "李友直等忠义扈驾都统府之乱—千余降众被坑",
+      "campaign_group": "JINSHI-LIYOUZHI-LOCAL-REBELLION-1214-1215",
+      "source_anchor_refs": [
+        "SRC-JINSHI-014-2432741-P0022"
+      ],
+      "source_quotes": [
+        "團集州民，號『忠義扈駕都統府』，相挻為亂",
+        "殺其防禦判官完顏八斤及城中女直人",
+        "麾所招千餘人納仗，坑諸城下"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金地方军政 × 平定李友直等武装并坑杀降众阶段",
+          "subject_role": "COUNTERREBELLION",
+          "actual_process": "李友直等聚州民为乱并杀完颜八斤及城中女直人；杨圭诱执首领，其千余招募者缴械后被坑杀。",
+          "cost_axes": {
+            "P": "P1",
+            "S": "S2",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=2；P、S未同时位于基础最高档，不触发抬档，最终WC2。",
+          "P_inference": null,
+          "security_axes": {
+            "SB": "SB2",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB2/SN0",
+          "strategic_security_detail": "地方武装组织被彻底清除。",
+          "material_return": "WR0",
+          "material_return_detail": "无资源回报。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "相关州城地方控制"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "地方政府恢复控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0022"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "恢复地方控制，但伴随严重杀降行为。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": "千余已“纳仗”的降众被坑杀；此项不计入金方自身WC或WR，但作为战争行为负面保留。",
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0022"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0022"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0022"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0022"
+            ]
+          },
+          "carry_in": "事件实际发生于前年，因道路隔绝至本卷才上报。",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "李友直等地方武装 × 起兵杀官—降众被坑阶段",
+          "subject_role": "REBELLION_ATTACKER",
+          "actual_process": "李友直等聚众建立“忠义扈驾都统府”，杀官及城中女直人；首领被诱捕后，千余招募者缴械并被坑。",
+          "cost_axes": {
+            "P": "P3",
+            "S": "S1",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3；P、S未同时位于基础最高档，不触发抬档，最终WC3。",
+          "P_inference": null,
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN3"
+          },
+          "strategic_security": "SB0/SN3",
+          "strategic_security_detail": "首领被捕、千余武装被杀，组织威胁终结。",
+          "material_return": "WR0",
+          "material_return_detail": "无回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "地方武装控制节点"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "武装失去地方控制。",
+            "continuity_status": "DESTROYED",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0022"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "组织覆灭并有千余缴械成员被杀。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": {
+            "level": "RECORDED",
+            "detail": "原文称叛众杀“城中女直人”，其中是否均为战斗人员不明，保留居民受害事实。"
+          },
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0022"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0022"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0022"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0022"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ]
+    },
+    {
+      "battle_id": "JIN014-B09",
+      "battle_label": "贞祐三至四年红袄军成武—深祁—泰安德博—鲁南链",
+      "campaign_group": "JINSHI-REDJACKET-SHANDONG-HEBEI-1215-1216",
+      "source_anchor_refs": [
+        "SRC-JINSHI-014-2432741-P0026",
+        "SRC-JINSHI-014-2432741-P0028",
+        "SRC-JINSHI-014-2432741-P0032",
+        "SRC-JINSHI-014-2432741-P0035",
+        "SRC-JINSHI-014-2432741-P0036",
+        "SRC-JINSHI-014-2432741-P0038"
+      ],
+      "source_quotes": [
+        "紅襖賊掠成武……斬首數百級",
+        "周元兒陷深、祁州……殺其黨五百餘人",
+        "紅襖賊犯泰安、德、博等州……敗之",
+        "郝定僭號署官，已陷滕、兗、單諸州"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金山东—真定地方军 × 连续镇压红袄军阶段",
+          "subject_role": "COUNTERREBELLION",
+          "actual_process": "金军在成武击走红袄军并斩数百；真定帅府击破周元儿集团，杀周及其党五百余；次年又在泰安、德、博及鲁南持续反击，郝定最终被押京伏诛。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S3",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3；P、S未同时位于基础最高档，不触发抬档，最终WC3。",
+          "P_inference": {
+            "P_observed": "多次实战且敌方有数百、五百余明确损失，金方损失失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "跨年多处战斗支持百人级中心；敌损不反推同量金损。",
+            "upper_bound_reason": "无金军千人级损失或覆军。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0026",
+              "SRC-JINSHI-014-2432741-P0028",
+              "SRC-JINSHI-014-2432741-P0032",
+              "SRC-JINSHI-014-2432741-P0035",
+              "SRC-JINSHI-014-2432741-P0036",
+              "SRC-JINSHI-014-2432741-P0038"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB3",
+            "SN": "SN1"
+          },
+          "strategic_security": "SB3/SN1",
+          "strategic_security_detail": "多支红袄军与首领被连续击败，但多点复发说明威胁未结构性终结。",
+          "material_return": "WR2",
+          "material_return_detail": "恢复多个州县行政与战略控制。",
+          "border_control": {
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "成武",
+              "深祁",
+              "泰安德博",
+              "滕兖单及鲁南十余县"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "多个州县控制逐步恢复。",
+            "continuity_status": "HELD_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0026",
+              "SRC-JINSHI-014-2432741-P0028",
+              "SRC-JINSHI-014-2432741-P0032",
+              "SRC-JINSHI-014-2432741-P0035",
+              "SRC-JINSHI-014-2432741-P0036",
+              "SRC-JINSHI-014-2432741-P0038"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "跨区域反复动员后实际恢复多地并擒杀重要首领。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0026",
+              "SRC-JINSHI-014-2432741-P0028",
+              "SRC-JINSHI-014-2432741-P0032",
+              "SRC-JINSHI-014-2432741-P0035",
+              "SRC-JINSHI-014-2432741-P0036",
+              "SRC-JINSHI-014-2432741-P0038"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0026",
+              "SRC-JINSHI-014-2432741-P0028",
+              "SRC-JINSHI-014-2432741-P0032",
+              "SRC-JINSHI-014-2432741-P0035",
+              "SRC-JINSHI-014-2432741-P0036",
+              "SRC-JINSHI-014-2432741-P0038"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0026",
+              "SRC-JINSHI-014-2432741-P0028",
+              "SRC-JINSHI-014-2432741-P0032",
+              "SRC-JINSHI-014-2432741-P0035",
+              "SRC-JINSHI-014-2432741-P0036",
+              "SRC-JINSHI-014-2432741-P0038"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0026",
+              "SRC-JINSHI-014-2432741-P0028",
+              "SRC-JINSHI-014-2432741-P0032",
+              "SRC-JINSHI-014-2432741-P0035",
+              "SRC-JINSHI-014-2432741-P0036",
+              "SRC-JINSHI-014-2432741-P0038"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "红袄军各部 × 多州县扩张后遭连续压制阶段",
+          "subject_role": "REBELLION_DEFENDER",
+          "actual_process": "红袄军曾掠成武；周元儿部攻陷深、祁及多县；郝定又僭号署官并占滕、兖、单及十余县，随后遭连续反攻，周元儿与五百余党众被杀，郝定被擒诛。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S3",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC4"
+          },
+          "wc_basis": "base_WC=3；P、S同时位于基础最高档3，按合同抬至WC4。",
+          "P_inference": {
+            "P_observed": "已知斩数百、周党五百余，另有多轮战斗。",
+            "range": "1,000—3,000死亡当量",
+            "center": 1732,
+            "P_scoring": "P3估",
+            "basis": "已知下限接近千且有多轮实战，进入P3；不足支持P4。",
+            "upper_bound_reason": "无万人级死亡、被俘或失踪证据。",
+            "confidence": "medium",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0026",
+              "SRC-JINSHI-014-2432741-P0028",
+              "SRC-JINSHI-014-2432741-P0032",
+              "SRC-JINSHI-014-2432741-P0035",
+              "SRC-JINSHI-014-2432741-P0036",
+              "SRC-JINSHI-014-2432741-P0038"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB1",
+            "SN": "SN4"
+          },
+          "strategic_security": "SB1/SN4",
+          "strategic_security_detail": "一度形成跨州县扩张和僭号署官结构，后被持续压缩并失去首领。",
+          "material_return": "WR1",
+          "material_return_detail": "前期短暂取得州县资源，但终局大量丧失。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN3",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "深祁及周边县",
+              "滕兖单及鲁南十余县"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "多个已占州县被金方恢复。",
+            "continuity_status": "LOST_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0026",
+              "SRC-JINSHI-014-2432741-P0028",
+              "SRC-JINSHI-014-2432741-P0032",
+              "SRC-JINSHI-014-2432741-P0035",
+              "SRC-JINSHI-014-2432741-P0036",
+              "SRC-JINSHI-014-2432741-P0038"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "多地失控、首领被擒杀且人员损失显著。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "郝定已“僭号署官”并控制多个州县，属于割据化尝试；本阶段未能巩固。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0026",
+              "SRC-JINSHI-014-2432741-P0028",
+              "SRC-JINSHI-014-2432741-P0032",
+              "SRC-JINSHI-014-2432741-P0035",
+              "SRC-JINSHI-014-2432741-P0036",
+              "SRC-JINSHI-014-2432741-P0038"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0026",
+              "SRC-JINSHI-014-2432741-P0028",
+              "SRC-JINSHI-014-2432741-P0032",
+              "SRC-JINSHI-014-2432741-P0035",
+              "SRC-JINSHI-014-2432741-P0036",
+              "SRC-JINSHI-014-2432741-P0038"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0026",
+              "SRC-JINSHI-014-2432741-P0028",
+              "SRC-JINSHI-014-2432741-P0032",
+              "SRC-JINSHI-014-2432741-P0035",
+              "SRC-JINSHI-014-2432741-P0036",
+              "SRC-JINSHI-014-2432741-P0038"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0026",
+              "SRC-JINSHI-014-2432741-P0028",
+              "SRC-JINSHI-014-2432741-P0032",
+              "SRC-JINSHI-014-2432741-P0035",
+              "SRC-JINSHI-014-2432741-P0036",
+              "SRC-JINSHI-014-2432741-P0038"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ]
+    },
+    {
+      "battle_id": "JIN014-B10",
+      "battle_label": "贞祐三年金夏陕西战：杨再兴—保安延安—临洮—绥德—熟羊寨",
+      "campaign_group": "JINSHI-JIN-XIA-SHAANXI-1215-1216",
+      "source_anchor_refs": [
+        "SRC-JINSHI-014-2432741-P0028",
+        "SRC-JINSHI-014-2432741-P0029",
+        "SRC-JINSHI-014-2432741-P0030"
+      ],
+      "source_quotes": [
+        "楊再興擊走夏人之捷",
+        "夏人陷臨洮",
+        "移剌塔不也以軍萬人破夏人數萬於熟羊寨",
+        "知臨洮府陀滿胡土門破夏人八萬於城下"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金陕西军 × 杨再兴击走夏军阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "杨再兴击走入犯夏军，捷报入朝。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=1；P、S同时位于基础最高档1，按合同抬至WC2。",
+          "P_inference": {
+            "P_observed": "实际接战，金方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "无百人级自身损失后效。",
+            "upper_bound_reason": "无百人级损失。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0028"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB1",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB1/SN0",
+          "strategic_security_detail": "解除一次入侵。",
+          "material_return": "WR0",
+          "material_return_detail": "无缴获。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "陕西边线"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "原边线保持。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0028"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "低成本击退入侵。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0028"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0028"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0028"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0028"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "西夏军 × 杨再兴方向被击走阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "夏军被杨再兴击走。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1；P、S未同时位于基础最高档，不触发抬档，最终WC1。",
+          "P_inference": {
+            "P_observed": "战败，伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "不能由“击走”推高。",
+            "upper_bound_reason": "无百人级证据。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0028"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN1"
+          },
+          "strategic_security": "SB0/SN1",
+          "strategic_security_detail": "一次进攻失败。",
+          "material_return": "WR0",
+          "material_return_detail": "无回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "陕西边线"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "无控制所得。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0028"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "进攻无果。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0028"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0028"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0028"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0028"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "金陕西边防军 × 保安延安胜、临洮失陷阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "金军在保安、延安连续击败夏军，但随后临洮失陷，完颜胡失剌被俘。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S3",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3；P、S未同时位于基础最高档，不触发抬档，最终WC3。",
+          "P_inference": {
+            "P_observed": "两胜一失城且高级将领被俘，其他损失失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "多次战斗且失城，百人级中心合理；无千人级金军损失材料。",
+            "upper_bound_reason": "无千人级死伤或覆军证据。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0029"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB2",
+            "SN": "SN3"
+          },
+          "strategic_security": "SB2/SN3",
+          "strategic_security_detail": "局部防御获胜，但临洮关键节点失陷。",
+          "material_return": "WR0",
+          "material_return_detail": "无可见净资源回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "临洮"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "临洮失陷。",
+            "continuity_status": "LOST_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0029"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "两次局部胜利不足抵消临洮失陷与高级将领被俘。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0029"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0029"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0029"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0029"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "西夏军 × 保安延安受挫但攻陷临洮阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "夏军在保安、延安两败，随后攻陷临洮并俘金陕西宣抚副使。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=2；P、S未同时位于基础最高档，不触发抬档，最终WC2。",
+          "P_inference": {
+            "P_observed": "连续三处作战，两处被击败，自身伤亡失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "反复大战支持百人级中心；无千人级直接材料。",
+            "upper_bound_reason": "无千人级夏军死伤证据。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0029"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB3",
+            "SN": "SN1"
+          },
+          "strategic_security": "SB3/SN1",
+          "strategic_security_detail": "虽有局部败退，但取得临洮关键节点。",
+          "material_return": "WR2",
+          "material_return_detail": "取得临洮及附随军政资产。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "临洮"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "实际攻陷临洮。",
+            "continuity_status": "HELD_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0029"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "最终取得关键节点并俘高级将领。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0029"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0029"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0029"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0029"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "金陕西军 × 绥德两胜、熟羊寨与临洮城下大捷阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "金军在绥德克戎寨、绥平两胜；移剌塔不也率一万人在熟羊寨破夏军数万；陀满胡土门又在临洮城下破夏军八万。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S1",
+            "M": "M3",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3；P、S未同时位于基础最高档，不触发抬档，最终WC3。",
+          "P_inference": {
+            "P_observed": "连续多场大战，金方伤亡失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "百人级中心合理；不能由敌军数万/八万反推金损。",
+            "upper_bound_reason": "无金军千人级损失后效。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0030"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB3",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB3/SN0",
+          "strategic_security_detail": "连续击退多路大规模进攻，明显缓解陕西压力。",
+          "material_return": "WR1",
+          "material_return_detail": "未载大批缴获，主要收益为守御成功。",
+          "border_control": {
+            "BCP": "BCP1",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "绥德",
+              "熟羊寨",
+              "临洮方向"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "守住多个节点；临洮城是否正式收复未明，故仅BCP1。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0030"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "多次大规模防御获胜，安全收益明显。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0030"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0030"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0030"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0030"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "次年夏军继续在边桥、安塞、定西等方向作战。"
+        },
+        {
+          "evaluation_subject_phase": "西夏军 × 绥德—熟羊寨—临洮连续败退阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "夏军攻绥德两处未果，数万军在熟羊寨被破，八万军在临洮城下再败。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3；P、S未同时位于基础最高档，不触发抬档，最终WC3。",
+          "P_inference": {
+            "P_observed": "数万、八万是出战规模，不等于伤亡；具体损失失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "多次大败支持百人级中心；禁止仅据兵数推千人级。",
+            "upper_bound_reason": "无明确千人级斩俘数字。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0030"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN3"
+          },
+          "strategic_security": "SB0/SN3",
+          "strategic_security_detail": "多路大规模进攻连续失败。",
+          "material_return": "WR0",
+          "material_return_detail": "无本阶段可见所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN1",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "临洮方向"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "此前临洮所得稳定性受威胁，但未明言正式失城。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0030"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "高强度动员后连续败退。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0030"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0030"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0030"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0030"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ]
+    },
+    {
+      "battle_id": "JIN014-B11",
+      "battle_label": "贞祐四年金夏续战：焚界河桥—安塞结耶觜川—定西",
+      "campaign_group": "JINSHI-JIN-XIA-SHAANXI-1215-1216",
+      "source_anchor_refs": [
+        "SRC-JINSHI-014-2432741-P0036",
+        "SRC-JINSHI-014-2432741-P0040",
+        "SRC-JINSHI-014-2432741-P0043"
+      ],
+      "source_quotes": [
+        "遣兵焚之，俘馘甚多",
+        "夏人入安塞堡……敗之",
+        "夏人入結耶觜川，官軍擊走之",
+        "大敗夏人於定西之捷"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金陕西军 × 破界河桥并连续击退夏军阶段",
+          "subject_role": "DEFENDER_COUNTERATTACK",
+          "actual_process": "金军焚毁夏人在来羌城界河所修桥梁并“俘馘甚多”；后又在安塞、结耶觜川、定西连续击败夏军。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S1",
+            "M": "M3",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3；P、S未同时位于基础最高档，不触发抬档，最终WC3。",
+          "P_inference": {
+            "P_observed": "多次实战，金方自身损失未载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "跨月反复接战支持百人级中心；无千人级金军损失后效。",
+            "upper_bound_reason": "无千人级金军死伤证据。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0036",
+              "SRC-JINSHI-014-2432741-P0040",
+              "SRC-JINSHI-014-2432741-P0043"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB3",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB3/SN0",
+          "strategic_security_detail": "连续破坏前沿设施并击退多次入侵。",
+          "material_return": "WR1",
+          "material_return_detail": "无大批缴获，主要收益为安全和防线保持。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "来羌城界河桥方向",
+              "安塞堡",
+              "结耶觜川",
+              "定西"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "守住主要节点，无可确认永久扩界。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0036",
+              "SRC-JINSHI-014-2432741-P0040",
+              "SRC-JINSHI-014-2432741-P0043"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "跨数月多次获胜且有“俘馘甚多”，安全收益明显。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0036",
+              "SRC-JINSHI-014-2432741-P0040",
+              "SRC-JINSHI-014-2432741-P0043"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0036",
+              "SRC-JINSHI-014-2432741-P0040",
+              "SRC-JINSHI-014-2432741-P0043"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0036",
+              "SRC-JINSHI-014-2432741-P0040",
+              "SRC-JINSHI-014-2432741-P0043"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0036",
+              "SRC-JINSHI-014-2432741-P0040",
+              "SRC-JINSHI-014-2432741-P0043"
+            ]
+          },
+          "carry_in": "承贞祐三年熟羊寨、临洮等连续金夏大战。",
+          "carry_out": "卷015继续核西夏是否再犯。"
+        },
+        {
+          "evaluation_subject_phase": "西夏军 × 前沿桥梁被毁并多次进攻失败阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "西夏界河桥被焚并遭“俘馘甚多”，安塞、结耶觜川进攻皆败，定西又遭大败。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S1",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3；P、S未同时位于基础最高档，不触发抬档，最终WC3。",
+          "P_inference": {
+            "P_observed": "“俘馘甚多”并有多次战败，具体数目失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "“甚多”加连续败战支持百人级；不能精确到千人级。",
+            "upper_bound_reason": "无明确千人级斩俘数字。",
+            "confidence": "medium",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0036",
+              "SRC-JINSHI-014-2432741-P0040",
+              "SRC-JINSHI-014-2432741-P0043"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN3"
+          },
+          "strategic_security": "SB0/SN3",
+          "strategic_security_detail": "多个前沿行动连续受挫。",
+          "material_return": "WR0",
+          "material_return_detail": "无可见成果，前沿桥梁反被毁。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN1",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "来羌城界河桥"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "前沿新建桥梁被毁。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0036",
+              "SRC-JINSHI-014-2432741-P0040",
+              "SRC-JINSHI-014-2432741-P0043"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "连续作战和设施投入未换取稳定收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0036",
+              "SRC-JINSHI-014-2432741-P0040",
+              "SRC-JINSHI-014-2432741-P0043"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0036",
+              "SRC-JINSHI-014-2432741-P0040",
+              "SRC-JINSHI-014-2432741-P0043"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0036",
+              "SRC-JINSHI-014-2432741-P0040",
+              "SRC-JINSHI-014-2432741-P0043"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0036",
+              "SRC-JINSHI-014-2432741-P0040",
+              "SRC-JINSHI-014-2432741-P0043"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ]
+    },
+    {
+      "battle_id": "JIN014-B12",
+      "battle_label": "中都失陷后蒙古南压：济源—曹州—太原—潼关—平阳",
+      "campaign_group": "JINSHI-MONGOL-JIN-HENAN-SHANXI-1215-1216",
+      "source_anchor_refs": [
+        "SRC-JINSHI-014-2432741-P0025",
+        "SRC-JINSHI-014-2432741-P0030",
+        "SRC-JINSHI-014-2432741-P0031",
+        "SRC-JINSHI-014-2432741-P0032",
+        "SRC-JINSHI-014-2432741-P0033",
+        "SRC-JINSHI-014-2432741-P0040",
+        "SRC-JINSHI-014-2432741-P0041",
+        "SRC-JINSHI-014-2432741-P0042",
+        "SRC-JINSHI-014-2432741-P0043",
+        "SRC-JINSHI-014-2432741-P0044"
+      ],
+      "source_quotes": [
+        "大元兵收濟源縣",
+        "大元兵收曹州",
+        "大元兵圍太原……攻下霍山諸隘",
+        "大元兵攻潼關",
+        "大元兵至澠池……軍潰而逃",
+        "大元兵攻平陽……攻太原府"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金河南—河东军政体系 × 济源曹州及太原外围继续失守阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "蒙古收济源、徇彰德大名、收曹州并围太原，攻下霍山诸隘；金持续增戍、设行省并组织救援。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S4",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC4"
+          },
+          "wc_basis": "base_WC=4；P、S未同时位于基础最高档，不触发抬档，最终WC4。",
+          "P_inference": {
+            "P_observed": "多处攻城和门户失守，金军死伤失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "多次实战支持百人级中心；无千人级金军损失直接材料。",
+            "upper_bound_reason": "无千人级死伤、俘虏或覆军数字。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0025",
+              "SRC-JINSHI-014-2432741-P0030",
+              "SRC-JINSHI-014-2432741-P0031",
+              "SRC-JINSHI-014-2432741-P0032",
+              "SRC-JINSHI-014-2432741-P0033"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN4"
+          },
+          "strategic_security": "SB0/SN4",
+          "strategic_security_detail": "河南、河东重要方向继续后退，太原门户被突破。",
+          "material_return": "WR0",
+          "material_return_detail": "无正向回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN3",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "济源",
+              "曹州",
+              "霍山诸隘",
+              "太原外围"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "重要方向和多个门户持续退控。",
+            "continuity_status": "LOST_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0025",
+              "SRC-JINSHI-014-2432741-P0030",
+              "SRC-JINSHI-014-2432741-P0031",
+              "SRC-JINSHI-014-2432741-P0032",
+              "SRC-JINSHI-014-2432741-P0033"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "多处节点失守且需持续调兵。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0025",
+              "SRC-JINSHI-014-2432741-P0030",
+              "SRC-JINSHI-014-2432741-P0031",
+              "SRC-JINSHI-014-2432741-P0032",
+              "SRC-JINSHI-014-2432741-P0033"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0025",
+              "SRC-JINSHI-014-2432741-P0030",
+              "SRC-JINSHI-014-2432741-P0031",
+              "SRC-JINSHI-014-2432741-P0032",
+              "SRC-JINSHI-014-2432741-P0033"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0025",
+              "SRC-JINSHI-014-2432741-P0030",
+              "SRC-JINSHI-014-2432741-P0031",
+              "SRC-JINSHI-014-2432741-P0032",
+              "SRC-JINSHI-014-2432741-P0033"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0025",
+              "SRC-JINSHI-014-2432741-P0030",
+              "SRC-JINSHI-014-2432741-P0031",
+              "SRC-JINSHI-014-2432741-P0032",
+              "SRC-JINSHI-014-2432741-P0033"
+            ]
+          },
+          "carry_in": "承中都失陷及北方大部丧失。",
+          "carry_out": "蒙古继续攻延安、坊州、代州、潼关、平阳、太原。"
+        },
+        {
+          "evaluation_subject_phase": "蒙古军 × 济源曹州—太原外围推进阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "蒙古连续取得济源、曹州和霍山诸隘，并围太原。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3；P、S未同时位于基础最高档，不触发抬档，最终WC3。",
+          "P_inference": {
+            "P_observed": "连续攻城与隘口战，蒙古损失失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "多处强攻支持百人级中心；无千人级自身损失后效。",
+            "upper_bound_reason": "无千人级蒙古方死伤。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0025",
+              "SRC-JINSHI-014-2432741-P0030",
+              "SRC-JINSHI-014-2432741-P0031",
+              "SRC-JINSHI-014-2432741-P0032",
+              "SRC-JINSHI-014-2432741-P0033"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB3",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB3/SN0",
+          "strategic_security_detail": "持续削弱金河南、河东防线。",
+          "material_return": "WR3",
+          "material_return_detail": "获得多个州县与重要隘口控制。",
+          "border_control": {
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "济源",
+              "曹州",
+              "霍山诸隘"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "重要战略区域和通道控制扩展。",
+            "continuity_status": "HELD_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0025",
+              "SRC-JINSHI-014-2432741-P0030",
+              "SRC-JINSHI-014-2432741-P0031",
+              "SRC-JINSHI-014-2432741-P0032",
+              "SRC-JINSHI-014-2432741-P0033"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "取得多节点和门户，战略收益显著。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "蒙古扩张继续推进到河南、河东门户。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0025",
+              "SRC-JINSHI-014-2432741-P0030",
+              "SRC-JINSHI-014-2432741-P0031",
+              "SRC-JINSHI-014-2432741-P0032",
+              "SRC-JINSHI-014-2432741-P0033"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0025",
+              "SRC-JINSHI-014-2432741-P0030",
+              "SRC-JINSHI-014-2432741-P0031",
+              "SRC-JINSHI-014-2432741-P0032",
+              "SRC-JINSHI-014-2432741-P0033"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0025",
+              "SRC-JINSHI-014-2432741-P0030",
+              "SRC-JINSHI-014-2432741-P0031",
+              "SRC-JINSHI-014-2432741-P0032",
+              "SRC-JINSHI-014-2432741-P0033"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0025",
+              "SRC-JINSHI-014-2432741-P0030",
+              "SRC-JINSHI-014-2432741-P0031",
+              "SRC-JINSHI-014-2432741-P0032",
+              "SRC-JINSHI-014-2432741-P0033"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "金关陕—河东防御体系 × 延安坊代潼关至平阳太原连续受攻阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "蒙古攻延安、坊州、代州，潼关守将战死，又徇汝州、至渑池使蒲察阿里不孙军溃；金一度收复潼关，并从多地大规模调兵，卷末平阳、太原再遭攻击。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S4",
+            "M": "M4",
+            "A": "A3",
+            "WC": "WC4"
+          },
+          "wc_basis": "base_WC=4；P、S未同时位于基础最高档，不触发抬档，最终WC4。",
+          "P_inference": {
+            "P_observed": "潼关守将战死、渑池方向军溃，多处攻城，完整损失失载。",
+            "range": "1,000—9,999死亡当量",
+            "center": 3162,
+            "P_scoring": "P3估",
+            "basis": "连续多方向高强度攻守和军溃支持千人级；无万人级可证损失。",
+            "upper_bound_reason": "没有万人级死亡、伤俘或未归数字。",
+            "confidence": "medium",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0040",
+              "SRC-JINSHI-014-2432741-P0041",
+              "SRC-JINSHI-014-2432741-P0042",
+              "SRC-JINSHI-014-2432741-P0043",
+              "SRC-JINSHI-014-2432741-P0044"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB2",
+            "SN": "SN4"
+          },
+          "strategic_security": "SB2/SN4",
+          "strategic_security_detail": "收复潼关是局部改善，但关陕与河东多门户持续受攻。",
+          "material_return": "WR1",
+          "material_return_detail": "恢复潼关是有限回报。",
+          "border_control": {
+            "BCP": "BCP1",
+            "BCN": "BCN3",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "潼关",
+              "延安",
+              "坊州",
+              "代州",
+              "汝州",
+              "渑池",
+              "平阳",
+              "太原"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "潼关一度收复，但阶段净控制仍明显退缩。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0040",
+              "SRC-JINSHI-014-2432741-P0041",
+              "SRC-JINSHI-014-2432741-P0042",
+              "SRC-JINSHI-014-2432741-P0043",
+              "SRC-JINSHI-014-2432741-P0044"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "一次恢复潼关不足抵消多线受攻、军队溃逃和高强度调动。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0040",
+              "SRC-JINSHI-014-2432741-P0041",
+              "SRC-JINSHI-014-2432741-P0042",
+              "SRC-JINSHI-014-2432741-P0043",
+              "SRC-JINSHI-014-2432741-P0044"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0040",
+              "SRC-JINSHI-014-2432741-P0041",
+              "SRC-JINSHI-014-2432741-P0042",
+              "SRC-JINSHI-014-2432741-P0043",
+              "SRC-JINSHI-014-2432741-P0044"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0040",
+              "SRC-JINSHI-014-2432741-P0041",
+              "SRC-JINSHI-014-2432741-P0042",
+              "SRC-JINSHI-014-2432741-P0043",
+              "SRC-JINSHI-014-2432741-P0044"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0040",
+              "SRC-JINSHI-014-2432741-P0041",
+              "SRC-JINSHI-014-2432741-P0042",
+              "SRC-JINSHI-014-2432741-P0043",
+              "SRC-JINSHI-014-2432741-P0044"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "卷末太原告急且援军刚发，卷015必须继续闭合。"
+        },
+        {
+          "evaluation_subject_phase": "蒙古军 × 关陕河东多路攻势阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "蒙古自延安、坊州、代州、潼关、汝州、渑池到平阳、太原连续推进；潼关一度被金恢复。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3；P、S未同时位于基础最高档，不触发抬档，最终WC3。",
+          "P_inference": {
+            "P_observed": "多路攻城但蒙古自身伤亡失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "连续作战支持百人级中心；无千人级损失证据。",
+            "upper_bound_reason": "无千人级死伤或大败记录。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0040",
+              "SRC-JINSHI-014-2432741-P0041",
+              "SRC-JINSHI-014-2432741-P0042",
+              "SRC-JINSHI-014-2432741-P0043",
+              "SRC-JINSHI-014-2432741-P0044"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB3",
+            "SN": "SN1"
+          },
+          "strategic_security": "SB3/SN1",
+          "strategic_security_detail": "持续压迫金关陕、河东防线，潼关被恢复构成局部反证。",
+          "material_return": "WR2",
+          "material_return_detail": "取得部分门户和战场优势，但关键控制并不全稳固。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN1",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "关陕—河东若干门户"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "总体获得若干前沿节点，潼关控制曾被逆转。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0040",
+              "SRC-JINSHI-014-2432741-P0041",
+              "SRC-JINSHI-014-2432741-P0042",
+              "SRC-JINSHI-014-2432741-P0043",
+              "SRC-JINSHI-014-2432741-P0044"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "多线取得优势，但部分关键节点未稳固。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "继续扩展对金战略空间，但本阶段若干节点尚未闭合。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0040",
+              "SRC-JINSHI-014-2432741-P0041",
+              "SRC-JINSHI-014-2432741-P0042",
+              "SRC-JINSHI-014-2432741-P0043",
+              "SRC-JINSHI-014-2432741-P0044"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0040",
+              "SRC-JINSHI-014-2432741-P0041",
+              "SRC-JINSHI-014-2432741-P0042",
+              "SRC-JINSHI-014-2432741-P0043",
+              "SRC-JINSHI-014-2432741-P0044"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0040",
+              "SRC-JINSHI-014-2432741-P0041",
+              "SRC-JINSHI-014-2432741-P0042",
+              "SRC-JINSHI-014-2432741-P0043",
+              "SRC-JINSHI-014-2432741-P0044"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0040",
+              "SRC-JINSHI-014-2432741-P0041",
+              "SRC-JINSHI-014-2432741-P0042",
+              "SRC-JINSHI-014-2432741-P0043",
+              "SRC-JINSHI-014-2432741-P0044"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "太原、平阳后续结果转卷015。"
+        }
+      ]
+    },
+    {
+      "battle_id": "JIN014-B13",
+      "battle_label": "贞祐四年河北失地恢复：河间沧献—恩邢—清州十一城—威州获鹿—深州",
+      "campaign_group": "JINSHI-HEBEI-LOCAL-RECOVERY-1216",
+      "source_anchor_refs": [
+        "SRC-JINSHI-014-2432741-P0033",
+        "SRC-JINSHI-014-2432741-P0034",
+        "SRC-JINSHI-014-2432741-P0035",
+        "SRC-JINSHI-014-2432741-P0038",
+        "SRC-JINSHI-014-2432741-P0039"
+      ],
+      "source_quotes": [
+        "張開復河間府滄、獻等州並屬縣十有三",
+        "張文破趙福，復恩州",
+        "復邢州捷至",
+        "張開奏復清州等十有一城",
+        "必蘭阿魯帶復威州及獲鹿縣",
+        "復深州"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金河北地方军 × 连续恢复州县阶段",
+          "subject_role": "COUNTEROFFENSIVE",
+          "actual_process": "张开恢复河间府及沧献等十三州县，张文破赵福复恩州，后又复邢州、清州等十一城、威州、获鹿、深州。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3；P、S未同时位于基础最高档，不触发抬档，最终WC3。",
+          "P_inference": {
+            "P_observed": "多次恢复州县和“破赵福”，金方自身伤亡失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "跨多州县实际攻守支持百人级中心；无千人级金军损失。",
+            "upper_bound_reason": "无千人级伤亡或覆军证据。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0033",
+              "SRC-JINSHI-014-2432741-P0034",
+              "SRC-JINSHI-014-2432741-P0035",
+              "SRC-JINSHI-014-2432741-P0038",
+              "SRC-JINSHI-014-2432741-P0039"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB3",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB3/SN0",
+          "strategic_security_detail": "多个河北州县重新进入金方控制，改善局部安全纵深。",
+          "material_return": "WR3",
+          "material_return_detail": "恢复多个州县、城池及其行政税源和军政节点。",
+          "border_control": {
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "河间沧献等十三州县",
+              "恩州",
+              "邢州",
+              "清州等十一城",
+              "威州",
+              "获鹿",
+              "深州"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "一个重要河北区域的实际控制明显恢复。",
+            "continuity_status": "HELD_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0033",
+              "SRC-JINSHI-014-2432741-P0034",
+              "SRC-JINSHI-014-2432741-P0035",
+              "SRC-JINSHI-014-2432741-P0038",
+              "SRC-JINSHI-014-2432741-P0039"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "在总体退势中实际恢复大量州县，安全与控制收益显著。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0033",
+              "SRC-JINSHI-014-2432741-P0034",
+              "SRC-JINSHI-014-2432741-P0035",
+              "SRC-JINSHI-014-2432741-P0038",
+              "SRC-JINSHI-014-2432741-P0039"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0033",
+              "SRC-JINSHI-014-2432741-P0034",
+              "SRC-JINSHI-014-2432741-P0035",
+              "SRC-JINSHI-014-2432741-P0038",
+              "SRC-JINSHI-014-2432741-P0039"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0033",
+              "SRC-JINSHI-014-2432741-P0034",
+              "SRC-JINSHI-014-2432741-P0035",
+              "SRC-JINSHI-014-2432741-P0038",
+              "SRC-JINSHI-014-2432741-P0039"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0033",
+              "SRC-JINSHI-014-2432741-P0034",
+              "SRC-JINSHI-014-2432741-P0035",
+              "SRC-JINSHI-014-2432741-P0038",
+              "SRC-JINSHI-014-2432741-P0039"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "卷015核这些恢复地能否持续保持。"
+        },
+        {
+          "evaluation_subject_phase": "河北原占据方（本卷多处未明身份） × 多州县被金军恢复阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "原占据相关州县的各武装或敌军先后失去控制；只有赵福一处明确具名，其余不得擅自统一为同一敌方。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S3",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3；P、S未同时位于基础最高档，不触发抬档，最终WC3。",
+          "P_inference": {
+            "P_observed": "多次攻守，原占据方损失数字普遍失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "连续多地控制逆转支持百人级中心；不能由城数换算千人伤亡。",
+            "upper_bound_reason": "无千人级可证伤亡、被俘或屠杀材料。",
+            "confidence": "very_low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0033",
+              "SRC-JINSHI-014-2432741-P0034",
+              "SRC-JINSHI-014-2432741-P0035",
+              "SRC-JINSHI-014-2432741-P0038",
+              "SRC-JINSHI-014-2432741-P0039"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN3"
+          },
+          "strategic_security": "SB0/SN3",
+          "strategic_security_detail": "多个州县控制丧失，区域活动空间收缩。",
+          "material_return": "WR0",
+          "material_return_detail": "失去多个行政与战略节点。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN3",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "河北多州县"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "重要区域控制显著退缩。",
+            "continuity_status": "LOST_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0033",
+              "SRC-JINSHI-014-2432741-P0034",
+              "SRC-JINSHI-014-2432741-P0035",
+              "SRC-JINSHI-014-2432741-P0038",
+              "SRC-JINSHI-014-2432741-P0039"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "多州县控制被恢复，终局明显为负。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0033",
+              "SRC-JINSHI-014-2432741-P0034",
+              "SRC-JINSHI-014-2432741-P0035",
+              "SRC-JINSHI-014-2432741-P0038",
+              "SRC-JINSHI-014-2432741-P0039"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0033",
+              "SRC-JINSHI-014-2432741-P0034",
+              "SRC-JINSHI-014-2432741-P0035",
+              "SRC-JINSHI-014-2432741-P0038",
+              "SRC-JINSHI-014-2432741-P0039"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0033",
+              "SRC-JINSHI-014-2432741-P0034",
+              "SRC-JINSHI-014-2432741-P0035",
+              "SRC-JINSHI-014-2432741-P0038",
+              "SRC-JINSHI-014-2432741-P0039"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0033",
+              "SRC-JINSHI-014-2432741-P0034",
+              "SRC-JINSHI-014-2432741-P0035",
+              "SRC-JINSHI-014-2432741-P0038",
+              "SRC-JINSHI-014-2432741-P0039"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ]
+    },
+    {
+      "battle_id": "JIN014-B14",
+      "battle_label": "秦州官军破妖贼赵用、刘高二",
+      "campaign_group": "JINSHI-QINZHOU-CULT-REBELLION-1216",
+      "source_anchor_refs": [
+        "SRC-JINSHI-014-2432741-P0035"
+      ],
+      "source_quotes": [
+        "秦州官軍破妖賊趙用、劉高二之捷"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金秦州官军 × 破赵用刘高二阶段",
+          "subject_role": "COUNTERREBELLION",
+          "actual_process": "秦州官军击破赵用、刘高二所部，兵数、斩俘和据点未载。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1；P、S未同时位于基础最高档，不触发抬档，最终WC1。",
+          "P_inference": {
+            "P_observed": "实际交战，金方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "小规模地方平乱，无较大自身损失后效。",
+            "upper_bound_reason": "无百人级损失材料。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0035"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB2",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB2/SN0",
+          "strategic_security_detail": "击破一支地方武装，局部威胁下降。",
+          "material_return": "WR0",
+          "material_return_detail": "无缴获记录。",
+          "border_control": {
+            "BCP": "BCP1",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "秦州地方"
+            ],
+            "control_change_mode": "RECOVER",
+            "control_outcome": "恢复局部治安控制，范围不明。",
+            "continuity_status": "HELD_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0035"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "低可见成本击破地方武装。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0035"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0035"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0035"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0035"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "赵用、刘高二武装 × 被秦州官军击破阶段",
+          "subject_role": "REBELLION_DEFENDER",
+          "actual_process": "赵用、刘高二所部被击破，具体伤亡和是否擒首未载。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=1；P、S同时位于基础最高档1，按合同抬至WC2。",
+          "P_inference": {
+            "P_observed": "战败，损失数字失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "不能由“破”推高到百人级。",
+            "upper_bound_reason": "无百人级证据。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0035"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN2"
+          },
+          "strategic_security": "SB0/SN2",
+          "strategic_security_detail": "地方武装组织遭击破。",
+          "material_return": "WR0",
+          "material_return_detail": "无回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN1",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "秦州地方据点"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "局部控制受损。",
+            "continuity_status": "LOST_OR_UNRESOLVED",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0035"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "被击破且无可见收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0035"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0035"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0035"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0035"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ]
+    },
+    {
+      "battle_id": "JIN014-B15",
+      "battle_label": "蔡息行元帅府兵拔木陡关、斩首千级",
+      "campaign_group": "JINSHI-MUDOU-PASS-1216",
+      "source_anchor_refs": [
+        "SRC-JINSHI-014-2432741-P0035"
+      ],
+      "source_quotes": [
+        "蔡、息行元帥府兵拔木陡關，斬首千級"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金蔡息行元帅府军 × 攻拔木陡关阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "金军攻取木陡关并斩首千级；守方身份失载。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=2；P、S未同时位于基础最高档，不触发抬档，最终WC2。",
+          "P_inference": {
+            "P_observed": "强攻关隘并斩敌千级，自身损失失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "攻关属于高强度接战；敌千级不等量反推金损。",
+            "upper_bound_reason": "无金军千人级自身损失证据。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0035"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB2",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB2/SN0",
+          "strategic_security_detail": "取得关键关隘，改善局部交通与防御。",
+          "material_return": "WR2",
+          "material_return_detail": "取得关隘控制。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "木陡关"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "木陡关转入金方控制。",
+            "continuity_status": "HELD_AT_PHASE_END",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0035"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "取得关键关隘并重创守方。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0035"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0035"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0035"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0035"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "后卷核关隘是否持续保持及守方身份。"
+        },
+        {
+          "evaluation_subject_phase": "木陡关守方（原文未明身份） × 关隘失守阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "守方被金军攻破，明确斩首一千级，关隘控制丧失。",
+          "cost_axes": {
+            "P": "P3",
+            "S": "S2",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3；P、S未同时位于基础最高档，不触发抬档，最终WC3。",
+          "P_inference": null,
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN2"
+          },
+          "strategic_security": "SB0/SN2",
+          "strategic_security_detail": "关键关隘失守。",
+          "material_return": "WR0",
+          "material_return_detail": "失去关隘和相关军资。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "木陡关"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "关键关隘实际丧失。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0035"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "至少千人死亡并失去关键节点。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0035"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0035"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0035"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0035"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ]
+    },
+    {
+      "battle_id": "JIN014-B16",
+      "battle_label": "辽东宣抚司败留哥捷报",
+      "campaign_group": "JINSHI-LIAODONG-LIUGE-1215",
+      "source_anchor_refs": [
+        "SRC-JINSHI-014-2432741-P0029"
+      ],
+      "source_quotes": [
+        "遼東宣撫司報敗留哥之捷"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金辽东宣抚军 × 击败留哥部阶段",
+          "subject_role": "COUNTERREBELLION",
+          "actual_process": "辽东宣抚司上报击败留哥，地点、斩俘和控制结果失载。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1；P、S未同时位于基础最高档，不触发抬档，最终WC1。",
+          "P_inference": {
+            "P_observed": "明确胜战，金方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "只有捷报，无较大自身损失后效。",
+            "upper_bound_reason": "无百人级损失证据。",
+            "confidence": "very_low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0029"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB1",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB1/SN0",
+          "strategic_security_detail": "只确认一次战术缓解。",
+          "material_return": "WR0",
+          "material_return_detail": "未载缴获。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "辽东留哥活动区"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "控制后效未载。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0029"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "有明确胜利但收益范围不足。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0029"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0029"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0029"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0029"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "同段蒲鲜万奴随后僭号；卷015分别核留哥与万奴两线。"
+        },
+        {
+          "evaluation_subject_phase": "耶律留哥部 × 遭辽东宣抚军击败阶段",
+          "subject_role": "REBELLION_DEFENDER",
+          "actual_process": "留哥所部被击败，其他结果未载。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1；P、S未同时位于基础最高档，不触发抬档，最终WC1。",
+          "P_inference": {
+            "P_observed": "战败，具体伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "“败”不自动换算百人级。",
+            "upper_bound_reason": "无百人级斩俘或覆军证据。",
+            "confidence": "very_low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0029"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN1"
+          },
+          "strategic_security": "SB0/SN1",
+          "strategic_security_detail": "一次战术失利。",
+          "material_return": "WR0",
+          "material_return_detail": "无回报。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "辽东留哥活动区"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "是否失地未载。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0029"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "确认被击败且无可见收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0029"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0029"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0029"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0029"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ]
+    },
+    {
+      "battle_id": "JIN014-B17",
+      "battle_label": "山东路报莱州之捷（敌手与战果细节失载）",
+      "campaign_group": "JINSHI-LAIZHOU-VICTORY-1214",
+      "source_anchor_refs": [
+        "SRC-JINSHI-014-2432741-P0016"
+      ],
+      "source_quotes": [
+        "山東路報萊州之捷"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金山东路莱州作战部队 × 捷报阶段",
+          "subject_role": "UNKNOWN_COMBATANT",
+          "actual_process": "山东路上报莱州取得胜利；敌手、兵数、伤亡、缴获和据点变化均失载。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1；P、S未同时位于基础最高档，不触发抬档，最终WC1。",
+          "P_inference": {
+            "P_observed": "确认实际作战并有捷报，金方损失失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "有实际作战但无损失信息，不能P0。",
+            "upper_bound_reason": "无百人级金军损失材料。",
+            "confidence": "very_low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0016"
+            ]
+          },
+          "security_axes": {
+            "SB": "UNKNOWN",
+            "SN": "UNKNOWN"
+          },
+          "strategic_security": "UNKNOWN",
+          "strategic_security_detail": "胜利后效不明。",
+          "material_return": "UNKNOWN",
+          "material_return_detail": "是否有缴获不明。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "莱州"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "控制变化不明。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0016"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "phase_return_basis": "只有“捷”这一结果词，不能自动抬为高回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0016"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0016"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0016"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0016"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "后卷或本传如补出敌手、斩俘和据点结果，应回填本卡。"
+        }
+      ]
+    },
+    {
+      "battle_id": "JIN014-B18",
+      "battle_label": "山东行省上沂州之捷（敌手与细节失载）",
+      "campaign_group": "JINSHI-YIZHOU-VICTORY-1216",
+      "source_anchor_refs": [
+        "SRC-JINSHI-014-2432741-P0036"
+      ],
+      "source_quotes": [
+        "山東行省上沂州之捷"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "金山东行省沂州作战部队 × 捷报阶段",
+          "subject_role": "UNKNOWN_COMBATANT",
+          "actual_process": "山东行省上报沂州胜利；敌手、兵数、伤亡、斩俘和控制后效失载。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A0",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1；P、S未同时位于基础最高档，不触发抬档，最终WC1。",
+          "P_inference": {
+            "P_observed": "确认实际作战有捷报，金方损失失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "实际作战不能P0；其余信息不足。",
+            "upper_bound_reason": "无百人级金军损失证据。",
+            "confidence": "very_low",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0036"
+            ]
+          },
+          "security_axes": {
+            "SB": "UNKNOWN",
+            "SN": "UNKNOWN"
+          },
+          "strategic_security": "UNKNOWN",
+          "strategic_security_detail": "无法确认安全后效。",
+          "material_return": "UNKNOWN",
+          "material_return_detail": "无可确认资源回报。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "沂州"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "控制变化不明。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-JINSHI-014-2432741-P0036"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "phase_return_basis": "仅据“捷”不足确定回报档位。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不属于本卷可确认的建国、复国或新政权创业阶段。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-JINSHI-014-2432741-P0036"
+            ],
+            "strategic_security": [
+              "SRC-JINSHI-014-2432741-P0036"
+            ],
+            "material_return": [
+              "SRC-JINSHI-014-2432741-P0036"
+            ],
+            "border_control": [
+              "SRC-JINSHI-014-2432741-P0036"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "如后续明确属于郝定或其他红袄军父链，再在汇总层合并；本卷不强行归并。"
+        }
+      ]
+    }
+  ],
+  "review": {
+    "linear_reread": {
+      "range": "SRC-JINSHI-014-2432741-P0001—P0044",
+      "paragraph_count": 44,
+      "status": "COMPLETED",
+      "method": "成稿后自P0001逐段复读至P0044，逐段重查“战、败、下、徇、攻、收、破、陷、入边、犯、军乱、降、殲、坑、掠、复、俘馘、捷”等触发词；同段多战线分别落入蒙古、金夏、红袄军和地方叛乱父链。计划、军令、僭号、谋复叛、政治处刑和单纯部署明确排除。",
+      "ps_tie_raise_checked": true
+    },
+    "card_coverage": {
+      "battle_cards": 18,
+      "subject_phase_cards": 49,
+      "estimated_P_phase_count": 43,
+      "adjudicated_anchor_entries": 31,
+      "not_a_battle_anchor_entries": 6,
+      "coverage_result": "44/44段完成线性复读；全部可识别实际武装事实已裁决；敌手失载的莱州、沂州捷报亦保留薄卡。",
+      "wc_formula_check": "PASS",
+      "dedup_check": "蒙古战争按1213—1215中都主链与1215—1216河南河东关陕续进分阶段；金夏按会州环州、1215陕西主战、1216续战分阶段；红袄军跨州县反复作战按同一地区父链汇总。",
+      "humanitarian_check": "李友直线千余已纳仗者被坑写入war_conduct_note；张汝楫及党万余因只载“将谋复叛”即被杀，按准入规则排除战争账户并在source-summary保留。",
+      "status": "PASS"
+    },
+    "ps_tie_raise_cases": [
+      {
+        "battle_id": "JIN014-B01",
+        "evaluation_subject_phase": "金中都守军 × 城北两败、涿州失守阶段",
+        "result": "WC3"
+      },
+      {
+        "battle_id": "JIN014-B02",
+        "evaluation_subject_phase": "胡沙虎武装集团 × 首领在府第被杀阶段",
+        "result": "WC2"
+      },
+      {
+        "battle_id": "JIN014-B03",
+        "evaluation_subject_phase": "金会州守军 × 击退夏军阶段",
+        "result": "WC2"
+      },
+      {
+        "battle_id": "JIN014-B03",
+        "evaluation_subject_phase": "金边防体系 × 遭西夏入边阶段",
+        "result": "WC2"
+      },
+      {
+        "battle_id": "JIN014-B03",
+        "evaluation_subject_phase": "金环州守军 × 击败夏军阶段",
+        "result": "WC2"
+      },
+      {
+        "battle_id": "JIN014-B04",
+        "evaluation_subject_phase": "金秦州守军 × 击退宋军阶段",
+        "result": "WC2"
+      },
+      {
+        "battle_id": "JIN014-B09",
+        "evaluation_subject_phase": "红袄军各部 × 多州县扩张后遭连续压制阶段",
+        "result": "WC4"
+      },
+      {
+        "battle_id": "JIN014-B10",
+        "evaluation_subject_phase": "金陕西军 × 杨再兴击走夏军阶段",
+        "result": "WC2"
+      },
+      {
+        "battle_id": "JIN014-B14",
+        "evaluation_subject_phase": "赵用、刘高二武装 × 被秦州官军击破阶段",
+        "result": "WC2"
+      }
+    ],
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0002",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "迎宣宗、百官劝进属于政权继承，无新武装接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0005",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "JIN014-B01",
+          "JIN014-B02"
+        ],
+        "reason": "同时有城北两败、涿州失守，以及高琪明确“以兵”杀胡沙虎。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0006",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "JIN014-B01",
+          "JIN014-B03"
+        ],
+        "reason": "夏攻会州被击走；蒙古徇观州、河间、沧州。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0008",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "JIN014-B01",
+          "JIN014-B04"
+        ],
+        "reason": "蒙古徇彰德、益都、怀州与宋攻秦州均为实际武装行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0010",
+        "disposition": "ADJUDICATED",
+        "battle_id": "JIN014-B01",
+        "reason": "蒙古下岚州为实际攻取；大括粟、纳粟买官另入source-summary。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0011",
+        "disposition": "ADJUDICATED",
+        "battle_id": "JIN014-B01",
+        "reason": "山东河北大部失守、河东残毁是战争系统与控制后效；安集遗黎另入summary。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0012",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "南迁、禁践民田、计价赔偿是战时迁都与民生政策。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0015",
+        "disposition": "ADJUDICATED",
+        "battle_id": "JIN014-B03",
+        "reason": "“夏人入边”属于实际武装入境，后效失载则按薄阶段处理。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0016",
+        "disposition": "ADJUDICATED",
+        "battle_id": "JIN014-B17",
+        "reason": "“莱州之捷”确认实际战斗，但敌手和细节失载，故单独薄卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0017",
+        "disposition": "ADJUDICATED",
+        "battle_id": "JIN014-B01",
+        "reason": "蒙古徇顺州、收成州属于实际控制；战死军户给粮另入summary。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0018",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "程陈僧仅记“叛，西结夏人为援”，未见起兵、据城、杀官或接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0019",
+        "disposition": "ADJUDICATED",
+        "battle_id": "JIN014-B01",
+        "reason": "蒙古徇懿州；永锡援中都作为同父链动员锚点。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0020",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "JIN014-B03",
+          "JIN014-B05",
+          "JIN014-B07"
+        ],
+        "reason": "夏犯环州、北京军变杀帅、蒲察七斤率军降蒙古均属实际军事行动；讨刘二祖命令为后续实战前置。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0021",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "JIN014-B03",
+          "JIN014-B06"
+        ],
+        "reason": "环州击败夏军、僕散留家破杨安儿三万军已裁决；张暉、刘永昌只见“诛”结果，留候选。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0022",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "JIN014-B07",
+          "JIN014-B08"
+        ],
+        "reason": "大沫堌擒斩刘二祖与李友直等聚众杀官、千余降众被坑均达到准入线。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0023",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "籍赴选人为军、募山西民勇、安置流民及拟援中都均为动员/政策，拟遣亲军最终又停止。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0024",
+        "disposition": "ADJUDICATED",
+        "battle_id": "JIN014-B01",
+        "reason": "中都明确失陷并有多名高级官员死于难。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0025",
+        "disposition": "ADJUDICATED",
+        "battle_id": "JIN014-B12",
+        "reason": "蒙古收济源县是实际控制变化；征弓、漕运、移民、减费等另入summary。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0026",
+        "disposition": "ADJUDICATED",
+        "battle_id": "JIN014-B09",
+        "reason": "红袄贼掠成武并被讨走、斩数百级为实战。张汝楫仅“将谋复叛”即被杀及党万余，严格排除战争账户。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0027",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "设寨、募复中都、边官俸给和赏格均属防务政策。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0028",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "JIN014-B09",
+          "JIN014-B10"
+        ],
+        "reason": "周元儿陷深祁后被破；杨再兴击走夏军。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0029",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "JIN014-B10",
+          "JIN014-B16"
+        ],
+        "reason": "保安延安战、临洮失陷及辽东败留哥均有实际结果；蒲鲜万奴僭号本身非战役。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0030",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "JIN014-B10",
+          "JIN014-B12"
+        ],
+        "reason": "金夏绥德、熟羊寨、临洮城下战和蒙古徇彰德均已归父链。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0031",
+        "disposition": "ADJUDICATED",
+        "battle_id": "JIN014-B12",
+        "reason": "蒙古徇大名府属于继续进攻；徙朔州民另入summary。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0032",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "JIN014-B09",
+          "JIN014-B12"
+        ],
+        "reason": "红袄军犯泰安德博被败、蒙古收曹州。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0033",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "JIN014-B12",
+          "JIN014-B13"
+        ],
+        "reason": "蒙古围太原、下霍山诸隘与张开恢复河间沧献等分别入父链。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0034",
+        "disposition": "ADJUDICATED",
+        "battle_id": "JIN014-B13",
+        "reason": "张文破赵福复恩州、复邢州均为明确反攻和控制恢复。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0035",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "JIN014-B09",
+          "JIN014-B13",
+          "JIN014-B14",
+          "JIN014-B15"
+        ],
+        "reason": "包含妖贼被破、清州等十一城恢复、红袄军鲁南扩张与反击、木陡关攻取。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0036",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "JIN014-B11",
+          "JIN014-B18"
+        ],
+        "reason": "焚夏人界河桥并俘馘甚多、沂州捷报均属实际战斗；后者敌手失载单独薄卡。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0037",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "张致遣使归附、授官及改经略司是政治/行政变化。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0038",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "JIN014-B09",
+          "JIN014-B13"
+        ],
+        "reason": "复威州获鹿为控制恢复；郝定等伏诛是前述红袄军战役后的政治处置。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0039",
+        "disposition": "ADJUDICATED",
+        "battle_id": "JIN014-B13",
+        "reason": "“复深州”属于实际控制恢复。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0040",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "JIN014-B11",
+          "JIN014-B12"
+        ],
+        "reason": "夏入安塞、结耶觜川被击走，蒙古攻延安。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0041",
+        "disposition": "ADJUDICATED",
+        "battle_id": "JIN014-B12",
+        "reason": "蒙古攻坊州、代州且有经略使战没。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0042",
+        "disposition": "ADJUDICATED",
+        "battle_id": "JIN014-B12",
+        "reason": "蒙古攻潼关、徇汝州及金实际援军属于已发生战争父链；防城和撤车牛等政策另分流。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0043",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "JIN014-B11",
+          "JIN014-B12"
+        ],
+        "reason": "定西大败夏军、蒙古至渑池致金军溃逃、华州军复潼关均为实际结果。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0044",
+        "disposition": "ADJUDICATED",
+        "battle_id": "JIN014-B12",
+        "reason": "蒙古攻平阳、徇大名、攻太原，金实际发多路援军；拒修南京里城另入summary。"
+      }
+    ],
+    "new_battle_candidates": [
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0021",
+        "actual_fact": "武清县巡检梁佐、柳口巡检李咬住因“诛飐贼张暉、刘永昌等”获赏。可确认地方武装治安成果，但不载聚众规模、接战过程和双方损失，暂不强并杨安儿/红袄军。"
+      },
+      {
+        "source_anchor_ref": "SRC-JINSHI-014-2432741-P0026",
+        "actual_fact": "前冀州教授粘割忒邻“聚义兵，竭力遏”兵后寇盗，随后复州治、积刍粮、招户五万；实际接战与斩俘不详，当前作为地方武装治安候选，不凭“遏”立战役卡。"
+      }
+    ],
+    "cross_volume_followups": [
+      "蒙古—金河南河东关陕父链 `JINSHI-MONGOL-JIN-HENAN-SHANXI-1215-1216` 在P0044仍未闭合：太原告急、平阳被攻，多路援军刚发。卷015继续核太原、平阳、潼关及河东终局。",
+      "中都主链 `JINSHI-MONGOL-JIN-NORTH-1211-1215` 已以中都陷落收束旧都阶段；后卷不得再把同一中都失守重复计BCN/WR，只记录占领治理或反攻新事实。",
+      "金夏父链 `JINSHI-JIN-XIA-SHAANXI-1215-1216` 出现临洮失陷、熟羊寨/临洮城下大捷、界河桥、安塞、定西等反复阶段；卷015若见临洮实际收复或再失，优先闭合控制状态。",
+      "红袄军父链 `JINSHI-REDJACKET-SHANDONG-HEBEI-1215-1216`：郝定被擒杀但不足直接判SB4；卷015核是否仍有同源集团复起。",
+      "辽东留哥父链 `JINSHI-LIAODONG-LIUGE-1215` 仅有一次捷报；蒲鲜万奴同段已僭号天泰。卷015如有实战，分别建卡并核万奴的REGIME_EMERGENCE/CONSOLIDATION启动账。",
+      "莱州、沂州两张薄卡敌手和控制后效失载；后卷或人物本传如补充，不得凭当前山东叛乱背景自动归并。",
+      "P0021张暉、刘永昌及P0026粘割忒邻义兵作为未登记战役候选保留；后文补出实际接战后再立卡。"
+    ]
+  }
+}

@@ -1,0 +1,717 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "liao",
+  "bucket": 6,
+  "bucket_count": 24,
+  "record_count": 6,
+  "records_fingerprint": "bba670e1d8984d91ae52d951e95acf95a18d26e56eacebac82aa228f439340d9",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-5DE18BE6AE6AC37F17FE",
+      "dynasty": "辽",
+      "dynasty_partition": "liao",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-LIAO-CHUHEDIAN-EXPEDITION-1114",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "朝廷任萧嗣先为东北路都统，调契丹奚军、中京禁兵、土豪及诸路武勇屯出河店；女直军潜渡混同江掩击，辽军溃败，多名将领战死。",
+      "period": {
+        "start": "天慶四年十月",
+        "end": "1114"
+      },
+      "observable_result": "出河店对垒后辽军溃败，崔公义、邢颖、耶律佛留、萧葛十等死亡。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-LIAO-V27-CHUHEDIAN-EXPEDITION-DEFEAT-1114"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/辽史/volume-27.registry.json"
+        ],
+        "source_revision_refs": [
+          "遼史/卷27@1748689#以守司空蕭嗣先為東北路都統，靜江軍節度使蕭撻不也為副，發契丹奚軍三千人，中京禁兵及土豪二千人，別選諸路武勇二千餘人，以虞候崔公義為都押官，控鶴指揮邢穎為副，引軍屯出河店。",
+          "遼史/卷27@1748689#女直軍潛渡混同江，掩擊遼眾。蕭嗣先軍潰，崔公義、邢穎、耶律佛留、蕭葛十等死之，其獲免者十有七人。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "遼史/卷27@1748689#以守司空蕭嗣先為東北路都統，靜江軍節度使蕭撻不也為副，發契丹奚軍三千人，中京禁兵及土豪二千人，別選諸路武勇二千餘人，以虞候崔公義為都押官，控鶴指揮邢穎為副，引軍屯出河店。",
+        "遼史/卷27@1748689#女直軍潛渡混同江，掩擊遼眾。蕭嗣先軍潰，崔公義、邢穎、耶律佛留、蕭葛十等死之，其獲免者十有七人。"
+      ],
+      "uncertainties": [
+        "各部实际到军、溃军去向和战场后续控制未载。"
+      ],
+      "cost_or_burden": "参战总人数、女直兵力、溃败后损失及出河店控制情况未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "important_objective",
+      "land_strategic_value": "strategic_gateway",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记B；土地轴=strategic_gateway，对手轴=regional_major，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "B",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "已逐项反查全部source_card_ids；现有事实未同时闭合具名人物的实际控制、本人完成范围与可观察结果，unknown保持unknown。",
+      "detail_expansion_status": "complete_unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-5D1861D59A7F33559F0A",
+      "dynasty": "辽",
+      "dynasty_partition": "liao",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-LIAO-DONG-PANGER-1117",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "涞水县董庞儿聚众万余，辽军先在易水、后在奉圣州两次击破。",
+      "period": {
+        "start": "天慶七年二月至三月",
+        "end": "1117"
+      },
+      "observable_result": "卷内记录董庞儿党两次被击破。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-LIAO-V28-DONG-PANGER-REBELLION-SUPPRESSION-1117"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/辽史/volume-28.registry.json"
+        ],
+        "source_revision_refs": [
+          "遼史/卷28@1748701#淶水縣賊董龐兒聚眾萬餘，西京留守蕭乙薛、南京統軍都監查剌與戰于易水，破之。",
+          "遼史/卷28@1748701#龐兒党復聚，乙薛復擊破之於奉聖州。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "遼史/卷28@1748701#淶水縣賊董龐兒聚眾萬餘，西京留守蕭乙薛、南京統軍都監查剌與戰于易水，破之。",
+        "遼史/卷28@1748701#龐兒党復聚，乙薛復擊破之於奉聖州。"
+      ],
+      "uncertainties": [
+        "叛众最终处置与民众损失未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "important_objective",
+      "land_strategic_value": "strategic_gateway",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记B；土地轴=strategic_gateway，对手轴=regional_major，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "B",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "已逐项反查全部source_card_ids；现有事实未同时闭合具名人物的实际控制、本人完成范围与可观察结果，unknown保持unknown。",
+      "detail_expansion_status": "complete_unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-3D1D751350D1DD836A99",
+      "dynasty": "辽",
+      "dynasty_partition": "liao",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-LIAO-GORYEO-CHADA-1018",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "辽廷命萧排押等伐高丽，并许自归者厚赏；茶陀二河交战时辽军失利，天云、右皮室二军多人没溺，多名将校死亡。",
+      "period": {
+        "start": "开泰七年十月至十二月",
+        "end": "1018"
+      },
+      "observable_result": "对高丽进攻在茶陀二河失利并遭严重将校与士卒损失。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-LIAO-V16-GORYEO-CHADA-RIVER-CAMPAIGN-1018"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/辽史/volume-16.registry.json"
+        ],
+        "source_revision_refs": [
+          "遼史/卷16@2629901#伐高麗。仍諭高麗守吏，能率眾自歸者厚賞",
+          "遼史/卷16@2629901#遼軍失利，天雲、右皮室二軍沒溺者眾",
+          "遼史/卷16@2629901#阿果達、客省使酌古、渤海詳穩高清明、天雲軍詳穩海裏等皆死之。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "遼史/卷16@2629901#伐高麗。仍諭高麗守吏，能率眾自歸者厚賞",
+        "遼史/卷16@2629901#遼軍失利，天雲、右皮室二軍沒溺者眾",
+        "遼史/卷16@2629901#阿果達、客省使酌古、渤海詳穩高清明、天雲軍詳穩海裏等皆死之。"
+      ],
+      "uncertainties": [
+        "交战地点细节、兵力、战俘与后续撤军未载。"
+      ],
+      "cost_or_burden": "天云右皮室二军没溺者众，阿果达、酌古、高清明、海里等死亡；总伤亡未载。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-CD743C33F4A97ED8",
+          "actor_name": "耶律八哥",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "都监远征军并在败后被数罪。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "都监远征军并在败后被数罪。",
+            "source_refs": [
+              "遼史/卷16@2629901#伐高麗。仍諭高麗守吏，能率眾自歸者厚賞",
+              "遼史/卷16@2629901#遼軍失利，天雲、右皮室二軍沒溺者眾",
+              "遼史/卷16@2629901#阿果達、客省使酌古、渤海詳穩高清明、天雲軍詳穩海裏等皆死之。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-2E7F4702A24769B6EAB8",
+              "result_label": "都监远征军并在败后被数罪。",
+              "result_direction": "negative",
+              "result_tier": "B",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "都监远征军并在败后被数罪。",
+              "source_refs": [
+                "遼史/卷16@2629901#伐高麗。仍諭高麗守吏，能率眾自歸者厚賞",
+                "遼史/卷16@2629901#遼軍失利，天雲、右皮室二軍沒溺者眾",
+                "遼史/卷16@2629901#阿果達、客省使酌古、渤海詳穩高清明、天雲軍詳穩海裏等皆死之。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "都监远征军并在败后被数罪。",
+                "source_refs": [
+                  "遼史/卷16@2629901#伐高麗。仍諭高麗守吏，能率眾自歸者厚賞",
+                  "遼史/卷16@2629901#遼軍失利，天雲、右皮室二軍沒溺者眾",
+                  "遼史/卷16@2629901#阿果達、客省使酌古、渤海詳穩高清明、天雲軍詳穩海裏等皆死之。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-96A21CC851D5BBF9",
+          "actor_name": "萧排押",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "都统辽军远征高丽并在茶陀二河败绩，归后被数罪。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "都统辽军远征高丽并在茶陀二河败绩，归后被数罪。",
+            "source_refs": [
+              "遼史/卷16@2629901#伐高麗。仍諭高麗守吏，能率眾自歸者厚賞",
+              "遼史/卷16@2629901#遼軍失利，天雲、右皮室二軍沒溺者眾",
+              "遼史/卷16@2629901#阿果達、客省使酌古、渤海詳穩高清明、天雲軍詳穩海裏等皆死之。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-0943B7A7D03A32C94AEA",
+              "result_label": "都统辽军远征高丽并在茶陀二河败绩，归后被数罪。",
+              "result_direction": "negative",
+              "result_tier": "B",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "都统辽军远征高丽并在茶陀二河败绩，归后被数罪。",
+              "source_refs": [
+                "遼史/卷16@2629901#伐高麗。仍諭高麗守吏，能率眾自歸者厚賞",
+                "遼史/卷16@2629901#遼軍失利，天雲、右皮室二軍沒溺者眾",
+                "遼史/卷16@2629901#阿果達、客省使酌古、渤海詳穩高清明、天雲軍詳穩海裏等皆死之。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "都统辽军远征高丽并在茶陀二河败绩，归后被数罪。",
+                "source_refs": [
+                  "遼史/卷16@2629901#伐高麗。仍諭高麗守吏，能率眾自歸者厚賞",
+                  "遼史/卷16@2629901#遼軍失利，天雲、右皮室二軍沒溺者眾",
+                  "遼史/卷16@2629901#阿果達、客省使酌古、渤海詳穩高清明、天雲軍詳穩海裏等皆死之。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-433F0763A8BF8F90",
+          "actor_name": "萧虚列",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "副统远征军；茶陀二河严重败绩。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "副统远征军；茶陀二河严重败绩。",
+            "source_refs": [
+              "遼史/卷16@2629901#伐高麗。仍諭高麗守吏，能率眾自歸者厚賞",
+              "遼史/卷16@2629901#遼軍失利，天雲、右皮室二軍沒溺者眾",
+              "遼史/卷16@2629901#阿果達、客省使酌古、渤海詳穩高清明、天雲軍詳穩海裏等皆死之。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-392780BE65D41022132D",
+              "result_label": "副统远征军；茶陀二河严重败绩。",
+              "result_direction": "negative",
+              "result_tier": "B",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "副统远征军；茶陀二河严重败绩。",
+              "source_refs": [
+                "遼史/卷16@2629901#伐高麗。仍諭高麗守吏，能率眾自歸者厚賞",
+                "遼史/卷16@2629901#遼軍失利，天雲、右皮室二軍沒溺者眾",
+                "遼史/卷16@2629901#阿果達、客省使酌古、渤海詳穩高清明、天雲軍詳穩海裏等皆死之。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "副统远征军；茶陀二河严重败绩。",
+                "source_refs": [
+                  "遼史/卷16@2629901#伐高麗。仍諭高麗守吏，能率眾自歸者厚賞",
+                  "遼史/卷16@2629901#遼軍失利，天雲、右皮室二軍沒溺者眾",
+                  "遼史/卷16@2629901#阿果達、客省使酌古、渤海詳穩高清明、天雲軍詳穩海裏等皆死之。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [
+        {
+          "actor_ref": "PERSON-POST-CD743C33F4A97ED8",
+          "actor_name": "耶律八哥",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "B",
+          "severity": 0.3,
+          "basis": "都监远征军并在败后被数罪。",
+          "source_refs": [
+            "遼史/卷16@2629901#伐高麗。仍諭高麗守吏，能率眾自歸者厚賞",
+            "遼史/卷16@2629901#遼軍失利，天雲、右皮室二軍沒溺者眾",
+            "遼史/卷16@2629901#阿果達、客省使酌古、渤海詳穩高清明、天雲軍詳穩海裏等皆死之。"
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-96A21CC851D5BBF9",
+          "actor_name": "萧排押",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "B",
+          "severity": 0.3,
+          "basis": "都统辽军远征高丽并在茶陀二河败绩，归后被数罪。",
+          "source_refs": [
+            "遼史/卷16@2629901#伐高麗。仍諭高麗守吏，能率眾自歸者厚賞",
+            "遼史/卷16@2629901#遼軍失利，天雲、右皮室二軍沒溺者眾",
+            "遼史/卷16@2629901#阿果達、客省使酌古、渤海詳穩高清明、天雲軍詳穩海裏等皆死之。"
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-433F0763A8BF8F90",
+          "actor_name": "萧虚列",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "B",
+          "severity": 0.3,
+          "basis": "副统远征军；茶陀二河严重败绩。",
+          "source_refs": [
+            "遼史/卷16@2629901#伐高麗。仍諭高麗守吏，能率眾自歸者厚賞",
+            "遼史/卷16@2629901#遼軍失利，天雲、右皮室二軍沒溺者眾",
+            "遼史/卷16@2629901#阿果達、客省使酌古、渤海詳穩高清明、天雲軍詳穩海裏等皆死之。"
+          ]
+        }
+      ],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "negative",
+      "campaign_tier": "B",
+      "result_class": "important_objective",
+      "land_strategic_value": "strategic_gateway",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "viable",
+      "battle_result": "defeat",
+      "objective_completion": "failed",
+      "objective_shortfalls": [
+        "共享层未闭合全部战略目标，保持证据下限。"
+      ],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "这是对高丽的国家级远征，茶陀二河败绩造成两个军大量没溺和多名将校死亡，重大败责和成本均有逐字锚，不得因结果为负向而排除。",
+      "tier_review_source_tier": "C",
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-F96A652D8EE920D4FB80",
+      "dynasty": "辽",
+      "dynasty_partition": "liao",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-LIAO-PINGZHOU-CONFLICT-1124",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "张仓击败来州金军后赴燕，金军克三州并索张仓；宋方最终杀张仓函首送金。",
+      "period": {
+        "start": "保大四年七月",
+        "end": "1124"
+      },
+      "observable_result": "张仓被杀，平州相关军政安排遭金军瓦解。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-LIAO-V29-PINGZHOU-JIN-CONFLICT-AND-ZHANGCANG-EXECUTION-1124"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/辽史/volume-29.registry.json"
+        ],
+        "source_revision_refs": [
+          "遼史/卷29@7906191#倉以精兵萬騎擊敗之。",
+          "遼史/卷29@7906191#金人克三州，始來索倉，王安中諱之。",
+          "遼史/卷29@7906191#安中不得已，殺倉，函其首送金[9]。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "遼史/卷29@7906191#倉以精兵萬騎擊敗之。",
+        "遼史/卷29@7906191#金人克三州，始來索倉，王安中諱之。",
+        "遼史/卷29@7906191#安中不得已，殺倉，函其首送金[9]。"
+      ],
+      "uncertainties": [
+        "三州名称、居民损失和宋金处置细节未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "mixed",
+      "campaign_tier": "C",
+      "result_class": "local_tactical",
+      "land_strategic_value": "local_point",
+      "opponent_strategic_weight": "minor",
+      "opponent_condition": "unclear",
+      "battle_result": "unclear",
+      "objective_completion": "unclear",
+      "objective_shortfalls": [
+        "共享层未闭合全部战略目标，保持证据下限。"
+      ],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记C；土地轴=local_point，对手轴=minor，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "C",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "已逐项反查全部source_card_ids；现有事实未同时闭合具名人物的实际控制、本人完成范围与可观察结果，unknown保持unknown。",
+      "detail_expansion_status": "complete_unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-DF03C2671EA51E7E0D4F",
+      "dynasty": "辽",
+      "dynasty_partition": "liao",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-LIAO-SHANXI-RECOVERY-AND-YANG-YE-CAPTURE-986",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "斜轸所部收复蔚州、灵丘、飞狐、寰州和朔州，并设伏击败宋军；宋将杨继业中箭坠马被擒，三日后死亡，宋守云应诸州者闻讯弃城遁走。",
+      "period": {
+        "start": "统和四年五月至七月",
+        "end": "986"
+      },
+      "observable_result": "辽军恢复山西多州控制，擒获杨继业并促使宋军自云应诸州撤离。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-LIAO-V11-MOUNTAIN-WEST-RECOVERY-AND-YANG-YE-CAPTURE-986"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/辽史/volume-11.registry.json"
+        ],
+        "source_revision_refs": [
+          "遼史/卷11@1745919#奏復蔚州，斬首二萬餘級，乘勝攻下靈丘、飛狐，賜蒲姑酒及銀器。",
+          "遼史/卷11@1745919#入寰州，殺守城吏卒千餘人。",
+          "遼史/卷11@1745919#中流矢，墮馬被擒。瘡發不食，三日死。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "遼史/卷11@1745919#奏復蔚州，斬首二萬餘級，乘勝攻下靈丘、飛狐，賜蒲姑酒及銀器。",
+        "遼史/卷11@1745919#入寰州，殺守城吏卒千餘人。",
+        "遼史/卷11@1745919#中流矢，墮馬被擒。瘡發不食，三日死。"
+      ],
+      "uncertainties": [
+        "各州交接方式、战后行政恢复和被杀人员身份构成未载。"
+      ],
+      "cost_or_burden": "寰州守城吏卒千余人被杀；杨继业伤重绝食而死，双方伤亡和州县居民损失未载。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-901161FC291F5A31",
+          "actor_name": "斜轸",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "行动句明确斜轸所部连续收复多州并设伏，结果闭合宋军主力受挫、主将被擒及云应守军撤退。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "行动句明确斜轸所部连续收复多州并设伏，结果闭合宋军主力受挫、主将被擒及云应守军撤退。",
+            "source_refs": [
+              "遼史/卷11@1745919#奏復蔚州，斬首二萬餘級，乘勝攻下靈丘、飛狐，賜蒲姑酒及銀器。",
+              "遼史/卷11@1745919#入寰州，殺守城吏卒千餘人。",
+              "遼史/卷11@1745919#中流矢，墮馬被擒。瘡發不食，三日死。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-D56C4099F5615F24153A",
+              "result_label": "斜轸所部收复蔚州、灵丘、飞狐、寰州和朔州，并设伏击败宋军；宋将杨继业中箭坠马被擒，三日后死亡，宋守云应诸州者闻讯弃城遁走。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "行动句明确斜轸所部连续收复多州并设伏，结果闭合宋军主力受挫、主将被擒及云应守军撤退。",
+              "source_refs": [
+                "遼史/卷11@1745919#奏復蔚州，斬首二萬餘級，乘勝攻下靈丘、飛狐，賜蒲姑酒及銀器。",
+                "遼史/卷11@1745919#入寰州，殺守城吏卒千餘人。",
+                "遼史/卷11@1745919#中流矢，墮馬被擒。瘡發不食，三日死。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "行动句明确斜轸所部连续收复多州并设伏，结果闭合宋军主力受挫、主将被擒及云应守军撤退。",
+                "source_refs": [
+                  "遼史/卷11@1745919#奏復蔚州，斬首二萬餘級，乘勝攻下靈丘、飛狐，賜蒲姑酒及銀器。",
+                  "遼史/卷11@1745919#入寰州，殺守城吏卒千餘人。",
+                  "遼史/卷11@1745919#中流矢，墮馬被擒。瘡發不食，三日死。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "S-",
+      "result_class": "independent_direction",
+      "land_strategic_value": "core_base",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "major_external_campaign",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "main_force_destroyed",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "辽军连续收复蔚、灵丘、飞狐、寰、朔等州，设伏击毁宋军方向主力并迫使云应守军撤离，恢复山西北部连续控制；按独立战略方向闭合裁为S-，不外推为击溃宋朝第一梯队整体。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT",
+      "combat_difficulty": "D3",
+      "combat_difficulty_basis": "蔚朔诸州多点收复、飞狐山地通道与宋军主力救援并存，辽军须设伏和连续追击，取D3。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "single_integrated_command",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-A76C491A32375CC8735A",
+      "dynasty": "辽",
+      "dynasty_partition": "liao",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-LIAO-SOUTHERN-CAMPAIGN-934",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "太宗自将南伐，入云州后攻拔河阴、略灵丘并围武州阳城，阳城和洼只城相继降。",
+      "period": {
+        "start": "天顯九年八月至十一月",
+        "end": "934"
+      },
+      "observable_result": "两城降服，被俘壮丁被编入军籍。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-LIAO-V03-SOUTHERN-CAMPAIGN-934"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/辽史/volume-03.registry.json"
+        ],
+        "source_revision_refs": [
+          "遼史/卷3@2325080#，自將南伐。乙",
+          "遼史/卷3@2325080#丁巳，拔河陰。",
+          "遼史/卷3@2325080#圍武州之陽城。壬寅，陽城降。",
+          "遼史/卷3@2325080#洼只城降，括所俘丁壯籍于軍。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "遼史/卷3@2325080#，自將南伐。乙",
+        "遼史/卷3@2325080#丁巳，拔河陰。",
+        "遼史/卷3@2325080#圍武州之陽城。壬寅，陽城降。",
+        "遼史/卷3@2325080#洼只城降，括所俘丁壯籍于軍。"
+      ],
+      "uncertainties": [
+        "南伐兵力、各城伤亡、军籍服役条件和当地财产损失未载。"
+      ],
+      "cost_or_burden": "被俘壮丁纳入军籍，双方伤亡、俘丁数量和战区民损未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "逐项复核后只构成局部平叛、阶段攻取、重大败责或未闭合的多阶段战争；未证明长期独立战略方向或第一梯队硬路径，明确保留A。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "REVIEWED_RETAINED_A",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "共享层只称太宗自将，未给稳定person_ref；不得用帝号常识补齐。",
+      "detail_expansion_status": "complete_unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    }
+  ]
+}

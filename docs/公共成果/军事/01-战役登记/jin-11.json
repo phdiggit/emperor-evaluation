@@ -1,0 +1,679 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "jin",
+  "bucket": 11,
+  "bucket_count": 24,
+  "record_count": 4,
+  "records_fingerprint": "f67b1fffa5135c4af389279e14745ab54563a1429ce2e49781f4a0fd9e6a3f3f",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-3273BFB92B2E5D56913A",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-GAO-YONGCHANG-1116",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "高永昌据东京求援后，金朝命斡鲁统军征讨。",
+      "period": {
+        "start": "收国二年四月",
+        "end": "收国二年五月"
+      },
+      "observable_result": "高永昌兵败被擒杀，东京州县及南路辽籍女直归降；当地废除辽法、减少税赋并设置猛安谋克。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V02-GAO-YONGCHANG-1116"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-02.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷2@7906448#五月，斡魯等敗永昌，撻不野擒永昌以獻，戮之于軍。",
+          "金史/卷2@7906448#詔除遼法，省稅賦，置猛安謀克一如本朝之制。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷2@7906448#五月，斡魯等敗永昌，撻不野擒永昌以獻，戮之于軍。",
+        "金史/卷2@7906448#詔除遼法，省稅賦，置猛安謀克一如本朝之制。"
+      ],
+      "uncertainties": [
+        "减税幅度、改制户数和战役伤亡未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [
+        {
+          "actor_ref": "PERSON-JIN-WOLU",
+          "actor_name": "斡鲁",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "统军讨平高永昌",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "共享层显式person_ref与行动，按单一事实结果作证据下限定档。",
+            "source_refs": [
+              "金史/卷2@7906448#五月，斡魯等敗永昌，撻不野擒永昌以獻，戮之于軍。",
+              "金史/卷2@7906448#詔除遼法，省稅賦，置猛安謀克一如本朝之制。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-1D6B9ECE9BEFB9E9A795",
+              "result_label": "高永昌据东京求援后，金朝命斡鲁统军征讨。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "共享事实显式列出斡鲁统军讨平高永昌；只消费该事实可观察结果，不继承同群其他阶段。",
+              "source_refs": [
+                "金史/卷2@7906448#五月，斡魯等敗永昌，撻不野擒永昌以獻，戮之于軍。",
+                "金史/卷2@7906448#詔除遼法，省稅賦，置猛安謀克一如本朝之制。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "仅按共享层显式行动与结果建立斡鲁的人物下限。",
+                "source_refs": [
+                  "金史/卷2@7906448#五月，斡魯等敗永昌，撻不野擒永昌以獻，戮之于軍。",
+                  "金史/卷2@7906448#詔除遼法，省稅賦，置猛安謀克一如本朝之制。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-8C685665F22957E4",
+          "actor_name": "撻不野",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "补消费已验收事实卡中具名实际作战人物；只登记本人可观察阶段，不继承父项终局。 只消费擒高永昌以献的终结阶段。 按WAR-LEAD-TANG-GOGURYEO-645人物消费门槛复核：父战役群战略结果只由完整实际统帅或明确共同最高统帅消费；分道、阶段、追击、守城环节和战术执行只消费本人闭合部分。 本人结果重定为B/D2。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "terminal_finisher",
+            "result_direction": "positive",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "补消费已验收事实卡中具名实际作战人物；只登记本人可观察阶段，不继承父项终局。 只消费擒高永昌以献的终结阶段。 按WAR-LEAD-TANG-GOGURYEO-645人物消费门槛复核：父战役群战略结果只由完整实际统帅或明确共同最高统帅消费；分道、阶段、追击、守城环节和战术执行只消费本人闭合部分。 本人结果重定为B/D2。",
+            "source_refs": [
+              "金史/卷2@7906448#五月，斡魯等敗永昌，撻不野擒永昌以獻，戮之于軍。",
+              "金史/卷2@7906448#詔除遼法，省稅賦，置猛安謀克一如本朝之制。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-CDF4BEC87D968B91F602",
+              "result_label": "斡鲁已消费统军主段，但逐字锚另载撻不野擒高永昌以献，终结阶段未消费。",
+              "result_direction": "positive",
+              "result_tier": "B",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "斡鲁已消费统军主段，但逐字锚另载撻不野擒高永昌以献，终结阶段未消费。 按WAR-LEAD-TANG-GOGURYEO-645人物消费门槛复核：父战役群战略结果只由完整实际统帅或明确共同最高统帅消费；分道、阶段、追击、守城环节和战术执行只消费本人闭合部分。 本人结果重定为B/D2。",
+              "source_refs": [
+                "金史/卷2@7906448#五月，斡魯等敗永昌，撻不野擒永昌以獻，戮之于軍。",
+                "金史/卷2@7906448#詔除遼法，省稅賦，置猛安謀克一如本朝之制。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "terminal_finisher",
+                "basis": "斡鲁已消费统军主段，但逐字锚另载撻不野擒高永昌以献，终结阶段未消费。 按WAR-LEAD-TANG-GOGURYEO-645人物消费门槛复核：父战役群战略结果只由完整实际统帅或明确共同最高统帅消费；分道、阶段、追击、守城环节和战术执行只消费本人闭合部分。 本人结果重定为B/D2。",
+                "source_refs": [
+                  "金史/卷2@7906448#五月，斡魯等敗永昌，撻不野擒永昌以獻，戮之于軍。",
+                  "金史/卷2@7906448#詔除遼法，省稅賦，置猛安謀克一如本朝之制。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "unification_portfolio_ref": "UCP-POST-JIN-1114-1126",
+      "unification_stage_order": 2,
+      "account_routing": [
+        "UNIFICATION_ONLY"
+      ],
+      "defense_consumption": "EXCLUDED_UNIFICATION",
+      "settlement_scope": "BATTLE_LEDGER_ONLY",
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "core_base",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "independent_regional_pole",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "military_system_collapsed",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "高永昌方向是辽体系内的区域阶段，不另算一套O4以上国家机器，降为A。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。"
+    },
+    {
+      "war_event_id": "WAR-POST-84F991C93A2AE9D9F758",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-HUSHAHU-PALACE-COUP-1213",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "胡沙虎矫诏杀福海夺兵，攻入宫门并杀守臣，迫卫绍王出宫幽禁，夺玺自称监国都元帅，最终遣宦者杀卫绍王。",
+      "period": {
+        "start": "至宁元年八月",
+        "end": "至宁元年九月"
+      },
+      "observable_result": "卫绍王被弑，胡沙虎控制宫禁并拥立宣宗，卫绍王后被降封东海郡侯。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V13-HUSHAHU-COUP-1213"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-13.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷13@2432650#胡沙虎矯詔以誅反者",
+          "金史/卷13@2432650#殺知大興府徒單南平、刑部會郎徒單沒拈",
+          "金史/卷13@2432650#胡沙虎以兵入宮",
+          "金史/卷13@2432650#，逼上出宮。以",
+          "金史/卷13@2432650#遂使宦者李思中害上于邸。",
+          "金史/卷13@2432650#，宣宗即位。丁"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷13@2432650#胡沙虎矯詔以誅反者",
+        "金史/卷13@2432650#殺知大興府徒單南平、刑部會郎徒單沒拈",
+        "金史/卷13@2432650#胡沙虎以兵入宮",
+        "金史/卷13@2432650#，逼上出宮。以",
+        "金史/卷13@2432650#遂使宦者李思中害上于邸。",
+        "金史/卷13@2432650#，宣宗即位。丁"
+      ],
+      "uncertainties": [
+        "政变部众总数、宫城战斗伤亡和宣宗参与定策程度未载。"
+      ],
+      "cost_or_burden": "卫绍王、福海父子、徒单南平、徒单没拈及拒战者石古乃等被杀。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-AB29EECA7539B256",
+          "actor_name": "胡沙虎",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "已验收事实卡明确闭合胡沙虎的实际行动与本人结果：矫诏夺兵、以兵入宫、控制宫禁并完成拥立，实际武装控制和结果闭合。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合胡沙虎的实际行动与本人结果：矫诏夺兵、以兵入宫、控制宫禁并完成拥立，实际武装控制和结果闭合。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "金史/卷13@2432650#胡沙虎矯詔以誅反者",
+              "金史/卷13@2432650#殺知大興府徒單南平、刑部會郎徒單沒拈",
+              "金史/卷13@2432650#胡沙虎以兵入宮",
+              "金史/卷13@2432650#，逼上出宮。以",
+              "金史/卷13@2432650#遂使宦者李思中害上于邸。",
+              "金史/卷13@2432650#，宣宗即位。丁"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-A07410460647B6DEB79B",
+              "result_label": "矫诏夺兵、以兵入宫、控制宫禁并完成拥立，实际武装控制和结果闭合。",
+              "result_direction": "positive",
+              "result_tier": "B",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "已验收事实卡明确闭合胡沙虎的实际行动与本人结果：矫诏夺兵、以兵入宫、控制宫禁并完成拥立，实际武装控制和结果闭合。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "金史/卷13@2432650#胡沙虎矯詔以誅反者",
+                "金史/卷13@2432650#殺知大興府徒單南平、刑部會郎徒單沒拈",
+                "金史/卷13@2432650#胡沙虎以兵入宮",
+                "金史/卷13@2432650#，逼上出宮。以",
+                "金史/卷13@2432650#遂使宦者李思中害上于邸。",
+                "金史/卷13@2432650#，宣宗即位。丁"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "已验收事实卡明确闭合胡沙虎的实际行动与本人结果：矫诏夺兵、以兵入宫、控制宫禁并完成拥立，实际武装控制和结果闭合。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "金史/卷13@2432650#胡沙虎矯詔以誅反者",
+                  "金史/卷13@2432650#殺知大興府徒單南平、刑部會郎徒單沒拈",
+                  "金史/卷13@2432650#胡沙虎以兵入宮",
+                  "金史/卷13@2432650#，逼上出宮。以",
+                  "金史/卷13@2432650#遂使宦者李思中害上于邸。",
+                  "金史/卷13@2432650#，宣宗即位。丁"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "important_objective",
+      "land_strategic_value": "strategic_gateway",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记B；土地轴=strategic_gateway，对手轴=regional_major，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "B",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "single_integrated_command",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-4FC9085A521E382E4800",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-LIAO-SHANGJING-1120",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "辽方和议反复后，金太祖亲征上京，先招谕官民，遭拒后亲临督攻。",
+      "period": {
+        "start": "天辅四年四月",
+        "end": "天辅四年五月甲寅"
+      },
+      "observable_result": "闍母先登克外城，留守撻不野以城降，上京官民获赦；因暑热和补给风险，金军随后停止深入。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V02-SHANGJING-1120"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-02.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷2@7906448#自旦及巳，闍母以麾下先登，克其外城，留守撻不野以城降。",
+          "金史/卷2@7906448#地遠時暑，軍馬罷乏，若深入敵境，糧饋乏絕，恐有後艱。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷2@7906448#自旦及巳，闍母以麾下先登，克其外城，留守撻不野以城降。",
+        "金史/卷2@7906448#地遠時暑，軍馬罷乏，若深入敵境，糧饋乏絕，恐有後艱。"
+      ],
+      "uncertainties": [
+        "攻城伤亡和赦后行政接管细节未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-C9B471A22BCBF7871C78",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-SONG-ANZHEN-SOUTHERN-OFFENSIVE-1219",
+      "split_from_source_target_ref": "CAMPAIGN-JIN-SONG-WAR-1217-1219",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "canonical_label": "仆散安贞统率兴定三年南伐",
+      "period": {
+        "start": "UNKNOWN_WITHIN_PARENT",
+        "end": "UNKNOWN_WITHIN_PARENT"
+      },
+      "observable_result": "仆散安贞统率兴定三年南伐",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "tier_basis": "安贞以行省主帅连续破梁县、石堌山、涂山并统合多路战果后班师；该后段自身具备区域多点连续指挥，独立定A/D3，不把1217至1219全部战果复制给他。",
+      "tier_review_source_tier": null,
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT_SPLIT_CHILD",
+      "combat_difficulty": "D3",
+      "combat_difficulty_basis": "宋方仍有梁县、石堌山等连续据点和分路援军，仆散安贞须统合多路、跨点持续推进并收束班师，取D3。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "混合父项未保存可归责的连续子方向指挥，不从官职推定。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-353B5C2A38435F73",
+          "actor_name": "仆散安贞",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "行省统率后段南伐，连续控制梁县、石堌山、涂山等主段并班师。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "行省统率后段南伐，连续控制梁县、石堌山、涂山等主段并班师。",
+            "source_refs": [
+              "金史/卷15@2432740#行省安貞入宋境，破梁縣等軍，擒統制李申之。",
+              "金史/卷15@2432740#蔡州行元帥府右都監完顏合達破宋人于梅林關，擒統制張時。",
+              "金史/卷15@2432740#完顏合達敗宋人于馬嶺堡。",
+              "金史/卷15@2432740#行省安貞破宋人于石堌山。",
+              "金史/卷15@2432740#攻宋麻城縣，拔之",
+              "金史/卷15@2432740#攻宋麻城縣，拔之，獲其令張倜等。",
+              "金史/卷15@2432740#行省安貞破宋兵于塗山。",
+              "金史/卷15@2432740#賽不敗宋兵於老口鎮，又敗宋人于石鶻崖。",
+              "金史/卷15@2432740#以南伐師還"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-177B6CA27B6AC872F861",
+              "result_label": "行省统率后段南伐，连续控制梁县、石堌山、涂山等主段并班师。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": true,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "行省统率后段南伐，连续控制梁县、石堌山、涂山等主段并班师。",
+              "source_refs": [
+                "金史/卷15@2432740#行省安貞入宋境，破梁縣等軍，擒統制李申之。",
+                "金史/卷15@2432740#蔡州行元帥府右都監完顏合達破宋人于梅林關，擒統制張時。",
+                "金史/卷15@2432740#完顏合達敗宋人于馬嶺堡。",
+                "金史/卷15@2432740#行省安貞破宋人于石堌山。",
+                "金史/卷15@2432740#攻宋麻城縣，拔之",
+                "金史/卷15@2432740#攻宋麻城縣，拔之，獲其令張倜等。",
+                "金史/卷15@2432740#行省安貞破宋兵于塗山。",
+                "金史/卷15@2432740#賽不敗宋兵於老口鎮，又敗宋人于石鶻崖。",
+                "金史/卷15@2432740#以南伐師還"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "行省统率后段南伐，连续控制梁县、石堌山、涂山等主段并班师。",
+                "source_refs": [
+                  "金史/卷15@2432740#行省安貞入宋境，破梁縣等軍，擒統制李申之。",
+                  "金史/卷15@2432740#蔡州行元帥府右都監完顏合達破宋人于梅林關，擒統制張時。",
+                  "金史/卷15@2432740#完顏合達敗宋人于馬嶺堡。",
+                  "金史/卷15@2432740#行省安貞破宋人于石堌山。",
+                  "金史/卷15@2432740#攻宋麻城縣，拔之",
+                  "金史/卷15@2432740#攻宋麻城縣，拔之，獲其令張倜等。",
+                  "金史/卷15@2432740#行省安貞破宋兵于塗山。",
+                  "金史/卷15@2432740#賽不敗宋兵於老口鎮，又敗宋人于石鶻崖。",
+                  "金史/卷15@2432740#以南伐師還"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-A40627ADCF279FAA",
+          "actor_name": "完颜合达",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "在梅林关、马岭堡两段连续获胜并擒宋统制。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "stage_executor",
+            "result_direction": "positive",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "在梅林关、马岭堡两段连续获胜并擒宋统制。",
+            "source_refs": [
+              "金史/卷15@2432740#行省安貞入宋境，破梁縣等軍，擒統制李申之。",
+              "金史/卷15@2432740#蔡州行元帥府右都監完顏合達破宋人于梅林關，擒統制張時。",
+              "金史/卷15@2432740#完顏合達敗宋人于馬嶺堡。",
+              "金史/卷15@2432740#行省安貞破宋人于石堌山。",
+              "金史/卷15@2432740#攻宋麻城縣，拔之",
+              "金史/卷15@2432740#攻宋麻城縣，拔之，獲其令張倜等。",
+              "金史/卷15@2432740#行省安貞破宋兵于塗山。",
+              "金史/卷15@2432740#賽不敗宋兵於老口鎮，又敗宋人于石鶻崖。",
+              "金史/卷15@2432740#以南伐師還"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-D6B3191B12B0CD1FD279",
+              "result_label": "在梅林关、马岭堡两段连续获胜并擒宋统制。",
+              "result_direction": "positive",
+              "result_tier": "B",
+              "combat_difficulty": "D2",
+              "stable_delivery": true,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "在梅林关、马岭堡两段连续获胜并擒宋统制。",
+              "source_refs": [
+                "金史/卷15@2432740#行省安貞入宋境，破梁縣等軍，擒統制李申之。",
+                "金史/卷15@2432740#蔡州行元帥府右都監完顏合達破宋人于梅林關，擒統制張時。",
+                "金史/卷15@2432740#完顏合達敗宋人于馬嶺堡。",
+                "金史/卷15@2432740#行省安貞破宋人于石堌山。",
+                "金史/卷15@2432740#攻宋麻城縣，拔之",
+                "金史/卷15@2432740#攻宋麻城縣，拔之，獲其令張倜等。",
+                "金史/卷15@2432740#行省安貞破宋兵于塗山。",
+                "金史/卷15@2432740#賽不敗宋兵於老口鎮，又敗宋人于石鶻崖。",
+                "金史/卷15@2432740#以南伐師還"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "tactical_execution",
+                "decisive_relation": "stage_executor",
+                "basis": "在梅林关、马岭堡两段连续获胜并擒宋统制。",
+                "source_refs": [
+                  "金史/卷15@2432740#行省安貞入宋境，破梁縣等軍，擒統制李申之。",
+                  "金史/卷15@2432740#蔡州行元帥府右都監完顏合達破宋人于梅林關，擒統制張時。",
+                  "金史/卷15@2432740#完顏合達敗宋人于馬嶺堡。",
+                  "金史/卷15@2432740#行省安貞破宋人于石堌山。",
+                  "金史/卷15@2432740#攻宋麻城縣，拔之",
+                  "金史/卷15@2432740#攻宋麻城縣，拔之，獲其令張倜等。",
+                  "金史/卷15@2432740#行省安貞破宋兵于塗山。",
+                  "金史/卷15@2432740#賽不敗宋兵於老口鎮，又敗宋人于石鶻崖。",
+                  "金史/卷15@2432740#以南伐師還"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-B75B9A272588E25B",
+          "actor_name": "完颜赛不",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "在老口镇、石鹘崖取得后段分路胜果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "stage_executor",
+            "result_direction": "positive",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "在老口镇、石鹘崖取得后段分路胜果。",
+            "source_refs": [
+              "金史/卷15@2432740#行省安貞入宋境，破梁縣等軍，擒統制李申之。",
+              "金史/卷15@2432740#蔡州行元帥府右都監完顏合達破宋人于梅林關，擒統制張時。",
+              "金史/卷15@2432740#完顏合達敗宋人于馬嶺堡。",
+              "金史/卷15@2432740#行省安貞破宋人于石堌山。",
+              "金史/卷15@2432740#攻宋麻城縣，拔之",
+              "金史/卷15@2432740#攻宋麻城縣，拔之，獲其令張倜等。",
+              "金史/卷15@2432740#行省安貞破宋兵于塗山。",
+              "金史/卷15@2432740#賽不敗宋兵於老口鎮，又敗宋人于石鶻崖。",
+              "金史/卷15@2432740#以南伐師還"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-5BAA6C63D628F4F21D81",
+              "result_label": "在老口镇、石鹘崖取得后段分路胜果。",
+              "result_direction": "positive",
+              "result_tier": "B",
+              "combat_difficulty": "D2",
+              "stable_delivery": true,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "在老口镇、石鹘崖取得后段分路胜果。",
+              "source_refs": [
+                "金史/卷15@2432740#行省安貞入宋境，破梁縣等軍，擒統制李申之。",
+                "金史/卷15@2432740#蔡州行元帥府右都監完顏合達破宋人于梅林關，擒統制張時。",
+                "金史/卷15@2432740#完顏合達敗宋人于馬嶺堡。",
+                "金史/卷15@2432740#行省安貞破宋人于石堌山。",
+                "金史/卷15@2432740#攻宋麻城縣，拔之",
+                "金史/卷15@2432740#攻宋麻城縣，拔之，獲其令張倜等。",
+                "金史/卷15@2432740#行省安貞破宋兵于塗山。",
+                "金史/卷15@2432740#賽不敗宋兵於老口鎮，又敗宋人于石鶻崖。",
+                "金史/卷15@2432740#以南伐師還"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "tactical_execution",
+                "decisive_relation": "stage_executor",
+                "basis": "在老口镇、石鹘崖取得后段分路胜果。",
+                "source_refs": [
+                  "金史/卷15@2432740#行省安貞入宋境，破梁縣等軍，擒統制李申之。",
+                  "金史/卷15@2432740#蔡州行元帥府右都監完顏合達破宋人于梅林關，擒統制張時。",
+                  "金史/卷15@2432740#完顏合達敗宋人于馬嶺堡。",
+                  "金史/卷15@2432740#行省安貞破宋人于石堌山。",
+                  "金史/卷15@2432740#攻宋麻城縣，拔之",
+                  "金史/卷15@2432740#攻宋麻城縣，拔之，獲其令張倜等。",
+                  "金史/卷15@2432740#行省安貞破宋兵于塗山。",
+                  "金史/卷15@2432740#賽不敗宋兵於老口鎮，又敗宋人于石鶻崖。",
+                  "金史/卷15@2432740#以南伐師還"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "source_lineage": {
+        "source_card_ids": [],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-15.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷15@2432740#行省安貞入宋境，破梁縣等軍，擒統制李申之。",
+          "金史/卷15@2432740#蔡州行元帥府右都監完顏合達破宋人于梅林關，擒統制張時。",
+          "金史/卷15@2432740#完顏合達敗宋人于馬嶺堡。",
+          "金史/卷15@2432740#行省安貞破宋人于石堌山。",
+          "金史/卷15@2432740#攻宋麻城縣，拔之",
+          "金史/卷15@2432740#攻宋麻城縣，拔之，獲其令張倜等。",
+          "金史/卷15@2432740#行省安貞破宋兵于塗山。",
+          "金史/卷15@2432740#賽不敗宋兵於老口鎮，又敗宋人于石鶻崖。",
+          "金史/卷15@2432740#以南伐師還"
+        ],
+        "lineage_basis": "同一共享事实含多个互不连续战区；父项持有fact_id，子项只持定点逐字锚，避免事实ID重复消费。"
+      },
+      "source_refs": [
+        "金史/卷15@2432740#行省安貞入宋境，破梁縣等軍，擒統制李申之。",
+        "金史/卷15@2432740#蔡州行元帥府右都監完顏合達破宋人于梅林關，擒統制張時。",
+        "金史/卷15@2432740#完顏合達敗宋人于馬嶺堡。",
+        "金史/卷15@2432740#行省安貞破宋人于石堌山。",
+        "金史/卷15@2432740#攻宋麻城縣，拔之",
+        "金史/卷15@2432740#攻宋麻城縣，拔之，獲其令張倜等。",
+        "金史/卷15@2432740#行省安貞破宋兵于塗山。",
+        "金史/卷15@2432740#賽不敗宋兵於老口鎮，又敗宋人于石鶻崖。",
+        "金史/卷15@2432740#以南伐師還"
+      ],
+      "uncertainties": [],
+      "cost_or_burden": "unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "merged_into": null,
+      "limitations": [
+        "不得把混合父项的总兵力、四百余处规模或其他战区结果复制到本子项。"
+      ],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "basis": "安贞以行省主帅连续破梁县、石堌山、涂山并统合多路战果后班师；该后段自身具备区域多点连续指挥，独立定A/D3，不把1217至1219全部战果复制给他。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    }
+  ]
+}

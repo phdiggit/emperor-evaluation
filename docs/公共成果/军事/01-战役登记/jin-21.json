@@ -1,0 +1,337 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "jin",
+  "bucket": 21,
+  "bucket_count": 24,
+  "record_count": 2,
+  "records_fingerprint": "16b37afb481b75ac4d3023a37854a590e346c777c2ff33a5a54b287a1c3f8a7a",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-58728C9EAE02EA9020CF",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-LIAO-HUANGLONGFU-1115",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "阿骨打亲征黄龙府，率军涉混同江后进攻。",
+      "period": {
+        "start": "收国元年八月",
+        "end": "收国元年九月"
+      },
+      "observable_result": "九月黄龙府被攻克，阿骨打班师并调整勃极烈职次。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V02-HUANGLONGFU-1115"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-02.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷2@7906448#九月，克黃龍府，遣辭剌還，遂班師。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷2@7906448#九月，克黃龍府，遣辭剌還，遂班師。"
+      ],
+      "uncertainties": [
+        "攻城过程、伤亡和降附处置未详载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [
+        {
+          "actor_ref": "PERSON-JIN-AGUDA",
+          "actor_name": "阿骨打",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "亲征并攻克黄龙府",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "共享层显式person_ref与行动，按单一事实结果作证据下限定档。",
+            "source_refs": [
+              "金史/卷2@7906448#九月，克黃龍府，遣辭剌還，遂班師。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-C3A70C8B277F05E97C23",
+              "result_label": "阿骨打亲征黄龙府，率军涉混同江后进攻。",
+              "result_direction": "positive",
+              "result_tier": "B",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "共享事实显式列出阿骨打亲征并攻克黄龙府；只消费该事实可观察结果，不继承同群其他阶段。",
+              "source_refs": [
+                "金史/卷2@7906448#九月，克黃龍府，遣辭剌還，遂班師。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "仅按共享层显式行动与结果建立阿骨打的人物下限。",
+                "source_refs": [
+                  "金史/卷2@7906448#九月，克黃龍府，遣辭剌還，遂班師。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "important_objective",
+      "land_strategic_value": "strategic_gateway",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记B；土地轴=strategic_gateway，对手轴=regional_major，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "B",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "single_integrated_command",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-BE5FBE6F5B9E5169AD88",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-WUDIGAI-1186",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "乌底改叛亡后金朝遣军讨伐并拟毁其船筏；崇肃、忠道未克敌即返，遭杖责削官。",
+      "period": {
+        "start": "大定二十六年九月",
+        "end": "大定二十六年十月"
+      },
+      "observable_result": "征讨未达目标，主将因退军受惩，本卷未载叛众平定。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V08-WUDIGAI-CAMPAIGN-1186"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-08.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷8@2432657#烏底改叛亡，已遣人討之",
+          "金史/卷8@2432657#士，毀其船筏。」",
+          "金史/卷8@2432657#不待克敵而還"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷8@2432657#烏底改叛亡，已遣人討之",
+        "金史/卷8@2432657#士，毀其船筏。」",
+        "金史/卷8@2432657#不待克敵而還"
+      ],
+      "uncertainties": [
+        "乌底改人数、战斗过程和后续控制结果未载。"
+      ],
+      "cost_or_burden": "军队出征，伤亡与规模未载。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-0DE85E6F959E8CBD",
+          "actor_name": "崇肃",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "受命讨伐乌底改，未克敌即返并被处罚。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "受命讨伐乌底改，未克敌即返并被处罚。",
+            "source_refs": [
+              "金史/卷8@2432657#烏底改叛亡，已遣人討之",
+              "金史/卷8@2432657#士，毀其船筏。」",
+              "金史/卷8@2432657#不待克敵而還"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-CF7AF56FC9B7F71E95CA",
+              "result_label": "受命讨伐乌底改，未克敌即返并被处罚。",
+              "result_direction": "negative",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "EXPLICIT_PREMATURE_WITHDRAWAL",
+              "basis": "受命讨伐乌底改，未克敌即返并被处罚。",
+              "source_refs": [
+                "金史/卷8@2432657#烏底改叛亡，已遣人討之",
+                "金史/卷8@2432657#士，毀其船筏。」",
+                "金史/卷8@2432657#不待克敵而還"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "受命讨伐乌底改，未克敌即返并被处罚。",
+                "source_refs": [
+                  "金史/卷8@2432657#烏底改叛亡，已遣人討之",
+                  "金史/卷8@2432657#士，毀其船筏。」",
+                  "金史/卷8@2432657#不待克敵而還"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-6F77B16EA59A9C05",
+          "actor_name": "忠道",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "参与讨伐，未克敌即返并被处罚。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "参与讨伐，未克敌即返并被处罚。",
+            "source_refs": [
+              "金史/卷8@2432657#烏底改叛亡，已遣人討之",
+              "金史/卷8@2432657#士，毀其船筏。」",
+              "金史/卷8@2432657#不待克敵而還"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-F2E42E646181F73988CA",
+              "result_label": "参与讨伐，未克敌即返并被处罚。",
+              "result_direction": "negative",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "EXPLICIT_PREMATURE_WITHDRAWAL",
+              "basis": "参与讨伐，未克敌即返并被处罚。",
+              "source_refs": [
+                "金史/卷8@2432657#烏底改叛亡，已遣人討之",
+                "金史/卷8@2432657#士，毀其船筏。」",
+                "金史/卷8@2432657#不待克敵而還"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "参与讨伐，未克敌即返并被处罚。",
+                "source_refs": [
+                  "金史/卷8@2432657#烏底改叛亡，已遣人討之",
+                  "金史/卷8@2432657#士，毀其船筏。」",
+                  "金史/卷8@2432657#不待克敵而還"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [
+        {
+          "actor_ref": "PERSON-POST-0DE85E6F959E8CBD",
+          "actor_name": "崇肃",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "EXPLICIT_PREMATURE_WITHDRAWAL",
+          "failure_impact_tier": "A",
+          "severity": 0.4,
+          "basis": "受命讨伐乌底改，未克敌即返并被处罚。",
+          "source_refs": [
+            "金史/卷8@2432657#烏底改叛亡，已遣人討之",
+            "金史/卷8@2432657#士，毀其船筏。」",
+            "金史/卷8@2432657#不待克敵而還"
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-6F77B16EA59A9C05",
+          "actor_name": "忠道",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "EXPLICIT_PREMATURE_WITHDRAWAL",
+          "failure_impact_tier": "A",
+          "severity": 0.4,
+          "basis": "参与讨伐，未克敌即返并被处罚。",
+          "source_refs": [
+            "金史/卷8@2432657#烏底改叛亡，已遣人討之",
+            "金史/卷8@2432657#士，毀其船筏。」",
+            "金史/卷8@2432657#不待克敵而還"
+          ]
+        }
+      ],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "逐项复核后只构成局部平叛、征讨未克、统一战争阶段执行或未闭合的多线推进；未达到强区域独立方向或第一梯队决定性终局，明确保留A。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "REVIEWED_RETAINED_A",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    }
+  ]
+}

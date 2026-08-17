@@ -1,0 +1,816 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "qing",
+  "bucket": 16,
+  "bucket_count": 24,
+  "record_count": 3,
+  "records_fingerprint": "a032a2b595959a77a999f64c9219bf2380c63f2e84b90c7553eba7b52a5113cd",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-967717D1C017F2D3443C",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-QINGHAI-1723-1724",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "罗卜藏丹津拒绝招抚并攻西宁，雍正任年羹尧、岳钟琪进讨；清军连续击破其部、收抚部落，攻抵巢穴迫其逃遁。",
+      "period": {
+        "start": "雍正元年八月",
+        "end": "雍正二年三月"
+      },
+      "observable_result": "青海叛乱平定，罗卜藏丹津母被俘，主要部众受降。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V09-QINGHAI-REBELLION-1723-1724"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-09.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷9@1794968#羅卜藏丹津入寇西寧",
+          "清史稿/卷9@1794968#命岳鍾琪為奮威將軍，專征青海。",
+          "清史稿/卷9@1794968#收撫逃散部落。",
+          "清史稿/卷9@1794968#岳鍾琪師抵賊巢，羅卜藏丹津遁，獲其母阿爾泰喀屯，青海平。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷9@1794968#羅卜藏丹津入寇西寧",
+        "清史稿/卷9@1794968#命岳鍾琪為奮威將軍，專征青海。",
+        "清史稿/卷9@1794968#收撫逃散部落。",
+        "清史稿/卷9@1794968#岳鍾琪師抵賊巢，羅卜藏丹津遁，獲其母阿爾泰喀屯，青海平。"
+      ],
+      "uncertainties": [
+        "双方总兵力伤亡、流亡部众安置和战区民损未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-8034B0108CBA045D",
+          "actor_name": "岳钟琪",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "《清史稿》卷295与岳钟琪本传闭合其率六千人深入、分路进击、昼夜追敌并攻抵巢穴的本人方向；A/D2来自独立野战终局，不复制年羹尧的全战区总制。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "independent_direction",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "co_decisive",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "《清史稿》卷295与岳钟琪本传闭合其率六千人深入、分路进击、昼夜追敌并攻抵巢穴的本人方向；A/D2来自独立野战终局，不复制年羹尧的全战区总制。",
+            "source_refs": [
+              "清史稿/卷9@1794968#羅卜藏丹津入寇西寧",
+              "清史稿/卷9@1794968#命岳鍾琪為奮威將軍，專征青海。",
+              "清史稿/卷9@1794968#收撫逃散部落。",
+              "清史稿/卷9@1794968#岳鍾琪師抵賊巢，羅卜藏丹津遁，獲其母阿爾泰喀屯，青海平。",
+              "清史稿/卷295#军事皆告羹尧",
+              "清史稿/卷295#解抚远大将军印授羹尧，尽护诸军",
+              "清史稿/卷295#羹尧乃部署诸军",
+              "清史稿/卷295#羹尧遣钟琪、正安、喜林、可进及侍卫达鼐、副将王嵩、纪成斌将六千人深入"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-42AE34445994CE607CD9",
+              "result_label": "实际进讨并参与连续击破罗卜藏丹津部。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "《清史稿》卷295与岳钟琪本传闭合其率六千人深入、分路进击、昼夜追敌并攻抵巢穴的本人方向；A/D2来自独立野战终局，不复制年羹尧的全战区总制。",
+              "source_refs": [
+                "清史稿/卷9@1794968#羅卜藏丹津入寇西寧",
+                "清史稿/卷9@1794968#命岳鍾琪為奮威將軍，專征青海。",
+                "清史稿/卷9@1794968#收撫逃散部落。",
+                "清史稿/卷9@1794968#岳鍾琪師抵賊巢，羅卜藏丹津遁，獲其母阿爾泰喀屯，青海平。",
+                "清史稿/卷295#军事皆告羹尧",
+                "清史稿/卷295#解抚远大将军印授羹尧，尽护诸军",
+                "清史稿/卷295#羹尧乃部署诸军",
+                "清史稿/卷295#羹尧遣钟琪、正安、喜林、可进及侍卫达鼐、副将王嵩、纪成斌将六千人深入"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "co_decisive",
+                "basis": "《清史稿》卷295与岳钟琪本传闭合其率六千人深入、分路进击、昼夜追敌并攻抵巢穴的本人方向；A/D2来自独立野战终局，不复制年羹尧的全战区总制。",
+                "source_refs": [
+                  "清史稿/卷9@1794968#羅卜藏丹津入寇西寧",
+                  "清史稿/卷9@1794968#命岳鍾琪為奮威將軍，專征青海。",
+                  "清史稿/卷9@1794968#收撫逃散部落。",
+                  "清史稿/卷9@1794968#岳鍾琪師抵賊巢，羅卜藏丹津遁，獲其母阿爾泰喀屯，青海平。",
+                  "清史稿/卷295#军事皆告羹尧",
+                  "清史稿/卷295#解抚远大将军印授羹尧，尽护诸军",
+                  "清史稿/卷295#羹尧乃部署诸军",
+                  "清史稿/卷295#羹尧遣钟琪、正安、喜林、可进及侍卫达鼐、副将王嵩、纪成斌将六千人深入"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-438987FC703A39E4",
+          "actor_name": "年羹尧",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "《清史稿》卷295明确军事皆告年羹尧、授印尽护诸军，并逐项记其部署周瑛、穆森、阿喇纳、孙继宗及遣岳钟琪等六千人深入；这闭合实际战区控制，不再由官职或结果相邻推定。年羹尧消费全战区总制A/D2，岳钟琪另消费本人深入追击方向。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "《清史稿》卷295明确军事皆告年羹尧、授印尽护诸军，并逐项记其部署周瑛、穆森、阿喇纳、孙继宗及遣岳钟琪等六千人深入；这闭合实际战区控制，不再由官职或结果相邻推定。年羹尧消费全战区总制A/D2，岳钟琪另消费本人深入追击方向。",
+            "source_refs": [
+              "清史稿/卷9@1794968#羅卜藏丹津入寇西寧",
+              "清史稿/卷9@1794968#命岳鍾琪為奮威將軍，專征青海。",
+              "清史稿/卷9@1794968#收撫逃散部落。",
+              "清史稿/卷9@1794968#岳鍾琪師抵賊巢，羅卜藏丹津遁，獲其母阿爾泰喀屯，青海平。",
+              "清史稿/卷295#军事皆告羹尧",
+              "清史稿/卷295#解抚远大将军印授羹尧，尽护诸军",
+              "清史稿/卷295#羹尧乃部署诸军",
+              "清史稿/卷295#羹尧遣钟琪、正安、喜林、可进及侍卫达鼐、副将王嵩、纪成斌将六千人深入"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-11A020A8B440EDDACB3F",
+              "result_label": "尽护青海诸军，部署阻截、驻防与六千人深入进剿，完成青海平乱总制。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "《清史稿》卷295明确军事皆告年羹尧、授印尽护诸军，并逐项记其部署周瑛、穆森、阿喇纳、孙继宗及遣岳钟琪等六千人深入；这闭合实际战区控制，不再由官职或结果相邻推定。年羹尧消费全战区总制A/D2，岳钟琪另消费本人深入追击方向。",
+              "source_refs": [
+                "清史稿/卷9@1794968#羅卜藏丹津入寇西寧",
+                "清史稿/卷9@1794968#命岳鍾琪為奮威將軍，專征青海。",
+                "清史稿/卷9@1794968#收撫逃散部落。",
+                "清史稿/卷9@1794968#岳鍾琪師抵賊巢，羅卜藏丹津遁，獲其母阿爾泰喀屯，青海平。",
+                "清史稿/卷295#军事皆告羹尧",
+                "清史稿/卷295#解抚远大将军印授羹尧，尽护诸军",
+                "清史稿/卷295#羹尧乃部署诸军",
+                "清史稿/卷295#羹尧遣钟琪、正安、喜林、可进及侍卫达鼐、副将王嵩、纪成斌将六千人深入"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "《清史稿》卷295明确军事皆告年羹尧、授印尽护诸军，并逐项记其部署周瑛、穆森、阿喇纳、孙继宗及遣岳钟琪等六千人深入；这闭合实际战区控制，不再由官职或结果相邻推定。年羹尧消费全战区总制A/D2，岳钟琪另消费本人深入追击方向。",
+                "source_refs": [
+                  "清史稿/卷9@1794968#羅卜藏丹津入寇西寧",
+                  "清史稿/卷9@1794968#命岳鍾琪為奮威將軍，專征青海。",
+                  "清史稿/卷9@1794968#收撫逃散部落。",
+                  "清史稿/卷9@1794968#岳鍾琪師抵賊巢，羅卜藏丹津遁，獲其母阿爾泰喀屯，青海平。",
+                  "清史稿/卷295#军事皆告羹尧",
+                  "清史稿/卷295#解抚远大将军印授羹尧，尽护诸军",
+                  "清史稿/卷295#羹尧乃部署诸军",
+                  "清史稿/卷295#羹尧遣钟琪、正安、喜林、可进及侍卫达鼐、副将王嵩、纪成斌将六千人深入"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "independent_direction",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "independent_regional_pole",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "military_system_collapsed",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "罗卜藏丹津联盟为O3区域部众体系；平叛与受降保留A，不升S-。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-B235C3A7840F97088022",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-SARHU-AND-YEHE-1619",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "明杨镐率二十万并征叶赫朝鲜分四路进攻，努尔哈齐集中兵力在萨尔浒、尚间崖、飞芬山和阿布达里冈连续击破杜松、马林、刘綎三路，李如柏退军；随后取开原铁岭并灭叶赫。",
+      "period": {
+        "start": "天命四年正月",
+        "end": "天命四年八月"
+      },
+      "observable_result": "明军大举进攻失败，后金夺取辽东多城并消灭叶赫政权。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V01-SARHU-YEHE-CAMPAIGN-1619"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-01.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷1@2589312#楊鎬督師二十萬來伐",
+          "清史稿/卷1@2589312#凡四日而破三路明兵。",
+          "清史稿/卷1@2589312#如柏軍奔迸，踐斃又千餘人。",
+          "清史稿/卷1@2589312#上率兵攻開原，克之",
+          "清史稿/卷1@2589312#之。葉赫亡。師"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷1@2589312#楊鎬督師二十萬來伐",
+        "清史稿/卷1@2589312#凡四日而破三路明兵。",
+        "清史稿/卷1@2589312#如柏軍奔迸，踐斃又千餘人。",
+        "清史稿/卷1@2589312#上率兵攻開原，克之",
+        "清史稿/卷1@2589312#之。葉赫亡。師"
+      ],
+      "uncertainties": [
+        "各路完整伤亡、朝鲜降军处置和叶赫平民损失未载。"
+      ],
+      "cost_or_burden": "明军称二十万，多名总兵副将战死，李如柏退军践死千余；后金伤亡未载。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-BBA1F72A512D0891",
+          "actor_name": "刘綎",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "只消费本人一路覆灭。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D4",
+            "detail_status": "resolved_person_result",
+            "basis": "只消费本人一路覆灭。",
+            "source_refs": [
+              "清史稿/卷1@2589312#楊鎬督師二十萬來伐",
+              "清史稿/卷1@2589312#凡四日而破三路明兵。",
+              "清史稿/卷1@2589312#如柏軍奔迸，踐斃又千餘人。",
+              "清史稿/卷1@2589312#上率兵攻開原，克之",
+              "清史稿/卷1@2589312#之。葉赫亡。師"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-92BB560FE061CFA8CADF",
+              "result_label": "一路明军实际进攻并被歼。",
+              "result_direction": "negative",
+              "result_tier": "A",
+              "combat_difficulty": "D4",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "只消费本人一路覆灭。",
+              "source_refs": [
+                "清史稿/卷1@2589312#楊鎬督師二十萬來伐",
+                "清史稿/卷1@2589312#凡四日而破三路明兵。",
+                "清史稿/卷1@2589312#如柏軍奔迸，踐斃又千餘人。",
+                "清史稿/卷1@2589312#上率兵攻開原，克之",
+                "清史稿/卷1@2589312#之。葉赫亡。師"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "只消费本人一路覆灭。",
+                "source_refs": [
+                  "清史稿/卷1@2589312#楊鎬督師二十萬來伐",
+                  "清史稿/卷1@2589312#凡四日而破三路明兵。",
+                  "清史稿/卷1@2589312#如柏軍奔迸，踐斃又千餘人。",
+                  "清史稿/卷1@2589312#上率兵攻開原，克之",
+                  "清史稿/卷1@2589312#之。葉赫亡。師"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-6E925E92C6F5ECA5",
+          "actor_name": "努尔哈赤",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "事实动作和逐字锚闭合本人连续战略集中、会战、攻城和叶赫终局。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "S",
+            "projected_combat_difficulty": "D4",
+            "detail_status": "resolved_person_result",
+            "basis": "事实动作和逐字锚闭合本人连续战略集中、会战、攻城和叶赫终局。",
+            "source_refs": [
+              "清史稿/卷1@2589312#楊鎬督師二十萬來伐",
+              "清史稿/卷1@2589312#凡四日而破三路明兵。",
+              "清史稿/卷1@2589312#如柏軍奔迸，踐斃又千餘人。",
+              "清史稿/卷1@2589312#上率兵攻開原，克之",
+              "清史稿/卷1@2589312#之。葉赫亡。師"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-C7BDD0A35E733EF13874",
+              "result_label": "集中主力四日破明三路，继亲率攻克开原并终结叶赫。",
+              "result_direction": "positive",
+              "result_tier": "S",
+              "combat_difficulty": "D4",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "事实动作和逐字锚闭合本人连续战略集中、会战、攻城和叶赫终局。",
+              "source_refs": [
+                "清史稿/卷1@2589312#楊鎬督師二十萬來伐",
+                "清史稿/卷1@2589312#凡四日而破三路明兵。",
+                "清史稿/卷1@2589312#如柏軍奔迸，踐斃又千餘人。",
+                "清史稿/卷1@2589312#上率兵攻開原，克之",
+                "清史稿/卷1@2589312#之。葉赫亡。師"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "事实动作和逐字锚闭合本人连续战略集中、会战、攻城和叶赫终局。",
+                "source_refs": [
+                  "清史稿/卷1@2589312#楊鎬督師二十萬來伐",
+                  "清史稿/卷1@2589312#凡四日而破三路明兵。",
+                  "清史稿/卷1@2589312#如柏軍奔迸，踐斃又千餘人。",
+                  "清史稿/卷1@2589312#上率兵攻開原，克之",
+                  "清史稿/卷1@2589312#之。葉赫亡。師"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-5BA3A23030665025",
+          "actor_name": "李如柏",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "实际撤退结果明确，不复制三路覆灭。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D4",
+            "detail_status": "resolved_person_result",
+            "basis": "实际撤退结果明确，不复制三路覆灭。",
+            "source_refs": [
+              "清史稿/卷1@2589312#楊鎬督師二十萬來伐",
+              "清史稿/卷1@2589312#凡四日而破三路明兵。",
+              "清史稿/卷1@2589312#如柏軍奔迸，踐斃又千餘人。",
+              "清史稿/卷1@2589312#上率兵攻開原，克之",
+              "清史稿/卷1@2589312#之。葉赫亡。師"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-D3A5579E22ED7D371935",
+              "result_label": "一路退军并发生践踏死亡。",
+              "result_direction": "negative",
+              "result_tier": "A",
+              "combat_difficulty": "D4",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "实际撤退结果明确，不复制三路覆灭。",
+              "source_refs": [
+                "清史稿/卷1@2589312#楊鎬督師二十萬來伐",
+                "清史稿/卷1@2589312#凡四日而破三路明兵。",
+                "清史稿/卷1@2589312#如柏軍奔迸，踐斃又千餘人。",
+                "清史稿/卷1@2589312#上率兵攻開原，克之",
+                "清史稿/卷1@2589312#之。葉赫亡。師"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "实际撤退结果明确，不复制三路覆灭。",
+                "source_refs": [
+                  "清史稿/卷1@2589312#楊鎬督師二十萬來伐",
+                  "清史稿/卷1@2589312#凡四日而破三路明兵。",
+                  "清史稿/卷1@2589312#如柏軍奔迸，踐斃又千餘人。",
+                  "清史稿/卷1@2589312#上率兵攻開原，克之",
+                  "清史稿/卷1@2589312#之。葉赫亡。師"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-9DF0EB24E5466BAF",
+          "actor_name": "杜松",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "只消费本人一路覆灭。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D4",
+            "detail_status": "resolved_person_result",
+            "basis": "只消费本人一路覆灭。",
+            "source_refs": [
+              "清史稿/卷1@2589312#楊鎬督師二十萬來伐",
+              "清史稿/卷1@2589312#凡四日而破三路明兵。",
+              "清史稿/卷1@2589312#如柏軍奔迸，踐斃又千餘人。",
+              "清史稿/卷1@2589312#上率兵攻開原，克之",
+              "清史稿/卷1@2589312#之。葉赫亡。師"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-FD670E0671EBF55CC90B",
+              "result_label": "一路明军实际进攻并被歼。",
+              "result_direction": "negative",
+              "result_tier": "A",
+              "combat_difficulty": "D4",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "只消费本人一路覆灭。",
+              "source_refs": [
+                "清史稿/卷1@2589312#楊鎬督師二十萬來伐",
+                "清史稿/卷1@2589312#凡四日而破三路明兵。",
+                "清史稿/卷1@2589312#如柏軍奔迸，踐斃又千餘人。",
+                "清史稿/卷1@2589312#上率兵攻開原，克之",
+                "清史稿/卷1@2589312#之。葉赫亡。師"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "只消费本人一路覆灭。",
+                "source_refs": [
+                  "清史稿/卷1@2589312#楊鎬督師二十萬來伐",
+                  "清史稿/卷1@2589312#凡四日而破三路明兵。",
+                  "清史稿/卷1@2589312#如柏軍奔迸，踐斃又千餘人。",
+                  "清史稿/卷1@2589312#上率兵攻開原，克之",
+                  "清史稿/卷1@2589312#之。葉赫亡。師"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-73A2A04E7109AD8B",
+          "actor_name": "杨镐",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "实际督师和国家级进攻体系覆灭成立；各路战术分别由路将控制。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "S",
+            "projected_combat_difficulty": "D4",
+            "detail_status": "resolved_person_result",
+            "basis": "实际督师和国家级进攻体系覆灭成立；各路战术分别由路将控制。",
+            "source_refs": [
+              "清史稿/卷1@2589312#楊鎬督師二十萬來伐",
+              "清史稿/卷1@2589312#凡四日而破三路明兵。",
+              "清史稿/卷1@2589312#如柏軍奔迸，踐斃又千餘人。",
+              "清史稿/卷1@2589312#上率兵攻開原，克之",
+              "清史稿/卷1@2589312#之。葉赫亡。師"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-791E2265F3FB50A66155",
+              "result_label": "统帅二十万四路进攻的明方总体战役。",
+              "result_direction": "negative",
+              "result_tier": "S",
+              "combat_difficulty": "D4",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "实际督师和国家级进攻体系覆灭成立；各路战术分别由路将控制。",
+              "source_refs": [
+                "清史稿/卷1@2589312#楊鎬督師二十萬來伐",
+                "清史稿/卷1@2589312#凡四日而破三路明兵。",
+                "清史稿/卷1@2589312#如柏軍奔迸，踐斃又千餘人。",
+                "清史稿/卷1@2589312#上率兵攻開原，克之",
+                "清史稿/卷1@2589312#之。葉赫亡。師"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "实际督师和国家级进攻体系覆灭成立；各路战术分别由路将控制。",
+                "source_refs": [
+                  "清史稿/卷1@2589312#楊鎬督師二十萬來伐",
+                  "清史稿/卷1@2589312#凡四日而破三路明兵。",
+                  "清史稿/卷1@2589312#如柏軍奔迸，踐斃又千餘人。",
+                  "清史稿/卷1@2589312#上率兵攻開原，克之",
+                  "清史稿/卷1@2589312#之。葉赫亡。師"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-AF4B511F5043E1B1",
+          "actor_name": "马林",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "只消费本人一路覆灭。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D4",
+            "detail_status": "resolved_person_result",
+            "basis": "只消费本人一路覆灭。",
+            "source_refs": [
+              "清史稿/卷1@2589312#楊鎬督師二十萬來伐",
+              "清史稿/卷1@2589312#凡四日而破三路明兵。",
+              "清史稿/卷1@2589312#如柏軍奔迸，踐斃又千餘人。",
+              "清史稿/卷1@2589312#上率兵攻開原，克之",
+              "清史稿/卷1@2589312#之。葉赫亡。師"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-8D31E152D3BFFBEDAAE6",
+              "result_label": "一路明军实际进攻并被歼。",
+              "result_direction": "negative",
+              "result_tier": "A",
+              "combat_difficulty": "D4",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "只消费本人一路覆灭。",
+              "source_refs": [
+                "清史稿/卷1@2589312#楊鎬督師二十萬來伐",
+                "清史稿/卷1@2589312#凡四日而破三路明兵。",
+                "清史稿/卷1@2589312#如柏軍奔迸，踐斃又千餘人。",
+                "清史稿/卷1@2589312#上率兵攻開原，克之",
+                "清史稿/卷1@2589312#之。葉赫亡。師"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "只消费本人一路覆灭。",
+                "source_refs": [
+                  "清史稿/卷1@2589312#楊鎬督師二十萬來伐",
+                  "清史稿/卷1@2589312#凡四日而破三路明兵。",
+                  "清史稿/卷1@2589312#如柏軍奔迸，踐斃又千餘人。",
+                  "清史稿/卷1@2589312#上率兵攻開原，克之",
+                  "清史稿/卷1@2589312#之。葉赫亡。師"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [
+        {
+          "actor_ref": "PERSON-POST-BBA1F72A512D0891",
+          "actor_name": "刘綎",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "A",
+          "severity": 0.4,
+          "basis": "只消费本人一路覆灭。",
+          "source_refs": [
+            "清史稿/卷1@2589312#楊鎬督師二十萬來伐",
+            "清史稿/卷1@2589312#凡四日而破三路明兵。",
+            "清史稿/卷1@2589312#如柏軍奔迸，踐斃又千餘人。",
+            "清史稿/卷1@2589312#上率兵攻開原，克之",
+            "清史稿/卷1@2589312#之。葉赫亡。師"
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-5BA3A23030665025",
+          "actor_name": "李如柏",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "A",
+          "severity": 0.4,
+          "basis": "实际撤退结果明确，不复制三路覆灭。",
+          "source_refs": [
+            "清史稿/卷1@2589312#楊鎬督師二十萬來伐",
+            "清史稿/卷1@2589312#凡四日而破三路明兵。",
+            "清史稿/卷1@2589312#如柏軍奔迸，踐斃又千餘人。",
+            "清史稿/卷1@2589312#上率兵攻開原，克之",
+            "清史稿/卷1@2589312#之。葉赫亡。師"
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-9DF0EB24E5466BAF",
+          "actor_name": "杜松",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "A",
+          "severity": 0.4,
+          "basis": "只消费本人一路覆灭。",
+          "source_refs": [
+            "清史稿/卷1@2589312#楊鎬督師二十萬來伐",
+            "清史稿/卷1@2589312#凡四日而破三路明兵。",
+            "清史稿/卷1@2589312#如柏軍奔迸，踐斃又千餘人。",
+            "清史稿/卷1@2589312#上率兵攻開原，克之",
+            "清史稿/卷1@2589312#之。葉赫亡。師"
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-73A2A04E7109AD8B",
+          "actor_name": "杨镐",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "S",
+          "severity": 0.2,
+          "basis": "实际督师和国家级进攻体系覆灭成立；各路战术分别由路将控制。",
+          "source_refs": [
+            "清史稿/卷1@2589312#楊鎬督師二十萬來伐",
+            "清史稿/卷1@2589312#凡四日而破三路明兵。",
+            "清史稿/卷1@2589312#如柏軍奔迸，踐斃又千餘人。",
+            "清史稿/卷1@2589312#上率兵攻開原，克之",
+            "清史稿/卷1@2589312#之。葉赫亡。師"
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-AF4B511F5043E1B1",
+          "actor_name": "马林",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "A",
+          "severity": 0.4,
+          "basis": "只消费本人一路覆灭。",
+          "source_refs": [
+            "清史稿/卷1@2589312#楊鎬督師二十萬來伐",
+            "清史稿/卷1@2589312#凡四日而破三路明兵。",
+            "清史稿/卷1@2589312#如柏軍奔迸，踐斃又千餘人。",
+            "清史稿/卷1@2589312#上率兵攻開原，克之",
+            "清史稿/卷1@2589312#之。葉赫亡。師"
+          ]
+        }
+      ],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "unification_portfolio_ref": "UCP-POST-QING-FOUNDING-1607-1662",
+      "unification_stage_order": 4,
+      "account_routing": [
+        "UNIFICATION_ONLY"
+      ],
+      "defense_consumption": "EXCLUDED_UNIFICATION",
+      "settlement_scope": "BATTLE_LEDGER_ONLY",
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "S",
+      "result_class": "single_pole_decisive_defeat",
+      "land_strategic_value": "national_core",
+      "opponent_strategic_weight": "first_tier_pole",
+      "opponent_condition": "first_tier_pole",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "main_force_destroyed",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "后金集中兵力连续摧毁明三路主力并进一步取开原铁岭、灭叶赫，决定性击溃第一梯队明军辽东方向核心主力，裁为S；明政权未终结且叶赫仅为区域极，不构成S+。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT",
+      "combat_difficulty": "D4",
+      "combat_difficulty_basis": "明军二十万并叶赫朝鲜分四路压境，后金处于显著兵力和多向受攻劣势；努尔哈齐集中兵力逐路击破三军、迫一路退军并续灭叶赫，判断与组织链完整，满足D4。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。"
+    },
+    {
+      "war_event_id": "WAR-POST-7A1B5EA683A9496E1D10",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-SOUTHERN-CONSOLIDATION-1645-1647",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "清军继续攻取浙江、福建、江西、湖广和广东，击破鲁王、唐王及桂王所部，先后宣布多省平定。",
+      "period": {
+        "start": "顺治二年闰六月",
+        "end": "顺治四年十二月"
+      },
+      "observable_result": "清廷控制扩展至东南与华南多省，但南明桂王和郑氏势力仍在。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V04-SOUTHERN-CONSOLIDATION-1645-1647"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-04.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷4@2267892#降。浙江平。戊",
+          "清史稿/卷4@2267892#眾。福建平。癸",
+          "清史稿/卷4@2267892#：「中原底定，聲",
+          "清史稿/卷4@2267892#斬故明王及其黨千餘人。四川平。",
+          "清史稿/卷4@2267892#降。湖南平。庚"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷4@2267892#降。浙江平。戊",
+        "清史稿/卷4@2267892#眾。福建平。癸",
+        "清史稿/卷4@2267892#：「中原底定，聲",
+        "清史稿/卷4@2267892#斬故明王及其黨千餘人。四川平。",
+        "清史稿/卷4@2267892#降。湖南平。庚"
+      ],
+      "uncertainties": [
+        "各省实际控制范围、平民伤亡和南明残部数量未完整载明。"
+      ],
+      "cost_or_burden": "多地数万至十余万军队交战，官军处死多名南明宗室和将领；民众伤亡未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "unification_portfolio_ref": "UCP-POST-QING-FOUNDING-1607-1662",
+      "unification_stage_order": 13,
+      "account_routing": [
+        "UNIFICATION_ONLY"
+      ],
+      "defense_consumption": "EXCLUDED_UNIFICATION",
+      "settlement_scope": "BATTLE_LEDGER_ONLY",
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "important_objective",
+      "land_strategic_value": "strategic_gateway",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记B；土地轴=strategic_gateway，对手轴=regional_major，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "B",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "已逐项反查全部source_card_ids；现有事实未同时闭合具名人物的实际控制、本人完成范围与可观察结果，unknown保持unknown。",
+      "detail_expansion_status": "complete_unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。"
+    }
+  ]
+}

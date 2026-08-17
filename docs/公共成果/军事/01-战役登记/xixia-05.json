@@ -1,0 +1,1819 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "xixia",
+  "bucket": 5,
+  "bucket_count": 24,
+  "record_count": 20,
+  "records_fingerprint": "c063a77e658571e17a8f4cb8ac04615d5ec7728971de6b79e7a81f77c5a53733",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-C424F373C3DC47CA0F66",
+      "dynasty": "西夏",
+      "dynasty_partition": "xixia",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-MONGOL-SHAZHOU-SIEGE-1224",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "蒙古主自河外攻沙州，逾月不下，继令士兵夜掘地穴入城。守将籍辣思义以火攻穴。",
+      "period": {
+        "start": "宋宁宗嘉定十七年五月至十一月",
+        "end": "1224"
+      },
+      "observable_result": "蒙古兵多死，沙州坚守半年；后德旺请降、许质子，蒙古始解围，城内军民食畜殆尽。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-XIXIA-V42-SHAZHOU-DEFENSE-1224"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/西夏书事/volume-42.registry.json"
+        ],
+        "source_revision_refs": [
+          "西夏書事/42@2291165#夏五月，蒙古兵圍沙州，不克。",
+          "西夏書事/42@2291165#守將籍辣思義納火穴中，蒙兵多死，思義城守如故。",
+          "西夏書事/42@2291165#十一月，遣使蒙古請降，沙州圍解。",
+          "西夏書事/42@2291165#城中堅守半載，軍民困乏，食牛羊馬駞殆盡。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "西夏書事/42@2291165#夏五月，蒙古兵圍沙州，不克。",
+        "西夏書事/42@2291165#守將籍辣思義納火穴中，蒙兵多死，思義城守如故。",
+        "西夏書事/42@2291165#十一月，遣使蒙古請降，沙州圍解。",
+        "西夏書事/42@2291165#城中堅守半載，軍民困乏，食牛羊馬駞殆盡。"
+      ],
+      "uncertainties": [
+        "双方兵力与伤亡、沙州城防损失和请求投降的完整条件未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-64F90B785A3D7302",
+          "actor_name": "籍辣思义",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "已验收事实卡明确闭合籍辣思义的实际行动与本人结果：守将以火攻地穴，造成蒙古兵多死并维持半年守城。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "stage_executor",
+            "result_direction": "positive",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合籍辣思义的实际行动与本人结果：守将以火攻地穴，造成蒙古兵多死并维持半年守城。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "西夏書事/42@2291165#夏五月，蒙古兵圍沙州，不克。",
+              "西夏書事/42@2291165#守將籍辣思義納火穴中，蒙兵多死，思義城守如故。",
+              "西夏書事/42@2291165#十一月，遣使蒙古請降，沙州圍解。",
+              "西夏書事/42@2291165#城中堅守半載，軍民困乏，食牛羊馬駞殆盡。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-1F94327C022B2A8F28FC",
+              "result_label": "守将以火攻地穴，造成蒙古兵多死并维持半年守城。",
+              "result_direction": "positive",
+              "result_tier": "B",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "已验收事实卡明确闭合籍辣思义的实际行动与本人结果：守将以火攻地穴，造成蒙古兵多死并维持半年守城。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "西夏書事/42@2291165#夏五月，蒙古兵圍沙州，不克。",
+                "西夏書事/42@2291165#守將籍辣思義納火穴中，蒙兵多死，思義城守如故。",
+                "西夏書事/42@2291165#十一月，遣使蒙古請降，沙州圍解。",
+                "西夏書事/42@2291165#城中堅守半載，軍民困乏，食牛羊馬駞殆盡。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "tactical_execution",
+                "decisive_relation": "stage_executor",
+                "basis": "已验收事实卡明确闭合籍辣思义的实际行动与本人结果：守将以火攻地穴，造成蒙古兵多死并维持半年守城。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "西夏書事/42@2291165#夏五月，蒙古兵圍沙州，不克。",
+                  "西夏書事/42@2291165#守將籍辣思義納火穴中，蒙兵多死，思義城守如故。",
+                  "西夏書事/42@2291165#十一月，遣使蒙古請降，沙州圍解。",
+                  "西夏書事/42@2291165#城中堅守半載，軍民困乏，食牛羊馬駞殆盡。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-FB0C82DE5324C0CF",
+          "actor_name": "铁木真",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "已验收事实卡明确闭合铁木真的实际行动与本人结果：亲自围攻，地穴攻城受挫，半年后以请降解围；需拆开战术失败与政治受降。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "mixed_review",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合铁木真的实际行动与本人结果：亲自围攻，地穴攻城受挫，半年后以请降解围；需拆开战术失败与政治受降。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "西夏書事/42@2291165#夏五月，蒙古兵圍沙州，不克。",
+              "西夏書事/42@2291165#守將籍辣思義納火穴中，蒙兵多死，思義城守如故。",
+              "西夏書事/42@2291165#十一月，遣使蒙古請降，沙州圍解。",
+              "西夏書事/42@2291165#城中堅守半載，軍民困乏，食牛羊馬駞殆盡。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-EB789810D43EB8B60887",
+              "result_label": "亲自围攻，地穴攻城受挫，半年后以请降解围；需拆开战术失败与政治受降。",
+              "result_direction": "mixed_review",
+              "result_tier": "B",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "NOT_APPLICABLE",
+              "basis": "已验收事实卡明确闭合铁木真的实际行动与本人结果：亲自围攻，地穴攻城受挫，半年后以请降解围；需拆开战术失败与政治受降。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "西夏書事/42@2291165#夏五月，蒙古兵圍沙州，不克。",
+                "西夏書事/42@2291165#守將籍辣思義納火穴中，蒙兵多死，思義城守如故。",
+                "西夏書事/42@2291165#十一月，遣使蒙古請降，沙州圍解。",
+                "西夏書事/42@2291165#城中堅守半載，軍民困乏，食牛羊馬駞殆盡。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "已验收事实卡明确闭合铁木真的实际行动与本人结果：亲自围攻，地穴攻城受挫，半年后以请降解围；需拆开战术失败与政治受降。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "西夏書事/42@2291165#夏五月，蒙古兵圍沙州，不克。",
+                  "西夏書事/42@2291165#守將籍辣思義納火穴中，蒙兵多死，思義城守如故。",
+                  "西夏書事/42@2291165#十一月，遣使蒙古請降，沙州圍解。",
+                  "西夏書事/42@2291165#城中堅守半載，軍民困乏，食牛羊馬駞殆盡。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "important_objective",
+      "land_strategic_value": "strategic_gateway",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记B；土地轴=strategic_gateway，对手轴=regional_major，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "B",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-4605E1F62B3018361E9F",
+      "dynasty": "西夏",
+      "dynasty_partition": "xixia",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-XIXIA-BILICHENG-1068",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "宋军抢筑篳篥古城以控制秦凤通道，西夏军翌日赶到并发动攻击。",
+      "period": {
+        "start": "宋神宗熙宁元年五月",
+        "end": "1068"
+      },
+      "observable_result": "西夏军与杨文广部搏战不胜而退，宋方完成据点部署。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-XIXIA-V22-BILICHENG-BATTLE-1068"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/西夏书事/volume-22.registry.json"
+        ],
+        "source_revision_refs": [
+          "西夏書事/22@2288741#五月，出兵爭篳篥城。",
+          "西夏書事/22@2288741#遲明，夏兵大至，與文廣搏戰，不勝而退。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "西夏書事/22@2288741#五月，出兵爭篳篥城。",
+        "西夏書事/22@2288741#遲明，夏兵大至，與文廣搏戰，不勝而退。"
+      ],
+      "uncertainties": [
+        "双方兵力伤亡、筑城规模及工程成本未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-3B2E04FAE71C6896A536",
+      "dynasty": "西夏",
+      "dynasty_partition": "xixia",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-XIXIA-DASHUN-1066",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "谅祚亲攻大顺城，另军焚掠柔远周边并设栅段木岭。",
+      "period": {
+        "start": "宋英宗治平三年九月",
+        "end": "1066"
+      },
+      "observable_result": "大顺围三日不克，谅祚中流矢撤退；柔远守军夜袭使夏军惊溃，退屯金汤。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-XIXIA-V21-DASHUN-CAMPAIGN-1066"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/西夏书事/volume-21.registry.json"
+        ],
+        "source_revision_refs": [
+          "西夏書事/21@2288634#自將犯慶州，圍大順城，中流矢而還。",
+          "西夏書事/21@2288634#圍三日不克，諒祚裹銀甲氊帽，乘駱馬，張黃屋督戰。",
+          "西夏書事/21@2288634#夏兵驚潰，退屯金湯。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "西夏書事/21@2288634#自將犯慶州，圍大順城，中流矢而還。",
+        "西夏書事/21@2288634#圍三日不克，諒祚裹銀甲氊帽，乘駱馬，張黃屋督戰。",
+        "西夏書事/21@2288634#夏兵驚潰，退屯金湯。"
+      ],
+      "uncertainties": [
+        "谅祚伤势与死因关系记载有异，双方兵力伤亡未定。"
+      ],
+      "cost_or_burden": "西夏攻城渡濠受阻并溃退，柔远三村被烧；双方确切伤亡未载。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-3D010F663636C6B3",
+          "actor_name": "谅祚",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "已验收事实卡明确闭合谅祚的实际行动与本人结果：亲攻三日不克且中箭撤退；另路焚掠不复制为本人战果。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合谅祚的实际行动与本人结果：亲攻三日不克且中箭撤退；另路焚掠不复制为本人战果。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "西夏書事/21@2288634#自將犯慶州，圍大順城，中流矢而還。",
+              "西夏書事/21@2288634#圍三日不克，諒祚裹銀甲氊帽，乘駱馬，張黃屋督戰。",
+              "西夏書事/21@2288634#夏兵驚潰，退屯金湯。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-820C4E060BC0E5D24857",
+              "result_label": "亲攻三日不克且中箭撤退；另路焚掠不复制为本人战果。",
+              "result_direction": "negative",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "已验收事实卡明确闭合谅祚的实际行动与本人结果：亲攻三日不克且中箭撤退；另路焚掠不复制为本人战果。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "西夏書事/21@2288634#自將犯慶州，圍大順城，中流矢而還。",
+                "西夏書事/21@2288634#圍三日不克，諒祚裹銀甲氊帽，乘駱馬，張黃屋督戰。",
+                "西夏書事/21@2288634#夏兵驚潰，退屯金湯。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "已验收事实卡明确闭合谅祚的实际行动与本人结果：亲攻三日不克且中箭撤退；另路焚掠不复制为本人战果。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "西夏書事/21@2288634#自將犯慶州，圍大順城，中流矢而還。",
+                  "西夏書事/21@2288634#圍三日不克，諒祚裹銀甲氊帽，乘駱馬，張黃屋督戰。",
+                  "西夏書事/21@2288634#夏兵驚潰，退屯金湯。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [
+        {
+          "actor_ref": "PERSON-POST-3D010F663636C6B3",
+          "actor_name": "谅祚",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "C",
+          "severity": 0.2,
+          "basis": "已验收事实卡明确闭合谅祚的实际行动与本人结果：亲攻三日不克且中箭撤退；另路焚掠不复制为本人战果。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "source_refs": [
+            "西夏書事/21@2288634#自將犯慶州，圍大順城，中流矢而還。",
+            "西夏書事/21@2288634#圍三日不克，諒祚裹銀甲氊帽，乘駱馬，張黃屋督戰。",
+            "西夏書事/21@2288634#夏兵驚潰，退屯金湯。"
+          ]
+        }
+      ],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "mixed",
+      "campaign_tier": "C",
+      "result_class": "local_tactical",
+      "land_strategic_value": "local_point",
+      "opponent_strategic_weight": "minor",
+      "opponent_condition": "unclear",
+      "battle_result": "unclear",
+      "objective_completion": "unclear",
+      "objective_shortfalls": [
+        "共享层未闭合全部战略目标，保持证据下限。"
+      ],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记C；土地轴=local_point，对手轴=minor，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "C",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "single_integrated_command",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-32F66383C7BE3A92DE18",
+      "dynasty": "西夏",
+      "dynasty_partition": "xixia",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-XIXIA-DONGSHENG-PINGLIANG-1211",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "遵顼即位后以万骑围东胜，又以万余兵扰邠岐并围平凉府。",
+      "period": {
+        "start": "宋宁宗嘉定四年八月至十一月",
+        "end": "1211"
+      },
+      "observable_result": "金军增援东胜、邠岐，西夏不胜；遵顼疑金大军将至而解平凉围。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-XIXIA-V40-DONGSHENG-PINGLIANG-CAMPAIGN-1211"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/西夏书事/volume-40.registry.json"
+        ],
+        "source_revision_refs": [
+          "西夏書事/40@2291027#遣兵犯金東勝城。",
+          "西夏書事/40@2291027#遵頊遣萬騎圍之，勢危甚。",
+          "西夏書事/40@2291027#冬十一月，侵金涇、邠二州，圍平涼府。",
+          "西夏書事/40@2291027#疑金軍大至，遂解圍。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "西夏書事/40@2291027#遣兵犯金東勝城。",
+        "西夏書事/40@2291027#遵頊遣萬騎圍之，勢危甚。",
+        "西夏書事/40@2291027#冬十一月，侵金涇、邠二州，圍平涼府。",
+        "西夏書事/40@2291027#疑金軍大至，遂解圍。"
+      ],
+      "uncertainties": [
+        "双方伤亡、东胜围城时长、邠岐损失与西夏撤军路线未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-2BCC476B19D5B1A2313F",
+      "dynasty": "西夏",
+      "dynasty_partition": "xixia",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-XIXIA-FAMINE-BANDITS-1143",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "大饥使威静定等州多个部族聚众抢掠并攻击州城，州将出兵镇压。",
+      "period": {
+        "start": "宋高宗绍兴十三年七月",
+        "end": "1143"
+      },
+      "observable_result": "州军不能击退，各部乱事持续。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-XIXIA-V35-FAMINE-BANDITS-1143"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/西夏书事/volume-35.registry.json"
+        ],
+        "source_revision_refs": [
+          "西夏書事/35@2290159#秋七月，大饑，諸州盜起。",
+          "西夏書事/35@2290159#諸部無食，羣起爲盜。",
+          "西夏書事/35@2290159#多者萬人，少者五、六千，四行刼掠，直犯州城。州將出兵擊之，不克。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "西夏書事/35@2290159#秋七月，大饑，諸州盜起。",
+        "西夏書事/35@2290159#諸部無食，羣起爲盜。",
+        "西夏書事/35@2290159#多者萬人，少者五、六千，四行刼掠，直犯州城。州將出兵擊之，不克。"
+      ],
+      "uncertainties": [
+        "人数是否实数、劫掠损失与官军伤亡未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-D1C48C3EB65CC1900B8C",
+      "dynasty": "西夏",
+      "dynasty_partition": "xixia",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-XIXIA-GANZHOU-1009",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "德明为报连败，遣张浦率精骑二万攻甘州，围攻十余日。",
+      "period": {
+        "start": "宋真宗大中祥符二年四月",
+        "end": "1009"
+      },
+      "observable_result": "回鹘夜袭，张浦大败撤回；宋廷允许回鹘首领据功补署官告。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-XIXIA-V09-GANZHOU-20000-1009"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/西夏书事/volume-09.registry.json"
+        ],
+        "source_revision_refs": [
+          "西夏書事/09@2285605#遣張浦將精騎二萬攻甘州。",
+          "西夏書事/09@2285605#夜出兵襲之，浦大敗還。",
+          "西夏書事/09@2285605#詔給司戈、司階、郎將告敕十道"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "西夏書事/09@2285605#遣張浦將精騎二萬攻甘州。",
+        "西夏書事/09@2285605#夜出兵襲之，浦大敗還。",
+        "西夏書事/09@2285605#詔給司戈、司階、郎將告敕十道"
+      ],
+      "uncertainties": [
+        "双方伤亡、围城损失、获官首领姓名未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-0E6F6F22240BC820",
+          "actor_name": "张浦",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "已验收事实卡明确闭合张浦的实际行动与本人结果：率精骑二万围甘州十余日，遭夜袭大败撤还。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合张浦的实际行动与本人结果：率精骑二万围甘州十余日，遭夜袭大败撤还。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "西夏書事/09@2285605#遣張浦將精騎二萬攻甘州。",
+              "西夏書事/09@2285605#夜出兵襲之，浦大敗還。",
+              "西夏書事/09@2285605#詔給司戈、司階、郎將告敕十道"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-943A4A260E40A6A6CD3F",
+              "result_label": "率精骑二万围甘州十余日，遭夜袭大败撤还。",
+              "result_direction": "negative",
+              "result_tier": "B",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "已验收事实卡明确闭合张浦的实际行动与本人结果：率精骑二万围甘州十余日，遭夜袭大败撤还。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "西夏書事/09@2285605#遣張浦將精騎二萬攻甘州。",
+                "西夏書事/09@2285605#夜出兵襲之，浦大敗還。",
+                "西夏書事/09@2285605#詔給司戈、司階、郎將告敕十道"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "已验收事实卡明确闭合张浦的实际行动与本人结果：率精骑二万围甘州十余日，遭夜袭大败撤还。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "西夏書事/09@2285605#遣張浦將精騎二萬攻甘州。",
+                  "西夏書事/09@2285605#夜出兵襲之，浦大敗還。",
+                  "西夏書事/09@2285605#詔給司戈、司階、郎將告敕十道"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [
+        {
+          "actor_ref": "PERSON-POST-0E6F6F22240BC820",
+          "actor_name": "张浦",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "B",
+          "severity": 0.3,
+          "basis": "已验收事实卡明确闭合张浦的实际行动与本人结果：率精骑二万围甘州十余日，遭夜袭大败撤还。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "source_refs": [
+            "西夏書事/09@2285605#遣張浦將精騎二萬攻甘州。",
+            "西夏書事/09@2285605#夜出兵襲之，浦大敗還。",
+            "西夏書事/09@2285605#詔給司戈、司階、郎將告敕十道"
+          ]
+        }
+      ],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "important_objective",
+      "land_strategic_value": "strategic_gateway",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记B；土地轴=strategic_gateway，对手轴=regional_major，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "B",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "single_integrated_command",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-57CEB3A5695D9C0FFCE6",
+      "dynasty": "西夏",
+      "dynasty_partition": "xixia",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-XIXIA-JIAZHOU-RETALIATION-1210",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "安全因金未援中兴围城，遣万骑攻葭州报复。",
+      "period": {
+        "start": "宋宁宗嘉定三年八月",
+        "end": "1210"
+      },
+      "observable_result": "西夏开始以军事行动报复金朝，战果未载。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-XIXIA-V40-JIAZHOU-RETALIATION-1210"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/西夏书事/volume-40.registry.json"
+        ],
+        "source_revision_refs": [
+          "西夏書事/40@2291027#秋八月，攻金葭州。",
+          "西夏書事/40@2291027#安全怒金不發援兵，遣萬騎攻葭州以報之。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "西夏書事/40@2291027#秋八月，攻金葭州。",
+        "西夏書事/40@2291027#安全怒金不發援兵，遣萬騎攻葭州以報之。"
+      ],
+      "uncertainties": [
+        "攻城结果、伤亡、掠获与驻军反击未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-649FABABA5E850A2851D",
+      "dynasty": "西夏",
+      "dynasty_partition": "xixia",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-XIXIA-LI-SHOUZHEN-948",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "李守贞以蜡书重币求援，彝殷出兵逼近延州为其声援；郭威围河中后彝殷撤军。",
+      "period": {
+        "start": "后汉隐帝乾祐元年六月至十一月",
+        "end": "948"
+      },
+      "observable_result": "定难军未直接参战即退，事后与延州互相告讦并由后汉调解。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-XIXIA-V02-AID-LI-SHOUZHEN-948"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/西夏书事/volume-02.registry.json"
+        ],
+        "source_revision_refs": [
+          "西夏書事/02@2284100#河中李守貞遣使夏州，乞援。",
+          "西夏書事/02@2284100#𢑴殷出兵次延州。",
+          "西夏書事/02@2284100#𢑴超遂抽師囘。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "西夏書事/02@2284100#河中李守貞遣使夏州，乞援。",
+        "西夏書事/02@2284100#𢑴殷出兵次延州。",
+        "西夏書事/02@2284100#𢑴超遂抽師囘。"
+      ],
+      "uncertainties": [
+        "李守贞所送重币数额、定难军兵力、军费、伤亡与秘密协议未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-3CCF8B0A311C785F51A8",
+      "dynasty": "西夏",
+      "dynasty_partition": "xixia",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-XIXIA-LINGZHOU-CONVOY-1000",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "宋改在秋凉运输灵州粮饷，保吉以康奴等族万余众夜袭积石护运队。",
+      "period": {
+        "start": "宋真宗咸平三年九月",
+        "end": "1000"
+      },
+      "observable_result": "转运使陈纬战死，援军王荣亦败，保吉尽夺粮运并屯兵积石河。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-XIXIA-V06-LINGZHOU-CONVOY-1000"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/西夏书事/volume-06.registry.json"
+        ],
+        "source_revision_refs": [
+          "西夏書事/06@2284740#復邀靈州糧運，殺轉運使陳緯。",
+          "西夏書事/06@2284740#保吉盡得糧運，遂頓兵于積石河。",
+          "西夏書事/06@2284740#爲轉輸死者十餘萬人，而芻糧二十五萬，到者不十之三。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "西夏書事/06@2284740#復邀靈州糧運，殺轉運使陳緯。",
+        "西夏書事/06@2284740#保吉盡得糧運，遂頓兵于積石河。",
+        "西夏書事/06@2284740#爲轉輸死者十餘萬人，而芻糧二十五萬，到者不十之三。"
+      ],
+      "uncertainties": [
+        "本次粮运数量、死伤与长期累计数的分界、战利品分配未载。"
+      ],
+      "cost_or_burden": "陈纬及护运军战死，粮运全失；原文并称长期转输死亡十余万人、二十五万刍粮到者不及十分之三。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "mixed",
+      "campaign_tier": "C",
+      "result_class": "local_tactical",
+      "land_strategic_value": "local_point",
+      "opponent_strategic_weight": "minor",
+      "opponent_condition": "unclear",
+      "battle_result": "unclear",
+      "objective_completion": "unclear",
+      "objective_shortfalls": [
+        "共享层未闭合全部战略目标，保持证据下限。"
+      ],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记C；土地轴=local_point，对手轴=minor，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "C",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "已逐项反查全部source_card_ids；现有事实未同时闭合具名人物的实际控制、本人完成范围与可观察结果，unknown保持unknown。",
+      "detail_expansion_status": "complete_unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-88B0B8312B4C22710E87",
+      "dynasty": "西夏",
+      "dynasty_partition": "xixia",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-XIXIA-MATICHUAN-1042",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "宋军进筑马蹄川招徕部族，元昊遣数万骑争夺。",
+      "period": {
+        "start": "宋仁宗庆历二年十一月",
+        "end": "1042"
+      },
+      "observable_result": "宋周美以二千兵并遣楚建中迎战，西夏军战败撤还。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-XIXIA-V16-MATICHUAN-1042"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/西夏书事/volume-16.registry.json"
+        ],
+        "source_revision_refs": [
+          "西夏書事/16@2288387#出兵爭馬蹄川，不勝。",
+          "西夏書事/16@2288387#元昊令數萬騎攻之",
+          "西夏書事/16@2288387#夏兵與戰，不勝而還。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "西夏書事/16@2288387#出兵爭馬蹄川，不勝。",
+        "西夏書事/16@2288387#元昊令數萬騎攻之",
+        "西夏書事/16@2288387#夏兵與戰，不勝而還。"
+      ],
+      "uncertainties": [
+        "双方伤亡、筑城规模和部族归附人数未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "negative",
+      "campaign_tier": "C",
+      "result_class": "local_tactical",
+      "land_strategic_value": "local_point",
+      "opponent_strategic_weight": "minor",
+      "opponent_condition": "unclear",
+      "battle_result": "defeat",
+      "objective_completion": "failed",
+      "objective_shortfalls": [
+        "共享层未闭合全部战略目标，保持证据下限。"
+      ],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记C；土地轴=local_point，对手轴=minor，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "C",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "已逐项反查全部source_card_ids；现有事实未同时闭合具名人物的实际控制、本人完成范围与可观察结果，unknown保持unknown。",
+      "detail_expansion_status": "complete_unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-8B9DCC215FB7B9E85B90",
+      "dynasty": "西夏",
+      "dynasty_partition": "xixia",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-XIXIA-NORTHERN-HAN-979",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "宋军攻北汉时，继筠遣李克远、李克宪率蕃汉兵沿黄河列塞渡河，侵掠太原边境。",
+      "period": {
+        "start": "宋太宗太平兴国四年正月",
+        "end": "979"
+      },
+      "observable_result": "定难军形成对北汉西境的协同进攻，直接战果未载。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-XIXIA-V03-NORTHERN-HAN-CAMPAIGN-979"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/西夏书事/volume-03.registry.json"
+        ],
+        "source_revision_refs": [
+          "西夏書事/03@2284166#定難軍畱後李繼筠出兵討北漢。",
+          "西夏書事/03@2284166#率蕃、漢兵卒緣黃河列塞渡河，畧太原境"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "西夏書事/03@2284166#定難軍畱後李繼筠出兵討北漢。",
+        "西夏書事/03@2284166#率蕃、漢兵卒緣黃河列塞渡河，畧太原境"
+      ],
+      "uncertainties": [
+        "兵力、交战、伤亡、掳获和军费未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-5DD87BD99FA45500BF39",
+      "dynasty": "西夏",
+      "dynasty_partition": "xixia",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-XIXIA-QINGJIAN-1040",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "宋新筑青涧城控制延州东路后，元昊进兵争夺，攻城不克而退驻归娘谷。",
+      "period": {
+        "start": "宋仁宗康定元年十月",
+        "end": "1040"
+      },
+      "observable_result": "宋军轮番袭击，西夏军屡败，青涧城仍由宋控制。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-XIXIA-V14-QINGJIAN-GUINIANG-1040"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/西夏书事/volume-14.registry.json"
+        ],
+        "source_revision_refs": [
+          "西夏書事/14@2288146#進兵爭青澗城，敗于歸娘谷。",
+          "西夏書事/14@2288146#元昊攻之不能克，退駐歸娘谷。",
+          "西夏書事/14@2288146#擊，夏兵屢敗"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "西夏書事/14@2288146#進兵爭青澗城，敗于歸娘谷。",
+        "西夏書事/14@2288146#元昊攻之不能克，退駐歸娘谷。",
+        "西夏書事/14@2288146#擊，夏兵屢敗"
+      ],
+      "uncertainties": [
+        "交战次数、双方伤亡与青涧筑城规模费用未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "important_objective",
+      "land_strategic_value": "strategic_gateway",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记B；土地轴=strategic_gateway，对手轴=regional_major，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "B",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "已逐项反查全部source_card_ids；现有事实未同时闭合具名人物的实际控制、本人完成范围与可观察结果，unknown保持unknown。",
+      "detail_expansion_status": "complete_unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-D020921464E028AC2108",
+      "dynasty": "西夏",
+      "dynasty_partition": "xixia",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-XIXIA-LI-SHIFU-QINGMIAN-1139",
+      "split_from_source_target_ref": "CAMPAIGN-XIXIA-QINGMIAN-SHAANXI-1139",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "canonical_label": "李世辅讨平青面夜叉",
+      "period": {
+        "start": "UNKNOWN_WITHIN_PARENT",
+        "end": "UNKNOWN_WITHIN_PARENT"
+      },
+      "observable_result": "李世辅讨平青面夜叉",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "tier_basis": "三千骑疾驰擒首领，闭合局部平叛；对手与规模有限，不继承父级A，定B/D2。",
+      "tier_review_source_tier": null,
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT_SPLIT_CHILD",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按该子方向逐字锚可证的攻陷、平定或归降结果取证据下限。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "single_integrated_command",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "混合父项未保存可归责的连续子方向指挥，不从官职推定。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-90231AB9F8512A9D",
+          "actor_name": "李世辅",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "率三千骑直抵营帐并擒首领，闭合局部平叛。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "率三千骑直抵营帐并擒首领，闭合局部平叛。",
+            "source_refs": [
+              "西夏書事/35@2290159#世輔以三千騎疾馳至其帳，擒之以歸。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-B8139AA5BE9DA945C086",
+              "result_label": "率三千骑直抵营帐并擒首领，闭合局部平叛。",
+              "result_direction": "positive",
+              "result_tier": "B",
+              "combat_difficulty": "D2",
+              "stable_delivery": true,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "率三千骑直抵营帐并擒首领，闭合局部平叛。",
+              "source_refs": [
+                "西夏書事/35@2290159#世輔以三千騎疾馳至其帳，擒之以歸。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "率三千骑直抵营帐并擒首领，闭合局部平叛。",
+                "source_refs": [
+                  "西夏書事/35@2290159#世輔以三千騎疾馳至其帳，擒之以歸。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "source_lineage": {
+        "source_card_ids": [],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/西夏书事/volume-35.registry.json"
+        ],
+        "source_revision_refs": [
+          "西夏書事/35@2290159#世輔以三千騎疾馳至其帳，擒之以歸。"
+        ],
+        "lineage_basis": "同一共享事实含多个互不连续战区；父项持有fact_id，子项只持定点逐字锚，避免事实ID重复消费。"
+      },
+      "source_refs": [
+        "西夏書事/35@2290159#世輔以三千騎疾馳至其帳，擒之以歸。"
+      ],
+      "uncertainties": [],
+      "cost_or_burden": "unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "merged_into": null,
+      "limitations": [
+        "不得把混合父项的总兵力、四百余处规模或其他战区结果复制到本子项。"
+      ],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "basis": "三千骑疾驰擒首领，闭合局部平叛；对手与规模有限，不继承父级A，定B/D2。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-E0A65C075A507DB6FA78",
+      "dynasty": "西夏",
+      "dynasty_partition": "xixia",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-XIXIA-RETURNING-TRIBES-EXECUTIONS-1086",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "宋因乾顺新立拒绝接纳西夏首领内附并把部分来者劝回，梁乙逋派人沿途拘捕。",
+      "period": {
+        "start": "宋哲宗元祐元年十月",
+        "end": "1086"
+      },
+      "observable_result": "被劝回西夏的归汉蕃族遭全部杀害。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-XIXIA-V27-RETURNING-TRIBES-KILLED-1086"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/西夏书事/volume-27.registry.json"
+        ],
+        "source_revision_refs": [
+          "西夏書事/27@2289108#冬十月，殺歸漢蕃族。",
+          "西夏書事/27@2289108#于是中途約回者，梁乙逋悉遣人執殺之。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "西夏書事/27@2289108#冬十月，殺歸漢蕃族。",
+        "西夏書事/27@2289108#于是中途約回者，梁乙逋悉遣人執殺之。"
+      ],
+      "uncertainties": [
+        "遇害人数、地点与执行者身份未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-46423CF12AB5DB148353",
+      "dynasty": "西夏",
+      "dynasty_partition": "xixia",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-XIXIA-ROUYUAN-1019",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "德明部族由柔远砦进攻庆州，与巡检杨承吉交战。",
+      "period": {
+        "start": "宋真宗天禧三年三月",
+        "end": "1019"
+      },
+      "observable_result": "宋军失利；曹玮到任加强防御后，骨哶大门等族转而内附宋。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-XIXIA-V10-QINGZHOU-ROUYUAN-1019"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/西夏书事/volume-10.registry.json"
+        ],
+        "source_revision_refs": [
+          "西夏書事/10@2285835#攻慶州，敗官軍于柔遠砦。",
+          "西夏書事/10@2285835#巡檢楊承吉與戰，不利。",
+          "西夏書事/10@2285835#骨哶、大門等族爭內降。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "西夏書事/10@2285835#攻慶州，敗官軍于柔遠砦。",
+        "西夏書事/10@2285835#巡檢楊承吉與戰，不利。",
+        "西夏書事/10@2285835#骨哶、大門等族爭內降。"
+      ],
+      "uncertainties": [
+        "双方兵力伤亡、掠夺和归附户数未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-B753F7E3B3F70F611364",
+      "dynasty": "西夏",
+      "dynasty_partition": "xixia",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-XIXIA-SHUNNING-1081",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "梁氏以万骑收聚溃兵并围顺宁，宋军出城示强并散布大军将至。",
+      "period": {
+        "start": "宋神宗元丰四年十月前后",
+        "end": "1081"
+      },
+      "observable_result": "西夏撤围，浮图城、吴堡、义合等砦守军也弃壁散去。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-XIXIA-V25-SHUNNING-FORTS-ABANDONED-1081"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/西夏书事/volume-25.registry.json"
+        ],
+        "source_revision_refs": [
+          "西夏書事/25@2289017#復潛兵襲順寕，不克，遂棄浮圖城及吳堡、義合諸砦。",
+          "西夏書事/25@2289017#夏衆懼而退。于是浮圖城及吳堡等砦戍卒皆空壁散。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "西夏書事/25@2289017#復潛兵襲順寕，不克，遂棄浮圖城及吳堡、義合諸砦。",
+        "西夏書事/25@2289017#夏衆懼而退。于是浮圖城及吳堡等砦戍卒皆空壁散。"
+      ],
+      "uncertainties": [
+        "围攻伤亡、弃砦物资与守军去向未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-B111671A1F1F36A5A7A3",
+      "dynasty": "西夏",
+      "dynasty_partition": "xixia",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-XIXIA-YIQIN-1041",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "好水川后西夏军退屯天都山，遣游骑剽掠仪、秦二州属户。",
+      "period": {
+        "start": "宋仁宗庆历元年四月",
+        "end": "1041"
+      },
+      "observable_result": "闻宋曹琮设伏，游骑撤退。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-XIXIA-V15-YIQIN-RAIDS-1041"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/西夏书事/volume-15.registry.json"
+        ],
+        "source_revision_refs": [
+          "西夏書事/15@2288202#夏四月，掠儀、秦二州。",
+          "西夏書事/15@2288202#令游騎剽掠儀、秦二州屬戶。",
+          "西夏書事/15@2288202#聞秦鳳副都部署曹琮設伏以待，乃退。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "西夏書事/15@2288202#夏四月，掠儀、秦二州。",
+        "西夏書事/15@2288202#令游騎剽掠儀、秦二州屬戶。",
+        "西夏書事/15@2288202#聞秦鳳副都部署曹琮設伏以待，乃退。"
+      ],
+      "uncertainties": [
+        "被掠户数财物及双方伤亡未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "mixed",
+      "campaign_tier": "C",
+      "result_class": "local_tactical",
+      "land_strategic_value": "local_point",
+      "opponent_strategic_weight": "minor",
+      "opponent_condition": "unclear",
+      "battle_result": "unclear",
+      "objective_completion": "unclear",
+      "objective_shortfalls": [
+        "共享层未闭合全部战略目标，保持证据下限。"
+      ],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记C；土地轴=local_point，对手轴=minor，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "C",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "已逐项反查全部source_card_ids；现有事实未同时闭合具名人物的实际控制、本人完成范围与可观察结果，unknown保持unknown。",
+      "detail_expansion_status": "complete_unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-CB1F86FBC04E7D1DE6D1",
+      "dynasty": "西夏",
+      "dynasty_partition": "xixia",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-XIXIA-YOUZHOU-983",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "宋廷以金帛粮粟招募继迁部众，继迁担忧势力离散，联合西戎兵二万人进攻富庶宥州。",
+      "period": {
+        "start": "宋太宗太平兴国八年十二月",
+        "end": "983"
+      },
+      "observable_result": "巡检使李询率蕃汉兵击退继迁联军。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-XIXIA-V03-YOUZHOU-ATTACK-983"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/西夏书事/volume-03.registry.json"
+        ],
+        "source_revision_refs": [
+          "西夏書事/03@2284166#以西戎兵攻宥州。",
+          "西夏書事/03@2284166#合二萬人，攻宥州。",
+          "西夏書事/03@2284166#巡檢使李詢率所部蕃、漢卒擊走之。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "西夏書事/03@2284166#以西戎兵攻宥州。",
+        "西夏書事/03@2284166#合二萬人，攻宥州。",
+        "西夏書事/03@2284166#巡檢使李詢率所部蕃、漢卒擊走之。"
+      ],
+      "uncertainties": [
+        "招募金帛粮粟数额、双方伤亡、宥州财产损失和联军解体程度未载。"
+      ],
+      "cost_or_burden": "宋廷招募耗费与双方战损未载，宥州因攻城承受威胁。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-91D4964D68388FDF307B",
+      "dynasty": "西夏",
+      "dynasty_partition": "xixia",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-XIXIA-ZHENRONG-1040",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "元昊攻三川砦，杀杨保吉并败宋援军，继攻狮子、定川、刘璠等堡，连破乾河、乾沟、赵福三堡并围镇戎。",
+      "period": {
+        "start": "宋仁宗康定元年九月",
+        "end": "1040"
+      },
+      "observable_result": "王珪援军突围后，元昊留军大掠三日；闻宋大军趋三川遂撤。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-XIXIA-V14-ZHENRONG-CAMPAIGN-1040"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/西夏书事/volume-14.registry.json"
+        ],
+        "source_revision_refs": [
+          "西夏書事/14@2288146#攻三川砦，圍鎭戎軍，大掠。",
+          "西夏書事/14@2288146#連破乾河、乾溝、趙福三堡，圍鎭戎。",
+          "西夏書事/14@2288146#元昊留軍大掠三日，聞涇原鈐轄郭志高率大兵趨三川，乃還。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "西夏書事/14@2288146#攻三川砦，圍鎭戎軍，大掠。",
+        "西夏書事/14@2288146#連破乾河、乾溝、趙福三堡，圍鎭戎。",
+        "西夏書事/14@2288146#元昊留軍大掠三日，聞涇原鈐轄郭志高率大兵趨三川，乃還。"
+      ],
+      "uncertainties": [
+        "被掠人口财物、各堡后续控制与双方总伤亡未载。"
+      ],
+      "cost_or_burden": "宋杨保吉战死，多堡军民被掠；双方其余伤亡未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-D5C03B0D3C75F13483DD",
+      "dynasty": "西夏",
+      "dynasty_partition": "xixia",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-XIXIA-ZHENRONG-QULUSHAN-1087",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "乙逋再令保忠率军围镇戎西砦，焚屋毁墓；宋曲珍军深入曲律山袭击西夏族帐牵制。",
+      "period": {
+        "start": "宋哲宗元祐二年九月",
+        "end": "1087"
+      },
+      "observable_result": "西夏族帐被破、千余人被斩且数百老幼妇女被俘；保忠暗中解围撤回。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-XIXIA-V28-ZHENRONG-QULUSHAN-1087"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/西夏书事/volume-28.registry.json"
+        ],
+        "source_revision_refs": [
+          "西夏書事/28@2289635#保忠令軍士四散樵采，焚廬舍，毁冡墓。",
+          "西夏書事/28@2289635#縱兵擊破族帳，斬首千餘，俘老、幼、婦女數百人。",
+          "西夏書事/28@2289635#保忠聞之，將解圍，潛于所札砦內如常起烟火，量以兵守，一夕遁回。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "西夏書事/28@2289635#保忠令軍士四散樵采，焚廬舍，毁冡墓。",
+        "西夏書事/28@2289635#縱兵擊破族帳，斬首千餘，俘老、幼、婦女數百人。",
+        "西夏書事/28@2289635#保忠聞之，將解圍，潛于所札砦內如常起烟火，量以兵守，一夕遁回。"
+      ],
+      "uncertainties": [
+        "十万、千余与数百数字是否实数及宋军伤亡未载。"
+      ],
+      "cost_or_burden": "镇戎居民财产与墓地受毁，西夏曲律山族帐遭斩俘。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-3F1A8DB8FD385D2B",
+          "actor_name": "仁多保忠",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "围攻镇戎后因后方受袭撤军；撤围事实明确，但材料不足以认定更强个人过错。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "围攻镇戎后因后方受袭撤军；撤围事实明确，但材料不足以认定更强个人过错。",
+            "source_refs": [
+              "西夏書事/28@2289635#保忠令軍士四散樵采，焚廬舍，毁冡墓。",
+              "西夏書事/28@2289635#縱兵擊破族帳，斬首千餘，俘老、幼、婦女數百人。",
+              "西夏書事/28@2289635#保忠聞之，將解圍，潛于所札砦內如常起烟火，量以兵守，一夕遁回。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-E06227EBCD67A70ED7C7",
+              "result_label": "围攻镇戎后因后方受袭撤军；撤围事实明确，但材料不足以认定更强个人过错。",
+              "result_direction": "negative",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "EXPLICIT_WITHDRAWAL_UNDER_DIVERSION",
+              "basis": "围攻镇戎后因后方受袭撤军；撤围事实明确，但材料不足以认定更强个人过错。",
+              "source_refs": [
+                "西夏書事/28@2289635#保忠令軍士四散樵采，焚廬舍，毁冡墓。",
+                "西夏書事/28@2289635#縱兵擊破族帳，斬首千餘，俘老、幼、婦女數百人。",
+                "西夏書事/28@2289635#保忠聞之，將解圍，潛于所札砦內如常起烟火，量以兵守，一夕遁回。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "围攻镇戎后因后方受袭撤军；撤围事实明确，但材料不足以认定更强个人过错。",
+                "source_refs": [
+                  "西夏書事/28@2289635#保忠令軍士四散樵采，焚廬舍，毁冡墓。",
+                  "西夏書事/28@2289635#縱兵擊破族帳，斬首千餘，俘老、幼、婦女數百人。",
+                  "西夏書事/28@2289635#保忠聞之，將解圍，潛于所札砦內如常起烟火，量以兵守，一夕遁回。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-2E4DA51B3C82FBE7",
+          "actor_name": "曲珍",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "以反向袭扰迫敌撤围，取得阶段胜果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "以反向袭扰迫敌撤围，取得阶段胜果。",
+            "source_refs": [
+              "西夏書事/28@2289635#保忠令軍士四散樵采，焚廬舍，毁冡墓。",
+              "西夏書事/28@2289635#縱兵擊破族帳，斬首千餘，俘老、幼、婦女數百人。",
+              "西夏書事/28@2289635#保忠聞之，將解圍，潛于所札砦內如常起烟火，量以兵守，一夕遁回。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-2FC75CC7A70F810CAB6C",
+              "result_label": "以反向袭扰迫敌撤围，取得阶段胜果。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "以反向袭扰迫敌撤围，取得阶段胜果。",
+              "source_refs": [
+                "西夏書事/28@2289635#保忠令軍士四散樵采，焚廬舍，毁冡墓。",
+                "西夏書事/28@2289635#縱兵擊破族帳，斬首千餘，俘老、幼、婦女數百人。",
+                "西夏書事/28@2289635#保忠聞之，將解圍，潛于所札砦內如常起烟火，量以兵守，一夕遁回。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "以反向袭扰迫敌撤围，取得阶段胜果。",
+                "source_refs": [
+                  "西夏書事/28@2289635#保忠令軍士四散樵采，焚廬舍，毁冡墓。",
+                  "西夏書事/28@2289635#縱兵擊破族帳，斬首千餘，俘老、幼、婦女數百人。",
+                  "西夏書事/28@2289635#保忠聞之，將解圍，潛于所札砦內如常起烟火，量以兵守，一夕遁回。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [
+        {
+          "actor_ref": "PERSON-POST-3F1A8DB8FD385D2B",
+          "actor_name": "仁多保忠",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "EXPLICIT_WITHDRAWAL_UNDER_DIVERSION",
+          "failure_impact_tier": "A",
+          "severity": 0.4,
+          "basis": "围攻镇戎后因后方受袭撤军；撤围事实明确，但材料不足以认定更强个人过错。",
+          "source_refs": [
+            "西夏書事/28@2289635#保忠令軍士四散樵采，焚廬舍，毁冡墓。",
+            "西夏書事/28@2289635#縱兵擊破族帳，斬首千餘，俘老、幼、婦女數百人。",
+            "西夏書事/28@2289635#保忠聞之，將解圍，潛于所札砦內如常起烟火，量以兵守，一夕遁回。"
+          ]
+        }
+      ],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "逐项复核后均为单城单砦、方向阶段胜负、局部平叛或未达目标的远征；即使伤亡重大或门户失守，也未在本组闭合独立战略方向或第一梯队终局，全部明确保留A。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "REVIEWED_RETAINED_A",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    }
+  ]
+}

@@ -41,6 +41,19 @@ from emperor_v4.evaluation.battle_parent_contract_registry import (
     build_battle_parent_contract_registry,
     render_battle_parent_contract_registry_markdown,
 )
+from emperor_v4.evaluation.battle_registry_store import (
+    MANIFEST_SCHEMA,
+    load_battle_registry,
+    write_battle_registry,
+)
+from emperor_v4.evaluation.talent_registry_store import (
+    MANIFEST_SCHEMA as TALENT_MANIFEST_SCHEMA,
+    load_talent_registry,
+)
+from emperor_v4.evaluation.battle_adjudication_store import (
+    MANIFEST_SCHEMA as ADJUDICATION_MANIFEST_SCHEMA,
+    load_battle_parent_adjudications,
+)
 from emperor_v4.evaluation.military_talent_grade_registry import (
     _achievement,
     _capability_episode_index,
@@ -50,6 +63,7 @@ from emperor_v4.evaluation.military_talent_grade_registry import (
     _net_strategic_value,
     build_military_talent_grade_registry,
     render_military_talent_grade_markdown,
+    write_military_talent_grade_registry,
 )
 from emperor_v4.evaluation.first_item_c_registry import (
     _c2_axis,
@@ -70,6 +84,82 @@ from emperor_v4.persistence.canonical_refs import canonical_hashed_ref
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_current_battle_registry_is_verified_manifest_with_bounded_shards() -> None:
+    manifest_path = ROOT / "docs/公共成果/军事/01-战役登记.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    assert manifest["schema_version"] == MANIFEST_SCHEMA
+    assert "records" not in manifest
+    assert manifest["record_count"] == 9133
+    assert manifest["bucket_count"] == 24
+    assert max(
+        (manifest_path.parent / entry["path"]).stat().st_size
+        for entry in manifest["shards"]
+    ) < 1_250_000
+    payload = load_battle_registry(manifest_path)
+    assert payload["schema_version"] == "battle-parent-contract-registry-v5"
+    assert len(payload["records"]) == manifest["record_count"]
+    assert len({row["war_event_id"] for row in payload["records"]}) == len(
+        payload["records"]
+    )
+
+
+def test_battle_registry_store_detects_shard_tampering(tmp_path: Path) -> None:
+    manifest_path = tmp_path / "registry.json"
+    payload = {
+        "schema_version": "test-content-v1",
+        "records": [
+            {"war_event_id": "WAR-A", "dynasty_partition": "a", "value": 1},
+            {"war_event_id": "WAR-B", "dynasty_partition": "b", "value": 2},
+        ],
+        "semantic_fingerprint": "test",
+    }
+    manifest = write_battle_registry(manifest_path, payload, bucket_count=2)
+    assert load_battle_registry(manifest_path) == payload
+    shard_path = manifest_path.parent / manifest["shards"][0]["path"]
+    shard_path.write_bytes(shard_path.read_bytes() + b" ")
+    with pytest.raises(ValueError, match="shard字节指纹漂移"):
+        load_battle_registry(manifest_path)
+
+
+def test_current_talent_registry_is_verified_manifest_with_bounded_shards() -> None:
+    manifest_path = ROOT / "docs/公共成果/军事/02-武将人才等级.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    assert manifest["schema_version"] == TALENT_MANIFEST_SCHEMA
+    assert "profiles" not in manifest
+    assert manifest["profile_count"] == 2016
+    assert max(
+        (manifest_path.parent / entry["path"]).stat().st_size
+        for entry in manifest["shards"]
+    ) < 1_000_000
+    payload = load_talent_registry(manifest_path)
+    assert payload["schema_version"] == "military-talent-grade-registry-v3"
+    assert len(payload["profiles"]) == manifest["profile_count"]
+
+
+def test_current_talent_rebuild_refuses_canonical_identity_loss() -> None:
+    with pytest.raises(ValueError, match="canonical人物身份连续性"):
+        write_military_talent_grade_registry(ROOT)
+    payload = load_talent_registry(
+        ROOT / "docs/公共成果/军事/02-武将人才等级.json"
+    )
+    assert len(payload["profiles"]) == 2016
+
+
+def test_current_battle_parent_adjudications_use_verified_bounded_shards() -> None:
+    manifest_path = ROOT / "config/battle-parent-contract-adjudications.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    assert manifest["schema_version"] == ADJUDICATION_MANIFEST_SCHEMA
+    assert "adjudications" not in manifest
+    assert manifest["adjudication_count"] == 959
+    assert max(
+        (manifest_path.parent / entry["path"]).stat().st_size
+        for entry in manifest["shards"]
+    ) < 650_000
+    payload = load_battle_parent_adjudications(manifest_path)
+    assert payload["schema_version"] == "battle-parent-contract-adjudications-v1"
+    assert len(payload["adjudications"]) == manifest["adjudication_count"]
 
 
 def test_battle_registry_markdown_only_lists_tiered_battles_and_has_dynasty_matrix() -> None:
@@ -1114,10 +1204,8 @@ def test_non_ruler_strategic_director_consumes_operational_result() -> None:
 
 
 def test_current_zhu_quanzhong_keeps_top_without_losing_side_false_positive() -> None:
-    payload = json.loads(
-        (ROOT / "docs/公共成果/军事/02-武将人才等级.json").read_text(
-            encoding="utf-8"
-        )
+    payload = load_talent_registry(
+        ROOT / "docs/公共成果/军事/02-武将人才等级.json"
     )
     profile = next(row for row in payload["profiles"] if row["person"] == "朱全忠")
     assert profile["military_grade"] == "top"
@@ -1138,10 +1226,8 @@ def test_current_zhu_quanzhong_keeps_top_without_losing_side_false_positive() ->
 
 
 def test_current_operational_direction_requires_actual_control_and_consumes_signed_result() -> None:
-    battles = json.loads(
-        (ROOT / "docs/公共成果/军事/01-战役登记.json").read_text(
-            encoding="utf-8"
-        )
+    battles = load_battle_registry(
+        ROOT / "docs/公共成果/军事/01-战役登记.json"
     )
     operational = [
         (record, member)
@@ -1189,10 +1275,8 @@ def test_current_operational_direction_requires_actual_control_and_consumes_sign
 
 
 def test_current_net_values_are_auxiliary_sorted_values_not_grade_shortcuts() -> None:
-    payload = json.loads(
-        (ROOT / "docs/公共成果/军事/02-武将人才等级.json").read_text(
-            encoding="utf-8"
-        )
+    payload = load_talent_registry(
+        ROOT / "docs/公共成果/军事/02-武将人才等级.json"
     )
     profiles = payload["profiles"]
     values = [profile["net_strategic_value"] for profile in profiles]
@@ -1264,10 +1348,8 @@ def test_current_net_values_are_auxiliary_sorted_values_not_grade_shortcuts() ->
 
 
 def test_current_battle_registry_drives_military_talent_grades_directly() -> None:
-    battle_registry = json.loads(
-        (ROOT / "docs/公共成果/军事/01-战役登记.json").read_text(
-            encoding="utf-8"
-        )
+    battle_registry = load_battle_registry(
+        ROOT / "docs/公共成果/军事/01-战役登记.json"
     )
 
     identity_registry = yaml.safe_load(
@@ -3246,10 +3328,8 @@ def test_split_children_reusing_one_source_card_require_distinct_partitions() ->
             encoding="utf-8"
         )
     )
-    contract_adjudications = json.loads(
-        (ROOT / "config/battle-parent-contract-adjudications.json").read_text(
-            encoding="utf-8"
-        )
+    contract_adjudications = load_battle_parent_adjudications(
+        ROOT / "config/battle-parent-contract-adjudications.json"
     )
     split = next(
         row
@@ -3282,12 +3362,8 @@ def test_current_contract_parent_registry_closes_all_ordinary_candidates() -> No
             encoding="utf-8"
         )
     )
-    contract_adjudications = json.loads(
-        (
-            ROOT / "config/battle-parent-contract-adjudications.json"
-        ).read_text(
-            encoding="utf-8"
-        )
+    contract_adjudications = load_battle_parent_adjudications(
+        ROOT / "config/battle-parent-contract-adjudications.json"
     )
     settlements = load_military_settlements(
         ROOT
@@ -3852,10 +3928,8 @@ def test_current_contract_parent_registry_closes_all_ordinary_candidates() -> No
         wang_jun["person_command_result"]["combat_difficulty"],
     ) == ("A", "D3")
 
-    current = json.loads(
-            (ROOT / "docs/公共成果/军事/01-战役登记.json").read_text(
-            encoding="utf-8"
-        )
+    current = load_battle_registry(
+        ROOT / "docs/公共成果/军事/01-战役登记.json"
     )
     scope = json.loads(
         (ROOT / "config/unification-campaign-scope-adjudications.json").read_text(
@@ -4494,8 +4568,12 @@ def _load_current_first_item_c_inputs() -> dict[str, dict]:
         return json.loads((ROOT / relative_path).read_text(encoding="utf-8"))
 
     return {
-        "battle_registry": load("docs/公共成果/军事/01-战役登记.json"),
-        "talent_registry": load("docs/公共成果/军事/02-武将人才等级.json"),
+        "battle_registry": load_battle_registry(
+            ROOT / "docs/公共成果/军事/01-战役登记.json"
+        ),
+        "talent_registry": load_talent_registry(
+            ROOT / "docs/公共成果/军事/02-武将人才等级.json"
+        ),
         "roster": load_qin_qing_first_item_roster(
             ROOT, load("config/first-item-a-strategic-efficiency-inputs.json")
         ),
@@ -4666,14 +4744,40 @@ def test_first_item_c_registry_is_complete_and_matches_calibration_anchors() -> 
     assert {
         row["campaign_group_id"]
         for row in by_name["郭威"]["C1"]["campaign_results"]
-    } == {"WAR-POST-3E1DBF6C463923021EFC"}
+    } == {"WAR-FD-4EB2D06F9A06F863C24A"}
     assert {
         row["campaign_group_id"]
         for row in by_name["柴荣"]["C1"]["campaign_results"]
     } == {
-        "WAR-POST-5A5D665F238AA67FC926",
-        "WAR-POST-ADAC273C23AB160D2C24",
+        "WAR-FD-5BBD5B7C2142B0068991",
+        "WAR-FD-94BC9E431A3BAF3AC07C",
     }
+    for row in payload["records"]:
+        if not row["score_applicable"]:
+            continue
+        for axis in ("C1", "C2"):
+            results = (
+                row[axis]["campaign_results"]
+                if axis == "C1"
+                else row[axis]["frontline_results"]
+            )
+            parent_directions = [
+                (result["campaign_group_id"], result["result_direction"])
+                for result in results
+            ]
+            assert len(parent_directions) == len(set(parent_directions))
+    for ruler_name in ("王建", "朱温"):
+        for axis, field in (("C1", "campaign_results"), ("C2", "frontline_results")):
+            parent_directions = [
+                (result["campaign_group_id"], result["result_direction"])
+                for result in by_name[ruler_name][axis][field]
+            ]
+            assert len(parent_directions) == len(set(parent_directions))
+    assert {
+        result["result_direction"]
+        for result in by_name["刘秀"]["C1"]["campaign_results"]
+        if result["campaign_group_id"] == "HAN-STARTUP-CENTRAL-25-26"
+    } == {"positive", "negative"}
     for ruler_name in ("福临", "玄烨"):
         assert by_name[ruler_name]["C_score_points"] == 0.0
         assert not by_name[ruler_name]["default_applied"]
@@ -4775,8 +4879,12 @@ def _load_current_first_item_b_inputs() -> dict[str, dict]:
             "config/first-item-b-team-contribution-adjudications.json"
         ),
         "roster": load_qin_qing_first_item_roster(ROOT, efficiency_inputs),
-        "battle_registry": load("docs/公共成果/军事/01-战役登记.json"),
-        "talent_registry": load("docs/公共成果/军事/02-武将人才等级.json"),
+        "battle_registry": load_battle_registry(
+            ROOT / "docs/公共成果/军事/01-战役登记.json"
+        ),
+        "talent_registry": load_talent_registry(
+            ROOT / "docs/公共成果/军事/02-武将人才等级.json"
+        ),
     }
 
 
@@ -4927,8 +5035,8 @@ def _load_current_first_item_a_inputs() -> dict[str, dict]:
         "competitive_landscapes": load(
             "config/first-item-a-competitive-landscapes.json"
         ),
-        "battle_registry": load(
-            "docs/公共成果/军事/01-战役登记.json"
+        "battle_registry": load_battle_registry(
+            ROOT / "docs/公共成果/军事/01-战役登记.json"
         ),
         "territorial_inputs": load(
             "config/first-item-c-territorial-control-adjudications.json"
@@ -5242,8 +5350,8 @@ def test_post_tang_battle_partitions_cover_handoffs_exactly_once() -> None:
 
 
 def test_current_battle_registry_preserves_qin_tang_and_accepts_post_tang() -> None:
-    payload = json.loads(
-        (ROOT / "docs/公共成果/军事/01-战役登记.json").read_text(encoding="utf-8")
+    payload = load_battle_registry(
+        ROOT / "docs/公共成果/军事/01-战役登记.json"
     )
     post_records = [record for record in payload["records"] if record.get("post_tang_evidence_lower_bound")]
     assert payload["schema_version"] == "battle-parent-contract-registry-v5"
@@ -5501,11 +5609,11 @@ def test_current_battle_registry_preserves_qin_tang_and_accepts_post_tang() -> N
 
 
 def test_current_talent_registry_keeps_card_partitions_outside_person_grade_consumption() -> None:
-    battle = json.loads(
-        (ROOT / "docs/公共成果/军事/01-战役登记.json").read_text(encoding="utf-8")
+    battle = load_battle_registry(
+        ROOT / "docs/公共成果/军事/01-战役登记.json"
     )
-    talent = json.loads(
-        (ROOT / "docs/公共成果/军事/02-武将人才等级.json").read_text(encoding="utf-8")
+    talent = load_talent_registry(
+        ROOT / "docs/公共成果/军事/02-武将人才等级.json"
     )
     lower_bounds = [profile for profile in talent["profiles"] if profile["grade_status"] == "evidence_lower_bound"]
     canonical_cards = [
@@ -5554,10 +5662,8 @@ def test_o4_recalibration_rejects_local_residual_and_duplicate_system_credit() -
         row["battle_ref"]: row
         for row in review["ordinary_high_tier_opponent_audit"]["adjudications"]
     }
-    battle = json.loads(
-        (ROOT / "docs/公共成果/军事/01-战役登记.json").read_text(
-            encoding="utf-8"
-        )
+    battle = load_battle_registry(
+        ROOT / "docs/公共成果/军事/01-战役登记.json"
     )
     battle_by_ref = {row["war_event_id"]: row for row in battle["records"]}
     battle_by_ref.update(
@@ -5589,15 +5695,11 @@ def test_o4_recalibration_rejects_local_residual_and_duplicate_system_credit() -
 
 
 def test_post_tang_ruler_operational_results_require_actual_design_not_authorization() -> None:
-    battle = json.loads(
-        (ROOT / "docs/公共成果/军事/01-战役登记.json").read_text(
-            encoding="utf-8"
-        )
+    battle = load_battle_registry(
+        ROOT / "docs/公共成果/军事/01-战役登记.json"
     )
-    talent = json.loads(
-        (ROOT / "docs/公共成果/军事/02-武将人才等级.json").read_text(
-            encoding="utf-8"
-        )
+    talent = load_talent_registry(
+        ROOT / "docs/公共成果/军事/02-武将人才等级.json"
     )
     by_target = {
         record.get("source_target_ref"): record for record in battle["records"]
@@ -5788,10 +5890,8 @@ def test_post_tang_ruler_operational_results_require_actual_design_not_authoriza
 
 
 def test_current_registry_does_not_duplicate_literal_full_parent_consumption() -> None:
-    battle = json.loads(
-        (ROOT / "docs/公共成果/军事/01-战役登记.json").read_text(
-            encoding="utf-8"
-        )
+    battle = load_battle_registry(
+        ROOT / "docs/公共成果/军事/01-战役登记.json"
     )
     records = battle["records"]
 
@@ -5881,10 +5981,8 @@ def test_current_registry_does_not_duplicate_literal_full_parent_consumption() -
         nian["person_command_result"][0]["result_tier"],
         nian["person_command_result"][0]["combat_difficulty"],
     ) == ("full_campaign", "A", "D2")
-    talent = json.loads(
-        (ROOT / "docs/公共成果/军事/02-武将人才等级.json").read_text(
-            encoding="utf-8"
-        )
+    talent = load_talent_registry(
+        ROOT / "docs/公共成果/军事/02-武将人才等级.json"
     )
     assert not [
         profile
@@ -5894,10 +5992,8 @@ def test_current_registry_does_not_duplicate_literal_full_parent_consumption() -
 
 
 def test_elite_review_closes_major_defeat_accountability_and_applies_caps() -> None:
-    talent = json.loads(
-        (ROOT / "docs/公共成果/军事/02-武将人才等级.json").read_text(
-            encoding="utf-8"
-        )
+    talent = load_talent_registry(
+        ROOT / "docs/公共成果/军事/02-武将人才等级.json"
     )
     by_name = {profile["person"]: profile for profile in talent["profiles"]}
     reviewed = [

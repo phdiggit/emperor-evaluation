@@ -1,0 +1,1708 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "契丹国志/卷006",
+  "source_identity": {
+    "source_unit_id": "SRC-QIDANGUOZHI-006-2258707",
+    "source_url": "https://zh.wikisource.org/wiki/%E5%A5%91%E4%B8%B9%E5%9C%8B%E5%BF%97/%E5%8D%B7%E5%85%AD",
+    "revision_ref": "2258707",
+    "raw_sha256": "73bcf8ddeffae73470acc9f0c4fd24de69ae95ac07887f179fcdad2d05a216e8"
+  },
+  "cards": [
+    {
+      "battle_label": "宋伐北汉—辽分道救援阳曲、定州境两败",
+      "campaign_group": "QGZ-SONG-NORTHERNHAN-WAR-970",
+      "source_anchor_refs": [
+        "SRC-QIDANGUOZHI-006-2258707-P0004",
+        "SRC-QIDANGUOZHI-006-2258707-P0005"
+      ],
+      "source_quotes": [
+        "宋太祖命曹彬等伐北漢",
+        "遼分道救北漢",
+        "為宋何繼筠敗于陽曲，又為韓重贇擊破其衆于定州境"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "宋曹彬等军 × 伐北汉并击退辽援阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "宋太祖命曹彬等攻北汉；辽分道来援，宋何继筠在阳曲击败一路，韩重赟又在定州境击破辽军。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=2（M2）；P1/S0不触发PS抬档。",
+          "P_inference": {
+            "P_observed": "宋方完整死伤失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "多路实际接战且均取胜，未见本方重大受创后效，保守估百人以下。",
+            "upper_bound_reason": "无百人级宋军损失下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0004",
+              "SRC-QIDANGUOZHI-006-2258707-P0005"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB2",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "连续击退辽援，使本轮北汉战场的外援压力得到明显阶段性削弱；北汉仍存。",
+          "material_return": "WR0",
+          "material_return_detail": "本卷未见宋在此阶段取得州城或物资。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "阳曲方向",
+              "定州境"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "击败援军但未见稳定边疆控制变化。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0004",
+              "SRC-QIDANGUOZHI-006-2258707-P0005"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "取得两次拒援胜利，但未在本卷形成北汉终局或新增城地。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "TERRITORIAL_EXPANSION",
+            "startup_significance": "宋建国后的统一战争继续向北汉推进，本阶段削弱外援但尚未扩大稳定治理地盘。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-QIDANGUOZHI-006-2258707-P0004",
+              "SRC-QIDANGUOZHI-006-2258707-P0005"
+            ],
+            "strategic_security": [
+              "SRC-QIDANGUOZHI-006-2258707-P0004",
+              "SRC-QIDANGUOZHI-006-2258707-P0005"
+            ],
+            "material_return": [
+              "SRC-QIDANGUOZHI-006-2258707-P0004",
+              "SRC-QIDANGUOZHI-006-2258707-P0005"
+            ],
+            "border_control": [
+              "SRC-QIDANGUOZHI-006-2258707-P0004",
+              "SRC-QIDANGUOZHI-006-2258707-P0005"
+            ]
+          },
+          "carry_in": "承卷005 QGZ-SONG-NORTHERNHAN-WAR-968，宋已入北汉境并在铜锅河击破扼军。",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "辽分道援军 × 阳曲、定州境败退阶段",
+          "subject_role": "ALLY_RELIEF",
+          "actual_process": "辽分道救援北汉，一路在阳曲为何继筠所败，另一路在定州境被韩重赟击破。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=2（P2/M2）；S0不与P并列，不抬档。",
+          "P_inference": {
+            "P_observed": "辽方完整死伤失载，仅见两路先后被败、被击破。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "同一救援行动连续出现两次实际败绩，支持百人级死亡当量中心。",
+            "upper_bound_reason": "无千人级伤亡、成建制全灭或大批被俘数字。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0004",
+              "SRC-QIDANGUOZHI-006-2258707-P0005"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN2"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "两路援军均受挫，本轮保护北汉的外援能力明显下降，但辽仍能继续介入。",
+          "material_return": "WR0",
+          "material_return_detail": "无所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "阳曲方向",
+              "定州境"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "援军失败，无新增控制。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0004",
+              "SRC-QIDANGUOZHI-006-2258707-P0005"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "多路援兵实际投入而连续失利，未实现救援目标。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "辽为既成政权。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-QIDANGUOZHI-006-2258707-P0004",
+              "SRC-QIDANGUOZHI-006-2258707-P0005"
+            ],
+            "strategic_security": [
+              "SRC-QIDANGUOZHI-006-2258707-P0004",
+              "SRC-QIDANGUOZHI-006-2258707-P0005"
+            ],
+            "material_return": [
+              "SRC-QIDANGUOZHI-006-2258707-P0004",
+              "SRC-QIDANGUOZHI-006-2258707-P0005"
+            ],
+            "border_control": [
+              "SRC-QIDANGUOZHI-006-2258707-P0004",
+              "SRC-QIDANGUOZHI-006-2258707-P0005"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "北汉军政体系 × 承受宋军攻伐阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "宋军直接伐北汉，辽方虽分道来援却先后被击败；本卷未载本轮北汉州城得失和撤军终局。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=1；P1/S1同为基础最高档，按合同抬至WC2。",
+          "P_inference": {
+            "P_observed": "北汉方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "本土遭实际攻伐，推定存在非零人员损害。",
+            "upper_bound_reason": "无百人级独立伤亡、破城或大规模俘掠信息。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0004",
+              "SRC-QIDANGUOZHI-006-2258707-P0005"
+            ]
+          },
+          "security_axes": {
+            "SB": "UNKNOWN",
+            "SN": "SN1"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "本土遭宋军攻伐且外援受挫，至少形成一次局部安全恶化；终局未闭合。",
+          "material_return": "WR0",
+          "material_return_detail": "无新增所得。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "北汉境内"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "本轮具体州城控制结果失载。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0004",
+              "SRC-QIDANGUOZHI-006-2258707-P0005"
+            ]
+          },
+          "phase_return_class": "UNKNOWN",
+          "phase_return_basis": "只确认遭攻和外援失败，无法由本卷判断本轮北汉整体回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不适用。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-QIDANGUOZHI-006-2258707-P0004",
+              "SRC-QIDANGUOZHI-006-2258707-P0005"
+            ],
+            "strategic_security": [
+              "SRC-QIDANGUOZHI-006-2258707-P0004",
+              "SRC-QIDANGUOZHI-006-2258707-P0005"
+            ],
+            "material_return": [
+              "SRC-QIDANGUOZHI-006-2258707-P0004",
+              "SRC-QIDANGUOZHI-006-2258707-P0005"
+            ],
+            "border_control": [
+              "SRC-QIDANGUOZHI-006-2258707-P0004",
+              "SRC-QIDANGUOZHI-006-2258707-P0005"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "本轮未灭北汉；乾亨六年将出现新的宋亲征与北汉终局，作为新阶段接续长期父链。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "辽六万攻定州—满城交战—围遂城后宋军突围",
+      "campaign_group": "QGZ-LIAO-SONG-DINGZHOU-MANCHENG-971",
+      "source_anchor_refs": [
+        "SRC-QIDANGUOZHI-006-2258707-P0007"
+      ],
+      "source_quotes": [
+        "遼騎六萬攻定州",
+        "田欽祚領兵三千戰于滿城",
+        "夜入保遂城",
+        "遼兵圍之數日",
+        "整兵開南門，突圍一角而出"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "辽六万骑 × 满城—遂城攻势阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "辽以六万骑攻定州，在满城与田钦祚三千军交战，迫其夜入遂城；随后围城数日，但宋军因城粮少整兵突围而出。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=2（P2/M2）；S0不与P并列，不抬档。",
+          "P_inference": {
+            "P_observed": "辽方完整死伤失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "六万骑发生满城野战并围遂城数日，支持百人级死亡当量中心。",
+            "upper_bound_reason": "无千人级辽军死伤、围歼失败导致的大规模损失或明确比例。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0007"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB1",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "在野战和围城中迫使宋军退守、再突围，取得一次局部军事压力；未能消灭该部，城地终局不明。",
+          "material_return": "WR0",
+          "material_return_detail": "未见可确认军资或城地所得。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "遂城",
+              "定州方向"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "宋军突围后遂城实际归属未载，不能推定辽已占城。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0007"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "phase_return_basis": "六万级短期动员取得战术压迫，但未实现围歼，且控制结果不明。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不适用。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-QIDANGUOZHI-006-2258707-P0007"
+            ],
+            "strategic_security": [
+              "SRC-QIDANGUOZHI-006-2258707-P0007"
+            ],
+            "material_return": [
+              "SRC-QIDANGUOZHI-006-2258707-P0007"
+            ],
+            "border_control": [
+              "SRC-QIDANGUOZHI-006-2258707-P0007"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "遂城在宋军突围后的实际控制归属，本卷未闭合。"
+        },
+        {
+          "evaluation_subject_phase": "宋田钦祚三千军 × 满城败退、遂城受围与突围阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "田钦祚率三千军在满城迎战六万辽骑，坐骑中箭倒地后脱险，夜入遂城。辽围数日，因城中粮少，田钦祚整军开南门突围。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=2；P2/S2同为基础最高档，按合同抬至WC3。",
+          "P_inference": {
+            "P_observed": "本方只直接见田钦祚坐骑中箭；三千军连续野战、围城和突围的完整死伤失载。",
+            "range": "50—500死亡当量",
+            "center": 158,
+            "P_scoring": "P2估",
+            "basis": "三千人对六万骑持续接战并受围数日，合理区间跨百人级，几何中心落P2。",
+            "upper_bound_reason": "无千人级伤亡、全军覆没或大批被俘数字。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0007"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB1",
+            "SN": "SN1"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "成功突围保存部队，形成一次止损；但定州—遂城方向仍承受较强辽军压力。",
+          "material_return": "WR0",
+          "material_return_detail": "无新增所得。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "遂城"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "突围离城后遂城控制未载。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0007"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "phase_return_basis": "部队避免被围歼，但经历野战退守、数日受围和粮少，且节点后续控制不明。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不适用。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-QIDANGUOZHI-006-2258707-P0007"
+            ],
+            "strategic_security": [
+              "SRC-QIDANGUOZHI-006-2258707-P0007"
+            ],
+            "material_return": [
+              "SRC-QIDANGUOZHI-006-2258707-P0007"
+            ],
+            "border_control": [
+              "SRC-QIDANGUOZHI-006-2258707-P0007"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "宋太宗亲征北汉—石岭关败辽援—刘继元降宋",
+      "campaign_group": "QGZ-SONG-NORTHERNHAN-FINAL-979",
+      "source_anchor_refs": [
+        "SRC-QIDANGUOZHI-006-2258707-P0021",
+        "SRC-QIDANGUOZHI-006-2258707-P0022",
+        "SRC-QIDANGUOZHI-006-2258707-P0023"
+      ],
+      "source_quotes": [
+        "宋太宗親征北漢",
+        "遼以數萬騎援之，戰于石嶺關之南，為宋郭進敗",
+        "北漢主劉繼元降宋"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "宋太宗—郭进等军 × 终结北汉阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "宋太宗亲征北汉；辽以数万骑来援，在石岭关南被郭进击败。次月北汉主刘继元向宋投降，北汉政权终结。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=2（P2/M2）；S0不与P并列，不抬档。",
+          "P_inference": {
+            "P_observed": "宋方完整死伤失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "皇帝亲征、与数万辽援实际会战并完成一国受降，支持百人级死亡当量中心。",
+            "upper_bound_reason": "无千人级宋军死亡、围城惨败或成建制损失数字。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0021",
+              "SRC-QIDANGUOZHI-006-2258707-P0022",
+              "SRC-QIDANGUOZHI-006-2258707-P0023"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB4",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB4",
+          "strategic_security_detail": "北汉这一长期与宋对抗、并依赖辽援的区域政权结构性终结，宋北部一个主要内地威胁来源消失。",
+          "material_return": "WR3",
+          "material_return_detail": "实际接收北汉区域军政、税源和交通体系，形成一个重要区域级国家资源回报；北汉体量不足以支持WR4/5。",
+          "border_control": {
+            "BCP": "BCP3",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "北汉辖境"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "一个重要区域政权辖境转入宋实际控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0021",
+              "SRC-QIDANGUOZHI-006-2258707-P0022",
+              "SRC-QIDANGUOZHI-006-2258707-P0023"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "以中等可见成本击退外援并完成北汉政权接收，安全、资源与控制收益均明确。",
+          "founding_startup_ledger": {
+            "is_founding_process": true,
+            "founding_stage": "REGIME_CONSOLIDATION",
+            "startup_significance": "宋统一战争在北方完成关键收束，消灭长期割据的北汉并把其辖境纳入稳定统治基础。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-QIDANGUOZHI-006-2258707-P0021",
+              "SRC-QIDANGUOZHI-006-2258707-P0022",
+              "SRC-QIDANGUOZHI-006-2258707-P0023"
+            ],
+            "strategic_security": [
+              "SRC-QIDANGUOZHI-006-2258707-P0021",
+              "SRC-QIDANGUOZHI-006-2258707-P0022",
+              "SRC-QIDANGUOZHI-006-2258707-P0023"
+            ],
+            "material_return": [
+              "SRC-QIDANGUOZHI-006-2258707-P0021",
+              "SRC-QIDANGUOZHI-006-2258707-P0022",
+              "SRC-QIDANGUOZHI-006-2258707-P0023"
+            ],
+            "border_control": [
+              "SRC-QIDANGUOZHI-006-2258707-P0021",
+              "SRC-QIDANGUOZHI-006-2258707-P0022",
+              "SRC-QIDANGUOZHI-006-2258707-P0023"
+            ]
+          },
+          "carry_in": "承卷005、卷006保宁二年宋—北汉长期统一战争父链。",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "辽数万援军 × 石岭关南败退阶段",
+          "subject_role": "ALLY_RELIEF",
+          "actual_process": "辽以数万骑救北汉，在石岭关南与宋郭进军交战并败；随后北汉主投降，辽失去这一长期南向缓冲盟友。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=2（P2/M2）；S0不并列，不抬档。",
+          "P_inference": {
+            "P_observed": "辽方完整死伤失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "数万骑参与实战并败，支持百人级死亡当量中心。",
+            "upper_bound_reason": "无千人级辽军死亡、全军覆没或大批被俘事实。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0021",
+              "SRC-QIDANGUOZHI-006-2258707-P0022",
+              "SRC-QIDANGUOZHI-006-2258707-P0023"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN3"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "援救失败后北汉灭亡，辽在该方向失去一个长期缓冲与协同政权，宋辽直接对峙条件明显增强。",
+          "material_return": "WR0",
+          "material_return_detail": "无所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "石岭关南"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "辽自身边疆未在本阶段失地，但援军败退。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0021",
+              "SRC-QIDANGUOZHI-006-2258707-P0022",
+              "SRC-QIDANGUOZHI-006-2258707-P0023"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "数万骑投入救援却战败，且未能阻止北汉结构性消失。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不适用。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-QIDANGUOZHI-006-2258707-P0021",
+              "SRC-QIDANGUOZHI-006-2258707-P0022",
+              "SRC-QIDANGUOZHI-006-2258707-P0023"
+            ],
+            "strategic_security": [
+              "SRC-QIDANGUOZHI-006-2258707-P0021",
+              "SRC-QIDANGUOZHI-006-2258707-P0022",
+              "SRC-QIDANGUOZHI-006-2258707-P0023"
+            ],
+            "material_return": [
+              "SRC-QIDANGUOZHI-006-2258707-P0021",
+              "SRC-QIDANGUOZHI-006-2258707-P0022",
+              "SRC-QIDANGUOZHI-006-2258707-P0023"
+            ],
+            "border_control": [
+              "SRC-QIDANGUOZHI-006-2258707-P0021",
+              "SRC-QIDANGUOZHI-006-2258707-P0022",
+              "SRC-QIDANGUOZHI-006-2258707-P0023"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "北汉国家军政体系 × 投降覆亡阶段",
+          "subject_role": "DEFENDER_STATE_COLLAPSE",
+          "actual_process": "宋太宗亲征，辽数万援军在石岭关南被击败；北汉主刘继元随后向宋投降，北汉国家控制体系终结。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S4",
+            "M": "M2",
+            "A": "A2",
+            "WC": "WC4"
+          },
+          "wc_basis": "base_WC=4（S4）；P2低于S，不抬档。",
+          "P_inference": {
+            "P_observed": "北汉完整军民死伤失载，最终为君主投降。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "国家级攻伐与外援会战已发生，但终局以投降为主，不能因灭国直接推万人死亡；保守取百人级。",
+            "upper_bound_reason": "无千人级北汉死亡、屠城或人口基数事实。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0021",
+              "SRC-QIDANGUOZHI-006-2258707-P0022",
+              "SRC-QIDANGUOZHI-006-2258707-P0023"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN5"
+          },
+          "strategic_security": "SN5",
+          "strategic_security_detail": "作为区域政权的整体安全秩序与独立军政体系终结。",
+          "material_return": "WR0",
+          "material_return_detail": "无正向回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN4",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "北汉辖境"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "整个北汉区域控制体系转入宋。",
+            "continuity_status": "LOST",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0021",
+              "SRC-QIDANGUOZHI-006-2258707-P0022",
+              "SRC-QIDANGUOZHI-006-2258707-P0023"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "区域政权整体覆亡、控制与公共军政资源全部转失。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不适用。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-QIDANGUOZHI-006-2258707-P0021",
+              "SRC-QIDANGUOZHI-006-2258707-P0022",
+              "SRC-QIDANGUOZHI-006-2258707-P0023"
+            ],
+            "strategic_security": [
+              "SRC-QIDANGUOZHI-006-2258707-P0021",
+              "SRC-QIDANGUOZHI-006-2258707-P0022",
+              "SRC-QIDANGUOZHI-006-2258707-P0023"
+            ],
+            "material_return": [
+              "SRC-QIDANGUOZHI-006-2258707-P0021",
+              "SRC-QIDANGUOZHI-006-2258707-P0022",
+              "SRC-QIDANGUOZHI-006-2258707-P0023"
+            ],
+            "border_control": [
+              "SRC-QIDANGUOZHI-006-2258707-P0021",
+              "SRC-QIDANGUOZHI-006-2258707-P0022",
+              "SRC-QIDANGUOZHI-006-2258707-P0023"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "宋北伐幽州—涿州降宋—耶律逊宁救幽州迫宋退",
+      "campaign_group": "QGZ-SONG-LIAO-YOUZHOU-979",
+      "source_anchor_refs": [
+        "SRC-QIDANGUOZHI-006-2258707-P0024",
+        "SRC-QIDANGUOZHI-006-2258707-P0025",
+        "SRC-QIDANGUOZHI-006-2258707-P0026",
+        "SRC-QIDANGUOZHI-006-2258707-P0027",
+        "SRC-QIDANGUOZHI-006-2258707-P0028"
+      ],
+      "source_quotes": [
+        "宋詔親征，發鎮州",
+        "涿州判官劉原德以城降宋",
+        "攻城踰旬不下，士卒疲頓，轉輸回遠",
+        "請兵十萬救幽州",
+        "選精騎三萬",
+        "于越救至，宋遂退師"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "宋太宗军 × 涿州受降、围幽州与撤退阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "宋太宗灭北汉后继续北进，自镇州发兵；涿州判官刘原德以城降宋。宋军随后围攻幽州十余日未克，士卒疲顿、转输路远，又担心辽援到达而撤军。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M3",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3（M3）；P2/S0不触发PS抬档。",
+          "P_inference": {
+            "P_observed": "宋军完整死伤失载；可见十余日围城、士卒疲顿，但疲顿本身不进P。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "十余日实际攻城并最终撤军，推定百人级人员损害；明确疲顿主要支持M轴。",
+            "upper_bound_reason": "无千人级死亡、溃败或大批被俘事实。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0024",
+              "SRC-QIDANGUOZHI-006-2258707-P0025",
+              "SRC-QIDANGUOZHI-006-2258707-P0026",
+              "SRC-QIDANGUOZHI-006-2258707-P0027",
+              "SRC-QIDANGUOZHI-006-2258707-P0028"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB1",
+            "SN": "SN1"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "涿州受降带来一次局部前进；但幽州主要目标未克且宋军因辽援压力撤退，长期安全格局未改善。",
+          "material_return": "WR2",
+          "material_return_detail": "实际取得涿州城这一关键节点，但本卷未确认宋撤军后是否持续保有。",
+          "border_control": {
+            "BCP": "BCP2",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "涿州"
+            ],
+            "control_change_mode": "GAIN",
+            "control_outcome": "涿州在本阶段实际举城降宋；其后持续性未载。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0024",
+              "SRC-QIDANGUOZHI-006-2258707-P0025",
+              "SRC-QIDANGUOZHI-006-2258707-P0026",
+              "SRC-QIDANGUOZHI-006-2258707-P0027",
+              "SRC-QIDANGUOZHI-006-2258707-P0028"
+            ]
+          },
+          "phase_return_class": "LOW_RETURN",
+          "phase_return_basis": "取得涿州这一局部成果，但十余日围幽不下，出现明显疲顿与远程转输负担，主目标落空。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "北汉已灭，此次攻幽属于后续对辽扩张，不作为宋建国启动账。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-QIDANGUOZHI-006-2258707-P0024",
+              "SRC-QIDANGUOZHI-006-2258707-P0025",
+              "SRC-QIDANGUOZHI-006-2258707-P0026",
+              "SRC-QIDANGUOZHI-006-2258707-P0027",
+              "SRC-QIDANGUOZHI-006-2258707-P0028"
+            ],
+            "strategic_security": [
+              "SRC-QIDANGUOZHI-006-2258707-P0024",
+              "SRC-QIDANGUOZHI-006-2258707-P0025",
+              "SRC-QIDANGUOZHI-006-2258707-P0026",
+              "SRC-QIDANGUOZHI-006-2258707-P0027",
+              "SRC-QIDANGUOZHI-006-2258707-P0028"
+            ],
+            "material_return": [
+              "SRC-QIDANGUOZHI-006-2258707-P0024",
+              "SRC-QIDANGUOZHI-006-2258707-P0025",
+              "SRC-QIDANGUOZHI-006-2258707-P0026",
+              "SRC-QIDANGUOZHI-006-2258707-P0027",
+              "SRC-QIDANGUOZHI-006-2258707-P0028"
+            ],
+            "border_control": [
+              "SRC-QIDANGUOZHI-006-2258707-P0024",
+              "SRC-QIDANGUOZHI-006-2258707-P0025",
+              "SRC-QIDANGUOZHI-006-2258707-P0026",
+              "SRC-QIDANGUOZHI-006-2258707-P0027",
+              "SRC-QIDANGUOZHI-006-2258707-P0028"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "涿州在宋军撤离幽州后的实际归属，本卷未载；后卷如见辽收复或宋继续驻守再结算。"
+        },
+        {
+          "evaluation_subject_phase": "辽幽州守军—耶律逊宁援军 × 守城解围阶段",
+          "subject_role": "DEFENDER_RELIEF",
+          "actual_process": "宋军自并州转攻幽州时辽方一度措手不及，守军多为脆弱兵卒，部分望风逃遁后因被宋军截断反而坚守。耶律逊宁请求十万援兵并选精骑三万，夜间迂回抵达，宋军遂撤；逊宁以任务仅在救幽蓟为由不追。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=2；P2/S2同为基础最高档，按合同抬至WC3。",
+          "P_inference": {
+            "P_observed": "辽方完整伤亡失载；幽州守军经历十余日攻城，援军实际到场。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "长期守城和援救过程支持百人级人员损害中心。",
+            "upper_bound_reason": "无千人级辽军死亡、城破或大规模俘虏事实。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0024",
+              "SRC-QIDANGUOZHI-006-2258707-P0025",
+              "SRC-QIDANGUOZHI-006-2258707-P0026",
+              "SRC-QIDANGUOZHI-006-2258707-P0027",
+              "SRC-QIDANGUOZHI-006-2258707-P0028"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB3",
+            "SN": "SN1"
+          },
+          "strategic_security": "SB3",
+          "strategic_security_detail": "成功保住幽州这一南部核心战略节点并迫宋主力撤退，显著阻断宋进一步北进；但涿州已经举城降宋，局部控制仍受损。",
+          "material_return": "WR0",
+          "material_return_detail": "守住旧地不作为新增物资回报。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN2",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "幽州",
+              "涿州"
+            ],
+            "control_change_mode": "LOSS",
+            "control_outcome": "幽州保持原有控制，但涿州在本阶段实际举城降宋；其持续性待核。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0024",
+              "SRC-QIDANGUOZHI-006-2258707-P0025",
+              "SRC-QIDANGUOZHI-006-2258707-P0026",
+              "SRC-QIDANGUOZHI-006-2258707-P0027",
+              "SRC-QIDANGUOZHI-006-2258707-P0028"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以三万精骑救住幽州这一核心节点并逼退宋军，但局部涿州控制发生损失，故不判纯高回报。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "辽为既成政权。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-QIDANGUOZHI-006-2258707-P0024",
+              "SRC-QIDANGUOZHI-006-2258707-P0025",
+              "SRC-QIDANGUOZHI-006-2258707-P0026",
+              "SRC-QIDANGUOZHI-006-2258707-P0027",
+              "SRC-QIDANGUOZHI-006-2258707-P0028"
+            ],
+            "strategic_security": [
+              "SRC-QIDANGUOZHI-006-2258707-P0024",
+              "SRC-QIDANGUOZHI-006-2258707-P0025",
+              "SRC-QIDANGUOZHI-006-2258707-P0026",
+              "SRC-QIDANGUOZHI-006-2258707-P0027",
+              "SRC-QIDANGUOZHI-006-2258707-P0028"
+            ],
+            "material_return": [
+              "SRC-QIDANGUOZHI-006-2258707-P0024",
+              "SRC-QIDANGUOZHI-006-2258707-P0025",
+              "SRC-QIDANGUOZHI-006-2258707-P0026",
+              "SRC-QIDANGUOZHI-006-2258707-P0027",
+              "SRC-QIDANGUOZHI-006-2258707-P0028"
+            ],
+            "border_control": [
+              "SRC-QIDANGUOZHI-006-2258707-P0024",
+              "SRC-QIDANGUOZHI-006-2258707-P0025",
+              "SRC-QIDANGUOZHI-006-2258707-P0026",
+              "SRC-QIDANGUOZHI-006-2258707-P0027",
+              "SRC-QIDANGUOZHI-006-2258707-P0028"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "本卷确认幽州守住、涿州曾降宋；后卷需核涿州控制是否反转。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "辽攻镇州—赵延进击败",
+      "campaign_group": "QGZ-LIAO-SONG-ZHENZHOU-979",
+      "source_anchor_refs": [
+        "SRC-QIDANGUOZHI-006-2258707-P0030"
+      ],
+      "source_quotes": [
+        "遼攻鎮州，為宋趙延進敗"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "辽军 × 镇州进攻败退阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "辽军进攻镇州，被宋将赵延进击败；兵力、死伤与撤退距离失载。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1（P1/M1/A1）；S0不并列，不抬档。",
+          "P_inference": {
+            "P_observed": "辽方伤亡失载。",
+            "range": "10—300死亡当量",
+            "center": 55,
+            "P_scoring": "P1估",
+            "basis": "实际攻州并败，推定存在非零小规模人员损害。",
+            "upper_bound_reason": "无百人级下限、大败或围歼事实。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0030"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN1"
+          },
+          "strategic_security": "SN1",
+          "strategic_security_detail": "一次镇州方向进攻失败。",
+          "material_return": "WR0",
+          "material_return_detail": "无所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "镇州"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "未取得镇州控制。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0030"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "实际进攻被击败，未形成可确认成果。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不适用。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-QIDANGUOZHI-006-2258707-P0030"
+            ],
+            "strategic_security": [
+              "SRC-QIDANGUOZHI-006-2258707-P0030"
+            ],
+            "material_return": [
+              "SRC-QIDANGUOZHI-006-2258707-P0030"
+            ],
+            "border_control": [
+              "SRC-QIDANGUOZHI-006-2258707-P0030"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "宋赵延进军 × 镇州拒战阶段",
+          "subject_role": "DEFENDER_COUNTERATTACK",
+          "actual_process": "赵延进击败进攻镇州的辽军，镇州未见失守。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=1；P1/S1同为基础最高档，按合同抬至WC2。",
+          "P_inference": {
+            "P_observed": "宋方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "取胜但有实际接战，保守估百人以下。",
+            "upper_bound_reason": "无百人级损失事实。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0030"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB1",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "击退一次局部进攻。",
+          "material_return": "WR0",
+          "material_return_detail": "无缴获记载。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "镇州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "镇州保持宋控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0030"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "局部守御成功，辽整体威胁仍在。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不适用。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-QIDANGUOZHI-006-2258707-P0030"
+            ],
+            "strategic_security": [
+              "SRC-QIDANGUOZHI-006-2258707-P0030"
+            ],
+            "material_return": [
+              "SRC-QIDANGUOZHI-006-2258707-P0030"
+            ],
+            "border_control": [
+              "SRC-QIDANGUOZHI-006-2258707-P0030"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "辽万余攻关南失利—宋太宗至大名、辽军退遁",
+      "campaign_group": "QGZ-LIAO-SONG-GUANNAN-980",
+      "source_anchor_refs": [
+        "SRC-QIDANGUOZHI-006-2258707-P0031",
+        "SRC-QIDANGUOZHI-006-2258707-P0032"
+      ],
+      "source_quotes": [
+        "帝發兵萬餘衆進攻關南",
+        "遼師失利",
+        "宋太宗親征至大名，遼師遁"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "辽万余军 × 关南进攻与撤退阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "景宗发兵万余进攻关南，被宋崔彦进所御而失利；次月宋太宗亲征至大名，辽军撤遁。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=2（P2/M2）；S0不并列，不抬档。",
+          "P_inference": {
+            "P_observed": "辽方完整死伤失载，仅见万余出兵、失利与退遁。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "万人以上实际交战并失利，支持百人级人员损害中心。",
+            "upper_bound_reason": "无千人级死亡、全军覆没或大批被俘信息。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0031",
+              "SRC-QIDANGUOZHI-006-2258707-P0032"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN2"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "一次万余级攻势失利，并在宋帝反向推进后撤退，局部主动权下降。",
+          "material_return": "WR0",
+          "material_return_detail": "无所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "关南—大名方向"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "进攻失败并撤退，无稳定控制变化。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0031",
+              "SRC-QIDANGUOZHI-006-2258707-P0032"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "万余军实际投入而战败，随后又因宋军推进撤退。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不适用。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-QIDANGUOZHI-006-2258707-P0031",
+              "SRC-QIDANGUOZHI-006-2258707-P0032"
+            ],
+            "strategic_security": [
+              "SRC-QIDANGUOZHI-006-2258707-P0031",
+              "SRC-QIDANGUOZHI-006-2258707-P0032"
+            ],
+            "material_return": [
+              "SRC-QIDANGUOZHI-006-2258707-P0031",
+              "SRC-QIDANGUOZHI-006-2258707-P0032"
+            ],
+            "border_control": [
+              "SRC-QIDANGUOZHI-006-2258707-P0031",
+              "SRC-QIDANGUOZHI-006-2258707-P0032"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "宋崔彦进—太宗军 × 关南拒战与大名反向施压阶段",
+          "subject_role": "DEFENDER_COUNTERATTACK",
+          "actual_process": "崔彦进率军抵御关南辽军并使其失利；宋太宗随后亲征至大名，辽军撤遁，宋遂班师。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=2（M2）；P1/S1低于基础最高档，不抬档。",
+          "P_inference": {
+            "P_observed": "宋方完整伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "防御取胜且没有重大本方受损后效，保守估百人以下。",
+            "upper_bound_reason": "无百人级宋军损失证据。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0031",
+              "SRC-QIDANGUOZHI-006-2258707-P0032"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB2",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "击退一次万余级关南攻势并通过皇帝亲征迫辽军撤离，取得一段明确安全缓解。",
+          "material_return": "WR0",
+          "material_return_detail": "无新增城地或物资所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "关南—大名方向"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "保持既有控制，无净扩张。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0031",
+              "SRC-QIDANGUOZHI-006-2258707-P0032"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以中等动员成功击退进攻并迫敌撤军，但没有更大控制收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不适用。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-QIDANGUOZHI-006-2258707-P0031",
+              "SRC-QIDANGUOZHI-006-2258707-P0032"
+            ],
+            "strategic_security": [
+              "SRC-QIDANGUOZHI-006-2258707-P0031",
+              "SRC-QIDANGUOZHI-006-2258707-P0032"
+            ],
+            "material_return": [
+              "SRC-QIDANGUOZHI-006-2258707-P0031",
+              "SRC-QIDANGUOZHI-006-2258707-P0032"
+            ],
+            "border_control": [
+              "SRC-QIDANGUOZHI-006-2258707-P0031",
+              "SRC-QIDANGUOZHI-006-2258707-P0032"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "景宗朝易定幽燕两大战累计后效—烽书旁午、国内惶惶",
+      "campaign_group": "QGZ-LIAO-SONG-BORDER-WARS-JINGZONG-CUMULATIVE",
+      "aggregation_disposition": "CUMULATIVE_OVERLAP_DO_NOT_DOUBLE_COUNT",
+      "aggregation_note": "本卡只记录P0034对景宗朝多场宋辽边战的累计国家后效；与P0005、P0007、P0022、P0026-P0028、P0030-P0032等子战役同一损失不得机械相加。",
+      "source_anchor_refs": [
+        "SRC-QIDANGUOZHI-006-2258707-P0034"
+      ],
+      "source_quotes": [
+        "易、定、幽、燕間兩大戰，烽書旁午，國內惶惶",
+        "帝嬰疾，不能親駕，基業少衰焉"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "辽景宗政权 × 易定幽燕边战累计阶段",
+          "subject_role": "STRATEGIC_CUMULATIVE",
+          "actual_process": "原文总括景宗时期易、定、幽、燕间发生两场大规模战争，边警频仍、国内惶惶；景宗长期患病不能亲征，国势被评价为‘基业少衰’。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S3",
+            "M": "M3",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3（S3/M3）；P2低于S，不触发PS抬档。",
+          "P_inference": {
+            "P_observed": "本段只总括‘两大战’与‘烽书旁午’，未给新增伤亡数字；P估为父链累计口径。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "同朝多次万人至数万级作战已由子卡确认，累计人员损害至少应处百人级；本卡仅作父链总括，不与子卡相加。",
+            "upper_bound_reason": "没有可去重千人级辽方死亡下限，故不上P3。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0034"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN3"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "南部重要战略方向长期处于高强度再犯压力，边警频繁并形成全国性心理与军政压力。",
+          "material_return": "WR0",
+          "material_return_detail": "本段为累计后效总括，不重复结算子战役已得资源。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "易州—定州—幽州—燕山方向"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "本段没有新增独立控制变化；具体城地变化由子战役结算。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0034"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "反复大规模边战造成持续动员、区域压力和国内惶惶，本段没有新增可抵补收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不适用。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-QIDANGUOZHI-006-2258707-P0034"
+            ],
+            "strategic_security": [
+              "SRC-QIDANGUOZHI-006-2258707-P0034"
+            ],
+            "material_return": [
+              "SRC-QIDANGUOZHI-006-2258707-P0034"
+            ],
+            "border_control": [
+              "SRC-QIDANGUOZHI-006-2258707-P0034"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "后续卷继续出现宋辽边战时，应视为威胁是否延续的后效核验；本累计卡不替代具体战役。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_label": "辽分三道入宋—均为边将所败",
+      "campaign_group": "QGZ-LIAO-SONG-THREE-ROUTES-983",
+      "source_anchor_refs": [
+        "SRC-QIDANGUOZHI-006-2258707-P0037"
+      ],
+      "source_quotes": [
+        "遼分三道入宋，為其邊將所敗"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "辽三路军 × 分道入宋败退阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "辽军分三道进入宋境，均为宋边将击败；具体兵力、地点和死伤失载。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=2（P2/M2）；S0不并列，不抬档。",
+          "P_inference": {
+            "P_observed": "辽方具体死伤失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "三路分别进入宋境并全部被败，累计武装损害中心取百人级。",
+            "upper_bound_reason": "无千人级死亡、围歼或单路兵力下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0037"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN2"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "多路攻势同时失败，阶段性边境进攻能力受挫。",
+          "material_return": "WR0",
+          "material_return_detail": "无所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "宋辽边境三路"
+            ],
+            "control_change_mode": "WITHDRAWAL",
+            "control_outcome": "三路进攻均未形成稳定控制。",
+            "continuity_status": "REVERSED",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0037"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "多路实际动员后均遭败绩，无可确认成果。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不适用。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-QIDANGUOZHI-006-2258707-P0037"
+            ],
+            "strategic_security": [
+              "SRC-QIDANGUOZHI-006-2258707-P0037"
+            ],
+            "material_return": [
+              "SRC-QIDANGUOZHI-006-2258707-P0037"
+            ],
+            "border_control": [
+              "SRC-QIDANGUOZHI-006-2258707-P0037"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        },
+        {
+          "evaluation_subject_phase": "宋边将诸军 × 三路拒辽阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "宋边将分别击败三路入境辽军，原文未载州城失守。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S2",
+            "M": "M2",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=2（S2/M2）；P1低于S，不抬档。",
+          "P_inference": {
+            "P_observed": "宋方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 10,
+            "P_scoring": "P1估",
+            "basis": "多路取胜但存在实际接战，保守估百人以下死亡当量中心。",
+            "upper_bound_reason": "无百人级宋军损失下限。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0037"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB2",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "同时阻断多路边境进攻，形成一个阶段的明显边防安全改善。",
+          "material_return": "WR0",
+          "material_return_detail": "无缴获记载。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "宋辽边境三路"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "未见既有边境控制丧失。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-QIDANGUOZHI-006-2258707-P0037"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "成功击退多路入侵，但辽作为主要威胁仍在。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "不适用。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-QIDANGUOZHI-006-2258707-P0037"
+            ],
+            "strategic_security": [
+              "SRC-QIDANGUOZHI-006-2258707-P0037"
+            ],
+            "material_return": [
+              "SRC-QIDANGUOZHI-006-2258707-P0037"
+            ],
+            "border_control": [
+              "SRC-QIDANGUOZHI-006-2258707-P0037"
+            ]
+          },
+          "carry_in": "无",
+          "carry_out": "无"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "review_scope": "SRC-QIDANGUOZHI-006-2258707-P0001 至 P0040；首遍线性通读后从P0001重新复读至P0040。逐段复核北汉战争、辽宋边战、幽州受降/守城、未落实渤海出兵与景宗朝累计战争后效。",
+    "card_coverage": {
+      "battle_cards": 8,
+      "subject_phase_cards": 17,
+      "adjudicated_anchor_entries": 16,
+      "not_a_battle_anchor_entries": 24,
+      "ps_tie_raise_checked": true,
+      "wc_formula_check": "PASS：逐主体阶段以base_WC=max(P,S,M,A)，仅P/S同为基础最高档且>=1时抬1档。",
+      "dedup_check": "PASS：P0002火神淀为旧战补叙；P0034为父链累计后效并明确DO_NOT_DOUBLE_COUNT；涿州受降与幽州围攻撤军作为同一宋方阶段净评，未重复列两份全程动员成本。"
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0001",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "景宗即位、任相与立燕燕为后，属继承与中枢政治。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0002",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "火神淀弑逆为卷004旧战个人经历补叙；景宗风疾属健康/政治事实。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0003",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "大赦及皇后总决刑赏、政事、用兵，属政治制度与权力结构。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0004",
+        "disposition": "ADJUDICATED",
+        "battle_label": "宋伐北汉—辽分道救援阳曲、定州境两败"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0005",
+        "disposition": "ADJUDICATED",
+        "battle_label": "宋伐北汉—辽分道救援阳曲、定州境两败"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0006",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "日食。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0007",
+        "disposition": "ADJUDICATED",
+        "battle_label": "辽六万攻定州—满城交战—围遂城后宋军突围"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0008",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "日食。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0009",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "日食。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0010",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "周恭帝死亡。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0011",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "日食。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0012",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "辽边臣向宋请和，属外交。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0013",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "辽遣使聘宋，属外交。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0014",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "彗星。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0015",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "日食。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0016",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "宋初遣使通辽，属外交。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0017",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "宋太祖死亡、宋太宗继位。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0018",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "宋辽助葬、使节往来与询问名将，属外交；使节最终厚礼遣还，无武装扣押。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0019",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "日食。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0020",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "纪年空段。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0021",
+        "disposition": "ADJUDICATED",
+        "battle_label": "宋太宗亲征北汉—石岭关败辽援—刘继元降宋"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0022",
+        "disposition": "ADJUDICATED",
+        "battle_label": "宋太宗亲征北汉—石岭关败辽援—刘继元降宋"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0023",
+        "disposition": "ADJUDICATED",
+        "battle_label": "宋太宗亲征北汉—石岭关败辽援—刘继元降宋"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0024",
+        "disposition": "ADJUDICATED",
+        "battle_label": "宋北伐幽州—涿州降宋—耶律逊宁救幽州迫宋退"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0025",
+        "disposition": "ADJUDICATED",
+        "battle_label": "宋北伐幽州—涿州降宋—耶律逊宁救幽州迫宋退"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0026",
+        "disposition": "ADJUDICATED",
+        "battle_label": "宋北伐幽州—涿州降宋—耶律逊宁救幽州迫宋退"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0027",
+        "disposition": "ADJUDICATED",
+        "battle_label": "宋北伐幽州—涿州降宋—耶律逊宁救幽州迫宋退"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0028",
+        "disposition": "ADJUDICATED",
+        "battle_label": "宋北伐幽州—涿州降宋—耶律逊宁救幽州迫宋退"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0029",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "宋要求渤海发兵但‘竟无至者’，未实际动员参战，属外交/未落实战争计划。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0030",
+        "disposition": "ADJUDICATED",
+        "battle_label": "辽攻镇州—赵延进击败"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0031",
+        "disposition": "ADJUDICATED",
+        "battle_label": "辽万余攻关南失利—宋太宗至大名、辽军退遁"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0032",
+        "disposition": "ADJUDICATED",
+        "battle_label": "辽万余攻关南失利—宋太宗至大名、辽军退遁"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0033",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "大赦。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0034",
+        "disposition": "ADJUDICATED",
+        "battle_label": "景宗朝易定幽燕两大战累计后效—烽书旁午、国内惶惶"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0035",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "日食。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0036",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "日食。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0037",
+        "disposition": "ADJUDICATED",
+        "battle_label": "辽分三道入宋—均为边将所败"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0038",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "日食。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0039",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "景宗死亡。"
+      },
+      {
+        "source_anchor_ref": "SRC-QIDANGUOZHI-006-2258707-P0040",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "史臣评论。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "unregistered_battle_candidates": [],
+    "cross_volume_followups": [
+      "QGZ-LIAO-SONG-DINGZHOU-MANCHENG-971：宋军突围遂城后，该城实际归属本卷未载，后卷如有硬事实再更新控制连续性。",
+      "QGZ-SONG-NORTHERNHAN-FINAL-979：本卷已确认北汉终结，不再把后续北汉旧臣或辽援活动当成同一政权继续存在。",
+      "QGZ-SONG-LIAO-YOUZHOU-979：涿州实际举城降宋、幽州守住；宋撤幽州后涿州是否持续保有尚待后卷核验。",
+      "QGZ-LIAO-SONG-ZHENZHOU-979、QGZ-LIAO-SONG-GUANNAN-980与QGZ-LIAO-SONG-THREE-ROUTES-983显示边战持续，卷007需核是否并入更长宋辽父链及城地后效。",
+      "QGZ-LIAO-SONG-BORDER-WARS-JINGZONG-CUMULATIVE仅作景宗朝累计后效总括，与子战役P/S/M/A不得机械相加。",
+      "景宗P0039死亡；燕燕皇后此前已实际决政。卷007如仅见幼主继位、皇后摄政则属政治连续线；只有出现实际武装争位才进入战争账。"
+    ]
+  }
+}

@@ -1,0 +1,2492 @@
+{
+  "schema_version": "chronicle-battle-adjudication-v2",
+  "source_volume": "西夏书事/卷038",
+  "source_identity": {
+    "source_unit_id": "SRC-XIXIASHUSHI-038-2290774",
+    "revision_ref": "2290774",
+    "raw_sha256": "ad6e6a5ecee2b1f94f78decf94a3ace23e70d65fa92401b3b88a1840ad864c45"
+  },
+  "cards": [
+    {
+      "battle_id": "XSS038-B01",
+      "battle_label": "亦剌可哈剌、亦难赤发兵击败汪罕",
+      "campaign_group": "XSS-KEREIT-NAIMAN-WANGKHAN-1173",
+      "source_anchor_refs": [
+        "SRC-XIXIASHUSHI-038-2290774-P0015",
+        "SRC-XIXIASHUSHI-038-2290774-P0016"
+      ],
+      "source_quotes": [
+        "汪罕弟也力可哈剌怨汪罕多殺，與乃蠻部長亦難赤發兵伐之",
+        "汪罕部衆盡失，與其屬走河西"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "也力可哈剌—乃蛮亦难赤联军 × 伐汪罕阶段",
+          "subject_role": "ATTACKER_COALITION",
+          "actual_process": "汪罕之弟也力可哈剌与乃蛮部长亦难赤发兵攻汪罕，导致汪罕部众尽失、仅率随从逃入河西。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1（max(P1估,S0,M1,A1)）；P/S未同时处于基础最高档，不抬档，最终WC1。",
+          "P_inference": {
+            "P_observed": "联军伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 30,
+            "P_scoring": "P1估",
+            "basis": "实际发兵并击溃对手，推定小规模非零损害。",
+            "upper_bound_reason": "无百人级联军死伤、败退或长期围攻材料。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0015",
+              "SRC-XIXIASHUSHI-038-2290774-P0016"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB2",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "迫使汪罕失去部众并退出原有政治空间，短期显著削弱其竞争能力。",
+          "material_return": "WR0",
+          "material_return_detail": "未见具体缴获。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "克烈部原控制区"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "汪罕失去部众，但原文没有说明胜方如何稳定接收其地。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0015",
+              "SRC-XIXIASHUSHI-038-2290774-P0016"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "明确击溃主要竞争者，但控制与物资后效未载。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-038-2290774-P0015",
+              "SRC-XIXIASHUSHI-038-2290774-P0016"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-038-2290774-P0015",
+              "SRC-XIXIASHUSHI-038-2290774-P0016"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-038-2290774-P0015",
+              "SRC-XIXIASHUSHI-038-2290774-P0016"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-038-2290774-P0015",
+              "SRC-XIXIASHUSHI-038-2290774-P0016"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "无。"
+        },
+        {
+          "evaluation_subject_phase": "汪罕所部 × 部众尽失逃河西阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "汪罕遭弟与乃蛮联军攻击后“部众尽失”，只能率少数随从逃入河西并借道西夏。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=2（max(P2估,S2,M1,A1)）；P/S同为基础最高档2，按合同抬1档至WC3。",
+          "P_inference": {
+            "P_observed": "“部众尽失”表明成建制人力崩解，但死亡、被俘、离散构成不明。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "整支部众丧失支持百人级死亡当量中心，但不能把“尽失”全部当死亡。",
+            "upper_bound_reason": "无千人级原始兵力或死俘数字。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0015",
+              "SRC-XIXIASHUSHI-038-2290774-P0016"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN3"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "政治军事集团失去主体部众并被迫流亡。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "汪罕原控制区"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "其本人流亡，但原辖地实际归属不明。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0015",
+              "SRC-XIXIASHUSHI-038-2290774-P0016"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "P2/S2同居基础最高档，抬至WC3；并失去部众和原有立足点。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-038-2290774-P0015",
+              "SRC-XIXIASHUSHI-038-2290774-P0016"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-038-2290774-P0015",
+              "SRC-XIXIASHUSHI-038-2290774-P0016"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-038-2290774-P0015",
+              "SRC-XIXIASHUSHI-038-2290774-P0016"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-038-2290774-P0015",
+              "SRC-XIXIASHUSHI-038-2290774-P0016"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "西夏仁孝随后给予资粮并允许其经回鹘前往契丹；该接济属于非战役事实。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_id": "XSS038-B02",
+      "battle_label": "汪罕河西大掠—西夏击逐",
+      "campaign_group": "XSS-XIA-KEREIT-HEXI-1174",
+      "source_anchor_refs": [
+        "SRC-XIXIASHUSHI-038-2290774-P0029",
+        "SRC-XIXIASHUSHI-038-2290774-P0030"
+      ],
+      "source_quotes": [
+        "克烈部長汪罕還自契丹，入河西大掠",
+        "中路糧絕，縱其部下剽抄",
+        "仁孝遣兵擊逐，汪罕敗走"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "西夏仁孝军民 × 河西受掠后击逐阶段",
+          "subject_role": "DEFENDER_COUNTERATTACK",
+          "actual_process": "汪罕返程中因粮绝纵部下在河西剽抄；仁孝遣兵追击，将其击败逐出，汪罕转而得到铁木真部众接应。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=1（max(P1估,S1,M1,A1)）；P/S同为基础最高档1，按合同抬1档至WC2。",
+          "P_inference": {
+            "P_observed": "西夏军民具体伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 50,
+            "P_scoring": "P1估",
+            "basis": "河西发生武装剽抄并有追击接战，推定小规模人员损害。",
+            "upper_bound_reason": "无百人级死伤、州城失陷或大批被俘材料。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0029",
+              "SRC-XIXIASHUSHI-038-2290774-P0030"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB1",
+            "SN": "SN1"
+          },
+          "strategic_security": "SB1/SN1",
+          "strategic_security_detail": "成功解除一次流亡武装对河西的即时侵扰，但本阶段已经发生局部剽掠。",
+          "material_return": "WR0",
+          "material_return_detail": "未见缴获。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "河西通道及边境"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "汪罕被逐出，未形成稳定控制易手。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0029",
+              "SRC-XIXIASHUSHI-038-2290774-P0030"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "虽承受一次局部掠扰，但以有限动员完成驱逐并守住边境。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-038-2290774-P0029",
+              "SRC-XIXIASHUSHI-038-2290774-P0030"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-038-2290774-P0029",
+              "SRC-XIXIASHUSHI-038-2290774-P0030"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-038-2290774-P0029",
+              "SRC-XIXIASHUSHI-038-2290774-P0030"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-038-2290774-P0029",
+              "SRC-XIXIASHUSHI-038-2290774-P0030"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "无。"
+        },
+        {
+          "evaluation_subject_phase": "汪罕所部 × 河西剽抄后败走阶段",
+          "subject_role": "RAIDER",
+          "actual_process": "汪罕部粮绝后在河西剽抄，随即遭西夏军击败驱逐，只能向铁木真求接应。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1（max(P1估,S0,M1,A1)）；P/S未同时处于基础最高档，不抬档，最终WC1。",
+          "P_inference": {
+            "P_observed": "汪罕部伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 50,
+            "P_scoring": "P1估",
+            "basis": "遭西夏实际击逐并败走，不能记P0。",
+            "upper_bound_reason": "无百人级伤亡或成建制覆没数字。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0029",
+              "SRC-XIXIASHUSHI-038-2290774-P0030"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN2"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "未能在河西取得持续立足点，且被迫再次转进。",
+          "material_return": "WR1",
+          "material_return_detail": "“剽抄”说明取得过补给或财物，但数量、保存情况不明，仅记有限。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "河西"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "只有袭掠，没有占领。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0029",
+              "SRC-XIXIASHUSHI-038-2290774-P0030"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "虽取得少量剽抄补给，但被击败驱逐且战略处境继续恶化。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-038-2290774-P0029",
+              "SRC-XIXIASHUSHI-038-2290774-P0030"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-038-2290774-P0029",
+              "SRC-XIXIASHUSHI-038-2290774-P0030"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-038-2290774-P0029",
+              "SRC-XIXIASHUSHI-038-2290774-P0030"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-038-2290774-P0029",
+              "SRC-XIXIASHUSHI-038-2290774-P0030"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "无。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_id": "XSS038-B03",
+      "battle_label": "汪罕攻蒙古战败—后为乃蛮所杀",
+      "campaign_group": "XSS-KEREIT-MONGOL-WANGKHAN-DEFEAT",
+      "source_anchor_refs": [
+        "SRC-XIXIASHUSHI-038-2290774-P0064"
+      ],
+      "source_quotes": [
+        "汪罕與蒙古不協，將兵攻之，戰敗，爲乃蠻所殺"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "蒙古部 × 击败来攻汪罕阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "汪罕与蒙古不协而出兵进攻，蒙古一方将其击败；汪罕随后在外逃过程中被乃蛮所杀。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1（max(P1估,S0,M1,A1)）；P/S未同时处于基础最高档，不抬档，最终WC1。",
+          "P_inference": {
+            "P_observed": "蒙古方伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 30,
+            "P_scoring": "P1估",
+            "basis": "明确遭攻击并发生战斗取胜，推定小规模非零损害。",
+            "upper_bound_reason": "无百人级蒙古损失证据。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0064"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB2",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "击退汪罕主动进攻并使其退出战场，显著削弱一次主要对手的即时威胁。",
+          "material_return": "WR0",
+          "material_return_detail": "无可确认缴获。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [],
+            "control_change_mode": "NONE",
+            "control_outcome": "本条不提供稳定领土转移证据。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0064"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "成功击退主动来攻的汪罕，但后续控制与资源收益不明。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-038-2290774-P0064"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-038-2290774-P0064"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-038-2290774-P0064"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-038-2290774-P0064"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "无。"
+        },
+        {
+          "evaluation_subject_phase": "汪罕所部 × 攻蒙古失败阶段",
+          "subject_role": "ATTACKER_DEFEATED",
+          "actual_process": "汪罕主动攻蒙古而战败，随后逃亡并被乃蛮所杀；其死亡不伪装成蒙古方直接斩获。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=2（max(P2估,S2,M1,A1)）；P/S同为基础最高档2，按合同抬1档至WC3。",
+          "P_inference": {
+            "P_observed": "汪罕方死伤失载，首领后续被乃蛮所杀。",
+            "range": "100—999死亡当量",
+            "center": 224,
+            "P_scoring": "P2估",
+            "basis": "主动出兵后遭明确战败且政治军事集团进一步崩解，支持百人级中心；首领死亡另按可证1人包含在档内。",
+            "upper_bound_reason": "无千人级死伤或俘虏数字。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0064"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN3"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "进攻失败并最终失去首领，军事政治连续性严重受损。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "UNKNOWN",
+            "BCN": "UNKNOWN",
+            "control_effect_status": "UNKNOWN",
+            "control_objects": [
+              "汪罕余部控制区"
+            ],
+            "control_change_mode": "UNKNOWN",
+            "control_outcome": "无法由本条判断余部和地盘归属。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0064"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "P2/S2同档抬为WC3，进攻失败且首领死亡。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-038-2290774-P0064"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-038-2290774-P0064"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-038-2290774-P0064"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-038-2290774-P0064"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "汪罕之子亦剌哈随后逃入西夏境并大肆剽掠，另见XSS038-B04。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_id": "XSS038-B04",
+      "battle_label": "亦剌哈犯西夏边界—夏兵击走",
+      "campaign_group": "XSS-XIA-KEREIT-YILAHA-1178",
+      "source_anchor_refs": [
+        "SRC-XIXIASHUSHI-038-2290774-P0063",
+        "SRC-XIXIASHUSHI-038-2290774-P0064"
+      ],
+      "source_quotes": [
+        "克烈部亦剌哈犯界，擊走之",
+        "其子亦剌哈逃入夏境，大恣剽掠",
+        "仁孝遣兵擊之，亦剌哈走龜兹國"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "西夏仁孝军民 × 击逐亦剌哈阶段",
+          "subject_role": "DEFENDER_COUNTERATTACK",
+          "actual_process": "汪罕之子亦剌哈逃入西夏境内并大肆剽掠，仁孝遣兵攻击，将其逐往龟兹。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S1",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=1（max(P1估,S1,M1,A1)）；P/S同为基础最高档1，按合同抬1档至WC2。",
+          "P_inference": {
+            "P_observed": "西夏军民伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 50,
+            "P_scoring": "P1估",
+            "basis": "境内大肆剽掠并发生驱逐战，推定小规模人员损害。",
+            "upper_bound_reason": "无百人级死伤或城镇失守材料。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0063",
+              "SRC-XIXIASHUSHI-038-2290774-P0064"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB1",
+            "SN": "SN1"
+          },
+          "strategic_security": "SB1/SN1",
+          "strategic_security_detail": "解除一次流亡武装的边境侵扰，但此前已发生局部剽掠。",
+          "material_return": "WR0",
+          "material_return_detail": "未见缴获。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "西夏西部边境"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "亦剌哈被逐出境，未形成稳定控制变化。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0063",
+              "SRC-XIXIASHUSHI-038-2290774-P0064"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "以有限军事成本解除边境武装侵扰。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-038-2290774-P0063",
+              "SRC-XIXIASHUSHI-038-2290774-P0064"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-038-2290774-P0063",
+              "SRC-XIXIASHUSHI-038-2290774-P0064"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-038-2290774-P0063",
+              "SRC-XIXIASHUSHI-038-2290774-P0064"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-038-2290774-P0063",
+              "SRC-XIXIASHUSHI-038-2290774-P0064"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "无。"
+        },
+        {
+          "evaluation_subject_phase": "亦剌哈所部 × 入夏剽掠后败走阶段",
+          "subject_role": "RAIDER",
+          "actual_process": "亦剌哈所部进入西夏大肆剽掠，遭西夏军击败后逃往龟兹，随后被杀。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1（max(P1估,S0,M1,A1)）；P/S未同时处于基础最高档，不抬档，最终WC1。",
+          "P_inference": {
+            "P_observed": "亦剌哈部伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 30,
+            "P_scoring": "P1估",
+            "basis": "实际被西夏军击走，推定非零小规模损害。",
+            "upper_bound_reason": "无百人级死伤或全军覆没材料。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0063",
+              "SRC-XIXIASHUSHI-038-2290774-P0064"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN2"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "未能在西夏获得安全立足点，被迫继续远逃。",
+          "material_return": "WR1",
+          "material_return_detail": "“大恣剽掠”确认有财物所得，但规模和能否带走不明，仅记有限。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "西夏境"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "仅袭掠，没有取得城地。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0063",
+              "SRC-XIXIASHUSHI-038-2290774-P0064"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "虽有剽掠所得，但被击逐并失去继续在西夏活动的条件。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-038-2290774-P0063",
+              "SRC-XIXIASHUSHI-038-2290774-P0064"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-038-2290774-P0063",
+              "SRC-XIXIASHUSHI-038-2290774-P0064"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-038-2290774-P0063",
+              "SRC-XIXIASHUSHI-038-2290774-P0064"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-038-2290774-P0063",
+              "SRC-XIXIASHUSHI-038-2290774-P0064"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "无。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_id": "XSS038-B05",
+      "battle_label": "蒲鲁合野侵金麟州—诱禄东贺共击金兵毁城",
+      "campaign_group": "XSS-XIA-JIN-LINZHOU-1178",
+      "source_anchor_refs": [
+        "SRC-XIXIASHUSHI-038-2290774-P0067",
+        "SRC-XIXIASHUSHI-038-2290774-P0068"
+      ],
+      "source_quotes": [
+        "侵金麟州，誘其酋祿東賀叛，毁其州城",
+        "共擊金兵，敗之，擄金帛、子女數萬，遂毁其城"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "西夏蒲鲁合野—禄东贺联军 × 麟州进攻阶段",
+          "subject_role": "ATTACKER_COALITION",
+          "actual_process": "夏将蒲鲁合野侵金麟州，在宕遵源诱邛都部酋禄东贺配合，约日共击并击败金兵，掳得金帛及数万子女，随后毁坏州城。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=2（max(P2估,S0,M1,A1)）；P/S未同时处于基础最高档，不抬档，最终WC2。",
+          "P_inference": {
+            "P_observed": "夏—邛都联军伤亡失载。",
+            "range": "100—999死亡当量",
+            "center": 180,
+            "P_scoring": "P2估",
+            "basis": "协同攻州、击败金兵并毁城，属于较强攻坚行动，支持百人级本方损害中心。",
+            "upper_bound_reason": "无千人级本方伤亡、长期围城或败退后效。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0067",
+              "SRC-XIXIASHUSHI-038-2290774-P0068"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB2",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "摧毁金一处州级边防节点并击败守军，形成显著但局部的边防压力。",
+          "material_return": "WR3",
+          "material_return_detail": "明确取得大量金帛；数万被掳人口不计WR。金帛与其他随附财物足以构成重大阶段性资源所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "麟州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "原文写毁城而非占城、设守；不把破坏自动等同于稳定控制取得。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0067",
+              "SRC-XIXIASHUSHI-038-2290774-P0068"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "较低可见本方成本下击败州级守军、毁城并取得大量金帛，阶段军事与资源成果显著。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "civilian_harm_caused": "“擄……子女數萬”涉及数万平民被俘掳；人口不得计入WR，并保留为严重战争行为负面。",
+          "war_conduct_note": "诱使地方酋长叛金并大规模俘掳人口、毁城，需与军事收益分开保留。",
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-038-2290774-P0067",
+              "SRC-XIXIASHUSHI-038-2290774-P0068"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-038-2290774-P0067",
+              "SRC-XIXIASHUSHI-038-2290774-P0068"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-038-2290774-P0067",
+              "SRC-XIXIASHUSHI-038-2290774-P0068"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-038-2290774-P0067",
+              "SRC-XIXIASHUSHI-038-2290774-P0068"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "无。"
+        },
+        {
+          "evaluation_subject_phase": "金麟州军民 × 州城被破毁阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "金兵被西夏—邛都联军击败，州城被毁，数万子女遭俘掳，并有大量金帛被夺。",
+          "cost_axes": {
+            "P": "P3估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3（max(P3估,S2,M1,A2)）；P/S未同时处于基础最高档，不抬档，最终WC3。",
+          "P_inference": {
+            "P_observed": "直接见“子女数万”被掳，按被掳人口1/5折算已至少为数千死亡当量；另有守军战斗损失但数字失载。",
+            "range": "约4,000—18,000死亡当量",
+            "center": 8485,
+            "P_scoring": "P3估",
+            "basis": "“数万”被掳本身即提供千人至万余死亡当量区间，几何中心落P3；守军伤亡只作为同档加固，不另重复累计。",
+            "upper_bound_reason": "只有被掳人数的模糊量词，不能稳判达到P4；无明确五万人以上被掳下限或万人级死亡。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0067",
+              "SRC-XIXIASHUSHI-038-2290774-P0068"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN3"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "州级边防被击破、城市被毁并发生大规模人口俘掳，局部安全显著恶化。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "麟州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "城市遭毁但未见西夏稳定占领；破坏不自动记为控制权转移。",
+            "continuity_status": "UNRESOLVED",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0067",
+              "SRC-XIXIASHUSHI-038-2290774-P0068"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "P3人员损害主导WC3，叠加城防与金帛损失且无抵补性成果。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-038-2290774-P0067",
+              "SRC-XIXIASHUSHI-038-2290774-P0068"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-038-2290774-P0067",
+              "SRC-XIXIASHUSHI-038-2290774-P0068"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-038-2290774-P0067",
+              "SRC-XIXIASHUSHI-038-2290774-P0068"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-038-2290774-P0067",
+              "SRC-XIXIASHUSHI-038-2290774-P0068"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "无。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_id": "XSS038-B06",
+      "battle_label": "西夏侵金岚、石等州掠人畜而还",
+      "campaign_group": "XSS-XIA-JIN-LANSHI-1190",
+      "source_anchor_refs": [
+        "SRC-XIXIASHUSHI-038-2290774-P0160",
+        "SRC-XIXIASHUSHI-038-2290774-P0161"
+      ],
+      "source_quotes": [
+        "侵金嵐、石等州",
+        "仁孝怒，以兵侵嵐、石等州，掠人畜而還"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "西夏仁孝军 × 岚石边州袭掠阶段",
+          "subject_role": "RAIDER",
+          "actual_process": "因金章宗对夏使礼意转倨、贸易获利减少，仁孝出兵侵岚、石等州，掠夺人口和牲畜后撤回。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1（max(P1估,S0,M1,A1)）；P/S未同时处于基础最高档，不抬档，最终WC1。",
+          "P_inference": {
+            "P_observed": "西夏军伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 30,
+            "P_scoring": "P1估",
+            "basis": "跨两州以上实际武装袭掠，不能据沉默记P0；无本方受挫后效。",
+            "upper_bound_reason": "无百人级西夏损失、攻坚久战或败退证据。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0160",
+              "SRC-XIXIASHUSHI-038-2290774-P0161"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB1",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "形成一次对金边州的有效报复性袭扰，但未改变双方长期安全格局。",
+          "material_return": "WR2",
+          "material_return_detail": "掠得牲畜形成实质可用资产；被掳人口不计WR。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "岚州",
+              "石州等"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "明言“掠……而还”，没有稳定占领。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0160",
+              "SRC-XIXIASHUSHI-038-2290774-P0161"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "低可见本方成本换取实质牲畜和一次边境报复，但无持久控制或结构性安全收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "civilian_harm_caused": "明确掠夺人口；人口不计战争资产。",
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-038-2290774-P0160",
+              "SRC-XIXIASHUSHI-038-2290774-P0161"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-038-2290774-P0160",
+              "SRC-XIXIASHUSHI-038-2290774-P0161"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-038-2290774-P0160",
+              "SRC-XIXIASHUSHI-038-2290774-P0161"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-038-2290774-P0160",
+              "SRC-XIXIASHUSHI-038-2290774-P0161"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "无。"
+        },
+        {
+          "evaluation_subject_phase": "金岚、石等州军民 × 遭袭掠阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "岚、石等边州遭西夏兵侵入，人口与牲畜被掠，袭击者随后撤回。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S2",
+            "M": "M1",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=2（max(P2估,S2,M1,A2)）；P/S同为基础最高档2，按合同抬1档至WC3。",
+          "P_inference": {
+            "P_observed": "被掳人口数量失载；另无直接死亡数字。",
+            "range": "100—999死亡当量",
+            "center": 224,
+            "P_scoring": "P2估",
+            "basis": "跨多个州的实际掠人行动，按被掳人口1/5折算及可能战斗伤害，百人级中心合理。",
+            "upper_bound_reason": "无千人级被掳下限、州城毁灭或大规模战死数字。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0160",
+              "SRC-XIXIASHUSHI-038-2290774-P0161"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN2"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "多个相邻边州人口与畜产受损，局部安全明显退化。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "岚州",
+              "石州等"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "遭掠但未见州城控制丧失。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0160",
+              "SRC-XIXIASHUSHI-038-2290774-P0161"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "P2/S2同为基础最高档抬为WC3，并有畜产损失。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-038-2290774-P0160",
+              "SRC-XIXIASHUSHI-038-2290774-P0161"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-038-2290774-P0160",
+              "SRC-XIXIASHUSHI-038-2290774-P0161"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-038-2290774-P0160",
+              "SRC-XIXIASHUSHI-038-2290774-P0161"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-038-2290774-P0160",
+              "SRC-XIXIASHUSHI-038-2290774-P0161"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "无。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_id": "XSS038-B07",
+      "battle_label": "西夏破金鄜、坊二州—大掠保安州",
+      "campaign_group": "XSS-XIA-JIN-FUFANG-1191",
+      "source_anchor_refs": [
+        "SRC-XIXIASHUSHI-038-2290774-P0166",
+        "SRC-XIXIASHUSHI-038-2290774-P0167"
+      ],
+      "source_quotes": [
+        "攻金鄜、坊二州，破之，掠保安州",
+        "遣兵破鄜、坊二州，至保安州，大掠而歸"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "西夏仁孝军 × 鄜坊保安进攻阶段",
+          "subject_role": "ATTACKER",
+          "actual_process": "仁孝乘金章宗怠政、属国使者受怠慢之机，遣兵攻破鄜、坊二州，继至保安州大掠后返回。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC2"
+          },
+          "wc_basis": "base_WC=2（max(P2估,S0,M1,A1)）；P/S未同时处于基础最高档，不抬档，最终WC2。",
+          "P_inference": {
+            "P_observed": "西夏军伤亡失载。",
+            "range": "100—999死亡当量",
+            "center": 180,
+            "P_scoring": "P2估",
+            "basis": "连续攻破两州并深入第三州大掠，战斗强度高于一次轻骑骚扰，支持百人级中心。",
+            "upper_bound_reason": "无千人级本方伤亡、长围或败退材料。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0166",
+              "SRC-XIXIASHUSHI-038-2290774-P0167"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB2",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB2",
+          "strategic_security_detail": "连续突破两个州级边防节点并袭扰第三州，取得明显局部军事主动。",
+          "material_return": "WR2",
+          "material_return_detail": "保安“大掠”确认有实质物资所得，但种类与数量不详，保守记WR2。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "鄜州",
+              "坊州",
+              "保安州"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "原文明言大掠后归，没有稳定留守或设治。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0166",
+              "SRC-XIXIASHUSHI-038-2290774-P0167"
+            ]
+          },
+          "phase_return_class": "PROPORTIONATE_RETURN",
+          "phase_return_basis": "战术与掠夺成果明显，但没有形成持续控制或更高层级安全结构变化。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-038-2290774-P0166",
+              "SRC-XIXIASHUSHI-038-2290774-P0167"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-038-2290774-P0166",
+              "SRC-XIXIASHUSHI-038-2290774-P0167"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-038-2290774-P0166",
+              "SRC-XIXIASHUSHI-038-2290774-P0167"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-038-2290774-P0166",
+              "SRC-XIXIASHUSHI-038-2290774-P0167"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "无。"
+        },
+        {
+          "evaluation_subject_phase": "金鄜、坊、保安三州军民 × 两州被破一州大掠阶段",
+          "subject_role": "DEFENDER",
+          "actual_process": "鄜、坊二州被西夏军攻破，保安州又遭大掠，形成同一方向多个州级节点连续受损。",
+          "cost_axes": {
+            "P": "P2估",
+            "S": "S3",
+            "M": "M1",
+            "A": "A2",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3（max(P2估,S3,M1,A2)）；P/S未同时处于基础最高档，不抬档，最终WC3。",
+          "P_inference": {
+            "P_observed": "金方人员损失失载。",
+            "range": "100—999死亡当量",
+            "center": 316,
+            "P_scoring": "P2估",
+            "basis": "两州被破并有第三州大掠，支持百人级人员损害中心。",
+            "upper_bound_reason": "无千人级死伤、万人被掳或长期失州材料。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0166",
+              "SRC-XIXIASHUSHI-038-2290774-P0167"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN3"
+          },
+          "strategic_security": "SN3",
+          "strategic_security_detail": "多个相邻州级节点连续失守/受掠，边境一线安全显著恶化。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "鄜州",
+              "坊州",
+              "保安州"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "虽被攻破和掠夺，但敌军随后撤回，未确认稳定领土丧失。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0166",
+              "SRC-XIXIASHUSHI-038-2290774-P0167"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "S3主导WC3，多州军政与生产体系连续受扰且无抵补收益。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-038-2290774-P0166",
+              "SRC-XIXIASHUSHI-038-2290774-P0167"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-038-2290774-P0166",
+              "SRC-XIXIASHUSHI-038-2290774-P0167"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-038-2290774-P0166",
+              "SRC-XIXIASHUSHI-038-2290774-P0167"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-038-2290774-P0166",
+              "SRC-XIXIASHUSHI-038-2290774-P0167"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "无。"
+        }
+      ],
+      "non_battle_disposition": null
+    },
+    {
+      "battle_id": "XSS038-B08",
+      "battle_label": "镇戎军伏击—杀阿鲁带、掠牲畜无算",
+      "campaign_group": "XSS-XIA-JIN-ZHENRONG-1191",
+      "source_anchor_refs": [
+        "SRC-XIXIASHUSHI-038-2290774-P0172",
+        "SRC-XIXIASHUSHI-038-2290774-P0173"
+      ],
+      "source_quotes": [
+        "侵金鎭戎軍，殺其將阿魯帶",
+        "伏兵澗中，襲殺阿魯帶，取其弓甲，掠牲畜無筭"
+      ],
+      "subject_phase_cards": [
+        {
+          "evaluation_subject_phase": "西夏吴明契等 × 镇戎伏击阶段",
+          "subject_role": "AMBUSHER",
+          "actual_process": "边人越入镇戎境放牧并拘执金巡卒，金将阿鲁带追逐；吴明契等预伏涧中袭杀阿鲁带，取其弓甲并掠取大量牲畜。",
+          "cost_axes": {
+            "P": "P1估",
+            "S": "S0",
+            "M": "M1",
+            "A": "A1",
+            "WC": "WC1"
+          },
+          "wc_basis": "base_WC=1（max(P1估,S0,M1,A1)）；P/S未同时处于基础最高档，不抬档，最终WC1。",
+          "P_inference": {
+            "P_observed": "西夏伏兵伤亡失载。",
+            "range": "1—99死亡当量",
+            "center": 20,
+            "P_scoring": "P1估",
+            "basis": "伏击成功但无本方伤亡数字，仍不能因沉默记P0。",
+            "upper_bound_reason": "无百人级西夏损失或战败后效。",
+            "confidence": "low",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0172",
+              "SRC-XIXIASHUSHI-038-2290774-P0173"
+            ]
+          },
+          "security_axes": {
+            "SB": "SB1",
+            "SN": "SN0"
+          },
+          "strategic_security": "SB1",
+          "strategic_security_detail": "消灭追击主将并解除本次追逐压力，但没有终结镇戎方向金军能力。",
+          "material_return": "WR3",
+          "material_return_detail": "取得主将弓甲并“掠牲畜无算”，属于大批可用牲畜资产所得。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "镇戎军境"
+            ],
+            "control_change_mode": "NONE",
+            "control_outcome": "伏击和掠畜没有形成城地控制。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0172",
+              "SRC-XIXIASHUSHI-038-2290774-P0173"
+            ]
+          },
+          "phase_return_class": "HIGH_RETURN",
+          "phase_return_basis": "低可见本方成本下杀主将并取得大量牲畜，阶段资源回报显著；但外交后果另由后续非战役处置记录。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-038-2290774-P0172",
+              "SRC-XIXIASHUSHI-038-2290774-P0173"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-038-2290774-P0172",
+              "SRC-XIXIASHUSHI-038-2290774-P0173"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-038-2290774-P0172",
+              "SRC-XIXIASHUSHI-038-2290774-P0173"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-038-2290774-P0172",
+              "SRC-XIXIASHUSHI-038-2290774-P0173"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "P0176—P0177金持续追责，仁孝最终杀吴明契等谢罪；后续处刑属于外交/政治成本，不倒灌改写本伏击阶段的战场收益。"
+        },
+        {
+          "evaluation_subject_phase": "金阿鲁带追兵与镇戎边区 × 遭伏击损失阶段",
+          "subject_role": "PURSUER_DEFEATED",
+          "actual_process": "阿鲁带率兵追逐越境牧者时遭西夏伏兵袭击，阿鲁带被杀、弓甲被夺，边区牲畜大量被掠。",
+          "cost_axes": {
+            "P": "P1",
+            "S": "S2",
+            "M": "M1",
+            "A": "A3",
+            "WC": "WC3"
+          },
+          "wc_basis": "base_WC=3（max(P1,S2,M1,A3)）；P/S未同时处于基础最高档，不抬档，最终WC3。",
+          "P_inference": null,
+          "security_axes": {
+            "SB": "SB0",
+            "SN": "SN2"
+          },
+          "strategic_security": "SN2",
+          "strategic_security_detail": "边将战死且边区畜产遭重大掠夺，局部防务和生产安全明显受损。",
+          "material_return": "WR0",
+          "material_return_detail": "无。",
+          "border_control": {
+            "BCP": "BCP0",
+            "BCN": "BCN0",
+            "control_effect_status": "CONFIRMED",
+            "control_objects": [
+              "镇戎军"
+            ],
+            "control_change_mode": "HOLD",
+            "control_outcome": "没有州城或军镇实际失守。",
+            "continuity_status": "HELD",
+            "source_refs": [
+              "SRC-XIXIASHUSHI-038-2290774-P0172",
+              "SRC-XIXIASHUSHI-038-2290774-P0173"
+            ]
+          },
+          "phase_return_class": "NEGATIVE_RETURN",
+          "phase_return_basis": "A3主导WC3；主将死亡并伴随大批牲畜损失，且未取得任何抵补成果。",
+          "founding_startup_ledger": {
+            "is_founding_process": false,
+            "founding_stage": "NOT_APPLICABLE",
+            "startup_significance": "本阶段不属于开国、复国、割据建政或新政权取得稳定统治基础过程。"
+          },
+          "civilian_harm_caused": null,
+          "war_conduct_note": null,
+          "axis_source_refs": {
+            "cost_axes": [
+              "SRC-XIXIASHUSHI-038-2290774-P0172",
+              "SRC-XIXIASHUSHI-038-2290774-P0173"
+            ],
+            "strategic_security": [
+              "SRC-XIXIASHUSHI-038-2290774-P0172",
+              "SRC-XIXIASHUSHI-038-2290774-P0173"
+            ],
+            "material_return": [
+              "SRC-XIXIASHUSHI-038-2290774-P0172",
+              "SRC-XIXIASHUSHI-038-2290774-P0173"
+            ],
+            "border_control": [
+              "SRC-XIXIASHUSHI-038-2290774-P0172",
+              "SRC-XIXIASHUSHI-038-2290774-P0173"
+            ]
+          },
+          "carry_in": "无。",
+          "carry_out": "无。"
+        }
+      ],
+      "non_battle_disposition": null
+    }
+  ],
+  "review": {
+    "linear_reread": {
+      "range": "SRC-XIXIASHUSHI-038-2290774-P0001—P0207",
+      "paragraph_count": 207,
+      "body_end": "P0205",
+      "metadata_tail": [
+        "P0206",
+        "P0207"
+      ],
+      "status": "COMPLETED",
+      "method": "成稿后自P0001重新线性复读至P0207；逐段核对伐、兵败、大掠、剽抄、击逐、犯界、共击、毁城、侵州、破州、掠人畜、伏兵、杀将、乞援与假道。西辽假道“不果”、吴挺结援史阙、吴明契等外交处刑均不造未发生战役。",
+      "ps_tie_raise_checked": true
+    },
+    "card_coverage": {
+      "battle_cards": 8,
+      "subject_phase_cards": 16,
+      "adjudicated_anchor_entries": 14,
+      "not_a_battle_anchor_entries": 193,
+      "coverage_result": "207/207段逐段过账；正文、卷终与版权元数据全部有disposition。",
+      "wc_formula_check": "PASS：16张主体×阶段卡逐张复算；5处P/S同居基础最高档已按合同抬1档。",
+      "ps_tie_raise_cases": [
+        {
+          "battle_id": "XSS038-B01",
+          "evaluation_subject_phase": "汪罕所部 × 部众尽失逃河西阶段",
+          "result": "WC3"
+        },
+        {
+          "battle_id": "XSS038-B02",
+          "evaluation_subject_phase": "西夏仁孝军民 × 河西受掠后击逐阶段",
+          "result": "WC2"
+        },
+        {
+          "battle_id": "XSS038-B03",
+          "evaluation_subject_phase": "汪罕所部 × 攻蒙古失败阶段",
+          "result": "WC3"
+        },
+        {
+          "battle_id": "XSS038-B04",
+          "evaluation_subject_phase": "西夏仁孝军民 × 击逐亦剌哈阶段",
+          "result": "WC2"
+        },
+        {
+          "battle_id": "XSS038-B06",
+          "evaluation_subject_phase": "金岚、石等州军民 × 遭袭掠阶段",
+          "result": "WC3"
+        }
+      ],
+      "dedup_check": "PASS：麟州“子女数万”只按被掳人口折P，不计WR；岚石掠人畜中人口与牲畜分开；镇戎“牲畜无算”记A/WR，阿鲁带死亡记P，不把吴明契等后续处刑倒灌为战斗成本。"
+    },
+    "raw_battle_anchor_inventory": [
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0001",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0002",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0003",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0004",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0005",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0006",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0007",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "请求恢复榷场，贸易政策。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0008",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金因贸易结构关闭兰州、保安榷场，非武装行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0009",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0010",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0011",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0012",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0013",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0014",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0015",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "XSS038-B01"
+        ]
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0016",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "XSS038-B01"
+        ]
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0017",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0018",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0019",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0020",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0021",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0022",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0023",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0024",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0025",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0026",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0027",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0028",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0029",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "XSS038-B02"
+        ]
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0030",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "XSS038-B02"
+        ]
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0031",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0032",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0033",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0034",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0035",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0036",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0037",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0038",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0039",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0040",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0041",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "旱灾。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0042",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "蝗灾毁稼，非战争。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0043",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0044",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0045",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0046",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0047",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金禁绥德榷场。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0048",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "因防西辽交通而限制榷场，属于边贸/治安政策，没有实际军事接战。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0049",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0050",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0051",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0052",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0053",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "献百头帐，外交礼物。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0054",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "百头帐交涉，非战事。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0055",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "额外遣使进献。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0056",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "同上。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0057",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0058",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0059",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0060",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0061",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0062",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0063",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "XSS038-B04"
+        ]
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0064",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "XSS038-B03",
+          "XSS038-B04"
+        ]
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0065",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0066",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0067",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "XSS038-B05"
+        ]
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0068",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "XSS038-B05"
+        ]
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0069",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0070",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0071",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0072",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0073",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0074",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0075",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0076",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0077",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0078",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0079",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0080",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0081",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0082",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0083",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0084",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0085",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0086",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "请求恢复绥德榷场。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0087",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "贸易与边患审议、置关市，非武装行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0088",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0089",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0090",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0091",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0092",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0093",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0094",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0095",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0096",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0097",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0098",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0099",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0100",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0101",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0102",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0103",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0104",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0105",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0106",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0107",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0108",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0109",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0110",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "准备遣使赴上京。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0111",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金以暑雨泥泞、往复万里止其远行，外交行旅安排。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0112",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0113",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0114",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金停止正旦、生日使。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0115",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "因天寒道远停止遣使，非战事。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0116",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "西辽假道伐金标题。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0117",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "仅见西辽请求借道并由宋方议论，最终“不果”，没有实际出兵或过境，故NOT_A_BATTLE。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0118",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0119",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0120",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0121",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0122",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0123",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0124",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "吴挺遣使来结援，仅外交求援。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0125",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "史臣明确“史不具载”，无法确认夏方从违或实际出兵。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0126",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0127",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0128",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0129",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0130",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0131",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0132",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0133",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0134",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0135",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0136",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0137",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0138",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0139",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0140",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0141",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0142",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金主病重，夏使先还。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0143",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0144",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "告哀慰奠。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0145",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "同上。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0146",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0147",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0148",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0149",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0150",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0151",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0152",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0153",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0154",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0155",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0156",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0157",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0158",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0159",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0160",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "XSS038-B06"
+        ]
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0161",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "XSS038-B06"
+        ]
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0162",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0163",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "虽有前一年侵边背景，本段只记贺正和使者贸易日数，非新武装行动。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0164",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0165",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0166",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "XSS038-B07"
+        ]
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0167",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "XSS038-B07"
+        ]
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0168",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0169",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0170",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0171",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0172",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "XSS038-B08"
+        ]
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0173",
+        "disposition": "ADJUDICATED",
+        "battle_ids": [
+          "XSS038-B08"
+        ]
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0174",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0175",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0176",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "杀吴明契等以谢金标题。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0177",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金追责镇戎之役后，仁孝最终处死吴明契等；无接战，属于外交压力下的政治处刑，不计战争P。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0178",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0179",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0180",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0181",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0182",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0183",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0184",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0185",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0186",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0187",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0188",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "仁孝卒、纯佑立，为继承事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0189",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "继承年龄、谥号庙号等。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0190",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "史家总论，含对仁孝晚年边衅评价，不作为新战役。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0191",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "告哀并献遗物。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0192",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "同上。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0193",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金使祭慰。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0194",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "使节身份调整为祭慰。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0195",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0196",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0197",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "金赐封册。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0198",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "册纯佑为夏国王。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0199",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0200",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0201",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0202",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0203",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0204",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "非武装叙事：纪年、外交朝聘、榷场贸易、任官、灾异、礼制、继承、史家按语或没有形成实际武装阶段的事件。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0205",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "卷终标记。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0206",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "版权元数据。"
+      },
+      {
+        "source_anchor_ref": "SRC-XIXIASHUSHI-038-2290774-P0207",
+        "disposition": "NOT_A_BATTLE",
+        "reason": "版权元数据。"
+      }
+    ],
+    "new_battle_candidates": [],
+    "cross_volume_followups": [
+      "承卷036—037：西夏请求金帮助恢复宋军所侵累胜等砦，至卷038仍没有金军实际出兵或收复记载，继续UNRESOLVED。",
+      "承卷036—037：金经界侵占的未具名“夏国分地”至卷038仍无明确归还/重划边界，继续UNRESOLVED。",
+      "承卷037：赵师古频掠祈安城与庄浪四族链在卷038没有直接后续；不得因本卷沉默自动判威胁终结或控制恢复。",
+      "XSS038-B05麟州被毁后，本卷未交代金方是否重筑、何时恢复完整军镇功能；BC保持无稳定易手，但城防恢复属于后续可核事项。",
+      "1190—1192西夏连续对金岚石、鄜坊保安、镇戎发动袭掠；镇戎事件最终以仁孝杀吴明契等谢罪收束外交责任，但没有归还牲畜或其他战利资产的明文，不倒灌修改各战役阶段WR。",
+      "卷末仁孝卒、纯佑即位并受金册封；卷039需继续观察纯佑初年的金夏边境是否延续仁孝晚年冲突，以及新君继承期财政民生与政治秩序。"
+    ]
+  }
+}

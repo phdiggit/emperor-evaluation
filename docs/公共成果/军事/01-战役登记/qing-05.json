@@ -1,0 +1,822 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "qing",
+  "bucket": 5,
+  "bucket_count": 24,
+  "record_count": 9,
+  "records_fingerprint": "d52d6a5d231781a6b3432d90f9845f83d0b54f230fbfc34312fb9bc60eca9f01",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-85F04B0F52DBBC3E190F",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-FIRST-OPIUM-WAR-1840-1842",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "英军继定海之战后攻陷虎门、厦门、定海、镇海、宁波、乍浦、上海、镇江并进逼江宁；清廷多次换将防剿，最终授权耆英等议和。",
+      "period": {
+        "start": "道光二十一年正月",
+        "end": "道光二十二年八月"
+      },
+      "observable_result": "清军沿海防御接连失败，战争以江宁议约、英军罢兵告终。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V19-FIRST-OPIUM-WAR-1841-1842"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-19.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷19@2630077#英人陷廣東虎門砲台及烏涌卡座",
+          "清史稿/卷19@2630077#英人再陷定海",
+          "清史稿/卷19@2630077#英人陷鎮海，欽差大臣裕謙死之",
+          "清史稿/卷19@2630077#英人陷江蘇寶山縣，提督陳化成死之。",
+          "清史稿/卷19@2630077#英人陷鎮江",
+          "清史稿/卷19@2630077#耆英奏與英兵官瑪禮遜等議罷兵。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷19@2630077#英人陷廣東虎門砲台及烏涌卡座",
+        "清史稿/卷19@2630077#英人再陷定海",
+        "清史稿/卷19@2630077#英人陷鎮海，欽差大臣裕謙死之",
+        "清史稿/卷19@2630077#英人陷江蘇寶山縣，提督陳化成死之。",
+        "清史稿/卷19@2630077#英人陷鎮江",
+        "清史稿/卷19@2630077#耆英奏與英兵官瑪禮遜等議罷兵。"
+      ],
+      "uncertainties": [
+        "双方总伤亡、赔款军费和民间损失未载。"
+      ],
+      "cost_or_burden": "关天培、裕谦、陈化成、海龄等阵亡，沿海军民损失和军费总数未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "negative",
+      "campaign_tier": "S",
+      "result_class": "single_pole_decisive_defeat",
+      "land_strategic_value": "national_core",
+      "opponent_strategic_weight": "first_tier_pole",
+      "opponent_condition": "first_tier_pole",
+      "battle_result": "defeat",
+      "objective_completion": "failed",
+      "objective_shortfalls": [
+        "共享层未闭合全部战略目标，保持证据下限。"
+      ],
+      "opponent_force_effect": "main_force_destroyed",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "沿海多省要塞和城市连续失陷、主将战死，英军进至长江战略中枢后迫使议和；O5国家远征体系对清国家海防和沿江体系形成决定性系统击败，按负向S。",
+      "tier_review_source_tier": "C",
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT",
+      "combat_difficulty": "D3",
+      "combat_difficulty_basis": "跨海远征补给与虎门至镇江多处海岸坚城两项约束并存，英军须持续海陆协同推进，取D3。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "父级S是沿海国家防御体系连续失败，不等于存在一个清方个人连续指挥全战；事实反而明确多次换将。现有锚点不足以给任何人S级负向个人结果。",
+      "detail_expansion_status": "complete_unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-0275F69EC39529BE18DD",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-GUIZHOU-REBELLIONS-1861-1866",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "贵州多股武装反复攻陷古州、天柱、石阡、兴义等地，清廷调湘川黔军分路剿办并多次收复。",
+      "period": {
+        "start": "咸丰十一年十一月",
+        "end": "同治五年十二月"
+      },
+      "observable_result": "若干州县阶段性复城，但贵州战乱持续。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V21-GUIZHOU-REBELLIONS-1861-1866"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-21.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷21@1814546#以銅仁、石阡苗、教各匪猖獗",
+          "清史稿/卷21@1814546#粵匪陷古州。",
+          "清史稿/卷21@1814546#黔匪復陷天柱",
+          "清史稿/卷21@1814546#黔匪復陷興義、貞豐、永寧。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷21@1814546#以銅仁、石阡苗、教各匪猖獗",
+        "清史稿/卷21@1814546#粵匪陷古州。",
+        "清史稿/卷21@1814546#黔匪復陷天柱",
+        "清史稿/卷21@1814546#黔匪復陷興義、貞豐、永寧。"
+      ],
+      "uncertainties": [
+        "各股性质和关系、总伤亡及最终结局未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-DA7160BE6F7B53571D9F",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-RUSSIA-BORDER-1658-1660",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "清军在东北边地两次与罗刹交战取胜，并招抚费牙喀十五村一百二十余户。",
+      "period": {
+        "start": "顺治十五年七月",
+        "end": "顺治十七年七月"
+      },
+      "observable_result": "清廷在黑龙江下游维持军事存在并吸收部分当地村户。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V05-RUSSIA-BORDER-CONFLICT-1658-1660"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-05.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷5@2616665#沙爾虎達擊羅剎，敗之。",
+          "清史稿/卷5@2616665#巴海敗羅剎於使犬部地",
+          "清史稿/卷5@2616665#招撫費牙喀十五村一百二十餘戶。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷5@2616665#沙爾虎達擊羅剎，敗之。",
+        "清史稿/卷5@2616665#巴海敗羅剎於使犬部地",
+        "清史稿/卷5@2616665#招撫費牙喀十五村一百二十餘戶。"
+      ],
+      "uncertainties": [
+        "交战地点完整名称、双方兵力伤亡和村户编管方式未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-24733D66102656E68120",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-SALAR-REBELLION-1781",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "撒拉尔苏四十三等攻陷河州并进犯兰州，清廷调兵镇压；追查军政失误时又揭出勒尔谨、王亶望等累年冒赈浮销。",
+      "period": {
+        "start": "乾隆四十六年三月至七月",
+        "end": "1781"
+      },
+      "observable_result": "起事被平定，苏四十三伏诛；王亶望处斩、勒尔谨自尽，多名官员获罪。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V14-GANSU-SALAR-REBELLION-CORRUPTION-1781"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-14.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷14@1809472#甘肅循化廳撒拉爾回匪蘇四十三等作亂，陷河州",
+          "清史稿/卷14@1809472#甘肅官軍收復河州",
+          "清史稿/卷14@1809472#以甘肅累年冒賑，命刑部嚴鞫勒爾謹，逮王亶望至都。",
+          "清史稿/卷14@1809472#王亶望處斬，賜勒爾謹自盡"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷14@1809472#甘肅循化廳撒拉爾回匪蘇四十三等作亂，陷河州",
+        "清史稿/卷14@1809472#甘肅官軍收復河州",
+        "清史稿/卷14@1809472#以甘肅累年冒賑，命刑部嚴鞫勒爾謹，逮王亶望至都。",
+        "清史稿/卷14@1809472#王亶望處斬，賜勒爾謹自盡"
+      ],
+      "uncertainties": [
+        "起事社会背景、伤亡人数及冒赈银粮总额未载。"
+      ],
+      "cost_or_burden": "双方伤亡、军费和冒赈总额未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "逐项复核后只构成局部平叛、单次进剿、短期受降、未闭合战争开端或与主分区重复的同一战役；不因用兵规模、艰苦程度或平定字样升档，其他项明确保留A。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "REVIEWED_RETAINED_A",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "镇压河兰方向的实际主将未载。",
+      "detail_expansion_status": "complete_unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-D5F08D42D62176848481",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-SHIDAKAI-1861-1863",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "石达开部自湘黔入川，在遵义、仁怀、綦江等地转战，最终在大渡河被清军擒获处死。",
+      "period": {
+        "start": "咸丰十一年十一月",
+        "end": "同治二年六月"
+      },
+      "observable_result": "石达开主力被消灭，其独立战线结束。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V21-SHIDAKAI-END-1861-1863"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-21.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷21@1814546#石達開竄綏寧。",
+          "清史稿/卷21@1814546#黔軍剿敗石達開，遵義圍解。",
+          "清史稿/卷21@1814546#。石達開竄仁懷。",
+          "清史稿/卷21@1814546#川軍剿賊於大渡河，獲石達開，誅之。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷21@1814546#石達開竄綏寧。",
+        "清史稿/卷21@1814546#黔軍剿敗石達開，遵義圍解。",
+        "清史稿/卷21@1814546#。石達開竄仁懷。",
+        "清史稿/卷21@1814546#川軍剿賊於大渡河，獲石達開，誅之。"
+      ],
+      "uncertainties": [
+        "被俘人数、双方伤亡和地方损失未载。"
+      ],
+      "cost_or_burden": "双方与沿途民众伤亡未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-963E0233D44A1FE587BA",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "SPLIT-QING-GUANGXI-CONQUEST-1651",
+      "split_from_source_target_ref": "CAMPAIGN-QING-SOUTHWEST-1651-1652",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "canonical_label": "孔有德攻取桂林、梧州、柳州",
+      "period": {
+        "end": "顺治八年",
+        "start": "顺治八年"
+      },
+      "observable_result": "清军取得广西主要城市，但控制随后被李定国反攻逆转。",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "important_objective",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "viable",
+      "battle_result": "victory",
+      "objective_completion": "partial",
+      "objective_shortfalls": [
+        "只闭合本子方向；混合父项其他战区不传播。"
+      ],
+      "opponent_force_effect": "major_degradation",
+      "tier_basis": "只保存清军先取广西的阶段结果；因次年失守，不包装为持续区域终局。",
+      "tier_review_source_tier": null,
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT_SPLIT_CHILD",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按该子方向逐字锚可证的攻陷、平定或归降结果取证据下限。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "single_integrated_command",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "混合父项未保存可归责的连续子方向指挥，不从官职推定。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-5AEF68F78AD2A5A1",
+          "actor_name": "孔有德",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "既有事实锚明确孔有德克桂林；其余城市只作为方向结果，不扩大个人未明细阶段。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "既有事实锚明确孔有德克桂林；其余城市只作为方向结果，不扩大个人未明细阶段。",
+            "source_refs": [
+              "清史稿/卷5@2616665#孔有德克桂林",
+              "清史稿/卷5@2616665#克梧州、柳州。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-76029EEF4947241B33B5",
+              "result_label": "率清军攻取桂林并推进至梧州、柳州。",
+              "result_direction": "positive",
+              "result_tier": "B",
+              "combat_difficulty": "D1",
+              "stable_delivery": true,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "既有事实锚明确孔有德克桂林；其余城市只作为方向结果，不扩大个人未明细阶段。",
+              "source_refs": [
+                "清史稿/卷5@2616665#孔有德克桂林",
+                "清史稿/卷5@2616665#克梧州、柳州。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "既有事实锚明确孔有德克桂林；其余城市只作为方向结果，不扩大个人未明细阶段。",
+                "source_refs": [
+                  "清史稿/卷5@2616665#孔有德克桂林",
+                  "清史稿/卷5@2616665#克梧州、柳州。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "source_lineage": {
+        "source_card_ids": [],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-05.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷5@2616665#孔有德克桂林",
+          "清史稿/卷5@2616665#克梧州、柳州。"
+        ],
+        "lineage_basis": "同一共享事实含多个互不连续战区；父项持有fact_id，子项只持定点逐字锚，避免事实ID重复消费。"
+      },
+      "source_refs": [
+        "清史稿/卷5@2616665#孔有德克桂林",
+        "清史稿/卷5@2616665#克梧州、柳州。"
+      ],
+      "uncertainties": [
+        "现有锚未闭合战前重大难点，难度保持D1。"
+      ],
+      "cost_or_burden": "unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "merged_into": null,
+      "limitations": [
+        "不得把混合父项的总兵力、四百余处规模或其他战区结果复制到本子项。"
+      ],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "basis": "只保存清军先取广西的阶段结果；因次年失守，不包装为持续区域终局。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-B2E2A9D37DC9830EFD7E",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-TAIWAN-1826",
+      "candidate_destination": "REDIRECT_NON_BATTLE_OUTCOME",
+      "public_outcome_registered": false,
+      "canonical_label": "清廷命武隆阿以钦差赴台湾处置军务，十一月奏报台湾平定。",
+      "period": {
+        "start": "道光六年七月至十一月",
+        "end": "1826"
+      },
+      "observable_result": "台湾武装事件在本卷内平定。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V17-TAIWAN-REBELLION-1826"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-17.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷17@1812282#命武隆阿為欽差大臣赴臺灣。",
+          "清史稿/卷17@1812282#以臺灣平，加孫爾准太子少保。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷17@1812282#命武隆阿為欽差大臣赴臺灣。",
+        "清史稿/卷17@1812282#以臺灣平，加孫爾准太子少保。"
+      ],
+      "uncertainties": [
+        "起事首领、原因、战斗过程与伤亡未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REDIRECTED_NON_BATTLE_OUTCOME",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "只有钦差任命与奏报平定，无独立战斗动作。"
+    },
+    {
+      "war_event_id": "WAR-POST-75EED9D9E02CE215C5FE",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "SPLIT-QING-ZHENG-TAIWAN-1661-1662",
+      "split_from_source_target_ref": "CAMPAIGN-QING-TAIWAN-COAST-1661-1664",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "canonical_label": "郑成功攻取台湾并驱逐荷兰守军",
+      "period": {
+        "end": "康熙元年",
+        "start": "顺治十八年"
+      },
+      "observable_result": "郑成功经鹿耳门登陆，围王城七月迫荷兰守军投降撤离，并建立东都治理和移民屯垦。",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "core_base",
+      "opponent_strategic_weight": "external_state",
+      "opponent_condition": "viable",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "military_system_collapsed",
+      "tier_basis": "跨海投送、鹿耳门浅港与赤嵌王城双堡长期攻坚相互强化；七月围城后荷兰殖民守军整体撤离，郑氏取得并建设可持续核心根据地，闭合O3局部殖民守军方向A/D3，但不是全国分量外部国家终局。",
+      "tier_review_source_tier": null,
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT_SPLIT_CHILD",
+      "combat_difficulty": "D3",
+      "combat_difficulty_basis": "跨海投送、鹿耳门浅港与赤嵌王城双堡长期攻坚相互强化，七月围城后迫使荷兰守军整体撤离，取D3。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "single_integrated_command",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "混合父项未保存可归责的连续子方向指挥，不从官职推定。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-630B384CDEDD902A",
+          "actor_name": "郑成功",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "谋取、跨海进入、围城受降和建立治理均连续归于郑成功，实际控制与结果闭合。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "谋取、跨海进入、围城受降和建立治理均连续归于郑成功，实际控制与结果闭合。",
+            "source_refs": [
+              "清史稿/卷224@2433586#荷蘭築城二：曰赤嵌、曰王城，其海口曰鹿耳門。",
+              "清史稿/卷224@2433586#荷蘭人恃鹿耳門水淺不可渡，不為備。",
+              "清史稿/卷224@2433586#成功師至，水驟長丈餘，舟大小銜尾徑進，紅毛人棄赤嵌走保王城。",
+              "清史稿/卷224@2433586#圍七閱月，紅毛存者僅百數十，城下，皆遣歸國。",
+              "清史稿/卷224@2433586#成功乃號臺灣為東都"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-E22C9E542CECCFF24267",
+              "result_label": "跨海攻取台湾，围城迫荷兰守军撤离并建立东都根据地。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": true,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "谋取、跨海进入、围城受降和建立治理均连续归于郑成功，实际控制与结果闭合。",
+              "source_refs": [
+                "清史稿/卷224@2433586#荷蘭築城二：曰赤嵌、曰王城，其海口曰鹿耳門。",
+                "清史稿/卷224@2433586#荷蘭人恃鹿耳門水淺不可渡，不為備。",
+                "清史稿/卷224@2433586#成功師至，水驟長丈餘，舟大小銜尾徑進，紅毛人棄赤嵌走保王城。",
+                "清史稿/卷224@2433586#圍七閱月，紅毛存者僅百數十，城下，皆遣歸國。",
+                "清史稿/卷224@2433586#成功乃號臺灣為東都"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "谋取、跨海进入、围城受降和建立治理均连续归于郑成功，实际控制与结果闭合。",
+                "source_refs": [
+                  "清史稿/卷224@2433586#荷蘭築城二：曰赤嵌、曰王城，其海口曰鹿耳門。",
+                  "清史稿/卷224@2433586#荷蘭人恃鹿耳門水淺不可渡，不為備。",
+                  "清史稿/卷224@2433586#成功師至，水驟長丈餘，舟大小銜尾徑進，紅毛人棄赤嵌走保王城。",
+                  "清史稿/卷224@2433586#圍七閱月，紅毛存者僅百數十，城下，皆遣歸國。",
+                  "清史稿/卷224@2433586#成功乃號臺灣為東都"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "source_lineage": {
+        "source_card_ids": [],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-06.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷224@2433586#荷蘭築城二：曰赤嵌、曰王城，其海口曰鹿耳門。",
+          "清史稿/卷224@2433586#荷蘭人恃鹿耳門水淺不可渡，不為備。",
+          "清史稿/卷224@2433586#成功師至，水驟長丈餘，舟大小銜尾徑進，紅毛人棄赤嵌走保王城。",
+          "清史稿/卷224@2433586#圍七閱月，紅毛存者僅百數十，城下，皆遣歸國。",
+          "清史稿/卷224@2433586#成功乃號臺灣為東都"
+        ],
+        "lineage_basis": "同一共享事实含多个互不连续战区；父项持有fact_id，子项只持定点逐字锚，避免事实ID重复消费。"
+      },
+      "source_refs": [
+        "清史稿/卷224@2433586#荷蘭築城二：曰赤嵌、曰王城，其海口曰鹿耳門。",
+        "清史稿/卷224@2433586#荷蘭人恃鹿耳門水淺不可渡，不為備。",
+        "清史稿/卷224@2433586#成功師至，水驟長丈餘，舟大小銜尾徑進，紅毛人棄赤嵌走保王城。",
+        "清史稿/卷224@2433586#圍七閱月，紅毛存者僅百數十，城下，皆遣歸國。",
+        "清史稿/卷224@2433586#成功乃號臺灣為東都"
+      ],
+      "uncertainties": [
+        "荷军初始总兵力和双方伤亡未详；不因‘驱逐荷兰’字样把局部殖民军抬为external_hegemony。"
+      ],
+      "cost_or_burden": "unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "merged_into": null,
+      "limitations": [
+        "不得把混合父项的总兵力、四百余处规模或其他战区结果复制到本子项。"
+      ],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "basis": "跨海投送、鹿耳门浅港与赤嵌王城双堡长期攻坚相互强化；七月围城后荷兰殖民守军整体撤离，郑氏取得并建设可持续核心根据地，闭合O3局部殖民守军方向A/D3，但不是全国分量外部国家终局。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-5D373C28B833D120ADD2",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-XICHANG-1833",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "四川越巂、瓘边等处武装起事，清廷调军进剿，杨芳大败起事者并处死桑树格等首领。",
+      "period": {
+        "start": "道光十三年二月至五月",
+        "end": "1833"
+      },
+      "observable_result": "越巂、瓘边武装事件被平定。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V18-XICHANG-UPRISINGS-1833"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-18.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷18@2612362#四川越巂等處夷匪作亂",
+          "清史稿/卷18@2612362#楊芳剿越巂夷匪，大敗之",
+          "清史稿/卷18@2612362#四川瓘邊夷匪平。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷18@2612362#四川越巂等處夷匪作亂",
+        "清史稿/卷18@2612362#楊芳剿越巂夷匪，大敗之",
+        "清史稿/卷18@2612362#四川瓘邊夷匪平。"
+      ],
+      "uncertainties": [
+        "起事原因、双方伤亡及战后处置未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-446FB1C0AD94D578",
+          "actor_name": "杨芳",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "实际击破与终局归属本人。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "实际击破与终局归属本人。",
+            "source_refs": [
+              "清史稿/卷18@2612362#四川越巂等處夷匪作亂",
+              "清史稿/卷18@2612362#楊芳剿越巂夷匪，大敗之",
+              "清史稿/卷18@2612362#四川瓘邊夷匪平。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-058D2113372C6A2AA1AA",
+              "result_label": "大败越巂起事军并处死主要首领。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "实际击破与终局归属本人。",
+              "source_refs": [
+                "清史稿/卷18@2612362#四川越巂等處夷匪作亂",
+                "清史稿/卷18@2612362#楊芳剿越巂夷匪，大敗之",
+                "清史稿/卷18@2612362#四川瓘邊夷匪平。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "实际击破与终局归属本人。",
+                "source_refs": [
+                  "清史稿/卷18@2612362#四川越巂等處夷匪作亂",
+                  "清史稿/卷18@2612362#楊芳剿越巂夷匪，大敗之",
+                  "清史稿/卷18@2612362#四川瓘邊夷匪平。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "逐项复核后只构成局部平叛、单次进剿、短期受降、未闭合战争开端或与主分区重复的同一战役；不因用兵规模、艰苦程度或平定字样升档，其他项明确保留A。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "REVIEWED_RETAINED_A",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "single_integrated_command",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    }
+  ]
+}

@@ -1,0 +1,861 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "liao",
+  "bucket": 9,
+  "bucket_count": 24,
+  "record_count": 7,
+  "records_fingerprint": "f1f0ed21d17a8fb432f3f37e62f9895fe5bc6a04a327a928eafa85a1e98f112e",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-5853E54630C829D39861",
+      "dynasty": "辽",
+      "dynasty_partition": "liao",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-LIAO-NANJING-DEFENSE-AND-GAOLIANG-VICTORY-979",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "北汉亡后宋主来侵，辽军先在沙河失利、南京被围；其后耶律沙等与宋军在高梁河交战，休哥与斜轸横击，大败宋军，继击宋余军并获大量兵仗、粮馈与货币。",
+      "period": {
+        "start": "乾亨元年六月至八月",
+        "end": "979"
+      },
+      "observable_result": "南京围城压力后被解除，辽军在高梁河击败宋军并取得俘获。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-LIAO-V09-NANJING-DEFENSE-AND-GAOLIANG-VICTORY-979"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/辽史/volume-09.registry.json"
+        ],
+        "source_revision_refs": [
+          "遼史/卷9@1745917#戰於沙河，失利。",
+          "遼史/卷9@1745917#宋主圍南京。",
+          "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+          "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+          "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+          "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "遼史/卷9@1745917#戰於沙河，失利。",
+        "遼史/卷9@1745917#宋主圍南京。",
+        "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+        "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+        "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+        "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+      ],
+      "uncertainties": [
+        "南京围城时间、辽宋双方兵力伤亡、具体俘虏和获物数、宋军撤退路线及南京民生恢复未载。"
+      ],
+      "cost_or_burden": "沙河失利，围城期间南京军民损失未载；高梁河及追击中宋军死伤甚众，辽军伤亡和俘获数未载。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-856DDABCE4B38AE2",
+          "actor_name": "耶律休哥",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "高梁河横击宋军并形成决定性击溃。 只消费高梁河横击决定会战，不复制南京守城与后续全链。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "decisive_battle",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "co_decisive",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "高梁河横击宋军并形成决定性击溃。 只消费高梁河横击决定会战，不复制南京守城与后续全链。",
+            "source_refs": [
+              "遼史/卷9@1745917#戰於沙河，失利。",
+              "遼史/卷9@1745917#宋主圍南京。",
+              "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+              "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+              "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+              "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-61AEE14F2C4960FD811C",
+              "result_label": "高梁河横击宋军并形成决定性击溃。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "高梁河横击宋军并形成决定性击溃。 只消费高梁河横击决定会战，不复制南京守城与后续全链。",
+              "source_refs": [
+                "遼史/卷9@1745917#戰於沙河，失利。",
+                "遼史/卷9@1745917#宋主圍南京。",
+                "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+                "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+                "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+                "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "co_decisive",
+                "basis": "高梁河横击宋军并形成决定性击溃。 只消费高梁河横击决定会战，不复制南京守城与后续全链。",
+                "source_refs": [
+                  "遼史/卷9@1745917#戰於沙河，失利。",
+                  "遼史/卷9@1745917#宋主圍南京。",
+                  "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+                  "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+                  "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+                  "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-15CD7A8DF44475BF",
+          "actor_name": "耶律学古",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "南京围城阶段安定人心、守捍城池。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "stage_executor",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "南京围城阶段安定人心、守捍城池。",
+            "source_refs": [
+              "遼史/卷9@1745917#戰於沙河，失利。",
+              "遼史/卷9@1745917#宋主圍南京。",
+              "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+              "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+              "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+              "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-8A2009BB75DEAF8AD55F",
+              "result_label": "南京围城阶段安定人心、守捍城池。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "南京围城阶段安定人心、守捍城池。",
+              "source_refs": [
+                "遼史/卷9@1745917#戰於沙河，失利。",
+                "遼史/卷9@1745917#宋主圍南京。",
+                "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+                "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+                "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+                "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "tactical_execution",
+                "decisive_relation": "stage_executor",
+                "basis": "南京围城阶段安定人心、守捍城池。",
+                "source_refs": [
+                  "遼史/卷9@1745917#戰於沙河，失利。",
+                  "遼史/卷9@1745917#宋主圍南京。",
+                  "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+                  "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+                  "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+                  "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-FC748CE52AD2BEF3",
+          "actor_name": "耶律斜轸",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "高梁河横击宋军并形成决定性击溃。 只消费高梁河横击决定会战，不复制南京守城与后续全链。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "decisive_battle",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "co_decisive",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "高梁河横击宋军并形成决定性击溃。 只消费高梁河横击决定会战，不复制南京守城与后续全链。",
+            "source_refs": [
+              "遼史/卷9@1745917#戰於沙河，失利。",
+              "遼史/卷9@1745917#宋主圍南京。",
+              "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+              "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+              "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+              "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-1648A829A6A5293D2CD6",
+              "result_label": "高梁河横击宋军并形成决定性击溃。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "高梁河横击宋军并形成决定性击溃。 只消费高梁河横击决定会战，不复制南京守城与后续全链。",
+              "source_refs": [
+                "遼史/卷9@1745917#戰於沙河，失利。",
+                "遼史/卷9@1745917#宋主圍南京。",
+                "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+                "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+                "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+                "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "co_decisive",
+                "basis": "高梁河横击宋军并形成决定性击溃。 只消费高梁河横击决定会战，不复制南京守城与后续全链。",
+                "source_refs": [
+                  "遼史/卷9@1745917#戰於沙河，失利。",
+                  "遼史/卷9@1745917#宋主圍南京。",
+                  "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+                  "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+                  "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+                  "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-74370A9360C843A0",
+          "actor_name": "耶律沙",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "同一事实卡中第二具名人物有实际统军、交战或攻守动作并形成可观察结果，当前未消费。；北汉亡后宋主来侵，辽军先在沙河失利、南京被围；其后耶律沙等与宋军在高梁河交战，休哥与斜轸横击，大败宋军，继击宋余军并获大量兵仗、粮馈与货币。；南京围城压力后被解除，辽军在高梁河击败宋军并取得俘获。；仅消费该事实闭合阶段，不继承父战役档位或同群终局。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "mixed_review",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "同一事实卡中第二具名人物有实际统军、交战或攻守动作并形成可观察结果，当前未消费。；北汉亡后宋主来侵，辽军先在沙河失利、南京被围；其后耶律沙等与宋军在高梁河交战，休哥与斜轸横击，大败宋军，继击宋余军并获大量兵仗、粮馈与货币。；南京围城压力后被解除，辽军在高梁河击败宋军并取得俘获。；仅消费该事实闭合阶段，不继承父战役档位或同群终局。",
+            "source_refs": [
+              "遼史/卷9@1745917#戰於沙河，失利。",
+              "遼史/卷9@1745917#宋主圍南京。",
+              "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+              "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+              "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+              "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-F44ABC32BAFD5E519931",
+              "result_label": "同一事实卡中第二具名人物有实际统军、交战或攻守动作并形成可观察结果，当前未消费。；北汉亡后宋主来侵，辽军先在沙河失利、南京被围；其后耶律沙等与宋军在高梁河交战，休哥与斜轸横击，大败宋军，继击宋余军并获大量兵仗、粮馈与货币。；南京围城压力后被解除，辽军在高梁河击败宋军并取得俘获。",
+              "result_direction": "mixed_review",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "NOT_APPLICABLE",
+              "basis": "同一事实卡中第二具名人物有实际统军、交战或攻守动作并形成可观察结果，当前未消费。；北汉亡后宋主来侵，辽军先在沙河失利、南京被围；其后耶律沙等与宋军在高梁河交战，休哥与斜轸横击，大败宋军，继击宋余军并获大量兵仗、粮馈与货币。；南京围城压力后被解除，辽军在高梁河击败宋军并取得俘获。；仅消费该事实闭合阶段，不继承父战役档位或同群终局。",
+              "source_refs": [
+                "遼史/卷9@1745917#戰於沙河，失利。",
+                "遼史/卷9@1745917#宋主圍南京。",
+                "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+                "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+                "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+                "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "同一事实卡中第二具名人物有实际统军、交战或攻守动作并形成可观察结果，当前未消费。；北汉亡后宋主来侵，辽军先在沙河失利、南京被围；其后耶律沙等与宋军在高梁河交战，休哥与斜轸横击，大败宋军，继击宋余军并获大量兵仗、粮馈与货币。；南京围城压力后被解除，辽军在高梁河击败宋军并取得俘获。；仅消费该事实闭合阶段，不继承父战役档位或同群终局。",
+                "source_refs": [
+                  "遼史/卷9@1745917#戰於沙河，失利。",
+                  "遼史/卷9@1745917#宋主圍南京。",
+                  "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+                  "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+                  "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+                  "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-A450B6FEBB0CB455",
+          "actor_name": "韩德让",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "南京围城阶段安定人心、守捍城池。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "stage_executor",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "南京围城阶段安定人心、守捍城池。",
+            "source_refs": [
+              "遼史/卷9@1745917#戰於沙河，失利。",
+              "遼史/卷9@1745917#宋主圍南京。",
+              "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+              "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+              "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+              "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-988B8F63E902B48826FE",
+              "result_label": "南京围城阶段安定人心、守捍城池。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "南京围城阶段安定人心、守捍城池。",
+              "source_refs": [
+                "遼史/卷9@1745917#戰於沙河，失利。",
+                "遼史/卷9@1745917#宋主圍南京。",
+                "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+                "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+                "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+                "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "tactical_execution",
+                "decisive_relation": "stage_executor",
+                "basis": "南京围城阶段安定人心、守捍城池。",
+                "source_refs": [
+                  "遼史/卷9@1745917#戰於沙河，失利。",
+                  "遼史/卷9@1745917#宋主圍南京。",
+                  "遼史/卷9@1745917#休哥、斜軫橫擊，大敗之。",
+                  "遼史/卷9@1745917#宋主僅以身免，至涿州，竊乘驢車遁去。",
+                  "遼史/卷9@1745917#擊宋餘軍，所殺甚眾，獲兵仗、器甲、符印、糧饋、貨幣不可勝計。",
+                  "遼史/卷9@1745917#韓德讓、權南京馬步軍都指揮使耶律學古、知三司事劉弘皆能安人心，捍城池"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "S-",
+      "result_class": "independent_direction",
+      "land_strategic_value": "independent_direction",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "strong",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "宋灭北汉后以国家主力围辽南京；辽军在高梁河击溃宋军，宋主仅身免，解除南京围城压力。对手、首都方向和终局均闭合，现有门槛下路由明显错误。",
+      "tier_review_source_tier": "C",
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT",
+      "combat_difficulty": "D3",
+      "combat_difficulty_basis": "南京被围且辽军前段已败，须以两翼横击重建战线并追击宋余军，危机与强主力两项约束相互强化，取D3。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-703F074CDABF64A7766B",
+      "dynasty": "辽",
+      "dynasty_partition": "liao",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-LIAO-NORTHWEST-MULTITRIBAL-1093-1094",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "磨古斯战局同时，乌古礼叛，达里底、拔思母等多次入寇；辽廷遣援、分设都监并连续反击。大安十年多部先后降附，辽军对拔思母、达里底、茶礼剌、颇里八、敌烈等获捷，亦有将领战死和反复入侵。",
+      "period": {
+        "start": "大安九年至十年",
+        "end": "1093—1094"
+      },
+      "observable_result": "西北多部冲突形成反复攻降；辽军取得多次战果，多部来降，但达里底、拔思母仍有复侵。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-LIAO-V25-NORTHWEST-MULTITRIBAL-CAMPAIGNS-1093-1094"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/辽史/volume-25.registry.json"
+        ],
+        "source_revision_refs": [
+          "遼史/卷25@1761380#阻卜烏古禮叛，達裏底、拔思母並寇倒塌嶺。",
+          "遼史/卷25@1761380#命鄭家奴率兵往援倒塌嶺。",
+          "遼史/卷25@1761380#烏古礼等來降，達裏底、拔思母二部來侵，四捷軍都監特抹死之。",
+          "遼史/卷25@1761380#西南面招討司奏討拔思母捷。",
+          "遼史/卷25@1761380#山北路副部署蕭阿魯帶奏討達裏底捷。",
+          "遼史/卷25@1761380#達裏底、拔思母二部來降。",
+          "遼史/卷25@1761380#烏古部節度使耶律陳家奴奏討茶礼剌捷。",
+          "遼史/卷25@1761380#朽哥奏頗裏八部來侵。擊破之。",
+          "遼史/卷25@1761380#西北路招討司奏敵烈等部來侵，統軍司出兵與戰，不利，招討司以兵擊破之",
+          "遼史/卷25@1761380#敵烈諸酋來降，釋其罪。",
+          "遼史/卷25@1761380#達裏底及拔思母等復來侵，山北副部署阿魯帶擊敗之。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "遼史/卷25@1761380#阻卜烏古禮叛，達裏底、拔思母並寇倒塌嶺。",
+        "遼史/卷25@1761380#命鄭家奴率兵往援倒塌嶺。",
+        "遼史/卷25@1761380#烏古礼等來降，達裏底、拔思母二部來侵，四捷軍都監特抹死之。",
+        "遼史/卷25@1761380#西南面招討司奏討拔思母捷。",
+        "遼史/卷25@1761380#山北路副部署蕭阿魯帶奏討達裏底捷。",
+        "遼史/卷25@1761380#達裏底、拔思母二部來降。",
+        "遼史/卷25@1761380#烏古部節度使耶律陳家奴奏討茶礼剌捷。",
+        "遼史/卷25@1761380#朽哥奏頗裏八部來侵。擊破之。",
+        "遼史/卷25@1761380#西北路招討司奏敵烈等部來侵，統軍司出兵與戰，不利，招討司以兵擊破之",
+        "遼史/卷25@1761380#敵烈諸酋來降，釋其罪。",
+        "遼史/卷25@1761380#達裏底及拔思母等復來侵，山北副部署阿魯帶擊敗之。"
+      ],
+      "uncertainties": [
+        "各部关系、同名部众是否连续、战斗地点、完整伤亡与降附持续性未载。"
+      ],
+      "cost_or_burden": "四捷军都监特抹、耶律爱奴父子等死亡；双方总伤亡、部众损失和降附条件未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-47340B08948256D9D57B",
+      "dynasty": "辽",
+      "dynasty_partition": "liao",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-LIAO-NORTHWEST-ZHELI-ZHULI-988",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "西北路管押详稳速撒哥讨伐折立、助里二部，并向朝廷进献所获。",
+      "period": {
+        "start": "统和六年八月",
+        "end": "988"
+      },
+      "observable_result": "辽军完成所报征讨并取得俘获。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-LIAO-V12-NORTHWEST-TRIBAL-CAMPAIGNS-988"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/辽史/volume-12.registry.json"
+        ],
+        "source_revision_refs": [
+          "遼史/卷12@1745950#西北路管押詳穩速撒哥以伐折立、助裏二部，上所俘獲。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "遼史/卷12@1745950#西北路管押詳穩速撒哥以伐折立、助裏二部，上所俘獲。"
+      ],
+      "uncertainties": [
+        "两部违抗事项、战斗地点、伤亡与俘获去向未载。"
+      ],
+      "cost_or_burden": "被征讨部众遭俘获；兵力、伤亡、俘获数和战后处置未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-8733690F8D4F63B31FAB",
+      "dynasty": "辽",
+      "dynasty_partition": "liao",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-LIAO-SHIZONG-ACCESSION-CIVIL-WAR-947",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "太宗崩后耶律阮在梓宫前即位，应天太后命李胡率军拒绝；耶律阮军先败李胡，后在横渡与太后军相持并经屋质调停罢兵。",
+      "period": {
+        "start": "大同元年四月至閏七月",
+        "end": "947"
+      },
+      "observable_result": "耶律阮取得皇位并进入上京，太后与李胡因再有异谋被迁至祖州。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-LIAO-V05-SHIZONG-ACCESSION-CIVIL-WAR-947"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/辽史/volume-05.registry.json"
+        ],
+        "source_revision_refs": [
+          "遼史/卷5@2325086#即皇帝位於柩前。",
+          "遼史/卷5@2325086#太后聞帝即位，遣太弟李胡率兵拒之。",
+          "遼史/卷5@2325086#至泰德泉，遇李胡軍，戰敗之。",
+          "遼史/卷5@2325086#用屋質之謀，各罷兵趨上京。",
+          "遼史/卷5@2325086#，遷於祖州。誅"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "遼史/卷5@2325086#即皇帝位於柩前。",
+        "遼史/卷5@2325086#太后聞帝即位，遣太弟李胡率兵拒之。",
+        "遼史/卷5@2325086#至泰德泉，遇李胡軍，戰敗之。",
+        "遼史/卷5@2325086#用屋質之謀，各罷兵趨上京。",
+        "遼史/卷5@2325086#，遷於祖州。誅"
+      ],
+      "uncertainties": [
+        "双方兵力、战斗伤亡、屋质调停条件和迁祖州后的待遇未载。"
+      ],
+      "cost_or_burden": "泰德泉发生交战，双方兵力伤亡及横渡对峙期间军民损失未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-2040EAC268B75AFA44E5",
+      "dynasty": "辽",
+      "dynasty_partition": "liao",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-LIAO-TIANDE-920",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "党项诸部叛后阿保机亲征，皇太子另略云内天德；天德节度使宋瑶降而复叛，契丹军再拔其城。",
+      "period": {
+        "start": "神冊五年八月至十二月",
+        "end": "920"
+      },
+      "observable_result": "宋瑶被擒，家属被俘，天德民众被迁至阴山南。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-LIAO-V02-TIANDE-CAMPAIGN-920"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/辽史/volume-02.registry.json"
+        ],
+        "source_revision_refs": [
+          "遼史/卷2@2325084#党項諸部叛。辛未，上親征。",
+          "遼史/卷2@2325084#宋瑤復叛。丙子，拔其城，擒宋瑤，俘其家屬，徙其民於陰山南。",
+          "遼史/卷2@2325084#十二月己未，師還。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "遼史/卷2@2325084#党項諸部叛。辛未，上親征。",
+        "遼史/卷2@2325084#宋瑤復叛。丙子，拔其城，擒宋瑤，俘其家屬，徙其民於陰山南。",
+        "遼史/卷2@2325084#十二月己未，師還。"
+      ],
+      "uncertainties": [
+        "党项叛部、兵力伤亡、天德迁民规模和安置条件未载。"
+      ],
+      "cost_or_burden": "记载天德民众迁徙，双方伤亡、迁民数量和安置损失未载。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-5884487C7076E1B7",
+          "actor_name": "阿保机",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "行动句明确阿保机本人亲征；天德城的皇太子方向与复叛收尾不复制给本人。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "stage_executor",
+            "result_direction": "positive",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "行动句明确阿保机本人亲征；天德城的皇太子方向与复叛收尾不复制给本人。",
+            "source_refs": [
+              "遼史/卷2@2325084#党項諸部叛。辛未，上親征。",
+              "遼史/卷2@2325084#宋瑤復叛。丙子，拔其城，擒宋瑤，俘其家屬，徙其民於陰山南。",
+              "遼史/卷2@2325084#十二月己未，師還。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-9C528A64F1F610E325A0",
+              "result_label": "阿保机亲征叛乱党项诸部",
+              "result_direction": "positive",
+              "result_tier": "B",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "行动句明确阿保机本人亲征；天德城的皇太子方向与复叛收尾不复制给本人。",
+              "source_refs": [
+                "遼史/卷2@2325084#党項諸部叛。辛未，上親征。",
+                "遼史/卷2@2325084#宋瑤復叛。丙子，拔其城，擒宋瑤，俘其家屬，徙其民於陰山南。",
+                "遼史/卷2@2325084#十二月己未，師還。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "tactical_execution",
+                "decisive_relation": "stage_executor",
+                "basis": "行动句明确阿保机本人亲征；天德城的皇太子方向与复叛收尾不复制给本人。",
+                "source_refs": [
+                  "遼史/卷2@2325084#党項諸部叛。辛未，上親征。",
+                  "遼史/卷2@2325084#宋瑤復叛。丙子，拔其城，擒宋瑤，俘其家屬，徙其民於陰山南。",
+                  "遼史/卷2@2325084#十二月己未，師還。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "unification_portfolio_ref": "UCP-POST-LIAO-901-926",
+      "unification_stage_order": 3,
+      "account_routing": [
+        "UNIFICATION_ONLY"
+      ],
+      "defense_consumption": "EXCLUDED_UNIFICATION",
+      "settlement_scope": "BATTLE_LEDGER_ONLY",
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "逐项复核后只构成局部平叛、阶段攻取、重大败责或未闭合的多阶段战争；未证明长期独立战略方向或第一梯队硬路径，明确保留A。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "REVIEWED_RETAINED_A",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "single_integrated_command",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。"
+    },
+    {
+      "war_event_id": "WAR-POST-10B68B709ADC619747E6",
+      "dynasty": "辽",
+      "dynasty_partition": "liao",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-LIAO-TOKYO-COLLAPSE-1116",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "女直攻下沈州、再陷东京并擒高永昌，东京州县多名族人降女直。",
+      "period": {
+        "start": "天慶六年五月",
+        "end": "1116"
+      },
+      "observable_result": "东京再次失陷，高永昌被擒，地方部众降女直。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-LIAO-V28-TOKYO-COLLAPSE-AND-JURCHEN-ADVANCE-1116"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/辽史/volume-28.registry.json"
+        ],
+        "source_revision_refs": [
+          "遼史/卷28@1748701#女直軍攻下瀋州，復陷東京，擒高永昌。",
+          "遼史/卷28@1748701#東京州縣族人痕孛、鐸剌、吳十、撻不也、道剌、酬斡等十三人皆降女直。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "遼史/卷28@1748701#女直軍攻下瀋州，復陷東京，擒高永昌。",
+        "遼史/卷28@1748701#東京州縣族人痕孛、鐸剌、吳十、撻不也、道剌、酬斡等十三人皆降女直。"
+      ],
+      "uncertainties": [
+        "沈州东京控制期限和降附人数未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": "WAR-POST-3273BFB92B2E5D56913A",
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "MERGED_CROSS_SOURCE_DUPLICATE",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED_MERGED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "跨书同一统一阶段已并入主分区记录，不重复产生人物信用。",
+      "detail_expansion_status": "merged_cross_source_duplicate",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "跨书重复观察并入CAMPAIGN-JIN-GAO-YONGCHANG-1116；本记录只保留lineage，不重复登记战果。"
+    },
+    {
+      "war_event_id": "WAR-POST-CD2C691AD8E75ADE3651",
+      "dynasty": "辽",
+      "dynasty_partition": "liao",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-LIAO-XIA-HELANSHA-1050",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "耶律敌鲁古率阻卜诸军至贺兰山，俘获李元昊妻及官僚家属，击杀来战夏军三千人，两名辽将战死。",
+      "period": {
+        "start": "重熙十八年十月",
+        "end": "1050"
+      },
+      "observable_result": "辽军在贺兰山取得战果并俘获夏方重要家属，但亦有将领阵亡。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-LIAO-V20-HELANSHA-VICTORY-AND-CAPTIVES-1050"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/辽史/volume-20.registry.json"
+        ],
+        "source_revision_refs": [
+          "遼史/卷20@2401784#至賀蘭山，獲李元昊妻及其官僚家屬，遇夏人三千來戰，殪之；烏古敵烈部都詳穩蕭慈氏奴、南克耶律斡裏死焉。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "遼史/卷20@2401784#至賀蘭山，獲李元昊妻及其官僚家屬，遇夏人三千來戰，殪之；烏古敵烈部都詳穩蕭慈氏奴、南克耶律斡裏死焉。"
+      ],
+      "uncertainties": [
+        "战斗部署、俘虏总数及战后安置未载。"
+      ],
+      "cost_or_burden": "夏军三千人被杀，萧慈氏奴、耶律斡里战死；其他伤亡与俘虏数未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    }
+  ]
+}

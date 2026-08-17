@@ -1,0 +1,284 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "jin",
+  "bucket": 17,
+  "bucket_count": 24,
+  "record_count": 3,
+  "records_fingerprint": "72b4ee544b7df51d4c665538e59da1f0056b1a0d55b9a3d73c9388c155160c7e",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-8BDC74004FA936210CAA",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-LIAO-FINAL-CAPTURE-1125",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "娄室在余睹谷俘获辽主，押至上京后太宗告太祖庙并降封延禧为海滨王。",
+      "period": {
+        "start": "天会三年二月壬戌",
+        "end": "天会三年八月丙午"
+      },
+      "observable_result": "辽朝皇帝被俘并降封，金灭辽的最高政治目标闭合。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V03-LIAO-RULER-CAPTURE-1125"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-03.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷3@2432693#婁室獲遼主于余睹穀",
+          "金史/卷3@2432693#遼主延禧入見，降封海濱王。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷3@2432693#婁室獲遼主于余睹穀",
+        "金史/卷3@2432693#遼主延禧入見，降封海濱王。"
+      ],
+      "uncertainties": [
+        "辽残余势力并未因此即刻全部消失。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-7E852D60738F74E1",
+          "actor_name": "完颜娄室",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "在余睹谷俘获辽主，闭合灭辽最高政治目标。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "terminal_finisher",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "在余睹谷俘获辽主，闭合灭辽最高政治目标。",
+            "source_refs": [
+              "金史/卷3@2432693#婁室獲遼主于余睹穀",
+              "金史/卷3@2432693#遼主延禧入見，降封海濱王。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-3EA1574D75446FAAE4CA",
+              "result_label": "在余睹谷俘获辽主，闭合灭辽最高政治目标。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "在余睹谷俘获辽主，闭合灭辽最高政治目标。",
+              "source_refs": [
+                "金史/卷3@2432693#婁室獲遼主于余睹穀",
+                "金史/卷3@2432693#遼主延禧入見，降封海濱王。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "terminal_finisher",
+                "basis": "在余睹谷俘获辽主，闭合灭辽最高政治目标。",
+                "source_refs": [
+                  "金史/卷3@2432693#婁室獲遼主于余睹穀",
+                  "金史/卷3@2432693#遼主延禧入見，降封海濱王。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "unification_portfolio_ref": "UCP-POST-JIN-1114-1126",
+      "unification_stage_order": 5,
+      "account_routing": [
+        "UNIFICATION_ONLY"
+      ],
+      "defense_consumption": "EXCLUDED_UNIFICATION",
+      "settlement_scope": "BATTLE_LEDGER_ONLY",
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "national_core",
+      "opponent_strategic_weight": "first_tier_pole",
+      "opponent_condition": "first_tier_pole",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "military_system_collapsed",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "辽O5战争机器已在1122年中西京崩溃时唯一消费；1125年俘辽主是残余政治终局，不重复取得S。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "single_integrated_command",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。"
+    },
+    {
+      "war_event_id": "WAR-POST-57AB351321CBA815CDC0",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-RED-COAT-UPRISINGS-1215-1216",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "金军在山东河北连续镇压刘二祖、杨安儿、周元儿、郝定等起事部众，斩杀或招降其首领与大量从众，并收复若干州县。",
+      "period": {
+        "start": "贞祐三年正月",
+        "end": "贞祐四年七月"
+      },
+      "observable_result": "多支红袄军被击破、首领被杀，部分胁从户获降；山东河北内乱仍反复发生。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V14-RED-COAT-UPRISINGS-1215-1216"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-14.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷14@2432741#破賊楊安兒步騎三萬",
+          "金史/卷14@2432741#脅從民三萬餘戶。",
+          "金史/卷14@2432741#擒賊渠劉二祖等斬之，前後殆賊萬計。",
+          "金史/卷14@2432741#紅襖賊周元兒陷深、祁州",
+          "金史/卷14@2432741#賊郝定等至京師，伏誅。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷14@2432741#破賊楊安兒步騎三萬",
+        "金史/卷14@2432741#脅從民三萬餘戶。",
+        "金史/卷14@2432741#擒賊渠劉二祖等斬之，前後殆賊萬計。",
+        "金史/卷14@2432741#紅襖賊周元兒陷深、祁州",
+        "金史/卷14@2432741#賊郝定等至京師，伏誅。"
+      ],
+      "uncertainties": [
+        "各支起事原因、平民伤亡、降户安置和长期结果未完整载明。"
+      ],
+      "cost_or_burden": "杨安儿部三万被破、三万余户降；刘二祖等前后被杀近万，其他伤亡甚众。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "important_objective",
+      "land_strategic_value": "strategic_gateway",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记B；土地轴=strategic_gateway，对手轴=regional_major，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "B",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "已逐项反查全部source_card_ids；现有事实未同时闭合具名人物的实际控制、本人完成范围与可观察结果，unknown保持unknown。",
+      "detail_expansion_status": "complete_unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-B8FFECFDF29194E8F81A",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-PROTO-JIN-SHILU-TRIBAL-CONSOLIDATION",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "石鲁以条教治理并对不服从的周边部落用兵，安抚顺从者、讨伐拒绝者。",
+      "period": {
+        "start": "昭祖石鲁时期",
+        "end": "昭祖石鲁时期"
+      },
+      "observable_result": "部落势力增强，所至多获胜；部众开始听从条教，但仍无文字、官府和可靠纪年。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V01-SHILU-CONSOLIDATION"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-01.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷1@2432749#昭祖稍以條教為治，部落寖強。",
+          "金史/卷1@2432749#順者撫之，不從者討伐之，入于蘇濱、耶懶之地，所至克捷。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷1@2432749#昭祖稍以條教為治，部落寖強。",
+        "金史/卷1@2432749#順者撫之，不從者討伐之，入于蘇濱、耶懶之地，所至克捷。"
+      ],
+      "uncertainties": [
+        "原文未载各次征讨的日期、对手兵力和伤亡。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "unification_portfolio_ref": "UCP-POST-PROTO-JIN-SHILU",
+      "unification_stage_order": 1,
+      "account_routing": [
+        "UNIFICATION_ONLY"
+      ],
+      "defense_consumption": "EXCLUDED_UNIFICATION",
+      "settlement_scope": "BATTLE_LEDGER_ONLY",
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    }
+  ]
+}

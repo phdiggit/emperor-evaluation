@@ -13,6 +13,8 @@ from emperor_v4.evaluation.first_item_settlement import (
     render_first_item_formal_settlement_markdown,
     render_first_item_summary as render_first_item_summary_analysis,
 )
+from emperor_v4.evaluation.battle_registry_store import load_battle_registry
+from emperor_v4.evaluation.talent_registry_store import load_talent_registry
 
 
 def validate_first_item_c_territorial_control(
@@ -1157,6 +1159,44 @@ def build_first_item_c_registry(
                 "basis": basis,
                 "source_refs": source_refs,
             }
+    # A ruler can enter the same canonical campaign through both a unification
+    # portfolio and a talent supplement.  The campaign parent, rather than the
+    # source window or synthetic episode id, is the scoring unit.  Preserve a
+    # separately evidenced positive and negative result in the same parent, but
+    # never let parallel windows duplicate the same directional result.
+    for metric in metrics.values():
+        c1_by_parent_direction: dict[tuple[str, str], dict[str, Any]] = {}
+        for row in metric["c1_results"].values():
+            key = (
+                str(row["campaign_group_id"]),
+                str(row["result_direction"]),
+            )
+            current = c1_by_parent_direction.get(key)
+            if current is None or abs(float(row["result_value"])) > abs(
+                float(current["result_value"])
+            ):
+                c1_by_parent_direction[key] = row
+        metric["c1_results"] = {
+            str(row["result_ref"]): row
+            for row in c1_by_parent_direction.values()
+        }
+
+        c2_by_parent_direction: dict[tuple[str, str], dict[str, Any]] = {}
+        for row in metric["c2_results"].values():
+            key = (
+                str(row["campaign_group_id"]),
+                str(row["result_direction"]),
+            )
+            current = c2_by_parent_direction.get(key)
+            if current is None or float(row["quality_index"]) > float(
+                current["quality_index"]
+            ):
+                c2_by_parent_direction[key] = row
+        metric["c2_results"] = {
+            str(row["capability_episode_ref"]): row
+            for row in c2_by_parent_direction.values()
+        }
+
     c1_bands = {
         1: (0.0, 4.0),
         2: (4.0, 9.0),
@@ -1333,6 +1373,7 @@ def build_first_item_c_registry(
             "net_control_policy": "project-level net control is consumed by A only; C window metrics are non-scoring audit context",
             "C1_result_values": C1_RESULT_VALUE,
             "C1_formula": "sum(non-overlapping accepted personal campaign result values); negative results subtract at the same tier value",
+            "parent_cycle_deduplication": "per ruler + campaign_group_id + result_direction; parallel source windows consume one directional personal result",
             "C1_bands": {str(key): list(value) for key, value in c1_bands.items()},
             "C1_position_cutoffs": {
                 str(key): list(value) for key, value in c1_position_cutoffs.items()
@@ -1597,10 +1638,10 @@ def write_first_item_c_registry(workspace_root: Path) -> dict[str, Path]:
         workspace_root / "config/first-item-a-strategic-efficiency-inputs.json"
     )
     payload = build_first_item_c_registry(
-        battle_registry=load(
+        battle_registry=load_battle_registry(
             workspace_root / "docs/公共成果/军事/01-战役登记.json"
         ),
-        talent_registry=load(
+        talent_registry=load_talent_registry(
             workspace_root / "docs/公共成果/军事/02-武将人才等级.json"
         ),
         roster=load_qin_qing_first_item_roster(workspace_root, efficiency_inputs),

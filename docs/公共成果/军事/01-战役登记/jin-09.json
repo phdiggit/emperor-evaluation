@@ -1,0 +1,295 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "jin",
+  "bucket": 9,
+  "bucket_count": 24,
+  "record_count": 2,
+  "records_fingerprint": "d39f09a29ce0b6ec8bc970a1c0430f8fd88b38af16bcd8c87beba7dc54fb3dba",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-FD76F5AA3B72624B7202",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-LIAO-YANJING-1122",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "金太祖分多路进取居庸关和燕京，宗望率七千先行，辽枢密及参政官员奉表投降。",
+      "period": {
+        "start": "天辅六年十二月",
+        "end": "天辅六年十二月"
+      },
+      "observable_result": "燕京被金军接收，辽百官请罪后获赦，左企弓等被命抚定诸州县。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V02-YANJING-1122"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-02.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷2@7906448#遼知樞密院左企弓、虞仲文，樞密使曹勇義，副使張彥忠，參知政事康公弼，僉書劉彥宗奉表降。",
+          "金史/卷2@7906448#遼百官詣軍門叩頭請罪，詔一切釋之。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷2@7906448#遼知樞密院左企弓、虞仲文，樞密使曹勇義，副使張彥忠，參知政事康公弼，僉書劉彥宗奉表降。",
+        "金史/卷2@7906448#遼百官詣軍門叩頭請罪，詔一切釋之。"
+      ],
+      "uncertainties": [
+        "城内军民伤亡和接管初期税制未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [
+        {
+          "actor_ref": "PERSON-JIN-AGUDA",
+          "actor_name": "金太祖",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "统筹进取并接收燕京",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "共享层显式person_ref与行动，按单一事实结果作证据下限定档。",
+            "source_refs": [
+              "金史/卷2@7906448#遼知樞密院左企弓、虞仲文，樞密使曹勇義，副使張彥忠，參知政事康公弼，僉書劉彥宗奉表降。",
+              "金史/卷2@7906448#遼百官詣軍門叩頭請罪，詔一切釋之。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-30D6DF86BB27E6D5FD33",
+              "result_label": "金太祖分多路进取居庸关和燕京，宗望率七千先行，辽枢密及参政官员奉表投降。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "共享事实显式列出金太祖统筹进取并接收燕京；只消费该事实可观察结果，不继承同群其他阶段。",
+              "source_refs": [
+                "金史/卷2@7906448#遼知樞密院左企弓、虞仲文，樞密使曹勇義，副使張彥忠，參知政事康公弼，僉書劉彥宗奉表降。",
+                "金史/卷2@7906448#遼百官詣軍門叩頭請罪，詔一切釋之。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "仅按共享层显式行动与结果建立金太祖的人物下限。",
+                "source_refs": [
+                  "金史/卷2@7906448#遼知樞密院左企弓、虞仲文，樞密使曹勇義，副使張彥忠，參知政事康公弼，僉書劉彥宗奉表降。",
+                  "金史/卷2@7906448#遼百官詣軍門叩頭請罪，詔一切釋之。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-419B85C97E4D7438",
+          "actor_name": "完颜宗望",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "率先锋七千先行并参与完成燕京接收。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "terminal_finisher",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "率先锋七千先行并参与完成燕京接收。",
+            "source_refs": [
+              "金史/卷2@7906448#遼知樞密院左企弓、虞仲文，樞密使曹勇義，副使張彥忠，參知政事康公弼，僉書劉彥宗奉表降。",
+              "金史/卷2@7906448#遼百官詣軍門叩頭請罪，詔一切釋之。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-0BF8412D329C3E127171",
+              "result_label": "率先锋七千先行并参与完成燕京接收。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "率先锋七千先行并参与完成燕京接收。",
+              "source_refs": [
+                "金史/卷2@7906448#遼知樞密院左企弓、虞仲文，樞密使曹勇義，副使張彥忠，參知政事康公弼，僉書劉彥宗奉表降。",
+                "金史/卷2@7906448#遼百官詣軍門叩頭請罪，詔一切釋之。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "terminal_finisher",
+                "basis": "率先锋七千先行并参与完成燕京接收。",
+                "source_refs": [
+                  "金史/卷2@7906448#遼知樞密院左企弓、虞仲文，樞密使曹勇義，副使張彥忠，參知政事康公弼，僉書劉彥宗奉表降。",
+                  "金史/卷2@7906448#遼百官詣軍門叩頭請罪，詔一切釋之。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-323631DDD7CB22F6",
+          "actor_name": "完颜阿骨打",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "亲征燕京、分派多路并入城接收投降。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "亲征燕京、分派多路并入城接收投降。",
+            "source_refs": [
+              "金史/卷2@7906448#遼知樞密院左企弓、虞仲文，樞密使曹勇義，副使張彥忠，參知政事康公弼，僉書劉彥宗奉表降。",
+              "金史/卷2@7906448#遼百官詣軍門叩頭請罪，詔一切釋之。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-A11F6E1438CA7D799C2D",
+              "result_label": "亲征燕京、分派多路并入城接收投降。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "亲征燕京、分派多路并入城接收投降。",
+              "source_refs": [
+                "金史/卷2@7906448#遼知樞密院左企弓、虞仲文，樞密使曹勇義，副使張彥忠，參知政事康公弼，僉書劉彥宗奉表降。",
+                "金史/卷2@7906448#遼百官詣軍門叩頭請罪，詔一切釋之。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "亲征燕京、分派多路并入城接收投降。",
+                "source_refs": [
+                  "金史/卷2@7906448#遼知樞密院左企弓、虞仲文，樞密使曹勇義，副使張彥忠，參知政事康公弼，僉書劉彥宗奉表降。",
+                  "金史/卷2@7906448#遼百官詣軍門叩頭請罪，詔一切釋之。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "strong",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "1122年金军分路进取居庸关和燕京，辽枢密、参政及百官投降，燕京及诸州县转入接收安抚，是完整区域与行政体系终局。",
+      "tier_review_source_tier": "C",
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-F3F04ADBF0FCA2D530F7",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "BATTLE-JIN-SHIHAI-SUPPRESSION-1217-1219",
+      "split_from_source_target_ref": "CAMPAIGN-JIN-NORTHERN-INTERNAL-WARS-1217-1219",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "canonical_label": "金军镇压石海武装并斩二百余人",
+      "period": {
+        "start": "1217",
+        "end": "1219"
+      },
+      "observable_result": "金军镇压石海武装并斩二百余人",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "tier_basis": "混合父项中该战区有独立攻取或击破结果，但人物统帅未载，只取B档证据下限。",
+      "tier_review_source_tier": null,
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT_SPLIT_CHILD",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按该子方向逐字锚可证的攻陷、平定或归降结果取证据下限。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "混合父项未保存可归责的连续子方向指挥，不从官职推定。",
+      "members": [],
+      "attributable_failures": [],
+      "detail_expansion_status": "complete_unknown",
+      "source_lineage": {
+        "source_card_ids": [],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-15.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷15@2432740#斬石海及其党二百餘人"
+        ],
+        "lineage_basis": "同一共享事实含多个互不连续战区；父项持有fact_id，子项只持定点逐字锚，避免事实ID重复消费。"
+      },
+      "source_refs": [
+        "金史/卷15@2432740#斬石海及其党二百餘人"
+      ],
+      "uncertainties": [],
+      "cost_or_burden": "unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "merged_into": null,
+      "limitations": [
+        "不得把混合父项的总兵力、四百余处规模或其他战区结果复制到本子项。"
+      ],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "basis": "混合父项中该战区有独立攻取或击破结果，但人物统帅未载，只取B档证据下限。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    }
+  ]
+}

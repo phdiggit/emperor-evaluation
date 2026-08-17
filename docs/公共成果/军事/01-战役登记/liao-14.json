@@ -1,0 +1,705 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "liao",
+  "bucket": 14,
+  "bucket_count": 24,
+  "record_count": 5,
+  "records_fingerprint": "45823e020a6add35ffa6e561fc1ac0d362b28b9746d3d4bb57126fe87bc73610",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-556AEC5D908CEE039688",
+      "dynasty": "辽",
+      "dynasty_partition": "liao",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-LIAO-DA-YANLIN-SUPPRESSION-1032",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "都统萧孝穆在东京城四面五里筑城堡围困；杨详世夜开南门纳辽军，延琳被擒，渤海平定。朝廷后叙用有勋劳材力的渤海旧族，其余分居来、隰、迁、润等州。",
+      "period": {
+        "start": "开泰十年三月至十一月",
+        "end": "1032"
+      },
+      "observable_result": "兴辽叛乱被平定，渤海旧族按才能叙用或被迁置各州。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-LIAO-V17-DA-YANLIN-SUPPRESSION-AND-BOHAI-RESETTLEMENT-1032"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/辽史/volume-17.registry.json"
+        ],
+        "source_revision_refs": [
+          "遼史/卷17@1747854#去城四面各五里許，築城堡以圍之。",
+          "遼史/卷17@1747854#夜開南門納遼軍。擒延琳，渤海平。",
+          "遼史/卷17@1747854#渤海舊族有勛勞材力者敘用，餘分居來、隰、遷、潤等州。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "遼史/卷17@1747854#去城四面各五里許，築城堡以圍之。",
+        "遼史/卷17@1747854#夜開南門納遼軍。擒延琳，渤海平。",
+        "遼史/卷17@1747854#渤海舊族有勛勞材力者敘用，餘分居來、隰、遷、潤等州。"
+      ],
+      "uncertainties": [
+        "围城时长、叛军与官军伤亡、迁民户数和各州安置情形未载。"
+      ],
+      "cost_or_burden": "围城筑堡与迁置发生；被迁人数、安置条件、伤亡和工程投入未载。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-0220E45B57F0604B",
+          "actor_name": "萧孝穆",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "行动句明确萧孝穆以都统身份主持四面筑堡围困，结果句闭合延琳被擒与兴辽叛乱平定。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "行动句明确萧孝穆以都统身份主持四面筑堡围困，结果句闭合延琳被擒与兴辽叛乱平定。",
+            "source_refs": [
+              "遼史/卷17@1747854#去城四面各五里許，築城堡以圍之。",
+              "遼史/卷17@1747854#夜開南門納遼軍。擒延琳，渤海平。",
+              "遼史/卷17@1747854#渤海舊族有勛勞材力者敘用，餘分居來、隰、遷、潤等州。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-72BE53C5A081D6A22881",
+              "result_label": "都统萧孝穆在东京城四面五里筑城堡围困；杨详世夜开南门纳辽军，延琳被擒，渤海平定。朝廷后叙用有勋劳材力的渤海旧族，其余分居来、隰、迁、润等州。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "行动句明确萧孝穆以都统身份主持四面筑堡围困，结果句闭合延琳被擒与兴辽叛乱平定。",
+              "source_refs": [
+                "遼史/卷17@1747854#去城四面各五里許，築城堡以圍之。",
+                "遼史/卷17@1747854#夜開南門納遼軍。擒延琳，渤海平。",
+                "遼史/卷17@1747854#渤海舊族有勛勞材力者敘用，餘分居來、隰、遷、潤等州。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "行动句明确萧孝穆以都统身份主持四面筑堡围困，结果句闭合延琳被擒与兴辽叛乱平定。",
+                "source_refs": [
+                  "遼史/卷17@1747854#去城四面各五里許，築城堡以圍之。",
+                  "遼史/卷17@1747854#夜開南門納遼軍。擒延琳，渤海平。",
+                  "遼史/卷17@1747854#渤海舊族有勛勞材力者敘用，餘分居來、隰、遷、潤等州。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "逐项复核后只构成局部平叛、阶段攻取、重大败责或未闭合的多阶段战争；未证明长期独立战略方向或第一梯队硬路径，明确保留A。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "REVIEWED_RETAINED_A",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "single_integrated_command",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-7CE21968DB9E25FAAD75",
+      "dynasty": "辽",
+      "dynasty_partition": "liao",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-LIAO-EARLY-JURCHEN-DEFEATS-1115",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "辽廷下诏亲征并遣使约和；阿骨打提出归还阿疏、迁黄龙府等条件。其间辽军在达鲁古城、白马泺先后败绩。",
+      "period": {
+        "start": "天慶五年正月至七月",
+        "end": "1115"
+      },
+      "observable_result": "和议条件未获解决，卷内记载两次对女直作战失败。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-LIAO-V28-JURCHEN-NEGOTIATION-AND-EARLY-DEFEATS-1115"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/辽史/volume-28.registry.json"
+        ],
+        "source_revision_refs": [
+          "遼史/卷28@1748701#下詔親征，遣僧家奴持書約和，斥阿骨打名。",
+          "遼史/卷28@1748701#若歸叛人阿疏，遷黃龍府於別地，然後議之。",
+          "遼史/卷28@1748701#都統耶律斡里朵等與女直兵戰于達魯古城，敗績。",
+          "遼史/卷28@1748701#都統斡里朵等與女直戰于白馬濼，敗績。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "遼史/卷28@1748701#下詔親征，遣僧家奴持書約和，斥阿骨打名。",
+        "遼史/卷28@1748701#若歸叛人阿疏，遷黃龍府於別地，然後議之。",
+        "遼史/卷28@1748701#都統耶律斡里朵等與女直兵戰于達魯古城，敗績。",
+        "遼史/卷28@1748701#都統斡里朵等與女直戰于白馬濼，敗績。"
+      ],
+      "uncertainties": [
+        "谈判是否继续及两战兵力伤亡未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-ADDB2A6E4EA5F47C5584",
+      "dynasty": "辽",
+      "dynasty_partition": "liao",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-LIAO-HUANGLONG-FALL-1115",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "女直军陷黄龙府，天祚亲征并下诏称以大军翦除女直。",
+      "period": {
+        "start": "天慶五年九月",
+        "end": "1115"
+      },
+      "observable_result": "黄龙府失陷，辽廷转入皇帝亲征。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-LIAO-V28-HUANGLONG-FALL-AND-IMPERIAL-ADVANCE-1115"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/辽史/volume-28.registry.json"
+        ],
+        "source_revision_refs": [
+          "遼史/卷28@1748701#女直軍陷黃龍府。",
+          "遼史/卷28@1748701#上親征。粘罕、兀术等以書來上，陽為卑哀之辭，實欲求戰。",
+          "遼史/卷28@1748701#下詔有「女直作過，大軍翦除」之語。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "遼史/卷28@1748701#女直軍陷黃龍府。",
+        "遼史/卷28@1748701#上親征。粘罕、兀术等以書來上，陽為卑哀之辭，實欲求戰。",
+        "遼史/卷28@1748701#下詔有「女直作過，大軍翦除」之語。"
+      ],
+      "uncertainties": [
+        "黄龙府控制、亲征部队和后续战果未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-DE513EC0AD3DFA742E77",
+      "dynasty": "辽",
+      "dynasty_partition": "liao",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-LIAO-JURCHEN-CAMPAIGN-988",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "东路林牙萧勤德、统军石老击败女直军并献俘。",
+      "period": {
+        "start": "统和六年八月",
+        "end": "988"
+      },
+      "observable_result": "辽军取得所报胜利并向朝廷献俘。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-LIAO-V12-JURCHEN-CAMPAIGN-988"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/辽史/volume-12.registry.json"
+        ],
+        "source_revision_refs": [
+          "遼史/卷12@1745950#東路林牙蕭勤德及統軍石老以擊敗女直兵，獻俘。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "遼史/卷12@1745950#東路林牙蕭勤德及統軍石老以擊敗女直兵，獻俘。"
+      ],
+      "uncertainties": [
+        "战斗起因、地点、规模及战后处置未载。"
+      ],
+      "cost_or_burden": "女直人员被俘；双方兵力、伤亡、俘获人数和地点未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-1F6F682FCC1686453443",
+      "dynasty": "辽",
+      "dynasty_partition": "liao",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-LIAO-UGU-REBELLION-AND-SUPPRESSION-964-966",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "乌古叛乱并掠民财畜，初战杀详稳僧隐等；辽廷增益诸部兵讨伐，乌古一度杀其长、余众降而复叛，后又掠上京北榆林峪居民。雅里斯等多次作战不利，常思终于击败乌古，萧斡与耶律贤适讨乌古还并献俘。",
+      "period": {
+        "start": "应历十四年十二月至应历十七年正月",
+        "end": "964至967"
+      },
+      "observable_result": "乌古叛乱被持续镇压，至应历十七年辽军带俘返还。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-LIAO-V07-UGU-REBELLION-AND-SUPPRESSION-964-966"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/辽史/volume-07.registry.json"
+        ],
+        "source_revision_refs": [
+          "遼史/卷7@1745859#烏古叛，掠民財畜。",
+          "遼史/卷7@1745859#詳穩僧隱與戰，敗績，僧隱及乙實等死之。",
+          "遼史/卷7@1745859#益以突呂不部軍三百，合諸部兵討之。",
+          "遼史/卷7@1745859#烏古殺其長窣離底，餘眾降，復叛。",
+          "遼史/卷7@1745859#烏古掠上京北榆林峪居民，遣林牙蕭斡討之。",
+          "遼史/卷7@1745859#常思與烏古戰，敗之。",
+          "遼史/卷7@1745859#林牙蕭斡、郎君耶律賢適討烏古還",
+          "遼史/卷7@1745859#夷離畢骨欲獻烏古俘。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "遼史/卷7@1745859#烏古叛，掠民財畜。",
+        "遼史/卷7@1745859#詳穩僧隱與戰，敗績，僧隱及乙實等死之。",
+        "遼史/卷7@1745859#益以突呂不部軍三百，合諸部兵討之。",
+        "遼史/卷7@1745859#烏古殺其長窣離底，餘眾降，復叛。",
+        "遼史/卷7@1745859#烏古掠上京北榆林峪居民，遣林牙蕭斡討之。",
+        "遼史/卷7@1745859#常思與烏古戰，敗之。",
+        "遼史/卷7@1745859#林牙蕭斡、郎君耶律賢適討烏古還",
+        "遼史/卷7@1745859#夷離畢骨欲獻烏古俘。"
+      ],
+      "uncertainties": [
+        "乌古叛乱原因、各次作战地点与损失、居民复归情况及最终安置措施未载。"
+      ],
+      "cost_or_burden": "僧隐、乙实等战死，上京北榆林峪居民遭掠；双方兵力、伤亡、被掠财畜和俘虏人数未载。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-67BA583475062CC7",
+          "actor_name": "耶律常思",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "河德泺方向击败乌古。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "stage_executor",
+            "result_direction": "positive",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "河德泺方向击败乌古。",
+            "source_refs": [
+              "遼史/卷7@1745859#烏古叛，掠民財畜。",
+              "遼史/卷7@1745859#詳穩僧隱與戰，敗績，僧隱及乙實等死之。",
+              "遼史/卷7@1745859#益以突呂不部軍三百，合諸部兵討之。",
+              "遼史/卷7@1745859#烏古殺其長窣離底，餘眾降，復叛。",
+              "遼史/卷7@1745859#烏古掠上京北榆林峪居民，遣林牙蕭斡討之。",
+              "遼史/卷7@1745859#常思與烏古戰，敗之。",
+              "遼史/卷7@1745859#林牙蕭斡、郎君耶律賢適討烏古還",
+              "遼史/卷7@1745859#夷離畢骨欲獻烏古俘。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-7044B972D97B67BCBF50",
+              "result_label": "河德泺方向击败乌古。",
+              "result_direction": "positive",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "河德泺方向击败乌古。",
+              "source_refs": [
+                "遼史/卷7@1745859#烏古叛，掠民財畜。",
+                "遼史/卷7@1745859#詳穩僧隱與戰，敗績，僧隱及乙實等死之。",
+                "遼史/卷7@1745859#益以突呂不部軍三百，合諸部兵討之。",
+                "遼史/卷7@1745859#烏古殺其長窣離底，餘眾降，復叛。",
+                "遼史/卷7@1745859#烏古掠上京北榆林峪居民，遣林牙蕭斡討之。",
+                "遼史/卷7@1745859#常思與烏古戰，敗之。",
+                "遼史/卷7@1745859#林牙蕭斡、郎君耶律賢適討烏古還",
+                "遼史/卷7@1745859#夷離畢骨欲獻烏古俘。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "tactical_execution",
+                "decisive_relation": "stage_executor",
+                "basis": "河德泺方向击败乌古。",
+                "source_refs": [
+                  "遼史/卷7@1745859#烏古叛，掠民財畜。",
+                  "遼史/卷7@1745859#詳穩僧隱與戰，敗績，僧隱及乙實等死之。",
+                  "遼史/卷7@1745859#益以突呂不部軍三百，合諸部兵討之。",
+                  "遼史/卷7@1745859#烏古殺其長窣離底，餘眾降，復叛。",
+                  "遼史/卷7@1745859#烏古掠上京北榆林峪居民，遣林牙蕭斡討之。",
+                  "遼史/卷7@1745859#常思與烏古戰，敗之。",
+                  "遼史/卷7@1745859#林牙蕭斡、郎君耶律賢適討烏古還",
+                  "遼史/卷7@1745859#夷離畢骨欲獻烏古俘。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-CDA2F71B6F8A38A0",
+          "actor_name": "耶律贤适",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "末段讨乌古还军，随后献俘。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "terminal_finisher",
+            "result_direction": "positive",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "末段讨乌古还军，随后献俘。",
+            "source_refs": [
+              "遼史/卷7@1745859#烏古叛，掠民財畜。",
+              "遼史/卷7@1745859#詳穩僧隱與戰，敗績，僧隱及乙實等死之。",
+              "遼史/卷7@1745859#益以突呂不部軍三百，合諸部兵討之。",
+              "遼史/卷7@1745859#烏古殺其長窣離底，餘眾降，復叛。",
+              "遼史/卷7@1745859#烏古掠上京北榆林峪居民，遣林牙蕭斡討之。",
+              "遼史/卷7@1745859#常思與烏古戰，敗之。",
+              "遼史/卷7@1745859#林牙蕭斡、郎君耶律賢適討烏古還",
+              "遼史/卷7@1745859#夷離畢骨欲獻烏古俘。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-E4110017B6E3DD930916",
+              "result_label": "末段讨乌古还军，随后献俘。",
+              "result_direction": "positive",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "末段讨乌古还军，随后献俘。",
+              "source_refs": [
+                "遼史/卷7@1745859#烏古叛，掠民財畜。",
+                "遼史/卷7@1745859#詳穩僧隱與戰，敗績，僧隱及乙實等死之。",
+                "遼史/卷7@1745859#益以突呂不部軍三百，合諸部兵討之。",
+                "遼史/卷7@1745859#烏古殺其長窣離底，餘眾降，復叛。",
+                "遼史/卷7@1745859#烏古掠上京北榆林峪居民，遣林牙蕭斡討之。",
+                "遼史/卷7@1745859#常思與烏古戰，敗之。",
+                "遼史/卷7@1745859#林牙蕭斡、郎君耶律賢適討烏古還",
+                "遼史/卷7@1745859#夷離畢骨欲獻烏古俘。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "terminal_finisher",
+                "basis": "末段讨乌古还军，随后献俘。",
+                "source_refs": [
+                  "遼史/卷7@1745859#烏古叛，掠民財畜。",
+                  "遼史/卷7@1745859#詳穩僧隱與戰，敗績，僧隱及乙實等死之。",
+                  "遼史/卷7@1745859#益以突呂不部軍三百，合諸部兵討之。",
+                  "遼史/卷7@1745859#烏古殺其長窣離底，餘眾降，復叛。",
+                  "遼史/卷7@1745859#烏古掠上京北榆林峪居民，遣林牙蕭斡討之。",
+                  "遼史/卷7@1745859#常思與烏古戰，敗之。",
+                  "遼史/卷7@1745859#林牙蕭斡、郎君耶律賢適討烏古還",
+                  "遼史/卷7@1745859#夷離畢骨欲獻烏古俘。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-6B40526F47BEDDCB",
+          "actor_name": "萧斡",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "末段讨乌古还军，随后献俘。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "terminal_finisher",
+            "result_direction": "positive",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "末段讨乌古还军，随后献俘。",
+            "source_refs": [
+              "遼史/卷7@1745859#烏古叛，掠民財畜。",
+              "遼史/卷7@1745859#詳穩僧隱與戰，敗績，僧隱及乙實等死之。",
+              "遼史/卷7@1745859#益以突呂不部軍三百，合諸部兵討之。",
+              "遼史/卷7@1745859#烏古殺其長窣離底，餘眾降，復叛。",
+              "遼史/卷7@1745859#烏古掠上京北榆林峪居民，遣林牙蕭斡討之。",
+              "遼史/卷7@1745859#常思與烏古戰，敗之。",
+              "遼史/卷7@1745859#林牙蕭斡、郎君耶律賢適討烏古還",
+              "遼史/卷7@1745859#夷離畢骨欲獻烏古俘。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-BFF0481A694B831F4CF0",
+              "result_label": "末段讨乌古还军，随后献俘。",
+              "result_direction": "positive",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "末段讨乌古还军，随后献俘。",
+              "source_refs": [
+                "遼史/卷7@1745859#烏古叛，掠民財畜。",
+                "遼史/卷7@1745859#詳穩僧隱與戰，敗績，僧隱及乙實等死之。",
+                "遼史/卷7@1745859#益以突呂不部軍三百，合諸部兵討之。",
+                "遼史/卷7@1745859#烏古殺其長窣離底，餘眾降，復叛。",
+                "遼史/卷7@1745859#烏古掠上京北榆林峪居民，遣林牙蕭斡討之。",
+                "遼史/卷7@1745859#常思與烏古戰，敗之。",
+                "遼史/卷7@1745859#林牙蕭斡、郎君耶律賢適討烏古還",
+                "遼史/卷7@1745859#夷離畢骨欲獻烏古俘。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "terminal_finisher",
+                "basis": "末段讨乌古还军，随后献俘。",
+                "source_refs": [
+                  "遼史/卷7@1745859#烏古叛，掠民財畜。",
+                  "遼史/卷7@1745859#詳穩僧隱與戰，敗績，僧隱及乙實等死之。",
+                  "遼史/卷7@1745859#益以突呂不部軍三百，合諸部兵討之。",
+                  "遼史/卷7@1745859#烏古殺其長窣離底，餘眾降，復叛。",
+                  "遼史/卷7@1745859#烏古掠上京北榆林峪居民，遣林牙蕭斡討之。",
+                  "遼史/卷7@1745859#常思與烏古戰，敗之。",
+                  "遼史/卷7@1745859#林牙蕭斡、郎君耶律賢適討烏古還",
+                  "遼史/卷7@1745859#夷離畢骨欲獻烏古俘。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-1511C6C5060D2660",
+          "actor_name": "雅里斯",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "多次出战不利，末后与楚思等受辱。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "多次出战不利，末后与楚思等受辱。",
+            "source_refs": [
+              "遼史/卷7@1745859#烏古叛，掠民財畜。",
+              "遼史/卷7@1745859#詳穩僧隱與戰，敗績，僧隱及乙實等死之。",
+              "遼史/卷7@1745859#益以突呂不部軍三百，合諸部兵討之。",
+              "遼史/卷7@1745859#烏古殺其長窣離底，餘眾降，復叛。",
+              "遼史/卷7@1745859#烏古掠上京北榆林峪居民，遣林牙蕭斡討之。",
+              "遼史/卷7@1745859#常思與烏古戰，敗之。",
+              "遼史/卷7@1745859#林牙蕭斡、郎君耶律賢適討烏古還",
+              "遼史/卷7@1745859#夷離畢骨欲獻烏古俘。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-0E068F50E1A75AF44172",
+              "result_label": "多次出战不利，末后与楚思等受辱。",
+              "result_direction": "negative",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "多次出战不利，末后与楚思等受辱。",
+              "source_refs": [
+                "遼史/卷7@1745859#烏古叛，掠民財畜。",
+                "遼史/卷7@1745859#詳穩僧隱與戰，敗績，僧隱及乙實等死之。",
+                "遼史/卷7@1745859#益以突呂不部軍三百，合諸部兵討之。",
+                "遼史/卷7@1745859#烏古殺其長窣離底，餘眾降，復叛。",
+                "遼史/卷7@1745859#烏古掠上京北榆林峪居民，遣林牙蕭斡討之。",
+                "遼史/卷7@1745859#常思與烏古戰，敗之。",
+                "遼史/卷7@1745859#林牙蕭斡、郎君耶律賢適討烏古還",
+                "遼史/卷7@1745859#夷離畢骨欲獻烏古俘。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "多次出战不利，末后与楚思等受辱。",
+                "source_refs": [
+                  "遼史/卷7@1745859#烏古叛，掠民財畜。",
+                  "遼史/卷7@1745859#詳穩僧隱與戰，敗績，僧隱及乙實等死之。",
+                  "遼史/卷7@1745859#益以突呂不部軍三百，合諸部兵討之。",
+                  "遼史/卷7@1745859#烏古殺其長窣離底，餘眾降，復叛。",
+                  "遼史/卷7@1745859#烏古掠上京北榆林峪居民，遣林牙蕭斡討之。",
+                  "遼史/卷7@1745859#常思與烏古戰，敗之。",
+                  "遼史/卷7@1745859#林牙蕭斡、郎君耶律賢適討烏古還",
+                  "遼史/卷7@1745859#夷離畢骨欲獻烏古俘。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [
+        {
+          "actor_ref": "PERSON-POST-1511C6C5060D2660",
+          "actor_name": "雅里斯",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "C",
+          "severity": 0.2,
+          "basis": "多次出战不利，末后与楚思等受辱。",
+          "source_refs": [
+            "遼史/卷7@1745859#烏古叛，掠民財畜。",
+            "遼史/卷7@1745859#詳穩僧隱與戰，敗績，僧隱及乙實等死之。",
+            "遼史/卷7@1745859#益以突呂不部軍三百，合諸部兵討之。",
+            "遼史/卷7@1745859#烏古殺其長窣離底，餘眾降，復叛。",
+            "遼史/卷7@1745859#烏古掠上京北榆林峪居民，遣林牙蕭斡討之。",
+            "遼史/卷7@1745859#常思與烏古戰，敗之。",
+            "遼史/卷7@1745859#林牙蕭斡、郎君耶律賢適討烏古還",
+            "遼史/卷7@1745859#夷離畢骨欲獻烏古俘。"
+          ]
+        }
+      ],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "C",
+      "result_class": "local_tactical",
+      "land_strategic_value": "local_point",
+      "opponent_strategic_weight": "minor",
+      "opponent_condition": "viable",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "乌古叛乱跨三年、反复降叛，辽方有主将战死并调集多部军，末端有破敌、还军和献俘，达到最低公共战役门槛。",
+      "tier_review_source_tier": "C",
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    }
+  ]
+}

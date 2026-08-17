@@ -1,0 +1,975 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "qing",
+  "bucket": 20,
+  "bucket_count": 24,
+  "record_count": 6,
+  "records_fingerprint": "67d1ee4ed2cdc5e92f43518ad5e034223ffe986570dca05f44b90f086cd0bf32",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-471C6CBCD37E3D467A64",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-GUANGNING-1622",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "后金攻西平堡并击败三万明军，王化贞逃走、孙得功以广宁降；努尔哈齐进占四十城堡并攻克义州。",
+      "period": {
+        "start": "天命七年正月",
+        "end": "天命七年二月"
+      },
+      "observable_result": "广宁防区崩溃，后金控制扩至辽西四十余城堡。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V01-GUANGNING-CAMPAIGN-1622"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-01.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷1@2589312#明軍三萬來禦，擊敗之",
+          "清史稿/卷1@2589312#游擊孫得功以城降。",
+          "清史稿/卷1@2589312#降其城堡四十",
+          "清史稿/卷1@2589312#熊廷弼盡焚沿塗邨堡而走。",
+          "清史稿/卷1@2589312#北攻義州，克之"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷1@2589312#明軍三萬來禦，擊敗之",
+        "清史稿/卷1@2589312#游擊孫得功以城降。",
+        "清史稿/卷1@2589312#降其城堡四十",
+        "清史稿/卷1@2589312#熊廷弼盡焚沿塗邨堡而走。",
+        "清史稿/卷1@2589312#北攻義州，克之"
+      ],
+      "uncertainties": [
+        "四十城堡人口、焚村损失和双方总伤亡未载。"
+      ],
+      "cost_or_burden": "明军称三万，多名总兵战死，沿途村堡被明军焚毁；后金伤亡未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "unification_portfolio_ref": "UCP-POST-QING-FOUNDING-1607-1662",
+      "unification_stage_order": 6,
+      "account_routing": [
+        "UNIFICATION_ONLY"
+      ],
+      "defense_consumption": "EXCLUDED_UNIFICATION",
+      "settlement_scope": "BATTLE_LEDGER_ONLY",
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "important_objective",
+      "land_strategic_value": "strategic_gateway",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记B；土地轴=strategic_gateway，对手轴=regional_major，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "B",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "已逐项反查全部source_card_ids；现有事实未同时闭合具名人物的实际控制、本人完成范围与可观察结果，unknown保持unknown。",
+      "detail_expansion_status": "complete_unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。"
+    },
+    {
+      "war_event_id": "WAR-POST-8E62AEFA4F61EE430F83",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-JAPAN-TAIWAN-1874",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "日本以台湾番社事件为由出兵登陆，清廷调兵赴台、修海口炮台并与日使交涉，最终支付难民恤金及军费五十万，日军撤退。",
+      "period": {
+        "start": "同治十三年三月至十一月",
+        "end": "1874"
+      },
+      "observable_result": "日本侵台危机以协议和赔款结束，台湾海防建设加速。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V22-MUDAN-INCIDENT-TAIWAN-1874"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-22.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷22@2294671#日本兵船抵台灣登岸，與生番尋釁。",
+          "清史稿/卷22@2294671#建台灣海口炮台，撫番社，撤疲兵。",
+          "清史稿/卷22@2294671#以徐州唐定奎軍渡海赴台。",
+          "清史稿/卷22@2294671#給日本難民恤金及台灣軍費共五十萬。",
+          "清史稿/卷22@2294671#，日本退兵。癸"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷22@2294671#日本兵船抵台灣登岸，與生番尋釁。",
+        "清史稿/卷22@2294671#建台灣海口炮台，撫番社，撤疲兵。",
+        "清史稿/卷22@2294671#以徐州唐定奎軍渡海赴台。",
+        "清史稿/卷22@2294671#給日本難民恤金及台灣軍費共五十萬。",
+        "清史稿/卷22@2294671#，日本退兵。癸"
+      ],
+      "uncertainties": [
+        "双方伤亡、炮台工程费和协议全文未载。"
+      ],
+      "cost_or_burden": "清廷支付五十万；双方与台湾居民伤亡未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-0C23D44E6306D15C04B8",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-LUSHUN-1633",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "皇太极遣岳托、德格类等并石廷柱、孔有德、耿仲明攻取旅顺口。",
+      "period": {
+        "start": "天聪七年六月",
+        "end": "天聪七年八月"
+      },
+      "observable_result": "后金攻克旅顺口并扩大辽东沿海控制。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V02-LUSHUN-CAMPAIGN-1633"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-02.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷2@2589313#將兵取明旅順口。",
+          "清史稿/卷2@2589313#奏克旅順口。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷2@2589313#將兵取明旅順口。",
+        "清史稿/卷2@2589313#奏克旅順口。"
+      ],
+      "uncertainties": [
+        "攻城过程、双方兵力伤亡和城内人口处置未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-5AEF68F78AD2A5A1",
+          "actor_name": "孔有德",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "已验收事实卡明确闭合孔有德的实际行动与本人结果：与诸将攻克旅顺口。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "co_decisive",
+            "result_direction": "positive",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合孔有德的实际行动与本人结果：与诸将攻克旅顺口。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "清史稿/卷2@2589313#將兵取明旅順口。",
+              "清史稿/卷2@2589313#奏克旅順口。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-B5A9727303B91DD75010",
+              "result_label": "与诸将攻克旅顺口。",
+              "result_direction": "positive",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "已验收事实卡明确闭合孔有德的实际行动与本人结果：与诸将攻克旅顺口。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "清史稿/卷2@2589313#將兵取明旅順口。",
+                "清史稿/卷2@2589313#奏克旅順口。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "co_decisive",
+                "basis": "已验收事实卡明确闭合孔有德的实际行动与本人结果：与诸将攻克旅顺口。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "清史稿/卷2@2589313#將兵取明旅順口。",
+                  "清史稿/卷2@2589313#奏克旅順口。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-52603A443185CFDA",
+          "actor_name": "岳托",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "已验收事实卡明确闭合岳托的实际行动与本人结果：与诸将攻克旅顺口。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "co_decisive",
+            "result_direction": "positive",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合岳托的实际行动与本人结果：与诸将攻克旅顺口。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "清史稿/卷2@2589313#將兵取明旅順口。",
+              "清史稿/卷2@2589313#奏克旅順口。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-5DD281B363522472AF2A",
+              "result_label": "与诸将攻克旅顺口。",
+              "result_direction": "positive",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "已验收事实卡明确闭合岳托的实际行动与本人结果：与诸将攻克旅顺口。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "清史稿/卷2@2589313#將兵取明旅順口。",
+                "清史稿/卷2@2589313#奏克旅順口。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "co_decisive",
+                "basis": "已验收事实卡明确闭合岳托的实际行动与本人结果：与诸将攻克旅顺口。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "清史稿/卷2@2589313#將兵取明旅順口。",
+                  "清史稿/卷2@2589313#奏克旅順口。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-6C794410335D4A18",
+          "actor_name": "德格类",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "已验收事实卡明确闭合德格类的实际行动与本人结果：与诸将攻克旅顺口。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "co_decisive",
+            "result_direction": "positive",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合德格类的实际行动与本人结果：与诸将攻克旅顺口。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "清史稿/卷2@2589313#將兵取明旅順口。",
+              "清史稿/卷2@2589313#奏克旅順口。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-AB3F22B5FE246373AEDC",
+              "result_label": "与诸将攻克旅顺口。",
+              "result_direction": "positive",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "已验收事实卡明确闭合德格类的实际行动与本人结果：与诸将攻克旅顺口。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "清史稿/卷2@2589313#將兵取明旅順口。",
+                "清史稿/卷2@2589313#奏克旅順口。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "co_decisive",
+                "basis": "已验收事实卡明确闭合德格类的实际行动与本人结果：与诸将攻克旅顺口。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "清史稿/卷2@2589313#將兵取明旅順口。",
+                  "清史稿/卷2@2589313#奏克旅順口。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-01351DB97DD99794",
+          "actor_name": "石廷柱",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "已验收事实卡明确闭合石廷柱的实际行动与本人结果：与诸将攻克旅顺口。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "co_decisive",
+            "result_direction": "positive",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合石廷柱的实际行动与本人结果：与诸将攻克旅顺口。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "清史稿/卷2@2589313#將兵取明旅順口。",
+              "清史稿/卷2@2589313#奏克旅順口。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-8CD0C232800B83EE00B0",
+              "result_label": "与诸将攻克旅顺口。",
+              "result_direction": "positive",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "已验收事实卡明确闭合石廷柱的实际行动与本人结果：与诸将攻克旅顺口。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "清史稿/卷2@2589313#將兵取明旅順口。",
+                "清史稿/卷2@2589313#奏克旅順口。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "co_decisive",
+                "basis": "已验收事实卡明确闭合石廷柱的实际行动与本人结果：与诸将攻克旅顺口。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "清史稿/卷2@2589313#將兵取明旅順口。",
+                  "清史稿/卷2@2589313#奏克旅順口。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-4F63C28201085344",
+          "actor_name": "耿仲明",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "已验收事实卡明确闭合耿仲明的实际行动与本人结果：与诸将攻克旅顺口。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "co_decisive",
+            "result_direction": "positive",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合耿仲明的实际行动与本人结果：与诸将攻克旅顺口。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "清史稿/卷2@2589313#將兵取明旅順口。",
+              "清史稿/卷2@2589313#奏克旅順口。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-7C9A5FEB06F5080AF734",
+              "result_label": "与诸将攻克旅顺口。",
+              "result_direction": "positive",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "已验收事实卡明确闭合耿仲明的实际行动与本人结果：与诸将攻克旅顺口。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "清史稿/卷2@2589313#將兵取明旅順口。",
+                "清史稿/卷2@2589313#奏克旅順口。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "co_decisive",
+                "basis": "已验收事实卡明确闭合耿仲明的实际行动与本人结果：与诸将攻克旅顺口。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "清史稿/卷2@2589313#將兵取明旅順口。",
+                  "清史稿/卷2@2589313#奏克旅順口。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "important_objective",
+      "land_strategic_value": "strategic_gateway",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记B；土地轴=strategic_gateway，对手轴=regional_major，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "B",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-1F3B2B7B182FD1F1E172",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-NIAN-SENGGE-POSITIVE-1861-1864",
+      "split_from_source_target_ref": "CAMPAIGN-QING-NIAN-WAR-1861-1866",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "canonical_label": "僧格林沁进剿张洛行与苗沛霖阶段",
+      "period": {
+        "start": "1861",
+        "end": "1864"
+      },
+      "observable_result": "张洛行伏诛、苗沛霖势力被平，但捻军战争未终结。",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "long_running_mobile_pole",
+      "battle_result": "victory",
+      "objective_completion": "partial",
+      "objective_shortfalls": [
+        "只闭合本子方向；混合父项其他战区不传播。"
+      ],
+      "opponent_force_effect": "major_degradation",
+      "tier_basis": "只消费具名首领被诛和平苗沛霖的阶段效果，不把它写成捻军战争终局。",
+      "tier_review_source_tier": null,
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT_SPLIT_CHILD",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按该子方向逐字锚可证的攻陷、平定或归降结果取证据下限。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "single_integrated_command",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "混合父项未保存可归责的连续子方向指挥，不从官职推定。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-C7B9FDE6DCF5E3E4",
+          "actor_name": "僧格林沁",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "本人持续实际统军并闭合阶段性首领终局。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "本人持续实际统军并闭合阶段性首领终局。",
+            "source_refs": [
+              "清史稿/卷21@1814546#捻首張洛行伏誅。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-DAB389163E523800034A",
+              "result_label": "完成张洛行、苗沛霖方向的阶段进剿。",
+              "result_direction": "positive",
+              "result_tier": "B",
+              "combat_difficulty": "D2",
+              "stable_delivery": true,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "本人持续实际统军并闭合阶段性首领终局。",
+              "source_refs": [
+                "清史稿/卷21@1814546#捻首張洛行伏誅。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "本人持续实际统军并闭合阶段性首领终局。",
+                "source_refs": [
+                  "清史稿/卷21@1814546#捻首張洛行伏誅。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "source_lineage": {
+        "source_card_ids": [],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-21.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷21@1814546#捻首張洛行伏誅。"
+        ],
+        "lineage_basis": "同一共享事实含多个互不连续战区；父项持有fact_id，子项只持定点逐字锚，避免事实ID重复消费。"
+      },
+      "source_refs": [
+        "清史稿/卷21@1814546#捻首張洛行伏誅。"
+      ],
+      "uncertainties": [
+        "各次作战具体分工与损失未完整记载。"
+      ],
+      "cost_or_burden": "unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "merged_into": null,
+      "limitations": [
+        "不得把混合父项的总兵力、四百余处规模或其他战区结果复制到本子项。"
+      ],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "basis": "只消费具名首领被诛和平苗沛霖的阶段效果，不把它写成捻军战争终局。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-8BE370F359889A1CC421",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-WHITE-LOTUS-1796-1802",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "湖北、四川教民起事后跨川楚陕流动作战，清廷屡易统帅、调兵筑堡并追捕各号首领，至嘉庆七年会奏荡平。",
+      "period": {
+        "start": "嘉庆元年正月",
+        "end": "嘉庆七年十二月"
+      },
+      "observable_result": "持续七年的大规模战争基本结束，残余股匪继续清剿至次年。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V16-WHITE-LOTUS-REBELLION-1796-1802"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-16.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷16@1811978#湖北枝江、宜都教匪起。",
+          "清史稿/卷16@1811978#四川教匪徐添德侵擾達州、東鄉",
+          "清史稿/卷16@1811978#教匪起事諸犯，只餘此賊。今既授首，不難肅清。",
+          "清史稿/卷16@1811978#會報川、陝、楚教匪蕩平。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷16@1811978#湖北枝江、宜都教匪起。",
+        "清史稿/卷16@1811978#四川教匪徐添德侵擾達州、東鄉",
+        "清史稿/卷16@1811978#教匪起事諸犯，只餘此賊。今既授首，不難肅清。",
+        "清史稿/卷16@1811978#會報川、陝、楚教匪蕩平。"
+      ],
+      "uncertainties": [
+        "双方总伤亡、军费和人口流离规模未载。"
+      ],
+      "cost_or_burden": "大量官兵、乡勇和平民死伤，军费巨大而本卷未载总额。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "strong",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "战争跨三省、持续七年并在主要首领授首后形成整体终局，显著超过最低门槛；但多股流动武装缺乏单一国家行政财政和统一再生链，不升O4/S-。",
+      "tier_review_source_tier": "C",
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "PERSON_COMMAND_UNKNOWN",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "事实只载屡易统帅、追捕各号首领和会奏荡平，未给任何稳定person_ref或可闭合的连续个人方向；不得以常识补福康安、勒保等人。",
+      "detail_expansion_status": "complete_unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-240C0C9C7071FE6A53F7",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-YAKSA-1685-1686",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "清军攻雅克萨，在江中击沉来援俄船并受降；俄军复据雅克萨后，萨布素再围城，因俄使请求议和而解围。",
+      "period": {
+        "start": "康熙二十四年正月",
+        "end": "康熙二十五年九月"
+      },
+      "observable_result": "清军迫使俄方从雅克萨接受谈判，东北边界问题转入议约。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V07-YAKSA-CAMPAIGN-1685-1686"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-07.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷7@1794686#彭春等攻雅克薩城",
+          "清史稿/卷7@1794686#破之，沈其船，頭人額里克舍乞降。",
+          "清史稿/卷7@1794686#鄂羅斯復據雅克薩",
+          "清史稿/卷7@1794686#鄂羅斯察漢汗使來請解雅克薩之圍。許之。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷7@1794686#彭春等攻雅克薩城",
+        "清史稿/卷7@1794686#破之，沈其船，頭人額里克舍乞降。",
+        "清史稿/卷7@1794686#鄂羅斯復據雅克薩",
+        "清史稿/卷7@1794686#鄂羅斯察漢汗使來請解雅克薩之圍。許之。"
+      ],
+      "uncertainties": [
+        "双方兵力伤亡、城内粮食疫病和谈判条件未完整载明。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-0B99D963538BC317",
+          "actor_name": "彭春",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "只消费第一次攻城阶段；俄军其后复据，不分享第二次围城终局。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "stage_executor",
+            "result_direction": "positive",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "只消费第一次攻城阶段；俄军其后复据，不分享第二次围城终局。",
+            "source_refs": [
+              "清史稿/卷7@1794686#彭春等攻雅克薩城",
+              "清史稿/卷7@1794686#破之，沈其船，頭人額里克舍乞降。",
+              "清史稿/卷7@1794686#鄂羅斯復據雅克薩",
+              "清史稿/卷7@1794686#鄂羅斯察漢汗使來請解雅克薩之圍。許之。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-382CC90D23DC861CF5BA",
+              "result_label": "统第一次攻城并迫俄军撤离雅克萨",
+              "result_direction": "positive",
+              "result_tier": "B",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "只消费第一次攻城阶段；俄军其后复据，不分享第二次围城终局。",
+              "source_refs": [
+                "清史稿/卷7@1794686#彭春等攻雅克薩城",
+                "清史稿/卷7@1794686#破之，沈其船，頭人額里克舍乞降。",
+                "清史稿/卷7@1794686#鄂羅斯復據雅克薩",
+                "清史稿/卷7@1794686#鄂羅斯察漢汗使來請解雅克薩之圍。許之。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "tactical_execution",
+                "decisive_relation": "stage_executor",
+                "basis": "只消费第一次攻城阶段；俄军其后复据，不分享第二次围城终局。",
+                "source_refs": [
+                  "清史稿/卷7@1794686#彭春等攻雅克薩城",
+                  "清史稿/卷7@1794686#破之，沈其船，頭人額里克舍乞降。",
+                  "清史稿/卷7@1794686#鄂羅斯復據雅克薩",
+                  "清史稿/卷7@1794686#鄂羅斯察漢汗使來請解雅克薩之圍。許之。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-F41BF42868E949E6",
+          "actor_name": "林兴珠",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "只消费江中截援水战阶段。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "stage_executor",
+            "result_direction": "positive",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "只消费江中截援水战阶段。",
+            "source_refs": [
+              "清史稿/卷7@1794686#彭春等攻雅克薩城",
+              "清史稿/卷7@1794686#破之，沈其船，頭人額里克舍乞降。",
+              "清史稿/卷7@1794686#鄂羅斯復據雅克薩",
+              "清史稿/卷7@1794686#鄂羅斯察漢汗使來請解雅克薩之圍。許之。",
+              "清史稿/卷280@2079384#林興珠"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-6F5221655929366FCA8B",
+              "result_label": "率藤牌兵在江中击破来援俄船",
+              "result_direction": "positive",
+              "result_tier": "B",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "只消费江中截援水战阶段。",
+              "source_refs": [
+                "清史稿/卷7@1794686#彭春等攻雅克薩城",
+                "清史稿/卷7@1794686#破之，沈其船，頭人額里克舍乞降。",
+                "清史稿/卷7@1794686#鄂羅斯復據雅克薩",
+                "清史稿/卷7@1794686#鄂羅斯察漢汗使來請解雅克薩之圍。許之。",
+                "清史稿/卷280@2079384#林興珠"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "tactical_execution",
+                "decisive_relation": "stage_executor",
+                "basis": "只消费江中截援水战阶段。",
+                "source_refs": [
+                  "清史稿/卷7@1794686#彭春等攻雅克薩城",
+                  "清史稿/卷7@1794686#破之，沈其船，頭人額里克舍乞降。",
+                  "清史稿/卷7@1794686#鄂羅斯復據雅克薩",
+                  "清史稿/卷7@1794686#鄂羅斯察漢汗使來請解雅克薩之圍。許之。",
+                  "清史稿/卷280@2079384#林興珠"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-2C9A7E6CA0414835",
+          "actor_name": "萨布素",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "实际控制第二次持久围城和封锁，闭合战役转入议约的结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "independent_direction",
+            "decisive_relation": "decisive_successor",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "实际控制第二次持久围城和封锁，闭合战役转入议约的结果。",
+            "source_refs": [
+              "清史稿/卷7@1794686#彭春等攻雅克薩城",
+              "清史稿/卷7@1794686#破之，沈其船，頭人額里克舍乞降。",
+              "清史稿/卷7@1794686#鄂羅斯復據雅克薩",
+              "清史稿/卷7@1794686#鄂羅斯察漢汗使來請解雅克薩之圍。許之。",
+              "清史稿/卷280@2079384#薩布素"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-B34CD5065319AD32412F",
+              "result_label": "再次围攻雅克萨并控制江面援路，迫使俄方请求议和",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "实际控制第二次持久围城和封锁，闭合战役转入议约的结果。",
+              "source_refs": [
+                "清史稿/卷7@1794686#彭春等攻雅克薩城",
+                "清史稿/卷7@1794686#破之，沈其船，頭人額里克舍乞降。",
+                "清史稿/卷7@1794686#鄂羅斯復據雅克薩",
+                "清史稿/卷7@1794686#鄂羅斯察漢汗使來請解雅克薩之圍。許之。",
+                "清史稿/卷280@2079384#薩布素"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "independent_direction",
+                "decisive_relation": "decisive_successor",
+                "basis": "实际控制第二次持久围城和封锁，闭合战役转入议约的结果。",
+                "source_refs": [
+                  "清史稿/卷7@1794686#彭春等攻雅克薩城",
+                  "清史稿/卷7@1794686#破之，沈其船，頭人額里克舍乞降。",
+                  "清史稿/卷7@1794686#鄂羅斯復據雅克薩",
+                  "清史稿/卷7@1794686#鄂羅斯察漢汗使來請解雅克薩之圍。許之。",
+                  "清史稿/卷280@2079384#薩布素"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-5B02E75C191C9829",
+          "actor_name": "玄烨",
+          "actor_kind": "person",
+          "role_code": "not_in_command_chain",
+          "contribution_scope": "卷280闭合其对城寨、驿站、船炮军粮和两阶段用兵的具体控制，属于已兑现的战区设计；不继承现场将领D3。",
+          "person_command_index": {
+            "consumption_mode": "operational_result",
+            "command_scope": "operational_strategy",
+            "capability_mode": "operational_design",
+            "decisive_relation": "none",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": null,
+            "detail_status": "resolved_person_result",
+            "basis": "卷280闭合其对城寨、驿站、船炮军粮和两阶段用兵的具体控制，属于已兑现的战区设计；不继承现场将领D3。",
+            "source_refs": [
+              "清史稿/卷7@1794686#彭春等攻雅克薩城",
+              "清史稿/卷7@1794686#破之，沈其船，頭人額里克舍乞降。",
+              "清史稿/卷7@1794686#鄂羅斯復據雅克薩",
+              "清史稿/卷7@1794686#鄂羅斯察漢汗使來請解雅克薩之圍。許之。",
+              "清史稿/卷280@2079384#雅克薩"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-61052B69C11189748566",
+              "result_label": "持续建设黑龙江战备并控制两阶段攻围时机与处置路线",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": null,
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "卷280闭合其对城寨、驿站、船炮军粮和两阶段用兵的具体控制，属于已兑现的战区设计；不继承现场将领D3。",
+              "source_refs": [
+                "清史稿/卷7@1794686#彭春等攻雅克薩城",
+                "清史稿/卷7@1794686#破之，沈其船，頭人額里克舍乞降。",
+                "清史稿/卷7@1794686#鄂羅斯復據雅克薩",
+                "清史稿/卷7@1794686#鄂羅斯察漢汗使來請解雅克薩之圍。許之。",
+                "清史稿/卷280@2079384#雅克薩"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "operational_design",
+                "decisive_relation": "none",
+                "basis": "卷280闭合其对城寨、驿站、船炮军粮和两阶段用兵的具体控制，属于已兑现的战区设计；不继承现场将领D3。",
+                "source_refs": [
+                  "清史稿/卷7@1794686#彭春等攻雅克薩城",
+                  "清史稿/卷7@1794686#破之，沈其船，頭人額里克舍乞降。",
+                  "清史稿/卷7@1794686#鄂羅斯復據雅克薩",
+                  "清史稿/卷7@1794686#鄂羅斯察漢汗使來請解雅克薩之圍。許之。",
+                  "清史稿/卷280@2079384#雅克薩"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "strategic_gateway",
+      "opponent_strategic_weight": "external_state",
+      "opponent_condition": "viable",
+      "battle_result": "victory",
+      "objective_completion": "partial",
+      "objective_shortfalls": [
+        "共享层未闭合全部战略目标，保持证据下限。"
+      ],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "两次远程攻围、江上截援和持续封锁迫使俄方转入议约，闭合独立重大边境战争阶段A；最终疆界由后续议约确定，不升S-。黑龙江远程补给、攻城与水陆截援相互强化，取D3。",
+      "tier_review_source_tier": "C",
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT",
+      "combat_difficulty": "D3",
+      "combat_difficulty_basis": "黑龙江远程补给、两次攻城与江上截援相互强化，清军须跨年维持城寨、船炮、军粮和封锁，取D3。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    }
+  ]
+}

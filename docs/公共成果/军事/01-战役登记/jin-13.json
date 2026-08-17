@@ -1,0 +1,625 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "jin",
+  "bucket": 13,
+  "bucket_count": 24,
+  "record_count": 3,
+  "records_fingerprint": "1924b4e87d3b0bf817dc4458cebbfa29aba0931357647c5788036d0de9425486",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-6698AB01FB62234D6BCA",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-MONGOL-INVASION-1211-1212",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "蒙古军来征后，金朝求和并设行省备边；金军由抚州退守宣平，在会河堡败绩、居庸关失守，中都被围，西京及大片北方州路相继丧失。",
+      "period": {
+        "start": "大安三年四月",
+        "end": "崇庆元年正月"
+      },
+      "observable_result": "金朝全军覆败并失去德兴、弘州、昌平至临潢辽河、忻代等广大北方区域，中都转入戒严守御。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V13-MONGOL-INVASION-1211-1212"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-13.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷13@2432650#我大元太祖法天啟運驛武皇帝來征。",
+          "金史/卷13@2432650#遣西北路招討使粘合合打乞和。",
+          "金史/卷13@2432650#千家奴、胡沙敗績於會河堡，居庸關失守。",
+          "金史/卷13@2432650#大元前軍至中至都，中都戒嚴。",
+          "金史/卷13@2432650#，皆歸大元。初"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷13@2432650#我大元太祖法天啟運驛武皇帝來征。",
+        "金史/卷13@2432650#遣西北路招討使粘合合打乞和。",
+        "金史/卷13@2432650#千家奴、胡沙敗績於會河堡，居庸關失守。",
+        "金史/卷13@2432650#大元前軍至中至都，中都戒嚴。",
+        "金史/卷13@2432650#，皆歸大元。初"
+      ],
+      "uncertainties": [
+        "各州陷落顺序、双方兵力伤亡和求和条件未载。"
+      ],
+      "cost_or_burden": "会河堡全军覆败，大片州路陷落；军民伤亡和流亡总数未载。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-600B437B29D99257",
+          "actor_name": "独吉千家奴",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "行省备边后会河堡覆军，事后明确坐罪。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "S-",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "行省备边后会河堡覆军，事后明确坐罪。",
+            "source_refs": [
+              "金史/卷13@2432650#我大元太祖法天啟運驛武皇帝來征。",
+              "金史/卷13@2432650#遣西北路招討使粘合合打乞和。",
+              "金史/卷13@2432650#千家奴、胡沙敗績於會河堡，居庸關失守。",
+              "金史/卷13@2432650#大元前軍至中至都，中都戒嚴。",
+              "金史/卷13@2432650#，皆歸大元。初"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-5B9E3FC604C81204F843",
+              "result_label": "行省备边后会河堡覆军，事后明确坐罪。",
+              "result_direction": "negative",
+              "result_tier": "S-",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "行省备边后会河堡覆军，事后明确坐罪。",
+              "source_refs": [
+                "金史/卷13@2432650#我大元太祖法天啟運驛武皇帝來征。",
+                "金史/卷13@2432650#遣西北路招討使粘合合打乞和。",
+                "金史/卷13@2432650#千家奴、胡沙敗績於會河堡，居庸關失守。",
+                "金史/卷13@2432650#大元前軍至中至都，中都戒嚴。",
+                "金史/卷13@2432650#，皆歸大元。初"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "行省备边后会河堡覆军，事后明确坐罪。",
+                "source_refs": [
+                  "金史/卷13@2432650#我大元太祖法天啟運驛武皇帝來征。",
+                  "金史/卷13@2432650#遣西北路招討使粘合合打乞和。",
+                  "金史/卷13@2432650#千家奴、胡沙敗績於會河堡，居庸關失守。",
+                  "金史/卷13@2432650#大元前軍至中至都，中都戒嚴。",
+                  "金史/卷13@2432650#，皆歸大元。初"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-46BBE923B58DEA84",
+          "actor_name": "胡沙",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "与千家奴共同覆军，事后明确坐罪。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "S-",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "与千家奴共同覆军，事后明确坐罪。",
+            "source_refs": [
+              "金史/卷13@2432650#我大元太祖法天啟運驛武皇帝來征。",
+              "金史/卷13@2432650#遣西北路招討使粘合合打乞和。",
+              "金史/卷13@2432650#千家奴、胡沙敗績於會河堡，居庸關失守。",
+              "金史/卷13@2432650#大元前軍至中至都，中都戒嚴。",
+              "金史/卷13@2432650#，皆歸大元。初"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-E45DC165C5846E550251",
+              "result_label": "与千家奴共同覆军，事后明确坐罪。",
+              "result_direction": "negative",
+              "result_tier": "S-",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "与千家奴共同覆军，事后明确坐罪。",
+              "source_refs": [
+                "金史/卷13@2432650#我大元太祖法天啟運驛武皇帝來征。",
+                "金史/卷13@2432650#遣西北路招討使粘合合打乞和。",
+                "金史/卷13@2432650#千家奴、胡沙敗績於會河堡，居庸關失守。",
+                "金史/卷13@2432650#大元前軍至中至都，中都戒嚴。",
+                "金史/卷13@2432650#，皆歸大元。初"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "与千家奴共同覆军，事后明确坐罪。",
+                "source_refs": [
+                  "金史/卷13@2432650#我大元太祖法天啟運驛武皇帝來征。",
+                  "金史/卷13@2432650#遣西北路招討使粘合合打乞和。",
+                  "金史/卷13@2432650#千家奴、胡沙敗績於會河堡，居庸關失守。",
+                  "金史/卷13@2432650#大元前軍至中至都，中都戒嚴。",
+                  "金史/卷13@2432650#，皆歸大元。初"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [
+        {
+          "actor_ref": "PERSON-POST-600B437B29D99257",
+          "actor_name": "独吉千家奴",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "S-",
+          "severity": 0.2,
+          "basis": "行省备边后会河堡覆军，事后明确坐罪。",
+          "source_refs": [
+            "金史/卷13@2432650#我大元太祖法天啟運驛武皇帝來征。",
+            "金史/卷13@2432650#遣西北路招討使粘合合打乞和。",
+            "金史/卷13@2432650#千家奴、胡沙敗績於會河堡，居庸關失守。",
+            "金史/卷13@2432650#大元前軍至中至都，中都戒嚴。",
+            "金史/卷13@2432650#，皆歸大元。初"
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-46BBE923B58DEA84",
+          "actor_name": "胡沙",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "S-",
+          "severity": 0.2,
+          "basis": "与千家奴共同覆军，事后明确坐罪。",
+          "source_refs": [
+            "金史/卷13@2432650#我大元太祖法天啟運驛武皇帝來征。",
+            "金史/卷13@2432650#遣西北路招討使粘合合打乞和。",
+            "金史/卷13@2432650#千家奴、胡沙敗績於會河堡，居庸關失守。",
+            "金史/卷13@2432650#大元前軍至中至都，中都戒嚴。",
+            "金史/卷13@2432650#，皆歸大元。初"
+          ]
+        }
+      ],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "negative",
+      "campaign_tier": "S-",
+      "result_class": "independent_direction",
+      "land_strategic_value": "independent_direction",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "strong",
+      "battle_result": "defeat",
+      "objective_completion": "failed",
+      "objective_shortfalls": [
+        "共享层未闭合全部战略目标，保持证据下限。"
+      ],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "1211至1212年蒙古突破会河堡、居庸关并围中都，金军全军覆败，失去大片北方州路；这是独立国家主力和完整北方方向的灾难性终局。",
+      "tier_review_source_tier": "C",
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT",
+      "combat_difficulty": "D3",
+      "combat_difficulty_basis": "宣平、会河堡、居庸与中都构成连续山口城防，金军又仍有国家主力和多线反击能力，两项约束相互强化，取D3。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-60F08D91AC92E4982614",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-SONG-FIRST-KAIFENG-1125-1126",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "金军由朔代、燕山两路推进，破白河、古北口并取多州，渡河围汴；宋以质子、三镇、增岁币和伯侄称谓求和，姚平仲劫营失败后金军再围而还。",
+      "period": {
+        "start": "天会三年十二月",
+        "end": "天会四年二月"
+      },
+      "observable_result": "第一次围汴以宋提交誓书、质子和割地增币条件暂时解围，金军撤回但太原仍受围。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V03-FIRST-SONG-CAMPAIGN-1125-1126"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-03.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷3@2432693#宗望諸軍及宋郭藥師、張企徽、劉舜仁戰于白河。大破之。",
+          "金史/卷3@2432693#，諸軍圍汴。甲",
+          "金史/卷3@2432693#宗望許宋修好，約質，割三鎮地，增歲幣，載書稱伯侄。",
+          "金史/卷3@2432693#宋將姚平仲兵四十萬來襲宗望營，敗之。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷3@2432693#宗望諸軍及宋郭藥師、張企徽、劉舜仁戰于白河。大破之。",
+        "金史/卷3@2432693#，諸軍圍汴。甲",
+        "金史/卷3@2432693#宗望許宋修好，約質，割三鎮地，增歲幣，載書稱伯侄。",
+        "金史/卷3@2432693#宋將姚平仲兵四十萬來襲宗望營，敗之。"
+      ],
+      "uncertainties": [
+        "双方累计伤亡及三镇实际交割未在此闭合。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-82D36DA7E0ED0390",
+          "actor_name": "姚平仲",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "已验收事实卡明确闭合姚平仲的实际行动与本人结果：率四十万袭宗望营而败；实际统军和败绩闭合，不推断更深因果过错。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合姚平仲的实际行动与本人结果：率四十万袭宗望营而败；实际统军和败绩闭合，不推断更深因果过错。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "金史/卷3@2432693#宗望諸軍及宋郭藥師、張企徽、劉舜仁戰于白河。大破之。",
+              "金史/卷3@2432693#，諸軍圍汴。甲",
+              "金史/卷3@2432693#宗望許宋修好，約質，割三鎮地，增歲幣，載書稱伯侄。",
+              "金史/卷3@2432693#宋將姚平仲兵四十萬來襲宗望營，敗之。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-5393AD8D666A1A853EFF",
+              "result_label": "率四十万袭宗望营而败；实际统军和败绩闭合，不推断更深因果过错。",
+              "result_direction": "negative",
+              "result_tier": "B",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "已验收事实卡明确闭合姚平仲的实际行动与本人结果：率四十万袭宗望营而败；实际统军和败绩闭合，不推断更深因果过错。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "金史/卷3@2432693#宗望諸軍及宋郭藥師、張企徽、劉舜仁戰于白河。大破之。",
+                "金史/卷3@2432693#，諸軍圍汴。甲",
+                "金史/卷3@2432693#宗望許宋修好，約質，割三鎮地，增歲幣，載書稱伯侄。",
+                "金史/卷3@2432693#宋將姚平仲兵四十萬來襲宗望營，敗之。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "已验收事实卡明确闭合姚平仲的实际行动与本人结果：率四十万袭宗望营而败；实际统军和败绩闭合，不推断更深因果过错。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "金史/卷3@2432693#宗望諸軍及宋郭藥師、張企徽、劉舜仁戰于白河。大破之。",
+                  "金史/卷3@2432693#，諸軍圍汴。甲",
+                  "金史/卷3@2432693#宗望許宋修好，約質，割三鎮地，增歲幣，載書稱伯侄。",
+                  "金史/卷3@2432693#宋將姚平仲兵四十萬來襲宗望營，敗之。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-419B85C97E4D7438",
+          "actor_name": "完颜宗望",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "已验收事实卡明确闭合完颜宗望的实际行动与本人结果：宗望诸军破白河、围汴并接受和约，东路实际统帅与阶段结果闭合。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合完颜宗望的实际行动与本人结果：宗望诸军破白河、围汴并接受和约，东路实际统帅与阶段结果闭合。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "金史/卷3@2432693#宗望諸軍及宋郭藥師、張企徽、劉舜仁戰于白河。大破之。",
+              "金史/卷3@2432693#，諸軍圍汴。甲",
+              "金史/卷3@2432693#宗望許宋修好，約質，割三鎮地，增歲幣，載書稱伯侄。",
+              "金史/卷3@2432693#宋將姚平仲兵四十萬來襲宗望營，敗之。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-62E73091C51097A937EB",
+              "result_label": "宗望诸军破白河、围汴并接受和约，东路实际统帅与阶段结果闭合。",
+              "result_direction": "positive",
+              "result_tier": "B",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "已验收事实卡明确闭合完颜宗望的实际行动与本人结果：宗望诸军破白河、围汴并接受和约，东路实际统帅与阶段结果闭合。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "金史/卷3@2432693#宗望諸軍及宋郭藥師、張企徽、劉舜仁戰于白河。大破之。",
+                "金史/卷3@2432693#，諸軍圍汴。甲",
+                "金史/卷3@2432693#宗望許宋修好，約質，割三鎮地，增歲幣，載書稱伯侄。",
+                "金史/卷3@2432693#宋將姚平仲兵四十萬來襲宗望營，敗之。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "已验收事实卡明确闭合完颜宗望的实际行动与本人结果：宗望诸军破白河、围汴并接受和约，东路实际统帅与阶段结果闭合。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "金史/卷3@2432693#宗望諸軍及宋郭藥師、張企徽、劉舜仁戰于白河。大破之。",
+                  "金史/卷3@2432693#，諸軍圍汴。甲",
+                  "金史/卷3@2432693#宗望許宋修好，約質，割三鎮地，增歲幣，載書稱伯侄。",
+                  "金史/卷3@2432693#宋將姚平仲兵四十萬來襲宗望營，敗之。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [
+        {
+          "actor_ref": "PERSON-POST-82D36DA7E0ED0390",
+          "actor_name": "姚平仲",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "B",
+          "severity": 0.3,
+          "basis": "已验收事实卡明确闭合姚平仲的实际行动与本人结果：率四十万袭宗望营而败；实际统军和败绩闭合，不推断更深因果过错。；只按B/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "source_refs": [
+            "金史/卷3@2432693#宗望諸軍及宋郭藥師、張企徽、劉舜仁戰于白河。大破之。",
+            "金史/卷3@2432693#，諸軍圍汴。甲",
+            "金史/卷3@2432693#宗望許宋修好，約質，割三鎮地，增歲幣，載書稱伯侄。",
+            "金史/卷3@2432693#宋將姚平仲兵四十萬來襲宗望營，敗之。"
+          ]
+        }
+      ],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "unification_portfolio_ref": "UCP-POST-JIN-1114-1126",
+      "unification_stage_order": 6,
+      "account_routing": [
+        "UNIFICATION_ONLY"
+      ],
+      "defense_consumption": "EXCLUDED_UNIFICATION",
+      "settlement_scope": "BATTLE_LEDGER_ONLY",
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "important_objective",
+      "land_strategic_value": "strategic_gateway",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记B；土地轴=strategic_gateway，对手轴=regional_major，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "B",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。"
+    },
+    {
+      "war_event_id": "WAR-POST-229CC65BD0B9A4439EEC",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-PROTO-JIN-BAINAI-FIRE-BATTLE",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "颇剌淑率军迎战杯乃引入的乌春军，借顺风纵火掩护冲击。",
+      "period": {
+        "start": "肃宗为国相、世祖在位时",
+        "end": "肃宗为国相、世祖在位时"
+      },
+      "observable_result": "敌军大败，杯乃和活罗被俘；颇剌淑赦免活罗并留用，后来得到其效力。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V01-POLASHU-BAINAI-FIRE-BATTLE"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-01.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷1@2432749#大風自後起，火益熾。是時八月，并青草皆焚之，煙焰漲天。我軍隨煙衝擊，大敗之。遂獲盃乃"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷1@2432749#大風自後起，火益熾。是時八月，并青草皆焚之，煙焰漲天。我軍隨煙衝擊，大敗之。遂獲盃乃"
+      ],
+      "uncertainties": [
+        "原文未载年份、兵力与伤亡。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [
+        {
+          "actor_ref": "PERSON-JIN-POLASHU",
+          "actor_name": "颇剌淑",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "纵火并率军击败联军",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "共享层显式person_ref与行动，按单一事实结果作证据下限定档。",
+            "source_refs": [
+              "金史/卷1@2432749#大風自後起，火益熾。是時八月，并青草皆焚之，煙焰漲天。我軍隨煙衝擊，大敗之。遂獲盃乃"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-02526FD7F75B1A347ED9",
+              "result_label": "颇剌淑率军迎战杯乃引入的乌春军，借顺风纵火掩护冲击。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "共享事实显式列出颇剌淑纵火并率军击败联军；只消费该事实可观察结果，不继承同群其他阶段。",
+              "source_refs": [
+                "金史/卷1@2432749#大風自後起，火益熾。是時八月，并青草皆焚之，煙焰漲天。我軍隨煙衝擊，大敗之。遂獲盃乃"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "仅按共享层显式行动与结果建立颇剌淑的人物下限。",
+                "source_refs": [
+                  "金史/卷1@2432749#大風自後起，火益熾。是時八月，并青草皆焚之，煙焰漲天。我軍隨煙衝擊，大敗之。遂獲盃乃"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-F603007AAA9150ED",
+          "actor_name": "杯乃",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "补消费已验收事实卡中具名实际作战人物；只登记本人可观察阶段，不继承父项终局。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "补消费已验收事实卡中具名实际作战人物；只登记本人可观察阶段，不继承父项终局。",
+            "source_refs": [
+              "金史/卷1@2432749#大風自後起，火益熾。是時八月，并青草皆焚之，煙焰漲天。我軍隨煙衝擊，大敗之。遂獲盃乃"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-21883AA7A746C4863DEB",
+              "result_label": "引乌春军作战后大败被俘；胜方颇剌淑已消费，具名对手败绩未消费。",
+              "result_direction": "negative",
+              "result_tier": "A",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "引乌春军作战后大败被俘；胜方颇剌淑已消费，具名对手败绩未消费。",
+              "source_refs": [
+                "金史/卷1@2432749#大風自後起，火益熾。是時八月，并青草皆焚之，煙焰漲天。我軍隨煙衝擊，大敗之。遂獲盃乃"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "引乌春军作战后大败被俘；胜方颇剌淑已消费，具名对手败绩未消费。",
+                "source_refs": [
+                  "金史/卷1@2432749#大風自後起，火益熾。是時八月，并青草皆焚之，煙焰漲天。我軍隨煙衝擊，大敗之。遂獲盃乃"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [
+        {
+          "actor_ref": "PERSON-POST-F603007AAA9150ED",
+          "actor_name": "杯乃",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "A",
+          "severity": 0.4,
+          "basis": "引乌春军作战后大败被俘；胜方颇剌淑已消费，具名对手败绩未消费。",
+          "source_refs": [
+            "金史/卷1@2432749#大風自後起，火益熾。是時八月，并青草皆焚之，煙焰漲天。我軍隨煙衝擊，大敗之。遂獲盃乃"
+          ]
+        }
+      ],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "逐项复核后只构成局部平叛、征讨未克、统一战争阶段执行或未闭合的多线推进；未达到强区域独立方向或第一梯队决定性终局，明确保留A。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "REVIEWED_RETAINED_A",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    }
+  ]
+}

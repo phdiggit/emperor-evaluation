@@ -6,6 +6,8 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from emperor_v4.evaluation.first_item_a_registry import load_qin_qing_first_item_roster
+from emperor_v4.evaluation.battle_registry_store import load_battle_registry
+from emperor_v4.evaluation.talent_registry_store import load_talent_registry
 
 
 ELIGIBLE_STATUS = "ELIGIBLE_DYNASTY_FOUNDER"
@@ -350,8 +352,12 @@ def write_first_item_b_registry(workspace_root: Path) -> dict[str, Path]:
             workspace_root,
             load(workspace_root / "config/first-item-a-strategic-efficiency-inputs.json"),
         ),
-        battle_registry=load(workspace_root / "docs/公共成果/军事/01-战役登记.json"),
-        talent_registry=load(workspace_root / "docs/公共成果/军事/02-武将人才等级.json"),
+        battle_registry=load_battle_registry(
+            workspace_root / "docs/公共成果/军事/01-战役登记.json"
+        ),
+        talent_registry=load_talent_registry(
+            workspace_root / "docs/公共成果/军事/02-武将人才等级.json"
+        ),
     )
     output_dir = workspace_root / "docs/评分结算/第一项创业与政权取得能力/政治整合能力"
     output_dir.mkdir(parents=True, exist_ok=True)

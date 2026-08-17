@@ -1,0 +1,648 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "qing",
+  "bucket": 2,
+  "bucket_count": 24,
+  "record_count": 5,
+  "records_fingerprint": "17cefa2ca7bb8047111383a02f348b62d02676130be84f95370aeddb79522051",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-1226E835C52C4DA70765",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-BOXER-EIGHT-NATION-WAR-1899-1900",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "义和团由山东扩入京津并杀德国公使，八国联军攻大沽、天津和北京，清廷与列强交战。",
+      "period": {
+        "start": "光绪二十五年",
+        "end": "光绪二十六年八月"
+      },
+      "observable_result": "京师陷落，帝后西逃太原、西安，清廷下诏罪己并转向议和。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V24-BOXER-EIGHT-NATION-WAR-1899-1900"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-24.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷24@2170948#拳匪起山東，號「義和拳會」",
+          "清史稿/卷24@2170948#義和拳入京師",
+          "清史稿/卷24@2170948#拳匪戕德使克林德",
+          "清史稿/卷24@2170948#外兵襲天津，聶士成戰於八里台，死之。",
+          "清史稿/卷24@2170948#德、奧、美、法、英、義、日、俄八國聯兵陷京師。",
+          "清史稿/卷24@2170948#上奉皇太后如太原",
+          "清史稿/卷24@2170948#申，至西安府，",
+          "清史稿/卷24@2170948#驛，下詔罪己，"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷24@2170948#拳匪起山東，號「義和拳會」",
+        "清史稿/卷24@2170948#義和拳入京師",
+        "清史稿/卷24@2170948#拳匪戕德使克林德",
+        "清史稿/卷24@2170948#外兵襲天津，聶士成戰於八里台，死之。",
+        "清史稿/卷24@2170948#德、奧、美、法、英、義、日、俄八國聯兵陷京師。",
+        "清史稿/卷24@2170948#上奉皇太后如太原",
+        "清史稿/卷24@2170948#申，至西安府，",
+        "清史稿/卷24@2170948#驛，下詔罪己，"
+      ],
+      "uncertainties": [
+        "各方总伤亡、掠夺损失与军费未载。"
+      ],
+      "cost_or_burden": "聂士成等阵亡，京津军民伤亡、财产损失与军费未载。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-932F1DA51BD69229",
+          "actor_name": "聂士成",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "已验收事实卡明确闭合聂士成的实际行动与本人结果：在八里台迎战外军并战死。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合聂士成的实际行动与本人结果：在八里台迎战外军并战死。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "清史稿/卷24@2170948#拳匪起山東，號「義和拳會」",
+              "清史稿/卷24@2170948#義和拳入京師",
+              "清史稿/卷24@2170948#拳匪戕德使克林德",
+              "清史稿/卷24@2170948#外兵襲天津，聶士成戰於八里台，死之。",
+              "清史稿/卷24@2170948#德、奧、美、法、英、義、日、俄八國聯兵陷京師。",
+              "清史稿/卷24@2170948#上奉皇太后如太原",
+              "清史稿/卷24@2170948#申，至西安府，",
+              "清史稿/卷24@2170948#驛，下詔罪己，"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-A74BEB41E01473573B21",
+              "result_label": "在八里台迎战外军并战死。",
+              "result_direction": "negative",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "已验收事实卡明确闭合聂士成的实际行动与本人结果：在八里台迎战外军并战死。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "清史稿/卷24@2170948#拳匪起山東，號「義和拳會」",
+                "清史稿/卷24@2170948#義和拳入京師",
+                "清史稿/卷24@2170948#拳匪戕德使克林德",
+                "清史稿/卷24@2170948#外兵襲天津，聶士成戰於八里台，死之。",
+                "清史稿/卷24@2170948#德、奧、美、法、英、義、日、俄八國聯兵陷京師。",
+                "清史稿/卷24@2170948#上奉皇太后如太原",
+                "清史稿/卷24@2170948#申，至西安府，",
+                "清史稿/卷24@2170948#驛，下詔罪己，"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "已验收事实卡明确闭合聂士成的实际行动与本人结果：在八里台迎战外军并战死。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "清史稿/卷24@2170948#拳匪起山東，號「義和拳會」",
+                  "清史稿/卷24@2170948#義和拳入京師",
+                  "清史稿/卷24@2170948#拳匪戕德使克林德",
+                  "清史稿/卷24@2170948#外兵襲天津，聶士成戰於八里台，死之。",
+                  "清史稿/卷24@2170948#德、奧、美、法、英、義、日、俄八國聯兵陷京師。",
+                  "清史稿/卷24@2170948#上奉皇太后如太原",
+                  "清史稿/卷24@2170948#申，至西安府，",
+                  "清史稿/卷24@2170948#驛，下詔罪己，"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [
+        {
+          "actor_ref": "PERSON-POST-932F1DA51BD69229",
+          "actor_name": "聂士成",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "C",
+          "severity": 0.2,
+          "basis": "已验收事实卡明确闭合聂士成的实际行动与本人结果：在八里台迎战外军并战死。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "source_refs": [
+            "清史稿/卷24@2170948#拳匪起山東，號「義和拳會」",
+            "清史稿/卷24@2170948#義和拳入京師",
+            "清史稿/卷24@2170948#拳匪戕德使克林德",
+            "清史稿/卷24@2170948#外兵襲天津，聶士成戰於八里台，死之。",
+            "清史稿/卷24@2170948#德、奧、美、法、英、義、日、俄八國聯兵陷京師。",
+            "清史稿/卷24@2170948#上奉皇太后如太原",
+            "清史稿/卷24@2170948#申，至西安府，",
+            "清史稿/卷24@2170948#驛，下詔罪己，"
+          ]
+        }
+      ],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "negative",
+      "campaign_tier": "C",
+      "result_class": "local_tactical",
+      "land_strategic_value": "local_point",
+      "opponent_strategic_weight": "minor",
+      "opponent_condition": "unclear",
+      "battle_result": "defeat",
+      "objective_completion": "failed",
+      "objective_shortfalls": [
+        "共享层未闭合全部战略目标，保持证据下限。"
+      ],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记C；土地轴=local_point，对手轴=minor，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "C",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "single_integrated_command",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-AB8C1917D24DEE21FD1A",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-EIGHT-TRIGRAMS-1813",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "李文成部攻陷滑县、长垣并联动直鲁，林清党徒突入紫禁城；清军在宫内捕杀并分路收复曹县、滑县，擒杀主要首领。",
+      "period": {
+        "start": "嘉庆十八年九月至十二月",
+        "end": "1813"
+      },
+      "observable_result": "宫廷袭击和豫鲁直起事均被镇压，嘉庆公开反省官僚因循失察。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V16-EIGHT-TRIGRAMS-UPRISING-1813"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-16.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷16@1811978#河南滑縣八卦教匪李文成糾眾謀逆",
+          "清史稿/卷16@1811978#奸人陳爽數十人突入紫禁城",
+          "清史稿/卷16@1811978#首逆林清就擒。",
+          "清史稿/卷16@1811978#殲斃首犯李文成。",
+          "清史稿/卷16@1811978#奏攻克滑城"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷16@1811978#河南滑縣八卦教匪李文成糾眾謀逆",
+        "清史稿/卷16@1811978#奸人陳爽數十人突入紫禁城",
+        "清史稿/卷16@1811978#首逆林清就擒。",
+        "清史稿/卷16@1811978#殲斃首犯李文成。",
+        "清史稿/卷16@1811978#奏攻克滑城"
+      ],
+      "uncertainties": [
+        "起事组织规模、双方总伤亡和株连人数未载。"
+      ],
+      "cost_or_burden": "地方官兵民众死伤与军费未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-A1463D1719B85FF3EA4F",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-SECOND-OPIUM-WAR-GUANGZHOU-1856-1857",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "英国以查船为由炮击广州，英法战争扩大；清廷令地方相机办理，终因省城失陷、叶名琛被俘而更换两广总督。",
+      "period": {
+        "start": "咸丰六年十一月",
+        "end": "咸丰七年十二月"
+      },
+      "observable_result": "广州防御失败，第二次鸦片战争由地方冲突升级为全国性外交军事危机。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V20-ARROW-WAR-GUANGZHOU-1856-1857"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-20.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷20@2433519#英人在廣東以查船構釁，放砲攻城。",
+          "清史稿/卷20@2433519#紳團憤擊之，殲數百人。",
+          "清史稿/卷20@2433519#英人入廣東省城，劫總督葉名琛以去。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷20@2433519#英人在廣東以查船構釁，放砲攻城。",
+        "清史稿/卷20@2433519#紳團憤擊之，殲數百人。",
+        "清史稿/卷20@2433519#英人入廣東省城，劫總督葉名琛以去。"
+      ],
+      "uncertainties": [
+        "双方总伤亡、城市损失和贸易影响未载。"
+      ],
+      "cost_or_burden": "广州交战军民和英法军队总伤亡未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": "WAR-POST-7DA90E47FC9D33C4965C",
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "MERGED_CROSS_SOURCE_DUPLICATE",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED_MERGED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "跨书同一统一阶段已并入主分区记录，不重复产生人物信用。",
+      "detail_expansion_status": "merged_cross_source_duplicate",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "跨书重复观察并入CAMPAIGN-QING-SECOND-OPIUM-WAR-BEIJING-1860；本记录只保留lineage，不重复登记战果。"
+    },
+    {
+      "war_event_id": "WAR-POST-A03ED61DBC3A22B56667",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-SONGJIN-1639",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "皇太极亲率清军围攻松山、锦州，以火炮破台、地道攻城并击败明援军，但未克松山而解围还师。",
+      "period": {
+        "start": "崇德四年二月",
+        "end": "崇德四年五月"
+      },
+      "observable_result": "清军摧毁多处外围台堡并消耗明援军，松山、锦州主城仍在明军控制。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V03-SONGSHAN-JINZHOU-1639"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-03.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷3@2589314#列砲攻城，雉堞悉毀。",
+          "清史稿/卷3@2589314#穿地道攻松山城。",
+          "清史稿/卷3@2589314#，解松山圍。乙"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷3@2589314#列砲攻城，雉堞悉毀。",
+        "清史稿/卷3@2589314#穿地道攻松山城。",
+        "清史稿/卷3@2589314#，解松山圍。乙"
+      ],
+      "uncertainties": [
+        "双方总伤亡、台堡人口和未克城的损失未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-6339E33979E7CCF5",
+          "actor_name": "皇太极",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "只登记1639年目标未达阶段，不与1640至1642年松锦决定性胜果互相覆盖；撤军原因保持未知。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "只登记1639年目标未达阶段，不与1640至1642年松锦决定性胜果互相覆盖；撤军原因保持未知。",
+            "source_refs": [
+              "清史稿/卷3@2589314#列砲攻城，雉堞悉毀。",
+              "清史稿/卷3@2589314#穿地道攻松山城。",
+              "清史稿/卷3@2589314#，解松山圍。乙"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-910BE1788418E6ACF042",
+              "result_label": "亲临松山、锦州方向围攻未克后撤军。",
+              "result_direction": "negative",
+              "result_tier": "B",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "只登记1639年目标未达阶段，不与1640至1642年松锦决定性胜果互相覆盖；撤军原因保持未知。",
+              "source_refs": [
+                "清史稿/卷3@2589314#列砲攻城，雉堞悉毀。",
+                "清史稿/卷3@2589314#穿地道攻松山城。",
+                "清史稿/卷3@2589314#，解松山圍。乙"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "只登记1639年目标未达阶段，不与1640至1642年松锦决定性胜果互相覆盖；撤军原因保持未知。",
+                "source_refs": [
+                  "清史稿/卷3@2589314#列砲攻城，雉堞悉毀。",
+                  "清史稿/卷3@2589314#穿地道攻松山城。",
+                  "清史稿/卷3@2589314#，解松山圍。乙"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [
+        {
+          "actor_ref": "PERSON-POST-6339E33979E7CCF5",
+          "actor_name": "皇太极",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "B",
+          "severity": 0.3,
+          "basis": "只登记1639年目标未达阶段，不与1640至1642年松锦决定性胜果互相覆盖；撤军原因保持未知。",
+          "source_refs": [
+            "清史稿/卷3@2589314#列砲攻城，雉堞悉毀。",
+            "清史稿/卷3@2589314#穿地道攻松山城。",
+            "清史稿/卷3@2589314#，解松山圍。乙"
+          ]
+        }
+      ],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "unification_portfolio_ref": "UCP-POST-QING-FOUNDING-1607-1662",
+      "unification_stage_order": 8,
+      "account_routing": [
+        "UNIFICATION_ONLY"
+      ],
+      "defense_consumption": "EXCLUDED_UNIFICATION",
+      "settlement_scope": "BATTLE_LEDGER_ONLY",
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "important_objective",
+      "land_strategic_value": "strategic_gateway",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记B；土地轴=strategic_gateway，对手轴=regional_major，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "B",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "single_integrated_command",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。"
+    },
+    {
+      "war_event_id": "WAR-POST-6E74281EFCF87B426A78",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-ZHANG-XIANZHONG-1646",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "豪格率军入四川，鳌拜等在西充击破张献忠营寨并将其阵斩，随后分兵破一百三十余营。",
+      "period": {
+        "start": "顺治三年正月",
+        "end": "顺治三年十二月"
+      },
+      "observable_result": "张献忠死亡，其主要营寨被清军摧毁，清廷宣称四川平定。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V04-ZHANG-XIANZHONG-SICHUAN-1646"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-04.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷4@2267892#帥師征四川。",
+          "清史稿/卷4@2267892#斬獻忠於陣",
+          "清史稿/卷4@2267892#破一百三十餘營。四川平。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷4@2267892#帥師征四川。",
+        "清史稿/卷4@2267892#斬獻忠於陣",
+        "清史稿/卷4@2267892#破一百三十餘營。四川平。"
+      ],
+      "uncertainties": [
+        "双方死亡、当地人口损失和残部去向未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-7ECD249ABE152751",
+          "actor_name": "豪格",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "共享行动句明确豪格率师，结果覆盖敌首阵亡和全体系营寨崩溃。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "S-",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "共享行动句明确豪格率师，结果覆盖敌首阵亡和全体系营寨崩溃。",
+            "source_refs": [
+              "清史稿/卷4@2267892#帥師征四川。",
+              "清史稿/卷4@2267892#斬獻忠於陣",
+              "清史稿/卷4@2267892#破一百三十餘營。四川平。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-FE6313D100D07CF07FD3",
+              "result_label": "率军入四川并统合西充击破、分兵破一百三十余营的总方向。",
+              "result_direction": "positive",
+              "result_tier": "S-",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "共享行动句明确豪格率师，结果覆盖敌首阵亡和全体系营寨崩溃。",
+              "source_refs": [
+                "清史稿/卷4@2267892#帥師征四川。",
+                "清史稿/卷4@2267892#斬獻忠於陣",
+                "清史稿/卷4@2267892#破一百三十餘營。四川平。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "共享行动句明确豪格率师，结果覆盖敌首阵亡和全体系营寨崩溃。",
+                "source_refs": [
+                  "清史稿/卷4@2267892#帥師征四川。",
+                  "清史稿/卷4@2267892#斬獻忠於陣",
+                  "清史稿/卷4@2267892#破一百三十餘營。四川平。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-547EC2D31D342CE5",
+          "actor_name": "鳌拜",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "只消费明确西充决战阶段，不复制豪格全川分兵终局。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "stage_executor",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "只消费明确西充决战阶段，不复制豪格全川分兵终局。",
+            "source_refs": [
+              "清史稿/卷4@2267892#帥師征四川。",
+              "清史稿/卷4@2267892#斬獻忠於陣",
+              "清史稿/卷4@2267892#破一百三十餘營。四川平。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-43553BF04BBCAA9DB397",
+              "result_label": "西充方向与诸将击破张献忠营寨并将其阵斩。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "只消费明确西充决战阶段，不复制豪格全川分兵终局。",
+              "source_refs": [
+                "清史稿/卷4@2267892#帥師征四川。",
+                "清史稿/卷4@2267892#斬獻忠於陣",
+                "清史稿/卷4@2267892#破一百三十餘營。四川平。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "tactical_execution",
+                "decisive_relation": "stage_executor",
+                "basis": "只消费明确西充决战阶段，不复制豪格全川分兵终局。",
+                "source_refs": [
+                  "清史稿/卷4@2267892#帥師征四川。",
+                  "清史稿/卷4@2267892#斬獻忠於陣",
+                  "清史稿/卷4@2267892#破一百三十餘營。四川平。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "unification_portfolio_ref": "UCP-POST-QING-FOUNDING-1607-1662",
+      "unification_stage_order": 14,
+      "account_routing": [
+        "UNIFICATION_ONLY"
+      ],
+      "defense_consumption": "EXCLUDED_UNIFICATION",
+      "settlement_scope": "BATTLE_LEDGER_ONLY",
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "S-",
+      "result_class": "independent_direction",
+      "land_strategic_value": "core_base",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "independent_regional_state",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "military_system_collapsed",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "大西具备四川区域政权、成建制主力和一百三十余营；清军击破主寨、阵斩张献忠并摧毁主体系，按O4国家机器终局定S-。后继军团转入其他战争树，不在本项重复消费。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。"
+    }
+  ]
+}

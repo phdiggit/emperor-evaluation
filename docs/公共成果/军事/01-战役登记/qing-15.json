@@ -1,0 +1,1020 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "qing",
+  "bucket": 15,
+  "bucket_count": 24,
+  "record_count": 9,
+  "records_fingerprint": "2645fa9946874865836f6aba3093a35789563c1e15dc287ae4758c3634b0ac90",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-AA37F973454949F6F76E",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-DZUNGAR-WAR-1729-1734",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "雍正分北、西两路征准噶尔；傅尔丹轻进中伏大败，后策凌等在克鲁伦、额尔得尼昭击败准军，清廷最终转向遣使议和。",
+      "period": {
+        "start": "雍正七年三月",
+        "end": "雍正十二年八月"
+      },
+      "observable_result": "战争经历重大败绩与反击胜利，持续多年后未彻底歼敌而改以谈判收束。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V09-DZUNGAR-WAR-1729-1734"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-09.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷9@1794968#征討準噶爾。",
+          "清史稿/卷9@1794968#輕進中伏，傅爾丹棄大軍先退，至於大敗。",
+          "清史稿/卷9@1794968#殺賊萬餘，賊向推河遁去。",
+          "清史稿/卷9@1794968#從後議遣使。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷9@1794968#征討準噶爾。",
+        "清史稿/卷9@1794968#輕進中伏，傅爾丹棄大軍先退，至於大敗。",
+        "清史稿/卷9@1794968#殺賊萬餘，賊向推河遁去。",
+        "清史稿/卷9@1794968#從後議遣使。"
+      ],
+      "uncertainties": [
+        "各战役双方总伤亡、长期占领范围和议和条件未载。"
+      ],
+      "cost_or_burden": "查弼纳、巴赛、达福等战死，马尔赛处斩，傅尔丹、岳钟琪被削爵治罪。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-C3B4E987BB7B72B2",
+          "actor_name": "傅尔丹",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "已验收事实卡明确闭合傅尔丹的实际行动与本人结果：轻进中伏并先退，造成大败。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合傅尔丹的实际行动与本人结果：轻进中伏并先退，造成大败。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "清史稿/卷9@1794968#征討準噶爾。",
+              "清史稿/卷9@1794968#輕進中伏，傅爾丹棄大軍先退，至於大敗。",
+              "清史稿/卷9@1794968#殺賊萬餘，賊向推河遁去。",
+              "清史稿/卷9@1794968#從後議遣使。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-43F9AB0A0E36737EB770",
+              "result_label": "轻进中伏并先退，造成大败。",
+              "result_direction": "negative",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "已验收事实卡明确闭合傅尔丹的实际行动与本人结果：轻进中伏并先退，造成大败。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "清史稿/卷9@1794968#征討準噶爾。",
+                "清史稿/卷9@1794968#輕進中伏，傅爾丹棄大軍先退，至於大敗。",
+                "清史稿/卷9@1794968#殺賊萬餘，賊向推河遁去。",
+                "清史稿/卷9@1794968#從後議遣使。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "已验收事实卡明确闭合傅尔丹的实际行动与本人结果：轻进中伏并先退，造成大败。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "清史稿/卷9@1794968#征討準噶爾。",
+                  "清史稿/卷9@1794968#輕進中伏，傅爾丹棄大軍先退，至於大敗。",
+                  "清史稿/卷9@1794968#殺賊萬餘，賊向推河遁去。",
+                  "清史稿/卷9@1794968#從後議遣使。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-994D0FBFB301110B",
+          "actor_name": "策凌",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "已验收事实卡明确闭合策凌的实际行动与本人结果：在克鲁伦、额尔得尼昭方向击败准军。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "stage_executor",
+            "result_direction": "positive",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "已验收事实卡明确闭合策凌的实际行动与本人结果：在克鲁伦、额尔得尼昭方向击败准军。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+            "source_refs": [
+              "清史稿/卷9@1794968#征討準噶爾。",
+              "清史稿/卷9@1794968#輕進中伏，傅爾丹棄大軍先退，至於大敗。",
+              "清史稿/卷9@1794968#殺賊萬餘，賊向推河遁去。",
+              "清史稿/卷9@1794968#從後議遣使。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-BEB67A240EEE7CBE87F2",
+              "result_label": "在克鲁伦、额尔得尼昭方向击败准军。",
+              "result_direction": "positive",
+              "result_tier": "C",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "已验收事实卡明确闭合策凌的实际行动与本人结果：在克鲁伦、额尔得尼昭方向击败准军。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+              "source_refs": [
+                "清史稿/卷9@1794968#征討準噶爾。",
+                "清史稿/卷9@1794968#輕進中伏，傅爾丹棄大軍先退，至於大敗。",
+                "清史稿/卷9@1794968#殺賊萬餘，賊向推河遁去。",
+                "清史稿/卷9@1794968#從後議遣使。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "tactical_execution",
+                "decisive_relation": "stage_executor",
+                "basis": "已验收事实卡明确闭合策凌的实际行动与本人结果：在克鲁伦、额尔得尼昭方向击败准军。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+                "source_refs": [
+                  "清史稿/卷9@1794968#征討準噶爾。",
+                  "清史稿/卷9@1794968#輕進中伏，傅爾丹棄大軍先退，至於大敗。",
+                  "清史稿/卷9@1794968#殺賊萬餘，賊向推河遁去。",
+                  "清史稿/卷9@1794968#從後議遣使。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [
+        {
+          "actor_ref": "PERSON-POST-C3B4E987BB7B72B2",
+          "actor_name": "傅尔丹",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "C",
+          "severity": 0.2,
+          "basis": "已验收事实卡明确闭合傅尔丹的实际行动与本人结果：轻进中伏并先退，造成大败。；只按C/D1人物证据下限消费，不继承父战役更高档位或同卡其他战区结果。",
+          "source_refs": [
+            "清史稿/卷9@1794968#征討準噶爾。",
+            "清史稿/卷9@1794968#輕進中伏，傅爾丹棄大軍先退，至於大敗。",
+            "清史稿/卷9@1794968#殺賊萬餘，賊向推河遁去。",
+            "清史稿/卷9@1794968#從後議遣使。"
+          ]
+        }
+      ],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "important_objective",
+      "land_strategic_value": "strategic_gateway",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记B；土地轴=strategic_gateway，对手轴=regional_major，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "B",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-AF446EA109202A641D57",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-HUNAN-GUANGXI-MIAO-YAO-1740",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "湖南绥宁、城步及广西义宁等地苗瑶起事，清廷调兵跨省征剿，连续攻克寨卡并在年底宣布平定。",
+      "period": {
+        "start": "乾隆五年正月",
+        "end": "乾隆五年十二月"
+      },
+      "observable_result": "湘桂苗瑶武装被清军压制，张广泗留办善后。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V10-HUNAN-GUANGXI-MIAO-YAO-WAR-1740"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-10.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷10@2433565#湖南綏寧苗作亂",
+          "清史稿/卷10@2433565#諭馮光裕及湖廣提督杜愷剿捕城步、綏寧瑤匪。",
+          "清史稿/卷10@2433565#廣西義寧苗作亂",
+          "清史稿/卷10@2433565#湖南城步、綏寧，廣西義寧苗、瑤，悉平之。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷10@2433565#湖南綏寧苗作亂",
+        "清史稿/卷10@2433565#諭馮光裕及湖廣提督杜愷剿捕城步、綏寧瑤匪。",
+        "清史稿/卷10@2433565#廣西義寧苗作亂",
+        "清史稿/卷10@2433565#湖南城步、綏寧，廣西義寧苗、瑤，悉平之。"
+      ],
+      "uncertainties": [
+        "起事原因、双方伤亡、寨落损失和善后措施未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-2B0E05988218759B4E82",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-JALUT-1626",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "皇太极因札鲁特援助明朝，遣代善等出征，俘其二贝勒及部众后班师。",
+      "period": {
+        "start": "天命十一年十月",
+        "end": "天命十一年十一月"
+      },
+      "observable_result": "札鲁特受到军事打击，部分首领和人口被俘。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V02-JALUT-CAMPAIGN-1626"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-02.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷2@2589313#以蒙古喀爾喀札魯特部敗盟殺掠，私通於明，命大貝勒代善等率精兵萬人討之",
+          "清史稿/卷2@2589313#大破札魯特"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷2@2589313#以蒙古喀爾喀札魯特部敗盟殺掠，私通於明，命大貝勒代善等率精兵萬人討之",
+        "清史稿/卷2@2589313#大破札魯特"
+      ],
+      "uncertainties": [
+        "双方兵力、伤亡和俘虏安置未载。"
+      ],
+      "cost_or_burden": "俘获数量未完整载明。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-CDFF0F4B5B76727B",
+          "actor_name": "代善",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "实际出征和终局归属本人。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "实际出征和终局归属本人。",
+            "source_refs": [
+              "清史稿/卷2@2589313#以蒙古喀爾喀札魯特部敗盟殺掠，私通於明，命大貝勒代善等率精兵萬人討之",
+              "清史稿/卷2@2589313#大破札魯特"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-F29688B6BE7A84794118",
+              "result_label": "率军征札鲁特、俘二贝勒及部众并班师。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "实际出征和终局归属本人。",
+              "source_refs": [
+                "清史稿/卷2@2589313#以蒙古喀爾喀札魯特部敗盟殺掠，私通於明，命大貝勒代善等率精兵萬人討之",
+                "清史稿/卷2@2589313#大破札魯特"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "实际出征和终局归属本人。",
+                "source_refs": [
+                  "清史稿/卷2@2589313#以蒙古喀爾喀札魯特部敗盟殺掠，私通於明，命大貝勒代善等率精兵萬人討之",
+                  "清史稿/卷2@2589313#大破札魯特"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "逐项复核后只构成局部平叛、单次进剿、短期受降、未闭合战争开端或与主分区重复的同一战役；不因用兵规模、艰苦程度或平定字样升档，其他项明确保留A。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "REVIEWED_RETAINED_A",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "single_integrated_command",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-7DF01022AF37A5308415",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-KOREA-INTERVENTIONS-1882-1885",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "朝鲜内乱焚毁日本使馆后，清军入朝平乱并拘押大院君；朝鲜再乱时清廷调军，后与日本议定朝鲜事务。",
+      "period": {
+        "start": "光绪八年六月",
+        "end": "光绪十一年三月"
+      },
+      "observable_result": "清廷在朝鲜维持驻军与政治干预，中日围绕朝鲜的竞争加深。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V23-KOREA-INTERVENTIONS-1882-1885"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-23.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷23@2132469#吳長慶軍入朝鮮，執其大院君李昰應。",
+          "清史稿/卷23@2132469#丑，朝鮮亂平。\n",
+          "清史稿/卷23@2132469#朝鮮復亂，吳大澂往察辦",
+          "清史稿/卷23@2132469#朝鮮訂約成。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷23@2132469#吳長慶軍入朝鮮，執其大院君李昰應。",
+        "清史稿/卷23@2132469#丑，朝鮮亂平。\n",
+        "清史稿/卷23@2132469#朝鮮復亂，吳大澂往察辦",
+        "清史稿/卷23@2132469#朝鮮訂約成。"
+      ],
+      "uncertainties": [
+        "伤亡、驻军费用和中日协定全文未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-1B5616AA499EC1053343",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-HEZE-DEFEAT-1865",
+      "split_from_source_target_ref": "CAMPAIGN-QING-NIAN-WAR-1861-1866",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "canonical_label": "僧格林沁菏泽吴家店败死",
+      "period": {
+        "start": "1865",
+        "end": "1865"
+      },
+      "observable_result": "僧格林沁军在菏泽失利、本人战死，清廷改组进剿指挥。",
+      "result_direction": "negative",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "long_running_mobile_pole",
+      "battle_result": "defeat",
+      "objective_completion": "failed",
+      "objective_shortfalls": [
+        "只闭合本子方向；混合父项其他战区不传播。"
+      ],
+      "opponent_force_effect": "mixed_effect",
+      "tier_basis": "主帅本人败死并触发跨省指挥体系改组，构成独立重大负向阶段；失败原因不明。",
+      "tier_review_source_tier": null,
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT_SPLIT_CHILD",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按该子方向逐字锚可证的攻陷、平定或归降结果取证据下限。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "single_integrated_command",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "混合父项未保存可归责的连续子方向指挥，不从官职推定。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-C7B9FDE6DCF5E3E4",
+          "actor_name": "僧格林沁",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "本人实际统军与败死终局闭合，因果过错保持未知。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "本人实际统军与败死终局闭合，因果过错保持未知。",
+            "source_refs": [
+              "清史稿/卷21@1814546#僧格林沁剿賊於菏澤南吳家店，失利",
+              "清史稿/卷21@1814546#命曾國籓節制直、豫、魯三省軍防。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-C2C2E517D95C9C8D9787",
+              "result_label": "菏泽吴家店作战失利并战死。",
+              "result_direction": "negative",
+              "result_tier": "A",
+              "combat_difficulty": "D1",
+              "stable_delivery": true,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "本人实际统军与败死终局闭合，因果过错保持未知。",
+              "source_refs": [
+                "清史稿/卷21@1814546#僧格林沁剿賊於菏澤南吳家店，失利",
+                "清史稿/卷21@1814546#命曾國籓節制直、豫、魯三省軍防。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "tactical_execution",
+                "decisive_relation": "none",
+                "basis": "本人实际统军与败死终局闭合，因果过错保持未知。",
+                "source_refs": [
+                  "清史稿/卷21@1814546#僧格林沁剿賊於菏澤南吳家店，失利",
+                  "清史稿/卷21@1814546#命曾國籓節制直、豫、魯三省軍防。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [
+        {
+          "actor_ref": "PERSON-POST-C7B9FDE6DCF5E3E4",
+          "actor_name": "僧格林沁",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "A",
+          "severity": 0.4,
+          "basis": "本人实际统军与败死终局闭合，因果过错保持未知。",
+          "source_refs": [
+            "清史稿/卷21@1814546#僧格林沁剿賊於菏澤南吳家店，失利",
+            "清史稿/卷21@1814546#命曾國籓節制直、豫、魯三省軍防。"
+          ]
+        }
+      ],
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "source_lineage": {
+        "source_card_ids": [],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-21.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷21@1814546#僧格林沁剿賊於菏澤南吳家店，失利",
+          "清史稿/卷21@1814546#命曾國籓節制直、豫、魯三省軍防。"
+        ],
+        "lineage_basis": "同一共享事实含多个互不连续战区；父项持有fact_id，子项只持定点逐字锚，避免事实ID重复消费。"
+      },
+      "source_refs": [
+        "清史稿/卷21@1814546#僧格林沁剿賊於菏澤南吳家店，失利",
+        "清史稿/卷21@1814546#命曾國籓節制直、豫、魯三省軍防。"
+      ],
+      "uncertainties": [
+        "具体兵力、损失和战术原因未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "wc_grade": null,
+      "security_grade": null,
+      "merged_into": null,
+      "limitations": [
+        "不得把混合父项的总兵力、四百余处规模或其他战区结果复制到本子项。"
+      ],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "basis": "主帅本人败死并触发跨省指挥体系改组，构成独立重大负向阶段；失败原因不明。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-92B85F25C4D2FBB27D44",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-SECOND-GURKHA-1791-1792",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "廓尔喀再侵西藏并攻入扎什伦布，福康安率军由藏境反攻，连克济咙、热索桥等寨卡，迫使廓尔喀请降。",
+      "period": {
+        "start": "乾隆五十六年八月",
+        "end": "乾隆五十七年九月"
+      },
+      "observable_result": "廓尔喀恢复封爵并定五年一贡，清廷部署西藏善后。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V15-SECOND-GURKHA-WAR-1791-1792"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-15.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷15@1967792#廓爾喀陷西藏定日各寨，據濟嚨。",
+          "清史稿/卷15@1967792#廓爾喀入紥什倫布，尋遁去。",
+          "清史稿/卷15@1967792#福康安等奏克濟嚨。",
+          "清史稿/卷15@1967792#廓爾喀酋拉特納巴都爾等乞降。",
+          "清史稿/卷15@1967792#復廓爾喀王公封爵，定五年一貢。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷15@1967792#廓爾喀陷西藏定日各寨，據濟嚨。",
+        "清史稿/卷15@1967792#廓爾喀入紥什倫布，尋遁去。",
+        "清史稿/卷15@1967792#福康安等奏克濟嚨。",
+        "清史稿/卷15@1967792#廓爾喀酋拉特納巴都爾等乞降。",
+        "清史稿/卷15@1967792#復廓爾喀王公封爵，定五年一貢。"
+      ],
+      "uncertainties": [
+        "双方总伤亡、军费和西藏损失未载。"
+      ],
+      "cost_or_burden": "阿满泰、墨尔根保等阵亡，军费与总伤亡未载。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-0BCA38ABC0A0A278",
+          "actor_name": "福康安",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "行动和终局均直接归于福康安，实际连续指挥覆盖反攻至请降；高原与跨境虽存在，但锚点无兵力逆势证据，不升D3。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "S-",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "行动和终局均直接归于福康安，实际连续指挥覆盖反攻至请降；高原与跨境虽存在，但锚点无兵力逆势证据，不升D3。",
+            "source_refs": [
+              "清史稿/卷15@1967792#廓爾喀陷西藏定日各寨，據濟嚨。",
+              "清史稿/卷15@1967792#廓爾喀入紥什倫布，尋遁去。",
+              "清史稿/卷15@1967792#福康安等奏克濟嚨。",
+              "清史稿/卷15@1967792#廓爾喀酋拉特納巴都爾等乞降。",
+              "清史稿/卷15@1967792#復廓爾喀王公封爵，定五年一貢。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-6F471CBF804E89564D8E",
+              "result_label": "率军由藏境反攻，攻克济咙等寨卡并迫廓尔喀首领请降。",
+              "result_direction": "positive",
+              "result_tier": "S-",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "行动和终局均直接归于福康安，实际连续指挥覆盖反攻至请降；高原与跨境虽存在，但锚点无兵力逆势证据，不升D3。",
+              "source_refs": [
+                "清史稿/卷15@1967792#廓爾喀陷西藏定日各寨，據濟嚨。",
+                "清史稿/卷15@1967792#廓爾喀入紥什倫布，尋遁去。",
+                "清史稿/卷15@1967792#福康安等奏克濟嚨。",
+                "清史稿/卷15@1967792#廓爾喀酋拉特納巴都爾等乞降。",
+                "清史稿/卷15@1967792#復廓爾喀王公封爵，定五年一貢。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "行动和终局均直接归于福康安，实际连续指挥覆盖反攻至请降；高原与跨境虽存在，但锚点无兵力逆势证据，不升D3。",
+                "source_refs": [
+                  "清史稿/卷15@1967792#廓爾喀陷西藏定日各寨，據濟嚨。",
+                  "清史稿/卷15@1967792#廓爾喀入紥什倫布，尋遁去。",
+                  "清史稿/卷15@1967792#福康安等奏克濟嚨。",
+                  "清史稿/卷15@1967792#廓爾喀酋拉特納巴都爾等乞降。",
+                  "清史稿/卷15@1967792#復廓爾喀王公封爵，定五年一貢。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "S-",
+      "result_class": "independent_direction",
+      "land_strategic_value": "independent_direction",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "strong",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "对手攻入西藏中枢，清军跨境反攻、连克寨卡并迫国家首领请降，恢复西藏且形成朝贡终局；O4完整方向结果支持S-。",
+      "tier_review_source_tier": "C",
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT",
+      "combat_difficulty": "D3",
+      "combat_difficulty_basis": "高原远征补给与济咙、热索桥等连续寨卡、廓尔喀主力并存，清军须跨境持续攻坚，取D3。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "single_integrated_command",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-8988381C28B1566511DA",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-TAIPING-JIANGNAN-CAMPS-1856-1860",
+      "candidate_destination": "BELOW_PUBLIC_OUTCOME_THRESHOLD",
+      "public_outcome_registered": false,
+      "canonical_label": "太平军两度冲破江南大营，并在后一次攻势中连陷丹阳、常州、苏州、松江、嘉兴等地；张国梁、和春、徐有壬等死难。",
+      "period": {
+        "start": "咸丰六年六月",
+        "end": "咸丰十年五月"
+      },
+      "observable_result": "清廷在江南的旧大营体系崩溃，曾国藩被任为钦差大臣、两江总督接办东南军务。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V20-JIANGNAN-CAMPS-COLLAPSE-1856-1860"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-20.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷20@2433519#金陵賊撲陷大營，官軍退守丹陽",
+          "清史稿/卷20@2433519#賊陷丹陽，張國樑死之，和春走常州。",
+          "清史稿/卷20@2433519#賊犯常州，和春迎戰受傷，卒。",
+          "清史稿/卷20@2433519#賊陷蘇州，巡撫徐有壬死之。",
+          "清史稿/卷20@2433519#命曾國籓為欽差大臣，實授兩江總督。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷20@2433519#金陵賊撲陷大營，官軍退守丹陽",
+        "清史稿/卷20@2433519#賊陷丹陽，張國樑死之，和春走常州。",
+        "清史稿/卷20@2433519#賊犯常州，和春迎戰受傷，卒。",
+        "清史稿/卷20@2433519#賊陷蘇州，巡撫徐有壬死之。",
+        "清史稿/卷20@2433519#命曾國籓為欽差大臣，實授兩江總督。"
+      ],
+      "uncertainties": [
+        "城市人口伤亡、财产损失和军队溃散规模未载。"
+      ],
+      "cost_or_burden": "张国梁、和春、徐有壬等阵亡，苏常地区损失和总伤亡未载。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "EXCLUDED_BELOW_PUBLIC_THRESHOLD",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "WAR-POST-05B5C415414C3F87ECA3",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-TAIWAN-1683",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "康熙命施琅征台湾，清军攻克澎湖后进入台湾，郑克塽、刘国轩率属投降。",
+      "period": {
+        "start": "康熙二十二年五月",
+        "end": "康熙二十二年十月"
+      },
+      "observable_result": "台湾郑氏政权结束，台湾归入清朝版图，沿海迁民获准返回田里。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V07-TAIWAN-CONQUEST-1683"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-07.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷7@1794686#命施琅征台灣。",
+          "清史稿/卷7@1794686#施琅克澎湖。",
+          "清史稿/卷7@1794686#鄭克塽率其屬劉國軒等迎降，台灣平。",
+          "清史稿/卷7@1794686#詔沿海遷民歸復田裡。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷7@1794686#命施琅征台灣。",
+        "清史稿/卷7@1794686#施琅克澎湖。",
+        "清史稿/卷7@1794686#鄭克塽率其屬劉國軒等迎降，台灣平。",
+        "清史稿/卷7@1794686#詔沿海遷民歸復田裡。"
+      ],
+      "uncertainties": [
+        "海战伤亡、岛上人口财产损失和迁民复业规模未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-420C74100B81D7BA",
+          "actor_name": "施琅",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "命令、实际攻克和受降连续闭合；康熙只保留授权。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "S-",
+            "projected_combat_difficulty": "D3",
+            "detail_status": "resolved_person_result",
+            "basis": "命令、实际攻克和受降连续闭合；康熙只保留授权。",
+            "source_refs": [
+              "清史稿/卷7@1794686#命施琅征台灣。",
+              "清史稿/卷7@1794686#施琅克澎湖。",
+              "清史稿/卷7@1794686#鄭克塽率其屬劉國軒等迎降，台灣平。",
+              "清史稿/卷7@1794686#詔沿海遷民歸復田裡。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-C57A7F2806065DDE2DC7",
+              "result_label": "受命征台，亲自攻克澎湖并推进至郑克塽、刘国轩迎降。",
+              "result_direction": "positive",
+              "result_tier": "S-",
+              "combat_difficulty": "D3",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "命令、实际攻克和受降连续闭合；康熙只保留授权。",
+              "source_refs": [
+                "清史稿/卷7@1794686#命施琅征台灣。",
+                "清史稿/卷7@1794686#施琅克澎湖。",
+                "清史稿/卷7@1794686#鄭克塽率其屬劉國軒等迎降，台灣平。",
+                "清史稿/卷7@1794686#詔沿海遷民歸復田裡。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "命令、实际攻克和受降连续闭合；康熙只保留授权。",
+                "source_refs": [
+                  "清史稿/卷7@1794686#命施琅征台灣。",
+                  "清史稿/卷7@1794686#施琅克澎湖。",
+                  "清史稿/卷7@1794686#鄭克塽率其屬劉國軒等迎降，台灣平。",
+                  "清史稿/卷7@1794686#詔沿海遷民歸復田裡。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "unification_portfolio_ref": "UCP-POST-QING-REUNIFICATION-1673-1683",
+      "unification_stage_order": 7,
+      "account_routing": [
+        "UNIFICATION_ONLY"
+      ],
+      "defense_consumption": "EXCLUDED_UNIFICATION",
+      "settlement_scope": "BATTLE_LEDGER_ONLY",
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "mixed",
+      "campaign_tier": "S-",
+      "result_class": "independent_direction",
+      "land_strategic_value": "core_base",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "independent_regional_pole",
+      "battle_result": "unclear",
+      "objective_completion": "unclear",
+      "objective_shortfalls": [
+        "共享层未闭合全部战略目标，保持证据下限。"
+      ],
+      "opponent_force_effect": "military_system_collapsed",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "清军攻克澎湖并受郑克塽、刘国轩率属投降，终结台湾郑氏独立政权并建立持续治理，裁为S-；再统一总链另行比较。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT",
+      "combat_difficulty": "D3",
+      "combat_difficulty_basis": "跨海舰队补给、澎湖水战与郑氏仍有成建制海军和岛屿防御并存，取D3。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "single_integrated_command",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。"
+    },
+    {
+      "war_event_id": "WAR-POST-F54CEEBA0CAA7CD3E040",
+      "dynasty": "清",
+      "dynasty_partition": "qing",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-QING-YUNNAN-REBELLIONS-1821",
+      "candidate_destination": "REDIRECT_NON_BATTLE_OUTCOME",
+      "public_outcome_registered": false,
+      "canonical_label": "清廷派钦差督办云南永北军务并调贵州军协剿，先后平定大姚拉古和永北大姚起事。",
+      "period": {
+        "start": "道光元年三月至四月",
+        "end": "1821"
+      },
+      "observable_result": "云南两处武装起事被平定。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-QING-V17-YUNNAN-REBELLIONS-1821"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/清史稿/volume-17.registry.json"
+        ],
+        "source_revision_refs": [
+          "清史稿/卷17@1812282#命貴州提督羅思舉赴雲南軍營協剿。",
+          "清史稿/卷17@1812282#雲南大姚拉古賊平。",
+          "清史稿/卷17@1812282#雲南永北大姚賊平。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "清史稿/卷17@1812282#命貴州提督羅思舉赴雲南軍營協剿。",
+        "清史稿/卷17@1812282#雲南大姚拉古賊平。",
+        "清史稿/卷17@1812282#雲南永北大姚賊平。"
+      ],
+      "uncertainties": [
+        "起事原因、双方伤亡和处置人数未载。"
+      ],
+      "cost_or_burden": "unknown",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REDIRECTED_NON_BATTLE_OUTCOME",
+      "result_direction": null,
+      "campaign_tier": null,
+      "result_class": null,
+      "land_strategic_value": null,
+      "opponent_strategic_weight": null,
+      "opponent_condition": null,
+      "battle_result": null,
+      "objective_completion": null,
+      "objective_shortfalls": [],
+      "opponent_force_effect": null,
+      "tier_basis": null,
+      "combat_difficulty": "D_NOT_REQUIRED",
+      "combat_difficulty_basis": null,
+      "command_status": "NOT_REQUIRED",
+      "campaign_command_topology": null,
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "非公共战役成果，不进入人物或皇帝战役消费。",
+      "detail_expansion_status": "not_required",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "只载派钦差督办、调军和随后平定，没有独立战斗锚。"
+    }
+  ]
+}

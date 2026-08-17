@@ -1,0 +1,898 @@
+{
+  "schema_version": "battle-registry-shard-v1",
+  "partition": "jin",
+  "bucket": 1,
+  "bucket_count": 24,
+  "record_count": 4,
+  "records_fingerprint": "101b3ca51060528af95a14a3b5d5f278c54e029acb6b04aafe7fbd0ba5a8855a",
+  "records": [
+    {
+      "war_event_id": "WAR-POST-03D7088C27DA6BF2F30E",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-NORTHERN-INTERNAL-WARS-1217-1219",
+      "candidate_destination": "REDIRECTED_MIXED_PARENT",
+      "public_outcome_registered": false,
+      "canonical_label": "金军先后平定石海、宋子玉、五朵山与多州叛乱，后持续与李全、红袄军、黑旗军及地方割据势力争夺山东河北州县。",
+      "period": {
+        "start": "兴定元年三月",
+        "end": "兴定三年十二月"
+      },
+      "observable_result": "若干叛军首领被杀、数万部众降复业，多城反复得失；李全势力仍未被彻底平定。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V15-NORTHERN-INTERNAL-WARS-1217-1219"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-15.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷15@2432740#斬石海及其党二百餘人",
+          "金史/卷15@2432740#降其壯士二萬人、老幼五萬人。",
+          "金史/卷15@2432740#紅襖賊犯徐、邳，行樞密院兵大破之。",
+          "金史/卷15@2432740#李全破密州",
+          "金史/卷15@2432740#復濱、棣二州。",
+          "金史/卷15@2432740#大破紅襖賊于狄山。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷15@2432740#斬石海及其党二百餘人",
+        "金史/卷15@2432740#降其壯士二萬人、老幼五萬人。",
+        "金史/卷15@2432740#紅襖賊犯徐、邳，行樞密院兵大破之。",
+        "金史/卷15@2432740#李全破密州",
+        "金史/卷15@2432740#復濱、棣二州。",
+        "金史/卷15@2432740#大破紅襖賊于狄山。"
+      ],
+      "uncertainties": [
+        "各部起事原因、平民伤亡、降户安置及最终归属未完整载明。"
+      ],
+      "cost_or_burden": "济南等地降壮士二万、老幼五万；石州降五千余人，其他死伤甚众。",
+      "members": [],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REDIRECTED_MIXED_PARENT",
+      "result_direction": "positive",
+      "campaign_tier": null,
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "逐项复核后只构成局部平叛、征讨未克、统一战争阶段执行或未闭合的多线推进；未达到强区域独立方向或第一梯队决定性终局，明确保留A。",
+      "tier_review_source_tier": "A",
+      "tier_adjudication_status": "REVIEWED_RETAINED_A",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "NOT_REQUIRED_SPLIT_PARENT",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "split_into_independent_children",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "混合父项按战区、对手和连续指挥链拆分；父项只持共享fact_id，不登记战果。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-73BB93C046D46A83F5E6",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-SONG-WAR-1220-1223",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "宋军以十余万围邓州并持续攻泗州、唐邓、海州、淮南等地，金军多次反击；兴定五年再集中诸道南伐，后议和失败，于元光年间继续攻守。",
+      "period": {
+        "start": "兴定四年正月",
+        "end": "元光二年九月"
+      },
+      "observable_result": "金军取得黄蕲、泗州、武休关等多处胜捷，也有军败和主将战没，至宣宗末仍未实现和议。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V16-SONG-WAR-1220-1223"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-16.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷16@2432683#宋步騎十餘萬圍鄧州",
+          "金史/卷16@2432683#宋人圍唐、鄧",
+          "金史/卷16@2432683#諸道兵集蔡州",
+          "金史/卷16@2432683#，下詔伐宋。以",
+          "金史/卷16@2432683#僕散安貞破宋黃、蘄等州。",
+          "金史/卷16@2432683#宋人入壽州"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷16@2432683#宋步騎十餘萬圍鄧州",
+        "金史/卷16@2432683#宋人圍唐、鄧",
+        "金史/卷16@2432683#諸道兵集蔡州",
+        "金史/卷16@2432683#，下詔伐宋。以",
+        "金史/卷16@2432683#僕散安貞破宋黃、蘄等州。",
+        "金史/卷16@2432683#宋人入壽州"
+      ],
+      "uncertainties": [
+        "完整参战规模、占领时长、双方伤亡及议和条件未载。"
+      ],
+      "cost_or_burden": "邓州守战死七百余；其他双方伤亡和军费未完整载明。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-353B5C2A38435F73",
+          "actor_name": "仆散安贞",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "该链中明确由其攻破黄、蕲等州；其他战区不得机械并入本人。 本人只闭合破黄、蕲等州；父群其他主帅战区不得复制为本人D3。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "full_campaign",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "A",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "该链中明确由其攻破黄、蕲等州；其他战区不得机械并入本人。 本人只闭合破黄、蕲等州；父群其他主帅战区不得复制为本人D3。",
+            "source_refs": [
+              "金史/卷16@2432683#宋步騎十餘萬圍鄧州",
+              "金史/卷16@2432683#宋人圍唐、鄧",
+              "金史/卷16@2432683#諸道兵集蔡州",
+              "金史/卷16@2432683#，下詔伐宋。以",
+              "金史/卷16@2432683#僕散安貞破宋黃、蘄等州。",
+              "金史/卷16@2432683#宋人入壽州"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-65F9102814143D667D38",
+              "result_label": "该链中明确由其攻破黄、蕲等州；其他战区不得机械并入本人。",
+              "result_direction": "positive",
+              "result_tier": "A",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "该链中明确由其攻破黄、蕲等州；其他战区不得机械并入本人。 本人只闭合破黄、蕲等州；父群其他主帅战区不得复制为本人D3。",
+              "source_refs": [
+                "金史/卷16@2432683#宋步騎十餘萬圍鄧州",
+                "金史/卷16@2432683#宋人圍唐、鄧",
+                "金史/卷16@2432683#諸道兵集蔡州",
+                "金史/卷16@2432683#，下詔伐宋。以",
+                "金史/卷16@2432683#僕散安貞破宋黃、蘄等州。",
+                "金史/卷16@2432683#宋人入壽州"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "该链中明确由其攻破黄、蕲等州；其他战区不得机械并入本人。 本人只闭合破黄、蕲等州；父群其他主帅战区不得复制为本人D3。",
+                "source_refs": [
+                  "金史/卷16@2432683#宋步騎十餘萬圍鄧州",
+                  "金史/卷16@2432683#宋人圍唐、鄧",
+                  "金史/卷16@2432683#諸道兵集蔡州",
+                  "金史/卷16@2432683#，下詔伐宋。以",
+                  "金史/卷16@2432683#僕散安貞破宋黃、蘄等州。",
+                  "金史/卷16@2432683#宋人入壽州"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "mixed",
+      "campaign_tier": "A",
+      "result_class": "major_stage_or_crisis",
+      "land_strategic_value": "important_region",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "strong",
+      "battle_result": "mixed",
+      "objective_completion": "partial",
+      "objective_shortfalls": [
+        "共享层未闭合全部战略目标，保持证据下限。"
+      ],
+      "opponent_force_effect": "major_degradation",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "1220至1223年宋以十余万围邓州，金方集中诸道再伐宋，黄蕲、泗州、武休关等反复攻守并伴主将战没，属完整多年国家战争链。",
+      "tier_review_source_tier": "C",
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "single_integrated_command",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-DE13F71A8D62BCB27495",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-JIN-XIA-BORDER-WAR-1213-1216",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "西夏军持续攻会州、环州、保安、延安、临洮等地，金军多次击退来犯并在定西、熟羊寨和临洮取得大捷，但临洮一度陷落。",
+      "period": {
+        "start": "贞祐元年十一月",
+        "end": "贞祐四年十一月"
+      },
+      "observable_result": "金夏边战延续，金军多次获胜却未能阻止临洮失陷，双方未在本卷形成最终和局。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V14-XIA-BORDER-WAR-1213-1216"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-14.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷14@2432741#夏人攻會州，徒單醜兒兵擊走之。",
+          "金史/卷14@2432741#夏人犯環州。",
+          "金史/卷14@2432741#夏人陷臨洮",
+          "金史/卷14@2432741#破夏人數萬於熟羊寨。",
+          "金史/卷14@2432741#破夏人八萬於城下。",
+          "金史/卷14@2432741#大敗夏人於定西之捷"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷14@2432741#夏人攻會州，徒單醜兒兵擊走之。",
+        "金史/卷14@2432741#夏人犯環州。",
+        "金史/卷14@2432741#夏人陷臨洮",
+        "金史/卷14@2432741#破夏人數萬於熟羊寨。",
+        "金史/卷14@2432741#破夏人八萬於城下。",
+        "金史/卷14@2432741#大敗夏人於定西之捷"
+      ],
+      "uncertainties": [
+        "西夏军真实兵数、双方总伤亡与边界变化未载。"
+      ],
+      "cost_or_burden": "临洮副使被俘；各役伤亡未完整载明。",
+      "members": [
+        {
+          "actor_ref": "PERSON-POST-CF5F9A7C548DAA61",
+          "actor_name": "完颜胡失剌",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "临洮失陷时被俘，守御责任明确但过程简略。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "临洮失陷时被俘，守御责任明确但过程简略。",
+            "source_refs": [
+              "金史/卷14@2432741#夏人攻會州，徒單醜兒兵擊走之。",
+              "金史/卷14@2432741#夏人犯環州。",
+              "金史/卷14@2432741#夏人陷臨洮",
+              "金史/卷14@2432741#破夏人數萬於熟羊寨。",
+              "金史/卷14@2432741#破夏人八萬於城下。",
+              "金史/卷14@2432741#大敗夏人於定西之捷"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-4CEFA580989A23F1B11E",
+              "result_label": "临洮失陷时被俘，守御责任明确但过程简略。",
+              "result_direction": "negative",
+              "result_tier": "C",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "临洮失陷时被俘，守御责任明确但过程简略。",
+              "source_refs": [
+                "金史/卷14@2432741#夏人攻會州，徒單醜兒兵擊走之。",
+                "金史/卷14@2432741#夏人犯環州。",
+                "金史/卷14@2432741#夏人陷臨洮",
+                "金史/卷14@2432741#破夏人數萬於熟羊寨。",
+                "金史/卷14@2432741#破夏人八萬於城下。",
+                "金史/卷14@2432741#大敗夏人於定西之捷"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "临洮失陷时被俘，守御责任明确但过程简略。",
+                "source_refs": [
+                  "金史/卷14@2432741#夏人攻會州，徒單醜兒兵擊走之。",
+                  "金史/卷14@2432741#夏人犯環州。",
+                  "金史/卷14@2432741#夏人陷臨洮",
+                  "金史/卷14@2432741#破夏人數萬於熟羊寨。",
+                  "金史/卷14@2432741#破夏人八萬於城下。",
+                  "金史/卷14@2432741#大敗夏人於定西之捷"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-18B6006C1F2DB518",
+          "actor_name": "杨斡烈",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "与石盏合喜等取得定西大捷；分立个人战术范围未载。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "stage_executor",
+            "result_direction": "positive",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "与石盏合喜等取得定西大捷；分立个人战术范围未载。",
+            "source_refs": [
+              "金史/卷14@2432741#夏人攻會州，徒單醜兒兵擊走之。",
+              "金史/卷14@2432741#夏人犯環州。",
+              "金史/卷14@2432741#夏人陷臨洮",
+              "金史/卷14@2432741#破夏人數萬於熟羊寨。",
+              "金史/卷14@2432741#破夏人八萬於城下。",
+              "金史/卷14@2432741#大敗夏人於定西之捷"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-BE1529B50A0C62ECFCBE",
+              "result_label": "与石盏合喜等取得定西大捷；分立个人战术范围未载。",
+              "result_direction": "positive",
+              "result_tier": "C",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "与石盏合喜等取得定西大捷；分立个人战术范围未载。",
+              "source_refs": [
+                "金史/卷14@2432741#夏人攻會州，徒單醜兒兵擊走之。",
+                "金史/卷14@2432741#夏人犯環州。",
+                "金史/卷14@2432741#夏人陷臨洮",
+                "金史/卷14@2432741#破夏人數萬於熟羊寨。",
+                "金史/卷14@2432741#破夏人八萬於城下。",
+                "金史/卷14@2432741#大敗夏人於定西之捷"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "tactical_execution",
+                "decisive_relation": "stage_executor",
+                "basis": "与石盏合喜等取得定西大捷；分立个人战术范围未载。",
+                "source_refs": [
+                  "金史/卷14@2432741#夏人攻會州，徒單醜兒兵擊走之。",
+                  "金史/卷14@2432741#夏人犯環州。",
+                  "金史/卷14@2432741#夏人陷臨洮",
+                  "金史/卷14@2432741#破夏人數萬於熟羊寨。",
+                  "金史/卷14@2432741#破夏人八萬於城下。",
+                  "金史/卷14@2432741#大敗夏人於定西之捷"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-CD97987FB8B76DB6",
+          "actor_name": "石盏合喜",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "与杨斡烈等取得定西大捷；分立个人战术范围未载。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "stage_executor",
+            "result_direction": "positive",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "与杨斡烈等取得定西大捷；分立个人战术范围未载。",
+            "source_refs": [
+              "金史/卷14@2432741#夏人攻會州，徒單醜兒兵擊走之。",
+              "金史/卷14@2432741#夏人犯環州。",
+              "金史/卷14@2432741#夏人陷臨洮",
+              "金史/卷14@2432741#破夏人數萬於熟羊寨。",
+              "金史/卷14@2432741#破夏人八萬於城下。",
+              "金史/卷14@2432741#大敗夏人於定西之捷"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-E0D41EAB5D6A7F5B625C",
+              "result_label": "与杨斡烈等取得定西大捷；分立个人战术范围未载。",
+              "result_direction": "positive",
+              "result_tier": "C",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "与杨斡烈等取得定西大捷；分立个人战术范围未载。",
+              "source_refs": [
+                "金史/卷14@2432741#夏人攻會州，徒單醜兒兵擊走之。",
+                "金史/卷14@2432741#夏人犯環州。",
+                "金史/卷14@2432741#夏人陷臨洮",
+                "金史/卷14@2432741#破夏人數萬於熟羊寨。",
+                "金史/卷14@2432741#破夏人八萬於城下。",
+                "金史/卷14@2432741#大敗夏人於定西之捷"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "tactical_execution",
+                "decisive_relation": "stage_executor",
+                "basis": "与杨斡烈等取得定西大捷；分立个人战术范围未载。",
+                "source_refs": [
+                  "金史/卷14@2432741#夏人攻會州，徒單醜兒兵擊走之。",
+                  "金史/卷14@2432741#夏人犯環州。",
+                  "金史/卷14@2432741#夏人陷臨洮",
+                  "金史/卷14@2432741#破夏人數萬於熟羊寨。",
+                  "金史/卷14@2432741#破夏人八萬於城下。",
+                  "金史/卷14@2432741#大敗夏人於定西之捷"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-3429302EA9310E7B",
+          "actor_name": "移剌塔不也",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "以一万人在熟羊寨击败数万夏军。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "stage_executor",
+            "result_direction": "positive",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "以一万人在熟羊寨击败数万夏军。",
+            "source_refs": [
+              "金史/卷14@2432741#夏人攻會州，徒單醜兒兵擊走之。",
+              "金史/卷14@2432741#夏人犯環州。",
+              "金史/卷14@2432741#夏人陷臨洮",
+              "金史/卷14@2432741#破夏人數萬於熟羊寨。",
+              "金史/卷14@2432741#破夏人八萬於城下。",
+              "金史/卷14@2432741#大敗夏人於定西之捷"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-6C16B34B52EB891642E3",
+              "result_label": "以一万人在熟羊寨击败数万夏军。",
+              "result_direction": "positive",
+              "result_tier": "C",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "以一万人在熟羊寨击败数万夏军。",
+              "source_refs": [
+                "金史/卷14@2432741#夏人攻會州，徒單醜兒兵擊走之。",
+                "金史/卷14@2432741#夏人犯環州。",
+                "金史/卷14@2432741#夏人陷臨洮",
+                "金史/卷14@2432741#破夏人數萬於熟羊寨。",
+                "金史/卷14@2432741#破夏人八萬於城下。",
+                "金史/卷14@2432741#大敗夏人於定西之捷"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "tactical_execution",
+                "decisive_relation": "stage_executor",
+                "basis": "以一万人在熟羊寨击败数万夏军。",
+                "source_refs": [
+                  "金史/卷14@2432741#夏人攻會州，徒單醜兒兵擊走之。",
+                  "金史/卷14@2432741#夏人犯環州。",
+                  "金史/卷14@2432741#夏人陷臨洮",
+                  "金史/卷14@2432741#破夏人數萬於熟羊寨。",
+                  "金史/卷14@2432741#破夏人八萬於城下。",
+                  "金史/卷14@2432741#大敗夏人於定西之捷"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-62C77A26F6FE4711",
+          "actor_name": "陀满胡土门",
+          "actor_kind": "person",
+          "role_code": "principal_commander",
+          "contribution_scope": "临洮城下击败八万夏军。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "tactical_execution",
+            "decisive_relation": "stage_executor",
+            "result_direction": "positive",
+            "projected_result_tier": "C",
+            "projected_combat_difficulty": "D2",
+            "detail_status": "resolved_person_result",
+            "basis": "临洮城下击败八万夏军。",
+            "source_refs": [
+              "金史/卷14@2432741#夏人攻會州，徒單醜兒兵擊走之。",
+              "金史/卷14@2432741#夏人犯環州。",
+              "金史/卷14@2432741#夏人陷臨洮",
+              "金史/卷14@2432741#破夏人數萬於熟羊寨。",
+              "金史/卷14@2432741#破夏人八萬於城下。",
+              "金史/卷14@2432741#大敗夏人於定西之捷"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-CB3DB6E59D271C8DB8B7",
+              "result_label": "临洮城下击败八万夏军。",
+              "result_direction": "positive",
+              "result_tier": "C",
+              "combat_difficulty": "D2",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "临洮城下击败八万夏军。",
+              "source_refs": [
+                "金史/卷14@2432741#夏人攻會州，徒單醜兒兵擊走之。",
+                "金史/卷14@2432741#夏人犯環州。",
+                "金史/卷14@2432741#夏人陷臨洮",
+                "金史/卷14@2432741#破夏人數萬於熟羊寨。",
+                "金史/卷14@2432741#破夏人八萬於城下。",
+                "金史/卷14@2432741#大敗夏人於定西之捷"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "tactical_execution",
+                "decisive_relation": "stage_executor",
+                "basis": "临洮城下击败八万夏军。",
+                "source_refs": [
+                  "金史/卷14@2432741#夏人攻會州，徒單醜兒兵擊走之。",
+                  "金史/卷14@2432741#夏人犯環州。",
+                  "金史/卷14@2432741#夏人陷臨洮",
+                  "金史/卷14@2432741#破夏人數萬於熟羊寨。",
+                  "金史/卷14@2432741#破夏人八萬於城下。",
+                  "金史/卷14@2432741#大敗夏人於定西之捷"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [
+        {
+          "actor_ref": "PERSON-POST-CF5F9A7C548DAA61",
+          "actor_name": "完颜胡失剌",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "C",
+          "severity": 0.2,
+          "basis": "临洮失陷时被俘，守御责任明确但过程简略。",
+          "source_refs": [
+            "金史/卷14@2432741#夏人攻會州，徒單醜兒兵擊走之。",
+            "金史/卷14@2432741#夏人犯環州。",
+            "金史/卷14@2432741#夏人陷臨洮",
+            "金史/卷14@2432741#破夏人數萬於熟羊寨。",
+            "金史/卷14@2432741#破夏人八萬於城下。",
+            "金史/卷14@2432741#大敗夏人於定西之捷"
+          ]
+        }
+      ],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "important_objective",
+      "land_strategic_value": "strategic_gateway",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "viable",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "1213至1216年金夏边战覆盖会州、环州、临洮等完整西北方向，夏军数万至八万级，双方均有城地得失，应作为与对蒙古、对宋战争分立的战役群。",
+      "tier_review_source_tier": "C",
+      "tier_adjudication_status": "ADJUDICATED_EXPLICIT",
+      "combat_difficulty": "D2",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "WAR-POST-210F494AD40ACFF8BB7F",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "campaign_group",
+      "source_target_ref": "CAMPAIGN-PROTO-JIN-HUAN-SANDA-1091",
+      "candidate_destination": "CAMPAIGN_GROUP",
+      "public_outcome_registered": true,
+      "canonical_label": "桓𧹞、散达联合诸部夹攻完颜部；在前期互有败绩、和议失败后，劾里钵亲自突阵发动决战。",
+      "period": {
+        "start": "世祖在位中期",
+        "end": "辽大安七年"
+      },
+      "observable_result": "桓𧹞、散达军大败，军实尽失，联盟不能再聚，二人不久率属众来降。",
+      "source_lineage": {
+        "source_card_ids": [
+          "CHF-JIN-V01-HELIPU-HUAN-SANDA-WAR"
+        ],
+        "source_files": [
+          "docs/史料通读产物/唐以后编年/金史/volume-01.registry.json"
+        ],
+        "source_revision_refs": [
+          "金史/卷1@2432749#當是時，烏春兵在北，桓𧹞兵在南，其勢甚盛。",
+          "金史/卷1@2432749#三揚旗，三鳴鼓，棄旗搏戰，身為軍鋒，突入敵陣，眾從之。",
+          "金史/卷1@2432749#桓𧹞、散達自此不能復聚，未幾，各以其屬來降，遼大安七年也。"
+        ],
+        "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
+      },
+      "source_refs": [
+        "金史/卷1@2432749#當是時，烏春兵在北，桓𧹞兵在南，其勢甚盛。",
+        "金史/卷1@2432749#三揚旗，三鳴鼓，棄旗搏戰，身為軍鋒，突入敵陣，眾從之。",
+        "金史/卷1@2432749#桓𧹞、散達自此不能復聚，未幾，各以其屬來降，遼大安七年也。"
+      ],
+      "uncertainties": [
+        "决战确在辽大安七年闭合，但原文未分别标出此前各阶段年份。"
+      ],
+      "cost_or_burden": "完颜方前期肃宗两败；决战伤亡未给数字。",
+      "members": [
+        {
+          "actor_ref": "PERSON-JIN-HELIPU",
+          "actor_name": "劾里钵",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "统率防御并亲自突阵决战",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "decisive_creator",
+            "result_direction": "positive",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "共享层显式person_ref与行动，按单一事实结果作证据下限定档。",
+            "source_refs": [
+              "金史/卷1@2432749#當是時，烏春兵在北，桓𧹞兵在南，其勢甚盛。",
+              "金史/卷1@2432749#三揚旗，三鳴鼓，棄旗搏戰，身為軍鋒，突入敵陣，眾從之。",
+              "金史/卷1@2432749#桓𧹞、散達自此不能復聚，未幾，各以其屬來降，遼大安七年也。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-4085821CDB406EB8F883",
+              "result_label": "桓𧹞、散达联合诸部夹攻完颜部；在前期互有败绩、和议失败后，劾里钵亲自突阵发动决战。",
+              "result_direction": "positive",
+              "result_tier": "B",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": null,
+              "causal_fault": null,
+              "basis": "共享事实显式列出劾里钵统率防御并亲自突阵决战；只消费该事实可观察结果，不继承同群其他阶段。",
+              "source_refs": [
+                "金史/卷1@2432749#當是時，烏春兵在北，桓𧹞兵在南，其勢甚盛。",
+                "金史/卷1@2432749#三揚旗，三鳴鼓，棄旗搏戰，身為軍鋒，突入敵陣，眾從之。",
+                "金史/卷1@2432749#桓𧹞、散達自此不能復聚，未幾，各以其屬來降，遼大安七年也。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "decisive_creator",
+                "basis": "仅按共享层显式行动与结果建立劾里钵的人物下限。",
+                "source_refs": [
+                  "金史/卷1@2432749#當是時，烏春兵在北，桓𧹞兵在南，其勢甚盛。",
+                  "金史/卷1@2432749#三揚旗，三鳴鼓，棄旗搏戰，身為軍鋒，突入敵陣，眾從之。",
+                  "金史/卷1@2432749#桓𧹞、散達自此不能復聚，未幾，各以其屬來降，遼大安七年也。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-2A0A7433BE41B78A",
+          "actor_name": "散达",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "补消费已验收事实卡中具名实际作战人物；只登记本人可观察阶段，不继承父项终局。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "补消费已验收事实卡中具名实际作战人物；只登记本人可观察阶段，不继承父项终局。",
+            "source_refs": [
+              "金史/卷1@2432749#當是時，烏春兵在北，桓𧹞兵在南，其勢甚盛。",
+              "金史/卷1@2432749#三揚旗，三鳴鼓，棄旗搏戰，身為軍鋒，突入敵陣，眾從之。",
+              "金史/卷1@2432749#桓𧹞、散達自此不能復聚，未幾，各以其屬來降，遼大安七年也。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-5CA035AEB7D1268BCD63",
+              "result_label": "与桓𧹞联合诸部夹攻并在决战中大败、不能复聚，实际敌方统军败绩未消费。",
+              "result_direction": "negative",
+              "result_tier": "B",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "与桓𧹞联合诸部夹攻并在决战中大败、不能复聚，实际敌方统军败绩未消费。",
+              "source_refs": [
+                "金史/卷1@2432749#當是時，烏春兵在北，桓𧹞兵在南，其勢甚盛。",
+                "金史/卷1@2432749#三揚旗，三鳴鼓，棄旗搏戰，身為軍鋒，突入敵陣，眾從之。",
+                "金史/卷1@2432749#桓𧹞、散達自此不能復聚，未幾，各以其屬來降，遼大安七年也。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "与桓𧹞联合诸部夹攻并在决战中大败、不能复聚，实际敌方统军败绩未消费。",
+                "source_refs": [
+                  "金史/卷1@2432749#當是時，烏春兵在北，桓𧹞兵在南，其勢甚盛。",
+                  "金史/卷1@2432749#三揚旗，三鳴鼓，棄旗搏戰，身為軍鋒，突入敵陣，眾從之。",
+                  "金史/卷1@2432749#桓𧹞、散達自此不能復聚，未幾，各以其屬來降，遼大安七年也。"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-06B69B18D4F0F0CE",
+          "actor_name": "桓𧹞",
+          "actor_kind": "person",
+          "role_code": "commander_in_chief",
+          "contribution_scope": "补消费已验收事实卡中具名实际作战人物；只登记本人可观察阶段，不继承父项终局。",
+          "person_command_index": {
+            "consumption_mode": "person_result",
+            "command_scope": "scoped_stage",
+            "capability_mode": "integrated_command",
+            "decisive_relation": "none",
+            "result_direction": "negative",
+            "projected_result_tier": "B",
+            "projected_combat_difficulty": "D1",
+            "detail_status": "resolved_person_result",
+            "basis": "补消费已验收事实卡中具名实际作战人物；只登记本人可观察阶段，不继承父项终局。",
+            "source_refs": [
+              "金史/卷1@2432749#當是時，烏春兵在北，桓𧹞兵在南，其勢甚盛。",
+              "金史/卷1@2432749#三揚旗，三鳴鼓，棄旗搏戰，身為軍鋒，突入敵陣，眾從之。",
+              "金史/卷1@2432749#桓𧹞、散達自此不能復聚，未幾，各以其屬來降，遼大安七年也。"
+            ]
+          },
+          "person_command_result": [
+            {
+              "result_ref": "PCR-F1BC033B6245E9BABE1F",
+              "result_label": "与散达联合诸部夹攻并在决战中大败、不能复聚，实际敌方统军败绩未消费。",
+              "result_direction": "negative",
+              "result_tier": "B",
+              "combat_difficulty": "D1",
+              "stable_delivery": false,
+              "outcome_responsibility": "actual_command_scope",
+              "causal_fault": "UNKNOWN",
+              "basis": "与散达联合诸部夹攻并在决战中大败、不能复聚，实际敌方统军败绩未消费。",
+              "source_refs": [
+                "金史/卷1@2432749#當是時，烏春兵在北，桓𧹞兵在南，其勢甚盛。",
+                "金史/卷1@2432749#三揚旗，三鳴鼓，棄旗搏戰，身為軍鋒，突入敵陣，眾從之。",
+                "金史/卷1@2432749#桓𧹞、散達自此不能復聚，未幾，各以其屬來降，遼大安七年也。"
+              ],
+              "military_capability_contribution": {
+                "capability_mode": "integrated_command",
+                "decisive_relation": "none",
+                "basis": "与散达联合诸部夹攻并在决战中大败、不能复聚，实际敌方统军败绩未消费。",
+                "source_refs": [
+                  "金史/卷1@2432749#當是時，烏春兵在北，桓𧹞兵在南，其勢甚盛。",
+                  "金史/卷1@2432749#三揚旗，三鳴鼓，棄旗搏戰，身為軍鋒，突入敵陣，眾從之。",
+                  "金史/卷1@2432749#桓𧹞、散達自此不能復聚，未幾，各以其屬來降，遼大安七年也。"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "attributable_failures": [
+        {
+          "actor_ref": "PERSON-POST-2A0A7433BE41B78A",
+          "actor_name": "散达",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "B",
+          "severity": 0.3,
+          "basis": "与桓𧹞联合诸部夹攻并在决战中大败、不能复聚，实际敌方统军败绩未消费。",
+          "source_refs": [
+            "金史/卷1@2432749#當是時，烏春兵在北，桓𧹞兵在南，其勢甚盛。",
+            "金史/卷1@2432749#三揚旗，三鳴鼓，棄旗搏戰，身為軍鋒，突入敵陣，眾從之。",
+            "金史/卷1@2432749#桓𧹞、散達自此不能復聚，未幾，各以其屬來降，遼大安七年也。"
+          ]
+        },
+        {
+          "actor_ref": "PERSON-POST-06B69B18D4F0F0CE",
+          "actor_name": "桓𧹞",
+          "actor_kind": "person",
+          "failure_domain": "command_failure",
+          "responsibility": "actual_command_scope",
+          "causal_fault": "UNKNOWN",
+          "failure_impact_tier": "B",
+          "severity": 0.3,
+          "basis": "与散达联合诸部夹攻并在决战中大败、不能复聚，实际敌方统军败绩未消费。",
+          "source_refs": [
+            "金史/卷1@2432749#當是時，烏春兵在北，桓𧹞兵在南，其勢甚盛。",
+            "金史/卷1@2432749#三揚旗，三鳴鼓，棄旗搏戰，身為軍鋒，突入敵陣，眾從之。",
+            "金史/卷1@2432749#桓𧹞、散達自此不能復聚，未幾，各以其屬來降，遼大安七年也。"
+          ]
+        }
+      ],
+      "merged_into": null,
+      "limitations": [],
+      "contract_adjudication": true,
+      "post_tang_evidence_lower_bound": true,
+      "disposition": "REGISTERED_CONTRACT",
+      "result_direction": "positive",
+      "campaign_tier": "B",
+      "result_class": "important_objective",
+      "land_strategic_value": "strategic_gateway",
+      "opponent_strategic_weight": "regional_major",
+      "opponent_condition": "unclear",
+      "battle_result": "victory",
+      "objective_completion": "complete",
+      "objective_shortfalls": [],
+      "opponent_force_effect": "limited_attrition",
+      "external_hegemony_prewar_assessment": null,
+      "external_hegemony_terminal_assessment": null,
+      "tier_basis": "证据下限：仅按已兑现结果登记B；土地轴=strategic_gateway，对手轴=regional_major，未用国号、官衔或名望升档。",
+      "tier_review_source_tier": "B",
+      "tier_adjudication_status": "NOT_REQUIRED_BELOW_A",
+      "combat_difficulty": "D1",
+      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "command_status": "RESOLVED_EXPLICIT_ACTORS",
+      "campaign_command_topology": "command_unresolved",
+      "ruler_role_status": "unresolved",
+      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
+      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "wc_grade": null,
+      "security_grade": null,
+      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。",
+      "account_routing": [
+        "THREE_LEDGER_STANDARD"
+      ],
+      "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
+      "settlement_scope": "BATTLE_LEDGER_ONLY"
+    }
+  ]
+}

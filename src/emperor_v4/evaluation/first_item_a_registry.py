@@ -9,6 +9,8 @@ from typing import Any, Mapping
 
 import yaml
 
+from emperor_v4.evaluation.battle_registry_store import load_battle_registry
+
 
 ELIGIBLE_STATUS = "ELIGIBLE_DYNASTY_FOUNDER"
 EXCLUDED_STATUS = "NOT_APPLICABLE_NON_FOUNDER"
@@ -841,7 +843,9 @@ def write_first_item_a_registry(workspace_root: Path) -> dict[str, Path]:
     payload = build_first_item_a_registry(
         efficiency_inputs=efficiency_inputs,
         competitive_landscapes=load(workspace_root / "config/first-item-a-competitive-landscapes.json"),
-        battle_registry=load(workspace_root / "docs/公共成果/军事/01-战役登记.json"),
+        battle_registry=load_battle_registry(
+            workspace_root / "docs/公共成果/军事/01-战役登记.json"
+        ),
         territorial_inputs=load(workspace_root / "config/first-item-c-territorial-control-adjudications.json"),
         acquisition_windows=load(workspace_root / "config/first-item-c-acquisition-windows.json"),
         roster=load_qin_qing_first_item_roster(workspace_root, efficiency_inputs),
