@@ -8,7 +8,7 @@ project:
   v3_runtime_status: retired
 
 current_scope:
-  item: fifth_item_b
+  item: item_4_to_6_contract_calibration
   shadow_only: true
   five_rule_wall_clock_budget_minutes: null
   wall_clock_budget_priority: observability_only
@@ -16,6 +16,10 @@ current_scope:
   policy_entry_counts_against_person_limit: false
 
 i5b_current_value:
+  contract_role: supporting_material_pipeline_for_fifth_item_b50
+  standalone_score_target: null
+  parent_behavior_chain_budget: 4
+  fifth_item_total_behavior_chain_budget: 7
   runner: emperor_v4.evaluation.i5b_current_value_runner
   dynasty_execution:
     same_dynasty_ruler_mode: serial
@@ -63,7 +67,7 @@ i5b_current_value:
       dynasty_governance_period_terms: [高帝, 高祖, 漢王, 汉王, 劉邦, 刘邦]
   settlement_mode: policy_budget
   numeric_factor_source: config/i5b-scoring-policy.yml
-  formal_45_point_score: false
+  formal_fifth_item_b50_score: false
   tier: false
   ranking: false
 
@@ -190,7 +194,7 @@ first_item_c_registry:
   territorial_control_schema: config/first-item-c-territorial-control.schema.json
   eligibility: dynasty_founders_only
   c1_max_points: 50
-  c2_max_points: 50
+  c2_max_points: 30
   output_json: docs/评分结算/第一项创业与政权取得能力/军事夺取能力/01-第一项C军事夺取能力结算.json
   output_markdown: docs/评分结算/第一项创业与政权取得能力/军事夺取能力/01-第一项C军事夺取能力结算.md
   formal_score_write: false
@@ -203,9 +207,14 @@ first_item_summary:
   military_result: docs/评分结算/第一项创业与政权取得能力/军事夺取能力/01-第一项C军事夺取能力结算.json
   formal_json: docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.json
   formal_markdown: docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.md
+  raw_max_points: 240
+  component_max_points: {A: 100, B: 60, C: 80}
+  composite_role: conditional_founder_add_on
+  add_on_formula: F = 0.10 * M * (first_item_score_points / 240) ^ 1.25
+  composite_formula: T = S_common + F - D7
   summary_markdown: docs/评分结算/第一项创业与政权取得能力/02-第一项结算总结分析.md
   eligibility: dynasty_founders_only
-  max_points: 260
+  max_points: 240
   database_write: false
   ranking_write: false
 
@@ -747,7 +756,7 @@ person_political_risk:
   formal_writes_allowed: false
 
 current_gates:
-  formal_45_point_score: closed
+  formal_fifth_item_b50_score: closed
   tier: closed
   ranking: closed
   production_deployment: closed

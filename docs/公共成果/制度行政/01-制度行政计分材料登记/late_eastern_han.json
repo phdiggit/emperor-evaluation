@@ -35,7 +35,7 @@
         "曹操:B1"
       ],
       "usage_roles": {
-        "曹操:B1": "score_evidence"
+        "曹操:B1": "B1_POSITIVE_DIRECT"
       }
     },
     {
@@ -96,7 +96,7 @@
         "曹操:B1"
       ],
       "usage_roles": {
-        "曹操:B1": "score_evidence"
+        "曹操:B1": "B1_POSITIVE_DIRECT"
       }
     },
     {
@@ -139,7 +139,7 @@
       "result_closure": "observed_or_repeated",
       "score_contribution": true,
       "source_mechanism_domain": "B1治国名望强制召回与正反同尺度复核",
-      "strength": "M2",
+      "strength": "M3",
       "terminality": "none",
       "title": "曹操杀崔琰并因谗免黜毛玠侵蚀专业选任链",
       "usage_count": 1,
@@ -147,7 +147,7 @@
         "曹操:B1"
       ],
       "usage_roles": {
-        "曹操:B1": "score_evidence"
+        "曹操:B1": "B1_NEGATIVE_DIRECT"
       }
     },
     {
@@ -172,7 +172,7 @@
       "mechanism_dimension_zh": "财政、户籍与资源行政",
       "primary_ruler": "曹操",
       "reception_scope": "R0",
-      "result_closure": "sustained_or_systemic",
+      "result_closure": "institution_lifecycle_adjudicated",
       "score_contribution": true,
       "source_mechanism_domain": "屯田财政与田官行政",
       "strength": "M3",
@@ -184,8 +184,8 @@
         "曹操:B1"
       ],
       "usage_roles": {
-        "曹操:A": "score_evidence",
-        "曹操:B1": "score_evidence"
+        "曹操:A": "S_CONSTRUCTION",
+        "曹操:B1": "B1_POSITIVE_DIRECT"
       }
     },
     {
@@ -225,7 +225,7 @@
         "曹操:A"
       ],
       "usage_roles": {
-        "曹操:A": "score_evidence"
+        "曹操:A": "S_DURABILITY_GATE"
       }
     },
     {
@@ -266,10 +266,11 @@
         "曹操:B2"
       ],
       "usage_roles": {
-        "曹操:B2": "score_evidence"
+        "曹操:B2": "B2_POSITIVE_DIRECT"
       }
     },
     {
+      "adjudicated_handoff_level": "H4",
       "attribution": "归责于曹操本人最高规则期内的制度行政行为，D1仅使用其身后继任初期窗口。",
       "backsource_review_eligible": true,
       "backsource_status": "BACKSOURCE_CLOSED",
@@ -352,10 +353,11 @@
         "曹操:B2"
       ],
       "usage_roles": {
-        "曹操:B2": "score_evidence"
+        "曹操:B2": "B2_NEGATIVE_DIRECT"
       }
     }
   ],
-  "records_fingerprint": "acbd70661d451cdf7148e3a81258614d3d6d047f9841aaf1a5e56aecba2baea2",
-  "schema_version": "institution-administration-scoring-material-shard-v1"
+  "records_fingerprint": "9c8e048fb8fdd3887323dc99a40a64c1cb63d684c31ec67587ab4d63124713d2",
+  "schema_version": "institution-administration-scoring-material-shard-v1",
+  "promotion_task_code": "I2-A-FULL-SEMANTIC-CLOSEOUT-159-V2"
 }

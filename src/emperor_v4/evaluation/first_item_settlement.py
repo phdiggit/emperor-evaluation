@@ -85,19 +85,27 @@ def build_first_item_formal_settlement(
     )
     scores = [float(row["first_item_score_points"]) for row in eligible]
     bands = {
-        "200_and_above": sum(score >= 200 for score in scores),
-        "160_to_199_9": sum(160 <= score < 200 for score in scores),
-        "120_to_159_9": sum(120 <= score < 160 for score in scores),
-        "80_to_119_9": sum(80 <= score < 120 for score in scores),
-        "below_80": sum(score < 80 for score in scores),
+        "180_and_above": sum(score >= 180 for score in scores),
+        "144_to_179_9": sum(144 <= score < 180 for score in scores),
+        "108_to_143_9": sum(108 <= score < 144 for score in scores),
+        "72_to_107_9": sum(72 <= score < 108 for score in scores),
+        "below_72": sum(score < 72 for score in scores),
     }
     return {
-        "schema_version": "first-item-formal-settlement-v1",
+        "schema_version": "first-item-formal-settlement-v2",
         "canonical_status": "CURRENT",
         "item": "第一项创业与政权取得能力",
-        "max_points": 260,
+        "max_points": 240,
         "scope": "秦至清全阶段总名册；仅统一或独立建国主链实际贡献者适用",
-        "component_max_points": {"A": 100, "B": 60, "C": 100},
+        "component_max_points": {"A": 100, "B": 60, "C": 80, "C1": 50, "C2": 30},
+        "composite_integration": {
+            "role": "CONDITIONAL_FOUNDER_ADD_ON",
+            "common_score_scope": "items_2_through_6",
+            "raw_rate_formula": "r = first_item_score_points / 240",
+            "add_on_formula": "F = 0.10 * M * r^1.25",
+            "composite_formula": "T = S_common + F - D7",
+            "non_founder_policy": "NOT_APPLICABLE; F = 0; do not convert to a zero-score denominator item",
+        },
         "source_refs": {
             "A": "战略决策能力/01-第一项A战略决策能力结算.json",
             "B": "政治整合能力/01-第一项B政治整合能力结算.json",
@@ -127,7 +135,7 @@ def render_first_item_formal_settlement_markdown(payload: Mapping[str, Any]) -> 
     lines = [
         "# 第一项创业与政权取得能力正式结算",
         "",
-        "> 本文件是第一项260分的当前正式阅读视图；同名JSON是唯一机器读取源。正式表示第一项内部A/B/C已经闭合，不表示已写入评分数据库或形成跨七大项总排名。",
+        "> 本文件是第一项240分原始结算的当前正式阅读视图；同名JSON是唯一机器读取源。第一项不直接加入共同分母，而按评分总则的条件附加公式进入综合分。正式表示第一项内部A/B/C已经闭合，不表示已写入评分数据库或形成跨七大项总排名。",
         "",
         f"- 总名册：{payload['record_count']}人",
         f"- 适用统一或建国主链贡献者：{payload['eligible_count']}人",
@@ -135,7 +143,7 @@ def render_first_item_formal_settlement_markdown(payload: Mapping[str, Any]) -> 
         f"- 证据下限：{payload['evidence_lower_bound_count']}人；未决：{payload['unresolved_count']}人",
         f"- 得分范围：{payload['score_range']['minimum']:.1f}—{payload['score_range']['maximum']:.1f}；平均{payload['score_average']:.1f}；中位数{payload['score_median']:.1f}",
         "",
-        "| 第一项序 | 对象 | 政权 | A1/A2→A（100） | B1/B2→B（60） | C1/C2→C（100） | 第一项/260 | 证据状态 |",
+        "| 第一项序 | 对象 | 政权 | A1/A2→A（100） | B1/B2→B（60） | C1/C2→C（80） | 第一项/240 | 证据状态 |",
         "|---:|---|---|---:|---:|---:|---:|---|",
     ]
     for row in payload.get("records") or ():
@@ -199,7 +207,7 @@ def render_first_item_summary(
         "",
         "## 一、结算结论",
         "",
-        f"第一项已经完成秦至清全阶段结算：总名册{formal_payload['record_count']}人，其中{formal_payload['eligible_count']}名统一或独立建国主链实际贡献者进入260分结算，{formal_payload['excluded_count']}名普通继承者或非奠基者不适用。完整数值见[第一项正式结算](01-第一项创业与政权取得能力正式结算.md)。",
+        f"第一项已经完成秦至清全阶段结算：总名册{formal_payload['record_count']}人，其中{formal_payload['eligible_count']}名统一或独立建国主链实际贡献者进入240分原始结算，{formal_payload['excluded_count']}名普通继承者或非奠基者不适用。完整数值见[第一项正式结算](01-第一项创业与政权取得能力正式结算.md)。第一项原始分不直接加入共同分母，综合榜按`F = 0.10 × M × (第一项原始分/240)^1.25`计算奠基人条件附加分。",
         "",
         f"当前前三为{eligible[0]['ruler_name']}（{eligible[0]['first_item_score_points']:.1f}）、{eligible[1]['ruler_name']}（{eligible[1]['first_item_score_points']:.1f}）、{eligible[2]['ruler_name']}（{eligible[2]['first_item_score_points']:.1f}）。最高分{formal_payload['score_range']['maximum']:.1f}，中位数{formal_payload['score_median']:.1f}；第一项没有基础分，低分表示在严格贡献窗口和人物归责下可兑现成果较少，不是对其完整在位表现的总评价。",
         "",
@@ -207,12 +215,12 @@ def render_first_item_summary(
         "",
         "- A（100）评价创业路线、起点与对手难度、项目完成、控制量、速度、耐久以及重大正负决策。净控制量只进入A2，A1不重复读取。",
         "- B（60）评价非本人团队闭合的两个最强不重叠成果群，以及团队并行执行、连续替补和异质整合。人名数量、官位和全生涯声望不换分。",
-        "- C（100）评价本人在创业战争中的实际成果和前线指挥能力。授权、名义统帅和他人独立战果不进入C。",
+        "- C（80）评价本人在创业战争中的实际成果和前线指挥能力，其中C1成果50分、C2前线指挥30分。授权、名义统帅和他人独立战果不进入C。",
         "- 同一战役结果按人物实际责任分别进入B或C；C按同一父级战役与同一结果方向只消费一次，但保留分别有证据的正负结果；A只读取战略和项目结果，不再把战役档位或人物名望复制成分数。",
         "",
         "## 三、总分分布",
         "",
-        f"- 200分及以上：{bands['200_and_above']}人；160—199.9分：{bands['160_to_199_9']}人；120—159.9分：{bands['120_to_159_9']}人；80—119.9分：{bands['80_to_119_9']}人；80分以下：{bands['below_80']}人。",
+        f"- 180分及以上：{bands['180_and_above']}人；144—179.9分：{bands['144_to_179_9']}人；108—143.9分：{bands['108_to_143_9']}人；72—107.9分：{bands['72_to_107_9']}人；72分以下：{bands['below_72']}人。",
         f"- 平均分{formal_payload['score_average']:.1f}，中位数{formal_payload['score_median']:.1f}。高分段数量有限，说明A、B、C三项同时兑现仍有明显门槛。",
         "",
         "### 前十五名",
@@ -221,7 +229,7 @@ def render_first_item_summary(
         "|---:|---|---|---:|---:|---:|---:|---|",
     ]
     for row in eligible[:15]:
-        rates = {"战略": row["A_score_points"] / 100, "团队": row["B_score_points"] / 60, "军事": row["C_score_points"] / 100}
+        rates = {"战略": row["A_score_points"] / 100, "团队": row["B_score_points"] / 60, "军事": row["C_score_points"] / 80}
         strongest = max(rates, key=rates.get)
         weakest = min(rates, key=rates.get)
         structure = "三轴均衡" if max(rates.values()) - min(rates.values()) <= 0.15 else f"{strongest}突出、{weakest}相对较弱"

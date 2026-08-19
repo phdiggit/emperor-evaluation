@@ -4684,7 +4684,7 @@ def test_first_item_c_registry_is_complete_and_matches_calibration_anchors() -> 
     assert sum(payload["coverage_status_counts"].values()) == 185
     assert all(row["score_ready"] for row in payload["records"])
     assert all(row["unresolved_gaps"] == [] for row in payload["records"])
-    assert payload["schema_version"] == "first-item-c-registry-v2"
+    assert payload["schema_version"] == "first-item-c-registry-v3"
     assert "C1战役成果指数（非得分率）" in markdown
     assert "C1实际得分" in markdown
     assert payload["canonical_status"] == "CURRENT"
@@ -4726,9 +4726,9 @@ def test_first_item_c_registry_is_complete_and_matches_calibration_anchors() -> 
     } >= {"李世民", "刘裕", "铁木真", "李存勖", "忽必烈"}
     assert by_name["李世民"]["C2"]["peak_quality_index"] == 7.2
     assert by_name["李世民"]["C2"]["position"] == "HIGH"
-    assert by_name["李世民"]["C2"]["points"] == 50.0
+    assert by_name["李世民"]["C2"]["points"] == 30.0
     assert by_name["刘裕"]["C2"]["position"] == "LOW"
-    assert by_name["刘裕"]["C2"]["points"] == 42.0
+    assert by_name["刘裕"]["C2"]["points"] == 25.2
     assert by_name["高欢"]["C2"]["peak_quality_index"] == 6.2
     assert by_name["高欢"]["C2"]["grade"] == 4
     assert by_name["高欢"]["C2"]["position"] == "HIGH"
@@ -4857,10 +4857,10 @@ def test_first_item_c2_peak_separates_s_d4_from_sustained_s_minus_quantity() -> 
 
     assert sustained_s_minus["grade"] == 5
     assert sustained_s_minus["position"] == "LOW"
-    assert sustained_s_minus["points"] == 42.0
+    assert sustained_s_minus["points"] == 25.2
     assert higher_peak_with_thick_validation["grade"] == 5
     assert higher_peak_with_thick_validation["position"] == "MID"
-    assert higher_peak_with_thick_validation["points"] == 46.0
+    assert higher_peak_with_thick_validation["points"] == 27.6
     assert higher_peak_with_thick_validation["abundant_grade_5_validation"] is True
 
 
@@ -5007,19 +5007,19 @@ def test_first_item_summary_matches_current_abc_results() -> None:
     totals.sort(key=lambda item: (-item[1], item[0]))
     assert len(totals) == 77
     assert totals[:4] == [
-        ("李世民", 231.5),
-        ("朱元璋", 225.0),
-        ("铁木真", 221.2),
-        ("刘秀", 219.2),
+        ("李世民", 211.5),
+        ("朱元璋", 210.2),
+        ("刘秀", 205.6),
+        ("铁木真", 202.8),
     ]
-    assert "李世民（231.5）" in summary
-    assert formal_payload["schema_version"] == "first-item-formal-settlement-v1"
+    assert "李世民（211.5）" in summary
+    assert formal_payload["schema_version"] == "first-item-formal-settlement-v2"
     assert formal_payload["record_count"] == 185
     assert formal_payload["eligible_count"] == 77
     assert formal_payload["excluded_count"] == 108
     assert formal_payload["unresolved_count"] == 0
     assert formal_payload["records"][0]["ruler_name"] == "李世民"
-    assert formal_payload["records"][0]["first_item_score_points"] == 231.5
+    assert formal_payload["records"][0]["first_item_score_points"] == 211.5
     assert not (ROOT / "docs/评分结算/第一项创业与政权取得能力/政治整合能力/01-秦至唐第一项B政治整合能力试算.json").exists()
     assert not (ROOT / "docs/评分结算/第一项创业与政权取得能力/政治整合能力/01-秦至唐第一项B政治整合能力试算.md").exists()
 

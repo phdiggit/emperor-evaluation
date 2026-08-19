@@ -622,8 +622,8 @@ def _c2_axis(
         "grade": grade,
         "position": position,
         "rate": rate,
-        "weight": 50,
-        "points": round(50 * rate / 100, 1),
+        "weight": 30,
+        "points": round(30 * rate / 100, 1),
         "grade_path": grade_path,
         "grade_cap": grade_cap,
         "cap_reasons": cap_reasons,
@@ -1363,7 +1363,7 @@ def build_first_item_c_registry(
         else:
             record["canonical_rank"] = None
     payload: dict[str, Any] = {
-        "schema_version": "first-item-c-registry-v2",
+        "schema_version": "first-item-c-registry-v3",
         "canonical_status": "CURRENT",
         "status": "CURRENT_NOT_FORMAL_DATABASE_WRITE",
         "formal_score_write": False,
@@ -1432,7 +1432,7 @@ def render_first_item_c_registry_markdown(payload: Mapping[str, Any]) -> str:
     lines = [
         "# 第一项C军事夺取能力结算",
         "",
-        "> 当前值只用于规则校准；不写正式评分数据库，不形成正式排名。C1与C2各50分：C1累计本人不重复的创业战役成果，C2评价本人前线指挥能力。净控制量只进入A，以下窗口表仅供边界审计。",
+        "> 当前值只用于规则校准；不写正式评分数据库，不形成正式排名。C1为50分，累计本人不重复的创业战役成果；C2为30分，评价本人前线指挥能力。净控制量只进入A，以下窗口表仅供边界审计。",
         "",
         f"- 对象：{payload['record_count']} 人",
         f"- 适用统一贡献者：{payload['eligible_count']} 人；待补：{payload['pending_count']} 人；不适用：{payload['excluded_count']} 人",
@@ -1571,12 +1571,12 @@ def render_first_item_summary(
         "",
         "- A1以个人起点30%和项目起点70%合成起点难度，再按对手压力70%、起点难度30%形成纯难度，以85%为历史极高难度锚；60分上限依次乘项目终点完成率、本人战略责任强度和校准难度，不设基础分。A2将战争新增控制按100%、既有控制恢复按50%形成计分控制量，以1000为固定前沿并开平方计算规模得分，客观结果最多36分，再直接加减具名正向决策和误判；",
         "- B结算非本人团队实际完成的开国成果与创业窗口贡献者质量；",
-        "- C1、C2各50分，分别结算本人不重复的创业战役成果与前线指挥能力；",
+        "- C1为50分、C2为30分，分别结算本人不重复的创业战役成果与前线指挥能力；",
         "- 王朝级净控制量只在A2作为土地控制兑现量换分，A1不读取；它不能单独解释为国家机器创建或综合创业贡献。C中的窗口净控制表仅用于边界审计；全生涯军事人才档只作B/C越界复核，不直接换分。",
         "",
         "## 二、秦至清A/C结算表",
         "",
-        "| A/C序 | 对象 | 政权 | A/100 | C/100 | A+C/200 |",
+        "| A/C序 | 对象 | 政权 | A/100 | C/80 | A+C/180 |",
         "|---:|---|---|---:|---:|---:|",
     ]
     for rank, row in enumerate(ac_rows, start=1):
