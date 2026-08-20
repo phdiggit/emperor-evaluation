@@ -11,6 +11,7 @@ from emperor_v4.evaluation.five_dynasties_third_item import (
     AB_PATH,
     C_PATH,
     CONTROL_CONTRIBUTION_CAPS,
+    D_PATH,
     FORMAL_PATH,
     _build_public_d_analysis,
     _partition_public_d_analysis,
@@ -471,9 +472,32 @@ def write_ming_third_item(workspace_root: Path) -> dict[str, Any]:
         _write_text_atomic(workspace_root / path, json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
         _write_text_atomic((workspace_root / path).with_suffix(".md"), _render_formal_markdown(kind, payload["records"]))
     write_third_item_d_formal_settlement(workspace_root)
-    _write_text_atomic(workspace_root / FORMAL_PATH, json.dumps(payloads["combined"], ensure_ascii=False, indent=2) + "\n")
-    _write_text_atomic((workspace_root / FORMAL_PATH).with_suffix(".md"), _render_combined_markdown(payloads["combined"]["records"]))
-    return {"records": payloads["partition_records"], "hashes": {
-        key: sha256(json.dumps(payloads[key], ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()
-        for key in ("ab", "c", "d", "combined")
-    }}
+    from emperor_v4.evaluation.third_item_current_settlement import (
+        write_current_third_item_settlement,
+    )
+
+    current_payload = write_current_third_item_settlement(workspace_root)
+    partition_ids = {
+        str(row["ruler_id"]) for row in payloads["partition_records"]
+    }
+    current_partition_records = [
+        row for row in current_payload["records"]
+        if str(row.get("ruler_id")) in partition_ids
+    ]
+    return {
+        "formal_ready_count": sum(
+            row["third_item_score_points"] is not None
+            for row in current_partition_records
+        ),
+        "formal_pending_count": sum(
+            row["third_item_score_points"] is None
+            for row in current_partition_records
+        ),
+        "records": current_partition_records,
+        "hashes": {
+        "AB": sha256((workspace_root / AB_PATH).read_bytes()).hexdigest(),
+        "C": sha256((workspace_root / C_PATH).read_bytes()).hexdigest(),
+        "D": sha256((workspace_root / D_PATH).read_bytes()).hexdigest(),
+        "combined": sha256((workspace_root / FORMAL_PATH).read_bytes()).hexdigest(),
+        },
+    }

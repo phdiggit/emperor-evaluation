@@ -158,8 +158,8 @@ def test_south_song_cross_item_admission_uses_actual_first_item_score() -> None:
     assert payload["excluded_first_item_founding_cycle_count"] == 278
     assert payload["retained_founding_flag_cycle_count"] == 1
     assert payload["internal_restoration_candidate_count"] == 35
-    assert payload["material_cycle_count"] == 160
-    assert payload["unknown_axis_cycle_count"] == 46
+    assert payload["material_cycle_count"] == 149
+    assert payload["unknown_axis_cycle_count"] == 82
     by_name = {row["ruler_name"]: row for row in payload["rulers"]}
     assert by_name["赵构"]["excluded_first_item_founding_cycle_count"] == 278
     assert by_name["赵扩"]["retained_founding_flag_cycle_count"] == 1
@@ -176,8 +176,9 @@ def test_south_song_parent_cycles_deduplicate_continuous_investments() -> None:
     assert payload["material_parent_cycle_count"] <= payload[
         "reviewed_parent_cycle_count"
     ]
+    assert payload["unknown_axis_parent_cycle_count"] == 52
     assert payload["unknown_axis_parent_cycle_count"] <= payload[
-        "material_parent_cycle_count"
+        "reviewed_parent_cycle_count"
     ]
     assert payload["duplicate_consumed_phase_id_count"] == 0
 
@@ -220,7 +221,7 @@ def test_south_song_formal_payloads_join_global_current_ranking() -> None:
     payload = build_south_song_formal_payloads(repo_root, registry)
     assert payload["combined"]["record_count"] == len(
         payload["combined"]["records"]
-    ) == 148
+    ) == 201
     assert payload["combined"]["south_song_ready_count"] == 0
     assert payload["combined"]["south_song_pending_count"] == 5
     by_name = {row["ruler_name"]: row for row in payload["partition_records"]}
@@ -440,7 +441,7 @@ def test_five_dynasties_third_item_promotes_subject_phases_and_settles_all_ruler
         "柴荣", "李昪", "李煜", "王建", "孟昶", "刘龑",
     }
     combined = formal["combined"]
-    assert combined["record_count"] == len(combined["records"]) == 148
+    assert combined["record_count"] == len(combined["records"]) == 201
     assert combined["global_ranking_enabled"] is False
     assert all(row["rank"] is None for row in rows)
     assert all(row["D_linear_Q"] is not None for row in rows)
@@ -507,7 +508,7 @@ def test_north_song_third_item_replaces_legacy_registry_and_settles_complete_win
     assert len(rows) == 11
     assert formal["combined"]["record_count"] == len(
         formal["combined"]["records"]
-    ) == 148
+    ) == 201
     assert formal["combined"]["north_song_ready_count"] == 0
     assert formal["combined"]["north_song_pending_count"] == 11
     assert {row["ruler_name"] for row in rows} == {
@@ -712,6 +713,17 @@ def test_current_third_item_d_uses_public_linear_q_only() -> None:
             cycle["q_contribution"] == linear_q_from_formal_cycle(cycle)
             for cycle in cycles
         )
+
+
+@pytest.mark.parametrize(
+    ("mutation", "message"),
+    [
+        ("parent_group", "阶段与容器父级不一致"),
+        ("missing_identity", "已绑定阶段身份字段不完整"),
+        ("formal_identity", "主体/政权/统治窗口与正式对象不一致"),
+        ("duplicate_owner", "同一主体阶段轴被复制给不同统治窗口"),
+    ],
+)
 def test_public_registry_to_formal_d_identity_chain_rejects_drift(
     mutation: str,
     message: str,
@@ -785,8 +797,8 @@ def test_third_item_formal_markdown_uses_one_cross_dynasty_ranking_table() -> No
 
     repo_root = Path(__file__).resolve().parents[1]
     expectations = {
-        "AB": (AB_PATH, "# 秦至明第三项A/B国防安全正式结算", "A/B总分/160"),
-        "C": (C_PATH, "# 秦至明第三项C军事体系有效性正式结算", "C/50"),
+        "AB": (AB_PATH, "# 秦至清第三项A/B国防安全正式结算", "A+B/200"),
+        "C": (C_PATH, "# 秦至清第三项C军事体系有效性正式结算", "C/50"),
     }
     for kind, (path, title, score_heading) in expectations.items():
         payload = json.loads((repo_root / path).read_text(encoding="utf-8"))
@@ -798,7 +810,11 @@ def test_third_item_formal_markdown_uses_one_cross_dynasty_ranking_table() -> No
         assert "北宋当前正式结算" not in rendered
         assert "FORMAL_START" not in rendered
         assert "结算依据" in rendered
-        assert "所有分值统一显示一位小数" in rendered
+        assert (
+            "当前总值统一显示两位小数" in rendered
+            if kind == "AB"
+            else "所有分值统一显示一位小数" in rendered
+        )
         assert "| 李世民 | 唐 |" in rendered
         assert "| 柴荣 | 后周 |" in rendered
         assert "| 赵恒 | 北宋 |" in rendered
@@ -821,7 +837,7 @@ def test_third_item_formal_markdown_uses_one_cross_dynasty_ranking_table() -> No
             for group in table_groups:
                 column_count = len(group[0].split("|"))
                 assert all(len(line.split("|")) == column_count for line in group)
-        score_field = {"AB": "AB_score_points", "C": "C_score_points"}[kind]
+        score_field = {"AB": "AB200_score_points", "C": "C_score_points"}[kind]
         expected_detail_count = sum(
             row.get(score_field) is not None for row in payload["records"]
         )
@@ -831,18 +847,173 @@ def test_third_item_formal_markdown_uses_one_cross_dynasty_ranking_table() -> No
             assert "置信度" not in rendered
             assert all("confidence" not in row for row in payload["records"])
     combined_payload = json.loads((repo_root / FORMAL_PATH).read_text(encoding="utf-8"))
-    combined_rendered = _render_combined_markdown(combined_payload["records"])
+    from emperor_v4.evaluation.third_item_current_settlement import (
+        _render_current_weighted_markdown,
+    )
+
+    combined_rendered = _render_current_weighted_markdown(combined_payload["records"])
     assert (
         repo_root / FORMAL_PATH.with_suffix(".md")
     ).read_text(encoding="utf-8") == combined_rendered
     assert "结算依据" in combined_rendered
-    assert "A1-2→A1-4" in combined_rendered
-    assert "C为C1-3／C2-3／C3-3→C-3" in combined_rendered
+    assert "A非成本锚" in combined_rendered
+    assert "D局部成本" in combined_rendered
+    assert "全局成果信用成本" in combined_rendered
     combined_table_lines = [
         line for line in combined_rendered.splitlines() if line.startswith("|")
     ]
     assert "结算依据" not in combined_table_lines[0]
     assert combined_rendered.count("\n### ") == len(combined_payload["records"])
+
+
+def test_current_third_item_settlement_uses_component_union_deterministically() -> None:
+    from emperor_v4.evaluation.five_dynasties_third_item import FORMAL_PATH
+    from emperor_v4.evaluation.third_item_current_settlement import (
+        build_current_third_item_settlement,
+    )
+
+    repo_root = Path(__file__).resolve().parents[1]
+    first = build_current_third_item_settlement(repo_root)
+    second = build_current_third_item_settlement(repo_root)
+    assert first == second
+    assert json.loads((repo_root / FORMAL_PATH).read_text(encoding="utf-8")) == first
+    assert first["component_coverage_counts"] == {
+        "AB": 201,
+        "C": 201,
+        "D": 201,
+        "result_credit": 201,
+        "union": 201,
+        "ready": 201,
+        "pending": 0,
+    }
+    by_name = {row["ruler_name"]: row for row in first["records"]}
+    closed_names = {
+        "刘盈", "刘玄", "司马懿", "海山",
+        "努尔哈赤", "李元昊", "完颜阿骨打",
+        "孟知祥", "耶律大石", "耶律宗真", "耶律贤", "耶律阮", "耶律隆绪",
+    }
+    assert all(by_name[name]["component_join_status"] == "READY" for name in closed_names)
+    assert all(by_name[name]["rank"] is not None for name in closed_names)
+    assert all(
+        by_name[name][field] is not None
+        for name in closed_names
+        for field in (
+            "A120_score_points",
+            "A120_non_cost_anchor_points",
+            "A120_positive_result_credit_points",
+            "B80_score_points",
+            "C50_score_points",
+            "D_local_cost_profile",
+            "global_cost_credit_profile",
+            "cost_credit_factor",
+        )
+    )
+    ready = [
+        row for row in first["records"]
+        if row["third_item_score_points"] is not None
+    ]
+    assert all(
+        row["third_item_score_points"] == round(
+            row["A120_non_cost_anchor_points"]
+            + row["cost_credit_factor"]
+            * (
+                row["A120_positive_result_credit_points"]
+                + row["B80_score_points"]
+            )
+            + row["C50_score_points"],
+            2,
+        )
+        for row in ready
+    )
+    assert first["schema_id"] == "emperor-v4-third-item-formal-settlement-v6-current-only"
+    assert first["score_contract"]["D_cost_role"] == "GLOBAL_COST_CREDIT_FACTOR_SOURCE_NOT_ADDITIVE"
+    assert first["score_recalculation_policy"] == "A120_CURRENT_PLUS_B80_COST_CREDIT_PLUS_C50"
+    stale_fields = {
+        "A_score_points",
+        "B_score_points",
+        "AB_score_points",
+        "C_score_points",
+        "D_score_points",
+        "D_score_status",
+        "axes",
+    }
+    assert all(stale_fields.isdisjoint(row) for row in first["records"])
+    assert by_name["李世民"]["global_cost_credit_profile"]["cost_band"] == "C4"
+    assert by_name["刘彻"]["global_cost_credit_profile"]["cost_band"] == "C6"
+    assert by_name["李雄"]["D_local_cost_profile"]["cost_band"] == "C0"
+    assert by_name["李雄"]["global_cost_credit_profile"]["cost_band"] == "C5"
+
+    c_payload = json.loads(
+        (
+            repo_root
+            / "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算.json"
+        ).read_text(encoding="utf-8")
+    )
+    liu_ying = next(row for row in c_payload["records"] if row["ruler_name"] == "刘盈")
+    assert liu_ying["C_overall_grade"] == "C-N"
+    assert liu_ying["C_score_points"] == 0.0
+    assert liu_ying["score_status"] == "CONFIRMED_NOT_APPLICABLE_NO_SYSTEM_STRESS"
+    assert liu_ying["no_system_stress_disposition"] == "CONFIRMED_NOT_APPLICABLE"
+    assert liu_ying["independent_task_groups"] == []
+    for row in c_payload["records"]:
+        profile = row.get("task_outcome_profile") or {}
+        current_refs = list(row.get("current_item_task_refs") or [])
+        assert row.get("current_item_task_count", 0) == len(current_refs)
+        assert profile.get("selected_task_count", 0) == len(current_refs)
+        counts = profile.get("return_class_counts") or {}
+        profile_refs = profile.get("return_class_refs") or {}
+        assert sum(counts.values()) == len(current_refs)
+        assert {
+            ref for refs in profile_refs.values() for ref in refs
+        } == set(current_refs)
+        assert all(
+            counts[outcome] == len(profile_refs[outcome])
+            for outcome in counts
+        )
+        assert profile.get("known_outcome_count", 0) == sum(
+            count for outcome, count in counts.items() if outcome != "UNKNOWN"
+        )
+    assert c_payload["shared_parent_ruler_binding_contract"] == {
+        "status": "CLOSED",
+        "shared_parent_count": 44,
+        "binding_count": 88,
+        "source": "config/third-item-c-outcome-adjudications.json",
+        "rule": "同一父任务按显式ruler_id与CURRENT/CAPABILITY_ONLY范围分别消费，不复制另一人物行动、结果或成本。",
+    }
+    c_by_name = {row["ruler_name"]: row for row in c_payload["records"]}
+    invalid_southern_qi_refs = {
+        "NC-V142-LEAD-142-01",
+        "NC-V142-LEAD-142-03",
+        "NC-V142-LEAD-142-05",
+        "NC-QI-LIANG-TRANSITION-500-502",
+    }
+    for name, expected_count in (("萧道成", 3), ("萧鸾", 4)):
+        row = c_by_name[name]
+        assert row["current_item_task_count"] == expected_count
+        assert invalid_southern_qi_refs.isdisjoint(row["current_item_task_refs"])
+        assert set(row["excluded_out_of_window_parent_refs"]) == invalid_southern_qi_refs
+    assert c_by_name["司马睿"]["cross_item_independent_information_refs"] == [
+        "WAR-LEAD-HANMIAN-317"
+    ]
+
+    ab_payload = json.loads(
+        (
+            repo_root
+            / "docs/评分结算/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json"
+        ).read_text(encoding="utf-8")
+    )
+    ab_by_name = {row["ruler_name"]: row for row in ab_payload["records"]}
+    assert ab_by_name["杨坚"]["primary_threat_refs"] == ["SUI-TURK-581-587"]
+    assert set(ab_by_name["朱翊钧"]["primary_threat_refs"]) == {
+        "MTJ-MING-KOREA-IMJIN-1592-1598",
+        "MTJ-MING-QING-SARHU-1619",
+    }
+    assert set(ab_by_name["朱由校"]["primary_threat_refs"]) == {
+        "MTJ-MING-QING-LIAOYANG-1621",
+        "MTJ-MING-QING-GUANGNING-1622",
+        "MTJ-MING-QING-NINGYUAN-1626",
+        "MTJ-MING-DUTCH-PENGHU-1622-1624",
+    }
 
 
 
@@ -894,11 +1065,19 @@ def test_founder_unification_accounts_are_absent_from_third_item_consumption() -
     ab_by_name = {row["ruler_name"]: row for row in ab_rows}
     c_by_name = {row["ruler_name"]: row for row in c_rows}
     d_by_name = {row["ruler_name"]: row for row in d_rows}
+
+    def d_cycle_refs(row: dict) -> set[str]:
+        refs = set(row.get("included_d_cycle_refs") or [])
+        for field in ("external_strategic_chains", "strategic_internal_chains"):
+            for chain in row.get(field) or []:
+                refs.update(chain.get("member_cycle_refs") or [])
+        return refs
+
     for ruler_name in ("李雄", "李渊"):
         excluded = excluded_by_name[ruler_name]
         assert not excluded & set(ab_by_name[ruler_name]["parent_cycle_refs"])
         assert not excluded & set(c_by_name[ruler_name]["independent_task_groups"])
-        assert not excluded & set(d_by_name[ruler_name]["included_d_cycle_refs"])
+        assert not excluded & d_cycle_refs(d_by_name[ruler_name])
     for row in d_rows:
         excluded = set(row.get("excluded_unification_cycle_refs") or [])
         if excluded:

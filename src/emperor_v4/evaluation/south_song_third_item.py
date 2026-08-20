@@ -13,6 +13,7 @@ from emperor_v4.evaluation.five_dynasties_third_item import (
     _partition_public_d_analysis,
     _sync_public_d_q_into_combined,
     _aggregate_parent_cycle_audit,
+    _align_bc_to_system_stress_parent_cycles,
     _axis_a,
     _axis_b,
     _c_score,
@@ -434,6 +435,37 @@ def build_south_song_formal_payloads(
     partition_d = _partition_public_d_analysis(
         d, (str(row["ruler_id"]) for row in decisions)
     )
+    # South Song's reviewed large-rebellion list is part of the C system-stress
+    # portfolio even when an internal chain is not a positive D result.  Feed
+    # those reviewed canonical parents into the shared C normalizer; otherwise
+    # a partition-only rebuild collapses Zhao Gou from twelve reviewed stress
+    # tasks to the single Caishi external chain and falsely triggers the
+    # one-task C1/C3 ceiling.
+    d_by_id = {
+        str(row["ruler_id"]): row for row in partition_d["records"]
+    }
+    for decision in decisions:
+        member_to_canonical = {
+            str(member): str(spec["canonical_cycle_ref"])
+            for spec in decision.get("cycle_merges") or ()
+            for member in spec.get("member_campaign_group_refs") or ()
+        }
+        reviewed_stress_refs = list(dict.fromkeys(
+            member_to_canonical.get(str(ref), str(ref))
+            for ref in decision.get("admitted_large_rebellion_refs") or ()
+        ))
+        metrics = d_by_id[str(decision["ruler_id"])]["D_portfolio_metrics"]
+        metrics["material_parent_cycle_refs"] = list(dict.fromkeys([
+            *(metrics.get("material_parent_cycle_refs") or ()),
+            *reviewed_stress_refs,
+        ]))
+        metrics["canonical_parent_cycle_refs"] = list(dict.fromkeys([
+            *(metrics.get("canonical_parent_cycle_refs") or ()),
+            *reviewed_stress_refs,
+        ]))
+    _align_bc_to_system_stress_parent_cycles(
+        workspace_root, ab_rows, c_rows, partition_d["records"]
+    )
     combined_rows = _build_north_song_combined(
         decisions, ab_rows, c_rows, partition_d["records"]
     )
@@ -521,7 +553,7 @@ def build_south_song_formal_payloads(
 def write_south_song_third_item(workspace_root: Path) -> dict[str, Any]:
     registry = load_battle_registry(workspace_root / REGISTRY_PATH)
     payloads = build_south_song_formal_payloads(workspace_root, registry)
-    paths = {"AB": AB_PATH, "C": C_PATH, "combined": FORMAL_PATH}
+    paths = {"AB": AB_PATH, "C": C_PATH}
     for kind, path in paths.items():
         _write_text_atomic(
             workspace_root / path,
@@ -534,12 +566,27 @@ def write_south_song_third_item(workspace_root: Path) -> dict[str, Any]:
         )
     write_third_item_d_formal_settlement(workspace_root)
     paths["D"] = D_PATH
+    # The canonical total no longer uses the retired additive D-score view.
+    # Rebuild it through the current A120/B80/C50 + cost-credit entrypoint.
+    from emperor_v4.evaluation.third_item_current_settlement import (
+        write_current_third_item_settlement,
+    )
+
+    current_payload = write_current_third_item_settlement(workspace_root)
+    paths["combined"] = FORMAL_PATH
+    current_partition_records = [
+        row
+        for row in current_payload["records"]
+        if str(row.get("ruler_id")) in {
+            str(ruler_id) for ruler_id, _ in RULERS
+        }
+    ]
     return {
-        "formal_ready_count": sum(row["third_item_score_points"] is not None for row in payloads["partition_records"]),
-        "formal_pending_count": sum(row["third_item_score_points"] is None for row in payloads["partition_records"]),
+        "formal_ready_count": sum(row["third_item_score_points"] is not None for row in current_partition_records),
+        "formal_pending_count": sum(row["third_item_score_points"] is None for row in current_partition_records),
         "hashes": {
             kind: sha256((workspace_root / path).read_bytes()).hexdigest()
             for kind, path in paths.items()
         },
-        "records": payloads["partition_records"],
+        "records": current_partition_records,
     }

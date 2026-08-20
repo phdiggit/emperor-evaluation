@@ -452,9 +452,20 @@ def build_yuan_formal_payloads(
     ab_rows = build_north_song_ab_records(consumer_registry, decisions)
     c_rows = build_north_song_c_records(consumer_registry, decisions)
     d = _build_public_d_analysis(workspace_root)
+    decision_id_by_name = {
+        str(row["ruler_name"]): str(row["ruler_id"]) for row in decisions
+    }
+    public_id_by_name = {
+        str(row["ruler_name"]): str(row["subject_ruler_id"])
+        for row in d["records"]
+        if str(row.get("ruler_name") or "") in decision_id_by_name
+    }
     partition_d = _partition_public_d_analysis(
-        d, (str(row["ruler_id"]) for row in decisions)
+        d, public_id_by_name.values()
     )
+    for key in ("records", "ruler_summaries"):
+        for row in partition_d[key]:
+            row["subject_ruler_id"] = decision_id_by_name[str(row["ruler_name"])]
     combined_rows = _build_north_song_combined(
         decisions, ab_rows, c_rows, partition_d["records"]
     )
@@ -543,26 +554,34 @@ def build_yuan_formal_payloads(
 def write_yuan_third_item(workspace_root: Path) -> dict[str, Any]:
     registry = load_battle_registry(workspace_root / REGISTRY_PATH)
     payloads = build_yuan_formal_payloads(workspace_root, registry)
-    paths = {"AB": AB_PATH, "C": C_PATH, "combined": FORMAL_PATH}
+    paths = {"AB": AB_PATH, "C": C_PATH}
     for kind, path in paths.items():
         _write_text_atomic(
             workspace_root / path,
             json.dumps(payloads[kind], ensure_ascii=False, indent=2) + "\n",
         )
-        renderer = (
-            _render_combined_markdown
-            if kind == "combined"
-            else lambda rows, current_kind=kind: _render_formal_markdown(current_kind, rows)
-        )
         _write_text_atomic(
             workspace_root / path.with_suffix(".md"),
-            renderer(payloads[kind]["records"]),
+            _render_formal_markdown(kind, payloads[kind]["records"]),
         )
     write_third_item_d_formal_settlement(workspace_root)
     paths["D"] = D_PATH
+    from emperor_v4.evaluation.third_item_current_settlement import (
+        write_current_third_item_settlement,
+    )
+
+    current_payload = write_current_third_item_settlement(workspace_root)
+    paths["combined"] = FORMAL_PATH
+    partition_ids = {
+        str(row["ruler_id"]) for row in payloads["partition_records"]
+    }
+    current_partition_records = [
+        row for row in current_payload["records"]
+        if str(row.get("ruler_id")) in partition_ids
+    ]
     return {
-        "formal_ready_count": sum(row["third_item_score_points"] is not None for row in payloads["partition_records"]),
-        "formal_pending_count": sum(row["third_item_score_points"] is None for row in payloads["partition_records"]),
+        "formal_ready_count": sum(row["third_item_score_points"] is not None for row in current_partition_records),
+        "formal_pending_count": sum(row["third_item_score_points"] is None for row in current_partition_records),
         "hashes": {kind: sha256((workspace_root / path).read_bytes()).hexdigest() for kind, path in paths.items()},
-        "records": payloads["partition_records"],
+        "records": current_partition_records,
     }

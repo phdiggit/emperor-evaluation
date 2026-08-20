@@ -615,6 +615,15 @@ def build_north_song_ab_records(registry: Mapping[str, Any], decisions: Sequence
             region_control = {"start": {"AGGREGATE_REVIEWED": start}, "end": {"AGGREGATE_REVIEWED": end}}
             region_adjudications = [{"object_id": "NORTH_SONG_REIGN_CONTROL_PACKAGE", "object_name": "本主政窗口非统一边疆控制净包", "anchors": ["start", "end"], "counted": True, "control_equivalent": {"start": start, "end": end}, "evidence_refs": control_refs, "reason": decision["AB"]["B1"]["reason"]}]
             region_ledger_status = "LEGACY_AGGREGATE_REQUIRES_REGION_MIGRATION"
+        if not control_refs and any(int(decision["AB"][axis]["grade"]) > 0 for axis in ("B2", "B4")):
+            control_refs = _unique(
+                ref
+                for item in region_adjudications
+                if item.get("counted", True)
+                for ref in item.get("evidence_refs") or []
+            )
+        if not control_refs and any(int(decision["AB"][axis]["grade"]) > 0 for axis in ("B2", "B4")):
+            raise ValueError(f"{decision['ruler_name']} B2/B4有正向贡献但缺少可追溯主控制包")
         records.append({
             "ruler_id": decision["ruler_id"], "ruler_name": decision["ruler_name"], "polity": "北宋", "partition": "北宋",
             "reign_range": decision["reign_range"], "subject_binding_review_status": "REVIEWED_SUFFICIENT",
@@ -832,31 +841,45 @@ def write_north_song_third_item(workspace_root: Path) -> dict[str, Any]:
     promotion_audit = write_promoted_battle_registry(workspace_root)
     registry = load_battle_registry(workspace_root / REGISTRY_PATH)
     payloads = build_north_song_formal_payloads(workspace_root, registry)
-    paths = {"AB": AB_PATH, "C": C_PATH, "combined": FORMAL_PATH}
+    paths = {"AB": AB_PATH, "C": C_PATH}
     for kind, path in paths.items():
         _write_text_atomic(
             workspace_root / path,
             json.dumps(payloads[kind], ensure_ascii=False, indent=2) + "\n",
         )
         md_path = workspace_root / path.with_suffix(".md")
-        if kind == "combined":
-            _write_text_atomic(
-                md_path, _render_combined_markdown(payloads[kind]["records"])
-            )
-        else:
-            _write_text_atomic(
-                md_path, _render_formal_markdown(kind, payloads[kind]["records"])
-            )
+        _write_text_atomic(
+            md_path, _render_formal_markdown(kind, payloads[kind]["records"])
+        )
     write_third_item_d_formal_settlement(workspace_root)
     paths["D"] = D_PATH
+    from emperor_v4.evaluation.third_item_current_settlement import (
+        write_current_third_item_settlement,
+    )
+
+    current_payload = write_current_third_item_settlement(workspace_root)
+    paths["combined"] = FORMAL_PATH
+    partition_ids = {
+        str(row["ruler_id"]) for row in payloads["partition_records"]
+    }
+    current_partition_records = [
+        row for row in current_payload["records"]
+        if str(row.get("ruler_id")) in partition_ids
+    ]
     hashes = {kind: sha256((workspace_root / path).read_bytes()).hexdigest() for kind, path in paths.items()}
     hashes["battle_registry"] = sha256((workspace_root / REGISTRY_PATH).read_bytes()).hexdigest()
     return {
         "promotion_audit": promotion_audit,
-        "formal_ready_count": payloads["combined"]["north_song_ready_count"],
-        "formal_pending_count": payloads["combined"]["north_song_pending_count"],
+        "formal_ready_count": sum(
+            row["third_item_score_points"] is not None
+            for row in current_partition_records
+        ),
+        "formal_pending_count": sum(
+            row["third_item_score_points"] is None
+            for row in current_partition_records
+        ),
         "hashes": hashes,
-        "records": payloads["partition_records"],
+        "records": current_partition_records,
     }
 
 

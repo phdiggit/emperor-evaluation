@@ -420,6 +420,7 @@
       "cost_grade_delta": 0,
       "security_result_distribution": {
         "E3_MAJOR_STAGE": 1,
+        "E2_IMPORTANT_OBJECTIVE": 2,
         "E3_REGIONAL_TERMINAL": 1
       },
       "external_strategic_chains": [
@@ -458,6 +459,44 @@
           ],
           "achievement_grade_detail": "E3_MAJOR_REGIONAL_STAGE",
           "security_result_grade": "E3_MAJOR_STAGE"
+        },
+        {
+          "chain_id": "FTH-CHOUCHI-477-478",
+          "member_cycle_refs": [
+            "WAR-LEAD-NC-WEI-CHOUCHI-477-478"
+          ],
+          "effective_opponent_challenge_grade": "O2_REGIONAL_MAJOR",
+          "achievement_grade": "E2_IMPORTANT_OBJECTIVE",
+          "security_result_grade": "E2",
+          "result_type": "REGIONAL_GATEWAY_RECOVERY",
+          "terminal_result_profile": "恢复仇池—葭芦并纳杨文弘入封授，地方政治实体仍存。",
+          "mobilization_peak": "M3_DIRECTIONAL_FORCE_40000",
+          "force_destruction": "F0_NO_CLOSED_MAJOR_LOSS",
+          "ruler_responsibility": "DE_FACTO_REGENCY_STRATEGIC_AUTHORIZATION",
+          "responsibility_basis": "476—478属冯太后复临朝窗口；公共卡未闭合具体前线节制，只归中枢战略授权，不替代三将指挥。",
+          "source_refs": [
+            "docs/公共成果/军事/01-战役登记/qin_tang-03.json#WAR-LEAD-NC-WEI-CHOUCHI-477-478",
+            "docs/史料通读产物/唐以前编年/南北朝/卷134-通读总结.md#WAR-LEAD-NC-WEI-CHOUCHI-477-478"
+          ]
+        },
+        {
+          "chain_id": "FTH-ROURAN-486-487",
+          "member_cycle_refs": [
+            "WAR-LEAD-NC-WEI-RUORAN-486-487"
+          ],
+          "effective_opponent_challenge_grade": "O3_MAJOR_DIRECTION_THREAT",
+          "achievement_grade": "E2_IMPORTANT_OBJECTIVE",
+          "security_result_grade": "E2",
+          "result_type": "MAJOR_DIRECTION_DEFENSIVE_SUCCESS",
+          "terminal_result_profile": "柔然两次入寇后由陆睿反击取胜，威胁主体仍存。",
+          "mobilization_peak": "M2_UNQUANTIFIED_DIRECTIONAL_RESPONSE",
+          "force_destruction": "F0_NO_CLOSED_MAJOR_LOSS",
+          "ruler_responsibility": "DE_FACTO_REGENCY_STRATEGIC_AUTHORIZATION",
+          "responsibility_basis": "486—487属冯太后复临朝实际主政、拓跋宏名义在位窗口；只归中枢授权与体系责任，前线指挥归陆睿。",
+          "source_refs": [
+            "docs/公共成果/军事/01-战役登记/qin_tang-09.json#WAR-LEAD-NC-WEI-RUORAN-486-487",
+            "docs/史料通读产物/唐以前编年/南北朝/卷136-通读总结.md#WAR-LEAD-NC-WEI-RUORAN-486-487"
+          ]
         }
       ],
       "strategic_internal_chains": [
@@ -514,15 +553,45 @@
         "status": "CONFIRMED",
         "position": "HIGH",
         "admission_fact": "467青冀单一外部链动员五万骑，连续攻取多城并实施数月长围，构成主要方向高投入，但未闭合重大本方兵团毁损。",
-        "basis": "C4只由467青冀链的五万级多城攻围准入；淮北五固不跨链拼值，三万余口强迁及其他平民、敌军损失不进入军事成本，局部败绩无组织分母不上F3。"
+        "basis": "C4仍只由467青冀阶段五万级多城攻围准入；仇池四万反攻与柔然方向响应均已补入本人窗口成本链，但未闭合重大本方兵团毁损，不跨链拼升C5。淮北强迁人口不进入军事成本。"
       },
-      "adjudication_basis": "467外部E3高位形成明确区域净改善，468—469终局严格留给拓跋弘；五固内部E3仅作档内正向参照。C4不降档，影子D3高位。",
+      "adjudication_basis": "按465—467、476—490两个实际主政窗口结算：467青冀阶段、477—478仇池、480—481五固、486—487柔然均闭合；468—469青冀终局及470—471任务归拓跋弘。新增成本链不改变C4-HIGH和D3高位。",
       "coverage_status": "CONFIRMED",
       "source_batch": "sol_a",
       "canonical_status": "FORMAL_CURRENT",
       "formal_grade_write": true,
       "formal_score_write": true,
-      "database_write": false
+      "database_write": false,
+      "active_rule_windows": [
+        {
+          "window_ref": "FENG-REGENT-465-467",
+          "start": 465,
+          "end": 467,
+          "status": "DE_FACTO_REGENCY"
+        },
+        {
+          "window_ref": "FENG-REGENT-476-490",
+          "start": 476,
+          "end": 490,
+          "status": "DE_FACTO_REGENCY"
+        }
+      ],
+      "overlapping_subject_window_review": {
+        "status": "REVIEWED_DISCONTINUOUS_WINDOWS",
+        "overlapping_subjects": [
+          {
+            "ruler_id": "RULER-SHADOW-拓跋弘",
+            "ruler_name": "拓跋弘",
+            "exclusive_window": "467—476实际掌权"
+          }
+        ],
+        "excluded_stage_refs": [
+          "NC-V132-LEAD-132-02#468-469终局",
+          "NC-V132-LEAD-132-04",
+          "NC-V133-LEAD-133-01"
+        ],
+        "basis": "冯太后只消费465—467首次临朝与476—490复临朝阶段；467年青冀早期阶段归本人，468—469青冀终局及470—471任务归拓跋弘。"
+      }
     },
     {
       "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
@@ -3271,7 +3340,7 @@
       "ruler_id": "RULER-HAN-LIUZHI",
       "ruler_name": "刘志",
       "polity": "汉",
-      "reign_range": "146—168",
+      "reign_range": "150—168亲政",
       "identity_source": "PREVIOUS_D_FORMAL",
       "D_grade": "D0",
       "D_within_grade_position": "LOW",
@@ -3462,7 +3531,26 @@
       "canonical_status": "FORMAL_CURRENT",
       "formal_grade_write": true,
       "formal_score_write": true,
-      "database_write": false
+      "database_write": false,
+      "active_rule_windows": [
+        {
+          "window_ref": "LIU-ZHI-PERSONAL-150-168",
+          "start": 150,
+          "end": 168,
+          "status": "PERSONAL_RULE"
+        }
+      ],
+      "overlapping_subject_window_review": {
+        "status": "REVIEWED_REGENCY_TO_PERSONAL_RULE_SPLIT",
+        "basis": "梁妠实际临朝止于150年；刘志名义在位146—150阶段不重复计分，本人评价窗口从150年亲政起算。现有刘志计分父链均始于154年以后。",
+        "overlapping_subjects": [
+          {
+            "ruler_id": "RULER-HAN-LIANGNA",
+            "ruler_name": "梁妠",
+            "exclusive_window": "144—150"
+          }
+        ]
+      }
     },
     {
       "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
@@ -4248,7 +4336,7 @@
       "ruler_id": "RULER-HAN-LIUHU",
       "ruler_name": "刘祜",
       "polity": "汉",
-      "reign_range": "105—125",
+      "reign_range": "121—125亲政",
       "identity_source": "PREVIOUS_D_FORMAL",
       "D_grade": "D3",
       "D_within_grade_position": "MID",
@@ -4434,7 +4522,26 @@
       "canonical_status": "FORMAL_CURRENT",
       "formal_grade_write": true,
       "formal_score_write": true,
-      "database_write": false
+      "database_write": false,
+      "active_rule_windows": [
+        {
+          "window_ref": "LIU-HU-PERSONAL-121-125",
+          "start": 121,
+          "end": 125,
+          "status": "PERSONAL_RULE"
+        }
+      ],
+      "overlapping_subject_window_review": {
+        "status": "REVIEWED_REGENCY_TO_PERSONAL_RULE_SPLIT",
+        "overlapping_subjects": [
+          {
+            "ruler_id": "RULER-HAN-DENGSUI",
+            "ruler_name": "邓绥",
+            "exclusive_window": "106—121实际临朝"
+          }
+        ],
+        "basis": "刘祜名义在位期106—121不与邓绥重复计分；本记录窗口改为121—125亲政，只消费交班后的高句丽、鲜卑、西域和羌链阶段。"
+      }
     },
     {
       "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
@@ -16974,13 +17081,71 @@
         "position": "HIGH",
         "basis": "C6由义和团—八国联军单一链的国家总力M5、国家级军资与炮台体系A5、连续核心防御失能及本人重大责任准入；没有闭合第二条独立F4或灾后全国再动员，不升C7。固定P4混合军民且无清军组织分母，只保留人员下界，绝不判F3；S6安全结果不得倒灌成本。"
       },
-      "adjudication_basis": "中法战争E3、越境与朝鲜E2无法抵消义和团—八国联军EN3，内部多项收束只作有限修正；统一安全组合先落D0。C7已触底不重复扣档，列D0低位。",
+      "adjudication_basis": "中法战争E3、越境与朝鲜E2无法抵消义和团—八国联军EN3，内部多项收束只作有限修正；统一安全组合先落D0。C7已触底不重复扣档，列D0低位。 三段主政窗口已显式切片，载淳1873—1875与载湉1889—1898阶段不重复消费。",
       "coverage_status": "LOWER_BOUND",
       "source_batch": "sol_b",
       "canonical_status": "FORMAL_CURRENT",
       "formal_grade_write": true,
       "formal_score_write": true,
-      "database_write": false
+      "database_write": false,
+      "active_rule_windows": [
+        {
+          "window_ref": "CIXI-REGENCY-1861-1873",
+          "start": 1861,
+          "end": 1873,
+          "status": "DE_FACTO_REGENCY"
+        },
+        {
+          "window_ref": "CIXI-REGENCY-1875-1889",
+          "start": 1875,
+          "end": 1889,
+          "status": "DE_FACTO_REGENCY"
+        },
+        {
+          "window_ref": "CIXI-REGENCY-1898-1908",
+          "start": 1898,
+          "end": 1908,
+          "status": "DE_FACTO_REGENCY"
+        }
+      ],
+      "overlapping_subject_window_review": {
+        "status": "REVIEWED_THREE_DISCONTINUOUS_WINDOWS",
+        "overlapping_subjects": [
+          {
+            "ruler_name": "载淳",
+            "exclusive_window": "1873—1875"
+          },
+          {
+            "ruler_name": "载湉",
+            "exclusive_window": "1889—1898"
+          }
+        ],
+        "basis": "三段实际主政分别结算；1873—1875载淳亲政、1889—1898载湉亲政的状态变化、任务成果与成本不归慈禧。"
+      },
+      "active_window_stage_refs": {
+        "CIXI-REGENCY-1861-1873": [
+          "CX-VIETNAM-BORDER-BANDITS-1868-1873-CIXI-SLICE",
+          "CX-SHAAN-GAN-HUI-1862-1873-CIXI-SLICE",
+          "CX-XINJIANG-1864-1873-CIXI-SLICE",
+          "CX-YUNNAN-HUI-1861-1873-CIXI-SLICE"
+        ],
+        "CIXI-REGENCY-1875-1889": [
+          "CX-VIETNAM-BORDER-BANDITS-1875-1881-CIXI-SLICE",
+          "CX-XINJIANG-1875-1879-CIXI-SLICE",
+          "CX-YUNNAN-HUI-1875-1877-CIXI-SLICE"
+        ],
+        "CIXI-REGENCY-1898-1908": [
+          "CX-BOXER-EIGHT-NATIONS-1900-1901",
+          "CX-RUSSIAN-MANCHURIA-1905",
+          "CX-GUANGXI-1903-1905"
+        ]
+      },
+      "excluded_other_subject_stage_refs": [
+        "QSG-QING-SHAAN-GAN-HUI-1873-TONGZHI-SLICE",
+        "QSG-QING-XINJIANG-HUI-1873-1875-TONGZHI-SLICE",
+        "CHAIN-QING-FIRST-SINO-JAPANESE-WAR-1894-1895",
+        "CHAIN-QING-GERMAN-JIAOZHOU-SEIZURE-1897-1898"
+      ]
     },
     {
       "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
@@ -31695,7 +31860,26 @@
       "canonical_status": "FORMAL_CURRENT",
       "formal_grade_write": true,
       "formal_score_write": true,
-      "database_write": false
+      "database_write": false,
+      "active_rule_windows": [
+        {
+          "window_ref": "LIANG-NA-REGENCY-144-150",
+          "start": 144,
+          "end": 150,
+          "status": "DE_FACTO_REGENCY"
+        }
+      ],
+      "overlapping_subject_window_review": {
+        "status": "REVIEWED_REGENCY_TO_PERSONAL_RULE_SPLIT",
+        "basis": "梁妠实际临朝止于150年；刘志名义在位146—150阶段不重复计分，本人评价窗口从150年亲政起算。现有刘志计分父链均始于154年以后。",
+        "overlapping_subjects": [
+          {
+            "ruler_id": "RULER-HAN-LIUZHI",
+            "ruler_name": "刘志",
+            "nominal_overlap": "146—150"
+          }
+        ]
+      }
     },
     {
       "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
@@ -36988,16 +37172,17 @@
       "ruler_id": "RULER-ROSTER-2035C039E3532021",
       "ruler_name": "耶律阿保机",
       "polity": "辽（契丹）",
-      "reign_range": "901—926（第一项统一贡献窗口；不机械截于916建国）",
+      "reign_range": "916—926（契丹国家形成后的独立外部战争窗口）",
       "identity_source": "PUBLIC_03_ROSTER",
-      "D_grade": "D3",
+      "D_grade": "D4",
       "D_within_grade_position": "HIGH",
-      "D_score_points": 28.0,
+      "D_score_points": 34.0,
       "D_score_status": "DIRECT_D_SCORE_ASSIGNED",
-      "signed_security_candidate_before_cost": "D3",
+      "signed_security_candidate_before_cost": "D4",
       "cost_grade_delta": 0,
       "security_result_distribution": {
-        "E3_MAJOR_STAGE": 2
+        "E3_MAJOR_STAGE": 2,
+        "E4_MAJOR_STRATEGIC": 1
       },
       "external_strategic_chains": [
         {
@@ -37071,6 +37256,40 @@
           ],
           "achievement_grade_detail": "E3_MAJOR_STAGE",
           "security_result_grade": "E3_MAJOR_STAGE"
+        },
+        {
+          "chain_id": "CAMPAIGN-LIAO-BALHAE-CONQUEST-925-926",
+          "member_cycle_refs": [
+            "WAR-POST-EF7D4F32F01A7649BB88"
+          ],
+          "acquisition_mode": "DIRECT_MULTI_STAGE_TERMINAL_STATE_CAMPAIGN",
+          "result_type": "REGIONAL_STATE_DEFENSE_SYSTEM_TERMINATED",
+          "effective_opponent_challenge_grade": "O4_MATURE_REGIONAL_STATE",
+          "effective_opponent_challenge_basis": "渤海在响应前仍有君主、都城、郡县和可组织守城、复叛的完整国家机器，是契丹东向成熟区域国家对手。",
+          "effective_opponent_challenge_source_refs": [
+            "docs/公共成果/军事/01-战役登记/liao-20.json#WAR-POST-EF7D4F32F01A7649BB88"
+          ],
+          "challenge_context": "渤海具备独立国家军政体系并控制契丹东向一整条主要战略方向；未达到压迫契丹全国多核心防务的O5门。",
+          "achievement_grade": "E4_MAJOR_STRATEGIC_DIRECTION_TERMINATION",
+          "achievement_grade_detail": "E4_MAJOR_STRATEGIC_DIRECTION_TERMINATION",
+          "security_result_grade": "E4_MAJOR_STRATEGIC",
+          "within_grade_position": "HIGH",
+          "terminal_result_profile": "阿保机亲征，连续完成围扶余府、拔扶余城、围忽汗城、受降及复叛后再破城；渤海君主与僚属降服、郡县受诏安抚，东向成熟国家机器终局瓦解。",
+          "control_change": "POST_916_THIRD_ITEM_CONTROL_AND_SECURITY_RESULT",
+          "security_change_basis": "单一重要方向的O4成熟国家威胁被终结，达到E4高位；不因灭国名称自动上E5。",
+          "mobilization_peak": "M3_MULTI_STAGE_PERSONAL_EXPEDITION",
+          "mobilization_basis": "亲征并连续围攻两城、处理受降与复叛；总兵数失载，不上M4。",
+          "force_destruction": "F1_OWN_LOSS_UNQUANTIFIED",
+          "force_destruction_basis": "多阶段攻城足证本方非零损害，但辽方伤亡、比例和编组后效失载；敌方损失不进入F。",
+          "process_burden": {
+            "repetition": "SURRENDER_THEN_REBELLION_AND_RECAPTURE",
+            "duration": "ONE_TERMINAL_CAMPAIGN_WINDOW"
+          },
+          "ruler_responsibility": "DIRECT_PERSONAL_AUTHORIZATION_AND_COMMAND",
+          "responsibility_basis": "阿保机亲征并控制全链，对战略授权与终局承担本人责任；耶律倍、耶律德光等只按各自分立执行范围消费。",
+          "source_refs": [
+            "docs/公共成果/军事/01-战役登记/liao-20.json#WAR-POST-EF7D4F32F01A7649BB88"
+          ]
         }
       ],
       "strategic_internal_chains": [],
@@ -37081,25 +37300,25 @@
         "explicit_failure_or_unresolved_count": 0,
         "abnormal_cost_chain_count": 0,
         "abnormal_process_chain_count": 0,
-        "notes": "913剌葛内乱仍属916建国前的开国整合链，整链排除；925—926渤海又被固定第一项明确作为东北统一主链终局，整链排除。只保留916后代北与920—925西部两个新授权外战，并逐链去重新增控制。",
+        "notes": "913剌葛内乱属于916年前开国整合链，整链排除；916年后的代北、西部与925—926渤海均为国家形成后的独立外部战略链，进入第三项并逐链结算。",
         "source_refs": [
           "config/first-item-a-strategic-efficiency-inputs.json#耶律阿保机",
-          "config/first-item-a-competitive-landscapes.json#耶律阿保机",
-          "docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.json#耶律阿保机"
+          "docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.json#耶律阿保机",
+          "docs/公共成果/军事/01-战役登记/liao-20.json#WAR-POST-EF7D4F32F01A7649BB88"
         ]
       },
       "cross_item_excluded_chains": [],
       "non_military_loss_cost_exclusions": [
-        "晋、党项、吐浑、阻卜军民及俘获人口牲畜不进入辽方P/F；913和渤海链成本随开国统一整链排除。"
+        "晋、党项、吐浑、阻卜与渤海军民损失及俘获人口牲畜不进入辽方P/F；只有辽方可归责军事投入、损失和过程负担进入成本。"
       ],
       "attributable_cost_profile": {
         "cost_band": "C4",
-        "status": "LOWER_BOUND",
-        "position": "MID",
-        "basis": "C4由916单方向三十万M4与920—925跨年M3远征过程负担准入；两条新授权链均无本方明确死亡比例或组织崩溃，无F3，不满足C5/C6整体门。"
+        "status": "CONFIRMED",
+        "position": "HIGH",
+        "basis": "C4由916单方向三十万M4、920—925跨年M3远征与渤海M3亲征共同闭合；三链均无辽方F3组织性毁损证据，不满足C5/C6门。"
       },
-      "adjudication_basis": "代北和西部两条新授权外战各形成E3，新增控制去重后仍保留主要方向威胁改善。C4不降档，列D3高位；渤海统一终局不得恢复为E4。",
-      "coverage_status": "LOWER_BOUND",
+      "adjudication_basis": "代北、西部两条E3与渤海O4国家终局E4共同形成多方向显著安全净改善，成本前为D4高位；C4高位但无F3、重大可归责误判或成果反转，不降档。",
+      "coverage_status": "CONFIRMED",
       "source_batch": "sol_b",
       "canonical_status": "FORMAL_CURRENT",
       "formal_grade_write": true,
@@ -44521,7 +44740,26 @@
       "canonical_status": "FORMAL_CURRENT",
       "formal_grade_write": true,
       "formal_score_write": true,
-      "database_write": false
+      "database_write": false,
+      "active_rule_windows": [
+        {
+          "window_ref": "DENG-SUI-REGENCY-106-121",
+          "start": 106,
+          "end": 121,
+          "status": "DE_FACTO_REGENCY"
+        }
+      ],
+      "overlapping_subject_window_review": {
+        "status": "REVIEWED_REGENCY_TO_PERSONAL_RULE_SPLIT",
+        "overlapping_subjects": [
+          {
+            "ruler_id": "RULER-HAN-LIUHU",
+            "ruler_name": "刘祜",
+            "nominal_reign_overlap": "106—121"
+          }
+        ],
+        "basis": "邓绥消费106—121实际临朝阶段；刘祜只消费121年邓绥去世后的亲政阶段。跨121父链按D现有阶段切片复用。"
+      }
     },
     {
       "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
@@ -44774,8 +45012,8 @@
           "result_type": "TEMPORARY_SUBORDINATION_WITHOUT_TERMINAL_CONTROL",
           "within_grade_position": "HIGH",
           "terminal_result_profile": "蒙古先后取得野战和要地优势，最终迫使夏主纳女请和并形成阶段性服属，但未攻取中兴核心，也未终结西夏国家与军政体系。",
-          "control_change": "斡罗孩等阶段性占领及由战争形成的新增控制收益已由第一项消费；D仅记西夏由强硬抵抗转为阶段性请和服属的外部威胁状态变化。",
-          "cross_item_control_gain_deduplicated": true,
+          "control_change": "斡罗孩等阶段性占领及由战争形成的新增控制收益由第三项B消费；D仅记西夏由强硬抵抗转为阶段性请和服属的外部威胁状态变化。",
+          "cross_item_control_gain_deduplicated": false,
           "security_change_basis": "面对O4区域国家取得可辨但非终局的阶段性安全改善，故为E3高位；不得把第一项已消费的夺城和扩张收益再计入D。",
           "negative_stages": [
             {
@@ -44806,7 +45044,8 @@
             "config/third-item-c-outcome-adjudications.json#铁木真/西夏/O4"
           ],
           "achievement_grade_detail": "E3_MAJOR_REGIONAL_SECURITY_GAIN",
-          "security_result_grade": "E3_MAJOR_STAGE"
+          "security_result_grade": "E3_MAJOR_STAGE",
+          "within_third_item_control_gain_deduplicated": true
         },
         {
           "chain_id": "MONGOL-JIN-1211-1215",
@@ -44828,8 +45067,8 @@
           "result_type": "NORTHERN_DEFENSE_SYSTEM_SHATTERED_WITH_STATE_SURVIVAL",
           "within_grade_position": "HIGH",
           "terminal_result_profile": "金军北方防线和河北多数州县被突破，中都于1215陷落，金廷南迁后仍存续；这是重要方向的耐久战略改写，而非对金全国体系的不可逆终结。",
-          "control_change": "河北州县与中都等新增控制和征服收益已由第一项消费；D仅消费金北方国防体系被击穿、首都方向威胁能力长期下降的安全结果。",
-          "cross_item_control_gain_deduplicated": true,
+          "control_change": "河北州县与中都等新增控制和征服收益由第三项B消费；D仅消费金北方国防体系被击穿、首都方向威胁能力长期下降的安全结果。",
+          "cross_item_control_gain_deduplicated": false,
           "security_change_basis": "O5对手的北方国防与都城方向被耐久击穿，达到E4高位；金国仍存且未形成跨多个重要方向的新秩序，不升E5A/E5B。",
           "negative_stages": [
             {
@@ -44863,7 +45102,8 @@
           ],
           "comparative_scale_basis": "与冻结34人同通道锚点比较对手终结程度、覆盖范围和耐久性；高成果不由灭国名称、本方投入或单次战果自动生成。",
           "achievement_grade_detail": "E4_MAJOR_STRATEGIC_DIRECTION_TRANSFORMATION",
-          "security_result_grade": "E4_MAJOR_STRATEGIC"
+          "security_result_grade": "E4_MAJOR_STRATEGIC",
+          "within_third_item_control_gain_deduplicated": true
         },
         {
           "chain_id": "MONGOL-XIXIA-ZHONGXING-1217",
@@ -44881,8 +45121,8 @@
           "result_type": "RENEWED_SUBMISSION_WITHOUT_TERMINAL_DEFEAT",
           "within_grade_position": "HIGH",
           "terminal_result_profile": "围中兴使夏主避走西凉并遣使请降，蒙古随后撤军；只形成再次的短期服属，未闭合西夏主力或国家体系终结。",
-          "control_change": "围城与请降产生的新增控制收益若已由第一项消费，D不重复；本链只记短期压低该方向威胁的安全效果。",
-          "cross_item_control_gain_deduplicated": true,
+          "control_change": "围城与请降产生的新增控制收益若由第三项B消费，D不重复；本链只记短期压低该方向威胁的安全效果。",
+          "cross_item_control_gain_deduplicated": false,
           "security_change_basis": "O4对手再次请降但未遭结构性削弱，故仅E2高位，不因低对抗撤军或请降机械进E5。",
           "mobilization_peak": "W_CAPITAL_DIRECTION_EXPEDITION",
           "mobilization_basis": "独立都城方向远征并实施围城；对方逃亡、请降和人员损失不计本方成本。",
@@ -44900,7 +45140,8 @@
             "config/third-item-c-outcome-adjudications.json#铁木真/西夏/O4"
           ],
           "achievement_grade_detail": "E2_LIMITED_TEMPORARY_SECURITY_GAIN",
-          "security_result_grade": "E2"
+          "security_result_grade": "E2",
+          "within_third_item_control_gain_deduplicated": true
         },
         {
           "chain_id": "MONGOL-KHWARAZM-1219-1224",
@@ -44918,8 +45159,8 @@
           "result_type": "IMPERIAL_MAIN_SYSTEM_SHATTERED_AND_REGIONAL_ORDER_RECAST",
           "within_grade_position": "MID",
           "terminal_result_profile": "讹答剌、布哈拉、撒马尔罕、玉龙杰赤等多核心相继失守，花剌子模主体系瓦解并改变中亚多方向力量秩序；札兰丁仍突围延续抵抗，使终局低于完全封闭。",
-          "control_change": "夺取城市、设置达鲁花赤及新增疆土收益已由第一项消费；D只消费花剌子模外部体系主力瓦解、跨多重要方向的耐久威胁秩序变化。",
-          "cross_item_control_gain_deduplicated": true,
+          "control_change": "夺取城市、设置达鲁花赤及新增疆土收益由第三项B消费；D只消费花剌子模外部体系主力瓦解、跨多重要方向的耐久威胁秩序变化。",
+          "cross_item_control_gain_deduplicated": false,
           "security_change_basis": "花剌子模在响应前对蒙古的有效挑战为O3，但终局主体系瓦解并跨河中、呼罗珊等多个重要方向形成耐久新秩序，独立满足E5B；其并非开战前已压迫蒙古全国国防体系，故不是E5A。",
           "negative_stages": [
             {
@@ -44951,7 +45192,8 @@
           ],
           "comparative_scale_basis": "与冻结34人同通道锚点比较对手终结程度、覆盖范围和耐久性；高成果不由灭国名称、本方投入或单次战果自动生成。",
           "achievement_grade_detail": "E5B_MULTI_DIRECTION_DURABLE_ORDER_CHANGE",
-          "security_result_grade": "E5B"
+          "security_result_grade": "E5B",
+          "within_third_item_control_gain_deduplicated": true
         },
         {
           "chain_id": "MONGOL-XIXIA-1226-1227",
@@ -44969,8 +45211,8 @@
           "result_type": "REGIONAL_STATE_DEFENSE_SYSTEM_TERMINATED",
           "within_grade_position": "HIGH",
           "terminal_result_profile": "蒙古连续攻取黑水、甘肃诸州并击败西夏主力，围中兴且使李睍出降，西夏国家军政体系终局瓦解，西部侧翼方向威胁被不可逆终结。",
-          "control_change": "黑水、甘、肃、临洮等新增疆土与统一控制收益已由第一项消费；D仅消费西夏O4国家防务体系终结及西部战略方向安全改变。",
-          "cross_item_control_gain_deduplicated": true,
+          "control_change": "黑水、甘、肃、临洮等新增疆土与统一控制收益由第三项B消费；D仅消费西夏O4国家防务体系终结及西部战略方向安全改变。",
+          "cross_item_control_gain_deduplicated": false,
           "security_change_basis": "单一重要方向的O4成熟国家威胁被不可逆终结，达到E4高位；灭国本身不自动E5A，西夏也不满足开战前压迫蒙古全国防务的门，且本链不是跨多个重要方向的新秩序。",
           "comparative_anchor_refs": [
             "李治::LZ-WEST-TURKS",
@@ -44996,7 +45238,8 @@
           ],
           "comparative_scale_basis": "与冻结34人同通道锚点比较对手终结程度、覆盖范围和耐久性；高成果不由灭国名称、本方投入或单次战果自动生成。",
           "achievement_grade_detail": "E4_MAJOR_STRATEGIC_DIRECTION_TERMINATION",
-          "security_result_grade": "E4_MAJOR_STRATEGIC"
+          "security_result_grade": "E4_MAJOR_STRATEGIC",
+          "within_third_item_control_gain_deduplicated": true
         }
       ],
       "strategic_internal_chains": [
@@ -45043,7 +45286,7 @@
         "explicit_failure_or_unresolved_count": 0,
         "abnormal_cost_chain_count": 1,
         "abnormal_process_chain_count": 1,
-        "notes": "1206年前草原统一整链去重；1206后五条外部链恢复，但所有已由第一项消费的夺城、新增疆土与统一控制收益逐链标记去重，D只消费外部威胁状态、阶段或终局安全结果和可归责成本。张致叛军、共同体人口及处刑损失不进入本方军事成本。"
+        "notes": "1206年前草原统一整链留在第一项；1206年后五条外部链全部进入第三项。控制量由第三项B消费，D只消费外部威胁状态、阶段或终局安全结果和可归责成本；张致叛军、共同体人口及处刑损失不进入本方军事成本。"
       },
       "cross_item_excluded_chains": [],
       "non_military_loss_cost_exclusions": [],

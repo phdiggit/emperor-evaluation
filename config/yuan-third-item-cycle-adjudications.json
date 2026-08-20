@@ -242,24 +242,45 @@
           "reason": "东北、西北和西南边疆总体守住，海外与东南亚远征失败未击穿本土防线，任末仍是总体安全但有缺口。"
         },
         "B1": {
-          "start_equivalent": 0.0,
-          "end_equivalent": 0.25,
-          "grade": 1,
-          "position": "LOW",
-          "reason": "耽罗0.25为本窗口唯一保守、可执行的新增控制；灭宋统一由第一项消费，海外远征或朝贡未入B1。",
+          "start_equivalent": 2.0,
+          "end_equivalent": 2.25,
+          "grade": 2,
+          "position": "MID",
+          "reason": "统一核心控制量继续排除；西北与西南既成边疆存量各1.0同时进入起终快照，只领取绝对守成信用，耽罗新增0.25。总量2.00→2.25，加权1.05，机械落B1-2中位。",
           "regions": [
+            {
+              "object_id": "YUAN_NORTHWEST_FRONTIER",
+              "object_name": "祁连—西北边防控制",
+              "start_equivalent": 1.0,
+              "end_equivalent": 1.0,
+              "control_form": "SAVED_UNDER_MAJOR_PRESSURE",
+              "evidence_refs": [
+                "XZTJ-YUAN-KHAIDU-WAR-1288-1290"
+              ],
+              "reason": "海都压力下西北边疆存量仍维持1.0；统一战争不计净增，只计交班存量。"
+            },
+            {
+              "object_id": "YUAN_SOUTHWEST_FRONTIER",
+              "object_name": "云南—西南边疆控制",
+              "start_equivalent": 1.0,
+              "end_equivalent": 1.0,
+              "control_form": "SAVED_UNDER_MAJOR_PRESSURE",
+              "evidence_refs": [
+                "XZTJ-YUAN-BURMA-WAR-1281-1286",
+                "XZTJ-YUAN-ANNAM-WAR-1287-1288"
+              ],
+              "reason": "缅甸、安南远征未形成新增控制，但云南—西南既成边疆存量未整体退出，起终均取1.0。"
+            },
             {
               "object_id": "GORYEO_JEJU_MONGOL_CONTROL",
               "object_name": "高丽耽罗（济州）蒙古军政控制",
               "start_equivalent": 0.0,
               "end_equivalent": 0.25,
-              "control_form": "三别抄终结后的驻军/牧马与军政控制",
+              "control_form": "NEW_RECOVERED_REBUILT",
               "evidence_refs": [
-                "docs/史料通读产物/元/续资治通鉴&元史/volume-186.battle-adjudications.json#DINV::KUBLAI::BURMA-1281-1286",
-                "docs/史料通读产物/元/续资治通鉴&元史/volume-187.battle-adjudications.json#DINV::KUBLAI::ANNAM-1284-1285",
                 "docs/公共成果/军事/01-战役登记/yuan-12.json#XZTJ-YUAN-GORYEO-JINDO-JEJU-1271-1273"
               ],
-              "reason": "1273终结后可确认耽罗由蒙古系统控制；取0.50覆盖，不把高丽整体、缅甸、安南、占城、爪哇或日本远征列入。"
+              "reason": "1273年三别抄终结后形成可执行的耽罗军政控制，只按有限节点计0.25。"
             }
           ]
         },
@@ -367,11 +388,11 @@
           "reason": "主要边疆维持总体安全，但八百媳妇远征造成显著西南负债。"
         },
         "B1": {
-          "start_equivalent": 2.0,
-          "end_equivalent": 1.5,
+          "start_equivalent": 2.25,
+          "end_equivalent": 1.75,
           "grade": 1,
           "position": "LOW",
-          "reason": "接班复用忽必烈交班2.0；祁连、西北等局部成果不能抵消西南失利和退控，净变化-0.5、加权值0.3，落B1-1低段。",
+          "reason": "直接承接忽必烈交班2.25；西北维持、西南由1.0退至0.5，耽罗0.25延续，总量2.25→1.75、加权0.40，仍落B1-1低段。",
           "regions": [
             {
               "object_id": "YUAN_NORTHWEST_FRONTIER",
@@ -396,6 +417,17 @@
                 "docs/史料通读产物/元/续资治通鉴&元史/volume-191.battle-adjudications.json#XZTJ-YUAN-SOUTHWEST-SHEJIE-REBELLION-1301-1303"
               ],
               "reason": "西南战争失利与退控使有效覆盖由1.0降至0.5，保留非创业继承存量的实际退损。"
+            },
+            {
+              "object_id": "GORYEO_JEJU_MONGOL_CONTROL",
+              "object_name": "高丽耽罗（济州）蒙古军政控制",
+              "start_equivalent": 0.25,
+              "end_equivalent": 0.25,
+              "control_form": "INHERITED_DURABLE_DIRECT_CONTROL",
+              "evidence_refs": [
+                "docs/公共成果/军事/01-战役登记/yuan-12.json#XZTJ-YUAN-GORYEO-JINDO-JEJU-1271-1273"
+              ],
+              "reason": "直接复用前任交班的耽罗0.25军政控制；本窗口未见退出，不计新增。"
             }
           ]
         },
@@ -474,11 +506,11 @@
           "reason": "主要边界维持总体安全，未见可归责的重大改善或破口。"
         },
         "B1": {
-          "start_equivalent": 1.5,
-          "end_equivalent": 1.5,
+          "start_equivalent": 1.75,
+          "end_equivalent": 1.75,
           "grade": 1,
           "position": "LOW",
-          "reason": "仅确认存量控制维持；加权值0.6，落B1-1。",
+          "reason": "海山窗口没有实质新增控制；直接承接并维持西北1.0、西南0.5与耽罗0.25，总量1.75→1.75、加权0.70，仍落B1-1低段。",
           "regions": [
             {
               "object_id": "YUAN_NORTHWEST_FRONTIER",
@@ -501,6 +533,17 @@
                 "docs/史料通读产物/元/续资治通鉴&元史/volume-196.battle-adjudications.json#XZTJ-YUAN-EIGHT-HUNDRED-WIVES-CHELI-1309-1311"
               ],
               "reason": "八百媳妇/车里行动不产生新控制，但现有材料也不足以把全部0.5存量清零。"
+            },
+            {
+              "object_id": "GORYEO_JEJU_MONGOL_CONTROL",
+              "object_name": "高丽耽罗（济州）蒙古军政控制",
+              "start_equivalent": 0.25,
+              "end_equivalent": 0.25,
+              "control_form": "INHERITED_DURABLE_DIRECT_CONTROL",
+              "evidence_refs": [
+                "docs/公共成果/军事/01-战役登记/yuan-12.json#XZTJ-YUAN-GORYEO-JINDO-JEJU-1271-1273"
+              ],
+              "reason": "直接复用前任交班的耽罗0.25军政控制；本窗口未见退出，不计新增。"
             }
           ]
         },
@@ -547,11 +590,11 @@
           "reason": "地方骚乱未形成主要边界破口，边疆安全层级总体稳定。"
         },
         "B1": {
-          "start_equivalent": 1.5,
-          "end_equivalent": 1.5,
+          "start_equivalent": 1.75,
+          "end_equivalent": 1.75,
           "grade": 1,
           "position": "LOW",
-          "reason": "没有实质新增控制，只确认既有控制包维持；加权值0.6。",
+          "reason": "爱育黎拔力八达窗口没有实质新增控制；直接承接并维持西北1.0、西南0.5与耽罗0.25，总量1.75→1.75、加权0.70，仍落B1-1低段。",
           "regions": [
             {
               "object_id": "YUAN_NORTHWEST_FRONTIER",
@@ -574,6 +617,17 @@
                 "docs/史料通读产物/元/续资治通鉴&元史/volume-200.battle-adjudications.json#XZTJ-YUAN-SHANGSI-JIAOZHI-ZHONGZHOU-1320"
               ],
               "reason": "交趾方向受挫不产生新控制，也未闭合既有西南存量整体退出。"
+            },
+            {
+              "object_id": "GORYEO_JEJU_MONGOL_CONTROL",
+              "object_name": "高丽耽罗（济州）蒙古军政控制",
+              "start_equivalent": 0.25,
+              "end_equivalent": 0.25,
+              "control_form": "INHERITED_DURABLE_DIRECT_CONTROL",
+              "evidence_refs": [
+                "docs/公共成果/军事/01-战役登记/yuan-12.json#XZTJ-YUAN-GORYEO-JINDO-JEJU-1271-1273"
+              ],
+              "reason": "直接复用前任交班的耽罗0.25军政控制；本窗口未见退出，不计新增。"
             }
           ]
         },

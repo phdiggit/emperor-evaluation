@@ -72,6 +72,10 @@ from emperor_v4.evaluation.third_item_d_settlement import (
     build_public_cycle_linear_q_analysis,
     write_third_item_d_formal_settlement,
 )
+from emperor_v4.evaluation.third_item_current_settlement import (
+    build_current_third_item_settlement,
+    write_current_third_item_settlement,
+)
 from emperor_v4.evaluation.talent_registry_store import load_talent_registry
 from emperor_v4.evaluation.post_tang_third_item_readiness import (
     SUPPORTED_PARTITIONS,
@@ -242,6 +246,13 @@ def _parser() -> argparse.ArgumentParser:
         "--workspace-root", type=Path, default=Path(".")
     )
     third_item_d_settlement.add_argument("--write", action="store_true")
+
+    third_item_current = commands.add_parser("third-item-current-settlement")
+    third_item_current.add_argument(
+        "--workspace-root", type=Path, default=Path(".")
+    )
+    third_item_current.add_argument("--write", action="store_true")
+    third_item_current.add_argument("--refresh-d", action="store_true")
 
     first_item_a_registry = commands.add_parser("first-item-a-registry")
     first_item_a_registry.add_argument(
@@ -875,6 +886,10 @@ def _run_third_item_d_settlement(args: argparse.Namespace) -> int:
     workspace_root = args.workspace_root.resolve()
     if args.write:
         payload = write_third_item_d_formal_settlement(workspace_root)
+        print(f"D正式主体：{payload['record_count']}")
+        print(f"D待闭合：{payload.get('D_pending_count', 0)}")
+        print("正式写入：已验证当前战略链D正式值，零改写")
+        return 0
     else:
         registry = load_third_item_d_cycle_registry(
             workspace_root / THIRD_ITEM_D_CYCLE_REGISTRY_PATH
@@ -885,6 +900,26 @@ def _run_third_item_d_settlement(args: argparse.Namespace) -> int:
     print(f"D排除周期：{audit['excluded_cycle_count']}")
     print(f"评价主体：{audit['subject_count']}")
     print(f"旧周期回退：{audit['legacy_fallback_count']}")
+    print("正式写入：否")
+    return 0
+
+
+def _run_third_item_current_settlement(args: argparse.Namespace) -> int:
+    workspace_root = args.workspace_root.resolve()
+    if args.refresh_d:
+        if not args.write:
+            raise ValueError("--refresh-d必须与--write同时使用")
+        write_third_item_d_formal_settlement(workspace_root)
+    payload = (
+        write_current_third_item_settlement(workspace_root)
+        if args.write
+        else build_current_third_item_settlement(workspace_root)
+    )
+    counts = payload["component_coverage_counts"]
+    print(f"组件覆盖：AB={counts['AB']} / C={counts['C']} / D={counts['D']}")
+    print(f"人物并集：{counts['union']}")
+    print(f"进入排名：{counts['ready']}")
+    print(f"待闭合：{counts['pending']}")
     print(f"正式写入：{'是' if args.write else '否'}")
     return 0
 
@@ -992,6 +1027,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return _run_ming_third_item_parent_cycles(args)
     if args.command == "third-item-d-settlement":
         return _run_third_item_d_settlement(args)
+    if args.command == "third-item-current-settlement":
+        return _run_third_item_current_settlement(args)
     if args.command == "military-talent-grade-registry":
         return _run_military_talent_grade_registry(args)
     if args.command == "first-item-a-registry":
