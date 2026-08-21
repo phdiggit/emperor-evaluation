@@ -1,0 +1,96 @@
+{
+  "schema_id": "emperor-v4-third-item-cost-credit-factors-v1",
+  "task_code": "THIRD-ITEM-COST-CREDIT-FACTORS-V1",
+  "canonical_status": "FORMAL_CURRENT",
+  "formula": "A_non_cost_anchor + factor * (A_positive_result_credit + B80_result_credit) + C50",
+  "rounding": "Only the final third-item score is rounded to 2 decimals; displayed A and B adjusted credits do not feed the total.",
+  "factor_by_global_cost_band_and_position": {
+    "C0": {
+      "LOW": 1.0,
+      "MID": 1.0,
+      "HIGH": 1.0,
+      "NOT_APPLICABLE": 1.0
+    },
+    "C1": {
+      "LOW": 1.0,
+      "MID": 0.995,
+      "HIGH": 0.99
+    },
+    "C2": {
+      "LOW": 0.985,
+      "MID": 0.98,
+      "HIGH": 0.975
+    },
+    "C3": {
+      "LOW": 0.965,
+      "MID": 0.95,
+      "HIGH": 0.935
+    },
+    "C4": {
+      "LOW": 0.925,
+      "MID": 0.9,
+      "HIGH": 0.875
+    },
+    "C5": {
+      "LOW": 0.865,
+      "MID": 0.83,
+      "HIGH": 0.795
+    },
+    "C6": {
+      "LOW": 0.785,
+      "MID": 0.74,
+      "HIGH": 0.685
+    },
+    "C7": {
+      "LOW": 0.675,
+      "MID": 0.62,
+      "HIGH": 0.56,
+      "HIGHEST": 0.5
+    },
+    "NOT_APPLICABLE": {
+      "NOT_APPLICABLE": 1.0
+    }
+  },
+  "global_cost_overrides": [
+    {
+      "ruler_id": "RULER-SHU-LIUBEI",
+      "ruler_name": "刘备",
+      "global_cost_band": "C4",
+      "global_cost_position": "HIGH",
+      "basis": "夷陵单链M4国家主力动员、F2重大损失、连营资产损失和本人直接重大责任；未闭合F3，止C4高位。",
+      "restored_third_item_c_chain_ids": [
+        "LB-YILING-221-222-C_DEDUP"
+      ]
+    },
+    {
+      "ruler_id": "RULER-SHADOW-李雄",
+      "ruler_name": "李雄",
+      "global_cost_band": "C5",
+      "global_cost_position": "LOW",
+      "basis": "仇池单链闭合F3，已达C5结构门；南中M3/F1只作全期累计参考，不跨链拼高档。",
+      "restored_third_item_c_chain_ids": [
+        "LX-QIUCHI-323-C_DEDUP",
+        "LX-NANZHONG-332-C_DEDUP"
+      ]
+    },
+    {
+      "ruler_id": "RULER-YUAN-MONGKE",
+      "ruler_name": "蒙哥",
+      "global_cost_band": "C3",
+      "global_cost_position": "HIGH",
+      "basis": "高丽、安南两条M3方向级远征形成可见累计承载，但均仅F1且无十万级分母或F3，止C3高位。",
+      "restored_third_item_c_chain_ids": [
+        "MK-GORYEO-SIX-CITIES-1253-C_DEDUP",
+        "MK-ANNAM-1257-C_DEDUP"
+      ]
+    }
+  ],
+  "scope_rules": {
+    "d_local_cost_view": "Keeps the current D-consumer scope and does not restore chains consumed elsewhere.",
+    "global_cost_credit_view": "Restores current-third-item C-consumed chains only for result-credit discounting.",
+    "first_item_whole_chain_exclusion": "Founding, unification and polity-acquisition chains consumed by Item 1 remain fully excluded.",
+    "item_2_exclusion": "Civilian livelihood, taxation, production and fiscal consequences remain in Item 2.",
+    "item_7_exclusion": "Long-run structural military damage remains in Item 7.",
+    "c50_exclusion": "Military-system capability points are not discounted by this factor."
+  }
+}

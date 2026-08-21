@@ -3,91 +3,717 @@
   "status": "CURRENT",
   "policy": "只接纳已经进入规范父周期、第一项C战役引用或公共统一战争合同，且足以证明国家军事体系在高难度任务中兑现的重大结果；统一链只复用作战能力，不复用疆土收益。高难度不得主观命名，必须引用公共对手战争机器opponent_system_ref且organization_grade达到O4—O6。任一C轴取5都必须单独过门禁：C1多个独立O4+对手体系，C2多个独立且各有O4+实证的高难度战略方向，C3至少两名top/historic武将分别取得A+显著成果；不因完成统一、动员规模或名将名单自动取得。",
   "within_band_adjudications": [
-    {"ruler_name":"刘邦","position":"MID","reason":"西楚O6与三秦O4战争证明成熟国家军队的长期恢复和跨将领运作，但彭城、白登重大反证阻止进入C4高位。"},
-    {"ruler_name":"刘询","position":"MID","reason":"平羌、匈奴防务与西域体系构成跨期多方向实证，车师失利和珠崖低收益使其保持C4中位。"},
-    {"ruler_name":"曹操","position":"MID","reason":"袁绍O5、张鲁O4等多体系胜绩与宛城、赤壁、濡须重大失败并存，取C4中位。"},
-    {"ruler_name":"石勒","position":"MID","reason":"前赵O5与王浚O4终局证明国家军队的高档交付，但高难度独立体系和长期复制厚度不足C4高位。"},
-    {"ruler_name":"拓跋焘","position":"MID","reason":"灭夏、北燕、北凉及柔然方向多次兑现，但南征刘宋重大失败和多项低收益使其取C4中位。"},
-    {"ruler_name":"宇文泰","position":"MID","reason":"关陇立足与东西魏长期战争证明恢复和复制能力，已知负收益较多且缺少多个O4方向闭合，取C4中位。"},
-    {"ruler_name":"宇文邕","position":"MID","reason":"灭北齐O5是极高含金量国家战争并在首攻受挫后恢复，但主要集中于单一主链，取C4中位。"},
-    {"ruler_name":"杨坚","position":"MID","reason":"灭陈与江南整合证明高档多路交付，但样本集中于南方统一链且保留高句丽重大失败，取C4中位。"},
-    {"ruler_name":"赵匡胤","position":"HIGH","reason":"荆湖、后蜀、南汉、南唐四个独立方向均完成主要任务，跨年运输和多统帅复制充分；北汉未克限制升5但仍处C4高位。"},
-    {"ruler_name":"赵构","position":"LOW","reason":"采石与多线恢复足以守住C4门槛，但任内多项负收益、兵变和组织失灵使其只处C4低位。"},
-    {"ruler_name":"窝阔台","position":"HIGH","reason":"灭金O5、东夏与钦察三个去重父任务均为干净重大胜绩，且跨东亚与西方远距离投送；多方向和顶级武将门禁未闭合使其止于C4高位。"},
-    {"ruler_name":"朱温","position":"MID","reason":"秦宗权、魏博、凤翔、平卢、河东、幽州等多体系长期作战厚度很高，但河东未克与后期军政反噬使其取C4中位。"},
-    {"ruler_name":"柴荣","position":"HIGH","reason":"高平、胡卢河与南唐方向在短任期内连续完成高强度交付和恢复；长期复制不足升5但可处C4高位。"},
-    {"ruler_name":"王建","position":"MID","reason":"西川、东川两个O4区域体系及秦凤、黎州方向证明稳定交付，但主要局限于单一宏区，取C4中位而非高位。"}
+    {
+      "ruler_name": "刘邦",
+      "position": "MID",
+      "reason": "西楚O6与三秦O4战争证明成熟国家军队的长期恢复和跨将领运作，但彭城、白登重大反证阻止进入C4高位。"
+    },
+    {
+      "ruler_name": "刘询",
+      "position": "MID",
+      "reason": "平羌、匈奴防务与西域体系构成跨期多方向实证，车师失利和珠崖低收益使其保持C4中位。"
+    },
+    {
+      "ruler_name": "曹操",
+      "position": "MID",
+      "reason": "袁绍O5、张鲁O4等多体系胜绩与宛城、赤壁、濡须重大失败并存，取C4中位。"
+    },
+    {
+      "ruler_name": "石勒",
+      "position": "MID",
+      "reason": "前赵O5与王浚O4终局证明国家军队的高档交付，但高难度独立体系和长期复制厚度不足C4高位。"
+    },
+    {
+      "ruler_name": "拓跋焘",
+      "position": "MID",
+      "reason": "灭夏、北燕、北凉及柔然方向多次兑现，但南征刘宋重大失败和多项低收益使其取C4中位。"
+    },
+    {
+      "ruler_name": "宇文泰",
+      "position": "MID",
+      "reason": "关陇立足与东西魏长期战争证明恢复和复制能力，已知负收益较多且缺少多个O4方向闭合，取C4中位。"
+    },
+    {
+      "ruler_name": "宇文邕",
+      "position": "MID",
+      "reason": "灭北齐O5是极高含金量国家战争并在首攻受挫后恢复，但主要集中于单一主链，取C4中位。"
+    },
+    {
+      "ruler_name": "杨坚",
+      "position": "MID",
+      "reason": "灭陈与江南整合证明高档多路交付，但样本集中于南方统一链且保留高句丽重大失败，取C4中位。"
+    },
+    {
+      "ruler_name": "赵匡胤",
+      "position": "HIGH",
+      "reason": "荆湖、后蜀、南汉、南唐四个独立方向均完成主要任务，跨年运输和多统帅复制充分；北汉未克限制升5但仍处C4高位。"
+    },
+    {
+      "ruler_name": "赵构",
+      "position": "LOW",
+      "reason": "采石与多线恢复足以守住C4门槛，但任内多项负收益、兵变和组织失灵使其只处C4低位。"
+    },
+    {
+      "ruler_name": "窝阔台",
+      "position": "HIGH",
+      "reason": "灭金O5、东夏与钦察三个去重父任务均为干净重大胜绩，且跨东亚与西方远距离投送；多方向和顶级武将门禁未闭合使其止于C4高位。"
+    },
+    {
+      "ruler_name": "朱温",
+      "position": "MID",
+      "reason": "秦宗权、魏博、凤翔、平卢、河东、幽州等多体系长期作战厚度很高，但河东未克与后期军政反噬使其取C4中位。"
+    },
+    {
+      "ruler_name": "柴荣",
+      "position": "HIGH",
+      "reason": "高平、胡卢河与南唐方向在短任期内连续完成高强度交付和恢复；长期复制不足升5但可处C4高位。"
+    },
+    {
+      "ruler_name": "王建",
+      "position": "MID",
+      "reason": "西川、东川两个O4区域体系及秦凤、黎州方向证明稳定交付，但主要局限于单一宏区，取C4中位而非高位。"
+    }
+  ],
+  "task_return_class_adjudications": [
+    {
+      "ruler_id": "RULER-SS-ZHAO-GOU",
+      "ruler_name": "赵构",
+      "return_class_refs": {
+        "HIGH_RETURN": [
+          "XZTJ-SONG-JIN-CAISHI-1161"
+        ],
+        "LOW_RETURN": [
+          "XZTJ-JIANZHOU-BANDITRY-1149-1150",
+          "XZTJ-SONG-LUOKE-REBELLION-1140"
+        ],
+        "NEGATIVE_RETURN": [
+          "XZTJ-HUAIXI-LIQIONG-MUTINY-1137",
+          "XZTJ-JIANYAN-JINGXI-HUBEI-REBELLIONS-1127"
+        ],
+        "PROPORTIONATE_RETURN": [
+          "XZTJ-SOUTHERNSONG-YANGYAO-DONGTING-1133-1135",
+          "XZTJ-TAIZHOU-SEA-PIRATES-1150",
+          "XZTJ-WUGANG-YAO-YANGZAIXING-1146-1155"
+        ]
+      },
+      "reason": "保留当前C任务逐父周期回报分类；公共linear-Q视图缺少部分内部体系压力任务时不得静默降为UNKNOWN。"
+    },
+    {
+      "ruler_id": "RULER-SS-ZHAO-SHEN",
+      "ruler_name": "赵昚",
+      "return_class_refs": {
+        "LOW_RETURN": [
+          "XZTJ-SONG-HUNAN-GUANGDONG-BANDITS-1165",
+          "XZTJ-SONG-LAIWENZHENG-TEA-BANDITS-1175"
+        ],
+        "NEGATIVE_RETURN": [
+          "XZTJ-SONG-JIN-LONXING-OFFENSIVE-1163"
+        ],
+        "PROPORTIONATE_RETURN": [
+          "XZTJ-SONG-CHAOSHAN-SHENSHI-1181",
+          "XZTJ-SONG-GUANGXI-LIJIE-1179",
+          "XZTJ-SONG-HUNAN-CHENDONG-1179",
+          "XZTJ-SONG-LIJIN-REBELLION-1165"
+        ]
+      },
+      "reason": "保留当前C任务逐父周期回报分类；公共linear-Q视图缺失不得覆盖当前语义。"
+    },
+    {
+      "ruler_id": "RULER-SS-ZHAO-DUN",
+      "ruler_name": "赵惇",
+      "return_class_refs": {
+        "PROPORTIONATE_RETURN": [
+          "XZTJ-SONG-LUZHOU-ZHANGXIN-MUTINY-1192"
+        ]
+      },
+      "reason": "保留当前C任务逐父周期回报分类。"
+    },
+    {
+      "ruler_id": "RULER-SS-ZHAO-KUO",
+      "ruler_name": "赵扩",
+      "return_class_refs": {
+        "HIGH_RETURN": [
+          "XZTJ-SONG-JIN-HUAI-1222",
+          "XZTJ-SONG-JIN-ZAOYANG-1219"
+        ],
+        "NEGATIVE_RETURN": [
+          "XZTJ-SONG-JIN-KAIXI-WAR-1206-1208",
+          "XZTJ-SONG-JIN-SICHUAN-1217-1218"
+        ],
+        "PROPORTIONATE_RETURN": [
+          "XZTJ-SONG-LIYUANLI-REBELLION-1209-1210",
+          "XZTJ-SONG-YAZHOU-GAOYINSHI-1206",
+          "XZTJ-SONG-ZHANGFU-REBELLION-1219",
+          "XZTJ-WUXI-SHUREGIME-1207"
+        ]
+      },
+      "reason": "只对当前仍在任务集合中的父周期保留现行分类；已退出任务不回填。"
+    },
+    {
+      "ruler_id": "RULER-SS-ZHAO-YUN",
+      "ruler_name": "赵昀",
+      "return_class_refs": {
+        "HIGH_RETURN": [
+          "XZTJ-MONGOL-SONG-HEZHOU-DIAOYUSHAN-1259",
+          "XZTJ-SONG-MONGOL-JIN-CAIZHOU-1233-1234"
+        ],
+        "LOW_RETURN": [
+          "XZTJ-SONG-SOUTHEAST-BANDITRY-1228-1231"
+        ],
+        "NEGATIVE_RETURN": [
+          "XZTJ-MONGOL-SICHUAN-MULTIPREFECTURE-COLLAPSE-1259",
+          "XZTJ-MONGOL-SONG-GUSHI-HUAIWEST-MUTINY-1236",
+          "XZTJ-MONGOL-SONG-HANZHONG-1231",
+          "XZTJ-MONGOL-SONG-XIANGFAN-BLOCKADE-1263",
+          "XZTJ-SONG-MONGOL-DUANPING-1233",
+          "XZTJ-SONG-MONGOL-XIANGYANG-MUTINY-1236"
+        ],
+        "PROPORTIONATE_RETURN": [
+          "XZTJ-SONG-GARRISON-MUTINIES-1235",
+          "XZTJ-SONG-JIANGXI-BANDITRY-1231-1234",
+          "XZTJ-SONG-LIQUAN-HUAIAN-FINAL-1231"
+        ]
+      },
+      "reason": "只对当前仍在任务集合中的父周期保留现行分类；已退出任务不回填。"
+    }
   ],
   "founder_capability_reviews": [
-    {"ruler_id":"RULER-TANG-LISHIMIN","ruler_name":"李世民","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"reason":"唐统一期本人直接承担的河东、洛阳虎牢、河北等作战属于可归责的国家军队能力实证；统一疆土收益仍只归第一项。"},
-    {"ruler_id":"RULER-HAN-LIUXIU","ruler_name":"刘秀","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"reason":"河北立足后至关中、东方、陇右、蜀地的长期战争均检验新政权军队的持续交付，全部进入C能力侧。"},
-    {"ruler_id":"RULER-HAN-LIUBANG","ruler_name":"刘邦","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":["HAN-CHUHAN-GUANZHONG-ENTRY-BCE207-206"],"reason":"汉王政权形成后的三秦、彭城、荥阳成皋与垓下进入C；入关受降发生在汉王政权形成前，只保留在第一项。"},
-    {"ruler_id":"RULER-WEI-CAOCAO","ruler_name":"曹操","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"axis_override":{"C1":4,"C2":4,"C3":4},"reason":"兖州恢复、官渡河北、乌桓与汉中证明多轮高强度交付；宛城、赤壁和濡须等失败保留，故三轴到4而不升5。"},
-    {"ruler_id":"RULER-FD-LI-CUNXU","ruler_name":"李存勖","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"axis_override":{"C1":4,"C2":4,"C3":1},"reason":"对后梁、燕与契丹的长期作战足以把交付和持续性提升到4；灭梁后军政体系迅速崩塌，可靠性仍为1。"},
-    {"ruler_id":"RULER-SHADOW-陈霸先","ruler_name":"陈霸先","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"axis_override":{"C1":4,"C2":4,"C3":4},"reason":"侯景终局、三吴和北齐介入下的建康防御先支持三轴4；但当前重大胜绩4项、重大体系失败6项，未通过C4胜绩对冲门禁，最终三轴封顶3。"},
-    {"ruler_id":"RULER-FD-WANG-JIAN","ruler_name":"王建","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"reason":"西川、东川与山南战争可检验区域国家军队的持续攻坚，计入能力侧；其宏区规模不足以突破既有4档。"},
-    {"ruler_id":"RULER-NS-ZHAO-KUANGYIN","ruler_name":"赵匡胤","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"reason":"荆湖、后蜀、南汉、南唐等统一战争均作为军队能力样本消费，北汉未克等反证继续保留，三轴维持4。"},
-    {"ruler_id":"RULER-SHADOW-萧衍","ruler_name":"萧衍","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"reason":"取代南齐的胜绩进入能力侧，但后期多轮北伐失败及侯景之乱的中央崩溃构成更强反证，不改变低档。"},
-    {"ruler_id":"RULER-SHADOW-慕容垂","ruler_name":"慕容垂","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"reason":"灭翟魏、西燕证明高档交付与持续运作；参合陂后的恢复和继承可靠性不足，维持4/4/3。"},
-    {"ruler_id":"RULER-SHADOW-石虎","ruler_name":"石虎","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"reason":"前赵终局及多轮区域征服进入能力侧；严酷汲取、运输受阻和后期失序限制持续与可靠性，维持4/4/2。"},
-    {"ruler_id":"RULER-SHADOW-宇文邕","ruler_name":"宇文邕","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"reason":"灭北齐完整链是高难度国家战争的体系实证，但仍是单一主链，三轴维持4。"},
-    {"ruler_id":"RULER-SHADOW-拓跋珪","ruler_name":"拓跋珪","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"reason":"复代与灭刘卫辰进入能力侧，结合参合陂等在位任务支持4/4/3，不以两项创业结果推高可靠性。"},
-    {"ruler_id":"RULER-SHADOW-苻坚","ruler_name":"苻坚","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"reason":"灭前燕、代国等前中期成果完整计入；淝水及其后体系瓦解压倒性限制可靠性，维持4/4/1。"},
-    {"ruler_id":"RULER-SHADOW-高欢","ruler_name":"高欢","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"axis_override":{"C1":4,"C2":4,"C3":3},"reason":"韩陵击破尔朱体系足以证明高档实战兑现；沙苑等关键失败和未能稳定终结西魏使可靠性停在3。"},
-    {"ruler_id":"RULER-TANG-LIYUAN","ruler_name":"李渊","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"reason":"太原起兵至关中立足及唐统一链均按李渊政权的国家军队能力消费，具体统帅归责仍由第一项结果卡约束。"},
-    {"ruler_id":"RULER-SHADOW-拓跋焘","ruler_name":"拓跋焘","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"reason":"灭北凉补入统一期能力样本，与其后多方向作战共同支持三轴4，不因单项统一终局升5。"},
-    {"ruler_id":"RULER-SHADOW-宇文泰","ruler_name":"宇文泰","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"axis_override":{"C1":4,"C2":4,"C3":4},"reason":"韩陵、关陇立足与其后东西魏长期战争共同证明高档交付、恢复和跨将领复制，三轴到4；无多O4方向闭合，不升5。"},
-    {"ruler_id":"RULER-SHADOW-苻健","ruler_name":"苻健","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"reason":"夺取关中的创业战进入能力侧，但对手仅O3且样本单薄，三轴维持3。"},
-    {"ruler_id":"RULER-SHU-LIUBEI","ruler_name":"刘备","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"axis_override":{"C1":3,"C2":3,"C3":2},"reason":"取益州证明一次成熟国家攻坚兑现，徐州与夷陵失败完整保留；交付和持续性到3，反复丧失主力使可靠性仍为2。"},
-    {"ruler_id":"RULER-SHADOW-赫连勃勃","ruler_name":"赫连勃勃","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"reason":"创业期对南凉等作战进入能力侧，但仅一组主任务且组织后果恶劣，不突破3/4/2。"},
-    {"ruler_id":"RULER-SHADOW-吕光","ruler_name":"吕光","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"reason":"河西立足进入能力侧；对手为O3且后续政权分裂，维持3/4/2。"},
-    {"ruler_id":"RULER-SHADOW-萧道成","ruler_name":"萧道成","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"reason":"建康防御与政权取得阶段的军事实证进入C，但主要对手为O3、样本单一，三轴维持3。"},
-    {"ruler_id":"RULER-SHADOW-司马炎","ruler_name":"司马炎","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"reason":"灭吴作为成熟国家战争进入能力侧；主要依赖既成晋军与多路统帅，结合后续军政松弛，维持4/4/3。"},
-    {"ruler_id":"RULER-WU-SUNQUAN","ruler_name":"孙权","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"reason":"两次黄祖方向作战进入能力侧，但同一O3体系不能冒充多个高难度对手，既有3/4/3不变。"},
-    {"ruler_id":"RULER-FD-CHAI-RONG","ruler_name":"柴荣","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"reason":"高平及南唐方向成果进入能力侧；在位短、长期复制不足，三轴维持4。"},
-    {"ruler_id":"RULER-WEI-SIMAZHAO","ruler_name":"司马昭","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"axis_override":{"C1":4,"C2":4,"C3":3},"reason":"灭蜀证明成熟国家战争的高档交付与保障，钟会叛乱显示终局控制与体系可靠性未闭合，取4/4/3。"},
-    {"ruler_id":"RULER-SHADOW-姚苌","ruler_name":"姚苌","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"reason":"平定魏揭飞等创业期作战进入能力侧，但对手O2且样本单一，三轴维持3。"},
-    {"ruler_id":"RULER-SHADOW-刘渊","ruler_name":"刘渊","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"reason":"平阳扩张进入能力侧，但仅为O2区域守军样本，不抬升三轴。"},
-    {"ruler_id":"RULER-FD-SHI-JINGTANG","ruler_name":"石敬瑭","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"reason":"创业围攻样本进入能力侧；高度依赖契丹且当前O档未闭合，三轴维持3。"},
-    {"ruler_id":"RULER-NS-ZHAO-GUANGYI","ruler_name":"赵光义","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"reason":"灭北汉进入能力侧，但高粱河等连续重大失败限制交付、持续和可靠性，三轴维持2。"},
-    {"ruler_id":"RULER-SHADOW-李暠","ruler_name":"李暠","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"reason":"敦煌立足的军事样本进入能力侧，但对手仅O1且无高强度重复检验，三轴维持3。"},
-    {"ruler_id":"RULER-SHADOW-刘聪","ruler_name":"刘聪","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"reason":"壶关等创业战争进入能力侧；对手为O3，后续组织失控限制可靠性，维持4/4/2。"},
-    {"ruler_id":"RULER-SHADOW-冉闵","ruler_name":"冉闵","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"axis_override":{"C1":3,"C2":2,"C3":0},"reason":"襄国胜绩与前燕终结败亡均是O4国家战争样本；一胜一亡支持交付到3，但持续性2、体系可靠性0。"},
-    {"ruler_id":"RULER-SHADOW-刘裕","ruler_name":"刘裕","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"axis_override":{"C1":5,"C2":5,"C3":4},"reason":"南燕、桓楚、卢循、谯蜀、荆州与后秦等多个O4体系跨北方、荆州、岭南、巴蜀和关中连续兑现，C1/C2到5；当前未闭合两名top/historic部将的独立A+交付，C3取4。"},
-    {"ruler_id":"RULER-FD-LI-SIYUAN","ruler_name":"李嗣源","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"axis_override":{"C1":4,"C2":4,"C3":3},"reason":"对后梁、燕和契丹的长期战争证明高档交付与持续作战；称帝后的军政控制和继承可靠性不足，取4/4/3。"},
-    {"ruler_id":"RULER-FD-ZHU-WEN","ruler_name":"朱温","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"axis_override":{"C1":4,"C2":4,"C3":4},"reason":"秦宗权、魏博、凤翔、平卢、河东和幽州等多体系长期战争证明三轴高档，但长期未能终结河东且后期军政反噬，不升5。"},
-    {"ruler_id":"RULER-SHADOW-石勒","ruler_name":"石勒","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"axis_override":{"C1":4,"C2":4,"C3":4},"reason":"襄国防御、灭王浚及前赵终局证明从流动作战到国家军队的高档交付与复制；高难度独立对手任务数不足三项，三轴取4。"},
-    {"ruler_id":"RULER-SHADOW-沮渠蒙逊","ruler_name":"沮渠蒙逊","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"axis_override":{"C1":4,"C2":4,"C3":3},"reason":"南凉、西凉两个O4国家体系证明区域国家军队的高档交付与持续性；只有两条主要高难度链且后续可靠性有限，取4/4/3。"},
-    {"ruler_id":"RULER-SHADOW-慕容德","ruler_name":"慕容德","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"axis_override":{"C1":3,"C2":3,"C3":3},"reason":"青州立足进入能力侧，但对手仅O3且只有一条主要任务，三轴按证据上限取3。"},
-    {"ruler_id":"RULER-FD-GUO-WEI","ruler_name":"郭威","disposition":"CONSUME_FIRST_ITEM_C_CAPABILITY","excluded_refs":[],"axis_override":{"C1":3,"C2":3,"C3":3},"reason":"创业军事任务足以解除无实战证据挂起，但当前只有一条第一项C父任务且O档尚未闭合，三轴只能取3。"}
+    {
+      "ruler_id": "RULER-TANG-LISHIMIN",
+      "ruler_name": "李世民",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "reason": "唐统一期本人直接承担的河东、洛阳虎牢、河北等作战属于可归责的国家军队能力实证；统一疆土收益仍只归第一项。"
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUXIU",
+      "ruler_name": "刘秀",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "reason": "河北立足后至关中、东方、陇右、蜀地的长期战争均检验新政权军队的持续交付，全部进入C能力侧。"
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUBANG",
+      "ruler_name": "刘邦",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [
+        "HAN-CHUHAN-GUANZHONG-ENTRY-BCE207-206"
+      ],
+      "reason": "汉王政权形成后的三秦、彭城、荥阳成皋与垓下进入C；入关受降发生在汉王政权形成前，只保留在第一项。"
+    },
+    {
+      "ruler_id": "RULER-WEI-CAOCAO",
+      "ruler_name": "曹操",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "axis_override": {
+        "C1": 4,
+        "C2": 4,
+        "C3": 4
+      },
+      "reason": "兖州恢复、官渡河北、乌桓与汉中证明多轮高强度交付；宛城、赤壁和濡须等失败保留，故三轴到4而不升5。"
+    },
+    {
+      "ruler_id": "RULER-FD-LI-CUNXU",
+      "ruler_name": "李存勖",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "axis_override": {
+        "C1": 4,
+        "C2": 4,
+        "C3": 1
+      },
+      "reason": "对后梁、燕与契丹的长期作战足以把交付和持续性提升到4；灭梁后军政体系迅速崩塌，可靠性仍为1。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-陈霸先",
+      "ruler_name": "陈霸先",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "axis_override": {
+        "C1": 4,
+        "C2": 4,
+        "C3": 4
+      },
+      "reason": "侯景终局、三吴和北齐介入下的建康防御先支持三轴4；但当前重大胜绩4项、重大体系失败6项，未通过C4胜绩对冲门禁，最终三轴封顶3。"
+    },
+    {
+      "ruler_id": "RULER-FD-WANG-JIAN",
+      "ruler_name": "王建",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "reason": "西川、东川与山南战争可检验区域国家军队的持续攻坚，计入能力侧；其宏区规模不足以突破既有4档。"
+    },
+    {
+      "ruler_id": "RULER-NS-ZHAO-KUANGYIN",
+      "ruler_name": "赵匡胤",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "reason": "荆湖、后蜀、南汉、南唐等统一战争均作为军队能力样本消费，北汉未克等反证继续保留，三轴维持4。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-萧衍",
+      "ruler_name": "萧衍",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "reason": "取代南齐的胜绩进入能力侧，但后期多轮北伐失败及侯景之乱的中央崩溃构成更强反证，不改变低档。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-慕容垂",
+      "ruler_name": "慕容垂",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "reason": "灭翟魏、西燕证明高档交付与持续运作；参合陂后的恢复和继承可靠性不足，维持4/4/3。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-石虎",
+      "ruler_name": "石虎",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "reason": "前赵终局及多轮区域征服进入能力侧；严酷汲取、运输受阻和后期失序限制持续与可靠性，维持4/4/2。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-宇文邕",
+      "ruler_name": "宇文邕",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "reason": "灭北齐完整链是高难度国家战争的体系实证，但仍是单一主链，三轴维持4。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-拓跋珪",
+      "ruler_name": "拓跋珪",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "reason": "复代与灭刘卫辰进入能力侧，结合参合陂等在位任务支持4/4/3，不以两项创业结果推高可靠性。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-苻坚",
+      "ruler_name": "苻坚",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "reason": "灭前燕、代国等前中期成果完整计入；淝水及其后体系瓦解压倒性限制可靠性，维持4/4/1。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-高欢",
+      "ruler_name": "高欢",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "axis_override": {
+        "C1": 4,
+        "C2": 4,
+        "C3": 3
+      },
+      "reason": "韩陵击破尔朱体系足以证明高档实战兑现；沙苑等关键失败和未能稳定终结西魏使可靠性停在3。"
+    },
+    {
+      "ruler_id": "RULER-TANG-LIYUAN",
+      "ruler_name": "李渊",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "reason": "太原起兵至关中立足及唐统一链均按李渊政权的国家军队能力消费，具体统帅归责仍由第一项结果卡约束。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-拓跋焘",
+      "ruler_name": "拓跋焘",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "reason": "灭北凉补入统一期能力样本，与其后多方向作战共同支持三轴4，不因单项统一终局升5。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-宇文泰",
+      "ruler_name": "宇文泰",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "axis_override": {
+        "C1": 4,
+        "C2": 4,
+        "C3": 4
+      },
+      "reason": "韩陵、关陇立足与其后东西魏长期战争共同证明高档交付、恢复和跨将领复制，三轴到4；无多O4方向闭合，不升5。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-苻健",
+      "ruler_name": "苻健",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "reason": "夺取关中的创业战进入能力侧，但对手仅O3且样本单薄，三轴维持3。"
+    },
+    {
+      "ruler_id": "RULER-SHU-LIUBEI",
+      "ruler_name": "刘备",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "axis_override": {
+        "C1": 3,
+        "C2": 3,
+        "C3": 2
+      },
+      "reason": "取益州证明一次成熟国家攻坚兑现，徐州与夷陵失败完整保留；交付和持续性到3，反复丧失主力使可靠性仍为2。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-赫连勃勃",
+      "ruler_name": "赫连勃勃",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "reason": "创业期对南凉等作战进入能力侧，但仅一组主任务且组织后果恶劣，不突破3/4/2。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-吕光",
+      "ruler_name": "吕光",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "reason": "河西立足进入能力侧；对手为O3且后续政权分裂，维持3/4/2。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-萧道成",
+      "ruler_name": "萧道成",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "reason": "建康防御与政权取得阶段的军事实证进入C，但主要对手为O3、样本单一，三轴维持3。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-司马炎",
+      "ruler_name": "司马炎",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "reason": "灭吴作为成熟国家战争进入能力侧；主要依赖既成晋军与多路统帅，结合后续军政松弛，维持4/4/3。"
+    },
+    {
+      "ruler_id": "RULER-WU-SUNQUAN",
+      "ruler_name": "孙权",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "reason": "两次黄祖方向作战进入能力侧，但同一O3体系不能冒充多个高难度对手，既有3/4/3不变。"
+    },
+    {
+      "ruler_id": "RULER-FD-CHAI-RONG",
+      "ruler_name": "柴荣",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "reason": "高平及南唐方向成果进入能力侧；在位短、长期复制不足，三轴维持4。"
+    },
+    {
+      "ruler_id": "RULER-WEI-SIMAZHAO",
+      "ruler_name": "司马昭",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "axis_override": {
+        "C1": 4,
+        "C2": 4,
+        "C3": 3
+      },
+      "reason": "灭蜀证明成熟国家战争的高档交付与保障，钟会叛乱显示终局控制与体系可靠性未闭合，取4/4/3。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-姚苌",
+      "ruler_name": "姚苌",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "reason": "平定魏揭飞等创业期作战进入能力侧，但对手O2且样本单一，三轴维持3。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-刘渊",
+      "ruler_name": "刘渊",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "reason": "平阳扩张进入能力侧，但仅为O2区域守军样本，不抬升三轴。"
+    },
+    {
+      "ruler_id": "RULER-FD-SHI-JINGTANG",
+      "ruler_name": "石敬瑭",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "reason": "创业围攻样本进入能力侧；高度依赖契丹且当前O档未闭合，三轴维持3。"
+    },
+    {
+      "ruler_id": "RULER-NS-ZHAO-GUANGYI",
+      "ruler_name": "赵光义",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "reason": "灭北汉进入能力侧，但高粱河等连续重大失败限制交付、持续和可靠性，三轴维持2。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-李暠",
+      "ruler_name": "李暠",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "reason": "敦煌立足的军事样本进入能力侧，但对手仅O1且无高强度重复检验，三轴维持3。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-刘聪",
+      "ruler_name": "刘聪",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "reason": "壶关等创业战争进入能力侧；对手为O3，后续组织失控限制可靠性，维持4/4/2。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-冉闵",
+      "ruler_name": "冉闵",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "axis_override": {
+        "C1": 3,
+        "C2": 2,
+        "C3": 0
+      },
+      "reason": "襄国胜绩与前燕终结败亡均是O4国家战争样本；一胜一亡支持交付到3，但持续性2、体系可靠性0。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-刘裕",
+      "ruler_name": "刘裕",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "axis_override": {
+        "C1": 5,
+        "C2": 5,
+        "C3": 4
+      },
+      "reason": "南燕、桓楚、卢循、谯蜀、荆州与后秦等多个O4体系跨北方、荆州、岭南、巴蜀和关中连续兑现，C1/C2到5；当前未闭合两名top/historic部将的独立A+交付，C3取4。"
+    },
+    {
+      "ruler_id": "RULER-FD-LI-SIYUAN",
+      "ruler_name": "李嗣源",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "axis_override": {
+        "C1": 4,
+        "C2": 4,
+        "C3": 3
+      },
+      "reason": "对后梁、燕和契丹的长期战争证明高档交付与持续作战；称帝后的军政控制和继承可靠性不足，取4/4/3。"
+    },
+    {
+      "ruler_id": "RULER-FD-ZHU-WEN",
+      "ruler_name": "朱温",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "axis_override": {
+        "C1": 4,
+        "C2": 4,
+        "C3": 4
+      },
+      "reason": "秦宗权、魏博、凤翔、平卢、河东和幽州等多体系长期战争证明三轴高档，但长期未能终结河东且后期军政反噬，不升5。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-石勒",
+      "ruler_name": "石勒",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "axis_override": {
+        "C1": 4,
+        "C2": 4,
+        "C3": 4
+      },
+      "reason": "襄国防御、灭王浚及前赵终局证明从流动作战到国家军队的高档交付与复制；高难度独立对手任务数不足三项，三轴取4。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-沮渠蒙逊",
+      "ruler_name": "沮渠蒙逊",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "axis_override": {
+        "C1": 4,
+        "C2": 4,
+        "C3": 3
+      },
+      "reason": "南凉、西凉两个O4国家体系证明区域国家军队的高档交付与持续性；只有两条主要高难度链且后续可靠性有限，取4/4/3。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-慕容德",
+      "ruler_name": "慕容德",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "axis_override": {
+        "C1": 3,
+        "C2": 3,
+        "C3": 3
+      },
+      "reason": "青州立足进入能力侧，但对手仅O3且只有一条主要任务，三轴按证据上限取3。"
+    },
+    {
+      "ruler_id": "RULER-FD-GUO-WEI",
+      "ruler_name": "郭威",
+      "disposition": "CONSUME_FIRST_ITEM_C_CAPABILITY",
+      "excluded_refs": [],
+      "axis_override": {
+        "C1": 3,
+        "C2": 3,
+        "C3": 3
+      },
+      "reason": "创业军事任务足以解除无实战证据挂起，但当前只有一条第一项C父任务且O档尚未闭合，三轴只能取3。"
+    }
   ],
   "founder_no_capability_reviews": [
-    {"ruler_name":"刘玄","disposition":"HOLD_NO_FIRST_ITEM_C_CAPABILITY_REF","reason":"第一项C当前为材料缺口下的默认0且没有可复用战役引用；第三项只有低强度观察，不能把默认0或统一名义改造成实战证据，继续HOLD。"},
-    {"ruler_name":"司马懿","disposition":"HOLD_NO_FIRST_ITEM_C_CAPABILITY_REF","reason":"第一项创业窗口已裁定无可归于本人的合格军事贡献；第三项实际执政窗口也没有闭合体系压力父周期，继续HOLD而不按名气补分。"},
-    {"ruler_name":"朱聿键","disposition":"HOLD_NO_FIRST_ITEM_C_CAPABILITY_REF","reason":"第一项C没有本人合格军事贡献，公共战役登记亦无主政窗口主体阶段；缺少可消费实战任务，第三项C继续HOLD。"},
-    {"ruler_name":"朱由榔","disposition":"HOLD_NO_FIRST_ITEM_C_CAPABILITY_REF","reason":"第一项C没有本人合格军事贡献，公共战役登记亦无主政窗口主体阶段；恢复政权名义不能替代本人体系压力任务，第三项C继续HOLD。"}
+    {
+      "ruler_name": "刘玄",
+      "disposition": "HOLD_NO_FIRST_ITEM_C_CAPABILITY_REF",
+      "reason": "第一项C当前为材料缺口下的默认0且没有可复用战役引用；第三项只有低强度观察，不能把默认0或统一名义改造成实战证据，继续HOLD。"
+    },
+    {
+      "ruler_name": "司马懿",
+      "disposition": "HOLD_NO_FIRST_ITEM_C_CAPABILITY_REF",
+      "reason": "第一项创业窗口已裁定无可归于本人的合格军事贡献；第三项实际执政窗口也没有闭合体系压力父周期，继续HOLD而不按名气补分。"
+    },
+    {
+      "ruler_name": "朱聿键",
+      "disposition": "HOLD_NO_FIRST_ITEM_C_CAPABILITY_REF",
+      "reason": "第一项C没有本人合格军事贡献，公共战役登记亦无主政窗口主体阶段；缺少可消费实战任务，第三项C继续HOLD。"
+    },
+    {
+      "ruler_name": "朱由榔",
+      "disposition": "HOLD_NO_FIRST_ITEM_C_CAPABILITY_REF",
+      "reason": "第一项C没有本人合格军事贡献，公共战役登记亦无主政窗口主体阶段；恢复政权名义不能替代本人体系压力任务，第三项C继续HOLD。"
+    }
   ],
   "founder_current_c_reviews": [
-    {"ruler_name":"铁木真","disposition":"CONSUME_CROSS_ID_FIRST_ITEM_C_CAPABILITY","first_item_parent_aliases":{"PCR-CA6424B1EFC093D4461F":"WAR-POST-D93BB824455764B93E15","PCR-D9BCEB0311988548AFCE":"WAR-POST-B1BE4C2409653FE5B24C"},"reason":"第一项与第三项使用不同人物标识，现按姓名桥接13条第一项C能力引用；花剌子模与西夏人物战果归并回同一公共父任务，金O5、花剌子模O5、西夏O4等公共任务支撑C1/C2，武将门禁支撑C3，三轴5保留。"},
-    {"ruler_name":"忽必烈","disposition":"CONSUME_CROSS_ID_FIRST_ITEM_C_CAPABILITY","reason":"现按姓名桥接4条第一项C能力引用；与当前任内任务合并后仍有日本、安南重大失败，交付4而持续和可靠性3，维持4/3/3。"},
-    {"ruler_name":"朱元璋","disposition":"CONSUME_CROSS_ID_FIRST_ITEM_C_CAPABILITY","reason":"现按姓名桥接9条第一项C创业能力引用，并复用公共统一组合中的四条O4+任务；疆土收益仍只归第一项，第三项C只消费作战交付、持续保障与跨将领复制。"},
-    {"ruler_name":"窝阔台","disposition":"CONSUME_CROSS_ID_FIRST_ITEM_C_CAPABILITY","first_item_parent_aliases":{"PCR-BBA94DCCF0815DC4841E":"XZTJ-MONGOL-JIN-SANFENGSHAN-1232"},"reason":"现按姓名桥接2条第一项C能力引用；三峰山后钧州—河南人物战果归并回灭金父任务，不另增周期或胜绩。灭金、东夏与钦察等胜绩支持4档，但未闭合C2/C3的5档硬门槛，三轴4保留。"},
-    {"ruler_name":"蒙哥","disposition":"CONSUME_CROSS_ID_FIRST_ITEM_C_CAPABILITY","reason":"现按姓名桥接3条第一项C能力引用；与高丽、安南任务合并后交付到4，但持续保障和跨将领复制仍不足，4/3/3保留。"},
-    {"ruler_name":"冯跋","disposition":"RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS","reason":"只有一条主要体系压力任务且保留重大失败，证据上限为3，三轴3保留。"},
-    {"ruler_name":"刘龑","disposition":"RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS","reason":"两项任务未形成重大体系胜绩，交付、保障和复制均只到2，维持2/2/2。"},
-    {"ruler_name":"司马师","disposition":"RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS","reason":"东兴重大失败是唯一体系压力任务，持续组织尚有旁证但交付与可靠性受限，2/3/2保留。"},
-    {"ruler_name":"司马睿","disposition":"RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS","reason":"七项任务含多条重大失败且无重大胜绩，江南立足不能替代实战兑现，2/3/2保留。"},
-    {"ruler_name":"姚兴","disposition":"RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS","reason":"厚样本中前期西部、洛阳胜绩与后期夏秦、姚弋仲等重大失败并存，交付保障到4、可靠性3，维持4/4/3。"},
-    {"ruler_name":"嬴政","disposition":"RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS","reason":"灭六国能力引用直接来自公共统一组合；赵O5、魏O4、楚O5等三个独立高难度任务通过C1门禁，C1为5，C2/C3为4。"},
-    {"ruler_name":"曹丕","disposition":"RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS","reason":"唯一体系压力任务为对吴重大失败，保障动员有一定规模但交付和复制不足，2/4/3保留。"},
-    {"ruler_name":"李昪","disposition":"RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS","reason":"两项压力任务均为失败且无重大胜绩，不能用建国过程补成高档，2/2/2保留。"},
-    {"ruler_name":"李雄","disposition":"RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS","reason":"两项任务仅一项重大胜绩，厚度不足4档门槛，三轴3保留。"},
-    {"ruler_name":"杨坚","disposition":"RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS","reason":"灭陈与江南整合已通过公共统一战争合同进入能力侧，高句丽重大失败和样本集中限制上限，三轴4保留。"},
-    {"ruler_name":"王莽","disposition":"RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS","reason":"六项压力任务以全国性崩溃为决定性反证，无重大胜绩，交付0、保障1、可靠性0保留。"},
-    {"ruler_name":"赵构","disposition":"RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS","reason":"十二项任内任务足以支持高档防御交付和恢复，采石重大胜绩闭合C4门禁；创业恢复链没有额外可复用的第一项C引用，三轴4保留。"},
-    {"ruler_name":"高洋","disposition":"RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS","reason":"契丹与文侯两项重大胜绩和其他失败并存，保障到4但交付、可靠性3，维持3/4/3。"}
+    {
+      "ruler_name": "铁木真",
+      "disposition": "CONSUME_POST_1206_THIRD_ITEM_TASKS",
+      "first_item_parent_aliases": {},
+      "reason": "第一项统一贡献窗口已在1206年草原最高主权竞争闭合；第三项直接消费1206年后的金、西夏、花剌子模等独立外部体系压力任务，不再把这些任务描述为第一项能力引用。多方向高难度交付、持续远征和跨将领复制仍分别满足C1/C2/C3五档门禁。"
+    },
+    {
+      "ruler_name": "忽必烈",
+      "disposition": "CONSUME_CROSS_ID_FIRST_ITEM_C_CAPABILITY",
+      "reason": "现按姓名桥接4条第一项C能力引用；与当前任内任务合并后仍有日本、安南重大失败，交付4而持续和可靠性3，维持4/3/3。"
+    },
+    {
+      "ruler_name": "朱元璋",
+      "disposition": "CONSUME_CROSS_ID_FIRST_ITEM_C_CAPABILITY",
+      "reason": "现按姓名桥接9条第一项C创业能力引用，并复用公共统一组合中的四条O4+任务；疆土收益仍只归第一项，第三项C只消费作战交付、持续保障与跨将领复制。"
+    },
+    {
+      "ruler_name": "窝阔台",
+      "disposition": "CONSUME_CROSS_ID_FIRST_ITEM_C_CAPABILITY",
+      "first_item_parent_aliases": {
+        "PCR-BBA94DCCF0815DC4841E": "XZTJ-MONGOL-JIN-SANFENGSHAN-1232"
+      },
+      "reason": "现按姓名桥接2条第一项C能力引用；三峰山后钧州—河南人物战果归并回灭金父任务，不另增周期或胜绩。灭金、东夏与钦察等胜绩支持4档，但未闭合C2/C3的5档硬门槛，三轴4保留。"
+    },
+    {
+      "ruler_name": "蒙哥",
+      "disposition": "CONSUME_CROSS_ID_FIRST_ITEM_C_CAPABILITY",
+      "reason": "现按姓名桥接3条第一项C能力引用；与高丽、安南任务合并后交付到4，但持续保障和跨将领复制仍不足，4/3/3保留。"
+    },
+    {
+      "ruler_name": "冯跋",
+      "disposition": "RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS",
+      "reason": "只有一条主要体系压力任务且保留重大失败，证据上限为3，三轴3保留。"
+    },
+    {
+      "ruler_name": "刘龑",
+      "disposition": "RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS",
+      "reason": "两项任务未形成重大体系胜绩，交付、保障和复制均只到2，维持2/2/2。"
+    },
+    {
+      "ruler_name": "司马师",
+      "disposition": "RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS",
+      "reason": "东兴重大失败是唯一体系压力任务，持续组织尚有旁证但交付与可靠性受限，2/3/2保留。"
+    },
+    {
+      "ruler_name": "司马睿",
+      "disposition": "RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS",
+      "reason": "七项任务含多条重大失败且无重大胜绩，江南立足不能替代实战兑现，2/3/2保留。"
+    },
+    {
+      "ruler_name": "姚兴",
+      "disposition": "RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS",
+      "reason": "厚样本中前期西部、洛阳胜绩与后期夏秦、姚弋仲等重大失败并存，交付保障到4、可靠性3，维持4/4/3。"
+    },
+    {
+      "ruler_name": "嬴政",
+      "disposition": "RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS",
+      "reason": "灭六国能力引用直接来自公共统一组合；赵O5、魏O4、楚O5等三个独立高难度任务通过C1门禁，C1为5，C2/C3为4。"
+    },
+    {
+      "ruler_name": "曹丕",
+      "disposition": "RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS",
+      "reason": "唯一体系压力任务为对吴重大失败，保障动员有一定规模但交付和复制不足，2/4/3保留。"
+    },
+    {
+      "ruler_name": "李昪",
+      "disposition": "RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS",
+      "reason": "两项压力任务均为失败且无重大胜绩，不能用建国过程补成高档，2/2/2保留。"
+    },
+    {
+      "ruler_name": "李雄",
+      "disposition": "RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS",
+      "reason": "两项任务仅一项重大胜绩，厚度不足4档门槛，三轴3保留。"
+    },
+    {
+      "ruler_name": "杨坚",
+      "disposition": "RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS",
+      "reason": "灭陈与江南整合已通过公共统一战争合同进入能力侧，高句丽重大失败和样本集中限制上限，三轴4保留。"
+    },
+    {
+      "ruler_name": "王莽",
+      "disposition": "RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS",
+      "reason": "六项压力任务以全国性崩溃为决定性反证，无重大胜绩，交付0、保障1、可靠性0保留。"
+    },
+    {
+      "ruler_name": "赵构",
+      "disposition": "RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS",
+      "reason": "十二项任内任务足以支持高档防御交付和恢复，采石重大胜绩闭合C4门禁；创业恢复链没有额外可复用的第一项C引用，三轴4保留。"
+    },
+    {
+      "ruler_name": "高洋",
+      "disposition": "RETAIN_CURRENT_C_WITHOUT_FIRST_ITEM_C_REFS",
+      "reason": "契丹与文侯两项重大胜绩和其他失败并存，保障到4但交付、可靠性3，维持3/4/3。"
+    }
   ],
   "adjudications": [
+    {
+      "ruler_id": "RULER-SHADOW-司马睿",
+      "ruler_name": "司马睿",
+      "cross_item_independent_information_refs": [
+        "WAR-LEAD-HANMIAN-317"
+      ],
+      "reason": "第一项只用汉沔317父任务定位对手组织度和检索范围，没有消费该战果；第三项C消费的是东晋军队在本人窗口内的体系压力表现。两层信息不同，不属于创业成果重复结算。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-萧道成",
+      "ruler_name": "萧道成",
+      "excluded_out_of_window_parent_refs": [
+        "NC-V142-LEAD-142-01",
+        "NC-V142-LEAD-142-03",
+        "NC-V142-LEAD-142-05",
+        "NC-QI-LIANG-TRANSITION-500-502"
+      ],
+      "axis_override": {
+        "C1": 3,
+        "C2": 3,
+        "C3": 3
+      },
+      "reason": "萧道成实际窗口止于482年；卷142三项499年南齐战争及500—502年齐梁转换链均在其身后，不得作为本人current任务或重大失败。保留479—482年谢天盖、淮北五戍、李乌奴窗口及第一项能力专用证据，三轴3不变。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-萧鸾",
+      "ruler_name": "萧鸾",
+      "excluded_out_of_window_parent_refs": [
+        "NC-V142-LEAD-142-01",
+        "NC-V142-LEAD-142-03",
+        "NC-V142-LEAD-142-05",
+        "NC-QI-LIANG-TRANSITION-500-502"
+      ],
+      "axis_override": {
+        "C1": 2,
+        "C2": 3,
+        "C3": 2
+      },
+      "reason": "萧鸾实际窗口止于498年；卷142三项499年战争及500—502年齐梁转换链均越出本人窗口，不得作为current任务或重大失败。保留卷141的498年战争和494年政变链，原三轴2/3/2不变。"
+    },
+    {
+      "ruler_id": "RULER-SS-ZHAO-GOU",
+      "ruler_name": "赵构",
+      "capability_only_parent_refs": [
+        "XZTJ-JIANYAN-JINGXI-HUBEI-REBELLIONS-1127",
+        "XZTJ-JIANYAN-LICHENG-REBELLION-1128",
+        "XZTJ-JIANYAN-GUIXI-WANGNIANJING-1130",
+        "XZTJ-SONG-SHAANXI-POSTFUPING-MUTINY-1130"
+      ],
+      "cross_item_capability_only_authorized": true,
+      "reason": "第一项已消费的建炎恢复父链只作为国家军队能力反证保留；不进入第三项C当前任务回报位置，也不恢复A/B/D成果或成本。"
+    },
     {
       "ruler_id": "RULER-QIN-YINGZHENG",
       "ruler_name": "嬴政",
@@ -106,12 +732,31 @@
         "OUTCOME-QIN-CHU",
         "OUTCOME-QIN-YAN"
       ],
-      "axis_override": {"C1": 5, "C2": 4, "C3": 4},
+      "axis_override": {
+        "C1": 5,
+        "C2": 4,
+        "C3": 4
+      },
       "c5_axis_gate": {
         "C1_high_difficulty_opponents": [
-          {"opponent_system_ref": "OPP-QIN-ZHAO", "task_refs": ["OUTCOME-QIN-ZHAO"]},
-          {"opponent_system_ref": "OPP-QIN-WEI", "task_refs": ["OUTCOME-QIN-WEI"]},
-          {"opponent_system_ref": "OPP-QIN-CHU", "task_refs": ["OUTCOME-QIN-CHU"]}
+          {
+            "opponent_system_ref": "OPP-QIN-ZHAO",
+            "task_refs": [
+              "OUTCOME-QIN-ZHAO"
+            ]
+          },
+          {
+            "opponent_system_ref": "OPP-QIN-WEI",
+            "task_refs": [
+              "OUTCOME-QIN-WEI"
+            ]
+          },
+          {
+            "opponent_system_ref": "OPP-QIN-CHU",
+            "task_refs": [
+              "OUTCOME-QIN-CHU"
+            ]
+          }
         ]
       },
       "reason": "灭六国战争证明秦军能在多方向、多统帅下持续完成最高难度攻坚，C1取5；但体系建立高度承接既有秦国机器，伐楚初败后才以更大动员修正，持续与可靠性不与李世民、铁木真式顶级无短板体系并列，C2/C3取4。"
@@ -130,26 +775,91 @@
         "HAN-CHUHAN-XINGYANG-CHENGGAO-BCE205-203",
         "HAN-CHUHAN-GAIXIA-BCE203-202"
       ],
-      "major_system_failure_refs": ["HAN-CHUHAN-PENGCHENG-BCE205"],
-      "axis_override": {"C1": 4, "C2": 4, "C3": 4},
+      "major_system_failure_refs": [
+        "HAN-CHUHAN-PENGCHENG-BCE205"
+      ],
+      "axis_override": {
+        "C1": 4,
+        "C2": 4,
+        "C3": 4
+      },
       "reason": "刘邦受封汉王、形成可评价政权以后，还定三秦、荥阳—成皋长期对抗和垓下终局可作为国家军队能力证据；入关受秦降发生在汉王政权形成前，仍只归第一项。彭城覆败与称帝后白登受围均保留为重大反证，因此实战兑现不升5；楚汉战争仍证明长期补充恢复和跨韩信、彭越、曹参等统帅运行达到4档，但当前只有韩信达到top/historic，C3不升5，三轴取4。"
     },
     {
       "ruler_id": "RULER-SHADOW-刘裕",
       "ruler_name": "刘裕",
-      "axis_override": {"C1": 5, "C2": 5, "C3": 4},
+      "axis_override": {
+        "C1": 5,
+        "C2": 5,
+        "C3": 4
+      },
       "c5_axis_gate": {
         "C1_high_difficulty_opponents": [
-          {"opponent_system_ref": "OPP-SOUTHERN-YAN-STATE", "task_refs": ["WAR-LEAD-115-LIUYU-SOUTHYAN-409"]},
-          {"opponent_system_ref": "OPP-JIN-HUANCHU", "task_refs": ["WAR-LEAD-115-HUAN-REMNANTS-410"]},
-          {"opponent_system_ref": "OPP-LUXUN-REBELS", "task_refs": ["WAR-LEAD-116-LUXUN-END-411"]},
-          {"opponent_system_ref": "OPP-QIAOSHU-STATE", "task_refs": ["WAR-LEAD-116-LIUYU-SHU-413"]},
-          {"opponent_system_ref": "OPP-LATER-QIN-STATE", "task_refs": ["WAR-LEAD-118-LIUYU-QIN-417"]}
+          {
+            "opponent_system_ref": "OPP-SOUTHERN-YAN-STATE",
+            "task_refs": [
+              "WAR-LEAD-115-LIUYU-SOUTHYAN-409"
+            ]
+          },
+          {
+            "opponent_system_ref": "OPP-JIN-HUANCHU",
+            "task_refs": [
+              "WAR-LEAD-115-HUAN-REMNANTS-410"
+            ]
+          },
+          {
+            "opponent_system_ref": "OPP-LUXUN-REBELS",
+            "task_refs": [
+              "WAR-LEAD-116-LUXUN-END-411"
+            ]
+          },
+          {
+            "opponent_system_ref": "OPP-QIAOSHU-STATE",
+            "task_refs": [
+              "WAR-LEAD-116-LIUYU-SHU-413"
+            ]
+          },
+          {
+            "opponent_system_ref": "OPP-LATER-QIN-STATE",
+            "task_refs": [
+              "WAR-LEAD-118-LIUYU-QIN-417"
+            ]
+          }
         ],
         "C2_strategic_directions": [
-          {"direction": "山东与关中北伐", "opponent_system_refs": ["OPP-SOUTHERN-YAN-STATE", "OPP-LATER-QIN-STATE"], "task_refs": ["WAR-LEAD-115-LIUYU-SOUTHYAN-409", "WAR-LEAD-118-LIUYU-QIN-417"]},
-          {"direction": "荆州与岭南内线", "opponent_system_refs": ["OPP-JIN-HUANCHU", "OPP-LUXUN-REBELS", "OPP-JIN-LIUYI"], "task_refs": ["WAR-LEAD-115-HUAN-REMNANTS-410", "WAR-LEAD-116-LUXUN-END-411", "WAR-LEAD-116-LIUYI-412"]},
-          {"direction": "巴蜀", "opponent_system_refs": ["OPP-QIAOSHU-STATE"], "task_refs": ["WAR-LEAD-116-LIUYU-SHU-413"]}
+          {
+            "direction": "山东与关中北伐",
+            "opponent_system_refs": [
+              "OPP-SOUTHERN-YAN-STATE",
+              "OPP-LATER-QIN-STATE"
+            ],
+            "task_refs": [
+              "WAR-LEAD-115-LIUYU-SOUTHYAN-409",
+              "WAR-LEAD-118-LIUYU-QIN-417"
+            ]
+          },
+          {
+            "direction": "荆州与岭南内线",
+            "opponent_system_refs": [
+              "OPP-JIN-HUANCHU",
+              "OPP-LUXUN-REBELS",
+              "OPP-JIN-LIUYI"
+            ],
+            "task_refs": [
+              "WAR-LEAD-115-HUAN-REMNANTS-410",
+              "WAR-LEAD-116-LUXUN-END-411",
+              "WAR-LEAD-116-LIUYI-412"
+            ]
+          },
+          {
+            "direction": "巴蜀",
+            "opponent_system_refs": [
+              "OPP-QIAOSHU-STATE"
+            ],
+            "task_refs": [
+              "WAR-LEAD-116-LIUYU-SHU-413"
+            ]
+          }
         ]
       },
       "reason": "刘裕统一与创业链的作战表现只作为第三项C能力证据消费；五个以上独立O4对手体系、三个战略方向和多年持续恢复使C1/C2达到5，C3仍按顶级部将硬门槛取4。"
@@ -175,17 +885,60 @@
         "HAN-STARTUP-LONGYOU-30-34",
         "HAN-STARTUP-SHU-33-36"
       ],
-      "axis_override": {"C1": 5, "C2": 5, "C3": 4},
+      "axis_override": {
+        "C1": 5,
+        "C2": 5,
+        "C3": 4
+      },
       "c5_axis_gate": {
         "C1_high_difficulty_opponents": [
-          {"opponent_system_ref": "OPP-EHAN-ZHANGBU-QI", "task_refs": ["HAN-STARTUP-EAST-26-30"]},
-          {"opponent_system_ref": "OPP-EHAN-WEIAO", "task_refs": ["HAN-STARTUP-LONGYOU-30-34"]},
-          {"opponent_system_ref": "OPP-EHAN-GONGSUNSHU", "task_refs": ["HAN-STARTUP-SHU-33-36"]}
+          {
+            "opponent_system_ref": "OPP-EHAN-ZHANGBU-QI",
+            "task_refs": [
+              "HAN-STARTUP-EAST-26-30"
+            ]
+          },
+          {
+            "opponent_system_ref": "OPP-EHAN-WEIAO",
+            "task_refs": [
+              "HAN-STARTUP-LONGYOU-30-34"
+            ]
+          },
+          {
+            "opponent_system_ref": "OPP-EHAN-GONGSUNSHU",
+            "task_refs": [
+              "HAN-STARTUP-SHU-33-36"
+            ]
+          }
         ],
         "C2_strategic_directions": [
-          {"direction": "齐地东方", "opponent_system_refs": ["OPP-EHAN-ZHANGBU-QI"], "task_refs": ["HAN-STARTUP-EAST-26-30"]},
-          {"direction": "陇右", "opponent_system_refs": ["OPP-EHAN-WEIAO"], "task_refs": ["HAN-STARTUP-LONGYOU-30-34"]},
-          {"direction": "巴蜀", "opponent_system_refs": ["OPP-EHAN-GONGSUNSHU"], "task_refs": ["HAN-STARTUP-SHU-33-36"]}
+          {
+            "direction": "齐地东方",
+            "opponent_system_refs": [
+              "OPP-EHAN-ZHANGBU-QI"
+            ],
+            "task_refs": [
+              "HAN-STARTUP-EAST-26-30"
+            ]
+          },
+          {
+            "direction": "陇右",
+            "opponent_system_refs": [
+              "OPP-EHAN-WEIAO"
+            ],
+            "task_refs": [
+              "HAN-STARTUP-LONGYOU-30-34"
+            ]
+          },
+          {
+            "direction": "巴蜀",
+            "opponent_system_refs": [
+              "OPP-EHAN-GONGSUNSHU"
+            ],
+            "task_refs": [
+              "HAN-STARTUP-SHU-33-36"
+            ]
+          }
         ]
       },
       "reason": "昆阳、河北、关中、东方、陇右与蜀地构成十三年多对手、多方向高难度战争，C1/C2达到顶级交付与持续门槛；但当前武将人才登记中吴汉、耿弇、岑彭均为elite而非top/historic，尚不能以名将声望替代两名顶级武将分别取得显著成果的C3-5硬门槛，C3取4。"
@@ -203,15 +956,27 @@
         "WAR-PARENT-SUI-UNIFICATION-589",
         "SUI-SOUTH-CONSOLIDATION-JIANGNAN-590"
       ],
-      "axis_override": {"C1": 4, "C2": 4, "C3": 4},
+      "axis_override": {
+        "C1": 4,
+        "C2": 4,
+        "C3": 4
+      },
       "reason": "灭陈与江南再整合证明隋军具备多路渡江、快速终结成熟政权和随后恢复控制的高档体系能力；但样本集中于一轮南方统一链，且高句丽失败构成明显反证，不升5档。"
     },
     {
       "ruler_id": "RULER-SHADOW-宇文邕",
       "ruler_name": "宇文邕",
-      "capability_only_parent_refs": ["WAR-LEAD-NC-ZHOU-DESTROY-QI-577"],
-      "major_system_success_refs": ["WAR-LEAD-NC-ZHOU-DESTROY-QI-577"],
-      "axis_override": {"C1": 4, "C2": 4, "C3": 4},
+      "capability_only_parent_refs": [
+        "WAR-LEAD-NC-ZHOU-DESTROY-QI-577"
+      ],
+      "major_system_success_refs": [
+        "WAR-LEAD-NC-ZHOU-DESTROY-QI-577"
+      ],
+      "axis_override": {
+        "C1": 4,
+        "C2": 4,
+        "C3": 4
+      },
       "reason": "灭齐链在晋州、平阳、晋阳与邺城连续完成高难度国家战争，并在首攻受挫后恢复；结合任内其他体系压力任务足以到4档，但单一统一主链不足证明跨长期多战区的5档复制。"
     },
     {
@@ -238,17 +1003,53 @@
         "WAR-LEAD-TANG-WANGXIONGDAN-621",
         "WAR-LEAD-TANG-FUGONGSHI"
       ],
-      "axis_override": {"C1": 5, "C2": 4, "C3": 5},
+      "axis_override": {
+        "C1": 5,
+        "C2": 4,
+        "C3": 5
+      },
       "c5_axis_gate": {
         "C1_high_difficulty_opponents": [
-          {"opponent_system_ref": "OPP-TANG-XUE", "task_refs": ["WAR-LEAD-TANG-XUE-618"]},
-          {"opponent_system_ref": "OPP-TANG-LIUWUZHOU", "task_refs": ["WAR-LEAD-TANG-HEDONG-RECOVERY"]},
-          {"opponent_system_ref": "OPP-TANG-WANGSHICHONG", "task_refs": ["WAR-LEAD-TANG-LUOYANG-END"]},
-          {"opponent_system_ref": "OPP-TANG-DOUJIANDE", "task_refs": ["WAR-LEAD-TANG-LUOYANG-END"]}
+          {
+            "opponent_system_ref": "OPP-TANG-XUE",
+            "task_refs": [
+              "WAR-LEAD-TANG-XUE-618"
+            ]
+          },
+          {
+            "opponent_system_ref": "OPP-TANG-LIUWUZHOU",
+            "task_refs": [
+              "WAR-LEAD-TANG-HEDONG-RECOVERY"
+            ]
+          },
+          {
+            "opponent_system_ref": "OPP-TANG-WANGSHICHONG",
+            "task_refs": [
+              "WAR-LEAD-TANG-LUOYANG-END"
+            ]
+          },
+          {
+            "opponent_system_ref": "OPP-TANG-DOUJIANDE",
+            "task_refs": [
+              "WAR-LEAD-TANG-LUOYANG-END"
+            ]
+          }
         ],
         "C3_top_commander_deliveries": [
-          {"profile_ref": "MIL-PROFILE-4E1F917355C877A0", "achievement_refs": ["WAR-LEAD-TANG-HEDONG-RECOVERY", "WAR-LEAD-TANG-LUOYANG-END"]},
-          {"profile_ref": "MIL-PROFILE-FA29FFF8BCC73CF6", "achievement_refs": ["WAR-LEAD-TANG-XIAOXIAN-621", "WAR-LEAD-TANG-FUGONGSHI"]}
+          {
+            "profile_ref": "MIL-PROFILE-4E1F917355C877A0",
+            "achievement_refs": [
+              "WAR-LEAD-TANG-HEDONG-RECOVERY",
+              "WAR-LEAD-TANG-LUOYANG-END"
+            ]
+          },
+          {
+            "profile_ref": "MIL-PROFILE-FA29FFF8BCC73CF6",
+            "achievement_refs": [
+              "WAR-LEAD-TANG-XIAOXIAN-621",
+              "WAR-LEAD-TANG-FUGONGSHI"
+            ]
+          }
         ]
       },
       "reason": "唐初统一链面对薛举—薛仁杲、刘武周—宋金刚、王世充—窦建德和萧铣等多个高难度对手，C1取5。任内historic档李世民在河东、洛阳—虎牢分别取得显著成果，historic档李靖在灭萧铣、辅公祏方向分别取得显著成果，且未见战役群级组织崩溃，C3取5；河北反复及突厥方向援军、粮运与连续入侵仍限制持续保障，C2取4。"
@@ -264,15 +1065,33 @@
         "WAR-FD-5BBD5B7C2142B0068991",
         "WAR-FD-94BC9E431A3BAF3AC07C"
       ],
-      "axis_override": {"C1": 4, "C2": 4, "C3": 4},
+      "axis_override": {
+        "C1": 4,
+        "C2": 4,
+        "C3": 4
+      },
       "reason": "南唐方向楚州、濠州等持续攻坚与高平、胡卢河任务共同证明短期内跨方向交付和恢复能力达到高档；在位过短且未完成更长期多统帅复制，不升5档。"
     },
     {
       "ruler_id": "RULER-NS-ZHAO-KUANGYIN",
       "ruler_name": "赵匡胤",
-      "capability_only_parent_refs": ["XUZJ-003-SONG-JINGHU-CONQUEST-0963", "XUZJ-004-SONG-LATER-SHU-CONQUEST-0964-0965", "XZTJ-006-SONG-SOUTHERN-HAN-CONQUEST-0970-0971", "XZTJ-008-SONG-JIANGNAN-CONQUEST-0974-0975"],
-      "major_system_success_refs": ["XUZJ-003-SONG-JINGHU-CONQUEST-0963", "XUZJ-004-SONG-LATER-SHU-CONQUEST-0964-0965", "XZTJ-006-SONG-SOUTHERN-HAN-CONQUEST-0970-0971", "XZTJ-008-SONG-JIANGNAN-CONQUEST-0974-0975"],
-      "axis_override": {"C1": 4, "C2": 4, "C3": 4},
+      "capability_only_parent_refs": [
+        "XUZJ-003-SONG-JINGHU-CONQUEST-0963",
+        "XUZJ-004-SONG-LATER-SHU-CONQUEST-0964-0965",
+        "XZTJ-006-SONG-SOUTHERN-HAN-CONQUEST-0970-0971",
+        "XZTJ-008-SONG-JIANGNAN-CONQUEST-0974-0975"
+      ],
+      "major_system_success_refs": [
+        "XUZJ-003-SONG-JINGHU-CONQUEST-0963",
+        "XUZJ-004-SONG-LATER-SHU-CONQUEST-0964-0965",
+        "XZTJ-006-SONG-SOUTHERN-HAN-CONQUEST-0970-0971",
+        "XZTJ-008-SONG-JIANGNAN-CONQUEST-0974-0975"
+      ],
+      "axis_override": {
+        "C1": 4,
+        "C2": 4,
+        "C3": 4
+      },
       "reason": "荆湖、后蜀、南汉、南唐四个统一战争父周期的疆土与控制成果仍只归第一项，第三项C仅复用其国家军队能力表现：多个方向、多名统帅和跨年运输均完成主要任务，支持交付、持续与可靠性到4档；北汉未克及北线缺口使其不足5档。"
     },
     {
@@ -280,17 +1099,62 @@
       "ruler_name": "李世民",
       "c5_axis_gate": {
         "C1_high_difficulty_opponents": [
-          {"opponent_system_ref": "OPP-TANG-EASTERN-TURKS", "task_refs": ["CAMPAIGN-TANG-EASTERN-TURKS-629-630"]},
-          {"opponent_system_ref": "OPP-TANG-TUYUHUN", "task_refs": ["CAMPAIGN-TANG-TUYUHUN-634-635"]},
-          {"opponent_system_ref": "OPP-TANG-XUEYANTUO", "task_refs": ["CAMPAIGN-TANG-XUEYANTUO-641-647"]}
+          {
+            "opponent_system_ref": "OPP-TANG-EASTERN-TURKS",
+            "task_refs": [
+              "CAMPAIGN-TANG-EASTERN-TURKS-629-630"
+            ]
+          },
+          {
+            "opponent_system_ref": "OPP-TANG-TUYUHUN",
+            "task_refs": [
+              "CAMPAIGN-TANG-TUYUHUN-634-635"
+            ]
+          },
+          {
+            "opponent_system_ref": "OPP-TANG-XUEYANTUO",
+            "task_refs": [
+              "CAMPAIGN-TANG-XUEYANTUO-641-647"
+            ]
+          }
         ],
         "C2_strategic_directions": [
-          {"direction": "北方草原", "opponent_system_refs": ["OPP-TANG-EASTERN-TURKS", "OPP-TANG-XUEYANTUO"], "task_refs": ["CAMPAIGN-TANG-EASTERN-TURKS-629-630", "CAMPAIGN-TANG-XUEYANTUO-641-647"]},
-          {"direction": "西部高原", "opponent_system_refs": ["OPP-TANG-TUYUHUN"], "task_refs": ["CAMPAIGN-TANG-TUYUHUN-634-635"]}
+          {
+            "direction": "北方草原",
+            "opponent_system_refs": [
+              "OPP-TANG-EASTERN-TURKS",
+              "OPP-TANG-XUEYANTUO"
+            ],
+            "task_refs": [
+              "CAMPAIGN-TANG-EASTERN-TURKS-629-630",
+              "CAMPAIGN-TANG-XUEYANTUO-641-647"
+            ]
+          },
+          {
+            "direction": "西部高原",
+            "opponent_system_refs": [
+              "OPP-TANG-TUYUHUN"
+            ],
+            "task_refs": [
+              "CAMPAIGN-TANG-TUYUHUN-634-635"
+            ]
+          }
         ],
         "C3_top_commander_deliveries": [
-          {"profile_ref": "MIL-PROFILE-FA29FFF8BCC73CF6", "achievement_refs": ["WAR-LEAD-TANG-EASTERN-TURKS-629-630", "WAR-LEAD-TANG-TUYUHUN-634-635"]},
-          {"profile_ref": "MIL-PROFILE-8813AF02067B8925", "achievement_refs": ["WAR-LEAD-TANG-EASTERN-TURKS-629-630", "WAR-LEAD-TANG-XUEYANTUO-641"]}
+          {
+            "profile_ref": "MIL-PROFILE-FA29FFF8BCC73CF6",
+            "achievement_refs": [
+              "WAR-LEAD-TANG-EASTERN-TURKS-629-630",
+              "WAR-LEAD-TANG-TUYUHUN-634-635"
+            ]
+          },
+          {
+            "profile_ref": "MIL-PROFILE-8813AF02067B8925",
+            "achievement_refs": [
+              "WAR-LEAD-TANG-EASTERN-TURKS-629-630",
+              "WAR-LEAD-TANG-XUEYANTUO-641"
+            ]
+          }
         ]
       },
       "reason": "C5逐轴复核：东突厥、吐谷浑、薛延陀构成多个高难度对手；北方草原与西部高原—西域构成多个战略方向；historic档李靖、李勣分别在东突厥、吐谷浑、薛延陀等父任务取得显著成果，三轴均通过顶级门禁。"
@@ -299,33 +1163,102 @@
       "ruler_id": "RULER-YUAN-TEMUJI",
       "ruler_name": "铁木真",
       "unification_portfolio_ref": "UCP-POST-YUAN-1205-1279",
-      "capability_only_parent_refs": ["WAR-POST-B2C5A447E7B0FAA59FE7", "WAR-POST-D93BB824455764B93E15", "WAR-POST-B1BE4C2409653FE5B24C"],
-      "major_system_success_refs": ["WAR-POST-B2C5A447E7B0FAA59FE7", "WAR-POST-D93BB824455764B93E15", "WAR-POST-B1BE4C2409653FE5B24C"],
+      "capability_only_parent_refs": [
+        "WAR-POST-B2C5A447E7B0FAA59FE7",
+        "WAR-POST-D93BB824455764B93E15",
+        "WAR-POST-B1BE4C2409653FE5B24C"
+      ],
+      "major_system_success_refs": [
+        "WAR-POST-B2C5A447E7B0FAA59FE7",
+        "WAR-POST-D93BB824455764B93E15",
+        "WAR-POST-B1BE4C2409653FE5B24C"
+      ],
       "replace_major_system_success_refs": true,
-      "axis_override": {"C1": 5, "C2": 5, "C3": 5},
+      "axis_override": {
+        "C1": 5,
+        "C2": 5,
+        "C3": 5
+      },
       "c5_axis_gate": {
         "C1_high_difficulty_opponents": [
-          {"opponent_system_ref": "OPP-YUAN-JIN", "task_refs": ["WAR-POST-B2C5A447E7B0FAA59FE7"]},
-          {"opponent_system_ref": "OPP-MONGOL-KHWARAZM", "task_refs": ["WAR-POST-D93BB824455764B93E15"]},
-          {"opponent_system_ref": "OPP-YUAN-WESTERN-XIA", "task_refs": ["WAR-POST-B1BE4C2409653FE5B24C"]}
+          {
+            "opponent_system_ref": "OPP-YUAN-JIN",
+            "task_refs": [
+              "WAR-POST-B2C5A447E7B0FAA59FE7"
+            ]
+          },
+          {
+            "opponent_system_ref": "OPP-MONGOL-KHWARAZM",
+            "task_refs": [
+              "WAR-POST-D93BB824455764B93E15"
+            ]
+          },
+          {
+            "opponent_system_ref": "OPP-YUAN-WESTERN-XIA",
+            "task_refs": [
+              "WAR-POST-B1BE4C2409653FE5B24C"
+            ]
+          }
         ],
         "C2_strategic_directions": [
-          {"direction": "东亚金夏方向", "opponent_system_refs": ["OPP-YUAN-JIN", "OPP-YUAN-WESTERN-XIA"], "task_refs": ["WAR-POST-B2C5A447E7B0FAA59FE7", "WAR-POST-B1BE4C2409653FE5B24C"]},
-          {"direction": "中亚西征方向", "opponent_system_refs": ["OPP-MONGOL-KHWARAZM"], "task_refs": ["WAR-POST-D93BB824455764B93E15"]}
+          {
+            "direction": "东亚金夏方向",
+            "opponent_system_refs": [
+              "OPP-YUAN-JIN",
+              "OPP-YUAN-WESTERN-XIA"
+            ],
+            "task_refs": [
+              "WAR-POST-B2C5A447E7B0FAA59FE7",
+              "WAR-POST-B1BE4C2409653FE5B24C"
+            ]
+          },
+          {
+            "direction": "中亚西征方向",
+            "opponent_system_refs": [
+              "OPP-MONGOL-KHWARAZM"
+            ],
+            "task_refs": [
+              "WAR-POST-D93BB824455764B93E15"
+            ]
+          }
         ],
         "C3_top_commander_deliveries": [
-          {"profile_ref": "MIL-PROFILE-C4030873CC7AC631", "achievement_refs": ["PCR-D5BE39F6B87D94E6A0E5", "PCR-F632DE9224620F284C4E"]},
-          {"profile_ref": "MIL-PROFILE-85B5F1176E6F6DF0", "achievement_refs": ["PCR-D706800853708CBA52FC", "PCR-35F36A0852A7A99544C9"]}
+          {
+            "profile_ref": "MIL-PROFILE-C4030873CC7AC631",
+            "achievement_refs": [
+              "PCR-D5BE39F6B87D94E6A0E5",
+              "PCR-F632DE9224620F284C4E"
+            ]
+          },
+          {
+            "profile_ref": "MIL-PROFILE-85B5F1176E6F6DF0",
+            "achievement_refs": [
+              "PCR-D706800853708CBA52FC",
+              "PCR-35F36A0852A7A99544C9"
+            ]
+          }
         ]
       },
-      "reason": "攻金、西征花剌子模与末期攻夏的疆土收益仍排除于第三项A/B/D，但三条跨期、跨大陆高难度父任务直接检验了国家军队的机动交付、远距离补给恢复和跨将领复制；未见战役群级体系崩溃，三轴均达到历史顶级5档。"
+      "reason": "攻金、西征花剌子模与末期攻夏均处于1206端点之后，A/B/D按各自合同消费安全、控制与成本；三条跨期、跨大陆高难度父任务直接检验国家军队的机动交付、远距离补给恢复和跨将领复制，未见战役群级体系崩溃，三轴均达到历史顶级5档。"
     },
     {
       "ruler_id": "RULER-YUAN-OGEDEI",
       "ruler_name": "窝阔台",
-      "capability_only_parent_refs": ["XZTJ-MONGOL-JIN-SANFENGSHAN-1232", "XZTJ-MONGOL-DONGXIA-1233", "XZTJ-MONGOL-QIPCHAQ-BACHMAN-1237"],
-      "major_system_success_refs": ["XZTJ-MONGOL-JIN-SANFENGSHAN-1232", "XZTJ-MONGOL-DONGXIA-1233", "XZTJ-MONGOL-QIPCHAQ-BACHMAN-1237"],
-      "axis_override": {"C1": 4, "C2": 4, "C3": 4},
+      "capability_only_parent_refs": [
+        "XZTJ-MONGOL-JIN-SANFENGSHAN-1232",
+        "XZTJ-MONGOL-DONGXIA-1233",
+        "XZTJ-MONGOL-QIPCHAQ-BACHMAN-1237"
+      ],
+      "major_system_success_refs": [
+        "XZTJ-MONGOL-JIN-SANFENGSHAN-1232",
+        "XZTJ-MONGOL-DONGXIA-1233",
+        "XZTJ-MONGOL-QIPCHAQ-BACHMAN-1237"
+      ],
+      "axis_override": {
+        "C1": 4,
+        "C2": 4,
+        "C3": 4
+      },
       "reason": "灭金主战、东夏与钦察方向证明远距离持续投送能力达到高档；但当前计分父任务没有完整覆盖西征欧洲、西亚与东亚多个高难度战略方向的长期保障链，不能仅凭跨大陆名义取得C2-5。三项胜绩中也只有金是明确最高难度国家对手，武将登记中可直接闭合的top/historic主将只有速不台一人，故三轴均取4。"
     },
     {
@@ -344,15 +1277,49 @@
         "CAMPAIGN-MING-NORTHERN-EXPEDITION-1367-1368",
         "CAMPAIGN-MING-SHANXI-SHAANXI-1368-1369"
       ],
-      "axis_override": {"C1": 5, "C2": 5, "C3": 4},
+      "axis_override": {
+        "C1": 5,
+        "C2": 5,
+        "C3": 4
+      },
       "c5_axis_gate": {
         "C1_high_difficulty_opponents": [
-          {"opponent_system_ref": "OPP-MING-CHEN-HAN", "task_refs": ["CAMPAIGN-MING-JIANGZHOU-1361-1362", "CAMPAIGN-MING-CHEN-HAN-END-1363-1364"]},
-          {"opponent_system_ref": "OPP-MING-YUAN-CENTRAL", "task_refs": ["CAMPAIGN-MING-NORTHERN-EXPEDITION-1367-1368", "CAMPAIGN-MING-SHANXI-SHAANXI-1368-1369"]}
+          {
+            "opponent_system_ref": "OPP-MING-CHEN-HAN",
+            "task_refs": [
+              "CAMPAIGN-MING-JIANGZHOU-1361-1362",
+              "CAMPAIGN-MING-CHEN-HAN-END-1363-1364"
+            ]
+          },
+          {
+            "opponent_system_ref": "OPP-MING-YUAN-CENTRAL",
+            "task_refs": [
+              "CAMPAIGN-MING-NORTHERN-EXPEDITION-1367-1368",
+              "CAMPAIGN-MING-SHANXI-SHAANXI-1368-1369"
+            ]
+          }
         ],
         "C2_strategic_directions": [
-          {"direction": "长江中游陈汉方向", "opponent_system_refs": ["OPP-MING-CHEN-HAN"], "task_refs": ["CAMPAIGN-MING-JIANGZHOU-1361-1362", "CAMPAIGN-MING-CHEN-HAN-END-1363-1364"]},
-          {"direction": "中原北伐与晋陕方向", "opponent_system_refs": ["OPP-MING-YUAN-CENTRAL"], "task_refs": ["CAMPAIGN-MING-NORTHERN-EXPEDITION-1367-1368", "CAMPAIGN-MING-SHANXI-SHAANXI-1368-1369"]}
+          {
+            "direction": "长江中游陈汉方向",
+            "opponent_system_refs": [
+              "OPP-MING-CHEN-HAN"
+            ],
+            "task_refs": [
+              "CAMPAIGN-MING-JIANGZHOU-1361-1362",
+              "CAMPAIGN-MING-CHEN-HAN-END-1363-1364"
+            ]
+          },
+          {
+            "direction": "中原北伐与晋陕方向",
+            "opponent_system_refs": [
+              "OPP-MING-YUAN-CENTRAL"
+            ],
+            "task_refs": [
+              "CAMPAIGN-MING-NORTHERN-EXPEDITION-1367-1368",
+              "CAMPAIGN-MING-SHANXI-SHAANXI-1368-1369"
+            ]
+          }
         ]
       },
       "reason": "跨ID桥接第一项C后，陈友谅汉国O5与元中央O4两套独立战争机器、江州—灭汉及北伐—晋陕四个高难度父任务共同证明顶级交付与跨方向持续保障，C1/C2取5。当前公共武将登记只有historic档徐达；常遇春仍为important，未满足两名top/historic分别取得A+成果的C3-5硬门槛，C3取4。"
@@ -360,65 +1327,99 @@
     {
       "ruler_id": "RULER-SHADOW-石虎",
       "ruler_name": "石虎",
-      "axis_override": {"C2": 4},
+      "axis_override": {
+        "C2": 4
+      },
       "reason": "多轮大规模征发证明高强度动员能力，但严酷汲取、340年攻燕运输受阻及后续军政失序不能满足C2-5的多个高难度方向长期顶级保障且无战役群级保障崩溃门槛，C2由5收束为4。"
     },
     {
       "ruler_id": "RULER-SHADOW-苻坚",
       "ruler_name": "苻坚",
-      "axis_override": {"C2": 4},
+      "axis_override": {
+        "C2": 4
+      },
       "reason": "前中期能够支撑多方向国家战争，但淝水战役群及其后军事动员、补充和恢复未能维持，不能以曾经完成超大规模动员直接取得C2-5，C2收束为4。"
     },
     {
       "ruler_id": "RULER-SHADOW-刘义隆",
       "ruler_name": "刘义隆",
       "replace_major_system_failure_refs": true,
-      "major_system_failure_refs": ["NC-SONG-NORTHERN-EXPEDITION-430-431", "NC-WEI-SONG-450-451", "NC-SONG-NORTHERN-EXPEDITION-452"],
+      "major_system_failure_refs": [
+        "NC-SONG-NORTHERN-EXPEDITION-430-431",
+        "NC-WEI-SONG-450-451",
+        "NC-SONG-NORTHERN-EXPEDITION-452"
+      ],
       "reason": "重大体系失败只保留三轮足以检验全国动员、北伐交付和战区恢复能力的国家级对魏战争；仇池、蛮区和局部军政事件仍在任务剖面中反映，但不再逐项升级成新的重大体系失败。"
     },
     {
       "ruler_id": "RULER-SHADOW-萧衍",
       "ruler_name": "萧衍",
       "replace_major_system_failure_refs": true,
-      "major_system_failure_refs": ["NC-V145-LEAD-145-06", "NC-V146-LEAD-146-01", "NC-HOUJING-EASTWEI-547-548", "NC-HOUJING-LIANG-548-552"],
+      "major_system_failure_refs": [
+        "NC-V145-LEAD-145-06",
+        "NC-V146-LEAD-146-01",
+        "NC-HOUJING-EASTWEI-547-548",
+        "NC-HOUJING-LIANG-548-552"
+      ],
       "reason": "重大体系失败只保留义阳—三关、梁州十四郡、寒山—侯景东魏阶段和侯景之乱中央崩溃四条梁方父周期；北魏六镇、尔朱政变、东西魏分裂等对手内部事件不得作为萧衍体系失败追加C任务。"
     },
     {
       "ruler_id": "RULER-SHADOW-萧绎",
       "ruler_name": "萧绎",
       "replace_major_system_failure_refs": true,
-      "major_system_failure_refs": ["NC-LUNA-XIANGZHOU-552-553", "V165-LEAD-165-JIANGLING-554", "V165-LEAD-165-LIANG-QI-554"],
+      "major_system_failure_refs": [
+        "NC-LUNA-XIANGZHOU-552-553",
+        "V165-LEAD-165-JIANGLING-554",
+        "V165-LEAD-165-LIANG-QI-554"
+      ],
       "reason": "只保留主政期内湘州内裂、江陵覆亡及其同一终局中的梁齐战略失败；555年以后其他政权和后续战事不得倒灌萧绎个人C任务。"
     },
     {
       "ruler_id": "RULER-HAN-LIUXUN",
       "ruler_name": "刘询",
-      "major_system_success_refs": ["HAN-WESTERN-QIANG-61-60", "DEF-LEAD-HAN-XIONGNU-GARRISON-58-49"],
-      "axis_override": {"C1": 4, "C2": 4, "C3": 4},
+      "major_system_success_refs": [
+        "HAN-WESTERN-QIANG-61-60",
+        "DEF-LEAD-HAN-XIONGNU-GARRISON-58-49"
+      ],
+      "axis_override": {
+        "C1": 4,
+        "C2": 4,
+        "C3": 4
+      },
       "reason": "平羌及匈奴防务构成跨期、跨方向、跨将领的高难度作战检验，支持实际交付、持续作战和重复运行到4档。西域都护与屯戍主要证明边防体系建设，只能作为持续性和可靠性的旁证，不能替代顶级实战兑现抬到5档；车师失利与珠崖撤守继续保留在任务剖面。"
     },
     {
       "ruler_id": "RULER-WU-SUNQUAN",
       "ruler_name": "孙权",
-      "major_system_success_refs": ["CAMPAIGN-V070-SG-WU-JIAOZHOU-226", "CAMPAIGN-V075-SG-WU-JIAOZHOU-248"],
+      "major_system_success_refs": [
+        "CAMPAIGN-V070-SG-WU-JIAOZHOU-226",
+        "CAMPAIGN-V075-SG-WU-JIAOZHOU-248"
+      ],
       "reason": "两次交州方向成果均为跨区域投送和控制恢复的重大体系兑现；同时保留辽东、对魏及内地多项失败，故只补胜绩引用，不自动上调C档。"
     },
     {
       "ruler_id": "RULER-SHADOW-刘骏",
       "ruler_name": "刘骏",
-      "major_system_success_refs": ["WAR-LEAD-NC-QINGZHOU-458"],
+      "major_system_success_refs": [
+        "WAR-LEAD-NC-QINGZHOU-458"
+      ],
       "reason": "青州方向达到重大高收益并检验国家级投送，补入C重大胜绩；其他体系缺口仍按既有三轴裁决。"
     },
     {
       "ruler_id": "RULER-SHADOW-高洋",
       "ruler_name": "高洋",
-      "major_system_success_refs": ["V165-LEAD-165-QI-KHITAN-553", "WAR-LEAD-167-QI-WENHOU-559"],
+      "major_system_success_refs": [
+        "V165-LEAD-165-QI-KHITAN-553",
+        "WAR-LEAD-167-QI-WENHOU-559"
+      ],
       "reason": "契丹与文侯方向形成两项重大体系兑现；组合同时存在东关等重大负向周期，只补漏记胜绩，不把厚样本胜负并存机械提升为C4。"
     },
     {
       "ruler_id": "RULER-TANG-LICHUN",
       "ruler_name": "李纯",
-      "major_system_success_refs": ["CAMPAIGN-TANG-237-01"],
+      "major_system_success_refs": [
+        "CAMPAIGN-TANG-237-01"
+      ],
       "reason": "该父周期达到重大体系交付门槛，补入胜绩；其后长期藩镇战争仍有大量低收益和负收益，C总体档不随单项胜绩上调。"
     },
     {
@@ -438,14 +1439,814 @@
         "WAR-LEAD-261-TWOSICHUAN-END",
         "ZZTJ-269-SHU-NANZHAO-LIZHOU-0914"
       ],
-      "axis_override": {"C1": 4, "C2": 4, "C3": 4},
+      "axis_override": {
+        "C1": 4,
+        "C2": 4,
+        "C3": 4
+      },
       "reason": "西川、东川两条创业终局及其后秦凤、黎州等方向共同证明区域国家军队能跨年、多将领完成攻坚与防御，三轴到4；战争规模和跨宏区复制仍不足5档。统一疆土收益不进入第三项。"
     },
     {
       "ruler_id": "RULER-NS-ZHAO-XU-ZHEZONG",
       "ruler_name": "赵煦",
-      "major_system_success_refs": ["XZTJ-SONG-XIA-PINGXIA-FORTRESS-CAMPAIGN-1097-1098"],
+      "major_system_success_refs": [
+        "XZTJ-SONG-XIA-PINGXIA-FORTRESS-CAMPAIGN-1097-1098"
+      ],
       "reason": "平夏城父周期属于高难度筑城、守城与持续投送的重大体系胜绩；当前C压力样本收束后仅一项，补胜绩但不突破单任务C3上限。"
+    }
+  ],
+  "shared_parent_ruler_binding_adjudications": [
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:CAMPAIGN-FEISHUI-382-383",
+      "parent_cycle_ref": "CAMPAIGN-FEISHUI-382-383",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-SHADOW-司马曜",
+          "ruler_name": "司马曜",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-苻坚",
+          "ruler_name": "苻坚",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:CAMPAIGN-TANG-ANSHI-755-763",
+      "parent_cycle_ref": "CAMPAIGN-TANG-ANSHI-755-763",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-TANG-LIHENG",
+          "ruler_name": "李亨",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-TANG-LIYU",
+          "ruler_name": "李豫",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:CAMPAIGN-TANG-LOCAL-REBELLIONS-761-763",
+      "parent_cycle_ref": "CAMPAIGN-TANG-LOCAL-REBELLIONS-761-763",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-TANG-LIHENG",
+          "ruler_name": "李亨",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-TANG-LIYU",
+          "ruler_name": "李豫",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:CAMPAIGN-TANG-TIBET-WESTERN-LOSS-757-763",
+      "parent_cycle_ref": "CAMPAIGN-TANG-TIBET-WESTERN-LOSS-757-763",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-TANG-LIHENG",
+          "ruler_name": "李亨",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-TANG-LIYU",
+          "ruler_name": "李豫",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:CAMPAIGN-V079-JINWU-XILING-272",
+      "parent_cycle_ref": "CAMPAIGN-V079-JINWU-XILING-272",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-SHADOW-司马炎",
+          "ruler_name": "司马炎",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-WU-SUNHAO",
+          "ruler_name": "孙皓",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:CAMPAIGN-V104-104-HUAINAN-378-379",
+      "parent_cycle_ref": "CAMPAIGN-V104-104-HUAINAN-378-379",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-SHADOW-司马曜",
+          "ruler_name": "司马曜",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-苻坚",
+          "ruler_name": "苻坚",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:CAMPAIGN-V104-104-XIANGYANG-378-379",
+      "parent_cycle_ref": "CAMPAIGN-V104-104-XIANGYANG-378-379",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-SHADOW-司马曜",
+          "ruler_name": "司马曜",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-苻坚",
+          "ruler_name": "苻坚",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:CAMPAIGN-V107-107-LIANG-387",
+      "parent_cycle_ref": "CAMPAIGN-V107-107-LIANG-387",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-SHADOW-司马曜",
+          "ruler_name": "司马曜",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-吕光",
+          "ruler_name": "吕光",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:HAN-HEISHAN-185-205",
+      "parent_cycle_ref": "HAN-HEISHAN-185-205",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-HAN-LIUHONG",
+          "ruler_name": "刘宏",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-WEI-CAOCAO",
+          "ruler_name": "曹操",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:HAN-QIANG-159-169",
+      "parent_cycle_ref": "HAN-QIANG-159-169",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-HAN-LIUHONG",
+          "ruler_name": "刘宏",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-HAN-LIUZHI",
+          "ruler_name": "刘志",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:HAN-XIANBEI-TANSHIHUAI-156-181",
+      "parent_cycle_ref": "HAN-XIANBEI-TANSHIHUAI-156-181",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-HAN-LIUHONG",
+          "ruler_name": "刘宏",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-HAN-LIUZHI",
+          "ruler_name": "刘志",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:JIN-LATER-ZHAO-FRONT-ZHAO-END-328-329",
+      "parent_cycle_ref": "JIN-LATER-ZHAO-FRONT-ZHAO-END-328-329",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-SHADOW-石勒",
+          "ruler_name": "石勒",
+          "consumption_scope": "AUTHORIZED_CAPABILITY_ONLY_VIEW"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-石虎",
+          "ruler_name": "石虎",
+          "consumption_scope": "AUTHORIZED_CAPABILITY_ONLY_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:JIN-SHILE-GEPI-WITHDRAWAL-312",
+      "parent_cycle_ref": "JIN-SHILE-GEPI-WITHDRAWAL-312",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-SHADOW-石勒",
+          "ruler_name": "石勒",
+          "consumption_scope": "AUTHORIZED_CAPABILITY_ONLY_VIEW"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-石虎",
+          "ruler_name": "石虎",
+          "consumption_scope": "AUTHORIZED_CAPABILITY_ONLY_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:MING-JINGNAN-1399-1402",
+      "parent_cycle_ref": "MING-JINGNAN-1399-1402",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-MING-ZHU-DI",
+          "ruler_name": "朱棣",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-MING-ZHU-YUNWEN",
+          "ruler_name": "朱允炆",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:NC-EAST-WEST-WEI-537",
+      "parent_cycle_ref": "NC-EAST-WEST-WEI-537",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-SHADOW-宇文泰",
+          "ruler_name": "宇文泰",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-高欢",
+          "ruler_name": "高欢",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:NC-HOUJING-EASTWEI-547-548",
+      "parent_cycle_ref": "NC-HOUJING-EASTWEI-547-548",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-SHADOW-萧衍",
+          "ruler_name": "萧衍",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-高欢",
+          "ruler_name": "高欢",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:NC-HOUJING-LIANG-548-552",
+      "parent_cycle_ref": "NC-HOUJING-LIANG-548-552",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-SHADOW-萧绎",
+          "ruler_name": "萧绎",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-萧衍",
+          "ruler_name": "萧衍",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:NC-V141-LEAD-141-03",
+      "parent_cycle_ref": "NC-V141-LEAD-141-03",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-SHADOW-拓跋宏",
+          "ruler_name": "拓跋宏",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-萧鸾",
+          "ruler_name": "萧鸾",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:NC-V145-LEAD-145-06",
+      "parent_cycle_ref": "NC-V145-LEAD-145-06",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-SHADOW-元恪",
+          "ruler_name": "元恪",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-萧衍",
+          "ruler_name": "萧衍",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:NC-V146-LEAD-146-01",
+      "parent_cycle_ref": "NC-V146-LEAD-146-01",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-SHADOW-元恪",
+          "ruler_name": "元恪",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-萧衍",
+          "ruler_name": "萧衍",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:NC-V146-LEAD-146-04",
+      "parent_cycle_ref": "NC-V146-LEAD-146-04",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-SHADOW-元恪",
+          "ruler_name": "元恪",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-萧衍",
+          "ruler_name": "萧衍",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:NC-V146-LEAD-146-07",
+      "parent_cycle_ref": "NC-V146-LEAD-146-07",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-SHADOW-元恪",
+          "ruler_name": "元恪",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-萧衍",
+          "ruler_name": "萧衍",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:NC-V147-LEAD-147-06",
+      "parent_cycle_ref": "NC-V147-LEAD-147-06",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-SHADOW-元恪",
+          "ruler_name": "元恪",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-萧衍",
+          "ruler_name": "萧衍",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:NC-V157-LEAD-157-04",
+      "parent_cycle_ref": "NC-V157-LEAD-157-04",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-SHADOW-宇文泰",
+          "ruler_name": "宇文泰",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-高欢",
+          "ruler_name": "高欢",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:NC-V157-LEAD-157-05",
+      "parent_cycle_ref": "NC-V157-LEAD-157-05",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-SHADOW-萧衍",
+          "ruler_name": "萧衍",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-高欢",
+          "ruler_name": "高欢",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:NC-V158-LEAD-158-07",
+      "parent_cycle_ref": "NC-V158-LEAD-158-07",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-SHADOW-萧衍",
+          "ruler_name": "萧衍",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-高欢",
+          "ruler_name": "高欢",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:NC-V159-LEAD-159-04",
+      "parent_cycle_ref": "NC-V159-LEAD-159-04",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-SHADOW-宇文泰",
+          "ruler_name": "宇文泰",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-高欢",
+          "ruler_name": "高欢",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:NC-WEI-LIANG-HUAI-506-507",
+      "parent_cycle_ref": "NC-WEI-LIANG-HUAI-506-507",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-SHADOW-元恪",
+          "ruler_name": "元恪",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-萧衍",
+          "ruler_name": "萧衍",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:NC-WEI-SONG-450-451",
+      "parent_cycle_ref": "NC-WEI-SONG-450-451",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-SHADOW-刘义隆",
+          "ruler_name": "刘义隆",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-拓跋焘",
+          "ruler_name": "拓跋焘",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:V165-LEAD-165-WEISHU-553",
+      "parent_cycle_ref": "V165-LEAD-165-WEISHU-553",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-SHADOW-宇文泰",
+          "ruler_name": "宇文泰",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-萧绎",
+          "ruler_name": "萧绎",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:V175-LEAD-CHEN-SHULING-582",
+      "parent_cycle_ref": "V175-LEAD-CHEN-SHULING-582",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-SHADOW-陈叔宝",
+          "ruler_name": "陈叔宝",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-陈顼",
+          "ruler_name": "陈顼",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:WAR-LEAD-HAN-XIYU-73-94",
+      "parent_cycle_ref": "WAR-LEAD-HAN-XIYU-73-94",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-HAN-LIUDA",
+          "ruler_name": "刘炟",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-HAN-LIUZHUANG",
+          "ruler_name": "刘庄",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:WAR-LEAD-HAN-XUZHOU-LUBU-196-198",
+      "parent_cycle_ref": "WAR-LEAD-HAN-XUZHOU-LUBU-196-198",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-SHU-LIUBEI",
+          "ruler_name": "刘备",
+          "consumption_scope": "AUTHORIZED_CAPABILITY_ONLY_VIEW"
+        },
+        {
+          "ruler_id": "RULER-WEI-CAOCAO",
+          "ruler_name": "曹操",
+          "consumption_scope": "AUTHORIZED_CAPABILITY_ONLY_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:WAR-LEAD-HANZHAO-308",
+      "parent_cycle_ref": "WAR-LEAD-HANZHAO-308",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-SHADOW-刘渊",
+          "ruler_name": "刘渊",
+          "consumption_scope": "AUTHORIZED_CAPABILITY_ONLY_VIEW"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-石勒",
+          "ruler_name": "石勒",
+          "consumption_scope": "AUTHORIZED_CAPABILITY_ONLY_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:WAR-LEAD-SUI-LIYUAN-GUANZHONG-617",
+      "parent_cycle_ref": "WAR-LEAD-SUI-LIYUAN-GUANZHONG-617",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-TANG-LISHIMIN",
+          "ruler_name": "李世民",
+          "consumption_scope": "AUTHORIZED_CAPABILITY_ONLY_VIEW"
+        },
+        {
+          "ruler_id": "RULER-TANG-LIYUAN",
+          "ruler_name": "李渊",
+          "consumption_scope": "AUTHORIZED_CAPABILITY_ONLY_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:WAR-LEAD-TANG-HEDONG-RECOVERY",
+      "parent_cycle_ref": "WAR-LEAD-TANG-HEDONG-RECOVERY",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-TANG-LISHIMIN",
+          "ruler_name": "李世民",
+          "consumption_scope": "AUTHORIZED_CAPABILITY_ONLY_VIEW"
+        },
+        {
+          "ruler_id": "RULER-TANG-LIYUAN",
+          "ruler_name": "李渊",
+          "consumption_scope": "AUTHORIZED_CAPABILITY_ONLY_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:WAR-LEAD-TANG-LIUHEITA-622",
+      "parent_cycle_ref": "WAR-LEAD-TANG-LIUHEITA-622",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-TANG-LISHIMIN",
+          "ruler_name": "李世民",
+          "consumption_scope": "AUTHORIZED_CAPABILITY_ONLY_VIEW"
+        },
+        {
+          "ruler_id": "RULER-TANG-LIYUAN",
+          "ruler_name": "李渊",
+          "consumption_scope": "AUTHORIZED_CAPABILITY_ONLY_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:WAR-LEAD-TANG-LUOYANG-END",
+      "parent_cycle_ref": "WAR-LEAD-TANG-LUOYANG-END",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-TANG-LISHIMIN",
+          "ruler_name": "李世民",
+          "consumption_scope": "AUTHORIZED_CAPABILITY_ONLY_VIEW"
+        },
+        {
+          "ruler_id": "RULER-TANG-LIYUAN",
+          "ruler_name": "李渊",
+          "consumption_scope": "AUTHORIZED_CAPABILITY_ONLY_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:WAR-LEAD-TANG-XUE-618",
+      "parent_cycle_ref": "WAR-LEAD-TANG-XUE-618",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-TANG-LISHIMIN",
+          "ruler_name": "李世民",
+          "consumption_scope": "AUTHORIZED_CAPABILITY_ONLY_VIEW"
+        },
+        {
+          "ruler_id": "RULER-TANG-LIYUAN",
+          "ruler_name": "李渊",
+          "consumption_scope": "AUTHORIZED_CAPABILITY_ONLY_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:WAR-LEAD-TANG-XUYUANLANG-621",
+      "parent_cycle_ref": "WAR-LEAD-TANG-XUYUANLANG-621",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-TANG-LISHIMIN",
+          "ruler_name": "李世民",
+          "consumption_scope": "AUTHORIZED_CAPABILITY_ONLY_VIEW"
+        },
+        {
+          "ruler_id": "RULER-TANG-LIYUAN",
+          "ruler_name": "李渊",
+          "consumption_scope": "AUTHORIZED_CAPABILITY_ONLY_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:WAR-LEAD-XIN-COLLAPSE-23",
+      "parent_cycle_ref": "WAR-LEAD-XIN-COLLAPSE-23",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-HAN-LIUXIU",
+          "ruler_name": "刘秀",
+          "consumption_scope": "AUTHORIZED_CAPABILITY_ONLY_VIEW"
+        },
+        {
+          "ruler_id": "RULER-HAN-LIUXUAN",
+          "ruler_name": "刘玄",
+          "consumption_scope": "AUTHORIZED_CAPABILITY_ONLY_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:XZTJ-JIN-SONG-FIRST-INVASION-EAST-1125-1126",
+      "parent_cycle_ref": "XZTJ-JIN-SONG-FIRST-INVASION-EAST-1125-1126",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-NS-ZHAO-HUAN",
+          "ruler_name": "赵桓",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-NS-ZHAO-JI",
+          "ruler_name": "赵佶",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:ZZTJ-277-LIANGCHUAN-0930",
+      "parent_cycle_ref": "ZZTJ-277-LIANGCHUAN-0930",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-FD-LI-SIYUAN",
+          "ruler_name": "李嗣源",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-孟知祥",
+          "ruler_name": "孟知祥",
+          "consumption_scope": "AUTHORIZED_CAPABILITY_ONLY_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
+    },
+    {
+      "task_code": "THIRD-ITEM-C-SHARED-PARENT-BINDINGS-20260820-V1:ZZTJ-282-ANZHOU-LIJINQUAN-0940",
+      "parent_cycle_ref": "ZZTJ-282-ANZHOU-LIJINQUAN-0940",
+      "ruler_bindings": [
+        {
+          "ruler_id": "RULER-FD-LI-BIAN",
+          "ruler_name": "李昪",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        },
+        {
+          "ruler_id": "RULER-FD-SHI-JINGTANG",
+          "ruler_name": "石敬瑭",
+          "consumption_scope": "CURRENT_RULER_WINDOW_VIEW"
+        }
+      ],
+      "binding_status": "EXPLICIT_LEGACY_PARENT_RULER_SCOPE_CLOSED",
+      "reason": "共享父任务只在列明人物行内消费：CURRENT视图限本人实际主政窗口及本方军事体系表现，CAPABILITY_ONLY视图限合同已授权的创业或统帅能力；不得复制另一人物的行动、结果或成本，也不得由相同父ID推定相同归责。"
     }
   ]
 }
