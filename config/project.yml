@@ -211,12 +211,26 @@ first_item_summary:
   component_max_points: {A: 100, B: 60, C: 80}
   composite_role: conditional_founder_add_on
   add_on_formula: F = 0.10 * M * (first_item_score_points / 240) ^ 1.25
-  composite_formula: T = S_common + F - D7
+  common_positive_denominator: 865
+  composite_formula: T = S_common + F + CIV4 - D7
   summary_markdown: docs/评分结算/第一项创业与政权取得能力/02-第一项结算总结分析.md
   eligibility: dynasty_founders_only
   max_points: 240
   database_write: false
   ranking_write: false
+
+fourth_item_signed_addon:
+  contract: docs/分项规则/第四项文明与国家整合收益/00-规则与计分合同.md
+  formal_json: docs/评分结算/第四项文明与国家整合收益/01-第四项文明与国家整合收益正式结算.json
+  formal_markdown: docs/评分结算/第四项文明与国家整合收益/01-第四项文明与国家整合收益正式结算.md
+  composite_role: signed_add_on_outside_common_positive_denominator
+  range: [-67.5, 67.5]
+  axis_range: [-22.5, 22.5]
+  empty_fixed_scan_adjustment: 0
+  formal_score_write: true
+  item_ranking_write: true
+  database_write: false
+  cross_item_ranking_write: false
 
 historical_quality_gold:
   schema: config/historical-quality-gold-manifest.schema.json
