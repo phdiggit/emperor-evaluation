@@ -91,7 +91,7 @@ EMPEROR_REBUILD_RELEASE_PATHS = (
     "docs/证据规则/公共成果登记与人物画像规则.md",
     "docs/证据规则/单朝代治理会话工作流.md",
     "docs/证据规则/单皇帝主控会话工作流.md",
-    "docs/分项规则/第五项统治者政治素质/B用人与授权.md",
+    "docs/分项规则/第五项统治者政治素质/00-规则与计分合同.md",
     "eval/i5b_current_value",
     "src/emperor_v4",
     "deploy/v4/provision-prerequisites.sh",
