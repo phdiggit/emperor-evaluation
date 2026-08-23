@@ -100,10 +100,11 @@ def build_first_item_formal_settlement(
         "component_max_points": {"A": 100, "B": 60, "C": 80, "C1": 50, "C2": 30},
         "composite_integration": {
             "role": "CONDITIONAL_FOUNDER_ADD_ON",
-            "common_score_scope": "items_2_through_6",
+            "common_score_scope": "items_2_3_5_6",
+            "common_positive_denominator": 865,
             "raw_rate_formula": "r = first_item_score_points / 240",
             "add_on_formula": "F = 0.10 * M * r^1.25",
-            "composite_formula": "T = S_common + F - D7",
+            "composite_formula": "T = S_common + F + CIV4 - D7",
             "non_founder_policy": "NOT_APPLICABLE; F = 0; do not convert to a zero-score denominator item",
         },
         "source_refs": {
