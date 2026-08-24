@@ -39,7 +39,7 @@ def load_qin_qing_first_item_roster(
         for row in efficiency_inputs.get("founder_roster") or ()
     }
     names = yaml.safe_load(
-        (workspace_root / "config/所有君主.yml").read_text(encoding="utf-8")
+        (workspace_root / "config/common/所有君主.yml").read_text(encoding="utf-8")
     )
     if not isinstance(names, list) or not names:
         raise ValueError("秦至清所有君主名册为空或格式无效")
@@ -672,12 +672,12 @@ def build_first_item_a_registry(
             "formula_contract": efficiency_inputs["formula_contract"],
         },
         "source_refs": {
-            "roster": "config/所有君主.yml + config/first-item-a-strategic-efficiency-inputs.json#founder_roster",
-            "strategic_inputs": "config/first-item-a-strategic-efficiency-inputs.json",
-            "competitive_landscapes": "config/first-item-a-competitive-landscapes.json",
+            "roster": "config/common/所有君主.yml + config/first-item/first-item-a-strategic-efficiency-inputs.json#founder_roster",
+            "strategic_inputs": "config/first-item/first-item-a-strategic-efficiency-inputs.json",
+            "competitive_landscapes": "config/first-item/first-item-a-competitive-landscapes.json",
             "battle_registry": "docs/公共成果/军事/01-战役登记.json",
-            "acquisition_windows": "config/first-item-c-acquisition-windows.json",
-            "region_context": "config/first-item-c-territorial-control-adjudications.json",
+            "acquisition_windows": "config/first-item/first-item-c-acquisition-windows.json",
+            "region_context": "config/first-item/first-item-c-territorial-control-adjudications.json",
         },
         "record_count": len(records),
         "eligible_count": len(eligible),
@@ -838,16 +838,16 @@ def write_first_item_a_registry(workspace_root: Path) -> dict[str, Path]:
         return json.loads(path.read_text(encoding="utf-8"))
 
     efficiency_inputs = load(
-        workspace_root / "config/first-item-a-strategic-efficiency-inputs.json"
+        workspace_root / "config/first-item/first-item-a-strategic-efficiency-inputs.json"
     )
     payload = build_first_item_a_registry(
         efficiency_inputs=efficiency_inputs,
-        competitive_landscapes=load(workspace_root / "config/first-item-a-competitive-landscapes.json"),
+        competitive_landscapes=load(workspace_root / "config/first-item/first-item-a-competitive-landscapes.json"),
         battle_registry=load_battle_registry(
             workspace_root / "docs/公共成果/军事/01-战役登记.json"
         ),
-        territorial_inputs=load(workspace_root / "config/first-item-c-territorial-control-adjudications.json"),
-        acquisition_windows=load(workspace_root / "config/first-item-c-acquisition-windows.json"),
+        territorial_inputs=load(workspace_root / "config/first-item/first-item-c-territorial-control-adjudications.json"),
+        acquisition_windows=load(workspace_root / "config/first-item/first-item-c-acquisition-windows.json"),
         roster=load_qin_qing_first_item_roster(workspace_root, efficiency_inputs),
     )
     output_dir = workspace_root / "docs/评分结算/第一项创业与政权取得能力/战略决策能力"

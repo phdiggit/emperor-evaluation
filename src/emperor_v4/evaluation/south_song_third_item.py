@@ -55,7 +55,7 @@ FIRST_ITEM_PATH = Path(
     "01-第一项创业与政权取得能力正式结算.json"
 )
 CYCLE_ADJUDICATION_PATH = Path(
-    "config/south-song-third-item-cycle-adjudications.json"
+    "config/third-item/south-song-third-item-cycle-adjudications.json"
 )
 RULERS: tuple[tuple[str, str], ...] = (
     ("RULER-SS-ZHAO-GOU", "赵构"),

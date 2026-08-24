@@ -54,7 +54,7 @@ from emperor_v4.evaluation.yuan_third_item import (
 )
 
 
-ADJUDICATION_PATH = Path("config/ming-third-item-cycle-adjudications.json")
+ADJUDICATION_PATH = Path("config/third-item/ming-third-item-cycle-adjudications.json")
 
 
 def _reviewed_cycles(workspace_root: Path, registry: dict[str, Any], decision: dict[str, Any]):

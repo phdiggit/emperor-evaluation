@@ -17,11 +17,11 @@ from emperor_v4.evaluation.third_item_d_settlement import (
 )
 
 
-RESULT_CREDIT_ADJUDICATIONS_PATH = Path("config/third-item-result-credit-adjudications.json")
-COST_CREDIT_FACTORS_PATH = Path("config/third-item-cost-credit-factors.json")
-MILITARY_NET_LOSS_PENALTIES_PATH = Path("config/third-item-military-net-loss-penalties.json")
-C_OUTCOME_ADJUDICATIONS_PATH = Path("config/third-item-c-outcome-adjudications.json")
-AB_HANDOFF_ADJUDICATIONS_PATH = Path("config/third-item-ab-handoff-adjudications.json")
+RESULT_CREDIT_ADJUDICATIONS_PATH = Path("config/third-item/third-item-result-credit-adjudications.json")
+COST_CREDIT_FACTORS_PATH = Path("config/third-item/third-item-cost-credit-factors.json")
+MILITARY_NET_LOSS_PENALTIES_PATH = Path("config/third-item/third-item-military-net-loss-penalties.json")
+C_OUTCOME_ADJUDICATIONS_PATH = Path("config/third-item/third-item-c-outcome-adjudications.json")
+AB_HANDOFF_ADJUDICATIONS_PATH = Path("config/third-item/third-item-ab-handoff-adjudications.json")
 
 
 def _load(path: Path) -> dict[str, Any]:

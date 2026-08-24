@@ -247,7 +247,7 @@ def build_first_item_b_registry(
             "military_profile_boundary": "最新军事人才档只作身份、战役缺漏和明显越界复核；人物名望、全生涯档位和贡献者名单长度均不进入B分数",
         },
         "source_refs": {
-            "adjudications": "config/first-item-b-team-contribution-adjudications.json",
+            "adjudications": "config/first-item/first-item-b-team-contribution-adjudications.json",
             "roster": "秦至清总名册与第一项A奠基人元数据",
             "battle_registry": "docs/公共成果/军事/01-战役登记.json",
             "talent_registry": "docs/公共成果/军事/02-武将人才等级.json",
@@ -347,10 +347,10 @@ def write_first_item_b_registry(workspace_root: Path) -> dict[str, Path]:
         return json.loads(path.read_text(encoding="utf-8"))
 
     payload = build_first_item_b_registry(
-        adjudications=load(workspace_root / "config/first-item-b-team-contribution-adjudications.json"),
+        adjudications=load(workspace_root / "config/first-item/first-item-b-team-contribution-adjudications.json"),
         roster=load_qin_qing_first_item_roster(
             workspace_root,
-            load(workspace_root / "config/first-item-a-strategic-efficiency-inputs.json"),
+            load(workspace_root / "config/first-item/first-item-a-strategic-efficiency-inputs.json"),
         ),
         battle_registry=load_battle_registry(
             workspace_root / "docs/公共成果/军事/01-战役登记.json"

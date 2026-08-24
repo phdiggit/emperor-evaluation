@@ -51,7 +51,7 @@ from emperor_v4.evaluation.south_song_third_item import (
 )
 
 
-ADJUDICATION_PATH = Path("config/yuan-third-item-cycle-adjudications.json")
+ADJUDICATION_PATH = Path("config/third-item/yuan-third-item-cycle-adjudications.json")
 
 
 def _load_adjudications(workspace_root: Path) -> list[dict[str, Any]]:

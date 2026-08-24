@@ -21,13 +21,13 @@
 第三项 = A非成本锚 + factor × (A正向成果信用 + B80) + C50 + military_net_loss_penalty
 ```
 
-只对最终总分保留两位小数。A、B折算后展示值不得分别舍入再反灌总分。成本系数由[`config/third-item-cost-credit-factors.json`](../../../config/third-item-cost-credit-factors.json)唯一给出，并按成本档与档内位置严格单调；材料状态只决定复核队列，不产生个人分数区间。
+只对最终总分保留两位小数。A、B折算后展示值不得分别舍入再反灌总分。成本系数由[`config/third-item/third-item-cost-credit-factors.json`](../../../config/third-item/third-item-cost-credit-factors.json)唯一给出，并按成本档与档内位置严格单调；材料状态只决定复核队列，不产生个人分数区间。
 
 成本保留两种不混用的视图：
 
 1. `D_local_cost_profile`沿用D消费者范围，第三项C或第一项已经整链消费的对象不恢复进D分。
 2. `global_cost_credit_profile`同时服务成果信用折算和本项军事净毁损门；它恢复第三项C能力层独占消费、但实际发生于本人第三项正式统治窗口的直接军事成本。普通高成本仍只折损正向成果；只有同时闭合重大净负安全结果、本人归责与超下限门时才生成负分，且不再折损C50。
 
-第一项创业统一与政权取得整链继续全部排除；第二项财政民生结果、第四项文明损害和第五项人物素质均不得进入全局成本系数或军事净毁损门。军事安全、边疆控制、军事体系和本方军事资源毁损的跨期尾部只在第三项内部结算，不另设历史负债扣分。201人的A120/B80逐轴裁决唯一读取[`config/third-item-result-credit-adjudications.json`](../../../config/third-item-result-credit-adjudications.json)，军事净毁损裁决读取[`config/third-item-military-net-loss-penalties.json`](../../../config/third-item-military-net-loss-penalties.json)；201人总榜已完成回放。
+第一项创业统一与政权取得整链继续全部排除；第二项财政民生结果、第四项文明损害和第五项人物素质均不得进入全局成本系数或军事净毁损门。军事安全、边疆控制、军事体系和本方军事资源毁损的跨期尾部只在第三项内部结算，不另设历史负债扣分。201人的A120/B80逐轴裁决唯一读取[`config/third-item/third-item-result-credit-adjudications.json`](../../../config/third-item/third-item-result-credit-adjudications.json)，军事净毁损裁决读取[`config/third-item/third-item-military-net-loss-penalties.json`](../../../config/third-item/third-item-military-net-loss-penalties.json)；201人总榜已完成回放。
 
 所有分区写入器在完成AB/C及D分区重建后，必须统一调用current settlement writer，重建A120、B80、C50、成本系数和竞争排名；禁止再写旧式`AB+C+D`加法总分。分区重跑必须保留其他分区current字段、C逐父任务分类和第一项切点，不得返回旧公式、旧字段或错误READY/PENDING计数。第一项闭合窗口内的成果若仅作为第三项起点存量，必须同时从A本人正向信用、B新增控制包和D成果/成本链排除；切点之后确有独立成果时才可另行消费，并保留对应成本。

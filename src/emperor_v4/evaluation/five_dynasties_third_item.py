@@ -30,22 +30,22 @@ from emperor_v4.evaluation.third_item_d_settlement import (
 SOURCE_ROOT = Path("docs/史料通读产物/五代十国/资治通鉴")
 REGISTRY_PATH = Path("docs/公共成果/军事/01-战役登记.json")
 REGISTRY_MARKDOWN_PATH = Path("docs/公共成果/军事/01-战役登记.md")
-ADJUDICATION_PATH = Path("config/five-dynasties-third-item-adjudications.json")
+ADJUDICATION_PATH = Path("config/third-item/five-dynasties-third-item-adjudications.json")
 AB_PATH = Path("docs/评分结算/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json")
 C_PATH = Path("docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算.json")
 D_PATH = Path("docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json")
 FORMAL_PATH = Path("docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json")
 QIN_TANG_BATTLE_INDEX_PATH = Path("docs/史料通读产物/唐以前编年/00-战争卡审计索引.json")
-QIN_TANG_D_DIRECTION_PATH = Path("config/qin-tang-d-cycle-direction-adjudications.json")
-FIRST_ITEM_C_WINDOWS_PATH = Path("config/first-item-c-acquisition-windows.json")
+QIN_TANG_D_DIRECTION_PATH = Path("config/third-item/qin-tang-d-cycle-direction-adjudications.json")
+FIRST_ITEM_C_WINDOWS_PATH = Path("config/first-item/first-item-c-acquisition-windows.json")
 FIRST_ITEM_C_SETTLEMENT_PATH = Path(
     "docs/评分结算/第一项创业与政权取得能力/军事夺取能力/01-第一项C军事夺取能力结算.json"
 )
 FIRST_ITEM_A_COMPETITIVE_LANDSCAPES_PATH = Path(
-    "config/first-item-a-competitive-landscapes.json"
+    "config/first-item/first-item-a-competitive-landscapes.json"
 )
-AB_HANDOFF_ADJUDICATION_PATH = Path("config/third-item-ab-handoff-adjudications.json")
-C_OUTCOME_ADJUDICATION_PATH = Path("config/third-item-c-outcome-adjudications.json")
+AB_HANDOFF_ADJUDICATION_PATH = Path("config/third-item/third-item-ab-handoff-adjudications.json")
+C_OUTCOME_ADJUDICATION_PATH = Path("config/third-item/third-item-c-outcome-adjudications.json")
 MILITARY_TALENT_REGISTRY_PATH = Path("docs/公共成果/军事/02-武将人才等级.json")
 INPUT_SCHEMA = "chronicle-battle-adjudication-v2"
 REGISTRY_SCHEMA = "battle-parent-contract-registry-v5"
@@ -705,22 +705,6 @@ def build_promotion_audit(registry: Mapping[str, Any]) -> dict[str, Any]:
         "unmatched_phase_count": status_counts.get("UNRESOLVED_WINDOW_OVERLAP", 0),
         "window_conflict_count": status_counts.get("UNRESOLVED_WINDOW_OVERLAP", 0),
     }
-
-
-def write_promoted_battle_registry(workspace_root: Path) -> dict[str, Any]:
-    path = workspace_root / REGISTRY_PATH
-    payload = load_battle_registry(path)
-    promoted = promote_five_dynasties_battle_registry(payload, workspace_root)
-    write_battle_registry(path, promoted)
-    from emperor_v4.evaluation.battle_parent_contract_registry import (
-        render_battle_parent_contract_registry_markdown,
-    )
-
-    _write_text_atomic(
-        workspace_root / REGISTRY_MARKDOWN_PATH,
-        render_battle_parent_contract_registry_markdown(promoted),
-    )
-    return build_promotion_audit(promoted)
 
 
 A_STATE_NAMES = {

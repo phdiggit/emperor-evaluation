@@ -47,7 +47,7 @@ from emperor_v4.evaluation.post_tang_third_item_consumption import (
 
 
 SOURCE_ROOT = Path("docs/史料通读产物/北宋/续资治通鉴")
-ADJUDICATION_PATH = Path("config/north-song-third-item-adjudications.json")
+ADJUDICATION_PATH = Path("config/third-item/north-song-third-item-adjudications.json")
 INPUT_SCHEMA = "chronicle-battle-adjudication-v2"
 SOURCE_SET_FINGERPRINT = "62ac210a794cb4cfa6c9b3bcef2c58d72f9caa8316b9313e051e2507481ac7ac"
 SOURCE_IDENTITY_FINGERPRINT = "97b96dca527e274cc1b2f40228eefabc6c43e5c6693d17cc51562b6b57ce4119"
@@ -517,19 +517,6 @@ def build_promotion_audit(registry: Mapping[str, Any]) -> dict[str, Any]:
         "window_conflict_count": statuses.get("UNRESOLVED_WINDOW_OVERLAP", 0),
         "retired_stale_record_count": RETIRED_STALE_NORTH_SONG_RECORD_COUNT,
     }
-
-
-def write_promoted_battle_registry(workspace_root: Path) -> dict[str, Any]:
-    path = workspace_root / REGISTRY_PATH
-    payload = load_battle_registry(path)
-    promoted = promote_north_song_battle_registry(payload, workspace_root)
-    write_battle_registry(path, promoted)
-    from emperor_v4.evaluation.battle_parent_contract_registry import render_battle_parent_contract_registry_markdown
-    _write_text_atomic(
-        workspace_root / REGISTRY_MARKDOWN_PATH,
-        render_battle_parent_contract_registry_markdown(promoted),
-    )
-    return build_promotion_audit(promoted)
 
 
 def _load_adjudications(workspace_root: Path) -> list[dict[str, Any]]:

@@ -1387,12 +1387,12 @@ def build_first_item_c_registry(
             "default_policy": "evidence gap uses grade 0 LOW; documented no contribution uses grade 0 LOW",
         },
         "source_refs": {
-            "roster": "config/所有君主.yml + config/first-item-a-strategic-efficiency-inputs.json#founder_roster",
-            "scope_inputs": "config/first-item-a-strategic-efficiency-inputs.json",
+            "roster": "config/common/所有君主.yml + config/first-item/first-item-a-strategic-efficiency-inputs.json#founder_roster",
+            "scope_inputs": "config/first-item/first-item-a-strategic-efficiency-inputs.json",
             "battle_registry": "docs/公共成果/军事/01-战役登记.json",
             "talent_registry": "docs/公共成果/军事/02-武将人才等级.json",
-            "window_config": "config/first-item-c-acquisition-windows.json",
-            "territorial_control": "config/first-item-c-territorial-control-adjudications.json",
+            "window_config": "config/first-item/first-item-c-acquisition-windows.json",
+            "territorial_control": "config/first-item/first-item-c-territorial-control-adjudications.json",
         },
         "source_registry_fingerprints": {
             "battle": battle_registry.get("semantic_fingerprint"),
@@ -1635,7 +1635,7 @@ def write_first_item_c_registry(workspace_root: Path) -> dict[str, Path]:
         return json.loads(path.read_text(encoding="utf-8"))
 
     efficiency_inputs = load(
-        workspace_root / "config/first-item-a-strategic-efficiency-inputs.json"
+        workspace_root / "config/first-item/first-item-a-strategic-efficiency-inputs.json"
     )
     payload = build_first_item_c_registry(
         battle_registry=load_battle_registry(
@@ -1647,11 +1647,11 @@ def write_first_item_c_registry(workspace_root: Path) -> dict[str, Path]:
         roster=load_qin_qing_first_item_roster(workspace_root, efficiency_inputs),
         scope_inputs=efficiency_inputs,
         window_config=load(
-            workspace_root / "config/first-item-c-acquisition-windows.json"
+            workspace_root / "config/first-item/first-item-c-acquisition-windows.json"
         ),
         control_registry=load(
             workspace_root
-            / "config/first-item-c-territorial-control-adjudications.json"
+            / "config/first-item/first-item-c-territorial-control-adjudications.json"
         ),
     )
     output_dir = (
