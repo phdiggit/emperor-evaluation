@@ -111,6 +111,23 @@ def validate_first_item_c_territorial_control(
     if missing_manual:
         raise ValueError(f"第一项C区域控制缺少手工窗口: {sorted(missing_manual)}")
 
+    a2_rows = list(control_registry.get("a2_control_window_adjudications") or ())
+    a2_by_name = {str(row["ruler_name"]): row for row in a2_rows}
+    if len(a2_by_name) != len(a2_rows):
+        raise ValueError("第一项A2补充控制窗口存在重复ruler_name")
+    for ruler_name, row in a2_by_name.items():
+        if (
+            row.get("adjudication_status") != "CALIBRATED_C_CONTROL_WINDOW"
+            or not row.get("source_refs")
+            or not str(row.get("baseline_control") or "").strip()
+            or not str(row.get("terminal_control") or "").strip()
+            or not str(row.get("basis") or "").strip()
+            or float(row.get("created_net_control_value") or 0.0) < 0
+            or float(row.get("recovered_net_control_value") or 0.0) < 0
+            or float(row.get("value_weighted_acquisition_years") or 0.0) <= 0
+        ):
+            raise ValueError(f"第一项A2补充控制窗口不闭合: {ruler_name}")
+
     pending_portfolio_refs: list[str] = []
     missing_profile_refs: dict[str, list[str]] = {}
     raw_net_control: dict[str, float] = {}
@@ -257,6 +274,7 @@ def validate_first_item_c_territorial_control(
     return {
         "portfolio_count": len(controls),
         "manual_window_count": len(expected_manual),
+        "a2_control_window_count": len(a2_by_name),
         "pending_portfolio_refs": sorted(pending_portfolio_refs),
         "pending_manual_rulers": sorted(set(pending_manual_rulers)),
         "missing_profile_refs": dict(sorted(missing_profile_refs.items())),
@@ -661,11 +679,16 @@ def build_first_item_c_registry(
     roster_names = {str(row["ruler_name"]) for row in roster_rows}
     if len(roster_names) != len(roster_rows):
         raise ValueError("第一项C名册存在重复ruler_name")
-    applicable_names = {
+    source_applicable_names = {
         str(row["ruler_name"]) for row in scope_inputs.get("records") or ()
     }
-    if not applicable_names or not applicable_names <= roster_names:
-        raise ValueError("第一项C奠基者范围与评价名册不一致")
+    if not source_applicable_names:
+        raise ValueError("第一项C奠基者范围为空")
+    # A may advance before B/C for canonical-pool founders explicitly marked pending.
+    # C continues to settle the legacy shared roster until those people receive C windows.
+    applicable_names = source_applicable_names & roster_names
+    if not applicable_names:
+        raise ValueError("第一项C奠基者范围与评价名册没有交集")
     aliases = {name: name for name in roster_names}
     talent_profiles_by_name: dict[str, list[Mapping[str, Any]]] = {}
     talent_profiles_by_ref: dict[str, Mapping[str, Any]] = {}
@@ -718,6 +741,21 @@ def build_first_item_c_registry(
         str(row["ruler_name"]): str(row["gap"])
         for row in window_config.get("evidence_incomplete_rulers") or ()
     }
+    no_personal_reviews = {
+        str(row["ruler_name"]): row
+        for row in window_config.get("no_personal_military_contribution_reviews") or ()
+    }
+    if len(no_personal_reviews) != len(
+        window_config.get("no_personal_military_contribution_reviews") or ()
+    ):
+        raise ValueError("第一项C无本人军事贡献复核存在重复对象")
+    for ruler_name, review in no_personal_reviews.items():
+        if (
+            ruler_name not in applicable_names
+            or not str(review.get("basis") or "").strip()
+            or not review.get("source_refs")
+        ):
+            raise ValueError(f"第一项C无本人军事贡献复核不闭合: {ruler_name}")
     manual_window_inputs = {
         str(row["ruler_name"]): row
         for row in window_config.get("manual_windows") or ()
@@ -1295,6 +1333,9 @@ def build_first_item_c_registry(
         elif has_evidence:
             coverage_status = "CALIBRATED_C_WINDOW_RESULT"
             default_basis = None
+        elif ruler_name in no_personal_reviews:
+            coverage_status = "NO_PERSONAL_MILITARY_CONTRIBUTION"
+            default_basis = str(no_personal_reviews[ruler_name]["basis"])
         else:
             coverage_status = "NO_PERSONAL_MILITARY_CONTRIBUTION"
             default_basis = "当前已覆盖创业窗口中没有可归于本人的合格军事贡献。"
@@ -1429,19 +1470,27 @@ def build_first_item_c_registry(
 
 
 def render_first_item_c_registry_markdown(payload: Mapping[str, Any]) -> str:
+    position_labels = {"HIGH": "高位", "MID": "中位", "LOW": "低位"}
+    direction_labels = {"positive": "正向", "negative": "负向"}
+
+    def evidence_refs(item: Mapping[str, Any]) -> str:
+        refs = [str(ref) for ref in item.get("source_refs") or ()]
+        return "；".join(refs[:3]) if refs else "本项人物窗口与战役登记"
+
+    def episode_label(item: Mapping[str, Any]) -> str:
+        basis = str(item.get("basis") or "").strip().rstrip("。")
+        return basis or str(item.get("campaign_group_id") or "创业窗口内军事结果")
+
     lines = [
         "# 第一项C军事夺取能力结算",
         "",
-        "> 当前值只用于规则校准；不写正式评分数据库，不形成正式排名。C1为50分，累计本人不重复的创业战役成果；C2为30分，评价本人前线指挥能力。净控制量只进入A，以下窗口表仅供边界审计。",
+        "> C1为50分，累计本人不重复的创业战役成果；C2为30分，评价本人前线指挥能力。净控制量只进入A。",
         "",
-        f"- 对象：{payload['record_count']} 人",
-        f"- 适用统一贡献者：{payload['eligible_count']} 人；待补：{payload['pending_count']} 人；不适用：{payload['excluded_count']} 人",
-        f"- 完整结算：{payload['score_ready_count']} 人",
-        "- canonical状态：CURRENT；本文件是C项当前唯一有效结果",
-        f"- 证据缺口保守默认：{payload['default_count']} 人",
+        f"共{payload['record_count']}人，其中{payload['eligible_count']}名奠基者进入结算，"
+        f"{payload['excluded_count']}名非奠基者不适用。",
         "",
-        "| C项序 | 对象 | 政权 | C1战役成果指数（非得分率） | C1实际得分 | C2能力峰值指数（非得分率） | 败绩/过失 | C2实际得分 | C结算 | 覆盖状态 |",
-        "|---:|---|---|---:|---:|---:|---:|---:|---:|---|",
+        "| C项序 | 对象 | 政权 | C1战役成果指数（非得分率） | C1实际得分 | C2能力峰值指数（非得分率） | 败绩/过失 | C2实际得分 | C结算 |",
+        "|---:|---|---|---:|---:|---:|---:|---:|---:|",
     ]
     for row in payload.get("records") or ():
         if not row["score_applicable"]:
@@ -1453,24 +1502,69 @@ def render_first_item_c_registry_markdown(payload: Mapping[str, Any]) -> str:
             f"{c2['peak_quality_index']:.2f} | "
             f"{c2['negative_context_count']}/{c2['command_failure_count']} | "
             f"{c2['points']:.1f}（C2-{c2['grade']}-{c2['position']}） | "
-            f"{row['C_score_points']:.1f} | {row['coverage_status']} |"
+            f"{row['C_score_points']:.1f} |"
         )
-    lines.extend(["", "## 证据缺口默认", ""])
+    lines.extend(["", "## 逐人结算依据", ""])
+    for row in payload.get("records") or ():
+        if not row["score_applicable"]:
+            continue
+        c1, c2 = row["C1"], row["C2"]
+        lines.extend(
+            [
+                f"### {row['canonical_rank']}. {row['ruler_name']}",
+                "",
+                (
+                    f"- 结算结果：C1为{c1['points']:.1f}/50（{c1['grade']}档"
+                    f"{position_labels.get(c1['position'], c1['position'])}），"
+                    f"C2为{c2['points']:.1f}/30（{c2['grade']}档"
+                    f"{position_labels.get(c2['position'], c2['position'])}），"
+                    f"合计{row['C_score_points']:.1f}/80。"
+                ),
+            ]
+        )
+        campaign_results = list(c1.get("campaign_results") or ())
+        if campaign_results:
+            for item in campaign_results:
+                lines.append(
+                    f"- C1依据：{episode_label(item)}；"
+                    f"{direction_labels.get(item['result_direction'], item['result_direction'])}"
+                    f"{item['personal_result_tier']}档，结果值{item['result_value']:.1f}；"
+                    f"来源：{evidence_refs(item)}。"
+                )
+        else:
+            lines.append(
+                f"- C1依据：{row.get('default_basis') or '创业窗口内没有可消费的本人战役结果。'}"
+            )
+        frontline_results = list(c2.get("frontline_results") or ())
+        if frontline_results:
+            peak = max(frontline_results, key=lambda item: float(item["quality_index"]))
+            lines.append(
+                f"- C2依据：能力峰值取“{episode_label(peak)}”，"
+                f"个人结果{peak['personal_result_tier']}档、战斗难度{peak['combat_difficulty']}、"
+                f"质量指数{peak['quality_index']:.1f}；共复核{len(frontline_results)}个本人前线结果。"
+            )
+        else:
+            lines.append(
+                f"- C2依据：{row.get('default_basis') or '没有达到本人前线或一体化指挥门槛的正向结果。'}"
+            )
+        failures = list(c2.get("command_failures") or ())
+        if c2["negative_context_count"] or failures:
+            lines.append(
+                f"- 负向校正：本人前线败绩{c2['negative_context_count']}项、"
+                f"主责指挥过失{len(failures)}项，档内下调{c2['negative_position_steps']}位。"
+            )
+        if row.get("default_applied"):
+            lines.append(f"- 证据限制：{row['default_basis']}")
+        elif row.get("unresolved_gaps"):
+            lines.append("- 证据限制：" + "；".join(row["unresolved_gaps"]) + "。")
+        lines.append("")
+    lines.extend(["", "## 保守取值说明", ""])
     defaults = [row for row in payload.get("records") or () if row["default_applied"]]
     lines.extend(
         (f"- {row['ruler_name']}：{row['default_basis']}" for row in defaults)
         if defaults
         else ["- 无。"]
     )
-    lines.extend(["", "## 创业窗口净控制（仅审计，不进入C分）", ""])
-    lines.append("| 窗口 | 原始净控制 | 加权净控制 | 范围系数 | 未绑定本人贡献区域 |")
-    lines.append("|---|---:|---:|---:|---|")
-    for row in payload.get("window_metrics") or ():
-        missing = "、".join(row["unattributed_region_ids"]) or "—"
-        lines.append(
-            f"| {row['window_ref']} | {row['raw_net_control']:.2f} | "
-            f"{row['calibrated_weighted_net_control']:.2f} | {row['scope_multiplier']:.2f} | {missing} |"
-        )
     lines.extend(
         [
             "",
@@ -1500,15 +1594,6 @@ def render_first_item_c_registry_markdown(payload: Mapping[str, Any]) -> str:
         )
         if negative_rows
         else ["| — | 0 | 0 | C2-5 | 0 |"]
-    )
-    lines.extend(
-        [
-            "",
-            "## 机器读取",
-            "",
-            "同目录JSON是唯一机器读取源；本文件仅为同值阅读视图。",
-            "",
-        ]
     )
     return "\n".join(lines)
 
@@ -1644,7 +1729,11 @@ def write_first_item_c_registry(workspace_root: Path) -> dict[str, Path]:
         talent_registry=load_talent_registry(
             workspace_root / "docs/公共成果/军事/02-武将人才等级.json"
         ),
-        roster=load_qin_qing_first_item_roster(workspace_root, efficiency_inputs),
+        roster=load_qin_qing_first_item_roster(
+            workspace_root,
+            efficiency_inputs,
+            include_current_pending_founders=True,
+        ),
         scope_inputs=efficiency_inputs,
         window_config=load(
             workspace_root / "config/first-item/first-item-c-acquisition-windows.json"
@@ -1675,6 +1764,17 @@ def write_first_item_c_registry(workspace_root: Path) -> dict[str, Path]:
         workspace_root
         / "docs/评分结算/第一项创业与政权取得能力/政治整合能力/01-第一项B政治整合能力结算.json"
     )
+    a_ids = {str(row["ruler_id"]) for row in a_payload.get("records") or ()}
+    b_ids = {str(row["ruler_id"]) for row in b_payload.get("records") or ()}
+    c_ids = {str(row["ruler_id"]) for row in payload.get("records") or ()}
+    if a_ids != b_ids or a_ids != c_ids:
+        return {"json": json_path, "markdown": markdown_path}
+    if any(
+        row.get("score_applicable")
+        and row.get("adjudication_status") != "CURRENT_ACCEPTED"
+        for row in b_payload.get("records") or ()
+    ):
+        return {"json": json_path, "markdown": markdown_path}
     formal_payload = build_first_item_formal_settlement(
         a_payload=a_payload, b_payload=b_payload, c_payload=payload
     )

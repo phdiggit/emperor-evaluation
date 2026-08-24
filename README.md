@@ -12,13 +12,15 @@
 
 机器读取入口与范围统一记录在 [`config/project.yml`](config/project.yml)。最高业务规则是 [`docs/项目总纲/皇帝综合评价体系评分标准.md`](docs/项目总纲/皇帝综合评价体系评分标准.md)。
 
+当前正式评价池为184人，由201人候选全集按实际独立最高权力至少3年和证据可行性筛定。其中148人当前综合计算就绪，36人因第二项尚无正式分留在池内待结算；第一项适用范围及84名奠基者A/B/C正式结算已经全部闭合，另有7名无第一项记录者明确不适用并取F=0。第二项缺口补齐前不得进入综合分和总排名。逐人状态及分项别名映射见[`正式评价对象范围`](docs/项目总纲/正式评价对象范围.md)；机器入口为`config/common/canonical-ruler-pool.json`。
+
 ## 保留范围
 
 - `docs/项目总纲/`、`docs/分项规则/`：当前评分合同。
 - `docs/评分结算/`：五项唯一正式 JSON 与 Markdown 阅读视图。
 - `docs/公共成果/`、`docs/治理/`、`docs/史料通读产物/`：仍被评分结果引用的证据与公共登记。
 - `config/project.yml`：项目状态、正式结果入口和保留的重建接口。
-- `config/common/`：跨项目固定名册与实体身份；`config/first-item/`、`config/third-item/`：对应分项的当前裁决输入；`config/military/`：公共军事登记与人才登记的当前输入。
+- `config/common/`：正式评价池、分项候选名册与实体身份；其中`canonical-ruler-pool.json`是综合范围唯一机器入口，`所有君主.yml`继续作为第一项确定性重建的候选输入。`config/first-item/`、`config/third-item/`保存对应分项的当前裁决输入；`config/military/`保存公共军事登记与人才登记的当前输入。
 - `src/emperor_v4/evaluation/`：公共军事登记、第一项和第三项的确定性结算逻辑。
 
 ## 验证
@@ -33,6 +35,12 @@ codex-win run -- python -m pip install -e .
 
 ```powershell
 codex-win run -- python v4.py formal-settlements-verify
+```
+
+重建或核对正式评价池：
+
+```powershell
+codex-win run -- python v4.py canonical-ruler-pool
 ```
 
 运行离线测试：

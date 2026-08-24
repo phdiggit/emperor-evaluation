@@ -4,11 +4,13 @@ import json
 from pathlib import Path
 from typing import Any
 
+from emperor_v4.evaluation.canonical_ruler_pool import verify_canonical_ruler_pool
+
 
 SETTLEMENT_SPECS = {
     "first_item": {
         "path": "docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.json",
-        "schema": "first-item-formal-settlement-v2",
+        "schema": "first-item-formal-settlement-v3",
         "score": "first_item_score_points",
         "rank": "canonical_rank",
         "range": (0, 240),
@@ -96,4 +98,8 @@ def verify_formal_settlements(workspace_root: Path) -> dict[str, Any]:
             "min_score": min(scores),
             "max_score": max(scores),
         }
-    return {"status": "PASS", "items": reports}
+    return {
+        "status": "PASS",
+        "canonical_pool": verify_canonical_ruler_pool(workspace_root),
+        "items": reports,
+    }

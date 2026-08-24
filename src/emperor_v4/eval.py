@@ -8,6 +8,10 @@ from typing import Sequence
 from emperor_v4.evaluation.first_item_a_registry import write_first_item_a_registry
 from emperor_v4.evaluation.first_item_b_registry import write_first_item_b_registry
 from emperor_v4.evaluation.first_item_c_registry import write_first_item_c_registry
+from emperor_v4.evaluation.canonical_ruler_pool import (
+    build_canonical_ruler_pool,
+    write_canonical_ruler_pool,
+)
 from emperor_v4.evaluation.formal_settlements import verify_formal_settlements
 from emperor_v4.evaluation.third_item_current_settlement import (
     build_current_third_item_settlement,
@@ -22,6 +26,9 @@ def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="皇帝综合评价体系 V4 评分命令")
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("formal-settlements-verify")
+    canonical_pool = commands.add_parser("canonical-ruler-pool")
+    canonical_pool.add_argument("--workspace-root", type=Path, default=Path("."))
+    canonical_pool.add_argument("--write", action="store_true")
     for name in (
         "first-item-a-registry",
         "first-item-b-registry",
@@ -51,6 +58,32 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
 
     workspace_root = args.workspace_root.resolve()
+    if args.command == "canonical-ruler-pool":
+        if args.write:
+            return _print_written(write_canonical_ruler_pool(workspace_root))
+        payload = build_canonical_ruler_pool(workspace_root)
+        print(
+            json.dumps(
+                {
+                    "candidate_pool_count": payload["candidate_pool_count"],
+                    "included_count": payload["included_count"],
+                    "composite_ready_count": payload["composite_ready_count"],
+                    "pending_second_item_count": payload["pending_second_item_count"],
+                    "pending_first_item_scope_count": payload["pending_first_item_scope_count"],
+                    "pending_first_item_formal_settlement_count": payload[
+                        "pending_first_item_formal_settlement_count"
+                    ],
+                    "first_item_outside_candidate_pool_count": payload[
+                        "first_item_outside_candidate_pool_count"
+                    ],
+                    "excluded_count": payload["excluded_count"],
+                    "exclusion_reason_counts": payload["exclusion_reason_counts"],
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+        )
+        return 0
     if args.command == "first-item-a-registry":
         return _print_written(write_first_item_a_registry(workspace_root))
     if args.command == "first-item-b-registry":

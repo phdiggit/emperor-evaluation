@@ -14,6 +14,20 @@ scoring_contract:
   database_write: false
   cross_item_ranking_write: false
 
+canonical_ruler_pool:
+  status: current
+  candidate_count: 201
+  included_count: 184
+  composite_ready_count: 148
+  pending_second_item_count: 36
+  pending_first_item_scope_count: 0
+  pending_first_item_formal_settlement_count: 0
+  first_item_outside_candidate_pool_count: 5
+  excluded_count: 17
+  json: config/common/canonical-ruler-pool.json
+  markdown: docs/项目总纲/正式评价对象范围.md
+  policy: effective independent highest power for at least 3 years; pending second-item settlement blocks composite readiness, not admission
+
 formal_settlements:
   first_item:
     max_points: 240

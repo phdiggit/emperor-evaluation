@@ -112,6 +112,29 @@ def _validate_cost_factor_contract(payload: Mapping[str, Any]) -> None:
 
 
 def _render_current_weighted_markdown(records: Sequence[Mapping[str, Any]]) -> str:
+    human_status = {
+        "NOT_APPLICABLE": "不适用",
+        "NONE": "无",
+        "HIGH": "高位",
+        "MID": "中位",
+        "LOW": "低位",
+    }
+
+    def human_label(value: object) -> str:
+        return human_status.get(str(value), str(value))
+
+    def human_basis(value: object) -> str:
+        return (
+            str(value)
+            .replace(
+                "NOT_APPLICABLE does not mean low cost. The whole founding/unification campaign, including reversals and costs, is excluded under the corrected hard gate.",
+                "不适用不等于低成本；创业统一整链及其反转与成本已按跨项去重规则排除。",
+            )
+            .replace("LOWER_BOUND", "证据下限")
+            .replace("PROVISIONAL", "暂定")
+            .replace("CONFIRMED", "已确认")
+        )
+
     eligible = sorted(
         (row for row in records if row.get("third_item_score_points") is not None),
         key=lambda row: (int(row["rank"]), str(row["ruler_id"])),
@@ -119,7 +142,7 @@ def _render_current_weighted_markdown(records: Sequence[Mapping[str, Any]]) -> s
     lines = [
         "# 秦至清第三项军事与边疆正式结算",
         "",
-        "本表按A120战略安全结果、B80边疆控制结果、C50军事体系能力合并；成本先折算A正向成果信用和B成果信用。只有第三项自身闭合EN2/EN3、C5以上本方军事成本和本人责任时，才另加0至-40分军事净毁损尾部。机器读取入口为同名JSON。",
+        "本表按A120战略安全结果、B80边疆控制结果、C50军事体系能力合并；成本先折算A正向成果信用和B成果信用。只有第三项自身闭合EN2/EN3、C5以上本方军事成本和本人责任时，才另加0至-40分军事净毁损尾部。",
         "",
         "| 排名 | 皇帝 | 政权 | 在位 | A120 | B80 | C50 | 全局成本 | 系数 | 净毁损 | 总分 |",
         "|---:|---|---|---|---:|---:|---:|---|---:|---:|---:|",
@@ -129,7 +152,7 @@ def _render_current_weighted_markdown(records: Sequence[Mapping[str, Any]]) -> s
         lines.append(
             f"| {row['rank']} | {row['ruler_name']} | {row['polity']} | {_reign_range_label(row['reign_range'])} | "
             f"{float(row['A120_score_points']):.2f} | {float(row['B80_score_points']):.2f} | "
-            f"{float(row['C50_score_points']):.2f} | {profile['cost_band']}-{profile['position']} | "
+            f"{float(row['C50_score_points']):.2f} | {human_label(profile['cost_band'])}-{human_label(profile['position'])} | "
             f"{float(row['cost_credit_factor']):.3f} | {float(row['military_net_loss_penalty']):.2f} | {float(row['third_item_score_points']):.2f} |"
         )
     lines += ["", "## 逐人结算依据", ""]
@@ -138,11 +161,8 @@ def _render_current_weighted_markdown(records: Sequence[Mapping[str, Any]]) -> s
         lines += [
             f"### {row['rank']}. {row['ruler_name']}（{float(row['third_item_score_points']):.2f}）",
             "",
-            f"- 结果结构：A非成本锚{float(row['A120_non_cost_anchor_points']):.2f}；A正向成果信用{float(row['A120_positive_result_credit_points']):.2f}；B成果信用{float(row['B80_score_points']):.2f}；C能力{float(row['C50_score_points']):.2f}。",
-            f"- 成本折算：D局部成本为{row['D_local_cost_profile']['cost_band']}-{row['D_local_cost_profile']['position']}；全局成果信用成本为{profile['cost_band']}-{profile['position']}，系数{float(row['cost_credit_factor']):.3f}。",
-            f"- 全局成本依据：{profile['basis']}",
-            f"- 军事净毁损：{row['military_net_loss_grade']}，归责{row['military_net_loss_attribution']}，{float(row['military_net_loss_penalty']):.2f}分。{row['military_net_loss_basis']}",
-            f"- 合成：{float(row['A120_non_cost_anchor_points']):.2f} + {float(row['cost_credit_factor']):.3f} × ({float(row['A120_positive_result_credit_points']):.2f} + {float(row['B80_score_points']):.2f}) + {float(row['C50_score_points']):.2f} + ({float(row['military_net_loss_penalty']):.2f}) = {float(row['third_item_score_points']):.2f}。",
+            f"- 成本依据：{human_basis(profile['basis'])}",
+            f"- 军事净毁损：{float(row['military_net_loss_penalty']):.2f}分。{human_basis(row['military_net_loss_basis'])}",
             "",
         ]
     return "\n".join(lines).rstrip() + "\n"

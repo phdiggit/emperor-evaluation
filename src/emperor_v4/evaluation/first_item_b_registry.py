@@ -21,7 +21,7 @@ def build_first_item_b_registry(
     battle_registry: Mapping[str, Any] | None = None,
     talent_registry: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
-    if adjudications.get("schema_version") != "first-item-b-team-contribution-adjudications-v6":
+    if adjudications.get("schema_version") != "first-item-b-team-contribution-adjudications-v7":
         raise ValueError("第一项B团队贡献输入schema_version不正确")
     if adjudications.get("status") != "CURRENT":
         raise ValueError("第一项B团队贡献输入不是当前值")
@@ -107,6 +107,14 @@ def build_first_item_b_registry(
             continue
         if not str(source.get("basis") or "").strip():
             raise ValueError(f"第一项B缺少总体裁决依据: {ruler_name}")
+        adjudication_status = str(
+            source.get("adjudication_status") or "CURRENT_ACCEPTED"
+        )
+        if adjudication_status not in {
+            "CURRENT_ACCEPTED",
+            "TRIAL_EVIDENCE_LOWER_BOUND",
+        }:
+            raise ValueError(f"第一项B裁决状态非法: {ruler_name}")
         source_chains = list(source.get("outcome_evidence") or ())
         if not source_chains:
             raise ValueError(f"第一项B缺少团队成果证据: {ruler_name}")
@@ -212,6 +220,8 @@ def build_first_item_b_registry(
             },
             "B_score_points": round(b1_points + b2_points, 1),
             "canonical_rank": None,
+            "adjudication_status": adjudication_status,
+            "evidence_lower_bound": adjudication_status != "CURRENT_ACCEPTED",
             "basis": source["basis"],
             "limitations": list(source.get("limitations") or ()),
         })
@@ -232,9 +242,15 @@ def build_first_item_b_registry(
         key=lambda row: str(row["ruler_name"]),
     )
     records = eligible + excluded
+    trial_count = sum(
+        row["adjudication_status"] == "TRIAL_EVIDENCE_LOWER_BOUND"
+        for row in eligible
+    )
     return {
-        "schema_version": "first-item-b-registry-v3",
-        "canonical_status": "CURRENT",
+        "schema_version": "first-item-b-registry-v4",
+        "canonical_status": (
+            "CURRENT" if not trial_count else "CURRENT_TRIAL_WITH_PENDING_FOUNDERS"
+        ),
         "item": "第一项B政治整合能力",
         "max_points": 60,
         "method": {
@@ -260,7 +276,10 @@ def build_first_item_b_registry(
         "eligible_count": len(eligible),
         "excluded_count": len(excluded),
         "score_ready_count": len(records),
-        "unresolved_count": 0,
+        "unresolved_count": sum(
+            row["adjudication_status"] != "CURRENT_ACCEPTED" for row in eligible
+        ),
+        "trial_count": trial_count,
         "anchored_outcome_count": sum(
             bool(chain["source_refs"])
             for row in eligible for chain in row["B1"]["outcome_evidence"]
@@ -295,8 +314,6 @@ def render_first_item_b_registry_markdown(payload: Mapping[str, Any]) -> str:
         f"- 名册对象：{payload['record_count']} 人",
         f"- 奠基者完整结算：{payload['eligible_count']} 人",
         f"- 非奠基者不适用：{payload['excluded_count']} 人",
-        f"- 未决：{payload['unresolved_count']} 人",
-        f"- 具名来源锚成果：{payload['anchored_outcome_count']} 项；不计分背景成果待补锚：{payload['unanchored_context_outcome_count']} 项；计分成果缺锚：{payload['unanchored_scoring_outcome_count']} 项",
         "",
         "| B项序 | 对象 | 政权 | 团队成果B1/30 | 组织能力B2/30 | B/60 |",
         "|---:|---|---|---:|---:|---:|",
@@ -307,7 +324,7 @@ def render_first_item_b_registry_markdown(payload: Mapping[str, Any]) -> str:
             f"| {row['canonical_rank']} | {row['ruler_name']} | {row.get('polity') or '—'} | "
             f"{row['B1']['points']:g} | {row['B2']['points']:g} | {row['B_score_points']:g} |"
         )
-    lines.extend(["", "## 逐人裁决", ""])
+    lines.extend(["", "## 逐人结算依据", ""])
     for row in eligible:
         lines.extend([f"### {row['canonical_rank']}. {row['ruler_name']}", ""])
         for chain in row["B1"]["outcome_evidence"]:
@@ -337,7 +354,6 @@ def render_first_item_b_registry_markdown(payload: Mapping[str, Any]) -> str:
     excluded = [row for row in payload["records"] if not row["score_applicable"]]
     lines.extend([
         "## 非奠基者不适用", "", "、".join(row["ruler_name"] for row in excluded) + "。", "",
-        "## 机器读取", "", "同目录JSON是唯一机器读取源；本文件仅为同值阅读视图。", "",
     ])
     return "\n".join(lines)
 
@@ -351,6 +367,7 @@ def write_first_item_b_registry(workspace_root: Path) -> dict[str, Path]:
         roster=load_qin_qing_first_item_roster(
             workspace_root,
             load(workspace_root / "config/first-item/first-item-a-strategic-efficiency-inputs.json"),
+            include_current_pending_founders=True,
         ),
         battle_registry=load_battle_registry(
             workspace_root / "docs/公共成果/军事/01-战役登记.json"

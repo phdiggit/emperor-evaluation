@@ -23,7 +23,10 @@ RATE_FIELDS = (
 
 
 def load_qin_qing_first_item_roster(
-    workspace_root: Path, efficiency_inputs: Mapping[str, Any]
+    workspace_root: Path,
+    efficiency_inputs: Mapping[str, Any],
+    *,
+    include_current_pending_founders: bool = False,
 ) -> dict[str, Any]:
     base = json.loads(
         (
@@ -46,13 +49,41 @@ def load_qin_qing_first_item_roster(
     normalized = [str(name) for name in names]
     if len(normalized) != len(set(normalized)):
         raise ValueError("秦至清所有君主名册存在重复姓名")
-    unknown_founders = set(founder_metadata) - set(normalized)
-    if unknown_founders:
-        raise ValueError(f"第一项奠基人元数据包含总名册外对象: {sorted(unknown_founders)}")
+    extra_founders = set(founder_metadata) - set(normalized)
+    canonical_by_name: dict[str, dict[str, Any]] = {}
+    if extra_founders:
+        canonical_pool = json.loads(
+            (workspace_root / "config/common/canonical-ruler-pool.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        canonical_by_name = {
+            str(row["ruler_name"]): dict(row)
+            for row in canonical_pool.get("records") or ()
+        }
+        invalid_extras = {
+            name
+            for name in extra_founders
+            if name not in canonical_by_name
+            or canonical_by_name[name].get("pool_status") != "INCLUDED"
+            or canonical_by_name[name].get("first_item_readiness")
+            not in {
+                "PENDING_FIRST_ITEM_FORMAL_SETTLEMENT",
+                "FORMAL_RECORD_PRESENT",
+                "FORMAL_RECORD_PRESENT_ALIAS_NORMALIZED",
+            }
+        }
+        if invalid_extras:
+            raise ValueError(
+                "第一项扩展奠基人不在当前正式池待结算或已结算名单: "
+                f"{sorted(invalid_extras)}"
+            )
+        if include_current_pending_founders:
+            normalized.extend(sorted(extra_founders))
 
     records: list[dict[str, Any]] = []
     for name in normalized:
-        row = dict(base_by_name.get(name) or {})
+        row = dict(base_by_name.get(name) or canonical_by_name.get(name) or {})
         row.update(founder_metadata.get(name) or {})
         stable_suffix = hashlib.sha256(name.encode("utf-8")).hexdigest()[:16].upper()
         records.append(
@@ -89,7 +120,7 @@ def _a1_axis(row: Mapping[str, Any]) -> dict[str, Any]:
         0.30 * personal_start_disadvantage
         + 0.70 * project_start_disadvantage
     )
-    pure_difficulty = 0.70 * opponent + 0.30 * start_difficulty
+    pure_difficulty = 0.50 * opponent + 0.50 * start_difficulty
     difficulty = min(1.0, pure_difficulty / 0.85)
     attributed_completion = completion * responsibility
     result_rate = attributed_completion
@@ -194,14 +225,32 @@ def build_first_item_a_registry(
     battle_registry: Mapping[str, Any], territorial_inputs: Mapping[str, Any],
     acquisition_windows: Mapping[str, Any], roster: Mapping[str, Any]
 ) -> dict[str, Any]:
-    if efficiency_inputs.get("schema_version") != "first-item-a-strategic-efficiency-inputs-v16":
+    if efficiency_inputs.get("schema_version") != "first-item-a-strategic-efficiency-inputs-v18":
         raise ValueError("第一项A量化输入schema_version不正确")
     if efficiency_inputs.get("status") != "CURRENT":
         raise ValueError("第一项A量化输入状态不正确")
-    if competitive_landscapes.get("schema_version") != "first-item-a-competitive-landscapes-v8":
+    if competitive_landscapes.get("schema_version") != "first-item-a-competitive-landscapes-v9":
         raise ValueError("第一项A竞争格局输入schema_version不正确")
     if competitive_landscapes.get("status") != "CURRENT":
         raise ValueError("第一项A竞争格局输入状态不正确")
+
+    def semantic_fingerprint(payload: Mapping[str, Any]) -> str:
+        canonical = json.dumps(
+            payload,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+        return hashlib.sha256(canonical).hexdigest()
+
+    a2_c_lineage = dict(efficiency_inputs.get("a2_c_lineage") or {})
+    if (
+        a2_c_lineage.get("territorial_semantic_fingerprint")
+        != semantic_fingerprint(territorial_inputs)
+        or a2_c_lineage.get("acquisition_semantic_fingerprint")
+        != semantic_fingerprint(acquisition_windows)
+    ):
+        raise ValueError("第一项A2绑定的C控制底账指纹已漂移，必须显式重裁A2")
 
     battle_records = list(battle_registry.get("records") or ())
     battle_by_ref = {str(row["war_event_id"]): row for row in battle_records}
@@ -338,22 +387,55 @@ def build_first_item_a_registry(
         float(value)
         for value in class_values.get("positive_decision_position_weights") or ()
     ]
+    initial_resource_rubric = {
+        str(row["class"]): dict(row)
+        for row in class_values.get("initial_resource_share_rubric") or ()
+    }
+    if not initial_resource_rubric:
+        raise ValueError("第一项A个人原始起点资源档位合同为空")
     input_names = set(input_by_name)
+    aligned_a2_names = {str(name) for name in a2_c_lineage.get("aligned_names") or ()}
+    pending_a2_names = {str(name) for name in a2_c_lineage.get("pending_names") or ()}
+    supplemental_a2_names = {
+        str(name)
+        for name in a2_c_lineage.get("supplemental_control_window_names") or ()
+    }
+    supplemental_a2_rows = {
+        str(row["ruler_name"]): row
+        for row in territorial_inputs.get("a2_control_window_adjudications") or ()
+    }
+    if (
+        aligned_a2_names & pending_a2_names
+        or aligned_a2_names | pending_a2_names != input_names
+        or not str(a2_c_lineage.get("policy") or "").strip()
+    ):
+        raise ValueError("第一项A2与C控制底账的人物血缘集合不闭合")
+    if set(supplemental_a2_rows) != supplemental_a2_names:
+        raise ValueError("第一项A2补充控制窗口与C控制底账名单不一致")
+    for ruler_name, adjudication in supplemental_a2_rows.items():
+        if (
+            adjudication.get("adjudication_status")
+            != "CALIBRATED_C_CONTROL_WINDOW"
+            or not adjudication.get("source_refs")
+            or not str(adjudication.get("basis") or "").strip()
+            or float(adjudication["created_net_control_value"])
+            != float(control_values[ruler_name])
+            or float(adjudication.get("recovered_net_control_value") or 0.0)
+            != float(recovered_control_values.get(ruler_name) or 0.0)
+            or float(adjudication["value_weighted_acquisition_years"])
+            != float(weighted_years[ruler_name])
+        ):
+            raise ValueError(f"第一项A2补充控制窗口未与计分输入等值: {ruler_name}")
     if any(set(values) != input_names for values in (control_values, weighted_years, landscape_by_name)):
         raise ValueError("第一项A净控制量、时间或竞争格局未完整覆盖奠基者")
     if set(recovered_control_values) - input_names:
         raise ValueError("第一项A恢复控制量包含非结算对象")
     if set(error_events) != input_names or set(error_reviews) != input_names:
         raise ValueError("第一项A战略误判事件或复核状态未完整覆盖结算对象")
-    if set(opponent_system_windows) & set(relative_only_justifications):
-        raise ValueError("第一项A人物不能同时走O体系与纯相对资源路由")
-    if set(opponent_system_windows) | set(relative_only_justifications) != input_names:
-        raise ValueError("第一项A对手压力路由未唯一覆盖全部奠基者")
-    expected_relative_only = input_names - set(opponent_system_windows)
-    if set(relative_only_justifications) != expected_relative_only or any(
-        not str(value).strip() for value in relative_only_justifications.values()
-    ):
-        raise ValueError("第一项A默认相对资源路由必须逐人说明无公共战场压力原因")
+    if relative_only_justifications:
+        raise ValueError("第一项A不再允许纯相对资源路由；所有适用对象必须建立O体系")
+    if set(opponent_system_windows) != input_names:
+        raise ValueError("第一项A人物O体系窗口未完整覆盖全部适用对象")
     if set(positive_decisions) != input_names:
         raise ValueError("第一项A正向战略决策未完整覆盖奠基者")
     if (
@@ -414,6 +496,10 @@ def build_first_item_a_registry(
             "initial_resource_share_pct",
             "a1_strategic_responsibility_factor",
             "a1_strategic_responsibility_basis",
+            "initial_resource_source_status",
+            "initial_resource_class",
+            "initial_resource_share_basis",
+            "evidence_status_basis",
             "responsibility_basis", "effective_years", *RATE_FIELDS,
         )
         if any(decision.get(field) in (None, "") for field in required):
@@ -427,6 +513,26 @@ def build_first_item_a_registry(
         responsibility = float(decision["a1_strategic_responsibility_factor"])
         if not 0 < responsibility <= 1:
             raise ValueError(f"第一项A战略责任强度越界: {ruler_name}")
+        initial_source_refs = list(decision.get("initial_resource_source_refs") or ())
+        initial_source_status = str(decision["initial_resource_source_status"])
+        initial_resource_class = str(decision["initial_resource_class"])
+        initial_resource_share_basis = str(decision["initial_resource_share_basis"])
+        resource_band = initial_resource_rubric.get(initial_resource_class)
+        if (
+            not initial_source_refs
+            or initial_source_status != "SOURCE_ANCHORED_RULE_MAPPED"
+            or not initial_resource_share_basis.strip()
+            or resource_band is None
+            or not float(resource_band["min_pct"])
+            <= float(decision["initial_resource_share_pct"])
+            <= float(resource_band["max_pct"])
+        ):
+            raise ValueError(f"第一项A个人原始起点缺少可审计规则映射: {ruler_name}")
+        if (
+            ruler_name in pending_a2_names
+            and decision.get("evidence_status") != "CALIBRATED_EVIDENCE_LOWER_BOUND"
+        ):
+            raise ValueError(f"第一项A2尚未与C闭合却未保留证据下限: {ruler_name}")
 
         terminal_completion = float(decision["terminal_completion_rate"])
         control_value = float(control_values[ruler_name])
@@ -483,24 +589,18 @@ def build_first_item_a_registry(
         fallback_opponent_pressure = weighted_pressure / total_stake
         compiled_threat = compile_opponent_system_pressure(ruler_name)
         if compiled_threat is None:
-            opponent_pressure = fallback_opponent_pressure
-            opponent_system_pressure = None
-            threat_details = encounter_details
-            unknown_opponent_campaign_refs = []
-            threat_source_status = "RELATIVE_RESOURCE_ONLY_EVIDENCE_LOWER_BOUND"
-            threat_routing_basis = str(relative_only_justifications[ruler_name])
-        else:
-            (
-                opponent_system_pressure,
-                threat_details,
-                unknown_opponent_campaign_refs,
-                threat_source_status,
-                threat_routing_basis,
-            ) = compiled_threat
-            opponent_pressure = (
-                0.70 * opponent_system_pressure
-                + 0.30 * fallback_opponent_pressure
-            )
+            raise ValueError(f"第一项A人物缺少O体系窗口: {ruler_name}")
+        (
+            opponent_system_pressure,
+            threat_details,
+            unknown_opponent_campaign_refs,
+            threat_source_status,
+            threat_routing_basis,
+        ) = compiled_threat
+        opponent_pressure = (
+            0.70 * opponent_system_pressure
+            + 0.30 * fallback_opponent_pressure
+        )
         if control_value < 0 or acquisition_years <= 0:
             raise ValueError(f"第一项A净控制量或加权时间越界: {ruler_name}")
         person_errors = list(error_events.get(ruler_name) or ())
@@ -610,6 +710,20 @@ def build_first_item_a_registry(
         }
         a1 = _a1_axis(calculation_input)
         a2 = _a2_axis(calculation_input)
+        evidence_status = str(
+            decision.get("evidence_status") or "CALIBRATED_CURRENT"
+        )
+        evidence_status_basis = str(decision["evidence_status_basis"])
+        limitations: list[str] = []
+        if ruler_name in pending_a2_names:
+            limitations.append("A2控制量尚待纳入第一项C标准控制窗口并完成等值裁决")
+        if evidence_status != "CALIBRATED_CURRENT" and not limitations:
+            limitations.append(evidence_status_basis)
+        if unknown_opponent_campaign_refs:
+            limitations.append(
+                "仍有未完成O体系归并的贡献窗口战役："
+                + "、".join(unknown_opponent_campaign_refs)
+            )
         records.append({
             **common,
             "scope_status": ELIGIBLE_STATUS,
@@ -621,6 +735,9 @@ def build_first_item_a_registry(
             "initial_resource_source_refs": list(
                 decision.get("initial_resource_source_refs") or ()
             ),
+            "initial_resource_source_status": initial_source_status,
+            "initial_resource_class": initial_resource_class,
+            "initial_resource_share_basis": initial_resource_share_basis,
             "start_boundary": decision["start_boundary"],
             "end_boundary": decision["end_boundary"],
             "starting_position": decision["starting_position"],
@@ -631,9 +748,10 @@ def build_first_item_a_registry(
             "A_score_points": round(a1["points"] + a2["points"], 1),
             "canonical_rank": None,
             "responsibility_basis": decision["responsibility_basis"],
-            "evidence_status": str(
-                decision.get("evidence_status") or "CALIBRATED_CURRENT"
-            ),
+            "evidence_status": evidence_status,
+            "evidence_status_basis": evidence_status_basis,
+            "evidence_lower_bound": bool(limitations),
+            "limitations": limitations,
             "unknown_control_scope": decision.get("unknown_control_scope"),
             "source_refs": list(
                 (founder_metadata.get(ruler_name) or {}).get("evidence_refs")
@@ -656,16 +774,16 @@ def build_first_item_a_registry(
     records = eligible + pending + excluded
     scope_counts = Counter(str(row["scope_status"]) for row in records)
     return {
-        "schema_version": "first-item-a-registry-v7",
+        "schema_version": "first-item-a-registry-v8",
         "canonical_status": "CURRENT",
         "status": "CURRENT_NOT_FORMAL_DATABASE_WRITE",
         "item": "第一项A创业战略能力（已吸收原D创业难度）",
         "max_points": 100,
         "method": {
             "eligibility_gate": "第一项评价对本王朝建国或统一主链具有实际可归责贡献者；继承者不自动排除，纯年号、名义最高统治和他人独立成果不生成信用",
-            "A1": "不读取净控制量；先以个人起点不利度30%和项目起点不利度70%形成起点难度，再以主要对手压力70%和起点难度30%形成纯难度，并用85%历史前沿锚归一化；A1=60×项目完成率×A1战略责任强度×归一化难度。责任强度不是零和份额，不要求同项目人物合计100%，且不得由C项个人战功倒推",
+            "A1": "不读取净控制量；个人原始起点、项目起点和主要对手压力分别占综合难度15%、35%、50%，并用85%历史前沿锚归一化；A1=60×项目完成率×A1战略责任强度×归一化难度。责任强度不是零和份额，不要求同项目人物合计100%，且不得由C项个人战功倒推",
             "A2": "只读取人物窗口已分账的净控制量，不再重复乘A1责任强度；原始规模率=计分控制量/1000，规模计分率取平方根；取得速度与闭合速度按60%/40%合成，耐久按控制留存60%和早期稳固40%合成。客观结果最高36分，具名非战役正确决策按1/3/5/8分奖励，误判按1/2/5/10分扣除，最终A2限0至40分",
-            "error_boundary": "77名适用对象均须完成同强度负向复核；只登记本人最高决定造成统一链实质倒退的具名误判，普通败仗留在C；空数组只表示REVIEWED_NO_THRESHOLD_ERROR，不能表示未检索；贡献闭合后5至10年内由同一路线造成的迅速崩解仍进入稳定审计；玄武门之变不进入第一项",
+            "error_boundary": f"{len(eligible)}名适用对象均须完成同强度负向复核；只登记本人最高决定造成统一链实质倒退的具名误判，普通败仗留在C；空数组只表示REVIEWED_NO_THRESHOLD_ERROR，不能表示未检索；贡献闭合后5至10年内由同一路线造成的迅速崩解仍进入稳定审计；玄武门之变不进入第一项",
             "decision_boundary": "正向锚点只评价根据地、政治时机、合法性、总体夺权路径和重大纠偏；战役路线、战区统筹、主力歼灭和前线指挥只归C1/C2",
             "inheritance_boundary": "继承、辅政、摄政、政变或禅代时已经有效控制的国家机器是起点资源，不是本人新增战略成果",
             "D_merge": "原D的起点、对手和环境已进入A1，不再单列D；净控制量只进入A2",
@@ -679,6 +797,7 @@ def build_first_item_a_registry(
             "acquisition_windows": "config/first-item/first-item-c-acquisition-windows.json",
             "region_context": "config/first-item/first-item-c-territorial-control-adjudications.json",
         },
+        "a2_c_lineage": a2_c_lineage,
         "record_count": len(records),
         "eligible_count": len(eligible),
         "excluded_count": len(excluded),
@@ -699,6 +818,9 @@ def build_first_item_a_registry(
             len(row["A2"]["strategic_positive_decisions"]) for row in eligible
         ),
         "a2_cap_count": sum(float(row["A2"]["points"]) == 40.0 for row in eligible),
+        "evidence_lower_bound_count": sum(
+            bool(row["evidence_lower_bound"]) for row in eligible
+        ),
         "formal_score_write": False,
         "database_write": False,
         "ranking_write": False,
@@ -714,19 +836,11 @@ def render_first_item_a_registry_markdown(payload: Mapping[str, Any]) -> str:
     lines = [
         "# 第一项A创业战略能力结算",
         "",
-        "> 当前值只用于公式和归责校准，不写正式评分数据库。原D创业难度已经进入A1；净控制量只进入A2，既有国家机器一律算起点，不算新增成果。",
+        "> 原D创业难度已经进入A1；净控制量只进入A2，既有国家机器一律算起点，不算新增成果。",
         "> A1战略责任强度不是零和份额，只约束本人对项目难度与完成度的兑现；A2直接读取人物窗口已分账的净控制结果，不重复乘责任强度。战役路线与军事统筹只归C1/C2。",
         "",
-        f"- 名册对象：{payload['record_count']} 人",
-        f"- 奠基者完整结算：{payload['eligible_count']} 人",
-        "- canonical状态：CURRENT；本文件是A项当前唯一有效结果",
-        f"- 非奠基者不适用：{payload['excluded_count']} 人",
-        f"- 未决：{payload['unresolved_count']} 人",
-        "- 战略误判复核："
-        f"有门槛误判{payload['strategic_error_review_counts'].get('REVIEWED_ERRORS', 0)}人，"
-        f"已复核无门槛项{payload['strategic_error_review_counts'].get('REVIEWED_NO_THRESHOLD_ERROR', 0)}人；"
-        f"事件{payload['strategic_error_event_count']}项",
-        f"- 正向战略决策：{payload['strategic_positive_decision_event_count']}项；A2顶格：{payload['a2_cap_count']}人",
+        f"共{payload['record_count']}人，其中{payload['eligible_count']}名奠基者进入结算，"
+        f"{payload['excluded_count']}名非奠基者不适用。",
         "",
         "| A项序 | 对象 | 政权 | A1责任强度 | 个人原始起点 | 贡献项目起点 | 对手压力 | 控制量 | 原始规模 | 规模计分 | 综合速度 | 耐久 | 决策净值 | A1/60 | A2/40 | A/100 |",
         "|---:|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
@@ -743,7 +857,7 @@ def render_first_item_a_registry_markdown(payload: Mapping[str, Any]) -> str:
             f"{a2['strategic_positive_decision_points'] - a2['strategic_error_points']:+.1f} | "
             f"{a1['points']:.1f} | {a2['points']:.1f} | {row['A_score_points']:.1f} |"
         )
-    lines.extend(["", "## 逐人边界", ""])
+    lines.extend(["", "## 逐人结算依据", ""])
     def render_threat(encounter: Mapping[str, Any]) -> str:
         if "opponent_system_ref" in encounter:
             return (
@@ -759,14 +873,16 @@ def render_first_item_a_registry_markdown(payload: Mapping[str, Any]) -> str:
             f"### {row['canonical_rank']}. {row['ruler_name']}", "",
             f"- 难度起点：{row['difficulty_start_boundary']}；初始资源：{row['initial_resource_position']}。",
             (
-                "- 难度起点锚：" + "；".join(row["initial_resource_source_refs"]) + "。"
+                "- 起点来源："
+                + "；".join(row["initial_resource_source_refs"]) + "。"
                 if row["initial_resource_source_refs"]
-                else "- 难度起点锚：沿用人物统一贡献资格与起点复核材料。"
+                else "- 起点来源：沿用人物统一贡献资格与起点复核材料。"
             ),
+            f"- 个人起点裁决：{row['initial_resource_share_basis']}",
             f"- 贡献窗口：{row['start_boundary']} → {row['end_boundary']}；窗口位置：{row['starting_position']}。",
-            f"- 双起点资源份额：个人原始{row['A1']['starting_resource_share']:.2f}%，可归责贡献项目{row['A1']['project_start_resource_share']:.2f}%；起点难度由两者按30%/70%合成，再与对手压力按30%/70%形成纯难度。竞争格局分散度只保留审计，不进入得分。",
+            f"- 双起点资源份额：个人原始{row['A1']['starting_resource_share']:.2f}%，可归责贡献项目{row['A1']['project_start_resource_share']:.2f}%；综合难度按个人原始起点15%、项目起点35%、对手压力50%合成。",
             f"- A1战略责任强度：{row['A1']['a1_strategic_responsibility_factor']:.2f}%；{row['A1']['a1_strategic_responsibility_basis']}。项目完成{row['A1']['terminal_completion_rate']:.2f}%，归责后完成{row['A1']['attributed_completion_rate']:.2f}%；个人战役路线与军事统筹只由C1/C2结算。",
-            f"- A2统一控制兑现：新增{row['A2']['created_net_control_value']:.2f}，恢复{row['A2']['recovered_net_control_value']:.2f}，原始合计{row['A2']['gross_unification_control_value']:.2f}；恢复按50%折算后计分控制量{row['A2']['effective_unification_control_value']:.2f}（{row['evidence_status']}）。原始规模率{row['A2']['raw_control_scale_rate']:.2f}%，规模计分率{row['A2']['control_scale_score_rate']:.2f}%；A2直接读取已分账控制量，不重复乘A1责任强度。",
+            f"- A2统一控制兑现：新增{row['A2']['created_net_control_value']:.2f}，恢复{row['A2']['recovered_net_control_value']:.2f}，原始合计{row['A2']['gross_unification_control_value']:.2f}；恢复按50%折算后计分控制量{row['A2']['effective_unification_control_value']:.2f}。原始规模率{row['A2']['raw_control_scale_rate']:.2f}%，规模计分率{row['A2']['control_scale_score_rate']:.2f}%。",
             (
                 "- 正向战略决策：" + "；".join(
                     f"{decision['event']}（{decision['impact']}，位次{decision['position']}，有效奖励{decision['effective_points']:.2f}分；证据：{'、'.join(decision['source_refs'])}）"
@@ -775,7 +891,6 @@ def render_first_item_a_registry_markdown(payload: Mapping[str, Any]) -> str:
                 if row["A2"]["strategic_positive_decisions"]
                 else "- 正向战略决策：无门槛奖励项，不设保底奖励。"
             ),
-            f"- 负向复核：{row['strategic_error_review']['review_status']}；检索锚{len(row['strategic_error_review']['searched_evidence_refs'])}项。",
             "- 主要对手压力：" + "；".join(
                 render_threat(encounter)
                 for encounter in row["A1"]["major_opponent_systems"]
@@ -786,15 +901,20 @@ def render_first_item_a_registry_markdown(payload: Mapping[str, Any]) -> str:
                 if row["A1"]["opponent_system_pressure"] is not None
                 else f"；缺少可裁决O体系，按相对资源压力{row['A1']['relative_resource_pressure']:.2f}%作为证据下限"
             ) + "。",
-            (
-                "- O体系未决战役：" + "、".join(row["A1"]["unknown_opponent_campaign_refs"]) + "。"
-                if row["A1"]["unknown_opponent_campaign_refs"]
-                else "- O体系未决战役：无。"
-            ),
             f"- 归责：{row['responsibility_basis']}", "",
         ])
+        if row["A1"]["unknown_opponent_campaign_refs"]:
+            lines.insert(
+                len(lines) - 1,
+                "- 未决对手样本：" + "、".join(row["A1"]["unknown_opponent_campaign_refs"]) + "。",
+            )
         if row.get("unknown_control_scope"):
             lines.insert(len(lines) - 1, f"- 未覆盖控制：{row['unknown_control_scope']}")
+        if row["limitations"]:
+            lines.insert(
+                len(lines) - 1,
+                "- 限制：" + "；".join(row["limitations"]) + "。",
+            )
         if row["strategic_error_events"]:
             lines.insert(
                 len(lines) - 1,
@@ -802,12 +922,6 @@ def render_first_item_a_registry_markdown(payload: Mapping[str, Any]) -> str:
                     f"{event['event']}（{event['severity']}；证据：{'、'.join(event['source_refs'])}）"
                     for event in row["strategic_error_events"]
                 ) + "。",
-            )
-        else:
-            lines.insert(
-                len(lines) - 1,
-                "- 未发现门槛误判："
-                + str(row["strategic_error_review"]["no_error_basis"]),
             )
     pending = [
         row for row in payload["records"]
@@ -827,8 +941,6 @@ def render_first_item_a_registry_markdown(payload: Mapping[str, Any]) -> str:
         "## 非奠基者不适用", "",
         "以下对象A1、A2和A总分均为空值：", "",
         "、".join(str(row["ruler_name"]) for row in excluded) + "。", "",
-        "## 机器读取", "",
-        "同目录JSON是唯一机器读取源；本文件仅为同值阅读视图。", "",
     ])
     return "\n".join(lines)
 
@@ -848,7 +960,11 @@ def write_first_item_a_registry(workspace_root: Path) -> dict[str, Path]:
         ),
         territorial_inputs=load(workspace_root / "config/first-item/first-item-c-territorial-control-adjudications.json"),
         acquisition_windows=load(workspace_root / "config/first-item/first-item-c-acquisition-windows.json"),
-        roster=load_qin_qing_first_item_roster(workspace_root, efficiency_inputs),
+        roster=load_qin_qing_first_item_roster(
+            workspace_root,
+            efficiency_inputs,
+            include_current_pending_founders=True,
+        ),
     )
     output_dir = workspace_root / "docs/评分结算/第一项创业与政权取得能力/战略决策能力"
     output_dir.mkdir(parents=True, exist_ok=True)
