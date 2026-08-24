@@ -100,11 +100,11 @@ def build_first_item_formal_settlement(
         "component_max_points": {"A": 100, "B": 60, "C": 80, "C1": 50, "C2": 30},
         "composite_integration": {
             "role": "CONDITIONAL_FOUNDER_ADD_ON",
-            "common_score_scope": "items_2_3_5_6",
-            "common_positive_denominator": 865,
+            "common_score_scope": "items_2_3_5",
+            "common_positive_denominator": 775,
             "raw_rate_formula": "r = first_item_score_points / 240",
             "add_on_formula": "F = 0.10 * M * r^1.25",
-            "composite_formula": "T = S_common + F + CIV4 - D7",
+            "composite_formula": "T = S_common + F + CIV4",
             "non_founder_policy": "NOT_APPLICABLE; F = 0; do not convert to a zero-score denominator item",
         },
         "source_refs": {
@@ -136,7 +136,7 @@ def render_first_item_formal_settlement_markdown(payload: Mapping[str, Any]) -> 
     lines = [
         "# 第一项创业与政权取得能力正式结算",
         "",
-        "> 本文件是第一项240分原始结算的当前正式阅读视图；同名JSON是唯一机器读取源。第一项不直接加入共同分母，而按评分总则的条件附加公式进入综合分。正式表示第一项内部A/B/C已经闭合，不表示已写入评分数据库或形成跨七大项总排名。",
+        "> 本文件是第一项240分原始结算的当前正式阅读视图；同名JSON是唯一机器读取源。第一项不直接加入共同分母，而按评分总则的条件附加公式进入综合分。正式表示第一项内部A/B/C已经闭合，不表示已写入评分数据库或形成跨项总排名。",
         "",
         f"- 总名册：{payload['record_count']}人",
         f"- 适用统一或建国主链贡献者：{payload['eligible_count']}人",
@@ -257,7 +257,7 @@ def render_first_item_summary(
             "## 六、证据边界与后续变化条件",
             "",
             f"- A未决0人，B计分成果缺锚0项；C有{c_payload['default_count']}人按证据下限结算：{'、'.join(defaults) if defaults else '无'}。这些对象后续补成可归责创业战役时允许上调，不得用常识直接补分。",
-            "- 第一项内部结算已经闭合，但仍不写正式评分数据库，也不形成跨七大项总排名。后续战役登记、人物归责或统一窗口若发生实质变化，必须先重建A/B/C，再重建正式结算与本分析。",
+            "- 第一项内部结算已经闭合，但仍不写正式评分数据库，也不形成跨项总排名。后续战役登记、人物归责或统一窗口若发生实质变化，必须先重建A/B/C，再重建正式结算与本分析。",
             "- 本文只解释当前结果；完整逐人分值、适用状态和证据下限以正式结算JSON及三个分项JSON为准。",
             "",
             "## 七、读取入口",

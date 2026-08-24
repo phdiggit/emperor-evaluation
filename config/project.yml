@@ -211,8 +211,8 @@ first_item_summary:
   component_max_points: {A: 100, B: 60, C: 80}
   composite_role: conditional_founder_add_on
   add_on_formula: F = 0.10 * M * (first_item_score_points / 240) ^ 1.25
-  common_positive_denominator: 865
-  composite_formula: T = S_common + F + CIV4 - D7
+  common_positive_denominator: 775
+  composite_formula: T = S_common + F + CIV4
   summary_markdown: docs/评分结算/第一项创业与政权取得能力/02-第一项结算总结分析.md
   eligibility: dynasty_founders_only
   max_points: 240
@@ -222,7 +222,11 @@ first_item_summary:
 fourth_item_signed_addon:
   contract: docs/分项规则/第四项文明与国家整合收益/00-规则与计分合同.md
   formal_json: docs/评分结算/第四项文明与国家整合收益/01-第四项文明与国家整合收益正式结算.json
-  formal_markdown: docs/评分结算/第四项文明与国家整合收益/01-第四项文明与国家整合收益正式结算.md
+  formal_markdown: docs/评分结算/第四项文明与国家整合收益/02-第四项正式结算汇总.md
+  axis_markdown:
+    A: docs/评分结算/第四项文明与国家整合收益/国家共同体与社会整合/01-皇帝A项正式结算.md
+    B: docs/评分结算/第四项文明与国家整合收益/教育可及与人才流动/01-皇帝B项正式结算.md
+    C: docs/评分结算/第四项文明与国家整合收益/文化知识生产传播与生态/01-皇帝C项正式结算.md
   composite_role: signed_add_on_outside_common_positive_denominator
   range: [-67.5, 67.5]
   axis_range: [-22.5, 22.5]
@@ -241,25 +245,9 @@ fifth_item_political_quality:
     B: docs/评分结算/第五项统治者政治素质/02-B轴用人与授权正式结算.json
     C: docs/评分结算/第五项统治者政治素质/03-C轴强制权力伦理正式结算.json
   max_points: 120
+  min_points: -18
   formal_score_write: true
   item_ranking_write: true
-  database_write: false
-  cross_item_ranking_write: false
-
-sixth_item_critical_decisions:
-  contract: docs/分项规则/第六项关键历史决策能力/00-规则与计分合同.md
-  max_points: 90
-  formal_score_write: false
-  item_ranking_write: false
-  database_write: false
-  cross_item_ranking_write: false
-
-seventh_item_historical_debt:
-  contract: docs/分项规则/第七项历史负债/00-规则与计分合同.md
-  range: [0, 300]
-  composite_role: deduction
-  formal_score_write: false
-  item_ranking_write: false
   database_write: false
   cross_item_ranking_write: false
 

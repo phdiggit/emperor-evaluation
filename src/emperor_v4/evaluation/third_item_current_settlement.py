@@ -19,6 +19,7 @@ from emperor_v4.evaluation.third_item_d_settlement import (
 
 RESULT_CREDIT_ADJUDICATIONS_PATH = Path("config/third-item-result-credit-adjudications.json")
 COST_CREDIT_FACTORS_PATH = Path("config/third-item-cost-credit-factors.json")
+MILITARY_NET_LOSS_PENALTIES_PATH = Path("config/third-item-military-net-loss-penalties.json")
 C_OUTCOME_ADJUDICATIONS_PATH = Path("config/third-item-c-outcome-adjudications.json")
 AB_HANDOFF_ADJUDICATIONS_PATH = Path("config/third-item-ab-handoff-adjudications.json")
 
@@ -54,7 +55,7 @@ def _component_identity(
 def _rank(records: Sequence[dict[str, Any]]) -> None:
     ready = sorted(
         (row for row in records if row["third_item_score_points"] is not None),
-        key=lambda row: (-float(row["third_item_score_points"]), str(row["ruler_name"])),
+        key=lambda row: (-float(row["third_item_score_points"]), str(row["ruler_id"])),
     )
     previous: float | None = None
     rank = 0
@@ -113,15 +114,15 @@ def _validate_cost_factor_contract(payload: Mapping[str, Any]) -> None:
 def _render_current_weighted_markdown(records: Sequence[Mapping[str, Any]]) -> str:
     eligible = sorted(
         (row for row in records if row.get("third_item_score_points") is not None),
-        key=lambda row: (int(row["rank"]), str(row["ruler_name"])),
+        key=lambda row: (int(row["rank"]), str(row["ruler_id"])),
     )
     lines = [
         "# 秦至清第三项军事与边疆正式结算",
         "",
-        "本表按A120战略安全结果、B80边疆控制结果、C50军事体系能力合并；成本只折算A正向成果信用和B成果信用。A客观终点与负债、C能力均不折损，原D40不再独立加分。机器读取入口为同名JSON。",
+        "本表按A120战略安全结果、B80边疆控制结果、C50军事体系能力合并；成本先折算A正向成果信用和B成果信用。只有第三项自身闭合EN2/EN3、C5以上本方军事成本和本人责任时，才另加0至-40分军事净毁损尾部。机器读取入口为同名JSON。",
         "",
-        "| 排名 | 皇帝 | 政权 | 在位 | A120 | B80 | C50 | 全局成本 | 系数 | 总分/250 |",
-        "|---:|---|---|---|---:|---:|---:|---|---:|---:|",
+        "| 排名 | 皇帝 | 政权 | 在位 | A120 | B80 | C50 | 全局成本 | 系数 | 净毁损 | 总分 |",
+        "|---:|---|---|---|---:|---:|---:|---|---:|---:|---:|",
     ]
     for row in eligible:
         profile = row["global_cost_credit_profile"]
@@ -129,7 +130,7 @@ def _render_current_weighted_markdown(records: Sequence[Mapping[str, Any]]) -> s
             f"| {row['rank']} | {row['ruler_name']} | {row['polity']} | {_reign_range_label(row['reign_range'])} | "
             f"{float(row['A120_score_points']):.2f} | {float(row['B80_score_points']):.2f} | "
             f"{float(row['C50_score_points']):.2f} | {profile['cost_band']}-{profile['position']} | "
-            f"{float(row['cost_credit_factor']):.3f} | {float(row['third_item_score_points']):.2f} |"
+            f"{float(row['cost_credit_factor']):.3f} | {float(row['military_net_loss_penalty']):.2f} | {float(row['third_item_score_points']):.2f} |"
         )
     lines += ["", "## 逐人结算依据", ""]
     for row in eligible:
@@ -140,7 +141,8 @@ def _render_current_weighted_markdown(records: Sequence[Mapping[str, Any]]) -> s
             f"- 结果结构：A非成本锚{float(row['A120_non_cost_anchor_points']):.2f}；A正向成果信用{float(row['A120_positive_result_credit_points']):.2f}；B成果信用{float(row['B80_score_points']):.2f}；C能力{float(row['C50_score_points']):.2f}。",
             f"- 成本折算：D局部成本为{row['D_local_cost_profile']['cost_band']}-{row['D_local_cost_profile']['position']}；全局成果信用成本为{profile['cost_band']}-{profile['position']}，系数{float(row['cost_credit_factor']):.3f}。",
             f"- 全局成本依据：{profile['basis']}",
-            f"- 合成：{float(row['A120_non_cost_anchor_points']):.2f} + {float(row['cost_credit_factor']):.3f} × ({float(row['A120_positive_result_credit_points']):.2f} + {float(row['B80_score_points']):.2f}) + {float(row['C50_score_points']):.2f} = {float(row['third_item_score_points']):.2f}。",
+            f"- 军事净毁损：{row['military_net_loss_grade']}，归责{row['military_net_loss_attribution']}，{float(row['military_net_loss_penalty']):.2f}分。{row['military_net_loss_basis']}",
+            f"- 合成：{float(row['A120_non_cost_anchor_points']):.2f} + {float(row['cost_credit_factor']):.3f} × ({float(row['A120_positive_result_credit_points']):.2f} + {float(row['B80_score_points']):.2f}) + {float(row['C50_score_points']):.2f} + ({float(row['military_net_loss_penalty']):.2f}) = {float(row['third_item_score_points']):.2f}。",
             "",
         ]
     return "\n".join(lines).rstrip() + "\n"
@@ -154,6 +156,7 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
         "combined": workspace_root / FORMAL_PATH,
         "result_credit": workspace_root / RESULT_CREDIT_ADJUDICATIONS_PATH,
         "cost_credit": workspace_root / COST_CREDIT_FACTORS_PATH,
+        "military_net_loss": workspace_root / MILITARY_NET_LOSS_PENALTIES_PATH,
     }
     payloads = {key: _load(path) for key, path in paths.items()}
     _validate_cost_factor_contract(payloads["cost_credit"])
@@ -164,6 +167,41 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
     cost_overrides = _index(
         payloads["cost_credit"]["global_cost_overrides"], "global_cost_overrides"
     )
+    military_net_loss_policy = payloads["military_net_loss"]["policy"]
+    expected_penalties = {"ML0": 0, "ML1": -10, "ML2": -20, "ML3": -30, "ML4": -40}
+    if military_net_loss_policy != expected_penalties:
+        raise ValueError("军事净毁损档位映射与合同不一致")
+    military_net_loss_by_name = _index(
+        payloads["military_net_loss"]["records"], "military_net_loss"
+    )
+    attribution_policy = payloads["military_net_loss"]["attribution_policy"]
+    if attribution_policy.get("default") != "FULL":
+        raise ValueError("军事净毁损默认归责必须为FULL")
+    material_attribution_ids = {str(value) for value in attribution_policy.get("material_ruler_ids") or ()}
+    configured_net_loss_ids = {str(item["ruler_id"]) for item in military_net_loss_by_name.values()}
+    if not material_attribution_ids.issubset(configured_net_loss_ids):
+        raise ValueError("军事净毁损MATERIAL归责名单包含未裁决人物")
+    for name, item in military_net_loss_by_name.items():
+        if item["grade"] not in expected_penalties:
+            raise ValueError(f"{name}军事净毁损档位非法")
+        d_row = indexed["D"].get(name)
+        if d_row is None or str(d_row["ruler_id"]) != str(item["ruler_id"]):
+            raise ValueError(f"{name}军事净毁损裁决与D人物不一致")
+        cost_override = cost_overrides.get(name)
+        cost_band_label = (
+            cost_override["global_cost_band"]
+            if cost_override is not None
+            else d_row["attributable_cost_profile"]["cost_band"]
+        )
+        cost_band = int(str(cost_band_label)[1:])
+        if cost_band < 5:
+            raise ValueError(f"{name}军事净毁损未通过C5成本门")
+        chains = list(d_row.get("external_strategic_chains") or ()) + list(d_row.get("strategic_internal_chains") or ())
+        if not any(
+            str(chain.get("security_result_grade") or chain.get("achievement_grade") or "").startswith(("EN2", "EN3"))
+            for chain in chains
+        ):
+            raise ValueError(f"{name}军事净毁损未通过EN2/EN3门")
     c_consumed_by_name = {
         name: {
             str(chain["chain_id"])
@@ -214,6 +252,7 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
             "D_score_points",
             "D_score_status",
             "axes",
+            "military_long_term_debt",
         ):
             base.pop(stale_key, None)
 
@@ -265,12 +304,24 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
             cost_factor = float(
                 factor_table[global_cost_profile["cost_band"]][global_cost_profile["position"]]
             )
+        net_loss = military_net_loss_by_name.get(name)
+        net_loss_grade = str(net_loss["grade"]) if net_loss else "ML0"
+        net_loss_penalty = float(expected_penalties[net_loss_grade])
+        net_loss_basis = str(net_loss["basis"]) if net_loss else "未同时通过EN2/EN3、C5以上本方成本和本人责任门，不生成负向尾部。"
+        net_loss_attribution = (
+            "NONE"
+            if net_loss is None
+            else "MATERIAL"
+            if ruler_id in material_attribution_ids
+            else "FULL"
+        )
         total = None
         if None not in (a120_anchor, a120_positive, b80_points, c50_points, cost_factor):
             total = round(
                 float(a120_anchor)
                 + float(cost_factor) * (float(a120_positive) + float(b80_points))
-                + float(c50_points),
+                + float(c50_points)
+                + net_loss_penalty,
                 2,
             )
         missing = []
@@ -298,7 +349,11 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
             "D_local_cost_profile": local_cost_profile,
             "global_cost_credit_profile": global_cost_profile,
             "cost_credit_factor": cost_factor,
-            "score_formula": "A120_non_cost_anchor + factor * (A120_positive_result_credit + B80) + C50",
+            "score_formula": "A120_non_cost_anchor + factor * (A120_positive_result_credit + B80) + C50 + military_net_loss_penalty",
+            "military_net_loss_grade": net_loss_grade,
+            "military_net_loss_attribution": net_loss_attribution,
+            "military_net_loss_penalty": net_loss_penalty,
+            "military_net_loss_basis": net_loss_basis,
             "third_item_score_points": total,
             "third_item_score_rate": None if total is None else round(total / 250 * 100, 2),
             "coverage_status": {
@@ -314,6 +369,13 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
         records.append(base)
 
     _rank(records)
+    records.sort(
+        key=lambda row: (
+            row["third_item_score_points"] is None,
+            -float(row["third_item_score_points"] or 0),
+            str(row["ruler_id"]),
+        )
+    )
     scores = [float(row["third_item_score_points"]) for row in records if row["third_item_score_points"] is not None]
     old = payloads["combined"]
     result = {
@@ -326,20 +388,22 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
         "record_count": len(records),
         "score_ready_count": len(scores),
         "C_unassessed_count": sum(row["C50_score_points"] is None for row in records),
-        "scope": "当前AB/C/D组件与A120/B80裁决并集；A120非成本锚加成本折算后的A正向及B成果信用，再加C50",
+        "scope": "当前AB/C/D组件与A120/B80裁决并集；A120非成本锚加成本折算后的A正向及B成果信用，再加C50与军事净毁损尾部",
         "score_contract": {
             "maximum_points": 250,
+            "minimum_points": -40,
             "A120_maximum": 120,
             "B80_maximum": 80,
             "C50_maximum": 50,
             "D_cost_role": "GLOBAL_COST_CREDIT_FACTOR_SOURCE_NOT_ADDITIVE",
-            "formula": "A120_non_cost_anchor + factor * (A120_positive_result_credit + B80) + C50",
+            "military_net_loss_penalty_range": [-40, 0],
+            "formula": "A120_non_cost_anchor + factor * (A120_positive_result_credit + B80) + C50 + military_net_loss_penalty",
             "rounding": "ROUND_FINAL_SCORE_TO_2_DECIMALS",
         },
-        "score_recalculation_policy": "A120_CURRENT_PLUS_B80_COST_CREDIT_PLUS_C50",
+        "score_recalculation_policy": "A120_CURRENT_PLUS_B80_COST_CREDIT_PLUS_C50_PLUS_MILITARY_NET_LOSS",
         "score_range": {"minimum": min(scores), "maximum": max(scores)},
         "source_result_sha256": {
-            key: _sha256(paths[key]) for key in ("AB", "C", "D", "result_credit", "cost_credit")
+            key: _sha256(paths[key]) for key in ("AB", "C", "D", "result_credit", "cost_credit", "military_net_loss")
         },
         "component_coverage_counts": {
             "AB": len(indexed["AB"]),

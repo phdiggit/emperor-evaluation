@@ -920,14 +920,15 @@ def test_current_third_item_settlement_uses_component_union_deterministically() 
                 row["A120_positive_result_credit_points"]
                 + row["B80_score_points"]
             )
-            + row["C50_score_points"],
+            + row["C50_score_points"]
+            + row["military_net_loss_penalty"],
             2,
         )
         for row in ready
     )
     assert first["schema_id"] == "emperor-v4-third-item-formal-settlement-v6-current-only"
     assert first["score_contract"]["D_cost_role"] == "GLOBAL_COST_CREDIT_FACTOR_SOURCE_NOT_ADDITIVE"
-    assert first["score_recalculation_policy"] == "A120_CURRENT_PLUS_B80_COST_CREDIT_PLUS_C50"
+    assert first["score_recalculation_policy"] == "A120_CURRENT_PLUS_B80_COST_CREDIT_PLUS_C50_PLUS_MILITARY_NET_LOSS"
     stale_fields = {
         "A_score_points",
         "B_score_points",
@@ -936,6 +937,7 @@ def test_current_third_item_settlement_uses_component_union_deterministically() 
         "D_score_points",
         "D_score_status",
         "axes",
+        "military_long_term_debt",
     }
     assert all(stale_fields.isdisjoint(row) for row in first["records"])
     assert by_name["李世民"]["global_cost_credit_profile"]["cost_band"] == "C4"

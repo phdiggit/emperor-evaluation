@@ -1621,7 +1621,7 @@ def render_first_item_summary(
             "",
             f"- A/B/C均覆盖秦至清{a_payload['record_count']}名册对象，适用统一主链贡献者{len(totals)}人；",
             f"- C创业主链证据缺口保守默认{c_payload['default_count']}人；",
-            "- 当前结果不写正式数据库、不形成跨七大项总排名。",
+            "- 当前结果不写正式数据库、不形成跨项总排名。",
             "",
             "机器明细分别见[A结算JSON](战略决策能力/01-第一项A战略决策能力结算.json)、[B结算JSON](政治整合能力/01-第一项B政治整合能力结算.json)和[C结算JSON](军事夺取能力/01-第一项C军事夺取能力结算.json)。",
             "",
