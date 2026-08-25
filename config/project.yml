@@ -12,14 +12,16 @@ scoring_contract:
   first_item_add_on_formula: F = 0.10 * 775 * (S1 / 240) ^ 1.25
   composite_formula: T = S_common + F + CIV4
   database_write: false
-  cross_item_ranking_write: false
+  cross_item_ranking_write: true
+  composite_ranking_json: docs/评分结算/00-皇帝综合评价总榜.json
+  composite_ranking_markdown: docs/评分结算/00-皇帝综合评价总榜.md
 
 canonical_ruler_pool:
   status: current
   candidate_count: 201
   included_count: 184
-  composite_ready_count: 148
-  pending_second_item_count: 36
+  composite_ready_count: 174
+  pending_second_item_count: 10
   pending_first_item_scope_count: 0
   pending_first_item_formal_settlement_count: 0
   first_item_outside_candidate_pool_count: 5
@@ -39,6 +41,9 @@ formal_settlements:
     role: common_governance
     json: docs/评分结算/第二项治国净收益/01-第二项治国净收益405分正式结算.json
     markdown: docs/评分结算/第二项治国净收益/01-第二项治国净收益405分正式结算.md
+    ranking_population: COMPOSITE_READY
+    ranking_json: docs/评分结算/第二项治国净收益/02-正式评价池排名.json
+    ranking_markdown: docs/评分结算/第二项治国净收益/02-正式评价池排名.md
   third_item:
     range: [-40, 250]
     role: common_military
@@ -66,4 +71,5 @@ retained_build_chain:
   military_cost_benefit_registry: docs/公共成果/军事/03-军事行动成本和收益登记.json
   first_item_commands: [first-item-a-registry, first-item-b-registry, first-item-c-registry]
   third_item_commands: [third-item-d-settlement, third-item-current-settlement]
+  composite_ranking_command: composite-ranking --write
   verification_command: formal-settlements-verify

@@ -1,0 +1,119 @@
+schema_version: canonical-ruler-admission-adjudications-v1
+status: CURRENT
+policy:
+  minimum_effective_power_years: 3
+  requires_independent_highest_decision_power: true
+  pending_second_item_requires_local_evidence_refs: true
+
+actual_power_window_overrides:
+  冯太后:
+    actual_power_window: "[[465, 467], [476, 490]]"
+    basis: 首次临朝与复临朝是两个本人最高权力窗口，中间拓跋弘本人主政期不得并入。
+    evidence_refs:
+      - config/third-item/third-item-result-credit-adjudications.json
+      - docs/公共成果/军事/03-军事行动成本和收益登记.json
+  王莽:
+    actual_power_window: 6—23年实际最高主政
+    basis: 6年起摄政主政已满足实际最高权力口径，不以8年称帝作为实际权力起点。
+    evidence_refs:
+      - docs/公共成果/军事/03-军事行动成本和收益登记.json
+      - docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json
+  刘裕:
+    actual_power_window: 404—422年实际掌权至宋帝
+    basis: 404年起兵并控制东晋中枢后的实际最高主政链连续至422年。
+    evidence_refs:
+      - docs/史料通读产物/唐以前编年/两晋/卷113-通读总结.md
+      - docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json
+  刘祜:
+    actual_power_window: 121—125年亲政
+    basis: 106—121年邓绥临朝不得归为刘祜独立最高决策；本人可结算窗口从邓绥去世后的121年起算。
+    evidence_refs:
+      - docs/评分结算/第三项军事与边疆净收益/03-第三大项结算总结分析.md
+      - docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json
+  刘志:
+    actual_power_window: 150—168年亲政
+    basis: 146—150年梁妠临朝不得与刘志重复归责；本人窗口从150年亲政起算。
+    evidence_refs:
+      - docs/评分结算/第三项军事与边疆净收益/03-第三大项结算总结分析.md
+      - docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json
+
+second_item_window_adjudications:
+  ACCEPTED_AFTER_WINDOW_NARROWING:
+    rulers: [冯太后, 刘肇, 刘祜, 刘志, 司马曜, 宇文邕, 嬴政, 高纬, 玄烨]
+    basis: 第二项计分主因位于本人实际最高权力窗口；窗口前材料仅允许作继承基线、背景或明确不计分约束。刘祜、刘志已完成C1—C4逐轴重审，其余对象经现有四轴证据复核，正式分值均可保留。
+    evidence_refs:
+      - docs/评分结算/第二项治国净收益/制度行政/01-A制度建设与实际运行方向卡.json
+      - docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json
+      - docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json
+      - docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json
+      - docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json
+      - docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json
+exclusions:
+  溥仪:
+    reason_code: EXCLUDED_NO_EFFECTIVE_POWER
+    reason: 清帝在本项目时段内没有可持续、独立的最高决策权；复辟窗口亦不足一年。
+  刘盈:
+    reason_code: EXCLUDED_LIMITED_INDEPENDENT_POWER
+    reason: 吕后强势主政下仅保留有限本人选择，不能把政权运行结果稳定归为本人最高决策。
+  司马炽:
+    reason_code: EXCLUDED_LIMITED_INDEPENDENT_POWER
+    reason: 实际权力长期受司马越制约，现有材料只能辨认有限本人选择，不足以支撑统一尺度的最高统治者评价。
+  陈霸先:
+    reason_code: EXCLUDED_EFFECTIVE_POWER_LT_3_YEARS
+    reason: 557—559年实际最高统治不足3年。
+  司马绍:
+    reason_code: EXCLUDED_EFFECTIVE_POWER_LT_3_YEARS
+    reason: 323—325年实际最高统治不足3年。
+  朱聿键:
+    reason_code: EXCLUDED_EFFECTIVE_POWER_LT_3_YEARS
+    reason: 1645—1646年实际最高统治不足3年。
+  司马懿:
+    reason_code: EXCLUDED_EFFECTIVE_POWER_LT_3_YEARS
+    reason: 249—251年高平陵政变后实际最高统治不足3年。
+  述律平:
+    reason_code: EXCLUDED_EFFECTIVE_POWER_LT_3_YEARS
+    reason: 926—927年临朝窗口不足3年。
+  刘知远:
+    reason_code: EXCLUDED_EFFECTIVE_POWER_LT_3_YEARS
+    reason: 947—948年实际最高统治不足3年。
+  载淳:
+    reason_code: EXCLUDED_EFFECTIVE_POWER_LT_3_YEARS
+    reason: 1873—1875年亲政窗口不足3年。
+  朱由崧:
+    reason_code: EXCLUDED_EFFECTIVE_POWER_LT_3_YEARS
+    reason: 1644—1645年实际最高统治不足3年。
+  刘玄:
+    reason_code: EXCLUDED_EFFECTIVE_POWER_LT_3_YEARS
+    reason: 23—25年实际最高统治不足3年。
+  萧绎:
+    reason_code: EXCLUDED_EFFECTIVE_POWER_LT_3_YEARS
+    reason: 552—554年称帝主政窗口不足3年。
+  李旦:
+    reason_code: EXCLUDED_EFFECTIVE_POWER_LT_3_YEARS
+    reason: 710—712年复位窗口不足3年，且太平公主强势制约。
+  赵桓:
+    reason_code: EXCLUDED_EFFECTIVE_POWER_LT_3_YEARS
+    reason: 1126—1127年实际最高统治不足3年。
+  冉闵:
+    reason_code: EXCLUDED_EFFECTIVE_POWER_LT_3_YEARS
+    reason: 350—352年实际最高统治不足3年。
+  李睍:
+    reason_code: EXCLUDED_EFFECTIVE_POWER_LT_3_YEARS
+    reason: 1226—1227年实际最高统治不足3年。
+
+pending_second_item_feasibility_groups:
+  WESTERN_XIA:
+    evidence_refs:
+      - docs/史料通读产物/西夏
+    rulers: [李安全, 李秉常, 李德明, 李德旺, 李谅祚, 李乾顺, 李仁孝, 李元昊]
+  NORTHERN_WEI:
+    evidence_refs:
+      - docs/公共成果/法律/朝代底账/11-北魏法律治理结构化登记前底账.md
+      - docs/史料通读产物/唐以前编年
+    rulers: [拓跋弘]
+  LATE_QING:
+    evidence_refs:
+      - docs/史料通读产物/清/清史稿
+      - docs/史料通读产物/清/制度行政独立史源补证.json
+      - docs/公共成果/法律/朝代底账/24-清代法律治理结构化登记前底账.md
+    rulers: [载湉]

@@ -12,6 +12,10 @@ from emperor_v4.evaluation.canonical_ruler_pool import (
     build_canonical_ruler_pool,
     write_canonical_ruler_pool,
 )
+from emperor_v4.evaluation.composite_ranking import (
+    build_composite_ranking,
+    write_composite_ranking,
+)
 from emperor_v4.evaluation.formal_settlements import verify_formal_settlements
 from emperor_v4.evaluation.third_item_current_settlement import (
     build_current_third_item_settlement,
@@ -26,6 +30,9 @@ def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="皇帝综合评价体系 V4 评分命令")
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("formal-settlements-verify")
+    composite = commands.add_parser("composite-ranking")
+    composite.add_argument("--workspace-root", type=Path, default=Path("."))
+    composite.add_argument("--write", action="store_true")
     canonical_pool = commands.add_parser("canonical-ruler-pool")
     canonical_pool.add_argument("--workspace-root", type=Path, default=Path("."))
     canonical_pool.add_argument("--write", action="store_true")
@@ -58,6 +65,25 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
 
     workspace_root = args.workspace_root.resolve()
+    if args.command == "composite-ranking":
+        if args.write:
+            return _print_written(write_composite_ranking(workspace_root))
+        payload = build_composite_ranking(workspace_root)
+        print(
+            json.dumps(
+                {
+                    "record_count": payload["record_count"],
+                    "pending_second_item_count": payload["pending_second_item_count"],
+                    "mean_score": payload["mean_score"],
+                    "median_score": payload["median_score"],
+                    "min_score": payload["min_score"],
+                    "max_score": payload["max_score"],
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+        )
+        return 0
     if args.command == "canonical-ruler-pool":
         if args.write:
             return _print_written(write_canonical_ruler_pool(workspace_root))
