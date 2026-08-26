@@ -1,169 +1,263 @@
 {
-  "schema_version": "profile-c2-high-grade-calibration-v1",
+  "schema_version": "profile-c2-high-grade-calibration-v2",
   "canonical_status": "FORMAL_CURRENT",
   "axis_code": "C2",
-  "profile_count": 8,
-  "cross_pool_calibration": "G4/G5仅保留多个独立学习周期、后续复验与反例暴露均闭合者；单次纳谏、罪己诏或接口设置未进入高档。",
+  "profile_count": 6,
+  "cross_pool_calibration": "G4/G5逐项列出至少两个独立学习周期及锚点；不使用PASSED状态、MI或父链数量替代语义。",
   "profiles": [
     {
       "ruler_id": "RULER-NS-ZHAO-ZHEN",
       "ruler_name": "赵祯",
       "axis_grade": "G5",
       "position": "LOW",
-      "cycle_anchor_count": 7,
-      "cycle_anchor_refs": [
-        "NS-ZZ-PRIMARY-INTERNAL-COMMAND-REVIEW",
-        "NS-ZZ-V039-CENSOR-SELECTION",
-        "NS-ZZ-V039-PALACE-GATE-SUPPRESSION",
-        "NS-ZZ-V041-DISASTER-FEEDBACK",
-        "docs/史料通读产物/北宋/续资治通鉴/volume-039.source-summary.md#P0087-P0091",
-        "docs/史料通读产物/北宋/续资治通鉴/volume-041.source-summary.md#P0017-P0044",
-        "docs/史料通读产物/北宋/续资治通鉴/volume-042.source-summary.md#P0095,P0099"
+      "independent_cycle_count": 3,
+      "learning_cycles": [
+        {
+          "parent_id": "C2-P072-LIAO-EXIT",
+          "direction": "POSITIVE",
+          "intensity": "MI3",
+          "lifecycle_basis": "原判断是宋夏战败后仍须守住关南；辽集兵索十县使两线成本明确到达。赵祯理解辽方核心利益可由岁币替代土地，授权富弼两使、调整国书与报价，以增币而不割地完成撤兵；国书、岁币和使节往来随后执行，构成对外反馈后的换路复验。",
+          "anchor_refs": [
+            "docs/史料通读产物/北宋/续资治通鉴/volume-043.source-summary.md#L68",
+            "docs/史料通读产物/北宋/续资治通鉴/volume-045.source-summary.md#L59"
+          ],
+          "semantic_closure": "逐项确认原判断、反证或反馈到达、本人理解、实际改策与后续复验；未用PASSED状态替代语义。"
+        },
+        {
+          "parent_id": "C2-P072-XIXIA-EXIT",
+          "direction": "POSITIVE",
+          "intensity": "MI3",
+          "lifecycle_basis": "原先对西夏用兵未能止败且边费持续；元昊求和、财政贸易压力与前线损耗使旧路径失效。赵祯转而把称臣、封号、岁赐、榷场及既复城寨不退组成条件包，理解到承认与贸易可替代继续消耗；誓表、册封、岁赐和榷场实际运行，完成第二对象复验。",
+          "anchor_refs": [
+            "docs/史料通读产物/北宋/续资治通鉴/volume-043.source-summary.md#L43",
+            "docs/史料通读产物/北宋/续资治通鉴/volume-047.source-summary.md#L68"
+          ],
+          "semantic_closure": "逐项确认原判断、反证或反馈到达、本人理解、实际改策与后续复验；未用PASSED状态替代语义。"
+        },
+        {
+          "parent_id": "C2-P072-DISASTER-SPEECH",
+          "direction": "MIXED_POSITIVE",
+          "intensity": "MI3",
+          "lifecycle_basis": "视朝与言路一度受限；灾异、台谏反复论列和伏阁求对使信息阻塞直接暴露。赵祯随后恢复日朝、解除部分限制并继续让台谏进入决策，说明理解了渠道收窄对判断的损害；此前逐谏官和宫门压制保留为反例，故为混合正向而非纯正。",
+          "anchor_refs": [
+            "NS-ZZ-V041-DISASTER-FEEDBACK",
+            "docs/史料通读产物/北宋/续资治通鉴/volume-041.source-summary.md#P0017-P0044"
+          ],
+          "semantic_closure": "逐项确认原判断、反证或反馈到达、本人理解、实际改策与后续复验；未用PASSED状态替代语义。"
+        }
       ],
-      "multiple_independent_learning_cycles_review": "PASSED_MANUAL_REVIEW",
-      "later_retest_review": "PASSED",
-      "source_density_asymmetry_review": "COVERAGE_CLOSED",
-      "c5_overlap_review": "COGNITIVE_SLICE_ONLY_NO_DUPLICATE_C5_BENEFIT",
-      "basis": "逐人复核父链所列反馈到达、本人理解、判断更新、行为改变与后续复验后作整体裁决；既有A2/B2档位、分数与材料数量均未换算。"
+      "independence_basis": "赵祯的各周期按不同对象、事件或阶段拆分；同一material正负阶段合并，未用锚点数量冒充周期数量。",
+      "later_retest_basis": "赵祯分别在辽索地、西夏战败和灾异言路三个独立情境中，把到达的反证转成可执行调整，并有条约或制度后续；言路压制反例限制纯度，但跨对象、跨阶段复验仍达到G5-LOW。",
+      "c5_boundary_basis": "高档只消费理解与改策；异议者安全、惩罚、清洗、程序和比例不作为本档得益或受损。"
     },
     {
       "ruler_id": "RULER-TANG-LISHIMIN",
       "ruler_name": "李世民",
       "axis_grade": "G5",
       "position": "LOW",
-      "cycle_anchor_count": 5,
-      "cycle_anchor_refs": [
-        "I2-TANG-TS-LATE-REMONSTRANCE-DECLINE-001",
-        "MC-TANG-TS-DELIBERATION-M3-AUDIT",
-        "MC-TANG-TS-LEGAL-REVIEW-M2-M3-02-AUDIT",
-        "MC-TANG-TS-REMONSTRANCE-LIFECYCLE-M2-M3-02-AUDIT",
-        "https://zh.wikisource.org/zh/貞觀政要/卷02"
+      "independent_cycle_count": 3,
+      "learning_cycles": [
+        {
+          "parent_id": "C2-P153-TURK-RECALIBRATION",
+          "direction": "POSITIVE",
+          "intensity": "MI4",
+          "lifecycle_basis": "唐初突厥压境暴露新朝兵力与承载不足；李世民没有把一次渭水退敌理解为问题消失，而是由有限承诺争取时间，继而转向离间、分化和重组北方关系。后续东突厥处置与边防缓冲复验了这一认知更新，区别于一次临场胜负。",
+          "anchor_refs": [
+            "資治通鑑/卷191#七月一度议焚长安迁都避突厥",
+            "WAR-LEAD-TANG-LUOYANG-END"
+          ],
+          "semantic_closure": "逐项确认原判断、反证或反馈到达、本人理解、实际改策与后续复验；未用PASSED状态替代语义。"
+        },
+        {
+          "parent_id": "C2-P153-GOGURYEO-REVIEW",
+          "direction": "MIXED_POSITIVE",
+          "intensity": "MI2",
+          "lifecycle_basis": "原判断由调停转为亲征高句丽；安市久攻、早寒草枯水冻和粮尽使成本反证到达。李世民下令班师、组织辽泽撤退并在战后自悔未成，余下在位期未再以同规模亲征加码；初始过度与纠正并存，故为混合正向。",
+          "anchor_refs": [
+            "WAR-LEAD-TANG-GOGURYEO-645",
+            "docs/史料通读产物/唐以前编年/唐/卷198-通读总结.md"
+          ],
+          "semantic_closure": "逐项确认原判断、反证或反馈到达、本人理解、实际改策与后续复验；未用PASSED状态替代语义。"
+        },
+        {
+          "parent_id": "C2-P153-REMONSTRANCE",
+          "direction": "MIXED_POSITIVE",
+          "intensity": "MI3",
+          "lifecycle_basis": "魏徵等持续提供与本人偏好相反的信息；李世民把反对意见理解为校正最高判断的镜鉴，长期保留谏议角色并在多项决策中改意。晚年纳谏减弱和重大决策纠偏不足作为同一生命周期后段反证，不另拆负链。",
+          "anchor_refs": [
+            "MC-TANG-TS-REMONSTRANCE-LIFECYCLE-M2-M3-02-AUDIT",
+            "https://zh.wikisource.org/zh/貞觀政要/卷02"
+          ],
+          "semantic_closure": "逐项确认原判断、反证或反馈到达、本人理解、实际改策与后续复验；未用PASSED状态替代语义。"
+        }
       ],
-      "multiple_independent_learning_cycles_review": "PASSED_MANUAL_REVIEW",
-      "later_retest_review": "PASSED",
-      "source_density_asymmetry_review": "COVERAGE_CLOSED",
-      "c5_overlap_review": "COGNITIVE_SLICE_ONLY_NO_DUPLICATE_C5_BENEFIT",
-      "basis": "逐人复核父链所列反馈到达、本人理解、判断更新、行为改变与后续复验后作整体裁决；既有A2/B2档位、分数与材料数量均未换算。"
-    },
-    {
-      "ruler_id": "RULER-JIN-SHIZONG",
-      "ruler_name": "完颜雍",
-      "axis_grade": "G4",
-      "position": "HIGH",
-      "cycle_anchor_count": 4,
-      "cycle_anchor_refs": [
-        "I2-JIN-MAT-1CE470F310B16E88",
-        "I2-JIN-MAT-4293D7BC9BF71E37",
-        "docs/公共成果/制度行政/01-制度行政计分材料登记.md#完颜雍",
-        "https://zh.wikisource.org/zh-hans/金史/卷47"
-      ],
-      "multiple_independent_learning_cycles_review": "PASSED_MANUAL_REVIEW",
-      "later_retest_review": "PASSED",
-      "source_density_asymmetry_review": "COVERAGE_CLOSED",
-      "c5_overlap_review": "COGNITIVE_SLICE_ONLY_NO_DUPLICATE_C5_BENEFIT",
-      "basis": "逐人复核父链所列反馈到达、本人理解、判断更新、行为改变与后续复验后作整体裁决；既有A2/B2档位、分数与材料数量均未换算。"
+      "independence_basis": "李世民的各周期按不同对象、事件或阶段拆分；同一material正负阶段合并，未用锚点数量冒充周期数量。",
+      "later_retest_basis": "李世民在突厥关系、高句丽失败复盘和中枢谏诤三个独立对象上形成反馈—理解—改策—复验；两个周期含晚期或初始反证，仍未出现跨对象拒绝更新主模式，裁G5-LOW。",
+      "c5_boundary_basis": "高档只消费理解与改策；异议者安全、惩罚、清洗、程序和比例不作为本档得益或受损。"
     },
     {
       "ruler_id": "RULER-HAN-LIUHENG",
       "ruler_name": "刘恒",
       "axis_grade": "G4",
       "position": "MID",
-      "cycle_anchor_count": 7,
-      "cycle_anchor_refs": [
-        "I2-WHAN-WEN-CHANCELLOR-AUTONOMY-001",
-        "I2-WHAN-WEN-SHIZHI-PROCESS-001",
-        "I2-WHAN-WEN-TIYING-UPWARD-FEEDBACK-001",
-        "docs/公共成果/制度行政/01-制度行政计分材料登记/western_han.json#I2-WHAN-WEN-SHIZHI-PROCESS-001",
-        "docs/公共成果/制度行政/01-制度行政计分材料登记/western_han.json#I2-WHAN-WEN-TIYING-UPWARD-FEEDBACK-001",
-        "https://zh.wikisource.org/w/index.php?title=%E6%BC%A2%E6%9B%B8%2F%E5%8D%B7023&oldid=7908643",
-        "https://zh.wikisource.org/w/index.php?title=%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91%2F%E5%8D%B7014&oldid=1554008"
+      "independent_cycle_count": 2,
+      "learning_cycles": [
+        {
+          "parent_id": "C2-P020-SHIZHI-LAW",
+          "direction": "POSITIVE",
+          "intensity": "MI2",
+          "lifecycle_basis": "皇帝即时处置偏好在张释之依法裁断时受到反证；刘恒接受廷尉按既定法律说明而改变原处置，并在不同案件中继续允许司法专业判断约束最高意志，形成跨案件复验。",
+          "anchor_refs": [
+            "I2-WHAN-WEN-SHIZHI-PROCESS-001",
+            "https://zh.wikisource.org/w/index.php?title=%E6%BC%A2%E6%9B%B8%2F%E5%8D%B7023&oldid=7908643"
+          ],
+          "semantic_closure": "逐项确认原判断、反证或反馈到达、本人理解、实际改策与后续复验；未用PASSED状态替代语义。"
+        },
+        {
+          "parent_id": "C2-P020-TIYING",
+          "direction": "MIXED_POSITIVE",
+          "intensity": "MI2",
+          "lifecycle_basis": "原有肉刑被视为常规惩罚；缇萦从低位上书指出肉刑使受刑者无法改过并愿以身赎父。刘恒理解其反证后下诏废肉刑、命有司制定替代；替代刑实施又造成大量死亡，说明更新真实但机制复验不完整，故为混合正向。",
+          "anchor_refs": [
+            "I2-WHAN-WEN-TIYING-UPWARD-FEEDBACK-001",
+            "https://zh.wikisource.org/w/index.php?title=%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91%2F%E5%8D%B7014&oldid=1554008"
+          ],
+          "semantic_closure": "逐项确认原判断、反证或反馈到达、本人理解、实际改策与后续复验；未用PASSED状态替代语义。"
+        }
       ],
-      "multiple_independent_learning_cycles_review": "PASSED_MANUAL_REVIEW",
-      "later_retest_review": "PASSED",
-      "source_density_asymmetry_review": "COVERAGE_CLOSED",
-      "c5_overlap_review": "COGNITIVE_SLICE_ONLY_NO_DUPLICATE_C5_BENEFIT",
-      "basis": "逐人复核父链所列反馈到达、本人理解、判断更新、行为改变与后续复验后作整体裁决；既有A2/B2档位、分数与材料数量均未换算。"
+      "independence_basis": "刘恒的各周期按不同对象、事件或阶段拆分；同一material正负阶段合并，未用锚点数量冒充周期数量。",
+      "later_retest_basis": "刘恒在张释之司法复核与缇萦肉刑改革两条独立链中均因到达反证改变决定；替代刑伤害保留，材料未证明更多跨领域周期，故裁G4-MID而非G5。",
+      "c5_boundary_basis": "高档只消费理解与改策；异议者安全、惩罚、清洗、程序和比例不作为本档得益或受损。"
     },
     {
-      "ruler_id": "RULER-NS-ZHAO-KUANGYIN",
-      "ruler_name": "赵匡胤",
+      "ruler_id": "RULER-JIN-SHIZONG",
+      "ruler_name": "完颜雍",
       "axis_grade": "G4",
       "position": "MID",
-      "cycle_anchor_count": 7,
-      "cycle_anchor_refs": [
-        "NS-ZK-V002-REVIEW-ACCOUNTABILITY",
-        "NS-ZK-V002-ROTATING-AUDIENCE",
-        "NS-ZK-V003-TONGPAN-DUAL",
-        "NS-ZK-V005-REMONSTRANCE-RETALIATION",
-        "docs/史料通读产物/北宋/续资治通鉴/volume-002.source-summary.md",
-        "https://zh.wikisource.org/wiki/宋史/卷001",
-        "https://zh.wikisource.org/wiki/續資治通鑑/卷002"
+      "independent_cycle_count": 3,
+      "learning_cycles": [
+        {
+          "parent_id": "C2-P034-HUNTING-LIMIT",
+          "direction": "POSITIVE",
+          "intensity": "MI2",
+          "lifecycle_basis": "围场扩张原以皇室狩猎为目标；妨农和地方承载反馈到达后，完颜雍撤销或收紧限制并恢复民用，显示理解到宫廷需求不能压过农业承载，后续成命不便仍须再奏的规则使该类反馈可重复进入。",
+          "anchor_refs": [
+            "https://zh.wikisource.org/zh-hans/金史/卷47",
+            "I2-JIN-MAT-1CE470F310B16E88"
+          ],
+          "semantic_closure": "逐项确认原判断、反证或反馈到达、本人理解、实际改策与后续复验；未用PASSED状态替代语义。"
+        },
+        {
+          "parent_id": "C2-P034-LAND-RETURN",
+          "direction": "MIXED_POSITIVE",
+          "intensity": "MI3",
+          "lifecycle_basis": "括地原被当作恢复军户资源；误夺民田、豪强占地与军户贫困的反馈反复到达后，完颜雍停止刷地、归还或给价补偿并配合灾害免租。问题曾复发，说明更新不彻底，但确有跨次纠正和执行。",
+          "anchor_refs": [
+            "https://zh.wikisource.org/zh-hans/金史/卷47",
+            "docs/公共成果/制度行政/01-制度行政计分材料登记.md#完颜雍"
+          ],
+          "semantic_closure": "逐项确认原判断、反证或反馈到达、本人理解、实际改策与后续复验；未用PASSED状态替代语义。"
+        },
+        {
+          "parent_id": "C2-P034-REMONSTRANCE-RULE",
+          "direction": "POSITIVE",
+          "intensity": "MI3",
+          "lifecycle_basis": "既成命令容易使臣下停止反馈；完颜雍明确规定成命不便仍须再奏改，把对一次命令的服从改成可反复校正，并长期求直言。该规则本身不单独抬档，其价值由围场和括地两类实际纠正复验。",
+          "anchor_refs": [
+            "I2-JIN-MAT-1CE470F310B16E88"
+          ],
+          "semantic_closure": "逐项确认原判断、反证或反馈到达、本人理解、实际改策与后续复验；未用PASSED状态替代语义。"
+        }
       ],
-      "multiple_independent_learning_cycles_review": "PASSED_MANUAL_REVIEW",
-      "later_retest_review": "PASSED",
-      "source_density_asymmetry_review": "COVERAGE_CLOSED",
-      "c5_overlap_review": "COGNITIVE_SLICE_ONLY_NO_DUPLICATE_C5_BENEFIT",
-      "basis": "逐人复核父链所列反馈到达、本人理解、判断更新、行为改变与后续复验后作整体裁决；既有A2/B2档位、分数与材料数量均未换算。"
+      "independence_basis": "完颜雍的各周期按不同对象、事件或阶段拆分；同一material正负阶段合并，未用锚点数量冒充周期数量。",
+      "later_retest_basis": "完颜雍在围场妨农、括地误夺和成命复奏三个相互校验的周期中持续更新；括地与军户问题复发、和议设计共同归责限制上沿，裁G4-MID。",
+      "c5_boundary_basis": "高档只消费理解与改策；异议者安全、惩罚、清洗、程序和比例不作为本档得益或受损。"
     },
     {
-      "ruler_id": "RULER-LIAO-YELU-LONGXU",
-      "ruler_name": "耶律隆绪",
+      "ruler_id": "RULER-FD-LI-BIAN",
+      "ruler_name": "李昪",
       "axis_grade": "G4",
       "position": "LOW",
-      "cycle_anchor_count": 3,
-      "cycle_anchor_refs": [
-        "I2-LIAO-MAT-7DCD550072C43C99",
-        "I2-LIAO-MAT-8BDE529603B242E2",
-        "https://zh.wikisource.org/zh-hans/辽史/卷59"
+      "independent_cycle_count": 3,
+      "learning_cycles": [
+        {
+          "parent_id": "C2-P003-SURPLUS-REVIEW",
+          "direction": "POSITIVE",
+          "intensity": "MI2",
+          "lifecycle_basis": "地方以账外羡余邀功时，李昪没有按表面增收判断政绩，而是在反馈中识别其来自刻民，拒绝把该数字作为奖励依据并改变评价标准。",
+          "anchor_refs": [
+            "I2-FD-MAT-46D562D393539653"
+          ],
+          "semantic_closure": "逐项确认原判断、反证或反馈到达、本人理解、实际改策与后续复验；未用PASSED状态替代语义。"
+        },
+        {
+          "parent_id": "C2-P003-ANGER-REMONSTRANCE",
+          "direction": "POSITIVE",
+          "intensity": "MI2",
+          "lifecycle_basis": "晚年暴怒形成即时处置倾向；中理进谏使反证到达，李昪理解后谢从并改变处置，闭合一次情绪状态下的认知纠正。",
+          "anchor_refs": [
+            "I2-FD-MAT-58D94E4E5F6BB4B9"
+          ],
+          "semantic_closure": "逐项确认原判断、反证或反馈到达、本人理解、实际改策与后续复验；未用PASSED状态替代语义。"
+        },
+        {
+          "parent_id": "C2-P003-SONGQIQIU",
+          "direction": "POSITIVE",
+          "intensity": "MI2",
+          "lifecycle_basis": "与宋齐丘激辩后，新的论证使李昪重新评价原判断；其后以手诏致歉并调整职务，把理解变化落实为人事行为。该周期与暴怒纳谏对象、阶段不同。",
+          "anchor_refs": [
+            "I2-FD-MAT-7F9520628DC37BCA"
+          ],
+          "semantic_closure": "逐项确认原判断、反证或反馈到达、本人理解、实际改策与后续复验；未用PASSED状态替代语义。"
+        }
       ],
-      "multiple_independent_learning_cycles_review": "PASSED_MANUAL_REVIEW",
-      "later_retest_review": "PASSED",
-      "source_density_asymmetry_review": "COVERAGE_CLOSED",
-      "c5_overlap_review": "COGNITIVE_SLICE_ONLY_NO_DUPLICATE_C5_BENEFIT",
-      "basis": "逐人复核父链所列反馈到达、本人理解、判断更新、行为改变与后续复验后作整体裁决；既有A2/B2档位、分数与材料数量均未换算。"
-    },
-    {
-      "ruler_id": "RULER-PUBLIC-6339E33979E7CCF5",
-      "ruler_name": "皇太极",
-      "axis_grade": "G4",
-      "position": "LOW",
-      "cycle_anchor_count": 8,
-      "cycle_anchor_refs": [
-        "MAT-QING-286DCFA2A346E6FC",
-        "MAT-QING-6F38530577636B15",
-        "MAT-QING-9640B263AEADEA74",
-        "MAT-QING-B2DE19819EE6915B",
-        "docs/史料通读产物/清/清史稿/volume-001.source-summary.md#section-3",
-        "docs/史料通读产物/清/清史稿/volume-002.source-summary.md#section-2",
-        "docs/史料通读产物/清/清史稿/volume-003.source-summary.md#section-2",
-        "docs/史料通读产物/清/清史稿/volume-004.source-summary.md#section-3"
-      ],
-      "multiple_independent_learning_cycles_review": "PASSED_MANUAL_REVIEW",
-      "later_retest_review": "PASSED",
-      "source_density_asymmetry_review": "COVERAGE_CLOSED",
-      "c5_overlap_review": "COGNITIVE_SLICE_ONLY_NO_DUPLICATE_C5_BENEFIT",
-      "basis": "逐人复核父链所列反馈到达、本人理解、判断更新、行为改变与后续复验后作整体裁决；既有A2/B2档位、分数与材料数量均未换算。"
+      "independence_basis": "李昪的各周期按不同对象、事件或阶段拆分；同一material正负阶段合并，未用锚点数量冒充周期数量。",
+      "later_retest_basis": "李昪在财政评价、暴怒处置和高层争论三条独立链中均由反馈转为实际改策；材料跨度与后续同类复验仍不及G5，裁G4-LOW。",
+      "c5_boundary_basis": "高档只消费理解与改策；异议者安全、惩罚、清洗、程序和比例不作为本档得益或受损。"
     },
     {
       "ruler_id": "RULER-SHADOW-杨行密",
       "ruler_name": "杨行密",
       "axis_grade": "G4",
       "position": "LOW",
-      "cycle_anchor_count": 7,
-      "cycle_anchor_refs": [
-        "I2-FD-MAT-2161C2E5B9610B3B",
-        "I2-FD-MAT-82FCB0CE65403A36",
-        "I2-FD-MAT-CE0348AAEB9FC7D5",
-        "docs/史料通读产物/唐以前编年/唐/卷257-通读总结.md",
-        "docs/史料通读产物/唐以前编年/唐/卷257-通读总结.md:44",
-        "docs/史料通读产物/唐以前编年/唐/卷259-通读总结.md:123",
-        "docs/史料通读产物/唐以前编年/唐/卷259-通读总结.md:28"
+      "independent_cycle_count": 3,
+      "learning_cycles": [
+        {
+          "parent_id": "C2-P121-SUNRU-PIVOT",
+          "direction": "POSITIVE",
+          "intensity": "MI3",
+          "lifecycle_basis": "面对孙儒压境，原可正面对耗；刘威、李神福等指出粮道与持久条件后，杨行密理解到应把时间转为优势，采用坚壁截粮、待敌粮疫后出击并最终收束战争，形成军事反馈后的策略更新。",
+          "anchor_refs": [
+            "docs/史料通读产物/唐以前编年/唐/卷257-通读总结.md:44",
+            "WAR-LEAD-259-HUAINAN-END"
+          ],
+          "semantic_closure": "逐项确认原判断、反证或反馈到达、本人理解、实际改策与后续复验；未用PASSED状态替代语义。"
+        },
+        {
+          "parent_id": "C2-P121-POSTWAR-GOVERNANCE",
+          "direction": "POSITIVE",
+          "intensity": "MI2",
+          "lifecycle_basis": "战后强换民帛可快速取得资源；高勖说明其民生与恢复代价后，杨行密放弃该路径并转用恢复流民、调整治理的方案，显示把军事期判断迁移到治理期。",
+          "anchor_refs": [
+            "docs/史料通读产物/唐以前编年/唐/卷259-通读总结.md:123"
+          ],
+          "semantic_closure": "逐项确认原判断、反证或反馈到达、本人理解、实际改策与后续复验；未用PASSED状态替代语义。"
+        },
+        {
+          "parent_id": "C2-P121-SUCCESSION-DOCUMENT",
+          "direction": "MIXED",
+          "intensity": "MI2",
+          "lifecycle_basis": "周隐明确指出杨渥轻佻信谗并建议召回；召嗣文书一度被压，说明反馈入口受阻。严可求、徐温取出文书后杨行密实际召回杨渥，形成迟到纠正，但继承风险未完全解除，故同一生命周期合并为混合。",
+          "anchor_refs": [
+            "I2-FD-MAT-2161C2E5B9610B3B",
+            "I2-FD-MAT-CE0348AAEB9FC7D5"
+          ],
+          "semantic_closure": "逐项确认原判断、反证或反馈到达、本人理解、实际改策与后续复验；未用PASSED状态替代语义。"
+        }
       ],
-      "multiple_independent_learning_cycles_review": "PASSED_MANUAL_REVIEW",
-      "later_retest_review": "PASSED",
-      "source_density_asymmetry_review": "COVERAGE_CLOSED",
-      "c5_overlap_review": "COGNITIVE_SLICE_ONLY_NO_DUPLICATE_C5_BENEFIT",
-      "basis": "逐人复核父链所列反馈到达、本人理解、判断更新、行为改变与后续复验后作整体裁决；既有A2/B2档位、分数与材料数量均未换算。"
+      "independence_basis": "杨行密的各周期按不同对象、事件或阶段拆分；同一material正负阶段合并，未用锚点数量冒充周期数量。",
+      "later_retest_basis": "杨行密在孙儒战争、战后治理与继承预警三个对象上表现出两次及时更新和一次迟到纠正；继承链反证及臣下设计份额限制上沿，裁G4-LOW。",
+      "c5_boundary_basis": "高档只消费理解与改策；异议者安全、惩罚、清洗、程序和比例不作为本档得益或受损。"
     }
   ]
 }

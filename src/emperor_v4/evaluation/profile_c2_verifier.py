@@ -60,6 +60,7 @@ def verify() -> dict[str, object]:
     assert settlement["profile_total_enabled"] is False
     assert settlement["database_write"] is False
     assert settlement["record_count"] == len(records) == 184
+    assert settlement["schema_version"] == "profile-c2-formal-settlement-v2"
     assert settlement["canonical_pool_sha256"] == _sha(POOL)
     assert settlement["contract_sha256"] == _sha(CONTRACT)
     assert {row["ruler_id"] for row in records} == _included_ids()
@@ -86,6 +87,26 @@ def verify() -> dict[str, object]:
     )
     assert settlement["summary"]["unresolved_count"] == 0
 
+    # Reject pool-wide prose templates and neutral defaults without evidence.
+    assert len({row["grade_basis"] for row in records}) == 184
+    assert len({row["position_basis"] for row in records}) == 184
+    assert all(row["ruler_name"] in row["grade_basis"] for row in records)
+    assert all(row["ruler_name"] in row["position_basis"] for row in records)
+    forbidden_templates = {
+        "逐人复核父链所列反馈到达、本人理解、判断更新、行为改变与后续复验后作整体裁决；既有A2/B2档位、分数与材料数量均未换算。",
+        "PASSED_MANUAL_REVIEW",
+    }
+    assert all(not any(template in row["grade_basis"] for template in forbidden_templates) for row in records)
+    no_parent = [row for row in records if not row["parents"]]
+    assert no_parent
+    assert all(
+        row["axis_evidence_level"] == "E1"
+        and row["score_status"] == "EVIDENCE_LIMITED"
+        and row["axis_grade"] in {"G0", "G1"}
+        and len(row["limitations"]) >= 2
+        for row in no_parent
+    )
+
     parent_ids = [parent["parent_id"] for row in records for parent in row["parents"]]
     assert len(parent_ids) == len(set(parent_ids))
     for row in records:
@@ -96,6 +117,16 @@ def verify() -> dict[str, object]:
             assert parent["intensity"].startswith("MI")
             assert parent["cycle_anchor_refs"]
             assert "C5" in parent["secondary_projection_reason"]
+            assert parent["basis"] and parent["lifecycle_review"]
+            assert len(parent["basis"]) <= 400
+        directions = {parent["direction"] for parent in row["parents"]}
+        assert not (
+            row["grade_numeric"] >= 3
+            and directions
+            and directions <= {"NEGATIVE", "MIXED_NEGATIVE"}
+        ), f"grade contradicts all-negative lifecycle text: {row['ruler_name']}"
+        if row["axis_grade"] in {"G4", "G5"}:
+            assert len(row["parents"]) >= 2, f"high grade uses giant/single parent: {row['ruler_name']}"
 
     audit = _load(AUDIT)
     assert audit["canonical_status"] == "FORMAL_CURRENT"
@@ -105,18 +136,34 @@ def verify() -> dict[str, object]:
     assert audit["status_counts"]["UNRESOLVED_EVIDENCE_GAP"] == 0
     assert len({unit["unit_id"] for unit in audit["units"]}) == len(audit["units"])
     assert all(unit["source_exists_or_external"] for unit in audit["units"])
+    assert audit["status_counts"]["SCORING_PARENT"] > 0
+    assert audit["status_counts"]["BACKGROUND_VALIDATION"] > 0
+    assert audit["status_counts"]["AXIS_OUT_WITH_REASON"] > 0
+    assert len({unit["reason"] for unit in audit["units"]}) >= int(audit["unit_count"] * 0.95)
     assert {
         unit["scoring_parent_id"]
         for unit in audit["units"]
         if unit["status"] == "SCORING_PARENT"
     } <= set(parent_ids)
+    assert set(parent_ids) <= {
+        parent_id
+        for unit in audit["units"]
+        for parent_id in unit.get("supports_parent_ids", [])
+    }
 
     high = _load(HIGH_REVIEW)
     expected_high = {row["ruler_id"] for row in records if row["axis_grade"] in {"G4", "G5"}}
     assert {row["ruler_id"] for row in high["profiles"]} == expected_high
-    assert all(row["cycle_anchor_count"] >= 2 for row in high["profiles"])
-    assert all(row["multiple_independent_learning_cycles_review"] == "PASSED_MANUAL_REVIEW" for row in high["profiles"])
-    assert all(row["later_retest_review"] == "PASSED" for row in high["profiles"])
+    assert high["schema_version"] == "profile-c2-high-grade-calibration-v2"
+    assert all(row["independent_cycle_count"] == len(row["learning_cycles"]) >= 2 for row in high["profiles"])
+    assert all(row["independence_basis"] and row["later_retest_basis"] and row["c5_boundary_basis"] for row in high["profiles"])
+    assert all(
+        cycle["lifecycle_basis"] and cycle["anchor_refs"] and cycle["semantic_closure"]
+        for row in high["profiles"]
+        for cycle in row["learning_cycles"]
+    )
+    assert "PASSED_MANUAL_REVIEW" not in _read(HIGH_REVIEW).decode("utf-8")
+    assert '"later_retest_review": "PASSED"' not in _read(HIGH_REVIEW).decode("utf-8")
 
     md_rows = _markdown_rows()
     assert len(md_rows) == 184
@@ -145,6 +192,8 @@ def verify() -> dict[str, object]:
         "grade_distribution": settlement["summary"]["grade_distribution"],
         "unit_count": audit["unit_count"],
         "high_grade_count": len(high["profiles"]),
+        "parent_count": len(parent_ids),
+        "no_parent_evidence_limited_count": len(no_parent),
         "hashes": hashes,
         "combined_sha256": combined,
     }
