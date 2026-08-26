@@ -95,6 +95,8 @@ def verify() -> dict[str, object]:
     forbidden_templates = {
         "逐人复核父链所列反馈到达、本人理解、判断更新、行为改变与后续复验后作整体裁决；既有A2/B2档位、分数与材料数量均未换算。",
         "PASSED_MANUAL_REVIEW",
+        "经本地全入口与有界正史检索仍无闭合C2父链",
+        "本轮回读确认该单元包含反馈到达后本人改策、拒绝改策或同构复发",
     }
     assert all(not any(template in row["grade_basis"] for template in forbidden_templates) for row in records)
     no_parent = [row for row in records if not row["parents"]]
@@ -102,8 +104,9 @@ def verify() -> dict[str, object]:
     assert all(
         row["axis_evidence_level"] == "E1"
         and row["score_status"] == "EVIDENCE_LIMITED"
-        and row["axis_grade"] in {"G0", "G1"}
-        and len(row["limitations"]) >= 2
+        and row["axis_grade"] in {"G1", "G2"}
+        and len(row["limitations"]) >= 1
+        and len(row["position_basis"]) >= 40
         for row in no_parent
     )
 
@@ -113,12 +116,14 @@ def verify() -> dict[str, object]:
         scoring = {parent["parent_id"] for parent in row["parents"]}
         assert set(row["axis_relevance_check"]["scoring_parent_refs"]) == scoring
         for parent in row["parents"]:
+            assert parent["cycle_type"] in {"TRUTH_ACQUISITION", "ERROR_CORRECTION", "REFUSAL_OR_RECURRENCE"}
             assert parent["direction"] in {"POSITIVE", "MIXED_POSITIVE", "MIXED", "MIXED_NEGATIVE", "NEGATIVE"}
             assert parent["intensity"].startswith("MI")
             assert parent["cycle_anchor_refs"]
             assert "C5" in parent["secondary_projection_reason"]
             assert parent["basis"] and parent["lifecycle_review"]
             assert len(parent["basis"]) <= 400
+            assert not parent["basis"].startswith("B2材料")
         directions = {parent["direction"] for parent in row["parents"]}
         assert not (
             row["grade_numeric"] >= 3
@@ -127,6 +132,8 @@ def verify() -> dict[str, object]:
         ), f"grade contradicts all-negative lifecycle text: {row['ruler_name']}"
         if row["axis_grade"] in {"G4", "G5"}:
             assert len(row["parents"]) >= 2, f"high grade uses giant/single parent: {row['ruler_name']}"
+            assert sum(parent["direction"] in {"POSITIVE", "MIXED_POSITIVE"} for parent in row["parents"]) >= 2
+            assert len({parent["basis"] for parent in row["parents"]}) == len(row["parents"])
 
     audit = _load(AUDIT)
     assert audit["canonical_status"] == "FORMAL_CURRENT"
@@ -155,13 +162,13 @@ def verify() -> dict[str, object]:
     expected_high = {row["ruler_id"] for row in records if row["axis_grade"] in {"G4", "G5"}}
     assert {row["ruler_id"] for row in high["profiles"]} == expected_high
     assert high["schema_version"] == "profile-c2-high-grade-calibration-v2"
-    assert all(row["independent_cycle_count"] == len(row["learning_cycles"]) >= 2 for row in high["profiles"])
-    assert all(row["independence_basis"] and row["later_retest_basis"] and row["c5_boundary_basis"] for row in high["profiles"])
+    assert all(len(row["independent_cycles"]) >= 2 for row in high["profiles"])
     assert all(
-        cycle["lifecycle_basis"] and cycle["anchor_refs"] and cycle["semantic_closure"]
+        cycle["basis"] and cycle["cycle_anchor_refs"] and cycle["cycle_type"]
         for row in high["profiles"]
-        for cycle in row["learning_cycles"]
+        for cycle in row["independent_cycles"]
     )
+    assert all(row["multiple_independent_learning_cycles_review"] and row["later_retest_review"] for row in high["profiles"])
     assert "PASSED_MANUAL_REVIEW" not in _read(HIGH_REVIEW).decode("utf-8")
     assert '"later_retest_review": "PASSED"' not in _read(HIGH_REVIEW).decode("utf-8")
 
