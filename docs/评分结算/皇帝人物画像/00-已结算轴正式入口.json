@@ -2,11 +2,11 @@
   "schema_version": "emperor-profile-formal-axis-manifest-v1",
   "contract_version": "FORMAL-V1.0",
   "contract": "docs/项目总纲/皇帝人物画像评估体系合同.md",
-  "contract_sha256": "f95915a9274acbdfe4f381d43e6e666f62fd3f25075e86efe15bb11e13b9f36a",
+  "contract_sha256": "d4403b38ed063988530f96d88389ae9e58b622cd0e0b7ced09d01baeb1d48d53",
   "canonical_status": "FORMAL_CURRENT",
   "population_count": 184,
-  "settled_axis_count": 2,
-  "unsettled_axis_count": 7,
+  "settled_axis_count": 3,
+  "unsettled_axis_count": 6,
   "profile_total_enabled": false,
   "profile_ranking_enabled": false,
   "composite_ranking_write": false,
@@ -29,6 +29,19 @@
         "09-M1武将成果难度组合倒挂复核.json",
         "10-M1无档案战役与人才公共补录复核.json",
         "11-M1全池重新裁决复核.json"
+      ],
+      "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC"
+    },
+    {
+      "axis_code": "M2",
+      "axis_name": "外交博弈与对外联盟能力",
+      "status": "FORMAL_CURRENT",
+      "record_count": 184,
+      "json": "12-M2外交博弈与对外联盟能力正式结算.json",
+      "markdown": "12-M2外交博弈与对外联盟能力正式结算.md",
+      "json_sha256": "144d6e43949c287a1497cc535b696a1cc73dfd122069a71c652faf51e3f02b24",
+      "audit_markdowns": [
+        "13-M2全池结算验收报告.md"
       ],
       "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC"
     },
