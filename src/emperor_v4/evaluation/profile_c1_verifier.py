@@ -39,6 +39,36 @@ def _contract_scores(contract: Path) -> dict[tuple[str, str], int]:
     return scores
 
 
+def _source_path(root: Path, ref: str) -> Path | None:
+    source = re.split(r"#|:\d+(?::\d+)?$", ref, maxsplit=1)[0]
+    if not source.startswith("docs/"):
+        return None
+    return root / source
+
+
+def _is_direct_process_ref(root: Path, parent: dict, ref: str, cache: dict[Path, str]) -> bool:
+    if ref.startswith("https://"):
+        return True
+    path = _source_path(root, ref)
+    if path is not None:
+        return path.is_file()
+    if re.match(r"^[^/]+/卷\d+[@#].+", ref):
+        return True
+    if not (
+        re.match(r"^(?:PCR|WAR|FIN|SRC|EVD|EM)-[A-Z0-9-]+$", ref)
+        or re.match(r"^[A-Z][A-Z0-9]*(?:-[A-Z0-9]+){2,}$", ref)
+    ):
+        return False
+    for source_ref in parent["source_refs"] + parent["direct_process_refs"]:
+        source_file = _source_path(root, source_ref)
+        if source_file is None or not source_file.is_file():
+            continue
+        text = cache.setdefault(source_file, source_file.read_text(encoding="utf-8"))
+        if ref in text:
+            return True
+    return False
+
+
 def verify(root: Path) -> dict[str, object]:
     profile_root = root / "docs" / "评分结算" / "皇帝人物画像"
     contract = root / "docs" / "项目总纲" / "皇帝人物画像评估体系合同.md"
@@ -96,6 +126,7 @@ def verify(root: Path) -> dict[str, object]:
     scoring_parent_ids: set[str] = set()
     high_ids: set[str] = set()
     low_ids: set[str] = set()
+    source_cache: dict[Path, str] = {}
     for record in records:
         expected_score = scores[(record["axis_grade"], record["position"])]
         if record["score_100"] != expected_score or record["radar_value"] != expected_score:
@@ -130,6 +161,9 @@ def verify(root: Path) -> dict[str, object]:
                 source_path = re.sub(r":\d+(?::\d+)?$", "", source_path)
                 if source_path.startswith("docs/") and not (root / source_path).is_file():
                     raise ValueError(f"source path is not traceable: {parent_id}: {source_path}")
+            for ref in parent["direct_process_refs"]:
+                if not _is_direct_process_ref(root, parent, ref, source_cache):
+                    raise ValueError(f"pseudo direct process locator: {parent_id}: {ref}")
 
     if len(high_ids) != review["current_high_grade_count"]:
         raise ValueError("high-grade profile count mismatch")
@@ -137,6 +171,44 @@ def verify(root: Path) -> dict[str, object]:
     profile_by_id = {profile["ruler_id"]: profile for profile in profiles}
     if not high_ids <= profile_by_id.keys():
         raise ValueError("current high-grade ruler lacks capability profile")
+    if len(profiles) != 48:
+        raise ValueError("C1 semantic reaudit does not cover 48 candidates")
+    if any(profile.get("ps") not in {"PS0", "PS1", "PS2", "PS3", "PS4"} for profile in profiles):
+        raise ValueError("unknown positive diagnostic strength")
+    if any(profile.get("dw") not in {"DW0", "DW1", "DW2", "DW3", "DW4"} for profile in profiles):
+        raise ValueError("unknown negative diagnostic weight")
+    allowed_mechanism_values = {"LIMITED", "MIXED", "MODERATE", "STRONG"}
+    if any(
+        set(profile.get("mechanism_profile", {})) != {"problem", "resource", "path", "risk_exit"}
+        or not set(profile["mechanism_profile"].values()) <= allowed_mechanism_values
+        for profile in profiles
+    ):
+        raise ValueError("capability mechanism profile is incomplete")
+    if len({tuple(profile["mechanism_profile"].values()) for profile in profiles}) < 8:
+        raise ValueError("capability profiles remain template-converged")
+    profile_sequences = {profile["sequence"] for profile in profiles}
+    for record in records:
+        if record["sequence"] not in profile_sequences:
+            continue
+        profile = next(profile for profile in profiles if profile["sequence"] == record["sequence"])
+        direct_refs = {ref for parent in record["parents"] for ref in parent["direct_process_refs"]}
+        if set(profile.get("cycle_anchor_refs", [])) != direct_refs:
+            raise ValueError(f"cycle anchor aggregation mismatch: {record['ruler_id']}")
+        if len(direct_refs) < profile["independent_cycles"]:
+            raise ValueError(f"independent cycle lacks stable event anchor: {record['ruler_id']}")
+        for parent in record["parents"]:
+            role = parent.get("diagnostic_role")
+            if role is None:
+                raise ValueError(f"reaudited parent lacks PS/DW diagnosis: {parent['parent_id']}")
+            if parent["direction"] in {"POSITIVE", "MIXED_POSITIVE"} and not role.startswith("PS"):
+                raise ValueError(f"positive parent has non-PS diagnosis: {parent['parent_id']}")
+            if parent["direction"] in {"NEGATIVE", "MIXED_NEGATIVE", "LIMITATION"} and not role.startswith("DW"):
+                raise ValueError(f"negative/limitation parent has non-DW diagnosis: {parent['parent_id']}")
+            if role == "DW0" and parent["consumption_status"] == "SCORING_PARENT":
+                raise ValueError(f"DW0 parent is incorrectly score-bearing: {parent['parent_id']}")
+            if parent["direction"] == "MIXED_POSITIVE" and profile["dw"] != "DW0":
+                if parent.get("counter_diagnostic_role") != profile["dw"]:
+                    raise ValueError(f"mixed parent lacks separate DW diagnosis: {parent['parent_id']}")
     for ruler_id in high_ids:
         profile = profile_by_id[ruler_id]
         record = next(record for record in records if record["ruler_id"] == ruler_id)
@@ -148,17 +220,29 @@ def verify(root: Path) -> dict[str, object]:
             raise ValueError(f"high-grade late-degradation review failed: {ruler_id}")
         if record["axis_grade"] == "G5" and record["position"] == "LOW" and not profile.get("g5_low_justification"):
             raise ValueError(f"G5-LOW lacks specific non-routine justification: {ruler_id}")
-        four_mechanisms = all(profile[key] in {"STRONG", "MIXED"} for key in ("problem", "resource", "path", "risk_exit"))
-        alternative_gate = profile["cross_domain"] == "YES" and profile["cross_phase"] == "YES" and four_mechanisms
+        four_mechanisms = all(
+            profile["mechanism_profile"][key] in {"STRONG", "MIXED"}
+            for key in ("problem", "resource", "path", "risk_exit")
+        )
+        alternative_gate = profile["cross_domain"] and profile["cross_phase"] and four_mechanisms
+        if profile["ps"] not in {"PS3", "PS4"}:
+            raise ValueError(f"G4/G5 lacks PS3 body: {ruler_id}")
         if profile["independent_cycles"] < 2 and not alternative_gate:
             raise ValueError(f"G4/G5 structural gate failed: {ruler_id}")
         if record["axis_grade"] == "G5":
+            if profile["ps"] != "PS4":
+                raise ValueError(f"G5 lacks PS4: {ruler_id}")
             if profile["independent_cycles"] < 3:
                 raise ValueError(f"G5 decision thickness failed: {ruler_id}")
-            if profile["cross_domain"] != "YES" or profile["cross_phase"] != "YES":
+            if not profile["cross_domain"] or not profile["cross_phase"]:
                 raise ValueError(f"G5 transfer/stability gate failed: {ruler_id}")
             if profile["difficulty"] not in {"HIGH", "VERY_HIGH"}:
                 raise ValueError(f"G5 difficulty gate failed: {ruler_id}")
+
+    li_shimin = next(record for record in records if record["ruler_name"] == "李世民")
+    disputed = next((parent for parent in li_shimin["parents"] if parent["parent_id"] == "C1-P153-GUANZHONG-ATTRIBUTION"), None)
+    if disputed is None or disputed.get("attribution_status") != "CONTESTED_OR_SHARED_ATTRIBUTION":
+        raise ValueError("Li Shimin Guanzhong attribution dispute is not preserved")
 
     units = audit["units"]
     if audit["unit_count"] != len(units) or len({unit["unit_id"] for unit in units}) != len(units):
