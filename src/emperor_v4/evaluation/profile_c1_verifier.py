@@ -1,0 +1,207 @@
+from __future__ import annotations
+
+import hashlib
+import json
+import re
+from pathlib import Path
+
+import yaml
+
+
+SETTLEMENT_NAME = "15-C1战略判断与风险控制正式结算.json"
+MARKDOWN_NAME = "15-C1战略判断与风险控制正式结算.md"
+UNIT_AUDIT_NAME = "16-C1主要入口单元处置审计.json"
+HIGH_REVIEW_NAME = "17-C1高档能力剖面复核.json"
+
+
+def _load(path: Path) -> dict:
+    raw = path.read_bytes()
+    if raw.startswith(b"\xef\xbb\xbf"):
+        raise ValueError(f"UTF-8 BOM is forbidden: {path}")
+    return json.loads(raw.decode("utf-8"))
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _contract_scores(contract: Path) -> dict[tuple[str, str], int]:
+    scores: dict[tuple[str, str], int] = {}
+    pattern = re.compile(r"^\| (G[0-5]) \| (\d+) \| (\d+) \| (\d+) \|$")
+    for line in contract.read_text(encoding="utf-8").splitlines():
+        match = pattern.match(line)
+        if match:
+            grade, low, mid, high = match.groups()
+            for position, value in zip(("LOW", "MID", "HIGH"), (low, mid, high), strict=True):
+                scores[(grade, position)] = int(value)
+    if len(scores) != 18:
+        raise ValueError("C1 contract score table is incomplete")
+    return scores
+
+
+def verify(root: Path) -> dict[str, object]:
+    profile_root = root / "docs" / "评分结算" / "皇帝人物画像"
+    contract = root / "docs" / "项目总纲" / "皇帝人物画像评估体系合同.md"
+    pool_path = root / "config" / "common" / "canonical-ruler-pool.json"
+    settlement_path = profile_root / SETTLEMENT_NAME
+    markdown_path = profile_root / MARKDOWN_NAME
+    audit_path = profile_root / UNIT_AUDIT_NAME
+    review_path = profile_root / HIGH_REVIEW_NAME
+    manifest_path = profile_root / "00-已结算轴正式入口.json"
+    config_path = root / "config" / "project.yml"
+
+    for path in (contract, pool_path, settlement_path, markdown_path, audit_path, review_path, manifest_path, config_path):
+        raw = path.read_bytes()
+        if raw.startswith(b"\xef\xbb\xbf"):
+            raise ValueError(f"UTF-8 BOM is forbidden: {path}")
+        raw.decode("utf-8")
+
+    settlement = _load(settlement_path)
+    pool = _load(pool_path)
+    audit = _load(audit_path)
+    review = _load(review_path)
+    manifest = _load(manifest_path)
+    config = yaml.safe_load(config_path.read_text(encoding="utf-8"))
+    records = settlement["records"]
+    pool_records = [record for record in pool["records"] if record["pool_status"] == "INCLUDED"]
+    pool_ids = {record["ruler_id"] for record in pool_records}
+
+    if settlement["canonical_status"] != "FORMAL_CURRENT" or settlement["axis_code"] != "C1":
+        raise ValueError("C1 settlement is not formal current")
+    if settlement["record_count"] != len(records) or len(records) != 184:
+        raise ValueError("C1 record count is not 184")
+    if len({record["ruler_id"] for record in records}) != 184:
+        raise ValueError("C1 ruler IDs are not unique")
+    if {record["ruler_id"] for record in records} != pool_ids:
+        raise ValueError("C1 coverage differs from canonical included pool")
+    if records != sorted(records, key=lambda record: (-record["radar_value"], record["ruler_id"])):
+        raise ValueError("C1 records are not in formal stable order")
+    if settlement["canonical_pool_sha256"] != _sha256(pool_path):
+        raise ValueError("canonical pool hash mismatch")
+    if settlement["contract_sha256"] != _sha256(contract):
+        raise ValueError("contract hash mismatch")
+    manifest_axis = next((axis for axis in manifest["axes"] if axis["axis_code"] == "C1"), None)
+    if manifest_axis is None or manifest_axis["json"] != SETTLEMENT_NAME:
+        raise ValueError("C1 is absent from formal profile manifest")
+    if manifest_axis["json_sha256"] != _sha256(settlement_path):
+        raise ValueError("C1 manifest settlement hash mismatch")
+    if manifest["contract_sha256"] != _sha256(contract):
+        raise ValueError("profile manifest contract hash mismatch")
+    config_axis = config["profile_assessment"]["settled_axes"].get("C1")
+    if config_axis is None or not config_axis["json"].endswith(SETTLEMENT_NAME):
+        raise ValueError("C1 is absent from config project entry")
+
+    scores = _contract_scores(contract)
+    parent_ids: set[str] = set()
+    scoring_parent_ids: set[str] = set()
+    high_ids: set[str] = set()
+    low_ids: set[str] = set()
+    for record in records:
+        expected_score = scores[(record["axis_grade"], record["position"])]
+        if record["score_100"] != expected_score or record["radar_value"] != expected_score:
+            raise ValueError(f"score mapping mismatch: {record['ruler_id']}")
+        if record["axis_evidence_level"] == "E0":
+            raise ValueError(f"E0 remains: {record['ruler_id']}")
+        if record["formal_status"] != "FORMAL_CURRENT":
+            raise ValueError(f"non-formal record: {record['ruler_id']}")
+        if not record["limitations"] and record["score_status"] == "EVIDENCE_LIMITED":
+            raise ValueError(f"evidence-limited record lacks limitation: {record['ruler_id']}")
+        if record["axis_grade"] in {"G4", "G5"}:
+            high_ids.add(record["ruler_id"])
+        if record["axis_grade"] in {"G0", "G1"}:
+            low_ids.add(record["ruler_id"])
+            if record["reviews"]["low_grade_gate"]["status"] != "CLOSED":
+                raise ValueError(f"low-grade bidirectional gate failed: {record['ruler_id']}")
+        for parent in record["parents"]:
+            parent_id = parent["parent_id"]
+            if parent_id in parent_ids:
+                raise ValueError(f"duplicate parent ID: {parent_id}")
+            parent_ids.add(parent_id)
+            if parent["consumption_status"] == "SCORING_PARENT":
+                scoring_parent_ids.add(parent_id)
+                if parent["direction"] == "LIMITATION":
+                    raise ValueError(f"limitation consumed as score: {parent_id}")
+                if not parent["mechanisms"]:
+                    raise ValueError(f"scoring parent lacks mechanism: {parent_id}")
+                if parent["intensity"] in {"MI3", "MI4"} and not parent["direct_process_refs"]:
+                    raise ValueError(f"MI3/MI4 parent lacks direct process locator: {parent_id}")
+            for ref in parent["source_refs"] + parent["direct_process_refs"]:
+                source_path = ref.partition("#")[0]
+                source_path = re.sub(r":\d+(?::\d+)?$", "", source_path)
+                if source_path.startswith("docs/") and not (root / source_path).is_file():
+                    raise ValueError(f"source path is not traceable: {parent_id}: {source_path}")
+
+    if len(high_ids) != review["current_high_grade_count"]:
+        raise ValueError("high-grade profile count mismatch")
+    profiles = review["profiles"]
+    profile_by_id = {profile["ruler_id"]: profile for profile in profiles}
+    if not high_ids <= profile_by_id.keys():
+        raise ValueError("current high-grade ruler lacks capability profile")
+    for ruler_id in high_ids:
+        profile = profile_by_id[ruler_id]
+        record = next(record for record in records if record["ruler_id"] == ruler_id)
+        if (profile["regrade"], profile["position"]) != (record["axis_grade"], record["position"]):
+            raise ValueError(f"capability profile does not match formal grade: {ruler_id}")
+        if profile.get("counterexample_review") not in {"COUNTEREVIDENCE_FOUND", "COVERAGE_CLOSED"}:
+            raise ValueError(f"high-grade counterexample review failed: {ruler_id}")
+        if profile.get("late_degradation_review") not in {"LATE_COUNTER_FOUND", "NO_PATTERN_BREAK", "SHORT_WINDOW_LIMITED"}:
+            raise ValueError(f"high-grade late-degradation review failed: {ruler_id}")
+        if record["axis_grade"] == "G5" and record["position"] == "LOW" and not profile.get("g5_low_justification"):
+            raise ValueError(f"G5-LOW lacks specific non-routine justification: {ruler_id}")
+        four_mechanisms = all(profile[key] in {"STRONG", "MIXED"} for key in ("problem", "resource", "path", "risk_exit"))
+        alternative_gate = profile["cross_domain"] == "YES" and profile["cross_phase"] == "YES" and four_mechanisms
+        if profile["independent_cycles"] < 2 and not alternative_gate:
+            raise ValueError(f"G4/G5 structural gate failed: {ruler_id}")
+        if record["axis_grade"] == "G5":
+            if profile["independent_cycles"] < 3:
+                raise ValueError(f"G5 decision thickness failed: {ruler_id}")
+            if profile["cross_domain"] != "YES" or profile["cross_phase"] != "YES":
+                raise ValueError(f"G5 transfer/stability gate failed: {ruler_id}")
+            if profile["difficulty"] not in {"HIGH", "VERY_HIGH"}:
+                raise ValueError(f"G5 difficulty gate failed: {ruler_id}")
+
+    units = audit["units"]
+    if audit["unit_count"] != len(units) or len({unit["unit_id"] for unit in units}) != len(units):
+        raise ValueError("C1 unit audit is incomplete or has duplicate IDs")
+    allowed_statuses = {"SCORING_PARENT", "BACKGROUND_VALIDATION", "AXIS_OUT_WITH_REASON", "UNRESOLVED_GAP"}
+    if any(unit["status"] not in allowed_statuses for unit in units):
+        raise ValueError("unknown unit disposition")
+    if audit["unresolved_count"] != 0 or any(unit["status"] == "UNRESOLVED_GAP" for unit in units):
+        raise ValueError("C1 unresolved gap remains")
+    audit_scoring_ids = {unit["scoring_parent_id"] for unit in units if unit["status"] == "SCORING_PARENT"}
+    if None in audit_scoring_ids or audit_scoring_ids != scoring_parent_ids:
+        raise ValueError("unit audit scoring/background separation mismatch")
+
+    markdown_rows = [line for line in markdown_path.read_text(encoding="utf-8").splitlines() if line.startswith("| ")][1:]
+    if len(markdown_rows) != 184:
+        raise ValueError("C1 markdown does not contain 184 data rows")
+    for row, record in zip(markdown_rows, records, strict=True):
+        if f"| {record['radar_value']} | {record['axis_grade']} | {record['position']} | {record['ruler_name']} |" not in row:
+            raise ValueError(f"markdown/JSON order mismatch: {record['ruler_id']}")
+
+    hashes = {
+        path.name: _sha256(path)
+        for path in (settlement_path, markdown_path, audit_path, review_path)
+    }
+    combined = hashlib.sha256(json.dumps(hashes, sort_keys=True).encode("utf-8")).hexdigest()
+    return {
+        "status": "PASS",
+        "record_count": len(records),
+        "high_grade_count": len(high_ids),
+        "low_grade_count": len(low_ids),
+        "parent_count": len(parent_ids),
+        "scoring_parent_count": len(scoring_parent_ids),
+        "unit_count": len(units),
+        "unresolved_count": 0,
+        "hashes": hashes,
+        "combined_sha256": combined,
+    }
+
+
+def main() -> None:
+    root = Path(__file__).resolve().parents[3]
+    print(json.dumps(verify(root), ensure_ascii=False, indent=2))
+
+
+if __name__ == "__main__":
+    main()

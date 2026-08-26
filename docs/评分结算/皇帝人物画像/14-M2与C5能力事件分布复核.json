@@ -1,0 +1,110 @@
+{
+  "schema_version": "profile-m2-c5-capability-event-review-v1",
+  "canonical_status": "FORMAL_CURRENT_AUDIT",
+  "review_scope": {
+    "M2": 184,
+    "C5": 184
+  },
+  "policy": {
+    "mi_is_material_strength_not_grade": true,
+    "negative_evidence_automatically_caps_g5": false,
+    "positive_mi4_automatically_grants_g5": false,
+    "person_level_positive_negative_synthesis_is_grade_basis": false,
+    "g4_minimum": "TWO_INDEPENDENT_HIGH_DIAGNOSTIC_CYCLES_OR_ONE_CROSS_PHASE_CROSS_DOMAIN_COMPLETE_CHAIN",
+    "g5_minimum": "RARE_REPEATED_PERFORMANCE_ACROSS_DIFFERENT_CONSTRAINTS_PHASES_OR_DOMAINS_AFTER_HARD_COUNTEREXAMPLE_TEST"
+  },
+  "mechanical_inventory": {
+    "M2": {
+      "record_count": 184,
+      "pre_review_parent_count_distribution": {
+        "1": 69,
+        "2": 106,
+        "3": 9
+      },
+      "post_review_capability_event_count_distribution": {
+        "1": 69,
+        "2": 105,
+        "3": 9,
+        "5": 1
+      },
+      "original_g4_low_count": 14,
+      "candidate_count": 180
+    },
+    "C5": {
+      "record_count": 184,
+      "parent_count_distribution": {
+        "0": 3,
+        "1": 47,
+        "2": 98,
+        "3": 29,
+        "4": 7
+      },
+      "original_g4_low_count": 4,
+      "original_g5_low_count": 2,
+      "candidate_count": 175
+    }
+  },
+  "grade_changes": [
+    {
+      "axis": "M2",
+      "ruler_id": "RULER-TANG-LISHIMIN",
+      "ruler_name": "李世民",
+      "before": "G4-HIGH",
+      "after": "G5-LOW",
+      "reason": "多对象跨阶段稀缺表现经高句丽调停失败反例检验后仍为顶级；一般失败不构成模式改变。"
+    },
+    {
+      "axis": "M2",
+      "ruler_id": "RULER-XIN-WANGMANG",
+      "ruler_name": "王莽",
+      "before": "G0-MID",
+      "after": "G1-LOW",
+      "reason": "跨对象负向模式成立，但现有父链仅MI2，不能把材料汇总直接映射为唯一G0。"
+    },
+    {
+      "axis": "C5",
+      "ruler_id": "RULER-HAN-LIUHENG",
+      "ruler_name": "刘恒",
+      "before": "G4-HIGH",
+      "after": "G5-LOW",
+      "reason": "公共资源、刑罚、司法与最高决定约束多次稀缺；亲属处置反证限制位置但未形成失控模式。"
+    }
+  ],
+  "pattern_changing_counterevidence_examples": [
+    "M2-朱由检-蒙古补贴与对清秘密议和反复",
+    "C5-赵昚-晚期反馈安全系统收窄",
+    "C5-杨坚-后期反复突破自建程序"
+  ],
+  "ordinary_counterevidence_not_capping_examples": [
+    "M2-李世民-高句丽调停失败",
+    "C5-李世民-张蕴古与卢祖尚个案",
+    "C5-刘恒-刘长薄昭与肉刑替代伤害",
+    "C5-萧绰-迁怒杀侍从单案"
+  ],
+  "second_item_head_vs_c5_low_screen": {
+    "screen_policy": "第二项A/B1/B2的G4/G5与C5的G0/G1按稳定ruler_id机械联结，再核对同链语义；制度产出高不自动换算个人克制高。",
+    "A_hits": [
+      "刘彻:G5/G0",
+      "嬴政:G5/G0",
+      "杨坚:G5/G1",
+      "慈禧:G4/G1",
+      "冯太后:G4/G1",
+      "奕詝:G4/G1",
+      "胤禛:G4/G1",
+      "武则天:G4/G1",
+      "完颜亶:G4/G0",
+      "司马炎:G4/G1"
+    ],
+    "B1_hits": [
+      "刘庄:G4/G1",
+      "胤禛:G4/G1"
+    ],
+    "B2_hits": [],
+    "semantic_result": "REVIEWED_NO_UNRESOLVED_CONFLICT",
+    "reason": "命中者的第二项高档主要评价制度设计或行政运行；C5低档均由本人异议压制、特权俘获、程序突破或反馈后复发的独立事件支撑，不以第二项结果覆盖本人权力风格。"
+  },
+  "retained_material_limits": {
+    "M2_evidence_limited_count": 94,
+    "C5_evidence_limited_count": 11
+  }
+}
