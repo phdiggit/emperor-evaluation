@@ -46,6 +46,14 @@ def _source_path(root: Path, ref: str) -> Path | None:
     return root / source
 
 
+def _cached_text(path: Path, cache: dict[Path, str]) -> str:
+    text = cache.get(path)
+    if text is None:
+        text = path.read_text(encoding="utf-8")
+        cache[path] = text
+    return text
+
+
 def _is_direct_process_ref(root: Path, parent: dict, ref: str, cache: dict[Path, str]) -> bool:
     if ref.startswith("https://"):
         return True
@@ -63,7 +71,7 @@ def _is_direct_process_ref(root: Path, parent: dict, ref: str, cache: dict[Path,
         source_file = _source_path(root, source_ref)
         if source_file is None or not source_file.is_file():
             continue
-        text = cache.setdefault(source_file, source_file.read_text(encoding="utf-8"))
+        text = _cached_text(source_file, cache)
         if ref in text:
             return True
     return False
@@ -82,7 +90,7 @@ def _audit_source_ref_is_traceable(root: Path, ref: str, cache: dict[Path, str])
     fragment = ref.split("#", 1)[1]
     if not fragment:
         return False
-    text = cache.setdefault(path, path.read_text(encoding="utf-8"))
+    text = _cached_text(path, cache)
     line_match = re.fullmatch(r"L(\d+)", fragment)
     if line_match:
         return 1 <= int(line_match.group(1)) <= len(text.splitlines())
