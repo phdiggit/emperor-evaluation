@@ -169,8 +169,8 @@ def test_recent_batch_calibration_keeps_rare_feedback_grades_rare() -> None:
         "完颜雍", "萧绰", "耶律隆绪", "完颜晟", "完颜守绪"
     )} == {
         "完颜雍": 304.5,
-        "萧绰": 278.3,
-        "耶律隆绪": 272.1,
+        "萧绰": 271.5,
+        "耶律隆绪": 266.6,
         "完颜晟": 178.2,
         "完颜守绪": 94.4,
     }
@@ -182,4 +182,5 @@ def test_recent_batch_calibration_keeps_rare_feedback_grades_rare() -> None:
         )["scores"]
     }
     assert c4["耶律隆绪"]["recovery_score"] == 4.1
-    assert c4["耶律隆绪"]["score"] == 12.6
+    assert c4["耶律隆绪"]["stability_score"] == 3.0
+    assert c4["耶律隆绪"]["score"] == 7.1

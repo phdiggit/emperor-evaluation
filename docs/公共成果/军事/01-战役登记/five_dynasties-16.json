@@ -4,7 +4,7 @@
   "bucket": 16,
   "bucket_count": 24,
   "record_count": 29,
-  "records_fingerprint": "cd7c99ba6f94fd95cb168dedb07466ea70fcaba1bcac5413b444cf8f481e8497",
+  "records_fingerprint": "f6503fffde4e264cb9f6a2d8ec8425281ce2e1b77f6285c183dd4d36d3ebfed7",
   "records": [
     {
       "war_event_id": "WAR-FD-64EAD7C4422B7454E441",
@@ -4565,6 +4565,34 @@
       "post_tang_evidence_lower_bound": false,
       "limitations": [
         "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ],
+      "person_command_results": [
+        {
+          "person_command_result_ref": "PCR-M1-YELURUAN-SHIQIAO-947",
+          "person": "耶律阮",
+          "ruler_id": "RULER-LIAO-YELU-RUAN",
+          "campaign_ref": "WAR-FD-F95390C4A3C580ACE79B",
+          "capability_episode_ref": "MIL-EPISODE-YELURUAN-SHIQIAO-947",
+          "canonical_label": "石桥击败述律太后军并收束继承内战",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "decisive_creator",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "B",
+          "combat_difficulty": "D1",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "兀欲军与述律太后军实际交锋，借对方将领来降形成胜势并追击、幽禁太后；本人战术细节有限，只取B/D1。",
+          "source_refs": [
+            "WAR-FD-F95390C4A3C580ACE79B-P01"
+          ],
+          "parent_campaign_tier": "B",
+          "parent_combat_difficulty": "D1",
+          "evidence_lower_bound": true
+        }
       ]
     },
     {
@@ -5971,6 +5999,60 @@
       "post_tang_evidence_lower_bound": false,
       "limitations": [
         "父卡指标不得复制给主体；AB/C/D只读取subject_phase_views。"
+      ],
+      "person_command_results": [
+        {
+          "person_command_result_ref": "PCR-M1-CHAI-GAOPING-954",
+          "person": "柴荣",
+          "ruler_id": "RULER-FD-CHAI-RONG",
+          "campaign_ref": "WAR-FD-19647EC5A12E17FA44CF",
+          "capability_episode_ref": "MIL-EPISODE-CHAI-GAOPING-954",
+          "canonical_label": "高平右军先溃后的亲督逆转",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "decisive_creator",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "A",
+          "combat_difficulty": "D3",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "右军先溃后仍亲督中军，组织两翼反击并击溃北汉主力；只消费本人最高统合，不复制赵匡胤、张永德各自战术成果。",
+          "source_refs": [
+            "WAR-FD-19647EC5A12E17FA44CF-P01"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D3",
+          "evidence_lower_bound": true
+        },
+        {
+          "person_command_result_ref": "PCR-M1-LIUCHONG-GAOPING-954",
+          "person": "刘崇",
+          "ruler_id": "RULER-SHADOW-刘崇",
+          "campaign_ref": "WAR-FD-19647EC5A12E17FA44CF",
+          "capability_episode_ref": "MIL-EPISODE-LIUCHONG-GAOPING-954",
+          "canonical_label": "高平会战主力崩溃",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "decisive_creator",
+          "result_direction": "negative",
+          "outcome_responsibility": "actual_command_scope",
+          "causal_fault": "ATTRIBUTABLE_COMMAND_ERROR",
+          "campaign_tier": "A",
+          "combat_difficulty": "D3",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "亲自决策并指挥高平会战，拒绝谨慎建议后主力崩溃，仅率百余骑退回晋阳。",
+          "source_refs": [
+            "WAR-FD-19647EC5A12E17FA44CF-P03"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D3",
+          "evidence_lower_bound": true
+        }
       ]
     },
     {

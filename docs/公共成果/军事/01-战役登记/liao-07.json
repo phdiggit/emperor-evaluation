@@ -3,8 +3,8 @@
   "partition": "liao",
   "bucket": 7,
   "bucket_count": 24,
-  "record_count": 4,
-  "records_fingerprint": "a7e235743b58d2726bbaf02bd6662fa40457c78479bfd047b1c5965572ca85c9",
+  "record_count": 5,
+  "records_fingerprint": "c6dce5d0b8404906932c042f624ad3171fda0b9fdd536c4a5cee944162871a69",
   "records": [
     {
       "war_event_id": "WAR-POST-6E095BEB0D7FAD3691BB",
@@ -274,6 +274,57 @@
       "wc_grade": null,
       "security_grade": null,
       "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "PUBLIC-PCR-YELUDASHI-CENTRAL-ASIA-1134-1142",
+      "dynasty": "西辽",
+      "dynasty_partition": "liao",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "DINV::YELU_DASHI::CENTRAL_ASIA_HEGEMONY-1134-1142",
+      "canonical_label": "八剌沙衮—卡特万—花剌子模中亚霸权链",
+      "period": {
+        "start": "1134—1142",
+        "end": "1134—1142"
+      },
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_PERSON_COMMAND_RESULT",
+      "source_lineage": {
+        "source_files": [
+          "docs/公共成果/军事/03-军事行动成本和收益登记/liao.json"
+        ],
+        "lineage_basis": "既有通读卡回补公共人物战役结果。"
+      },
+      "source_refs": [
+        "DINV::YELU_DASHI::CENTRAL_ASIA_HEGEMONY-1134-1142"
+      ],
+      "person_command_results": [
+        {
+          "person_command_result_ref": "PCR-M1-YELUDASHI-CENTRAL-ASIA-1134-1142",
+          "person": "耶律大石",
+          "ruler_id": "RULER-LIAO-YELU-DASHI",
+          "campaign_ref": "PUBLIC-PCR-YELUDASHI-CENTRAL-ASIA-1134-1142",
+          "capability_episode_ref": "MIL-EPISODE-YELUDASHI-CENTRAL-ASIA-1134-1142",
+          "canonical_label": "八剌沙衮—卡特万—花剌子模中亚霸权链",
+          "role_code": "not_in_command_chain",
+          "consumption_mode": "operational_result",
+          "capability_mode": "operational_design",
+          "decisive_relation": "decisive_creator",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "S",
+          "combat_difficulty": null,
+          "outcome_durability": false,
+          "detail_status": "operational_direction_resolved",
+          "basis": "统一核心闭合后另起的连续扩张链：接管八剌沙衮、击败西喀喇汗与塞尔柱联军、控制河中并取得花剌子模岁贡；只消费最高战略统筹与终局，不伪造本人每场前线指挥或继承战役难度。",
+          "source_refs": [
+            "DINV::YELU_DASHI::CENTRAL_ASIA_HEGEMONY-1134-1142"
+          ],
+          "parent_campaign_tier": "S",
+          "parent_combat_difficulty": null,
+          "evidence_lower_bound": true
+        }
+      ]
     }
   ]
 }

@@ -3,8 +3,8 @@
   "partition": "liao",
   "bucket": 13,
   "bucket_count": 24,
-  "record_count": 13,
-  "records_fingerprint": "6f48be9aa92db057e24057909d04fa76d1c85fee8b4de9d0048b2cd0b439e6ea",
+  "record_count": 14,
+  "records_fingerprint": "b41bbce11a3aa600050c7ec661c87a90a02f70aea86d20ef1c6c0cd2ffaf9e8c",
   "records": [
     {
       "war_event_id": "WAR-POST-0EB5C4A644523E46B075",
@@ -1216,6 +1216,59 @@
       "wc_grade": null,
       "security_grade": null,
       "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "PUBLIC-PCR-YELUDASHI-FOUNDING-1124-1132",
+      "dynasty": "西辽",
+      "dynasty_partition": "liao",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "XZTJ-WESTERN-LIAO-FOUNDING-1124-1125",
+      "canonical_label": "耶律达实西征建国：七州十八部—塔什干—西辽建立",
+      "period": {
+        "start": "1124—1132",
+        "end": "1124—1132"
+      },
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_PERSON_COMMAND_RESULT",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/北宋/续资治通鉴/volume-095.battle-adjudications.json"
+        ],
+        "lineage_basis": "既有通读卡回补公共人物战役结果。"
+      },
+      "source_refs": [
+        "SRC-XUZIZHITONGJIAN-095-2299598-P0106",
+        "SRC-XUZIZHITONGJIAN-095-2299598-P0154"
+      ],
+      "person_command_results": [
+        {
+          "person_command_result_ref": "PCR-M1-YELUDASHI-FOUNDING-1124-1132",
+          "person": "耶律大石",
+          "ruler_id": "RULER-LIAO-YELU-DASHI",
+          "campaign_ref": "PUBLIC-PCR-YELUDASHI-FOUNDING-1124-1132",
+          "capability_episode_ref": "MIL-EPISODE-YELUDASHI-FOUNDING-1124-1132",
+          "canonical_label": "七州十八部集兵、塔什干破联军并建立西辽",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "decisive_creator",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "S",
+          "combat_difficulty": "D3",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "从三百骑脱离起步，在可敦城汇集七州十八部与五万余军，整编官吏、排甲和军械后万里西征；本人分左中右三军击败号称十万的呼拉沙联军，沿途数国归附并完成西辽建国。",
+          "source_refs": [
+            "SRC-XUZIZHITONGJIAN-095-2299598-P0106",
+            "SRC-XUZIZHITONGJIAN-095-2299598-P0154"
+          ],
+          "parent_campaign_tier": "S",
+          "parent_combat_difficulty": "D3",
+          "evidence_lower_bound": true
+        }
+      ]
     }
   ]
 }

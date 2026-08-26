@@ -3,8 +3,8 @@
   "partition": "liao",
   "bucket": 9,
   "bucket_count": 24,
-  "record_count": 7,
-  "records_fingerprint": "f1f0ed21d17a8fb432f3f37e62f9895fe5bc6a04a327a928eafa85a1e98f112e",
+  "record_count": 8,
+  "records_fingerprint": "d1e6ecb0b487153431f008f7c368742a667bc8f47ac5b6f0414cc7a0e58d14a8",
   "records": [
     {
       "war_event_id": "WAR-POST-5853E54630C829D39861",
@@ -856,6 +856,57 @@
       "wc_grade": null,
       "security_grade": null,
       "basis": "共享层已完成战役工作流转交，但当前结果未达到公共成果门槛或应转入非战役成果。"
+    },
+    {
+      "war_event_id": "PUBLIC-PCR-XIAOCHUO-CHANYUAN-1004",
+      "dynasty": "辽",
+      "dynasty_partition": "liao",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "QDGZ-LIAO-SONG-CHANYUAN-1004",
+      "canonical_label": "萧太后亲征至澶渊和议",
+      "period": {
+        "start": "1004",
+        "end": "1004"
+      },
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_PERSON_COMMAND_RESULT",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/辽/契丹国志/volume-013.battle-adjudications.json"
+        ],
+        "lineage_basis": "既有通读卡回补公共人物战役结果。"
+      },
+      "source_refs": [
+        "SRC-QIDANGUOZHI-013-2258658-P0023"
+      ],
+      "person_command_results": [
+        {
+          "person_command_result_ref": "PCR-M1-XIAOCHUO-CHANYUAN-1004",
+          "person": "萧绰",
+          "ruler_id": "RULER-ROSTER-0F3BA2C535371D66",
+          "campaign_ref": "PUBLIC-PCR-XIAOCHUO-CHANYUAN-1004",
+          "capability_episode_ref": "MIL-EPISODE-XIAOCHUO-CHANYUAN-1004",
+          "canonical_label": "萧太后亲征至澶渊和议",
+          "role_code": "not_in_command_chain",
+          "consumption_mode": "operational_result",
+          "capability_mode": "operational_design",
+          "decisive_relation": "co_decisive",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "S-",
+          "combat_difficulty": null,
+          "outcome_durability": false,
+          "detail_status": "operational_direction_resolved",
+          "basis": "临朝最高责任者与幼帝共同亲征，持续统合威虏、定州、瀛州至澶渊多方向并以岁币和议收束；战术执行多归将领，只消费统筹成果且不继承前线难度。",
+          "source_refs": [
+            "SRC-QIDANGUOZHI-013-2258658-P0023"
+          ],
+          "parent_campaign_tier": "S-",
+          "parent_combat_difficulty": null,
+          "evidence_lower_bound": true
+        }
+      ]
     }
   ]
 }

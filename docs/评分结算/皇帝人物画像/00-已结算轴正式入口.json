@@ -1,0 +1,51 @@
+{
+  "schema_version": "emperor-profile-formal-axis-manifest-v1",
+  "contract_version": "FORMAL-V1.0",
+  "contract": "docs/项目总纲/皇帝人物画像评估体系合同.md",
+  "contract_sha256": "f95915a9274acbdfe4f381d43e6e666f62fd3f25075e86efe15bb11e13b9f36a",
+  "canonical_status": "FORMAL_CURRENT",
+  "population_count": 184,
+  "settled_axis_count": 2,
+  "unsettled_axis_count": 7,
+  "profile_total_enabled": false,
+  "profile_ranking_enabled": false,
+  "composite_ranking_write": false,
+  "database_write": false,
+  "canonical_pool": "config/common/canonical-ruler-pool.json",
+  "canonical_pool_sha256": "4d2d11cbebc966592ba823de05a281f75f51e11456c73b5cee0cc34337ab65d9",
+  "axes": [
+    {
+      "axis_code": "M1",
+      "axis_name": "军事判断与统帅能力",
+      "status": "FORMAL_CURRENT",
+      "record_count": 184,
+      "json": "01-M1军事判断与统帅能力正式结算.json",
+      "markdown": "01-M1军事判断与统帅能力正式结算.md",
+      "json_sha256": "ec51c0a25b5d695b983cda24f4f412540338954bdce4afa8f5805600ea4c2326",
+      "audit_jsons": [
+        "03-M1人才差异与高档门复核.json",
+        "06-M1高档结构复核.json",
+        "08-M1武将锚别名与缺锚强度复核.json",
+        "09-M1武将成果难度组合倒挂复核.json",
+        "10-M1无档案战役与人才公共补录复核.json",
+        "11-M1全池重新裁决复核.json"
+      ],
+      "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC"
+    },
+    {
+      "axis_code": "C5",
+      "axis_name": "权力运用风格与克制",
+      "status": "FORMAL_CURRENT",
+      "record_count": 184,
+      "json": "02-C5权力运用风格与克制正式结算.json",
+      "markdown": "02-C5权力运用风格与克制正式结算.md",
+      "json_sha256": "5c3917e6615dcda136ecae2d5f1957cd4d30df310ec18384014a259546343430",
+      "audit_jsons": [
+        "04-C5主要入口单元处置审计.json",
+        "05-C5高档材料密度复核.json",
+        "07-C5高档与证据门结构复核.json"
+      ],
+      "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC"
+    }
+  ]
+}

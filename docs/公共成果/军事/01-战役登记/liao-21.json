@@ -3,8 +3,8 @@
   "partition": "liao",
   "bucket": 21,
   "bucket_count": 24,
-  "record_count": 4,
-  "records_fingerprint": "b100971758cde1cf85d6a1c777d1fb0fdb2227e4e638997f4cafa3f0fec2f97c",
+  "record_count": 5,
+  "records_fingerprint": "35f71b612df0d31909bda56a4ccfd594712511013778e884d7e2e82f8214d7fe",
   "records": [
     {
       "war_event_id": "WAR-POST-DC67E9178BB03570BE55",
@@ -355,6 +355,57 @@
       ],
       "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
       "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "PUBLIC-PCR-YELUDASHI-LANGOU-1122",
+      "dynasty": "辽",
+      "dynasty_partition": "liao",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "QDGZ-LIAO-SONG-LANGOU-FANCUN-1122",
+      "canonical_label": "兰沟甸至范村守御",
+      "period": {
+        "start": "1122",
+        "end": "1122"
+      },
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_PERSON_COMMAND_RESULT",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/辽/契丹国志/volume-011.battle-adjudications.json"
+        ],
+        "lineage_basis": "既有通读卡回补公共人物战役结果。"
+      },
+      "source_refs": [
+        "SRC-QIDANGUOZHI-011-2258712-P0020"
+      ],
+      "person_command_results": [
+        {
+          "person_command_result_ref": "PCR-M1-YELUDASHI-LANGOU-1122",
+          "person": "耶律大石",
+          "ruler_id": "RULER-LIAO-YELU-DASHI",
+          "campaign_ref": "PUBLIC-PCR-YELUDASHI-LANGOU-1122",
+          "capability_episode_ref": "MIL-EPISODE-YELUDASHI-LANGOU-1122",
+          "canonical_label": "兰沟甸掩击宋前锋并守住燕山战线",
+          "role_code": "principal_commander",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "co_decisive",
+          "result_direction": "positive",
+          "outcome_responsibility": null,
+          "causal_fault": null,
+          "campaign_tier": "A",
+          "combat_difficulty": "D2",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "以一千五百余骑屯涿州新城，在兰沟甸掩击宋前锋；后与萧幹方向共同迫宋军撤退，取本人A/D2下限，不复制萧幹范村战果。",
+          "source_refs": [
+            "SRC-QIDANGUOZHI-011-2258712-P0020"
+          ],
+          "parent_campaign_tier": "A",
+          "parent_combat_difficulty": "D2",
+          "evidence_lower_bound": true
+        }
+      ]
     }
   ]
 }
