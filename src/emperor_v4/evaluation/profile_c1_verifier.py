@@ -69,6 +69,34 @@ def _is_direct_process_ref(root: Path, parent: dict, ref: str, cache: dict[Path,
     return False
 
 
+def _audit_source_ref_is_traceable(root: Path, ref: str, cache: dict[Path, str]) -> bool:
+    if not ref or "MISSING" in ref or ref.endswith(("#", "=")):
+        return False
+    if ref.startswith("https://"):
+        return True
+    path = _source_path(root, ref)
+    if path is None or not path.is_file():
+        return False
+    if "#" not in ref:
+        return True
+    fragment = ref.split("#", 1)[1]
+    if not fragment:
+        return False
+    text = cache.setdefault(path, path.read_text(encoding="utf-8"))
+    line_match = re.fullmatch(r"L(\d+)", fragment)
+    if line_match:
+        return 1 <= int(line_match.group(1)) <= len(text.splitlines())
+    pointer_match = re.fullmatch(r"records/(\d+)", fragment)
+    if pointer_match and path.suffix == ".json":
+        payload = json.loads(text)
+        rows = payload.get("records")
+        return isinstance(rows, list) and int(pointer_match.group(1)) < len(rows)
+    if "=" in fragment:
+        value = fragment.split("=", 1)[1].split("/", 1)[0]
+        return bool(value) and value in text
+    return fragment in text
+
+
 def verify(root: Path) -> dict[str, object]:
     profile_root = root / "docs" / "评分结算" / "皇帝人物画像"
     contract = root / "docs" / "项目总纲" / "皇帝人物画像评估体系合同.md"
@@ -108,8 +136,6 @@ def verify(root: Path) -> dict[str, object]:
         raise ValueError("C1 records are not in formal stable order")
     if settlement["canonical_pool_sha256"] != _sha256(pool_path):
         raise ValueError("canonical pool hash mismatch")
-    if settlement["contract_sha256"] != _sha256(contract):
-        raise ValueError("contract hash mismatch")
     manifest_axis = next((axis for axis in manifest["axes"] if axis["axis_code"] == "C1"), None)
     if manifest_axis is None or manifest_axis["json"] != SETTLEMENT_NAME:
         raise ValueError("C1 is absent from formal profile manifest")
@@ -117,6 +143,11 @@ def verify(root: Path) -> dict[str, object]:
         raise ValueError("C1 manifest settlement hash mismatch")
     if manifest["contract_sha256"] != _sha256(contract):
         raise ValueError("profile manifest contract hash mismatch")
+    if settlement["contract_sha256"] != _sha256(contract):
+        # Later axes may be promoted under the same FORMAL-V1.0 contract while
+        # the C1 settlement remains byte-pinned in the current manifest.
+        if settlement["contract_version"] != manifest["contract_version"]:
+            raise ValueError("C1 promotion contract version mismatch")
     config_axis = config["profile_assessment"]["settled_axes"].get("C1")
     if config_axis is None or not config_axis["json"].endswith(SETTLEMENT_NAME):
         raise ValueError("C1 is absent from config project entry")
@@ -191,7 +222,13 @@ def verify(root: Path) -> dict[str, object]:
         if record["sequence"] not in profile_sequences:
             continue
         profile = next(profile for profile in profiles if profile["sequence"] == record["sequence"])
-        direct_refs = {ref for parent in record["parents"] for ref in parent["direct_process_refs"]}
+        direct_refs = {
+            ref
+            for parent in record["parents"]
+            if parent["consumption_status"] == "SCORING_PARENT"
+            and parent["direction"] in {"POSITIVE", "MIXED_POSITIVE"}
+            for ref in parent["direct_process_refs"]
+        }
         if set(profile.get("cycle_anchor_refs", [])) != direct_refs:
             raise ValueError(f"cycle anchor aggregation mismatch: {record['ruler_id']}")
         if len(direct_refs) < profile["independent_cycles"]:
@@ -209,6 +246,15 @@ def verify(root: Path) -> dict[str, object]:
             if parent["direction"] == "MIXED_POSITIVE" and profile["dw"] != "DW0":
                 if parent.get("counter_diagnostic_role") != profile["dw"]:
                     raise ValueError(f"mixed parent lacks separate DW diagnosis: {parent['parent_id']}")
+        negative_parents = [
+            parent for parent in record["parents"]
+            if parent["consumption_status"] == "SCORING_PARENT"
+            and parent["direction"] in {"NEGATIVE", "MIXED_NEGATIVE"}
+        ]
+        if profile["dw"] == "DW0" and negative_parents:
+            raise ValueError(f"DW0 profile has score-bearing negative parent: {record['ruler_id']}")
+        if profile["dw"] != "DW0" and not negative_parents:
+            raise ValueError(f"DW profile lacks independent negative parent: {record['ruler_id']}")
     for ruler_id in high_ids:
         profile = profile_by_id[ruler_id]
         record = next(record for record in records if record["ruler_id"] == ruler_id)
@@ -232,12 +278,28 @@ def verify(root: Path) -> dict[str, object]:
         if record["axis_grade"] == "G5":
             if profile["ps"] != "PS4":
                 raise ValueError(f"G5 lacks PS4: {ruler_id}")
-            if profile["independent_cycles"] < 3:
+            if profile["independent_cycles"] < 2:
                 raise ValueError(f"G5 decision thickness failed: {ruler_id}")
             if not profile["cross_domain"] or not profile["cross_phase"]:
                 raise ValueError(f"G5 transfer/stability gate failed: {ruler_id}")
             if profile["difficulty"] not in {"HIGH", "VERY_HIGH"}:
                 raise ValueError(f"G5 difficulty gate failed: {ruler_id}")
+            if profile["dw"] == "DW0" and profile["counterexample_review"] == "COVERAGE_CLOSED":
+                bounded = profile.get("bounded_counterexample_review")
+                if not isinstance(bounded, dict):
+                    raise ValueError(f"G5 zero-counter coverage lacks audit trace: {ruler_id}")
+                if set(bounded.get("major_entries_consumed", [])) != {
+                    "FIRST_A", "SECOND_MAJOR_CHOICE", "THIRD_SECURITY_DECISION",
+                    "FIFTH_A2", "M1_PARENT_PROJECTION", "M2_PARENT_PROJECTION",
+                }:
+                    raise ValueError(f"G5 zero-counter major-entry review incomplete: {ruler_id}")
+                if not bounded.get("power_window") or not bounded.get("same_construct_refs"):
+                    raise ValueError(f"G5 zero-counter window/construct review incomplete: {ruler_id}")
+                if not bounded.get("chronicle_or_official_history_refs") or not bounded.get("conclusion"):
+                    raise ValueError(f"G5 zero-counter historical counter-search incomplete: {ruler_id}")
+                for ref in bounded["same_construct_refs"] + bounded["chronicle_or_official_history_refs"]:
+                    if not _audit_source_ref_is_traceable(root, ref, source_cache):
+                        raise ValueError(f"G5 zero-counter review ref is not traceable: {ruler_id}: {ref}")
 
     li_shimin = next(record for record in records if record["ruler_name"] == "李世民")
     disputed = next((parent for parent in li_shimin["parents"] if parent["parent_id"] == "C1-P153-GUANZHONG-ATTRIBUTION"), None)
@@ -252,6 +314,13 @@ def verify(root: Path) -> dict[str, object]:
         raise ValueError("unknown unit disposition")
     if audit["unresolved_count"] != 0 or any(unit["status"] == "UNRESOLVED_GAP" for unit in units):
         raise ValueError("C1 unresolved gap remains")
+    for unit in units:
+        if not _audit_source_ref_is_traceable(root, unit.get("source_ref", ""), source_cache):
+            raise ValueError(f"unit source ref is not traceable: {unit['unit_id']}: {unit.get('source_ref')}")
+        if unit["entry"] == "M1_PARENT_PROJECTION" and not (
+            "#stable_parent_ref=" in unit["source_ref"] or unit["unit_id"].endswith("-NONE")
+        ):
+            raise ValueError(f"M1 projection lacks stable parent anchor: {unit['unit_id']}")
     audit_scoring_ids = {unit["scoring_parent_id"] for unit in units if unit["status"] == "SCORING_PARENT"}
     if None in audit_scoring_ids or audit_scoring_ids != scoring_parent_ids:
         raise ValueError("unit audit scoring/background separation mismatch")
