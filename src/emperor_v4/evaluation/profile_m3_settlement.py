@@ -274,8 +274,8 @@ def _acceptance(settlement: dict[str, Any], audit: dict[str, Any], high: dict[st
 def _update_manifest() -> None:
     manifest = _load(MANIFEST)
     manifest["contract_sha256"] = _sha(CONTRACT)
-    manifest["settled_axis_count"] = 7
-    manifest["unsettled_axis_count"] = 1
+    manifest["settled_axis_count"] = 8
+    manifest["unsettled_axis_count"] = 0
     axis = next((row for row in manifest["axes"] if row["axis_code"] == "M3"), None)
     value = {
         "axis_code": "M3", "axis_name": "财政经济约束理解与工具适配", "status": "FORMAL_CURRENT",
@@ -289,7 +289,7 @@ def _update_manifest() -> None:
         manifest["axes"].append(value)
     else:
         axis.clear(); axis.update(value)
-    order = {code: index for index, code in enumerate(("M1", "M2", "M3", "C1", "C2", "C3", "C5"))}
+    order = {code: index for index, code in enumerate(("M1", "M2", "M3", "M4", "C1", "C2", "C3", "C5"))}
     manifest["axes"].sort(key=lambda row: order[row["axis_code"]])
     for registered in manifest["axes"]:
         json_path = PROFILE_ROOT / registered["json"]
