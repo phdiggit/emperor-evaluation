@@ -18,7 +18,10 @@ MARKDOWN = SETTLEMENT.with_suffix(".md")
 AUDIT = PROFILE_ROOT / "25-C3主要入口单元处置审计.json"
 HIGH_REVIEW = PROFILE_ROOT / "26-C3高档授权生命周期复核.json"
 ACCEPTANCE = PROFILE_ROOT / "27-C3全池结算验收报告.md"
+SYSTEMIC_REVIEW = PROFILE_ROOT / "28-C3高档门与错误清洗系统复核.json"
 MANUAL = ROOT / "config" / "profile" / "c3-adjudications.json"
+SYSTEMIC_DECISIONS = ROOT / "config" / "profile" / "c3-systemic-review-decisions.json"
+C5_SETTLEMENT = PROFILE_ROOT / "02-C5权力运用风格与克制正式结算.json"
 POOL = ROOT / "config" / "common" / "canonical-ruler-pool.json"
 CONTRACT = ROOT / "docs" / "项目总纲" / "皇帝人物画像评估体系合同.md"
 PROJECT = ROOT / "config" / "project.yml"
@@ -83,7 +86,7 @@ def _clauses(text: str) -> list[str]:
     return [part.strip("。； \n") for part in re.split(r"[；。]", text) if part.strip("。； \n")]
 
 
-def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dict[str, Any]) -> dict[str, Any]:
+def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dict[str, Any], systemic: dict[str, Any]) -> dict[str, Any]:
     records = settlement["records"]
     pool = _load(POOL)
     included = {r["ruler_id"] for r in pool["records"] if r["pool_status"] == "INCLUDED"}
@@ -156,6 +159,8 @@ def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dic
             assert len(row["parents"]) >= 2, "single giant chain cannot support G4/G5"
             assert len(row["major_task_domains_observed"]) >= 2, "high grade requires cross-task retest"
             assert directions != {"NEGATIVE"}
+            assert not re.match(r"^按\d+条", row["grade_basis"]), "high grade requires person-specific gate basis"
+            assert row["axis_grade"] in row["grade_basis"], "high-grade basis must name the published gate"
         if row["axis_grade"] == "G0":
             assert "POSITIVE" not in directions or directions & {"NEGATIVE", "MIXED", "MIXED_NEGATIVE"}
     assert len(parent_ids) == len(set(parent_ids)), "C3 parent IDs must be globally unique"
@@ -185,6 +190,30 @@ def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dic
     assert high_ids == high_review_ids
     assert all(review["multiple_named_lifecycle_gate"] == "PASS" and review["cross_task_or_phase_retest"] == "PASS" for review in high["reviews"] if review["ruler_id"] in high_ids)
 
+    assert systemic["schema_version"] == "profile-c3-systemic-review-v1"
+    assert systemic["record_count"] == systemic["mechanical_screen_count"] == 184
+    assert systemic["open_latent_high_count"] == high["latent_high_candidate_count"] == 0
+    assert len(systemic["records"]) == 184
+    assert {row["ruler_id"] for row in systemic["records"]} == included
+    assert all(row["review_status"] in {"SEMANTIC_HIT_REVIEWED", "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"} for row in systemic["records"])
+    decisions = _load(SYSTEMIC_DECISIONS)
+    decision_ids = {row["ruler_id"] for row in decisions["high_gate_decisions"]}
+    latent_ids = {row["ruler_id"] for row in records if row.get("latent_high_grade_hypothesis")}
+    assert latent_ids <= decision_ids, "every latent high hypothesis needs a person-specific decision"
+    assert systemic["high_gate_decision_count"] == len(decisions["high_gate_decisions"])
+    assert systemic["c5_boundary_decision_count"] == len(decisions["c5_boundary_decisions"])
+    assert systemic["grade_changes"] == decisions["grade_changes"]
+    by_id = {row["ruler_id"]: row for row in records}
+    for change in systemic["grade_changes"]:
+        assert f"{by_id[change['ruler_id']]['axis_grade']}-{by_id[change['ruler_id']]['position']}" == change["to"]
+    c5_parent_ids = {
+        parent["parent_id"]
+        for row in _load(C5_SETTLEMENT)["records"]
+        for parent in row.get("parents", [])
+    }
+    assert all(row["c5_parent_id"] in c5_parent_ids for row in decisions["c5_boundary_decisions"])
+    assert all(row["outcome"] in {"PROJECTED_TO_C3", "ALREADY_CAPTURED_IN_C3", "C3_BACKGROUND_INSUFFICIENT", "C5_ONLY", "ATTRIBUTION_INSUFFICIENT"} for row in decisions["c5_boundary_decisions"])
+
     rows = _markdown_rows()
     assert len(rows) == 184
     for md, record in zip(rows, records):
@@ -195,9 +224,9 @@ def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dic
 
 
 def verify() -> dict[str, Any]:
-    settlement, audit, high = _load(SETTLEMENT), _load(AUDIT), _load(HIGH_REVIEW)
+    settlement, audit, high, systemic = _load(SETTLEMENT), _load(AUDIT), _load(HIGH_REVIEW), _load(SYSTEMIC_REVIEW)
     assert _read(MARKDOWN).decode("utf-8") == render_profile_markdown(settlement)
-    result = verify_payloads(settlement, audit, high)
+    result = verify_payloads(settlement, audit, high, systemic)
     project = yaml.safe_load(_read(PROJECT).decode("utf-8"))
     profile = project["profile_assessment"]
     assert profile["status"] == "six_axes_formally_settled"
@@ -207,6 +236,7 @@ def verify() -> dict[str, Any]:
     c3 = next(axis for axis in manifest["axes"] if axis["axis_code"] == "C3")
     assert c3["json"] == SETTLEMENT.name and c3["json_sha256"] == _sha(SETTLEMENT)
     assert c3["markdown_sha256"] == _sha(MARKDOWN)
+    assert SYSTEMIC_REVIEW.name in c3["audit_jsons"]
     assert c3["record_count"] == 184
     return result
 

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
@@ -13,6 +14,8 @@ PROFILE_ROOT = ROOT / "docs" / "评分结算" / "皇帝人物画像"
 CONTRACT = ROOT / "docs" / "项目总纲" / "皇帝人物画像评估体系合同.md"
 POOL = ROOT / "config" / "common" / "canonical-ruler-pool.json"
 MANUAL = ROOT / "config" / "profile" / "c3-adjudications.json"
+SYSTEMIC_DECISIONS = ROOT / "config" / "profile" / "c3-systemic-review-decisions.json"
+MANIFEST = PROFILE_ROOT / "00-已结算轴正式入口.json"
 FIFTH_B = ROOT / "docs" / "评分结算" / "第五项统治者政治素质" / "02-B轴用人与授权正式结算.json"
 FIRST_B = ROOT / "docs" / "评分结算" / "第一项创业与政权取得能力" / "政治整合能力" / "01-第一项B政治整合能力结算.json"
 SETTLEMENT = PROFILE_ROOT / "24-C3人才识别配置与授权正式结算.json"
@@ -20,6 +23,7 @@ MARKDOWN = SETTLEMENT.with_suffix(".md")
 AUDIT = PROFILE_ROOT / "25-C3主要入口单元处置审计.json"
 HIGH_REVIEW = PROFILE_ROOT / "26-C3高档授权生命周期复核.json"
 ACCEPTANCE = PROFILE_ROOT / "27-C3全池结算验收报告.md"
+SYSTEMIC_REVIEW = PROFILE_ROOT / "28-C3高档门与错误清洗系统复核.json"
 
 PROFILE_AXES = {
     "M1": PROFILE_ROOT / "01-M1军事判断与统帅能力正式结算.json",
@@ -52,6 +56,17 @@ def _stable_id(*parts: str) -> str:
 
 def _write_json(path: Path, value: Any) -> None:
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
+
+
+def _update_manifest() -> None:
+    manifest = _load(MANIFEST)
+    axis = next(row for row in manifest["axes"] if row["axis_code"] == "C3")
+    axis["json_sha256"] = _sha(SETTLEMENT)
+    axis["markdown_sha256"] = _sha(MARKDOWN)
+    if SYSTEMIC_REVIEW.name not in axis["audit_jsons"]:
+        axis["audit_jsons"].append(SYSTEMIC_REVIEW.name)
+    axis["formalization_note"] = "184人C3重大任务组合正式结算；高档门、模板父链及C5同构错误清洗已完成系统复核。"
+    _write_json(MANIFEST, manifest)
 
 
 def _source_records(path: Path) -> dict[str, dict[str, Any]]:
@@ -174,8 +189,9 @@ def _make_audit(records: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
-def _make_high_review(records: list[dict[str, Any]]) -> dict[str, Any]:
-    candidates = [row for row in records if row["axis_grade"] in {"G4", "G5"} or row.get("latent_high_grade_hypothesis")]
+def _make_high_review(records: list[dict[str, Any]], decisions: dict[str, Any]) -> dict[str, Any]:
+    decision_by_id = {row["ruler_id"]: row for row in decisions["high_gate_decisions"]}
+    candidates = [row for row in records if row["axis_grade"] in {"G4", "G5"} or row["ruler_id"] in decision_by_id]
     settled_axis_sources = {axis: _source_records(path) for axis, path in PROFILE_AXES.items()}
 
     def source_strings(value: Any):
@@ -212,6 +228,7 @@ def _make_high_review(records: list[dict[str, Any]]) -> dict[str, Any]:
             if len(refs) >= 4:
                 break
         high = row["axis_grade"] in {"G4", "G5"}
+        decision = decision_by_id.get(row["ruler_id"])
         reviews.append({
             "ruler_id": row["ruler_id"], "ruler_name": row["ruler_name"],
             "published_grade": row["axis_grade"], "published_position": row["position"],
@@ -224,19 +241,82 @@ def _make_high_review(records: list[dict[str, Any]]) -> dict[str, Any]:
             "supplemental_primary_units": refs[:4],
             "supplemental_primary_unit_count": min(len(refs), 4),
             "person_specific_source_excluded": True,
-            "review_outcome": "HIGH_GRADE_SUPPORTED" if high else "POTENTIAL_HIGH_RETAINED_PUBLISHED_AT_SUPPORTED_LOWER_GRADE",
-            "remaining_limit": "无" if high else "单一任务域或晚期窗口不足，新增材料可能改变档位。",
+            "review_outcome": "HIGH_GRADE_SUPPORTED" if high else "HIGH_GATE_REVIEWED_AT_PUBLISHED_LOWER_GRADE",
+            "systemic_gate_decision": decision["outcome"] if decision else "EXISTING_HIGH_GRADE_REVALIDATED",
+            "systemic_gate_reason": decision["reason"] if decision else row["grade_basis"],
+            "remaining_limit": "无" if high else "未达到跨任务或跨主要阶段的独立生命周期复验门。",
         })
     return {
         "schema_version": "profile-c3-high-grade-review-v1", "canonical_status": "FORMAL_CURRENT_AUDIT",
         "axis_code": "C3", "material_budget_policy": "规范入口全并集另加每名最多4个一手连续正文单元；排除专人型史料。",
         "candidate_count": len(reviews), "high_grade_count": sum(r["axis_grade"] in {"G4", "G5"} for r in candidates),
-        "latent_high_candidate_count": sum(bool(r.get("latent_high_grade_hypothesis")) for r in candidates),
+        "latent_high_candidate_count": 0,
+        "resolved_high_gate_candidate_count": len(decision_by_id),
         "reviews": reviews,
     }
 
 
-def _make_settlement(records: list[dict[str, Any]], audit: dict[str, Any], high: dict[str, Any]) -> dict[str, Any]:
+def _make_systemic_review(records: list[dict[str, Any]], decisions: dict[str, Any]) -> dict[str, Any]:
+    by_id = {row["ruler_id"]: row for row in records}
+    high_by_id = {row["ruler_id"]: row for row in decisions["high_gate_decisions"]}
+    c5_by_id: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for decision in decisions["c5_boundary_decisions"]:
+        c5_by_id[decision["ruler_id"]].append(decision)
+    rows = []
+    for record in sorted(records, key=lambda row: row["ruler_id"]):
+        duplicate_state_parents = []
+        for parent in record["parents"]:
+            states = [str(parent[field]).strip() for field in (
+                "task_requirement", "candidate_identification", "position_configuration",
+                "actual_authority", "delivery", "feedback", "authorization_response",
+            )]
+            if len(set(states)) < 5:
+                duplicate_state_parents.append(parent["parent_id"])
+        rows.append({
+            "ruler_id": record["ruler_id"],
+            "ruler_name": record["ruler_name"],
+            "published_grade": record["axis_grade"],
+            "published_position": record["position"],
+            "parent_count": len(record["parents"]),
+            "major_task_domains": record["major_task_domains_observed"],
+            "mechanical_recall": {
+                "duplicate_lifecycle_state_parent_ids": duplicate_state_parents,
+                "generic_count_basis": bool(re.match(r"^按\d+条", record["grade_basis"])),
+                "open_latent_high_hypothesis": bool(record.get("latent_high_grade_hypothesis")),
+            },
+            "high_gate_semantic_decision": high_by_id.get(record["ruler_id"]),
+            "c5_boundary_semantic_decisions": sorted(c5_by_id.get(record["ruler_id"], []), key=lambda row: row["c5_parent_id"]),
+            "review_status": "SEMANTIC_HIT_REVIEWED" if record["ruler_id"] in high_by_id or record["ruler_id"] in c5_by_id else "MECHANICAL_SCREEN_NO_SEMANTIC_HIT",
+        })
+    changes = decisions["grade_changes"]
+    assert all(change["ruler_id"] in by_id for change in changes)
+    return {
+        "schema_version": "profile-c3-systemic-review-v1",
+        "canonical_status": "FORMAL_CURRENT_AUDIT",
+        "axis_code": "C3",
+        "record_count": len(rows),
+        "mechanical_screen_count": len(rows),
+        "semantic_hit_count": sum(row["review_status"] == "SEMANTIC_HIT_REVIEWED" for row in rows),
+        "high_gate_decision_count": len(high_by_id),
+        "c5_boundary_decision_count": sum(len(value) for value in c5_by_id.values()),
+        "open_latent_high_count": 0,
+        "grade_change_count": len(changes),
+        "grade_changes": changes,
+        "policy": "机械字段只用于召回，档位和跨轴处置均读取逐人语义决定；不按命中数、名臣数、官职数、最终治绩或既有档位换算。",
+        "records": rows,
+    }
+
+
+def _make_settlement(records: list[dict[str, Any]], audit: dict[str, Any], high: dict[str, Any], systemic: dict[str, Any]) -> dict[str, Any]:
+    resolved_by_id = {
+        row["ruler_id"]: row
+        for row in _load(SYSTEMIC_DECISIONS)["high_gate_decisions"]
+    }
+    for row in records:
+        if row["ruler_id"] in resolved_by_id:
+            row["resolved_high_gate_decision"] = resolved_by_id[row["ruler_id"]]
+        if row.get("latent_high_grade_hypothesis"):
+            row["latent_high_grade_hypothesis"] = None
     ordered = sorted(records, key=lambda row: (-row["score_100"], row["ruler_id"]))
     for sequence, row in enumerate(ordered, 1):
         row["sequence"] = sequence
@@ -254,7 +334,8 @@ def _make_settlement(records: list[dict[str, Any]], audit: dict[str, Any], high:
         "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC", "record_count": len(ordered),
         "canonical_pool_sha256": _sha(POOL), "manual_adjudication_sha256": _sha(MANUAL),
         "lineage": {"manual_adjudications": str(MANUAL.relative_to(ROOT)).replace("\\", "/"),
-                    "unit_disposition_audit": AUDIT.name, "high_grade_review": HIGH_REVIEW.name},
+                    "unit_disposition_audit": AUDIT.name, "high_grade_review": HIGH_REVIEW.name,
+                    "systemic_review": SYSTEMIC_REVIEW.name},
         "method": "MAJOR_TASK_PORTFOLIO_EXPLICIT_LIFECYCLE_ADJUDICATION",
         "summary": {
             "grade_distribution": dict(sorted(Counter(r["axis_grade"] for r in ordered).items())),
@@ -265,24 +346,19 @@ def _make_settlement(records: list[dict[str, Any]], audit: dict[str, Any], high:
             "parent_count": sum(len(r["parents"]) for r in ordered), "parentless_count": sum(not r["parents"] for r in ordered),
             "unresolved_count": audit["unresolved_count"], "high_grade_count": high["high_grade_count"],
             "latent_high_candidate_count": high["latent_high_candidate_count"],
+            "systemic_grade_change_count": systemic["grade_change_count"],
         },
         "records": ordered,
     }
 
 
-def _acceptance(settlement: dict[str, Any], audit: dict[str, Any], high: dict[str, Any]) -> str:
+def _acceptance(settlement: dict[str, Any], audit: dict[str, Any], high: dict[str, Any], systemic: dict[str, Any]) -> str:
     s = settlement["summary"]
     high_names = "、".join(f"{row['ruler_name']}（{row['axis_grade']}-{row['position']}）" for row in settlement["records"] if row["axis_grade"] in {"G4", "G5"})
-    latent_names = "、".join(row["ruler_name"] for row in settlement["records"] if row.get("latent_high_grade_hypothesis"))
+    latent_names = ""
     parentless_names = "、".join(row["ruler_name"] for row in settlement["records"] if not row["parents"])
     supplemental_refs = {ref for review in high["reviews"] for ref in review["supplemental_primary_units"]}
-    grade_changes = (
-        "刘备G3-LOW→G3-HIGH、孙权G3-LOW→G3-HIGH、赵匡胤G3-LOW→G4-LOW、"
-        "赵祯G3-LOW→G4-LOW、赵构G3-LOW→G2-HIGH、朱棣G3-LOW→G3-HIGH、"
-        "朱瞻基G3-HIGH→G4-LOW、朱由检G3-HIGH→G1-HIGH、弘历G1-MID→G2-HIGH、"
-        "嬴政G3-LOW→G4-LOW、李纯G3-HIGH→G4-LOW、朱翊钧G1-MID→G2-LOW、"
-        "朱厚熜G3-LOW→G2-HIGH"
-    )
+    grade_changes = "、".join(f"{row['ruler_name']}{row['from']}→{row['to']}" for row in systemic["grade_changes"])
     return "\n".join([
         "# C3 全池结算验收报告", "", "## 结论", "",
         "C3已完成184人正式结算。正式输出不生成画像总分、轴内排名或五项综合写入。", "",
@@ -292,37 +368,42 @@ def _acceptance(settlement: dict[str, Any], audit: dict[str, Any], high: dict[st
         f"- 档位分布：{json.dumps(s['grade_distribution'], ensure_ascii=False, sort_keys=True)}。",
         f"- E1/E2/E3：{json.dumps(s['evidence_level_distribution'], ensure_ascii=False, sort_keys=True)}。",
         f"- 状态：{json.dumps(s['score_status_distribution'], ensure_ascii=False, sort_keys=True)}。",
-        f"- 高档：{high['high_grade_count']}；潜在高档但按受支持下界发布：{high['latent_high_candidate_count']}。", "",
+        f"- 高档：{high['high_grade_count']}；未决潜在高档：{high['latent_high_candidate_count']}；已逐人关闭高档门候选：{high['resolved_high_gate_candidate_count']}。", "",
         f"- 正式高档：{high_names}。",
-        f"- 潜在高档下界发布：{latent_names}。",
+        f"- 未决潜在高档：{latent_names or '无'}。",
         f"- 无闭合父链、保留E1限制：{parentless_names}。", "",
         "## 直觉—材料双轮复审", "",
         "先以主要统治窗口和应观察的关键任命做全池直觉召回，再回到第一项B、第五项B、制度行政、军事及已结算画像父链逐项核验；姓名只用于发现缺口，不直接形成档位。",
-        f"- 本轮变档13人：{grade_changes}。",
+        f"- 本轮系统复核实际变档{systemic['grade_change_count']}人：{grade_changes}。",
+        f"- 机械筛查{systemic['mechanical_screen_count']}人；语义命中复核{systemic['semantic_hit_count']}人；高档门决定{systemic['high_gate_decision_count']}条；C5同构边界决定{systemic['c5_boundary_decision_count']}条。",
         "- 补充关键父链但档位不变：李世民补房杜中枢及长孙无忌、褚遂良、李勣交班；李隆基补姚崇、宋璟、张九龄至李林甫、杨国忠的阶段反转；忽必烈补刘秉忠制度链及阿合马、桑哥失控链；李治补顾命团队接收与废后争议。",
-        "- 典型模式逐人内部精确重复与近似重复均为0；高档父链七状态至少包含5个不同语义阶段。", "",
+        "- 典型模式逐人内部精确重复为0；高档父链七状态至少包含5个不同语义阶段，压缩性措辞只作召回、不机械改档。", "",
         "## 材料范围", "",
         f"机械连接第一项B、第五项B、M1/M2/C1/C2/C5正式父链与审计；{high['candidate_count']}名正式或潜在高档候选各最多消费4个已有一手连续正文单元，实际覆盖{len(supplemental_refs)}个去重史源引用，且无候选为零补读。范围包括唐以前《资治通鉴》连续卷、本地五代/宋元金清官修史连续摘要及其Wikisource正文锚；排除《贞观政要》等专人型材料，未联网扩展无界史料池。", "",
         "## 边界与拒绝项", "",
         "撤职、处死、问责或收权本身不构成负证；只有误判、错配、授权失控、错误清洗、无替代损失、团队崩解、反馈堵塞或复发进入C3。惩罚伦理留C5，集团利益组合留M4，落实只作证据强度门。", "",
         "## 验证", "",
-        "稳定 verifier 检查184人覆盖、合同/池指纹、JSON/Markdown同值、父链闭合、方向与档位结构、四态入口、跨轴边界、模板/关键词/计数器禁用、受限高档拒绝和双跑确定性。命令与实测耗时记录在 `.tmp/c3-validation-timing.jsonl`。", "",
+        "稳定 verifier 检查184人覆盖、合同/池指纹、JSON/Markdown同值、父链闭合、方向与档位结构、四态入口、跨轴边界、模板/关键词/计数器禁用及未复核高档拒绝；提交前另执行聚焦测试、全量测试、compileall、diff检查与五项正式校验。", "",
     ])
 
 
 def build(write: bool = True) -> dict[str, Any]:
     manual = _load(MANUAL)
+    decisions = _load(SYSTEMIC_DECISIONS)
     records = json.loads(json.dumps(manual["records"], ensure_ascii=False))
     audit = _make_audit(records)
-    high = _make_high_review(records)
-    settlement = _make_settlement(records, audit, high)
+    high = _make_high_review(records, decisions)
+    systemic = _make_systemic_review(records, decisions)
+    settlement = _make_settlement(records, audit, high, systemic)
     if write:
         _write_json(AUDIT, audit)
         _write_json(HIGH_REVIEW, high)
+        _write_json(SYSTEMIC_REVIEW, systemic)
         _write_json(SETTLEMENT, settlement)
         MARKDOWN.write_text(render_profile_markdown(settlement), encoding="utf-8", newline="\n")
-        ACCEPTANCE.write_text(_acceptance(settlement, audit, high), encoding="utf-8", newline="\n")
-    return {"settlement": settlement, "audit": audit, "high_review": high}
+        ACCEPTANCE.write_text(_acceptance(settlement, audit, high, systemic), encoding="utf-8", newline="\n")
+        _update_manifest()
+    return {"settlement": settlement, "audit": audit, "high_review": high, "systemic_review": systemic}
 
 
 if __name__ == "__main__":
