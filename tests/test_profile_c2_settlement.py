@@ -38,18 +38,18 @@ def test_c2_verifier_closes_pool_and_bounded_coverage_ledger() -> None:
     assert result["record_count"] == 184
     assert result["evidence_limited_count"] == 184
     assert result["evidence_level_distribution"] == {"E1": 153, "E2": 31}
-    assert result["grade_distribution"] == {"G0": 11, "G1": 62, "G2": 86, "G3": 16, "G4": 9}
-    assert result["parent_count"] == 199
+    assert result["grade_distribution"] == {"G0": 11, "G1": 62, "G2": 86, "G3": 17, "G4": 8}
+    assert result["parent_count"] == 222
     assert result["no_parent_evidence_limited_count"] == 47
     assert result["intuitive_candidate_count"] == 16
-    assert result["score_70_or_above_count"] == 17
+    assert result["score_70_or_above_count"] == 16
 
 
 def test_c2_high_grades_are_reopened_and_li_shimin_volume_193_is_consumed() -> None:
     settlement, _, high = payloads()
     by_name = {row["ruler_name"]: row for row in settlement["records"]}
     assert {(row["ruler_name"], row["axis_grade"]) for row in high["profiles"]} == {
-        (name, "G4") for name in {"李世民", "刘邦", "刘恒", "杨坚", "柴荣", "赵祯", "完颜雍", "皇太极", "玄烨"}
+        (name, "G4") for name in {"李世民", "刘邦", "刘恒", "柴荣", "赵祯", "完颜雍", "皇太极", "玄烨"}
     }
     assert {p["parent_id"] for p in by_name["李世民"]["parents"]} >= {
         "C2-P153-CONSTRUCTION-COST-RETEST-630-631",
@@ -57,6 +57,9 @@ def test_c2_high_grades_are_reopened_and_li_shimin_volume_193_is_consumed() -> N
         "C2-P153-LUZUSHANG-JUDICIAL-REGRET",
         "C2-P153-PALACE-WOMAN-RECHECK",
         "C2-P153-MUSICIAN-BLAME-REVIEW",
+        "C2-P153-LEGAL-REVIEW-SYSTEM",
+        "C2-P153-DELIBERATION-RECHECK",
+        "C2-P153-LATE-FEEDBACK-CONTRACTION",
     }
     assert all("贞观政要" not in ref and "貞觀政要" not in ref for p in by_name["李世民"]["parents"] for ref in p["cycle_anchor_refs"])
 
@@ -92,9 +95,56 @@ def test_c2_candidate_union_excludes_person_specific_sources_and_separates_direc
     assert all("贞观政要" not in ref and "貞觀政要" not in ref for row in candidates.values() for ref in row["combined_source_refs"])
     intensities = {p["material_intensity"] for name in candidates for p in by_name[name]["parents"]}
     assert {"MI1_CASE", "MI2_LIFECYCLE", "MI3_SUSTAINED_SYSTEMIC"} <= intensities
-    assert (by_name["嬴政"]["radar_value"], by_name["胤禛"]["radar_value"]) == (65, 65)
+    assert (by_name["嬴政"]["radar_value"], by_name["胤禛"]["radar_value"]) == (58, 65)
     assert by_name["刘秀"]["radar_value"] == 71
-    assert by_name["杨坚"]["radar_value"] == 77
+    assert (by_name["杨坚"]["axis_grade"], by_name["杨坚"]["position"], by_name["杨坚"]["radar_value"]) == ("G3", "MID", 65)
+
+
+def test_c2_candidate_b2_materials_are_individually_bound_and_suppression_is_asymmetric() -> None:
+    settlement, audit, high = payloads()
+    by_name = {row["ruler_name"]: row for row in settlement["records"]}
+    candidates = {row["ruler_name"]: row for row in high["candidate_reviews"]}
+    assert high["candidate_b2_material_count"] == 58
+    assert sum(
+        item["status"] == "SCORING_PARENT"
+        for row in candidates.values()
+        for item in row["b2_material_disposition_review"]
+    ) == settlement["summary"]["candidate_b2_scoring_parent_count"] == 33
+    assert all(
+        "另由具体父链" not in item["reason"]
+        for row in candidates.values()
+        for item in row["b2_material_disposition_review"]
+    )
+    yang = by_name["杨坚"]
+    assert set(yang["directional_strength_balance_review"]["suppression_parent_ids"]) == {
+        "C2-P119-PERSONNEL-DISSENT-SUPPRESSION",
+        "C2-P119-PALACE-EXTRALEGAL-BEATING-RECURRENCE",
+        "C2-P119-SUCCESSION-MISINFORMATION",
+        "C2-P119-YANGSU-CAPTURE-RECURRENCE",
+    }
+    purge = next(p for p in yang["parents"] if p["parent_id"] == "C2-P119-PERSONNEL-DISSENT-SUPPRESSION")
+    assert purge["intensity"] == "MI3_SUSTAINED_SYSTEMIC"
+    assert purge["feedback_suppression_review"]["sanction_or_exclusion_intensity"] == "EXTREME"
+    assert purge["feedback_suppression_review"]["future_channel_effect"] == "CHANNEL_DESTRUCTION"
+    beating = next(p for p in yang["parents"] if p["parent_id"] == "C2-P119-PALACE-EXTRALEGAL-BEATING-RECURRENCE")
+    assert beating["intensity"] == "MI3_SUSTAINED_SYSTEMIC"
+    assert {"LAW-16-005", "LAW-16-007"} <= set(beating["source_parent_refs"])
+
+    def empty_background_binding(settlement, audit, high):
+        item = next(
+            item
+            for candidate in high["candidate_reviews"]
+            for item in candidate["b2_material_disposition_review"]
+            if item["status"] == "BACKGROUND_VALIDATION"
+        )
+        item["supports_parent_ids"] = []
+    assert_rejected(empty_background_binding)
+
+    def erase_suppression_strength(settlement, audit, high):
+        row = next(row for row in settlement["records"] if row["ruler_name"] == "杨坚")
+        parent = next(p for p in row["parents"] if p["parent_id"] == "C2-P119-PERSONNEL-DISSENT-SUPPRESSION")
+        parent["feedback_suppression_review"]["recurrence_scope"] = "SINGLE_CASE"
+    assert_rejected(erase_suppression_strength)
 
 
 def test_c2_rejects_keyword_hits_as_coverage() -> None:

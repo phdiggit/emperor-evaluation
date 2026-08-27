@@ -15,6 +15,7 @@ SETTLEMENT = PROFILE_ROOT / "19-C2信息处理学习与纠错正式结算.json"
 MARKDOWN = SETTLEMENT.with_suffix(".md")
 AUDIT = PROFILE_ROOT / "20-C2主要入口单元处置审计.json"
 HIGH_REVIEW = PROFILE_ROOT / "21-C2高档学习周期与横向校准复核.json"
+B2 = ROOT / "docs" / "评分结算" / "第二项治国净收益" / "制度行政" / "03-B2反馈纠错与权力约束方向卡.json"
 MANIFEST = PROFILE_ROOT / "00-已结算轴正式入口.json"
 POOL = ROOT / "config" / "common" / "canonical-ruler-pool.json"
 CONTRACT = ROOT / "docs" / "项目总纲" / "皇帝人物画像评估体系合同.md"
@@ -71,7 +72,7 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
     assert settlement["profile_total_enabled"] is False
     assert settlement["database_write"] is False
     assert settlement["record_count"] == len(records) == 184
-    assert settlement["schema_version"] == "profile-c2-formal-settlement-v3"
+    assert settlement["schema_version"] == "profile-c2-formal-settlement-v4"
     assert settlement["method"] == "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION_MANUAL_ADJUDICATION"
     assert {row["ruler_id"] for row in records} == _included_ids()
     assert len({row["task_code"] for row in records}) == 184
@@ -109,6 +110,7 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
 
     parent_ids = [parent["parent_id"] for row in records for parent in row["parents"]]
     assert len(parent_ids) == len(set(parent_ids))
+    parent_by_id = {parent["parent_id"]: (row["ruler_id"], parent) for row in records for parent in row["parents"]}
     no_parent = [row for row in records if not row["parents"]]
     assert no_parent
     for row in records:
@@ -162,7 +164,16 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
             assert coverage["negative_window_status"] == "CLOSED_PARENT_PRESENT"
 
     assert audit["canonical_status"] == "FORMAL_CURRENT"
-    assert audit["schema_version"] == "profile-c2-unit-disposition-audit-v2"
+    expected_suppression_policy = {
+        "duration_and_scope_are_separate_from_severity": True,
+        "death_or_irreversibility_does_not_automatically_grant_mi3": True,
+        "mi3_or_mi4_suppression_not_offset_by_isolated_positive_cases": True,
+        "c2_requires_feedback_arrival_and_update_or_refusal": True,
+        "c5_retains_safety_punishment_proportion_and_power_procedure": True,
+    }
+    assert settlement["suppression_intensity_policy"] == expected_suppression_policy
+    assert audit["schema_version"] == "profile-c2-unit-disposition-audit-v3"
+    assert audit["suppression_intensity_policy"] == expected_suppression_policy
     assert audit["record_count"] == 184
     assert audit["unit_count"] == len(audit["units"])
     assert audit["unresolved_count"] == 0
@@ -175,6 +186,17 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
     assert len({unit["reason"] for unit in audit["units"]}) >= int(audit["unit_count"] * 0.95)
     assert {u["scoring_parent_id"] for u in audit["units"] if u["status"] == "SCORING_PARENT"} <= set(parent_ids)
     assert set(parent_ids) <= {pid for unit in audit["units"] for pid in unit.get("supports_parent_ids", [])}
+    for unit in audit["units"]:
+        supports = unit.get("supports_parent_ids", [])
+        assert all(parent_id in parent_by_id for parent_id in supports)
+        assert all(parent_by_id[parent_id][0] == unit["ruler_id"] for parent_id in supports)
+        if unit["status"] == "SCORING_PARENT":
+            assert unit["scoring_parent_id"] in supports
+            assert parent_by_id[unit["scoring_parent_id"]][0] == unit["ruler_id"]
+        else:
+            assert unit["scoring_parent_id"] is None
+        if unit["status"] == "AXIS_OUT_WITH_REASON":
+            assert not supports
 
     ledger = audit["coverage_ledger"]
     assert len(ledger) == 184
@@ -188,7 +210,8 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
         assert entry["publication_mode"] == record["coverage_review"]["publication_mode"]
 
     expected_high = {row["ruler_id"] for row in records if row["axis_grade"] in {"G4", "G5"}}
-    assert high["schema_version"] == "profile-c2-high-grade-calibration-v3"
+    assert high["schema_version"] == "profile-c2-high-grade-calibration-v4"
+    assert high["suppression_intensity_policy"] == expected_suppression_policy
     assert high["profile_count"] == len(high["profiles"])
     assert {row["ruler_id"] for row in high["profiles"]} == expected_high
     for profile in high["profiles"]:
@@ -229,6 +252,57 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
             }.items()
         }
         assert entry["directional_material_strength"] == expected_strength
+        balance = record["directional_strength_balance_review"]
+        assert entry["feedback_suppression_strength_review"] == balance
+        assert balance["review_status"] == "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED"
+        assert set(balance["suppression_parent_ids"]) <= {p["parent_id"] for p in record["parents"]}
+        assert set(balance["isolated_positive_parent_ids"]) <= {p["parent_id"] for p in record["parents"]}
+        assert "MI3/MI4" in balance["asymmetry_decision"]
+        assert "父链数量" in balance["grade_effect"]
+
+        dispositions = entry["b2_material_disposition_review"]
+        expected_b2_ids = []
+        b2_record = next(row for row in _load(B2)["records"] if row["ruler_id"] == entry["ruler_id"])
+        for profile_key in ("M_positive_profile", "M_mixed_profile", "M_negative_profile"):
+            for item in b2_record.get(profile_key, []):
+                expected_b2_ids.extend(item.get("material_ids") or [item.get("material_id")])
+        expected_b2_ids = [material_id for material_id in expected_b2_ids if material_id]
+        assert [item["material_id"] for item in dispositions] == expected_b2_ids
+        assert len(dispositions) == len(set(expected_b2_ids))
+        audit_units = {
+            unit["source_ref"]: unit
+            for unit in audit["units"]
+            if unit["ruler_id"] == entry["ruler_id"] and unit["entry"] == "B2"
+        }
+        for disposition in dispositions:
+            material_id = disposition["material_id"]
+            assert material_id in audit_units
+            unit = audit_units[material_id]
+            assert disposition["status"] == unit["status"]
+            assert disposition["scoring_parent_id"] == unit["scoring_parent_id"]
+            assert disposition["supports_parent_ids"] == unit["supports_parent_ids"]
+            assert disposition["reason"] == unit["reason"]
+            assert "另由具体父链" not in disposition["reason"]
+            assert len(disposition["reason"]) >= 20
+            if disposition["status"] == "SCORING_PARENT":
+                _, scoring_parent = parent_by_id[disposition["scoring_parent_id"]]
+                assert material_id in scoring_parent["source_parent_refs"]
+            elif disposition["status"] == "BACKGROUND_VALIDATION":
+                assert disposition["supports_parent_ids"], f"candidate background must name its parent: {material_id}"
+
+        for parent in record["parents"]:
+            suppression = parent["feedback_suppression_review"]
+            assert suppression["review_status"] in {"REVIEWED", "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"}
+            if suppression["review_status"] == "REVIEWED":
+                assert suppression["sanction_or_exclusion_intensity"] in {"NONE", "LOW", "MODERATE", "HIGH", "EXTREME"}
+                assert suppression["recurrence_scope"] in {"SINGLE_CASE", "REPEATED_SAME_MECHANISM", "SUSTAINED_MULTI_OBJECT", "CROSS_PHASE_SYSTEMIC"}
+                assert suppression["future_channel_effect"] in {"NO_CHANNEL_DAMAGE", "TEMPORARY_CHILLING", "SUSTAINED_CHILLING", "CHANNEL_DESTRUCTION"}
+                assert suppression["feedback_arrival"] and suppression["c2_slice"] and suppression["c5_exclusion"]
+                assert parent["parent_id"] in balance["suppression_parent_ids"]
+                if parent["intensity"] in {"MI3_SUSTAINED_SYSTEMIC", "MI4_CROSS_PHASE_SYSTEMIC"}:
+                    assert suppression["recurrence_scope"] in {"SUSTAINED_MULTI_OBJECT", "CROSS_PHASE_SYSTEMIC"}
+                if suppression["recurrence_scope"] == "SINGLE_CASE":
+                    assert parent["intensity"] not in {"MI3_SUSTAINED_SYSTEMIC", "MI4_CROSS_PHASE_SYSTEMIC"}
 
     candidate_intensities = {
         parent["intensity"]
@@ -236,6 +310,14 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
         for parent in record_by_id[entry["ruler_id"]]["parents"]
     }
     assert {"MI1_CASE", "MI2_LIFECYCLE", "MI3_SUSTAINED_SYSTEMIC"} <= candidate_intensities
+    assert high["candidate_b2_material_count"] == sum(
+        len(entry["b2_material_disposition_review"]) for entry in candidate_reviews
+    ) == settlement["summary"]["candidate_b2_material_count"] == 58
+    assert settlement["summary"]["candidate_b2_scoring_parent_count"] == sum(
+        disposition["status"] == "SCORING_PARENT"
+        for entry in candidate_reviews
+        for disposition in entry["b2_material_disposition_review"]
+    )
 
     candidate_source_refs = [
         ref

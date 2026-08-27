@@ -1,5 +1,5 @@
 {
-  "schema_version": "profile-c2-high-grade-calibration-v3",
+  "schema_version": "profile-c2-high-grade-calibration-v4",
   "canonical_status": "FORMAL_CURRENT",
   "axis_code": "C2",
   "material_budget_policy": "MAX_4_SUPPLEMENTAL_PRIMARY_SOURCE_UNITS_PER_CANDIDATE",
@@ -57,14 +57,66 @@
       "directional_material_strength": {
         "POSITIVE_OR_MIXED_POSITIVE": {
           "MI1_CASE": 3,
-          "MI2_LIFECYCLE": 2
+          "MI2_LIFECYCLE": 2,
+          "MI3_SUSTAINED_SYSTEMIC": 2
         },
         "NEGATIVE_OR_MIXED_NEGATIVE": {
-          "MI2_LIFECYCLE": 1
+          "MI2_LIFECYCLE": 2
         }
       },
-      "review_outcome": "李世民在完整保留本地规范入口、另补最多四个一手材料单元的统一上界内复核：卷193、195、197、198的限额重读显示，他能在司法、人事信源、地方承载和继承判断中理解具体反证并改令，也有营造同构复发与偏爱储嗣先酿危机后再纠正。多领域强长板成立，上限受复发与迟改压住。",
-      "remaining_limit": "四卷上界未覆盖626—649全部年份；卷192、194、196、199以及未入选四卷的司法、宫廷与战争反馈不据此推断。"
+      "review_outcome": "李世民在本地规范入口与限定补读材料并集内重裁：官修史与编年材料显示，李世民除多个具体纠错周期外，还有死刑复奏和诏敕执奏两条系统性复核机制；晚期受谏收缩与营造复发构成同强反向暴露，故为强G4而非G5。",
+      "remaining_limit": "四卷上界未覆盖626—649全部年份；卷192、194、196、199以及未入选四卷的司法、宫廷与战争反馈不据此推断。",
+      "b2_material_disposition_review": [
+        {
+          "material_id": "MC-TANG-TS-DELIBERATION-M3-AUDIT",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P153-DELIBERATION-RECHECK",
+          "supports_parent_ids": [
+            "C2-P153-DELIBERATION-RECHECK"
+          ],
+          "reason": "李世民：经逐条语义回读，非专人型官修史与编年切片闭合跨事项诏敕复核；《贞观政要》切片不消费。"
+        },
+        {
+          "material_id": "MC-TANG-TS-LEGAL-REVIEW-M2-M3-02-AUDIT",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P153-LEGAL-REVIEW-SYSTEM",
+          "supports_parent_ids": [
+            "C2-P153-LEGAL-REVIEW-SYSTEM"
+          ],
+          "reason": "李世民：经逐条语义回读，死刑多覆奏实际跨案救生，构成系统性纠错父链。"
+        },
+        {
+          "material_id": "MC-TANG-TS-REMONSTRANCE-LIFECYCLE-M2-M3-02-AUDIT",
+          "status": "AXIS_OUT_WITH_REASON",
+          "scoring_parent_id": null,
+          "supports_parent_ids": [],
+          "reason": "李世民：经逐条语义回读，该整合单元主要依赖本轮排除的《贞观政要》，不得整体进入；非专人型切片已由议政复核和晚期收缩两个稳定材料单元承载。"
+        },
+        {
+          "material_id": "I2-TANG-TS-LATE-REMONSTRANCE-DECLINE-001",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P153-LATE-FEEDBACK-CONTRACTION",
+          "supports_parent_ids": [
+            "C2-P153-LATE-FEEDBACK-CONTRACTION"
+          ],
+          "reason": "李世民：经逐条语义回读，近一二年反复出现受谏收缩与重大事项拒绝反证，闭合晚期负生命周期。"
+        }
+      ],
+      "feedback_suppression_strength_review": {
+        "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+        "positive_pattern_strength": "逐父链按生命周期、跨对象范围、本人理解份额、落实与复验裁强度；未按正例条数相加。",
+        "negative_pattern_strength": "压制另按反馈是否到达、惩罚烈度、复发范围及是否摧毁后续入口裁决；死亡和不可逆性不自动等于MI3。",
+        "suppression_parent_ids": [
+          "C2-P153-LATE-FEEDBACK-CONTRACTION"
+        ],
+        "isolated_positive_parent_ids": [
+          "C2-P153-LUZUSHANG-JUDICIAL-REGRET",
+          "C2-P153-PALACE-WOMAN-RECHECK",
+          "C2-P153-MUSICIAN-BLAME-REVIEW"
+        ],
+        "asymmetry_decision": "MI3/MI4系统性反馈压制不能由一两个MI1纳谏改正抵消；只有命中同一机制且达到PATTERN_CHANGING_COUNTEREVIDENCE的恢复，才可改变系统性负模式。",
+        "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、B2档位、MI计数或目标分布换算。"
+      }
     },
     {
       "ruler_id": "RULER-HAN-LIUHENG",
@@ -123,7 +175,43 @@
         }
       },
       "review_outcome": "刘恒在完整保留本地规范入口、另补最多四个一手材料单元的统一上界内复核：四卷连续覆盖全任：司法专业核验、肉刑反馈、贾谊信源重估与周勃冤案纠正跨法律、用人和诸侯领域反复出现；强项是能理解规则性反证，短处是若干纠正发生在伤害之后。",
-      "remaining_limit": "未追加《史记》《汉书》列传；编年正文没有展开的宫廷信源与地方调查不作推断。"
+      "remaining_limit": "未追加《史记》《汉书》列传；编年正文没有展开的宫廷信源与地方调查不作推断。",
+      "b2_material_disposition_review": [
+        {
+          "material_id": "I2-WHAN-WEN-CHANCELLOR-AUTONOMY-001",
+          "status": "AXIS_OUT_WITH_REASON",
+          "scoring_parent_id": null,
+          "supports_parent_ids": [],
+          "reason": "刘恒：经逐条语义回读，主要证明宰相程序和宠臣边界；未形成独立于C5的本人认知更新周期。"
+        },
+        {
+          "material_id": "I2-WHAN-WEN-SHIZHI-PROCESS-001",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P020-SHIZHI-LAW",
+          "supports_parent_ids": [
+            "C2-P020-SHIZHI-LAW"
+          ],
+          "reason": "刘恒：经逐条语义回读，多个司法案件中专业反证实际改变本人判断，直接承载既有父链。"
+        },
+        {
+          "material_id": "I2-WHAN-WEN-TIYING-UPWARD-FEEDBACK-001",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P020-TIYING",
+          "supports_parent_ids": [
+            "C2-P020-TIYING"
+          ],
+          "reason": "刘恒：经逐条语义回读，低位上书改变刑罚政策并有替代刑反馈，直接承载既有父链。"
+        }
+      ],
+      "feedback_suppression_strength_review": {
+        "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+        "positive_pattern_strength": "逐父链按生命周期、跨对象范围、本人理解份额、落实与复验裁强度；未按正例条数相加。",
+        "negative_pattern_strength": "压制另按反馈是否到达、惩罚烈度、复发范围及是否摧毁后续入口裁决；死亡和不可逆性不自动等于MI3。",
+        "suppression_parent_ids": [],
+        "isolated_positive_parent_ids": [],
+        "asymmetry_decision": "MI3/MI4系统性反馈压制不能由一两个MI1纳谏改正抵消；只有命中同一机制且达到PATTERN_CHANGING_COUNTEREVIDENCE的恢复，才可改变系统性负模式。",
+        "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、B2档位、MI计数或目标分布换算。"
+      }
     },
     {
       "ruler_id": "RULER-PUBLIC-5B02E75C191C9829",
@@ -186,7 +274,73 @@
         }
       },
       "review_outcome": "玄烨在完整保留本地规范入口、另补最多四个一手材料单元的统一上界内复核：台湾时机、开海与治河显示比较信源、实地核验和按结果改法的强模式；两废太子则显示宫廷信源污染已知却未修复并同构复发。",
-      "remaining_limit": "四个实录卷按政策与继承压力窗口预定，未覆盖53年亲政全程。"
+      "remaining_limit": "四个实录卷按政策与继承压力窗口预定，未覆盖53年亲政全程。",
+      "b2_material_disposition_review": [
+        {
+          "material_id": "MAT-QING-64BCD7E2F265D44F",
+          "status": "AXIS_OUT_WITH_REASON",
+          "scoring_parent_id": null,
+          "supports_parent_ids": [],
+          "reason": "玄烨：经逐条语义回读，只证明奏折通道存在，未闭合具体认知改变。"
+        },
+        {
+          "material_id": "I2-QING-KX-B2-RIVER-INSPECTION-CORRECTION-001",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P075-RIVER-INSPECTION",
+          "supports_parent_ids": [
+            "C2-P075-RIVER-INSPECTION"
+          ],
+          "reason": "玄烨：经逐条语义回读，现场核验直接停止拟行河工，承载长期亲验父链。"
+        },
+        {
+          "material_id": "MAT-QING-A7FC3D4AFADC6BC9",
+          "status": "BACKGROUND_VALIDATION",
+          "scoring_parent_id": null,
+          "supports_parent_ids": [
+            "C2-P075-SUCCESSION-SIGNAL-COLLAPSE"
+          ],
+          "reason": "玄烨：经逐条语义回读，储位党争时序验证两废两立的复发背景，但概括材料不独立计分。"
+        },
+        {
+          "material_id": "MAT-QING-0DA8A6AA9D24141A",
+          "status": "AXIS_OUT_WITH_REASON",
+          "scoring_parent_id": null,
+          "supports_parent_ids": [],
+          "reason": "玄烨：经逐条语义回读，财政民生汇总混合政策与执行结果，未闭合本人解释。"
+        },
+        {
+          "material_id": "MAT-QING-C50FFD293E5F817B",
+          "status": "AXIS_OUT_WITH_REASON",
+          "scoring_parent_id": null,
+          "supports_parent_ids": [],
+          "reason": "玄烨：经逐条语义回读，部院问责运行本身属于B1/C5，不证明本人认知更新。"
+        },
+        {
+          "material_id": "MAT-QING-7199787B33978670",
+          "status": "AXIS_OUT_WITH_REASON",
+          "scoring_parent_id": null,
+          "supports_parent_ids": [],
+          "reason": "玄烨：经逐条语义回读，登记文字与标题事实不一致，不能据此生成C2压制父链。"
+        },
+        {
+          "material_id": "I2-QING-KX-B2-SUCCESSION-REMONSTRANCE-RETALIATION-001",
+          "status": "BACKGROUND_VALIDATION",
+          "scoring_parent_id": null,
+          "supports_parent_ids": [
+            "C2-P075-SUCCESSION-SIGNAL-COLLAPSE"
+          ],
+          "reason": "玄烨：经逐条语义回读，建储反馈到达后遭惩处，支持继承信源机制坍缩；处罚比例仍留C5。"
+        }
+      ],
+      "feedback_suppression_strength_review": {
+        "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+        "positive_pattern_strength": "逐父链按生命周期、跨对象范围、本人理解份额、落实与复验裁强度；未按正例条数相加。",
+        "negative_pattern_strength": "压制另按反馈是否到达、惩罚烈度、复发范围及是否摧毁后续入口裁决；死亡和不可逆性不自动等于MI3。",
+        "suppression_parent_ids": [],
+        "isolated_positive_parent_ids": [],
+        "asymmetry_decision": "MI3/MI4系统性反馈压制不能由一两个MI1纳谏改正抵消；只有命中同一机制且达到PATTERN_CHANGING_COUNTEREVIDENCE的恢复，才可改变系统性负模式。",
+        "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、B2档位、MI计数或目标分布换算。"
+      }
     },
     {
       "ruler_id": "RULER-PUBLIC-6339E33979E7CCF5",
@@ -255,7 +409,46 @@
         }
       },
       "review_outcome": "皇太极在完整保留本地规范入口、另补最多四个一手材料单元的统一上界内复核：四个预定实录年段复核饥荒盗窃解释、大凌河后文教判断、繁役妨农规则和朝鲜军纪复验，跨民生、教育、行政与战争纪律均有本人因果解释和落实。",
-      "remaining_limit": "四个实录卷为早中晚与战争压力抽样，不声称覆盖1626—1643全部事件。"
+      "remaining_limit": "四个实录卷为早中晚与战争压力抽样，不声称覆盖1626—1643全部事件。",
+      "b2_material_disposition_review": [
+        {
+          "material_id": "MAT-QING-286DCFA2A346E6FC",
+          "status": "AXIS_OUT_WITH_REASON",
+          "scoring_parent_id": null,
+          "supports_parent_ids": [],
+          "reason": "皇太极：经逐条语义回读，多轮求言与保护表达主要证明C5安全，未列具体判断更新。"
+        },
+        {
+          "material_id": "MAT-QING-9640B263AEADEA74",
+          "status": "AXIS_OUT_WITH_REASON",
+          "scoring_parent_id": null,
+          "supports_parent_ids": [],
+          "reason": "皇太极：经逐条语义回读，本人释放申诉者但未判定申诉为真或改变差徭规则，只证明言者安全。"
+        },
+        {
+          "material_id": "MAT-QING-6F38530577636B15",
+          "status": "AXIS_OUT_WITH_REASON",
+          "scoring_parent_id": null,
+          "supports_parent_ids": [],
+          "reason": "皇太极：经逐条语义回读，都察院设置只证明通道设计，未闭合具体反馈生命周期。"
+        },
+        {
+          "material_id": "MAT-QING-B2DE19819EE6915B",
+          "status": "AXIS_OUT_WITH_REASON",
+          "scoring_parent_id": null,
+          "supports_parent_ids": [],
+          "reason": "皇太极：经逐条语义回读，六部绩效批评是自上而下监督，不证明本人受到反证后更新。"
+        }
+      ],
+      "feedback_suppression_strength_review": {
+        "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+        "positive_pattern_strength": "逐父链按生命周期、跨对象范围、本人理解份额、落实与复验裁强度；未按正例条数相加。",
+        "negative_pattern_strength": "压制另按反馈是否到达、惩罚烈度、复发范围及是否摧毁后续入口裁决；死亡和不可逆性不自动等于MI3。",
+        "suppression_parent_ids": [],
+        "isolated_positive_parent_ids": [],
+        "asymmetry_decision": "MI3/MI4系统性反馈压制不能由一两个MI1纳谏改正抵消；只有命中同一机制且达到PATTERN_CHANGING_COUNTEREVIDENCE的恢复，才可改变系统性负模式。",
+        "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、B2档位、MI计数或目标分布换算。"
+      }
     },
     {
       "ruler_id": "RULER-FD-CHAI-RONG",
@@ -291,17 +484,56 @@
       ],
       "unit_count": 4,
       "post_review_grade": "G4",
-      "post_review_position": "LOW",
+      "post_review_position": "MID",
       "directional_material_strength": {
         "POSITIVE_OR_MIXED_POSITIVE": {
-          "MI2_LIFECYCLE": 3
+          "MI1_CASE": 1,
+          "MI2_LIFECYCLE": 4
         },
         "NEGATIVE_OR_MIXED_NEGATIVE": {
           "MI2_LIFECYCLE": 1
         }
       },
-      "review_outcome": "柴荣在完整保留本地规范入口、另补最多四个一手材料单元的统一上界内复核：四卷覆盖其全部短任：高平后重建、晋阳迟退、王朴方案比较和河工换路构成军事、战略与行政多个周期。纠错频率和落实很强，但晋阳对成本反馈反应过迟。",
-      "remaining_limit": "四卷覆盖全任，但五代编年对部分本人解释简略；未追加《旧五代史》列传。"
+      "review_outcome": "柴荣在本地规范入口与限定补读材料并集内重裁：四卷全任材料之外，B2又闭合范质阻止枉杀和魏仁浦反复中介纠正两类反馈周期；这些是具体纠错而非单纯进谏安全。晋阳迟退仍是重大反向暴露。",
+      "remaining_limit": "四卷覆盖全任，但五代编年对部分本人解释简略；未追加《旧五代史》列传。",
+      "b2_material_disposition_review": [
+        {
+          "material_id": "I2-FD-MAT-5029200B90B70871",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P001-WEIRENPU-MEDIATION",
+          "supports_parent_ids": [
+            "C2-P001-WEIRENPU-MEDIATION"
+          ],
+          "reason": "柴荣：经逐条语义回读，同一中介接口反复阻止盛怒处置，按MI2闭合。"
+        },
+        {
+          "material_id": "I2-FD-MAT-33594ED862129930",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P001-DOUYI-RELEASE",
+          "supports_parent_ids": [
+            "C2-P001-DOUYI-RELEASE"
+          ],
+          "reason": "柴荣：经逐条语义回读，范质解释枉杀责任后当场释放，按单案纠错。"
+        },
+        {
+          "material_id": "I2-FD-MAT-7A86AAD230D0EF3C",
+          "status": "AXIS_OUT_WITH_REASON",
+          "scoring_parent_id": null,
+          "supports_parent_ids": [],
+          "reason": "柴荣：经逐条语义回读，证明权贵放任与执法不平，未见针对该事的反馈到达后认知变化，主路由C5。"
+        }
+      ],
+      "feedback_suppression_strength_review": {
+        "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+        "positive_pattern_strength": "逐父链按生命周期、跨对象范围、本人理解份额、落实与复验裁强度；未按正例条数相加。",
+        "negative_pattern_strength": "压制另按反馈是否到达、惩罚烈度、复发范围及是否摧毁后续入口裁决；死亡和不可逆性不自动等于MI3。",
+        "suppression_parent_ids": [],
+        "isolated_positive_parent_ids": [
+          "C2-P001-DOUYI-RELEASE"
+        ],
+        "asymmetry_decision": "MI3/MI4系统性反馈压制不能由一两个MI1纳谏改正抵消；只有命中同一机制且达到PATTERN_CHANGING_COUNTEREVIDENCE的恢复，才可改变系统性负模式。",
+        "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、B2档位、MI计数或目标分布换算。"
+      }
     },
     {
       "ruler_id": "RULER-HAN-LIUBANG",
@@ -358,15 +590,64 @@
       "post_review_position": "LOW",
       "directional_material_strength": {
         "POSITIVE_OR_MIXED_POSITIVE": {
-          "MI2_LIFECYCLE": 2,
+          "MI2_LIFECYCLE": 3,
           "MI3_SUSTAINED_SYSTEMIC": 1
         },
         "NEGATIVE_OR_MIXED_NEGATIVE": {
-          "MI2_LIFECYCLE": 1
+          "MI2_LIFECYCLE": 2
         }
       },
       "review_outcome": "刘邦在完整保留本地规范入口、另补最多四个一手材料单元的统一上界内复核：卷9—12连续覆盖楚汉至去世：都城比较、彭城后重组、白登先拒后改与储位迟改四个对象均有本人更新，且重大拒绝准确信息的代价清楚。",
-      "remaining_limit": "四卷恰好覆盖实际掌权窗口；专题列传未追加，个别认知细节仍以编年正文可见范围为界。"
+      "remaining_limit": "四卷恰好覆盖实际掌权窗口；专题列传未追加，个别认知细节仍以编年正文可见范围为界。",
+      "b2_material_disposition_review": [
+        {
+          "material_id": "I2-WHAN-LB-CAPITAL-CORRECTION-001",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P016-CAPITAL-CORRECTION",
+          "supports_parent_ids": [
+            "C2-P016-CAPITAL-CORRECTION"
+          ],
+          "reason": "刘邦：经逐条语义回读，低位意见经张良复核后当日改变都城，直接承载父链。"
+        },
+        {
+          "material_id": "I2-WHAN-LB-HEIR-FEEDBACK-001",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P016-HEIR-FEEDBACK",
+          "supports_parent_ids": [
+            "C2-P016-HEIR-FEEDBACK"
+          ],
+          "reason": "刘邦：经逐条语义回读，多方反馈最终阻止改立，直接承载父链。"
+        },
+        {
+          "material_id": "I2-WHAN-LB-LUJIA-ADVICE-001",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P016-LUJIA-LEARNING-COMMISSION",
+          "supports_parent_ids": [
+            "C2-P016-LUJIA-LEARNING-COMMISSION"
+          ],
+          "reason": "刘邦：经逐条语义回读，从轻视诗书转为委托十二篇系统学习，闭合真实更新。"
+        },
+        {
+          "material_id": "I2-WHAN-LB-MINISTER-ANGER-001",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P016-MINISTER-ANGER-RECURRENCE",
+          "supports_parent_ids": [
+            "C2-P016-MINISTER-ANGER-RECURRENCE"
+          ],
+          "reason": "刘邦：经逐条语义回读，两个对象重复出现不可逆命令靠外部阻滞，形成MI2负周期。"
+        }
+      ],
+      "feedback_suppression_strength_review": {
+        "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+        "positive_pattern_strength": "逐父链按生命周期、跨对象范围、本人理解份额、落实与复验裁强度；未按正例条数相加。",
+        "negative_pattern_strength": "压制另按反馈是否到达、惩罚烈度、复发范围及是否摧毁后续入口裁决；死亡和不可逆性不自动等于MI3。",
+        "suppression_parent_ids": [
+          "C2-P016-MINISTER-ANGER-RECURRENCE"
+        ],
+        "isolated_positive_parent_ids": [],
+        "asymmetry_decision": "MI3/MI4系统性反馈压制不能由一两个MI1纳谏改正抵消；只有命中同一机制且达到PATTERN_CHANGING_COUNTEREVIDENCE的恢复，才可改变系统性负模式。",
+        "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、B2档位、MI计数或目标分布换算。"
+      }
     },
     {
       "ruler_id": "RULER-JIN-SHIZONG",
@@ -403,18 +684,45 @@
       ],
       "unit_count": 4,
       "post_review_grade": "G4",
-      "post_review_position": "LOW",
+      "post_review_position": "MID",
       "directional_material_strength": {
         "POSITIVE_OR_MIXED_POSITIVE": {
           "MI2_LIFECYCLE": 1,
-          "MI3_SUSTAINED_SYSTEMIC": 1
+          "MI3_SUSTAINED_SYSTEMIC": 2
         },
         "NEGATIVE_OR_MIXED_NEGATIVE": {
           "MI3_SUSTAINED_SYSTEMIC": 1
         }
       },
-      "review_outcome": "完颜雍在完整保留本地规范入口、另补最多四个一手材料单元的统一上界内复核：世宗三卷本纪加刑法志显示围场、括地和司法复核三个独立对象：能据地方与案件反证改令，括地同构复发则形成实质下沿。",
-      "remaining_limit": "四个材料单元达到上界；用人、继承与宫廷信源未获得同密度过程材料。"
+      "review_outcome": "完颜雍在本地规范入口与限定补读材料并集内重裁：围场、括地、司法之外，规范入口还保存成命不便仍须再奏改的长期接口；它跨多年、跨对象实际允许决定重开。括地复发仍是强下沿。",
+      "remaining_limit": "四个材料单元达到上界；用人、继承与宫廷信源未获得同密度过程材料。",
+      "b2_material_disposition_review": [
+        {
+          "material_id": "I2-JIN-MAT-1CE470F310B16E88",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P034-REPEATED-REMONSTRANCE-RULE",
+          "supports_parent_ids": [
+            "C2-P034-REPEATED-REMONSTRANCE-RULE"
+          ],
+          "reason": "完颜雍：经逐条语义回读，成命不便仍须复奏改跨年运行，是独立MI3纠错接口。"
+        },
+        {
+          "material_id": "I2-JIN-MAT-4293D7BC9BF71E37",
+          "status": "AXIS_OUT_WITH_REASON",
+          "scoring_parent_id": null,
+          "supports_parent_ids": [],
+          "reason": "完颜雍：经逐条语义回读，选官与分路监察主要证明B1/C3运行，现有概括未展示报告改变本人判断。"
+        }
+      ],
+      "feedback_suppression_strength_review": {
+        "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+        "positive_pattern_strength": "逐父链按生命周期、跨对象范围、本人理解份额、落实与复验裁强度；未按正例条数相加。",
+        "negative_pattern_strength": "压制另按反馈是否到达、惩罚烈度、复发范围及是否摧毁后续入口裁决；死亡和不可逆性不自动等于MI3。",
+        "suppression_parent_ids": [],
+        "isolated_positive_parent_ids": [],
+        "asymmetry_decision": "MI3/MI4系统性反馈压制不能由一两个MI1纳谏改正抵消；只有命中同一机制且达到PATTERN_CHANGING_COUNTEREVIDENCE的恢复，才可改变系统性负模式。",
+        "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、B2档位、MI计数或目标分布换算。"
+      }
     },
     {
       "ruler_id": "RULER-NS-ZHAO-ZHEN",
@@ -460,19 +768,68 @@
       ],
       "unit_count": 4,
       "post_review_grade": "G4",
-      "post_review_position": "LOW",
+      "post_review_position": "MID",
       "directional_material_strength": {
         "POSITIVE_OR_MIXED_POSITIVE": {
           "MI1_CASE": 1,
           "MI2_LIFECYCLE": 1,
-          "MI3_SUSTAINED_SYSTEMIC": 1
+          "MI3_SUSTAINED_SYSTEMIC": 2
         },
         "NEGATIVE_OR_MIXED_NEGATIVE": {
           "MI2_LIFECYCLE": 1
         }
       },
-      "review_outcome": "赵祯在完整保留本地规范入口、另补最多四个一手材料单元的统一上界内复核：四个预定年段显示灾异言路、唐介案与侬智高危机中能重开判断并落实，庆历改革退转则暴露高压环境下对朋党信号的辨别不足。跨领域强长板成立但稳定性有限。",
-      "remaining_limit": "四卷为早、中、危机和晚期抽样，不覆盖1033—1063全部编年；未入选四卷的宫廷、司法与继承窗口不推断。"
+      "review_outcome": "赵祯在本地规范入口与限定补读材料并集内重裁：灾异言路、内降复核、危机用人等机制反复让新信息重开最高判断；庆历退转和宫门阻塞显示反馈接口会在政治压力下收缩。",
+      "remaining_limit": "四卷为早、中、危机和晚期抽样，不覆盖1033—1063全部编年；未入选四卷的宫廷、司法与继承窗口不推断。",
+      "b2_material_disposition_review": [
+        {
+          "material_id": "NS-ZZ-V041-DISASTER-FEEDBACK",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P072-DISASTER-SPEECH",
+          "supports_parent_ids": [
+            "C2-P072-DISASTER-SPEECH"
+          ],
+          "reason": "赵祯：经逐条语义回读，灾异与台谏反馈使视朝言路重开，直接支持既有父链。"
+        },
+        {
+          "material_id": "NS-ZZ-PRIMARY-INTERNAL-COMMAND-REVIEW",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P072-INTERNAL-COMMAND-REVIEW",
+          "supports_parent_ids": [
+            "C2-P072-INTERNAL-COMMAND-REVIEW"
+          ],
+          "reason": "赵祯：经逐条语义回读，内降多次被反馈重开并形成连续复核，构成MI3父链。"
+        },
+        {
+          "material_id": "NS-ZZ-V039-CENSOR-SELECTION",
+          "status": "BACKGROUND_VALIDATION",
+          "scoring_parent_id": null,
+          "supports_parent_ids": [
+            "C2-P072-INTERNAL-COMMAND-REVIEW"
+          ],
+          "reason": "赵祯：经逐条语义回读，台官独立性解释为何复核接口能运行，作为父链背景而不独立计分。"
+        },
+        {
+          "material_id": "NS-ZZ-V039-PALACE-GATE-SUPPRESSION",
+          "status": "BACKGROUND_VALIDATION",
+          "scoring_parent_id": null,
+          "supports_parent_ids": [
+            "C2-P072-DISASTER-SPEECH"
+          ],
+          "reason": "赵祯：经逐条语义回读，伏阁求对验证反馈入口曾被阻塞，已由灾异言路的混合父链吸收。"
+        }
+      ],
+      "feedback_suppression_strength_review": {
+        "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+        "positive_pattern_strength": "逐父链按生命周期、跨对象范围、本人理解份额、落实与复验裁强度；未按正例条数相加。",
+        "negative_pattern_strength": "压制另按反馈是否到达、惩罚烈度、复发范围及是否摧毁后续入口裁决；死亡和不可逆性不自动等于MI3。",
+        "suppression_parent_ids": [],
+        "isolated_positive_parent_ids": [
+          "C2-P072-TANGJIE-RECONSIDERATION"
+        ],
+        "asymmetry_decision": "MI3/MI4系统性反馈压制不能由一两个MI1纳谏改正抵消；只有命中同一机制且达到PATTERN_CHANGING_COUNTEREVIDENCE的恢复，才可改变系统性负模式。",
+        "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、B2档位、MI计数或目标分布换算。"
+      }
     },
     {
       "ruler_id": "RULER-SHADOW-杨坚",
@@ -489,7 +846,11 @@
         "https://zh.wikisource.org/wiki/隋書/卷41",
         "https://zh.wikisource.org/wiki/隋書/卷48",
         "https://zh.wikisource.org/wiki/資治通鑑/卷177",
-        "https://zh.wikisource.org/wiki/資治通鑑/卷179"
+        "https://zh.wikisource.org/wiki/資治通鑑/卷179",
+        "LAW-16-005",
+        "LAW-16-006",
+        "LAW-16-007",
+        "LAW-16-008"
       ],
       "supplemental_primary_units": [
         "https://zh.wikisource.org/zh-hant/資治通鑑/卷175",
@@ -509,6 +870,10 @@
         "https://zh.wikisource.org/wiki/隋書/卷48",
         "https://zh.wikisource.org/wiki/資治通鑑/卷177",
         "https://zh.wikisource.org/wiki/資治通鑑/卷179",
+        "LAW-16-005",
+        "LAW-16-006",
+        "LAW-16-007",
+        "LAW-16-008",
         "https://zh.wikisource.org/zh-hant/資治通鑑/卷175",
         "https://zh.wikisource.org/zh-hant/資治通鑑/卷177",
         "https://zh.wikisource.org/zh-hant/資治通鑑/卷178",
@@ -521,18 +886,88 @@
         "https://zh.wikisource.org/zh-hant/資治通鑑/卷180"
       ],
       "unit_count": 4,
-      "post_review_grade": "G4",
-      "post_review_position": "LOW",
+      "post_review_grade": "G3",
+      "post_review_position": "MID",
       "directional_material_strength": {
         "POSITIVE_OR_MIXED_POSITIVE": {
-          "MI2_LIFECYCLE": 3
+          "MI2_LIFECYCLE": 6
         },
         "NEGATIVE_OR_MIXED_NEGATIVE": {
-          "MI3_SUSTAINED_SYSTEMIC": 1
+          "MI3_SUSTAINED_SYSTEMIC": 4
         }
       },
-      "review_outcome": "杨坚在完整保留本地规范入口、另补最多四个一手材料单元的统一上界内复核：战争时序、司法覆案和财政数字复核显示跨领域求真与改策；储位信息却发生系统性失真且未纠正。正向不是只靠传位反面，而是战争、司法、财政三类独立周期。",
-      "remaining_limit": "四卷覆盖建国、平陈、中期治理和晚期继承压力，不覆盖其余年份的全部地方调查。"
+      "review_outcome": "杨坚在本地规范入口与限定补读材料并集内重裁：平陈、司法、财政、地方查核和苏威、赵绰等纠正显示早中期有真实求真与改策；但宫廷法外杖杀在劝止后反复恢复，继而与朋党清洗、深文酷吏、储位反证压制及杨素信源俘获跨对象持续，反馈入口由受纳转为噤声。",
+      "remaining_limit": "四卷覆盖建国、平陈、中期治理和晚期继承压力，不覆盖其余年份的全部地方调查。",
+      "b2_material_disposition_review": [
+        {
+          "material_id": "I2-SUI-YJ-LOCAL-CORRUPTION-CORRECTION-001",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P119-LOCAL-CORRUPTION-VERIFY",
+          "supports_parent_ids": [
+            "C2-P119-LOCAL-CORRUPTION-VERIFY"
+          ],
+          "reason": "杨坚：经逐条语义回读，告发后查赃、改处与地方恢复闭合MI2求真周期。"
+        },
+        {
+          "material_id": "I2-SUI-YJ-REMONSTRANCE-OPERATION-002",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P119-SUWEI-REMONSTRANCE-CORRECTION",
+          "supports_parent_ids": [
+            "C2-P119-SUWEI-REMONSTRANCE-CORRECTION"
+          ],
+          "reason": "杨坚：经逐条语义回读，减赋、节俭、阻止盛怒杀人反复产生改令，但后期机制反转。"
+        },
+        {
+          "material_id": "LAW-16-005-M2-M3-02-AUDIT",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P119-PALACE-EXTRALEGAL-BEATING-RECURRENCE",
+          "supports_parent_ids": [
+            "C2-P119-PALACE-EXTRALEGAL-BEATING-RECURRENCE"
+          ],
+          "reason": "杨坚：经逐条语义回读，结合法律联合底账中撤杖、改用马鞭杀人和恢复殿杖的连续节点，闭合纠正后跨年复发父链。"
+        },
+        {
+          "material_id": "I2-SUI-YJ-PERSONNEL-PURGE-001-M2-M3-02-AUDIT",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P119-PERSONNEL-DISSENT-SUPPRESSION",
+          "supports_parent_ids": [
+            "C2-P119-PERSONNEL-DISSENT-SUPPRESSION"
+          ],
+          "reason": "杨坚：经逐条语义回读，多人申明无罪后反遭下吏并形成朝臣噤声，是MI3系统性压制。"
+        },
+        {
+          "material_id": "I2-SUI-YJ-SUCCESSION-CAPTURE-001-M2-M3-02-AUDIT",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P119-SUCCESSION-MISINFORMATION",
+          "supports_parent_ids": [
+            "C2-P119-SUCCESSION-MISINFORMATION"
+          ],
+          "reason": "杨坚：经逐条语义回读，元旻、史万岁等反证到达后被惩罚并拒绝重开判断，直接承载继承负链。"
+        },
+        {
+          "material_id": "I2-SUI-YJ-YANGSU-CAPTURE-002-M2-M3-02-AUDIT",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P119-YANGSU-CAPTURE-RECURRENCE",
+          "supports_parent_ids": [
+            "C2-P119-YANGSU-CAPTURE-RECURRENCE"
+          ],
+          "reason": "杨坚：经逐条语义回读，监督只带来短暂收缩，杨素网络偏斜跨对象复发，裁MI3混合负向。"
+        }
+      ],
+      "feedback_suppression_strength_review": {
+        "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+        "positive_pattern_strength": "逐父链按生命周期、跨对象范围、本人理解份额、落实与复验裁强度；未按正例条数相加。",
+        "negative_pattern_strength": "压制另按反馈是否到达、惩罚烈度、复发范围及是否摧毁后续入口裁决；死亡和不可逆性不自动等于MI3。",
+        "suppression_parent_ids": [
+          "C2-P119-PERSONNEL-DISSENT-SUPPRESSION",
+          "C2-P119-PALACE-EXTRALEGAL-BEATING-RECURRENCE",
+          "C2-P119-SUCCESSION-MISINFORMATION",
+          "C2-P119-YANGSU-CAPTURE-RECURRENCE"
+        ],
+        "isolated_positive_parent_ids": [],
+        "asymmetry_decision": "MI3/MI4系统性反馈压制不能由一两个MI1纳谏改正抵消；只有命中同一机制且达到PATTERN_CHANGING_COUNTEREVIDENCE的恢复，才可改变系统性负模式。",
+        "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、B2档位、MI计数或目标分布换算。"
+      }
     },
     {
       "ruler_id": "RULER-HAN-LIUXIU",
@@ -583,14 +1018,75 @@
       "post_review_position": "HIGH",
       "directional_material_strength": {
         "POSITIVE_OR_MIXED_POSITIVE": {
-          "MI2_LIFECYCLE": 2
+          "MI1_CASE": 1,
+          "MI2_LIFECYCLE": 3
         },
         "NEGATIVE_OR_MIXED_NEGATIVE": {
+          "MI2_LIFECYCLE": 2,
           "MI3_SUSTAINED_SYSTEMIC": 1
         }
       },
-      "review_outcome": "刘秀在完整保留本地规范入口、另补最多四个一手材料单元的统一上界内复核：四卷显示他善用地形演示和战后报告改进决策，也能在征服纪律上承认下属造成的信息—执行偏差；度田核验则暴露纠偏机制本身反复伤民。整体为合格上沿，尚不足证明跨领域稳定强长板。",
-      "remaining_limit": "实际权力32年只读四卷；继承、长期司法与晚年宫廷信源未闭合。"
+      "review_outcome": "刘秀在本地规范入口与限定补读材料并集内重裁：地形信息、征服纪律、度田和董宣案显示能取得并更新信息；桓谭与韩歆两条独立极端拒谏链又证明在谶纬和灾情反馈上会以威胁、持续责让替代核验。",
+      "remaining_limit": "实际权力32年只读四卷；继承、长期司法与晚年宫廷信源未闭合。",
+      "b2_material_disposition_review": [
+        {
+          "material_id": "I2-EHAN-LIUXIU-SONGHONG-SELFRESTRAINT-001",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P026-SONGHONG-PRIVATE-PREFERENCE",
+          "supports_parent_ids": [
+            "C2-P026-SONGHONG-PRIVATE-PREFERENCE"
+          ],
+          "reason": "刘秀：经逐条语义回读，私人偏好在反证后改变，只按MI1有限更新。"
+        },
+        {
+          "material_id": "I2-EHAN-LIUXIU-ZHIYUN-DISSENT-SAFETY-001",
+          "status": "AXIS_OUT_WITH_REASON",
+          "scoring_parent_id": null,
+          "supports_parent_ids": [],
+          "reason": "刘秀：经逐条语义回读，拒开宫门后获赏主要证明守法异议安全，未闭合本人认知更新。"
+        },
+        {
+          "material_id": "I2-EHAN-LIUXIU-DONGXUAN-CORRECTION-001",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P026-DONGXUAN-CORRECTION",
+          "supports_parent_ids": [
+            "C2-P026-DONGXUAN-CORRECTION"
+          ],
+          "reason": "刘秀：经逐条语义回读，死刑威胁、抗辩、撤罚和后续执法在同场闭合，裁MI2混合正向。"
+        },
+        {
+          "material_id": "I2-EHAN-LIUXIU-HUANTAN-REMONSTRANCE-THREAT-001",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P026-HUANTAN-THREAT",
+          "supports_parent_ids": [
+            "C2-P026-HUANTAN-THREAT"
+          ],
+          "reason": "刘秀：经逐条语义回读，谶纬判断反证到达后以斩威胁和外贬替代核验，闭合负生命周期。"
+        },
+        {
+          "material_id": "I2-EHAN-LIUXIU-REMONSTRANCE-TERMINAL-001",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P026-HANXIN-TERMINAL-SUPPRESSION",
+          "supports_parent_ids": [
+            "C2-P026-HANXIN-TERMINAL-SUPPRESSION"
+          ],
+          "reason": "刘秀：经逐条语义回读，饥凶直言后继续责让直至父子自杀，反馈拒绝与终止闭合。"
+        }
+      ],
+      "feedback_suppression_strength_review": {
+        "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+        "positive_pattern_strength": "逐父链按生命周期、跨对象范围、本人理解份额、落实与复验裁强度；未按正例条数相加。",
+        "negative_pattern_strength": "压制另按反馈是否到达、惩罚烈度、复发范围及是否摧毁后续入口裁决；死亡和不可逆性不自动等于MI3。",
+        "suppression_parent_ids": [
+          "C2-P026-HUANTAN-THREAT",
+          "C2-P026-HANXIN-TERMINAL-SUPPRESSION"
+        ],
+        "isolated_positive_parent_ids": [
+          "C2-P026-SONGHONG-PRIVATE-PREFERENCE"
+        ],
+        "asymmetry_decision": "MI3/MI4系统性反馈压制不能由一两个MI1纳谏改正抵消；只有命中同一机制且达到PATTERN_CHANGING_COUNTEREVIDENCE的恢复，才可改变系统性负模式。",
+        "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、B2档位、MI计数或目标分布换算。"
+      }
     },
     {
       "ruler_id": "RULER-HAN-LIUXUN",
@@ -638,14 +1134,52 @@
       "directional_material_strength": {
         "POSITIVE_OR_MIXED_POSITIVE": {
           "MI2_LIFECYCLE": 1,
-          "MI3_SUSTAINED_SYSTEMIC": 1
+          "MI3_SUSTAINED_SYSTEMIC": 2
         },
         "NEGATIVE_OR_MIXED_NEGATIVE": {
           "MI2_LIFECYCLE": 1
         }
       },
       "review_outcome": "刘询在完整保留本地规范入口、另补最多四个一手材料单元的统一上界内复核：四卷连续覆盖全任，霍氏阶段的信息绕行和地方治绩核验显示较强求真；晚期在政治路线与信源选择上出现收窄。达到G3上沿，但跨领域复验不够厚。",
-      "remaining_limit": "四卷已覆盖全任编年正文，但不追加《汉书》专题列传，个别本人解释仍不充分。"
+      "remaining_limit": "四卷已覆盖全任编年正文，但不追加《汉书》专题列传，个别本人解释仍不充分。",
+      "b2_material_disposition_review": [
+        {
+          "material_id": "I2-WHAN-XUAN-HUO-EXIT-001-M2-M3-02-AUDIT",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P027-HUO-SEALED-REPORTS",
+          "supports_parent_ids": [
+            "C2-P027-HUO-SEALED-REPORTS"
+          ],
+          "reason": "刘询：经逐条语义回读，封事绕行与分步核验直接承载霍氏父链。"
+        },
+        {
+          "material_id": "I2-WHAN-XUAN-JUDICIAL-REVIEW-001-M2-M3-02-AUDIT",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P027-JUDICIAL-REVIEW-SYSTEM",
+          "supports_parent_ids": [
+            "C2-P027-JUDICIAL-REVIEW-SYSTEM"
+          ],
+          "reason": "刘询：经逐条语义回读，跨案请谳和廷尉平形成MI3司法纠错机制。"
+        },
+        {
+          "material_id": "I2-WHAN-XUAN-LEGALIST-COST-001",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P027-LATE-SIGNAL-NARROWING",
+          "supports_parent_ids": [
+            "C2-P027-LATE-SIGNAL-NARROWING"
+          ],
+          "reason": "刘询：经逐条语义回读，盖宽饶直言到达后仍被下吏并自杀，支持晚期反馈收窄。"
+        }
+      ],
+      "feedback_suppression_strength_review": {
+        "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+        "positive_pattern_strength": "逐父链按生命周期、跨对象范围、本人理解份额、落实与复验裁强度；未按正例条数相加。",
+        "negative_pattern_strength": "压制另按反馈是否到达、惩罚烈度、复发范围及是否摧毁后续入口裁决；死亡和不可逆性不自动等于MI3。",
+        "suppression_parent_ids": [],
+        "isolated_positive_parent_ids": [],
+        "asymmetry_decision": "MI3/MI4系统性反馈压制不能由一两个MI1纳谏改正抵消；只有命中同一机制且达到PATTERN_CHANGING_COUNTEREVIDENCE的恢复，才可改变系统性负模式。",
+        "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、B2档位、MI计数或目标分布换算。"
+      }
     },
     {
       "ruler_id": "RULER-ROSTER-0F3BA2C535371D66",
@@ -688,7 +1222,32 @@
         "NEGATIVE_OR_MIXED_NEGATIVE": {}
       },
       "review_outcome": "萧绰在完整保留本地规范入口、另补最多四个一手材料单元的统一上界内复核：四卷本纪显示战争情报、议和成本与南面治理报告均能进入本人判断并转为行动，但非军事窗口的认知过程偏薄，反向暴露也不足，最高发布G3高位。",
-      "remaining_limit": "四卷达到硬上界；非军事、非财政的司法和继承信息过程仍稀薄，保留EVIDENCE_LIMITED。"
+      "remaining_limit": "四卷达到硬上界；非军事、非财政的司法和继承信息过程仍稀薄，保留EVIDENCE_LIMITED。",
+      "b2_material_disposition_review": [
+        {
+          "material_id": "I2-LIAO-MAT-7146342BC93FCF7F",
+          "status": "AXIS_OUT_WITH_REASON",
+          "scoring_parent_id": null,
+          "supports_parent_ids": [],
+          "reason": "萧绰：经逐条语义回读，共同主政下的宫廷财政程序主要属于C5，材料未拆出萧绰本人认知变化。"
+        },
+        {
+          "material_id": "I2-LIAO-MAT-5B20CB4093E25289",
+          "status": "AXIS_OUT_WITH_REASON",
+          "scoring_parent_id": null,
+          "supports_parent_ids": [],
+          "reason": "萧绰：经逐条语义回读，同罪同法与巡狱复核是共同治理结果，未能独占归责到萧绰的反馈解释。"
+        }
+      ],
+      "feedback_suppression_strength_review": {
+        "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+        "positive_pattern_strength": "逐父链按生命周期、跨对象范围、本人理解份额、落实与复验裁强度；未按正例条数相加。",
+        "negative_pattern_strength": "压制另按反馈是否到达、惩罚烈度、复发范围及是否摧毁后续入口裁决；死亡和不可逆性不自动等于MI3。",
+        "suppression_parent_ids": [],
+        "isolated_positive_parent_ids": [],
+        "asymmetry_decision": "MI3/MI4系统性反馈压制不能由一两个MI1纳谏改正抵消；只有命中同一机制且达到PATTERN_CHANGING_COUNTEREVIDENCE的恢复，才可改变系统性负模式。",
+        "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、B2档位、MI计数或目标分布换算。"
+      }
     },
     {
       "ruler_id": "RULER-WEI-CAOCAO",
@@ -734,14 +1293,47 @@
       "directional_material_strength": {
         "POSITIVE_OR_MIXED_POSITIVE": {
           "MI1_CASE": 1,
-          "MI2_LIFECYCLE": 1
+          "MI2_LIFECYCLE": 2
         },
         "NEGATIVE_OR_MIXED_NEGATIVE": {
-          "MI2_LIFECYCLE": 1
+          "MI2_LIFECYCLE": 2
         }
       },
-      "review_outcome": "曹操在完整保留本地规范入口、另补最多四个一手材料单元的统一上界内复核：官渡的信息核验能力很强，赤壁后能止损，汉中却出现对已到达时机信息的拒绝；三个周期主要集中战争与地缘，不能仅凭善用人才升G4。",
-      "remaining_limit": "四卷为早期、官渡、赤壁和汉中压力窗口抽样；长期用人、司法与宫廷信源未作全任覆盖。"
+      "review_outcome": "曹操在本地规范入口与限定补读材料并集内重裁：官渡核验、乌桓胜后承认侥幸等显示能重估信息，赤壁和汉中体现更新不稳；孔融案则是持续异议到达后以构罪清除替代复核的极端负生命周期。",
+      "remaining_limit": "四卷为早期、官渡、赤壁和汉中压力窗口抽样；长期用人、司法与宫廷信源未作全任覆盖。",
+      "b2_material_disposition_review": [
+        {
+          "material_id": "I2-LHAN-CAOCAO-REMONSTRANT-REWARD-001",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P171-WUHUAN-REMONSTRANCE-REVIEW",
+          "supports_parent_ids": [
+            "C2-P171-WUHUAN-REMONSTRANCE-REVIEW"
+          ],
+          "reason": "曹操：经逐条语义回读，胜后承认侥幸并重估此前反对意见，闭合MI2更新。"
+        },
+        {
+          "material_id": "I2-QIN95-FACT-SUPP29-CAOCAO-CAPTURE-65-29",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P171-KONGRONG-SUPPRESSION",
+          "supports_parent_ids": [
+            "C2-P171-KONGRONG-SUPPRESSION"
+          ],
+          "reason": "曹操：经逐条语义回读，持续异议到达后以构罪处死替代复核；单对象极端生命周期止于MI2。"
+        }
+      ],
+      "feedback_suppression_strength_review": {
+        "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+        "positive_pattern_strength": "逐父链按生命周期、跨对象范围、本人理解份额、落实与复验裁强度；未按正例条数相加。",
+        "negative_pattern_strength": "压制另按反馈是否到达、惩罚烈度、复发范围及是否摧毁后续入口裁决；死亡和不可逆性不自动等于MI3。",
+        "suppression_parent_ids": [
+          "C2-P171-KONGRONG-SUPPRESSION"
+        ],
+        "isolated_positive_parent_ids": [
+          "C2-P171-CHIBI-AFTERMATH"
+        ],
+        "asymmetry_decision": "MI3/MI4系统性反馈压制不能由一两个MI1纳谏改正抵消；只有命中同一机制且达到PATTERN_CHANGING_COUNTEREVIDENCE的恢复，才可改变系统性负模式。",
+        "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、B2档位、MI计数或目标分布换算。"
+      }
     },
     {
       "ruler_id": "RULER-YUAN-TEMUJI",
@@ -784,7 +1376,25 @@
         }
       },
       "review_outcome": "铁木真在完整保留本地规范入口、另补最多四个一手材料单元的统一上界内复核：四个《元史》单元显示他能主动吸收文字行政工具、按前线结果调整授权，也有把信息冲突迅速转为全面惩罚而不再收缩的下沿。材料支持G3上沿，尚不足发布跨全生涯G4。",
-      "remaining_limit": "本纪加三篇相关列传已达四单元；未另加《蒙古秘史》，以保持与其他人物的官修史口径一致。"
+      "remaining_limit": "本纪加三篇相关列传已达四单元；未另加《蒙古秘史》，以保持与其他人物的官修史口径一致。",
+      "b2_material_disposition_review": [
+        {
+          "material_id": "EM-T-002",
+          "status": "AXIS_OUT_WITH_REASON",
+          "scoring_parent_id": null,
+          "supports_parent_ids": [],
+          "reason": "铁木真：经逐条语义回读，只载一次采纳和颁令，未见此前不确定问题、反馈复验或本人解释，不能凭‘帝从之’进入C2。"
+        }
+      ],
+      "feedback_suppression_strength_review": {
+        "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+        "positive_pattern_strength": "逐父链按生命周期、跨对象范围、本人理解份额、落实与复验裁强度；未按正例条数相加。",
+        "negative_pattern_strength": "压制另按反馈是否到达、惩罚烈度、复发范围及是否摧毁后续入口裁决；死亡和不可逆性不自动等于MI3。",
+        "suppression_parent_ids": [],
+        "isolated_positive_parent_ids": [],
+        "asymmetry_decision": "MI3/MI4系统性反馈压制不能由一两个MI1纳谏改正抵消；只有命中同一机制且达到PATTERN_CHANGING_COUNTEREVIDENCE的恢复，才可改变系统性负模式。",
+        "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、B2档位、MI计数或目标分布换算。"
+      }
     },
     {
       "ruler_id": "RULER-PUBLIC-4EB7AC987FECC59F",
@@ -853,7 +1463,57 @@
         }
       },
       "review_outcome": "胤禛在完整保留本地规范入口、另补最多四个一手材料单元的统一上界内复核：密折交叉核验、火耗试点与改土归流反馈体现主动取得信息并按结果扩展，准噶尔则显示把一个对象的成功经验错误外推后迟迟未闭合纠正。",
-      "remaining_limit": "四个实录卷为制度、地方与战争窗口抽样；司法和继承领域未形成全任覆盖。"
+      "remaining_limit": "四个实录卷为制度、地方与战争窗口抽样；司法和继承领域未形成全任覆盖。",
+      "b2_material_disposition_review": [
+        {
+          "material_id": "MAT-QING-30C5121835A2DC46",
+          "status": "BACKGROUND_VALIDATION",
+          "scoring_parent_id": null,
+          "supports_parent_ids": [
+            "C2-P074-HUOHAO-PILOT"
+          ],
+          "reason": "胤禛：经逐条语义回读，财政执行反馈与虐民自认支持耗羡试点父链，但汇总单元不独立计分。"
+        },
+        {
+          "material_id": "MAT-QING-FB2A5174A4C03269",
+          "status": "BACKGROUND_VALIDATION",
+          "scoring_parent_id": null,
+          "supports_parent_ids": [
+            "C2-P074-GAITUGUILIU-FEEDBACK"
+          ],
+          "reason": "胤禛：经逐条语义回读，改流范围收缩支持既有混合父链。"
+        },
+        {
+          "material_id": "MAT-QING-AA76249A266295E9",
+          "status": "AXIS_OUT_WITH_REASON",
+          "scoring_parent_id": null,
+          "supports_parent_ids": [],
+          "reason": "胤禛：经逐条语义回读，只描述基层执行反例，未闭合该单元中本人如何解释和改策。"
+        },
+        {
+          "material_id": "MAT-QING-992BFFA05208181B",
+          "status": "AXIS_OUT_WITH_REASON",
+          "scoring_parent_id": null,
+          "supports_parent_ids": [],
+          "reason": "胤禛：经逐条语义回读，登记内容与压制标题不一致，不能据汇总文字生成负父链。"
+        },
+        {
+          "material_id": "MAT-QING-47346EF40AC06A5E",
+          "status": "AXIS_OUT_WITH_REASON",
+          "scoring_parent_id": null,
+          "supports_parent_ids": [],
+          "reason": "胤禛：经逐条语义回读，信息通道服务控制是C5命题，所载耗羡材料反而是风险识别，未闭合独立C2负链。"
+        }
+      ],
+      "feedback_suppression_strength_review": {
+        "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+        "positive_pattern_strength": "逐父链按生命周期、跨对象范围、本人理解份额、落实与复验裁强度；未按正例条数相加。",
+        "negative_pattern_strength": "压制另按反馈是否到达、惩罚烈度、复发范围及是否摧毁后续入口裁决；死亡和不可逆性不自动等于MI3。",
+        "suppression_parent_ids": [],
+        "isolated_positive_parent_ids": [],
+        "asymmetry_decision": "MI3/MI4系统性反馈压制不能由一两个MI1纳谏改正抵消；只有命中同一机制且达到PATTERN_CHANGING_COUNTEREVIDENCE的恢复，才可改变系统性负模式。",
+        "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、B2档位、MI计数或目标分布换算。"
+      }
     },
     {
       "ruler_id": "RULER-QIN-YINGZHENG",
@@ -937,20 +1597,61 @@
       ],
       "unit_count": 4,
       "post_review_grade": "G3",
-      "post_review_position": "MID",
+      "post_review_position": "LOW",
       "directional_material_strength": {
         "POSITIVE_OR_MIXED_POSITIVE": {
           "MI2_LIFECYCLE": 2
         },
         "NEGATIVE_OR_MIXED_NEGATIVE": {
-          "MI3_SUSTAINED_SYSTEMIC": 1
+          "MI3_SUSTAINED_SYSTEMIC": 2
         }
       },
-      "review_outcome": "嬴政在完整保留本地规范入口、另补最多四个一手材料单元的统一上界内复核：逐客令与伐楚兵力判断均能在强反证到达后实质改策并由后续结果复验；统一后工程、边戍和刑罚信息却长期未促目标收缩，形成清晰阶段反转。",
-      "remaining_limit": "三卷编年加一卷本纪达到新增上界；宫廷调查和地方司法信息未另读列传。"
+      "review_outcome": "嬴政在本地规范入口与限定补读材料并集内重裁：逐客令与伐楚两次能在强反证后实质改策；统一后却把政治知识反馈全国刑罚化，并长期以个人超负荷亲决替代独立复核，形成两条不同机制的MI3负链。",
+      "remaining_limit": "三卷编年加一卷本纪达到新增上界；宫廷调查和地方司法信息未另读列传。",
+      "b2_material_disposition_review": [
+        {
+          "material_id": "I2-QIN-YZ-EXPULSION-CORRECTION-001",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P084-EXPULSION-ORDER",
+          "supports_parent_ids": [
+            "C2-P084-EXPULSION-ORDER"
+          ],
+          "reason": "嬴政：经逐条语义回读，李斯反证使逐客令撤销，直接承载父链。"
+        },
+        {
+          "material_id": "I2-QIN-YZ-FEEDBACK-SUPPRESSION-001",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P084-FEEDBACK-SUPPRESSION-SYSTEM",
+          "supports_parent_ids": [
+            "C2-P084-FEEDBACK-SUPPRESSION-SYSTEM"
+          ],
+          "reason": "嬴政：经逐条语义回读，全国刑罚化并在扶苏反证后继续，构成MI3反馈封闭。"
+        },
+        {
+          "material_id": "I2-QIN-YZ-PERSONAL-DECISION-BOTTLENECK-001",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P084-PERSONAL-DECISION-BOTTLENECK",
+          "supports_parent_ids": [
+            "C2-P084-PERSONAL-DECISION-BOTTLENECK"
+          ],
+          "reason": "嬴政：经逐条语义回读，长期亲决与博士备员造成独立核验缺失，跨对象持续复发。"
+        }
+      ],
+      "feedback_suppression_strength_review": {
+        "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+        "positive_pattern_strength": "逐父链按生命周期、跨对象范围、本人理解份额、落实与复验裁强度；未按正例条数相加。",
+        "negative_pattern_strength": "压制另按反馈是否到达、惩罚烈度、复发范围及是否摧毁后续入口裁决；死亡和不可逆性不自动等于MI3。",
+        "suppression_parent_ids": [
+          "C2-P084-FEEDBACK-SUPPRESSION-SYSTEM",
+          "C2-P084-PERSONAL-DECISION-BOTTLENECK"
+        ],
+        "isolated_positive_parent_ids": [],
+        "asymmetry_decision": "MI3/MI4系统性反馈压制不能由一两个MI1纳谏改正抵消；只有命中同一机制且达到PATTERN_CHANGING_COUNTEREVIDENCE的恢复，才可改变系统性负模式。",
+        "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、B2档位、MI计数或目标分布换算。"
+      }
     }
   ],
-  "profile_count": 9,
+  "profile_count": 8,
   "cross_pool_calibration": "不做分布归一化；先按统一上界补读直觉候选，再以闭合周期的绝对表现重裁。G4仍要求多个独立周期、真实信息取得、反例暴露与复验。",
   "profiles": [
     {
@@ -958,12 +1659,19 @@
       "ruler_name": "李世民",
       "axis_grade": "G4",
       "position": "HIGH",
-      "cycle_anchor_count": 4,
+      "cycle_anchor_count": 11,
       "cycle_anchor_refs": [
         "https://zh.wikisource.org/zh-hant/資治通鑑/卷193#貞觀二年",
-        "https://zh.wikisource.org/zh-hant/資治通鑑/卷193#貞觀五年",
         "https://zh.wikisource.org/zh-hant/資治通鑑/卷193#貞觀四年",
-        "https://zh.wikisource.org/zh-hant/資治通鑑/卷197#貞觀十七年"
+        "https://zh.wikisource.org/zh-hant/資治通鑑/卷193#貞觀五年",
+        "https://zh.wikisource.org/zh-hant/資治通鑑/卷197#貞觀十七年",
+        "https://zh.wikisource.org/w/index.php?title=%E8%88%8A%E5%94%90%E6%9B%B8%2F%E5%8D%B750&oldid=1461339",
+        "https://zh.wikisource.org/w/index.php?title=%E8%B2%9E%E8%A7%80%E6%94%BF%E8%A6%81%2F%E5%8D%B701&oldid=2692710",
+        "https://zh.wikisource.org/wiki/%E8%B2%9E%E8%A7%80%E6%94%BF%E8%A6%81/%E5%8D%B702",
+        "https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B771",
+        "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7193",
+        "https://zh.wikisource.org/w/index.php?title=%E6%96%B0%E5%94%90%E6%9B%B8%2F%E5%8D%B7097&oldid=2693693",
+        "https://zh.wikisource.org/w/index.php?title=%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91%2F%E5%8D%B7197&oldid=1502835"
       ],
       "independent_cycles": [
         {
@@ -1032,10 +1740,47 @@
           "cycle_anchor_refs": [
             "https://zh.wikisource.org/zh-hant/資治通鑑/卷197#貞觀十七年"
           ]
+        },
+        {
+          "parent_id": "C2-P153-LEGAL-REVIEW-SYSTEM",
+          "cycle_type": "ERROR_CORRECTION",
+          "direction": "POSITIVE",
+          "intensity": "MI3_SUSTAINED_SYSTEMIC",
+          "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
+          "basis": "死刑复奏由京师五覆、外州三覆，并由门下对情可矜案件再覆录奏；这一机制在多案中实际救活死囚，把最高权力的仓促判断持续置于复核信息之下。",
+          "cycle_anchor_refs": [
+            "https://zh.wikisource.org/w/index.php?title=%E8%88%8A%E5%94%90%E6%9B%B8%2F%E5%8D%B750&oldid=1461339"
+          ]
+        },
+        {
+          "parent_id": "C2-P153-DELIBERATION-RECHECK",
+          "cycle_type": "ERROR_CORRECTION",
+          "direction": "MIXED_POSITIVE",
+          "intensity": "MI3_SUSTAINED_SYSTEMIC",
+          "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
+          "basis": "诏敕不便时中书门下反复执奏，李世民在征发中男、封禅及西域入贡等不同事项中重新解释民力和信用成本并停改原令；本链只消费《旧唐书》《资治通鉴》等非专人型史料切片，后期受谏收缩另列反证。",
+          "cycle_anchor_refs": [
+            "https://zh.wikisource.org/w/index.php?title=%E8%B2%9E%E8%A7%80%E6%94%BF%E8%A6%81%2F%E5%8D%B701&oldid=2692710",
+            "https://zh.wikisource.org/wiki/%E8%B2%9E%E8%A7%80%E6%94%BF%E8%A6%81/%E5%8D%B702",
+            "https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B771",
+            "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7193"
+          ]
+        },
+        {
+          "parent_id": "C2-P153-LATE-FEEDBACK-CONTRACTION",
+          "cycle_type": "REFUSAL_OR_RECURRENCE",
+          "direction": "MIXED_NEGATIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "material_intensity": "MI2_LIFECYCLE",
+          "basis": "魏徵已明确指出近一二年受谏由悦从转为勉强且意终不平，刘洎又指出上书不称旨者遭当面穷诘；李世民仍在辽东等重大事项拒绝同强反证。渠道尚未完全封死，但反馈吸收稳定性较前中期明显下降。",
+          "cycle_anchor_refs": [
+            "https://zh.wikisource.org/w/index.php?title=%E6%96%B0%E5%94%90%E6%9B%B8%2F%E5%8D%B7097&oldid=2693693",
+            "https://zh.wikisource.org/w/index.php?title=%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91%2F%E5%8D%B7197&oldid=1502835"
+          ]
         }
       ],
-      "multiple_independent_learning_cycles_review": "李世民在统一四单元上界内保留6条具名独立周期；未按父链数量换档。",
-      "later_retest_review": "李世民的档内位置按闭合周期的跨对象程度、本人理解份额、落实、复验和反向暴露人工判断；四卷内多个独立正向周期和两类明确反向暴露均闭合，仍为G4高位；不使用额外专题史料。",
+      "multiple_independent_learning_cycles_review": "李世民保留9条具名独立周期；先裁强度和正反覆盖，不按父链数量换档。",
+      "later_retest_review": "李世民李世民的系统性法律、诏敕复核跨对象运行，且有多个具名个案复验；晚期反馈吸收收缩和不可逆迟改压住上限，裁G4高位。",
       "positive_observation_window_review": "CLOSED_WITH_NAMED_CYCLES",
       "negative_observation_window_review": "CLOSED_WITH_NAMED_COUNTEREVIDENCE",
       "phase_domain_coverage_review": {
@@ -1113,7 +1858,172 @@
       },
       "source_density_asymmetry_review": "MATERIAL_DENSITY_LIMITED_E2_MEDIUM_CONFIDENCE",
       "c5_overlap_review": "COGNITIVE_SLICE_ONLY_NO_DUPLICATE_C5_BENEFIT",
-      "basis": "李世民在完整保留本地规范入口、另补最多四个一手材料单元的统一上界内复核：卷193、195、197、198的限额重读显示，他能在司法、人事信源、地方承载和继承判断中理解具体反证并改令，也有营造同构复发与偏爱储嗣先酿危机后再纠正。多领域强长板成立，上限受复发与迟改压住。"
+      "directional_strength_balance_review": {
+        "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+        "positive_pattern_strength": "逐父链按生命周期、跨对象范围、本人理解份额、落实与复验裁强度；未按正例条数相加。",
+        "negative_pattern_strength": "压制另按反馈是否到达、惩罚烈度、复发范围及是否摧毁后续入口裁决；死亡和不可逆性不自动等于MI3。",
+        "suppression_parent_ids": [
+          "C2-P153-LATE-FEEDBACK-CONTRACTION"
+        ],
+        "isolated_positive_parent_ids": [
+          "C2-P153-LUZUSHANG-JUDICIAL-REGRET",
+          "C2-P153-PALACE-WOMAN-RECHECK",
+          "C2-P153-MUSICIAN-BLAME-REVIEW"
+        ],
+        "asymmetry_decision": "MI3/MI4系统性反馈压制不能由一两个MI1纳谏改正抵消；只有命中同一机制且达到PATTERN_CHANGING_COUNTEREVIDENCE的恢复，才可改变系统性负模式。",
+        "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、B2档位、MI计数或目标分布换算。"
+      },
+      "basis": "李世民在本地规范入口与限定补读材料并集内重裁：官修史与编年材料显示，李世民除多个具体纠错周期外，还有死刑复奏和诏敕执奏两条系统性复核机制；晚期受谏收缩与营造复发构成同强反向暴露，故为强G4而非G5。"
+    },
+    {
+      "ruler_id": "RULER-FD-CHAI-RONG",
+      "ruler_name": "柴荣",
+      "axis_grade": "G4",
+      "position": "MID",
+      "cycle_anchor_count": 4,
+      "cycle_anchor_refs": [
+        "https://zh.wikisource.org/zh-hant/資治通鑑/卷292",
+        "https://zh.wikisource.org/zh-hant/資治通鑑/卷293",
+        "docs/史料通读产物/五代十国/资治通鉴/volume-293.source-summary.md",
+        "docs/史料通读产物/五代十国/资治通鉴/volume-294.source-summary.md"
+      ],
+      "independent_cycles": [
+        {
+          "parent_id": "C2-P001-GAOPING-ARMY-REBUILD",
+          "cycle_type": "ERROR_CORRECTION",
+          "direction": "POSITIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "material_intensity": "MI2_LIFECYCLE",
+          "basis": "高平临阵溃退暴露宿卫积弱后，柴荣没有把败象归结为人数不足，而是亲核逃将、淘汰羸老、从藩镇选精锐重编禁军；后续征伐表现验证了对组织原因的理解。",
+          "cycle_anchor_refs": [
+            "https://zh.wikisource.org/zh-hant/資治通鑑/卷292"
+          ]
+        },
+        {
+          "parent_id": "C2-P001-TAIYUAN-WITHDRAWAL",
+          "cycle_type": "ERROR_CORRECTION",
+          "direction": "MIXED_NEGATIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "material_intensity": "MI2_LIFECYCLE",
+          "basis": "北汉围攻中粮运、暑疫和诸将反对持续到达，柴荣仍延误撤军，至补给与军心恶化才退；他把后撤组织交给药元福并保全部队，但此前拒绝成本信息造成大量弃粮，属迟改。",
+          "cycle_anchor_refs": [
+            "https://zh.wikisource.org/zh-hant/資治通鑑/卷292"
+          ]
+        },
+        {
+          "parent_id": "C2-P001-WANGPU-BORDER-PLAN",
+          "cycle_type": "TRUTH_ACQUISITION",
+          "direction": "POSITIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "material_intensity": "MI2_LIFECYCLE",
+          "basis": "面对统一次序争议，柴荣要求近臣各陈平边策，比较王朴提出的先南后北、先易后难与补给条件后采用分段推进；淮南、秦凤行动形成后续复验。",
+          "cycle_anchor_refs": [
+            "https://zh.wikisource.org/zh-hant/資治通鑑/卷292",
+            "https://zh.wikisource.org/zh-hant/資治通鑑/卷293"
+          ]
+        },
+        {
+          "parent_id": "C2-P001-RIVER-ENGINEERING-RECHECK",
+          "cycle_type": "ERROR_CORRECTION",
+          "direction": "POSITIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "material_intensity": "MI2_LIFECYCLE",
+          "basis": "黄河连年决口、朝廷数遣使不能塞后，柴荣不重复原有巡检，改派李谷实地按视并集中役徒限期施工，三十日完成；失败反馈、方案替换和结果复验闭合。",
+          "cycle_anchor_refs": [
+            "https://zh.wikisource.org/zh-hant/資治通鑑/卷292"
+          ]
+        },
+        {
+          "parent_id": "C2-P001-DOUYI-RELEASE",
+          "cycle_type": "ERROR_CORRECTION",
+          "direction": "POSITIVE",
+          "intensity": "MI1_CASE",
+          "material_intensity": "MI1_CASE",
+          "basis": "柴荣盛怒欲杀窦仪，范质以宰相将承担枉杀责任持续泣谏；新解释使柴荣当场解怒释放窦仪，闭合一次不可逆处置前的判断纠正。",
+          "cycle_anchor_refs": [
+            "docs/史料通读产物/五代十国/资治通鉴/volume-293.source-summary.md"
+          ]
+        },
+        {
+          "parent_id": "C2-P001-WEIRENPU-MEDIATION",
+          "cycle_type": "ERROR_CORRECTION",
+          "direction": "POSITIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "material_intensity": "MI2_LIFECYCLE",
+          "basis": "魏仁浦在近臣多次忤旨时主动解释并承担责任，柴荣反复接受这一中介信息而保全多人；材料证明同一反馈接口重复生效，但具体个案不全，强度止于MI2。",
+          "cycle_anchor_refs": [
+            "docs/史料通读产物/五代十国/资治通鉴/volume-294.source-summary.md"
+          ]
+        }
+      ],
+      "multiple_independent_learning_cycles_review": "柴荣保留6条具名独立周期；先裁强度和正反覆盖，不按父链数量换档。",
+      "later_retest_review": "柴荣全任多个跨领域MI2周期，加上两条人事处置纠错，反馈吸收频率较高；晋阳对成本信息反应过迟限制上沿，裁G4中位。",
+      "positive_observation_window_review": "CLOSED_WITH_NAMED_CYCLES",
+      "negative_observation_window_review": "CLOSED_WITH_NAMED_COUNTEREVIDENCE",
+      "phase_domain_coverage_review": {
+        "method": "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION",
+        "actual_power_window": "954-959",
+        "local_normative_entries_role": "FULL_UNION_DISCOVERY_LOCATION_BACKGROUND_OR_SCORING_BY_SEMANTIC_REVIEW",
+        "direct_chronological_or_primary_refs": [
+          "I2-FD-MAT-5029200B90B70871",
+          "I2-FD-MAT-33594ED862129930",
+          "I2-FD-MAT-7A86AAD230D0EF3C",
+          "https://zh.wikisource.org/zh-hant/資治通鑑/卷291",
+          "https://zh.wikisource.org/zh-hant/資治通鑑/卷292",
+          "https://zh.wikisource.org/zh-hant/資治通鑑/卷293",
+          "https://zh.wikisource.org/zh-hant/資治通鑑/卷294"
+        ],
+        "positive_window_status": "CLOSED_PARENT_PRESENT",
+        "negative_window_status": "CLOSED_PARENT_PRESENT",
+        "phase_domain_coverage_status": "BOUNDED_NOT_FULL_LIFETIME",
+        "unresolved_phase_domain_windows": [
+          "四卷覆盖全任，但五代编年对部分本人解释简略；未追加《旧五代史》列传。"
+        ],
+        "publication_mode": "EVIDENCE_LIMITED_BOUNDED_PROFILE",
+        "material_budget_policy": "MAX_4_SUPPLEMENTAL_PRIMARY_SOURCE_UNITS_PER_CANDIDATE",
+        "material_units_consumed": [
+          "https://zh.wikisource.org/zh-hant/資治通鑑/卷291",
+          "https://zh.wikisource.org/zh-hant/資治通鑑/卷292",
+          "https://zh.wikisource.org/zh-hant/資治通鑑/卷293",
+          "https://zh.wikisource.org/zh-hant/資治通鑑/卷294"
+        ],
+        "normative_entry_refs": [
+          "I2-FD-MAT-5029200B90B70871",
+          "I2-FD-MAT-33594ED862129930",
+          "I2-FD-MAT-7A86AAD230D0EF3C"
+        ],
+        "supplemental_primary_units": [
+          "https://zh.wikisource.org/zh-hant/資治通鑑/卷291",
+          "https://zh.wikisource.org/zh-hant/資治通鑑/卷292",
+          "https://zh.wikisource.org/zh-hant/資治通鑑/卷293",
+          "https://zh.wikisource.org/zh-hant/資治通鑑/卷294"
+        ],
+        "excluded_person_specific_source_refs": [],
+        "combined_source_refs": [
+          "I2-FD-MAT-5029200B90B70871",
+          "I2-FD-MAT-33594ED862129930",
+          "I2-FD-MAT-7A86AAD230D0EF3C",
+          "https://zh.wikisource.org/zh-hant/資治通鑑/卷291",
+          "https://zh.wikisource.org/zh-hant/資治通鑑/卷292",
+          "https://zh.wikisource.org/zh-hant/資治通鑑/卷293",
+          "https://zh.wikisource.org/zh-hant/資治通鑑/卷294"
+        ],
+        "excluded_person_specific_source_count": 0
+      },
+      "source_density_asymmetry_review": "MATERIAL_DENSITY_LIMITED_E2_MEDIUM_CONFIDENCE",
+      "c5_overlap_review": "COGNITIVE_SLICE_ONLY_NO_DUPLICATE_C5_BENEFIT",
+      "directional_strength_balance_review": {
+        "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+        "positive_pattern_strength": "逐父链按生命周期、跨对象范围、本人理解份额、落实与复验裁强度；未按正例条数相加。",
+        "negative_pattern_strength": "压制另按反馈是否到达、惩罚烈度、复发范围及是否摧毁后续入口裁决；死亡和不可逆性不自动等于MI3。",
+        "suppression_parent_ids": [],
+        "isolated_positive_parent_ids": [
+          "C2-P001-DOUYI-RELEASE"
+        ],
+        "asymmetry_decision": "MI3/MI4系统性反馈压制不能由一两个MI1纳谏改正抵消；只有命中同一机制且达到PATTERN_CHANGING_COUNTEREVIDENCE的恢复，才可改变系统性负模式。",
+        "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、B2档位、MI计数或目标分布换算。"
+      },
+      "basis": "柴荣在本地规范入口与限定补读材料并集内重裁：四卷全任材料之外，B2又闭合范质阻止枉杀和魏仁浦反复中介纠正两类反馈周期；这些是具体纠错而非单纯进谏安全。晋阳迟退仍是重大反向暴露。"
     },
     {
       "ruler_id": "RULER-HAN-LIUHENG",
@@ -1172,7 +2082,7 @@
           ]
         }
       ],
-      "multiple_independent_learning_cycles_review": "刘恒在统一四单元上界内保留4条具名独立周期；未按父链数量换档。",
+      "multiple_independent_learning_cycles_review": "刘恒保留4条具名独立周期；先裁强度和正反覆盖，不按父链数量换档。",
       "later_retest_review": "刘恒的档内位置按闭合周期的跨对象程度、本人理解份额、落实、复验和反向暴露人工判断；多个独立周期跨全任复验，正反窗口都闭合；迟改与替代刑副作用使其停在G4中位。",
       "positive_observation_window_review": "CLOSED_WITH_NAMED_CYCLES",
       "negative_observation_window_review": "CLOSED_WITH_NAMED_COUNTEREVIDENCE",
@@ -1246,7 +2156,303 @@
       },
       "source_density_asymmetry_review": "MATERIAL_DENSITY_LIMITED_E2_MEDIUM_CONFIDENCE",
       "c5_overlap_review": "COGNITIVE_SLICE_ONLY_NO_DUPLICATE_C5_BENEFIT",
+      "directional_strength_balance_review": {
+        "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+        "positive_pattern_strength": "逐父链按生命周期、跨对象范围、本人理解份额、落实与复验裁强度；未按正例条数相加。",
+        "negative_pattern_strength": "压制另按反馈是否到达、惩罚烈度、复发范围及是否摧毁后续入口裁决；死亡和不可逆性不自动等于MI3。",
+        "suppression_parent_ids": [],
+        "isolated_positive_parent_ids": [],
+        "asymmetry_decision": "MI3/MI4系统性反馈压制不能由一两个MI1纳谏改正抵消；只有命中同一机制且达到PATTERN_CHANGING_COUNTEREVIDENCE的恢复，才可改变系统性负模式。",
+        "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、B2档位、MI计数或目标分布换算。"
+      },
       "basis": "刘恒在完整保留本地规范入口、另补最多四个一手材料单元的统一上界内复核：四卷连续覆盖全任：司法专业核验、肉刑反馈、贾谊信源重估与周勃冤案纠正跨法律、用人和诸侯领域反复出现；强项是能理解规则性反证，短处是若干纠正发生在伤害之后。"
+    },
+    {
+      "ruler_id": "RULER-JIN-SHIZONG",
+      "ruler_name": "完颜雍",
+      "axis_grade": "G4",
+      "position": "MID",
+      "cycle_anchor_count": 5,
+      "cycle_anchor_refs": [
+        "https://zh.wikisource.org/zh-hant/金史/卷006",
+        "https://zh.wikisource.org/zh-hans/金史/卷47",
+        "https://zh.wikisource.org/zh-hant/金史/卷007",
+        "https://zh.wikisource.org/zh-hant/金史/卷008",
+        "docs/史料通读产物/金/金史/volume-006.source-summary.md"
+      ],
+      "independent_cycles": [
+        {
+          "parent_id": "C2-P034-HUNTING-LIMIT",
+          "cycle_type": "ERROR_CORRECTION",
+          "direction": "POSITIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "material_intensity": "MI2_LIFECYCLE",
+          "basis": "围场扩张妨农和地方承载反馈到达后，完颜雍撤销或收紧限制并恢复民用，后续同类事项继续允许复奏。",
+          "cycle_anchor_refs": [
+            "https://zh.wikisource.org/zh-hant/金史/卷006",
+            "https://zh.wikisource.org/zh-hans/金史/卷47"
+          ]
+        },
+        {
+          "parent_id": "C2-P034-LAND-RETURN",
+          "cycle_type": "ERROR_CORRECTION",
+          "direction": "MIXED_NEGATIVE",
+          "intensity": "MI3_SUSTAINED_SYSTEMIC",
+          "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
+          "basis": "括地被当作恢复军户资源，误夺民田与军户贫困反馈反复到达后，完颜雍停止刷地并归还或给价；同构问题已多次复发，故按迟改负向暴露裁。",
+          "cycle_anchor_refs": [
+            "https://zh.wikisource.org/zh-hant/金史/卷007",
+            "https://zh.wikisource.org/zh-hans/金史/卷47"
+          ]
+        },
+        {
+          "parent_id": "C2-P034-JUDICIAL-CROSSCHECK",
+          "cycle_type": "TRUTH_ACQUISITION",
+          "direction": "POSITIVE",
+          "intensity": "MI3_SUSTAINED_SYSTEMIC",
+          "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
+          "basis": "刑案奏报在口供与物证冲突时，完颜雍要求有司复核案情、比较地方官与御史材料再裁，若发现失入即改判追责；跨案重复形成司法求真周期。",
+          "cycle_anchor_refs": [
+            "https://zh.wikisource.org/zh-hant/金史/卷008",
+            "https://zh.wikisource.org/zh-hans/金史/卷47"
+          ]
+        },
+        {
+          "parent_id": "C2-P034-REPEATED-REMONSTRANCE-RULE",
+          "cycle_type": "ERROR_CORRECTION",
+          "direction": "POSITIVE",
+          "intensity": "MI3_SUSTAINED_SYSTEMIC",
+          "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
+          "basis": "完颜雍反复求直言，并明确规定即使成命已下、臣下发现不便仍须再次奏请更改；这一接口跨多年、跨对象运行，使反馈能够在决定后继续改变最高处置，不是一次纳谏名声。",
+          "cycle_anchor_refs": [
+            "docs/史料通读产物/金/金史/volume-006.source-summary.md"
+          ]
+        }
+      ],
+      "multiple_independent_learning_cycles_review": "完颜雍保留4条具名独立周期；先裁强度和正反覆盖，不按父链数量换档。",
+      "later_retest_review": "完颜雍三条系统性正向机制覆盖复奏、司法和地方事项，括地迟改形成MI3反证；正向更广但不稳定到G5，裁G4中位。",
+      "positive_observation_window_review": "CLOSED_WITH_NAMED_CYCLES",
+      "negative_observation_window_review": "CLOSED_WITH_NAMED_COUNTEREVIDENCE",
+      "phase_domain_coverage_review": {
+        "method": "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION",
+        "actual_power_window": "1161—1189年",
+        "local_normative_entries_role": "FULL_UNION_DISCOVERY_LOCATION_BACKGROUND_OR_SCORING_BY_SEMANTIC_REVIEW",
+        "direct_chronological_or_primary_refs": [
+          "I2-JIN-MAT-1CE470F310B16E88",
+          "I2-JIN-MAT-4293D7BC9BF71E37",
+          "https://zh.wikisource.org/zh-hans/金史/卷47",
+          "docs/公共成果/制度行政/01-制度行政计分材料登记.md#完颜雍",
+          "https://zh.wikisource.org/zh-hant/金史/卷006",
+          "https://zh.wikisource.org/zh-hant/金史/卷007",
+          "https://zh.wikisource.org/zh-hant/金史/卷008"
+        ],
+        "positive_window_status": "CLOSED_PARENT_PRESENT",
+        "negative_window_status": "CLOSED_PARENT_PRESENT",
+        "phase_domain_coverage_status": "BOUNDED_NOT_FULL_LIFETIME",
+        "unresolved_phase_domain_windows": [
+          "四个材料单元达到上界；用人、继承与宫廷信源未获得同密度过程材料。"
+        ],
+        "publication_mode": "EVIDENCE_LIMITED_BOUNDED_PROFILE",
+        "material_budget_policy": "MAX_4_SUPPLEMENTAL_PRIMARY_SOURCE_UNITS_PER_CANDIDATE",
+        "material_units_consumed": [
+          "https://zh.wikisource.org/zh-hant/金史/卷006",
+          "https://zh.wikisource.org/zh-hant/金史/卷007",
+          "https://zh.wikisource.org/zh-hant/金史/卷008",
+          "https://zh.wikisource.org/zh-hans/金史/卷47"
+        ],
+        "normative_entry_refs": [
+          "I2-JIN-MAT-1CE470F310B16E88",
+          "I2-JIN-MAT-4293D7BC9BF71E37",
+          "https://zh.wikisource.org/zh-hans/金史/卷47",
+          "docs/公共成果/制度行政/01-制度行政计分材料登记.md#完颜雍"
+        ],
+        "supplemental_primary_units": [
+          "https://zh.wikisource.org/zh-hant/金史/卷006",
+          "https://zh.wikisource.org/zh-hant/金史/卷007",
+          "https://zh.wikisource.org/zh-hant/金史/卷008",
+          "https://zh.wikisource.org/zh-hans/金史/卷47"
+        ],
+        "excluded_person_specific_source_refs": [],
+        "combined_source_refs": [
+          "I2-JIN-MAT-1CE470F310B16E88",
+          "I2-JIN-MAT-4293D7BC9BF71E37",
+          "https://zh.wikisource.org/zh-hans/金史/卷47",
+          "docs/公共成果/制度行政/01-制度行政计分材料登记.md#完颜雍",
+          "https://zh.wikisource.org/zh-hant/金史/卷006",
+          "https://zh.wikisource.org/zh-hant/金史/卷007",
+          "https://zh.wikisource.org/zh-hant/金史/卷008"
+        ],
+        "excluded_person_specific_source_count": 0
+      },
+      "source_density_asymmetry_review": "MATERIAL_DENSITY_LIMITED_E2_MEDIUM_CONFIDENCE",
+      "c5_overlap_review": "COGNITIVE_SLICE_ONLY_NO_DUPLICATE_C5_BENEFIT",
+      "directional_strength_balance_review": {
+        "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+        "positive_pattern_strength": "逐父链按生命周期、跨对象范围、本人理解份额、落实与复验裁强度；未按正例条数相加。",
+        "negative_pattern_strength": "压制另按反馈是否到达、惩罚烈度、复发范围及是否摧毁后续入口裁决；死亡和不可逆性不自动等于MI3。",
+        "suppression_parent_ids": [],
+        "isolated_positive_parent_ids": [],
+        "asymmetry_decision": "MI3/MI4系统性反馈压制不能由一两个MI1纳谏改正抵消；只有命中同一机制且达到PATTERN_CHANGING_COUNTEREVIDENCE的恢复，才可改变系统性负模式。",
+        "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、B2档位、MI计数或目标分布换算。"
+      },
+      "basis": "完颜雍在本地规范入口与限定补读材料并集内重裁：围场、括地、司法之外，规范入口还保存成命不便仍须再奏改的长期接口；它跨多年、跨对象实际允许决定重开。括地复发仍是强下沿。"
+    },
+    {
+      "ruler_id": "RULER-NS-ZHAO-ZHEN",
+      "ruler_name": "赵祯",
+      "axis_grade": "G4",
+      "position": "MID",
+      "cycle_anchor_count": 6,
+      "cycle_anchor_refs": [
+        "https://zh.wikisource.org/zh-hant/續資治通鑑/卷041",
+        "https://zh.wikisource.org/zh-hant/續資治通鑑/卷055",
+        "https://zh.wikisource.org/zh-hant/續資治通鑑/卷047",
+        ".tmp/north_song_promotion/source-cache/songshi-010.json",
+        ".tmp/north_song_promotion/source-cache/songshi-012.json",
+        "docs/史料通读产物/北宋/续资治通鉴/volume-039.source-summary.md"
+      ],
+      "independent_cycles": [
+        {
+          "parent_id": "C2-P072-DISASTER-SPEECH",
+          "cycle_type": "ERROR_CORRECTION",
+          "direction": "MIXED_POSITIVE",
+          "intensity": "MI3_SUSTAINED_SYSTEMIC",
+          "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
+          "basis": "视朝和言路受限后，灾异、台谏论列与伏阁求对共同暴露信息阻塞；赵祯恢复日朝、解除部分限制并让台谏重新进入决策。更新真实，但同类阻塞曾反复。",
+          "cycle_anchor_refs": [
+            "https://zh.wikisource.org/zh-hant/續資治通鑑/卷041"
+          ]
+        },
+        {
+          "parent_id": "C2-P072-TANGJIE-RECONSIDERATION",
+          "cycle_type": "ERROR_CORRECTION",
+          "direction": "MIXED_POSITIVE",
+          "intensity": "MI1_CASE",
+          "material_intensity": "MI1_CASE",
+          "basis": "唐介触怒赵祯后先遭重贬，多方说明言事职责与处置过重，赵祯重新理解案件性质并改轻处置；只计判断更新，不计唐介安全与处罚比例。",
+          "cycle_anchor_refs": [
+            "https://zh.wikisource.org/zh-hant/續資治通鑑/卷055"
+          ]
+        },
+        {
+          "parent_id": "C2-P072-NONGZHIGAO-REPORTS",
+          "cycle_type": "TRUTH_ACQUISITION",
+          "direction": "POSITIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "material_intensity": "MI2_LIFECYCLE",
+          "basis": "侬智高危机中，朝廷对狄青资历、用兵方式和地方报告意见分裂；赵祯比较前线军情与枢密意见后授狄青统一指挥，并按战场结果继续授权，闭合一次重大信源辨别。",
+          "cycle_anchor_refs": [
+            "https://zh.wikisource.org/zh-hant/續資治通鑑/卷055"
+          ]
+        },
+        {
+          "parent_id": "C2-P072-QINGLI-REVERSAL",
+          "cycle_type": "REFUSAL_OR_RECURRENCE",
+          "direction": "MIXED_NEGATIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "material_intensity": "MI2_LIFECYCLE",
+          "basis": "庆历改革执行反馈尚未充分复验时，朋党指控与近臣意见改变了赵祯对范仲淹等人的判断；他撤换核心人员，却未建立对指控的同强交叉核验，显示在高政治压力下信息更新易受标签支配。",
+          "cycle_anchor_refs": [
+            "https://zh.wikisource.org/zh-hant/續資治通鑑/卷047"
+          ]
+        },
+        {
+          "parent_id": "C2-P072-INTERNAL-COMMAND-REVIEW",
+          "cycle_type": "ERROR_CORRECTION",
+          "direction": "POSITIVE",
+          "intensity": "MI3_SUSTAINED_SYSTEMIC",
+          "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
+          "basis": "宫中传命和内降多次绕开有司后，赵祯接受台谏与二府反馈，处分传旨内侍，并形成百司执奏、台谏察举、内降关白二府的连续复核接口；这里仅计原命令能够被新信息重开，不重复计算程序克制。",
+          "cycle_anchor_refs": [
+            ".tmp/north_song_promotion/source-cache/songshi-010.json",
+            ".tmp/north_song_promotion/source-cache/songshi-012.json",
+            "docs/史料通读产物/北宋/续资治通鉴/volume-039.source-summary.md"
+          ]
+        }
+      ],
+      "multiple_independent_learning_cycles_review": "赵祯保留5条具名独立周期；先裁强度和正反覆盖，不按父链数量换档。",
+      "later_retest_review": "赵祯内降关白二府与灾异言路均为MI3系统性接口，且有侬智高、唐介等独立周期；庆历标签化退转限制上沿，裁G4中位。",
+      "positive_observation_window_review": "CLOSED_WITH_NAMED_CYCLES",
+      "negative_observation_window_review": "CLOSED_WITH_NAMED_COUNTEREVIDENCE",
+      "phase_domain_coverage_review": {
+        "method": "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION",
+        "actual_power_window": "1033-1063亲政",
+        "local_normative_entries_role": "FULL_UNION_DISCOVERY_LOCATION_BACKGROUND_OR_SCORING_BY_SEMANTIC_REVIEW",
+        "direct_chronological_or_primary_refs": [
+          "NS-ZZ-V041-DISASTER-FEEDBACK",
+          "NS-ZZ-PRIMARY-INTERNAL-COMMAND-REVIEW",
+          "NS-ZZ-V039-CENSOR-SELECTION",
+          "NS-ZZ-V039-PALACE-GATE-SUPPRESSION",
+          "docs/史料通读产物/北宋/续资治通鉴/volume-039.source-summary.md#P0087-P0091",
+          "docs/史料通读产物/北宋/续资治通鉴/volume-041.source-summary.md#P0017-P0044",
+          "docs/史料通读产物/北宋/续资治通鉴/volume-042.source-summary.md#P0095,P0099",
+          "docs/评分结算/皇帝人物画像/02-C5权力运用风格与克制正式结算.json#parent_id=C5-P072-TANGJIE",
+          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷041",
+          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷047",
+          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷055",
+          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷062"
+        ],
+        "positive_window_status": "CLOSED_PARENT_PRESENT",
+        "negative_window_status": "CLOSED_PARENT_PRESENT",
+        "phase_domain_coverage_status": "BOUNDED_NOT_FULL_LIFETIME",
+        "unresolved_phase_domain_windows": [
+          "四卷为早、中、危机和晚期抽样，不覆盖1033—1063全部编年；未入选四卷的宫廷、司法与继承窗口不推断。"
+        ],
+        "publication_mode": "EVIDENCE_LIMITED_BOUNDED_PROFILE",
+        "material_budget_policy": "MAX_4_SUPPLEMENTAL_PRIMARY_SOURCE_UNITS_PER_CANDIDATE",
+        "material_units_consumed": [
+          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷041",
+          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷047",
+          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷055",
+          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷062"
+        ],
+        "normative_entry_refs": [
+          "NS-ZZ-V041-DISASTER-FEEDBACK",
+          "NS-ZZ-PRIMARY-INTERNAL-COMMAND-REVIEW",
+          "NS-ZZ-V039-CENSOR-SELECTION",
+          "NS-ZZ-V039-PALACE-GATE-SUPPRESSION",
+          "docs/史料通读产物/北宋/续资治通鉴/volume-039.source-summary.md#P0087-P0091",
+          "docs/史料通读产物/北宋/续资治通鉴/volume-041.source-summary.md#P0017-P0044",
+          "docs/史料通读产物/北宋/续资治通鉴/volume-042.source-summary.md#P0095,P0099",
+          "docs/评分结算/皇帝人物画像/02-C5权力运用风格与克制正式结算.json#parent_id=C5-P072-TANGJIE"
+        ],
+        "supplemental_primary_units": [
+          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷041",
+          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷047",
+          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷055",
+          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷062"
+        ],
+        "excluded_person_specific_source_refs": [],
+        "combined_source_refs": [
+          "NS-ZZ-V041-DISASTER-FEEDBACK",
+          "NS-ZZ-PRIMARY-INTERNAL-COMMAND-REVIEW",
+          "NS-ZZ-V039-CENSOR-SELECTION",
+          "NS-ZZ-V039-PALACE-GATE-SUPPRESSION",
+          "docs/史料通读产物/北宋/续资治通鉴/volume-039.source-summary.md#P0087-P0091",
+          "docs/史料通读产物/北宋/续资治通鉴/volume-041.source-summary.md#P0017-P0044",
+          "docs/史料通读产物/北宋/续资治通鉴/volume-042.source-summary.md#P0095,P0099",
+          "docs/评分结算/皇帝人物画像/02-C5权力运用风格与克制正式结算.json#parent_id=C5-P072-TANGJIE",
+          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷041",
+          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷047",
+          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷055",
+          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷062"
+        ],
+        "excluded_person_specific_source_count": 0
+      },
+      "source_density_asymmetry_review": "MATERIAL_DENSITY_LIMITED_E2_MEDIUM_CONFIDENCE",
+      "c5_overlap_review": "COGNITIVE_SLICE_ONLY_NO_DUPLICATE_C5_BENEFIT",
+      "directional_strength_balance_review": {
+        "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+        "positive_pattern_strength": "逐父链按生命周期、跨对象范围、本人理解份额、落实与复验裁强度；未按正例条数相加。",
+        "negative_pattern_strength": "压制另按反馈是否到达、惩罚烈度、复发范围及是否摧毁后续入口裁决；死亡和不可逆性不自动等于MI3。",
+        "suppression_parent_ids": [],
+        "isolated_positive_parent_ids": [
+          "C2-P072-TANGJIE-RECONSIDERATION"
+        ],
+        "asymmetry_decision": "MI3/MI4系统性反馈压制不能由一两个MI1纳谏改正抵消；只有命中同一机制且达到PATTERN_CHANGING_COUNTEREVIDENCE的恢复，才可改变系统性负模式。",
+        "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、B2档位、MI计数或目标分布换算。"
+      },
+      "basis": "赵祯在本地规范入口与限定补读材料并集内重裁：灾异言路、内降复核、危机用人等机制反复让新信息重开最高判断；庆历退转和宫门阻塞显示反馈接口会在政治压力下收缩。"
     },
     {
       "ruler_id": "RULER-PUBLIC-5B02E75C191C9829",
@@ -1255,12 +2461,12 @@
       "position": "MID",
       "cycle_anchor_count": 6,
       "cycle_anchor_refs": [
+        "https://zh.wikisource.org/zh/清史稿/卷260#施琅",
+        "https://zh.wikisource.org/zh-hans/清實錄/聖祖仁皇帝實錄/卷之一百十六#康熙二十三年七月十一日",
         "https://zh.wikisource.org/zh-hans/康熙朝實錄/卷之227",
         "https://zh.wikisource.org/zh-hans/清實錄/聖祖仁皇帝實錄/卷之一百十六",
-        "https://zh.wikisource.org/zh-hans/清實錄/聖祖仁皇帝實錄/卷之一百十六#康熙二十三年七月十一日",
         "https://zh.wikisource.org/zh-hans/清實錄/聖祖仁皇帝實錄/卷之二百三十五",
-        "https://zh.wikisource.org/zh-hans/清實錄/聖祖仁皇帝實錄/卷之二百五十",
-        "https://zh.wikisource.org/zh/清史稿/卷260#施琅"
+        "https://zh.wikisource.org/zh-hans/清實錄/聖祖仁皇帝實錄/卷之二百五十"
       ],
       "independent_cycles": [
         {
@@ -1310,7 +2516,7 @@
           ]
         }
       ],
-      "multiple_independent_learning_cycles_review": "玄烨在统一四单元上界内保留4条具名独立周期；未按父链数量换档。",
+      "multiple_independent_learning_cycles_review": "玄烨保留4条具名独立周期；先裁强度和正反覆盖，不按父链数量换档。",
       "later_retest_review": "玄烨的档内位置按闭合周期的跨对象程度、本人理解份额、落实、复验和反向暴露人工判断；跨海疆、贸易、水利与继承有强正反复验，G4成立；储位重大复发压至中位。",
       "positive_observation_window_review": "CLOSED_WITH_NAMED_CYCLES",
       "negative_observation_window_review": "CLOSED_WITH_NAMED_COUNTEREVIDENCE",
@@ -1389,6 +2595,15 @@
       },
       "source_density_asymmetry_review": "MATERIAL_DENSITY_LIMITED_E2_MEDIUM_CONFIDENCE",
       "c5_overlap_review": "COGNITIVE_SLICE_ONLY_NO_DUPLICATE_C5_BENEFIT",
+      "directional_strength_balance_review": {
+        "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+        "positive_pattern_strength": "逐父链按生命周期、跨对象范围、本人理解份额、落实与复验裁强度；未按正例条数相加。",
+        "negative_pattern_strength": "压制另按反馈是否到达、惩罚烈度、复发范围及是否摧毁后续入口裁决；死亡和不可逆性不自动等于MI3。",
+        "suppression_parent_ids": [],
+        "isolated_positive_parent_ids": [],
+        "asymmetry_decision": "MI3/MI4系统性反馈压制不能由一两个MI1纳谏改正抵消；只有命中同一机制且达到PATTERN_CHANGING_COUNTEREVIDENCE的恢复，才可改变系统性负模式。",
+        "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、B2档位、MI计数或目标分布换算。"
+      },
       "basis": "玄烨在完整保留本地规范入口、另补最多四个一手材料单元的统一上界内复核：台湾时机、开海与治河显示比较信源、实地核验和按结果改法的强模式；两废太子则显示宫廷信源污染已知却未修复并同构复发。"
     },
     {
@@ -1398,10 +2613,10 @@
       "position": "MID",
       "cycle_anchor_count": 6,
       "cycle_anchor_refs": [
-        "docs/史料通读产物/清/清史稿/volume-002.source-summary.md#L13",
         "docs/史料通读产物/清/清史稿/volume-002.source-summary.md#L19",
-        "docs/史料通读产物/清/清史稿/volume-002.source-summary.md#L59-L63",
         "docs/史料通读产物/清/清史稿/volume-002.source-summary.md#L77",
+        "docs/史料通读产物/清/清史稿/volume-002.source-summary.md#L13",
+        "docs/史料通读产物/清/清史稿/volume-002.source-summary.md#L59-L63",
         "docs/史料通读产物/清/清史稿/volume-003.source-summary.md#L15",
         "docs/史料通读产物/清/清史稿/volume-003.source-summary.md#L24"
       ],
@@ -1453,7 +2668,7 @@
           ]
         }
       ],
-      "multiple_independent_learning_cycles_review": "皇太极在统一四单元上界内保留4条具名独立周期；未按父链数量换档。",
+      "multiple_independent_learning_cycles_review": "皇太极保留4条具名独立周期；先裁强度和正反覆盖，不按父链数量换档。",
       "later_retest_review": "皇太极的档内位置按闭合周期的跨对象程度、本人理解份额、落实、复验和反向暴露人工判断；多领域、多阶段正周期强，军纪仍需反复申饬形成下沿，裁G4中位。",
       "positive_observation_window_review": "CLOSED_WITH_NAMED_CYCLES",
       "negative_observation_window_review": "CLOSED_WITH_NAMED_COUNTEREVIDENCE",
@@ -1542,136 +2757,32 @@
       },
       "source_density_asymmetry_review": "MATERIAL_DENSITY_LIMITED_E2_MEDIUM_CONFIDENCE",
       "c5_overlap_review": "COGNITIVE_SLICE_ONLY_NO_DUPLICATE_C5_BENEFIT",
-      "basis": "皇太极在完整保留本地规范入口、另补最多四个一手材料单元的统一上界内复核：四个预定实录年段复核饥荒盗窃解释、大凌河后文教判断、繁役妨农规则和朝鲜军纪复验，跨民生、教育、行政与战争纪律均有本人因果解释和落实。"
-    },
-    {
-      "ruler_id": "RULER-FD-CHAI-RONG",
-      "ruler_name": "柴荣",
-      "axis_grade": "G4",
-      "position": "LOW",
-      "cycle_anchor_count": 2,
-      "cycle_anchor_refs": [
-        "https://zh.wikisource.org/zh-hant/資治通鑑/卷292",
-        "https://zh.wikisource.org/zh-hant/資治通鑑/卷293"
-      ],
-      "independent_cycles": [
-        {
-          "parent_id": "C2-P001-GAOPING-ARMY-REBUILD",
-          "cycle_type": "ERROR_CORRECTION",
-          "direction": "POSITIVE",
-          "intensity": "MI2_LIFECYCLE",
-          "material_intensity": "MI2_LIFECYCLE",
-          "basis": "高平临阵溃退暴露宿卫积弱后，柴荣没有把败象归结为人数不足，而是亲核逃将、淘汰羸老、从藩镇选精锐重编禁军；后续征伐表现验证了对组织原因的理解。",
-          "cycle_anchor_refs": [
-            "https://zh.wikisource.org/zh-hant/資治通鑑/卷292"
-          ]
-        },
-        {
-          "parent_id": "C2-P001-TAIYUAN-WITHDRAWAL",
-          "cycle_type": "ERROR_CORRECTION",
-          "direction": "MIXED_NEGATIVE",
-          "intensity": "MI2_LIFECYCLE",
-          "material_intensity": "MI2_LIFECYCLE",
-          "basis": "北汉围攻中粮运、暑疫和诸将反对持续到达，柴荣仍延误撤军，至补给与军心恶化才退；他把后撤组织交给药元福并保全部队，但此前拒绝成本信息造成大量弃粮，属迟改。",
-          "cycle_anchor_refs": [
-            "https://zh.wikisource.org/zh-hant/資治通鑑/卷292"
-          ]
-        },
-        {
-          "parent_id": "C2-P001-WANGPU-BORDER-PLAN",
-          "cycle_type": "TRUTH_ACQUISITION",
-          "direction": "POSITIVE",
-          "intensity": "MI2_LIFECYCLE",
-          "material_intensity": "MI2_LIFECYCLE",
-          "basis": "面对统一次序争议，柴荣要求近臣各陈平边策，比较王朴提出的先南后北、先易后难与补给条件后采用分段推进；淮南、秦凤行动形成后续复验。",
-          "cycle_anchor_refs": [
-            "https://zh.wikisource.org/zh-hant/資治通鑑/卷292",
-            "https://zh.wikisource.org/zh-hant/資治通鑑/卷293"
-          ]
-        },
-        {
-          "parent_id": "C2-P001-RIVER-ENGINEERING-RECHECK",
-          "cycle_type": "ERROR_CORRECTION",
-          "direction": "POSITIVE",
-          "intensity": "MI2_LIFECYCLE",
-          "material_intensity": "MI2_LIFECYCLE",
-          "basis": "黄河连年决口、朝廷数遣使不能塞后，柴荣不重复原有巡检，改派李谷实地按视并集中役徒限期施工，三十日完成；失败反馈、方案替换和结果复验闭合。",
-          "cycle_anchor_refs": [
-            "https://zh.wikisource.org/zh-hant/資治通鑑/卷292"
-          ]
-        }
-      ],
-      "multiple_independent_learning_cycles_review": "柴荣在统一四单元上界内保留4条具名独立周期；未按父链数量换档。",
-      "later_retest_review": "柴荣的档内位置按闭合周期的跨对象程度、本人理解份额、落实、复验和反向暴露人工判断；短任内多领域高密度复验足以达G4；时间跨度短且有重大迟改，定位G4低位。",
-      "positive_observation_window_review": "CLOSED_WITH_NAMED_CYCLES",
-      "negative_observation_window_review": "CLOSED_WITH_NAMED_COUNTEREVIDENCE",
-      "phase_domain_coverage_review": {
-        "method": "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION",
-        "actual_power_window": "954-959",
-        "local_normative_entries_role": "FULL_UNION_DISCOVERY_LOCATION_BACKGROUND_OR_SCORING_BY_SEMANTIC_REVIEW",
-        "direct_chronological_or_primary_refs": [
-          "I2-FD-MAT-5029200B90B70871",
-          "I2-FD-MAT-33594ED862129930",
-          "I2-FD-MAT-7A86AAD230D0EF3C",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷291",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷292",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷293",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷294"
-        ],
-        "positive_window_status": "CLOSED_PARENT_PRESENT",
-        "negative_window_status": "CLOSED_PARENT_PRESENT",
-        "phase_domain_coverage_status": "BOUNDED_NOT_FULL_LIFETIME",
-        "unresolved_phase_domain_windows": [
-          "四卷覆盖全任，但五代编年对部分本人解释简略；未追加《旧五代史》列传。"
-        ],
-        "publication_mode": "EVIDENCE_LIMITED_BOUNDED_PROFILE",
-        "material_budget_policy": "MAX_4_SUPPLEMENTAL_PRIMARY_SOURCE_UNITS_PER_CANDIDATE",
-        "material_units_consumed": [
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷291",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷292",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷293",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷294"
-        ],
-        "normative_entry_refs": [
-          "I2-FD-MAT-5029200B90B70871",
-          "I2-FD-MAT-33594ED862129930",
-          "I2-FD-MAT-7A86AAD230D0EF3C"
-        ],
-        "supplemental_primary_units": [
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷291",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷292",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷293",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷294"
-        ],
-        "excluded_person_specific_source_refs": [],
-        "combined_source_refs": [
-          "I2-FD-MAT-5029200B90B70871",
-          "I2-FD-MAT-33594ED862129930",
-          "I2-FD-MAT-7A86AAD230D0EF3C",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷291",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷292",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷293",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷294"
-        ],
-        "excluded_person_specific_source_count": 0
+      "directional_strength_balance_review": {
+        "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+        "positive_pattern_strength": "逐父链按生命周期、跨对象范围、本人理解份额、落实与复验裁强度；未按正例条数相加。",
+        "negative_pattern_strength": "压制另按反馈是否到达、惩罚烈度、复发范围及是否摧毁后续入口裁决；死亡和不可逆性不自动等于MI3。",
+        "suppression_parent_ids": [],
+        "isolated_positive_parent_ids": [],
+        "asymmetry_decision": "MI3/MI4系统性反馈压制不能由一两个MI1纳谏改正抵消；只有命中同一机制且达到PATTERN_CHANGING_COUNTEREVIDENCE的恢复，才可改变系统性负模式。",
+        "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、B2档位、MI计数或目标分布换算。"
       },
-      "source_density_asymmetry_review": "MATERIAL_DENSITY_LIMITED_E2_MEDIUM_CONFIDENCE",
-      "c5_overlap_review": "COGNITIVE_SLICE_ONLY_NO_DUPLICATE_C5_BENEFIT",
-      "basis": "柴荣在完整保留本地规范入口、另补最多四个一手材料单元的统一上界内复核：四卷覆盖其全部短任：高平后重建、晋阳迟退、王朴方案比较和河工换路构成军事、战略与行政多个周期。纠错频率和落实很强，但晋阳对成本反馈反应过迟。"
+      "basis": "皇太极在完整保留本地规范入口、另补最多四个一手材料单元的统一上界内复核：四个预定实录年段复核饥荒盗窃解释、大凌河后文教判断、繁役妨农规则和朝鲜军纪复验，跨民生、教育、行政与战争纪律均有本人因果解释和落实。"
     },
     {
       "ruler_id": "RULER-HAN-LIUBANG",
       "ruler_name": "刘邦",
       "axis_grade": "G4",
       "position": "LOW",
-      "cycle_anchor_count": 6,
+      "cycle_anchor_count": 8,
       "cycle_anchor_refs": [
-        "HAN-CHUHAN-PENGCHENG-BCE205",
         "I2-WHAN-LB-CAPITAL-CORRECTION-001",
-        "I2-WHAN-LB-HEIR-FEEDBACK-001",
         "docs/史料通读产物/唐以前编年/汉/卷011-通读总结.md#L17-L21",
+        "HAN-CHUHAN-PENGCHENG-BCE205",
         "docs/史料通读产物/唐以前编年/汉/卷011-通读总结.md#L77-L88",
-        "https://zh.wikisource.org/w/index.php?title=資治通鑑/卷012&oldid=cache-790693f46a67446c"
+        "I2-WHAN-LB-HEIR-FEEDBACK-001",
+        "https://zh.wikisource.org/w/index.php?title=資治通鑑/卷012&oldid=cache-790693f46a67446c",
+        "https://zh.wikisource.org/w/index.php?title=%E5%8F%B2%E8%A8%98%2F%E5%8D%B7097&oldid=1383195",
+        "https://zh.wikisource.org/w/index.php?title=%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91%2F%E5%8D%B7012&oldid=cache-790693f46a67446c"
       ],
       "independent_cycles": [
         {
@@ -1719,9 +2830,31 @@
             "I2-WHAN-LB-HEIR-FEEDBACK-001",
             "https://zh.wikisource.org/w/index.php?title=資治通鑑/卷012&oldid=cache-790693f46a67446c"
           ]
+        },
+        {
+          "parent_id": "C2-P016-LUJIA-LEARNING-COMMISSION",
+          "cycle_type": "ERROR_CORRECTION",
+          "direction": "POSITIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "material_intensity": "MI2_LIFECYCLE",
+          "basis": "刘邦起初轻视诗书，陆贾以不能马上治天下指出认知缺口；他承认惭色，转而命陆贾系统总结秦亡汉兴，并对完成的十二篇逐篇称善，把反证转成持续的信息取得任务。",
+          "cycle_anchor_refs": [
+            "https://zh.wikisource.org/w/index.php?title=%E5%8F%B2%E8%A8%98%2F%E5%8D%B7097&oldid=1383195"
+          ]
+        },
+        {
+          "parent_id": "C2-P016-MINISTER-ANGER-RECURRENCE",
+          "cycle_type": "REFUSAL_OR_RECURRENCE",
+          "direction": "MIXED_NEGATIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "material_intensity": "MI2_LIFECYCLE",
+          "basis": "萧何受商人财物的单线怀疑和对樊哙的谗疑分别触发械系、即斩命令，两次都靠王卫尉或陈平周勃改变执行才避免不可逆结果；外部纠偏成立，但本人未形成稳定的前置核验，盛怒处置在不同对象复发。",
+          "cycle_anchor_refs": [
+            "https://zh.wikisource.org/w/index.php?title=%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91%2F%E5%8D%B7012&oldid=cache-790693f46a67446c"
+          ]
         }
       ],
-      "multiple_independent_learning_cycles_review": "刘邦在统一四单元上界内保留4条具名独立周期；未按父链数量换档。",
+      "multiple_independent_learning_cycles_review": "刘邦保留6条具名独立周期；先裁强度和正反覆盖，不按父链数量换档。",
       "later_retest_review": "刘邦的档内位置按闭合周期的跨对象程度、本人理解份额、落实、复验和反向暴露人工判断；跨战争、地缘、外交与继承成立，但白登和储位均属迟改，故G4低位。",
       "positive_observation_window_review": "CLOSED_WITH_NAMED_CYCLES",
       "negative_observation_window_review": "CLOSED_WITH_NAMED_COUNTEREVIDENCE",
@@ -1804,384 +2937,26 @@
       },
       "source_density_asymmetry_review": "MATERIAL_DENSITY_LIMITED_E2_MEDIUM_CONFIDENCE",
       "c5_overlap_review": "COGNITIVE_SLICE_ONLY_NO_DUPLICATE_C5_BENEFIT",
+      "directional_strength_balance_review": {
+        "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+        "positive_pattern_strength": "逐父链按生命周期、跨对象范围、本人理解份额、落实与复验裁强度；未按正例条数相加。",
+        "negative_pattern_strength": "压制另按反馈是否到达、惩罚烈度、复发范围及是否摧毁后续入口裁决；死亡和不可逆性不自动等于MI3。",
+        "suppression_parent_ids": [
+          "C2-P016-MINISTER-ANGER-RECURRENCE"
+        ],
+        "isolated_positive_parent_ids": [],
+        "asymmetry_decision": "MI3/MI4系统性反馈压制不能由一两个MI1纳谏改正抵消；只有命中同一机制且达到PATTERN_CHANGING_COUNTEREVIDENCE的恢复，才可改变系统性负模式。",
+        "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、B2档位、MI计数或目标分布换算。"
+      },
       "basis": "刘邦在完整保留本地规范入口、另补最多四个一手材料单元的统一上界内复核：卷9—12连续覆盖楚汉至去世：都城比较、彭城后重组、白登先拒后改与储位迟改四个对象均有本人更新，且重大拒绝准确信息的代价清楚。"
-    },
-    {
-      "ruler_id": "RULER-JIN-SHIZONG",
-      "ruler_name": "完颜雍",
-      "axis_grade": "G4",
-      "position": "LOW",
-      "cycle_anchor_count": 4,
-      "cycle_anchor_refs": [
-        "https://zh.wikisource.org/zh-hans/金史/卷47",
-        "https://zh.wikisource.org/zh-hant/金史/卷006",
-        "https://zh.wikisource.org/zh-hant/金史/卷007",
-        "https://zh.wikisource.org/zh-hant/金史/卷008"
-      ],
-      "independent_cycles": [
-        {
-          "parent_id": "C2-P034-HUNTING-LIMIT",
-          "cycle_type": "ERROR_CORRECTION",
-          "direction": "POSITIVE",
-          "intensity": "MI2_LIFECYCLE",
-          "material_intensity": "MI2_LIFECYCLE",
-          "basis": "围场扩张妨农和地方承载反馈到达后，完颜雍撤销或收紧限制并恢复民用，后续同类事项继续允许复奏。",
-          "cycle_anchor_refs": [
-            "https://zh.wikisource.org/zh-hant/金史/卷006",
-            "https://zh.wikisource.org/zh-hans/金史/卷47"
-          ]
-        },
-        {
-          "parent_id": "C2-P034-LAND-RETURN",
-          "cycle_type": "ERROR_CORRECTION",
-          "direction": "MIXED_NEGATIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "括地被当作恢复军户资源，误夺民田与军户贫困反馈反复到达后，完颜雍停止刷地并归还或给价；同构问题已多次复发，故按迟改负向暴露裁。",
-          "cycle_anchor_refs": [
-            "https://zh.wikisource.org/zh-hant/金史/卷007",
-            "https://zh.wikisource.org/zh-hans/金史/卷47"
-          ]
-        },
-        {
-          "parent_id": "C2-P034-JUDICIAL-CROSSCHECK",
-          "cycle_type": "TRUTH_ACQUISITION",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "刑案奏报在口供与物证冲突时，完颜雍要求有司复核案情、比较地方官与御史材料再裁，若发现失入即改判追责；跨案重复形成司法求真周期。",
-          "cycle_anchor_refs": [
-            "https://zh.wikisource.org/zh-hant/金史/卷008",
-            "https://zh.wikisource.org/zh-hans/金史/卷47"
-          ]
-        }
-      ],
-      "multiple_independent_learning_cycles_review": "完颜雍在统一四单元上界内保留3条具名独立周期；未按父链数量换档。",
-      "later_retest_review": "完颜雍的档内位置按闭合周期的跨对象程度、本人理解份额、落实、复验和反向暴露人工判断；跨土地、民生和司法达到强长板门槛，复发与本纪解释密度限制其为G4低位。",
-      "positive_observation_window_review": "CLOSED_WITH_NAMED_CYCLES",
-      "negative_observation_window_review": "CLOSED_WITH_NAMED_COUNTEREVIDENCE",
-      "phase_domain_coverage_review": {
-        "method": "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION",
-        "actual_power_window": "1161—1189年",
-        "local_normative_entries_role": "FULL_UNION_DISCOVERY_LOCATION_BACKGROUND_OR_SCORING_BY_SEMANTIC_REVIEW",
-        "direct_chronological_or_primary_refs": [
-          "I2-JIN-MAT-1CE470F310B16E88",
-          "I2-JIN-MAT-4293D7BC9BF71E37",
-          "https://zh.wikisource.org/zh-hans/金史/卷47",
-          "docs/公共成果/制度行政/01-制度行政计分材料登记.md#完颜雍",
-          "https://zh.wikisource.org/zh-hant/金史/卷006",
-          "https://zh.wikisource.org/zh-hant/金史/卷007",
-          "https://zh.wikisource.org/zh-hant/金史/卷008"
-        ],
-        "positive_window_status": "CLOSED_PARENT_PRESENT",
-        "negative_window_status": "CLOSED_PARENT_PRESENT",
-        "phase_domain_coverage_status": "BOUNDED_NOT_FULL_LIFETIME",
-        "unresolved_phase_domain_windows": [
-          "四个材料单元达到上界；用人、继承与宫廷信源未获得同密度过程材料。"
-        ],
-        "publication_mode": "EVIDENCE_LIMITED_BOUNDED_PROFILE",
-        "material_budget_policy": "MAX_4_SUPPLEMENTAL_PRIMARY_SOURCE_UNITS_PER_CANDIDATE",
-        "material_units_consumed": [
-          "https://zh.wikisource.org/zh-hant/金史/卷006",
-          "https://zh.wikisource.org/zh-hant/金史/卷007",
-          "https://zh.wikisource.org/zh-hant/金史/卷008",
-          "https://zh.wikisource.org/zh-hans/金史/卷47"
-        ],
-        "normative_entry_refs": [
-          "I2-JIN-MAT-1CE470F310B16E88",
-          "I2-JIN-MAT-4293D7BC9BF71E37",
-          "https://zh.wikisource.org/zh-hans/金史/卷47",
-          "docs/公共成果/制度行政/01-制度行政计分材料登记.md#完颜雍"
-        ],
-        "supplemental_primary_units": [
-          "https://zh.wikisource.org/zh-hant/金史/卷006",
-          "https://zh.wikisource.org/zh-hant/金史/卷007",
-          "https://zh.wikisource.org/zh-hant/金史/卷008",
-          "https://zh.wikisource.org/zh-hans/金史/卷47"
-        ],
-        "excluded_person_specific_source_refs": [],
-        "combined_source_refs": [
-          "I2-JIN-MAT-1CE470F310B16E88",
-          "I2-JIN-MAT-4293D7BC9BF71E37",
-          "https://zh.wikisource.org/zh-hans/金史/卷47",
-          "docs/公共成果/制度行政/01-制度行政计分材料登记.md#完颜雍",
-          "https://zh.wikisource.org/zh-hant/金史/卷006",
-          "https://zh.wikisource.org/zh-hant/金史/卷007",
-          "https://zh.wikisource.org/zh-hant/金史/卷008"
-        ],
-        "excluded_person_specific_source_count": 0
-      },
-      "source_density_asymmetry_review": "MATERIAL_DENSITY_LIMITED_E2_MEDIUM_CONFIDENCE",
-      "c5_overlap_review": "COGNITIVE_SLICE_ONLY_NO_DUPLICATE_C5_BENEFIT",
-      "basis": "完颜雍在完整保留本地规范入口、另补最多四个一手材料单元的统一上界内复核：世宗三卷本纪加刑法志显示围场、括地和司法复核三个独立对象：能据地方与案件反证改令，括地同构复发则形成实质下沿。"
-    },
-    {
-      "ruler_id": "RULER-NS-ZHAO-ZHEN",
-      "ruler_name": "赵祯",
-      "axis_grade": "G4",
-      "position": "LOW",
-      "cycle_anchor_count": 3,
-      "cycle_anchor_refs": [
-        "https://zh.wikisource.org/zh-hant/續資治通鑑/卷041",
-        "https://zh.wikisource.org/zh-hant/續資治通鑑/卷047",
-        "https://zh.wikisource.org/zh-hant/續資治通鑑/卷055"
-      ],
-      "independent_cycles": [
-        {
-          "parent_id": "C2-P072-DISASTER-SPEECH",
-          "cycle_type": "ERROR_CORRECTION",
-          "direction": "MIXED_POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "视朝和言路受限后，灾异、台谏论列与伏阁求对共同暴露信息阻塞；赵祯恢复日朝、解除部分限制并让台谏重新进入决策。更新真实，但同类阻塞曾反复。",
-          "cycle_anchor_refs": [
-            "https://zh.wikisource.org/zh-hant/續資治通鑑/卷041"
-          ]
-        },
-        {
-          "parent_id": "C2-P072-TANGJIE-RECONSIDERATION",
-          "cycle_type": "ERROR_CORRECTION",
-          "direction": "MIXED_POSITIVE",
-          "intensity": "MI1_CASE",
-          "material_intensity": "MI1_CASE",
-          "basis": "唐介触怒赵祯后先遭重贬，多方说明言事职责与处置过重，赵祯重新理解案件性质并改轻处置；只计判断更新，不计唐介安全与处罚比例。",
-          "cycle_anchor_refs": [
-            "https://zh.wikisource.org/zh-hant/續資治通鑑/卷055"
-          ]
-        },
-        {
-          "parent_id": "C2-P072-NONGZHIGAO-REPORTS",
-          "cycle_type": "TRUTH_ACQUISITION",
-          "direction": "POSITIVE",
-          "intensity": "MI2_LIFECYCLE",
-          "material_intensity": "MI2_LIFECYCLE",
-          "basis": "侬智高危机中，朝廷对狄青资历、用兵方式和地方报告意见分裂；赵祯比较前线军情与枢密意见后授狄青统一指挥，并按战场结果继续授权，闭合一次重大信源辨别。",
-          "cycle_anchor_refs": [
-            "https://zh.wikisource.org/zh-hant/續資治通鑑/卷055"
-          ]
-        },
-        {
-          "parent_id": "C2-P072-QINGLI-REVERSAL",
-          "cycle_type": "REFUSAL_OR_RECURRENCE",
-          "direction": "MIXED_NEGATIVE",
-          "intensity": "MI2_LIFECYCLE",
-          "material_intensity": "MI2_LIFECYCLE",
-          "basis": "庆历改革执行反馈尚未充分复验时，朋党指控与近臣意见改变了赵祯对范仲淹等人的判断；他撤换核心人员，却未建立对指控的同强交叉核验，显示在高政治压力下信息更新易受标签支配。",
-          "cycle_anchor_refs": [
-            "https://zh.wikisource.org/zh-hant/續資治通鑑/卷047"
-          ]
-        }
-      ],
-      "multiple_independent_learning_cycles_review": "赵祯在统一四单元上界内保留4条具名独立周期；未按父链数量换档。",
-      "later_retest_review": "赵祯的档内位置按闭合周期的跨对象程度、本人理解份额、落实、复验和反向暴露人工判断；多个独立周期与反例均闭合，达到G4低位；不以‘仁宗纳谏’名声直接计分。",
-      "positive_observation_window_review": "CLOSED_WITH_NAMED_CYCLES",
-      "negative_observation_window_review": "CLOSED_WITH_NAMED_COUNTEREVIDENCE",
-      "phase_domain_coverage_review": {
-        "method": "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION",
-        "actual_power_window": "1033-1063亲政",
-        "local_normative_entries_role": "FULL_UNION_DISCOVERY_LOCATION_BACKGROUND_OR_SCORING_BY_SEMANTIC_REVIEW",
-        "direct_chronological_or_primary_refs": [
-          "NS-ZZ-V041-DISASTER-FEEDBACK",
-          "NS-ZZ-PRIMARY-INTERNAL-COMMAND-REVIEW",
-          "NS-ZZ-V039-CENSOR-SELECTION",
-          "NS-ZZ-V039-PALACE-GATE-SUPPRESSION",
-          "docs/史料通读产物/北宋/续资治通鉴/volume-039.source-summary.md#P0087-P0091",
-          "docs/史料通读产物/北宋/续资治通鉴/volume-041.source-summary.md#P0017-P0044",
-          "docs/史料通读产物/北宋/续资治通鉴/volume-042.source-summary.md#P0095,P0099",
-          "docs/评分结算/皇帝人物画像/02-C5权力运用风格与克制正式结算.json#parent_id=C5-P072-TANGJIE",
-          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷041",
-          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷047",
-          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷055",
-          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷062"
-        ],
-        "positive_window_status": "CLOSED_PARENT_PRESENT",
-        "negative_window_status": "CLOSED_PARENT_PRESENT",
-        "phase_domain_coverage_status": "BOUNDED_NOT_FULL_LIFETIME",
-        "unresolved_phase_domain_windows": [
-          "四卷为早、中、危机和晚期抽样，不覆盖1033—1063全部编年；未入选四卷的宫廷、司法与继承窗口不推断。"
-        ],
-        "publication_mode": "EVIDENCE_LIMITED_BOUNDED_PROFILE",
-        "material_budget_policy": "MAX_4_SUPPLEMENTAL_PRIMARY_SOURCE_UNITS_PER_CANDIDATE",
-        "material_units_consumed": [
-          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷041",
-          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷047",
-          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷055",
-          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷062"
-        ],
-        "normative_entry_refs": [
-          "NS-ZZ-V041-DISASTER-FEEDBACK",
-          "NS-ZZ-PRIMARY-INTERNAL-COMMAND-REVIEW",
-          "NS-ZZ-V039-CENSOR-SELECTION",
-          "NS-ZZ-V039-PALACE-GATE-SUPPRESSION",
-          "docs/史料通读产物/北宋/续资治通鉴/volume-039.source-summary.md#P0087-P0091",
-          "docs/史料通读产物/北宋/续资治通鉴/volume-041.source-summary.md#P0017-P0044",
-          "docs/史料通读产物/北宋/续资治通鉴/volume-042.source-summary.md#P0095,P0099",
-          "docs/评分结算/皇帝人物画像/02-C5权力运用风格与克制正式结算.json#parent_id=C5-P072-TANGJIE"
-        ],
-        "supplemental_primary_units": [
-          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷041",
-          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷047",
-          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷055",
-          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷062"
-        ],
-        "excluded_person_specific_source_refs": [],
-        "combined_source_refs": [
-          "NS-ZZ-V041-DISASTER-FEEDBACK",
-          "NS-ZZ-PRIMARY-INTERNAL-COMMAND-REVIEW",
-          "NS-ZZ-V039-CENSOR-SELECTION",
-          "NS-ZZ-V039-PALACE-GATE-SUPPRESSION",
-          "docs/史料通读产物/北宋/续资治通鉴/volume-039.source-summary.md#P0087-P0091",
-          "docs/史料通读产物/北宋/续资治通鉴/volume-041.source-summary.md#P0017-P0044",
-          "docs/史料通读产物/北宋/续资治通鉴/volume-042.source-summary.md#P0095,P0099",
-          "docs/评分结算/皇帝人物画像/02-C5权力运用风格与克制正式结算.json#parent_id=C5-P072-TANGJIE",
-          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷041",
-          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷047",
-          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷055",
-          "https://zh.wikisource.org/zh-hant/續資治通鑑/卷062"
-        ],
-        "excluded_person_specific_source_count": 0
-      },
-      "source_density_asymmetry_review": "MATERIAL_DENSITY_LIMITED_E2_MEDIUM_CONFIDENCE",
-      "c5_overlap_review": "COGNITIVE_SLICE_ONLY_NO_DUPLICATE_C5_BENEFIT",
-      "basis": "赵祯在完整保留本地规范入口、另补最多四个一手材料单元的统一上界内复核：四个预定年段显示灾异言路、唐介案与侬智高危机中能重开判断并落实，庆历改革退转则暴露高压环境下对朋党信号的辨别不足。跨领域强长板成立但稳定性有限。"
-    },
-    {
-      "ruler_id": "RULER-SHADOW-杨坚",
-      "ruler_name": "杨坚",
-      "axis_grade": "G4",
-      "position": "LOW",
-      "cycle_anchor_count": 4,
-      "cycle_anchor_refs": [
-        "https://zh.wikisource.org/zh-hant/資治通鑑/卷175",
-        "https://zh.wikisource.org/zh-hant/資治通鑑/卷177",
-        "https://zh.wikisource.org/zh-hant/資治通鑑/卷178",
-        "https://zh.wikisource.org/zh-hant/資治通鑑/卷180"
-      ],
-      "independent_cycles": [
-        {
-          "parent_id": "C2-P119-CHEN-TIMING",
-          "cycle_type": "TRUTH_ACQUISITION",
-          "direction": "POSITIVE",
-          "intensity": "MI2_LIFECYCLE",
-          "material_intensity": "MI2_LIFECYCLE",
-          "basis": "平陈前高颎、贺若弼等持续提供江防、收获季节和兵力配置分析，杨坚多次校验而非立即出兵，待条件成熟后改变时序并形成可执行方案。",
-          "cycle_anchor_refs": [
-            "https://zh.wikisource.org/zh-hant/資治通鑑/卷175",
-            "https://zh.wikisource.org/zh-hant/資治通鑑/卷177"
-          ]
-        },
-        {
-          "parent_id": "C2-P119-DEATH-CASE-REVIEW",
-          "cycle_type": "ERROR_CORRECTION",
-          "direction": "POSITIVE",
-          "intensity": "MI2_LIFECYCLE",
-          "material_intensity": "MI2_LIFECYCLE",
-          "basis": "各州同罪异判暴露司法信息不一致后，杨坚改令死罪全部移大理覆案、再由本人省奏裁决，把分散结果反馈转成复核制度。",
-          "cycle_anchor_refs": [
-            "https://zh.wikisource.org/zh-hant/資治通鑑/卷178"
-          ]
-        },
-        {
-          "parent_id": "C2-P119-SURPLUS-TAX-RECHECK",
-          "cycle_type": "TRUTH_ACQUISITION",
-          "direction": "POSITIVE",
-          "intensity": "MI2_LIFECYCLE",
-          "material_intensity": "MI2_LIFECYCLE",
-          "basis": "府藏充溢报告到达时，杨坚没有把库存增长直接当作政绩，追问薄赋与赏赐后为何仍积多，并据民间与区域承载信息减免河北河东租调。",
-          "cycle_anchor_refs": [
-            "https://zh.wikisource.org/zh-hant/資治通鑑/卷178"
-          ]
-        },
-        {
-          "parent_id": "C2-P119-SUCCESSION-MISINFORMATION",
-          "cycle_type": "REFUSAL_OR_RECURRENCE",
-          "direction": "NEGATIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "储位争议中独孤后、杨素及东宫周边持续提供选择性信息，杨坚对杨勇、杨广的相反材料未建立交叉核验，废立后仍拒绝重开判断，最终形成重大宫廷信源失真。",
-          "cycle_anchor_refs": [
-            "https://zh.wikisource.org/zh-hant/資治通鑑/卷180"
-          ]
-        }
-      ],
-      "multiple_independent_learning_cycles_review": "杨坚在统一四单元上界内保留4条具名独立周期；未按父链数量换档。",
-      "later_retest_review": "杨坚的档内位置按闭合周期的跨对象程度、本人理解份额、落实、复验和反向暴露人工判断；三个跨领域正周期均闭合，其中司法复核具有程序化延伸；储位长期负链形成重大下沿，故只到G4低位。",
-      "positive_observation_window_review": "CLOSED_WITH_NAMED_CYCLES",
-      "negative_observation_window_review": "CLOSED_WITH_NAMED_COUNTEREVIDENCE",
-      "phase_domain_coverage_review": {
-        "method": "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION",
-        "actual_power_window": "580—604年实际掌权",
-        "local_normative_entries_role": "FULL_UNION_DISCOVERY_LOCATION_BACKGROUND_OR_SCORING_BY_SEMANTIC_REVIEW",
-        "direct_chronological_or_primary_refs": [
-          "I2-SUI-YJ-LOCAL-CORRUPTION-CORRECTION-001",
-          "I2-SUI-YJ-REMONSTRANCE-OPERATION-002",
-          "LAW-16-005-M2-M3-02-AUDIT",
-          "I2-SUI-YJ-PERSONNEL-PURGE-001-M2-M3-02-AUDIT",
-          "I2-SUI-YJ-SUCCESSION-CAPTURE-001-M2-M3-02-AUDIT",
-          "I2-SUI-YJ-YANGSU-CAPTURE-002-M2-M3-02-AUDIT",
-          "https://zh.wikisource.org/wiki/隋書/卷41",
-          "https://zh.wikisource.org/wiki/隋書/卷48",
-          "https://zh.wikisource.org/wiki/資治通鑑/卷177",
-          "https://zh.wikisource.org/wiki/資治通鑑/卷179",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷175",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷177",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷178",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷180"
-        ],
-        "positive_window_status": "CLOSED_PARENT_PRESENT",
-        "negative_window_status": "CLOSED_PARENT_PRESENT",
-        "phase_domain_coverage_status": "BOUNDED_NOT_FULL_LIFETIME",
-        "unresolved_phase_domain_windows": [
-          "四卷覆盖建国、平陈、中期治理和晚期继承压力，不覆盖其余年份的全部地方调查。"
-        ],
-        "publication_mode": "EVIDENCE_LIMITED_BOUNDED_PROFILE",
-        "material_budget_policy": "MAX_4_SUPPLEMENTAL_PRIMARY_SOURCE_UNITS_PER_CANDIDATE",
-        "material_units_consumed": [
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷175",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷177",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷178",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷180"
-        ],
-        "normative_entry_refs": [
-          "I2-SUI-YJ-LOCAL-CORRUPTION-CORRECTION-001",
-          "I2-SUI-YJ-REMONSTRANCE-OPERATION-002",
-          "LAW-16-005-M2-M3-02-AUDIT",
-          "I2-SUI-YJ-PERSONNEL-PURGE-001-M2-M3-02-AUDIT",
-          "I2-SUI-YJ-SUCCESSION-CAPTURE-001-M2-M3-02-AUDIT",
-          "I2-SUI-YJ-YANGSU-CAPTURE-002-M2-M3-02-AUDIT",
-          "https://zh.wikisource.org/wiki/隋書/卷41",
-          "https://zh.wikisource.org/wiki/隋書/卷48",
-          "https://zh.wikisource.org/wiki/資治通鑑/卷177",
-          "https://zh.wikisource.org/wiki/資治通鑑/卷179"
-        ],
-        "supplemental_primary_units": [
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷175",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷177",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷178",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷180"
-        ],
-        "excluded_person_specific_source_refs": [],
-        "combined_source_refs": [
-          "I2-SUI-YJ-LOCAL-CORRUPTION-CORRECTION-001",
-          "I2-SUI-YJ-REMONSTRANCE-OPERATION-002",
-          "LAW-16-005-M2-M3-02-AUDIT",
-          "I2-SUI-YJ-PERSONNEL-PURGE-001-M2-M3-02-AUDIT",
-          "I2-SUI-YJ-SUCCESSION-CAPTURE-001-M2-M3-02-AUDIT",
-          "I2-SUI-YJ-YANGSU-CAPTURE-002-M2-M3-02-AUDIT",
-          "https://zh.wikisource.org/wiki/隋書/卷41",
-          "https://zh.wikisource.org/wiki/隋書/卷48",
-          "https://zh.wikisource.org/wiki/資治通鑑/卷177",
-          "https://zh.wikisource.org/wiki/資治通鑑/卷179",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷175",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷177",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷178",
-          "https://zh.wikisource.org/zh-hant/資治通鑑/卷180"
-        ],
-        "excluded_person_specific_source_count": 0
-      },
-      "source_density_asymmetry_review": "MATERIAL_DENSITY_LIMITED_E2_MEDIUM_CONFIDENCE",
-      "c5_overlap_review": "COGNITIVE_SLICE_ONLY_NO_DUPLICATE_C5_BENEFIT",
-      "basis": "杨坚在完整保留本地规范入口、另补最多四个一手材料单元的统一上界内复核：战争时序、司法覆案和财政数字复核显示跨领域求真与改策；储位信息却发生系统性失真且未纠正。正向不是只靠传位反面，而是战争、司法、财政三类独立周期。"
     }
-  ]
+  ],
+  "suppression_intensity_policy": {
+    "duration_and_scope_are_separate_from_severity": true,
+    "death_or_irreversibility_does_not_automatically_grant_mi3": true,
+    "mi3_or_mi4_suppression_not_offset_by_isolated_positive_cases": true,
+    "c2_requires_feedback_arrival_and_update_or_refusal": true,
+    "c5_retains_safety_punishment_proportion_and_power_procedure": true
+  },
+  "candidate_b2_material_count": 58
 }
