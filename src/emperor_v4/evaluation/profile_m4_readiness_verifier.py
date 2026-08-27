@@ -34,14 +34,19 @@ def verify_payload(audit: dict[str, Any], report: str) -> dict[str, Any]:
         "actual_grade_change_count": 0,
     }
     assert audit["summary"]["formal_record_count"] == 0
+    assert audit["summary"]["mandatory_topology_ruler_count"] == 184
+    assert audit["summary"]["mandatory_group_domain_task_count"] == 1104
+    assert audit["summary"]["ruler_with_zero_group_obligation_count"] == 0
     assert len(audit["records"]) == len({row["ruler_id"] for row in audit["records"]}) == 184
     assert len({row["task_code"] for row in audit["records"]}) == 184
     assert all(row["formal_grade"] is None for row in audit["records"])
     assert all(row["semantic_disposition"] in {
-        "BOUNDED_SOURCE_REVIEW_REQUIRED",
-        "CROSS_AXIS_OR_FRAGMENT_ONLY",
-        "LOCAL_STRUCTURED_ENTRY_GAP",
+        "GROUP_LIFECYCLE_SOURCE_REVIEW_REQUIRED",
+        "TOPOLOGY_RECONSTRUCTION_AND_CROSS_AXIS_REVIEW_REQUIRED",
+        "TOPOLOGY_RECONSTRUCTION_REQUIRED",
     } for row in audit["records"])
+    assert all(len(row["group_topology_tasks"]) == 6 for row in audit["records"])
+    assert all(task["review_status"] == "RECONSTRUCTION_REQUIRED" for row in audit["records"] for task in row["group_topology_tasks"])
     assert all(audit["publication_gates"].values())
     forbidden = {"axis_grade", "radar_value", "score_100", "position"}
     assert not any(forbidden & row.keys() for row in audit["records"])
@@ -51,7 +56,7 @@ def verify_payload(audit: dict[str, Any], report: str) -> dict[str, Any]:
     assert len(priority_ids) == len(set(priority_ids))
     assert set(priority_ids) == {
         row["ruler_id"] for row in audit["records"]
-        if row["semantic_disposition"] == "BOUNDED_SOURCE_REVIEW_REQUIRED"
+        if row["semantic_disposition"] == "GROUP_LIFECYCLE_SOURCE_REVIEW_REQUIRED"
     }
 
     project = yaml.safe_load(PROJECT.read_text(encoding="utf-8"))
@@ -66,7 +71,7 @@ def verify_payload(audit: dict[str, Any], report: str) -> dict[str, Any]:
     assert pending["profile_total_enabled"] is False
     return {
         "status": "PASS",
-        "checks": 24,
+        "checks": 29,
         "population_count": 184,
         "priority_group_candidate_count": audit["summary"]["priority_group_candidate_count"],
         "formal_record_count": 0,

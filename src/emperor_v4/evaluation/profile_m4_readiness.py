@@ -99,9 +99,9 @@ def _build_report(audit: dict[str, Any]) -> str:
         "",
         "此前按个人授权和权力伦理材料统一拼接集团父链的做法已撤回。M4与M2共享联盟生命周期骨架，但对象改为国内集团；个人名臣、团队战果、处罚案件和社会整合结果都不能直接换算M4。",
         "",
-        f"第一轮机械筛查覆盖 `{audit['population_count']}` 人及全部登记入口，得到 `{counts['candidate_unit_count']}` 个导航候选；其中 `{counts['substantive_candidate_unit_count']}` 个不是纯结果背景，涉及 `{counts['substantive_candidate_ruler_count']}` 人。第二轮逐人语义复核只确认 `{counts['priority_group_candidate_count']}` 人值得进入集团生命周期补证队列，其余命中仍是C3个体任用、C5个案或结果背景。",
+        f"第一轮机械筛查覆盖 `{audit['population_count']}` 人及全部登记入口，得到 `{counts['candidate_unit_count']}` 个导航候选；其中 `{counts['substantive_candidate_unit_count']}` 个不是纯结果背景，涉及 `{counts['substantive_candidate_ruler_count']}` 人。第二轮逐人语义复核从既有入口中确认 `{counts['priority_group_candidate_count']}` 人已有优先关系线索；这只是补证次序，不是其余人物没有集团。",
         "",
-        f"当前有 `{counts['no_group_and_lifecycle_signal_ruler_count']}` 人在本地规范入口中没有同时出现集团与生命周期信号；即使优先候选也尚未逐一闭合集团利益、承诺、合作兑现、冲突处置和退出。因此正式写入数为 `0`，实际变档数为 `0`。",
+        f"集团是实际统治的通用结构，184人均已建立六域强制观察矩阵，共 `{counts['mandatory_group_domain_task_count']}` 个拓扑任务，不允许出现“无集团适用”记录。当前 `{counts['registered_input_joint_signal_gap_ruler_count']}` 人只是在本地规范入口中未观察到集团与生命周期的同条信号，必须回到统治窗口重建，不能据此判无事例。正式写入数为 `0`，实际变档数为 `0`。",
         "",
         "## 与相邻轴的硬边界",
         "",
@@ -114,13 +114,15 @@ def _build_report(audit: dict[str, Any]) -> str:
         "",
         "每条评分父链必须同时闭合集团身份、利益与谈判资源、加入条件、地位资源配置、可信承诺、合作兑现、反馈冲突、本人重组选择、退出或交接结果、反例和本地来源。高档还须跨集团或阶段复验。缺任一环节只能保留缺口，不能默认G3，也不能从其他轴继承方向或档位。",
         "",
+        "每位人物不论既有入口是否命中，都必须检查中枢官僚、军事强制、宗室继承、地域与被征服精英、资源社会中介、宫廷信息接口六类集团。某一类别确实不适用时也须给出与实际权力窗口相符的理由，不能用关键词未命中代替。",
+        "",
         "## 优先补证队列",
         "",
         "| 人物 | 候选集团生命周期 | 当前处置 |",
         "|---|---|---|",
     ]
     for row in audit["priority_group_candidates"]:
-        lines.append(f"| {row['ruler_name']} | {row['candidate']} | `BOUNDED_SOURCE_REVIEW_REQUIRED` |")
+        lines.append(f"| {row['ruler_name']} | {row['candidate']} | `GROUP_LIFECYCLE_SOURCE_REVIEW_REQUIRED` |")
     lines.extend([
         "",
         "## 发布状态",
@@ -160,7 +162,13 @@ def build(*, write: bool = False) -> dict[str, Any]:
         joint_substantive = sum(row["group_and_lifecycle_signal"] and not row["background_only"] for row in candidates)
         if not joint_substantive:
             no_joint_signal += 1
-        status = "BOUNDED_SOURCE_REVIEW_REQUIRED" if ruler["ruler_id"] in priority else ("CROSS_AXIS_OR_FRAGMENT_ONLY" if substantive else "LOCAL_STRUCTURED_ENTRY_GAP")
+        status = "GROUP_LIFECYCLE_SOURCE_REVIEW_REQUIRED" if ruler["ruler_id"] in priority else ("TOPOLOGY_RECONSTRUCTION_AND_CROSS_AXIS_REVIEW_REQUIRED" if substantive else "TOPOLOGY_RECONSTRUCTION_REQUIRED")
+        topology_tasks = [{
+            "domain_code": domain["domain_code"],
+            "domain_name": domain["domain_name"],
+            "review_status": "RECONSTRUCTION_REQUIRED",
+            "applicability": "MUST_DETERMINE_FROM_ACTUAL_POWER_WINDOW",
+        } for domain in manual["mandatory_group_domains"]]
         records.append({
             "task_code": f"PROFILE-M4-READINESS-{ruler['ruler_id']}",
             "ruler_id": ruler["ruler_id"],
@@ -169,6 +177,7 @@ def build(*, write: bool = False) -> dict[str, Any]:
             "candidate_unit_count": len(candidates),
             "substantive_candidate_unit_count": len(substantive),
             "group_and_lifecycle_candidate_count": joint_substantive,
+            "group_topology_tasks": topology_tasks,
             "semantic_disposition": status,
             "priority_candidate": priority.get(ruler["ruler_id"]),
             "formal_grade": None,
@@ -193,11 +202,15 @@ def build(*, write: bool = False) -> dict[str, Any]:
             "substantive_candidate_unit_count": substantive_count,
             "substantive_candidate_ruler_count": substantive_rulers,
             "priority_group_candidate_count": len(priority_rows),
-            "no_group_and_lifecycle_signal_ruler_count": no_joint_signal,
+            "mandatory_topology_ruler_count": len(records),
+            "mandatory_group_domain_task_count": sum(len(row["group_topology_tasks"]) for row in records),
+            "ruler_with_zero_group_obligation_count": sum(not row["group_topology_tasks"] for row in records),
+            "registered_input_joint_signal_gap_ruler_count": no_joint_signal,
             "formal_record_count": 0,
         },
         "entry_candidate_counts": dict(sorted(entry_counts.items())),
         "required_parent_fields": manual["required_parent_fields"],
+        "mandatory_group_domains": manual["mandatory_group_domains"],
         "publication_gates": manual["publication_gates"],
         "routing_rules": manual["routing_rules"],
         "priority_group_candidates": priority_rows,

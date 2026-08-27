@@ -36,6 +36,15 @@ def test_profile_m4_does_not_promote_c3_or_c5_hits_to_formal_records() -> None:
     assert all(row["formal_grade"] is None for row in payload["records"])
 
 
+def test_profile_m4_requires_group_topology_for_every_ruler() -> None:
+    payload = build(write=False)["audit"]
+    assert payload["summary"]["mandatory_topology_ruler_count"] == 184
+    assert payload["summary"]["mandatory_group_domain_task_count"] == 184 * 6
+    assert payload["summary"]["ruler_with_zero_group_obligation_count"] == 0
+    assert all(len(row["group_topology_tasks"]) == 6 for row in payload["records"])
+    assert all(row["semantic_disposition"] != "LOCAL_STRUCTURED_ENTRY_GAP" for row in payload["records"])
+
+
 def test_profile_m4_keeps_external_alliances_on_m2() -> None:
     payload = build(write=False)["audit"]
     assert "外国" in payload["routing_rules"]["m2"]
