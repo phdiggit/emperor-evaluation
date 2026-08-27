@@ -229,10 +229,10 @@ def verify() -> dict[str, Any]:
     result = verify_payloads(settlement, audit, high, systemic)
     project = yaml.safe_load(_read(PROJECT).decode("utf-8"))
     profile = project["profile_assessment"]
-    assert profile["status"] == "seven_axes_formally_settled"
-    assert set(profile["settled_axes"]) == {"M1", "M2", "M3", "C1", "C2", "C3", "C5"}
+    assert profile["status"] == "eight_axes_formally_settled"
+    assert set(profile["settled_axes"]) == {"M1", "M2", "M3", "M4", "C1", "C2", "C3", "C5"}
     manifest = _load(MANIFEST)
-    assert manifest["settled_axis_count"] == 7 and manifest["unsettled_axis_count"] == 1
+    assert manifest["settled_axis_count"] == 8 and manifest["unsettled_axis_count"] == 0
     c3 = next(axis for axis in manifest["axes"] if axis["axis_code"] == "C3")
     assert c3["json"] == SETTLEMENT.name and c3["json_sha256"] == _sha(SETTLEMENT)
     assert c3["markdown_sha256"] == _sha(MARKDOWN)

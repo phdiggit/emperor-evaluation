@@ -15,7 +15,7 @@
 ## 当前事实
 
 - 第一至第五项均已正式结算。
-- 独立人物画像采用逐轴结算；C1、C2、C3、M1、M2、M3与C5七轴已正式结算，仅M4未结算。画像不构成第六项，不进入综合总榜，不设画像总分或轴内排名；正式入口由`config/project.yml`的`profile_assessment`登记。
+- 独立人物画像采用逐轴结算；C1、C2、C3、C5、M1、M2、M3与M4八轴均已正式结算。画像不构成第六项，不进入综合总榜，不设画像总分或轴内排名；正式入口由`config/project.yml`的`profile_assessment`登记。
 - 当前综合评价正式池为184人；其中174人综合计算就绪，10人待补第二项正式结算；第一项适用范围已经闭合。机器入口是`config/common/canonical-ruler-pool.json`；综合统计与总排名只能读取`COMPOSITE_READY`对象。
 - 正式机器结果只位于 `docs/评分结算/**`，入口由 `config/project.yml` 列出。
 - `docs/公共成果/`、`docs/治理/`、`docs/史料通读产物/` 只因仍被评分 lineage 引用而保留。

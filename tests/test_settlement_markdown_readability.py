@@ -27,7 +27,7 @@ def _reader_views() -> list[Path]:
 
 def test_settlement_reader_views_exclude_machine_audit_and_template_noise() -> None:
     paths = _reader_views()
-    assert len(paths) == 45
+    assert len(paths) == 46
     for path in paths:
         raw = path.read_bytes()
         assert not raw.startswith(b"\xef\xbb\xbf"), path
