@@ -8,7 +8,7 @@
   "canonical_pool": "config/common/canonical-ruler-pool.json",
   "canonical_pool_sha256": "8a3a78bafb3218296767df40c290a0e4f915624fe1611ec5ed03fe9742794782",
   "manual_adjudication": "config/profile/m3-adjudications.json",
-  "manual_adjudication_sha256": "f720b4edd6463ead727c008df030b75038b6686b68f5964fe91cbd63b79794cb",
+  "manual_adjudication_sha256": "35bde125424b449d7e923154205a4e26941077dfb28a12fdc73a734393d2e559",
   "input_sha256": {
     "docs/评分结算/第二项治国净收益/制度行政/01-A制度建设与实际运行方向卡.json": "a209467098302b3b437bf4c5ab884252553659327ae57fc334ee76dd9fccb2e0",
     "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json": "cd3f70e1fcc28f88cde670beafe5fff9c9e61e1743ddb3152ab2a8f533675bae",
@@ -36,8 +36,8 @@
     "G0": 3,
     "G1": 11,
     "G2": 50,
-    "G3": 111,
-    "G4": 8,
+    "G3": 110,
+    "G4": 9,
     "G5": 1
   },
   "audit_refs": [
@@ -47,8 +47,8 @@
   ],
   "summary": {
     "profile_ready": 184,
-    "high_grade_count": 9,
-    "evidence_limited_count": 96
+    "high_grade_count": 10,
+    "evidence_limited_count": 95
   },
   "records": [
     {
@@ -986,6 +986,142 @@
             "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-FD-LI-BIAN/evidence=EVD-FD12-FISCAL-086",
             "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-FD-LI-BIAN/evidence=EVD-FD12-FISCAL-089",
             "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-FD-LI-BIAN/evidence=EVD-FD12-FISCAL-090"
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": 75,
+      "ruler_id": "RULER-PUBLIC-5B02E75C191C9829",
+      "task_code": "PROFILE-M3-RULER-PUBLIC-5B02E75C191C9829",
+      "ruler_name": "玄烨",
+      "polity": "清",
+      "actual_power_window": "以正式池窗口为准",
+      "axis_grade": "G4",
+      "position": "LOW",
+      "score_100": 77,
+      "axis_evidence_level": "E3",
+      "output_mode": "FULL_GRADE",
+      "confidence": "HIGH",
+      "score_status": "FINAL",
+      "adjudication_ref": "M3-FULL-POOL-ADJ-RULER-PUBLIC-5B02E75C191C9829",
+      "parents": [
+        {
+          "parent_id": "M3P-KANGXI-FIXED-DING-QUOTA",
+          "direction": "MIXED_POSITIVE",
+          "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
+          "diagnostic_mechanisms": [
+            "TAX_LABOR",
+            "BUDGET_TREASURY"
+          ],
+          "constraint_and_task": "新增人口继续按丁加赋会扩大瞒报、逃避与无地贫民负担；康熙后期需要在维持国家常额与限制人头税增量之间重新选择征收基准。",
+          "available_alternatives": "可继续随新增人丁加征、只作临时蠲免，或冻结全国丁银常额并允许地方把既定丁银改由土地承载；地方试行仍须与全国统一推广区分归责。",
+          "personal_choice": "康熙五十一年以五十年丁册为常额，规定以后滋生人丁永不加赋；其后批准广东把所属丁银按州县地亩分摊，四川亦已出现以粮载丁的地方路径。",
+          "tool_fit_and_burden": "冻结丁额直接阻断人口增长自动扩大人头税，地方按地亩分摊进一步缓和无地者承担；但康熙仅闭合定额和局部试行，全国摊丁入地的制度化推广归胤禛，不倒填为玄烨成果。",
+          "delivery_status": "SUSTAINED_DELIVERY",
+          "feedback_and_response": "康熙六十年统计已单列永不加赋后滋生人丁，雍正元年继续沿用该统计口径，证明制度跨继承运行；地方试行反馈为后继全国推广提供可用路径，但玄烨未完成全国统一。",
+          "result_boundary": "本链证明对税基失真、负担转嫁与征收工具的专业判断；不以人口增长、第二项A档位或后继全国化结果反推M3。",
+          "source_refs": [
+            "docs/评分结算/第二项治国净收益/制度行政/01-A制度建设与实际运行方向卡.json#material_id=MAT-QING-61580B7FFEDBF591",
+            "docs/评分结算/第二项治国净收益/制度行政/01-A制度建设与实际运行方向卡.json#material_id=MAT-QING-R3-KANGXI-FIXED-DING-QUOTA",
+            "docs/史料通读产物/清/清史稿/volume-008.source-summary.md#L14",
+            "https://xuebao.ruc.edu.cn/EN/article/downloadArticleFile.do?attachType=PDF&id=10468"
+          ]
+        },
+        {
+          "parent_id": "M3P-KANGXI-RELIEF-WAR-BURDEN",
+          "direction": "MIXED_POSITIVE",
+          "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
+          "diagnostic_mechanisms": [
+            "TAX_LABOR",
+            "BUDGET_TREASURY",
+            "MARKET_TRADE",
+            "RELIEF_STORAGE"
+          ],
+          "constraint_and_task": "跨区灾荒与西陲长期用兵同时挤压粮食、转输和地方垫款，核心任务是在不把新增成本普遍转成火耗与额外正赋的前提下维持救荒和军需。",
+          "available_alternatives": "可加火耗、追征逋赋或由地方继续垫款，也可动用中央帑银、截漕调粮、定向蠲免和进口平粜分散压力；各工具的承担者与地方财政后效不同。",
+          "personal_choice": "玄烨反复采用中央帑银、跨省截漕调粮、灾区与军运沿线蠲免，并在六十一年否决以加火耗补地方亏帑，改由户部库帑拨送西安。",
+          "tool_fit_and_burden": "灾区银粮兼赈、沿线免赋和中央拨款把部分灾荒军需成本从基层移回中央，且多次跨省复用；但长期军运、地方垫款和低存留结构仍使地方亏空扩散，说明工具组合强而地方财政制度未闭合。",
+          "delivery_status": "SUSTAINED_DELIVERY",
+          "feedback_and_response": "山东、江浙、福建、陕西等不同灾区反复触发截漕、发帑、平粜与蠲免，西陲转输劳苦到达后也追加沿线减免；晚期虽识别火耗转嫁风险并拒绝加征，却未建立稳定地方公费、养廉与清亏空组合。",
+          "result_boundary": "本链只以具体选择、承担者和反馈证明压力财政工具适配；中央库存规模、C2五档、战争胜负与康熙盛世叙事均不直接计入M3。",
+          "source_refs": [
+            "docs/史料通读产物/清/清史稿/volume-008.source-summary.md#L12-L28",
+            "docs/史料通读产物/清/清史稿/volume-008.source-summary.md#L62-L70",
+            "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-PUBLIC-5B02E75C191C9829/evidence=E1",
+            "https://qsyj.ruc.edu.cn/CN/abstract/abstract205.shtml"
+          ]
+        }
+      ],
+      "major_mechanisms_observed": [
+        "BUDGET_TREASURY",
+        "MARKET_TRADE",
+        "PUBLIC_WORKS",
+        "RELIEF_STORAGE",
+        "TAX_LABOR"
+      ],
+      "typical_pattern": "玄烨能把人口增长造成的丁税失真转为固定丁额，并接受广东、四川按土地承载丁银的局部路径；又在灾荒与西陲军需并压时反复使用帑银、截漕、调粮和定向蠲免，明确拒绝以加火耗补地方亏帑，表现出跨税制与压力财政的强工具适配。",
+      "counterpattern": "地方摊丁试行尚未由玄烨全国化；长期军运、地方垫款、低存留与仓政监管缺陷使钱粮亏空在中晚期扩散，拒绝加火耗虽限制即时转嫁，却没有形成地方公费、养廉和清亏空的系统替代。",
+      "grade_basis": "定额丁银—地方摊丁试行与灾荒军需—中央吸收两条独立生命周期均闭合约束、替代、本人选择、承担者、跨区落实和反馈，构成稳定强长板；晚期地方财政制度缺口和后继才完成全国化使全生涯下沿不足历史级，裁为G4。",
+      "position_basis": "G4内置LOW；两条跨约束生命周期足以进入强长板，但地方亏空扩散、地方公费替代未闭合及全国摊丁入地归后继完成，使阶段一致性和系统完备度处于本档下位。",
+      "axis_relevance_check": {
+        "second_item_score_used": false,
+        "second_item_band_used": false,
+        "final_outcome_backsolve_used": false,
+        "reform_count_used": false,
+        "cross_axis_grade_used": false
+      },
+      "same_chain_review": "EVIDENCE_DELTA_EXPLAINED",
+      "limitations": [
+        "中央户部库存不能代表地方财政健康；地方亏空反例继续保留。全国摊丁入地、耗羡归公、养廉与系统清亏空属于胤禛本人窗口，不倒填玄烨。现有材料足以支持G4下位，但不足支持历史级的全机制、全阶段稳定上沿。"
+      ],
+      "formal_status": "FORMAL_CURRENT",
+      "radar_value": 77,
+      "representative_parent_contexts": [
+        {
+          "parent_id": "M3P-KANGXI-FIXED-DING-QUOTA",
+          "direction": "MIXED_POSITIVE",
+          "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
+          "diagnostic_mechanisms": [
+            "TAX_LABOR",
+            "BUDGET_TREASURY"
+          ],
+          "constraint_and_task": "新增人口继续按丁加赋会扩大瞒报、逃避与无地贫民负担；康熙后期需要在维持国家常额与限制人头税增量之间重新选择征收基准。",
+          "available_alternatives": "可继续随新增人丁加征、只作临时蠲免，或冻结全国丁银常额并允许地方把既定丁银改由土地承载；地方试行仍须与全国统一推广区分归责。",
+          "personal_choice": "康熙五十一年以五十年丁册为常额，规定以后滋生人丁永不加赋；其后批准广东把所属丁银按州县地亩分摊，四川亦已出现以粮载丁的地方路径。",
+          "tool_fit_and_burden": "冻结丁额直接阻断人口增长自动扩大人头税，地方按地亩分摊进一步缓和无地者承担；但康熙仅闭合定额和局部试行，全国摊丁入地的制度化推广归胤禛，不倒填为玄烨成果。",
+          "delivery_status": "SUSTAINED_DELIVERY",
+          "feedback_and_response": "康熙六十年统计已单列永不加赋后滋生人丁，雍正元年继续沿用该统计口径，证明制度跨继承运行；地方试行反馈为后继全国推广提供可用路径，但玄烨未完成全国统一。",
+          "result_boundary": "本链证明对税基失真、负担转嫁与征收工具的专业判断；不以人口增长、第二项A档位或后继全国化结果反推M3。",
+          "source_refs": [
+            "docs/评分结算/第二项治国净收益/制度行政/01-A制度建设与实际运行方向卡.json#material_id=MAT-QING-61580B7FFEDBF591",
+            "docs/评分结算/第二项治国净收益/制度行政/01-A制度建设与实际运行方向卡.json#material_id=MAT-QING-R3-KANGXI-FIXED-DING-QUOTA",
+            "docs/史料通读产物/清/清史稿/volume-008.source-summary.md#L14",
+            "https://xuebao.ruc.edu.cn/EN/article/downloadArticleFile.do?attachType=PDF&id=10468"
+          ]
+        },
+        {
+          "parent_id": "M3P-KANGXI-RELIEF-WAR-BURDEN",
+          "direction": "MIXED_POSITIVE",
+          "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
+          "diagnostic_mechanisms": [
+            "TAX_LABOR",
+            "BUDGET_TREASURY",
+            "MARKET_TRADE",
+            "RELIEF_STORAGE"
+          ],
+          "constraint_and_task": "跨区灾荒与西陲长期用兵同时挤压粮食、转输和地方垫款，核心任务是在不把新增成本普遍转成火耗与额外正赋的前提下维持救荒和军需。",
+          "available_alternatives": "可加火耗、追征逋赋或由地方继续垫款，也可动用中央帑银、截漕调粮、定向蠲免和进口平粜分散压力；各工具的承担者与地方财政后效不同。",
+          "personal_choice": "玄烨反复采用中央帑银、跨省截漕调粮、灾区与军运沿线蠲免，并在六十一年否决以加火耗补地方亏帑，改由户部库帑拨送西安。",
+          "tool_fit_and_burden": "灾区银粮兼赈、沿线免赋和中央拨款把部分灾荒军需成本从基层移回中央，且多次跨省复用；但长期军运、地方垫款和低存留结构仍使地方亏空扩散，说明工具组合强而地方财政制度未闭合。",
+          "delivery_status": "SUSTAINED_DELIVERY",
+          "feedback_and_response": "山东、江浙、福建、陕西等不同灾区反复触发截漕、发帑、平粜与蠲免，西陲转输劳苦到达后也追加沿线减免；晚期虽识别火耗转嫁风险并拒绝加征，却未建立稳定地方公费、养廉与清亏空组合。",
+          "result_boundary": "本链只以具体选择、承担者和反馈证明压力财政工具适配；中央库存规模、C2五档、战争胜负与康熙盛世叙事均不直接计入M3。",
+          "source_refs": [
+            "docs/史料通读产物/清/清史稿/volume-008.source-summary.md#L12-L28",
+            "docs/史料通读产物/清/清史稿/volume-008.source-summary.md#L62-L70",
+            "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-PUBLIC-5B02E75C191C9829/evidence=E1",
+            "https://qsyj.ruc.edu.cn/CN/abstract/abstract205.shtml"
           ]
         }
       ]
@@ -4220,138 +4356,6 @@
           "result_boundary": "财政民生状态仅验证工具后果；第二项档位、分数、国库规模与繁荣叙事均未换算M3。",
           "source_refs": [
             "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-NS-ZHAO-ZHEN/evidence=E1"
-          ]
-        }
-      ]
-    },
-    {
-      "sequence": 75,
-      "ruler_id": "RULER-PUBLIC-5B02E75C191C9829",
-      "task_code": "PROFILE-M3-RULER-PUBLIC-5B02E75C191C9829",
-      "ruler_name": "玄烨",
-      "polity": "清",
-      "actual_power_window": "以正式池窗口为准",
-      "axis_grade": "G3",
-      "position": "HIGH",
-      "score_100": 71,
-      "axis_evidence_level": "E2",
-      "output_mode": "BOUNDED_PROFILE",
-      "confidence": "MEDIUM",
-      "score_status": "EVIDENCE_LIMITED",
-      "adjudication_ref": "M3-FULL-POOL-ADJ-RULER-PUBLIC-5B02E75C191C9829",
-      "parents": [
-        {
-          "parent_id": "M3P-D9695EEFB41B07",
-          "direction": "MIXED_POSITIVE",
-          "material_intensity": "MI1_CASE",
-          "diagnostic_mechanisms": [
-            "TAX_LABOR",
-            "BUDGET_TREASURY",
-            "MARKET_TRADE",
-            "RELIEF_STORAGE"
-          ],
-          "constraint_and_task": "康熙成熟期生产、市场、低常税与人口承载支持健康高位，但跨任宏观增长、财政能力和人口总量都不能独立证明多数家庭长期具有五档余量。现有材料没有闭合同一阶段的家庭财富/消费与广域长期高位，因此主档四档且不登记峰值五档。",
-          "available_alternatives": "按现有财政民生入口检查延续、减免、改制、停办、加派或维持等可行路径；没有定位到的替代不虚构。",
-          "personal_choice": "本人窗口的财政工具切片按LIVELIHOOD_CONSTRAINT材料逐项反查；只消费能够定位本人选择的部分。",
-          "tool_fit_and_burden": "跨越康雍的宏观扩张不能全部归因于玄烨。；低税、人口和总产出只能互证，不能单独替代家庭生活余量。",
-          "delivery_status": "PARTIAL_DELIVERY",
-          "feedback_and_response": "市场、基层、官僚与财政反馈与后续选择在同一父链联合裁决；未闭合者保留在限制而不自动正负化。",
-          "result_boundary": "财政民生状态仅验证工具后果；第二项档位、分数、国库规模与繁荣叙事均未换算M3。",
-          "source_refs": [
-            "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-PUBLIC-5B02E75C191C9829/evidence=E1"
-          ]
-        },
-        {
-          "parent_id": "M3P-E46168A450CB40",
-          "direction": "MIXED_POSITIVE",
-          "material_intensity": "MI2_LIFECYCLE",
-          "diagnostic_mechanisms": [
-            "TAX_LABOR",
-            "BUDGET_TREASURY",
-            "MARKET_TRADE",
-            "RELIEF_STORAGE",
-            "PUBLIC_WORKS"
-          ],
-          "constraint_and_task": "平定三藩后的成熟期同时闭合生产市场扩张、常规财政与重大军事支出的承受、低税框架下公私两侧持续运行，达到C2-5。三藩战争、跨区转输及晚期地方亏空使起点与终点分别保留三、四档，但不能把长期主要高位压平为四档。",
-          "available_alternatives": "按现有财政民生入口检查延续、减免、改制、停办、加派或维持等可行路径；没有定位到的替代不虚构。",
-          "personal_choice": "本人窗口的财政工具切片按PUBLIC_PRIVATE_FISCAL材料逐项反查；只消费能够定位本人选择的部分。",
-          "tool_fit_and_burden": "军费承担只作财政压力测试，不把军事活动本身计为C2收益。；地方亏空与战争期负担使交班不保留五档。",
-          "delivery_status": "SUSTAINED_DELIVERY",
-          "feedback_and_response": "市场、基层、官僚与财政反馈与后续选择在同一父链联合裁决；未闭合者保留在限制而不自动正负化。",
-          "result_boundary": "财政民生状态仅验证工具后果；第二项档位、分数、国库规模与繁荣叙事均未换算M3。",
-          "source_refs": [
-            "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-PUBLIC-5B02E75C191C9829/evidence=E1",
-            "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-PUBLIC-5B02E75C191C9829/evidence=E2"
-          ]
-        }
-      ],
-      "major_mechanisms_observed": [
-        "BUDGET_TREASURY",
-        "MARKET_TRADE",
-        "PUBLIC_WORKS",
-        "RELIEF_STORAGE",
-        "TAX_LABOR"
-      ],
-      "typical_pattern": "玄烨：康熙成熟期生产、市场、低常税与人口承载支持健康高位，但跨任宏观增长、财政能力和人口总量都不能独立证明多数家庭长期具有五档余量。现有材料没有闭合同一阶段的家庭财富/消费与广域长期高位，因此主档四档且不登记峰值五档。；财政工具与公私承载复验显示：平定三藩后的成熟期同时闭合生产市场扩张、常规财政与重大军事支出的承受、低税框架下公私两侧持续运行，达到C2-5。三藩战争、跨区转输及晚期地方亏空使起点与终点分别保留三、四档，但不能把长期主要高位压平为四档。",
-      "counterpattern": "跨越康雍的宏观扩张不能全部归因于玄烨。；低税、人口和总产出只能互证，不能单独替代家庭生活余量。；军费承担只作财政压力测试，不把军事活动本身计为C2收益。；地方亏空与战争期负担使交班不保留五档。",
-      "grade_basis": "玄烨按全部规范财政入口联合裁决为G3：档位来自约束识别、工具适配、承担者边界、落实与反馈结构，不来自第二项分值、治绩规模、改革数量或分布目标。",
-      "position_basis": "G3内置HIGH；依据同档下的生命周期完整度、转嫁风险、反馈后选择与阶段一致性。",
-      "axis_relevance_check": {
-        "second_item_score_used": false,
-        "second_item_band_used": false,
-        "final_outcome_backsolve_used": false,
-        "reform_count_used": false,
-        "cross_axis_grade_used": false
-      },
-      "same_chain_review": "NO_TRIGGER",
-      "limitations": [
-        "跨越康雍的宏观扩张不能全部归因于玄烨。；低税、人口和总产出只能互证，不能单独替代家庭生活余量。；军费承担只作财政压力测试，不把军事活动本身计为C2收益。；地方亏空与战争期负担使交班不保留五档。"
-      ],
-      "formal_status": "FORMAL_CURRENT",
-      "radar_value": 71,
-      "representative_parent_contexts": [
-        {
-          "parent_id": "M3P-D9695EEFB41B07",
-          "direction": "MIXED_POSITIVE",
-          "material_intensity": "MI1_CASE",
-          "diagnostic_mechanisms": [
-            "TAX_LABOR",
-            "BUDGET_TREASURY",
-            "MARKET_TRADE",
-            "RELIEF_STORAGE"
-          ],
-          "constraint_and_task": "康熙成熟期生产、市场、低常税与人口承载支持健康高位，但跨任宏观增长、财政能力和人口总量都不能独立证明多数家庭长期具有五档余量。现有材料没有闭合同一阶段的家庭财富/消费与广域长期高位，因此主档四档且不登记峰值五档。",
-          "available_alternatives": "按现有财政民生入口检查延续、减免、改制、停办、加派或维持等可行路径；没有定位到的替代不虚构。",
-          "personal_choice": "本人窗口的财政工具切片按LIVELIHOOD_CONSTRAINT材料逐项反查；只消费能够定位本人选择的部分。",
-          "tool_fit_and_burden": "跨越康雍的宏观扩张不能全部归因于玄烨。；低税、人口和总产出只能互证，不能单独替代家庭生活余量。",
-          "delivery_status": "PARTIAL_DELIVERY",
-          "feedback_and_response": "市场、基层、官僚与财政反馈与后续选择在同一父链联合裁决；未闭合者保留在限制而不自动正负化。",
-          "result_boundary": "财政民生状态仅验证工具后果；第二项档位、分数、国库规模与繁荣叙事均未换算M3。",
-          "source_refs": [
-            "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-PUBLIC-5B02E75C191C9829/evidence=E1"
-          ]
-        },
-        {
-          "parent_id": "M3P-E46168A450CB40",
-          "direction": "MIXED_POSITIVE",
-          "material_intensity": "MI2_LIFECYCLE",
-          "diagnostic_mechanisms": [
-            "TAX_LABOR",
-            "BUDGET_TREASURY",
-            "MARKET_TRADE",
-            "RELIEF_STORAGE",
-            "PUBLIC_WORKS"
-          ],
-          "constraint_and_task": "平定三藩后的成熟期同时闭合生产市场扩张、常规财政与重大军事支出的承受、低税框架下公私两侧持续运行，达到C2-5。三藩战争、跨区转输及晚期地方亏空使起点与终点分别保留三、四档，但不能把长期主要高位压平为四档。",
-          "available_alternatives": "按现有财政民生入口检查延续、减免、改制、停办、加派或维持等可行路径；没有定位到的替代不虚构。",
-          "personal_choice": "本人窗口的财政工具切片按PUBLIC_PRIVATE_FISCAL材料逐项反查；只消费能够定位本人选择的部分。",
-          "tool_fit_and_burden": "军费承担只作财政压力测试，不把军事活动本身计为C2收益。；地方亏空与战争期负担使交班不保留五档。",
-          "delivery_status": "SUSTAINED_DELIVERY",
-          "feedback_and_response": "市场、基层、官僚与财政反馈与后续选择在同一父链联合裁决；未闭合者保留在限制而不自动正负化。",
-          "result_boundary": "财政民生状态仅验证工具后果；第二项档位、分数、国库规模与繁荣叙事均未换算M3。",
-          "source_refs": [
-            "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-PUBLIC-5B02E75C191C9829/evidence=E1",
-            "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-PUBLIC-5B02E75C191C9829/evidence=E2"
           ]
         }
       ]
