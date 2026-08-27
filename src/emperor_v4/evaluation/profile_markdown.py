@@ -27,8 +27,18 @@ def _grade(record: dict[str, Any]) -> str:
     return f"{record['axis_grade']}-{record['position']}"
 
 
+def _limitation_values(record: dict[str, Any]) -> list[str]:
+    values = record.get("limitations") or []
+    if isinstance(values, str):
+        values = [values]
+    normalized = [str(value) for value in values if value]
+    if len(normalized) > 1 and all(len(value) == 1 for value in normalized):
+        return ["".join(normalized)]
+    return normalized
+
+
 def _shared_limitations(records: list[dict[str, Any]]) -> tuple[dict[str, str], list[tuple[str, str]]]:
-    counts = Counter(str(value) for row in records for value in row.get("limitations", []) if value)
+    counts = Counter(value for row in records for value in _limitation_values(row))
     shared = [(text, count) for text, count in counts.items() if count >= 5]
     shared.sort(key=lambda item: (-item[1], item[0]))
     labels = {text: f"L{index}" for index, (text, _) in enumerate(shared, 1)}
@@ -36,7 +46,7 @@ def _shared_limitations(records: list[dict[str, Any]]) -> tuple[dict[str, str], 
 
 
 def _limitations(record: dict[str, Any], labels: dict[str, str]) -> str:
-    values = [labels.get(str(value), str(value)) for value in record.get("limitations", []) if value]
+    values = [labels.get(value, value) for value in _limitation_values(record)]
     return "；".join(values) or "无"
 
 
@@ -85,7 +95,16 @@ def _overview_table(axis: str, records: list[dict[str, Any]], labels: dict[str, 
             cells = [row["radar_value"], row["axis_grade"], row["position"], row["ruler_name"], row["polity"], row["axis_evidence_level"], row["confidence"], row["typical_pattern"], _limitations(row, labels)]
             lines.append("| " + " | ".join(_escape(cell) for cell in cells) + " |")
         return lines
-    if axis in {"C3", "M3", "M4"}:
+    if axis == "M4":
+        lines = [
+            "| 序 | 人物 | 政权 | 实际权力窗口 | 档位 | 位置 | 雷达值 | 证据 | 输出 | 状态 | 父链 | 典型模式 |",
+            "|---:|---|---|---|---|---|---:|---|---|---|---:|---|",
+        ]
+        for row in records:
+            cells = [row["sequence"], row["ruler_name"], row["polity"], row["actual_power_window"], row["axis_grade"], row["position"], row["radar_value"], row["axis_evidence_level"], row["output_mode"], row["score_status"], len(row["parents"]), row["typical_pattern"]]
+            lines.append("| " + " | ".join(_escape(cell) for cell in cells) + " |")
+        return lines
+    if axis in {"C3", "M3"}:
         lines = [
             "| 序 | 人物 | 政权 | 实际权力窗口 | 档位 | 位置 | 雷达值 | 证据 | 输出 | 状态 | 父链 | 典型模式 | 限制 |",
             "|---:|---|---|---|---|---|---:|---|---|---|---:|---|---|",
@@ -112,7 +131,7 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
     if axis not in AXIS_FILES:
         raise ValueError(f"unsupported profile axis: {axis}")
     records = settlement["records"]
-    labels, shared = _shared_limitations(records)
+    labels, shared = ({}, []) if axis == "M4" else _shared_limitations(records)
     lines = [
         f"# {axis} {settlement['axis_name']}正式结算",
         "",

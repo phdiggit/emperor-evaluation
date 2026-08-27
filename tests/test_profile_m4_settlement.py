@@ -9,6 +9,7 @@ from emperor_v4.evaluation.profile_m4_settlement import (
     AUDIT,
     FULL_POOL_REVIEW,
     HIGH_REVIEW,
+    MARKDOWN,
     SETTLEMENT,
 )
 from emperor_v4.evaluation.profile_m4_verifier import verify, verify_payloads
@@ -60,3 +61,12 @@ def test_profile_m4_two_pass_review_is_full_pool_and_bidirectional() -> None:
     assert all(row["positive_and_negative_checked"] for row in review["records"])
     assert all(row["all_scoring_parents_closed"] for row in review["records"])
     assert all(row["unclosed_observations_excluded_from_scoring"] for row in review["records"])
+
+
+def test_profile_m4_overview_omits_shared_and_table_limitations() -> None:
+    markdown = MARKDOWN.read_text(encoding="utf-8")
+    assert "### 共用限制说明" not in markdown
+    assert "| 序 | 人物 | 政权 | 实际权力窗口 | 档位 | 位置 | 雷达值 | 证据 | 输出 | 状态 | 父链 | 典型模式 |" in markdown
+    assert "| 序 | 人物 | 政权 | 实际权力窗口 | 档位 | 位置 | 雷达值 | 证据 | 输出 | 状态 | 父链 | 典型模式 | 限制 |" not in markdown
+    assert "边；疆；政；治" not in markdown
+    assert "边疆政治参与具有羁縻" in markdown

@@ -279,6 +279,12 @@ def _make_settlement(records: list[dict[str, Any]], audit: dict[str, Any], high:
     formal = []
     for source in records:
         row = {key: value for key, value in source.items() if key != "first_pass_hypothesis"}
+        limitations = row.get("limitations") or []
+        if isinstance(limitations, str):
+            limitations = [limitations]
+        if len(limitations) > 1 and all(isinstance(value, str) and len(value) == 1 for value in limitations):
+            limitations = ["".join(limitations)]
+        row["limitations"] = limitations
         row["axis_code"] = "M4"
         row["axis_name"] = "政治联盟与内部联盟管理"
         row["formal_status"] = "FORMAL_CURRENT"
