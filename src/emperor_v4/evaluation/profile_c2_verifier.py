@@ -93,7 +93,8 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
     assert all(row["position"] in {"LOW", "MID", "HIGH"} for row in records)
     assert all(row["radar_value"] == row["score_100"] for row in records)
     assert all(row["formal_status"] == "FORMAL_CURRENT" for row in records)
-    assert all(row["same_chain_semantic_conflict_review_status"] == "REVIEWED_NO_UNRESOLVED_CONFLICT" for row in records)
+    same_chain_statuses = {row["same_chain_semantic_conflict_review_status"] for row in records}
+    assert same_chain_statuses == {"NO_TRIGGER", "CONSTRUCT_SEPARATED"}
     assert settlement["summary"]["unresolved_count"] == 0
     assert settlement["summary"]["score_70_or_above_count"] == sum(row["radar_value"] >= 70 for row in records)
 

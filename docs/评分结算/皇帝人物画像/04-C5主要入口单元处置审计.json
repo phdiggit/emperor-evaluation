@@ -1,48 +1,53 @@
 {
-  "schema_version": "emperor-profile-c5-unit-disposition-formal-audit-v1",
-  "unit_count": 1676,
+  "schema_version": "emperor-profile-c5-unit-disposition-formal-audit-v2",
+  "unit_count": 1680,
   "status_counts": {
-    "AXIS_OUT_WITH_REASON": 63,
-    "BACKGROUND_VALIDATION": 661,
-    "SCORING_PARENT": 952
+    "AXIS_OUT_WITH_REASON": 82,
+    "BACKGROUND_VALIDATION": 691,
+    "SCORING_PARENT": 907
   },
   "entry_counts": {
     "FIFTH_A": 165,
     "FIFTH_B": 179,
     "FIFTH_C": 116,
+    "LOCAL_LEGAL_REGISTRY": 4,
     "SECOND_A": 425,
     "SECOND_B1": 413,
     "SECOND_B2": 378
   },
   "entry_status_counts": {
     "FIFTH_A": {
-      "AXIS_OUT_WITH_REASON": 3,
-      "BACKGROUND_VALIDATION": 37,
-      "SCORING_PARENT": 125
+      "AXIS_OUT_WITH_REASON": 6,
+      "BACKGROUND_VALIDATION": 39,
+      "SCORING_PARENT": 120
     },
     "FIFTH_B": {
-      "AXIS_OUT_WITH_REASON": 42,
-      "BACKGROUND_VALIDATION": 98,
-      "SCORING_PARENT": 39
+      "AXIS_OUT_WITH_REASON": 43,
+      "BACKGROUND_VALIDATION": 99,
+      "SCORING_PARENT": 37
     },
     "FIFTH_C": {
+      "AXIS_OUT_WITH_REASON": 1,
       "BACKGROUND_VALIDATION": 1,
-      "SCORING_PARENT": 115
+      "SCORING_PARENT": 114
+    },
+    "LOCAL_LEGAL_REGISTRY": {
+      "SCORING_PARENT": 4
     },
     "SECOND_A": {
-      "AXIS_OUT_WITH_REASON": 6,
-      "BACKGROUND_VALIDATION": 306,
-      "SCORING_PARENT": 113
+      "AXIS_OUT_WITH_REASON": 7,
+      "BACKGROUND_VALIDATION": 309,
+      "SCORING_PARENT": 109
     },
     "SECOND_B1": {
-      "AXIS_OUT_WITH_REASON": 8,
-      "BACKGROUND_VALIDATION": 209,
-      "SCORING_PARENT": 196
+      "AXIS_OUT_WITH_REASON": 12,
+      "BACKGROUND_VALIDATION": 218,
+      "SCORING_PARENT": 183
     },
     "SECOND_B2": {
-      "AXIS_OUT_WITH_REASON": 4,
-      "BACKGROUND_VALIDATION": 10,
-      "SCORING_PARENT": 364
+      "AXIS_OUT_WITH_REASON": 13,
+      "BACKGROUND_VALIDATION": 25,
+      "SCORING_PARENT": 340
     }
   },
   "formal_entry_missing_cells": [
@@ -1056,9 +1061,9 @@
       "material_id": "I2-FD-MAT-E6389ED6F684C2D6",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "恢复奏事和狱政接口并持续运行，形成制度性反馈背景；同一material在B1/B2只消费一次。",
-      "scoring_parent_id": "C5-P005-OPEN-INTERFACES"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "恢复奏事和狱政接口只证明B1/B2运行，不独立支撑C5正档。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-FD-LI-SIYUAN::SECOND_B1::MATERIAL::I2-FD-MAT-F6CC0F08FAB7E718",
@@ -1140,9 +1145,9 @@
       "material_id": "I2-FD-MAT-E6389ED6F684C2D6",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "恢复奏事和狱政接口并持续运行，形成制度性反馈背景；同一material在B1/B2只消费一次。",
-      "scoring_parent_id": "C5-P005-OPEN-INTERFACES"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "恢复奏事和狱政接口只证明B1/B2运行，不独立支撑C5正档。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-FD-LI-YU::FIFTH_A::FACT::FACT-F6A94D5D9FC3867D",
@@ -2092,9 +2097,9 @@
       "material_id": "I2-EHAN-DENGSUI-JUDICIAL-CORRECTION-001",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "持续司法复核直接约束强制权力；B1/B2同一material只消费一次。",
-      "scoring_parent_id": "C5-P013-JUDICIAL"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "疑罪详核与司法纠偏属于一般司法治理，未闭合本人或特权者受约束。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-HAN-DENGSUI::SECOND_B2::MATERIAL::I2-EHAN-DENGSUI-JUDICIAL-CORRECTION-001",
@@ -2106,9 +2111,9 @@
       "material_id": "I2-EHAN-DENGSUI-JUDICIAL-CORRECTION-001",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "持续司法复核直接约束强制权力；B1/B2同一material只消费一次。",
-      "scoring_parent_id": "C5-P013-JUDICIAL"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "疑罪详核与司法纠偏属于一般司法治理，未闭合本人或特权者受约束。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-HAN-DENGSUI::SECOND_B2::MATERIAL::I2-EHAN-DENGSUI-RETURN-REFUSAL-001",
@@ -2331,8 +2336,8 @@
       "equivalent_fact_id": "FACT-B5DF3735F13DEC17",
       "source_artifact": "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json",
       "status": "SCORING_PARENT",
-      "reason": "政策异议、储位纠正与萧何错押释放共同闭合反馈到达后的收束模式；同案只在父链计一次。",
-      "scoring_parent_id": "C5-P016-ADVICE"
+      "reason": "萧何械系和樊哙即斩命令直接评价盛怒下的程序、比例与臣下安全。",
+      "scoring_parent_id": "C5-P016-ANGER"
     },
     {
       "unit_id": "C5-CURRENT::RULER-HAN-LIUBANG::FIFTH_B::FACT::FACT-B27FECCF0E1DCDE7",
@@ -2359,8 +2364,8 @@
       "equivalent_fact_id": "FACT-FABDA706AFE0F8B3",
       "source_artifact": "docs/评分结算/第五项统治者政治素质/02-B轴用人与授权正式结算.json",
       "status": "SCORING_PARENT",
-      "reason": "政策异议、储位纠正与萧何错押释放共同闭合反馈到达后的收束模式；同案只在父链计一次。",
-      "scoring_parent_id": "C5-P016-ADVICE"
+      "reason": "萧何械系和樊哙即斩命令直接评价盛怒下的程序、比例与臣下安全。",
+      "scoring_parent_id": "C5-P016-ANGER"
     },
     {
       "unit_id": "C5-CURRENT::RULER-HAN-LIUBANG::FIFTH_B::FACT::FACT-FED9E15F60611FD7",
@@ -2428,9 +2433,9 @@
       "material_id": "I2-WHAN-LB-CAPITAL-CORRECTION-001",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "政策异议、储位纠正与萧何错押释放共同闭合反馈到达后的收束模式；同案只在父链计一次。",
-      "scoring_parent_id": "C5-P016-ADVICE"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "都城、储位与陆贾意见证明C2更新，不独立证明惩罚比例、异议安全或最高权力自缚。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-HAN-LIUBANG::SECOND_B2::MATERIAL::I2-WHAN-LB-HEIR-FEEDBACK-001",
@@ -2442,9 +2447,9 @@
       "material_id": "I2-WHAN-LB-HEIR-FEEDBACK-001",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "政策异议、储位纠正与萧何错押释放共同闭合反馈到达后的收束模式；同案只在父链计一次。",
-      "scoring_parent_id": "C5-P016-ADVICE"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "都城、储位与陆贾意见证明C2更新，不独立证明惩罚比例、异议安全或最高权力自缚。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-HAN-LIUBANG::SECOND_B2::MATERIAL::I2-WHAN-LB-LUJIA-ADVICE-001",
@@ -2456,9 +2461,9 @@
       "material_id": "I2-WHAN-LB-LUJIA-ADVICE-001",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "政策异议、储位纠正与萧何错押释放共同闭合反馈到达后的收束模式；同案只在父链计一次。",
-      "scoring_parent_id": "C5-P016-ADVICE"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "都城、储位与陆贾意见证明C2更新，不独立证明惩罚比例、异议安全或最高权力自缚。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-HAN-LIUBANG::SECOND_B2::MATERIAL::I2-WHAN-LB-MINISTER-ANGER-001",
@@ -2471,8 +2476,8 @@
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
       "status": "SCORING_PARENT",
-      "reason": "政策异议、储位纠正与萧何错押释放共同闭合反馈到达后的收束模式；同案只在父链计一次。",
-      "scoring_parent_id": "C5-P016-ADVICE"
+      "reason": "萧何械系和樊哙即斩命令直接评价盛怒下的程序、比例与臣下安全。",
+      "scoring_parent_id": "C5-P016-ANGER"
     },
     {
       "unit_id": "C5-CURRENT::RULER-HAN-LIUBAO::FIFTH_A::FACT::FACT-6038F6EC854D2A42",
@@ -4109,8 +4114,8 @@
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json",
       "status": "SCORING_PARENT",
-      "reason": "外戚特权退出与司法程序运行共同闭合权力边界正向切片。",
-      "scoring_parent_id": "C5-P028-DOU-JUDICIAL"
+      "reason": "窦氏退出只按具体处分范围形成单一C5父链；司法宽平另作一般治理背景。",
+      "scoring_parent_id": "C5-P028-DOU-EXIT"
     },
     {
       "unit_id": "C5-CURRENT::RULER-HAN-LIUZHAO::SECOND_B2::MATERIAL::I2-EHAN-LIUZHAO-DOU-EXIT-001-M2-M3-02-AUDIT",
@@ -4123,8 +4128,8 @@
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
       "status": "SCORING_PARENT",
-      "reason": "外戚特权退出与司法程序运行共同闭合权力边界正向切片。",
-      "scoring_parent_id": "C5-P028-DOU-JUDICIAL"
+      "reason": "窦氏退出只按具体处分范围形成单一C5父链；司法宽平另作一般治理背景。",
+      "scoring_parent_id": "C5-P028-DOU-EXIT"
     },
     {
       "unit_id": "C5-CURRENT::RULER-HAN-LIUZHAO::SECOND_B2::MATERIAL::I2-EHAN-LIUZHAO-JUDICIAL-OPERATION-001-M2-M3-02-AUDIT",
@@ -4137,8 +4142,8 @@
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
       "status": "SCORING_PARENT",
-      "reason": "外戚特权退出与司法程序运行共同闭合权力边界正向切片。",
-      "scoring_parent_id": "C5-P028-DOU-JUDICIAL"
+      "reason": "窦氏退出只按具体处分范围形成单一C5父链；司法宽平另作一般治理背景。",
+      "scoring_parent_id": "C5-P028-DOU-EXIT"
     },
     {
       "unit_id": "C5-CURRENT::RULER-HAN-LIUZHI::FIFTH_B::FACT::FACT-528883A3281DEA11",
@@ -7104,9 +7109,9 @@
       "material_id": null,
       "equivalent_fact_id": "FACT-88452F4F481467C5",
       "source_artifact": "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json",
-      "status": "SCORING_PARENT",
-      "reason": "跨年议政、灾政求言和采纳减免共同闭合持续反馈开放。",
-      "scoring_parent_id": "C5-P055-OPEN-FEEDBACK"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "日讲、求言、议政和灾政反馈证明B2运行，不单独证明C5自我约束。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-MING-ZHU-YOUCHENG::FIFTH_B::FACT::FACT-2D03305337103EC5",
@@ -7160,9 +7165,9 @@
       "material_id": "EV-HZ-B1-01",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "跨年议政、灾政求言和采纳减免共同闭合持续反馈开放。",
-      "scoring_parent_id": "C5-P055-OPEN-FEEDBACK"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "日讲、求言、议政和灾政反馈证明B2运行，不单独证明C5自我约束。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-MING-ZHU-YOUCHENG::SECOND_B1::MATERIAL::EV-HZ-B1-02",
@@ -7174,9 +7179,9 @@
       "material_id": "EV-HZ-B1-02",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "跨年议政、灾政求言和采纳减免共同闭合持续反馈开放。",
-      "scoring_parent_id": "C5-P055-OPEN-FEEDBACK"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "日讲、求言、议政和灾政反馈证明B2运行，不单独证明C5自我约束。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-MING-ZHU-YOUCHENG::SECOND_B1::MATERIAL::EV-HZ-B1-03",
@@ -7188,9 +7193,9 @@
       "material_id": "EV-HZ-B1-03",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "跨年议政、灾政求言和采纳减免共同闭合持续反馈开放。",
-      "scoring_parent_id": "C5-P055-OPEN-FEEDBACK"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "日讲、求言、议政和灾政反馈证明B2运行，不单独证明C5自我约束。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-MING-ZHU-YOUCHENG::SECOND_B2::MATERIAL::EV-HZ-B2-01",
@@ -7202,9 +7207,9 @@
       "material_id": "EV-HZ-B2-01",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "跨年议政、灾政求言和采纳减免共同闭合持续反馈开放。",
-      "scoring_parent_id": "C5-P055-OPEN-FEEDBACK"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "日讲、求言、议政和灾政反馈证明B2运行，不单独证明C5自我约束。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-MING-ZHU-YOUJIAN::FIFTH_A::FACT::FACT-A76ABBBC3885A07A",
@@ -8504,9 +8509,9 @@
       "material_id": "EV022",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/01-A制度建设与实际运行方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "谏院与监察独立构成制度反馈正链。",
-      "scoring_parent_id": "C5-P064-FEEDBACK"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "谏院、监察独立和外官引对只证明制度接口，未闭合本人接受不利约束。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-NS-LIU-E::SECOND_A::MATERIAL::EV023",
@@ -8518,9 +8523,9 @@
       "material_id": "EV023",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/01-A制度建设与实际运行方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "谏院与监察独立构成制度反馈正链。",
-      "scoring_parent_id": "C5-P064-FEEDBACK"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "谏院、监察独立和外官引对只证明制度接口，未闭合本人接受不利约束。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-NS-LIU-E::SECOND_A::MATERIAL::EV024",
@@ -8616,9 +8621,9 @@
       "material_id": "NS-LE-V035-CENSOR-INDEPENDENCE",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "谏院与监察独立构成制度反馈正链。",
-      "scoring_parent_id": "C5-P064-FEEDBACK"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "谏院、监察独立和外官引对只证明制度接口，未闭合本人接受不利约束。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-NS-LIU-E::SECOND_B2::MATERIAL::NS-LE-V036-DIRECT-AUDIENCE",
@@ -8630,9 +8635,9 @@
       "material_id": "NS-LE-V036-DIRECT-AUDIENCE",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "谏院与监察独立构成制度反馈正链。",
-      "scoring_parent_id": "C5-P064-FEEDBACK"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "谏院、监察独立和外官引对只证明制度接口，未闭合本人接受不利约束。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-NS-LIU-E::SECOND_B2::MATERIAL::NS-LE-V037-CAO-LIYONG-DEATH",
@@ -8924,9 +8929,9 @@
       "material_id": null,
       "equivalent_fact_id": "FACT-58DA655AB53A85F6",
       "source_artifact": "docs/评分结算/第五项统治者政治素质/03-C轴强制权力伦理正式结算.json",
-      "status": "SCORING_PARENT",
-      "reason": "高压谈判中拒割地并持续履约，命中承诺伦理。",
-      "scoring_parent_id": "C5-P066-TREATY"
+      "status": "AXIS_OUT_WITH_REASON",
+      "reason": "高压谈判与履约属于M2外交信用，不是C5权力克制。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-NS-ZHAO-HENG::SECOND_A::MATERIAL::EV015",
@@ -8953,8 +8958,8 @@
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/01-A制度建设与实际运行方向卡.json",
       "status": "SCORING_PARENT",
-      "reason": "提刑狱、转对、银台与末年遮蔽共同闭合反馈生命周期。",
-      "scoring_parent_id": "C5-P066-FEEDBACK"
+      "reason": "渠道存在只作背景，末年遮蔽且未恢复的切片进入C5负链。",
+      "scoring_parent_id": "C5-P066-LATE-CAPTURE"
     },
     {
       "unit_id": "C5-CURRENT::RULER-NS-ZHAO-HENG::SECOND_A::MATERIAL::EV018",
@@ -8967,8 +8972,8 @@
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/01-A制度建设与实际运行方向卡.json",
       "status": "SCORING_PARENT",
-      "reason": "提刑狱、转对、银台与末年遮蔽共同闭合反馈生命周期。",
-      "scoring_parent_id": "C5-P066-FEEDBACK"
+      "reason": "渠道存在只作背景，末年遮蔽且未恢复的切片进入C5负链。",
+      "scoring_parent_id": "C5-P066-LATE-CAPTURE"
     },
     {
       "unit_id": "C5-CURRENT::RULER-NS-ZHAO-HENG::SECOND_A::MATERIAL::EV019",
@@ -8995,8 +9000,8 @@
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/01-A制度建设与实际运行方向卡.json",
       "status": "SCORING_PARENT",
-      "reason": "提刑狱、转对、银台与末年遮蔽共同闭合反馈生命周期。",
-      "scoring_parent_id": "C5-P066-FEEDBACK"
+      "reason": "渠道存在只作背景，末年遮蔽且未恢复的切片进入C5负链。",
+      "scoring_parent_id": "C5-P066-LATE-CAPTURE"
     },
     {
       "unit_id": "C5-CURRENT::RULER-NS-ZHAO-HENG::SECOND_A::MATERIAL::EV067",
@@ -9009,8 +9014,8 @@
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/01-A制度建设与实际运行方向卡.json",
       "status": "SCORING_PARENT",
-      "reason": "提刑狱、转对、银台与末年遮蔽共同闭合反馈生命周期。",
-      "scoring_parent_id": "C5-P066-FEEDBACK"
+      "reason": "渠道存在只作背景，末年遮蔽且未恢复的切片进入C5负链。",
+      "scoring_parent_id": "C5-P066-LATE-CAPTURE"
     },
     {
       "unit_id": "C5-CURRENT::RULER-NS-ZHAO-HENG::SECOND_A::MATERIAL::I2-NSONG-ZH-TRANSCRIPTION-INSTITUTE-001",
@@ -9079,8 +9084,8 @@
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json",
       "status": "SCORING_PARENT",
-      "reason": "提刑狱、转对、银台与末年遮蔽共同闭合反馈生命周期。",
-      "scoring_parent_id": "C5-P066-FEEDBACK"
+      "reason": "渠道存在只作背景，末年遮蔽且未恢复的切片进入C5负链。",
+      "scoring_parent_id": "C5-P066-LATE-CAPTURE"
     },
     {
       "unit_id": "C5-CURRENT::RULER-NS-ZHAO-HENG::SECOND_B2::MATERIAL::NS-ZH-V022-ROTATING-AUDIENCE",
@@ -9093,8 +9098,8 @@
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
       "status": "SCORING_PARENT",
-      "reason": "提刑狱、转对、银台与末年遮蔽共同闭合反馈生命周期。",
-      "scoring_parent_id": "C5-P066-FEEDBACK"
+      "reason": "渠道存在只作背景，末年遮蔽且未恢复的切片进入C5负链。",
+      "scoring_parent_id": "C5-P066-LATE-CAPTURE"
     },
     {
       "unit_id": "C5-CURRENT::RULER-NS-ZHAO-HENG::SECOND_B2::MATERIAL::NS-ZH-V023-SILVER-TERRACE",
@@ -9107,8 +9112,8 @@
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
       "status": "SCORING_PARENT",
-      "reason": "提刑狱、转对、银台与末年遮蔽共同闭合反馈生命周期。",
-      "scoring_parent_id": "C5-P066-FEEDBACK"
+      "reason": "渠道存在只作背景，末年遮蔽且未恢复的切片进入C5负链。",
+      "scoring_parent_id": "C5-P066-LATE-CAPTURE"
     },
     {
       "unit_id": "C5-CURRENT::RULER-NS-ZHAO-HENG::SECOND_B2::MATERIAL::NS-ZH-V035-INFORMATION-CLOSURE",
@@ -9121,8 +9126,8 @@
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
       "status": "SCORING_PARENT",
-      "reason": "提刑狱、转对、银台与末年遮蔽共同闭合反馈生命周期。",
-      "scoring_parent_id": "C5-P066-FEEDBACK"
+      "reason": "渠道存在只作背景，末年遮蔽且未恢复的切片进入C5负链。",
+      "scoring_parent_id": "C5-P066-LATE-CAPTURE"
     },
     {
       "unit_id": "C5-CURRENT::RULER-NS-ZHAO-JI::FIFTH_A::FACT::FACT-C2EC93F99A683FAB",
@@ -9400,9 +9405,9 @@
       "material_id": null,
       "equivalent_fact_id": "FACT-853D4DA46CD664E4",
       "source_artifact": "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json",
-      "status": "SCORING_PARENT",
-      "reason": "基层复核、轮对与地方独报形成持续反馈正链。",
-      "scoring_parent_id": "C5-P068-FEEDBACK"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "转对、通判独报、轮对和基层申诉只证明B1/B2信息接口运行，不单独证明最高权力接受不利约束。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-NS-ZHAO-KUANGYIN::FIFTH_B::FACT::FACT-39DD804F30873EC6",
@@ -9429,8 +9434,8 @@
       "equivalent_fact_id": "FACT-0347089985F78A4A",
       "source_artifact": "docs/评分结算/第五项统治者政治素质/03-C轴强制权力伦理正式结算.json",
       "status": "SCORING_PARENT",
-      "reason": "跨敌对阵营保护、疑案核验与冤死报复反证共同裁权力比例。",
-      "scoring_parent_id": "C5-P068-PROTECTION"
+      "reason": "疑案核验与张琼冤死共同闭合惩罚比例的跨案混合链。",
+      "scoring_parent_id": "C5-P068-PUNISHMENT-REVIEW"
     },
     {
       "unit_id": "C5-CURRENT::RULER-NS-ZHAO-KUANGYIN::FIFTH_C::FACT::FACT-7459E54C75202747",
@@ -9443,8 +9448,8 @@
       "equivalent_fact_id": "FACT-7459E54C75202747",
       "source_artifact": "docs/评分结算/第五项统治者政治素质/03-C轴强制权力伦理正式结算.json",
       "status": "SCORING_PARENT",
-      "reason": "跨敌对阵营保护、疑案核验与冤死报复反证共同裁权力比例。",
-      "scoring_parent_id": "C5-P068-PROTECTION"
+      "reason": "跨敌对阵营保护忠直者与最初报复风险共同闭合异议安全链。",
+      "scoring_parent_id": "C5-P068-DISSENT-PROTECTION"
     },
     {
       "unit_id": "C5-CURRENT::RULER-NS-ZHAO-KUANGYIN::SECOND_A::MATERIAL::EV001",
@@ -9554,9 +9559,9 @@
       "material_id": "NS-ZK-V002-REVIEW-ACCOUNTABILITY",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "基层复核、轮对与地方独报形成持续反馈正链。",
-      "scoring_parent_id": "C5-P068-FEEDBACK"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "转对、通判独报、轮对和基层申诉只证明B1/B2信息接口运行，不单独证明最高权力接受不利约束。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-NS-ZHAO-KUANGYIN::SECOND_B1::MATERIAL::NS-ZK-V002-SPONSOR-LIABILITY",
@@ -9582,9 +9587,9 @@
       "material_id": "NS-ZK-V003-TONGPAN-DUAL",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "基层复核、轮对与地方独报形成持续反馈正链。",
-      "scoring_parent_id": "C5-P068-FEEDBACK"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "转对、通判独报、轮对和基层申诉只证明B1/B2信息接口运行，不单独证明最高权力接受不利约束。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-NS-ZHAO-KUANGYIN::SECOND_B2::MATERIAL::NS-ZK-V002-REVIEW-ACCOUNTABILITY",
@@ -9596,9 +9601,9 @@
       "material_id": "NS-ZK-V002-REVIEW-ACCOUNTABILITY",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "基层复核、轮对与地方独报形成持续反馈正链。",
-      "scoring_parent_id": "C5-P068-FEEDBACK"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "转对、通判独报、轮对和基层申诉只证明B1/B2信息接口运行，不单独证明最高权力接受不利约束。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-NS-ZHAO-KUANGYIN::SECOND_B2::MATERIAL::NS-ZK-V002-ROTATING-AUDIENCE",
@@ -9610,9 +9615,9 @@
       "material_id": "NS-ZK-V002-ROTATING-AUDIENCE",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "基层复核、轮对与地方独报形成持续反馈正链。",
-      "scoring_parent_id": "C5-P068-FEEDBACK"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "转对、通判独报、轮对和基层申诉只证明B1/B2信息接口运行，不单独证明最高权力接受不利约束。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-NS-ZHAO-KUANGYIN::SECOND_B2::MATERIAL::NS-ZK-V003-TONGPAN-DUAL",
@@ -9624,9 +9629,9 @@
       "material_id": "NS-ZK-V003-TONGPAN-DUAL",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "基层复核、轮对与地方独报形成持续反馈正链。",
-      "scoring_parent_id": "C5-P068-FEEDBACK"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "转对、通判独报、轮对和基层申诉只证明B1/B2信息接口运行，不单独证明最高权力接受不利约束。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-NS-ZHAO-KUANGYIN::SECOND_B2::MATERIAL::NS-ZK-V005-REMONSTRANCE-RETALIATION",
@@ -9639,8 +9644,8 @@
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
       "status": "SCORING_PARENT",
-      "reason": "跨敌对阵营保护、疑案核验与冤死报复反证共同裁权力比例。",
-      "scoring_parent_id": "C5-P068-PROTECTION"
+      "reason": "跨敌对阵营保护忠直者与最初报复风险共同闭合异议安全链。",
+      "scoring_parent_id": "C5-P068-DISSENT-PROTECTION"
     },
     {
       "unit_id": "C5-CURRENT::RULER-NS-ZHAO-SHU::FIFTH_B::FACT::FACT-E161249F3036E507",
@@ -11724,9 +11729,9 @@
       "material_id": null,
       "equivalent_fact_id": "FACT-FDF53FA541D96ED4",
       "source_artifact": "docs/评分结算/第五项统治者政治素质/02-B轴用人与授权正式结算.json",
-      "status": "SCORING_PARENT",
-      "reason": "打破权臣信息俘获并恢复直达奏事闭合正向父链。",
-      "scoring_parent_id": "C5-P081-HESHEN"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "清算和珅并恢复奏事属于权力重组与B2背景，不等于本人受约束。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-PUBLIC-93F6E8CA07BBD59F::FIFTH_C::FACT::FACT-BF8BD4BD01C2E4D3",
@@ -11766,9 +11771,9 @@
       "material_id": "MAT-QING-8FFC563FB8F0C892",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/01-A制度建设与实际运行方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "打破权臣信息俘获并恢复直达奏事闭合正向父链。",
-      "scoring_parent_id": "C5-P081-HESHEN"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "清算和珅并恢复奏事属于权力重组与B2背景，不等于本人受约束。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-PUBLIC-93F6E8CA07BBD59F::SECOND_A::MATERIAL::MAT-QING-92475FEE7A54A4F8",
@@ -11808,9 +11813,9 @@
       "material_id": "MAT-QING-C89BEE9B1B0DCD9C",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "打破权臣信息俘获并恢复直达奏事闭合正向父链。",
-      "scoring_parent_id": "C5-P081-HESHEN"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "清算和珅并恢复奏事属于权力重组与B2背景，不等于本人受约束。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-PUBLIC-93F6E8CA07BBD59F::SECOND_B1::MATERIAL::MAT-QING-FA5841023DF54613",
@@ -11836,9 +11841,9 @@
       "material_id": "MAT-QING-85A95908D79CE2DB",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "打破权臣信息俘获并恢复直达奏事闭合正向父链。",
-      "scoring_parent_id": "C5-P081-HESHEN"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "清算和珅并恢复奏事属于权力重组与B2背景，不等于本人受约束。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-PUBLIC-93F6E8CA07BBD59F::SECOND_B2::MATERIAL::MAT-QING-BD84EFEA99A133CD",
@@ -11850,9 +11855,9 @@
       "material_id": "MAT-QING-BD84EFEA99A133CD",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "打破权臣信息俘获并恢复直达奏事闭合正向父链。",
-      "scoring_parent_id": "C5-P081-HESHEN"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "清算和珅并恢复奏事属于权力重组与B2背景，不等于本人受约束。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-PUBLIC-93F6E8CA07BBD59F::SECOND_B2::MATERIAL::MAT-QING-D59498C86EC0B25B",
@@ -11864,9 +11869,9 @@
       "material_id": "MAT-QING-D59498C86EC0B25B",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "打破权臣信息俘获并恢复直达奏事闭合正向父链。",
-      "scoring_parent_id": "C5-P081-HESHEN"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "清算和珅并恢复奏事属于权力重组与B2背景，不等于本人受约束。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-PUBLIC-AD29E67DF9E98569::FIFTH_A::FACT::FACT-12CF02F1B22C668A",
@@ -15925,7 +15930,7 @@
       "equivalent_fact_id": "FACT-06624C09CFDE42C5",
       "source_artifact": "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json",
       "status": "SCORING_PARENT",
-      "reason": "劝止后复发、律外用刑与深文执行按同一反转父链消费。",
+      "reason": "B2与本地法律主入口共同闭合宫廷杖杀、告密诱捕、微罪极刑和深文酷吏跨年复发。",
       "scoring_parent_id": "C5-P119-LATE-BREACH"
     },
     {
@@ -15953,7 +15958,7 @@
       "equivalent_fact_id": "FACT-A9EAB70D340FF1B5",
       "source_artifact": "docs/评分结算/第五项统治者政治素质/02-B轴用人与授权正式结算.json",
       "status": "SCORING_PARENT",
-      "reason": "劝止后复发、律外用刑与深文执行按同一反转父链消费。",
+      "reason": "B2与本地法律主入口共同闭合宫廷杖杀、告密诱捕、微罪极刑和深文酷吏跨年复发。",
       "scoring_parent_id": "C5-P119-LATE-BREACH"
     },
     {
@@ -15995,7 +16000,7 @@
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/01-A制度建设与实际运行方向卡.json",
       "status": "SCORING_PARENT",
-      "reason": "制度只有在覆核、进谏和改判实际约束本人时计正。",
+      "reason": "简律复核、劝止运行及赵绰抗辩使来旷由死改流共同闭合有限正向约束。",
       "scoring_parent_id": "C5-P119-EARLY-LAW"
     },
     {
@@ -16121,7 +16126,7 @@
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/01-A制度建设与实际运行方向卡.json",
       "status": "SCORING_PARENT",
-      "reason": "制度只有在覆核、进谏和改判实际约束本人时计正。",
+      "reason": "简律复核、劝止运行及赵绰抗辩使来旷由死改流共同闭合有限正向约束。",
       "scoring_parent_id": "C5-P119-EARLY-LAW"
     },
     {
@@ -16205,7 +16210,7 @@
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
       "status": "SCORING_PARENT",
-      "reason": "制度只有在覆核、进谏和改判实际约束本人时计正。",
+      "reason": "简律复核、劝止运行及赵绰抗辩使来旷由死改流共同闭合有限正向约束。",
       "scoring_parent_id": "C5-P119-EARLY-LAW"
     },
     {
@@ -16233,7 +16238,7 @@
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
       "status": "SCORING_PARENT",
-      "reason": "制度只有在覆核、进谏和改判实际约束本人时计正。",
+      "reason": "简律复核、劝止运行及赵绰抗辩使来旷由死改流共同闭合有限正向约束。",
       "scoring_parent_id": "C5-P119-EARLY-LAW"
     },
     {
@@ -16275,7 +16280,7 @@
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
       "status": "SCORING_PARENT",
-      "reason": "劝止后复发、律外用刑与深文执行按同一反转父链消费。",
+      "reason": "B2与本地法律主入口共同闭合宫廷杖杀、告密诱捕、微罪极刑和深文酷吏跨年复发。",
       "scoring_parent_id": "C5-P119-LATE-BREACH"
     },
     {
@@ -16484,9 +16489,9 @@
       "material_id": null,
       "equivalent_fact_id": "FACT-0AAEE4EF0B2C8938",
       "source_artifact": "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json",
-      "status": "SCORING_PARENT",
-      "reason": "宽宥任用与跨领域采纳合并为恢复链。",
-      "scoring_parent_id": "C5-P121-UPDATE"
+      "status": "AXIS_OUT_WITH_REASON",
+      "reason": "宽宥任用与跨领域采纳主要属于C2/C3，不能作为C5 MI3正证。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-SHADOW-杨行密::FIFTH_A::FACT::FACT-2E176731FE949BF3",
@@ -16554,9 +16559,9 @@
       "material_id": "I2-FD-MAT-82FCB0CE65403A36",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "宽宥任用与跨领域采纳合并为恢复链。",
-      "scoring_parent_id": "C5-P121-UPDATE"
+      "status": "AXIS_OUT_WITH_REASON",
+      "reason": "宽宥任用与跨领域采纳主要属于C2/C3，不能作为C5 MI3正证。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-SHADOW-杨行密::SECOND_B1::MATERIAL::I2-FD-MAT-B127B8914FF8EE65",
@@ -16596,9 +16601,9 @@
       "material_id": "I2-FD-MAT-82FCB0CE65403A36",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "宽宥任用与跨领域采纳合并为恢复链。",
-      "scoring_parent_id": "C5-P121-UPDATE"
+      "status": "AXIS_OUT_WITH_REASON",
+      "reason": "宽宥任用与跨领域采纳主要属于C2/C3，不能作为C5 MI3正证。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-SHADOW-杨行密::SECOND_B2::MATERIAL::I2-FD-MAT-CE0348AAEB9FC7D5",
@@ -17044,9 +17049,9 @@
       "material_id": null,
       "equivalent_fact_id": "FACT-9F60FCD465F8A7E5",
       "source_artifact": "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json",
-      "status": "SCORING_PARENT",
-      "reason": "第五项事实同时含反馈例程与拒绝警告；主单元归入跨阶段负链，正链由B2独立闭合。",
-      "scoring_parent_id": "C5-P126-INVASION"
+      "status": "AXIS_OUT_WITH_REASON",
+      "reason": "伐晋与族群风险警告属于C1/C2/M1，不评价惩罚、特权或异议安全。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-SHADOW-苻坚::FIFTH_B::FACT::FACT-0B53B82068C776EB",
@@ -17157,8 +17162,8 @@
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
       "status": "SCORING_PARENT",
-      "reason": "固定频率反馈且有停止长猎实例。",
-      "scoring_parent_id": "C5-P126-ROUTINE"
+      "reason": "反馈例程只作背景，停止长猎的私人便利收束进入C5父链。",
+      "scoring_parent_id": "C5-P126-HUNT"
     },
     {
       "unit_id": "C5-CURRENT::RULER-SHADOW-苻坚::SECOND_B2::MATERIAL::I2-SK-FUJIAN-HISTORIOGRAPHY-SUPPRESSION-001",
@@ -17198,9 +17203,9 @@
       "material_id": "I2-SK-FUJIAN-JIN-INVASION-FEEDBACK-FAILURE-M3-AUDIT",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "第五项事实同时含反馈例程与拒绝警告；主单元归入跨阶段负链，正链由B2独立闭合。",
-      "scoring_parent_id": "C5-P126-INVASION"
+      "status": "AXIS_OUT_WITH_REASON",
+      "reason": "伐晋与族群风险警告属于C1/C2/M1，不评价惩罚、特权或异议安全。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-SHADOW-萧衍::FIFTH_A::FACT::FACT-B7B600AF5710ADBA",
@@ -17632,9 +17637,9 @@
       "material_id": "I2-FD-MAT-1C023A8E1BF29143",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "正反反馈事项合并评价稳定性。",
-      "scoring_parent_id": "C5-P131-ADVICE"
+      "status": "AXIS_OUT_WITH_REASON",
+      "reason": "危机采策与军心预警属于C2/M2判断，不评价惩罚、特权或异议者安全。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-SHADOW-钱镠::SECOND_B2::MATERIAL::I2-FD-MAT-7C5C0B5300DC000D",
@@ -17646,9 +17651,9 @@
       "material_id": "I2-FD-MAT-7C5C0B5300DC000D",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "正反反馈事项合并评价稳定性。",
-      "scoring_parent_id": "C5-P131-ADVICE"
+      "status": "AXIS_OUT_WITH_REASON",
+      "reason": "危机采策与军心预警属于C2/M2判断，不评价惩罚、特权或异议者安全。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-SHADOW-陈叔宝::FIFTH_B::FACT::FACT-5A680F7CF3C038AA",
@@ -17954,9 +17959,9 @@
       "material_id": "I2-FD-MAT-277791A5B8763FF5",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/01-A制度建设与实际运行方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "跨财政和外交事项采纳按持续接口消费。",
-      "scoring_parent_id": "C5-P135-ADVICE"
+      "status": "AXIS_OUT_WITH_REASON",
+      "reason": "财政与外交建议进入政策属于C2/M3/M2，不证明C5边界。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-SHADOW-马殷::SECOND_A::MATERIAL::I2-FD-MAT-BBE6738BD2CD0CAB",
@@ -17982,9 +17987,9 @@
       "material_id": "I2-FD-MAT-277791A5B8763FF5",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "跨财政和外交事项采纳按持续接口消费。",
-      "scoring_parent_id": "C5-P135-ADVICE"
+      "status": "AXIS_OUT_WITH_REASON",
+      "reason": "财政与外交建议进入政策属于C2/M3/M2，不证明C5边界。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-SHADOW-马殷::SECOND_B1::MATERIAL::I2-FD-MAT-8E0EB741C66A0FE0",
@@ -18024,9 +18029,9 @@
       "material_id": "I2-FD-MAT-277791A5B8763FF5",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "跨财政和外交事项采纳按持续接口消费。",
-      "scoring_parent_id": "C5-P135-ADVICE"
+      "status": "AXIS_OUT_WITH_REASON",
+      "reason": "财政与外交建议进入政策属于C2/M3/M2，不证明C5边界。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-SHADOW-马殷::SECOND_B2::MATERIAL::I2-FD-MAT-8E0EB741C66A0FE0",
@@ -18052,9 +18057,9 @@
       "material_id": "I2-FD-MAT-C0C638716C5E9A97",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "跨财政和外交事项采纳按持续接口消费。",
-      "scoring_parent_id": "C5-P135-ADVICE"
+      "status": "AXIS_OUT_WITH_REASON",
+      "reason": "财政与外交建议进入政策属于C2/M3/M2，不证明C5边界。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-SHADOW-高季兴::FIFTH_A::FACT::FACT-732FE1DD34FC16D7",
@@ -18122,9 +18127,9 @@
       "material_id": "I2-FD-MAT-27D9358C30AAA7D6",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "长期咨议和一次撤销行动共同闭合正链。",
-      "scoring_parent_id": "C5-P136-ADVICE"
+      "status": "AXIS_OUT_WITH_REASON",
+      "reason": "参谋意见与撤销战争属于C2/M1，不评价C5。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-SHADOW-高季兴::SECOND_B1::MATERIAL::I2-FD-MAT-66BE6127A5286835",
@@ -18150,9 +18155,9 @@
       "material_id": "I2-FD-MAT-27D9358C30AAA7D6",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "长期咨议和一次撤销行动共同闭合正链。",
-      "scoring_parent_id": "C5-P136-ADVICE"
+      "status": "AXIS_OUT_WITH_REASON",
+      "reason": "参谋意见与撤销战争属于C2/M1，不评价C5。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-SHADOW-高季兴::SECOND_B2::MATERIAL::I2-FD-MAT-66BE6127A5286835",
@@ -18178,9 +18183,9 @@
       "material_id": "I2-FD-MAT-D865E723FE5258A2",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "长期咨议和一次撤销行动共同闭合正链。",
-      "scoring_parent_id": "C5-P136-ADVICE"
+      "status": "AXIS_OUT_WITH_REASON",
+      "reason": "参谋意见与撤销战争属于C2/M1，不评价C5。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-SHADOW-高欢::FIFTH_A::FACT::FACT-77FA433BAB84EFD3",
@@ -19606,9 +19611,9 @@
       "material_id": null,
       "equivalent_fact_id": "FACT-48863FD4C351CF26",
       "source_artifact": "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json",
-      "status": "SCORING_PARENT",
-      "reason": "同一宦官限制失败与复议正反事实按父链分流；复议主正链由B2闭合，本单元归结构反证。",
-      "scoring_parent_id": "C5-P148-EUNUCH"
+      "status": "AXIS_OUT_WITH_REASON",
+      "reason": "限制宦官的秘密方案泄露失败属于权力结构与执行失败，未闭合C5惩罚或自缚命题。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-TANG-LICHEN::FIFTH_B::FACT::FACT-45C3B13E22935F11",
@@ -19662,9 +19667,9 @@
       "material_id": "MC-TANG-XUANZONG-EUNUCH-LIMIT",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "同一宦官限制失败与复议正反事实按父链分流；复议主正链由B2闭合，本单元归结构反证。",
-      "scoring_parent_id": "C5-P148-EUNUCH"
+      "status": "AXIS_OUT_WITH_REASON",
+      "reason": "限制宦官的秘密方案泄露失败属于权力结构与执行失败，未闭合C5惩罚或自缚命题。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-TANG-LICHEN::SECOND_B2::MATERIAL::MC-TANG-XUANZONG-EUNUCH-LIMIT",
@@ -19676,9 +19681,9 @@
       "material_id": "MC-TANG-XUANZONG-EUNUCH-LIMIT",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "同一宦官限制失败与复议正反事实按父链分流；复议主正链由B2闭合，本单元归结构反证。",
-      "scoring_parent_id": "C5-P148-EUNUCH"
+      "status": "AXIS_OUT_WITH_REASON",
+      "reason": "限制宦官的秘密方案泄露失败属于权力结构与执行失败，未闭合C5惩罚或自缚命题。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-TANG-LICHEN::SECOND_B2::MATERIAL::MC-TANG-XUANZONG-FEEDBACK-M2-M3-02-AUDIT",
@@ -22308,9 +22313,9 @@
       "material_id": null,
       "equivalent_fact_id": "FACT-897FC0B167117752",
       "source_artifact": "docs/评分结算/第五项统治者政治素质/02-B轴用人与授权正式结算.json",
-      "status": "SCORING_PARENT",
-      "reason": "权臣俘获—证据到达—收权—任用修复完整链。",
-      "scoring_parent_id": "C5-P175-RECOVER"
+      "status": "AXIS_OUT_WITH_REASON",
+      "reason": "受胁让权后收权和任用修复属于C3/M4，不评价C5自我约束。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-XIXIA-LIRENXIAO::FIFTH_C::FACT::FACT-EB849D057E086E3D",
@@ -23470,9 +23475,9 @@
       "material_id": "AUDIT-TEMUR-B1-AUDIT-RAW",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "跨区监察与税负纠正实际运行。",
-      "scoring_parent_id": "C5-P183-AUDIT"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "跨区监察与税负纠正属于一般行政治理，不独立证明最高权力自缚。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-YUAN-TEMUR::SECOND_B1::MATERIAL::AUDIT-TEMUR-B1-LATE-RAW",
@@ -23512,9 +23517,9 @@
       "material_id": "AUDIT-TEMUR-B2-TAX-CORRECTION-RAW",
       "equivalent_fact_id": null,
       "source_artifact": "docs/评分结算/第二项治国净收益/制度行政/03-B2反馈纠错与权力约束方向卡.json",
-      "status": "SCORING_PARENT",
-      "reason": "跨区监察与税负纠正实际运行。",
-      "scoring_parent_id": "C5-P183-AUDIT"
+      "status": "BACKGROUND_VALIDATION",
+      "reason": "跨区监察与税负纠正属于一般行政治理，不独立证明最高权力自缚。",
+      "scoring_parent_id": null
     },
     {
       "unit_id": "C5-CURRENT::RULER-YUAN-TOGHON-TEMUR::FIFTH_A::FACT::FACT-5D0DFB264F995A1B",
@@ -23781,10 +23786,66 @@
       "status": "SCORING_PARENT",
       "reason": "新交钞、首都、哈麻与脱脱反馈链按后期系统崩坏合并。",
       "scoring_parent_id": "C5-P184-COLLAPSE"
+    },
+    {
+      "unit_id": "C5-CURRENT::RULER-SHADOW-杨坚::LOCAL_LEGAL_REGISTRY::MATERIAL::LAW-16-005",
+      "ruler_id": "RULER-SHADOW-杨坚",
+      "ruler_name": "杨坚",
+      "sequence": 119,
+      "entry": "LOCAL_LEGAL_REGISTRY",
+      "unit_kind": "STABLE_MATERIAL_ID",
+      "material_id": "LAW-16-005",
+      "equivalent_fact_id": null,
+      "source_artifact": "docs/公共成果/法律/联合统筹/01-秦至清法律治理联合底账.md",
+      "status": "SCORING_PARENT",
+      "reason": "B2与本地法律主入口共同闭合宫廷杖杀、告密诱捕、微罪极刑和深文酷吏跨年复发。",
+      "scoring_parent_id": "C5-P119-LATE-BREACH"
+    },
+    {
+      "unit_id": "C5-CURRENT::RULER-SHADOW-杨坚::LOCAL_LEGAL_REGISTRY::MATERIAL::LAW-16-006",
+      "ruler_id": "RULER-SHADOW-杨坚",
+      "ruler_name": "杨坚",
+      "sequence": 119,
+      "entry": "LOCAL_LEGAL_REGISTRY",
+      "unit_kind": "STABLE_MATERIAL_ID",
+      "material_id": "LAW-16-006",
+      "equivalent_fact_id": null,
+      "source_artifact": "docs/公共成果/法律/联合统筹/01-秦至清法律治理联合底账.md",
+      "status": "SCORING_PARENT",
+      "reason": "B2与本地法律主入口共同闭合宫廷杖杀、告密诱捕、微罪极刑和深文酷吏跨年复发。",
+      "scoring_parent_id": "C5-P119-LATE-BREACH"
+    },
+    {
+      "unit_id": "C5-CURRENT::RULER-SHADOW-杨坚::LOCAL_LEGAL_REGISTRY::MATERIAL::LAW-16-007",
+      "ruler_id": "RULER-SHADOW-杨坚",
+      "ruler_name": "杨坚",
+      "sequence": 119,
+      "entry": "LOCAL_LEGAL_REGISTRY",
+      "unit_kind": "STABLE_MATERIAL_ID",
+      "material_id": "LAW-16-007",
+      "equivalent_fact_id": null,
+      "source_artifact": "docs/公共成果/法律/联合统筹/01-秦至清法律治理联合底账.md",
+      "status": "SCORING_PARENT",
+      "reason": "B2与本地法律主入口共同闭合宫廷杖杀、告密诱捕、微罪极刑和深文酷吏跨年复发。",
+      "scoring_parent_id": "C5-P119-LATE-BREACH"
+    },
+    {
+      "unit_id": "C5-CURRENT::RULER-SHADOW-杨坚::LOCAL_LEGAL_REGISTRY::MATERIAL::LAW-16-008",
+      "ruler_id": "RULER-SHADOW-杨坚",
+      "ruler_name": "杨坚",
+      "sequence": 119,
+      "entry": "LOCAL_LEGAL_REGISTRY",
+      "unit_kind": "STABLE_MATERIAL_ID",
+      "material_id": "LAW-16-008",
+      "equivalent_fact_id": null,
+      "source_artifact": "docs/公共成果/法律/联合统筹/01-秦至清法律治理联合底账.md",
+      "status": "SCORING_PARENT",
+      "reason": "简律复核、劝止运行及赵绰抗辩使来旷由死改流共同闭合有限正向约束。",
+      "scoring_parent_id": "C5-P119-EARLY-LAW"
     }
   ],
   "contract_version": "FORMAL-V1.0",
-  "contract_sha256": "f95915a9274acbdfe4f381d43e6e666f62fd3f25075e86efe15bb11e13b9f36a",
+  "contract_sha256": "11a0b60464214c125a6805b68dc83b95ecb75135500bcea8cbe11cc6d2af76aa",
   "canonical_status": "FORMAL_CURRENT_AUDIT",
   "axis_code": "C5",
   "formal_settlement": "02-C5权力运用风格与克制正式结算.json",

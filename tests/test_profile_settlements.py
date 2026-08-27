@@ -104,14 +104,14 @@ def test_c5_unit_dispositions_are_complete_and_do_not_score_background() -> None
     audit = _load(PROFILE_ROOT / "04-C5主要入口单元处置审计.json")
     units = audit["units"]
     assert audit["canonical_status"] == "FORMAL_CURRENT_AUDIT"
-    assert audit["unit_count"] == len(units) == 1676
-    assert len({unit["unit_id"] for unit in units}) == 1676
+    assert audit["unit_count"] == len(units) == 1680
+    assert len({unit["unit_id"] for unit in units}) == 1680
     assert set(audit["status_counts"]) == {
         "SCORING_PARENT",
         "BACKGROUND_VALIDATION",
         "AXIS_OUT_WITH_REASON",
     }
-    assert sum(audit["status_counts"].values()) == 1676
+    assert sum(audit["status_counts"].values()) == 1680
     assert all(unit["status"] != "UNRESOLVED_GAP" for unit in units)
     assert all(
         (unit["status"] == "SCORING_PARENT") == bool(unit["scoring_parent_id"])
@@ -445,16 +445,24 @@ def test_c5_density_limited_high_grades_are_published_at_supported_level() -> No
     audit = _load(PROFILE_ROOT / "07-C5高档与证据门结构复核.json")
     by_name = {record["ruler_name"]: record for record in settlement["records"]}
     assert settlement["summary"]["grade_distribution"] == {
-        "G0": 27, "G1": 39, "G2": 47, "G3": 59, "G4": 9, "G5": 3
+        "G0": 27, "G1": 39, "G2": 53, "G3": 54, "G4": 8, "G5": 3
     }
-    assert len(audit["density_limited_high_grade_changes"]) == 4
+    assert len(audit["density_limited_high_grade_changes"]) == 1
     assert len(audit["evidence_gate_changes"]) == 5
-    for name in ("李昪", "刘肇", "钱镠", "李忱"):
-        record = by_name[name]
-        assert (record["axis_grade"], record["position"], record["radar_value"]) == ("G3", "HIGH", 71)
-        assert record["latent_high_grade_hypothesis"] == {
-            "axis_grade": "G4", "position": "LOW", "status": "MATERIAL_DENSITY_LIMITED"
-        }
+    record = by_name["李昪"]
+    assert (record["axis_grade"], record["position"], record["radar_value"]) == ("G3", "HIGH", 71)
+    assert record["latent_high_grade_hypothesis"] == {
+        "axis_grade": "G4", "position": "LOW", "status": "MATERIAL_DENSITY_LIMITED"
+    }
+
+
+def test_c2_c5_joint_boundary_and_strength_review_is_closed() -> None:
+    from emperor_v4.evaluation.profile_c2_c5_verifier import verify
+
+    result = verify()
+    assert result["status"] == "PASS"
+    assert result["record_count"] == 184
+    assert result["c5_unit_count"] == 1680
 
 
 def test_profile_audit_sidecars_match_current_axis_grades() -> None:

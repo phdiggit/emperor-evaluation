@@ -1,7 +1,7 @@
 {
-  "schema_version": "emperor-profile-c5-formal-settlement-v1",
+  "schema_version": "emperor-profile-c5-formal-settlement-v2",
   "contract_version": "FORMAL-V1.0",
-  "contract_sha256": "f95915a9274acbdfe4f381d43e6e666f62fd3f25075e86efe15bb11e13b9f36a",
+  "contract_sha256": "11a0b60464214c125a6805b68dc83b95ecb75135500bcea8cbe11cc6d2af76aa",
   "canonical_status": "FORMAL_CURRENT",
   "axis_code": "C5",
   "axis_name": "权力运用风格与克制",
@@ -30,33 +30,32 @@
     "grade_distribution": {
       "G0": 27,
       "G1": 39,
-      "G2": 47,
-      "G3": 59,
-      "G4": 9,
+      "G2": 53,
+      "G3": 54,
+      "G4": 8,
       "G5": 3
     },
     "position_distribution": {
-      "HIGH": 78,
-      "LOW": 52,
-      "MID": 54
+      "HIGH": 73,
+      "LOW": 54,
+      "MID": 57
     },
     "axis_evidence_distribution": {
-      "E1": 8,
-      "E2": 53,
-      "E3": 123
+      "E1": 11,
+      "E2": 59,
+      "E3": 114
     },
     "output_mode_distribution": {
-      "BOUNDED_PROFILE": 54,
-      "EPISODE_TAG": 1,
-      "EVIDENCE_LIMITED": 9,
-      "FULL_GRADE": 120
+      "BOUNDED_PROFILE": 59,
+      "EPISODE_TAG": 11,
+      "FULL_GRADE": 114
     },
     "confidence_distribution": {
-      "HIGH": 120,
-      "LOW": 8,
-      "MEDIUM": 56
+      "HIGH": 114,
+      "LOW": 11,
+      "MEDIUM": 59
     },
-    "density_limited_high_grade_reclassification_count": 4,
+    "density_limited_high_grade_reclassification_count": 1,
     "evidence_gate_reclassification_count": 5
   },
   "records": [
@@ -197,7 +196,7 @@
           "C5-P020-KIN-PUNISHMENT"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED"
     },
     {
       "sequence": 72,
@@ -336,7 +335,7 @@
           "C5-P072-JUSTICE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED"
     },
     {
       "sequence": 153,
@@ -503,7 +502,7 @@
           "C5-P153-IRREVERSIBLE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED"
     },
     {
       "sequence": 43,
@@ -631,7 +630,7 @@
           "C5-P043-BOHAI"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 34,
@@ -745,7 +744,7 @@
           "C5-P034-FORCED-MIGRATION"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED"
     },
     {
       "sequence": 68,
@@ -756,22 +755,22 @@
       "confidence": "HIGH",
       "output_mode": "FULL_GRADE",
       "score_status": "FINAL",
-      "typical_pattern": "常态多议题反馈、地方独立上报和跨敌对阵营保护忠直者稳定运行；张琼冤死与直指宰相者受报复形成不可逆反证。",
-      "grade_basis": "MI3制度反馈与MI3跨对象保护构成强长板，冤死和宫廷权力边界反证阻止更高位置。",
-      "position_basis": "覆盖广且有有效纠正，置G4中位。",
+      "typical_pattern": "转对与通判独报仅作信息背景；疑案核验限缩惩罚和跨敌对阵营保护忠直者分别复验，但张琼冤死及最初报复构成真实反证。",
+      "grade_basis": "两条独立MI3混合正向链分别命中惩罚比例与异议保护，B2渠道本身不计分；反证完整暴露后仍构成强长板。",
+      "position_basis": "张琼不可逆冤死与最初报复加深下沿，保留G4中位。",
       "limitations": [],
       "parents": [
         {
-          "parent_id": "C5-P068-FEEDBACK",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "转对、通判独报与基层申诉稳定运行。"
-        },
-        {
-          "parent_id": "C5-P068-PROTECTION",
+          "parent_id": "C5-P068-PUNISHMENT-REVIEW",
           "direction": "MIXED_POSITIVE",
           "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "跨敌对阵营保护忠直者，张琼冤死与报复为反证。"
+          "basis": "多起疑案先核验再限缩惩罚，张琼受诬拷死是不可逆反证。"
+        },
+        {
+          "parent_id": "C5-P068-DISSENT-PROTECTION",
+          "direction": "MIXED_POSITIVE",
+          "intensity": "MI3_SUSTAINED_SYSTEMIC",
+          "basis": "跨敌对阵营保护忠直者反复出现，最初击伤或报复风险构成同机制反证。"
         }
       ],
       "unit_groups": [
@@ -797,19 +796,25 @@
             "NS-ZK-V003-TONGPAN-DUAL",
             "FACT-853D4DA46CD664E4"
           ],
+          "status": "BACKGROUND_VALIDATION",
+          "reason": "转对、通判独报、轮对和基层申诉只证明B1/B2信息接口运行，不单独证明最高权力接受不利约束。"
+        },
+        {
+          "unit_ids": [
+            "FACT-0347089985F78A4A"
+          ],
           "status": "SCORING_PARENT",
-          "parent_id": "C5-P068-FEEDBACK",
-          "reason": "基层复核、轮对与地方独报形成持续反馈正链。"
+          "reason": "疑案核验与张琼冤死共同闭合惩罚比例的跨案混合链。",
+          "parent_id": "C5-P068-PUNISHMENT-REVIEW"
         },
         {
           "unit_ids": [
             "NS-ZK-V005-REMONSTRANCE-RETALIATION",
-            "FACT-0347089985F78A4A",
             "FACT-7459E54C75202747"
           ],
           "status": "SCORING_PARENT",
-          "parent_id": "C5-P068-PROTECTION",
-          "reason": "跨敌对阵营保护、疑案核验与冤死报复反证共同裁权力比例。"
+          "reason": "跨敌对阵营保护忠直者与最初报复风险共同闭合异议安全链。",
+          "parent_id": "C5-P068-DISSENT-PROTECTION"
         }
       ],
       "task_code": "PROFILE-C5-RULER-NS-ZHAO-KUANGYIN",
@@ -819,8 +824,8 @@
       "score_100": 82,
       "current_entry_unit_count": 18,
       "current_entry_disposition_counts": {
-        "BACKGROUND_VALIDATION": 9,
-        "SCORING_PARENT": 9
+        "BACKGROUND_VALIDATION": 15,
+        "SCORING_PARENT": 3
       },
       "axis_evidence_level": "E3",
       "grade_numeric": 4,
@@ -829,25 +834,24 @@
       "actual_power_window": "960-976",
       "representative_parent_contexts": [
         {
-          "parent_id": "C5-P068-FEEDBACK",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "转对、通判独报与基层申诉稳定运行。"
-        },
-        {
-          "parent_id": "C5-P068-PROTECTION",
+          "parent_id": "C5-P068-PUNISHMENT-REVIEW",
           "direction": "MIXED_POSITIVE",
           "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "跨敌对阵营保护忠直者，张琼冤死与报复为反证。"
+          "basis": "多起疑案先核验再限缩惩罚，张琼受诬拷死是不可逆反证。"
+        },
+        {
+          "parent_id": "C5-P068-DISSENT-PROTECTION",
+          "direction": "MIXED_POSITIVE",
+          "intensity": "MI3_SUSTAINED_SYSTEMIC",
+          "basis": "跨敌对阵营保护忠直者反复出现，最初击伤或报复风险构成同机制反证。"
         }
       ],
       "counterpattern": {
-        "positive_parent_refs": [
-          "C5-P068-FEEDBACK"
-        ],
+        "positive_parent_refs": [],
         "negative_parent_refs": [],
         "mixed_parent_refs": [
-          "C5-P068-PROTECTION"
+          "C5-P068-PUNISHMENT-REVIEW",
+          "C5-P068-DISSENT-PROTECTION"
         ]
       },
       "phase_profile": {
@@ -857,11 +861,11 @@
       "axis_relevance_check": {
         "status": "C5_RELEVANT",
         "scoring_parent_refs": [
-          "C5-P068-FEEDBACK",
-          "C5-P068-PROTECTION"
+          "C5-P068-PUNISHMENT-REVIEW",
+          "C5-P068-DISSENT-PROTECTION"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED"
     },
     {
       "sequence": 85,
@@ -966,7 +970,7 @@
           "C5-P085-HORSEMAN-KILLING"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 146,
@@ -1124,7 +1128,7 @@
           "C5-P146-LATE-FEAR"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 26,
@@ -1242,115 +1246,7 @@
           "C5-P026-DISSENT-THREAT"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
-    },
-    {
-      "sequence": 55,
-      "ruler_id": "RULER-MING-ZHU-YOUCHENG",
-      "ruler_name": "朱祐樘",
-      "axis_grade": "G4",
-      "position": "LOW",
-      "confidence": "HIGH",
-      "output_mode": "FULL_GRADE",
-      "score_status": "FINAL",
-      "typical_pattern": "长期维持日讲、灾异求言与议政接口；宗王案曾下狱谏官，但很快释放并继续明确鼓励直言。",
-      "grade_basis": "MI3跨年反馈开放和MI2完整纠错构成强长板，初始监禁与特权压力限制上沿。",
-      "position_basis": "主要机制正向但逆风制度自缚覆盖有限，置G4低位。",
-      "limitations": [],
-      "parents": [
-        {
-          "parent_id": "C5-P055-OPEN-FEEDBACK",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "日讲、求言、议政和灾政反馈跨年运行。"
-        },
-        {
-          "parent_id": "C5-P055-MIN-CASE",
-          "direction": "MIXED_POSITIVE",
-          "intensity": "MI2_LIFECYCLE",
-          "basis": "宗王案下狱谏官后迅速释放并继续开放。"
-        }
-      ],
-      "unit_groups": [
-        {
-          "unit_ids": [
-            "EV-HZ-A-01",
-            "FACT-2D03305337103EC5"
-          ],
-          "status": "BACKGROUND_VALIDATION",
-          "reason": "会典和文官团队授权属于制度/C3背景。"
-        },
-        {
-          "unit_ids": [
-            "EV-HZ-B1-01",
-            "EV-HZ-B1-02",
-            "EV-HZ-B1-03",
-            "EV-HZ-B2-01",
-            "FACT-88452F4F481467C5"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P055-OPEN-FEEDBACK",
-          "reason": "跨年议政、灾政求言和采纳减免共同闭合持续反馈开放。"
-        },
-        {
-          "unit_ids": [
-            "FACT-20B48EFED565E1B5"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P055-MIN-CASE",
-          "reason": "宗王压力下监禁谏官后释放并恢复直言安全。"
-        }
-      ],
-      "task_code": "PROFILE-C5-RULER-MING-ZHU-YOUCHENG",
-      "axis_code": "C5",
-      "axis_name": "权力运用风格与克制",
-      "radar_value": 77,
-      "score_100": 77,
-      "current_entry_unit_count": 8,
-      "current_entry_disposition_counts": {
-        "BACKGROUND_VALIDATION": 2,
-        "SCORING_PARENT": 6
-      },
-      "axis_evidence_level": "E3",
-      "grade_numeric": 4,
-      "formal_status": "FORMAL_CURRENT",
-      "adjudication_ref": "PROFILE-C5-RULER-MING-ZHU-YOUCHENG",
-      "actual_power_window": "1487—1505年",
-      "representative_parent_contexts": [
-        {
-          "parent_id": "C5-P055-OPEN-FEEDBACK",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "日讲、求言、议政和灾政反馈跨年运行。"
-        },
-        {
-          "parent_id": "C5-P055-MIN-CASE",
-          "direction": "MIXED_POSITIVE",
-          "intensity": "MI2_LIFECYCLE",
-          "basis": "宗王案下狱谏官后迅速释放并继续开放。"
-        }
-      ],
-      "counterpattern": {
-        "positive_parent_refs": [
-          "C5-P055-OPEN-FEEDBACK"
-        ],
-        "negative_parent_refs": [],
-        "mixed_parent_refs": [
-          "C5-P055-MIN-CASE"
-        ]
-      },
-      "phase_profile": {
-        "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
-        "separate_phase_grade_published": false
-      },
-      "axis_relevance_check": {
-        "status": "C5_RELEVANT",
-        "scoring_parent_refs": [
-          "C5-P055-OPEN-FEEDBACK",
-          "C5-P055-MIN-CASE"
-        ]
-      },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED"
     },
     {
       "sequence": 62,
@@ -1425,7 +1321,7 @@
         "BACKGROUND_VALIDATION": 4,
         "SCORING_PARENT": 4
       },
-      "axis_evidence_level": "E3",
+      "axis_evidence_level": "E2",
       "grade_numeric": 4,
       "formal_status": "FORMAL_CURRENT",
       "adjudication_ref": "PROFILE-C5-RULER-MING-ZHU-ZHANJI",
@@ -1478,7 +1374,7 @@
           "C5-P062-GAOXU"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 76,
@@ -1590,7 +1486,7 @@
           "C5-P076-IDENTITY"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 3,
@@ -1657,7 +1553,7 @@
         "SCORING_PARENT": 3
       },
       "axis_evidence_level": "E2",
-      "grade_numeric": 4,
+      "grade_numeric": 3,
       "formal_status": "FORMAL_CURRENT",
       "adjudication_ref": "PROFILE-C5-RULER-FD-LI-BIAN",
       "actual_power_window": "937-943",
@@ -1686,209 +1582,13 @@
           "C5-P003-REPEATED-ACCEPTANCE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT",
+      "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED",
       "latent_high_grade_hypothesis": {
         "axis_grade": "G4",
         "position": "LOW",
         "status": "MATERIAL_DENSITY_LIMITED"
       },
       "pre_density_gate_grade_basis": "跨司法、个人情绪与高层争论的三条MI2生命周期构成稳定主动克制，但缺跨阶段系统接口与反例覆盖。"
-    },
-    {
-      "sequence": 13,
-      "ruler_id": "RULER-HAN-DENGSUI",
-      "ruler_name": "邓绥",
-      "axis_grade": "G3",
-      "position": "HIGH",
-      "confidence": "MEDIUM",
-      "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
-      "typical_pattern": "长期危机中维持疑罪详核与司法纠偏，但拒绝归还最高权力形成同机制反证。",
-      "grade_basis": "MI3司法纠偏正链与MI3权力交班负链并立，形成清晰长短项而非稳定强长板。",
-      "position_basis": "司法克制持续且范围较广，置G3高位。",
-      "limitations": [
-        "宗室、近幸和特权者受约束材料不足。"
-      ],
-      "parents": [
-        {
-          "parent_id": "C5-P013-JUDICIAL",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "疑罪详核期限与司法纠偏长期运行。"
-        },
-        {
-          "parent_id": "C5-P013-RETURN",
-          "direction": "NEGATIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "在制度交班问题上持续拒绝归还权力。"
-        }
-      ],
-      "unit_groups": [
-        {
-          "unit_ids": [
-            "I2-EHAN-DENGSUI-CRISIS-ADMIN-001-M2-M3-02-AUDIT",
-            "FACT-364F511D4A29DE4C"
-          ],
-          "status": "BACKGROUND_VALIDATION",
-          "reason": "危机行政和勤政投入属于C4/A1，只验证权力窗口。"
-        },
-        {
-          "unit_ids": [
-            "I2-EHAN-DENGSUI-JUDICIAL-CORRECTION-001"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P013-JUDICIAL",
-          "reason": "持续司法复核直接约束强制权力；B1/B2同一material只消费一次。"
-        },
-        {
-          "unit_ids": [
-            "I2-EHAN-DENGSUI-RETURN-REFUSAL-001"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P013-RETURN",
-          "reason": "拒绝权力交班直接命中最高权力边界。"
-        }
-      ],
-      "task_code": "PROFILE-C5-RULER-HAN-DENGSUI",
-      "axis_code": "C5",
-      "axis_name": "权力运用风格与克制",
-      "radar_value": 71,
-      "score_100": 71,
-      "current_entry_unit_count": 5,
-      "current_entry_disposition_counts": {
-        "BACKGROUND_VALIDATION": 2,
-        "SCORING_PARENT": 3
-      },
-      "axis_evidence_level": "E2",
-      "grade_numeric": 3,
-      "formal_status": "FORMAL_CURRENT",
-      "adjudication_ref": "PROFILE-C5-RULER-HAN-DENGSUI",
-      "actual_power_window": "105—121年临朝主政",
-      "representative_parent_contexts": [
-        {
-          "parent_id": "C5-P013-JUDICIAL",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "疑罪详核期限与司法纠偏长期运行。"
-        },
-        {
-          "parent_id": "C5-P013-RETURN",
-          "direction": "NEGATIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "在制度交班问题上持续拒绝归还权力。"
-        }
-      ],
-      "counterpattern": {
-        "positive_parent_refs": [
-          "C5-P013-JUDICIAL"
-        ],
-        "negative_parent_refs": [
-          "C5-P013-RETURN"
-        ],
-        "mixed_parent_refs": []
-      },
-      "phase_profile": {
-        "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
-        "separate_phase_grade_published": false
-      },
-      "axis_relevance_check": {
-        "status": "C5_RELEVANT",
-        "scoring_parent_refs": [
-          "C5-P013-JUDICIAL",
-          "C5-P013-RETURN"
-        ]
-      },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
-    },
-    {
-      "sequence": 28,
-      "ruler_id": "RULER-HAN-LIUZHAO",
-      "ruler_name": "刘肇",
-      "axis_grade": "G3",
-      "position": "HIGH",
-      "confidence": "MEDIUM",
-      "output_mode": "BOUNDED_PROFILE",
-      "score_status": "EVIDENCE_LIMITED",
-      "typical_pattern": "亲政后排除窦氏权力并维持司法运行与纳谏，但现有入口尚未闭合其处置臣子的代表性反例链。",
-      "grade_basis": "臣子处置代表性反例链未闭合；保留潜在G4假设，当前正式发布G3高位。",
-      "position_basis": "臣子处置代表性反例链未闭合；保留潜在G4假设，当前正式发布G3高位。",
-      "limitations": [
-        "SOURCE_DENSITY_ASYMMETRY_REVIEW=MATERIAL_DENSITY_LIMITED；近侍依赖不等于臣子处置反证，仍缺完整处置生命周期。"
-      ],
-      "parents": [
-        {
-          "parent_id": "C5-P028-DOU-JUDICIAL",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "窦氏退出后亲政，司法接口持续运行。"
-        }
-      ],
-      "unit_groups": [
-        {
-          "unit_ids": [
-            "I2-EHAN-LIUZHAO-XIHAI-TUNTIAN-LIFECYCLE-001",
-            "FACT-53D2A73F0289E9AE"
-          ],
-          "status": "BACKGROUND_VALIDATION",
-          "reason": "屯田生命周期与勤政概括只验证权力窗口。"
-        },
-        {
-          "unit_ids": [
-            "I2-EHAN-LIUZHAO-DOU-EXIT-001-M2-M3-02-AUDIT",
-            "I2-EHAN-LIUZHAO-JUDICIAL-OPERATION-001-M2-M3-02-AUDIT"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P028-DOU-JUDICIAL",
-          "reason": "外戚特权退出与司法程序运行共同闭合权力边界正向切片。"
-        }
-      ],
-      "task_code": "PROFILE-C5-RULER-HAN-LIUZHAO",
-      "axis_code": "C5",
-      "axis_name": "权力运用风格与克制",
-      "radar_value": 71,
-      "score_100": 71,
-      "current_entry_unit_count": 5,
-      "current_entry_disposition_counts": {
-        "BACKGROUND_VALIDATION": 2,
-        "SCORING_PARENT": 3
-      },
-      "axis_evidence_level": "E2",
-      "grade_numeric": 4,
-      "formal_status": "FORMAL_CURRENT",
-      "adjudication_ref": "PROFILE-C5-RULER-HAN-LIUZHAO",
-      "actual_power_window": "92—105年亲政；88—92年窦氏主政期另标共享",
-      "representative_parent_contexts": [
-        {
-          "parent_id": "C5-P028-DOU-JUDICIAL",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "窦氏退出后亲政，司法接口持续运行。"
-        }
-      ],
-      "counterpattern": {
-        "positive_parent_refs": [
-          "C5-P028-DOU-JUDICIAL"
-        ],
-        "negative_parent_refs": [],
-        "mixed_parent_refs": []
-      },
-      "phase_profile": {
-        "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
-        "separate_phase_grade_published": false
-      },
-      "axis_relevance_check": {
-        "status": "C5_RELEVANT",
-        "scoring_parent_refs": [
-          "C5-P028-DOU-JUDICIAL"
-        ]
-      },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT",
-      "latent_high_grade_hypothesis": {
-        "axis_grade": "G4",
-        "position": "LOW",
-        "status": "MATERIAL_DENSITY_LIMITED"
-      },
-      "pre_density_gate_grade_basis": "跨特权集团退出与司法运行的MI3正向模式支持强长板；材料密度不足以支持更高位置或高置信结论。"
     },
     {
       "sequence": 32,
@@ -1898,7 +1598,7 @@
       "position": "HIGH",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "亡国压力下要求死罪复按、赦欠粮并约束军民侵扰，但括粮过程出现杖杀且归责未闭合。",
       "grade_basis": "MI3复按与多项MI2危机克制高于普通基线，战时执行下沿和本人归责缺口阻止强长板。",
       "position_basis": "正向跨多个危机对象，置G3高位。",
@@ -1973,7 +1673,7 @@
           "C5-P032-CRISIS-RESTRAINT"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 45,
@@ -1983,7 +1683,7 @@
       "position": "HIGH",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "设置登闻鼓、开放封事和巡问接口，在长期疾病下允许共同决策维持政务；尚未闭合这些接口逆风约束本人或特权者的案件。",
       "grade_basis": "MI2制度开放和自知健康边界高于普通基线，但缺本人接受不利结果切片，不能升G4。",
       "position_basis": "正向机制明确且无实质反证，置G3高位。",
@@ -2057,7 +1757,101 @@
           "C5-P045-FEEDBACK"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
+    },
+    {
+      "sequence": 55,
+      "ruler_id": "RULER-MING-ZHU-YOUCHENG",
+      "ruler_name": "朱祐樘",
+      "axis_grade": "G3",
+      "position": "HIGH",
+      "confidence": "MEDIUM",
+      "output_mode": "BOUNDED_PROFILE",
+      "score_status": "EVIDENCE_LIMITED",
+      "typical_pattern": "日讲、求言和议政只作B2背景；宗王压力下谏官先被下狱、后获释放并恢复直言安全，形成一条完整混合生命周期。",
+      "grade_basis": "只有宗王案直接闭合C5，跨年反馈接口不得换算MI3克制；单一完整恢复链支持合格偏强而非G4。",
+      "position_basis": "纠正真实但先行监禁且缺跨对象自缚复验，置G3高位。",
+      "limitations": [
+        "臣子处置之外的特权与比例窗口仍未覆盖。"
+      ],
+      "parents": [
+        {
+          "parent_id": "C5-P055-MIN-CASE",
+          "direction": "MIXED_POSITIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "basis": "宗王案下狱谏官后迅速释放并继续开放。"
+        }
+      ],
+      "unit_groups": [
+        {
+          "unit_ids": [
+            "EV-HZ-A-01",
+            "FACT-2D03305337103EC5"
+          ],
+          "status": "BACKGROUND_VALIDATION",
+          "reason": "会典和文官团队授权属于制度/C3背景。"
+        },
+        {
+          "unit_ids": [
+            "EV-HZ-B1-01",
+            "EV-HZ-B1-02",
+            "EV-HZ-B1-03",
+            "EV-HZ-B2-01",
+            "FACT-88452F4F481467C5"
+          ],
+          "status": "BACKGROUND_VALIDATION",
+          "reason": "日讲、求言、议政和灾政反馈证明B2运行，不单独证明C5自我约束。"
+        },
+        {
+          "unit_ids": [
+            "FACT-20B48EFED565E1B5"
+          ],
+          "status": "SCORING_PARENT",
+          "parent_id": "C5-P055-MIN-CASE",
+          "reason": "宗王压力下监禁谏官后释放并恢复直言安全。"
+        }
+      ],
+      "task_code": "PROFILE-C5-RULER-MING-ZHU-YOUCHENG",
+      "axis_code": "C5",
+      "axis_name": "权力运用风格与克制",
+      "radar_value": 71,
+      "score_100": 71,
+      "current_entry_unit_count": 8,
+      "current_entry_disposition_counts": {
+        "BACKGROUND_VALIDATION": 7,
+        "SCORING_PARENT": 1
+      },
+      "axis_evidence_level": "E2",
+      "grade_numeric": 3,
+      "formal_status": "FORMAL_CURRENT",
+      "adjudication_ref": "PROFILE-C5-RULER-MING-ZHU-YOUCHENG",
+      "actual_power_window": "1487—1505年",
+      "representative_parent_contexts": [
+        {
+          "parent_id": "C5-P055-MIN-CASE",
+          "direction": "MIXED_POSITIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "basis": "宗王案下狱谏官后迅速释放并继续开放。"
+        }
+      ],
+      "counterpattern": {
+        "positive_parent_refs": [],
+        "negative_parent_refs": [],
+        "mixed_parent_refs": [
+          "C5-P055-MIN-CASE"
+        ]
+      },
+      "phase_profile": {
+        "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+        "separate_phase_grade_published": false
+      },
+      "axis_relevance_check": {
+        "status": "C5_RELEVANT",
+        "scoring_parent_refs": [
+          "C5-P055-MIN-CASE"
+        ]
+      },
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 61,
@@ -2164,7 +1958,7 @@
           "C5-P061-FACTORY"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 65,
@@ -2281,122 +2075,7 @@
           "C5-P065-DISSENT"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
-    },
-    {
-      "sequence": 66,
-      "ruler_id": "RULER-NS-ZHAO-HENG",
-      "ruler_name": "赵恒",
-      "axis_grade": "G3",
-      "position": "HIGH",
-      "confidence": "HIGH",
-      "output_mode": "FULL_GRADE",
-      "score_status": "FINAL",
-      "typical_pattern": "转对、银台与提点刑狱提供持续复核并能纠正考核副作用；末年权臣遮蔽信息削弱最高层自缚，澶渊守诺构成独立正链。",
-      "grade_basis": "MI3多接口反馈和MI3守诺高于基线，末年MI3信息封闭阻止G4。",
-      "position_basis": "正向机制多且可见结果，置G3高位。",
-      "limitations": [],
-      "parents": [
-        {
-          "parent_id": "C5-P066-FEEDBACK",
-          "direction": "MIXED_POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "转对银台长期运行，末年被权臣遮蔽。"
-        },
-        {
-          "parent_id": "C5-P066-TREATY",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "压力下受限谈判并长期履约。"
-        }
-      ],
-      "unit_groups": [
-        {
-          "unit_ids": [
-            "EV015",
-            "EV019",
-            "I2-NSONG-ZH-TRANSCRIPTION-INSTITUTE-001",
-            "NS-ZH-V024-TRANSPORT-ASSESSMENT",
-            "NS-ZH-V026-REVENUE-KPI-CORRECTION",
-            "NS-ZH-V028-PRISON-KPI-CORRECTION",
-            "FACT-0061CAA96303232B"
-          ],
-          "status": "BACKGROUND_VALIDATION",
-          "reason": "常平、财政、科举、考核纠偏和军事授权属于一般治理背景。"
-        },
-        {
-          "unit_ids": [
-            "EV017",
-            "EV018",
-            "EV066",
-            "EV067",
-            "NS-ZH-V022-ROTATING-AUDIENCE",
-            "NS-ZH-V023-SILVER-TERRACE",
-            "NS-ZH-V035-INFORMATION-CLOSURE"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P066-FEEDBACK",
-          "reason": "提刑狱、转对、银台与末年遮蔽共同闭合反馈生命周期。"
-        },
-        {
-          "unit_ids": [
-            "FACT-58DA655AB53A85F6"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P066-TREATY",
-          "reason": "高压谈判中拒割地并持续履约，命中承诺伦理。"
-        }
-      ],
-      "task_code": "PROFILE-C5-RULER-NS-ZHAO-HENG",
-      "axis_code": "C5",
-      "axis_name": "权力运用风格与克制",
-      "radar_value": 71,
-      "score_100": 71,
-      "current_entry_unit_count": 16,
-      "current_entry_disposition_counts": {
-        "BACKGROUND_VALIDATION": 7,
-        "SCORING_PARENT": 9
-      },
-      "axis_evidence_level": "E3",
-      "grade_numeric": 3,
-      "formal_status": "FORMAL_CURRENT",
-      "adjudication_ref": "PROFILE-C5-RULER-NS-ZHAO-HENG",
-      "actual_power_window": "997-1022",
-      "representative_parent_contexts": [
-        {
-          "parent_id": "C5-P066-FEEDBACK",
-          "direction": "MIXED_POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "转对银台长期运行，末年被权臣遮蔽。"
-        },
-        {
-          "parent_id": "C5-P066-TREATY",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "压力下受限谈判并长期履约。"
-        }
-      ],
-      "counterpattern": {
-        "positive_parent_refs": [
-          "C5-P066-TREATY"
-        ],
-        "negative_parent_refs": [],
-        "mixed_parent_refs": [
-          "C5-P066-FEEDBACK"
-        ]
-      },
-      "phase_profile": {
-        "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
-        "separate_phase_grade_published": false
-      },
-      "axis_relevance_check": {
-        "status": "C5_RELEVANT",
-        "scoring_parent_refs": [
-          "C5-P066-FEEDBACK",
-          "C5-P066-TREATY"
-        ]
-      },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 75,
@@ -2510,7 +2189,7 @@
           "C5-P075-SUCCESSION-SPEECH"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED"
     },
     {
       "sequence": 78,
@@ -2520,7 +2199,7 @@
       "position": "HIGH",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "设置公共听讼并禁止大臣私家断案、限制宗室女子凭身份凌辱配偶；褚英撤权后死亡和族属权力仍构成边界疑点。",
       "grade_basis": "MI3贵族私权收束高于基线，但政治继承处置与征服窗口反例覆盖不足，未达G4。",
       "position_basis": "正向规则触及特权者并运行，置G3高位。",
@@ -2621,119 +2300,7 @@
           "C5-P078-CHUYING"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
-    },
-    {
-      "sequence": 81,
-      "ruler_id": "RULER-PUBLIC-93F6E8CA07BBD59F",
-      "ruler_name": "颙琰",
-      "axis_grade": "G3",
-      "position": "HIGH",
-      "confidence": "HIGH",
-      "output_mode": "FULL_GRADE",
-      "score_status": "FINAL",
-      "typical_pattern": "亲政即清算和珅并恢复直达奏事，能根据官军误杀反馈要求解散被胁者、安插流民；惩罚与战争侵害仍有反证。",
-      "grade_basis": "MI3打破权臣俘获与MI2平民保护高于基线，但主要依赖本人且未形成跨阶段制度自缚。",
-      "position_basis": "正向恢复明确，置G3高位。",
-      "limitations": [],
-      "parents": [
-        {
-          "parent_id": "C5-P081-HESHEN",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "清算和珅并恢复奏事直达。"
-        },
-        {
-          "parent_id": "C5-P081-CIVILIANS",
-          "direction": "MIXED_POSITIVE",
-          "intensity": "MI2_LIFECYCLE",
-          "basis": "识别误杀并保护被胁者流民，战争侵害为反证。"
-        }
-      ],
-      "unit_groups": [
-        {
-          "unit_ids": [
-            "MAT-QING-4C5CD7569E38FC07",
-            "MAT-QING-92475FEE7A54A4F8",
-            "MAT-QING-705D5982094B2258",
-            "MAT-QING-FA5841023DF54613",
-            "FACT-03629AA3EE255772"
-          ],
-          "status": "BACKGROUND_VALIDATION",
-          "reason": "财政河工、军费问责和履职属于一般治理背景。"
-        },
-        {
-          "unit_ids": [
-            "MAT-QING-8FFC563FB8F0C892",
-            "MAT-QING-C89BEE9B1B0DCD9C",
-            "MAT-QING-85A95908D79CE2DB",
-            "MAT-QING-BD84EFEA99A133CD",
-            "MAT-QING-D59498C86EC0B25B",
-            "FACT-FDF53FA541D96ED4"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P081-HESHEN",
-          "reason": "打破权臣信息俘获并恢复直达奏事闭合正向父链。"
-        },
-        {
-          "unit_ids": [
-            "FACT-BF8BD4BD01C2E4D3"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P081-CIVILIANS",
-          "reason": "误杀反馈后的被胁者保护与战争侵害反证构成混合生命周期。"
-        }
-      ],
-      "task_code": "PROFILE-C5-RULER-PUBLIC-93F6E8CA07BBD59F",
-      "axis_code": "C5",
-      "axis_name": "权力运用风格与克制",
-      "radar_value": 71,
-      "score_100": 71,
-      "current_entry_unit_count": 12,
-      "current_entry_disposition_counts": {
-        "BACKGROUND_VALIDATION": 5,
-        "SCORING_PARENT": 7
-      },
-      "axis_evidence_level": "E3",
-      "grade_numeric": 3,
-      "formal_status": "FORMAL_CURRENT",
-      "adjudication_ref": "PROFILE-C5-RULER-PUBLIC-93F6E8CA07BBD59F",
-      "actual_power_window": "1799—1820年",
-      "representative_parent_contexts": [
-        {
-          "parent_id": "C5-P081-HESHEN",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "清算和珅并恢复奏事直达。"
-        },
-        {
-          "parent_id": "C5-P081-CIVILIANS",
-          "direction": "MIXED_POSITIVE",
-          "intensity": "MI2_LIFECYCLE",
-          "basis": "识别误杀并保护被胁者流民，战争侵害为反证。"
-        }
-      ],
-      "counterpattern": {
-        "positive_parent_refs": [
-          "C5-P081-HESHEN"
-        ],
-        "negative_parent_refs": [],
-        "mixed_parent_refs": [
-          "C5-P081-CIVILIANS"
-        ]
-      },
-      "phase_profile": {
-        "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
-        "separate_phase_grade_published": false
-      },
-      "axis_relevance_check": {
-        "status": "C5_RELEVANT",
-        "scoring_parent_refs": [
-          "C5-P081-HESHEN",
-          "C5-P081-CIVILIANS"
-        ]
-      },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 82,
@@ -2843,7 +2410,7 @@
           "C5-P082-DORGON-PURGE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 87,
@@ -2853,7 +2420,7 @@
       "position": "HIGH",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "对多族降附者赦罪保官，处罚隐瞒粮草和侵吞俘获将领并设置债役纠正规则。",
       "grade_basis": "MI3降附保护与MI2约束己方将领高于基线，但逆风政治案件和反例覆盖不足。",
       "position_basis": "正向触及降附者和军事权贵，置G3高位。",
@@ -2928,7 +2495,7 @@
           "C5-P087-SURRENDER-ACCOUNTABILITY"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 96,
@@ -2938,7 +2505,7 @@
       "position": "HIGH",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "地方司法与赈济运行，并在有限观察中反复接受进言；现有入口未见实质同轴负证。",
       "grade_basis": "MI2反馈接受高于基线，但没有触及本人或特权者受约束的MI3切片，止于G3。",
       "position_basis": "正向明确且无已闭合反证，置G3高位。",
@@ -3013,7 +2580,7 @@
           "C5-P096-COUNSEL"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 105,
@@ -3023,7 +2590,7 @@
       "position": "HIGH",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "允许权翼直谏并当场纠正侮辱臣下，又明确制止太子擅杀有才将领；两类纠偏均落实。",
       "grade_basis": "两个MI2独立生命周期高于基线，但没有跨阶段系统接口和反例覆盖，不升G4。",
       "position_basis": "正向跨君臣礼与储君强制，置G3高位。",
@@ -3098,7 +2665,7 @@
           "C5-P105-RESTRAINT"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 107,
@@ -3108,7 +2675,7 @@
       "position": "HIGH",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "苏绰改革建议和继承咨询能够进入决策，但现有材料未闭合本人或特权者持续受约束。",
       "grade_basis": "MI2反馈吸收高于基线，制度结构与授权不当作自我克制正证。",
       "position_basis": "两类事项均见采纳，置G3高位。",
@@ -3183,7 +2750,7 @@
           "C5-P107-CONSULT"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 110,
@@ -3314,7 +2881,7 @@
           "C5-P110-OPPONENT"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 117,
@@ -3324,7 +2891,7 @@
       "position": "HIGH",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "公平行政持续，重大军事方案能经劝止和侦察后改策，但最高权力或特权者受约束证据不足。",
       "grade_basis": "MI2完整纠正高于基线，一般行政和履职不拔高。",
       "position_basis": "异议改变既定方案，置G3高位。",
@@ -3399,101 +2966,7 @@
           "C5-P117-UPDATE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
-    },
-    {
-      "sequence": 118,
-      "ruler_id": "RULER-SHADOW-李雄",
-      "ruler_name": "李雄",
-      "axis_grade": "G3",
-      "position": "HIGH",
-      "confidence": "MEDIUM",
-      "output_mode": "BOUNDED_PROFILE",
-      "score_status": "EVIDENCE_LIMITED",
-      "typical_pattern": "跨制度、服丧、卖官和酗酒事项多次接受纠偏，低税司法持续运行；但未见最高权力受不利裁判的更强切片。",
-      "grade_basis": "MI3重复反馈接受形成稳定正向，但证据强度不足G4。",
-      "position_basis": "跨事项复验明确，置G3高位。",
-      "limitations": [],
-      "parents": [
-        {
-          "parent_id": "C5-P118-CORRECTION",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "跨事项多次采纳行为与制度纠偏。"
-        }
-      ],
-      "unit_groups": [
-        {
-          "unit_ids": [
-            "I2-SK-LIXIONG-RULE-FORMATION-001",
-            "I2-SK-LIXIONG-LOW-TAX-GOVERNANCE-001",
-            "I2-SK-LIXIONG-ORG-DEFECTS-001",
-            "I2-SK-LIXIONG-PERSONNEL-QUALITY-001",
-            "FACT-6CBE95E9246E5815"
-          ],
-          "status": "BACKGROUND_VALIDATION",
-          "reason": "一般制度司法、组织和军事授权只作背景。"
-        },
-        {
-          "unit_ids": [
-            "I2-SK-LIXIONG-CORRECTION-001",
-            "FACT-67DF10B5EC2A17D8"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P118-CORRECTION",
-          "reason": "跨事项反复采纳纠偏按一个持续父链消费。"
-        }
-      ],
-      "task_code": "PROFILE-C5-RULER-SHADOW-李雄",
-      "axis_code": "C5",
-      "axis_name": "权力运用风格与克制",
-      "radar_value": 71,
-      "score_100": 71,
-      "current_entry_unit_count": 7,
-      "current_entry_disposition_counts": {
-        "BACKGROUND_VALIDATION": 5,
-        "SCORING_PARENT": 2
-      },
-      "axis_evidence_level": "E2",
-      "grade_numeric": 3,
-      "formal_status": "FORMAL_CURRENT",
-      "adjudication_ref": "PROFILE-C5-RULER-SHADOW-李雄",
-      "actual_power_window": "304—334年",
-      "representative_parent_contexts": [
-        {
-          "parent_id": "C5-P118-CORRECTION",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "跨事项多次采纳行为与制度纠偏。"
-        }
-      ],
-      "counterpattern": {
-        "positive_parent_refs": [
-          "C5-P118-CORRECTION"
-        ],
-        "negative_parent_refs": [],
-        "mixed_parent_refs": []
-      },
-      "phase_profile": {
-        "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
-        "separate_phase_grade_published": false
-      },
-      "axis_relevance_check": {
-        "status": "C5_RELEVANT",
-        "scoring_parent_refs": [
-          "C5-P118-CORRECTION"
-        ]
-      },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT",
-      "pre_evidence_gate": {
-        "axis_evidence_level": "E3",
-        "confidence": "HIGH",
-        "output_mode": "FULL_GRADE"
-      },
-      "evidence_gate_review": {
-        "status": "REVISED_TO_E2",
-        "basis": "只有一条MI3正向父链，未达到E3跨机制或MI4门。"
-      }
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 125,
@@ -3600,7 +3073,7 @@
           "C5-P125-LIMIT"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 128,
@@ -3610,7 +3083,7 @@
       "position": "HIGH",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "政令整顿可运行，谏议到达并促成政策止损；但现有材料仅闭合单一纠正链。",
       "grade_basis": "MI2实质纠正高于基线，不因行政或军事结果拔高。",
       "position_basis": "决定被实际改变，置G3高位。",
@@ -3685,345 +3158,7 @@
           "C5-P128-STOPLOSS"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
-    },
-    {
-      "sequence": 131,
-      "ruler_id": "RULER-SHADOW-钱镠",
-      "ruler_name": "钱镠",
-      "axis_grade": "G3",
-      "position": "HIGH",
-      "confidence": "MEDIUM",
-      "output_mode": "EVIDENCE_LIMITED",
-      "score_status": "EVIDENCE_LIMITED",
-      "typical_pattern": "依法处置宠姬之父并奖赏守门者，权贵请托未突破执法；危机中能采纳方案，但也有未纳军心预警反证。",
-      "grade_basis": "完整权力窗口反例暴露仍弱；保留潜在G4假设，当前正式发布G3高位。",
-      "position_basis": "完整权力窗口反例暴露仍弱；保留潜在G4假设，当前正式发布G3高位。",
-      "limitations": [
-        "主要入口反例有限；完整权力窗口仍需更多编年反例暴露。"
-      ],
-      "parents": [
-        {
-          "parent_id": "C5-P131-FAVORITE-LAW",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "宠姬之父依法受处置且守门者获奖。"
-        },
-        {
-          "parent_id": "C5-P131-ADVICE",
-          "direction": "MIXED_POSITIVE",
-          "intensity": "MI2_LIFECYCLE",
-          "basis": "一次危机采纳与一次军心预警不纳。"
-        }
-      ],
-      "unit_groups": [
-        {
-          "unit_ids": [
-            "SECOND_A::I2-FD-MAT-9C2D7A9937726C47",
-            "SECOND_B1::I2-FD-MAT-9C2D7A9937726C47",
-            "FACT-5EC39D48F27E5FC8"
-          ],
-          "status": "BACKGROUND_VALIDATION",
-          "reason": "中枢组织和军事授权只作背景。"
-        },
-        {
-          "unit_ids": [
-            "I2-FD-MAT-7840ECAA04B16F57"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P131-FAVORITE-LAW",
-          "reason": "特权者未突破执法接口，直接命中C5。"
-        },
-        {
-          "unit_ids": [
-            "I2-FD-MAT-1C023A8E1BF29143",
-            "I2-FD-MAT-7C5C0B5300DC000D"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P131-ADVICE",
-          "reason": "正反反馈事项合并评价稳定性。"
-        }
-      ],
-      "task_code": "PROFILE-C5-RULER-SHADOW-钱镠",
-      "axis_code": "C5",
-      "axis_name": "权力运用风格与克制",
-      "radar_value": 71,
-      "score_100": 71,
-      "current_entry_unit_count": 6,
-      "current_entry_disposition_counts": {
-        "BACKGROUND_VALIDATION": 3,
-        "SCORING_PARENT": 3
-      },
-      "axis_evidence_level": "E3",
-      "grade_numeric": 4,
-      "formal_status": "FORMAL_CURRENT",
-      "adjudication_ref": "PROFILE-C5-RULER-SHADOW-钱镠",
-      "actual_power_window": "893-932实际割据",
-      "representative_parent_contexts": [
-        {
-          "parent_id": "C5-P131-FAVORITE-LAW",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "宠姬之父依法受处置且守门者获奖。"
-        },
-        {
-          "parent_id": "C5-P131-ADVICE",
-          "direction": "MIXED_POSITIVE",
-          "intensity": "MI2_LIFECYCLE",
-          "basis": "一次危机采纳与一次军心预警不纳。"
-        }
-      ],
-      "counterpattern": {
-        "positive_parent_refs": [
-          "C5-P131-FAVORITE-LAW"
-        ],
-        "negative_parent_refs": [],
-        "mixed_parent_refs": [
-          "C5-P131-ADVICE"
-        ]
-      },
-      "phase_profile": {
-        "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
-        "separate_phase_grade_published": false
-      },
-      "axis_relevance_check": {
-        "status": "C5_RELEVANT",
-        "scoring_parent_refs": [
-          "C5-P131-FAVORITE-LAW",
-          "C5-P131-ADVICE"
-        ]
-      },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT",
-      "latent_high_grade_hypothesis": {
-        "axis_grade": "G4",
-        "position": "LOW",
-        "status": "MATERIAL_DENSITY_LIMITED"
-      },
-      "pre_density_gate_grade_basis": "MI3特权者受规则约束是高强正证，MI2未纳预警限制上沿。"
-    },
-    {
-      "sequence": 135,
-      "ruler_id": "RULER-SHADOW-马殷",
-      "ruler_name": "马殷",
-      "axis_grade": "G3",
-      "position": "HIGH",
-      "confidence": "HIGH",
-      "output_mode": "FULL_GRADE",
-      "score_status": "FINAL",
-      "typical_pattern": "高郁方案和对外建议能持续进入政策，但马希声伪令杀高郁后仅承认政非己出，未能保护核心专业履职者。",
-      "grade_basis": "MI3跨事项采纳构成稳定正向接口；高郁之死是本人保护失败的MI1深下沿，但不构成持续清洗模式。",
-      "position_basis": "长期正向高于基线，单案保护失败阻止进入G4。",
-      "limitations": [],
-      "parents": [
-        {
-          "parent_id": "C5-P135-ADVICE",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "高郁与许德勋建议持续进入并执行。"
-        },
-        {
-          "parent_id": "C5-P135-GAOYU",
-          "direction": "NEGATIVE",
-          "intensity": "MI1_CASE",
-          "basis": "继承人伪令杀高郁且最高权力未能保护；属单案深下沿。"
-        }
-      ],
-      "unit_groups": [
-        {
-          "unit_ids": [
-            "SECOND_A::I2-FD-MAT-BBE6738BD2CD0CAB",
-            "SECOND_B1::I2-FD-MAT-BBE6738BD2CD0CAB",
-            "FACT-45278DA5A490E461"
-          ],
-          "status": "BACKGROUND_VALIDATION",
-          "reason": "官署组织和军事授权只作背景。"
-        },
-        {
-          "unit_ids": [
-            "SECOND_A::I2-FD-MAT-277791A5B8763FF5",
-            "SECOND_B1::I2-FD-MAT-277791A5B8763FF5",
-            "SECOND_B2::I2-FD-MAT-277791A5B8763FF5",
-            "I2-FD-MAT-C0C638716C5E9A97"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P135-ADVICE",
-          "reason": "跨财政和外交事项采纳按持续接口消费。"
-        },
-        {
-          "unit_ids": [
-            "SECOND_B1::I2-FD-MAT-8E0EB741C66A0FE0",
-            "SECOND_B2::I2-FD-MAT-8E0EB741C66A0FE0"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P135-GAOYU",
-          "reason": "高郁被伪令杀害同案跨入口合并。"
-        }
-      ],
-      "task_code": "PROFILE-C5-RULER-SHADOW-马殷",
-      "axis_code": "C5",
-      "axis_name": "权力运用风格与克制",
-      "radar_value": 71,
-      "score_100": 71,
-      "current_entry_unit_count": 9,
-      "current_entry_disposition_counts": {
-        "BACKGROUND_VALIDATION": 3,
-        "SCORING_PARENT": 6
-      },
-      "axis_evidence_level": "E3",
-      "grade_numeric": 3,
-      "formal_status": "FORMAL_CURRENT",
-      "adjudication_ref": "PROFILE-C5-RULER-SHADOW-马殷",
-      "actual_power_window": "896-930实际割据",
-      "representative_parent_contexts": [
-        {
-          "parent_id": "C5-P135-ADVICE",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "高郁与许德勋建议持续进入并执行。"
-        },
-        {
-          "parent_id": "C5-P135-GAOYU",
-          "direction": "NEGATIVE",
-          "intensity": "MI1_CASE",
-          "basis": "继承人伪令杀高郁且最高权力未能保护；属单案深下沿。"
-        }
-      ],
-      "counterpattern": {
-        "positive_parent_refs": [
-          "C5-P135-ADVICE"
-        ],
-        "negative_parent_refs": [
-          "C5-P135-GAOYU"
-        ],
-        "mixed_parent_refs": []
-      },
-      "phase_profile": {
-        "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
-        "separate_phase_grade_published": false
-      },
-      "axis_relevance_check": {
-        "status": "C5_RELEVANT",
-        "scoring_parent_refs": [
-          "C5-P135-ADVICE",
-          "C5-P135-GAOYU"
-        ]
-      },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
-    },
-    {
-      "sequence": 148,
-      "ruler_id": "RULER-TANG-LICHEN",
-      "ruler_name": "李忱",
-      "axis_grade": "G3",
-      "position": "HIGH",
-      "confidence": "MEDIUM",
-      "output_mode": "EVIDENCE_LIMITED",
-      "score_status": "EVIDENCE_LIMITED",
-      "typical_pattern": "门下封驳、两省复议与谏官反馈持续运行；限制宦官的一次秘密方案泄露失败构成单案上限，但不等于持续反馈压制。",
-      "grade_basis": "臣子处置反例密度仍有限；保留潜在G4假设，当前正式发布G3高位。",
-      "position_basis": "臣子处置反例密度仍有限；保留潜在G4假设，当前正式发布G3高位。",
-      "limitations": [
-        "SOURCE_DENSITY_ASYMMETRY_REVIEW=MATERIAL_DENSITY_LIMITED；缺完整臣子处置负向生命周期。"
-      ],
-      "parents": [
-        {
-          "parent_id": "C5-P148-REVIEW",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "封驳纳谏与两省复议运行。"
-        },
-        {
-          "parent_id": "C5-P148-EUNUCH",
-          "direction": "NEGATIVE",
-          "intensity": "MI1_CASE",
-          "basis": "限制宦官的一次秘密方案泄露失败，不能由结构对象反推持续性。"
-        }
-      ],
-      "unit_groups": [
-        {
-          "unit_ids": [
-            "MC-TANG-XUANZONG-LEGAL-CORRECTION",
-            "MC-TANG-XUANZONG-ACCOUNTABILITY-M2-M3-02-AUDIT",
-            "FACT-45C3B13E22935F11"
-          ],
-          "status": "BACKGROUND_VALIDATION",
-          "reason": "法律建设、地方问责和军事授权只作背景。"
-        },
-        {
-          "unit_ids": [
-            "MC-TANG-XUANZONG-FEEDBACK-M2-M3-02-AUDIT"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P148-REVIEW",
-          "reason": "反馈与复议实际进入决策。"
-        },
-        {
-          "unit_ids": [
-            "SECOND_B1::MC-TANG-XUANZONG-EUNUCH-LIMIT",
-            "SECOND_B2::MC-TANG-XUANZONG-EUNUCH-LIMIT",
-            "FACT-48863FD4C351CF26"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P148-EUNUCH",
-          "reason": "同一宦官限制失败与复议正反事实按父链分流；复议主正链由B2闭合，本单元归结构反证。"
-        }
-      ],
-      "task_code": "PROFILE-C5-RULER-TANG-LICHEN",
-      "axis_code": "C5",
-      "axis_name": "权力运用风格与克制",
-      "radar_value": 71,
-      "score_100": 71,
-      "current_entry_unit_count": 7,
-      "current_entry_disposition_counts": {
-        "BACKGROUND_VALIDATION": 3,
-        "SCORING_PARENT": 4
-      },
-      "axis_evidence_level": "E3",
-      "grade_numeric": 4,
-      "formal_status": "FORMAL_CURRENT",
-      "adjudication_ref": "PROFILE-C5-RULER-TANG-LICHEN",
-      "actual_power_window": "846—859年",
-      "representative_parent_contexts": [
-        {
-          "parent_id": "C5-P148-REVIEW",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "封驳纳谏与两省复议运行。"
-        },
-        {
-          "parent_id": "C5-P148-EUNUCH",
-          "direction": "NEGATIVE",
-          "intensity": "MI1_CASE",
-          "basis": "限制宦官的一次秘密方案泄露失败，不能由结构对象反推持续性。"
-        }
-      ],
-      "counterpattern": {
-        "positive_parent_refs": [
-          "C5-P148-REVIEW"
-        ],
-        "negative_parent_refs": [
-          "C5-P148-EUNUCH"
-        ],
-        "mixed_parent_refs": []
-      },
-      "phase_profile": {
-        "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
-        "separate_phase_grade_published": false
-      },
-      "axis_relevance_check": {
-        "status": "C5_RELEVANT",
-        "scoring_parent_refs": [
-          "C5-P148-REVIEW",
-          "C5-P148-EUNUCH"
-        ]
-      },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT",
-      "latent_high_grade_hypothesis": {
-        "axis_grade": "G4",
-        "position": "LOW",
-        "status": "MATERIAL_DENSITY_LIMITED"
-      },
-      "pre_density_gate_grade_basis": "MI3公开复议形成强长板；宦官限制失败是MI1反例，现有臣子处置反例密度不足以支持更高位置或高置信。"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 149,
@@ -4136,7 +3271,7 @@
           "C5-P149-EUNUCH"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 167,
@@ -4146,7 +3281,7 @@
       "position": "HIGH",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "短期亲政中清除孙綝后恢复政务、采纳反馈并纠正部分安排，闭环完整但窗口有限。",
       "grade_basis": "MI2问责纠正高于基线，持续性不足以进入高档。",
       "position_basis": "本人完成收权和纠偏，置G3高位。",
@@ -4220,7 +3355,7 @@
           "C5-P167-CORRECT"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 171,
@@ -4229,8 +3364,8 @@
       "axis_grade": "G3",
       "position": "HIGH",
       "confidence": "LOW",
-      "output_mode": "EVIDENCE_LIMITED",
-      "score_status": "FINAL",
+      "output_mode": "EPISODE_TAG",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "外交与人口交换较多使用谈判、互返与安抚，非战争政治暴力未成为已知主模式；边境劫掠不混入。",
       "grade_basis": "MI2有限克制正向，但入口密度不足以形成更高档。",
       "position_basis": "已闭合正证略高于常模，置G3高位。",
@@ -4302,103 +3437,7 @@
           "C5-P171-RESTRAINT"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
-    },
-    {
-      "sequence": 175,
-      "ruler_id": "RULER-XIXIA-LIRENXIAO",
-      "ruler_name": "李仁孝",
-      "axis_grade": "G3",
-      "position": "HIGH",
-      "confidence": "MEDIUM",
-      "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
-      "typical_pattern": "任得敬受胁让权后，经外部反证收权并擢长期受压直臣修复中枢；遣返宋俘并保护部分直言者。",
-      "grade_basis": "MI3纠正权臣俘获和MI2履职者保护正向，任氏清算反证限制。",
-      "position_basis": "有完整收权修复链，置G3高位。",
-      "limitations": [
-        "正式第二项三入口为空；任氏清算范围和跨阶段保护材料有限。"
-      ],
-      "parents": [
-        {
-          "parent_id": "C5-P175-RECOVER",
-          "direction": "MIXED_POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "受胁让权后根据反证收权并修复任用。"
-        },
-        {
-          "parent_id": "C5-P175-PROTECT",
-          "direction": "MIXED_POSITIVE",
-          "intensity": "MI2_LIFECYCLE",
-          "basis": "遣返俘虏、保护直言者，清算反证保留。"
-        }
-      ],
-      "unit_groups": [
-        {
-          "unit_ids": [
-            "FACT-897FC0B167117752"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P175-RECOVER",
-          "reason": "权臣俘获—证据到达—收权—任用修复完整链。"
-        },
-        {
-          "unit_ids": [
-            "FACT-EB849D057E086E3D"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P175-PROTECT",
-          "reason": "异议者与履职者保护按正反混合裁决。"
-        }
-      ],
-      "task_code": "PROFILE-C5-RULER-XIXIA-LIRENXIAO",
-      "axis_code": "C5",
-      "axis_name": "权力运用风格与克制",
-      "radar_value": 71,
-      "score_100": 71,
-      "current_entry_unit_count": 2,
-      "current_entry_disposition_counts": {
-        "SCORING_PARENT": 2
-      },
-      "axis_evidence_level": "E2",
-      "grade_numeric": 3,
-      "formal_status": "FORMAL_CURRENT",
-      "adjudication_ref": "PROFILE-C5-RULER-XIXIA-LIRENXIAO",
-      "actual_power_window": "1139—1193年",
-      "representative_parent_contexts": [
-        {
-          "parent_id": "C5-P175-RECOVER",
-          "direction": "MIXED_POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "受胁让权后根据反证收权并修复任用。"
-        },
-        {
-          "parent_id": "C5-P175-PROTECT",
-          "direction": "MIXED_POSITIVE",
-          "intensity": "MI2_LIFECYCLE",
-          "basis": "遣返俘虏、保护直言者，清算反证保留。"
-        }
-      ],
-      "counterpattern": {
-        "positive_parent_refs": [],
-        "negative_parent_refs": [],
-        "mixed_parent_refs": [
-          "C5-P175-RECOVER",
-          "C5-P175-PROTECT"
-        ]
-      },
-      "phase_profile": {
-        "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
-        "separate_phase_grade_published": false
-      },
-      "axis_relevance_check": {
-        "status": "C5_RELEVANT",
-        "scoring_parent_refs": [
-          "C5-P175-RECOVER",
-          "C5-P175-PROTECT"
-        ]
-      },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 177,
@@ -4516,7 +3555,7 @@
           "C5-P177-TEMUDER"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 181,
@@ -4635,7 +3674,7 @@
           "C5-P181-EXTRACTION"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 182,
@@ -4645,7 +3684,7 @@
       "position": "HIGH",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "采纳建议并颁五章，收回州郡擅征擅杀权、要求死刑上报，构成限制军政专杀的明确制度动作。",
       "grade_basis": "MI3限制地方专杀正向，但后续实际采用证据不足，不能升G4。",
       "position_basis": "直接触及生杀权边界，置G3高位。",
@@ -4748,7 +3787,7 @@
           "C5-P182-ADVICE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 17,
@@ -4758,7 +3797,7 @@
       "position": "MID",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "制度监督与多通道申诉能促使纠正虞诩案，但纠正晚于错误羁押，外戚宦官请托未被持续切断。",
       "grade_basis": "一条MI3监督运行和一条MI2纠错生命周期提供可用机制，保护下沿不稳，整体合格。",
       "position_basis": "正负相当，置G3中位。",
@@ -4833,7 +3872,7 @@
           "C5-P017-YUXU"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 19,
@@ -4843,7 +3882,7 @@
       "position": "MID",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "成组废止惨酷科禁并形成司法纠偏，但晚期权力俘获与反馈压制削弱持续性。",
       "grade_basis": "MI3正向司法改革与MI3晚期负向俘获并立，整体合格而非强长板。",
       "position_basis": "正负阶段相抵，置G3中位。",
@@ -4940,7 +3979,7 @@
           "C5-P019-LATE-CAPTURE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 35,
@@ -4950,7 +3989,7 @@
       "position": "MID",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "有赈济、赎良、救济归附者和避免边境小故启战的克制，也对多地人口实施整体强迁。",
       "grade_basis": "MI3救济运行与MI3强迁损害并立，整体呈清晰长短项。",
       "position_basis": "正负相当，置G3中位。",
@@ -5055,7 +4094,7 @@
           "C5-P035-MIGRATION"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 39,
@@ -5161,7 +4200,7 @@
           "C5-P039-LATE-CLOSURE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 79,
@@ -5244,7 +4283,103 @@
           "C5-P079-REFORM"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
+    },
+    {
+      "sequence": 81,
+      "ruler_id": "RULER-PUBLIC-93F6E8CA07BBD59F",
+      "ruler_name": "颙琰",
+      "axis_grade": "G3",
+      "position": "MID",
+      "confidence": "MEDIUM",
+      "output_mode": "BOUNDED_PROFILE",
+      "score_status": "EVIDENCE_LIMITED",
+      "typical_pattern": "清算和珅与恢复奏事主要是权力重组背景；官军误杀反馈后保护被胁者、安插流民形成一条混合C5生命周期。",
+      "grade_basis": "权臣退出不能自动换算自我克制，剩余链显示伤害反馈后的有限收束。",
+      "position_basis": "有实质保护也有战争侵害反证，置G3中位。",
+      "limitations": [],
+      "parents": [
+        {
+          "parent_id": "C5-P081-CIVILIANS",
+          "direction": "MIXED_POSITIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "basis": "识别误杀后保护被胁者流民，战争侵害为反证。"
+        }
+      ],
+      "unit_groups": [
+        {
+          "unit_ids": [
+            "MAT-QING-4C5CD7569E38FC07",
+            "MAT-QING-92475FEE7A54A4F8",
+            "MAT-QING-705D5982094B2258",
+            "MAT-QING-FA5841023DF54613",
+            "FACT-03629AA3EE255772"
+          ],
+          "status": "BACKGROUND_VALIDATION",
+          "reason": "财政河工、军费问责和履职属于一般治理背景。"
+        },
+        {
+          "unit_ids": [
+            "MAT-QING-8FFC563FB8F0C892",
+            "MAT-QING-C89BEE9B1B0DCD9C",
+            "MAT-QING-85A95908D79CE2DB",
+            "MAT-QING-BD84EFEA99A133CD",
+            "MAT-QING-D59498C86EC0B25B",
+            "FACT-FDF53FA541D96ED4"
+          ],
+          "status": "BACKGROUND_VALIDATION",
+          "reason": "清算和珅并恢复奏事属于权力重组与B2背景，不等于本人受约束。"
+        },
+        {
+          "unit_ids": [
+            "FACT-BF8BD4BD01C2E4D3"
+          ],
+          "status": "SCORING_PARENT",
+          "parent_id": "C5-P081-CIVILIANS",
+          "reason": "误杀反馈后的被胁者保护与战争侵害反证构成混合生命周期。"
+        }
+      ],
+      "task_code": "PROFILE-C5-RULER-PUBLIC-93F6E8CA07BBD59F",
+      "axis_code": "C5",
+      "axis_name": "权力运用风格与克制",
+      "radar_value": 65,
+      "score_100": 65,
+      "current_entry_unit_count": 12,
+      "current_entry_disposition_counts": {
+        "BACKGROUND_VALIDATION": 11,
+        "SCORING_PARENT": 1
+      },
+      "axis_evidence_level": "E2",
+      "grade_numeric": 3,
+      "formal_status": "FORMAL_CURRENT",
+      "adjudication_ref": "PROFILE-C5-RULER-PUBLIC-93F6E8CA07BBD59F",
+      "actual_power_window": "1799—1820年",
+      "representative_parent_contexts": [
+        {
+          "parent_id": "C5-P081-CIVILIANS",
+          "direction": "MIXED_POSITIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "basis": "识别误杀后保护被胁者流民，战争侵害为反证。"
+        }
+      ],
+      "counterpattern": {
+        "positive_parent_refs": [],
+        "negative_parent_refs": [],
+        "mixed_parent_refs": [
+          "C5-P081-CIVILIANS"
+        ]
+      },
+      "phase_profile": {
+        "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+        "separate_phase_grade_published": false
+      },
+      "axis_relevance_check": {
+        "status": "C5_RELEVANT",
+        "scoring_parent_refs": [
+          "C5-P081-CIVILIANS"
+        ]
+      },
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 98,
@@ -5254,7 +4389,7 @@
       "position": "MID",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "实际执政期允许异议进入并在宠幸妨政后立即纠正，也存在异议者强制追究反证。",
       "grade_basis": "MI2纠正与MI2强制处置相抵，未形成稳定长短板。",
       "position_basis": "正负均有完整行为，置G3中位。",
@@ -5350,7 +4485,7 @@
           "C5-P098-PURSUIT"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 106,
@@ -5458,7 +4593,7 @@
           "C5-P106-LIYAN"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 108,
@@ -5468,7 +4603,7 @@
       "position": "MID",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "亲政后能压下私人好恶采纳现实意见，也有宗教强制的轴内反证，尚不足以证明长期制度性自缚。",
       "grade_basis": "MI2采纳与MI2强制相抵，保持常模中位。",
       "position_basis": "正负均闭合但跨度有限。",
@@ -5564,7 +4699,7 @@
           "C5-P108-RELIGION"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 111,
@@ -5574,7 +4709,7 @@
       "position": "MID",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "重大军政策议允许异议完整上达但最终未采，政变余波中多次区分责任、控制扩大惩罚。",
       "grade_basis": "MI2惩罚克制正向成立，未采异议不因结果本身判负。",
       "position_basis": "有实际克制但持续性不足，置G3中位。",
@@ -5672,7 +4807,7 @@
           "C5-P111-DELIBERATION"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 112,
@@ -5781,7 +4916,7 @@
           "C5-P112-DEATH"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 113,
@@ -5790,8 +4925,8 @@
       "axis_grade": "G3",
       "position": "MID",
       "confidence": "LOW",
-      "output_mode": "EVIDENCE_LIMITED",
-      "score_status": "FINAL",
+      "output_mode": "EPISODE_TAG",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "禅位后仍处理国家大事，显示履职延续，但现有入口没有足够的反馈约束或强制克制切片。",
       "grade_basis": "材料仅支持不偏离常模，不能由勤政或授权推导C5方向。",
       "position_basis": "信息稀疏，保守置G3中位。",
@@ -5837,7 +4972,100 @@
         "status": "C5_RELEVANT",
         "scoring_parent_refs": []
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
+    },
+    {
+      "sequence": 131,
+      "ruler_id": "RULER-SHADOW-钱镠",
+      "ruler_name": "钱镠",
+      "axis_grade": "G3",
+      "position": "MID",
+      "confidence": "LOW",
+      "output_mode": "EPISODE_TAG",
+      "score_status": "EVIDENCE_LIMITED",
+      "typical_pattern": "宠姬之父依法受处置且守门者获奖，闭合一次私人关系未突破执法的正向案件；军事预警采纳与否留C2。",
+      "grade_basis": "一条具名特权约束案件只能证明该行为出现，不能由B1材料强度拔为MI3长期模式。",
+      "position_basis": "私人利益逆风下表现明确，但缺跨对象复验，置G3中位。",
+      "limitations": [
+        "完整权力窗口的宗室、功臣与异议者处置仍未覆盖。"
+      ],
+      "parents": [
+        {
+          "parent_id": "C5-P131-FAVORITE-LAW",
+          "direction": "POSITIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "basis": "宠姬之父依法受处置且守门者获奖，特权请托未突破执法。"
+        }
+      ],
+      "unit_groups": [
+        {
+          "unit_ids": [
+            "SECOND_A::I2-FD-MAT-9C2D7A9937726C47",
+            "SECOND_B1::I2-FD-MAT-9C2D7A9937726C47",
+            "FACT-5EC39D48F27E5FC8"
+          ],
+          "status": "BACKGROUND_VALIDATION",
+          "reason": "中枢组织和军事授权只作背景。"
+        },
+        {
+          "unit_ids": [
+            "I2-FD-MAT-7840ECAA04B16F57"
+          ],
+          "status": "SCORING_PARENT",
+          "parent_id": "C5-P131-FAVORITE-LAW",
+          "reason": "特权者未突破执法接口，直接命中C5。"
+        },
+        {
+          "unit_ids": [
+            "I2-FD-MAT-1C023A8E1BF29143",
+            "I2-FD-MAT-7C5C0B5300DC000D"
+          ],
+          "status": "AXIS_OUT_WITH_REASON",
+          "reason": "危机采策与军心预警属于C2/M2判断，不评价惩罚、特权或异议者安全。"
+        }
+      ],
+      "task_code": "PROFILE-C5-RULER-SHADOW-钱镠",
+      "axis_code": "C5",
+      "axis_name": "权力运用风格与克制",
+      "radar_value": 65,
+      "score_100": 65,
+      "current_entry_unit_count": 6,
+      "current_entry_disposition_counts": {
+        "AXIS_OUT_WITH_REASON": 2,
+        "BACKGROUND_VALIDATION": 3,
+        "SCORING_PARENT": 1
+      },
+      "axis_evidence_level": "E1",
+      "grade_numeric": 3,
+      "formal_status": "FORMAL_CURRENT",
+      "adjudication_ref": "PROFILE-C5-RULER-SHADOW-钱镠",
+      "actual_power_window": "893-932实际割据",
+      "representative_parent_contexts": [
+        {
+          "parent_id": "C5-P131-FAVORITE-LAW",
+          "direction": "POSITIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "basis": "宠姬之父依法受处置且守门者获奖，特权请托未突破执法。"
+        }
+      ],
+      "counterpattern": {
+        "positive_parent_refs": [
+          "C5-P131-FAVORITE-LAW"
+        ],
+        "negative_parent_refs": [],
+        "mixed_parent_refs": []
+      },
+      "phase_profile": {
+        "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+        "separate_phase_grade_published": false
+      },
+      "axis_relevance_check": {
+        "status": "C5_RELEVANT",
+        "scoring_parent_refs": [
+          "C5-P131-FAVORITE-LAW"
+        ]
+      },
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 133,
@@ -5847,7 +5075,7 @@
       "position": "MID",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "日常行政和财政回应运行稳定，但现有材料没有闭合本人受约束或异议改变最高决定的强切片。",
       "grade_basis": "一般制度运行只支持不低于常模，不能直接支撑C5高档。",
       "position_basis": "缺轴内正负强证，置G3中位。",
@@ -5898,7 +5126,7 @@
         "status": "C5_RELEVANT",
         "scoring_parent_refs": []
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 134,
@@ -5985,7 +5213,7 @@
           "C5-P134-NORTH"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT",
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
       "pre_evidence_gate": {
         "axis_evidence_level": "E3",
         "confidence": "HIGH",
@@ -5995,121 +5223,6 @@
         "status": "REVISED_TO_E2",
         "basis": "只有一条MI2混合生命周期，未达到E3门。"
       }
-    },
-    {
-      "sequence": 136,
-      "ruler_id": "RULER-SHADOW-高季兴",
-      "ruler_name": "高季兴",
-      "axis_grade": "G3",
-      "position": "MID",
-      "confidence": "HIGH",
-      "output_mode": "FULL_GRADE",
-      "score_status": "FINAL",
-      "typical_pattern": "长期尊重梁震意见并因孙光宪劝止撤销战争，也曾在筑城中惩办倪可福后仅私下补偿。",
-      "grade_basis": "MI3持续咨议与MI1强制反证并存，保持常模中位。",
-      "position_basis": "纠正真实但短期攫取模式限制上沿。",
-      "limitations": [],
-      "parents": [
-        {
-          "parent_id": "C5-P136-ADVICE",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "长期尊重参谋且劝止战争实际生效。"
-        },
-        {
-          "parent_id": "C5-P136-CONSTRUCTION",
-          "direction": "NEGATIVE",
-          "intensity": "MI1_CASE",
-          "basis": "筑城惩办后仅私下补偿。"
-        }
-      ],
-      "unit_groups": [
-        {
-          "unit_ids": [
-            "SECOND_A::I2-FD-MAT-258CD28BCCCC7F36",
-            "SECOND_B1::I2-FD-MAT-258CD28BCCCC7F36",
-            "FACT-F166F7F3871FA941"
-          ],
-          "status": "BACKGROUND_VALIDATION",
-          "reason": "恢复生产与军事授权只作背景。"
-        },
-        {
-          "unit_ids": [
-            "SECOND_B1::I2-FD-MAT-27D9358C30AAA7D6",
-            "SECOND_B2::I2-FD-MAT-27D9358C30AAA7D6",
-            "I2-FD-MAT-D865E723FE5258A2"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P136-ADVICE",
-          "reason": "长期咨议和一次撤销行动共同闭合正链。"
-        },
-        {
-          "unit_ids": [
-            "SECOND_B1::I2-FD-MAT-66BE6127A5286835",
-            "SECOND_B2::I2-FD-MAT-66BE6127A5286835"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P136-CONSTRUCTION",
-          "reason": "同一筑城处置跨入口合并。"
-        },
-        {
-          "unit_ids": [
-            "FACT-732FE1DD34FC16D7"
-          ],
-          "status": "BACKGROUND_VALIDATION",
-          "reason": "该事实混合一般政治判断，仅用于验证反馈环境，不另计分。"
-        }
-      ],
-      "task_code": "PROFILE-C5-RULER-SHADOW-高季兴",
-      "axis_code": "C5",
-      "axis_name": "权力运用风格与克制",
-      "radar_value": 65,
-      "score_100": 65,
-      "current_entry_unit_count": 9,
-      "current_entry_disposition_counts": {
-        "BACKGROUND_VALIDATION": 4,
-        "SCORING_PARENT": 5
-      },
-      "axis_evidence_level": "E3",
-      "grade_numeric": 3,
-      "formal_status": "FORMAL_CURRENT",
-      "adjudication_ref": "PROFILE-C5-RULER-SHADOW-高季兴",
-      "actual_power_window": "907-929实际割据",
-      "representative_parent_contexts": [
-        {
-          "parent_id": "C5-P136-ADVICE",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "长期尊重参谋且劝止战争实际生效。"
-        },
-        {
-          "parent_id": "C5-P136-CONSTRUCTION",
-          "direction": "NEGATIVE",
-          "intensity": "MI1_CASE",
-          "basis": "筑城惩办后仅私下补偿。"
-        }
-      ],
-      "counterpattern": {
-        "positive_parent_refs": [
-          "C5-P136-ADVICE"
-        ],
-        "negative_parent_refs": [
-          "C5-P136-CONSTRUCTION"
-        ],
-        "mixed_parent_refs": []
-      },
-      "phase_profile": {
-        "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
-        "separate_phase_grade_published": false
-      },
-      "axis_relevance_check": {
-        "status": "C5_RELEVANT",
-        "scoring_parent_refs": [
-          "C5-P136-ADVICE",
-          "C5-P136-CONSTRUCTION"
-        ]
-      },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
     },
     {
       "sequence": 141,
@@ -6216,7 +5329,7 @@
           "C5-P141-LONGZHONG"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 157,
@@ -6329,7 +5442,7 @@
           "C5-P157-LIUWENJING"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 169,
@@ -6338,8 +5451,8 @@
       "axis_grade": "G3",
       "position": "MID",
       "confidence": "LOW",
-      "output_mode": "EVIDENCE_LIMITED",
-      "score_status": "FINAL",
+      "output_mode": "EPISODE_TAG",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "现有稳定入口只有蒙古压力下的军事失败，无法据此推导权力克制方向。",
       "grade_basis": "轴内材料不足，保守维持常模而非默认负向。",
       "position_basis": "无可裁轴内正负证，置G3中位。",
@@ -6384,7 +5497,7 @@
         "status": "C5_RELEVANT",
         "scoring_parent_refs": []
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 170,
@@ -6393,8 +5506,8 @@
       "axis_grade": "G3",
       "position": "MID",
       "confidence": "LOW",
-      "output_mode": "EVIDENCE_LIMITED",
-      "score_status": "FINAL",
+      "output_mode": "EPISODE_TAG",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "本人可分离亲政窗口短，未见主动扩大强制，梁氏幽禁和后续处置不得倒灌本人。",
       "grade_basis": "仅能支持正常基线，不能把非本人行为转为高低档。",
       "position_basis": "正负均薄，置G3中位。",
@@ -6467,7 +5580,7 @@
           "C5-P170-BOUNDARY"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 172,
@@ -6476,8 +5589,8 @@
       "axis_grade": "G3",
       "position": "MID",
       "confidence": "LOW",
-      "output_mode": "EVIDENCE_LIMITED",
-      "score_status": "FINAL",
+      "output_mode": "EPISODE_TAG",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "能采纳部分危局和节用安民建议，重大压力下又反复拒绝群臣警告；短任内未见报复异议者。",
       "grade_basis": "MI2正负反馈相衡，保护证据仅弱。",
       "position_basis": "信息稀疏，置G3中位。",
@@ -6572,7 +5685,7 @@
           "C5-P172-PROTECT"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 174,
@@ -6581,8 +5694,8 @@
       "axis_grade": "G3",
       "position": "MID",
       "confidence": "LOW",
-      "output_mode": "EVIDENCE_LIMITED",
-      "score_status": "FINAL",
+      "output_mode": "EPISODE_TAG",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "御史人才反馈获采并落实国学员额供给，但外戚清除与非战争人口控制构成反证。",
       "grade_basis": "MI2正负相衡，材料不足以形成稳定模式。",
       "position_basis": "保守置G3中位。",
@@ -6677,121 +5790,77 @@
           "C5-P174-COERCION"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
-      "sequence": 5,
-      "ruler_id": "RULER-FD-LI-SIYUAN",
-      "ruler_name": "李嗣源",
+      "sequence": 175,
+      "ruler_id": "RULER-XIXIA-LIRENXIAO",
+      "ruler_name": "李仁孝",
       "axis_grade": "G3",
-      "position": "LOW",
-      "confidence": "HIGH",
-      "output_mode": "FULL_GRADE",
-      "score_status": "FINAL",
-      "typical_pattern": "建立并运行奏事、狱政接口，但在安重诲和任圜两案中让谗毁与猜疑突破反馈保护。",
-      "grade_basis": "MI3运行接口提供正向底盘，安重诲与任圜两案的MI2重复处置显示核心压力下失效，但不能反推为持续清洗制度。",
-      "position_basis": "制度接口高于基线，两个不可逆反例锁定G3低位。",
-      "limitations": [],
+      "position": "MID",
+      "confidence": "MEDIUM",
+      "output_mode": "BOUNDED_PROFILE",
+      "score_status": "EVIDENCE_LIMITED",
+      "typical_pattern": "任得敬收权与任用修复归C3/M4；C5只保留遣返俘虏、保护部分直言者及清算反证的混合生命周期。",
+      "grade_basis": "权力重组不再作为MI3克制正证，一条跨对象保护链支持合格中位。",
+      "position_basis": "保护与清算反证并存且主要入口缺失，置G3中位。",
+      "limitations": [
+        "第二项A/B1/B2正式入口缺失，完整权力窗口仍受限。"
+      ],
       "parents": [
         {
-          "parent_id": "C5-P005-OPEN-INTERFACES",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "奏事、转对及狱政接口持续运行。"
-        },
-        {
-          "parent_id": "C5-P005-PURGES",
-          "direction": "NEGATIVE",
+          "parent_id": "C5-P175-PROTECT",
+          "direction": "MIXED_POSITIVE",
           "intensity": "MI2_LIFECYCLE",
-          "basis": "安重诲与任圜两案在强烈反馈下仍遭不可逆处置；构成重复生命周期，不等于持续制度。"
+          "basis": "遣返俘虏、保护直言者，清算反证保留。"
         }
       ],
       "unit_groups": [
         {
           "unit_ids": [
-            "I2-FD-MAT-5620A2FE12EA86EB",
-            "I2-FD-MAT-5B6137B5C5491FA7",
-            "I2-FD-MAT-8F941F4CEE1C59AE",
-            "I2-FD-MAT-C57E6F28566E0463",
-            "I2-FD-MAT-FD4DF628E290D05C",
-            "I2-FD-MAT-FD50B869EA70C1B6",
-            "I2-FD-MAT-FECA42171C3C42F5",
-            "I2-FD-MAT-F6CC0F08FAB7E718",
-            "I2-FD-MAT-2841DE4AFDC54095"
-          ],
-          "status": "BACKGROUND_VALIDATION",
-          "reason": "顾问、财政、地方人事、任圜治理及诗谏只验证组织和信息环境，不独立闭合C5边界。"
-        },
-        {
-          "unit_ids": [
-            "I2-FD-MAT-E6389ED6F684C2D6"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P005-OPEN-INTERFACES",
-          "reason": "恢复奏事和狱政接口并持续运行，形成制度性反馈背景；同一material在B1/B2只消费一次。"
-        },
-        {
-          "unit_ids": [
-            "I2-FD-MAT-3748AEA607BD77E9"
-          ],
-          "status": "BACKGROUND_VALIDATION",
-          "reason": "诬告案曾纠正，作为同一权力窗口的恢复能力背景，不另立代表父链。"
-        },
-        {
-          "unit_ids": [
-            "I2-FD-MAT-68B6AF9C61BF92C2",
-            "I2-FD-MAT-AFF52890D6EB1129"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P005-PURGES",
-          "reason": "两名关键履职者在谏诤和复奏到达后仍遭不可逆处置。"
-        },
-        {
-          "unit_ids": [
-            "FACT-722050C3EA082A8A"
+            "FACT-897FC0B167117752"
           ],
           "status": "AXIS_OUT_WITH_REASON",
-          "reason": "军事授权成败属于C3/M1，未闭合惩罚比例或异议保护。"
-        }
-      ],
-      "task_code": "PROFILE-C5-RULER-FD-LI-SIYUAN",
-      "axis_code": "C5",
-      "axis_name": "权力运用风格与克制",
-      "radar_value": 58,
-      "score_100": 58,
-      "current_entry_unit_count": 15,
-      "current_entry_disposition_counts": {
-        "AXIS_OUT_WITH_REASON": 1,
-        "BACKGROUND_VALIDATION": 10,
-        "SCORING_PARENT": 4
-      },
-      "axis_evidence_level": "E3",
-      "grade_numeric": 3,
-      "formal_status": "FORMAL_CURRENT",
-      "adjudication_ref": "PROFILE-C5-RULER-FD-LI-SIYUAN",
-      "actual_power_window": "926-933",
-      "representative_parent_contexts": [
-        {
-          "parent_id": "C5-P005-OPEN-INTERFACES",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "奏事、转对及狱政接口持续运行。"
+          "reason": "受胁让权后收权和任用修复属于C3/M4，不评价C5自我约束。"
         },
         {
-          "parent_id": "C5-P005-PURGES",
-          "direction": "NEGATIVE",
+          "unit_ids": [
+            "FACT-EB849D057E086E3D"
+          ],
+          "status": "SCORING_PARENT",
+          "parent_id": "C5-P175-PROTECT",
+          "reason": "异议者与履职者保护按正反混合裁决。"
+        }
+      ],
+      "task_code": "PROFILE-C5-RULER-XIXIA-LIRENXIAO",
+      "axis_code": "C5",
+      "axis_name": "权力运用风格与克制",
+      "radar_value": 65,
+      "score_100": 65,
+      "current_entry_unit_count": 2,
+      "current_entry_disposition_counts": {
+        "AXIS_OUT_WITH_REASON": 1,
+        "SCORING_PARENT": 1
+      },
+      "axis_evidence_level": "E2",
+      "grade_numeric": 3,
+      "formal_status": "FORMAL_CURRENT",
+      "adjudication_ref": "PROFILE-C5-RULER-XIXIA-LIRENXIAO",
+      "actual_power_window": "1139—1193年",
+      "representative_parent_contexts": [
+        {
+          "parent_id": "C5-P175-PROTECT",
+          "direction": "MIXED_POSITIVE",
           "intensity": "MI2_LIFECYCLE",
-          "basis": "安重诲与任圜两案在强烈反馈下仍遭不可逆处置；构成重复生命周期，不等于持续制度。"
+          "basis": "遣返俘虏、保护直言者，清算反证保留。"
         }
       ],
       "counterpattern": {
-        "positive_parent_refs": [
-          "C5-P005-OPEN-INTERFACES"
-        ],
-        "negative_parent_refs": [
-          "C5-P005-PURGES"
-        ],
-        "mixed_parent_refs": []
+        "positive_parent_refs": [],
+        "negative_parent_refs": [],
+        "mixed_parent_refs": [
+          "C5-P175-PROTECT"
+        ]
       },
       "phase_profile": {
         "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
@@ -6800,11 +5869,10 @@
       "axis_relevance_check": {
         "status": "C5_RELEVANT",
         "scoring_parent_refs": [
-          "C5-P005-OPEN-INTERFACES",
-          "C5-P005-PURGES"
+          "C5-P175-PROTECT"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 10,
@@ -6814,7 +5882,7 @@
       "position": "LOW",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "能够接受反对伤害平民的意见并处理贪暴军镇，也会因谗言杀害旧将，病危时近侍开始操纵机密。",
       "grade_basis": "一条民众保护MI2正链与一条错杀MI2负链对冲，尚未形成稳定强长板或强短板。",
       "position_basis": "不可逆错杀压低下沿，置G3低位。",
@@ -6914,7 +5982,7 @@
           "C5-P010-SLANDER-KILLING"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 23,
@@ -7020,7 +6088,91 @@
           "C5-P023-MINISTER-KILLINGS"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
+    },
+    {
+      "sequence": 28,
+      "ruler_id": "RULER-HAN-LIUZHAO",
+      "ruler_name": "刘肇",
+      "axis_grade": "G3",
+      "position": "LOW",
+      "confidence": "LOW",
+      "output_mode": "EPISODE_TAG",
+      "score_status": "EVIDENCE_LIMITED",
+      "typical_pattern": "现有材料只闭合清除窦氏集团时收印、免官和遣归的单一权力重组；一般司法宽平不证明本人受约束。",
+      "grade_basis": "窦氏退出可观察处分范围但不构成自我克制，司法运行属于一般治理；只能发布窄场景合格下沿。",
+      "position_basis": "对象具有夺权背景且未见扩大株连，但缺其他惩罚、特权和异议场景，置G3低位。",
+      "limitations": [
+        "完整亲政期臣子处置与特权约束仍缺。"
+      ],
+      "parents": [
+        {
+          "parent_id": "C5-P028-DOU-EXIT",
+          "direction": "MIXED",
+          "intensity": "MI2_LIFECYCLE",
+          "basis": "秘密收回窦氏军政权、免其党官并遣归故郡，范围可见但不等于制度自缚。"
+        }
+      ],
+      "unit_groups": [
+        {
+          "unit_ids": [
+            "I2-EHAN-LIUZHAO-XIHAI-TUNTIAN-LIFECYCLE-001",
+            "FACT-53D2A73F0289E9AE"
+          ],
+          "status": "BACKGROUND_VALIDATION",
+          "reason": "屯田生命周期与勤政概括只验证权力窗口。"
+        },
+        {
+          "unit_ids": [
+            "I2-EHAN-LIUZHAO-DOU-EXIT-001-M2-M3-02-AUDIT",
+            "I2-EHAN-LIUZHAO-JUDICIAL-OPERATION-001-M2-M3-02-AUDIT"
+          ],
+          "status": "SCORING_PARENT",
+          "reason": "窦氏退出只按具体处分范围形成单一C5父链；司法宽平另作一般治理背景。",
+          "parent_id": "C5-P028-DOU-EXIT"
+        }
+      ],
+      "task_code": "PROFILE-C5-RULER-HAN-LIUZHAO",
+      "axis_code": "C5",
+      "axis_name": "权力运用风格与克制",
+      "radar_value": 58,
+      "score_100": 58,
+      "current_entry_unit_count": 5,
+      "current_entry_disposition_counts": {
+        "BACKGROUND_VALIDATION": 2,
+        "SCORING_PARENT": 3
+      },
+      "axis_evidence_level": "E1",
+      "grade_numeric": 3,
+      "formal_status": "FORMAL_CURRENT",
+      "adjudication_ref": "PROFILE-C5-RULER-HAN-LIUZHAO",
+      "actual_power_window": "92—105年亲政；88—92年窦氏主政期另标共享",
+      "representative_parent_contexts": [
+        {
+          "parent_id": "C5-P028-DOU-EXIT",
+          "direction": "MIXED",
+          "intensity": "MI2_LIFECYCLE",
+          "basis": "秘密收回窦氏军政权、免其党官并遣归故郡，范围可见但不等于制度自缚。"
+        }
+      ],
+      "counterpattern": {
+        "positive_parent_refs": [],
+        "negative_parent_refs": [],
+        "mixed_parent_refs": [
+          "C5-P028-DOU-EXIT"
+        ]
+      },
+      "phase_profile": {
+        "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+        "separate_phase_grade_published": false
+      },
+      "axis_relevance_check": {
+        "status": "C5_RELEVANT",
+        "scoring_parent_refs": [
+          "C5-P028-DOU-EXIT"
+        ]
+      },
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 38,
@@ -7030,7 +6182,7 @@
       "position": "LOW",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "危机中仍保留御史复按、刑名面议和部分补偿，但在明确反对下迁都、另开战端，纠错覆盖有限。",
       "grade_basis": "司法复按为MI2正向背景；战略拒谏不自动作为C5，现有C5构念只支持低位合格画像。",
       "position_basis": "权力边界诊断情境偏少，置G3低位。",
@@ -7105,7 +6257,7 @@
           "C5-P038-CRISIS-REVIEW"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 40,
@@ -7115,7 +6267,7 @@
       "position": "LOW",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "西行后安置归附者并要求信赏必罚、量敌而进，但脱离天祚前亲杀两名政治对象且未见纠正。",
       "grade_basis": "MI2归附保护与MI2政治暴力对冲，未形成稳定长短板。",
       "position_basis": "不可逆杀戮压低下沿，置G3低位。",
@@ -7218,7 +6370,7 @@
           "C5-P040-KILLINGS"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 63,
@@ -7228,7 +6380,7 @@
       "position": "LOW",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "三省合议与台谏同呈仍运行，但言事外调和党争报复削弱异议安全，政策更令反复。",
       "grade_basis": "MI2合议正链与MI2报复负链相抵，未形成稳定长短板。",
       "position_basis": "政治报复压低下沿，置G3低位。",
@@ -7330,7 +6482,195 @@
           "C5-P063-RETALIATION"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
+    },
+    {
+      "sequence": 118,
+      "ruler_id": "RULER-SHADOW-李雄",
+      "ruler_name": "李雄",
+      "axis_grade": "G3",
+      "position": "LOW",
+      "confidence": "MEDIUM",
+      "output_mode": "BOUNDED_PROFILE",
+      "score_status": "EVIDENCE_LIMITED",
+      "typical_pattern": "服丧、卖官与酗酒等事项中多次接受制止，能够证明有限自我收束；一般制度纠偏不重复计入。",
+      "grade_basis": "跨事项有实际停止行为，但缺制度性约束、特权案件和反例暴露，强度由MI3降为MI2。",
+      "position_basis": "正向行为重复但覆盖窄，置G3低位。",
+      "limitations": [],
+      "parents": [
+        {
+          "parent_id": "C5-P118-CORRECTION",
+          "direction": "MIXED_POSITIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "basis": "服丧、卖官与酗酒等私人或权力便利事项中多次接受制止。"
+        }
+      ],
+      "unit_groups": [
+        {
+          "unit_ids": [
+            "I2-SK-LIXIONG-RULE-FORMATION-001",
+            "I2-SK-LIXIONG-LOW-TAX-GOVERNANCE-001",
+            "I2-SK-LIXIONG-ORG-DEFECTS-001",
+            "I2-SK-LIXIONG-PERSONNEL-QUALITY-001",
+            "FACT-6CBE95E9246E5815"
+          ],
+          "status": "BACKGROUND_VALIDATION",
+          "reason": "一般制度司法、组织和军事授权只作背景。"
+        },
+        {
+          "unit_ids": [
+            "I2-SK-LIXIONG-CORRECTION-001",
+            "FACT-67DF10B5EC2A17D8"
+          ],
+          "status": "SCORING_PARENT",
+          "parent_id": "C5-P118-CORRECTION",
+          "reason": "跨事项反复采纳纠偏按一个持续父链消费。"
+        }
+      ],
+      "task_code": "PROFILE-C5-RULER-SHADOW-李雄",
+      "axis_code": "C5",
+      "axis_name": "权力运用风格与克制",
+      "radar_value": 58,
+      "score_100": 58,
+      "current_entry_unit_count": 7,
+      "current_entry_disposition_counts": {
+        "BACKGROUND_VALIDATION": 5,
+        "SCORING_PARENT": 2
+      },
+      "axis_evidence_level": "E2",
+      "grade_numeric": 3,
+      "formal_status": "FORMAL_CURRENT",
+      "adjudication_ref": "PROFILE-C5-RULER-SHADOW-李雄",
+      "actual_power_window": "304—334年",
+      "representative_parent_contexts": [
+        {
+          "parent_id": "C5-P118-CORRECTION",
+          "direction": "MIXED_POSITIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "basis": "服丧、卖官与酗酒等私人或权力便利事项中多次接受制止。"
+        }
+      ],
+      "counterpattern": {
+        "positive_parent_refs": [],
+        "negative_parent_refs": [],
+        "mixed_parent_refs": [
+          "C5-P118-CORRECTION"
+        ]
+      },
+      "phase_profile": {
+        "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+        "separate_phase_grade_published": false
+      },
+      "axis_relevance_check": {
+        "status": "C5_RELEVANT",
+        "scoring_parent_refs": [
+          "C5-P118-CORRECTION"
+        ]
+      },
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+      "pre_evidence_gate": {
+        "axis_evidence_level": "E3",
+        "confidence": "HIGH",
+        "output_mode": "FULL_GRADE"
+      },
+      "evidence_gate_review": {
+        "status": "REVISED_TO_E2",
+        "basis": "只有一条MI3正向父链，未达到E3跨机制或MI4门。"
+      }
+    },
+    {
+      "sequence": 148,
+      "ruler_id": "RULER-TANG-LICHEN",
+      "ruler_name": "李忱",
+      "axis_grade": "G3",
+      "position": "LOW",
+      "confidence": "LOW",
+      "output_mode": "EPISODE_TAG",
+      "score_status": "EVIDENCE_LIMITED",
+      "typical_pattern": "封驳复议能够进入决定，但现有单元未闭合跨对象的本人受约束；限制宦官的秘密方案失败不等于权力克制负证。",
+      "grade_basis": "B2单一M2材料最高只支持有限复议生命周期，不能拔为MI3或潜在G4。",
+      "position_basis": "可见复议接受但自缚深度与反例暴露均不足，置G3低位。",
+      "limitations": [
+        "臣子处置、近幸特权和惩罚比例生命周期仍缺。"
+      ],
+      "parents": [
+        {
+          "parent_id": "C5-P148-REVIEW",
+          "direction": "MIXED_POSITIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "basis": "门下封驳与两省复议实际进入决定，但本人受不利结果约束的范围仍窄。"
+        }
+      ],
+      "unit_groups": [
+        {
+          "unit_ids": [
+            "MC-TANG-XUANZONG-LEGAL-CORRECTION",
+            "MC-TANG-XUANZONG-ACCOUNTABILITY-M2-M3-02-AUDIT",
+            "FACT-45C3B13E22935F11"
+          ],
+          "status": "BACKGROUND_VALIDATION",
+          "reason": "法律建设、地方问责和军事授权只作背景。"
+        },
+        {
+          "unit_ids": [
+            "MC-TANG-XUANZONG-FEEDBACK-M2-M3-02-AUDIT"
+          ],
+          "status": "SCORING_PARENT",
+          "parent_id": "C5-P148-REVIEW",
+          "reason": "反馈与复议实际进入决策。"
+        },
+        {
+          "unit_ids": [
+            "SECOND_B1::MC-TANG-XUANZONG-EUNUCH-LIMIT",
+            "SECOND_B2::MC-TANG-XUANZONG-EUNUCH-LIMIT",
+            "FACT-48863FD4C351CF26"
+          ],
+          "status": "AXIS_OUT_WITH_REASON",
+          "reason": "限制宦官的秘密方案泄露失败属于权力结构与执行失败，未闭合C5惩罚或自缚命题。"
+        }
+      ],
+      "task_code": "PROFILE-C5-RULER-TANG-LICHEN",
+      "axis_code": "C5",
+      "axis_name": "权力运用风格与克制",
+      "radar_value": 58,
+      "score_100": 58,
+      "current_entry_unit_count": 7,
+      "current_entry_disposition_counts": {
+        "AXIS_OUT_WITH_REASON": 3,
+        "BACKGROUND_VALIDATION": 3,
+        "SCORING_PARENT": 1
+      },
+      "axis_evidence_level": "E1",
+      "grade_numeric": 3,
+      "formal_status": "FORMAL_CURRENT",
+      "adjudication_ref": "PROFILE-C5-RULER-TANG-LICHEN",
+      "actual_power_window": "846—859年",
+      "representative_parent_contexts": [
+        {
+          "parent_id": "C5-P148-REVIEW",
+          "direction": "MIXED_POSITIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "basis": "门下封驳与两省复议实际进入决定，但本人受不利结果约束的范围仍窄。"
+        }
+      ],
+      "counterpattern": {
+        "positive_parent_refs": [],
+        "negative_parent_refs": [],
+        "mixed_parent_refs": [
+          "C5-P148-REVIEW"
+        ]
+      },
+      "phase_profile": {
+        "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+        "separate_phase_grade_published": false
+      },
+      "axis_relevance_check": {
+        "status": "C5_RELEVANT",
+        "scoring_parent_refs": [
+          "C5-P148-REVIEW"
+        ]
+      },
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 158,
@@ -7492,137 +6832,7 @@
           "C5-P158-RESOURCE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
-    },
-    {
-      "sequence": 183,
-      "ruler_id": "RULER-YUAN-TEMUR",
-      "ruler_name": "铁穆耳",
-      "axis_grade": "G3",
-      "position": "LOW",
-      "confidence": "HIGH",
-      "output_mode": "FULL_GRADE",
-      "score_status": "FINAL",
-      "typical_pattern": "跨区监察、重复征税纠正和军民官共同审理能运行，但御史连续反对复用贪腐权臣未获响应，晚期决策停滞且追籍扩大。",
-      "grade_basis": "MI3程序正向与MI3御史不响应及政治追籍反证相衡，负向略占。",
-      "position_basis": "纠正未持续，置G3低位。",
-      "limitations": [],
-      "parents": [
-        {
-          "parent_id": "C5-P183-AUDIT",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "跨区监察、税负纠正和复合审理运行。"
-        },
-        {
-          "parent_id": "C5-P183-NONRESPONSE",
-          "direction": "NEGATIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "连续御史上章未改复用贪腐权臣。"
-        },
-        {
-          "parent_id": "C5-P183-PUNISH",
-          "direction": "MIXED_NEGATIVE",
-          "intensity": "MI2_LIFECYCLE",
-          "basis": "程序赦释与朱清张瑄广泛追籍并存。"
-        }
-      ],
-      "unit_groups": [
-        {
-          "unit_ids": [
-            "AUDIT-TEMUR-A-REORG-RAW",
-            "AUDIT-TEMUR-B1-LATE-RAW",
-            "FACT-E6730B58B9AFD149",
-            "FACT-05CAF52FECAFFFBF"
-          ],
-          "status": "BACKGROUND_VALIDATION",
-          "reason": "中枢重组、健康履职与军事授权只作背景。"
-        },
-        {
-          "unit_ids": [
-            "AUDIT-TEMUR-B1-AUDIT-RAW",
-            "AUDIT-TEMUR-B2-TAX-CORRECTION-RAW"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P183-AUDIT",
-          "reason": "跨区监察与税负纠正实际运行。"
-        },
-        {
-          "unit_ids": [
-            "AUDIT-TEMUR-B2-NONRESPONSE-RAW"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P183-NONRESPONSE",
-          "reason": "御史连续反馈未改变复用决定。"
-        },
-        {
-          "unit_ids": [
-            "FACT-FCADFB64B48ACC52"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P183-PUNISH",
-          "reason": "程序底线与政治追籍反证合并评价。"
-        }
-      ],
-      "task_code": "PROFILE-C5-RULER-YUAN-TEMUR",
-      "axis_code": "C5",
-      "axis_name": "权力运用风格与克制",
-      "radar_value": 58,
-      "score_100": 58,
-      "current_entry_unit_count": 8,
-      "current_entry_disposition_counts": {
-        "BACKGROUND_VALIDATION": 4,
-        "SCORING_PARENT": 4
-      },
-      "axis_evidence_level": "E3",
-      "grade_numeric": 3,
-      "formal_status": "FORMAL_CURRENT",
-      "adjudication_ref": "PROFILE-C5-RULER-YUAN-TEMUR",
-      "actual_power_window": "1294—1307年",
-      "representative_parent_contexts": [
-        {
-          "parent_id": "C5-P183-AUDIT",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "跨区监察、税负纠正和复合审理运行。"
-        },
-        {
-          "parent_id": "C5-P183-NONRESPONSE",
-          "direction": "NEGATIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "连续御史上章未改复用贪腐权臣。"
-        },
-        {
-          "parent_id": "C5-P183-PUNISH",
-          "direction": "MIXED_NEGATIVE",
-          "intensity": "MI2_LIFECYCLE",
-          "basis": "程序赦释与朱清张瑄广泛追籍并存。"
-        }
-      ],
-      "counterpattern": {
-        "positive_parent_refs": [
-          "C5-P183-AUDIT"
-        ],
-        "negative_parent_refs": [
-          "C5-P183-NONRESPONSE"
-        ],
-        "mixed_parent_refs": [
-          "C5-P183-PUNISH"
-        ]
-      },
-      "phase_profile": {
-        "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
-        "separate_phase_grade_published": false
-      },
-      "axis_relevance_check": {
-        "status": "C5_RELEVANT",
-        "scoring_parent_refs": [
-          "C5-P183-AUDIT",
-          "C5-P183-NONRESPONSE",
-          "C5-P183-PUNISH"
-        ]
-      },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 2,
@@ -7632,7 +6842,7 @@
       "position": "HIGH",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "能够听取多臣申辩并赦免胁从，但王殷案以伪制诬杀并延及其子形成不可逆下沿。",
       "grade_basis": "一正一负两条完整生命周期相冲，负向案件归责与不可逆性更强，形成明显但非持续系统性短板。",
       "position_basis": "保留真实纠正能力，置G2高位。",
@@ -7740,7 +6950,206 @@
           "C5-P002-WANGYIN"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
+    },
+    {
+      "sequence": 5,
+      "ruler_id": "RULER-FD-LI-SIYUAN",
+      "ruler_name": "李嗣源",
+      "axis_grade": "G2",
+      "position": "HIGH",
+      "confidence": "MEDIUM",
+      "output_mode": "BOUNDED_PROFILE",
+      "score_status": "EVIDENCE_LIMITED",
+      "typical_pattern": "奏事狱政接口只作B2背景；安重诲、任圜两案在复奏和申救到达后仍遭不可逆处置。",
+      "grade_basis": "移除渠道存在的MI3正证后，两案重复处分构成明显短板，但尚未闭合制度性清洗。",
+      "position_basis": "曾有诬告案纠正背景，故置G2高位。",
+      "limitations": [],
+      "parents": [
+        {
+          "parent_id": "C5-P005-PURGES",
+          "direction": "NEGATIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "basis": "安重诲与任圜两案在强烈反馈下仍遭不可逆处置。"
+        }
+      ],
+      "unit_groups": [
+        {
+          "unit_ids": [
+            "I2-FD-MAT-5620A2FE12EA86EB",
+            "I2-FD-MAT-5B6137B5C5491FA7",
+            "I2-FD-MAT-8F941F4CEE1C59AE",
+            "I2-FD-MAT-C57E6F28566E0463",
+            "I2-FD-MAT-FD4DF628E290D05C",
+            "I2-FD-MAT-FD50B869EA70C1B6",
+            "I2-FD-MAT-FECA42171C3C42F5",
+            "I2-FD-MAT-F6CC0F08FAB7E718",
+            "I2-FD-MAT-2841DE4AFDC54095"
+          ],
+          "status": "BACKGROUND_VALIDATION",
+          "reason": "顾问、财政、地方人事、任圜治理及诗谏只验证组织和信息环境，不独立闭合C5边界。"
+        },
+        {
+          "unit_ids": [
+            "I2-FD-MAT-E6389ED6F684C2D6"
+          ],
+          "status": "BACKGROUND_VALIDATION",
+          "reason": "恢复奏事和狱政接口只证明B1/B2运行，不独立支撑C5正档。"
+        },
+        {
+          "unit_ids": [
+            "I2-FD-MAT-3748AEA607BD77E9"
+          ],
+          "status": "BACKGROUND_VALIDATION",
+          "reason": "诬告案曾纠正，作为同一权力窗口的恢复能力背景，不另立代表父链。"
+        },
+        {
+          "unit_ids": [
+            "I2-FD-MAT-68B6AF9C61BF92C2",
+            "I2-FD-MAT-AFF52890D6EB1129"
+          ],
+          "status": "SCORING_PARENT",
+          "parent_id": "C5-P005-PURGES",
+          "reason": "两名关键履职者在谏诤和复奏到达后仍遭不可逆处置。"
+        },
+        {
+          "unit_ids": [
+            "FACT-722050C3EA082A8A"
+          ],
+          "status": "AXIS_OUT_WITH_REASON",
+          "reason": "军事授权成败属于C3/M1，未闭合惩罚比例或异议保护。"
+        }
+      ],
+      "task_code": "PROFILE-C5-RULER-FD-LI-SIYUAN",
+      "axis_code": "C5",
+      "axis_name": "权力运用风格与克制",
+      "radar_value": 51,
+      "score_100": 51,
+      "current_entry_unit_count": 15,
+      "current_entry_disposition_counts": {
+        "AXIS_OUT_WITH_REASON": 1,
+        "BACKGROUND_VALIDATION": 12,
+        "SCORING_PARENT": 2
+      },
+      "axis_evidence_level": "E2",
+      "grade_numeric": 2,
+      "formal_status": "FORMAL_CURRENT",
+      "adjudication_ref": "PROFILE-C5-RULER-FD-LI-SIYUAN",
+      "actual_power_window": "926-933",
+      "representative_parent_contexts": [
+        {
+          "parent_id": "C5-P005-PURGES",
+          "direction": "NEGATIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "basis": "安重诲与任圜两案在强烈反馈下仍遭不可逆处置。"
+        }
+      ],
+      "counterpattern": {
+        "positive_parent_refs": [],
+        "negative_parent_refs": [
+          "C5-P005-PURGES"
+        ],
+        "mixed_parent_refs": []
+      },
+      "phase_profile": {
+        "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+        "separate_phase_grade_published": false
+      },
+      "axis_relevance_check": {
+        "status": "C5_RELEVANT",
+        "scoring_parent_refs": [
+          "C5-P005-PURGES"
+        ]
+      },
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
+    },
+    {
+      "sequence": 13,
+      "ruler_id": "RULER-HAN-DENGSUI",
+      "ruler_name": "邓绥",
+      "axis_grade": "G2",
+      "position": "HIGH",
+      "confidence": "MEDIUM",
+      "output_mode": "BOUNDED_PROFILE",
+      "score_status": "EVIDENCE_LIMITED",
+      "typical_pattern": "疑罪详核属于一般司法治理；在制度交班问题上跨年拒绝归还最高权力，形成核心C5负向模式。",
+      "grade_basis": "移除一般司法MI3正证后，持续拒绝交权构成明显短板，但其他惩罚与特权场景不足。",
+      "position_basis": "长期拒绝交权下沿明确，保留司法宽缓背景，置G2高位。",
+      "limitations": [],
+      "parents": [
+        {
+          "parent_id": "C5-P013-RETURN",
+          "direction": "NEGATIVE",
+          "intensity": "MI3_SUSTAINED_SYSTEMIC",
+          "basis": "在制度交班问题上持续拒绝归还最高权力。"
+        }
+      ],
+      "unit_groups": [
+        {
+          "unit_ids": [
+            "I2-EHAN-DENGSUI-CRISIS-ADMIN-001-M2-M3-02-AUDIT",
+            "FACT-364F511D4A29DE4C"
+          ],
+          "status": "BACKGROUND_VALIDATION",
+          "reason": "危机行政和勤政投入属于C4/A1，只验证权力窗口。"
+        },
+        {
+          "unit_ids": [
+            "I2-EHAN-DENGSUI-JUDICIAL-CORRECTION-001"
+          ],
+          "status": "BACKGROUND_VALIDATION",
+          "reason": "疑罪详核与司法纠偏属于一般司法治理，未闭合本人或特权者受约束。"
+        },
+        {
+          "unit_ids": [
+            "I2-EHAN-DENGSUI-RETURN-REFUSAL-001"
+          ],
+          "status": "SCORING_PARENT",
+          "parent_id": "C5-P013-RETURN",
+          "reason": "拒绝权力交班直接命中最高权力边界。"
+        }
+      ],
+      "task_code": "PROFILE-C5-RULER-HAN-DENGSUI",
+      "axis_code": "C5",
+      "axis_name": "权力运用风格与克制",
+      "radar_value": 51,
+      "score_100": 51,
+      "current_entry_unit_count": 5,
+      "current_entry_disposition_counts": {
+        "BACKGROUND_VALIDATION": 4,
+        "SCORING_PARENT": 1
+      },
+      "axis_evidence_level": "E2",
+      "grade_numeric": 2,
+      "formal_status": "FORMAL_CURRENT",
+      "adjudication_ref": "PROFILE-C5-RULER-HAN-DENGSUI",
+      "actual_power_window": "105—121年临朝主政",
+      "representative_parent_contexts": [
+        {
+          "parent_id": "C5-P013-RETURN",
+          "direction": "NEGATIVE",
+          "intensity": "MI3_SUSTAINED_SYSTEMIC",
+          "basis": "在制度交班问题上持续拒绝归还最高权力。"
+        }
+      ],
+      "counterpattern": {
+        "positive_parent_refs": [],
+        "negative_parent_refs": [
+          "C5-P013-RETURN"
+        ],
+        "mixed_parent_refs": []
+      },
+      "phase_profile": {
+        "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+        "separate_phase_grade_published": false
+      },
+      "axis_relevance_check": {
+        "status": "C5_RELEVANT",
+        "scoring_parent_refs": [
+          "C5-P013-RETURN"
+        ]
+      },
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 27,
@@ -7750,7 +7159,7 @@
       "position": "HIGH",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "司法复核和霍氏退出提供有限收束，但严法成本与盖宽饶直言后死构成核心异议保护反证。",
       "grade_basis": "正向制度运行与不可逆直言者处置相冲，负向核心机制更重，形成明显短板。",
       "position_basis": "存在司法复核和特权集团退出，置G2高位。",
@@ -7852,7 +7261,7 @@
           "C5-P027-GAI"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED"
     },
     {
       "sequence": 51,
@@ -7950,127 +7359,97 @@
           "C5-P051-WESTERN-DEPOT"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
-      "sequence": 64,
-      "ruler_id": "RULER-NS-LIU-E",
-      "ruler_name": "刘娥",
+      "sequence": 66,
+      "ruler_id": "RULER-NS-ZHAO-HENG",
+      "ruler_name": "赵恒",
       "axis_grade": "G2",
       "position": "HIGH",
-      "confidence": "HIGH",
-      "output_mode": "FULL_GRADE",
-      "score_status": "FINAL",
-      "typical_pattern": "谏院、监察独立和外官引对可运行，也限制直接奏事；抵制内降的曹利用被内侍逼死且缺实质纠正。",
-      "grade_basis": "MI3制度反馈背景被MI2异议者不可逆死亡和信息限制击穿，形成明显短板。",
-      "position_basis": "多类反馈接口仍可用，置G2高位。",
-      "limitations": [],
+      "confidence": "MEDIUM",
+      "output_mode": "BOUNDED_PROFILE",
+      "score_status": "EVIDENCE_LIMITED",
+      "typical_pattern": "转对银台属于B2渠道，澶渊履约属于M2；C5只保留末年权臣遮蔽后最高权力未恢复独立反馈的负向生命周期。",
+      "grade_basis": "原两条MI3正证均属轴外，末年信息与决定被权臣持续遮蔽形成明显权力边界短板。",
+      "position_basis": "尚有早中期程序背景但缺直接自缚正链，置G2高位。",
+      "limitations": [
+        "早中期惩罚比例和异议者安全的直接案件不足。"
+      ],
       "parents": [
         {
-          "parent_id": "C5-P064-FEEDBACK",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "谏院、监察独立和直接引对。"
-        },
-        {
-          "parent_id": "C5-P064-CAO",
-          "direction": "NEGATIVE",
+          "parent_id": "C5-P066-LATE-CAPTURE",
+          "direction": "MIXED_NEGATIVE",
           "intensity": "MI2_LIFECYCLE",
-          "basis": "曹利用抵制内降后被内侍逼死。"
-        },
-        {
-          "parent_id": "C5-P064-CLOSURE",
-          "direction": "NEGATIVE",
-          "intensity": "MI2_LIFECYCLE",
-          "basis": "限制直接奏事形成信息壅蔽。"
+          "basis": "末年转对银台虽存，最高层被权臣遮蔽且未见本人恢复约束。"
         }
       ],
       "unit_groups": [
         {
           "unit_ids": [
-            "EV020",
-            "EV024",
-            "EV025",
-            "NS-LE-V035-DINGWEI-ACCOUNTABILITY",
-            "NS-LE-V036-LOCAL-OFFICIAL-INTERVIEW",
-            "NS-LE-V036-NEPOTISM-CORRECTION",
-            "FACT-FE3361F315D828C2"
+            "EV015",
+            "EV019",
+            "I2-NSONG-ZH-TRANSCRIPTION-INSTITUTE-001",
+            "NS-ZH-V024-TRANSPORT-ASSESSMENT",
+            "NS-ZH-V026-REVENUE-KPI-CORRECTION",
+            "NS-ZH-V028-PRISON-KPI-CORRECTION",
+            "FACT-0061CAA96303232B"
           ],
           "status": "BACKGROUND_VALIDATION",
-          "reason": "交子、刑部文书、提刑狱、官员引对和军事授权主要验证行政背景。"
+          "reason": "常平、财政、科举、考核纠偏和军事授权属于一般治理背景。"
         },
         {
           "unit_ids": [
-            "EV022",
-            "EV023",
-            "NS-LE-V035-CENSOR-INDEPENDENCE",
-            "NS-LE-V036-DIRECT-AUDIENCE"
+            "EV017",
+            "EV018",
+            "EV066",
+            "EV067",
+            "NS-ZH-V022-ROTATING-AUDIENCE",
+            "NS-ZH-V023-SILVER-TERRACE",
+            "NS-ZH-V035-INFORMATION-CLOSURE"
           ],
           "status": "SCORING_PARENT",
-          "parent_id": "C5-P064-FEEDBACK",
-          "reason": "谏院与监察独立构成制度反馈正链。"
+          "reason": "渠道存在只作背景，末年遮蔽且未恢复的切片进入C5负链。",
+          "parent_id": "C5-P066-LATE-CAPTURE"
         },
         {
           "unit_ids": [
-            "NS-LE-V037-CAO-LIYONG-DEATH"
+            "FACT-58DA655AB53A85F6"
           ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P064-CAO",
-          "reason": "抵制内降者在近侍压力下非罪死亡。"
-        },
-        {
-          "unit_ids": [
-            "FACT-57D430B892DC559E"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P064-CLOSURE",
-          "reason": "限制独立奏事直接削弱反馈安全。"
+          "status": "AXIS_OUT_WITH_REASON",
+          "reason": "高压谈判与履约属于M2外交信用，不是C5权力克制。"
         }
       ],
-      "task_code": "PROFILE-C5-RULER-NS-LIU-E",
+      "task_code": "PROFILE-C5-RULER-NS-ZHAO-HENG",
       "axis_code": "C5",
       "axis_name": "权力运用风格与克制",
       "radar_value": 51,
       "score_100": 51,
-      "current_entry_unit_count": 14,
+      "current_entry_unit_count": 16,
       "current_entry_disposition_counts": {
+        "AXIS_OUT_WITH_REASON": 1,
         "BACKGROUND_VALIDATION": 7,
-        "SCORING_PARENT": 7
+        "SCORING_PARENT": 8
       },
-      "axis_evidence_level": "E3",
+      "axis_evidence_level": "E2",
       "grade_numeric": 2,
       "formal_status": "FORMAL_CURRENT",
-      "adjudication_ref": "PROFILE-C5-RULER-NS-LIU-E",
-      "actual_power_window": "1022-1033摄政",
+      "adjudication_ref": "PROFILE-C5-RULER-NS-ZHAO-HENG",
+      "actual_power_window": "997-1022",
       "representative_parent_contexts": [
         {
-          "parent_id": "C5-P064-FEEDBACK",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "谏院、监察独立和直接引对。"
-        },
-        {
-          "parent_id": "C5-P064-CAO",
-          "direction": "NEGATIVE",
+          "parent_id": "C5-P066-LATE-CAPTURE",
+          "direction": "MIXED_NEGATIVE",
           "intensity": "MI2_LIFECYCLE",
-          "basis": "曹利用抵制内降后被内侍逼死。"
-        },
-        {
-          "parent_id": "C5-P064-CLOSURE",
-          "direction": "NEGATIVE",
-          "intensity": "MI2_LIFECYCLE",
-          "basis": "限制直接奏事形成信息壅蔽。"
+          "basis": "末年转对银台虽存，最高层被权臣遮蔽且未见本人恢复约束。"
         }
       ],
       "counterpattern": {
-        "positive_parent_refs": [
-          "C5-P064-FEEDBACK"
-        ],
-        "negative_parent_refs": [
-          "C5-P064-CAO",
-          "C5-P064-CLOSURE"
-        ],
-        "mixed_parent_refs": []
+        "positive_parent_refs": [],
+        "negative_parent_refs": [],
+        "mixed_parent_refs": [
+          "C5-P066-LATE-CAPTURE"
+        ]
       },
       "phase_profile": {
         "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
@@ -8079,12 +7458,10 @@
       "axis_relevance_check": {
         "status": "C5_RELEVANT",
         "scoring_parent_refs": [
-          "C5-P064-FEEDBACK",
-          "C5-P064-CAO",
-          "C5-P064-CLOSURE"
+          "C5-P066-LATE-CAPTURE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 69,
@@ -8094,7 +7471,7 @@
       "position": "HIGH",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "宫廷费用可纳入三司、内侍和内降可受监督，但濮议中绕过银台封驳并清退台官。",
       "grade_basis": "MI2自缚接口与MI2濮议程序绕过生命周期相冲；重大但单一的宫廷争议形成下沿。",
       "position_basis": "正向接口真实存在，置G2高位。",
@@ -8196,7 +7573,7 @@
           "C5-P069-PUYI"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 80,
@@ -8206,7 +7583,7 @@
       "position": "HIGH",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "御史督抚奏报能够上达，但对英情报反复失真、最高决定摇摆且异议未能形成约束；撤换林则徐主要转嫁责任。",
       "grade_basis": "MI3信息失真和MI2反馈无约束形成明显短板，渠道仍存在使其保留高位。",
       "position_basis": "问题主要是使用反馈而非完全封闭，置G2高位。",
@@ -8286,7 +7663,7 @@
           "C5-P080-FEEDBACK"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 93,
@@ -8296,7 +7673,7 @@
       "position": "HIGH",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "司法上采纳蔡廓建议停止强迫子孙指证父祖，但对宗室权力和异议者采取强制追究；北伐拒谏属于战略而非C5。",
       "grade_basis": "MI2司法纠正与MI2异议强制相冲，政治权力处置下沿更重，形成明显短板。",
       "position_basis": "有实质程序纠正，置G2高位。",
@@ -8401,7 +7778,7 @@
           "C5-P093-COERCIVE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 104,
@@ -8508,139 +7885,7 @@
           "C5-P104-HEIR"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
-    },
-    {
-      "sequence": 121,
-      "ruler_id": "RULER-SHADOW-杨行密",
-      "ruler_name": "杨行密",
-      "axis_grade": "G2",
-      "position": "HIGH",
-      "confidence": "HIGH",
-      "output_mode": "FULL_GRADE",
-      "score_status": "FINAL",
-      "typical_pattern": "能采纳跨领域意见并赦免任用叛将旧属，但早期强迁海陵数万户并以族诛威胁，未见直接补偿。",
-      "grade_basis": "MI3强迁与威胁形成深下沿，MI3后期纠错和宽宥提供恢复。",
-      "position_basis": "恢复链持续且跨领域，置G2高位。",
-      "limitations": [],
-      "parents": [
-        {
-          "parent_id": "C5-P121-UPDATE",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "跨军事和治理事项采纳并调整。"
-        },
-        {
-          "parent_id": "C5-P121-HAILING",
-          "direction": "NEGATIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "强迁数万户并以族诛威胁。"
-        },
-        {
-          "parent_id": "C5-P121-SUCCESSION",
-          "direction": "MIXED_NEGATIVE",
-          "intensity": "MI2_LIFECYCLE",
-          "basis": "继承警告与召嗣文书一度被压。"
-        }
-      ],
-      "unit_groups": [
-        {
-          "unit_ids": [
-            "SECOND_A::I2-FD-MAT-B127B8914FF8EE65",
-            "SECOND_B1::I2-FD-MAT-B127B8914FF8EE65",
-            "FACT-CA06A5900373D84D"
-          ],
-          "status": "BACKGROUND_VALIDATION",
-          "reason": "组织接口与军事授权只作背景。"
-        },
-        {
-          "unit_ids": [
-            "SECOND_B1::I2-FD-MAT-82FCB0CE65403A36",
-            "SECOND_B2::I2-FD-MAT-82FCB0CE65403A36",
-            "FACT-0AAEE4EF0B2C8938"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P121-UPDATE",
-          "reason": "宽宥任用与跨领域采纳合并为恢复链。"
-        },
-        {
-          "unit_ids": [
-            "I2-FD-MAT-2161C2E5B9610B3B",
-            "I2-FD-MAT-CE0348AAEB9FC7D5"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P121-SUCCESSION",
-          "reason": "同一召嗣文书受压后纠正的生命周期。"
-        },
-        {
-          "unit_ids": [
-            "FACT-2E176731FE949BF3",
-            "FACT-1A6A299F228619F9"
-          ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P121-HAILING",
-          "reason": "早期内战强迁及后期资源纠正合并评价，负向不可被繁荣结果抹除。"
-        }
-      ],
-      "task_code": "PROFILE-C5-RULER-SHADOW-杨行密",
-      "axis_code": "C5",
-      "axis_name": "权力运用风格与克制",
-      "radar_value": 51,
-      "score_100": 51,
-      "current_entry_unit_count": 10,
-      "current_entry_disposition_counts": {
-        "BACKGROUND_VALIDATION": 3,
-        "SCORING_PARENT": 7
-      },
-      "axis_evidence_level": "E3",
-      "grade_numeric": 2,
-      "formal_status": "FORMAL_CURRENT",
-      "adjudication_ref": "PROFILE-C5-RULER-SHADOW-杨行密",
-      "actual_power_window": "883—905年淮南实际主政",
-      "representative_parent_contexts": [
-        {
-          "parent_id": "C5-P121-UPDATE",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "跨军事和治理事项采纳并调整。"
-        },
-        {
-          "parent_id": "C5-P121-HAILING",
-          "direction": "NEGATIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "强迁数万户并以族诛威胁。"
-        },
-        {
-          "parent_id": "C5-P121-SUCCESSION",
-          "direction": "MIXED_NEGATIVE",
-          "intensity": "MI2_LIFECYCLE",
-          "basis": "继承警告与召嗣文书一度被压。"
-        }
-      ],
-      "counterpattern": {
-        "positive_parent_refs": [
-          "C5-P121-UPDATE"
-        ],
-        "negative_parent_refs": [
-          "C5-P121-HAILING"
-        ],
-        "mixed_parent_refs": [
-          "C5-P121-SUCCESSION"
-        ]
-      },
-      "phase_profile": {
-        "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
-        "separate_phase_grade_published": false
-      },
-      "axis_relevance_check": {
-        "status": "C5_RELEVANT",
-        "scoring_parent_refs": [
-          "C5-P121-UPDATE",
-          "C5-P121-HAILING",
-          "C5-P121-SUCCESSION"
-        ]
-      },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 122,
@@ -8746,7 +7991,7 @@
           "C5-P122-KILL"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 123,
@@ -8861,7 +8106,7 @@
           "C5-P123-EXECUTIONS"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 126,
@@ -8872,28 +8117,22 @@
       "confidence": "HIGH",
       "output_mode": "FULL_GRADE",
       "score_status": "FINAL",
-      "typical_pattern": "五日临问与停止长猎证明反馈例程真实运行，但思想刑事化并实际处死读谶者，伐晋和族群风险警告数十次不纳且败后验证。",
-      "grade_basis": "MI3重复拒绝反馈与MI3思想刑罚形成明显短板，MI3固定反馈例程提供恢复。",
-      "position_basis": "正向制度并非空壳，置G2高位。",
+      "typical_pattern": "停止长猎形成一次自我收束；思想刑事化并处死读谶者形成系统性表达安全负链，伐晋拒谏另归C1/C2/M1。",
+      "grade_basis": "轴外剥离战略拒谏后，MI3思想刑罚仍构成明显短板，MI2停止长猎提供有限反向证据。",
+      "position_basis": "一条真实收束不足以覆盖系统思想刑罚，置G2高位。",
       "limitations": [],
       "parents": [
         {
-          "parent_id": "C5-P126-ROUTINE",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "固定临问和停止长猎形成运行反馈。"
+          "parent_id": "C5-P126-HUNT",
+          "direction": "MIXED_POSITIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "basis": "固定临问提供背景，具名劝止后停止长猎形成有限自我收束。"
         },
         {
           "parent_id": "C5-P126-CRIMINALIZE",
           "direction": "NEGATIVE",
           "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "思想禁令以死刑执行。"
-        },
-        {
-          "parent_id": "C5-P126-INVASION",
-          "direction": "NEGATIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "多窗口具名警告持续不纳。"
+          "basis": "史学压制与思想刑事化以死刑执行。"
         }
       ],
       "unit_groups": [
@@ -8915,8 +8154,8 @@
             "I2-SK-FUJIAN-FEEDBACK-ROUTINE-001"
           ],
           "status": "SCORING_PARENT",
-          "parent_id": "C5-P126-ROUTINE",
-          "reason": "固定频率反馈且有停止长猎实例。"
+          "reason": "反馈例程只作背景，停止长猎的私人便利收束进入C5父链。",
+          "parent_id": "C5-P126-HUNT"
         },
         {
           "unit_ids": [
@@ -8932,9 +8171,8 @@
             "I2-SK-FUJIAN-JIN-INVASION-FEEDBACK-FAILURE-M3-AUDIT",
             "FACT-9F60FCD465F8A7E5"
           ],
-          "status": "SCORING_PARENT",
-          "parent_id": "C5-P126-INVASION",
-          "reason": "第五项事实同时含反馈例程与拒绝警告；主单元归入跨阶段负链，正链由B2独立闭合。"
+          "status": "AXIS_OUT_WITH_REASON",
+          "reason": "伐晋与族群风险警告属于C1/C2/M1，不评价惩罚、特权或异议安全。"
         }
       ],
       "task_code": "PROFILE-C5-RULER-SHADOW-苻坚",
@@ -8944,8 +8182,9 @@
       "score_100": 51,
       "current_entry_unit_count": 12,
       "current_entry_disposition_counts": {
+        "AXIS_OUT_WITH_REASON": 2,
         "BACKGROUND_VALIDATION": 7,
-        "SCORING_PARENT": 5
+        "SCORING_PARENT": 3
       },
       "axis_evidence_level": "E3",
       "promotion_normalization": {
@@ -8959,33 +8198,26 @@
       "actual_power_window": "357—385年",
       "representative_parent_contexts": [
         {
-          "parent_id": "C5-P126-ROUTINE",
-          "direction": "POSITIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "固定临问和停止长猎形成运行反馈。"
+          "parent_id": "C5-P126-HUNT",
+          "direction": "MIXED_POSITIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "basis": "固定临问提供背景，具名劝止后停止长猎形成有限自我收束。"
         },
         {
           "parent_id": "C5-P126-CRIMINALIZE",
           "direction": "NEGATIVE",
           "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "思想禁令以死刑执行。"
-        },
-        {
-          "parent_id": "C5-P126-INVASION",
-          "direction": "NEGATIVE",
-          "intensity": "MI3_SUSTAINED_SYSTEMIC",
-          "basis": "多窗口具名警告持续不纳。"
+          "basis": "史学压制与思想刑事化以死刑执行。"
         }
       ],
       "counterpattern": {
-        "positive_parent_refs": [
-          "C5-P126-ROUTINE"
-        ],
+        "positive_parent_refs": [],
         "negative_parent_refs": [
-          "C5-P126-CRIMINALIZE",
-          "C5-P126-INVASION"
+          "C5-P126-CRIMINALIZE"
         ],
-        "mixed_parent_refs": []
+        "mixed_parent_refs": [
+          "C5-P126-HUNT"
+        ]
       },
       "phase_profile": {
         "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
@@ -8994,12 +8226,205 @@
       "axis_relevance_check": {
         "status": "C5_RELEVANT",
         "scoring_parent_refs": [
-          "C5-P126-ROUTINE",
-          "C5-P126-CRIMINALIZE",
-          "C5-P126-INVASION"
+          "C5-P126-HUNT",
+          "C5-P126-CRIMINALIZE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
+    },
+    {
+      "sequence": 135,
+      "ruler_id": "RULER-SHADOW-马殷",
+      "ruler_name": "马殷",
+      "axis_grade": "G2",
+      "position": "HIGH",
+      "confidence": "MEDIUM",
+      "output_mode": "BOUNDED_PROFILE",
+      "score_status": "EVIDENCE_LIMITED",
+      "typical_pattern": "高郁与许德勋建议进入政策属于C2；C5只观察继承人伪令杀高郁而最高权力未能保护的单案下沿。",
+      "grade_basis": "政策采纳不得换算权力克制，剩余单案仅显示受限归责的保护失败，不能支持合格稳定档。",
+      "position_basis": "直接命令归责受继承人伪令限制，故置明显短板的上沿而不再下压。",
+      "limitations": [],
+      "parents": [
+        {
+          "parent_id": "C5-P135-GAOYU",
+          "direction": "MIXED_NEGATIVE",
+          "intensity": "MI1_CASE",
+          "basis": "继承人伪令杀高郁，最高权力未能保护核心履职者但直接命令归责有限。"
+        }
+      ],
+      "unit_groups": [
+        {
+          "unit_ids": [
+            "SECOND_A::I2-FD-MAT-BBE6738BD2CD0CAB",
+            "SECOND_B1::I2-FD-MAT-BBE6738BD2CD0CAB",
+            "FACT-45278DA5A490E461"
+          ],
+          "status": "BACKGROUND_VALIDATION",
+          "reason": "官署组织和军事授权只作背景。"
+        },
+        {
+          "unit_ids": [
+            "SECOND_A::I2-FD-MAT-277791A5B8763FF5",
+            "SECOND_B1::I2-FD-MAT-277791A5B8763FF5",
+            "SECOND_B2::I2-FD-MAT-277791A5B8763FF5",
+            "I2-FD-MAT-C0C638716C5E9A97"
+          ],
+          "status": "AXIS_OUT_WITH_REASON",
+          "reason": "财政与外交建议进入政策属于C2/M3/M2，不证明C5边界。"
+        },
+        {
+          "unit_ids": [
+            "SECOND_B1::I2-FD-MAT-8E0EB741C66A0FE0",
+            "SECOND_B2::I2-FD-MAT-8E0EB741C66A0FE0"
+          ],
+          "status": "SCORING_PARENT",
+          "parent_id": "C5-P135-GAOYU",
+          "reason": "高郁被伪令杀害同案跨入口合并。"
+        }
+      ],
+      "task_code": "PROFILE-C5-RULER-SHADOW-马殷",
+      "axis_code": "C5",
+      "axis_name": "权力运用风格与克制",
+      "radar_value": 51,
+      "score_100": 51,
+      "current_entry_unit_count": 9,
+      "current_entry_disposition_counts": {
+        "AXIS_OUT_WITH_REASON": 4,
+        "BACKGROUND_VALIDATION": 3,
+        "SCORING_PARENT": 2
+      },
+      "axis_evidence_level": "E2",
+      "grade_numeric": 2,
+      "formal_status": "FORMAL_CURRENT",
+      "adjudication_ref": "PROFILE-C5-RULER-SHADOW-马殷",
+      "actual_power_window": "896-930实际割据",
+      "representative_parent_contexts": [
+        {
+          "parent_id": "C5-P135-GAOYU",
+          "direction": "MIXED_NEGATIVE",
+          "intensity": "MI1_CASE",
+          "basis": "继承人伪令杀高郁，最高权力未能保护核心履职者但直接命令归责有限。"
+        }
+      ],
+      "counterpattern": {
+        "positive_parent_refs": [],
+        "negative_parent_refs": [],
+        "mixed_parent_refs": [
+          "C5-P135-GAOYU"
+        ]
+      },
+      "phase_profile": {
+        "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+        "separate_phase_grade_published": false
+      },
+      "axis_relevance_check": {
+        "status": "C5_RELEVANT",
+        "scoring_parent_refs": [
+          "C5-P135-GAOYU"
+        ]
+      },
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
+    },
+    {
+      "sequence": 136,
+      "ruler_id": "RULER-SHADOW-高季兴",
+      "ruler_name": "高季兴",
+      "axis_grade": "G2",
+      "position": "HIGH",
+      "confidence": "MEDIUM",
+      "output_mode": "BOUNDED_PROFILE",
+      "score_status": "EVIDENCE_LIMITED",
+      "typical_pattern": "长期咨议与撤战属于C2/M1；C5只保留筑城处分后私下补偿的一次比例失当。",
+      "grade_basis": "移除一般听劝正证后，只剩一次比例失当与不完整恢复，不能支持合格稳定档。",
+      "position_basis": "处分后有有限补偿且未同构复发，置明显短板上沿。",
+      "limitations": [],
+      "parents": [
+        {
+          "parent_id": "C5-P136-CONSTRUCTION",
+          "direction": "MIXED_NEGATIVE",
+          "intensity": "MI1_CASE",
+          "basis": "筑城中惩办倪可福后仅私下补偿，程序与恢复均有限。"
+        }
+      ],
+      "unit_groups": [
+        {
+          "unit_ids": [
+            "SECOND_A::I2-FD-MAT-258CD28BCCCC7F36",
+            "SECOND_B1::I2-FD-MAT-258CD28BCCCC7F36",
+            "FACT-F166F7F3871FA941"
+          ],
+          "status": "BACKGROUND_VALIDATION",
+          "reason": "恢复生产与军事授权只作背景。"
+        },
+        {
+          "unit_ids": [
+            "SECOND_B1::I2-FD-MAT-27D9358C30AAA7D6",
+            "SECOND_B2::I2-FD-MAT-27D9358C30AAA7D6",
+            "I2-FD-MAT-D865E723FE5258A2"
+          ],
+          "status": "AXIS_OUT_WITH_REASON",
+          "reason": "参谋意见与撤销战争属于C2/M1，不评价C5。"
+        },
+        {
+          "unit_ids": [
+            "SECOND_B1::I2-FD-MAT-66BE6127A5286835",
+            "SECOND_B2::I2-FD-MAT-66BE6127A5286835"
+          ],
+          "status": "SCORING_PARENT",
+          "parent_id": "C5-P136-CONSTRUCTION",
+          "reason": "同一筑城处置跨入口合并。"
+        },
+        {
+          "unit_ids": [
+            "FACT-732FE1DD34FC16D7"
+          ],
+          "status": "BACKGROUND_VALIDATION",
+          "reason": "该事实混合一般政治判断，仅用于验证反馈环境，不另计分。"
+        }
+      ],
+      "task_code": "PROFILE-C5-RULER-SHADOW-高季兴",
+      "axis_code": "C5",
+      "axis_name": "权力运用风格与克制",
+      "radar_value": 51,
+      "score_100": 51,
+      "current_entry_unit_count": 9,
+      "current_entry_disposition_counts": {
+        "AXIS_OUT_WITH_REASON": 3,
+        "BACKGROUND_VALIDATION": 4,
+        "SCORING_PARENT": 2
+      },
+      "axis_evidence_level": "E2",
+      "grade_numeric": 2,
+      "formal_status": "FORMAL_CURRENT",
+      "adjudication_ref": "PROFILE-C5-RULER-SHADOW-高季兴",
+      "actual_power_window": "907-929实际割据",
+      "representative_parent_contexts": [
+        {
+          "parent_id": "C5-P136-CONSTRUCTION",
+          "direction": "MIXED_NEGATIVE",
+          "intensity": "MI1_CASE",
+          "basis": "筑城中惩办倪可福后仅私下补偿，程序与恢复均有限。"
+        }
+      ],
+      "counterpattern": {
+        "positive_parent_refs": [],
+        "negative_parent_refs": [],
+        "mixed_parent_refs": [
+          "C5-P136-CONSTRUCTION"
+        ]
+      },
+      "phase_profile": {
+        "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+        "separate_phase_grade_published": false
+      },
+      "axis_relevance_check": {
+        "status": "C5_RELEVANT",
+        "scoring_parent_refs": [
+          "C5-P136-CONSTRUCTION"
+        ]
+      },
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 160,
@@ -9116,7 +8541,7 @@
           "C5-P160-PURGE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED"
     },
     {
       "sequence": 166,
@@ -9229,7 +8654,7 @@
           "C5-P166-LATE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 176,
@@ -9238,8 +8663,8 @@
       "axis_grade": "G2",
       "position": "HIGH",
       "confidence": "LOW",
-      "output_mode": "EVIDENCE_LIMITED",
-      "score_status": "FINAL",
+      "output_mode": "EPISODE_TAG",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "军政制度投入高，但对内权力与家族关系判断在明确反馈后反复失真，高层清洗限制安全反馈。",
       "grade_basis": "MI3重复家族权力判断失真形成明显短板；一般履职和军事授权不抵销。",
       "position_basis": "负证存在但材料密度有限，置G2高位。",
@@ -9311,7 +8736,7 @@
           "C5-P176-FAMILY"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 178,
@@ -9433,7 +8858,7 @@
           "C5-P178-SUPPRESS"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 180,
@@ -9580,7 +9005,121 @@
           "C5-P180-RESOURCE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
+    },
+    {
+      "sequence": 183,
+      "ruler_id": "RULER-YUAN-TEMUR",
+      "ruler_name": "铁穆耳",
+      "axis_grade": "G2",
+      "position": "HIGH",
+      "confidence": "HIGH",
+      "output_mode": "FULL_GRADE",
+      "score_status": "FINAL",
+      "typical_pattern": "跨区监察与税负纠正属于B1/B2治理；御史连续反对复用贪腐权臣未获响应，晚期追籍扩大构成C5负链。",
+      "grade_basis": "移除一般行政纠正正证后，持续不回应监督与政治追籍显示明显短板。",
+      "position_basis": "仍有程序赦释和复合审理背景，置G2高位。",
+      "limitations": [],
+      "parents": [
+        {
+          "parent_id": "C5-P183-NONRESPONSE",
+          "direction": "NEGATIVE",
+          "intensity": "MI3_SUSTAINED_SYSTEMIC",
+          "basis": "连续御史上章未改复用贪腐权臣。"
+        },
+        {
+          "parent_id": "C5-P183-PUNISH",
+          "direction": "MIXED_NEGATIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "basis": "程序赦释与朱清张瑄广泛追籍并存。"
+        }
+      ],
+      "unit_groups": [
+        {
+          "unit_ids": [
+            "AUDIT-TEMUR-A-REORG-RAW",
+            "AUDIT-TEMUR-B1-LATE-RAW",
+            "FACT-E6730B58B9AFD149",
+            "FACT-05CAF52FECAFFFBF"
+          ],
+          "status": "BACKGROUND_VALIDATION",
+          "reason": "中枢重组、健康履职与军事授权只作背景。"
+        },
+        {
+          "unit_ids": [
+            "AUDIT-TEMUR-B1-AUDIT-RAW",
+            "AUDIT-TEMUR-B2-TAX-CORRECTION-RAW"
+          ],
+          "status": "BACKGROUND_VALIDATION",
+          "reason": "跨区监察与税负纠正属于一般行政治理，不独立证明最高权力自缚。"
+        },
+        {
+          "unit_ids": [
+            "AUDIT-TEMUR-B2-NONRESPONSE-RAW"
+          ],
+          "status": "SCORING_PARENT",
+          "parent_id": "C5-P183-NONRESPONSE",
+          "reason": "御史连续反馈未改变复用决定。"
+        },
+        {
+          "unit_ids": [
+            "FACT-FCADFB64B48ACC52"
+          ],
+          "status": "SCORING_PARENT",
+          "parent_id": "C5-P183-PUNISH",
+          "reason": "程序底线与政治追籍反证合并评价。"
+        }
+      ],
+      "task_code": "PROFILE-C5-RULER-YUAN-TEMUR",
+      "axis_code": "C5",
+      "axis_name": "权力运用风格与克制",
+      "radar_value": 51,
+      "score_100": 51,
+      "current_entry_unit_count": 8,
+      "current_entry_disposition_counts": {
+        "BACKGROUND_VALIDATION": 6,
+        "SCORING_PARENT": 2
+      },
+      "axis_evidence_level": "E3",
+      "grade_numeric": 2,
+      "formal_status": "FORMAL_CURRENT",
+      "adjudication_ref": "PROFILE-C5-RULER-YUAN-TEMUR",
+      "actual_power_window": "1294—1307年",
+      "representative_parent_contexts": [
+        {
+          "parent_id": "C5-P183-NONRESPONSE",
+          "direction": "NEGATIVE",
+          "intensity": "MI3_SUSTAINED_SYSTEMIC",
+          "basis": "连续御史上章未改复用贪腐权臣。"
+        },
+        {
+          "parent_id": "C5-P183-PUNISH",
+          "direction": "MIXED_NEGATIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "basis": "程序赦释与朱清张瑄广泛追籍并存。"
+        }
+      ],
+      "counterpattern": {
+        "positive_parent_refs": [],
+        "negative_parent_refs": [
+          "C5-P183-NONRESPONSE"
+        ],
+        "mixed_parent_refs": [
+          "C5-P183-PUNISH"
+        ]
+      },
+      "phase_profile": {
+        "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+        "separate_phase_grade_published": false
+      },
+      "axis_relevance_check": {
+        "status": "C5_RELEVANT",
+        "scoring_parent_refs": [
+          "C5-P183-NONRESPONSE",
+          "C5-P183-PUNISH"
+        ]
+      },
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 1,
@@ -9722,7 +9261,7 @@
           "C5-P001-ELITE-IMPUNITY"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED"
     },
     {
       "sequence": 9,
@@ -9832,7 +9371,7 @@
           "C5-P009-ORDINARY-ADVICE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 11,
@@ -9842,7 +9381,7 @@
       "position": "MID",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "允许崇政院和御史改变部分决定、追责功臣，但因贡奉与谗言诛杀长期镇臣并夷族形成不可逆强下沿。",
       "grade_basis": "MI3制度反馈接口真实运行；族诛案是MI2重大生命周期和深下沿，但不能按不可逆性等同系统性清洗。",
       "position_basis": "极端单链压低至G2中位，现有材料不足支持更高位置。",
@@ -9947,7 +9486,7 @@
           "C5-P011-CLAN-KILLING"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 24,
@@ -10044,7 +9583,7 @@
           "C5-P024-SHIXIAN"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 44,
@@ -10054,7 +9593,7 @@
       "position": "MID",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "族属异法和宗室反复清洗削弱程序，部分反对者获有限处置，现有材料未证明系统极端。",
       "grade_basis": "MI3同罪异罚与MI2宗室清洗构成明显短板，有限克制保留恢复空间。",
       "position_basis": "正反均有但负向主导，置G2中位。",
@@ -10150,7 +9689,7 @@
           "C5-P044-LIMITED"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 47,
@@ -10256,7 +9795,7 @@
           "C5-P047-FAVORITISM"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 52,
@@ -10370,7 +9909,7 @@
           "C5-P052-SUCCESSION"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 53,
@@ -10492,7 +10031,125 @@
           "C5-P053-LATE-PROTECTION"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
+    },
+    {
+      "sequence": 64,
+      "ruler_id": "RULER-NS-LIU-E",
+      "ruler_name": "刘娥",
+      "axis_grade": "G2",
+      "position": "MID",
+      "confidence": "HIGH",
+      "output_mode": "FULL_GRADE",
+      "score_status": "FINAL",
+      "typical_pattern": "谏院和引对只作B2背景；限制独立奏事与曹利用抵制内降后被逼死，分别形成反馈安全收紧和不可逆处置负链。",
+      "grade_basis": "两条独立负向生命周期覆盖渠道封闭与履职者保护失败，原MI3正证不具C5自缚切片。",
+      "position_basis": "仍有行政监察运行背景且未闭合广域清洗，置G2中位。",
+      "limitations": [],
+      "parents": [
+        {
+          "parent_id": "C5-P064-CAO",
+          "direction": "NEGATIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "basis": "曹利用抵制内降后被内侍逼死。"
+        },
+        {
+          "parent_id": "C5-P064-CLOSURE",
+          "direction": "NEGATIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "basis": "限制独立奏事形成信息与异议安全壅蔽。"
+        }
+      ],
+      "unit_groups": [
+        {
+          "unit_ids": [
+            "EV020",
+            "EV024",
+            "EV025",
+            "NS-LE-V035-DINGWEI-ACCOUNTABILITY",
+            "NS-LE-V036-LOCAL-OFFICIAL-INTERVIEW",
+            "NS-LE-V036-NEPOTISM-CORRECTION",
+            "FACT-FE3361F315D828C2"
+          ],
+          "status": "BACKGROUND_VALIDATION",
+          "reason": "交子、刑部文书、提刑狱、官员引对和军事授权主要验证行政背景。"
+        },
+        {
+          "unit_ids": [
+            "EV022",
+            "EV023",
+            "NS-LE-V035-CENSOR-INDEPENDENCE",
+            "NS-LE-V036-DIRECT-AUDIENCE"
+          ],
+          "status": "BACKGROUND_VALIDATION",
+          "reason": "谏院、监察独立和外官引对只证明制度接口，未闭合本人接受不利约束。"
+        },
+        {
+          "unit_ids": [
+            "NS-LE-V037-CAO-LIYONG-DEATH"
+          ],
+          "status": "SCORING_PARENT",
+          "parent_id": "C5-P064-CAO",
+          "reason": "抵制内降者在近侍压力下非罪死亡。"
+        },
+        {
+          "unit_ids": [
+            "FACT-57D430B892DC559E"
+          ],
+          "status": "SCORING_PARENT",
+          "parent_id": "C5-P064-CLOSURE",
+          "reason": "限制独立奏事直接削弱反馈安全。"
+        }
+      ],
+      "task_code": "PROFILE-C5-RULER-NS-LIU-E",
+      "axis_code": "C5",
+      "axis_name": "权力运用风格与克制",
+      "radar_value": 45,
+      "score_100": 45,
+      "current_entry_unit_count": 14,
+      "current_entry_disposition_counts": {
+        "BACKGROUND_VALIDATION": 11,
+        "SCORING_PARENT": 3
+      },
+      "axis_evidence_level": "E3",
+      "grade_numeric": 2,
+      "formal_status": "FORMAL_CURRENT",
+      "adjudication_ref": "PROFILE-C5-RULER-NS-LIU-E",
+      "actual_power_window": "1022-1033摄政",
+      "representative_parent_contexts": [
+        {
+          "parent_id": "C5-P064-CAO",
+          "direction": "NEGATIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "basis": "曹利用抵制内降后被内侍逼死。"
+        },
+        {
+          "parent_id": "C5-P064-CLOSURE",
+          "direction": "NEGATIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "basis": "限制独立奏事形成信息与异议安全壅蔽。"
+        }
+      ],
+      "counterpattern": {
+        "positive_parent_refs": [],
+        "negative_parent_refs": [
+          "C5-P064-CAO",
+          "C5-P064-CLOSURE"
+        ],
+        "mixed_parent_refs": []
+      },
+      "phase_profile": {
+        "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+        "separate_phase_grade_published": false
+      },
+      "axis_relevance_check": {
+        "status": "C5_RELEVANT",
+        "scoring_parent_refs": [
+          "C5-P064-CAO",
+          "C5-P064-CLOSURE"
+        ]
+      },
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 86,
@@ -10502,7 +10159,7 @@
       "position": "MID",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "招谏和季度询问利病提供有限反馈，但族属异法和非常酷刑与国家结构同步建立。",
       "grade_basis": "MI3不平等司法与酷刑形成明显短板，MI2招谏接口为相反机制。",
       "position_basis": "反馈入口存在但未约束核心法律差等，置G2中位。",
@@ -10599,7 +10256,7 @@
           "C5-P086-REMONSTRANCE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 92,
@@ -10706,7 +10363,7 @@
           "C5-P092-KIN-PURGE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 109,
@@ -10716,7 +10373,7 @@
       "position": "MID",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "中枢有议政纠偏框架，但因反对重大授权而罢免进言者，反馈安全受到实质压制。",
       "grade_basis": "MI2反馈压制形成明显短板，组织与军事授权不能抵销。",
       "position_basis": "现有负证单一但直接，置G2中位。",
@@ -10791,7 +10448,7 @@
           "C5-P109-DISMISS"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 127,
@@ -10898,7 +10555,7 @@
           "C5-P127-HOUJING"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 137,
@@ -10981,7 +10638,7 @@
           "C5-P137-CAPTURE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT",
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
       "pre_evidence_gate": {
         "axis_evidence_level": "E3",
         "confidence": "HIGH",
@@ -11103,7 +10760,7 @@
           "C5-P142-HUANGHAO"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 152,
@@ -11221,7 +10878,7 @@
           "C5-P152-LATE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 162,
@@ -11331,7 +10988,7 @@
           "C5-P162-PALACE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 179,
@@ -11438,7 +11095,7 @@
           "C5-P179-BYPASS"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 8,
@@ -11448,7 +11105,7 @@
       "position": "LOW",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "近臣控制资源与信息，对直指奸佞的章九龄以贬逐回应，缺少可见纠正。",
       "grade_basis": "跨资源俘获和异议压制的MI2负向链形成明显短板，但现有材料不足以证明全阶段强短板。",
       "position_basis": "反馈压制命中核心机制，置G2低位。",
@@ -11534,7 +11191,7 @@
           "C5-P008-CAPTURE-DISSENT"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 12,
@@ -11544,7 +11201,7 @@
       "position": "LOW",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "近臣卖官鬻狱并压制旧将，只有敬翔以死强谏后短暂改用王彦章，随后又被倾轧替换。",
       "grade_basis": "系统性近臣俘获与反馈纠正迅速反转，构成明显短板。",
       "position_basis": "仍存在一次高压反馈到达并改变决定，置G2低位。",
@@ -11644,7 +11301,7 @@
           "C5-P012-LATE-CORRECTION"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 16,
@@ -11655,16 +11312,16 @@
       "confidence": "HIGH",
       "output_mode": "FULL_GRADE",
       "score_status": "FINAL",
-      "typical_pattern": "能够容纳尖锐政策异议并在储位、错押萧何后纠正，但晚年对韩信、彭越两名核心功臣以欺骗、流放改判和族诛突破安全边界。",
-      "grade_basis": "MI2反馈纠正与MI2功臣重复处置同存；后者严重且不可逆，但没有闭合持续、广域的功臣清洗制度。",
-      "position_basis": "核心压力下的两案深下沿使其置G2低位。",
+      "typical_pattern": "政策听劝属于C2；C5中萧何械系、樊哙即斩命令与韩信彭越处置显示盛怒处分和功臣安全边界反复失守。",
+      "grade_basis": "政策意见能够改变决定不等于权力克制；两次盛怒处分依靠外部阻滞，韩信彭越两案又造成不可逆安全损害，整体仍为明显短板。",
+      "position_basis": "存在释放萧何等事后收束，且未闭合广域制度性清洗，保留G2低位而不降入G1。",
       "limitations": [],
       "parents": [
         {
-          "parent_id": "C5-P016-ADVICE",
-          "direction": "POSITIVE",
+          "parent_id": "C5-P016-ANGER",
+          "direction": "MIXED_NEGATIVE",
           "intensity": "MI2_LIFECYCLE",
-          "basis": "都城、储位与萧何处置均在反馈后改变。"
+          "basis": "萧何械系与樊哙即斩命令跨对象复发，均靠臣下阻滞才收束。"
         },
         {
           "parent_id": "C5-P016-MERIT-PURGE",
@@ -11685,14 +11342,20 @@
           "unit_ids": [
             "I2-WHAN-LB-CAPITAL-CORRECTION-001",
             "I2-WHAN-LB-HEIR-FEEDBACK-001",
-            "I2-WHAN-LB-LUJIA-ADVICE-001",
+            "I2-WHAN-LB-LUJIA-ADVICE-001"
+          ],
+          "status": "BACKGROUND_VALIDATION",
+          "reason": "都城、储位与陆贾意见证明C2更新，不独立证明惩罚比例、异议安全或最高权力自缚。"
+        },
+        {
+          "unit_ids": [
             "I2-WHAN-LB-MINISTER-ANGER-001",
             "FACT-B5DF3735F13DEC17",
             "FACT-FABDA706AFE0F8B3"
           ],
           "status": "SCORING_PARENT",
-          "parent_id": "C5-P016-ADVICE",
-          "reason": "政策异议、储位纠正与萧何错押释放共同闭合反馈到达后的收束模式；同案只在父链计一次。"
+          "reason": "萧何械系和樊哙即斩命令直接评价盛怒下的程序、比例与臣下安全。",
+          "parent_id": "C5-P016-ANGER"
         },
         {
           "unit_ids": [
@@ -11719,8 +11382,8 @@
       "current_entry_unit_count": 11,
       "current_entry_disposition_counts": {
         "AXIS_OUT_WITH_REASON": 1,
-        "BACKGROUND_VALIDATION": 2,
-        "SCORING_PARENT": 8
+        "BACKGROUND_VALIDATION": 5,
+        "SCORING_PARENT": 5
       },
       "axis_evidence_level": "E3",
       "grade_numeric": 2,
@@ -11729,10 +11392,10 @@
       "actual_power_window": "前206—前195年",
       "representative_parent_contexts": [
         {
-          "parent_id": "C5-P016-ADVICE",
-          "direction": "POSITIVE",
+          "parent_id": "C5-P016-ANGER",
+          "direction": "MIXED_NEGATIVE",
           "intensity": "MI2_LIFECYCLE",
-          "basis": "都城、储位与萧何处置均在反馈后改变。"
+          "basis": "萧何械系与樊哙即斩命令跨对象复发，均靠臣下阻滞才收束。"
         },
         {
           "parent_id": "C5-P016-MERIT-PURGE",
@@ -11742,13 +11405,13 @@
         }
       ],
       "counterpattern": {
-        "positive_parent_refs": [
-          "C5-P016-ADVICE"
-        ],
+        "positive_parent_refs": [],
         "negative_parent_refs": [
           "C5-P016-MERIT-PURGE"
         ],
-        "mixed_parent_refs": []
+        "mixed_parent_refs": [
+          "C5-P016-ANGER"
+        ]
       },
       "phase_profile": {
         "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
@@ -11757,11 +11420,11 @@
       "axis_relevance_check": {
         "status": "C5_RELEVANT",
         "scoring_parent_refs": [
-          "C5-P016-ADVICE",
+          "C5-P016-ANGER",
           "C5-P016-MERIT-PURGE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED"
     },
     {
       "sequence": 36,
@@ -11771,7 +11434,7 @@
       "position": "LOW",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "灾害减免仍在运行，但危机中括马签军、卖敕筹饷并禁止百姓谈论边事，反馈与强制同步收紧。",
       "grade_basis": "MI3危机征索与MI2言论封闭构成明显短板，灾害救济不足以恢复核心机制。",
       "position_basis": "限制反馈直接命中核心，置G2低位。",
@@ -11867,7 +11530,7 @@
           "C5-P036-CRISIS-COERCION"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 58,
@@ -11877,7 +11540,7 @@
       "position": "LOW",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "反复把最高决定交给刘承胤、孙可望和近臣，阁臣被杀后才尝试密召何腾蛟、李定国纠正，收权迟且复发。",
       "grade_basis": "MI3军头近臣俘获形成明显短板，数次密召纠正未建立稳定边界。",
       "position_basis": "纠正存在但多次失败，置G2低位。",
@@ -11944,7 +11607,7 @@
           "C5-P058-WARLORD-CAPTURE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 70,
@@ -12061,7 +11724,7 @@
           "C5-P070-WUTAI"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 90,
@@ -12071,7 +11734,7 @@
       "position": "LOW",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "中央考课与任用被俘获，具名拒谏和反馈压制形成负向；现有材料未提供同强纠正。",
       "grade_basis": "MI3中枢俘获与MI2拒谏构成明显短板，证据范围不足以定强短板。",
       "position_basis": "核心反馈机制受损，置G2低位。",
@@ -12147,7 +11810,7 @@
           "C5-P090-CAPTURE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 100,
@@ -12157,7 +11820,7 @@
       "position": "LOW",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "能采纳范宁部分改革，但司马道子权力俘获长期损害司法与反馈，纠正低强度且未持续。",
       "grade_basis": "MI3权力俘获形成明显短板，M0/M2改革采纳不足以恢复。",
       "position_basis": "核心法律反馈失灵，置G2低位。",
@@ -12254,7 +11917,7 @@
           "C5-P100-FANNING"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 116,
@@ -12358,7 +12021,124 @@
           "C5-P116-UNIMPLEMENTED"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
+    },
+    {
+      "sequence": 121,
+      "ruler_id": "RULER-SHADOW-杨行密",
+      "ruler_name": "杨行密",
+      "axis_grade": "G2",
+      "position": "LOW",
+      "confidence": "HIGH",
+      "output_mode": "FULL_GRADE",
+      "score_status": "FINAL",
+      "typical_pattern": "跨领域采纳属于C2；海陵数万户强迁与族诛威胁是系统负证，继承文书受压后仅有限纠正。",
+      "grade_basis": "MI3强迁直接命中强制权力范围，正向政策更新不得抵消；继承反馈只形成有限恢复。",
+      "position_basis": "存在召嗣纠正但未补偿强迁伤害，置G2低位。",
+      "limitations": [],
+      "parents": [
+        {
+          "parent_id": "C5-P121-HAILING",
+          "direction": "NEGATIVE",
+          "intensity": "MI3_SUSTAINED_SYSTEMIC",
+          "basis": "早期强迁海陵数万户并以族诛威胁，未见直接补偿。"
+        },
+        {
+          "parent_id": "C5-P121-SUCCESSION",
+          "direction": "MIXED_NEGATIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "basis": "继承警告与召嗣文书一度被压，后有有限纠正。"
+        }
+      ],
+      "unit_groups": [
+        {
+          "unit_ids": [
+            "SECOND_A::I2-FD-MAT-B127B8914FF8EE65",
+            "SECOND_B1::I2-FD-MAT-B127B8914FF8EE65",
+            "FACT-CA06A5900373D84D"
+          ],
+          "status": "BACKGROUND_VALIDATION",
+          "reason": "组织接口与军事授权只作背景。"
+        },
+        {
+          "unit_ids": [
+            "SECOND_B1::I2-FD-MAT-82FCB0CE65403A36",
+            "SECOND_B2::I2-FD-MAT-82FCB0CE65403A36",
+            "FACT-0AAEE4EF0B2C8938"
+          ],
+          "status": "AXIS_OUT_WITH_REASON",
+          "reason": "宽宥任用与跨领域采纳主要属于C2/C3，不能作为C5 MI3正证。"
+        },
+        {
+          "unit_ids": [
+            "I2-FD-MAT-2161C2E5B9610B3B",
+            "I2-FD-MAT-CE0348AAEB9FC7D5"
+          ],
+          "status": "SCORING_PARENT",
+          "parent_id": "C5-P121-SUCCESSION",
+          "reason": "同一召嗣文书受压后纠正的生命周期。"
+        },
+        {
+          "unit_ids": [
+            "FACT-2E176731FE949BF3",
+            "FACT-1A6A299F228619F9"
+          ],
+          "status": "SCORING_PARENT",
+          "parent_id": "C5-P121-HAILING",
+          "reason": "早期内战强迁及后期资源纠正合并评价，负向不可被繁荣结果抹除。"
+        }
+      ],
+      "task_code": "PROFILE-C5-RULER-SHADOW-杨行密",
+      "axis_code": "C5",
+      "axis_name": "权力运用风格与克制",
+      "radar_value": 38,
+      "score_100": 38,
+      "current_entry_unit_count": 10,
+      "current_entry_disposition_counts": {
+        "AXIS_OUT_WITH_REASON": 3,
+        "BACKGROUND_VALIDATION": 3,
+        "SCORING_PARENT": 4
+      },
+      "axis_evidence_level": "E3",
+      "grade_numeric": 2,
+      "formal_status": "FORMAL_CURRENT",
+      "adjudication_ref": "PROFILE-C5-RULER-SHADOW-杨行密",
+      "actual_power_window": "883—905年淮南实际主政",
+      "representative_parent_contexts": [
+        {
+          "parent_id": "C5-P121-HAILING",
+          "direction": "NEGATIVE",
+          "intensity": "MI3_SUSTAINED_SYSTEMIC",
+          "basis": "早期强迁海陵数万户并以族诛威胁，未见直接补偿。"
+        },
+        {
+          "parent_id": "C5-P121-SUCCESSION",
+          "direction": "MIXED_NEGATIVE",
+          "intensity": "MI2_LIFECYCLE",
+          "basis": "继承警告与召嗣文书一度被压，后有有限纠正。"
+        }
+      ],
+      "counterpattern": {
+        "positive_parent_refs": [],
+        "negative_parent_refs": [
+          "C5-P121-HAILING"
+        ],
+        "mixed_parent_refs": [
+          "C5-P121-SUCCESSION"
+        ]
+      },
+      "phase_profile": {
+        "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+        "separate_phase_grade_published": false
+      },
+      "axis_relevance_check": {
+        "status": "C5_RELEVANT",
+        "scoring_parent_refs": [
+          "C5-P121-HAILING",
+          "C5-P121-SUCCESSION"
+        ]
+      },
+      "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED"
     },
     {
       "sequence": 154,
@@ -12471,7 +12251,7 @@
           "C5-P154-FAMILY"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 156,
@@ -12581,7 +12361,7 @@
           "C5-P156-LATE-CORRECT"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 161,
@@ -12665,7 +12445,7 @@
           "C5-P161-EXPEDITION"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT",
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
       "pre_evidence_gate": {
         "axis_evidence_level": "E3",
         "confidence": "HIGH",
@@ -12684,7 +12464,7 @@
       "position": "LOW",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "首谋已受控后仍灭没藏氏族并赐死故后，把非战争惩罚扩大至家族。",
       "grade_basis": "MI2扩大株连生命周期形成深下沿，但现有材料不能证明持久广域模式。",
       "position_basis": "严重而材料单一，置G2低位。",
@@ -12756,7 +12536,7 @@
           "C5-P173-MOZANG"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 6,
@@ -12894,7 +12674,7 @@
           "C5-P006-PRISON-MERCY"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 7,
@@ -12904,7 +12684,7 @@
       "position": "HIGH",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "早中期官僚运行不能阻止末年酷刑、拒谏、宦官专任和宿卫侵害无处申诉。",
       "grade_basis": "两个独立MI2负向机制集中于末期并相互强化，形成强短板；阶段覆盖不足以定G0。",
       "position_basis": "早中期尚有士人行政与长期宰相运行，置G1高位。",
@@ -12988,7 +12768,7 @@
           "C5-P007-LATE-COERCION"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 15,
@@ -13094,7 +12874,7 @@
           "C5-P015-CHANGLING"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 25,
@@ -13200,7 +12980,7 @@
           "C5-P025-DONGXIAN-WANGJIA"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 30,
@@ -13283,7 +13063,7 @@
           "C5-P030-CHU-PRISON"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 41,
@@ -13293,7 +13073,7 @@
       "position": "HIGH",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "进入中原后纵兵大掠与括借，反馈恶化后才改变安排并北撤；释放旧使与任用旧臣只是有限反例。",
       "grade_basis": "MI3广域侵扰与迟缓纠正形成强短板，MI2保护旧臣使者阻止更低档。",
       "position_basis": "有实际止损与保护，置G1高位。",
@@ -13389,7 +13169,7 @@
           "C5-P041-OLD-OFFICIALS"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 60,
@@ -13399,7 +13179,7 @@
       "position": "HIGH",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "削藩以连续废迁和逮捕扩大，湘王自焚等反馈到达后仍未转入分期、司法或谈判方案；求直言接口未改变核心选择。",
       "grade_basis": "MI3跨多宗藩强制处置和反馈拒绝形成强短板，早期宽法求言是有限反例。",
       "position_basis": "一般政策仍有开放接口，置G1高位。",
@@ -13495,7 +13275,7 @@
           "C5-P060-PRINCES"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 73,
@@ -13608,7 +13388,7 @@
           "C5-P073-INFORMATION"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 74,
@@ -13724,7 +13504,7 @@
           "C5-P074-CORRECTION"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED"
     },
     {
       "sequence": 91,
@@ -13835,7 +13615,7 @@
           "C5-P091-SUSPICION"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 94,
@@ -13845,7 +13625,7 @@
       "position": "HIGH",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "因逆耳建议杀李骧及其妻，事后追悔立祠但不可逆伤害已完成；其他信息更新同样迟缓。",
       "grade_basis": "MI3不可逆异议者及配偶处置形成强短板，追悔提供有限恢复。",
       "position_basis": "能明确承认误判，置G1高位。",
@@ -13919,7 +13699,7 @@
           "C5-P094-LIXIANG"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 102,
@@ -14026,7 +13806,7 @@
           "C5-P102-WANGDUN"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 103,
@@ -14133,7 +13913,7 @@
           "C5-P103-LATE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 119,
@@ -14198,21 +13978,25 @@
             "I2-LAW-CHAIN-KAIHUANG-001",
             "LAW-16-001-M2-M3-02-AUDIT",
             "I2-SUI-YJ-REMONSTRANCE-OPERATION-002",
-            "I2-SUI-YJ-LOCAL-CORRUPTION-CORRECTION-001"
+            "I2-SUI-YJ-LOCAL-CORRUPTION-CORRECTION-001",
+            "LOCAL_LEGAL_REGISTRY::LAW-16-008"
           ],
           "status": "SCORING_PARENT",
           "parent_id": "C5-P119-EARLY-LAW",
-          "reason": "制度只有在覆核、进谏和改判实际约束本人时计正。"
+          "reason": "简律复核、劝止运行及赵绰抗辩使来旷由死改流共同闭合有限正向约束。"
         },
         {
           "unit_ids": [
             "LAW-16-005-M2-M3-02-AUDIT",
             "FACT-A9EAB70D340FF1B5",
-            "FACT-06624C09CFDE42C5"
+            "FACT-06624C09CFDE42C5",
+            "LOCAL_LEGAL_REGISTRY::LAW-16-005",
+            "LOCAL_LEGAL_REGISTRY::LAW-16-006",
+            "LOCAL_LEGAL_REGISTRY::LAW-16-007"
           ],
           "status": "SCORING_PARENT",
           "parent_id": "C5-P119-LATE-BREACH",
-          "reason": "劝止后复发、律外用刑与深文执行按同一反转父链消费。"
+          "reason": "B2与本地法律主入口共同闭合宫廷杖杀、告密诱捕、微罪极刑和深文酷吏跨年复发。"
         },
         {
           "unit_ids": [
@@ -14240,10 +14024,10 @@
       "axis_name": "权力运用风格与克制",
       "radar_value": 31,
       "score_100": 31,
-      "current_entry_unit_count": 26,
+      "current_entry_unit_count": 30,
       "current_entry_disposition_counts": {
         "BACKGROUND_VALIDATION": 13,
-        "SCORING_PARENT": 13
+        "SCORING_PARENT": 17
       },
       "axis_evidence_level": "E3",
       "promotion_normalization": {
@@ -14306,7 +14090,7 @@
           "C5-P119-RESOURCE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED"
     },
     {
       "sequence": 143,
@@ -14418,7 +14202,7 @@
           "C5-P143-CORRECTION"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 144,
@@ -14555,7 +14339,7 @@
           "C5-P144-RESTORE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 145,
@@ -14692,7 +14476,7 @@
           "C5-P145-RESOURCE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 147,
@@ -14819,7 +14603,7 @@
           "C5-P147-LATE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 150,
@@ -14951,7 +14735,7 @@
           "C5-P150-JUSTICE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 164,
@@ -15040,7 +14824,7 @@
           "C5-P164-CAPTURE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT",
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
       "pre_evidence_gate": {
         "axis_evidence_level": "E3",
         "confidence": "HIGH",
@@ -15148,7 +14932,7 @@
           "C5-P056-POLITICAL-TRIALS"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 88,
@@ -15279,7 +15063,7 @@
           "C5-P088-LEVY"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 89,
@@ -15398,7 +15182,7 @@
           "C5-P089-BOXER"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 129,
@@ -15487,7 +15271,7 @@
           "C5-P129-PURGE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 159,
@@ -15650,7 +15434,7 @@
           "C5-P159-RESOURCE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 14,
@@ -15756,7 +15540,7 @@
           "C5-P014-EARLY-CONSTRAINT"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 22,
@@ -15766,7 +15550,7 @@
       "position": "LOW",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "承近幸构谗清洗邓氏、封闭群臣进谏并逆转继承安排，为宫廷秘不发丧留下条件。",
       "grade_basis": "三条MI2负向链跨亲族、异议和继承机制复发，缺实质纠正，形成强短板。",
       "position_basis": "无同强正向恢复，置G1低位。",
@@ -15833,7 +15617,7 @@
           "C5-P022-PURGE-CLOSURE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 71,
@@ -15922,7 +15706,7 @@
           "C5-P071-PARTY-PURGE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 77,
@@ -16056,7 +15840,7 @@
           "C5-P077-HESHEN-ABDICATION"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 99,
@@ -16139,7 +15923,7 @@
           "C5-P099-FEAR"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 101,
@@ -16271,7 +16055,7 @@
           "C5-P101-EARLY-DISSENT"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 115,
@@ -16355,7 +16139,7 @@
           "C5-P115-SUSPICION"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 132,
@@ -16458,7 +16242,7 @@
           "C5-P132-RESOURCE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 139,
@@ -16468,7 +16252,7 @@
       "position": "LOW",
       "confidence": "MEDIUM",
       "output_mode": "BOUNDED_PROFILE",
-      "score_status": "FINAL",
+      "score_status": "EVIDENCE_LIMITED",
       "typical_pattern": "法律失范、中枢清洗与反馈压制相互强化，未见有效复核或恢复。",
       "grade_basis": "MI3权力俘获形成强短板。",
       "position_basis": "正向反证缺失，置G1低位。",
@@ -16541,7 +16325,7 @@
           "C5-P139-CAPTURE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 151,
@@ -16672,7 +16456,7 @@
           "C5-P151-RESOURCE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 155,
@@ -16756,7 +16540,7 @@
           "C5-P155-CAPTURE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 163,
@@ -16838,7 +16622,7 @@
           "C5-P163-PURGE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 168,
@@ -16928,7 +16712,7 @@
           "C5-P168-COERCION"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 184,
@@ -17080,7 +16864,7 @@
           "C5-P184-MUTILATION"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 18,
@@ -17249,7 +17033,7 @@
           "C5-P018-LATE-TURN"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 29,
@@ -17355,7 +17139,7 @@
           "C5-P029-EUNUCH-PARTY"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 31,
@@ -17436,7 +17220,7 @@
           "C5-P031-CAPTURE-PURGE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 37,
@@ -17519,7 +17303,7 @@
           "C5-P037-LATE-KILLINGS"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 42,
@@ -17603,7 +17387,7 @@
           "C5-P042-YIXIN"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 48,
@@ -17736,7 +17520,7 @@
           "C5-P048-PUBLIC-RESOURCE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 49,
@@ -17866,7 +17650,7 @@
           "C5-P049-RESOURCE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 54,
@@ -17972,7 +17756,7 @@
           "C5-P054-MINE-TAX"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 4,
@@ -18117,7 +17901,7 @@
           "C5-P004-SURRENDER"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 21,
@@ -18238,7 +18022,7 @@
           "C5-P021-LATE-STOP"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 46,
@@ -18320,7 +18104,7 @@
           "C5-P046-CAPTURE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 50,
@@ -18442,7 +18226,7 @@
           "C5-P050-RESOURCE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 97,
@@ -18550,7 +18334,7 @@
           "C5-P097-LATE-PURGE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 114,
@@ -18676,7 +18460,7 @@
           "C5-P114-CUIHAO"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 138,
@@ -18766,7 +18550,7 @@
           "C5-P138-COLLAPSE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 140,
@@ -18855,7 +18639,7 @@
           "C5-P140-FAVORITE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 33,
@@ -18959,7 +18743,7 @@
           "C5-P033-EXACTIONS"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 57,
@@ -19035,7 +18819,7 @@
           "C5-P057-WEI"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 59,
@@ -19209,7 +18993,7 @@
           "C5-P059-RESOURCE-RESTRAINT"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 67,
@@ -19333,7 +19117,7 @@
           "C5-P067-RESOURCE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 83,
@@ -19440,7 +19224,7 @@
           "C5-P083-PALACE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 84,
@@ -19576,7 +19360,7 @@
           "C5-P084-PALACE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED"
     },
     {
       "sequence": 95,
@@ -19680,7 +19464,7 @@
           "C5-P095-TABOO"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 120,
@@ -19818,7 +19602,7 @@
           "C5-P120-RESOURCE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 124,
@@ -19929,7 +19713,7 @@
           "C5-P124-EXTRACTION"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 130,
@@ -20041,7 +19825,7 @@
           "C5-P130-EXTRACTION"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     },
     {
       "sequence": 165,
@@ -20152,7 +19936,7 @@
           "C5-P165-RESOURCE"
         ]
       },
-      "same_chain_semantic_conflict_review_status": "REVIEWED_NO_UNRESOLVED_CONFLICT"
+      "same_chain_semantic_conflict_review_status": "NO_TRIGGER"
     }
   ],
   "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC"
