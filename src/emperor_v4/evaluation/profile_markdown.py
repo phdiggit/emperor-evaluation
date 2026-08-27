@@ -15,7 +15,6 @@ AXIS_FILES = {
     "C3": "24-C3人才识别配置与授权正式结算.json",
     "C5": "02-C5权力运用风格与克制正式结算.json",
     "M3": "29-M3财政经济约束理解与工具适配正式结算.json",
-    "M4": "34-M4政治联盟与内部联盟管理正式结算.json",
 }
 
 
@@ -41,7 +40,7 @@ def _limitations(record: dict[str, Any], labels: dict[str, str]) -> str:
 
 
 def _parent_basis(parent: dict[str, Any]) -> str:
-    for key in ("lifecycle_narrative", "cycle_basis", "constraint_and_task", "coalition_task", "basis", "lifecycle_review"):
+    for key in ("lifecycle_narrative", "cycle_basis", "constraint_and_task", "basis", "lifecycle_review"):
         if parent.get(key):
             return str(parent[key])
     return "该父链的结构化字段见正式JSON。"
@@ -85,7 +84,7 @@ def _overview_table(axis: str, records: list[dict[str, Any]], labels: dict[str, 
             cells = [row["radar_value"], row["axis_grade"], row["position"], row["ruler_name"], row["polity"], row["axis_evidence_level"], row["confidence"], row["typical_pattern"], _limitations(row, labels)]
             lines.append("| " + " | ".join(_escape(cell) for cell in cells) + " |")
         return lines
-    if axis in {"C3", "M3", "M4"}:
+    if axis in {"C3", "M3"}:
         lines = [
             "| 序 | 人物 | 政权 | 实际权力窗口 | 档位 | 位置 | 雷达值 | 证据 | 输出 | 状态 | 父链 | 典型模式 | 限制 |",
             "|---:|---|---|---|---|---|---:|---|---|---|---:|---|---|",
@@ -161,11 +160,6 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
         lines.extend([
             "## M3 专项边界", "",
             "档位来自显式逐人财政工具裁决；第二项分数、档位、国库规模、繁荣叙述、改革数量和材料数量均不转换为M3。跨领域优先级归C1，稳定更新模式归C2，财政经济约束与工具适配归M3。", "",
-        ])
-    if axis == "M4":
-        lines.extend([
-            "## M4 专项边界", "",
-            "档位来自显式逐人国内集团联盟生命周期裁决；M2外部联盟、C3个人用人、C5权力伦理、第一项B开国团队成果、第四项A社会整合结果、第二项治理结果、集团数量和材料数量均不转换为M4。", "",
         ])
     return "\n".join(lines)
 
