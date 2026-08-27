@@ -70,6 +70,15 @@ profile_assessment:
   profile_ranking_enabled: false
   composite_ranking_write: false
   database_write: false
+  radar_samples:
+    status: supported_offline_deterministic
+    source: settled_axes_formal_json_only
+    output_dir: docs/评分结算/皇帝人物画像/雷达图小样
+    scale: [0, 100]
+    axis_order: [M1, M2, M3, M4, C1, C2, C3, C5]
+    profile_total_enabled: false
+    profile_ranking_enabled: false
+    composite_ranking_write: false
   manifest_json: docs/评分结算/皇帝人物画像/00-已结算轴正式入口.json
   manifest_markdown: docs/评分结算/皇帝人物画像/00-已结算轴正式入口.md
   settled_axes:

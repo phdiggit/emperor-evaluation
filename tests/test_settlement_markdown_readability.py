@@ -27,7 +27,8 @@ def _reader_views() -> list[Path]:
 
 def test_settlement_reader_views_exclude_machine_audit_and_template_noise() -> None:
     paths = _reader_views()
-    assert len(paths) == 46
+    assert len(paths) == 47
+    assert SETTLEMENT_ROOT / "皇帝人物画像/雷达图小样/00-雷达图小样说明.md" in paths
     for path in paths:
         raw = path.read_bytes()
         assert not raw.startswith(b"\xef\xbb\xbf"), path
