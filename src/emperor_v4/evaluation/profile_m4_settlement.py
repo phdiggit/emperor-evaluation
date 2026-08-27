@@ -70,6 +70,11 @@ def _sha(path: Path) -> str:
     return hashlib.sha256(_read(path)).hexdigest()
 
 
+def _normalized_sha(path: Path) -> str:
+    normalized = _read(path).replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    return hashlib.sha256(normalized).hexdigest()
+
+
 def _write_json(path: Path, value: Any) -> None:
     path.write_text(
         json.dumps(value, ensure_ascii=False, indent=2) + "\n",
@@ -274,7 +279,7 @@ def _make_settlement(records: list[dict[str, Any]], audit: dict[str, Any], high:
         "canonical_pool_sha256": _sha(POOL),
         "manual_adjudication": MANUAL.relative_to(ROOT).as_posix(),
         "manual_adjudication_sha256": _sha(MANUAL),
-        "input_sha256": {path.relative_to(ROOT).as_posix(): _sha(path) for path in NORMATIVE_INPUTS.values()},
+        "input_sha256": {path.relative_to(ROOT).as_posix(): _normalized_sha(path) for path in NORMATIVE_INPUTS.values()},
         "record_count": len(formal),
         "unresolved_evidence_gap_count": audit["unresolved_count"],
         "formal_profile_write": True,

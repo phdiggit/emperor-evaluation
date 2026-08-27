@@ -22,6 +22,7 @@ from emperor_v4.evaluation.profile_m4_settlement import (
     ROOT,
     SCORES,
     SETTLEMENT,
+    _normalized_sha,
 )
 from emperor_v4.evaluation.profile_markdown import render_profile_markdown
 
@@ -78,7 +79,7 @@ def verify_payloads(
     ))
     assert settlement["unresolved_evidence_gap_count"] == 0
     assert settlement["input_sha256"] == {
-        path.relative_to(ROOT).as_posix(): _sha(path)
+        path.relative_to(ROOT).as_posix(): _normalized_sha(path)
         for path in NORMATIVE_INPUTS.values()
     }
 
