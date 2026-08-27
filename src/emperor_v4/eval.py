@@ -19,6 +19,7 @@ from emperor_v4.evaluation.composite_ranking import (
 from emperor_v4.evaluation.formal_settlements import verify_formal_settlements
 from emperor_v4.evaluation.profile_c3_settlement import build as build_profile_c3_settlement
 from emperor_v4.evaluation.profile_c3_verifier import verify as verify_profile_c3_settlement
+from emperor_v4.evaluation.profile_markdown import AXIS_FILES, write_axes as write_profile_markdown_axes
 from emperor_v4.evaluation.third_item_current_settlement import (
     build_current_third_item_settlement,
     write_current_third_item_settlement,
@@ -35,6 +36,9 @@ def _parser() -> argparse.ArgumentParser:
     profile_c3 = commands.add_parser("profile-c3-settlement")
     profile_c3.add_argument("--write", action="store_true")
     commands.add_parser("profile-c3-verify")
+    profile_markdown = commands.add_parser("profile-markdown")
+    profile_markdown.add_argument("--write", action="store_true")
+    profile_markdown.add_argument("--axis", action="append", choices=sorted(AXIS_FILES))
     composite = commands.add_parser("composite-ranking")
     composite.add_argument("--workspace-root", type=Path, default=Path("."))
     composite.add_argument("--write", action="store_true")
@@ -74,6 +78,12 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
     if args.command == "profile-c3-verify":
         print(json.dumps(verify_profile_c3_settlement(), ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "profile-markdown":
+        if not args.write:
+            raise SystemExit("profile-markdown 必须显式传入 --write")
+        for path in write_profile_markdown_axes(args.axis or AXIS_FILES):
+            print(path.relative_to(Path(".").resolve()).as_posix())
         return 0
 
     workspace_root = args.workspace_root.resolve()

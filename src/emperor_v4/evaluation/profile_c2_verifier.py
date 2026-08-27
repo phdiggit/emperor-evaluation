@@ -8,6 +8,8 @@ from pathlib import Path
 
 import yaml
 
+from emperor_v4.evaluation.profile_markdown import render_profile_markdown
+
 
 ROOT = Path(__file__).resolve().parents[3]
 PROFILE_ROOT = ROOT / "docs" / "评分结算" / "皇帝人物画像"
@@ -347,6 +349,7 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
 
 def verify() -> dict[str, object]:
     settlement, audit, high = _load(SETTLEMENT), _load(AUDIT), _load(HIGH_REVIEW)
+    assert _read(MARKDOWN).decode("utf-8") == render_profile_markdown(settlement)
     result = verify_payloads(settlement, audit, high)
     assert settlement["canonical_pool_sha256"] == _sha(POOL)
     assert settlement["contract_sha256"] == _sha(CONTRACT)

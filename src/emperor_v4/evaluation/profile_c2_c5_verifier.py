@@ -6,6 +6,8 @@ from pathlib import Path
 
 import yaml
 
+from emperor_v4.evaluation.profile_markdown import render_profile_markdown
+
 
 ROOT = Path(__file__).resolve().parents[3]
 PROFILE_ROOT = ROOT / "docs" / "评分结算" / "皇帝人物画像"
@@ -63,6 +65,7 @@ def verify() -> dict[str, object]:
     c2, c5, audit, density, structure, joint = (
         _load(path) for path in (C2, C5, C5_AUDIT, C5_DENSITY, C5_STRUCTURE, JOINT)
     )
+    assert _read(C5_MD).decode("utf-8") == render_profile_markdown(c5)
     c2_by_id = {row["ruler_id"]: row for row in c2["records"]}
     c5_by_id = {row["ruler_id"]: row for row in c5["records"]}
     assert len(c2_by_id) == len(c5_by_id) == 184

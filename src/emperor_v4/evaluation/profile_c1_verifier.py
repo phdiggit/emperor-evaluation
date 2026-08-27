@@ -7,6 +7,8 @@ from pathlib import Path
 
 import yaml
 
+from emperor_v4.evaluation.profile_markdown import render_profile_markdown
+
 
 SETTLEMENT_NAME = "15-C1战略判断与风险控制正式结算.json"
 MARKDOWN_NAME = "15-C1战略判断与风险控制正式结算.md"
@@ -129,6 +131,8 @@ def verify(root: Path) -> dict[str, object]:
     manifest = _load(manifest_path)
     config = yaml.safe_load(config_path.read_text(encoding="utf-8"))
     records = settlement["records"]
+    if markdown_path.read_text(encoding="utf-8") != render_profile_markdown(settlement):
+        raise ValueError("C1 Markdown is not the deterministic JSON reading view")
     pool_records = [record for record in pool["records"] if record["pool_status"] == "INCLUDED"]
     pool_ids = {record["ruler_id"] for record in pool_records}
 

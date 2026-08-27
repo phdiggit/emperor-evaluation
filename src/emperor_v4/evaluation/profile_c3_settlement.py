@@ -6,6 +6,8 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
+from emperor_v4.evaluation.profile_markdown import render_profile_markdown
+
 ROOT = Path(__file__).resolve().parents[3]
 PROFILE_ROOT = ROOT / "docs" / "评分结算" / "皇帝人物画像"
 CONTRACT = ROOT / "docs" / "项目总纲" / "皇帝人物画像评估体系合同.md"
@@ -268,28 +270,6 @@ def _make_settlement(records: list[dict[str, Any]], audit: dict[str, Any], high:
     }
 
 
-def _markdown(settlement: dict[str, Any]) -> str:
-    lines = [
-        "# C3 人才识别、配置与授权正式结算", "",
-        "> 独立人物画像轴；不进入五项综合总榜，不生成画像总分或轴内排名。", "",
-        f"- 合同：`FORMAL-V1.0`", f"- 正式人口：{settlement['record_count']}",
-        f"- 父级授权生命周期：{settlement['summary']['parent_count']}",
-        f"- `EVIDENCE_LIMITED`：{settlement['summary']['score_status_distribution'].get('EVIDENCE_LIMITED', 0)}", "",
-        "| 序 | 人物 | 政权 | 实际权力窗口 | 档位 | 位置 | 雷达值 | 证据 | 输出 | 状态 | 父链 | 典型模式 | 限制 |",
-        "|---:|---|---|---|---|---|---:|---|---|---|---:|---|---|",
-    ]
-    for row in settlement["records"]:
-        esc = lambda value: str(value).replace("|", "\\|").replace("\n", " ")
-        lines.append("| " + " | ".join([
-            str(row["sequence"]), esc(row["ruler_name"]), esc(row["polity"]), esc(row["actual_power_window"]),
-            row["axis_grade"], row["position"], str(row["radar_value"]), row["axis_evidence_level"],
-            row["output_mode"], row["score_status"], str(len(row["parents"])), esc(row["typical_pattern"]),
-            esc("；".join(row["limitations"]) or "无"),
-        ]) + " |")
-    lines.extend(["", "## 口径声明", "", "档位来自显式逐人裁决源；生成器不读取第五项B档位、方向、MI、分值，也不读取其他画像轴档位。最终治绩、名臣数量、官职数量、处罚伦理与集团成果均不得换算为C3。", ""])
-    return "\n".join(lines)
-
-
 def _acceptance(settlement: dict[str, Any], audit: dict[str, Any], high: dict[str, Any]) -> str:
     s = settlement["summary"]
     high_names = "、".join(f"{row['ruler_name']}（{row['axis_grade']}-{row['position']}）" for row in settlement["records"] if row["axis_grade"] in {"G4", "G5"})
@@ -340,7 +320,7 @@ def build(write: bool = True) -> dict[str, Any]:
         _write_json(AUDIT, audit)
         _write_json(HIGH_REVIEW, high)
         _write_json(SETTLEMENT, settlement)
-        MARKDOWN.write_text(_markdown(settlement), encoding="utf-8", newline="\n")
+        MARKDOWN.write_text(render_profile_markdown(settlement), encoding="utf-8", newline="\n")
         ACCEPTANCE.write_text(_acceptance(settlement, audit, high), encoding="utf-8", newline="\n")
     return {"settlement": settlement, "audit": audit, "high_review": high}
 

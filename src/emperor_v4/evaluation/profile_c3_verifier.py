@@ -9,6 +9,8 @@ from typing import Any
 
 import yaml
 
+from emperor_v4.evaluation.profile_markdown import render_profile_markdown
+
 ROOT = Path(__file__).resolve().parents[3]
 PROFILE_ROOT = ROOT / "docs" / "评分结算" / "皇帝人物画像"
 SETTLEMENT = PROFILE_ROOT / "24-C3人才识别配置与授权正式结算.json"
@@ -194,6 +196,7 @@ def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dic
 
 def verify() -> dict[str, Any]:
     settlement, audit, high = _load(SETTLEMENT), _load(AUDIT), _load(HIGH_REVIEW)
+    assert _read(MARKDOWN).decode("utf-8") == render_profile_markdown(settlement)
     result = verify_payloads(settlement, audit, high)
     project = yaml.safe_load(_read(PROJECT).decode("utf-8"))
     profile = project["profile_assessment"]
