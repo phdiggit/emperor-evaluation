@@ -26,7 +26,10 @@ def payloads():
 
 def test_profile_c3_formal_settlement_passes_stable_verifier() -> None:
     result = verify()
-    assert result == {"status": "PASS", "record_count": 184, "parent_count": 175, "audit_unit_count": 2646}
+    assert result["status"] == "PASS"
+    assert result["record_count"] == 184
+    assert result["parent_count"] == 194
+    assert result["audit_unit_count"] == 2840
 
 
 def test_profile_c3_rejects_keyword_or_count_adjudicators(payloads) -> None:
@@ -49,6 +52,28 @@ def test_profile_c3_rejects_template_person_bases(payloads) -> None:
     for record in settlement["records"]:
         record["typical_pattern"] = "统一模板依据，内容长度足够但没有人物、阶段、任务与反馈差异。"
     with pytest.raises(AssertionError, match="template person bases"):
+        verify_payloads(settlement, audit, high)
+
+
+def test_profile_c3_rejects_duplicate_typical_pattern_clause(payloads) -> None:
+    settlement, audit, high = copy.deepcopy(payloads)
+    record = settlement["records"][0]
+    record["typical_pattern"] = "同一句说明；同一句说明。"
+    with pytest.raises(AssertionError, match="duplicate typical-pattern clause"):
+        verify_payloads(settlement, audit, high)
+
+
+def test_profile_c3_rejects_high_grade_template_lifecycle(payloads) -> None:
+    settlement, audit, high = copy.deepcopy(payloads)
+    record = next(row for row in settlement["records"] if row["axis_grade"] in {"G4", "G5"})
+    for parent in record["parents"]:
+        for field in (
+            "task_requirement", "candidate_identification", "position_configuration", "actual_authority",
+            "delivery", "feedback", "authorization_response",
+        ):
+            parent[field] = "同一模板"
+        parent["lifecycle_narrative"] = "同一模板。"
+    with pytest.raises(AssertionError, match="high-grade template lifecycle"):
         verify_payloads(settlement, audit, high)
 
 

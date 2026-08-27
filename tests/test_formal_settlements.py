@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 
 from emperor_v4.evaluation.formal_settlements import verify_formal_settlements
+from emperor_v4.evaluation.composite_ranking import _sha256 as composite_source_sha256
 from emperor_v4.evaluation.composite_ranking import build_composite_ranking
 
 
@@ -184,3 +185,11 @@ def test_recent_batch_calibration_keeps_rare_feedback_grades_rare() -> None:
     assert c4["耶律隆绪"]["recovery_score"] == 4.1
     assert c4["耶律隆绪"]["stability_score"] == 3.0
     assert c4["耶律隆绪"]["score"] == 7.1
+
+
+def test_composite_source_fingerprint_is_stable_across_git_line_endings(tmp_path: Path) -> None:
+    lf = tmp_path / "lf.json"
+    crlf = tmp_path / "crlf.json"
+    lf.write_bytes(b'{\n  "value": 1\n}\n')
+    crlf.write_bytes(b'{\r\n  "value": 1\r\n}\r\n')
+    assert composite_source_sha256(lf) == composite_source_sha256(crlf)

@@ -61,6 +61,21 @@ def _make_audit(records: list[dict[str, Any]]) -> dict[str, Any]:
     parent_by_id = {rid: {p["parent_id"]: p for p in row["parents"]} for rid, row in by_id.items()}
     units: list[dict[str, Any]] = []
 
+    # The explicit C3 adjudication is itself a formal entry.  Every published
+    # lifecycle must therefore be discoverable in the disposition audit even
+    # when it was rebuilt from institution, military, or primary-source facts
+    # rather than mapped one-to-one from a Fifth Item trait.
+    for record in records:
+        for parent in record["parents"]:
+            units.append({
+                "unit_id": _stable_id(record["ruler_id"], "C3_MANUAL", parent["parent_id"]),
+                "ruler_id": record["ruler_id"], "ruler_name": record["ruler_name"],
+                "entry": "C3_EXPLICIT_ADJUDICATION",
+                "source_ref": f"{MANUAL.relative_to(ROOT).as_posix()}#parent_id={parent['parent_id']}",
+                "status": "SCORING_PARENT", "scoring_parent_id": parent["parent_id"],
+                "reason": "显式逐人裁决闭合任务、人选、岗位、权限、交付、反馈与后续授权状态转移。",
+            })
+
     fifth = _source_records(FIFTH_B)
     for rid, record in by_id.items():
         source = fifth.get(rid, {})
@@ -281,6 +296,13 @@ def _acceptance(settlement: dict[str, Any], audit: dict[str, Any], high: dict[st
     latent_names = "、".join(row["ruler_name"] for row in settlement["records"] if row.get("latent_high_grade_hypothesis"))
     parentless_names = "、".join(row["ruler_name"] for row in settlement["records"] if not row["parents"])
     supplemental_refs = {ref for review in high["reviews"] for ref in review["supplemental_primary_units"]}
+    grade_changes = (
+        "刘备G3-LOW→G3-HIGH、孙权G3-LOW→G3-HIGH、赵匡胤G3-LOW→G4-LOW、"
+        "赵祯G3-LOW→G4-LOW、赵构G3-LOW→G2-HIGH、朱棣G3-LOW→G3-HIGH、"
+        "朱瞻基G3-HIGH→G4-LOW、朱由检G3-HIGH→G1-HIGH、弘历G1-MID→G2-HIGH、"
+        "嬴政G3-LOW→G4-LOW、李纯G3-HIGH→G4-LOW、朱翊钧G1-MID→G2-LOW、"
+        "朱厚熜G3-LOW→G2-HIGH"
+    )
     return "\n".join([
         "# C3 全池结算验收报告", "", "## 结论", "",
         "C3已完成184人正式结算。正式输出不生成画像总分、轴内排名或五项综合写入。", "",
@@ -294,8 +316,13 @@ def _acceptance(settlement: dict[str, Any], audit: dict[str, Any], high: dict[st
         f"- 正式高档：{high_names}。",
         f"- 潜在高档下界发布：{latent_names}。",
         f"- 无闭合父链、保留E1限制：{parentless_names}。", "",
+        "## 直觉—材料双轮复审", "",
+        "先以主要统治窗口和应观察的关键任命做全池直觉召回，再回到第一项B、第五项B、制度行政、军事及已结算画像父链逐项核验；姓名只用于发现缺口，不直接形成档位。",
+        f"- 本轮变档13人：{grade_changes}。",
+        "- 补充关键父链但档位不变：李世民补房杜中枢及长孙无忌、褚遂良、李勣交班；李隆基补姚崇、宋璟、张九龄至李林甫、杨国忠的阶段反转；忽必烈补刘秉忠制度链及阿合马、桑哥失控链；李治补顾命团队接收与废后争议。",
+        "- 典型模式逐人内部精确重复与近似重复均为0；高档父链七状态至少包含5个不同语义阶段。", "",
         "## 材料范围", "",
-        f"机械连接第一项B、第五项B、M1/M2/C1/C2/C5正式父链与审计；31名正式或潜在高档候选各最多消费4个已有一手连续正文单元，实际覆盖{len(supplemental_refs)}个去重史源引用，且无候选为零补读。范围包括唐以前《资治通鉴》连续卷、本地五代/宋元金清官修史连续摘要及其Wikisource正文锚；排除《贞观政要》等专人型材料，未联网扩展无界史料池。", "",
+        f"机械连接第一项B、第五项B、M1/M2/C1/C2/C5正式父链与审计；{high['candidate_count']}名正式或潜在高档候选各最多消费4个已有一手连续正文单元，实际覆盖{len(supplemental_refs)}个去重史源引用，且无候选为零补读。范围包括唐以前《资治通鉴》连续卷、本地五代/宋元金清官修史连续摘要及其Wikisource正文锚；排除《贞观政要》等专人型材料，未联网扩展无界史料池。", "",
         "## 边界与拒绝项", "",
         "撤职、处死、问责或收权本身不构成负证；只有误判、错配、授权失控、错误清洗、无替代损失、团队崩解、反馈堵塞或复发进入C3。惩罚伦理留C5，集团利益组合留M4，落实只作证据强度门。", "",
         "## 验证", "",

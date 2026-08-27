@@ -78,7 +78,10 @@ def _read_json(path: Path) -> dict[str, Any]:
 
 
 def _sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    # Git treats CRLF and LF as the same text when attributes normalize EOL.
+    # Hash the canonical LF representation so a regular Windows checkout and
+    # a Codex worktree rebuild the same formal pool fingerprint.
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
 
 
 def _load_admission_adjudications(workspace_root: Path) -> dict[str, Any]:

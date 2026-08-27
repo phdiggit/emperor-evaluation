@@ -77,6 +77,10 @@ def _markdown_rows() -> list[list[str]]:
     return rows
 
 
+def _clauses(text: str) -> list[str]:
+    return [part.strip("。； \n") for part in re.split(r"[；。]", text) if part.strip("。； \n")]
+
+
 def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dict[str, Any]) -> dict[str, Any]:
     records = settlement["records"]
     pool = _load(POOL)
@@ -124,6 +128,8 @@ def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dic
         if row["score_status"] == "EVIDENCE_LIMITED":
             assert row["axis_evidence_level"] != "E3"
             assert row["axis_grade"] not in {"G4", "G5"}
+        pattern_clauses = _clauses(row["typical_pattern"])
+        assert len(pattern_clauses) == len(set(pattern_clauses)), f"duplicate typical-pattern clause: {row['ruler_name']}"
         for parent in row["parents"]:
             parent_ids.append(parent["parent_id"])
             narratives.append(parent["lifecycle_narrative"])
@@ -133,6 +139,14 @@ def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dic
             assert parent["source_refs"]
             for field in ("task_requirement", "candidate_identification", "position_configuration", "actual_authority", "delivery", "feedback", "authorization_response"):
                 assert str(parent[field]).strip(), f"open parent lifecycle: {parent['parent_id']} {field}"
+            lifecycle_clauses = _clauses(parent["lifecycle_narrative"])
+            assert len(lifecycle_clauses) == len(set(lifecycle_clauses)), f"duplicate lifecycle clause: {parent['parent_id']}"
+            if row["axis_grade"] in {"G4", "G5"}:
+                states = [str(parent[field]).strip() for field in (
+                    "task_requirement", "candidate_identification", "position_configuration", "actual_authority",
+                    "delivery", "feedback", "authorization_response",
+                )]
+                assert len(set(states)) >= 5, f"high-grade template lifecycle: {parent['parent_id']}"
             boundary = parent["boundary_review"]
             assert set(boundary) == {"c5_excluded", "m4_excluded", "result_only_excluded"}
         directions = {p["direction"] for p in row["parents"]}
@@ -158,6 +172,8 @@ def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dic
     assert all(unit["reason"].strip() for unit in audit["units"])
     assert len({unit["unit_id"] for unit in audit["units"]}) == len(audit["units"])
     assert any(len(statuses) >= 2 for statuses in audit["entry_status_counts"].values()), "uniform entry disposition forbidden"
+    explicit = [unit for unit in audit["units"] if unit["entry"] == "C3_EXPLICIT_ADJUDICATION"]
+    assert {unit["scoring_parent_id"] for unit in explicit} == parent_set, "every C3 parent needs an explicit audit unit"
 
     assert high["schema_version"] == "profile-c3-high-grade-review-v1"
     assert all(review["supplemental_primary_unit_count"] <= 4 for review in high["reviews"])
