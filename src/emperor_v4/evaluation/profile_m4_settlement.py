@@ -156,6 +156,18 @@ def _make_audit(records: list[dict[str, Any]]) -> dict[str, Any]:
                 "scoring_parent_id": parent["parent_id"],
                 "reason": "显式M4裁决闭合集团结构、利益与安全预期、本人选择、合作兑现、反馈、冲突和退出。",
             })
+        for observation in row.get("non_scoring_unclosed_observations", []):
+            units.append({
+                "unit_id": _stable(row["ruler_id"], "M4_UNCLOSED_OBSERVATION", observation["parent_id"]),
+                "ruler_id": row["ruler_id"],
+                "ruler_name": row["ruler_name"],
+                "entry": "M4_UNCLOSED_OBSERVATION",
+                "material_id": observation["parent_id"],
+                "source_refs": [f"{MANUAL.relative_to(ROOT).as_posix()}#parent_id={observation['parent_id']}", *observation["source_refs"]],
+                "status": "BACKGROUND_VALIDATION",
+                "scoring_parent_id": None,
+                "reason": "规定检索已经完成，但该观察尚不能闭合集团生命周期；保留为证据限制和反查背景，不参与档位合成。",
+            })
 
     for entry, path in NORMATIVE_INPUTS.items():
         status, reason = _entry_disposition(entry)
@@ -186,12 +198,12 @@ def _make_audit(records: list[dict[str, Any]]) -> dict[str, Any]:
         "contract_version": "FORMAL-V1.0",
         "axis_code": "M4",
         "record_count": len(records),
-        "normative_entries": [*NORMATIVE_INPUTS, "M4_EXPLICIT_ADJUDICATION"],
+        "normative_entries": [*NORMATIVE_INPUTS, "M4_EXPLICIT_ADJUDICATION", "M4_UNCLOSED_OBSERVATION"],
         "unit_count": len(units),
         "status_counts": dict(sorted(counts.items())),
         "entry_status_counts": {key: dict(sorted(value.items())) for key, value in sorted(entry_counts.items())},
         "unresolved_count": counts["UNRESOLVED_EVIDENCE_GAP"],
-        "policy": "每个规范入口稳定材料或等价单元只进入四态之一；只有显式M4父链是档位来源。",
+        "policy": "每个规范入口稳定材料或等价单元只进入四态之一；只有闭合的显式M4父链是档位来源，未闭合观察保留为背景且不得硬凑父链。",
         "units": sorted(units, key=lambda value: (value["ruler_id"], value["entry"], value["unit_id"])),
     }
 
@@ -213,17 +225,19 @@ def _make_high_review(records: list[dict[str, Any]]) -> dict[str, Any]:
             "conflict_and_exit_review": "CLOSED",
             "full_power_window_review": "CLOSED",
             "bidirectional_review": "POSITIVE_AND_NEGATIVE_JOINTLY_ADJUDICATED" if any("MIXED" in value or "NEGATIVE" in value for value in directions) else "BOUNDED_NEGATIVE_SEARCH_CLOSED",
-            "source_density_review": "COVERAGE_CLOSED",
+            "source_density_review": row["source_density_review"],
+            "maximum_negative_calibration": row.get("max_negative_calibration"),
             "lifecycle_count": len(row["parents"]),
+            "unclosed_observation_count": len(row.get("non_scoring_unclosed_observations", [])),
             "mechanism_count": len(row["major_mechanisms_observed"]),
-            "review_outcome": "HIGH_GRADE_SUPPORTED",
+            "review_outcome": "HIGH_GRADE_SUPPORTED_WITH_EVIDENCE_LIMIT" if row["score_status"] == "EVIDENCE_LIMITED" else "HIGH_GRADE_SUPPORTED",
         })
     return {
         "schema_version": "profile-m4-high-grade-alliance-lifecycle-review-v1",
         "canonical_status": "FORMAL_CURRENT_AUDIT",
         "axis_code": "M4",
         "candidate_count": len(reviews),
-        "policy": "G4/G5必须覆盖主要集团结构、利益与安全预期、合作兑现、冲突与退出及完整实际权力窗口；开国成果或单一联盟不足以过门。",
+        "policy": "G4/G5必须覆盖主要集团结构、利益与安全预期、合作兑现、冲突与退出及完整实际权力窗口；材料密度受限者只能发布有界画像，不得伪装为高置信度全貌。",
         "reviews": sorted(reviews, key=lambda value: value["ruler_id"]),
     }
 
@@ -238,18 +252,24 @@ def _make_full_pool_review(records: list[dict[str, Any]], manual: dict[str, Any]
         "semantic_review_count": len(records),
         "grade_change_count": len(manual["grade_changes"]),
         "grade_changes": manual["grade_changes"],
+        "rev1_direct_grade_changes": manual["rev1_grade_changes"],
+        "rev1_same_grade_substantive_changes": manual["rev1_same_grade_substantive_changes"],
         "records": [{
             "ruler_id": row["ruler_id"],
             "ruler_name": row["ruler_name"],
             "task_code": row["task_code"],
             "actual_power_window": row["actual_power_window"],
             "first_pass_hypothesis": row["first_pass_hypothesis"],
-            "major_group_structure": row["parents"][0]["group_structure"],
-            "alliance_tasks": [parent["coalition_task"] for parent in row["parents"]],
+            "major_group_structure": row["parents"][0]["group_structure"] if row["parents"] else "六域集团拓扑已扫描；当前仅能发布低证据事件画像。",
+            "alliance_tasks": [parent["coalition_task"] for parent in row["parents"]] or ["已观察但未闭合的集团关系不进入计分父链。"],
             "final_grade": f"{row['axis_grade']}-{row['position']}",
             "review_status": "MATERIAL_CHANGED_GRADE" if row["ruler_id"] in changed else "MATERIAL_CONFIRMED_HYPOTHESIS",
             "positive_and_negative_checked": True,
-            "full_lifecycle_closed": True,
+            "scoring_parent_count": len(row["parents"]),
+            "unclosed_observation_count": len(row.get("non_scoring_unclosed_observations", [])),
+            "all_scoring_parents_closed": all(parent["closure_status"] == "CLOSED" for parent in row["parents"]),
+            "unclosed_observations_excluded_from_scoring": True,
+            "publication_mode": row["output_mode"],
             "all_normative_entries_consumed": True,
         } for row in sorted(records, key=lambda value: value["ruler_id"])],
     }
@@ -279,9 +299,11 @@ def _make_settlement(records: list[dict[str, Any]], audit: dict[str, Any], high:
         "canonical_pool_sha256": _sha(POOL),
         "manual_adjudication": MANUAL.relative_to(ROOT).as_posix(),
         "manual_adjudication_sha256": _sha(MANUAL),
+        "external_revision": _load(MANUAL)["external_revision"],
         "input_sha256": {path.relative_to(ROOT).as_posix(): _normalized_sha(path) for path in NORMATIVE_INPUTS.values()},
         "record_count": len(formal),
         "unresolved_evidence_gap_count": audit["unresolved_count"],
+        "unclosed_non_scoring_observation_count": sum(len(row.get("non_scoring_unclosed_observations", [])) for row in formal),
         "formal_profile_write": True,
         "formal_rank_write": False,
         "profile_total_enabled": False,
@@ -301,23 +323,41 @@ def _make_settlement(records: list[dict[str, Any]], audit: dict[str, Any], high:
 
 
 def _acceptance(settlement: dict[str, Any], audit: dict[str, Any], high: dict[str, Any], review: dict[str, Any]) -> str:
-    changes = "；".join(f"{row['ruler_name']} {row['from']}→{row['to']}" for row in review["grade_changes"])
-    return "\n".join([
+    def value(label: str) -> int:
+        grade, position = label.split("-", 1)
+        return SCORES[grade][position]
+
+    promotions = sum(value(row["to"]) > value(row["from"]) for row in review["grade_changes"])
+    demotions = sum(value(row["to"]) < value(row["from"]) for row in review["grade_changes"])
+    high_limited = sum(row["review_outcome"] == "HIGH_GRADE_SUPPORTED_WITH_EVIDENCE_LIMIT" for row in high["reviews"])
+    lines = [
         "# M4 全池正式结算验收报告", "",
         "> M4独立画像轴；不进入五项综合总榜，不生成画像总分或轴内排名。", "",
         "## 构念与两轮复审", "",
         "- M4只评价国内集团级联盟建立、利益与地位配置、政治信用、冲突处理和退出；M2外部关系、C3个人用人、C5权力伦理、第一项B团队成果和第四项A结果均已去重。",
         f"- 第一轮建立{review['mechanical_screen_count']}人实际权力窗口、主要集团结构与应观察任务矩阵；第二轮逐人消费全部规范入口并联合检查正负证。",
-        f"- 第二轮实际变档{review['grade_change_count']}人：{changes}。", "",
+        f"- 相对接收前正式M4实际变档{review['grade_change_count']}人：晋升{promotions}人、下调{demotions}人；其余{settlement['record_count'] - review['grade_change_count']}人档位不变。",
+        f"- REV1横向校准在外部初裁基础上直接改档{len(review['rev1_direct_grade_changes'])}人，并对{len(review['rev1_same_grade_substantive_changes'])}人作同档父链实质修订。", "",
         "## 覆盖与证据", "",
-        f"- 正式覆盖：{settlement['record_count']}/184；未决证据缺口：{settlement['unresolved_evidence_gap_count']}。",
+        f"- 正式覆盖：{settlement['record_count']}/184；工作中未决证据缺口：{settlement['unresolved_evidence_gap_count']}。",
+        f"- 未闭合但已完成检索的观察：{settlement['unclosed_non_scoring_observation_count']}条，全部作为非计分背景保留；不得硬凑闭合父链。",
         f"- 入口处置：{audit['unit_count']}个稳定材料或等价单元；四态统计：{json.dumps(audit['status_counts'], ensure_ascii=False)}。",
-        f"- 高档生命周期复核：{high['candidate_count']}人；均已检查主要集团、利益与安全预期、合作兑现、冲突、退出和完整实际权力窗口。",
+        f"- 高档生命周期复核：{high['candidate_count']}人；其中{high_limited}人只发布E2有界画像，未伪装为高置信度全貌。",
         f"- 低证据有界画像：{settlement['summary']['evidence_limited_count']}人；材料稀疏只降低置信度，不自动填入中性档。", "",
         "## 限制", "",
-        "- 正式入口对集团级协商细节的保存密度不均；本轮使用全部规范入口及其中可定位的有界本地史料，不启用模型、网络服务、数据库、shadow或退役采集链。",
+        "- 本轮接收GPT网页版已完成的29批有界检索与REV1横向校准；生成器和验证器只读取归一化正式输入，离线、确定性运行，不调用模型、网络服务、数据库、shadow或退役采集链。",
+        "- 网页版内部`web_ref:turn…`不是可移植史源定位，已从计分父链引用中剥离；受影响父链须保留至少一条直接HTTP史源才可准入。",
+        f"- 归一化输入保留{settlement['external_revision']['portable_source_reference_count']}条可移植HTTP史源引用（{settlement['external_revision']['unique_portable_source_url_count']}个唯一URL）；另有{settlement['external_revision']['nonportable_web_citation_count']}条网页版内部引用已从正式来源登记和父链直接引用中剔除，只保留排除计数。",
         "- JSON是唯一档位事实源，Markdown为同值阅读视图；稳定展示顺序不构成轴内排名。", "",
-    ])
+        "## 实际变档明细", "",
+        "| 人物 | 接收前正式档 | REV1正式档 | 方向 |",
+        "|---|---|---|---|",
+    ]
+    for change in review["grade_changes"]:
+        direction = "晋升" if value(change["to"]) > value(change["from"]) else "下调"
+        lines.append(f"| {change['ruler_name']} | {change['from']} | {change['to']} | {direction} |")
+    lines.append("")
+    return "\n".join(lines)
 
 
 def _refresh_existing_contract_metadata() -> None:

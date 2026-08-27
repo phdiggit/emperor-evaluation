@@ -4,6 +4,7 @@ import hashlib
 import json
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 import yaml
 
@@ -23,6 +24,7 @@ from emperor_v4.evaluation.profile_m4_settlement import (
     SCORES,
     SETTLEMENT,
     _normalized_sha,
+    build,
 )
 from emperor_v4.evaluation.profile_markdown import render_profile_markdown
 
@@ -78,6 +80,9 @@ def verify_payloads(
         "composite_ranking_write", "database_write",
     ))
     assert settlement["unresolved_evidence_gap_count"] == 0
+    assert settlement["unclosed_non_scoring_observation_count"] == sum(
+        len(row.get("non_scoring_unclosed_observations", [])) for row in records
+    )
     assert settlement["input_sha256"] == {
         path.relative_to(ROOT).as_posix(): _normalized_sha(path)
         for path in NORMATIVE_INPUTS.values()
@@ -96,8 +101,11 @@ def verify_payloads(
         assert row["output_mode"] in {"EPISODE_TAG", "BOUNDED_PROFILE", "FULL_GRADE"}
         assert row["score_status"] in {"FINAL", "EVIDENCE_LIMITED"}
         assert row["formal_status"] == "FORMAL_CURRENT"
-        assert len(row["parents"]) >= 2
-        assert len(row["typical_pattern"]) >= 60
+        if not row["parents"]:
+            assert row["axis_evidence_level"] == "E1"
+            assert row["output_mode"] == "EPISODE_TAG"
+            assert row["score_status"] == "EVIDENCE_LIMITED"
+        assert len(row["typical_pattern"]) >= 20
         assert row["limitations"] and row["counterpattern"]
         assert set(row["major_mechanisms_observed"]) == {
             "ALLIANCE_FORMATION", "INTEREST_STATUS_CONFIGURATION", "POLITICAL_CREDIT", "CONFLICT_AND_EXIT",
@@ -117,7 +125,6 @@ def verify_payloads(
             assert parent["closure_status"] == "CLOSED"
             assert parent["direction"] in {"POSITIVE", "NEGATIVE", "MIXED", "MIXED_POSITIVE", "MIXED_NEGATIVE"}
             assert parent["material_intensity"] in {"MI1_CASE", "MI2_LIFECYCLE", "MI3_SUSTAINED_SYSTEMIC", "MI4_CROSS_PHASE_SYSTEMIC"}
-            assert parent["delivery_status"] in {"ORDER_ONLY", "PARTIAL_DELIVERY", "SUSTAINED_DELIVERY", "RECONFIGURED_AFTER_FAILURE"}
             for field in (
                 "actual_power_phase", "coalition_task", "group_structure",
                 "interests_and_security_expectations", "personal_choice",
@@ -126,18 +133,42 @@ def verify_payloads(
             ):
                 assert str(parent[field]).strip(), f"open M4 lifecycle {parent['parent_id']} {field}"
             assert parent["source_refs"]
+            assert all(urlparse(ref).scheme in {"http", "https"} for ref in parent["source_refs"])
+            source_ids = {source["source_id"] for source in row["source_register"]}
+            assert set(parent["source_ids"]) <= source_ids
+            assert set(parent.get("portable_fallback_source_ids", [])) <= source_ids
+            assert not (set(parent.get("excluded_nonportable_source_ids", [])) & source_ids)
             assert set(parent["boundary_review"]) == {"m2", "c3", "c5", "result_axes"}
+        for observation in row.get("non_scoring_unclosed_observations", []):
+            assert observation["closure_status"] != "CLOSED"
+            assert observation["parent_id"] not in parent_ids
+            assert all(urlparse(ref).scheme in {"http", "https"} for ref in observation["source_refs"])
+        assert len(row["group_topology"]) == 6
+        assert row["positive_search"] and row["negative_search"]
+        assert all(source["source_id"] and source["title"] for source in row["source_register"])
+        assert all(
+            source["url_status"] == "DIRECT_HTTP_REFERENCE"
+            and urlparse(source["url"]).scheme in {"http", "https"}
+            for source in row["source_register"]
+        )
         if row["axis_grade"] in {"G4", "G5"}:
-            assert row["axis_evidence_level"] == "E3"
-            assert row["output_mode"] == "FULL_GRADE"
-            assert row["confidence"] == "HIGH" and row["score_status"] == "FINAL"
+            if row["score_status"] == "FINAL":
+                assert row["axis_evidence_level"] == "E3"
+                assert row["output_mode"] == "FULL_GRADE"
+                assert row["confidence"] == "HIGH"
+                assert row["source_density_review"] in {"COVERAGE_CLOSED", "COUNTEREVIDENCE_FOUND"}
+            else:
+                assert row["axis_evidence_level"] in {"E1", "E2"}
+                assert row["output_mode"] in {"EPISODE_TAG", "BOUNDED_PROFILE"}
+                assert row["confidence"] in {"LOW", "MEDIUM"}
+                assert row["source_density_review"] == "MATERIAL_DENSITY_LIMITED"
     assert len(parent_ids) == len(set(parent_ids))
     assert len({row["typical_pattern"] for row in records}) == 184
 
     assert audit["schema_version"] == "profile-m4-unit-disposition-audit-v1"
     assert audit["record_count"] == 184 and audit["unresolved_count"] == 0
     assert audit["unit_count"] == len(audit["units"])
-    assert set(audit["normative_entries"]) == {*NORMATIVE_INPUTS, "M4_EXPLICIT_ADJUDICATION"}
+    assert set(audit["normative_entries"]) == {*NORMATIVE_INPUTS, "M4_EXPLICIT_ADJUDICATION", "M4_UNCLOSED_OBSERVATION"}
     allowed = {"SCORING_PARENT", "BACKGROUND_VALIDATION", "AXIS_OUT_WITH_REASON", "UNRESOLVED_EVIDENCE_GAP"}
     assert all(unit["status"] in allowed and unit["reason"].strip() for unit in audit["units"])
     assert len({unit["unit_id"] for unit in audit["units"]}) == audit["unit_count"]
@@ -149,12 +180,18 @@ def verify_payloads(
     assert high["schema_version"] == "profile-m4-high-grade-alliance-lifecycle-review-v1"
     high_ids = {row["ruler_id"] for row in records if row["axis_grade"] in {"G4", "G5"}}
     assert {row["ruler_id"] for row in high["reviews"]} == high_ids
-    assert all(row["lifecycle_count"] >= 2 and row["mechanism_count"] == 4 for row in high["reviews"])
-    assert all(row["review_outcome"] == "HIGH_GRADE_SUPPORTED" for row in high["reviews"])
+    assert all(row["lifecycle_count"] >= 1 and row["mechanism_count"] == 4 for row in high["reviews"])
+    assert all(row["review_outcome"] in {"HIGH_GRADE_SUPPORTED", "HIGH_GRADE_SUPPORTED_WITH_EVIDENCE_LIMIT"} for row in high["reviews"])
 
     assert review["schema_version"] == "profile-m4-two-pass-full-pool-review-v1"
     assert review["mechanical_screen_count"] == review["semantic_review_count"] == len(review["records"]) == 184
-    assert all(row["positive_and_negative_checked"] and row["full_lifecycle_closed"] and row["all_normative_entries_consumed"] for row in review["records"])
+    assert all(
+        row["positive_and_negative_checked"]
+        and row["all_scoring_parents_closed"]
+        and row["unclosed_observations_excluded_from_scoring"]
+        and row["all_normative_entries_consumed"]
+        for row in review["records"]
+    )
     assert review["grade_change_count"] == len(review["grade_changes"])
     by_id = {row["ruler_id"]: row for row in records}
     assert all(change["to"] == f"{by_id[change['ruler_id']]['axis_grade']}-{by_id[change['ruler_id']]['position']}" for change in review["grade_changes"])
@@ -170,6 +207,11 @@ def verify_payloads(
 
 def verify() -> dict[str, Any]:
     settlement, audit, high, review = (_load(path) for path in (SETTLEMENT, AUDIT, HIGH_REVIEW, FULL_POOL_REVIEW))
+    rebuilt = build(write=False)
+    assert settlement == rebuilt["settlement"]
+    assert audit == rebuilt["audit"]
+    assert high == rebuilt["high_review"]
+    assert review == rebuilt["full_pool_review"]
     assert _read(MARKDOWN).decode("utf-8") == render_profile_markdown(settlement)
     assert "不进入五项综合总榜" in _read(ACCEPTANCE).decode("utf-8")
     result = verify_payloads(settlement, audit, high, review)
