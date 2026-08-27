@@ -1,22 +1,26 @@
 {
-  "schema_version": "profile-c2-high-grade-calibration-v2",
+  "schema_version": "profile-c2-high-grade-calibration-v3",
   "canonical_status": "FORMAL_CURRENT",
   "axis_code": "C2",
-  "profile_count": 6,
-  "cross_pool_calibration": "G4/G5仅保留多个独立学习周期、后续复验与反例暴露均闭合者；单次纳谏、罪己诏或接口设置未进入高档。",
+  "profile_count": 2,
+  "cross_pool_calibration": "G4/G5要求多个具名独立周期、真实信息取得、反例暴露与后续复验；当前高档均降为E2中置信，不以本地定向摘要标E3。",
   "profiles": [
     {
       "ruler_id": "RULER-TANG-LISHIMIN",
       "ruler_name": "李世民",
       "axis_grade": "G4",
       "position": "HIGH",
-      "cycle_anchor_count": 6,
+      "cycle_anchor_count": 10,
       "cycle_anchor_refs": [
         "MC-TANG-TS-DELIBERATION-M3-AUDIT",
         "WAR-LEAD-TANG-GOGURYEO-645",
+        "docs/史料通读产物/唐以前编年/唐/卷193-通读总结.md#L110-L115",
+        "docs/史料通读产物/唐以前编年/唐/卷193-通读总结.md#L138-L143",
         "https://zh.wikisource.org/wiki/貞觀政要/卷06#論悔過第二十四",
         "https://zh.wikisource.org/zh-hant/貞觀政要_(四庫全書本)/卷02#中男點兵",
         "https://zh.wikisource.org/zh-hant/貞觀政要_(四庫全書本)/卷02#權萬紀李仁發",
+        "https://zh.wikisource.org/zh-hant/資治通鑑/卷193#貞觀五年",
+        "https://zh.wikisource.org/zh-hant/資治通鑑/卷193#貞觀四年",
         "https://zh.wikisource.org/zh/貞觀政要_(四庫全書本)/卷10#十漸疏"
       ],
       "independent_cycles": [
@@ -58,113 +62,60 @@
             "https://zh.wikisource.org/wiki/貞觀政要/卷06#論悔過第二十四",
             "WAR-LEAD-TANG-GOGURYEO-645"
           ]
-        }
-      ],
-      "multiple_independent_learning_cycles_review": "李世民逐项列出4个独立生命周期；未以状态码、父链数量或纳谏名声替代语义。",
-      "later_retest_review": "李世民：三条正向都有本人认错或信源重估及行为验证，晚期负链又直接压住上限，故G4高位。",
-      "source_density_asymmetry_review": "高档按人物具体言行反查直接史料；本地不足者仅对该人物有界补读，不把检索量换算为档位。",
-      "c5_overlap_review": "COGNITIVE_SLICE_ONLY_NO_DUPLICATE_C5_BENEFIT",
-      "basis": "李世民有中男点兵、魏王迁居、告讦信源三条独立正向周期：分别在兵役信用、继承风险和信息质量上理解具体反证并立即改令；十渐疏后的落实不足与高句丽等同构复现另列负链。绝对频率和跨域达到G4高位，但全生涯不满足G5。"
-    },
-    {
-      "ruler_id": "RULER-HAN-LIUHENG",
-      "ruler_name": "刘恒",
-      "axis_grade": "G4",
-      "position": "MID",
-      "cycle_anchor_count": 4,
-      "cycle_anchor_refs": [
-        "I2-WHAN-WEN-SHIZHI-PROCESS-001",
-        "I2-WHAN-WEN-TIYING-UPWARD-FEEDBACK-001",
-        "https://zh.wikisource.org/w/index.php?title=漢書/卷023&oldid=7908643",
-        "https://zh.wikisource.org/w/index.php?title=資治通鑑/卷014&oldid=1554008"
-      ],
-      "independent_cycles": [
+        },
         {
-          "parent_id": "C2-P020-SHIZHI-LAW",
+          "parent_id": "C2-P153-CONSTRUCTION-COST-RETEST-630-631",
           "cycle_type": "ERROR_CORRECTION",
-          "direction": "POSITIVE",
-          "basis": "刘恒在犯跸与盗高庙玉环等案件中先有按皇帝直觉从重的倾向，张释之以既定法律和案件后果逐案解释后，他接受廷尉判断并继续让同一司法专业判断在不同案件约束自己，形成跨案复验。",
+          "direction": "MIXED",
+          "basis": "630年张玄素具体说明洛阳宫营造运输与民力成本后，李世民立即停役；631年戴胄再次提示百姓凋敝、帑藏空虚时，他嘉纳其言却仍命开工，见窦璡池山华靡后才毁除免官。同一营造问题形成先停、后复发、见实物损耗再纠正的混合复验，不能拆成两条纯正链。",
           "cycle_anchor_refs": [
-            "I2-WHAN-WEN-SHIZHI-PROCESS-001",
-            "https://zh.wikisource.org/w/index.php?title=漢書/卷023&oldid=7908643"
+            "docs/史料通读产物/唐以前编年/唐/卷193-通读总结.md#L110-L115",
+            "https://zh.wikisource.org/zh-hant/資治通鑑/卷193#貞觀四年",
+            "https://zh.wikisource.org/zh-hant/資治通鑑/卷193#貞觀五年"
           ]
         },
         {
-          "parent_id": "C2-P020-TIYING",
+          "parent_id": "C2-P153-HEXI-SUPPLY-VERIFICATION-630",
           "cycle_type": "ERROR_CORRECTION",
-          "direction": "MIXED_POSITIVE",
-          "basis": "缇萦上书指出肉刑使受刑者无法改过并愿以身赎父；刘恒理解后下诏废肉刑并命有司制定替代。替代刑又造成大量死亡，说明原有认识被改写且政策落实，但对新机制副作用的继续学习尚未闭合。",
+          "direction": "POSITIVE",
+          "basis": "630年唐已在碛口储粮并连续招慰西突厥种落；李大亮说明河西州县刚恢复耕获，继续供亿会使民不堪，并提出羁縻藩蔽替代。李世民据此停止招慰，使地方承载信息改变已启动的边疆供给行为；此前储粮与出使成本不因止损而归零。",
           "cycle_anchor_refs": [
-            "I2-WHAN-WEN-TIYING-UPWARD-FEEDBACK-001",
-            "https://zh.wikisource.org/w/index.php?title=資治通鑑/卷014&oldid=1554008"
+            "docs/史料通读产物/唐以前编年/唐/卷193-通读总结.md#L138-L143",
+            "https://zh.wikisource.org/zh-hant/資治通鑑/卷193#貞觀四年"
           ]
         }
       ],
-      "multiple_independent_learning_cycles_review": "刘恒逐项列出2个独立生命周期；未以状态码、父链数量或纳谏名声替代语义。",
-      "later_retest_review": "刘恒：更新及时且能吸收低位信息，替代刑副作用未继续闭合，置G4中位。",
-      "source_density_asymmetry_review": "高档按人物具体言行反查直接史料；本地不足者仅对该人物有界补读，不把检索量换算为档位。",
+      "multiple_independent_learning_cycles_review": "李世民保留6条具名周期；同一政策复发不拆成多条纯正链。",
+      "later_retest_review": "李世民跨兵役、继承、信源、营造与边疆供给有多次落实，且营造复发和晚期拒绝更新压住上限；G4取HIGH，不据纳谏名声或父链条数换档。",
+      "positive_observation_window_review": "CLOSED_WITH_NAMED_CYCLES",
+      "negative_observation_window_review": "CLOSED_WITH_NAMED_COUNTEREVIDENCE",
+      "phase_domain_coverage_review": {
+        "method": "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION",
+        "actual_power_window": "626—649年",
+        "local_normative_entries_role": "DISCOVERY_LOCATION_BACKGROUND_ONLY",
+        "direct_chronological_or_primary_refs": [
+          "MC-TANG-TS-DELIBERATION-M3-AUDIT",
+          "WAR-LEAD-TANG-GOGURYEO-645",
+          "docs/史料通读产物/唐以前编年/唐/卷193-通读总结.md#L110-L115",
+          "docs/史料通读产物/唐以前编年/唐/卷193-通读总结.md#L138-L143",
+          "https://zh.wikisource.org/wiki/貞觀政要/卷06#論悔過第二十四",
+          "https://zh.wikisource.org/zh-hant/貞觀政要_(四庫全書本)/卷02#中男點兵",
+          "https://zh.wikisource.org/zh-hant/貞觀政要_(四庫全書本)/卷02#權萬紀李仁發",
+          "https://zh.wikisource.org/zh-hant/資治通鑑/卷193#貞觀五年",
+          "https://zh.wikisource.org/zh-hant/資治通鑑/卷193#貞觀四年",
+          "https://zh.wikisource.org/zh/貞觀政要_(四庫全書本)/卷10#十漸疏"
+        ],
+        "positive_window_status": "CLOSED_PARENT_PRESENT",
+        "negative_window_status": "CLOSED_PARENT_PRESENT",
+        "phase_domain_coverage_status": "BOUNDED_NOT_FULL_LIFETIME",
+        "unresolved_phase_domain_windows": [
+          "626—649年尚未由连续君主中心正文闭合用人、司法、继承宗室、宫廷信源与调查核验的正反观察窗；当前只发布已观察模式。"
+        ],
+        "publication_mode": "EVIDENCE_LIMITED_BOUNDED_PROFILE"
+      },
+      "source_density_asymmetry_review": "MATERIAL_DENSITY_LIMITED_E2_MEDIUM_CONFIDENCE",
       "c5_overlap_review": "COGNITIVE_SLICE_ONLY_NO_DUPLICATE_C5_BENEFIT",
-      "basis": "刘恒在犯跸、盗高庙玉环两案反复接受张释之的专业法律判断，并因缇萦上书废肉刑；司法链有跨案复验，肉刑替代又暴露新伤害。两个独立周期足以进入G4，领域集中和副作用使其止中位。"
-    },
-    {
-      "ruler_id": "RULER-PUBLIC-6339E33979E7CCF5",
-      "ruler_name": "皇太极",
-      "axis_grade": "G4",
-      "position": "MID",
-      "cycle_anchor_count": 6,
-      "cycle_anchor_refs": [
-        "docs/史料通读产物/清/清史稿/volume-002.source-summary.md#L13",
-        "docs/史料通读产物/清/清史稿/volume-002.source-summary.md#L19",
-        "docs/史料通读产物/清/清史稿/volume-002.source-summary.md#L59-L63",
-        "docs/史料通读产物/清/清史稿/volume-002.source-summary.md#L77",
-        "docs/史料通读产物/清/清史稿/volume-003.source-summary.md#L15",
-        "docs/史料通读产物/清/清史稿/volume-003.source-summary.md#L24"
-      ],
-      "independent_cycles": [
-        {
-          "parent_id": "C2-P076-FAMINE-THEFT",
-          "cycle_type": "ERROR_CORRECTION",
-          "direction": "POSITIVE",
-          "basis": "天聪元年大饥、米价暴涨、盗贼增加后，皇太极拒绝沿用对盗贼尽杀的直觉，明确理解饥民因生计犯罪，改为鞭释并发帑赈民；灾情、犯罪解释、处罚更新与财政行为在同一链闭合。",
-          "cycle_anchor_refs": [
-            "docs/史料通读产物/清/清史稿/volume-002.source-summary.md#L19"
-          ]
-        },
-        {
-          "parent_id": "C2-P076-DALINGHE-EDUCATION",
-          "cycle_type": "TRUTH_ACQUISITION",
-          "direction": "POSITIVE",
-          "basis": "大凌河战后，皇太极没有只读取胜败，而是把明军死守表现解释为读书明理与忠诚训练的结果，随后命八至十五岁子弟普遍读书，将对敌方行为的因果理解落实为文教政策。",
-          "cycle_anchor_refs": [
-            "docs/史料通读产物/清/清史稿/volume-002.source-summary.md#L77"
-          ]
-        },
-        {
-          "parent_id": "C2-P076-LABOR-FARMING",
-          "cycle_type": "ERROR_CORRECTION",
-          "direction": "POSITIVE",
-          "basis": "即位初已认识工程妨农而限制新筑；此后占领驻兵、佐领繁役导致误农、百姓逃亡等反馈持续出现，皇太极进一步规定滥役妨农治罪、限制非时修缮与游猎践田，并把丁户增减纳入官员考绩。跨年反馈转成多项规则，构成复验。",
-          "cycle_anchor_refs": [
-            "docs/史料通读产物/清/清史稿/volume-002.source-summary.md#L13",
-            "docs/史料通读产物/清/清史稿/volume-002.source-summary.md#L59-L63"
-          ]
-        },
-        {
-          "parent_id": "C2-P076-KOREA-DISCIPLINE",
-          "cycle_type": "ERROR_CORRECTION",
-          "direction": "MIXED_POSITIVE",
-          "basis": "朝鲜战争后皇太极公开承认前役兵行无纪，随即议处违律诸将并在后续明定行兵、出猎践踏田禾治罪。军纪失控已造成损害，且不能证明完全避免复发，故联合裁为混合正向。",
-          "cycle_anchor_refs": [
-            "docs/史料通读产物/清/清史稿/volume-003.source-summary.md#L15",
-            "docs/史料通读产物/清/清史稿/volume-003.source-summary.md#L24"
-          ]
-        }
-      ],
-      "multiple_independent_learning_cycles_review": "皇太极逐项列出4个独立生命周期；未以状态码、父链数量或纳谏名声替代语义。",
-      "later_retest_review": "皇太极：四条周期领域和阶段都独立，军纪链仍有损害且完整反例审计不足G5，置G4中位。",
-      "source_density_asymmetry_review": "高档按人物具体言行反查直接史料；本地不足者仅对该人物有界补读，不把检索量换算为档位。",
-      "c5_overlap_review": "COGNITIVE_SLICE_ONLY_NO_DUPLICATE_C5_BENEFIT",
-      "basis": "皇太极在灾荒刑罚、敌方教育、工程差役和战后军纪四个领域，把事实或损害反馈转为鞭释赈民、子弟教育、役制考绩和军纪规则；跨天聪至崇德有复验。强制身份政策与部分征发反例保留下沿，裁G4中位。"
+      "basis": "李世民现保留兵役、储位、告讦信源、营造成本复验、河西供给和晚期反馈侵蚀六条具名链。卷193新增材料显示他既能在具体成本解释后立即停役、停招，也会在同类营造问题上次年复发并待华靡结果出现后再纠正；故绝对表现仍为G4高位，但正负观察窗尚非全生涯连续覆盖，只发布E2中置信有界画像。"
     },
     {
       "ruler_id": "RULER-HAN-LIUBANG",
@@ -183,7 +134,7 @@
       "independent_cycles": [
         {
           "parent_id": "C2-P016-CAPITAL-CORRECTION",
-          "cycle_type": "ERROR_CORRECTION",
+          "cycle_type": "TRUTH_ACQUISITION",
           "direction": "POSITIVE",
           "basis": "刘邦初欲定都洛阳，娄敬从地势、粮运与控制条件说明关中优势，张良进一步验证；刘邦理解后当日改变既定都城选择并西行长安，后续关中成为实际统治核心。",
           "cycle_anchor_refs": [
@@ -220,98 +171,33 @@
           ]
         }
       ],
-      "multiple_independent_learning_cycles_review": "刘邦逐项列出4个独立生命周期；未以状态码、父链数量或纳谏名声替代语义。",
-      "later_retest_review": "刘邦：四周期落实强，但两条迟改和高损害先错清楚，置G4低位。",
-      "source_density_asymmetry_review": "高档按人物具体言行反查直接史料；本地不足者仅对该人物有界补读，不把检索量换算为档位。",
+      "multiple_independent_learning_cycles_review": "刘邦保留4条具名周期；同一政策复发不拆成多条纯正链。",
+      "later_retest_review": "刘邦的LOW只比较当前保留的4条生命周期及反向暴露；未完成的阶段与领域不作中性或负面推断。",
+      "positive_observation_window_review": "CLOSED_WITH_NAMED_CYCLES",
+      "negative_observation_window_review": "CLOSED_WITH_NAMED_COUNTEREVIDENCE",
+      "phase_domain_coverage_review": {
+        "method": "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION",
+        "actual_power_window": "前206—前195年",
+        "local_normative_entries_role": "DISCOVERY_LOCATION_BACKGROUND_ONLY",
+        "direct_chronological_or_primary_refs": [
+          "HAN-CHUHAN-PENGCHENG-BCE205",
+          "I2-WHAN-LB-CAPITAL-CORRECTION-001",
+          "I2-WHAN-LB-HEIR-FEEDBACK-001",
+          "docs/史料通读产物/唐以前编年/汉/卷011-通读总结.md#L17-L21",
+          "docs/史料通读产物/唐以前编年/汉/卷011-通读总结.md#L77-L88",
+          "https://zh.wikisource.org/w/index.php?title=資治通鑑/卷012&oldid=cache-790693f46a67446c"
+        ],
+        "positive_window_status": "CLOSED_PARENT_PRESENT",
+        "negative_window_status": "CLOSED_PARENT_PRESENT",
+        "phase_domain_coverage_status": "BOUNDED_NOT_FULL_LIFETIME",
+        "unresolved_phase_domain_windows": [
+          "前206—前195年尚未由连续君主中心正文闭合用人、司法、继承宗室、宫廷信源与调查核验的正反观察窗；当前只发布已观察模式。"
+        ],
+        "publication_mode": "EVIDENCE_LIMITED_BOUNDED_PROFILE"
+      },
+      "source_density_asymmetry_review": "MATERIAL_DENSITY_LIMITED_E2_MEDIUM_CONFIDENCE",
       "c5_overlap_review": "COGNITIVE_SLICE_ONLY_NO_DUPLICATE_C5_BENEFIT",
-      "basis": "刘邦在都城选择、彭城败后重组、白登后匈奴政策和储位争议四个对象上真实换路；其中都城链及时，彭城链能复验，白登与储位则先拒绝或迟改。跨域频率达到G4，重大先错使其只取低位。"
-    },
-    {
-      "ruler_id": "RULER-JIN-SHIZONG",
-      "ruler_name": "完颜雍",
-      "axis_grade": "G4",
-      "position": "LOW",
-      "cycle_anchor_count": 3,
-      "cycle_anchor_refs": [
-        "I2-JIN-MAT-1CE470F310B16E88",
-        "docs/公共成果/制度行政/01-制度行政计分材料登记.md#完颜雍",
-        "https://zh.wikisource.org/zh-hans/金史/卷47"
-      ],
-      "independent_cycles": [
-        {
-          "parent_id": "C2-P034-HUNTING-LIMIT",
-          "cycle_type": "ERROR_CORRECTION",
-          "direction": "POSITIVE",
-          "basis": "围场扩张以皇室狩猎为目标，妨农和地方承载反馈到达后，完颜雍撤销或收紧限制并恢复民用；后续同类事项继续允许复奏，验证他不仅容许渠道，而且实际改变了决定。",
-          "cycle_anchor_refs": [
-            "https://zh.wikisource.org/zh-hans/金史/卷47",
-            "I2-JIN-MAT-1CE470F310B16E88"
-          ]
-        },
-        {
-          "parent_id": "C2-P034-LAND-RETURN",
-          "cycle_type": "ERROR_CORRECTION",
-          "direction": "MIXED_POSITIVE",
-          "basis": "括地被当作恢复军户资源，误夺民田、豪强占地与军户贫困反馈反复到达后，完颜雍停止刷地、归还或给价补偿并配合灾害免租。问题曾同构复发，说明更新不彻底，但多次纠正和执行可复验。",
-          "cycle_anchor_refs": [
-            "https://zh.wikisource.org/zh-hans/金史/卷47",
-            "docs/公共成果/制度行政/01-制度行政计分材料登记.md#完颜雍"
-          ]
-        }
-      ],
-      "multiple_independent_learning_cycles_review": "完颜雍逐项列出2个独立生命周期；未以状态码、父链数量或纳谏名声替代语义。",
-      "later_retest_review": "完颜雍：两类政策均有多次实际纠正和复验，复发与领域集中限制上沿，置G4低位。",
-      "source_density_asymmetry_review": "高档按人物具体言行反查直接史料；本地不足者仅对该人物有界补读，不把检索量换算为档位。",
-      "c5_overlap_review": "COGNITIVE_SLICE_ONLY_NO_DUPLICATE_C5_BENEFIT",
-      "basis": "完颜雍在围场妨农和括地误夺两个独立政策群中，多次把地方承载信息转为撤限、还地、给价和免租；渠道规则只作背景。括地问题同构复发说明学习不彻底，裁G4低位。"
-    },
-    {
-      "ruler_id": "RULER-PUBLIC-5B02E75C191C9829",
-      "ruler_name": "玄烨",
-      "axis_grade": "G4",
-      "position": "LOW",
-      "cycle_anchor_count": 4,
-      "cycle_anchor_refs": [
-        "https://zh.wikisource.org/zh-hans/康熙朝實錄/卷之227",
-        "https://zh.wikisource.org/zh-hans/清實錄/聖祖仁皇帝實錄/卷之一百十六",
-        "https://zh.wikisource.org/zh-hans/清實錄/聖祖仁皇帝實錄/卷之一百十六#康熙二十三年七月十一日",
-        "https://zh.wikisource.org/zh/清史稿/卷260#施琅"
-      ],
-      "independent_cycles": [
-        {
-          "parent_id": "C2-P075-TAIWAN-REASSESSMENT",
-          "cycle_type": "TRUTH_ACQUISITION",
-          "direction": "POSITIVE",
-          "basis": "康熙七年施琅提出攻台方案曾被部议搁置并撤水师提督；二十年郑锦死、李光地报告条件变化并荐施琅后，玄烨重新起用施琅。孙蕙、梁清标请缓时他暂缓而非封死，继而根据施琅兵船、风候和内应信息批准进取；澎湖与台湾终局验证了对信源和时机的重新评估。",
-          "cycle_anchor_refs": [
-            "https://zh.wikisource.org/zh/清史稿/卷260#施琅"
-          ]
-        },
-        {
-          "parent_id": "C2-P075-SEA-TRADE-VERIFICATION",
-          "cycle_type": "TRUTH_ACQUISITION",
-          "direction": "POSITIVE",
-          "basis": "台湾平定后，玄烨没有沿用海禁惯例，而是当面追问展界使席柱为何不开放贸易；听取地方官以新得之地需等待为由后，他结合私贸从未断绝和督抚逐利的判断，否定该信源并推动开海。信息比较、因果理解和政策变化闭合。",
-          "cycle_anchor_refs": [
-            "https://zh.wikisource.org/zh-hans/清實錄/聖祖仁皇帝實錄/卷之一百十六#康熙二十三年七月十一日"
-          ]
-        },
-        {
-          "parent_id": "C2-P075-RIVER-INSPECTION",
-          "cycle_type": "TRUTH_ACQUISITION",
-          "direction": "MIXED_POSITIVE",
-          "basis": "玄烨多次南巡实地看河，比较靳辅、于成龙、张鹏翮及河官申报，不以官员文字或单一成法代替水势观察；在高家堰、六坝和溜淮套等问题上按冲决和实测结果调整方案。长期亲验和改法成立，但技术判断也有争议与反复，故裁混合正向。",
-          "cycle_anchor_refs": [
-            "https://zh.wikisource.org/zh-hans/康熙朝實錄/卷之227",
-            "https://zh.wikisource.org/zh-hans/清實錄/聖祖仁皇帝實錄/卷之一百十六"
-          ]
-        }
-      ],
-      "multiple_independent_learning_cycles_review": "玄烨逐项列出3个独立生命周期；未以状态码、父链数量或纳谏名声替代语义。",
-      "later_retest_review": "玄烨三个周期都有具体追问、比较或重新起用并可由后续行为验证，但河工技术存在反复，攻台也高度依赖施琅、李光地提供专业信息；缺同强负例下的稳定复验，置G4低位。",
-      "source_density_asymmetry_review": "高档按人物具体言行反查直接史料；本地不足者仅对该人物有界补读，不把检索量换算为档位。",
-      "c5_overlap_review": "COGNITIVE_SLICE_ONLY_NO_DUPLICATE_C5_BENEFIT",
-      "basis": "玄烨在攻台信源重估、海禁事实核验和河工实地复核三个独立领域，跨二十余年主动比较信息并把认识落实为人事、军事、贸易和工程决定；绝对频率、领域与阶段达到G4。三藩、战果和勤政名声均未换分。"
+      "basis": "刘邦在都城信息比较、彭城后重组、白登迟改和储位反馈四个独立对象上有落实与反向暴露；重大先拒绝和迟改压至G4低位，当前仍为E2中置信有界画像。"
     }
   ]
 }

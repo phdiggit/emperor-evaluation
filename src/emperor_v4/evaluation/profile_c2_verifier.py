@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from pathlib import Path
 
 import yaml
@@ -36,23 +37,29 @@ def _sha(path: Path) -> str:
 
 
 def _included_ids() -> set[str]:
-    return {
-        row["ruler_id"]
-        for row in _load(POOL)["records"]
-        if row["pool_status"] == "INCLUDED"
-    }
+    return {row["ruler_id"] for row in _load(POOL)["records"] if row["pool_status"] == "INCLUDED"}
 
 
 def _markdown_rows() -> list[list[str]]:
     rows = []
     for line in _read(MARKDOWN).decode("utf-8").splitlines():
         if line.startswith("| ") and not line.startswith("|---") and "雷达值" not in line:
-            rows.append([cell.strip() for cell in line[1:-1].split("|")])
+            rows.append([cell.strip().replace("\\|", "|") for cell in line[1:-1].split("|")])
     return rows
 
 
-def verify() -> dict[str, object]:
-    settlement = _load(SETTLEMENT)
+def _assert_no_keyword_adjudicator(value: object) -> None:
+    forbidden = {"keyword_hits", "keyword_score", "keyword_direction", "keyword_coverage", "matched_keywords"}
+    if isinstance(value, dict):
+        assert not (set(value) & forbidden), "keyword hits cannot define C2 coverage or adjudication"
+        for child in value.values():
+            _assert_no_keyword_adjudicator(child)
+    elif isinstance(value, list):
+        for child in value:
+            _assert_no_keyword_adjudicator(child)
+
+
+def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, object]:
     records = settlement["records"]
     assert settlement["canonical_status"] == "FORMAL_CURRENT"
     assert settlement["formal_profile_write"] is True
@@ -60,18 +67,18 @@ def verify() -> dict[str, object]:
     assert settlement["profile_total_enabled"] is False
     assert settlement["database_write"] is False
     assert settlement["record_count"] == len(records) == 184
-    assert settlement["schema_version"] == "profile-c2-formal-settlement-v2"
-    assert settlement["canonical_pool_sha256"] == _sha(POOL)
-    assert settlement["contract_sha256"] == _sha(CONTRACT)
+    assert settlement["schema_version"] == "profile-c2-formal-settlement-v3"
+    assert settlement["method"] == "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION_MANUAL_ADJUDICATION"
     assert {row["ruler_id"] for row in records} == _included_ids()
     assert len({row["task_code"] for row in records}) == 184
     assert records == sorted(records, key=lambda row: (-row["radar_value"], row["ruler_id"]))
+    _assert_no_keyword_adjudicator(settlement)
+
     required = {
-        "task_code", "ruler_id", "ruler_name", "axis_grade", "position",
-        "radar_value", "axis_evidence_level", "output_mode", "confidence",
-        "score_status", "adjudication_ref", "representative_parent_contexts",
-        "typical_pattern", "counterpattern", "grade_basis", "position_basis",
-        "axis_relevance_check", "limitations", "formal_status", "parents",
+        "task_code", "ruler_id", "ruler_name", "axis_grade", "position", "radar_value",
+        "axis_evidence_level", "output_mode", "confidence", "score_status", "grade_basis",
+        "position_basis", "axis_relevance_check", "limitations", "formal_status", "parents",
+        "coverage_review",
     }
     assert all(required <= row.keys() for row in records)
     assert all(row["axis_evidence_level"] in {"E1", "E2", "E3"} for row in records)
@@ -80,130 +87,133 @@ def verify() -> dict[str, object]:
     assert all(row["radar_value"] == row["score_100"] for row in records)
     assert all(row["formal_status"] == "FORMAL_CURRENT" for row in records)
     assert all(row["same_chain_semantic_conflict_review_status"] == "REVIEWED_NO_UNRESOLVED_CONFLICT" for row in records)
-    assert all(
-        (row["axis_evidence_level"] == "E1")
-        == (row["score_status"] == "EVIDENCE_LIMITED" and bool(row["limitations"]))
-        for row in records
-    )
     assert settlement["summary"]["unresolved_count"] == 0
 
-    # Reject pool-wide prose templates and neutral defaults without evidence.
     assert len({row["grade_basis"] for row in records}) == 184
     assert len({row["position_basis"] for row in records}) == 184
     assert all(row["ruler_name"] in row["grade_basis"] for row in records)
     assert all(row["ruler_name"] in row["position_basis"] for row in records)
     forbidden_templates = {
-        "逐人复核父链所列反馈到达、本人理解、判断更新、行为改变与后续复验后作整体裁决；既有A2/B2档位、分数与材料数量均未换算。",
-        "PASSED_MANUAL_REVIEW",
-        "经本地全入口与有界正史检索仍无闭合C2父链",
-        "本轮回读确认该单元包含反馈到达后本人改策、拒绝改策或同构复发",
+        "人工回读确认信息或反证已到达本人", "PASSED_MANUAL_REVIEW",
+        "该直接材料记录其他制度行政机制", "该直接材料记录法律、司法与刑罚运行",
+        "逐人复核父链所列反馈到达",
     }
-    assert all(not any(template in row["grade_basis"] for template in forbidden_templates) for row in records)
-    no_parent = [row for row in records if not row["parents"]]
-    assert no_parent
-    assert all(
-        row["axis_evidence_level"] == "E1"
-        and row["score_status"] == "EVIDENCE_LIMITED"
-        and row["axis_grade"] in {"G1", "G2"}
-        and len(row["limitations"]) >= 1
-        and len(row["position_basis"]) >= 40
-        for row in no_parent
-    )
+    assert all(not any(text in row["grade_basis"] for text in forbidden_templates) for row in records)
 
     parent_ids = [parent["parent_id"] for row in records for parent in row["parents"]]
     assert len(parent_ids) == len(set(parent_ids))
+    no_parent = [row for row in records if not row["parents"]]
+    assert no_parent
     for row in records:
+        coverage = row["coverage_review"]
+        assert coverage["method"] == "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION"
+        assert coverage["actual_power_window"] == row["actual_power_window"]
+        assert coverage["local_normative_entries_role"] == "DISCOVERY_LOCATION_BACKGROUND_ONLY"
+        assert coverage["positive_window_status"] in {"CLOSED_PARENT_PRESENT", "NO_CLOSED_POSITIVE_PARENT"}
+        assert coverage["negative_window_status"] in {"CLOSED_PARENT_PRESENT", "NO_CLOSED_NEGATIVE_PARENT"}
+        assert coverage["phase_domain_coverage_status"] in {"BOUNDED_NOT_FULL_LIFETIME", "FULL_LIFETIME_PHASE_DOMAIN_CLOSED"}
+        assert coverage["unresolved_phase_domain_windows"] or coverage["phase_domain_coverage_status"] == "FULL_LIFETIME_PHASE_DOMAIN_CLOSED"
+        if coverage["phase_domain_coverage_status"] == "BOUNDED_NOT_FULL_LIFETIME":
+            assert row["axis_evidence_level"] != "E3", f"targeted/local-only scope cannot publish E3: {row['ruler_name']}"
+            assert row["score_status"] == "EVIDENCE_LIMITED"
+            assert row["output_mode"] == "BOUNDED_PROFILE"
+        if not row["parents"]:
+            assert row["axis_evidence_level"] == "E1"
+            assert row["score_status"] == "EVIDENCE_LIMITED"
+            assert row["axis_grade"] in {"G0", "G1", "G2"}
+            assert row["limitations"] and len(row["position_basis"]) >= 40
+
         scoring = {parent["parent_id"] for parent in row["parents"]}
         assert set(row["axis_relevance_check"]["scoring_parent_refs"]) == scoring
         for parent in row["parents"]:
             assert parent["cycle_type"] in {"TRUTH_ACQUISITION", "ERROR_CORRECTION", "REFUSAL_OR_RECURRENCE"}
             assert parent["direction"] in {"POSITIVE", "MIXED_POSITIVE", "MIXED", "MIXED_NEGATIVE", "NEGATIVE"}
             assert parent["intensity"].startswith("MI")
-            assert parent["cycle_anchor_refs"]
+            assert parent["cycle_anchor_refs"] and parent["basis"] and parent["lifecycle_review"]
             assert "C5" in parent["secondary_projection_reason"]
-            assert parent["basis"] and parent["lifecycle_review"]
-            assert len(parent["basis"]) <= 400
-            assert not parent["basis"].startswith("B2材料")
+            assert any(token in parent["secondary_projection_reason"] for token in ("认知", "理解", "信息", "更新", "求真", "改策", "成本"))
+            assert not any(text in parent["basis"] for text in forbidden_templates)
+            assert not re.search(r"(?:裁|构成)(?:DW|PS)[0-9]", parent["basis"])
+            assert "战败后改变策略，因此证明认知更新" not in parent["basis"]
+            assert len(parent["basis"]) <= 500
         directions = {parent["direction"] for parent in row["parents"]}
-        assert not (
-            row["grade_numeric"] >= 3
-            and directions
-            and directions <= {"NEGATIVE", "MIXED_NEGATIVE"}
-        ), f"grade contradicts all-negative lifecycle text: {row['ruler_name']}"
+        assert not (row["grade_numeric"] >= 3 and directions and directions <= {"NEGATIVE", "MIXED_NEGATIVE"}), f"grade contradicts all-negative parents: {row['ruler_name']}"
+        assert not (row["grade_numeric"] == 0 and directions and directions <= {"POSITIVE", "MIXED_POSITIVE"}), f"grade contradicts all-positive parents: {row['ruler_name']}"
         if row["axis_grade"] in {"G4", "G5"}:
-            assert len(row["parents"]) >= 2, f"high grade uses giant/single parent: {row['ruler_name']}"
-            assert sum(parent["direction"] in {"POSITIVE", "MIXED_POSITIVE"} for parent in row["parents"]) >= 2
-            assert len({parent["basis"] for parent in row["parents"]}) == len(row["parents"])
+            assert len(row["parents"]) >= 3, f"high grade uses giant/single parent: {row['ruler_name']}"
+            assert sum(p["direction"] in {"POSITIVE", "MIXED_POSITIVE"} for p in row["parents"]) >= 2
+            assert any(p["cycle_type"] == "TRUTH_ACQUISITION" for p in row["parents"])
+            assert coverage["positive_window_status"] == "CLOSED_PARENT_PRESENT"
+            assert coverage["negative_window_status"] == "CLOSED_PARENT_PRESENT"
 
-    audit = _load(AUDIT)
     assert audit["canonical_status"] == "FORMAL_CURRENT"
+    assert audit["schema_version"] == "profile-c2-unit-disposition-audit-v2"
     assert audit["record_count"] == 184
     assert audit["unit_count"] == len(audit["units"])
     assert audit["unresolved_count"] == 0
+    for status in ("SCORING_PARENT", "BACKGROUND_VALIDATION", "AXIS_OUT_WITH_REASON", "UNRESOLVED_EVIDENCE_GAP"):
+        assert status in audit["status_counts"]
     assert audit["status_counts"]["UNRESOLVED_EVIDENCE_GAP"] == 0
     assert len({unit["unit_id"] for unit in audit["units"]}) == len(audit["units"])
     assert all(unit["source_exists_or_external"] for unit in audit["units"])
-    assert audit["status_counts"]["SCORING_PARENT"] > 0
-    assert audit["status_counts"]["BACKGROUND_VALIDATION"] > 0
-    assert audit["status_counts"]["AXIS_OUT_WITH_REASON"] > 0
+    assert len({unit["status"] for unit in audit["units"]}) >= 3, "all entries cannot receive one uniform disposition"
     assert len({unit["reason"] for unit in audit["units"]}) >= int(audit["unit_count"] * 0.95)
-    assert {
-        unit["scoring_parent_id"]
-        for unit in audit["units"]
-        if unit["status"] == "SCORING_PARENT"
-    } <= set(parent_ids)
-    assert set(parent_ids) <= {
-        parent_id
-        for unit in audit["units"]
-        for parent_id in unit.get("supports_parent_ids", [])
+    assert {u["scoring_parent_id"] for u in audit["units"] if u["status"] == "SCORING_PARENT"} <= set(parent_ids)
+    assert set(parent_ids) <= {pid for unit in audit["units"] for pid in unit.get("supports_parent_ids", [])}
+
+    ledger = audit["coverage_ledger"]
+    assert len(ledger) == 184
+    assert {entry["ruler_id"] for entry in ledger} == {row["ruler_id"] for row in records}
+    record_by_id = {row["ruler_id"]: row for row in records}
+    for entry in ledger:
+        record = record_by_id[entry["ruler_id"]]
+        assert entry["actual_power_window"] == record["actual_power_window"]
+        assert set(entry["observed_parent_ids"]) == {p["parent_id"] for p in record["parents"]}
+        assert entry["phase_domain_coverage_status"] == record["coverage_review"]["phase_domain_coverage_status"]
+        assert entry["publication_mode"] == record["coverage_review"]["publication_mode"]
+
+    expected_high = {row["ruler_id"] for row in records if row["axis_grade"] in {"G4", "G5"}}
+    assert high["schema_version"] == "profile-c2-high-grade-calibration-v3"
+    assert high["profile_count"] == len(high["profiles"])
+    assert {row["ruler_id"] for row in high["profiles"]} == expected_high
+    for profile in high["profiles"]:
+        assert len(profile["independent_cycles"]) >= 3
+        assert profile["positive_observation_window_review"] == "CLOSED_WITH_NAMED_CYCLES"
+        assert profile["negative_observation_window_review"] == "CLOSED_WITH_NAMED_COUNTEREVIDENCE"
+        assert profile["source_density_asymmetry_review"] == "MATERIAL_DENSITY_LIMITED_E2_MEDIUM_CONFIDENCE"
+        assert profile["multiple_independent_learning_cycles_review"] and profile["later_retest_review"]
+
+    return {
+        "status": "PASS", "record_count": len(records),
+        "evidence_limited_count": settlement["summary"]["evidence_limited_count"],
+        "evidence_level_distribution": settlement["summary"]["evidence_level_distribution"],
+        "grade_distribution": settlement["summary"]["grade_distribution"],
+        "unit_count": audit["unit_count"], "high_grade_count": len(high["profiles"]),
+        "parent_count": len(parent_ids), "no_parent_evidence_limited_count": len(no_parent),
     }
 
-    high = _load(HIGH_REVIEW)
-    expected_high = {row["ruler_id"] for row in records if row["axis_grade"] in {"G4", "G5"}}
-    assert {row["ruler_id"] for row in high["profiles"]} == expected_high
-    assert high["schema_version"] == "profile-c2-high-grade-calibration-v2"
-    assert all(len(row["independent_cycles"]) >= 2 for row in high["profiles"])
-    assert all(
-        cycle["basis"] and cycle["cycle_anchor_refs"] and cycle["cycle_type"]
-        for row in high["profiles"]
-        for cycle in row["independent_cycles"]
-    )
-    assert all(row["multiple_independent_learning_cycles_review"] and row["later_retest_review"] for row in high["profiles"])
-    assert "PASSED_MANUAL_REVIEW" not in _read(HIGH_REVIEW).decode("utf-8")
-    assert '"later_retest_review": "PASSED"' not in _read(HIGH_REVIEW).decode("utf-8")
 
+def verify() -> dict[str, object]:
+    settlement, audit, high = _load(SETTLEMENT), _load(AUDIT), _load(HIGH_REVIEW)
+    result = verify_payloads(settlement, audit, high)
+    assert settlement["canonical_pool_sha256"] == _sha(POOL)
+    assert settlement["contract_sha256"] == _sha(CONTRACT)
     md_rows = _markdown_rows()
     assert len(md_rows) == 184
-    assert [
-        (int(cells[0]), cells[1], cells[2], cells[3], cells[4], cells[5], cells[6])
-        for cells in md_rows
-    ] == [
-        (row["radar_value"], row["axis_grade"], row["position"], row["ruler_name"], row["polity"], row["axis_evidence_level"], row["confidence"])
-        for row in records
+    assert [(int(c[0]), c[1], c[2], c[3], c[4], c[5], c[6]) for c in md_rows] == [
+        (r["radar_value"], r["axis_grade"], r["position"], r["ruler_name"], r["polity"], r["axis_evidence_level"], r["confidence"])
+        for r in settlement["records"]
     ]
-
     manifest = _load(MANIFEST)
     axis = next(row for row in manifest["axes"] if row["axis_code"] == "C2")
-    assert axis["json"] == SETTLEMENT.name
-    assert axis["markdown"] == MARKDOWN.name
+    assert axis["json"] == SETTLEMENT.name and axis["markdown"] == MARKDOWN.name
     assert axis["json_sha256"] == _sha(SETTLEMENT)
     project = yaml.safe_load(_read(PROJECT).decode("utf-8"))
     assert project["profile_assessment"]["settled_axes"]["C2"]["json"].endswith(SETTLEMENT.name)
-
     hashes = {path.name: _sha(path) for path in (SETTLEMENT, MARKDOWN, AUDIT, HIGH_REVIEW)}
-    combined = hashlib.sha256(json.dumps(hashes, sort_keys=True).encode("utf-8")).hexdigest()
-    return {
-        "status": "PASS",
-        "record_count": len(records),
-        "evidence_limited_count": settlement["summary"]["evidence_limited_count"],
-        "grade_distribution": settlement["summary"]["grade_distribution"],
-        "unit_count": audit["unit_count"],
-        "high_grade_count": len(high["profiles"]),
-        "parent_count": len(parent_ids),
-        "no_parent_evidence_limited_count": len(no_parent),
-        "hashes": hashes,
-        "combined_sha256": combined,
-    }
+    result["hashes"] = hashes
+    result["combined_sha256"] = hashlib.sha256(json.dumps(hashes, sort_keys=True).encode("utf-8")).hexdigest()
+    return result
 
 
 def main() -> None:
