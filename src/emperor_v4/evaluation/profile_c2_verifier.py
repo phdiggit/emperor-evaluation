@@ -361,8 +361,8 @@ def verify() -> dict[str, object]:
     ]
     manifest = _load(MANIFEST)
     assert manifest["contract_sha256"] == _sha(CONTRACT)
-    assert manifest["settled_axis_count"] == 6
-    assert manifest["unsettled_axis_count"] == 2
+    assert manifest["settled_axis_count"] == 7
+    assert manifest["unsettled_axis_count"] == 1
     axis = next(row for row in manifest["axes"] if row["axis_code"] == "C2")
     assert axis["json"] == SETTLEMENT.name and axis["markdown"] == MARKDOWN.name
     assert axis["json_sha256"] == _sha(SETTLEMENT)

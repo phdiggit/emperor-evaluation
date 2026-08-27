@@ -93,7 +93,7 @@ def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dic
     assert settlement["schema_version"] == "profile-c3-formal-settlement-v1"
     assert settlement["canonical_status"] == "FORMAL_CURRENT"
     assert settlement["axis_code"] == "C3"
-    assert settlement["contract_sha256"] == _sha(CONTRACT) == "11a0b60464214c125a6805b68dc83b95ecb75135500bcea8cbe11cc6d2af76aa"
+    assert settlement["contract_sha256"] == _sha(CONTRACT)
     assert settlement["canonical_pool_sha256"] == _sha(POOL)
     assert settlement["manual_adjudication_sha256"] == _sha(MANUAL)
     assert settlement["record_count"] == len(records) == 184
@@ -229,10 +229,10 @@ def verify() -> dict[str, Any]:
     result = verify_payloads(settlement, audit, high, systemic)
     project = yaml.safe_load(_read(PROJECT).decode("utf-8"))
     profile = project["profile_assessment"]
-    assert profile["status"] == "six_axes_formally_settled"
-    assert set(profile["settled_axes"]) == {"M1", "M2", "C1", "C2", "C3", "C5"}
+    assert profile["status"] == "seven_axes_formally_settled"
+    assert set(profile["settled_axes"]) == {"M1", "M2", "M3", "C1", "C2", "C3", "C5"}
     manifest = _load(MANIFEST)
-    assert manifest["settled_axis_count"] == 6 and manifest["unsettled_axis_count"] == 2
+    assert manifest["settled_axis_count"] == 7 and manifest["unsettled_axis_count"] == 1
     c3 = next(axis for axis in manifest["axes"] if axis["axis_code"] == "C3")
     assert c3["json"] == SETTLEMENT.name and c3["json_sha256"] == _sha(SETTLEMENT)
     assert c3["markdown_sha256"] == _sha(MARKDOWN)

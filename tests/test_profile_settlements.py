@@ -26,16 +26,16 @@ def _included_ids() -> set[str]:
     return {record["ruler_id"] for record in pool["records"] if record["pool_status"] == "INCLUDED"}
 
 
-def test_profile_manifest_registers_six_independent_formal_axes() -> None:
+def test_profile_manifest_registers_seven_independent_formal_axes() -> None:
     manifest = _load(PROFILE_ROOT / "00-已结算轴正式入口.json")
     assert manifest["canonical_status"] == "FORMAL_CURRENT"
     assert manifest["contract_version"] == "FORMAL-V1.0"
-    assert manifest["settled_axis_count"] == 6
-    assert manifest["unsettled_axis_count"] == 2
+    assert manifest["settled_axis_count"] == 7
+    assert manifest["unsettled_axis_count"] == 1
     assert manifest["profile_total_enabled"] is False
     assert manifest["profile_ranking_enabled"] is False
     assert manifest["composite_ranking_write"] is False
-    assert [axis["axis_code"] for axis in manifest["axes"]] == ["M1", "M2", "C1", "C2", "C3", "C5"]
+    assert [axis["axis_code"] for axis in manifest["axes"]] == ["M1", "M2", "M3", "C1", "C2", "C3", "C5"]
     assert manifest["contract_sha256"] == _sha256(CONTRACT)
     assert manifest["canonical_pool_sha256"] == _sha256(POOL)
     for axis in manifest["axes"]:
@@ -77,6 +77,7 @@ def test_profile_axis_records_cover_the_formal_pool_and_contract_fields() -> Non
         "15-C1战略判断与风险控制正式结算.json",
         "19-C2信息处理学习与纠错正式结算.json",
         "24-C3人才识别配置与授权正式结算.json",
+        "29-M3财政经济约束理解与工具适配正式结算.json",
     ):
         settlement = _load(PROFILE_ROOT / name)
         records = settlement["records"]
@@ -145,8 +146,8 @@ def test_formal_contract_declares_partial_axis_settlement_without_profile_total(
     text = CONTRACT.read_text(encoding="utf-8")
     assert "DRAFT-V0.5" not in text
     assert "FORMAL-V1.0" in text
-    assert "C1、C2、M1、M2与C5满足上述轴级门禁" in text
-    assert "不得把“五轴已正式结算”表述为“八轴人物画像体系已经全部结算”" in text
+    assert "C1、C2、C3、M1、M2、M3与C5满足上述轴级门禁" in text
+    assert "不得把“七轴已正式结算”表述为“八轴人物画像体系已经全部结算”" in text
     assert "人物画像代码C4自本版撤销" in text
     assert "| C4 | 组织推动与执行韧性 |" not in text
     assert "跨轴落实深度与受阻重组证据门" in text
