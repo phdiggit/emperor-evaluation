@@ -13,7 +13,7 @@ from emperor_v4.evaluation.battle_registry_store import (
 )
 
 
-CONFIG_PATH = Path("config/post-tang-third-item-ruler-windows.json")
+CONFIG_PATH = Path("config/third-item/post-tang-third-item-ruler-windows.json")
 REGISTRY_PATH = Path("docs/公共成果/军事/01-战役登记.json")
 INPUT_SCHEMA = "chronicle-battle-adjudication-v2"
 YEAR_RE = re.compile(r"(?<!\d)(1[12]\d{2}|13\d{2}|14\d{2}|15\d{2}|16\d{2})(?!\d)")

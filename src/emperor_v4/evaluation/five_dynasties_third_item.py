@@ -30,22 +30,22 @@ from emperor_v4.evaluation.third_item_d_settlement import (
 SOURCE_ROOT = Path("docs/史料通读产物/五代十国/资治通鉴")
 REGISTRY_PATH = Path("docs/公共成果/军事/01-战役登记.json")
 REGISTRY_MARKDOWN_PATH = Path("docs/公共成果/军事/01-战役登记.md")
-ADJUDICATION_PATH = Path("config/five-dynasties-third-item-adjudications.json")
+ADJUDICATION_PATH = Path("config/third-item/five-dynasties-third-item-adjudications.json")
 AB_PATH = Path("docs/评分结算/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json")
 C_PATH = Path("docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算.json")
 D_PATH = Path("docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json")
 FORMAL_PATH = Path("docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json")
 QIN_TANG_BATTLE_INDEX_PATH = Path("docs/史料通读产物/唐以前编年/00-战争卡审计索引.json")
-QIN_TANG_D_DIRECTION_PATH = Path("config/qin-tang-d-cycle-direction-adjudications.json")
-FIRST_ITEM_C_WINDOWS_PATH = Path("config/first-item-c-acquisition-windows.json")
+QIN_TANG_D_DIRECTION_PATH = Path("config/third-item/qin-tang-d-cycle-direction-adjudications.json")
+FIRST_ITEM_C_WINDOWS_PATH = Path("config/first-item/first-item-c-acquisition-windows.json")
 FIRST_ITEM_C_SETTLEMENT_PATH = Path(
     "docs/评分结算/第一项创业与政权取得能力/军事夺取能力/01-第一项C军事夺取能力结算.json"
 )
 FIRST_ITEM_A_COMPETITIVE_LANDSCAPES_PATH = Path(
-    "config/first-item-a-competitive-landscapes.json"
+    "config/first-item/first-item-a-competitive-landscapes.json"
 )
-AB_HANDOFF_ADJUDICATION_PATH = Path("config/third-item-ab-handoff-adjudications.json")
-C_OUTCOME_ADJUDICATION_PATH = Path("config/third-item-c-outcome-adjudications.json")
+AB_HANDOFF_ADJUDICATION_PATH = Path("config/third-item/third-item-ab-handoff-adjudications.json")
+C_OUTCOME_ADJUDICATION_PATH = Path("config/third-item/third-item-c-outcome-adjudications.json")
 MILITARY_TALENT_REGISTRY_PATH = Path("docs/公共成果/军事/02-武将人才等级.json")
 INPUT_SCHEMA = "chronicle-battle-adjudication-v2"
 REGISTRY_SCHEMA = "battle-parent-contract-registry-v5"
@@ -705,22 +705,6 @@ def build_promotion_audit(registry: Mapping[str, Any]) -> dict[str, Any]:
         "unmatched_phase_count": status_counts.get("UNRESOLVED_WINDOW_OVERLAP", 0),
         "window_conflict_count": status_counts.get("UNRESOLVED_WINDOW_OVERLAP", 0),
     }
-
-
-def write_promoted_battle_registry(workspace_root: Path) -> dict[str, Any]:
-    path = workspace_root / REGISTRY_PATH
-    payload = load_battle_registry(path)
-    promoted = promote_five_dynasties_battle_registry(payload, workspace_root)
-    write_battle_registry(path, promoted)
-    from emperor_v4.evaluation.battle_parent_contract_registry import (
-        render_battle_parent_contract_registry_markdown,
-    )
-
-    _write_text_atomic(
-        workspace_root / REGISTRY_MARKDOWN_PATH,
-        render_battle_parent_contract_registry_markdown(promoted),
-    )
-    return build_promotion_audit(promoted)
 
 
 A_STATE_NAMES = {
@@ -1706,7 +1690,7 @@ def _opponent_systems_by_ref(
         )
     )
     if (
-        landscapes.get("schema_version") != "first-item-a-competitive-landscapes-v8"
+        landscapes.get("schema_version") != "first-item-a-competitive-landscapes-v9"
         or landscapes.get("status") != "CURRENT"
     ):
         raise ValueError("第一项A对手战争机器O档合同非法")
@@ -4129,6 +4113,20 @@ def _combined_settlement_basis(row: Mapping[str, Any]) -> str:
 def _render_formal_markdown(
     kind: str, records: Sequence[Mapping[str, Any]]
 ) -> str:
+    human_status = {
+        "NOT_APPLICABLE": "不适用",
+        "NOT_APPLICABLE_NO_SYSTEM_STRESS": "无体系压力任务",
+        "NONE": "无额外守成难度",
+        "TESTED": "经受压力检验",
+        "HIGH": "高位",
+        "MID": "中位",
+        "LOW": "低位",
+    }
+
+    def human_label(value: object) -> str:
+        text = str(value)
+        return human_status.get(text, text)
+
     if kind not in {"AB", "C"}:
         raise ValueError("正式分项Markdown仅支持AB或C；D由军事行动成本和收益登记专用renderer生成")
     current_ab = kind == "AB" and all("AB200_score_points" in row for row in records)
@@ -4172,9 +4170,9 @@ def _render_formal_markdown(
     lines = [
         definition["title"],
         "",
-        f"规则见{definition['rule']}。本表是同名JSON的统一人工阅读视图，按{definition['description']}当前正式值从高到低排列。",
+        f"规则见{definition['rule']}。本表按{definition['description']}正式值从高到低排列。",
         "",
-        f"共{len(ranked)}位评价主体已计分，{range_text}；另有{len(unscored)}位保持未结算。同分并列，后一名次按竞赛排名顺延；{display_note}。{scope_label}全部记录均为可复核当前值，所有朝代同等允许更新且不设保值例外。表后“逐人结算依据”展示当前裁决理由；机器读取仍以同名JSON为准。",
+        f"共{len(ranked)}位评价主体已计分，{range_text}；另有{len(unscored)}位保持未结算。同分并列，后一名次按竞赛排名顺延；{display_note}。",
         "",
     ]
     if kind == "AB":
@@ -4220,8 +4218,8 @@ def _render_formal_markdown(
         for rank, row in ranked:
             lines.append(
                 f"| {rank} | {row['ruler_name']} | {row['polity']} | {_reign_range_label(row['reign_range'])} | "
-                f"{row['combat_delivery_grade']} | {row['operational_sustainability_cap']} | "
-                f"{row['system_reliability_cap']} | {row['C_overall_grade']} | "
+                f"{human_label(row['combat_delivery_grade'])} | {human_label(row['operational_sustainability_cap'])} | "
+                f"{human_label(row['system_reliability_cap'])} | {row['C_overall_grade']} | "
                 f"{float(row['C_score_rate']):.1f}% | {float(row[score_key]):.1f} | "
                 f"{int(row['independent_task_count'])} |"
             )
@@ -4231,20 +4229,17 @@ def _render_formal_markdown(
         if kind == "AB":
             if current_ab:
                 adjudications = row["A120_axis_adjudications"]
-                axes = row["axes"]
                 b_current = row["B80_adjudication"]
                 a_lines = []
                 for axis_code in ("A1", "A2"):
                     axis = adjudications[axis_code]
                     a_lines.append(
                         f"{axis_code} {axis['start_grade']}→{axis['end_grade']}，本人变化{float(axis['attributable_delta']):g}，"
-                        f"守成{axis.get('maintenance_difficulty', 'NONE')}"
+                        f"守成{human_label(axis.get('maintenance_difficulty', 'NONE'))}"
                     )
                 lines += [
-                    f"- 当前结果：A客观锚{float(row['A120_non_cost_anchor_points']):.2f}，A正向信用{float(row['A120_positive_result_credit_points']):.2f}，A120={float(row['A120_score_points']):.2f}；B80={float(row['B80_score_points']):.2f}。",
                     f"- A归责：{'；'.join(a_lines)}。",
-                    f"- B当前率：B1 {float(b_current['adjudicated_B1_rate']):.0f}%／B2 {float(b_current['adjudicated_B2_rate']):.0f}%／B4 {float(b_current['adjudicated_B4_rate']):.0f}%；原子档为{axes['B1']['grade']}／{axes['B2']['grade']}／{axes['B4']['grade']}。",
-                    f"- B二次裁决：{_markdown_cell(str(b_current['consistency_basis']))}",
+                    f"- B归责：{_markdown_cell(str(b_current['consistency_basis']))}",
                     f"- 裁决：{_ab_settlement_basis(row)}",
                     "",
                 ]
@@ -4253,28 +4248,19 @@ def _render_formal_markdown(
             continue
         if row.get("C_overall_grade") == "C-N":
             lines += [
-                "- 档位路径：C-N（完整窗口确认无实战体系压力任务，不进入C1/C2/C3能力定档）。",
-                f"- 样本：体系压力父任务{int(row.get('independent_task_count', 0))}项；已核材料见同名JSON。",
                 f"- 裁决：{_markdown_cell(_joined_reasons(row.get('cap_reasons') or []))}",
                 "",
             ]
             continue
         c_basis = _joined_reasons(row.get("cap_reasons") or []) or "按C1、C2、C3短板门槛与体系压力父任务暴露定档。"
-        success_refs = row.get("major_system_success_refs") or []
-        failure_refs = row.get("major_system_failure_refs") or []
-        profile = row.get("task_outcome_profile") or {}
         position = row.get("C_score_within_band_adjudication") or {}
         position_line = (
-            f"- 档内位置：{position['position']}；{_markdown_cell(str(position['reason']))}"
+            f"- 档内位置：{human_label(position['position'])}；{_markdown_cell(str(position['reason']))}"
             if position else
             f"- 档内位置：按三轴差值计算，位置系数{float(row.get('C_score_band_position', 0)):.2f}。"
         )
         lines += [
-            f"- 档位路径：{row['combat_delivery_grade']}／{row['operational_sustainability_cap']}／{row['system_reliability_cap']}→{row['C_overall_grade']}。",
             position_line,
-            f"- 样本：原始观察父周期{int(row.get('observed_parent_cycle_count', row['independent_task_count']))}项；体系压力父任务{int(row['independent_task_count'])}项；未进入C计分样本的低强度观察{int(row.get('non_scoring_observation_count', 0))}项。",
-            f"- 重大胜负：重大胜绩{len(success_refs)}项、重大体系失败{len(failure_refs)}项；胜绩门禁{(row.get('major_victory_gate') or {}).get('status', 'NOT_APPLICABLE')}。",
-            f"- 任务结果剖面：已知结果{int(profile.get('known_outcome_count', 0))}项，回报分类{profile.get('return_class_counts') or {}}；状态{profile.get('status', 'UNAVAILABLE')}。",
             f"- 裁决：{_markdown_cell(c_basis)}",
             "",
         ]
@@ -4343,7 +4329,7 @@ def _render_combined_markdown(records: Sequence[Mapping[str, Any]]) -> str:
     lines = [
         title,
         "",
-        "规则总入口见[`docs/分项规则/第三项军事与边疆净收益`](../../分项规则/第三项军事与边疆净收益/README.md)。本表将A战略安全收益80分、B边疆控制净收益80分、C军事体系有效性50分、D军事成本收益比40分合并为第三项250分当前正式值；机器读取入口为同名JSON。战争造成且未被第三项充分覆盖的长期、结构性灾难仍待第七项结算，不进入本阶段总分。",
+        "规则总入口见[`docs/分项规则/第三项军事与边疆净收益`](../../分项规则/第三项军事与边疆净收益/README.md)。本表将A战略安全收益80分、B边疆控制净收益80分、C军事体系有效性50分、D军事成本收益比40分合并为第三项250分当前正式值；机器读取入口为同名JSON。军事安全、控制和体系后果的持续性均在第三项相应结果轴内校准，不另设历史负债扣分。",
         "",
         f"{score_summary}{extension_note}表后逐人列出当前未排名原因；D的Q事实只取公共登记。",
         "",

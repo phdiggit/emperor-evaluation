@@ -359,11 +359,11 @@
       }
     },
     {
-      "adjudicated_handoff_level": "H1",
+      "adjudicated_handoff_level": "D3-2",
       "attribution": "只归责宣宗任末未能形成可公开执行的继承程序，不倒算懿宗以后行政。",
       "backsource_review_eligible": true,
       "backsource_status": "BACKSOURCE_CLOSED",
-      "continuity": "懿宗即位后一般行政延续不作为本节点的远期接收。",
+      "continuity": "本节点只裁继承安排及宫廷暴力，行政连续性另由继任初年中枢人员运行材料裁定。",
       "cost_or_capture": "继承命令链被禁军中尉控制，构成局部制度断裂。",
       "direction": "negative",
       "dynasty": "唐",
@@ -386,11 +386,57 @@
       "reception_scope": "R0",
       "result": "原受托者三人被杀，最高权力交接被宫廷兵权即时改写。",
       "result_closure": "observed_or_repeated",
-      "score_contribution": true,
+      "score_contribution": false,
       "source_mechanism_domain": "handoff_continuity",
       "strength": "M1",
       "terminality": "institutional_break",
       "title": "密定继承安排被宫廷武力推翻，三名受托近臣被杀后改立皇子。",
+      "usage_count": 0,
+      "usage_refs": [],
+      "usage_roles": {}
+    },
+    {
+      "adjudicated_handoff_level": "H3",
+      "attribution": "只消费李忱退出后懿宗初年的旧中枢人员与一般行政承接；继承人如何产生另归D3。",
+      "backsource_review_eligible": true,
+      "backsource_status": "BACKSOURCE_CLOSED",
+      "continuity": "懿宗即位时令狐綯、萧邺、夏侯孜、蒋伸等旧宰相仍在中枢，白敏中亦延至咸通元年并五次辞位后转司徒、中书令，证明旧中枢人员链未随宫廷继承冲突整体中断。",
+      "cost_or_capture": "现证只闭合中枢人员和宰辅接口，尚不足证明中央—地方多接口全面连续，故停H3。",
+      "direction": "positive",
+      "dynasty": "唐",
+      "evidence": [
+        {
+          "evidence_id": "I2-D1-CONTINUITY-李忱-002-E01",
+          "evidence_tier": "fixed_primary_exact_reconnected",
+          "exact_quote": "九月，白敏中五上表辭位，辛亥，以敏中為司徒、中書令。",
+          "exact_quote_sha256": "8fe8e3f54a847d85562df175d950b174cde3c5e6ce0bd00747fde73503b707e7",
+          "revision_ref": "783595",
+          "source_title": "資治通鑑/卷250",
+          "source_url": "https://zh.wikisource.org/wiki/資治通鑑/卷250"
+        },
+        {
+          "evidence_id": "I2-D1-CONTINUITY-李忱-002-E02",
+          "evidence_tier": "fixed_primary_exact_reconnected",
+          "exact_quote": "予以史考之，懿宗即位之日，宰相四人，曰令狐綯，曰蕭鄴，曰夏侯孜、曰蔣伸，至是時惟有伸在。",
+          "exact_quote_sha256": "d369d9e1d7b4ce5232af4bdaa8d6717909cf6be85f918b5fb630d6532058b209",
+          "revision_ref": "783595",
+          "source_title": "資治通鑑/卷250",
+          "source_url": "https://zh.wikisource.org/wiki/資治通鑑/卷250"
+        }
+      ],
+      "material_id": "I2-D1-CONTINUITY-李忱-002",
+      "measure": "懿宗即位后旧宰相群体与资深中枢人员继续任职。",
+      "mechanism_dimension_zh": "制度交班与行政连续性",
+      "operation": "继任初年继续通过宣宗旧宰相和资深中枢人员处理政务。",
+      "primary_ruler": "李忱",
+      "reception_scope": "R1",
+      "result": "宫廷继承安排虽被武力改写，但一般中枢行政没有同步清洗或重建，形成一条可识别的旧人员—旧官署承接链。",
+      "result_closure": "repeated_or_stage",
+      "score_contribution": true,
+      "source_mechanism_domain": "handoff_continuity",
+      "strength": "M2",
+      "terminality": "none",
+      "title": "懿宗初年旧宰相群体与资深中枢人员继续任职",
       "usage_count": 1,
       "usage_refs": [
         "李忱:D1"
@@ -4948,7 +4994,7 @@
       }
     }
   ],
-  "records_fingerprint": "fec95b1e86879b7f75192bd60ec939d52b2ec70038949b6b5a6c7bf890bedb29",
+  "records_fingerprint": "a30fdf5f2f5f24d9455de5d47a35f3c6fcf3c28a1c61681cf8042831f9619391",
   "schema_version": "institution-administration-scoring-material-shard-v1",
   "promotion_task_code": "I2-B1-EARLY-MATURE-STATE-159-V1"
 }

@@ -3,8 +3,8 @@
   "partition": "jin",
   "bucket": 23,
   "bucket_count": 24,
-  "record_count": 4,
-  "records_fingerprint": "b2558c62e780ed641480c9c814c30ae95ccf4e9c95f4f31ab0c122ce348514fe",
+  "record_count": 5,
+  "records_fingerprint": "dd42527ed66244df63a62396dbdc9c27e48d620ed7494252d14927a656390093",
   "records": [
     {
       "war_event_id": "WAR-POST-72F813BC07348A0AD133",
@@ -388,6 +388,59 @@
       ],
       "defense_consumption": "ELIGIBLE_BATTLE_LEDGER_ONLY",
       "settlement_scope": "BATTLE_LEDGER_ONLY"
+    },
+    {
+      "war_event_id": "PUBLIC-PCR-WANYANLIANG-SONG-1161",
+      "dynasty": "金",
+      "dynasty_partition": "jin",
+      "record_level": "person_command_result_registration",
+      "campaign_group_ref": "JINSHI-HAILING-SONG-INVASION-1161",
+      "canonical_label": "海陵南伐总动员至瓜洲军变",
+      "period": {
+        "start": "1161",
+        "end": "1161"
+      },
+      "public_outcome_registered": true,
+      "disposition": "REGISTERED_PERSON_COMMAND_RESULT",
+      "source_lineage": {
+        "source_files": [
+          "docs/史料通读产物/金/金史/volume-005.battle-adjudications.json"
+        ],
+        "lineage_basis": "既有通读卡回补公共人物战役结果。"
+      },
+      "source_refs": [
+        "SRC-JINSHI-005-2432720-P0055",
+        "SRC-JINSHI-005-2432720-P0073"
+      ],
+      "person_command_results": [
+        {
+          "person_command_result_ref": "PCR-M1-WANYANLIANG-SONG-1161",
+          "person": "完颜亮",
+          "ruler_id": "RULER-JIN-HAILING",
+          "campaign_ref": "PUBLIC-PCR-WANYANLIANG-SONG-1161",
+          "capability_episode_ref": "MIL-EPISODE-WANYANLIANG-SONG-1161",
+          "canonical_label": "海陵南伐动员崩解与瓜洲军变",
+          "role_code": "commander_in_chief",
+          "consumption_mode": "person_result",
+          "capability_mode": "integrated_command",
+          "decisive_relation": "decisive_creator",
+          "result_direction": "negative",
+          "outcome_responsibility": "actual_command_scope",
+          "causal_fault": "ATTRIBUTABLE_COMMAND_ERROR",
+          "campaign_tier": "S",
+          "combat_difficulty": "D3",
+          "outcome_durability": false,
+          "detail_status": "resolved_person_result",
+          "basis": "本人发动并控制全国性南伐，超常征发、军中逃亡、东京倒戈与长江攻势失败最终在瓜洲军变中终结；作为实际最高统帅承担S/D3负向结果。",
+          "source_refs": [
+            "SRC-JINSHI-005-2432720-P0055",
+            "SRC-JINSHI-005-2432720-P0073"
+          ],
+          "parent_campaign_tier": "S",
+          "parent_combat_difficulty": "D3",
+          "evidence_lower_bound": true
+        }
+      ]
     }
   ]
 }
