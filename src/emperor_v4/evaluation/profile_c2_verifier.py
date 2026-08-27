@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import collections
 from pathlib import Path
 
 import yaml
@@ -49,7 +50,10 @@ def _markdown_rows() -> list[list[str]]:
 
 
 def _assert_no_keyword_adjudicator(value: object) -> None:
-    forbidden = {"keyword_hits", "keyword_score", "keyword_direction", "keyword_coverage", "matched_keywords"}
+    forbidden = {
+        "keyword_hits", "keyword_score", "keyword_direction", "keyword_coverage", "matched_keywords",
+        "candidate_keywords", "selection_keywords",
+    }
     if isinstance(value, dict):
         assert not (set(value) & forbidden), "keyword hits cannot define C2 coverage or adjudication"
         for child in value.values():
@@ -73,6 +77,8 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
     assert len({row["task_code"] for row in records}) == 184
     assert records == sorted(records, key=lambda row: (-row["radar_value"], row["ruler_id"]))
     _assert_no_keyword_adjudicator(settlement)
+    _assert_no_keyword_adjudicator(audit)
+    _assert_no_keyword_adjudicator(high)
 
     required = {
         "task_code", "ruler_id", "ruler_name", "axis_grade", "position", "radar_value",
@@ -88,6 +94,7 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
     assert all(row["formal_status"] == "FORMAL_CURRENT" for row in records)
     assert all(row["same_chain_semantic_conflict_review_status"] == "REVIEWED_NO_UNRESOLVED_CONFLICT" for row in records)
     assert settlement["summary"]["unresolved_count"] == 0
+    assert settlement["summary"]["score_70_or_above_count"] == sum(row["radar_value"] >= 70 for row in records)
 
     assert len({row["grade_basis"] for row in records}) == 184
     assert len({row["position_basis"] for row in records}) == 184
@@ -108,7 +115,10 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
         coverage = row["coverage_review"]
         assert coverage["method"] == "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION"
         assert coverage["actual_power_window"] == row["actual_power_window"]
-        assert coverage["local_normative_entries_role"] == "DISCOVERY_LOCATION_BACKGROUND_ONLY"
+        assert coverage["local_normative_entries_role"] in {
+            "DISCOVERY_LOCATION_BACKGROUND_ONLY",
+            "FULL_UNION_DISCOVERY_LOCATION_BACKGROUND_OR_SCORING_BY_SEMANTIC_REVIEW",
+        }
         assert coverage["positive_window_status"] in {"CLOSED_PARENT_PRESENT", "NO_CLOSED_POSITIVE_PARENT"}
         assert coverage["negative_window_status"] in {"CLOSED_PARENT_PRESENT", "NO_CLOSED_NEGATIVE_PARENT"}
         assert coverage["phase_domain_coverage_status"] in {"BOUNDED_NOT_FULL_LIFETIME", "FULL_LIFETIME_PHASE_DOMAIN_CLOSED"}
@@ -128,7 +138,12 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
         for parent in row["parents"]:
             assert parent["cycle_type"] in {"TRUTH_ACQUISITION", "ERROR_CORRECTION", "REFUSAL_OR_RECURRENCE"}
             assert parent["direction"] in {"POSITIVE", "MIXED_POSITIVE", "MIXED", "MIXED_NEGATIVE", "NEGATIVE"}
-            assert parent["intensity"].startswith("MI")
+            assert parent["intensity"] in {
+                "MI1", "MI2", "MI3", "MI4",
+                "MI1_CASE", "MI2_LIFECYCLE", "MI3_SUSTAINED_SYSTEMIC", "MI4_CROSS_PHASE_SYSTEMIC",
+            }
+            if "material_intensity" in parent:
+                assert parent["material_intensity"] == parent["intensity"]
             assert parent["cycle_anchor_refs"] and parent["basis"] and parent["lifecycle_review"]
             assert "C5" in parent["secondary_projection_reason"]
             assert any(token in parent["secondary_projection_reason"] for token in ("认知", "理解", "信息", "更新", "求真", "改策", "成本"))
@@ -183,6 +198,58 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
         assert profile["source_density_asymmetry_review"] == "MATERIAL_DENSITY_LIMITED_E2_MEDIUM_CONFIDENCE"
         assert profile["multiple_independent_learning_cycles_review"] and profile["later_retest_review"]
 
+    assert high["material_budget_policy"] == "MAX_4_SUPPLEMENTAL_PRIMARY_SOURCE_UNITS_PER_CANDIDATE"
+    assert high["source_union_policy"] == "ALL_LOCAL_NORMATIVE_ENTRIES_UNION_MAX_4_SUPPLEMENTAL_PRIMARY_UNITS_EXCLUDING_PERSON_SPECIFIC_COMPILATIONS"
+    candidate_reviews = high["candidate_reviews"]
+    assert high["intuitive_candidate_count"] == len(candidate_reviews) >= 8
+    assert settlement["summary"]["material_cap_candidate_count"] == len(candidate_reviews)
+    assert len({entry["ruler_id"] for entry in candidate_reviews}) == len(candidate_reviews)
+    for entry in candidate_reviews:
+        record = record_by_id[entry["ruler_id"]]
+        assert entry["material_budget_policy"] == high["material_budget_policy"]
+        assert entry["unit_count"] == len(entry["supplemental_primary_units"])
+        assert entry["material_units_consumed"] == entry["supplemental_primary_units"]
+        assert 1 <= entry["unit_count"] <= 4, f"candidate source budget exceeded: {entry['ruler_name']}"
+        assert entry["supplemental_primary_units"] == record["coverage_review"]["supplemental_primary_units"]
+        assert entry["normative_entry_refs"] == record["coverage_review"]["normative_entry_refs"]
+        assert entry["normative_entry_refs"], f"candidate lost all normative entries: {entry['ruler_name']}"
+        assert entry["combined_source_refs"] == list(dict.fromkeys(entry["normative_entry_refs"] + entry["supplemental_primary_units"]))
+        assert entry["combined_source_refs"] == record["coverage_review"]["combined_source_refs"]
+        assert record["coverage_review"]["direct_chronological_or_primary_refs"] == entry["combined_source_refs"]
+        assert record["coverage_review"]["material_budget_policy"] == high["material_budget_policy"]
+        assert entry["post_review_grade"] == record["axis_grade"]
+        assert entry["post_review_position"] == record["position"]
+        expected_strength = {
+            direction: dict(sorted(collections.Counter(
+                parent["intensity"] for parent in record["parents"] if parent["direction"] in directions
+            ).items()))
+            for direction, directions in {
+                "POSITIVE_OR_MIXED_POSITIVE": {"POSITIVE", "MIXED_POSITIVE"},
+                "NEGATIVE_OR_MIXED_NEGATIVE": {"NEGATIVE", "MIXED_NEGATIVE", "MIXED"},
+            }.items()
+        }
+        assert entry["directional_material_strength"] == expected_strength
+
+    candidate_intensities = {
+        parent["intensity"]
+        for entry in candidate_reviews
+        for parent in record_by_id[entry["ruler_id"]]["parents"]
+    }
+    assert {"MI1_CASE", "MI2_LIFECYCLE", "MI3_SUSTAINED_SYSTEMIC"} <= candidate_intensities
+
+    candidate_source_refs = [
+        ref
+        for entry in candidate_reviews
+        for ref in entry["combined_source_refs"]
+    ] + [
+        ref
+        for entry in candidate_reviews
+        for parent in record_by_id[entry["ruler_id"]]["parents"]
+        for ref in parent["cycle_anchor_refs"]
+    ]
+    serialized_sources = json.dumps(candidate_source_refs, ensure_ascii=False)
+    assert not any(marker in serialized_sources for marker in ("贞观政要", "貞觀政要", "蒙古秘史", "聖武親征錄", "圣武亲征录"))
+
     return {
         "status": "PASS", "record_count": len(records),
         "evidence_limited_count": settlement["summary"]["evidence_limited_count"],
@@ -190,6 +257,8 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
         "grade_distribution": settlement["summary"]["grade_distribution"],
         "unit_count": audit["unit_count"], "high_grade_count": len(high["profiles"]),
         "parent_count": len(parent_ids), "no_parent_evidence_limited_count": len(no_parent),
+        "intuitive_candidate_count": len(candidate_reviews),
+        "score_70_or_above_count": settlement["summary"]["score_70_or_above_count"],
     }
 
 
@@ -205,6 +274,9 @@ def verify() -> dict[str, object]:
         for r in settlement["records"]
     ]
     manifest = _load(MANIFEST)
+    assert manifest["contract_sha256"] == _sha(CONTRACT)
+    assert manifest["settled_axis_count"] == 5
+    assert manifest["unsettled_axis_count"] == 3
     axis = next(row for row in manifest["axes"] if row["axis_code"] == "C2")
     assert axis["json"] == SETTLEMENT.name and axis["markdown"] == MARKDOWN.name
     assert axis["json_sha256"] == _sha(SETTLEMENT)

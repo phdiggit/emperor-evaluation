@@ -31,7 +31,7 @@ def test_profile_manifest_registers_five_independent_formal_axes() -> None:
     assert manifest["canonical_status"] == "FORMAL_CURRENT"
     assert manifest["contract_version"] == "FORMAL-V1.0"
     assert manifest["settled_axis_count"] == 5
-    assert manifest["unsettled_axis_count"] == 4
+    assert manifest["unsettled_axis_count"] == 3
     assert manifest["profile_total_enabled"] is False
     assert manifest["profile_ranking_enabled"] is False
     assert manifest["composite_ranking_write"] is False
@@ -145,7 +145,12 @@ def test_formal_contract_declares_partial_axis_settlement_without_profile_total(
     assert "DRAFT-V0.5" not in text
     assert "FORMAL-V1.0" in text
     assert "C1、C2、M1、M2与C5满足上述轴级门禁" in text
-    assert "不得把“五轴已正式结算”表述为“九轴人物画像体系已经全部结算”" in text
+    assert "不得把“五轴已正式结算”表述为“八轴人物画像体系已经全部结算”" in text
+    assert "人物画像代码C4自本版撤销" in text
+    assert "| C4 | 组织推动与执行韧性 |" not in text
+    assert "跨轴落实深度与受阻重组证据门" in text
+    assert "| M3 | 财政经济约束理解与工具适配 |" in text
+    assert "| M4 | 内部政治联盟与集团整合 |" in text
 
 
 def test_m2_has_unique_radar_points_and_separates_background() -> None:
