@@ -18,19 +18,19 @@ SYSTEMIC_DECISIONS = ROOT / "config" / "profile" / "c3-systemic-review-decisions
 MANIFEST = PROFILE_ROOT / "00-已结算轴正式入口.json"
 FIFTH_B = ROOT / "docs" / "评分结算" / "第五项统治者政治素质" / "02-B轴用人与授权正式结算.json"
 FIRST_B = ROOT / "docs" / "评分结算" / "第一项创业与政权取得能力" / "政治整合能力" / "01-第一项B政治整合能力结算.json"
-SETTLEMENT = PROFILE_ROOT / "24-C3人才识别配置与授权正式结算.json"
+SETTLEMENT = PROFILE_ROOT / "C3/24-C3人才识别配置与授权正式结算.json"
 MARKDOWN = SETTLEMENT.with_suffix(".md")
-AUDIT = PROFILE_ROOT / "25-C3主要入口单元处置审计.json"
-HIGH_REVIEW = PROFILE_ROOT / "26-C3高档授权生命周期复核.json"
-ACCEPTANCE = PROFILE_ROOT / "27-C3全池结算验收报告.md"
-SYSTEMIC_REVIEW = PROFILE_ROOT / "28-C3高档门与错误清洗系统复核.json"
+AUDIT = PROFILE_ROOT / "C3/25-C3主要入口单元处置审计.json"
+HIGH_REVIEW = PROFILE_ROOT / "C3/26-C3高档授权生命周期复核.json"
+ACCEPTANCE = PROFILE_ROOT / "C3/27-C3全池结算验收报告.md"
+SYSTEMIC_REVIEW = PROFILE_ROOT / "C3/28-C3高档门与错误清洗系统复核.json"
 
 PROFILE_AXES = {
-    "M1": PROFILE_ROOT / "01-M1军事判断与统帅能力正式结算.json",
-    "M2": PROFILE_ROOT / "12-M2外交博弈与对外联盟能力正式结算.json",
-    "C1": PROFILE_ROOT / "15-C1战略判断与风险控制正式结算.json",
-    "C2": PROFILE_ROOT / "19-C2信息处理学习与纠错正式结算.json",
-    "C5": PROFILE_ROOT / "02-C5权力运用风格与克制正式结算.json",
+    "M1": PROFILE_ROOT / "M1/01-M1军事判断与统帅能力正式结算.json",
+    "M2": PROFILE_ROOT / "M2/12-M2外交博弈与对外联盟能力正式结算.json",
+    "C1": PROFILE_ROOT / "C1/15-C1战略判断与风险控制正式结算.json",
+    "C2": PROFILE_ROOT / "C2/19-C2信息处理学习与纠错正式结算.json",
+    "C5": PROFILE_ROOT / "C5/02-C5权力运用风格与克制正式结算.json",
 }
 
 
@@ -60,9 +60,13 @@ def _write_json(path: Path, value: Any) -> None:
 
 def _update_manifest() -> None:
     manifest = _load(MANIFEST)
+    manifest["contract_sha256"] = _sha(CONTRACT)
+    for registered_axis in manifest["axes"]:
+        json_path = PROFILE_ROOT / registered_axis["json"]
+        markdown_path = PROFILE_ROOT / registered_axis["markdown"]
+        registered_axis["json_sha256"] = _sha(json_path)
+        registered_axis["markdown_sha256"] = _sha(markdown_path)
     axis = next(row for row in manifest["axes"] if row["axis_code"] == "C3")
-    axis["json_sha256"] = _sha(SETTLEMENT)
-    axis["markdown_sha256"] = _sha(MARKDOWN)
     if SYSTEMIC_REVIEW.name not in axis["audit_jsons"]:
         axis["audit_jsons"].append(SYSTEMIC_REVIEW.name)
     axis["formalization_note"] = "184人C3重大任务组合正式结算；高档门、模板父链及C5同构错误清洗已完成系统复核。"
@@ -290,6 +294,14 @@ def _make_systemic_review(records: list[dict[str, Any]], decisions: dict[str, An
         })
     changes = decisions["grade_changes"]
     assert all(change["ruler_id"] in by_id for change in changes)
+    strength_calibrations = decisions.get("authorization_strength_calibrations", [])
+    assert all(
+        calibration["ruler_id"] in by_id
+        and calibration["parent_id"] in {parent["parent_id"] for parent in by_id[calibration["ruler_id"]]["parents"]}
+        and len(calibration["comparators"]) >= 2
+        and all(comparator["ruler_id"] in by_id for comparator in calibration["comparators"])
+        for calibration in strength_calibrations
+    )
     return {
         "schema_version": "profile-c3-systemic-review-v1",
         "canonical_status": "FORMAL_CURRENT_AUDIT",
@@ -302,6 +314,8 @@ def _make_systemic_review(records: list[dict[str, Any]], decisions: dict[str, An
         "open_latent_high_count": 0,
         "grade_change_count": len(changes),
         "grade_changes": changes,
+        "authorization_strength_calibration_count": len(strength_calibrations),
+        "authorization_strength_calibrations": strength_calibrations,
         "policy": "机械字段只用于召回，档位和跨轴处置均读取逐人语义决定；不按命中数、名臣数、官职数、最终治绩或既有档位换算。",
         "records": rows,
     }

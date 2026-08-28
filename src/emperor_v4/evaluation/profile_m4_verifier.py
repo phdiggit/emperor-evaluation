@@ -223,10 +223,16 @@ def verify() -> dict[str, Any]:
     assert manifest["settled_axis_count"] == 8 and manifest["unsettled_axis_count"] == 0
     assert {axis["axis_code"] for axis in manifest["axes"]} == expected_axes
     axis = next(row for row in manifest["axes"] if row["axis_code"] == "M4")
-    assert axis["json"] == SETTLEMENT.name and axis["json_sha256"] == _sha(SETTLEMENT)
+    assert (
+        axis["json"] == SETTLEMENT.relative_to(MANIFEST.parent).as_posix()
+        and axis["json_sha256"] == _sha(SETTLEMENT)
+    )
     assert axis["markdown_sha256"] == _sha(MARKDOWN)
-    assert set(axis["audit_jsons"]) == {AUDIT.name, HIGH_REVIEW.name, FULL_POOL_REVIEW.name}
-    assert axis["audit_markdowns"] == [ACCEPTANCE.name]
+    assert set(axis["audit_jsons"]) == {
+        path.relative_to(MANIFEST.parent).as_posix()
+        for path in (AUDIT, HIGH_REVIEW, FULL_POOL_REVIEW)
+    }
+    assert axis["audit_markdowns"] == [ACCEPTANCE.relative_to(MANIFEST.parent).as_posix()]
     return result
 
 

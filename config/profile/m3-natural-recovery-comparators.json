@@ -1,0 +1,3292 @@
+{
+  "schema_version": "profile-m3-natural-recovery-comparator-v1",
+  "canonical_status": "FORMAL_CURRENT_COMPARATOR_SOURCE",
+  "axis_code": "M3",
+  "record_count": 184,
+  "group_count": 21,
+  "method": {
+    "inputs": "C1/C2 S0-S_avg-S_end and current C4 attribution, with terminal change bounded to [-2,2]",
+    "fallback": "exact start+pressure if n>=4; otherwise bucketed start+pressure; otherwise bucketed start only",
+    "score_boundary": "The comparator constrains R0-R4 only and never creates a process parent or directly sets an M3 grade.",
+    "source_bias_boundary": "SOURCE_UNAVAILABLE is carried as coverage metadata and never treated as negative evidence."
+  },
+  "residual_counts": {
+    "ABOVE_NATURAL_RECOVERY_ENVELOPE": 47,
+    "WITHIN_NATURAL_RECOVERY_ENVELOPE": 70,
+    "BELOW_COMPARATOR_ENVELOPE": 57,
+    "SOURCE_UNAVAILABLE_BOUNDED": 10
+  },
+  "negative_explanatory_unresolved_count": 14,
+  "groups": [
+    {
+      "group_id": "M3-NRE-020D87945DF6",
+      "grouping_mode": "EXACT_START_AND_PRESSURE",
+      "member_count": 36,
+      "member_ids": [
+        "RULER-FD-LIU-YAN",
+        "RULER-HAN-LIUXUN",
+        "RULER-JIN-SHIZONG",
+        "RULER-JIN-TAIZONG",
+        "RULER-LIAO-YELU-DASHI",
+        "RULER-LIAO-YELU-LONGXU",
+        "RULER-LIAO-YELU-RUAN",
+        "RULER-LIAO-YELU-XIAN",
+        "RULER-MING-ZHU-DI",
+        "RULER-MING-ZHU-HOUCONG",
+        "RULER-MING-ZHU-JIANSHEN",
+        "RULER-MING-ZHU-QIYU",
+        "RULER-MING-ZHU-ZHANJI",
+        "RULER-NS-LIU-E",
+        "RULER-NS-ZHAO-HENG",
+        "RULER-NS-ZHAO-SHU",
+        "RULER-NS-ZHAO-XU",
+        "RULER-NS-ZHAO-XU-ZHEZONG",
+        "RULER-PUBLIC-5B02E75C191C9829",
+        "RULER-PUBLIC-6339E33979E7CCF5",
+        "RULER-PUBLIC-6E925E92C6F5ECA5",
+        "RULER-PUBLIC-93F6E8CA07BBD59F",
+        "RULER-ROSTER-0F3BA2C535371D66",
+        "RULER-ROSTER-B32BFAF97E1D9690",
+        "RULER-SHADOW-司马曜",
+        "RULER-SHADOW-司马炎",
+        "RULER-SHADOW-宇文邕",
+        "RULER-SHADOW-杨坚",
+        "RULER-SS-ZHAO-KUO",
+        "RULER-TANG-LICHEN",
+        "RULER-TANG-LISHI",
+        "RULER-WEI-CAORUI",
+        "RULER-WU-SUNQUAN",
+        "RULER-YUAN-KUBLAI",
+        "RULER-YUAN-KULUG",
+        "RULER-YUAN-TEMUR"
+      ],
+      "metric_min": -6.0,
+      "metric_median": 0.0,
+      "metric_max": 9.0,
+      "use_boundary": "NATURAL_RECOVERY_AND_PRESSURE_COMPARATOR_ONLY"
+    },
+    {
+      "group_id": "M3-NRE-03114434891E",
+      "grouping_mode": "BUCKETED_START_FALLBACK_PRESSURE_UNPOOLED",
+      "member_count": 4,
+      "member_ids": [
+        "RULER-HAN-LIUXIN",
+        "RULER-MING-ZHU-ZAIHOU",
+        "RULER-SS-ZHAO-YUN",
+        "RULER-TANG-WUZETIAN"
+      ],
+      "metric_min": -3.0,
+      "metric_median": 1.5,
+      "metric_max": 6.0,
+      "use_boundary": "NATURAL_RECOVERY_AND_PRESSURE_COMPARATOR_ONLY"
+    },
+    {
+      "group_id": "M3-NRE-163AFA2281D0",
+      "grouping_mode": "EXACT_START_AND_PRESSURE",
+      "member_count": 4,
+      "member_ids": [
+        "RULER-HAN-LIUAO",
+        "RULER-QIN-YINGZHENG",
+        "RULER-SHADOW-石虎",
+        "RULER-SHADOW-高洋"
+      ],
+      "metric_min": -15.0,
+      "metric_median": -10.5,
+      "metric_max": -6.0,
+      "use_boundary": "NATURAL_RECOVERY_AND_PRESSURE_COMPARATOR_ONLY"
+    },
+    {
+      "group_id": "M3-NRE-1844CDB61798",
+      "grouping_mode": "EXACT_START_AND_PRESSURE",
+      "member_count": 13,
+      "member_ids": [
+        "RULER-FD-LI-BIAN",
+        "RULER-HAN-DENGSUI",
+        "RULER-HAN-LIUZHAO",
+        "RULER-HAN-LIUZHUANG",
+        "RULER-LIAO-YELU-HONGJI",
+        "RULER-NS-ZHAO-GUANGYI",
+        "RULER-NS-ZHAO-ZHEN",
+        "RULER-PUBLIC-4EB7AC987FECC59F",
+        "RULER-SHADOW-元恪",
+        "RULER-SHADOW-冯太后",
+        "RULER-SHADOW-拓跋焘",
+        "RULER-SS-ZHAO-DUN",
+        "RULER-SS-ZHAO-SHEN"
+      ],
+      "metric_min": -6.0,
+      "metric_median": -3.0,
+      "metric_max": 3.0,
+      "use_boundary": "NATURAL_RECOVERY_AND_PRESSURE_COMPARATOR_ONLY"
+    },
+    {
+      "group_id": "M3-NRE-1E71ED9A5B8D",
+      "grouping_mode": "BUCKETED_START_FALLBACK_PRESSURE_UNPOOLED",
+      "member_count": 22,
+      "member_ids": [
+        "RULER-FD-WANG-JIAN",
+        "RULER-HAN-LIANGNA",
+        "RULER-HAN-LIUBAO",
+        "RULER-HAN-LUYU",
+        "RULER-PUBLIC-AD29E67DF9E98569",
+        "RULER-SHADOW-刘崇",
+        "RULER-SHADOW-刘彧",
+        "RULER-SHADOW-刘聪",
+        "RULER-SHADOW-吕光",
+        "RULER-SHADOW-姚兴",
+        "RULER-SHADOW-苻坚",
+        "RULER-SHADOW-萧道成",
+        "RULER-SHADOW-陈叔宝",
+        "RULER-SHADOW-陈蒨",
+        "RULER-SHADOW-高湛",
+        "RULER-SHU-LIUSHAN",
+        "RULER-TANG-LICHUN",
+        "RULER-TANG-LISHIMIN",
+        "RULER-WEI-SIMASHI",
+        "RULER-WEI-SIMAZHAO",
+        "RULER-WU-SUNHAO",
+        "RULER-WU-SUNXIU"
+      ],
+      "metric_min": -9.0,
+      "metric_median": 0.0,
+      "metric_max": 9.0,
+      "use_boundary": "NATURAL_RECOVERY_AND_PRESSURE_COMPARATOR_ONLY"
+    },
+    {
+      "group_id": "M3-NRE-1FD84A5BE0EB",
+      "grouping_mode": "EXACT_START_AND_PRESSURE",
+      "member_count": 9,
+      "member_ids": [
+        "RULER-FD-LI-SIYUAN",
+        "RULER-HAN-LIUBANG",
+        "RULER-HAN-LIUXIU",
+        "RULER-ROSTER-D4955237564AB2D6",
+        "RULER-SHADOW-杨行密",
+        "RULER-SHADOW-高季兴",
+        "RULER-SS-ZHAO-GOU",
+        "RULER-TANG-LIHENG",
+        "RULER-WEI-CAOCAO"
+      ],
+      "metric_min": 3.0,
+      "metric_median": 12.0,
+      "metric_max": 18.0,
+      "use_boundary": "NATURAL_RECOVERY_AND_PRESSURE_COMPARATOR_ONLY"
+    },
+    {
+      "group_id": "M3-NRE-2943FAC9BBFD",
+      "grouping_mode": "BUCKETED_START_FALLBACK_PRESSURE_UNPOOLED",
+      "member_count": 58,
+      "member_ids": [
+        "RULER-FD-GUO-WEI",
+        "RULER-FD-LI-SIYUAN",
+        "RULER-FD-SHI-JINGTANG",
+        "RULER-FD-ZHU-WEN",
+        "RULER-HAN-LIUBANG",
+        "RULER-HAN-LIUHONG",
+        "RULER-HAN-LIUXIU",
+        "RULER-HAN-LIUZHI",
+        "RULER-JIN-AIZONG",
+        "RULER-JIN-XUANZONG",
+        "RULER-MING-ZHU-QIZHEN",
+        "RULER-MING-ZHU-YOUJIAN",
+        "RULER-MING-ZHU-YOUJIAO",
+        "RULER-MING-ZHU-YOULANG",
+        "RULER-MING-ZHU-YUANZHANG",
+        "RULER-NS-GAO-TAOTAO",
+        "RULER-NS-ZHAO-KUANGYIN",
+        "RULER-PUBLIC-310D1C92CEE1924D",
+        "RULER-PUBLIC-7C4ED87E9C80BF8A",
+        "RULER-QIN-HUHAI",
+        "RULER-ROSTER-2035C039E3532021",
+        "RULER-ROSTER-323631DDD7CB22F6",
+        "RULER-ROSTER-D4955237564AB2D6",
+        "RULER-SHADOW-冯跋",
+        "RULER-SHADOW-刘渊",
+        "RULER-SHADOW-刘裕",
+        "RULER-SHADOW-司马睿",
+        "RULER-SHADOW-姚苌",
+        "RULER-SHADOW-孟知祥",
+        "RULER-SHADOW-宇文泰",
+        "RULER-SHADOW-慕容垂",
+        "RULER-SHADOW-慕容德",
+        "RULER-SHADOW-拓跋珪",
+        "RULER-SHADOW-李克用",
+        "RULER-SHADOW-李暠",
+        "RULER-SHADOW-李雄",
+        "RULER-SHADOW-杨行密",
+        "RULER-SHADOW-沮渠蒙逊",
+        "RULER-SHADOW-石勒",
+        "RULER-SHADOW-苻健",
+        "RULER-SHADOW-赫连勃勃",
+        "RULER-SHADOW-钱镠",
+        "RULER-SHADOW-马殷",
+        "RULER-SHADOW-高季兴",
+        "RULER-SHADOW-高欢",
+        "RULER-SHADOW-高纬",
+        "RULER-SHU-LIUBEI",
+        "RULER-SS-ZHAO-GOU",
+        "RULER-TANG-LIHENG",
+        "RULER-TANG-LIXUAN",
+        "RULER-TANG-LIYU",
+        "RULER-TANG-LIYUAN",
+        "RULER-WEI-CAOCAO",
+        "RULER-YUAN-AYURBARWADA",
+        "RULER-YUAN-MONGKE",
+        "RULER-YUAN-OGEDEI",
+        "RULER-YUAN-TEMUJI",
+        "RULER-YUAN-TOGHON-TEMUR"
+      ],
+      "metric_min": -6.0,
+      "metric_median": 6.0,
+      "metric_max": 18.0,
+      "use_boundary": "NATURAL_RECOVERY_AND_PRESSURE_COMPARATOR_ONLY"
+    },
+    {
+      "group_id": "M3-NRE-3CDDC451B906",
+      "grouping_mode": "BUCKETED_START_FALLBACK_PRESSURE_UNPOOLED",
+      "member_count": 4,
+      "member_ids": [
+        "RULER-SHADOW-拓跋嗣",
+        "RULER-SHADOW-萧衍",
+        "RULER-SHADOW-萧鸾",
+        "RULER-SHADOW-陈顼"
+      ],
+      "metric_min": -9.0,
+      "metric_median": -3.0,
+      "metric_max": 6.0,
+      "use_boundary": "NATURAL_RECOVERY_AND_PRESSURE_COMPARATOR_ONLY"
+    },
+    {
+      "group_id": "M3-NRE-5D0268434203",
+      "grouping_mode": "EXACT_START_AND_PRESSURE",
+      "member_count": 4,
+      "member_ids": [
+        "RULER-HAN-LIUHU",
+        "RULER-LIAO-YELU-YANXI",
+        "RULER-PUBLIC-6DACD59C17927ECA",
+        "RULER-TANG-LIZHI"
+      ],
+      "metric_min": -18.0,
+      "metric_median": -8.5,
+      "metric_max": -6.0,
+      "use_boundary": "NATURAL_RECOVERY_AND_PRESSURE_COMPARATOR_ONLY"
+    },
+    {
+      "group_id": "M3-NRE-6887FD473D27",
+      "grouping_mode": "EXACT_START_AND_PRESSURE",
+      "member_count": 32,
+      "member_ids": [
+        "RULER-FD-GUO-WEI",
+        "RULER-FD-SHI-JINGTANG",
+        "RULER-FD-ZHU-WEN",
+        "RULER-HAN-LIUHONG",
+        "RULER-HAN-LIUZHI",
+        "RULER-MING-ZHU-QIZHEN",
+        "RULER-MING-ZHU-YOUJIAN",
+        "RULER-MING-ZHU-YOUJIAO",
+        "RULER-MING-ZHU-YOULANG",
+        "RULER-MING-ZHU-YUANZHANG",
+        "RULER-NS-GAO-TAOTAO",
+        "RULER-NS-ZHAO-KUANGYIN",
+        "RULER-PUBLIC-310D1C92CEE1924D",
+        "RULER-PUBLIC-7C4ED87E9C80BF8A",
+        "RULER-ROSTER-2035C039E3532021",
+        "RULER-ROSTER-323631DDD7CB22F6",
+        "RULER-SHADOW-刘裕",
+        "RULER-SHADOW-司马睿",
+        "RULER-SHADOW-孟知祥",
+        "RULER-SHADOW-宇文泰",
+        "RULER-SHADOW-李克用",
+        "RULER-SHADOW-李暠",
+        "RULER-SHADOW-钱镠",
+        "RULER-SHADOW-马殷",
+        "RULER-SHADOW-高欢",
+        "RULER-SHADOW-高纬",
+        "RULER-SHU-LIUBEI",
+        "RULER-TANG-LIXUAN",
+        "RULER-YUAN-AYURBARWADA",
+        "RULER-YUAN-MONGKE",
+        "RULER-YUAN-OGEDEI",
+        "RULER-YUAN-TEMUJI"
+      ],
+      "metric_min": -6.0,
+      "metric_median": 6.0,
+      "metric_max": 12.0,
+      "use_boundary": "NATURAL_RECOVERY_AND_PRESSURE_COMPARATOR_ONLY"
+    },
+    {
+      "group_id": "M3-NRE-90042DB9DFE9",
+      "grouping_mode": "EXACT_START_AND_PRESSURE",
+      "member_count": 13,
+      "member_ids": [
+        "RULER-SHADOW-冯跋",
+        "RULER-SHADOW-刘渊",
+        "RULER-SHADOW-姚苌",
+        "RULER-SHADOW-慕容垂",
+        "RULER-SHADOW-慕容德",
+        "RULER-SHADOW-拓跋珪",
+        "RULER-SHADOW-李雄",
+        "RULER-SHADOW-沮渠蒙逊",
+        "RULER-SHADOW-石勒",
+        "RULER-SHADOW-苻健",
+        "RULER-SHADOW-赫连勃勃",
+        "RULER-TANG-LIYU",
+        "RULER-TANG-LIYUAN"
+      ],
+      "metric_min": -3.0,
+      "metric_median": 9.0,
+      "metric_max": 15.0,
+      "use_boundary": "NATURAL_RECOVERY_AND_PRESSURE_COMPARATOR_ONLY"
+    },
+    {
+      "group_id": "M3-NRE-91692EA38BB7",
+      "grouping_mode": "BUCKETED_START_AND_PRESSURE",
+      "member_count": 4,
+      "member_ids": [
+        "RULER-SHADOW-刘彧",
+        "RULER-SHADOW-刘聪",
+        "RULER-SHADOW-苻坚",
+        "RULER-WU-SUNHAO"
+      ],
+      "metric_min": -9.0,
+      "metric_median": -4.5,
+      "metric_max": -3.0,
+      "use_boundary": "NATURAL_RECOVERY_AND_PRESSURE_COMPARATOR_ONLY"
+    },
+    {
+      "group_id": "M3-NRE-9C9885235680",
+      "grouping_mode": "EXACT_START_AND_PRESSURE",
+      "member_count": 10,
+      "member_ids": [
+        "RULER-PUBLIC-79839092B61C3D74",
+        "RULER-SHADOW-拓跋弘",
+        "RULER-XIXIA-LIANQUAN",
+        "RULER-XIXIA-LIBINGCHANG",
+        "RULER-XIXIA-LIDEMING",
+        "RULER-XIXIA-LIDEWANG",
+        "RULER-XIXIA-LILIANGZUO",
+        "RULER-XIXIA-LIQIANSHUN",
+        "RULER-XIXIA-LIRENXIAO",
+        "RULER-XIXIA-LIYUANHAO"
+      ],
+      "metric_min": null,
+      "metric_median": null,
+      "metric_max": null,
+      "use_boundary": "NATURAL_RECOVERY_AND_PRESSURE_COMPARATOR_ONLY"
+    },
+    {
+      "group_id": "M3-NRE-A0C143083555",
+      "grouping_mode": "BUCKETED_START_AND_PRESSURE",
+      "member_count": 6,
+      "member_ids": [
+        "RULER-HAN-LIUCHE",
+        "RULER-JIN-HAILING",
+        "RULER-JIN-ZHANGZONG",
+        "RULER-LIAO-YELU-ZONGZHEN",
+        "RULER-MING-ZHU-YUNWEN",
+        "RULER-SHADOW-杨广"
+      ],
+      "metric_min": -18.0,
+      "metric_median": -9.0,
+      "metric_max": 0.0,
+      "use_boundary": "NATURAL_RECOVERY_AND_PRESSURE_COMPARATOR_ONLY"
+    },
+    {
+      "group_id": "M3-NRE-A8B0770B1224",
+      "grouping_mode": "BUCKETED_START_FALLBACK_PRESSURE_UNPOOLED",
+      "member_count": 2,
+      "member_ids": [
+        "RULER-MING-ZHU-HOUZHAO",
+        "RULER-MING-ZHU-YOUCHENG"
+      ],
+      "metric_min": -3.0,
+      "metric_median": -1.5,
+      "metric_max": 0.0,
+      "use_boundary": "NATURAL_RECOVERY_AND_PRESSURE_COMPARATOR_ONLY"
+    },
+    {
+      "group_id": "M3-NRE-AB03D3C3560A",
+      "grouping_mode": "EXACT_START_AND_PRESSURE",
+      "member_count": 5,
+      "member_ids": [
+        "RULER-JIN-HAILING",
+        "RULER-JIN-ZHANGZONG",
+        "RULER-LIAO-YELU-ZONGZHEN",
+        "RULER-MING-ZHU-YUNWEN",
+        "RULER-SHADOW-杨广"
+      ],
+      "metric_min": -18.0,
+      "metric_median": -6.0,
+      "metric_max": 0.0,
+      "use_boundary": "NATURAL_RECOVERY_AND_PRESSURE_COMPARATOR_ONLY"
+    },
+    {
+      "group_id": "M3-NRE-B43A0C0FEA43",
+      "grouping_mode": "EXACT_START_AND_PRESSURE",
+      "member_count": 7,
+      "member_ids": [
+        "RULER-FD-CHAI-RONG",
+        "RULER-HAN-LIUDA",
+        "RULER-HAN-LIUHENG",
+        "RULER-SHADOW-刘义隆",
+        "RULER-SHADOW-刘骏",
+        "RULER-TANG-LIXIAN",
+        "RULER-WEI-CAOPI"
+      ],
+      "metric_min": -6.0,
+      "metric_median": -3.0,
+      "metric_max": 6.0,
+      "use_boundary": "NATURAL_RECOVERY_AND_PRESSURE_COMPARATOR_ONLY"
+    },
+    {
+      "group_id": "M3-NRE-BAA0873CC161",
+      "grouping_mode": "EXACT_START_AND_PRESSURE",
+      "member_count": 6,
+      "member_ids": [
+        "RULER-FD-LI-CUNXU",
+        "RULER-JIN-XIZONG",
+        "RULER-LIAO-YELU-DEGUANG",
+        "RULER-MING-ZHU-YIJUN",
+        "RULER-NS-ZHAO-JI",
+        "RULER-XIN-WANGMANG"
+      ],
+      "metric_min": -12.0,
+      "metric_median": -9.0,
+      "metric_max": 6.0,
+      "use_boundary": "NATURAL_RECOVERY_AND_PRESSURE_COMPARATOR_ONLY"
+    },
+    {
+      "group_id": "M3-NRE-C28E1C4DDC1A",
+      "grouping_mode": "EXACT_START_AND_PRESSURE",
+      "member_count": 17,
+      "member_ids": [
+        "RULER-FD-WANG-JIAN",
+        "RULER-HAN-LIANGNA",
+        "RULER-HAN-LIUBAO",
+        "RULER-HAN-LUYU",
+        "RULER-PUBLIC-AD29E67DF9E98569",
+        "RULER-SHADOW-刘崇",
+        "RULER-SHADOW-吕光",
+        "RULER-SHADOW-姚兴",
+        "RULER-SHADOW-萧道成",
+        "RULER-SHADOW-陈蒨",
+        "RULER-SHADOW-高湛",
+        "RULER-SHU-LIUSHAN",
+        "RULER-TANG-LICHUN",
+        "RULER-TANG-LISHIMIN",
+        "RULER-WEI-SIMASHI",
+        "RULER-WEI-SIMAZHAO",
+        "RULER-WU-SUNXIU"
+      ],
+      "metric_min": -6.0,
+      "metric_median": 0.0,
+      "metric_max": 9.0,
+      "use_boundary": "NATURAL_RECOVERY_AND_PRESSURE_COMPARATOR_ONLY"
+    },
+    {
+      "group_id": "M3-NRE-E970857EC4C4",
+      "grouping_mode": "BUCKETED_START_AND_PRESSURE",
+      "member_count": 16,
+      "member_ids": [
+        "RULER-FD-LI-BIAN",
+        "RULER-HAN-DENGSUI",
+        "RULER-HAN-LIUQI",
+        "RULER-HAN-LIUSHI",
+        "RULER-HAN-LIUZHAO",
+        "RULER-HAN-LIUZHUANG",
+        "RULER-LIAO-YELU-HONGJI",
+        "RULER-NS-ZHAO-GUANGYI",
+        "RULER-NS-ZHAO-ZHEN",
+        "RULER-PUBLIC-4EB7AC987FECC59F",
+        "RULER-SHADOW-元恪",
+        "RULER-SHADOW-冯太后",
+        "RULER-SHADOW-拓跋宏",
+        "RULER-SHADOW-拓跋焘",
+        "RULER-SS-ZHAO-DUN",
+        "RULER-SS-ZHAO-SHEN"
+      ],
+      "metric_min": -6.0,
+      "metric_median": -3.0,
+      "metric_max": 3.0,
+      "use_boundary": "NATURAL_RECOVERY_AND_PRESSURE_COMPARATOR_ONLY"
+    },
+    {
+      "group_id": "M3-NRE-EAD4E8EF85E0",
+      "grouping_mode": "EXACT_START_AND_PRESSURE",
+      "member_count": 5,
+      "member_ids": [
+        "RULER-FD-LI-YU",
+        "RULER-FD-MENG-CHANG",
+        "RULER-FD-ZHU-YOUZHEN",
+        "RULER-JIN-WEISHAOWANG",
+        "RULER-TANG-LILONGJI"
+      ],
+      "metric_min": -12.0,
+      "metric_median": -12.0,
+      "metric_max": -6.0,
+      "use_boundary": "NATURAL_RECOVERY_AND_PRESSURE_COMPARATOR_ONLY"
+    }
+  ],
+  "records": [
+    {
+      "ruler_id": "RULER-FD-CHAI-RONG",
+      "ruler_name": "柴荣",
+      "group_id": "M3-NRE-B43A0C0FEA43",
+      "metric": 0.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R2",
+      "process_level": "P1",
+      "directions_consistent": false,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-FD-GUO-WEI",
+      "ruler_name": "郭威",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 9.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-FD-LI-BIAN",
+      "ruler_name": "李昪",
+      "group_id": "M3-NRE-1844CDB61798",
+      "metric": -3.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-FD-LI-CUNXU",
+      "ruler_name": "李存勖",
+      "group_id": "M3-NRE-BAA0873CC161",
+      "metric": -12.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-FD-LI-SIYUAN",
+      "ruler_name": "李嗣源",
+      "group_id": "M3-NRE-1FD84A5BE0EB",
+      "metric": 12.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-FD-LI-YU",
+      "ruler_name": "李煜",
+      "group_id": "M3-NRE-EAD4E8EF85E0",
+      "metric": -12.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-FD-LIU-YAN",
+      "ruler_name": "刘龑",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": 0.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-FD-MENG-CHANG",
+      "ruler_name": "孟昶",
+      "group_id": "M3-NRE-EAD4E8EF85E0",
+      "metric": -10.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-FD-SHI-JINGTANG",
+      "ruler_name": "石敬瑭",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 6.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-FD-WANG-JIAN",
+      "ruler_name": "王建",
+      "group_id": "M3-NRE-C28E1C4DDC1A",
+      "metric": 3.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R2",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-FD-ZHU-WEN",
+      "ruler_name": "朱温",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 6.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-FD-ZHU-YOUZHEN",
+      "ruler_name": "朱友贞",
+      "group_id": "M3-NRE-EAD4E8EF85E0",
+      "metric": -12.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-HAN-DENGSUI",
+      "ruler_name": "邓绥",
+      "group_id": "M3-NRE-1844CDB61798",
+      "metric": -3.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-HAN-LIANGNA",
+      "ruler_name": "梁妠",
+      "group_id": "M3-NRE-C28E1C4DDC1A",
+      "metric": 0.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUAO",
+      "ruler_name": "刘骜",
+      "group_id": "M3-NRE-163AFA2281D0",
+      "metric": -6.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUBANG",
+      "ruler_name": "刘邦",
+      "group_id": "M3-NRE-1FD84A5BE0EB",
+      "metric": 9.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUBAO",
+      "ruler_name": "刘保",
+      "group_id": "M3-NRE-C28E1C4DDC1A",
+      "metric": 0.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUCHE",
+      "ruler_name": "刘彻",
+      "group_id": "M3-NRE-A0C143083555",
+      "metric": -15.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUDA",
+      "ruler_name": "刘炟",
+      "group_id": "M3-NRE-B43A0C0FEA43",
+      "metric": 3.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUHENG",
+      "ruler_name": "刘恒",
+      "group_id": "M3-NRE-B43A0C0FEA43",
+      "metric": 6.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P3",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUHONG",
+      "ruler_name": "刘宏",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": -6.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P3",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUHU",
+      "ruler_name": "刘祜",
+      "group_id": "M3-NRE-5D0268434203",
+      "metric": -9.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUQI",
+      "ruler_name": "刘启",
+      "group_id": "M3-NRE-E970857EC4C4",
+      "metric": 3.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P3",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUSHI",
+      "ruler_name": "刘奭",
+      "group_id": "M3-NRE-E970857EC4C4",
+      "metric": -6.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUXIN",
+      "ruler_name": "刘欣",
+      "group_id": "M3-NRE-03114434891E",
+      "metric": 0.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "REVEALED_NEGATIVE_CAPABILITY_WITH_MECHANISM_GAP",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUXIU",
+      "ruler_name": "刘秀",
+      "group_id": "M3-NRE-1FD84A5BE0EB",
+      "metric": 18.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUXUN",
+      "ruler_name": "刘询",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": 9.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUZHAO",
+      "ruler_name": "刘肇",
+      "group_id": "M3-NRE-1844CDB61798",
+      "metric": 0.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUZHI",
+      "ruler_name": "刘志",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 0.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUZHUANG",
+      "ruler_name": "刘庄",
+      "group_id": "M3-NRE-1844CDB61798",
+      "metric": -3.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "REVEALED_NEGATIVE_CAPABILITY_WITH_MECHANISM_GAP",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-HAN-LUYU",
+      "ruler_name": "吕雉",
+      "group_id": "M3-NRE-C28E1C4DDC1A",
+      "metric": 6.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-JIN-AIZONG",
+      "ruler_name": "完颜守绪",
+      "group_id": "M3-NRE-2943FAC9BBFD",
+      "metric": -6.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-JIN-HAILING",
+      "ruler_name": "完颜亮",
+      "group_id": "M3-NRE-AB03D3C3560A",
+      "metric": -12.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-JIN-SHIZONG",
+      "ruler_name": "完颜雍",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": 6.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-JIN-TAIZONG",
+      "ruler_name": "完颜晟",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": 0.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P1",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-JIN-WEISHAOWANG",
+      "ruler_name": "完颜永济",
+      "group_id": "M3-NRE-EAD4E8EF85E0",
+      "metric": -12.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-JIN-XIZONG",
+      "ruler_name": "完颜亶",
+      "group_id": "M3-NRE-BAA0873CC161",
+      "metric": 6.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-JIN-XUANZONG",
+      "ruler_name": "完颜珣",
+      "group_id": "M3-NRE-2943FAC9BBFD",
+      "metric": -6.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-JIN-ZHANGZONG",
+      "ruler_name": "完颜璟",
+      "group_id": "M3-NRE-AB03D3C3560A",
+      "metric": -6.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-LIAO-YELU-DASHI",
+      "ruler_name": "耶律大石",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": 0.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-LIAO-YELU-DEGUANG",
+      "ruler_name": "耶律德光",
+      "group_id": "M3-NRE-BAA0873CC161",
+      "metric": -3.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R2",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-LIAO-YELU-HONGJI",
+      "ruler_name": "耶律洪基",
+      "group_id": "M3-NRE-1844CDB61798",
+      "metric": 0.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-LIAO-YELU-LONGXU",
+      "ruler_name": "耶律隆绪",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": 6.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-LIAO-YELU-RUAN",
+      "ruler_name": "耶律阮",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": 0.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-LIAO-YELU-XIAN",
+      "ruler_name": "耶律贤",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": 0.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-LIAO-YELU-YANXI",
+      "ruler_name": "耶律延禧",
+      "group_id": "M3-NRE-5D0268434203",
+      "metric": -18.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-LIAO-YELU-ZONGZHEN",
+      "ruler_name": "耶律宗真",
+      "group_id": "M3-NRE-AB03D3C3560A",
+      "metric": 0.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-MING-ZHU-DI",
+      "ruler_name": "朱棣",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": 0.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-MING-ZHU-HOUCONG",
+      "ruler_name": "朱厚熜",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": -3.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P2",
+      "directions_consistent": false,
+      "negative_review_status": "REVEALED_NEGATIVE_CAPABILITY_WITH_MECHANISM_GAP",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-MING-ZHU-HOUZHAO",
+      "ruler_name": "朱厚照",
+      "group_id": "M3-NRE-A8B0770B1224",
+      "metric": -3.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-MING-ZHU-JIANSHEN",
+      "ruler_name": "朱见深",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": 3.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R2",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "REVEALED_NEGATIVE_CAPABILITY_WITH_MECHANISM_GAP",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-MING-ZHU-QIYU",
+      "ruler_name": "朱祁钰",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": 0.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-MING-ZHU-QIZHEN",
+      "ruler_name": "朱祁镇",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 6.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-MING-ZHU-YIJUN",
+      "ruler_name": "朱翊钧",
+      "group_id": "M3-NRE-BAA0873CC161",
+      "metric": -6.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-MING-ZHU-YOUCHENG",
+      "ruler_name": "朱祐樘",
+      "group_id": "M3-NRE-A8B0770B1224",
+      "metric": 0.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-MING-ZHU-YOUJIAN",
+      "ruler_name": "朱由检",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 0.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-MING-ZHU-YOUJIAO",
+      "ruler_name": "朱由校",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 0.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-MING-ZHU-YOULANG",
+      "ruler_name": "朱由榔",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 0.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-MING-ZHU-YUANZHANG",
+      "ruler_name": "朱元璋",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 12.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-MING-ZHU-YUNWEN",
+      "ruler_name": "朱允炆",
+      "group_id": "M3-NRE-AB03D3C3560A",
+      "metric": -6.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-MING-ZHU-ZAIHOU",
+      "ruler_name": "朱载坖",
+      "group_id": "M3-NRE-03114434891E",
+      "metric": 3.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-MING-ZHU-ZHANJI",
+      "ruler_name": "朱瞻基",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": -4.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-NS-GAO-TAOTAO",
+      "ruler_name": "高滔滔",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 6.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-NS-LIU-E",
+      "ruler_name": "刘娥",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": 6.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-NS-ZHAO-GUANGYI",
+      "ruler_name": "赵光义",
+      "group_id": "M3-NRE-1844CDB61798",
+      "metric": -6.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-NS-ZHAO-HENG",
+      "ruler_name": "赵恒",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": 1.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-NS-ZHAO-JI",
+      "ruler_name": "赵佶",
+      "group_id": "M3-NRE-BAA0873CC161",
+      "metric": -12.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-NS-ZHAO-KUANGYIN",
+      "ruler_name": "赵匡胤",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 12.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-NS-ZHAO-SHU",
+      "ruler_name": "赵曙",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": 0.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-NS-ZHAO-XU",
+      "ruler_name": "赵顼",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": -6.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P1",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-NS-ZHAO-XU-ZHEZONG",
+      "ruler_name": "赵煦",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": 0.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-NS-ZHAO-ZHEN",
+      "ruler_name": "赵祯",
+      "group_id": "M3-NRE-1844CDB61798",
+      "metric": -6.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "REVEALED_NEGATIVE_CAPABILITY_WITH_MECHANISM_GAP",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-PUBLIC-310D1C92CEE1924D",
+      "ruler_name": "奕詝",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": -6.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P1",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-PUBLIC-4EB7AC987FECC59F",
+      "ruler_name": "胤禛",
+      "group_id": "M3-NRE-1844CDB61798",
+      "metric": 0.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-PUBLIC-5B02E75C191C9829",
+      "ruler_name": "玄烨",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": 6.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P3",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-PUBLIC-6339E33979E7CCF5",
+      "ruler_name": "皇太极",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": 0.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-PUBLIC-6DACD59C17927ECA",
+      "ruler_name": "弘历",
+      "group_id": "M3-NRE-5D0268434203",
+      "metric": -6.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P2",
+      "directions_consistent": false,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-PUBLIC-6E925E92C6F5ECA5",
+      "ruler_name": "努尔哈赤",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": 0.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-PUBLIC-79839092B61C3D74",
+      "ruler_name": "载湉",
+      "group_id": "M3-NRE-9C9885235680",
+      "metric": null,
+      "residual_class": "SOURCE_UNAVAILABLE_BOUNDED",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-PUBLIC-7C4ED87E9C80BF8A",
+      "ruler_name": "旻宁",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 0.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P2",
+      "directions_consistent": false,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-PUBLIC-93F6E8CA07BBD59F",
+      "ruler_name": "颙琰",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": -6.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P2",
+      "directions_consistent": false,
+      "negative_review_status": "REVEALED_NEGATIVE_CAPABILITY_WITH_MECHANISM_GAP",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-PUBLIC-AD29E67DF9E98569",
+      "ruler_name": "福临",
+      "group_id": "M3-NRE-C28E1C4DDC1A",
+      "metric": 3.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R2",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-QIN-HUHAI",
+      "ruler_name": "胡亥",
+      "group_id": "M3-NRE-2943FAC9BBFD",
+      "metric": -3.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P2",
+      "directions_consistent": false,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-QIN-YINGZHENG",
+      "ruler_name": "嬴政",
+      "group_id": "M3-NRE-163AFA2281D0",
+      "metric": -12.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-ROSTER-0F3BA2C535371D66",
+      "ruler_name": "萧绰",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": 6.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P2",
+      "directions_consistent": false,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-ROSTER-2035C039E3532021",
+      "ruler_name": "耶律阿保机",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 6.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-ROSTER-323631DDD7CB22F6",
+      "ruler_name": "完颜阿骨打",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 6.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P1",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-ROSTER-B32BFAF97E1D9690",
+      "ruler_name": "多尔衮",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": -3.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-ROSTER-D4955237564AB2D6",
+      "ruler_name": "慈禧",
+      "group_id": "M3-NRE-1FD84A5BE0EB",
+      "metric": 6.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-元恪",
+      "ruler_name": "元恪",
+      "group_id": "M3-NRE-1844CDB61798",
+      "metric": -6.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "REVEALED_NEGATIVE_CAPABILITY_WITH_MECHANISM_GAP",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-冯太后",
+      "ruler_name": "冯太后",
+      "group_id": "M3-NRE-1844CDB61798",
+      "metric": 3.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-冯跋",
+      "ruler_name": "冯跋",
+      "group_id": "M3-NRE-90042DB9DFE9",
+      "metric": 12.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-刘义隆",
+      "ruler_name": "刘义隆",
+      "group_id": "M3-NRE-B43A0C0FEA43",
+      "metric": -3.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "REVEALED_NEGATIVE_CAPABILITY_WITH_MECHANISM_GAP",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-刘崇",
+      "ruler_name": "刘崇",
+      "group_id": "M3-NRE-C28E1C4DDC1A",
+      "metric": 0.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-刘彧",
+      "ruler_name": "刘彧",
+      "group_id": "M3-NRE-91692EA38BB7",
+      "metric": -3.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-刘渊",
+      "ruler_name": "刘渊",
+      "group_id": "M3-NRE-90042DB9DFE9",
+      "metric": 6.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P1",
+      "directions_consistent": false,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-刘聪",
+      "ruler_name": "刘聪",
+      "group_id": "M3-NRE-91692EA38BB7",
+      "metric": -9.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P2",
+      "directions_consistent": false,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-刘裕",
+      "ruler_name": "刘裕",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 9.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P1",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-刘骏",
+      "ruler_name": "刘骏",
+      "group_id": "M3-NRE-B43A0C0FEA43",
+      "metric": -6.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-司马曜",
+      "ruler_name": "司马曜",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": -3.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "REVEALED_NEGATIVE_CAPABILITY_WITH_MECHANISM_GAP",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-司马炎",
+      "ruler_name": "司马炎",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": 6.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-司马睿",
+      "ruler_name": "司马睿",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 3.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P2",
+      "directions_consistent": false,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-吕光",
+      "ruler_name": "吕光",
+      "group_id": "M3-NRE-C28E1C4DDC1A",
+      "metric": -6.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-姚兴",
+      "ruler_name": "姚兴",
+      "group_id": "M3-NRE-C28E1C4DDC1A",
+      "metric": 0.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-姚苌",
+      "ruler_name": "姚苌",
+      "group_id": "M3-NRE-90042DB9DFE9",
+      "metric": 6.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-孟知祥",
+      "ruler_name": "孟知祥",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 6.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-宇文泰",
+      "ruler_name": "宇文泰",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 9.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-宇文邕",
+      "ruler_name": "宇文邕",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": 0.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P1",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-慕容垂",
+      "ruler_name": "慕容垂",
+      "group_id": "M3-NRE-90042DB9DFE9",
+      "metric": 6.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-慕容德",
+      "ruler_name": "慕容德",
+      "group_id": "M3-NRE-90042DB9DFE9",
+      "metric": 9.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-拓跋嗣",
+      "ruler_name": "拓跋嗣",
+      "group_id": "M3-NRE-3CDDC451B906",
+      "metric": 6.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-拓跋宏",
+      "ruler_name": "拓跋宏",
+      "group_id": "M3-NRE-E970857EC4C4",
+      "metric": -3.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-拓跋弘",
+      "ruler_name": "拓跋弘",
+      "group_id": "M3-NRE-9C9885235680",
+      "metric": null,
+      "residual_class": "SOURCE_UNAVAILABLE_BOUNDED",
+      "result_level": "R1",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-拓跋焘",
+      "ruler_name": "拓跋焘",
+      "group_id": "M3-NRE-1844CDB61798",
+      "metric": -3.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-拓跋珪",
+      "ruler_name": "拓跋珪",
+      "group_id": "M3-NRE-90042DB9DFE9",
+      "metric": 9.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-李克用",
+      "ruler_name": "李克用",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 0.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-李暠",
+      "ruler_name": "李暠",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 9.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-李雄",
+      "ruler_name": "李雄",
+      "group_id": "M3-NRE-90042DB9DFE9",
+      "metric": 15.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-杨坚",
+      "ruler_name": "杨坚",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": 6.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-杨广",
+      "ruler_name": "杨广",
+      "group_id": "M3-NRE-AB03D3C3560A",
+      "metric": -18.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P3",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-杨行密",
+      "ruler_name": "杨行密",
+      "group_id": "M3-NRE-1FD84A5BE0EB",
+      "metric": 12.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-沮渠蒙逊",
+      "ruler_name": "沮渠蒙逊",
+      "group_id": "M3-NRE-90042DB9DFE9",
+      "metric": 9.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-石勒",
+      "ruler_name": "石勒",
+      "group_id": "M3-NRE-90042DB9DFE9",
+      "metric": 12.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-石虎",
+      "ruler_name": "石虎",
+      "group_id": "M3-NRE-163AFA2281D0",
+      "metric": -15.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P1",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-苻健",
+      "ruler_name": "苻健",
+      "group_id": "M3-NRE-90042DB9DFE9",
+      "metric": 9.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-苻坚",
+      "ruler_name": "苻坚",
+      "group_id": "M3-NRE-91692EA38BB7",
+      "metric": -3.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-萧衍",
+      "ruler_name": "萧衍",
+      "group_id": "M3-NRE-3CDDC451B906",
+      "metric": -9.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-萧道成",
+      "ruler_name": "萧道成",
+      "group_id": "M3-NRE-C28E1C4DDC1A",
+      "metric": 3.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R2",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-萧鸾",
+      "ruler_name": "萧鸾",
+      "group_id": "M3-NRE-3CDDC451B906",
+      "metric": -3.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P1",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-赫连勃勃",
+      "ruler_name": "赫连勃勃",
+      "group_id": "M3-NRE-90042DB9DFE9",
+      "metric": -3.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-钱镠",
+      "ruler_name": "钱镠",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 6.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P1",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-陈叔宝",
+      "ruler_name": "陈叔宝",
+      "group_id": "M3-NRE-1E71ED9A5B8D",
+      "metric": -6.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-陈蒨",
+      "ruler_name": "陈蒨",
+      "group_id": "M3-NRE-C28E1C4DDC1A",
+      "metric": 6.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-陈顼",
+      "ruler_name": "陈顼",
+      "group_id": "M3-NRE-3CDDC451B906",
+      "metric": -3.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "REVEALED_NEGATIVE_CAPABILITY_WITH_MECHANISM_GAP",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-马殷",
+      "ruler_name": "马殷",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 6.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-高季兴",
+      "ruler_name": "高季兴",
+      "group_id": "M3-NRE-1FD84A5BE0EB",
+      "metric": 12.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P1",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-高欢",
+      "ruler_name": "高欢",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 9.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-高洋",
+      "ruler_name": "高洋",
+      "group_id": "M3-NRE-163AFA2281D0",
+      "metric": -9.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-高湛",
+      "ruler_name": "高湛",
+      "group_id": "M3-NRE-C28E1C4DDC1A",
+      "metric": -3.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "REVEALED_NEGATIVE_CAPABILITY_WITH_MECHANISM_GAP",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHADOW-高纬",
+      "ruler_name": "高纬",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": -6.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "REVEALED_NEGATIVE_CAPABILITY_WITH_MECHANISM_GAP",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHU-LIUBEI",
+      "ruler_name": "刘备",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 3.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SHU-LIUSHAN",
+      "ruler_name": "刘禅",
+      "group_id": "M3-NRE-C28E1C4DDC1A",
+      "metric": 0.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "REVEALED_NEGATIVE_CAPABILITY_WITH_MECHANISM_GAP",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SS-ZHAO-DUN",
+      "ruler_name": "赵惇",
+      "group_id": "M3-NRE-1844CDB61798",
+      "metric": -6.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SS-ZHAO-GOU",
+      "ruler_name": "赵构",
+      "group_id": "M3-NRE-1FD84A5BE0EB",
+      "metric": 18.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SS-ZHAO-KUO",
+      "ruler_name": "赵扩",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": -3.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SS-ZHAO-SHEN",
+      "ruler_name": "赵昚",
+      "group_id": "M3-NRE-1844CDB61798",
+      "metric": 0.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-SS-ZHAO-YUN",
+      "ruler_name": "赵昀",
+      "group_id": "M3-NRE-03114434891E",
+      "metric": -3.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-TANG-LICHEN",
+      "ruler_name": "李忱",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": 3.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R2",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-TANG-LICHUN",
+      "ruler_name": "李纯",
+      "group_id": "M3-NRE-C28E1C4DDC1A",
+      "metric": 0.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "REVEALED_NEGATIVE_CAPABILITY_WITH_MECHANISM_GAP",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-TANG-LIHENG",
+      "ruler_name": "李亨",
+      "group_id": "M3-NRE-1FD84A5BE0EB",
+      "metric": 3.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-TANG-LILONGJI",
+      "ruler_name": "李隆基",
+      "group_id": "M3-NRE-EAD4E8EF85E0",
+      "metric": -6.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-TANG-LISHI",
+      "ruler_name": "李适",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": -3.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-TANG-LISHIMIN",
+      "ruler_name": "李世民",
+      "group_id": "M3-NRE-C28E1C4DDC1A",
+      "metric": 9.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P3",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-TANG-LIXIAN",
+      "ruler_name": "李显",
+      "group_id": "M3-NRE-B43A0C0FEA43",
+      "metric": -3.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-TANG-LIXUAN",
+      "ruler_name": "李儇",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": -6.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-TANG-LIYU",
+      "ruler_name": "李豫",
+      "group_id": "M3-NRE-90042DB9DFE9",
+      "metric": 9.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-TANG-LIYUAN",
+      "ruler_name": "李渊",
+      "group_id": "M3-NRE-90042DB9DFE9",
+      "metric": 6.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-TANG-LIZHI",
+      "ruler_name": "李治",
+      "group_id": "M3-NRE-5D0268434203",
+      "metric": -8.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-TANG-WUZETIAN",
+      "ruler_name": "武则天",
+      "group_id": "M3-NRE-03114434891E",
+      "metric": 6.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-WEI-CAOCAO",
+      "ruler_name": "曹操",
+      "group_id": "M3-NRE-1FD84A5BE0EB",
+      "metric": 15.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R3",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-WEI-CAOPI",
+      "ruler_name": "曹丕",
+      "group_id": "M3-NRE-B43A0C0FEA43",
+      "metric": -3.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-WEI-CAORUI",
+      "ruler_name": "曹叡",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": -3.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-WEI-SIMASHI",
+      "ruler_name": "司马师",
+      "group_id": "M3-NRE-C28E1C4DDC1A",
+      "metric": 0.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-WEI-SIMAZHAO",
+      "ruler_name": "司马昭",
+      "group_id": "M3-NRE-C28E1C4DDC1A",
+      "metric": 3.0,
+      "residual_class": "ABOVE_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R2",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-WU-SUNHAO",
+      "ruler_name": "孙皓",
+      "group_id": "M3-NRE-91692EA38BB7",
+      "metric": -6.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-WU-SUNQUAN",
+      "ruler_name": "孙权",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": 0.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-WU-SUNXIU",
+      "ruler_name": "孙休",
+      "group_id": "M3-NRE-C28E1C4DDC1A",
+      "metric": 0.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-XIN-WANGMANG",
+      "ruler_name": "王莽",
+      "group_id": "M3-NRE-BAA0873CC161",
+      "metric": -12.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P3",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-XIXIA-LIANQUAN",
+      "ruler_name": "李安全",
+      "group_id": "M3-NRE-9C9885235680",
+      "metric": null,
+      "residual_class": "SOURCE_UNAVAILABLE_BOUNDED",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-XIXIA-LIBINGCHANG",
+      "ruler_name": "李秉常",
+      "group_id": "M3-NRE-9C9885235680",
+      "metric": null,
+      "residual_class": "SOURCE_UNAVAILABLE_BOUNDED",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-XIXIA-LIDEMING",
+      "ruler_name": "李德明",
+      "group_id": "M3-NRE-9C9885235680",
+      "metric": null,
+      "residual_class": "SOURCE_UNAVAILABLE_BOUNDED",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-XIXIA-LIDEWANG",
+      "ruler_name": "李德旺",
+      "group_id": "M3-NRE-9C9885235680",
+      "metric": null,
+      "residual_class": "SOURCE_UNAVAILABLE_BOUNDED",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-XIXIA-LILIANGZUO",
+      "ruler_name": "李谅祚",
+      "group_id": "M3-NRE-9C9885235680",
+      "metric": null,
+      "residual_class": "SOURCE_UNAVAILABLE_BOUNDED",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-XIXIA-LIQIANSHUN",
+      "ruler_name": "李乾顺",
+      "group_id": "M3-NRE-9C9885235680",
+      "metric": null,
+      "residual_class": "SOURCE_UNAVAILABLE_BOUNDED",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-XIXIA-LIRENXIAO",
+      "ruler_name": "李仁孝",
+      "group_id": "M3-NRE-9C9885235680",
+      "metric": null,
+      "residual_class": "SOURCE_UNAVAILABLE_BOUNDED",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-XIXIA-LIYUANHAO",
+      "ruler_name": "李元昊",
+      "group_id": "M3-NRE-9C9885235680",
+      "metric": null,
+      "residual_class": "SOURCE_UNAVAILABLE_BOUNDED",
+      "result_level": "R1",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-YUAN-AYURBARWADA",
+      "ruler_name": "爱育黎拔力八达",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 0.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P2",
+      "directions_consistent": false,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-YUAN-KUBLAI",
+      "ruler_name": "忽必烈",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": 0.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-YUAN-KULUG",
+      "ruler_name": "海山",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": -6.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-YUAN-MONGKE",
+      "ruler_name": "蒙哥",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 0.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P2",
+      "directions_consistent": false,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-YUAN-OGEDEI",
+      "ruler_name": "窝阔台",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 6.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-YUAN-TEMUJI",
+      "ruler_name": "铁木真",
+      "group_id": "M3-NRE-6887FD473D27",
+      "metric": 0.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P0",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-YUAN-TEMUR",
+      "ruler_name": "铁穆耳",
+      "group_id": "M3-NRE-020D87945DF6",
+      "metric": 0.0,
+      "residual_class": "WITHIN_NATURAL_RECOVERY_ENVELOPE",
+      "result_level": "R1",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NO_TRIGGER_AFTER_COMPARATOR_REVIEW",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    },
+    {
+      "ruler_id": "RULER-YUAN-TOGHON-TEMUR",
+      "ruler_name": "妥懽帖睦尔",
+      "group_id": "M3-NRE-2943FAC9BBFD",
+      "metric": 0.0,
+      "residual_class": "BELOW_COMPARATOR_ENVELOPE",
+      "result_level": "R0",
+      "process_level": "P2",
+      "directions_consistent": true,
+      "negative_review_status": "NEGATIVE_EXPLANATORY_REVIEW_COMPLETE",
+      "source_unavailability_bias": {
+        "status": "SOURCE_UNAVAILABLE_RECORDED_NOT_NEGATIVE_EVIDENCE",
+        "specialized_local_source": "UNAVAILABLE_UNLESS_EXPLICITLY_BOUND_IN_ANCHOR_OR_RETAINED_PARENT"
+      }
+    }
+  ]
+}

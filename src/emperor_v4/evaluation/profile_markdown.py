@@ -10,12 +10,13 @@ from typing import Any, Iterable
 ROOT = Path(__file__).resolve().parents[3]
 PROFILE_ROOT = ROOT / "docs" / "评分结算" / "皇帝人物画像"
 AXIS_FILES = {
-    "C1": "15-C1战略判断与风险控制正式结算.json",
-    "C2": "19-C2信息处理学习与纠错正式结算.json",
-    "C3": "24-C3人才识别配置与授权正式结算.json",
-    "C5": "02-C5权力运用风格与克制正式结算.json",
-    "M3": "29-M3财政经济约束理解与工具适配正式结算.json",
-    "M4": "34-M4政治联盟与内部联盟管理正式结算.json",
+    "M1": "M1/01-M1军事判断与统帅能力正式结算.json",
+    "C1": "C1/15-C1战略判断与风险控制正式结算.json",
+    "C2": "C2/19-C2信息处理学习与纠错正式结算.json",
+    "C3": "C3/24-C3人才识别配置与授权正式结算.json",
+    "C5": "C5/02-C5权力运用风格与克制正式结算.json",
+    "M3": "M3/29-M3财政经济约束理解与工具适配正式结算.json",
+    "M4": "M4/34-M4政治联盟与内部联盟管理正式结算.json",
 }
 
 
@@ -70,7 +71,12 @@ def _parent_refs(parent: dict[str, Any]) -> list[str]:
 def _parent_lines(parent: dict[str, Any]) -> Iterable[str]:
     direction = parent.get("direction", "—")
     strength = parent.get("intensity") or parent.get("material_strength") or parent.get("material_intensity") or "—"
-    yield f"- `{parent.get('parent_id', 'NO-ID')}`（{direction} / {strength}）：{_parent_basis(parent)}"
+    mode = str(parent.get("capability_mode") or parent.get("result_responsibility") or "")
+    if "operational_design" in mode:
+        direction_label = {"POSITIVE": "统筹+", "NEGATIVE": "统筹−", "MIXED": "统筹±"}.get(str(direction), "统筹")
+        yield f"- `{parent.get('parent_id', 'NO-ID')}`（{direction_label} / {strength}）：{_parent_basis(parent)}"
+    else:
+        yield f"- `{parent.get('parent_id', 'NO-ID')}`（{direction} / {strength}）：{_parent_basis(parent)}"
     refs = _parent_refs(parent)
     if refs:
         yield "  - 来源：" + "；".join(refs)
@@ -148,6 +154,16 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
         lines.extend(["### 共用限制说明", ""])
         lines.extend(f"- `{label}`：{text}" for label, text in shared)
         lines.append("")
+    if axis == "M1":
+        lines.extend([
+            "## 结算账本整改（2026-08）",
+            "",
+            "- 发布真值只由 JSON 中的 `axis_grade` 与 `position` 决定；阅读层中与该真值冲突的旧“取Gx／定Gx／支持Gx”表述已清除。",
+            "- M1 裁档理由与档内依据不得使用第三项的汇总数值；第三项只可作为具体父周期结果的追溯入口。",
+            "- `operational_design` 在阅读层统一标作“统筹+／统筹−／统筹±”，不再伪装为前线指挥。",
+            "- 自然语言中的情境数量不作为机器裁档输入；复核以结构化父链为准。整改范围、命中对象和异常重裁候选见同目录 `12-M1结算账本整改与异常重裁复核.json`。",
+            "",
+        ])
     lines.extend(["## 全池结算表", ""])
     lines.extend(_overview_table(axis, records, labels))
     lines.extend(["", "## 逐人裁决依据", ""])
@@ -161,6 +177,11 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
             f"- **档内位置**：{row.get('position_basis') or '由同档材料强度与反例共同确定。'}",
             f"- **限制**：{_limitations(row, labels)}",
         ])
+        if axis == "M1":
+            projection = row.get("military_talent_registry_projection") or {}
+            paired = projection.get("paired_result_difficulty_campaign_roles_display")
+            lines.append("- 武将登记逐项（成果等级/难度｜战役群名称/武将角色）：")
+            lines.append(f"  {paired or '—'}")
         parents = row.get("parents", [])
         if parents:
             lines.append("- **代表父链**：")

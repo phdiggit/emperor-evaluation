@@ -10,10 +10,10 @@ import yaml
 from emperor_v4.evaluation.profile_markdown import render_profile_markdown
 
 
-SETTLEMENT_NAME = "15-C1战略判断与风险控制正式结算.json"
-MARKDOWN_NAME = "15-C1战略判断与风险控制正式结算.md"
-UNIT_AUDIT_NAME = "16-C1主要入口单元处置审计.json"
-HIGH_REVIEW_NAME = "17-C1高档能力剖面复核.json"
+SETTLEMENT_NAME = "C1/15-C1战略判断与风险控制正式结算.json"
+MARKDOWN_NAME = "C1/15-C1战略判断与风险控制正式结算.md"
+UNIT_AUDIT_NAME = "C1/16-C1主要入口单元处置审计.json"
+HIGH_REVIEW_NAME = "C1/17-C1高档能力剖面复核.json"
 
 
 def _load(path: Path) -> dict:

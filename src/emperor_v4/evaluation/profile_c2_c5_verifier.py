@@ -11,13 +11,13 @@ from emperor_v4.evaluation.profile_markdown import render_profile_markdown
 
 ROOT = Path(__file__).resolve().parents[3]
 PROFILE_ROOT = ROOT / "docs" / "评分结算" / "皇帝人物画像"
-C2 = PROFILE_ROOT / "19-C2信息处理学习与纠错正式结算.json"
-C5 = PROFILE_ROOT / "02-C5权力运用风格与克制正式结算.json"
+C2 = PROFILE_ROOT / "C2/19-C2信息处理学习与纠错正式结算.json"
+C5 = PROFILE_ROOT / "C5/02-C5权力运用风格与克制正式结算.json"
 C5_MD = C5.with_suffix(".md")
-C5_AUDIT = PROFILE_ROOT / "04-C5主要入口单元处置审计.json"
-C5_DENSITY = PROFILE_ROOT / "05-C5高档材料密度复核.json"
-C5_STRUCTURE = PROFILE_ROOT / "07-C5高档与证据门结构复核.json"
-JOINT = PROFILE_ROOT / "23-C2与C5同链边界及强度联合复核.json"
+C5_AUDIT = PROFILE_ROOT / "C5/04-C5主要入口单元处置审计.json"
+C5_DENSITY = PROFILE_ROOT / "C5/05-C5高档材料密度复核.json"
+C5_STRUCTURE = PROFILE_ROOT / "C5/07-C5高档与证据门结构复核.json"
+JOINT = PROFILE_ROOT / "交叉轴复核/23-C2与C5同链边界及强度联合复核.json"
 MANIFEST = PROFILE_ROOT / "00-已结算轴正式入口.json"
 CONTRACT = ROOT / "docs" / "项目总纲" / "皇帝人物画像评估体系合同.md"
 PROJECT = ROOT / "config" / "project.yml"
@@ -154,7 +154,7 @@ def verify() -> dict[str, object]:
     for code, path in (("C2", C2), ("C5", C5)):
         axis = next(item for item in manifest["axes"] if item["axis_code"] == code)
         assert axis["json_sha256"] == _sha(path)
-        assert JOINT.name in axis["audit_jsons"]
+        assert JOINT.relative_to(MANIFEST.parent).as_posix() in axis["audit_jsons"]
     project = yaml.safe_load(_read(PROJECT).decode("utf-8"))
     for code in ("C2", "C5"):
         assert project["profile_assessment"]["settled_axes"][code]["joint_boundary_review_json"].endswith(JOINT.name)

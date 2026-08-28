@@ -16,25 +16,25 @@ POOL = ROOT / "config/common/canonical-ruler-pool.json"
 PROJECT = ROOT / "config/project.yml"
 MANUAL = ROOT / "config/profile/m4-adjudications.json"
 MANIFEST = PROFILE_ROOT / "00-已结算轴正式入口.json"
-SETTLEMENT = PROFILE_ROOT / "34-M4政治联盟与内部联盟管理正式结算.json"
+SETTLEMENT = PROFILE_ROOT / "M4/34-M4政治联盟与内部联盟管理正式结算.json"
 MARKDOWN = SETTLEMENT.with_suffix(".md")
-AUDIT = PROFILE_ROOT / "35-M4主要入口单元处置审计.json"
-HIGH_REVIEW = PROFILE_ROOT / "36-M4高档联盟生命周期复核.json"
-FULL_POOL_REVIEW = PROFILE_ROOT / "37-M4全池两轮复审.json"
-ACCEPTANCE = PROFILE_ROOT / "38-M4全池结算验收报告.md"
+AUDIT = PROFILE_ROOT / "M4/35-M4主要入口单元处置审计.json"
+HIGH_REVIEW = PROFILE_ROOT / "M4/36-M4高档联盟生命周期复核.json"
+FULL_POOL_REVIEW = PROFILE_ROOT / "M4/37-M4全池两轮复审.json"
+ACCEPTANCE = PROFILE_ROOT / "M4/38-M4全池结算验收报告.md"
 
 FIRST_B = ROOT / "docs/评分结算/第一项创业与政权取得能力/政治整合能力/01-第一项B政治整合能力结算.json"
 FOURTH_A = ROOT / "docs/评分结算/第四项文明与国家整合收益/01-第四项文明与国家整合收益正式结算.json"
 FIFTH_B = ROOT / "docs/评分结算/第五项统治者政治素质/02-B轴用人与授权正式结算.json"
 FIFTH_C = ROOT / "docs/评分结算/第五项统治者政治素质/03-C轴强制权力伦理正式结算.json"
 PROFILE_INPUTS = {
-    "PROFILE_M1": PROFILE_ROOT / "01-M1军事判断与统帅能力正式结算.json",
-    "PROFILE_M2": PROFILE_ROOT / "12-M2外交博弈与对外联盟能力正式结算.json",
-    "PROFILE_M3": PROFILE_ROOT / "29-M3财政经济约束理解与工具适配正式结算.json",
-    "PROFILE_C1": PROFILE_ROOT / "15-C1战略判断与风险控制正式结算.json",
-    "PROFILE_C2": PROFILE_ROOT / "19-C2信息处理学习与纠错正式结算.json",
-    "PROFILE_C3": PROFILE_ROOT / "24-C3人才识别配置与授权正式结算.json",
-    "PROFILE_C5": PROFILE_ROOT / "02-C5权力运用风格与克制正式结算.json",
+    "PROFILE_M1": PROFILE_ROOT / "M1/01-M1军事判断与统帅能力正式结算.json",
+    "PROFILE_M2": PROFILE_ROOT / "M2/12-M2外交博弈与对外联盟能力正式结算.json",
+    "PROFILE_M3": PROFILE_ROOT / "M3/29-M3财政经济约束理解与工具适配正式结算.json",
+    "PROFILE_C1": PROFILE_ROOT / "C1/15-C1战略判断与风险控制正式结算.json",
+    "PROFILE_C2": PROFILE_ROOT / "C2/19-C2信息处理学习与纠错正式结算.json",
+    "PROFILE_C3": PROFILE_ROOT / "C3/24-C3人才识别配置与授权正式结算.json",
+    "PROFILE_C5": PROFILE_ROOT / "C5/02-C5权力运用风格与克制正式结算.json",
 }
 NORMATIVE_INPUTS = {
     "FIRST_ITEM_B": FIRST_B,
@@ -387,12 +387,12 @@ def _update_manifest() -> None:
         "axis_name": "政治联盟与内部联盟管理",
         "status": "FORMAL_CURRENT",
         "record_count": 184,
-        "json": SETTLEMENT.name,
-        "markdown": MARKDOWN.name,
+        "json": SETTLEMENT.relative_to(PROFILE_ROOT).as_posix(),
+        "markdown": MARKDOWN.relative_to(PROFILE_ROOT).as_posix(),
         "json_sha256": _sha(SETTLEMENT),
         "markdown_sha256": _sha(MARKDOWN),
-        "audit_jsons": [AUDIT.name, HIGH_REVIEW.name, FULL_POOL_REVIEW.name],
-        "audit_markdowns": [ACCEPTANCE.name],
+        "audit_jsons": [path.relative_to(PROFILE_ROOT).as_posix() for path in (AUDIT, HIGH_REVIEW, FULL_POOL_REVIEW)],
+        "audit_markdowns": [ACCEPTANCE.relative_to(PROFILE_ROOT).as_posix()],
         "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC",
         "formalization_note": "184人M4国内集团联盟生命周期正式结算；两轮全池复审、入口四态处置与高档全窗口门已闭合。",
     }
@@ -405,8 +405,14 @@ def _update_manifest() -> None:
     order = {code: index for index, code in enumerate(("M1", "M2", "M3", "M4", "C1", "C2", "C3", "C5"))}
     manifest["axes"].sort(key=lambda row: order[row["axis_code"]])
     for axis in manifest["axes"]:
-        axis["json_sha256"] = _sha(PROFILE_ROOT / axis["json"])
-        axis["markdown_sha256"] = _sha(PROFILE_ROOT / axis["markdown"])
+        json_path = PROFILE_ROOT / axis["json"]
+        markdown_path = PROFILE_ROOT / axis["markdown"]
+        if not json_path.exists():
+            json_path = PROFILE_ROOT / axis["axis_code"] / json_path.name
+        if not markdown_path.exists():
+            markdown_path = PROFILE_ROOT / axis["axis_code"] / markdown_path.name
+        axis["json_sha256"] = _sha(json_path)
+        axis["markdown_sha256"] = _sha(markdown_path)
     _write_json(MANIFEST, manifest)
 
 

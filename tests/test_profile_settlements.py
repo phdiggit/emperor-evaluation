@@ -26,7 +26,7 @@ def _included_ids() -> set[str]:
     return {record["ruler_id"] for record in pool["records"] if record["pool_status"] == "INCLUDED"}
 
 
-def test_profile_manifest_registers_eight_independent_formal_axes() -> None:
+def test_profile_manifest_registers_all_eight_formal_axes() -> None:
     manifest = _load(PROFILE_ROOT / "00-已结算轴正式入口.json")
     assert manifest["canonical_status"] == "FORMAL_CURRENT"
     assert manifest["contract_version"] == "FORMAL-V1.0"
@@ -38,14 +38,15 @@ def test_profile_manifest_registers_eight_independent_formal_axes() -> None:
     assert [axis["axis_code"] for axis in manifest["axes"]] == ["M1", "M2", "M3", "M4", "C1", "C2", "C3", "C5"]
     assert manifest["contract_sha256"] == _sha256(CONTRACT)
     assert manifest["canonical_pool_sha256"] == _sha256(POOL)
+    assert next(axis for axis in manifest["axes"] if axis["axis_code"] == "M3")["status"] == "FORMAL_CURRENT"
     for axis in manifest["axes"]:
         assert axis["record_count"] == 184
         assert axis["json_sha256"] == _sha256(PROFILE_ROOT / axis["json"])
     m1_axis = next(axis for axis in manifest["axes"] if axis["axis_code"] == "M1")
-    assert "08-M1武将锚别名与缺锚强度复核.json" in m1_axis["audit_jsons"]
-    assert "09-M1武将成果难度组合倒挂复核.json" in m1_axis["audit_jsons"]
-    assert "10-M1无档案战役与人才公共补录复核.json" in m1_axis["audit_jsons"]
-    assert "11-M1全池重新裁决复核.json" in m1_axis["audit_jsons"]
+    assert "M1/08-M1武将锚别名与缺锚强度复核.json" in m1_axis["audit_jsons"]
+    assert "M1/09-M1武将成果难度组合倒挂复核.json" in m1_axis["audit_jsons"]
+    assert "M1/10-M1无档案战役与人才公共补录复核.json" in m1_axis["audit_jsons"]
+    assert "M1/11-M1全池重新裁决复核.json" in m1_axis["audit_jsons"]
 
 
 def test_profile_axis_records_cover_the_formal_pool_and_contract_fields() -> None:
@@ -71,14 +72,13 @@ def test_profile_axis_records_cover_the_formal_pool_and_contract_fields() -> Non
         "formal_status",
     }
     for name in (
-        "01-M1军事判断与统帅能力正式结算.json",
-        "02-C5权力运用风格与克制正式结算.json",
-        "12-M2外交博弈与对外联盟能力正式结算.json",
-        "15-C1战略判断与风险控制正式结算.json",
-        "19-C2信息处理学习与纠错正式结算.json",
-        "24-C3人才识别配置与授权正式结算.json",
-        "29-M3财政经济约束理解与工具适配正式结算.json",
-        "34-M4政治联盟与内部联盟管理正式结算.json",
+        "M1/01-M1军事判断与统帅能力正式结算.json",
+        "C5/02-C5权力运用风格与克制正式结算.json",
+        "M2/12-M2外交博弈与对外联盟能力正式结算.json",
+        "C1/15-C1战略判断与风险控制正式结算.json",
+        "C2/19-C2信息处理学习与纠错正式结算.json",
+        "C3/24-C3人才识别配置与授权正式结算.json",
+        "M4/34-M4政治联盟与内部联盟管理正式结算.json",
     ):
         settlement = _load(PROFILE_ROOT / name)
         records = settlement["records"]
@@ -103,8 +103,8 @@ def test_profile_axis_records_cover_the_formal_pool_and_contract_fields() -> Non
 
 
 def test_c5_unit_dispositions_are_complete_and_do_not_score_background() -> None:
-    settlement = _load(PROFILE_ROOT / "02-C5权力运用风格与克制正式结算.json")
-    audit = _load(PROFILE_ROOT / "04-C5主要入口单元处置审计.json")
+    settlement = _load(PROFILE_ROOT / "C5/02-C5权力运用风格与克制正式结算.json")
+    audit = _load(PROFILE_ROOT / "C5/04-C5主要入口单元处置审计.json")
     units = audit["units"]
     assert audit["canonical_status"] == "FORMAL_CURRENT_AUDIT"
     assert audit["unit_count"] == len(units) == 1680
@@ -129,8 +129,8 @@ def test_c5_unit_dispositions_are_complete_and_do_not_score_background() -> None
 
 
 def test_c5_high_grade_density_review_is_closed() -> None:
-    settlement = _load(PROFILE_ROOT / "02-C5权力运用风格与克制正式结算.json")
-    audit = _load(PROFILE_ROOT / "05-C5高档材料密度复核.json")
+    settlement = _load(PROFILE_ROOT / "C5/02-C5权力运用风格与克制正式结算.json")
+    audit = _load(PROFILE_ROOT / "C5/05-C5高档材料密度复核.json")
     high_ids = {r["ruler_id"] for r in settlement["records"] if r["axis_grade"] in {"G4", "G5"}}
     latent_high_ids = {r["ruler_id"] for r in settlement["records"] if r.get("latent_high_grade_hypothesis")}
     reviews = audit["reviews"]
@@ -143,10 +143,11 @@ def test_c5_high_grade_density_review_is_closed() -> None:
     )
 
 
-def test_formal_contract_declares_complete_axis_settlement_without_profile_total() -> None:
+def test_formal_contract_declares_eight_settled_axes_without_profile_total() -> None:
     text = CONTRACT.read_text(encoding="utf-8")
     assert "DRAFT-V0.5" not in text
     assert "FORMAL-V1.0" in text
+    assert "FORMAL-V1.0 / EIGHT-AXES-FORMALLY-SETTLED" in text
     assert "C1、C2、C3、C5、M1、M2、M3与M4均满足上述轴级门禁" in text
     assert "仍不得生成画像总分、轴内排名或写入五项综合榜" in text
     assert "人物画像代码C4自本版撤销" in text
@@ -157,7 +158,7 @@ def test_formal_contract_declares_complete_axis_settlement_without_profile_total
 
 
 def test_m2_has_unique_radar_points_and_separates_background() -> None:
-    settlement = _load(PROFILE_ROOT / "12-M2外交博弈与对外联盟能力正式结算.json")
+    settlement = _load(PROFILE_ROOT / "M2/12-M2外交博弈与对外联盟能力正式结算.json")
     records = settlement["records"]
     scoring_parents = [
         parent
@@ -202,7 +203,7 @@ def test_m2_has_unique_radar_points_and_separates_background() -> None:
 
 
 def test_m2_c5_capability_event_review_separates_mi_from_grade() -> None:
-    audit = _load(PROFILE_ROOT / "14-M2与C5能力事件分布复核.json")
+    audit = _load(PROFILE_ROOT / "交叉轴复核/14-M2与C5能力事件分布复核.json")
     assert audit["canonical_status"] == "FORMAL_CURRENT_AUDIT"
     assert audit["review_scope"] == {"M2": 184, "C5": 184}
     assert audit["policy"]["mi_is_material_strength_not_grade"] is True
@@ -212,11 +213,11 @@ def test_m2_c5_capability_event_review_separates_mi_from_grade() -> None:
 
 
 def test_m1_structural_review_narrows_g5_and_exposes_military_anchor() -> None:
-    settlement = _load(PROFILE_ROOT / "01-M1军事判断与统帅能力正式结算.json")
-    audit = _load(PROFILE_ROOT / "06-M1高档结构复核.json")
+    settlement = _load(PROFILE_ROOT / "M1/01-M1军事判断与统帅能力正式结算.json")
+    audit = _load(PROFILE_ROOT / "M1/06-M1高档结构复核.json")
     by_name = {record["ruler_name"]: record for record in settlement["records"]}
     assert settlement["summary"]["grade_distribution"] == {
-        "G0": 5, "G1": 25, "G2": 48, "G3": 71, "G4": 31, "G5": 4
+        "G0": 5, "G1": 25, "G2": 48, "G3": 71, "G4": 30, "G5": 5
     }
     assert audit["reviewed_count"] == 64
     assert audit["changed_count"] == 52
@@ -227,11 +228,13 @@ def test_m1_structural_review_narrows_g5_and_exposes_military_anchor() -> None:
     assert by_name["曹操"]["military_talent_anchor"]["stability_status"] == "stability_limited_repeated_major_failures"
     assert by_name["柴荣"]["military_talent_anchor"]["status"] == "FORMAL_PROFILE_CONNECTED"
     assert by_name["柴荣"]["military_talent_anchor"]["military_grade"] == "elite"
+    assert (by_name["朱元璋"]["axis_grade"], by_name["朱元璋"]["position"]) == ("G5", "LOW")
+    assert by_name["朱元璋"]["military_talent_anchor"]["military_grade"] == "historic"
 
 
 def test_m1_talent_alias_and_missing_anchor_review_uses_independent_lifecycles() -> None:
-    settlement = _load(PROFILE_ROOT / "01-M1军事判断与统帅能力正式结算.json")
-    audit = _load(PROFILE_ROOT / "08-M1武将锚别名与缺锚强度复核.json")
+    settlement = _load(PROFILE_ROOT / "M1/01-M1军事判断与统帅能力正式结算.json")
+    audit = _load(PROFILE_ROOT / "M1/08-M1武将锚别名与缺锚强度复核.json")
     by_name = {record["ruler_name"]: record for record in settlement["records"]}
     review_by_name = {record["ruler_name"]: record for record in audit["reviews"]}
 
@@ -262,14 +265,14 @@ def test_m1_talent_alias_and_missing_anchor_review_uses_independent_lifecycles()
 
 
 def test_m1_talent_result_difficulty_combinations_are_projected_and_inversions_closed() -> None:
-    settlement = _load(PROFILE_ROOT / "01-M1军事判断与统帅能力正式结算.json")
-    audit = _load(PROFILE_ROOT / "09-M1武将成果难度组合倒挂复核.json")
+    settlement = _load(PROFILE_ROOT / "M1/01-M1军事判断与统帅能力正式结算.json")
+    audit = _load(PROFILE_ROOT / "M1/09-M1武将成果难度组合倒挂复核.json")
     by_name = {record["ruler_name"]: record for record in settlement["records"]}
     audit_by_name = {record["ruler_name"]: record for record in audit["records"]}
 
     assert audit["record_count"] == 120
     assert audit["mechanical_candidate_count"] == 19
-    assert audit["changed_count"] == 7
+    assert audit["changed_count"] == 8
     assert audit["mechanical_candidate_changed_count"] == 6
     assert audit["g4_position_recalibration_count"] == 1
     assert audit["retained_candidate_count"] == 13
@@ -303,7 +306,7 @@ def test_m1_talent_result_difficulty_combinations_are_projected_and_inversions_c
 
 
 def test_m1_talent_projection_cells_exactly_match_the_public_markdown() -> None:
-    settlement = _load(PROFILE_ROOT / "01-M1军事判断与统帅能力正式结算.json")
+    settlement = _load(PROFILE_ROOT / "M1/01-M1军事判断与统帅能力正式结算.json")
     talent_root = ROOT / "docs" / "公共成果" / "军事" / "02-武将人才等级"
     profiles = {}
     for path in sorted(talent_root.glob("bucket-*.json")):
@@ -345,15 +348,15 @@ def test_m1_talent_projection_cells_exactly_match_the_public_markdown() -> None:
         connected_count += 1
     assert connected_count == 120
 
-    settlement_md = (PROFILE_ROOT / "01-M1军事判断与统帅能力正式结算.md").read_text(encoding="utf-8")
-    assert "- 武将登记逐项（成果等级/难度｜战役群名称/武将角色）：  \n  " in settlement_md
+    settlement_md = (PROFILE_ROOT / "M1/01-M1军事判断与统帅能力正式结算.md").read_text(encoding="utf-8")
+    assert "- 武将登记逐项（成果等级/难度｜战役群名称/武将角色）：\n  " in settlement_md
     assert "- 战役成果等级/难度组合：" not in settlement_md
     assert "- 战役群名称/武将角色：" not in settlement_md
 
 
 def test_m1_missing_profiles_include_founding_and_post_unification_command_windows() -> None:
-    settlement = _load(PROFILE_ROOT / "01-M1军事判断与统帅能力正式结算.json")
-    audit = _load(PROFILE_ROOT / "10-M1无档案战役与人才公共补录复核.json")
+    settlement = _load(PROFILE_ROOT / "M1/01-M1军事判断与统帅能力正式结算.json")
+    audit = _load(PROFILE_ROOT / "M1/10-M1无档案战役与人才公共补录复核.json")
     by_name = {record["ruler_name"]: record for record in settlement["records"]}
 
     assert audit["screened_no_profile_count"] == 73
@@ -395,14 +398,14 @@ def test_m1_missing_profiles_include_founding_and_post_unification_command_windo
 
 
 def test_m1_full_pool_readjudication_closes_all_records_and_failure_rule() -> None:
-    settlement = _load(PROFILE_ROOT / "01-M1军事判断与统帅能力正式结算.json")
-    audit = _load(PROFILE_ROOT / "11-M1全池重新裁决复核.json")
+    settlement = _load(PROFILE_ROOT / "M1/01-M1军事判断与统帅能力正式结算.json")
+    audit = _load(PROFILE_ROOT / "M1/11-M1全池重新裁决复核.json")
     by_name = {record["ruler_name"]: record for record in settlement["records"]}
 
     assert audit["canonical_status"] == "FORMAL_CURRENT_AUDIT"
     assert audit["record_count"] == len(audit["rows"]) == 184
-    assert audit["changed_count"] == 35
-    assert audit["retained_count"] == 149
+    assert audit["changed_count"] == 37
+    assert audit["retained_count"] == 147
     assert {row["ruler_name"] for row in audit["rows"]} == set(by_name)
     assert audit["review_policy"]["target_nonachievement_automatically_treated_as_defeat"] is False
     assert all(record["full_pool_readjudication"]["status"] == "FULL_LIFETIME_REVIEWED" for record in settlement["records"])
@@ -418,6 +421,7 @@ def test_m1_full_pool_readjudication_closes_all_records_and_failure_rule() -> No
     assert "资源优势下失常门" in by_name["胤禛"]["grade_basis"]
     assert (by_name["弘历"]["axis_grade"], by_name["弘历"]["position"]) == ("G2", "HIGH")
     assert (by_name["忽必烈"]["axis_grade"], by_name["忽必烈"]["position"]) == ("G4", "MID")
+    assert (by_name["铁木真"]["axis_grade"], by_name["铁木真"]["position"]) == ("G5", "HIGH")
     assert (by_name["刘彻"]["axis_grade"], by_name["刘彻"]["position"]) == ("G3", "MID")
     assert (by_name["刘恒"]["axis_grade"], by_name["刘恒"]["position"]) == ("G3", "LOW")
     assert by_name["刘恒"]["score_100"] < by_name["刘彻"]["score_100"]
@@ -440,12 +444,13 @@ def test_m1_full_pool_readjudication_closes_all_records_and_failure_rule() -> No
     wuzetian = by_name["武则天"]
     assert (wuzetian["axis_grade"], wuzetian["position"]) == ("G2", "HIGH")
     assert wuzetian["third_item_strategy_crosscheck"]["mode"] == "STRATEGIC_AUTHORIZATION_DOMINANT"
-    assert wuzetian["third_item_strategy_crosscheck"]["D_linear_Q_cost_return_diagnostic"] == -154
+    assert "D_linear_Q_cost_return_diagnostic" not in wuzetian["third_item_strategy_crosscheck"]
+    assert wuzetian["third_item_strategy_crosscheck"]["use_boundary"] == "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
 
 
 def test_c5_density_limited_high_grades_are_published_at_supported_level() -> None:
-    settlement = _load(PROFILE_ROOT / "02-C5权力运用风格与克制正式结算.json")
-    audit = _load(PROFILE_ROOT / "07-C5高档与证据门结构复核.json")
+    settlement = _load(PROFILE_ROOT / "C5/02-C5权力运用风格与克制正式结算.json")
+    audit = _load(PROFILE_ROOT / "C5/07-C5高档与证据门结构复核.json")
     by_name = {record["ruler_name"]: record for record in settlement["records"]}
     assert settlement["summary"]["grade_distribution"] == {
         "G0": 27, "G1": 39, "G2": 53, "G3": 54, "G4": 8, "G5": 3
@@ -469,18 +474,18 @@ def test_c2_c5_joint_boundary_and_strength_review_is_closed() -> None:
 
 
 def test_profile_audit_sidecars_match_current_axis_grades() -> None:
-    m1 = _load(PROFILE_ROOT / "01-M1军事判断与统帅能力正式结算.json")
+    m1 = _load(PROFILE_ROOT / "M1/01-M1军事判断与统帅能力正式结算.json")
     m1_by_id = {record["ruler_id"]: record for record in m1["records"]}
-    m1_audit = _load(PROFILE_ROOT / "03-M1人才差异与高档门复核.json")
+    m1_audit = _load(PROFILE_ROOT / "M1/03-M1人才差异与高档门复核.json")
     for row in m1_audit["rows"]:
         current = m1_by_id[row["ruler_id"]]
         assert (row["revised_axis_grade"], row["revised_position"], row["revised_score_100"]) == (
             current["axis_grade"], current["position"], current["score_100"]
         )
 
-    c5 = _load(PROFILE_ROOT / "02-C5权力运用风格与克制正式结算.json")
+    c5 = _load(PROFILE_ROOT / "C5/02-C5权力运用风格与克制正式结算.json")
     c5_by_id = {record["ruler_id"]: record for record in c5["records"]}
-    c5_audit = _load(PROFILE_ROOT / "05-C5高档材料密度复核.json")
+    c5_audit = _load(PROFILE_ROOT / "C5/05-C5高档材料密度复核.json")
     for review in c5_audit["reviews"]:
         current = c5_by_id[review["ruler_id"]]
         assert (review["final_grade"], review["position"], review["current_score_100"]) == (

@@ -4,7 +4,7 @@
   "bucket": 7,
   "bucket_count": 24,
   "record_count": 85,
-  "records_fingerprint": "406aeaf63efc4af57cb658e07d7db68a2b6d321c7c044da5f8008a8c4d038411",
+  "records_fingerprint": "d13c29efa2e134f62dc6c04730c6d198d3027c3ef2c00722cb4de8e37eefa796",
   "records": [
     {
       "war_event_id": "WAR-POST-7A3D7DED9FE6A04F5277",
@@ -14,20 +14,26 @@
       "source_target_ref": "CAMPAIGN-MING-CHEN-HAN-END-1363-1364",
       "candidate_destination": "CAMPAIGN_GROUP",
       "public_outcome_registered": true,
-      "canonical_label": "鄱阳湖战后朱元璋围武昌、分徇湖北，次年再征并接受陈理投降。",
+      "canonical_label": "朱元璋鄱阳湖决战陈友谅，继围武昌、分徇湖北并受陈理降。",
       "period": {
-        "start": "至正二十三年九月",
+        "start": "至正二十三年四月",
         "end": "至正二十四年二月"
       },
-      "observable_result": "汉、沔、荆、岳等地归附，陈友谅政权灭亡。",
+      "observable_result": "鄱阳湖火攻、封锁使陈友谅死亡、汉军主力崩溃；继而汉、沔、荆、岳归附，陈汉政权灭亡。",
       "source_lineage": {
         "source_card_ids": [
+          "CHF-MING-V01-POYANG-LAKE-1363",
           "CHF-MING-V01-CHEN-HAN-END-1363-1364"
         ],
         "source_files": [
           "docs/史料通读产物/唐以后编年/明史/volume-01.registry.json"
         ],
         "source_revision_refs": [
+          "明史/卷1@2594614#友諒大舉兵圍洪都。",
+          "明史/卷1@2594614#友諒兵號六十萬",
+          "明史/卷1@2594614#縱火焚友諒舟",
+          "明史/卷1@2594614#斬首二千餘級，焚溺死者無算",
+          "明史/卷1@2594614#友諒中流矢死。",
           "明史/卷1@2594614#自將征陳理。",
           "明史/卷1@2594614#圍武昌，分徇湖北諸路，皆下。",
           "明史/卷1@2594614#復自將征武昌，陳理降，漢、沔、荊、岳皆下。"
@@ -35,6 +41,11 @@
         "lineage_basis": "唐以后已验收编年事实的battle路由；按稳定target_ref合并，跨书同target_ref只登记一次。"
       },
       "source_refs": [
+        "明史/卷1@2594614#友諒大舉兵圍洪都。",
+        "明史/卷1@2594614#友諒兵號六十萬",
+        "明史/卷1@2594614#縱火焚友諒舟",
+        "明史/卷1@2594614#斬首二千餘級，焚溺死者無算",
+        "明史/卷1@2594614#友諒中流矢死。",
         "明史/卷1@2594614#自將征陳理。",
         "明史/卷1@2594614#圍武昌，分徇湖北諸路，皆下。",
         "明史/卷1@2594614#復自將征武昌，陳理降，漢、沔、荊、岳皆下。"
@@ -42,14 +53,14 @@
       "uncertainties": [
         "投降条件、伤亡和地方善后未载。"
       ],
-      "cost_or_burden": "unknown",
+      "cost_or_burden": "鄱阳湖斩首二千余、焚溺无算；朱军伤亡和围武昌损失未载。",
       "members": [
         {
           "actor_ref": "PERSON-POST-F56222DCE0E5900C",
           "actor_name": "朱元璋",
           "actor_kind": "person",
           "role_code": "commander_in_chief",
-          "contribution_scope": "三条锚均以自将为连续主语，实际控制覆盖围城、区域扫荡和陈汉O5终局，不是仅授权。",
+          "contribution_scope": "鄱阳湖与武昌锚均以朱元璋实际率军或自将为主语；控制覆盖火攻、封锁、围城和受降，属于同一终局父战役的本人统帅。",
           "person_command_index": {
             "consumption_mode": "person_result",
             "command_scope": "full_campaign",
@@ -57,10 +68,15 @@
             "decisive_relation": "decisive_creator",
             "result_direction": "positive",
             "projected_result_tier": "S",
-            "projected_combat_difficulty": "D2",
+            "projected_combat_difficulty": "D3",
             "detail_status": "resolved_person_result",
-            "basis": "三条锚均以自将为连续主语，实际控制覆盖围城、区域扫荡和陈汉O5终局，不是仅授权。",
+            "basis": "鄱阳湖五条锚以朱元璋率军、火攻和封锁湖口为连续主语，陈友谅死亡、汉军主力崩溃；其后围武昌受降属于同一陈汉终局父战役，只消费一次S/D3本人统帅结果。",
             "source_refs": [
+              "明史/卷1@2594614#友諒大舉兵圍洪都。",
+              "明史/卷1@2594614#友諒兵號六十萬",
+              "明史/卷1@2594614#縱火焚友諒舟",
+              "明史/卷1@2594614#斬首二千餘級，焚溺死者無算",
+              "明史/卷1@2594614#友諒中流矢死。",
               "明史/卷1@2594614#自將征陳理。",
               "明史/卷1@2594614#圍武昌，分徇湖北諸路，皆下。",
               "明史/卷1@2594614#復自將征武昌，陳理降，漢、沔、荊、岳皆下。"
@@ -69,15 +85,20 @@
           "person_command_result": [
             {
               "result_ref": "PCR-90D3AF84629F36039FF3",
-              "result_label": "亲征陈理、围武昌、分徇湖北并再次亲征受降。",
+              "result_label": "亲率水军于鄱阳湖火攻、封锁陈友谅主力，继围武昌并受陈理降。",
               "result_direction": "positive",
               "result_tier": "S",
-              "combat_difficulty": "D2",
+              "combat_difficulty": "D3",
               "stable_delivery": false,
               "outcome_responsibility": null,
               "causal_fault": null,
-              "basis": "三条锚均以自将为连续主语，实际控制覆盖围城、区域扫荡和陈汉O5终局，不是仅授权。",
+              "basis": "鄱阳湖五条锚以朱元璋率军、火攻和封锁湖口为连续主语，陈友谅死亡、汉军主力崩溃；其后围武昌受降属于同一陈汉终局父战役，只消费一次S/D3本人统帅结果。",
               "source_refs": [
+                "明史/卷1@2594614#友諒大舉兵圍洪都。",
+                "明史/卷1@2594614#友諒兵號六十萬",
+                "明史/卷1@2594614#縱火焚友諒舟",
+                "明史/卷1@2594614#斬首二千餘級，焚溺死者無算",
+                "明史/卷1@2594614#友諒中流矢死。",
                 "明史/卷1@2594614#自將征陳理。",
                 "明史/卷1@2594614#圍武昌，分徇湖北諸路，皆下。",
                 "明史/卷1@2594614#復自將征武昌，陳理降，漢、沔、荊、岳皆下。"
@@ -85,8 +106,13 @@
               "military_capability_contribution": {
                 "capability_mode": "integrated_command",
                 "decisive_relation": "decisive_creator",
-                "basis": "三条锚均以自将为连续主语，实际控制覆盖围城、区域扫荡和陈汉O5终局，不是仅授权。",
+                "basis": "鄱阳湖五条锚以朱元璋率军、火攻和封锁湖口为连续主语，陈友谅死亡、汉军主力崩溃；其后围武昌受降属于同一陈汉终局父战役，只消费一次S/D3本人统帅结果。",
                 "source_refs": [
+                  "明史/卷1@2594614#友諒大舉兵圍洪都。",
+                  "明史/卷1@2594614#友諒兵號六十萬",
+                  "明史/卷1@2594614#縱火焚友諒舟",
+                  "明史/卷1@2594614#斬首二千餘級，焚溺死者無算",
+                  "明史/卷1@2594614#友諒中流矢死。",
                   "明史/卷1@2594614#自將征陳理。",
                   "明史/卷1@2594614#圍武昌，分徇湖北諸路，皆下。",
                   "明史/卷1@2594614#復自將征武昌，陳理降，漢、沔、荊、岳皆下。"
@@ -124,16 +150,16 @@
       "tier_basis": "鄱阳湖决战及武昌终局使陈汉核心主力与政权中枢覆灭，终结争夺全国中央控制的第一梯队竞争极，裁为S。",
       "tier_review_source_tier": "A",
       "tier_adjudication_status": "ADJUDICATED_EXPLICIT",
-      "combat_difficulty": "D2",
-      "combat_difficulty_basis": "仅按共享事实中已明示的战役闭合程度作保守下限；兵力、成本或对手状态未载者不补推。",
+      "combat_difficulty": "D3",
+      "combat_difficulty_basis": "陈友谅号称六十万围洪都，朱元璋在鄱阳湖持续水战并以火攻、封锁取得主力崩溃；规模、持续性和一线决战压力足以裁为D3。",
       "command_status": "RESOLVED_EXPLICIT_ACTORS",
       "campaign_command_topology": "single_integrated_command",
-      "ruler_role_status": "unresolved",
-      "ruler_role_basis": "未从官职或政权身份推定皇帝指挥；只保留共享层显式person_ref。",
-      "detail_expansion_status": "resolved_explicit_actor_lower_bound",
+      "ruler_role_status": "resolved_explicit_direct_command",
+      "ruler_role_basis": "鄱阳湖锚明示朱元璋率军、火攻和封锁；后续武昌锚亦明示自将，故为本人实际统帅而非皇帝身份推定。",
+      "detail_expansion_status": "resolved_combined_parent_no_double_count",
       "wc_grade": null,
       "security_grade": null,
-      "basis": "按唐以后编年battle路由和稳定target_ref登记；拆合只依赖共享层已给出的同目标连续链。"
+      "basis": "鄱阳湖与武昌为同一陈汉终局父战役的连续阶段：补入前者的直接统帅证据，不另增一次人物信用。"
     },
     {
       "war_event_id": "WAR-POST-AA07F803DCE3F258D402",

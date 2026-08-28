@@ -13,10 +13,10 @@ from emperor_v4.evaluation.profile_markdown import render_profile_markdown
 
 ROOT = Path(__file__).resolve().parents[3]
 PROFILE_ROOT = ROOT / "docs" / "评分结算" / "皇帝人物画像"
-SETTLEMENT = PROFILE_ROOT / "19-C2信息处理学习与纠错正式结算.json"
+SETTLEMENT = PROFILE_ROOT / "C2/19-C2信息处理学习与纠错正式结算.json"
 MARKDOWN = SETTLEMENT.with_suffix(".md")
-AUDIT = PROFILE_ROOT / "20-C2主要入口单元处置审计.json"
-HIGH_REVIEW = PROFILE_ROOT / "21-C2高档学习周期与横向校准复核.json"
+AUDIT = PROFILE_ROOT / "C2/20-C2主要入口单元处置审计.json"
+HIGH_REVIEW = PROFILE_ROOT / "C2/21-C2高档学习周期与横向校准复核.json"
 B2 = ROOT / "docs" / "评分结算" / "第二项治国净收益" / "制度行政" / "03-B2反馈纠错与权力约束方向卡.json"
 MANIFEST = PROFILE_ROOT / "00-已结算轴正式入口.json"
 POOL = ROOT / "config" / "common" / "canonical-ruler-pool.json"
@@ -364,7 +364,10 @@ def verify() -> dict[str, object]:
     assert manifest["settled_axis_count"] == 8
     assert manifest["unsettled_axis_count"] == 0
     axis = next(row for row in manifest["axes"] if row["axis_code"] == "C2")
-    assert axis["json"] == SETTLEMENT.name and axis["markdown"] == MARKDOWN.name
+    assert (
+        axis["json"] == SETTLEMENT.relative_to(MANIFEST.parent).as_posix()
+        and axis["markdown"] == MARKDOWN.relative_to(MANIFEST.parent).as_posix()
+    )
     assert axis["json_sha256"] == _sha(SETTLEMENT)
     project = yaml.safe_load(_read(PROJECT).decode("utf-8"))
     assert project["profile_assessment"]["settled_axes"]["C2"]["json"].endswith(SETTLEMENT.name)

@@ -9,6 +9,7 @@
   ],
   "high_gate_decisions": [
     {"ruler_id": "RULER-TANG-LIYUAN", "ruler_name": "李渊", "outcome": "UPGRADE_G4_LOW", "reason": "唐初多方向军事授权与刘文静突厥议约—军政续用形成跨任务独立复验；错误清洗刘文静压低至LOW。"},
+    {"ruler_id": "RULER-MING-ZHU-YUANZHANG", "ruler_name": "朱元璋", "outcome": "RETAIN_G3_HIGH_EXCEPTIONAL_MILITARY_CHAIN", "reason": "军事授权链覆盖平吴、北伐、伐蜀、云南、北元等相互可区分的责任中心交付，达到极强链；与李渊的跨任务正链、忽必烈的强文武正链及其各自反证比较后，胡惟庸预警后误用与集中式纠偏仍阻断G4，但不足把该跨阶段正链压为G3-LOW。"},
     {"ruler_id": "RULER-MING-ZHU-QIYU", "ruler_name": "朱祁钰", "outcome": "RETAIN_G3_HIGH", "reason": "于谦北京保卫链完整且强，但只有一个重大任务父链，未通过G4复验门。"},
     {"ruler_id": "RULER-MING-ZHU-YOUCHENG", "ruler_name": "朱祐樘", "outcome": "RETAIN_G3_HIGH", "reason": "刘健李东阳谢迁内阁链跨年但仍属同一行政责任中心组合，不能按成员与议题数量拆成G4。"},
     {"ruler_id": "RULER-PUBLIC-6E925E92C6F5ECA5", "ruler_name": "努尔哈赤", "outcome": "RETAIN_G3_HIGH", "reason": "创业军事团队有重复交付，但主要材料仍集中于同一军事任务域，褚英处置也不足闭合另一C3父链。"},
@@ -29,6 +30,19 @@
     {"ruler_id": "RULER-WU-SUNQUAN", "ruler_name": "孙权", "outcome": "RETAIN_G3_HIGH", "reason": "早中期将帅接续强，晚年二宫并立造成不可逆人才损失；跨阶段正负相抵，不升G4。"},
     {"ruler_id": "RULER-YUAN-KUBLAI", "ruler_name": "忽必烈", "outcome": "RETAIN_G3_HIGH", "reason": "文武两端正链达到强复验，但阿合马、桑哥同类权臣配置错误复发，不能发布G4。"},
     {"ruler_id": "RULER-YUAN-TEMUJI", "ruler_name": "铁木真", "outcome": "RETAIN_G3_HIGH", "reason": "创业军事责任中心重复交付明确，帝国期非军事任务与后期窗口不足，不能升G4。"}
+  ],
+  "authorization_strength_calibrations": [
+    {
+      "ruler_id": "RULER-MING-ZHU-YUANZHANG",
+      "ruler_name": "朱元璋",
+      "parent_id": "C3P-7D38B40D9B7A",
+      "classification": "EXCEPTIONAL_AUTHORIZATION_CHAIN",
+      "comparators": [
+        {"ruler_id": "RULER-TANG-LIYUAN", "type": "跨任务正链已达G4的参照", "finding": "李渊另有刘文静外交—军政续用的独立生命周期；朱元璋的平吴、北伐、伐蜀、云南、北元仍属同一军事责任中心，故不据交付数量升G4。"},
+        {"ruler_id": "RULER-YUAN-KUBLAI", "type": "强文武正链受同构持续误用限制的参照", "finding": "忽必烈的文武强链因阿合马、桑哥同类配置错误复发而止于G3-HIGH；朱元璋的胡惟庸预警后误用与集中式纠偏同样阻断G4。"}
+      ],
+      "conclusion": "朱元璋军事链为极强授权链；它在G3内应定位HIGH，而非与单一普通或材料受限生命周期同置LOW。"
+    }
   ],
   "c5_boundary_decisions": [
     {"ruler_id": "RULER-TANG-LIYUAN", "c5_parent_id": "C5-P157-LIUWENJING", "outcome": "PROJECTED_TO_C3", "reason": "只投影错误识别、忽略申救和移除已验证责任中心；刑罚伦理留C5。"},

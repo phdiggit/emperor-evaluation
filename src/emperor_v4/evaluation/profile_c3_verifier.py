@@ -13,15 +13,15 @@ from emperor_v4.evaluation.profile_markdown import render_profile_markdown
 
 ROOT = Path(__file__).resolve().parents[3]
 PROFILE_ROOT = ROOT / "docs" / "评分结算" / "皇帝人物画像"
-SETTLEMENT = PROFILE_ROOT / "24-C3人才识别配置与授权正式结算.json"
+SETTLEMENT = PROFILE_ROOT / "C3/24-C3人才识别配置与授权正式结算.json"
 MARKDOWN = SETTLEMENT.with_suffix(".md")
-AUDIT = PROFILE_ROOT / "25-C3主要入口单元处置审计.json"
-HIGH_REVIEW = PROFILE_ROOT / "26-C3高档授权生命周期复核.json"
-ACCEPTANCE = PROFILE_ROOT / "27-C3全池结算验收报告.md"
-SYSTEMIC_REVIEW = PROFILE_ROOT / "28-C3高档门与错误清洗系统复核.json"
+AUDIT = PROFILE_ROOT / "C3/25-C3主要入口单元处置审计.json"
+HIGH_REVIEW = PROFILE_ROOT / "C3/26-C3高档授权生命周期复核.json"
+ACCEPTANCE = PROFILE_ROOT / "C3/27-C3全池结算验收报告.md"
+SYSTEMIC_REVIEW = PROFILE_ROOT / "C3/28-C3高档门与错误清洗系统复核.json"
 MANUAL = ROOT / "config" / "profile" / "c3-adjudications.json"
 SYSTEMIC_DECISIONS = ROOT / "config" / "profile" / "c3-systemic-review-decisions.json"
-C5_SETTLEMENT = PROFILE_ROOT / "02-C5权力运用风格与克制正式结算.json"
+C5_SETTLEMENT = PROFILE_ROOT / "C5/02-C5权力运用风格与克制正式结算.json"
 POOL = ROOT / "config" / "common" / "canonical-ruler-pool.json"
 CONTRACT = ROOT / "docs" / "项目总纲" / "皇帝人物画像评估体系合同.md"
 PROJECT = ROOT / "config" / "project.yml"
@@ -203,7 +203,16 @@ def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dic
     assert systemic["high_gate_decision_count"] == len(decisions["high_gate_decisions"])
     assert systemic["c5_boundary_decision_count"] == len(decisions["c5_boundary_decisions"])
     assert systemic["grade_changes"] == decisions["grade_changes"]
+    strength_calibrations = decisions.get("authorization_strength_calibrations", [])
+    assert systemic["authorization_strength_calibration_count"] == len(strength_calibrations)
+    assert systemic["authorization_strength_calibrations"] == strength_calibrations
     by_id = {row["ruler_id"]: row for row in records}
+    assert all(
+        calibration["parent_id"] in {parent["parent_id"] for parent in by_id[calibration["ruler_id"]]["parents"]}
+        and len(calibration["comparators"]) >= 2
+        and all(comparator["ruler_id"] in by_id for comparator in calibration["comparators"])
+        for calibration in strength_calibrations
+    )
     for change in systemic["grade_changes"]:
         assert f"{by_id[change['ruler_id']]['axis_grade']}-{by_id[change['ruler_id']]['position']}" == change["to"]
     c5_parent_ids = {
@@ -234,7 +243,10 @@ def verify() -> dict[str, Any]:
     manifest = _load(MANIFEST)
     assert manifest["settled_axis_count"] == 8 and manifest["unsettled_axis_count"] == 0
     c3 = next(axis for axis in manifest["axes"] if axis["axis_code"] == "C3")
-    assert c3["json"] == SETTLEMENT.name and c3["json_sha256"] == _sha(SETTLEMENT)
+    assert (
+        c3["json"] == SETTLEMENT.relative_to(MANIFEST.parent).as_posix()
+        and c3["json_sha256"] == _sha(SETTLEMENT)
+    )
     assert c3["markdown_sha256"] == _sha(MARKDOWN)
     assert SYSTEMIC_REVIEW.name in c3["audit_jsons"]
     assert c3["record_count"] == 184

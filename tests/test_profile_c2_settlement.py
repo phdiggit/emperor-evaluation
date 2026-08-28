@@ -19,9 +19,9 @@ def load(name: str):
 
 def payloads():
     return (
-        load("19-C2信息处理学习与纠错正式结算.json"),
-        load("20-C2主要入口单元处置审计.json"),
-        load("21-C2高档学习周期与横向校准复核.json"),
+        load("C2/19-C2信息处理学习与纠错正式结算.json"),
+        load("C2/20-C2主要入口单元处置审计.json"),
+        load("C2/21-C2高档学习周期与横向校准复核.json"),
     )
 
 
