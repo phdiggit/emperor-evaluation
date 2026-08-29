@@ -1,8 +1,8 @@
 {
   "schema_version": "emperor-profile-formal-axis-manifest-v1",
-  "contract_version": "FORMAL-V1.0",
+  "contract_version": "FORMAL-V2.0",
   "contract": "docs/项目总纲/皇帝人物画像评估体系合同.md",
-  "contract_sha256": "49fb5efd03c0c62713506e80b07fa326eb9a5194429ea4300026a766afedeef3",
+  "contract_sha256": "c913346e5b9db13fb56b04020112692835b2f00dde1533273a08e84ebf35f275",
   "canonical_status": "FORMAL_CURRENT",
   "population_count": 184,
   "settled_axis_count": 8,
@@ -12,7 +12,7 @@
   "composite_ranking_write": false,
   "database_write": false,
   "canonical_pool": "config/common/canonical-ruler-pool.json",
-  "canonical_pool_sha256": "8a3a78bafb3218296767df40c290a0e4f915624fe1611ec5ed03fe9742794782",
+  "canonical_pool_sha256": "cb9a582f2b68a4416a53eeeaf1b0bbef04c0bddf008943bc4b750070278f134b",
   "axes": [
     {
       "axis_code": "M1",
@@ -21,7 +21,7 @@
       "record_count": 184,
       "json": "M1/01-M1军事判断与统帅能力正式结算.json",
       "markdown": "M1/01-M1军事判断与统帅能力正式结算.md",
-      "json_sha256": "5551c162429e549b1b5dc8176d58effad60994fe373714cf8ebc75a66345c898",
+      "json_sha256": "fff3a4e2e4e58bea05006a665198d0d742b90e4d4cf0f06e3491d971071b15e1",
       "audit_jsons": [
         "M1/03-M1人才差异与高档门复核.json",
         "M1/06-M1高档结构复核.json",
@@ -41,7 +41,7 @@
       "record_count": 184,
       "json": "M2/12-M2外交博弈与对外联盟能力正式结算.json",
       "markdown": "M2/12-M2外交博弈与对外联盟能力正式结算.md",
-      "json_sha256": "24290623513c5e931a8a5c40db09967e4a0b53a98165cedb909ac190e02c65cc",
+      "json_sha256": "55e92745bd813e092cd02b74913be426786b496c1294b0fe92c69ab6ad7acf8b",
       "audit_markdowns": [
         "M2/13-M2全池结算验收报告.md"
       ],
@@ -53,20 +53,21 @@
     },
     {
       "axis_code": "M3",
-      "axis_name": "财政经济约束理解与工具适配",
+      "axis_name": "民生财政建设",
       "status": "FORMAL_CURRENT",
       "record_count": 184,
-      "json": "M3/29-M3财政经济约束理解与工具适配正式结算.json",
-      "markdown": "M3/29-M3财政经济约束理解与工具适配正式结算.md",
-      "json_sha256": "1ace437b1fe5dc7d039cd492cb2a24d322c1a7ca88ad1ca3801be22c87feb456",
-      "markdown_sha256": "df07c8b0f8de444fff426226faf8ff9239cda3afb10b363dfb33a1dde63a1dab",
+      "json": "M3/29-M3民生财政建设正式结算.json",
+      "markdown": "M3/29-M3民生财政建设正式结算.md",
+      "json_sha256": "df1110a532ef26181513565278c69e302c58a2a9ee3cd63eb46eeadcf8911a13",
+      "markdown_sha256": "a51f223686099a4a87bd2ee3a8025c6decea0c30dc032cede97e480880cdcf42",
       "audit_jsons": [
-        "M3/30-M3主要入口单元处置审计.json",
-        "M3/31-M3高档财政工具生命周期复核.json",
-        "M3/33-M3全池两轮复审.json"
+        "M3/30-M3对第二项C1-C4逐人补正审计.json"
+      ],
+      "audit_markdowns": [
+        "M3/31-M3民生财政建设全池收口.md"
       ],
       "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC",
-      "formalization_note": "184人M3双通道正式结算；316条候选与11条保留手工候选完成语义复核，59名负向触发者反查待办为0，14名机制缺口按E1显现能力约束结算。"
+      "formalization_note": "M3改为第二项C1—C4同步的民生财政建设轴；184人全覆盖，旧316条候选逐条路由，原财政民生快照缺失的10人已补齐四子项。"
     },
     {
       "axis_code": "M4",
@@ -75,7 +76,7 @@
       "record_count": 184,
       "json": "M4/34-M4政治联盟与内部联盟管理正式结算.json",
       "markdown": "M4/34-M4政治联盟与内部联盟管理正式结算.md",
-      "json_sha256": "1f480c0cad3b0a5717f2d03c55b5e2e3cfeab0ef56425689e80ae40aa5008158",
+      "json_sha256": "5fb5e3c8b96fab606881846b58afba069786ac5f75b704c720e24f974d839fb5",
       "markdown_sha256": "8a5171949ba744061a5df4ef2631f18c1119842f056c1d9673e941b8c57a30a5",
       "audit_jsons": [
         "M4/35-M4主要入口单元处置审计.json",
@@ -95,7 +96,7 @@
       "record_count": 184,
       "json": "C1/15-C1战略判断与风险控制正式结算.json",
       "markdown": "C1/15-C1战略判断与风险控制正式结算.md",
-      "json_sha256": "db12ebaca2cdbd162f38ae8bdea7d8c13f37865839fc580d73e98b14bd267b4f",
+      "json_sha256": "c681c1a1aae10e8bca90f7df66252cb6aadf11fe9e41b0ca255ac065d6e51059",
       "audit_markdowns": [
         "C1/18-C1全池结算验收报告.md"
       ],
@@ -113,7 +114,7 @@
       "record_count": 184,
       "json": "C2/19-C2信息处理学习与纠错正式结算.json",
       "markdown": "C2/19-C2信息处理学习与纠错正式结算.md",
-      "json_sha256": "8a75fd1f968bd01030f1835db453361a24a30ef89706d99d398e68577a183acc",
+      "json_sha256": "d48f3d449e040a88c9cf35a4f415f0e4cb833e74c382b6459534f00966c4b803",
       "audit_markdowns": [
         "C2/22-C2全池结算验收报告.md"
       ],
@@ -133,7 +134,7 @@
       "record_count": 184,
       "json": "C3/24-C3人才识别配置与授权正式结算.json",
       "markdown": "C3/24-C3人才识别配置与授权正式结算.md",
-      "json_sha256": "75e6d3a26f2791ac303b11b0610ddbaa1c7cf993f4c3c5e5907779b63d6b99d5",
+      "json_sha256": "8958cf307d3dadcf5758f3221a6ecfc171347be78dd73f4609d59fa9b603979c",
       "markdown_sha256": "1194922f232c764bc1c757f936224bf28b2f22e11e25a5c4ce06af700476bb94",
       "audit_jsons": [
         "C3/25-C3主要入口单元处置审计.json",
@@ -154,7 +155,7 @@
       "record_count": 184,
       "json": "C5/02-C5权力运用风格与克制正式结算.json",
       "markdown": "C5/02-C5权力运用风格与克制正式结算.md",
-      "json_sha256": "9ae9f0d403e3d716c676882cda02065b01cc42028e596cad9838ac8ff6ac45ff",
+      "json_sha256": "e46b346bbbb7e55e359d9db7b26fa2833a1055252fea96d6279c16f9993a2ba6",
       "audit_jsons": [
         "C5/04-C5主要入口单元处置审计.json",
         "C5/05-C5高档材料密度复核.json",

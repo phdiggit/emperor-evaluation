@@ -69,7 +69,7 @@ def test_second_item_finance_views_keep_curves_k_and_merge_sparse_notes() -> Non
     c3 = _first_table(finance / "03-C3正式结算.md")
     c4 = _first_table(finance / "04-C4正式结算.md")
 
-    assert all(len(table) == 187 for table in (c1, c2, c3, c4))
+    assert all(len(table) == 197 for table in (c1, c2, c3, c4))
     assert "全任曲线 S0→S_main→S_end" in c1[0]
     assert "全任曲线 S0→S_main→S_end" in c2[0]
     assert "K稳定性（诊断）" in c3[0]

@@ -20,7 +20,7 @@ def test_all_five_formal_settlements_are_coherent() -> None:
     assert report["second_item_components"] == {
         "component_file_count": 12,
         "complete_ruler_count": 185,
-        "finance_ruler_count": 185,
+        "finance_ruler_count": 195,
     }
     assert report["composite_ranking"]["record_count"] == 174
     assert report["composite_ranking"]["pending_second_item_count"] == 10
@@ -31,7 +31,7 @@ def test_composite_ranking_uses_only_ready_rulers_and_current_formula() -> None:
     assert payload["record_count"] == 174
     assert payload["pending_second_item_count"] == 10
     assert payload["records"][0]["ruler_name"] == "李世民"
-    assert payload["records"][0]["total_score"] == 829.81
+    assert payload["records"][0]["total_score"] == 820.81
     assert payload["records"][1]["ruler_name"] == "玄烨"
     assert payload["records"][1]["total_score"] == 602.02
     zhao_ji = next(row for row in payload["records"] if row["ruler_name"] == "赵佶")
@@ -114,7 +114,7 @@ def test_five_dynasties_batch_is_fully_settled() -> None:
         "马殷": (54.9, 23.6, 28.0, 24.9, 131.4),
         "高季兴": (32.0, 14.9, 28.0, 24.9, 99.8),
         "孟知祥": (32.0, 14.9, 28.0, 21.0, 95.9),
-        "李克用": (17.1, 7.0, 16.0, 3.6, 43.7),
+        "李克用": (17.1, 7.0, 16.0, -9.0, 31.1),
         "刘崇": (17.1, 14.9, 28.0, 7.9, 67.9),
     }
     for name, scores in expected.items():
@@ -131,7 +131,7 @@ def test_five_dynasties_batch_is_fully_settled() -> None:
         "马殷": 237.2,
         "高季兴": 191.9,
         "孟知祥": 213.2,
-        "李克用": 107.2,
+        "李克用": 94.6,
         "刘崇": 134.2,
     }
 

@@ -15,7 +15,7 @@ AXIS_FILES = {
     "C2": "C2/19-C2信息处理学习与纠错正式结算.json",
     "C3": "C3/24-C3人才识别配置与授权正式结算.json",
     "C5": "C5/02-C5权力运用风格与克制正式结算.json",
-    "M3": "M3/29-M3财政经济约束理解与工具适配正式结算.json",
+    "M3": "M3/29-M3民生财政建设正式结算.json",
     "M4": "M4/34-M4政治联盟与内部联盟管理正式结算.json",
 }
 
@@ -110,7 +110,23 @@ def _overview_table(axis: str, records: list[dict[str, Any]], labels: dict[str, 
             cells = [row["sequence"], row["ruler_name"], row["polity"], row["actual_power_window"], row["axis_grade"], row["position"], row["radar_value"], row["axis_evidence_level"], row["output_mode"], row["score_status"], len(row["parents"]), row["typical_pattern"]]
             lines.append("| " + " | ".join(_escape(cell) for cell in cells) + " |")
         return lines
-    if axis in {"C3", "M3"}:
+    if axis == "M3":
+        lines = [
+            "| 人物 | 政权 | C1 | C2 | C3 | C4 | 治理结果/220 | M3/100 | 档位 |",
+            "|---|---|---:|---:|---:|---:|---:|---:|---|",
+        ]
+        for row in records:
+            components = row["components"]
+            cells = [
+                row["ruler_name"], row["polity"],
+                components["C1"]["score"], components["C2"]["score"],
+                components["C3"]["score"], components["C4"]["score"],
+                row["component_total_220"], row["score_100"],
+                f"{row['axis_grade']}-{row['position']}",
+            ]
+            lines.append("| " + " | ".join(_escape(cell) for cell in cells) + " |")
+        return lines
+    if axis == "C3":
         lines = [
             "| 序 | 人物 | 政权 | 实际权力窗口 | 档位 | 位置 | 雷达值 | 证据 | 输出 | 状态 | 父链 | 典型模式 | 限制 |",
             "|---:|---|---|---|---|---|---:|---|---|---|---:|---|---|",
@@ -200,7 +216,7 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
     if axis == "M3":
         lines.extend([
             "## M3 专项边界", "",
-            "档位来自显式逐人财政工具裁决；第二项分数、档位、国库规模、繁荣叙述、改革数量和材料数量均不转换为M3。跨领域优先级归C1，稳定更新模式归C2，财政经济约束与工具适配归M3。", "",
+            "M3是第二项C1、C2、C3、C4的同步画像轴：治理结果220分按固定公式线性折算为100分。旧M3过程材料只用于补正四子项证据、窗口和归责，不另加能力分、政策数或姓名覆写。", "",
         ])
     if axis == "M4":
         lines.extend([

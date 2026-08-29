@@ -30,7 +30,9 @@ FIFTH_C = ROOT / "docs/评分结算/第五项统治者政治素质/03-C轴强制
 PROFILE_INPUTS = {
     "PROFILE_M1": PROFILE_ROOT / "M1/01-M1军事判断与统帅能力正式结算.json",
     "PROFILE_M2": PROFILE_ROOT / "M2/12-M2外交博弈与对外联盟能力正式结算.json",
-    "PROFILE_M3": PROFILE_ROOT / "M3/29-M3财政经济约束理解与工具适配正式结算.json",
+    # M3现为C1—C4结果同步轴；M4仍需消费旧M3检索形成的过程父链作轴外去重，
+    # 因此直接读取保留的逐人裁决源，而不是从新M3结果轴反推集团材料。
+    "PROFILE_M3": ROOT / "config/profile/m3-adjudications.json",
     "PROFILE_C1": PROFILE_ROOT / "C1/15-C1战略判断与风险控制正式结算.json",
     "PROFILE_C2": PROFILE_ROOT / "C2/19-C2信息处理学习与纠错正式结算.json",
     "PROFILE_C3": PROFILE_ROOT / "C3/24-C3人才识别配置与授权正式结算.json",

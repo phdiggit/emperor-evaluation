@@ -29,7 +29,7 @@ def _included_ids() -> set[str]:
 def test_profile_manifest_registers_all_eight_formal_axes() -> None:
     manifest = _load(PROFILE_ROOT / "00-已结算轴正式入口.json")
     assert manifest["canonical_status"] == "FORMAL_CURRENT"
-    assert manifest["contract_version"] == "FORMAL-V1.0"
+    assert manifest["contract_version"] == "FORMAL-V2.0"
     assert manifest["settled_axis_count"] == 8
     assert manifest["unsettled_axis_count"] == 0
     assert manifest["profile_total_enabled"] is False
@@ -146,14 +146,14 @@ def test_c5_high_grade_density_review_is_closed() -> None:
 def test_formal_contract_declares_eight_settled_axes_without_profile_total() -> None:
     text = CONTRACT.read_text(encoding="utf-8")
     assert "DRAFT-V0.5" not in text
-    assert "FORMAL-V1.0" in text
-    assert "FORMAL-V1.0 / EIGHT-AXES-FORMALLY-SETTLED" in text
+    assert "FORMAL-V2.0" in text
+    assert "FORMAL-V2.0 / EIGHT-AXES-FORMALLY-SETTLED" in text
     assert "C1、C2、C3、C5、M1、M2、M3与M4均满足上述轴级门禁" in text
     assert "仍不得生成画像总分、轴内排名或写入五项综合榜" in text
     assert "人物画像代码C4自本版撤销" in text
     assert "| C4 | 组织推动与执行韧性 |" not in text
     assert "跨轴落实深度与受阻重组证据门" in text
-    assert "| M3 | 财政经济约束理解与工具适配 |" in text
+    assert "| M3 | 民生财政建设 |" in text
     assert "| M4 | 内部政治联盟与集团整合 |" in text
 
 

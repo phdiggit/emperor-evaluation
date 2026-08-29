@@ -98,7 +98,10 @@ def load_profiles() -> dict[str, Profile]:
             or payload["axis_code"] != axis_code
         ):
             raise ValueError(f"{axis_code}不是184人正式轴结算")
-        if manifest_axes[axis_code]["json"] != path.name or manifest_axes[axis_code]["json_sha256"] != _sha256(path):
+        if (
+            manifest_axes[axis_code]["json"] != path.relative_to(PROFILE_ROOT).as_posix()
+            or manifest_axes[axis_code]["json_sha256"] != _sha256(path)
+        ):
             raise ValueError(f"{axis_code}与正式入口清单不一致")
         rows = {row["ruler_id"]: row for row in records}
         if set(rows) != expected_ids or len(rows) != len(records):
