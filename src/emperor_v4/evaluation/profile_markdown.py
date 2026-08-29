@@ -185,6 +185,16 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
             "- 自然语言中的情境数量不作为机器裁档输入；复核以结构化父链为准。整改范围、命中对象和异常重裁候选见同目录 `12-M1结算账本整改与异常重裁复核.json`。",
             "",
         ])
+    if axis == "C5":
+        lines.extend([
+            "## 全池二次校准整改（2026-08）",
+            "",
+            "- 外部聊天版复核文件只作为逐人审查意见；正式值以本JSON及同值阅读视图为准。",
+            "- 每人均单列关键事实、裁档理由与史料定位；链接只作阅读入口，不能替代具名史源与卷次。",
+            "- 个案烈度与MI覆盖分离；一般政治斗争、轴外成败和他人独立行为不得倒灌C5。",
+            "- 逐人依据先展示本轮复核事实，再展示与主要入口绑定的结构化代表父链；两者共同限定结论，不按材料条数加减档位。",
+            "",
+        ])
     if axis == "C2":
         lines.extend([
             "## 全池裁决依据整改（2026-08）",
@@ -224,6 +234,11 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
             f"- **{'档内定位' if axis == 'C2' else '档内位置'}**：{row.get('position_basis') or '由同档材料强度与反例共同确定。'}",
             f"- **限制**：{_limitations(row, labels)}",
         ])
+        if axis == "C5" and row.get("public_evidence_points"):
+            lines.append("- **关键事实与边界**：")
+            for point in row["public_evidence_points"]:
+                lines.append(f"  - **{point['title']}**")
+                lines.extend(f"    - {detail}" for detail in point.get("details", []))
         if axis == "M1":
             projection = row.get("military_talent_registry_projection") or {}
             paired = projection.get("paired_result_difficulty_campaign_roles_display")
@@ -244,6 +259,9 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
                     lines.extend(_parent_lines(parent))
         else:
             lines.append("- **代表父链**：当前无闭合父链；不得把缺材料当作负证。")
+        if axis == "C5" and row.get("source_refs"):
+            lines.append("- **史料与定位**：")
+            lines.extend(f"  - {ref}" for ref in row["source_refs"])
         lines.append("")
     if axis == "C3":
         lines.extend([

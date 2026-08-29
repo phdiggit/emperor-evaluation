@@ -526,20 +526,27 @@ def test_m1_full_pool_readjudication_closes_all_records_and_failure_rule() -> No
     assert wuzetian["third_item_strategy_crosscheck"]["use_boundary"] == "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
 
 
-def test_c5_density_limited_high_grades_are_published_at_supported_level() -> None:
+def test_c5_chat_review_recalibration_is_publicly_supported() -> None:
     settlement = _load(PROFILE_ROOT / "C5/02-C5权力运用风格与克制正式结算.json")
     audit = _load(PROFILE_ROOT / "C5/07-C5高档与证据门结构复核.json")
+    remediation = _load(PROFILE_ROOT / "C5/08-C5聊天版全池二次校准整改复核.json")
     by_name = {record["ruler_name"]: record for record in settlement["records"]}
     assert settlement["summary"]["grade_distribution"] == {
-        "G0": 27, "G1": 39, "G2": 53, "G3": 54, "G4": 8, "G5": 3
+        "G0": 17, "G1": 34, "G2": 59, "G3": 61, "G4": 10, "G5": 3
     }
-    assert len(audit["density_limited_high_grade_changes"]) == 1
-    assert len(audit["evidence_gate_changes"]) == 5
+    assert settlement["summary"]["axis_evidence_distribution"] == {"E1": 4, "E2": 42, "E3": 138}
+    assert audit["density_limited_high_grade_changes"] == []
+    assert len(audit["evidence_gate_changes"]) == 53
+    assert audit["source_quality_gate"]["status"] == "PASS"
+    assert audit["source_quality_gate"]["records_with_locator_count"] == 184
+    assert audit["source_quality_gate"]["minimum_public_basis_chars"] >= 200
+    assert remediation["decision_count"] == 184
+    assert remediation["grade_or_position_change_count"] == 118
+    assert remediation["evidence_level_change_count"] == 53
     record = by_name["李昪"]
     assert (record["axis_grade"], record["position"], record["radar_value"]) == ("G3", "HIGH", 71)
-    assert record["latent_high_grade_hypothesis"] == {
-        "axis_grade": "G4", "position": "LOW", "status": "MATERIAL_DENSITY_LIMITED"
-    }
+    assert "latent_high_grade_hypothesis" not in record
+    assert all(record["public_evidence_points"] and record["source_refs"] for record in settlement["records"])
 
 
 def test_c2_c5_joint_boundary_and_strength_review_is_closed() -> None:

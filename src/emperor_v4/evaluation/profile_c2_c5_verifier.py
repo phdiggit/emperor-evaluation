@@ -17,6 +17,7 @@ C5_MD = C5.with_suffix(".md")
 C5_AUDIT = PROFILE_ROOT / "C5/04-C5主要入口单元处置审计.json"
 C5_DENSITY = PROFILE_ROOT / "C5/05-C5高档材料密度复核.json"
 C5_STRUCTURE = PROFILE_ROOT / "C5/07-C5高档与证据门结构复核.json"
+C5_REMEDIATION = PROFILE_ROOT / "C5/08-C5聊天版全池二次校准整改复核.json"
 JOINT = PROFILE_ROOT / "交叉轴复核/23-C2与C5同链边界及强度联合复核.json"
 MANIFEST = PROFILE_ROOT / "00-已结算轴正式入口.json"
 CONTRACT = ROOT / "docs" / "项目总纲" / "皇帝人物画像评估体系合同.md"
@@ -62,8 +63,8 @@ def _md_rows() -> list[tuple[int, str, str, str, str, str]]:
 
 
 def verify() -> dict[str, object]:
-    c2, c5, audit, density, structure, joint = (
-        _load(path) for path in (C2, C5, C5_AUDIT, C5_DENSITY, C5_STRUCTURE, JOINT)
+    c2, c5, audit, density, structure, remediation, joint = (
+        _load(path) for path in (C2, C5, C5_AUDIT, C5_DENSITY, C5_STRUCTURE, C5_REMEDIATION, JOINT)
     )
     assert _read(C5_MD).decode("utf-8") == render_profile_markdown(c5)
     c2_by_id = {row["ruler_id"]: row for row in c2["records"]}
@@ -105,8 +106,23 @@ def verify() -> dict[str, object]:
             else:
                 assert "parent_id" not in group or group["parent_id"] is None
         directions = {parent["direction"] for parent in row["parents"]}
-        assert not (row["grade_numeric"] >= 3 and directions and directions <= {"NEGATIVE", "MIXED_NEGATIVE"})
+        if row["grade_numeric"] >= 3 and directions and directions <= {"NEGATIVE", "MIXED_NEGATIVE"}:
+            assert row["review_status"] in {"RECALIBRATED", "VALIDATED"}
+            assert row["public_evidence_points"] and row["source_refs"]
         assert not (row["grade_numeric"] == 0 and directions and directions <= {"POSITIVE", "MIXED_POSITIVE"})
+
+    decisions = {row["ruler_id"]: row for row in remediation["decisions"]}
+    assert remediation["decision_count"] == len(decisions) == 184
+    assert set(decisions) == set(c5_by_id)
+    for ruler_id, row in c5_by_id.items():
+        decision = decisions[ruler_id]
+        assert decision["after"] == (
+            f"{row['axis_grade']}-{row['position']}/{row['score_100']}/{row['axis_evidence_level']}"
+        )
+        assert row["adjudication_ref"] == f"C5-CHAT-REVIEW-V2#{ruler_id}"
+        assert row["public_evidence_points"] and row["source_refs"]
+        assert row["source_quality"]["named_source_count"] >= 1
+        assert row["source_quality"]["locator_count"] >= 1
 
     units = audit["units"]
     assert audit["unit_count"] == len(units) == 1680
@@ -133,7 +149,7 @@ def verify() -> dict[str, object]:
     assert anger["status"] == "SCORING_PARENT" and anger["parent_id"] == "C5-P016-ANGER"
     advice = next(group for group in liubang["unit_groups"] if "I2-WHAN-LB-LUJIA-ADVICE-001" in group["unit_ids"])
     assert advice["status"] == "BACKGROUND_VALIDATION"
-    assert (liubang["axis_grade"], liubang["position"]) == ("G2", "LOW")
+    assert (liubang["axis_grade"], liubang["position"]) == ("G3", "LOW")
     liuxiu = c5_by_id["RULER-HAN-LIUXIU"]
     assert (liuxiu["axis_grade"], liuxiu["position"]) == ("G4", "LOW")
 
@@ -157,11 +173,13 @@ def verify() -> dict[str, object]:
             assert axis["json_sha256"] == _sha(path)
         # C2整改后的文件哈希按用户指令不作同步，也不作为本轮联合验收门。
         assert JOINT.relative_to(MANIFEST.parent).as_posix() in axis["audit_jsons"]
+        if code == "C5":
+            assert C5_REMEDIATION.relative_to(MANIFEST.parent).as_posix() in axis["audit_jsons"]
     project = yaml.safe_load(_read(PROJECT).decode("utf-8"))
     for code in ("C2", "C5"):
         assert project["profile_assessment"]["settled_axes"][code]["joint_boundary_review_json"].endswith(JOINT.name)
 
-    hashes = {path.name: _sha(path) for path in (C2, C5, C5_MD, C5_AUDIT, JOINT)}
+    hashes = {path.name: _sha(path) for path in (C2, C5, C5_MD, C5_AUDIT, C5_REMEDIATION, JOINT)}
     return {
         "status": "PASS",
         "record_count": 184,

@@ -1,31 +1,20 @@
 {
-  "schema_version": "emperor-profile-c5-density-review-formal-audit-v1",
-  "review_rule": "高档反例暴露优先检查臣子或官员处置的完整生命周期；免除败将死罪、一般宽宥、泛泛用人偏好不构成足以调整C5的反证。",
+  "schema_version": "emperor-profile-c5-density-review-formal-audit-v2",
+  "canonical_status": "FORMAL_CURRENT_AUDIT",
+  "contract_version": "FORMAL-V1.0",
+  "contract_sha256": "39522dc300c61c9bf0c1b985fcbe2320bd5c2ccb690014a326f0e07c2e30b16f",
+  "axis_code": "C5",
+  "formal_settlement": "02-C5权力运用风格与克制正式结算.json",
+  "chat_review_remediation": "08-C5聊天版全池二次校准整改复核.json",
+  "review_rule": "G4/G5必须具名记录反例暴露、私人利益或政治压力下的逆风表现，以及限制上探的事实；链接不替代史源与卷次。",
   "bounded_scope": [
     "全部主要既有入口（第二项A/B1/B2、第五项A/B/C）",
     "实际权力窗口",
     "其他轴同构念强父链",
     "至少一项编年或官修史入口（仅在现有入口不能闭合时补证）"
   ],
+  "review_count": 13,
   "reviews": [
-    {
-      "sequence": 3,
-      "ruler_id": "RULER-FD-LI-BIAN",
-      "ruler_name": "李昪",
-      "final_grade": "G3",
-      "position": "HIGH",
-      "asymmetry_gate_triggered": true,
-      "minister_disposition_review": "现有三条正向场景涉及亲吏违法、暴怒后纳谏和高层争论，但未闭合有强度的臣子负向处置生命周期。",
-      "result": "MATERIAL_DENSITY_LIMITED",
-      "grade_effect": "材料密度门未闭合；当前正式发布G3高位，原G4低位仅保留为潜在高档假设。",
-      "current_score_100": 71,
-      "structural_review_ref": "07-C5高档与证据门结构复核.json",
-      "latent_high_grade_hypothesis": {
-        "axis_grade": "G4",
-        "position": "LOW",
-        "status": "MATERIAL_DENSITY_LIMITED"
-      }
-    },
     {
       "sequence": 20,
       "ruler_id": "RULER-HAN-LIUHENG",
@@ -33,79 +22,19 @@
       "final_grade": "G5",
       "position": "LOW",
       "asymmetry_gate_triggered": false,
-      "minister_disposition_review": "薄昭处置闭合本人归责、不可逆结果与比例争议；同时有张释之依法抗旨并获接受的相反场景。",
-      "result": "COUNTEREVIDENCE_FOUND",
-      "grade_effect": "刘长、薄昭与肉刑替代伤害均保留为反证；其归责、比例与不可逆性限制G5位置，但未跨对象复发为模式改变型反证，不再机械封顶。",
-      "current_score_100": 91,
-      "structural_review_ref": "07-C5高档与证据门结构复核.json"
-    },
-    {
-      "sequence": 26,
-      "ruler_id": "RULER-HAN-LIUXIU",
-      "ruler_name": "刘秀",
-      "final_grade": "G4",
-      "position": "LOW",
-      "asymmetry_gate_triggered": false,
-      "minister_disposition_review": "桓谭受死刑威胁、韩歆父子自杀，与董宣等受保护场景构成同一异议安全机制的正反生命周期。",
-      "result": "COUNTEREVIDENCE_FOUND",
-      "grade_effect": "反证已锁定G4低位。",
-      "current_score_100": 77,
-      "structural_review_ref": "07-C5高档与证据门结构复核.json"
-    },
-    {
-      "sequence": 34,
-      "ruler_id": "RULER-JIN-SHIZONG",
-      "ruler_name": "完颜雍",
-      "final_grade": "G4",
-      "position": "MID",
-      "asymmetry_gate_triggered": false,
-      "minister_disposition_review": "主要入口有成命复奏和监察高官的制度正链，负链集中在强制迁徙而非臣子处置；因此不把该负链冒充臣子处置补证。",
-      "result": "COVERAGE_CLOSED",
-      "grade_effect": "已有实质同轴反证，非零负证高档；臣子处置未单列但不据此自动降档。",
-      "current_score_100": 82,
-      "structural_review_ref": "07-C5高档与证据门结构复核.json"
-    },
-    {
-      "sequence": 43,
-      "ruler_id": "RULER-LIAO-YELU-LONGXU",
-      "ruler_name": "耶律隆绪",
-      "final_grade": "G4",
-      "position": "HIGH",
-      "asymmetry_gate_triggered": false,
-      "minister_disposition_review": "东京严刑催逼及保州杀兵是实质反证，但对象并非典型谏臣；共同决策、谏诤复核与贵戚问罪仍构成高密度相反约束面。",
-      "result": "COVERAGE_CLOSED",
-      "grade_effect": "旧G5降为G4高位；不以臣子案例数量重复扣分。",
-      "current_score_100": 87,
-      "structural_review_ref": "07-C5高档与证据门结构复核.json"
-    },
-    {
-      "sequence": 62,
-      "ruler_id": "RULER-MING-ZHU-ZHANJI",
-      "ruler_name": "朱瞻基",
-      "final_grade": "G4",
-      "position": "LOW",
-      "asymmetry_gate_triggered": false,
-      "minister_disposition_review": "宣德三年御史严皑、方鼎、何杰因饮酒及失朝被枷示，另有高煦案；臣子处置与宗室政治刑罚分链记录。",
+      "minister_disposition_review": "张释之依法处理“犯跸”等案件、申屠嘉对宠臣邓通实施宰相职权、以及外戚任相问题，都不是一般宽仁，而是规则或大臣直接顶到皇帝本人、皇帝最终接受；申屠嘉欲治邓通失朝礼之罪，文帝虽明确承认邓通是自己私宠，仍让邓通去丞相府谢罪；这是一条很纯的私人利益逆风自缚；文帝赐邓通巨万，又赐蜀严道铜山，允许其铸钱，邓氏钱遍天下；这已经不是一次赏赐，而是最高权力将矿产、铸币与巨额财富长期向私人宠臣倾斜，属于 NEGATIVE / MI3_SUSTAINED_SYSTEMIC 的公共权力—私人特权反证。",
       "result": "COUNTEREVIDENCE_FOUND",
       "source_refs": [
-        "https://zh.wikisource.org/zh-hant/明史_(四庫全書本)/卷095"
+        "《汉书·文帝纪》。",
+        "《汉书·张释之冯唐传》。",
+        "《汉书·张周赵任申屠传》。",
+        "《汉书》卷九十三《佞幸传·邓通》。",
+        "https://zh.wikisource.org/zh-hans/漢書/卷093"
       ],
-      "grade_effect": "谏官枷号按MI2负证计入，与高煦案共同锁定G4低位。",
-      "current_score_100": 77,
-      "structural_review_ref": "07-C5高档与证据门结构复核.json"
-    },
-    {
-      "sequence": 68,
-      "ruler_id": "RULER-NS-ZHAO-KUANGYIN",
-      "ruler_name": "赵匡胤",
-      "final_grade": "G4",
-      "position": "MID",
-      "asymmetry_gate_triggered": false,
-      "minister_disposition_review": "张琼冤死及直指宰相者受报复形成不可逆臣子处置反证，并与跨阵营保护忠直者构成对照。",
-      "result": "COUNTEREVIDENCE_FOUND",
-      "grade_effect": "反证已阻止进入G4高位或G5。",
-      "current_score_100": 82,
-      "structural_review_ref": "07-C5高档与证据门结构复核.json"
+      "grade_effect": "计入邓通私人特权持续负链。",
+      "current_score_100": 91,
+      "structural_review_ref": "07-C5高档与证据门结构复核.json",
+      "prior_review_result": "COUNTEREVIDENCE_FOUND"
     },
     {
       "sequence": 72,
@@ -114,56 +43,17 @@
       "final_grade": "G5",
       "position": "LOW",
       "asymmetry_gate_triggered": false,
-      "minister_disposition_review": "唐介因进谏遭震怒贬逐，随后多方反馈到达并改轻，闭合最高权力处置臣子后接受纠正的完整链。",
+      "minister_disposition_review": "张尧佐因张贵妃关系反复获得高位，台谏多次反对后皇帝仍有再次优授，说明私人情感确会穿透正常任官边界；因此不能只记“台谏能说话”；应完整记录宠妃外戚利益—反复反馈—皇帝反复尝试优授—外廷持续阻断或迫使回撤；该链应为 MIXED_NEGATIVE / MI3_SUSTAINED_SYSTEMIC；唐介激烈弹劾，仁宗最初震怒重贬；王举正、蔡襄等连续反馈后，很快改轻处分并追回押送中使。",
       "result": "COUNTEREVIDENCE_FOUND",
-      "grade_effect": "真实反证与实质纠正共同计入，支持G5低位而非顶格。",
+      "source_refs": [
+        "《宋史·仁宗本纪》。",
+        "《宋史·唐介传》。",
+        "《续资治通鉴长编》仁宗朝张尧佐、唐介相关条目。"
+      ],
+      "grade_effect": "张尧佐反复优授作为MI3私人利益反证。",
       "current_score_100": 91,
-      "structural_review_ref": "07-C5高档与证据门结构复核.json"
-    },
-    {
-      "sequence": 76,
-      "ruler_id": "RULER-PUBLIC-6339E33979E7CCF5",
-      "ruler_name": "皇太极",
-      "final_grade": "G4",
-      "position": "LOW",
-      "asymmetry_gate_triggered": false,
-      "minister_disposition_review": "都察院监督与保护进言能闭合约束正链，强制人口身份政策构成实质负证；现有代表父链不以免死或一般宽宥充当反证。",
-      "result": "COVERAGE_CLOSED",
-      "grade_effect": "保留G4低位；臣子处置密度限制其上移，但不制造无来源个案。",
-      "current_score_100": 77,
-      "structural_review_ref": "07-C5高档与证据门结构复核.json"
-    },
-    {
-      "sequence": 85,
-      "ruler_id": "RULER-ROSTER-0F3BA2C535371D66",
-      "ruler_name": "萧绰",
-      "final_grade": "G4",
-      "position": "MID",
-      "asymmetry_gate_triggered": false,
-      "minister_disposition_review": "韩德让击鞠坠马后，太后迁怒杀当事臣属，本人归责、比例失衡且结果不可逆。",
-      "result": "COUNTEREVIDENCE_FOUND",
-      "source_refs": [
-        "https://zh.wikisource.org/zh-hant/遼史/卷12"
-      ],
-      "grade_effect": "按MI1单案深下沿限制为G4中位；免除败将死罪未纳入反证，也不因不可逆性虚升为MI3。",
-      "current_score_100": 82,
-      "structural_review_ref": "07-C5高档与证据门结构复核.json"
-    },
-    {
-      "sequence": 146,
-      "ruler_id": "RULER-SS-ZHAO-SHEN",
-      "ruler_name": "赵昚",
-      "final_grade": "G4",
-      "position": "MID",
-      "asymmetry_gate_triggered": false,
-      "minister_disposition_review": "晚期事皆上决、执政奉旨、群下恐惧顾望，闭合臣子反馈安全随阶段收窄的机制级反证。",
-      "result": "COUNTEREVIDENCE_FOUND",
-      "source_refs": [
-        "https://zh.wikisource.org/zh-hans/宋史/卷397"
-      ],
-      "grade_effect": "由G4高位下调为G4中位。",
-      "current_score_100": 82,
-      "structural_review_ref": "07-C5高档与证据门结构复核.json"
+      "structural_review_ref": "07-C5高档与证据门结构复核.json",
+      "prior_review_result": "COUNTEREVIDENCE_FOUND"
     },
     {
       "sequence": 153,
@@ -172,25 +62,207 @@
       "final_grade": "G5",
       "position": "LOW",
       "asymmetry_gate_triggered": false,
-      "minister_disposition_review": "魏征、戴胄等长期抗旨链与张蕴古、卢祖尚两案同轴并存；两案有罪名基础但程序或比例不足，只裁MI2，晚期纳谏减弱另在长期父链中处理。",
+      "minister_disposition_review": "张蕴古案存在徇私嫌疑基础，真正问题是盛怒下复核不足、直接处死；此后又触发程序性纠偏；卢祖尚明确拒命、反复承诺后反悔，行为本身有责任基础；太宗盛怒处死仍明显过度，但不是“正常直言者因履职被杀”；两案均应定为 NEGATIVE / MI2_LIFECYCLE，个案烈度中高，不能因不可逆性拔成MI3；戴胄依法抗旨、魏征等长期犯颜、权贵案件中的规则运行，不只证明“能听劝”，而是反复证明最高决定可以在对皇帝不利时被复核、驳回或改变。",
       "result": "COUNTEREVIDENCE_FOUND",
-      "grade_effect": "长期MI4正向模式保留G5；低位主要由晚期反馈退化锁定，MI2处死案只加深下沿。",
+      "source_refs": [
+        "《旧唐书·太宗本纪》。",
+        "《旧唐书·魏征传》《戴胄传》。",
+        "《资治通鉴》贞观年间张蕴古、卢祖尚条目。"
+      ],
+      "grade_effect": "张蕴古、卢祖尚继续仅作深MI2。",
       "current_score_100": 91,
-      "structural_review_ref": "07-C5高档与证据门结构复核.json"
+      "structural_review_ref": "07-C5高档与证据门结构复核.json",
+      "prior_review_result": "COUNTEREVIDENCE_FOUND"
+    },
+    {
+      "sequence": 43,
+      "ruler_id": "RULER-LIAO-YELU-LONGXU",
+      "ruler_name": "耶律隆绪",
+      "final_grade": "G4",
+      "position": "HIGH",
+      "asymmetry_gate_triggered": false,
+      "minister_disposition_review": "大延琳叛乱中“杀渤海兵八百”出现在前线将领处置链，现有材料不足以闭合为圣宗本人直接命令；且事件发生于真实武装叛乱中，必须适用政治斗争边界；不能继续作为圣宗个人C5深负链；圣宗时期持续推进契丹、汉人杀人同法、贵戚犯法入刑、主人不得任意杀奴、死刑及重大案件进入复核；这些规则不是纯文本，确实有地方官、权势者被实际追责和复审实例，能达到 MI4_CROSS_PHASE_SYSTEMIC。",
+      "result": "COUNTEREVIDENCE_FOUND",
+      "source_refs": [
+        "《辽史·圣宗本纪》。",
+        "《辽史·刑法志》。"
+      ],
+      "grade_effect": "撤销“本人杀渤海兵八百”归责。",
+      "current_score_100": 87,
+      "structural_review_ref": "07-C5高档与证据门结构复核.json",
+      "prior_review_result": "COUNTEREVIDENCE_FOUND"
+    },
+    {
+      "sequence": 68,
+      "ruler_id": "RULER-NS-ZHAO-KUANGYIN",
+      "ruler_name": "赵匡胤",
+      "final_grade": "G4",
+      "position": "MID",
+      "asymmetry_gate_triggered": false,
+      "minister_disposition_review": "张琼曾有救驾之功，后被石汉卿等告发，赵匡胤盛怒并亲自殴击，张琼最终死于狱中；后来发现其家贫、并无所谓巨额不法财产，赵匡胤明确悔恨、责告发者并抚恤其家；陈桥受禅后明确约束军队不得伤害后周帝后、臣民与府库；多类疑案又见核验后限缩惩罚；这些不是单纯“仁慈名声”，而是在拥有压倒性武力便利时主动限制己方强制。",
+      "result": "COUNTEREVIDENCE_FOUND",
+      "source_refs": [
+        "《宋史·太祖本纪》。",
+        "《宋史·张琼传》。"
+      ],
+      "grade_effect": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G4-MID。",
+      "current_score_100": 82,
+      "structural_review_ref": "07-C5高档与证据门结构复核.json",
+      "prior_review_result": "COUNTEREVIDENCE_FOUND"
+    },
+    {
+      "sequence": 85,
+      "ruler_id": "RULER-ROSTER-0F3BA2C535371D66",
+      "ruler_name": "萧绰",
+      "final_grade": "G4",
+      "position": "MID",
+      "asymmetry_gate_triggered": false,
+      "minister_disposition_review": "承天太后称制二十余年间，刑法改革、贵戚问罪、限制主人私刑及巡狱复核均持续推进；《辽史》明确称其“留心听断”，并劝圣宗宽法律，不能把全部正向只归圣宗；该案属于私人情感和盛怒直接转为生命处分，烈度高；但仍是单一 MI1/MI2 深案，没有跨对象同构复发。",
+      "result": "COUNTEREVIDENCE_FOUND",
+      "source_refs": [
+        "《辽史·后妃传·睿智皇后》。",
+        "《辽史·刑法志》。",
+        "《辽史·圣宗本纪》。"
+      ],
+      "grade_effect": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G4-MID。",
+      "current_score_100": 82,
+      "structural_review_ref": "07-C5高档与证据门结构复核.json",
+      "prior_review_result": "COUNTEREVIDENCE_FOUND"
+    },
+    {
+      "sequence": 26,
+      "ruler_id": "RULER-HAN-LIUXIU",
+      "ruler_name": "刘秀",
+      "final_grade": "G4",
+      "position": "LOW",
+      "asymmetry_gate_triggered": false,
+      "minister_disposition_review": "湖阳公主奴仗势杀人，董宣依法格杀；刘秀因姐姐私利震怒，欲杖杀董宣；董宣当面指出皇室放纵家奴会破坏法制，刘秀最终放弃处罚并赏赐；这是亲属私利直接与公法冲突、皇帝本人接受不利结果的标准C5强证；刘秀希望寡居姐姐与宋弘结亲，宋弘以“糟糠之妻不下堂”拒绝，刘秀接受，没有因拒绝皇帝私人愿望施压报复。",
+      "result": "COUNTEREVIDENCE_FOUND",
+      "source_refs": [
+        "《后汉书·酷吏列传·董宣》。",
+        "《后汉书·宋弘传》。",
+        "《后汉书·桓谭传》及韩歆相关记载。"
+      ],
+      "grade_effect": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G4-LOW。",
+      "current_score_100": 77,
+      "structural_review_ref": "07-C5高档与证据门结构复核.json",
+      "prior_review_result": "COUNTEREVIDENCE_FOUND"
+    },
+    {
+      "sequence": 34,
+      "ruler_id": "RULER-JIN-SHIZONG",
+      "ruler_name": "完颜雍",
+      "final_grade": "G4",
+      "position": "LOW",
+      "asymmetry_gate_triggered": false,
+      "minister_disposition_review": "世宗朝对边地契丹户、猛安谋克户及部分地区人口有多次整体迁置、重新编排；其中一部分有军事安全和组织整顿背景，但对象大量是普通户口，不属于现实夺权政敌；其身份与居住空间由最高权力成片重置，直接属于C5；应由 MI2 → MI3_SUSTAINED_SYSTEMIC；成命不便允许再奏、括地侵民后归还或给价、巡幸和军马扰民后转为雇直补偿等，确实反复出现“伤害反馈到达—最高决定收束”。",
+      "result": "COUNTEREVIDENCE_FOUND",
+      "source_refs": [
+        "《金史·世宗本纪》。",
+        "《金史·食货志》。"
+      ],
+      "grade_effect": "强迁并非单案而是跨年复发。",
+      "current_score_100": 77,
+      "structural_review_ref": "07-C5高档与证据门结构复核.json",
+      "prior_review_result": "COUNTEREVIDENCE_FOUND"
+    },
+    {
+      "sequence": 62,
+      "ruler_id": "RULER-MING-ZHU-ZHANJI",
+      "ruler_name": "朱瞻基",
+      "final_grade": "G4",
+      "position": "LOW",
+      "asymmetry_gate_triggered": false,
+      "minister_disposition_review": "宣德元年汉王高煦公开起兵反叛；被俘、削爵、幽禁直至死亡，本身属于对现实叛乱政敌的处置；按新增规则，不能因为高煦本人最终被焚死就直接扣C5；《明史·诸王世表》明确记高煦被锢死后，韦妃及九子“俱从死”。",
+      "result": "COUNTEREVIDENCE_FOUND",
+      "source_refs": [
+        "《明史》卷九《宣宗本纪》",
+        "《明史》卷九十五《刑法志三》",
+        "《明史》卷一百零三《诸王世表》"
+      ],
+      "grade_effect": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G4-LOW。",
+      "current_score_100": 77,
+      "structural_review_ref": "07-C5高档与证据门结构复核.json",
+      "prior_review_result": "COUNTEREVIDENCE_FOUND"
+    },
+    {
+      "sequence": 76,
+      "ruler_id": "RULER-PUBLIC-6339E33979E7CCF5",
+      "ruler_name": "皇太极",
+      "final_grade": "G4",
+      "position": "LOW",
+      "asymmetry_gate_triggered": false,
+      "minister_disposition_review": "崇德元年设置都察院，职责明列皇帝奢侈、误杀功臣、畋猎逸乐、弃忠任奸，以及贝勒、六部不法均可谏纠；仅有制度文本不够，但其在若干逆风案件中确有实际运行，能够作为 MI3 自缚机制；皇太极此前要求新降地方善抚官民；阿敏撤退时大杀降民、掳掠人口；皇太极随后严厉追究阿敏及相关将领，并对被强占人口、家属进行恢复和安置。",
+      "result": "COUNTEREVIDENCE_FOUND",
+      "source_refs": [
+        "《清太宗文皇帝实录》崇德元年设都察院相关条目。",
+        "《清太宗实录》永平、阿敏处分及降民处置相关条目。"
+      ],
+      "grade_effect": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G4-LOW。",
+      "current_score_100": 77,
+      "structural_review_ref": "07-C5高档与证据门结构复核.json",
+      "prior_review_result": "COUNTEREVIDENCE_FOUND"
+    },
+    {
+      "sequence": 87,
+      "ruler_id": "RULER-ROSTER-323631DDD7CB22F6",
+      "ruler_name": "完颜阿骨打",
+      "final_grade": "G4",
+      "position": "LOW",
+      "asymmetry_gate_triggered": false,
+      "minister_disposition_review": "从未称帝时期的“反以财杀人、缓债役”，到建国后的降附保护、释放债奴、限制军队扰民、追究己方将领侵吞，形成明显跨阶段、跨对象的最高强制权收束；负证真实但没有改变主模式；由 G3-HIGH 定位为 G4-LOW / E3。",
+      "result": "COVERAGE_CLOSED",
+      "source_refs": [
+        "《金史》卷二《太祖本纪》",
+        "https://zh.wikisource.org/zh-hans/金史/卷2",
+        "《金史》卷一相关世系与阿骨打早期活动",
+        "https://zh.wikisource.org/zh-hans/金史/卷1"
+      ],
+      "grade_effect": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G4-LOW。",
+      "current_score_100": 77,
+      "structural_review_ref": "07-C5高档与证据门结构复核.json",
+      "prior_review_result": "COVERAGE_CLOSED"
+    },
+    {
+      "sequence": 146,
+      "ruler_id": "RULER-SS-ZHAO-SHEN",
+      "ruler_name": "赵昚",
+      "final_grade": "G4",
+      "position": "LOW",
+      "asymmetry_gate_triggered": false,
+      "minister_disposition_review": "孝宗长期亲阅囚案、临轩虑囚是真实宽刑表现，但仅凭皇帝亲自审阅死刑案件，不能自动定为C5 MI3 自缚；除非闭合“本人欲重处—外部复核否决—本人接受”，否则主要属于 GENERAL_JUDICIAL_GOVERNANCE；徐谊等能够直接批评孝宗“事皆上决、执政惟奉旨”，皇帝虽被触及核心权力风格，仍能容其继续进言，并对批评作出积极回应；跨年直言保护仍能撑起强长板。",
+      "result": "COUNTEREVIDENCE_FOUND",
+      "source_refs": [
+        "《宋史·孝宗本纪》。",
+        "《宋史》卷三百九十七相关徐谊传。",
+        "https://zh.wikisource.org/zh-hans/宋史/卷397",
+        "《宋史·刑法志》。"
+      ],
+      "grade_effect": "年度虑囚降为一般司法背景。",
+      "current_score_100": 77,
+      "structural_review_ref": "07-C5高档与证据门结构复核.json",
+      "prior_review_result": "COUNTEREVIDENCE_FOUND"
+    },
+    {
+      "sequence": 181,
+      "ruler_id": "RULER-YUAN-OGEDEI",
+      "ruler_name": "窝阔台",
+      "final_grade": "G4",
+      "position": "LOW",
+      "asymmetry_gate_triggered": false,
+      "minister_disposition_review": "跨死刑、屠城、连坐、选女、人口迁徙、宗王科征、债役等多个最难克制的场景，窝阔台确实反复接受外部否决；后期税包扩张是重大真实反证，但没有抹掉跨场景主模式；由 G3-HIGH 定位为 G4-LOW / E3。",
+      "result": "COUNTEREVIDENCE_FOUND",
+      "source_refs": [
+        "《元史》卷一百四十六《耶律楚材传》",
+        "https://zh.wikisource.org/zh-hans/元史/卷146",
+        "《宋史纪事本末》卷九十九",
+        "https://zh.wikisource.org/zh-hans/宋史紀事本末/卷99",
+        "《续资治通鉴》相关窝阔台时期条目。"
+      ],
+      "grade_effect": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G4-LOW。",
+      "current_score_100": 77,
+      "structural_review_ref": "07-C5高档与证据门结构复核.json",
+      "prior_review_result": "COUNTEREVIDENCE_FOUND"
     }
-  ],
-  "contract_version": "FORMAL-V1.0",
-  "contract_sha256": "39522dc300c61c9bf0c1b985fcbe2320bd5c2ccb690014a326f0e07c2e30b16f",
-  "canonical_status": "FORMAL_CURRENT_AUDIT",
-  "axis_code": "C5",
-  "formal_settlement": "02-C5权力运用风格与克制正式结算.json",
-  "promotion_source_sha256": "1c24ff9f1aa932d5d3e15da3a4205746f659b837cb8a1e81c36fd8c7af8e47d0",
-  "current_grade_distribution": {
-    "G0": 27,
-    "G1": 39,
-    "G2": 51,
-    "G3": 56,
-    "G4": 8,
-    "G5": 3
-  }
+  ]
 }
