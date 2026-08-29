@@ -89,7 +89,7 @@ def test_profile_m3_missing_finance_records_are_added_for_all_ten_profile_rulers
 def test_c4_attribution_is_individually_adjudicated_without_default_da1() -> None:
     audit = _load(C4_ATTRIBUTION)
     assert audit["record_count"] == len(audit["records"]) == 184
-    assert audit["grade_counts"] == {"DA0": 28, "DA1": 57, "DA2": 56, "DA3": 40, "DA4": 3}
+    assert audit["grade_counts"] == {"DA0": 15, "DA1": 51, "DA2": 74, "DA3": 41, "DA4": 3}
     assert all(row["review_status"] == "FULLY_ADJUDICATED" for row in audit["records"])
     assert all(row["source_refs"] for row in audit["records"])
     assert all(
@@ -101,14 +101,17 @@ def test_c4_attribution_is_individually_adjudicated_without_default_da1() -> Non
     assert by_name["杨坚"]["decision"]["final_grade"] == "DA3"
     assert by_name["武则天"]["decision"]["final_grade"] == "DA3"
     assert by_name["高纬"]["decision"]["final_grade"] == "DA3"
-    assert by_name["玄烨"]["decision"]["final_grade"] == "DA0"
+    assert by_name["玄烨"]["decision"]["final_grade"] == "DA2"
+    assert by_name["李治"]["decision"]["final_grade"] == "DA3"
 
 
 def test_profile_m3_anchor_values_are_separated_by_the_four_components() -> None:
     by_name = {row["ruler_name"]: row for row in _load(M3_SETTLEMENT)["records"]}
     assert by_name["李世民"]["score_100"] == 80
     assert by_name["刘启"]["score_100"] == 75
-    assert by_name["李治"]["score_100"] == 49
+    assert by_name["李治"]["score_100"] == 45
     assert by_name["胤禛"]["score_100"] == 67
     assert by_name["李世民"]["components"]["C4"]["score"] == 25.2
-    assert by_name["李治"]["components"]["C4"]["score"] == -10.8
+    assert by_name["李治"]["components"]["C4"]["score"] == -19.8
+    assert by_name["玄烨"]["score_100"] == 66
+    assert by_name["玄烨"]["components"]["C4"]["score"] == 7.5

@@ -999,7 +999,7 @@ def build_review(supplement: dict[str, Any], m3: dict[str, Any]) -> None:
         f"- C4归责扣减逐人复核：{attribution['record_count']}人；DA0—DA4分布为"
         f"{attribution['grade_counts']['DA0']}/{attribution['grade_counts']['DA1']}/"
         f"{attribution['grade_counts']['DA2']}/{attribution['grade_counts']['DA3']}/"
-        f"{attribution['grade_counts']['DA4']}；不以在位本身默认DA1。\n"
+        f"{attribution['grade_counts']['DA4']}；不以在位本身默认DA1，也不以另有征发原句作为主动战争成本准入门。\n"
         "- 旧M3动作链不再直接裁M3；只作为C1—C4补证、归责、背景或轴外审计。\n"
         "- M3公式：`clamp(round((C1+C2+C3+C4)/220*100), 0, 100)`。\n",
         encoding="utf-8",

@@ -70,7 +70,7 @@ def verify_payloads() -> dict[str, Any]:
         grade: sum(row["decision"]["final_grade"] == grade for row in attribution["records"])
         for grade in ("DA0", "DA1", "DA2", "DA3", "DA4")
     }
-    assert attribution["grade_counts"] == grade_counts == {"DA0": 28, "DA1": 57, "DA2": 56, "DA3": 40, "DA4": 3}
+    assert attribution["grade_counts"] == grade_counts == {"DA0": 15, "DA1": 51, "DA2": 74, "DA3": 41, "DA4": 3}
     records_hash = hashlib.sha256(
         json.dumps(attribution["records"], ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
     ).hexdigest()
