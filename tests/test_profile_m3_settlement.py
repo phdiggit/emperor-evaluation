@@ -5,6 +5,8 @@ import json
 from emperor_v4.evaluation.profile_m3_livelihood_settlement import (
     C4_ATTRIBUTION,
     C_PATHS,
+    GRADE_PROJECTION,
+    M3_ADJUDICATIONS,
     M3_SETTLEMENT,
     MISSING,
     RESULT,
@@ -17,24 +19,33 @@ def _load(path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def test_profile_m3_is_fully_synchronized_with_second_item_c1_c4() -> None:
+def test_profile_m3_is_holistically_adjudicated_from_second_item_c1_c4() -> None:
     settlement = _load(M3_SETTLEMENT)
+    adjudications = {row["ruler_id"]: row for row in _load(M3_ADJUDICATIONS)["records"]}
     result = {row["ruler_id"]: row for row in _load(RESULT)["scores"]}
     assert settlement["axis_name"] == "民生财政建设"
     assert settlement["record_count"] == len(settlement["records"]) == 184
     for row in settlement["records"]:
         source = result[row["ruler_id"]]
-        expected = round(max(0.0, min(100.0, source["score"] / 220 * 100)))
-        assert row["score_100"] == row["radar_value"] == expected
-        assert row["component_total_220"] == source["score"]
+        decision = adjudications[row["ruler_id"]]
+        assert row["score_100"] == row["radar_value"] == GRADE_PROJECTION[(row["axis_grade"], row["position"])]
+        assert row["axis_grade"] == decision["axis_grade"]
+        assert row["position"] == decision["position"]
         assert set(row["components"]) == set(C_PATHS)
-        assert row["value_mode"] == "SECOND_ITEM_C1_C2_C3_C4_SYNCHRONIZED"
+        assert row["components"]["C1"]["band"] == source["C1_band"]
+        assert row["components"]["C4"]["score"] == source["C4_score"]
+        assert row["value_mode"] == "SEMANTIC_HOLISTIC_ADJUDICATION_WITH_FIXED_GRADE_PROJECTION"
+        assert row["axis_relevance_check"]["component_sum_used"] is False
+        assert row["axis_relevance_check"]["quantile_or_normalization_used"] is False
+        assert row["public_adjudication"]
     assert verify() == {
         "profile_population": 184,
         "finance_population": 195,
         "old_m3_candidate_count": 316,
         "old_m3_parent_chain_count": 204,
         "new_finance_record_count": 10,
+        "m3_grade_distribution": {"G0": 18, "G1": 45, "G2": 54, "G3": 46, "G4": 16, "G5": 5},
+        "m3_cross_grade_count": 109,
     }
 
 
@@ -105,13 +116,15 @@ def test_c4_attribution_is_individually_adjudicated_without_default_da1() -> Non
     assert by_name["李治"]["decision"]["final_grade"] == "DA3"
 
 
-def test_profile_m3_anchor_values_are_separated_by_the_four_components() -> None:
+def test_profile_m3_anchor_values_follow_semantic_boundaries_and_handoff() -> None:
     by_name = {row["ruler_name"]: row for row in _load(M3_SETTLEMENT)["records"]}
-    assert by_name["李世民"]["score_100"] == 80
-    assert by_name["刘启"]["score_100"] == 75
-    assert by_name["李治"]["score_100"] == 45
-    assert by_name["胤禛"]["score_100"] == 67
+    assert (by_name["李世民"]["axis_grade"], by_name["李世民"]["position"], by_name["李世民"]["score_100"]) == ("G5", "LOW", 91)
+    assert (by_name["刘启"]["axis_grade"], by_name["刘启"]["position"], by_name["刘启"]["score_100"]) == ("G5", "LOW", 91)
+    assert (by_name["李治"]["axis_grade"], by_name["李治"]["position"], by_name["李治"]["score_100"]) == ("G2", "LOW", 38)
+    assert (by_name["胤禛"]["axis_grade"], by_name["胤禛"]["position"], by_name["胤禛"]["score_100"]) == ("G5", "LOW", 91)
     assert by_name["李世民"]["components"]["C4"]["score"] == 25.2
     assert by_name["李治"]["components"]["C4"]["score"] == -19.8
-    assert by_name["玄烨"]["score_100"] == 66
+    assert (by_name["玄烨"]["axis_grade"], by_name["玄烨"]["position"], by_name["玄烨"]["score_100"]) == ("G4", "LOW", 77)
     assert by_name["玄烨"]["components"]["C4"]["score"] == 7.5
+    assert by_name["李隆基"]["axis_grade"] == "G2"
+    assert by_name["杨广"]["axis_grade"] == "G0"

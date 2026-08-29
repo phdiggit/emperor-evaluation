@@ -112,17 +112,17 @@ def _overview_table(axis: str, records: list[dict[str, Any]], labels: dict[str, 
         return lines
     if axis == "M3":
         lines = [
-            "| 人物 | 政权 | C1 | C2 | C3 | C4 | 治理结果/220 | M3/100 | 档位 |",
-            "|---|---|---:|---:|---:|---:|---:|---:|---|",
+            "| 人物 | 政权 | 民生局面 | 经济财政局面 | 社会安全局面 | 任内动态 | 档位 | 雷达值 | 证据 |",
+            "|---|---|---|---|---|---|---|---:|---|",
         ]
         for row in records:
             components = row["components"]
             cells = [
                 row["ruler_name"], row["polity"],
-                components["C1"]["score"], components["C2"]["score"],
-                components["C3"]["score"], components["C4"]["score"],
-                row["component_total_220"], row["score_100"],
+                row["absolute_state_meanings"]["C1"], row["absolute_state_meanings"]["C2"],
+                row["absolute_state_meanings"]["C3"], row["dynamic_label"],
                 f"{row['axis_grade']}-{row['position']}",
+                row["radar_value"], row["axis_evidence_level"],
             ]
             lines.append("| " + " | ".join(_escape(cell) for cell in cells) + " |")
         return lines
@@ -184,6 +184,23 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
     lines.extend(_overview_table(axis, records, labels))
     lines.extend(["", "## 逐人裁决依据", ""])
     for display, row in enumerate(records, 1):
+        if axis == "M3":
+            lines.extend([
+                f"### {display}. {row['ruler_name']}（{row['ruler_id']}）",
+                "",
+                f"- **结算**：`{_grade(row)}` / 雷达值 `{row['radar_value']}` / `{row['axis_evidence_level']}` / `{row['score_status']}`。",
+                f"- **接手局面**：{row['starting_context']}",
+                f"- **建设与维持**：{row['construction_and_maintenance']}",
+                f"- **成本与后果**：{row['costs_and_consequences']}",
+                f"- **关键行为链**：{row['behavior_chain']}",
+                f"- **交班局面**：{row['handoff_state']}",
+                f"- **落档理由**：{row['grade_basis']}",
+                f"- **档内位置**：{row['position_basis']}",
+                f"- **限制**：{_limitations(row, labels)}",
+                f"- **来源**：{'；'.join(row.get('source_refs') or [])}",
+                "",
+            ])
+            continue
         lines.extend([
             f"### {display}. {row['ruler_name']}（{row['ruler_id']}）",
             "",
@@ -216,7 +233,7 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
     if axis == "M3":
         lines.extend([
             "## M3 专项边界", "",
-            "M3是第二项C1、C2、C3、C4的同步画像轴：治理结果220分按固定公式线性折算为100分。旧M3过程材料只用于补正四子项证据、窗口和归责，不另加能力分、政策数或姓名覆写。", "",
+            "M3以第二项C1、C2、C3、C4的正式裁决为事实底座，但不相加、不线性折算，也不把任一子项档位一对一转换为M3。先判断民生、经济财政与社会安全的绝对局面组合，再判断任内建设、承压、恶化及其归责，最后用行为链、阶段反转和交班下沿复核语义档位；雷达值只由最终档位与档内位置固定投影。旧M3过程材料继续用于补正行为、反馈、成本和归责，不按政策数量计功扣责。", "",
         ])
     if axis == "M4":
         lines.extend([

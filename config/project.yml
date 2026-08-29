@@ -80,6 +80,26 @@ profile_assessment:
     profile_total_enabled: false
     profile_ranking_enabled: false
     composite_ranking_write: false
+  video_card_samples:
+    status: supported_offline_deterministic
+    source: settled_axes_formal_json_only
+    output_dir: docs/评分结算/皇帝人物画像/视频人物卡小样
+    canvas: [1920, 1080]
+    portrait_status: local_public_domain_assets_with_manifest
+    portrait_manifest: config/profile/video-card-portrait-assets.json
+    editorial_draft_json: config/profile/video-card-editorial.json
+    profile_total_enabled: false
+    profile_ranking_enabled: false
+    composite_ranking_write: false
+  video_copy_samples:
+    status: supported_offline_deterministic
+    source: settled_axes_formal_json_only
+    output_dir: docs/评分结算/皇帝人物画像/视频文字小样
+    editorial_policy: formal_excerpts_verbatim_then_human_approval
+    editorial_draft_json: config/profile/video-copy-sample-editorial.json
+    profile_total_enabled: false
+    profile_ranking_enabled: false
+    composite_ranking_write: false
   manifest_json: docs/评分结算/皇帝人物画像/00-已结算轴正式入口.json
   manifest_markdown: docs/评分结算/皇帝人物画像/00-已结算轴正式入口.md
   settled_axes:
@@ -106,6 +126,7 @@ profile_assessment:
       markdown: docs/评分结算/皇帝人物画像/M3/29-M3民生财政建设正式结算.md
       c1_c4_supplement_audit_json: docs/评分结算/皇帝人物画像/M3/30-M3对第二项C1-C4逐人补正审计.json
       acceptance_markdown: docs/评分结算/皇帝人物画像/M3/31-M3民生财政建设全池收口.md
+      adjudications_json: config/profile/m3-livelihood-adjudications.json
       supplement_adjudications_json: config/profile/m3-c1-c4-supplement-adjudications.json
       missing_ruler_adjudications_json: config/profile/m3-c1-c4-missing-ruler-adjudications.json
       coverage_matrix_json: config/profile/m3-coverage-matrix.json

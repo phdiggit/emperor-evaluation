@@ -16,15 +16,16 @@ POOL = ROOT / "config" / "common" / "canonical-ruler-pool.json"
 
 AXIS_ORDER = ("M1", "M2", "M3", "M4", "C1", "C2", "C3", "C5")
 AXIS_LABELS = {
-    "M1": "M1\n军事判断与统帅",
-    "M2": "M2\n外交博弈与联盟",
-    "M3": "M3\n财政经济工具",
-    "M4": "M4\n内部联盟管理",
-    "C1": "C1\n战略与风险控制",
-    "C2": "C2\n信息学习与纠错",
-    "C3": "C3\n识才配置与授权",
-    "C5": "C5\n权力运用与克制",
+    "M1": "军事统帅",
+    "M2": "外交博弈",
+    "M3": "民生财政",
+    "M4": "联盟整合",
+    "C1": "战略风控",
+    "C2": "学习纠错",
+    "C3": "识才授权",
+    "C5": "权力克制",
 }
+AXIS_COLORS = ("#2F80ED", "#27AE60", "#F2994A", "#EB5757", "#9B51E0", "#56CCF2", "#F2C94C", "#BB6BD9")
 SAMPLE_RULER_IDS = (
     "RULER-QIN-YINGZHENG",
     "RULER-HAN-LIUXIU",
@@ -40,9 +41,6 @@ COMPARISONS = (
     ("RULER-MING-ZHU-YUANZHANG", "RULER-PUBLIC-4EB7AC987FECC59F"),
     ("RULER-QIN-YINGZHENG", "RULER-YUAN-TEMUJI"),
 )
-FOOTNOTE = "独立人物画像：八轴均按 0—100 同一标尺展示；不构成画像总分或排名，不写入五项综合榜。"
-
-
 @dataclass(frozen=True)
 class Profile:
     ruler_id: str
@@ -144,7 +142,7 @@ def _matplotlib() -> Any:
     import matplotlib.pyplot as plt
     from matplotlib import font_manager
 
-    candidates = ("Microsoft YaHei", "Microsoft YaHei UI", "Noto Sans CJK SC", "SimHei", "SimSun")
+    candidates = ("Microsoft YaHei UI", "Microsoft YaHei", "Noto Sans CJK SC", "SimHei", "SimSun")
     font_name = None
     for candidate in candidates:
         try:
@@ -169,35 +167,47 @@ def _radar_axes(plt: Any):
 
     angles = [2 * math.pi * index / len(AXIS_ORDER) for index in range(len(AXIS_ORDER))]
     closed_angles = angles + angles[:1]
-    figure, axis = plt.subplots(figsize=(10, 10), subplot_kw={"projection": "polar"})
+    figure, axis = plt.subplots(figsize=(9.5, 9.5), subplot_kw={"projection": "polar"})
     axis.set_theta_offset(math.pi / 2)
     axis.set_theta_direction(-1)
     axis.set_xticks(angles)
-    axis.set_xticklabels([AXIS_LABELS[code] for code in AXIS_ORDER], fontsize=11, linespacing=1.45)
+    labels = axis.set_xticklabels([AXIS_LABELS[code] for code in AXIS_ORDER], fontsize=13, fontweight="semibold")
+    for label, color in zip(labels, AXIS_COLORS):
+        label.set_color(color)
+    axis.tick_params(axis="x", pad=24)
     axis.set_ylim(0, 100)
     axis.set_yticks((0, 20, 40, 60, 80, 100))
     axis.set_yticklabels(("0", "20", "40", "60", "80", "100"), color="#4d4d4d", fontsize=9)
-    axis.yaxis.grid(True, color="#bdbdbd", linewidth=0.7)
-    axis.xaxis.grid(True, color="#8c8c8c", linewidth=0.8, linestyle="--")
-    axis.spines["polar"].set_color("#4d4d4d")
+    for angle, color in zip(angles, AXIS_COLORS):
+        axis.bar(angle, 100, width=2 * math.pi / len(AXIS_ORDER), bottom=0, color=color, alpha=0.045, edgecolor="none", zorder=0)
+    axis.yaxis.grid(True, color="#c7c7c7", linewidth=0.7)
+    axis.xaxis.grid(True, color="#a9a9a9", linewidth=0.8, linestyle="--")
+    axis.spines["polar"].set_color("#6b7280")
     return figure, axis, closed_angles
 
 
 def _save(figure: Any, path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    figure.savefig(path.with_suffix(".svg"), bbox_inches="tight")
-    figure.savefig(path.with_suffix(".png"), dpi=240, bbox_inches="tight")
+    png_path = path.with_suffix(".png")
+    temporary_png = path.parent / ".radar-render.png"
+    figure.savefig(temporary_png, format="png", dpi=240, bbox_inches="tight")
+    temporary_png.replace(png_path)
+    svg_path = path.with_suffix(".svg")
+    figure.savefig(svg_path, bbox_inches="tight")
+    svg_path.write_text(
+        "\n".join(line.rstrip() for line in svg_path.read_text(encoding="utf-8").splitlines()) + "\n",
+        encoding="utf-8",
+    )
 
 
 def render_single(profile: Profile, output_path: Path) -> None:
     plt = _matplotlib()
     figure, axis, angles = _radar_axes(plt)
     values = list(profile.values) + [profile.values[0]]
-    axis.plot(angles, values, color="#0072B2", linewidth=2.4, marker="o", markersize=5, label=profile.ruler_name)
-    axis.fill(angles, values, color="#0072B2", alpha=0.15)
-    axis.set_title(f"{profile.ruler_name}（{profile.ruler_id}）\n八轴人物画像雷达图小样", pad=28, fontsize=16, fontweight="bold")
-    axis.legend(loc="upper right", bbox_to_anchor=(1.23, 1.14), frameon=True)
-    figure.text(0.5, 0.02, FOOTNOTE, ha="center", fontsize=10, color="#333333")
+    axis.plot(angles, values, color="#3D4C9E", linewidth=2.8, marker="o", markersize=5.5)
+    axis.fill(angles, values, color="#5E72E4", alpha=0.16)
+    axis.scatter(angles[:-1], values[:-1], c=AXIS_COLORS, s=42, zorder=4, edgecolors="white", linewidths=0.8)
+    axis.set_title(profile.ruler_name, pad=34, fontsize=22, fontweight="bold", color="#202938")
     _save(figure, output_path)
     plt.close(figure)
 
@@ -205,13 +215,12 @@ def render_single(profile: Profile, output_path: Path) -> None:
 def render_comparison(left: Profile, right: Profile, output_path: Path) -> None:
     plt = _matplotlib()
     figure, axis, angles = _radar_axes(plt)
-    styles = ((left, "#0072B2", "o", "-"), (right, "#D55E00", "s", "--"))
+    styles = ((left, "#3D4C9E", "o", "-"), (right, "#E76F51", "s", "--"))
     for profile, color, marker, line_style in styles:
         values = list(profile.values) + [profile.values[0]]
         axis.plot(angles, values, color=color, linewidth=2.3, marker=marker, markersize=5, linestyle=line_style, label=profile.ruler_name)
-    axis.set_title(f"{left.ruler_name} 与 {right.ruler_name}\n八轴人物画像雷达图对比小样", pad=28, fontsize=16, fontweight="bold")
-    axis.legend(loc="upper right", bbox_to_anchor=(1.25, 1.14), frameon=True)
-    figure.text(0.5, 0.02, FOOTNOTE, ha="center", fontsize=10, color="#333333")
+    axis.set_title(f"{left.ruler_name} · {right.ruler_name}", pad=34, fontsize=22, fontweight="bold", color="#202938")
+    axis.legend(loc="upper right", bbox_to_anchor=(1.2, 1.13), frameon=True, fontsize=11)
     _save(figure, output_path)
     plt.close(figure)
 
@@ -241,7 +250,6 @@ def write_samples(output_dir: Path | None = None) -> dict[str, Any]:
         "profile_total_enabled": False,
         "profile_ranking_enabled": False,
         "composite_ranking_write": False,
-        "footnote": FOOTNOTE,
         "samples": [{"ruler_id": row.ruler_id, "ruler_name": row.ruler_name, "values": list(row.values)} for row in selected],
         "comparisons": [{"left": left, "right": right} for left, right in COMPARISONS],
         "source_sha256": {axis: _sha256(ROOT / _project_profile_config()["settled_axes"][axis]["json"]) for axis in AXIS_ORDER},
@@ -255,10 +263,9 @@ def write_samples(output_dir: Path | None = None) -> dict[str, Any]:
     (output_dir / "00-雷达图小样说明.md").write_text(
         "# 八轴人物画像雷达图小样\n\n"
         "固定八轴顺序为 M1、M2、M3、M4、C1、C2、C3、C5，刻度统一为 0—100。SVG 保留可编辑文本；PNG 以 240 DPI 输出。"
-        "蓝色实线圆点与橙色虚线方点同时用线型、标记和颜色区分，支持色弱和黑白打印。\n\n"
+        "八个四字轴标题向外留白，使用多色标签与淡色扇区；对比线继续以线型、标记和颜色共同区分。\n\n"
         "## 候选人物\n\n" + rationale + "\n\n"
-        "候选覆盖秦、汉、唐、元、明、清、北宋，并包含高位、低位和明显不均衡画像；选择只服务图表可读性测试，非总分或排名。\n\n"
-        f"{FOOTNOTE}\n",
+        "候选覆盖秦、汉、唐、元、明、清、北宋，并包含高位、低位和明显不均衡画像；选择只服务图表可读性测试，非总分或排名。\n",
         encoding="utf-8",
     )
     return index

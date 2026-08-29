@@ -25,6 +25,8 @@ from emperor_v4.evaluation.profile_m4_settlement import build as build_profile_m
 from emperor_v4.evaluation.profile_m4_verifier import verify as verify_profile_m4_settlement
 from emperor_v4.evaluation.profile_markdown import AXIS_FILES, write_axes as write_profile_markdown_axes
 from emperor_v4.evaluation.profile_radar import write_samples as write_profile_radar_samples
+from emperor_v4.evaluation.profile_video_card import write_samples as write_profile_video_card_samples
+from emperor_v4.evaluation.profile_video_copy import write_samples as write_profile_video_copy_samples
 from emperor_v4.evaluation.third_item_current_settlement import (
     build_current_third_item_settlement,
     write_current_third_item_settlement,
@@ -53,6 +55,12 @@ def _parser() -> argparse.ArgumentParser:
     profile_radar = commands.add_parser("profile-radar-samples")
     profile_radar.add_argument("--write", action="store_true")
     profile_radar.add_argument("--output-dir", type=Path)
+    video_card = commands.add_parser("profile-video-card-samples")
+    video_card.add_argument("--write", action="store_true")
+    video_card.add_argument("--output-dir", type=Path)
+    video_copy = commands.add_parser("profile-video-copy-samples")
+    video_copy.add_argument("--write", action="store_true")
+    video_copy.add_argument("--output-dir", type=Path)
     composite = commands.add_parser("composite-ranking")
     composite.add_argument("--workspace-root", type=Path, default=Path("."))
     composite.add_argument("--write", action="store_true")
@@ -118,6 +126,18 @@ def main(argv: Sequence[str] | None = None) -> int:
             raise SystemExit("profile-radar-samples 必须显式传入 --write")
         report = write_profile_radar_samples(args.output_dir)
         print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "profile-video-card-samples":
+        if not args.write:
+            raise SystemExit("profile-video-card-samples 必须显式传入 --write")
+        report = write_profile_video_card_samples(args.output_dir)
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "profile-video-copy-samples":
+        if not args.write:
+            raise SystemExit("profile-video-copy-samples 必须显式传入 --write")
+        report = write_profile_video_copy_samples(args.output_dir)
+        print(json.dumps({"people": len(report["people"]), "axis_order": report["axis_order"]}, ensure_ascii=False, indent=2))
         return 0
 
     workspace_root = args.workspace_root.resolve()

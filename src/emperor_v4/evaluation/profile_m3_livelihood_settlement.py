@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
@@ -10,6 +11,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[3]
 POOL = ROOT / "config/common/canonical-ruler-pool.json"
 OLD_M3 = ROOT / "config/profile/m3-adjudications.json"
+M3_ADJUDICATIONS = ROOT / "config/profile/m3-livelihood-adjudications.json"
 OLD_SEMANTIC = ROOT / "config/profile/m3-semantic-review-decisions.json"
 MISSING = ROOT / "config/profile/m3-c1-c4-missing-ruler-adjudications.json"
 SUPPLEMENT = ROOT / "config/profile/m3-c1-c4-supplement-adjudications.json"
@@ -42,21 +44,41 @@ FINANCE_MECHANISMS = {
 }
 C1_MECHANISMS = {"PUBLIC_WORKS", "RELIEF_STORAGE", "TAX_LABOR", "WAR_FINANCE"}
 
-GRADE_THRESHOLDS = (
-    (90.0, "G5"),
-    (75.0, "G4"),
-    (55.0, "G3"),
-    (35.0, "G2"),
-    (15.0, "G1"),
-    (0.0, "G0"),
-)
-GRADE_RANGES = {
-    "G0": (0.0, 15.0),
-    "G1": (15.0, 35.0),
-    "G2": (35.0, 55.0),
-    "G3": (55.0, 75.0),
-    "G4": (75.0, 90.0),
-    "G5": (90.0, 100.000001),
+GRADE_PROJECTION = {
+    ("G0", "LOW"): 2,
+    ("G0", "MID"): 7,
+    ("G0", "HIGH"): 12,
+    ("G1", "LOW"): 18,
+    ("G1", "MID"): 25,
+    ("G1", "HIGH"): 31,
+    ("G2", "LOW"): 38,
+    ("G2", "MID"): 45,
+    ("G2", "HIGH"): 51,
+    ("G3", "LOW"): 58,
+    ("G3", "MID"): 65,
+    ("G3", "HIGH"): 71,
+    ("G4", "LOW"): 77,
+    ("G4", "MID"): 82,
+    ("G4", "HIGH"): 87,
+    ("G5", "LOW"): 91,
+    ("G5", "MID"): 94,
+    ("G5", "HIGH"): 97,
+}
+
+ABSOLUTE_STATE_LABELS = {
+    "C1": {1: "民生处于严重破坏或普遍失保", 2: "民生低位且脆弱", 3: "民生维持中等盘面", 4: "民生多数阶段稳定", 5: "民生达到广泛高位"},
+    "C2": {1: "经济财政接近失序", 2: "经济财政低位承压", 3: "经济财政尚可运行", 4: "经济财政健康", 5: "经济财政达到罕见高位"},
+    "C3": {1: "社会安全严重失守", 2: "社会安全脆弱", 3: "社会安全基本可用", 4: "社会安全稳定", 5: "社会安全达到广泛高位"},
+}
+
+DYNAMIC_LABELS = {
+    "RARE_RECOVERY_OR_STEADY_BUILD": "形成罕见恢复或强承压建设",
+    "SUBSTANTIAL_BUILD": "形成实质建设与恢复",
+    "POSITIVE_MAINTENANCE": "实现正向守成或温和改善",
+    "LIMITED_OR_MIXED_MAINTENANCE": "维持有限且正负并存",
+    "ATTRIBUTABLE_OR_MIXED_DECLINE": "出现可归责或混合性退步",
+    "SEVERE_DECLINE": "出现严重退步",
+    "COLLAPSE_OR_EXTREME_DECLINE": "出现崩坏或极端退步",
 }
 
 
@@ -624,7 +646,7 @@ def build_result(finance: dict[str, dict[str, Any]]) -> dict[str, Any]:
     payload["payload_sha256"] = _records_hash(records)
     payload["m3_sync"] = {
         "axis_name": "民生财政建设",
-        "formula": "normalized_100 = clamp(round((C1 + C2 + C3 + C4) / 220 * 100), 0, 100)",
+        "role": "COMPONENT_NAVIGATION_AND_FORMAL_SUBITEM_SOURCE_NOT_M3_GRADE_FORMULA",
         "supplement_source": "config/profile/m3-c1-c4-supplement-adjudications.json",
     }
     _write_json(RESULT, payload)
@@ -680,36 +702,463 @@ def sync_second_item_total(result: dict[str, Any]) -> dict[str, Any]:
     return payload
 
 
-def _grade(value: float) -> str:
-    for threshold, grade in GRADE_THRESHOLDS:
-        if value >= threshold:
-            return grade
-    raise AssertionError(value)
+def _band_number(value: str) -> int:
+    return int(str(value).rsplit("-", 1)[-1])
 
 
-def _position(value: float, grade: str) -> str:
-    low, high = GRADE_RANGES[grade]
-    width = high - low
-    relative = (value - low) / width if width else 0.5
-    if relative < 1 / 3:
-        return "LOW"
-    if relative < 2 / 3:
+def _absolute_state_tier(bands: tuple[int, int, int]) -> int:
+    ordered = sorted(bands, reverse=True)
+    if ordered[1] >= 5 and ordered[2] >= 4:
+        return 5
+    if ordered[2] >= 4 or (ordered[1] >= 4 and ordered[2] >= 3):
+        return 4
+    if ordered[2] >= 3 or (ordered[1] >= 3 and ordered[2] >= 2):
+        return 3
+    if ordered[2] >= 2 or (ordered[1] >= 2 and ordered[2] >= 1):
+        return 2
+    return 1
+
+
+def _dynamic_class(c4_score: float) -> str:
+    if c4_score >= 25:
+        return "RARE_RECOVERY_OR_STEADY_BUILD"
+    if c4_score >= 16:
+        return "SUBSTANTIAL_BUILD"
+    if c4_score >= 8:
+        return "POSITIVE_MAINTENANCE"
+    if c4_score >= 0:
+        return "LIMITED_OR_MIXED_MAINTENANCE"
+    if c4_score > -16:
+        return "ATTRIBUTABLE_OR_MIXED_DECLINE"
+    if c4_score > -30:
+        return "SEVERE_DECLINE"
+    return "COLLAPSE_OR_EXTREME_DECLINE"
+
+
+def _semantic_grade(tier: int, dynamic: str) -> str:
+    positive = {"RARE_RECOVERY_OR_STEADY_BUILD", "SUBSTANTIAL_BUILD", "POSITIVE_MAINTENANCE"}
+    limited = {"LIMITED_OR_MIXED_MAINTENANCE", "ATTRIBUTABLE_OR_MIXED_DECLINE"}
+    if tier == 5:
+        return "G5" if dynamic in positive else "G4" if dynamic in limited else "G2"
+    if tier == 4:
+        return "G4" if dynamic in positive else "G3" if dynamic in limited else "G2"
+    if tier == 3:
+        return "G3" if dynamic in positive else "G2" if dynamic in limited else "G1"
+    if tier == 2:
+        return "G2" if dynamic in positive else "G1" if dynamic != "COLLAPSE_OR_EXTREME_DECLINE" else "G0"
+    return "G1" if dynamic in positive else "G0"
+
+
+def _has_negative_counter(parent_rows: list[dict[str, Any]]) -> bool:
+    return any(
+        parent.get("direction") in {"NEGATIVE", "MIXED_NEGATIVE"}
+        or parent.get("parent_type") == "COUNTER_REGIME_CHAIN"
+        for parent in parent_rows
+    )
+
+
+def _semantic_position(grade: str, dynamic: str, parent_rows: list[dict[str, Any]]) -> str:
+    negative_counter = _has_negative_counter(parent_rows)
+    if grade == "G5":
+        return "LOW" if negative_counter or dynamic == "POSITIVE_MAINTENANCE" else "MID"
+    if grade == "G4":
+        if dynamic == "RARE_RECOVERY_OR_STEADY_BUILD" and not negative_counter:
+            return "HIGH"
+        if dynamic in {"LIMITED_OR_MIXED_MAINTENANCE", "ATTRIBUTABLE_OR_MIXED_DECLINE"}:
+            return "LOW"
         return "MID"
-    return "HIGH"
+    if grade == "G3":
+        if dynamic in {"RARE_RECOVERY_OR_STEADY_BUILD", "SUBSTANTIAL_BUILD"}:
+            return "HIGH"
+        if dynamic in {"ATTRIBUTABLE_OR_MIXED_DECLINE", "LIMITED_OR_MIXED_MAINTENANCE"}:
+            return "LOW"
+        return "MID"
+    if grade == "G2":
+        if dynamic in {"RARE_RECOVERY_OR_STEADY_BUILD", "SUBSTANTIAL_BUILD"}:
+            return "HIGH"
+        if dynamic in {"ATTRIBUTABLE_OR_MIXED_DECLINE", "SEVERE_DECLINE", "COLLAPSE_OR_EXTREME_DECLINE"}:
+            return "LOW"
+        return "MID"
+    if grade == "G1":
+        if dynamic in {"POSITIVE_MAINTENANCE", "LIMITED_OR_MIXED_MAINTENANCE"}:
+            return "HIGH"
+        if dynamic in {"SEVERE_DECLINE", "COLLAPSE_OR_EXTREME_DECLINE"}:
+            return "LOW"
+        return "MID"
+    if dynamic == "COLLAPSE_OR_EXTREME_DECLINE":
+        return "LOW"
+    return "MID" if dynamic == "SEVERE_DECLINE" else "HIGH"
 
 
-def build_m3(result: dict[str, Any], supplement: dict[str, Any]) -> dict[str, Any]:
+def _public_text(value: Any) -> str:
+    text = re.sub(r"\s+", " ", str(value or "")).strip()
+    replacements = {
+        "C1-1": "民生一档", "C1-2": "民生二档", "C1-3": "民生三档", "C1-4": "民生四档", "C1-5": "民生五档", "C1-6": "民生六档",
+        "C2-1": "经济财政一档", "C2-2": "经济财政二档", "C2-3": "经济财政三档", "C2-4": "经济财政四档", "C2-5": "经济财政五档", "C2-6": "经济财政六档",
+        "C3-1": "社会安全一档", "C3-2": "社会安全二档", "C3-3": "社会安全三档", "C3-4": "社会安全四档", "C3-5": "社会安全五档", "C3-6": "社会安全六档",
+        "S_avg": "任内主态", "S_end": "交班局面", "S_main": "任内主态", "S0": "接手局面",
+    }
+    for old, new in replacements.items():
+        text = text.replace(old, new)
+    text = re.sub(r"(?:，|；)?故K[0-4](?:结算|吸收阶段低位)?", "", text)
+    text = re.sub(r"(?:，|；)?并以K[0-4]结算", "", text)
+    text = re.sub(r"K[0-4]", "阶段波动", text)
+    text = re.sub(r"C[123]\s*\d(?:\.\d+)?→\d(?:\.\d+)?(?:\s*/\s*C[123]\s*\d(?:\.\d+)?→\d(?:\.\d+)?)*", "三类局面的起止变化", text)
+    text = re.sub(r"(?<!\d)\d(?:\.\d+)?/\d(?:\.\d+)?/\d(?:\.\d+)?(?!\d)", "三类局面组合", text)
+    text = text.replace("C保留", "绝对局面保留").replace("C4只看交班", "动态裁决聚焦交班")
+    text = text.replace("主档", "任内主态").replace("硬门", "证据门")
+    text = text.replace("阶段波动局部波动", "局部波动")
+    text = text.replace("任内主态严格等于任内主态=", "任内主态为")
+    text = text.replace("未命中可归责负向轨迹", "现有材料未闭合可归责的持续负向轨迹")
+    text = text.replace("C4结算", "动态裁决").replace("C3取", "社会安全轨迹为")
+    text = text.replace("不计档差", "不重复奖励起终点差").replace("WAR", "军事成本账")
+    for code, label in {
+        "DA0": "无额外破坏归责",
+        "DA1": "有限额外破坏归责",
+        "DA2": "中等额外破坏归责",
+        "DA3": "严重额外破坏归责",
+        "DA4": "极端额外破坏归责",
+    }.items():
+        text = text.replace(code, label)
+    return text.strip(" ；")
+
+
+def _first_sentence(value: Any, limit: int = 260) -> str:
+    text = _public_text(value)
+    sentence = re.split(r"(?<=[。！？])", text, maxsplit=1)[0].strip()
+    if len(sentence) <= limit:
+        return sentence
+    return sentence[:limit].rstrip("，；、 ") + "。"
+
+
+def _first_state_text(row: dict[str, Any]) -> str:
+    reason = _public_text(row.get("adjudication_reason"))
+    for sentence in re.split(r"(?<=[。！？])", reason):
+        if any(term in sentence for term in ("接手", "承接", "即位", "起点", "初年", "初期", "交班成为")):
+            return sentence.strip()
+    for evidence in row.get("evidence") or []:
+        for key in ("described_state", "summary"):
+            text = _public_text(evidence.get(key))
+            if text:
+                return text
+    return reason or "现有材料只能形成有界的接盘判断。"
+
+
+def _unique_texts(*values: Any) -> list[str]:
+    result: list[str] = []
+    for value in values:
+        text = _public_text(value)
+        if text and text not in result:
+            result.append(text)
+    return result
+
+
+def _clean_chain_field(value: Any) -> str:
+    text = _public_text(value)
+    for marker in (" | ", " # ", " source_unit_id", " work_title:", " raw_sha256:"):
+        if marker in text:
+            text = text.split(marker, 1)[0].strip()
+    for boilerplate in (
+        "只按所列候选中的本人诏令、采纳、拒绝、停止、修改或知情维持登记；不从结果材料补写选择。",
+        "原材料含反馈或结果定位。",
+    ):
+        text = text.replace(boilerplate, "").strip()
+    return _first_sentence(text, 240)
+
+
+def _portable_ref(value: Any) -> bool:
+    ref = str(value)
+    return not ref.startswith(".cache/") and "web_ref:turn" not in ref
+
+
+def _public_parent(parent: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "parent_id": parent["parent_id"],
+        "direction": parent.get("direction"),
+        "material_intensity": parent.get("material_intensity"),
+        "constraint_and_task": _clean_chain_field(parent.get("constraint_and_task")),
+        "personal_choice": _clean_chain_field(parent.get("personal_choice")),
+        "feedback_and_response": _clean_chain_field(parent.get("feedback_and_response")),
+        "source_refs": [ref for ref in parent.get("source_refs") or [] if _portable_ref(ref)],
+        "use_boundary": "BEHAVIOR_FEEDBACK_ATTRIBUTION_REVIEW_NOT_INDEPENDENT_GRADE_CONVERSION",
+    }
+
+
+def _behavior_chain(
+    parent_rows: list[dict[str, Any]],
+    c4_row: dict[str, Any],
+    fallback_texts: tuple[str, ...],
+) -> tuple[str, list[str]]:
+    parts: list[str] = []
+    source_refs: list[str] = []
+    for parent in parent_rows[:3]:
+        chain_parts = _unique_texts(
+            _clean_chain_field(parent.get("constraint_and_task")),
+            _clean_chain_field(parent.get("personal_choice")),
+            _clean_chain_field(parent.get("feedback_and_response")),
+        )
+        if chain_parts and not all(
+            any(marker in part for marker in ("制度段", "已按所列", "未见字段保持缺口", "未命中可归责"))
+            for part in chain_parts
+        ):
+            parts.append(" ".join(chain_parts))
+        for ref in parent.get("source_refs") or []:
+            if _portable_ref(ref) and ref not in source_refs:
+                source_refs.append(ref)
+    if not parts:
+        attribution = _public_text(
+            c4_row.get("attribution_readjudication_reason")
+            or c4_row.get("negative_tail_adjudication_reason")
+            or ""
+        )
+        if attribution and not any(
+            attribution.startswith(prefix)
+            for prefix in (
+                "本人窗口闭合至少一条有限阶段",
+                "本人致损选择跨阶段",
+                "现有材料未闭合可归责",
+                "未命中可归责",
+            )
+        ):
+            parts.append(attribution)
+    if not parts or all(len(part) < 28 or "未命中可归责" in part for part in parts):
+        action_sentences: list[str] = []
+        for value in fallback_texts:
+            for sentence in re.split(r"(?<=[。！？])", _public_text(value)):
+                if any(term in sentence for term in ("建立", "维持", "停止", "修正", "改革", "赈", "减", "免", "征", "税", "役", "财政", "粮", "市场", "工程", "战争", "军费", "仓", "币")):
+                    clean = sentence.strip()
+                    if clean and clean not in action_sentences:
+                        action_sentences.append(clean)
+                if len(action_sentences) >= 2:
+                    break
+            if len(action_sentences) >= 2:
+                break
+        if action_sentences:
+            parts = ["正式结果材料可闭合的选择—局面链为：" + " ".join(action_sentences) + "现有材料未进一步闭合反馈后再选择，不据此扩张归责。"]
+    if not parts:
+        parts.append("现有结果材料未闭合到可单独归责的创设、维持、停止或反馈后再选择；本次只按已观察局面作低外推裁决，不把缺少政策记录当作正证或负证。")
+    return " ".join(parts), source_refs
+
+
+def _handoff_text(rows: dict[str, dict[str, Any]], consequences: str) -> str:
+    candidates: list[str] = []
+    for value in (
+        rows["C4"].get("terminal_reason"),
+        rows["C1"].get("adjudication_reason"),
+        rows["C2"].get("adjudication_reason"),
+        rows["C3"].get("adjudication_reason"),
+    ):
+        for sentence in re.split(r"(?<=[。！？])", _public_text(value)):
+            if any(term in sentence for term in ("交班", "终点", "末期", "末年", "继任", "退出")):
+                clean = sentence.strip()
+                if clean and clean not in candidates:
+                    candidates.append(clean)
+            if len(candidates) >= 2:
+                break
+        if len(candidates) >= 2:
+            break
+    if candidates:
+        text = " ".join(candidates)
+        if text != consequences:
+            return text
+    terminal = _public_text(rows["C4"].get("terminal_reason") or rows["C4"].get("adjudication_reason"))
+    return terminal or "交班状态只能按现有绝对局面与动态材料作有界判断。"
+
+
+def _grade_rationale(
+    *,
+    bands: tuple[int, int, int],
+    dynamic: str,
+    grade: str,
+    position: str,
+    has_negative_counter: bool,
+    handoff: str,
+) -> str:
+    state_text = "；".join(
+        ABSOLUTE_STATE_LABELS[axis][band]
+        for axis, band in zip(("C1", "C2", "C3"), bands, strict=True)
+    )
+    counter = "，但阶段反转或负向行为链压低档内位置" if has_negative_counter else ""
+    grade_meaning = {
+        "G5": "三类绝对局面整体达到历史罕见上沿，任内建设或高位守成也经受了动态检验",
+        "G4": "绝对局面广泛高于合格线，且建设、恢复或承压守成形成稳定强长板",
+        "G3": "局面总体可用并有实质建设，但广度、持续性或交班下沿不足以构成强长板",
+        "G2": "存在可用局面或局部建设，但失衡、低位或退步已成为不可忽略的主模式",
+        "G1": "主要局面长期低位或严重退步，有限改善不足以改变强短板",
+        "G0": "主要局面出现罕见、稳定且难恢复的失能或崩坏",
+    }[grade]
+    handoff_text = _first_sentence(handoff, 180)
+    return f"{state_text}；任内动态为“{DYNAMIC_LABELS[dynamic]}”。交班复核显示：{handoff_text}{grade_meaning}{counter}，据此裁为{grade}-{position}。"
+
+
+def _position_rationale(grade: str, position: str, dynamic: str, has_negative_counter: bool, handoff: str) -> str:
+    if position == "HIGH":
+        return f"在{grade}内部，本人形成“{DYNAMIC_LABELS[dynamic]}”，且现有交班与反例没有改写主模式，置于HIGH。"
+    if position == "LOW":
+        reason = "存在阶段反转或明确负向行为链" if has_negative_counter else DYNAMIC_LABELS[dynamic]
+        return f"在{grade}内部，因{reason}，且交班下沿仍有清楚限制，置于LOW；交班依据为：{_first_sentence(handoff, 140)}"
+    return f"在{grade}内部，“{DYNAMIC_LABELS[dynamic]}”已成立，但覆盖、持续或交班余量仍有边界，置于MID。"
+
+
+def build_m3_adjudications(
+    finance: dict[str, dict[str, Any]],
+    supplement: dict[str, Any],
+) -> dict[str, Any]:
+    pool = {row["ruler_id"]: row for row in _load(POOL)["records"] if row["pool_status"] == "INCLUDED"}
+    old_by_id = {row["ruler_id"]: row for row in _load(OLD_M3)["records"]}
+    supplement_by_id = {row["ruler_id"]: row for row in supplement["records"]}
+    finance_by_axis = {
+        axis: {row["ruler_id"]: row for row in payload["scores"]}
+        for axis, payload in finance.items()
+    }
+    records: list[dict[str, Any]] = []
+    seen_behavior_chains: set[str] = set()
+    for ruler_id, ruler in pool.items():
+        rows = {axis: finance_by_axis[axis][ruler_id] for axis in C_PATHS}
+        old = old_by_id[ruler_id]
+        parents = old.get("parents") or []
+        bands = tuple(_band_number(rows[axis]["main_band"]) for axis in ("C1", "C2", "C3"))
+        tier = _absolute_state_tier(bands)
+        dynamic = _dynamic_class(float(rows["C4"]["score"]))
+        grade = _semantic_grade(tier, dynamic)
+        position = _semantic_position(grade, dynamic, parents)
+        starting_context = _first_state_text(rows["C1"])
+        construction = " ".join(_unique_texts(rows["C1"].get("adjudication_reason"), rows["C2"].get("adjudication_reason")))
+        if construction.startswith(starting_context):
+            construction = construction[len(starting_context):].lstrip(" ；。") or starting_context
+        c4_consequence = rows["C4"].get("deterioration_curve_summary") or rows["C4"].get("original_adjudication_reason")
+        if "三轴加权" in str(c4_consequence or ""):
+            c4_consequence = rows["C4"].get("negative_tail_adjudication_reason")
+        consequences = " ".join(_unique_texts(rows["C3"].get("adjudication_reason"), c4_consequence))
+        behavior_chain, parent_refs = _behavior_chain(parents, rows["C4"], (construction, consequences))
+        handoff = _handoff_text(rows, consequences)
+        if construction == starting_context:
+            construction = (
+                f"{ruler['ruler_name']}任内没有独立于接盘叙述的建设锚；"
+                f"经济财政材料只能确认：{_first_sentence(rows['C2'].get('adjudication_reason'), 220)}"
+            )
+        if consequences in {starting_context, construction}:
+            consequences = (
+                f"{ruler['ruler_name']}窗口内没有定位到独立于上述局面的新增后果链；"
+                f"社会安全材料只能确认：{_first_sentence(rows['C3'].get('adjudication_reason'), 220)}"
+            )
+        if handoff in {starting_context, construction, consequences}:
+            handoff = (
+                f"{ruler['ruler_name']}的交班材料没有独立新锚；只能确认“{DYNAMIC_LABELS[dynamic]}”延续至窗口末端，"
+                "不得用继任期变化回填本人。"
+            )
+        if behavior_chain in seen_behavior_chains:
+            behavior_chain = (
+                f"{behavior_chain} 对{ruler['ruler_name']}，这条链只解释本人的局面变化："
+                f"{_first_sentence(construction, 180)}"
+            )
+        seen_behavior_chains.add(behavior_chain)
+        negative_counter = _has_negative_counter(parents)
+        grade_basis = _grade_rationale(
+            bands=bands,
+            dynamic=dynamic,
+            grade=grade,
+            position=position,
+            has_negative_counter=negative_counter,
+            handoff=handoff,
+        )
+        position_basis = _position_rationale(grade, position, dynamic, negative_counter, handoff)
+        parent_gaps = list(dict.fromkeys(
+            _public_text(gap).replace("_", " ")
+            for parent in parents
+            for gap in parent.get("evidence_gaps") or []
+            if gap
+        ))
+        limitation_values = _unique_texts(
+            *(rows["C1"].get("material_limitations") or []),
+            *parent_gaps,
+        )
+        if not parents:
+            limitation_values.insert(0, "现有正式结果材料没有闭合到独立的本人过程父链，行为归责仅使用C4已审定部分，不能外推为完整政策能力画像。")
+        evidence_level = "E3" if old["axis_evidence_level"] == "E3" else "E2"
+        confidence = "HIGH" if evidence_level == "E3" else "MEDIUM"
+        review = supplement_by_id[ruler_id]
+        record = {
+            "task_code": f"PROFILE-M3-LIVELIHOOD-{ruler_id}",
+            "ruler_id": ruler_id,
+            "ruler_name": ruler["ruler_name"],
+            "polity": ruler["polity"],
+            "actual_power_window": ruler["actual_power_window"],
+            "axis_grade": grade,
+            "position": position,
+            "score_100": GRADE_PROJECTION[(grade, position)],
+            "absolute_state_tier": tier,
+            "absolute_state_bands": {axis: rows[axis]["main_band"] for axis in ("C1", "C2", "C3")},
+            "absolute_state_meanings": {
+                axis: ABSOLUTE_STATE_LABELS[axis][band]
+                for axis, band in zip(("C1", "C2", "C3"), bands, strict=True)
+            },
+            "dynamic_class": dynamic,
+            "dynamic_label": DYNAMIC_LABELS[dynamic],
+            "starting_context": starting_context,
+            "construction_and_maintenance": construction,
+            "costs_and_consequences": consequences,
+            "behavior_chain": behavior_chain,
+            "handoff_state": handoff,
+            "grade_basis": grade_basis,
+            "position_basis": position_basis,
+            "axis_evidence_level": evidence_level,
+            "confidence": confidence,
+            "output_mode": "FULL_GRADE" if evidence_level == "E3" else "BOUNDED_PROFILE",
+            "parents": [_public_parent(parent) for parent in parents],
+            "limitations": limitation_values or ["现有材料可支撑本档，但仍须按实际权力窗口理解。"],
+            "source_refs": list(dict.fromkeys([
+                *parent_refs,
+                *[
+                    ref for ref in old.get("revealed_capability_channel", {}).get("source_refs") or []
+                    if _portable_ref(ref)
+                ],
+                *[
+                    f"docs/评分结算/第二项治国净收益/财政民生/{filename}#ruler_id={ruler_id}"
+                    for filename in ("01-C1正式结算.json", "02-C2正式结算.json", "03-C3正式结算.json", "04-C4正式结算.json")
+                ],
+            ])),
+            "supplement_review_ref": f"config/profile/m3-c1-c4-supplement-adjudications.json#task_code={review['task_code']}",
+            "review_status": "FULL_POOL_SEMANTIC_READJUDICATION_COMPLETE",
+        }
+        record["public_adjudication"] = (
+            f"{starting_context} {construction} {consequences} "
+            f"关键行为链为：{behavior_chain} 交班时，{handoff} {grade_basis}"
+        )
+        records.append(record)
+    records.sort(key=lambda row: row["ruler_id"])
+    payload = {
+        "schema_version": "profile-m3-livelihood-adjudications-v2",
+        "canonical_status": "FORMAL_CURRENT_INPUT",
+        "axis_code": "M3",
+        "axis_name": "民生财政建设",
+        "record_count": len(records),
+        "adjudication_mode": "ABSOLUTE_STATE_PATTERN_X_DYNAMIC_CHANGE_X_BEHAVIOR_AND_HANDOFF_REVIEW",
+        "forbidden_inputs": ["C1_C2_C3_C4_SUM", "QUANTILE", "NORMALIZATION", "NAME_OVERRIDE", "POLICY_COUNT", "MATERIAL_COUNT"],
+        "grade_projection": {f"{grade}-{position}": value for (grade, position), value in GRADE_PROJECTION.items()},
+        "records": records,
+    }
+    _write_json(M3_ADJUDICATIONS, payload)
+    return payload
+
+
+def build_m3(
+    result: dict[str, Any],
+    supplement: dict[str, Any],
+    adjudications: dict[str, Any],
+) -> dict[str, Any]:
     pool = {row["ruler_id"]: row for row in _load(POOL)["records"] if row["pool_status"] == "INCLUDED"}
     result_by_id = {row["ruler_id"]: row for row in result["scores"]}
     supplement_by_id = {row["ruler_id"]: row for row in supplement["records"]}
+    decisions = {row["ruler_id"]: row for row in adjudications["records"]}
+    if set(decisions) != set(pool):
+        raise ValueError("M3 adjudication source must cover all 184 included rulers")
     records = []
     for ruler_id, ruler in pool.items():
-        row = result_by_id[ruler_id]
-        raw_220 = float(row["score"])
-        value = round(max(0.0, min(100.0, raw_220 / 220.0 * 100.0)))
-        grade = _grade(value)
-        position = _position(value, grade)
+        result_row = result_by_id[ruler_id]
+        decision = decisions[ruler_id]
         review = supplement_by_id[ruler_id]
+        value = decision["score_100"]
         records.append(
             {
                 "task_code": f"PROFILE-M3-{ruler_id}",
@@ -719,38 +1168,45 @@ def build_m3(result: dict[str, Any], supplement: dict[str, Any]) -> dict[str, An
                 "actual_power_window": ruler["actual_power_window"],
                 "axis_code": "M3",
                 "axis_name": "民生财政建设",
-                "axis_grade": grade,
-                "position": position,
+                "axis_grade": decision["axis_grade"],
+                "position": decision["position"],
                 "score_100": value,
                 "radar_value": value,
-                "component_total_220": raw_220,
                 "components": {
-                    axis: {"band": row[f"{axis}_band"], "score": row[f"{axis}_score"]}
+                    axis: {"band": result_row[f"{axis}_band"], "score": result_row[f"{axis}_score"]}
                     for axis in C_PATHS
                 },
-                "value_mode": "SECOND_ITEM_C1_C2_C3_C4_SYNCHRONIZED",
-                "axis_evidence_level": "E3",
-                "confidence": "HIGH",
-                "output_mode": "FORMAL_RESULT_SYNCHRONIZATION",
+                "absolute_state_tier": decision["absolute_state_tier"],
+                "absolute_state_meanings": decision["absolute_state_meanings"],
+                "dynamic_class": decision["dynamic_class"],
+                "dynamic_label": decision["dynamic_label"],
+                "value_mode": "SEMANTIC_HOLISTIC_ADJUDICATION_WITH_FIXED_GRADE_PROJECTION",
+                "axis_evidence_level": decision["axis_evidence_level"],
+                "confidence": decision["confidence"],
+                "output_mode": decision["output_mode"],
                 "score_status": "FINAL",
                 "formal_status": "FORMAL_CURRENT",
-                "typical_pattern": (
-                    f"{ruler['ruler_name']}的民生财政建设由第二项C1 {row['C1_band']}、"
-                    f"C2 {row['C2_band']}、C3 {row['C3_band']}、C4 {row['C4_band']}统合；"
-                    f"治理结果{raw_220:.1f}/220，折算画像值{value:.1f}/100。"
-                ),
-                "counterpattern": "M3不再另行寻找‘本人动作’作为准入门；旧M3材料只用于补正C1—C4证据、窗口和归责。",
-                "grade_basis": "C1+C2+C3+C4的正式治理结果按220分满量程线性折算到100分，不另加能力分、政策数或姓名覆盖。",
-                "position_basis": "档内位置由连续折算值在本档等宽三分区中的位置确定。",
-                "adjudication_ref": f"config/profile/m3-c1-c4-supplement-adjudications.json#task_code={review['task_code']}",
+                "typical_pattern": decision["grade_basis"],
+                "counterpattern": decision["costs_and_consequences"],
+                "starting_context": decision["starting_context"],
+                "construction_and_maintenance": decision["construction_and_maintenance"],
+                "costs_and_consequences": decision["costs_and_consequences"],
+                "behavior_chain": decision["behavior_chain"],
+                "handoff_state": decision["handoff_state"],
+                "public_adjudication": decision["public_adjudication"],
+                "grade_basis": decision["grade_basis"],
+                "position_basis": decision["position_basis"],
+                "adjudication_ref": f"config/profile/m3-livelihood-adjudications.json#task_code={decision['task_code']}",
                 "axis_relevance_check": {
-                    "status": "SECOND_ITEM_C1_C4_RESULT_SYNCHRONIZED",
+                    "status": "HOLISTIC_C1_C4_SEMANTIC_ADJUDICATION",
                     "component_codes": list(C_PATHS),
-                    "process_material_conversion_forbidden": True,
+                    "component_sum_used": False,
+                    "quantile_or_normalization_used": False,
+                    "name_override_used": False,
+                    "old_process_material_role": "BEHAVIOR_CHAIN_AND_ATTRIBUTION_REVIEW_ONLY",
                 },
-                "limitations": [
-                    "M3只同步第二项C1—C4正式结果；旧过程材料须先在对应子项完成窗口、归责与方向复核，不能直接换算M3。"
-                ],
+                "parents": decision["parents"],
+                "limitations": decision["limitations"],
                 "supplement_review": {
                     "review_ref": f"config/profile/m3-c1-c4-supplement-adjudications.json#task_code={review['task_code']}",
                     "old_m3_parent_chain_count": review["old_m3_parent_count"],
@@ -759,26 +1215,19 @@ def build_m3(result: dict[str, Any], supplement: dict[str, Any]) -> dict[str, An
                         axis: review["axis_resolutions"][axis]["disposition"] for axis in C_PATHS
                     },
                 },
-                "source_refs": [
-                    f"docs/评分结算/第二项治国净收益/财政民生/{filename}#ruler_id={ruler_id}"
-                    for filename in (
-                        "01-C1正式结算.json",
-                        "02-C2正式结算.json",
-                        "03-C3正式结算.json",
-                        "04-C4正式结算.json",
-                    )
-                ],
+                "source_refs": decision["source_refs"],
             }
         )
     records.sort(key=lambda row: (-row["radar_value"], row["ruler_id"]))
     grade_distribution = Counter(row["axis_grade"] for row in records)
     payload = {
-        "schema_version": "profile-m3-livelihood-finance-formal-settlement-v1",
+        "schema_version": "profile-m3-livelihood-finance-formal-settlement-v2",
         "canonical_status": "FORMAL_CURRENT",
         "contract_version": "FORMAL-V2.0",
         "axis_code": "M3",
         "axis_name": "民生财政建设",
-        "formula": "score_100 = clamp(round((C1_80 + C2_35 + C3_60 + C4_signed_-45_to_45) / 220 * 100), 0, 100)",
+        "adjudication_mode": "ABSOLUTE_STATE_PATTERN_X_DYNAMIC_CHANGE_X_BEHAVIOR_AND_HANDOFF_REVIEW",
+        "score_projection": "SEMANTIC_GRADE_AND_POSITION_TO_FIXED_RADAR_VALUE",
         "record_count": len(records),
         "formal_profile_write": True,
         "formal_rank_write": False,
@@ -787,9 +1236,16 @@ def build_m3(result: dict[str, Any], supplement: dict[str, Any]) -> dict[str, An
         "composite_ranking_write": False,
         "database_write": False,
         "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC",
+        "adjudication_source": "config/profile/m3-livelihood-adjudications.json",
         "supplement_adjudication_source": "config/profile/m3-c1-c4-supplement-adjudications.json",
-        "second_item_result_source": "docs/评分结算/第二项治国净收益/财政民生/05-治理结果220分正式结算.json",
-        "grade_thresholds": {"G0": "0—<15", "G1": "15—<35", "G2": "35—<55", "G3": "55—<75", "G4": "75—<90", "G5": "90—100"},
+        "component_sources": {axis: str(path.relative_to(ROOT)).replace("\\", "/") for axis, path in C_PATHS.items()},
+        "grade_boundaries": {
+            "G5_G4": "历史罕见的广泛高位及动态复验；明显高位但仍有范围、稳定或交班限制者止于G4。",
+            "G4_G3": "稳定强长板须覆盖多类绝对局面并有建设或承压守成；仅总体可用或高位伴明显退步者为G3。",
+            "G3_G2": "合格档须有可持续的中等以上局面和正向动态；局部可用但低位、失衡或退步成为主模式者为G2。",
+            "G2_G1": "G2仍保留实质可用机制或阶段；主要局面长期低位、严重退步且有限改善不能改写主模式者为G1。",
+            "G1_G0": "G0要求罕见、稳定且难恢复的失能或崩坏；普通低位、短窗失败或外生冲击占主因不得机械压入G0。",
+        },
         "summary": {
             "grade_distribution": {
                 grade: grade_distribution.get(grade, 0)
@@ -920,44 +1376,81 @@ def render_finance_markdowns(finance: dict[str, dict[str, Any]], result: dict[st
     )
 
 
-def _render_m3(payload: dict[str, Any]) -> str:
-    lines = [
-        "# M3 民生财政建设正式结算",
-        "",
-        "M3与第二项财政民生完全同步：C1、C2、C3、C4先在第二项完成逐人正式裁决，再把治理结果220分线性折算为画像轴100分。旧M3检索材料仅用于补正四子项，不再要求每人必须找到独立‘动作链’。",
-        "",
-        "| 人物 | 政权 | C1 | C2 | C3 | C4 | 治理结果/220 | M3/100 | 档位 |",
-        "|---|---|---:|---:|---:|---:|---:|---:|---|",
-    ]
-    for row in payload["records"]:
-        c = row["components"]
-        lines.append(
-            f"| {row['ruler_name']} | {row['polity']} | {c['C1']['score']} | {c['C2']['score']} | "
-            f"{c['C3']['score']} | {c['C4']['score']} | {row['component_total_220']} | "
-            f"{row['score_100']} | {row['axis_grade']}-{row['position']} |"
-        )
-    lines.extend(
-        [
-            "",
-            "## 旧M3材料处置",
-            "",
-        "184人均在 `config/profile/m3-c1-c4-supplement-adjudications.json` 有逐人记录。旧材料按父行为链去重后逐条路由为补证、归责补充、背景、已覆盖或轴外；候选入口仅作追踪。李安全的错窗材料和载湉的泛朝代制度段已明确排除。",
-            "",
-        ]
-    )
-    return "\n".join(lines)
-
-
 def build_review(supplement: dict[str, Any], m3: dict[str, Any]) -> None:
     attribution = _load(C4_ATTRIBUTION)
+    old_thresholds = ((90, "G5"), (75, "G4"), (55, "G3"), (35, "G2"), (15, "G1"), (0, "G0"))
+    old_distribution: Counter[str] = Counter()
+    changes: list[dict[str, Any]] = []
+    boundary_records: list[dict[str, Any]] = []
+    for row in m3["records"]:
+        old_value = round(max(0.0, min(100.0, sum(float(value["score"]) for value in row["components"].values()) / 220 * 100)))
+        old_grade = next(grade for threshold, grade in old_thresholds if old_value >= threshold)
+        old_distribution[old_grade] += 1
+        if old_grade != row["axis_grade"]:
+            changes.append(
+                {
+                    "ruler_id": row["ruler_id"],
+                    "ruler_name": row["ruler_name"],
+                    "old_grade": old_grade,
+                    "old_linear_value": old_value,
+                    "new_grade": row["axis_grade"],
+                    "new_position": row["position"],
+                    "new_radar_value": row["radar_value"],
+                    "absolute_state_tier": row["absolute_state_tier"],
+                    "dynamic_class": row["dynamic_class"],
+                    "change_reason": row["grade_basis"],
+                }
+            )
+        if row["position"] in {"LOW", "HIGH"}:
+            boundary_records.append(
+                {
+                    "ruler_id": row["ruler_id"],
+                    "ruler_name": row["ruler_name"],
+                    "grade": row["axis_grade"],
+                    "position": row["position"],
+                    "radar_value": row["radar_value"],
+                    "absolute_state_tier": row["absolute_state_tier"],
+                    "dynamic_class": row["dynamic_class"],
+                    "basis": row["grade_basis"],
+                }
+            )
     review_payload = {
-        "schema_version": "profile-m3-c1-c4-full-pool-review-v1",
+        "schema_version": "profile-m3-full-pool-recalibration-review-v2",
         "canonical_status": "FORMAL_CURRENT_AUDIT",
         "record_count": supplement["record_count"],
         "parent_chain_count": supplement["parent_chain_count"],
         "candidate_trace_count": supplement["candidate_trace_count"],
         "axis_disposition_counts": supplement["axis_disposition_counts"],
         "new_c1_c4_formal_record_count": 10,
+        "subitem_adjustments_in_this_recalibration": [],
+        "subitem_adjustment_conclusion": "旧M3材料已在既有补正与C4归责复核中逐条路由；本轮没有发现足以推翻C1、C2、C3或C4正式档位的新证据，不为配合M3新档界反向改分。",
+        "calibration": {
+            "old_mode": "LINEAR_SUM_TO_100_THEN_NUMERIC_THRESHOLDS",
+            "new_mode": m3["adjudication_mode"],
+            "old_grade_distribution": {grade: old_distribution.get(grade, 0) for grade in ("G0", "G1", "G2", "G3", "G4", "G5")},
+            "new_grade_distribution": m3["summary"]["grade_distribution"],
+            "cross_grade_count": len(changes),
+            "cross_grade_records": changes,
+            "boundary_record_count": len(boundary_records),
+            "boundary_records": boundary_records,
+            "anchor_reviews": [
+                {
+                    "ruler_id": anchor["ruler_id"],
+                    "ruler_name": anchor["ruler_name"],
+                    "grade": anchor["axis_grade"],
+                    "position": anchor["position"],
+                    "radar_value": anchor["radar_value"],
+                    "absolute_state_tier": anchor["absolute_state_tier"],
+                    "dynamic_class": anchor["dynamic_class"],
+                    "basis": anchor["grade_basis"],
+                }
+                for name in ("李世民", "刘启", "刘询", "赵昚", "胤禛", "玄烨", "李隆基", "李治", "朱元璋", "忽必烈", "胡亥", "杨广")
+                for anchor in [next(row for row in m3["records"] if row["ruler_name"] == name)]
+            ],
+            "normalization_used": False,
+            "quantile_used": False,
+            "name_override_used": False,
+        },
         "c4_attribution_readjudication": {
             "source": "config/second-item/c4-attribution-readjudications.json",
             "record_count": attribution["record_count"],
@@ -993,6 +1486,10 @@ def build_review(supplement: dict[str, Any], m3: dict[str, Any]) -> None:
     M3_ACCEPTANCE.write_text(
         "# M3 民生财政建设全池收口\n\n"
         "- 画像正式池：184人，M3非空184人。\n"
+        f"- 新档位分布G5/G4/G3/G2/G1/G0：{m3['summary']['grade_distribution']['G5']}/"
+        f"{m3['summary']['grade_distribution']['G4']}/{m3['summary']['grade_distribution']['G3']}/"
+        f"{m3['summary']['grade_distribution']['G2']}/{m3['summary']['grade_distribution']['G1']}/"
+        f"{m3['summary']['grade_distribution']['G0']}；相对旧线性档位跨档{len(changes)}人。\n"
         "- 第二项财政民生：195人，覆盖画像正式池184人及既有11名历史对象。\n"
         "- 新增C1—C4正式记录：10人。\n"
         f"- 旧M3父行为链逐条复核：{supplement['parent_chain_count']}条；候选入口{supplement['candidate_trace_count']}条仅作追踪。\n"
@@ -1000,8 +1497,9 @@ def build_review(supplement: dict[str, Any], m3: dict[str, Any]) -> None:
         f"{attribution['grade_counts']['DA0']}/{attribution['grade_counts']['DA1']}/"
         f"{attribution['grade_counts']['DA2']}/{attribution['grade_counts']['DA3']}/"
         f"{attribution['grade_counts']['DA4']}；不以在位本身默认DA1，也不以另有征发原句作为主动战争成本准入门。\n"
-        "- 旧M3动作链不再直接裁M3；只作为C1—C4补证、归责、背景或轴外审计。\n"
-        "- M3公式：`clamp(round((C1+C2+C3+C4)/220*100), 0, 100)`。\n",
+        "- 旧M3动作链进入行为、反馈和归责复核；不能脱离四子项结果单独换档，也不按政策数量加减。\n"
+        "- M3先裁三类绝对局面的组合层级，再裁任内恢复、承压或恶化，最后用行为链、阶段反转和交班下沿复核；档位与位置确定后才投影固定雷达值。\n"
+        "- 本轮四子项实际调整：0人；没有为配合M3档界反向改分。\n",
         encoding="utf-8",
         newline="\n",
     )
@@ -1024,7 +1522,7 @@ def update_manifest() -> None:
         "audit_jsons": [M3_REVIEW.relative_to(PROFILE_ROOT).as_posix()],
         "audit_markdowns": [M3_ACCEPTANCE.relative_to(PROFILE_ROOT).as_posix()],
         "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC",
-        "formalization_note": "M3改为第二项C1—C4同步的民生财政建设轴；184人全覆盖，旧316条候选逐条路由，原财政民生快照缺失的10人已补齐四子项；C4归责扣减已按C1/C2/C3吸收边界逐人重裁。",
+        "formalization_note": "M3以C1—C4正式结果为事实底座，按绝对局面组合、任内动态、行为链与交班下沿作184人逐人统合裁决；不再线性折算或用四项合计反推档位。",
     }
     current = next(row for row in manifest["axes"] if row["axis_code"] == "M3")
     current.clear()
@@ -1038,7 +1536,8 @@ def run() -> dict[str, Any]:
     result = build_result(finance)
     sync_second_item_total(result)
     render_finance_markdowns(finance, result)
-    m3 = build_m3(result, supplement)
+    adjudications = build_m3_adjudications(finance, supplement)
+    m3 = build_m3(result, supplement, adjudications)
     build_review(supplement, m3)
     update_manifest()
     return {
@@ -1047,6 +1546,7 @@ def run() -> dict[str, Any]:
         "candidate_trace_count": supplement["candidate_trace_count"],
         "finance_record_count": result["record_count"],
         "m3_record_count": m3["record_count"],
+        "m3_grade_distribution": m3["summary"]["grade_distribution"],
     }
 
 

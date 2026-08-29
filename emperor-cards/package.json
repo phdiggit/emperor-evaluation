@@ -1,0 +1,19 @@
+{
+  "name": "emperor-cards",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "render": "node scripts/render.js",
+    "render:all": "node scripts/render-all.js --stage base",
+    "brief": "node scripts/build-ai-brief.js data/emperors/zhuyuanzhang.json",
+    "render:overlay": "node scripts/render-all.js --stage overlay",
+    "render:final": "node scripts/render-all.js --stage final",
+    "verify:overlay": "node scripts/verify-overlay.js --id zhuyuanzhang",
+    "verify": "node scripts/verify.js"
+  },
+  "dependencies": {
+    "playwright": "^1.56.1",
+    "sharp": "^0.35.4"
+  }
+}

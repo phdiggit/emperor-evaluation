@@ -1,0 +1,46 @@
+{
+  "schema_version": "emperor-profile-video-copy-editorial-v1",
+  "status": "DRAFT_REQUIRES_HUMAN_APPROVAL",
+  "scope": "three_video_copy_samples_only",
+  "editorial_standard": {
+    "character_range": [25, 80],
+    "required_structure": "2—4个可核验事件或制度节点；以分号连接结果、转折或边界",
+    "audience_rule": "上屏仅写具体事实、行动与后果；评分校准、归责拆分和证据方法只留在正式依据页",
+    "score_alignment_rule": "先按雷达值确定叙事强度，再压缩正式证据；不得用单一名人、单次战果或泛称掩盖与分值不相称的限制或失败链",
+    "score_alignment_bands": [
+      {"min": 0, "max": 24, "requirement": "呈现主导失败链、连续后果与未能及时纠偏"},
+      {"min": 25, "max": 49, "requirement": "呈现显著失衡、有限动作及其未能止损的原因"},
+      {"min": 50, "max": 74, "requirement": "正向交付与关键失配或持续限制必须同时出现"},
+      {"min": 75, "max": 89, "requirement": "呈现跨场景强项，并给出一个真实边界、代价或反复"},
+      {"min": 90, "max": 100, "requirement": "呈现跨阶段多对象的高强度交付；可保留具体边界但不写成总评"}
+    ],
+    "avoid": ["空泛褒贬", "重复轴值", "人物画像总分", "轴内排名", "评分校准说明", "归责拆分说明", "证据充分性说明"],
+    "forbidden_viewer_phrases": ["不以", "不因", "不按", "不构成", "限制上限", "限制最高位置", "构成反例", "无独立重大失败链", "零败绩", "与将领分归", "不倒灌", "不据此", "不抬高"]
+  },
+  "cards": [
+    {"task_code":"PROFILE-M1-RULER-TANG-LISHIMIN","display_summary":"统筹河东恢复、洛阳—虎牢决胜与薛延陀战争，亲征辽东拔十城、重创高丽主力；安市未克后撤军止损。"},
+    {"task_code":"PROFILE-M2-RULER-TANG-LISHIMIN","display_summary":"渭水止损、突厥分化安置、吐谷浑与吐蕃战谈转盟；高句丽调停受挫。"},
+    {"task_code":"PROFILE-M3-RULER-TANG-LISHIMIN","display_summary":"从饥馑低态恢复至连续丰稔、低粮价与高治安；晚年军旅营造使民力回落。"},
+    {"task_code":"PROFILE-M4-RULER-TANG-LISHIMIN","display_summary":"吸纳旧敌、功臣宗室与东突厥铁勒首领；承乾—李泰夺权网络败露后截断双中心，李泰优待曾放大风险。"},
+    {"task_code":"PROFILE-C1-RULER-TANG-LISHIMIN","display_summary":"霍邑止撤、洛阳止进；突厥入寇时避战止损、继而分化对手，高句丽亲征后撤军。"},
+    {"task_code":"PROFILE-C2-RULER-TANG-LISHIMIN","display_summary":"卢祖尚案承认仓杀过暴并恢复官荫，河西招慰因民困停办；死刑复奏、诏敕执奏制度化复核，晚年受谏收缩、营造复发。"},
+    {"task_code":"PROFILE-C3-RULER-TANG-LISHIMIN","display_summary":"房杜主中枢、李靖李勣领方面军、戴胄能逆耳监督；张仲文案使监督接口一度噤声。"},
+    {"task_code":"PROFILE-C5-RULER-TANG-LISHIMIN","display_summary":"魏征二百余谏、戴胄抗令与法律复核约束决策；晚年纳谏减弱。"},
+    {"task_code":"PROFILE-M1-RULER-MING-ZHU-YUANZHANG","display_summary":"统筹渡江、诱敌合击与区域终局，称帝后形成北伐路线；兵力组织、跨水域推进与全局筹划反复兑现。"},
+    {"task_code":"PROFILE-M2-RULER-MING-ZHU-YUANZHANG","display_summary":"以方国珍往复、先陈后张安排优先，对朝鲜安南克制升级；对日市舶时开时罢。"},
+    {"task_code":"PROFILE-M3-RULER-MING-ZHU-YUANZHANG","display_summary":"水利、屯田、黄册与仓储助战后恢复；世禄与军匠户籍显示民间承载压力。"},
+    {"task_code":"PROFILE-M4-RULER-MING-ZHU-YUANZHANG","display_summary":"战争联盟转为文武官僚并经营太子宗室；胡惟庸后李善长、蓝玉等案使功臣安全承诺崩塌。"},
+    {"task_code":"PROFILE-C1-RULER-MING-ZHU-YUANZHANG","display_summary":"先平陈友谅、再取张士诚，北伐分段推进；对朝鲜、安南保持有限目标，转入守成边界管理。"},
+    {"task_code":"PROFILE-C2-RULER-MING-ZHU-YUANZHANG","display_summary":"对滞狱、灾役、贡品和转输问题多次收缩；拒绝更定律条，重典继续扩张。"},
+    {"task_code":"PROFILE-C3-RULER-MING-ZHU-YUANZHANG","display_summary":"徐达、常遇春平吴北伐，傅友德、沐英、蓝玉分领蜀滇北元；胡惟庸获刘基警示后仍专权，案后废相、六部直达皇帝，中枢复核收窄。"},
+    {"task_code":"PROFILE-C5-RULER-MING-ZHU-YUANZHANG","display_summary":"重典、株连、大狱与职业世籍长期制度化；蓝玉案与殉葬凸显强制统治。"},
+    {"task_code":"PROFILE-M1-RULER-NS-ZHAO-JI","display_summary":"联金取燕、攻燕受挫后，北方与汴京防务连续失效；多次反馈后仍无有效重组。"},
+    {"task_code":"PROFILE-M2-RULER-NS-ZHAO-JI","display_summary":"联金取燕设夹攻与燕京条件，攻燕失败后仍加码；张觉与粮约使危机扩张。"},
+    {"task_code":"PROFILE-M3-RULER-NS-ZHAO-JI","display_summary":"改币、应奉、公田、经制钱与转运多面失灵；叛乱、饥荒与战争叠加。"},
+    {"task_code":"PROFILE-M4-RULER-NS-ZHAO-JI","display_summary":"求言复旧臣后仍让蔡京—近侍—门生主导准入、党籍固化异议；末期拆解已过迟。"},
+    {"task_code":"PROFILE-C1-RULER-NS-ZHAO-JI","display_summary":"多次预警、攻燕失败和金方加价后仍推进联金取燕；北部防务未能及时收缩重组。"},
+    {"task_code":"PROFILE-C2-RULER-NS-ZHAO-JI","display_summary":"反对意见、攻燕失败、金方加价均到达，仍接纳张觉、否认粮约；罪己太迟。"},
+    {"task_code":"PROFILE-C3-RULER-NS-ZHAO-JI","display_summary":"蔡京、王黼、梁师成、童贯、朱勔跨领域捕获；告变与弹劾未获有效处置。"},
+    {"task_code":"PROFILE-C5-RULER-NS-ZHAO-JI","display_summary":"御笔绕开封驳；权臣跨财政、信息与军政俘获权力，异议受惩、花石纲长期汲取。"}
+  ]
+}

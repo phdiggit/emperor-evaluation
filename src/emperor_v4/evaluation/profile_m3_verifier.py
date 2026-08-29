@@ -10,7 +10,9 @@ import yaml
 from emperor_v4.evaluation.profile_m3_livelihood_settlement import (
     C4_ATTRIBUTION,
     C_PATHS,
+    GRADE_PROJECTION,
     M3_ACCEPTANCE,
+    M3_ADJUDICATIONS,
     M3_MARKDOWN,
     M3_REVIEW,
     M3_SETTLEMENT,
@@ -39,6 +41,7 @@ def verify_payloads() -> dict[str, Any]:
     attribution = _load(C4_ATTRIBUTION)
     result = _load(RESULT)
     settlement = _load(M3_SETTLEMENT)
+    adjudications = _load(M3_ADJUDICATIONS)
     review = _load(M3_REVIEW)
     finance = {
         axis: {row["ruler_id"]: row for row in _load(path)["scores"]}
@@ -89,7 +92,18 @@ def verify_payloads() -> dict[str, Any]:
     for ruler_id, row in result_by_id.items():
         expected = round(sum(float(finance[axis][ruler_id]["score"]) for axis in C_PATHS), 1)
         assert row["score"] == expected
-    assert settlement["schema_version"] == "profile-m3-livelihood-finance-formal-settlement-v1"
+    assert adjudications["schema_version"] == "profile-m3-livelihood-adjudications-v2"
+    assert adjudications["record_count"] == len(adjudications["records"]) == 184
+    assert {row["ruler_id"] for row in adjudications["records"]} == pool
+    assert adjudications["forbidden_inputs"] == [
+        "C1_C2_C3_C4_SUM",
+        "QUANTILE",
+        "NORMALIZATION",
+        "NAME_OVERRIDE",
+        "POLICY_COUNT",
+        "MATERIAL_COUNT",
+    ]
+    assert settlement["schema_version"] == "profile-m3-livelihood-finance-formal-settlement-v2"
     assert settlement["canonical_status"] == "FORMAL_CURRENT"
     assert settlement["contract_version"] == "FORMAL-V2.0"
     assert settlement["axis_name"] == "民生财政建设"
@@ -106,16 +120,51 @@ def verify_payloads() -> dict[str, Any]:
         settlement["records"], key=lambda row: (-row["radar_value"], row["ruler_id"])
     )
     for row in settlement["records"]:
-        result_row = result_by_id[row["ruler_id"]]
-        expected = round(max(0.0, min(100.0, result_row["score"] / 220 * 100)))
-        assert row["score_100"] == row["radar_value"] == expected
-        assert row["component_total_220"] == result_row["score"]
+        decision = next(item for item in adjudications["records"] if item["ruler_id"] == row["ruler_id"])
+        assert row["score_100"] == row["radar_value"] == GRADE_PROJECTION[(row["axis_grade"], row["position"])]
+        assert row["axis_grade"] == decision["axis_grade"]
+        assert row["position"] == decision["position"]
         assert set(row["components"]) == set(C_PATHS)
-        assert row["value_mode"] == "SECOND_ITEM_C1_C2_C3_C4_SYNCHRONIZED"
+        assert row["value_mode"] == "SEMANTIC_HOLISTIC_ADJUDICATION_WITH_FIXED_GRADE_PROJECTION"
         assert row["formal_status"] == "FORMAL_CURRENT"
-        assert row["output_mode"] == "FORMAL_RESULT_SYNCHRONIZATION"
+        assert row["output_mode"] in {"BOUNDED_PROFILE", "FULL_GRADE"}
         assert row["score_status"] == "FINAL"
         assert row["limitations"]
+        assert row["parents"] == decision["parents"]
+        assert row["axis_relevance_check"] == {
+            "status": "HOLISTIC_C1_C4_SEMANTIC_ADJUDICATION",
+            "component_codes": ["C1", "C2", "C3", "C4"],
+            "component_sum_used": False,
+            "quantile_or_normalization_used": False,
+            "name_override_used": False,
+            "old_process_material_role": "BEHAVIOR_CHAIN_AND_ATTRIBUTION_REVIEW_ONLY",
+        }
+        for field in (
+            "starting_context",
+            "construction_and_maintenance",
+            "costs_and_consequences",
+            "behavior_chain",
+            "handoff_state",
+            "grade_basis",
+            "position_basis",
+            "public_adjudication",
+        ):
+            assert row[field].strip()
+        public_text = " ".join(
+            row[field]
+            for field in (
+                "starting_context",
+                "construction_and_maintenance",
+                "costs_and_consequences",
+                "behavior_chain",
+                "handoff_state",
+                "grade_basis",
+                "position_basis",
+            )
+        )
+        assert "C1+C2" not in public_text and "线性折算" not in public_text
+        assert ".cache/" not in json.dumps(row, ensure_ascii=False)
+        assert "web_ref:turn" not in json.dumps(row, ensure_ascii=False)
         for axis in C_PATHS:
             source_review = finance[axis][row["ruler_id"]]["m3_supplement_review"]
             assert len(source_review["applied_parent_chain_supplements"]) == len(
@@ -129,6 +178,10 @@ def verify_payloads() -> dict[str, Any]:
     assert review["candidate_trace_count"] == 316
     assert review["c4_attribution_readjudication"]["record_count"] == 184
     assert review["c4_attribution_readjudication"]["grade_counts"] == grade_counts
+    assert review["calibration"]["old_grade_distribution"] == {"G0": 37, "G1": 60, "G2": 59, "G3": 26, "G4": 2, "G5": 0}
+    assert review["calibration"]["new_grade_distribution"] == {"G0": 18, "G1": 45, "G2": 54, "G3": 46, "G4": 16, "G5": 5}
+    assert review["calibration"]["cross_grade_count"] == 109
+    assert review["subitem_adjustments_in_this_recalibration"] == []
     assert M3_MARKDOWN.exists() and M3_ACCEPTANCE.exists()
     assert M3_MARKDOWN.read_text(encoding="utf-8") == render_profile_markdown(settlement)
     project = yaml.safe_load(PROJECT.read_text(encoding="utf-8"))
@@ -137,6 +190,7 @@ def verify_payloads() -> dict[str, Any]:
     assert entry["name"] == "民生财政建设"
     assert ROOT / entry["json"] == M3_SETTLEMENT
     assert ROOT / entry["markdown"] == M3_MARKDOWN
+    assert ROOT / entry["adjudications_json"] == M3_ADJUDICATIONS
     assert ROOT / project["formal_settlements"]["second_item"]["c4_attribution_readjudications_json"] == C4_ATTRIBUTION
     manifest = _load(ROOT / "docs/评分结算/皇帝人物画像/00-已结算轴正式入口.json")
     manifest_entry = next(axis for axis in manifest["axes"] if axis["axis_code"] == "M3")
@@ -150,6 +204,8 @@ def verify_payloads() -> dict[str, Any]:
         "old_m3_candidate_count": 316,
         "old_m3_parent_chain_count": 204,
         "new_finance_record_count": 10,
+        "m3_grade_distribution": {"G0": 18, "G1": 45, "G2": 54, "G3": 46, "G4": 16, "G5": 5},
+        "m3_cross_grade_count": 109,
     }
 
 
