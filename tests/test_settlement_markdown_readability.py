@@ -76,7 +76,7 @@ def test_second_item_finance_views_keep_curves_k_and_merge_sparse_notes() -> Non
     assert "阶段峰值" not in c1[0] and "阶段峰值" not in c2[0]
     assert any("赵恒" in line and "（峰值：C1-5）" in line for line in c1)
     assert any("弘历" in line and "（峰值：C2-5）" in line for line in c2)
-    assert "净恢复 + K稳定承压 - 恶化 - DA" in c4[0]
+    assert "正向保留 - 恶化 - DA" in c4[0]
     assert any("杨广" in line and "恶化归责=FULL" in line and "DA4放大" in line for line in c4)
 
 

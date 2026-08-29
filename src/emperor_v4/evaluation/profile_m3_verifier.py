@@ -47,6 +47,7 @@ def verify_payloads() -> dict[str, Any]:
         axis: {row["ruler_id"]: row for row in _load(path)["scores"]}
         for axis, path in C_PATHS.items()
     }
+    c4_payload = _load(C_PATHS["C4"])
     assert len(pool) == 184
     assert missing["record_count"] == len(missing["records"]) == 10
     assert supplement["record_count"] == len(supplement["records"]) == 184
@@ -73,12 +74,74 @@ def verify_payloads() -> dict[str, Any]:
         grade: sum(row["decision"]["final_grade"] == grade for row in attribution["records"])
         for grade in ("DA0", "DA1", "DA2", "DA3", "DA4")
     }
-    assert attribution["grade_counts"] == grade_counts == {"DA0": 15, "DA1": 51, "DA2": 74, "DA3": 41, "DA4": 3}
+    assert attribution["grade_counts"] == grade_counts == {"DA0": 36, "DA1": 32, "DA2": 72, "DA3": 41, "DA4": 3}
+    assert attribution["decision_basis_version"] == "C4-DA-INDIVIDUAL-BASIS-V3"
+    assert all(row.get("da_basis") for row in attribution["records"])
+    assert all(
+        row["decision"].get("basis_version") == "C4-DA-INDIVIDUAL-BASIS-V3"
+        and row["decision"].get("behavior_chain_basis", "").strip()
+        and row["decision"].get("grade_boundary_basis", "").strip()
+        and row["decision"].get("source_refs")
+        and row.get("da_basis", {}).get("source_refs")
+        and row["ruler_name"] in row["decision"]["reason"]
+        for row in attribution["records"]
+    )
+    assert len({row["decision"]["reason"] for row in attribution["records"]}) == 184
     records_hash = hashlib.sha256(
         json.dumps(attribution["records"], ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
     ).hexdigest()
     assert attribution["records_sha256"] == records_hash
     assert all(len(rows) == 195 and pool <= set(rows) for rows in finance.values())
+    assert c4_payload["schema_id"] == "i2_c4_signed_recovery_deterioration_formal_v4"
+    assert c4_payload["public_basis_version"] == "C4-PUBLIC-BASIS-V3"
+    assert c4_payload["recovery_formula_version"] == "C4-DIFFICULTY-WEIGHTED-BOUNDARIES-V1"
+    public_fields = {
+        "starting_context",
+        "recovery_and_absorption",
+        "behavior_and_attribution",
+        "handoff_state",
+        "public_adjudication",
+    }
+    assert all(public_fields <= set(row) for row in finance["C4"].values())
+    assert all(
+        all(str(row[field]).strip() for field in public_fields)
+        for row in finance["C4"].values()
+    )
+    assert len({row["public_adjudication"] for row in finance["C4"].values()}) == 195
+    assert all(0.0 <= float(row["recovery_score"]) <= 27.0 for row in finance["C4"].values())
+    assert all(0.0 <= float(row["stability_score"]) <= 18.0 for row in finance["C4"].values())
+    terminal_caps = {"C4T-1": 7.9, "C4T-2": 15.9, "C4T-3": 24.9, "C4T-4": 34.9, "C4T-5": 40.9, "C4T-6": 45.0}
+    assert all(float(row["terminal_cap"]) == terminal_caps[row["terminal_band"]] for row in finance["C4"].values())
+    assert all(
+        row["recovery_formula_version"] == "C4-DIFFICULTY-WEIGHTED-BOUNDARIES-V1"
+        and row["recovery_boundary_difficulty"]
+        == {"1_TO_2": 0.6, "2_TO_3": 0.8, "3_TO_4": 1.0, "4_TO_5": 1.3, "5_TO_6": 1.6}
+        and round(min(27.0, float(row["difficulty_weighted_recovery_credit"]) * 10.0), 1)
+        == float(row["recovery_score"])
+        for row in finance["C4"].values()
+    )
+    assert all(
+        round(
+            float(row["positive_score_retained"])
+            - float(row["deterioration_penalty"])
+            - float(row["destructive_amplification_penalty"]),
+            1,
+        )
+        == float(row["raw_score"])
+        for row in finance["C4"].values()
+    )
+    li_deming = next(row for row in finance["C4"].values() if row["ruler_id"] == "RULER-XIXIA-LIDEMING")
+    assert (
+        li_deming["weighted_net_recovery_delta"],
+        li_deming["recovery_score"],
+        li_deming["stability_score"],
+        li_deming["terminal_band"],
+        li_deming["score"],
+        ) == (1.0, 10.0, 16.9, "C4T-4", 17.9)
+    c4_by_name = {row["ruler_name"]: row for row in finance["C4"].values()}
+    assert c4_by_name["完颜雍"]["recovery_score"] == 12.4
+    assert c4_by_name["刘秀"]["recovery_score"] == 24.0
+    assert c4_by_name["李世民"]["recovery_score"] == 26.8
     attribution_by_id = {row["ruler_id"]: row for row in attribution["records"]}
     for ruler_id in pool:
         c4_row = finance["C4"][ruler_id]
@@ -92,7 +155,8 @@ def verify_payloads() -> dict[str, Any]:
     for ruler_id, row in result_by_id.items():
         expected = round(sum(float(finance[axis][ruler_id]["score"]) for axis in C_PATHS), 1)
         assert row["score"] == expected
-    assert adjudications["schema_version"] == "profile-m3-livelihood-adjudications-v2"
+    assert adjudications["schema_version"] == "profile-m3-livelihood-adjudications-v3"
+    assert adjudications["contract_version"] == "FORMAL-V3.0"
     assert adjudications["record_count"] == len(adjudications["records"]) == 184
     assert {row["ruler_id"] for row in adjudications["records"]} == pool
     assert adjudications["forbidden_inputs"] == [
@@ -103,9 +167,9 @@ def verify_payloads() -> dict[str, Any]:
         "POLICY_COUNT",
         "MATERIAL_COUNT",
     ]
-    assert settlement["schema_version"] == "profile-m3-livelihood-finance-formal-settlement-v2"
+    assert settlement["schema_version"] == "profile-m3-livelihood-finance-formal-settlement-v3"
     assert settlement["canonical_status"] == "FORMAL_CURRENT"
-    assert settlement["contract_version"] == "FORMAL-V2.0"
+    assert settlement["contract_version"] == "FORMAL-V3.0"
     assert settlement["axis_name"] == "民生财政建设"
     assert settlement["formal_profile_write"] is True
     assert settlement["formal_rank_write"] is False
@@ -131,6 +195,33 @@ def verify_payloads() -> dict[str, Any]:
         assert row["score_status"] == "FINAL"
         assert row["limitations"]
         assert row["parents"] == decision["parents"]
+        ability = row["ability_evidence"]
+        trajectory = ability["trajectory"]
+        assert len(trajectory["start_vector"]) == len(trajectory["peak_vector"]) == len(trajectory["end_vector"]) == 3
+        assert ability["route"] in {
+            "RARE_BROAD_RECONSTRUCTION",
+            "HIGH_LEVEL_CONSTRUCTION",
+            "HIGH_LEVEL_STEWARDSHIP",
+            "SUBSTANTIAL_CONSTRUCTION",
+            "LIMITED_IMPROVEMENT",
+            "ORDINARY_MAINTENANCE",
+            "STAGNATION_OR_FAILURE",
+        }
+        if ability["governance_scale_class"] == "LIMITED_REGIONAL" and not ability["six_band_main_state"]:
+            assert int(row["axis_grade"][1]) <= 4
+            if row["axis_grade"] == "G4":
+                assert row["position"] == "LOW"
+        if row["axis_grade"] == "G0" and row["position"] == "LOW":
+            net_decline_axes = sum(
+                final < initial
+                for initial, final in zip(
+                    trajectory["start_vector"], trajectory["end_vector"], strict=True
+                )
+            )
+            assert (
+                float(ability["destructive_amplification_penalty"]) >= 18.0
+                or net_decline_axes >= 2
+            )
         assert row["axis_relevance_check"] == {
             "status": "HOLISTIC_C1_C4_SEMANTIC_ADJUDICATION",
             "component_codes": ["C1", "C2", "C3", "C4"],
@@ -178,16 +269,17 @@ def verify_payloads() -> dict[str, Any]:
     assert review["candidate_trace_count"] == 316
     assert review["c4_attribution_readjudication"]["record_count"] == 184
     assert review["c4_attribution_readjudication"]["grade_counts"] == grade_counts
-    assert review["calibration"]["old_grade_distribution"] == {"G0": 37, "G1": 60, "G2": 59, "G3": 26, "G4": 2, "G5": 0}
-    assert review["calibration"]["new_grade_distribution"] == {"G0": 18, "G1": 45, "G2": 54, "G3": 46, "G4": 16, "G5": 5}
-    assert review["calibration"]["cross_grade_count"] == 109
-    assert review["subitem_adjustments_in_this_recalibration"] == []
+    assert review["calibration"]["old_grade_distribution"] == {"G0": 36, "G1": 61, "G2": 56, "G3": 27, "G4": 4, "G5": 0}
+    assert review["calibration"]["new_grade_distribution"] == {"G0": 6, "G1": 54, "G2": 49, "G3": 48, "G4": 23, "G5": 4}
+    assert review["calibration"]["cross_grade_count"] == 125
+    assert len(review["subitem_adjustments_in_this_recalibration"]) == 23
     assert M3_MARKDOWN.exists() and M3_ACCEPTANCE.exists()
     assert M3_MARKDOWN.read_text(encoding="utf-8") == render_profile_markdown(settlement)
     project = yaml.safe_load(PROJECT.read_text(encoding="utf-8"))
     assert project["profile_assessment"]["contract_version"] == "FORMAL-V2.0"
     entry = project["profile_assessment"]["settled_axes"]["M3"]
     assert entry["name"] == "民生财政建设"
+    assert entry["contract_version"] == "FORMAL-V3.0"
     assert ROOT / entry["json"] == M3_SETTLEMENT
     assert ROOT / entry["markdown"] == M3_MARKDOWN
     assert ROOT / entry["adjudications_json"] == M3_ADJUDICATIONS
@@ -196,6 +288,7 @@ def verify_payloads() -> dict[str, Any]:
     manifest_entry = next(axis for axis in manifest["axes"] if axis["axis_code"] == "M3")
     assert manifest["contract_version"] == "FORMAL-V2.0"
     assert manifest_entry["json"] == M3_SETTLEMENT.relative_to(M3_SETTLEMENT.parents[1]).as_posix()
+    assert manifest_entry["contract_version"] == "FORMAL-V3.0"
     assert manifest_entry["json_sha256"] == hashlib.sha256(M3_SETTLEMENT.read_bytes()).hexdigest()
     assert manifest_entry["markdown_sha256"] == hashlib.sha256(M3_MARKDOWN.read_bytes()).hexdigest()
     return {
@@ -204,8 +297,8 @@ def verify_payloads() -> dict[str, Any]:
         "old_m3_candidate_count": 316,
         "old_m3_parent_chain_count": 204,
         "new_finance_record_count": 10,
-        "m3_grade_distribution": {"G0": 18, "G1": 45, "G2": 54, "G3": 46, "G4": 16, "G5": 5},
-        "m3_cross_grade_count": 109,
+        "m3_grade_distribution": {"G0": 6, "G1": 54, "G2": 49, "G3": 48, "G4": 23, "G5": 4},
+        "m3_cross_grade_count": 125,
     }
 
 
