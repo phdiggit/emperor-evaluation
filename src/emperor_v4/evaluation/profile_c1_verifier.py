@@ -214,8 +214,8 @@ def verify(root: Path) -> dict[str, object]:
     profile_by_id = {profile["ruler_id"]: profile for profile in profiles}
     if not high_ids <= profile_by_id.keys():
         raise ValueError("current high-grade ruler lacks capability profile")
-    if len(profiles) != 48:
-        raise ValueError("C1 semantic reaudit does not cover 48 candidates")
+    if len(profiles) != review["review_count"]:
+        raise ValueError("C1 semantic reaudit profile count mismatch")
     if any(profile.get("ps") not in {"PS0", "PS1", "PS2", "PS3", "PS4"} for profile in profiles):
         raise ValueError("unknown positive diagnostic strength")
     if any(profile.get("dw") not in {"DW0", "DW1", "DW2", "DW3", "DW4"} for profile in profiles):

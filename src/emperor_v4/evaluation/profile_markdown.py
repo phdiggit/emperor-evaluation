@@ -94,12 +94,16 @@ def _overview_table(axis: str, records: list[dict[str, Any]], labels: dict[str, 
             lines.append("| " + " | ".join(_escape(cell) for cell in cells) + " |")
         return lines
     if axis == "C2":
+        def public_review_status(row: dict[str, Any]) -> str:
+            status = str(row.get("review_status", ""))
+            return "证据下限" if status.startswith("EVIDENCE_FLOOR") else "有界结论"
+
         lines = [
-            "| 雷达值 | 档位 | 位置 | 人物 | 政权 | 证据 | 置信度 | 典型模式 | 限制 |",
-            "|---:|---|---|---|---|---|---|---|---|",
+            "| 雷达值 | 档位 | 位置 | 人物 | 政权 | 证据 | 置信度 | 证据边界 | 典型模式 | 限制 |",
+            "|---:|---|---|---|---|---|---|---|---|---|",
         ]
         for row in records:
-            cells = [row["radar_value"], row["axis_grade"], row["position"], row["ruler_name"], row["polity"], row["axis_evidence_level"], row["confidence"], row["typical_pattern"], _limitations(row, labels)]
+            cells = [row["radar_value"], row["axis_grade"], row["position"], row["ruler_name"], row["polity"], row["axis_evidence_level"], row["confidence"], public_review_status(row), row["typical_pattern"], _limitations(row, labels)]
             lines.append("| " + " | ".join(_escape(cell) for cell in cells) + " |")
         return lines
     if axis == "M4":
@@ -181,6 +185,15 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
             "- 自然语言中的情境数量不作为机器裁档输入；复核以结构化父链为准。整改范围、命中对象和异常重裁候选见同目录 `12-M1结算账本整改与异常重裁复核.json`。",
             "",
         ])
+    if axis == "C2":
+        lines.extend([
+            "## 全池裁决依据整改（2026-08）",
+            "",
+            "- 外部审核文件只作为逐人审查意见；正式值以本JSON及同值阅读视图为准。",
+            "- “证据下限”只概括当前已观察模式，不得解释为全生涯能力实质低下。",
+            "- 本轮不按目标分布放宽G档门槛；旧跨轴组合链、结果倒推和无父链默认落点已退出。",
+            "",
+        ])
     lines.extend(["## 全池结算表", ""])
     lines.extend(_overview_table(axis, records, labels))
     lines.extend(["", "## 逐人裁决依据", ""])
@@ -205,10 +218,10 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
         lines.extend([
             f"### {display}. {row['ruler_name']}（{row['ruler_id']}）",
             "",
-            f"- **结算**：`{_grade(row)}` / 雷达值 `{row['radar_value']}` / `{row['axis_evidence_level']}` / `{row['score_status']}`。",
-            f"- **主模式**：{row['typical_pattern']}",
-            f"- **裁档理由**：{row.get('grade_basis') or '见结构化父链与正式裁决源。'}",
-            f"- **档内位置**：{row.get('position_basis') or '由同档材料强度与反例共同确定。'}",
+            f"- **结算**：`{_grade(row)}` / 雷达值 `{row['radar_value']}` / `{row['axis_evidence_level']}` / `{'证据有限' if axis == 'C2' and row['score_status'] == 'EVIDENCE_LIMITED' else row['score_status']}`。",
+            f"- **{'核心依据' if axis == 'C2' else '主模式'}**：{row.get('grade_basis') if axis == 'C2' else row['typical_pattern']}",
+            *([] if axis == "C2" else [f"- **裁档理由**：{row.get('grade_basis') or '见结构化父链与正式裁决源。'}"]),
+            f"- **{'档内定位' if axis == 'C2' else '档内位置'}**：{row.get('position_basis') or '由同档材料强度与反例共同确定。'}",
             f"- **限制**：{_limitations(row, labels)}",
         ])
         if axis == "M1":
@@ -220,7 +233,15 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
         if parents:
             lines.append("- **代表父链**：")
             for parent in parents:
-                lines.extend(_parent_lines(parent))
+                if axis == "C2":
+                    direction = parent.get("direction", "—")
+                    strength = parent.get("intensity") or parent.get("material_intensity") or "—"
+                    lines.append(f"- （{direction} / {strength}）：{_parent_basis(parent)}")
+                    refs = _parent_refs(parent)
+                    if refs:
+                        lines.append("  - 来源：" + "；".join(refs))
+                else:
+                    lines.extend(_parent_lines(parent))
         else:
             lines.append("- **代表父链**：当前无闭合父链；不得把缺材料当作负证。")
         lines.append("")

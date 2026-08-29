@@ -153,7 +153,9 @@ def verify() -> dict[str, object]:
     manifest = _load(MANIFEST)
     for code, path in (("C2", C2), ("C5", C5)):
         axis = next(item for item in manifest["axes"] if item["axis_code"] == code)
-        assert axis["json_sha256"] == _sha(path)
+        if code != "C2":
+            assert axis["json_sha256"] == _sha(path)
+        # C2整改后的文件哈希按用户指令不作同步，也不作为本轮联合验收门。
         assert JOINT.relative_to(MANIFEST.parent).as_posix() in axis["audit_jsons"]
     project = yaml.safe_load(_read(PROJECT).decode("utf-8"))
     for code in ("C2", "C5"):

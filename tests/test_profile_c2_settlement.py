@@ -37,29 +37,36 @@ def test_c2_verifier_closes_pool_and_bounded_coverage_ledger() -> None:
     assert result["status"] == "PASS"
     assert result["record_count"] == 184
     assert result["evidence_limited_count"] == 184
-    assert result["evidence_level_distribution"] == {"E1": 153, "E2": 31}
-    assert result["grade_distribution"] == {"G0": 11, "G1": 62, "G2": 86, "G3": 17, "G4": 8}
-    assert result["parent_count"] == 222
-    assert result["no_parent_evidence_limited_count"] == 47
+    assert result["evidence_level_distribution"] == {"E1": 67, "E2": 117}
+    assert result["grade_distribution"] == {"G0": 7, "G1": 30, "G2": 110, "G3": 27, "G4": 9, "G5": 1}
+    assert result["parent_count"] == 227
+    assert result["no_parent_evidence_limited_count"] == 40
+    assert result["evidence_floor_count"] == 44
     assert result["intuitive_candidate_count"] == 16
-    assert result["score_70_or_above_count"] == 16
+    assert result["score_70_or_above_count"] == 21
 
 
-def test_c2_high_grades_are_reopened_and_li_shimin_volume_193_is_consumed() -> None:
+def test_c2_high_grades_are_reopened_and_li_shimin_person_specific_sources_are_removed() -> None:
     settlement, _, high = payloads()
     by_name = {row["ruler_name"]: row for row in settlement["records"]}
     assert {(row["ruler_name"], row["axis_grade"]) for row in high["profiles"]} == {
-        (name, "G4") for name in {"李世民", "刘邦", "刘恒", "柴荣", "赵祯", "完颜雍", "皇太极", "玄烨"}
+        ("李世民", "G5"), ("刘询", "G4"), ("刘邦", "G4"), ("刘恒", "G4"),
+        ("柴荣", "G4"), ("赵祯", "G4"), ("完颜雍", "G4"), ("铁木真", "G4"),
+        ("玄烨", "G4"), ("赵匡胤", "G4"),
     }
+    assert (by_name["李世民"]["position"], by_name["李世民"]["radar_value"]) == ("LOW", 91)
+    assert (by_name["刘询"]["axis_grade"], by_name["刘询"]["position"], by_name["刘询"]["radar_value"]) == ("G4", "LOW", 77)
+    assert (by_name["赵匡胤"]["position"], by_name["赵匡胤"]["radar_value"]) == ("MID", 82)
     assert {p["parent_id"] for p in by_name["李世民"]["parents"]} >= {
-        "C2-P153-CONSTRUCTION-COST-RETEST-630-631",
-        "C2-P153-HEXI-SUPPLY-VERIFICATION-630",
-        "C2-P153-LUZUSHANG-JUDICIAL-REGRET",
-        "C2-P153-PALACE-WOMAN-RECHECK",
-        "C2-P153-MUSICIAN-BLAME-REVIEW",
-        "C2-P153-LEGAL-REVIEW-SYSTEM",
-        "C2-P153-DELIBERATION-RECHECK",
-        "C2-P153-LATE-FEEDBACK-CONTRACTION",
+        "C2-V2-LISHIMIN-BOWMAKER",
+        "C2-V2-LISHIMIN-CONSCRIPTION",
+        "C2-V2-LISHIMIN-DEATH-REVIEW",
+        "C2-V2-LISHIMIN-BETROTHAL",
+        "C2-V2-LISHIMIN-FEEDBACK-CHANNEL",
+        "C2-V2-LISHIMIN-WUDE-HALL",
+        "C2-V2-LISHIMIN-SUCCESSION",
+        "C2-V2-LISHIMIN-CONSTRUCTION",
+        "C2-V2-LISHIMIN-LATE-KOREA",
     }
     assert all("贞观政要" not in ref and "貞觀政要" not in ref for p in by_name["李世民"]["parents"] for ref in p["cycle_anchor_refs"])
 
@@ -91,7 +98,13 @@ def test_c2_candidate_union_excludes_person_specific_sources_and_separates_direc
     settlement, _, high = payloads()
     by_name = {row["ruler_name"]: row for row in settlement["records"]}
     candidates = {row["ruler_name"]: row for row in high["candidate_reviews"]}
-    assert "MC-TANG-TS-DELIBERATION-M3-AUDIT" in candidates["李世民"]["normative_entry_refs"]
+    assert "MC-TANG-TS-DELIBERATION-M3-AUDIT" not in candidates["李世民"]["normative_entry_refs"]
+    assert candidates["李世民"]["supplemental_primary_units"] == [
+        "https://zh.wikisource.org/zh-hans/資治通鑑/卷192",
+        "https://zh.wikisource.org/zh-hans/資治通鑑/卷194",
+        "https://zh.wikisource.org/zh-hans/資治通鑑/卷196",
+        "https://zh.wikisource.org/zh-hans/資治通鑑/卷199",
+    ]
     assert all("贞观政要" not in ref and "貞觀政要" not in ref for row in candidates.values() for ref in row["combined_source_refs"])
     intensities = {p["material_intensity"] for name in candidates for p in by_name[name]["parents"]}
     assert {"MI1_CASE", "MI2_LIFECYCLE", "MI3_SUSTAINED_SYSTEMIC"} <= intensities
@@ -109,7 +122,7 @@ def test_c2_candidate_b2_materials_are_individually_bound_and_suppression_is_asy
         item["status"] == "SCORING_PARENT"
         for row in candidates.values()
         for item in row["b2_material_disposition_review"]
-    ) == settlement["summary"]["candidate_b2_scoring_parent_count"] == 33
+    ) == settlement["summary"]["candidate_b2_scoring_parent_count"] == 30
     assert all(
         "另由具体父链" not in item["reason"]
         for row in candidates.values()
@@ -135,7 +148,7 @@ def test_c2_candidate_b2_materials_are_individually_bound_and_suppression_is_asy
             item
             for candidate in high["candidate_reviews"]
             for item in candidate["b2_material_disposition_review"]
-            if item["status"] == "BACKGROUND_VALIDATION"
+            if item["status"] == "BACKGROUND_VALIDATION" and item["supports_parent_ids"]
         )
         item["supports_parent_ids"] = []
     assert_rejected(empty_background_binding)

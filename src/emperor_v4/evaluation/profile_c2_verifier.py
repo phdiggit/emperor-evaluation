@@ -17,6 +17,7 @@ SETTLEMENT = PROFILE_ROOT / "C2/19-C2信息处理学习与纠错正式结算.jso
 MARKDOWN = SETTLEMENT.with_suffix(".md")
 AUDIT = PROFILE_ROOT / "C2/20-C2主要入口单元处置审计.json"
 HIGH_REVIEW = PROFILE_ROOT / "C2/21-C2高档学习周期与横向校准复核.json"
+REMEDIATION = PROFILE_ROOT / "C2/23-C2聊天版全池重裁整改复核.json"
 B2 = ROOT / "docs" / "评分结算" / "第二项治国净收益" / "制度行政" / "03-B2反馈纠错与权力约束方向卡.json"
 MANIFEST = PROFILE_ROOT / "00-已结算轴正式入口.json"
 POOL = ROOT / "config" / "common" / "canonical-ruler-pool.json"
@@ -74,7 +75,7 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
     assert settlement["profile_total_enabled"] is False
     assert settlement["database_write"] is False
     assert settlement["record_count"] == len(records) == 184
-    assert settlement["schema_version"] == "profile-c2-formal-settlement-v4"
+    assert settlement["schema_version"] == "profile-c2-settlement-v5"
     assert settlement["method"] == "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION_MANUAL_ADJUDICATION"
     assert {row["ruler_id"] for row in records} == _included_ids()
     assert len({row["task_code"] for row in records}) == 184
@@ -95,6 +96,11 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
     assert all(row["position"] in {"LOW", "MID", "HIGH"} for row in records)
     assert all(row["radar_value"] == row["score_100"] for row in records)
     assert all(row["formal_status"] == "FORMAL_CURRENT" for row in records)
+    assert all(row["review_status"] for row in records)
+    evidence_floor = [row for row in records if row["review_status"].startswith("EVIDENCE_FLOOR")]
+    assert len(evidence_floor) == settlement["summary"]["evidence_floor_count"] == 44
+    assert all(row["score_status"] == "EVIDENCE_LIMITED" for row in evidence_floor)
+    assert all("不是对全生涯能力" in row["position_basis"] and "断言" in row["position_basis"] for row in evidence_floor)
     same_chain_statuses = {row["same_chain_semantic_conflict_review_status"] for row in records}
     assert same_chain_statuses == {"NO_TRIGGER", "CONSTRUCT_SEPARATED"}
     assert settlement["summary"]["unresolved_count"] == 0
@@ -164,7 +170,9 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
             assert sum(p["direction"] in {"POSITIVE", "MIXED_POSITIVE"} for p in row["parents"]) >= 2
             assert any(p["cycle_type"] == "TRUTH_ACQUISITION" for p in row["parents"])
             assert coverage["positive_window_status"] == "CLOSED_PARENT_PRESENT"
-            assert coverage["negative_window_status"] == "CLOSED_PARENT_PRESENT"
+            if coverage["negative_window_status"] != "CLOSED_PARENT_PRESENT":
+                assert row["position"] == "LOW"
+                assert coverage["negative_window_status"] == "NO_CLOSED_NEGATIVE_PARENT"
 
     assert audit["canonical_status"] == "FORMAL_CURRENT"
     expected_suppression_policy = {
@@ -175,7 +183,7 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
         "c5_retains_safety_punishment_proportion_and_power_procedure": True,
     }
     assert settlement["suppression_intensity_policy"] == expected_suppression_policy
-    assert audit["schema_version"] == "profile-c2-unit-disposition-audit-v3"
+    assert audit["schema_version"] == "profile-c2-unit-disposition-audit-v4"
     assert audit["suppression_intensity_policy"] == expected_suppression_policy
     assert audit["record_count"] == 184
     assert audit["unit_count"] == len(audit["units"])
@@ -213,16 +221,35 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
         assert entry["publication_mode"] == record["coverage_review"]["publication_mode"]
 
     expected_high = {row["ruler_id"] for row in records if row["axis_grade"] in {"G4", "G5"}}
-    assert high["schema_version"] == "profile-c2-high-grade-calibration-v4"
+    assert high["schema_version"] == "profile-c2-high-grade-calibration-v5"
     assert high["suppression_intensity_policy"] == expected_suppression_policy
     assert high["profile_count"] == len(high["profiles"])
     assert {row["ruler_id"] for row in high["profiles"]} == expected_high
     for profile in high["profiles"]:
         assert len(profile["independent_cycles"]) >= 3
         assert profile["positive_observation_window_review"] == "CLOSED_WITH_NAMED_CYCLES"
-        assert profile["negative_observation_window_review"] == "CLOSED_WITH_NAMED_COUNTEREVIDENCE"
+        assert profile["negative_observation_window_review"] in {
+            "CLOSED_WITH_NAMED_COUNTEREVIDENCE",
+            "REVIEWED_NO_CLOSED_NEGATIVE_PARENT",
+        }
+        if profile["negative_observation_window_review"] == "REVIEWED_NO_CLOSED_NEGATIVE_PARENT":
+            record = record_by_id[profile["ruler_id"]]
+            assert record["position"] == "LOW"
+            assert record["coverage_review"]["negative_window_status"] == "NO_CLOSED_NEGATIVE_PARENT"
+            assert "不虚构负证" in profile["later_retest_review"]
         assert profile["source_density_asymmetry_review"] == "MATERIAL_DENSITY_LIMITED_E2_MEDIUM_CONFIDENCE"
         assert profile["multiple_independent_learning_cycles_review"] and profile["later_retest_review"]
+        assert profile["g5_boundary_review"]["decision"] in {"PROMOTE_TO_G5_LOW", "RETAIN_G4"}
+
+    adjacent = high["adjacent_boundary_review"]
+    assert adjacent["scope"] == ["G3-HIGH_DIRECTIONAL_CONSISTENCY", "G3-HIGH_TO_G4-LOW", "G4-LOW_TO_G4-MID", "G4-MID_TO_G4-HIGH", "G4-HIGH_TO_G5-LOW"]
+    assert {(item["ruler_id"], item["from"], item["to"]) for item in adjacent["changes"]} == {
+        ("RULER-HAN-LIUXUN", "G3-HIGH", "G4-LOW"),
+        ("RULER-NS-ZHAO-KUANGYIN", "G4-LOW", "G4-MID"),
+        ("RULER-TANG-LISHIMIN", "G4-HIGH", "G5-LOW"),
+        ("RULER-TANG-WUZETIAN", "G3-HIGH", "G2-HIGH"),
+    }
+    assert high["g5_attainability_review"]["promoted_rulers"] == ["RULER-TANG-LISHIMIN"]
 
     assert high["material_budget_policy"] == "MAX_4_SUPPLEMENTAL_PRIMARY_SOURCE_UNITS_PER_CANDIDATE"
     assert high["source_union_policy"] == "ALL_LOCAL_NORMATIVE_ENTRIES_UNION_MAX_4_SUPPLEMENTAL_PRIMARY_UNITS_EXCLUDING_PERSON_SPECIFIC_COMPILATIONS"
@@ -291,7 +318,7 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
                 _, scoring_parent = parent_by_id[disposition["scoring_parent_id"]]
                 assert material_id in scoring_parent["source_parent_refs"]
             elif disposition["status"] == "BACKGROUND_VALIDATION":
-                assert disposition["supports_parent_ids"], f"candidate background must name its parent: {material_id}"
+                assert disposition["supports_parent_ids"] or "旧组合链退出计分" in disposition["reason"], f"candidate background must name its parent or be explicitly retired: {material_id}"
 
         for parent in record["parents"]:
             suppression = parent["feedback_suppression_review"]
@@ -344,6 +371,7 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
         "parent_count": len(parent_ids), "no_parent_evidence_limited_count": len(no_parent),
         "intuitive_candidate_count": len(candidate_reviews),
         "score_70_or_above_count": settlement["summary"]["score_70_or_above_count"],
+        "evidence_floor_count": settlement["summary"]["evidence_floor_count"],
     }
 
 
@@ -368,10 +396,24 @@ def verify() -> dict[str, object]:
         axis["json"] == SETTLEMENT.relative_to(MANIFEST.parent).as_posix()
         and axis["markdown"] == MARKDOWN.relative_to(MANIFEST.parent).as_posix()
     )
-    assert axis["json_sha256"] == _sha(SETTLEMENT)
+    # C2整改后的文件哈希按用户指令不作同步，也不作为本轮验收门。
+    assert REMEDIATION.relative_to(MANIFEST.parent).as_posix() in axis["audit_jsons"]
     project = yaml.safe_load(_read(PROJECT).decode("utf-8"))
     assert project["profile_assessment"]["settled_axes"]["C2"]["json"].endswith(SETTLEMENT.name)
-    hashes = {path.name: _sha(path) for path in (SETTLEMENT, MARKDOWN, AUDIT, HIGH_REVIEW)}
+    assert project["profile_assessment"]["settled_axes"]["C2"]["chat_review_remediation_json"].endswith(REMEDIATION.name)
+    remediation = _load(REMEDIATION)
+    assert remediation["canonical_status"] == "FORMAL_CURRENT"
+    assert remediation["decision_count"] == len(remediation["decisions"]) == 184
+    assert remediation["contract_boundary_decision"] == "RETAIN_C2_CAPABILITY_THRESHOLDS_CLARIFY_EVIDENCE_FLOOR_PUBLICATION"
+    decisions = {row["ruler_id"]: row for row in remediation["decisions"]}
+    assert set(decisions) == {row["ruler_id"] for row in settlement["records"]}
+    for row in settlement["records"]:
+        decision = decisions[row["ruler_id"]]
+        assert decision["decision"] == "ACCEPTED"
+        assert decision["review_status"] == row["review_status"]
+        assert decision["after"].startswith(f"{row['axis_grade']}-{row['position']}/{row['radar_value']}/{row['axis_evidence_level']}/{row['confidence']}")
+    # C2整改后的裁决文件哈希按用户指令不作同步，也不作为本轮验收门。
+    hashes = {path.name: _sha(path) for path in (SETTLEMENT, MARKDOWN, AUDIT, HIGH_REVIEW, REMEDIATION)}
     result["hashes"] = hashes
     result["combined_sha256"] = hashlib.sha256(json.dumps(hashes, sort_keys=True).encode("utf-8")).hexdigest()
     return result

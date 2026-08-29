@@ -33,7 +33,7 @@ def test_composite_ranking_uses_only_ready_rulers_and_current_formula() -> None:
     assert payload["records"][0]["ruler_name"] == "李世民"
     assert payload["records"][0]["total_score"] == 820.81
     assert payload["records"][1]["ruler_name"] == "玄烨"
-    assert payload["records"][1]["total_score"] == 602.02
+    assert payload["records"][1]["total_score"] == 593.02
     zhao_ji = next(row for row in payload["records"] if row["ruler_name"] == "赵佶")
     assert zhao_ji["first_item_status"] == "NOT_APPLICABLE"
     assert zhao_ji["first_item_raw_score"] is None
@@ -111,7 +111,7 @@ def test_five_dynasties_batch_is_fully_settled() -> None:
     expected = {
         "杨行密": (32.0, 14.9, 28.0, 15.9, 90.8),
         "钱镠": (17.1, 23.6, 16.0, 12.4, 69.1),
-        "马殷": (54.9, 23.6, 28.0, 20.4, 126.9),
+        "马殷": (54.9, 23.6, 28.0, 15.9, 122.4),
         "高季兴": (32.0, 14.9, 28.0, 20.4, 95.3),
         "孟知祥": (32.0, 14.9, 28.0, 16.5, 91.4),
         "李克用": (17.1, 7.0, 16.0, -9.0, 31.1),
@@ -128,7 +128,7 @@ def test_five_dynasties_batch_is_fully_settled() -> None:
     assert {name: total_rows[name]["second_item_score"] for name in expected} == {
         "杨行密": 200.1,
         "钱镠": 175.9,
-        "马殷": 232.7,
+        "马殷": 228.2,
         "高季兴": 187.4,
         "孟知祥": 208.7,
         "李克用": 94.6,
@@ -170,9 +170,9 @@ def test_recent_batch_calibration_keeps_rare_feedback_grades_rare() -> None:
         "完颜雍", "萧绰", "耶律隆绪", "完颜晟", "完颜守绪"
     )} == {
         "完颜雍": 304.5,
-        "萧绰": 271.5,
-        "耶律隆绪": 262.1,
-        "完颜晟": 173.7,
+        "萧绰": 267.0,
+        "耶律隆绪": 257.6,
+        "完颜晟": 169.2,
         "完颜守绪": 94.4,
     }
 
@@ -184,7 +184,7 @@ def test_recent_batch_calibration_keeps_rare_feedback_grades_rare() -> None:
     }
     assert c4["耶律隆绪"]["recovery_score"] == 4.1
     assert c4["耶律隆绪"]["stability_score"] == 3.0
-    assert c4["耶律隆绪"]["score"] == 2.6
+    assert c4["耶律隆绪"]["score"] == -1.9
 
 
 def test_composite_source_fingerprint_is_stable_across_git_line_endings(tmp_path: Path) -> None:
