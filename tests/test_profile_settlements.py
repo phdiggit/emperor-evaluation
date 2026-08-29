@@ -177,8 +177,10 @@ def test_m2_has_unique_radar_points_and_separates_background() -> None:
             if parent["consumption_status"] == "SCORING_PARENT"
         }
         assert set(record["axis_relevance_check"]["scoring_parent_refs"]) == scoring
-        if record["axis_evidence_level"] in {"E2", "E3"}:
+        if record["axis_evidence_level"] == "E3":
             assert scoring
+        if record["axis_evidence_level"] == "E2" and not scoring:
+            assert record["score_status"] == "EVIDENCE_LIMITED"
         for parent in record["parents"]:
             assert parent["source_refs"]
             if parent["direction"] == "LIMITATION":
@@ -196,10 +198,44 @@ def test_m2_has_unique_radar_points_and_separates_background() -> None:
     )
     by_name = {record["ruler_name"]: record for record in records}
     assert settlement["summary"]["grade_distribution"] == {
-        "G0": 0, "G1": 14, "G2": 23, "G3": 122, "G4": 24, "G5": 1
+        "G0": 0, "G1": 15, "G2": 28, "G3": 114, "G4": 26, "G5": 1
     }
     assert (by_name["李世民"]["axis_grade"], by_name["李世民"]["position"]) == ("G5", "LOW")
     assert (by_name["王莽"]["axis_grade"], by_name["王莽"]["position"]) == ("G1", "LOW")
+    assert (by_name["钱镠"]["axis_grade"], by_name["钱镠"]["position"], by_name["钱镠"]["radar_value"]) == ("G4", "LOW", 77)
+    assert (by_name["刘启"]["axis_grade"], by_name["刘启"]["position"], by_name["刘启"]["radar_value"]) == ("G3", "LOW", 58)
+    assert next(parent for parent in by_name["刘启"]["parents"] if parent["parent_id"] == "M2-P023-XIONGNU-HEQIN")["consumption_status"] == "BACKGROUND_VALIDATION"
+    xuanye = by_name["玄烨"]
+    assert (xuanye["axis_grade"], xuanye["position"], xuanye["radar_value"]) == ("G4", "HIGH", 87)
+    dolon = next(parent for parent in xuanye["parents"] if parent["parent_id"] == "M2-P075-KHALKHA")
+    assert (dolon["direction"], dolon["intensity"], dolon["adversity_origin"]) == (
+        "POSITIVE", "MI4", "EXTERNAL"
+    )
+    liuheng = by_name["刘恒"]
+    assert (liuheng["axis_grade"], liuheng["position"], liuheng["radar_value"]) == ("G3", "MID", 65)
+    assert "正负各一条" not in liuheng["grade_basis"]
+    liuzhi = by_name["刘志"]
+    assert (liuzhi["axis_grade"], liuzhi["position"], liuzhi["radar_value"]) == ("G3", "LOW", 58)
+    assert (liuzhi["axis_evidence_level"], liuzhi["score_status"]) == ("E2", "EVIDENCE_LIMITED")
+    assert {parent["intensity"] for parent in liuzhi["parents"]} == {"MI2"}
+    zhudi = by_name["朱棣"]
+    assert (zhudi["axis_grade"], zhudi["position"], zhudi["radar_value"]) == ("G4", "LOW", 77)
+    assert {parent["parent_id"] for parent in zhudi["parents"]} == {
+        "M2-P048-MALACCA-SAFETY-ORDER",
+        "M2-P048-CROSS-REGION-ENVOY-NETWORK",
+        "M2-P048-NORTHERN-POLITY-BALANCING",
+        "M2-P048-ANNAM-ANNEXATION",
+    }
+    assert all(
+        parent["intensity"] != "MI3"
+        for parent in scoring_parents
+        if parent["source_support"] == "BOUNDED_LOCAL_SUPPORT"
+    )
+    assert all(
+        parent["intensity"] == "MI1"
+        for parent in scoring_parents
+        if parent["source_support"] == "FORMAL_AGGREGATE_RESULT_WITHOUT_DIRECT_PROCESS"
+    )
 
 
 def test_m2_c5_capability_event_review_separates_mi_from_grade() -> None:
@@ -210,6 +246,48 @@ def test_m2_c5_capability_event_review_separates_mi_from_grade() -> None:
     assert audit["policy"]["negative_evidence_automatically_caps_g5"] is False
     assert audit["policy"]["positive_mi4_automatically_grants_g5"] is False
     assert len(audit["grade_changes"]) == 3
+    high_review = audit["m2_high_grade_recalibration"]
+    assert high_review["scope_count"] == 27
+    assert high_review["density_result_counts"] == {
+        "COUNTEREVIDENCE_FOUND": 14,
+        "COVERAGE_CLOSED": 13,
+    }
+    assert len(high_review["records"]) == 27
+    high_changes = {item["ruler_name"]: item for item in high_review["position_changes"]}
+    assert high_changes["玄烨"]["after"] == "G4-HIGH / 87"
+    assert high_changes["钱镠"]["after"] == "G4-LOW / 77"
+    assert high_changes["朱棣"]["after"] == "G4-LOW / 77"
+    assert audit["m2_zhudi_recalibration"]["reputation_or_result_scale_used_as_score"] is False
+
+    marriage_review = audit["m2_marriage_policy_review"]
+    assert marriage_review["record_count"] == 184
+    assert marriage_review["candidate_ruler_count"] == 33
+    assert marriage_review["candidate_parent_count"] == 39
+    assert marriage_review["disposition_counts"] == {
+        "SCORING_EFFECT_VERIFIED": 16,
+        "BACKGROUND_COMPONENT_PARENT_RETAINS_OTHER_MECHANISM": 13,
+        "BACKGROUND_NO_VERIFIED_EFFECT": 9,
+        "LEXICAL_FALSE_POSITIVE_NOT_MARRIAGE": 1,
+    }
+    marriage_by_parent = {item["parent_id"]: item for item in marriage_review["records"]}
+    assert marriage_by_parent["M2-P023-XIONGNU-HEQIN"]["after"] == {
+        "direction": "LIMITATION",
+        "intensity": "MI1",
+        "consumption_status": "BACKGROUND_VALIDATION",
+    }
+    assert marriage_by_parent["M2-P153-TIBET-WARTALK-MARRIAGE"]["disposition"] == "SCORING_EFFECT_VERIFIED"
+    assert marriage_by_parent["M2-REVIEW-刘彧-02"]["disposition"] == "LEXICAL_FALSE_POSITIVE_NOT_MARRIAGE"
+
+    intensity_review = audit["m2_intensity_grade_recalibration"]
+    assert intensity_review["record_count"] == 184
+    assert intensity_review["high_intensity_parent_count_before"] == 170
+    assert intensity_review["hard_hit_ruler_count"] == 26
+    assert intensity_review["weak_source_scoring_parent_count"] == 45
+    assert intensity_review["intensity_change_count"] == 31
+    assert intensity_review["intensity_change_counts"] == {"MI3_TO_MI2": 9, "MI2_TO_MI1": 22}
+    assert intensity_review["grade_or_position_change_count"] == 12
+    assert intensity_review["arithmetic_basis_rewrite_count"] == 5
+    assert intensity_review["document_leakage_cleanup_count"] == 3
 
 
 def test_m1_structural_review_narrows_g5_and_exposes_military_anchor() -> None:

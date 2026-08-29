@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[3]
 PROFILE_ROOT = ROOT / "docs" / "评分结算" / "皇帝人物画像"
 AXIS_FILES = {
     "M1": "M1/01-M1军事判断与统帅能力正式结算.json",
+    "M2": "M2/12-M2外交博弈与对外联盟能力正式结算.json",
     "C1": "C1/15-C1战略判断与风险控制正式结算.json",
     "C2": "C2/19-C2信息处理学习与纠错正式结算.json",
     "C3": "C3/24-C3人才识别配置与授权正式结算.json",
