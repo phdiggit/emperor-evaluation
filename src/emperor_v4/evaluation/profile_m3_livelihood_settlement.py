@@ -13,7 +13,7 @@ OLD_M3 = ROOT / "config/profile/m3-adjudications.json"
 OLD_SEMANTIC = ROOT / "config/profile/m3-semantic-review-decisions.json"
 MISSING = ROOT / "config/profile/m3-c1-c4-missing-ruler-adjudications.json"
 SUPPLEMENT = ROOT / "config/profile/m3-c1-c4-supplement-adjudications.json"
-C4_CORRECTIONS = ROOT / "config/profile/m3-c1-c4-score-corrections.json"
+C4_ATTRIBUTION = ROOT / "config/second-item/c4-attribution-readjudications.json"
 FINANCE_ROOT = ROOT / "docs/评分结算/第二项治国净收益/财政民生"
 C_PATHS = {
     "C1": FINANCE_ROOT / "01-C1正式结算.json",
@@ -96,6 +96,32 @@ def _rerank(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
             previous = score
         row["rank"] = previous_rank
     return records
+
+
+def _c4_band(score: float) -> str:
+    if score < 0:
+        if score > -8:
+            return "C4N-1"
+        if score >= -16:
+            return "C4N-2"
+        if score >= -25:
+            return "C4N-3"
+        if score >= -35:
+            return "C4N-4"
+        if score >= -41:
+            return "C4N-5"
+        return "C4N-6"
+    if score < 8:
+        return "C4-1"
+    if score < 16:
+        return "C4-2"
+    if score < 25:
+        return "C4-3"
+    if score < 35:
+        return "C4-4"
+    if score < 41:
+        return "C4-5"
+    return "C4-6"
 
 
 GENERIC_UNBOUND_PREFIXES = (
@@ -234,7 +260,7 @@ def build_supplement() -> dict[str, Any]:
         for axis, path in C_PATHS.items()
     }
     missing = {row["ruler_id"]: row for row in _load(MISSING)["records"]}
-    corrections = {row["ruler_id"]: row for row in _load(C4_CORRECTIONS)["records"]}
+    attribution_reviews = {row["ruler_id"]: row for row in _load(C4_ATTRIBUTION)["records"]}
     records: list[dict[str, Any]] = []
     disposition_counts: dict[str, dict[str, int]] = {
         axis: defaultdict(int) for axis in C_PATHS
@@ -257,17 +283,25 @@ def build_supplement() -> dict[str, Any]:
             excluded = [route["parent_id"] for route in parent_reviews if route["axis_routes"][axis].startswith("EXCLUDED")]
             applied_orphans = [row["candidate_id"] for row in orphan_reviews if row["axis_routes"][axis].startswith("APPLIED")]
             excluded_orphans = [row["candidate_id"] for row in orphan_reviews if row["axis_routes"][axis].startswith("EXCLUDED")]
-            correction = corrections.get(ruler_id) if axis == "C4" else None
-            if override:
+            attribution_review = attribution_reviews.get(ruler_id) if axis == "C4" else None
+            if override and axis != "C4":
                 disposition = "APPLIED_SCORE_CHANGE_NEW_FORMAL_RECORD"
                 after_band = override["main_band"]
                 after_score = override["score"]
                 reason = override["reason"]
-            elif correction:
-                disposition = "APPLIED_SCORE_CHANGE_FROM_PARENT_CHAIN_REVIEW"
-                after_band = correction["c4_after"]["main_band"]
-                after_score = correction["c4_after"]["score"]
-                reason = correction["reason"]
+            elif attribution_review:
+                final_grade = attribution_review["decision"]["final_grade"]
+                final_penalty = float(attribution_review["decision"]["final_penalty"])
+                after_score = round(
+                    max(-45.0, min(45.0, float(before["positive_score_retained"]) - float(before["deterioration_penalty"]) - final_penalty)),
+                    1,
+                )
+                after_band = _c4_band(after_score)
+                if final_grade == before["destructive_amplification_grade"]:
+                    disposition = "REVIEWED_C4_ATTRIBUTION_RETAINED"
+                else:
+                    disposition = "APPLIED_C4_ATTRIBUTION_READJUDICATION"
+                reason = attribution_review["decision"]["reason"]
             elif applicable or applied_orphans:
                 disposition = "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE"
                 after_band = before["main_band"]
@@ -295,6 +329,10 @@ def build_supplement() -> dict[str, Any]:
                 "applied_orphan_candidate_ids": applied_orphans,
                 "excluded_orphan_candidate_ids": excluded_orphans,
                 "reason": reason,
+                "c4_attribution_review_ref": (
+                    f"config/second-item/c4-attribution-readjudications.json#task_code={attribution_review['task_code']}"
+                    if attribution_review else None
+                ),
             }
         records.append(
             {
@@ -428,6 +466,40 @@ def _new_c4_record(source: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _apply_c4_attribution_review(row: dict[str, Any], review: dict[str, Any]) -> None:
+    decision = review["decision"]
+    positive = float(row["positive_score_retained"])
+    deterioration = float(row["deterioration_penalty"])
+    amplification = float(decision["final_penalty"])
+    pre_da_score = round(max(-45.0, min(45.0, positive - deterioration)), 1)
+    score = round(max(-45.0, min(45.0, pre_da_score - amplification)), 1)
+    original_reason = str(row.get("original_adjudication_reason") or row.get("adjudication_reason") or "")
+
+    row["destructive_amplification_grade"] = decision["final_grade"]
+    row["destructive_amplification_penalty"] = amplification
+    row["pre_negative_tail_raw_score"] = pre_da_score
+    row["pre_negative_tail_score"] = pre_da_score
+    row["pre_negative_tail_band"] = _c4_band(pre_da_score)
+    row["raw_score"] = score
+    row["score"] = score
+    row["main_band"] = _c4_band(score)
+    row["negative_tail_adjudication_reason"] = decision["reason"] if score < 0 else None
+    row["original_adjudication_reason"] = original_reason
+    row["attribution_readjudication_reason"] = decision["reason"]
+    row["adjudication_reason"] = f"{original_reason} 归责扣减全池复核：{decision['reason']}"
+    row["c4_attribution_readjudication"] = {
+        "review_status": review["review_status"],
+        "previous_grade": decision["previous_grade"],
+        "final_grade": decision["final_grade"],
+        "final_penalty": amplification,
+        "change_type": decision["change_type"],
+        "duplicate_control": review["duplicate_control"],
+        "review_ref": f"config/second-item/c4-attribution-readjudications.json#task_code={review['task_code']}",
+    }
+    row.pop("pre_m3_correction", None)
+    row.pop("m3_correction_ref", None)
+
+
 def apply_finance_supplements(supplement: dict[str, Any]) -> dict[str, dict[str, Any]]:
     missing = {row["ruler_id"]: row for row in _load(MISSING)["records"]}
     reviews = {row["ruler_id"]: row for row in supplement["records"]}
@@ -474,7 +546,7 @@ def apply_finance_supplements(supplement: dict[str, Any]) -> dict[str, dict[str,
                 }
                 for candidate_id in resolution["applied_orphan_candidate_ids"]
             ]
-            row["m3_supplement_review"] = {
+            source_review = {
                 "disposition": resolution["disposition"],
                 "applied_parent_ids": resolution["applied_parent_ids"],
                 "excluded_parent_ids": resolution["excluded_parent_ids"],
@@ -484,19 +556,12 @@ def apply_finance_supplements(supplement: dict[str, Any]) -> dict[str, dict[str,
                 "applied_orphan_candidate_supplements": applied_orphan_supplements,
                 "review_ref": f"config/profile/m3-c1-c4-supplement-adjudications.json#task_code={review['task_code']}",
             }
+            if resolution["c4_attribution_review_ref"]:
+                source_review["c4_attribution_review_ref"] = resolution["c4_attribution_review_ref"]
+            row["m3_supplement_review"] = source_review
         if axis == "C4":
-            for correction in _load(C4_CORRECTIONS)["records"]:
-                row = indexed[correction["ruler_id"]]
-                row.setdefault("pre_m3_correction", {
-                    key: row.get(key) for key in (
-                        "main_band", "score", "raw_score", "positive_score_retained",
-                        "attribution_factor", "deterioration_attribution",
-                        "deterioration_penalty", "destructive_amplification_grade",
-                        "destructive_amplification_penalty", "adjudication_reason",
-                    )
-                })
-                row.update(correction["c4_after"])
-                row["m3_correction_ref"] = f"config/profile/m3-c1-c4-score-corrections.json#ruler_id={correction['ruler_id']}"
+            for review in _load(C4_ATTRIBUTION)["records"]:
+                _apply_c4_attribution_review(indexed[review["ruler_id"]], review)
         payload["scores"] = _rerank(list(indexed.values()))
         payload["record_count"] = len(payload["scores"])
         payload["scope"] = "秦至清195人；含画像正式池184人"
@@ -506,6 +571,14 @@ def apply_finance_supplements(supplement: dict[str, Any]) -> dict[str, dict[str,
             "new_formal_record_count": len(missing),
         }
         if axis == "C4":
+            attribution_payload = _load(C4_ATTRIBUTION)
+            payload["attribution_readjudication"] = {
+                "status": "FULL_184_ADJUDICATED",
+                "source": "config/second-item/c4-attribution-readjudications.json",
+                "record_count": attribution_payload["record_count"],
+                "grade_counts": attribution_payload["grade_counts"],
+                "records_sha256": attribution_payload["records_sha256"],
+            }
             payload["payload_sha256_basis"] = "canonical_records_json_v1"
             payload["payload_sha256"] = _records_hash(payload["scores"])
         _write_json(path, payload)
@@ -876,6 +949,7 @@ def _render_m3(payload: dict[str, Any]) -> str:
 
 
 def build_review(supplement: dict[str, Any], m3: dict[str, Any]) -> None:
+    attribution = _load(C4_ATTRIBUTION)
     review_payload = {
         "schema_version": "profile-m3-c1-c4-full-pool-review-v1",
         "canonical_status": "FORMAL_CURRENT_AUDIT",
@@ -884,6 +958,13 @@ def build_review(supplement: dict[str, Any], m3: dict[str, Any]) -> None:
         "candidate_trace_count": supplement["candidate_trace_count"],
         "axis_disposition_counts": supplement["axis_disposition_counts"],
         "new_c1_c4_formal_record_count": 10,
+        "c4_attribution_readjudication": {
+            "source": "config/second-item/c4-attribution-readjudications.json",
+            "record_count": attribution["record_count"],
+            "grade_counts": attribution["grade_counts"],
+            "records_sha256": attribution["records_sha256"],
+            "policy": attribution["policy"],
+        },
         "wrong_window_corrections": [
             {"ruler_id": "RULER-XIXIA-LIANQUAN", "candidate_id": "M3H-69D7C4E148F00DAC", "reason": "volume-030属于李乾顺窗口。"},
             {"ruler_id": "RULER-PUBLIC-79839092B61C3D74", "candidate_id": "M3-FT-A348B2D36AF7F0C9", "reason": "卷121泛制度段未绑定1889—1898本人窗口。"},
@@ -915,6 +996,10 @@ def build_review(supplement: dict[str, Any], m3: dict[str, Any]) -> None:
         "- 第二项财政民生：195人，覆盖画像正式池184人及既有11名历史对象。\n"
         "- 新增C1—C4正式记录：10人。\n"
         f"- 旧M3父行为链逐条复核：{supplement['parent_chain_count']}条；候选入口{supplement['candidate_trace_count']}条仅作追踪。\n"
+        f"- C4归责扣减逐人复核：{attribution['record_count']}人；DA0—DA4分布为"
+        f"{attribution['grade_counts']['DA0']}/{attribution['grade_counts']['DA1']}/"
+        f"{attribution['grade_counts']['DA2']}/{attribution['grade_counts']['DA3']}/"
+        f"{attribution['grade_counts']['DA4']}；不以在位本身默认DA1。\n"
         "- 旧M3动作链不再直接裁M3；只作为C1—C4补证、归责、背景或轴外审计。\n"
         "- M3公式：`clamp(round((C1+C2+C3+C4)/220*100), 0, 100)`。\n",
         encoding="utf-8",
@@ -927,13 +1012,6 @@ def update_manifest() -> None:
     manifest["contract_version"] = "FORMAL-V2.0"
     manifest["contract_sha256"] = _sha(CONTRACT)
     manifest["canonical_pool_sha256"] = _sha(POOL)
-    current_pool_sha256 = _sha(POOL)
-    for axis in manifest["axes"]:
-        axis_json_path = PROFILE_ROOT / axis["json"]
-        axis_payload = _load(axis_json_path)
-        if "canonical_pool_sha256" in axis_payload and axis_payload["canonical_pool_sha256"] != current_pool_sha256:
-            axis_payload["canonical_pool_sha256"] = current_pool_sha256
-            _write_json(axis_json_path, axis_payload)
     value = {
         "axis_code": "M3",
         "axis_name": "民生财政建设",
@@ -946,16 +1024,11 @@ def update_manifest() -> None:
         "audit_jsons": [M3_REVIEW.relative_to(PROFILE_ROOT).as_posix()],
         "audit_markdowns": [M3_ACCEPTANCE.relative_to(PROFILE_ROOT).as_posix()],
         "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC",
-        "formalization_note": "M3改为第二项C1—C4同步的民生财政建设轴；184人全覆盖，旧316条候选逐条路由，原财政民生快照缺失的10人已补齐四子项。",
+        "formalization_note": "M3改为第二项C1—C4同步的民生财政建设轴；184人全覆盖，旧316条候选逐条路由，原财政民生快照缺失的10人已补齐四子项；C4归责扣减已按C1/C2/C3吸收边界逐人重裁。",
     }
     current = next(row for row in manifest["axes"] if row["axis_code"] == "M3")
     current.clear()
     current.update(value)
-    for axis in manifest["axes"]:
-        json_path = PROFILE_ROOT / axis["json"]
-        markdown_path = PROFILE_ROOT / axis["markdown"]
-        axis["json_sha256"] = _sha(json_path)
-        axis["markdown_sha256"] = _sha(markdown_path)
     _write_json(MANIFEST, manifest)
 
 

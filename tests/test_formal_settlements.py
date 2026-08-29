@@ -109,13 +109,13 @@ def test_five_dynasties_batch_is_fully_settled() -> None:
         for axis, filename in files.items()
     }
     expected = {
-        "杨行密": (32.0, 14.9, 28.0, 24.9, 99.8),
-        "钱镠": (17.1, 23.6, 16.0, 16.9, 73.6),
-        "马殷": (54.9, 23.6, 28.0, 24.9, 131.4),
-        "高季兴": (32.0, 14.9, 28.0, 24.9, 99.8),
-        "孟知祥": (32.0, 14.9, 28.0, 21.0, 95.9),
+        "杨行密": (32.0, 14.9, 28.0, 15.9, 90.8),
+        "钱镠": (17.1, 23.6, 16.0, 12.4, 69.1),
+        "马殷": (54.9, 23.6, 28.0, 20.4, 126.9),
+        "高季兴": (32.0, 14.9, 28.0, 20.4, 95.3),
+        "孟知祥": (32.0, 14.9, 28.0, 16.5, 91.4),
         "李克用": (17.1, 7.0, 16.0, -9.0, 31.1),
-        "刘崇": (17.1, 14.9, 28.0, 7.9, 67.9),
+        "刘崇": (17.1, 14.9, 28.0, -1.1, 58.9),
     }
     for name, scores in expected.items():
         assert tuple(rows[axis][name]["score"] for axis in files) == scores
@@ -126,13 +126,13 @@ def test_five_dynasties_batch_is_fully_settled() -> None:
         )["records"]
     }
     assert {name: total_rows[name]["second_item_score"] for name in expected} == {
-        "杨行密": 209.1,
-        "钱镠": 180.4,
-        "马殷": 237.2,
-        "高季兴": 191.9,
-        "孟知祥": 213.2,
+        "杨行密": 200.1,
+        "钱镠": 175.9,
+        "马殷": 232.7,
+        "高季兴": 187.4,
+        "孟知祥": 208.7,
         "李克用": 94.6,
-        "刘崇": 134.2,
+        "刘崇": 125.2,
     }
 
 
@@ -171,8 +171,8 @@ def test_recent_batch_calibration_keeps_rare_feedback_grades_rare() -> None:
     )} == {
         "完颜雍": 304.5,
         "萧绰": 271.5,
-        "耶律隆绪": 266.6,
-        "完颜晟": 178.2,
+        "耶律隆绪": 262.1,
+        "完颜晟": 173.7,
         "完颜守绪": 94.4,
     }
 
@@ -184,7 +184,7 @@ def test_recent_batch_calibration_keeps_rare_feedback_grades_rare() -> None:
     }
     assert c4["耶律隆绪"]["recovery_score"] == 4.1
     assert c4["耶律隆绪"]["stability_score"] == 3.0
-    assert c4["耶律隆绪"]["score"] == 7.1
+    assert c4["耶律隆绪"]["score"] == 2.6
 
 
 def test_composite_source_fingerprint_is_stable_across_git_line_endings(tmp_path: Path) -> None:
