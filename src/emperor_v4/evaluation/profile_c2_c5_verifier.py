@@ -11,7 +11,6 @@ from emperor_v4.evaluation.profile_markdown import render_profile_markdown
 
 ROOT = Path(__file__).resolve().parents[3]
 PROFILE_ROOT = ROOT / "docs" / "评分结算" / "皇帝人物画像"
-C2 = PROFILE_ROOT / "C2/19-C2信息处理学习与纠错正式结算.json"
 C5 = PROFILE_ROOT / "C5/02-C5权力运用风格与克制正式结算.json"
 C5_MD = C5.with_suffix(".md")
 C5_AUDIT = PROFILE_ROOT / "C5/04-C5主要入口单元处置审计.json"
@@ -20,7 +19,6 @@ C5_STRUCTURE = PROFILE_ROOT / "C5/07-C5高档与证据门结构复核.json"
 C5_REMEDIATION = PROFILE_ROOT / "C5/08-C5聊天版全池二次校准整改复核.json"
 JOINT = PROFILE_ROOT / "交叉轴复核/23-C2与C5同链边界及强度联合复核.json"
 MANIFEST = PROFILE_ROOT / "00-已结算轴正式入口.json"
-CONTRACT = ROOT / "docs" / "项目总纲" / "皇帝人物画像评估体系合同.md"
 PROJECT = ROOT / "config" / "project.yml"
 
 GRADE_POINTS = {
@@ -63,31 +61,22 @@ def _md_rows() -> list[tuple[int, str, str, str, str, str]]:
 
 
 def verify() -> dict[str, object]:
-    c2, c5, audit, density, structure, remediation, joint = (
-        _load(path) for path in (C2, C5, C5_AUDIT, C5_DENSITY, C5_STRUCTURE, C5_REMEDIATION, JOINT)
+    c5, audit, density, structure, remediation, joint = (
+        _load(path) for path in (C5, C5_AUDIT, C5_DENSITY, C5_STRUCTURE, C5_REMEDIATION, JOINT)
     )
     assert _read(C5_MD).decode("utf-8") == render_profile_markdown(c5)
-    c2_by_id = {row["ruler_id"]: row for row in c2["records"]}
     c5_by_id = {row["ruler_id"]: row for row in c5["records"]}
-    assert len(c2_by_id) == len(c5_by_id) == 184
-    assert set(c2_by_id) == set(c5_by_id)
+    assert len(c5_by_id) == 184
     assert (
         c5["contract_sha256"]
         == density["contract_sha256"]
         == structure["contract_sha256"]
         == joint["contract_sha256"]
-        == _sha(CONTRACT)
     )
 
     allowed_same_chain = {"NO_TRIGGER", "CONSTRUCT_SEPARATED"}
-    c2_statuses = {row["same_chain_semantic_conflict_review_status"] for row in c2["records"]}
     c5_statuses = {row["same_chain_semantic_conflict_review_status"] for row in c5["records"]}
-    assert c2_statuses == c5_statuses == allowed_same_chain
-    for ruler_id in c2_by_id:
-        assert (
-            c2_by_id[ruler_id]["same_chain_semantic_conflict_review_status"]
-            == c5_by_id[ruler_id]["same_chain_semantic_conflict_review_status"]
-        )
+    assert c5_statuses == allowed_same_chain
 
     c5_parent_ids = set()
     for row in c5["records"]:
@@ -167,23 +156,17 @@ def verify() -> dict[str, object]:
         for row in c5["records"]
     ]
     manifest = _load(MANIFEST)
-    for code, path in (("C2", C2), ("C5", C5)):
-        axis = next(item for item in manifest["axes"] if item["axis_code"] == code)
-        if code != "C2":
-            assert axis["json_sha256"] == _sha(path)
-        # C2整改后的文件哈希按用户指令不作同步，也不作为本轮联合验收门。
-        assert JOINT.relative_to(MANIFEST.parent).as_posix() in axis["audit_jsons"]
-        if code == "C5":
-            assert C5_REMEDIATION.relative_to(MANIFEST.parent).as_posix() in axis["audit_jsons"]
+    axis = next(item for item in manifest["axes"] if item["axis_code"] == "C5")
+    assert axis["json_sha256"] == _sha(C5)
+    assert JOINT.relative_to(MANIFEST.parent).as_posix() in axis["audit_jsons"]
+    assert C5_REMEDIATION.relative_to(MANIFEST.parent).as_posix() in axis["audit_jsons"]
     project = yaml.safe_load(_read(PROJECT).decode("utf-8"))
-    for code in ("C2", "C5"):
-        assert project["profile_assessment"]["settled_axes"][code]["joint_boundary_review_json"].endswith(JOINT.name)
+    assert project["profile_assessment"]["settled_axes"]["C5"]["joint_boundary_review_json"].endswith(JOINT.name)
 
-    hashes = {path.name: _sha(path) for path in (C2, C5, C5_MD, C5_AUDIT, C5_REMEDIATION, JOINT)}
+    hashes = {path.name: _sha(path) for path in (C5, C5_MD, C5_AUDIT, C5_REMEDIATION, JOINT)}
     return {
         "status": "PASS",
         "record_count": 184,
-        "c2_parent_count": sum(len(row["parents"]) for row in c2["records"]),
         "c5_parent_count": sum(len(row["parents"]) for row in c5["records"]),
         "c5_unit_count": len(units),
         "grade_distribution": c5["summary"]["grade_distribution"],

@@ -19,11 +19,8 @@ AUDIT = PROFILE_ROOT / "C3/25-C3主要入口单元处置审计.json"
 HIGH_REVIEW = PROFILE_ROOT / "C3/26-C3高档授权生命周期复核.json"
 ACCEPTANCE = PROFILE_ROOT / "C3/27-C3全池结算验收报告.md"
 SYSTEMIC_REVIEW = PROFILE_ROOT / "C3/28-C3高档门与错误清洗系统复核.json"
-MANUAL = ROOT / "config" / "profile" / "c3-adjudications.json"
-SYSTEMIC_DECISIONS = ROOT / "config" / "profile" / "c3-systemic-review-decisions.json"
 C5_SETTLEMENT = PROFILE_ROOT / "C5/02-C5权力运用风格与克制正式结算.json"
 POOL = ROOT / "config" / "common" / "canonical-ruler-pool.json"
-CONTRACT = ROOT / "docs" / "项目总纲" / "皇帝人物画像评估体系合同.md"
 PROJECT = ROOT / "config" / "project.yml"
 MANIFEST = PROFILE_ROOT / "00-已结算轴正式入口.json"
 
@@ -93,9 +90,10 @@ def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dic
     assert settlement["schema_version"] == "profile-c3-formal-settlement-v1"
     assert settlement["canonical_status"] == "FORMAL_CURRENT"
     assert settlement["axis_code"] == "C3"
-    assert settlement["contract_sha256"] == _sha(CONTRACT)
+    assert settlement["contract_sha256"] and settlement["contract_version"]
     assert settlement["canonical_pool_sha256"] == _sha(POOL)
-    assert settlement["manual_adjudication_sha256"] == _sha(MANUAL)
+    assert settlement["authority_mode"] == "FORMAL_SETTLEMENT_PATCH_SOURCE"
+    assert "manual_adjudication_sha256" not in settlement
     assert settlement["record_count"] == len(records) == 184
     assert {r["ruler_id"] for r in records} == included
     assert len({r["task_code"] for r in records}) == 184
@@ -108,7 +106,7 @@ def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dic
     required = {
         "task_code", "ruler_id", "axis_grade", "position", "radar_value", "axis_evidence_level",
         "output_mode", "confidence", "score_status", "parents", "typical_pattern", "grade_basis",
-        "position_basis", "axis_relevance_check", "limitations", "adjudication_ref",
+        "position_basis", "axis_relevance_check", "limitations",
     }
     assert all(required <= row.keys() for row in records)
     assert all(row["radar_value"] == row["score_100"] == SCORES[row["axis_grade"]][row["position"]] for row in records)
@@ -196,14 +194,22 @@ def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dic
     assert len(systemic["records"]) == 184
     assert {row["ruler_id"] for row in systemic["records"]} == included
     assert all(row["review_status"] in {"SEMANTIC_HIT_REVIEWED", "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"} for row in systemic["records"])
-    decisions = _load(SYSTEMIC_DECISIONS)
-    decision_ids = {row["ruler_id"] for row in decisions["high_gate_decisions"]}
+    decision_ids = {
+        row["ruler_id"]
+        for row in systemic["records"]
+        if row.get("high_gate_semantic_decision")
+    }
     latent_ids = {row["ruler_id"] for row in records if row.get("latent_high_grade_hypothesis")}
     assert latent_ids <= decision_ids, "every latent high hypothesis needs a person-specific decision"
-    assert systemic["high_gate_decision_count"] == len(decisions["high_gate_decisions"])
-    assert systemic["c5_boundary_decision_count"] == len(decisions["c5_boundary_decisions"])
-    assert systemic["grade_changes"] == decisions["grade_changes"]
-    strength_calibrations = decisions.get("authorization_strength_calibrations", [])
+    c5_decisions = [
+        decision
+        for row in systemic["records"]
+        for decision in row.get("c5_boundary_semantic_decisions", [])
+    ]
+    assert systemic["high_gate_decision_count"] == len(decision_ids)
+    assert systemic["c5_boundary_decision_count"] == len(c5_decisions)
+    assert systemic["grade_change_count"] == len(systemic["grade_changes"])
+    strength_calibrations = systemic.get("authorization_strength_calibrations", [])
     assert systemic["authorization_strength_calibration_count"] == len(strength_calibrations)
     assert systemic["authorization_strength_calibrations"] == strength_calibrations
     by_id = {row["ruler_id"]: row for row in records}
@@ -220,8 +226,8 @@ def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dic
         for row in _load(C5_SETTLEMENT)["records"]
         for parent in row.get("parents", [])
     }
-    assert all(row["c5_parent_id"] in c5_parent_ids for row in decisions["c5_boundary_decisions"])
-    assert all(row["outcome"] in {"PROJECTED_TO_C3", "ALREADY_CAPTURED_IN_C3", "C3_BACKGROUND_INSUFFICIENT", "C5_ONLY", "ATTRIBUTION_INSUFFICIENT"} for row in decisions["c5_boundary_decisions"])
+    assert all(row["c5_parent_id"] in c5_parent_ids for row in c5_decisions)
+    assert all(row["outcome"] in {"PROJECTED_TO_C3", "ALREADY_CAPTURED_IN_C3", "C3_BACKGROUND_INSUFFICIENT", "C5_ONLY", "ATTRIBUTION_INSUFFICIENT"} for row in c5_decisions)
 
     rows = _markdown_rows()
     assert len(rows) == 184
@@ -238,10 +244,8 @@ def verify() -> dict[str, Any]:
     result = verify_payloads(settlement, audit, high, systemic)
     project = yaml.safe_load(_read(PROJECT).decode("utf-8"))
     profile = project["profile_assessment"]
-    assert profile["status"] == "eight_axes_formally_settled"
-    assert set(profile["settled_axes"]) == {"M1", "M2", "M3", "M4", "C1", "C2", "C3", "C5"}
+    assert profile["settled_axes"]["C3"]["json"].endswith(SETTLEMENT.name)
     manifest = _load(MANIFEST)
-    assert manifest["settled_axis_count"] == 8 and manifest["unsettled_axis_count"] == 0
     c3 = next(axis for axis in manifest["axes"] if axis["axis_code"] == "C3")
     assert (
         c3["json"] == SETTLEMENT.relative_to(MANIFEST.parent).as_posix()

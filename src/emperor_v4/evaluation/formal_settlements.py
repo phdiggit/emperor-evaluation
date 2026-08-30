@@ -7,6 +7,12 @@ from typing import Any
 
 from emperor_v4.evaluation.canonical_ruler_pool import verify_canonical_ruler_pool
 from emperor_v4.evaluation.composite_ranking import verify_composite_ranking
+from emperor_v4.evaluation.third_item_current_settlement import (
+    verify_current_third_item_settlement,
+)
+from emperor_v4.evaluation.third_item_d_settlement import (
+    verify_third_item_d_formal_settlement,
+)
 
 
 SETTLEMENT_SPECS = {
@@ -237,5 +243,9 @@ def verify_formal_settlements(workspace_root: Path) -> dict[str, Any]:
         "canonical_pool": verify_canonical_ruler_pool(workspace_root),
         "composite_ranking": verify_composite_ranking(workspace_root),
         "second_item_components": _verify_second_item_components(workspace_root),
+        "third_item_components": {
+            "D": verify_third_item_d_formal_settlement(workspace_root),
+            "combined": verify_current_third_item_settlement(workspace_root),
+        },
         "items": reports,
     }

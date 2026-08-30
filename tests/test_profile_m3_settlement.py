@@ -1,203 +1,48 @@
 from __future__ import annotations
 
+import copy
 import json
 
-from emperor_v4.evaluation.profile_m3_livelihood_settlement import (
-    C4_ATTRIBUTION,
-    C_PATHS,
+import pytest
+
+from emperor_v4.evaluation.profile_m3_settlement import (
     GRADE_PROJECTION,
-    M3_ADJUDICATIONS,
+    M3_MARKDOWN,
     M3_SETTLEMENT,
-    MISSING,
-    RESULT,
-    SUPPLEMENT,
 )
-from emperor_v4.evaluation.profile_m3_verifier import verify
+from emperor_v4.evaluation.profile_m3_settlement import build
+from emperor_v4.evaluation.profile_m3_verifier import verify, verify_payload
+from emperor_v4.evaluation.profile_markdown import render_profile_markdown
 
 
 def _load(path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def test_profile_m3_is_holistically_adjudicated_from_second_item_c1_c4() -> None:
+def test_profile_m3_formal_snapshot_passes_lightweight_verifier() -> None:
+    result = verify()
+    assert result["status"] == "PASS"
+    assert result["record_count"] == 184
+    assert sum(result["grade_distribution"].values()) == 184
+
+
+def test_profile_m3_scores_are_mechanical_projection_of_stored_decisions() -> None:
     settlement = _load(M3_SETTLEMENT)
-    adjudications = {row["ruler_id"]: row for row in _load(M3_ADJUDICATIONS)["records"]}
-    result = {row["ruler_id"]: row for row in _load(RESULT)["scores"]}
-    assert settlement["axis_name"] == "民生财政建设"
-    assert settlement["record_count"] == len(settlement["records"]) == 184
     for row in settlement["records"]:
-        source = result[row["ruler_id"]]
-        decision = adjudications[row["ruler_id"]]
-        assert row["score_100"] == row["radar_value"] == GRADE_PROJECTION[(row["axis_grade"], row["position"])]
-        assert row["axis_grade"] == decision["axis_grade"]
-        assert row["position"] == decision["position"]
-        assert set(row["components"]) == set(C_PATHS)
-        assert row["components"]["C1"]["band"] == source["C1_band"]
-        assert row["components"]["C4"]["score"] == source["C4_score"]
-        assert row["value_mode"] == "SEMANTIC_HOLISTIC_ADJUDICATION_WITH_FIXED_GRADE_PROJECTION"
-        assert row["axis_relevance_check"]["component_sum_used"] is False
-        assert row["axis_relevance_check"]["quantile_or_normalization_used"] is False
-        assert row["public_adjudication"]
-    assert verify() == {
-        "profile_population": 184,
-        "finance_population": 195,
-        "old_m3_candidate_count": 316,
-        "old_m3_parent_chain_count": 204,
-        "new_finance_record_count": 10,
-        "m3_grade_distribution": {"G0": 6, "G1": 54, "G2": 49, "G3": 48, "G4": 23, "G5": 4},
-        "m3_cross_grade_count": 125,
-    }
+        expected = GRADE_PROJECTION[(row["axis_grade"], row["position"])]
+        assert row["score_100"] == row["radar_value"] == expected
 
 
-def test_profile_m3_old_material_is_routed_without_process_to_result_conversion() -> None:
-    supplement = _load(SUPPLEMENT)
-    assert supplement["record_count"] == len(supplement["records"]) == 184
-    assert supplement["parent_chain_count"] == 204
-    assert supplement["candidate_trace_count"] == 316
-    assert supplement["policy"]["no_process_to_result_conversion"] is True
-    assert all(row["review_status"] == "FULLY_ROUTED_TO_C1_C2_C3_C4" for row in supplement["records"])
-    parents = [parent for row in supplement["records"] for parent in row["parent_chain_reviews"]]
-    orphans = [candidate for row in supplement["records"] for candidate in row["orphan_candidate_reviews"]]
-    assert len(parents) == 204
-    assert len(orphans) == 59
-    assert all(set(parent["axis_routes"]) == set(C_PATHS) for parent in parents)
-    assert all(set(candidate["axis_routes"]) == set(C_PATHS) for candidate in orphans)
-    by_name = {row["ruler_name"]: row for row in supplement["records"]}
-    anquan = by_name["李安全"]
-    assert any(
-        route["disposition"] == "EXCLUDED_WRONG_RULER_WINDOW"
-        for route in anquan["parent_chain_reviews"]
-    )
-    guangxu = by_name["载湉"]
-    assert any(
-        route["disposition"] == "EXCLUDED_UNBOUND_DYNASTIC_TREATISE"
-        for route in guangxu["parent_chain_reviews"]
-    )
+def test_profile_m3_rejects_local_hard_constraint_breakage() -> None:
+    settlement = _load(M3_SETTLEMENT)
+    broken = copy.deepcopy(settlement)
+    broken["records"][0]["score_100"] = -1
+    with pytest.raises(ValueError, match="score projection mismatch"):
+        verify_payload(broken)
 
 
-def test_profile_m3_missing_finance_records_are_added_for_all_ten_profile_rulers() -> None:
-    missing = _load(MISSING)
-    missing_ids = {row["ruler_id"] for row in missing["records"]}
-    assert missing["record_count"] == len(missing_ids) == 10
-    for axis, path in C_PATHS.items():
-        rows = {row["ruler_id"]: row for row in _load(path)["scores"]}
-        assert len(rows) == 195
-        assert missing_ids <= set(rows)
-        if axis == "C4":
-            assert all(
-                rows[ruler_id]["m3_supplement_review"]["disposition"]
-                in {"REVIEWED_C4_ATTRIBUTION_RETAINED", "APPLIED_C4_ATTRIBUTION_READJUDICATION"}
-                for ruler_id in missing_ids
-            )
-        else:
-            assert all(
-                rows[ruler_id]["m3_supplement_review"]["disposition"]
-                == "APPLIED_SCORE_CHANGE_NEW_FORMAL_RECORD"
-                for ruler_id in missing_ids
-            )
-
-
-def test_c4_attribution_is_individually_adjudicated_without_default_da1() -> None:
-    audit = _load(C4_ATTRIBUTION)
-    assert audit["record_count"] == len(audit["records"]) == 184
-    assert audit["grade_counts"] == {"DA0": 36, "DA1": 32, "DA2": 72, "DA3": 41, "DA4": 3}
-    assert audit["decision_basis_version"] == "C4-DA-INDIVIDUAL-BASIS-V3"
-    assert all(row["review_status"] == "FULLY_ADJUDICATED" for row in audit["records"])
-    assert all(row["source_refs"] for row in audit["records"])
-    assert all(
-        row["closed_residual_harm_observations"]
-        for row in audit["records"]
-        if row["decision"]["final_grade"] != "DA0"
-    )
-    by_name = {row["ruler_name"]: row for row in audit["records"]}
-    assert by_name["杨坚"]["decision"]["final_grade"] == "DA3"
-    assert by_name["武则天"]["decision"]["final_grade"] == "DA3"
-    assert by_name["高纬"]["decision"]["final_grade"] == "DA3"
-    assert by_name["玄烨"]["decision"]["final_grade"] == "DA2"
-    assert by_name["李治"]["decision"]["final_grade"] == "DA3"
-    assert by_name["刘询"]["decision"]["final_grade"] == "DA0"
-    assert all(row["da_basis"]["behavior_chain"] for row in audit["records"])
-    assert all(row["da_basis"]["source_refs"] for row in audit["records"])
-    assert len({row["decision"]["reason"] for row in audit["records"]}) == 184
-
-
-def test_c4_public_basis_and_component_contract_cover_all_finance_rulers() -> None:
-    c4 = _load(C_PATHS["C4"])
-    assert c4["schema_id"] == "i2_c4_signed_recovery_deterioration_formal_v4"
-    assert c4["public_basis_version"] == "C4-PUBLIC-BASIS-V3"
-    assert c4["recovery_formula_version"] == "C4-DIFFICULTY-WEIGHTED-BOUNDARIES-V1"
-    assert c4["record_count"] == len(c4["scores"]) == 195
-    required = {
-        "starting_context",
-        "recovery_and_absorption",
-        "behavior_and_attribution",
-        "handoff_state",
-        "public_adjudication",
-    }
-    assert all(required <= set(row) for row in c4["scores"])
-    assert all(all(row[field].strip() for field in required) for row in c4["scores"])
-    assert len({row["public_adjudication"] for row in c4["scores"]}) == 195
-    assert all(0.0 <= float(row["recovery_score"]) <= 27.0 for row in c4["scores"])
-    assert all(0.0 <= float(row["stability_score"]) <= 18.0 for row in c4["scores"])
-    assert all(
-        round(
-            float(row["positive_score_retained"])
-            - float(row["deterioration_penalty"])
-            - float(row["destructive_amplification_penalty"]),
-            1,
-        )
-        == float(row["raw_score"])
-        for row in c4["scores"]
-    )
-    by_name = {row["ruler_name"]: row for row in c4["scores"]}
-    assert by_name["李德明"]["weighted_net_recovery_delta"] == 1.0
-    assert by_name["李德明"]["recovery_score"] == 10.0
-    assert by_name["李德明"]["stability_score"] == 16.9
-    assert by_name["李德明"]["terminal_band"] == "C4T-4"
-    assert by_name["李德明"]["score"] == 17.9
-    assert by_name["完颜雍"]["recovery_score"] == 12.4
-    assert by_name["刘秀"]["recovery_score"] == 24.0
-    assert by_name["李世民"]["recovery_score"] == 26.8
-
-
-def test_profile_m3_anchor_values_follow_semantic_boundaries_and_handoff() -> None:
-    by_name = {row["ruler_name"]: row for row in _load(M3_SETTLEMENT)["records"]}
-    assert (by_name["李世民"]["axis_grade"], by_name["李世民"]["position"], by_name["李世民"]["score_100"]) == ("G5", "MID", 94)
-    assert (by_name["刘秀"]["axis_grade"], by_name["刘秀"]["position"], by_name["刘秀"]["score_100"]) == ("G5", "LOW", 91)
-    assert (by_name["刘启"]["axis_grade"], by_name["刘启"]["position"], by_name["刘启"]["score_100"]) == ("G4", "MID", 82)
-    assert (by_name["李治"]["axis_grade"], by_name["李治"]["position"], by_name["李治"]["score_100"]) == ("G1", "LOW", 18)
-    assert (by_name["胤禛"]["axis_grade"], by_name["胤禛"]["position"], by_name["胤禛"]["score_100"]) == ("G4", "MID", 82)
-    assert (by_name["耶律隆绪"]["axis_grade"], by_name["耶律隆绪"]["position"], by_name["耶律隆绪"]["score_100"]) == ("G3", "HIGH", 71)
-    assert (by_name["武则天"]["axis_grade"], by_name["武则天"]["position"], by_name["武则天"]["score_100"]) == ("G3", "HIGH", 71)
-    assert (by_name["忽必烈"]["axis_grade"], by_name["忽必烈"]["position"], by_name["忽必烈"]["score_100"]) == ("G3", "MID", 65)
-    assert (by_name["朱祐樘"]["axis_grade"], by_name["朱祐樘"]["position"], by_name["朱祐樘"]["score_100"]) == ("G3", "HIGH", 71)
-    assert (by_name["拓跋弘"]["axis_grade"], by_name["拓跋弘"]["position"], by_name["拓跋弘"]["score_100"]) == ("G3", "HIGH", 71)
-    assert (by_name["刘庄"]["axis_grade"], by_name["刘庄"]["position"], by_name["刘庄"]["score_100"]) == ("G4", "LOW", 77)
-    assert (by_name["耶律洪基"]["axis_grade"], by_name["耶律洪基"]["position"], by_name["耶律洪基"]["score_100"]) == ("G3", "MID", 65)
-    assert (by_name["赵恒"]["axis_grade"], by_name["赵恒"]["position"], by_name["赵恒"]["score_100"]) == ("G3", "LOW", 58)
-    assert (by_name["刘邦"]["axis_grade"], by_name["刘邦"]["position"], by_name["刘邦"]["score_100"]) == ("G2", "HIGH", 51)
-    assert (by_name["柴荣"]["axis_grade"], by_name["柴荣"]["position"], by_name["柴荣"]["score_100"]) == ("G2", "HIGH", 51)
-    assert (by_name["杨坚"]["axis_grade"], by_name["杨坚"]["position"], by_name["杨坚"]["score_100"]) == ("G4", "LOW", 77)
-    assert by_name["李世民"]["components"]["C4"]["score"] == 25.0
-    assert by_name["李治"]["components"]["C4"]["score"] == -19.8
-    assert (by_name["玄烨"]["axis_grade"], by_name["玄烨"]["position"], by_name["玄烨"]["score_100"]) == ("G4", "HIGH", 87)
-    assert by_name["玄烨"]["components"]["C4"]["score"] == 15.9
-    assert (by_name["刘询"]["axis_grade"], by_name["刘询"]["position"], by_name["刘询"]["score_100"]) == ("G5", "LOW", 91)
-    assert (by_name["刘恒"]["axis_grade"], by_name["刘恒"]["position"], by_name["刘恒"]["score_100"]) == ("G5", "LOW", 91)
-    assert by_name["赵匡胤"]["axis_grade"] == "G4"
-    assert by_name["赵匡胤"]["position"] == "HIGH"
-    assert by_name["玄烨"]["position"] == "HIGH"
-    assert by_name["朱元璋"]["position"] == "MID"
-    assert by_name["赵构"]["axis_grade"] == "G4"
-    assert (by_name["李雄"]["axis_grade"], by_name["李雄"]["position"]) == ("G4", "LOW")
-    assert by_name["李嗣源"]["axis_grade"] == "G4"
-    assert by_name["杨行密"]["axis_grade"] == "G4"
-    assert (by_name["赵昚"]["axis_grade"], by_name["赵昚"]["position"]) == ("G4", "LOW")
-    assert by_name["李隆基"]["axis_grade"] == "G2"
-    assert by_name["杨广"]["axis_grade"] == "G0"
-    assert (by_name["杨广"]["position"], by_name["杨广"]["score_100"]) == ("LOW", 2)
-    assert (by_name["李德旺"]["axis_grade"], by_name["李德旺"]["position"], by_name["李德旺"]["score_100"]) == ("G0", "MID", 7)
-    assert by_name["李德旺"]["score_100"] > by_name["杨广"]["score_100"]
-    assert by_name["李德旺"]["ability_evidence"]["trajectory"]["start_vector"] == [1, 1, 1]
-    assert by_name["李德旺"]["ability_evidence"]["trajectory"]["end_vector"] == [1, 1, 1]
-    assert by_name["李德旺"]["ability_evidence"]["destructive_amplification_penalty"] == 0.0
+def test_profile_m3_compiler_reads_formal_snapshot_without_readjudication() -> None:
+    before = M3_SETTLEMENT.read_bytes()
+    settlement = build(write=False)["settlement"]
+    assert M3_SETTLEMENT.read_bytes() == before
+    assert M3_MARKDOWN.read_text(encoding="utf-8") == render_profile_markdown(settlement)

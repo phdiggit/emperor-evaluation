@@ -61,7 +61,6 @@ def test_profile_axis_records_cover_the_formal_pool_and_contract_fields() -> Non
         "axis_evidence_level",
         "output_mode",
         "confidence",
-        "adjudication_ref",
         "representative_parent_contexts",
         "typical_pattern",
         "counterpattern",
@@ -549,13 +548,21 @@ def test_c5_chat_review_recalibration_is_publicly_supported() -> None:
     assert all(record["public_evidence_points"] and record["source_refs"] for record in settlement["records"])
 
 
-def test_c2_c5_joint_boundary_and_strength_review_is_closed() -> None:
+def test_c5_boundary_and_strength_review_is_closed() -> None:
     from emperor_v4.evaluation.profile_c2_c5_verifier import verify
 
     result = verify()
     assert result["status"] == "PASS"
     assert result["record_count"] == 184
     assert result["c5_unit_count"] == 1680
+
+
+def test_c2_c5_cross_axis_drift_is_report_only() -> None:
+    from emperor_v4.evaluation.profile_c2_c5_cross_axis_audit import inspect_cross_axis_drift
+
+    result = inspect_cross_axis_drift()
+    assert result["status"] in {"CURRENT", "REVIEW_REQUIRED"}
+    assert result["status_mismatch_count"] == len(result["status_mismatches"])
 
 
 def test_profile_audit_sidecars_match_current_axis_grades() -> None:

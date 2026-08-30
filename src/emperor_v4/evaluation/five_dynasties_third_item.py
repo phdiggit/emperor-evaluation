@@ -17,13 +17,8 @@ from emperor_v4.evaluation.talent_registry_store import load_talent_registry
 from emperor_v4.evaluation.post_tang_third_item_consumption import (
     iter_post_tang_bound_cycles,
 )
-from emperor_v4.evaluation.third_item_d_cycle_registry import (
-    PUBLIC_REGISTRY_PATH as PUBLIC_D_REGISTRY_PATH,
-    load_third_item_d_cycle_registry,
-)
 from emperor_v4.evaluation.third_item_d_settlement import (
-    build_public_cycle_linear_q_analysis,
-    write_third_item_d_formal_settlement,
+    verify_third_item_d_formal_settlement,
 )
 
 
@@ -54,67 +49,6 @@ SOURCE_SET_FINGERPRINT = (
 )
 RETIRED_STALE_FIVE_DYNASTIES_RECORD_COUNT = 433
 
-
-def _build_public_d_analysis(workspace_root: Path) -> dict[str, Any]:
-    registry = load_third_item_d_cycle_registry(
-        workspace_root / PUBLIC_D_REGISTRY_PATH
-    )
-    return build_public_cycle_linear_q_analysis(registry)
-
-
-def _partition_public_d_analysis(
-    payload: Mapping[str, Any], ruler_ids: Iterable[str]
-) -> dict[str, Any]:
-    selected_ids = {str(ruler_id) for ruler_id in ruler_ids}
-    current = deepcopy(dict(payload))
-    current["records"] = [
-        row for row in current["records"]
-        if str(row["subject_ruler_id"]) in selected_ids
-    ]
-    current["ruler_summaries"] = [
-        row for row in current["ruler_summaries"]
-        if str(row["subject_ruler_id"]) in selected_ids
-    ]
-    audit = current["canonical_audit"]
-    audit["subject_count"] = len(current["records"])
-    audit["consumed_cycle_count"] = sum(
-        int(row["D_portfolio_metrics"]["T"]) for row in current["records"]
-    )
-    audit["zero_cycle_subject_count"] = sum(
-        int(row["D_portfolio_metrics"]["T"]) == 0
-        for row in current["records"]
-    )
-    audit["partition_filter_applied"] = True
-    return current
-
-
-def _sync_public_d_q_into_combined(
-    d_payload: Mapping[str, Any], combined_records: Sequence[dict[str, Any]]
-) -> None:
-    d_by_id = {
-        str(row["subject_ruler_id"]): row for row in d_payload["records"]
-    }
-    for row in combined_records:
-        d_row = d_by_id.get(str(row.get("ruler_id") or ""))
-        if d_row is None:
-            continue
-        metrics = d_row["D_portfolio_metrics"]
-        row["D_score_points"] = None
-        row["D_score_status"] = "PUBLIC_LINEAR_Q_CURRENT_SCORE_MAPPING_PENDING"
-        row["D_linear_Q"] = metrics["Q"]
-        row["D_linear_Q_mean"] = metrics["Q_mean"]
-        row["D_cycle_count"] = metrics["T"]
-        row.setdefault("axes", {})["D"] = "PUBLIC_LINEAR_Q"
-        row.setdefault("coverage_status", {})["D"] = "PUBLIC_LINEAR_Q_CURRENT"
-        row["third_item_score_points"] = None
-        row["third_item_score_rate"] = None
-        row["rank"] = None
-        row["partition_rank"] = None
-        row["rank_status"] = "PENDING_D_SCORE_MAPPING"
-        row["pending_reason"] = (
-            "D项线性Q已由军事行动成本和收益登记闭合；"
-            "本入口不再使用旧经验D档或旧九轴拼装生成40分映射。"
-        )
 
 PARENT_CYCLE_BENEFIT_STRENGTH: dict[str, tuple[int, ...]] = {
     "SB": (0, 1, 2, 3, 5, 8),
@@ -2671,73 +2605,6 @@ def _replace_partition_records(
     return current
 
 
-def _build_combined_records(
-    adjudications: Sequence[Mapping[str, Any]], ab_records: Sequence[Mapping[str, Any]],
-    c_records: Sequence[Mapping[str, Any]], d_records: Sequence[Mapping[str, Any]],
-) -> list[dict[str, Any]]:
-    ab_by_id = {row["ruler_id"]: row for row in ab_records}
-    c_by_id = {row["ruler_id"]: row for row in c_records}
-    d_by_id = {row["subject_ruler_id"]: row for row in d_records}
-    rows = []
-    for decision in adjudications:
-        ab = ab_by_id[decision["ruler_id"]]
-        c = c_by_id[decision["ruler_id"]]
-        d = d_by_id[decision["ruler_id"]]
-        abc_ready = bool(ab["score_ready"] and c["score_ready"])
-        if abc_ready:
-            a_points = round(ab["axes"]["A1"]["axis_points"] + ab["axes"]["A2"]["axis_points"], 2)
-            b_points = round(ab["axes"]["B1"]["axis_points"] + ab["axes"]["B2"]["axis_points"] + ab["axes"]["B4"]["axis_points"], 2)
-            axes = {
-                "A1": {key: ab["axes"]["A1"][key] for key in ("start", "end", "trajectory_value", "axis_points")},
-                "A2": {key: ab["axes"]["A2"][key] for key in ("start", "end", "trajectory_value", "axis_points")},
-                "B1": {key: ab["axes"]["B1"][key] for key in ("grade", "score_rate", "axis_points")},
-                "B2": {key: ab["axes"]["B2"][key] for key in ("grade", "score_rate", "axis_points")},
-                "B4": {key: ab["axes"]["B4"][key] for key in ("grade", "score_rate", "axis_points")},
-                "C1": c["combat_delivery_grade"], "C2": c["operational_sustainability_cap"],
-                "C3": c["system_reliability_cap"], "C_overall": c["C_overall_grade"],
-                "D": "PUBLIC_LINEAR_Q",
-            }
-        else:
-            a_points = b_points = None
-            axes = {"A1": "UNKNOWN", "A2": "UNKNOWN", "B1": "UNKNOWN", "B2": "UNKNOWN", "B4": "UNKNOWN", "C_overall": "UNKNOWN", "D": "PUBLIC_LINEAR_Q"}
-        d_metrics = d["D_portfolio_metrics"]
-        rows.append({
-            "ruler_id": decision["ruler_id"], "ruler_name": decision["ruler_name"],
-            "polity": decision["polity"], "reign_range": decision["reign_range"],
-            "rank": None, "rank_status": "GLOBAL_CURRENT",
-            "partition": "五代十国", "partition_rank": None,
-            "A_score_points": a_points, "B_score_points": b_points,
-            "AB_score_points": ab["AB_score_points"], "C_score_points": c["C_score_points"],
-            "D_score_points": None,
-            "D_score_status": "PUBLIC_LINEAR_Q_CURRENT_SCORE_MAPPING_PENDING",
-            "D_linear_Q": d_metrics["Q"], "D_linear_Q_mean": d_metrics["Q_mean"],
-            "D_cycle_count": d_metrics["T"],
-            "third_item_score_points": None, "third_item_score_rate": None,
-            "axes": axes,
-            "coverage_status": {"AB": ab["coverage_status"], "C": c["coverage_status"], "D": "PUBLIC_LINEAR_Q_CURRENT"},
-            "pending_reason": "D项线性Q已闭合；40分映射不再由旧经验D逻辑生成。",
-            "formal_score_write": False, "database_write": False,
-        })
-    return rows
-
-
-def _assign_global_third_item_ranks(records: Sequence[dict[str, Any]]) -> None:
-    eligible = sorted(
-        (row for row in records if row.get("third_item_score_points") is not None),
-        key=lambda row: (-float(row["third_item_score_points"]), str(row["ruler_name"])),
-    )
-    previous_score: float | None = None
-    current_rank = 0
-    eligible_count = len(eligible)
-    for position, row in enumerate(eligible, start=1):
-        score = float(row["third_item_score_points"])
-        if previous_score is None or score != previous_score:
-            current_rank = position
-            previous_score = score
-        row["rank"] = current_rank
-        row["rank_status"] = f"GLOBAL_CURRENT_{eligible_count}"
-
-
 
 
 
@@ -3860,92 +3727,6 @@ def _align_bc_to_system_stress_parent_cycles(
 
 
 
-def _sync_formal_ab_into_combined(
-    ab_records: Sequence[Mapping[str, Any]],
-    combined_records: Sequence[dict[str, Any]],
-) -> None:
-    """Keep the combined view aligned with the canonical AB settlement."""
-    ab_by_id = {str(row.get("ruler_id")): row for row in ab_records}
-    for row in combined_records:
-        ruler_id = str(row.get("ruler_id") or "")
-        if ruler_id not in ab_by_id or "axes" not in row:
-            continue
-        ab_row = ab_by_id[ruler_id]
-        formal_axes = ab_row["axes"]
-        row["axes"].update(
-            {
-                "A1": {
-                    key: formal_axes["A1"][key]
-                    for key in ("axis_points", "end", "start", "trajectory_value")
-                },
-                "A2": {
-                    key: formal_axes["A2"][key]
-                    for key in ("axis_points", "end", "start", "trajectory_value")
-                },
-                "B1": {
-                    key: formal_axes["B1"][key]
-                    for key in ("axis_points", "grade", "score_rate")
-                },
-                "B2": {
-                    key: formal_axes["B2"][key]
-                    for key in ("axis_points", "grade", "score_rate")
-                },
-                "B4": {
-                    key: formal_axes["B4"][key]
-                    for key in ("axis_points", "grade", "score_rate")
-                },
-            }
-        )
-        row["A_score_points"] = round(
-            float(formal_axes["A1"]["axis_points"])
-            + float(formal_axes["A2"]["axis_points"]),
-            2,
-        )
-        row["B_score_points"] = round(
-            sum(
-                float(formal_axes[axis]["axis_points"])
-                for axis in ("B1", "B2", "B4")
-            ),
-            2,
-        )
-        row["AB_score_points"] = ab_row["AB_score_points"]
-
-
-def _sync_formal_c_into_combined(
-    c_records: Sequence[Mapping[str, Any]],
-    combined_records: Sequence[dict[str, Any]],
-) -> None:
-    c_by_id = {str(row.get("ruler_id")): row for row in c_records}
-    for row in combined_records:
-        ruler_id = str(row.get("ruler_id") or "")
-        if ruler_id not in c_by_id or "axes" not in row:
-            continue
-        c_row = c_by_id[ruler_id]
-        row["C_score_points"] = c_row["C_score_points"]
-        row["axes"]["C"] = c_row["C_overall_grade"]
-        row["axes"]["C1"] = c_row["combat_delivery_grade"]
-        row["axes"]["C2"] = c_row["operational_sustainability_cap"]
-        row["axes"]["C3"] = c_row["system_reliability_cap"]
-        row["axes"]["C_overall"] = c_row["C_overall_grade"]
-        row.setdefault("coverage_status", {})["C"] = c_row.get("coverage_status")
-        if c_row["C_score_points"] is None:
-            row["third_item_score_points"] = None
-            row["third_item_score_rate"] = None
-            continue
-        if row.get("AB_score_points") is None or row.get("D_score_points") is None:
-            row["third_item_score_points"] = None
-            row["third_item_score_rate"] = None
-            continue
-        total = round(
-            float(row["AB_score_points"])
-            + float(row["C_score_points"])
-            + float(row["D_score_points"]),
-            1,
-        )
-        row["third_item_score_points"] = total
-        row["third_item_score_rate"] = round(total / 250 * 100, 2)
-
-
 def build_five_dynasties_formal_payloads(
     workspace_root: Path, registry: Mapping[str, Any]
 ) -> dict[str, Any]:
@@ -3953,14 +3734,6 @@ def build_five_dynasties_formal_payloads(
     ab_records = build_five_dynasties_ab_records(registry, adjudications)
     c_records = build_five_dynasties_c_records(registry, adjudications)
     _validate_bc_parent_cycle_alignment(ab_records, c_records)
-    d = _build_public_d_analysis(workspace_root)
-    partition_d = _partition_public_d_analysis(
-        d, (str(row["ruler_id"]) for row in adjudications)
-    )
-    combined_records = _build_combined_records(
-        adjudications, ab_records, c_records, partition_d["records"]
-    )
-
     ab = _replace_partition_records(json.loads((workspace_root / AB_PATH).read_text(encoding="utf-8")), ab_records)
     existing_combined = json.loads((workspace_root / FORMAL_PATH).read_text(encoding="utf-8"))
     north_song_count = sum(str(row.get("ruler_id", "")).startswith("RULER-NS-") for row in existing_combined["records"])
@@ -3986,51 +3759,12 @@ def build_five_dynasties_formal_payloads(
     })
     _validate_bc_parent_cycle_alignment(ab["records"], c["records"])
     _validate_formal_abc_contracts(ab["records"], c["records"])
-    combined = _replace_partition_records(existing_combined, combined_records)
-    _sync_formal_ab_into_combined(ab["records"], combined["records"])
-    _sync_formal_c_into_combined(c["records"], combined["records"])
-    _sync_public_d_q_into_combined(d, combined["records"])
-    _assign_global_third_item_ranks(combined["records"])
-    for row in combined["records"]:
-        row["military_long_term_debt"] = {
-            "status": "PENDING_ITEM_7_SETTLEMENT",
-            "score_points": None,
-            "included_in_third_item_total": False,
-        }
-    partition_ids = {str(row["ruler_id"]) for row in combined_records}
+    partition_ids = {str(row["ruler_id"]) for row in adjudications}
     final_partition_records = [
-        row for row in combined["records"]
+        row for row in existing_combined["records"]
         if str(row.get("ruler_id")) in partition_ids
     ]
-    partition_ranked = _competition_ranked_records(
-        final_partition_records, "third_item_score_points"
-    )
-    for partition_rank, row in partition_ranked:
-        row["partition_rank"] = partition_rank
-    combined.pop("qin_tang_rank_freeze", None)
-    combined.pop("qin_tang_value_freeze", None)
-    combined.pop("D_unassessed_neutral_count", None)
-    combined.update({
-        "scope": f"秦至唐95人当前分值 + 五代十国12人{extension}；第三项{len(combined['records'])}人统一排名",
-        "record_count": len(combined["records"]),
-        "score_ready_count": sum(row.get("third_item_score_points") is not None for row in combined["records"]),
-        "D_zero_cycle_subject_count": sum(
-            int(row.get("D_cycle_count") or 0) == 0
-            for row in combined["records"]
-        ),
-        "D_pending_count": sum(
-            row.get("D_score_points") is None for row in combined["records"]
-        ),
-        "five_dynasties_source_fingerprint": SOURCE_SET_FINGERPRINT,
-        "five_dynasties_ready_count": sum(row.get("third_item_score_points") is not None for row in final_partition_records),
-        "five_dynasties_pending_count": sum(row.get("third_item_score_points") is None for row in final_partition_records),
-        "D_q_source_policy": "PUBLIC_MILITARY_ACTION_COST_BENEFIT_REGISTRY_ONLY",
-        "global_ranking_enabled": False,
-        "rank_tie_policy": "COMPETITION_RANK",
-        "shared_source_root": "docs/史料通读产物",
-        "military_long_term_debt_policy": "PENDING_ITEM_7_NOT_INCLUDED_IN_THIRD_ITEM_STAGE_TOTAL",
-    })
-    return {"AB": ab, "C": c, "D": d, "combined": combined, "partition_records": final_partition_records}
+    return {"AB": ab, "C": c, "partition_records": final_partition_records}
 
 
 def _competition_ranked_records(
@@ -4386,7 +4120,7 @@ def write_five_dynasties_third_item(workspace_root: Path) -> dict[str, Any]:
         _write_text_atomic(
             md_target, _render_formal_markdown(kind, payloads[kind]["records"])
         )
-    write_third_item_d_formal_settlement(workspace_root)
+    verify_third_item_d_formal_settlement(workspace_root)
     paths["D"] = D_PATH
     from emperor_v4.evaluation.third_item_current_settlement import (
         write_current_third_item_settlement,

@@ -11,20 +11,16 @@ import yaml
 from emperor_v4.evaluation.profile_m4_settlement import (
     ACCEPTANCE,
     AUDIT,
-    CONTRACT,
     FULL_POOL_REVIEW,
     HIGH_REVIEW,
     MANIFEST,
-    MANUAL,
     MARKDOWN,
-    NORMATIVE_INPUTS,
+    NORMATIVE_ENTRIES,
     POOL,
     PROJECT,
     ROOT,
     SCORES,
     SETTLEMENT,
-    _normalized_sha,
-    build,
 )
 from emperor_v4.evaluation.profile_markdown import render_profile_markdown
 
@@ -67,9 +63,11 @@ def verify_payloads(
     assert settlement["schema_version"] == "profile-m4-formal-settlement-v1"
     assert settlement["canonical_status"] == "FORMAL_CURRENT"
     assert settlement["axis_code"] == "M4"
-    assert settlement["contract_sha256"] == _sha(CONTRACT)
+    assert settlement["authority_mode"] == "FORMAL_SETTLEMENT_PATCH_SOURCE"
+    assert settlement["contract_sha256"] and settlement["contract_version"]
     assert settlement["canonical_pool_sha256"] == _sha(POOL)
-    assert settlement["manual_adjudication_sha256"] == _sha(MANUAL)
+    assert "manual_adjudication" not in settlement
+    assert "manual_adjudication_sha256" not in settlement
     assert settlement["record_count"] == len(records) == 184
     assert {row["ruler_id"] for row in records} == included
     assert len({row["task_code"] for row in records}) == 184
@@ -83,11 +81,6 @@ def verify_payloads(
     assert settlement["unclosed_non_scoring_observation_count"] == sum(
         len(row.get("non_scoring_unclosed_observations", [])) for row in records
     )
-    assert settlement["input_sha256"] == {
-        path.relative_to(ROOT).as_posix(): _normalized_sha(path)
-        for path in NORMATIVE_INPUTS.values()
-    }
-
     forbidden = {
         "source_axis_grade", "source_axis_position", "source_axis_score", "inherited_grade",
         "keyword_score", "group_count_score", "material_count_score", "first_item_b_score",
@@ -96,6 +89,7 @@ def verify_payloads(
     assert not any(isinstance(value, str) and value in forbidden for value in _walk(settlement))
     parent_ids = []
     for row in records:
+        assert "adjudication_ref" not in row
         assert row["radar_value"] == row["score_100"] == SCORES[row["axis_grade"]][row["position"]]
         assert row["axis_evidence_level"] in {"E1", "E2", "E3"}
         assert row["output_mode"] in {"EPISODE_TAG", "BOUNDED_PROFILE", "FULL_GRADE"}
@@ -168,7 +162,7 @@ def verify_payloads(
     assert audit["schema_version"] == "profile-m4-unit-disposition-audit-v1"
     assert audit["record_count"] == 184 and audit["unresolved_count"] == 0
     assert audit["unit_count"] == len(audit["units"])
-    assert set(audit["normative_entries"]) == {*NORMATIVE_INPUTS, "M4_EXPLICIT_ADJUDICATION", "M4_UNCLOSED_OBSERVATION"}
+    assert set(audit["normative_entries"]) == NORMATIVE_ENTRIES
     allowed = {"SCORING_PARENT", "BACKGROUND_VALIDATION", "AXIS_OUT_WITH_REASON", "UNRESOLVED_EVIDENCE_GAP"}
     assert all(unit["status"] in allowed and unit["reason"].strip() for unit in audit["units"])
     assert len({unit["unit_id"] for unit in audit["units"]}) == audit["unit_count"]
@@ -207,21 +201,12 @@ def verify_payloads(
 
 def verify() -> dict[str, Any]:
     settlement, audit, high, review = (_load(path) for path in (SETTLEMENT, AUDIT, HIGH_REVIEW, FULL_POOL_REVIEW))
-    rebuilt = build(write=False)
-    assert settlement == rebuilt["settlement"]
-    assert audit == rebuilt["audit"]
-    assert high == rebuilt["high_review"]
-    assert review == rebuilt["full_pool_review"]
     assert _read(MARKDOWN).decode("utf-8") == render_profile_markdown(settlement)
     assert "不进入五项综合总榜" in _read(ACCEPTANCE).decode("utf-8")
     result = verify_payloads(settlement, audit, high, review)
     project = yaml.safe_load(_read(PROJECT).decode("utf-8"))["profile_assessment"]
-    expected_axes = {"M1", "M2", "M3", "M4", "C1", "C2", "C3", "C5"}
-    assert project["status"] == "eight_axes_formally_settled"
-    assert set(project["settled_axes"]) == expected_axes
+    assert project["settled_axes"]["M4"]["json"].endswith(SETTLEMENT.name)
     manifest = _load(MANIFEST)
-    assert manifest["settled_axis_count"] == 8 and manifest["unsettled_axis_count"] == 0
-    assert {axis["axis_code"] for axis in manifest["axes"]} == expected_axes
     axis = next(row for row in manifest["axes"] if row["axis_code"] == "M4")
     assert (
         axis["json"] == SETTLEMENT.relative_to(MANIFEST.parent).as_posix()

@@ -2,7 +2,7 @@
   "schema_version": "emperor-profile-formal-axis-manifest-v1",
   "contract_version": "FORMAL-V2.0",
   "contract": "docs/项目总纲/皇帝人物画像评估体系合同.md",
-  "contract_sha256": "39522dc300c61c9bf0c1b985fcbe2320bd5c2ccb690014a326f0e07c2e30b16f",
+  "contract_sha256": "ab96a92fde36e113e3088f9a548415bca62975c88ec1c0a3af404ba63e32f250",
   "canonical_status": "FORMAL_CURRENT",
   "population_count": 184,
   "settled_axis_count": 8,
@@ -57,11 +57,11 @@
       "status": "FORMAL_CURRENT",
       "contract_version": "FORMAL-V3.0",
       "contract": "docs/分项规则/人物画像轴/M3-民生财政建设.md",
-      "contract_sha256": "e8e0efc346cd6211b65f4d30aa5bb44132067a5774de26d9788ad5737c976ed5",
+      "contract_sha256": "986dca8504138ef008fe8dfa1eae03e0d7c2c22cc4de2fb729811e9656a3a289",
       "record_count": 184,
       "json": "M3/29-M3民生财政建设正式结算.json",
       "markdown": "M3/29-M3民生财政建设正式结算.md",
-      "json_sha256": "dc28d79ff006ce3e01402267c8d668dbb78345dd0d5020431ee20d7cf691876a",
+      "json_sha256": "d8cd3a93b7178a3750d9e405ff2fa74175dd4dcc436fd708a5a33b5921df6fa2",
       "markdown_sha256": "c32d68e490fef2815adac54abe371fa0028f896958b847a4f27cf26cb8882fc4",
       "audit_jsons": [
         "M3/30-M3对第二项C1-C4逐人补正审计.json"
@@ -70,7 +70,7 @@
         "M3/31-M3民生财政建设全池收口.md"
       ],
       "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC",
-      "formalization_note": "M3以C1—C4正式结果为事实底座，按建设恢复量、实现高度、稳定交班与本人主动成本作184人逐人能力裁决；交班局面只提供反直觉下限，不再线性折算、用四项合计或主态基准档反推档位。"
+      "formalization_note": "M3正式JSON为逐人裁决唯一真源；日常修改采用局部patch，程序只投影固定雷达值并生成阅读视图，不从C1—C4自动重裁。"
     },
     {
       "axis_code": "M4",
@@ -79,7 +79,7 @@
       "record_count": 184,
       "json": "M4/34-M4政治联盟与内部联盟管理正式结算.json",
       "markdown": "M4/34-M4政治联盟与内部联盟管理正式结算.md",
-      "json_sha256": "47dd7d316db859336f92e17df28ed14bad9dadb50db15be3b134aa5596b5cd9b",
+      "json_sha256": "dc277d47c05bb455a4d5a128ad08686f38213639618b00bf0064f4dcbc50fdf1",
       "markdown_sha256": "8a5171949ba744061a5df4ef2631f18c1119842f056c1d9673e941b8c57a30a5",
       "audit_jsons": [
         "M4/35-M4主要入口单元处置审计.json",
@@ -90,7 +90,7 @@
         "M4/38-M4全池结算验收报告.md"
       ],
       "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC",
-      "formalization_note": "184人M4国内集团联盟生命周期正式结算；两轮全池复审、入口四态处置与高档全窗口门已闭合。"
+      "formalization_note": "M4正式JSON为逐人裁决唯一真源；程序只生成阅读视图与入口哈希，人物裁决变化只通过局部patch进入正式JSON，不由程序自动改档。"
     },
     {
       "axis_code": "C1",
@@ -139,7 +139,7 @@
       "record_count": 184,
       "json": "C3/24-C3人才识别配置与授权正式结算.json",
       "markdown": "C3/24-C3人才识别配置与授权正式结算.md",
-      "json_sha256": "33ef096f6408a9bb6cff08d2e608a7ffa7f6233caf97b8131e2dbc994fc6de9e",
+      "json_sha256": "85f9dfd4303643239cb2379ec0197450c5a1ec8ae97703bdd5776d9c8edaf382",
       "markdown_sha256": "1194922f232c764bc1c757f936224bf28b2f22e11e25a5c4ce06af700476bb94",
       "audit_jsons": [
         "C3/25-C3主要入口单元处置审计.json",
@@ -151,7 +151,7 @@
         "C3/27-C3全池结算验收报告.md"
       ],
       "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC",
-      "formalization_note": "184人C3重大任务组合正式结算；高档门、模板父链及C5同构错误清洗已完成系统复核。"
+      "formalization_note": "C3正式JSON为逐人裁决唯一真源；程序只生成阅读视图与入口哈希，高档门、生命周期、模板与跨轴边界由轻量语义校验器守护。"
     },
     {
       "axis_code": "C5",

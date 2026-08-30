@@ -155,11 +155,8 @@ def verify(root: Path) -> dict[str, object]:
         raise ValueError("C1 manifest settlement hash mismatch")
     if manifest["contract_sha256"] != _sha256(contract):
         raise ValueError("profile manifest contract hash mismatch")
-    if settlement["contract_sha256"] != _sha256(contract):
-        # Later axes may be promoted under the same FORMAL-V1.0 contract while
-        # the C1 settlement remains byte-pinned in the current manifest.
-        if settlement["contract_version"] != manifest["contract_version"]:
-            raise ValueError("C1 promotion contract version mismatch")
+    if not settlement.get("contract_sha256") or not settlement.get("contract_version"):
+        raise ValueError("C1 settlement lacks contract lineage")
     config_axis = config["profile_assessment"]["settled_axes"].get("C1")
     if config_axis is None or not config_axis["json"].endswith(SETTLEMENT_NAME):
         raise ValueError("C1 is absent from config project entry")

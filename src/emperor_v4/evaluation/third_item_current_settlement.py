@@ -5,23 +5,27 @@ import json
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
-from emperor_v4.evaluation.five_dynasties_third_item import (
-    AB_PATH,
-    C_PATH,
-    FORMAL_PATH,
-    _reign_range_label,
-    _render_formal_markdown,
-)
 from emperor_v4.evaluation.third_item_d_settlement import (
     FORMAL_SETTLEMENT_JSON_PATH as FORMAL_D_PATH,
 )
 
 
+AB_PATH = Path("docs/评分结算/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json")
+C_PATH = Path("docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算.json")
+FORMAL_PATH = Path("docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json")
 RESULT_CREDIT_ADJUDICATIONS_PATH = Path("config/third-item/third-item-result-credit-adjudications.json")
 COST_CREDIT_FACTORS_PATH = Path("config/third-item/third-item-cost-credit-factors.json")
 MILITARY_NET_LOSS_PENALTIES_PATH = Path("config/third-item/third-item-military-net-loss-penalties.json")
 C_OUTCOME_ADJUDICATIONS_PATH = Path("config/third-item/third-item-c-outcome-adjudications.json")
 AB_HANDOFF_ADJUDICATIONS_PATH = Path("config/third-item/third-item-ab-handoff-adjudications.json")
+
+
+def _reign_range_label(value: object) -> str:
+    if isinstance(value, (list, tuple)):
+        if len(value) == 2 and all(isinstance(item, int) for item in value):
+            return f"{value[0]}-{value[1]}"
+        return "；".join(str(item) for item in value)
+    return str(value)
 
 
 def _load(path: Path) -> dict[str, Any]:
@@ -445,8 +449,81 @@ def _write_text_atomic(path: Path, content: str) -> None:
     temporary.replace(path)
 
 
+def verify_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
+    """Validate the formal combined snapshot without rebuilding its components."""
+    payload = _load(workspace_root / FORMAL_PATH)
+    records = list(payload.get("records") or ())
+    if payload.get("schema_id") != "emperor-v4-third-item-formal-settlement-v6-current-only":
+        raise ValueError("第三项正式结算schema不合法")
+    if payload.get("record_count") != len(records) or len(records) != 201:
+        raise ValueError("第三项正式结算覆盖不闭合")
+    if len({row.get("ruler_id") for row in records}) != len(records):
+        raise ValueError("第三项正式结算存在重复人物ID")
+
+    ready = []
+    for row in records:
+        score = row.get("third_item_score_points")
+        if score is None:
+            if row.get("formal_score_write") or not row.get("pending_reason"):
+                raise ValueError(f"第三项待结算状态不完整：{row.get('ruler_name')}")
+            continue
+        components = (
+            row.get("A120_non_cost_anchor_points"),
+            row.get("A120_positive_result_credit_points"),
+            row.get("B80_score_points"),
+            row.get("C50_score_points"),
+            row.get("cost_credit_factor"),
+            row.get("military_net_loss_penalty"),
+        )
+        if any(value is None for value in components):
+            raise ValueError(f"第三项机械计分字段不完整：{row.get('ruler_name')}")
+        anchor, positive, b80, c50, factor, penalty = map(float, components)
+        expected = round(anchor + factor * (positive + b80) + c50 + penalty, 2)
+        if float(score) != expected:
+            raise ValueError(f"第三项正式分数与给定裁决不一致：{row.get('ruler_name')}")
+        if not row.get("formal_score_write") or row.get("component_join_status") != "READY":
+            raise ValueError(f"第三项正式写入状态不闭合：{row.get('ruler_name')}")
+        ready.append(row)
+
+    expected_order = sorted(ready, key=lambda row: (-float(row["third_item_score_points"]), str(row["ruler_id"])))
+    prior_score: float | None = None
+    expected_rank = 0
+    for index, row in enumerate(expected_order, 1):
+        score = float(row["third_item_score_points"])
+        if score != prior_score:
+            expected_rank = index
+            prior_score = score
+        if row.get("rank") != expected_rank:
+            raise ValueError(f"第三项正式排名不一致：{row.get('ruler_name')}")
+    if records != sorted(
+        records,
+        key=lambda row: (
+            row.get("third_item_score_points") is None,
+            -float(row.get("third_item_score_points") or 0),
+            str(row["ruler_id"]),
+        ),
+    ):
+        raise ValueError("第三项正式记录顺序不稳定")
+
+    scores = [float(row["third_item_score_points"]) for row in ready]
+    coverage = payload.get("component_coverage_counts") or {}
+    if coverage.get("union") != len(records) or coverage.get("ready") != len(ready):
+        raise ValueError("第三项组件覆盖摘要与正式记录不一致")
+    if payload.get("score_ready_count") != len(ready):
+        raise ValueError("第三项就绪计数不一致")
+    if payload.get("score_range") != {"minimum": min(scores), "maximum": max(scores)}:
+        raise ValueError("第三项分数范围不一致")
+    return {
+        "status": "PASS", "record_count": len(records),
+        "score_ready_count": len(ready), "pending_count": len(records) - len(ready),
+        "score_range": payload["score_range"],
+    }
+
+
 def _synchronize_current_ab_view(workspace_root: Path) -> None:
     """Put the current A120/B80 values beside the atomic AB adjudications."""
+    from emperor_v4.evaluation.five_dynasties_third_item import _render_formal_markdown
+
     ab_path = workspace_root / AB_PATH
     credit_path = workspace_root / RESULT_CREDIT_ADJUDICATIONS_PATH
     ab_payload = _load(ab_path)
@@ -516,6 +593,8 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
 
 
 def _synchronize_current_c_outcome_view(workspace_root: Path) -> None:
+    from emperor_v4.evaluation.five_dynasties_third_item import _render_formal_markdown
+
     """Keep every current C task visible without inventing missing outcomes."""
     c_path = workspace_root / C_PATH
     payload = _load(c_path)

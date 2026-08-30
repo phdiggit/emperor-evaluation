@@ -17,6 +17,9 @@ from emperor_v4.evaluation.composite_ranking import (
     write_composite_ranking,
 )
 from emperor_v4.evaluation.formal_settlements import verify_formal_settlements
+from emperor_v4.evaluation.profile_c2_c5_cross_axis_audit import (
+    inspect_cross_axis_drift as inspect_profile_c2_c5_cross_axis_drift,
+)
 from emperor_v4.evaluation.profile_c3_settlement import build as build_profile_c3_settlement
 from emperor_v4.evaluation.profile_c3_verifier import verify as verify_profile_c3_settlement
 from emperor_v4.evaluation.profile_m3_settlement import build as build_profile_m3_settlement
@@ -28,11 +31,11 @@ from emperor_v4.evaluation.profile_radar import write_samples as write_profile_r
 from emperor_v4.evaluation.profile_video_card import write_samples as write_profile_video_card_samples
 from emperor_v4.evaluation.profile_video_copy import write_samples as write_profile_video_copy_samples
 from emperor_v4.evaluation.third_item_current_settlement import (
-    build_current_third_item_settlement,
+    verify_current_third_item_settlement,
     write_current_third_item_settlement,
 )
 from emperor_v4.evaluation.third_item_d_settlement import (
-    write_third_item_d_formal_settlement,
+    verify_third_item_d_formal_settlement,
 )
 
 
@@ -43,6 +46,7 @@ def _parser() -> argparse.ArgumentParser:
     profile_c3 = commands.add_parser("profile-c3-settlement")
     profile_c3.add_argument("--write", action="store_true")
     commands.add_parser("profile-c3-verify")
+    commands.add_parser("profile-c2-c5-cross-axis-audit")
     profile_m3 = commands.add_parser("profile-m3-settlement")
     profile_m3.add_argument("--write", action="store_true")
     commands.add_parser("profile-m3-verify")
@@ -74,7 +78,7 @@ def _parser() -> argparse.ArgumentParser:
     ):
         command = commands.add_parser(name)
         command.add_argument("--workspace-root", type=Path, default=Path("."))
-    third_d = commands.add_parser("third-item-d-settlement")
+    third_d = commands.add_parser("third-item-d-verify")
     third_d.add_argument("--workspace-root", type=Path, default=Path("."))
     third_current = commands.add_parser("third-item-current-settlement")
     third_current.add_argument("--workspace-root", type=Path, default=Path("."))
@@ -100,6 +104,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
     if args.command == "profile-c3-verify":
         print(json.dumps(verify_profile_c3_settlement(), ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "profile-c2-c5-cross-axis-audit":
+        print(json.dumps(inspect_profile_c2_c5_cross_axis_drift(), ensure_ascii=False, indent=2))
         return 0
     if args.command == "profile-m3-settlement":
         payload = build_profile_m3_settlement(write=args.write)["settlement"]
@@ -192,16 +199,19 @@ def main(argv: Sequence[str] | None = None) -> int:
         return _print_written(write_first_item_b_registry(workspace_root))
     if args.command == "first-item-c-registry":
         return _print_written(write_first_item_c_registry(workspace_root))
-    if args.command == "third-item-d-settlement":
-        payload = write_third_item_d_formal_settlement(workspace_root)
-        print(f"D正式主体：{payload['record_count']}")
+    if args.command == "third-item-d-verify":
+        result = verify_third_item_d_formal_settlement(workspace_root)
+        print(json.dumps(result, ensure_ascii=False, indent=2))
         return 0
     if args.command == "third-item-current-settlement":
         payload = (
             write_current_third_item_settlement(workspace_root)
             if args.write
-            else build_current_third_item_settlement(workspace_root)
+            else verify_current_third_item_settlement(workspace_root)
         )
-        print(json.dumps(payload["component_coverage_counts"], ensure_ascii=False))
+        print(json.dumps(
+            payload["component_coverage_counts"] if args.write else payload,
+            ensure_ascii=False,
+        ))
         return 0
     raise AssertionError(f"未处理命令：{args.command}")

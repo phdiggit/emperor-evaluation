@@ -50,6 +50,9 @@ formal_settlements:
     role: common_military
     json: docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json
     markdown: docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.md
+    d_authority_mode: formal_settlement_patch_source
+    d_json: docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json
+    d_markdown: docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.md
   fourth_item:
     range: [-67.5, 67.5]
     role: signed_civilization_add_on
@@ -123,18 +126,21 @@ profile_assessment:
     M3:
       name: 民生财政建设
       contract_version: FORMAL-V3.0
+      authority_mode: formal_settlement_patch_source
       contract: docs/分项规则/人物画像轴/M3-民生财政建设.md
       json: docs/评分结算/皇帝人物画像/M3/29-M3民生财政建设正式结算.json
       markdown: docs/评分结算/皇帝人物画像/M3/29-M3民生财政建设正式结算.md
       c1_c4_supplement_audit_json: docs/评分结算/皇帝人物画像/M3/30-M3对第二项C1-C4逐人补正审计.json
       acceptance_markdown: docs/评分结算/皇帝人物画像/M3/31-M3民生财政建设全池收口.md
-      adjudications_json: config/profile/m3-livelihood-adjudications.json
-      supplement_adjudications_json: config/profile/m3-c1-c4-supplement-adjudications.json
-      missing_ruler_adjudications_json: config/profile/m3-c1-c4-missing-ruler-adjudications.json
-      coverage_matrix_json: config/profile/m3-coverage-matrix.json
-      semantic_review_decisions_json: config/profile/m3-semantic-review-decisions.json
+      audit_lineage:
+        prior_adjudication_snapshot_json: config/profile/m3-livelihood-adjudications.json
+        supplement_audit_json: config/profile/m3-c1-c4-supplement-adjudications.json
+        missing_ruler_audit_json: config/profile/m3-c1-c4-missing-ruler-adjudications.json
+        coverage_matrix_json: config/profile/m3-coverage-matrix.json
+        semantic_review_decisions_json: config/profile/m3-semantic-review-decisions.json
     M4:
       name: 政治联盟与内部联盟管理
+      authority_mode: formal_settlement_patch_source
       json: docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json
       markdown: docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.md
       unit_disposition_audit_json: docs/评分结算/皇帝人物画像/M4/35-M4主要入口单元处置审计.json
@@ -160,6 +166,7 @@ profile_assessment:
       joint_boundary_review_json: docs/评分结算/皇帝人物画像/交叉轴复核/23-C2与C5同链边界及强度联合复核.json
     C3:
       name: 人才识别、配置与授权
+      authority_mode: formal_settlement_patch_source
       json: docs/评分结算/皇帝人物画像/C3/24-C3人才识别配置与授权正式结算.json
       markdown: docs/评分结算/皇帝人物画像/C3/24-C3人才识别配置与授权正式结算.md
       unit_disposition_audit_json: docs/评分结算/皇帝人物画像/C3/25-C3主要入口单元处置审计.json
@@ -185,8 +192,8 @@ retained_build_chain:
     military: config/military
   battle_registry: docs/公共成果/军事/01-战役登记.json
   military_talent_registry: docs/公共成果/军事/02-武将人才等级.json
-  military_cost_benefit_registry: docs/公共成果/军事/03-军事行动成本和收益登记.json
+  military_cost_benefit_audit_lineage: docs/公共成果/军事/03-军事行动成本和收益登记.json
   first_item_commands: [first-item-a-registry, first-item-b-registry, first-item-c-registry]
-  third_item_commands: [third-item-d-settlement, third-item-current-settlement]
+  third_item_commands: [third-item-d-verify, third-item-current-settlement]
   composite_ranking_command: composite-ranking --write
   verification_command: formal-settlements-verify
