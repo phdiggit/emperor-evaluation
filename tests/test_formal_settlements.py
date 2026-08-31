@@ -1,7 +1,10 @@
 import json
 from pathlib import Path
 
-from emperor_v4.evaluation.formal_settlements import verify_formal_settlements
+from emperor_v4.evaluation.formal_settlements import (
+    verify_formal_settlements,
+    verify_second_item_a_snapshot,
+)
 from emperor_v4.evaluation.composite_ranking import _sha256 as composite_source_sha256
 from emperor_v4.evaluation.composite_ranking import build_composite_ranking
 
@@ -21,9 +24,82 @@ def test_all_five_formal_settlements_are_coherent() -> None:
         "component_file_count": 12,
         "complete_ruler_count": 185,
         "finance_ruler_count": 195,
+        "A_institution_node_count": 289,
+        "A_scoring_node_count": 252,
     }
     assert report["composite_ranking"]["record_count"] == 174
     assert report["composite_ranking"]["pending_second_item_count"] == 10
+
+
+def test_second_item_a_snapshot_closes_current_contract_and_registry() -> None:
+    report = verify_second_item_a_snapshot(Path("."))
+    assert report == {
+        "status": "PASS",
+        "record_count": 185,
+        "institution_node_count": 289,
+        "scoring_node_count": 252,
+        "reference_node_count": 37,
+    }
+
+    payload = json.loads(
+        Path("docs/评分结算/第二项治国净收益/制度行政/01-A制度建设与实际运行方向卡.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    rows = {row["ruler_name"]: row for row in payload["records"]}
+    assert all(row["C_A"] in {0, 0.5, 1, 2} for row in payload["records"])
+    assert all(
+        row["S_net"] >= 1
+        for row in payload["records"]
+        if row["grade"] in {"G4", "G5"}
+    )
+    assert rows["朱元璋"]["S_minus"] == 3
+    assert rows["武则天"]["position"] == "lower-middle"
+    assert rows["李适"]["position"] == "middle"
+    assert rows["武则天"]["direction_index"] < rows["李适"]["direction_index"]
+    assert rows["朱厚照"]["S_minus"] == 0
+    assert rows["玄烨"]["A_C_A_support_mechanism"] == "内外大臣具折陈事的奏折制度起点"
+    assert rows["吕雉"]["grade"] == "G2"
+    assert rows["赵佶"]["grade"] == "G3"
+    assert rows["陈霸先"]["grade"] == "G3"
+    assert rows["耶律洪基"]["grade"] == "G0"
+    assert rows["完颜守绪"]["grade"] == "G0"
+    assert rows["完颜珣"]["grade"] == "G0"
+    assert rows["孙权"]["grade"] == "G0"
+    assert [
+        row["ruler_name"]
+        for row in payload["records"]
+        if row["grade"] != "G0" and not row["important_institutions"]
+    ] == ["赵昀"]
+    assert rows["赵昀"]["C_A"] == 1
+    assert "多个次级制度形成可识别组合" in rows["赵昀"]["grade_basis"]
+    generic_mechanisms = {"其他制度行政机制", "法律、司法与刑罚运行", "选官、人事与官僚专业化", "地方行政与政策交付", "A"}
+    assert not any(
+        profile.get("mechanism") in generic_mechanisms
+        for row in payload["records"]
+        for group in ("M_positive_profile", "M_mixed_profile", "M_negative_profile")
+        for profile in row[group]
+    )
+
+    markdown = Path(
+        "docs/评分结算/第二项治国净收益/制度行政/01-A制度建设与实际运行方向卡.md"
+    ).read_text(encoding="utf-8")
+    ruler_sections = markdown.split("\n### ")[1:]
+    assert len(ruler_sections) == 185
+    assert all("\n- 材料依据：\n  - 《" in section for section in ruler_sections)
+    material_lines = [line for line in markdown.splitlines() if line.startswith("  - ")]
+    assert material_lines
+    assert all(line.startswith("  - 《") for line in material_lines)
+    assert not any(
+        token in line
+        for line in material_lines
+        for token in ("material_id", "evidence_id", "source_url", "revision_ref", "sha256")
+    )
+    assert not any(
+        token in line.split("》", 1)[0]
+        for line in material_lines
+        for token in ("底账", "登记", "方向卡", "结算", "清单", "index.php")
+    )
 
 
 def test_composite_ranking_uses_only_ready_rulers_and_current_formula() -> None:
@@ -33,7 +109,7 @@ def test_composite_ranking_uses_only_ready_rulers_and_current_formula() -> None:
     assert payload["records"][0]["ruler_name"] == "李世民"
     assert payload["records"][0]["total_score"] == 820.61
     assert payload["records"][1]["ruler_name"] == "玄烨"
-    assert payload["records"][1]["total_score"] == 601.42
+    assert payload["records"][1]["total_score"] == 599.12
     zhao_ji = next(row for row in payload["records"] if row["ruler_name"] == "赵佶")
     assert zhao_ji["first_item_status"] == "NOT_APPLICABLE"
     assert zhao_ji["first_item_raw_score"] is None

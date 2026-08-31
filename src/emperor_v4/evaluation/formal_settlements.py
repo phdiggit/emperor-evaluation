@@ -68,6 +68,10 @@ SECOND_ITEM_COMPONENT_PATHS = {
     "handoff": "docs/评分结算/第二项治国净收益/政权交接稳定/03-交接质量20分正式结算.json",
 }
 
+IMPORTANT_INSTITUTION_REGISTRY = (
+    "docs/公共成果/制度行政/03-重要制度发展节点链.json"
+)
+
 
 def _competition_rank(sorted_scores: list[float], index: int) -> int:
     return sorted_scores.index(sorted_scores[index]) + 1
@@ -88,6 +92,183 @@ def _verify_records_hash(payload: dict[str, Any], label: str) -> None:
         raise ValueError(f"{label} payload_sha256与当前记录不一致")
 
 
+def verify_second_item_a_snapshot(workspace_root: Path) -> dict[str, Any]:
+    a_payload = json.loads(
+        (workspace_root / SECOND_ITEM_COMPONENT_PATHS["A"]).read_text(encoding="utf-8")
+    )
+    registry = json.loads(
+        (workspace_root / IMPORTANT_INSTITUTION_REGISTRY).read_text(encoding="utf-8")
+    )
+    nodes = registry.get("nodes") or []
+    active_node_ids = {
+        str(node["institution_node_id"])
+        for node in nodes
+        if node.get("counts_toward_A") is True
+    }
+    active_nodes_by_id = {
+        str(node["institution_node_id"]): node
+        for node in nodes
+        if node.get("counts_toward_A") is True
+    }
+    if (
+        registry.get("record_count") != len(nodes)
+        or registry.get("scoring_node_count") != len(active_node_ids)
+        or registry.get("reference_node_count") != len(nodes) - len(active_node_ids)
+    ):
+        raise ValueError("第二项A上游03节点统计与当前JSON不一致")
+    if len({node.get("institution_node_id") for node in nodes}) != len(nodes):
+        raise ValueError("第二项A上游03存在重复节点ID")
+    allowed_ca = {0.0, 0.5, 1.0, 2.0}
+    allowed_m = {"M0", "M2", "M3"}
+    generic_mechanisms = {
+        "其他制度行政机制", "法律、司法与刑罚运行", "选官、人事与官僚专业化",
+        "地方行政与政策交付", "A",
+    }
+    ca2_roles = {
+        "FOUNDATIONAL_CREATION", "MAJOR_RESTRUCTURE", "MAJOR_RECONSTRUCTION",
+        "CANONICALIZATION", "MAJOR_CODIFICATION", "MAJOR_CIVILIZATIONAL_CORRECTION",
+        "STRUCTURAL_NON_DURABLE", "DURABILITY_EVIDENCE_PENDING",
+    }
+    grade_cost = {"G0": 0.0, "G1": 0.25, "G2": 0.5, "G3": 1.0, "G4": 2.0, "G5": 6.0}
+    position_q = {"lower": 0.1, "lower-middle": 0.3, "middle": 0.5, "middle-upper": 0.7, "upper": 0.9}
+    index_anchor = {
+        "G0": {"lower": 2.0, "lower-middle": 6.0, "middle": 10.0, "middle-upper": 14.0, "upper": 18.0},
+        "G1": {"lower": 22.0, "lower-middle": 26.0, "middle": 30.0, "middle-upper": 34.0, "upper": 38.0},
+        "G2": {"lower": 41.5, "lower-middle": 44.5, "middle": 47.5, "middle-upper": 50.5, "upper": 53.4},
+        "G3": {"lower": 56.5, "lower-middle": 59.5, "middle": 62.5, "middle-upper": 65.5, "upper": 68.4},
+        "G4": {"lower": 71.5, "lower-middle": 74.5, "middle": 77.5, "middle-upper": 80.4, "upper": 83.5},
+        "G5": {"lower": 86.5, "lower-middle": 89.5, "middle": 92.5, "middle-upper": 95.5, "upper": 98.5},
+    }
+    records = a_payload.get("records") or []
+    if a_payload.get("A_position_formula_code") != "A_STRUCTURAL_THICKNESS_V2":
+        raise ValueError("第二项A未使用当前position公式V2")
+    for row in records:
+        ruler_name = row.get("ruler_name")
+        if float(row.get("C_A")) not in allowed_ca:
+            raise ValueError(f"第二项A非法C_A：{ruler_name}={row.get('C_A')}")
+        if row.get("grade") in {"G4", "G5"} and float(row.get("S_net") or 0) < 1:
+            raise ValueError(f"第二项A高档未通过正向S门：{ruler_name}")
+        referenced_ids = {
+            str(item.get("institution_node_id"))
+            for item in row.get("important_institutions") or []
+        }
+        missing_ids = sorted(referenced_ids - active_node_ids)
+        if missing_ids:
+            raise ValueError(f"第二项A引用未闭合：{ruler_name}={missing_ids}")
+        referenced_nodes = [active_nodes_by_id[node_id] for node_id in referenced_ids]
+        constructive_directions = {"positive", "mixed_positive", "mixed"}
+        ca_value = float(row.get("C_A") or 0)
+        if ca_value == 2 and not any(
+            node.get("major_node_role") in ca2_roles
+            and node.get("normative_direction") in constructive_directions
+            for node in referenced_nodes
+        ):
+            raise ValueError(f"第二项A的C_A=2缺少纯重大支撑节点：{ruler_name}")
+        if ca_value == 1 and ruler_name != "赵昀" and not any(
+            node.get("major_node_role") == "LOCAL_OR_SECONDARY_CONSTRUCTION"
+            and node.get("normative_direction") in constructive_directions
+            for node in referenced_nodes
+        ):
+            raise ValueError(f"第二项A的C_A=1缺少局部支撑节点：{ruler_name}")
+        if ca_value == 0.5 and not any(
+            node.get("major_node_role") == "PAPER_OR_INCOMPLETE_CONSTRUCTION"
+            and node.get("normative_direction") in constructive_directions
+            for node in referenced_nodes
+        ):
+            raise ValueError(f"第二项A的C_A=0.5缺少未完成支撑节点：{ruler_name}")
+        if row.get("grade") != "G0" and not referenced_nodes:
+            if not (
+                ruler_name == "赵昀"
+                and ca_value == 1
+                and "多个次级制度形成可识别组合" in str(row.get("grade_basis"))
+            ):
+                raise ValueError(f"第二项A非G0人物缺少03节点或组合裁决：{ruler_name}")
+        for profile_key in ("M_positive_profile", "M_mixed_profile", "M_negative_profile"):
+            for profile in row.get(profile_key) or []:
+                if profile.get("M") not in allowed_m:
+                    raise ValueError(
+                        f"第二项A非法M档：{ruler_name}={profile.get('M')}"
+                    )
+                if profile.get("mechanism") in generic_mechanisms:
+                    raise ValueError(f"第二项A仍有泛化机制：{ruler_name}={profile.get('mechanism')}")
+        grade = str(row.get("grade"))
+        if grade in {"G4", "G5"}:
+            independent = 0.0
+            seen_lifecycles: set[object] = set()
+            for profile_key in ("M_positive_profile", "M_mixed_profile", "M_negative_profile"):
+                for profile in row.get(profile_key) or []:
+                    if profile.get("counts_toward_S") or profile.get("position_count_mode") == "context_only_no_effective_mechanism":
+                        continue
+                    lifecycle_key: object = (
+                        profile.get("institution_node_id")
+                        or profile.get("material_id")
+                        or (profile.get("mechanism"), profile.get("direction"))
+                    )
+                    if lifecycle_key in seen_lifecycles:
+                        continue
+                    seen_lifecycles.add(lifecycle_key)
+                    independent += float(profile.get("signed_weight") or 0)
+            structural = 2 * float(row.get("S_net") or 0) + float(row.get("S_plus_plus") or 0)
+        else:
+            independent = float(row.get("A_independent_M_signed") or 0)
+            structural = (
+                2 * float(row.get("S_net") or 0)
+                + float(row.get("S_plus_plus") or 0)
+                + float(row.get("C_A") or 0) / 2
+            )
+        residual = structural - grade_cost[grade] + independent / 4
+        has_profiles = any(
+            row.get(profile_key)
+            for profile_key in ("M_positive_profile", "M_mixed_profile", "M_negative_profile")
+        )
+        if grade == "G0" and not has_profiles:
+            expected_position = "middle"
+        elif residual < -1:
+            expected_position = "lower"
+        elif residual < 0:
+            expected_position = "lower-middle"
+        elif residual < 1:
+            expected_position = "middle"
+        elif residual < 2:
+            expected_position = "middle-upper"
+        else:
+            expected_position = "upper"
+        formula_values = {
+            "A_structural_thickness": round(structural, 2),
+            "A_independent_M_signed": round(independent, 2),
+            "A_independent_M_position_weight": round(independent / 4, 2),
+            "A_position_residual": round(residual, 2),
+            "position_q": position_q[expected_position],
+            "direction_index": index_anchor[grade][expected_position],
+        }
+        if row.get("A_position_formula_code") != "A_STRUCTURAL_THICKNESS_V2" or row.get("position") != expected_position:
+            raise ValueError(f"第二项A position公式不一致：{ruler_name}")
+        for field, expected in formula_values.items():
+            if abs(float(row.get(field) or 0) - expected) > 1e-9:
+                raise ValueError(f"第二项A position字段不一致：{ruler_name}.{field}")
+    markdown_path = (workspace_root / SECOND_ITEM_COMPONENT_PATHS["A"]).with_suffix(".md")
+    markdown = markdown_path.read_text(encoding="utf-8")
+    ruler_sections = markdown.split("\n### ")[1:]
+    if len(ruler_sections) != len(records) or not all(
+        "\n- 材料依据：\n  - 《" in section for section in ruler_sections
+    ):
+        raise ValueError("第二项A逐人材料依据未全部列出具体书名材料")
+    material_lines = [line for line in markdown.splitlines() if line.startswith("  - ")]
+    machine_tokens = ("material_id", "evidence_id", "source_url", "revision_ref", "sha256")
+    if not material_lines or any(
+        not line.startswith("  - 《") or any(token in line for token in machine_tokens)
+        for line in material_lines
+    ):
+        raise ValueError("第二项A材料依据仍含无书名条目或机器审计字段")
+    return {
+        "status": "PASS",
+        "record_count": len(records),
+        "institution_node_count": len(nodes),
+        "scoring_node_count": len(active_node_ids),
+        "reference_node_count": len(nodes) - len(active_node_ids),
+    }
+
+
 def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
     payloads = {
         key: json.loads((workspace_root / path).read_text(encoding="utf-8"))
@@ -96,6 +277,8 @@ def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
     for key in ("C4", "result"):
         _verify_records_hash(payloads[key], f"第二项{key}")
     indexed = {key: _records_by_id(payload) for key, payload in payloads.items()}
+
+    a_report = verify_second_item_a_snapshot(workspace_root)
     id_sets = {key: set(rows) for key, rows in indexed.items()}
     complete_ids = id_sets["method"]
     complete_keys = {"A", "B1", "B2", "method", "D1", "D3", "handoff"}
@@ -187,6 +370,8 @@ def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
         "component_file_count": len(payloads),
         "complete_ruler_count": len(complete_ids),
         "finance_ruler_count": len(finance_ids),
+        "A_institution_node_count": a_report["institution_node_count"],
+        "A_scoring_node_count": a_report["scoring_node_count"],
     }
 
 
