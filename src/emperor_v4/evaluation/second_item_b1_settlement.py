@@ -94,6 +94,8 @@ def position_residual(row: dict[str, Any]) -> float:
     for profile in profiles:
         if profile.get("M") != "M3" or float(profile.get("signed_weight") or 0.0) >= 0:
             continue
+        if profile.get("direction") == "mixed_negative":
+            continue
         severity = str(profile.get("severity") or "")
         if "terminal" in severity:
             residual -= 1.0
@@ -364,7 +366,15 @@ def validate_profile_contract(payload: dict[str, Any]) -> None:
                 level = profile.get("M")
                 weight = float(profile.get("signed_weight") or 0.0)
                 if level in {"M2", "M3"}:
-                    expected = 1.0 if level == "M2" else 2.0
+                    expected = 1.0 if (
+                        level == "M2"
+                        or (
+                            level == "M3"
+                            and profile.get("direction") == "mixed_negative"
+                            and profile.get("mixed_weight_mode") == "directional_half"
+                            and float(profile.get("direction_factor") or 0.0) == -0.5
+                        )
+                    ) else 2.0
                     if abs(weight) != expected:
                         raise ValueError(
                             f"B1 M档与signed_weight不一致：{row['ruler_name']} / {profile.get('material_id')} / {level} / {weight:g}"
@@ -375,12 +385,16 @@ def validate_profile_contract(payload: dict[str, Any]) -> None:
                 else:
                     raise ValueError(f"B1非法M档：{row['ruler_name']} / {profile.get('material_id')}")
                 if level == "M3" and weight < 0:
-                    if profile.get("severity") not in ALLOWED_SEVERITIES:
-                        raise ValueError(f"B1有效负M3缺少Severity：{row['ruler_name']} / {profile.get('material_id')}")
-                    if profile.get("severity_scope") not in ALLOWED_SEVERITY_SCOPES:
-                        raise ValueError(f"B1有效负M3缺少Severity scope：{row['ruler_name']} / {profile.get('material_id')}")
-                    if profile.get("severity") in {"N3-cross", "N3-terminal"} and role != "core":
-                        raise ValueError(f"B1 cross/terminal负M3必须标为core失灵：{row['ruler_name']} / {profile.get('material_id')}")
+                    if profile.get("direction") == "mixed_negative":
+                        if any(profile.get(field) is not None for field in ("severity", "severity_scope", "severity_basis")):
+                            raise ValueError(f"B1混合负M3不得保留独立Severity：{row['ruler_name']} / {profile.get('material_id')}")
+                    else:
+                        if profile.get("severity") not in ALLOWED_SEVERITIES:
+                            raise ValueError(f"B1有效负M3缺少Severity：{row['ruler_name']} / {profile.get('material_id')}")
+                        if profile.get("severity_scope") not in ALLOWED_SEVERITY_SCOPES:
+                            raise ValueError(f"B1有效负M3缺少Severity scope：{row['ruler_name']} / {profile.get('material_id')}")
+                        if profile.get("severity") in {"N3-cross", "N3-terminal"} and role != "core":
+                            raise ValueError(f"B1 cross/terminal负M3必须标为core失灵：{row['ruler_name']} / {profile.get('material_id')}")
                 elif any(profile.get(field) is not None for field in ("severity", "severity_scope", "severity_basis")):
                     raise ValueError(f"B1非负M3残留Severity字段：{row['ruler_name']} / {profile.get('material_id')}")
 
@@ -424,8 +438,29 @@ def _material_basis(workspace_root: Path, payload: dict[str, Any]) -> dict[str, 
     for row in payload["records"]:
         lines = []
         seen = set()
+        profiles_by_material = {
+            str(profile["material_id"]): profile
+            for key in ("M_positive_profile", "M_mixed_profile", "M_negative_profile")
+            for profile in row.get(key) or []
+        }
         for material_id in row.get("direct_material_ids") or []:
-            material = materials[material_id]
+            material = materials.get(material_id)
+            if material is None:
+                profile = profiles_by_material.get(str(material_id), {})
+                source_basis = profile.get("source_basis") or profile.get("source_refs")
+                source_lines = source_basis if isinstance(source_basis, list) else [source_basis]
+                for source_line in source_lines:
+                    source_line = str(source_line or "").strip()
+                    if not source_line or source_line in seen:
+                        continue
+                    seen.add(source_line)
+                    lines.append(f"  - {source_line if source_line.startswith('《') else '《补充裁决材料》：' + source_line}")
+                if not source_lines or not any(str(line or "").strip() for line in source_lines):
+                    mechanism = str(profile.get("mechanism") or "补充裁决材料待登记")
+                    if mechanism not in seen:
+                        seen.add(mechanism)
+                        lines.append(f"  - 《补充裁决材料》：{mechanism}")
+                continue
             for evidence in material.get("evidence") or []:
                 quote = str(evidence.get("exact_quote") or "").strip()
                 if not quote or quote in seen:

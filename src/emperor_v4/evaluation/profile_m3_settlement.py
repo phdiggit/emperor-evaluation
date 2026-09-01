@@ -36,6 +36,7 @@ GRADE_PROJECTION = {
     ("G5", "MID"): 94,
     ("G5", "HIGH"): 97,
 }
+M3_CONTRACT_VERSION = "FORMAL-V3.6"
 
 
 def _load(path: Path) -> dict[str, Any]:
@@ -136,7 +137,7 @@ def update_manifest() -> None:
             "axis_code": "M3",
             "axis_name": "民生财政建设",
             "status": "FORMAL_CURRENT",
-            "contract_version": "FORMAL-V3.5",
+            "contract_version": M3_CONTRACT_VERSION,
             "contract": M3_CONTRACT.relative_to(ROOT).as_posix(),
             "record_count": 184,
             "json": M3_SETTLEMENT.relative_to(PROFILE_ROOT).as_posix(),
@@ -153,7 +154,9 @@ def build(*, write: bool = False) -> dict[str, Any]:
     if settlement.get("authority_mode") != "FORMAL_SETTLEMENT_PATCH_SOURCE":
         raise ValueError("M3 formal settlement is not declared as the patch authority")
     if write:
+        settlement["contract_version"] = M3_CONTRACT_VERSION
         for record in settlement["records"]:
+            record["contract_version"] = M3_CONTRACT_VERSION
             _refresh_redundant_record_text(record)
         _write_json(M3_SETTLEMENT, settlement)
         M3_MARKDOWN.write_text(

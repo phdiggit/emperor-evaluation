@@ -27,7 +27,7 @@ def test_profile_m3_formal_snapshot_passes_lightweight_verifier() -> None:
     assert result["status"] == "PASS"
     assert result["record_count"] == 184
     assert sum(result["grade_distribution"].values()) == 184
-    assert result["grade_distribution"] == {"G0": 11, "G1": 44, "G2": 48, "G3": 64, "G4": 13, "G5": 4}
+    assert result["grade_distribution"] == {"G0": 11, "G1": 43, "G2": 47, "G3": 67, "G4": 12, "G5": 4}
     assert result["scale_gate_distribution"] == {
         "FULL_OR_MAJOR_REGIONAL": 19,
         "UNRESOLVED_NOT_HIGH_GRADE_GATE": 159,
@@ -47,7 +47,8 @@ def test_profile_m3_confirmed_checklist_changes_are_applied() -> None:
     by_name = {row["ruler_name"]: row for row in settlement["records"]}
     expected = {
         "刘庄": ("G4", "MID"), "拓跋宏": ("G3", "HIGH"), "李隆基": ("G2", "LOW"),
-        "苻坚": ("G2", "LOW"), "颙琰": ("G2", "MID"), "司马师": ("G2", "MID"),
+        "苻坚": ("G2", "LOW"), "苻健": ("G3", "HIGH"), "弘历": ("G3", "LOW"),
+        "李治": ("G2", "LOW"), "赵祯": ("G3", "LOW"), "颙琰": ("G2", "MID"), "司马师": ("G2", "MID"),
         "孟昶": ("G2", "LOW"), "萧鸾": ("G2", "LOW"), "拓跋焘": ("G2", "HIGH"),
         "孙权": ("G3", "MID"), "福临": ("G3", "HIGH"), "慕容垂": ("G3", "MID"),
         "耶律贤": ("G3", "HIGH"), "赵煦": ("G3", "HIGH"), "耶律大石": ("G3", "HIGH"),
@@ -58,12 +59,14 @@ def test_profile_m3_confirmed_checklist_changes_are_applied() -> None:
 
 def test_profile_m3_checklist_contract_and_yinzhen_boundary_are_explicit() -> None:
     contract = M3_CONTRACT.read_text(encoding="utf-8")
-    assert "FORMAL-V3.5" in contract
+    assert "FORMAL-V3.6" in contract
     assert "M3不重新定义DA0—DA4" in contract
     assert "同档结构建设的待建边界" in contract
     assert "实现表现下限硬门" in contract
     assert "强建设事实保留例外" in contract
     assert "高压守成不得消费本人自造压力" in contract
+    assert "长期高位兑现保护门" in contract
+    assert "交班保留恢复量≥12" in contract
 
     settlement = _load(M3_SETTLEMENT)
     yinzhen = next(row for row in settlement["records"] if row["ruler_name"] == "胤禛")

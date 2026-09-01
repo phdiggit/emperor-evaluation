@@ -11,6 +11,7 @@ import yaml
 
 from emperor_v4.evaluation.profile_m3_settlement import (
     GRADE_PROJECTION,
+    M3_CONTRACT_VERSION,
     M3_CONTRACT,
     M3_MARKDOWN,
     M3_SETTLEMENT,
@@ -50,12 +51,25 @@ SOURCE_ORIGINS = {
     "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION",
     "M3_SUPPLEMENT",
 }
+RECOVERY_WEIGHTS = (0.5, 0.2, 0.3)
+RECOVERY_DIFFICULTY = {1: 0.6, 2: 0.8, 3: 1.0, 4: 1.3, 5: 1.6}
+
+
+def _retained_recovery_amount(start: list[int], end: list[int]) -> float:
+    return round(10 * sum(
+        weight * sum(RECOVERY_DIFFICULTY[band] for band in range(initial, final))
+        for initial, final, weight in zip(start, end, RECOVERY_WEIGHTS)
+        if final > initial
+    ), 1)
 
 
 def _unexpected_da_labels(value: Any, expected: str) -> set[str]:
     """Ignore an explicitly rejected higher boundary, but not a contradictory current one."""
     if isinstance(value, str):
         scrubbed = re.sub(r"不升DA[0-4]", "", value)
+        scrubbed = re.sub(
+            r"按DA[0-4]升DA[0-4]的残余成本门[^。]*只足DA[0-4]", "", scrubbed
+        )
         return set(re.findall(r"DA[0-4]", scrubbed)) - {expected}
     if isinstance(value, dict):
         return set().union(
@@ -147,7 +161,7 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
     records = settlement["records"]
     if settlement["schema_version"] != "profile-m3-livelihood-finance-formal-settlement-v3":
         raise ValueError("M3 schema mismatch")
-    if settlement.get("contract_version") != "FORMAL-V3.5":
+    if settlement.get("contract_version") != M3_CONTRACT_VERSION:
         raise ValueError("M3 contract version mismatch")
     contract_text = M3_CONTRACT.read_text(encoding="utf-8")
     required_contract_clauses = (
@@ -156,6 +170,8 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
         "实现表现下限硬门",
         "强建设事实保留例外",
         "高压守成不得消费本人自造压力",
+        "长期高位兑现保护门",
+        "交班保留恢复量≥12",
         "本人自造部分",
         "M3不重新定义DA0—DA4",
     )
@@ -166,13 +182,15 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
     if settlement.get("authority_mode") != "FORMAL_SETTLEMENT_PATCH_SOURCE":
         raise ValueError("M3 formal settlement is not the declared patch authority")
     expected_checklist_status = {
-        "contract_version": "FORMAL-V3.5",
+        "contract_version": M3_CONTRACT_VERSION,
         "C01_SAME_BAND_STRUCTURAL_BUILD": "PENDING_RULE_NOT_SCORE_ACTIVE",
         "C02_PERFORMANCE_FLOOR": "ACTIVE_AFTER_FULL_POOL_EXCEPTION_ADJUDICATION",
         "C03_STRONG_BUILD_SELF_DESTRUCTION_EXCEPTION": "ACTIVE_FOR_LI_LONGJI_AND_FU_JIAN_AT_G2_LOW",
         "C04_SELF_CREATED_LOW_BASELINE": "RESPONSIBILITY_WINDOW_PRINCIPLE_IMPLEMENTED; UNRESOLVED_CASES_FROZEN",
         "C05_DA3_REALIZED_COST_BOUNDARY": "IMPLEMENTED_IN_C4_CONTRACT",
         "C06_SELF_CREATED_PRESSURE_EXCLUDED_FROM_STEWARDSHIP_CREDIT": "IMPLEMENTED_IN_M3_CONTRACT",
+        "C07_LONG_HIGH_REALIZATION_PROTECTION": "ACTIVE_TARGETED_READJUDICATION",
+        "C08_G4_RETAINED_RECOVERY_GATE": "ACTIVE_TARGETED_READJUDICATION",
         "yinzhen_disposition": "C2_4_RETAINED; M3_G3_MID_RETAINED_PENDING_C01",
     }
     if settlement["summary"].get("checklist_contract_remediation") != expected_checklist_status:
@@ -408,7 +426,8 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
             retained = int(trajectory["retained_improvement_axis_count"])
             improved = int(trajectory["improved_axis_count"])
             end_tier = int(trajectory["end_tier"])
-            strong_build = recovery >= 15 and improved >= 2 and retained >= 2 and end_tier >= 3 and stability >= 6
+            retained_recovery = _retained_recovery_amount(trajectory["start_vector"], end)
+            strong_build = recovery >= 15 and improved >= 2 and retained >= 2 and retained_recovery >= 12 and end_tier >= 3 and stability >= 6
             complete_a4 = min(end) >= 4 and recovery >= 10 and stability >= 8 and retained >= 2
             high_stewardship = evidence.get("route") == "HIGH_LEVEL_STEWARDSHIP"
             a5_floor = end_tier >= 5 and float(evidence["deterioration_penalty"]) < 8 and float(evidence["destructive_amplification_penalty"]) < 18
