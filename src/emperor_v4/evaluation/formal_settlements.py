@@ -7,6 +7,13 @@ from typing import Any
 
 from emperor_v4.evaluation.canonical_ruler_pool import verify_canonical_ruler_pool
 from emperor_v4.evaluation.composite_ranking import verify_composite_ranking
+from emperor_v4.evaluation.second_item_b1_settlement import (
+    active_groups,
+    index_from_grade_position,
+    position_from_residual,
+    position_residual,
+    validate_gate_references,
+)
 from emperor_v4.evaluation.third_item_current_settlement import (
     verify_current_third_item_settlement,
 )
@@ -314,14 +321,12 @@ def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
 
     distribution = {grade: 0 for grade in intervals}
     reviewed_count = direct_count = verification_count = 0
-    preserved_review_names: set[str] = set()
     for row in records:
         name = str(row.get("ruler_name"))
         grade, position = str(row.get("grade")), str(row.get("position"))
         if grade not in intervals or position not in position_q:
             raise ValueError(f"第二项B1非法档位或position：{name}")
-        low, high = intervals[grade]
-        if float(row.get("direction_index")) != round(low + position_q[position] * (high - low), 1):
+        if float(row.get("direction_index")) != index_from_grade_position(grade, position):
             raise ValueError(f"第二项B1档位、position与index不一致：{name}")
         if row.get("grade_gate_code") != gate_codes[grade]:
             raise ValueError(f"第二项B1仍有旧门禁代码：{name}")
@@ -358,17 +363,17 @@ def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
         if profile_ids != direct:
             raise ValueError(f"第二项B1 direct材料与M-profile不一致：{name}")
 
-        if not str(row.get("position_basis") or "").startswith(f"仅限{grade}同档比较：") or (
-            f"裁为{position}" not in str(row.get("position_basis") or "")
+        expected_residual = position_residual(row)
+        expected_position = "middle" if grade == "G0" and not active_groups(row) else position_from_residual(expected_residual)
+        if (
+            float(row.get("position_residual")) != expected_residual
+            or position != expected_position
+            or "同档横向比较" in str(row.get("position_basis") or "")
+            or "position_depth_bonus" in json.dumps(row, ensure_ascii=False)
         ):
-            raise ValueError(f"第二项B1 position_basis与当前档位位置不一致：{name}")
+            raise ValueError(f"第二项B1净余量、position或旧手工逻辑不一致：{name}")
         semantic_status = row.get("profile_semantic_review_status")
-        expected_semantic_status = (
-            {"V50_REASON_IS_FORMAL_AUTHORITY"}
-            if row.get("v50_review_status") == "PATCHED_FROM_V50"
-            else {"PRESERVED_NOT_LISTED_IN_V50"}
-        )
-        if semantic_status not in expected_semantic_status:
+        if semantic_status != "B1_CONTRACT_V51_FULL_POOL_REVIEWED":
             raise ValueError(f"第二项B1缺少M-profile逐人语义复核状态：{name}")
         structured_basis = row.get("structured_grade_basis")
         if not isinstance(structured_basis, list) or not structured_basis or any(
@@ -400,29 +405,10 @@ def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
             role.startswith("负向依据") for role in evidence_roles
         ):
             raise ValueError(f"第二项B1结算依据缺少正向或负向栏目：{name}")
-        if any(
-            "无可计M档" not in str(point["role"])
-            and len(str(point["text"]).strip()) < 12
-            for point in structured_basis[1:]
-        ):
-            raise ValueError(f"第二项B1结算依据仍有缺少具体事例的短句：{name}")
         expected_basis_levels: dict[str, set[str]] = {"正向": set(), "负向": set()}
-        for profile_key, direction_label in (
-            ("M_positive_profile", "正向"),
-            ("M_negative_profile", "负向"),
-        ):
-            for profile in row.get(profile_key) or []:
-                if profile.get("position_weight_override") == 0 or profile.get("position_count_mode") == "absorbed_same_lifecycle":
-                    continue
-                expected_basis_levels[direction_label].add(str(profile["M"]))
-        for profile in row.get("M_mixed_profile") or []:
-            if profile.get("position_weight_override") == 0 or profile.get("position_count_mode") == "absorbed_same_lifecycle":
-                continue
-            factor = float(profile.get("direction_factor") or 0.0)
-            if factor >= 0:
-                expected_basis_levels["正向"].add(str(profile["M"]))
-            if factor <= 0:
-                expected_basis_levels["负向"].add(str(profile["M"]))
+        for profile in active_groups(row):
+            direction_label = "正向" if float(profile.get("signed_weight") or 0.0) > 0 else "负向"
+            expected_basis_levels[direction_label].add(str(profile["M"]))
         actual_basis_levels: dict[str, set[str]] = {"正向": set(), "负向": set()}
         no_count_directions: set[str] = set()
         for evidence_role in evidence_roles:
@@ -456,15 +442,6 @@ def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
         }
         if role_subtypes != expected_subtypes:
             raise ValueError(f"第二项B1负向M3严重度标签与profile不一致：{name}")
-        structured_source = row.get("structured_basis_source")
-        if structured_source not in {"V50", "V20", "FORMAL"}:
-            raise ValueError(f"第二项B1结算依据缺少清单来源优先级：{name}")
-        if structured_source in {"V50", "V20"} and not isinstance(row.get("structured_basis_source_line"), int):
-            raise ValueError(f"第二项B1清单来源缺少行号：{name}")
-        if structured_source == "FORMAL" and row.get("structured_basis_source_line") is not None:
-            raise ValueError(f"第二项B1正式快照回退来源不应伪造清单行号：{name}")
-        if not isinstance(row.get("v50_review_basis"), str) or not row["v50_review_basis"].strip():
-            raise ValueError(f"第二项B1缺少v50原始审查依据：{name}")
         reader_basis_text = " ".join(str(point["text"]) for point in structured_basis[1:])
         if re.search(
             r"(?<![A-Za-z])(?:distributed|central|support|core|personnel|externalized_power|position|N3-)",
@@ -474,13 +451,7 @@ def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
         direct_count += len(direct)
         verification_count += len(verification)
 
-        status = row.get("v50_review_status")
-        if status == "PATCHED_FROM_V50":
-            reviewed_count += 1
-        elif status == "NOT_LISTED_IN_V50_PRESERVED":
-            preserved_review_names.add(name)
-        else:
-            raise ValueError(f"第二项B1缺少v50逐人覆盖状态：{name}")
+        reviewed_count += 1
 
     if payload.get("grade_distribution") != distribution:
         raise ValueError("第二项B1档位分布元数据不一致")
@@ -488,24 +459,13 @@ def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
         raise ValueError("第二项B1 M-profile语义复核计数不一致")
     if payload.get("structured_basis_count") != len(records):
         raise ValueError("第二项B1结构化结算依据计数不一致")
-    source_counts = {
-        source: sum(row.get("structured_basis_source") == source.upper() for row in records)
-        for source in ("v50", "v20", "formal")
-    }
     if (
-        payload.get("structured_basis_source_counts") != source_counts
-        or payload.get("structured_basis_review_covered_count") != source_counts["v50"] + source_counts["v20"]
-        or payload.get("structured_basis_conflict_policy")
-        != "V50_OVERRIDES_V20; V20_SUPPLEMENTS_ONLY_WHERE_V50_IS_SILENT; FORMAL_SNAPSHOT_USED_WHERE_BOTH_ARE_SILENT"
+        payload.get("contract_recalculation_status") != "FORMAL_COMPLETE"
+        or payload.get("contract_recalculation_count") != 185
+        or reviewed_count != 185
     ):
-        raise ValueError("第二项B1清单来源覆盖或v50优先策略元数据不一致")
-    if (
-        payload.get("v50_review_covered_count") != reviewed_count
-        or payload.get("v50_review_preserved_count") != len(preserved_review_names)
-        or set(payload.get("v50_review_preserved_rulers") or []) != preserved_review_names
-        or reviewed_count + len(preserved_review_names) != 185
-    ):
-        raise ValueError("第二项B1 v50逐人覆盖元数据不一致")
+        raise ValueError("第二项B1 V5.1全池重裁元数据不一致")
+    validate_gate_references(payload)
     sorted_scores = sorted((float(row["direction_index"]) for row in records), reverse=True)
     for row in records:
         if row.get("rank") != sorted_scores.index(float(row["direction_index"])) + 1:
@@ -514,7 +474,7 @@ def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
     markdown = path.with_suffix(".md").read_text(encoding="utf-8")
     expected_order = [
         str(row["ruler_name"])
-        for row in sorted(records, key=lambda item: (int(item["rank"]), str(item["ruler_name"])))
+        for row in sorted(records, key=lambda item: (int(item["rank"]), str(item["ruler_id"])))
     ]
     table_names = re.findall(r"^\| \d+ \| ([^|]+?) \|", markdown, flags=re.M)
     detail_names = re.findall(r"^### (.+?)（.*?分项第\d+名）$", markdown, flags=re.M)
@@ -565,16 +525,16 @@ def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
     ):
         raise ValueError("第二项B1材料依据未统一为书名接direct原文")
     return {
-        "status": "PASS_WITH_V50_PRESERVED" if preserved_review_names else "PASS",
+        "status": "PASS_V51_FULL_POOL_RECALCULATED",
         "record_count": len(records),
         "reviewed_count": reviewed_count,
-        "preserved_review_count": len(preserved_review_names),
         "direct_material_count": direct_count,
         "verification_material_count": verification_count,
         "invalid_M1_count": 0,
         "duplicate_markdown_ruler_count": 0,
         "profile_semantic_review_count": reviewed_count,
-        "explicit_value_patch_count": int(payload.get("v50_explicit_value_patch_count") or 0),
+        "grade_distribution": distribution,
+        "contract_recalculation_count": int(payload.get("contract_recalculation_count") or 0),
         "position_basis_refresh_count": int(payload.get("position_basis_refresh_count") or 0),
         "structured_basis_count": int(payload.get("structured_basis_count") or 0),
     }

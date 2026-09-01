@@ -118,18 +118,20 @@ def test_second_item_a_snapshot_applies_v2_explicit_patch_and_registry() -> None
     )
 
 
-def test_second_item_b1_snapshot_applies_v50_person_and_material_patches() -> None:
+def test_second_item_b1_snapshot_applies_v50_and_v51_contract_recalculation() -> None:
     assert verify_second_item_b1_snapshot(Path(".")) == {
-        "status": "PASS_WITH_V50_PRESERVED",
+        "status": "PASS_V51_FULL_POOL_RECALCULATED",
         "record_count": 185,
-        "reviewed_count": 164,
-        "preserved_review_count": 21,
-        "direct_material_count": 445,
-        "verification_material_count": 85,
+        "reviewed_count": 185,
+        "direct_material_count": 447,
+        "verification_material_count": 83,
         "invalid_M1_count": 0,
         "duplicate_markdown_ruler_count": 0,
-        "profile_semantic_review_count": 164,
-        "explicit_value_patch_count": 76,
+        "profile_semantic_review_count": 185,
+        "grade_distribution": {
+            "G0": 7, "G1": 25, "G2": 51, "G3": 56, "G4": 43, "G5": 3,
+        },
+        "contract_recalculation_count": 185,
         "position_basis_refresh_count": 185,
         "structured_basis_count": 185,
     }
@@ -144,32 +146,27 @@ def test_second_item_b1_snapshot_applies_v50_person_and_material_patches() -> No
         "G4", "middle-upper", 80.4
     )
     assert (rows["陈叔宝"]["grade"], rows["陈叔宝"]["position"], rows["陈叔宝"]["direction_index"]) == (
-        "G0", "lower-middle", 6.0
+        "G0", "lower", 2.0
     )
-    assert rows["李渊"]["v50_review_status"] == "NOT_LISTED_IN_V50_PRESERVED"
-    assert all(row["v50_review_basis"].strip() for row in rows.values())
-    assert rows["朱棣"]["v50_review_basis"] != rows["朱棣"]["grade_basis"]
+    assert payload["contract_recalculation_status"] == "FORMAL_COMPLETE"
+    assert all(row["profile_semantic_review_status"] == "B1_CONTRACT_V51_FULL_POOL_REVIEWED" for row in rows.values())
+    assert not any("position_depth_bonus" in json.dumps(row, ensure_ascii=False) for row in rows.values())
     assert all(len(row["structured_grade_basis"]) >= 2 for row in rows.values())
-    assert payload["structured_basis_source_counts"] == {"v50": 164, "v20": 10, "formal": 11}
-    assert rows["拓跋宏"]["structured_grade_basis"][1]["role"] == "正向依据（M3）"
-    assert "三载一考" in rows["拓跋宏"]["structured_grade_basis"][1]["text"]
-    li_shimin_basis = rows["李世民"]["structured_grade_basis"]
-    assert [point["role"] for point in li_shimin_basis].count("正向依据（M3）") == 3
-    assert all(any(token in point["text"] for point in li_shimin_basis) for token in ("六条巡察", "中书拟诏", "官吏多自清谨"))
-    wanyan_yong_basis = rows["完颜雍"]["structured_grade_basis"]
-    assert [point["role"] for point in wanyan_yong_basis].count("正向依据（M3）") == 2
-    assert any(point["role"] == "负向依据（M2）" and "强制迁徙" in point["text"] for point in wanyan_yong_basis)
-    assert "I2-JIN-MAT-5A3139D53395A1D3" not in rows["完颜雍"]["direct_material_ids"]
-    assert "I2-JIN-MAT-5A3139D53395A1D3" in rows["完颜雍"]["verification_material_ids"]
+    assert (rows["李世民"]["position"], rows["李世民"]["direction_index"], rows["李世民"]["position_residual"]) == ("upper", 98.5, 2.0)
+    assert (rows["陈蒨"]["grade"], rows["陈蒨"]["position"], rows["陈蒨"]["direction_index"]) == (
+        "G4", "middle", 77.5
+    )
+    assert rows["陈蒨"]["g4_core_profile_id"] and rows["陈蒨"]["g4_secondary_profile_id"]
+    assert (rows["刘秀"]["grade"], rows["刘秀"]["position"], rows["刘秀"]["direction_index"]) == (
+        "G4", "middle-upper", 80.4
+    )
+    assert "侯霸—郭贺—冯勤" in rows["刘秀"]["grade_basis"]
+    assert rows["刘询"]["g5_extra_route"] == "PRESSURE_RECOVERY"
+    assert rows["完颜雍"]["g5_extra_route"] == "CROSS_STAGE_REPLACEMENT"
+    assert "I2-JIN-MAT-5A3139D53395A1D3" in rows["完颜雍"]["direct_material_ids"]
+    assert "I2-JIN-MAT-5A3139D53395A1D3" not in rows["完颜雍"]["verification_material_ids"]
     assert any(point["role"] == "负向依据（M3，cross）" for point in rows["朱棣"]["structured_grade_basis"])
     assert any(point["role"] == "负向依据（M3，terminal）" for point in rows["完颜守绪"]["structured_grade_basis"])
-    cao_cao_basis = rows["曹操"]["structured_grade_basis"]
-    assert [point["role"] for point in cao_cao_basis].count("正向依据（M3）") == 4
-    assert [point["role"] for point in cao_cao_basis].count("负向依据（M3）") == 1
-    assert all(
-        any(token in point["text"] for point in cao_cao_basis)
-        for token in ("荀彧", "毛玠、崔琰", "刘馥", "任峻", "永久免黜")
-    )
     assert rows["曹操"]["M_mixed_profile"] == []
     assert {profile["M"] for profile in rows["曹操"]["M_positive_profile"]} == {"M3"}
     assert rows["曹操"]["M_negative_profile"][0]["M"] == "M3"
@@ -200,9 +197,9 @@ def test_composite_ranking_uses_only_ready_rulers_and_current_formula() -> None:
     assert payload["record_count"] == 174
     assert payload["pending_second_item_count"] == 10
     assert payload["records"][0]["ruler_name"] == "李世民"
-    assert payload["records"][0]["total_score"] == 825.11
+    assert payload["records"][0]["total_score"] == 827.51
     assert payload["records"][1]["ruler_name"] == "玄烨"
-    assert payload["records"][1]["total_score"] == 607.62
+    assert payload["records"][1]["total_score"] == 612.32
     zhao_ji = next(row for row in payload["records"] if row["ruler_name"] == "赵佶")
     assert zhao_ji["first_item_status"] == "NOT_APPLICABLE"
     assert zhao_ji["first_item_raw_score"] is None
@@ -324,10 +321,10 @@ def test_five_dynasties_batch_is_fully_settled() -> None:
         )["records"]
     }
     assert {name: total_rows[name]["second_item_score"] for name in expected} == {
-        "杨行密": 196.8,
-        "钱镠": 154.4,
-        "马殷": 216.7,
-        "高季兴": 175.8,
+        "杨行密": 195.6,
+        "钱镠": 153.2,
+        "马殷": 215.5,
+        "高季兴": 171.1,
         "孟知祥": 206.6,
         "李克用": 101.0,
         "刘崇": 133.0,
@@ -367,9 +364,9 @@ def test_recent_batch_calibration_keeps_rare_feedback_grades_rare() -> None:
     assert {name: totals[name]["second_item_score"] for name in (
         "完颜雍", "萧绰", "耶律隆绪", "完颜晟", "完颜守绪"
     )} == {
-        "完颜雍": 320.7,
-        "萧绰": 240.9,
-        "耶律隆绪": 250.4,
+        "完颜雍": 323.1,
+        "萧绰": 236.1,
+        "耶律隆绪": 245.7,
         "完颜晟": 176.7,
-        "完颜守绪": 116.5,
+        "完颜守绪": 109.4,
     }

@@ -34,6 +34,7 @@ from emperor_v4.evaluation.profile_markdown import AXIS_FILES, write_axes as wri
 from emperor_v4.evaluation.profile_radar import write_samples as write_profile_radar_samples
 from emperor_v4.evaluation.profile_video_card import write_samples as write_profile_video_card_samples
 from emperor_v4.evaluation.profile_video_copy import write_samples as write_profile_video_copy_samples
+from emperor_v4.evaluation.second_item_b1_settlement import rebuild_derived as rebuild_second_item_b1
 from emperor_v4.evaluation.third_item_current_settlement import (
     verify_current_third_item_settlement,
     write_current_third_item_settlement,
@@ -51,6 +52,9 @@ def _parser() -> argparse.ArgumentParser:
     second_item_a.add_argument("--workspace-root", type=Path, default=Path("."))
     second_item_b2 = commands.add_parser("second-item-b2-verify")
     second_item_b2.add_argument("--workspace-root", type=Path, default=Path("."))
+    second_item_b1 = commands.add_parser("second-item-b1-settlement")
+    second_item_b1.add_argument("--workspace-root", type=Path, default=Path("."))
+    second_item_b1.add_argument("--write", action="store_true")
     profile_c3 = commands.add_parser("profile-c3-settlement")
     profile_c3.add_argument("--write", action="store_true")
     commands.add_parser("profile-c3-verify")
@@ -112,6 +116,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
     if args.command == "second-item-b2-verify":
         report = verify_second_item_b2_snapshot(args.workspace_root.resolve())
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "second-item-b1-settlement":
+        report = rebuild_second_item_b1(args.workspace_root.resolve(), write=args.write)
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0
     if args.command == "profile-c3-settlement":
