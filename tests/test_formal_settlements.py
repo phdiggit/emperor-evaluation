@@ -42,9 +42,11 @@ def test_all_five_formal_settlements_are_coherent() -> None:
         "finance_ruler_count": 195,
             "A_institution_node_count": 331,
             "A_scoring_node_count": 297,
-        "B2_review_adjudication_count": 142,
-        "B2_duplicate_markdown_ruler_count": 0,
-    }
+            "B2_review_adjudication_count": 142,
+            "B2_duplicate_markdown_ruler_count": 0,
+            "D3_formal_record_count": 185,
+            "handoff_formula_record_count": 185,
+        }
     assert report["composite_ranking"]["record_count"] == 174
     assert report["composite_ranking"]["pending_second_item_count"] == 10
 
@@ -282,7 +284,7 @@ def test_composite_ranking_uses_only_ready_rulers_and_current_formula() -> None:
     assert payload["records"][0]["ruler_name"] == "李世民"
     assert payload["records"][0]["total_score"] == 827.51
     assert payload["records"][1]["ruler_name"] == "玄烨"
-    assert payload["records"][1]["total_score"] == 612.32
+    assert payload["records"][1]["total_score"] == 614.32
     zhao_ji = next(row for row in payload["records"] if row["ruler_name"] == "赵佶")
     assert zhao_ji["first_item_status"] == "NOT_APPLICABLE"
     assert zhao_ji["first_item_raw_score"] is None
@@ -405,11 +407,11 @@ def test_five_dynasties_batch_is_fully_settled() -> None:
     }
     assert {name: total_rows[name]["second_item_score"] for name in expected} == {
         "杨行密": 195.6,
-        "钱镠": 153.2,
+        "钱镠": 151.2,
         "马殷": 208.3,
         "高季兴": 171.1,
         "孟知祥": 209.0,
-        "李克用": 101.0,
+        "李克用": 97.0,
         "刘崇": 133.0,
     }
 
@@ -447,9 +449,9 @@ def test_recent_batch_calibration_keeps_rare_feedback_grades_rare() -> None:
     assert {name: totals[name]["second_item_score"] for name in (
         "完颜雍", "萧绰", "耶律隆绪", "完颜晟", "完颜守绪"
     )} == {
-        "完颜雍": 325.5,
+            "完颜雍": 323.5,
         "萧绰": 238.5,
-        "耶律隆绪": 250.4,
+        "耶律隆绪": 248.4,
         "完颜晟": 183.8,
-        "完颜守绪": 109.4,
+            "完颜守绪": 113.4,
     }

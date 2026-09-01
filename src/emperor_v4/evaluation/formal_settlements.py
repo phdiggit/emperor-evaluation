@@ -713,6 +713,53 @@ def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
     }
     indexed = {key: _records_by_id(payload) for key, payload in payloads.items()}
 
+    d3_payload = payloads["D3"]
+    d3_records = list(d3_payload.get("records") or [])
+    d3_markdown = (workspace_root / SECOND_ITEM_COMPONENT_PATHS["D3"]).with_suffix(".md").read_text(encoding="utf-8")
+    d3_intervals = {
+        "D3-0": (0.0, 2.85), "D3-1": (3.0, 5.85), "D3-2": (6.0, 8.85),
+        "D3-3": (9.0, 11.85), "D3-4": (12.0, 14.10), "D3-5": (14.25, 15.0),
+    }
+    if (
+        d3_payload.get("record_count") != len(d3_records)
+        or d3_payload.get("direction_card_ready_count") != len(d3_records)
+        or len({str(row.get("ruler_id")) for row in d3_records}) != len(d3_records)
+        or len({str(row.get("ruler_name")) for row in d3_records}) != len(d3_records)
+    ):
+        raise ValueError("第二项D3正式名单或动态覆盖计数不一致")
+    d3_scores = sorted((float(row["direction_index"]) for row in d3_records), reverse=True)
+    for row in d3_records:
+        grade = str(row.get("D3_grade"))
+        index = float(row.get("direction_index"))
+        if grade not in d3_intervals or not d3_intervals[grade][0] <= index <= d3_intervals[grade][1]:
+            raise ValueError(f"第二项D3档位与内部指数不一致：{row.get('ruler_name')}")
+        if int(row.get("rank")) != d3_scores.index(index) + 1:
+            raise ValueError(f"第二项D3竞争排名不一致：{row.get('ruler_name')}")
+        expected_table = (
+            f"| {row['rank']} | {row['ruler_name']} | {row['polity']} | {grade}（"
+        )
+        expected_detail = f"### {row['ruler_name']}（{row['polity']}，分项第{row['rank']}名）"
+        if expected_table not in d3_markdown or expected_detail not in d3_markdown:
+            raise ValueError(f"第二项D3 Markdown未同步：{row.get('ruler_name')}")
+
+    handoff_records = list(payloads["handoff"].get("records") or [])
+    handoff_scores = sorted((float(row["score"]) for row in handoff_records), reverse=True)
+    caps = {0: 4.0, 1: 8.0, 2: 12.0, 3: 16.0, 4: 20.0, 5: 20.0}
+    for row in handoff_records:
+        ruler_id = str(row["ruler_id"])
+        d1_level = int(str(indexed["D1"][ruler_id]["grade"])[-1])
+        d3_level = int(str(indexed["D3"][ruler_id]["D3_grade"])[-1])
+        expected_cap = caps[min(d1_level, d3_level)]
+        expected_score = min(2.0 * (d1_level + d3_level), expected_cap)
+        if (
+            int(row.get("D1_level")) != d1_level
+            or int(row.get("D3_level")) != d3_level
+            or float(row.get("low_side_cap")) != expected_cap
+            or float(row.get("score")) != expected_score
+            or int(row.get("rank")) != handoff_scores.index(float(row["score"])) + 1
+        ):
+            raise ValueError(f"第二项20分交接结算与D1/D3公式不一致：{row.get('ruler_name')}")
+
     a_report = verify_second_item_a_snapshot(workspace_root)
     verify_second_item_b1_snapshot(workspace_root)
     b2_report = verify_second_item_b2_snapshot(workspace_root)
@@ -805,6 +852,8 @@ def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
         "A_scoring_node_count": a_report["scoring_node_count"],
         "B2_review_adjudication_count": b2_report["review_adjudication_count"],
         "B2_duplicate_markdown_ruler_count": b2_report["duplicate_markdown_ruler_count"],
+        "D3_formal_record_count": len(d3_records),
+        "handoff_formula_record_count": len(handoff_records),
     }
 
 
