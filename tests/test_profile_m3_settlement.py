@@ -8,6 +8,7 @@ import pytest
 
 from emperor_v4.evaluation.profile_m3_settlement import (
     GRADE_PROJECTION,
+    M3_CONTRACT,
     M3_MARKDOWN,
     M3_SETTLEMENT,
     ROOT,
@@ -26,7 +27,7 @@ def test_profile_m3_formal_snapshot_passes_lightweight_verifier() -> None:
     assert result["status"] == "PASS"
     assert result["record_count"] == 184
     assert sum(result["grade_distribution"].values()) == 184
-    assert result["grade_distribution"] == {"G0": 6, "G1": 54, "G2": 49, "G3": 59, "G4": 12, "G5": 4}
+    assert result["grade_distribution"] == {"G0": 13, "G1": 48, "G2": 45, "G3": 62, "G4": 12, "G5": 4}
     assert result["scale_gate_distribution"] == {
         "FULL_OR_MAJOR_REGIONAL": 19,
         "UNRESOLVED_NOT_HIGH_GRADE_GATE": 159,
@@ -41,12 +42,76 @@ def test_profile_m3_scores_are_mechanical_projection_of_stored_decisions() -> No
         assert row["score_100"] == row["radar_value"] == expected
 
 
+def test_profile_m3_confirmed_checklist_changes_are_applied() -> None:
+    settlement = _load(M3_SETTLEMENT)
+    by_name = {row["ruler_name"]: row for row in settlement["records"]}
+    expected = {
+        "李忱": ("G3", "HIGH"), "赵曙": ("G3", "HIGH"), "朱瞻基": ("G3", "HIGH"),
+        "赵光义": ("G3", "MID"), "司马睿": ("G2", "HIGH"), "武则天": ("G3", "MID"),
+        "高欢": ("G3", "MID"), "慈禧": ("G1", "LOW"), "高湛": ("G2", "LOW"),
+        "李德旺": ("G1", "MID"), "耶律延禧": ("G1", "LOW"), "胡亥": ("G0", "LOW"),
+        "高洋": ("G0", "LOW"), "李隆基": ("G0", "LOW"), "苻坚": ("G0", "LOW"),
+        "刘宏": ("G0", "LOW"), "赫连勃勃": ("G0", "LOW"), "刘彻": ("G0", "LOW"),
+        "完颜亮": ("G0", "LOW"), "嬴政": ("G0", "LOW"),
+    }
+    assert {name: (by_name[name]["axis_grade"], by_name[name]["position"]) for name in expected} == expected
+
+
+def test_profile_m3_checklist_contract_and_yinzhen_boundary_are_explicit() -> None:
+    contract = M3_CONTRACT.read_text(encoding="utf-8")
+    assert "FORMAL-V3.4" in contract
+    assert "M3不重新定义DA0—DA4" in contract
+    assert "同档结构建设的待建边界" in contract
+    assert "实现表现下限的待建硬门" in contract
+    assert "尚未启用为正式自动保底条件" in contract
+
+    settlement = _load(M3_SETTLEMENT)
+    yinzhen = next(row for row in settlement["records"] if row["ruler_name"] == "胤禛")
+    review = yinzhen["ability_evidence"]["same_band_structural_build_review"]
+    assert yinzhen["components"]["C2"]["band"] == "C2-4"
+    assert (yinzhen["axis_grade"], yinzhen["position"]) == ("G3", "MID")
+    assert review["status"] == "PENDING_RULE_NOT_SCORE_ACTIVE"
+    assert review["c2_disposition"] == "C2-4_RETAINED"
+    assert review["m3_disposition"] == "G3-MID_RETAINED_PENDING_RULE"
+
+
+def test_profile_m3_highest_achieved_vector_covers_main_and_handoff() -> None:
+    settlement = _load(M3_SETTLEMENT)
+    for row in settlement["records"]:
+        trajectory = row["ability_evidence"]["trajectory"]
+        assert all(
+            highest >= max(main, end)
+            for highest, main, end in zip(
+                trajectory["peak_vector"], trajectory["main_vector"], trajectory["end_vector"]
+            )
+        )
+
+
 def test_profile_m3_rejects_local_hard_constraint_breakage() -> None:
     settlement = _load(M3_SETTLEMENT)
     broken = copy.deepcopy(settlement)
     broken["records"][0]["score_100"] = -1
     with pytest.raises(ValueError, match="score projection mismatch"):
         verify_payload(broken)
+
+
+def test_profile_m3_rejects_upstream_curve_k_and_da_drift() -> None:
+    settlement = _load(M3_SETTLEMENT)
+
+    broken_curve = copy.deepcopy(settlement)
+    broken_curve["records"][0]["ability_evidence"]["trajectory"]["start_vector"][0] += 1
+    with pytest.raises(ValueError, match="upstream trajectory drift"):
+        verify_payload(broken_curve)
+
+    broken_k = copy.deepcopy(settlement)
+    broken_k["records"][0]["ability_evidence"]["weighted_K"] = -1
+    with pytest.raises(ValueError, match="weighted K drift"):
+        verify_payload(broken_k)
+
+    broken_da = copy.deepcopy(settlement)
+    broken_da["records"][0]["ability_evidence"]["destructive_amplification_grade"] = "DA9"
+    with pytest.raises(ValueError, match="DA grade drift"):
+        verify_payload(broken_da)
 
 
 def test_profile_m3_compiler_reads_formal_snapshot_without_readjudication() -> None:

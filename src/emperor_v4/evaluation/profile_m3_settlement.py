@@ -67,7 +67,7 @@ def update_manifest() -> None:
             "axis_code": "M3",
             "axis_name": "民生财政建设",
             "status": "FORMAL_CURRENT",
-            "contract_version": "FORMAL-V3.3",
+            "contract_version": "FORMAL-V3.4",
             "contract": M3_CONTRACT.relative_to(ROOT).as_posix(),
             "contract_sha256": _sha(M3_CONTRACT),
             "record_count": 184,

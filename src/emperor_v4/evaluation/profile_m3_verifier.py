@@ -78,6 +78,54 @@ def _sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _band(value: Any) -> int:
+    match = re.search(r"(\d+)$", str(value))
+    if not match:
+        raise ValueError(f"cannot parse upstream band: {value!r}")
+    return int(match.group(1))
+
+
+def _expected_trajectory(upstream: dict[str, dict[str, Any]], ruler_id: str) -> dict[str, Any]:
+    anchors: list[tuple[int, int, int]] = []
+    peaks: list[int] = []
+    for axis in ("C1", "C2", "C3"):
+        source = upstream[axis][ruler_id]
+        state = source["state_anchors"]
+        main_key = "S_main" if axis == "C3" else "S_avg"
+        start = _band(state["S0"])
+        main = _band(state[main_key])
+        end = _band(state["S_end"])
+        explicit = [
+            _band(source[key])
+            for key in ("peak_band", "formal_peak_band", "raw_peak_band")
+            if source.get(key) is not None
+        ]
+        anchors.append((start, main, end))
+        peaks.append(max(main, end, *explicit))
+    start = [item[0] for item in anchors]
+    main = [item[1] for item in anchors]
+    end = [item[2] for item in anchors]
+    peak_improvement = [max(high - initial, 0) for high, initial in zip(peaks, start)]
+    retained_change = [final - initial for final, initial in zip(end, start)]
+    rollback = [max(high - final, 0) for high, final in zip(peaks, end)]
+    return {
+        "start_vector": start,
+        "main_vector": main,
+        "peak_vector": peaks,
+        "end_vector": end,
+        "peak_improvement_vector": peak_improvement,
+        "retained_change_vector": retained_change,
+        "rollback_vector": rollback,
+        "improved_axis_count": sum(value > 0 for value in peak_improvement),
+        "deep_improvement_axis_count": sum(value >= 2 for value in peak_improvement),
+        "retained_improvement_axis_count": sum(value > 0 for value in retained_change),
+        "rollback_axis_count": sum(value > 0 for value in rollback),
+        "start_tier": sorted(start)[1],
+        "peak_tier": sorted(peaks)[1],
+        "end_tier": sorted(end)[1],
+    }
+
+
 def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
     included = {
         row["ruler_id"]
@@ -87,8 +135,18 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
     records = settlement["records"]
     if settlement["schema_version"] != "profile-m3-livelihood-finance-formal-settlement-v3":
         raise ValueError("M3 schema mismatch")
-    if settlement.get("contract_version") != "FORMAL-V3.3":
+    if settlement.get("contract_version") != "FORMAL-V3.4":
         raise ValueError("M3 contract version mismatch")
+    contract_text = M3_CONTRACT.read_text(encoding="utf-8")
+    required_contract_clauses = (
+        "同档结构建设的待建边界",
+        "C2绝对状态保留四档",
+        "实现表现下限的待建硬门",
+        "本人自造部分",
+        "M3不重新定义DA0—DA4",
+    )
+    if any(clause not in contract_text for clause in required_contract_clauses):
+        raise ValueError("M3 checklist contract clause missing")
     if settlement["canonical_status"] != "FORMAL_CURRENT":
         raise ValueError("M3 is not formal current")
     if settlement.get("authority_mode") != "FORMAL_SETTLEMENT_PATCH_SOURCE":
@@ -127,6 +185,7 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
     scale_distribution: Counter[str] = Counter()
     reader_source_count_distribution: Counter[str] = Counter()
     c4_reader_modes: Counter[str] = Counter()
+    k_structure_distribution: Counter[str] = Counter()
     for row in records:
         key = (row["axis_grade"], row["position"])
         if key not in GRADE_PROJECTION:
@@ -240,11 +299,44 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
         scale_distribution[scale_status] += 1
 
         trajectory = evidence.get("trajectory") or {}
+        expected_trajectory = _expected_trajectory(upstream, row["ruler_id"])
+        for field, expected_value in expected_trajectory.items():
+            if trajectory.get(field) != expected_value:
+                raise ValueError(f"M3 upstream trajectory drift: {row['ruler_id']} {field}")
+        c4 = upstream["C4"][row["ruler_id"]]
+        c4_numeric = {
+            "recovery_score_27": c4["recovery_score"],
+            "stability_score_18": c4["stability_score"],
+        }
+        for field, expected_value in c4_numeric.items():
+            if float(trajectory.get(field)) != float(expected_value):
+                raise ValueError(f"M3 upstream C4 numeric drift: {row['ruler_id']} {field}")
+        if float(evidence.get("deterioration_penalty")) != float(c4["deterioration_penalty"]):
+            raise ValueError(f"M3 upstream deterioration drift: {row['ruler_id']}")
+        if evidence.get("destructive_amplification_grade") != c4["destructive_amplification_grade"]:
+            raise ValueError(f"M3 upstream DA grade drift: {row['ruler_id']}")
+        if float(evidence.get("destructive_amplification_penalty")) != float(c4["destructive_amplification_penalty"]):
+            raise ValueError(f"M3 upstream DA penalty drift: {row['ruler_id']}")
+        expected_k_basis = c4.get("stability_k_basis") or {}
+        if evidence.get("stability_k_basis") != expected_k_basis:
+            raise ValueError(f"M3 upstream K basis drift: {row['ruler_id']}")
+        if evidence.get("weighted_K") != c4.get("weighted_K"):
+            raise ValueError(f"M3 upstream weighted K drift: {row['ruler_id']}")
+        expected_k_status = "STRUCTURED_C4_FORMAL" if expected_k_basis else "C4_FORMAL_PROSE_ONLY"
+        if evidence.get("stability_k_structure_status") != expected_k_status:
+            raise ValueError(f"M3 K structure status drift: {row['ruler_id']}")
+        if evidence.get("stability_k_public_basis") != c4.get("recovery_and_absorption", ""):
+            raise ValueError(f"M3 K public basis drift: {row['ruler_id']}")
+        k_structure_distribution[expected_k_status] += 1
+        start = trajectory["start_vector"]
+        main = trajectory["main_vector"]
+        peak = trajectory["peak_vector"]
+        end = trajectory["end_vector"]
+        if any(highest < max(main_state, end_state) for highest, main_state, end_state in zip(peak, main, end)):
+            raise ValueError(f"M3 highest-achieved vector invariant failed: {row['ruler_id']}")
         if row["axis_grade"] == "G4":
             recovery = float(trajectory["recovery_score_27"])
             stability = float(trajectory["stability_score_18"])
-            start = trajectory["start_vector"]
-            end = trajectory["end_vector"]
             retained = int(trajectory["retained_improvement_axis_count"])
             improved = int(trajectory["improved_axis_count"])
             end_tier = int(trajectory["end_tier"])
@@ -271,6 +363,21 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
         raise ValueError("M3 C4 legacy reader-source count mismatch")
     if reader_contract.get("source_count_distribution") != dict(reader_source_count_distribution):
         raise ValueError("M3 reader source-count distribution mismatch")
+    yinzhen = next(row for row in records if row["ruler_name"] == "胤禛")
+    yinzhen_review = yinzhen["ability_evidence"].get("same_band_structural_build_review") or {}
+    if yinzhen["components"]["C2"]["band"] != "C2-4":
+        raise ValueError("M3 Yinzhen C2 disposition drift")
+    if (yinzhen["axis_grade"], yinzhen["position"]) != ("G3", "MID"):
+        raise ValueError("M3 Yinzhen pending adjudication drift")
+    if yinzhen_review.get("status") != "PENDING_RULE_NOT_SCORE_ACTIVE":
+        raise ValueError("M3 Yinzhen same-band review status missing")
+    if yinzhen_review.get("m3_disposition") != "G3-MID_RETAINED_PENDING_RULE":
+        raise ValueError("M3 Yinzhen same-band disposition drift")
+    upstream_summary = settlement["summary"].get("upstream_sync") or {}
+    if upstream_summary.get("source_sha256") != {axis: _sha(path) for axis, path in C_PATHS.items()}:
+        raise ValueError("M3 upstream source hash drift")
+    if upstream_summary.get("k_structure_distribution") != dict(k_structure_distribution):
+        raise ValueError("M3 K structure distribution mismatch")
     return {
         "status": "PASS",
         "record_count": len(records),
@@ -279,6 +386,7 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
             row["score_status"] == "EVIDENCE_LIMITED" for row in records
         ),
         "scale_gate_distribution": dict(scale_distribution),
+        "k_structure_distribution": dict(k_structure_distribution),
     }
 
 

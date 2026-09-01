@@ -10,6 +10,17 @@ from emperor_v4.evaluation.composite_ranking import _sha256 as composite_source_
 from emperor_v4.evaluation.composite_ranking import build_composite_ranking
 
 
+def test_c4_contract_uses_cost_scale_da_boundaries() -> None:
+    contract = Path(
+        "docs/分项规则/第二项治国净收益/财政民生/00-规则与结算合同.md"
+    ).read_text(encoding="utf-8")
+    assert "DA首先判断未被轨迹变量吸收的残余成本量级" in contract
+    assert "一次行为只要成本量级足够高，也可直接进入DA2或DA3" in contract
+    assert "一次超大型动员、战争或工程即可成立" in contract
+    assert "一次灾难性选择即可成立" in contract
+    assert "DA只结算尚未被这些轨迹变量吸收的剩余主动成本" in contract
+
+
 def test_all_five_formal_settlements_are_coherent() -> None:
     report = verify_formal_settlements(Path("."))
     assert report["status"] == "PASS"
@@ -132,9 +143,9 @@ def test_composite_ranking_uses_only_ready_rulers_and_current_formula() -> None:
     assert payload["record_count"] == 174
     assert payload["pending_second_item_count"] == 10
     assert payload["records"][0]["ruler_name"] == "李世民"
-    assert payload["records"][0]["total_score"] == 820.61
+    assert payload["records"][0]["total_score"] == 827.51
     assert payload["records"][1]["ruler_name"] == "玄烨"
-    assert payload["records"][1]["total_score"] == 612.62
+    assert payload["records"][1]["total_score"] == 607.62
     zhao_ji = next(row for row in payload["records"] if row["ruler_name"] == "赵佶")
     assert zhao_ji["first_item_status"] == "NOT_APPLICABLE"
     assert zhao_ji["first_item_raw_score"] is None
@@ -180,24 +191,45 @@ def test_liu_hu_and_liu_zhi_finance_records_use_personal_rule_windows() -> None:
         assert rows[axis]["刘祜"]["confidence"].endswith("WINDOW_READJUDICATED")
         assert rows[axis]["刘志"]["confidence"].endswith("WINDOW_READJUDICATED")
     assert rows["C2"]["刘志"]["state_anchors"] == {
-        "S0": "C2-2",
+        "S0": "C2-3",
         "S_avg": "C2-2",
         "S_end": "C2-2",
     }
     liu_zhi_c3_refs = json.dumps(rows["C3"]["刘志"]["evidence"], ensure_ascii=False)
     assert "卷058" not in liu_zhi_c3_refs
     assert "黄巾均不进入刘志结算" in liu_zhi_c3_refs
-    assert "C2/C3同源回落仅作互证，不重复扣分" in rows["C4"]["刘祜"][
+    liu_hu_c4 = rows["C4"]["刘祜"]
+    assert "征役无度，老弱相随，动有万计" in liu_hu_c4[
         "deterioration_curve_summary"
     ]
+    assert liu_hu_c4["destructive_amplification_grade"] == "DA2"
     liu_zhuang_c4 = rows["C4"]["刘庄"]
-    assert liu_zhuang_c4["main_band"] == "C4-2"
-    assert liu_zhuang_c4["score"] == 12.6
-    assert liu_zhuang_c4["destructive_amplification_grade"] == "DA0"
-    assert "不以外生冲击追加归责扣分" in liu_zhuang_c4[
+    assert liu_zhuang_c4["main_band"] == "C4-1"
+    assert liu_zhuang_c4["score"] == 6.9
+    assert liu_zhuang_c4["destructive_amplification_grade"] == "DA2"
+    assert "人失农时" in liu_zhuang_c4[
         "deterioration_curve_summary"
     ]
-    assert "最终为C4-1" not in liu_zhuang_c4["deterioration_curve_summary"]
+
+
+def test_c4_uses_one_current_destructive_amplification_verdict() -> None:
+    path = Path("docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json")
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    penalties = {"DA0": 0.0, "DA1": 4.5, "DA2": 9.0, "DA3": 13.5, "DA4": 18.0}
+
+    assert payload["attribution_readjudication"]["status"] == "FORMAL_COMPLETE"
+    assert payload["review_progress"]["remaining_record_count"] == 0
+    for row in payload["scores"]:
+        grade = row["destructive_amplification_grade"]
+        review = row["c4_attribution_readjudication"]
+        assert row["destructive_amplification_penalty"] == penalties[grade]
+        assert review["final_grade"] == grade
+        assert review["final_penalty"] == penalties[grade]
+        assert row["military_cost_review"]["final_grade"] == grade
+        assert row["negative_tail_adjudication_reason"] == row["behavior_and_attribution"]
+        assert row["attribution_readjudication_reason"] == row["behavior_and_attribution"]
+        assert "previous_grade" not in review
+        assert "original_adjudication_reason" not in review
 
 
 def test_five_dynasties_batch_is_fully_settled() -> None:
@@ -218,13 +250,13 @@ def test_five_dynasties_batch_is_fully_settled() -> None:
         for axis, filename in files.items()
     }
     expected = {
-        "杨行密": (32.0, 14.9, 28.0, 15.9, 90.8),
-        "钱镠": (17.1, 23.6, 16.0, 3.4, 60.1),
-        "马殷": (54.9, 23.6, 28.0, 15.9, 122.4),
-        "高季兴": (32.0, 14.9, 28.0, 19.7, 94.6),
-        "孟知祥": (32.0, 14.9, 28.0, 11.0, 85.9),
-        "李克用": (17.1, 7.0, 16.0, -9.0, 31.1),
-        "刘崇": (17.1, 14.9, 28.0, -1.1, 58.9),
+        "杨行密": (32.0, 23.6, 28.0, 14.6, 98.2),
+        "钱镠": (17.1, 14.9, 16.0, -1.0, 47.0),
+        "马殷": (32.0, 29.8, 28.0, 19.9, 109.7),
+        "高季兴": (32.0, 14.9, 28.0, 19.5, 94.4),
+        "孟知祥": (32.0, 14.9, 28.0, 13.5, 88.4),
+        "李克用": (17.1, 7.0, 16.0, -2.6, 37.5),
+        "刘崇": (17.1, 14.9, 28.0, -3.5, 56.5),
     }
     for name, scores in expected.items():
         assert tuple(rows[axis][name]["score"] for axis in files) == scores
@@ -235,12 +267,12 @@ def test_five_dynasties_batch_is_fully_settled() -> None:
         )["records"]
     }
     assert {name: total_rows[name]["second_item_score"] for name in expected} == {
-        "杨行密": 200.1,
-        "钱镠": 166.9,
-        "马殷": 228.2,
-        "高季兴": 186.7,
-        "孟知祥": 203.2,
-        "李克用": 94.6,
+        "杨行密": 202.7,
+        "钱镠": 160.3,
+        "马殷": 215.5,
+        "高季兴": 183.8,
+        "孟知祥": 201.7,
+        "李克用": 101.0,
         "刘崇": 125.2,
     }
 
@@ -278,11 +310,11 @@ def test_recent_batch_calibration_keeps_rare_feedback_grades_rare() -> None:
     assert {name: totals[name]["second_item_score"] for name in (
         "完颜雍", "萧绰", "耶律隆绪", "完颜晟", "完颜守绪"
     )} == {
-        "完颜雍": 282.8,
-        "萧绰": 262.5,
-        "耶律隆绪": 243.0,
-        "完颜晟": 173.2,
-        "完颜守绪": 89.9,
+        "完颜雍": 311.0,
+        "萧绰": 245.7,
+        "耶律隆绪": 262.5,
+        "完颜晟": 179.1,
+        "完颜守绪": 121.9,
     }
 
 def test_composite_source_fingerprint_is_stable_across_git_line_endings(tmp_path: Path) -> None:

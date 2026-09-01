@@ -68,6 +68,16 @@ SECOND_ITEM_COMPONENT_PATHS = {
     "D3": "docs/评分结算/第二项治国净收益/政权交接稳定/02-D3政权交接稳定方向卡.json",
     "handoff": "docs/评分结算/第二项治国净收益/政权交接稳定/03-交接质量20分正式结算.json",
 }
+SECOND_ITEM_RESULT_CONTRACT = (
+    "docs/分项规则/第二项治国净收益/财政民生/00-规则与结算合同.md"
+)
+REQUIRED_C4_DA_CONTRACT_CLAUSES = (
+    "DA首先判断未被轨迹变量吸收的残余成本量级",
+    "一次行为只要成本量级足够高，也可直接进入DA2或DA3",
+    "一次超大型动员、战争或工程即可成立",
+    "一次灾难性选择即可成立",
+    "DA只结算尚未被这些轨迹变量吸收的剩余主动成本",
+)
 
 IMPORTANT_INSTITUTION_REGISTRY = (
     "docs/公共成果/制度行政/03-重要制度发展节点链.json"
@@ -408,6 +418,9 @@ def verify_second_item_b2_snapshot(workspace_root: Path) -> dict[str, Any]:
 
 
 def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
+    result_contract = (workspace_root / SECOND_ITEM_RESULT_CONTRACT).read_text(encoding="utf-8")
+    if any(clause not in result_contract for clause in REQUIRED_C4_DA_CONTRACT_CLAUSES):
+        raise ValueError("第二项C4 DA成本量级合同缺失")
     payloads = {
         key: json.loads((workspace_root / path).read_text(encoding="utf-8"))
         for key, path in SECOND_ITEM_COMPONENT_PATHS.items()

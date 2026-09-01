@@ -1,7 +1,7 @@
 {
-  "schema_version": "profile-m3-upstream-scale-boundary-remediation-v2",
+  "schema_version": "profile-m3-upstream-scale-boundary-remediation-v4",
   "canonical_status": "FORMAL_CURRENT_AUDIT",
-  "contract_version": "FORMAL-V3.2",
+  "contract_version": "FORMAL-V3.4",
   "record_count": 184,
   "upstream_sync": {
     "source_files": {
@@ -10,13 +10,31 @@
       "C3": "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json",
       "C4": "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json"
     },
-    "changed_person_count": 115,
-    "changed_component_counts": {
-      "C4": 86,
-      "C1": 13,
-      "C2": 56
+    "source_sha256": {
+      "C1": "abe7405b6284f54f343df2dd3223f46a275cc29b314e2c7c619f98070ade0475",
+      "C2": "1eae4412263faf399d3d719a910b446e3dc96e480dc5585b88127dfcbb9fa231",
+      "C3": "6c8afbbe3d3590a1f738a980c2406de4f279ea5f8243a6302c19ba4793e96b6c",
+      "C4": "dc01de8d8197ae949593a58db38a3f28c16d9651bb953d74ef9b52a62af84c23"
     },
-    "C3_change_count": 0
+    "pre_patch_mismatch_person_count": 118,
+    "pre_patch_component_mismatch_counts": {
+      "C1": 3,
+      "C2": 0,
+      "C3": 28,
+      "C4": 94
+    },
+    "pre_patch_curve_mismatch_person_count": 67,
+    "pre_patch_c4_numeric_mismatch_person_count": 67,
+    "post_patch_mismatch_person_count": 0,
+    "trajectory_coverage": 184,
+    "c4_numeric_coverage": 184,
+    "k_structure_distribution": {
+      "STRUCTURED_C4_FORMAL": 89,
+      "C4_FORMAL_PROSE_ONLY": 95
+    },
+    "k_structured_mismatch_person_count": 0,
+    "grade_and_position_change_count": 0,
+    "policy": "RELOAD_CURRENT_FORMAL_C1_C4; SYNC_FACT_FIELDS_ONLY; KEEP_CONFIRMED_M3_ADJUDICATIONS"
   },
   "scale_gate": {
     "policy": "UNIFIED_C4_FORMAL_ADJUDICATION; ACTUAL_SCALE_OR_FRAGMENTED_CONTROL_ONLY; MATERIAL_SCOPE_IS_NOT_SCALE",
@@ -1505,5 +1523,231 @@
       }
     ]
   },
-  "named_examples_policy": "NAMES_ONLY_IN_NON_NORMATIVE_EXAMPLE_SECTION; FORMAL_GATES_ARE_ABSTRACT"
+  "named_examples_policy": "NAMES_ONLY_IN_NON_NORMATIVE_EXAMPLE_SECTION; FORMAL_GATES_ARE_ABSTRACT",
+  "checklist_confirmed_remediation": {
+    "status": "APPLIED_CONFIRMED_ITEMS_ONLY",
+    "source": "USER_PROVIDED_M3_CHECKLIST_2026_09_01",
+    "grade_changes": [
+      {
+        "ruler_name": "李忱",
+        "to": "G3-HIGH"
+      },
+      {
+        "ruler_name": "赵曙",
+        "to": "G3-HIGH"
+      },
+      {
+        "ruler_name": "朱瞻基",
+        "to": "G3-HIGH"
+      },
+      {
+        "ruler_name": "赵光义",
+        "to": "G3-MID"
+      },
+      {
+        "ruler_name": "司马睿",
+        "to": "G2-HIGH"
+      },
+      {
+        "ruler_name": "武则天",
+        "to": "G3-MID"
+      },
+      {
+        "ruler_name": "高欢",
+        "to": "G3-MID"
+      },
+      {
+        "ruler_name": "慈禧",
+        "to": "G1-LOW"
+      },
+      {
+        "ruler_name": "高湛",
+        "to": "G2-LOW"
+      },
+      {
+        "ruler_name": "李德旺",
+        "to": "G1-MID"
+      },
+      {
+        "ruler_name": "耶律延禧",
+        "to": "G1-LOW"
+      },
+      {
+        "ruler_name": "胡亥",
+        "to": "G0-LOW"
+      },
+      {
+        "ruler_name": "高洋",
+        "to": "G0-LOW"
+      },
+      {
+        "ruler_name": "李隆基",
+        "to": "G0-LOW"
+      },
+      {
+        "ruler_name": "苻坚",
+        "to": "G0-LOW"
+      },
+      {
+        "ruler_name": "刘宏",
+        "to": "G0-LOW"
+      },
+      {
+        "ruler_name": "赫连勃勃",
+        "to": "G0-LOW"
+      },
+      {
+        "ruler_name": "刘彻",
+        "to": "G0-LOW"
+      },
+      {
+        "ruler_name": "完颜亮",
+        "to": "G0-LOW"
+      },
+      {
+        "ruler_name": "嬴政",
+        "to": "G0-LOW"
+      }
+    ],
+    "da_sync": [
+      {
+        "ruler_name": "慈禧",
+        "to": "DA4"
+      },
+      {
+        "ruler_name": "李隆基",
+        "to": "DA4"
+      },
+      {
+        "ruler_name": "刘彻",
+        "to": "DA4"
+      },
+      {
+        "ruler_name": "刘宏",
+        "to": "DA4"
+      },
+      {
+        "ruler_name": "完颜亮",
+        "to": "DA4"
+      },
+      {
+        "ruler_name": "嬴政",
+        "to": "DA4"
+      },
+      {
+        "ruler_name": "苻坚",
+        "to": "DA4"
+      },
+      {
+        "ruler_name": "赫连勃勃",
+        "to": "DA4"
+      },
+      {
+        "ruler_name": "胡亥",
+        "to": "DA4"
+      },
+      {
+        "ruler_name": "高洋",
+        "to": "DA4"
+      },
+      {
+        "ruler_name": "朱祁镇",
+        "to": "DA2"
+      },
+      {
+        "ruler_name": "刘骏",
+        "to": "DA2"
+      },
+      {
+        "ruler_name": "吕光",
+        "to": "DA2"
+      },
+      {
+        "ruler_name": "拓跋焘",
+        "to": "DA2"
+      },
+      {
+        "ruler_name": "朱由校",
+        "to": "DA2"
+      },
+      {
+        "ruler_name": "李存勖",
+        "to": "DA0"
+      },
+      {
+        "ruler_name": "刘志",
+        "to": "DA0"
+      },
+      {
+        "ruler_name": "完颜守绪",
+        "to": "DA0"
+      },
+      {
+        "ruler_name": "朱由检",
+        "to": "DA0"
+      },
+      {
+        "ruler_name": "高湛",
+        "to": "DA0"
+      },
+      {
+        "ruler_name": "李儇",
+        "to": "DA0"
+      },
+      {
+        "ruler_name": "耶律延禧",
+        "to": "DA0"
+      },
+      {
+        "ruler_name": "李德旺",
+        "to": "DA0"
+      }
+    ],
+    "structural_fixes": [
+      "FORMAL_V3_3_METADATA_UNIFIED",
+      "SCALE_DISTRIBUTION_PROPAGATED",
+      "HIGHEST_VECTOR_INVARIANT_ENFORCED",
+      "KNOWN_CROSS_RULER_BEHAVIOR_POLLUTION_REMOVED",
+      "SOURCE_GAP_READER_CODE_REMOVED"
+    ],
+    "held_without_change": [
+      "C02_SAME_BAND_STRUCTURAL_BUILD_ROUTE",
+      "LIUZHUANG_DA1_DA2",
+      "TUOBAHONG_DA2_DA3",
+      "CAOCAO_POWER_WINDOW",
+      "LINCUNXU_G0_G1_BOUNDARY"
+    ]
+  },
+  "checklist_contract_remediation": {
+    "source": "M3审查清单_持续更新.md",
+    "C01": {
+      "status": "IMPLEMENTED_IN_C4_CONTRACT",
+      "contract": "docs/分项规则/第二项治国净收益/财政民生/00-规则与结算合同.md#8.4",
+      "contract_sha256": "aea15f446f058a1b9ca626e383a6b2583344bd7ed61c0e1ab170d69d9342f839",
+      "result": "C4的DA0—DA4改按未被轨迹吸收的残余主动成本量级裁决；反复、反馈后继续和跨通道仅作累计成本与归责辅助证据。M3不再定义DA档界。"
+    },
+    "C02": {
+      "status": "PENDING_RULE_NOT_SCORE_ACTIVE",
+      "result": "合同登记严格候选条件但不启用晋档；胤禛C2-4与M3 G3-MID保留并显式标记待重裁。"
+    },
+    "C03": {
+      "status": "PENDING_FULL_POOL_EXCEPTION_ADJUDICATION_NOT_SCORE_ACTIVE",
+      "result": "硬门目标已写入合同但不启用自动改档；全池预检有4条无既定例外潜在命中，清单未确认其改档。",
+      "unresolved_hits": [
+        "颙琰",
+        "司马师",
+        "孟昶",
+        "萧鸾"
+      ]
+    },
+    "C04": {
+      "status": "PRINCIPLE_IMPLEMENTED_CASE_PENDING",
+      "result": "合同禁止本人自造低谷领取恢复信用；窗口与归责未闭合者冻结，曹操个案仍不改档。"
+    },
+    "grade_change_count": 0,
+    "yinzhen": {
+      "c2": "C2-4_RETAINED",
+      "m3": "G3-MID_RETAINED_PENDING_C02"
+    }
+  }
 }
