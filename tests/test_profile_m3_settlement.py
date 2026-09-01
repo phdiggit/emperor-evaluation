@@ -58,11 +58,12 @@ def test_profile_m3_confirmed_checklist_changes_are_applied() -> None:
 
 def test_profile_m3_checklist_contract_and_yinzhen_boundary_are_explicit() -> None:
     contract = M3_CONTRACT.read_text(encoding="utf-8")
-    assert "FORMAL-V3.4" in contract
+    assert "FORMAL-V3.5" in contract
     assert "M3不重新定义DA0—DA4" in contract
     assert "同档结构建设的待建边界" in contract
-    assert "实现表现下限的待建硬门" in contract
-    assert "尚未启用为正式自动保底条件" in contract
+    assert "实现表现下限硬门" in contract
+    assert "强建设事实保留例外" in contract
+    assert "高压守成不得消费本人自造压力" in contract
 
     settlement = _load(M3_SETTLEMENT)
     yinzhen = next(row for row in settlement["records"] if row["ruler_name"] == "胤禛")
@@ -240,3 +241,79 @@ def test_profile_m3_reader_includes_c4_sources() -> None:
             legacy_count += 1
             assert "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION" in origins
     assert (direct_count, legacy_count) == (89, 95)
+
+
+def test_c4_checklist_structural_recalculation_and_net_legacy_deterioration() -> None:
+    finance = ROOT / "docs/评分结算/第二项治国净收益/财政民生"
+    c4_payload = _load(finance / "04-C4正式结算.json")
+    c4 = {row["ruler_name"]: row for row in c4_payload["scores"]}
+    axes = {
+        axis: {row["ruler_id"]: row for row in _load(finance / filename)["scores"]}
+        for axis, filename in {
+            "C1": "01-C1正式结算.json",
+            "C2": "02-C2正式结算.json",
+            "C3": "03-C3正式结算.json",
+        }.items()
+    }
+    for row in c4.values():
+        if row.get("closed_recovery_axes"):
+            assert row["recovery_score"] > 0, row["ruler_name"]
+        assert row["positive_score_retained"] == min(
+            round(row["recovery_score"] + row["stability_score"], 1), row["terminal_cap"]
+        )
+
+    structural = {
+        "耶律大石": (1.6, 10.0, "C4T-3"),
+        "耶律阮": (3.4, 10.0, "C4T-3"),
+        "耶律洪基": (2.6, 9.5, "C4T-3"),
+    }
+    for name, expected in structural.items():
+        row = c4[name]
+        assert (row["recovery_score"], row["stability_score"], row["terminal_band"]) == expected
+
+    expected_penalties = {
+        "石敬瑭": 0.0, "杨坚": 0.0, "武则天": 0.0, "杨行密": 0.0,
+        "拓跋珪": 0.0, "司马睿": 0.0, "朱见深": 0.0, "窝阔台": 0.0,
+        "耶律隆绪": 0.0, "刘玄": 0.0, "完颜珣": 0.0, "完颜亶": 0.0,
+        "姚兴": 2.0, "赵恒": 3.4, "完颜守绪": 0.7, "弘历": 7.4, "吕光": 3.4,
+    }
+    for name, expected_penalty in expected_penalties.items():
+        row = c4[name]
+        assert row["deterioration_penalty"] == expected_penalty
+        for axis in ("C1", "C2", "C3"):
+            item = row["deterioration_path_basis"][axis]
+            state = axes[axis][row["ruler_id"]]["state_anchors"]
+            assert item["reference_band"] == state["S0"]
+            assert item["end_band"] == state["S_end"]
+
+
+def test_profile_m3_redundant_summaries_follow_current_structured_values() -> None:
+    settlement = _load(M3_SETTLEMENT)
+    c4 = {
+        row["ruler_id"]: row
+        for row in _load(ROOT / "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json")["scores"]
+    }
+    for row in settlement["records"]:
+        upstream = c4[row["ruler_id"]]
+        expected = (
+            f"可归责恶化扣减{upstream['deterioration_penalty']:.1f}；"
+            f"本人可选择行为的残余额外成本为{upstream['destructive_amplification_grade']}，"
+            f"扣减{upstream['destructive_amplification_penalty']:.1f}。"
+        )
+        assert expected in row["costs_and_consequences"]
+        assert f"{row['axis_grade']}-{row['position']}" in row["typical_pattern"]
+    by_name = {row["ruler_name"]: row for row in settlement["records"]}
+    assert by_name["耶律大石"]["dynamic_class"] != "ATTRIBUTABLE_OR_MIXED_DECLINE"
+    assert by_name["耶律阮"]["dynamic_class"] != "ATTRIBUTABLE_OR_MIXED_DECLINE"
+
+
+def test_retired_m3_audit_views_are_not_public_entries() -> None:
+    project = (ROOT / "config/project.yml").read_text(encoding="utf-8")
+    manifest = (ROOT / "docs/评分结算/皇帝人物画像/00-已结算轴正式入口.json").read_text(encoding="utf-8")
+    for filename in (
+        "30-M3对第二项C1-C4逐人补正审计.json",
+        "31-M3民生财政建设全池收口.md",
+        "32-M3上游同步与规模档界整改审计.json",
+    ):
+        assert filename not in project
+        assert filename not in manifest

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import math
 import re
 from collections import Counter
 from pathlib import Path
@@ -51,14 +52,19 @@ SOURCE_ORIGINS = {
 }
 
 
-def _da_labels(value: Any) -> set[str]:
-    """Return every DA label carried by a formal record or reader rationale."""
+def _unexpected_da_labels(value: Any, expected: str) -> set[str]:
+    """Ignore an explicitly rejected higher boundary, but not a contradictory current one."""
     if isinstance(value, str):
-        return set(re.findall(r"DA[0-4]", value))
+        scrubbed = re.sub(r"不升DA[0-4]", "", value)
+        return set(re.findall(r"DA[0-4]", scrubbed)) - {expected}
     if isinstance(value, dict):
-        return set().union(*(_da_labels(item) for item in value.values())) if value else set()
+        return set().union(
+            *(_unexpected_da_labels(item, expected) for item in value.values())
+        ) if value else set()
     if isinstance(value, list):
-        return set().union(*(_da_labels(item) for item in value)) if value else set()
+        return set().union(
+            *(_unexpected_da_labels(item, expected) for item in value)
+        ) if value else set()
     return set()
 
 
@@ -141,13 +147,15 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
     records = settlement["records"]
     if settlement["schema_version"] != "profile-m3-livelihood-finance-formal-settlement-v3":
         raise ValueError("M3 schema mismatch")
-    if settlement.get("contract_version") != "FORMAL-V3.4":
+    if settlement.get("contract_version") != "FORMAL-V3.5":
         raise ValueError("M3 contract version mismatch")
     contract_text = M3_CONTRACT.read_text(encoding="utf-8")
     required_contract_clauses = (
         "同档结构建设的待建边界",
         "C2绝对状态保留四档",
-        "实现表现下限的待建硬门",
+        "实现表现下限硬门",
+        "强建设事实保留例外",
+        "高压守成不得消费本人自造压力",
         "本人自造部分",
         "M3不重新定义DA0—DA4",
     )
@@ -157,6 +165,18 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
         raise ValueError("M3 is not formal current")
     if settlement.get("authority_mode") != "FORMAL_SETTLEMENT_PATCH_SOURCE":
         raise ValueError("M3 formal settlement is not the declared patch authority")
+    expected_checklist_status = {
+        "contract_version": "FORMAL-V3.5",
+        "C01_SAME_BAND_STRUCTURAL_BUILD": "PENDING_RULE_NOT_SCORE_ACTIVE",
+        "C02_PERFORMANCE_FLOOR": "ACTIVE_AFTER_FULL_POOL_EXCEPTION_ADJUDICATION",
+        "C03_STRONG_BUILD_SELF_DESTRUCTION_EXCEPTION": "ACTIVE_FOR_LI_LONGJI_AND_FU_JIAN_AT_G2_LOW",
+        "C04_SELF_CREATED_LOW_BASELINE": "RESPONSIBILITY_WINDOW_PRINCIPLE_IMPLEMENTED; UNRESOLVED_CASES_FROZEN",
+        "C05_DA3_REALIZED_COST_BOUNDARY": "IMPLEMENTED_IN_C4_CONTRACT",
+        "C06_SELF_CREATED_PRESSURE_EXCLUDED_FROM_STEWARDSHIP_CREDIT": "IMPLEMENTED_IN_M3_CONTRACT",
+        "yinzhen_disposition": "C2_4_RETAINED; M3_G3_MID_RETAINED_PENDING_C01",
+    }
+    if settlement["summary"].get("checklist_contract_remediation") != expected_checklist_status:
+        raise ValueError("M3 checklist status index drift")
     if any(key in settlement for key in ("adjudication_source", "supplement_adjudication_source")):
         raise ValueError("M3 still declares a generated adjudication authority")
     if settlement["record_count"] != len(records) or len(records) != 184:
@@ -202,6 +222,20 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
         )
         if abs(float(c4_row["positive_score_retained"]) - expected_positive) > 0.11:
             raise ValueError(f"C4 positive-score identity failed: {c4_row['ruler_id']}")
+        if c4_row.get("closed_recovery_axes") and float(c4_row["recovery_score"]) <= 0:
+            raise ValueError(f"C4 closed recovery axis has zero recovery: {c4_row['ruler_id']}")
+        end_vector = [
+            _band(upstream[axis][c4_row["ruler_id"]]["state_anchors"]["S_end"])
+            for axis in ("C1", "C2", "C3")
+        ]
+        terminal_quality = (
+            0.5 * end_vector[0] + 0.2 * end_vector[1] + 0.3 * end_vector[2]
+        )
+        terminal_tier = min(
+            math.floor(terminal_quality + 0.5), min(end_vector) + 1
+        )
+        if c4_row["terminal_band"] != f"C4T-{terminal_tier}":
+            raise ValueError(f"C4 terminal band is not derived from handoff: {c4_row['ruler_id']}")
     scale_distribution: Counter[str] = Counter()
     reader_source_count_distribution: Counter[str] = Counter()
     c4_reader_modes: Counter[str] = Counter()
@@ -338,10 +372,19 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
         if float(evidence.get("destructive_amplification_penalty")) != float(c4["destructive_amplification_penalty"]):
             raise ValueError(f"M3 upstream DA penalty drift: {row['ruler_id']}")
         expected_da = c4["destructive_amplification_grade"]
-        if _da_labels(c4) - {expected_da}:
+        if _unexpected_da_labels(c4, expected_da) or f"不升{expected_da}" in json.dumps(c4, ensure_ascii=False):
             raise ValueError(f"C4 stale DA reader label: {row['ruler_id']}")
-        if _da_labels(row) - {expected_da}:
+        if _unexpected_da_labels(row, expected_da) or f"不升{expected_da}" in json.dumps(row, ensure_ascii=False):
             raise ValueError(f"M3 stale DA reader label: {row['ruler_id']}")
+        expected_cost = (
+            f"可归责恶化扣减{float(c4['deterioration_penalty']):.1f}；"
+            f"本人可选择行为的残余额外成本为{expected_da}，"
+            f"扣减{float(c4['destructive_amplification_penalty']):.1f}。"
+        )
+        if expected_cost not in row["costs_and_consequences"]:
+            raise ValueError(f"M3 stale C4 cost summary: {row['ruler_id']}")
+        if f"{row['axis_grade']}-{row['position']}" not in row["typical_pattern"]:
+            raise ValueError(f"M3 stale final-grade narrative: {row['ruler_id']}")
         expected_k_basis = c4.get("stability_k_basis") or {}
         if evidence.get("stability_k_basis") != expected_k_basis:
             raise ValueError(f"M3 upstream K basis drift: {row['ruler_id']}")
