@@ -27,7 +27,7 @@ def test_profile_m3_formal_snapshot_passes_lightweight_verifier() -> None:
     assert result["status"] == "PASS"
     assert result["record_count"] == 184
     assert sum(result["grade_distribution"].values()) == 184
-    assert result["grade_distribution"] == {"G0": 13, "G1": 48, "G2": 45, "G3": 62, "G4": 12, "G5": 4}
+    assert result["grade_distribution"] == {"G0": 11, "G1": 44, "G2": 48, "G3": 64, "G4": 13, "G5": 4}
     assert result["scale_gate_distribution"] == {
         "FULL_OR_MAJOR_REGIONAL": 19,
         "UNRESOLVED_NOT_HIGH_GRADE_GATE": 159,
@@ -46,13 +46,12 @@ def test_profile_m3_confirmed_checklist_changes_are_applied() -> None:
     settlement = _load(M3_SETTLEMENT)
     by_name = {row["ruler_name"]: row for row in settlement["records"]}
     expected = {
-        "李忱": ("G3", "HIGH"), "赵曙": ("G3", "HIGH"), "朱瞻基": ("G3", "HIGH"),
-        "赵光义": ("G3", "MID"), "司马睿": ("G2", "HIGH"), "武则天": ("G3", "MID"),
-        "高欢": ("G3", "MID"), "慈禧": ("G1", "LOW"), "高湛": ("G2", "LOW"),
-        "李德旺": ("G1", "MID"), "耶律延禧": ("G1", "LOW"), "胡亥": ("G0", "LOW"),
-        "高洋": ("G0", "LOW"), "李隆基": ("G0", "LOW"), "苻坚": ("G0", "LOW"),
-        "刘宏": ("G0", "LOW"), "赫连勃勃": ("G0", "LOW"), "刘彻": ("G0", "LOW"),
-        "完颜亮": ("G0", "LOW"), "嬴政": ("G0", "LOW"),
+        "刘庄": ("G4", "MID"), "拓跋宏": ("G3", "HIGH"), "李隆基": ("G2", "LOW"),
+        "苻坚": ("G2", "LOW"), "颙琰": ("G2", "MID"), "司马师": ("G2", "MID"),
+        "孟昶": ("G2", "LOW"), "萧鸾": ("G2", "LOW"), "拓跋焘": ("G2", "HIGH"),
+        "孙权": ("G3", "MID"), "福临": ("G3", "HIGH"), "慕容垂": ("G3", "MID"),
+        "耶律贤": ("G3", "HIGH"), "赵煦": ("G3", "HIGH"), "耶律大石": ("G3", "HIGH"),
+        "耶律洪基": ("G2", "HIGH"), "窝阔台": ("G3", "HIGH"),
     }
     assert {name: (by_name[name]["axis_grade"], by_name[name]["position"]) for name in expected} == expected
 
@@ -112,6 +111,11 @@ def test_profile_m3_rejects_upstream_curve_k_and_da_drift() -> None:
     broken_da["records"][0]["ability_evidence"]["destructive_amplification_grade"] = "DA9"
     with pytest.raises(ValueError, match="DA grade drift"):
         verify_payload(broken_da)
+
+    stale_da_label = copy.deepcopy(settlement)
+    stale_da_label["records"][0]["behavior_chain"] += " 旧结论DA4。"
+    with pytest.raises(ValueError, match="stale DA reader label"):
+        verify_payload(stale_da_label)
 
 
 def test_profile_m3_compiler_reads_formal_snapshot_without_readjudication() -> None:

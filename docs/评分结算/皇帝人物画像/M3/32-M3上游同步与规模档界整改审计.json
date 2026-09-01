@@ -23,12 +23,11 @@
     "trajectory_coverage": 184,
     "c4_numeric_coverage": 184,
     "k_structure_distribution": {
-      "STRUCTURED_C4_FORMAL": 89,
-      "C4_FORMAL_PROSE_ONLY": 95
+      "STRUCTURED_C4_FORMAL": 184
     },
     "k_structured_mismatch_person_count": 0,
-    "grade_and_position_change_count": 0,
-    "policy": "RELOAD_CURRENT_FORMAL_C1_C4; SYNC_FACT_FIELDS_ONLY; KEEP_CONFIRMED_M3_ADJUDICATIONS"
+    "grade_and_position_change_count": 17,
+    "policy": "C4_STRUCTURED_SCALAR_RECOMPUTATION; C4_AND_M3_READER_VIEWS_SYNCHRONIZED; SECOND_ITEM_AND_COMPOSITE_CHAIN_REBUILT"
   },
   "scale_gate": {
     "policy": "UNIFIED_C4_FORMAL_ADJUDICATION; ACTUAL_SCALE_OR_FRAGMENTED_CONTROL_ONLY; MATERIAL_SCOPE_IS_NOT_SCALE",

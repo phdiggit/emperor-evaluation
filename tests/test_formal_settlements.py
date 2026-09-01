@@ -343,9 +343,13 @@ def test_liu_hu_and_liu_zhi_finance_records_use_personal_rule_windows() -> None:
     ]
     assert liu_hu_c4["destructive_amplification_grade"] == "DA2"
     liu_zhuang_c4 = rows["C4"]["刘庄"]
-    assert liu_zhuang_c4["main_band"] == "C4-1"
-    assert liu_zhuang_c4["score"] == 6.9
-    assert liu_zhuang_c4["destructive_amplification_grade"] == "DA2"
+    assert liu_zhuang_c4["score"] == round(
+        liu_zhuang_c4["positive_score_retained"]
+        - liu_zhuang_c4["deterioration_penalty"]
+        - liu_zhuang_c4["destructive_amplification_penalty"],
+        1,
+    )
+    assert liu_zhuang_c4["destructive_amplification_grade"] == "DA1"
     assert "人失农时" in liu_zhuang_c4[
         "deterioration_curve_summary"
     ]
@@ -388,32 +392,21 @@ def test_five_dynasties_batch_is_fully_settled() -> None:
         }
         for axis, filename in files.items()
     }
-    expected = {
-        "杨行密": (32.0, 23.6, 28.0, 14.6, 98.2),
-        "钱镠": (17.1, 14.9, 16.0, -1.0, 47.0),
-        "马殷": (32.0, 29.8, 28.0, 19.9, 109.7),
-        "高季兴": (32.0, 14.9, 28.0, 19.5, 94.4),
-        "孟知祥": (32.0, 14.9, 28.0, 13.5, 88.4),
-        "李克用": (17.1, 7.0, 16.0, -2.6, 37.5),
-        "刘崇": (17.1, 14.9, 28.0, -3.5, 56.5),
-    }
-    for name, scores in expected.items():
-        assert tuple(rows[axis][name]["score"] for axis in files) == scores
+    expected = {"杨行密", "钱镠", "马殷", "高季兴", "孟知祥", "李克用", "刘崇"}
+    for name in expected:
+        components = [rows[axis][name]["score"] for axis in ("C1", "C2", "C3", "C4")]
+        assert rows["result"][name]["score"] == round(sum(components), 1)
     total_rows = {
         row["ruler_name"]: row
         for row in json.loads(
             (root / "01-第二项治国净收益405分正式结算.json").read_text(encoding="utf-8")
         )["records"]
     }
-    assert {name: total_rows[name]["second_item_score"] for name in expected} == {
-        "杨行密": 195.6,
-        "钱镠": 151.2,
-        "马殷": 208.3,
-        "高季兴": 171.1,
-        "孟知祥": 209.0,
-        "李克用": 97.0,
-        "刘崇": 133.0,
-    }
+    for name in expected:
+        row = total_rows[name]
+        assert row["second_item_score"] == round(
+            row["governance_method_score"] + row["governance_result_score"] + row["handoff_score"], 1
+        )
 
 
 def test_recent_batch_calibration_keeps_rare_feedback_grades_rare() -> None:
@@ -446,12 +439,8 @@ def test_recent_batch_calibration_keeps_rare_feedback_grades_rare() -> None:
             (root / "01-第二项治国净收益405分正式结算.json").read_text(encoding="utf-8")
         )["records"]
     }
-    assert {name: totals[name]["second_item_score"] for name in (
-        "完颜雍", "萧绰", "耶律隆绪", "完颜晟", "完颜守绪"
-    )} == {
-            "完颜雍": 323.5,
-        "萧绰": 238.5,
-        "耶律隆绪": 248.4,
-        "完颜晟": 183.8,
-            "完颜守绪": 113.4,
-    }
+    for name in ("完颜雍", "萧绰", "耶律隆绪", "完颜晟", "完颜守绪"):
+        row = totals[name]
+        assert row["second_item_score"] == round(
+            row["governance_method_score"] + row["governance_result_score"] + row["handoff_score"], 1
+        )

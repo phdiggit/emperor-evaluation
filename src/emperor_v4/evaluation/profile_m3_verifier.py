@@ -51,6 +51,17 @@ SOURCE_ORIGINS = {
 }
 
 
+def _da_labels(value: Any) -> set[str]:
+    """Return every DA label carried by a formal record or reader rationale."""
+    if isinstance(value, str):
+        return set(re.findall(r"DA[0-4]", value))
+    if isinstance(value, dict):
+        return set().union(*(_da_labels(item) for item in value.values())) if value else set()
+    if isinstance(value, list):
+        return set().union(*(_da_labels(item) for item in value)) if value else set()
+    return set()
+
+
 def _c4_public_source(ref: Any) -> tuple[str, str] | None:
     text = str(ref or "").strip()
     if "：" not in text or "《" not in text or "》" not in text:
@@ -175,6 +186,22 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
     )
     if scale_contract.get("classification_distribution") != dict(upstream_scale_counts):
         raise ValueError("C4 unified M3 scale adjudication distribution mismatch")
+    for c4_row in upstream_payloads["C4"]["scores"]:
+        k_basis = c4_row.get("stability_k_basis") or {}
+        if set(k_basis) != {"C1", "C2", "C3"}:
+            raise ValueError(f"C4 structured K coverage missing: {c4_row['ruler_id']}")
+        if any(
+            item.get("K_grade") not in {"K0", "K1", "K2", "K3", "K4"}
+            or not isinstance(item.get("factor"), (int, float))
+            for item in k_basis.values()
+        ):
+            raise ValueError(f"C4 structured K is invalid: {c4_row['ruler_id']}")
+        expected_positive = min(
+            float(c4_row["recovery_score"]) + float(c4_row["stability_score"]),
+            float(c4_row["terminal_cap"]),
+        )
+        if abs(float(c4_row["positive_score_retained"]) - expected_positive) > 0.11:
+            raise ValueError(f"C4 positive-score identity failed: {c4_row['ruler_id']}")
     scale_distribution: Counter[str] = Counter()
     reader_source_count_distribution: Counter[str] = Counter()
     c4_reader_modes: Counter[str] = Counter()
@@ -310,6 +337,11 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
             raise ValueError(f"M3 upstream DA grade drift: {row['ruler_id']}")
         if float(evidence.get("destructive_amplification_penalty")) != float(c4["destructive_amplification_penalty"]):
             raise ValueError(f"M3 upstream DA penalty drift: {row['ruler_id']}")
+        expected_da = c4["destructive_amplification_grade"]
+        if _da_labels(c4) - {expected_da}:
+            raise ValueError(f"C4 stale DA reader label: {row['ruler_id']}")
+        if _da_labels(row) - {expected_da}:
+            raise ValueError(f"M3 stale DA reader label: {row['ruler_id']}")
         expected_k_basis = c4.get("stability_k_basis") or {}
         if evidence.get("stability_k_basis") != expected_k_basis:
             raise ValueError(f"M3 upstream K basis drift: {row['ruler_id']}")
