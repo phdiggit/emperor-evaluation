@@ -1,5 +1,8 @@
 import json
+from copy import deepcopy
 from pathlib import Path
+
+import pytest
 
 from emperor_v4.evaluation.formal_settlements import (
     verify_formal_settlements,
@@ -8,6 +11,7 @@ from emperor_v4.evaluation.formal_settlements import (
     verify_second_item_b2_snapshot,
 )
 from emperor_v4.evaluation.composite_ranking import build_composite_ranking
+from emperor_v4.evaluation.second_item_b1_settlement import validate_gate_references
 
 
 def test_c4_contract_uses_cost_scale_da_boundaries() -> None:
@@ -118,9 +122,9 @@ def test_second_item_a_snapshot_applies_v2_explicit_patch_and_registry() -> None
     )
 
 
-def test_second_item_b1_snapshot_applies_v50_and_v51_contract_recalculation() -> None:
+def test_second_item_b1_snapshot_applies_v20_v50_union_and_v53_contract_recalculation() -> None:
     assert verify_second_item_b1_snapshot(Path(".")) == {
-        "status": "PASS_V51_FULL_POOL_RECALCULATED",
+        "status": "PASS_V53_V20_V50_UNION_CONTRACT_READJUDICATED",
         "record_count": 185,
         "reviewed_count": 185,
         "direct_material_count": 447,
@@ -129,7 +133,7 @@ def test_second_item_b1_snapshot_applies_v50_and_v51_contract_recalculation() ->
         "duplicate_markdown_ruler_count": 0,
         "profile_semantic_review_count": 185,
         "grade_distribution": {
-            "G0": 7, "G1": 25, "G2": 51, "G3": 56, "G4": 43, "G5": 3,
+            "G0": 7, "G1": 25, "G2": 52, "G3": 55, "G4": 43, "G5": 3,
         },
         "contract_recalculation_count": 185,
         "position_basis_refresh_count": 185,
@@ -149,7 +153,9 @@ def test_second_item_b1_snapshot_applies_v50_and_v51_contract_recalculation() ->
         "G0", "lower", 2.0
     )
     assert payload["contract_recalculation_status"] == "FORMAL_COMPLETE"
-    assert all(row["profile_semantic_review_status"] == "B1_CONTRACT_V51_FULL_POOL_REVIEWED" for row in rows.values())
+    assert all(row["profile_semantic_review_status"] == "B1_CONTRACT_V53_V20_V50_UNION_REVIEWED" for row in rows.values())
+    assert payload["review_material_absorption"]["v20_reviewed_count"] == 174
+    assert payload["review_material_absorption"]["v50_reviewed_count"] == 164
     assert not any("position_depth_bonus" in json.dumps(row, ensure_ascii=False) for row in rows.values())
     assert all(len(row["structured_grade_basis"]) >= 2 for row in rows.values())
     assert (rows["李世民"]["position"], rows["李世民"]["direction_index"], rows["李世民"]["position_residual"]) == ("upper", 98.5, 2.0)
@@ -161,6 +167,16 @@ def test_second_item_b1_snapshot_applies_v50_and_v51_contract_recalculation() ->
         "G4", "middle-upper", 80.4
     )
     assert "侯霸—郭贺—冯勤" in rows["刘秀"]["grade_basis"]
+    assert (rows["完颜晟"]["grade"], rows["完颜晟"]["position"], rows["完颜晟"]["direction_index"]) == (
+        "G4", "middle-upper", 80.4
+    )
+    assert [profile["signed_weight"] for profile in rows["完颜晟"]["M_positive_profile"]] == [2.0, 2.0]
+    assert rows["完颜晟"]["M_negative_profile"][0]["b1_role"] == "context"
+    assert rows["朱见深"]["M_negative_profile"][0]["M"] == "M2"
+    assert rows["朱见深"]["M_negative_profile"][0]["direction"] == "mixed_negative"
+    assert (rows["赵光义"]["grade"], rows["赵光义"]["position"]) == ("G4", "upper")
+    assert (rows["刘启"]["grade"], rows["刘启"]["position"]) == ("G3", "middle-upper")
+    assert (rows["马殷"]["grade"], rows["马殷"]["position"]) == ("G2", "lower")
     assert rows["刘询"]["g5_extra_route"] == "PRESSURE_RECOVERY"
     assert rows["完颜雍"]["g5_extra_route"] == "CROSS_STAGE_REPLACEMENT"
     assert "I2-JIN-MAT-5A3139D53395A1D3" in rows["完颜雍"]["direct_material_ids"]
@@ -170,6 +186,40 @@ def test_second_item_b1_snapshot_applies_v50_and_v51_contract_recalculation() ->
     assert rows["曹操"]["M_mixed_profile"] == []
     assert {profile["M"] for profile in rows["曹操"]["M_positive_profile"]} == {"M3"}
     assert rows["曹操"]["M_negative_profile"][0]["M"] == "M3"
+
+
+def test_second_item_b1_v52_validator_blocks_hidden_weights_severity_cross_and_support_core() -> None:
+    payload = json.loads(
+        Path("docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    validate_gate_references(payload)
+
+    broken = deepcopy(payload)
+    next(row for row in broken["records"] if row["ruler_name"] == "完颜晟")["M_positive_profile"][0]["signed_weight"] = 1.0
+    with pytest.raises(ValueError, match="M档与signed_weight不一致"):
+        validate_gate_references(broken)
+
+    broken = deepcopy(payload)
+    minning = next(row for row in broken["records"] if row["ruler_name"] == "旻宁")
+    minning["M_negative_profile"][0].pop("severity_scope")
+    with pytest.raises(ValueError, match="Severity scope"):
+        validate_gate_references(broken)
+
+    broken = deepcopy(payload)
+    chen_qian = next(row for row in broken["records"] if row["ruler_name"] == "陈蒨")
+    core = next(profile for profile in chen_qian["M_positive_profile"] if profile["profile_id"] == chen_qian["g4_core_profile_id"])
+    core["b1_role"] = "support"
+    with pytest.raises(ValueError, match="不是B1-core正M3"):
+        validate_gate_references(broken)
+
+    broken = deepcopy(payload)
+    zhu_jianshen = next(row for row in broken["records"] if row["ruler_name"] == "朱见深")
+    west_depot = zhu_jianshen["M_negative_profile"][0]
+    west_depot.update({"M": "M3", "signed_weight": -2.0, "severity": "N3-cross", "severity_scope": "major-stage"})
+    with pytest.raises(ValueError, match="major-stage/broad N3-cross"):
+        validate_gate_references(broken)
 
 
 def test_second_item_b2_snapshot_applies_review_final_table() -> None:
@@ -323,9 +373,9 @@ def test_five_dynasties_batch_is_fully_settled() -> None:
     assert {name: total_rows[name]["second_item_score"] for name in expected} == {
         "杨行密": 195.6,
         "钱镠": 153.2,
-        "马殷": 215.5,
+        "马殷": 208.3,
         "高季兴": 171.1,
-        "孟知祥": 206.6,
+        "孟知祥": 209.0,
         "李克用": 101.0,
         "刘崇": 133.0,
     }
@@ -365,8 +415,8 @@ def test_recent_batch_calibration_keeps_rare_feedback_grades_rare() -> None:
         "完颜雍", "萧绰", "耶律隆绪", "完颜晟", "完颜守绪"
     )} == {
         "完颜雍": 323.1,
-        "萧绰": 236.1,
-        "耶律隆绪": 245.7,
-        "完颜晟": 176.7,
+        "萧绰": 238.5,
+        "耶律隆绪": 250.4,
+        "完颜晟": 183.8,
         "完颜守绪": 109.4,
     }

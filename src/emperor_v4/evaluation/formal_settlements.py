@@ -373,8 +373,19 @@ def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
         ):
             raise ValueError(f"第二项B1净余量、position或旧手工逻辑不一致：{name}")
         semantic_status = row.get("profile_semantic_review_status")
-        if semantic_status != "B1_CONTRACT_V51_FULL_POOL_REVIEWED":
+        if semantic_status != "B1_CONTRACT_V53_V20_V50_UNION_REVIEWED":
             raise ValueError(f"第二项B1缺少M-profile逐人语义复核状态：{name}")
+        review_material_basis = row.get("review_material_basis")
+        if not isinstance(review_material_basis, list) or any(
+            item.get("version") not in {"v20", "v50"}
+            or not isinstance(item.get("line"), int)
+            or not str(item.get("basis") or "").strip()
+            or item.get("status") not in {
+                "ABSORBED_INPUT_V50_PRECEDENCE", "ABSORBED_ACTIVE", "ABSORBED_ACTIVE_PRECEDENCE",
+            }
+            for item in review_material_basis
+        ):
+            raise ValueError(f"第二项B1 v20/v50材料吸收留痕不完整：{name}")
         structured_basis = row.get("structured_grade_basis")
         if not isinstance(structured_basis, list) or not structured_basis or any(
             not isinstance(point, dict)
@@ -464,7 +475,20 @@ def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
         or payload.get("contract_recalculation_count") != 185
         or reviewed_count != 185
     ):
-        raise ValueError("第二项B1 V5.1全池重裁元数据不一致")
+        raise ValueError("第二项B1 V5.3两清单材料并集重裁元数据不一致")
+    absorption = payload.get("review_material_absorption") or {}
+    if (
+        absorption.get("policy") != "v20_v50_union_with_v50_precedence_then_current_contract_adjudication"
+        or absorption.get("v20_reviewed_count") != 174
+        or absorption.get("v50_reviewed_count") != 164
+        or absorption.get("overlap_count") != 164
+        or absorption.get("v20_only_count") != 10
+        or absorption.get("v50_only_count") != 0
+        or absorption.get("not_listed_count") != 11
+        or not re.fullmatch(r"[0-9a-f]{64}", str(absorption.get("v20_sha256") or ""))
+        or not re.fullmatch(r"[0-9a-f]{64}", str(absorption.get("v50_sha256") or ""))
+    ):
+        raise ValueError("第二项B1 v20/v50材料并集与优先级元数据不一致")
     validate_gate_references(payload)
     sorted_scores = sorted((float(row["direction_index"]) for row in records), reverse=True)
     for row in records:
@@ -525,7 +549,7 @@ def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
     ):
         raise ValueError("第二项B1材料依据未统一为书名接direct原文")
     return {
-        "status": "PASS_V51_FULL_POOL_RECALCULATED",
+        "status": "PASS_V53_V20_V50_UNION_CONTRACT_READJUDICATED",
         "record_count": len(records),
         "reviewed_count": reviewed_count,
         "direct_material_count": direct_count,

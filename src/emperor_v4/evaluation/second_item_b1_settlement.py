@@ -37,6 +37,9 @@ GATE_CODES = {
     "G4": "B1_G4_BROAD_STABLE_DELIVERY",
     "G5": "B1_G5_RARE_RELIABILITY",
 }
+ALLOWED_B1_ROLES = {"core", "central", "distributed", "support", "context"}
+ALLOWED_SEVERITIES = {"N3-domain", "N3-cross", "N3-terminal"}
+ALLOWED_SEVERITY_SCOPES = {"localized", "major-stage", "broad"}
 
 
 def _group_key(profile: dict[str, Any]) -> str:
@@ -51,6 +54,7 @@ def _group_key(profile: dict[str, Any]) -> str:
 def _excluded(profile: dict[str, Any]) -> bool:
     return profile.get("position_weight_override") == 0 or profile.get("position_count_mode") in {
         "absorbed_same_lifecycle",
+        "balanced_mixed_lifecycle",
         "context_only",
         "context_only_no_effective_mechanism",
     }
@@ -210,7 +214,7 @@ def refresh_b1_payload(payload: dict[str, Any]) -> dict[str, Any]:
             f"{THRESHOLDS[row['grade']]:g}后，净余量={residual:g}，按合同机械映射为{position}。"
         )
         row["structured_grade_basis"] = _structured_basis(row)
-        row["profile_semantic_review_status"] = "B1_CONTRACT_V51_FULL_POOL_REVIEWED"
+        row["profile_semantic_review_status"] = "B1_CONTRACT_V53_V20_V50_UNION_REVIEWED"
         row.pop("v50_review_decision", None)
         row.pop("v50_review_status", None)
         row.pop("v50_review_basis", None)
@@ -218,7 +222,7 @@ def refresh_b1_payload(payload: dict[str, Any]) -> dict[str, Any]:
         row.pop("structured_basis_source_line", None)
     _competition_ranks(records, "direction_index")
     payload["grade_distribution"] = dict(sorted(Counter(row["grade"] for row in records).items()))
-    payload["promotion_task_code"] = "B1-V51-FULL-POOL-CONTRACT-RECALCULATION"
+    payload["promotion_task_code"] = "B1-V53-V20-V50-MATERIAL-UNION-CONTRACT-READJUDICATION"
     payload["contract_recalculation_status"] = "FORMAL_COMPLETE"
     payload["contract_recalculation_count"] = len(records)
     payload["profile_semantic_review_count"] = len(records)
@@ -244,35 +248,52 @@ def refresh_b1_payload(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def validate_gate_references(payload: dict[str, Any]) -> None:
+    validate_profile_contract(payload)
     for row in payload["records"]:
         active = {_group_key(profile): profile for profile in active_groups(row)}
         by_id = {str(profile["profile_id"]): profile for profile in active.values()}
         grade = str(row["grade"])
         if grade == "G3":
-            core_id = row.get("g3_core_profile_id")
-            m2_ids = row.get("g3_m2_profile_ids") or []
-            if core_id:
-                profile = by_id.get(str(core_id))
-                if not profile or profile["M"] != "M3" or float(profile["signed_weight"]) <= 0:
-                    raise ValueError(f"B1 G3核心链无效：{row['ruler_name']}")
-            elif len(m2_ids) < 2 or any(
-                not by_id.get(str(profile_ref))
-                or by_id[str(profile_ref)]["M"] != "M2"
-                or float(by_id[str(profile_ref)]["signed_weight"]) <= 0
-                for profile_ref in m2_ids
-            ):
-                raise ValueError(f"B1 G3缺少一条正M3或至少两条独立正M2：{row['ruler_name']}")
+            route = row.get("g3_gate_route")
+            refs = row.get("g3_gate_profile_ids") or []
+            profiles = [by_id.get(str(profile_ref)) for profile_ref in refs]
+            if len(refs) != len(set(map(str, refs))) or any(profile is None for profile in profiles):
+                raise ValueError(f"B1 G3门禁引用缺失或重复：{row['ruler_name']}")
+            if route == "CORE_M3":
+                if len(profiles) != 1 or profiles[0]["M"] != "M3" or profiles[0].get("b1_role") != "core" or float(profiles[0]["signed_weight"]) <= 0:
+                    raise ValueError(f"B1 G3核心M3路线无效：{row['ruler_name']}")
+            elif route == "CENTRAL_OR_DISTRIBUTED_M3":
+                if len(profiles) != 1 or profiles[0]["M"] != "M3" or profiles[0].get("b1_role") not in {"central", "distributed"} or float(profiles[0]["signed_weight"]) <= 0:
+                    raise ValueError(f"B1 G3中枢/分布式M3路线无效：{row['ruler_name']}")
+            elif route == "MULTI_CHAIN":
+                if len(profiles) < 2 or any(
+                    profile["M"] not in {"M2", "M3"}
+                    or profile.get("b1_role") == "context"
+                    or float(profile["signed_weight"]) <= 0
+                    for profile in profiles
+                ):
+                    raise ValueError(f"B1 G3多链路线不足两条独立正M2/M3：{row['ruler_name']}")
+            else:
+                raise ValueError(f"B1 G3缺少合法门禁路线：{row['ruler_name']}")
         if grade in {"G4", "G5"}:
             refs = [row.get("g4_core_profile_id"), row.get("g4_secondary_profile_id")]
             if any(not ref or str(ref) not in by_id for ref in refs):
                 raise ValueError(f"B1 G4门禁引用缺失：{row['ruler_name']}")
             core, secondary = (by_id[str(ref)] for ref in refs)
-            if core["M"] != "M3" or float(core["signed_weight"]) <= 0:
-                raise ValueError(f"B1 G4核心链不是正M3：{row['ruler_name']}")
+            if core["M"] != "M3" or core.get("b1_role") != "core" or float(core["signed_weight"]) <= 0:
+                raise ValueError(f"B1 G4核心链不是B1-core正M3：{row['ruler_name']}")
             if secondary["M"] not in {"M2", "M3"} or float(secondary["signed_weight"]) <= 0:
                 raise ValueError(f"B1 G4第二验证无效：{row['ruler_name']}")
             if _group_key(core) == _group_key(secondary):
                 raise ValueError(f"B1 G4两条链未去重：{row['ruler_name']}")
+            if any(
+                profile.get("M") == "M3"
+                and float(profile.get("signed_weight") or 0.0) < 0
+                and profile.get("severity") == "N3-cross"
+                and profile.get("severity_scope") in {"major-stage", "broad"}
+                for profile in active.values()
+            ):
+                raise ValueError(f"B1 G4/G5仍有独立major-stage/broad N3-cross：{row['ruler_name']}")
         if grade == "G5":
             extra_id = row.get("g5_extra_basis_id")
             route = row.get("g5_extra_route")
@@ -284,6 +305,7 @@ def validate_gate_references(payload: dict[str, Any]) -> None:
                 route not in {"THIRD_CORE_M3", "CROSS_STAGE_REPLACEMENT", "PRESSURE_RECOVERY"}
                 or extra["M"] not in {"M2", "M3"}
                 or (route == "THIRD_CORE_M3" and extra["M"] != "M3")
+                or (route == "THIRD_CORE_M3" and extra.get("b1_role") != "core")
                 or float(extra["signed_weight"]) <= 0
                 or extra_id in consumed
             ):
@@ -296,6 +318,41 @@ def validate_gate_references(payload: dict[str, Any]) -> None:
                 for profile in active.values()
             ):
                 raise ValueError(f"B1 G5仍有主要阶段跨功能失灵：{row['ruler_name']}")
+
+
+def validate_profile_contract(payload: dict[str, Any]) -> None:
+    for row in payload["records"]:
+        for key in ("M_positive_profile", "M_mixed_profile", "M_negative_profile"):
+            for profile in row.get(key) or []:
+                role = profile.get("b1_role")
+                if role not in ALLOWED_B1_ROLES:
+                    raise ValueError(f"B1 profile缺少合法b1_role：{row['ruler_name']} / {profile.get('material_id')}")
+                if _excluded(profile):
+                    if role != "context":
+                        raise ValueError(f"B1排除profile必须标为context：{row['ruler_name']} / {profile.get('material_id')}")
+                    continue
+                level = profile.get("M")
+                weight = float(profile.get("signed_weight") or 0.0)
+                if level in {"M2", "M3"}:
+                    expected = 1.0 if level == "M2" else 2.0
+                    if abs(weight) != expected:
+                        raise ValueError(
+                            f"B1 M档与signed_weight不一致：{row['ruler_name']} / {profile.get('material_id')} / {level} / {weight:g}"
+                        )
+                elif level == "M0":
+                    if weight != 0 or role != "context":
+                        raise ValueError(f"B1 M0必须零权重且为context：{row['ruler_name']} / {profile.get('material_id')}")
+                else:
+                    raise ValueError(f"B1非法M档：{row['ruler_name']} / {profile.get('material_id')}")
+                if level == "M3" and weight < 0:
+                    if profile.get("severity") not in ALLOWED_SEVERITIES:
+                        raise ValueError(f"B1有效负M3缺少Severity：{row['ruler_name']} / {profile.get('material_id')}")
+                    if profile.get("severity_scope") not in ALLOWED_SEVERITY_SCOPES:
+                        raise ValueError(f"B1有效负M3缺少Severity scope：{row['ruler_name']} / {profile.get('material_id')}")
+                    if profile.get("severity") in {"N3-cross", "N3-terminal"} and role != "core":
+                        raise ValueError(f"B1 cross/terminal负M3必须标为core失灵：{row['ruler_name']} / {profile.get('material_id')}")
+                elif any(profile.get(field) is not None for field in ("severity", "severity_scope", "severity_basis")):
+                    raise ValueError(f"B1非负M3残留Severity字段：{row['ruler_name']} / {profile.get('material_id')}")
 
 
 def _summary(row: dict[str, Any]) -> str:
