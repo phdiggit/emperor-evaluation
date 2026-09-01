@@ -1,0 +1,1509 @@
+{
+  "schema_version": "profile-m3-upstream-scale-boundary-remediation-v2",
+  "canonical_status": "FORMAL_CURRENT_AUDIT",
+  "contract_version": "FORMAL-V3.2",
+  "record_count": 184,
+  "upstream_sync": {
+    "source_files": {
+      "C1": "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json",
+      "C2": "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json",
+      "C3": "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json",
+      "C4": "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json"
+    },
+    "changed_person_count": 115,
+    "changed_component_counts": {
+      "C4": 86,
+      "C1": 13,
+      "C2": 56
+    },
+    "C3_change_count": 0
+  },
+  "scale_gate": {
+    "policy": "UNIFIED_C4_FORMAL_ADJUDICATION; ACTUAL_SCALE_OR_FRAGMENTED_CONTROL_ONLY; MATERIAL_SCOPE_IS_NOT_SCALE",
+    "upstream_schema_version": "m3-governance-scale-adjudication-v1",
+    "distribution": {
+      "FULL_OR_MAJOR_REGIONAL": 19,
+      "LIMITED_REGIONAL": 6,
+      "UNRESOLVED_NOT_HIGH_GRADE_GATE": 159
+    },
+    "classification_distribution": {
+      "FULL_OR_MAJOR_ACTUAL_SCALE": 19,
+      "LIMITED_ACTUAL_SCALE": 6,
+      "UNRESOLVED": 153,
+      "MATERIAL_SCOPE_LIMIT_ONLY": 6
+    },
+    "high_grade_unresolved_count": 0,
+    "removed_false_positives": [
+      "刘义隆",
+      "司马曜",
+      "李暠",
+      "杨行密",
+      "苻健",
+      "钱镠"
+    ],
+    "added_missed_records": [
+      "刘崇"
+    ],
+    "grade_changes": [],
+    "limited_regional_records": [
+      {
+        "ruler_id": "RULER-SHADOW-李雄",
+        "ruler_name": "李雄",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "C1正式裁决将实际治理人口、地域、多核心与行政链复杂度判为LOW，并把C1高位结果折算一档。",
+        "source": [
+          {
+            "axis": "C4",
+            "field_path": "m3_governance_scale_adjudication",
+            "ref": "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-李雄"
+          }
+        ]
+      },
+      {
+        "ruler_id": "RULER-SHADOW-沮渠蒙逊",
+        "ruler_name": "沮渠蒙逊",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "C1正式限制明确写明小政权尺度，不把区域结果外推为完整或主要区域治理。",
+        "source": [
+          {
+            "axis": "C4",
+            "field_path": "m3_governance_scale_adjudication",
+            "ref": "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-沮渠蒙逊"
+          }
+        ]
+      },
+      {
+        "ruler_id": "RULER-SHADOW-高季兴",
+        "ruler_name": "高季兴",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "C1—C3正式裁决均把实际辖境限定为狭小荆南核心区；该事实只进入M3规模门，不作为C2结果扣分。",
+        "source": [
+          {
+            "axis": "C4",
+            "field_path": "m3_governance_scale_adjudication",
+            "ref": "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-高季兴"
+          }
+        ]
+      },
+      {
+        "ruler_id": "RULER-SHADOW-刘崇",
+        "ruler_name": "刘崇",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "正式裁决明确为十余州紧凑政权，实际治理规模不足完整或主要区域门槛。",
+        "source": [
+          {
+            "axis": "C4",
+            "field_path": "m3_governance_scale_adjudication",
+            "ref": "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-刘崇"
+          }
+        ]
+      },
+      {
+        "ruler_id": "RULER-MING-ZHU-YOULANG",
+        "ruler_name": "朱由榔",
+        "dimension": "FRAGMENTED_ACTUAL_CONTROL",
+        "basis": "C3正式裁决确认实际控制区随军政集团反复迁徙，且只控制破碎中枢与有限区域。",
+        "source": [
+          {
+            "axis": "C4",
+            "field_path": "m3_governance_scale_adjudication",
+            "ref": "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-MING-ZHU-YOULANG"
+          }
+        ]
+      },
+      {
+        "ruler_id": "RULER-SHADOW-赫连勃勃",
+        "ruler_name": "赫连勃勃",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "C2正式高档门明确按小政权尺度判断其系统性劳力与财政后果。",
+        "source": [
+          {
+            "axis": "C4",
+            "field_path": "m3_governance_scale_adjudication",
+            "ref": "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-赫连勃勃"
+          }
+        ]
+      }
+    ],
+    "material_scope_only_records": [
+      {
+        "ruler_id": "RULER-FD-LI-SIYUAN",
+        "ruler_name": "李嗣源",
+        "basis": "C1高位材料只覆盖约一年，不能外推七年全窗；这是时间覆盖限制，不等同实际治理尺度裁决。"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-李暠",
+        "ruler_name": "李暠",
+        "basis": "C1材料主要限于酒泉—敦煌核心区；这是材料覆盖边界，不等同实际治理尺度裁决。"
+      },
+      {
+        "ruler_id": "RULER-ROSTER-2035C039E3532021",
+        "ruler_name": "耶律阿保机",
+        "basis": "C1材料样本限于汉城安置群体，不能外推全体居民；这是样本边界，不等同实际治理尺度裁决。"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-钱镠",
+        "ruler_name": "钱镠",
+        "basis": "C2只允许把钱塘富庶作为区域结果，不外推全国；这是证据外推限制，不等同实际治理尺度裁决。"
+      },
+      {
+        "ruler_id": "RULER-WU-SUNXIU",
+        "ruler_name": "孙休",
+        "basis": "正式子项存在局部结果不得外推的限制，但没有独立裁决本人实际治理尺度。"
+      },
+      {
+        "ruler_id": "RULER-TANG-LISHI",
+        "ruler_name": "李适",
+        "basis": "正式子项存在区域材料不得外推的限制，但没有独立裁决本人实际治理尺度。"
+      }
+    ],
+    "full_pool_adjudications": [
+      {
+        "ruler_id": "RULER-TANG-LISHIMIN",
+        "ruler_name": "李世民",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-HAN-LIUHENG",
+        "ruler_name": "刘恒",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-HAN-LIUXIU",
+        "ruler_name": "刘秀",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-HAN-LIUXUN",
+        "ruler_name": "刘询",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-JIN-SHIZONG",
+        "ruler_name": "完颜雍",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-NS-ZHAO-KUANGYIN",
+        "ruler_name": "赵匡胤",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-HAN-LIUQI",
+        "ruler_name": "刘启",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-MING-ZHU-YUANZHANG",
+        "ruler_name": "朱元璋",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-PUBLIC-5B02E75C191C9829",
+        "ruler_name": "玄烨",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-冯太后",
+        "ruler_name": "冯太后",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-司马炎",
+        "ruler_name": "司马炎",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-李雄",
+        "ruler_name": "李雄",
+        "classification": "LIMITED_ACTUAL_SCALE",
+        "gate_status": "LIMITED_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-杨行密",
+        "ruler_name": "杨行密",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-苻健",
+        "ruler_name": "苻健",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-SS-ZHAO-GOU",
+        "ruler_name": "赵构",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-WEI-CAOCAO",
+        "ruler_name": "曹操",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-FD-GUO-WEI",
+        "ruler_name": "郭威",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-FD-LI-BIAN",
+        "ruler_name": "李昪",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-FD-LI-SIYUAN",
+        "ruler_name": "李嗣源",
+        "classification": "MATERIAL_SCOPE_LIMIT_ONLY",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-FD-SHI-JINGTANG",
+        "ruler_name": "石敬瑭",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-FD-WANG-JIAN",
+        "ruler_name": "王建",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-HAN-LIUDA",
+        "ruler_name": "刘炟",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-HAN-LIUZHAO",
+        "ruler_name": "刘肇",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-HAN-LUYU",
+        "ruler_name": "吕雉",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-LIAO-YELU-LONGXU",
+        "ruler_name": "耶律隆绪",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-MING-ZHU-JIANSHEN",
+        "ruler_name": "朱见深",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-MING-ZHU-QIYU",
+        "ruler_name": "朱祁钰",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-MING-ZHU-YOUCHENG",
+        "ruler_name": "朱祐樘",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-MING-ZHU-ZAIHOU",
+        "ruler_name": "朱载坖",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-NS-GAO-TAOTAO",
+        "ruler_name": "高滔滔",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-NS-LIU-E",
+        "ruler_name": "刘娥",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-PUBLIC-6339E33979E7CCF5",
+        "ruler_name": "皇太极",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-ROSTER-0F3BA2C535371D66",
+        "ruler_name": "萧绰",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-ROSTER-323631DDD7CB22F6",
+        "ruler_name": "完颜阿骨打",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-冯跋",
+        "ruler_name": "冯跋",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-刘裕",
+        "ruler_name": "刘裕",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-司马睿",
+        "ruler_name": "司马睿",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-孟知祥",
+        "ruler_name": "孟知祥",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-宇文泰",
+        "ruler_name": "宇文泰",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-慕容德",
+        "ruler_name": "慕容德",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-拓跋嗣",
+        "ruler_name": "拓跋嗣",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-拓跋弘",
+        "ruler_name": "拓跋弘",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-李暠",
+        "ruler_name": "李暠",
+        "classification": "MATERIAL_SCOPE_LIMIT_ONLY",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-沮渠蒙逊",
+        "ruler_name": "沮渠蒙逊",
+        "classification": "LIMITED_ACTUAL_SCALE",
+        "gate_status": "LIMITED_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-石勒",
+        "ruler_name": "石勒",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-萧道成",
+        "ruler_name": "萧道成",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-陈蒨",
+        "ruler_name": "陈蒨",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-马殷",
+        "ruler_name": "马殷",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-高季兴",
+        "ruler_name": "高季兴",
+        "classification": "LIMITED_ACTUAL_SCALE",
+        "gate_status": "LIMITED_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-高欢",
+        "ruler_name": "高欢",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHU-LIUBEI",
+        "ruler_name": "刘备",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SS-ZHAO-SHEN",
+        "ruler_name": "赵昚",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-TANG-LIYU",
+        "ruler_name": "李豫",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-TANG-WUZETIAN",
+        "ruler_name": "武则天",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-WEI-SIMAZHAO",
+        "ruler_name": "司马昭",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-WU-SUNQUAN",
+        "ruler_name": "孙权",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-XIXIA-LIDEMING",
+        "ruler_name": "李德明",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-XIXIA-LIQIANSHUN",
+        "ruler_name": "李乾顺",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-FD-ZHU-WEN",
+        "ruler_name": "朱温",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-HAN-DENGSUI",
+        "ruler_name": "邓绥",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-HAN-LIUZHUANG",
+        "ruler_name": "刘庄",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-LIAO-YELU-HONGJI",
+        "ruler_name": "耶律洪基",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-LIAO-YELU-ZONGZHEN",
+        "ruler_name": "耶律宗真",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-MING-ZHU-DI",
+        "ruler_name": "朱棣",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-PUBLIC-4EB7AC987FECC59F",
+        "ruler_name": "胤禛",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-PUBLIC-AD29E67DF9E98569",
+        "ruler_name": "福临",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-拓跋宏",
+        "ruler_name": "拓跋宏",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-杨坚",
+        "ruler_name": "杨坚",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-XIXIA-LIRENXIAO",
+        "ruler_name": "李仁孝",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-YUAN-KUBLAI",
+        "ruler_name": "忽必烈",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-YUAN-OGEDEI",
+        "ruler_name": "窝阔台",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-JIN-XIZONG",
+        "ruler_name": "完颜亶",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-NS-ZHAO-HENG",
+        "ruler_name": "赵恒",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-ROSTER-2035C039E3532021",
+        "ruler_name": "耶律阿保机",
+        "classification": "MATERIAL_SCOPE_LIMIT_ONLY",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-刘义隆",
+        "ruler_name": "刘义隆",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-FD-CHAI-RONG",
+        "ruler_name": "柴荣",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-HAN-LIUBANG",
+        "ruler_name": "刘邦",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-刘渊",
+        "ruler_name": "刘渊",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-姚苌",
+        "ruler_name": "姚苌",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-慕容垂",
+        "ruler_name": "慕容垂",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-TANG-LIYUAN",
+        "ruler_name": "李渊",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-YUAN-TEMUR",
+        "ruler_name": "铁穆耳",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-FD-LIU-YAN",
+        "ruler_name": "刘龑",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-HAN-LIUAO",
+        "ruler_name": "刘骜",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-HAN-LIUHU",
+        "ruler_name": "刘祜",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-HAN-LIUSHI",
+        "ruler_name": "刘奭",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-HAN-LIUXIN",
+        "ruler_name": "刘欣",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-JIN-TAIZONG",
+        "ruler_name": "完颜晟",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-JIN-ZHANGZONG",
+        "ruler_name": "完颜璟",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-LIAO-YELU-DASHI",
+        "ruler_name": "耶律大石",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-LIAO-YELU-RUAN",
+        "ruler_name": "耶律阮",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-LIAO-YELU-XIAN",
+        "ruler_name": "耶律贤",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-MING-ZHU-HOUCONG",
+        "ruler_name": "朱厚熜",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-MING-ZHU-ZHANJI",
+        "ruler_name": "朱瞻基",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-NS-ZHAO-GUANGYI",
+        "ruler_name": "赵光义",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-NS-ZHAO-SHU",
+        "ruler_name": "赵曙",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-NS-ZHAO-XU-ZHEZONG",
+        "ruler_name": "赵煦",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-NS-ZHAO-ZHEN",
+        "ruler_name": "赵祯",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-PUBLIC-6DACD59C17927ECA",
+        "ruler_name": "弘历",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-PUBLIC-6E925E92C6F5ECA5",
+        "ruler_name": "努尔哈赤",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-元恪",
+        "ruler_name": "元恪",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-刘崇",
+        "ruler_name": "刘崇",
+        "classification": "LIMITED_ACTUAL_SCALE",
+        "gate_status": "LIMITED_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-司马曜",
+        "ruler_name": "司马曜",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-姚兴",
+        "ruler_name": "姚兴",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-宇文邕",
+        "ruler_name": "宇文邕",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-拓跋珪",
+        "ruler_name": "拓跋珪",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-钱镠",
+        "ruler_name": "钱镠",
+        "classification": "MATERIAL_SCOPE_LIMIT_ONLY",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-陈顼",
+        "ruler_name": "陈顼",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHU-LIUSHAN",
+        "ruler_name": "刘禅",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SS-ZHAO-DUN",
+        "ruler_name": "赵惇",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SS-ZHAO-KUO",
+        "ruler_name": "赵扩",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-TANG-LICHEN",
+        "ruler_name": "李忱",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-TANG-LICHUN",
+        "ruler_name": "李纯",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-TANG-LIXIAN",
+        "ruler_name": "李显",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-WEI-CAOPI",
+        "ruler_name": "曹丕",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-WU-SUNXIU",
+        "ruler_name": "孙休",
+        "classification": "MATERIAL_SCOPE_LIMIT_ONLY",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-MING-ZHU-QIZHEN",
+        "ruler_name": "朱祁镇",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-ROSTER-D4955237564AB2D6",
+        "ruler_name": "慈禧",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-刘骏",
+        "ruler_name": "刘骏",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-吕光",
+        "ruler_name": "吕光",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-拓跋焘",
+        "ruler_name": "拓跋焘",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-TANG-LILONGJI",
+        "ruler_name": "李隆基",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-TANG-LISHI",
+        "ruler_name": "李适",
+        "classification": "MATERIAL_SCOPE_LIMIT_ONLY",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-WEI-CAORUI",
+        "ruler_name": "曹叡",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-HAN-LIANGNA",
+        "ruler_name": "梁妠",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-HAN-LIUBAO",
+        "ruler_name": "刘保",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-LIAO-YELU-DEGUANG",
+        "ruler_name": "耶律德光",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-MING-ZHU-YOULANG",
+        "ruler_name": "朱由榔",
+        "classification": "LIMITED_ACTUAL_SCALE",
+        "gate_status": "LIMITED_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-PUBLIC-7C4ED87E9C80BF8A",
+        "ruler_name": "旻宁",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-PUBLIC-93F6E8CA07BBD59F",
+        "ruler_name": "颙琰",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-李克用",
+        "ruler_name": "李克用",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-高洋",
+        "ruler_name": "高洋",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SS-ZHAO-YUN",
+        "ruler_name": "赵昀",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-WEI-SIMASHI",
+        "ruler_name": "司马师",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-YUAN-AYURBARWADA",
+        "ruler_name": "爱育黎拔力八达",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-YUAN-KULUG",
+        "ruler_name": "海山",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-YUAN-MONGKE",
+        "ruler_name": "蒙哥",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-FD-LI-CUNXU",
+        "ruler_name": "李存勖",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-FD-LI-YU",
+        "ruler_name": "李煜",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-FD-MENG-CHANG",
+        "ruler_name": "孟昶",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-FD-ZHU-YOUZHEN",
+        "ruler_name": "朱友贞",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-HAN-LIUCHE",
+        "ruler_name": "刘彻",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-HAN-LIUHONG",
+        "ruler_name": "刘宏",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-HAN-LIUZHI",
+        "ruler_name": "刘志",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-JIN-AIZONG",
+        "ruler_name": "完颜守绪",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-JIN-HAILING",
+        "ruler_name": "完颜亮",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-JIN-WEISHAOWANG",
+        "ruler_name": "完颜永济",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-JIN-XUANZONG",
+        "ruler_name": "完颜珣",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-MING-ZHU-HOUZHAO",
+        "ruler_name": "朱厚照",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-MING-ZHU-YIJUN",
+        "ruler_name": "朱翊钧",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-MING-ZHU-YOUJIAN",
+        "ruler_name": "朱由检",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-MING-ZHU-YOUJIAO",
+        "ruler_name": "朱由校",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-MING-ZHU-YUNWEN",
+        "ruler_name": "朱允炆",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-NS-ZHAO-XU",
+        "ruler_name": "赵顼",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-PUBLIC-310D1C92CEE1924D",
+        "ruler_name": "奕詝",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-PUBLIC-79839092B61C3D74",
+        "ruler_name": "载湉",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-QIN-HUHAI",
+        "ruler_name": "胡亥",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-QIN-YINGZHENG",
+        "ruler_name": "嬴政",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-ROSTER-B32BFAF97E1D9690",
+        "ruler_name": "多尔衮",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-刘彧",
+        "ruler_name": "刘彧",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-刘聪",
+        "ruler_name": "刘聪",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-苻坚",
+        "ruler_name": "苻坚",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-萧衍",
+        "ruler_name": "萧衍",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-萧鸾",
+        "ruler_name": "萧鸾",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-赫连勃勃",
+        "ruler_name": "赫连勃勃",
+        "classification": "LIMITED_ACTUAL_SCALE",
+        "gate_status": "LIMITED_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-陈叔宝",
+        "ruler_name": "陈叔宝",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-高湛",
+        "ruler_name": "高湛",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-高纬",
+        "ruler_name": "高纬",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-TANG-LIHENG",
+        "ruler_name": "李亨",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-TANG-LIXUAN",
+        "ruler_name": "李儇",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-TANG-LIZHI",
+        "ruler_name": "李治",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-WU-SUNHAO",
+        "ruler_name": "孙皓",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-XIXIA-LIANQUAN",
+        "ruler_name": "李安全",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-XIXIA-LIBINGCHANG",
+        "ruler_name": "李秉常",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-XIXIA-LILIANGZUO",
+        "ruler_name": "李谅祚",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-XIXIA-LIYUANHAO",
+        "ruler_name": "李元昊",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-YUAN-TEMUJI",
+        "ruler_name": "铁木真",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-YUAN-TOGHON-TEMUR",
+        "ruler_name": "妥懽帖睦尔",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-XIXIA-LIDEWANG",
+        "ruler_name": "李德旺",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-LIAO-YELU-YANXI",
+        "ruler_name": "耶律延禧",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-NS-ZHAO-JI",
+        "ruler_name": "赵佶",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-杨广",
+        "ruler_name": "杨广",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-石虎",
+        "ruler_name": "石虎",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      },
+      {
+        "ruler_id": "RULER-XIN-WANGMANG",
+        "ruler_name": "王莽",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE"
+      }
+    ]
+  },
+  "g4_g3_boundary": {
+    "old_distribution": {
+      "G0": 6,
+      "G1": 54,
+      "G2": 49,
+      "G3": 48,
+      "G4": 23,
+      "G5": 4
+    },
+    "new_distribution": {
+      "G0": 6,
+      "G1": 54,
+      "G2": 49,
+      "G3": 59,
+      "G4": 12,
+      "G5": 4
+    },
+    "changed_record_count": 20,
+    "cross_grade_count": 15,
+    "position_only_change_count": 5,
+    "changed_records": [
+      {
+        "ruler_id": "RULER-PUBLIC-5B02E75C191C9829",
+        "ruler_name": "玄烨",
+        "before": "G4-HIGH",
+        "after": "G4-MID"
+      },
+      {
+        "ruler_id": "RULER-FD-LI-SIYUAN",
+        "ruler_name": "李嗣源",
+        "before": "G4-MID",
+        "after": "G3-HIGH"
+      },
+      {
+        "ruler_id": "RULER-JIN-SHIZONG",
+        "ruler_name": "完颜雍",
+        "before": "G4-MID",
+        "after": "G4-HIGH"
+      },
+      {
+        "ruler_id": "RULER-PUBLIC-4EB7AC987FECC59F",
+        "ruler_name": "胤禛",
+        "before": "G4-MID",
+        "after": "G3-MID"
+      },
+      {
+        "ruler_id": "RULER-ROSTER-0F3BA2C535371D66",
+        "ruler_name": "萧绰",
+        "before": "G4-MID",
+        "after": "G3-HIGH"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-冯跋",
+        "ruler_name": "冯跋",
+        "before": "G4-MID",
+        "after": "G3-HIGH"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-杨行密",
+        "ruler_name": "杨行密",
+        "before": "G4-MID",
+        "after": "G4-LOW"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-石勒",
+        "ruler_name": "石勒",
+        "before": "G4-MID",
+        "after": "G3-HIGH"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-苻健",
+        "ruler_name": "苻健",
+        "before": "G4-MID",
+        "after": "G4-LOW"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-高季兴",
+        "ruler_name": "高季兴",
+        "before": "G4-MID",
+        "after": "G3-HIGH"
+      },
+      {
+        "ruler_id": "RULER-SS-ZHAO-GOU",
+        "ruler_name": "赵构",
+        "before": "G4-MID",
+        "after": "G4-LOW"
+      },
+      {
+        "ruler_id": "RULER-XIXIA-LIDEMING",
+        "ruler_name": "李德明",
+        "before": "G4-MID",
+        "after": "G3-HIGH"
+      },
+      {
+        "ruler_id": "RULER-XIXIA-LIRENXIAO",
+        "ruler_name": "李仁孝",
+        "before": "G4-MID",
+        "after": "G3-MID"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-李暠",
+        "ruler_name": "李暠",
+        "before": "G4-LOW",
+        "after": "G3-HIGH"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-杨坚",
+        "ruler_name": "杨坚",
+        "before": "G4-LOW",
+        "after": "G3-MID"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-马殷",
+        "ruler_name": "马殷",
+        "before": "G4-LOW",
+        "after": "G3-HIGH"
+      },
+      {
+        "ruler_id": "RULER-SS-ZHAO-SHEN",
+        "ruler_name": "赵昚",
+        "before": "G4-LOW",
+        "after": "G3-HIGH"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-冯太后",
+        "ruler_name": "冯太后",
+        "before": "G3-HIGH",
+        "after": "G4-MID"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-司马炎",
+        "ruler_name": "司马炎",
+        "before": "G3-HIGH",
+        "after": "G4-MID"
+      },
+      {
+        "ruler_id": "RULER-HAN-LIUZHUANG",
+        "ruler_name": "刘庄",
+        "before": "G4-LOW",
+        "after": "G3-MID"
+      }
+    ],
+    "g4_records": [
+      {
+        "ruler_id": "RULER-JIN-SHIZONG",
+        "ruler_name": "完颜雍",
+        "position": "HIGH",
+        "recovery_score_27": 20.5,
+        "route": "SUBSTANTIAL_CONSTRUCTION",
+        "scale": "FULL_OR_MAJOR_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-NS-ZHAO-KUANGYIN",
+        "ruler_name": "赵匡胤",
+        "position": "HIGH",
+        "recovery_score_27": 15.6,
+        "route": "SUBSTANTIAL_CONSTRUCTION",
+        "scale": "FULL_OR_MAJOR_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-HAN-LIUQI",
+        "ruler_name": "刘启",
+        "position": "MID",
+        "recovery_score_27": 2.6,
+        "route": "HIGH_LEVEL_STEWARDSHIP",
+        "scale": "FULL_OR_MAJOR_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-MING-ZHU-YUANZHANG",
+        "ruler_name": "朱元璋",
+        "position": "MID",
+        "recovery_score_27": 15.0,
+        "route": "SUBSTANTIAL_CONSTRUCTION",
+        "scale": "FULL_OR_MAJOR_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-PUBLIC-5B02E75C191C9829",
+        "ruler_name": "玄烨",
+        "position": "MID",
+        "recovery_score_27": 13.9,
+        "route": "SUBSTANTIAL_CONSTRUCTION",
+        "scale": "FULL_OR_MAJOR_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-冯太后",
+        "ruler_name": "冯太后",
+        "position": "MID",
+        "recovery_score_27": 10.6,
+        "route": "SUBSTANTIAL_CONSTRUCTION",
+        "scale": "FULL_OR_MAJOR_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-司马炎",
+        "ruler_name": "司马炎",
+        "position": "MID",
+        "recovery_score_27": 10.0,
+        "route": "SUBSTANTIAL_CONSTRUCTION",
+        "scale": "FULL_OR_MAJOR_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-李雄",
+        "ruler_name": "李雄",
+        "position": "LOW",
+        "recovery_score_27": 24.7,
+        "route": "RARE_BROAD_RECONSTRUCTION",
+        "scale": "LIMITED_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-杨行密",
+        "ruler_name": "杨行密",
+        "position": "LOW",
+        "recovery_score_27": 16.0,
+        "route": "SUBSTANTIAL_CONSTRUCTION",
+        "scale": "LIMITED_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-SHADOW-苻健",
+        "ruler_name": "苻健",
+        "position": "LOW",
+        "recovery_score_27": 17.4,
+        "route": "SUBSTANTIAL_CONSTRUCTION",
+        "scale": "LIMITED_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-SS-ZHAO-GOU",
+        "ruler_name": "赵构",
+        "position": "LOW",
+        "recovery_score_27": 16.0,
+        "route": "SUBSTANTIAL_CONSTRUCTION",
+        "scale": "FULL_OR_MAJOR_REGIONAL"
+      },
+      {
+        "ruler_id": "RULER-WEI-CAOCAO",
+        "ruler_name": "曹操",
+        "position": "LOW",
+        "recovery_score_27": 16.0,
+        "route": "SUBSTANTIAL_CONSTRUCTION",
+        "scale": "FULL_OR_MAJOR_REGIONAL"
+      }
+    ]
+  },
+  "named_examples_policy": "NAMES_ONLY_IN_NON_NORMATIVE_EXAMPLE_SECTION; FORMAL_GATES_ARE_ABSTRACT"
+}

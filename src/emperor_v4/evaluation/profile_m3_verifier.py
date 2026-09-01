@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from collections import Counter
 from pathlib import Path
 from typing import Any
@@ -21,6 +22,49 @@ from emperor_v4.evaluation.profile_markdown import render_profile_markdown
 
 PROJECT = ROOT / "config/project.yml"
 MANIFEST = ROOT / "docs/评分结算/皇帝人物画像/00-已结算轴正式入口.json"
+FINANCE_ROOT = ROOT / "docs/评分结算/第二项治国净收益/财政民生"
+C_PATHS = {
+    "C1": FINANCE_ROOT / "01-C1正式结算.json",
+    "C2": FINANCE_ROOT / "02-C2正式结算.json",
+    "C3": FINANCE_ROOT / "03-C3正式结算.json",
+    "C4": FINANCE_ROOT / "04-C4正式结算.json",
+}
+READER_MACHINE_TERMS = (
+    "JSON",
+    "机器",
+    "审计",
+    "SOURCE_GAP",
+    "source_ref",
+    "material_id",
+    "正式归责链",
+)
+SCALE_SCHEMA_VERSION = "m3-governance-scale-adjudication-v1"
+SCALE_CLASS_TO_GATE = {
+    "FULL_OR_MAJOR_ACTUAL_SCALE": "FULL_OR_MAJOR_REGIONAL",
+    "LIMITED_ACTUAL_SCALE": "LIMITED_REGIONAL",
+    "MATERIAL_SCOPE_LIMIT_ONLY": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+    "UNRESOLVED": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+}
+SOURCE_ORIGINS = {
+    "C4_FORMAL_PUBLIC_SOURCE",
+    "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION",
+    "M3_SUPPLEMENT",
+}
+
+
+def _c4_public_source(ref: Any) -> tuple[str, str] | None:
+    text = str(ref or "").strip()
+    if "：" not in text or "《" not in text or "》" not in text:
+        return None
+    title, quote = text.split("：", 1)
+    title = title.strip()
+    quote = " ".join(quote.split())
+    if not quote:
+        return None
+    if not title.startswith("《"):
+        author, book = title.split("《", 1)
+        title = f"《{book}（{author.strip()}）"
+    return title, quote
 
 
 def _load(path: Path) -> dict[str, Any]:
@@ -43,6 +87,8 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
     records = settlement["records"]
     if settlement["schema_version"] != "profile-m3-livelihood-finance-formal-settlement-v3":
         raise ValueError("M3 schema mismatch")
+    if settlement.get("contract_version") != "FORMAL-V3.3":
+        raise ValueError("M3 contract version mismatch")
     if settlement["canonical_status"] != "FORMAL_CURRENT":
         raise ValueError("M3 is not formal current")
     if settlement.get("authority_mode") != "FORMAL_SETTLEMENT_PATCH_SOURCE":
@@ -62,6 +108,25 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
     expected_task_codes = {f"PROFILE-M3-{ruler_id}" for ruler_id in included}
     if {row["task_code"] for row in records} != expected_task_codes:
         raise ValueError("M3 task code coverage mismatch")
+    upstream_payloads = {axis: _load(path) for axis, path in C_PATHS.items()}
+    upstream = {
+        axis: {row["ruler_id"]: row for row in payload["scores"]}
+        for axis, payload in upstream_payloads.items()
+    }
+    scale_contract = upstream_payloads["C4"].get("m3_governance_scale_adjudication_contract") or {}
+    if scale_contract.get("schema_version") != SCALE_SCHEMA_VERSION:
+        raise ValueError("C4 unified M3 scale adjudication contract missing")
+    if scale_contract.get("record_count") != len(upstream_payloads["C4"]["scores"]):
+        raise ValueError("C4 unified M3 scale adjudication coverage mismatch")
+    upstream_scale_counts = Counter(
+        row.get("m3_governance_scale_adjudication", {}).get("classification")
+        for row in upstream_payloads["C4"]["scores"]
+    )
+    if scale_contract.get("classification_distribution") != dict(upstream_scale_counts):
+        raise ValueError("C4 unified M3 scale adjudication distribution mismatch")
+    scale_distribution: Counter[str] = Counter()
+    reader_source_count_distribution: Counter[str] = Counter()
+    c4_reader_modes: Counter[str] = Counter()
     for row in records:
         key = (row["axis_grade"], row["position"])
         if key not in GRADE_PROJECTION:
@@ -79,8 +144,116 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
             raise ValueError(f"incomplete M3 adjudication: {row['ruler_id']}")
         if not isinstance(row["parents"], list) or not isinstance(row["source_refs"], list):
             raise ValueError(f"invalid M3 lineage shape: {row['ruler_id']}")
+        reader_sources = row.get("source_evidence") or []
+        if not reader_sources:
+            raise ValueError(f"invalid M3 reader source count: {row['ruler_id']}")
+        reader_source_count_distribution[str(len(reader_sources))] += 1
+        reader_source_keys: set[tuple[str, str]] = set()
+        c4_public_source_keys: set[tuple[str, str]] = set()
+        c4_lineage_expanded_count = 0
+        for source in reader_sources:
+            title = str(source.get("source_title") or "")
+            quote = " ".join(str(source.get("quote") or "").split())
+            if not title.startswith("《") or "》" not in title or not quote.strip():
+                raise ValueError(f"invalid M3 reader source: {row['ruler_id']}")
+            if re.search(r"(?:https?://|docs/|\\|material_id|source_ref)", title + quote, re.I):
+                raise ValueError(f"non-reader M3 source locator: {row['ruler_id']}")
+            origin = source.get("source_origin")
+            if origin not in SOURCE_ORIGINS:
+                raise ValueError(f"missing M3 reader source origin: {row['ruler_id']}")
+            source_key = (title, quote)
+            if source_key in reader_source_keys:
+                raise ValueError(f"duplicated M3 reader source: {row['ruler_id']}")
+            reader_source_keys.add(source_key)
+            if origin == "C4_FORMAL_PUBLIC_SOURCE":
+                c4_public_source_keys.add(source_key)
+            elif origin == "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION":
+                c4_lineage_expanded_count += 1
+        c4_row = upstream["C4"][row["ruler_id"]]
+        expected_c4_public_sources = {
+            parsed
+            for ref in c4_row.get("public_source_refs") or []
+            if (parsed := _c4_public_source(ref)) is not None
+        }
+        if expected_c4_public_sources:
+            if c4_public_source_keys != expected_c4_public_sources:
+                raise ValueError(f"M3 reader omits C4 public source: {row['ruler_id']}")
+            c4_reader_modes["C4_FORMAL_PUBLIC_SOURCE"] += 1
+        elif c4_lineage_expanded_count < 1:
+            raise ValueError(f"M3 reader does not expand C4 legacy lineage: {row['ruler_id']}")
+        else:
+            c4_reader_modes["C4_FORMAL_LINEAGE_EXPANDED_QUOTATION"] += 1
+        costs = row["costs_and_consequences"].strip()
+        behavior = row["behavior_chain"].strip()
+        if not costs or not behavior or costs in behavior or behavior in costs:
+            raise ValueError(f"duplicated M3 reader rationale: {row['ruler_id']}")
+        if len(costs) > 240 or len(behavior) > 360:
+            raise ValueError(f"overlong M3 reader rationale: {row['ruler_id']}")
+        if any(term.lower() in (costs + behavior).lower() for term in READER_MACHINE_TERMS):
+            raise ValueError(f"machine term in M3 reader rationale: {row['ruler_id']}")
         if "adjudication_ref" in row:
             raise ValueError(f"M3 record still delegates authority: {row['ruler_id']}")
+        for axis in C_PATHS:
+            source = upstream[axis][row["ruler_id"]]
+            expected_component = {"band": source["main_band"], "score": source["score"]}
+            if row["components"][axis] != expected_component:
+                raise ValueError(f"M3 upstream component drift: {row['ruler_id']} {axis}")
+        evidence = row.get("ability_evidence") or {}
+        sync = evidence.get("upstream_sync") or {}
+        if sync.get("status") != "SYNCED_TO_FORMAL_C1_C4_2026_09_01":
+            raise ValueError(f"M3 upstream sync status missing: {row['ruler_id']}")
+        gate = evidence.get("governance_scale_gate") or {}
+        scale_status = gate.get("status")
+        if scale_status not in {
+            "LIMITED_REGIONAL",
+            "FULL_OR_MAJOR_REGIONAL",
+            "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        }:
+            raise ValueError(f"M3 scale gate status invalid: {row['ruler_id']}")
+        if evidence.get("governance_scale_class") != scale_status:
+            raise ValueError(f"M3 scale gate class mismatch: {row['ruler_id']}")
+        upstream_scale = upstream["C4"][row["ruler_id"]].get("m3_governance_scale_adjudication") or {}
+        classification = upstream_scale.get("classification")
+        if upstream_scale.get("schema_version") != SCALE_SCHEMA_VERSION or classification not in SCALE_CLASS_TO_GATE:
+            raise ValueError(f"missing unified C4 scale adjudication: {row['ruler_id']}")
+        if upstream_scale.get("name_or_polity_inference_used") is not False:
+            raise ValueError(f"name/polity scale inference used: {row['ruler_id']}")
+        if gate.get("classification") != classification or gate.get("dimension") != upstream_scale.get("dimension"):
+            raise ValueError(f"M3/C4 scale classification drift: {row['ruler_id']}")
+        if scale_status != SCALE_CLASS_TO_GATE[classification] or gate.get("basis") != upstream_scale.get("basis"):
+            raise ValueError(f"M3/C4 scale gate drift: {row['ruler_id']}")
+        if classification == "LIMITED_ACTUAL_SCALE" and upstream_scale.get("dimension") not in {
+            "ACTUAL_GOVERNANCE_SCALE",
+            "FRAGMENTED_ACTUAL_CONTROL",
+        }:
+            raise ValueError(f"limited scale uses invalid dimension: {row['ruler_id']}")
+        if classification == "MATERIAL_SCOPE_LIMIT_ONLY" and scale_status == "LIMITED_REGIONAL":
+            raise ValueError(f"material scope was converted to limited scale: {row['ruler_id']}")
+        sources = gate.get("formal_subitem_sources") or []
+        if len(sources) != 1 or sources[0].get("axis") != "C4" or sources[0].get("field_path") != "m3_governance_scale_adjudication":
+            raise ValueError(f"M3 scale gate does not read unified C4 field: {row['ruler_id']}")
+        if row["axis_grade"] in {"G4", "G5"} and scale_status == "UNRESOLVED_NOT_HIGH_GRADE_GATE":
+            raise ValueError(f"M3 high grade has unresolved scale gate: {row['ruler_id']}")
+        if scale_status == "LIMITED_REGIONAL" and not evidence.get("six_band_main_state"):
+            if row["axis_grade"] == "G5" or (row["axis_grade"] == "G4" and row["position"] != "LOW"):
+                raise ValueError(f"M3 limited-scale cap broken: {row['ruler_id']}")
+        scale_distribution[scale_status] += 1
+
+        trajectory = evidence.get("trajectory") or {}
+        if row["axis_grade"] == "G4":
+            recovery = float(trajectory["recovery_score_27"])
+            stability = float(trajectory["stability_score_18"])
+            start = trajectory["start_vector"]
+            end = trajectory["end_vector"]
+            retained = int(trajectory["retained_improvement_axis_count"])
+            improved = int(trajectory["improved_axis_count"])
+            end_tier = int(trajectory["end_tier"])
+            strong_build = recovery >= 15 and improved >= 2 and retained >= 2 and end_tier >= 3 and stability >= 6
+            complete_a4 = min(end) >= 4 and recovery >= 10 and stability >= 8 and retained >= 2
+            high_stewardship = evidence.get("route") == "HIGH_LEVEL_STEWARDSHIP"
+            a5_floor = end_tier >= 5 and float(evidence["deterioration_penalty"]) < 8 and float(evidence["destructive_amplification_penalty"]) < 18
+            if not (strong_build or complete_a4 or high_stewardship or a5_floor):
+                raise ValueError(f"M3 G4 admission gate failed: {row['ruler_id']}")
 
     distribution = Counter(row["axis_grade"] for row in records)
     declared = settlement["summary"]["grade_distribution"]
@@ -89,6 +262,15 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
     }
     if declared != expected_distribution:
         raise ValueError("M3 grade distribution mismatch")
+    reader_contract = settlement.get("reader_source_contract") or {}
+    if reader_contract.get("record_count") != len(records):
+        raise ValueError("M3 reader source contract coverage mismatch")
+    if reader_contract.get("c4_direct_public_source_records") != c4_reader_modes["C4_FORMAL_PUBLIC_SOURCE"]:
+        raise ValueError("M3 C4 direct reader-source count mismatch")
+    if reader_contract.get("c4_legacy_lineage_expanded_records") != c4_reader_modes["C4_FORMAL_LINEAGE_EXPANDED_QUOTATION"]:
+        raise ValueError("M3 C4 legacy reader-source count mismatch")
+    if reader_contract.get("source_count_distribution") != dict(reader_source_count_distribution):
+        raise ValueError("M3 reader source-count distribution mismatch")
     return {
         "status": "PASS",
         "record_count": len(records),
@@ -96,14 +278,23 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
         "evidence_limited_count": sum(
             row["score_status"] == "EVIDENCE_LIMITED" for row in records
         ),
+        "scale_gate_distribution": dict(scale_distribution),
     }
 
 
 def verify() -> dict[str, Any]:
     settlement = _load(M3_SETTLEMENT)
     result = verify_payload(settlement)
-    if M3_MARKDOWN.read_text(encoding="utf-8") != render_profile_markdown(settlement):
+    markdown = M3_MARKDOWN.read_text(encoding="utf-8")
+    if markdown != render_profile_markdown(settlement):
         raise ValueError("M3 Markdown differs from formal JSON")
+    adjudications = markdown.split("## 逐人裁决依据", 1)[1]
+    if any(term.lower() in adjudications.lower() for term in READER_MACHINE_TERMS):
+        raise ValueError("machine audit term remains in M3 reader adjudications")
+    source_lines = [line for line in adjudications.splitlines() if line.startswith("  - 《")]
+    expected_sources = sum(len(row["source_evidence"]) for row in settlement["records"])
+    if len(source_lines) != expected_sources:
+        raise ValueError("M3 reader source lines are not one quote per line")
 
     project = yaml.safe_load(PROJECT.read_text(encoding="utf-8"))["profile_assessment"]
     entry = project["settled_axes"]["M3"]

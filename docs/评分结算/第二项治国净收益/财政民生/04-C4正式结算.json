@@ -221,6 +221,24 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现需要进入C4的明显大型可选择营造；不作扩展检索。",
         "screening_rule": "仅抓明显大工程、大规模反复营造或已知显著徭役/财政负担。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "C1正式复杂度裁决为HIGH，实际治理人口、地域、多核心与行政链达到完整或主要区域门槛；MEDIUM不解释为小政权。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "complexity_class"
+          },
+          {
+            "axis": "C1",
+            "field_path": "complexity_basis"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -459,6 +477,24 @@
         "status": "QUALIFYING_CONSUMED_AS_DA2_SUPPORT",
         "disposition": "贞观末北阙、翠微、玉华连续营缮达到大型可选择营造门槛，史料直接指出功力之费与烦扰；作为DA2辅助链，与高丽方向反复可选择动员共同支撑，不单独机械加档。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "C1正式复杂度裁决为HIGH，实际治理人口、地域、多核心与行政链达到完整或主要区域门槛；MEDIUM不解释为小政权。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "complexity_class"
+          },
+          {
+            "axis": "C1",
+            "field_path": "complexity_basis"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -681,6 +717,24 @@
         "status": "EXPLICIT_RESTRAINT_NO_COST",
         "disposition": "宫室苑囿无所增益，拟作露台因成本而罢；不形成营造成本。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "C1正式复杂度裁决为HIGH，实际治理人口、地域、多核心与行政链达到完整或主要区域门槛；MEDIUM不解释为小政权。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "complexity_class"
+          },
+          {
+            "axis": "C1",
+            "field_path": "complexity_basis"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -873,6 +927,28 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "轻量反查未发现需要进入C4的大型可选择营造；普通修缮与战后都城恢复不计。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "跨多核心区域的生产、户口、货币与行政恢复形成主要区域以上治理链。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "adjudication_reason"
+          },
+          {
+            "axis": "C2",
+            "field_path": "adjudication_reason"
+          },
+          {
+            "axis": "C3",
+            "field_path": "adjudication_reason"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -1092,6 +1168,24 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "轻量反查未发现需要进入C4的大型可选择营造。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "LIMITED_ACTUAL_SCALE",
+        "gate_status": "LIMITED_REGIONAL",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "C1正式裁决将实际治理人口、地域、多核心与行政链复杂度判为LOW，并把C1高位结果折算一档。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "complexity_class"
+          },
+          {
+            "axis": "C1",
+            "field_path": "complexity_basis"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -1284,6 +1378,20 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "轻量反查未发现需要进入C4的大型可选择营造。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "MATERIAL_SCOPE_LIMIT_ONLY",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "MATERIAL_COVERAGE_ONLY",
+        "basis": "C1材料主要限于酒泉—敦煌核心区；这是材料覆盖边界，不等同实际治理尺度裁决。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "material_limitations"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -1497,6 +1605,28 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "轻量反查未发现需要进入C4的大型可选择营造；现有材料反见薄赋卑宫。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "正式裁决覆盖关中主要区域、跨境市场与财政行政链，属于主要区域治理。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "adjudication_reason"
+          },
+          {
+            "axis": "C2",
+            "field_path": "adjudication_reason"
+          },
+          {
+            "axis": "C3",
+            "field_path": "adjudication_reason"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -1830,6 +1960,28 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现需要进入C4的明显大型可选择营造；普通都城修缮不计。",
         "screening_rule": "仅抓明显大工程、大规模反复营造或已知显著徭役/财政负担。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "县级治安、财政与生产恢复覆盖多个主要区域，属于完整或主要区域治理。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "adjudication_reason"
+          },
+          {
+            "axis": "C2",
+            "field_path": "adjudication_reason"
+          },
+          {
+            "axis": "C3",
+            "field_path": "adjudication_reason"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -2042,6 +2194,28 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "轻量反查未发现需要进入C4的大型可选择营造。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "跨主要统治区的民生、财政与社会安全结果形成主要区域以上治理链。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "adjudication_reason"
+          },
+          {
+            "axis": "C2",
+            "field_path": "adjudication_reason"
+          },
+          {
+            "axis": "C3",
+            "field_path": "adjudication_reason"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -2255,6 +2429,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现需要进入C4的明显大型可选择营造。",
         "screening_rule": "仅抓明显大工程、大规模反复营造或已知显著徭役/财政负担。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -2448,6 +2631,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "迁都、城防等开国/安全性建设不按享乐性大型营造计入DA；未发现另有合格大工程。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -2639,6 +2831,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现需要进入C4的明显大型可选择营造。",
         "screening_rule": "仅抓明显大工程、大规模反复营造或已知显著徭役/财政负担。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -2852,6 +3053,20 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现需要进入C4的明显大型可选择营造。",
         "screening_rule": "仅抓明显大工程或已知显著徭役/财政负担。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "LIMITED_ACTUAL_SCALE",
+        "gate_status": "LIMITED_REGIONAL",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "C1正式限制明确写明小政权尺度，不把区域结果外推为完整或主要区域治理。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "material_limitations"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -3100,6 +3315,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现需要进入C4的明显大型可选择营造。",
         "screening_rule": "仅抓明显大工程或已知显著徭役/财政负担。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -3289,6 +3513,28 @@
         "status": "QUALIFYING_LARGE_CONSTRUCTION_DA1",
         "disposition": "荆南外垒属于明显大型营造，且史料直接记“遂厚敛于民”，形成已实现财政民生负担，计DA1。",
         "screening_rule": "仅抓明显大工程、大规模反复营造或已知显著徭役/财政负担。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "LIMITED_ACTUAL_SCALE",
+        "gate_status": "LIMITED_REGIONAL",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "C1—C3正式裁决均把实际辖境限定为狭小荆南核心区；该事实只进入M3规模门，不作为C2结果扣分。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "inference_review.inference_basis"
+          },
+          {
+            "axis": "C2",
+            "field_path": "adjudication_reason"
+          },
+          {
+            "axis": "C3",
+            "field_path": "adjudication_reason"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -3468,6 +3714,15 @@
           "third_item_D": "军事成本登记只作成本入口；第三项内部去重不得自动抹掉第二项实际成本。"
         },
         "review_ref": "BATCH2_INLINE_2026-08-31"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -3658,6 +3913,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现需要进入C4的明显大型可选择营造。",
         "screening_rule": "仅抓明显大工程或已知显著徭役/财政负担。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -3872,6 +4136,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现明显大型可选择营造。",
         "screening_rule": "仅抓明显大工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -4066,6 +4339,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "轻量反查未发现称帝窗口内需要进入C4的大型可选择营造。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -4259,6 +4541,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现达到C4大型可选择营造门槛的工程。",
         "screening_rule": "仅抓明显大工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -4542,6 +4833,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现需要进入C4的明显大型可选择营造。",
         "screening_rule": "仅抓明显大工程、大规模反复营造或已知显著徭役/财政负担。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -5499,6 +5799,28 @@
         "status": "QUALIFYING_LARGE_CONSTRUCTION_SUPPORTS_DA2",
         "disposition": "凤阳中都前后营建多年，官方记载“以劳费罢之”，属于明显大型可选择营造；作为DA2辅助链，不与同级军事成本机械叠加升档。",
         "screening_rule": "仅抓明显大工程、大规模反复营造或已知显著徭役/财政负担。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "正式三轴裁决覆盖多核心、跨区域行政与财政链，属于完整治理尺度。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "adjudication_reason"
+          },
+          {
+            "axis": "C2",
+            "field_path": "adjudication_reason"
+          },
+          {
+            "axis": "C3",
+            "field_path": "adjudication_reason"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -5712,6 +6034,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现达到C4大型可选择营造门槛的工程。",
         "screening_rule": "仅抓明显大工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -5970,6 +6301,28 @@
         "status": "NO_ADDITIONAL_DA_FROM_LARGE_CONSTRUCTION",
         "disposition": "不对普通宫苑、巡幸或河工展开专项重检索；现有大型工程未形成独立于既有DA2军事链之外的升级必要。",
         "screening_rule": "只抓一眼可确认的超大、可选择且显著致损工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "正式三轴裁决覆盖多个主要区域和长时段跨区域行政链，属于完整治理尺度。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "adjudication_reason"
+          },
+          {
+            "axis": "C2",
+            "field_path": "adjudication_reason"
+          },
+          {
+            "axis": "C3",
+            "field_path": "adjudication_reason"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -6181,6 +6534,15 @@
         "status": "LIGHT_SCREEN_COMPLETED",
         "disposition": "未发现顺治亲政窗口内明显达到独立高额DA门槛的大型可选择营造。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -6395,6 +6757,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现需要进入C4的明显大型可选择营造；现有材料反见节用。",
         "screening_rule": "仅抓明显大工程、大规模反复营造或已知显著徭役/财政负担。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -6584,6 +6955,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现明显超大、可选择且造成显著役费的营造；普通丧葬/中枢支出不计。",
         "screening_rule": "仅抓明显大工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -6807,6 +7187,28 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现需要进入C4的明显大型可选择营造；迁都不在冯太后本人窗口内。",
         "screening_rule": "仅抓明显大工程或已知显著徭役/财政负担。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "常平、财政与社会治理覆盖多州并形成跨区域结果，属于主要区域以上治理。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "adjudication_reason"
+          },
+          {
+            "axis": "C2",
+            "field_path": "adjudication_reason"
+          },
+          {
+            "axis": "C3",
+            "field_path": "adjudication_reason"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -7020,6 +7422,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现需要进入C4的明显大型营造。",
         "screening_rule": "仅抓明显大工程、大规模反复营造或已知显著徭役/财政负担。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -7252,6 +7663,15 @@
         "status": "NO_QUALIFYING_OPTIONAL_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "河患与河工属于必要公共工程/灾害应对，不作为可选择营造DA；未发现另需计入的大型享乐性工程。",
         "screening_rule": "必要防灾工程不按大型营造机械扣分。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -7443,6 +7863,28 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现需要单列进入C4的大型可选择营造；临安宫城等战后政权重建不机械视为破坏性工程。",
         "screening_rule": "仅抓明显大工程、大规模反复营造或已知显著徭役/财政负担。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "绍兴长期财政、市场、仓储与社会治理覆盖南宋主要统治区，属于主要区域治理。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "adjudication_reason"
+          },
+          {
+            "axis": "C2",
+            "field_path": "adjudication_reason"
+          },
+          {
+            "axis": "C3",
+            "field_path": "adjudication_reason"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -7660,6 +8102,24 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现需要进入C4的明显大型可选择营造。",
         "screening_rule": "仅抓明显大工程或已知显著徭役/财政负担。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "MATERIAL_SCOPE_LIMIT_ONLY",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "MATERIAL_COVERAGE_ONLY",
+        "basis": "C1高位材料只覆盖约一年，不能外推七年全窗；这是时间覆盖限制，不等同实际治理尺度裁决。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "high_band_gate"
+          },
+          {
+            "axis": "C1",
+            "field_path": "material_limitations"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -7851,6 +8311,15 @@
         "status": "QUALIFYING_SCALE_EXCLUDED_FROM_DA_UPGRADE",
         "disposition": "惠帝时期长安城墙征发规模达到大型工程门槛；但史料直接归于惠帝纪年，吕雉虽处实际最高权力窗口，具体发起责任为共享，且首都城防具有明显公共/安全必要性，记录成本但不把DA1升为DA2。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -8042,6 +8511,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现达到C4大型可选择营造门槛且形成显著劳役/财政负担的工程。",
         "screening_rule": "仅抓明显大工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -8236,6 +8714,28 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现需要进入C4的明显大型可选择营造。",
         "screening_rule": "仅抓明显大工程或已知显著徭役/财政负担。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "正式裁决覆盖扬州、江淮及多方向财政与社会恢复，不是单一狭小核心区，属于主要区域治理。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "adjudication_reason"
+          },
+          {
+            "axis": "C2",
+            "field_path": "adjudication_reason"
+          },
+          {
+            "axis": "C3",
+            "field_path": "adjudication_reason"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -8447,6 +8947,15 @@
         "status": "NO_QUALIFYING_HARMFUL_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "现有材料更多是罢御府、省雕饰、断众募等减役止扰；未发现本人新起的显著大型可选择工程。",
         "screening_rule": "仅抓明显大工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -8657,6 +9166,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现需要进入C4的明显大型营造。",
         "screening_rule": "仅抓明显大工程、大规模反复营造或已知显著徭役/财政负担。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -8850,6 +9368,15 @@
         "status": "NO_ADDITIONAL_DA_FROM_LARGE_CONSTRUCTION",
         "disposition": "虽有建社稷、宗庙及东西宫等营建记载，现有材料未闭合达到独立显著民役/财政损害的超大工程，不另加DA。",
         "screening_rule": "有营建名目不等于大型致损工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -9040,6 +9567,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "现有材料反见“土木之费省矣”，未发现需要进入C4的大型营造。",
         "screening_rule": "仅抓明显大工程、大规模反复营造或已知显著徭役/财政负担。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -9329,6 +9865,15 @@
         "status": "QUALIFYING_MASSIVE_BUT_PARTLY_NECESSARY_CONSTRUCTION_DA1",
         "disposition": "天成二年发民丁二十万修成都城，工程量极大；考虑都城防务/修城的必要基线，仅对超大规模征发增量取DA1。",
         "screening_rule": "大型工程先辨必要性，再裁可选择增量。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -9540,6 +10085,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现达到C4大型可选择营造门槛且形成显著劳役财政成本的工程。",
         "screening_rule": "仅抓明显大工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -9732,6 +10286,15 @@
         "status": "LIGHT_SCREEN_COMPLETED",
         "disposition": "未发现姚苌本人窗口内可独立进入DA的大型营造。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -9923,6 +10486,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现需要进入C4的明显大型可选择营造。",
         "screening_rule": "仅抓明显大工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -10106,6 +10678,15 @@
           "third_item_D": "军事成本登记只作成本入口；第三项内部去重需反查，但不得自动抹掉第二项实际成本。"
         },
         "review_ref": "BATCH5_INLINE_2026-08-31"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -10300,6 +10881,28 @@
         "status": "NO_SEPARATE_QUALIFYING_LARGE_CONSTRUCTION",
         "disposition": "《晋书》虽有“宫闱增饰”，但现证不足闭合单项大型工程量或严重劳役后果，不单独计营造DA。",
         "screening_rule": "仅抓明显大工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "太康阶段的赋税、生产与社会秩序裁决覆盖全国性治理链，属于完整治理尺度。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "adjudication_reason"
+          },
+          {
+            "axis": "C2",
+            "field_path": "adjudication_reason"
+          },
+          {
+            "axis": "C3",
+            "field_path": "adjudication_reason"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -10514,6 +11117,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现需要进入C4的明显大型可选择营造。",
         "screening_rule": "仅抓明显大工程、大规模反复营造或已知显著徭役/财政负担。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -10770,6 +11382,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现达到大型可选择营造门槛的工程；“国用方乏”只作C2交班余量证据。",
         "screening_rule": "仅抓明显大工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -10950,6 +11571,15 @@
           "third_item_D": "军事成本登记只作成本入口；第三项内部去重不得自动抹掉第二项实际成本。"
         },
         "review_ref": "BATCH7_INLINE_2026-08-31"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -11178,6 +11808,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现需要进入C4的明显大型可选择营造。",
         "screening_rule": "仅抓明显大工程、大规模反复营造或已知显著徭役/财政负担。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -11368,6 +12007,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现达到C4大型可选择营造门槛的工程。",
         "screening_rule": "仅抓明显大工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -11578,6 +12226,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现需要进入C4的明显大型营造。",
         "screening_rule": "仅抓明显大工程、大规模反复营造或已知显著徭役/财政负担。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -11767,6 +12424,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现达到C4大型可选择营造门槛且形成显著役费的工程。",
         "screening_rule": "仅抓明显大工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -11978,6 +12644,28 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现需要独立进入C4的明显大型可选择营造。",
         "screening_rule": "仅抓明显大工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "屯田、常规税基、储粮与行政链覆盖多郡国，属于主要区域治理。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "adjudication_reason"
+          },
+          {
+            "axis": "C2",
+            "field_path": "adjudication_reason"
+          },
+          {
+            "axis": "C3",
+            "field_path": "adjudication_reason"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -12172,6 +12860,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现需要独立进入C4的大型可选择营造。",
         "screening_rule": "仅抓明显大工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -12400,6 +13097,24 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现需要进入C4的明显大型可选择营造；不作扩展检索。",
         "screening_rule": "仅抓明显大工程或已知显著徭役/财政负担。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "C1正式复杂度裁决为HIGH，实际治理人口、地域、多核心与行政链达到完整或主要区域门槛；MEDIUM不解释为小政权。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "complexity_class"
+          },
+          {
+            "axis": "C1",
+            "field_path": "complexity_basis"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -12575,6 +13290,15 @@
           "third_item_D": "军事成本登记只作成本入口；第三项内部去重不得自动抹掉第二项实际成本。"
         },
         "review_ref": "BATCH7_INLINE_2026-08-31"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -12784,6 +13508,15 @@
         "status": "LARGE_PUBLIC_WORKS_SCREENED_NO_DA",
         "disposition": "开封扩城、汴河疏浚等属于明显大工程，但主体闭合为都城防务与交通公共工程；未证超额可选择负担达到DA门槛。",
         "screening_rule": "必要公共工程先剔除，明显超量才计。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -12992,6 +13725,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现本人窗口达到C4大型可选择营造门槛的工程；后继武宗、仁宗营造不得倒算。",
         "screening_rule": "仅抓明显大工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -13183,6 +13925,15 @@
         "status": "QUALIFYING_LARGE_OPTIONAL_EXCESS_DA1",
         "disposition": "未央宫作为新都中枢有必要建设基线；仅把史料所见明显“治宫室过度”的壮丽增量作为大型可选择营造成本，裁DA1。",
         "screening_rule": "必要首都中枢先豁免，明显过量部分计成本。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -13410,6 +14161,15 @@
         "status": "NEGATIVE_SCREEN_BY_DIRECT_SOURCE",
         "disposition": "本人窗口有“凡营缮悉罢之”的直接停止营缮材料，未识别大型可选择工程。",
         "screening_rule": "仅抓明显大工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -13679,6 +14439,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "现有材料反见停止洛阳宫工程，未发现另需计入的大型营造。",
         "screening_rule": "仅抓明显大工程、大规模反复营造或已知显著徭役/财政负担。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -13866,6 +14635,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现达到大型可选择营造门槛的工程。",
         "screening_rule": "仅抓明显大工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -14076,6 +14854,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现达到C4大型可选择营造门槛且需要独立计DA的工程。",
         "screening_rule": "仅抓明显大工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -14307,6 +15094,15 @@
         "status": "NO_SEPARATE_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现需要在军事DA之外独立计入的大型可选择营造。",
         "screening_rule": "仅抓明显大工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -14496,6 +15292,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现达到C4大型可选择营造门槛的工程。",
         "screening_rule": "仅抓明显大工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -14706,6 +15511,24 @@
         "status": "QUALIFYING_LARGE_OPTIONAL_CONSTRUCTION_DA2",
         "disposition": "北宫“大作，人失农时”直接闭合大型可选择宫室工程及农时损害；后续止作减省不降低既成成本。汴渠属重大公共工程，不与宫室链机械叠加。",
         "screening_rule": "大型可选择工程本身可达DA2；事后纠偏不降已实现成本档。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "C1正式复杂度裁决为HIGH，实际治理人口、地域、多核心与行政链达到完整或主要区域门槛；MEDIUM不解释为小政权。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "complexity_class"
+          },
+          {
+            "axis": "C1",
+            "field_path": "complexity_basis"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -14921,6 +15744,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现需要另行进入C4的明显大型营造；迁邺等不在缺乏明确额外成本闭合时机械扣分。",
         "screening_rule": "仅抓明显大工程、大规模反复营造或已知显著徭役/财政负担。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -15106,6 +15938,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现达到C4大型可选择营造门槛的工程。",
         "screening_rule": "仅抓明显大工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -15294,6 +16135,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现达到C4大型可选择营造门槛的工程。",
         "screening_rule": "仅抓明显大工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -15505,6 +16355,15 @@
         "status": "QUALIFYING_LARGE_OPTIONAL_CONSTRUCTION_DA1",
         "disposition": "雍正朝圆明园进入大规模扩建，档案载启动即由广储司取银三十万两；工程明显越过“大工程量”门槛，但现证不足闭合严重全国性劳役或财政后果，取DA1。",
         "screening_rule": "仅抓明显大工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -15681,6 +16540,24 @@
           "third_item_D": "军事成本登记只作成本入口；第三项内部去重不得自动抹掉第二项实际成本。"
         },
         "review_ref": "BATCH6_INLINE_2026-08-31"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "LIMITED_ACTUAL_SCALE",
+        "gate_status": "LIMITED_REGIONAL",
+        "dimension": "FRAGMENTED_ACTUAL_CONTROL",
+        "basis": "C3正式裁决确认弘光覆亡后控制区进一步破碎，未形成广域治理覆盖。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "review_remediation.directive"
+          },
+          {
+            "axis": "C3",
+            "field_path": "adjudication_reason"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -15874,6 +16751,15 @@
         "status": "LIGHT_SCREEN_COMPLETED",
         "disposition": "中京等营建规模较大，但本批不以缺乏独立财政/役工后果闭合的工程另行升级DA；DA3已由军事长链独立支撑。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -16064,6 +16950,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现达到C4大型可选择营造门槛的工程。",
         "screening_rule": "仅抓明显大工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -16253,6 +17148,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现需要独立进入C4的大型可选择营造。",
         "screening_rule": "仅抓明显大工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -16466,6 +17370,15 @@
         "status": "LIGHT_SCREEN_COMPLETED",
         "disposition": "未发现明显大型可选择营造；相反本人窗口存在限制额外营建的材料，不另计。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -16652,6 +17565,15 @@
         "status": "LIGHT_SCREEN_COMPLETED",
         "disposition": "未发现明显超大型可选择营造链。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -16874,6 +17796,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现需要进入C4的明显大型营造。",
         "screening_rule": "仅抓明显大工程、大规模反复营造或已知显著徭役/财政负担。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -17050,6 +17981,24 @@
           "third_item_D": "军事成本登记只作成本入口；第三项内部去重需反查，但不得自动抹掉第二项实际成本。"
         },
         "review_ref": "BATCH5_INLINE_2026-08-31"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "LIMITED_ACTUAL_SCALE",
+        "gate_status": "LIMITED_REGIONAL",
+        "dimension": "FRAGMENTED_ACTUAL_CONTROL",
+        "basis": "C3正式裁决确认本人窗口只控制破碎中枢与有限区域，属于实际控制范围受限。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "review_remediation.directive"
+          },
+          {
+            "axis": "C3",
+            "field_path": "evidence"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -17241,6 +18190,15 @@
         "status": "LIGHT_SCREEN_COMPLETED",
         "disposition": "无明显大型可选择营造。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -17457,6 +18415,15 @@
         "status": "LIGHT_SCREEN_COMPLETED",
         "disposition": "未发现明显达到“大工程+显著财政/役工成本”门槛的独立营造链。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -17667,6 +18634,15 @@
         "status": "LIGHT_SCREEN_COMPLETED",
         "disposition": "本人窗口以减省宫廷、陵墓等成本为主，未发现需要另扣的大型营造。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -17858,6 +18834,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现需要进入C4的明显大型营造。",
         "screening_rule": "仅抓明显大工程、大规模反复营造或已知显著徭役/财政负担。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -18043,6 +19028,28 @@
         "status": "LIGHT_SCREEN_COMPLETED",
         "disposition": "无明显大型可选择营造。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "LIMITED_ACTUAL_SCALE",
+        "gate_status": "LIMITED_REGIONAL",
+        "dimension": "FRAGMENTED_ACTUAL_CONTROL",
+        "basis": "C3正式裁决确认实际控制区随军政集团反复迁徙，且只控制破碎中枢与有限区域。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "review_remediation.directive"
+          },
+          {
+            "axis": "C3",
+            "field_path": "adjudication_reason"
+          },
+          {
+            "axis": "C3",
+            "field_path": "evidence"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -18220,6 +19227,15 @@
         "status": "LIGHT_SCREEN_COMPLETED",
         "disposition": "无明显大型可选择营造。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -18333,7 +19349,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 11.8
+      "uncapped_positive_score": 11.8,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "刘欣接手锚点为民生三档、经济财政二档、社会安全三档；三轴全任曲线为民生三档→民生三档→民生三档；经济财政二档→经济财政三档→经济财政二档；社会安全三档→社会安全二档→社会安全二档。 民生：高户口不能覆盖贫弱愈困；社会仍维持且未系统崩坏，故为民生三档；经济财政：裁乐府、释放宫人与部分减役形成纠偏，但董贤聚敛、葬礼征发、祭祀扩张和灾害使改善短促，交班仍处脆弱状态；社会安全：起点承接成帝末三档；即位诏自承失业与盗贼未息，限田限奴被权贵阻断 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献1.6分、稳定兑现与压力吸收贡献10.1分，正向保留11.7分。 起点承接成帝末三档；即位诏自承失业与盗贼未息，限田限奴被权贵阻断；裁乐府、释放宫人与部分减役形成纠偏，但董贤聚敛、葬礼征发、祭祀扩张和灾害使改善短促，交班仍处脆弱状态 可归责恶化扣0.0分，归责档为DA2，扣9.0分。 交班锚点为民生三档、经济财政二档、社会安全二档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4-1、2.7分。",
@@ -18448,7 +19473,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.16,
-      "uncapped_positive_score": 11.7
+      "uncapped_positive_score": 11.7,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "宇文邕接手锚点为民生三档、经济财政三档、社会安全三档；三轴全任曲线为民生三档→民生二档→民生二档；经济财政三档→经济财政四档→经济财政四档；社会安全三档→社会安全三档→社会安全三档。 民生：572年宇文邕开始独立最高主政时，西魏—北周核心区的既有状态只作为接手局面继承背景，不把556—571年的事件归为本人得失；572年后的半数夏人军事化、货币失败与持续军费使主态降为困顿，统一收益不得反换民生高档；经济财政：节用、释放官口、水利与统一北方后的独立安置改善生产社会；府兵和对突厥支出构成持续负担但未压倒恢复；社会安全：节用整顿和统一后安置维持基本秩序，战争征发与高压结构阻断四档 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献2.0分、稳定兑现与压力吸收贡献9.7分，正向保留11.7分。 572年宇文邕开始独立最高主政时，西魏—北周核心区的既有状态只作为接手局面继承背景，不把556—571年的事件归为本人得失；572年后的半数夏人军事化、货币失败与持续军费使主态降为困顿，统一收益不得反换民生高档；节用、释放官口、水利与统一北方后的独立安置改善生产社会；府兵和对突厥支出构成持续负担但未压倒恢复 可归责恶化扣0.0分，归责档为DA2，扣9.0分。 交班锚点为民生二档、经济财政四档、社会安全三档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4-1、2.7分。",
@@ -18566,7 +19600,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.2,
-      "uncapped_positive_score": 11.7
+      "uncapped_positive_score": 11.7,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "朱厚熜接手锚点为民生三档、经济财政三档、社会安全三档；三轴全任曲线为民生三档→民生三档→民生三档；经济财政三档→经济财政三档→经济财政二档；社会安全三档→社会安全三档→社会安全三档。 民生：辽东赈饥给牛种只证明一个区域的恢复投入，不证明普通家庭主态；任末总评直接显示边事、内乱和营建使百余年富庶治平渐替；经济财政：国家仍能大幅减税、赈济和维持征收，故常规财政未崩；但营建繁兴、府藏告匮与边费把终点压入汲取脆弱；社会安全：赈灾、仓储恢复和局部基层治理维持基本秩序；左顺门大规模廷杖、锦衣卫拷掠、灾年催征与持续盗乱使四档不能成立 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献11.5分，正向保留11.5分。 辽东赈饥给牛种只证明一个区域的恢复投入，不证明普通家庭主态；任末总评直接显示边事、内乱和营建使百余年富庶治平渐替；国家仍能大幅减税、赈济和维持征收，故常规财政未崩；但营建繁兴、府藏告匮与边费把终点压入汲取脆弱 可归责恶化扣0.0分，归责档为DA2，扣9.0分。 交班锚点为民生三档、经济财政二档、社会安全三档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4-1、2.5分。",
@@ -18700,7 +19743,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 11.5
+      "uncapped_positive_score": 11.5,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "赵煦接手锚点为民生三档、经济财政三档、社会安全四档；三轴全任曲线为民生三档→民生三档→民生三档；经济财政三档→经济财政三档→经济财政三档；社会安全四档→社会安全四档→社会安全四档。 民生：本人多路实际结果闭合基本运行；NO_MACRO_ANCHOR阻断民生四档，不从高滔滔或徽宗继承档位；经济财政：跨区运米和发粟可运行，但役法、河患、商旅受阻及新法反复使余量有限；社会安全：诉理追究使七八百政治人物受祸，足以阻断五档并形成第五项权力使用负面，但现证不足以证明普通社会的司法与治安主态跌破四档；交班锚继续保持四档，等待普通社会同尺度反证 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献11.3分，正向保留11.3分。 亲政后重新推动役法与河役等争议路线，商旅受阻和河患反馈下仍反复变法；诉理追究又使七八百名政治人物受祸，形成财政民役与社会安全两路已实现损害。 可归责恶化扣0.0分，归责档为DA2，扣9.0分。 交班锚点为民生三档、经济财政三档、社会安全四档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4-1、2.3分。",
@@ -18833,7 +19885,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 11.3
+      "uncapped_positive_score": 11.3,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "慕容垂接手锚点为民生一档、经济财政二档、社会安全一档；三轴全任曲线为民生一档→民生二档→民生二档；经济财政二档→经济财政三档→经济财政三档；社会安全一档→社会安全二档→社会安全二档。 民生：后燕重建始于战争低谷，早期围邺已出现幽冀人相食和征桑椹作军粮；十二年内缺足以证明主要统治区升至基本维持的广域结果；经济财政：后燕重建中恢复户口生产和财政运行，长期战争成本限制民间余量；材料支持中位改善而非高档繁荣；社会安全：重建伴随长期战争、围城饥荒和屠城，未恢复到基本安全 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献6.4分、稳定兑现与压力吸收贡献4.6分，正向保留11.0分。 王道子东第工程与卖官聚财；后燕重建始于战争低谷，早期围邺已出现幽冀人相食和征桑椹作军粮；十二年内缺足以证明主要统治区升至基本维持的广域结果 可归责恶化扣0.0分，归责档为DA2，扣9.0分。 交班锚点为民生二档、经济财政三档、社会安全二档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4-1、2.0分。",
@@ -18953,7 +20014,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.64,
-      "uncapped_positive_score": 11.0
+      "uncapped_positive_score": 11.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "姚兴接手锚点为民生二档、经济财政三档、社会安全二档；三轴全任曲线为民生二档→民生三档→民生二档；经济财政三档→经济财政四档→经济财政三档；社会安全二档→社会安全三档→社会安全二档。 民生：二十二年窗口内有解散降众归农和政权长期运行，足以从困顿升至基本维持；末期多线战争、镇户离散与仓储压力使交班回落；经济财政：休养、农业与城市财政恢复使后秦达到较稳状态，但末期战争和政权裂缝压低交班韧性；社会安全：中期文教与行政使基本秩序恢复，后期战争和继承危机令终点回落二档 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献8.4分、稳定兑现与压力吸收贡献2.5分，正向保留10.9分。 秦州河东、洛阳、西秦、柴壁、仇池及胡夏等多方向长期战争中，多条为本人主动进攻且含重大失败；反复再授权足以到中等额外破坏归责，但不能仅凭战线数量代替严重额外破坏归责所需的跨通道系统恶化，取中等额外破坏归责；国用空竭时司马元显仍聚敛巨富 可归责恶化扣0.0分，归责档为DA2，扣9.0分。 交班锚点为民生二档、经济财政三档、社会安全二档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4-1、1.9分。",
@@ -19092,7 +20162,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.84,
-      "uncapped_positive_score": 10.9
+      "uncapped_positive_score": 10.9,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "拓跋焘接手锚点为民生四档、经济财政四档、社会安全三档；三轴全任曲线为民生四档→民生三档→民生三档；经济财政四档→经济财政四档→经济财政四档；社会安全三档→社会安全三档→社会安全二档。 民生：继承高位，但军国用足不能等同百姓温饱；长期征役、迁徙与盖吴、宋魏战争使主要状态回落到基本维持；经济财政：农业与税基扩展、边区安置和灾年恢复维持中高位；宗教工程、征役和战争成本降低档内位置；社会安全：国家秩序扩展与重刑、灭佛和战争征发并存，后期宫廷暴力使终点降二档 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献15.1分，正向保留15.1分。 刘宋币制反复与轻钱私铸导致粮价和市场崩坏；继承高位，但军国用足不能等同百姓温饱；长期征役、迁徙与盖吴、宋魏战争使主要状态回落到基本维持 可归责恶化扣0.0分，归责档为DA3，扣13.5分。 交班锚点为民生三档、经济财政四档、社会安全二档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4-1、1.6分。",
@@ -19208,7 +20287,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 15.1
+      "uncapped_positive_score": 15.1,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "同步最新C1/C2/C3后，恢复分10.0/27；K稳定承压9.0/18；终局C4T-4；可归责恶化4.1；DA3扣13.5；最终C4-1、1.5分。",
@@ -19403,6 +20491,15 @@
         "status": "QUALIFYING_SEVERE_LARGE_CONSTRUCTION_DA3_COMPONENT",
         "disposition": "仁寿宫役使严急、丁夫多死，史载死者以万数；属于超大型可选择宫室工程及严重人员成本，与高句丽链合并支撑DA3。",
         "screening_rule": "明显大工程且闭合严重人员损害，直接计成本。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -19523,7 +20620,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.84,
-      "uncapped_positive_score": 14.9
+      "uncapped_positive_score": 14.9,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "孙权接手锚点为民生三档、经济财政三档、社会安全二档；三轴全任曲线为民生三档→民生三档→民生三档；经济财政三档→经济财政三档→经济财政三档；社会安全二档→社会安全三档→社会安全三档。 民生：货币旁证只能证明大钱流通不便，不能独立形成全任单档；五个适用C1的READY_COST WC4只触发复核，现有战争卡未闭合足以改变主要统治区或主要持续阶段的实际民生后果，按合同不得凭WC档位或数量机械下推；经济财政：江东农业与区域经营维持运行，但大钱、句容工程与晚期征发反复造成市场和民户负担，长期状态混合；社会安全：长期战争环境下江东形成基本行政与基层秩序；晚年刑杀、徭役和继承清洗阻断四档 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献2.4分、稳定兑现与压力吸收贡献7.9分，正向保留10.3分。 货币旁证只能证明大钱流通不便，不能独立形成全任单档；五个适用C1的READY_COST WC4只触发复核，现有战争卡未闭合足以改变主要统治区或主要持续阶段的实际民生后果，按合同不得凭WC档位或数量机械下推；江东农业与区域经营维持运行，但大钱、句容工程与晚期征发反复造成市场和民户负担，长期状态混合 可归责恶化扣0.0分，归责档为DA2，扣9.0分。 交班锚点为民生三档、经济财政三档、社会安全三档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4-1、1.3分。",
@@ -19638,7 +20744,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.24,
-      "uncapped_positive_score": 10.3
+      "uncapped_positive_score": 10.3,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "最新三轴仍为C1 2→2→2、C2 3→3→3、C3 3→3→3。 没有跨档恢复。C1因浦里塘役形成一个低于二档主态的局部实质低谷，K3；C2/C3均K4。终局2/3/3按加权可到T3，但瓶颈规则仍允许T3，稳定信用封顶10.0。 按跨档难度计，恢复分0.0；weighted_K=0.90，稳定分10.0；正向保留10.0。 浦里塘不是普通公共修缮：史载会诸军民施工，功费不可胜数，士卒多死亡，且民大愁怨。即使工程具有水利目的，已实现的万人级强制动员与死亡、自杀、民怨已经越过“必要公共工程基线”，按一次大型可选择/过量工程的显著成本裁DA2。 可归责恶化扣0.0，DA2扣9.0。 交班2/3/3，国家经济与常规秩序仍能基本运行，但家庭负担与工程低谷使民生保持二档。 综合裁为C4-1、1.0分。",
@@ -19823,6 +20938,20 @@
         "status": "LIGHT_SCREEN_COMPLETED",
         "disposition": "明确命中大型工程门：浦里塘动员诸军民，功费巨大、士卒多死亡、百姓大怨；直接裁DA2。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "MATERIAL_SCOPE_LIMIT_ONLY",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "MATERIAL_COVERAGE_ONLY",
+        "basis": "正式子项存在局部结果不得外推的限制，但没有独立裁决本人实际治理尺度。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "material_limitations"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -19938,7 +21067,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.7,
-      "uncapped_positive_score": 10.5
+      "uncapped_positive_score": 10.5,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "李乾顺接手锚点为民生二档、经济财政二档、社会安全二档；三轴全任曲线为民生二档→民生三档→民生三档；经济财政二档→经济财政三档→经济财政三档；社会安全二档→社会安全三档→社会安全三档。 民生：从卖子和广域战争低点恢复到可运行主态，跨州赈粮和长期和议形成正证；边地战争与仓储不足阻断四档；经济财政：岁赐恢复、贸易和公共供给使财政回到基本运行；无百日军粮、无三年仓蓄及点集害农反证阻断四档；社会安全：议和和长期统治恢复基本秩序，但早期部族离心、边战与后期拒绝纠偏使安全只到三档 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献8.0分、稳定兑现与压力吸收贡献2.0分，正向保留10.0分。 1087—1126宋夏西线虽含防御阶段，但本人长期维持双向边境战争并反复前推；必要接战之外的多年可选择增量取中等额外破坏归责；从卖子和广域战争低点恢复到可运行主态，跨州赈粮和长期和议形成正证；边地战争与仓储不足阻断四档 可归责恶化扣0.0分，归责档为DA2，扣9.0分。 交班锚点为民生三档、经济财政三档、社会安全三档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4-1、1.0分。",
@@ -20132,7 +21270,16 @@
         "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-XIXIA-LIQIANSHUN"
       ],
       "public_adjudication": "李乾顺接手锚点为民生二档、经济财政二档、社会安全二档；三轴全任曲线为民生二档→民生三档→民生三档；经济财政二档→经济财政三档→经济财政三档；社会安全二档→社会安全三档→社会安全三档。 民生：从卖子和广域战争低点恢复到可运行主态，跨州赈粮和长期和议形成正证；边地战争与仓储不足阻断四档；经济财政：岁赐恢复、贸易和公共供给使财政回到基本运行；无百日军粮、无三年仓蓄及点集害农反证阻断四档；社会安全：议和和长期统治恢复基本秩序，但早期部族离心、边战与后期拒绝纠偏使安全只到三档 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献8.0分、稳定兑现与压力吸收贡献2.0分，正向保留10.0分。 1087—1126宋夏西线虽含防御阶段，但本人长期维持双向边境战争并反复前推；必要接战之外的多年可选择增量取中等额外破坏归责；从卖子和广域战争低点恢复到可运行主态，跨州赈粮和长期和议形成正证；边地战争与仓储不足阻断四档 可归责恶化扣0.0分，归责档为DA2，扣9.0分。 交班锚点为民生三档、经济财政三档、社会安全三档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4-1、1.0分。",
-      "rank": 96
+      "rank": 96,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "耶律贤接手锚点为民生三档、经济财政三档、社会安全二档；三轴全任曲线为民生三档→民生三档→民生三档；经济财政三档→经济财政三档→经济财政三档；社会安全二档→社会安全三档→社会安全三档。 民生/经济财政/社会安全：主要统治区维持基本生产财政，登闻鼓、封事、巡问贫乏及司法救济恢复使社会安全由脆弱转为基本可运行 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献2.4分、稳定兑现与压力吸收贡献3.0分，正向保留5.4分。 979年救援幽州属于必要防御，但971年定州—满城六万骑行动为主动进攻增量；仅对可选择部分归责，取有限额外破坏归责；主要统治区维持基本生产财政，登闻鼓、封事、巡问贫乏及司法救济恢复使社会安全由脆弱转为基本可运行 可归责恶化扣0.0分，归责档为DA1，扣4.5分。 交班锚点为民生三档、经济财政三档、社会安全三档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4-1、0.9分。",
@@ -20247,7 +21394,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.24,
-      "uncapped_positive_score": 5.4
+      "uncapped_positive_score": 5.4,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "同步最新C1/C2/C3后，恢复分0.0/27；K稳定承压14.0/18；终局C4T-4；可归责恶化0.0；DA3扣13.5；最终C4-1、0.5分。",
@@ -20438,6 +21594,15 @@
         "status": "QUALIFYING_MASSIVE_CAPITAL_RELOCATION_AUXILIARY",
         "disposition": "迁洛为超大型都城迁建与人口迁徙工程，明显越过“大工程”门槛；其人身迁徙裂缝已由C3/K消费，工程成本只作为DA3辅助，不与同一后果重复升DA4。",
         "screening_rule": "明显大工程计入，但与C3既有迁徙后果去重。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -20556,7 +21721,25 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.5,
-      "uncapped_positive_score": 9.3
+      "uncapped_positive_score": 9.3,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "C1正式复杂度裁决为MEDIUM，实际治理人口、地域、多核心与行政链达到完整或主要区域门槛；MEDIUM不解释为小政权。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "complexity_class"
+          },
+          {
+            "axis": "C1",
+            "field_path": "complexity_basis"
+          }
+        ],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "奕詝接手锚点为民生二档、经济财政二档、社会安全二档；三轴全任曲线为民生二档→民生一档→民生一档；经济财政二档→经济财政一档→经济财政一档；社会安全二档→社会安全一档→社会安全一档。 民生：承接道光低位，内战、灾荒和粮源被军需与赈济同时争夺，使主要窗口进入生存断裂；交班仍为一档；经济财政：税源和仓储在大规模战争中多面断裂，军需与赈济争夺同一粮源；主态和终点均落一档；社会安全：承接二档，太平天国、捻军、回乱等多条内部战争覆盖多个核心区，团练军事化又产生抗粮抗官风险；交班时主要父链均未闭合，社会安全与基层秩序为一档崩解，阶段波动 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 漕粮同时承担赈灾与军需说明战争、灾荒争夺同一资源，但现有记录没有把该压力闭合为奕詝本人可避免且继续放大的独立损害。 可归责恶化扣0.0分，归责档为DA0，扣0.0分。 交班锚点为民生一档、经济财政一档、社会安全一档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4-1、0.0分。",
@@ -20669,7 +21852,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 0.0
+      "uncapped_positive_score": 0.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "靖康短窗接手即极低：C1-1、C2-2、C3-2；最新曲线为1→1→1、2→1→1、2→1→1。旧C4把C2起点误写一档。 无恢复。三轴K4中，C1是底档无更低空间，C2/C3是在跌入一档后没有再下分辨空间；终局1/1/1把稳定信用封顶T1。 按跨档难度计，恢复分0.0；weighted_K=1.00，稳定分3.2；正向保留3.2。 C2/C3从2→1的主体原因是金军围城、索取与京城失陷，不能倒灌本人；但朝廷实施军法威胁下的全面括借、允许告讦，已经直接把“民间已空”“都城大扰”等后果放大，C2/C3各取MATERIAL。两次金军入侵均为必要防御战争，守御失败、协同失败等军事错误不进DA，故DA0。 可归责恶化扣3.4，DA0扣0.0。 交班1/1/1，中枢和首都社会保护实质覆亡；终局主因外敌，但强制搜括对财政与社会安全有可归责放大。 综合裁为C4N-1、-0.2分。",
@@ -20844,6 +22036,15 @@
         "status": "LIGHT_SCREEN_COMPLETED",
         "disposition": "未发现本窗口大型可选择营造。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -21035,6 +22236,15 @@
         "status": "LIGHT_SCREEN_COMPLETED",
         "disposition": "未发现需要另行消费的大型可选择营造；不把宫廷/宗教一般支出机械转DA。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -21175,7 +22385,21 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.56,
-      "uncapped_positive_score": 8.6
+      "uncapped_positive_score": 8.6,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "MATERIAL_SCOPE_LIMIT_ONLY",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "MATERIAL_COVERAGE_ONLY",
+        "basis": "C1材料样本限于汉城安置群体，不能外推全体居民；这是样本边界，不等同实际治理尺度裁决。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "inference_review.inference_basis"
+          }
+        ],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "拓跋弘接手锚点为民生二档、经济财政二档、社会安全二档；三轴全任曲线为民生二档→民生三档→民生三档；经济财政二档→经济财政三档→经济财政三档；社会安全二档→社会安全三档→社会安全三档。 民生：租调纠偏、调粟赈民与民稍赡闭合从受损盘面恢复到基本稳定；强迁、奴婢化和战争赋役反证阻断四档；经济财政：分等输租、取消十五项杂调与跨州粮运使常规财政恢复基本可运行；长期战争和山东赋役疲敝限制公共余量；社会安全：占领后赈济、复业和税役收束支持基本秩序恢复；强迁青齐民、没为奴婢和身份役属构成重大安全与人身保护反证 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献8.0分、稳定兑现与压力吸收贡献0.5分，正向保留8.5分。 青齐多城长围与占领是共享权力窗口内的主动国家进攻，柔然反击基线另行豁免；三十万至十万级持续前推取中等额外破坏归责；占领后赈济、复业和税役收束支持基本秩序恢复；强迁青齐民、没为奴婢和身份役属构成重大安全与人身保护反证 可归责恶化扣0.0分，归责档为DA2，扣9.0分。 交班锚点为民生三档、经济财政三档、社会安全三档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-1、-0.5分。",
@@ -21301,7 +22525,16 @@
         "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
       ],
       "public_adjudication": "拓跋弘接手锚点为民生二档、经济财政二档、社会安全二档；三轴全任曲线为民生二档→民生三档→民生三档；经济财政二档→经济财政三档→经济财政三档；社会安全二档→社会安全三档→社会安全三档。 民生：租调纠偏、调粟赈民与民稍赡闭合从受损盘面恢复到基本稳定；强迁、奴婢化和战争赋役反证阻断四档；经济财政：分等输租、取消十五项杂调与跨州粮运使常规财政恢复基本可运行；长期战争和山东赋役疲敝限制公共余量；社会安全：占领后赈济、复业和税役收束支持基本秩序恢复；强迁青齐民、没为奴婢和身份役属构成重大安全与人身保护反证 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献8.0分、稳定兑现与压力吸收贡献0.5分，正向保留8.5分。 青齐多城长围与占领是共享权力窗口内的主动国家进攻，柔然反击基线另行豁免；三十万至十万级持续前推取中等额外破坏归责；占领后赈济、复业和税役收束支持基本秩序恢复；强迁青齐民、没为奴婢和身份役属构成重大安全与人身保护反证 可归责恶化扣0.0分，归责档为DA2，扣9.0分。 交班锚点为民生三档、经济财政三档、社会安全三档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-1、-0.5分。",
-      "rank": 106
+      "rank": 106,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "陈顼接手锚点为民生二档、经济财政四档、社会安全三档；三轴全任曲线为民生二档→民生三档→民生二档；经济财政四档→经济财政四档→经济财政三档；社会安全三档→社会安全三档→社会安全三档。 民生：前中期勤恤民隐和政权运行支持基本维持，后期连续出兵、府帑不足与民疲征赋使交班降为困顿；经济财政：维持陈朝生产财政和部分减省，盐酒专卖、对外军费与宫廷用度增加压力，整体仍可运行；社会安全：维持常规秩序但征战和财政压力使四档不闭合 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献4.0分、稳定兑现与压力吸收贡献4.3分，正向保留8.3分。 陈朝因军费民困减省宫廷百司并拒绝奢侈进奉；前中期勤恤民隐和政权运行支持基本维持，后期连续出兵、府帑不足与民疲征赋使交班降为困顿 可归责恶化扣0.0分，归责档为DA2，扣9.0分。 交班锚点为民生二档、经济财政三档、社会安全三档，终局约束为C4T-4（正向上限34.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-1、-0.7分。",
@@ -21419,7 +22652,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.4,
-      "uncapped_positive_score": 8.3
+      "uncapped_positive_score": 8.3,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "刘禅接手锚点为民生二档、经济财政三档、社会安全三档；三轴全任曲线为民生二档→民生三档→民生二档；经济财政三档→经济财政三档→经济财政三档；社会安全三档→社会安全三档→社会安全二档。 民生：早中期休民、务农和南中低驻军治理形成可运行结果，长期主态达到基本维持；晚期反复军事动员已出现蜀人愁苦，交班回落为困顿；经济财政：长期维持蜀汉农业财政和基本生活，后期持续军费与政务失效压低状态；亡国前社会承压已弱但未等同隋末灾难；社会安全：大部分任期保持基本秩序，后期治理弱化和魏军入蜀使交班降至广泛不安全 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献4.0分、稳定兑现与压力吸收贡献4.2分，正向保留8.2分。 魏吴旱涝及吴地饥荒状态；早中期休民、务农和南中低驻军治理形成可运行结果，长期主态达到基本维持；晚期反复军事动员已出现蜀人愁苦，交班回落为困顿 可归责恶化扣0.0分，归责档为DA2，扣9.0分。 交班锚点为民生二档、经济财政三档、社会安全二档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-1、-0.8分。",
@@ -21534,7 +22776,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.4,
-      "uncapped_positive_score": 8.2
+      "uncapped_positive_score": 8.2,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "旻宁接手锚点为民生二档、经济财政二档、社会安全二档；三轴全任曲线为民生二档→民生二档→民生二档；经济财政二档→经济财政二档→经济财政二档；社会安全二档→社会安全二档→社会安全二档。 民生：承接嘉庆末低位，灾荒赈免仍可运行，但财政紧缩、河工与战争余负阻止恢复；多次冲击形成显著波动；经济财政：财政紧缩、河工余负和外部冲击下仍有减免与调度，但公私余量长期薄弱并有多次低谷；社会安全：承接嘉庆二档，多地盗乱、鸦片治理与行政失效持续，未见闭合三档的广域司法、财产和基层秩序结果；鸦片战争作为外部战争不额外扣C3，但其内部社会后果维持低位 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献3.6分，正向保留3.6分。 承接嘉庆二档，多地盗乱、鸦片治理与行政失效持续，未见闭合三档的广域司法、财产和基层秩序结果；鸦片战争作为外部战争不额外扣C3，但其内部社会后果维持低位；承接嘉庆末低位，灾荒赈免仍可运行，但财政紧缩、河工与战争余负阻止恢复；多次冲击形成显著波动 可归责恶化扣0.0分，归责档为DA1，扣4.5分。 交班锚点为民生二档、经济财政二档、社会安全二档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-1、-0.9分。",
@@ -21647,7 +22898,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 3.6
+      "uncapped_positive_score": 3.6,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "朱祁镇接手锚点为民生二档、经济财政二档、社会安全四档；三轴全任曲线为民生二档→民生三档→民生三档；经济财政二档→经济财政三档→经济财政三档；社会安全四档→社会安全三档→社会安全三档。 民生：起点继承宣德末粮储赈济危机；正统中期恢复不能回写起点，两个统治窗口总体维持三档且有土木等显著波动；经济财政：起点继承宣德末财政粮储危机，随后恢复基本财赋运行；土木及复辟窗口构成显著波动；社会安全：第一段由四档降三档；景泰并行窗口结束时恢复四档，第二段夺门政治清洗、厂卫破家和狱死再降三档 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献5.6分、稳定兑现与压力吸收贡献7.0分，正向保留12.6分。 正统期土木之变造成军政与财政重大波动，夺门复辟后政治清洗、厂卫破家与狱死再次损害社会安全；两个实际统治窗口中的高风险军事选择和复辟后强制路线跨阶段相接，构成严重额外破坏归责而不是一般在位成本；土木亲征由本人亲自统率并构成重大直接责任；麓川反复远征的可避免性留待同尺度比较 可归责恶化扣0.0分，归责档为DA3，扣13.5分。 交班锚点为民生三档、经济财政三档、社会安全三档，终局约束为C4T-4（正向上限34.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-1、-0.9分。",
@@ -21803,7 +23063,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.56,
-      "uncapped_positive_score": 12.6
+      "uncapped_positive_score": 12.6,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "李纯接手锚点为民生二档、经济财政三档、社会安全三档；三轴全任曲线为民生二档→民生二档→民生二档；经济财政三档→经济财政四档→经济财政三档；社会安全三档→社会安全三档→社会安全三档。 民生：811大稔纠正了‘全任无正向宏观状态’的过度概括，但它是单年供给结果；有限税区、高兵负、进奉转嫁和长期钱税困农仍主导全任，三锚与任内主态保持民生二档；经济财政：罢额外榷率、赈贷免旧贷、屯田和债务减免形成中兴恢复；后期和籴、盐法严刑与进奉聚敛留下交班裂缝；社会安全：承接德宗末三档 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献2.0分、稳定兑现与压力吸收贡献6.1分，正向保留8.1分。 MATERIAL_CONTRIBUTOR_CANDIDATE｜固定总结把坚持战争、任用与军政决策归于宪宗窗口；具体责任仍需主控回源，不生成个人责任系数；宪宗继承德宗府库积累并一度约束费用，但平叛所得与方镇进献进入内库，进献实际向百姓转嫁，财政可用性与民间负担并存 可归责恶化扣0.0分，归责档为DA2，扣9.0分。 交班锚点为民生二档、经济财政三档、社会安全三档，终局约束为C4T-4（正向上限34.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-1、-0.9分。",
@@ -21938,7 +23207,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.2,
-      "uncapped_positive_score": 8.1
+      "uncapped_positive_score": 8.1,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "蒙哥接手锚点为民生二档、经济财政二档、社会安全二档；三轴全任曲线为民生二档→民生二档→民生二档；经济财政二档→经济财政二档→经济财政二档；社会安全二档→社会安全二档→社会安全二档。 民生：减远输停工役是正向动作，但1257年本人明确承认百姓疲弊；无第三方改善结果；经济财政：户籍、钱粮理算证明财政仍运行；百姓疲弊和征逋背景显示民间余量不足，不能推为健康财政；社会安全：国家秩序可运行但对外战争、差别身份和区域征发仍构成长期广泛风险 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献3.6分，正向保留3.6分。 户籍、钱粮理算证明财政仍运行；百姓疲弊和征逋背景显示民间余量不足，不能推为健康财政；减远输停工役是正向动作，但1257年本人明确承认百姓疲弊；无第三方改善结果 可归责恶化扣0.0分，归责档为DA1，扣4.5分。 交班锚点为民生二档、经济财政二档、社会安全二档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-1、-0.9分。",
@@ -22071,7 +23349,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 3.6
+      "uncapped_positive_score": 3.6,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "最新同步为C1 3→3→3、C2 3→2→2、C3 4→3→3；旧C4把C3起点写三档，已过时。 没有超过接手状态的恢复。C1多轮广域大饥形成K1；C2进入二档主态后未另证更低阶段，K4；C3多区域安全低谷判K2。终局3/2/3为T3但稳定信用仅9.5。 按跨档难度计，恢复分0.0；weighted_K=0.53，稳定分9.5；正向保留9.5。 C2从3→2并非全由战争：国用司掊克、纸币称提失控、储积不足形成本人窗口内持续财政结构问题，按MATERIAL归责；C3从4→3主要由边战、盗乱等混合外部安全压力，不倒灌。开禧北伐本身是主动战略授权，属于可选择战争；只消费1206发动及其直接承载的显著成本，1217以后必要对金防御不叠加，故DA2。 可归责恶化扣1.4，DA2扣9.0。 交班3/2/3，财政经济结构已降入脆弱二档，民生与社会安全仍维持基本运行。 综合裁为C4N-1、-0.9分。",
@@ -22257,6 +23544,15 @@
         "status": "LIGHT_SCREEN_COMPLETED",
         "disposition": "未发现明显大型可选择营造达到独立DA门槛。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -22447,6 +23743,20 @@
         "status": "LIGHT_SCREEN_COMPLETED",
         "disposition": "杭州扩城、捍海石塘工程量较大，但城市防务/海塘具有明显公共必要性，且没有闭合独立超额损害；不另升DA。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "MATERIAL_SCOPE_LIMIT_ONLY",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "MATERIAL_COVERAGE_ONLY",
+        "basis": "C2只允许把钱塘富庶作为区域结果，不外推全国；这是证据外推限制，不等同实际治理尺度裁决。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C2",
+            "field_path": "material_limitations"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -22579,7 +23889,25 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 7.9
+      "uncapped_positive_score": 7.9,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "LIMITED_ACTUAL_SCALE",
+        "gate_status": "LIMITED_REGIONAL",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "正式裁决明确为十余州紧凑政权，实际治理规模不足完整或主要区域门槛。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "adjudication_reason"
+          },
+          {
+            "axis": "C4",
+            "field_path": "recovery_and_absorption"
+          }
+        ],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "同步最新C1/C2/C3后，恢复分0.0/27；K稳定承压10.0/18；终局C4T-3；可归责恶化2.7；DA2扣9.0；最终C4N-1、-1.7分。",
@@ -22785,6 +24113,15 @@
         "status": "NO_SEPARATE_QUALIFYING_LARGE_CONSTRUCTION",
         "disposition": "未发现需要在军事DA之外独立升档的大型营造；宫室支出不因名目本身机械计入。",
         "screening_rule": "仅抓明显大工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -22898,7 +24235,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 7.0
+      "uncapped_positive_score": 7.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "朱棣接手锚点为民生三档、经济财政三档、社会安全一档；三轴全任曲线为民生三档→民生三档→民生三档；经济财政三档→经济财政三档→经济财政三档；社会安全一档→社会安全三档→社会安全三档。 民生：赈灾、复业命令和漕运只证明政策与供给能力，缺本人窗口普通家庭广域生计高位；晚期北征、营建与继任撤采办形成反证，任内主态民生三档；经济财政：漕运与跨区调度证明国家动员能力，不证明财政可持续；仁宗即位后撤销不急采办并恢复夏原吉，反证交班压力，任内主态经济财政三档；社会安全：以南京失守和战后清洗一档起步，免战区田租、招流复业、安置流民和行政重建使主态恢复三档；旧臣株连、瓜蔓抄、锦衣卫冤狱与全国出家妇女搜捕阻断四档，终点保持三档 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献4.2分、稳定兑现与压力吸收贡献7.0分，正向保留11.2分。 迁都营造、漕运配套与反复北征持续占用民役和财政，继任即撤销不急采办并恢复夏原吉反证末期压力；靖难后株连、瓜蔓抄与锦衣卫清洗又把损害扩到社会安全通道。 可归责恶化扣0.0分，归责档为DA3，扣13.5分。 交班锚点为民生三档、经济财政三档、社会安全三档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-1、-2.3分。",
@@ -23161,7 +24507,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.42,
-      "uncapped_positive_score": 11.2
+      "uncapped_positive_score": 11.2,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "忽必烈接手锚点为民生三档、经济财政三档、社会安全二档；三轴全任曲线为民生三档→民生三档→民生三档；经济财政三档→经济财政三档→经济财政三档；社会安全二档→社会安全三档→社会安全三档。 民生：十五万户流移是严重负面锚，但不能单独推出主要统治区多数家庭长期处于民生二档；返乡给粮与多路赈济证明恢复能力，合成后仍为民生三档下位；经济财政：岁入不偿岁出证明公共财政压力；海漕持续运行与钞币兑换证明公共调度和市场媒介尚存；社会安全：统一后常规行政、司法与灾赈恢复基本秩序；征服期破坏、身份差别和权豪侵害阻断四档 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献2.4分、稳定兑现与压力吸收贡献8.4分，正向保留10.8分。 多条外征为忽必烈直接授权，继续远征和高风险目标选择可作为责任审计入口；风暴、疾病、地方抵抗和后勤机制仍需分层，不在本批定档；岁入不偿岁出证明公共财政压力；海漕持续运行与钞币兑换证明公共调度和市场媒介尚存 可归责恶化扣0.0分，归责档为DA3，扣13.5分。 交班锚点为民生三档、经济财政三档、社会安全三档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-1、-2.7分。",
@@ -23278,7 +24633,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.24,
-      "uncapped_positive_score": 10.8
+      "uncapped_positive_score": 10.8,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "刘祜接手锚点为民生四档、经济财政四档、社会安全四档；三轴全任曲线为民生四档→民生二档→民生二档；经济财政四档→经济财政三档→经济财政三档；社会安全四档→社会安全三档→社会安全三档。 民生：121年亲政时只把邓绥末‘天下复平、岁还丰穰’作为民生四档起点背景；122年跨青冀徐兖豫荆扬并凉的歉收、流亡与百姓不足，以及122—124年近幸道路供亿、巨额第宅和巡幸负担，直接闭合本人窗口内广泛困顿，故主态与交班均为民生二档；经济财政：121年亲政承接的恢复盘面只作经济财政四档起点背景；122年已见多区歉收、百姓不足和府帑虚匮，122—124年又有道路供亿、巨额第宅与巡幸支出，但常规征收、生产和调度尚未系统断裂，故亲政主态与交班取经济财政三档；社会安全：121年亲政承接邓绥末基本恢复的社会安全四档起点；121—124年仍有东北、鲜卑和羌患，安帝追治邓氏造成未经讯鞫的酷滥清算，末年废太子又形成交接危机，但基层秩序并未广域崩解，故亲政主态与交班取社会安全三档 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献7.9分，正向保留7.9分。 邓绥末恢复仅固定121年接手起点；122年陈忠所述青冀淫雨、徐岱海水、兖豫蝗、荆扬歉收、并凉叛乱与百姓不足，和122—124年道路供亿、巨额第宅及巡幸负担，共同证明本人亲政期家庭生计与抗冲击余量重新恶化；邓绥末恢复只固定接手起点；122年多区灾歉、百姓不足和府帑虚匮，加上122—124年近幸道路供亿、巨额第宅及巡幸支出，直接约束刘祜亲政期的生产余量、公共财政储备和常规调度能力 可归责恶化扣6.8分，归责档为DA1，扣4.5分。 交班锚点为民生二档、经济财政三档、社会安全三档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-1、-3.4分。",
@@ -23391,7 +24755,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 7.9
+      "uncapped_positive_score": 7.9,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "同步最新C1/C2/C3后，恢复分0.0/27；K稳定承压10.0/18；终局C4T-3；可归责恶化0.0；DA3扣13.5；最终C4N-1、-3.5分。",
@@ -23577,6 +24950,15 @@
         "status": "NO_QUALIFYING_LARGE_CONSTRUCTION_IDENTIFIED",
         "disposition": "未发现达到C4大型可选择营造门槛的工程。",
         "screening_rule": "仅抓明显大工程。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -23753,6 +25135,15 @@
           "third_item_D": "军事成本登记只作成本入口；第三项内部去重不得自动抹掉第二项实际成本。"
         },
         "review_ref": "BATCH7_INLINE_2026-08-31"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -23939,6 +25330,15 @@
         "status": "LIGHT_SCREEN_COMPLETED",
         "disposition": "明确命中大型营造门：寺观数量多、劳役广，并已闭合“人力劳弊、怨嗟盈路、府库仓储竭于资奉”，独立足以DA3。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -24054,7 +25454,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.12,
-      "uncapped_positive_score": 4.8
+      "uncapped_positive_score": 4.8,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "恢复分6.0/27；K稳定承压5.9/18；终局C4T-3；可归责恶化2.7；DA3扣13.5；最终C4N-1、-4.3分。",
@@ -24266,6 +25675,15 @@
         "status": "LIGHT_SCREEN_COMPLETED",
         "disposition": "明确命中大型营造门：明堂/天堂毁后重建、九鼎巨量铜材等为国家级可选择工程；与默啜资源转移形成多通道DA3。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -24402,7 +25820,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 4.3
+      "uncapped_positive_score": 4.3,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "最新三轴为C1 3→4→3、C2 4→4→3、C3 3→4→3；元嘉前中期形成长期高位，二十七年后明显逆转。 C1、C3各从3→4，领取恢复8.0分；C2起点已经四档，不另领奖励。三轴末期均出现实质逆转，K0；由于终局已回3/3/3，稳定信用为0。 按跨档难度计，恢复分8.0；weighted_K=0.00，稳定分0.0；正向保留8.0。 430—431与450—451两轮北伐都是本人主动战略授权，并分别闭合大规模本方军团毁损；第二轮又在高位治理已形成后发动，史论直接记“倾资扫蓄”“深赋厚敛，天下骚动”。按已实现、重复、国家级军事财政成本裁DA3。末端三轴下滑与该战争后果高度重合，为避免同一成本双扣，恶化归责不再另罚。 可归责恶化扣0.0，DA3扣13.5。 交班3/3/3，元嘉长期四档高位已经被晚期战争财政与社会冲击明显侵蚀。 综合裁为C4N-1、-5.5分。",
@@ -24594,6 +26021,24 @@
         "status": "LIGHT_SCREEN_COMPLETED",
         "disposition": "未发现独立大型可选择营造达到DA门槛。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "C1正式复杂度裁决为MEDIUM，实际治理人口、地域、多核心与行政链达到完整或主要区域门槛；MEDIUM不解释为小政权。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "complexity_class"
+          },
+          {
+            "axis": "C1",
+            "field_path": "complexity_basis"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -24727,7 +26172,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 4.3
+      "uncapped_positive_score": 4.3,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "最新C2已从旧C4的2→2→1修正为3→3→1；完整三轴为C1 1→1→1、C2 3→3→1、C3 2→2→1。 没有高于接手锚点的恢复。C1底档K4；C2/C3在江陵终局发生两档/一档逆转，均K0。终局1/1/1把稳定信用封顶3.2。 按跨档难度计，恢复分0.0；weighted_K=0.50，稳定分3.2；正向保留3.2。 C2/C3末端崩溃的主体是西魏攻陷江陵，不能归责本人，也不因防守失败扣DA。独立可归责成本有两条：本人554年主动对北齐江北多点进攻为M3级可选择军事投入；更严重的是围城时狱中死囚数千，本人拒绝释放并命棓杀，属于一次大规模直接人身损害。两条累计按显著既成成本裁DA2；同一杀戮不再另作终局恶化扣分。 可归责恶化扣0.0，DA2扣9.0。 江陵陷落后府库、人口与普通社会保护同时跌至一档；这一终局主要是外部征服造成，不倒灌为本人恶化。 综合裁为C4N-1、-5.8分。",
@@ -24904,6 +26358,24 @@
         "status": "LIGHT_SCREEN_COMPLETED",
         "disposition": "未发现大型可选择营造。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "LIMITED_ACTUAL_SCALE",
+        "gate_status": "LIMITED_REGIONAL",
+        "dimension": "FRAGMENTED_ACTUAL_CONTROL",
+        "basis": "C1正式裁决确认侯景乱后主要州郡丧失，实际控制区与著籍户同时缩至极低。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "adjudication_reason"
+          },
+          {
+            "axis": "C1",
+            "field_path": "evidence"
+          }
+        ],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -25019,7 +26491,21 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.24,
-      "uncapped_positive_score": 7.0
+      "uncapped_positive_score": 7.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "MATERIAL_SCOPE_LIMIT_ONLY",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "MATERIAL_COVERAGE_ONLY",
+        "basis": "正式子项存在区域材料不得外推的限制，但没有独立裁决本人实际治理尺度。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "material_limitations"
+          }
+        ],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "赵顼接手锚点为民生三档、经济财政三档、社会安全四档；三轴全任曲线为民生三档→民生二档→民生二档；经济财政三档→经济财政二档→经济财政二档；社会安全四档→社会安全四档→社会安全四档。 民生：基本生产未全面断裂，但强制借贷、役法、保甲逃亡和市场病害使广泛困顿成为主态；经济财政：国家收入机制增强不等于公私状态高位；强制交易、盐法与公私窘乏显示汲取脆弱；社会安全：灾荒救济和饥民盗窃减刑支持普通社会仍有常规保护与救济；御史台酷狱是严重反证但主要集中政治群体，阻断五档而不直接代表普通社会主态 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献6.8分，正向保留6.8分。 NOT_ESTABLISHED｜五路伐夏有政策与协同失败候选，但本草稿不把其转为已确认个人败责；灾荒救济和饥民盗窃减刑支持普通社会仍有常规保护与救济；御史台酷狱是严重反证但主要集中政治群体，阻断五档而不直接代表普通社会主态 可归责恶化扣0.0分，归责档为DA3，扣13.5分。 交班锚点为民生二档、经济财政二档、社会安全四档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-1、-6.7分。",
@@ -25132,7 +26618,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 6.8
+      "uncapped_positive_score": 6.8,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "萧鸾接手锚点为民生二档、经济财政四档、社会安全三档；三轴全任曲线为民生二档→民生二档→民生二档；经济财政四档→经济财政三档→经济财政三档；社会安全三档→社会安全二档→社会安全二档。 民生：接班与全期缺独立广域改善材料，南朝依附户免役、正户承压和齐代征收余波仍在，只能按连续性维持困顿；经济财政：宫苑出游、权幸赏赐、重税与政治清洗侵蚀永明积累，节用措施不足以维持高位；社会安全：宗室清洗和高压政治司法使社会安全上限降至二档 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献6.5分，正向保留6.5分。 迁洛营都、行宫供顿与人口安置形成长期工程和迁徙负担；宫苑出游、权幸赏赐、重税与政治清洗侵蚀永明积累，节用措施不足以维持高位 可归责恶化扣0.0分，归责档为DA3，扣13.5分。 交班锚点为民生二档、经济财政三档、社会安全二档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-1、-7.0分。",
@@ -25248,7 +26743,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 6.5
+      "uncapped_positive_score": 6.5,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "同步最新C1/C2/C3后，恢复分8.5/27；K稳定承压3.2/18；终局C4T-3；可归责恶化5.4；DA3扣13.5；最终C4N-1、-7.2分。",
@@ -25465,6 +26969,15 @@
         "status": "QUALIFYING_MASSIVE_OPTIONAL_CONSTRUCTION_DA3",
         "disposition": "玉清昭应宫七年、二千六百一十楹，施工与重造规模极大，且同期明确批评“竭天下之财，伤生民之命”；直接工程成本单独支撑DA3。",
         "screening_rule": "只消费宫观工程直接役费材运，不与C1/C2结构性恶化重复。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -25581,7 +27094,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 6.0
+      "uncapped_positive_score": 6.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "慈禧接手锚点为民生一档、经济财政一档、社会安全一档；三轴全任曲线为民生一档→民生二档→民生二档；经济财政一档→经济财政二档→经济财政二档；社会安全一档→社会安全二档→社会安全二档。 民生：从咸丰末崩溃起点出现同光恢复并阶段触及基本运行三档，但长窗口内大灾、战争、赔款与晚期财政挤压使主态只到二档，不能用洋务收入替代普通家庭净收益；经济财政：厘金、关税和盐漕带来阶段财政恢复，但赔款、借款、军费与宫廷抽取消耗公共支出能力；主态只到二档，阶段峰值三档；社会安全：第一段承接一档崩解，战后蠲免和地方重建使主态回二档；第二段曾局部达到基本秩序但北方大饥等压低；第三段庚子再落一档后恢复至二档 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献6.0分、稳定兑现与压力吸收贡献0.0分，正向保留6.0分。 盐税和漕粮继续承担财政调度功能；第一段承接一档崩解，战后蠲免和地方重建使主态回二档；第二段曾局部达到基本秩序但北方大饥等压低；第三段庚子再落一档后恢复至二档 可归责恶化扣0.0分，归责档为DA3，扣13.5分。 交班锚点为民生二档、经济财政二档、社会安全二档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-1、-7.5分。",
@@ -25698,7 +27220,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.6,
-      "uncapped_positive_score": 6.0
+      "uncapped_positive_score": 6.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "苻坚接手锚点为民生二档、经济财政三档、社会安全三档；三轴全任曲线为民生二档→民生四档→民生一档；经济财政三档→经济财政四档→经济财政二档；社会安全三档→社会安全四档→社会安全一档。 民生：前中期轻税劝农、田畴开辟和仓库充实形成长期普遍温饱；后期强迁、巨量动员和淝水崩解使交班跌入崩溃；经济财政：前期休养劝农和财政秩序改善形成高位，后期大规模迁徙与淝水后崩解迅速耗尽承载；绝对局面保留前期持续成绩，C4服从交班裂缝；社会安全：前中期多族群整合和常规秩序支持四档，淝水后叛乱分裂使终局崩解 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献14.0分、稳定兑现与压力吸收贡献0.0分，正向保留14.0分。 前中期轻税劝农、田畴开辟和仓库充实形成长期普遍温饱；后期强迁、巨量动员和淝水崩解使交班跌入崩溃；前中期多族群整合和常规秩序支持四档，淝水后叛乱分裂使终局崩解 可归责恶化扣8.1分，归责档为DA3，扣13.5分。 交班锚点为民生一档、经济财政二档、社会安全一档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-1、-7.6分。",
@@ -25837,7 +27368,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 1.4,
-      "uncapped_positive_score": 14.0
+      "uncapped_positive_score": 14.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "赵昀接手锚点为民生三档、经济财政二档、社会安全三档；三轴全任曲线为民生三档→民生三档→民生二档；经济财政二档→经济财政二档→经济财政二档；社会安全三档→社会安全二档→社会安全一档。 民生：民生二档/阶段波动：晚期天下尺度百姓日贫、流民、低价公田收买构成终局逆转；经济财政：经济财政二档/阶段波动：楮币/物价、公私交病与经制日坏，常规财政与民间余量并受损；社会安全：后期权臣、财政和蒙古战争共同扩大基层失序，终局主要控制区安全崩解 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献0.7分，正向保留0.7分。 丁大全私人任浙西提举常平时，尽夺亭民盐本钱，把它充作“献羡”，不足部分又估籍虚摊，导致一路骚动；后期权臣、财政和蒙古战争共同扩大基层失序，终局主要控制区安全崩解 可归责恶化扣4.0分，归责档为DA1，扣4.5分。 交班锚点为民生二档、经济财政二档、社会安全一档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-1、-7.8分。",
@@ -25970,7 +27510,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 0.7
+      "uncapped_positive_score": 0.7,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "颙琰接手锚点为民生三档、经济财政三档、社会安全二档；三轴全任曲线为民生三档→民生三档→民生二档；经济财政三档→经济财政三档→经济财政二档；社会安全二档→社会安全二档→社会安全二档。 民生：承接乾隆末三档，白莲教战争后效、滥捕致民产尽失及河工财政困局使长期基本运行在末段降为广泛低余量；经济财政：承接乾隆末三档，紧缩财政仍维持基本收入与调度；河工糜费和冲击应对能力下降使交班降至二档；社会安全：承接白莲教战争二档，官军误杀平民、乡勇与新兵善后、天理教及长期滥捕破产伤亡使广泛不安全延续；战争收束和纠正滥捕是真实恢复，但不足证明全国回到基本秩序 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献1.1分，正向保留1.1分。 嘉庆二十三年公开承认林清案后长期滥捕造成严重民生伤害；财政史研究认为嘉庆的紧缩并非临时措施；固定收入优先的紧缩削弱战争、河工和救荒能力，并推动鸦片战争前财政走向破产 可归责恶化扣0.0分，归责档为DA2，扣9.0分。 交班锚点为民生二档、经济财政二档、社会安全二档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-1、-7.9分。",
@@ -26085,7 +27634,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 1.1
+      "uncapped_positive_score": 1.1,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "吕光接手锚点为民生二档、经济财政三档、社会安全一档；三轴全任曲线为民生二档→民生一档→民生一档；经济财政三档→经济财政二档→经济财政二档；社会安全一档→社会安全二档→社会安全二档。 民生：后凉长期内战、强迁与饥荒形成跨年人口和生产崩坏，恢复线索不足，主态为崩溃；经济财政：后凉长期战争、宫室与征敛压低生产财政，未见足以逆转的救济恢复链，交班社会余量较弱；社会安全：河西战争、处刑和迁徙压力长期存在，只形成有限政权秩序 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献1.8分、稳定兑现与压力吸收贡献3.6分，正向保留5.4分。 王道子东第工程与卖官聚财；后凉长期战争、宫室与征敛压低生产财政，未见足以逆转的救济恢复链，交班社会余量较弱 可归责恶化扣0.0分，归责档为DA3，扣13.5分。 交班锚点为民生一档、经济财政二档、社会安全二档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-8.1分。",
@@ -26203,7 +27761,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.18,
-      "uncapped_positive_score": 5.4
+      "uncapped_positive_score": 5.4,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "完颜璟接手锚点为民生四档、经济财政四档、社会安全四档；三轴全任曲线为民生四档→民生四档→民生三档；经济财政四档→经济财政四档→经济财政三档；社会安全四档→社会安全四档→社会安全三档。 民生/经济财政/社会安全：常平仓、减地税、学校与司法复核使绝对主态仍高；后期灾荒、北边军需摊派、预警失误和宋金战争令交班状态回落 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 常平仓、减地税、学校与司法复核使绝对主态仍高；后期灾荒、北边军需摊派、预警失误和宋金战争令交班状态回落 可归责恶化扣4.1分，归责档为DA1，扣4.5分。 交班锚点为民生三档、经济财政三档、社会安全三档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-8.6分。",
@@ -26316,7 +27883,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 0.0
+      "uncapped_positive_score": 0.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "完颜晟接手锚点为民生三档、经济财政三档、社会安全三档；三轴全任曲线为民生三档→民生三档→民生三档；经济财政三档→经济财政三档→经济财政三档；社会安全三档→社会安全二档→社会安全二档。 民生/经济财政/社会安全：多路赈济、备荒仓、均赋役与官赎复业维持基本盘，但全国战争、强制迁徙和新占区反复使社会安全主态低于民生财政 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 1129—1133对南宋多方向持续追击与领土征服属于国家级主动战争，不是必须在本土接战；长期跨方向维持使通常成本达到中等额外破坏归责；多路赈济、备荒仓、均赋役与官赎复业维持基本盘，但全国战争、强制迁徙和新占区反复使社会安全主态低于民生财政 可归责恶化扣0.0分，归责档为DA2，扣9.0分。 交班锚点为民生三档、经济财政三档、社会安全二档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-9.0分。",
@@ -26429,7 +28005,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 0.0
+      "uncapped_positive_score": 0.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "李克用接手锚点为民生二档、经济财政二档、社会安全二档；三轴全任曲线为民生二档→民生二档→民生二档；经济财政二档→经济财政二档→经济财政二档；社会安全二档→社会安全二档→社会安全二档。 民生：河东帑藏空虚、诸军卖马自给，沙陀亲军侵暴良民并使‘河东甚苦之’；李克用担心军散而未整治；经济财政：帑藏空虚、军队卖马自给且不贮军食、不置兵甲、不修城池，直接闭合公共财政和储备低位；未实施的省营缮、薄赋敛建议不能抬档，经济财政二档；社会安全：沙陀亲军侵暴良民并使河东甚苦，统治者明知而以军士可能离散为由不整治，直接闭合长期人身财产安全低位；故主态和终点均社会安全二档 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 长期军需不足和亲军侵扰直接压低普通家庭承受；军府财政与储备长期不足 可归责恶化扣0.0分，归责档为DA2，扣9.0分。 交班锚点为民生二档、经济财政二档、社会安全二档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-9.0分。",
@@ -26567,7 +28152,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 0.0
+      "uncapped_positive_score": 0.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "耶律大石接手锚点为民生三档、经济财政三档、社会安全三档；三轴全任曲线为民生三档→民生三档→民生三档；经济财政三档→经济财政三档→经济财政三档；社会安全三档→社会安全三档→社会安全三档。 民生/经济财政/社会安全：以1132年西辽核心稳定控制为可比起点；置官吏、建都和长期中央延续只足以闭合三轴基本运行，缺少家庭余量与公私财政高档材料 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 中亚连续霸权远征与七万骑、万余里、三年东征均为本人主动发起；两条长期远征的通常供给成本不可因缺少独立征发原句归零，重复路线取中等额外破坏归责；以1132年西辽核心稳定控制为可比起点；置官吏、建都和长期中央延续只足以闭合三轴基本运行，缺少家庭余量与公私财政高档材料 可归责恶化扣0.0分，归责档为DA2，扣9.0分。 交班锚点为民生三档、经济财政三档、社会安全三档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-9.0分。",
@@ -26681,7 +28275,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 0.0
+      "uncapped_positive_score": 0.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "耶律洪基接手锚点为民生四档、经济财政四档、社会安全三档；三轴全任曲线为民生四档→民生四档→民生四档；经济财政四档→经济财政四档→经济财政四档；社会安全三档→社会安全三档→社会安全三档。 民生/经济财政/社会安全：宋辽和平、边界议定与长期生产财政使C1/C2维持稳定；统一法失败和乙辛诬狱使司法可预期性只能基本运行 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 宋辽和平、边界议定与长期生产财政使C1/C2维持稳定；统一法失败和乙辛诬狱使司法可预期性只能基本运行 可归责恶化扣0.0分，归责档为DA2，扣9.0分。 交班锚点为民生四档、经济财政四档、社会安全三档，终局约束为C4T-4（正向上限34.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-9.0分。",
@@ -26794,7 +28397,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 0.0
+      "uncapped_positive_score": 0.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "耶律阮接手锚点为民生三档、经济财政三档、社会安全二档；三轴全任曲线为民生三档→民生三档→民生三档；经济财政三档→经济财政三档→经济财政三档；社会安全二档→社会安全二档→社会安全二档。 民生/经济财政/社会安全：短任内国家基本生产和常规财政未归零，但宗室反复谋乱、军中弑杀和族属异法使社会安全持续脆弱 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 短任内国家基本生产和常规财政未归零，但宗室反复谋乱、军中弑杀和族属异法使社会安全持续脆弱 可归责恶化扣0.0分，归责档为DA2，扣9.0分。 交班锚点为民生三档、经济财政三档、社会安全二档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-9.0分。",
@@ -26906,7 +28518,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 0.0
+      "uncapped_positive_score": 0.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "孟昶接手锚点为民生三档、经济财政三档、社会安全三档；三轴全任曲线为民生三档→民生三档→民生一档；经济财政三档→经济财政三档→经济财政一档；社会安全三档→社会安全四档→社会安全二档。 民生/经济财政：长期基本运行与局部救济不足以抵消后期铁钱、榷铁、民苦、四州成片失控及964—965全国崩解；主态仍为三档，交班按两档深度阶段波动和C4崩解结算；社会安全：中前期蜀中承平支持四档，后期军政衰败与宋军入境使终点降二档 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献3.0分、稳定兑现与压力吸收贡献1.1分，正向保留4.1分。 后蜀宰相张业豪侈强买民田宅、私藏亡命、私设牢狱拘债户，甚至使人瘐死；王处回长期卖官鬻狱、截取四方馈献，家资巨万；长期基本运行与局部救济不足以抵消后期铁钱、榷铁、民苦、四州成片失控及964—965全国崩解；主态仍为三档，交班按两档深度阶段波动和C4崩解结算 可归责恶化扣9.4分，归责档为DA1，扣4.5分。 交班锚点为民生一档、经济财政一档、社会安全二档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-9.8分。",
@@ -27023,7 +28644,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.3,
-      "uncapped_positive_score": 4.1
+      "uncapped_positive_score": 4.1,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "刘志接手锚点为民生二档、经济财政二档、社会安全二档；三轴全任曲线为民生二档→民生二档→民生二档；经济财政二档→经济财政二档→经济财政二档；社会安全二档→社会安全二档→社会安全二档。 民生：150年亲政后，153—166年多区域连续出现数十万户流冗、人相食、极高比例饥死和灭户；同时帝国征收、赈济与基本生产仍未全国断裂，故本人窗口主态和交班均为民生二档而非民生一档；经济财政：150年亲政即承接梁冀汲取与灾歉形成的脆弱盘面；159年没收梁氏财产并减天下租半是实质纠偏，但163年田野、朝廷、仓库三空，164年南巡供亿无极、165年亩税与持续军费共同证明生产和财政长期依赖额外汲取，故主态与交班保持经济财政二档；社会安全：150年亲政时已承接梁冀汲取、地方乱事与灾歉形成的社会安全二档低位；150—168年三州盗乱、长期羌战、司隶豫州高死亡饥荒、第一次党锢及宦官司法暴力持续存在，虽有地方平乱和赈济，仍不足恢复基本秩序，故三锚保持社会安全二档 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献3.6分，正向保留3.6分。 多区域连续出现数十万户流亡、人相食、极高比例饥死和灭户，常规仓储市场救济不足，社会承压达到灾难级事实；150年亲政后，153—166年多区域连续出现数十万户流冗、人相食、极高比例饥死和灭户；同时帝国征收、赈济与基本生产仍未全国断裂，故本人窗口主态和交班均为民生二档而非民生一档 可归责恶化扣0.0分，归责档为DA3，扣13.5分。 交班锚点为民生二档、经济财政二档、社会安全二档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-9.9分。",
@@ -27136,7 +28766,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 3.6
+      "uncapped_positive_score": 3.6,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "朱由检接手锚点为民生二档、经济财政二档、社会安全一档；三轴全任曲线为民生二档→民生二档→民生二档；经济财政二档→经济财政二档→经济财政二档；社会安全一档→社会安全一档→社会安全一档。 民生：M2-LSM-E007闭合广域民不聊生；M2-LSM-E008闭合终点社会—行政断裂；经济财政：M2-LSM-E007证明三饷透支及税基恶化，M2-LSM-E008证明终点常规财政与征收中枢断裂；主态经济财政二档、终点经济财政一档；社会安全：拆魏党和免旧案追赃是局部纠偏，但裁驿、加派、连续旱蝗水灾、人相食、官军杀良冒功及流寇蔓延半天下形成更强反证；全任主要区域未脱离崩解，故三类局面组合，阶段波动表示低档稳定而非奖励 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献3.6分，正向保留3.6分。 M2-LSM-E007证明三饷透支及税基恶化，M2-LSM-E008证明终点常规财政与征收中枢断裂；主态经济财政二档、终点经济财政一档；拆魏党和免旧案追赃是局部纠偏，但裁驿、加派、连续旱蝗水灾、人相食、官军杀良冒功及流寇蔓延半天下形成更强反证；全任主要区域未脱离崩解，故三类局面组合，阶段波动表示低档稳定而非奖励 可归责恶化扣0.0分，归责档为DA3，扣13.5分。 交班锚点为民生二档、经济财政二档、社会安全一档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-9.9分。",
@@ -27249,7 +28888,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 3.6
+      "uncapped_positive_score": 3.6,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "李儇接手锚点为民生二档、经济财政二档、社会安全二档；三轴全任曲线为民生二档→民生一档→民生一档；经济财政二档→经济财政一档→经济财政一档；社会安全二档→社会安全一档→社会安全一档。 民生：从既有困顿起点滑入并长期停留在天下大乱、公私困竭的崩溃状态；经济财政：急征、地方进奉、灾荒与黄巢战争叠加，流亡、生产和财政体系全面失效；局部平乱或恢复不能抬高交班韧性；社会安全：名单省略859—873多任皇帝，起点二档由873年前后的共享政权状态桥接 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献3.6分，正向保留3.6分。 李儇接班前已出现征赋难办、贫民以非常食物维生和广泛思乱；乾符初山东饥而催赋更急，王仙芝、黄巢起事后天下大乱、公私困竭，构成窗口内持续崩解；名单省略859—873多任皇帝，起点二档由873年前后的共享政权状态桥接 可归责恶化扣0.0分，归责档为DA3，扣13.5分。 交班锚点为民生一档、经济财政一档、社会安全一档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-9.9分。",
@@ -27362,7 +29010,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 3.6
+      "uncapped_positive_score": 3.6,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "赫连勃勃接手锚点为民生一档、经济财政二档、社会安全一档；三轴全任曲线为民生一档→民生一档→民生一档；经济财政二档→经济财政一档→经济财政一档；社会安全一档→社会安全一档→社会安全一档。 民生：统万城超大工程与高压用民构成明确人口、劳役和生产损害，长期战争下没有恢复机制，主态为崩溃；经济财政：统万城十万人征发与工匠死亡、持续战争和高压汲取构成灾难性负担，未见可持续恢复机制；社会安全：持续战争、屠杀役使和高压统治使普通社会全任处于崩解状态 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献3.6分，正向保留3.6分。 统万城超大工程与高压用民构成明确人口、劳役和生产损害，长期战争下没有恢复机制，主态为崩溃；统万城十万人征发与工匠死亡、持续战争和高压汲取构成灾难性负担，未见可持续恢复机制 可归责恶化扣0.0分，归责档为DA3，扣13.5分。 交班锚点为民生一档、经济财政一档、社会安全一档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-9.9分。",
@@ -27478,7 +29135,21 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 3.6
+      "uncapped_positive_score": 3.6,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "LIMITED_ACTUAL_SCALE",
+        "gate_status": "LIMITED_REGIONAL",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "C2正式高档门明确按小政权尺度判断其系统性劳力与财政后果。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C2",
+            "field_path": "high_band_gate"
+          }
+        ],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "铁木真接手锚点为民生二档、经济财政二档、社会安全一档；三轴全任曲线为民生二档→民生二档→民生二档；经济财政二档→经济财政二档→经济财政二档；社会安全一档→社会安全一档→社会安全一档。 民生：太祖期中原地方长吏侵夺人身财产是实际民生负面；征服伤亡和战果未进入；经济财政：官吏聚敛自私、公共财政未成常规体系；不以疆域和战利品倒推财政健康；社会安全：建国与扩张期广域征发、屠掠和人口强制支配占主导，未形成可与战争损害分离的普通社会安全高位 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献3.6分，正向保留3.6分。 太祖期中原地方长吏侵夺人身财产是实际民生负面；征服伤亡和战果未进入；建国与扩张期广域征发、屠掠和人口强制支配占主导，未形成可与战争损害分离的普通社会安全高位 可归责恶化扣0.0分，归责档为DA3，扣13.5分。 交班锚点为民生二档、经济财政二档、社会安全一档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-9.9分。",
@@ -27591,7 +29262,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 3.6
+      "uncapped_positive_score": 3.6,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "多尔衮接手锚点为民生三档、经济财政三档、社会安全三档；三轴全任曲线为民生三档→民生二档→民生二档；经济财政三档→经济财政三档→经济财政三档；社会安全三档→社会安全一档→社会安全二档。 民生：入关征服期承接三档基础，但主要区域战乱、迁徙与圈占使广泛困顿成为主态；减免诏令证明救助动作，不能把结果抬回三档；经济财政：按前明正额恢复征收并大规模蠲除加派，财政机器可运行；征服成本与税基破坏阻止健康高位；社会安全：承接关外三档，入关后多核心战争、军法薙发、圈地投充和严察逃人同时侵害人身财产与身份安全，主要状态降至崩解一档；减旧加派、限制部分侵占和末期稍减逃人律使终点回二档，但不足抵消全任广域强制，阶段波动 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献3.5分，正向保留3.5分。 承接关外三档，入关后多核心战争、军法薙发、圈地投充和严察逃人同时侵害人身财产与身份安全，主要状态降至崩解一档；减旧加派、限制部分侵占和末期稍减逃人律使终点回二档，但不足抵消全任广域强制，阶段波动；入关征服期承接三档基础，但主要区域战乱、迁徙与圈占使广泛困顿成为主态；减免诏令证明救助动作，不能把结果抬回三档 可归责恶化扣0.0分，归责档为DA3，扣13.5分。 交班锚点为民生二档、经济财政三档、社会安全二档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-10.0分。",
@@ -27704,7 +29384,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 3.5
+      "uncapped_positive_score": 3.5,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "萧衍接手锚点为民生二档、经济财政四档、社会安全三档；三轴全任曲线为民生二档→民生三档→民生一档；经济财政四档→经济财政四档→经济财政一档；社会安全三档→社会安全四档→社会安全一档。 民生：前中期梁治与经济运行支持基本维持，末期货币失序和侯景乱导致系统崩溃；前中期持续更长，故任内主态为民生三档；经济财政：前中期恢复、赈济和江南经济运行应保留，但寺塔舍身、地方贪敛与侯景乱前后的财政社会崩溃决定交班韧性为0档；社会安全：中前期长期承平支持四档，后期宽纵、财政军政失衡与侯景之乱使终局崩解 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献7.0分、稳定兑现与压力吸收贡献0.0分，正向保留7.0分。 依赖外输的建康在交通中断后发生极端死亡，既有巨额米钱储备也未能维持完整供给链；围城、掠粮和交通中断后，建康粮市、人口与社会运行系统崩溃 可归责恶化扣8.1分，归责档为DA2，扣9.0分。 交班锚点为民生一档、经济财政一档、社会安全一档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-10.1分。",
@@ -27823,7 +29512,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.7,
-      "uncapped_positive_score": 7.0
+      "uncapped_positive_score": 7.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "妥懽帖睦尔接手锚点为民生一档、经济财政一档、社会安全三档；三轴全任曲线为民生一档→民生一档→民生一档；经济财政一档→经济财政一档→经济财政一档；社会安全三档→社会安全二档→社会安全一档。 民生：低档由前中后多阶段、多个主要区域和首都的生存断裂共同闭合，不按负例篇数加罚；任内主态已是最低档，阶段波动不重复惩罚；经济财政：货币、交易、公共财政和税基至少两面系统断裂；不是由单一钞价定档；社会安全：灾荒、财政失序、红巾战争和地方武装扩张使主态降至二档，终局国家保护与基层秩序崩解 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献2.5分，正向保留2.5分。 灾荒、财政失序、红巾战争和地方武装扩张使主态降至二档，终局国家保护与基层秩序崩解；妥懽帖睦尔窗口同时包含继承性末期危机、地方将帅分裂和朝廷决策；不得把1368系统崩解机械归为单一皇帝责任，需分层回源 可归责恶化扣4.0分，归责档为DA2，扣9.0分。 交班锚点为民生一档、经济财政一档、社会安全一档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-10.5分。",
@@ -27958,7 +29656,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 2.5
+      "uncapped_positive_score": 2.5,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "高湛接手锚点为民生二档、经济财政三档、社会安全二档；三轴全任曲线为民生二档→民生二档→民生二档；经济财政三档→经济财政三档→经济财政二档；社会安全二档→社会安全二档→社会安全二档。 民生：役繁赋重和救济传导失败使短任持续处于困顿；灾害本身不扣，扣的是政策放大和恢复失败；经济财政：承接北齐脆弱结构，宫廷工程、权贵与税役负担继续积累，虽有币制与行政运行但不足以扭转下行；社会安全：权臣政治、刑杀和征发使广泛不安全延续 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献2.9分，正向保留2.9分。 承接北齐脆弱结构，宫廷工程、权贵与税役负担继续积累，虽有币制与行政运行但不足以扭转下行；役繁赋重和救济传导失败使短任持续处于困顿；灾害本身不扣，扣的是政策放大和恢复失败 可归责恶化扣0.0分，归责档为DA3，扣13.5分。 交班锚点为民生二档、经济财政二档、社会安全二档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-10.6分。",
@@ -28074,7 +29781,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 2.9
+      "uncapped_positive_score": 2.9,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "李秉常接手锚点为民生二档、经济财政二档、社会安全二档；三轴全任曲线为民生二档→民生二档→民生二档；经济财政二档→经济财政二档→经济财政二档；社会安全二档→社会安全二档→社会安全二档。 民生：核心州县绝收与民大饥、极端点集负担覆盖短窗口；跨州运粟只能避免进一步崩溃，不能抬回三档；经济财政：战争动员和旱荒压低财政健康；使贡贸易恢复带来可量化收入，但时间过短且未闭合普遍财政恢复；社会安全：外戚专政、反复战争和上下怨嗟构成低位社会安全；止兵只形成末期缓冲 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 核心州县绝收与民大饥、极端点集负担覆盖短窗口；跨州运粟只能避免进一步崩溃，不能抬回三档；战争动员和旱荒压低财政健康；使贡贸易恢复带来可量化收入，但时间过短且未闭合普遍财政恢复 可归责恶化扣10.8分，归责档为DA0，扣0.0分。 交班锚点为民生二档、经济财政二档、社会安全二档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-10.8分。",
@@ -28244,7 +29960,16 @@
         "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-XIXIA-LIBINGCHANG"
       ],
       "public_adjudication": "李秉常接手锚点为民生二档、经济财政二档、社会安全二档；三轴全任曲线为民生二档→民生二档→民生二档；经济财政二档→经济财政二档→经济财政二档；社会安全二档→社会安全二档→社会安全二档。 民生：核心州县绝收与民大饥、极端点集负担覆盖短窗口；跨州运粟只能避免进一步崩溃，不能抬回三档；经济财政：战争动员和旱荒压低财政健康；使贡贸易恢复带来可量化收入，但时间过短且未闭合普遍财政恢复；社会安全：外戚专政、反复战争和上下怨嗟构成低位社会安全；止兵只形成末期缓冲 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 核心州县绝收与民大饥、极端点集负担覆盖短窗口；跨州运粟只能避免进一步崩溃，不能抬回三档；战争动员和旱荒压低财政健康；使贡贸易恢复带来可量化收入，但时间过短且未闭合普遍财政恢复 可归责恶化扣10.8分，归责档为DA0，扣0.0分。 交班锚点为民生二档、经济财政二档、社会安全二档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-10.8分。",
-      "rank": 156
+      "rank": 156,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "朱由校接手锚点为民生二档、经济财政二档、社会安全二档；三轴全任曲线为民生二档→民生二档→民生二档；经济财政二档→经济财政二档→经济财政二档；社会安全二档→社会安全二档→社会安全一档。 民生：M2-LSM-E002显示赈饥与减税并存于广域民财汲取；没有合格多轴宏观高位锚，按既有晚明低位曲线和本人窗口实际后果受约束闭合；经济财政：M2-LSM-E001与M2-LSM-E002证明常规财政仍能赈济和减税，但工程、内廷与地方财力被强制透支，属于汲取脆弱而非全面崩解；社会安全：承接万历末二档，东林大狱、诏狱酷刑、追赃破家和厂卫告讦扩至民间偶语，辽东人口逃亡与内部战争又扩大低位；主要状态二档，终点进入一档 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献2.5分，正向保留2.5分。 M2-LSM-E001与M2-LSM-E002证明常规财政仍能赈济和减税，但工程、内廷与地方财力被强制透支，属于汲取脆弱而非全面崩解；M2-LSM-E002显示赈饥与减税并存于广域民财汲取；没有合格多轴宏观高位锚，按既有晚明低位曲线和本人窗口实际后果受约束闭合 可归责恶化扣0.0分，归责档为DA3，扣13.5分。 交班锚点为民生二档、经济财政二档、社会安全一档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-11.0分。",
@@ -28357,7 +30082,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 2.5
+      "uncapped_positive_score": 2.5,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "高洋接手锚点为民生三档、经济财政四档、社会安全三档；三轴全任曲线为民生三档→民生二档→民生二档；经济财政四档→经济财政三档→经济财政二档；社会安全三档→社会安全二档→社会安全二档。 民生：富者税钱、贫者役力与大工程、战争相叠，最终户口租调十亡六七，财政和民生均落入广泛困顿；经济财政：北齐初期税制与屯田维持财政，后期役使扩张、户籍租调崩坏和宫廷高压使民生与交班余量明显恶化；社会安全：建国秩序与后期酗虐刑杀并存，主态和终点降至广泛不安全 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献2.9分，正向保留2.9分。 战争、长城、台殿和无节赏赐叠加后，财政不足已传导为削俸撤粮和裁撤职位；北齐初期税制与屯田维持财政，后期役使扩张、户籍租调崩坏和宫廷高压使民生与交班余量明显恶化 可归责恶化扣5.4分，归责档为DA2，扣9.0分。 交班锚点为民生二档、经济财政二档、社会安全二档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-11.5分。",
@@ -28493,7 +30227,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 2.9
+      "uncapped_positive_score": 2.9,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "耶律德光接手锚点为民生三档、经济财政三档、社会安全二档；三轴全任曲线为民生三档→民生三档→民生三档；经济财政三档→经济财政三档→经济财政二档；社会安全二档→社会安全二档→社会安全二档。 民生/经济财政/社会安全：辽本部生产财政仍可运行，但进入中原后的纵兵大掠和括借造成实际经济与社会损害，终点财政健康下降 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 辽本部生产财政仍可运行，但进入中原后的纵兵大掠和括借造成实际经济与社会损害，终点财政健康下降 可归责恶化扣2.7分，归责档为DA2，扣9.0分。 交班锚点为民生三档、经济财政二档、社会安全二档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-11.7分。",
@@ -28606,7 +30349,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 0.0
+      "uncapped_positive_score": 0.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "高纬接手锚点为民生二档、经济财政二档、社会安全二档；三轴全任曲线为民生二档→民生二档→民生一档；经济财政二档→经济财政一档→经济财政一档；社会安全二档→社会安全一档→社会安全一档。 民生：绝大多数时间赋繁役重、财政缺口与民不聊生构成困顿，亡国前府藏、军粮和国家运行同时崩坏，故仅交班局面降为民生一档；经济财政：宫苑佛寺、关市重税、救济失效与连续饥荒共同摧毁民生财政，亡国前社会韧性已失；社会安全：军政失序和北周进攻使国家与基层保护崩解 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献1.8分，正向保留1.8分。 持续奢建和赏赐使府库空竭，卖官后地方贪纵，税役最终传导为民不聊生；宫苑佛寺、关市重税、救济失效与连续饥荒共同摧毁民生财政，亡国前社会韧性已失 可归责恶化扣0.0分，归责档为DA3，扣13.5分。 交班锚点为民生一档、经济财政一档、社会安全一档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-11.7分。",
@@ -28722,7 +30474,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 1.8
+      "uncapped_positive_score": 1.8,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "耶律宗真接手锚点为民生四档、经济财政四档、社会安全四档；三轴全任曲线为民生四档→民生四档→民生四档；经济财政四档→经济财政四档→经济财政四档；社会安全四档→社会安全三档→社会安全三档。 民生/经济财政/社会安全：民生与常规财政承接圣宗稳定盘面，但任意宽免、政治大狱和滥授损害司法与社会可预期性，C3主态回落一档 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 1043—1044亲征失败并议和后，1049年又新授权三路国家战争；明确失败反馈后的再动员构成同一路线重复，取中等额外破坏归责；民生与常规财政承接圣宗稳定盘面，但任意宽免、政治大狱和滥授损害司法与社会可预期性，C3主态回落一档 可归责恶化扣4.1分，归责档为DA2，扣9.0分。 交班锚点为民生四档、经济财政四档、社会安全三档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-13.1分。",
@@ -28835,7 +30596,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 0.0
+      "uncapped_positive_score": 0.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "陈叔宝接手锚点为民生二档、经济财政三档、社会安全三档；三轴全任曲线为民生二档→民生二档→民生二档；经济财政三档→经济财政二档→经济财政一档；社会安全三档→社会安全二档→社会安全一档。 民生：承接民疲征赋，望订和征敛继续使单弱重弊；证据支持广泛困顿，但亡国本身不足自动判系统崩溃；经济财政：三阁营造、关市重税、聚敛与宫廷消费耗尽有限积储，交班前社会财政失去持续运行能力；社会安全：后期政治与军政失序使主态降二档，隋军入境亡国时终局一档 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献1.8分，正向保留1.8分。 承接民疲征赋，望订和征敛继续使单弱重弊；证据支持广泛困顿，但亡国本身不足自动判系统崩溃；三阁营造、关市重税、聚敛与宫廷消费耗尽有限积储，交班前社会财政失去持续运行能力 可归责恶化扣6.8分，归责档为DA2，扣9.0分。 交班锚点为民生二档、经济财政一档、社会安全一档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-14.0分。",
@@ -28951,7 +30721,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 1.8
+      "uncapped_positive_score": 1.8,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "朱翊钧接手锚点为民生三档、经济财政三档、社会安全四档；三轴全任曲线为民生三档→民生二档→民生二档；经济财政三档→经济财政二档→经济财政二档；社会安全四档→社会安全三档→社会安全二档。 民生：本人实际主政期内，两畿各省灾伤、民饥盗起，随后七省饥、畿鲁豫淮徐大饥及畿南请赈不报形成跨阶段广域实际负锚；早中期赈令不能证明多数家庭普遍温饱；经济财政：亲政期灾伤饥盗并起仍拒罢矿税监，任末军饷调度不报并加天下田赋，直接闭合额外汲取、常规财政失灵和向税基转嫁；早期共同治理改革不再作为本人经济财政四档峰值；社会安全：承接隆庆四档，前期行政与赈免尚能维持；后期矿税使只少量入库却广泛盘剥，临清武昌苏州等多点民变，极端饥荒、人口买卖、千人积狱和妖书罗织并行，交班降二档、阶段波动 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献2.5分，正向保留2.5分。 本人实际主政期内，两畿各省灾伤、民饥盗起，随后七省饥、畿鲁豫淮徐大饥及畿南请赈不报形成跨阶段广域实际负锚；早中期赈令不能证明多数家庭普遍温饱；亲政期灾伤饥盗并起仍拒罢矿税监，任末军饷调度不报并加天下田赋，直接闭合额外汲取、常规财政失灵和向税基转嫁；早期共同治理改革不再作为本人经济财政四档峰值 可归责恶化扣8.1分，归责档为DA2，扣9.0分。 交班锚点为民生二档、经济财政二档、社会安全二档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-14.6分。",
@@ -29084,7 +30863,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 2.5
+      "uncapped_positive_score": 2.5,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "接手即处后赵解体与族群、军政秩序崩坏区间，三轴最新均为1→1→1。 三轴全程处一档，无跨档恢复。三个K4只是底档不存在更低档位，不代表高韧性；终局1/1/1将稳定信用严格封在T1。 按跨档难度计，恢复分0.0；weighted_K=1.00，稳定分3.2；正向保留3.2。 本人直接发布按族群杀戮的命令，一日斩首数万并亲自率众诛胡羯，史载死者二十余万；随后屠襄国、焚宫室、强迁居民，叠加数百万人返迁中的系统性失序。这里不使用襄国等必要生存战争中的拒谏、败战来加DA；DA4只由本人主动造成的极端人口与社会系统性破坏承担。 可归责恶化扣0.0，DA4扣18.0。 交班时政权、生产财政和普通社会安全仍为1/1/1，且政权随即覆亡。 综合裁为C4N-2、-14.8分。",
@@ -29260,6 +31048,15 @@
         "status": "LIGHT_SCREEN_COMPLETED",
         "disposition": "未发现需要单独进入C4的大型营造。",
         "screening_rule": "仅抓明显大型、可选择、财政/材料/运输/役工成本显著的工程；普通修缮与小工程跳过。"
+      },
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
       }
     },
     {
@@ -29373,7 +31170,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 0.0
+      "uncapped_positive_score": 0.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "海山接手锚点为民生三档、经济财政三档、社会安全三档；三轴全任曲线为民生三档→民生二档→民生二档；经济财政三档→经济财政二档→经济财政二档；社会安全三档→社会安全三档→社会安全三档。 民生：山东、河南多郡连年蝗旱与十室九空是强负锚，但来自奏疏且不等于全国多数家庭；目前无同尺度正面家庭曲线，暂保留民生二档并标待补，而非高置信定档；经济财政：帑藏空竭、粮储入不敷出与短命钞法形成公共财政强负链；尚书省调粮方案证明调度尚在，但不是生产市场正结果；社会安全：短任内财政与权贵压力存在，但不足证明普通社会主态跨档 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 帑藏空竭、粮储入不敷出与短命钞法形成公共财政强负链；尚书省调粮方案证明调度尚在，但不是生产市场正结果；山东、河南多郡连年蝗旱与十室九空是强负锚，但来自奏疏且不等于全国多数家庭；目前无同尺度正面家庭曲线，暂保留民生二档并标待补，而非高置信定档 可归责恶化扣6.1分，归责档为DA2，扣9.0分。 交班锚点为民生二档、经济财政二档、社会安全三档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-15.1分。",
@@ -29507,7 +31313,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 0.0
+      "uncapped_positive_score": 0.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "刘聪接手锚点为民生二档、经济财政三档、社会安全二档；三轴全任曲线为民生二档→民生一档→民生一档；经济财政三档→经济财政二档→经济财政一档；社会安全二档→社会安全一档→社会安全一档。 民生：宫殿、供奉、赏赐和军费错配与永嘉人口生产崩落同窗发生，直接构成社会再生产近乎瓦解的主态；经济财政：宫室财政、征发与都城饥荒叠加，洛阳长安人口生产体系遭持续破坏，末期社会承载接近全面崩溃；社会安全：屠掠、饥荒和政权暴力使主态与终点均为崩解 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献2.9分，正向保留2.9分。 刘聪四十余殿观与宫廷供奉造成饥疫期役费；永嘉时期旱蝗疫饥、食人与关中人口崩落 可归责恶化扣5.4分，归责档为DA3，扣13.5分。 交班锚点为民生一档、经济财政一档、社会安全一档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-2、-16.0分。",
@@ -29642,7 +31457,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 2.9
+      "uncapped_positive_score": 2.9,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "胡亥接手锚点为民生二档、经济财政一档、社会安全二档；三轴全任曲线为民生二档→民生一档→民生一档；经济财政一档→经济财政一档→经济财政一档；社会安全二档→社会安全一档→社会安全一档。 民生：三年窗口大部分处于从严重困顿向系统崩解的过程，末期已不是单纯贫困或恢复不足，故任内主态取崩溃；经济财政：继承已透支的高压结构后继续阿房、转输与督责，未形成有效纠偏，生产、财政和社会承载在短任内共同崩溃；社会安全：承接始皇二档低位，继续重役与严刑后迅速爆发全国性反叛，基层秩序与国家保护全面失效，主态及终局均为一档 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献3.6分，正向保留3.6分。 国家汲取和跨区动员能力极强，但农业、纺织、民间负担与财政需求同时失衡，并已形成广域怨叛基础；既有高汲取结构在反抗已起时继续加码，中央供给以郡县和运输者额外承压维持，纠偏机制失效 可归责恶化扣10.8分，归责档为DA2，扣9.0分。 交班锚点为民生一档、经济财政一档、社会安全一档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-3、-16.2分。",
@@ -29776,7 +31600,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 3.6
+      "uncapped_positive_score": 3.6,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "李煜接手锚点为民生三档、经济财政三档、社会安全四档；三轴全任曲线为民生三档→民生二档→民生一档；经济财政三档→经济财政二档→经济财政一档；社会安全四档→社会安全三档→社会安全二档。 民生：961年废屯田后民稍休息只支持民生三档起点；其后铁钱贬值、物价益贵与江南荐饥、反复依赖宋米和跨区运粮，共同闭合民生二档任内主态；974—975围城、采樵道路断绝与金陵饥民在宋接管后仍须十万石赈济，闭合民生一档交班终点；经济财政：废屯田减负只支持经济财政三档起点；铁钱十易铜一且物价益贵、县官供僧万人、连年饥荒并依赖境外粮援，共同闭合经济财政二档汲取脆弱主态；改革因不便而罢、中枢空心化及围城亡国使市场、财政和调度在交班时降至经济财政一档；社会安全：前期承接四档但财政军政压力逐步侵蚀保护，宋军压境与亡国使终点降至广泛不安全 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献1.1分，正向保留1.1分。 围城使交通、采樵与城市供给断裂，宋接管后仍须赈济金陵饥民，闭合一档终点；铁钱贬值、物价上涨并连续饥荒，须依赖宋方粮援，闭合二档主态 可归责恶化扣13.5分，归责档为DA1，扣4.5分。 交班锚点为民生一档、经济财政一档、社会安全二档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-3、-16.9分。",
@@ -29889,7 +31722,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 1.1
+      "uncapped_positive_score": 1.1,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "朱允炆接手锚点为民生四档、经济财政四档、社会安全三档；三轴全任曲线为民生四档→民生三档→民生三档；经济财政四档→经济财政三档→经济财政三档；社会安全三档→社会安全二档→社会安全一档。 民生：减赋和宽政是政策动作，不能证明普通家庭已普遍温饱；短窗又经历靖难主要战区和都城终局冲击，缺广域家庭状态锚，任内主态民生三档；经济财政：常规赋税可运行只证明基本财政机器；末期战争和中枢崩解压低余量，又缺市场、储备与民间转嫁的同尺度锚，任内主态经济财政三档；社会安全：承接洪武末三档，减役、蠲赋和赈恤是真实正向；但靖难调兵五十余万、转输困敝、平民掳掠及南京中枢解体使主要阶段降至二档、交班一档，阶段波动 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 任内主态=经济财政三档；常规赋税可运行只证明基本财政机器；末期战争和中枢崩解压低余量，又缺市场、储备与民间转嫁的同尺度锚，任内主态经济财政三档 可归责恶化扣8.1分，归责档为DA2，扣9.0分。 交班锚点为民生三档、经济财政三档、社会安全一档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-3、-17.1分。",
@@ -30002,7 +31844,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 0.0
+      "uncapped_positive_score": 0.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "朱友贞接手锚点为民生三档、经济财政三档、社会安全二档；三轴全任曲线为民生三档→民生二档→民生一档；经济财政三档→经济财政二档→经济财政一档；社会安全二档→社会安全二档→社会安全一档。 民生/经济财政：公私困竭、河北成片失控并最终大梁与国家系统崩解，主态判广泛困顿、交班判崩溃；末期同一崩解只在阶段波动与C4终端韧性分别消费，不作事件重复扣分；社会安全：持续战争和军政内耗维持广泛不安全，亡国时终局崩解 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献1.1分，正向保留1.1分。 公私困竭、河北成片失控并最终大梁与国家系统崩解，主态判广泛困顿、交班判崩溃；末期同一崩解只在阶段波动与C4终端韧性分别消费，不作事件重复扣分；持续战争和军政内耗维持广泛不安全，亡国时终局崩解 可归责恶化扣9.4分，归责档为DA2，扣9.0分。 交班锚点为民生一档、经济财政一档、社会安全一档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-3、-17.3分。",
@@ -30115,7 +31966,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 1.1
+      "uncapped_positive_score": 1.1,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "载湉接手锚点为民生三档、经济财政三档、社会安全三档；三轴全任曲线为民生三档→民生三档→民生三档；经济财政三档→经济财政三档→经济财政三档；社会安全三档→社会安全三档→社会安全三档。 民生：灾赈、河工和局部生产建设维持基本生活盘面；甲午战争、赔款和连年灾害阻断四档，但本人窗口止于1898，不能把庚子与清末终局倒灌为一二档；经济财政：铁路、矿务、币制和厘金改革说明经济财政仍可运行；巨额赔款、军费和灾赈挤压公共财政，改革兑现期又短，故主态三档；社会安全：亲政期基本行政和救济秩序仍存，但战争失败、主权失地与改革政变显示安全和制度保护脆弱；不把1898年后的义和团、失都和革命链倒入本人窗口 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 甲午战争虽有日本扩张压力，但朝鲜介入、开战与指挥决策存在本人及慈禧、军令体系的共享可选择责任；只按共享增量和一次国家战争取有限额外破坏归责，不把德国强占胶澳的被迫应对并入；亲政期基本行政和救济秩序仍存，但战争失败、主权失地与改革政变显示安全和制度保护脆弱；不把1898年后的义和团、失都和革命链倒入本人窗口 可归责恶化扣13.0分，归责档为DA1，扣4.5分。 交班锚点为民生三档、经济财政三档、社会安全三档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-3、-17.5分。",
@@ -30245,7 +32105,16 @@
         "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-PUBLIC-79839092B61C3D74"
       ],
       "public_adjudication": "载湉接手锚点为民生三档、经济财政三档、社会安全三档；三轴全任曲线为民生三档→民生三档→民生三档；经济财政三档→经济财政三档→经济财政三档；社会安全三档→社会安全三档→社会安全三档。 民生：灾赈、河工和局部生产建设维持基本生活盘面；甲午战争、赔款和连年灾害阻断四档，但本人窗口止于1898，不能把庚子与清末终局倒灌为一二档；经济财政：铁路、矿务、币制和厘金改革说明经济财政仍可运行；巨额赔款、军费和灾赈挤压公共财政，改革兑现期又短，故主态三档；社会安全：亲政期基本行政和救济秩序仍存，但战争失败、主权失地与改革政变显示安全和制度保护脆弱；不把1898年后的义和团、失都和革命链倒入本人窗口 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 甲午战争虽有日本扩张压力，但朝鲜介入、开战与指挥决策存在本人及慈禧、军令体系的共享可选择责任；只按共享增量和一次国家战争取有限额外破坏归责，不把德国强占胶澳的被迫应对并入；亲政期基本行政和救济秩序仍存，但战争失败、主权失地与改革政变显示安全和制度保护脆弱；不把1898年后的义和团、失都和革命链倒入本人窗口 可归责恶化扣13.0分，归责档为DA1，扣4.5分。 交班锚点为民生三档、经济财政三档、社会安全三档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-3、-17.5分。",
-      "rank": 172
+      "rank": 172,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "嬴政接手锚点为民生三档、经济财政四档、社会安全三档；三轴全任曲线为民生三档→民生二档→民生二档；经济财政四档→经济财政一档→经济财政一档；社会安全三档→社会安全二档→社会安全二档。 民生：郑国渠直接证明嬴政早期关中农业核心有高位生产基础，但统一后阶段的主导全国民生状态转为广泛高负担与生产供给不足，尚未在其去世前完成系统崩溃，故任内主态仍为困顿；经济财政：统一后的标准化、货币与郑国渠留下生产流通收益，但高赋重役、宫陵工程和对外动员使民生承受持续恶化，交班时社会裂缝已深；社会安全：早期秦国仍具基本秩序，统一后大规模谪徙、刑徒劳动、严刑和直接生命侵害成为持续的广域国家风险，主态与交班均降至二档 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献3.6分，正向保留3.6分。 统一后仍叠加北边与岭南战争、长城道路和宫陵工程，征发、转输与刑役共同推高广域家庭负担；农业供给、民间承受和财政需求已经同时失衡，反馈后未见收缩。 可归责恶化扣8.1分，归责档为DA3，扣13.5分。 交班锚点为民生二档、经济财政一档、社会安全二档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-3、-18.0分。",
@@ -30358,7 +32227,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 3.6
+      "uncapped_positive_score": 3.6,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "李隆基接手锚点为民生三档、经济财政三档、社会安全三档；三轴全任曲线为民生三档→民生五档→民生一档；经济财政三档→经济财政五档→经济财政一档；社会安全三档→社会安全五档→社会安全一档。 民生：完整轨迹为先天承压起点、开元早期恢复、开元后期至天宝前中期进入长期全国性多轴极盛阶段、天宝中后期财政汲取加重并在安史冲击中跌至民生一档；经济财政：开元前中期税役、漕运、水利和市场形成长期高峰，但天宝后期聚敛与安史冲击使生活、财政和人口体系断崖崩溃；绝对局面保留长期高位，动态裁决聚焦交班；社会安全：开元长期广域秩序与实际司法限制闭合五档峰值；但后期杖杀代死、言路封闭已先行削弱公正，安史战争再使两京和多核心区安全崩解 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献23.0分、稳定兑现与压力吸收贡献1.1分，受C4T-1交班下沿封顶后正向保留7.9分。 该战争材料同时明载大量征发者不归、强制赴役、沿途店肆关闭以及车牛驴马被夺不偿，故可作为战争传导到民生、市场与生产资料的宏观后果；两京陷落后民物耗弊、天下萧然；官方到帐户口从天宝峰值断崖下落，反映死亡、流离、失控与登记崩解共同造成的国家财政和社会基础断裂 可归责恶化扣13.5分，归责档为DA3，扣13.5分。 交班锚点为民生一档、经济财政一档、社会安全一档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-3、-19.1分。",
@@ -30475,7 +32353,25 @@
         }
       },
       "difficulty_weighted_recovery_credit": 2.3,
-      "uncapped_positive_score": 24.1
+      "uncapped_positive_score": 24.1,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+        "gate_status": "FULL_OR_MAJOR_REGIONAL",
+        "dimension": "ACTUAL_GOVERNANCE_SCALE",
+        "basis": "C1正式复杂度裁决为HIGH，实际治理人口、地域、多核心与行政链达到完整或主要区域门槛；MEDIUM不解释为小政权。",
+        "supporting_formal_fields": [
+          {
+            "axis": "C1",
+            "field_path": "complexity_class"
+          },
+          {
+            "axis": "C1",
+            "field_path": "complexity_basis"
+          }
+        ],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "朱厚照接手锚点为民生四档、经济财政三档、社会安全四档；三轴全任曲线为民生四档→民生三档→民生三档；经济财政三档→经济财政三档→经济财政三档；社会安全四档→社会安全三档→社会安全三档。 民生：不底于危亡只描述政治国家未崩，不能证明普通家庭普遍温饱；本人窗又无合格家庭宏观锚；经济财政：皇店、团营、不急工役和行宫金宝需在终局集中撤销，说明财政由健康状态降为仍可运行但透支；遗诏能执行又证明未崩解；社会安全：承接弘治四档，皇庄缇骑逮民、厂卫遍天下、枷号死者数千、畿辅骚动和京城盗贼使主态降三档；诛刘瑾只构成局部纠偏，内臣权力与豹房侵扰未退出，交班仍三档 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 承接弘治四档，皇庄缇骑逮民、厂卫遍天下、枷号死者数千、畿辅骚动和京城盗贼使主态降三档；诛刘瑾只构成局部纠偏，内臣权力与豹房侵扰未退出，交班仍三档；不底于危亡只描述政治国家未崩，不能证明普通家庭普遍温饱；本人窗又无合格家庭宏观锚 可归责恶化扣10.8分，归责档为DA2，扣9.0分。 交班锚点为民生三档、经济财政三档、社会安全三档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-3、-19.8分。",
@@ -30588,7 +32484,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 0.0
+      "uncapped_positive_score": 0.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "李治接手锚点为民生四档、经济财政四档、社会安全五档；三轴全任曲线为民生四档→民生四档→民生三档；经济财政四档→经济财政四档→经济财政二档；社会安全五档→社会安全四档→社会安全二档。 民生：接手局面与太宗民生四档交班连续；经济财政：延续贞观增长、义仓与财政秩序并扩大生产人口高位；乾封钱、三门漕运和后期宫廷军费造成反复，交班仍能承接；社会安全：起点必须承接贞观五档，不能因本人后期问题回写低位；主要阶段仍有成熟王朝的常规安全，但法吏惨酷与682年两京核心区饥疫、道路积尸、人相食构成交班前严重下坠，终点取二档 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献2.5分，正向保留2.5分。 高句丽、西突厥、百济—新罗及吐蕃等多方向长期主动战争，与三十六州造船、蓬莱等多宫营造、万匹厩马耗库和乾封钱冲击叠加；一当十的新钱造成谷帛价格猛涨和交易停滞，次年即停；同期多宫营造与万匹厩马使仓库渐空 可归责恶化扣8.8分，归责档为DA3，扣13.5分。 交班锚点为民生三档、经济财政二档、社会安全二档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-3、-19.8分。",
@@ -30739,7 +32644,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 2.5
+      "uncapped_positive_score": 2.5,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "曹叡接手锚点为民生三档、经济财政三档、社会安全三档；三轴全任曲线为民生三档→民生二档→民生二档；经济财政三档→经济财政三档→经济财政三档；社会安全三档→社会安全三档→社会安全三档。 民生：不因关东水灾发生本身扣档；扣档依据是灾后民失产业时仍叠加用兵、驻军且财政不足，显示冲击被放大而未见恢复，任内主态为困顿；经济财政：恢复五铢和部分水利维持经济运行，但宫室劳役妨农、灾年支出和战争动员长期压低民生，交班余量明显收窄；社会安全：基本秩序维持，营造征发和后期政治司法裂缝使四档不成立 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 恢复五铢和部分水利维持经济运行，但宫室劳役妨农、灾年支出和战争动员长期压低民生，交班余量明显收窄；基本秩序维持，营造征发和后期政治司法裂缝使四档不成立 可归责恶化扣6.8分，归责档为DA3，扣13.5分。 交班锚点为民生二档、经济财政三档、社会安全三档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-3、-20.3分。",
@@ -30873,7 +32787,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 0.0
+      "uncapped_positive_score": 0.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "李谅祚接手锚点为民生三档、经济财政三档、社会安全三档；三轴全任曲线为民生三档→民生二档→民生二档；经济财政三档→经济财政二档→经济财政二档；社会安全三档→社会安全二档→社会安全二档。 民生：频年点集、强迁与战争负担压低家庭生计，短窗内未见广域恢复；经济财政：反复军役和人口外流损伤生产与财政基础，缺少市场、储备和常规财政同时健康的证据；社会安全：强迁、部族离心和内附闭合社会安全下行，主态二档 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 频年点集、强迁与战争负担压低家庭生计，短窗内未见广域恢复；强迁、部族离心和内附闭合社会安全下行，主态二档 可归责恶化扣13.0分，归责档为DA2，扣9.0分。 交班锚点为民生二档、经济财政二档、社会安全二档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-3、-22.0分。",
@@ -31013,7 +32936,16 @@
         "docs/史料通读产物/西夏/西夏书事/volume-021.source-summary.md#L33"
       ],
       "public_adjudication": "李谅祚接手锚点为民生三档、经济财政三档、社会安全三档；三轴全任曲线为民生三档→民生二档→民生二档；经济财政三档→经济财政二档→经济财政二档；社会安全三档→社会安全二档→社会安全二档。 民生：频年点集、强迁与战争负担压低家庭生计，短窗内未见广域恢复；经济财政：反复军役和人口外流损伤生产与财政基础，缺少市场、储备和常规财政同时健康的证据；社会安全：强迁、部族离心和内附闭合社会安全下行，主态二档 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 频年点集、强迁与战争负担压低家庭生计，短窗内未见广域恢复；强迁、部族离心和内附闭合社会安全下行，主态二档 可归责恶化扣13.0分，归责档为DA2，扣9.0分。 交班锚点为民生二档、经济财政二档、社会安全二档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-3、-22.0分。",
-      "rank": 178
+      "rank": 178,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "刘彧接手锚点为民生一档、经济财政三档、社会安全三档；三轴全任曲线为民生一档→民生二档→民生二档；经济财政三档→经济财政二档→经济财政一档；社会安全三档→社会安全二档→社会安全一档。 民生：接班时货币与交易已崩溃；统一古钱是纠偏动作但无物价恢复结果，只能推到广泛困顿；经济财政：内战后宫廷征敛、宗王暴力和人口生产损失叠加，财政与社会承载在短期内严重崩溃；社会安全：内战、重税、恶钱和政治清洗使主态二档，终局保护能力崩解 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献3.0分、稳定兑现与压力吸收贡献1.8分，正向保留4.8分。 淮泗用兵后中央财政空竭、停俸，奢建和贿赂继续，未形成恢复；接班时货币与交易已崩溃；统一古钱是纠偏动作但无物价恢复结果，只能推到广泛困顿 可归责恶化扣13.5分，归责档为DA3，扣13.5分。 交班锚点为民生二档、经济财政一档、社会安全一档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-3、-22.2分。",
@@ -31131,7 +33063,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.3,
-      "uncapped_positive_score": 4.8
+      "uncapped_positive_score": 4.8,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "完颜珣接手锚点为民生二档、经济财政二档、社会安全一档；三轴全任曲线为民生二档→民生二档→民生一档；经济财政二档→经济财政二档→经济财政一档；社会安全一档→社会安全二档→社会安全一档。 民生/经济财政/社会安全：迁都后河南中枢仍能赈灾、维持学校和部分司法复核，但放弃北方、军储失灵、另开宋战与地方叛乱使三轴低位下行 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献1.8分、稳定兑现与压力吸收贡献0.0分，正向保留1.8分。 迁都后河南中枢仍能赈灾、维持学校和部分司法复核，但放弃北方、军储失灵、另开宋战与地方叛乱使三轴低位下行 可归责恶化扣16.2分，归责档为DA2，扣9.0分。 交班锚点为民生一档、经济财政一档、社会安全一档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-3、-23.4分。",
@@ -31246,7 +33187,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.18,
-      "uncapped_positive_score": 1.8
+      "uncapped_positive_score": 1.8,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "李安全接手锚点为民生四档、经济财政四档、社会安全四档；三轴全任曲线为民生四档→民生二档→民生二档；经济财政四档→经济财政二档→经济财政二档；社会安全四档→社会安全二档→社会安全二档。 民生：承接纯佑末期丰收与可运行盘面，蒙古战争、围都和役属征发使家庭与生产安全显著下坠；赎回人口不足以恢复主态；经济财政：战争和对蒙古役属破坏财政自主与常规生产，金援拒绝又使外部缓冲失效，经济财政主态降至二档；社会安全：废立合法性危机、蒙古围攻与从属征发使社会安全由可运行高位跌至低位；赎民只形成局部缓冲 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 承接纯佑末期丰收与可运行盘面，蒙古战争、围都和役属征发使家庭与生产安全显著下坠；赎回人口不足以恢复主态；战争和对蒙古役属破坏财政自主与常规生产，金援拒绝又使外部缓冲失效，经济财政主态降至二档 可归责恶化扣18.9分，归责档为DA1，扣4.5分。 交班锚点为民生二档、经济财政二档、社会安全二档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-3、-23.4分。",
@@ -31375,7 +33325,16 @@
         "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-XIXIA-LIANQUAN"
       ],
       "public_adjudication": "李安全接手锚点为民生四档、经济财政四档、社会安全四档；三轴全任曲线为民生四档→民生二档→民生二档；经济财政四档→经济财政二档→经济财政二档；社会安全四档→社会安全二档→社会安全二档。 民生：承接纯佑末期丰收与可运行盘面，蒙古战争、围都和役属征发使家庭与生产安全显著下坠；赎回人口不足以恢复主态；经济财政：战争和对蒙古役属破坏财政自主与常规生产，金援拒绝又使外部缓冲失效，经济财政主态降至二档；社会安全：废立合法性危机、蒙古围攻与从属征发使社会安全由可运行高位跌至低位；赎民只形成局部缓冲 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 承接纯佑末期丰收与可运行盘面，蒙古战争、围都和役属征发使家庭与生产安全显著下坠；赎回人口不足以恢复主态；战争和对蒙古役属破坏财政自主与常规生产，金援拒绝又使外部缓冲失效，经济财政主态降至二档 可归责恶化扣18.9分，归责档为DA1，扣4.5分。 交班锚点为民生二档、经济财政二档、社会安全二档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-3、-23.4分。",
-      "rank": 180
+      "rank": 180,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "刘宏接手锚点为民生二档、经济财政二档、社会安全二档；三轴全任曲线为民生二档→民生一档→民生一档；经济财政二档→经济财政一档→经济财政一档；社会安全二档→社会安全一档→社会安全一档。 民生：二十一年窗口从严重困顿进一步走向朝野崩离，后段系统断裂占据决定性位置，任内主态取崩溃；经济财政：卖官、宫室加征、公帑私藏和贡献附加费与连续灾害叠加，财政压力广泛转嫁，黄巾前后社会承载已系统崩溃；社会安全：承接桓帝二档低位，第二次党锢和宦官司法侵害继续扩大；黄巾八州数十万起兵后官府聚邑焚劫，黑山等武装殆百万且朝廷不能讨，普通社会安全与基层秩序广域崩解，主态与终点一档、阶段波动 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 卖官、田亩加征、任官议价、贡献导行费和公帑私藏连成系统性财政转嫁，百姓与州郡承受持续额外成本；黄巾战争进一步破坏运行；权宦侵占良田、产业与山泽资源，使民庶困穷、州郡受压；党锢长期破坏政治反馈与社会精英网络，黄巾兴起后朝野秩序崩离 可归责恶化扣10.8分，归责档为DA3，扣13.5分。 交班锚点为民生一档、经济财政一档、社会安全一档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-3、-24.3分。",
@@ -31514,7 +33473,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 0.0
+      "uncapped_positive_score": 0.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "孙皓接手锚点为民生二档、经济财政三档、社会安全三档；三轴全任曲线为民生二档→民生二档→民生二档；经济财政三档→经济财政二档→经济财政一档；社会安全三档→社会安全二档→社会安全一档。 民生：迁都、宫殿和宫廷消费构成连续高汲取链，材料足以确定广泛困顿；亡国结局本身不能替代系统崩溃证据；经济财政：宫室、迁都、征发和财政汲取加重，生产市场与社会承载在亡国前持续恶化，局部工程不能改变终局崩溃；社会安全：酷刑、任意处置、重役与末期战争使主态广泛不安全，亡国时终局崩解 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献1.8分，正向保留1.8分。 迁都、宫殿和宫廷消费构成连续高汲取链，材料足以确定广泛困顿；亡国结局本身不能替代系统崩溃证据；宫室、迁都、征发和财政汲取加重，生产市场与社会承载在亡国前持续恶化，局部工程不能改变终局崩溃 可归责恶化扣13.5分，归责档为DA3，扣13.5分。 交班锚点为民生二档、经济财政一档、社会安全一档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-4、-25.2分。",
@@ -31627,7 +33595,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 1.8
+      "uncapped_positive_score": 1.8,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "李德旺接手锚点为民生一档、经济财政一档、社会安全一档；三轴全任曲线为民生一档→民生一档→民生一档；经济财政一档→经济财政一档→经济财政一档；社会安全一档→社会安全一档→社会安全一档。 民生：接班即民不聊生，末期旱灾、民无所食、窖积被掠和营田妨农持续，短暂修好互市未改变生存断裂；经济财政：财用并乏、军储不足、营田与正军征调冲突，常规财政生产已断裂；互市恢复过短；社会安全：战后溃卒、流民、饥荒与蒙古终局进攻覆盖全窗，社会安全持续一档 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 战后溃卒、流民、饥荒与蒙古终局进攻覆盖全窗，社会安全持续一档；接班即民不聊生，末期旱灾、民无所食、窖积被掠和营田妨农持续，短暂修好互市未改变生存断裂 可归责恶化扣27.0分，归责档为DA0，扣0.0分。 交班锚点为民生一档、经济财政一档、社会安全一档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-4、-27.0分。",
@@ -31775,7 +33752,16 @@
         "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-XIXIA-LIDEWANG"
       ],
       "public_adjudication": "李德旺接手锚点为民生一档、经济财政一档、社会安全一档；三轴全任曲线为民生一档→民生一档→民生一档；经济财政一档→经济财政一档→经济财政一档；社会安全一档→社会安全一档→社会安全一档。 民生：接班即民不聊生，末期旱灾、民无所食、窖积被掠和营田妨农持续，短暂修好互市未改变生存断裂；经济财政：财用并乏、军储不足、营田与正军征调冲突，常规财政生产已断裂；互市恢复过短；社会安全：战后溃卒、流民、饥荒与蒙古终局进攻覆盖全窗，社会安全持续一档 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 战后溃卒、流民、饥荒与蒙古终局进攻覆盖全窗，社会安全持续一档；接班即民不聊生，末期旱灾、民无所食、窖积被掠和营田妨农持续，短暂修好互市未改变生存断裂 可归责恶化扣27.0分，归责档为DA0，扣0.0分。 交班锚点为民生一档、经济财政一档、社会安全一档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-4、-27.0分。",
-      "rank": 184
+      "rank": 184,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "完颜永济接手锚点为民生三档、经济财政三档、社会安全三档；三轴全任曲线为民生三档→民生二档→民生一档；经济财政三档→经济财政二档→经济财政一档；社会安全三档→社会安全一档→社会安全一档。 民生/经济财政/社会安全：继承可运行盘面后遭大旱大饥与蒙古突破，括马签军、卖敕筹饷和信息封锁放大冲击，三轴跌至低位并以政变弑君收束 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 继承可运行盘面后遭大旱大饥与蒙古突破，括马签军、卖敕筹饷和信息封锁放大冲击，三轴跌至低位并以政变弑君收束 可归责恶化扣19.8分，归责档为DA2，扣9.0分。 交班锚点为民生一档、经济财政一档、社会安全一档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-4、-28.8分。",
@@ -31887,7 +33873,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 0.0
+      "uncapped_positive_score": 0.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "完颜守绪接手锚点为民生二档、经济财政二档、社会安全二档；三轴全任曲线为民生二档→民生二档→民生一档；经济财政二档→经济财政二档→经济财政一档；社会安全二档→社会安全二档→社会安全一档。 民生/经济财政/社会安全：危机中整顿官僚、维持学校军储并复按大臣案件，只能守住有限低位；粮运断裂、军变和蔡州终局最终使三轴归入崩溃状态 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 WYS-NATIONAL-SURVIVAL:CONTRIBUTED｜多线生存战争中的指挥与资源失配加速军政体系瓦解，但不把敌方入侵本身算本方成本；危机中整顿官僚、维持学校军储并复按大臣案件，只能守住有限低位；粮运断裂、军变和蔡州终局最终使三轴归入崩溃状态 可归责恶化扣17.1分，归责档为DA3，扣13.5分。 交班锚点为民生一档、经济财政一档、社会安全一档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-4、-30.6分。",
@@ -32000,7 +33995,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 0.0
+      "uncapped_positive_score": 0.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "李元昊接手锚点为民生三档、经济财政三档、社会安全三档；三轴全任曲线为民生三档→民生二档→民生二档；经济财政三档→经济财政二档→经济财政二档；社会安全三档→社会安全二档→社会安全二档。 民生：国家建构未抵消系统兵役、战争迁避、资用乏困和晚期数万劳役；主态与终点二档；经济财政：财政仓储架构已建立，但互市断裂、战争财政吃紧和宫苑劳役使公共与民间余量低位；和约恢复贸易不足以抬回三档；社会安全：战争动员、人口迁避、残酷统治和众怨方兴压低社会安全；建制秩序只避免一档崩溃 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 财政仓储架构已建立，但互市断裂、战争财政吃紧和宫苑劳役使公共与民间余量低位；和约恢复贸易不足以抬回三档；战争动员、人口迁避、残酷统治和众怨方兴压低社会安全；建制秩序只避免一档崩溃 可归责恶化扣18.9分，归责档为DA3，扣13.5分。 交班锚点为民生二档、经济财政二档、社会安全二档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-4、-32.4分。",
@@ -32132,7 +34136,16 @@
         "docs/史料通读产物/西夏/西夏书事/volume-018.source-summary.md:16"
       ],
       "public_adjudication": "李元昊接手锚点为民生三档、经济财政三档、社会安全三档；三轴全任曲线为民生三档→民生二档→民生二档；经济财政三档→经济财政二档→经济财政二档；社会安全三档→社会安全二档→社会安全二档。 民生：国家建构未抵消系统兵役、战争迁避、资用乏困和晚期数万劳役；主态与终点二档；经济财政：财政仓储架构已建立，但互市断裂、战争财政吃紧和宫苑劳役使公共与民间余量低位；和约恢复贸易不足以抬回三档；社会安全：战争动员、人口迁避、残酷统治和众怨方兴压低社会安全；建制秩序只避免一档崩溃 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 财政仓储架构已建立，但互市断裂、战争财政吃紧和宫苑劳役使公共与民间余量低位；和约恢复贸易不足以抬回三档；战争动员、人口迁避、残酷统治和众怨方兴压低社会安全；建制秩序只避免一档崩溃 可归责恶化扣18.9分，归责档为DA3，扣13.5分。 交班锚点为民生二档、经济财政二档、社会安全二档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-4、-32.4分。",
-      "rank": 187
+      "rank": 187,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "李存勖接手锚点为民生三档、经济财政三档、社会安全二档；三轴全任曲线为民生三档→民生二档→民生一档；经济财政三档→经济财政二档→经济财政一档；社会安全二档→社会安全二档→社会安全一档。 民生/经济财政：急征重敛、外府虚竭、饥荒流亡、仓廪空竭与军户卖妻鬻子共同闭合末期多轴崩溃；灭蜀所得不以国库缴获冲销家庭与财政失灵；社会安全：军政侵扰、财政失序和兵变使广泛不安全延续，末期基层与中枢保护崩解 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 急征重敛、外府虚竭、饥荒流亡、仓廪空竭与军户卖妻鬻子共同闭合末期多轴崩溃；灭蜀所得不以国库缴获冲销家庭与财政失灵；军政侵扰、财政失序和兵变使广泛不安全延续，末期基层与中枢保护崩解 可归责恶化扣18.9分，归责档为DA3，扣13.5分。 交班锚点为民生一档、经济财政一档、社会安全一档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-4、-32.4分。",
@@ -32247,7 +34260,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 0.0
+      "uncapped_positive_score": 0.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "完颜亮接手锚点为民生四档、经济财政四档、社会安全三档；三轴全任曲线为民生四档→民生三档→民生二档；经济财政四档→经济财政三档→经济财政二档；社会安全三档→社会安全二档→社会安全一档。 民生/经济财政/社会安全：继承稳定盘面后虽建设货币与救济接口，但反复宫室、采珠强役、宗室清洗和南伐总动员使三轴持续恶化并以军变弑君结束 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 继承稳定盘面后虽建设货币与救济接口，但反复宫室、采珠强役、宗室清洗和南伐总动员使三轴持续恶化并以军变弑君结束 可归责恶化扣20.7分，归责档为DA3，扣13.5分。 交班锚点为民生二档、经济财政二档、社会安全一档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-4、-34.2分。",
@@ -32381,7 +34403,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 0.0
+      "uncapped_positive_score": 0.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "刘彻接手锚点为民生五档、经济财政五档、社会安全五档；三轴全任曲线为民生五档→民生三档→民生二档；经济财政五档→经济财政四档→经济财政三档；社会安全五档→社会安全三档→社会安全二档。 民生：超长任期由富庶高点转入显著耗敝，平均状态不能沿用接班高位，也未证明整个任期均为困顿；取维持/恢复档并以下行轨迹明确校正；经济财政：前期承接并发展生产、币制、水利和财政调度，后期战争财政、迁徙、宫苑巡幸与灾荒显著耗损；轮台转向止住继续恶化但未恢复前期高位；社会安全：起点必须承接文景五档 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 既有文景积累被战争、工程和财政汲取持续消耗，贫民生活、生产本业和社会稳定显著恶化；前期承接并发展生产、币制、水利和财政调度，后期战争财政、迁徙、宫苑巡幸与灾荒显著耗损；轮台转向止住继续恶化但未恢复前期高位 可归责恶化扣27.0分，归责档为DA3，扣13.5分。 交班锚点为民生二档、经济财政三档、社会安全二档，终局约束为C4T-3（正向上限24.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-5、-40.5分。",
@@ -32517,7 +34548,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 0.0
+      "uncapped_positive_score": 0.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "耶律延禧接手锚点为民生四档、经济财政四档、社会安全三档；三轴全任曲线为民生四档→民生二档→民生一档；经济财政四档→经济财政二档→经济财政一档；社会安全三档→社会安全二档→社会安全一档。 民生/经济财政/社会安全：从可运行盘面跌至民户破产、饥民军事化、财政征发失灵、社会失序和国家中央崩溃；本人反复军令、奢费与朋党保护显著放大外部战争压力 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 从可运行盘面跌至民户破产、饥民军事化、财政征发失灵、社会失序和国家中央崩溃；本人反复军令、奢费与朋党保护显著放大外部战争压力 可归责恶化扣27.0分，归责档为DA3，扣13.5分。 交班锚点为民生一档、经济财政一档、社会安全一档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-5、-40.5分。",
@@ -32632,7 +34672,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 0.0
+      "uncapped_positive_score": 0.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "赵佶接手锚点为民生三档、经济财政三档、社会安全四档；三轴全任曲线为民生三档→民生二档→民生一档；经济财政三档→经济财政二档→经济财政一档；社会安全四档→社会安全三档→社会安全二档。 民生：长期额外汲取使多数家庭广泛困顿，末期叛乱、饥荒、战争与财政抽空形成一档终点崩溃；经济财政：改币、应奉、公田、经制钱与低效转运闭合到市场、税基、公私储备多面失灵；社会安全：任初承接四档；跨路花石与括田侵夺、长期地方恐慌及方腊大乱使主要状态降为三档，末期广域财产与人身保护继续恶化至二档 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 长期额外汲取使多数家庭广泛困顿，末期叛乱、饥荒、战争与财政抽空形成一档终点崩溃；任初承接四档；跨路花石与括田侵夺、长期地方恐慌及方腊大乱使主要状态降为三档，末期广域财产与人身保护继续恶化至二档 可归责恶化扣27.0分，归责档为DA3，扣13.5分。 交班锚点为民生一档、经济财政一档、社会安全二档，终局约束为C4T-2（正向上限15.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-5、-40.5分。",
@@ -32745,7 +34794,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 0.0
+      "uncapped_positive_score": 0.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "石虎接手锚点为民生三档、经济财政四档、社会安全三档；三轴全任曲线为民生三档→民生一档→民生一档；经济财政四档→经济财政二档→经济财政一档；社会安全三档→社会安全二档→社会安全一档。 民生：全国性征役、宫苑和军事动员把石勒留下的可运行基础迅速耗损；卖子、自缢和大规模死亡已达到崩溃状态；经济财政：宫城、陵墓和大规模役使伴随死亡与府库耗竭，税役和社会暴力系统化，早期继承高位不能抬高末期韧性；社会安全：大规模役使、刑杀和宫廷军政暴力广泛侵害人身财产，死后政权迅速崩解 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献1.8分，正向保留1.8分。 数十万级工程征发、夺取人口牲畜及广泛流亡，形成生产和家庭承载瓦解；全国性征役、宫苑和军事动员把石勒留下的可运行基础迅速耗损；卖子、自缢和大规模死亡已达到崩溃状态 可归责恶化扣27.0分，归责档为DA4，扣18.0分。 交班锚点为民生一档、经济财政一档、社会安全一档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-6、-43.2分。",
@@ -32861,7 +34919,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 1.8
+      "uncapped_positive_score": 1.8,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "杨广接手锚点为民生四档、经济财政四档、社会安全四档；三轴全任曲线为民生四档→民生二档→民生一档；经济财政四档→经济财政一档→经济财政一档；社会安全四档→社会安全二档→社会安全一档。 民生：典型高开低走：较高接班状态不能抵消任内长期广域征发与家庭承压，末期更进入崩溃；任内主态取持续困顿而非以开局或末期单点替代全程；经济财政：运河具有长期效用，但东都、运河长城、巡游和战争财政造成超大役使死亡、破产、饥荒与币制崩坏，末期多轴系统崩溃；社会安全：承接四档后，大工程、严刑征发和多次战争使广域人身财产安全恶化，群雄并起时终局一档 动态裁决上，本人窗口按跨档难度计量的建设恢复贡献0.0分、稳定兑现与压力吸收贡献0.7分，正向保留0.7分。 YG-GOGURYEO:MAJOR_DRIVER｜在第一轮灾难后连续三征与全国征发，决策本身放大军损和国家汲取；大业末出现大范围弃居、乡里停摆、盗乱、相食和大量死亡；开仓赈济存在，但运输距离、官吏贪残与组织失灵使救济可达性很差 可归责恶化扣27.0分，归责档为DA4，扣18.0分。 交班锚点为民生一档、经济财政一档、社会安全一档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-6、-44.3分。",
@@ -33006,7 +35073,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 0.7
+      "uncapped_positive_score": 0.7,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     },
     {
       "adjudication_reason": "王莽接手锚点为民生三档、经济财政三档、社会安全三档；三轴全任曲线为民生三档→民生二档→民生一档；经济财政三档→经济财政二档→经济财政一档；社会安全三档→社会安全二档→社会安全一档。 民生：从可运行高存量快速下行，末期达到崩溃；十七年任内并非全程崩溃，平均任内主态取困顿并用交班局面明确终局；经济财政：王田五均、反复币制和重役造成交易、人口与社会灾难，河决拒治和大型工程进一步放大冲击，末期财政民生全面崩溃；社会安全：频繁改制、严刑株连、灾荒流亡和全国起事使主态广泛不安全、终局崩解 动态裁决上，没有形成可保留的净恢复或稳定承压正分。 生产受到禁令和徭役压制，俸禄失常引发私征腐败，流民、战争、饥疫和救济克扣共同造成系统性人口社会崩解；王田五均、反复币制和重役造成交易、人口与社会灾难，河决拒治和大型工程进一步放大冲击，末期财政民生全面崩溃 可归责恶化扣27.0分，归责档为DA4，扣18.0分。 交班锚点为民生一档、经济财政一档、社会安全一档，终局约束为C4T-1（正向上限7.9分）。 综合接手盘面、任内实际变化、本人行为后果与交班下沿，C4裁为C4N-6、-45.0分。",
@@ -33146,7 +35222,16 @@
         }
       },
       "difficulty_weighted_recovery_credit": 0.0,
-      "uncapped_positive_score": 0.0
+      "uncapped_positive_score": 0.0,
+      "m3_governance_scale_adjudication": {
+        "schema_version": "m3-governance-scale-adjudication-v1",
+        "classification": "UNRESOLVED",
+        "gate_status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+        "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+        "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+        "supporting_formal_fields": [],
+        "name_or_polity_inference_used": false
+      }
     }
   ],
   "status": "PARTIAL_BATCH_REVIEW_IN_PROGRESS",
@@ -33385,5 +35470,22 @@
       "赵扩": "开禧主动北伐残余DA2；后续必要对金防御剔除；C2末端MATERIAL归责。",
       "萧绎": "西魏首都防御失败剔除；死囚数千被命棓杀+554主动江北进攻合计DA2。"
     }
+  },
+  "m3_governance_scale_adjudication_contract": {
+    "schema_version": "m3-governance-scale-adjudication-v1",
+    "record_count": 195,
+    "classification_distribution": {
+      "FULL_OR_MAJOR_ACTUAL_SCALE": 19,
+      "LIMITED_ACTUAL_SCALE": 9,
+      "MATERIAL_SCOPE_LIMIT_ONLY": 6,
+      "UNRESOLVED": 161
+    },
+    "limited_gate_dimensions": [
+      "ACTUAL_GOVERNANCE_SCALE",
+      "FRAGMENTED_ACTUAL_CONTROL"
+    ],
+    "material_scope_limit_does_not_trigger_limited_gate": true,
+    "keyword_absence_does_not_imply_full_scale": true,
+    "name_or_polity_inference_forbidden": true
   }
 }

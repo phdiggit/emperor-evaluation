@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 from collections import Counter
 from pathlib import Path
 from typing import Any, Iterable
@@ -83,6 +84,98 @@ def _parent_lines(parent: dict[str, Any]) -> Iterable[str]:
         yield "  - 来源：" + "；".join(refs)
 
 
+def _m3_source_lines(record: dict[str, Any]) -> list[str]:
+    lines: list[str] = []
+    for item in record.get("source_evidence") or []:
+        title = str(item.get("source_title") or "").strip()
+        quote = " ".join(str(item.get("quote") or "").split())
+        if title and quote:
+            lines.append(f"  - {title}：{quote}")
+    return lines
+
+
+def _m3_reader_text(value: Any) -> str:
+    text = str(value or "")
+    replacements = (
+        (
+            "现有正式结果材料没有闭合到独立的本人过程父链，行为归责仅使用C4已审定部分，不能外推为完整政策能力画像。",
+            "现有材料不足以还原独立、完整的个人决策过程，不能外推为完整政策能力画像。",
+        ),
+        ("按固定审计闭合；未找到不转零", "按现有证据范围判断；没有找到材料不等于负证"),
+        ("专项补审", "专项核对"),
+        ("最新C1已明确", "C1材料表明"),
+        ("最新C2已明确", "C2材料表明"),
+        ("按最新边界", "依本轴边界"),
+        ("旧DA3撤销为DA0", "因此裁为DA0"),
+        ("旧DA", "此前DA"),
+        ("NOT_APPLICABLE", "不在该项计入"),
+        ("成本登记", "成本材料"),
+        ("父链", "行为链"),
+        ("审计", "核对"),
+        ("机器", ""),
+        ("全国同步脱困", "全国同时脱困"),
+        ("去重规则", "归属边界"),
+        ("内部去重", "项目归属"),
+        ("去重", "避免重复计入"),
+        ("消费", "计入"),
+        ("机械", "直接"),
+        ("合同", "规则"),
+        ("FULL_OR_MAJOR_REGIONAL", "完整或主要区域"),
+        ("LIMITED_REGIONAL", "有限区域"),
+        ("UNRESOLVED_NOT_HIGH_GRADE_GATE", "仅适用于非高档"),
+        ("MATERIAL", "部分归责"),
+        ("FULL", "主要归责"),
+        ("NONE", "不另归责"),
+    )
+    for old, new in replacements:
+        text = text.replace(old, new)
+    text = re.sub(r"M\d+(?:-[A-Z0-9]+)+", "材料", text)
+    text = re.sub(r"\b(?:raw|formal|terminal_quality|source_ref|material_id)\b", "", text, flags=re.I)
+    text = re.sub(r"\b[A-Z][A-Z _-]{5,}\b", "", text)
+    text = re.sub(r"\s+", " ", text).strip(" ；")
+    return text
+
+
+def _m3_vector(values: list[int]) -> str:
+    return "/".join(f"{value}档" for value in values)
+
+
+def _m3_starting_context(record: dict[str, Any]) -> str:
+    trajectory = record["ability_evidence"]["trajectory"]
+    return (
+        f"接手时民生、经济财政、社会安全分别为{_m3_vector(trajectory['start_vector'])}；"
+        f"任内主态为{_m3_vector(trajectory['main_vector'])}，交班为{_m3_vector(trajectory['end_vector'])}。"
+    )
+
+
+def _m3_construction(record: dict[str, Any]) -> str:
+    trajectory = record["ability_evidence"]["trajectory"]
+    return (
+        f"三轴最高实现为{_m3_vector(trajectory['peak_vector'])}，"
+        f"建设恢复{float(trajectory['recovery_score_27']):.1f}/27，"
+        f"稳定兑现与压力吸收{float(trajectory['stability_score_18']):.1f}/18；"
+        f"交班较主态回落{_m3_vector(trajectory['rollback_vector'])}。"
+    )
+
+
+def _m3_handoff(record: dict[str, Any]) -> str:
+    trajectory = record["ability_evidence"]["trajectory"]
+    return f"交班时民生、经济财政、社会安全分别为{_m3_vector(trajectory['end_vector'])}。"
+
+
+def _m3_limitations(record: dict[str, Any]) -> str:
+    values = []
+    for value in _limitation_values(record):
+        text = _m3_reader_text(value)
+        if (
+            text
+            and text not in {"None", "主要归责", "部分归责", "不另归责"}
+            and not re.fullmatch(r"(?:[A-Z][A-Z _-]+；?)+", text)
+        ):
+            values.append(text)
+    return "；".join(dict.fromkeys(values)) or "无"
+
+
 def _overview_table(axis: str, records: list[dict[str, Any]], labels: dict[str, str]) -> list[str]:
     if axis == "C1":
         lines = [
@@ -158,17 +251,27 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
     if axis not in AXIS_FILES:
         raise ValueError(f"unsupported profile axis: {axis}")
     records = settlement["records"]
-    labels, shared = ({}, []) if axis == "M4" else _shared_limitations(records)
+    labels, shared = ({}, []) if axis in {"M3", "M4"} else _shared_limitations(records)
+    profile_note = (
+        "> 独立人物画像轴；不进入五项综合总榜，不生成画像总分或轴内排名。本文逐人展示正式裁决。"
+        if axis == "M3"
+        else "> 独立人物画像轴；不进入五项综合总榜，不生成画像总分或轴内排名。JSON是唯一机器入口；本文是同值阅读视图。"
+    )
+    reading_source_note = (
+        "- 逐人条目分别说明局面、行为、后果与裁档理由；来源按书名与原文逐行列出。"
+        if axis == "M3"
+        else "- 逐人条目只展开主模式、裁档理由、限制和代表父链；来源紧随父链，避免重复整段口径。"
+    )
     lines = [
         f"# {axis} {settlement['axis_name']}正式结算",
         "",
-        "> 独立人物画像轴；不进入五项综合总榜，不生成画像总分或轴内排名。JSON是唯一机器入口；本文是同值阅读视图。",
+        profile_note,
         "",
         "## 阅读说明",
         "",
         "- 全池表用于横向扫读；顺序仅是稳定展示顺序，不是画像排名。",
         "- `G0—G5`与档内位置共同映射雷达值；`E1—E3`表示证据完成度，不能替代能力裁决。",
-        "- 逐人条目只展开主模式、裁档理由、限制和代表父链；来源紧随父链，避免重复整段口径。",
+        reading_source_note,
         "",
     ]
     if shared:
@@ -210,18 +313,19 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
     for display, row in enumerate(records, 1):
         if axis == "M3":
             lines.extend([
-                f"### {display}. {row['ruler_name']}（{row['ruler_id']}）",
+                f"### {display}. {row['ruler_name']}",
                 "",
-                f"- **结算**：`{_grade(row)}` / 雷达值 `{row['radar_value']}` / `{row['axis_evidence_level']}` / `{row['score_status']}`。",
-                f"- **接手局面**：{row['starting_context']}",
-                f"- **建设与维持**：{row['construction_and_maintenance']}",
-                f"- **成本与后果**：{row['costs_and_consequences']}",
-                f"- **关键行为链**：{row['behavior_chain']}",
-                f"- **交班局面**：{row['handoff_state']}",
-                f"- **落档理由**：{row['grade_basis']}",
-                f"- **档内位置**：{row['position_basis']}",
-                f"- **限制**：{_limitations(row, labels)}",
-                f"- **来源**：{'；'.join(row.get('source_refs') or [])}",
+                f"- **结算**：`{_grade(row)}` / 雷达值 `{row['radar_value']}` / 证据 `{row['axis_evidence_level']}`。",
+                f"- **接手局面**：{_m3_starting_context(row)}",
+                f"- **建设与维持**：{_m3_construction(row)}",
+                f"- **成本与后果**：{_m3_reader_text(row['costs_and_consequences'])}",
+                f"- **关键行为链**：{_m3_reader_text(row['behavior_chain'])}",
+                f"- **交班局面**：{_m3_handoff(row)}",
+                f"- **落档理由**：{_m3_reader_text(row['grade_basis'])}",
+                f"- **档内位置**：{_m3_reader_text(row['position_basis'])}",
+                f"- **限制**：{_m3_limitations(row)}",
+                "- **来源**：",
+                *_m3_source_lines(row),
                 "",
             ])
             continue
