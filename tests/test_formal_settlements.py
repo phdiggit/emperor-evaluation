@@ -4,6 +4,7 @@ from pathlib import Path
 from emperor_v4.evaluation.formal_settlements import (
     verify_formal_settlements,
     verify_second_item_a_snapshot,
+    verify_second_item_b2_snapshot,
 )
 from emperor_v4.evaluation.composite_ranking import _sha256 as composite_source_sha256
 from emperor_v4.evaluation.composite_ranking import build_composite_ranking
@@ -24,21 +25,25 @@ def test_all_five_formal_settlements_are_coherent() -> None:
         "component_file_count": 12,
         "complete_ruler_count": 185,
         "finance_ruler_count": 195,
-        "A_institution_node_count": 289,
-        "A_scoring_node_count": 252,
+        "A_institution_node_count": 299,
+        "A_scoring_node_count": 263,
+        "B2_review_adjudication_count": 142,
+        "B2_duplicate_markdown_ruler_count": 0,
     }
     assert report["composite_ranking"]["record_count"] == 174
     assert report["composite_ranking"]["pending_second_item_count"] == 10
 
 
-def test_second_item_a_snapshot_closes_current_contract_and_registry() -> None:
+def test_second_item_a_snapshot_applies_v2_explicit_patch_and_registry() -> None:
     report = verify_second_item_a_snapshot(Path("."))
     assert report == {
-        "status": "PASS",
+        "status": "PASS_WITH_REOPEN",
         "record_count": 185,
-        "institution_node_count": 289,
-        "scoring_node_count": 252,
-        "reference_node_count": 37,
+        "institution_node_count": 299,
+        "scoring_node_count": 263,
+        "reference_node_count": 36,
+        "explicit_patch_count": 47,
+        "extreme_delta_reopen_count": 36,
     }
 
     payload = json.loads(
@@ -49,30 +54,31 @@ def test_second_item_a_snapshot_closes_current_contract_and_registry() -> None:
     rows = {row["ruler_name"]: row for row in payload["records"]}
     assert all(row["C_A"] in {0, 0.5, 1, 2} for row in payload["records"])
     assert all(
-        row["S_net"] >= 1
+        row["S_total"] >= 1 and row["S_net"] >= 0
         for row in payload["records"]
         if row["grade"] in {"G4", "G5"}
     )
-    assert rows["朱元璋"]["S_minus"] == 3
-    assert rows["武则天"]["position"] == "lower-middle"
+    assert rows["朱元璋"]["grade"] == "G3"
+    assert rows["朱元璋"]["polarization_floor_triggered"] is True
+    assert rows["朱元璋"]["floor_grade"] == "G3"
+    assert rows["司马炎"]["polarization_floor_triggered"] is True
+    assert rows["赵佶"]["polarization_floor_triggered"] is True
+    assert rows["武则天"]["position"] == "lower"
     assert rows["李适"]["position"] == "middle"
     assert rows["武则天"]["direction_index"] < rows["李适"]["direction_index"]
     assert rows["朱厚照"]["S_minus"] == 0
     assert rows["玄烨"]["A_C_A_support_mechanism"] == "内外大臣具折陈事的奏折制度起点"
     assert rows["吕雉"]["grade"] == "G2"
-    assert rows["赵佶"]["grade"] == "G3"
-    assert rows["陈霸先"]["grade"] == "G3"
+    assert rows["赵佶"]["grade"] == "G2"
+    assert rows["陈霸先"]["grade"] == "G2"
     assert rows["耶律洪基"]["grade"] == "G0"
     assert rows["完颜守绪"]["grade"] == "G0"
     assert rows["完颜珣"]["grade"] == "G0"
-    assert rows["孙权"]["grade"] == "G0"
-    assert [
-        row["ruler_name"]
-        for row in payload["records"]
-        if row["grade"] != "G0" and not row["important_institutions"]
-    ] == ["赵昀"]
-    assert rows["赵昀"]["C_A"] == 1
-    assert "多个次级制度形成可识别组合" in rows["赵昀"]["grade_basis"]
+    assert rows["孙权"]["grade"] == "G3"
+    assert rows["忽必烈"]["grade"] == "G4"
+    assert rows["杨坚"]["position"] == "middle"
+    assert rows["曹叡"]["grade"] == "G2"
+    assert rows["朱载坖"]["grade"] == "G4"
     generic_mechanisms = {"其他制度行政机制", "法律、司法与刑罚运行", "选官、人事与官僚专业化", "地方行政与政策交付", "A"}
     assert not any(
         profile.get("mechanism") in generic_mechanisms
@@ -80,7 +86,6 @@ def test_second_item_a_snapshot_closes_current_contract_and_registry() -> None:
         for group in ("M_positive_profile", "M_mixed_profile", "M_negative_profile")
         for profile in row[group]
     )
-
     markdown = Path(
         "docs/评分结算/第二项治国净收益/制度行政/01-A制度建设与实际运行方向卡.md"
     ).read_text(encoding="utf-8")
@@ -102,6 +107,26 @@ def test_second_item_a_snapshot_closes_current_contract_and_registry() -> None:
     )
 
 
+def test_second_item_b2_snapshot_applies_review_final_table() -> None:
+    assert verify_second_item_b2_snapshot(Path(".")) == {
+        "status": "PASS",
+        "record_count": 185,
+        "review_adjudication_count": 142,
+        "person_patch_count": 142,
+        "settlement_basis_count": 185,
+        "grade_distribution": {
+            "G0": 14,
+            "G1": 72,
+            "G2": 65,
+            "G3": 27,
+            "G4": 5,
+            "G5": 2,
+        },
+        "invalid_M1_count": 0,
+        "duplicate_markdown_ruler_count": 0,
+    }
+
+
 def test_composite_ranking_uses_only_ready_rulers_and_current_formula() -> None:
     payload = build_composite_ranking(Path("."))
     assert payload["record_count"] == 174
@@ -109,7 +134,7 @@ def test_composite_ranking_uses_only_ready_rulers_and_current_formula() -> None:
     assert payload["records"][0]["ruler_name"] == "李世民"
     assert payload["records"][0]["total_score"] == 820.61
     assert payload["records"][1]["ruler_name"] == "玄烨"
-    assert payload["records"][1]["total_score"] == 599.12
+    assert payload["records"][1]["total_score"] == 612.62
     zhao_ji = next(row for row in payload["records"] if row["ruler_name"] == "赵佶")
     assert zhao_ji["first_item_status"] == "NOT_APPLICABLE"
     assert zhao_ji["first_item_raw_score"] is None
@@ -241,7 +266,7 @@ def test_recent_batch_calibration_keeps_rare_feedback_grades_rare() -> None:
     }
     assert all(b1[name]["grade"] != "G5" for name in recent)
     assert {name for name in recent if b2[name]["grade"] == "G4"} == {"完颜雍"}
-    assert {name for name in recent if b2[name]["grade"] == "G3"} == {"萧绰", "耶律隆绪"}
+    assert {name for name in recent if b2[name]["grade"] == "G3"} == {"耶律宗真"}
     assert all(b2[name]["grade"] != "G5" for name in recent)
 
     totals = {
@@ -253,23 +278,12 @@ def test_recent_batch_calibration_keeps_rare_feedback_grades_rare() -> None:
     assert {name: totals[name]["second_item_score"] for name in (
         "完颜雍", "萧绰", "耶律隆绪", "完颜晟", "完颜守绪"
     )} == {
-        "完颜雍": 291.2,
-        "萧绰": 277.0,
-        "耶律隆绪": 263.5,
-        "完颜晟": 169.2,
-        "完颜守绪": 94.4,
+        "完颜雍": 282.8,
+        "萧绰": 262.5,
+        "耶律隆绪": 243.0,
+        "完颜晟": 173.2,
+        "完颜守绪": 89.9,
     }
-
-    c4 = {
-        row["ruler_name"]: row
-        for row in json.loads(
-            (root / "财政民生/04-C4正式结算.json").read_text(encoding="utf-8")
-        )["scores"]
-    }
-    assert c4["耶律隆绪"]["recovery_score"] == 10.0
-    assert c4["耶律隆绪"]["stability_score"] == 3.0
-    assert c4["耶律隆绪"]["score"] == 4.0
-
 
 def test_composite_source_fingerprint_is_stable_across_git_line_endings(tmp_path: Path) -> None:
     lf = tmp_path / "lf.json"

@@ -19,6 +19,7 @@ from emperor_v4.evaluation.composite_ranking import (
 from emperor_v4.evaluation.formal_settlements import (
     verify_formal_settlements,
     verify_second_item_a_snapshot,
+    verify_second_item_b2_snapshot,
 )
 from emperor_v4.evaluation.profile_c2_c5_cross_axis_audit import (
     inspect_cross_axis_drift as inspect_profile_c2_c5_cross_axis_drift,
@@ -48,6 +49,8 @@ def _parser() -> argparse.ArgumentParser:
     commands.add_parser("formal-settlements-verify")
     second_item_a = commands.add_parser("second-item-a-verify")
     second_item_a.add_argument("--workspace-root", type=Path, default=Path("."))
+    second_item_b2 = commands.add_parser("second-item-b2-verify")
+    second_item_b2.add_argument("--workspace-root", type=Path, default=Path("."))
     profile_c3 = commands.add_parser("profile-c3-settlement")
     profile_c3.add_argument("--write", action="store_true")
     commands.add_parser("profile-c3-verify")
@@ -105,6 +108,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
     if args.command == "second-item-a-verify":
         report = verify_second_item_a_snapshot(args.workspace_root.resolve())
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "second-item-b2-verify":
+        report = verify_second_item_b2_snapshot(args.workspace_root.resolve())
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0
     if args.command == "profile-c3-settlement":
