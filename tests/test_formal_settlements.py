@@ -122,9 +122,9 @@ def test_second_item_a_snapshot_applies_v2_explicit_patch_and_registry() -> None
     )
 
 
-def test_second_item_b1_snapshot_applies_v20_v50_union_and_v53_contract_recalculation() -> None:
+def test_second_item_b1_snapshot_applies_v20_v50_union_and_v54_contract_recalculation() -> None:
     assert verify_second_item_b1_snapshot(Path(".")) == {
-        "status": "PASS_V53_V20_V50_UNION_CONTRACT_READJUDICATED",
+        "status": "PASS_V54_LOW_GATE_NEGATIVE_PURITY_CONTRACT_READJUDICATED",
         "record_count": 185,
         "reviewed_count": 185,
         "direct_material_count": 447,
@@ -153,7 +153,7 @@ def test_second_item_b1_snapshot_applies_v20_v50_union_and_v53_contract_recalcul
         "G0", "lower", 2.0
     )
     assert payload["contract_recalculation_status"] == "FORMAL_COMPLETE"
-    assert all(row["profile_semantic_review_status"] == "B1_CONTRACT_V53_V20_V50_UNION_REVIEWED" for row in rows.values())
+    assert all(row["profile_semantic_review_status"] == "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED" for row in rows.values())
     assert payload["review_material_absorption"]["v20_reviewed_count"] == 174
     assert payload["review_material_absorption"]["v50_reviewed_count"] == 164
     assert not any("position_depth_bonus" in json.dumps(row, ensure_ascii=False) for row in rows.values())
@@ -179,6 +179,7 @@ def test_second_item_b1_snapshot_applies_v20_v50_union_and_v53_contract_recalcul
     assert (rows["马殷"]["grade"], rows["马殷"]["position"]) == ("G2", "lower")
     assert rows["刘询"]["g5_extra_route"] == "PRESSURE_RECOVERY"
     assert rows["完颜雍"]["g5_extra_route"] == "CROSS_STAGE_REPLACEMENT"
+    assert (rows["完颜雍"]["position"], rows["完颜雍"]["direction_index"]) == ("upper", 98.5)
     assert "I2-JIN-MAT-5A3139D53395A1D3" in rows["完颜雍"]["direct_material_ids"]
     assert "I2-JIN-MAT-5A3139D53395A1D3" not in rows["完颜雍"]["verification_material_ids"]
     assert any(point["role"] == "负向依据（M3，cross）" for point in rows["朱棣"]["structured_grade_basis"])
@@ -186,9 +187,24 @@ def test_second_item_b1_snapshot_applies_v20_v50_union_and_v53_contract_recalcul
     assert rows["曹操"]["M_mixed_profile"] == []
     assert {profile["M"] for profile in rows["曹操"]["M_positive_profile"]} == {"M3"}
     assert rows["曹操"]["M_negative_profile"][0]["M"] == "M3"
+    assert (rows["旻宁"]["grade"], rows["旻宁"]["position"], rows["旻宁"]["direction_index"]) == (
+        "G4", "middle", 77.5
+    )
+    assert rows["旻宁"]["M_negative_profile"][0]["b1_role"] == "context"
+    for name in ("刘奭", "赵佶", "刘聪", "孙皓"):
+        assert any(
+            profile.get("M") == "M3"
+            and profile.get("severity") == "N3-cross"
+            and profile.get("severity_scope") in {"major-stage", "broad"}
+            for profile in rows[name]["M_negative_profile"]
+        )
+    assert rows["耶律延禧"]["M_negative_profile"][1]["severity"] == "N3-terminal"
+    assert rows["耶律延禧"]["M_negative_profile"][1]["severity_scope"] == "broad"
+    assert rows["李煜"]["M_negative_profile"][0]["b1_role"] == "context"
+    assert rows["完颜亮"]["M_negative_profile"][1]["b1_role"] == "context"
 
 
-def test_second_item_b1_v52_validator_blocks_hidden_weights_severity_cross_and_support_core() -> None:
+def test_second_item_b1_v54_validator_blocks_hidden_weights_severity_cross_low_gates_and_support_core() -> None:
     payload = json.loads(
         Path("docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json").read_text(
             encoding="utf-8"
@@ -202,8 +218,8 @@ def test_second_item_b1_v52_validator_blocks_hidden_weights_severity_cross_and_s
         validate_gate_references(broken)
 
     broken = deepcopy(payload)
-    minning = next(row for row in broken["records"] if row["ruler_name"] == "旻宁")
-    minning["M_negative_profile"][0].pop("severity_scope")
+    yelu_deguang = next(row for row in broken["records"] if row["ruler_name"] == "耶律德光")
+    yelu_deguang["M_negative_profile"][0].pop("severity_scope")
     with pytest.raises(ValueError, match="Severity scope"):
         validate_gate_references(broken)
 
@@ -212,6 +228,23 @@ def test_second_item_b1_v52_validator_blocks_hidden_weights_severity_cross_and_s
     core = next(profile for profile in chen_qian["M_positive_profile"] if profile["profile_id"] == chen_qian["g4_core_profile_id"])
     core["b1_role"] = "support"
     with pytest.raises(ValueError, match="不是B1-core正M3"):
+        validate_gate_references(broken)
+
+    broken = deepcopy(payload)
+    liu_cong = next(row for row in broken["records"] if row["ruler_name"] == "刘聪")
+    profile = liu_cong["M_negative_profile"][0]
+    profile.update({"M": "M0", "direction": "context", "direction_factor": 0.0, "signed_weight": 0.0, "b1_role": "context"})
+    for field in ("severity", "severity_scope", "severity_basis"):
+        profile.pop(field, None)
+    with pytest.raises(ValueError, match="B1 G1缺少"):
+        validate_gate_references(broken)
+
+    broken = deepcopy(payload)
+    yelu_yanxi = next(row for row in broken["records"] if row["ruler_name"] == "耶律延禧")
+    terminal = next(profile for profile in yelu_yanxi["M_negative_profile"] if profile.get("severity") == "N3-terminal")
+    terminal["severity"] = "N3-cross"
+    terminal["severity_scope"] = "major-stage"
+    with pytest.raises(ValueError, match="B1 G0缺少"):
         validate_gate_references(broken)
 
     broken = deepcopy(payload)
@@ -414,7 +447,7 @@ def test_recent_batch_calibration_keeps_rare_feedback_grades_rare() -> None:
     assert {name: totals[name]["second_item_score"] for name in (
         "完颜雍", "萧绰", "耶律隆绪", "完颜晟", "完颜守绪"
     )} == {
-        "完颜雍": 323.1,
+        "完颜雍": 325.5,
         "萧绰": 238.5,
         "耶律隆绪": 250.4,
         "完颜晟": 183.8,

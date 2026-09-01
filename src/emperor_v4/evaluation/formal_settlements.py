@@ -373,7 +373,7 @@ def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
         ):
             raise ValueError(f"第二项B1净余量、position或旧手工逻辑不一致：{name}")
         semantic_status = row.get("profile_semantic_review_status")
-        if semantic_status != "B1_CONTRACT_V53_V20_V50_UNION_REVIEWED":
+        if semantic_status != "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED":
             raise ValueError(f"第二项B1缺少M-profile逐人语义复核状态：{name}")
         review_material_basis = row.get("review_material_basis")
         if not isinstance(review_material_basis, list) or any(
@@ -549,7 +549,7 @@ def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
     ):
         raise ValueError("第二项B1材料依据未统一为书名接direct原文")
     return {
-        "status": "PASS_V53_V20_V50_UNION_CONTRACT_READJUDICATED",
+        "status": "PASS_V54_LOW_GATE_NEGATIVE_PURITY_CONTRACT_READJUDICATED",
         "record_count": len(records),
         "reviewed_count": reviewed_count,
         "direct_material_count": direct_count,

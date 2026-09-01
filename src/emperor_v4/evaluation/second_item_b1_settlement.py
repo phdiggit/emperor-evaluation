@@ -214,7 +214,7 @@ def refresh_b1_payload(payload: dict[str, Any]) -> dict[str, Any]:
             f"{THRESHOLDS[row['grade']]:g}后，净余量={residual:g}，按合同机械映射为{position}。"
         )
         row["structured_grade_basis"] = _structured_basis(row)
-        row["profile_semantic_review_status"] = "B1_CONTRACT_V53_V20_V50_UNION_REVIEWED"
+        row["profile_semantic_review_status"] = "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED"
         row.pop("v50_review_decision", None)
         row.pop("v50_review_status", None)
         row.pop("v50_review_basis", None)
@@ -222,7 +222,7 @@ def refresh_b1_payload(payload: dict[str, Any]) -> dict[str, Any]:
         row.pop("structured_basis_source_line", None)
     _competition_ranks(records, "direction_index")
     payload["grade_distribution"] = dict(sorted(Counter(row["grade"] for row in records).items()))
-    payload["promotion_task_code"] = "B1-V53-V20-V50-MATERIAL-UNION-CONTRACT-READJUDICATION"
+    payload["promotion_task_code"] = "B1-V54-LOW-GATE-NEGATIVE-PURITY-CONTRACT-READJUDICATION"
     payload["contract_recalculation_status"] = "FORMAL_COMPLETE"
     payload["contract_recalculation_count"] = len(records)
     payload["profile_semantic_review_count"] = len(records)
@@ -253,6 +253,36 @@ def validate_gate_references(payload: dict[str, Any]) -> None:
         active = {_group_key(profile): profile for profile in active_groups(row)}
         by_id = {str(profile["profile_id"]): profile for profile in active.values()}
         grade = str(row["grade"])
+        active_negative_m3 = [
+            profile
+            for profile in active.values()
+            if profile.get("M") == "M3" and float(profile.get("signed_weight") or 0.0) < 0
+        ]
+        if grade == "G0" and not any(
+            profile.get("severity") == "N3-terminal"
+            and profile.get("severity_scope") == "broad"
+            and profile.get("b1_role") == "core"
+            for profile in active_negative_m3
+        ):
+            raise ValueError(f"B1 G0缺少broad N3-terminal核心失效链：{row['ruler_name']}")
+        if grade == "G1":
+            has_terminal_residual = any(
+                profile.get("severity") == "N3-terminal"
+                for profile in active_negative_m3
+            )
+            has_dominant_cross = any(
+                profile.get("severity") == "N3-cross"
+                and profile.get("severity_scope") in {"major-stage", "broad"}
+                for profile in active_negative_m3
+            )
+            dominant_domains = [
+                profile
+                for profile in active_negative_m3
+                if profile.get("severity") == "N3-domain"
+                and profile.get("severity_scope") in {"major-stage", "broad"}
+            ]
+            if not (has_terminal_residual or has_dominant_cross or len(dominant_domains) >= 2):
+                raise ValueError(f"B1 G1缺少terminal残存、主要阶段cross或两条独立domain负链：{row['ruler_name']}")
         if grade == "G3":
             route = row.get("g3_gate_route")
             refs = row.get("g3_gate_profile_ids") or []
