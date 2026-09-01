@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 
@@ -15,10 +14,6 @@ def _load(path: Path) -> dict:
     raw = path.read_bytes()
     assert not raw.startswith(b"\xef\xbb\xbf")
     return json.loads(raw.decode("utf-8"))
-
-
-def _sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _included_ids() -> set[str]:
@@ -36,12 +31,13 @@ def test_profile_manifest_registers_all_eight_formal_axes() -> None:
     assert manifest["profile_ranking_enabled"] is False
     assert manifest["composite_ranking_write"] is False
     assert [axis["axis_code"] for axis in manifest["axes"]] == ["M1", "M2", "M3", "M4", "C1", "C2", "C3", "C5"]
-    assert manifest["contract_sha256"] == _sha256(CONTRACT)
-    assert manifest["canonical_pool_sha256"] == _sha256(POOL)
+    assert not any("sha256" in key.lower() or key.lower().endswith("_hash") for key in manifest)
     assert next(axis for axis in manifest["axes"] if axis["axis_code"] == "M3")["status"] == "FORMAL_CURRENT"
     for axis in manifest["axes"]:
         assert axis["record_count"] == 184
-        assert axis["json_sha256"] == _sha256(PROFILE_ROOT / axis["json"])
+        assert (PROFILE_ROOT / axis["json"]).is_file()
+        assert (PROFILE_ROOT / axis["markdown"]).is_file()
+        assert not any("sha256" in key.lower() or key.lower().endswith("_hash") for key in axis)
     m1_axis = next(axis for axis in manifest["axes"] if axis["axis_code"] == "M1")
     assert "M1/08-M1武将锚别名与缺锚强度复核.json" in m1_axis["audit_jsons"]
     assert "M1/09-M1武将成果难度组合倒挂复核.json" in m1_axis["audit_jsons"]

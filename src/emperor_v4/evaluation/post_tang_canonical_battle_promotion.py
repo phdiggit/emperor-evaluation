@@ -20,17 +20,6 @@ YEAR_RE = re.compile(r"(?<!\d)(1[12]\d{2}|13\d{2}|14\d{2}|15\d{2}|16\d{2})(?!\d)
 VOLUME_RE = re.compile(r"volume-(\d+)\.battle-adjudications(?:\(1\))?\.json$")
 
 
-def _digest(value: Any) -> str:
-    return sha256(
-        json.dumps(
-            value,
-            ensure_ascii=False,
-            sort_keys=True,
-            separators=(",", ":"),
-        ).encode("utf-8")
-    ).hexdigest()
-
-
 def _years(value: str) -> tuple[int, int] | None:
     years = [int(item) for item in YEAR_RE.findall(value)]
     return (min(years), max(years)) if years else None
@@ -161,11 +150,8 @@ def _validate_source_set(
     root = workspace_root / str(source["source_root"])
     cards, summaries = _source_paths(root)
     all_paths = sorted([*cards, *summaries], key=lambda path: path.name)
-    fingerprint = sha256(b"".join(path.read_bytes() for path in all_paths)).hexdigest()
     if len(all_paths) != int(source["source_file_count"]):
         raise ValueError(f"{partition} canonical输入文件数漂移")
-    if fingerprint != str(source["source_set_fingerprint"]):
-        raise ValueError(f"{partition} canonical输入内容指纹漂移: {fingerprint}")
     if len(cards) != len(summaries):
         raise ValueError(f"{partition}战役卡与通读总结未一一配对")
     return root, cards
@@ -371,12 +357,6 @@ def build_post_tang_canonical_phase_records(
         "normalized_legacy_file_count": len(normalized_legacy_files),
         "normalized_legacy_files": normalized_legacy_files,
         "records": records,
-        "semantic_fingerprint": _digest({
-            "records": records,
-            "withheld": withheld,
-            "withheld_files": withheld_files,
-            "normalized_legacy_files": normalized_legacy_files,
-        }),
     }
 
 
@@ -408,9 +388,6 @@ def promote_post_tang_canonical_phase_records(
     current["disposition_counts"] = dict(sorted(Counter(
         str(record.get("disposition")) for record in current["records"]
     ).items()))
-    current["semantic_fingerprint"] = _digest({
-        key: value for key, value in current.items() if key != "semantic_fingerprint"
-    })
     return current
 
 

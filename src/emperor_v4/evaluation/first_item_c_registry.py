@@ -1435,10 +1435,6 @@ def build_first_item_c_registry(
             "window_config": "config/first-item/first-item-c-acquisition-windows.json",
             "territorial_control": "config/first-item/first-item-c-territorial-control-adjudications.json",
         },
-        "source_registry_fingerprints": {
-            "battle": battle_registry.get("semantic_fingerprint"),
-            "talent": talent_registry.get("registry_fingerprint"),
-        },
         "control_validation": control_summary,
         "window_metrics": sorted(
             window_metrics,

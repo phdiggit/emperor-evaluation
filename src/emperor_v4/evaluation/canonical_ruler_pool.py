@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from collections import Counter, defaultdict
-import hashlib
 import json
 from pathlib import Path
 from statistics import mean, median
@@ -75,13 +74,6 @@ CANONICAL_LEGACY_ID_REFS = {
 
 def _read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
-
-
-def _sha256(path: Path) -> str:
-    # Git treats CRLF and LF as the same text when attributes normalize EOL.
-    # Hash the canonical LF representation so a regular Windows checkout and
-    # a Codex worktree rebuild the same formal pool fingerprint.
-    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
 
 
 def _load_admission_adjudications(workspace_root: Path) -> dict[str, Any]:
@@ -465,10 +457,6 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
             ],
         },
         "exclusion_reason_counts": expected_reason_counts,
-        "source_sha256": {
-            **{item: _sha256(path) for item, path in paths.items()},
-            "admission_adjudications": _sha256(workspace_root / ADMISSION_ADJUDICATIONS),
-        },
         "item_name_aliases": ITEM_NAME_ALIASES,
         "first_item_outside_candidate_pool": first_item_outside_candidate_pool,
         "records": records,
@@ -528,20 +516,11 @@ def build_second_item_eligible_ranking(
         ),
         key=lambda row: (row["source_snapshot_rank"], row["ruler_id"]),
     )
-    records_sha256 = hashlib.sha256(
-        json.dumps(
-            selected,
-            ensure_ascii=False,
-            sort_keys=True,
-            separators=(",", ":"),
-        ).encode("utf-8")
-    ).hexdigest()
     return {
         "schema_id": "second-item-canonical-ready-ranking-v1",
         "status": "FORMAL_CURRENT",
         "ranking_population": "COMPOSITE_READY",
         "source_score_snapshot": SETTLEMENT_PATHS["second_item"],
-        "source_score_snapshot_sha256": _sha256(source_path),
         "record_count": len(selected),
         "excluded_lineage_record_count": len(excluded_lineage),
         "mean_score": round(mean(sorted_scores), 1),
@@ -549,7 +528,6 @@ def build_second_item_eligible_ranking(
         "min_score": min(sorted_scores),
         "max_score": max(sorted_scores),
         "rank_tie_policy": "competition_rank_then_ruler_id",
-        "records_sha256": records_sha256,
         "excluded_lineage_records": excluded_lineage,
         "records": selected,
     }

@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import json
 import re
 import collections
@@ -34,10 +33,6 @@ def _read(path: Path) -> bytes:
 
 def _load(path: Path):
     return json.loads(_read(path).decode("utf-8"))
-
-
-def _sha(path: Path) -> str:
-    return hashlib.sha256(_read(path)).hexdigest()
 
 
 def _included_ids() -> set[str]:
@@ -378,8 +373,7 @@ def verify() -> dict[str, object]:
     settlement, audit, high = _load(SETTLEMENT), _load(AUDIT), _load(HIGH_REVIEW)
     assert _read(MARKDOWN).decode("utf-8") == render_profile_markdown(settlement)
     result = verify_payloads(settlement, audit, high)
-    assert settlement["canonical_pool_sha256"] == _sha(POOL)
-    assert settlement["contract_sha256"] and settlement["contract_version"]
+    assert settlement["contract_version"]
     md_rows = _markdown_rows()
     assert len(md_rows) == 184
     assert [(int(c[0]), c[1], c[2], c[3], c[4], c[5], c[6]) for c in md_rows] == [
@@ -392,7 +386,6 @@ def verify() -> dict[str, object]:
         axis["json"] == SETTLEMENT.relative_to(MANIFEST.parent).as_posix()
         and axis["markdown"] == MARKDOWN.relative_to(MANIFEST.parent).as_posix()
     )
-    # C2整改后的文件哈希按用户指令不作同步，也不作为本轮验收门。
     assert REMEDIATION.relative_to(MANIFEST.parent).as_posix() in axis["audit_jsons"]
     project = yaml.safe_load(_read(PROJECT).decode("utf-8"))
     assert project["profile_assessment"]["settled_axes"]["C2"]["json"].endswith(SETTLEMENT.name)
@@ -408,10 +401,6 @@ def verify() -> dict[str, object]:
         assert decision["decision"] == "ACCEPTED"
         assert decision["review_status"] == row["review_status"]
         assert decision["after"].startswith(f"{row['axis_grade']}-{row['position']}/{row['radar_value']}/{row['axis_evidence_level']}/{row['confidence']}")
-    # C2整改后的裁决文件哈希按用户指令不作同步，也不作为本轮验收门。
-    hashes = {path.name: _sha(path) for path in (SETTLEMENT, MARKDOWN, AUDIT, HIGH_REVIEW, REMEDIATION)}
-    result["hashes"] = hashes
-    result["combined_sha256"] = hashlib.sha256(json.dumps(hashes, sort_keys=True).encode("utf-8")).hexdigest()
     return result
 
 

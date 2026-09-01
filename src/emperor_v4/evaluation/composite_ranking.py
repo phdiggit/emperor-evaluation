@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 from statistics import mean, median
@@ -37,17 +36,6 @@ SETTLEMENT_SPECS = {
 
 def _read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
-
-
-def _sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
-
-
-def _records_hash(records: list[dict[str, Any]]) -> str:
-    serialized = json.dumps(
-        records, ensure_ascii=False, sort_keys=True, separators=(",", ":")
-    )
-    return hashlib.sha256(serialized.encode("utf-8")).hexdigest()
 
 
 def _competition_rank(scores: list[float], index: int) -> int:
@@ -168,14 +156,6 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
         "median_score": round(median(scores), 2),
         "min_score": min(scores),
         "max_score": max(scores),
-        "source_sha256": {
-            POOL_PATH: _sha256(pool_path),
-            **{
-                SETTLEMENT_SPECS[item][0]: _sha256(path)
-                for item, path in settlement_paths.items()
-            },
-        },
-        "records_sha256": _records_hash(records),
         "pending_second_item_records": pending,
         "records": records,
     }
@@ -193,6 +173,10 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
             f"三项{row['third_item_score']:.2f}、四项{row['fourth_item_adjustment']:+.1f}、"
             f"五项{row['fifth_item_score']:.2f}）"
         )
+
+    leader = records[0]
+    runner_up = records[1]
+    lead = float(leader["total_score"]) - float(runner_up["total_score"])
 
     lines = [
         "# 皇帝综合评价总榜",
@@ -220,19 +204,20 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         "### 1. 榜首与头部结构",
         "",
         (
-            "李世民以829.81分居首，领先第二名玄烨227.79分。这个断层不是单个附加项造成的："
-            "李世民同时拥有第二项359.4、第三项231.69、第五项112.6和第四项+58.5，"
-            "第一项又折算67.62分，是当前唯一接近全维度高位的对象。第二至第二十名则明显"
-            "形成密集区，更多依靠多项中高分而非单项极值。"
+            f"{leader['ruler_name']}以{leader['total_score']:.2f}分居首，领先第二名"
+            f"{runner_up['ruler_name']}{lead:.2f}分。其构成为：第一项折算"
+            f"{leader['first_item_add_on']:.2f}、第二项{leader['second_item_score']:.1f}、"
+            f"第三项{leader['third_item_score']:.2f}、第四项{leader['fourth_item_adjustment']:+.1f}、"
+            f"第五项{leader['fifth_item_score']:.2f}。头部差距来自五项正式快照的共同合成，"
+            "不是生成总榜时追加的主观修正。"
         ),
         "",
-        "### 2. 头部黑马如何形成",
+        "### 2. 排名解释",
         "",
         (
-            "完颜雍、萧绰、赵恒、耶律隆绪等人的高位主要属于“无明显短板”型：第二项较高，"
-            "第三、五项继续提供稳定分值。耶律阿保机则是“多入口叠加”型，第一项、第三项和"
-            "第四项同时有显著贡献。黑马本身不构成错误；真正需要复核的是各分项是否在小国"
-            "治理难度、军事授权归责、未量化结果门槛和跨项重复计分上系统性偏宽。"
+            "综合名次由第二、第三、第五项共同分、第一项条件附加分和第四项有符号调整共同决定。"
+            "因此单一项目的高分不会自动转化为总榜高位；不同对象可以通过多项稳定、创业附加或"
+            "文明调整形成不同的得分结构。"
         ),
         "",
         "### 3. 名望较高但总榜偏低的人物",
@@ -249,26 +234,10 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         "按阶段归责。扩大第一项到一般篡位或内战既不能稳定解决其排名，也会破坏“文明进步与"
         "政权奠基”边界，因此本榜不作此调整。",
         "",
-        "### 4. 当前榜单的系统性敏感点",
+        "### 4. 权重与边界",
         "",
-        "- 第二项尚未显式计入治理大国与小国的复杂度差异，小型政权的中高治理分可能与大一统帝国等价计价。",
-        "",
-        "- 第三项C轴部分高分对象仍存在结果量化状态与得分脱节的审计问题，共同或接续成果的归责也可能偏宽。",
-        "",
-        "- 第四项部分加减分包的直接史源、待裁决字段与跨项去重仍需收口；耶律阿保机的相关正向包尤其敏感。",
-        "",
-        "- 第五项B4对结果、团队执行和统治者本人授权的区分仍可能偏松，会抬高一部分军事型人物。",
-        "",
-        "这些是正式分项快照的后续整改事项，不在生成总榜时偷偷改分。因而本榜是“当前正式"
-        "数据的唯一合成结果”，不是对上述敏感点已经消除的声明。",
-        "",
-        "### 5. 权重结论",
-        "",
-        "此前敏感性比较表明：单独大幅提高第二项A、第一项或第三项，分别只能抬升不同类型的"
-        "雄主，同时会成批抬升本来就在相同长板上占优的人物；通用长板奖励也主要奖励现有单项"
-        "领跑者。为了让少数名望人物进入前十而倒推权重，会把综合榜改造成制度榜、创业榜或"
-        "军事榜。因此当前先保持权重和第一项准入边界，待上述系统性问题整改并全池重算后，"
-        "再讨论幅度有限、可由规则原则解释的权重调整。",
+        "本次只消费更新后的正式分项快照，没有改变综合公式、第一项准入边界或各项权重。"
+        "如需调整权重，应另做全池敏感性检验，不能为少数对象的预期名次反向设计。",
         "",
         "## 完整总榜",
         "",

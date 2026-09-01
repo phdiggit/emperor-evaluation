@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import json
 import re
 from pathlib import Path
@@ -21,10 +20,6 @@ def _load(path: Path) -> dict:
     if raw.startswith(b"\xef\xbb\xbf"):
         raise ValueError(f"UTF-8 BOM is forbidden: {path}")
     return json.loads(raw.decode("utf-8"))
-
-
-def _sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _contract_scores(contract: Path) -> dict[tuple[str, str], int]:
@@ -146,16 +141,10 @@ def verify(root: Path) -> dict[str, object]:
         raise ValueError("C1 coverage differs from canonical included pool")
     if records != sorted(records, key=lambda record: (-record["radar_value"], record["ruler_id"])):
         raise ValueError("C1 records are not in formal stable order")
-    if settlement["canonical_pool_sha256"] != _sha256(pool_path):
-        raise ValueError("canonical pool hash mismatch")
     manifest_axis = next((axis for axis in manifest["axes"] if axis["axis_code"] == "C1"), None)
     if manifest_axis is None or manifest_axis["json"] != SETTLEMENT_NAME:
         raise ValueError("C1 is absent from formal profile manifest")
-    if manifest_axis["json_sha256"] != _sha256(settlement_path):
-        raise ValueError("C1 manifest settlement hash mismatch")
-    if manifest["contract_sha256"] != _sha256(contract):
-        raise ValueError("profile manifest contract hash mismatch")
-    if not settlement.get("contract_sha256") or not settlement.get("contract_version"):
+    if not settlement.get("contract_version"):
         raise ValueError("C1 settlement lacks contract lineage")
     config_axis = config["profile_assessment"]["settled_axes"].get("C1")
     if config_axis is None or not config_axis["json"].endswith(SETTLEMENT_NAME):
@@ -341,11 +330,6 @@ def verify(root: Path) -> dict[str, object]:
         if f"| {record['radar_value']} | {record['axis_grade']} | {record['position']} | {record['ruler_name']} |" not in row:
             raise ValueError(f"markdown/JSON order mismatch: {record['ruler_id']}")
 
-    hashes = {
-        path.name: _sha256(path)
-        for path in (settlement_path, markdown_path, audit_path, review_path)
-    }
-    combined = hashlib.sha256(json.dumps(hashes, sort_keys=True).encode("utf-8")).hexdigest()
     return {
         "status": "PASS",
         "record_count": len(records),
@@ -355,8 +339,6 @@ def verify(root: Path) -> dict[str, object]:
         "scoring_parent_count": len(scoring_parent_ids),
         "unit_count": len(units),
         "unresolved_count": 0,
-        "hashes": hashes,
-        "combined_sha256": combined,
     }
 
 

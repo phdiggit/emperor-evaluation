@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 from typing import Any
@@ -45,17 +44,11 @@ def _write_json(path: Path, payload: dict[str, Any]) -> None:
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
 
 
-def _sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
 def _update_manifest() -> None:
     manifest = _load(MANIFEST)
     axis = next(row for row in manifest["axes"] if row["axis_code"] == "M4")
-    axis["json_sha256"] = _sha(SETTLEMENT)
-    axis["markdown_sha256"] = _sha(MARKDOWN)
     axis["formalization_note"] = (
-        "M4正式JSON为逐人裁决唯一真源；程序只生成阅读视图与入口哈希，"
+        "M4正式JSON为逐人裁决唯一真源；程序只生成阅读视图，"
         "人物裁决变化只通过局部patch进入正式JSON，不由程序自动改档。"
     )
     _write_json(MANIFEST, manifest)

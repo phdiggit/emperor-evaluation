@@ -95,9 +95,14 @@ def test_second_item_direction_views_keep_institution_and_m_chain_combinations()
     assert "S−/逆转：拒绝因律例冲突调整定律〔S-1〕" in zhu_line
     assert zhu_line.count("科举、都察院、殿阁大学士与三法司复核接口〔混M2〕") == 1
     assert "黄册十年大造与里甲编役〔正M3/混M3〕" in zhu_line
-    assert "| M链组合 | 裁决摘要 |" in b1
+    assert "| 运行摘要 | 内部指数/100 |" in b1
     assert "| M链组合 | 裁决摘要 |" in b2
-    assert "任圜任内府库军民与朝纲改善〔正M3〕" in b1
+    assert "## 五、逐人裁决与材料依据" in b1
+    assert "- 结算依据：\n  - **裁决说明**：" in b1
+    assert not re.search(
+        r"(?<![A-Za-z])(?:distributed|central|support|core|personnel|capture|major-stage|mixed|N3-)",
+        b1,
+    )
     assert "诬告安重诲案经担保与复奏后纠正〔正M2〕" in b2
     assert "A/B1方向指数" in method[0] and "B2方向指数→/45" in method[0]
 

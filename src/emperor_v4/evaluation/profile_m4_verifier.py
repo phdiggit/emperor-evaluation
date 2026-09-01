@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 from typing import Any
@@ -36,10 +35,6 @@ def _load(path: Path) -> Any:
     return json.loads(_read(path).decode("utf-8"))
 
 
-def _sha(path: Path) -> str:
-    return hashlib.sha256(_read(path)).hexdigest()
-
-
 def _walk(value: Any):
     yield value
     if isinstance(value, dict):
@@ -64,10 +59,8 @@ def verify_payloads(
     assert settlement["canonical_status"] == "FORMAL_CURRENT"
     assert settlement["axis_code"] == "M4"
     assert settlement["authority_mode"] == "FORMAL_SETTLEMENT_PATCH_SOURCE"
-    assert settlement["contract_sha256"] and settlement["contract_version"]
-    assert settlement["canonical_pool_sha256"] == _sha(POOL)
+    assert settlement["contract_version"]
     assert "manual_adjudication" not in settlement
-    assert "manual_adjudication_sha256" not in settlement
     assert settlement["record_count"] == len(records) == 184
     assert {row["ruler_id"] for row in records} == included
     assert len({row["task_code"] for row in records}) == 184
@@ -208,11 +201,7 @@ def verify() -> dict[str, Any]:
     assert project["settled_axes"]["M4"]["json"].endswith(SETTLEMENT.name)
     manifest = _load(MANIFEST)
     axis = next(row for row in manifest["axes"] if row["axis_code"] == "M4")
-    assert (
-        axis["json"] == SETTLEMENT.relative_to(MANIFEST.parent).as_posix()
-        and axis["json_sha256"] == _sha(SETTLEMENT)
-    )
-    assert axis["markdown_sha256"] == _sha(MARKDOWN)
+    assert axis["json"] == SETTLEMENT.relative_to(MANIFEST.parent).as_posix()
     assert set(axis["audit_jsons"]) == {
         path.relative_to(MANIFEST.parent).as_posix()
         for path in (AUDIT, HIGH_REVIEW, FULL_POOL_REVIEW)

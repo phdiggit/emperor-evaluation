@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 from typing import Any, Mapping, Sequence
@@ -30,10 +29,6 @@ def _reign_range_label(value: object) -> str:
 
 def _load(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
-
-
-def _sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _index(records: Sequence[Mapping[str, Any]], component: str) -> dict[str, Mapping[str, Any]]:
@@ -426,9 +421,6 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
         },
         "score_recalculation_policy": "A120_CURRENT_PLUS_B80_COST_CREDIT_PLUS_C50_PLUS_MILITARY_NET_LOSS",
         "score_range": {"minimum": min(scores), "maximum": max(scores)},
-        "source_result_sha256": {
-            key: _sha256(paths[key]) for key in ("AB", "C", "D", "result_credit", "cost_credit", "military_net_loss")
-        },
         "component_coverage_counts": {
             "AB": len(indexed["AB"]),
             "C": len(indexed["C"]),

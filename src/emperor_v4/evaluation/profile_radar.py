@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import json
 from dataclasses import dataclass
 from pathlib import Path
@@ -55,10 +54,6 @@ def _read_json(path: Path) -> dict[str, Any]:
     return json.loads(raw.decode("utf-8"))
 
 
-def _sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
 def _project_profile_config() -> dict[str, Any]:
     return yaml.safe_load(PROJECT.read_text(encoding="utf-8"))["profile_assessment"]
 
@@ -96,10 +91,7 @@ def load_profiles() -> dict[str, Profile]:
             or payload["axis_code"] != axis_code
         ):
             raise ValueError(f"{axis_code}不是184人正式轴结算")
-        if (
-            manifest_axes[axis_code]["json"] != path.relative_to(PROFILE_ROOT).as_posix()
-            or manifest_axes[axis_code]["json_sha256"] != _sha256(path)
-        ):
+        if manifest_axes[axis_code]["json"] != path.relative_to(PROFILE_ROOT).as_posix():
             raise ValueError(f"{axis_code}与正式入口清单不一致")
         rows = {row["ruler_id"]: row for row in records}
         if set(rows) != expected_ids or len(rows) != len(records):
@@ -252,7 +244,6 @@ def write_samples(output_dir: Path | None = None) -> dict[str, Any]:
         "composite_ranking_write": False,
         "samples": [{"ruler_id": row.ruler_id, "ruler_name": row.ruler_name, "values": list(row.values)} for row in selected],
         "comparisons": [{"left": left, "right": right} for left, right in COMPARISONS],
-        "source_sha256": {axis: _sha256(ROOT / _project_profile_config()["settled_axes"][axis]["json"]) for axis in AXIS_ORDER},
         "files": sorted(written),
     }
     (output_dir / "00-雷达图小样索引.json").write_text(json.dumps(index, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

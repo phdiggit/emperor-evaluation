@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 
@@ -13,13 +12,6 @@ A_PATH = ROOT / "docs/评分结算/第一项创业与政权取得能力/战略�
 
 def _load(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
-
-
-def _semantic_fingerprint(payload: dict) -> str:
-    raw = json.dumps(
-        payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")
-    ).encode("utf-8")
-    return hashlib.sha256(raw).hexdigest()
 
 
 def test_first_item_a_uses_decided_weights_and_full_o_coverage() -> None:
@@ -47,17 +39,14 @@ def test_first_item_a_uses_decided_weights_and_full_o_coverage() -> None:
         assert "百分比不是史书原文数字" in row["initial_resource_share_basis"]
 
 
-def test_first_item_a2_is_fingerprint_bound_to_c_inputs() -> None:
+def test_first_item_a2_lineage_covers_c_inputs_without_hash_binding() -> None:
     payload = _load(A_PATH)
     lineage = payload["a2_c_lineage"]
     territorial = _load(
         ROOT / "config/first-item/first-item-c-territorial-control-adjudications.json"
     )
-    acquisition = _load(
-        ROOT / "config/first-item/first-item-c-acquisition-windows.json"
-    )
-    assert lineage["territorial_semantic_fingerprint"] == _semantic_fingerprint(territorial)
-    assert lineage["acquisition_semantic_fingerprint"] == _semantic_fingerprint(acquisition)
+    assert "territorial_semantic_fingerprint" not in lineage
+    assert "acquisition_semantic_fingerprint" not in lineage
     assert len(lineage["aligned_names"]) == 84
     assert lineage["pending_names"] == []
     expected_supplemental = {

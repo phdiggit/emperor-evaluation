@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 from typing import Any
@@ -31,19 +30,13 @@ def _write_json(path: Path, payload: dict[str, Any]) -> None:
     )
 
 
-def _sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
 def _update_manifest() -> None:
     manifest = _load(MANIFEST)
     axis = next(row for row in manifest["axes"] if row["axis_code"] == "C3")
-    axis["json_sha256"] = _sha(SETTLEMENT)
-    axis["markdown_sha256"] = _sha(MARKDOWN)
     if SYSTEMIC_REVIEW.name not in axis["audit_jsons"]:
         axis["audit_jsons"].append(SYSTEMIC_REVIEW.name)
     axis["formalization_note"] = (
-        "C3正式JSON为逐人裁决唯一真源；程序只生成阅读视图与入口哈希，"
+        "C3正式JSON为逐人裁决唯一真源；程序只生成阅读视图，"
         "高档门、生命周期、模板与跨轴边界由轻量语义校验器守护。"
     )
     _write_json(MANIFEST, manifest)

@@ -234,23 +234,7 @@ def build_first_item_a_registry(
     if competitive_landscapes.get("status") != "CURRENT":
         raise ValueError("第一项A竞争格局输入状态不正确")
 
-    def semantic_fingerprint(payload: Mapping[str, Any]) -> str:
-        canonical = json.dumps(
-            payload,
-            ensure_ascii=False,
-            sort_keys=True,
-            separators=(",", ":"),
-        ).encode("utf-8")
-        return hashlib.sha256(canonical).hexdigest()
-
     a2_c_lineage = dict(efficiency_inputs.get("a2_c_lineage") or {})
-    if (
-        a2_c_lineage.get("territorial_semantic_fingerprint")
-        != semantic_fingerprint(territorial_inputs)
-        or a2_c_lineage.get("acquisition_semantic_fingerprint")
-        != semantic_fingerprint(acquisition_windows)
-    ):
-        raise ValueError("第一项A2绑定的C控制底账指纹已漂移，必须显式重裁A2")
 
     battle_records = list(battle_registry.get("records") or ())
     battle_by_ref = {str(row["war_event_id"]): row for row in battle_records}

@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import re
 from collections import Counter
@@ -396,12 +395,6 @@ def write_axes(axis_codes: Iterable[str]) -> list[Path]:
         markdown_path = json_path.with_suffix(".md")
         markdown_path.write_text(render_profile_markdown(payload), encoding="utf-8", newline="\n")
         written.append(markdown_path)
-    manifest_path = PROFILE_ROOT / "00-已结算轴正式入口.json"
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    by_code = {row["axis_code"]: row for row in manifest["axes"]}
-    for axis, path in zip(axes, written, strict=True):
-        by_code[axis]["markdown_sha256"] = hashlib.sha256(path.read_bytes()).hexdigest()
-    manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     return written
 
 

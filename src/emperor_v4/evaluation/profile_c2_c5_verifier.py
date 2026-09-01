@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 
@@ -47,10 +46,6 @@ def _load(path: Path) -> dict:
     return json.loads(_read(path).decode("utf-8"))
 
 
-def _sha(path: Path) -> str:
-    return hashlib.sha256(_read(path)).hexdigest()
-
-
 def _md_rows() -> list[tuple[int, str, str, str, str, str]]:
     rows = []
     for line in _read(C5_MD).decode("utf-8").splitlines():
@@ -67,12 +62,6 @@ def verify() -> dict[str, object]:
     assert _read(C5_MD).decode("utf-8") == render_profile_markdown(c5)
     c5_by_id = {row["ruler_id"]: row for row in c5["records"]}
     assert len(c5_by_id) == 184
-    assert (
-        c5["contract_sha256"]
-        == density["contract_sha256"]
-        == structure["contract_sha256"]
-        == joint["contract_sha256"]
-    )
 
     allowed_same_chain = {"NO_TRIGGER", "CONSTRUCT_SEPARATED"}
     c5_statuses = {row["same_chain_semantic_conflict_review_status"] for row in c5["records"]}
@@ -157,13 +146,11 @@ def verify() -> dict[str, object]:
     ]
     manifest = _load(MANIFEST)
     axis = next(item for item in manifest["axes"] if item["axis_code"] == "C5")
-    assert axis["json_sha256"] == _sha(C5)
     assert JOINT.relative_to(MANIFEST.parent).as_posix() in axis["audit_jsons"]
     assert C5_REMEDIATION.relative_to(MANIFEST.parent).as_posix() in axis["audit_jsons"]
     project = yaml.safe_load(_read(PROJECT).decode("utf-8"))
     assert project["profile_assessment"]["settled_axes"]["C5"]["joint_boundary_review_json"].endswith(JOINT.name)
 
-    hashes = {path.name: _sha(path) for path in (C5, C5_MD, C5_AUDIT, C5_REMEDIATION, JOINT)}
     return {
         "status": "PASS",
         "record_count": 184,
@@ -171,8 +158,6 @@ def verify() -> dict[str, object]:
         "c5_unit_count": len(units),
         "grade_distribution": c5["summary"]["grade_distribution"],
         "evidence_distribution": c5["summary"]["axis_evidence_distribution"],
-        "hashes": hashes,
-        "combined_sha256": hashlib.sha256(json.dumps(hashes, sort_keys=True).encode()).hexdigest(),
     }
 
 

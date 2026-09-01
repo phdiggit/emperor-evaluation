@@ -44,9 +44,6 @@ C_OUTCOME_ADJUDICATION_PATH = Path("config/third-item/third-item-c-outcome-adjud
 MILITARY_TALENT_REGISTRY_PATH = Path("docs/公共成果/军事/02-武将人才等级.json")
 INPUT_SCHEMA = "chronicle-battle-adjudication-v2"
 REGISTRY_SCHEMA = "battle-parent-contract-registry-v5"
-SOURCE_SET_FINGERPRINT = (
-    "d23622b8545ee5a49e06b93ad265a47e1a9643be844899eabd76ab92717fed57"
-)
 RETIRED_STALE_FIVE_DYNASTIES_RECORD_COUNT = 433
 
 
@@ -118,12 +115,6 @@ POLITY_MARKERS: tuple[tuple[str, tuple[str, ...]], ...] = (
     ("契丹", ("契丹",)),
     ("北汉", ("北汉",)),
 )
-
-
-def _digest(value: object) -> str:
-    return sha256(
-        json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
-    ).hexdigest()
 
 
 def _unique(values: Iterable[str]) -> list[str]:
@@ -258,8 +249,6 @@ def _load_adjudication_payload(workspace_root: Path) -> dict[str, Any]:
     payload = json.loads((workspace_root / ADJUDICATION_PATH).read_text(encoding="utf-8"))
     if payload.get("schema_version") != "five-dynasties-third-item-adjudications-v3":
         raise ValueError("五代十国第三项裁决配置schema错误")
-    if payload.get("source_set_fingerprint") != SOURCE_SET_FINGERPRINT:
-        raise ValueError("五代十国第三项裁决配置未绑定当前64份输入指纹")
     return payload
 
 
@@ -334,12 +323,10 @@ def build_five_dynasties_battle_records(workspace_root: Path) -> dict[str, Any]:
         raise ValueError(f"五代十国战役裁决输入应为32卷，实际{len(adjudication_paths)}卷")
     records: list[dict[str, Any]] = []
     phase_ids: set[str] = set()
-    source_identities: list[dict[str, Any]] = []
     for path in adjudication_paths:
         payload, summary_relative = _read_source_pair(path, workspace_root)
         volume = int(re.search(r"volume-(\d+)\.", path.name).group(1))
         source_relative = path.relative_to(workspace_root).as_posix()
-        source_identities.append(dict(payload["source_identity"]))
         for card_index, card in enumerate(payload.get("cards") or (), start=1):
             campaign_group = str(card.get("campaign_group") or "")
             if not campaign_group:
@@ -412,11 +399,8 @@ def build_five_dynasties_battle_records(workspace_root: Path) -> dict[str, Any]:
             )
     if len(records) != 521 or len(phase_ids) != 1434:
         raise ValueError(f"五代十国输入覆盖异常: cards={len(records)}, phases={len(phase_ids)}")
-    fingerprint = _digest(source_identities)
     return {
         "schema_version": "five-dynasties-battle-promotion-v1",
-        "source_set_declared_fingerprint": SOURCE_SET_FINGERPRINT,
-        "source_identity_fingerprint": fingerprint,
         "source_file_count": len(adjudication_paths) * 2,
         "battle_card_count": len(records),
         "campaign_group_count": len({row["campaign_group_ref"] for row in records}),
@@ -544,19 +528,6 @@ def promote_five_dynasties_battle_registry(
             "current_difficulty_counts": dict(
                 sorted(Counter(str(row["combat_difficulty"]) for row in current_high_difficulty).items())
             ),
-            "fingerprint": _digest(
-                [
-                    {
-                        "record_ref": str(row.get("source_target_ref") or row.get("war_event_id") or ""),
-                        "combat_difficulty": row["combat_difficulty"],
-                        "combat_difficulty_basis": row["combat_difficulty_basis"],
-                    }
-                    for row in sorted(
-                        current_high_difficulty,
-                        key=lambda item: str(item.get("source_target_ref") or item.get("war_event_id") or ""),
-                    )
-                ]
-            ),
         }
     )
     current = dict(payload)
@@ -584,9 +555,6 @@ def promote_five_dynasties_battle_registry(
             "disposition_counts": dict(sorted(Counter(str(row.get("disposition")) for row in records).items())),
             "tier_counts": dict(sorted(Counter(str(row["campaign_tier"]) for row in records if row.get("campaign_tier")).items())),
         }
-    )
-    current["semantic_fingerprint"] = _digest(
-        {key: value for key, value in current.items() if key != "semantic_fingerprint"}
     )
     return current
 
@@ -3743,7 +3711,6 @@ def build_five_dynasties_formal_payloads(
         "ruler_count": len(ab["records"]), "reviewed_count": sum(row.get("adjudication_status") == "REVIEWED" for row in ab["records"]),
         "pending_count": sum(not row.get("score_ready") for row in ab["records"]),
         "score_ready_count": sum(bool(row.get("score_ready")) for row in ab["records"]),
-        "five_dynasties_source_fingerprint": SOURCE_SET_FINGERPRINT,
     })
     c = _replace_partition_records(json.loads((workspace_root / C_PATH).read_text(encoding="utf-8")), c_records)
     for row in c["records"]:
@@ -3755,7 +3722,6 @@ def build_five_dynasties_formal_payloads(
         "record_count": len(c["records"]), "score_ready_count": sum(bool(row.get("score_ready")) for row in c["records"]),
         "partition_counts": dict(sorted(Counter(str(row.get("partition")) for row in c["records"]).items())),
         "grade_distribution": dict(sorted(Counter(str(row.get("C_overall_grade")) for row in c["records"]).items())),
-        "five_dynasties_source_fingerprint": SOURCE_SET_FINGERPRINT,
     })
     _validate_bc_parent_cycle_alignment(ab["records"], c["records"])
     _validate_formal_abc_contracts(ab["records"], c["records"])
@@ -4135,8 +4101,6 @@ def write_five_dynasties_third_item(workspace_root: Path) -> dict[str, Any]:
         row for row in current_payload["records"]
         if str(row.get("ruler_id")) in partition_ids
     ]
-    hashes = {kind: sha256((workspace_root / path).read_bytes()).hexdigest() for kind, path in paths.items()}
-    hashes["battle_registry"] = sha256((workspace_root / REGISTRY_PATH).read_bytes()).hexdigest()
     return {
         "promotion_audit": promotion_audit,
         "formal_ready_count": sum(
@@ -4147,7 +4111,6 @@ def write_five_dynasties_third_item(workspace_root: Path) -> dict[str, Any]:
             row["third_item_score_points"] is None
             for row in current_partition_records
         ),
-        "hashes": hashes,
         "records": current_partition_records,
     }
 

@@ -2,7 +2,6 @@
   "schema_version": "emperor-profile-formal-axis-manifest-v1",
   "contract_version": "FORMAL-V2.0",
   "contract": "docs/项目总纲/皇帝人物画像评估体系合同.md",
-  "contract_sha256": "ab96a92fde36e113e3088f9a548415bca62975c88ec1c0a3af404ba63e32f250",
   "canonical_status": "FORMAL_CURRENT",
   "population_count": 184,
   "settled_axis_count": 8,
@@ -12,7 +11,6 @@
   "composite_ranking_write": false,
   "database_write": false,
   "canonical_pool": "config/common/canonical-ruler-pool.json",
-  "canonical_pool_sha256": "11da7406dee2e677475de496f89ee693138937edeb6b37343624782b8cf1b393",
   "axes": [
     {
       "axis_code": "M1",
@@ -21,7 +19,6 @@
       "record_count": 184,
       "json": "M1/01-M1军事判断与统帅能力正式结算.json",
       "markdown": "M1/01-M1军事判断与统帅能力正式结算.md",
-      "json_sha256": "6bd30ab78b447a4eaee6611d05d2e9aebbe26ff2042aaeb5ae029f124eb363b9",
       "audit_jsons": [
         "M1/03-M1人才差异与高档门复核.json",
         "M1/06-M1高档结构复核.json",
@@ -31,8 +28,7 @@
         "M1/11-M1全池重新裁决复核.json",
         "M1/12-M1结算账本整改与异常重裁复核.json"
       ],
-      "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC",
-      "markdown_sha256": "d08cc2077b3d9e5451c0b14836d91ae2f2af8b2fbf1997a996b77f42b96d0988"
+      "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC"
     },
     {
       "axis_code": "M2",
@@ -41,15 +37,13 @@
       "record_count": 184,
       "json": "M2/12-M2外交博弈与对外联盟能力正式结算.json",
       "markdown": "M2/12-M2外交博弈与对外联盟能力正式结算.md",
-      "json_sha256": "03f91a47290959a17a98dfb6c85753aa11c7652c85630206e81e56ec331e932b",
       "audit_markdowns": [
         "M2/13-M2全池结算验收报告.md"
       ],
       "audit_jsons": [
         "交叉轴复核/14-M2与C5能力事件分布复核.json"
       ],
-      "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC",
-      "markdown_sha256": "d523ad2900dc2772ab63d49a1f21b5665a4c05a91985b0380606df931ebb71e4"
+      "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC"
     },
     {
       "axis_code": "M3",
@@ -57,12 +51,9 @@
       "status": "FORMAL_CURRENT",
       "contract_version": "FORMAL-V3.4",
       "contract": "docs/分项规则/人物画像轴/M3-民生财政建设.md",
-      "contract_sha256": "4f1dd5faa1fd02c583f9d32fd9f5fa5b3e5aeb1f152ad697058885cf0bfcf42a",
       "record_count": 184,
       "json": "M3/29-M3民生财政建设正式结算.json",
       "markdown": "M3/29-M3民生财政建设正式结算.md",
-      "json_sha256": "914034b580255714ed9a1901e1d552656c41666c314a4aceec5e55fef6133956",
-      "markdown_sha256": "f7bd53f3a1af8a3315fb9af908457a4e6fc744525c2f6803ac8f5dc65745abb4",
       "audit_jsons": [
         "M3/30-M3对第二项C1-C4逐人补正审计.json",
         "M3/32-M3上游同步与规模档界整改审计.json"
@@ -80,8 +71,6 @@
       "record_count": 184,
       "json": "M4/34-M4政治联盟与内部联盟管理正式结算.json",
       "markdown": "M4/34-M4政治联盟与内部联盟管理正式结算.md",
-      "json_sha256": "dc277d47c05bb455a4d5a128ad08686f38213639618b00bf0064f4dcbc50fdf1",
-      "markdown_sha256": "8a5171949ba744061a5df4ef2631f18c1119842f056c1d9673e941b8c57a30a5",
       "audit_jsons": [
         "M4/35-M4主要入口单元处置审计.json",
         "M4/36-M4高档联盟生命周期复核.json",
@@ -91,7 +80,7 @@
         "M4/38-M4全池结算验收报告.md"
       ],
       "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC",
-      "formalization_note": "M4正式JSON为逐人裁决唯一真源；程序只生成阅读视图与入口哈希，人物裁决变化只通过局部patch进入正式JSON，不由程序自动改档。"
+      "formalization_note": "M4正式JSON为逐人裁决唯一真源；程序只生成阅读视图，人物裁决变化只通过局部patch进入正式JSON，不由程序自动改档。"
     },
     {
       "axis_code": "C1",
@@ -100,7 +89,6 @@
       "record_count": 184,
       "json": "C1/15-C1战略判断与风险控制正式结算.json",
       "markdown": "C1/15-C1战略判断与风险控制正式结算.md",
-      "json_sha256": "07f140ca813fa216ae58f51126b74e8cbd79a7092c9d1b6aec1942bdf7f05614",
       "audit_markdowns": [
         "C1/18-C1全池结算验收报告.md"
       ],
@@ -109,8 +97,7 @@
         "C1/17-C1高档能力剖面复核.json",
         "C1/19-C1聊天版审查整改复核.json"
       ],
-      "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC",
-      "markdown_sha256": "5445dcd9c8453e2d0d9ebdf1c115c8baf8a433a98e11106d383b45b2da8e2007"
+      "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC"
     },
     {
       "axis_code": "C2",
@@ -119,7 +106,6 @@
       "record_count": 184,
       "json": "C2/19-C2信息处理学习与纠错正式结算.json",
       "markdown": "C2/19-C2信息处理学习与纠错正式结算.md",
-      "json_sha256": "c98398c404a8ecb3860ddc6682958d1307d3224b02e1bd2a05d93a2f9cdb0e4f",
       "audit_markdowns": [
         "C2/22-C2全池结算验收报告.md"
       ],
@@ -130,7 +116,6 @@
         "交叉轴复核/23-C2与C5同链边界及强度联合复核.json"
       ],
       "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC",
-      "markdown_sha256": "24f2d04c2f9cb1582f2da102f04b9662b57edd222e24677511e4dea697118894",
       "formalization_note": "184人聊天版V2重裁已正式吸纳；EVIDENCE_FLOOR显式标记为有界证据下限，不按分布放宽能力门槛。"
     },
     {
@@ -140,8 +125,6 @@
       "record_count": 184,
       "json": "C3/24-C3人才识别配置与授权正式结算.json",
       "markdown": "C3/24-C3人才识别配置与授权正式结算.md",
-      "json_sha256": "85f9dfd4303643239cb2379ec0197450c5a1ec8ae97703bdd5776d9c8edaf382",
-      "markdown_sha256": "1194922f232c764bc1c757f936224bf28b2f22e11e25a5c4ce06af700476bb94",
       "audit_jsons": [
         "C3/25-C3主要入口单元处置审计.json",
         "C3/26-C3高档授权生命周期复核.json",
@@ -152,7 +135,7 @@
         "C3/27-C3全池结算验收报告.md"
       ],
       "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC",
-      "formalization_note": "C3正式JSON为逐人裁决唯一真源；程序只生成阅读视图与入口哈希，高档门、生命周期、模板与跨轴边界由轻量语义校验器守护。"
+      "formalization_note": "C3正式JSON为逐人裁决唯一真源；程序只生成阅读视图，高档门、生命周期、模板与跨轴边界由轻量语义校验器守护。"
     },
     {
       "axis_code": "C5",
@@ -161,7 +144,6 @@
       "record_count": 184,
       "json": "C5/02-C5权力运用风格与克制正式结算.json",
       "markdown": "C5/02-C5权力运用风格与克制正式结算.md",
-      "json_sha256": "87d72e4a210c01384a6e7dd6faf6371590bc887825283373614d2f3917f719c9",
       "audit_jsons": [
         "C5/04-C5主要入口单元处置审计.json",
         "C5/05-C5高档材料密度复核.json",
@@ -170,8 +152,7 @@
         "交叉轴复核/14-M2与C5能力事件分布复核.json",
         "交叉轴复核/23-C2与C5同链边界及强度联合复核.json"
       ],
-      "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC",
-      "markdown_sha256": "830eb999064657e15255861f4eea7712e12ad1d84df1f43a0b4cc697752adfa8"
+      "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC"
     }
   ]
 }

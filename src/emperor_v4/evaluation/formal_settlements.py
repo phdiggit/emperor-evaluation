@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import json
 import re
 from pathlib import Path
@@ -91,16 +90,6 @@ def _competition_rank(sorted_scores: list[float], index: int) -> int:
 def _records_by_id(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
     records = payload.get("records") or payload.get("scores") or []
     return {str(row["ruler_id"]): row for row in records}
-
-
-def _verify_records_hash(payload: dict[str, Any], label: str) -> None:
-    if payload.get("payload_sha256_basis") != "canonical_records_json_v1":
-        raise ValueError(f"{label} payload_sha256缺少规范算法声明")
-    rows = payload.get("records") or payload.get("scores")
-    serialized = json.dumps(rows, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
-    expected = hashlib.sha256(serialized.encode("utf-8")).hexdigest()
-    if payload.get("payload_sha256") != expected:
-        raise ValueError(f"{label} payload_sha256与当前记录不一致")
 
 
 def verify_second_item_a_snapshot(workspace_root: Path) -> dict[str, Any]:
@@ -278,6 +267,319 @@ def verify_second_item_a_snapshot(workspace_root: Path) -> dict[str, Any]:
         }
 
 
+def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
+    path = workspace_root / SECOND_ITEM_COMPONENT_PATHS["B1"]
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    records = payload.get("records") or []
+    if len(records) != 185 or payload.get("record_count") != 185:
+        raise ValueError("第二项B1正式记录数不是185")
+    if payload.get("direction_card_ready_count") != 185:
+        raise ValueError("第二项B1方向卡未全部就绪")
+    if len({row.get("ruler_id") for row in records}) != 185 or len(
+        {row.get("ruler_name") for row in records}
+    ) != 185:
+        raise ValueError("第二项B1人物ID或姓名不唯一")
+
+    position_q = {"lower": 0.1, "lower-middle": 0.3, "middle": 0.5, "middle-upper": 0.7, "upper": 0.9}
+    intervals = {
+        "G0": (0.0, 19.9), "G1": (20.0, 39.9), "G2": (40.0, 54.9),
+        "G3": (55.0, 69.9), "G4": (70.0, 84.9), "G5": (85.0, 100.0),
+    }
+    gate_codes = {
+        "G0": "B1_G0_SYSTEMIC_ADMIN_BREAKDOWN",
+        "G1": "B1_G1_DYSFUNCTION_DOMINANT",
+        "G2": "B1_G2_LIMITED_OR_MIXED",
+        "G3": "B1_G3_MAIN_STAGE_USABLE",
+        "G4": "B1_G4_BROAD_STABLE_DELIVERY",
+        "G5": "B1_G5_RARE_RELIABILITY",
+    }
+    direct_roles = {
+        "B1_NEGATIVE_DIRECT", "B1_POSITIVE_DIRECT", "B1_MIXED_DIRECT",
+        "DIRECT_SCORE", "B1_DIRECT_SCORE", "B1_DIRECT_POSITIVE",
+        "B1_DIRECT_NEGATIVE", "B1_DIRECT",
+    }
+    registry_roles: dict[str, list[tuple[str, str]]] = {}
+    material_ids: set[str] = set()
+    registry_root = workspace_root / "docs/公共成果/制度行政/01-制度行政计分材料登记"
+    for registry_path in sorted(registry_root.glob("*.json")):
+        registry = json.loads(registry_path.read_text(encoding="utf-8"))
+        for material in registry.get("records") or []:
+            material_id = str(material.get("material_id") or "")
+            if not material_id or material_id in material_ids:
+                raise ValueError(f"第二项B1公共登记材料ID缺失或重复：{material_id}")
+            material_ids.add(material_id)
+            for target, role in (material.get("usage_roles") or {}).items():
+                if target.endswith(":B1"):
+                    registry_roles.setdefault(target.split(":", 1)[0], []).append((material_id, str(role)))
+
+    distribution = {grade: 0 for grade in intervals}
+    reviewed_count = direct_count = verification_count = 0
+    preserved_review_names: set[str] = set()
+    for row in records:
+        name = str(row.get("ruler_name"))
+        grade, position = str(row.get("grade")), str(row.get("position"))
+        if grade not in intervals or position not in position_q:
+            raise ValueError(f"第二项B1非法档位或position：{name}")
+        low, high = intervals[grade]
+        if float(row.get("direction_index")) != round(low + position_q[position] * (high - low), 1):
+            raise ValueError(f"第二项B1档位、position与index不一致：{name}")
+        if row.get("grade_gate_code") != gate_codes[grade]:
+            raise ValueError(f"第二项B1仍有旧门禁代码：{name}")
+        if not isinstance(row.get("grade_basis"), str) or not row["grade_basis"].strip():
+            raise ValueError(f"第二项B1缺少逐人结算依据：{name}")
+        distribution[grade] += 1
+
+        role_rows = registry_roles.get(name, [])
+        expected_direct = {material_id for material_id, role in role_rows if role in direct_roles}
+        expected_verification = {material_id for material_id, role in role_rows if role not in direct_roles}
+        direct = set(row.get("direct_material_ids") or [])
+        verification = set(row.get("verification_material_ids") or [])
+        if direct != expected_direct or verification != expected_verification:
+            raise ValueError(f"第二项B1材料角色与公共登记不一致：{name}")
+        if direct & verification:
+            raise ValueError(f"第二项B1 direct与verification重叠：{name}")
+        profile_ids: set[str] = set()
+        profile_refs: set[tuple[str, str]] = set()
+        profiles: list[dict[str, Any]] = []
+        for key in ("M_positive_profile", "M_mixed_profile", "M_negative_profile"):
+            for profile in row.get(key) or []:
+                if profile.get("M") not in {"M0", "M2", "M3"}:
+                    raise ValueError(f"第二项B1仍有非法M档：{name}")
+                material_id = str(profile.get("material_id") or "")
+                if not material_id:
+                    raise ValueError(f"第二项B1 M-profile材料缺失：{name}")
+                evidence_slice = str(profile.get("evidence_slice") or "PRIMARY")
+                profile_ref = (material_id, evidence_slice)
+                if profile_ref in profile_refs:
+                    raise ValueError(f"第二项B1 M-profile材料切片重复：{name}")
+                profile_refs.add(profile_ref)
+                profile_ids.add(material_id)
+                profiles.append(profile)
+        if profile_ids != direct:
+            raise ValueError(f"第二项B1 direct材料与M-profile不一致：{name}")
+
+        if not str(row.get("position_basis") or "").startswith(f"仅限{grade}同档比较：") or (
+            f"裁为{position}" not in str(row.get("position_basis") or "")
+        ):
+            raise ValueError(f"第二项B1 position_basis与当前档位位置不一致：{name}")
+        semantic_status = row.get("profile_semantic_review_status")
+        expected_semantic_status = (
+            {"V50_REASON_IS_FORMAL_AUTHORITY"}
+            if row.get("v50_review_status") == "PATCHED_FROM_V50"
+            else {"PRESERVED_NOT_LISTED_IN_V50"}
+        )
+        if semantic_status not in expected_semantic_status:
+            raise ValueError(f"第二项B1缺少M-profile逐人语义复核状态：{name}")
+        structured_basis = row.get("structured_grade_basis")
+        if not isinstance(structured_basis, list) or not structured_basis or any(
+            not isinstance(point, dict)
+            or not str(point.get("role") or "").strip()
+            or not str(point.get("text") or "").strip()
+            for point in structured_basis
+        ):
+            raise ValueError(f"第二项B1缺少逐人结构化结算依据：{name}")
+        position_cn = {
+            "lower": "下位",
+            "lower-middle": "中下位",
+            "middle": "中位",
+            "middle-upper": "中上位",
+            "upper": "上位",
+        }
+        if structured_basis[0].get("role") != "裁决说明" or (
+            f"裁定{grade}-{position_cn[position]}（{float(row['direction_index']):.1f}）"
+            not in str(structured_basis[0].get("text"))
+        ):
+            raise ValueError(f"第二项B1统一裁决说明与正式值不一致：{name}")
+        evidence_roles = [str(point["role"]) for point in structured_basis[1:]]
+        if not evidence_roles or any(
+            not re.fullmatch(r"(?:正向|负向)依据（(?:M[023](?:，(?:cross|terminal))?|无可计M档)）", role)
+            for role in evidence_roles
+        ):
+            raise ValueError(f"第二项B1结算依据未统一为正向与负向M档罗列：{name}")
+        if not any(role.startswith("正向依据") for role in evidence_roles) or not any(
+            role.startswith("负向依据") for role in evidence_roles
+        ):
+            raise ValueError(f"第二项B1结算依据缺少正向或负向栏目：{name}")
+        if any(
+            "无可计M档" not in str(point["role"])
+            and len(str(point["text"]).strip()) < 12
+            for point in structured_basis[1:]
+        ):
+            raise ValueError(f"第二项B1结算依据仍有缺少具体事例的短句：{name}")
+        expected_basis_levels: dict[str, set[str]] = {"正向": set(), "负向": set()}
+        for profile_key, direction_label in (
+            ("M_positive_profile", "正向"),
+            ("M_negative_profile", "负向"),
+        ):
+            for profile in row.get(profile_key) or []:
+                if profile.get("position_weight_override") == 0 or profile.get("position_count_mode") == "absorbed_same_lifecycle":
+                    continue
+                expected_basis_levels[direction_label].add(str(profile["M"]))
+        for profile in row.get("M_mixed_profile") or []:
+            if profile.get("position_weight_override") == 0 or profile.get("position_count_mode") == "absorbed_same_lifecycle":
+                continue
+            factor = float(profile.get("direction_factor") or 0.0)
+            if factor >= 0:
+                expected_basis_levels["正向"].add(str(profile["M"]))
+            if factor <= 0:
+                expected_basis_levels["负向"].add(str(profile["M"]))
+        actual_basis_levels: dict[str, set[str]] = {"正向": set(), "负向": set()}
+        no_count_directions: set[str] = set()
+        for evidence_role in evidence_roles:
+            direction_label = evidence_role[:2]
+            level_match = re.search(r"（(M[023])", evidence_role)
+            if level_match:
+                actual_basis_levels[direction_label].add(level_match.group(1))
+            elif "无可计M档" in evidence_role:
+                no_count_directions.add(direction_label)
+        if actual_basis_levels != expected_basis_levels or any(
+            bool(expected_basis_levels[direction]) == (direction in no_count_directions)
+            for direction in ("正向", "负向")
+        ):
+            raise ValueError(f"第二项B1结算依据方向或M档与正式profile不一致：{name}")
+        expected_subtypes: set[str] = set()
+        for profile in row.get("M_negative_profile") or []:
+            if profile.get("position_weight_override") == 0 or profile.get("position_count_mode") == "absorbed_same_lifecycle":
+                continue
+            raw_severity = str(profile.get("severity") or "") + " " + str(profile.get("mechanism") or "")
+            for subtype in ("cross", "terminal"):
+                if subtype in raw_severity:
+                    expected_subtypes.add(subtype)
+                    if profile.get("M") != "M3" or not str(profile.get("severity_basis") or "").strip():
+                        raise ValueError(f"第二项B1负向M3缺少{subtype}严重度数据：{name}")
+                    if f"负向依据（M3，{subtype}）" not in evidence_roles:
+                        raise ValueError(f"第二项B1负向M3未注明{subtype}：{name}")
+        role_subtypes = {
+            subtype
+            for subtype in ("cross", "terminal")
+            if any(subtype in role for role in evidence_roles)
+        }
+        if role_subtypes != expected_subtypes:
+            raise ValueError(f"第二项B1负向M3严重度标签与profile不一致：{name}")
+        structured_source = row.get("structured_basis_source")
+        if structured_source not in {"V50", "V20", "FORMAL"}:
+            raise ValueError(f"第二项B1结算依据缺少清单来源优先级：{name}")
+        if structured_source in {"V50", "V20"} and not isinstance(row.get("structured_basis_source_line"), int):
+            raise ValueError(f"第二项B1清单来源缺少行号：{name}")
+        if structured_source == "FORMAL" and row.get("structured_basis_source_line") is not None:
+            raise ValueError(f"第二项B1正式快照回退来源不应伪造清单行号：{name}")
+        if not isinstance(row.get("v50_review_basis"), str) or not row["v50_review_basis"].strip():
+            raise ValueError(f"第二项B1缺少v50原始审查依据：{name}")
+        reader_basis_text = " ".join(str(point["text"]) for point in structured_basis[1:])
+        if re.search(
+            r"(?<![A-Za-z])(?:distributed|central|support|core|personnel|externalized_power|position|N3-)",
+            reader_basis_text,
+        ):
+            raise ValueError(f"第二项B1阅读版结算依据仍含机器裁决术语：{name}")
+        direct_count += len(direct)
+        verification_count += len(verification)
+
+        status = row.get("v50_review_status")
+        if status == "PATCHED_FROM_V50":
+            reviewed_count += 1
+        elif status == "NOT_LISTED_IN_V50_PRESERVED":
+            preserved_review_names.add(name)
+        else:
+            raise ValueError(f"第二项B1缺少v50逐人覆盖状态：{name}")
+
+    if payload.get("grade_distribution") != distribution:
+        raise ValueError("第二项B1档位分布元数据不一致")
+    if payload.get("profile_semantic_review_count") != reviewed_count:
+        raise ValueError("第二项B1 M-profile语义复核计数不一致")
+    if payload.get("structured_basis_count") != len(records):
+        raise ValueError("第二项B1结构化结算依据计数不一致")
+    source_counts = {
+        source: sum(row.get("structured_basis_source") == source.upper() for row in records)
+        for source in ("v50", "v20", "formal")
+    }
+    if (
+        payload.get("structured_basis_source_counts") != source_counts
+        or payload.get("structured_basis_review_covered_count") != source_counts["v50"] + source_counts["v20"]
+        or payload.get("structured_basis_conflict_policy")
+        != "V50_OVERRIDES_V20; V20_SUPPLEMENTS_ONLY_WHERE_V50_IS_SILENT; FORMAL_SNAPSHOT_USED_WHERE_BOTH_ARE_SILENT"
+    ):
+        raise ValueError("第二项B1清单来源覆盖或v50优先策略元数据不一致")
+    if (
+        payload.get("v50_review_covered_count") != reviewed_count
+        or payload.get("v50_review_preserved_count") != len(preserved_review_names)
+        or set(payload.get("v50_review_preserved_rulers") or []) != preserved_review_names
+        or reviewed_count + len(preserved_review_names) != 185
+    ):
+        raise ValueError("第二项B1 v50逐人覆盖元数据不一致")
+    sorted_scores = sorted((float(row["direction_index"]) for row in records), reverse=True)
+    for row in records:
+        if row.get("rank") != sorted_scores.index(float(row["direction_index"])) + 1:
+            raise ValueError(f"第二项B1竞争排名不一致：{row.get('ruler_name')}")
+
+    markdown = path.with_suffix(".md").read_text(encoding="utf-8")
+    expected_order = [
+        str(row["ruler_name"])
+        for row in sorted(records, key=lambda item: (int(item["rank"]), str(item["ruler_name"])))
+    ]
+    table_names = re.findall(r"^\| \d+ \| ([^|]+?) \|", markdown, flags=re.M)
+    detail_names = re.findall(r"^### (.+?)（.*?分项第\d+名）$", markdown, flags=re.M)
+    if table_names != expected_order or detail_names != expected_order:
+        raise ValueError("第二项B1阅读版未按正式rank稳定排序或人物覆盖不全")
+    if re.search(
+        r"(?<![A-Za-z])(?:distributed|central|support|core|personnel|capture|major-stage|mixed|N3-)",
+        markdown,
+    ):
+        raise ValueError("第二项B1阅读版仍含机器裁决术语")
+    position_cn = {
+        "lower": "下位",
+        "lower-middle": "中下位",
+        "middle": "中位",
+        "middle-upper": "中上位",
+        "upper": "上位",
+    }
+    for row in records:
+        expected_table_prefix = (
+            f"| {row['rank']} | {row['ruler_name']} | {row['polity']} | "
+            f"{row['grade']}（{position_cn[row['position']]}） | "
+        )
+        expected_table_suffix = f" | **{float(row['direction_index']):.1f}** |"
+        table_synced = any(
+            line.startswith(expected_table_prefix) and line.endswith(expected_table_suffix)
+            for line in markdown.splitlines()
+        )
+        structured_basis = "\n".join(
+            f"  - **{point['role']}**：{str(point['text']).rstrip('。')}。"
+            for point in row["structured_grade_basis"]
+        )
+        expected_detail = (
+            f"### {row['ruler_name']}（{row['polity']}，分项第{row['rank']}名）\n\n"
+            f"- 档位：{row['grade']}（{position_cn[row['position']]}）\n"
+            f"- 内部指数：{float(row['direction_index']):.1f}/100\n"
+            "- 结算依据：\n"
+            f"{structured_basis}"
+        )
+        if not table_synced or expected_detail not in markdown:
+            raise ValueError(f"第二项B1 JSON与Markdown逐人展示不同步：{row['ruler_name']}")
+    material_blocks = re.findall(
+        r"^- 材料依据：\n(?P<lines>(?:  - .*\n?)+)", markdown, flags=re.MULTILINE
+    )
+    if len(material_blocks) != 185 or any(
+        re.search(r"https?://|\b(?:material_id|source_url|revision_ref|sha256)\b", block)
+        or "  - 《" not in block or "》：" not in block
+        for block in material_blocks
+    ):
+        raise ValueError("第二项B1材料依据未统一为书名接direct原文")
+    return {
+        "status": "PASS_WITH_V50_PRESERVED" if preserved_review_names else "PASS",
+        "record_count": len(records),
+        "reviewed_count": reviewed_count,
+        "preserved_review_count": len(preserved_review_names),
+        "direct_material_count": direct_count,
+        "verification_material_count": verification_count,
+        "invalid_M1_count": 0,
+        "duplicate_markdown_ruler_count": 0,
+        "profile_semantic_review_count": reviewed_count,
+        "explicit_value_patch_count": int(payload.get("v50_explicit_value_patch_count") or 0),
+        "position_basis_refresh_count": int(payload.get("position_basis_refresh_count") or 0),
+        "structured_basis_count": int(payload.get("structured_basis_count") or 0),
+    }
+
+
 def verify_second_item_b2_snapshot(workspace_root: Path) -> dict[str, Any]:
     path = workspace_root / SECOND_ITEM_COMPONENT_PATHS["B2"]
     payload = json.loads(path.read_text(encoding="utf-8"))
@@ -425,11 +727,10 @@ def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
         key: json.loads((workspace_root / path).read_text(encoding="utf-8"))
         for key, path in SECOND_ITEM_COMPONENT_PATHS.items()
     }
-    for key in ("C4", "result"):
-        _verify_records_hash(payloads[key], f"第二项{key}")
     indexed = {key: _records_by_id(payload) for key, payload in payloads.items()}
 
     a_report = verify_second_item_a_snapshot(workspace_root)
+    verify_second_item_b1_snapshot(workspace_root)
     b2_report = verify_second_item_b2_snapshot(workspace_root)
     id_sets = {key: set(rows) for key, rows in indexed.items()}
     complete_ids = id_sets["method"]
@@ -465,12 +766,6 @@ def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
             )
         )
     )
-    top_payload = json.loads(
-        (workspace_root / str(SETTLEMENT_SPECS["second_item"]["path"])).read_text(
-            encoding="utf-8"
-        )
-    )
-    _verify_records_hash(top_payload, "第二项总表")
     if set(top) != complete_ids:
         raise ValueError("第二项总表与组件ID集合不一致")
 

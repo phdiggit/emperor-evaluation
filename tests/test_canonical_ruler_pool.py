@@ -4,21 +4,12 @@ from pathlib import Path
 import yaml
 
 from emperor_v4.evaluation.canonical_ruler_pool import (
-    _sha256,
     build_canonical_ruler_pool,
     verify_canonical_ruler_pool,
 )
 
 
 ROOT = Path(__file__).resolve().parents[1]
-
-
-def test_source_fingerprint_is_stable_across_git_line_endings(tmp_path: Path) -> None:
-    lf = tmp_path / "lf.json"
-    crlf = tmp_path / "crlf.json"
-    lf.write_bytes(b'{\n  "value": 1\n}\n')
-    crlf.write_bytes(b'{\r\n  "value": 1\r\n}\r\n')
-    assert _sha256(lf) == _sha256(crlf)
 
 
 def test_canonical_pool_is_rebuildable_and_feasible() -> None:

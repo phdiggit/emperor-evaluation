@@ -268,10 +268,6 @@ def build_first_item_b_registry(
             "battle_registry": "docs/公共成果/军事/01-战役登记.json",
             "talent_registry": "docs/公共成果/军事/02-武将人才等级.json",
         },
-        "source_registry_fingerprints": {
-            "battle": (battle_registry or {}).get("semantic_fingerprint"),
-            "talent": (talent_registry or {}).get("registry_fingerprint"),
-        },
         "record_count": len(records),
         "eligible_count": len(eligible),
         "excluded_count": len(excluded),

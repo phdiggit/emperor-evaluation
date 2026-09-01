@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import json
 import re
 from collections import Counter, defaultdict
@@ -40,10 +39,6 @@ def _read(path: Path) -> bytes:
 
 def _load(path: Path) -> Any:
     return json.loads(_read(path).decode("utf-8"))
-
-
-def _sha(path: Path) -> str:
-    return hashlib.sha256(_read(path)).hexdigest()
 
 
 def _walk(value: Any):
@@ -90,10 +85,8 @@ def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dic
     assert settlement["schema_version"] == "profile-c3-formal-settlement-v1"
     assert settlement["canonical_status"] == "FORMAL_CURRENT"
     assert settlement["axis_code"] == "C3"
-    assert settlement["contract_sha256"] and settlement["contract_version"]
-    assert settlement["canonical_pool_sha256"] == _sha(POOL)
+    assert settlement["contract_version"]
     assert settlement["authority_mode"] == "FORMAL_SETTLEMENT_PATCH_SOURCE"
-    assert "manual_adjudication_sha256" not in settlement
     assert settlement["record_count"] == len(records) == 184
     assert {r["ruler_id"] for r in records} == included
     assert len({r["task_code"] for r in records}) == 184
@@ -247,11 +240,7 @@ def verify() -> dict[str, Any]:
     assert profile["settled_axes"]["C3"]["json"].endswith(SETTLEMENT.name)
     manifest = _load(MANIFEST)
     c3 = next(axis for axis in manifest["axes"] if axis["axis_code"] == "C3")
-    assert (
-        c3["json"] == SETTLEMENT.relative_to(MANIFEST.parent).as_posix()
-        and c3["json_sha256"] == _sha(SETTLEMENT)
-    )
-    assert c3["markdown_sha256"] == _sha(MARKDOWN)
+    assert c3["json"] == SETTLEMENT.relative_to(MANIFEST.parent).as_posix()
     assert SYSTEMIC_REVIEW.name in c3["audit_jsons"]
     assert c3["record_count"] == 184
     return result

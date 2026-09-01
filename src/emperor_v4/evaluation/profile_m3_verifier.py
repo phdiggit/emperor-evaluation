@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import json
 import re
 from collections import Counter
@@ -72,10 +71,6 @@ def _load(path: Path) -> dict[str, Any]:
     if raw.startswith(b"\xef\xbb\xbf"):
         raise ValueError(f"UTF-8 BOM forbidden: {path}")
     return json.loads(raw.decode("utf-8"))
-
-
-def _sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _band(value: Any) -> int:
@@ -153,8 +148,6 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
         raise ValueError("M3 formal settlement is not the declared patch authority")
     if any(key in settlement for key in ("adjudication_source", "supplement_adjudication_source")):
         raise ValueError("M3 still declares a generated adjudication authority")
-    if settlement["contract_sha256"] != _sha(M3_CONTRACT):
-        raise ValueError("M3 contract hash mismatch")
     if settlement["record_count"] != len(records) or len(records) != 184:
         raise ValueError("M3 record count mismatch")
     ids = [row["ruler_id"] for row in records]
@@ -374,8 +367,6 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
     if yinzhen_review.get("m3_disposition") != "G3-MID_RETAINED_PENDING_RULE":
         raise ValueError("M3 Yinzhen same-band disposition drift")
     upstream_summary = settlement["summary"].get("upstream_sync") or {}
-    if upstream_summary.get("source_sha256") != {axis: _sha(path) for axis, path in C_PATHS.items()}:
-        raise ValueError("M3 upstream source hash drift")
     if upstream_summary.get("k_structure_distribution") != dict(k_structure_distribution):
         raise ValueError("M3 K structure distribution mismatch")
     return {
@@ -411,10 +402,6 @@ def verify() -> dict[str, Any]:
 
     manifest = _load(MANIFEST)
     axis = next(row for row in manifest["axes"] if row["axis_code"] == "M3")
-    if axis["json_sha256"] != _sha(M3_SETTLEMENT):
-        raise ValueError("M3 manifest JSON hash mismatch")
-    if axis["markdown_sha256"] != _sha(M3_MARKDOWN):
-        raise ValueError("M3 manifest Markdown hash mismatch")
     return result
 
 

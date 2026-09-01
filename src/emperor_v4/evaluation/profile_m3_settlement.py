@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 from typing import Any
@@ -53,10 +52,6 @@ def _write_json(path: Path, payload: dict[str, Any]) -> None:
     )
 
 
-def _sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
 def update_manifest() -> None:
     """Update only the M3 manifest entry; other axes are independent snapshots."""
     manifest = _load(MANIFEST)
@@ -69,12 +64,9 @@ def update_manifest() -> None:
             "status": "FORMAL_CURRENT",
             "contract_version": "FORMAL-V3.4",
             "contract": M3_CONTRACT.relative_to(ROOT).as_posix(),
-            "contract_sha256": _sha(M3_CONTRACT),
             "record_count": 184,
             "json": M3_SETTLEMENT.relative_to(PROFILE_ROOT).as_posix(),
             "markdown": M3_MARKDOWN.relative_to(PROFILE_ROOT).as_posix(),
-            "json_sha256": _sha(M3_SETTLEMENT),
-            "markdown_sha256": _sha(M3_MARKDOWN),
             "audit_jsons": [
                 M3_REVIEW.relative_to(PROFILE_ROOT).as_posix(),
                 M3_REMEDIATION.relative_to(PROFILE_ROOT).as_posix(),
