@@ -1,0 +1,304 @@
+{
+  "schema_id": "third-item-b1-reaudit-data-v1",
+  "data_purpose": "只保存B1史料裁决与规范空间数据；如何消费、回写和生成正式结算由Codex处理。",
+  "scope": "西汉分片11条评价记录，含王莽新朝记录",
+  "status": "COMPLETE_11_OF_11",
+  "rule_basis": {
+    "contract": "docs/分项规则/第三项军事与边疆净收益/国防安全/00-规则与结算合同.md",
+    "region_anchor_registry": "config/third-item/third-item-b1-region-anchors.json",
+    "source_shard": "docs/评分结算/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算/西汉.json",
+    "formula": "weighted_control_value = end_total - 0.6 * start_total",
+    "coverage_steps": [0.0, 0.25, 0.5, 0.75, 1.0]
+  },
+  "data_conventions": {
+    "region_entry": "w=空间基准；s/e=起终覆盖率；se/ee=起终控制当量。",
+    "inheritance": "连续窗口可直接复用前一已审end；重叠统治窗口分别读取同一客观国家快照，不互相串成伪顺序交班。",
+    "core_exclusion": "稳定核心领土和第一项已消费的统一核心新增不进入B1。",
+    "frontier_reclassification": "旧边疆若确已内地化可退出B1，但不能仅因新边疆继续外推就把仍实际存在的旧边郡控制删除。",
+    "evidence_policy": "旧结算只作检索线索；本文件按统一空间锚重新裁决。"
+  },
+  "bridges": [
+    {
+      "left": "刘彻",
+      "right": "刘询",
+      "gap_range": "前87—前74",
+      "status": "NO_CROSS_COVERAGE_STEP_CHANGE",
+      "reason": "评价名册未单列昭帝等窗口；现有底账未见河南—朔方、河西、岭南、朝鲜汉郡、西南及既有北方边郡发生足以跨覆盖阶梯的永久退控，因此刘询start复用刘彻end。"
+    },
+    {
+      "left": "刘欣",
+      "right": "王莽",
+      "gap_range": "前1—6",
+      "status": "NO_CROSS_COVERAGE_STEP_CHANGE",
+      "evidence": ["GAP-HAN-LIUXIN-WANGMANG-1BCE-6CE"],
+      "reason": "沿用现有状态桥：至王莽评价窗口起点前，未闭合任何足以改变七个B1区域覆盖阶梯的事实。"
+    }
+  ],
+  "records": [
+    {
+      "ruler_id": "RULER-HAN-LIUBANG",
+      "ruler_name": "刘邦",
+      "reign_range": "前202—前195",
+      "review_status": "REVIEWED",
+      "regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {
+          "w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8,
+          "mode": "直接边郡、封国驻军与塞防节点",
+          "evidence": ["WAR-LEAD-HAN-XIONGNU-BAIDENG", "WAR-LEAD-HAN-CHENXI"],
+          "reason": "汉初代、雁门等北方边郡在起终锚均保持实际行政与塞防控制；战争和入侵未形成边郡整体永久退出。"
+        }
+      },
+      "excluded": [{"object": "统一战争取得的稳定核心领土", "reason": "第一项已消费。"}],
+      "totals": {"start": 0.8, "end": 0.8, "net": 0.0, "weighted": 0.32},
+      "result": {"grade": "B1-1", "position": "MID", "rate": 37},
+      "change_vs_old": "数值不变；NORTHERN_FRONTIER规范化。"
+    },
+    {
+      "ruler_id": "RULER-HAN-LUYU",
+      "ruler_name": "吕雉",
+      "reign_range": "前195—前180实际执政窗口",
+      "review_status": "REVIEWED",
+      "regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {
+          "w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8,
+          "inheritance_from": "刘邦.end.NORTHERN_BORDER_COMMANDERIES",
+          "evidence": ["WAR-LEAD-HAN-NORTHERN-BORDER"],
+          "reason": "匈奴入寇证明防务承压，但未见代、雁门等北部边郡整体退出；人口损失不机械折成退地。"
+        }
+      },
+      "excluded": [{"object": "南越政权", "evidence": ["WAR-LEAD-HAN-NANYUE-EMBARGO"], "reason": "高帝时期普通称臣从未达到B1可执行宗主权门，关系破裂不产生B1失地。"}],
+      "totals": {"start": 0.8, "end": 0.8, "net": 0.0, "weighted": 0.32},
+      "result": {"grade": "B1-1", "position": "MID", "rate": 37},
+      "change_vs_old": "数值不变；旧ID规范化。"
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUYING",
+      "ruler_name": "刘盈",
+      "reign_range": "前195—前188名义皇帝窗口",
+      "review_status": "REVIEWED",
+      "overlap_note": "与吕雉实际执政窗口重叠；B1只读取国家客观空间快照，不把两人串成连续交班。",
+      "regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {
+          "w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8,
+          "inheritance_from": "刘邦.end.NORTHERN_BORDER_COMMANDERIES",
+          "reason": "国家北方边郡客观存量在本人名义窗口内未见覆盖阶梯变化；军事行动归责不在B1客观快照中重复处理。"
+        }
+      },
+      "totals": {"start": 0.8, "end": 0.8, "net": 0.0, "weighted": 0.32},
+      "result": {"grade": "B1-1", "position": "MID", "rate": 37},
+      "change_vs_old": "数值不变；补齐逐区域账并明确与吕雉的重叠窗口关系。"
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUHENG",
+      "ruler_name": "刘恒",
+      "reign_range": "前180—前157",
+      "review_status": "REVIEWED",
+      "regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {
+          "w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8,
+          "inheritance_from": "吕雉.end.NORTHERN_BORDER_COMMANDERIES",
+          "evidence": ["WAR-LEAD-HAN-XIONGNU-158", "WAR-LEAD-HAN-XIONGNU-162", "WAR-LEAD-HAN-XIONGNU-166", "WAR-LEAD-HAN-XIONGNU-177"],
+          "reason": "反复入侵说明安全态势未改善，但未闭合为北方边郡整体永久退控；B1维持1.00覆盖。"
+        }
+      },
+      "excluded": [{"object": "南越册封往来", "evidence": ["WAR-LEAD-HAN-NANYUE-RESTORATION"], "reason": "恢复外交与册封关系不足以证明可执行军政宗主权，不进入B1。"}],
+      "totals": {"start": 0.8, "end": 0.8, "net": 0.0, "weighted": 0.32},
+      "result": {"grade": "B1-1", "position": "MID", "rate": 37},
+      "change_vs_old": "数值不变；补齐逐区域账。"
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUQI",
+      "ruler_name": "刘启",
+      "reign_range": "前157—前141",
+      "review_status": "REVIEWED",
+      "regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {
+          "w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8,
+          "inheritance_from": "刘恒.end.NORTHERN_BORDER_COMMANDERIES",
+          "evidence": ["WAR-LEAD-HAN-XIONGNU-152-142"],
+          "reason": "多年匈奴入侵构成A轴恶化，但没有形成代、雁门、上谷等既有北方边郡的覆盖阶梯退出。"
+        }
+      },
+      "excluded": [{"object": "七国之乱平定", "evidence": ["WAR-LEAD-HAN-SEVEN-KINGDOMS"], "reason": "核心区平乱，不生成边疆控制空间。"}],
+      "totals": {"start": 0.8, "end": 0.8, "net": 0.0, "weighted": 0.32},
+      "result": {"grade": "B1-1", "position": "MID", "rate": 37},
+      "change_vs_old": "数值不变；补齐逐区域账。"
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUCHE",
+      "ruler_name": "刘彻",
+      "reign_range": "前141—前87",
+      "review_status": "REVIEWED",
+      "regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {
+          "w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8,
+          "inheritance_from": "刘启.end.NORTHERN_BORDER_COMMANDERIES",
+          "evidence": ["WAR-LEAD-HAN-NORTHERN-FORTS-104-102", "WAR-LEAD-HAN-SHUOFANG-87"],
+          "reason": "旧账把既有北方边郡在end直接归零不成立。河南—朔方向外新增后，代、雁门、上谷等既有北部边郡仍实际存在并承担塞防；本锚明确不含新增河南—朔方走廊，因此可与后者并计。"
+        },
+        "HENAN_SHUOFANG_CORRIDOR": {
+          "w": 0.6, "s": 0.0, "e": 1.0, "se": 0.0, "ee": 0.6,
+          "mode": "直接郡县、塞防与移民体系",
+          "evidence": ["WAR-LEAD-HAN-HENAN-SHUFANG"],
+          "reason": "河南地—朔方新增军政控制完整形成，取1.00；与既有北方边郡锚按实际地理边界拆分，不重复。"
+        },
+        "HEXI_LONGYOU_CORRIDOR": {
+          "w": 0.8, "s": 0.0, "e": 1.0, "se": 0.0, "ee": 0.8,
+          "mode": "河西四郡、屯戍与交通走廊",
+          "evidence": ["WAR-LEAD-HAN-HEXICORRIDOR-121", "WAR-LEAD-HAN-WESTERN-ROUTE-111"],
+          "reason": "河西走廊形成持续军政与交通控制，取1.00。"
+        },
+        "LINGNAN_FRONTIER": {
+          "w": 0.8, "s": 0.0, "e": 1.0, "se": 0.0, "ee": 0.8,
+          "mode": "南越故地郡县与南部边疆体系",
+          "evidence": ["WAR-LEAD-HAN-NANYUE-112-111"],
+          "reason": "南越终结后形成直接郡县控制；本西汉连续链沿用岭南边疆0.8统一口径。"
+        },
+        "KOREA_HAN_COMMANDERIES": {
+          "w": 0.3, "s": 0.0, "e": 1.0, "se": 0.0, "ee": 0.3,
+          "mode": "朝鲜故地汉郡体系",
+          "evidence": ["WAR-LEAD-HAN-CHAOXIAN-109-108"],
+          "reason": "灭卫氏朝鲜后设置汉郡，按小范围直接控制锚0.3计。"
+        },
+        "SOUTHWEST_FRONTIER": {
+          "w": 0.5, "s": 0.0, "e": 1.0, "se": 0.0, "ee": 0.5,
+          "mode": "郡县、属国与局部羁縻并存",
+          "evidence": ["WAR-LEAD-HAN-SOUTHWEST-109-105", "WAR-LEAD-HAN-SOUTHWEST-111"],
+          "reason": "西南夷主要郡县与属部控制形成，按统一0.5锚整体计，不按郡数拆分。"
+        }
+      },
+      "totals": {"start": 0.8, "end": 3.8, "net": 3.0, "weighted": 3.32},
+      "result": {"grade": "B1-4", "position": "LOW", "rate": 75},
+      "handoff_transform": "北方边疆由既有边郡弧线+新增河南—朔方共同构成；新增前沿不删除旧边郡客观控制。",
+      "change_vs_old": "重大修正：旧end 3.0→3.8，net 2.2→3.0，weighted 2.52→3.32；B1-3 HIGH(74)→B1-4 LOW(75)。"
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUXUN",
+      "ruler_name": "刘询",
+      "reign_range": "前74—前48",
+      "review_status": "REVIEWED",
+      "regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8, "inheritance_from": "刘彻.end via 前87—前74 bridge", "reason": "既有北方边郡连续维持，无跨覆盖阶梯退控。"},
+        "HENAN_SHUOFANG_CORRIDOR": {"w": 0.6, "s": 1.0, "e": 1.0, "se": 0.6, "ee": 0.6, "inheritance_from": "刘彻.end via 前87—前74 bridge", "reason": "河南—朔方直接控制连续维持。"},
+        "HEXI_LONGYOU_CORRIDOR": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8, "inheritance_from": "刘彻.end via 前87—前74 bridge", "reason": "河西四郡与走廊连续维持。"},
+        "LINGNAN_FRONTIER": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8, "inheritance_from": "刘彻.end via 前87—前74 bridge", "reason": "宣帝交班前珠崖尚未罢弃，维持1.00。"},
+        "KOREA_HAN_COMMANDERIES": {"w": 0.3, "s": 1.0, "e": 1.0, "se": 0.3, "ee": 0.3, "inheritance_from": "刘彻.end via 前87—前74 bridge", "reason": "朝鲜汉郡体系维持。"},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 1.0, "e": 1.0, "se": 0.5, "ee": 0.5, "inheritance_from": "刘彻.end via 前87—前74 bridge", "reason": "西南郡县与属部体系维持。"},
+        "WESTERN_REGIONS_WHOLE": {
+          "w": 2.0, "s": 0.0, "e": 1.0, "se": 0.0, "ee": 2.0,
+          "mode": "乌垒西域都护、屯田与属国军事行政网络",
+          "evidence": ["DEF-LEAD-HAN-WESTERN-PROTECTORATE-60"],
+          "reason": "西域南北道主要制度节点闭合并达到实际受控门，按整体2.0计。"
+        },
+        "XIONGNU_VASSAL_SPACE": {
+          "w": 1.0, "s": 0.0, "e": 1.0, "se": 0.0, "ee": 1.0,
+          "mode": "称臣朝见、送子入侍、驻援与粮援的可执行属国关系",
+          "evidence": ["DEF-LEAD-HAN-XIONGNU-GARRISON-58-49"],
+          "reason": "呼韩邪所部达到可执行宗主权门槛；只计该属部空间，不把整个匈奴草原算给汉。"
+        }
+      },
+      "excluded": [{"object": "乌孙", "reason": "联盟和继承影响反复，不能稳定决定其内部秩序；不在西域整体之外另列控制空间。"}],
+      "totals": {"start": 3.8, "end": 6.8, "net": 3.0, "weighted": 4.52},
+      "result": {"grade": "B1-4", "position": "MID", "rate": 82},
+      "change_vs_old": "承接武帝遗漏修正：start 3.0→3.8，end 6.0→6.8，weighted 4.20→4.52；档位与得分率不变。"
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUSHI",
+      "ruler_name": "刘奭",
+      "reign_range": "前48—前33",
+      "review_status": "REVIEWED",
+      "regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8, "inheritance_from": "刘询.end", "reason": "既有北方边郡持续受控。"},
+        "HENAN_SHUOFANG_CORRIDOR": {"w": 0.6, "s": 1.0, "e": 1.0, "se": 0.6, "ee": 0.6, "inheritance_from": "刘询.end", "reason": "直接郡县与塞防体系维持。"},
+        "HEXI_LONGYOU_CORRIDOR": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8, "inheritance_from": "刘询.end", "reason": "河西走廊维持。"},
+        "LINGNAN_FRONTIER": {
+          "w": 0.8, "s": 1.0, "e": 0.75, "se": 0.8, "ee": 0.6,
+          "evidence": ["WAR-LEAD-HAN-ZHUYAI-52-46"],
+          "reason": "珠崖罢郡形成明确局部退控，但岭南主要郡县仍有效；由1.00降至0.75。"
+        },
+        "KOREA_HAN_COMMANDERIES": {"w": 0.3, "s": 1.0, "e": 1.0, "se": 0.3, "ee": 0.3, "inheritance_from": "刘询.end", "reason": "汉郡体系维持。"},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 1.0, "e": 1.0, "se": 0.5, "ee": 0.5, "inheritance_from": "刘询.end", "reason": "西南体系维持。"},
+        "WESTERN_REGIONS_WHOLE": {"w": 2.0, "s": 1.0, "e": 1.0, "se": 2.0, "ee": 2.0, "inheritance_from": "刘询.end", "evidence": ["WAR-LEAD-HAN-ZHIZHI-44-36"], "reason": "西域都护网络仍有效，郅支方向变化未造成整体覆盖下降。"},
+        "XIONGNU_VASSAL_SPACE": {"w": 1.0, "s": 1.0, "e": 1.0, "se": 1.0, "ee": 1.0, "inheritance_from": "刘询.end", "reason": "呼韩邪系可执行属国关系在本任未见失效。"}
+      },
+      "totals": {"start": 6.8, "end": 6.6, "net": -0.2, "weighted": 2.52},
+      "result": {"grade": "B1-3", "position": "HIGH", "rate": 74},
+      "change_vs_old": "承接北方边郡遗漏修正：start 6.0→6.8，end 5.8→6.6，weighted 2.20→2.52；B1-3 MID(67)→HIGH(74)。"
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUAO",
+      "ruler_name": "刘骜",
+      "reign_range": "前33—前7",
+      "review_status": "REVIEWED",
+      "regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8, "inheritance_from": "刘奭.end", "reason": "既有北方边郡持续受控。"},
+        "HENAN_SHUOFANG_CORRIDOR": {"w": 0.6, "s": 1.0, "e": 1.0, "se": 0.6, "ee": 0.6, "inheritance_from": "刘奭.end", "reason": "直接郡县与塞防体系维持。"},
+        "HEXI_LONGYOU_CORRIDOR": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8, "inheritance_from": "刘奭.end", "reason": "河西走廊维持。"},
+        "LINGNAN_FRONTIER": {"w": 0.8, "s": 0.75, "e": 0.75, "se": 0.6, "ee": 0.6, "inheritance_from": "刘奭.end", "reason": "珠崖退出后的岭南主要郡县维持0.75。"},
+        "KOREA_HAN_COMMANDERIES": {"w": 0.3, "s": 1.0, "e": 1.0, "se": 0.3, "ee": 0.3, "inheritance_from": "刘奭.end", "reason": "汉郡体系维持。"},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 1.0, "e": 1.0, "se": 0.5, "ee": 0.5, "inheritance_from": "刘奭.end", "evidence": ["WAR-LEAD-HAN-YELANG-27"], "reason": "夜郎叛乱平定后恢复原行政秩序，未形成净退控。"},
+        "WESTERN_REGIONS_WHOLE": {"w": 2.0, "s": 1.0, "e": 1.0, "se": 2.0, "ee": 2.0, "inheritance_from": "刘奭.end", "evidence": ["WAR-LEAD-HAN-WUSUN-SIEGE-29", "WAR-LEAD-HAN-WUSUN-SUCCESSION-21"], "reason": "都护解围与乌孙危机影响A/B4，但未证明西域整体覆盖跨阶梯下降。"},
+        "XIONGNU_VASSAL_SPACE": {"w": 1.0, "s": 1.0, "e": 1.0, "se": 1.0, "ee": 1.0, "inheritance_from": "刘奭.end", "reason": "呼韩邪系属国关系持续，未见可执行关系整体失效。"}
+      },
+      "totals": {"start": 6.6, "end": 6.6, "net": 0.0, "weighted": 2.64},
+      "result": {"grade": "B1-3", "position": "HIGH", "rate": 74},
+      "change_vs_old": "承接北方边郡遗漏修正：start/end 5.8→6.6，weighted 2.32→2.64；B1-3 MID(67)→HIGH(74)。"
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUXIN",
+      "ruler_name": "刘欣",
+      "reign_range": "前7—前1",
+      "review_status": "REVIEWED",
+      "regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8, "inheritance_from": "刘骜.end", "reason": "既有北方边郡持续受控。"},
+        "HENAN_SHUOFANG_CORRIDOR": {"w": 0.6, "s": 1.0, "e": 1.0, "se": 0.6, "ee": 0.6, "inheritance_from": "刘骜.end", "reason": "直接郡县与塞防体系维持。"},
+        "HEXI_LONGYOU_CORRIDOR": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8, "inheritance_from": "刘骜.end", "reason": "河西走廊维持。"},
+        "LINGNAN_FRONTIER": {"w": 0.8, "s": 0.75, "e": 0.75, "se": 0.6, "ee": 0.6, "inheritance_from": "刘骜.end", "reason": "珠崖退出后的主要岭南郡县维持。"},
+        "KOREA_HAN_COMMANDERIES": {"w": 0.3, "s": 1.0, "e": 1.0, "se": 0.3, "ee": 0.3, "inheritance_from": "刘骜.end", "reason": "汉郡体系维持。"},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 1.0, "e": 1.0, "se": 0.5, "ee": 0.5, "inheritance_from": "刘骜.end", "reason": "西南体系维持。"},
+        "WESTERN_REGIONS_WHOLE": {"w": 2.0, "s": 1.0, "e": 1.0, "se": 2.0, "ee": 2.0, "inheritance_from": "刘骜.end", "evidence": ["WAR-LEAD-HAN-CHESHI-DEFECTION-2"], "reason": "车师属部千余人转降形成边界协同缺口，但不足以使西域整体覆盖跨至0.75，B1仍取1.00。"},
+        "XIONGNU_VASSAL_SPACE": {"w": 1.0, "s": 1.0, "e": 1.0, "se": 1.0, "ee": 1.0, "inheritance_from": "刘骜.end", "reason": "本任未见可执行属国关系整体失效。"}
+      },
+      "totals": {"start": 6.6, "end": 6.6, "net": 0.0, "weighted": 2.64},
+      "result": {"grade": "B1-3", "position": "HIGH", "rate": 74},
+      "change_vs_old": "承接北方边郡遗漏修正：start/end 5.8→6.6，weighted 2.32→2.64；B1-3 MID(67)→HIGH(74)。"
+    },
+    {
+      "ruler_id": "RULER-XIN-WANGMANG",
+      "ruler_name": "王莽",
+      "polity": "新",
+      "reign_range": "6—23评价窗口",
+      "review_status": "REVIEWED",
+      "terminal_polity_collapse": true,
+      "regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 1.0, "e": 0.0, "se": 0.8, "ee": 0.0, "inheritance_from": "刘欣.end via 前1—6 bridge", "reason": "起点继承既有边郡；亡国终局无可移交控制。"},
+        "HENAN_SHUOFANG_CORRIDOR": {"w": 0.6, "s": 1.0, "e": 0.0, "se": 0.6, "ee": 0.0, "inheritance_from": "刘欣.end via 前1—6 bridge", "reason": "起点继承；亡国终局归零。"},
+        "HEXI_LONGYOU_CORRIDOR": {"w": 0.8, "s": 1.0, "e": 0.0, "se": 0.8, "ee": 0.0, "inheritance_from": "刘欣.end via 前1—6 bridge", "reason": "起点继承；亡国终局归零。"},
+        "LINGNAN_FRONTIER": {"w": 0.8, "s": 0.75, "e": 0.0, "se": 0.6, "ee": 0.0, "inheritance_from": "刘欣.end via 前1—6 bridge", "reason": "起点继承珠崖退出后的0.75覆盖；亡国终局归零。"},
+        "KOREA_HAN_COMMANDERIES": {"w": 0.3, "s": 1.0, "e": 0.0, "se": 0.3, "ee": 0.0, "inheritance_from": "刘欣.end via 前1—6 bridge", "evidence": ["WAR-LEAD-XIN-GOGURYEO-12"], "reason": "起点继承；本人强征引发东北失控，终局归零。"},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 1.0, "e": 0.0, "se": 0.5, "ee": 0.0, "inheritance_from": "刘欣.end via 前1—6 bridge", "evidence": ["WAR-LEAD-XIN-SOUTHWEST-16-22"], "reason": "起点继承；西南控制未恢复并随政权终结归零。"},
+        "WESTERN_REGIONS_WHOLE": {"w": 2.0, "s": 1.0, "e": 0.0, "se": 2.0, "ee": 0.0, "inheritance_from": "刘欣.end via 前1—6 bridge", "evidence": ["WAR-LEAD-XIN-WESTERNREGIONS-16"], "reason": "起点继承西域整体网络；后续西域断绝，终局归零。"},
+        "XIONGNU_VASSAL_SPACE": {"w": 1.0, "s": 1.0, "e": 0.0, "se": 1.0, "ee": 0.0, "inheritance_from": "刘欣.end via 前1—6 bridge", "evidence": ["WAR-LEAD-XIN-XIONGNU-15-22"], "reason": "起点继承汉末可执行属国关系；本人政策破坏后持续战争，终局无可移交关系。"}
+      },
+      "totals": {"start": 6.6, "end": 0.0, "net": -6.6, "weighted": -3.96},
+      "result": {"grade": "B1-0", "position": "LOW", "rate": 0},
+      "change_vs_old": "承接北方边郡遗漏修正：start 5.8→6.6，weighted -3.48→-3.96；终局门下档位与得分率不变。"
+    }
+  ],
+  "audit_summary": {
+    "records_reviewed": 11,
+    "major_issue": "武帝旧账在新增河南—朔方后将既有北方边郡0.8从end删除，造成后续整个西汉链持续漏记0.8。既有北方边郡与新增河南—朔方是可拆分的不重叠边疆空间，前者并未因前沿外推而消失。",
+    "numeric_corrections": [
+      {"ruler": "刘彻", "old_start": 0.8, "new_start": 0.8, "old_end": 3.0, "new_end": 3.8, "old_weighted": 2.52, "new_weighted": 3.32, "old_result": "B1-3 HIGH 74", "new_result": "B1-4 LOW 75"},
+      {"ruler": "刘询", "old_start": 3.0, "new_start": 3.8, "old_end": 6.0, "new_end": 6.8, "old_weighted": 4.2, "new_weighted": 4.52, "old_result": "B1-4 MID 82", "new_result": "B1-4 MID 82"},
+      {"ruler": "刘奭", "old_start": 6.0, "new_start": 6.8, "old_end": 5.8, "new_end": 6.6, "old_weighted": 2.2, "new_weighted": 2.52, "old_result": "B1-3 MID 67", "new_result": "B1-3 HIGH 74"},
+      {"ruler": "刘骜", "old_start": 5.8, "new_start": 6.6, "old_end": 5.8, "new_end": 6.6, "old_weighted": 2.32, "new_weighted": 2.64, "old_result": "B1-3 MID 67", "new_result": "B1-3 HIGH 74"},
+      {"ruler": "刘欣", "old_start": 5.8, "new_start": 6.6, "old_end": 5.8, "new_end": 6.6, "old_weighted": 2.32, "new_weighted": 2.64, "old_result": "B1-3 MID 67", "new_result": "B1-3 HIGH 74"},
+      {"ruler": "王莽", "old_start": 5.8, "new_start": 6.6, "old_end": 0.0, "new_end": 0.0, "old_weighted": -3.48, "new_weighted": -3.96, "old_result": "B1-0 LOW 0", "new_result": "B1-0 LOW 0"}
+    ],
+    "ledger_repairs": ["刘盈补齐逐区域账", "刘恒补齐逐区域账", "刘启补齐逐区域账"],
+    "canonical_id_repairs": ["NORTHERN_FRONTIER→NORTHERN_BORDER_COMMANDERIES", "HAN_HENAN_SHUOFANG→HENAN_SHUOFANG_CORRIDOR", "NORTHWEST_HEXI→HEXI_LONGYOU_CORRIDOR", "LINGNAN_SOUTH→LINGNAN_FRONTIER", "NORTHEAST_KOREA→KOREA_HAN_COMMANDERIES", "SOUTHWEST→SOUTHWEST_FRONTIER", "WESTERN_REGIONS→WESTERN_REGIONS_WHOLE", "HAN_HUHHANYE_VASSAL→XIONGNU_VASSAL_SPACE"],
+    "score_rate_changes": ["刘彻 74→75", "刘奭 67→74", "刘骜 67→74", "刘欣 67→74"],
+    "conclusion": "西汉分片11条B1完成统一空间锚重审；4人的B1得分率需要调整，刘询和王莽仅底账数值修正而得分率不变。"
+  }
+}
