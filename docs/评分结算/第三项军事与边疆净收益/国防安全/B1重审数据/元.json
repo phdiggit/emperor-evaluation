@@ -1,0 +1,253 @@
+{
+  "schema_id": "third-item-b1-reaudit-data-v1",
+  "data_purpose": "只保存B1史料裁决、统一空间锚、跨项去重后的有效结果及尚缺空间锚；正式回写由Codex处理。",
+  "polity": "元/蒙古帝国主链",
+  "status": "COMPLETE_8_OF_8_WITH_EARLY_EMPIRE_LOWER_BOUND",
+  "rule_basis": {
+    "contract": "docs/分项规则/第三项军事与边疆净收益/国防安全/00-规则与结算合同.md",
+    "region_anchor_registry": "config/third-item/third-item-b1-region-anchors.json",
+    "source_shard": "docs/评分结算/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算/元.json",
+    "formula": "objective_weighted=end-0.6*start；第三项有效值再扣除第一项已消费的本任净增。"
+  },
+  "data_conventions": {
+    "objective_vs_effective": "先重建客观边疆库存，再做第一项去重。第一项已消费的本任新增不重复计分，但其形成后的边疆库存可供后任作为start并获得40%守成信用。",
+    "stable_core_exclusion": "蒙古本部、已稳定内地化的中原与江南核心不进入B1。妥懽帖睦尔旧账把中原、大都、江南作为B1退控对象的做法废止。",
+    "subject_scope_bridge": "蒙古帝国分裂后，西方诸汗国只有在元廷仍具可执行征调、任免或直接军政权时才可继续作为元朝B1库存；名义宗主不计。",
+    "korea_rule": "高丽以KOREA_PENINSULA_NETWORK统一计量；孤立战时攻陷不形成交班控制。耽罗直接军政节点纳入高丽网络覆盖判断，不另造0.25绝对权重。",
+    "tibet_rule": "蒙哥时期开始形成吐蕃军政机构，世祖时期乌思藏等三路宣慰司都元帅府及万户体系闭合后按TIBETAN_PLATEAU_SYSTEM计量。",
+    "no_ad_hoc_weight": "旧YUAN_NORTHWEST_FRONTIER、YUAN_SOUTHWEST_FRONTIER、GORYEO_JEJU_MONGOL_CONTROL等临时绝对当量全部废止。"
+  },
+  "unanchored_region_gaps": [
+    {
+      "object": "钦察草原—罗斯—东欧蒙古控制空间",
+      "affects": ["窝阔台", "蒙哥"],
+      "effect": "当前统一锚表无对应非重叠空间锚；两人的继承存量和B1有效值因此仅为下限。",
+      "temporary_policy": "不借用北方草原3.5锚，不临时造权重。"
+    },
+    {
+      "object": "两河—伊拉克/高加索等旭烈兀西征新增空间",
+      "affects": ["蒙哥"],
+      "effect": "现有KHORASAN_EAST_IRAN只覆盖呼罗珊—东伊朗，不向西外推；蒙哥B1因此为下限。",
+      "temporary_policy": "不临时造权重。"
+    }
+  ],
+  "records": [
+    {
+      "ruler_id": "RULER-YUAN-TEMUJI",
+      "ruler_name": "铁木真",
+      "reign_range": "1206-1227",
+      "review_status": "REVIEWED",
+      "confidence": "MEDIUM_HIGH",
+      "objective_regions": {
+        "WESTERN_REGIONS_WHOLE": {"w": 2.0, "s": 0.0, "e": 1.0, "se": 0.0, "ee": 2.0, "reason": "1206后西域主要政治军事空间被蒙古征服并形成可执行控制；本任新增由第一项消费。"},
+        "TRANSOXIANA_KHWARAZM": {"w": 1.5, "s": 0.0, "e": 1.0, "se": 0.0, "ee": 1.5, "reason": "河中—花剌子模主要城市与交通网络形成蒙古控制；本任新增由第一项消费。"},
+        "KHORASAN_EAST_IRAN": {"w": 1.0, "s": 0.0, "e": 0.75, "se": 0.0, "ee": 0.75, "reason": "呼罗珊主要城市网络已受控，但破坏、反复与行政闭合不足，不取1.00。"},
+        "HEXI_NINGXIA_ORDOS": {"w": 0.8, "s": 0.0, "e": 1.0, "se": 0.0, "ee": 0.8, "reason": "1227西夏终局后河西—宁夏—鄂尔多斯空间进入蒙古控制；由第一项消费。"},
+        "NORTHEAST_LIAODONG_SONGWAI": {"w": 1.0, "s": 0.0, "e": 0.5, "se": 0.0, "ee": 0.5, "reason": "耶律留哥等东北属部形成实际蒙古宗主网络，但东夏等仍存，保守取0.50。"}
+      },
+      "objective_totals": {"start": 0.0, "end": 5.55, "net": 5.55, "weighted": 5.55},
+      "cross_item_excluded_net_gain": 5.55,
+      "third_item_effective_result": {"weighted": 0.0, "grade": "B1-0", "position": "LOW", "rate": 0},
+      "legacy_resolution": "废止b1_region_ledger_status=LEGACY_AGGREGATE_REQUIRES_REGION_MIGRATION及formal_B1_rate=90 override；旧axes.B1=0与跨项规则方向正确，正式有效率应回到0。",
+      "evidence_refs": [
+        "docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.json#铁木真",
+        "docs/评分结算/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算/元.json#铁木真"
+      ]
+    },
+    {
+      "ruler_id": "RULER-YUAN-OGEDEI",
+      "ruler_name": "窝阔台",
+      "reign_range": "1229-1241",
+      "review_status": "REVIEWED_LOWER_BOUND",
+      "confidence": "MEDIUM",
+      "objective_regions": {
+        "WESTERN_REGIONS_WHOLE": {"w": 2.0, "s": 1.0, "e": 1.0, "se": 2.0, "ee": 2.0},
+        "TRANSOXIANA_KHWARAZM": {"w": 1.5, "s": 1.0, "e": 1.0, "se": 1.5, "ee": 1.5},
+        "KHORASAN_EAST_IRAN": {"w": 1.0, "s": 0.75, "e": 1.0, "se": 0.75, "ee": 1.0, "reason": "西征后东伊朗控制由大部有效推进至整体有效；本任新增0.25归第一项。"},
+        "HEXI_NINGXIA_ORDOS": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8},
+        "NORTHEAST_LIAODONG_SONGWAI": {"w": 1.0, "s": 0.5, "e": 1.0, "se": 0.5, "ee": 1.0, "reason": "东夏终局后东北复合控制带闭合；新增0.5归第一项。"},
+        "HUAI_FRONTIER": {"w": 0.7, "s": 0.0, "e": 1.0, "se": 0.0, "ee": 0.7, "reason": "灭金后形成对南宋的淮河主要边界；作为客观交班边疆库存保留，本任新增由第一项征服链消费。"}
+      },
+      "objective_totals": {"start": 5.55, "end": 7.0, "net": 1.45, "weighted": 3.67},
+      "cross_item_excluded_net_gain": 1.45,
+      "third_item_effective_result": {"weighted": 2.22, "grade": "B1-3", "position": "MID", "rate": 67, "lower_bound": true},
+      "reason": "灭金、东夏及西征新增由第一项消费，但铁木真留下的5.55标准锚边疆库存必须进入start；仅40%守成项已足以落B1-3。钦察—罗斯等无锚库存尚未计入，因此67为下限。",
+      "evidence_refs": [
+        "docs/评分结算/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算/元.json#窝阔台",
+        "XZTJ-JIN-MONGOL-TANGQING-1232",
+        "XZTJ-MONGOL-GORYEO-1241"
+      ]
+    },
+    {
+      "ruler_id": "RULER-YUAN-MONGKE",
+      "ruler_name": "蒙哥",
+      "reign_range": "1251-1259",
+      "review_status": "REVIEWED_LOWER_BOUND",
+      "confidence": "MEDIUM_HIGH",
+      "objective_regions": {
+        "WESTERN_REGIONS_WHOLE": {"w": 2.0, "s": 1.0, "e": 1.0, "se": 2.0, "ee": 2.0},
+        "TRANSOXIANA_KHWARAZM": {"w": 1.5, "s": 1.0, "e": 1.0, "se": 1.5, "ee": 1.5},
+        "KHORASAN_EAST_IRAN": {"w": 1.0, "s": 1.0, "e": 1.0, "se": 1.0, "ee": 1.0},
+        "HEXI_NINGXIA_ORDOS": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8},
+        "NORTHEAST_LIAODONG_SONGWAI": {"w": 1.0, "s": 1.0, "e": 1.0, "se": 1.0, "ee": 1.0},
+        "HUAI_FRONTIER": {"w": 0.7, "s": 1.0, "e": 1.0, "se": 0.7, "ee": 0.7},
+        "TIBETAN_PLATEAU_SYSTEM": {"w": 1.5, "s": 0.0, "e": 0.5, "se": 0.0, "ee": 0.75, "reason": "蒙哥时期始在河州及吐蕃区域设置宣慰、都元帅等军政机构；尚未闭合至世祖时期乌思藏整体体系，取0.50。"},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 0.0, "e": 1.0, "se": 0.0, "ee": 0.5, "reason": "大理取得后云南西南边疆形成实际控制；该0.5本任新增按现有跨项裁决由第一项消费。"}
+      },
+      "excluded_objects": [
+        {"object": "1253高丽六城", "reason": "史料仅闭合战时攻陷，和议后蒙古军撤退；不形成1259交班稳定控制。旧GORYEO_SIX_CITIES=0.25删除。"},
+        {"object": "1257安南攻入", "reason": "无耐久军政控制，继续排除。"}
+      ],
+      "objective_totals": {"start": 7.0, "end": 8.25, "net": 1.25, "weighted": 4.05},
+      "cross_item_excluded_net_gain": 0.5,
+      "third_item_effective_result": {"weighted": 3.55, "grade": "B1-4", "position": "LOW", "rate": 75, "lower_bound": true},
+      "reason": "继承蒙古帝国的大规模标准锚库存本身产生守成信用；吐蕃军政体系0.75为独立第三项净增，大理0.5去重。两河及更西新增无统一锚，75仍是下限。",
+      "external_evidence_refs": [
+        "《皇朝文献通考》卷292：元宪宗始于河州置吐蕃宣慰司都元帅府",
+        "韩国史料数据库《元高丽纪事》1253年：攻陷六城后和议撤军"
+      ]
+    },
+    {
+      "ruler_id": "RULER-YUAN-KUBLAI",
+      "ruler_name": "忽必烈",
+      "reign_range": "1260-1294",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "subject_scope_bridge": "蒙古帝国西方诸汗国在1260后不再视为忽必烈可执行边疆库存；南宋统一主链由第一项消费。第三项start只保留元廷实际可执行的西北、东北、西南、吐蕃与高丽边疆网络。",
+      "objective_regions": {
+        "HEXI_LONGYOU_CORRIDOR": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8},
+        "HAMI_GATEWAY": {"w": 0.2, "s": 1.0, "e": 1.0, "se": 0.2, "ee": 0.2},
+        "NORTHEAST_LIAODONG_SONGWAI": {"w": 1.0, "s": 1.0, "e": 1.0, "se": 1.0, "ee": 1.0},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 1.0, "e": 1.0, "se": 0.5, "ee": 0.5, "reason": "云南—西南边疆存量维持；缅甸、安南远征失败不等于云南本体退控。"},
+        "TIBETAN_PLATEAU_SYSTEM": {"w": 1.5, "s": 0.5, "e": 1.0, "se": 0.75, "ee": 1.5, "reason": "承接蒙哥期东部吐蕃军政网络；世祖时期乌思藏等三路宣慰司都元帅府、万户及蒙古军体系闭合至整体有效。"},
+        "KOREA_PENINSULA_NETWORK": {"w": 1.4, "s": 0.5, "e": 1.0, "se": 0.7, "ee": 1.4, "reason": "1260前后高丽已进入可执行宗主关系；至世祖后期通过王室册立、驸马关系、征调与征东体系覆盖全境。1273耽罗直接控制属于该高丽网络内部强化，不另造0.25绝对锚。"}
+      },
+      "objective_totals": {"start": 3.95, "end": 5.4, "net": 1.45, "weighted": 3.03},
+      "cross_item_excluded_net_gain": 0.0,
+      "third_item_effective_result": {"weighted": 3.03, "grade": "B1-4", "position": "LOW", "rate": 75},
+      "legacy_resolution": "旧2.0→2.25只计西北、西南和耽罗，漏辽东、吐蕃和高丽整体宗主网络；旧耽罗0.25改并入KOREA_PENINSULA_NETWORK，不再临时造绝对权重。",
+      "evidence_refs": [
+        "docs/评分结算/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算/元.json#忽必烈",
+        "XZTJ-YUAN-GORYEO-JINDO-JEJU-1271-1273",
+        "XZTJ-YUAN-KHAIDU-WAR-1288-1290",
+        "《元史》卷87：乌思藏纳里速古鲁孙等三路宣慰使司都元帅府",
+        "《元史》卷91：云南、征东等处行中书省及边陲军旅机构"
+      ]
+    },
+    {
+      "ruler_id": "RULER-YUAN-TEMUR",
+      "ruler_name": "铁穆耳",
+      "reign_range": "1294-1307",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "objective_regions": {
+        "HEXI_LONGYOU_CORRIDOR": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8},
+        "HAMI_GATEWAY": {"w": 0.2, "s": 1.0, "e": 1.0, "se": 0.2, "ee": 0.2},
+        "NORTHEAST_LIAODONG_SONGWAI": {"w": 1.0, "s": 1.0, "e": 1.0, "se": 1.0, "ee": 1.0},
+        "TIBETAN_PLATEAU_SYSTEM": {"w": 1.5, "s": 1.0, "e": 1.0, "se": 1.5, "ee": 1.5},
+        "KOREA_PENINSULA_NETWORK": {"w": 1.4, "s": 1.0, "e": 1.0, "se": 1.4, "ee": 1.4, "reason": "1294耽罗直接军政控制还属高丽，但高丽整体仍处元朝可执行册立、征调与王室宗主网络，统一覆盖阶梯不降。耽罗归还作为网络内部控制形式减弱记录，不另扣空间。"},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 1.0, "e": 0.5, "se": 0.5, "ee": 0.25, "reason": "1301—1303西南舍界等战争形成可证局部退控，旧1.0→0.5临时当量改为统一0.5锚的1.00→0.50覆盖。"}
+      },
+      "objective_totals": {"start": 5.4, "end": 5.15, "net": -0.25, "weighted": 1.91},
+      "third_item_effective_result": {"weighted": 1.91, "grade": "B1-3", "position": "LOW", "rate": 60},
+      "legacy_resolution": "旧2.25→1.75被低基数和耽罗临时锚扭曲；重建完整继承库存后仍有西南真实退控，但B1由30上修至60。",
+      "evidence_refs": [
+        "XZTJ-YUAN-SOUTHWEST-SHEJIE-REBELLION-1301-1303",
+        "《元史》卷208《耽罗》：至元三十一年还属高丽"
+      ]
+    },
+    {
+      "ruler_id": "RULER-YUAN-KULUG",
+      "ruler_name": "海山",
+      "reign_range": "1307-1311",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "objective_regions": {
+        "HEXI_LONGYOU_CORRIDOR": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8},
+        "HAMI_GATEWAY": {"w": 0.2, "s": 1.0, "e": 1.0, "se": 0.2, "ee": 0.2},
+        "NORTHEAST_LIAODONG_SONGWAI": {"w": 1.0, "s": 1.0, "e": 1.0, "se": 1.0, "ee": 1.0},
+        "TIBETAN_PLATEAU_SYSTEM": {"w": 1.5, "s": 1.0, "e": 1.0, "se": 1.5, "ee": 1.5},
+        "KOREA_PENINSULA_NETWORK": {"w": 1.4, "s": 1.0, "e": 1.0, "se": 1.4, "ee": 1.4},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 0.5, "e": 0.5, "se": 0.25, "ee": 0.25, "reason": "八百媳妇、车里行动未形成新增，也不足以证明剩余西南外缘整体退出。"}
+      },
+      "objective_totals": {"start": 5.15, "end": 5.15, "net": 0.0, "weighted": 2.06},
+      "third_item_effective_result": {"weighted": 2.06, "grade": "B1-3", "position": "LOW", "rate": 60},
+      "legacy_resolution": "旧1.75→1.75只登记三个临时包，漏掉辽东、吐蕃和高丽整体库存；30上修至60。",
+      "evidence_refs": ["XZTJ-YUAN-EIGHT-HUNDRED-WIVES-CHELI-1309-1311"]
+    },
+    {
+      "ruler_id": "RULER-YUAN-AYURBARWADA",
+      "ruler_name": "爱育黎拔力八达",
+      "reign_range": "1311-1320",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "objective_regions": {
+        "HEXI_LONGYOU_CORRIDOR": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8},
+        "HAMI_GATEWAY": {"w": 0.2, "s": 1.0, "e": 1.0, "se": 0.2, "ee": 0.2},
+        "NORTHEAST_LIAODONG_SONGWAI": {"w": 1.0, "s": 1.0, "e": 1.0, "se": 1.0, "ee": 1.0},
+        "TIBETAN_PLATEAU_SYSTEM": {"w": 1.5, "s": 1.0, "e": 1.0, "se": 1.5, "ee": 1.5},
+        "KOREA_PENINSULA_NETWORK": {"w": 1.4, "s": 1.0, "e": 1.0, "se": 1.4, "ee": 1.4},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 0.5, "e": 0.5, "se": 0.25, "ee": 0.25}
+      },
+      "objective_totals": {"start": 5.15, "end": 5.15, "net": 0.0, "weighted": 2.06},
+      "third_item_effective_result": {"weighted": 2.06, "grade": "B1-3", "position": "LOW", "rate": 60},
+      "legacy_resolution": "旧1.75→1.75同样漏记大部继承边疆库存；30上修至60。",
+      "evidence_refs": [
+        "docs/评分结算/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算/元.json#爱育黎拔力八达",
+        "XZTJ-YUAN-DAHASUN-BORDER-RAID-1317",
+        "XZTJ-YUAN-SHANGSI-JIAOZHI-ZHONGZHOU-1320"
+      ]
+    },
+    {
+      "ruler_id": "RULER-YUAN-TOGHON-TEMUR",
+      "ruler_name": "妥懽帖睦尔",
+      "reign_range": "1333-1370",
+      "review_status": "REVIEWED",
+      "confidence": "MEDIUM_HIGH",
+      "bridge_1320_1333": "缺列的中间元帝窗口未发现足以使六个标准边疆对象跨覆盖阶梯的稳定退控；1333 start保守复用1320 end。若后续补齐中间皇帝，应以本桥接快照作为连续性校验点。",
+      "objective_regions": {
+        "HEXI_LONGYOU_CORRIDOR": {"w": 0.8, "s": 1.0, "e": 0.25, "se": 0.8, "ee": 0.2, "reason": "1368—1370明军西进、定西战役后元西北走廊主体退出，仅保留零散西北残余；取0.25。"},
+        "HAMI_GATEWAY": {"w": 0.2, "s": 1.0, "e": 0.0, "se": 0.2, "ee": 0.0, "reason": "至1370不再闭合为元廷可执行的独立门户控制。"},
+        "NORTHEAST_LIAODONG_SONGWAI": {"w": 1.0, "s": 1.0, "e": 1.0, "se": 1.0, "ee": 1.0, "reason": "辽东—松外蒙古军政余部在1370仍未被明朝结构性清除；纳哈出体系真正退出在其后，不能倒扣顺帝。"},
+        "TIBETAN_PLATEAU_SYSTEM": {"w": 1.5, "s": 1.0, "e": 0.0, "se": 1.5, "ee": 0.0, "reason": "1354后帕竹取代萨迦掌握前后藏主要实际权力；1360元廷授号不能证明仍有可执行军政控制，1370按0。"},
+        "KOREA_PENINSULA_NETWORK": {"w": 1.4, "s": 1.0, "e": 0.0, "se": 1.4, "ee": 0.0, "reason": "恭愍王1356诛奇氏、停至正年号并收复双城总管府，元朝对高丽的可执行宗主网络结构性退出。"},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 0.5, "e": 0.5, "se": 0.25, "ee": 0.25, "reason": "云南及西南元系地方力量至1370仍未整体退出；真正被明朝结构性消灭在顺帝之后，不能提前归零。"}
+      },
+      "excluded_objects": [
+        {"object": "中原—大都核心控制带", "old_equivalent": 1.8, "reason": "稳定核心领土，不属于B1；1368丧失只影响A及政权终局。"},
+        {"object": "江南行省控制带", "old_equivalent": 1.2, "reason": "稳定核心领土，不属于B1；旧账把国内核心丧失包装成边疆退控，删除。"}
+      ],
+      "objective_totals": {"start": 5.15, "end": 1.45, "net": -3.7, "weighted": -1.64},
+      "third_item_effective_result": {"weighted": -1.64, "grade": "B1-0", "position": "LOW", "rate": 0},
+      "legacy_resolution": "最终B1仍为0，但理由完全重写：不是中原、江南亡国式退控，而是高丽、吐蕃、西北等真实边疆网络的大规模退出；辽东与云南仍保留到交班。",
+      "external_evidence_refs": [
+        "韩国史料数据库《高丽史节要》恭愍王五年：1356停至正年号、双城方向反元行动",
+        "西藏乃东地方历史沿革：1354帕竹取得前后藏主要控制，1360受元大司徒号",
+        "《明史纪事本末》卷10：1370定西、应昌两路北伐",
+        "《明史》卷327：1370应昌、定西终局及北元余部退向和林"
+      ]
+    }
+  ],
+  "audit_summary": {
+    "records_reviewed": 8,
+    "legacy_rate_changes": [
+      {"ruler": "铁木真", "old_rate": 90, "new_rate": 0, "cause": "正式override与底账/跨项规则冲突；本任边疆新增由第一项消费"},
+      {"ruler": "窝阔台", "old_rate": 0, "new_rate_minimum": 67, "cause": "补回铁木真交班的大规模继承边疆库存；远西无锚，当前为下限"},
+      {"ruler": "蒙哥", "old_rate": 30, "new_rate_minimum": 75, "cause": "补回帝国继承库存和吐蕃军政体系；删除1253高丽六城伪稳定控制；远西无锚，当前为下限"},
+      {"ruler": "忽必烈", "old_rate": 52, "new_rate": 75, "cause": "补回辽东、吐蕃、高丽整体宗主网络并统一临时区域锚"},
+      {"ruler": "铁穆耳", "old_rate": 30, "new_rate": 60, "cause": "补回完整继承边疆库存；西南真实局部退控保留"},
+      {"ruler": "海山", "old_rate": 30, "new_rate": 60, "cause": "补回完整继承边疆库存"},
+      {"ruler": "爱育黎拔力八达", "old_rate": 30, "new_rate": 60, "cause": "补回完整继承边疆库存"},
+      {"ruler": "妥懽帖睦尔", "old_rate": 0, "new_rate": 0, "cause": "分数不变但删除中原/江南核心伪B1，改由高丽、吐蕃、西北真实边疆退控闭合"}
+    ],
+    "hard_errors_fixed": [
+      "铁木真axes.B1=0而formal_B1_rate=90的override冲突",
+      "窝阔台继承巨大边疆库存却被写成0→0",
+      "蒙哥1253高丽六城战时攻陷被误作交班稳定控制",
+      "耽罗1294还属高丽后仍被旧账一路传至1320",
+      "世祖以后漏算乌思藏/吐蕃完整军政网络",
+      "妥懽帖睦尔把中原、大都、江南稳定核心作为B1对象"
+    ],
+    "remaining_anchor_gap": "窝阔台、蒙哥仍缺钦察—罗斯/东欧及两河—伊拉克等统一锚；当前67、75只作为可机械落地的保守下限。"
+  }
+}
