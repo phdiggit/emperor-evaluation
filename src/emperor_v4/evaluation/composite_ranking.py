@@ -108,7 +108,7 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
             scores[item] = float(value)
 
         first_add_on = (
-            0.10 * 775 * (scores["first_item"] / 240) ** 1.25
+            0.10 * 757 * (scores["first_item"] / 240) ** 1.25
             if scores["first_item"] > 0
             else 0.0
         )
@@ -146,7 +146,7 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
         "schema_id": "emperor-v4-composite-ranking-v1",
         "status": "FORMAL_CURRENT",
         "ranking_population": "COMPOSITE_READY",
-        "formula": "T = S2 + S3 + S5 + 0.10 * 775 * (S1 / 240) ^ 1.25 + CIV4",
+        "formula": "T = S2 + S3 + S5 + 0.10 * 757 * (S1 / 240) ^ 1.25 + CIV4",
         "first_item_not_applicable_policy": "F=0; not treated as a zero-score failure",
         "rank_tie_policy": "competition_rank_then_ruler_id",
         "score_precision": "source scores retained; F and T rounded to 2 decimals",
@@ -190,7 +190,7 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         "## 口径",
         "",
         "综合分公式：`T = 第二项 + 第三项 + 第五项 + F + 第四项调整`，其中"
-        "`F = 0.10 × 775 × (第一项原分 / 240)^1.25`。第一项不适用者是`F=0`，"
+        "`F = 0.10 × 757 × (第一项原分 / 240)^1.25`。第一项不适用者是`F=0`，"
         "不是把“不适用”判成第一项零分。总分保留两位小数，采用竞争排名；同分记录按"
         "规范`ruler_id`稳定排序。",
         "",
@@ -241,7 +241,7 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         "",
         "## 完整总榜",
         "",
-        "| 排名 | 人物 | 政权 | 第一项原分/240 | 第一项折算F | 第二项/405 | 第三项/250 | 第四项调整 | 第五项/120 | 综合分 |",
+        "| 排名 | 人物 | 政权 | 第一项原分/240 | 第一项折算F | 第二项/387 | 第三项/250 | 第四项调整 | 第五项/120 | 综合分 |",
         "|---:|---|---|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for row in records:

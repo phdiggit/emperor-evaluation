@@ -77,7 +77,7 @@ def test_second_item_finance_views_keep_curves_k_and_merge_sparse_notes() -> Non
     assert any("赵恒" in line and "C1-4→C1-4→C1-3" in line for line in c1)
     assert any("弘历" in line and "C2-4→C2-5→C2-4" in line for line in c2)
     assert "恢复 - 可归责恶化 - DA" in c4[0]
-    assert any("杨广" in line and "恢复归责=NONE" in line and "DA4残余成本" in line for line in c4)
+    assert any("杨广" in line and "恢复归责=NONE" in line and "DA6残余成本" in line for line in c4)
 
 
 def test_second_item_direction_views_keep_institution_and_m_chain_combinations() -> None:
@@ -114,7 +114,7 @@ def test_second_item_rollups_keep_components_and_sparse_caps_inline() -> None:
     assert len(handoff) == 187 and len(total) == 187
     assert "低侧封顶" not in handoff[0]
     assert any("王建" in line and "（低侧封顶12.0）" in line for line in handoff)
-    assert all(label in total[0] for label in ("C1/80", "C2/35", "C3/60", "C4/-31—27"))
+    assert all(label in total[0] for label in ("C1/80", "C2/35", "C3/60", "C4/-40—27"))
 
 
 def test_recent_second_item_batches_have_one_current_detail_block_each() -> None:

@@ -11,6 +11,12 @@ from typing import Any
 B1_PATH = Path("docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json")
 METHOD_PATH = Path("docs/评分结算/第二项治国净收益/制度行政/04-治理手段165分正式结算.json")
 TOTAL_PATH = Path("docs/评分结算/第二项治国净收益/01-第二项治国净收益正式结算.json")
+FINANCE_PATHS = {
+    "C1": Path("docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json"),
+    "C2": Path("docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json"),
+    "C3": Path("docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json"),
+    "C4": Path("docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json"),
+}
 CONTRACT_PATH = Path("docs/分项规则/第二项治国净收益/制度行政/00-规则与计分合同.md")
 
 POSITION_Q = {
@@ -553,9 +559,21 @@ def rebuild_derived(workspace_root: Path, *, write: bool = False) -> dict[str, A
 
     total_path = workspace_root / TOTAL_PATH
     total = json.loads(total_path.read_text(encoding="utf-8"))
+    finance_by_axis = {
+        axis: {
+            row["ruler_id"]: row
+            for row in json.loads((workspace_root / path).read_text(encoding="utf-8"))["scores"]
+        }
+        for axis, path in FINANCE_PATHS.items()
+    }
     method_by_id = {row["ruler_id"]: row for row in method["records"]}
     for row in total["records"]:
         row["governance_method_score"] = method_by_id[row["ruler_id"]]["score"]
+        for axis, finance_rows in finance_by_axis.items():
+            row[f"{axis}_score"] = float(finance_rows[row["ruler_id"]]["score"])
+        row["governance_result_score"] = round(
+            sum(float(row[f"{axis}_score"]) for axis in FINANCE_PATHS), 1
+        )
         row["second_item_score"] = round(
             float(row["governance_method_score"])
             + float(row["governance_result_score"])

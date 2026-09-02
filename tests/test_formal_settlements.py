@@ -19,8 +19,10 @@ def test_c4_contract_uses_cost_scale_da_boundaries() -> None:
         "docs/分项规则/第二项治国净收益/财政民生/00-规则与结算合同.md"
     ).read_text(encoding="utf-8")
     assert "C1—C3主态、K折损和C4可归责恶化均未消费的主动成本" in contract
+    assert "C1/C2/C3绝对状态与C4可归责恶化可以共同使用同一事实" in contract
     assert "纯军队伤亡不得直接转入第二项" in contract
     assert "军粮、转输、财政抽取" in contract
+    assert all(label in contract for label in ("DA5", "DA6", "NEW_BUILD", "仁寿宫"))
 
 
 def test_all_five_formal_settlements_are_coherent() -> None:
@@ -280,9 +282,10 @@ def test_composite_ranking_uses_only_ready_rulers_and_current_formula() -> None:
     assert payload["record_count"] == 174
     assert payload["pending_second_item_count"] == 10
     assert payload["records"][0]["ruler_name"] == "李世民"
-    assert payload["records"][0]["total_score"] == 810.61
+    assert payload["formula"] == "T = S2 + S3 + S5 + 0.10 * 757 * (S1 / 240) ^ 1.25 + CIV4"
+    assert payload["records"][0]["total_score"] == 809.04
     assert payload["records"][1]["ruler_name"] == "玄烨"
-    assert payload["records"][1]["total_score"] == 593.12
+    assert payload["records"][1]["total_score"] == 592.74
     zhao_ji = next(row for row in payload["records"] if row["ruler_name"] == "赵佶")
     assert zhao_ji["first_item_status"] == "NOT_APPLICABLE"
     assert zhao_ji["first_item_raw_score"] is None
@@ -347,7 +350,7 @@ def test_liu_hu_and_liu_zhi_finance_records_use_personal_rule_windows() -> None:
         - liu_zhuang_c4["destructive_amplification_penalty"],
         1,
     )
-    assert liu_zhuang_c4["destructive_amplification_grade"] == "DA1"
+    assert liu_zhuang_c4["destructive_amplification_grade"] == "DA2"
     assert "人失农时" in liu_zhuang_c4[
         "deterioration_curve_summary"
     ]
@@ -356,7 +359,10 @@ def test_liu_hu_and_liu_zhi_finance_records_use_personal_rule_windows() -> None:
 def test_c4_uses_one_current_destructive_amplification_verdict() -> None:
     path = Path("docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json")
     payload = json.loads(path.read_text(encoding="utf-8"))
-    penalties = {"DA0": 0.0, "DA1": 4.5, "DA2": 9.0, "DA3": 13.5, "DA4": 18.0}
+    penalties = {
+        "DA0": 0.0, "DA1": 4.5, "DA2": 9.0, "DA3": 13.5,
+        "DA4": 18.0, "DA5": 22.5, "DA6": 27.0,
+    }
 
     assert payload["attribution_readjudication"]["status"] == "FORMAL_COMPLETE"
     assert payload["review_progress"]["remaining_record_count"] == 0

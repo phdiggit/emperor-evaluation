@@ -32,10 +32,10 @@ SETTLEMENT_SPECS = {
     },
     "second_item": {
         "path": "docs/评分结算/第二项治国净收益/01-第二项治国净收益正式结算.json",
-        "schema": "i2_total_387_signed_formal_v4",
+        "schema": "i2_total_387_signed_formal_v5_da6",
         "score": "second_item_score",
         "rank": "rank",
-        "range": (-18.5, 387),
+        "range": (-27.5, 387),
     },
     "third_item": {
         "path": "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json",
@@ -78,11 +78,16 @@ SECOND_ITEM_RESULT_CONTRACT = (
     "docs/分项规则/第二项治国净收益/财政民生/00-规则与结算合同.md"
 )
 REQUIRED_C4_DA_CONTRACT_CLAUSES = (
+    "C1/C2/C3绝对状态与C4可归责恶化可以共同使用同一事实",
     "只有C1—C3主态、K折损和C4可归责恶化均未消费的主动成本才可计DA",
     "纯军队伤亡不得直接转入第二项",
     "一次行为只要残余成本量级足够高，也可直接进入DA2或DA3",
     "一次超大型动员、战争或工程即可成立",
     "一次灾难性选择即可成立",
+    "DA5",
+    "DA6",
+    "NEW_BUILD",
+    "仁寿宫",
     "DA只结算尚未被这些项目吸收的剩余主动成本",
 )
 
