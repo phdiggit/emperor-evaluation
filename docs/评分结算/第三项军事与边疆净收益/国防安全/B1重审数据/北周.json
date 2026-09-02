@@ -1,0 +1,124 @@
+{
+  "schema_id": "third-item-b1-reaudit-data-v1",
+  "data_purpose": "只保存北周B1规范空间裁决、跨项去重与隋朝交班桥接；正式回写由Codex处理。",
+  "polity": "北周",
+  "status": "COMPLETE_1_OF_1",
+  "rule_basis": {
+    "contract": "docs/分项规则/第三项军事与边疆净收益/国防安全/00-规则与结算合同.md",
+    "region_anchor_registry": "config/third-item/third-item-b1-region-anchors.json",
+    "source_shard": "docs/评分结算/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算/北周.json",
+    "formula": "objective_weighted=end_total-0.6*start_total；第一项已消费的统一主链新增从第三项有效weighted中扣除，但统一完成后形成的客观边疆库存必须留在end供隋继承。"
+  },
+  "data_conventions": {
+    "henan_shuofang_semantics": "本批HENAN_SHUOFANG_CORRIDOR只指河套河南地—朔方北缘，不指现代河南州郡。旧西魏/北周文本曾把河南、江陵等南线战果混挂到该ID，相关证据污染不再沿用；北周仅保留西魏交班时已存在的朔方北缘半走廊库存0.3，不新增。",
+    "north_qi_unification": "575—577灭北齐所得河北、山东、并州等稳定核心由第一项统一链消费，不进入B1区域面积；但统一北方后形成的对突厥北方边郡外防线是578年客观交班库存，必须以NORTHERN_BORDER_COMMANDERIES=0.8进入end，并在本任做跨项净增去重。",
+    "southwest_rule": "宕昌—陇蜀西南边疆使用SOUTHWEST_FRONTIER=0.5。564灭宕昌并改州郡主要提高控制直接性与成熟度，空间覆盖此前已按完整边疆库存计入，不重复增量。",
+    "northwest_rule": "西北河西—陇右边疆使用HEXI_LONGYOU_CORRIDOR=0.8，560接班至578交班未出现足以改变覆盖阶梯的稳定退控。"
+  },
+  "records": [
+    {
+      "ruler_id": "RULER-SHADOW-宇文邕",
+      "ruler_name": "宇文邕",
+      "reign_range": "560—578",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "objective_regions": {
+        "HENAN_SHUOFANG_CORRIDOR": {
+          "w": 0.6,
+          "s": 0.5,
+          "e": 0.5,
+          "se": 0.3,
+          "ee": 0.3,
+          "reason": "只保留西魏交班时已存在的河套河南地—朔方北缘半走廊库存。旧账把现代河南、江陵战果混挂到该锚的证据废止；宇文邕任内不据南线战争抬高本区。"
+        },
+        "HEXI_LONGYOU_CORRIDOR": {
+          "w": 0.8,
+          "s": 1.0,
+          "e": 1.0,
+          "se": 0.8,
+          "ee": 0.8,
+          "reason": "承接西魏西北边疆完整走廊；吐谷浑、突厥压力未形成578交班时的跨覆盖阶梯退控。"
+        },
+        "SOUTHWEST_FRONTIER": {
+          "w": 0.5,
+          "s": 1.0,
+          "e": 1.0,
+          "se": 0.5,
+          "ee": 0.5,
+          "reason": "承接巴蜀汉中—宕昌方向西南边疆库存。564宕昌由属国/边疆实体转为州级直接控制，提高B4成熟度，不重复增加已经满覆盖的0.5空间。"
+        },
+        "NORTHERN_BORDER_COMMANDERIES": {
+          "w": 0.8,
+          "s": 0.0,
+          "e": 1.0,
+          "se": 0.0,
+          "ee": 0.8,
+          "mode": "灭北齐统一后继承并整合原北齐北线城戍、边郡与对突厥外防体系",
+          "evidence": ["EXCLUDED_UNIFICATION-NORTHERN-ZHOU-QI-575-577", "WAR-LEAD-NC-ZHOU-TURK-578-579"],
+          "reason": "577统一北方后，原北齐北线成为北周对突厥的现实国家边界；578突厥仍可入寇，说明该对象是有现实压力的边疆体系而非稳定内地。客观end必须计0.8，但其形成直接依赖第一项统一北齐主链，本任第三项净增予以去重。"
+        }
+      },
+      "excluded_objects": [
+        {
+          "object": "北齐河北、山东、并州等统一所得稳定核心",
+          "reason": "第一项统一链消费，且统一后属于稳定核心，不进入B1。"
+        },
+        {
+          "object": "现代河南、江陵等南线战争成果",
+          "reason": "不得套用HENAN_SHUOFANG_CORRIDOR；旧证据挂接属于空间锚语义污染。相关战略价值可留B2/B4或第一项，不制造B1朔方空间。"
+        },
+        {
+          "object": "突厥草原整体",
+          "reason": "北周未形成对突厥草原可执行控制，不使用NORTH_GRASSLAND_WHOLE或属部锚。"
+        }
+      ],
+      "objective_totals": {
+        "start": 1.6,
+        "end": 2.4,
+        "net": 0.8,
+        "weighted": 1.44
+      },
+      "cross_item_excluded_net_gain": 0.8,
+      "third_item_effective_result": {
+        "weighted": 0.64,
+        "grade": "B1-1",
+        "position": "HIGH",
+        "rate": 44
+      },
+      "handoff_to_sui": {
+        "year": 581,
+        "bridge_basis": "578宇文邕去世后至581隋代周期间，未发现上述四个边疆对象发生跨覆盖阶梯的稳定退控；杨坚581 start按2.4客观库存承接。",
+        "objective_total": 2.4,
+        "regions": {
+          "HENAN_SHUOFANG_CORRIDOR": 0.3,
+          "HEXI_LONGYOU_CORRIDOR": 0.8,
+          "SOUTHWEST_FRONTIER": 0.5,
+          "NORTHERN_BORDER_COMMANDERIES": 0.8
+        }
+      },
+      "legacy_resolution": "旧账1.6→1.6漏掉灭北齐后形成的真实北方边郡交班库存0.8，同时旧HENAN_SHUOFANG证据混入现代河南/江陵语义。现重建客观库存1.6→2.4，并将新增北方边郡0.8按第一项统一链去重；第三项有效weighted仍0.64，B1率维持44。",
+      "evidence_refs": [
+        "docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.json#宇文邕",
+        "docs/评分结算/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算/北周.json#宇文邕",
+        "docs/评分结算/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算/西魏.json#宇文泰",
+        "WAR-LEAD-169-ZHOU-DANGCHANG-564",
+        "WAR-LEAD-NC-ZHOU-JIHU-577",
+        "WAR-LEAD-NC-ZHOU-TURK-578-579",
+        "EXCLUDED_UNIFICATION-NORTHERN-ZHOU-QI-575-577"
+      ]
+    }
+  ],
+  "audit_summary": {
+    "records_reviewed": 1,
+    "rate_changes": [],
+    "unchanged_rates": [
+      {
+        "ruler": "宇文邕",
+        "rate": 44,
+        "cause": "客观交班库存1.6→2.4，但灭北齐后新增北方边郡0.8由第一项统一链去重，第三项有效值仍0.64"
+      }
+    ],
+    "downstream_handoff": "确认杨坚581年B1客观start=2.4有上游依据。",
+    "conclusion": "北周1条B1已闭合；无待补空间锚、待判覆盖阶梯或下限结果。"
+  }
+}
