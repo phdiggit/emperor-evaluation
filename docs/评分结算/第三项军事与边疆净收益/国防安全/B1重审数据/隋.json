@@ -1,0 +1,158 @@
+{
+  "schema_id": "third-item-b1-reaudit-data-v1",
+  "data_purpose": "只保存隋朝B1规范空间裁决、连续交班快照与最终结果；正式回写由Codex处理。",
+  "polity": "隋",
+  "status": "COMPLETE_2_OF_2",
+  "rule_basis": {
+    "contract": "docs/分项规则/第三项军事与边疆净收益/国防安全/00-规则与结算合同.md",
+    "region_anchor_registry": "config/third-item/third-item-b1-region-anchors.json",
+    "source_shard": "docs/评分结算/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算/隋.json",
+    "formula": "weighted_control_value=end_total-0.6*start_total"
+  },
+  "data_conventions": {
+    "north_zhou_handoff": "581年杨坚接班必须承接北周既有边疆库存；北齐统一所得的稳定核心不计B1，但统一后形成的北方边郡外防线作为继承边疆存量进入start。",
+    "jiaozhou_rule": "581年不能把交州写入北周继承库存；589灭陈统一链不直接生成B1净增，但602年李佛子据龙编、乌延后刘方二十七营重新闭合交州军政控制，属于统一主链之后可独立评价的恢复成果。",
+    "turk_vassal_rule": "603年启民尽有步迦之众，且隋已长期册立、筑城、驻军援护、征调协同，满足XIONGNU_VASSAL_SPACE可执行宗主权门；不升级为北方草原整体直接控制。",
+    "yang_guang_terminal_rule": "杨广不使用terminal_collapse_override直接清零B1；618终点按各区域是否仍受其中央政府可执行军政指挥逐项裁决。全国崩解只是证据背景，不替代区域退出事实。",
+    "failed_expeditions": "高句丽、林邑、流求等战争若未形成交班可执行控制，不进入B1；安全、成本与阶段战果由其他轴处理。"
+  },
+  "records": [
+    {
+      "ruler_id": "RULER-SHADOW-杨坚",
+      "ruler_name": "杨坚",
+      "reign_range": "581—604",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "objective_regions": {
+        "HENAN_SHUOFANG_CORRIDOR": {
+          "w": 0.6,
+          "s": 0.5,
+          "e": 0.5,
+          "se": 0.3,
+          "ee": 0.3,
+          "reason": "承接北周河南地—朔方北缘控制的半走廊库存；不与现代河南州郡混同。"
+        },
+        "HEXI_LONGYOU_CORRIDOR": {
+          "w": 0.8,
+          "s": 1.0,
+          "e": 1.0,
+          "se": 0.8,
+          "ee": 0.8,
+          "reason": "承接北周西北边疆完整走廊；突厥战争期间未形成跨覆盖阶梯的实际退控。"
+        },
+        "SOUTHWEST_FRONTIER": {
+          "w": 0.5,
+          "s": 1.0,
+          "e": 1.0,
+          "se": 0.5,
+          "ee": 0.5,
+          "reason": "承接北周宕昌—陇蜀西南边疆存量。旧账把该0.5混写成“西南与交州”，现与交州拆开。597南宁、桂州反复后仍有州县与地方首领任官体系，交班维持整体有效。"
+        },
+        "NORTHERN_BORDER_COMMANDERIES": {
+          "w": 0.8,
+          "s": 1.0,
+          "e": 1.0,
+          "se": 0.8,
+          "ee": 0.8,
+          "reason": "581年已继承北周统一北方后的北线城戍与边郡体系；A2旧账本身承认“北线城戍和关陇—河北纵深”，B1旧账漏记该继承边疆库存。"
+        },
+        "XIONGNU_VASSAL_SPACE": {
+          "w": 1.0,
+          "s": 0.0,
+          "e": 1.0,
+          "se": 0.0,
+          "ee": 1.0,
+          "mode": "册立启民、筑大利/金河/定襄等城、驻军援护、协同征调的可执行属部网络",
+          "evidence": ["WAR-PARENT-SUI-TURK-599-603", "WAR-LEAD-SUI-TURK-600", "WAR-LEAD-SUI-TURK-601-603"],
+          "reason": "603年步迦部众瓦解，十余部归启民，史文明言“启民于是尽有步迦之众”；结合隋方筑城、驻援和受降安排，满足可执行宗主权门，按属部锚1.0整体有效。"
+        },
+        "ANNAM_NORTHERN_VIETNAM": {
+          "w": 0.8,
+          "s": 0.0,
+          "e": 1.0,
+          "se": 0.0,
+          "ee": 0.8,
+          "mode": "交州州郡、龙编等行政节点与军政控制",
+          "evidence": ["WAR-LEAD-SUI-JIAOZHOU-602"],
+          "reason": "581年交州尚非北周继承库存；589统一收益不直接计B1。602年李佛子据越王故城、龙编、乌延后，刘方率二十七营迫降并重新闭合州郡军政控制，作为统一主链之后独立恢复计入终点。"
+        }
+      },
+      "excluded_objects": [
+        {"object": "灭陈所得江南、岭南稳定核心", "reason": "第一项统一链消费，且统一后稳定核心不作为B1边疆空间。"},
+        {"object": "598高句丽远征", "reason": "惨败且无耐久控制，不进入B1。"},
+        {"object": "突厥整体草原", "reason": "启民体系只按可执行属部1.0，不外推为北方草原3.5直接控制。"}
+      ],
+      "objective_totals": {"start": 2.4, "end": 4.2, "net": 1.8, "weighted": 2.76},
+      "third_item_effective_result": {"weighted": 2.76, "grade": "B1-3", "position": "HIGH", "rate": 74},
+      "legacy_resolution": "旧1.3→1.3混淆西南与交州，并漏记北方边郡、启民属部和602交州恢复。重建后2.4→4.2，weighted 0.52→2.76，B1率44→74。",
+      "evidence_refs": [
+        "docs/评分结算/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算/北周.json#宇文邕",
+        "docs/史料通读产物/唐以前编年/隋/卷178-通读总结.md#WAR-LEAD-SUI-NANNING-597",
+        "docs/史料通读产物/唐以前编年/隋/卷178-通读总结.md#WAR-LEAD-SUI-GUIZHOU-597",
+        "docs/史料通读产物/唐以前编年/隋/卷179-通读总结.md#WAR-LEAD-SUI-TURK-601-603",
+        "docs/史料通读产物/唐以前编年/隋/卷179-通读总结.md#WAR-LEAD-SUI-JIAOZHOU-602"
+      ]
+    },
+    {
+      "ruler_id": "RULER-SHADOW-杨广",
+      "ruler_name": "杨广",
+      "reign_range": "604—618",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "objective_regions": {
+        "HENAN_SHUOFANG_CORRIDOR": {"w": 0.6, "s": 0.5, "e": 0.0, "se": 0.3, "ee": 0.0, "reason": "接班承接杨坚0.3；617年梁师都、郭子和等西北割据并连突厥，朔方—河南地已不再受炀帝中央可执行控制。"},
+        "HEXI_LONGYOU_CORRIDOR": {"w": 0.8, "s": 1.0, "e": 0.0, "se": 0.8, "ee": 0.0, "reason": "接班0.8；617年李轨据武威并取河西五郡、薛举尽有陇西，河西—陇右走廊主体退出隋中央控制。"},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 1.0, "e": 0.0, "se": 0.5, "ee": 0.0, "reason": "接班0.5。616—618中央军政链已无法对远端西南形成稳定征调、任免与持续军事执行；不把地方隋旧官或首领的自行维持等同于炀帝中央交班控制。"},
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 1.0, "e": 0.0, "se": 0.8, "ee": 0.0, "reason": "615始毕围雁门时四十一城失三十九已显著破坏北线；617刘武周取马邑、楼烦、汾阳宫、定襄并围雁门百余日，北方边郡体系交班归零。"},
+        "XIONGNU_VASSAL_SPACE": {"w": 1.0, "s": 1.0, "e": 0.0, "se": 1.0, "ee": 0.0, "reason": "接班承接启民属部网络；启民死后始毕转为敌对，615数十万围雁门，后又介入刘武周、梁师都、李渊等势力，原可执行宗主网络已反向崩解。"},
+        "ANNAM_NORTHERN_VIETNAM": {"w": 0.8, "s": 1.0, "e": 0.0, "se": 0.8, "ee": 0.0, "reason": "接班承接602后交州控制。至618中枢与岭南—交州的持续指挥、征调和任免链已断；远端隋旧官地方自存不满足本评价主体交班时的中央可执行控制门。"}
+      },
+      "intermediate_control_gains": [
+        {
+          "region_id": "TUYUHUN_QINGHAI_SPACE",
+          "w": 1.0,
+          "peak_coverage": 1.0,
+          "peak_equivalent": 1.0,
+          "evidence": ["WAR-LEAD-SUI-TUYUHUN-608-609"],
+          "reason": "608—609占吐谷浑故地，置西海、河源、鄯善、且末四郡、镇戍并屯田，阶段控制真实成立；但政治结构未完全替代且西北转输极脆弱，616—618中央崩解时未留成交班可执行控制。"
+        },
+        {
+          "region_id": "HAMI_GATEWAY",
+          "w": 0.2,
+          "peak_coverage": 1.0,
+          "peak_equivalent": 0.2,
+          "evidence": ["WAR-LEAD-SUI-YIWU-608"],
+          "reason": "608伊吾请降，新筑城并留甲卒千余，阶段门户控制成立；617河西走廊被李轨等切断后不再具中央可执行交班条件。"
+        }
+      ],
+      "excluded_objects": [
+        {"object": "605林邑", "reason": "攻入国都后梵志仍存，未置州县设治，隋军返程即撤；不形成交班控制。"},
+        {"object": "610流求", "reason": "远征破国与俘掠不等于稳定军政控制，无交班驻防与行政网络。"},
+        {"object": "611—614高句丽", "reason": "三征无稳定领土结果；战争成本与战略后果不转成B1。"}
+      ],
+      "objective_totals": {"start": 4.2, "end": 0.0, "net": -4.2, "weighted": -2.52},
+      "third_item_effective_result": {"weighted": -2.52, "grade": "B1-0", "position": "LOW", "rate": 0},
+      "terminal_collapse_override": false,
+      "legacy_resolution": "旧账仅以1.3→0并启用terminal_collapse_override。现改为从杨坚真实4.2交班库存逐区域核退出；吐谷浑、伊吾阶段新增另存峰值但不进入618终点。最终B1率仍0，但不是由终局标签强制清零。",
+      "evidence_refs": [
+        "docs/史料通读产物/唐以前编年/隋/卷180-通读总结.md#WAR-LEAD-SUI-LINYI-605",
+        "docs/史料通读产物/唐以前编年/隋/卷181-通读总结.md#WAR-LEAD-SUI-TUYUHUN-608-609",
+        "docs/史料通读产物/唐以前编年/隋/卷181-通读总结.md#WAR-LEAD-SUI-YIWU-608",
+        "docs/史料通读产物/唐以前编年/隋/卷182-通读总结.md#WAR-LEAD-SUI-YANMEN-615",
+        "docs/史料通读产物/唐以前编年/隋/卷183-通读总结.md#WAR-LEAD-SUI-LIUWUZHOU-617",
+        "docs/史料通读产物/唐以前编年/隋/卷184-通读总结.md#WAR-LEAD-SUI-HEXI-617",
+        "docs/史料通读产物/唐以前编年/隋/卷184-通读总结.md#WAR-LEAD-SUI-LIYUAN-GUANZHONG-617"
+      ]
+    }
+  ],
+  "audit_summary": {
+    "records_reviewed": 2,
+    "rate_changes": [
+      {"ruler": "杨坚", "old_rate": 44, "new_rate": 74, "cause": "补回北周北方边郡继承库存、启民可执行属部网络与602交州恢复；拆除西南/交州语义混写"}
+    ],
+    "unchanged_rates": [
+      {"ruler": "杨广", "rate": 0, "cause": "分率不变但取消terminal_collapse_override，改为4.2→0逐区域退控账"}
+    ],
+    "conclusion": "隋朝2条B1已全部闭合；不存在待补空间锚、待判覆盖阶梯或下限结果。"
+  }
+}
