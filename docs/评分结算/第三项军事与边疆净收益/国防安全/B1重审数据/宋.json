@@ -1,0 +1,312 @@
+{
+  "schema_id": "third-item-b1-reaudit-data-v1",
+  "data_purpose": "只保存B1史料裁决、规范空间快照与跨项有效状态；如何消费、回写和生成正式结算由Codex处理。",
+  "polity": "宋",
+  "status": "COMPLETE_16_OF_16",
+  "rule_basis": {
+    "contract": "docs/分项规则/第三项军事与边疆净收益/国防安全/00-规则与结算合同.md",
+    "region_anchor_registry": "config/third-item/third-item-b1-region-anchors.json",
+    "source_shard": "docs/评分结算/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算/宋.json",
+    "formula": "weighted_control_value = end_total - 0.6 * start_total",
+    "coverage_steps": [0.0, 0.25, 0.5, 0.75, 1.0]
+  },
+  "data_conventions": {
+    "region_entry": "w=空间基准；s/e=起终覆盖率；se/ee=起终控制当量。",
+    "security_separation": "战败、敌军深入、威胁上升和防线受压不自动生成B1退控；只有可证的实际空间退出才降低覆盖率。",
+    "failed_expansion": "进攻失败或短期新占后撤，只取消未能留下的新增控制，不得倒扣原有继承边疆。",
+    "handoff": "同一统治链前任end逐区域等于后任start逐区域；赵佶退位与赵桓亡国严格分开。",
+    "cross_item": "第一项已消费的创业统一/恢复建基成果不在第三项重复计分；客观B1快照仍可保留供交班连续性审计。",
+    "stable_core": "长江内线、采石等稳定核心内防不进入B1；普通内地叛乱恢复亦不进入B1。"
+  },
+  "records": [
+    {
+      "ruler_id": "RULER-NS-ZHAO-KUANGYIN",
+      "ruler_name": "赵匡胤",
+      "reign_range": "960-976",
+      "review_status": "REVIEWED",
+      "confidence": "MEDIUM_HIGH",
+      "regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 0.25, "e": 0.75, "se": 0.2, "ee": 0.6, "evidence": ["XUZJ-001-LIYUN-ZELU-REBELLION-0960", "XZTJ-007-SONG-NORTHHAN-ZHOUXUN-FORT-0972"], "reason": "河北—河东北缘从孤立支点推进为较完整边郡/寨堡网络；统一核心新增不计。"},
+        "GUANZHONG_LONGYOU_BELT": {"w": 1.2, "s": 0.5, "e": 0.5, "se": 0.6, "ee": 0.6, "evidence": ["XUZJ-001-NH-HEXI-LINZHOU-0960", "XUZJ-002-SONG-NH-LINZHOU-0961-0962"], "reason": "麟府—陕北西北边缘按约半个标准带有界计入；任内维持，不把灭国统一链倒灌B1。"}
+      },
+      "totals": {"start": 0.8, "end": 1.2, "net": 0.4, "weighted": 0.72},
+      "objective_result": {"grade": "B1-1", "position": "HIGH", "rate": 44},
+      "effective_third_item_result": {"rate": 0, "status": "EXCLUDED_FIRST_ITEM_ENTIRE_B_WINDOW", "reason": "当前闭合的可归责控制父链均由第一项创业统一/占领巩固整链消费；只保留客观空间快照用于后继接班。"},
+      "change_vs_old": "旧formal B1=52、adjudicated=0；统一锚后客观weighted=0.72、formal应为44，但第三项有效率仍为0。"
+    },
+    {
+      "ruler_id": "RULER-NS-ZHAO-GUANGYI",
+      "ruler_name": "赵光义",
+      "reign_range": "976-997",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 0.75, "e": 0.75, "se": 0.6, "ee": 0.6, "evidence": ["XZTJ-010-SONG-LIAO-MANCHENG-0979", "XZTJ-SONG-LIAO-NORTHERN-WAR-0986-0996"], "reason": "高梁河、雍熙北伐失败显著恶化A轴，但未使宋既有河北边郡成片退出；涿易等未能夺得的燕云目标不能反向算作继承领土损失。"},
+        "GUANZHONG_LONGYOU_BELT": {"w": 1.2, "s": 0.5, "e": 0.25, "se": 0.6, "ee": 0.3, "evidence": ["XZTJ-SONG-LIJIQIAN-0984-0992", "XZTJ-LIJIQIAN-EMERGENCE-0982-0983"], "reason": "李继迁链造成银、绥等西北边缘真实退控，覆盖由0.50降至0.25。"}
+      },
+      "totals": {"start": 1.2, "end": 0.9, "net": -0.3, "weighted": 0.18},
+      "result": {"grade": "B1-1", "position": "LOW", "rate": 30},
+      "handoff_check": "start与赵匡胤客观end闭合。",
+      "change_vs_old": "旧B1=0；纠正把伐辽失败当河北空间退控的错误后升至30。"
+    },
+    {
+      "ruler_id": "RULER-NS-ZHAO-HENG",
+      "ruler_name": "赵恒",
+      "reign_range": "997-1022",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 0.75, "e": 0.75, "se": 0.6, "ee": 0.6, "evidence": ["XZTJ-SONG-LIAO-CHANYUAN-1004"], "reason": "澶渊后河北主边界稳定运行，但条约和守成不等于空间扩张，覆盖维持0.75。"},
+        "GUANZHONG_LONGYOU_BELT": {"w": 1.2, "s": 0.25, "e": 0.25, "se": 0.3, "ee": 0.3, "evidence": ["XZTJ-SONG-LIJIQIAN-NORTHWEST-1000-1003", "XZTJ-SONG-TIBET-QINZHOU-1015-1017"], "reason": "灵州方向进一步失控，但秦州—吐蕃边缘形成有限支点；在统一尺度上仍只闭合到0.25覆盖，不用威胁下降抬B1。"}
+      },
+      "totals": {"start": 0.9, "end": 0.9, "net": 0.0, "weighted": 0.36},
+      "result": {"grade": "B1-1", "position": "MID", "rate": 37},
+      "handoff_check": "start与赵光义end闭合。",
+      "change_vs_old": "得分率不变；河北不再由0.50→0.75制造虚假空间扩张，改为同一存量稳定。"
+    },
+    {
+      "ruler_id": "RULER-NS-LIU-E",
+      "ruler_name": "刘娥",
+      "reign_range": "1022-1033（实际主政）",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 0.75, "e": 0.75, "se": 0.6, "ee": 0.6, "evidence": ["XZTJ-SONG-LIAO-CHANYUAN-1004"], "reason": "承接澶渊后河北边界存量，窗口内无跨阶梯退控。"},
+        "GUANZHONG_LONGYOU_BELT": {"w": 1.2, "s": 0.25, "e": 0.25, "se": 0.3, "ee": 0.3, "reason": "西北只维持有限边疆节点，无可证跨阶梯变化。"}
+      },
+      "totals": {"start": 0.9, "end": 0.9, "net": 0.0, "weighted": 0.36},
+      "result": {"grade": "B1-1", "position": "MID", "rate": 37},
+      "handoff_check": "start与赵恒end闭合。",
+      "change_vs_old": "得分率不变；补成规范连续快照。"
+    },
+    {
+      "ruler_id": "RULER-NS-ZHAO-ZHEN",
+      "ruler_name": "赵祯",
+      "reign_range": "1033-1063（亲政）",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 0.75, "e": 0.75, "se": 0.6, "ee": 0.6, "evidence": ["XZTJ-SONG-XIA-WAR-1038-1044"], "reason": "辽方向既有河北边界持续存在；旧账从本任起把这块继承存量漏掉。"},
+        "GUANZHONG_LONGYOU_BELT": {"w": 1.2, "s": 0.25, "e": 0.25, "se": 0.3, "ee": 0.3, "evidence": ["XZTJ-SONG-XIA-WAR-1038-1044", "XZTJ-GUWEI-QIANG-1053"], "reason": "宋夏战争造成严重军事与安全成本，但未证明继承西北边疆在交班时跨出0.25覆盖；失城复城和边寨反复在区域内净额处理。"}
+      },
+      "totals": {"start": 0.9, "end": 0.9, "net": 0.0, "weighted": 0.36},
+      "result": {"grade": "B1-1", "position": "MID", "rate": 37},
+      "handoff_check": "start与刘娥end闭合。",
+      "change_vs_old": "旧B1=30；补回被漏掉的河北继承边疆后升至37。"
+    },
+    {
+      "ruler_id": "RULER-NS-ZHAO-SHU",
+      "ruler_name": "赵曙",
+      "reign_range": "1063-1067",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 0.75, "e": 0.75, "se": 0.6, "ee": 0.6, "reason": "短窗口内河北边界无可证空间跨阶梯变化。"},
+        "GUANZHONG_LONGYOU_BELT": {"w": 1.2, "s": 0.25, "e": 0.25, "se": 0.3, "ee": 0.3, "reason": "承接仁宗西北有限存量，无可证跨阶梯变化。"}
+      },
+      "totals": {"start": 0.9, "end": 0.9, "net": 0.0, "weighted": 0.36},
+      "result": {"grade": "B1-1", "position": "MID", "rate": 37},
+      "handoff_check": "start与赵祯end闭合。",
+      "change_vs_old": "旧B1=30；修复继承存量断链后升至37。"
+    },
+    {
+      "ruler_id": "RULER-NS-ZHAO-XU",
+      "ruler_name": "赵顼",
+      "reign_range": "1067-1085",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 0.75, "e": 0.75, "se": 0.6, "ee": 0.6, "reason": "河北主边界存量维持。"},
+        "GUANZHONG_LONGYOU_BELT": {"w": 1.2, "s": 0.25, "e": 0.75, "se": 0.3, "ee": 0.9, "evidence": ["XZTJ-SONG-TIBET-XIHE-1072-1074", "XZTJ-SONG-XIA-LANZHOU-1083-1084"], "reason": "熙河、河州、洮岷与兰州等形成真实大幅外推，但按1.2标准带只取大部有效0.75，不沿用旧临时1.25绝对值。"},
+        "TUYUHUN_QINGHAI_SPACE": {"w": 1.0, "s": 0.0, "e": 0.25, "se": 0.0, "ee": 0.25, "evidence": ["XZTJ-SONG-TIBET-XIHE-1072-1074"], "reason": "青海—吐蕃方向只闭合孤立/小型前推网络，取0.25。"},
+        "HENAN_SHUOFANG_CORRIDOR": {"w": 0.6, "s": 0.0, "e": 0.25, "se": 0.0, "ee": 0.15, "evidence": ["XZTJ-SONG-XIA-SUIZHOU-1067-1070", "XZTJ-SONG-XIA-LUOWU-FUNING-1071"], "reason": "绥延方向只有小型堡寨/走廊推进，五路伐夏和永乐失败不产生额外空间。"},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 0.0, "e": 0.5, "se": 0.0, "ee": 0.25, "evidence": ["XZTJ-SONG-LUHU-1073-1074", "XZTJ-SONG-LUHU-NAXI-1078-1080"], "reason": "泸戎—纳溪边缘形成约半个标准西南边疆控制空间。"}
+      },
+      "totals": {"start": 0.9, "end": 2.15, "net": 1.25, "weighted": 1.61},
+      "result": {"grade": "B1-3", "position": "LOW", "rate": 60},
+      "handoff_check": "start与赵曙end闭合。",
+      "change_vs_old": "旧weighted=2.05、rate67；统一空间锚收紧旧临时大包后降至1.61、rate60，但仍确认神宗是真实大幅净扩张。"
+    },
+    {
+      "ruler_id": "RULER-NS-GAO-TAOTAO",
+      "ruler_name": "高滔滔",
+      "reign_range": "1085-1093（实际主政）",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 0.75, "e": 0.75, "se": 0.6, "ee": 0.6, "reason": "河北存量维持。"},
+        "GUANZHONG_LONGYOU_BELT": {"w": 1.2, "s": 0.75, "e": 0.75, "se": 0.9, "ee": 0.9, "evidence": ["XZTJ-TIBETAN-TAOZHOU-GUOZHUANG-1087"], "reason": "洮州先失后复，总体仍维持神宗交班的大部走廊。"},
+        "TUYUHUN_QINGHAI_SPACE": {"w": 1.0, "s": 0.25, "e": 0.25, "se": 0.25, "ee": 0.25, "reason": "青海方向小型控制网络维持。"},
+        "HENAN_SHUOFANG_CORRIDOR": {"w": 0.6, "s": 0.25, "e": 0.0, "se": 0.15, "ee": 0.0, "evidence": ["XZTJ-SONG-XIA-YUANFENG-WESTERN-SETTLEMENT-1086-1090"], "reason": "元祐议和与归还若干争议堡寨造成真实但有限的前推节点退出；旧账把少数堡寨放大为1.0整档退控。"},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 0.5, "e": 0.5, "se": 0.25, "ee": 0.25, "reason": "西南边疆存量维持。"}
+      },
+      "totals": {"start": 2.15, "end": 2.0, "net": -0.15, "weighted": 0.71},
+      "result": {"grade": "B1-1", "position": "HIGH", "rate": 44},
+      "handoff_check": "start与赵顼end闭合。",
+      "change_vs_old": "旧B1=0；纠正争议堡寨退还被放大为1.0空间退控的问题后升至44。"
+    },
+    {
+      "ruler_id": "RULER-NS-ZHAO-XU-ZHEZONG",
+      "ruler_name": "赵煦",
+      "reign_range": "1093-1100（亲政）",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 0.75, "e": 0.75, "se": 0.6, "ee": 0.6, "reason": "河北存量维持。"},
+        "GUANZHONG_LONGYOU_BELT": {"w": 1.2, "s": 0.75, "e": 0.75, "se": 0.9, "ee": 0.9, "reason": "熙河—兰州主干继续维持。"},
+        "TUYUHUN_QINGHAI_SPACE": {"w": 1.0, "s": 0.25, "e": 0.25, "se": 0.25, "ee": 0.25, "reason": "青海小型网络维持。"},
+        "HENAN_SHUOFANG_CORRIDOR": {"w": 0.6, "s": 0.0, "e": 1.0, "se": 0.0, "ee": 0.6, "evidence": ["XZTJ-SONG-XIA-PINGXIA-FORTRESS-CAMPAIGN-1097-1098", "XZTJ-SONG-XIA-SHAOSHENG-OFFENSIVE-1097-1098"], "reason": "平夏、灵平、葫芦河及沿边堡寨推进使该小型走廊锚整体有效；不再使用旧2.5绝对大包。"},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 0.5, "e": 0.5, "se": 0.25, "ee": 0.25, "reason": "西南边疆存量维持。"}
+      },
+      "totals": {"start": 2.0, "end": 2.6, "net": 0.6, "weighted": 1.4},
+      "result": {"grade": "B1-2", "position": "HIGH", "rate": 59},
+      "handoff_check": "start与高滔滔end闭合。",
+      "change_vs_old": "旧rate60；统一空间尺度后weighted 1.60→1.40，机械落B1-2 HIGH=59。"
+    },
+    {
+      "ruler_id": "RULER-NS-ZHAO-JI",
+      "ruler_name": "赵佶",
+      "reign_range": "1100-1125",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 0.75, "e": 0.5, "se": 0.6, "ee": 0.4, "evidence": ["XZTJ-SONG-YAN-SECOND-CAMPAIGN-1122", "XZTJ-JIN-SONG-SHANHOU-1124", "XZTJ-JIN-SONG-FIRST-INVASION-EAST-1125-1126"], "reason": "联金灭辽后燕山、山后等新接收空间迅速崩解，且原北边体系承压；退位时仍有河北和东京防御能力，故只从0.75降至0.50，不按1127亡国归零。"},
+        "GUANZHONG_LONGYOU_BELT": {"w": 1.2, "s": 0.75, "e": 1.0, "se": 0.9, "ee": 1.2, "evidence": ["XZTJ-SONG-QINGTANG-RECONQUEST-1103-1108"], "reason": "青唐恢复及洮州、积石等闭合使河湟—陇右主干进一步扩展，交班仍有效。"},
+        "TUYUHUN_QINGHAI_SPACE": {"w": 1.0, "s": 0.25, "e": 0.75, "se": 0.25, "ee": 0.75, "evidence": ["XZTJ-SONG-QINGTANG-RECONQUEST-1103-1108", "XZTJ-SONG-QINGTANG-HENAN-QIANG-1103"], "reason": "青唐恢复使青海方向达到大部有效但仍有缺口0.75。"},
+        "HENAN_SHUOFANG_CORRIDOR": {"w": 0.6, "s": 1.0, "e": 1.0, "se": 0.6, "ee": 0.6, "evidence": ["XZTJ-SONG-XIA-DINGYUAN-ZANGDIHE-1114-1115", "XZTJ-SONG-XIA-TONGAN-ZHENWU-1119"], "reason": "西北堡寨线虽经历惨败与围城，但任末主体网络仍存在；过程损失由A/C/成本表达，不凭战败归零。"},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 0.5, "e": 0.5, "se": 0.25, "ee": 0.25, "reason": "西南边疆有限存量维持。"}
+      },
+      "excluded": [{"object": "1122—1123燕云短期峰值", "reason": "交班前已大部失效，不能作为终点净增；其高成本与失败进入B2/B4/A/成本账。"}],
+      "totals": {"start": 2.6, "end": 3.2, "net": 0.6, "weighted": 1.64},
+      "result": {"grade": "B1-3", "position": "LOW", "rate": 60},
+      "handoff_check": "start与赵煦end闭合；end锚点严格取赵佶退位，不读取赵桓1127亡国。",
+      "change_vs_old": "旧账错误按靖康覆亡把赵佶end直接清零，rate29；修正终局时点并保留西北真实扩张后升至60。"
+    },
+    {
+      "ruler_id": "RULER-NS-ZHAO-HUAN",
+      "ruler_name": "赵桓",
+      "reign_range": "1126-1127",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 0.5, "e": 0.0, "se": 0.4, "ee": 0.0, "evidence": ["XZTJ-JIN-SONG-FIRST-INVASION-EAST-1125-1126", "XZTJ-JIN-SONG-KAIFENG-SECOND-SIEGE-1126-1127"], "reason": "接班仍有河北—东京体系；靖康终局北宋中枢覆亡，评价主体无可移交该边疆控制。"},
+        "GUANZHONG_LONGYOU_BELT": {"w": 1.2, "s": 1.0, "e": 0.0, "se": 1.2, "ee": 0.0, "evidence": ["XZTJ-SONG-RELIEF-TAIYUAN-LIGANG-1126", "XZTJ-JIN-XIA-SONG-ZHENWEI-1126"], "reason": "西北边疆虽有地方抵抗，北宋中枢终端覆亡后不再向同一评价主体移交。"},
+        "TUYUHUN_QINGHAI_SPACE": {"w": 1.0, "s": 0.75, "e": 0.0, "se": 0.75, "ee": 0.0, "reason": "承接徽宗青海控制存量；终端主体覆亡归零。"},
+        "HENAN_SHUOFANG_CORRIDOR": {"w": 0.6, "s": 1.0, "e": 0.0, "se": 0.6, "ee": 0.0, "reason": "承接西北堡寨走廊；终端主体覆亡归零。"},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 0.5, "e": 0.0, "se": 0.25, "ee": 0.0, "reason": "承接有限西南边疆存量；终端主体覆亡归零。"}
+      },
+      "totals": {"start": 3.2, "end": 0.0, "net": -3.2, "weighted": -1.92},
+      "result": {"grade": "B1-0", "position": "LOW", "rate": 0},
+      "handoff_check": "start与赵佶修正后end完全闭合；靖康覆亡只在赵桓窗口消费。",
+      "change_vs_old": "旧账start=0、end=0，把覆亡提前扣给赵佶；修正为3.2→0，得分仍0但责任与退控量回到正确窗口。"
+    },
+    {
+      "ruler_id": "RULER-SS-ZHAO-GOU",
+      "ruler_name": "赵构",
+      "reign_range": "1127-1162",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "snapshot_cut": "1141绍兴和议后；此前南宋恢复建基链由第一项消费。",
+      "regions": {
+        "HUAI_FRONTIER": {"w": 0.7, "s": 0.75, "e": 0.75, "se": 0.525, "ee": 0.525, "evidence": ["XZTJ-SHUNCHANG-1140", "XZTJ-SONG-JIN-CAISHI-1161"], "reason": "淮河主防在1141切点后持续有效；1161守住不制造新增空间。"},
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 0.75, "e": 0.75, "se": 0.6, "ee": 0.6, "reason": "用于荆湖—襄樊北缘外部边防的统一小尺度代理；1141后至1162未见跨阶梯退控。"},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 0.75, "e": 0.75, "se": 0.375, "ee": 0.375, "reason": "川陕外缘在1141切点后作为主要西部边疆存量维持。"}
+      },
+      "excluded": [{"object": "长江—采石内线", "reason": "稳定核心内部防御，不属于B1边疆控制空间；只在A2/防御体系中表达。"}],
+      "totals": {"start": 1.5, "end": 1.5, "net": 0.0, "weighted": 0.6},
+      "result": {"grade": "B1-1", "position": "HIGH", "rate": 44},
+      "change_vs_old": "得分率不变；删除长江内线伪B1对象，改用淮河、荆湖北缘、川陕三个真实外部边疆扇区。"
+    },
+    {
+      "ruler_id": "RULER-SS-ZHAO-SHEN",
+      "ruler_name": "赵昚",
+      "reign_range": "1162-1189",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "regions": {
+        "HUAI_FRONTIER": {"w": 0.7, "s": 0.75, "e": 0.75, "se": 0.525, "ee": 0.525, "evidence": ["XZTJ-SONG-JIN-LONXING-OFFENSIVE-1163"], "reason": "隆兴北伐短期所得未能保持，但继承淮河主边界并未因此永久退控；失败取消新增，不倒扣旧线。"},
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 0.75, "e": 0.75, "se": 0.6, "ee": 0.6, "evidence": ["XZTJ-SONG-JIN-LONXING-OFFENSIVE-1163"], "reason": "荆湖—襄樊边疆总体保持。"},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 0.75, "e": 0.75, "se": 0.375, "ee": 0.375, "reason": "川陕外缘总体保持。"}
+      },
+      "totals": {"start": 1.5, "end": 1.5, "net": 0.0, "weighted": 0.6},
+      "result": {"grade": "B1-1", "position": "HIGH", "rate": 44},
+      "handoff_check": "start与赵构end闭合。",
+      "change_vs_old": "旧B1=29；纠正隆兴北伐失败被当作继承边界失地后升至44。"
+    },
+    {
+      "ruler_id": "RULER-SS-ZHAO-DUN",
+      "ruler_name": "赵惇",
+      "reign_range": "1189-1194",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "regions": {
+        "HUAI_FRONTIER": {"w": 0.7, "s": 0.75, "e": 0.75, "se": 0.525, "ee": 0.525, "reason": "短窗口维持。"},
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 0.75, "e": 0.75, "se": 0.6, "ee": 0.6, "reason": "荆湖—襄樊边疆存量维持。"},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 0.75, "e": 0.75, "se": 0.375, "ee": 0.375, "reason": "川陕外缘维持。"}
+      },
+      "totals": {"start": 1.5, "end": 1.5, "net": 0.0, "weighted": 0.6},
+      "result": {"grade": "B1-1", "position": "HIGH", "rate": 44},
+      "handoff_check": "start与赵昚end闭合。",
+      "change_vs_old": "旧B1=30；旧区域对象漂移导致继承存量漏记，修正后升至44。"
+    },
+    {
+      "ruler_id": "RULER-SS-ZHAO-KUO",
+      "ruler_name": "赵扩",
+      "reign_range": "1194-1224",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "regions": {
+        "HUAI_FRONTIER": {"w": 0.7, "s": 0.75, "e": 0.75, "se": 0.525, "ee": 0.525, "evidence": ["XZTJ-SONG-JIN-KAIXI-WAR-1206-1208", "XZTJ-SONG-JIN-HUAI-1222"], "reason": "开禧北伐失败和金军反击造成重大安全/军事负债，但和议终局并未使继承淮防整体跨阶梯退控。"},
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 0.75, "e": 0.75, "se": 0.6, "ee": 0.6, "evidence": ["XZTJ-SONG-JIN-KAIXI-WAR-1206-1208", "XZTJ-SONG-JIN-ZAOYANG-1219"], "reason": "荆湖—襄樊主边疆最终仍保持；短期北进失败只取消新增。"},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 0.75, "e": 0.75, "se": 0.375, "ee": 0.375, "evidence": ["XZTJ-SONG-JIN-KAIXI-WAR-SICHUAN-1206-1208", "XZTJ-SONG-JIN-SICHUAN-1217-1218"], "reason": "四川战区受压但交班前继承西部边疆未跨阶梯退出。"}
+      },
+      "totals": {"start": 1.5, "end": 1.5, "net": 0.0, "weighted": 0.6},
+      "result": {"grade": "B1-1", "position": "HIGH", "rate": 44},
+      "handoff_check": "start与赵惇end闭合。",
+      "change_vs_old": "旧B1=30；纠正开禧失败被重复解释为继承空间退控后升至44。"
+    },
+    {
+      "ruler_id": "RULER-SS-ZHAO-YUN",
+      "ruler_name": "赵昀",
+      "reign_range": "1224-1264",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "regions": {
+        "HUAI_FRONTIER": {"w": 0.7, "s": 0.75, "e": 0.75, "se": 0.525, "ee": 0.525, "evidence": ["XZTJ-MONGOL-SONG-HUAIWEST-1236", "XZTJ-MONGOL-SONG-ANFENG-1237"], "reason": "淮防多次受压但至1264仍维持大部有效0.75。"},
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 0.75, "e": 0.5, "se": 0.6, "ee": 0.4, "evidence": ["XZTJ-MONGOL-SONG-JINGHU-1236", "XZTJ-MONGOL-SONG-XIANGFAN-BLOCKADE-1263"], "reason": "京湖外围与援路持续恶化，1263—1264襄樊已受封锁，但襄阳尚未在本任陷落；故由0.75降0.50，不提前归零。"},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 0.75, "e": 0.25, "se": 0.375, "ee": 0.125, "evidence": ["XZTJ-MONGOL-SONG-HANZHONG-1231", "XZTJ-MONGOL-SICHUAN-MULTIPREFECTURE-COLLAPSE-1259", "XZTJ-MONGOL-SONG-HEZHOU-DIAOYUSHAN-1259"], "reason": "汉中、成都及四川多州成片失守，只保留钓鱼城等孤立支点网络，降至0.25。"}
+      },
+      "totals": {"start": 1.5, "end": 1.05, "net": -0.45, "weighted": 0.15},
+      "result": {"grade": "B1-1", "position": "LOW", "rate": 30},
+      "handoff_check": "start与赵扩end闭合。",
+      "change_vs_old": "旧B1=29且用0.15/0.10/0.25临时绝对当量并提前把襄樊归零；统一锚后为1.5→1.05、weighted0.15、rate30。"
+    }
+  ],
+  "audit_summary": {
+    "records_reviewed": 16,
+    "effective_rate_changes": [
+      {"ruler": "赵光义", "old": 0, "new": 30, "cause": "伐辽失败不等于河北继承边疆失地"},
+      {"ruler": "赵祯", "old": 30, "new": 37, "cause": "补回持续存在的河北边疆继承存量"},
+      {"ruler": "赵曙", "old": 30, "new": 37, "cause": "补回持续存在的河北边疆继承存量"},
+      {"ruler": "赵顼", "old": 67, "new": 60, "cause": "熙河扩张仍强，但旧临时2.5级大包超过统一空间锚"},
+      {"ruler": "高滔滔", "old": 0, "new": 44, "cause": "少数争议堡寨归还被旧账放大为1.0整档空间退控"},
+      {"ruler": "赵煦", "old": 60, "new": 59, "cause": "平夏堡寨推进改用统一走廊锚"},
+      {"ruler": "赵佶", "old": 29, "new": 60, "cause": "旧账把1127靖康覆亡提前扣到1125退位终点；同时漏掉青唐等真实西北扩张"},
+      {"ruler": "赵昚", "old": 29, "new": 44, "cause": "隆兴北伐未保住新增地，不等于继承边疆整体退控"},
+      {"ruler": "赵惇", "old": 30, "new": 44, "cause": "修复南宋区域对象漂移与继承存量断链"},
+      {"ruler": "赵扩", "old": 30, "new": 44, "cause": "开禧北伐失败不重复扣继承边界"},
+      {"ruler": "赵昀", "old": 29, "new": 30, "cause": "按规范区域重建真实退控，襄樊1264尚未陷落"}
+    ],
+    "unchanged_effective_rates": ["赵匡胤=0（跨项整链排除）", "赵恒=37", "刘娥=37", "赵桓=0", "赵构=44"],
+    "major_structural_corrections": [
+      "赵佶1125退位与赵桓1127亡国终点拆开，靖康覆亡只在赵桓窗口消费",
+      "北宋对辽进攻失败不再自动折算为河北B1空间损失",
+      "仁宗以后持续存在的河北边疆存量重新贯穿交班链",
+      "神宗—哲宗西北扩张改用统一空间锚，删除旧临时1.25/1.5/2.5绝对当量",
+      "南宋删除长江—采石稳定核心内线伪B1对象",
+      "隆兴、开禧北伐失败只取消未保持新增，不重复扣既有边界",
+      "理宗1264襄樊仍未陷落，只按封锁与外围恶化降覆盖，不提前归零"
+    ],
+    "conclusion": "宋朝16条B1已按统一空间锚完成重审；旧账的主要问题是把战败当失地、继承存量断链以及终局跨人串账。"
+  }
+}
