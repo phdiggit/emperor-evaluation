@@ -2,7 +2,7 @@
   "schema_id": "third-item-b1-reaudit-data-v1",
   "data_purpose": "只保存B1史料裁决与规范空间数据；如何回写正式结算由Codex另行处理。",
   "polity": "东汉",
-  "status": "PARTIAL_4_OF_11",
+  "status": "PARTIAL_8_OF_11",
   "rule_basis": {
     "contract": "docs/分项规则/第三项军事与边疆净收益/国防安全/00-规则与结算合同.md",
     "region_anchor_registry": "config/third-item/third-item-b1-region-anchors.json",
@@ -11,10 +11,11 @@
     "coverage_steps": [0.0, 0.25, 0.5, 0.75, 1.0]
   },
   "data_conventions": {
-    "region_ledger": "每个区域只保留一个规范region_id，同时记录start/end覆盖率；不存在的锚点覆盖率取0。",
+    "region_ledger": "每个区域只保留规范region_id；s/e为起终覆盖率，se/ee为起终控制当量。",
     "core_exclusion": "稳定核心领土和第一项已消费的统一核心新增不进入B1。",
-    "handoff": "连续皇帝前任end逐区域必须等于后任start逐区域；若不等必须另有桥接事实。",
-    "evidence_policy": "旧账只能作为检索线索；本文件按统一空间锚重新裁决，旧ID不直接沿用。"
+    "handoff": "连续评价窗口前任end逐区域必须等于后任start逐区域；摄政—亲政按实际窗口切分。",
+    "overlap": "复合锚与内部节点同一快照不得并计；发生口径升级时内部节点在新快照归零并注明absorbed_by。",
+    "evidence_policy": "旧账只作检索线索；本文件按统一空间锚重新裁决。"
   },
   "records": [
     {
@@ -23,58 +24,15 @@
       "reign_range": "25—57",
       "review_status": "REVIEWED",
       "confidence": "HIGH",
-      "region_ledger": [
-        {
-          "region_id": "ANNAM_NORTHERN_VIETNAM",
-          "display_object": "交趾六十五城及北部越南郡县控制空间",
-          "spatial_weight": 0.8,
-          "start_coverage": 0.0,
-          "end_coverage": 1.0,
-          "start_equivalent": 0.0,
-          "end_equivalent": 0.8,
-          "control_form": "直接郡县与地方行政",
-          "evidence_refs": ["WAR-LEAD-HAN-JIAOZHI-40-43"],
-          "reason": "40—43年交趾大范围失守后由马援恢复，交班时郡县体系重新有效。对象实质是交趾—北部越南，不再使用旧LINGNAN_SOUTH泛称；整体恢复取1.00。"
-        },
-        {
-          "region_id": "HEXI_LONGYOU_CORRIDOR",
-          "display_object": "河湟—陇西羌塞与交通城田网络",
-          "spatial_weight": 0.8,
-          "start_coverage": 0.0,
-          "end_coverage": 0.75,
-          "start_equivalent": 0.0,
-          "end_equivalent": 0.6,
-          "control_form": "交通城田、校尉与坞候体系",
-          "evidence_refs": ["WAR-LEAD-HAN-QIANG-30-35", "《后汉书》卷八十七《西羌传》"],
-          "reason": "统一核心新增不计；这里只计河湟—陇西外缘可独立闭合的羌塞与交通网络。交班时主要节点恢复但仍有明显缺口，取0.75。"
-        },
-        {
-          "region_id": "NORTHERN_BORDER_COMMANDERIES",
-          "display_object": "北方边郡与塞防带",
-          "spatial_weight": 0.8,
-          "start_coverage": 0.25,
-          "end_coverage": 0.25,
-          "start_equivalent": 0.2,
-          "end_equivalent": 0.2,
-          "control_form": "边郡、屯戍与塞防体系",
-          "evidence_refs": ["WAR-LEAD-HAN-XIONGNU-LUFANG-25", "WAR-LEAD-HAN-XIONGNU-LUFANG-29", "WAR-LEAD-HAN-XIONGNU-LUFANG-30-34", "WAR-LEAD-HAN-NORTH-36-46", "《后汉书》卷十二《卢芳传》"],
-          "reason": "25年仅能确认安定方向小型可执行支点，取0.25；交班时虽恢复部分郡塞，但不足以证明北方边郡覆盖跨到0.50，维持0.25。"
-        }
-      ],
-      "excluded_objects": [
-        {
-          "object": "统一战争取得的稳定核心领土",
-          "reason": "第一项已消费，不进入B1净增。"
-        }
-      ],
-      "start_total": 0.2,
-      "end_total": 1.6,
-      "net_change": 1.4,
-      "weighted_control_value": 1.48,
-      "B1_grade": "B1-2",
-      "band_position": "HIGH",
-      "score_rate": 59,
-      "change_vs_old": "数值不变；旧LINGNAN_SOUTH语义改判为ANNAM_NORTHERN_VIETNAM，NORTHWEST_FRONTIER改为HEXI_LONGYOU_CORRIDOR，NORTHERN_FRONTIER改为NORTHERN_BORDER_COMMANDERIES。"
+      "regions": {
+        "ANNAM_NORTHERN_VIETNAM": {"w": 0.8, "s": 0.0, "e": 1.0, "se": 0.0, "ee": 0.8, "mode": "直接郡县与地方行政", "evidence": ["WAR-LEAD-HAN-JIAOZHI-40-43"], "reason": "交趾大范围失守后恢复，交班时郡县体系有效；对象限定为交趾—北部越南，不泛计稳定岭南核心。"},
+        "HEXI_LONGYOU_CORRIDOR": {"w": 0.8, "s": 0.0, "e": 0.75, "se": 0.0, "ee": 0.6, "mode": "交通城田、校尉与坞候体系", "evidence": ["WAR-LEAD-HAN-QIANG-30-35", "《后汉书》卷八十七《西羌传》"], "reason": "统一核心新增排除；只计河湟—陇西外缘独立羌塞网络。主要节点恢复但仍有明显缺口，取0.75。"},
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 0.25, "e": 0.25, "se": 0.2, "ee": 0.2, "mode": "边郡、屯戍与塞防体系", "evidence": ["WAR-LEAD-HAN-XIONGNU-LUFANG-25", "WAR-LEAD-HAN-XIONGNU-LUFANG-29", "WAR-LEAD-HAN-XIONGNU-LUFANG-30-34", "WAR-LEAD-HAN-NORTH-36-46", "《后汉书》卷十二《卢芳传》"], "reason": "25年仅闭合安定方向小型支点；57年未证北方边郡覆盖跨到0.50，维持0.25。"}
+      },
+      "excluded": [{"object": "统一战争取得的稳定核心领土", "reason": "第一项已消费。"}],
+      "totals": {"start": 0.2, "end": 1.6, "net": 1.4, "weighted": 1.48},
+      "result": {"grade": "B1-2", "position": "HIGH", "rate": 59},
+      "change_vs_old": "数值不变；交趾、河西陇右、北方边郡均改为规范锚。"
     },
     {
       "ruler_id": "RULER-HAN-LIUZHUANG",
@@ -82,77 +40,17 @@
       "reign_range": "57—75",
       "review_status": "REVIEWED",
       "confidence": "HIGH",
-      "region_ledger": [
-        {
-          "region_id": "ANNAM_NORTHERN_VIETNAM",
-          "display_object": "交趾—北部越南郡县控制空间",
-          "spatial_weight": 0.8,
-          "start_coverage": 1.0,
-          "end_coverage": 1.0,
-          "start_equivalent": 0.8,
-          "end_equivalent": 0.8,
-          "control_form": "直接郡县与地方行政",
-          "evidence_refs": ["HANDOVER-汉-刘秀-刘庄"],
-          "reason": "直接继承刘秀交班快照；本任无足以改变覆盖阶梯的失控事实。"
-        },
-        {
-          "region_id": "HEXI_LONGYOU_CORRIDOR",
-          "display_object": "河湟—陇西羌塞与交通网络",
-          "spatial_weight": 0.8,
-          "start_coverage": 0.75,
-          "end_coverage": 0.75,
-          "start_equivalent": 0.6,
-          "end_equivalent": 0.6,
-          "control_form": "交通、城田、校尉与坞候网络",
-          "evidence_refs": ["HANDOVER-汉-刘秀-刘庄", "WAR-LEAD-HAN-QIANG-57-58"],
-          "reason": "接班复用0.75；烧当方向仍有缺口，不升1.00。"
-        },
-        {
-          "region_id": "NORTHERN_BORDER_COMMANDERIES",
-          "display_object": "北方边郡与塞防带",
-          "spatial_weight": 0.8,
-          "start_coverage": 0.25,
-          "end_coverage": 0.25,
-          "start_equivalent": 0.2,
-          "end_equivalent": 0.2,
-          "control_form": "边郡、屯戍与塞防体系",
-          "evidence_refs": ["HANDOVER-汉-刘秀-刘庄", "WAR-LEAD-HAN-NORTH-XIONGNU-62-73"],
-          "reason": "北匈奴压力下边郡仍只闭合到小型支点网络；战场主动上升不能直接提高B1覆盖。"
-        },
-        {
-          "region_id": "SOUTHWEST_FRONTIER",
-          "display_object": "永昌—哀牢西南边疆控制空间",
-          "spatial_weight": 0.5,
-          "start_coverage": 0.0,
-          "end_coverage": 1.0,
-          "start_equivalent": 0.0,
-          "end_equivalent": 0.5,
-          "control_form": "永昌郡县与哀牢属部体系",
-          "evidence_refs": ["《后汉书》卷八十六《南蛮西南夷列传》郑纯抚循十年", "WAR-LEAD-HAN-AILAO-76-77"],
-          "reason": "明帝任内永昌建置与哀牢控制已经形成，后续章帝初年材料可反证交班时制度已连续运行；整体标准区取1.00。"
-        },
-        {
-          "region_id": "HAMI_GATEWAY",
-          "display_object": "伊吾—西域东部门户",
-          "spatial_weight": 0.2,
-          "start_coverage": 0.0,
-          "end_coverage": 1.0,
-          "start_equivalent": 0.0,
-          "end_equivalent": 0.2,
-          "control_form": "宜禾都尉屯田、车师归附与门户屯戍",
-          "evidence_refs": ["WAR-LEAD-HAN-NORTH-XIONGNU-62-73", "WAR-LEAD-HAN-XIYU-73-75", "《后汉书》卷八十八《西域传》永平十六年至建初元年"],
-          "reason": "旧账用GAOCHANG_XIZHOU不够贴合汉代实际对象；明帝交班时能闭合的是伊吾—东部西域门户，改用HAMI_GATEWAY。只计小型门户0.2，不扩大为西域整体。"
-        }
-      ],
-      "start_total": 1.6,
-      "end_total": 2.3,
-      "net_change": 0.7,
-      "weighted_control_value": 1.34,
-      "B1_grade": "B1-2",
-      "band_position": "HIGH",
-      "score_rate": 59,
-      "handoff_check": "start逐区域与刘秀end逐区域完全闭合。",
-      "change_vs_old": "数值不变；规范化全部旧区域ID，并把明帝西域0.2小锚从GAOCHANG_XIZHOU改为HAMI_GATEWAY。"
+      "regions": {
+        "ANNAM_NORTHERN_VIETNAM": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8, "mode": "直接郡县与地方行政", "evidence": ["HANDOVER-汉-刘秀-刘庄"], "reason": "承接刘秀交班快照，无跨阶梯失控。"},
+        "HEXI_LONGYOU_CORRIDOR": {"w": 0.8, "s": 0.75, "e": 0.75, "se": 0.6, "ee": 0.6, "mode": "交通、城田、校尉与坞候网络", "evidence": ["HANDOVER-汉-刘秀-刘庄", "WAR-LEAD-HAN-QIANG-57-58"], "reason": "烧当方向仍有缺口，不升1.00。"},
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 0.25, "e": 0.25, "se": 0.2, "ee": 0.2, "mode": "边郡、屯戍与塞防体系", "evidence": ["HANDOVER-汉-刘秀-刘庄", "WAR-LEAD-HAN-NORTH-XIONGNU-62-73"], "reason": "战场主动上升不等于边疆控制覆盖扩大，维持0.25。"},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 0.0, "e": 1.0, "se": 0.0, "ee": 0.5, "mode": "永昌郡县与哀牢属部体系", "evidence": ["《后汉书》卷八十六《南蛮西南夷列传》郑纯抚循十年", "WAR-LEAD-HAN-AILAO-76-77"], "reason": "明帝任内永昌建置与哀牢控制已经形成；后续材料证明交班时制度连续运行，取1.00。"},
+        "HAMI_GATEWAY": {"w": 0.2, "s": 0.0, "e": 1.0, "se": 0.0, "ee": 0.2, "mode": "宜禾都尉屯田、车师归附与门户屯戍", "evidence": ["WAR-LEAD-HAN-NORTH-XIONGNU-62-73", "WAR-LEAD-HAN-XIYU-73-75", "《后汉书》卷八十八《西域传》永平十六年至建初元年"], "reason": "实际闭合的是伊吾—西域东部门户，旧GAOCHANG_XIZHOU改为HAMI_GATEWAY；只计0.2小锚。"}
+      },
+      "totals": {"start": 1.6, "end": 2.3, "net": 0.7, "weighted": 1.34},
+      "result": {"grade": "B1-2", "position": "HIGH", "rate": 59},
+      "handoff_check": "与刘秀end完全闭合。",
+      "change_vs_old": "数值不变；伊吾0.2改用HAMI_GATEWAY，其余旧ID规范化。"
     },
     {
       "ruler_id": "RULER-HAN-LIUDA",
@@ -160,89 +58,18 @@
       "reign_range": "75—88",
       "review_status": "REVIEWED",
       "confidence": "HIGH",
-      "region_ledger": [
-        {
-          "region_id": "ANNAM_NORTHERN_VIETNAM",
-          "display_object": "交趾—北部越南郡县控制空间",
-          "spatial_weight": 0.8,
-          "start_coverage": 1.0,
-          "end_coverage": 1.0,
-          "start_equivalent": 0.8,
-          "end_equivalent": 0.8,
-          "control_form": "直接郡县与地方行政",
-          "evidence_refs": ["HANDOVER-汉-刘庄-刘炟"],
-          "reason": "连续交班复用1.00；无跨阶梯退控事实。"
-        },
-        {
-          "region_id": "HEXI_LONGYOU_CORRIDOR",
-          "display_object": "河湟—陇西羌塞与交通网络",
-          "spatial_weight": 0.8,
-          "start_coverage": 0.75,
-          "end_coverage": 0.75,
-          "start_equivalent": 0.6,
-          "end_equivalent": 0.6,
-          "control_form": "交通、城田、校尉与坞候网络",
-          "evidence_refs": ["HANDOVER-汉-刘庄-刘炟", "WAR-LEAD-HAN-QIANG-77-78"],
-          "reason": "羌乱造成压力但交班前未形成跨阶梯永久退控，维持0.75。"
-        },
-        {
-          "region_id": "NORTHERN_BORDER_COMMANDERIES",
-          "display_object": "北方边郡与塞防带",
-          "spatial_weight": 0.8,
-          "start_coverage": 0.25,
-          "end_coverage": 0.25,
-          "start_equivalent": 0.2,
-          "end_equivalent": 0.2,
-          "control_form": "边郡、屯戍与塞防体系",
-          "evidence_refs": ["HANDOVER-汉-刘庄-刘炟"],
-          "reason": "北方形势变化主要体现在威胁轴；缺少边郡实际覆盖跨阶梯证据，B1维持0.25。"
-        },
-        {
-          "region_id": "SOUTHWEST_FRONTIER",
-          "display_object": "永昌—哀牢西南边疆控制空间",
-          "spatial_weight": 0.5,
-          "start_coverage": 1.0,
-          "end_coverage": 1.0,
-          "start_equivalent": 0.5,
-          "end_equivalent": 0.5,
-          "control_form": "郡县与属部体系",
-          "evidence_refs": ["HANDOVER-汉-刘庄-刘炟", "WAR-LEAD-HAN-AILAO-76-77"],
-          "reason": "章帝初年哀牢反乱被恢复，未改变交班覆盖阶梯。"
-        },
-        {
-          "region_id": "HAMI_GATEWAY",
-          "display_object": "伊吾—西域东部门户",
-          "spatial_weight": 0.2,
-          "start_coverage": 1.0,
-          "end_coverage": 0.0,
-          "start_equivalent": 0.2,
-          "end_equivalent": 0.0,
-          "control_form": "宜禾都尉屯田及门户屯戍",
-          "evidence_refs": ["HANDOVER-汉-刘庄-刘炟", "WAR-LEAD-HAN-XIYU-73-75"],
-          "reason": "即位后西域前推节点撤销，伊吾门户不再作为独立有效控制支点。"
-        },
-        {
-          "region_id": "WESTERN_REGIONS_WHOLE",
-          "display_object": "西域南道主要控制网络",
-          "spatial_weight": 2.0,
-          "start_coverage": 0.0,
-          "end_coverage": 0.5,
-          "start_equivalent": 0.0,
-          "end_equivalent": 1.0,
-          "control_form": "班超依托疏勒、于阗等南道属国网络",
-          "evidence_refs": ["WAR-LEAD-HAN-XIYU-76-84", "WAR-LEAD-HAN-XIYU-86-91"],
-          "reason": "至88年南道主要网络已恢复，但北道和都护体系尚未整体闭合，按西域整体锚取0.50；不与已归零的HAMI_GATEWAY重复。"
-        }
-      ],
-      "start_total": 2.3,
-      "end_total": 3.1,
-      "net_change": 0.8,
-      "weighted_control_value": 1.72,
-      "B1_grade": "B1-3",
-      "band_position": "LOW",
-      "score_rate": 60,
-      "handoff_check": "start逐区域与刘庄end逐区域完全闭合。",
-      "change_vs_old": "数值不变；旧区域ID规范化，明帝遗留0.2按HAMI_GATEWAY承接，西域南道按WESTERN_REGIONS_WHOLE×0.50计。"
+      "regions": {
+        "ANNAM_NORTHERN_VIETNAM": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8, "mode": "直接郡县与地方行政", "evidence": ["HANDOVER-汉-刘庄-刘炟"], "reason": "连续交班维持。"},
+        "HEXI_LONGYOU_CORRIDOR": {"w": 0.8, "s": 0.75, "e": 0.75, "se": 0.6, "ee": 0.6, "mode": "交通、城田、校尉与坞候网络", "evidence": ["HANDOVER-汉-刘庄-刘炟", "WAR-LEAD-HAN-QIANG-77-78"], "reason": "羌乱造成压力，但交班前未形成跨阶梯永久退控。"},
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 0.25, "e": 0.25, "se": 0.2, "ee": 0.2, "mode": "边郡、屯戍与塞防体系", "evidence": ["HANDOVER-汉-刘庄-刘炟"], "reason": "北方威胁变化不反推控制覆盖，维持0.25。"},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 1.0, "e": 1.0, "se": 0.5, "ee": 0.5, "mode": "郡县与属部体系", "evidence": ["HANDOVER-汉-刘庄-刘炟", "WAR-LEAD-HAN-AILAO-76-77"], "reason": "章帝初年反乱恢复，交班覆盖不变。"},
+        "HAMI_GATEWAY": {"w": 0.2, "s": 1.0, "e": 0.0, "se": 0.2, "ee": 0.0, "mode": "宜禾都尉屯田及门户屯戍", "evidence": ["HANDOVER-汉-刘庄-刘炟", "WAR-LEAD-HAN-XIYU-73-75"], "reason": "即位后前推节点撤销，门户独立控制归零。"},
+        "WESTERN_REGIONS_WHOLE": {"w": 2.0, "s": 0.0, "e": 0.5, "se": 0.0, "ee": 1.0, "mode": "班超依托疏勒、于阗等南道属国网络", "evidence": ["WAR-LEAD-HAN-XIYU-76-84", "WAR-LEAD-HAN-XIYU-86-91"], "reason": "88年南道主要网络已恢复，但北道和都护体系未整体闭合，取0.50；不与已归零的门户锚重复。"}
+      },
+      "totals": {"start": 2.3, "end": 3.1, "net": 0.8, "weighted": 1.72},
+      "result": {"grade": "B1-3", "position": "LOW", "rate": 60},
+      "handoff_check": "与刘庄end完全闭合。",
+      "change_vs_old": "数值不变；区域ID规范化。"
     },
     {
       "ruler_id": "RULER-HAN-LIUZHAO",
@@ -250,77 +77,91 @@
       "reign_range": "88—105",
       "review_status": "REVIEWED",
       "confidence": "HIGH",
-      "region_ledger": [
-        {
-          "region_id": "ANNAM_NORTHERN_VIETNAM",
-          "display_object": "交趾—北部越南郡县控制空间",
-          "spatial_weight": 0.8,
-          "start_coverage": 1.0,
-          "end_coverage": 1.0,
-          "start_equivalent": 0.8,
-          "end_equivalent": 0.8,
-          "control_form": "直接郡县与地方行政",
-          "evidence_refs": ["HANDOVER-汉-刘炟-刘肇"],
-          "reason": "连续交班维持1.00。"
-        },
-        {
-          "region_id": "HEXI_LONGYOU_CORRIDOR",
-          "display_object": "河湟—陇西羌塞与交通网络",
-          "spatial_weight": 0.8,
-          "start_coverage": 0.75,
-          "end_coverage": 0.75,
-          "start_equivalent": 0.6,
-          "end_equivalent": 0.6,
-          "control_form": "交通、城田、校尉与坞候网络",
-          "evidence_refs": ["HANDOVER-汉-刘炟-刘肇", "WAR-LEAD-HAN-QIANG-92-102"],
-          "reason": "任内羌乱最终收束，交班时未出现跨阶梯退控；仍保留明显边疆缺口，维持0.75。"
-        },
-        {
-          "region_id": "NORTHERN_BORDER_COMMANDERIES",
-          "display_object": "北方边郡与塞防带",
-          "spatial_weight": 0.8,
-          "start_coverage": 0.25,
-          "end_coverage": 0.25,
-          "start_equivalent": 0.2,
-          "end_equivalent": 0.2,
-          "control_form": "边郡、屯戍与塞防体系",
-          "evidence_refs": ["HANDOVER-汉-刘炟-刘肇", "WAR-LEAD-HAN-SOUTH-XIONGNU-94-96"],
-          "reason": "北匈奴瓦解属于威胁改善，不等于汉对北方草原新增控制；边郡实际覆盖无跨阶梯证据，维持0.25。"
-        },
-        {
-          "region_id": "SOUTHWEST_FRONTIER",
-          "display_object": "永昌—哀牢西南边疆控制空间",
-          "spatial_weight": 0.5,
-          "start_coverage": 1.0,
-          "end_coverage": 1.0,
-          "start_equivalent": 0.5,
-          "end_equivalent": 0.5,
-          "control_form": "郡县与属部体系",
-          "evidence_refs": ["HANDOVER-汉-刘炟-刘肇"],
-          "reason": "连续交班维持1.00。"
-        },
-        {
-          "region_id": "WESTERN_REGIONS_WHOLE",
-          "display_object": "西域南北道整体控制网络",
-          "spatial_weight": 2.0,
-          "start_coverage": 0.5,
-          "end_coverage": 1.0,
-          "start_equivalent": 1.0,
-          "end_equivalent": 2.0,
-          "control_form": "都护、长史、戊己校尉、屯戍与属国军事行政网络",
-          "evidence_refs": ["HANDOVER-汉-刘炟-刘肇", "WAR-LEAD-HAN-XIYU-86-91", "WAR-LEAD-HAN-XIYU-73-94", "《后汉书》卷八十八《西域传》永元三年至六年"],
-          "reason": "88年接班仅闭合南道约半网络；91年复置都护，94年主要缺口进一步收束，至105年交班前体系仍有效。按西域整体从0.50升至1.00。102年班超离任不等于控制终止，后续正式撤出发生在和帝之后。"
-        }
-      ],
-      "start_total": 3.1,
-      "end_total": 4.1,
-      "net_change": 1.0,
-      "weighted_control_value": 2.24,
-      "B1_grade": "B1-3",
-      "band_position": "MID",
-      "score_rate": 67,
-      "handoff_check": "start逐区域与刘炟end逐区域完全闭合。",
-      "change_vs_old": "数值不变；旧区域ID全部规范化。B1只记录国家客观控制量，不因窦氏摄政、班超个人归责问题降低刘肇的客观起终控制快照。"
+      "regions": {
+        "ANNAM_NORTHERN_VIETNAM": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8, "mode": "直接郡县与地方行政", "evidence": ["HANDOVER-汉-刘炟-刘肇"], "reason": "连续交班维持。"},
+        "HEXI_LONGYOU_CORRIDOR": {"w": 0.8, "s": 0.75, "e": 0.75, "se": 0.6, "ee": 0.6, "mode": "交通、城田、校尉与坞候网络", "evidence": ["HANDOVER-汉-刘炟-刘肇", "WAR-LEAD-HAN-QIANG-92-102"], "reason": "羌乱最终收束，交班无跨阶梯退控；仍有明显缺口，维持0.75。"},
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 0.25, "e": 0.25, "se": 0.2, "ee": 0.2, "mode": "边郡、屯戍与塞防体系", "evidence": ["HANDOVER-汉-刘炟-刘肇", "WAR-LEAD-HAN-SOUTH-XIONGNU-94-96"], "reason": "北匈奴瓦解是威胁改善，不等于汉对草原新增控制；边郡覆盖维持0.25。"},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 1.0, "e": 1.0, "se": 0.5, "ee": 0.5, "mode": "郡县与属部体系", "evidence": ["HANDOVER-汉-刘炟-刘肇"], "reason": "连续交班维持。"},
+        "WESTERN_REGIONS_WHOLE": {"w": 2.0, "s": 0.5, "e": 1.0, "se": 1.0, "ee": 2.0, "mode": "都护、长史、戊己校尉、屯戍与属国军事行政网络", "evidence": ["HANDOVER-汉-刘炟-刘肇", "WAR-LEAD-HAN-XIYU-86-91", "WAR-LEAD-HAN-XIYU-73-94", "《后汉书》卷八十八《西域传》永元三年至六年"], "reason": "88年接班闭合南道约半网络；91年复置都护、94年主要缺口收束，105年交班前仍有效。班超102年离任不等于控制终止。"}
+      },
+      "totals": {"start": 3.1, "end": 4.1, "net": 1.0, "weighted": 2.24},
+      "result": {"grade": "B1-3", "position": "MID", "rate": 67},
+      "handoff_check": "与刘炟end完全闭合。",
+      "change_vs_old": "数值不变；B1保留国家客观控制量，不因窦氏摄政或班超个人归责问题降低起终快照。"
+    },
+    {
+      "ruler_id": "RULER-HAN-DENGSUI",
+      "ruler_name": "邓绥",
+      "reign_range": "106—121摄政",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "regions": {
+        "ANNAM_NORTHERN_VIETNAM": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8, "mode": "直接郡县与地方行政", "evidence": ["HANDOVER-汉-刘肇-邓绥", "WAR-LEAD-HAN-LINGNAN-116"], "reason": "三郡反乱同年受降恢复，交班仍为1.00。"},
+        "HEXI_LONGYOU_CORRIDOR": {"w": 0.8, "s": 0.75, "e": 0.75, "se": 0.6, "ee": 0.6, "mode": "郡县、交通、边屯与羌塞体系", "evidence": ["HANDOVER-汉-刘肇-邓绥", "WAR-LEAD-HAN-QIANG-107-118", "《后汉书》卷八十七《西羌传》"], "reason": "十年羌乱造成重大过程性失控，但121年交班已恢复原覆盖阶梯；B1只读起终空间，维持0.75。"},
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 0.25, "e": 0.25, "se": 0.2, "ee": 0.2, "mode": "边郡、屯戍与塞防体系", "evidence": ["HANDOVER-汉-刘肇-邓绥", "WAR-LEAD-HAN-XIANBEI-106", "WAR-LEAD-HAN-XIANBEI-117-133"], "reason": "鲜卑侵扰未闭合为可证空间跨阶梯退控，维持0.25。"},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 1.0, "e": 1.0, "se": 0.5, "ee": 0.5, "mode": "郡县与属部体系", "evidence": ["HANDOVER-汉-刘肇-邓绥", "WAR-LEAD-HAN-SOUTHWEST-117-119"], "reason": "封离战争后恢复，交班覆盖不变。"},
+        "WESTERN_REGIONS_WHOLE": {"w": 2.0, "s": 1.0, "e": 0.0, "se": 2.0, "ee": 0.0, "mode": "西域都护、屯兵及属国军事行政网络", "evidence": ["WAR-LEAD-HAN-XIYU-106-107", "WAR-LEAD-HAN-XIYU-119-124"], "reason": "106年仍承接和帝完整体系，107年都护与屯兵全撤；至121年班勇尚未实际出屯，交班实际控制为0。"}
+      },
+      "totals": {"start": 4.1, "end": 2.1, "net": -2.0, "weighted": -0.36},
+      "result": {"grade": "B1-0", "position": "MID", "rate": 15},
+      "handoff_check": "start与刘肇end完全闭合；结束点按121年邓绥去世，不读取刘祜随后亲政恢复。",
+      "change_vs_old": "数值不变；旧ID规范化。"
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUHU",
+      "ruler_name": "刘祜",
+      "reign_range": "121—125亲政",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "regions": {
+        "ANNAM_NORTHERN_VIETNAM": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8, "mode": "直接郡县与地方行政", "evidence": ["HANDOVER-汉-邓绥-刘祜"], "reason": "连续窗口维持。"},
+        "HEXI_LONGYOU_CORRIDOR": {"w": 0.8, "s": 0.75, "e": 0.75, "se": 0.6, "ee": 0.6, "mode": "郡县、交通与羌塞体系", "evidence": ["HANDOVER-汉-邓绥-刘祜", "WAR-LEAD-HAN-QIANG-120-122"], "reason": "羌乱恢复后无跨阶梯退控，维持0.75。"},
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 0.25, "e": 0.25, "se": 0.2, "ee": 0.2, "mode": "边郡、屯戍与塞防体系", "evidence": ["HANDOVER-汉-邓绥-刘祜", "WAR-LEAD-HAN-XIANBEI-117-133"], "reason": "鲜卑方向仍有缺口，无覆盖跨阶梯事实。"},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 1.0, "e": 1.0, "se": 0.5, "ee": 0.5, "mode": "郡县与属部体系", "evidence": ["HANDOVER-汉-邓绥-刘祜"], "reason": "连续窗口维持。"},
+        "HAMI_GATEWAY": {"w": 0.2, "s": 0.0, "e": 1.0, "se": 0.0, "ee": 0.2, "mode": "班勇柳中屯驻、属国联军及车师前部复通", "evidence": ["WAR-LEAD-HAN-XIYU-119-124"], "reason": "123—124年形成实际驻军与前道控制；实际对象为伊吾—柳中门户，改用HAMI_GATEWAY。"}
+      },
+      "excluded": [{"object": "西域其余南北道网络", "evidence": ["WAR-LEAD-HAN-XIYU-119-124", "《后汉书》卷八十八《西域传》延光二年至四年"], "reason": "交班只能闭合柳中、伊吾和车师前部，未达到西域整体网络0.25。"}],
+      "totals": {"start": 2.1, "end": 2.3, "net": 0.2, "weighted": 1.04},
+      "result": {"grade": "B1-2", "position": "MID", "rate": 52},
+      "handoff_check": "start与邓绥end完全闭合。",
+      "change_vs_old": "数值不变；GAOCHANG_XIZHOU改为HAMI_GATEWAY。"
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUBAO",
+      "ruler_name": "刘保",
+      "reign_range": "125—144",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "regions": {
+        "ANNAM_NORTHERN_VIETNAM": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8, "mode": "直接郡县与地方行政", "evidence": ["HANDOVER-汉-刘祜-刘保", "WAR-LEAD-HAN-JIAOZHI-136-138"], "reason": "交趾九真战争恢复原郡县，交班维持1.00。"},
+        "HEXI_LONGYOU_CORRIDOR": {"w": 0.8, "s": 0.75, "e": 0.5, "se": 0.6, "ee": 0.4, "mode": "郡县、塞防与羌部约束体系", "evidence": ["HANDOVER-汉-刘祜-刘保", "WAR-LEAD-HAN-QIANG-140-145", "《后汉书》卷八十七《西羌传》"], "reason": "144年交班时两千余里战区及三辅压力仍开放，覆盖由0.75降至0.50；不读取145年继任恢复。"},
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 0.25, "e": 0.25, "se": 0.2, "ee": 0.2, "mode": "边郡、屯戍与塞防体系", "evidence": ["HANDOVER-汉-刘祜-刘保", "WAR-LEAD-HAN-XIANBEI-117-133", "WAR-LEAD-HAN-SOUTH-XIONGNU-140-144"], "reason": "北边战争未闭合为空间跨阶梯退控，维持0.25。"},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 1.0, "e": 1.0, "se": 0.5, "ee": 0.5, "mode": "郡县与属部体系", "evidence": ["HANDOVER-汉-刘祜-刘保"], "reason": "连续交班维持。"},
+        "HAMI_GATEWAY": {"w": 0.2, "s": 1.0, "e": 0.0, "se": 0.2, "ee": 0.0, "mode": "柳中驻军、伊吾屯田与车师前部控制", "evidence": ["WAR-LEAD-HAN-XIYU-119-127"], "reason": "起点承接刘祜0.2；到交班时该空间已被更大的WESTERN_REGIONS_WHOLE复合锚吸收，不是实际失地。", "absorbed_by": "WESTERN_REGIONS_WHOLE"},
+        "WESTERN_REGIONS_WHOLE": {"w": 2.0, "s": 0.0, "e": 0.75, "se": 0.0, "ee": 1.5, "mode": "西域长史、屯田与属国军事行政网络", "evidence": ["WAR-LEAD-HAN-XIYU-119-127", "WAR-LEAD-HAN-XIYU-134-135", "《后汉书》卷八十八《西域传》永建二年至阳嘉以后"], "reason": "龟兹、疏勒、于阗、莎车等主要网络大部有效，但葱岭以西已绝且后部反复，取0.75。复合锚启用后不得再叠加伊吾0.2。"}
+      },
+      "totals": {"start": 2.3, "end": 3.4, "net": 1.1, "weighted": 2.02},
+      "result": {"grade": "B1-3", "position": "MID", "rate": 67},
+      "handoff_check": "start与刘祜end完全闭合；end采用西域复合锚，内部HAMI_GATEWAY归零吸收。",
+      "change_vs_old": "发现复合锚重复消费：旧end 3.6→3.4，net 1.3→1.1，weighted 2.22→2.02；档位与得分率不变。"
+    },
+    {
+      "ruler_id": "RULER-HAN-LIANGNA",
+      "ruler_name": "梁妠",
+      "reign_range": "144—150摄政",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "regions": {
+        "ANNAM_NORTHERN_VIETNAM": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8, "mode": "直接郡县与地方行政", "evidence": ["HANDOVER-汉-刘保-梁妠"], "reason": "连续窗口维持。"},
+        "HEXI_LONGYOU_CORRIDOR": {"w": 0.8, "s": 0.5, "e": 1.0, "se": 0.4, "ee": 0.8, "mode": "郡县、塞防与羌部约束体系", "evidence": ["HANDOVER-汉-刘保-梁妠", "WAR-LEAD-HAN-QIANG-140-145"], "reason": "接班承接刘保交班0.50；145年在明确授权、增兵和赏募后主要战区收束，交班恢复整体有效，取1.00。"},
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 0.25, "e": 0.25, "se": 0.2, "ee": 0.2, "mode": "边郡、屯戍与塞防体系", "evidence": ["HANDOVER-汉-刘保-梁妠"], "reason": "无跨阶梯事实，维持0.25。"},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 1.0, "e": 1.0, "se": 0.5, "ee": 0.5, "mode": "郡县与属部体系", "evidence": ["HANDOVER-汉-刘保-梁妠"], "reason": "连续窗口维持。"},
+        "WESTERN_REGIONS_WHOLE": {"w": 2.0, "s": 0.75, "e": 0.75, "se": 1.5, "ee": 1.5, "mode": "西域长史、屯田与属国军事行政网络", "evidence": ["HANDOVER-汉-刘保-梁妠"], "reason": "承接刘保西域大部网络0.75，任内无足以改变覆盖阶梯的事实；伊吾门户已包含在本复合锚内，不另计。"}
+      },
+      "totals": {"start": 3.4, "end": 3.8, "net": 0.4, "weighted": 1.76},
+      "result": {"grade": "B1-3", "position": "LOW", "rate": 60},
+      "handoff_check": "start与刘保修正后end完全闭合；摄政窗口止于150年。",
+      "change_vs_old": "承接刘保去重后的西域快照：旧start 3.6→3.4，end 4.0→3.8，weighted 1.84→1.76；档位与得分率不变。"
     }
   ]
 }
