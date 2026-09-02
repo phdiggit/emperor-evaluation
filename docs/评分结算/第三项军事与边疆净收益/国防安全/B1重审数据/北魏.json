@@ -1,0 +1,208 @@
+{
+  "schema_id": "third-item-b1-reaudit-data-v1",
+  "data_purpose": "只保存北魏B1规范空间裁决、跨项去重、平行主政窗口及最终结果；正式回写由Codex处理。",
+  "polity": "北魏",
+  "status": "COMPLETE_7_OF_7",
+  "rule_basis": {
+    "contract": "docs/分项规则/第三项军事与边疆净收益/国防安全/00-规则与结算合同.md",
+    "region_anchor_registry": "config/third-item/third-item-b1-region-anchors.json",
+    "source_shard": "docs/评分结算/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算/北魏.json",
+    "formula": "weighted_control_value=end_total-0.6*start_total；第一项已消费的本任边疆净增从第三项有效weighted中扣除，但保留在objective end供后任继承。"
+  },
+  "data_conventions": {
+    "henan_shuofang_correction": "旧账把刘宋战争中的现代河南州郡套入HENAN_SHUOFANG_CORRIDOR。该锚实际指汉代河南地—朔方/鄂尔多斯走廊，与北魏南线无关；北魏全批删除此误用，不另造现代河南临时锚。南线只按HUAI_FRONTIER及后续SHANDONG_HEBEI_BELT实际覆盖闭合。",
+    "northern_inventory": "北方边郡用NORTHERN_BORDER_COMMANDERIES=0.8；北方草原可执行属部网络用NORTH_GRASSLAND_WHOLE=3.5×0.25=0.875，两者空间和控制形式不同，可并存。",
+    "taiwu_western_regions": "448年鄯善赋役比郡县、焉耆六城及龟兹留镇证明西域大部网络有效；450年车师被沮渠安周借柔然攻拔，故452交班按WESTERN_REGIONS_WHOLE×0.75=1.5，不取旧满额2.0。",
+    "taiwu_cross_item": "拓跋焘灭北凉所得河西边疆客观库存进入452 end，但其本任0.8净增由第一项消费，第三项只保留后续继承库存；不得像旧账一样把该库存从交班快照删除。",
+    "bridge_452_465": "452—465未列评价主体期间，西域远端军政网络缺乏连续可执行控制闭合且后续北魏正式B1链不再保留；465桥接快照将WESTERN_REGIONS_WHOLE归零。河西、北边、草原属部、淮北与辽东支点继续承接。此桥接为最终裁决，不留未闭合项。",
+    "feng_taihou_windows": "冯太后仅计465—467与476—490两个实际主政窗口；468—469青冀完整终局归拓跋弘。B1采用0.6×两个窗口净增之和+0.4×490最终客观库存。"
+  },
+  "bridge_snapshots": [
+    {
+      "bridge": "452→465",
+      "start_total": 4.575,
+      "end_total": 3.075,
+      "changes": [
+        {"region_id": "WESTERN_REGIONS_WHOLE", "452_equivalent": 1.5, "465_equivalent": 0.0, "reason": "远端西域网络在中间窗口不再闭合为北魏持续可执行的整体军政控制；不把贡使或名义关系当作B1库存。"}
+      ],
+      "465_snapshot": {
+        "NORTHERN_BORDER_COMMANDERIES": 0.8,
+        "NORTH_GRASSLAND_WHOLE": 0.875,
+        "HUAI_FRONTIER": 0.35,
+        "LIAODONG_FRONTIER": 0.25,
+        "HEXI_LONGYOU_CORRIDOR": 0.8
+      }
+    }
+  ],
+  "records": [
+    {
+      "ruler_id": "RULER-SHADOW-拓跋珪",
+      "ruler_name": "拓跋珪",
+      "reign_range": "391—409第三项窗口",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "objective_regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8, "reason": "391第一项闭合点已形成北方边郡存量；409交班未跨覆盖阶梯。"},
+        "NORTH_GRASSLAND_WHOLE": {"w": 3.5, "s": 0.25, "e": 0.25, "se": 0.875, "ee": 0.875, "reason": "391柔然稳定创业成果已由第一项消费，第三项只继承草原属部网络；399后高车成果改善质量但不足跨到0.50覆盖。"}
+      },
+      "objective_totals": {"start": 1.675, "end": 1.675, "net": 0.0, "weighted": 0.67},
+      "third_item_effective_result": {"weighted": 0.67, "grade": "B1-1", "position": "HIGH", "rate": 44},
+      "change_vs_old": "数值与得分率不变；旧NORTHERN_FRONTIER/NORTHERN_GRASSLAND规范化。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-拓跋嗣",
+      "ruler_name": "拓跋嗣",
+      "reign_range": "409—423",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "objective_regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8},
+        "NORTH_GRASSLAND_WHOLE": {"w": 3.5, "s": 0.25, "e": 0.25, "se": 0.875, "ee": 0.875},
+        "HUAI_FRONTIER": {"w": 0.7, "s": 0.0, "e": 0.5, "se": 0.0, "ee": 0.35, "reason": "422宋魏战争取得洛阳、滑台、虎牢等黄河南岸与南线节点，按淮北—南线标准区约半个主要网络计0.50；不再误用HENAN_SHUOFANG。"}
+      },
+      "excluded_objects": [
+        {"object_id": "HENAN_SHUOFANG", "old_equivalent": 0.6, "reason": "现代河南州郡误套汉代河南地—朔方锚，删除。"}
+      ],
+      "objective_totals": {"start": 1.675, "end": 2.025, "net": 0.35, "weighted": 1.02},
+      "third_item_effective_result": {"weighted": 1.02, "grade": "B1-2", "position": "MID", "rate": 52},
+      "change_vs_old": "旧2.625/weighted1.62/rate60→新2.025/1.02/rate52；主要因删除0.6错误河南地—朔方锚。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-拓跋焘",
+      "ruler_name": "拓跋焘",
+      "reign_range": "423—452",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "objective_regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8},
+        "NORTH_GRASSLAND_WHOLE": {"w": 3.5, "s": 0.25, "e": 0.25, "se": 0.875, "ee": 0.875, "reason": "柔然多次受挫改善安全态势，但没有形成北魏对整个柔然草原的直接控制；继承属部网络维持0.25覆盖。"},
+        "HUAI_FRONTIER": {"w": 0.7, "s": 0.5, "e": 0.5, "se": 0.35, "ee": 0.35, "reason": "承接拓跋嗣南线支点；450深入江淮属远征峰值，北撤后不扩大交班控制。"},
+        "LIAODONG_FRONTIER": {"w": 0.5, "s": 0.0, "e": 0.5, "se": 0.0, "ee": 0.25, "reason": "436—438北燕终结后取得辽西—辽东边缘节点；高句丽仍控制辽东主体，不取旧满额0.5，按0.50覆盖。"},
+        "HEXI_LONGYOU_CORRIDOR": {"w": 0.8, "s": 0.0, "e": 1.0, "se": 0.0, "ee": 0.8, "reason": "北凉终结后河西走廊成为北魏客观边疆库存；本任净增由第一项消费，但必须保留在objective end。"},
+        "WESTERN_REGIONS_WHOLE": {"w": 2.0, "s": 0.0, "e": 0.75, "se": 0.0, "ee": 1.5, "reason": "448鄯善赋役比郡县、焉耆六城降附并攻龟兹留镇，达到大部有效；450车师失守证明仍有明显缺口，取0.75而非旧1.00。"}
+      },
+      "objective_totals": {"start": 2.025, "end": 4.575, "net": 2.55, "weighted": 3.36},
+      "cross_item_excluded_net_gain": 0.8,
+      "cross_item_basis": "北凉—河西统一控制净增由第一项消费；其余北燕辽东节点及西域独立边疆链继续留在第三项。",
+      "third_item_effective_result": {"weighted": 2.56, "grade": "B1-3", "position": "HIGH", "rate": 74},
+      "legacy_resolution": "旧底账将拓跋嗣全部继承边疆清零，只留辽东0.5+西域2.0=2.5，违反继承规则；同时西域2.0满额过宽。修正后objective end4.575，第一项去重后effective weighted2.56。",
+      "change_vs_old": "52→74。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-冯太后",
+      "ruler_name": "冯太后",
+      "reign_range": "465—467、476—490实际主政",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "base_465_snapshot": {
+        "NORTHERN_BORDER_COMMANDERIES": 0.8,
+        "NORTH_GRASSLAND_WHOLE": 0.875,
+        "HUAI_FRONTIER": 0.35,
+        "LIAODONG_FRONTIER": 0.25,
+        "HEXI_LONGYOU_CORRIDOR": 0.8
+      },
+      "active_windows": [
+        {
+          "window": "465—467",
+          "start": 3.075,
+          "end": 3.375,
+          "net": 0.3,
+          "change": {"SHANDONG_HEBEI_BELT": {"w": 1.2, "s": 0.0, "e": 0.25, "se": 0.0, "ee": 0.3, "reason": "467无盐、肥城、升城等阶段节点，只闭合山东—河北标准带的0.25覆盖；468—469完整青冀终局不归本窗口。"}}
+        },
+        {
+          "window": "476—490",
+          "start": 3.675,
+          "end": 3.925,
+          "net": 0.25,
+          "inherited_change_from_tuobahong": {"SHANDONG_HEBEI_BELT": 0.6},
+          "change": {"SOUTHWEST_FRONTIER": {"w": 0.5, "s": 0.0, "e": 0.5, "se": 0.0, "ee": 0.25, "reason": "476—478恢复仇池—葭芦并纳入封授体系，武都氐实体仍存，取0.50覆盖。"}}
+        }
+      ],
+      "final_490_snapshot": {
+        "NORTHERN_BORDER_COMMANDERIES": 0.8,
+        "NORTH_GRASSLAND_WHOLE": 0.875,
+        "HUAI_FRONTIER": 0.35,
+        "LIAODONG_FRONTIER": 0.25,
+        "HEXI_LONGYOU_CORRIDOR": 0.8,
+        "SHANDONG_HEBEI_BELT": 0.6,
+        "SOUTHWEST_FRONTIER": 0.25
+      },
+      "attributable_window_net_change": 0.55,
+      "final_total": 3.925,
+      "weighted_control_value": 1.9,
+      "third_item_effective_result": {"weighted": 1.9, "grade": "B1-3", "position": "LOW", "rate": 60},
+      "change_vs_old": "67→60；旧链持续携带0.6错误HENAN_SHUOFANG。窗口归责本身保留。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-拓跋弘",
+      "ruler_name": "拓跋弘",
+      "reign_range": "467—476实际掌权",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "objective_regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8},
+        "NORTH_GRASSLAND_WHOLE": {"w": 3.5, "s": 0.25, "e": 0.25, "se": 0.875, "ee": 0.875},
+        "HUAI_FRONTIER": {"w": 0.7, "s": 0.5, "e": 0.5, "se": 0.35, "ee": 0.35},
+        "LIAODONG_FRONTIER": {"w": 0.5, "s": 0.5, "e": 0.5, "se": 0.25, "ee": 0.25},
+        "HEXI_LONGYOU_CORRIDOR": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8},
+        "SHANDONG_HEBEI_BELT": {"w": 1.2, "s": 0.25, "e": 0.5, "se": 0.3, "ee": 0.6, "reason": "接班承冯太后467阶段节点；468—469完成青冀三齐终局，覆盖升至0.50。"}
+      },
+      "objective_totals": {"start": 3.375, "end": 3.675, "net": 0.3, "weighted": 1.65},
+      "third_item_effective_result": {"weighted": 1.65, "grade": "B1-3", "position": "LOW", "rate": 60},
+      "handoff_check": "start严格承接冯太后467第一窗口end；end作为冯太后476复临朝start。",
+      "change_vs_old": "得分率仍60；旧start3.975/end4.275各减0.6，原因是删除错误HENAN_SHUOFANG。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-拓跋宏",
+      "ruler_name": "拓跋宏",
+      "reign_range": "490—499亲政",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "objective_regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8},
+        "NORTH_GRASSLAND_WHOLE": {"w": 3.5, "s": 0.25, "e": 0.25, "se": 0.875, "ee": 0.875},
+        "HUAI_FRONTIER": {"w": 0.7, "s": 0.5, "e": 0.75, "se": 0.35, "ee": 0.525, "reason": "南阳、新野与沔北数戍使南线由约半网络升至大部有效；襄樊、钟离等仍未闭合，不取1.00。"},
+        "LIAODONG_FRONTIER": {"w": 0.5, "s": 0.5, "e": 0.5, "se": 0.25, "ee": 0.25},
+        "HEXI_LONGYOU_CORRIDOR": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8},
+        "SHANDONG_HEBEI_BELT": {"w": 1.2, "s": 0.5, "e": 0.5, "se": 0.6, "ee": 0.6},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 0.5, "e": 1.0, "se": 0.25, "ee": 0.5, "reason": "攻克武兴并以梁秦都督、梁州刺史组织接管，西南边疆由半网络升至整体有效。"}
+      },
+      "objective_totals": {"start": 3.925, "end": 4.35, "net": 0.425, "weighted": 1.995},
+      "third_item_effective_result": {"weighted": 1.995, "grade": "B1-3", "position": "LOW", "rate": 60},
+      "change_vs_old": "67→60；净增判断不变，基准库存删除0.6错误河南地—朔方。"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-元恪",
+      "ruler_name": "元恪",
+      "reign_range": "499—515",
+      "review_status": "REVIEWED",
+      "confidence": "HIGH",
+      "objective_regions": {
+        "NORTHERN_BORDER_COMMANDERIES": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8},
+        "NORTH_GRASSLAND_WHOLE": {"w": 3.5, "s": 0.25, "e": 0.25, "se": 0.875, "ee": 0.875},
+        "HUAI_FRONTIER": {"w": 0.7, "s": 0.75, "e": 1.0, "se": 0.525, "ee": 0.7, "reason": "寿阳、义阳、三关等使淮汉主要防区由大部有效升至整体有效；钟离未下不否定既有终点空间。"},
+        "LIAODONG_FRONTIER": {"w": 0.5, "s": 0.5, "e": 0.5, "se": 0.25, "ee": 0.25},
+        "HEXI_LONGYOU_CORRIDOR": {"w": 0.8, "s": 1.0, "e": 1.0, "se": 0.8, "ee": 0.8},
+        "SHANDONG_HEBEI_BELT": {"w": 1.2, "s": 0.5, "e": 0.5, "se": 0.6, "ee": 0.6},
+        "SOUTHWEST_FRONTIER": {"w": 0.5, "s": 1.0, "e": 1.0, "se": 0.5, "ee": 0.5, "reason": "武兴一度失控后再克并置镇改州，交班恢复到接班覆盖，不生成额外净增。"}
+      },
+      "objective_totals": {"start": 4.35, "end": 4.525, "net": 0.175, "weighted": 1.915},
+      "third_item_effective_result": {"weighted": 1.915, "grade": "B1-3", "position": "LOW", "rate": 60},
+      "change_vs_old": "67→60；净增0.175保留，基准库存删除0.6错误HENAN_SHUOFANG。"
+    }
+  ],
+  "audit_summary": {
+    "records_reviewed": 7,
+    "rate_changes": [
+      {"ruler": "拓跋嗣", "old_rate": 60, "new_rate": 52, "cause": "删除现代河南误套HENAN_SHUOFANG 0.6"},
+      {"ruler": "拓跋焘", "old_rate": 52, "new_rate": 74, "cause": "补回全部继承库存和河西客观交班库存；西域满额2.0收紧为1.5"},
+      {"ruler": "冯太后", "old_rate": 67, "new_rate": 60, "cause": "删除贯穿两段窗口的错误HENAN_SHUOFANG 0.6"},
+      {"ruler": "拓跋宏", "old_rate": 67, "new_rate": 60, "cause": "删除错误HENAN_SHUOFANG；南线净增本身保留"},
+      {"ruler": "元恪", "old_rate": 67, "new_rate": 60, "cause": "删除错误HENAN_SHUOFANG；淮河0.75→1.00净增保留"}
+    ],
+    "unchanged_rates": ["拓跋珪44", "拓跋弘60"],
+    "closed_bridges": ["452—465西域远端网络退出，465标准库存3.075"],
+    "remaining_unresolved": [],
+    "conclusion": "北魏7条B1全部闭合。旧账最大问题不是缺证，而是HENAN_SHUOFANG语义错锚与拓跋焘交班库存被清空；统一锚重建后拓跋焘显著上修，其余后期人物主要因删除错误0.6库存下修。"
+  }
+}
