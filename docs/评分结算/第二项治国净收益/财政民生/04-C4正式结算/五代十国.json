@@ -25,33 +25,33 @@
       ],
       "records": [
         {
-          "adjudication_reason": "按C4新合同：恢复原值14.4，归责FULL（100%），可归责恢复14.4，交班上限24.9，正向保留14.4；可归责恶化0.0；DA0残余主动成本0.0；C4=14.4。DA已按主态、K折损和恶化的去重门复核。",
+          "adjudication_reason": "按C4现行合同重裁：正向保留14.4分；可归责恶化0.0分；DA1残余主动成本4.5分；C4=9.9分。重裁依据：917、928存在多条S0后主动战争；第三项D成本仅C4低位，封州虽有大举水军但无本方F3或系统转输闭合。",
           "attribution_factor": 0.0,
           "closed_recovery_axes": [
             "C1",
             "C2",
             "C3"
           ],
-          "destructive_amplification_grade": "DA0",
-          "destructive_amplification_penalty": 0.0,
+          "destructive_amplification_grade": "DA1",
+          "destructive_amplification_penalty": 4.5,
           "deterioration_attribution": "NONE",
-          "deterioration_curve_summary": "终局无档差恶化。军事登记C4低位的最高成本主要来自928年岳州大型舰队防御，属必要防御；主动部分包括917年有限袭击、928年荆南方向行动及大举水军攻南汉封州后败退。剔除防御主链后，主动战争已实现成本为有限至中等，旧DA1偏重，改DA1。 可归责恶化扣0.0，DA1扣4.5分。",
+          "deterioration_curve_summary": "917、928存在多条S0后主动战争；第三项D成本仅C4低位，封州虽有大举水军但无本方F3或系统转输闭合。 可归责恶化扣0.0分，DA1扣4.5分。",
           "deterioration_penalty": 0.0,
           "main_band": "C4-3",
-          "negative_tail_adjudication_reason": "终局无档差恶化。军事登记C4低位的最高成本主要来自928年岳州大型舰队防御，属必要防御；主动部分包括917年有限袭击、928年荆南方向行动及大举水军攻南汉封州后败退。剔除防御主链后，主动战争已实现成本为有限至中等，旧DA1偏重，改DA1。 可归责恶化扣0.0，DA1扣4.5分。",
+          "negative_tail_adjudication_reason": "917、928存在多条S0后主动战争；第三项D成本仅C4低位，封州虽有大举水军但无本方F3或系统转输闭合。 可归责恶化扣0.0分，DA1扣4.5分。",
           "period": "post_tang",
           "polity": "五代十国",
           "positive_score_retained": 14.4,
           "pre_negative_tail_band": "C4-3",
           "pre_negative_tail_raw_score": 24.4,
           "pre_negative_tail_score": 24.4,
-          "rank": 9,
-          "raw_score": 19.9,
+          "rank": 15,
+          "raw_score": 9.9,
           "recovery_score": 14.4,
           "reign_range": "896-930实际割据",
           "ruler_id": "RULER-SHADOW-马殷",
           "ruler_name": "马殷",
-          "score": 14.4,
+          "score": 9.9,
           "terminal_band": "C4T-3",
           "terminal_cap": 24.9,
           "terminal_cap_applied": false,
@@ -126,26 +126,26 @@
             "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-马殷",
             "c4_attribution_review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-SHADOW-马殷"
           },
-          "attribution_readjudication_reason": "终局无档差恶化。军事登记C4低位的最高成本主要来自928年岳州大型舰队防御，属必要防御；主动部分包括917年有限袭击、928年荆南方向行动及大举水军攻南汉封州后败退。剔除防御主链后，主动战争已实现成本为有限至中等，旧DA1偏重，改DA1。 可归责恶化扣0.0，DA1扣4.5分。",
+          "attribution_readjudication_reason": "917、928存在多条S0后主动战争；第三项D成本仅C4低位，封州虽有大举水军但无本方F3或系统转输闭合。 可归责恶化扣0.0分，DA1扣4.5分。",
           "c4_attribution_readjudication": {
             "review_status": "FULLY_ADJUDICATED",
-            "basis_version": "C4-DA-RESIDUAL-COST-V5",
-            "final_grade": "DA0",
-            "final_penalty": 0.0,
-            "change_type": "CURRENT_C4_CONTRACT_SYNC",
-            "behavior_chain_basis": "DA仅结算C1—C3主态、K折损与C4恶化均未消费的本人主动残余成本；纯军队人员损失不单独计入，已被前述项目吸收的同一后果不重复扣减。",
-            "grade_boundary_basis": "当前正式逐人裁决为DA0，扣0.0分。",
+            "basis_version": "C4-DA-FULL-POOL-READJUDICATION-2026-09-03",
+            "final_grade": "DA1",
+            "final_penalty": 4.5,
+            "change_type": "FINAL_CHECKLIST_READJUDICATION",
+            "behavior_chain_basis": "917、928存在多条S0后主动战争；第三项D成本仅C4低位，封州虽有大举水军但无本方F3或系统转输闭合。",
+            "grade_boundary_basis": "当前正式逐人裁决为DA1，扣4.5分。",
             "duplicate_control": {
               "C1_C2_C3_absorption": "C1/C2/C3结算客观状态；同一事实在已闭合S0→S_end下降及本人归责时可同时支撑C4恶化，DA不得重复扣减已吸收的主动成本。",
               "K_absorption": "K只折损C1/C2/C3主态完整度；已由K表达的终局跌幅不得再次进入DA。",
               "DA_residual_scope": "只计未被主态、K与可归责恶化消费的本人主动家庭、劳役、军粮转输、财政抽取或平民伤害成本；纯军队人员损失不单列。"
             },
-            "review_ref": "BATCH4_INLINE_2026-08-31"
+            "review_ref": "C4_DA重裁_档位变动清单.md#line=36"
           },
           "public_basis_version": "C4-CONTRACT-2026-08-31-BATCH4",
           "starting_context": "接手三轴为C1-2/C2-2/C3-1；交班三轴为C1-3/C2-5/C3-3。",
           "recovery_and_absorption": "恢复原值14.4；归责FULL（100%）；可归责恢复14.4/27；交班上限24.9；正向保留14.4。",
-          "behavior_and_attribution": "终局无档差恶化。军事登记C4低位的最高成本主要来自928年岳州大型舰队防御，属必要防御；主动部分包括917年有限袭击、928年荆南方向行动及大举水军攻南汉封州后败退。剔除防御主链后，主动战争已实现成本为有限至中等，旧DA1偏重，改DA1。 可归责恶化扣0.0，DA1扣4.5分。",
+          "behavior_and_attribution": "917、928存在多条S0后主动战争；第三项D成本仅C4低位，封州虽有大举水军但无本方F3或系统转输闭合。 可归责恶化扣0.0分，DA1扣4.5分。",
           "handoff_state": "交班raw锚点为民生3档、经济财政5档、社会安全3档；终局层级C4T-3，正向上限24.9。",
           "public_source_refs": [
             "《资治通鉴》卷二百七十四：楚王殷既得湖南，不征商旅，由是四方商旅辐凑。",
@@ -154,7 +154,7 @@
             "《新五代史·楚世家》：又令民自造茶以通商旅，而收其算，岁入万计。由是地大力完。",
             "《资治通鉴》卷二百七十六：楚大举水军击汉，围封州……楚兵大败，解围遁去。"
           ],
-          "public_adjudication": "按C4新合同：恢复原值14.4，归责FULL（100%），可归责恢复14.4，交班上限24.9，正向保留14.4；可归责恶化0.0；DA0残余主动成本0.0；C4=14.4。DA已按主态、K折损和恶化的去重门复核。",
+          "public_adjudication": "按C4现行合同重裁：正向保留14.4分；可归责恶化0.0分；DA1残余主动成本4.5分；C4=9.9分。重裁依据：917、928存在多条S0后主动战争；第三项D成本仅C4低位，封州虽有大举水军但无本方F3或系统转输闭合。",
           "recovery_formula_version": "C4-CONTRACT-2026-08-31-C1_FORMAL_RECOVERY-DA_COST_MAGNITUDE",
           "recovery_boundary_difficulty": {
             "1_TO_2": 0.6,
@@ -192,8 +192,8 @@
           "difficulty_weighted_recovery_credit": 1.44,
           "uncapped_positive_score": 14.4,
           "source_basis_format": "BOOK_PLUS_VERBATIM_EXCERPTS",
-          "input_sync_status": "SYNCED_TO_LATEST_C1_C2_C3_BATCH4。",
-          "batch_review_status": "REVIEWED_BATCH_4_2026-08-31",
+          "input_sync_status": "CURRENT_C1_C2_C3_AND_FINAL_DA_CHECKLIST",
+          "batch_review_status": "FORMAL_C4_DA_READJUDICATED_2026-09-03",
           "terminal_quality": 3.4,
           "deterioration_path_basis": {
             "C1": {
@@ -226,8 +226,8 @@
           },
           "military_cost_review": {
             "status": "FORMAL_SYNCED_CURRENT_C4_CONTRACT",
-            "final_grade": "DA0",
-            "basis": "DA仅结算C1—C3主态、K折损与C4恶化均未消费的本人主动残余成本；纯军队人员损失不单独计入，已被前述项目吸收的同一后果不重复扣减。"
+            "final_grade": "DA1",
+            "basis": "917、928存在多条S0后主动战争；第三项D成本仅C4低位，封州虽有大举水军但无本方F3或系统转输闭合。"
           },
           "large_construction_review": {
             "status": "FORMAL_SYNCED",
@@ -306,7 +306,7 @@
           "pre_negative_tail_band": "C4-3",
           "pre_negative_tail_raw_score": 24.0,
           "pre_negative_tail_score": 24.0,
-          "rank": 17,
+          "rank": 16,
           "raw_score": 19.5,
           "recovery_score": 14.0,
           "reign_range": "907-929实际割据",
@@ -495,32 +495,32 @@
           }
         },
         {
-          "adjudication_reason": "按C4新合同：恢复原值8.2，归责FULL（100%），可归责恢复8.2，交班上限24.9，正向保留8.2；可归责恶化0.0；DA0残余主动成本0.0；C4=8.2。DA已按主态、K折损和恶化的去重门复核。",
+          "adjudication_reason": "按C4现行合同重裁：正向保留8.2分；可归责恶化0.0分；DA2残余主动成本9.0分；C4=-0.8分。重裁依据：S0后曾率兵十二万攻岐取陇州；单次十二万级主动战争足过DA2门，未闭合DA3额外残余。",
           "attribution_factor": 0.0,
           "closed_recovery_axes": [
             "C1",
             "C3"
           ],
-          "destructive_amplification_grade": "DA0",
-          "destructive_amplification_penalty": 0.0,
+          "destructive_amplification_grade": "DA2",
+          "destructive_amplification_penalty": 9.0,
           "deterioration_attribution": "NONE",
-          "deterioration_curve_summary": "终局无档差恶化。旧DA0撤销：军事登记C4低位的两条主链分别是荆南水军进攻夔州后的防御、南诏攻黎州—大度河方向后的多路反击，均属必要防御，不转DA。“赋敛重、生民之苦”已经被C1主态/K和C2弱柱完整消费，不能重复作为DA；未发现大型营造，故DA0。 可归责恶化扣0.0，DA0扣0.0分。",
+          "deterioration_curve_summary": "S0后曾率兵十二万攻岐取陇州；单次十二万级主动战争足过DA2门，未闭合DA3额外残余。 可归责恶化扣0.0分，DA2扣9.0分。",
           "deterioration_penalty": 0.0,
           "main_band": "C4-3",
-          "negative_tail_adjudication_reason": "终局无档差恶化。旧DA0撤销：军事登记C4低位的两条主链分别是荆南水军进攻夔州后的防御、南诏攻黎州—大度河方向后的多路反击，均属必要防御，不转DA。“赋敛重、生民之苦”已经被C1主态/K和C2弱柱完整消费，不能重复作为DA；未发现大型营造，故DA0。 可归责恶化扣0.0，DA0扣0.0分。",
+          "negative_tail_adjudication_reason": "S0后曾率兵十二万攻岐取陇州；单次十二万级主动战争足过DA2门，未闭合DA3额外残余。 可归责恶化扣0.0分，DA2扣9.0分。",
           "period": "post_tang",
           "polity": "前蜀",
           "positive_score_retained": 8.2,
           "pre_negative_tail_band": "C4-3",
           "pre_negative_tail_raw_score": 18.2,
           "pre_negative_tail_score": 18.2,
-          "rank": 19,
-          "raw_score": 18.2,
+          "rank": 72,
+          "raw_score": -0.8,
           "recovery_score": 8.2,
           "reign_range": "907-918",
           "ruler_id": "RULER-FD-WANG-JIAN",
           "ruler_name": "王建",
-          "score": 8.2,
+          "score": -0.8,
           "terminal_band": "C4T-3",
           "terminal_cap": 24.9,
           "terminal_cap_applied": false,
@@ -563,26 +563,26 @@
             "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-FD-WANG-JIAN",
             "c4_attribution_review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-FD-WANG-JIAN"
           },
-          "attribution_readjudication_reason": "终局无档差恶化。旧DA0撤销：军事登记C4低位的两条主链分别是荆南水军进攻夔州后的防御、南诏攻黎州—大度河方向后的多路反击，均属必要防御，不转DA。“赋敛重、生民之苦”已经被C1主态/K和C2弱柱完整消费，不能重复作为DA；未发现大型营造，故DA0。 可归责恶化扣0.0，DA0扣0.0分。",
+          "attribution_readjudication_reason": "S0后曾率兵十二万攻岐取陇州；单次十二万级主动战争足过DA2门，未闭合DA3额外残余。 可归责恶化扣0.0分，DA2扣9.0分。",
           "c4_attribution_readjudication": {
             "review_status": "FULLY_ADJUDICATED",
-            "basis_version": "C4-DA-RESIDUAL-COST-V5",
-            "final_grade": "DA0",
-            "final_penalty": 0.0,
-            "change_type": "CURRENT_C4_CONTRACT_SYNC",
-            "behavior_chain_basis": "DA仅结算C1—C3主态、K折损与C4恶化均未消费的本人主动残余成本；纯军队人员损失不单独计入，已被前述项目吸收的同一后果不重复扣减。",
-            "grade_boundary_basis": "当前正式逐人裁决为DA0，扣0.0分。",
+            "basis_version": "C4-DA-FULL-POOL-READJUDICATION-2026-09-03",
+            "final_grade": "DA2",
+            "final_penalty": 9.0,
+            "change_type": "FINAL_CHECKLIST_READJUDICATION",
+            "behavior_chain_basis": "S0后曾率兵十二万攻岐取陇州；单次十二万级主动战争足过DA2门，未闭合DA3额外残余。",
+            "grade_boundary_basis": "当前正式逐人裁决为DA2，扣9.0分。",
             "duplicate_control": {
               "C1_C2_C3_absorption": "C1/C2/C3结算客观状态；同一事实在已闭合S0→S_end下降及本人归责时可同时支撑C4恶化，DA不得重复扣减已吸收的主动成本。",
               "K_absorption": "K只折损C1/C2/C3主态完整度；已由K表达的终局跌幅不得再次进入DA。",
               "DA_residual_scope": "只计未被主态、K与可归责恶化消费的本人主动家庭、劳役、军粮转输、财政抽取或平民伤害成本；纯军队人员损失不单列。"
             },
-            "review_ref": "BATCH5_INLINE_2026-08-31"
+            "review_ref": "C4_DA重裁_档位变动清单.md#line=37"
           },
           "public_basis_version": "C4-CONTRACT-2026-08-31-BATCH5",
           "starting_context": "接手三轴为C1-2/C2-3/C3-1；交班三轴为C1-3/C2-3/C3-3。",
           "recovery_and_absorption": "恢复原值8.2；归责FULL（100%）；可归责恢复8.2/27；交班上限24.9；正向保留8.2。",
-          "behavior_and_attribution": "终局无档差恶化。旧DA0撤销：军事登记C4低位的两条主链分别是荆南水军进攻夔州后的防御、南诏攻黎州—大度河方向后的多路反击，均属必要防御，不转DA。“赋敛重、生民之苦”已经被C1主态/K和C2弱柱完整消费，不能重复作为DA；未发现大型营造，故DA0。 可归责恶化扣0.0，DA0扣0.0分。",
+          "behavior_and_attribution": "S0后曾率兵十二万攻岐取陇州；单次十二万级主动战争足过DA2门，未闭合DA3额外残余。 可归责恶化扣0.0分，DA2扣9.0分。",
           "handoff_state": "交班raw锚点为民生3档、经济财政3档、社会安全3档；终局层级C4T-3，正向上限24.9。",
           "public_source_refs": [
             "《资治通鉴》卷二百六十五：王建赋敛重，人莫敢言。",
@@ -590,7 +590,7 @@
             "《资治通鉴》卷二百六十四：于文、黎、维、茂州市胡马，十年之间，遂及兹数。",
             "《资治通鉴》卷二百六十九：南诏攻黎州……王宗范、王宗播等多路反击。"
           ],
-          "public_adjudication": "按C4新合同：恢复原值8.2，归责FULL（100%），可归责恢复8.2，交班上限24.9，正向保留8.2；可归责恶化0.0；DA0残余主动成本0.0；C4=8.2。DA已按主态、K折损和恶化的去重门复核。",
+          "public_adjudication": "按C4现行合同重裁：正向保留8.2分；可归责恶化0.0分；DA2残余主动成本9.0分；C4=-0.8分。重裁依据：S0后曾率兵十二万攻岐取陇州；单次十二万级主动战争足过DA2门，未闭合DA3额外残余。",
           "recovery_formula_version": "C4-CONTRACT-2026-08-31-C1_FORMAL_RECOVERY-DA_COST_MAGNITUDE",
           "recovery_boundary_difficulty": {
             "1_TO_2": 0.6,
@@ -628,8 +628,8 @@
           "difficulty_weighted_recovery_credit": 0.82,
           "uncapped_positive_score": 8.2,
           "source_basis_format": "BOOK_PLUS_VERBATIM_EXCERPTS",
-          "input_sync_status": "SYNCED_TO_LATEST_C1_C2_C3_BATCH5。",
-          "batch_review_status": "REVIEWED_BATCH_5_2026-08-31",
+          "input_sync_status": "CURRENT_C1_C2_C3_AND_FINAL_DA_CHECKLIST",
+          "batch_review_status": "FORMAL_C4_DA_READJUDICATED_2026-09-03",
           "terminal_quality": 3.0,
           "deterioration_path_basis": {
             "C1": {
@@ -662,8 +662,8 @@
           },
           "military_cost_review": {
             "status": "FORMAL_SYNCED_CURRENT_C4_CONTRACT",
-            "final_grade": "DA0",
-            "basis": "DA仅结算C1—C3主态、K折损与C4恶化均未消费的本人主动残余成本；纯军队人员损失不单独计入，已被前述项目吸收的同一后果不重复扣减。"
+            "final_grade": "DA2",
+            "basis": "S0后曾率兵十二万攻岐取陇州；单次十二万级主动战争足过DA2门，未闭合DA3额外残余。"
           },
           "large_construction_review": {
             "status": "FORMAL_SYNCED",
@@ -717,7 +717,7 @@
           }
         },
         {
-          "adjudication_reason": "按C4新合同：恢复原值8.0，归责FULL（100%），可归责恢复8.0，交班上限24.9，正向保留8.0；可归责恶化0.0；DA0残余主动成本0.0；C4=8.0。DA已按主态、K折损和恶化的去重门复核。",
+          "adjudication_reason": "按C4现行合同重裁：正向保留8.0分；可归责恶化0.0分；DA0残余主动成本0.0分；C4=8.0分。重裁依据：主要成本来自兖州慕容彦超叛乱的平定，属于必要平乱。",
           "attribution_factor": 0.0,
           "closed_recovery_axes": [
             "C1",
@@ -727,17 +727,17 @@
           "destructive_amplification_grade": "DA0",
           "destructive_amplification_penalty": 0.0,
           "deterioration_attribution": "NONE",
-          "deterioration_curve_summary": "终局无档差恶化。现成军事成本C4来自兖州慕容彦超叛乱的长期围城与亲征，但属于恢复区域军政控制的必要平乱；未见本人制造危机或错误路线反馈后继续，DA0。 可归责恶化扣0.0，DA0扣0.0分。",
+          "deterioration_curve_summary": "主要成本来自兖州慕容彦超叛乱的平定，属于必要平乱。 可归责恶化扣0.0分，DA0扣0.0分。",
           "deterioration_penalty": 0.0,
           "main_band": "C4-3",
-          "negative_tail_adjudication_reason": "终局无档差恶化。现成军事成本C4来自兖州慕容彦超叛乱的长期围城与亲征，但属于恢复区域军政控制的必要平乱；未见本人制造危机或错误路线反馈后继续，DA0。 可归责恶化扣0.0，DA0扣0.0分。",
+          "negative_tail_adjudication_reason": "主要成本来自兖州慕容彦超叛乱的平定，属于必要平乱。 可归责恶化扣0.0分，DA0扣0.0分。",
           "period": "post_tang",
           "polity": "后周",
           "positive_score_retained": 8.0,
           "pre_negative_tail_band": "C4-3",
           "pre_negative_tail_raw_score": 18.0,
           "pre_negative_tail_score": 18.0,
-          "rank": 20,
+          "rank": 17,
           "raw_score": 18.0,
           "recovery_score": 8.0,
           "reign_range": "951-954",
@@ -853,14 +853,14 @@
             "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-FD-GUO-WEI",
             "c4_attribution_review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-FD-GUO-WEI"
           },
-          "attribution_readjudication_reason": "终局无档差恶化。现成军事成本C4来自兖州慕容彦超叛乱的长期围城与亲征，但属于恢复区域军政控制的必要平乱；未见本人制造危机或错误路线反馈后继续，DA0。 可归责恶化扣0.0，DA0扣0.0分。",
+          "attribution_readjudication_reason": "主要成本来自兖州慕容彦超叛乱的平定，属于必要平乱。 可归责恶化扣0.0分，DA0扣0.0分。",
           "c4_attribution_readjudication": {
             "review_status": "FULLY_ADJUDICATED",
             "basis_version": "C4-DA-RESIDUAL-COST-V5",
             "final_grade": "DA0",
             "final_penalty": 0.0,
             "change_type": "CURRENT_C4_CONTRACT_SYNC",
-            "behavior_chain_basis": "DA仅结算C1—C3主态、K折损与C4恶化均未消费的本人主动残余成本；纯军队人员损失不单独计入，已被前述项目吸收的同一后果不重复扣减。",
+            "behavior_chain_basis": "主要成本来自兖州慕容彦超叛乱的平定，属于必要平乱。",
             "grade_boundary_basis": "当前正式逐人裁决为DA0，扣0.0分。",
             "duplicate_control": {
               "C1_C2_C3_absorption": "C1/C2/C3结算客观状态；同一事实在已闭合S0→S_end下降及本人归责时可同时支撑C4恶化，DA不得重复扣减已吸收的主动成本。",
@@ -872,7 +872,7 @@
           "public_basis_version": "C4-CONTRACT-2026-08-31-BATCH2",
           "starting_context": "接手三轴为C1-2/C2-2/C3-2；交班三轴为C1-3/C2-3/C3-3。",
           "recovery_and_absorption": "恢复原值8.0；归责FULL（100%）；可归责恢复8.0/27；交班上限24.9；正向保留8.0。",
-          "behavior_and_attribution": "终局无档差恶化。现成军事成本C4来自兖州慕容彦超叛乱的长期围城与亲征，但属于恢复区域军政控制的必要平乱；未见本人制造危机或错误路线反馈后继续，DA0。 可归责恶化扣0.0，DA0扣0.0分。",
+          "behavior_and_attribution": "主要成本来自兖州慕容彦超叛乱的平定，属于必要平乱。 可归责恶化扣0.0分，DA0扣0.0分。",
           "handoff_state": "交班raw锚点为民生3档、经济财政3档、社会安全3档；终局层级C4T-3，正向上限24.9。",
           "public_source_refs": [
             "《资治通鉴》卷二百八十九：河北困弊。",
@@ -881,7 +881,7 @@
             "《资治通鉴》卷二百九十：汉法窃盗一钱以上皆死，又罪非反逆往往族诛籍没。",
             "《资治通鉴》卷二百九十：罪人非反逆，无得诛及亲族籍没家赀。"
           ],
-          "public_adjudication": "按C4新合同：恢复原值8.0，归责FULL（100%），可归责恢复8.0，交班上限24.9，正向保留8.0；可归责恶化0.0；DA0残余主动成本0.0；C4=8.0。DA已按主态、K折损和恶化的去重门复核。",
+          "public_adjudication": "按C4现行合同重裁：正向保留8.0分；可归责恶化0.0分；DA0残余主动成本0.0分；C4=8.0分。重裁依据：主要成本来自兖州慕容彦超叛乱的平定，属于必要平乱。",
           "recovery_formula_version": "C4-CONTRACT-2026-08-31-C1_FORMAL_RECOVERY",
           "recovery_boundary_difficulty": {
             "1_TO_2": 0.6,
@@ -954,7 +954,7 @@
           "military_cost_review": {
             "status": "FORMAL_SYNCED_CURRENT_C4_CONTRACT",
             "final_grade": "DA0",
-            "basis": "DA仅结算C1—C3主态、K折损与C4恶化均未消费的本人主动残余成本；纯军队人员损失不单独计入，已被前述项目吸收的同一后果不重复扣减。"
+            "basis": "主要成本来自兖州慕容彦超叛乱的平定，属于必要平乱。"
           },
           "large_construction_review": {
             "status": "FORMAL_SYNCED",
@@ -1013,7 +1013,7 @@
           }
         },
         {
-          "adjudication_reason": "按C4新合同：恢复原值8.0，归责FULL（100%），可归责恢复8.0，交班上限24.9，正向保留8.0；可归责恶化0.0；DA0残余主动成本0.0；C4=8.0。DA已按主态、K折损和恶化的去重门复核。",
+          "adjudication_reason": "按C4现行合同重裁：正向保留8.0分；可归责恶化0.0分；DA0残余主动成本0.0分；C4=8.0分。重裁依据：主要高成本集中于建国前后生存战争、防御和异常内乱，没有独立S0后大规模可选择增量。",
           "attribution_factor": 0.0,
           "closed_recovery_axes": [
             "C1",
@@ -1023,17 +1023,17 @@
           "destructive_amplification_grade": "DA0",
           "destructive_amplification_penalty": 0.0,
           "deterioration_attribution": "NONE",
-          "deterioration_curve_summary": "按接手到交班的净遗产口径，三轴均未低于接手锚点；任内峰值回落只进入稳定、回落和保留度，不再重复计入C4恶化。 多次逾年内乱平定承载明显，但属既存内部危机处置；不机械转DA。 现有材料反见停止洛阳宫工程，未发现另需计入的大型营造。 可归责恶化扣0.0，DA0扣0.0分。",
+          "deterioration_curve_summary": "主要高成本集中于建国前后生存战争、防御和异常内乱，没有独立S0后大规模可选择增量。 可归责恶化扣0.0分，DA0扣0.0分。",
           "deterioration_penalty": 0.0,
           "main_band": "C4-3",
-          "negative_tail_adjudication_reason": "按接手到交班的净遗产口径，三轴均未低于接手锚点；任内峰值回落只进入稳定、回落和保留度，不再重复计入C4恶化。 多次逾年内乱平定承载明显，但属既存内部危机处置；不机械转DA。 现有材料反见停止洛阳宫工程，未发现另需计入的大型营造。 可归责恶化扣0.0，DA0扣0.0分。",
+          "negative_tail_adjudication_reason": "主要高成本集中于建国前后生存战争、防御和异常内乱，没有独立S0后大规模可选择增量。 可归责恶化扣0.0分，DA0扣0.0分。",
           "period": "post_tang",
           "polity": "后晋",
           "positive_score_retained": 8.0,
           "pre_negative_tail_band": "C4-3",
           "pre_negative_tail_raw_score": 15.6,
           "pre_negative_tail_score": 15.6,
-          "rank": 20,
+          "rank": 17,
           "raw_score": 15.6,
           "recovery_score": 8.0,
           "reign_range": "936-942",
@@ -1136,14 +1136,14 @@
             "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-FD-SHI-JINGTANG",
             "c4_attribution_review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-FD-SHI-JINGTANG"
           },
-          "attribution_readjudication_reason": "按接手到交班的净遗产口径，三轴均未低于接手锚点；任内峰值回落只进入稳定、回落和保留度，不再重复计入C4恶化。 多次逾年内乱平定承载明显，但属既存内部危机处置；不机械转DA。 现有材料反见停止洛阳宫工程，未发现另需计入的大型营造。 可归责恶化扣0.0，DA0扣0.0分。",
+          "attribution_readjudication_reason": "主要高成本集中于建国前后生存战争、防御和异常内乱，没有独立S0后大规模可选择增量。 可归责恶化扣0.0分，DA0扣0.0分。",
           "c4_attribution_readjudication": {
             "review_status": "FULLY_ADJUDICATED",
             "basis_version": "C4-DA-RESIDUAL-COST-V5",
             "final_grade": "DA0",
             "final_penalty": 0.0,
             "change_type": "CURRENT_C4_CONTRACT_SYNC",
-            "behavior_chain_basis": "DA仅结算C1—C3主态、K折损与C4恶化均未消费的本人主动残余成本；纯军队人员损失不单独计入，已被前述项目吸收的同一后果不重复扣减。",
+            "behavior_chain_basis": "主要高成本集中于建国前后生存战争、防御和异常内乱，没有独立S0后大规模可选择增量。",
             "grade_boundary_basis": "当前正式逐人裁决为DA0，扣0.0分。",
             "duplicate_control": {
               "C1_C2_C3_absorption": "C1/C2/C3结算客观状态；同一事实在已闭合S0→S_end下降及本人归责时可同时支撑C4恶化，DA不得重复扣减已吸收的主动成本。",
@@ -1155,7 +1155,7 @@
           "public_basis_version": "C4-CONTRACT-2026-09-02-NET-LEGACY-V5",
           "starting_context": "接手三轴为C1-2/C2-2/C3-2；交班三轴为C1-2/C2-3/C3-3。",
           "recovery_and_absorption": "恢复原值8.0；归责FULL（100%）；可归责恢复8.0/27；交班上限24.9；正向保留8.0。",
-          "behavior_and_attribution": "按接手到交班的净遗产口径，三轴均未低于接手锚点；任内峰值回落只进入稳定、回落和保留度，不再重复计入C4恶化。 多次逾年内乱平定承载明显，但属既存内部危机处置；不机械转DA。 现有材料反见停止洛阳宫工程，未发现另需计入的大型营造。 可归责恶化扣0.0，DA0扣0.0分。",
+          "behavior_and_attribution": "主要高成本集中于建国前后生存战争、防御和异常内乱，没有独立S0后大规模可选择增量。 可归责恶化扣0.0分，DA0扣0.0分。",
           "handoff_state": "交班raw锚点为民生2档、经济财政3档、社会安全3档；终局层级C4T-3，正向上限24.9。",
           "public_source_refs": [
             "《资治通鉴》卷二百八十一：兵火之余，府库殚竭，民间困穷，而契丹征求无厌。",
@@ -1163,7 +1163,7 @@
             "《新五代史·晋本纪第八》：三月，除民二年至四年以前税。〈见时敛重而民不堪。〉",
             "《资治通鉴》卷二百八十一：公私困窘。"
           ],
-          "public_adjudication": "按C4新合同：恢复原值8.0，归责FULL（100%），可归责恢复8.0，交班上限24.9，正向保留8.0；可归责恶化0.0；DA0残余主动成本0.0；C4=8.0。DA已按主态、K折损和恶化的去重门复核。",
+          "public_adjudication": "按C4现行合同重裁：正向保留8.0分；可归责恶化0.0分；DA0残余主动成本0.0分；C4=8.0分。重裁依据：主要高成本集中于建国前后生存战争、防御和异常内乱，没有独立S0后大规模可选择增量。",
           "recovery_formula_version": "C4-CONTRACT-2026-08-31-C1_FORMAL_RECOVERY-DA_COST_MAGNITUDE",
           "recovery_boundary_difficulty": {
             "1_TO_2": 0.6,
@@ -1236,7 +1236,7 @@
           "military_cost_review": {
             "status": "FORMAL_SYNCED_CURRENT_C4_CONTRACT",
             "final_grade": "DA0",
-            "basis": "DA仅结算C1—C3主态、K折损与C4恶化均未消费的本人主动残余成本；纯军队人员损失不单独计入，已被前述项目吸收的同一后果不重复扣减。"
+            "basis": "主要高成本集中于建国前后生存战争、防御和异常内乱，没有独立S0后大规模可选择增量。"
           },
           "large_construction_review": {
             "status": "FORMAL_SYNCED",
@@ -1291,33 +1291,33 @@
           }
         },
         {
-          "adjudication_reason": "按C4新合同：恢复原值7.4，归责FULL（100%），可归责恢复7.4，交班上限24.9，正向保留7.4；可归责恶化0.0；DA0残余主动成本0.0；C4=7.4。DA已按主态、K折损和恶化的去重门复核。",
+          "adjudication_reason": "按C4现行合同重裁：正向保留7.4分；可归责恶化0.0分；DA2残余主动成本9.0分；C4=-1.6分。重裁依据：称帝后仍主动发动灵州—邠宁等国家/主要区域级外战并长期承载。第三项D的F3只证明军事损失严重，不能直接转成第二项DA3；现未闭合灾后补兵补饷、系统转输或广域家庭传导等独立残余，故按主动战争规模与持续性取DA2。",
           "attribution_factor": 0.0,
           "closed_recovery_axes": [
             "C1",
             "C2",
             "C3"
           ],
-          "destructive_amplification_grade": "DA0",
-          "destructive_amplification_penalty": 0.0,
+          "destructive_amplification_grade": "DA2",
+          "destructive_amplification_penalty": 9.0,
           "deterioration_attribution": "NONE",
-          "deterioration_curve_summary": "终局无档差恶化。军事登记C5高位来自909灵州—邠宁链多个后梁野战编组覆没，但开战前岐军、刘知俊体系已围灵州并威胁西北方向，后梁攻邠宁的核心目标是迫使其解围；战争本身属于必要安全处置。回师连续中伏、数军皆没再严重，也属于军事指挥/战术结果，按最新边界退出C4 DA。刘知俊、襄州两条内部链同样是必要平乱，故旧DA0撤销为DA0。 可归责恶化扣0.0，DA0扣0.0分。",
+          "deterioration_curve_summary": "称帝后仍主动发动灵州—邠宁等国家/主要区域级外战并长期承载。第三项D的F3只证明军事损失严重，不能直接转成第二项DA3；现未闭合灾后补兵补饷、系统转输或广域家庭传导等独立残余，故按主动战争规模与持续性取DA2。 可归责恶化扣0.0分，DA2扣9.0分。",
           "deterioration_penalty": 0.0,
           "main_band": "C4-3",
-          "negative_tail_adjudication_reason": "终局无档差恶化。军事登记C5高位来自909灵州—邠宁链多个后梁野战编组覆没，但开战前岐军、刘知俊体系已围灵州并威胁西北方向，后梁攻邠宁的核心目标是迫使其解围；战争本身属于必要安全处置。回师连续中伏、数军皆没再严重，也属于军事指挥/战术结果，按最新边界退出C4 DA。刘知俊、襄州两条内部链同样是必要平乱，故旧DA0撤销为DA0。 可归责恶化扣0.0，DA0扣0.0分。",
+          "negative_tail_adjudication_reason": "称帝后仍主动发动灵州—邠宁等国家/主要区域级外战并长期承载。第三项D的F3只证明军事损失严重，不能直接转成第二项DA3；现未闭合灾后补兵补饷、系统转输或广域家庭传导等独立残余，故按主动战争规模与持续性取DA2。 可归责恶化扣0.0分，DA2扣9.0分。",
           "period": "post_tang",
           "polity": "后梁",
           "positive_score_retained": 7.4,
           "pre_negative_tail_band": "C4-3",
           "pre_negative_tail_raw_score": 17.4,
           "pre_negative_tail_score": 17.4,
-          "rank": 24,
-          "raw_score": 17.4,
+          "rank": 79,
+          "raw_score": -1.6,
           "recovery_score": 7.4,
           "reign_range": "907-912",
           "ruler_id": "RULER-FD-ZHU-WEN",
           "ruler_name": "朱温",
-          "score": 7.4,
+          "score": -1.6,
           "terminal_band": "C4T-3",
           "terminal_cap": 24.9,
           "terminal_cap_applied": false,
@@ -1359,33 +1359,33 @@
             "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-FD-ZHU-WEN",
             "c4_attribution_review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-FD-ZHU-WEN"
           },
-          "attribution_readjudication_reason": "终局无档差恶化。军事登记C5高位来自909灵州—邠宁链多个后梁野战编组覆没，但开战前岐军、刘知俊体系已围灵州并威胁西北方向，后梁攻邠宁的核心目标是迫使其解围；战争本身属于必要安全处置。回师连续中伏、数军皆没再严重，也属于军事指挥/战术结果，按最新边界退出C4 DA。刘知俊、襄州两条内部链同样是必要平乱，故旧DA0撤销为DA0。 可归责恶化扣0.0，DA0扣0.0分。",
+          "attribution_readjudication_reason": "称帝后仍主动发动灵州—邠宁等国家/主要区域级外战并长期承载。第三项D的F3只证明军事损失严重，不能直接转成第二项DA3；现未闭合灾后补兵补饷、系统转输或广域家庭传导等独立残余，故按主动战争规模与持续性取DA2。 可归责恶化扣0.0分，DA2扣9.0分。",
           "c4_attribution_readjudication": {
             "review_status": "FULLY_ADJUDICATED",
-            "basis_version": "C4-DA-RESIDUAL-COST-V5",
-            "final_grade": "DA0",
-            "final_penalty": 0.0,
-            "change_type": "CURRENT_C4_CONTRACT_SYNC",
-            "behavior_chain_basis": "DA仅结算C1—C3主态、K折损与C4恶化均未消费的本人主动残余成本；纯军队人员损失不单独计入，已被前述项目吸收的同一后果不重复扣减。",
-            "grade_boundary_basis": "当前正式逐人裁决为DA0，扣0.0分。",
+            "basis_version": "C4-DA-FULL-POOL-READJUDICATION-2026-09-03",
+            "final_grade": "DA2",
+            "final_penalty": 9.0,
+            "change_type": "FINAL_CHECKLIST_READJUDICATION",
+            "behavior_chain_basis": "称帝后仍主动发动灵州—邠宁等国家/主要区域级外战并长期承载。第三项D的F3只证明军事损失严重，不能直接转成第二项DA3；现未闭合灾后补兵补饷、系统转输或广域家庭传导等独立残余，故按主动战争规模与持续性取DA2。",
+            "grade_boundary_basis": "当前正式逐人裁决为DA2，扣9.0分。",
             "duplicate_control": {
               "C1_C2_C3_absorption": "C1/C2/C3结算客观状态；同一事实在已闭合S0→S_end下降及本人归责时可同时支撑C4恶化，DA不得重复扣减已吸收的主动成本。",
               "K_absorption": "K只折损C1/C2/C3主态完整度；已由K表达的终局跌幅不得再次进入DA。",
               "DA_residual_scope": "只计未被主态、K与可归责恶化消费的本人主动家庭、劳役、军粮转输、财政抽取或平民伤害成本；纯军队人员损失不单列。"
             },
-            "review_ref": "BATCH7_INLINE_2026-08-31"
+            "review_ref": "C4_DA重裁_档位变动清单.md#line=39"
           },
           "public_basis_version": "C4-CONTRACT-2026-08-31-BATCH7",
           "starting_context": "接手三轴为C1-2/C2-2/C3-1；交班三轴为C1-3/C2-3/C3-2。",
           "recovery_and_absorption": "恢复原值7.4；归责FULL（100%）；可归责恢复7.4/27；交班上限24.9；正向保留7.4。",
-          "behavior_and_attribution": "终局无档差恶化。军事登记C5高位来自909灵州—邠宁链多个后梁野战编组覆没，但开战前岐军、刘知俊体系已围灵州并威胁西北方向，后梁攻邠宁的核心目标是迫使其解围；战争本身属于必要安全处置。回师连续中伏、数军皆没再严重，也属于军事指挥/战术结果，按最新边界退出C4 DA。刘知俊、襄州两条内部链同样是必要平乱，故旧DA0撤销为DA0。 可归责恶化扣0.0，DA0扣0.0分。",
+          "behavior_and_attribution": "称帝后仍主动发动灵州—邠宁等国家/主要区域级外战并长期承载。第三项D的F3只证明军事损失严重，不能直接转成第二项DA3；现未闭合灾后补兵补饷、系统转输或广域家庭传导等独立残余，故按主动战争规模与持续性取DA2。 可归责恶化扣0.0分，DA2扣9.0分。",
           "handoff_state": "交班raw锚点为民生3档、经济财政3档、社会安全2档；终局层级C4T-3，正向上限24.9。",
           "public_source_refs": [
             "《资治通鉴》卷二百六十六：跋队斩……大为州县之患……盗减什七八。",
             "《资治通鉴》卷二百六十六：以朱友文判建昌院事，掌凡国之金谷。",
             "《资治通鉴》卷二百六十七：用度稍充，始给百官全俸。"
           ],
-          "public_adjudication": "按C4新合同：恢复原值7.4，归责FULL（100%），可归责恢复7.4，交班上限24.9，正向保留7.4；可归责恶化0.0；DA0残余主动成本0.0；C4=7.4。DA已按主态、K折损和恶化的去重门复核。",
+          "public_adjudication": "按C4现行合同重裁：正向保留7.4分；可归责恶化0.0分；DA2残余主动成本9.0分；C4=-1.6分。重裁依据：称帝后仍主动发动灵州—邠宁等国家/主要区域级外战并长期承载。第三项D的F3只证明军事损失严重，不能直接转成第二项DA3；现未闭合灾后补兵补饷、系统转输或广域家庭传导等独立残余，故按主动战争规模与持续性取DA2。",
           "recovery_formula_version": "C4-CONTRACT-2026-08-31-C1_FORMAL_RECOVERY-DA_COST_MAGNITUDE-NECESSARY_WAR_ERROR_EXCLUDED",
           "recovery_boundary_difficulty": {
             "1_TO_2": 0.6,
@@ -1423,8 +1423,8 @@
           "difficulty_weighted_recovery_credit": 0.74,
           "uncapped_positive_score": 7.4,
           "source_basis_format": "BOOK_PLUS_VERBATIM_EXCERPTS",
-          "input_sync_status": "SYNCED_TO_LATEST_C1_C2_C3_BATCH7。",
-          "batch_review_status": "REVIEWED_BATCH_7_2026-08-31",
+          "input_sync_status": "CURRENT_C1_C2_C3_AND_FINAL_DA_CHECKLIST",
+          "batch_review_status": "FORMAL_C4_DA_READJUDICATED_2026-09-03",
           "terminal_quality": 2.7,
           "deterioration_path_basis": {
             "C1": {
@@ -1457,8 +1457,8 @@
           },
           "military_cost_review": {
             "status": "FORMAL_SYNCED_CURRENT_C4_CONTRACT",
-            "final_grade": "DA0",
-            "basis": "DA仅结算C1—C3主态、K折损与C4恶化均未消费的本人主动残余成本；纯军队人员损失不单独计入，已被前述项目吸收的同一后果不重复扣减。"
+            "final_grade": "DA2",
+            "basis": "称帝后仍主动发动灵州—邠宁等国家/主要区域级外战并长期承载。第三项D的F3只证明军事损失严重，不能直接转成第二项DA3；现未闭合灾后补兵补饷、系统转输或广域家庭传导等独立残余，故按主动战争规模与持续性取DA2。"
           },
           "large_construction_review": {
             "status": "FORMAL_SYNCED",
@@ -1529,7 +1529,7 @@
           "pre_negative_tail_band": "C4-3",
           "pre_negative_tail_raw_score": 24.0,
           "pre_negative_tail_score": 24.0,
-          "rank": 39,
+          "rank": 24,
           "raw_score": 5.0,
           "recovery_score": 14.0,
           "reign_range": "926-933",
@@ -1764,7 +1764,7 @@
           "pre_negative_tail_band": "C4-2",
           "pre_negative_tail_raw_score": 18.0,
           "pre_negative_tail_score": 18.0,
-          "rank": 51,
+          "rank": 31,
           "raw_score": 13.5,
           "recovery_score": 8.0,
           "reign_range": "925-934实际割据",
@@ -2044,31 +2044,31 @@
           }
         },
         {
-          "adjudication_reason": "按C4新合同：恢复原值3.0，归责FULL（100%），可归责恢复3.0，交班上限27.0，正向保留3.0；可归责恶化0.0；DA0残余主动成本0.0；C4=3.0。DA已按主态、K折损和恶化的去重门复核。",
+          "adjudication_reason": "按C4现行合同重裁：正向保留3.0分；可归责恶化0.0分；DA1残余主动成本4.5分；C4=-1.5分。重裁依据：940年李金全叛后投南唐，李昪主动派李承裕等入安州接收，随后与后晋军作战失败；《通鉴》记本方失亡四千。明确可选择干预但总体规模有限。",
           "attribution_factor": 0.0,
           "closed_recovery_axes": [
             "C3"
           ],
-          "destructive_amplification_grade": "DA0",
-          "destructive_amplification_penalty": 0.0,
+          "destructive_amplification_grade": "DA1",
+          "destructive_amplification_penalty": 4.5,
           "deterioration_attribution": "NONE",
-          "deterioration_curve_summary": "C2四档→三档的“国用方乏”没有足够材料拆出独立本人恶化比例，且安州军事成本单独进入DA，故不重复扣恶化档差。940年安州属于本人授权的可选择区域行动，虽明确要求不得深入剽掠，但执行失控后“失亡四千人”，本人亦自承戒敕不熟；按本人可归责部分属于有限至中等已实现成本，DA1。 可归责恶化扣0.0，DA1扣4.5分。",
+          "deterioration_curve_summary": "940年李金全叛后投南唐，李昪主动派李承裕等入安州接收，随后与后晋军作战失败；《通鉴》记本方失亡四千。明确可选择干预但总体规模有限。 可归责恶化扣0.0分，DA1扣4.5分。",
           "deterioration_penalty": 0.0,
           "main_band": "C4-2",
-          "negative_tail_adjudication_reason": "C2四档→三档的“国用方乏”没有足够材料拆出独立本人恶化比例，且安州军事成本单独进入DA，故不重复扣恶化档差。940年安州属于本人授权的可选择区域行动，虽明确要求不得深入剽掠，但执行失控后“失亡四千人”，本人亦自承戒敕不熟；按本人可归责部分属于有限至中等已实现成本，DA1。 可归责恶化扣0.0，DA1扣4.5分。",
+          "negative_tail_adjudication_reason": "940年李金全叛后投南唐，李昪主动派李承裕等入安州接收，随后与后晋军作战失败；《通鉴》记本方失亡四千。明确可选择干预但总体规模有限。 可归责恶化扣0.0分，DA1扣4.5分。",
           "period": "post_tang",
           "polity": "南唐",
           "positive_score_retained": 3.0,
           "pre_negative_tail_band": "C4-2",
           "pre_negative_tail_raw_score": 17.0,
           "pre_negative_tail_score": 17.0,
-          "rank": 54,
-          "raw_score": 12.5,
+          "rank": 78,
+          "raw_score": -1.5,
           "recovery_score": 3.0,
           "reign_range": "937-943",
           "ruler_id": "RULER-FD-LI-BIAN",
           "ruler_name": "李昪",
-          "score": 3.0,
+          "score": -1.5,
           "terminal_band": "C4T-4",
           "terminal_cap": 27.0,
           "terminal_cap_applied": false,
@@ -2153,26 +2153,26 @@
             "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-FD-LI-BIAN",
             "c4_attribution_review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-FD-LI-BIAN"
           },
-          "attribution_readjudication_reason": "C2四档→三档的“国用方乏”没有足够材料拆出独立本人恶化比例，且安州军事成本单独进入DA，故不重复扣恶化档差。940年安州属于本人授权的可选择区域行动，虽明确要求不得深入剽掠，但执行失控后“失亡四千人”，本人亦自承戒敕不熟；按本人可归责部分属于有限至中等已实现成本，DA1。 可归责恶化扣0.0，DA1扣4.5分。",
+          "attribution_readjudication_reason": "940年李金全叛后投南唐，李昪主动派李承裕等入安州接收，随后与后晋军作战失败；《通鉴》记本方失亡四千。明确可选择干预但总体规模有限。 可归责恶化扣0.0分，DA1扣4.5分。",
           "c4_attribution_readjudication": {
             "review_status": "FULLY_ADJUDICATED",
-            "basis_version": "C4-DA-RESIDUAL-COST-V5",
-            "final_grade": "DA0",
-            "final_penalty": 0.0,
-            "change_type": "CURRENT_C4_CONTRACT_SYNC",
-            "behavior_chain_basis": "DA仅结算C1—C3主态、K折损与C4恶化均未消费的本人主动残余成本；纯军队人员损失不单独计入，已被前述项目吸收的同一后果不重复扣减。",
-            "grade_boundary_basis": "当前正式逐人裁决为DA0，扣0.0分。",
+            "basis_version": "C4-DA-FULL-POOL-READJUDICATION-2026-09-03",
+            "final_grade": "DA1",
+            "final_penalty": 4.5,
+            "change_type": "FINAL_CHECKLIST_READJUDICATION",
+            "behavior_chain_basis": "940年李金全叛后投南唐，李昪主动派李承裕等入安州接收，随后与后晋军作战失败；《通鉴》记本方失亡四千。明确可选择干预但总体规模有限。",
+            "grade_boundary_basis": "当前正式逐人裁决为DA1，扣4.5分。",
             "duplicate_control": {
               "C1_C2_C3_absorption": "C1/C2/C3结算客观状态；同一事实在已闭合S0→S_end下降及本人归责时可同时支撑C4恶化，DA不得重复扣减已吸收的主动成本。",
               "K_absorption": "K只折损C1/C2/C3主态完整度；已由K表达的终局跌幅不得再次进入DA。",
               "DA_residual_scope": "只计未被主态、K与可归责恶化消费的本人主动家庭、劳役、军粮转输、财政抽取或平民伤害成本；纯军队人员损失不单列。"
             },
-            "review_ref": "BATCH5_INLINE_2026-08-31"
+            "review_ref": "C4_DA重裁_档位变动清单.md#line=67"
           },
           "public_basis_version": "C4-CONTRACT-2026-08-31-BATCH5",
           "starting_context": "接手三轴为C1-4/C2-4/C3-3；交班三轴为C1-4/C2-3/C3-4。",
           "recovery_and_absorption": "恢复原值3.0；归责FULL（100%）；可归责恢复3.0/27；交班上限27.0；正向保留3.0。",
-          "behavior_and_attribution": "C2四档→三档的“国用方乏”没有足够材料拆出独立本人恶化比例，且安州军事成本单独进入DA，故不重复扣恶化档差。940年安州属于本人授权的可选择区域行动，虽明确要求不得深入剽掠，但执行失控后“失亡四千人”，本人亦自承戒敕不熟；按本人可归责部分属于有限至中等已实现成本，DA1。 可归责恶化扣0.0，DA1扣4.5分。",
+          "behavior_and_attribution": "940年李金全叛后投南唐，李昪主动派李承裕等入安州接收，随后与后晋军作战失败；《通鉴》记本方失亡四千。明确可选择干预但总体规模有限。 可归责恶化扣0.0分，DA1扣4.5分。",
           "handoff_state": "交班raw锚点为民生4档、经济财政3档、社会安全4档；终局层级C4T-4，正向上限34.9。",
           "public_source_refs": [
             "《资治通鉴》卷二百七十：江淮间旷土尽辟，桑柘满野，国以富强。",
@@ -2181,7 +2181,7 @@
             "《资治通鉴》卷二百八十二：如此羡余必由掊民刻军而来。",
             "《十国春秋·王栖霞传》：国用方乏，何暇及此。"
           ],
-          "public_adjudication": "按C4新合同：恢复原值3.0，归责FULL（100%），可归责恢复3.0，交班上限27.0，正向保留3.0；可归责恶化0.0；DA0残余主动成本0.0；C4=3.0。DA已按主态、K折损和恶化的去重门复核。",
+          "public_adjudication": "按C4现行合同重裁：正向保留3.0分；可归责恶化0.0分；DA1残余主动成本4.5分；C4=-1.5分。重裁依据：940年李金全叛后投南唐，李昪主动派李承裕等入安州接收，随后与后晋军作战失败；《通鉴》记本方失亡四千。明确可选择干预但总体规模有限。",
           "recovery_formula_version": "C4-CONTRACT-2026-08-31-C1_FORMAL_RECOVERY-DA_COST_MAGNITUDE",
           "recovery_boundary_difficulty": {
             "1_TO_2": 0.6,
@@ -2219,8 +2219,8 @@
           "difficulty_weighted_recovery_credit": 0.3,
           "uncapped_positive_score": 3.0,
           "source_basis_format": "BOOK_PLUS_VERBATIM_EXCERPTS",
-          "input_sync_status": "SYNCED_TO_LATEST_C1_C2_C3_BATCH5。",
-          "batch_review_status": "REVIEWED_BATCH_5_2026-08-31",
+          "input_sync_status": "CURRENT_C1_C2_C3_AND_FINAL_DA_CHECKLIST",
+          "batch_review_status": "FORMAL_C4_DA_READJUDICATED_2026-09-03",
           "terminal_quality": 3.8,
           "deterioration_path_basis": {
             "C1": {
@@ -2253,8 +2253,8 @@
           },
           "military_cost_review": {
             "status": "FORMAL_SYNCED_CURRENT_C4_CONTRACT",
-            "final_grade": "DA0",
-            "basis": "DA仅结算C1—C3主态、K折损与C4恶化均未消费的本人主动残余成本；纯军队人员损失不单独计入，已被前述项目吸收的同一后果不重复扣减。"
+            "final_grade": "DA1",
+            "basis": "940年李金全叛后投南唐，李昪主动派李承裕等入安州接收，随后与后晋军作战失败；《通鉴》记本方失亡四千。明确可选择干预但总体规模有限。"
           },
           "large_construction_review": {
             "status": "FORMAL_SYNCED",
@@ -2311,29 +2311,29 @@
           }
         },
         {
-          "adjudication_reason": "按C4新合同：恢复原值0.0，归责NONE（0%），可归责恢复0.0，交班上限24.9，正向保留0.0；可归责恶化0.0；DA0残余主动成本0.0；C4=0.0。DA已按主态、K折损和恶化的去重门复核。",
+          "adjudication_reason": "按C4现行合同重裁：正向保留0.0分；可归责恶化0.0分；DA3残余主动成本13.5分；C4=-13.5分。重裁依据：S0后三征南唐、攻蜀等主动统一战争之外，又有十万兵夫城东京罗城及多州丁夫续役，形成战争+大型役工双通道。",
           "attribution_factor": 0.0,
           "closed_recovery_axes": [],
-          "destructive_amplification_grade": "DA0",
-          "destructive_amplification_penalty": 0.0,
+          "destructive_amplification_grade": "DA3",
+          "destructive_amplification_penalty": 13.5,
           "deterioration_attribution": "NONE",
-          "deterioration_curve_summary": "终局无档差恶化。军事登记仅C3暂定低位，当前闭合主链是高平—胡卢河北方核心方向防御，属于必要安全战争，战略战术得失不转C4 DA。都城扩建与汴河疏浚工程量虽大，但主体属于城防、交通与公共基础设施，未闭合明显超出必要基线的严重役费，DA0。 可归责恶化扣0.0，DA0扣0.0分。",
+          "deterioration_curve_summary": "S0后三征南唐、攻蜀等主动统一战争之外，又有十万兵夫城东京罗城及多州丁夫续役，形成战争+大型役工双通道。 可归责恶化扣0.0分，DA3扣13.5分。",
           "deterioration_penalty": 0.0,
           "main_band": "C4-2",
-          "negative_tail_adjudication_reason": "终局无档差恶化。军事登记仅C3暂定低位，当前闭合主链是高平—胡卢河北方核心方向防御，属于必要安全战争，战略战术得失不转C4 DA。都城扩建与汴河疏浚工程量虽大，但主体属于城防、交通与公共基础设施，未闭合明显超出必要基线的严重役费，DA0。 可归责恶化扣0.0，DA0扣0.0分。",
+          "negative_tail_adjudication_reason": "S0后三征南唐、攻蜀等主动统一战争之外，又有十万兵夫城东京罗城及多州丁夫续役，形成战争+大型役工双通道。 可归责恶化扣0.0分，DA3扣13.5分。",
           "period": "post_tang",
           "polity": "后周",
           "positive_score_retained": 0.0,
           "pre_negative_tail_band": "C4-2",
           "pre_negative_tail_raw_score": 10.0,
           "pre_negative_tail_score": 10.0,
-          "rank": 75,
-          "raw_score": 10.0,
+          "rank": 157,
+          "raw_score": -13.5,
           "recovery_score": 0.0,
           "reign_range": "954-959",
           "ruler_id": "RULER-FD-CHAI-RONG",
           "ruler_name": "柴荣",
-          "score": 0.0,
+          "score": -13.5,
           "terminal_band": "C4T-3",
           "terminal_cap": 24.9,
           "terminal_cap_applied": false,
@@ -2373,26 +2373,26 @@
             "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-FD-CHAI-RONG",
             "c4_attribution_review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-FD-CHAI-RONG"
           },
-          "attribution_readjudication_reason": "终局无档差恶化。军事登记仅C3暂定低位，当前闭合主链是高平—胡卢河北方核心方向防御，属于必要安全战争，战略战术得失不转C4 DA。都城扩建与汴河疏浚工程量虽大，但主体属于城防、交通与公共基础设施，未闭合明显超出必要基线的严重役费，DA0。 可归责恶化扣0.0，DA0扣0.0分。",
+          "attribution_readjudication_reason": "S0后三征南唐、攻蜀等主动统一战争之外，又有十万兵夫城东京罗城及多州丁夫续役，形成战争+大型役工双通道。 可归责恶化扣0.0分，DA3扣13.5分。",
           "c4_attribution_readjudication": {
             "review_status": "FULLY_ADJUDICATED",
-            "basis_version": "C4-DA-RESIDUAL-COST-V5",
-            "final_grade": "DA0",
-            "final_penalty": 0.0,
-            "change_type": "CURRENT_C4_CONTRACT_SYNC",
-            "behavior_chain_basis": "DA仅结算C1—C3主态、K折损与C4恶化均未消费的本人主动残余成本；纯军队人员损失不单独计入，已被前述项目吸收的同一后果不重复扣减。",
-            "grade_boundary_basis": "当前正式逐人裁决为DA0，扣0.0分。",
+            "basis_version": "C4-DA-FULL-POOL-READJUDICATION-2026-09-03",
+            "final_grade": "DA3",
+            "final_penalty": 13.5,
+            "change_type": "FINAL_CHECKLIST_READJUDICATION",
+            "behavior_chain_basis": "S0后三征南唐、攻蜀等主动统一战争之外，又有十万兵夫城东京罗城及多州丁夫续役，形成战争+大型役工双通道。",
+            "grade_boundary_basis": "当前正式逐人裁决为DA3，扣13.5分。",
             "duplicate_control": {
               "C1_C2_C3_absorption": "C1/C2/C3结算客观状态；同一事实在已闭合S0→S_end下降及本人归责时可同时支撑C4恶化，DA不得重复扣减已吸收的主动成本。",
               "K_absorption": "K只折损C1/C2/C3主态完整度；已由K表达的终局跌幅不得再次进入DA。",
               "DA_residual_scope": "只计未被主态、K与可归责恶化消费的本人主动家庭、劳役、军粮转输、财政抽取或平民伤害成本；纯军队人员损失不单列。"
             },
-            "review_ref": "BATCH7_INLINE_2026-08-31"
+            "review_ref": "C4_DA重裁_档位变动清单.md#line=51"
           },
           "public_basis_version": "C4-CONTRACT-2026-08-31-BATCH7",
           "starting_context": "接手三轴为C1-3/C2-3/C3-3；交班三轴为C1-3/C2-3/C3-3。",
           "recovery_and_absorption": "恢复原值0.0；归责NONE（0%）；可归责恢复0.0/27；交班上限24.9；正向保留0.0。",
-          "behavior_and_attribution": "终局无档差恶化。军事登记仅C3暂定低位，当前闭合主链是高平—胡卢河北方核心方向防御，属于必要安全战争，战略战术得失不转C4 DA。都城扩建与汴河疏浚工程量虽大，但主体属于城防、交通与公共基础设施，未闭合明显超出必要基线的严重役费，DA0。 可归责恶化扣0.0，DA0扣0.0分。",
+          "behavior_and_attribution": "S0后三征南唐、攻蜀等主动统一战争之外，又有十万兵夫城东京罗城及多州丁夫续役，形成战争+大型役工双通道。 可归责恶化扣0.0分，DA3扣13.5分。",
           "handoff_state": "交班raw锚点为民生3档、经济财政3档、社会安全3档；终局层级C4T-3，正向上限24.9。",
           "public_source_refs": [
             "《资治通鉴》卷二百九十二：民田庐舍漂没不可胜计，流民采菰稗、捕鱼以给食。",
@@ -2401,7 +2401,7 @@
             "《资治通鉴》卷二百九十四：人无不畏其明而怀其惠。",
             "《资治通鉴》卷二百九十四：然用法太严……往往置之极刑……末年浸宽。"
           ],
-          "public_adjudication": "按C4新合同：恢复原值0.0，归责NONE（0%），可归责恢复0.0，交班上限24.9，正向保留0.0；可归责恶化0.0；DA0残余主动成本0.0；C4=0.0。DA已按主态、K折损和恶化的去重门复核。",
+          "public_adjudication": "按C4现行合同重裁：正向保留0.0分；可归责恶化0.0分；DA3残余主动成本13.5分；C4=-13.5分。重裁依据：S0后三征南唐、攻蜀等主动统一战争之外，又有十万兵夫城东京罗城及多州丁夫续役，形成战争+大型役工双通道。",
           "recovery_formula_version": "C4-CONTRACT-2026-08-31-C1_FORMAL_RECOVERY-DA_COST_MAGNITUDE-NECESSARY_WAR_ERROR_EXCLUDED",
           "recovery_boundary_difficulty": {
             "1_TO_2": 0.6,
@@ -2439,8 +2439,8 @@
           "difficulty_weighted_recovery_credit": 0.0,
           "uncapped_positive_score": 0.0,
           "source_basis_format": "BOOK_PLUS_VERBATIM_EXCERPTS",
-          "input_sync_status": "SYNCED_TO_LATEST_C1_C2_C3_BATCH7。",
-          "batch_review_status": "REVIEWED_BATCH_7_2026-08-31",
+          "input_sync_status": "CURRENT_C1_C2_C3_AND_FINAL_DA_CHECKLIST",
+          "batch_review_status": "FORMAL_C4_DA_READJUDICATED_2026-09-03",
           "terminal_quality": 3.0,
           "deterioration_path_basis": {
             "C1": {
@@ -2473,8 +2473,8 @@
           },
           "military_cost_review": {
             "status": "FORMAL_SYNCED_CURRENT_C4_CONTRACT",
-            "final_grade": "DA0",
-            "basis": "DA仅结算C1—C3主态、K折损与C4恶化均未消费的本人主动残余成本；纯军队人员损失不单独计入，已被前述项目吸收的同一后果不重复扣减。"
+            "final_grade": "DA3",
+            "basis": "S0后三征南唐、攻蜀等主动统一战争之外，又有十万兵夫城东京罗城及多州丁夫续役，形成战争+大型役工双通道。"
           },
           "large_construction_review": {
             "status": "FORMAL_SYNCED",
@@ -2531,29 +2531,29 @@
           }
         },
         {
-          "adjudication_reason": "按C4新合同：恢复原值0.0，归责NONE（0%），可归责恢复0.0，交班上限24.9，正向保留0.0；可归责恶化0.0；DA0残余主动成本0.0；C4=0.0。DA已按主态、K折损和恶化的去重门复核。",
+          "adjudication_reason": "按C4现行合同重裁：正向保留0.0分；可归责恶化0.0分；DA3残余主动成本13.5分；C4=-13.5分。重裁依据：951—954连续主动南下与边境进攻形成多年国家级重复动员；高平三万主力F4只作严重度信号。关键在于主动入侵失败后又被迫进行首都核心防御和灾后再动员，且此前已连续两年追加同方向投入，形成可归责的“错误战争→再征发/再动员”资源链，故仍为DA3。",
           "attribution_factor": 0.0,
           "closed_recovery_axes": [],
-          "destructive_amplification_grade": "DA0",
-          "destructive_amplification_penalty": 0.0,
+          "destructive_amplification_grade": "DA3",
+          "destructive_amplification_penalty": 13.5,
           "deterioration_attribution": "NONE",
-          "deterioration_curve_summary": "本人不是单纯被动守国，而是在951—954连续主动南攻，954又亲率国家主力并在明确谨慎意见下继续推进。军事错误本身不加DA，但战争选择属于可选择主动进攻；对小国而言重复国家主力动员已经形成极重赋役，现成登记C6高位，裁DA3。 可归责恶化扣0.0分，DA3扣13.5分。",
+          "deterioration_curve_summary": "951—954连续主动南下与边境进攻形成多年国家级重复动员；高平三万主力F4只作严重度信号。关键在于主动入侵失败后又被迫进行首都核心防御和灾后再动员，且此前已连续两年追加同方向投入，形成可归责的“错误战争→再征发/再动员”资源链，故仍为DA3。 可归责恶化扣0.0分，DA3扣13.5分。",
           "deterioration_penalty": 0.0,
           "main_band": "C4N-1",
-          "negative_tail_adjudication_reason": "本人不是单纯被动守国，而是在951—954连续主动南攻，954又亲率国家主力并在明确谨慎意见下继续推进。军事错误本身不加DA，但战争选择属于可选择主动进攻；对小国而言重复国家主力动员已经形成极重赋役，现成登记C6高位，裁DA3。 可归责恶化扣0.0分，DA3扣13.5分。",
+          "negative_tail_adjudication_reason": "951—954连续主动南下与边境进攻形成多年国家级重复动员；高平三万主力F4只作严重度信号。关键在于主动入侵失败后又被迫进行首都核心防御和灾后再动员，且此前已连续两年追加同方向投入，形成可归责的“错误战争→再征发/再动员”资源链，故仍为DA3。 可归责恶化扣0.0分，DA3扣13.5分。",
           "period": "post_tang",
           "polity": "五代十国",
           "positive_score_retained": 0.0,
           "pre_negative_tail_band": "C4N-1",
           "pre_negative_tail_raw_score": 10.0,
           "pre_negative_tail_score": 10.0,
-          "rank": 75,
-          "raw_score": -3.5,
+          "rank": 157,
+          "raw_score": -13.5,
           "recovery_score": 0.0,
           "reign_range": "951-954",
           "ruler_id": "RULER-SHADOW-刘崇",
           "ruler_name": "刘崇",
-          "score": 0.0,
+          "score": -13.5,
           "terminal_band": "C4T-3",
           "terminal_cap": 24.9,
           "terminal_cap_applied": false,
@@ -2590,26 +2590,26 @@
             "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-刘崇",
             "c4_attribution_review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-SHADOW-刘崇"
           },
-          "attribution_readjudication_reason": "本人不是单纯被动守国，而是在951—954连续主动南攻，954又亲率国家主力并在明确谨慎意见下继续推进。军事错误本身不加DA，但战争选择属于可选择主动进攻；对小国而言重复国家主力动员已经形成极重赋役，现成登记C6高位，裁DA3。 可归责恶化扣0.0分，DA3扣13.5分。",
+          "attribution_readjudication_reason": "951—954连续主动南下与边境进攻形成多年国家级重复动员；高平三万主力F4只作严重度信号。关键在于主动入侵失败后又被迫进行首都核心防御和灾后再动员，且此前已连续两年追加同方向投入，形成可归责的“错误战争→再征发/再动员”资源链，故仍为DA3。 可归责恶化扣0.0分，DA3扣13.5分。",
           "c4_attribution_readjudication": {
             "review_status": "FULLY_ADJUDICATED",
-            "basis_version": "C4-DA-RESIDUAL-COST-V5",
-            "final_grade": "DA0",
-            "final_penalty": 0.0,
-            "change_type": "CURRENT_C4_CONTRACT_SYNC",
-            "behavior_chain_basis": "DA仅结算C1—C3主态、K折损与C4恶化均未消费的本人主动残余成本；纯军队人员损失不单独计入，已被前述项目吸收的同一后果不重复扣减。",
-            "grade_boundary_basis": "当前正式逐人裁决为DA0，扣0.0分。",
+            "basis_version": "C4-DA-FULL-POOL-READJUDICATION-2026-09-03",
+            "final_grade": "DA3",
+            "final_penalty": 13.5,
+            "change_type": "FINAL_CHECKLIST_READJUDICATION",
+            "behavior_chain_basis": "951—954连续主动南下与边境进攻形成多年国家级重复动员；高平三万主力F4只作严重度信号。关键在于主动入侵失败后又被迫进行首都核心防御和灾后再动员，且此前已连续两年追加同方向投入，形成可归责的“错误战争→再征发/再动员”资源链，故仍为DA3。",
+            "grade_boundary_basis": "当前正式逐人裁决为DA3，扣13.5分。",
             "duplicate_control": {
               "C1_C2_C3_absorption": "C1/C2/C3结算客观状态；同一事实在已闭合S0→S_end下降及本人归责时可同时支撑C4恶化，DA不得重复扣减已吸收的主动成本。",
               "K_absorption": "K只折损C1/C2/C3主态完整度；已由K表达的终局跌幅不得再次进入DA。",
               "DA_residual_scope": "只计未被主态、K与可归责恶化消费的本人主动家庭、劳役、军粮转输、财政抽取或平民伤害成本；纯军队人员损失不单列。"
             },
-            "review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-SHADOW-刘崇"
+            "review_ref": "C4_DA重裁_档位变动清单.md#line=53"
           },
           "public_basis_version": "C4-PUBLIC-BASIS-V3",
           "starting_context": "接手三轴为C1-2/C2-3/C3-3；交班三轴为C1-2/C2-3/C3-3。",
           "recovery_and_absorption": "恢复原值0.0；归责NONE（0%）；可归责恢复0.0/27；交班上限24.9；正向保留0.0。",
-          "behavior_and_attribution": "本人不是单纯被动守国，而是在951—954连续主动南攻，954又亲率国家主力并在明确谨慎意见下继续推进。军事错误本身不加DA，但战争选择属于可选择主动进攻；对小国而言重复国家主力动员已经形成极重赋役，现成登记C6高位，裁DA3。 可归责恶化扣0.0分，DA3扣13.5分。",
+          "behavior_and_attribution": "951—954连续主动南下与边境进攻形成多年国家级重复动员；高平三万主力F4只作严重度信号。关键在于主动入侵失败后又被迫进行首都核心防御和灾后再动员，且此前已连续两年追加同方向投入，形成可归责的“错误战争→再征发/再动员”资源链，故仍为DA3。 可归责恶化扣0.0分，DA3扣13.5分。",
           "handoff_state": "交班raw为C1-2/C2-3/C3-3；终局C4T-3，正向上限24.9。",
           "public_source_refs": [
             "volume-290.source-summary.md",
@@ -2621,7 +2621,7 @@
             "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-刘崇",
             "volume-288.source-summary.md"
           ],
-          "public_adjudication": "按C4新合同：恢复原值0.0，归责NONE（0%），可归责恢复0.0，交班上限24.9，正向保留0.0；可归责恶化0.0；DA0残余主动成本0.0；C4=0.0。DA已按主态、K折损和恶化的去重门复核。",
+          "public_adjudication": "按C4现行合同重裁：正向保留0.0分；可归责恶化0.0分；DA3残余主动成本13.5分；C4=-13.5分。重裁依据：951—954连续主动南下与边境进攻形成多年国家级重复动员；高平三万主力F4只作严重度信号。关键在于主动入侵失败后又被迫进行首都核心防御和灾后再动员，且此前已连续两年追加同方向投入，形成可归责的“错误战争→再征发/再动员”资源链，故仍为DA3。",
           "recovery_formula_version": "C4-DIFFICULTY-WEIGHTED-BOUNDARIES-V1",
           "recovery_boundary_difficulty": {
             "1_TO_2": 0.6,
@@ -2660,8 +2660,8 @@
           "uncapped_positive_score": 0.0,
           "military_cost_review": {
             "status": "FORMAL_SYNCED_CURRENT_C4_CONTRACT",
-            "final_grade": "DA0",
-            "basis": "DA仅结算C1—C3主态、K折损与C4恶化均未消费的本人主动残余成本；纯军队人员损失不单独计入，已被前述项目吸收的同一后果不重复扣减。"
+            "final_grade": "DA3",
+            "basis": "951—954连续主动南下与边境进攻形成多年国家级重复动员；高平三万主力F4只作严重度信号。关键在于主动入侵失败后又被迫进行首都核心防御和灾后再动员，且此前已连续两年追加同方向投入，形成可归责的“错误战争→再征发/再动员”资源链，故仍为DA3。"
           },
           "large_construction_review": {
             "status": "FORMAL_SYNCED",
@@ -2691,8 +2691,8 @@
               "original_text": "勤于为政，爱民礼士，境内粗安。"
             }
           ],
-          "batch_review_status": "REVIEWED_BATCH_13_2026-08-31",
-          "input_sync_status": "SYNCED_TO_LATEST_C1_C2_C3_BATCH13。",
+          "batch_review_status": "FORMAL_C4_DA_READJUDICATED_2026-09-03",
+          "input_sync_status": "CURRENT_C1_C2_C3_AND_FINAL_DA_CHECKLIST",
           "military_cost_public_basis": "现成登记C6高位；连续主动对后周进攻与国家主力反复动员属于可选择战争，DA3。",
           "large_construction_public_basis": "未发现需要单独进入C4的大型营造。",
           "typical_pattern": {
@@ -2745,7 +2745,7 @@
           "pre_negative_tail_band": "C4N-1",
           "pre_negative_tail_raw_score": 8.0,
           "pre_negative_tail_score": 8.0,
-          "rank": 106,
+          "rank": 95,
           "raw_score": -2.9,
           "recovery_score": 1.6,
           "reign_range": "893-932实际割据",
@@ -2953,7 +2953,7 @@
           "pre_negative_tail_band": "C4-1",
           "pre_negative_tail_raw_score": 10.0,
           "pre_negative_tail_score": 10.0,
-          "rank": 112,
+          "rank": 104,
           "raw_score": 5.5,
           "recovery_score": 0.0,
           "reign_range": "917-942",
@@ -3107,29 +3107,29 @@
           }
         },
         {
-          "adjudication_reason": "按C4新合同：恢复原值0.0，归责NONE（0%），可归责恢复0.0，交班上限7.9，正向保留0.0；可归责恶化4.5；DA0残余主动成本0.0；C4=-4.5。DA已按主态、K折损和恶化的去重门复核。",
+          "adjudication_reason": "按C4现行合同重裁：正向保留0.0分；可归责恶化4.5分；DA3残余主动成本13.5分；C4=-18.0分。重裁依据：晋—后唐链后段虽含生存防御，但DA3不直接消费元城七万军近毁本身。第三项D同时闭合灾后持续国家级再动员、M5/A5末期投入与本人主要责任；即在反复错误处置造成重大损失后仍不断重新投入国家资源，形成独立的再动员残余，故DA3保留。",
           "attribution_factor": 0.5,
           "closed_recovery_axes": [],
-          "destructive_amplification_grade": "DA0",
-          "destructive_amplification_penalty": 0.0,
+          "destructive_amplification_grade": "DA3",
+          "destructive_amplification_penalty": 13.5,
           "deterioration_attribution": "MATERIAL",
-          "deterioration_curve_summary": "逐轴恶化归责：C1=MATERIAL；C2=MATERIAL；C3=MATERIAL，合计恶化扣10.1分。晋—后唐长期战争在本人接手时已是持续的国家生存竞争；元城等惨败和连续错误处置属于军事能力，不因损失巨大转C4。未识别独立大型非必要工程，旧DA0撤销为DA0。",
+          "deterioration_curve_summary": "晋—后唐链后段虽含生存防御，但DA3不直接消费元城七万军近毁本身。第三项D同时闭合灾后持续国家级再动员、M5/A5末期投入与本人主要责任；即在反复错误处置造成重大损失后仍不断重新投入国家资源，形成独立的再动员残余，故DA3保留。 可归责恶化扣4.5分，DA3扣13.5分。",
           "deterioration_penalty": 4.5,
           "main_band": "C4N-1",
-          "negative_tail_adjudication_reason": "逐轴恶化归责：C1=MATERIAL；C2=MATERIAL；C3=MATERIAL，合计恶化扣10.1分。晋—后唐长期战争在本人接手时已是持续的国家生存竞争；元城等惨败和连续错误处置属于军事能力，不因损失巨大转C4。未识别独立大型非必要工程，旧DA0撤销为DA0。",
+          "negative_tail_adjudication_reason": "晋—后唐链后段虽含生存防御，但DA3不直接消费元城七万军近毁本身。第三项D同时闭合灾后持续国家级再动员、M5/A5末期投入与本人主要责任；即在反复错误处置造成重大损失后仍不断重新投入国家资源，形成独立的再动员残余，故DA3保留。 可归责恶化扣4.5分，DA3扣13.5分。",
           "period": "post_tang",
           "polity": "后梁",
           "positive_score_retained": 0.0,
           "pre_negative_tail_band": "C4N-1",
           "pre_negative_tail_raw_score": 3.2,
           "pre_negative_tail_score": 3.2,
-          "rank": 112,
-          "raw_score": -6.9,
+          "rank": 176,
+          "raw_score": -18.0,
           "recovery_score": 0.0,
           "reign_range": "913-923",
           "ruler_id": "RULER-FD-ZHU-YOUZHEN",
           "ruler_name": "朱友贞",
-          "score": -4.5,
+          "score": -18.0,
           "terminal_band": "C4T-1",
           "terminal_cap": 7.9,
           "terminal_cap_applied": false,
@@ -3147,26 +3147,26 @@
             "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-FD-ZHU-YOUZHEN",
             "c4_attribution_review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-FD-ZHU-YOUZHEN"
           },
-          "attribution_readjudication_reason": "逐轴恶化归责：C1=MATERIAL；C2=MATERIAL；C3=MATERIAL，合计恶化扣10.1分。晋—后唐长期战争在本人接手时已是持续的国家生存竞争；元城等惨败和连续错误处置属于军事能力，不因损失巨大转C4。未识别独立大型非必要工程，旧DA0撤销为DA0。",
+          "attribution_readjudication_reason": "晋—后唐链后段虽含生存防御，但DA3不直接消费元城七万军近毁本身。第三项D同时闭合灾后持续国家级再动员、M5/A5末期投入与本人主要责任；即在反复错误处置造成重大损失后仍不断重新投入国家资源，形成独立的再动员残余，故DA3保留。 可归责恶化扣4.5分，DA3扣13.5分。",
           "c4_attribution_readjudication": {
             "review_status": "FULLY_ADJUDICATED",
-            "basis_version": "C4-DA-RESIDUAL-COST-V5",
-            "final_grade": "DA0",
-            "final_penalty": 0.0,
-            "change_type": "CURRENT_C4_CONTRACT_SYNC",
-            "behavior_chain_basis": "DA仅结算C1—C3主态、K折损与C4恶化均未消费的本人主动残余成本；纯军队人员损失不单独计入，已被前述项目吸收的同一后果不重复扣减。",
-            "grade_boundary_basis": "当前正式逐人裁决为DA0，扣0.0分。",
+            "basis_version": "C4-DA-FULL-POOL-READJUDICATION-2026-09-03",
+            "final_grade": "DA3",
+            "final_penalty": 13.5,
+            "change_type": "FINAL_CHECKLIST_READJUDICATION",
+            "behavior_chain_basis": "晋—后唐链后段虽含生存防御，但DA3不直接消费元城七万军近毁本身。第三项D同时闭合灾后持续国家级再动员、M5/A5末期投入与本人主要责任；即在反复错误处置造成重大损失后仍不断重新投入国家资源，形成独立的再动员残余，故DA3保留。",
+            "grade_boundary_basis": "当前正式逐人裁决为DA3，扣13.5分。",
             "duplicate_control": {
               "C1_C2_C3_absorption": "C1/C2/C3结算客观状态；同一事实在已闭合S0→S_end下降及本人归责时可同时支撑C4恶化，DA不得重复扣减已吸收的主动成本。",
               "K_absorption": "K只折损C1/C2/C3主态完整度；已由K表达的终局跌幅不得再次进入DA。",
               "DA_residual_scope": "只计未被主态、K与可归责恶化消费的本人主动家庭、劳役、军粮转输、财政抽取或平民伤害成本；纯军队人员损失不单列。"
             },
-            "review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-FD-ZHU-YOUZHEN"
+            "review_ref": "C4_DA重裁_档位变动清单.md#line=58"
           },
           "public_basis_version": "C4-PUBLIC-BASIS-V3",
           "starting_context": "接手三轴为C1-3/C2-3/C3-2；交班三轴为C1-1/C2-2/C3-1。",
           "recovery_and_absorption": "恢复原值0.0；归责NONE（0%）；可归责恢复0.0/27；交班上限7.9；正向保留0.0。",
-          "behavior_and_attribution": "逐轴恶化归责：C1=MATERIAL；C2=MATERIAL；C3=MATERIAL，合计恶化扣10.1分。晋—后唐长期战争在本人接手时已是持续的国家生存竞争；元城等惨败和连续错误处置属于军事能力，不因损失巨大转C4。未识别独立大型非必要工程，旧DA0撤销为DA0。",
+          "behavior_and_attribution": "晋—后唐链后段虽含生存防御，但DA3不直接消费元城七万军近毁本身。第三项D同时闭合灾后持续国家级再动员、M5/A5末期投入与本人主要责任；即在反复错误处置造成重大损失后仍不断重新投入国家资源，形成独立的再动员残余，故DA3保留。 可归责恶化扣4.5分，DA3扣13.5分。",
           "handoff_state": "交班raw为C1-1/C2-2/C3-1；终局C4T-1，正向上限7.9分。",
           "public_source_refs": [
             "docs/史料通读产物/五代十国/资治通鉴/volume-272.source-summary.md:39",
@@ -3178,7 +3178,7 @@
             "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-FD-ZHU-YOUZHEN",
             "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-FD-ZHU-YOUZHEN"
           ],
-          "public_adjudication": "按C4新合同：恢复原值0.0，归责NONE（0%），可归责恢复0.0，交班上限7.9，正向保留0.0；可归责恶化4.5；DA0残余主动成本0.0；C4=-4.5。DA已按主态、K折损和恶化的去重门复核。",
+          "public_adjudication": "按C4现行合同重裁：正向保留0.0分；可归责恶化4.5分；DA3残余主动成本13.5分；C4=-18.0分。重裁依据：晋—后唐链后段虽含生存防御，但DA3不直接消费元城七万军近毁本身。第三项D同时闭合灾后持续国家级再动员、M5/A5末期投入与本人主要责任；即在反复错误处置造成重大损失后仍不断重新投入国家资源，形成独立的再动员残余，故DA3保留。",
           "recovery_formula_version": "C4-DIFFICULTY-WEIGHTED-BOUNDARIES-V1",
           "recovery_boundary_difficulty": {
             "1_TO_2": 0.6,
@@ -3217,8 +3217,8 @@
           "uncapped_positive_score": 0.0,
           "military_cost_review": {
             "status": "FORMAL_SYNCED_CURRENT_C4_CONTRACT",
-            "final_grade": "DA0",
-            "basis": "DA仅结算C1—C3主态、K折损与C4恶化均未消费的本人主动残余成本；纯军队人员损失不单独计入，已被前述项目吸收的同一后果不重复扣减。"
+            "final_grade": "DA3",
+            "basis": "晋—后唐链后段虽含生存防御，但DA3不直接消费元城七万军近毁本身。第三项D同时闭合灾后持续国家级再动员、M5/A5末期投入与本人主要责任；即在反复错误处置造成重大损失后仍不断重新投入国家资源，形成独立的再动员残余，故DA3保留。"
           },
           "large_construction_review": {
             "status": "FORMAL_SYNCED",
@@ -3256,9 +3256,9 @@
               "original_text": "朱友贞末日先杀宗室，随后命皇甫麟杀己，京师中枢保护体系终止。"
             }
           ],
-          "batch_review_status": "REVIEWED_BATCH_16_2026-08-31",
-          "input_sync_status": "SYNCED_TO_LATEST_C1_C2_C3_BATCH16。",
-          "military_cost_public_basis": "晋—后唐长期战争在本人接手时已是持续的国家生存竞争；元城等惨败和连续错误处置属于军事能力，不因损失巨大转C4。未识别独立大型非必要工程，旧DA0撤销为DA0。",
+          "batch_review_status": "FORMAL_C4_DA_READJUDICATED_2026-09-03",
+          "input_sync_status": "CURRENT_C1_C2_C3_AND_FINAL_DA_CHECKLIST",
+          "military_cost_public_basis": "晋—后唐链后段虽含生存防御，但DA3不直接消费元城七万军近毁本身。第三项D同时闭合灾后持续国家级再动员、M5/A5末期投入与本人主要责任；即在反复错误处置造成重大损失后仍不断重新投入国家资源，形成独立的再动员残余，故DA3保留。",
           "large_construction_public_basis": "未发现需要单独进入C4的大型可选择营造；普通修缮与小工程跳过。",
           "typical_pattern": {
             "status": "STRUCTURED_C4_FORMAL",
@@ -3301,7 +3301,7 @@
           "pre_negative_tail_band": "C4-1",
           "pre_negative_tail_raw_score": 7.9,
           "pre_negative_tail_score": 7.9,
-          "rank": 121,
+          "rank": 114,
           "raw_score": -6.0,
           "recovery_score": 3.0,
           "reign_range": "934-965",
@@ -3460,23 +3460,23 @@
           }
         },
         {
-          "adjudication_reason": "按C4新合同：恢复原值0.0，归责NONE（0%），可归责恢复0.0，交班上限15.9，正向保留0.0；可归责恶化6.5；DA0残余主动成本0.0；C4=-6.5。DA已按主态、K折损和恶化的去重门复核。",
+          "adjudication_reason": "按C4现行合同重裁：正向保留0.0分；可归责恶化6.5分；DA0残余主动成本0.0分；C4=-6.5分。重裁依据：主要国家军事负担来自宋朝进攻下的防御；未闭合独立主动大型战争或工程残余。",
           "attribution_factor": 0.5,
           "closed_recovery_axes": [],
           "destructive_amplification_grade": "DA0",
           "destructive_amplification_penalty": 0.0,
           "deterioration_attribution": "MATERIAL",
-          "deterioration_curve_summary": "逐轴恶化归责：C1=LIMITED；C2=MATERIAL；C3=LIMITED，合计恶化扣6.8分。宋朝军事压力属于必要生存防御；币制与财政失衡已进入C2恶化，本批未识别独立超大型营造或主动大规模战争增量，DA0。",
+          "deterioration_curve_summary": "主要国家军事负担来自宋朝进攻下的防御；未闭合独立主动大型战争或工程残余。 可归责恶化扣6.5分，DA0扣0.0分。",
           "deterioration_penalty": 6.5,
           "main_band": "C4N-1",
-          "negative_tail_adjudication_reason": "逐轴恶化归责：C1=LIMITED；C2=MATERIAL；C3=LIMITED，合计恶化扣6.8分。宋朝军事压力属于必要生存防御；币制与财政失衡已进入C2恶化，本批未识别独立超大型营造或主动大规模战争增量，DA0。",
+          "negative_tail_adjudication_reason": "主要国家军事负担来自宋朝进攻下的防御；未闭合独立主动大型战争或工程残余。 可归责恶化扣6.5分，DA0扣0.0分。",
           "period": "post_tang",
           "polity": "南唐",
           "positive_score_retained": 0.0,
           "pre_negative_tail_band": "C4N-1",
           "pre_negative_tail_raw_score": 3.6,
           "pre_negative_tail_score": 3.6,
-          "rank": 124,
+          "rank": 116,
           "raw_score": -3.2,
           "recovery_score": 0.0,
           "reign_range": "961-975",
@@ -3500,14 +3500,14 @@
             "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-FD-LI-YU",
             "c4_attribution_review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-FD-LI-YU"
           },
-          "attribution_readjudication_reason": "逐轴恶化归责：C1=LIMITED；C2=MATERIAL；C3=LIMITED，合计恶化扣6.8分。宋朝军事压力属于必要生存防御；币制与财政失衡已进入C2恶化，本批未识别独立超大型营造或主动大规模战争增量，DA0。",
+          "attribution_readjudication_reason": "主要国家军事负担来自宋朝进攻下的防御；未闭合独立主动大型战争或工程残余。 可归责恶化扣6.5分，DA0扣0.0分。",
           "c4_attribution_readjudication": {
             "review_status": "FULLY_ADJUDICATED",
             "basis_version": "C4-DA-RESIDUAL-COST-V5",
             "final_grade": "DA0",
             "final_penalty": 0.0,
             "change_type": "CURRENT_C4_CONTRACT_SYNC",
-            "behavior_chain_basis": "DA仅结算C1—C3主态、K折损与C4恶化均未消费的本人主动残余成本；纯军队人员损失不单独计入，已被前述项目吸收的同一后果不重复扣减。",
+            "behavior_chain_basis": "主要国家军事负担来自宋朝进攻下的防御；未闭合独立主动大型战争或工程残余。",
             "grade_boundary_basis": "当前正式逐人裁决为DA0，扣0.0分。",
             "duplicate_control": {
               "C1_C2_C3_absorption": "C1/C2/C3结算客观状态；同一事实在已闭合S0→S_end下降及本人归责时可同时支撑C4恶化，DA不得重复扣减已吸收的主动成本。",
@@ -3519,7 +3519,7 @@
           "public_basis_version": "C4-PUBLIC-BASIS-V3",
           "starting_context": "接手三轴为C1-3/C2-3/C3-4；交班三轴为C1-1/C2-2/C3-2。",
           "recovery_and_absorption": "恢复原值0.0；归责NONE（0%）；可归责恢复0.0/27；交班上限15.9；正向保留0.0。",
-          "behavior_and_attribution": "逐轴恶化归责：C1=LIMITED；C2=MATERIAL；C3=LIMITED，合计恶化扣6.8分。宋朝军事压力属于必要生存防御；币制与财政失衡已进入C2恶化，本批未识别独立超大型营造或主动大规模战争增量，DA0。",
+          "behavior_and_attribution": "主要国家军事负担来自宋朝进攻下的防御；未闭合独立主动大型战争或工程残余。 可归责恶化扣6.5分，DA0扣0.0分。",
           "handoff_state": "交班raw为C1-1/C2-2/C3-2；终局C4T-2，正向上限15.9分。",
           "public_source_refs": [
             "docs/史料通读产物/北宋/续资治通鉴/volume-004.source-summary.md:16",
@@ -3531,7 +3531,7 @@
             "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-FD-LI-YU",
             "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-FD-LI-YU"
           ],
-          "public_adjudication": "按C4新合同：恢复原值0.0，归责NONE（0%），可归责恢复0.0，交班上限15.9，正向保留0.0；可归责恶化6.5；DA0残余主动成本0.0；C4=-6.5。DA已按主态、K折损和恶化的去重门复核。",
+          "public_adjudication": "按C4现行合同重裁：正向保留0.0分；可归责恶化6.5分；DA0残余主动成本0.0分；C4=-6.5分。重裁依据：主要国家军事负担来自宋朝进攻下的防御；未闭合独立主动大型战争或工程残余。",
           "recovery_formula_version": "C4-DIFFICULTY-WEIGHTED-BOUNDARIES-V1",
           "recovery_boundary_difficulty": {
             "1_TO_2": 0.6,
@@ -3571,7 +3571,7 @@
           "military_cost_review": {
             "status": "FORMAL_SYNCED_CURRENT_C4_CONTRACT",
             "final_grade": "DA0",
-            "basis": "DA仅结算C1—C3主态、K折损与C4恶化均未消费的本人主动残余成本；纯军队人员损失不单独计入，已被前述项目吸收的同一后果不重复扣减。"
+            "basis": "主要国家军事负担来自宋朝进攻下的防御；未闭合独立主动大型战争或工程残余。"
           },
           "large_construction_review": {
             "status": "FORMAL_SYNCED",
@@ -3652,7 +3652,7 @@
           "pre_negative_tail_band": "C4N-1",
           "pre_negative_tail_raw_score": 6.4,
           "pre_negative_tail_score": 6.4,
-          "rank": 134,
+          "rank": 130,
           "raw_score": -2.6,
           "recovery_score": 0.0,
           "reign_range": "895-908实际割据",
@@ -3821,29 +3821,29 @@
           }
         },
         {
-          "adjudication_reason": "按C4新合同：恢复原值0.0，归责NONE（0%），可归责恢复0.0，交班上限7.9，正向保留0.0；可归责恶化9.1；DA0残余主动成本0.0；C4=-9.1。DA已按主态、K折损和恶化的去重门复核。",
+          "adjudication_reason": "按C4现行合同重裁：正向保留0.0分；可归责恶化9.1分；DA1残余主动成本4.5分；C4=-13.6分。重裁依据：建后唐S0后主动灭前蜀，出兵约六万；约七十五日即定蜀，军粮不足十日后主要就食沿途投降州镇，没有李嗣源DA2式系统本土转输。",
           "attribution_factor": 1.0,
           "closed_recovery_axes": [],
-          "destructive_amplification_grade": "DA0",
-          "destructive_amplification_penalty": 0.0,
+          "destructive_amplification_grade": "DA1",
+          "destructive_amplification_penalty": 4.5,
           "deterioration_attribution": "FULL",
-          "deterioration_curve_summary": "逐轴恶化归责：C1=HIGH；C2=FULL；C3=HIGH，合计恶化扣15.9分。契丹救援、潞州和邺都兵变处置主体均属必要安全战争/平乱；战败与军令失控归军事能力。重敛等已进入三轴恶化，未找到独立超大型工程，旧DA0撤销为DA0。",
+          "deterioration_curve_summary": "建后唐S0后主动灭前蜀，出兵约六万；约七十五日即定蜀，军粮不足十日后主要就食沿途投降州镇，没有李嗣源DA2式系统本土转输。 可归责恶化扣9.1分，DA1扣4.5分。",
           "deterioration_penalty": 9.1,
           "main_band": "C4N-3",
-          "negative_tail_adjudication_reason": "逐轴恶化归责：C1=HIGH；C2=FULL；C3=HIGH，合计恶化扣15.9分。契丹救援、潞州和邺都兵变处置主体均属必要安全战争/平乱；战败与军令失控归军事能力。重敛等已进入三轴恶化，未找到独立超大型工程，旧DA0撤销为DA0。",
+          "negative_tail_adjudication_reason": "建后唐S0后主动灭前蜀，出兵约六万；约七十五日即定蜀，军粮不足十日后主要就食沿途投降州镇，没有李嗣源DA2式系统本土转输。 可归责恶化扣9.1分，DA1扣4.5分。",
           "period": "post_tang",
           "polity": "后唐",
           "positive_score_retained": 0.0,
           "pre_negative_tail_band": "C4N-3",
           "pre_negative_tail_raw_score": 0.0,
           "pre_negative_tail_score": 0.0,
-          "rank": 142,
-          "raw_score": -15.9,
+          "rank": 167,
+          "raw_score": -13.6,
           "recovery_score": 0.0,
           "reign_range": "923-926",
           "ruler_id": "RULER-FD-LI-CUNXU",
           "ruler_name": "李存勖",
-          "score": -9.1,
+          "score": -13.6,
           "terminal_band": "C4T-1",
           "terminal_cap": 7.9,
           "terminal_cap_applied": false,
@@ -3863,26 +3863,26 @@
             "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-FD-LI-CUNXU",
             "c4_attribution_review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-FD-LI-CUNXU"
           },
-          "attribution_readjudication_reason": "逐轴恶化归责：C1=HIGH；C2=FULL；C3=HIGH，合计恶化扣15.9分。契丹救援、潞州和邺都兵变处置主体均属必要安全战争/平乱；战败与军令失控归军事能力。重敛等已进入三轴恶化，未找到独立超大型工程，旧DA0撤销为DA0。",
+          "attribution_readjudication_reason": "建后唐S0后主动灭前蜀，出兵约六万；约七十五日即定蜀，军粮不足十日后主要就食沿途投降州镇，没有李嗣源DA2式系统本土转输。 可归责恶化扣9.1分，DA1扣4.5分。",
           "c4_attribution_readjudication": {
             "review_status": "FULLY_ADJUDICATED",
-            "basis_version": "C4-DA-RESIDUAL-COST-V5",
-            "final_grade": "DA0",
-            "final_penalty": 0.0,
-            "change_type": "CURRENT_C4_CONTRACT_SYNC",
-            "behavior_chain_basis": "DA仅结算C1—C3主态、K折损与C4恶化均未消费的本人主动残余成本；纯军队人员损失不单独计入，已被前述项目吸收的同一后果不重复扣减。",
-            "grade_boundary_basis": "当前正式逐人裁决为DA0，扣0.0分。",
+            "basis_version": "C4-DA-FULL-POOL-READJUDICATION-2026-09-03",
+            "final_grade": "DA1",
+            "final_penalty": 4.5,
+            "change_type": "FINAL_CHECKLIST_READJUDICATION",
+            "behavior_chain_basis": "建后唐S0后主动灭前蜀，出兵约六万；约七十五日即定蜀，军粮不足十日后主要就食沿途投降州镇，没有李嗣源DA2式系统本土转输。",
+            "grade_boundary_basis": "当前正式逐人裁决为DA1，扣4.5分。",
             "duplicate_control": {
               "C1_C2_C3_absorption": "C1/C2/C3结算客观状态；同一事实在已闭合S0→S_end下降及本人归责时可同时支撑C4恶化，DA不得重复扣减已吸收的主动成本。",
               "K_absorption": "K只折损C1/C2/C3主态完整度；已由K表达的终局跌幅不得再次进入DA。",
               "DA_residual_scope": "只计未被主态、K与可归责恶化消费的本人主动家庭、劳役、军粮转输、财政抽取或平民伤害成本；纯军队人员损失不单列。"
             },
-            "review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-FD-LI-CUNXU"
+            "review_ref": "C4_DA重裁_档位变动清单.md#line=56"
           },
           "public_basis_version": "C4-PUBLIC-BASIS-V3",
           "starting_context": "接手三轴为C1-3/C2-2/C3-2；交班三轴为C1-1/C2-1/C3-1。",
           "recovery_and_absorption": "恢复原值0.0；归责NONE（0%）；可归责恢复0.0/27；交班上限7.9；正向保留0.0。",
-          "behavior_and_attribution": "逐轴恶化归责：C1=HIGH；C2=FULL；C3=HIGH，合计恶化扣15.9分。契丹救援、潞州和邺都兵变处置主体均属必要安全战争/平乱；战败与军令失控归军事能力。重敛等已进入三轴恶化，未找到独立超大型工程，旧DA0撤销为DA0。",
+          "behavior_and_attribution": "建后唐S0后主动灭前蜀，出兵约六万；约七十五日即定蜀，军粮不足十日后主要就食沿途投降州镇，没有李嗣源DA2式系统本土转输。 可归责恶化扣9.1分，DA1扣4.5分。",
           "handoff_state": "交班raw为C1-1/C2-1/C3-1；终局C4T-1，正向上限7.9分。",
           "public_source_refs": [
             "docs/史料通读产物/五代十国/资治通鉴/volume-273.source-summary.md:73",
@@ -3894,7 +3894,7 @@
             "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-FD-LI-CUNXU",
             "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-FD-LI-CUNXU"
           ],
-          "public_adjudication": "按C4新合同：恢复原值0.0，归责NONE（0%），可归责恢复0.0，交班上限7.9，正向保留0.0；可归责恶化9.1；DA0残余主动成本0.0；C4=-9.1。DA已按主态、K折损和恶化的去重门复核。",
+          "public_adjudication": "按C4现行合同重裁：正向保留0.0分；可归责恶化9.1分；DA1残余主动成本4.5分；C4=-13.6分。重裁依据：建后唐S0后主动灭前蜀，出兵约六万；约七十五日即定蜀，军粮不足十日后主要就食沿途投降州镇，没有李嗣源DA2式系统本土转输。",
           "recovery_formula_version": "C4-DIFFICULTY-WEIGHTED-BOUNDARIES-V1",
           "recovery_boundary_difficulty": {
             "1_TO_2": 0.6,
@@ -3933,8 +3933,8 @@
           "uncapped_positive_score": 0.0,
           "military_cost_review": {
             "status": "FORMAL_SYNCED_CURRENT_C4_CONTRACT",
-            "final_grade": "DA0",
-            "basis": "DA仅结算C1—C3主态、K折损与C4恶化均未消费的本人主动残余成本；纯军队人员损失不单独计入，已被前述项目吸收的同一后果不重复扣减。"
+            "final_grade": "DA1",
+            "basis": "建后唐S0后主动灭前蜀，出兵约六万；约七十五日即定蜀，军粮不足十日后主要就食沿途投降州镇，没有李嗣源DA2式系统本土转输。"
           },
           "large_construction_review": {
             "status": "FORMAL_SYNCED",
@@ -3972,9 +3972,9 @@
               "original_text": "是岁大饥，百姓多流亡，租赋不办……东都仓廪空竭，无以给军士。"
             }
           ],
-          "batch_review_status": "REVIEWED_BATCH_17_2026-08-31",
-          "input_sync_status": "SYNCED_TO_LATEST_C1_C2_C3_BATCH17。",
-          "military_cost_public_basis": "契丹救援、潞州和邺都兵变处置主体均属必要安全战争/平乱；战败与军令失控归军事能力。重敛等已进入三轴恶化，未找到独立超大型工程，旧DA0撤销为DA0。",
+          "batch_review_status": "FORMAL_C4_DA_READJUDICATED_2026-09-03",
+          "input_sync_status": "CURRENT_C1_C2_C3_AND_FINAL_DA_CHECKLIST",
+          "military_cost_public_basis": "建后唐S0后主动灭前蜀，出兵约六万；约七十五日即定蜀，军粮不足十日后主要就食沿途投降州镇，没有李嗣源DA2式系统本土转输。",
           "large_construction_public_basis": "未发现需要单独进入C4的大型可选择营造；普通修缮与小工程跳过。",
           "typical_pattern": {
             "status": "STRUCTURED_C4_FORMAL",

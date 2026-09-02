@@ -4,12 +4,12 @@
   "collections": {
     "records": {
       "positions": [
-        63,
+        66,
         76,
-        91,
-        138,
-        139,
+        92,
         140,
+        141,
+        142,
         171,
         172
       ],
@@ -41,7 +41,7 @@
             },
             "C4": {
               "band": "C4-2",
-              "score": 10.4
+              "score": -4.1
             }
           },
           "absolute_state_tier": 3,
@@ -116,34 +116,38 @@
             },
             "six_band_main_state": false,
             "deterioration_penalty": 0.0,
-            "destructive_amplification_penalty": 9.0,
+            "destructive_amplification_penalty": 13.5,
             "upstream_sync": {
-              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_01",
+              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_03",
               "source_refs": [
                 "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-YUAN-OGEDEI",
                 "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-YUAN-OGEDEI",
                 "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-YUAN-OGEDEI",
                 "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-YUAN-OGEDEI"
-              ]
+              ],
+              "k_source": "DIRECT_FORMAL_C1_C2_C3_DIAGNOSTIC",
+              "c4_source_scope": "RECOVERY_DETERIORATION_DA_ONLY"
             },
-            "destructive_amplification_grade": "DA2",
+            "destructive_amplification_grade": "DA3",
             "stability_k_basis": {
               "C1": {
                 "K_grade": "K2",
-                "factor": 0.6
+                "source_axis": "C1",
+                "source_field": "stability_class_diagnostic_only"
               },
               "C2": {
                 "K_grade": "K0",
-                "factor": 0.0
+                "source_axis": "C2",
+                "source_field": "stability_class_diagnostic_only"
               },
               "C3": {
                 "K_grade": "K4",
-                "factor": 1.0
+                "source_axis": "C3",
+                "source_field": "stability_class_diagnostic_only"
               }
             },
-            "weighted_K": 0.6,
-            "stability_k_structure_status": "STRUCTURED_C4_FORMAL",
-            "stability_k_public_basis": "C1跨2→3，C2跨2→4，C3跨1→2；C1恢复后仍有岁饥、重债与课税加码形成实质低谷，K2；C2由中段四档在末期退回三档，K0；C3一档起点及恢复过程不压K，恢复后未另见一档低谷，K4。 按新合同跨档难度加权为0.94，恢复分9.4/27；K加权系数0.60，稳定raw 10.8，经终局约束后稳定分10.0。终局3/3/2的terminal_quality=2.70，对应C4T-3、正向上限24.9，故正向保留19.4。"
+            "stability_k_structure_status": "DIRECT_FORMAL_C1_C3",
+            "stability_k_public_basis": "当前C1—C3正式K为C1=K2、C2=K0、C3=K4；K不进入C4分。M3稳定兑现分10.0/18为本轴逐人裁决值。"
           },
           "dynamic_class": "LIMITED_OR_MIXED_MAINTENANCE",
           "dynamic_label": "维持有限且正负并存",
@@ -153,14 +157,14 @@
           "output_mode": "BOUNDED_PROFILE",
           "score_status": "FINAL",
           "formal_status": "FORMAL_CURRENT",
-          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[2, 2, 1]、[3, 4, 2]、[3, 4, 2]、[3, 3, 2]；恢复9.4/27，稳定10.0/18；恶化扣减0.0，主动成本DA2/9.0。正式逐人裁决为G3-HIGH。",
-          "counterpattern": "按接手到交班的净遗产口径，三轴均未低于接手锚点；任内峰值回落只进入稳定、回落和保留度，不再重复计入C4恶化。 1240—1241对宋为国家级多战区主动进攻，战争本身可选择；无F3/F4故不升DA3，裁DA2。 未发现需要在军事DA之外独立计入的大型可选择营造。 可归责恶化扣0.0，DA2扣9.0分。",
-          "starting_context": "窝阔台最新输入更新为民生二档、经济财政二档、社会安全一档；曲线为C1二档→三档→三档、C2二档→四档→三档、C3一档→二档→二档。先前裁决低估了C2中段四档。",
-          "construction_and_maintenance": "按正式档界公式重算恢复分9.4/27；稳定承压按当前K结构计10.0/18，未把恢复信用并入稳定分；正向保留19.4。",
-          "costs_and_consequences": "交班局面为[3, 3, 2]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA2，扣减9.0。",
-          "behavior_chain": "按接手到交班的净遗产口径，三轴均未低于接手锚点；任内峰值回落只进入稳定、回落和保留度，不再重复计入C4恶化。 1240—1241对宋为国家级多战区主动进攻，战争本身可选择；无F3/F4故不升DA3，裁DA2。 未发现需要在军事DA之外独立计入的大型可选择营造。 可归责恶化扣0.0，DA2扣9.0分。",
-          "handoff_state": "按交班向量[3, 3, 2]推导终局为C4T-3，正向上限24.9。",
-          "public_adjudication": "窝阔台最新输入校正为民生二档、经济财政二档、社会安全一档；曲线为C1二档→三档→三档、C2二档→四档→三档、C3一档→二档→二档。原C4低估了C2中段四档。 C1跨2→3，C2跨2→4，C3跨1→2；C1恢复后仍有岁饥、重债与课税加码形成实质低谷，K2；C2由中段四档在末期退回三档，K0；C3一档起点及恢复过程不压K，恢复后未另见一档低谷，K4。 按新规则跨档难度加权为0.94，恢复分9.4；K加权系数0.60，稳定原始 10.8，经终局约束后稳定分10.0。终局3/3/2的终局质量=2.70，对应C4T-3、正向上限24.9，故正向保留19.4。 C2四档→三档由本人批准课税扑买加码直接闭合：课银由一百一十万两再增至二百二十万两，耶律楚材强谏而帝仍称“姑令试行之”，故FULL归责。军事登记C5低位由1240—1241对宋国家级多战区主动进攻准入；这是在灭金后继续向宋扩大征服的可选择战争，国家级多方向M5成本已达显著档，裁DA2。未发现另需计入的大型营造。 可归责恶化扣2.7，DA2扣9.0分。 交班原始锚点为民生3档、经济财政3档、社会安全2档；终局层级C4T-3，正向上限24.9。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G3。 当前档内位置为HIGH；不以结构字段自动替代逐人语义裁决。",
+          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[2, 2, 1]、[3, 4, 2]、[3, 4, 2]、[3, 3, 2]；恢复9.4/27，稳定10.0/18；恶化扣减0.0，主动成本DA3/13.5。正式逐人裁决为G3-HIGH。",
+          "counterpattern": "C4残余主动成本已正式裁为DA3；M3不重裁该档，仅在逐人能力裁决中消费其限制。",
+          "starting_context": "当前C1—C3正式曲线：接手[2, 2, 1]、主态[3, 4, 2]、最高实现[3, 4, 2]、交班[3, 3, 2]。",
+          "construction_and_maintenance": "按正式档界公式重算恢复分9.4/27；直接读取C1—C3正式K（C1=K2、C2=K0、C3=K4）复核稳定兑现，M3逐人裁决稳定分为10.0/18；K与该稳定判断均不回写C4分。",
+          "costs_and_consequences": "交班局面为[3, 3, 2]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA3，扣减13.5。",
+          "behavior_chain": "行为链：金、宋、西征长期多战区动员 + 和林/万安宫等连续新建。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣0.0分，最终DA3扣13.5分。",
+          "handoff_state": "按交班向量[3, 3, 2]推导C4终局标签为C4T-3；M3单独读取交班保留，不把稳定分回写C4。",
+          "public_adjudication": "当前C1—C3正式曲线：接手[2, 2, 1]、主态[3, 4, 2]、最高实现[3, 4, 2]、交班[3, 3, 2]。 按正式档界公式重算恢复分9.4/27；直接读取C1—C3正式K（C1=K2、C2=K0、C3=K4）复核稳定兑现，M3逐人裁决稳定分为10.0/18；K与该稳定判断均不回写C4分。 行为链：金、宋、西征长期多战区动员 + 和林/万安宫等连续新建。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣0.0分，最终DA3扣13.5分。 交班局面为[3, 3, 2]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA3，扣减13.5。 按交班向量[3, 3, 2]推导C4终局标签为C4T-3；M3单独读取交班保留，不把稳定分回写C4。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G3。 当前档内位置为HIGH；不以结构字段自动替代逐人语义裁决。",
           "grade_basis": "依据当前C1—C4结构字段与逐人语义裁决，正式档位为G3。",
           "position_basis": "当前档内位置为HIGH；不以结构字段自动替代逐人语义裁决。",
           "axis_relevance_check": {
@@ -310,7 +314,7 @@
             },
             "C4": {
               "band": "C4N-1",
-              "score": -3.7
+              "score": -11.1
             }
           },
           "absolute_state_tier": 3,
@@ -384,35 +388,39 @@
               "supporting_formal_fields": []
             },
             "six_band_main_state": false,
-            "deterioration_penalty": 0.7,
+            "deterioration_penalty": 0.0,
             "destructive_amplification_penalty": 13.5,
             "upstream_sync": {
-              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_01",
+              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_03",
               "source_refs": [
                 "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-YUAN-KUBLAI",
                 "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-YUAN-KUBLAI",
                 "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-YUAN-KUBLAI",
                 "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-YUAN-KUBLAI"
-              ]
+              ],
+              "k_source": "DIRECT_FORMAL_C1_C2_C3_DIAGNOSTIC",
+              "c4_source_scope": "RECOVERY_DETERIORATION_DA_ONLY"
             },
             "destructive_amplification_grade": "DA3",
             "stability_k_basis": {
               "C1": {
                 "K_grade": "K1",
-                "factor": 0.2
+                "source_axis": "C1",
+                "source_field": "stability_class_diagnostic_only"
               },
               "C2": {
                 "K_grade": "K0",
-                "factor": 0.0
+                "source_axis": "C2",
+                "source_field": "stability_class_diagnostic_only"
               },
               "C3": {
                 "K_grade": "K4",
-                "factor": 1.0
+                "source_axis": "C3",
+                "source_field": "stability_class_diagnostic_only"
               }
             },
-            "weighted_K": 0.45,
-            "stability_k_structure_status": "STRUCTURED_C4_FORMAL",
-            "stability_k_public_basis": "C3由二档恢复到三档，领取2→3恢复信用；C1至元末跨华北、江南连续饥困形成K1；C2长期入不敷出并以二档交班取K0；C3恢复后取K4。C2下降除战争外还有货币/财政过度扩张等本人政策因素，取LIMITED，避免与DA中的远征成本重复。 按跨档难度计，恢复分2.4/27；weighted_K=0.45，稳定分8.1；正向保留10.5。"
+            "stability_k_structure_status": "DIRECT_FORMAL_C1_C3",
+            "stability_k_public_basis": "当前C1—C3正式K为C1=K1、C2=K0、C3=K4；K不进入C4分。M3稳定兑现分8.1/18为本轴逐人裁决值。"
           },
           "dynamic_class": "ATTRIBUTABLE_OR_MIXED_DECLINE",
           "dynamic_label": "出现可归责或混合性退步",
@@ -422,14 +430,14 @@
           "output_mode": "BOUNDED_PROFILE",
           "score_status": "FINAL",
           "formal_status": "FORMAL_CURRENT",
-          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[3, 3, 2]、[3, 3, 3]、[3, 3, 3]、[3, 2, 3]；恢复2.4/27，稳定8.1/18；恶化扣减0.7，主动成本DA3/13.5。正式逐人裁决为G3-MID。",
-          "counterpattern": "安南两次、日本、缅甸、占城、爪哇等多方向远征均由本人最高授权，战争本身具有明显可选择扩张性质；现成登记C6高位，并含日本国家级主力灾难与反复远征。风暴、疾病不作为额外归责加码，但累计主动国家成本仍足DA3。 可归责恶化扣0.7分，DA3扣13.5分。",
-          "starting_context": "接手时民生与财政为三档、社会安全二档；最新三轴为C1 3→3→3、C2 3→3→2、C3 2→3→3。",
-          "construction_and_maintenance": "按正式档界公式重算恢复分2.4/27；稳定承压按当前K结构计8.1/18，未把恢复信用并入稳定分；正向保留10.5。",
-          "costs_and_consequences": "交班局面为[3, 2, 3]；可归责恶化扣减0.7；本人可选择行为的残余额外成本为DA3，扣减13.5。",
-          "behavior_chain": "安南两次、日本、缅甸、占城、爪哇等多方向远征均由本人最高授权，战争本身具有明显可选择扩张性质；现成登记C6高位，并含日本国家级主力灾难与反复远征。风暴、疾病不作为额外归责加码，但累计主动国家成本仍足DA3。 可归责恶化扣0.7分，DA3扣13.5分。",
-          "handoff_state": "按交班向量[3, 2, 3]推导终局为C4T-3，正向上限24.9。",
-          "public_adjudication": "接手时民生与财政为三档、社会安全二档；最新三轴为C1 3→3→3、C2 3→3→2、C3 2→3→3。 C3由二档恢复到三档，领取2→3恢复信用；C1至元末跨华北、江南连续饥困形成K1；C2长期入不敷出并以二档交班取K0；C3恢复后取K4。C2下降除战争外还有货币/财政过度扩张等本人政策因素，取LIMITED，避免与DA中的远征成本重复。 按跨档难度计，恢复分2.4；weighted_K=0.45，稳定分8.1；正向保留10.5。 安南两次、日本、缅甸、占城、爪哇等多方向远征均由本人最高授权，战争本身具有明显可选择扩张性质；现成登记C6高位，并含日本国家级主力灾难与反复远征。风暴、疾病不作为额外归责加码，但累计主动国家成本仍足DA3。 可归责恶化扣0.7分，DA3扣13.5分。 交班原始为C1-3/C2-2/C3-3；终局C4T-3，正向上限24.9。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G3。 当前档内位置为MID；不以结构字段自动替代逐人语义裁决。",
+          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[3, 3, 2]、[3, 3, 3]、[3, 3, 3]、[3, 2, 3]；恢复2.4/27，稳定8.1/18；恶化扣减0.0，主动成本DA3/13.5。正式逐人裁决为G3-MID。",
+          "counterpattern": "C4残余主动成本已正式裁为DA3；M3不重裁该档，仅在逐人能力裁决中消费其限制。",
+          "starting_context": "当前C1—C3正式曲线：接手[3, 3, 2]、主态[3, 3, 3]、最高实现[3, 3, 3]、交班[3, 2, 3]。",
+          "construction_and_maintenance": "按正式档界公式重算恢复分2.4/27；直接读取C1—C3正式K（C1=K1、C2=K0、C3=K4）复核稳定兑现，M3逐人裁决稳定分为8.1/18；K与该稳定判断均不回写C4分。",
+          "costs_and_consequences": "交班局面为[3, 2, 3]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA3，扣减13.5。",
+          "behavior_chain": "行为链：日本、安南、缅甸、爪哇等长期多方向远征 + 新建元大都多年工程。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣0.0分，最终DA3扣13.5分。",
+          "handoff_state": "按交班向量[3, 2, 3]推导C4终局标签为C4T-3；M3单独读取交班保留，不把稳定分回写C4。",
+          "public_adjudication": "当前C1—C3正式曲线：接手[3, 3, 2]、主态[3, 3, 3]、最高实现[3, 3, 3]、交班[3, 2, 3]。 按正式档界公式重算恢复分2.4/27；直接读取C1—C3正式K（C1=K1、C2=K0、C3=K4）复核稳定兑现，M3逐人裁决稳定分为8.1/18；K与该稳定判断均不回写C4分。 行为链：日本、安南、缅甸、爪哇等长期多方向远征 + 新建元大都多年工程。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣0.0分，最终DA3扣13.5分。 交班局面为[3, 2, 3]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA3，扣减13.5。 按交班向量[3, 2, 3]推导C4终局标签为C4T-3；M3单独读取交班保留，不把稳定分回写C4。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G3。 当前档内位置为MID；不以结构字段自动替代逐人语义裁决。",
           "grade_basis": "依据当前C1—C4结构字段与逐人语义裁决，正式档位为G3。",
           "position_basis": "当前档内位置为MID；不以结构字段自动替代逐人语义裁决。",
           "axis_relevance_check": {
@@ -541,7 +549,7 @@
             },
             "C4": {
               "band": "C4-2",
-              "score": 10.0
+              "score": 0.0
             }
           },
           "absolute_state_tier": 3,
@@ -618,32 +626,36 @@
             "deterioration_penalty": 0.0,
             "destructive_amplification_penalty": 0.0,
             "upstream_sync": {
-              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_01",
+              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_03",
               "source_refs": [
                 "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-YUAN-TEMUR",
                 "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-YUAN-TEMUR",
                 "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-YUAN-TEMUR",
                 "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-YUAN-TEMUR"
-              ]
+              ],
+              "k_source": "DIRECT_FORMAL_C1_C2_C3_DIAGNOSTIC",
+              "c4_source_scope": "RECOVERY_DETERIORATION_DA_ONLY"
             },
             "destructive_amplification_grade": "DA0",
             "stability_k_basis": {
               "C1": {
                 "K_grade": "K2",
-                "factor": 0.6
+                "source_axis": "C1",
+                "source_field": "stability_class_diagnostic_only"
               },
               "C2": {
                 "K_grade": "K4",
-                "factor": 1.0
+                "source_axis": "C2",
+                "source_field": "stability_class_diagnostic_only"
               },
               "C3": {
                 "K_grade": "K4",
-                "factor": 1.0
+                "source_axis": "C3",
+                "source_field": "stability_class_diagnostic_only"
               }
             },
-            "weighted_K": 0.8,
-            "stability_k_structure_status": "STRUCTURED_C4_FORMAL",
-            "stability_k_public_basis": "三轴均无跨档恢复。C1多次跨区域饥荒形成K2；C2主态本已是财政脆弱二档，未确认另有独立跌入一档的阶段，K4；C3基本秩序维持且未识别独立低谷，K4。 按新合同跨档难度加权为0.00，恢复分0.0/27；K加权系数0.80，稳定raw 14.4，经终局约束后稳定分10.0。终局3/2/3的terminal_quality=2.80，对应C4T-3、正向上限24.9，故正向保留10.0。"
+            "stability_k_structure_status": "DIRECT_FORMAL_C1_C3",
+            "stability_k_public_basis": "当前C1—C3正式K为C1=K2、C2=K4、C3=K4；K不进入C4分。M3稳定兑现分10.0/18为本轴逐人裁决值。"
           },
           "dynamic_class": "POSITIVE_MAINTENANCE",
           "dynamic_label": "实现正向守成或温和改善",
@@ -654,13 +666,13 @@
           "score_status": "FINAL",
           "formal_status": "FORMAL_CURRENT",
           "typical_pattern": "三轴起点、主态、最高实现、交班分别为[3, 2, 3]、[3, 2, 3]、[3, 2, 3]、[3, 2, 3]；恢复0.0/27，稳定10.0/18；恶化扣减0.0，主动成本DA0/0.0。正式逐人裁决为G2-HIGH。",
-          "counterpattern": "终局无档差恶化。军事登记C5低位主要由1301—1303蛇节叛乱三年多路官军与二十余万输粮者构成，但这是对已经形成的乌撒、乌蒙、东川、芒部等多区域叛乱的必要平定。其成本可以压状态/K，却不能因动员巨大自动转DA；未闭合脱离平乱目标的可选择战争增量，DA0。 可归责恶化扣0.0，DA0扣0.0分。",
-          "starting_context": "铁穆耳最新输入更新为民生三档、经济财政二档、社会安全三档，三轴全任均保持相应档位。先前裁决的C2三档已更新降为二档。",
-          "construction_and_maintenance": "按正式档界公式重算恢复分0.0/27；稳定承压按当前K结构计10.0/18，未把恢复信用并入稳定分；正向保留10.0。",
+          "counterpattern": "C4残余主动成本已正式裁为DA0；M3不重裁该档，仅在逐人能力裁决中消费其限制。",
+          "starting_context": "当前C1—C3正式曲线：接手[3, 2, 3]、主态[3, 2, 3]、最高实现[3, 2, 3]、交班[3, 2, 3]。",
+          "construction_and_maintenance": "按正式档界公式重算恢复分0.0/27；直接读取C1—C3正式K（C1=K2、C2=K4、C3=K4）复核稳定兑现，M3逐人裁决稳定分为10.0/18；K与该稳定判断均不回写C4分。",
           "costs_and_consequences": "交班局面为[3, 2, 3]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA0，扣减0.0。",
-          "behavior_chain": "终局无档差恶化。军事登记C5低位主要由1301—1303蛇节叛乱三年多路官军与二十余万输粮者构成，但这是对已经形成的乌撒、乌蒙、东川、芒部等多区域叛乱的必要平定。其成本可以压状态/K，却不能因动员巨大自动转DA；未闭合脱离平乱目标的可选择战争增量，DA0。 可归责恶化扣0.0，DA0扣0.0分。",
-          "handoff_state": "按交班向量[3, 2, 3]推导终局为C4T-3，正向上限24.9。",
-          "public_adjudication": "铁穆耳最新输入校正为民生三档、经济财政二档、社会安全三档，三轴全任均保持相应档位。原C4的C2三档已校正降为二档。 三轴均无跨档恢复。C1多次跨区域饥荒形成K2；C2主态本已是财政脆弱二档，未确认另有独立跌入一档的阶段，K4；C3基本秩序维持且未识别独立低谷，K4。 按新规则跨档难度加权为0.00，恢复分0.0；K加权系数0.80，稳定原始 14.4，经终局约束后稳定分10.0。终局3/2/3的终局质量=2.80，对应C4T-3、正向上限24.9，故正向保留10.0。 终局无档差恶化。军事登记C5低位主要由1301—1303蛇节叛乱三年多路官军与二十余万输粮者构成，但这是对已经形成的乌撒、乌蒙、东川、芒部等多区域叛乱的必要平定。其成本可以压状态/K，却不能因动员巨大自动转DA；未闭合脱离平乱目标的可选择战争增量，DA0。 可归责恶化扣0.0，DA0扣0.0分。 交班原始锚点为民生3档、经济财政2档、社会安全3档；终局层级C4T-3，正向上限24.9。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G2。 当前档内位置为HIGH；不以结构字段自动替代逐人语义裁决。",
+          "behavior_chain": "高成本主要来自蛇节等西南三年多路平乱与远程转输，属于必要平乱。 可归责恶化扣0.0分，DA0扣0.0分。",
+          "handoff_state": "按交班向量[3, 2, 3]推导C4终局标签为C4T-3；M3单独读取交班保留，不把稳定分回写C4。",
+          "public_adjudication": "当前C1—C3正式曲线：接手[3, 2, 3]、主态[3, 2, 3]、最高实现[3, 2, 3]、交班[3, 2, 3]。 按正式档界公式重算恢复分0.0/27；直接读取C1—C3正式K（C1=K2、C2=K4、C3=K4）复核稳定兑现，M3逐人裁决稳定分为10.0/18；K与该稳定判断均不回写C4分。 高成本主要来自蛇节等西南三年多路平乱与远程转输，属于必要平乱。 可归责恶化扣0.0分，DA0扣0.0分。 交班局面为[3, 2, 3]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA0，扣减0.0。 按交班向量[3, 2, 3]推导C4终局标签为C4T-3；M3单独读取交班保留，不把稳定分回写C4。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G2。 当前档内位置为HIGH；不以结构字段自动替代逐人语义裁决。",
           "grade_basis": "依据当前C1—C4结构字段与逐人语义裁决，正式档位为G2。",
           "position_basis": "当前档内位置为HIGH；不以结构字段自动替代逐人语义裁决。",
           "axis_relevance_check": {
@@ -800,7 +812,7 @@
             },
             "C4": {
               "band": "C4-2",
-              "score": 9.4
+              "score": 3.0
             }
           },
           "absolute_state_tier": 2,
@@ -877,32 +889,36 @@
             "deterioration_penalty": 0.0,
             "destructive_amplification_penalty": 0.0,
             "upstream_sync": {
-              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_01",
+              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_03",
               "source_refs": [
                 "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-YUAN-AYURBARWADA",
                 "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-YUAN-AYURBARWADA",
                 "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-YUAN-AYURBARWADA",
                 "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-YUAN-AYURBARWADA"
-              ]
+              ],
+              "k_source": "DIRECT_FORMAL_C1_C2_C3_DIAGNOSTIC",
+              "c4_source_scope": "RECOVERY_DETERIORATION_DA_ONLY"
             },
             "destructive_amplification_grade": "DA0",
             "stability_k_basis": {
               "C1": {
                 "K_grade": "K4",
-                "factor": 1.0
+                "source_axis": "C1",
+                "source_field": "stability_class_diagnostic_only"
               },
               "C2": {
                 "K_grade": "K4",
-                "factor": 1.0
+                "source_axis": "C2",
+                "source_field": "stability_class_diagnostic_only"
               },
               "C3": {
                 "K_grade": "K4",
-                "factor": 1.0
+                "source_axis": "C3",
+                "source_field": "stability_class_diagnostic_only"
               }
             },
-            "weighted_K": 1.0,
-            "stability_k_structure_status": "STRUCTURED_C4_FORMAL",
-            "stability_k_public_basis": "C1跨1→2；该一档属于接手低位及恢复过程，恢复后未独立确认再次跌回一档，故C1 K4；C2、C3也未确认低于主态的独立阶段，均K4。 按新合同跨档难度加权为0.30，恢复分3.0/27；K加权系数1.00，稳定raw 18.0，经终局约束后稳定分6.4。终局2/2/3的terminal_quality=2.30，对应C4T-2、正向上限15.9，故正向保留9.4。"
+            "stability_k_structure_status": "DIRECT_FORMAL_C1_C3",
+            "stability_k_public_basis": "当前C1—C3正式K为C1=K4、C2=K4、C3=K4；K不进入C4分。M3稳定兑现分6.4/18为本轴逐人裁决值。"
           },
           "dynamic_class": "POSITIVE_MAINTENANCE",
           "dynamic_label": "实现正向守成或温和改善",
@@ -913,13 +929,13 @@
           "score_status": "FINAL",
           "formal_status": "FORMAL_CURRENT",
           "typical_pattern": "三轴起点、主态、最高实现、交班分别为[1, 2, 3]、[2, 2, 3]、[2, 2, 3]、[2, 2, 3]；恢复3.0/27，稳定6.4/18；恶化扣减0.0，主动成本DA0/0.0。正式逐人裁决为G1-MID。",
-          "counterpattern": "终局无档差恶化。军事登记C4下界低位来自蔡五九等区域平乱的两轮动员，属于对已经形成叛乱的必要安全处置，不转DA。括田苛扰已经用于C1/C2绝对状态与K，避免重复以同一后果做DA；同时本人曾“凡营缮悉罢之”，未见大型营造成本，DA0。 可归责恶化扣0.0，DA0扣0.0分。",
-          "starting_context": "爱育黎拔力八达最新输入更新为民生一档、经济财政二档、社会安全三档；曲线为C1一档→二档→二档、C2二档→二档→二档、C3三档→三档→三档。先前裁决的C1二档起点已更新降为一档。",
-          "construction_and_maintenance": "按正式档界公式重算恢复分3.0/27；稳定承压按当前K结构计6.4/18，未把恢复信用并入稳定分；正向保留9.4。",
+          "counterpattern": "C4残余主动成本已正式裁为DA0；M3不重裁该档，仅在逐人能力裁决中消费其限制。",
+          "starting_context": "当前C1—C3正式曲线：接手[1, 2, 3]、主态[2, 2, 3]、最高实现[2, 2, 3]、交班[2, 2, 3]。",
+          "construction_and_maintenance": "按正式档界公式重算恢复分3.0/27；直接读取C1—C3正式K（C1=K4、C2=K4、C3=K4）复核稳定兑现，M3逐人裁决稳定分为6.4/18；K与该稳定判断均不回写C4分。",
           "costs_and_consequences": "交班局面为[2, 2, 3]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA0，扣减0.0。",
-          "behavior_chain": "终局无档差恶化。军事登记C4下界低位来自蔡五九等区域平乱的两轮动员，属于对已经形成叛乱的必要安全处置，不转DA。括田苛扰已经用于C1/C2绝对状态与K，避免重复以同一后果做DA；同时本人曾“凡营缮悉罢之”，未见大型营造成本，DA0。 可归责恶化扣0.0，DA0扣0.0分。",
-          "handoff_state": "按交班向量[2, 2, 3]推导终局为C4T-2，正向上限15.9。",
-          "public_adjudication": "爱育黎拔力八达最新输入校正为民生一档、经济财政二档、社会安全三档；曲线为C1一档→二档→二档、C2二档→二档→二档、C3三档→三档→三档。原C4的C1二档起点已校正降为一档。 C1跨1→2；该一档属于接手低位及恢复过程，恢复后未独立确认再次跌回一档，故C1 K4；C2、C3也未确认低于主态的独立阶段，均K4。 按新规则跨档难度加权为0.30，恢复分3.0；K加权系数1.00，稳定原始 18.0，经终局约束后稳定分6.4。终局2/2/3的终局质量=2.30，对应C4T-2、正向上限15.9，故正向保留9.4。 终局无档差恶化。军事登记C4下界低位来自蔡五九等区域平乱的两轮动员，属于对已经形成叛乱的必要安全处置，不转DA。括田苛扰已经用于C1/C2绝对状态与K，避免重复以同一后果做DA；同时本人曾“凡营缮悉罢之”，未见大型营造成本，DA0。 可归责恶化扣0.0，DA0扣0.0分。 交班原始锚点为民生2档、经济财政2档、社会安全3档；终局层级C4T-2，正向上限15.9。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G1。 当前档内位置为MID；不以结构字段自动替代逐人语义裁决。",
+          "behavior_chain": "对外仅局部边寇处置，主要高成本来自内部区域危机；无大型主动额外成本。 可归责恶化扣0.0分，DA0扣0.0分。",
+          "handoff_state": "按交班向量[2, 2, 3]推导C4终局标签为C4T-2；M3单独读取交班保留，不把稳定分回写C4。",
+          "public_adjudication": "当前C1—C3正式曲线：接手[1, 2, 3]、主态[2, 2, 3]、最高实现[2, 2, 3]、交班[2, 2, 3]。 按正式档界公式重算恢复分3.0/27；直接读取C1—C3正式K（C1=K4、C2=K4、C3=K4）复核稳定兑现，M3逐人裁决稳定分为6.4/18；K与该稳定判断均不回写C4分。 对外仅局部边寇处置，主要高成本来自内部区域危机；无大型主动额外成本。 可归责恶化扣0.0分，DA0扣0.0分。 交班局面为[2, 2, 3]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA0，扣减0.0。 按交班向量[2, 2, 3]推导C4终局标签为C4T-2；M3单独读取交班保留，不把稳定分回写C4。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G1。 当前档内位置为MID；不以结构字段自动替代逐人语义裁决。",
           "grade_basis": "依据当前C1—C4结构字段与逐人语义裁决，正式档位为G1。",
           "position_basis": "当前档内位置为MID；不以结构字段自动替代逐人语义裁决。",
           "axis_relevance_check": {
@@ -1068,7 +1084,7 @@
             },
             "C4": {
               "band": "C4-1",
-              "score": 3.0
+              "score": -11.9
             }
           },
           "absolute_state_tier": 2,
@@ -1142,35 +1158,39 @@
               "supporting_formal_fields": []
             },
             "six_band_main_state": false,
-            "deterioration_penalty": 3.4,
-            "destructive_amplification_penalty": 0.0,
+            "deterioration_penalty": 2.9,
+            "destructive_amplification_penalty": 9.0,
             "upstream_sync": {
-              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_01",
+              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_03",
               "source_refs": [
                 "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-YUAN-KULUG",
                 "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-YUAN-KULUG",
                 "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-YUAN-KULUG",
                 "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-YUAN-KULUG"
-              ]
+              ],
+              "k_source": "DIRECT_FORMAL_C1_C2_C3_DIAGNOSTIC",
+              "c4_source_scope": "RECOVERY_DETERIORATION_DA_ONLY"
             },
-            "destructive_amplification_grade": "DA0",
+            "destructive_amplification_grade": "DA2",
             "stability_k_basis": {
               "C1": {
                 "K_grade": "K4",
-                "factor": 1.0
+                "source_axis": "C1",
+                "source_field": "stability_class_diagnostic_only"
               },
               "C2": {
                 "K_grade": "K4",
-                "factor": 1.0
+                "source_axis": "C2",
+                "source_field": "stability_class_diagnostic_only"
               },
               "C3": {
                 "K_grade": "K4",
-                "factor": 1.0
+                "source_axis": "C3",
+                "source_field": "stability_class_diagnostic_only"
               }
             },
-            "weighted_K": 1.0,
-            "stability_k_structure_status": "STRUCTURED_C4_FORMAL",
-            "stability_k_public_basis": "恢复分0.0/27；稳定承压6.4/18；C1=K4；C2=K4；C3=K4；正向保留6.4分。恢复事实按raw，C1恢复难度按formal复杂度门折算。"
+            "stability_k_structure_status": "DIRECT_FORMAL_C1_C3",
+            "stability_k_public_basis": "当前C1—C3正式K为C1=K4、C2=K4、C3=K4；K不进入C4分。M3稳定兑现分6.4/18为本轴逐人裁决值。"
           },
           "dynamic_class": "ATTRIBUTABLE_OR_MIXED_DECLINE",
           "dynamic_label": "出现可归责或混合性退步",
@@ -1180,14 +1200,14 @@
           "output_mode": "BOUNDED_PROFILE",
           "score_status": "FINAL",
           "formal_status": "FORMAL_CURRENT",
-          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[3, 2, 3]、[1, 2, 3]、[1, 2, 3]、[1, 2, 3]；恢复0.0/27，稳定6.4/18；恶化扣减3.4，主动成本DA0/0.0。正式逐人裁决为G1-MID。",
-          "counterpattern": "逐轴恶化归责：C1=LIMITED；C2=NONE；C3=NONE，合计恶化扣3.4分。灾荒与财政脆弱已由C1/C2及恶化归责计入；现成军事登记无足以独立成立的可选择高成本链，也未识别超大型本人营造，DA0。",
-          "starting_context": "接手三轴起点为C1-3/C2-2/C3-3；最新全任曲线为C1-3→C1-1→C1-1；C2-2→C2-2→C2-2；C3-3→C3-3→C3-3。",
-          "construction_and_maintenance": "按正式档界公式重算恢复分0.0/27；稳定承压按当前K结构计6.4/18，未把恢复信用并入稳定分；正向保留6.4。",
-          "costs_and_consequences": "交班局面为[1, 2, 3]；可归责恶化扣减3.4；本人可选择行为的残余额外成本为DA0，扣减0.0。",
-          "behavior_chain": "逐轴恶化归责：C1=LIMITED；C2=NONE；C3=NONE，合计恶化扣3.4分。灾荒与财政脆弱已由C1/C2及恶化归责计入；现成军事登记无足以独立成立的可选择高成本链，也未识别超大型本人营造，DA0。",
-          "handoff_state": "按交班向量[1, 2, 3]推导终局为C4T-2，正向上限15.9。",
-          "public_adjudication": "接手三轴起点为C1-3/C2-2/C3-3；最新全任曲线为C1-3→C1-1→C1-1；C2-2→C2-2→C2-2；C3-3→C3-3→C3-3。 恢复分0.0/27；稳定承压6.4/18；C1=K4；C2=K4；C3=K4；正向保留6.4分。恢复事实按原始，C1恢复难度按正式复杂度门折算。 逐轴恶化归责：C1=LIMITED；C2=NONE；C3=NONE，合计恶化扣3.4分。灾荒与财政脆弱已由C1/C2及恶化归责计入；现成军事登记无足以独立成立的可选择高成本链，也未识别超大型本人营造，DA0。 交班原始为C1-1/C2-2/C3-3；终局C4T-2，正向上限15.9分。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G1。 当前档内位置为MID；不以结构字段自动替代逐人语义裁决。",
+          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[3, 2, 3]、[1, 2, 3]、[1, 2, 3]、[1, 2, 3]；恢复0.0/27，稳定6.4/18；恶化扣减2.9，主动成本DA2/9.0。正式逐人裁决为G1-MID。",
+          "counterpattern": "C4残余主动成本已正式裁为DA2；M3不重裁该档，仅在逐人能力裁决中消费其限制。",
+          "starting_context": "当前C1—C3正式曲线：接手[3, 2, 3]、主态[1, 2, 3]、最高实现[1, 2, 3]、交班[1, 2, 3]。",
+          "construction_and_maintenance": "按正式档界公式重算恢复分0.0/27；直接读取C1—C3正式K（C1=K4、C2=K4、C3=K4）复核稳定兑现，M3逐人裁决稳定分为6.4/18；K与该稳定判断均不回写C4分。",
+          "costs_and_consequences": "交班局面为[1, 2, 3]；可归责恶化扣减2.9；本人可选择行为的残余额外成本为DA2，扣减9.0。",
+          "behavior_chain": "行为链：兴圣宫给钞5万锭、丝2万斤；灾蝗农忙期仍优先完皇城角楼，另有大型寺役。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣2.9分，最终DA2扣9.0分。",
+          "handoff_state": "按交班向量[1, 2, 3]推导C4终局标签为C4T-2；M3单独读取交班保留，不把稳定分回写C4。",
+          "public_adjudication": "当前C1—C3正式曲线：接手[3, 2, 3]、主态[1, 2, 3]、最高实现[1, 2, 3]、交班[1, 2, 3]。 按正式档界公式重算恢复分0.0/27；直接读取C1—C3正式K（C1=K4、C2=K4、C3=K4）复核稳定兑现，M3逐人裁决稳定分为6.4/18；K与该稳定判断均不回写C4分。 行为链：兴圣宫给钞5万锭、丝2万斤；灾蝗农忙期仍优先完皇城角楼，另有大型寺役。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣2.9分，最终DA2扣9.0分。 交班局面为[1, 2, 3]；可归责恶化扣减2.9；本人可选择行为的残余额外成本为DA2，扣减9.0。 按交班向量[1, 2, 3]推导C4终局标签为C4T-2；M3单独读取交班保留，不把稳定分回写C4。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G1。 当前档内位置为MID；不以结构字段自动替代逐人语义裁决。",
           "grade_basis": "依据当前C1—C4结构字段与逐人语义裁决，正式档位为G1。",
           "position_basis": "当前档内位置为MID；不以结构字段自动替代逐人语义裁决。",
           "axis_relevance_check": {
@@ -1301,7 +1321,7 @@
             },
             "C4": {
               "band": "C4N-1",
-              "score": -2.6
+              "score": -9.0
             }
           },
           "absolute_state_tier": 2,
@@ -1378,32 +1398,36 @@
             "deterioration_penalty": 0.0,
             "destructive_amplification_penalty": 9.0,
             "upstream_sync": {
-              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_01",
+              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_03",
               "source_refs": [
                 "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-YUAN-MONGKE",
                 "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-YUAN-MONGKE",
                 "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-YUAN-MONGKE",
                 "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-YUAN-MONGKE"
-              ]
+              ],
+              "k_source": "DIRECT_FORMAL_C1_C2_C3_DIAGNOSTIC",
+              "c4_source_scope": "RECOVERY_DETERIORATION_DA_ONLY"
             },
             "destructive_amplification_grade": "DA2",
             "stability_k_basis": {
               "C1": {
                 "K_grade": "K4",
-                "factor": 1.0
+                "source_axis": "C1",
+                "source_field": "stability_class_diagnostic_only"
               },
               "C2": {
                 "K_grade": "K4",
-                "factor": 1.0
+                "source_axis": "C2",
+                "source_field": "stability_class_diagnostic_only"
               },
               "C3": {
                 "K_grade": "K4",
-                "factor": 1.0
+                "source_axis": "C3",
+                "source_field": "stability_class_diagnostic_only"
               }
             },
-            "weighted_K": 1.0,
-            "stability_k_structure_status": "STRUCTURED_C4_FORMAL",
-            "stability_k_public_basis": "三轴全任停留二档，无跨档恢复。三个K4只表示未识别独立低于二档的阶段；终局2/2/2将稳定信用压在C4T-2，不代表高韧性。 按跨档难度计，恢复分0.0/27；weighted_K=1.00，稳定分6.4；正向保留6.4。"
+            "stability_k_structure_status": "DIRECT_FORMAL_C1_C3",
+            "stability_k_public_basis": "当前C1—C3正式K为C1=K4、C2=K4、C3=K4；K不进入C4分。M3稳定兑现分6.4/18为本轴逐人裁决值。"
           },
           "dynamic_class": "ATTRIBUTABLE_OR_MIXED_DECLINE",
           "dynamic_label": "出现可归责或混合性退步",
@@ -1414,13 +1438,13 @@
           "score_status": "FINAL",
           "formal_status": "FORMAL_CURRENT",
           "typical_pattern": "三轴起点、主态、最高实现、交班分别为[2, 2, 2]、[2, 2, 2]、[2, 2, 2]、[2, 2, 2]；恢复0.0/27，稳定6.4/18；恶化扣减0.0，主动成本DA2/9.0。正式逐人裁决为G1-MID。",
-          "counterpattern": "现成军事登记中的高丽六城、安南远征虽在第三项内部被避免重复计入，但C4不能因此抹掉实际成本；两条均为蒙哥最高授权的跨境主动扩张，另有本人晚期南征。多方向、跨年主动帝国战争累计已经达到严重国家级成本，裁DA2。 可归责恶化扣0.0分，DA2扣9.0分。",
-          "starting_context": "接手时三轴均处二档；最新三轴为C1 2→2→2、C2 2→2→2、C3 2→2→2。",
-          "construction_and_maintenance": "按正式档界公式重算恢复分0.0/27；稳定承压按当前K结构计6.4/18，未把恢复信用并入稳定分；正向保留6.4。",
+          "counterpattern": "C4残余主动成本已正式裁为DA2；M3不重裁该档，仅在逐人能力裁决中消费其限制。",
+          "starting_context": "当前C1—C3正式曲线：接手[2, 2, 2]、主态[2, 2, 2]、最高实现[2, 2, 2]、交班[2, 2, 2]。",
+          "construction_and_maintenance": "按正式档界公式重算恢复分0.0/27；直接读取C1—C3正式K（C1=K4、C2=K4、C3=K4）复核稳定兑现，M3逐人裁决稳定分为6.4/18；K与该稳定判断均不回写C4分。",
           "costs_and_consequences": "交班局面为[2, 2, 2]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA2，扣减9.0。",
-          "behavior_chain": "现成军事登记中的高丽六城、安南远征虽在第三项内部被避免重复计入，但C4不能因此抹掉实际成本；两条均为蒙哥最高授权的跨境主动扩张，另有本人晚期南征。多方向、跨年主动帝国战争累计已经达到严重国家级成本，裁DA2。 可归责恶化扣0.0分，DA2扣9.0分。",
-          "handoff_state": "按交班向量[2, 2, 2]推导终局为C4T-2，正向上限15.9。",
-          "public_adjudication": "接手时三轴均处二档；最新三轴为C1 2→2→2、C2 2→2→2、C3 2→2→2。 三轴全任停留二档，无跨档恢复。三个K4只表示未识别独立低于二档的阶段；终局2/2/2将稳定信用压在C4T-2，不代表高韧性。 按跨档难度计，恢复分0.0；weighted_K=1.00，稳定分6.4；正向保留6.4。 现成军事登记中的高丽六城、安南远征虽在第三项内部被避免重复计算，但C4不能因此抹掉实际成本；两条均为蒙哥最高授权的跨境主动扩张，另有本人晚期南征。多方向、跨年主动帝国战争累计已经达到严重国家级成本，裁DA2。 可归责恶化扣0.0分，DA2扣9.0分。 交班原始为C1-2/C2-2/C3-2；终局C4T-2，正向上限15.9。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G1。 当前档内位置为MID；不以结构字段自动替代逐人语义裁决。",
+          "behavior_chain": "即汗位后组织多路征宋，亲征四川主军‘军四万，号十万’；现证主要闭合规模/多方向，按合同只足DA2。 可归责恶化扣0.0分，DA2扣9.0分。",
+          "handoff_state": "按交班向量[2, 2, 2]推导C4终局标签为C4T-2；M3单独读取交班保留，不把稳定分回写C4。",
+          "public_adjudication": "当前C1—C3正式曲线：接手[2, 2, 2]、主态[2, 2, 2]、最高实现[2, 2, 2]、交班[2, 2, 2]。 按正式档界公式重算恢复分0.0/27；直接读取C1—C3正式K（C1=K4、C2=K4、C3=K4）复核稳定兑现，M3逐人裁决稳定分为6.4/18；K与该稳定判断均不回写C4分。 即汗位后组织多路征宋，亲征四川主军‘军四万，号十万’；现证主要闭合规模/多方向，按合同只足DA2。 可归责恶化扣0.0分，DA2扣9.0分。 交班局面为[2, 2, 2]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA2，扣减9.0。 按交班向量[2, 2, 2]推导C4终局标签为C4T-2；M3单独读取交班保留，不把稳定分回写C4。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G1。 当前档内位置为MID；不以结构字段自动替代逐人语义裁决。",
           "grade_basis": "依据当前C1—C4结构字段与逐人语义裁决，正式档位为G1。",
           "position_basis": "当前档内位置为MID；不以结构字段自动替代逐人语义裁决。",
           "axis_relevance_check": {
@@ -1521,7 +1545,7 @@
             },
             "C4": {
               "band": "C4N-1",
-              "score": -2.6
+              "score": -9.0
             }
           },
           "absolute_state_tier": 2,
@@ -1598,32 +1622,36 @@
             "deterioration_penalty": 0.0,
             "destructive_amplification_penalty": 9.0,
             "upstream_sync": {
-              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_01",
+              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_03",
               "source_refs": [
                 "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-YUAN-TEMUJI",
                 "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-YUAN-TEMUJI",
                 "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-YUAN-TEMUJI",
                 "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-YUAN-TEMUJI"
-              ]
+              ],
+              "k_source": "DIRECT_FORMAL_C1_C2_C3_DIAGNOSTIC",
+              "c4_source_scope": "RECOVERY_DETERIORATION_DA_ONLY"
             },
             "destructive_amplification_grade": "DA2",
             "stability_k_basis": {
               "C1": {
                 "K_grade": "K4",
-                "factor": 1.0
+                "source_axis": "C1",
+                "source_field": "stability_class_diagnostic_only"
               },
               "C2": {
                 "K_grade": "K4",
-                "factor": 1.0
+                "source_axis": "C2",
+                "source_field": "stability_class_diagnostic_only"
               },
               "C3": {
                 "K_grade": "K4",
-                "factor": 1.0
+                "source_axis": "C3",
+                "source_field": "stability_class_diagnostic_only"
               }
             },
-            "weighted_K": 1.0,
-            "stability_k_structure_status": "STRUCTURED_C4_FORMAL",
-            "stability_k_public_basis": "恢复分0.0/27；稳定承压6.4/18；C1=K4；C2=K4；C3=K4；正向保留6.4分。恢复事实按raw，C1恢复难度按formal复杂度门折算。"
+            "stability_k_structure_status": "DIRECT_FORMAL_C1_C3",
+            "stability_k_public_basis": "当前C1—C3正式K为C1=K4、C2=K4、C3=K4；K不进入C4分。M3稳定兑现分6.4/18为本轴逐人裁决值。"
           },
           "dynamic_class": "ATTRIBUTABLE_OR_MIXED_DECLINE",
           "dynamic_label": "出现可归责或混合性退步",
@@ -1634,13 +1662,13 @@
           "score_status": "FINAL",
           "formal_status": "FORMAL_CURRENT",
           "typical_pattern": "三轴起点、主态、最高实现、交班分别为[2, 2, 1]、[2, 2, 1]、[2, 2, 1]、[2, 2, 1]；恢复0.0/27，稳定6.4/18；恶化扣减0.0，主动成本DA2/9.0。正式逐人裁决为G1-LOW。",
-          "counterpattern": "逐轴恶化归责：C1=NONE；C2=NONE；C3=NONE，合计恶化扣0.0分。1207—1227连续攻夏、攻金、花剌子模等均为主动扩张，尤其花剌子模链为跨洲、多军团、长期远程动员。虽未闭合本方F3/F4组织性毁损，但国家级跨区域成本长期累积，裁DA2。",
-          "starting_context": "接手三轴起点为C1-2/C2-2/C3-1；最新全任曲线为C1-2→C1-2→C1-2；C2-2→C2-2→C2-2；C3-1→C3-1→C3-1。",
-          "construction_and_maintenance": "按正式档界公式重算恢复分0.0/27；稳定承压按当前K结构计6.4/18，未把恢复信用并入稳定分；正向保留6.4。",
+          "counterpattern": "C4残余主动成本已正式裁为DA2；M3不重裁该档，仅在逐人能力裁决中消费其限制。",
+          "starting_context": "当前C1—C3正式曲线：接手[2, 2, 1]、主态[2, 2, 1]、最高实现[2, 2, 1]、交班[2, 2, 1]。",
+          "construction_and_maintenance": "按正式档界公式重算恢复分0.0/27；直接读取C1—C3正式K（C1=K4、C2=K4、C3=K4）复核稳定兑现，M3逐人裁决稳定分为6.4/18；K与该稳定判断均不回写C4分。",
           "costs_and_consequences": "交班局面为[2, 2, 1]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA2，扣减9.0。",
-          "behavior_chain": "逐轴恶化归责：C1=NONE；C2=NONE；C3=NONE，合计恶化扣0.0分。1207—1227连续攻夏、攻金、花剌子模等均为主动扩张，尤其花剌子模链为跨洲、多军团、长期远程动员。虽未闭合本方F3/F4组织性毁损，但国家级跨区域成本长期累积，裁DA2。",
-          "handoff_state": "按交班向量[2, 2, 1]推导终局为C4T-2，正向上限15.9。",
-          "public_adjudication": "接手三轴起点为C1-2/C2-2/C3-1；最新全任曲线为C1-2→C1-2→C1-2；C2-2→C2-2→C2-2；C3-1→C3-1→C3-1。 恢复分0.0/27；稳定承压6.4/18；C1=K4；C2=K4；C3=K4；正向保留6.4分。恢复事实按原始，C1恢复难度按正式复杂度门折算。 逐轴恶化归责：C1=NONE；C2=NONE；C3=NONE，合计恶化扣0.0分。1207—1227连续攻夏、攻金、花剌子模等均为主动扩张，尤其花剌子模链为跨洲、多军团、长期远程动员。虽未闭合本方F3/F4组织性毁损，但国家级跨区域成本长期累积，裁DA2。 交班原始为C1-2/C2-2/C3-1；终局C4T-2，正向上限15.9分。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G1。 当前档内位置为LOW；不以结构字段自动替代逐人语义裁决。",
+          "behavior_chain": "1206 S0后持续西夏、金、花剌子模等大规模主动扩张；第三项D为C5高位但明确未闭合F3/F4等DA3额外门。 可归责恶化扣0.0分，DA2扣9.0分。",
+          "handoff_state": "按交班向量[2, 2, 1]推导C4终局标签为C4T-2；M3单独读取交班保留，不把稳定分回写C4。",
+          "public_adjudication": "当前C1—C3正式曲线：接手[2, 2, 1]、主态[2, 2, 1]、最高实现[2, 2, 1]、交班[2, 2, 1]。 按正式档界公式重算恢复分0.0/27；直接读取C1—C3正式K（C1=K4、C2=K4、C3=K4）复核稳定兑现，M3逐人裁决稳定分为6.4/18；K与该稳定判断均不回写C4分。 1206 S0后持续西夏、金、花剌子模等大规模主动扩张；第三项D为C5高位但明确未闭合F3/F4等DA3额外门。 可归责恶化扣0.0分，DA2扣9.0分。 交班局面为[2, 2, 1]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA2，扣减9.0。 按交班向量[2, 2, 1]推导C4终局标签为C4T-2；M3单独读取交班保留，不把稳定分回写C4。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G1。 当前档内位置为LOW；不以结构字段自动替代逐人语义裁决。",
           "grade_basis": "依据当前C1—C4结构字段与逐人语义裁决，正式档位为G1。",
           "position_basis": "当前档内位置为LOW；不以结构字段自动替代逐人语义裁决。",
           "axis_relevance_check": {
@@ -1719,7 +1747,7 @@
             },
             "C4": {
               "band": "C4N-1",
-              "score": -0.8
+              "score": -1.9
             }
           },
           "absolute_state_tier": 1,
@@ -1793,35 +1821,39 @@
               "supporting_formal_fields": []
             },
             "six_band_main_state": false,
-            "deterioration_penalty": 4.0,
+            "deterioration_penalty": 1.9,
             "destructive_amplification_penalty": 0.0,
             "upstream_sync": {
-              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_01",
+              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_03",
               "source_refs": [
                 "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-YUAN-TOGHON-TEMUR",
                 "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-YUAN-TOGHON-TEMUR",
                 "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-YUAN-TOGHON-TEMUR",
                 "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-YUAN-TOGHON-TEMUR"
-              ]
+              ],
+              "k_source": "DIRECT_FORMAL_C1_C2_C3_DIAGNOSTIC",
+              "c4_source_scope": "RECOVERY_DETERIORATION_DA_ONLY"
             },
             "destructive_amplification_grade": "DA0",
             "stability_k_basis": {
               "C1": {
                 "K_grade": "K4",
-                "factor": 1.0
+                "source_axis": "C1",
+                "source_field": "stability_class_diagnostic_only"
               },
               "C2": {
                 "K_grade": "K4",
-                "factor": 1.0
+                "source_axis": "C2",
+                "source_field": "stability_class_diagnostic_only"
               },
               "C3": {
                 "K_grade": "K0",
-                "factor": 0.0
+                "source_axis": "C3",
+                "source_field": "stability_class_diagnostic_only"
               }
             },
-            "weighted_K": 0.67,
-            "stability_k_structure_status": "STRUCTURED_C4_FORMAL",
-            "stability_k_public_basis": "恢复分0.0/27；稳定承压3.2/18；C1=K4；C2=K4；C3=K0；正向保留3.2分。恢复事实按raw，C1恢复难度按formal复杂度门折算。"
+            "stability_k_structure_status": "DIRECT_FORMAL_C1_C3",
+            "stability_k_public_basis": "当前C1—C3正式K为C1=K4、C2=K4、C3=K0；K不进入C4分。M3稳定兑现分3.2/18为本轴逐人裁决值。"
           },
           "dynamic_class": "ATTRIBUTABLE_OR_MIXED_DECLINE",
           "dynamic_label": "出现可归责或混合性退步",
@@ -1831,14 +1863,14 @@
           "output_mode": "BOUNDED_PROFILE",
           "score_status": "FINAL",
           "formal_status": "FORMAL_CURRENT",
-          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[1, 1, 3]、[1, 1, 2]、[1, 1, 2]、[1, 1, 1]；恢复0.0/27，稳定3.2/18；恶化扣减4.0，主动成本DA0/0.0。正式逐人裁决为G1-LOW。",
-          "counterpattern": "逐轴恶化归责：C1=NONE；C2=NONE；C3=MATERIAL，合计恶化扣4.0分。现成军事成本中倭寇守御、高丽干预等本人可选择责任未闭合；末世财政与社会崩坏主要走三轴状态和逐轴归责，未识别独立大型可选择工程，DA0。",
-          "starting_context": "接手三轴起点为C1-1/C2-1/C3-3；最新全任曲线为C1-1→C1-1→C1-1；C2-1→C2-1→C2-1；C3-3→C3-2→C3-1。",
-          "construction_and_maintenance": "按正式档界公式重算恢复分0.0/27；稳定承压按当前K结构计3.2/18，未把恢复信用并入稳定分；正向保留3.2。",
-          "costs_and_consequences": "交班局面为[1, 1, 1]；可归责恶化扣减4.0；本人可选择行为的残余额外成本为DA0，扣减0.0。",
-          "behavior_chain": "逐轴恶化归责：C1=NONE；C2=NONE；C3=MATERIAL，合计恶化扣4.0分。现成军事成本中倭寇守御、高丽干预等本人可选择责任未闭合；末世财政与社会崩坏主要走三轴状态和逐轴归责，未识别独立大型可选择工程，DA0。",
-          "handoff_state": "按交班向量[1, 1, 1]推导终局为C4T-1，正向上限7.9。",
-          "public_adjudication": "接手三轴起点为C1-1/C2-1/C3-3；最新全任曲线为C1-1→C1-1→C1-1；C2-1→C2-1→C2-1；C3-3→C3-2→C3-1。 恢复分0.0/27；稳定承压3.2/18；C1=K4；C2=K4；C3=K0；正向保留3.2分。恢复事实按原始，C1恢复难度按正式复杂度门折算。 逐轴恶化归责：C1=NONE；C2=NONE；C3=MATERIAL，合计恶化扣4.0分。现成军事成本中倭寇守御、高丽干预等本人可选择责任未闭合；末世财政与社会崩坏主要走三轴状态和逐轴归责，未识别独立大型可选择工程，DA0。 交班原始为C1-1/C2-1/C3-1；终局C4T-1，正向上限7.9分。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G1。 当前档内位置为LOW；不以结构字段自动替代逐人语义裁决。",
+          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[1, 1, 3]、[1, 1, 2]、[1, 1, 2]、[1, 1, 1]；恢复0.0/27，稳定3.2/18；恶化扣减1.9，主动成本DA0/0.0。正式逐人裁决为G1-LOW。",
+          "counterpattern": "C4残余主动成本已正式裁为DA0；M3不重裁该档，仅在逐人能力裁决中消费其限制。",
+          "starting_context": "当前C1—C3正式曲线：接手[1, 1, 3]、主态[1, 1, 2]、最高实现[1, 1, 2]、交班[1, 1, 1]。",
+          "construction_and_maintenance": "按正式档界公式重算恢复分0.0/27；直接读取C1—C3正式K（C1=K4、C2=K4、C3=K0）复核稳定兑现，M3逐人裁决稳定分为3.2/18；K与该稳定判断均不回写C4分。",
+          "costs_and_consequences": "交班局面为[1, 1, 1]；可归责恶化扣减1.9；本人可选择行为的残余额外成本为DA0，扣减0.0。",
+          "behavior_chain": "主要高成本来自元末内部平乱和系统危机；高丽等外部干预未闭合到足以越DA0的本人可选择成本。 可归责恶化扣1.9分，DA0扣0.0分。",
+          "handoff_state": "按交班向量[1, 1, 1]推导C4终局标签为C4T-1；M3单独读取交班保留，不把稳定分回写C4。",
+          "public_adjudication": "当前C1—C3正式曲线：接手[1, 1, 3]、主态[1, 1, 2]、最高实现[1, 1, 2]、交班[1, 1, 1]。 按正式档界公式重算恢复分0.0/27；直接读取C1—C3正式K（C1=K4、C2=K4、C3=K0）复核稳定兑现，M3逐人裁决稳定分为3.2/18；K与该稳定判断均不回写C4分。 主要高成本来自元末内部平乱和系统危机；高丽等外部干预未闭合到足以越DA0的本人可选择成本。 可归责恶化扣1.9分，DA0扣0.0分。 交班局面为[1, 1, 1]；可归责恶化扣减1.9；本人可选择行为的残余额外成本为DA0，扣减0.0。 按交班向量[1, 1, 1]推导C4终局标签为C4T-1；M3单独读取交班保留，不把稳定分回写C4。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G1。 当前档内位置为LOW；不以结构字段自动替代逐人语义裁决。",
           "grade_basis": "依据当前C1—C4结构字段与逐人语义裁决，正式档位为G1。",
           "position_basis": "当前档内位置为LOW；不以结构字段自动替代逐人语义裁决。",
           "axis_relevance_check": {

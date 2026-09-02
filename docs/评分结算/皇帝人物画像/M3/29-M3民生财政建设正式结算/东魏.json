@@ -4,7 +4,7 @@
   "collections": {
     "records": {
       "positions": [
-        72
+        57
       ],
       "records": [
         {
@@ -16,9 +16,9 @@
           "axis_code": "M3",
           "axis_name": "民生财政建设",
           "axis_grade": "G3",
-          "position": "MID",
-          "score_100": 65,
-          "radar_value": 65,
+          "position": "HIGH",
+          "score_100": 71,
+          "radar_value": 71,
           "components": {
             "C1": {
               "band": "C1-3",
@@ -34,7 +34,7 @@
             },
             "C4": {
               "band": "C4-1",
-              "score": 6.5
+              "score": 1.0
             }
           },
           "absolute_state_tier": 3,
@@ -109,34 +109,38 @@
             },
             "six_band_main_state": false,
             "deterioration_penalty": 0.0,
-            "destructive_amplification_penalty": 13.5,
+            "destructive_amplification_penalty": 9.0,
             "upstream_sync": {
-              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_01",
+              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_03",
               "source_refs": [
                 "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-高欢",
                 "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-高欢",
                 "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-高欢",
                 "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-高欢"
-              ]
+              ],
+              "k_source": "DIRECT_FORMAL_C1_C2_C3_DIAGNOSTIC",
+              "c4_source_scope": "RECOVERY_DETERIORATION_DA_ONLY"
             },
-            "destructive_amplification_grade": "DA3",
+            "destructive_amplification_grade": "DA2",
             "stability_k_basis": {
               "C1": {
                 "K_grade": "K4",
-                "factor": 1.0
+                "source_axis": "C1",
+                "source_field": "stability_class_diagnostic_only"
               },
               "C2": {
                 "K_grade": "K4",
-                "factor": 1.0
+                "source_axis": "C2",
+                "source_field": "stability_class_diagnostic_only"
               },
               "C3": {
                 "K_grade": "K4",
-                "factor": 1.0
+                "source_axis": "C3",
+                "source_field": "stability_class_diagnostic_only"
               }
             },
-            "weighted_K": 1.0,
-            "stability_k_structure_status": "STRUCTURED_C4_FORMAL",
-            "stability_k_public_basis": "C1跨2→3、C2跨2→4、C3跨2→3；恢复完成后的已审绝对状态材料没有确认新的独立低谷，三轴均K4。 按新合同跨档难度加权为1.00，恢复分10.0/27；K加权系数1.00，稳定raw 18.0，经终局约束后稳定分10.0。终局3/4/3的terminal_quality=3.20，对应C4T-3、正向上限24.9，故正向保留20.0。"
+            "stability_k_structure_status": "DIRECT_FORMAL_C1_C3",
+            "stability_k_public_basis": "当前C1—C3正式K为C1=K4、C2=K4、C3=K4；K不进入C4分。M3稳定兑现分10.0/18为本轴逐人裁决值。"
           },
           "dynamic_class": "LIMITED_OR_MIXED_MAINTENANCE",
           "dynamic_label": "维持有限且正负并存",
@@ -146,16 +150,16 @@
           "output_mode": "BOUNDED_PROFILE",
           "score_status": "FINAL",
           "formal_status": "FORMAL_CURRENT",
-          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[2, 2, 2]、[3, 4, 3]、[3, 4, 3]、[3, 4, 3]；恢复10.0/27，稳定10.0/18；恶化扣减0.0，主动成本DA3/13.5。正式逐人裁决为G3-MID。",
-          "counterpattern": "终局无档差恶化。军事成本登记为C7高位且责任门明确：沙苑国家主力大败、河桥后续成建制重大损失、546玉壁五十日攻坚战病死七万，均处在本人主动西征链并由其承担决定性统帅责任。按新规则，这已经是国家级、多阶段的严重已实现成本，直接取DA3；不需要再以“反馈后是否继续”作为升档门槛，也未达到系统崩坏级DA3。 可归责恶化扣0.0，DA3扣13.5分。",
-          "starting_context": "高欢接手锚点为民生二档、经济财政二档、社会安全二档；最新曲线为民生二档→三档→三档、经济财政二档→四档→四档、社会安全二档→三档→三档。先前裁决仍把C2主态写成三档。",
-          "construction_and_maintenance": "按正式档界公式重算恢复分10.0/27；稳定承压按当前K结构计10.0/18，未把恢复信用并入稳定分；正向保留20.0。",
-          "costs_and_consequences": "交班局面为[3, 4, 3]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA3，扣减13.5。",
-          "behavior_chain": "终局无档差恶化。军事成本登记为C7高位且责任门明确：沙苑国家主力大败、河桥后续成建制重大损失、546玉壁五十日攻坚战病死七万，均处在本人主动西征链并由其承担决定性统帅责任。按新规则，这已经是国家级、多阶段的严重已实现成本，直接取DA3；不需要再以“反馈后是否继续”作为升档门槛，也未达到系统崩坏级DA3。 可归责恶化扣0.0，DA3扣13.5分。",
-          "handoff_state": "按交班向量[3, 4, 3]推导终局为C4T-3，正向上限24.9。",
-          "public_adjudication": "高欢接手锚点为民生二档、经济财政二档、社会安全二档；最新曲线为民生二档→三档→三档、经济财政二档→四档→四档、社会安全二档→三档→三档。原C4仍把C2主态写成三档。 C1跨2→3、C2跨2→4、C3跨2→3；恢复完成后的已审绝对状态材料没有确认新的独立低谷，三轴均K4。 按新规则跨档难度加权为1.00，恢复分10.0；K加权系数1.00，稳定原始 18.0，经终局约束后稳定分10.0。终局3/4/3的终局质量=3.20，对应C4T-3、正向上限24.9，故正向保留20.0。 终局无档差恶化。军事成本登记为C7高位且责任门明确：沙苑国家主力大败、河桥后续成建制重大损失、546玉壁五十日攻坚战病死七万，均处在本人主动西征链并由其承担决定性统帅责任。按新规则，这已经是国家级、多阶段的严重已实现成本，直接取DA3；不需要再以“反馈后是否继续”作为升档门槛，也未达到系统崩坏级DA3。 可归责恶化扣0.0，DA3扣13.5分。 交班原始锚点为民生3档、经济财政4档、社会安全3档；终局层级C4T-3，正向上限24.9。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G3。 当前档内位置为MID；不以结构字段自动替代逐人语义裁决。",
-          "grade_basis": "依据当前C1—C4结构字段与逐人语义裁决，正式档位为G3。",
-          "position_basis": "当前档内位置为MID；不以结构字段自动替代逐人语义裁决。",
+          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[2, 2, 2]、[3, 4, 3]、[3, 4, 3]、[3, 4, 3]；恢复10.0/27，稳定10.0/18；恶化扣减0.0，主动成本DA2/9.0。正式逐人裁决为G3-HIGH。",
+          "counterpattern": "C4残余主动成本已正式裁为DA2；M3不重裁该档，仅在逐人能力裁决中消费其限制。",
+          "starting_context": "当前C1—C3正式曲线：接手[2, 2, 2]、主态[3, 4, 3]、最高实现[3, 4, 3]、交班[3, 4, 3]。",
+          "construction_and_maintenance": "按正式档界公式重算恢复分10.0/27；直接读取C1—C3正式K（C1=K4、C2=K4、C3=K4）复核稳定兑现，M3逐人裁决稳定分为10.0/18；K与该稳定判断均不回写C4分。",
+          "costs_and_consequences": "交班局面为[3, 4, 3]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA2，扣减9.0。",
+          "behavior_chain": "行为链：十万人城邺、新宫建成、五万人筑漳滨堰；公共用途折扣后仍不能为0。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣0.0分，最终DA2扣9.0分。",
+          "handoff_state": "按交班向量[3, 4, 3]推导C4终局标签为C4T-3；M3单独读取交班保留，不把稳定分回写C4。",
+          "public_adjudication": "当前C1—C3正式曲线：接手[2, 2, 2]、主态[3, 4, 3]、最高实现[3, 4, 3]、交班[3, 4, 3]。 按正式档界公式重算恢复分10.0/27；直接读取C1—C3正式K（C1=K4、C2=K4、C3=K4）复核稳定兑现，M3逐人裁决稳定分为10.0/18；K与该稳定判断均不回写C4分。 行为链：十万人城邺、新宫建成、五万人筑漳滨堰；公共用途折扣后仍不能为0。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣0.0分，最终DA2扣9.0分。 交班局面为[3, 4, 3]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA2，扣减9.0。 按交班向量[3, 4, 3]推导C4终局标签为C4T-3；M3单独读取交班保留，不把稳定分回写C4。 三轴均形成并保留改善，恢复10.0分、稳定10.0分且无峰值回落，维持G3实质建设档。 恢复达到8分、至少两轴保留且稳定达到8，命中G3-HIGH门，故由G3-MID重裁为G3-HIGH。",
+          "grade_basis": "三轴均形成并保留改善，恢复10.0分、稳定10.0分且无峰值回落，维持G3实质建设档。",
+          "position_basis": "恢复达到8分、至少两轴保留且稳定达到8，命中G3-HIGH门，故由G3-MID重裁为G3-HIGH。",
           "axis_relevance_check": {
             "status": "HOLISTIC_C1_C4_SEMANTIC_ADJUDICATION",
             "component_codes": [
@@ -235,7 +239,13 @@
               "source_origin": "C4_FORMAL_PUBLIC_SOURCE"
             }
           ],
-          "contract_version": "FORMAL-V3.6"
+          "contract_version": "FORMAL-V3.6",
+          "full_pool_grade_readjudication": {
+            "status": "FORMAL_READJUDICATED_2026_09_03",
+            "scope": "FULL_POOL_184_AFTER_C4_DA_FINALIZATION_AND_DIRECT_K_MECHANISM",
+            "grade_basis": "三轴均形成并保留改善，恢复10.0分、稳定10.0分且无峰值回落，维持G3实质建设档。",
+            "position_basis": "恢复达到8分、至少两轴保留且稳定达到8，命中G3-HIGH门，故由G3-MID重裁为G3-HIGH。"
+          }
         }
       ]
     }

@@ -52,9 +52,9 @@
     "summary": {
       "grade_distribution": {
         "G0": 11,
-        "G1": 43,
-        "G2": 47,
-        "G3": 67,
+        "G1": 41,
+        "G2": 48,
+        "G3": 68,
         "G4": 12,
         "G5": 4
       },
@@ -63,14 +63,22 @@
       "supplemented_old_parent_chain_count": 204,
       "candidate_trace_count": 316,
       "upstream_sync": {
-        "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_01",
+        "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_03",
         "changed_person_count": 184,
-        "trajectory_source": "C1_C2_C3_STATE_ANCHORS_AND_EXPLICIT_PEAK",
-        "c4_numeric_source": "C4_FORMAL_RECOVERY_STABILITY_DETERIORATION_DA",
-        "k_structure_distribution": {
-          "STRUCTURED_C4_FORMAL": 184
+        "source_sha256": {
+          "C1": "1e0626f42b066fc1db805fe0a183d76dc1045044e03f2f7881c7a658c4c4247d",
+          "C2": "c6aec06fd4fef269a445ecddbe85c8b5a610e29c04078ce7edebb9006445e490",
+          "C3": "0b3ba6ffac38eafd2a58c9e05c23a20db1ff38c91250fc449e84012e56021015",
+          "C4": "8255dfcdcce799132f7ddc4befce02dad716ea6fa75338f9f17916467fefc643"
         },
-        "grade_and_position_policy": "KEEP_CONFIRMED_M3_ADJUDICATIONS"
+        "trajectory_source": "C1_C2_C3_STATE_ANCHORS_AND_EXPLICIT_PEAK",
+        "stability_k_source": "DIRECT_FORMAL_C1_C2_C3_DIAGNOSTIC",
+        "stability_score_authority": "M3_FORMAL_PERSON_LEVEL_ADJUDICATION",
+        "c4_numeric_source": "C4_FORMAL_RECOVERY_DETERIORATION_DA_ONLY",
+        "k_structure_distribution": {
+          "DIRECT_FORMAL_C1_C3": 184
+        },
+        "grade_and_position_policy": "FULL_POOL_SEMANTIC_READJUDICATION_AFTER_C4_DA_FINALIZATION"
       },
       "governance_scale_gate_distribution": {
         "FULL_OR_MAJOR_REGIONAL": 19,
@@ -104,6 +112,261 @@
         "ATTRIBUTABLE_OR_MIXED_DECLINE": 58,
         "SEVERE_DECLINE": 19,
         "COLLAPSE_OR_EXTREME_DECLINE": 10
+      },
+      "full_pool_grade_readjudication": {
+        "status": "FORMAL_FULL_POOL_READJUDICATED_2026_09_03",
+        "record_count": 184,
+        "upstream_scope": "CURRENT_FORMAL_C1_C2_C3_PLUS_C4_RECOVERY_DETERIORATION_FINAL_DA",
+        "k_mechanism": "DIRECT_C1_C2_C3_DIAGNOSTIC_NOT_IN_C4_SCORE",
+        "previous_grade_distribution": {
+          "G0": 11,
+          "G1": 43,
+          "G2": 47,
+          "G3": 67,
+          "G4": 12,
+          "G5": 4
+        },
+        "current_grade_distribution": {
+          "G0": 11,
+          "G1": 41,
+          "G2": 48,
+          "G3": 68,
+          "G4": 12,
+          "G5": 4
+        },
+        "grade_change_count": 7,
+        "position_only_change_count": 5,
+        "retained_count": 172,
+        "grade_changes": [
+          {
+            "ruler_name": "载湉",
+            "before": "G1-LOW",
+            "after": "G2-LOW"
+          },
+          {
+            "ruler_name": "李谅祚",
+            "before": "G1-LOW",
+            "after": "G2-LOW"
+          },
+          {
+            "ruler_name": "元恪",
+            "before": "G2-MID",
+            "after": "G3-LOW"
+          },
+          {
+            "ruler_name": "赵惇",
+            "before": "G2-MID",
+            "after": "G3-LOW"
+          },
+          {
+            "ruler_name": "拓跋珪",
+            "before": "G2-MID",
+            "after": "G3-MID"
+          },
+          {
+            "ruler_name": "朱棣",
+            "before": "G3-MID",
+            "after": "G2-MID"
+          },
+          {
+            "ruler_name": "弘历",
+            "before": "G3-LOW",
+            "after": "G2-LOW"
+          }
+        ],
+        "position_only_changes": [
+          {
+            "ruler_name": "朱元璋",
+            "before": "G4-MID",
+            "after": "G4-LOW"
+          },
+          {
+            "ruler_name": "朱温",
+            "before": "G3-MID",
+            "after": "G3-HIGH"
+          },
+          {
+            "ruler_name": "高欢",
+            "before": "G3-MID",
+            "after": "G3-HIGH"
+          },
+          {
+            "ruler_name": "孙权",
+            "before": "G3-MID",
+            "after": "G3-HIGH"
+          },
+          {
+            "ruler_name": "赫连勃勃",
+            "before": "G0-LOW",
+            "after": "G0-MID"
+          }
+        ],
+        "grade_position_boundary_rosters": {
+          "G0": {
+            "LOW": [
+              "刘彻",
+              "刘宏",
+              "完颜亮",
+              "赵佶",
+              "胡亥",
+              "嬴政",
+              "杨广",
+              "石虎",
+              "高洋",
+              "王莽"
+            ],
+            "HIGH": []
+          },
+          "G1": {
+            "LOW": [
+              "李存勖",
+              "李煜",
+              "朱友贞",
+              "刘志",
+              "完颜守绪",
+              "完颜永济",
+              "完颜珣",
+              "耶律延禧",
+              "朱厚照",
+              "朱翊钧",
+              "朱由检",
+              "朱由校",
+              "朱允炆",
+              "赵顼",
+              "奕詝",
+              "多尔衮",
+              "慈禧",
+              "刘彧",
+              "刘聪",
+              "萧衍",
+              "陈叔宝",
+              "高纬",
+              "李亨",
+              "李儇",
+              "孙皓",
+              "李安全",
+              "李秉常",
+              "李元昊",
+              "铁木真",
+              "妥懽帖睦尔"
+            ],
+            "HIGH": []
+          },
+          "G2": {
+            "LOW": [
+              "孟昶",
+              "朱祁镇",
+              "弘历",
+              "载湉",
+              "刘骏",
+              "吕光",
+              "苻坚",
+              "萧鸾",
+              "高湛",
+              "李隆基",
+              "李适",
+              "李治",
+              "曹叡",
+              "李谅祚"
+            ],
+            "HIGH": [
+              "柴荣",
+              "刘邦",
+              "耶律洪基",
+              "刘渊",
+              "司马睿",
+              "姚苌",
+              "拓跋焘",
+              "李渊",
+              "铁穆耳"
+            ]
+          },
+          "G3": {
+            "LOW": [
+              "完颜亶",
+              "赵恒",
+              "赵祯",
+              "耶律阿保机",
+              "元恪",
+              "刘义隆",
+              "赵惇"
+            ],
+            "HIGH": [
+              "郭威",
+              "李昪",
+              "李嗣源",
+              "石敬瑭",
+              "王建",
+              "朱温",
+              "刘炟",
+              "刘肇",
+              "吕雉",
+              "耶律大石",
+              "耶律隆绪",
+              "耶律贤",
+              "朱见深",
+              "朱祁钰",
+              "朱祐樘",
+              "朱载坖",
+              "朱瞻基",
+              "高滔滔",
+              "刘娥",
+              "赵曙",
+              "赵煦",
+              "皇太极",
+              "福临",
+              "萧绰",
+              "完颜阿骨打",
+              "冯跋",
+              "刘裕",
+              "孟知祥",
+              "宇文泰",
+              "慕容德",
+              "拓跋嗣",
+              "拓跋宏",
+              "拓跋弘",
+              "李暠",
+              "沮渠蒙逊",
+              "石勒",
+              "苻健",
+              "萧道成",
+              "陈蒨",
+              "马殷",
+              "高季兴",
+              "高欢",
+              "刘备",
+              "赵昚",
+              "李忱",
+              "李豫",
+              "司马昭",
+              "孙权",
+              "李德明",
+              "李乾顺",
+              "窝阔台"
+            ]
+          },
+          "G4": {
+            "LOW": [
+              "朱元璋",
+              "李雄",
+              "杨行密",
+              "赵构",
+              "曹操"
+            ],
+            "HIGH": [
+              "完颜雍",
+              "赵匡胤"
+            ]
+          },
+          "G5": {
+            "LOW": [
+              "刘恒",
+              "刘秀",
+              "刘询"
+            ],
+            "HIGH": []
+          }
+        }
       }
     },
     "authority_mode": "FORMAL_SETTLEMENT_PATCH_SOURCE",

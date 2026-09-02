@@ -331,7 +331,7 @@ def test_liu_hu_and_liu_zhi_finance_records_use_personal_rule_windows() -> None:
     assert "征役无度，老弱相随，动有万计" in liu_hu_c4[
         "deterioration_curve_summary"
     ]
-    assert liu_hu_c4["destructive_amplification_grade"] == "DA2"
+    assert liu_hu_c4["destructive_amplification_grade"] == "DA1"
     liu_zhuang_c4 = rows["C4"]["刘庄"]
     assert liu_zhuang_c4["score"] == round(
         liu_zhuang_c4["positive_score_retained"]

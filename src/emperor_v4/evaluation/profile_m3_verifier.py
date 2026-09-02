@@ -57,6 +57,19 @@ RECOVERY_WEIGHTS = (0.5, 0.2, 0.3)
 RECOVERY_DIFFICULTY = {1: 0.6, 2: 0.8, 3: 1.0, 4: 1.3, 5: 1.6}
 
 
+def _absolute_level(vector: list[int]) -> int:
+    ordered = sorted(vector, reverse=True)
+    if ordered[1] >= 5 and ordered[2] >= 4:
+        return 5
+    if min(vector) >= 4 or (ordered[1] >= 4 and ordered[2] >= 3):
+        return 4
+    if min(vector) >= 3 or (ordered[1] >= 3 and ordered[2] >= 2):
+        return 3
+    if sum(value <= 1 for value in vector) >= 2:
+        return 1
+    return 2
+
+
 def _retained_recovery_amount(start: list[int], end: list[int]) -> float:
     return round(10 * sum(
         weight * sum(RECOVERY_DIFFICULTY[band] for band in range(initial, final))
@@ -66,13 +79,26 @@ def _retained_recovery_amount(start: list[int], end: list[int]) -> float:
 
 
 def _unexpected_da_labels(value: Any, expected: str) -> set[str]:
-    """Ignore an explicitly rejected higher boundary, but not a contradictory current one."""
+    """Find contradictory adjudication labels, ignoring boundary comparisons."""
     if isinstance(value, str):
-        scrubbed = re.sub(r"不升DA[0-4]", "", value)
-        scrubbed = re.sub(
-            r"按DA[0-4]升DA[0-4]的残余成本门[^。]*只足DA[0-4]", "", scrubbed
+        compact = re.sub(r"\s+", "", value)
+        compact = re.sub(
+            r"(?:不足|不能)[^。；]*?(?:保留|维持)DA[0-6]", "", compact
         )
-        return set(re.findall(r"DA[0-4]", scrubbed)) - {expected}
+        compact = re.sub(
+            r"按DA[0-6]升DA[0-6]的[^。；]*?门", "", compact
+        )
+        asserted = set(
+            re.findall(
+                r"(?:裁(?:为|作)?|取|维持|保留|结论|降为?|升为?|"
+                r"主动成本(?:为)?|残余(?:主动)?成本(?:为)?)(DA[0-6])",
+                compact,
+            )
+        )
+        asserted.update(
+            re.findall(r"(DA[0-6])(?:扣(?:减)?\d|处理|残余主动成本)", compact)
+        )
+        return asserted - {expected}
     if isinstance(value, dict):
         return set().union(
             *(_unexpected_da_labels(item, expected) for item in value.values())
@@ -175,7 +201,8 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
         "长期高位兑现保护门",
         "交班保留恢复量≥12",
         "本人自造部分",
-        "M3不重新定义DA0—DA4",
+        "M3不重新定义DA0—DA6",
+        "M3直接读取三轴正式记录中的`stability_class_diagnostic_only`",
     )
     if any(clause not in contract_text for clause in required_contract_clauses):
         raise ValueError("M3 checklist contract clause missing")
@@ -227,18 +254,13 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
     if scale_contract.get("classification_distribution") != dict(upstream_scale_counts):
         raise ValueError("C4 unified M3 scale adjudication distribution mismatch")
     for c4_row in upstream_payloads["C4"]["scores"]:
-        k_basis = c4_row.get("stability_k_basis") or {}
-        if set(k_basis) != {"C1", "C2", "C3"}:
-            raise ValueError(f"C4 structured K coverage missing: {c4_row['ruler_id']}")
         if any(
-            item.get("K_grade") not in {"K0", "K1", "K2", "K3", "K4"}
-            or not isinstance(item.get("factor"), (int, float))
-            for item in k_basis.values()
+            field in c4_row
+            for field in ("stability_score", "stability_k_basis", "weighted_K")
         ):
-            raise ValueError(f"C4 structured K is invalid: {c4_row['ruler_id']}")
+            raise ValueError(f"C4 still owns retired K/stability field: {c4_row['ruler_id']}")
         expected_positive = min(
-            float(c4_row["recovery_score"]) + float(c4_row["stability_score"]),
-            float(c4_row["terminal_cap"]),
+            float(c4_row["recovery_score"]), float(c4_row["terminal_cap"])
         )
         if abs(float(c4_row["positive_score_retained"]) - expected_positive) > 0.11:
             raise ValueError(f"C4 positive-score identity failed: {c4_row['ruler_id']}")
@@ -333,7 +355,7 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
                 raise ValueError(f"M3 upstream component drift: {row['ruler_id']} {axis}")
         evidence = row.get("ability_evidence") or {}
         sync = evidence.get("upstream_sync") or {}
-        if sync.get("status") != "SYNCED_TO_FORMAL_C1_C4_2026_09_01":
+        if sync.get("status") != "SYNCED_TO_FORMAL_C1_C4_2026_09_03":
             raise ValueError(f"M3 upstream sync status missing: {row['ruler_id']}")
         gate = evidence.get("governance_scale_gate") or {}
         scale_status = gate.get("status")
@@ -378,10 +400,7 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
             if trajectory.get(field) != expected_value:
                 raise ValueError(f"M3 upstream trajectory drift: {row['ruler_id']} {field}")
         c4 = upstream["C4"][row["ruler_id"]]
-        c4_numeric = {
-            "recovery_score_27": c4["recovery_score"],
-            "stability_score_18": c4["stability_score"],
-        }
+        c4_numeric = {"recovery_score_27": c4["recovery_score"]}
         for field, expected_value in c4_numeric.items():
             if float(trajectory.get(field)) != float(expected_value):
                 raise ValueError(f"M3 upstream C4 numeric drift: {row['ruler_id']} {field}")
@@ -392,9 +411,31 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
         if float(evidence.get("destructive_amplification_penalty")) != float(c4["destructive_amplification_penalty"]):
             raise ValueError(f"M3 upstream DA penalty drift: {row['ruler_id']}")
         expected_da = c4["destructive_amplification_grade"]
-        if _unexpected_da_labels(c4, expected_da) or f"不升{expected_da}" in json.dumps(c4, ensure_ascii=False):
+        c4_reader_fields = {
+            field: c4.get(field)
+            for field in (
+                "adjudication_reason",
+                "deterioration_curve_summary",
+                "negative_tail_adjudication_reason",
+                "attribution_readjudication_reason",
+                "behavior_and_attribution",
+                "public_adjudication",
+            )
+        }
+        if _unexpected_da_labels(c4_reader_fields, expected_da) or f"不升{expected_da}" in json.dumps(c4_reader_fields, ensure_ascii=False):
             raise ValueError(f"C4 stale DA reader label: {row['ruler_id']}")
-        if _unexpected_da_labels(row, expected_da) or f"不升{expected_da}" in json.dumps(row, ensure_ascii=False):
+        m3_reader_fields = {
+            field: row.get(field)
+            for field in (
+                "typical_pattern",
+                "construction_and_maintenance",
+                "costs_and_consequences",
+                "behavior_chain",
+                "counterpattern",
+                "public_adjudication",
+            )
+        }
+        if _unexpected_da_labels(m3_reader_fields, expected_da) or f"不升{expected_da}" in json.dumps(m3_reader_fields, ensure_ascii=False):
             raise ValueError(f"M3 stale DA reader label: {row['ruler_id']}")
         expected_cost = (
             f"可归责恶化扣减{float(c4['deterioration_penalty']):.1f}；"
@@ -405,16 +446,28 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
             raise ValueError(f"M3 stale C4 cost summary: {row['ruler_id']}")
         if f"{row['axis_grade']}-{row['position']}" not in row["typical_pattern"]:
             raise ValueError(f"M3 stale final-grade narrative: {row['ruler_id']}")
-        expected_k_basis = c4.get("stability_k_basis") or {}
+        expected_k_basis = {
+            axis: {
+                "K_grade": upstream[axis][row["ruler_id"]]["stability_class_diagnostic_only"],
+                "source_axis": axis,
+                "source_field": "stability_class_diagnostic_only",
+            }
+            for axis in ("C1", "C2", "C3")
+        }
         if evidence.get("stability_k_basis") != expected_k_basis:
             raise ValueError(f"M3 upstream K basis drift: {row['ruler_id']}")
-        if evidence.get("weighted_K") != c4.get("weighted_K"):
-            raise ValueError(f"M3 upstream weighted K drift: {row['ruler_id']}")
-        expected_k_status = "STRUCTURED_C4_FORMAL" if expected_k_basis else "C4_FORMAL_PROSE_ONLY"
+        if "weighted_K" in evidence:
+            raise ValueError(f"M3 retains retired weighted K: {row['ruler_id']}")
+        expected_k_status = "DIRECT_FORMAL_C1_C3"
         if evidence.get("stability_k_structure_status") != expected_k_status:
             raise ValueError(f"M3 K structure status drift: {row['ruler_id']}")
-        if evidence.get("stability_k_public_basis") != c4.get("recovery_and_absorption", ""):
-            raise ValueError(f"M3 K public basis drift: {row['ruler_id']}")
+        stability = trajectory.get("stability_score_18")
+        if not isinstance(stability, (int, float)) or not 0 <= float(stability) <= 18:
+            raise ValueError(f"M3 stability adjudication invalid: {row['ruler_id']}")
+        if evidence.get("upstream_sync", {}).get("k_source") != "DIRECT_FORMAL_C1_C2_C3_DIAGNOSTIC":
+            raise ValueError(f"M3 K source declaration drift: {row['ruler_id']}")
+        if evidence.get("upstream_sync", {}).get("c4_source_scope") != "RECOVERY_DETERIORATION_DA_ONLY":
+            raise ValueError(f"M3 C4 source scope drift: {row['ruler_id']}")
         k_structure_distribution[expected_k_status] += 1
         start = trajectory["start_vector"]
         main = trajectory["main_vector"]
@@ -422,11 +475,63 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
         end = trajectory["end_vector"]
         if any(highest < max(main_state, end_state) for highest, main_state, end_state in zip(peak, main, end)):
             raise ValueError(f"M3 highest-achieved vector invariant failed: {row['ruler_id']}")
+        grade_value = int(row["axis_grade"][-1])
+        da_value = int(evidence["destructive_amplification_grade"][-1])
+        recovery = float(trajectory["recovery_score_27"])
+        stability = float(trajectory["stability_score_18"])
+        improved = int(trajectory["improved_axis_count"])
+        retained = int(trajectory["retained_improvement_axis_count"])
+        rollback = int(trajectory["rollback_axis_count"])
+        net_declines = sum(value < 0 for value in trajectory["retained_change_vector"])
+        deterioration = float(evidence["deterioration_penalty"])
+        start_level = _absolute_level(start)
+        main_level = _absolute_level(main)
+        peak_level = _absolute_level(peak)
+        end_level = _absolute_level(end)
+        severe_dynamic = row["dynamic_class"] in {
+            "SEVERE_DECLINE",
+            "COLLAPSE_OR_EXTREME_DECLINE",
+        }
+        floor_blocked = (
+            severe_dynamic or da_value >= 4 or net_declines >= 2 or deterioration >= 8
+        )
+        performance_floor = {3: 2, 4: 3, 5: 4}.get(end_level)
+        if performance_floor and not floor_blocked and grade_value < performance_floor:
+            raise ValueError(f"M3 performance floor failed: {row['ruler_id']}")
+        if (
+            main_level >= 4
+            and end_level in {2, 3}
+            and da_value < 4
+            and not severe_dynamic
+            and grade_value < (3 if end_level == 3 else 2)
+        ):
+            raise ValueError(f"M3 long-high realization protection failed: {row['ruler_id']}")
+        if row["axis_grade"] == "G0" and row["position"] == "LOW":
+            if da_value < 4 and net_declines < 2:
+                raise ValueError(f"M3 G0 LOW admission failed: {row['ruler_id']}")
         if row["axis_grade"] == "G4":
-            recovery = float(trajectory["recovery_score_27"])
-            stability = float(trajectory["stability_score_18"])
-            retained = int(trajectory["retained_improvement_axis_count"])
-            improved = int(trajectory["improved_axis_count"])
+            limited_scale = evidence["governance_scale_gate"]["status"] == "LIMITED_REGIONAL"
+            if (limited_scale or da_value >= 3 or deterioration > 0) and row["position"] != "LOW":
+                raise ValueError(f"M3 G4 LOW boundary failed: {row['ruler_id']}")
+        if row["axis_grade"] == "G3" and da_value <= 2 and net_declines == 0:
+            all_improvements_retained = improved > 0 and retained == improved
+            complete_a3_stable = min(end) >= 3 and retained >= 1 and rollback == 0 and stability >= 6
+            g3_high = (
+                (recovery >= 8 and all_improvements_retained)
+                or (recovery >= 8 and retained >= 2 and stability >= 8)
+                or (recovery >= 4 and retained >= 2 and stability >= 7.5)
+                or complete_a3_stable
+            )
+            if g3_high and row["position"] != "HIGH":
+                raise ValueError(f"M3 G3 HIGH boundary failed: {row['ruler_id']}")
+        if (
+            row["axis_grade"] == "G2"
+            and retained == 3
+            and recovery >= 6
+            and row["position"] != "HIGH"
+        ):
+            raise ValueError(f"M3 G2 HIGH boundary failed: {row['ruler_id']}")
+        if row["axis_grade"] == "G4":
             end_tier = int(trajectory["end_tier"])
             retained_recovery = _retained_recovery_amount(trajectory["start_vector"], end)
             strong_build = recovery >= 15 and improved >= 2 and retained >= 2 and retained_recovery >= 12 and end_tier >= 3 and stability >= 6
@@ -443,6 +548,24 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
     }
     if declared != expected_distribution:
         raise ValueError("M3 grade distribution mismatch")
+    readjudication = settlement["summary"].get("full_pool_grade_readjudication") or {}
+    if readjudication.get("status") != "FORMAL_FULL_POOL_READJUDICATED_2026_09_03":
+        raise ValueError("M3 full-pool grade readjudication status missing")
+    if readjudication.get("record_count") != len(records):
+        raise ValueError("M3 full-pool grade readjudication coverage mismatch")
+    if readjudication.get("current_grade_distribution") != expected_distribution:
+        raise ValueError("M3 readjudication distribution drift")
+    if readjudication.get("grade_change_count") != len(readjudication.get("grade_changes") or []):
+        raise ValueError("M3 readjudication grade-change count drift")
+    if readjudication.get("position_only_change_count") != len(readjudication.get("position_only_changes") or []):
+        raise ValueError("M3 readjudication position-change count drift")
+    if (
+        readjudication.get("retained_count", 0)
+        + readjudication.get("grade_change_count", 0)
+        + readjudication.get("position_only_change_count", 0)
+        != len(records)
+    ):
+        raise ValueError("M3 readjudication retained/change coverage mismatch")
     reader_contract = settlement.get("reader_source_contract") or {}
     if reader_contract.get("record_count") != len(records):
         raise ValueError("M3 reader source contract coverage mismatch")

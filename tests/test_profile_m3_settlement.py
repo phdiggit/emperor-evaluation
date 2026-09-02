@@ -29,7 +29,7 @@ def test_profile_m3_formal_snapshot_passes_lightweight_verifier() -> None:
     assert result["status"] == "PASS"
     assert result["record_count"] == 184
     assert sum(result["grade_distribution"].values()) == 184
-    assert result["grade_distribution"] == {"G0": 11, "G1": 43, "G2": 47, "G3": 67, "G4": 12, "G5": 4}
+    assert result["grade_distribution"] == {"G0": 11, "G1": 41, "G2": 48, "G3": 68, "G4": 12, "G5": 4}
     assert result["scale_gate_distribution"] == {
         "FULL_OR_MAJOR_REGIONAL": 19,
         "UNRESOLVED_NOT_HIGH_GRADE_GATE": 159,
@@ -49,20 +49,60 @@ def test_profile_m3_confirmed_checklist_changes_are_applied() -> None:
     by_name = {row["ruler_name"]: row for row in settlement["records"]}
     expected = {
         "刘庄": ("G4", "MID"), "拓跋宏": ("G3", "HIGH"), "李隆基": ("G2", "LOW"),
-        "苻坚": ("G2", "LOW"), "苻健": ("G3", "HIGH"), "弘历": ("G3", "LOW"),
+        "苻坚": ("G2", "LOW"), "苻健": ("G3", "HIGH"), "弘历": ("G2", "LOW"),
         "李治": ("G2", "LOW"), "赵祯": ("G3", "LOW"), "颙琰": ("G2", "MID"), "司马师": ("G2", "MID"),
         "孟昶": ("G2", "LOW"), "萧鸾": ("G2", "LOW"), "拓跋焘": ("G2", "HIGH"),
-        "孙权": ("G3", "MID"), "福临": ("G3", "HIGH"), "慕容垂": ("G3", "MID"),
+        "孙权": ("G3", "HIGH"), "福临": ("G3", "HIGH"), "慕容垂": ("G3", "MID"),
         "耶律贤": ("G3", "HIGH"), "赵煦": ("G3", "HIGH"), "耶律大石": ("G3", "HIGH"),
         "耶律洪基": ("G2", "HIGH"), "窝阔台": ("G3", "HIGH"),
     }
     assert {name: (by_name[name]["axis_grade"], by_name[name]["position"]) for name in expected} == expected
 
 
+def test_profile_m3_full_pool_regrade_is_complete_and_reader_order_is_descending() -> None:
+    settlement = _load(M3_SETTLEMENT)
+    review = settlement["summary"]["full_pool_grade_readjudication"]
+    assert review["status"] == "FORMAL_FULL_POOL_READJUDICATED_2026_09_03"
+    assert review["record_count"] == 184
+    assert review["grade_change_count"] == 7
+    assert review["position_only_change_count"] == 5
+    assert review["retained_count"] == 172
+    assert review["current_grade_distribution"] == settlement["summary"]["grade_distribution"]
+
+    by_name = {row["ruler_name"]: row for row in settlement["records"]}
+    expected = {
+        "载湉": ("G2", "LOW"),
+        "李谅祚": ("G2", "LOW"),
+        "元恪": ("G3", "LOW"),
+        "赵惇": ("G3", "LOW"),
+        "拓跋珪": ("G3", "MID"),
+        "朱棣": ("G2", "MID"),
+        "弘历": ("G2", "LOW"),
+        "朱元璋": ("G4", "LOW"),
+        "朱温": ("G3", "HIGH"),
+        "高欢": ("G3", "HIGH"),
+        "孙权": ("G3", "HIGH"),
+        "赫连勃勃": ("G0", "MID"),
+    }
+    assert {
+        name: (by_name[name]["axis_grade"], by_name[name]["position"])
+        for name in expected
+    } == expected
+    assert all(by_name[name].get("full_pool_grade_readjudication") for name in expected)
+
+    detail = M3_MARKDOWN.read_text(encoding="utf-8").split("## 逐人裁决依据", 1)[1]
+    detail_names = re.findall(r"^### \d+\. (.+)$", detail, re.M)
+    assert detail_names == [row["ruler_name"] for row in settlement["records"]]
+    assert [row["radar_value"] for row in settlement["records"]] == sorted(
+        (row["radar_value"] for row in settlement["records"]), reverse=True
+    )
+
+
 def test_profile_m3_checklist_contract_and_yinzhen_boundary_are_explicit() -> None:
     contract = M3_CONTRACT.read_text(encoding="utf-8")
     assert "FORMAL-V3.6" in contract
-    assert "M3不重新定义DA0—DA4" in contract
+    assert "M3不重新定义DA0—DA6" in contract
+    assert "M3直接读取三轴正式记录中的`stability_class_diagnostic_only`" in contract
     assert "同档结构建设的待建边界" in contract
     assert "实现表现下限硬门" in contract
     assert "强建设事实保留例外" in contract
@@ -109,8 +149,8 @@ def test_profile_m3_rejects_upstream_curve_k_and_da_drift() -> None:
         verify_payload(broken_curve)
 
     broken_k = copy.deepcopy(settlement)
-    broken_k["records"][0]["ability_evidence"]["weighted_K"] = -1
-    with pytest.raises(ValueError, match="weighted K drift"):
+    broken_k["records"][0]["ability_evidence"]["stability_k_basis"]["C1"]["K_grade"] = "K9"
+    with pytest.raises(ValueError, match="K basis drift"):
         verify_payload(broken_k)
 
     broken_da = copy.deepcopy(settlement)
@@ -263,24 +303,25 @@ def test_c4_checklist_structural_recalculation_and_net_legacy_deterioration() ->
     for row in c4.values():
         if row.get("closed_recovery_axes"):
             assert row["recovery_score"] > 0, row["ruler_name"]
-        assert row["positive_score_retained"] == min(
-            round(row["recovery_score"] + row["stability_score"], 1), row["terminal_cap"]
-        )
+        assert "stability_score" not in row
+        assert "stability_k_basis" not in row
+        assert "weighted_K" not in row
+        assert row["positive_score_retained"] == min(row["recovery_score"], row["terminal_cap"])
 
     structural = {
-        "耶律大石": (1.6, 10.0, "C4T-3"),
-        "耶律阮": (3.4, 10.0, "C4T-3"),
-        "耶律洪基": (2.6, 9.5, "C4T-3"),
+        "耶律大石": (1.6, "C4T-3"),
+        "耶律阮": (3.4, "C4T-3"),
+        "耶律洪基": (2.6, "C4T-3"),
     }
     for name, expected in structural.items():
         row = c4[name]
-        assert (row["recovery_score"], row["stability_score"], row["terminal_band"]) == expected
+        assert (row["recovery_score"], row["terminal_band"]) == expected
 
     expected_penalties = {
         "石敬瑭": 0.0, "杨坚": 0.0, "武则天": 0.0, "杨行密": 0.0,
         "拓跋珪": 0.0, "司马睿": 0.0, "朱见深": 0.0, "窝阔台": 0.0,
         "耶律隆绪": 0.0, "刘玄": 0.0, "完颜珣": 0.0, "完颜亶": 0.0,
-        "姚兴": 2.0, "赵恒": 3.4, "完颜守绪": 0.7, "弘历": 7.4, "吕光": 3.4,
+        "姚兴": 1.0, "赵恒": 1.6, "完颜守绪": 0.3, "弘历": 3.6, "吕光": 1.6,
     }
     for name, expected_penalty in expected_penalties.items():
         row = c4[name]
