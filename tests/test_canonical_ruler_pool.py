@@ -92,8 +92,6 @@ def test_checked_in_pool_matches_current_settlements() -> None:
     assert report["included_count"] == 184
     assert report["composite_ready_count"] == 174
     assert report["pending_second_item_count"] == 10
-    assert report["second_item_ranked_count"] == 174
-    assert report["second_item_not_ranked_snapshot_count"] == 11
     assert report["pending_first_item_scope_count"] == 0
     assert report["pending_first_item_formal_settlement_count"] == 0
     assert report["first_item_outside_candidate_pool_count"] == 5
@@ -131,7 +129,7 @@ def test_qing_second_item_ids_are_canonical_with_legacy_refs() -> None:
     second = json.loads(
         (
             ROOT
-            / "docs/评分结算/第二项治国净收益/01-第二项治国净收益405分正式结算.json"
+            / "docs/评分结算/第二项治国净收益/01-第二项治国净收益正式结算.json"
         ).read_text(encoding="utf-8")
     )
     second_by_name = {row["ruler_name"]: row for row in second["records"]}

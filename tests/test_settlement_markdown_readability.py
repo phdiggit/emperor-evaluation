@@ -27,7 +27,7 @@ def _reader_views() -> list[Path]:
 
 def test_settlement_reader_views_exclude_machine_audit_and_template_noise() -> None:
     paths = _reader_views()
-    assert len(paths) == 47
+    assert len(paths) == 46
     assert SETTLEMENT_ROOT / "皇帝人物画像/雷达图小样/00-雷达图小样说明.md" in paths
     assert SETTLEMENT_ROOT / "皇帝人物画像/视频文字小样/00-视频人物画像文字小样.md" in paths
     for path in paths:
@@ -72,12 +72,12 @@ def test_second_item_finance_views_keep_curves_k_and_merge_sparse_notes() -> Non
     assert all(len(table) == 197 for table in (c1, c2, c3, c4))
     assert "全任曲线 S0→S_main→S_end" in c1[0]
     assert "全任曲线 S0→S_main→S_end" in c2[0]
-    assert "K稳定性（诊断）" in c3[0]
+    assert "K折损" in c3[0]
     assert "阶段峰值" not in c1[0] and "阶段峰值" not in c2[0]
-    assert any("赵恒" in line and "（峰值：C1-5）" in line for line in c1)
-    assert any("弘历" in line and "（峰值：C2-5）" in line for line in c2)
-    assert "正向保留 - 恶化 - DA" in c4[0]
-    assert any("杨广" in line and "恶化归责=FULL" in line and "DA4放大" in line for line in c4)
+    assert any("赵恒" in line and "C1-4→C1-4→C1-3" in line for line in c1)
+    assert any("弘历" in line and "C2-4→C2-5→C2-4" in line for line in c2)
+    assert "恢复 - 可归责恶化 - DA" in c4[0]
+    assert any("杨广" in line and "恢复归责=NONE" in line and "DA4残余成本" in line for line in c4)
 
 
 def test_second_item_direction_views_keep_institution_and_m_chain_combinations() -> None:
@@ -109,12 +109,12 @@ def test_second_item_direction_views_keep_institution_and_m_chain_combinations()
 
 def test_second_item_rollups_keep_components_and_sparse_caps_inline() -> None:
     handoff = _first_table(SECOND_ITEM / "政权交接稳定" / "03-交接质量20分正式结算.md")
-    total = _first_table(SECOND_ITEM / "01-第二项治国净收益405分正式结算.md")
+    total = _first_table(SECOND_ITEM / "01-第二项治国净收益正式结算.md")
 
     assert len(handoff) == 187 and len(total) == 187
     assert "低侧封顶" not in handoff[0]
     assert any("王建" in line and "（低侧封顶12.0）" in line for line in handoff)
-    assert all(label in total[0] for label in ("C1/80", "C2/35", "C3/60", "C4/-45—45"))
+    assert all(label in total[0] for label in ("C1/80", "C2/35", "C3/60", "C4/-31—27"))
 
 
 def test_recent_second_item_batches_have_one_current_detail_block_each() -> None:

@@ -2,10 +2,10 @@
   "database_write": false,
   "formal_document": "财政民生/01-C1正式结算.json",
   "formal_score_write": true,
-  "formula": "score = fixed_base(formal_band); raw anchors/K/handoff/C4 never read complexity-discounted formal_band",
+  "formula": "score = round(fixed_base(main_band) × (1 - K_deduction), 1); K4=0%, K3=1.5%, K2=4%, K1=8%, K0=8%/12%/16%/20% by S_main→S_end drop",
   "max_score": 80,
   "record_count": 195,
-  "schema_id": "SECOND-ITEM-C1-FORMAL-V6.0-RAW-FORMAL-COMPLEXITY",
+  "schema_id": "SECOND-ITEM-C1-FORMAL-V7.0-RAW-K-DEDUCTION",
   "scope": "秦至清195人；含画像正式池184人",
   "scores": [
     {
@@ -131,16 +131,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "status": "PASS",
-        "basis": "家庭余量直接强锚为核心；生产、市场、财政和治安材料不计入C1多轴门。",
-        "required_core_axis": "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-5",
       "material_limitations": [
         "第三项军事成本C4主要来自匈奴方向数轮防御动员及济北链，固定资料可闭合较大规模部署，但未确认刘恒重大错误，也未闭合这些军事投入在家庭端形成独立的普遍卖产、缺粮或流亡链；因此只作负向检索背景，不与《论贵粟疏》低谷重复消费。"
@@ -151,7 +141,7 @@
       "reign_range": "前180—前157",
       "ruler_id": "RULER-HAN-LIUHENG",
       "ruler_name": "刘恒",
-      "score": 74.3,
+      "score": 71.3,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-3",
@@ -206,8 +196,6 @@
       },
       "raw_state_band": "C1-5",
       "formal_band": "C1-5",
-      "complexity_class": "HIGH",
-      "complexity_basis": "高档准入同时通过实际治理范围与复杂度认证，formal与raw同档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -340,14 +328,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "status": "PASS",
-        "basis": "家庭余量直接强锚为核心；生产、市场、财政和治安材料不计入C1多轴门。",
-        "required_core_axis": "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-5",
       "material_limitations": [
         "第三项军事成本C5主要由七国之乱全国多方向动员、军资城防承载及削藩触发责任准入，另有数轮匈奴入边。C1只消费已经落到家庭端的吴地大征发及已实现的民食不足；军队战损、驻屯规模和战争胜负本身不另扣C1，也不与上述K2低谷重复计数。"
@@ -358,7 +338,7 @@
       "reign_range": "前157—前141",
       "ruler_id": "RULER-HAN-LIUQI",
       "ruler_name": "刘启",
-      "score": 74.3,
+      "score": 71.3,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-5",
@@ -422,8 +402,6 @@
       },
       "raw_state_band": "C1-5",
       "formal_band": "C1-5",
-      "complexity_class": "HIGH",
-      "complexity_basis": "高档准入同时通过实际治理范围与复杂度认证，formal与raw同档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -638,16 +616,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "status": "PASS",
-        "basis": "家庭余量直接强锚为核心；生产、市场、财政和治安材料不计入C1多轴门。",
-        "required_core_axis": "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-5",
       "material_limitations": [
         "第三项军事成本C4包含永平初羌乱失利后的四万人再动员、62—73年北匈奴方向长期多轮响应及73—75年西域前推驻屯。上述成本证明末年军役负荷背景，但现证没有把这些军费/兵力投入单独闭合为普通家庭普遍破产、缺粮或流亡；因此不另造低谷，也不把章帝初“谷贵流亡”强行归因为战争。"
@@ -658,7 +626,7 @@
       "reign_range": "57—75",
       "ruler_id": "RULER-HAN-LIUZHUANG",
       "ruler_name": "刘庄",
-      "score": 74.3,
+      "score": 65.4,
       "stability_class_diagnostic_only": "K0",
       "state_anchors": {
         "S0": "C1-4",
@@ -703,8 +671,6 @@
       },
       "raw_state_band": "C1-5",
       "formal_band": "C1-5",
-      "complexity_class": "HIGH",
-      "complexity_basis": "高档准入同时通过实际治理范围与复杂度认证，formal与raw同档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -801,18 +767,9 @@
       "reign_range": "1161-1189",
       "ruler_id": "RULER-JIN-SHIZONG",
       "ruler_name": "完颜雍",
-      "score": 74.3,
+      "score": 71.3,
       "stability_class_diagnostic_only": "K2",
       "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
-      "high_band_gate": {
-        "status": "PASS",
-        "basis": "家庭余量直接强锚为核心；生产、市场、财政和治安材料不计入C1多轴门。",
-        "required_core_axis": "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "material_limitations": [
         "第三项军事成本为C5高位下界，核心是1161—1165宋金链连续四年西北、东南国家级投入，战后仍留新旧军六万人戍守。仅凭“六万人”“四年”不能直接扣C1；本轮之所以调整K，是另有《兵志》把长期番戍明确闭合到军户牲畜损耗与农时丧失。该影响范围仍受限，且世宗已主动讨论减轻番戍，故不下调S_main或S_end。"
       ],
@@ -860,8 +817,6 @@
       },
       "raw_state_band": "C1-5",
       "formal_band": "C1-5",
-      "complexity_class": "HIGH",
-      "complexity_basis": "高档准入同时通过实际治理范围与复杂度认证，formal与raw同档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -1149,16 +1104,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "status": "PASS",
-        "basis": "家庭余量直接强锚为核心；生产、市场、财政和治安材料不计入C1多轴门。",
-        "required_core_axis": "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-5",
       "material_limitations": [
         "第三项军事成本C6还包含南诏等方向的重大兵团人员灾害（D项固定材料记前后死者近二十万）及长期多线投入。军队死亡数字本身不直接转换成C1；真正进入C1的是征发已造成的壮丁强制离家、车牛驴马等家庭生产资产无偿丧失等实现后果。该军事低态用于截断峰值、解释末期回落，不与安史后的C1-1终局重复扣算。"
@@ -1169,7 +1114,7 @@
       "reign_range": "712-756",
       "ruler_id": "RULER-TANG-LILONGJI",
       "ruler_name": "李隆基",
-      "score": 74.3,
+      "score": 59.4,
       "stability_class_diagnostic_only": "K0",
       "state_anchors": {
         "S0": "C1-3",
@@ -1194,8 +1139,6 @@
       },
       "raw_state_band": "C1-5",
       "formal_band": "C1-5",
-      "complexity_class": "HIGH",
-      "complexity_basis": "高档准入同时通过实际治理范围与复杂度认证，formal与raw同档。",
       "raw_peak_band": "C1-6",
       "formal_peak_band": "C1-6",
       "lane_axis_coverage": [
@@ -1416,16 +1359,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "status": "PASS",
-        "basis": "家庭余量直接强锚为核心；生产、市场、财政和治安材料不计入C1多轴门。",
-        "required_core_axis": "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-5",
       "material_limitations": [
         "第三项军事成本C4覆盖东突厥、吐谷浑、高昌、高丽、薛延陀等多轮国家军事投入；其中剑南造船链还带有统治者错误扩大负担的异常成本。C1只将剑南已经实现的卖产、鬻子女、谷贵计入K2；其余战争如仅有兵力规模、战损或转输而无家庭端闭合，仍留在第三项，不追加C1负项。"
@@ -1436,7 +1369,7 @@
       "reign_range": "626-649",
       "ruler_id": "RULER-TANG-LISHIMIN",
       "ruler_name": "李世民",
-      "score": 74.3,
+      "score": 71.3,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-2",
@@ -1538,8 +1471,6 @@
       },
       "raw_state_band": "C1-5",
       "formal_band": "C1-5",
-      "complexity_class": "HIGH",
-      "complexity_basis": "高档准入同时通过实际治理范围与复杂度认证，formal与raw同档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -1673,7 +1604,6 @@
         }
       ],
       "evidence_mode": "STRUCTURED_CONSTRAINED_INFERENCE",
-      "high_band_gate": null,
       "main_band": "C1-4",
       "material_limitations": [
         "第三项军事成本C4高位主要由安州同链约四千本方军事人员损失准入；该事实仍是军队口径，未闭合普通家庭缺粮、卖产、流亡或家庭结构损伤，不生成新的C1低谷。"
@@ -1776,8 +1706,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -1897,14 +1825,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-4",
       "material_limitations": [
         "第三项军事成本C5中位主要来自西域长期重复行动和驻屯。“百姓频年服役、转输烦费”是重要负向奏议与纠偏触发，但尚缺同尺度普通家庭破产、缺粮、卖产、流亡等实现后果，不能据军事投入直接把K3升档或否定后期C1-5。"
@@ -1915,7 +1835,7 @@
       "reign_range": "75—88",
       "ruler_id": "RULER-HAN-LIUDA",
       "ruler_name": "刘炟",
-      "score": 54.9,
+      "score": 54.1,
       "stability_class_diagnostic_only": "K3",
       "state_anchors": {
         "S0": "C1-3",
@@ -1960,8 +1880,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": "C1-5",
       "formal_peak_band": "C1-5",
       "lane_axis_coverage": [
@@ -2091,15 +2009,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_PLUS_CONSTRAINED_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-4",
       "material_limitations": [
         "第三项军事成本C5高位下界包含武陵同链刘尚万余军悉没、马援四万余军疫死过半等两次重损，但这些首先是军队组织/人员口径；没有自动闭合为主要统治区普通家庭的独立C1低谷，故不再追加K或降主档。"
@@ -2110,7 +2019,7 @@
       "reign_range": "25—57",
       "ruler_id": "RULER-HAN-LIUXIU",
       "ruler_name": "刘秀",
-      "score": 54.9,
+      "score": 52.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-1",
@@ -2135,8 +2044,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -2238,13 +2145,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-4",
       "material_limitations": [
         "低粮价与“农人少利”主要属于市场交换/生产者收益语义，不单独决定C1-5。第三项军事成本C3中位，匈奴—乌孙、西羌、珠崖等链未确认新的广域家庭端低态，因此只作反向检索背景。"
@@ -2255,7 +2155,7 @@
       "reign_range": "前74—前48",
       "ruler_id": "RULER-HAN-LIUXUN",
       "ruler_name": "刘询",
-      "score": 54.9,
+      "score": 52.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-3",
@@ -2300,8 +2200,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -2408,14 +2306,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-4",
       "material_limitations": [
         "第三项军事成本C5低位由羌乱同链十年高承载与反复再动员准入，但未闭合F3且统治者重大错误较弱。C1的K1已经由家庭端流冗、凶馑、不能自存、流离独立闭合，不再用军事规模重复加重。"
@@ -2426,7 +2316,7 @@
       "reign_range": "92—105",
       "ruler_id": "RULER-HAN-LIUZHAO",
       "ruler_name": "刘肇",
-      "score": 54.9,
+      "score": 50.5,
       "stability_class_diagnostic_only": "K1",
       "state_anchors": {
         "S0": "C1-5",
@@ -2451,8 +2341,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -2555,16 +2443,9 @@
       "reign_range": "1189-1208",
       "ruler_id": "RULER-JIN-ZHANGZONG",
       "ruler_name": "完颜璟",
-      "score": 54.9,
+      "score": 50.5,
       "stability_class_diagnostic_only": "K0",
       "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE",
-        "basis": "未申报C1/C2五档以上。",
-        "lane_axis_coverage": [
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "material_limitations": [
         "第三项军事成本C5高位主要由开禧战争九路国家级长期投入准入；战争的防御性起因限制本人归责，且兵力规模本身不能生成C1。末期军需只作压力背景，S_end=C1-3仍由反复旱饥、鬻男女等独立家庭结果闭合。"
       ],
@@ -2592,8 +2473,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -2686,14 +2565,9 @@
       "reign_range": "982-1031",
       "ruler_id": "RULER-LIAO-YELU-LONGXU",
       "ruler_name": "耶律隆绪",
-      "score": 54.9,
+      "score": 50.5,
       "stability_class_diagnostic_only": "K1",
       "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE",
-        "basis": "未申报C1/C2五档以上。",
-        "lane_axis_coverage": []
-      },
       "material_limitations": [
         "第三项军事成本C5高位主要来自高丽同一长链约十年的反复国家动员、长程供给与持续再战；千人级损失没有组织分母，不上F3。该军费/动员只作为负向检索触发，K1仍由1009后多区域、反复的家庭饥贫与流徙独立闭合。"
       ],
@@ -2721,8 +2595,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -2828,14 +2700,9 @@
       "reign_range": "1031-1055",
       "ruler_id": "RULER-LIAO-YELU-ZONGZHEN",
       "ruler_name": "耶律宗真",
-      "score": 54.9,
+      "score": 52.7,
       "stability_class_diagnostic_only": "K2",
       "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE",
-        "basis": "未申报C1/C2五档以上。",
-        "lane_axis_coverage": []
-      },
       "material_limitations": [
         "C1-4主要依赖S0连续性与本人窗口有限结果共同约束，不能把宽免、赈济政策本身当作家庭高位结果；第三项军事成本C6高位与1043岁俭存在时间重叠，但当前材料没有闭合“亲征/再动员→普通家庭饥困”的因果链，不据此追加C1低谷。"
       ],
@@ -2863,8 +2730,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -2982,12 +2847,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-4",
       "material_limitations": [
         "跨洪永熙宣总锚不能独占归因于朱棣；洪熙元年四月淮徐山东“民多乏食”距离成祖去世已有数月，只作交班连续性支持，不单独倒算S_end。晚期23.5万民夫为直接役负，但也不按人数机械降档。"
@@ -2998,7 +2857,7 @@
       "reign_range": "1402-1424",
       "ruler_id": "RULER-MING-ZHU-DI",
       "ruler_name": "朱棣",
-      "score": 54.9,
+      "score": 50.5,
       "stability_class_diagnostic_only": "K0",
       "state_anchors": {
         "S0": "C1-3",
@@ -3201,8 +3060,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -3356,12 +3213,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-4",
       "material_limitations": [
         "“成弘继盛”等跨朝总评只作背景，不替代本人窗口“闾里日益充足”直接锚；第三项C5低位主要由荆襄、大藤峡、固原等内部重动员准入；军队规模本身不机械形成C1扣档，K1仍由流民与反复饥荒的家庭结果承担。"
@@ -3372,7 +3223,7 @@
       "reign_range": "1464-1487",
       "ruler_id": "RULER-MING-ZHU-JIANSHEN",
       "ruler_name": "朱见深",
-      "score": 54.9,
+      "score": 50.5,
       "stability_class_diagnostic_only": "K1",
       "state_anchors": {
         "S0": "C1-3",
@@ -3397,8 +3248,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -3584,12 +3433,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-4",
       "material_limitations": [
         "被灾免税、修省等政策/灾异标签不直接生成C1低谷，只有流民、饥民等已实现家庭结果进入K；第三项军事成本C5高位来自河套长期边镇承载与1501—1502国家级远征；现材料未闭合为新的普通家庭破产、缺粮、流亡链，故不另降C1。"
@@ -3600,7 +3443,7 @@
       "reign_range": "1487-1505",
       "ruler_id": "RULER-MING-ZHU-YOUCHENG",
       "ruler_name": "朱祐樘",
-      "score": 54.9,
+      "score": 52.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-4",
@@ -3646,8 +3489,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -3736,14 +3577,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "basis": "恢复只闭合四档，家庭余量未达五档硬门，且末段出现广域直接危机。",
-        "status": "FAIL_LONG_HIGH_AND_TERMINAL_CRISIS_GATE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-4",
       "material_limitations": [
         "“百姓充实/军民胥裕”和“海内富庶”均是跨朝或继任总评，只用于约束主态与交班下限，不把宣德自动抬到C1-5；第三项军事成本C5低位由松潘同一对象复叛及再动员准入；现证未把该军事承载闭合为比宣德九年灾荒更强的家庭低态，K0仍由末期饥荒承担。"
@@ -3754,7 +3587,7 @@
       "reign_range": "1425-1435",
       "ruler_id": "RULER-MING-ZHU-ZHANJI",
       "ruler_name": "朱瞻基",
-      "score": 54.9,
+      "score": 50.5,
       "stability_class_diagnostic_only": "K0",
       "state_anchors": {
         "S0": "C1-3",
@@ -3779,8 +3612,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -3908,14 +3739,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-4",
       "material_limitations": [
         "京郊饥寒与环庆转输属于同一淳化末压力窗，不按两条史料拆成两个独立低谷；第三项军事成本C4高位中，环庆转输已经闭合到家庭产业、劳力与畜力损害，因此进入K2；其余战争规模不再重复追加。"
@@ -3926,7 +3749,7 @@
       "reign_range": "976-997",
       "ruler_id": "RULER-NS-ZHAO-GUANGYI",
       "ruler_name": "赵光义",
-      "score": 54.9,
+      "score": 52.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-4",
@@ -3974,8 +3797,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -4085,14 +3906,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "basis": "同期乡村财富与商品化背景加本人窗口宏观锚可闭合阶段峰值；缺全窗家庭余量长期总锚，且末期灾荒明确回落，不能升主档。",
-        "status": "PASS_BOUNDED_PEAK_NOT_MAIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-4",
       "material_limitations": [
         "咸平、景德“家给人足”只登记阶段峰值，不外推天禧末仍处C1-5；第三项军事成本仅C3下界高位，澶渊属于必要防御—谈判收束；现证没有把军事负担闭合成对咸平景德峰值的侵蚀，末期下降主要由物价、调率与民力困顿闭合。"
@@ -4103,7 +3916,7 @@
       "reign_range": "997-1022",
       "ruler_id": "RULER-NS-ZHAO-HENG",
       "ruler_name": "赵恒",
-      "score": 54.9,
+      "score": 50.5,
       "stability_class_diagnostic_only": "K0",
       "state_anchors": {
         "S0": "C1-4",
@@ -4154,8 +3967,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": "C1-5",
       "formal_peak_band": "C1-5",
       "lane_axis_coverage": [
@@ -4283,13 +4094,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-4",
       "material_limitations": [
         "梁周翰奏疏只作为负向检索与机制证据，不把风险判断直接等同已实现C1低谷；第三项D为不适用，是因创业/统一整链去重，不代表战争成本低；C1仍按本人窗口实际家庭结果独立结算。"
@@ -4300,7 +4104,7 @@
       "reign_range": "960-976",
       "ruler_id": "RULER-NS-ZHAO-KUANGYIN",
       "ruler_name": "赵匡胤",
-      "score": 54.9,
+      "score": 54.1,
       "stability_class_diagnostic_only": "K3",
       "state_anchors": {
         "S0": "C1-2",
@@ -4467,8 +4271,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -4621,13 +4423,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-4",
       "material_limitations": [
         "人口、田亩增长不能单独证明家庭温饱，只与赈济、复业和民力恢复结果共同约束主态；第三项军事成本C4中位已在陕西闭合到“裁兵后民力稍苏”，可作为中期区域家庭承压证据；但不能仅凭战争军费把全国终点压3，终点仍需晚期灾荒与家庭余量不足共同支持。"
@@ -4638,7 +4433,7 @@
       "reign_range": "1033-1063（亲政）",
       "ruler_id": "RULER-NS-ZHAO-ZHEN",
       "ruler_name": "赵祯",
-      "score": 54.9,
+      "score": 50.5,
       "stability_class_diagnostic_only": "K0",
       "state_anchors": {
         "S0": "C1-3",
@@ -4663,8 +4458,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -4825,15 +4618,6 @@
         }
       ],
       "evidence_mode": "DIRECT_PRIMARY_AND_CONSTRAINED_DYNASTIC_CONTEXT",
-      "high_band_gate": {
-        "status": "FAIL_HOUSEHOLD_MARGIN_DIRECT_RESULT_GATE",
-        "basis": "有承平与民生正常运行背景，但本人窗口缺少“家给人足/家有余蓄/民富且可保留资产”一类广域家庭余量强锚，更缺第二纯C1轴的同尺度互证，C1-5关闭。",
-        "required_core_axis": "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-4",
       "material_limitations": [
         "跨康乾总评只约束同期绝对状态；山东与甘陕灾歉不归责于皇帝本人，C1只消费已经发生的家庭食物可得性低态。三锚维持4→4→4，并与玄烨S_end、弘历S0连续。"
@@ -4844,7 +4628,7 @@
       "reign_range": "1722-1735",
       "ruler_id": "RULER-PUBLIC-4EB7AC987FECC59F",
       "ruler_name": "胤禛",
-      "score": 54.9,
+      "score": 52.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-4",
@@ -4887,8 +4671,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -5055,15 +4837,6 @@
         }
       ],
       "evidence_mode": "DIRECT_PRIMARY_MACRO_AND_CONSTRAINED_CONTEXT",
-      "high_band_gate": {
-        "status": "FAIL_HOUSEHOLD_MARGIN_DIRECT_RESULT_GATE",
-        "basis": "《清史稿》跨康乾“国富民殷”只能作背景；康熙晚年本人尚称“未敢谓家给人足”。现证缺本人窗口广域、跨阶段家庭余量强锚及第二纯C1轴同尺度互证，C1-5关闭。",
-        "required_core_axis": "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-4",
       "material_limitations": [
         "战争规模本身不直接扣C1；只消费已经落到家庭端的转输劳苦、饥馑、流移和米价压力。K2表示存在多个实质低谷而主态仍明显占优；S_end=C1-4维持，并与胤禛S0硬连续。"
@@ -5074,7 +4847,7 @@
       "reign_range": "1669-1722",
       "ruler_id": "RULER-PUBLIC-5B02E75C191C9829",
       "ruler_name": "玄烨",
-      "score": 54.9,
+      "score": 52.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-3",
@@ -5159,8 +4932,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -5341,14 +5112,6 @@
         }
       ],
       "evidence_mode": "DIRECT_PRIMARY_PLUS_SUCCESSOR_RETROSPECTIVE_HANDOFF",
-      "high_band_gate": {
-        "status": "FAIL_HOUSEHOLD_MARGIN_DIRECT_RESULT_GATE",
-        "basis": "原峰值主要依赖部分地区生活水平研究与单一家庭余量方向，未达到C1-5所要求的广域直接家庭余量核心锚+第二纯C1轴互证；且本人早期直接材料明确称闾阎艰难、农民富厚难骤见。峰值撤销。",
-        "required_core_axis": "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-4",
       "material_limitations": [
         "川楚教乱的战争/叛乱名目本身不决定C1，终点3只消费田舍毁损、逃散与无食等家庭结果；自然灾害、战争责任与清廷放大责任另交C4。"
@@ -5359,7 +5122,7 @@
       "reign_range": "1735-1799",
       "ruler_id": "RULER-PUBLIC-6DACD59C17927ECA",
       "ruler_name": "弘历",
-      "score": 54.9,
+      "score": 50.5,
       "stability_class_diagnostic_only": "K0",
       "state_anchors": {
         "S0": "C1-4",
@@ -5378,8 +5141,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -5486,16 +5247,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "status": "PASS",
-        "basis": "家庭余量直接强锚为核心；生产、市场、财政和治安材料不计入C1多轴门。",
-        "required_core_axis": "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-4",
       "material_limitations": [
         "“户口蕃息”不能单独证明家庭余量；战争规模本身也不直接扣C1，只消费已经落到普通家庭的饥流、流寓与持续饥困。"
@@ -5509,7 +5260,7 @@
       ],
       "ruler_id": "RULER-SHADOW-刘义隆",
       "ruler_name": "刘义隆",
-      "score": 54.9,
+      "score": 50.5,
       "stability_class_diagnostic_only": "K0",
       "state_anchors": {
         "S0": "C1-3",
@@ -5534,8 +5285,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "MEDIUM",
-      "complexity_basis": "附件R1逐人裁决：raw家庭绝对状态达到高档，但实际治理人口、地域、多核心、异质性或行政链复杂度不足以原档计分。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -5645,16 +5394,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "status": "PASS",
-        "basis": "家庭余量直接强锚为核心；生产、市场、财政和治安材料不计入C1多轴门。",
-        "required_core_axis": "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-4",
       "material_limitations": [
         "范宁疏具有劝谏语境，已实现家庭结果可以入低谷，但不能据一次奏疏外推为长期次级主态；“太元末年”正锚本身位于更晚阶段，因此不能再把交班状态压到C1-4以下。"
@@ -5668,7 +5407,7 @@
       ],
       "ruler_id": "RULER-SHADOW-司马曜",
       "ruler_name": "司马曜",
-      "score": 54.9,
+      "score": 52.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-3",
@@ -5694,8 +5433,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "MEDIUM",
-      "complexity_basis": "附件R1逐人裁决：raw家庭绝对状态达到高档，但实际治理人口、地域、多核心、异质性或行政链复杂度不足以原档计分。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -5779,13 +5516,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-4",
       "material_limitations": [
         "自然灾害不转化为本人负贡献，但其已实现的歉收、毁屋与广域伤麦属于绝对家庭状态。K1只由太康六至九年的连续宏观阶段承担，不用更早灾年凑次数。"
@@ -5799,7 +5529,7 @@
       ],
       "ruler_id": "RULER-SHADOW-司马炎",
       "ruler_name": "司马炎",
-      "score": 54.9,
+      "score": 50.5,
       "stability_class_diagnostic_only": "K1",
       "state_anchors": {
         "S0": "C1-3",
@@ -5824,8 +5554,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -5915,13 +5643,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-4",
       "material_limitations": [
         "“公私丰赡”作为跨前后任持续状态只能约束亲政初期不低于C1-4，不能单独给本人C1-5；军事规模与继任期灾荒均不得跨项、跨任回填。"
@@ -5935,7 +5656,7 @@
       ],
       "ruler_id": "RULER-SHADOW-拓跋宏",
       "ruler_name": "拓跋宏",
-      "score": 54.9,
+      "score": 54.1,
       "stability_class_diagnostic_only": "K3",
       "state_anchors": {
         "S0": "C1-4",
@@ -5960,8 +5681,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -6073,13 +5792,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-4",
       "material_limitations": [
         "材料集中于酒泉—敦煌核心区且带颂扬语境；K4仅表示现有材料没有确认恢复后的有效低谷，不把史料沉默本身当稳定正证。"
@@ -6118,8 +5830,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -6192,16 +5902,7 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "status": "PASS",
-        "basis": "家庭余量直接强锚为核心；生产、市场、财政和治安材料不计入C1多轴门。",
-        "required_core_axis": "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
-      "main_band": "C1-4",
+      "main_band": "C1-5",
       "material_limitations": [
         "C1只消费“事少役希、民多富实、新附给复、年谷屡熟”；治安部分转C3语义。小政权复杂度限制formal，不否认其raw家庭绝对状态。"
       ],
@@ -6214,7 +5915,7 @@
       ],
       "ruler_id": "RULER-SHADOW-李雄",
       "ruler_name": "李雄",
-      "score": 54.9,
+      "score": 74.3,
       "stability_class_diagnostic_only": "K4",
       "state_anchors": {
         "S0": "C1-1",
@@ -6259,9 +5960,7 @@
         "rule_conflict_resolution": "人物行保留formal曲线的说法被后置R21取代；动态链统一使用raw。"
       },
       "raw_state_band": "C1-5",
-      "formal_band": "C1-4",
-      "complexity_class": "LOW",
-      "complexity_basis": "附件R1逐人裁决：raw家庭绝对状态达到高档，但实际治理人口、地域、多核心、异质性或行政链复杂度不足以原档计分。",
+      "formal_band": "C1-5",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -6414,15 +6113,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-4",
       "material_limitations": [
         "仓廪、府帑、库藏与户口增长仅作C2或背景互证；仁寿宫、开皇十二年与十四年三组低谷成因和空间边界不同，不因“有三组材料”机械拼成K1。"
@@ -6436,7 +6126,7 @@
       ],
       "ruler_id": "RULER-SHADOW-杨坚",
       "ruler_name": "杨坚",
-      "score": 54.9,
+      "score": 52.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-3",
@@ -6461,8 +6151,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -6579,13 +6267,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-4",
       "material_limitations": [
         "“百姓丰乐”足够C1-4但未过C1-5家庭余量强门；终局崩坏的外因、战争责任与本人放大程度另交C4，不在C1倒推归责。"
@@ -6599,7 +6280,7 @@
       ],
       "ruler_id": "RULER-SHADOW-苻坚",
       "ruler_name": "苻坚",
-      "score": 54.9,
+      "score": 46.1,
       "stability_class_diagnostic_only": "K0",
       "state_anchors": {
         "S0": "C1-2",
@@ -6643,8 +6324,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -6744,13 +6423,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "basis": "人物专章的普遍繁荣总锚与本人窗口收成、无流殍直接结果互证，闭合民间生产、基本生活与家庭余量；晚期反证已在终点四档吸收。",
-        "status": "PASS_MULTI_AXIS_LONG_HIGH",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-4",
       "material_limitations": [
         "第三项军事成本仅C3中位，隆兴北伐虽由本人主动授权并有符离败退，但人员分母未闭合；现证也未把其独立闭合成普通家庭破产、缺粮或流亡链。故军事成本只作反向检索触发，K1仍由恢复后的灾荒/流徙家庭结果承担。"
@@ -6761,7 +6433,7 @@
       "reign_range": "1162—1189",
       "ruler_id": "RULER-SS-ZHAO-SHEN",
       "ruler_name": "赵昚",
-      "score": 54.9,
+      "score": 50.5,
       "stability_class_diagnostic_only": "K1",
       "state_anchors": {
         "S0": "C1-3",
@@ -6807,8 +6479,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -7062,15 +6732,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-4",
       "material_limitations": [
         "永徽“百姓阜安”闭合C1-4，但缺贯穿全任的广域家庭余量强锚；军队战损、仓库渐虚本身不直接改变C1，只有闭合到家庭征调、饥饿、死亡、逃亡的结果才进入。"
@@ -7081,7 +6742,7 @@
       "reign_range": "649-683",
       "ruler_id": "RULER-TANG-LIZHI",
       "ruler_name": "李治",
-      "score": 54.9,
+      "score": 50.5,
       "stability_class_diagnostic_only": "K0",
       "state_anchors": {
         "S0": "C1-5",
@@ -7160,8 +6821,6 @@
       },
       "raw_state_band": "C1-4",
       "formal_band": "C1-4",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -7300,7 +6959,6 @@
         }
       ],
       "evidence_mode": "DIRECT_PLUS_CONSTRAINED_INFERENCE",
-      "high_band_gate": null,
       "main_band": "C1-3",
       "material_limitations": [
         "K1来自短任内独立宏观低态，不是按灾年条数累加。"
@@ -7311,7 +6969,7 @@
       "reign_range": "954-959",
       "ruler_id": "RULER-FD-CHAI-RONG",
       "ruler_name": "柴荣",
-      "score": 32.0,
+      "score": 29.4,
       "stability_class_diagnostic_only": "K1",
       "state_anchors": {
         "S0": "C1-3",
@@ -7358,8 +7016,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -7480,7 +7136,6 @@
         }
       ],
       "evidence_mode": "DIRECT_PLUS_CONSTRAINED_INFERENCE",
-      "high_band_gate": null,
       "main_band": "C1-3",
       "material_limitations": [
         "“民有恒产”等覆盖有限，不足外推全国普遍温饱。"
@@ -7608,8 +7263,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -7714,14 +7367,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_AND_COUNTEREVIDENCE",
-      "high_band_gate": {
-        "basis": "‘军民皆足’只覆盖约一年；全任相对总评和家庭低余量反证不支持C1-4主态。",
-        "highest_closed_band": "C1-4_PEAK_STAGE",
-        "status": "PASS_BOUNDED_PEAK_NOT_MAIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "“军民皆足”覆盖短；“粗为小康”为时代内比较，均不外推长期C1-4。"
@@ -7784,8 +7429,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": "C1-4",
       "formal_peak_band": "C1-4",
       "lane_axis_coverage": [
@@ -7887,7 +7530,6 @@
         }
       ],
       "evidence_mode": "CONSTRAINED_INFERENCE",
-      "high_band_gate": null,
       "main_band": "C1-3",
       "material_limitations": [
         "材料稀疏只降低置信度，不自动降档；也不能用其他轴负证虚构C1-K。"
@@ -7917,8 +7559,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -8043,7 +7683,6 @@
         }
       ],
       "evidence_mode": "CONSTRAINED_INFERENCE",
-      "high_band_gate": null,
       "main_band": "C1-3",
       "material_limitations": [
         "宋军入成都后数日的掠子女、夺财货发生在孟昶退出最高权力以后，不得倒算本人交班状态。"
@@ -8054,7 +7693,7 @@
       "reign_range": "934-965",
       "ruler_id": "RULER-FD-MENG-CHANG",
       "ruler_name": "孟昶",
-      "score": 32.0,
+      "score": 31.5,
       "stability_class_diagnostic_only": "K3",
       "state_anchors": {
         "S0": "C1-3",
@@ -8075,8 +7714,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -8204,7 +7841,6 @@
         }
       ],
       "evidence_mode": "CONSTRAINED_INFERENCE",
-      "high_band_gate": null,
       "main_band": "C1-3",
       "material_limitations": [
         "末期下坠由家庭税敛结果承担，不以割地、事契丹等政治评价直接替代C1。"
@@ -8215,7 +7851,7 @@
       "reign_range": "936-942",
       "ruler_id": "RULER-FD-SHI-JINGTANG",
       "ruler_name": "石敬瑭",
-      "score": 32.0,
+      "score": 29.4,
       "stability_class_diagnostic_only": "K0",
       "state_anchors": {
         "S0": "C1-2",
@@ -8292,8 +7928,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -8408,7 +8042,6 @@
         }
       ],
       "evidence_mode": "CONSTRAINED_INFERENCE",
-      "high_band_gate": null,
       "main_band": "C1-3",
       "material_limitations": [
         "一条广泛重敛链足以K2，但未形成长期次级主态；军备规模不机械扣C1。"
@@ -8419,7 +8052,7 @@
       "reign_range": "907-918",
       "ruler_id": "RULER-FD-WANG-JIAN",
       "ruler_name": "王建",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-2",
@@ -8463,8 +8096,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -8574,7 +8205,6 @@
         }
       ],
       "evidence_mode": "CONSTRAINED_INFERENCE",
-      "high_band_gate": null,
       "main_band": "C1-3",
       "material_limitations": [
         "S0及恢复过程不压K；财政改善也不自动证明家庭普遍温饱。"
@@ -8628,8 +8258,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -8705,14 +8333,6 @@
         }
       ],
       "evidence_mode": "MULTI_RESULT_STRONG_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "昌陵与灾区负证不按条数拼K1；劝谏中的夸张数字不作精确统计。"
@@ -8723,7 +8343,7 @@
       "reign_range": "前33—前7",
       "ruler_id": "RULER-HAN-LIUAO",
       "ruler_name": "刘骜",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-3",
@@ -8762,8 +8382,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -8857,14 +8475,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "董仲舒文字含劝谏与制度回顾；终局主要由“天下虚耗、人复相食”承担。"
@@ -8875,7 +8485,7 @@
       "reign_range": "前141—前87",
       "ruler_id": "RULER-HAN-LIUCHE",
       "ruler_name": "刘彻",
-      "score": 32.0,
+      "score": 29.4,
       "stability_class_diagnostic_only": "K0",
       "state_anchors": {
         "S0": "C1-5",
@@ -8917,8 +8527,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -8989,13 +8597,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "灾害本身不作本人负贡献；后半任缺恢复到C1-4的直接家庭锚。"
@@ -9006,7 +8607,7 @@
       "reign_range": "前48—前33",
       "ruler_id": "RULER-HAN-LIUSHI",
       "ruler_name": "刘奭",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-4",
@@ -9025,8 +8626,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -9111,14 +8710,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "户口、府库、田宅价格均不单独抬高或压低C1；K4仅表示未确认有效低谷。"
@@ -9148,8 +8739,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -9214,13 +8803,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "材料覆盖孝惠—高后共同阶段；文景后来的富足不得倒灌。"
@@ -9240,8 +8822,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -9313,13 +8893,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "共同阶段材料不能切成吕雉独占贡献；史料稀疏不等于高度稳定。"
@@ -9349,8 +8922,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -9417,16 +8988,9 @@
       "reign_range": "1149-1161",
       "ruler_id": "RULER-JIN-HAILING",
       "ruler_name": "完颜亮",
-      "score": 32.0,
+      "score": 29.4,
       "stability_class_diagnostic_only": "K0",
       "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE",
-        "basis": "未申报C1/C2五档以上。",
-        "lane_axis_coverage": [
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "material_limitations": [
         "军数和战争胜负不直接决定C1；进入C1的是征丁与“民不堪命”等实现结果。"
       ],
@@ -9469,8 +9033,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -9533,16 +9095,9 @@
       "reign_range": "1123-1135",
       "ruler_id": "RULER-JIN-TAIZONG",
       "ruler_name": "完颜晟",
-      "score": 32.0,
+      "score": 31.5,
       "stability_class_diagnostic_only": "K3",
       "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE",
-        "basis": "未申报C1/C2五档以上。",
-        "lane_axis_coverage": [
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "material_limitations": [
         "迁徙与战争只作检索背景；缺广域破产、饥荒或流亡结果。"
       ],
@@ -9564,8 +9119,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -9628,14 +9181,9 @@
       "reign_range": "1135-1149",
       "ruler_id": "RULER-JIN-XIZONG",
       "ruler_name": "完颜亶",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE",
-        "basis": "未申报C1/C2五档以上。",
-        "lane_axis_coverage": []
-      },
       "material_limitations": [
         "S_end=C1-4主要由后段恢复与交班连续性约束；同一危机簇不得兼作主态降档和K1次级主态。"
       ],
@@ -9663,8 +9211,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -9740,13 +9286,6 @@
       "score": 32.0,
       "stability_class_diagnostic_only": "K4",
       "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE",
-        "basis": "未申报C1/C2五档以上。",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "material_limitations": [
         "史料极疏；K4仅表示未确认有效低谷。“威行绝域”等不作C1高档证据。"
       ],
@@ -9770,8 +9309,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -9835,14 +9372,9 @@
       "reign_range": "927-947",
       "ruler_id": "RULER-LIAO-YELU-DEGUANG",
       "ruler_name": "耶律德光",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE",
-        "basis": "未申报C1/C2五档以上。",
-        "lane_axis_coverage": []
-      },
       "material_limitations": [
         "947年控制范围急扩又急缩；按比较对象一致原则，终点不直接由已丢失中原灾区倒压辽本部。"
       ],
@@ -9864,8 +9396,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -9927,14 +9457,9 @@
       "reign_range": "1055-1101",
       "ruler_id": "RULER-LIAO-YELU-HONGJI",
       "ruler_name": "耶律洪基",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE",
-        "basis": "未申报C1/C2五档以上。",
-        "lane_axis_coverage": []
-      },
       "material_limitations": [
         "辽代多京、多路的记载密度不等同于相对疆域覆盖；同一负证不得在主态与K1重复消费。"
       ],
@@ -9962,8 +9487,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -10037,14 +9560,9 @@
       "reign_range": "947-951",
       "ruler_id": "RULER-LIAO-YELU-RUAN",
       "ruler_name": "耶律阮",
-      "score": 32.0,
+      "score": 31.5,
       "stability_class_diagnostic_only": "K3",
       "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE",
-        "basis": "未申报C1/C2五档以上。",
-        "lane_axis_coverage": []
-      },
       "material_limitations": [
         "宗室冲突和弑杀主要归C3，不能直接压C1。"
       ],
@@ -10066,8 +9584,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -10125,16 +9641,9 @@
       "reign_range": "969-982",
       "ruler_id": "RULER-LIAO-YELU-XIAN",
       "ruler_name": "耶律贤",
-      "score": 32.0,
+      "score": 31.5,
       "stability_class_diagnostic_only": "K3",
       "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE",
-        "basis": "未申报C1/C2五档以上。",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "material_limitations": [
         "救济行动本身不是低档证明；缺更强家庭结果时不升K2/K1。"
       ],
@@ -10156,8 +9665,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -10284,13 +9791,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "《治安疏》有劝谏语境，不能单独定档；终点由连续灾荒与继任短窗共同闭合。"
@@ -10301,7 +9801,7 @@
       "reign_range": "1521-1567",
       "ruler_id": "RULER-MING-ZHU-HOUCONG",
       "ruler_name": "朱厚熜",
-      "score": 32.0,
+      "score": 29.4,
       "stability_class_diagnostic_only": "K0",
       "state_anchors": {
         "S0": "C1-3",
@@ -10347,8 +9847,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -10464,14 +9962,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "史料密度与灾年数量不自动抬K；营建和皇店只在闭合家庭结果时进入C1。"
@@ -10482,7 +9972,7 @@
       "reign_range": "1505-1521",
       "ruler_id": "RULER-MING-ZHU-HOUZHAO",
       "ruler_name": "朱厚照",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-4",
@@ -10507,8 +9997,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -10619,12 +10107,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "灾害与赈济条数不等于次级主态；不重复消费S_main证据时未过K1聚合门。"
@@ -10635,7 +10117,7 @@
       "reign_range": "1449-1457",
       "ruler_id": "RULER-MING-ZHU-QIYU",
       "ruler_name": "朱祁钰",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-3",
@@ -10682,8 +10164,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -10799,15 +10279,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "basis": "起点继承宣德末粮储赈济危机；正统中期恢复不能回写起点，两个统治窗口总体维持三档且有土木等显著波动。",
-        "status": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "灾荒本身不作本人负贡献；这里仅用于绝对家庭状态与K。K1成立依第二执政短窗的高时间密度与多主要区域实际饥困，不按灾年条数机械累计。"
@@ -10818,7 +10289,7 @@
       "reign_range": "1435-1449; 1457-1464",
       "ruler_id": "RULER-MING-ZHU-QIZHEN",
       "ruler_name": "朱祁镇",
-      "score": 32.0,
+      "score": 29.4,
       "stability_class_diagnostic_only": "K1",
       "state_anchors": {
         "S0": "C1-3",
@@ -10883,8 +10354,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -10995,13 +10464,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "人口、屯田、仓储、军食不作为C1主证；“闾阎充实”为晚期/跨朝约束，不倒填全任。"
@@ -11012,7 +10474,7 @@
       "reign_range": "1368-1398",
       "ruler_id": "RULER-MING-ZHU-YUANZHANG",
       "ruler_name": "朱元璋",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-2",
@@ -11710,8 +11172,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -11805,13 +11265,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "战争、缺饷和政权控制收缩本身不机械扣C1；只消费已经落到家庭食物可得性与抢粮的结果。"
@@ -11822,7 +11275,7 @@
       "reign_range": "1645-1646福建隆武实际中枢；郑氏控制作为本人权责限制而非扩张辖境",
       "ruler_id": "RULER-MING-ZHU-YUJIAN",
       "ruler_name": "朱聿键",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-3",
@@ -11837,8 +11290,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -11954,13 +11405,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "“鞠为茂草”首先是生产结果，只有其对家庭维生的明确传导部分进入C1；南方主要经济区未同时闭合C1-2级普遍家庭困顿。"
@@ -11971,7 +11415,7 @@
       "reign_range": "1398-1402",
       "ruler_id": "RULER-MING-ZHU-YUNWEN",
       "ruler_name": "朱允炆",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-4",
@@ -11996,8 +11440,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -12144,14 +11586,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "灾害发生不归责本人；本项只确认家庭绝对状态。未闭合独立于主态判断之外的第二个宏观C1-2常态，不判K1。"
@@ -12162,7 +11596,7 @@
       "reign_range": "1567-1572",
       "ruler_id": "RULER-MING-ZHU-ZAIHOU",
       "ruler_name": "朱载坖",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-2",
@@ -12210,8 +11644,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -12289,10 +11721,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "政策动作只作恢复/救济背景，K只消费已经形成的灾民、冻害与家庭生计低态；材料密度不换K档。"
@@ -12303,7 +11731,7 @@
       "reign_range": "1085-1093（实际主政）",
       "ruler_id": "RULER-NS-GAO-TAOTAO",
       "ruler_name": "高滔滔",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-2",
@@ -12364,8 +11792,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -12484,14 +11910,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "真宗末困顿属于S0背景；人口、田土及土木节省不得替代C1家庭状态。"
@@ -12502,7 +11920,7 @@
       "reign_range": "1022-1033（实际主政）",
       "ruler_id": "RULER-NS-LIU-E",
       "ruler_name": "刘娥",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-3",
@@ -12527,8 +11945,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -12607,13 +12023,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "灾害本身不作本人负贡献；继任初发生或继续发展的流民问题只有能证明交班时已经形成时才可作S_end旁证。"
@@ -12624,7 +12033,7 @@
       "reign_range": "1063-1067",
       "ruler_id": "RULER-NS-ZHAO-SHU",
       "ruler_name": "赵曙",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-3",
@@ -12643,8 +12052,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -12700,10 +12107,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "水旱发生不归责本人；K只读取已经实现的流民、庐舍损毁和饥困结果。"
@@ -12714,7 +12117,7 @@
       "reign_range": "1093-1100（亲政）",
       "ruler_id": "RULER-NS-ZHAO-XU-ZHEZONG",
       "ruler_name": "赵煦",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-3",
@@ -12753,8 +12156,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -12823,13 +12224,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "basis": "市场税、通商和赈济维持基本运行；天聪初严重饥荒、米价暴涨与盗贼增加构成低于主档的已实现阶段，故主档三、K2。",
-        "status": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "赈民是政策响应，不用来抬档；K由已经实现的大饥、价格和饥民为盗承担。"
@@ -12840,7 +12234,7 @@
       "reign_range": "1626-1643",
       "ruler_id": "RULER-PUBLIC-6339E33979E7CCF5",
       "ruler_name": "皇太极",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-3",
@@ -12883,8 +12277,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -12967,14 +12359,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "basis": "建政与生产规制仍在形成，辽东新占区缺长期家庭结果；现证只支持三档主态，未发现低于三档的独立本人治理阶段，故K4为逐证保留而非模板默认。",
-        "status": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "该材料只证明一段占领后的居住秩序约束，不足抬C1-4；战争征服与人口迁徙需有家庭端实现结果方可进入C1。"
@@ -13004,8 +12388,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -13068,18 +12450,13 @@
       "reign_range": "1889—1898年",
       "ruler_id": "RULER-PUBLIC-79839092B61C3D74",
       "ruler_name": "载湉",
-      "score": 32.0,
+      "score": 31.5,
       "state_anchors": {
         "S0": "C1-3",
         "S_avg": "C1-3",
         "S_end": "C1-3"
       },
       "m3_supplement_origin": "NEW_FORMAL_RECORD_FROM_M3_C1_C4_READJUDICATION",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-        "basis": "按本人窗口本地直接结果材料裁决。",
-        "lane_axis_coverage": []
-      },
       "material_limitations": [
         "蠲免与赈济是政策，不直接抬状态；“灾”本身只有在闭合灾民/生计结果时才进入K。本裁决不读取1898政变后失去最高实际权力的阶段。"
       ],
@@ -13100,8 +12477,6 @@
       "rank": 36,
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -13184,14 +12559,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "basis": "承接乾隆末三档，白莲教战争后效、滥捕致民产尽失及河工财政困局使长期基本运行在末段降为广泛低余量。",
-        "status": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "K1只描述绝对状态稳定性，不把自然灾害归责本人。个别滥捕导致“皮骨仅存，资产业尽”可作局部深低点，但不再承担S_end全国降2。"
@@ -13202,7 +12569,7 @@
       "reign_range": "1799-1820",
       "ruler_id": "RULER-PUBLIC-93F6E8CA07BBD59F",
       "ruler_name": "颙琰",
-      "score": 32.0,
+      "score": 29.4,
       "stability_class_diagnostic_only": "K1",
       "state_anchors": {
         "S0": "C1-3",
@@ -13223,8 +12590,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -13297,14 +12662,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "basis": "从征服期低位恢复，持续蠲免、储粮和京畿赈济支持基本生活重新运行；多地灾荒与尚未完成的恢复阻止四档。",
-        "status": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "顺治元至六年的严重灾荒属于多尔衮实际主政及福临亲政前窗口，不倒算本人K；灾年条数不作为K1计数器。"
@@ -13315,7 +12672,7 @@
       "reign_range": "1650-1661",
       "ruler_id": "RULER-PUBLIC-AD29E67DF9E98569",
       "ruler_name": "福临",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-2",
@@ -13334,8 +12691,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -13405,16 +12760,9 @@
       "reign_range": "982-1009实际摄政",
       "ruler_id": "RULER-ROSTER-0F3BA2C535371D66",
       "ruler_name": "萧绰",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE",
-        "basis": "未申报C1/C2五档以上。",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "material_limitations": [
         "与耶律隆绪共享实权窗；同一低谷簇不得一面压主态、一面整体再过K1。"
       ],
@@ -13442,8 +12790,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -13524,14 +12870,9 @@
       "reign_range": "907-926",
       "ruler_id": "RULER-ROSTER-2035C039E3532021",
       "ruler_name": "耶律阿保机",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE",
-        "basis": "未申报C1/C2五档以上。",
-        "lane_axis_coverage": []
-      },
       "material_limitations": [
         "“汉人安之”只覆盖汉城安置群体；俘徙与寇掠也需按实际家庭结果消费，不能按战果数量累加。"
       ],
@@ -13577,8 +12918,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -13643,16 +12982,9 @@
       "reign_range": "1115-1123",
       "ruler_id": "RULER-ROSTER-323631DDD7CB22F6",
       "ruler_name": "完颜阿骨打",
-      "score": 32.0,
+      "score": 31.5,
       "stability_class_diagnostic_only": "K3",
       "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE",
-        "basis": "未申报C1/C2五档以上。",
-        "lane_axis_coverage": [
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "material_limitations": [
         "太宗初“新迁之户艰苦不能自存”只作迁徙后效与交班约束，不直接改写阿骨打S_end为C1-2。"
       ],
@@ -13676,8 +13008,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -13754,14 +13084,6 @@
         }
       ],
       "evidence_mode": "MULTI_RESULT_STRONG_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "神龟、正光和预征六年租调均在518年后，严禁归给元恪；延昌末危机很深，但不足把全局S_end压C1-2。"
@@ -13775,7 +13097,7 @@
       ],
       "ruler_id": "RULER-SHADOW-元恪",
       "ruler_name": "元恪",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-4",
@@ -13800,8 +13122,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -13872,13 +13192,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "自然水旱本身不归责本人，但已实现的民饥、给粥和卖鬻男女可以进入绝对状态；同一太和六至九年危机簇既已参与主态下调，不再整体重复消费为K1，只把其中更深的C1-2家庭裂缝计为K2低谷。第一次、第二次摄政之间不属于本人实际最高权力窗口，不参与动态结算。“公私丰赡”缺C1-5所需第二纯C1强轴，故不再登记五档峰值。"
@@ -13898,7 +13211,7 @@
       ],
       "ruler_id": "RULER-SHADOW-冯太后",
       "ruler_name": "冯太后",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-4",
@@ -13925,8 +13238,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -14014,14 +13325,6 @@
         }
       ],
       "evidence_mode": "MULTI_RESULT_STRONG_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "“朝野竞劝”只能支持恢复和基本运行，不等于普遍温饱；北燕规模较小且生活量值稀疏。"
@@ -14074,8 +13377,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -14133,11 +13434,6 @@
         }
       ],
       "evidence_mode": "CONTINUITY_CONSTRAINED_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "多数材料仍是政策与减负措施；称帝后窗口很短，后继刘宋运行不得回填为本人结果。"
@@ -14170,8 +13466,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -14290,11 +13584,6 @@
         }
       ],
       "evidence_mode": "MULTI_RESULT_STRONG_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "第二条只用于切断继任期倒算，不作为姚兴本人负证；C1-3仍属受约束推断。"
@@ -14327,8 +13616,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -14384,13 +13671,6 @@
         }
       ],
       "evidence_mode": "DIRECT_RECOVERY_AND_COUNTEREVIDENCE",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE",
-        "basis": "恢复措施与大役并存，不满足普遍温饱门。",
-        "lane_axis_coverage": [
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "“蜀中富饶”是接手背景，不直接归为本人家庭福利成果；二十万城役不得脱离S0恢复阶段重复消费。"
@@ -14485,8 +13765,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -14556,11 +13834,6 @@
         }
       ],
       "evidence_mode": "MULTI_RESULT_STRONG_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "“百姓便之”证明实际便利，不等于普遍温饱；江陵等新占区损害不外推西魏核心区。"
@@ -14593,8 +13866,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -14711,11 +13982,6 @@
         }
       ],
       "evidence_mode": "DIRECT_DAMAGE_CONSTRAINED_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "395参合陂惨败只确认军事损失，未闭合普通家庭跌破基本维持状态，故不降稳定性判断。"
@@ -14754,8 +14020,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -14818,11 +14082,6 @@
         }
       ],
       "evidence_mode": "MULTI_RESULT_STRONG_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "复除不等于已经实现普遍温饱；南燕短窗且核心区家庭生活量值有限。"
@@ -14855,8 +14114,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -14920,13 +14177,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "起点军国供给不等于民生；未达到富庶状态所需生活余裕证据；直接锚只按其明示时段、地域与证据类型消费，不外推为全任全境"
@@ -14940,7 +14190,7 @@
       ],
       "ruler_id": "RULER-SHADOW-拓跋嗣",
       "ruler_name": "拓跋嗣",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-3",
@@ -14959,8 +14209,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -15032,11 +14280,6 @@
         "S_end": "C1-3"
       },
       "m3_supplement_origin": "NEW_FORMAL_RECORD_FROM_M3_C1_C4_READJUDICATION",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-        "basis": "按本人窗口本地直接结果材料裁决。",
-        "lane_axis_coverage": []
-      },
       "material_limitations": [
         "与冯太后实际权力窗口严格分离；连旱与恢复不得双重消费。"
       ],
@@ -15055,8 +14298,6 @@
       "rank": 36,
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -15176,11 +14417,6 @@
         }
       ],
       "evidence_mode": "DIRECT_DAMAGE_CONSTRAINED_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "南征“所过杀掠”首先属于战区暴力/C3和战争后果，不直接替代北魏核心家庭C1状态；饥荒不按记载条数拼K1。"
@@ -15194,7 +14430,7 @@
       ],
       "ruler_id": "RULER-SHADOW-拓跋焘",
       "ruler_name": "拓跋焘",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-3",
@@ -15213,8 +14449,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -15281,11 +14515,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "“比岁大熟”首先是生产结果，C1-3依赖授田给牛、持续丰收与缺乏继续广域失保反证的受约束推断；“犹未足以久赡”明确封住C1-4。"
@@ -15318,8 +14547,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -15375,14 +14602,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE",
-        "basis": "恢复总评不能替代跨时代普遍温饱门。",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "第二条属于早期存亡危机，不在恢复完成后重复压K；晚年多方向战争缺普通家庭端独立闭合。"
@@ -15416,8 +14635,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -15492,11 +14709,6 @@
         }
       ],
       "evidence_mode": "CONTINUITY_CONSTRAINED_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "减徭劝农主要证明恢复方向，缺广域家庭温饱直接锚；屠城首先属于人身安全/战争结果，不再承担C1主证。"
@@ -15549,8 +14761,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -15665,11 +14875,6 @@
         }
       ],
       "evidence_mode": "MULTI_RESULT_STRONG_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "复业三万余户和“资储未丰”只能支持基本维持；持续战争规模本身不机械形成C1低谷。"
@@ -15702,8 +14907,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -15823,11 +15026,6 @@
         }
       ],
       "evidence_mode": "MULTI_RESULT_STRONG_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "“悦服”不是家庭温饱强锚；西入关前强制种麦及杀不从者属于军事草创/迁徙高压窗口，不在恢复完成后重复压K。"
@@ -15880,8 +15078,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -16023,15 +15219,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "完整长任主态与终局崩溃必须分开；前中期缺C1-4强锚，但末期C1-1已有直接家庭结果。"
@@ -16045,7 +15232,7 @@
       ],
       "ruler_id": "RULER-SHADOW-萧衍",
       "ruler_name": "萧衍",
-      "score": 32.0,
+      "score": 28.2,
       "stability_class_diagnostic_only": "K0",
       "state_anchors": {
         "S0": "C1-2",
@@ -16064,8 +15251,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -16139,13 +15324,6 @@
         }
       ],
       "evidence_mode": "MULTI_RESULT_STRONG_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "短任且材料有限；“安业”足以支持基本维持，不等于普遍温饱或家庭余量。"
@@ -16178,8 +15356,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -16278,14 +15454,6 @@
         }
       ],
       "evidence_mode": "DIRECT_START_CONSTRAINED_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "K只消费实际低于主态的家庭阶段；灾害、战争、政策或财政名目本身不直接换档。同一危机簇若已参与主态定档，不再整体二次消费为K1。"
@@ -16318,8 +15486,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -16455,11 +15621,6 @@
         }
       ],
       "evidence_mode": "DIRECT_DAMAGE_CONSTRAINED_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "K只消费实际低于主态的家庭阶段；灾害、战争、政策或财政名目本身不直接换档。同一危机簇若已参与主态定档，不再整体二次消费为K1。"
@@ -16473,7 +15634,7 @@
       ],
       "ruler_id": "RULER-SHADOW-陈顼",
       "ruler_name": "陈顼",
-      "score": 32.0,
+      "score": 29.4,
       "stability_class_diagnostic_only": "K0",
       "state_anchors": {
         "S0": "C1-2",
@@ -16492,8 +15653,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -16549,13 +15708,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MULTI_AXIS_MACRO",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "basis": "富饶与民间生产互证，但不足以证明广泛高余量。",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "生产与区域富赡主要限制高档门，不自动闭合家庭净余量。"
@@ -16648,8 +15800,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -16708,13 +15858,6 @@
         }
       ],
       "evidence_mode": "DIRECT_RECOVERY_RESULT",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE",
-        "basis": "复业证明恢复，不证明普遍温饱。",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "K只消费实际低于主态的家庭阶段；灾害、战争、政策或财政名目本身不直接换档。同一危机簇若已参与主态定档，不再整体二次消费为K1。"
@@ -16744,8 +15887,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -16812,13 +15953,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "K只消费实际低于主态的家庭阶段；灾害、战争、政策或财政名目本身不直接换档。同一危机簇若已参与主态定档，不再整体二次消费为K1。"
@@ -16872,8 +16006,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -16990,11 +16122,6 @@
         }
       ],
       "evidence_mode": "MULTI_RESULT_STRONG_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "K只消费实际低于主态的家庭阶段；灾害、战争、政策或财政名目本身不直接换档。同一危机簇若已参与主态定档，不再整体二次消费为K1。"
@@ -17005,7 +16132,7 @@
       "reign_range": "223—263",
       "ruler_id": "RULER-SHU-LIUSHAN",
       "ruler_name": "刘禅",
-      "score": 32.0,
+      "score": 29.4,
       "stability_class_diagnostic_only": "K0",
       "state_anchors": {
         "S0": "C1-2",
@@ -17024,8 +16151,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -17081,10 +16206,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "K只消费实际低于主态的家庭阶段；灾害、战争、政策或财政名目本身不直接换档。同一危机簇若已参与主态定档，不再整体二次消费为K1。"
@@ -17095,7 +16216,7 @@
       "reign_range": "1189—1194",
       "ruler_id": "RULER-SS-ZHAO-DUN",
       "ruler_name": "赵惇",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-4",
@@ -17114,8 +16235,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -17173,14 +16292,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "K只消费实际低于主态的家庭阶段；灾害、战争、政策或财政名目本身不直接换档。同一危机簇若已参与主态定档，不再整体二次消费为K1。"
@@ -17191,7 +16302,7 @@
       "reign_range": "1127—1162",
       "ruler_id": "RULER-SS-ZHAO-GOU",
       "ruler_name": "赵构",
-      "score": 32.0,
+      "score": 29.4,
       "stability_class_diagnostic_only": "K1",
       "state_anchors": {
         "S0": "C1-1",
@@ -17216,8 +16327,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -17328,14 +16437,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "K只消费实际低于主态的家庭阶段；灾害、战争、政策或财政名目本身不直接换档。同一危机簇若已参与主态定档，不再整体二次消费为K1。"
@@ -17346,7 +16447,7 @@
       "reign_range": "1194—1224",
       "ruler_id": "RULER-SS-ZHAO-KUO",
       "ruler_name": "赵扩",
-      "score": 32.0,
+      "score": 29.4,
       "stability_class_diagnostic_only": "K1",
       "state_anchors": {
         "S0": "C1-3",
@@ -17365,8 +16466,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -17510,14 +16609,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "K只消费实际低于主态的家庭阶段；灾害、战争、政策或财政名目本身不直接换档。同一危机簇若已参与主态定档，不再整体二次消费为K1。"
@@ -17528,7 +16619,7 @@
       "reign_range": "1224—1264",
       "ruler_id": "RULER-SS-ZHAO-YUN",
       "ruler_name": "赵昀",
-      "score": 32.0,
+      "score": 29.4,
       "stability_class_diagnostic_only": "K0",
       "state_anchors": {
         "S0": "C1-3",
@@ -17547,8 +16638,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -17684,14 +16773,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "K只消费实际低于主态的家庭阶段；灾害、战争、政策或财政名目本身不直接换档。同一危机簇若已参与主态定档，不再整体二次消费为K1。"
@@ -17702,7 +16783,7 @@
       "reign_range": "846-859",
       "ruler_id": "RULER-TANG-LICHEN",
       "ruler_name": "李忱",
-      "score": 32.0,
+      "score": 31.5,
       "stability_class_diagnostic_only": "K3",
       "state_anchors": {
         "S0": "C1-3",
@@ -17727,8 +16808,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -17858,14 +16937,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "K只消费实际低于主态的家庭阶段；灾害、战争、政策或财政名目本身不直接换档。同一危机簇若已参与主态定档，不再整体二次消费为K1。"
@@ -17876,7 +16947,7 @@
       "reign_range": "710-712",
       "ruler_id": "RULER-TANG-LIDAN",
       "ruler_name": "李旦",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-3",
@@ -17885,8 +16956,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -18029,14 +17098,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "K只消费实际低于主态的家庭阶段；灾害、战争、政策或财政名目本身不直接换档。同一危机簇若已参与主态定档，不再整体二次消费为K1。"
@@ -18047,7 +17108,7 @@
       "reign_range": "705-710",
       "ruler_id": "RULER-TANG-LIXIAN",
       "ruler_name": "李显",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-3",
@@ -18066,8 +17127,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -18194,15 +17253,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "K只消费实际低于主态的家庭阶段；灾害、战争、政策或财政名目本身不直接换档。同一危机簇若已参与主态定档，不再整体二次消费为K1。"
@@ -18213,7 +17263,7 @@
       "reign_range": "762-779",
       "ruler_id": "RULER-TANG-LIYU",
       "ruler_name": "李豫",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-1",
@@ -18232,8 +17282,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -18383,14 +17431,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "K只消费实际低于主态的家庭阶段；灾害、战争、政策或财政名目本身不直接换档。同一危机簇若已参与主态定档，不再整体二次消费为K1。"
@@ -18401,7 +17441,7 @@
       "reign_range": "684-705",
       "ruler_id": "RULER-TANG-WUZETIAN",
       "ruler_name": "武则天",
-      "score": 32.0,
+      "score": 29.4,
       "stability_class_diagnostic_only": "K1",
       "state_anchors": {
         "S0": "C1-3",
@@ -18446,8 +17486,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -18526,13 +17564,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "K只消费实际低于主态的家庭阶段；灾害、战争、政策或财政名目本身不直接换档。同一危机簇若已参与主态定档，不再整体二次消费为K1。"
@@ -18582,8 +17613,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -18672,13 +17701,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "两条材料均为跨统治阶段，起止边界不能完全切到曹丕一人；交易问题明确，但缺人口、生产和生活消费的全期指标。"
@@ -18689,7 +17711,7 @@
       "reign_range": "220—226",
       "ruler_id": "RULER-WEI-CAOPI",
       "ruler_name": "曹丕",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-3",
@@ -18708,8 +17730,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -18803,11 +17823,6 @@
         }
       ],
       "evidence_mode": "MULTI_RESULT_STRONG_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "仅有一条货币流通阶段旁证，不能由此上推繁荣状态；缺人口、农业、生活消费和交班状态的直接材料；若后续闭合战争对主要统治区或主要持续阶段的实际民生后果，可重新审查是否下调。"
@@ -18818,7 +17833,7 @@
       "reign_range": "222—252",
       "ruler_id": "RULER-WU-SUNQUAN",
       "ruler_name": "孙权",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-3",
@@ -18837,8 +17852,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -18922,18 +17935,13 @@
       "reign_range": "1004—1032年",
       "ruler_id": "RULER-XIXIA-LIDEMING",
       "ruler_name": "李德明",
-      "score": 32.0,
+      "score": 30.7,
       "state_anchors": {
         "S0": "C1-3",
         "S_avg": "C1-3",
         "S_end": "C1-3"
       },
       "m3_supplement_origin": "NEW_FORMAL_RECORD_FROM_M3_C1_C4_READJUDICATION",
-      "high_band_gate": {
-        "status": "PASS",
-        "basis": "按本人窗口本地直接结果材料裁决。",
-        "lane_axis_coverage": []
-      },
       "material_limitations": [
         "连续灾情不得按年份拆成多个低谷；大规模役作无家庭端实现后果时不进入K。"
       ],
@@ -18980,8 +17988,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -19050,18 +18056,13 @@
       "reign_range": "1099—1139年",
       "ruler_id": "RULER-XIXIA-LIQIANSHUN",
       "ruler_name": "李乾顺",
-      "score": 32.0,
+      "score": 30.7,
       "state_anchors": {
         "S0": "C1-2",
         "S_avg": "C1-3",
         "S_end": "C1-4"
       },
       "m3_supplement_origin": "NEW_FORMAL_RECORD_FROM_M3_C1_C4_READJUDICATION",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-        "basis": "按本人窗口本地直接结果材料裁决。",
-        "lane_axis_coverage": []
-      },
       "material_limitations": [
         "长窗口同时保留早期梁氏战争后果、本人赈济和议和恢复，以及后期拒绝采用减战财政建议的反证。"
       ],
@@ -19166,8 +18167,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -19249,18 +18248,13 @@
       "reign_range": "1139—1193年",
       "ruler_id": "RULER-XIXIA-LIRENXIAO",
       "ruler_name": "李仁孝",
-      "score": 32.0,
+      "score": 30.7,
       "state_anchors": {
         "S0": "C1-4",
         "S_avg": "C1-3",
         "S_end": "C1-3"
       },
       "m3_supplement_origin": "NEW_FORMAL_RECORD_FROM_M3_C1_C4_READJUDICATION",
-      "high_band_gate": {
-        "status": "PASS",
-        "basis": "按本人窗口本地直接结果材料裁决。",
-        "lane_axis_coverage": []
-      },
       "material_limitations": [
         "军役规模和农业损失只有明确传导到家庭维生后才进入C1。"
       ],
@@ -19326,8 +18320,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -19464,13 +18456,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "按固定审计闭合；未找到不转零。"
@@ -19481,7 +18466,7 @@
       "reign_range": "1260-1294",
       "ruler_id": "RULER-YUAN-KUBLAI",
       "ruler_name": "忽必烈",
-      "score": 32.0,
+      "score": 29.4,
       "stability_class_diagnostic_only": "K1",
       "state_anchors": {
         "S0": "C1-3",
@@ -19502,8 +18487,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -19745,15 +18728,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "basis": "‘民稍苏息’只闭合危机后基本运行；概括性‘华夏富庶’受持续战争、晚期加倍税课和主要统治区覆盖门限制，不进入C1-4。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "本纪论赞可作为正面方向材料，但不能单独证明主要统治区多数家庭长期稳定温饱；‘民稍苏息’证明相对恢复，不等于稳定温饱状态普遍温饱；拖雷监国空窗只改变统治者名单，未提供两状态宏观跃升证据。"
@@ -19764,7 +18738,7 @@
       "reign_range": "1229-1241",
       "ruler_id": "RULER-YUAN-OGEDEI",
       "ruler_name": "窝阔台",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-2",
@@ -19804,8 +18778,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -19936,12 +18908,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-3",
       "material_limitations": [
         "按固定审计闭合；未找到不转零。"
@@ -19952,7 +18918,7 @@
       "reign_range": "1294-1307",
       "ruler_id": "RULER-YUAN-TEMUR",
       "ruler_name": "铁穆耳",
-      "score": 32.0,
+      "score": 30.7,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-3",
@@ -19993,8 +18959,6 @@
       },
       "raw_state_band": "C1-3",
       "formal_band": "C1-3",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -20133,7 +19097,6 @@
         }
       ],
       "evidence_mode": "DIRECT_PLUS_CONSTRAINED_INFERENCE",
-      "high_band_gate": null,
       "main_band": "C1-2",
       "material_limitations": [],
       "peak_band": null,
@@ -20142,7 +19105,7 @@
       "reign_range": "923-926",
       "ruler_id": "RULER-FD-LI-CUNXU",
       "ruler_name": "李存勖",
-      "score": 17.1,
+      "score": 15.7,
       "stability_class_diagnostic_only": "K0",
       "state_anchors": {
         "S0": "C1-3",
@@ -20163,8 +19126,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -20290,7 +19251,6 @@
         }
       ],
       "evidence_mode": "DIRECT_WINDOW_EVIDENCE",
-      "high_band_gate": null,
       "main_band": "C1-2",
       "material_limitations": [
         ":冻结卷2—8未见本人窗口内饥荒与币制恶化后恢复至家庭生计/生产与市场三状态的广域结果；该缺口不单独扣分，主状态由连续直接负面状态闭合。"
@@ -20301,7 +19261,7 @@
       "reign_range": "961-975",
       "ruler_id": "RULER-FD-LI-YU",
       "ruler_name": "李煜",
-      "score": 17.1,
+      "score": 15.7,
       "stability_class_diagnostic_only": "K0",
       "state_anchors": {
         "S0": "C1-3",
@@ -20320,8 +19280,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -20456,7 +19414,6 @@
         }
       ],
       "evidence_mode": "CONSTRAINED_INFERENCE",
-      "high_band_gate": null,
       "main_band": "C1-2",
       "material_limitations": [
         "材料边界：家庭生计/生产与市场起点主要承接前任与早期战争后果。"
@@ -20467,7 +19424,7 @@
       "reign_range": "913-923",
       "ruler_id": "RULER-FD-ZHU-YOUZHEN",
       "ruler_name": "朱友贞",
-      "score": 17.1,
+      "score": 15.7,
       "stability_class_diagnostic_only": "K0",
       "state_anchors": {
         "S0": "C1-3",
@@ -20486,8 +19443,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -20589,14 +19544,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "宏观材料不细分刘祜与邓绥每年的权责；自然灾害与羌战是重要外部冲击，发生本身不扣状态；‘天下复平，岁还丰穰’只锚定临朝终点，缺少持续年数与家庭供给细节。"
@@ -20607,7 +19554,7 @@
       "reign_range": "106—121",
       "ruler_id": "RULER-HAN-DENGSUI",
       "ruler_name": "邓绥",
-      "score": 17.1,
+      "score": 16.4,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-4",
@@ -20646,8 +19593,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -20741,14 +19686,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "唯一锚跨刘保、梁妠和刘志早期；梁妠实际掌权期的窄时点家庭供给材料不足；贫死记录靠近刘志建和年间。"
@@ -20759,7 +19696,7 @@
       "reign_range": "144—150",
       "ruler_id": "RULER-HAN-LIANGNA",
       "ruler_name": "梁妠",
-      "score": 17.1,
+      "score": 16.8,
       "stability_class_diagnostic_only": "K3",
       "state_anchors": {
         "S0": "C1-2",
@@ -20778,8 +19715,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -20868,14 +19803,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "文景至武帝初总评时间跨度过长，不能证明前195年交班状态；死者过半为史家总括，不能当精确人口比例；交班状态缺少窄时点家庭供给材料。"
@@ -20913,8 +19840,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -20996,14 +19921,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "锚点以冀州及中央自认执行失灵为主；全国各地强度不一；自然灾潦不作刘保负面。"
@@ -21033,8 +19950,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -21113,14 +20028,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "刘祜实际亲政窗口短；灾害本身不作本人负贡献，C1只记录已实现家庭状态。"
@@ -21150,8 +20057,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -21220,14 +20125,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "“饥死什四五”限于司隶、豫州，不外推全国；灾害归责另交C4。"
@@ -21238,7 +20135,7 @@
       "reign_range": "150—168",
       "ruler_id": "RULER-HAN-LIUZHI",
       "ruler_name": "刘志",
-      "score": 17.1,
+      "score": 16.4,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-2",
@@ -21257,8 +20154,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -21320,16 +20215,9 @@
       "reign_range": "1224-1234",
       "ruler_id": "RULER-JIN-AIZONG",
       "ruler_name": "完颜守绪",
-      "score": 17.1,
+      "score": 15.7,
       "stability_class_diagnostic_only": "K0",
       "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE",
-        "basis": "未申报C1/C2五档以上。",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "material_limitations": [
         "亡国标签本身不定C1-1，终点由食尽与相食等家庭生存结果承担。"
       ],
@@ -21351,8 +20239,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -21415,16 +20301,9 @@
       "reign_range": "1208-1213",
       "ruler_id": "RULER-JIN-WEISHAOWANG",
       "ruler_name": "完颜永济",
-      "score": 17.1,
+      "score": 15.7,
       "stability_class_diagnostic_only": "K0",
       "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE",
-        "basis": "未申报C1/C2五档以上。",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "material_limitations": [
         "政变弑君本身不决定C1终点；终点只消费家庭饥困、流亡等实现结果。"
       ],
@@ -21446,8 +20325,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -21508,16 +20385,9 @@
       "reign_range": "1213-1224",
       "ruler_id": "RULER-JIN-XUANZONG",
       "ruler_name": "完颜珣",
-      "score": 17.1,
+      "score": 15.7,
       "stability_class_diagnostic_only": "K0",
       "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE",
-        "basis": "未申报C1/C2五档以上。",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "material_limitations": [
         "北方残毁兼有战争外因，归责另交C4；C1只记录实际家庭状态。"
       ],
@@ -21539,8 +20409,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -21607,17 +20475,9 @@
       "reign_range": "1101-1125",
       "ruler_id": "RULER-LIAO-YELU-YANXI",
       "ruler_name": "耶律延禧",
-      "score": 17.1,
+      "score": 15.7,
       "stability_class_diagnostic_only": "K0",
       "evidence_mode": "DIRECT_LOCAL_CURVE_AND_CONSTRAINED_CONTINUITY",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE",
-        "basis": "未申报C1/C2五档以上。",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "material_limitations": [
         "亡国和军事失败不直接决定C1，终局只消费家庭端已实现后果。"
       ],
@@ -21647,8 +20507,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -21816,12 +20674,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "明代材料密度不参与K加权；深低点按相对范围与时间密度消费。"
@@ -21832,7 +20684,7 @@
       "reign_range": "1572-1620",
       "ruler_id": "RULER-MING-ZHU-YIJUN",
       "ruler_name": "朱翊钧",
-      "score": 17.1,
+      "score": 16.4,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-3",
@@ -21877,8 +20729,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -21991,13 +20841,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "北京覆亡只作时间边界，不替代家庭生计证据。"
@@ -22008,7 +20851,7 @@
       "reign_range": "1627-1644北京内城陷落前；不把战役成败重复写入治理轴",
       "ruler_id": "RULER-MING-ZHU-YOUJIAN",
       "ruler_name": "朱由检",
-      "score": 17.1,
+      "score": 15.7,
       "stability_class_diagnostic_only": "K0",
       "state_anchors": {
         "S0": "C1-2",
@@ -22033,8 +20876,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -22116,13 +20957,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "K4仅表示未确认主态以下有效低谷，不以史料沉默证明稳定。"
@@ -22158,8 +20992,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -22287,13 +21119,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "政权覆灭本身不决定C1-1。"
@@ -22304,7 +21129,7 @@
       "reign_range": "1646-1661实际可支配中枢；1661被缅方控制移交后失权，1662死亡仅作终局确认",
       "ruler_id": "RULER-MING-ZHU-YOULANG",
       "ruler_name": "朱由榔",
-      "score": 17.1,
+      "score": 15.7,
       "stability_class_diagnostic_only": "K0",
       "state_anchors": {
         "S0": "C1-2",
@@ -22329,8 +21154,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -22412,13 +21235,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "未取得弘光控制区家庭生计与生产的多轴连续正文。"
@@ -22429,7 +21245,7 @@
       "reign_range": "1644-1645南京弘光实际中枢；不扩张到全部南方名义辖境",
       "ruler_id": "RULER-MING-ZHU-YOUSONG",
       "ruler_name": "朱由崧",
-      "score": 17.1,
+      "score": 16.8,
       "stability_class_diagnostic_only": "K3",
       "state_anchors": {
         "S0": "C1-2",
@@ -22444,8 +21260,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -22522,12 +21336,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "靖康元年以后的汴京饥荒属于赵桓窗口，不得倒算徽宗。"
@@ -22538,7 +21346,7 @@
       "reign_range": "1100-1125",
       "ruler_id": "RULER-NS-ZHAO-JI",
       "ruler_name": "赵佶",
-      "score": 17.1,
+      "score": 15.7,
       "stability_class_diagnostic_only": "K0",
       "state_anchors": {
         "S0": "C1-3",
@@ -22557,8 +21365,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -22618,13 +21424,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "战争规模本身不扣C1，只消费已闭合的家庭役负、流离与生产中断。"
@@ -22635,7 +21434,7 @@
       "reign_range": "1067-1085",
       "ruler_id": "RULER-NS-ZHAO-XU",
       "ruler_name": "赵顼",
-      "score": 17.1,
+      "score": 16.4,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-3",
@@ -22660,8 +21459,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -22746,13 +21543,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "basis": "承接嘉庆末低位，灾荒赈免仍可运行，但财政紧缩、河工与战争余负阻止恢复；多次冲击形成显著波动。",
-        "status": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-        "lane_axis_coverage": [
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "清代史料密度与疆域规模均作中性化处理，不按灾年条数判K1。"
@@ -22763,7 +21553,7 @@
       "reign_range": "1820-1850",
       "ruler_id": "RULER-PUBLIC-7C4ED87E9C80BF8A",
       "ruler_name": "旻宁",
-      "score": 17.1,
+      "score": 16.4,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-3",
@@ -22782,8 +21572,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -22876,15 +21664,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "海内总括不能证明每地同强度；归责和工程战争选择另交C4。"
@@ -22920,8 +21699,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -22992,14 +21769,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "basis": "入关征服期承接三档基础，但主要区域战乱、迁徙与圈占使广泛困顿成为主态；减免诏令证明救助动作，不能把结果抬回三档。",
-        "status": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "控制范围重构使“全国范围”分母不断变化，K按当期实际控制区归一化。"
@@ -23010,7 +21779,7 @@
       "reign_range": "1643-1650",
       "ruler_id": "RULER-ROSTER-B32BFAF97E1D9690",
       "ruler_name": "多尔衮",
-      "score": 17.1,
+      "score": 16.4,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-3",
@@ -23029,8 +21798,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -23115,14 +21882,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "basis": "阶段峰值由有界宏观结果闭合；不作为全任主档、K4或交班锚。",
-        "highest_closed_band": "C1-3_PEAK_STAGE",
-        "status": "PASS_BOUNDED_PEAK_NOT_MAIN_BAND",
-        "lane_axis_coverage": [
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "丁戊奇荒只承担K1独立低态，不把灾害发生本身转写为慈禧可归责恶化；清代史料密度不按州县条数加权。"
@@ -23133,7 +21892,7 @@
       "reign_range": "1861-1873;1875-1889;1898-1908",
       "ruler_id": "RULER-ROSTER-D4955237564AB2D6",
       "ruler_name": "慈禧",
-      "score": 17.1,
+      "score": 15.7,
       "stability_class_diagnostic_only": "K1",
       "state_anchors": {
         "S0": "C1-1",
@@ -23152,8 +21911,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -23217,11 +21974,6 @@
         }
       ],
       "evidence_mode": "CONSTRAINED_INFERENCE",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE",
-        "basis": "财政自给不能替代家庭状态。",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "后周军入境后的剽掠属于外敌战争后果，不倒算刘崇；“赋役之重”用于主态2，不再二次消费为K。"
@@ -23251,8 +22003,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -23341,13 +22091,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "“斗米一万钱、商货不行”发生在刘彧即位前，不再作为本人主态或K直接证据。"
@@ -23380,8 +22123,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -23472,11 +22213,6 @@
         }
       ],
       "evidence_mode": "CONTINUITY_CONSTRAINED_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "缺直接广域民生总评；离石大饥不外推全境。"
@@ -23490,7 +22226,7 @@
       ],
       "ruler_id": "RULER-SHADOW-刘渊",
       "ruler_name": "刘渊",
-      "score": 17.1,
+      "score": 16.8,
       "stability_class_diagnostic_only": "K3",
       "state_anchors": {
         "S0": "C1-1",
@@ -23515,8 +22251,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -23618,14 +22352,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "景和元年“斗米一万、商货不行”及刘子业冬季继续恶化材料均剔除，不得倒算刘骏；东诸郡深灾不足外推全国终点1。"
@@ -23639,7 +22365,7 @@
       ],
       "ruler_id": "RULER-SHADOW-刘骏",
       "ruler_name": "刘骏",
-      "score": 17.1,
+      "score": 16.4,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-3",
@@ -23658,8 +22384,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -23729,11 +22453,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "灾害结果进入绝对状态与K，但自然成因不归责本人；三吴与京畿深灾仍不足外推全境C1-1。"
@@ -23747,7 +22466,7 @@
       ],
       "ruler_id": "RULER-SHADOW-司马睿",
       "ruler_name": "司马睿",
-      "score": 17.1,
+      "score": 16.4,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-2",
@@ -23794,8 +22513,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -23880,14 +22597,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "人物窗口短、直接材料少；吴郡灾情不外推全境。"
@@ -23901,7 +22610,7 @@
       ],
       "ruler_id": "RULER-SHADOW-司马绍",
       "ruler_name": "司马绍",
-      "score": 17.1,
+      "score": 16.8,
       "stability_class_diagnostic_only": "K3",
       "state_anchors": {
         "S0": "C1-2",
@@ -23910,8 +22619,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -23980,11 +22687,6 @@
         }
       ],
       "evidence_mode": "CONTINUITY_CONSTRAINED_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "新平惨案可进入家庭形成/再生产结果，但区域有限；不以战争胜负或屠杀标签机械外推全境。"
@@ -23998,7 +22700,7 @@
       ],
       "ruler_id": "RULER-SHADOW-姚苌",
       "ruler_name": "姚苌",
-      "score": 17.1,
+      "score": 16.8,
       "stability_class_diagnostic_only": "K3",
       "state_anchors": {
         "S0": "C1-1",
@@ -24023,8 +22725,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -24151,11 +22851,6 @@
         }
       ],
       "evidence_mode": "DIRECT_DAMAGE_CONSTRAINED_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "建德元年至四年的连续危机簇只消费一次：用于确定主态C1-2，不再整体二次进入K。"
@@ -24194,8 +22889,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -24263,11 +22956,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE",
-        "basis": "未实施的薄赋建议不构成正向结果。",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "军队自身缺饷、卖马只作背景；进入C1的是“侵暴良民、河东甚苦之”等家庭端结果。"
@@ -24322,8 +23010,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -24441,15 +23127,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "食货志把多项工程、巡幸和战争合并总评，不能精确拆分各事件损害比例；末期材料含旱疫背景；只把制度放大和救济失灵纳入责任，不因灾害发生降状态"
@@ -24463,7 +23140,7 @@
       ],
       "ruler_id": "RULER-SHADOW-杨广",
       "ruler_name": "杨广",
-      "score": 17.1,
+      "score": 15.7,
       "stability_class_diagnostic_only": "K0",
       "state_anchors": {
         "S0": "C1-4",
@@ -24517,8 +23194,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -24607,11 +23282,6 @@
         }
       ],
       "evidence_mode": "CONTINUITY_CONSTRAINED_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "战争规模本身不扣C1；只消费已落到家庭端的征役与不堪命结果。"
@@ -24644,8 +23314,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -24701,13 +23369,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_AND_COUNTEREVIDENCE",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE",
-        "basis": "国家和城市富庶不能覆盖普通家庭重敛反证。",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "吴越后期材料不得倒填钱镠本人窗口"
@@ -24745,8 +23406,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -24810,13 +23469,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "宫殿奢费明确但全国崩溃证据不足；不能用结果标签替代状态材料；直接锚只按其明示时段、地域与证据类型消费，不外推为全任全境"
@@ -24849,8 +23501,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -24963,11 +23613,6 @@
         }
       ],
       "evidence_mode": "CONTINUITY_CONSTRAINED_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "短任；行政恢复不能自动替代民生状态"
@@ -24990,8 +23635,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -25055,13 +23698,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "财政接近失灵但未证全国社会运行全面崩溃；国家府藏不足不单独等同民穷；直接锚只按其明示时段、地域与证据类型消费，不外推为全任全境"
@@ -25114,8 +23750,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -25185,14 +23819,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "受灾和战区有地域边界；政权整体仍在运行；直接锚只按其明示时段、地域与证据类型消费，不外推为全任全境"
@@ -25225,8 +23851,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -25314,13 +23938,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "568年放宫口、准流人还乡等正面止损保留；亡国标签本身不扣状态；直接锚只按其明示时段、地域与证据类型消费，不外推为全任全境"
@@ -25353,8 +23970,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -25427,11 +24042,6 @@
         }
       ],
       "evidence_mode": "CONTINUITY_CONSTRAINED_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "缺人口、生产、生活和赋役的广域状态材料；短任推断对新增宏观材料敏感"
@@ -25467,8 +24077,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -25630,14 +24238,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "元和六至七年京畿连续歉收，出现“不能自存”“虑有馁殍”“一岁不登遂至艰食”；元和六年大稔等恢复节点说明不能把全任直接压成严重失保状态"
@@ -25648,7 +24248,7 @@
       "reign_range": "805-820",
       "ruler_id": "RULER-TANG-LICHUN",
       "ruler_name": "李纯",
-      "score": 17.1,
+      "score": 15.7,
       "stability_class_diagnostic_only": "K1",
       "state_anchors": {
         "S0": "C1-2",
@@ -25673,8 +24273,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -25898,15 +24496,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "罪己赦文是皇帝自述，但由米价下降和东南复业互证；关中、东南恢复不能外推全国同步脱困；战争损害与WAR去重，自然灾害本身不扣状态"
@@ -25917,7 +24506,7 @@
       "reign_range": "779-805",
       "ruler_id": "RULER-TANG-LISHI",
       "ruler_name": "李适",
-      "score": 17.1,
+      "score": 16.4,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-3",
@@ -25936,8 +24525,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -26066,14 +24653,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "贞观二年诊断晚于李渊退位，作为近时交班证据存在时间偏移；贞观后续繁荣是高祖、太宗跨期结果，不能倒填为李渊任内已实现；统一战争本身不在家庭生计重复扣分，只用于限定恢复实现窗口"
@@ -26103,8 +24682,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -26203,13 +24780,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "战争/财政不足只作背景；稳定性判断消费景初元年四州水灾叠加既有劳役后的广域急性家庭低谷；现证不足证明第二个独立严重失保状态级阶段，不取稳定性判断"
@@ -26220,7 +24790,7 @@
       "reign_range": "226—239",
       "ruler_id": "RULER-WEI-CAORUI",
       "ruler_name": "曹叡",
-      "score": 17.1,
+      "score": 16.4,
       "stability_class_diagnostic_only": "K2",
       "state_anchors": {
         "S0": "C1-3",
@@ -26266,8 +24836,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -26382,11 +24950,6 @@
         }
       ],
       "evidence_mode": "CONTINUITY_CONSTRAINED_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "几乎纯继承推断；新增宏观材料可能改变结果"
@@ -26416,8 +24979,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -26498,11 +25059,6 @@
         }
       ],
       "evidence_mode": "CONTINUITY_CONSTRAINED_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "公共结果主要形成于其掌权前；缺主要统治区生活状态"
@@ -26522,8 +25078,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -26634,11 +25188,6 @@
         }
       ],
       "evidence_mode": "CONTINUITY_CONSTRAINED_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "益州结果属局部且在任末；缺魏全境家庭再生产锚"
@@ -26668,8 +25217,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -26736,14 +25283,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "缺吴全境人口与生产量值；困顿不因亡国标签自动降为崩溃；直接锚只按其明示时段、地域与证据类型消费，不外推为全任全境"
@@ -26773,8 +25312,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -26843,11 +25380,6 @@
         }
       ],
       "evidence_mode": "DIRECT_DAMAGE_CONSTRAINED_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "中间孙亮窗口缺同口径状态；单一工程不能外推为全国系统崩溃"
@@ -26858,7 +25390,7 @@
       "reign_range": "258—264",
       "ruler_id": "RULER-WU-SUNXIU",
       "ruler_name": "孙休",
-      "score": 17.1,
+      "score": 16.8,
       "stability_class_diagnostic_only": "K3",
       "state_anchors": {
         "S0": "C1-2",
@@ -26877,8 +25409,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -26972,15 +25502,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "汉书对王莽有强贬斥立场；户口减半兼含死亡、流亡、漏籍与控制变化；战争和自然灾害是复合冲击。"
@@ -26991,7 +25512,7 @@
       "reign_range": "6—23",
       "ruler_id": "RULER-XIN-WANGMANG",
       "ruler_name": "王莽",
-      "score": 17.1,
+      "score": 15.7,
       "stability_class_diagnostic_only": "K0",
       "state_anchors": {
         "S0": "C1-3",
@@ -27037,8 +25558,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -27108,11 +25627,6 @@
         "S_end": "C1-2"
       },
       "m3_supplement_origin": "NEW_FORMAL_RECORD_FROM_M3_C1_C4_READJUDICATION",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-        "basis": "按本人窗口本地直接结果材料裁决。",
-        "lane_axis_coverage": []
-      },
       "material_limitations": [],
       "peak_band": null,
       "stability_class_diagnostic_only": "K4",
@@ -27133,8 +25647,6 @@
       "rank": 121,
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -27201,11 +25713,6 @@
         "S_end": "C1-2"
       },
       "m3_supplement_origin": "NEW_FORMAL_RECORD_FROM_M3_C1_C4_READJUDICATION",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-        "basis": "按本人窗口本地直接结果材料裁决。",
-        "lane_axis_coverage": []
-      },
       "material_limitations": [
         "只结算本人恢复名义与实权后的窗口；梁氏外戚承担的政策责任单独限制本人归责系数。"
       ],
@@ -27265,8 +25772,6 @@
       "rank": 121,
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -27325,11 +25830,6 @@
         "S_end": "C1-2"
       },
       "m3_supplement_origin": "NEW_FORMAL_RECORD_FROM_M3_C1_C4_READJUDICATION",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-        "basis": "按本人窗口本地直接结果材料裁决。",
-        "lane_axis_coverage": []
-      },
       "material_limitations": [
         "只结算本人掌权后的晚期窗口，幼年没藏氏摄政不倒算本人。"
       ],
@@ -27348,8 +25848,6 @@
       "rank": 121,
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -27416,11 +25914,6 @@
         "S_end": "C1-2"
       },
       "m3_supplement_origin": "NEW_FORMAL_RECORD_FROM_M3_C1_C4_READJUDICATION",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-        "basis": "按本人窗口本地直接结果材料裁决。",
-        "lane_axis_coverage": []
-      },
       "material_limitations": [
         "国家建构与战争财政同时结算；建制数量不自动转成高状态，晚期劳役和民怨不得被称帝成果遮蔽。"
       ],
@@ -27441,8 +25934,6 @@
       "rank": 121,
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -27600,14 +26091,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "“和林民阎海瘗殍死者三千余人”属仁宗身后英宗即位窗口，已撤销；延祐多路饥馑记录密集，但灾情条数不机械构成K1，同一危机簇已实质参与C1-2主态判定。"
@@ -27657,8 +26140,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -27784,13 +26265,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "按固定审计闭合；未找到不转零。"
@@ -27840,8 +26314,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -27914,13 +26386,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-2",
       "material_limitations": [
         "按固定审计闭合；未找到不转零。"
@@ -27950,8 +26415,6 @@
       },
       "raw_state_band": "C1-2",
       "formal_band": "C1-2",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -28041,13 +26504,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-1",
       "material_limitations": [
         "黄巾战争、自然灾害和地方割据是复合冲击；本账止于189年，不把董卓、献帝时期全部破坏反填刘宏；党锢传有表彰名士和批判权宦的叙述目的。"
@@ -28103,8 +26559,6 @@
       },
       "raw_state_band": "C1-1",
       "formal_band": "C1-1",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -28200,15 +26654,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-1",
       "material_limitations": [
         "跨王莽、更始、赤眉与光武初的总括不能精确分年；十二存一为高度概括且含漏籍。"
@@ -28228,8 +26673,6 @@
       },
       "raw_state_band": "C1-1",
       "formal_band": "C1-1",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -28290,12 +26733,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION"
-        ]
-      },
       "main_band": "C1-1",
       "material_limitations": [
         "已固定《续资治通鉴》与《宋史》本纪、制度志或具名列传两类史源；家庭生计按最小充分证据结算；未找到更高状态材料不转写为零分。"
@@ -28315,8 +26752,6 @@
       },
       "raw_state_band": "C1-1",
       "formal_band": "C1-1",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -28385,13 +26820,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "basis": "承接道光低位，内战、灾荒和粮源被军需与赈济同时争夺，使主要窗口进入生存断裂；交班仍为一档。",
-        "status": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-1",
       "material_limitations": [
         "以本纪宏观轨迹为主，不以材料条数换分。"
@@ -28421,8 +26849,6 @@
       },
       "raw_state_band": "C1-1",
       "formal_band": "C1-1",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -28515,15 +26941,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-1",
       "material_limitations": [
         "秦末战争、政治清洗和地方权力瓦解是复合原因；五万屯兵、工程劳力和各战役人数不能机械相加。"
@@ -28574,8 +26991,6 @@
       },
       "raw_state_band": "C1-1",
       "formal_band": "C1-1",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -28632,11 +27047,6 @@
         }
       ],
       "evidence_mode": "DIRECT_DAMAGE_CONSTRAINED_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-1",
       "material_limitations": [
         "缺常规财政民生数据；短任不等于自动低状态，本例低状态来自已证崩溃环境。"
@@ -28659,8 +27069,6 @@
       },
       "raw_state_band": "C1-1",
       "formal_band": "C1-1",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -28773,11 +27181,6 @@
         }
       ],
       "evidence_mode": "DIRECT_DAMAGE_CONSTRAINED_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-1",
       "material_limitations": [
         "部分损害发生于晋方城市，裁决只消费汉赵授权汲取及其统治区后果；不把征服收益抵消民生损害。"
@@ -28829,8 +27232,6 @@
       },
       "raw_state_band": "C1-1",
       "formal_band": "C1-1",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -28941,11 +27342,6 @@
         }
       ],
       "evidence_mode": "DIRECT_DAMAGE_CONSTRAINED_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-1",
       "material_limitations": [
         "死亡比例基数未知；不因灾害发生自动归责，降状态依据是实际崩溃且未恢复。"
@@ -28978,8 +27374,6 @@
       },
       "raw_state_band": "C1-1",
       "formal_band": "C1-1",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -29042,15 +27436,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-1",
       "material_limitations": [
         "不把自然灾害发生本身归责；工程与战争共同损害按父事件去重；直接锚只按其明示时段、地域与证据类型消费，不外推为全任全境。"
@@ -29083,8 +27468,6 @@
       },
       "raw_state_band": "C1-1",
       "formal_band": "C1-1",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -29176,15 +27559,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-1",
       "material_limitations": [
         "任期极短；局部荆州财政基础不等于广域恢复；直接锚只按其明示时段、地域与证据类型消费，不外推为全任全境。"
@@ -29207,8 +27581,6 @@
       },
       "raw_state_band": "C1-1",
       "formal_band": "C1-1",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -29282,11 +27654,6 @@
         }
       ],
       "evidence_mode": "DIRECT_DAMAGE_CONSTRAINED_INFERENCE",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": []
-      },
       "main_band": "C1-1",
       "material_limitations": [
         "统万城人数和死亡来自工程补证层，卷120本身只追述规模；不以城防效益抵消民生损害。"
@@ -29319,8 +27686,6 @@
       },
       "raw_state_band": "C1-1",
       "formal_band": "C1-1",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -29432,15 +27797,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-1",
       "material_limitations": [
         "战争、岁荒和币制共同影响物价，不能把全部饥荒单因归钱制；户籍下落不能全部解释为人口死亡；战争损害和转输成本与WAR去重。"
@@ -29470,8 +27826,6 @@
       },
       "raw_state_band": "C1-1",
       "formal_band": "C1-1",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -29546,15 +27900,6 @@
         }
       ],
       "evidence_mode": "DIRECT_MACRO_ANCHOR",
-      "high_band_gate": {
-        "basis": "当前锚点不进入C1-5/6。",
-        "status": "NOT_APPLICABLE",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-1",
       "material_limitations": [
         "唯一直接锚点是晚唐亡国长时段总叙，需严格截断至888年。"
@@ -29584,8 +27929,6 @@
       },
       "raw_state_band": "C1-1",
       "formal_band": "C1-1",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -29653,11 +27996,6 @@
         "S_end": "C1-1"
       },
       "m3_supplement_origin": "NEW_FORMAL_RECORD_FROM_M3_C1_C4_READJUDICATION",
-      "high_band_gate": {
-        "status": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-        "basis": "按本人窗口本地直接结果材料裁决。",
-        "lane_axis_coverage": []
-      },
       "material_limitations": [
         "承接遵顼十余年战争与饥荒低位；建议被称善或授官不等于全部执行。"
       ],
@@ -29697,8 +28035,6 @@
       "rank": 180,
       "raw_state_band": "C1-1",
       "formal_band": "C1-1",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [],
@@ -29793,13 +28129,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS"
-        ]
-      },
       "main_band": "C1-1",
       "material_limitations": [
         "自然灾害本身不作本人负贡献；C1只结算已经实现的家庭绝对状态，责任另交C4。灾异条数不机械累加，降至C1-1由多核心区家庭生存断裂及其跨年持续共同闭合。"
@@ -29850,8 +28179,6 @@
       },
       "raw_state_band": "C1-1",
       "formal_band": "C1-1",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [
@@ -30048,14 +28375,6 @@
         }
       ],
       "evidence_mode": "DIRECT_AND_CONSTRAINED",
-      "high_band_gate": {
-        "status": "PASS_WITHIN_BAND",
-        "lane_axis_coverage": [
-          "HOUSEHOLD_FORMATION_REPRODUCTION",
-          "HOUSEHOLD_SUBSISTENCE_SURPLUS",
-          "NET_TAX_LABOR_BURDEN"
-        ]
-      },
       "main_band": "C1-1",
       "material_limitations": [
         "按固定审计闭合；未找到不转零。"
@@ -30085,8 +28404,6 @@
       },
       "raw_state_band": "C1-1",
       "formal_band": "C1-1",
-      "complexity_class": "NOT_APPLICABLE_BELOW_HIGH_BAND",
-      "complexity_basis": "raw低于C1-5，复杂度折算不改变formal档。",
       "raw_peak_band": null,
       "formal_peak_band": null,
       "lane_axis_coverage": [

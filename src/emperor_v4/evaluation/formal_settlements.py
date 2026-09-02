@@ -31,11 +31,11 @@ SETTLEMENT_SPECS = {
         "range": (0, 240),
     },
     "second_item": {
-        "path": "docs/评分结算/第二项治国净收益/01-第二项治国净收益405分正式结算.json",
-        "schema": "i2_total_405_signed_formal_v3",
+        "path": "docs/评分结算/第二项治国净收益/01-第二项治国净收益正式结算.json",
+        "schema": "i2_total_387_signed_formal_v4",
         "score": "second_item_score",
         "rank": "rank",
-        "range": (-45, 405),
+        "range": (-18.5, 387),
     },
     "third_item": {
         "path": "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json",
@@ -69,7 +69,7 @@ SECOND_ITEM_COMPONENT_PATHS = {
     "C2": "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json",
     "C3": "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json",
     "C4": "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json",
-    "result": "docs/评分结算/第二项治国净收益/财政民生/05-治理结果220分正式结算.json",
+    "result": "docs/评分结算/第二项治国净收益/财政民生/05-治理结果正式结算.json",
     "D1": "docs/评分结算/第二项治国净收益/政权交接稳定/01-D1继任行政连续性方向卡.json",
     "D3": "docs/评分结算/第二项治国净收益/政权交接稳定/02-D3政权交接稳定方向卡.json",
     "handoff": "docs/评分结算/第二项治国净收益/政权交接稳定/03-交接质量20分正式结算.json",
@@ -78,11 +78,12 @@ SECOND_ITEM_RESULT_CONTRACT = (
     "docs/分项规则/第二项治国净收益/财政民生/00-规则与结算合同.md"
 )
 REQUIRED_C4_DA_CONTRACT_CLAUSES = (
-    "DA首先判断未被轨迹变量吸收的残余成本量级",
-    "一次行为只要成本量级足够高，也可直接进入DA2或DA3",
+    "只有C1—C3主态、K折损和C4可归责恶化均未消费的主动成本才可计DA",
+    "纯军队伤亡不得直接转入第二项",
+    "一次行为只要残余成本量级足够高，也可直接进入DA2或DA3",
     "一次超大型动员、战争或工程即可成立",
     "一次灾难性选择即可成立",
-    "DA只结算尚未被这些轨迹变量吸收的剩余主动成本",
+    "DA只结算尚未被这些项目吸收的剩余主动成本",
 )
 
 IMPORTANT_INSTITUTION_REGISTRY = (

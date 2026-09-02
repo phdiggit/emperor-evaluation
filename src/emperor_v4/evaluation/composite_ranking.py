@@ -16,7 +16,7 @@ SETTLEMENT_SPECS = {
         "first_item_score_points",
     ),
     "second_item": (
-        "docs/评分结算/第二项治国净收益/01-第二项治国净收益405分正式结算.json",
+        "docs/评分结算/第二项治国净收益/01-第二项治国净收益正式结算.json",
         "second_item_score",
     ),
     "third_item": (

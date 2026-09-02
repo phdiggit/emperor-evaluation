@@ -3,7 +3,6 @@ from __future__ import annotations
 from collections import Counter, defaultdict
 import json
 from pathlib import Path
-from statistics import mean, median
 from typing import Any, Mapping
 
 import yaml
@@ -12,16 +11,9 @@ import yaml
 POOL_JSON = "config/common/canonical-ruler-pool.json"
 POOL_MARKDOWN = "docs/项目总纲/正式评价对象范围.md"
 ADMISSION_ADJUDICATIONS = "config/common/canonical-ruler-admission-adjudications.yml"
-SECOND_ITEM_ELIGIBLE_JSON = (
-    "docs/评分结算/第二项治国净收益/02-正式评价池排名.json"
-)
-SECOND_ITEM_ELIGIBLE_MARKDOWN = (
-    "docs/评分结算/第二项治国净收益/02-正式评价池排名.md"
-)
-
 SETTLEMENT_PATHS = {
     "first_item": "docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.json",
-    "second_item": "docs/评分结算/第二项治国净收益/01-第二项治国净收益405分正式结算.json",
+    "second_item": "docs/评分结算/第二项治国净收益/01-第二项治国净收益正式结算.json",
     "third_item": "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json",
     "fourth_item": "docs/评分结算/第四项文明与国家整合收益/01-第四项文明与国家整合收益正式结算.json",
     "fifth_item": "docs/评分结算/第五项统治者政治素质/04-第五项统治者政治素质正式结算.json",
@@ -463,126 +455,6 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
     }
 
 
-def build_second_item_eligible_ranking(
-    workspace_root: Path,
-    canonical_pool: Mapping[str, Any] | None = None,
-) -> dict[str, Any]:
-    pool = canonical_pool or build_canonical_ruler_pool(workspace_root)
-    source_path = workspace_root / SETTLEMENT_PATHS["second_item"]
-    source = _read_json(source_path)
-    source_records = list(source.get("records") or ())
-    source_by_id = {str(row["ruler_id"]): row for row in source_records}
-    ready_rows = [
-        row
-        for row in pool["records"]
-        if row["settlement_readiness"] == "COMPOSITE_READY"
-    ]
-    ready_ids = {str(row["ruler_id"]) for row in ready_rows}
-    if not ready_ids <= set(source_by_id):
-        raise ValueError(
-            f"第二项正式池排名缺少canonical ID：{sorted(ready_ids - set(source_by_id))}"
-        )
-    selected = [dict(source_by_id[ruler_id]) for ruler_id in ready_ids]
-    selected.sort(key=lambda row: (-float(row["second_item_score"]), str(row["ruler_id"])))
-    sorted_scores = [float(row["second_item_score"]) for row in selected]
-    for index, row in enumerate(selected):
-        row["source_snapshot_rank"] = row["rank"]
-        row["rank"] = sorted_scores.index(sorted_scores[index]) + 1
-        row["ranking_population"] = "COMPOSITE_READY"
-    pool_by_name = {str(row["ruler_name"]): row for row in pool["records"]}
-    excluded_lineage = sorted(
-        (
-            {
-                "ruler_id": str(row["ruler_id"]),
-                "ruler_name": str(row["ruler_name"]),
-                "source_snapshot_rank": int(row["rank"]),
-                "second_item_score": row["second_item_score"],
-                "pool_status": pool_by_name[str(row["ruler_name"])]["pool_status"],
-                "settlement_readiness": pool_by_name[str(row["ruler_name"])][
-                    "settlement_readiness"
-                ],
-                "not_ranked_reason": (
-                    pool_by_name[str(row["ruler_name"])]["exclusion_reason_code"]
-                    or (
-                        pool_by_name[str(row["ruler_name"])].get(
-                            "second_item_window_adjudication"
-                        )
-                        or {}
-                    ).get("status")
-                ),
-            }
-            for row in source_records
-            if str(row["ruler_id"]) not in ready_ids
-        ),
-        key=lambda row: (row["source_snapshot_rank"], row["ruler_id"]),
-    )
-    return {
-        "schema_id": "second-item-canonical-ready-ranking-v1",
-        "status": "FORMAL_CURRENT",
-        "ranking_population": "COMPOSITE_READY",
-        "source_score_snapshot": SETTLEMENT_PATHS["second_item"],
-        "record_count": len(selected),
-        "excluded_lineage_record_count": len(excluded_lineage),
-        "mean_score": round(mean(sorted_scores), 1),
-        "median_score": round(median(sorted_scores), 2),
-        "min_score": min(sorted_scores),
-        "max_score": max(sorted_scores),
-        "rank_tie_policy": "competition_rank_then_ruler_id",
-        "excluded_lineage_records": excluded_lineage,
-        "records": selected,
-    }
-
-
-def render_second_item_eligible_ranking_markdown(payload: Mapping[str, Any]) -> str:
-    lines = [
-        "# 第二项治国净收益正式评价池排名",
-        "",
-        (
-            f"> 当前排名只覆盖`COMPOSITE_READY`的{payload['record_count']}人；"
-            f"平均{payload['mean_score']}，中位数{payload['median_score']}，"
-            f"范围{payload['min_score']}—{payload['max_score']}。"
-        ),
-        "",
-        "185人分值快照保留全量分项分值与比较位次；本表是综合统计和未来总排名唯一可消费的第二项排名视图。",
-        "",
-        "| 排名 | 人物 | 政权 | 治理手段/165 | C1/80 | C2/35 | C3/60 | C4/-45—45 | 交接/20 | 总分/405 | 快照原位次 |",
-        "|---:|---|---|---:|---:|---:|---:|---:|---:|---:|---:|",
-    ]
-    for row in payload["records"]:
-        lines.append(
-            "| {rank} | {name} | {polity} | {method:.1f} | {c1:.1f} | {c2:.1f} | "
-            "{c3:.1f} | {c4:.1f} | {handoff:.1f} | **{total:.1f}** | {source_rank} |".format(
-                rank=row["rank"],
-                name=row["ruler_name"],
-                polity=row["polity"],
-                method=float(row["governance_method_score"]),
-                c1=float(row["C1_score"]),
-                c2=float(row["C2_score"]),
-                c3=float(row["C3_score"]),
-                c4=float(row["C4_score"]),
-                handoff=float(row["handoff_score"]),
-                total=float(row["second_item_score"]),
-                source_rank=row["source_snapshot_rank"],
-            )
-        )
-    lines.extend(
-        [
-            "",
-            "## 仅保留历史分值、不进入正式池排名的记录",
-            "",
-            "| 人物 | 快照原位次 | 分值 | 未入排名原因 |",
-            "|---|---:|---:|---|",
-        ]
-    )
-    for row in payload["excluded_lineage_records"]:
-        lines.append(
-            f"| {row['ruler_name']} | {row['source_snapshot_rank']} | "
-            f"{float(row['second_item_score']):.1f} | {row['not_ranked_reason']} |"
-        )
-    lines.append("")
-    return "\n".join(lines)
-
-
 def render_canonical_ruler_pool_markdown(payload: Mapping[str, Any]) -> str:
     records = list(payload.get("records") or ())
     included = [row for row in records if row["pool_status"] == "INCLUDED"]
@@ -681,22 +553,9 @@ def write_canonical_ruler_pool(workspace_root: Path) -> dict[str, Path]:
     markdown_path = workspace_root / POOL_MARKDOWN
     json_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     markdown_path.write_text(render_canonical_ruler_pool_markdown(payload), encoding="utf-8")
-    ranking_payload = build_second_item_eligible_ranking(workspace_root, payload)
-    ranking_json_path = workspace_root / SECOND_ITEM_ELIGIBLE_JSON
-    ranking_markdown_path = workspace_root / SECOND_ITEM_ELIGIBLE_MARKDOWN
-    ranking_json_path.write_text(
-        json.dumps(ranking_payload, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
-    ranking_markdown_path.write_text(
-        render_second_item_eligible_ranking_markdown(ranking_payload),
-        encoding="utf-8",
-    )
     return {
         "json": json_path,
         "markdown": markdown_path,
-        "second_item_ranking_json": ranking_json_path,
-        "second_item_ranking_markdown": ranking_markdown_path,
     }
 
 
@@ -710,15 +569,6 @@ def verify_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
     expected_markdown = render_canonical_ruler_pool_markdown(rebuilt)
     if markdown_path.read_text(encoding="utf-8") != expected_markdown:
         raise ValueError("正式评价池Markdown与机器入口不一致")
-    ranking_path = workspace_root / SECOND_ITEM_ELIGIBLE_JSON
-    checked_in_ranking = _read_json(ranking_path)
-    rebuilt_ranking = build_second_item_eligible_ranking(workspace_root, rebuilt)
-    if checked_in_ranking != rebuilt_ranking:
-        raise ValueError("第二项正式评价池排名与当前准入池或185人分值快照不一致")
-    ranking_markdown_path = workspace_root / SECOND_ITEM_ELIGIBLE_MARKDOWN
-    expected_ranking_markdown = render_second_item_eligible_ranking_markdown(rebuilt_ranking)
-    if ranking_markdown_path.read_text(encoding="utf-8") != expected_ranking_markdown:
-        raise ValueError("第二项正式评价池排名Markdown与机器入口不一致")
     return {
         "path": POOL_JSON,
         "candidate_pool_count": rebuilt["candidate_pool_count"],
@@ -734,8 +584,4 @@ def verify_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
         ],
         "excluded_count": rebuilt["excluded_count"],
         "exclusion_reason_counts": rebuilt["exclusion_reason_counts"],
-        "second_item_ranked_count": rebuilt_ranking["record_count"],
-        "second_item_not_ranked_snapshot_count": rebuilt_ranking[
-            "excluded_lineage_record_count"
-        ],
     }

@@ -18,11 +18,9 @@ def test_c4_contract_uses_cost_scale_da_boundaries() -> None:
     contract = Path(
         "docs/分项规则/第二项治国净收益/财政民生/00-规则与结算合同.md"
     ).read_text(encoding="utf-8")
-    assert "DA首先判断未被轨迹变量吸收的残余成本量级" in contract
-    assert "一次行为只要成本量级足够高，也可直接进入DA2或DA3" in contract
-    assert "一次超大型动员、战争或工程即可成立" in contract
-    assert "一次灾难性选择即可成立" in contract
-    assert "DA只结算尚未被这些轨迹变量吸收的剩余主动成本" in contract
+    assert "C1—C3主态、K折损和C4可归责恶化均未消费的主动成本" in contract
+    assert "纯军队伤亡不得直接转入第二项" in contract
+    assert "军粮、转输、财政抽取" in contract
 
 
 def test_all_five_formal_settlements_are_coherent() -> None:
@@ -282,9 +280,9 @@ def test_composite_ranking_uses_only_ready_rulers_and_current_formula() -> None:
     assert payload["record_count"] == 174
     assert payload["pending_second_item_count"] == 10
     assert payload["records"][0]["ruler_name"] == "李世民"
-    assert payload["records"][0]["total_score"] == 827.51
+    assert payload["records"][0]["total_score"] == 810.61
     assert payload["records"][1]["ruler_name"] == "玄烨"
-    assert payload["records"][1]["total_score"] == 614.32
+    assert payload["records"][1]["total_score"] == 593.12
     zhao_ji = next(row for row in payload["records"] if row["ruler_name"] == "赵佶")
     assert zhao_ji["first_item_status"] == "NOT_APPLICABLE"
     assert zhao_ji["first_item_raw_score"] is None
@@ -383,7 +381,7 @@ def test_five_dynasties_batch_is_fully_settled() -> None:
         "C2": "02-C2正式结算.json",
         "C3": "03-C3正式结算.json",
         "C4": "04-C4正式结算.json",
-        "result": "05-治理结果220分正式结算.json",
+        "result": "05-治理结果正式结算.json",
     }
     rows = {
         axis: {
@@ -399,7 +397,7 @@ def test_five_dynasties_batch_is_fully_settled() -> None:
     total_rows = {
         row["ruler_name"]: row
         for row in json.loads(
-            (root / "01-第二项治国净收益405分正式结算.json").read_text(encoding="utf-8")
+            (root / "01-第二项治国净收益正式结算.json").read_text(encoding="utf-8")
         )["records"]
     }
     for name in expected:
@@ -436,7 +434,7 @@ def test_recent_batch_calibration_keeps_rare_feedback_grades_rare() -> None:
     totals = {
         row["ruler_name"]: row
         for row in json.loads(
-            (root / "01-第二项治国净收益405分正式结算.json").read_text(encoding="utf-8")
+            (root / "01-第二项治国净收益正式结算.json").read_text(encoding="utf-8")
         )["records"]
     }
     for name in ("完颜雍", "萧绰", "耶律隆绪", "完颜晟", "完颜守绪"):
