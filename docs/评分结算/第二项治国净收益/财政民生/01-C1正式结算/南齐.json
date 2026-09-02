@@ -1,0 +1,212 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "南齐",
+  "collections": {
+    "scores": {
+      "positions": [
+        95,
+        154
+      ],
+      "records": [
+        {
+          "adjudication_reason": "萧道成接手刘宋末期C1-2低位后，建元初迅速裁撤候官、停繁密台使并限制征募，史书直接记“自是吏民始得安业”。在其约三年短任的大部分窗口内，这一结果足以受约束闭合基本维持C1-3，但没有家庭余量强证据支持C1-4。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "anchor_time": "萧道成建元初",
+              "described_state": "齐初多项减役止扰措施形成‘始得安业’的直接结果，但同期重赋破产材料仍成立。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "proof_scope_constraints": [],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_voice": "POLICY_OR_EDICT",
+              "source_voice_basis": "机械粗分；按source_works与verbatim中的史书、奏议、诏令标记识别。",
+              "source_voice_matches": [
+                "POLICY_OR_EDICT",
+                "THIRD_PARTY_CHRONICLE_OR_TREATISE"
+              ],
+              "source_works": [
+                "《资治通鉴》共享通读卡正文"
+              ],
+              "state_roles": [
+                "S_avg",
+                "S_end",
+                "稳定性"
+              ],
+              "verbatim_excerpt": "罢候官千数、停繁密台使、断众募，吏民始得安业。",
+              "result_axis_owner": [
+                "NET_TAX_LABOR_BURDEN"
+              ]
+            }
+          ],
+          "evidence_mode": "MULTI_RESULT_STRONG_INFERENCE",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "短任且材料有限；“安业”足以支持基本维持，不等于普遍温饱或家庭余量。"
+          ],
+          "peak_band": null,
+          "polity": "南齐",
+          "rank": 36,
+          "reign_range": [
+            479,
+            482
+          ],
+          "ruler_id": "RULER-SHADOW-萧道成",
+          "ruler_name": "萧道成",
+          "score": 32.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-2",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-萧道成"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "NET_TAX_LABOR_BURDEN"
+          ],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "PRESERVED_PENDING_DEDICATED_REVIEW",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-2",
+            "to_band": "C1-2",
+            "basis": "沿用当前正式证据；本补丁未新增人物裁决。"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "齐初重赋和役使仍使全任平均处于困顿，但减役止扰已形成‘始得安业’的直接结果，故主档保持C1-2，S_end由C1-2上修为C1-3。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》",
+              "original_text": "罢候官千数、停繁密台使、断众募，自是吏民始得安业。"
+            }
+          ],
+          "stability_basis": "从S0=C1-2恢复至C1-3属于恢复过程，不降低K；“始得安业”之后未确认独立且低于C1-3的家庭生计阶段，故K4。"
+        },
+        {
+          "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。建武时期外战与连岁征役、征敛并行，史书直称“所在征敛，人不堪命”，足以闭合C1-2主态。",
+          "confidence": "LOW",
+          "evidence": [
+            {
+              "cost_scale": "WC4",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-141-04",
+              "stages": [],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-141-04",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC1",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-PARENT-NC-QI-COUPS-494",
+              "stages": [
+                "S0_EARLY"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-PARENT-NC-QI-COUPS-494",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "CONTINUITY_CONSTRAINED_INFERENCE",
+          "main_band": "C1-2",
+          "material_limitations": [
+            "战争规模本身不扣C1；只消费已落到家庭端的征役与不堪命结果。"
+          ],
+          "peak_band": null,
+          "polity": "南齐",
+          "rank": 121,
+          "reign_range": [
+            494,
+            498
+          ],
+          "ruler_id": "RULER-SHADOW-萧鸾",
+          "ruler_name": "萧鸾",
+          "score": 17.1,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-2",
+            "S_avg": "C1-2",
+            "S_end": "C1-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-萧鸾"
+          },
+          "raw_state_band": "C1-2",
+          "formal_band": "C1-2",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "接班与全期缺独立广域改善材料，南朝依附户免役、正户承压和齐代征收余波仍在，只能按连续性维持困顿。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷一百四十一",
+              "original_text": "所在征敛，人不堪命。"
+            },
+            {
+              "book": "《南齐书》",
+              "original_text": "及建武之兴，虏难飙急，征役连岁，不遑启居，军国糜耗，从此衰矣。"
+            }
+          ],
+          "stability_basis": "连岁征役与“人不堪命”已经承担主态C1-2，不能整体再消费为K；现未确认独立低于2的有效阶段，故K4。"
+        }
+      ]
+    }
+  }
+}

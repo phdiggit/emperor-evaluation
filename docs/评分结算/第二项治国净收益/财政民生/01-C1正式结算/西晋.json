@@ -1,0 +1,136 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "西晋",
+  "collections": {
+    "scores": {
+      "positions": [
+        27
+      ],
+      "records": [
+        {
+          "adjudication_reason": "太康阶段《晋书·食货志》直称天下无事、赋税平均、人咸安业乐事，足以闭合主要统治区普遍温饱。旧理由中的官品、荫亲与佃客制度只作为结构背景，不再拿身份不平等本身直接压C1。",
+          "confidence": "中",
+          "evidence": [
+            {
+              "anchor_time": "平吴后太康阶段",
+              "described_state": "史书明确称当时赋税平均、百姓安业乐事，说明制度在太康阶段形成实际稳定结果；但官品特权、广泛荫亲与佃客额度把身份不平等制度化。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "proof_scope_constraints": [],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_voice": "OFFICIAL_SUMMARY",
+              "source_voice_basis": "机械粗分；按source_works与verbatim中的史书、奏议、诏令标记识别。",
+              "source_voice_matches": [
+                "OFFICIAL_SUMMARY"
+              ],
+              "source_works": [
+                "正史《晋书·食货志》固定文本及通读总结"
+              ],
+              "state_roles": [
+                "阶段状态材料"
+              ],
+              "verbatim_excerpt": "是時天下無事，賦稅平均，人咸安其業而樂其事。",
+              "result_axis_owner": [
+                "NET_TAX_LABOR_BURDEN"
+              ]
+            }
+          ],
+          "evidence_mode": "DIRECT_MACRO_ANCHOR",
+          "main_band": "C1-4",
+          "material_limitations": [
+            "自然灾害不转化为本人负贡献，但其已实现的歉收、毁屋与广域伤麦属于绝对家庭状态。K1只由太康六至九年的连续宏观阶段承担，不用更早灾年凑次数。"
+          ],
+          "peak_band": null,
+          "polity": "西晋",
+          "rank": 7,
+          "reign_range": [
+            265,
+            290
+          ],
+          "ruler_id": "RULER-SHADOW-司马炎",
+          "ruler_name": "司马炎",
+          "score": 50.5,
+          "stability_class_diagnostic_only": "K1",
+          "state_anchors": {
+            "S0": "C1-3",
+            "S_avg": "C1-4",
+            "S_end": "C1-4"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-司马炎"
+          },
+          "review_remediation": {
+            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
+            "status": "APPLIED",
+            "problem": "原C1-4纯度可保；R19/R20收紧后需判断K1究竟是灾年累加，还是存在连续广域低态",
+            "directive": "维持 C1-3→4→4，score 54.9；K=K1，通过新门。 《晋书·食货志》“赋税平均，人咸安其业而乐其事”直接闭合formal C1-4。K1不靠泰始七年、咸宁五年两次早期饥荒凑次数；真正过门的是太康后段：六年因“比岁不登”免租贷宿负，同年郡国十大水坏百姓庐舍；七年十三郡旱、八郡大水；八年仍有多地大水坏民居；九年三十三郡国大旱。即285—288连续四年、跨大量郡国反复农业/居住损害，在约25年统治中形成可识别的后期次级低态，范围强+持续/重复强，故K1仍成立。咸宁五年“百姓饥馑”仅作前期独立互证，不承担K1门槛。没有足够家庭余量证据升5。"
+          },
+          "raw_state_band": "C1-4",
+          "formal_band": "C1-4",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "NET_TAX_LABOR_BURDEN"
+          ],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "stages": [
+              {
+                "stage_band": "C1-3",
+                "depth_from_raw_main": 1,
+                "scope_class": "MULTI_MAJOR_REGION",
+                "duration_class": "REPEATED_OR_LONG_RELATIVE_TO_WINDOW",
+                "repeat_group": "ATTACHED_REVIEW_CONSOLIDATED_CHAIN",
+                "recovery_confirmed": true,
+                "evidence_strength": "ATTACHED_REVIEW_WITH_FORMAL_SOURCE_ENTRIES",
+                "counts_toward_k": true,
+                "exclusion_reason": null,
+                "basis": "维持 C1-3→4→4，score 54.9；K=K1，通过新门。 《晋书·食货志》“赋税平均，人咸安其业而乐其事”直接闭合formal C1-4。K1不靠泰始七年、咸宁五年两次早期饥荒凑次数；真正过门的是太康后段：六年因“比岁不登”免租贷宿负，同年郡国十大水坏百姓庐舍；七年十三郡旱、八郡大水；八年仍有多地大水坏民居；九年三十三郡国大旱。即285—288连续四年、跨大量郡国反复农业/居住损害，在约25年统治中形成可识别的后期次级低态，范围强+持续/重复强，故K1仍成立。咸宁五年“百姓饥馑”仅作前期独立互证，不承担K1门槛。没有足够家庭余量证据升5。"
+              }
+            ]
+          },
+          "persistence_review": {
+            "status": "COMPLETE",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-3",
+            "to_band": "C1-4",
+            "basis": "维持 C1-3→4→4，score 54.9；K=K1，通过新门。 《晋书·食货志》“赋税平均，人咸安其业而乐其事”直接闭合formal C1-4。K1不靠泰始七年、咸宁五年两次早期饥荒凑次数；真正过门的是太康后段：六年因“比岁不登”免租贷宿负，同年郡国十大水坏百姓庐舍；七年十三郡旱、八郡大水；八年仍有多地大水坏民居；九年三十三郡国大旱。即285—288连续四年、跨大量郡国反复农业/居住损害，在约25年统治中形成可识别的后期次级低态，范围强+持续/重复强，故K1仍成立。咸宁五年“百姓饥馑”仅作前期独立互证，不承担K1门槛。没有足够家庭余量证据升5。"
+          },
+          "dynasty_curve_review": {
+            "status": "COMPLETE",
+            "handoff_continuity_checked": true,
+            "basis": "维持 C1-3→4→4，score 54.9；K=K1，通过新门。 《晋书·食货志》“赋税平均，人咸安其业而乐其事”直接闭合formal C1-4。K1不靠泰始七年、咸宁五年两次早期饥荒凑次数；真正过门的是太康后段：六年因“比岁不登”免租贷宿负，同年郡国十大水坏百姓庐舍；七年十三郡旱、八郡大水；八年仍有多地大水坏民居；九年三十三郡国大旱。即285—288连续四年、跨大量郡国反复农业/居住损害，在约25年统治中形成可识别的后期次级低态，范围强+持续/重复强，故K1仍成立。咸宁五年“百姓饥馑”仅作前期独立互证，不承担K1门槛。没有足够家庭余量证据升5。"
+          },
+          "inference_review": {
+            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
+            "inference_source_anchor": null,
+            "inference_hops": 0,
+            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
+          },
+          "material_basis": [
+            {
+              "book": "《晋书·食货志》",
+              "original_text": "是时天下无事，赋税平均，人咸安其业而乐其事。"
+            },
+            {
+              "book": "《晋书·武帝纪》",
+              "original_text": "以比岁不登，免租贷宿负……郡国四旱，十大水，坏百姓庐舍。"
+            },
+            {
+              "book": "《晋书·武帝纪》",
+              "original_text": "郡国三十二大旱，伤麦……郡国二十四螟。"
+            }
+          ],
+          "stability_basis": "K1在新聚合门下仍成立，但理由收紧为同一连续压力阶段：太康六年已明言“比岁不登”，同年十大水坏百姓庐舍；随后七、八年多郡继续大水，九年又有三十二郡大旱伤麦、二十四郡螟。285—289连续多年、跨大量郡国，形成宏观农业—家庭低态，范围强+持续强，不是把零散灾年机械相加。"
+        }
+      ]
+    }
+  }
+}

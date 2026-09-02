@@ -1,0 +1,201 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "秦",
+  "collections": {
+    "scores": {
+      "positions": [
+        187,
+        191
+      ],
+      "records": [
+        {
+          "adjudication_reason": "嬴政窗口前段并非始终低位，郑国渠直接形成四万余顷灌溉与高产，说明P曾经很强；但统一后长期财政—役使结构又直接闭合为“收泰半之赋”“男子力耕不足粮饷”“竭天下资财仍不足”。后段P与F同时跨入系统性不可持续，并覆盖统一后的主要治理阶段，故主态和交班均为一档。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《资治通鉴》卷六",
+                "《汉书·沟洫志》"
+              ],
+              "verbatim_excerpt": "渠成，注填閼之水，溉舄鹵之地四萬餘頃，收皆畝一鍾，於是關中為沃野，無凶年，秦以富強。",
+              "pillar_tags": [
+                "P_PRODUCTION"
+              ],
+              "evidence_role": "DIRECT_RESULT",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《汉书·食货志》"
+              ],
+              "verbatim_excerpt": "至於始皇，遂并天下，內興功作，外攘夷狄，收泰半之賦，發閭左之戍。男子力耕不足糧饟，女子紡績不足衣服。竭天下之資財以奉其政，猶未足以澹其欲也。",
+              "pillar_tags": [
+                "P_PRODUCTION",
+                "F_FISCAL_BASE"
+              ],
+              "evidence_role": "DIRECT_RESULT",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "DIRECT_AND_CONSTRAINED",
+          "high_band_gate": {
+            "status": "PASS_C2_1_SYSTEMIC_FAILURE",
+            "basis": "虽有前段强生产结果，但统一后主要窗口P与F均形成广域、持续、不可持续的低位结果。"
+          },
+          "main_band": "C2-1",
+          "material_limitations": [
+            "统一功业、对外战争和工程名目本身不计C2；只消费其已经闭合的生产不足与资财耗竭状态。",
+            "郑国渠的强正面结果保留，用于说明一档并非全任每个阶段都处底部。"
+          ],
+          "peak_band": null,
+          "polity": "秦",
+          "rank": 184,
+          "reign_range": "前238—前210",
+          "ruler_id": "RULER-QIN-YINGZHENG",
+          "ruler_name": "嬴政",
+          "score": 1.8,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-4",
+            "S_avg": "C2-1",
+            "S_end": "C2-1"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-QIN-YINGZHENG"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": "NOT_RECHECKED",
+            "cost_band": "NOT_RECHECKED",
+            "cost_status": "NOT_RECHECKED",
+            "cost_position": "NOT_RECHECKED",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-1",
+            "score": 1.8,
+            "state_anchors": {
+              "S0": "C2-4",
+              "S_avg": "C2-1",
+              "S_end": "C2-1"
+            }
+          },
+          "old_settlement_review": "KEEP_MAIN_BAND_REWRITE_PILLAR_LOGIC；保留：原结算关于统一后高赋重役与财政生产透支的核心判断。；推翻/修正：删除社会裂缝等跨项泛化，明确以前后阶段P/F结果落档。"
+        },
+        {
+          "adjudication_reason": "二世承接始皇末已经严重透支的盘面后，仍恢复阿房工程、扩大咸阳屯卫和跨郡转输；更关键的是秦末总评直接闭合“男子力耕不足粮饷、女子纺绩不足衣服、竭天下资财仍不足”。这已经是P与F同时系统失效。群盗并起只作终局背景，不承担本项降档。",
+          "confidence": "MEDIUM_HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《汉书·食货志》"
+              ],
+              "verbatim_excerpt": "收泰半之賦，發閭左之戍。男子力耕不足糧饟，女子紡績不足衣服。竭天下之資財以奉其政，猶未足以澹其欲也。",
+              "pillar_tags": [
+                "P_PRODUCTION",
+                "F_FISCAL_BASE"
+              ],
+              "evidence_role": "DIRECT_RESULT",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《史记·秦始皇本纪》",
+                "《资治通鉴》卷七"
+              ],
+              "verbatim_excerpt": "二世在驪山工程結束後復作阿房，又發五萬人屯衛咸陽，令郡縣轉輸糧食芻稾，輸者自齎糧食，咸陽三百里內不得食其穀。",
+              "pillar_tags": [
+                "P_PRODUCTION",
+                "F_FISCAL_BASE",
+                "R_RESERVE_BUFFER"
+              ],
+              "evidence_role": "DIRECT_RESULT",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "DIRECT_AND_CONSTRAINED",
+          "high_band_gate": {
+            "status": "PASS_C2_1_SYSTEMIC_FAILURE",
+            "basis": "生产供给与公共汲取均已达到不可持续状态，且二世窗口继续大规模征发转输。"
+          },
+          "main_band": "C2-1",
+          "material_limitations": [
+            "群盗与秦亡不作为C2自动扣档项；一档由生产不足、资财耗竭和继续征发的直接结果闭合。",
+            "秦统一后总评跨始皇末—二世初，只消费二世继承并继续维持的低位状态。"
+          ],
+          "peak_band": null,
+          "polity": "秦",
+          "rank": 184,
+          "reign_range": "前210—前207",
+          "ruler_id": "RULER-QIN-HUHAI",
+          "ruler_name": "胡亥",
+          "score": 1.8,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-1",
+            "S_avg": "C2-1",
+            "S_end": "C2-1"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-BC9E1677265E"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-BC9E1677265E",
+                "candidate_ids_trace_only": [
+                  "I2-QIN-HUHAI-TRANSFER-LAW-DESTRUCTION-001"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "PUBLIC_WORKS"
+                ],
+                "chain_summary": "加深郡县转输和严法负担并拒绝减省纠偏 | 只消费逐字引文闭合的制度接口、本人归责和实际运行或失灵。 | 经两层独立固定史源和五门禁复裁进入A；不自动取得S或R3。 | 四月，二世還至咸陽，曰：「先帝為咸陽朝廷小，故營阿房宮為室堂。未就，會上崩，罷其作者，復土酈山。酈山事大畢，今釋阿房宮弗就，則是章先帝舉事過也。」復作阿房宮。外撫四夷，如始皇計。盡徵其材士五萬人為屯衛咸陽，令教射狗馬禽獸。當食者多，度不足，下調郡縣轉輸菽粟芻稿，皆令自齎糧食，咸陽三百里內不得食其穀。用法益刻深。 | 是時，盜賊益多，而關中捽髮東擊盜者無已。右丞相馮去疾、左丞相李斯、將軍馮劫進諫曰：「關東群盜並起，秦發兵追擊，所殺亡甚眾，然猶不止。盜多，皆以戍、漕、轉、作事苦，稅賦大也。請且止阿房宮作者，減省四邊戍、轉。」二世曰：「凡所為貴有天下者，得肆意極欲，主重明法，下不敢為非，以制御海內矣。夫虞、夏之主，貴為天子，親處窮苦之實以徇百姓，尚何於法！且先帝起諸侯，兼天下，天下已定，外攘四夷以安邊境，作宮室以章得意，而君觀先帝功業有緒。今朕即位，二年之間，群盜並起，君不能禁，又欲罷先帝之所為，是上無以報先帝，次不為朕盡忠力，何以在位！」下去疾、斯、劫吏，案責他罪。去疾、劫自殺，獨李斯就獄。二世以屬趙高治之，責斯與子由謀反狀，皆收捕宗族、賓客。趙高治斯，榜掠千餘，不勝痛，自誣服。",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/qin.json#material_id=I2-QIN-HUHAI-TRANSFER-LAW-DESTRUCTION-001",
+                  "https://zh.wikisource.org/w/index.php?title=%E5%8F%B2%E8%A8%98%2F%E5%8D%B7006&oldid=7907969&action=raw",
+                  "https://zh.wikisource.org/w/index.php?title=%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91%2F%E5%8D%B7008&oldid=1249914&action=raw"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-BC9E1677265E"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-QIN-HUHAI"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": "NOT_RECHECKED",
+            "cost_band": "NOT_RECHECKED",
+            "cost_status": "NOT_RECHECKED",
+            "cost_position": "NOT_RECHECKED",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-1",
+            "score": 1.8,
+            "state_anchors": {
+              "S0": "C2-1",
+              "S_avg": "C2-1",
+              "S_end": "C2-1"
+            }
+          },
+          "old_settlement_review": "KEEP_MAIN_BAND_REWRITE_PILLAR_LOGIC；保留：原结算关于继续阿房、转输与高压汲取导致生产财政共同崩溃的判断。；推翻/修正：不再用“未形成纠偏”本身作为C2结果证据。"
+        }
+      ]
+    }
+  }
+}

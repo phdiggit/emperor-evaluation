@@ -1,0 +1,165 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "东魏",
+  "collections": {
+    "records": {
+      "positions": [
+        52
+      ],
+      "records": [
+        {
+          "sequence": 137,
+          "ruler_id": "RULER-SHADOW-高欢",
+          "ruler_name": "高欢",
+          "axis_grade": "G3",
+          "position": "MID",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "高欢奉立、废黜魏帝，及与孝武帝最终军事决裂，本质上都是最高权力竞争；尔朱兆败死后，慕容绍宗带尔朱荣妻子及余众据城归降。",
+          "grade_basis": "原“废立控制”退出后，G2中位明显偏低；但孙腾等腹心特权长期不被真正切断，又阻止升到G3高位；正负两侧均有持续机制，定 G3-MID / E3。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G3-MID。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P137-CAPTURE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "以废立控制俘获名义中枢。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-EWEI-GAOHUAN-PERSONNEL-ADMIN-001",
+                "FACT-77FA433BAB84EFD3",
+                "FACT-FEAC5778A883A09E"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "择才行政、一般调整和军事授权不直接支撑C5。"
+            },
+            {
+              "unit_ids": [
+                "SECOND_B1::I2-QIN95-FACT-SUPP29-GAOHUAN-CAPTURE-155-64",
+                "SECOND_B2::I2-QIN95-FACT-SUPP29-GAOHUAN-CAPTURE-155-64"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P137-CAPTURE",
+              "reason": "同一废立中枢俘获跨入口合并。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-SHADOW-高欢",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 65,
+          "score_100": 65,
+          "current_entry_unit_count": 5,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 3,
+            "SCORING_PARENT": 2
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 3,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-SHADOW-高欢",
+          "actual_power_window": "534—547年东魏实际掌权",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P137-CAPTURE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "以废立控制俘获名义中枢。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [
+              "C5-P137-CAPTURE"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P137-CAPTURE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "pre_evidence_gate": {
+            "axis_evidence_level": "E3",
+            "confidence": "HIGH",
+            "output_mode": "FULL_GRADE"
+          },
+          "evidence_gate_review": {
+            "status": "REVISED_TO_E2",
+            "basis": "只有一条MI3负向父链，未完成E3所需跨机制复验。"
+          },
+          "source_refs": [
+            "《北齐书》卷一《神武帝纪上》：尔朱氏余众归降后厚待、禁止侵掠、反对尽杀六镇降户。",
+            "https://zh.wikisource.org/zh-hans/北齊書/卷1",
+            "《北齐书》卷十八《孙腾传》：孙腾贪贿专恣，高欢“屡加谴让终不悛改”。",
+            "https://zh.wikisource.org/zh-hans/北齊書/卷18"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 废立、与孝武帝决裂主要退出C5",
+              "details": [
+                "高欢奉立、废黜魏帝，及与孝武帝最终军事决裂，本质上都是最高权力竞争。",
+                "这些材料可以进入C3/政治控制，但不能仅以“名义皇帝受其操控”就给C5稳定负分。",
+                "原 CAPTURE 父链因此不能继续作为MI3主负证。"
+              ]
+            },
+            {
+              "title": "B. 尔朱氏败后，对首领家属和余众主动不扩大",
+              "details": [
+                "尔朱兆败死后，慕容绍宗带尔朱荣妻子及余众据城归降。",
+                "高欢“以义故待之甚厚”。",
+                "这不是一般外交：最直接的旧敌集团已经败亡 → 其妻子、余众归降 → 最高权力主动不作家属/旧部扩大清算。",
+                "可定 POSITIVE / MI2_LIFECYCLE。"
+              ]
+            },
+            {
+              "title": "C. 其早期处置六镇降户也明确反对“尽杀”",
+              "details": [
+                "尔朱兆问如何处置六镇残部，高欢明确说“不可以尽杀”，主张只罪其帅，使所罪者少。",
+                "虽发生在其尚未完全掌最高权力时，但与后来实际不扩大清算方向一致，可作为背景复验。",
+                "不能单独拔档，但说明其“政治敌手—普通从属者”区分并非偶然。"
+              ]
+            },
+            {
+              "title": "D. 军纪对普通百姓边界很严",
+              "details": [
+                "起兵山东后，高欢军令“不听侵犯”，过麦田时本人下马牵行；百姓因此归心。",
+                "这是掌握军权期间主动限制己方暴力集团侵民的直接正证。",
+                "但仍主要是军事治理背景，不单独当MI3。"
+              ]
+            },
+            {
+              "title": "E. 孙腾：明知核心腹心“非法专恣、贪贿”却长期只谴责",
+              "details": [
+                "孙腾是高欢最核心腹心之一，长期掌机密。",
+                "《北齐书》明确记其。",
+                "求纳财贿：生官死赠非货不行。",
+                "盗府藏银器为家物：与四贵非法专恣，孙腾尤甚。",
+                "高欢“屡加谴让，终不悛改”，却长期维持其高位。",
+                "这已经不是单纯“用人差”，而是：严重特权和贪赃事实反复到达 → 皇帝/实际最高权力者只口头谴责 → 核心腹心继续享有权力与豁免。",
+                "应定 NEGATIVE / MI3_SUSTAINED_SYSTEMIC。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 4,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        }
+      ]
+    }
+  }
+}

@@ -5,6 +5,8 @@ import json
 import re
 from pathlib import Path
 
+from emperor_v4.evaluation.formal_json_store import load_json
+
 ROOT = Path(__file__).resolve().parents[3]
 PROFILE_ROOT = ROOT / "docs" / "评分结算" / "皇帝人物画像"
 SETTLEMENT = PROFILE_ROOT / "M1" / "01-M1军事判断与统帅能力正式结算.json"
@@ -14,7 +16,7 @@ FORBIDDEN_AGGREGATES = ("第三项A+B", "D线性Q", "总排名", "第三项总�
 
 
 def verify() -> dict[str, int]:
-    payload = json.loads(SETTLEMENT.read_text(encoding="utf-8"))
+    payload = load_json(SETTLEMENT)
     rows = payload["records"]
     assert len(rows) == 184
     for row in rows:

@@ -1,0 +1,130 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "西魏",
+  "collections": {
+    "records": {
+      "positions": [
+        45
+      ],
+      "records": [
+        {
+          "sequence": 107,
+          "ruler_id": "RULER-SHADOW-宇文泰",
+          "ruler_name": "宇文泰",
+          "axis_grade": "G3",
+          "position": "MID",
+          "confidence": "MEDIUM",
+          "output_mode": "BOUNDED_PROFILE",
+          "score_status": "EVIDENCE_LIMITED",
+          "typical_pattern": "王茂案完全不属于政敌豁免；撤掉政治斗争材料后，已经不足以形成“明显短板”。",
+          "grade_basis": "王茂案完全不属于政敌豁免；《周书·柳庆传》明确称王茂“无罪”；宇文泰因盛怒欲杀，柳庆抗争；最终王茂已被冤杀，宇文泰翌日明确承认错误并补偿其家。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G3-MID。",
+          "limitations": [
+            "反例暴露和最高权力受约束切片不足。"
+          ],
+          "parents": [
+            {
+              "parent_id": "C5-P107-CONSULT",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "改革与继承咨询实际进入并改变决定。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "SECOND_A::I2-WWEI-YUWENTAI-SIX-ARTICLES-M3-AUDIT",
+                "SECOND_B1::I2-WWEI-YUWENTAI-SIX-ARTICLES-M3-AUDIT",
+                "FACT-91F72421C8D7A34F"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "六条诏书的制度成果与行政授权只作背景。"
+            },
+            {
+              "unit_ids": [
+                "I2-QIN95-YUWENTAI-B2-HEIR",
+                "FACT-7A7867C282FF825A"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P107-CONSULT",
+              "reason": "咨询和建议能到达最高决策。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-SHADOW-宇文泰",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 65,
+          "score_100": 65,
+          "current_entry_unit_count": 5,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 3,
+            "SCORING_PARENT": 2
+          },
+          "axis_evidence_level": "E2",
+          "grade_numeric": 3,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-SHADOW-宇文泰",
+          "actual_power_window": "535—556年西魏实际掌权",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P107-CONSULT",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "改革与继承咨询实际进入并改变决定。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P107-CONSULT"
+            ],
+            "negative_parent_refs": [],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P107-CONSULT"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《周书》卷二十二《柳庆传》",
+            "https://zh.wikisource.org/zh-hans/周書/卷22"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "保留",
+              "details": [
+                "王茂案完全不属于政敌豁免。",
+                "《周书·柳庆传》明确称王茂“无罪”。",
+                "宇文泰因盛怒欲杀，柳庆抗争。",
+                "最终王茂已被冤杀，宇文泰翌日明确承认错误并补偿其家。",
+                "柳庆不仅未遭报复，此后仍长期重用。",
+                "这是一条非常完整的 MIXED / MI2_LIFECYCLE。"
+              ]
+            },
+            {
+              "title": "新裁决",
+              "details": [
+                "撤掉政治斗争材料后，已经不足以形成“明显短板”。",
+                "但王茂冤死是不可忽略的深下沿，且没有第二条同等级主动自缚父链。",
+                "改为 G3-MID / E2。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 1,
+            "locator_count": 2,
+            "linked_source_count": 1,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        }
+      ]
+    }
+  }
+}

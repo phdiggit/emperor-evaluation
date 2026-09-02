@@ -6,6 +6,7 @@ import re
 from pathlib import Path
 from typing import Any
 
+from emperor_v4.evaluation.formal_json_store import load_json, load_ruler_polities, write_json
 from emperor_v4.evaluation.profile_markdown import render_profile_markdown
 
 
@@ -40,15 +41,11 @@ M3_CONTRACT_VERSION = "FORMAL-V3.6"
 
 
 def _load(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text(encoding="utf-8"))
+    return load_json(path)
 
 
 def _write_json(path: Path, payload: dict[str, Any]) -> None:
-    path.write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-        newline="\n",
-    )
+    write_json(path, payload, ruler_polities=load_ruler_polities(ROOT))
 
 
 def _refresh_redundant_record_text(record: dict[str, Any]) -> None:

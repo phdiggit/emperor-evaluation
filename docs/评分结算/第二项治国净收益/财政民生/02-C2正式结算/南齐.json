@@ -1,0 +1,222 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "南齐",
+  "collections": {
+    "scores": {
+      "positions": [
+        132,
+        133
+      ],
+      "records": [
+        {
+          "adjudication_reason": "原结算把罢候官、断众募、检籍屯田等视作恢复，主档三档可以保留；但这些多数仍是治理动作。本人直接结果里“吏民始得安业”主要属于C1/C3，而建元末已有钱少、钱贵物贱并准备扩大铸钱的市场货币问题。财政税基通过检籍有所扩张，但公共余量没有健康结果闭合。因此仍是C2-3。",
+          "confidence": "MEDIUM_HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《资治通鉴》卷一百三十五"
+              ],
+              "verbatim_excerpt": "宜悉罢之……自是吏民始得安业。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《南齐书·崔祖思等传》所载孔觊铸钱议"
+              ],
+              "verbatim_excerpt": "三吴国之关阃，比岁被水潦而籴不贵，是天下钱少，非谷穰贱。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《南齐书》"
+              ],
+              "verbatim_excerpt": "建元初，检定黄籍。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "财政与市场系统可运行，但M已有钱少约束，F/R又无健康余量硬证，四档失败。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "“吏民始得安业”不作为C2高档证据。",
+            "检籍会增加税基，也会产生刚性转嫁，不能单向消费。"
+          ],
+          "peak_band": null,
+          "polity": "南齐",
+          "rank": 56,
+          "reign_range": [
+            479,
+            482
+          ],
+          "ruler_id": "RULER-SHADOW-萧道成",
+          "ruler_name": "萧道成",
+          "score": 14.9,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-3",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-D61B55EBCF9C"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-D61B55EBCF9C",
+                "candidate_ids_trace_only": [
+                  "M3H-F9C365EDE433BF4C"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "MARKET_TRADE"
+                ],
+                "chain_summary": "- 萧道成以大明以来公私奢侈为由，奏罢御府、省二尚方雕饰器玩，并禁民间华伪杂事十七条；属于已颁并开始执行的停造减役政策。`史源：#奏罷御府省二尚方雕飾器玩` | - 节省金额、工匠转业、市场和民间执行后果未载，不能直接判财政完全恢复。",
+                "source_refs": [
+                  "docs/史料通读产物/唐以前编年/南北朝/卷134-通读总结.md#L171"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-D61B55EBCF9C"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-萧道成"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C3",
+            "cost_status": "CONFIRMED",
+            "cost_position": "MID",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          },
+          "old_settlement_review": "KEEP_BAND_RECLASSIFY_EVIDENCE；保留：短任、恢复性政策和三档主态保留。；推翻/修正：把安业类C1/C3结果移出C2核心，并补入钱少这一M面反证。。"
+        },
+        {
+          "adjudication_reason": "原结算认为明帝时期宫廷与战争支出侵蚀永明积累，方向可以保留，但原证据卡明显混入北魏迁洛和郁林王材料。本轮只消费本人窗口：建武元年直接停石头后渚商旅税、断土贡、还新林苑民地，随后又多次蠲战区税调，说明财政与市场系统仍可运行并主动减负；但这些主要是政策动作，且北魏战争持续侵蚀税基，缺P/M与F/R健康结果闭合。因此主态仍C2-3。",
+          "confidence": "LOW",
+          "evidence": [
+            {
+              "source_works": [
+                "《南齐书·明帝纪》"
+              ],
+              "verbatim_excerpt": "今商旅税石头后渚及夫卤借倩，一皆停息。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《南齐书·明帝纪》"
+              ],
+              "verbatim_excerpt": "邑宰禄薄俸微，不足代耕，虽任土恒贡，亦为劳费，自今悉断。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《南齐书·明帝纪》"
+              ],
+              "verbatim_excerpt": "雍、豫、司、南兖、徐五州遇寇之家，悉停今年租调。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《南齐书·明帝纪》"
+              ],
+              "verbatim_excerpt": "所在结课屋宅田桑，可详减旧价。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "制度能减负、财政仍可运作，但大部分正证是政策而非实际健康结果，且战争区税基持续受损，四档门不闭合。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "原结算中北魏迁洛及郁林王耗储证据全部删除。",
+            "战争不机械扣C2，只消费其已闭合到的税基与财政措施。"
+          ],
+          "peak_band": null,
+          "polity": "南齐",
+          "rank": 56,
+          "reign_range": [
+            494,
+            498
+          ],
+          "ruler_id": "RULER-SHADOW-萧鸾",
+          "ruler_name": "萧鸾",
+          "score": 14.9,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-4",
+            "S_avg": "C2-3",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-萧鸾"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C6",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-4",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          },
+          "old_settlement_review": "KEEP_BAND_REPLACE_MIXED_EVIDENCE；保留：永明高位难以完整维持、主态三档的方向保留。；推翻/修正：原证据人物混杂，本轮只用萧鸾本人窗口材料。。"
+        }
+      ]
+    }
+  }
+}

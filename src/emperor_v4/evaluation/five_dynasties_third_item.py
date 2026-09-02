@@ -13,6 +13,7 @@ from emperor_v4.evaluation.battle_registry_store import (
     load_battle_registry,
     write_battle_registry,
 )
+from emperor_v4.evaluation.formal_json_store import load_json, load_ruler_polities, write_json
 from emperor_v4.evaluation.talent_registry_store import load_talent_registry
 from emperor_v4.evaluation.post_tang_third_item_consumption import (
     iter_post_tang_bound_cycles,
@@ -2963,9 +2964,7 @@ def _align_bc_to_system_stress_parent_cycles(
         str(profile["profile_ref"]): profile
         for profile in talent_payload.get("profiles") or ()
     }
-    first_item_c_payload = json.loads(
-        (workspace_root / FIRST_ITEM_C_SETTLEMENT_PATH).read_text(encoding="utf-8")
-    )
+    first_item_c_payload = load_json(workspace_root / FIRST_ITEM_C_SETTLEMENT_PATH)
     first_item_capability_refs_by_id: dict[str, set[str]] = {}
     first_item_major_success_refs_by_id: dict[str, set[str]] = defaultdict(set)
     first_item_major_failure_refs_by_id: dict[str, set[str]] = defaultdict(set)
@@ -3702,8 +3701,8 @@ def build_five_dynasties_formal_payloads(
     ab_records = build_five_dynasties_ab_records(registry, adjudications)
     c_records = build_five_dynasties_c_records(registry, adjudications)
     _validate_bc_parent_cycle_alignment(ab_records, c_records)
-    ab = _replace_partition_records(json.loads((workspace_root / AB_PATH).read_text(encoding="utf-8")), ab_records)
-    existing_combined = json.loads((workspace_root / FORMAL_PATH).read_text(encoding="utf-8"))
+    ab = _replace_partition_records(load_json(workspace_root / AB_PATH), ab_records)
+    existing_combined = load_json(workspace_root / FORMAL_PATH)
     north_song_count = sum(str(row.get("ruler_id", "")).startswith("RULER-NS-") for row in existing_combined["records"])
     extension = f" + 北宋{north_song_count}人" if north_song_count else ""
     ab.update({
@@ -3712,7 +3711,7 @@ def build_five_dynasties_formal_payloads(
         "pending_count": sum(not row.get("score_ready") for row in ab["records"]),
         "score_ready_count": sum(bool(row.get("score_ready")) for row in ab["records"]),
     })
-    c = _replace_partition_records(json.loads((workspace_root / C_PATH).read_text(encoding="utf-8")), c_records)
+    c = _replace_partition_records(load_json(workspace_root / C_PATH), c_records)
     for row in c["records"]:
         row.pop("confidence", None)
     _normalize_qin_tang_bc_parent_cycles(workspace_root, ab["records"], c["records"])
@@ -4079,8 +4078,10 @@ def write_five_dynasties_third_item(workspace_root: Path) -> dict[str, Any]:
     }
     for kind, path in paths.items():
         target = workspace_root / path
-        _write_text_atomic(
-            target, json.dumps(payloads[kind], ensure_ascii=False, indent=2) + "\n"
+        write_json(
+            target,
+            payloads[kind],
+            ruler_polities=load_ruler_polities(workspace_root),
         )
         md_target = workspace_root / md_paths[kind]
         _write_text_atomic(

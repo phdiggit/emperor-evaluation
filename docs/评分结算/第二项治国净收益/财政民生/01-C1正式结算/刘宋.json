@@ -1,0 +1,484 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "刘宋",
+  "collections": {
+    "scores": {
+      "positions": [
+        25,
+        80,
+        145,
+        147
+      ],
+      "records": [
+        {
+          "adjudication_reason": "元嘉主要时期的直接总评足以闭合普遍温饱：四境长期安定、户口蕃息，出租供徭止于岁赋，普通家庭能够“晨出暮归，自事而已”。但这组材料没有“家给人足、家有余蓄、民富”等广域家庭余量强锚，旧raw C1-5不符合高档硬门，降回C1-4；formal和分数因此不变。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "anchor_time": "刘义隆元嘉三十年",
+              "described_state": "元嘉主要时期长期安定、户口繁息且常态额外征役较少。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "proof_scope_constraints": [
+                "REGISTRATION_VISIBILITY_MIXED"
+              ],
+              "registration_metric_role": "MIXED_REALITY_AND_REGISTRATION",
+              "source_voice": "THIRD_PARTY_CHRONICLE_OR_TREATISE",
+              "source_voice_basis": "机械粗分；按source_works与verbatim中的史书、奏议、诏令标记识别。",
+              "source_voice_matches": [
+                "THIRD_PARTY_CHRONICLE_OR_TREATISE"
+              ],
+              "source_works": [
+                "《资治通鉴》共享通读卡正文"
+              ],
+              "state_roles": [
+                "S_avg",
+                "稳定性"
+              ],
+              "verbatim_excerpt": "三十年间四境相对安定、户口繁息；出租供徭，止于岁赋。",
+              "result_axis_owner": [
+                "NET_TAX_LABOR_BURDEN",
+                "HOUSEHOLD_FORMATION_REPRODUCTION"
+              ]
+            }
+          ],
+          "evidence_mode": "DIRECT_MACRO_ANCHOR",
+          "main_band": "C1-4",
+          "material_limitations": [
+            "“户口蕃息”不能单独证明家庭余量；战争规模本身也不直接扣C1，只消费已经落到普通家庭的饥流、流寓与持续饥困。"
+          ],
+          "peak_band": null,
+          "polity": "刘宋",
+          "rank": 7,
+          "reign_range": [
+            424,
+            453
+          ],
+          "ruler_id": "RULER-SHADOW-刘义隆",
+          "ruler_name": "刘义隆",
+          "score": 50.5,
+          "stability_class_diagnostic_only": "K0",
+          "state_anchors": {
+            "S0": "C1-3",
+            "S_avg": "C1-4",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-刘义隆"
+          },
+          "review_remediation": {
+            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
+            "status": "APPLIED",
+            "problem": "原C1-4没有识别出元嘉前中期实际已达到raw5；formal分数因治理复杂度仍可维持4",
+            "directive": "formal主档C1-4维持，score 54.9；补 raw_state_band=C1-5 / formal_band=C1-4；曲线formal仍 C1-3→4→3；K=K0。 《宋书·良吏传序》直接覆盖“三十年间”，有“氓庶蕃息”“奉上供徭止于岁赋”“家给人足”，并称“宋世之极盛”，raw5无疑；但刘宋实际控制人口/地域与治理链低于高复杂度大一统盘面，formal仍折算4。元嘉二十七年后“倾资扫蓄、深赋厚敛、天下骚动”，终点3与K0均成立。"
+          },
+          "raw_state_band": "C1-4",
+          "formal_band": "C1-4",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_FORMATION_REPRODUCTION",
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS",
+            "NET_TAX_LABOR_BURDEN"
+          ],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "stages": [
+              {
+                "stage_band": "C1-3",
+                "depth_from_raw_main": 2,
+                "scope_class": "TERMINAL_SCOPE",
+                "duration_class": "TERMINAL",
+                "repeat_group": "ATTACHED_REVIEW_CONSOLIDATED_CHAIN",
+                "recovery_confirmed": false,
+                "evidence_strength": "ATTACHED_REVIEW_WITH_FORMAL_SOURCE_ENTRIES",
+                "counts_toward_k": true,
+                "exclusion_reason": null,
+                "basis": "formal主档C1-4维持，score 54.9；补 raw_state_band=C1-5 / formal_band=C1-4；曲线formal仍 C1-3→4→3；K=K0。 《宋书·良吏传序》直接覆盖“三十年间”，有“氓庶蕃息”“奉上供徭止于岁赋”“家给人足”，并称“宋世之极盛”，raw5无疑；但刘宋实际控制人口/地域与治理链低于高复杂度大一统盘面，formal仍折算4。元嘉二十七年后“倾资扫蓄、深赋厚敛、天下骚动”，终点3与K0均成立。"
+              }
+            ]
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "COMPLETE",
+            "handoff_continuity_checked": true,
+            "basis": "formal主档C1-4维持，score 54.9；补 raw_state_band=C1-5 / formal_band=C1-4；曲线formal仍 C1-3→4→3；K=K0。 《宋书·良吏传序》直接覆盖“三十年间”，有“氓庶蕃息”“奉上供徭止于岁赋”“家给人足”，并称“宋世之极盛”，raw5无疑；但刘宋实际控制人口/地域与治理链低于高复杂度大一统盘面，formal仍折算4。元嘉二十七年后“倾资扫蓄、深赋厚敛、天下骚动”，终点3与K0均成立。"
+          },
+          "inference_review": {
+            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
+            "inference_source_anchor": null,
+            "inference_hops": 0,
+            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷一百二十三",
+              "original_text": "三十年間，四境之內，晏安無事，戶口蕃息；出租供徭，止於歲賦，晨出暮歸，自事而已。"
+            },
+            {
+              "book": "《宋文纪》",
+              "original_text": "凋伤之民宜时振理……赈赡饥流……其流寓江淮者并听即属，并蠲复租调。"
+            },
+            {
+              "book": "《宋文纪》",
+              "original_text": "经寇六州，居业未能，仍值灾涝，饥困荐臻。"
+            }
+          ],
+          "stability_basis": "元嘉二十七年北伐失败及魏军南侵后，材料已经闭合“凋伤之民”“饥流”“流寓江淮”；二十九年经寇六州仍“饥困荐臻”，交班前没有同尺度恢复锚，故S_end=C1-3、K0维持。"
+        },
+        {
+          "adjudication_reason": "实际掌权后通过减免旧欠、限制额外征调、按价和市与安置逃户等措施推动战后恢复；这些主要是政策与恢复方向，现证只能受约束闭合C1-3，不能证明主要统治区普遍温饱。",
+          "confidence": "MEDIUM_LOW",
+          "evidence": [
+            {
+              "cost_scale": "WC1",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-NC-LINYI-420",
+              "stages": [
+                "S_END_LATE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-NC-LINYI-420",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "CONTINUITY_CONSTRAINED_INFERENCE",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "多数材料仍是政策与减负措施；称帝后窗口很短，后继刘宋运行不得回填为本人结果。"
+          ],
+          "peak_band": null,
+          "polity": "刘宋",
+          "rank": 36,
+          "reign_range": [
+            404,
+            422
+          ],
+          "ruler_id": "RULER-SHADOW-刘裕",
+          "ruler_name": "刘裕",
+          "score": 32.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-2",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-刘裕"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "PRESERVED_PENDING_DEDICATED_REVIEW",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-2",
+            "to_band": "C1-3",
+            "basis": "沿用当前正式证据；本补丁未新增人物裁决。"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "从桓玄乱后低位经十八年实际掌权恢复基本运行；节俭方向明确，但无广域温饱结果。"
+          },
+          "material_basis": [
+            {
+              "book": "《宋书·武帝纪》",
+              "original_text": "逋租宿债勿复收……鳏寡孤独不能自存者人谷五斛。"
+            },
+            {
+              "book": "《宋书·武帝纪》",
+              "original_text": "运舟材及运船不复下诸郡输出……皆别遣主帅与民和市，即时裨直……又停废虏车牛不得以官威假借；又以市税繁苦，优量减降。"
+            }
+          ],
+          "stability_basis": "S0=C1-2及其恢复过程不计K；称帝前后已审材料未确认恢复到C1-3后另有一个独立、已经实现且低于3档的家庭生计阶段，故K4。"
+        },
+        {
+          "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。本人后期淮泗用兵、府藏空竭与持续奢费并存，史书直接概括“天下骚然，民不堪命”，足以闭合C1-2；前废帝时期恶钱与斗米万钱只保留为S0背景。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "anchor_time": "465年刘子业末至刘彧初",
+              "described_state": "恶钱失控后交易不计枚、粮价极高、商货停滞；刘彧禁最劣钱但未见恢复结果。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "proof_scope_constraints": [],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_voice": "THIRD_PARTY_CHRONICLE_OR_TREATISE",
+              "source_voice_basis": "机械粗分；按source_works与verbatim中的史书、奏议、诏令标记识别。",
+              "source_voice_matches": [
+                "THIRD_PARTY_CHRONICLE_OR_TREATISE"
+              ],
+              "source_works": [
+                "《资治通鉴》共享通读卡正文"
+              ],
+              "state_roles": [
+                "S0",
+                "稳定性"
+              ],
+              "verbatim_excerpt": "斗米一万钱，商货不行。",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+              ]
+            },
+            {
+              "anchor_time": "刘彧末至刘昱初",
+              "described_state": "淮泗用兵后中央财政空竭、停俸，奢建和贿赂继续，未形成恢复。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "proof_scope_constraints": [],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_voice": "POLICY_OR_EDICT",
+              "source_voice_basis": "机械粗分；按source_works与verbatim中的史书、奏议、诏令标记识别。",
+              "source_voice_matches": [
+                "POLICY_OR_EDICT",
+                "THIRD_PARTY_CHRONICLE_OR_TREATISE"
+              ],
+              "source_works": [
+                "《资治通鉴》共享通读卡正文"
+              ],
+              "state_roles": [
+                "S_end",
+                "稳定性"
+              ],
+              "verbatim_excerpt": "府藏空竭，内外百官全部停俸；仍奢费营造。",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ]
+            }
+          ],
+          "evidence_mode": "DIRECT_MACRO_ANCHOR",
+          "main_band": "C1-2",
+          "material_limitations": [
+            "“斗米一万钱、商货不行”发生在刘彧即位前，不再作为本人主态或K直接证据。"
+          ],
+          "peak_band": null,
+          "polity": "刘宋",
+          "rank": 121,
+          "reign_range": [
+            465,
+            472
+          ],
+          "ruler_id": "RULER-SHADOW-刘彧",
+          "ruler_name": "刘彧",
+          "score": 17.1,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-1",
+            "S_avg": "C1-2",
+            "S_end": "C1-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-刘彧"
+          },
+          "raw_state_band": "C1-2",
+          "formal_band": "C1-2",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+          ],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "PRESERVED_PENDING_DEDICATED_REVIEW",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-1",
+            "to_band": "C1-2",
+            "basis": "沿用当前正式证据；本补丁未新增人物裁决。"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
+            "inference_source_anchor": null,
+            "inference_hops": 0,
+            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
+          },
+          "material_basis": [
+            {
+              "book": "《宋书·明帝纪》",
+              "original_text": "时淮泗用兵，府藏空竭，内外百官并断俸禄，而上奢费过度……天下骚然，民不堪命。"
+            },
+            {
+              "book": "《资治通鉴》",
+              "original_text": "斗米一万钱，商货不行。"
+            }
+          ],
+          "stability_basis": "本人窗口的“天下骚然，民不堪命”已经直接承担主态C1-2；未找到独立低于2且不与主态重复的家庭生计阶段，故K4。"
+        },
+        {
+          "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。即位初即承认“百姓劳弊、徭赋尚繁”；大明七年至八年初东部旱荒又闭合田亩失收、乏绝与大批饥死，故主态C1-2维持。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "anchor_time": "刘骏孝建三年前后",
+              "described_state": "薄小货币、盗铸失控、物价上涨和府藏空匮共同形成中期困顿。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "proof_scope_constraints": [],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_voice": "THIRD_PARTY_CHRONICLE_OR_TREATISE",
+              "source_voice_basis": "source_works命中资治通鉴、通典或项目固定卡所承载的编年/制度性叙述标记。",
+              "source_voice_matches": [
+                "THIRD_PARTY_CHRONICLE_OR_TREATISE"
+              ],
+              "source_works": [
+                "《资治通鉴》共享通读卡正文"
+              ],
+              "state_roles": [
+                "S_avg",
+                "稳定性"
+              ],
+              "verbatim_excerpt": "盗铸仍加剧，物价踊贵；府藏空匮实为重忧。",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+              ]
+            },
+            {
+              "anchor_time": "刘骏末年（464）",
+              "described_state": "东方诸郡出现高粮价和严重死亡，卷内未载有效赈济或恢复。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "proof_scope_constraints": [],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_voice": "THIRD_PARTY_CHRONICLE_OR_TREATISE",
+              "source_voice_basis": "source_works命中资治通鉴、通典或项目固定卡所承载的编年/制度性叙述标记。",
+              "source_voice_matches": [
+                "THIRD_PARTY_CHRONICLE_OR_TREATISE"
+              ],
+              "source_works": [
+                "《资治通鉴》共享通读卡正文"
+              ],
+              "state_roles": [
+                "S_end",
+                "稳定性"
+              ],
+              "verbatim_excerpt": "东方诸郡连岁旱饥，米一升数百钱，饿死者十之六七。",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS",
+                "HOUSEHOLD_FORMATION_REPRODUCTION"
+              ]
+            }
+          ],
+          "evidence_mode": "DIRECT_MACRO_ANCHOR",
+          "main_band": "C1-2",
+          "material_limitations": [
+            "景和元年“斗米一万、商货不行”及刘子业冬季继续恶化材料均剔除，不得倒算刘骏；东诸郡深灾不足外推全国终点1。"
+          ],
+          "peak_band": null,
+          "polity": "刘宋",
+          "rank": 121,
+          "reign_range": [
+            453,
+            464
+          ],
+          "ruler_id": "RULER-SHADOW-刘骏",
+          "ruler_name": "刘骏",
+          "score": 16.4,
+          "stability_class_diagnostic_only": "K2",
+          "state_anchors": {
+            "S0": "C1-3",
+            "S_avg": "C1-2",
+            "S_end": "C1-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-刘骏"
+          },
+          "raw_state_band": "C1-2",
+          "formal_band": "C1-2",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_FORMATION_REPRODUCTION",
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+          ],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
+            "inference_source_anchor": null,
+            "inference_hops": 0,
+            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
+          },
+          "material_basis": [
+            {
+              "book": "《宋书·孝武帝纪》",
+              "original_text": "百姓劳弊，徭赋尚繁……凡用非军国，宜悉停功。"
+            },
+            {
+              "book": "《宋书·孝武帝纪》",
+              "original_text": "去岁东境偏旱，田亩失收……多至乏绝……顿伏街巷。"
+            },
+            {
+              "book": "《宋书·五行志》",
+              "original_text": "孝武帝大明七年，东诸郡大旱，民饥死者十六七。"
+            }
+          ],
+          "stability_basis": "大明七年至八年初的东诸郡旱荒是一个深度很强的区域家庭低谷，《宋书》明确记东诸郡大旱并有高比例饥死，且刘骏死前二月仍称东境田亩失收、来者多至乏绝。其深度足以超过K3，但范围仍主要限于东方诸郡，不能把刘宋整体S_end压到C1-1，也不足过K1聚合门，故K2、S_end仍2。"
+        }
+      ]
+    }
+  }
+}

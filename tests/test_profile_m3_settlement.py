@@ -6,6 +6,8 @@ import re
 
 import pytest
 
+from emperor_v4.evaluation.formal_json_store import load_json
+
 from emperor_v4.evaluation.profile_m3_settlement import (
     GRADE_PROJECTION,
     M3_CONTRACT,
@@ -19,7 +21,7 @@ from emperor_v4.evaluation.profile_markdown import render_profile_markdown
 
 
 def _load(path):
-    return json.loads(path.read_text(encoding="utf-8"))
+    return load_json(path)
 
 
 def test_profile_m3_formal_snapshot_passes_lightweight_verifier() -> None:

@@ -1,0 +1,496 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "西汉",
+  "collections": {
+    "records": {
+      "positions": [
+        3,
+        77,
+        88,
+        89,
+        94,
+        96,
+        97,
+        99,
+        103,
+        105,
+        108
+      ],
+      "records": [
+        {
+          "ruler_id": "RULER-HAN-LIUBANG",
+          "ruler_name": "刘邦",
+          "polity": "汉",
+          "reign_range": "前202—前195",
+          "scope_status": "ELIGIBLE_DYNASTY_FOUNDER",
+          "score_applicable": true,
+          "founder_role": "PRIMARY_FOUNDER",
+          "difficulty_start_boundary": "亭长身份与县里人脉是微量个人资源，沛县起兵集团是后来成果",
+          "initial_resource_position": "亭长身份与县里人脉是微量个人资源，沛县起兵集团是后来成果",
+          "initial_resource_share_pct": 0.5,
+          "initial_resource_source_refs": [
+            "史記/卷007@項羽三萬精兵晨擊漢軍，漢軍大敗，睢水為之不流。",
+            "HAN-CHUHAN-PENGCHENG-BCE205"
+          ],
+          "initial_resource_source_status": "SOURCE_ANCHORED_RULE_MAPPED",
+          "initial_resource_class": "R1_PERSONAL_OR_TINY_FOLLOWING",
+          "initial_resource_share_basis": "史源锚用于确认‘亭长身份与县里人脉是微量个人资源，沛县起兵集团是后来成果’这一事实起点；百分比不是史书原文数字，而是按合同R1_PERSONAL_OR_TINY_FOLLOWING档（仅有个人声望、宗族乡兵、少量亲随或初级军职资源）在同档人物间依可调用资源广度裁为0.5%。",
+          "start_boundary": "前209年沛县起兵",
+          "end_boundary": "前202年称帝并完成主要统一",
+          "starting_position": "县级起兵集团",
+          "A1": {
+            "axis": "A1",
+            "name": "创业战略增益与难度兑现",
+            "starting_resource_share": 0.5,
+            "starting_resource_disadvantage": 99.5,
+            "project_start_resource_share": 1.0,
+            "project_start_resource_disadvantage": 99.0,
+            "contribution_start_field": {
+              "subject_units": 1.0,
+              "other_actors": {
+                "秦朝有效控制": 55,
+                "楚系起义军": 14,
+                "其他反秦武装与地方势力": 30
+              }
+            },
+            "opponent_pressure": 77.94,
+            "opponent_system_pressure": 82.9,
+            "relative_resource_pressure": 66.37,
+            "major_opponent_count": 5,
+            "major_opponent_systems": [
+              {
+                "opponent_system_ref": "OPP-WHAN-WESTERN-CHU",
+                "opponent_label": "项羽西楚国家与主力体系",
+                "organization_grade": "O6",
+                "organization_rate": 100.0,
+                "source_campaign_refs": [
+                  "HAN-CHUHAN-XINGYANG-CHENGGAO-BCE205-203",
+                  "HAN-CHUHAN-PENGCHENG-BCE205",
+                  "HAN-CHUHAN-GAIXIA-BCE203-202"
+                ]
+              },
+              {
+                "opponent_system_ref": "OPP-WHAN-QI",
+                "opponent_label": "齐地国家与军团体系",
+                "organization_grade": "O4",
+                "organization_rate": 70.0,
+                "source_campaign_refs": [
+                  "HAN-CHUHAN-QI-BCE204-203"
+                ]
+              },
+              {
+                "opponent_system_ref": "OPP-WHAN-THREE-QIN",
+                "opponent_label": "三秦区域国家体系",
+                "organization_grade": "O4",
+                "organization_rate": 70.0,
+                "source_campaign_refs": [
+                  "HAN-CHUHAN-THREE-QIN-BCE206-205"
+                ]
+              },
+              {
+                "opponent_system_ref": "OPP-WHAN-ZHAO-DAI",
+                "opponent_label": "赵国主力与代赵军政体系",
+                "organization_grade": "O4",
+                "organization_rate": 70.0,
+                "source_campaign_refs": [
+                  "HAN-CHUHAN-DAI-ZHAO-YAN-BCE205-204"
+                ]
+              },
+              {
+                "opponent_system_ref": "OPP-WHAN-WEI-BAO",
+                "opponent_label": "魏豹河东区域政权",
+                "organization_grade": "O3",
+                "organization_rate": 50.0,
+                "source_campaign_refs": [
+                  "HAN-CHUHAN-WEI-BCE205"
+                ]
+              }
+            ],
+            "unknown_opponent_campaign_refs": [],
+            "opponent_threat_source_status": "OPPONENT_SYSTEM_O_GRADE_WITH_RELATIVE_RESOURCES",
+            "opponent_threat_routing_basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。",
+            "competitive_fragmentation": 72.95,
+            "a1_strategic_responsibility_factor": 100.0,
+            "a1_strategic_responsibility_basis": "role_default:PRIMARY_FOUNDER",
+            "start_difficulty_rate": 99.15,
+            "pure_difficulty_rate": 88.55,
+            "difficulty_rate": 100.0,
+            "terminal_completion_rate": 100.0,
+            "attributed_completion_rate": 100.0,
+            "result_rate": 100.0,
+            "rate": 100.0,
+            "weight": 60,
+            "points": 60.0
+          },
+          "A2": {
+            "axis": "A2",
+            "name": "创业路线效率与稳固",
+            "created_net_control_value": 550.25,
+            "recovered_net_control_value": 0.0,
+            "gross_unification_control_value": 550.25,
+            "effective_unification_control_value": 550.25,
+            "recovered_control_scoring_rate": 50.0,
+            "raw_control_scale_rate": 55.02,
+            "control_scale_score_rate": 74.18,
+            "closure_years": 8.0,
+            "value_weighted_acquisition_years": 5.5,
+            "control_acquisition_efficiency": 100.05,
+            "acquisition_pace_rate": 100.0,
+            "scale_expected_closure_years": 8.0,
+            "closure_pace_rate": 100.0,
+            "time_rate": 100.0,
+            "control_retention_rate": 87.0,
+            "durability_rate": 88.2,
+            "terminal_completion_rate": 100.0,
+            "early_stability_rate": 90.0,
+            "strategic_positive_decisions": [
+              {
+                "event": "接受先入关中并以关中为稳定基地的总体路线",
+                "impact": "DECISIVE",
+                "basis": "卷008—009明确保存先入关、受降秦、接管关中图籍户口仓粟以及关中后来持续补兵转漕的事实，足以支持关中作为总体政治资源基地。",
+                "source_refs": [
+                  "WAR-LEAD-QIN-GUANZHONG",
+                  "資治通鑑/卷009#先入关并取得关中"
+                ],
+                "base_points": 5.0,
+                "position": 1,
+                "position_weight": 1.0,
+                "effective_points": 5.0
+              }
+            ],
+            "objective_result_points": 25.9,
+            "strategic_positive_decision_points": 5.0,
+            "strategic_error_points": 5.0,
+            "strategic_error_events": [
+              {
+                "event": "彭城快速推进、未消灭项羽主力即占楚都并放松联盟军警戒",
+                "severity": "MAJOR",
+                "basis": "刘邦亲自统率诸侯联军并决定东进节奏；楚都与五十六万联盟军在项羽回击下同时崩溃，诸侯复叛，统一进程发生重大倒退。",
+                "c_nonduplication_basis": "A结算进军节奏、联盟军统筹与占领后警戒决定；C/人才负项结算本人作为现场主帅的S-/D3败绩，同一事件仅分离能力维度。",
+                "source_refs": [
+                  "史記/卷007@項羽三萬精兵晨擊漢軍，漢軍大敗，睢水為之不流。",
+                  "HAN-CHUHAN-PENGCHENG-BCE205"
+                ]
+              }
+            ],
+            "rate": 64.79,
+            "weight": 40,
+            "points": 25.9
+          },
+          "strategic_error_events": [
+            {
+              "event": "彭城快速推进、未消灭项羽主力即占楚都并放松联盟军警戒",
+              "severity": "MAJOR",
+              "basis": "刘邦亲自统率诸侯联军并决定东进节奏；楚都与五十六万联盟军在项羽回击下同时崩溃，诸侯复叛，统一进程发生重大倒退。",
+              "c_nonduplication_basis": "A结算进军节奏、联盟军统筹与占领后警戒决定；C/人才负项结算本人作为现场主帅的S-/D3败绩，同一事件仅分离能力维度。",
+              "source_refs": [
+                "史記/卷007@項羽三萬精兵晨擊漢軍，漢軍大敗，睢水為之不流。",
+                "HAN-CHUHAN-PENGCHENG-BCE205"
+              ]
+            }
+          ],
+          "strategic_error_review": {
+            "review_status": "REVIEWED_ERRORS",
+            "searched_evidence_refs": [
+              "史記/卷007@項羽三萬精兵晨擊漢軍，漢軍大敗，睢水為之不流。",
+              "HAN-CHUHAN-PENGCHENG-BCE205"
+            ]
+          },
+          "A_score_points": 85.9,
+          "canonical_rank": 4,
+          "responsibility_basis": "从极低起点完成关中基地、楚汉决胜和全国政权闭合，重大失地均在创业终点前恢复。",
+          "evidence_status": "CALIBRATED_CURRENT",
+          "evidence_status_basis": "A2控制量已绑定当前C区域控制底账，未保留额外数值下限。",
+          "evidence_lower_bound": false,
+          "limitations": [],
+          "unknown_control_scope": null,
+          "source_refs": []
+        },
+        {
+          "ruler_id": "RULER-XIN-WANGMANG",
+          "ruler_name": "王莽",
+          "polity": "新",
+          "reign_range": "6—23",
+          "scope_status": "ELIGIBLE_DYNASTY_FOUNDER",
+          "score_applicable": true,
+          "founder_role": "PRIMARY_FOUNDER",
+          "difficulty_start_boundary": "外戚王氏宗族网络与官途是初始优势",
+          "initial_resource_position": "外戚王氏宗族网络与官途是初始优势；前1年控制中枢是本人政治过程成果",
+          "initial_resource_share_pct": 8.0,
+          "initial_resource_source_refs": [
+            "docs/史料通读产物/唐以前编年/汉/卷036-通读总结.md#L31",
+            "WAR-LEAD-XIN-XIHAI-4-7"
+          ],
+          "initial_resource_source_status": "SOURCE_ANCHORED_RULE_MAPPED",
+          "initial_resource_class": "R2_LOCAL_BASE_OR_SMALL_COMMAND",
+          "initial_resource_share_basis": "史源锚用于确认‘外戚王氏宗族网络与官途是初始优势’这一事实起点；百分比不是史书原文数字，而是按合同R2_LOCAL_BASE_OR_SMALL_COMMAND档（已经拥有地方据点、小型成建制部众或受命接收单一地方军政节点）在同档人物间依可调用资源广度裁为8%。",
+          "start_boundary": "前1年取得稳定辅政主导",
+          "end_boundary": "9年建立新朝",
+          "starting_position": "已控制西汉中枢与全国官僚机器",
+          "A1": {
+            "axis": "A1",
+            "name": "创业战略增益与难度兑现",
+            "starting_resource_share": 8.0,
+            "starting_resource_disadvantage": 92.0,
+            "project_start_resource_share": 92.0,
+            "project_start_resource_disadvantage": 8.0,
+            "contribution_start_field": {
+              "subject_units": 92.0,
+              "other_actors": {
+                "西汉宗室与反对派": 8
+              }
+            },
+            "opponent_pressure": 28.65,
+            "opponent_system_pressure": 37.5,
+            "relative_resource_pressure": 8.0,
+            "major_opponent_count": 2,
+            "major_opponent_systems": [
+              {
+                "opponent_system_ref": "OPP-XIN-XIHAI-QIANG",
+                "opponent_label": "西海羌众战争体系",
+                "organization_grade": "O3",
+                "organization_rate": 50.0,
+                "source_campaign_refs": [
+                  "WAR-LEAD-XIN-XIHAI-4-7"
+                ]
+              },
+              {
+                "opponent_system_ref": "OPP-XIN-ZHAIYI-REBELS",
+                "opponent_label": "翟义赵明霍鸿起事体系",
+                "organization_grade": "O3",
+                "organization_rate": 50.0,
+                "source_campaign_refs": [
+                  "WAR-LEAD-XIN-ZHAIYI-7-8"
+                ]
+              }
+            ],
+            "unknown_opponent_campaign_refs": [],
+            "opponent_threat_source_status": "OPPONENT_SYSTEM_O_GRADE_WITH_RELATIVE_RESOURCES",
+            "opponent_threat_routing_basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。",
+            "competitive_fragmentation": 40.22,
+            "a1_strategic_responsibility_factor": 100.0,
+            "a1_strategic_responsibility_basis": "role_default:PRIMARY_FOUNDER",
+            "start_difficulty_rate": 33.2,
+            "pure_difficulty_rate": 30.92,
+            "difficulty_rate": 36.38,
+            "terminal_completion_rate": 30.0,
+            "attributed_completion_rate": 30.0,
+            "result_rate": 30.0,
+            "rate": 10.91,
+            "weight": 60,
+            "points": 6.5
+          },
+          "A2": {
+            "axis": "A2",
+            "name": "创业路线效率与稳固",
+            "created_net_control_value": 30.0,
+            "recovered_net_control_value": 0.0,
+            "gross_unification_control_value": 30.0,
+            "effective_unification_control_value": 30.0,
+            "recovered_control_scoring_rate": 50.0,
+            "raw_control_scale_rate": 3.0,
+            "control_scale_score_rate": 17.32,
+            "closure_years": 9.0,
+            "value_weighted_acquisition_years": 7.0,
+            "control_acquisition_efficiency": 4.29,
+            "acquisition_pace_rate": 33.21,
+            "scale_expected_closure_years": 1.87,
+            "closure_pace_rate": 20.76,
+            "time_rate": 28.23,
+            "control_retention_rate": 100.0,
+            "durability_rate": 64.0,
+            "terminal_completion_rate": 30.0,
+            "early_stability_rate": 10.0,
+            "strategic_positive_decisions": [
+              {
+                "event": "利用辅政与制度程序完成中枢权力转换",
+                "impact": "MATERIAL",
+                "basis": "卷035保存迎立幼主、太皇太后临朝与王莽秉政，卷036明确把摄政至受禅保留为非战争政治链，可定位制度内中枢转换。",
+                "source_refs": [
+                  "資治通鑑/卷035#元寿二年七月至九月",
+                  "資治通鑑/卷036#初始元年受禅"
+                ],
+                "base_points": 1.0,
+                "position": 1,
+                "position_weight": 1.0,
+                "effective_points": 1.0
+              }
+            ],
+            "objective_result_points": 4.6,
+            "strategic_positive_decision_points": 1.0,
+            "strategic_error_points": 5.0,
+            "strategic_error_events": [
+              {
+                "event": "为补足四海名号诱取西羌土地、置西海郡并以增法强迁充实新郡",
+                "severity": "MAJOR",
+                "basis": "该扩张并非应对既有入侵，而由王莽的名号目标直接发动；强迁与失地促成约十二万羌众背景下的反抗、太守弃郡，制造A级边疆危机。",
+                "c_nonduplication_basis": "A结算发动扩张、置郡和强迁的战略决定；C/战争账只保存羌战的交战结果与区域难度。",
+                "source_refs": [
+                  "docs/史料通读产物/唐以前编年/汉/卷036-通读总结.md#L31",
+                  "WAR-LEAD-XIN-XIHAI-4-7"
+                ]
+              }
+            ],
+            "rate": 1.39,
+            "weight": 40,
+            "points": 0.6
+          },
+          "strategic_error_events": [
+            {
+              "event": "为补足四海名号诱取西羌土地、置西海郡并以增法强迁充实新郡",
+              "severity": "MAJOR",
+              "basis": "该扩张并非应对既有入侵，而由王莽的名号目标直接发动；强迁与失地促成约十二万羌众背景下的反抗、太守弃郡，制造A级边疆危机。",
+              "c_nonduplication_basis": "A结算发动扩张、置郡和强迁的战略决定；C/战争账只保存羌战的交战结果与区域难度。",
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/汉/卷036-通读总结.md#L31",
+                "WAR-LEAD-XIN-XIHAI-4-7"
+              ]
+            }
+          ],
+          "strategic_error_review": {
+            "review_status": "REVIEWED_ERRORS",
+            "searched_evidence_refs": [
+              "docs/史料通读产物/唐以前编年/汉/卷036-通读总结.md#L31",
+              "WAR-LEAD-XIN-XIHAI-4-7"
+            ]
+          },
+          "A_score_points": 7.1,
+          "canonical_rank": 78,
+          "responsibility_basis": "只计算由辅政到改朝的权力转换，不把西汉既有全国控制冒充本人新增创业成果；建国后迅速发生战略性崩解。",
+          "evidence_status": "CALIBRATED_CURRENT",
+          "evidence_status_basis": "A2控制量已绑定当前C区域控制底账，未保留额外数值下限。",
+          "evidence_lower_bound": false,
+          "limitations": [],
+          "unknown_control_scope": null,
+          "source_refs": []
+        },
+        {
+          "ruler_id": "RULER-HAN-LIUQI",
+          "ruler_name": "刘启",
+          "polity": "汉",
+          "reign_range": "前157—前141",
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        },
+        {
+          "ruler_id": "RULER-HAN-LIUSHI",
+          "ruler_name": "刘奭",
+          "polity": "汉",
+          "reign_range": "前48—前33",
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        },
+        {
+          "ruler_id": "RULER-HAN-LIUCHE",
+          "ruler_name": "刘彻",
+          "polity": "汉",
+          "reign_range": "前141—前87",
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        },
+        {
+          "ruler_id": "RULER-HAN-LIUHENG",
+          "ruler_name": "刘恒",
+          "polity": "汉",
+          "reign_range": "前180—前157",
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        },
+        {
+          "ruler_id": "RULER-HAN-LIUXIN",
+          "ruler_name": "刘欣",
+          "polity": "汉",
+          "reign_range": "前7—前1",
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        },
+        {
+          "ruler_id": "RULER-HAN-LIUYING",
+          "ruler_name": "刘盈",
+          "polity": "汉",
+          "reign_range": "前195—前188",
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        },
+        {
+          "ruler_id": "RULER-HAN-LIUXUN",
+          "ruler_name": "刘询",
+          "polity": "汉",
+          "reign_range": "前74—前48",
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        },
+        {
+          "ruler_id": "RULER-HAN-LIUAO",
+          "ruler_name": "刘骜",
+          "polity": "汉",
+          "reign_range": "前33—前7",
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        },
+        {
+          "ruler_id": "RULER-HAN-LUYU",
+          "ruler_name": "吕雉",
+          "polity": "汉",
+          "reign_range": "前195—前180",
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        }
+      ]
+    }
+  }
+}

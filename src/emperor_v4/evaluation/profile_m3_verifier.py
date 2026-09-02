@@ -9,6 +9,8 @@ from typing import Any
 
 import yaml
 
+from emperor_v4.evaluation.formal_json_store import load_json
+
 from emperor_v4.evaluation.profile_m3_settlement import (
     GRADE_PROJECTION,
     M3_CONTRACT_VERSION,
@@ -101,7 +103,7 @@ def _load(path: Path) -> dict[str, Any]:
     raw = path.read_bytes()
     if raw.startswith(b"\xef\xbb\xbf"):
         raise ValueError(f"UTF-8 BOM forbidden: {path}")
-    return json.loads(raw.decode("utf-8"))
+    return load_json(path)
 
 
 def _band(value: Any) -> int:

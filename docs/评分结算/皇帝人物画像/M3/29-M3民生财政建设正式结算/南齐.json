@@ -1,0 +1,464 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "南齐",
+  "collections": {
+    "records": {
+      "positions": [
+        52,
+        124
+      ],
+      "records": [
+        {
+          "task_code": "PROFILE-M3-RULER-SHADOW-萧道成",
+          "ruler_id": "RULER-SHADOW-萧道成",
+          "ruler_name": "萧道成",
+          "polity": "南齐",
+          "actual_power_window": "477—482年实际掌权至齐帝",
+          "axis_code": "M3",
+          "axis_name": "民生财政建设",
+          "axis_grade": "G3",
+          "position": "HIGH",
+          "score_100": 71,
+          "radar_value": 71,
+          "components": {
+            "C1": {
+              "band": "C1-3",
+              "score": 32.0
+            },
+            "C2": {
+              "band": "C2-3",
+              "score": 14.9
+            },
+            "C3": {
+              "band": "C3-3",
+              "score": 28.0
+            },
+            "C4": {
+              "band": "C4-2",
+              "score": 14.0
+            }
+          },
+          "absolute_state_tier": 3,
+          "absolute_state_meanings": {
+            "C1": "民生低位且脆弱",
+            "C2": "经济财政尚可运行",
+            "C3": "社会安全基本可用"
+          },
+          "ability_evidence": {
+            "route": "LIMITED_IMPROVEMENT",
+            "trajectory": {
+              "start_vector": [
+                2,
+                3,
+                3
+              ],
+              "main_vector": [
+                3,
+                3,
+                3
+              ],
+              "peak_vector": [
+                3,
+                3,
+                3
+              ],
+              "end_vector": [
+                3,
+                3,
+                3
+              ],
+              "peak_improvement_vector": [
+                1,
+                0,
+                0
+              ],
+              "retained_change_vector": [
+                1,
+                0,
+                0
+              ],
+              "rollback_vector": [
+                0,
+                0,
+                0
+              ],
+              "improved_axis_count": 1,
+              "deep_improvement_axis_count": 0,
+              "retained_improvement_axis_count": 1,
+              "rollback_axis_count": 0,
+              "recovery_score_27": 4.0,
+              "stability_score_18": 10.0,
+              "start_tier": 3,
+              "peak_tier": 3,
+              "end_tier": 3
+            },
+            "governance_scale_class": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+            "governance_scale_basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+            "governance_scale_gate": {
+              "status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+              "classification": "UNRESOLVED",
+              "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+              "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+              "formal_subitem_sources": [
+                {
+                  "axis": "C4",
+                  "field_path": "m3_governance_scale_adjudication",
+                  "ref": "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-萧道成"
+                }
+              ],
+              "supporting_formal_fields": []
+            },
+            "six_band_main_state": false,
+            "deterioration_penalty": 0.0,
+            "destructive_amplification_penalty": 0.0,
+            "upstream_sync": {
+              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_01",
+              "source_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-萧道成",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-萧道成",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-萧道成",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-萧道成"
+              ]
+            },
+            "destructive_amplification_grade": "DA0",
+            "stability_k_basis": {
+              "C1": {
+                "K_grade": "K4",
+                "factor": 1.0
+              },
+              "C2": {
+                "K_grade": "K4",
+                "factor": 1.0
+              },
+              "C3": {
+                "K_grade": "K4",
+                "factor": 1.0
+              }
+            },
+            "weighted_K": 1.0,
+            "stability_k_structure_status": "STRUCTURED_C4_FORMAL",
+            "stability_k_public_basis": "C1从二档恢复至三档；C2、C3全任三档。三轴在有效主态形成后均未确认独立下坠，K4。 按新合同跨档难度加权为0.40，恢复分4.0/27；K加权系数1.00，稳定raw 18.0，经终局约束后稳定分10.0。终局3/3/3的terminal_quality=3.00，对应C4T-3、正向上限24.9，故正向保留14.0。"
+          },
+          "dynamic_class": "POSITIVE_MAINTENANCE",
+          "dynamic_label": "实现正向守成或温和改善",
+          "value_mode": "SEMANTIC_HOLISTIC_ADJUDICATION_WITH_FIXED_GRADE_PROJECTION",
+          "axis_evidence_level": "E2",
+          "confidence": "MEDIUM",
+          "output_mode": "BOUNDED_PROFILE",
+          "score_status": "FINAL",
+          "formal_status": "FORMAL_CURRENT",
+          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[2, 3, 3]、[3, 3, 3]、[3, 3, 3]、[3, 3, 3]；恢复4.0/27，稳定10.0/18；恶化扣减0.0，主动成本DA0/0.0。正式逐人裁决为G3-HIGH。",
+          "counterpattern": "终局无档差恶化。军事成本登记仅C3，谢天盖、李乌奴两链均为边境被侵/陷戍后的区域反击与恢复，属于必要防御和平乱基线；大型营造反而以罢御府雕饰器玩、断众募等减役为主，DA0。 可归责恶化扣0.0，DA0扣0.0分。",
+          "starting_context": "萧道成接手锚点更新为民生二档、经济财政三档、社会安全三档；最新曲线为民生二档→三档→三档、经济财政三档→三档→三档、社会安全三档→三档→三档。先前裁决未更新C1主态已恢复至三档。",
+          "construction_and_maintenance": "按正式档界公式重算恢复分4.0/27；稳定承压按当前K结构计10.0/18，未把恢复信用并入稳定分；正向保留14.0。",
+          "costs_and_consequences": "交班局面为[3, 3, 3]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA0，扣减0.0。",
+          "behavior_chain": "终局无档差恶化。军事成本登记仅C3，谢天盖、李乌奴两链均为边境被侵/陷戍后的区域反击与恢复，属于必要防御和平乱基线；大型营造反而以罢御府雕饰器玩、断众募等减役为主，DA0。 可归责恶化扣0.0，DA0扣0.0分。",
+          "handoff_state": "按交班向量[3, 3, 3]推导终局为C4T-3，正向上限24.9。",
+          "public_adjudication": "萧道成接手锚点校正为民生二档、经济财政三档、社会安全三档；最新曲线为民生二档→三档→三档、经济财政三档→三档→三档、社会安全三档→三档→三档。原C4未校正C1主态已恢复至三档。 C1从二档恢复至三档；C2、C3全任三档。三轴在有效主态形成后均未确认独立下坠，K4。 按新规则跨档难度加权为0.40，恢复分4.0；K加权系数1.00，稳定原始 18.0，经终局约束后稳定分10.0。终局3/3/3的终局质量=3.00，对应C4T-3、正向上限24.9，故正向保留14.0。 终局无档差恶化。军事成本登记仅C3，谢天盖、李乌奴两链均为边境被侵/陷戍后的区域反击与恢复，属于必要防御和平乱基线；大型营造反而以罢御府雕饰器玩、断众募等减役为主，DA0。 可归责恶化扣0.0，DA0扣0.0分。 交班原始锚点为民生3档、经济财政3档、社会安全3档；终局层级C4T-3，正向上限24.9。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G3。 当前档内位置为HIGH；不以结构字段自动替代逐人语义裁决。",
+          "grade_basis": "依据当前C1—C4结构字段与逐人语义裁决，正式档位为G3。",
+          "position_basis": "当前档内位置为HIGH；不以结构字段自动替代逐人语义裁决。",
+          "axis_relevance_check": {
+            "status": "HOLISTIC_C1_C4_SEMANTIC_ADJUDICATION",
+            "component_codes": [
+              "C1",
+              "C2",
+              "C3",
+              "C4"
+            ],
+            "component_sum_used": false,
+            "quantile_or_normalization_used": false,
+            "name_override_used": false,
+            "old_process_material_role": "BEHAVIOR_CHAIN_AND_ATTRIBUTION_REVIEW_ONLY"
+          },
+          "parents": [
+            {
+              "parent_id": "M3P-SEM-D61B55EBCF9C",
+              "direction": "POSITIVE",
+              "material_intensity": "MI2_LIFECYCLE",
+              "constraint_and_task": "- 萧道成以大明以来公私奢侈为由，奏罢御府、省二尚方雕饰器玩，并禁民间华伪杂事十七条；属于已颁并开始执行的停造减役政策。",
+              "personal_choice": "",
+              "feedback_and_response": "",
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/南北朝/卷134-通读总结.md#L171"
+              ],
+              "use_boundary": "BEHAVIOR_FEEDBACK_ATTRIBUTION_REVIEW_NOT_INDEPENDENT_GRADE_CONVERSION"
+            }
+          ],
+          "limitations": [
+            "减役省官等方向缺广域实现结果",
+            "短任限制改善推断",
+            "直接锚只按其明示时段、地域与证据类型消费，不外推为全任全境。",
+            "DIRECTLY STATED ALTERNATIVES",
+            "PHASE EXACTNESS"
+          ],
+          "supplement_review": {
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-萧道成",
+            "old_m3_parent_chain_count": 1,
+            "old_m3_candidate_count": 1,
+            "axis_dispositions": {
+              "C1": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+              "C2": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+              "C3": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+              "C4": "REVIEWED_C4_ATTRIBUTION_RETAINED"
+            }
+          },
+          "source_refs": [
+            "docs/史料通读产物/唐以前编年/南北朝/卷134-通读总结.md#L171",
+            "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-萧道成",
+            "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-萧道成",
+            "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-萧道成",
+            "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-萧道成"
+          ],
+          "source_evidence": [
+            {
+              "source_title": "《资治通鉴》卷一百三十五",
+              "quote": "罢候官千数，停繁密台使，断众募，自是吏民始得安业。",
+              "source_origin": "C4_FORMAL_PUBLIC_SOURCE"
+            },
+            {
+              "source_title": "《南齐书》",
+              "quote": "建元初，检定黄籍。",
+              "source_origin": "C4_FORMAL_PUBLIC_SOURCE"
+            },
+            {
+              "source_title": "《南齐书·崔祖思等传》",
+              "quote": "三吴国之关阃，比岁被水潦而籴不贵，是天下钱少，非谷穰贱。",
+              "source_origin": "C4_FORMAL_PUBLIC_SOURCE"
+            },
+            {
+              "source_title": "《资治通鉴》卷一百三十四",
+              "quote": "收攸之诸子及宗族，皆杀之。",
+              "source_origin": "C4_FORMAL_PUBLIC_SOURCE"
+            },
+            {
+              "source_title": "《资治通鉴·卷一百三十五》",
+              "quote": "宜悉罢之……自是吏民始得安业。",
+              "source_origin": "M3_SUPPLEMENT"
+            }
+          ],
+          "contract_version": "FORMAL-V3.6"
+        },
+        {
+          "task_code": "PROFILE-M3-RULER-SHADOW-萧鸾",
+          "ruler_id": "RULER-SHADOW-萧鸾",
+          "ruler_name": "萧鸾",
+          "polity": "南齐",
+          "actual_power_window": "493—498年实际掌权",
+          "axis_code": "M3",
+          "axis_name": "民生财政建设",
+          "axis_grade": "G2",
+          "position": "LOW",
+          "score_100": 38,
+          "radar_value": 38,
+          "components": {
+            "C1": {
+              "band": "C1-2",
+              "score": 17.1
+            },
+            "C2": {
+              "band": "C2-3",
+              "score": 14.9
+            },
+            "C3": {
+              "band": "C3-3",
+              "score": 28.0
+            },
+            "C4": {
+              "band": "C4N-1",
+              "score": -3.5
+            }
+          },
+          "absolute_state_tier": 2,
+          "absolute_state_meanings": {
+            "C1": "民生低位且脆弱",
+            "C2": "经济财政尚可运行",
+            "C3": "社会安全脆弱"
+          },
+          "ability_evidence": {
+            "route": "STAGNATION_OR_FAILURE",
+            "trajectory": {
+              "start_vector": [
+                2,
+                4,
+                3
+              ],
+              "main_vector": [
+                2,
+                3,
+                3
+              ],
+              "peak_vector": [
+                2,
+                3,
+                3
+              ],
+              "end_vector": [
+                2,
+                3,
+                3
+              ],
+              "peak_improvement_vector": [
+                0,
+                0,
+                0
+              ],
+              "retained_change_vector": [
+                0,
+                -1,
+                0
+              ],
+              "rollback_vector": [
+                0,
+                0,
+                0
+              ],
+              "improved_axis_count": 0,
+              "deep_improvement_axis_count": 0,
+              "retained_improvement_axis_count": 0,
+              "rollback_axis_count": 0,
+              "recovery_score_27": 0.0,
+              "stability_score_18": 10.0,
+              "start_tier": 3,
+              "peak_tier": 3,
+              "end_tier": 3
+            },
+            "governance_scale_class": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+            "governance_scale_basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+            "governance_scale_gate": {
+              "status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+              "classification": "UNRESOLVED",
+              "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+              "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+              "formal_subitem_sources": [
+                {
+                  "axis": "C4",
+                  "field_path": "m3_governance_scale_adjudication",
+                  "ref": "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-萧鸾"
+                }
+              ],
+              "supporting_formal_fields": []
+            },
+            "six_band_main_state": false,
+            "deterioration_penalty": 0.0,
+            "destructive_amplification_penalty": 13.5,
+            "upstream_sync": {
+              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_01",
+              "source_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-萧鸾",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-萧鸾",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-萧鸾",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-萧鸾"
+              ]
+            },
+            "destructive_amplification_grade": "DA3",
+            "stability_k_basis": {
+              "C1": {
+                "K_grade": "K4",
+                "factor": 1.0
+              },
+              "C2": {
+                "K_grade": "K4",
+                "factor": 1.0
+              },
+              "C3": {
+                "K_grade": "K4",
+                "factor": 1.0
+              }
+            },
+            "weighted_K": 1.0,
+            "stability_k_structure_status": "STRUCTURED_C4_FORMAL",
+            "stability_k_public_basis": "恢复轴=无；C1=K4, C2=K4, C3=K4。按跨档难度计，恢复分0.0/27；weighted_K=1.00，稳定分10.0；正向保留10.0。"
+          },
+          "dynamic_class": "ATTRIBUTABLE_OR_MIXED_DECLINE",
+          "dynamic_label": "出现可归责或混合性退步",
+          "value_mode": "SEMANTIC_HOLISTIC_ADJUDICATION_WITH_FIXED_GRADE_PROJECTION",
+          "axis_evidence_level": "E2",
+          "confidence": "MEDIUM",
+          "output_mode": "BOUNDED_PROFILE",
+          "score_status": "FINAL",
+          "formal_status": "FORMAL_CURRENT",
+          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[2, 4, 3]、[2, 3, 3]、[2, 3, 3]、[2, 3, 3]；恢复0.0/27，稳定10.0/18；恶化扣减0.0，主动成本DA3/13.5。正式逐人裁决为G2-LOW。",
+          "counterpattern": "494—495多方向防御成本属于必要安全战争，不进入DA。498年五万跨境围涡阳则是新增可选择攻势，明确形成大型编组成建制溃散与不可胜数的追击杀伤；对南齐体量已属严重国家级成本，裁DA3。最新C3更新为3→3→3，旧版把政治清洗直接压成普通社会二档的处理撤销。 可归责恶化扣0.0分，DA3扣13.5分。",
+          "starting_context": "最新C1/C2/C3已更新；三轴为C1 2→2→2、C2 4→3→3、C3 3→3→3。",
+          "construction_and_maintenance": "按正式档界公式重算恢复分0.0/27；稳定承压按当前K结构计10.0/18，未把恢复信用并入稳定分；正向保留10.0。",
+          "costs_and_consequences": "交班局面为[2, 3, 3]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA3，扣减13.5。",
+          "behavior_chain": "494—495多方向防御成本属于必要安全战争，不进入DA。498年五万跨境围涡阳则是新增可选择攻势，明确形成大型编组成建制溃散与不可胜数的追击杀伤；对南齐体量已属严重国家级成本，裁DA3。最新C3更新为3→3→3，旧版把政治清洗直接压成普通社会二档的处理撤销。 可归责恶化扣0.0分，DA3扣13.5分。",
+          "handoff_state": "按交班向量[2, 3, 3]推导终局为C4T-3，正向上限24.9。",
+          "public_adjudication": "最新C1/C2/C3已校正；三轴为C1 2→2→2、C2 4→3→3、C3 3→3→3。 恢复轴=无；C1=K4, C2=K4, C3=K4。按跨档难度计，恢复分0.0；weighted_K=1.00，稳定分10.0；正向保留10.0。 494—495多方向防御成本属于必要安全战争，不进入DA。498年五万跨境围涡阳则是新增可选择攻势，明确形成大型编组成建制溃散与不可胜数的追击杀伤；对南齐体量已属严重国家级成本，裁DA3。最新C3校正为3→3→3，旧版把政治清洗自动压成普通社会二档的处理撤销。 可归责恶化扣0.0分，DA3扣13.5分。 交班原始为C1-2/C2-3/C3-3；终局C4T-3，正向上限24.9。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G2。 当前档内位置为LOW；不以结构字段自动替代逐人语义裁决。",
+          "grade_basis": "依据当前C1—C4结构字段与逐人语义裁决，正式档位为G2。",
+          "position_basis": "当前档内位置为LOW；不以结构字段自动替代逐人语义裁决。",
+          "axis_relevance_check": {
+            "status": "HOLISTIC_C1_C4_SEMANTIC_ADJUDICATION",
+            "component_codes": [
+              "C1",
+              "C2",
+              "C3",
+              "C4"
+            ],
+            "component_sum_used": false,
+            "quantile_or_normalization_used": false,
+            "name_override_used": false,
+            "old_process_material_role": "BEHAVIOR_CHAIN_AND_ATTRIBUTION_REVIEW_ONLY"
+          },
+          "parents": [
+            {
+              "parent_id": "M3P-SEM-9B7663975FBD",
+              "direction": "MIXED",
+              "material_intensity": "MI1_CASE",
+              "constraint_and_task": "- 蠲三调及众多逋欠，省御府和无用池田、邸治，减关市征税。",
+              "personal_choice": "",
+              "feedback_and_response": "现有材料未闭合反馈与再选择环节",
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/南北朝/卷138-通读总结.md#L93"
+              ],
+              "use_boundary": "BEHAVIOR_FEEDBACK_ATTRIBUTION_REVIEW_NOT_INDEPENDENT_GRADE_CONVERSION"
+            }
+          ],
+          "limitations": [
+            "几乎纯继承推断",
+            "个人窗口直接材料稀疏",
+            "DIRECTLY STATED ALTERNATIVES",
+            "PHASE EXACTNESS",
+            "FEEDBACK CLOSURE"
+          ],
+          "supplement_review": {
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-萧鸾",
+            "old_m3_parent_chain_count": 1,
+            "old_m3_candidate_count": 1,
+            "axis_dispositions": {
+              "C1": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+              "C2": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+              "C3": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+              "C4": "REVIEWED_C4_ATTRIBUTION_RETAINED"
+            }
+          },
+          "source_refs": [
+            "docs/史料通读产物/唐以前编年/南北朝/卷138-通读总结.md#L93",
+            "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-萧鸾",
+            "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-萧鸾",
+            "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-萧鸾",
+            "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-萧鸾"
+          ],
+          "source_evidence": [
+            {
+              "source_title": "《南齐书·明帝纪》",
+              "quote": "今商旅税石头后渚及夫卤借倩，一皆停息。",
+              "source_origin": "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION"
+            },
+            {
+              "source_title": "《南齐书·明帝纪》",
+              "quote": "邑宰禄薄俸微，不足代耕，虽任土恒贡，亦为劳费，自今悉断。",
+              "source_origin": "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION"
+            },
+            {
+              "source_title": "《南齐书·明帝纪》",
+              "quote": "雍、豫、司、南兖、徐五州遇寇之家，悉停今年租调。",
+              "source_origin": "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION"
+            }
+          ],
+          "contract_version": "FORMAL-V3.6"
+        }
+      ]
+    }
+  }
+}

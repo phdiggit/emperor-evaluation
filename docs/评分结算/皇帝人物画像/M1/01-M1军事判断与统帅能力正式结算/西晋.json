@@ -1,0 +1,226 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "西晋",
+  "collections": {
+    "records": {
+      "positions": [
+        83
+      ],
+      "records": [
+        {
+          "sequence": 101,
+          "review_batch_code": "M1-V04-CANON-021",
+          "task_code": "PROFILE-M1-RULER-SHADOW-司马炎",
+          "ruler_id": "RULER-SHADOW-司马炎",
+          "ruler_name": "司马炎",
+          "polity": "西晋",
+          "actual_power_window": "265—290年",
+          "applicability_status": "APPLICABLE",
+          "applicability_review_complete": true,
+          "not_applicable_reason": null,
+          "formal_write": true,
+          "axis_evidence_level": "E3",
+          "output_mode": "FULL_GRADE",
+          "confidence": "HIGH",
+          "score_status": "FINAL",
+          "axis_grade": "G3",
+          "position": "MID",
+          "score_100": 65,
+          "radar_value": 65,
+          "applicability_basis": "两份规范军事登记已有本人指挥、战争方向或统筹联合情境。",
+          "whole_distribution_grade_basis": "一次国家级成功不能单独代表全生涯稳定长板；结合第三项控制下沿，由G3高位降至中位。",
+          "role_attribution": "只计十年准备、用人配置和最终下令，不把六路前线解题归给皇帝。",
+          "phase_profile": "只计十年准备、用人配置和最终下令，不把六路前线解题归给皇帝。",
+          "failure_and_recovery": "本人无临阵角色，成功高度依赖羊祜、杜预、王濬等；战略设计偏强但不达到历史级全机制。",
+          "limitations": [
+            "SINGLE_CONTEXT_ONLY"
+          ],
+          "diagnostic_context_refs": [],
+          "search_scope": "V0.3已冻结的01战役登记与02武将人才登记联合情境；V0.4仅重开适用性和发布门。",
+          "decision_origin": "V03_EXPLICIT_WHOLE_DISTRIBUTION_ADJUDICATION_REUSED",
+          "adjudication_ref": "M1-V05-ADJ-RULER-SHADOW-司马炎",
+          "representative_parent_contexts": [
+            {
+              "parent_ref": "WAR-LEAD-JIN-CONQUEST-WU-280",
+              "material_intensity": "MI1_CASE",
+              "intensity_and_role_basis": "本轮按武将登记逐项复核：S/D2，突破长江防线、迫吴主受降并终结吴国，角色=not_in_command_chain。在反对意见下持续推动灭吴，最终决断出兵并批准六路二十余万总体方案。",
+              "direction": "POSITIVE"
+            }
+          ],
+          "typical_pattern": "灭吴战略与最高授权成功，证明一次国家级目标选择和资源组织可用。",
+          "counterpattern": "本人统帅材料集中单一统一生命周期，第三项交趾方向出现BCN3，军事体系和交班前复验不足。",
+          "grade_basis": "一次国家级成功不能单独代表全生涯稳定长板；结合第三项控制下沿，由G3高位降至中位。",
+          "position_basis": "档内中位：只计十年准备、用人配置和最终下令，不把六路前线解题归给皇帝。；本人无临阵角色，成功高度依赖羊祜、杜预、王濬等；战略设计偏强但不达到历史级全机制。；限制：SINGLE_CONTEXT_ONLY",
+          "axis_relevance_check": {
+            "status": "M1_RELEVANT",
+            "basis": "两份规范军事登记已有本人指挥、战争方向或统筹联合情境。"
+          },
+          "same_chain_semantic_conflict_review_status": "INHERITED_V04_NO_UNRESOLVED_CONFLICT",
+          "explicit_adjudication_source_origin": "M1_V04_EXPLICIT_PERSON_ROW_INHERITED_WITH_V05_TRACE_FIELDS",
+          "grade_basis_claimed_material_intensities": [],
+          "material_intensity_claim_text_fields": [
+            "grade_basis",
+            "typical_pattern"
+          ],
+          "representative_context_max_material_intensity": "MI1_CASE",
+          "material_intensity_claim_consistency_status": "PASS_NO_EXPLICIT_INTENSITY_CLAIM_IN_INHERITED_GRADE_BASIS",
+          "normative_entry_coverage_ref": "M1-V05-NORMATIVE-ENTRY-COVERAGE-RULER-SHADOW-司马炎",
+          "normative_entry_coverage": {
+            "sequence": 101,
+            "task_code": "PROFILE-M1-RULER-SHADOW-司马炎",
+            "ruler_id": "RULER-SHADOW-司马炎",
+            "ruler_name": "司马炎",
+            "axis_code": "M1",
+            "entries": [
+              {
+                "entry_code": "M1_BATTLE_REGISTRY",
+                "source_path": "docs/公共成果/军事/01-战役登记.json",
+                "connection_attempted": true,
+                "connection_status": "MATCHED_STABLE_PARENTS",
+                "stable_parent_refs": [
+                  "WAR-LEAD-JIN-CONQUEST-WU-280"
+                ],
+                "stable_parent_ref_count": 1,
+                "no_hit_reason": null,
+                "supplement_required": false,
+                "entry_mapping_remediation_required": false,
+                "full_grade_entry_gate_passed": true,
+                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
+              },
+              {
+                "entry_code": "M1_MILITARY_TALENT_REGISTRY",
+                "source_path": "docs/公共成果/军事/02-武将人才等级.json",
+                "connection_attempted": true,
+                "connection_status": "MATCHED_STABLE_PARENTS",
+                "stable_parent_refs": [
+                  "WAR-LEAD-JIN-CONQUEST-WU-280"
+                ],
+                "stable_parent_ref_count": 1,
+                "no_hit_reason": null,
+                "supplement_required": false,
+                "entry_mapping_remediation_required": false,
+                "full_grade_entry_gate_passed": true,
+                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
+              },
+              {
+                "entry_code": "M1_FIRST_ITEM_C",
+                "source_path": "docs/评分结算/第一项创业与政权取得能力/军事夺取能力/01-第一项C军事夺取能力结算.json",
+                "connection_attempted": true,
+                "connection_status": "MATCHED_STABLE_PARENTS",
+                "stable_parent_refs": [
+                  "UCP-JIN-SIMAYAN-279-280:WAR-LEAD-JIN-CONQUEST-WU-280:司马炎",
+                  "WAR-LEAD-JIN-CONQUEST-WU-280"
+                ],
+                "stable_parent_ref_count": 2,
+                "no_hit_reason": null,
+                "supplement_required": false,
+                "entry_mapping_remediation_required": false,
+                "full_grade_entry_gate_passed": true,
+                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
+              },
+              {
+                "entry_code": "M1_THIRD_ITEM_ADJUDICATIONS",
+                "source_path": "docs/评分结算/第三项军事与边疆净收益/**/01-皇帝*项正式结算.json",
+                "connection_attempted": true,
+                "connection_status": "MATCHED_STABLE_PARENTS",
+                "stable_parent_refs": [
+                  "CAMPAIGN-V079-JIN-TUFA-270",
+                  "CAMPAIGN-V079-JINWU-JIAOZHI-268",
+                  "CAMPAIGN-V079-JINWU-XILING-272",
+                  "CAMPAIGN-V080-JIN-LIANGZHOU-277",
+                  "CAMPAIGN-V080-JIN-MALONG-279",
+                  "CAMPAIGN-V080-JIN-XILING-278",
+                  "CAMPAIGN-V081-JIN-MURONG-282",
+                  "WAR-LEAD-JIN-CONQUEST-WU-280",
+                  "WAR-LEAD-JIN-LIANGZHOU-277",
+                  "WAR-LEAD-JIN-MALONG-279",
+                  "WAR-LEAD-JIN-MURONG-282",
+                  "WAR-LEAD-JIN-TUFA-270",
+                  "WAR-LEAD-JIN-WANCHENG-278",
+                  "WAR-LEAD-JIN-XILING-278",
+                  "WAR-LEAD-JINWU-268",
+                  "WAR-LEAD-JINWU-BORDER-277",
+                  "WAR-LEAD-JINWU-JIAOZHI-268",
+                  "WAR-LEAD-JINWU-XILING-272"
+                ],
+                "stable_parent_ref_count": 18,
+                "no_hit_reason": null,
+                "supplement_required": false,
+                "entry_mapping_remediation_required": false,
+                "full_grade_entry_gate_passed": true,
+                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
+              }
+            ],
+            "all_normative_entries_attempted": true,
+            "stable_parent_entry_count": 4,
+            "entry_gap_count": 0,
+            "full_grade_normative_entry_gate_passed": true,
+            "historical_supplement_status": "NOT_REQUIRED_NORMATIVE_ENTRIES_HAVE_STABLE_PARENT",
+            "historical_supplement_required": false,
+            "existing_supplement_parent_refs": []
+          },
+          "normative_entry_gate_mode_adjustment": "NO_MODE_ADJUSTMENT",
+          "formal_status": "FORMAL_CURRENT",
+          "military_talent_anchor": {
+            "status": "FORMAL_PROFILE_CONNECTED",
+            "match_method": "EXISTING_STABLE_PROFILE_REF",
+            "matched_surface": "司马炎",
+            "profile_person": "司马炎",
+            "person_ref": "MIL-PER-0660D17A82096E74",
+            "military_grade": "capable",
+            "grade_status": "current_battle_registry_grade",
+            "stability_status": "no_comparable_major_failure_established",
+            "profile_ref": "MIL-PROFILE-0660D17A82096E74"
+          },
+          "pre_structural_review_grade_basis": "定点补查灭吴完整生命周期显示长期准备上游水军、选择六路并进并在反对意见中把握进攻时机，覆盖其主要军事决策生涯。",
+          "structural_review": {
+            "status": "REVISED",
+            "basis_code": "G4_SINGLE_CONTEXT_GATE",
+            "basis": "武将锚为capable，主要依据集中灭吴单一生命周期；一次成功战略不构成全生涯G4。"
+          },
+          "military_talent_registry_projection": {
+            "status": "FORMAL_PROFILE_MARKDOWN_CELLS_COPIED",
+            "source_path": "docs/公共成果/军事/02-武将人才等级.md",
+            "profile_ref": "MIL-PROFILE-0660D17A82096E74",
+            "profile_person": "司马炎",
+            "result_difficulty_combinations_display": "1) 统筹+ `S/—`",
+            "result_difficulty_combination_items": [
+              "1) 统筹+ `S/—`"
+            ],
+            "campaign_group_roles_display": "1) 突破长江防线、迫吴主受降并终结吴国／统筹",
+            "campaign_group_role_items": [
+              "1) 突破长江防线、迫吴主受降并终结吴国／统筹"
+            ],
+            "paired_result_difficulty_campaign_role_items": [
+              "1) 统筹+ `S/—`｜突破长江防线、迫吴主受降并终结吴国／统筹"
+            ],
+            "paired_result_difficulty_campaign_roles_display": "1) 统筹+ `S/—`｜突破长江防线、迫吴主受降并终结吴国／统筹"
+          },
+          "full_pool_readjudication": {
+            "status": "FULL_LIFETIME_REVIEWED",
+            "decision_status": "CHANGED",
+            "before": {
+              "axis_grade": "G3",
+              "position": "HIGH",
+              "radar_value": 71
+            },
+            "after": {
+              "axis_grade": "G3",
+              "position": "MID",
+              "radar_value": 65
+            },
+            "result_difficulty_role_reviewed": true,
+            "failure_gate": "NO_TARGET_FAILURE_AUTOMATIC_DEFEAT;REQUIRE_LOSS_RATIO_PHASE_RESULT_AND_ATTRIBUTION",
+            "basis": "一次国家级成功不能单独代表全生涯稳定长板；结合第三项控制下沿，由G3高位降至中位。"
+          },
+          "third_item_strategy_crosscheck": {
+            "status": "FORMAL_THIRD_ITEM_CROSSCHECKED",
+            "mode": "STRATEGIC_AUTHORIZATION_DOMINANT",
+            "source_path": "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json",
+            "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          }
+        }
+      ]
+    }
+  }
+}

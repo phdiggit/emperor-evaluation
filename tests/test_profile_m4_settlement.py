@@ -5,6 +5,8 @@ import json
 
 import pytest
 
+from emperor_v4.evaluation.formal_json_store import load_json
+
 from emperor_v4.evaluation.profile_m4_settlement import (
     AUDIT,
     FULL_POOL_REVIEW,
@@ -16,7 +18,7 @@ from emperor_v4.evaluation.profile_m4_verifier import verify, verify_payloads
 
 
 def _load(path):
-    return json.loads(path.read_text(encoding="utf-8"))
+    return load_json(path)
 
 
 def test_profile_m4_formal_settlement_passes_stable_verifier() -> None:

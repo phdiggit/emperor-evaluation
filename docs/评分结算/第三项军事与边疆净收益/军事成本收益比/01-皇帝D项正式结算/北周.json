@@ -1,0 +1,120 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "北周",
+  "collections": {
+    "records": {
+      "positions": [
+        57
+      ],
+      "records": [
+        {
+          "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
+          "ruler_id": "RULER-SHADOW-宇文邕",
+          "ruler_name": "宇文邕",
+          "polity": "北周",
+          "reign_range": [
+            560,
+            578
+          ],
+          "identity_source": "PREVIOUS_D_FORMAL",
+          "D_grade": "D0",
+          "D_within_grade_position": "HIGH",
+          "D_score_points": 6.0,
+          "D_score_status": "DIRECT_D_SCORE_ASSIGNED",
+          "signed_security_candidate_before_cost": "D1",
+          "cost_grade_delta": -1,
+          "security_result_distribution": {
+            "E2": 1,
+            "E3_MAJOR_STAGE": 1
+          },
+          "external_strategic_chains": [],
+          "strategic_internal_chains": [
+            {
+              "chain_id": "YWY-XINZHOU-REBELLION-566",
+              "member_cycle_refs": [
+                "V169-PARENT-169-ZHOU-XINZHOU-566"
+              ],
+              "result_type": "LARGE_REGIONAL_REBELLION_EVENTUALLY_SUPPRESSED",
+              "achievement_grade": "E3_INTERNAL_MAJOR_REGIONAL_RECOVERY",
+              "within_grade_position": "MID",
+              "terminal_result_profile": "叛乱攻陷白帝、据十城并连结二千余里，周军前后讨伐不克后改用剪除外围、策反与多路进讨恢复控制；只作内部档位辅助。",
+              "control_change": "BAIDI_XINZHOU_AND_TEN_CITY_NETWORK_RESTORED",
+              "mobilization_peak": "M3_LONG_MULTI_ROUTE_REGIONAL_SUPPRESSION",
+              "mobilization_basis": "临信楚合四州负粮、数路长期进讨并改换统帅。",
+              "force_destruction": "F1_LIMITED_UNQUANTIFIED_OWN_FORCE_LOSS",
+              "force_destruction_basis": "北周本方实际长期接战但损害失载；斩首一万余为叛军损失，不得进入北周P/F，故无F3。",
+              "process_burden": {
+                "repetition": "MULTIPLE_FAILED_CAMPAIGNS_THEN_REDESIGNED_SUPPRESSION",
+                "duration": "LONG_REGIONAL_CAMPAIGN"
+              },
+              "ruler_responsibility": "MAJOR_DRIVER",
+              "responsibility_basis": "宇文邕朝廷对前后讨伐、改任陆腾及四州承载负最高责任，具体战略调整由陆腾执行。",
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/南北朝/卷169-通读总结.md#WAR-PARENT-169-ZHOU-XINZHOU-566"
+              ],
+              "challenge_context": "相对于本方的开战前有效威胁事实见本链basis。",
+              "acquisition_mode": "MULTI_STAGE_COMBAT",
+              "achievement_grade_detail": "E3_INTERNAL_MAJOR_REGIONAL_RECOVERY",
+              "security_result_grade": "E3_MAJOR_STAGE"
+            },
+            {
+              "chain_id": "YWY-JIHU-INTEGRATION-577",
+              "member_cycle_refs": [
+                "V173-LEAD-NC-ZHOU-JIHU-577"
+              ],
+              "result_type": "POST_CONQUEST_INTERNAL_RESISTANCE_SUPPRESSED_WITH_UNIFICATION_GAIN_DEDUPLICATED",
+              "achievement_grade": "E2_INTERNAL_REGIONAL_RECOVERY",
+              "within_grade_position": "HIGH",
+              "terminal_result_profile": "稽胡利用齐军遗弃甲仗据险立没铎，周军分道击破、擒首领且余众皆降；这是灭齐后独立整合战，但灭齐统一收益不在本项重复消费。",
+              "control_change": "HEDONG_HEXI_LOCAL_CONTROL_RESTORED_WITHOUT_REPEAT_UNIFICATION_CREDIT",
+              "mobilization_peak": "M3_MULTI_ROUTE_NEW_TERRITORY_SUPPRESSION",
+              "mobilization_basis": "宇文宪督诸军分道攻河东、河西与没铎。",
+              "force_destruction": "F1_LIMITED_UNQUANTIFIED_OWN_FORCE_LOSS",
+              "force_destruction_basis": "周方人员损失失载；斩首万余明确为稽胡敌方战斗人员，排除北周P/F。",
+              "process_burden": {
+                "repetition": "SINGLE_MULTI_ROUTE_INTEGRATION_CAMPAIGN",
+                "duration": "ONE_CAMPAIGN"
+              },
+              "ruler_responsibility": "MAJOR_DRIVER",
+              "responsibility_basis": "宇文邕采纳宇文宪方案并最高授权，具体分道指挥由宇文宪承担。",
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/南北朝/卷173-通读总结.md#WAR-LEAD-NC-ZHOU-JIHU-577"
+              ],
+              "challenge_context": "相对于本方的开战前有效威胁事实见本链basis。",
+              "acquisition_mode": "MULTI_STAGE_COMBAT",
+              "achievement_grade_detail": "E2_INTERNAL_REGIONAL_RECOVERY",
+              "security_result_grade": "E2"
+            }
+          ],
+          "ordinary_suppression_summary": {
+            "count": 0,
+            "cycle_refs": [],
+            "presumed_or_explicit_success_count": 0,
+            "explicit_failure_or_unresolved_count": 0,
+            "abnormal_cost_chain_count": 1,
+            "abnormal_process_chain_count": 2,
+            "notes": "信州达到十城、二千余里和长期多路门；稽胡为新占区独立武装政权，均分流战略内部链。灭齐统一成果严格去重。",
+            "source_refs": []
+          },
+          "cross_item_excluded_chains": [],
+          "non_military_loss_cost_exclusions": [
+            "信州与稽胡两处斩首万余均属叛军/敌方战斗人员，不进入北周军事P/F/C；俘户与新占区人口同样排除。"
+          ],
+          "attributable_cost_profile": {
+            "cost_band": "C5",
+            "status": "CONFIRMED",
+            "position": "MID",
+            "basis": "C5只由信州同一内部链S5区域体系危机、前后讨伐不克、四州长期多路承载与宇文邕最高责任准入；不使用两处敌方斩首万余，也不把灭齐统一收益或成本重复拼接。"
+          },
+          "adjudication_basis": "无独立外部战略链；两条内部恢复最多作档内辅助，且灭齐统一成果去重，成本前为D1。信州C5长期异常内乱成本实质降一档至D0高位。",
+          "coverage_status": "CONFIRMED",
+          "source_batch": "sol_b",
+          "canonical_status": "FORMAL_CURRENT",
+          "formal_grade_write": true,
+          "formal_score_write": true,
+          "database_write": false
+        }
+      ]
+    }
+  }
+}

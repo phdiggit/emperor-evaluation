@@ -1,0 +1,2448 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "明",
+  "collections": {
+    "records": {
+      "positions": [
+        8,
+        18,
+        41,
+        65,
+        79,
+        109,
+        110,
+        111,
+        140,
+        141,
+        154,
+        170,
+        171,
+        178,
+        179
+      ],
+      "records": [
+        {
+          "sequence": 62,
+          "ruler_id": "RULER-MING-ZHU-ZHANJI",
+          "ruler_name": "朱瞻基",
+          "axis_grade": "G4",
+          "position": "LOW",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "宣德元年汉王高煦公开起兵反叛；《明史·诸王世表》明确记高煦被锢死后，韦妃及九子“俱从死”。",
+          "grade_basis": "宣德元年汉王高煦公开起兵反叛；被俘、削爵、幽禁直至死亡，本身属于对现实叛乱政敌的处置；按新增规则，不能因为高煦本人最终被焚死就直接扣C5；《明史·诸王世表》明确记高煦被锢死后，韦妃及九子“俱从死”。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G4-LOW。",
+          "limitations": [
+            "SOURCE_DENSITY_ASYMMETRY_REVIEW=COUNTEREVIDENCE_FOUND；谏官枷号的臣子处置反例与宗室政治案件已分别纳入。"
+          ],
+          "parents": [
+            {
+              "parent_id": "C5-P062-REVIEW",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "内旨、重囚多方复核与重复录囚减死。"
+            },
+            {
+              "parent_id": "C5-P062-CENSOR-CANGUE",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "宣德三年御史严皑、方鼎、何杰因饮酒及失朝被枷示，形成一次多人臣子处置链。",
+              "source_refs": [
+                "https://zh.wikisource.org/zh-hant/明史_(四庫全書本)/卷095"
+              ]
+            },
+            {
+              "parent_id": "C5-P062-GAOXU",
+              "direction": "NEGATIVE",
+              "intensity": "MI1_CASE",
+              "basis": "汉王高煦被俘后的不可逆极端处置构成单案深下沿，不据不可逆性拔高为持续模式。",
+              "source_refs": [
+                "https://zh.wikisource.org/zh-hans/明史/卷118"
+              ]
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "MING-ZJ-A-GOVERNOR-CONSTRUCTION-POSITIVE-001",
+                "MING-ZJ-A-GOVERNOR-RECEPTION-R3",
+                "MING-ZJ-MACRO-001",
+                "FACT-1724405021CC1A12"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "巡抚和宏观行政属于C4运行背景。"
+            },
+            {
+              "unit_ids": [
+                "MING-ZJ-ADMIN-001",
+                "FACT-6F8613589EB60DB2",
+                "FACT-4385F89D7180A4AA"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P062-REVIEW",
+              "reason": "内旨复核、重囚审覆和跨年宥免闭合制度自缚。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-MING-ZHU-ZHANJI",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 77,
+          "score_100": 77,
+          "current_entry_unit_count": 8,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 4,
+            "SCORING_PARENT": 4
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 4,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-MING-ZHU-ZHANJI",
+          "actual_power_window": "1425—1435年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P062-REVIEW",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "内旨、重囚多方复核与重复录囚减死。"
+            },
+            {
+              "parent_id": "C5-P062-CENSOR-CANGUE",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "宣德三年御史严皑、方鼎、何杰因饮酒及失朝被枷示，形成一次多人臣子处置链。",
+              "source_refs": [
+                "https://zh.wikisource.org/zh-hant/明史_(四庫全書本)/卷095"
+              ]
+            },
+            {
+              "parent_id": "C5-P062-GAOXU",
+              "direction": "NEGATIVE",
+              "intensity": "MI1_CASE",
+              "basis": "汉王高煦被俘后的不可逆极端处置构成单案深下沿，不据不可逆性拔高为持续模式。",
+              "source_refs": [
+                "https://zh.wikisource.org/zh-hans/明史/卷118"
+              ]
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P062-REVIEW"
+            ],
+            "negative_parent_refs": [
+              "C5-P062-CENSOR-CANGUE",
+              "C5-P062-GAOXU"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P062-REVIEW",
+              "C5-P062-CENSOR-CANGUE",
+              "C5-P062-GAOXU"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《明史》卷九《宣宗本纪》",
+            "《明史》卷九十五《刑法志三》",
+            "《明史》卷一百零三《诸王世表》"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 高煦本人之死：退出C5负证",
+              "details": [
+                "宣德元年汉王高煦公开起兵反叛。",
+                "被俘、削爵、幽禁直至死亡，本身属于对现实叛乱政敌的处置。",
+                "按新增规则，不能因为高煦本人最终被焚死就直接扣C5。"
+              ]
+            },
+            {
+              "title": "B. 高煦妻与九子“俱从死”：战后扩大仍是负证",
+              "details": [
+                "《明史·诸王世表》明确记高煦被锢死后，韦妃及九子“俱从死”。",
+                "叛乱胜负早已结束，高煦本人也已完全失去政治能力。",
+                "其妻及全部儿子的整体死亡已经超出只处理直接叛乱首领的必要范围。",
+                "除非逐一证明九子均为实际叛乱参与者，否则应按战后家属扩大处理。",
+                "因此原 GAOXU 负链不能删除，只应把评分对象从“高煦本人极端处置”改成“高煦家属整体从死”。"
+              ]
+            },
+            {
+              "title": "C. 枷号御史：比例失当仍成立",
+              "details": [
+                "宣德三年，御史严皑、方鼎、何杰等因沉湎酒色、久不朝参，被命枷项示众。",
+                "三人并非因直言遭罚，所以不能写成“打压言官”。",
+                "但《明史·刑法志》明确把此事视为明代“言官荷校”之始，枷号属于法外羞辱性重刑。",
+                "因而仍构成履职者处分比例的负证，而不是异议安全负证。"
+              ]
+            },
+            {
+              "title": "D. 正向父链仍稳",
+              "details": [
+                "宣德朝重囚多次录囚、减死，本纪可见宣德六、七年连续录囚。",
+                "内廷命令、司法重案进入外廷官僚复核的机制仍可作为 MI3_SUSTAINED_SYSTEMIC 正链。",
+                "这条正链必须限定为“实际产生复核、减刑结果”的部分，一般机构存在不单独计分。"
+              ]
+            },
+            {
+              "title": "E. E3重新成立",
+              "details": [
+                "一条 MI3 正向制度/运行父链。",
+                "枷号御史一条独立负向生命周期。",
+                "高煦家属从死一条独立战后扩大负链。",
+                "高档反例审查结果为 COUNTEREVIDENCE_FOUND，而非材料未闭合。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 3,
+            "locator_count": 3,
+            "linked_source_count": 0,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 60,
+          "ruler_id": "RULER-MING-ZHU-YUNWEN",
+          "ruler_name": "朱允炆",
+          "axis_grade": "G3",
+          "position": "HIGH",
+          "confidence": "MEDIUM",
+          "output_mode": "BOUNDED_PROFILE",
+          "score_status": "EVIDENCE_LIMITED",
+          "typical_pattern": "洪武末年诸王掌有护卫、边军和强大地方资源；现有材料是朝廷派兵准备拘捕，湘王拒绝受执而自焚。",
+          "grade_basis": "更准确的画像是：政治削藩手法激烈、程序粗糙，但本人对宗室生命尤其是燕王存在持续且过度的自限；定 G3-HIGH / E2。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G3-HIGH。",
+          "limitations": [
+            "战争期责任与建文失踪使后续纠正不可观察。"
+          ],
+          "parents": [
+            {
+              "parent_id": "C5-P060-REFORM",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "宽法、采访和求直言短期运行。"
+            },
+            {
+              "parent_id": "C5-P060-PRINCES",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "连续废迁宗藩并在自焚反馈后继续扩大。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "MING-YW-REFORM-001"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P060-REFORM",
+              "reason": "规则与反馈接口短期运行但随后反转。"
+            },
+            {
+              "unit_ids": [
+                "MING-YW-COLLAPSE-001",
+                "FACT-BB57BE67F48D23FC"
+              ],
+              "status": "AXIS_OUT_WITH_REASON",
+              "reason": "战争中枢解体和军事授权属于C1/C3/M1。"
+            },
+            {
+              "unit_ids": [
+                "FACT-C9FC9882C1E1533C"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P060-PRINCES",
+              "reason": "宗藩连续废迁、自焚反馈和继续扩大逮捕闭合强制父链。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-MING-ZHU-YUNWEN",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 71,
+          "score_100": 71,
+          "current_entry_unit_count": 6,
+          "current_entry_disposition_counts": {
+            "AXIS_OUT_WITH_REASON": 2,
+            "SCORING_PARENT": 4
+          },
+          "axis_evidence_level": "E2",
+          "grade_numeric": 3,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-MING-ZHU-YUNWEN",
+          "actual_power_window": "1398—1402年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P060-REFORM",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "宽法、采访和求直言短期运行。"
+            },
+            {
+              "parent_id": "C5-P060-PRINCES",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "连续废迁宗藩并在自焚反馈后继续扩大。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P060-REFORM"
+            ],
+            "negative_parent_refs": [
+              "C5-P060-PRINCES"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P060-REFORM",
+              "C5-P060-PRINCES"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《明史纪事本末》卷十五《削夺诸藩》：https://zh.wikisource.org/zh-hans/明史紀事本末/卷15",
+            "《明史纪事本末》卷十六《燕王起兵》：https://zh.wikisource.org/zh-hans/明史紀事本末/卷16"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 削藩本身主要属于现实最高权力斗争",
+              "details": [
+                "洪武末年诸王掌有护卫、边军和强大地方资源。",
+                "建文即位后：周王被捕废为庶人。",
+                "岷王因不法被削护卫、废为庶人。",
+                "齐王被拘废：代王被幽废。",
+                "湘王因被告伪钞、擅杀人，朝廷遣兵拘捕，最终自行阖宫焚死。",
+                "这些行动的核心是新皇帝拆解高度军事化藩王体系。",
+                "对诸王本人废爵、拘禁，不能因结果严厉直接扣C5。"
+              ]
+            },
+            {
+              "title": "B. 湘王自焚不能写成建文帝直接杀害",
+              "details": [
+                "现有材料是朝廷派兵准备拘捕，湘王拒绝受执而自焚。",
+                "没有闭合建文下令杀湘王，更没有闭合湘王死后对其家属继续扩大清洗。",
+                "因而原结算以“湘王自焚反馈到达后仍削藩”作为强C5负证，逻辑不成立。",
+                "它可以证明削藩策略粗暴、风险控制差。",
+                "主要进入C1/C2/M1，而不是自动进入C5。"
+              ]
+            },
+            {
+              "title": "C. 真正值得C5观察的反而是对燕王的持续克制",
+              "details": [
+                "燕王尚未起兵时：御史曾因燕王入朝失礼弹劾，建文帝以“至亲勿问”不追究。",
+                "卓敬建议将燕王徙封南昌以绝后患，建文帝以“骨肉至亲”拒绝。",
+                "靖难正式爆发后，建文帝又明确告诫诸将。",
+                "与燕王对垒时不要让自己留下“杀叔父”之名。",
+                "这是非常典型的：战略上可能极其愚蠢，但C5评价的是权力边界，不是军事聪明。",
+                "应形成 POSITIVE / MI3_SUSTAINED_SYSTEMIC 候选父链。"
+              ]
+            },
+            {
+              "title": "D. 削藩中仍有粗暴程序问题，但不足定义主模式",
+              "details": [
+                "岷王导恶指挥宗麟被诛，具体罪责与程序材料不足。",
+                "周、齐、代诸王的查办程序确有“案验未明”等后世批评。",
+                "但在没有闭合无关家属、普通党附遭大规模株连前，不能用这些概括恢复原G1。"
+              ]
+            },
+            {
+              "title": "E. 为什么只到G3-HIGH",
+              "details": [
+                "对燕王的克制高度集中在单一宗室/靖难场景。",
+                "完整权力窗口短，而且反例暴露仍有限。",
+                "削藩程序性强制仍留下明显下沿。",
+                "因此不能因“不愿杀叔”直接升G4。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 2,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 55,
+          "ruler_id": "RULER-MING-ZHU-YOUCHENG",
+          "ruler_name": "朱祐樘",
+          "axis_grade": "G3",
+          "position": "MID",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "弘治十八年，李梦阳上疏直接攻击寿宁侯张鹤龄“招纳无赖、罔利贼民”，并指责皇帝过厚张氏；弘治元年，御史因纠仪被下狱，马文升指出新朝不宜骤罪言官，孝宗即释放。",
+          "grade_basis": "李梦阳案非常漂亮，足以否定“外戚一碰就不能说”的画像；但张氏外戚多年实际突破公权边界又是真实持续模式，不能因最后一次保护言官而抹掉；因此不宜G3-HIGH，亦不至G2；定 G3-MID / E3。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G3-MID。",
+          "limitations": [
+            "臣子处置之外的特权与比例窗口仍未覆盖。"
+          ],
+          "parents": [
+            {
+              "parent_id": "C5-P055-MIN-CASE",
+              "direction": "MIXED_POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "宗王案下狱谏官后迅速释放并继续开放。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "EV-HZ-A-01",
+                "FACT-2D03305337103EC5"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "会典和文官团队授权属于制度/C3背景。"
+            },
+            {
+              "unit_ids": [
+                "EV-HZ-B1-01",
+                "EV-HZ-B1-02",
+                "EV-HZ-B1-03",
+                "EV-HZ-B2-01",
+                "FACT-88452F4F481467C5"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "日讲、求言、议政和灾政反馈证明B2运行，不单独证明C5自我约束。"
+            },
+            {
+              "unit_ids": [
+                "FACT-20B48EFED565E1B5"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P055-MIN-CASE",
+              "reason": "宗王压力下监禁谏官后释放并恢复直言安全。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-MING-ZHU-YOUCHENG",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 65,
+          "score_100": 65,
+          "current_entry_unit_count": 8,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 7,
+            "SCORING_PARENT": 1
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 3,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-MING-ZHU-YOUCHENG",
+          "actual_power_window": "1487—1505年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P055-MIN-CASE",
+              "direction": "MIXED_POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "宗王案下狱谏官后迅速释放并继续开放。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [],
+            "mixed_parent_refs": [
+              "C5-P055-MIN-CASE"
+            ]
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P055-MIN-CASE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《明史》卷二百八十六《李梦阳传》",
+            "https://zh.wikisource.org/zh-hans/明史/卷286",
+            "《明史》卷一百一十四《孝康敬皇后传》",
+            "https://zh.wikisource.org/zh-hans/明史/卷114",
+            "《明史纪事本末》卷四十二《弘治君臣》",
+            "https://zh.wikisource.org/zh-hans/明史紀事本末_(四庫全書本)/卷42"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 李梦阳案：最强直接正证",
+              "details": [
+                "弘治十八年，李梦阳上疏直接攻击寿宁侯张鹤龄“招纳无赖、罔利贼民”，并指责皇帝过厚张氏。",
+                "张鹤龄与张皇后母亲金夫人要求重办，甚至构成“讪母后、罪当斩”的压力。",
+                "孝宗虽迫于宫廷压力先将李梦阳系锦衣狱，却很快释放，仅夺俸。",
+                "金夫人继续哭诉，孝宗拒绝；左右又提出至少廷杖以泄外戚之愤，孝宗再次拒绝，并明确表示不愿以杀直臣取悦左右。",
+                "最后反而召张鹤龄切责。",
+                "这是皇后、岳母、妻弟共同施压 + 言官直接攻击外戚利益 + 皇帝最终保护履职者的高质量 MI2_LIFECYCLE 正链。"
+              ]
+            },
+            {
+              "title": "B. 即位初恢复言路",
+              "details": [
+                "弘治元年，御史因纠仪被下狱，马文升指出新朝不宜骤罪言官，孝宗即释放。",
+                "同年又重新起用此前因言事被贬逐的张吉、王纯、丁玑、敖毓、李文祥等。",
+                "这些材料证明反馈安全确有恢复，但一般恢复言路本身仍主要作为B2背景；只有“下狱—外部纠正—释放”的部分进入C5。"
+              ]
+            },
+            {
+              "title": "C. 张氏外戚长期获得事实特权：核心负链",
+              "details": [
+                "《明史·后妃传》明确记：孝宗大幅优礼张皇后外家。",
+                "张鹤龄、张延龄得厚封，为后家建造规模壮丽的家庙。",
+                "两兄弟出入宫禁、纵家人奸利。",
+                "“中外诸臣多以为言，帝以后故不问”。",
+                "这是最关键的反证：虽然李梦阳最终得到保护，但在此前相当长时间里，外戚公共特权、家人侵利在反复反馈下并未得到有效约束。",
+                "应定 NEGATIVE / MI3_SUSTAINED_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "D. 刘吉案：反馈并非一贯有效",
+              "details": [
+                "张昇直接弹劾刘吉，孝宗不报；随后张昇被调南京。",
+                "归责未必全是报复，但至少证明“容纳尖锐意见”并不等于意见稳定产生约束。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 3,
+            "locator_count": 6,
+            "linked_source_count": 3,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 58,
+          "ruler_id": "RULER-MING-ZHU-YOULANG",
+          "ruler_name": "朱由榔",
+          "axis_grade": "G3",
+          "position": "LOW",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "刘承胤“挟由榔归武冈，政事皆决焉”；朱由榔反而密召何腾蛟，企图除承胤，但因其势盛不能成功；李定国、刘文秀与权佞马吉翔往来，高勣、御史邬昌期联合上疏批评。",
+          "grade_basis": "不能维持原G2-LOW，因为大量“臣下被杀/军头控制”不是朱由榔主动C5行为；但两次因权势人物压力拟重杖言官的同构链，说明异议安全仍低于常模；外部救解又反复有效，阻止继续下压；定 G3-LOW / E3。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G3-LOW。",
+          "limitations": [
+            "流亡政权下本人和军头共同归责边界仍有限。"
+          ],
+          "parents": [
+            {
+              "parent_id": "C5-P058-WARLORD-CAPTURE",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "刘承胤、孙可望先后俘获并引发阁臣死亡，随后迟来纠正。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "M2-LSM-E013",
+                "M2-LSM-E014",
+                "FACT-4E3E80889A3FFE06",
+                "FACT-AB9AE7722EDA70B7"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P058-WARLORD-CAPTURE",
+              "reason": "军头控制、阁臣被杀、密召纠正与再次迁移按同一跨阶段生命周期。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-MING-ZHU-YOULANG",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 58,
+          "score_100": 58,
+          "current_entry_unit_count": 7,
+          "current_entry_disposition_counts": {
+            "SCORING_PARENT": 7
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 3,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-MING-ZHU-YOULANG",
+          "actual_power_window": "1646—1662年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P058-WARLORD-CAPTURE",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "刘承胤、孙可望先后俘获并引发阁臣死亡，随后迟来纠正。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [],
+            "mixed_parent_refs": [
+              "C5-P058-WARLORD-CAPTURE"
+            ]
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P058-WARLORD-CAPTURE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《明史》卷一百二十《桂王由榔》",
+            "https://zh.wikisource.org/zh-hans/明史/卷120",
+            "《明史》卷二百七十九高勣、李如月等传",
+            "https://zh.wikisource.org/zh-hans/明史/卷279"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 刘承胤、孙可望挟制：主要是C3，不全额算C5",
+              "details": [
+                "刘承胤“挟由榔归武冈，政事皆决焉”；朱由榔反而密召何腾蛟，企图除承胤，但因其势盛不能成功。",
+                "孙可望掌滇黔后，严起恒、吴贞毓等多人被军头集团所杀；朱由榔又多次秘密联络李定国试图脱离可望控制。",
+                "这些事实首先证明最高权力被军头反向控制。",
+                "不能因为臣下被孙可望杀，就自动算作朱由榔的主动清洗。"
+              ]
+            },
+            {
+              "title": "B. 高勣、邬昌期案：本人直接廷杖言官",
+              "details": [
+                "李定国、刘文秀与权佞马吉翔往来，高勣、御史邬昌期联合上疏批评。",
+                "马吉翔激怒朱由榔。",
+                "朱由榔直接下令二人各杖一百五十、除名。",
+                "李定国随后入救，强调“不可有杀谏官名”，朱由榔才恢复二人官职。",
+                "这是直接归责本人的完整链。",
+                "应定 MIXED_NEGATIVE / MI2_LIFECYCLE。"
+              ]
+            },
+            {
+              "title": "C. 高勣、金简再次进谏：同类倾向复发",
+              "details": [
+                "孙可望败后，李定国等放松军备。",
+                "高勣、金简再度进谏。",
+                "李定国向王前激烈指责二人，朱由榔又准备杖责。",
+                "朝臣反复争救，后来战败消息到达，李定国才引谢，两人得免。",
+                "这构成第二次：两案跨对象复验，足以形成 MI3_SUSTAINED_SYSTEMIC 的“异议者肉刑风险”混合负链。"
+              ]
+            },
+            {
+              "title": "D. 李如月案：本人试图以轻处分保护，但保护能力不足",
+              "details": [
+                "御史李如月弹劾孙可望擅杀陈邦传。",
+                "朱由榔知道孙可望必怒，先把奏疏扣下，并召李如月解释，最终只杖四十、除名，意在用轻处分缓解孙可望愤怒。",
+                "孙可望仍派人将李如月残酷杀害。",
+                "这不能写成朱由榔杀谏。",
+                "他实际上试图让李如月免于军头报复。",
+                "但只能以先处分言官的方式求保。",
+                "应作为 MIXED / ATTRIBUTION_LIMITED，主要反映实际控制力薄弱。"
+              ]
+            },
+            {
+              "title": "E. 马吉翔再度得势：C3与C5交界",
+              "details": [
+                "马吉翔参与构杀吴贞毓等，李定国后来一度捕他欲杀。",
+                "吉翔靠谄媚获免并进入内阁，继续影响皇帝。",
+                "这说明朱由榔对明显有问题的近臣边界控制很弱，但主要仍是权力结构失控，不将马吉翔后续所有行为倒灌本人。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 4,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 61,
+          "ruler_id": "RULER-MING-ZHU-ZAIHOU",
+          "ruler_name": "朱载坖",
+          "axis_grade": "G2",
+          "position": "HIGH",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "即位即释放海瑞。：召回、恤录一批嘉靖朝因建言得罪的官员，罢斋醮及多项前朝弊政；内官监太监李芳早期曾揭发营造贪腐、裁减冗费。",
+          "grade_basis": "本人掌权期在近侍和私人享用问题上反复突破异议保护与惩罚比例；正向恢复真实，但未覆盖最关键的逆风场景；定 G2-HIGH / E3。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-HIGH。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P061-RESTORE",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "释放复用谏臣并恢复言路。"
+            },
+            {
+              "parent_id": "C5-P061-FACTORY",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "厂卫密访、廷杖和斥逐言事者。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "EV-LQ-A-01",
+                "EV-LQ-A-02",
+                "EV-LQ-A-03",
+                "I2-MING-LQ-B1-GAOGONG-PERSONNEL-RELIABILITY-001",
+                "FACT-11EDD025BD57F7F2",
+                "FACT-BEAB6D5E9CB0C64C"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "贡市、选官、履职和阁臣授权属于制度/C3背景。"
+            },
+            {
+              "unit_ids": [
+                "EV-LQ-B2-01",
+                "FACT-BC11AB8137897E4A"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P061-RESTORE",
+              "reason": "同一事实同时记录释放复用和厂卫廷杖反证；正向修复为主父链。"
+            },
+            {
+              "unit_ids": [],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P061-FACTORY",
+              "reason": "厂卫密访与廷杖切片共源，不重复事实单元。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-MING-ZHU-ZAIHOU",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 51,
+          "score_100": 51,
+          "current_entry_unit_count": 11,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 8,
+            "SCORING_PARENT": 3
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-MING-ZHU-ZAIHOU",
+          "actual_power_window": "1567—1572年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P061-RESTORE",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "释放复用谏臣并恢复言路。"
+            },
+            {
+              "parent_id": "C5-P061-FACTORY",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "厂卫密访、廷杖和斥逐言事者。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P061-RESTORE"
+            ],
+            "negative_parent_refs": [
+              "C5-P061-FACTORY"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P061-RESTORE",
+              "C5-P061-FACTORY"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《明史》卷十九《穆宗本纪》：https://zh.wikisource.org/zh-hans/明史/卷19",
+            "《明史》卷三百五《宦官二·李芳传》：https://zh.wikisource.org/zh-hans/明史_(四庫全書本)/卷305",
+            "《明穆宗实录》卷四十。"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 即位修复：真实正证，但主要属于“继承前朝压制后的恢复”",
+              "details": [
+                "即位即释放海瑞。：召回、恤录一批嘉靖朝因建言得罪的官员，罢斋醮及多项前朝弊政。",
+                "这是真实的反馈环境恢复，可作为 MI3 阶段性正链。",
+                "但它主要发生在接班初期，不能自动证明在本人利益受触及时仍同样克制。"
+              ]
+            },
+            {
+              "title": "B. 李芳案：身边近侍因直谏遭重惩",
+              "details": [
+                "内官监太监李芳早期曾揭发营造贪腐、裁减冗费。",
+                "因反对司礼监宠宦滕祥等以奇技淫巧诱导皇帝游乐，逐渐失宠。",
+                "穆宗先令其闲住，后又杖八十，下刑部监禁待决。",
+                "法司甚至表示“不知所坐”，皇帝仅以“芳事朕无礼”作为继续囚禁理由。",
+                "这是非常直接的私人近侍触怒皇帝—罪名不明—廷杖重囚。"
+              ]
+            },
+            {
+              "title": "C. 宠宦利益受到监督时，多名言官重复受罚",
+              "details": [
+                "滕祥、孟冲、陈洪等宠宦长期传造采办、扩张荫官、干预法司。",
+                "太常少卿周怡、给事中石星、李已、陈吾德、御史詹仰庇、尚宝丞郑履淳等先后论劾。",
+                "结果多人被外调、廷杖、削籍。",
+                "《明史》明确概括这些处分与三名宠宦受到弹劾直接相关。",
+                "隆庆四年又明载给事中李己因谏买金宝，被廷杖下狱。",
+                "这已经不是偶发：触及皇帝消费与宠宦利益 → 正常监督者反复承担肉刑和政治处分成本，至少 MI3_SUSTAINED_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "D. 厂卫“密访”不是核心问题，真正的问题是反馈者安全",
+              "details": [
+                "隆庆三年皇帝因灾异命厂卫密访部院“假公营私”，单看这一点只是信息渠道设计。",
+                "真正决定C5的是：当同一套监督反过来触及内廷宠宦与皇帝消费时，言官并没有获得同等保护。"
+              ]
+            },
+            {
+              "title": "E. 仍有明显反向机制",
+              "details": [
+                "隆庆朝并未形成嘉靖式大规模廷杖恐怖。",
+                "海瑞等前朝谏臣获释，言路总体仍在。",
+                "多数大臣仍能持续讨论政策，且本纪评价其“宽恕有余”。",
+                "因此不宜降入G1。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 3,
+            "locator_count": 3,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 51,
+          "ruler_id": "RULER-MING-ZHU-JIANSHEN",
+          "ruler_name": "朱见深",
+          "axis_grade": "G2",
+          "position": "MID",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "录囚、禁酷刑、遣使审录可以作为司法宽缓背景；其中“锦衣卫官校执工部尚书张文质系狱，帝知而释之”属于直接但单案的保护正证。",
+          "grade_basis": "裁决：G2-HIGH → G2-MID / E3；录囚、禁酷刑、遣使审录可以作为司法宽缓背景；其中“锦衣卫官校执工部尚书张文质系狱，帝知而释之”属于直接但单案的保护正证；核心负证是西厂。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-MID。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P051-REVIEW",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "五年审录常制、重复录囚和减死。"
+            },
+            {
+              "parent_id": "C5-P051-WESTERN-DEPOT",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "西厂撤复、处分请求者并迟来收权。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "EV-JS-A-01",
+                "EV-JS-B1-01",
+                "EV-JS-B2-01",
+                "FACT-5EB5931AF0F983B3"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P051-WESTERN-DEPOT",
+              "reason": "西厂侦缉、局部俘获和撤后复设按一条完整生命周期消费。"
+            },
+            {
+              "unit_ids": [
+                "FACT-736235FC056987B6"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P051-REVIEW",
+              "reason": "重复审录产生实际减死，构成强制比例正链。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-MING-ZHU-JIANSHEN",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 45,
+          "score_100": 45,
+          "current_entry_unit_count": 5,
+          "current_entry_disposition_counts": {
+            "SCORING_PARENT": 5
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-MING-ZHU-JIANSHEN",
+          "actual_power_window": "1464—1487年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P051-REVIEW",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "五年审录常制、重复录囚和减死。"
+            },
+            {
+              "parent_id": "C5-P051-WESTERN-DEPOT",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "西厂撤复、处分请求者并迟来收权。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P051-REVIEW"
+            ],
+            "negative_parent_refs": [],
+            "mixed_parent_refs": [
+              "C5-P051-WESTERN-DEPOT"
+            ]
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P051-REVIEW",
+              "C5-P051-WESTERN-DEPOT"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《明史》卷十四《宪宗本纪二》。",
+            "https://zh.wikisource.org/zh-hans/明史/卷14",
+            "《明史纪事本末》卷三十七《汪直用事》。",
+            "https://zh.wikisource.org/zh-hans/明史紀事本末_(四庫全書本)/卷37",
+            "《明史》卷九十五《刑法志三》：西厂先后六年、冤死相属。",
+            "https://www.zhonghuashu.com/wiki/明史/卷95"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "补充事实与边界",
+              "details": [
+                "录囚、禁酷刑、遣使审录可以作为司法宽缓背景；其中“锦衣卫官校执工部尚书张文质系狱，帝知而释之”属于直接但单案的保护正证。",
+                "核心负证是西厂",
+                "成化十三年设西厂，汪直大规模刺事、法外用刑，冤死相属。",
+                "商辂、项忠等请求罢西厂，皇帝一度同意；但不足一月又复设，同时项忠被罢为民、商辂致仕。",
+                "西厂继续运行约五年，成化十八年才再罢，十九年才进一步贬汪直及其党。",
+                "这不是单纯“被权臣俘获”，而是皇帝在收到完整负面反馈、已经做出撤销决定后，又主动恢复法外机构，并让反对者承担政治成本，符合持续反馈失败。",
+                "C5-P051-WESTERN-DEPOT：建议提升为 MI4_CROSS_PHASE_SYSTEMIC，完整记录“设立—法外伤害—反馈—撤销—迅速复设—处分反对者—五年后终止”。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 3,
+            "locator_count": 6,
+            "linked_source_count": 3,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 52,
+          "ruler_id": "RULER-MING-ZHU-QIYU",
+          "ruler_name": "朱祁钰",
+          "axis_grade": "G2",
+          "position": "MID",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "英宗归国后仍保留太上皇身份和强大的政治象征，持续存在复位可能；怀献太子死后，御史钟同、礼部郎中章纶主张恢复沂王朱见深储位。",
+          "grade_basis": "英宗归国后仍保留太上皇身份和强大的政治象征，持续存在复位可能；景帝限制南宫接触、加强门禁，本身可以按现实最高权力竞争处理；不应仅因“幽禁兄长”重复扣C5；怀献太子死后，御史钟同、礼部郎中章纶主张恢复沂王朱见深储位。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-MID。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P052-OPEN-CRISIS",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "土木危机初直言入口运行。"
+            },
+            {
+              "parent_id": "C5-P052-SUCCESSION",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "幽禁英宗、废太子并压制复储异议。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "MING-QY-FISCAL-001",
+                "FACT-D2A8964974699E4A",
+                "FACT-51BB54D9A6F801FB"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "财政交付、履职与军事授权属于C4/C3背景。"
+            },
+            {
+              "unit_ids": [
+                "SECOND_A::MING-QY-CRISIS-001"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "危机制度接管只作结构背景。"
+            },
+            {
+              "unit_ids": [
+                "SECOND_B1::MING-QY-CRISIS-001",
+                "SECOND_B2::MING-QY-CRISIS-001"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P052-OPEN-CRISIS",
+              "reason": "危机任人和直言入口实际运行，B1/B2共同验证。"
+            },
+            {
+              "unit_ids": [
+                "MING-QY-REPRESSION-001",
+                "FACT-6D2F008286B38422"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P052-SUCCESSION",
+              "reason": "储位异议下狱廷杖与长期幽禁政治竞争者。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-MING-ZHU-QIYU",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 45,
+          "score_100": 45,
+          "current_entry_unit_count": 8,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 4,
+            "SCORING_PARENT": 4
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-MING-ZHU-QIYU",
+          "actual_power_window": "1449—1457年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P052-OPEN-CRISIS",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "土木危机初直言入口运行。"
+            },
+            {
+              "parent_id": "C5-P052-SUCCESSION",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "幽禁英宗、废太子并压制复储异议。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P052-OPEN-CRISIS"
+            ],
+            "negative_parent_refs": [
+              "C5-P052-SUCCESSION"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P052-OPEN-CRISIS",
+              "C5-P052-SUCCESSION"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《明史》卷十一《景帝纪》：章纶、钟同下狱，次年杖刑，钟同卒",
+            "https://zh.wikisource.org/zh-hans/明史/卷11",
+            "《明史》卷一百六十二《钟同、章纶传》",
+            "https://zh.wikisource.org/zh-hans/明史/卷162",
+            "《明史纪事本末》卷三十五",
+            "https://zh.wikisource.org/zh-hans/明史紀事本末/卷35"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 南宫幽禁：退出主评分",
+              "details": [
+                "英宗归国后仍保留太上皇身份和强大的政治象征，持续存在复位可能。",
+                "景帝限制南宫接触、加强门禁，本身可以按现实最高权力竞争处理。",
+                "不应仅因“幽禁兄长”重复扣C5。"
+              ]
+            },
+            {
+              "title": "B. 章纶、钟同：正常履职意见被转化为酷刑",
+              "details": [
+                "怀献太子死后，御史钟同、礼部郎中章纶主张恢复沂王朱见深储位。",
+                "二人并无夺权行动，也不是南宫武装组织成员。",
+                "景泰五年被下锦衣卫狱，严刑拷讯。",
+                "景泰六年又在狱中各杖一百，钟同最终死亡。",
+                "这是：不能套政治斗争豁免。"
+              ]
+            },
+            {
+              "title": "C. 廖庄：同一机制再次复发",
+              "details": [
+                "南京大理少卿廖庄同样因请复沂王为皇太子，被杖于阙下。",
+                "与章纶、钟同跨对象、跨年度重复，足以维持 MI3_SUSTAINED_SYSTEMIC。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 3,
+            "locator_count": 6,
+            "linked_source_count": 3,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "VALIDATED"
+        },
+        {
+          "sequence": 53,
+          "ruler_id": "RULER-MING-ZHU-QIZHEN",
+          "ruler_name": "朱祁镇",
+          "axis_grade": "G2",
+          "position": "MID",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "石亨、徐有贞等拥英宗夺门，英宗重新掌握皇位；英宗复位当天即将于谦、王文下锦衣卫狱，数日后处死并籍家。",
+          "grade_basis": "政治斗争豁免删除“复位本身”的负分；但于谦党案本来就属于胜负已定后的扩大清算，核心负链并未动摇；G2-MID / E3维持。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-MID。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P053-CAPTURE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "王振与石曹两轮近侍俘获。"
+            },
+            {
+              "parent_id": "C5-P053-YUQIAN",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "于谦王文处死及党人外扩构成一次复辟清算生命周期。"
+            },
+            {
+              "parent_id": "C5-P053-LATE-PROTECTION",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "释放建文后人并遗诏废殉葬。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "MING-QZ-EARLY-001",
+                "MING-QZ-RESTORATION-001",
+                "MING-QZ-TUMU-001",
+                "FACT-A45D05DB97F5C71F"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P053-CAPTURE",
+              "reason": "两轮近侍俘获、重大后果与迟来收权按跨阶段父链消费。"
+            },
+            {
+              "unit_ids": [
+                "FACT-4B2BBFA1AF9F04FE"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P053-YUQIAN",
+              "reason": "复辟后无充分证据处死并扩大党人惩罚。"
+            },
+            {
+              "unit_ids": [
+                "MING-QZ-A-ABOLISH-CONSORT-001",
+                "MING-QZ-FINAL-001",
+                "FACT-AD0F21085C302F47"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P053-LATE-PROTECTION",
+              "reason": "终止殉葬与释放长期幽禁者是两个独立正向机制。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-MING-ZHU-QIZHEN",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 45,
+          "score_100": 45,
+          "current_entry_unit_count": 11,
+          "current_entry_disposition_counts": {
+            "SCORING_PARENT": 11
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-MING-ZHU-QIZHEN",
+          "actual_power_window": "[[1435, 1449], [1457, 1464]]",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P053-CAPTURE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "王振与石曹两轮近侍俘获。"
+            },
+            {
+              "parent_id": "C5-P053-YUQIAN",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "于谦王文处死及党人外扩构成一次复辟清算生命周期。"
+            },
+            {
+              "parent_id": "C5-P053-LATE-PROTECTION",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "释放建文后人并遗诏废殉葬。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P053-LATE-PROTECTION"
+            ],
+            "negative_parent_refs": [
+              "C5-P053-CAPTURE",
+              "C5-P053-YUQIAN"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P053-CAPTURE",
+              "C5-P053-YUQIAN",
+              "C5-P053-LATE-PROTECTION"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《明史》卷十二《英宗后纪》：https://zh.wikisource.org/zh-hans/明史/卷12"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 复位本身退出C5",
+              "details": [
+                "石亨、徐有贞等拥英宗夺门，英宗重新掌握皇位。",
+                "与景帝之间的直接废立属于现实权力竞争，不因复辟本身扣C5。"
+              ]
+            },
+            {
+              "title": "B. 于谦、王文：不是正在发动反夺门行动",
+              "details": [
+                "英宗复位当天即将于谦、王文下锦衣卫狱，数日后处死并籍家。",
+                "于谦是景泰朝最核心重臣，但夺门发生时没有闭合其组织武装反复辟的事实。",
+                "史料还保存英宗对“于谦实有功”的认识；徐有贞则以“不杀于谦，今日之事无名”推动处死。",
+                "这说明至少于谦之死具有为新政权制造合法性而追惩旧朝履职者的性质，不能完全豁免。"
+              ]
+            },
+            {
+              "title": "C. “榜于谦党人示天下”：胜负已定后的扩大清算",
+              "details": [
+                "《明史·英宗后纪》明确记：杀于谦、王文，籍其家。",
+                "陈循、江渊、俞士悦谪戍。",
+                "萧镃、商辂除名：随后“榜于谦党人示天下”。",
+                "又有蒋琳“坐于谦党弃市”等继续处分。",
+                "这已经不是只处理两个旧政权核心人物，而是胜负已定后向“党人”类别扩大。",
+                "完全符合新增规则所保留的C5负证。"
+              ]
+            },
+            {
+              "title": "D. 后续对夺门功臣的反制是真实恢复",
+              "details": [
+                "石亨、曹吉祥后来权力膨胀，英宗最终能够清除其集团。",
+                "晚年又释放建文帝后人朱文圭，并废止宫妃殉葬。",
+                "这些都是非常重要的反向正证，也正是其没有继续下沉G1的原因。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 1,
+            "locator_count": 1,
+            "linked_source_count": 1,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "VALIDATED"
+        },
+        {
+          "sequence": 54,
+          "ruler_id": "RULER-MING-ZHU-YIJUN",
+          "ruler_name": "朱翊钧",
+          "axis_grade": "G1",
+          "position": "HIGH",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "万历中后期矿税使四出，正史直接记“为民害”；阁臣屡请面见不获，重要任官、建言复职、案件处理长期留中，正史概括“上下否隔甚”。",
+          "grade_basis": "万历中后期矿税使四出，正史直接记“为民害”；被矿税使诬劾者遭逮系，并长期滞留狱中；刑法志又记因忤矿税太监而被逮者众多，镇抚司长期积压囚犯、热审停行，有囚徒以自残申冤；这是全国性资源汲取和强制司法结合，可保留 NEGATIVE / MI4_CROSS_PHASE_SYSTEMIC；但其烈度仍低于系统性处死、族诛类MI4。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G1-HIGH。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P054-FEEDBACK-CLOSURE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "长期留中与不接见导致司法、补官和赈济停摆。"
+            },
+            {
+              "parent_id": "C5-P054-MINE-TAX",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "灾饥军饷反馈下仍维持矿税和内帑。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "EV-WL-A-01",
+                "EV-WL-A-02"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "充军与汰官规则只验证制度背景。"
+            },
+            {
+              "unit_ids": [
+                "EV-WL-B1-02",
+                "EV-WL-B2-01",
+                "FACT-78593A6F8E9E231B",
+                "FACT-750887622F6960A3"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P054-FEEDBACK-CLOSURE",
+              "reason": "补官、热审、赈济等奏请长期不报并致人命后果。"
+            },
+            {
+              "unit_ids": [
+                "FACT-FCE83953B188B06E"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P054-MINE-TAX",
+              "reason": "灾饥边饷与群臣请求均到达后仍维护宫廷财源。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-MING-ZHU-YIJUN",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 31,
+          "score_100": 31,
+          "current_entry_unit_count": 7,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 2,
+            "SCORING_PARENT": 5
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 1,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-MING-ZHU-YIJUN",
+          "actual_power_window": "1572—1620年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P054-FEEDBACK-CLOSURE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "长期留中与不接见导致司法、补官和赈济停摆。"
+            },
+            {
+              "parent_id": "C5-P054-MINE-TAX",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "灾饥军饷反馈下仍维持矿税和内帑。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [
+              "C5-P054-FEEDBACK-CLOSURE",
+              "C5-P054-MINE-TAX"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P054-FEEDBACK-CLOSURE",
+              "C5-P054-MINE-TAX"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《明史》卷二百十八：矿税使“为民害”、诬劾逮系、久不视朝、“上下否隔甚”，以及病中拟撤矿税后旋即追回。",
+            "https://zh.wikisource.org/zh-hans/明史/卷218",
+            "《明史》卷九十五《刑法志三》：矿税太监逮系、热审停滞和万历时期厂卫实际运行边界。",
+            "https://zh.wikisource.org/zh-hans/明史/卷95"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 矿税使：持续、广域且直接伤害普通人，是真强负链",
+              "details": [
+                "万历中后期矿税使四出，正史直接记“为民害”。",
+                "被矿税使诬劾者遭逮系，并长期滞留狱中。",
+                "刑法志又记因忤矿税太监而被逮者众多，镇抚司长期积压囚犯、热审停行，有囚徒以自残申冤。",
+                "这是全国性资源汲取和强制司法结合，可保留 NEGATIVE / MI4_CROSS_PHASE_SYSTEMIC；但其烈度仍低于系统性处死、族诛类MI4。"
+              ]
+            },
+            {
+              "title": "B. 长期留中、不视朝：持续性极高，但烈度较低",
+              "details": [
+                "阁臣屡请面见不获，重要任官、建言复职、案件处理长期留中，正史概括“上下否隔甚”。",
+                "这确实是最高权力反馈接口长期封闭，形态上可达MI4；但主要表现为消极拒绝处理和责任抽离，不能与主动制造恐怖的MI4等烈度。"
+              ]
+            },
+            {
+              "title": "D. 为什么退出G0",
+              "details": [
+                "《明史·刑法志》同时指出万历中期厂卫狱整体并非高频恐怖化，甚至有“狱中至生青草”的描述；晚期告讦风也较弱。",
+                "万历最严重的是资源强制 + 长期反馈封闭 + 司法拖延，而不是跨多个机制反复处死、族诛、肉刑或大规模清洗。",
+                "按历史相对尺度，这应是强短板而非历史下沿。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 4,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 56,
+          "ruler_id": "RULER-MING-ZHU-YOUJIAN",
+          "ruler_name": "朱由检",
+          "axis_grade": "G1",
+          "position": "HIGH",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "袁崇焕在清军入塞后赴援京师；朝内旧怨、和议传闻及清方反间共同制造其“谋叛”嫌疑；郑鄤案虽有私人品行争议，但法司复核并未完全支持最初“杖母”等指控。",
+          "grade_basis": "新尺度确实要求把袁崇焕、郑鄤从“单案MI3”降回深MI2；但《明史》直接暴露的跨年重谴、禁狱、廷杖和言官惩罚，又证明朱由检并非仅有少数误杀；与真正大规模株连清洗相比仍有断层，故 G1-MID → G1-HIGH / E3。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G1-HIGH。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P056-EUNUCH-LIFECYCLE",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "拆阉党后复用宦官并使命令链再失灵。"
+            },
+            {
+              "parent_id": "C5-P056-POLITICAL-TRIALS",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "袁崇焕、郑鄤两案重刑且拒绝多方疑义，构成重复处置而非广域制度。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "M2-LSM-E005",
+                "M2-LSM-E006",
+                "M2-LSM-E008",
+                "FACT-A76ABBBC3885A07A",
+                "FACT-A4A60754F8A559A8"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P056-EUNUCH-LIFECYCLE",
+              "reason": "初年纠正、后期复发和责任链断裂按完整生命周期消费。"
+            },
+            {
+              "unit_ids": [
+                "FACT-452FE1D8C7FC5A70"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P056-POLITICAL-TRIALS",
+              "reason": "证据争议与申救到达后仍跨案维持不可逆重刑。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-MING-ZHU-YOUJIAN",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 31,
+          "score_100": 31,
+          "current_entry_unit_count": 9,
+          "current_entry_disposition_counts": {
+            "SCORING_PARENT": 9
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 1,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-MING-ZHU-YOUJIAN",
+          "actual_power_window": "1627—1644年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P056-EUNUCH-LIFECYCLE",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "拆阉党后复用宦官并使命令链再失灵。"
+            },
+            {
+              "parent_id": "C5-P056-POLITICAL-TRIALS",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "袁崇焕、郑鄤两案重刑且拒绝多方疑义，构成重复处置而非广域制度。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [
+              "C5-P056-POLITICAL-TRIALS"
+            ],
+            "mixed_parent_refs": [
+              "C5-P056-EUNUCH-LIFECYCLE"
+            ]
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P056-EUNUCH-LIFECYCLE",
+              "C5-P056-POLITICAL-TRIALS"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《明史》卷二百五十八《汤开远、傅朝佑、姜埰等传》",
+            "https://zh.wikisource.org/zh-hans/明史/卷258",
+            "《明史》卷二百五十九《袁崇焕、赵光抃传》",
+            "https://zh.wikisource.org/zh-hans/明史/卷259",
+            "《明季北略》卷十五：郑鄤案“法司再定罪拟辟，上命加等”",
+            "https://zh.wikisource.org/zh-hans/明季北略/卷15"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 袁崇焕：极深个案，MI3降为MI2",
+              "details": [
+                "袁崇焕在清军入塞后赴援京师；朝内旧怨、和议传闻及清方反间共同制造其“谋叛”嫌疑。",
+                "《明史》明确记皇帝“信之不疑”，最终磔于市，兄弟妻子流三千里并籍家，史臣称“帝误杀崇焕”“天下冤之”。",
+                "这是极端的证据失真和比例失控，并有家属外扩；但仍围绕一名督师的一次政治司法生命周期。",
+                "改定 NEGATIVE / MI2_LIFECYCLE，标记 EXTREME_DEEP_FLOOR。"
+              ]
+            },
+            {
+              "title": "B. 郑鄤：第二条深MI2",
+              "details": [
+                "郑鄤案虽有私人品行争议，但法司复核并未完全支持最初“杖母”等指控。",
+                "法司后来拟辟，朱由检仍“命加等”，最终磔于市。",
+                "这是一条证据、定性存在重大争议 → 最高权力主动加重至极刑的深个案，应定 NEGATIVE / MI2_LIFECYCLE，不能单案抬成MI3。"
+              ]
+            },
+            {
+              "title": "C. 真正的持续负链：跨年重谴禁狱环境",
+              "details": [
+                "《明史·汤开远传》直接概括崇祯前期：从小臣到大臣，“蒙重谴下禁狱者相继”，几乎走到“刑乱国、用重典”的程度；廷臣因执奏不移，容易被怀疑为藐抗。",
+                "到后期，傅朝佑传又记获罪者日益增多、“狱几满”；傅朝佑因请求宽恤、言辞过激，最终廷杖六十，创重而死。",
+                "庄鳌献、李汝璨等因言获贬削；姜埰、熊开元因建言下锦衣卫，皇帝甚至一度密令狱中潜毙，后因执行者不敢奉命才转为法司、廷杖。",
+                "这些跨不同年份、不同官员和不同议题反复发生，已经不是“几个著名冤案”。",
+                "可建立 NEGATIVE / MI4_CROSS_PHASE_SYSTEMIC 的广域惩罚环境父链；其烈度虽低于大规模杀戮型MI4，但覆盖和持续性真实成立。"
+              ]
+            },
+            {
+              "title": "D. 正向纠正同样真实，限制下档",
+              "details": [
+                "汤开远多次激烈批评重刑，虽屡触怒皇帝，后来仍曾获释、再任，并有意见被“深纳”。",
+                "陈龙正指出东厂冤滥、人命不可轻后，皇帝数日后即谕提督中官不得轻视人命。",
+                "姜埰、熊开元最终没有被秘密处死；虽遭重杖、长期拘系，仍留下外部阻断最高死命的事实。",
+                "因此反馈并未达到G0式全面关闭。"
+              ]
+            },
+            {
+              "title": "E. 战败责任案件继续逐案拆分",
+              "details": [
+                "崇祯朝督抚、总督因失城败军受刑者很多，但正在承担重大军事责任且事实明确者，不因“处死很多大臣”自动计C5。",
+                "赵光抃等史书明确称“人咸以为冤”、责任与处死明显不匹配者，只作为广域重刑环境的复验，不机械凑案数。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 3,
+            "locator_count": 6,
+            "linked_source_count": 3,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 50,
+          "ruler_id": "RULER-MING-ZHU-HOUZHAO",
+          "ruler_name": "朱厚照",
+          "axis_grade": "G1",
+          "position": "MID",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "正德初刘瑾掌司礼监，东西厂、内行厂与锦衣卫互相配合，刑法志记非法死者数量极大；因反对南巡，舒芬等一百零七人先跪午门，又有黄巩等多人下锦衣卫狱；前后廷杖一百四十六人，死亡十一人。",
+          "grade_basis": "正德初刘瑾掌司礼监，东西厂、内行厂与锦衣卫互相配合，刑法志记非法死者数量极大；武宗对刘瑾长期授权负最高监督责任，因此这条可以达到 NEGATIVE / MI4_CROSS_PHASE_SYSTEMIC；因反对南巡，舒芬等一百零七人先跪午门，又有黄巩等多人下锦衣卫狱；前后廷杖一百四十六人，死亡十一人；这是非常重的异议安全反证，但仍围绕一次南巡决策展开。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G1-MID。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P050-FACTORY",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "近侍厂卫扩张后迟来诛刘瑾。"
+            },
+            {
+              "parent_id": "C5-P050-BEATINGS",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "对谏巡幸者跨月廷杖并致死。"
+            },
+            {
+              "parent_id": "C5-P050-RESOURCE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "太仓马政转内库并以卖官矿课筹宫廷工程。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "EV-ZD-A-02",
+                "EV-ZD-B1-01",
+                "FACT-E4ECE564BE4B650E",
+                "FACT-BF8214800F763FEE"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P050-FACTORY",
+              "reason": "厂卫扩张、近侍俘获、履职接口收缩及迟来收权属于同一生命周期。"
+            },
+            {
+              "unit_ids": [
+                "EV-ZD-A-01",
+                "EV-ZD-B2-01",
+                "FACT-317D4F946C4765A2"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P050-BEATINGS",
+              "reason": "大规模廷杖和伤亡反馈后继续惩罚闭合强制父链。"
+            },
+            {
+              "unit_ids": [
+                "FACT-B36C4394A2C3D71D"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P050-RESOURCE",
+              "reason": "公共资源系统转为宫廷私用。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-MING-ZHU-HOUZHAO",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 25,
+          "score_100": 25,
+          "current_entry_unit_count": 8,
+          "current_entry_disposition_counts": {
+            "SCORING_PARENT": 8
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 1,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-MING-ZHU-HOUZHAO",
+          "actual_power_window": "1505—1521年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P050-FACTORY",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "近侍厂卫扩张后迟来诛刘瑾。"
+            },
+            {
+              "parent_id": "C5-P050-BEATINGS",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "对谏巡幸者跨月廷杖并致死。"
+            },
+            {
+              "parent_id": "C5-P050-RESOURCE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "太仓马政转内库并以卖官矿课筹宫廷工程。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [
+              "C5-P050-BEATINGS",
+              "C5-P050-RESOURCE"
+            ],
+            "mixed_parent_refs": [
+              "C5-P050-FACTORY"
+            ]
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P050-FACTORY",
+              "C5-P050-BEATINGS",
+              "C5-P050-RESOURCE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《明史》卷十六《武宗本纪》：南巡谏官下狱、廷杖一百四十六人、死十一人。",
+            "https://zh.wikisource.org/zh-hans/明史/卷16",
+            "《明史》卷九十五《刑法志三》：刘瑾时期东西厂、内行厂、厂卫酷刑与非法死亡。",
+            "https://zh.wikisource.org/zh-hans/明史/卷95"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 刘瑾—厂卫体系：真正的持续负链，但需拆代理归责",
+              "details": [
+                "正德初刘瑾掌司礼监，东西厂、内行厂与锦衣卫互相配合，刑法志记非法死者数量极大。",
+                "武宗对刘瑾长期授权负最高监督责任，因此这条可以达到 NEGATIVE / MI4_CROSS_PHASE_SYSTEMIC。",
+                "但具体每一件酷刑不能全部写成武宗本人亲自命令，代理归责必须打折。",
+                "刘瑾最终又被武宗诛除，形成真实阶段收束。"
+              ]
+            },
+            {
+              "title": "B. 正德十四年南巡廷杖：高覆盖单次生命周期",
+              "details": [
+                "因反对南巡，舒芬等一百零七人先跪午门，又有黄巩等多人下锦衣卫狱；前后廷杖一百四十六人，死亡十一人。",
+                "这是非常重的异议安全反证，但仍围绕一次南巡决策展开。",
+                "改定 NEGATIVE / MI2_LIFECYCLE + HIGH_BREADTH，而不是单独MI4。"
+              ]
+            },
+            {
+              "title": "C. 豹房和近幸资源：持续但烈度低于杀戮型机制",
+              "details": [
+                "豹房、频繁巡游、内廷近幸和私人消费持续把公共资源转向最高权力个人生活。",
+                "可保留 NEGATIVE / MI3_SUSTAINED_SYSTEMIC，但不能与群体处死同烈度。"
+              ]
+            },
+            {
+              "title": "D. 为什么退出G0",
+              "details": [
+                "刘瑾集团最终被主动清除，西厂、内行厂也随之撤销。",
+                "南巡大廷杖虽惨烈，却仍是一场高覆盖生命周期，不是每年重复发生的同构清洗。",
+                "因而整体属于多机制强短板，而不是不可恢复的历史下沿。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 4,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 48,
+          "ruler_id": "RULER-MING-ZHU-DI",
+          "ruler_name": "朱棣",
+          "axis_grade": "G0",
+          "position": "HIGH",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "齐泰、黄子澄确实是削藩与靖难战争的核心决策者，战争失败后本人被杀可以按现实政治斗争处理；南京已经失守、战争结束后，朱棣召方孝孺起草即位诏书。",
+          "grade_basis": "G0-HIGH / E3维持；新规则只要求从父链中删去“齐泰、黄子澄本人被杀=低克制”的逻辑；亲属/门生扩大和厂卫制度仍足以独立钉住G0。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G0-HIGH。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P048-PURGE-FACTORY",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "族诛异议者并制度化东厂法外侦缉。"
+            },
+            {
+              "parent_id": "C5-P048-FIVE-REVIEWS",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "覆奏实际撤回怒杀并形成五覆奏。"
+            },
+            {
+              "parent_id": "C5-P048-PUBLIC-RESOURCE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "跨省采木、宫殿与民户养马持续。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "MING-DI-A-WENYUAN-CONSTRUCTION-POSITIVE-001",
+                "MING-DI-A-WENYUAN-RECEPTION-001",
+                "MING-DI-ADMIN-001",
+                "MING-DI-SUCCESSOR-001",
+                "FACT-34FDC10376D50882"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "内阁、巡按赈灾、继任与军事授权属于组织/C3背景。"
+            },
+            {
+              "unit_ids": [
+                "MING-DI-A-EASTERN-DEPOT-001",
+                "MING-DI-TAKEOVER-001",
+                "FACT-7CB59979AA4F15B1"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P048-PURGE-FACTORY",
+              "reason": "靖难后族诛、持续处死被控制异议者与东厂法外侦缉闭合系统父链。"
+            },
+            {
+              "unit_ids": [
+                "MING-DI-JUSTICE-001",
+                "FACT-0E9D5667A39828B6"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P048-FIVE-REVIEWS",
+              "reason": "五覆奏实际纠正怒决，但与东厂并行，按同一复核生命周期消费。"
+            },
+            {
+              "unit_ids": [
+                "FACT-12649B5397BB353F",
+                "FACT-EB9C785E91113CE3"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P048-PUBLIC-RESOURCE",
+              "reason": "持续工程、养马和对耗竭反馈拒绝共同评价公共特权。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-MING-ZHU-DI",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 12,
+          "score_100": 12,
+          "current_entry_unit_count": 16,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 7,
+            "SCORING_PARENT": 9
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 0,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-MING-ZHU-DI",
+          "actual_power_window": "1402—1424年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P048-PURGE-FACTORY",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "族诛异议者并制度化东厂法外侦缉。"
+            },
+            {
+              "parent_id": "C5-P048-FIVE-REVIEWS",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "覆奏实际撤回怒杀并形成五覆奏。"
+            },
+            {
+              "parent_id": "C5-P048-PUBLIC-RESOURCE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "跨省采木、宫殿与民户养马持续。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P048-FIVE-REVIEWS"
+            ],
+            "negative_parent_refs": [
+              "C5-P048-PURGE-FACTORY",
+              "C5-P048-PUBLIC-RESOURCE"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P048-PURGE-FACTORY",
+              "C5-P048-FIVE-REVIEWS",
+              "C5-P048-PUBLIC-RESOURCE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《明史》卷一百四十一：齐泰、黄子澄、方孝孺等及亲属从坐",
+            "https://zh.wikisource.org/zh-hans/明史/卷141",
+            "《明史》卷三百零七《纪纲传》：建文忠臣数十族、亲属大量被戮，锦衣卫深文诬陷",
+            "https://zh.wikisource.org/wiki/明史/卷307",
+            "《明史》卷九十五《刑法志三》：东厂始于成祖，锦衣卫诏狱复用",
+            "https://zh.wikisource.org/zh-hans/明史/卷95",
+            "《明史纪事本末》卷十八《壬午殉难》"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 齐泰、黄子澄本人退出；从兄弟、子女、藏匿者等扩大继续计",
+              "details": [
+                "齐泰、黄子澄确实是削藩与靖难战争的核心决策者，战争失败后本人被杀可以按现实政治斗争处理。",
+                "但《明史》明确记：齐泰从兄弟等坐死。",
+                "黄子澄二子、相关亲族从坐。",
+                "藏匿、协助者又继续被追究。",
+                "这部分已经进入战后亲属/普通支持网络扩大。"
+              ]
+            },
+            {
+              "title": "B. 方孝孺：拒绝起草即位诏，不是现实军事政敌",
+              "details": [
+                "南京已经失守、战争结束后，朱棣召方孝孺起草即位诏书。",
+                "方孝孺拒绝并公开批判新君。",
+                "他此时没有军队，也没有正在发动夺权；其核心行为只是拒绝为新政权提供合法性。",
+                "随后处罚不仅止于本人，而是大规模收捕门生、朋友、亲属。",
+                "《明史纪事本末》记坐死者达数百，另有大量谪戍。",
+                "无论“十族”细节在不同史源中的数字如何，从履职/政治表达者向亲族、门生和朋友扩大这一点已经稳定成立。"
+              ]
+            },
+            {
+              "title": "C. 建文旧臣“数十族”、亲属数万人被戮：系统扩大",
+              "details": [
+                "《明史·纪纲传》明确记都御史陈瑛灭建文朝忠臣数十族，亲属被戮者以万计。",
+                "这些已经远超处理战时敌对政府首脑的范围。",
+                "这是典型 NEGATIVE / MI4_CROSS_PHASE_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "D. 锦衣卫、东厂：战后清洗转化为长期制度",
+              "details": [
+                "成祖即位后恢复并强化锦衣卫诏狱。",
+                "纪纲广布校尉，日摘臣民阴事，深文诬陷，被残杀者不可胜数。",
+                "《明史·刑法志》又明确记东厂始设于成祖，负责侦缉“谋逆妖言”等。",
+                "这里已经从一次政权更替清算转化为持续性法外侦缉、秘密审讯和表达安全控制。",
+                "完全符合C5 MI4主负链。"
+              ]
+            },
+            {
+              "title": "E. 五覆奏仍是真实正证",
+              "details": [
+                "永乐朝死刑复核和五覆奏确能在部分案件中撤回怒决。",
+                "这条正向制度可以保留。",
+                "但它与厂卫、战后扩大清洗长期并存，只足以把朱棣放在G0高位，而非继续下探G0中低。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 4,
+            "locator_count": 7,
+            "linked_source_count": 3,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "VALIDATED"
+        },
+        {
+          "sequence": 49,
+          "ruler_id": "RULER-MING-ZHU-HOUCONG",
+          "ruler_name": "朱厚熜",
+          "axis_grade": "G0",
+          "position": "HIGH",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "嘉靖三年群臣争大礼，廷杖丰熙等一百三十四人，死十六人；《明史·刑法志》明确概括嘉靖中年以后刑法益峻：总督、巡抚、刑部侍郎、都御史、大理卿、给事中等不同类别官员反复遭逮杖，有人死于杖下。",
+          "grade_basis": "即使把“大礼议”从MI4降权，仍存在长达数十年的官员肉刑与惩罚系统，并叠加反馈隔绝、资源特权；这已不是“几个著名黑点”，而是多机制长期主模式；定为 G0-HIGH / E3。",
+          "position_basis": "大礼议单案降权，四十余年廷杖系统继续支撑历史下沿。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P049-DISSENT",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "大礼议廷杖致死且无平反。"
+            },
+            {
+              "parent_id": "C5-P049-YAN",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "长期维持严氏并迟至晚年收权。"
+            },
+            {
+              "parent_id": "C5-P049-RESOURCE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "长期斋醮宫观耗用公共资源。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "EV-JJ-A-01",
+                "EV-JJ-A-02",
+                "EV-JJ-C1-01"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "赎刑、充军规则和赈济边防只验证一般司法行政。"
+            },
+            {
+              "unit_ids": [
+                "EV-JJ-B2-01",
+                "FACT-B211A4F761E51D8B",
+                "FACT-1B5042255CC894FD"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P049-DISSENT",
+              "reason": "大礼议报复、廷杖死亡与长期切断君臣接口组成反馈压制父链。"
+            },
+            {
+              "unit_ids": [
+                "EV-JJ-D2-01",
+                "FACT-40C810363238E0DF"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P049-YAN",
+              "reason": "严嵩集团俘获人事财政并在反复弹劾后迟来收权。"
+            },
+            {
+              "unit_ids": [
+                "FACT-DDF73B8DC4DAC7CF"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P049-RESOURCE",
+              "reason": "二十余年斋醮营建直接命中公共资源特权。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-MING-ZHU-HOUCONG",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 12,
+          "score_100": 12,
+          "current_entry_unit_count": 9,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 3,
+            "SCORING_PARENT": 6
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 0,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-MING-ZHU-HOUCONG",
+          "actual_power_window": "1521—1567年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P049-DISSENT",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "大礼议廷杖致死且无平反。"
+            },
+            {
+              "parent_id": "C5-P049-YAN",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "长期维持严氏并迟至晚年收权。"
+            },
+            {
+              "parent_id": "C5-P049-RESOURCE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "长期斋醮宫观耗用公共资源。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [
+              "C5-P049-DISSENT",
+              "C5-P049-RESOURCE"
+            ],
+            "mixed_parent_refs": [
+              "C5-P049-YAN"
+            ]
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P049-DISSENT",
+              "C5-P049-YAN",
+              "C5-P049-RESOURCE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《明史》卷九十五《刑法志三》：大礼议廷杖一百三十四人、死十六人，以及嘉靖四十余年长期廷杖、杖杀朝士。",
+            "https://zh.wikisource.org/zh-hans/明史/卷95",
+            "《明史》卷十七《世宗本纪》。",
+            "https://zh.wikisource.org/zh-hans/明史/卷17"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 大礼议：高覆盖单一生命周期，降为MI2+HIGH_BREADTH",
+              "details": [
+                "嘉靖三年群臣争大礼，廷杖丰熙等一百三十四人，死十六人。",
+                "这是极重的异议者惩罚，但仍围绕同一礼议冲突展开。",
+                "改定 NEGATIVE / MI2_LIFECYCLE + HIGH_BREADTH。"
+              ]
+            },
+            {
+              "title": "B. 四十余年廷杖与官员肉刑：真正的MI4",
+              "details": [
+                "《明史·刑法志》明确概括嘉靖中年以后刑法益峻：总督、巡抚、刑部侍郎、都御史、大理卿、给事中等不同类别官员反复遭逮杖，有人死于杖下。",
+                "正史进一步总括“四十余年间，杖杀朝士，倍蓰前代”。",
+                "这已经跨对象、跨年份、跨事件复发，不能再解释成一个大礼议的余波。",
+                "应保留 NEGATIVE / MI4_CROSS_PHASE_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "C. 反馈隔绝与私人宗教资源继续作为独立负链",
+              "details": [
+                "西苑长期隔绝、对中枢正常反馈的压低，与严嵩集团长期运行共同形成最高权力反馈边界问题；但应避免把一般行政失误全部倒灌C5。",
+                "宫观斋醮等长期公共资源向最高权力私人宗教偏好倾斜，可继续作为独立资源负链。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 4,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "VALIDATED"
+        },
+        {
+          "sequence": 57,
+          "ruler_id": "RULER-MING-ZHU-YOUJIAO",
+          "ruler_name": "朱由校",
+          "axis_grade": "G0",
+          "position": "LOW",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "杨涟劾魏忠贤后，魏大中、陈良训等七十余人继续上章；阁臣也要求让忠贤退居私第，均未获准；天启五年杨涟、左光斗、袁化中、魏大中、周朝瑞、顾大章等下镇抚司，数人相继死狱；又毁天下东林书院、榜示东林党人姓名。",
+          "grade_basis": "杨涟劾魏忠贤后，魏大中、陈良训等七十余人继续上章；阁臣也要求让忠贤退居私第，均未获准；此后清流被逐，说明反馈不是“没到达”，而是到达后仍被最高决定压住；天启五年杨涟、左光斗、袁化中、魏大中、周朝瑞、顾大章等下镇抚司，数人相继死狱；又毁天下东林书院、榜示东林党人姓名；左光斗死后仍追赃，牵连群从十四人，家族破产；这已经跨人身、家属、组织和全国表达空间。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G0-LOW。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P057-WEI",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "魏忠贤集团控制信息、厂卫、人事与酷刑系统。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "M2-LSM-E001",
+                "M2-LSM-E002",
+                "FACT-C47DDF00559E5109",
+                "FACT-BC86CE2608405EFE",
+                "FACT-A4DF21E61BDEB5A3"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P057-WEI",
+              "reason": "章奏俘获、厂卫清洗和酷刑死亡均属于同一近侍集团系统父链。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-MING-ZHU-YOUJIAO",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 2,
+          "score_100": 2,
+          "current_entry_unit_count": 7,
+          "current_entry_disposition_counts": {
+            "SCORING_PARENT": 7
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 0,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-MING-ZHU-YOUJIAO",
+          "actual_power_window": "1620—1627年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P057-WEI",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "魏忠贤集团控制信息、厂卫、人事与酷刑系统。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [
+              "C5-P057-WEI"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P057-WEI"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《明史》卷二十二《熹宗本纪》。",
+            "https://zh.wikisource.org/zh-hans/明史/卷22",
+            "《明史》卷三百五《魏忠贤传》。",
+            "https://zh.wikisource.org/zh-hans/明史/卷305",
+            "《明史》卷九十五《刑法志三》。",
+            "https://zh.wikisource.org/zh-hans/明史/卷95"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 七十余人连续论魏忠贤而不纳",
+              "details": [
+                "杨涟劾魏忠贤后，魏大中、陈良训等七十余人继续上章；阁臣也要求让忠贤退居私第，均未获准。",
+                "此后清流被逐，说明反馈不是“没到达”，而是到达后仍被最高决定压住。"
+              ]
+            },
+            {
+              "title": "B. 诏狱酷讯与全国党籍同步运行",
+              "details": [
+                "天启五年杨涟、左光斗、袁化中、魏大中、周朝瑞、顾大章等下镇抚司，数人相继死狱；又毁天下东林书院、榜示东林党人姓名。",
+                "左光斗死后仍追赃，牵连群从十四人，家族破产；这已经跨人身、家属、组织和全国表达空间。",
+                "《明史·刑法志》把许显纯等诏狱酷刑明确记为魏忠贤时期厂卫之毒达到极点。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 3,
+            "locator_count": 6,
+            "linked_source_count": 3,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "VALIDATED"
+        },
+        {
+          "sequence": 59,
+          "ruler_id": "RULER-MING-ZHU-YUANZHANG",
+          "ruler_name": "朱元璋",
+          "axis_grade": "G0",
+          "position": "LOW",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "《明史·蓝玉传》明确记蓝玉案“族诛者万五千人”，列名《逆臣录》者包括一公、十三侯、二伯；《明史·刑法志》记太祖时“数更大狱，多使断治，所诛杀为多”；锦衣卫开始参与刑狱。",
+          "grade_basis": "《明史·蓝玉传》明确记蓝玉案“族诛者万五千人”，列名《逆臣录》者包括一公、十三侯、二伯；蓝玉本人及真正参与谋反者可按政治斗争处理；但一万五千人的族诛规模远超直接参与范围，属于 MI4 + EXTREME_BREADTH；《明史·刑法志》记太祖时“数更大狱，多使断治，所诛杀为多”；锦衣卫开始参与刑狱；太祖后期曾焚卫刑具、令案件回归法司，这是真实收束，必须保留；但发生在长期大狱之后，不能反转全期主模式。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G0-LOW。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P059-HEAVY-PUNISHMENT",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "大诰、法外惩治、大狱与反馈压制。"
+            },
+            {
+              "parent_id": "C5-P059-BLUE-JADE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "蓝玉案大规模株连跨年扩大。"
+            },
+            {
+              "parent_id": "C5-P059-CONSORT-HOUSEHOLDS",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "宫妃殉葬与职业世籍成为长期制度。"
+            },
+            {
+              "parent_id": "C5-P059-RESOURCE-RESTRAINT",
+              "direction": "MIXED_POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "多次删饰停建但大型动员仍在。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "MING-YZ-A-LAW-CONSTRUCTION-POSITIVE-001",
+                "MING-YZ-A-LAW-RECEPTION-001",
+                "MING-YZ-A-YELLOW-REGISTER-CONSTRUCTION-POSITIVE-001",
+                "MING-YZ-A-YELLOW-REGISTER-RECEPTION-R4",
+                "MING-YZ-FISCAL-001",
+                "FACT-ED84407F50CCD620",
+                "FACT-4BD0E4AB3D597F7C"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "公开法源、黄册财政、勤政和军事授权只验证国家运行。"
+            },
+            {
+              "unit_ids": [
+                "MING-YZ-A-CONSORT-SACRIFICE-001",
+                "MING-YZ-A-HEREDITARY-HOUSEHOLDS-001"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P059-CONSORT-HOUSEHOLDS",
+              "reason": "无辜宫人从死与职业世籍直接命中强制权力制度化。"
+            },
+            {
+              "unit_ids": [
+                "MING-YZ-A-DAGAO-DIRECTION-001",
+                "MING-YZ-A-LAW-FREEZE-001",
+                "MING-YZ-A-LAW-FREEZE-OUTCOME-001",
+                "MING-YZ-DAGAO-001",
+                "MING-YZ-DAGAO-002",
+                "MING-YZ-STATE-001",
+                "MING-YZ-A-LAW-BASELINE-001",
+                "MING-YZ-A-LAW-FORMATION-001",
+                "FACT-6C9A9B94106A543E",
+                "FACT-D7FC4A23EFDE7215"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P059-HEAVY-PUNISHMENT",
+              "reason": "重典、法外惩治、拒绝规则纠正和废相后复核集中按系统父链消费。"
+            },
+            {
+              "unit_ids": [
+                "FACT-B7449B8D23B39854"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P059-BLUE-JADE",
+              "reason": "蓝玉案跨对象大规模株连独立成极端父链。"
+            },
+            {
+              "unit_ids": [
+                "FACT-9710EB9ABFB68682"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P059-RESOURCE-RESTRAINT",
+              "reason": "删饰停建与大型工程动员构成公共资源混合生命周期。"
+            },
+            {
+              "unit_ids": [
+                "MING-YZ-A-CENTRAL-ORG-001",
+                "MING-YZ-A-MARITIME-001",
+                "MING-YZ-A-PRINCELY-FISCAL-001",
+                "MING-YZ-A-PRINCELY-POWER-001",
+                "MING-YZ-A-YELLOW-REGISTER-001"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "中央组织、海贸、宗藩财政和黄册运行只作治理背景，未与具体C5父链重复。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-MING-ZHU-YUANZHANG",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 2,
+          "score_100": 2,
+          "current_entry_unit_count": 30,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 12,
+            "SCORING_PARENT": 18
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 0,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-MING-ZHU-YUANZHANG",
+          "actual_power_window": "1368—1398年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P059-HEAVY-PUNISHMENT",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "大诰、法外惩治、大狱与反馈压制。"
+            },
+            {
+              "parent_id": "C5-P059-BLUE-JADE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "蓝玉案大规模株连跨年扩大。"
+            },
+            {
+              "parent_id": "C5-P059-CONSORT-HOUSEHOLDS",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "宫妃殉葬与职业世籍成为长期制度。"
+            },
+            {
+              "parent_id": "C5-P059-RESOURCE-RESTRAINT",
+              "direction": "MIXED_POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "多次删饰停建但大型动员仍在。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [
+              "C5-P059-HEAVY-PUNISHMENT",
+              "C5-P059-BLUE-JADE",
+              "C5-P059-CONSORT-HOUSEHOLDS"
+            ],
+            "mixed_parent_refs": [
+              "C5-P059-RESOURCE-RESTRAINT"
+            ]
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P059-HEAVY-PUNISHMENT",
+              "C5-P059-BLUE-JADE",
+              "C5-P059-CONSORT-HOUSEHOLDS",
+              "C5-P059-RESOURCE-RESTRAINT"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《明史》卷一百三十二《蓝玉传》：族诛一万五千人。",
+            "https://zh.wikisource.org/zh-hans/明史/卷132",
+            "《明史》卷九十五《刑法志三》：太祖大狱、锦衣卫治狱及后期焚刑具、归法司。",
+            "https://zh.wikisource.org/zh-hans/明史/卷95"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 蓝玉案是极端高覆盖清洗",
+              "details": [
+                "《明史·蓝玉传》明确记蓝玉案“族诛者万五千人”，列名《逆臣录》者包括一公、十三侯、二伯。",
+                "蓝玉本人及真正参与谋反者可按政治斗争处理；但一万五千人的族诛规模远超直接参与范围，属于 MI4 + EXTREME_BREADTH。"
+              ]
+            },
+            {
+              "title": "B. 锦衣卫诏狱与重典长期运转",
+              "details": [
+                "《明史·刑法志》记太祖时“数更大狱，多使断治，所诛杀为多”；锦衣卫开始参与刑狱。",
+                "太祖后期曾焚卫刑具、令案件回归法司，这是真实收束，必须保留；但发生在长期大狱之后，不能反转全期主模式。"
+              ]
+            },
+            {
+              "title": "C. 不把所有制度控制都重复算分",
+              "details": [
+                "职业世籍、里甲等若主要属于社会组织和治理结构，不再为了凑G0重复计C5。",
+                "即使只保留大狱、株连和法外重刑，仍足以独立钉住G0-LOW。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 4,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "VALIDATED"
+        }
+      ]
+    }
+  }
+}

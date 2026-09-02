@@ -7,6 +7,7 @@ from typing import Any
 
 from emperor_v4.evaluation.canonical_ruler_pool import verify_canonical_ruler_pool
 from emperor_v4.evaluation.composite_ranking import verify_composite_ranking
+from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.second_item_b1_settlement import (
     active_groups,
     index_from_grade_position,
@@ -106,9 +107,7 @@ def _records_by_id(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
 
 
 def verify_second_item_a_snapshot(workspace_root: Path) -> dict[str, Any]:
-    a_payload = json.loads(
-        (workspace_root / SECOND_ITEM_COMPONENT_PATHS["A"]).read_text(encoding="utf-8")
-    )
+    a_payload = load_json(workspace_root / SECOND_ITEM_COMPONENT_PATHS["A"])
     registry = json.loads(
         (workspace_root / IMPORTANT_INSTITUTION_REGISTRY).read_text(encoding="utf-8")
     )
@@ -282,7 +281,7 @@ def verify_second_item_a_snapshot(workspace_root: Path) -> dict[str, Any]:
 
 def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
     path = workspace_root / SECOND_ITEM_COMPONENT_PATHS["B1"]
-    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload = load_json(path)
     records = payload.get("records") or []
     if len(records) != 185 or payload.get("record_count") != 185:
         raise ValueError("第二项B1正式记录数不是185")
@@ -572,7 +571,7 @@ def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
 
 def verify_second_item_b2_snapshot(workspace_root: Path) -> dict[str, Any]:
     path = workspace_root / SECOND_ITEM_COMPONENT_PATHS["B2"]
-    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload = load_json(path)
     records = payload.get("records") or []
     if len(records) != 185 or payload.get("record_count") != 185:
         raise ValueError("第二项B2正式记录数不是185")
@@ -714,7 +713,7 @@ def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
     if any(clause not in result_contract for clause in REQUIRED_C4_DA_CONTRACT_CLAUSES):
         raise ValueError("第二项C4 DA成本量级合同缺失")
     payloads = {
-        key: json.loads((workspace_root / path).read_text(encoding="utf-8"))
+        key: load_json(workspace_root / path)
         for key, path in SECOND_ITEM_COMPONENT_PATHS.items()
     }
     indexed = {key: _records_by_id(payload) for key, payload in payloads.items()}
@@ -797,11 +796,7 @@ def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
         )
 
     top = _records_by_id(
-        json.loads(
-            (workspace_root / str(SETTLEMENT_SPECS["second_item"]["path"])).read_text(
-                encoding="utf-8"
-            )
-        )
+        load_json(workspace_root / str(SETTLEMENT_SPECS["second_item"]["path"]))
     )
     if set(top) != complete_ids:
         raise ValueError("第二项总表与组件ID集合不一致")
@@ -867,7 +862,7 @@ def verify_formal_settlements(workspace_root: Path) -> dict[str, Any]:
     reports: dict[str, Any] = {}
     for item, spec in SETTLEMENT_SPECS.items():
         path = workspace_root / str(spec["path"])
-        payload = json.loads(path.read_text(encoding="utf-8"))
+        payload = load_json(path)
         schema = payload.get("schema_id") or payload.get("schema_version")
         if schema != spec["schema"]:
             raise ValueError(f"{item} schema不匹配：{schema}")

@@ -1,0 +1,2122 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "唐",
+  "collections": {
+    "records": {
+      "positions": [
+        2,
+        32,
+        33,
+        55,
+        71,
+        92,
+        93,
+        122,
+        123,
+        124,
+        149,
+        161
+      ],
+      "records": [
+        {
+          "sequence": 153,
+          "ruler_id": "RULER-TANG-LISHIMIN",
+          "ruler_name": "李世民",
+          "axis_grade": "G5",
+          "position": "LOW",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "张蕴古案存在徇私嫌疑基础，真正问题是盛怒下复核不足、直接处死；此后又触发程序性纠偏；戴胄依法抗旨、魏征等长期犯颜、权贵案件中的规则运行，不只证明“能听劝”，而是反复证明最高决定可以在对皇帝不利时被复核、驳回或改变。",
+          "grade_basis": "张蕴古案存在徇私嫌疑基础，真正问题是盛怒下复核不足、直接处死；此后又触发程序性纠偏；卢祖尚明确拒命、反复承诺后反悔，行为本身有责任基础；太宗盛怒处死仍明显过度，但不是“正常直言者因履职被杀”；两案均应定为 NEGATIVE / MI2_LIFECYCLE，个案烈度中高，不能因不可逆性拔成MI3；戴胄依法抗旨、魏征等长期犯颜、权贵案件中的规则运行，不只证明“能听劝”，而是反复证明最高决定可以在对皇帝不利时被复核、驳回或改变。",
+          "position_basis": "张蕴古、卢祖尚继续仅作深MI2。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P153-REMONSTRANCE",
+              "direction": "MIXED_POSITIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "谏官入阁、魏征长期犯颜与晚期纳谏减弱的完整生命周期。"
+            },
+            {
+              "parent_id": "C5-P153-LEGAL-REVIEW",
+              "direction": "MIXED_POSITIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "戴胄抗令、刘德威纠偏和张仲文案先压制后恢复。"
+            },
+            {
+              "parent_id": "C5-P153-POWERFUL",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "规则实际约束权贵并保护基层。"
+            },
+            {
+              "parent_id": "C5-P153-IRREVERSIBLE",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "张蕴古案有徇私指控但复核不足，卢祖尚构成拒命欺君而处死比例过重；两案不可逆但不构成持久广域失控，且前案后续触发制度纠偏。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-TANG-TS-YICANG-OPERATION-001-M2-M3-02-AUDIT",
+                "I2-TANG-TS-ZHENGUAN-LAW-RECEPTION-001",
+                "MC-TANG-TS-HEREDITARY-PREFECTURE-CORRECTION",
+                "MC-TANG-TS-LAW",
+                "MC-TANG-TS-OFFICIAL-QUOTA",
+                "I2-TANG-TS-LOCAL-OFFICIAL-OVERSIGHT-001",
+                "MC-TANG-TS-ANTI-CORRUPTION-M2-M3-02-AUDIT",
+                "FACT-7433ECCDB9A12ACC",
+                "FACT-EF38F9FA10E63B34"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "义仓、律制结构、编制、地方问责、勤政和军事授权只作制度运行背景，不换算C5。"
+            },
+            {
+              "unit_ids": [
+                "I2-TANG-TS-LATE-REMONSTRANCE-DECLINE-001",
+                "MC-TANG-TS-DELIBERATION-M3-AUDIT",
+                "MC-TANG-TS-REMONSTRANCE-LIFECYCLE-M2-M3-02-AUDIT",
+                "FACT-066968A1EF9EC17B",
+                "FACT-1F8FE5E83C9889E2"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P153-REMONSTRANCE",
+              "reason": "魏征长期链、谏官岗位与晚期减弱按一个完整生命周期消费，不重复计数。"
+            },
+            {
+              "unit_ids": [
+                "MC-TANG-TS-LEGAL-REVIEW-M2-M3-02-AUDIT",
+                "FACT-626AF16571E3ECAF",
+                "FACT-F8EDBEEB5C6410DF"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P153-LEGAL-REVIEW",
+              "reason": "法律复核、专业监督和死刑复奏在实际约束本人范围内合并；制度静态部分不拔高。"
+            },
+            {
+              "unit_ids": [
+                "MC-TANG-TS-POWERFUL-RESTRAINT-M2-M3-02-AUDIT"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P153-POWERFUL",
+              "reason": "权贵受约束并有实际运行，独立命中C5。"
+            },
+            {
+              "unit_ids": [
+                "FACT-0F4CE605061D063B"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P153-IRREVERSIBLE",
+              "reason": "该单元同时含异议保护正链与张蕴古卢祖尚死亡；正向已由前两父链闭合，本单元归不可逆反证以避免重复。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-TANG-LISHIMIN",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 91,
+          "score_100": 91,
+          "current_entry_unit_count": 20,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 10,
+            "SCORING_PARENT": 10
+          },
+          "axis_evidence_level": "E3",
+          "promotion_normalization": {
+            "working_evidence_level": "E4",
+            "formal_evidence_level": "E3",
+            "reason": "FORMAL_CONTRACT_USES_E1_E2_E3; E4_COLLAPSED_TO_SUFFICIENT_HIGH_DENSITY_E3_WITHOUT_GRADE_CHANGE"
+          },
+          "grade_numeric": 5,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-TANG-LISHIMIN",
+          "actual_power_window": "626—649年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P153-REMONSTRANCE",
+              "direction": "MIXED_POSITIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "谏官入阁、魏征长期犯颜与晚期纳谏减弱的完整生命周期。"
+            },
+            {
+              "parent_id": "C5-P153-LEGAL-REVIEW",
+              "direction": "MIXED_POSITIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "戴胄抗令、刘德威纠偏和张仲文案先压制后恢复。"
+            },
+            {
+              "parent_id": "C5-P153-POWERFUL",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "规则实际约束权贵并保护基层。"
+            },
+            {
+              "parent_id": "C5-P153-IRREVERSIBLE",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "张蕴古案有徇私指控但复核不足，卢祖尚构成拒命欺君而处死比例过重；两案不可逆但不构成持久广域失控，且前案后续触发制度纠偏。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P153-POWERFUL"
+            ],
+            "negative_parent_refs": [
+              "C5-P153-IRREVERSIBLE"
+            ],
+            "mixed_parent_refs": [
+              "C5-P153-REMONSTRANCE",
+              "C5-P153-LEGAL-REVIEW"
+            ]
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P153-REMONSTRANCE",
+              "C5-P153-LEGAL-REVIEW",
+              "C5-P153-POWERFUL",
+              "C5-P153-IRREVERSIBLE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED",
+          "source_refs": [
+            "《旧唐书·太宗本纪》。",
+            "《旧唐书·魏征传》《戴胄传》。",
+            "《资治通鉴》贞观年间张蕴古、卢祖尚条目。"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 张蕴古、卢祖尚继续是深下沿，但只是MI2",
+              "details": [
+                "张蕴古案存在徇私嫌疑基础，真正问题是盛怒下复核不足、直接处死；此后又触发程序性纠偏。",
+                "卢祖尚明确拒命、反复承诺后反悔，行为本身有责任基础；太宗盛怒处死仍明显过度，但不是“正常直言者因履职被杀”。",
+                "两案均应定为 NEGATIVE / MI2_LIFECYCLE，个案烈度中高，不能因不可逆性拔成MI3。"
+              ]
+            },
+            {
+              "title": "B. 正向厚度仍远高于一般高档",
+              "details": [
+                "戴胄依法抗旨、魏征等长期犯颜、权贵案件中的规则运行，不只证明“能听劝”，而是反复证明最高决定可以在对皇帝不利时被复核、驳回或改变。",
+                "晚年纳谏退化继续作为真实阶段反证。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 3,
+            "locator_count": 3,
+            "linked_source_count": 0,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "VALIDATED"
+        },
+        {
+          "sequence": 148,
+          "ruler_id": "RULER-TANG-LICHEN",
+          "ruler_name": "李忱",
+          "axis_grade": "G3",
+          "position": "HIGH",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "宣宗召魏谟入朝为给事中、御史中丞后，魏谟揭发驸马都尉杜中立贪赃；宣宗长期未立太子，敬宗以后此类话题极为敏感，公卿多不敢言。",
+          "grade_basis": "皇亲、继承议题、宦官特权三个不同逆风场景均能容纳监督；晚期杨汉公案证明保护并非稳定无缺；由 G3-LOW 定位为 G3-HIGH / E3；尚不足G4，因为近幸干预下出现了明确报复履职者的生命周期。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G3-HIGH。",
+          "limitations": [
+            "臣子处置、近幸特权和惩罚比例生命周期仍缺。"
+          ],
+          "parents": [
+            {
+              "parent_id": "C5-P148-REVIEW",
+              "direction": "MIXED_POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "门下封驳与两省复议实际进入决定，但本人受不利结果约束的范围仍窄。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "MC-TANG-XUANZONG-LEGAL-CORRECTION",
+                "MC-TANG-XUANZONG-ACCOUNTABILITY-M2-M3-02-AUDIT",
+                "FACT-45C3B13E22935F11"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "法律建设、地方问责和军事授权只作背景。"
+            },
+            {
+              "unit_ids": [
+                "MC-TANG-XUANZONG-FEEDBACK-M2-M3-02-AUDIT"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P148-REVIEW",
+              "reason": "反馈与复议实际进入决策。"
+            },
+            {
+              "unit_ids": [
+                "SECOND_B1::MC-TANG-XUANZONG-EUNUCH-LIMIT",
+                "SECOND_B2::MC-TANG-XUANZONG-EUNUCH-LIMIT",
+                "FACT-48863FD4C351CF26"
+              ],
+              "status": "AXIS_OUT_WITH_REASON",
+              "reason": "限制宦官的秘密方案泄露失败属于权力结构与执行失败，未闭合C5惩罚或自缚命题。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-TANG-LICHEN",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 71,
+          "score_100": 71,
+          "current_entry_unit_count": 7,
+          "current_entry_disposition_counts": {
+            "AXIS_OUT_WITH_REASON": 3,
+            "BACKGROUND_VALIDATION": 3,
+            "SCORING_PARENT": 1
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 3,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-TANG-LICHEN",
+          "actual_power_window": "846—859年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P148-REVIEW",
+              "direction": "MIXED_POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "门下封驳与两省复议实际进入决定，但本人受不利结果约束的范围仍窄。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [],
+            "mixed_parent_refs": [
+              "C5-P148-REVIEW"
+            ]
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P148-REVIEW"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《新唐书》卷九十七《魏谟传》",
+            "《新唐书》卷一百七十五《杨汉公传》",
+            "《新唐书》卷一百六十五《郑覃传》",
+            "《东观奏记》卷中"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 驸马杜中立：监督可直接触及皇亲",
+              "details": [
+                "宣宗召魏谟入朝为给事中、御史中丞后，魏谟揭发驸马都尉杜中立贪赃。",
+                "《新唐书》直接记“权戚缩气”。",
+                "宣宗没有因对象是皇室姻亲而处分魏谟，反而继续升用。",
+                "这已经闭合“监察—触及皇亲—履职者安全”的C5切片。"
+              ]
+            },
+            {
+              "title": "B. 魏谟可在继承敏感议题上直言",
+              "details": [
+                "宣宗长期未立太子，敬宗以后此类话题极为敏感，公卿多不敢言。",
+                "魏谟为相时当面提出应早定东宫，并且哭谏。",
+                "宣宗没有处罚，反而“为感动”，魏谟继续居相位。",
+                "这证明最敏感的皇位继承意见仍具有较高安全空间。",
+                "“是否采纳并立太子”属于政策结果，不因未采纳扣C5；这里只计异议安全。"
+              ]
+            },
+            {
+              "title": "C. 宦官李敬实：近侍身份不能凌驾宰相职分",
+              "details": [
+                "中人李敬实因自己是供奉官，出行时拒绝回避宰相郑朗的导从。",
+                "宣宗明确区分：若奉皇帝命令可以绝道。",
+                "私人出行不能因近侍身份不避宰相。",
+                "随即斥退李敬实。：这是直接约束内廷近侍特权的正证。"
+              ]
+            },
+            {
+              "title": "D. 封驳机制确实能改变任命，但并非始终有效",
+              "details": [
+                "宣宗初期，郑裔绰反对刘潼任桂管观察使，任命诏书已经送出，皇帝仍追还。",
+                "《新唐书》概括其即位以来“谏臣规正无不纳”。",
+                "但这种正向模式在大中末年出现破口。"
+              ]
+            },
+            {
+              "title": "E. 杨汉公—郑裔绰案：真实反证",
+              "details": [
+                "杨汉公曾因荆南贪赃被降官，后来宣宗却再次任其同州刺史。",
+                "郑裔绰、郑公舆连续三次封还制书。",
+                "杨汉公素结皇帝左右，获得近幸帮助。",
+                "宣宗最终坚持任命，并在宴会上指责两人“类朋党”。",
+                "郑裔绰仍当面指出皇帝不应把重要州郡交给贪官，宣宗变色，次日即把郑裔绰贬为商州刺史。",
+                "这是非常直接的：应作为 NEGATIVE / MI2_LIFECYCLE 深下沿。"
+              ]
+            },
+            {
+              "title": "F. 李德裕贬逐不作为核心C5负证",
+              "details": [
+                "宣宗即位后李德裕迅速失势，并不断被其政敌白敏中、令狐绹、崔铉等追劾。",
+                "这属于延续多年的牛李政治斗争和新旧执政集团更替。",
+                "在没有把处罚扩大到李德裕家属、普通门生或无关党附之前，不按新增规则直接扣C5。",
+                "个别案件若涉及虚假证据，可另行独立裁，但不把“李德裕被贬”本身当负证。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 4,
+            "locator_count": 4,
+            "linked_source_count": 0,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 149,
+          "ruler_id": "RULER-TANG-LICHUN",
+          "ruler_name": "李纯",
+          "axis_grade": "G3",
+          "position": "HIGH",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "吐突承璀欲为宪宗立“圣德碑”，工程已大规模展开；李锜被诛后，宪宗欲把其财货辇入内廷；李绛等要求留给地方抵贫民租赋，皇帝接受。",
+          "grade_basis": "吐突承璀欲为宪宗立“圣德碑”，工程已大规模展开；李绛直接把这种自我颂扬类比秦始皇，宪宗“怒”；李绛仍伏奏愈切；宪宗最终承认“微绛，我不自知”，命以百牛倒碑，并慰劳李绛；这是极纯的：可定 POSITIVE / MI3_SUSTAINED_SYSTEMIC。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G3-HIGH。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P149-DELIBERATION",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "公开争论、极言安全与多次采纳持续。"
+            },
+            {
+              "parent_id": "C5-P149-EUNUCH",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "后期宦官军政扩张侵蚀反馈。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-TANG-LICHUN-CHANCELLOR-ADMIN-001",
+                "I2-TANG-LICHUN-PROFESSIONAL-SELECTION-001",
+                "FACT-09EDC2A3A4D8FF0D"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "宰相行政、专业选任和人才授权主要是运行背景。"
+            },
+            {
+              "unit_ids": [
+                "MC-TANG-XIANZONG-DELIBERATION",
+                "FACT-05FEAA5ADC742AC7",
+                "FACT-84ED5CFED873396F"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P149-DELIBERATION",
+              "reason": "李绛等公开极言与采纳按持续反馈父链消费。"
+            },
+            {
+              "unit_ids": [
+                "SECOND_B1::MC-TANG-XIANZONG-EUNUCH-POWER-M2-M3-02-AUDIT",
+                "SECOND_B2::MC-TANG-XIANZONG-EUNUCH-POWER-M2-M3-02-AUDIT"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P149-EUNUCH",
+              "reason": "后期宦官权力反证跨入口合并。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-TANG-LICHUN",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 71,
+          "score_100": 71,
+          "current_entry_unit_count": 8,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 3,
+            "SCORING_PARENT": 5
+          },
+          "axis_evidence_level": "E3",
+          "promotion_normalization": {
+            "working_evidence_level": "E4",
+            "formal_evidence_level": "E3",
+            "reason": "FORMAL_CONTRACT_USES_E1_E2_E3; E4_COLLAPSED_TO_SUFFICIENT_HIGH_DENSITY_E3_WITHOUT_GRADE_CHANGE"
+          },
+          "grade_numeric": 3,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-TANG-LICHUN",
+          "actual_power_window": "805—820年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P149-DELIBERATION",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "公开争论、极言安全与多次采纳持续。"
+            },
+            {
+              "parent_id": "C5-P149-EUNUCH",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "后期宦官军政扩张侵蚀反馈。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P149-DELIBERATION"
+            ],
+            "negative_parent_refs": [
+              "C5-P149-EUNUCH"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P149-DELIBERATION",
+              "C5-P149-EUNUCH"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《新唐书》卷一百五十二《李绛传》",
+            "https://zh.wikisource.org/zh-hans/新唐书/卷152",
+            "《新唐书》卷二百零七《吐突承璀传》",
+            "https://zh.wikisource.org/zh-hans/新唐书/卷207"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 李绛多次在皇帝盛怒和私人荣誉场景中真正改变决定",
+              "details": [
+                "吐突承璀欲为宪宗立“圣德碑”，工程已大规模展开。",
+                "李绛直接把这种自我颂扬类比秦始皇，宪宗“怒”；李绛仍伏奏愈切。",
+                "宪宗最终承认“微绛，我不自知”，命以百牛倒碑，并慰劳李绛。",
+                "这是极纯的：可定 POSITIVE / MI3_SUSTAINED_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "B. 公共财物与私人贡献也可被李绛实际阻断",
+              "details": [
+                "李锜被诛后，宪宗欲把其财货辇入内廷；李绛等要求留给地方抵贫民租赋，皇帝接受。",
+                "裴均违诏进贡大量银器，李绛要求退归度支，宪宗再次接受。",
+                "这已经跨“皇帝荣誉—内廷财货—地方贡献”多个私人便利场景复验。"
+              ]
+            },
+            {
+              "title": "C. 保护被皇帝怀疑者：决定可因专业说明撤回",
+              "details": [
+                "宪宗一度因泄密问题欲逐郑絪。",
+                "李绛为其解释，最终免于处分。",
+                "说明皇帝在怒疑状态下并非稳定把第一判断执行到底。"
+              ]
+            },
+            {
+              "title": "D. 吐突承璀宠信是明确反证",
+              "details": [
+                "元和四年宪宗欲任吐突承璀统军，谏官群起反对，皇帝只降低名义头衔，实质仍让其出征。",
+                "失败后承璀被贬，却很快再受重用。",
+                "后来李绛持续反对承璀，宪宗为了召回承璀，最终罢李绛相位。",
+                "这是：应保留 NEGATIVE / MI3_SUSTAINED_SYSTEMIC。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 4,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "VALIDATED"
+        },
+        {
+          "sequence": 157,
+          "ruler_id": "RULER-TANG-LIYUAN",
+          "ruler_name": "李渊",
+          "axis_grade": "G3",
+          "position": "MID",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "刘文静有怨望、酒后威胁及巫祝等严重疑点，但是否已经达到谋反死罪存在明显争议；李靖早年曾试图告发李渊起兵；被俘后，李渊一度欲杀。",
+          "grade_basis": "李渊并非“单一刘文静案 + 普通宽刑”那么简单；他在私人旧怨、法定量刑、宗室特权三个不同逆风场景下确实多次接受外部约束；同时刘文静案又构成真实不可逆下沿；G3-MID维持，E3经扩检重新成立。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G3-MID。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P157-REVIEW",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "考绩、激谏升第和亲录囚徒宽免。"
+            },
+            {
+              "parent_id": "C5-P157-LIUWENJING",
+              "direction": "NEGATIVE",
+              "intensity": "MI1_CASE",
+              "basis": "多人申救仍处死刘文静；不可逆但仅单案。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "MC-TANG-LY-LAW",
+                "I2-TANG-LIYUAN-CENTRAL-ASSESSMENT-001",
+                "MC-TANG-LY-ENTRY"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "法源、考课和一般司法先作运行背景；轴内本人纠正由第五项单元闭合。"
+            },
+            {
+              "unit_ids": [
+                "MC-TANG-LY-LIUWENJING-REMONSTRANCE-FAILURE"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P157-LIUWENJING",
+              "reason": "申救上达但未阻止不可逆处死。"
+            },
+            {
+              "unit_ids": [
+                "FACT-1E87CE091850FCF9"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P157-REVIEW",
+              "reason": "同单元含正负生命周期；刘文静由B2独立闭合，本单元归考绩宽免正链。"
+            },
+            {
+              "unit_ids": [
+                "FACT-7243B60082F5D6EA"
+              ],
+              "status": "AXIS_OUT_WITH_REASON",
+              "reason": "军事授权属C3/M1。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-TANG-LIYUAN",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 65,
+          "score_100": 65,
+          "current_entry_unit_count": 6,
+          "current_entry_disposition_counts": {
+            "AXIS_OUT_WITH_REASON": 1,
+            "BACKGROUND_VALIDATION": 3,
+            "SCORING_PARENT": 2
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 3,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-TANG-LIYUAN",
+          "actual_power_window": "618—626年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P157-REVIEW",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "考绩、激谏升第和亲录囚徒宽免。"
+            },
+            {
+              "parent_id": "C5-P157-LIUWENJING",
+              "direction": "NEGATIVE",
+              "intensity": "MI1_CASE",
+              "basis": "多人申救仍处死刘文静；不可逆但仅单案。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P157-REVIEW"
+            ],
+            "negative_parent_refs": [
+              "C5-P157-LIUWENJING"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P157-REVIEW",
+              "C5-P157-LIUWENJING"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《旧唐书》卷五十七《刘文静传》。",
+            "https://zh.wikisource.org/zh-hans/舊唐書/卷57",
+            "《旧唐书》卷六十七《李靖传》。",
+            "https://zh.wikisource.org/zh-hans/舊唐書/卷67",
+            "《唐会要》《新唐书》所载李素立抗法外死刑事，可与《旧唐书·李素立传》互证。",
+            "《旧唐书》宗室传所载李幼良专杀受杖责事。"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 刘文静案：深负链保留",
+              "details": [
+                "刘文静有怨望、酒后威胁及巫祝等严重疑点，但是否已经达到谋反死罪存在明显争议。",
+                "李纲、萧瑀认为不足以定反，李世民也强力申救。",
+                "李渊因“素疏忌之”，又受裴寂推动，最终处死刘文静及其弟，并籍没家产。",
+                "此前刘文静还有功臣免死承诺背景，使比例问题更突出。",
+                "应定 MI2_LIFECYCLE 深负链，而不是仅 MI1_CASE。"
+              ]
+            },
+            {
+              "title": "B. 李靖：私人旧怨下两次死命均被拦下",
+              "details": [
+                "李靖早年曾试图告发李渊起兵；被俘后，李渊一度欲杀。",
+                "李靖当场指出“起义为天下除暴，岂以私怨斩壮士”，李世民也力救，李渊最终放弃处死并任用。",
+                "后来李靖因军事行动迟缓又一度遭秘密死命，地方长官为其申辩后再次被赦。",
+                "两次事件跨阶段重复出现“盛怒/旧怨 → 死命 → 外部申辩 → 皇帝撤回”，既暴露李渊的强制下沿，也证明其决定确实可被他人阻断和纠正。",
+                "作为同一对象的跨期混合链，可定 MI3_SUSTAINED_SYSTEMIC（MIXED_POSITIVE），但不能把两次撤杀写成两个独立MI3。"
+              ]
+            },
+            {
+              "title": "C. 李素立：法律直接约束皇帝",
+              "details": [
+                "有平民犯罪依法不当死，李渊欲加重处死。",
+                "李素立据法抗争，指出法令应为天下共同遵守，皇帝最终接受。",
+                "这是典型“本人欲突破法定比例 → 法官抗令 → 本人接受不利结果”的直接 C5 自缚案例，MI2_LIFECYCLE。"
+              ]
+            },
+            {
+              "title": "D. 宗室李幼良专杀：约束特权者",
+              "details": [
+                "宗室李幼良私自杀人。",
+                "李渊明确谴责其“专杀”，命李纲当众杖责。",
+                "说明宗室身份并不能当然覆盖公法，属于特权约束正证。",
+                "C5-P157-LIUWENJING：NEGATIVE / MI2_LIFECYCLE。",
+                "新建 C5-P157-LIJING：MIXED_POSITIVE / MI3_SUSTAINED_SYSTEMIC。",
+                "新建 C5-P157-LISULI：POSITIVE / MI2_LIFECYCLE。",
+                "新建 C5-P157-ROYAL-KILLING：POSITIVE / MI2_LIFECYCLE。",
+                "原“考绩、激切进谏升第、宽囚”只作背景，不再作为E3核心。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 4,
+            "locator_count": 6,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "VALIDATED"
+        },
+        {
+          "sequence": 156,
+          "ruler_id": "RULER-TANG-LIYU",
+          "ruler_name": "李豫",
+          "axis_grade": "G3",
+          "position": "LOW",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "程元振因私怨构陷来瑱，王仲升又附和其说；程元振、鱼朝恩等多次毁谤郭子仪。",
+          "grade_basis": "程元振因私怨构陷来瑱，王仲升又附和其说；代宗“积怒”，正式下诏削官、贬逐，最终赐死并籍家；后来代宗逐渐明白程元振构陷，以他罪流元振，并追复来瑱官爵；这是完整的：属 MIXED_NEGATIVE / MI2_LIFECYCLE 极深下沿。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G3-LOW。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P156-CAPTURE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "多轮宦官权臣替代性俘获。"
+            },
+            {
+              "parent_id": "C5-P156-LATE-CORRECT",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "后期裁除鱼朝恩元载并恢复部分检查。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-PERSON-LYI-D1-LAND-TAX-OPERATION-001",
+                "FACT-47567D0F878ADA0A"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "财税和军事授权只作背景。"
+            },
+            {
+              "unit_ids": [
+                "SECOND_B1::MC-TANG-DZ-EUNUCH-CAPTURE-M2-M3-02-AUDIT",
+                "SECOND_B2::MC-TANG-DZ-EUNUCH-CAPTURE-M2-M3-02-AUDIT",
+                "MC-TANG-DZ-RECURRENT-CAPTURE-CORRECTION-M2-M3-02-AUDIT",
+                "FACT-56E9CBA1FA2FC8F1"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P156-CAPTURE",
+              "reason": "多轮俘获与迟到纠正同单元按完整生命周期消费。"
+            },
+            {
+              "unit_ids": [],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P156-LATE-CORRECT",
+              "reason": "第五项事实中的后段裁除作为同链恢复，不重复绑定单元。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-TANG-LIYU",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 58,
+          "score_100": 58,
+          "current_entry_unit_count": 6,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 2,
+            "SCORING_PARENT": 4
+          },
+          "axis_evidence_level": "E3",
+          "promotion_normalization": {
+            "working_evidence_level": "E4",
+            "formal_evidence_level": "E3",
+            "reason": "FORMAL_CONTRACT_USES_E1_E2_E3; E4_COLLAPSED_TO_SUFFICIENT_HIGH_DENSITY_E3_WITHOUT_GRADE_CHANGE"
+          },
+          "grade_numeric": 3,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-TANG-LIYU",
+          "actual_power_window": "762—779年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P156-CAPTURE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "多轮宦官权臣替代性俘获。"
+            },
+            {
+              "parent_id": "C5-P156-LATE-CORRECT",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "后期裁除鱼朝恩元载并恢复部分检查。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P156-LATE-CORRECT"
+            ],
+            "negative_parent_refs": [
+              "C5-P156-CAPTURE"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P156-CAPTURE",
+              "C5-P156-LATE-CORRECT"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《新唐书》卷一百四十四《来瑱传》",
+            "https://zh.wikisource.org/zh-hans/新唐书/卷144",
+            "《新唐书》卷一百三十七《郭子仪传》",
+            "https://zh.wikisource.org/zh-hans/新唐书/卷137",
+            "《旧唐书》卷一百八十四《程元振传》",
+            "https://zh.wikisource.org/zh-hans/舊唐書/卷184"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 来瑱案：直接本人归责的深负链",
+              "details": [
+                "程元振因私怨构陷来瑱，王仲升又附和其说。",
+                "代宗“积怒”，正式下诏削官、贬逐，最终赐死并籍家。",
+                "后来代宗逐渐明白程元振构陷，以他罪流元振，并追复来瑱官爵。",
+                "这是完整的：属 MIXED_NEGATIVE / MI2_LIFECYCLE 极深下沿。"
+              ]
+            },
+            {
+              "title": "B. 郭子仪案：同类构陷在不可逆处分前被纠正",
+              "details": [
+                "程元振、鱼朝恩等多次毁谤郭子仪。",
+                "郭子仪将代宗过去赐给自己的诏敕千余篇全部上呈自明。",
+                "代宗直接承认“朕不德，诒大臣忧”，要求郭子仪以后不要再疑惧，后续眷礼反而加重。",
+                "这与来瑱案形成同一机制的反向复验。"
+              ]
+            },
+            {
+              "title": "D. 反复被近幸构陷说明监督边界仍弱",
+              "details": [
+                "来瑱被杀、郭子仪长期惧谗，说明代宗确实容易让宫廷近幸进入功臣奖惩通道。",
+                "但代宗又能不断清除已失控近幸，并对郭子仪、来瑱后续恢复。",
+                "更准确的是“克制与识别不稳定”，而非稳定低克制。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 3,
+            "locator_count": 6,
+            "linked_source_count": 3,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 150,
+          "ruler_id": "RULER-TANG-LIHENG",
+          "ruler_name": "李亨",
+          "axis_grade": "G2",
+          "position": "HIGH",
+          "confidence": "MEDIUM",
+          "output_mode": "BOUNDED_PROFILE",
+          "score_status": "EVIDENCE_LIMITED",
+          "typical_pattern": "建宁王李倓多次揭发张良娣、李辅国，二人反诬其欲害广平王，肃宗震怒，直接赐死；李辅国掌禁军、宫门并“矫诏”迁玄宗，说明肃宗授权结构和实际控制严重失衡；但“矫诏”本身不是肃宗主动命令。",
+          "grade_basis": "李倓案极深，足以把人物压到常模以下；但直接本人归责的高烈度材料主要集中于这一案，李辅国问题又大量属于授权与控制能力；不应与长期党锢、酷吏、文字狱、系统株连等G1主模式等权；定 G2-HIGH / E2。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-HIGH。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P150-EARLY",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "李泌等可当面争论并多次被采纳。"
+            },
+            {
+              "parent_id": "C5-P150-CAPTURE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "张后李辅国控制宫禁制敕并清除异己。"
+            },
+            {
+              "parent_id": "C5-P150-JUSTICE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "大规模重刑保留且恶化归降安全。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "FACT-2CB010F3C1D0326F"
+              ],
+              "status": "AXIS_OUT_WITH_REASON",
+              "reason": "军事授权属C3/M1。"
+            },
+            {
+              "unit_ids": [
+                "MC-TANG-SZ-DELIBERATION"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P150-EARLY",
+              "reason": "前期咨议实际运行。"
+            },
+            {
+              "unit_ids": [
+                "SECOND_B1::MC-TANG-SZ-COURT-CAPTURE",
+                "SECOND_B2::MC-TANG-SZ-COURT-CAPTURE",
+                "FACT-64644C3EC46ACDE1"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P150-CAPTURE",
+              "reason": "宫廷俘获和前后期反转按系统父链消费。"
+            },
+            {
+              "unit_ids": [
+                "MC-TANG-SZ-JUSTICE"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P150-JUSTICE",
+              "reason": "重刑与司法安全独立形成负向父链。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-TANG-LIHENG",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 51,
+          "score_100": 51,
+          "current_entry_unit_count": 6,
+          "current_entry_disposition_counts": {
+            "AXIS_OUT_WITH_REASON": 1,
+            "SCORING_PARENT": 5
+          },
+          "axis_evidence_level": "E2",
+          "promotion_normalization": {
+            "working_evidence_level": "E4",
+            "formal_evidence_level": "E3",
+            "reason": "FORMAL_CONTRACT_USES_E1_E2_E3; E4_COLLAPSED_TO_SUFFICIENT_HIGH_DENSITY_E3_WITHOUT_GRADE_CHANGE"
+          },
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-TANG-LIHENG",
+          "actual_power_window": "756—762年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P150-EARLY",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "李泌等可当面争论并多次被采纳。"
+            },
+            {
+              "parent_id": "C5-P150-CAPTURE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "张后李辅国控制宫禁制敕并清除异己。"
+            },
+            {
+              "parent_id": "C5-P150-JUSTICE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "大规模重刑保留且恶化归降安全。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P150-EARLY"
+            ],
+            "negative_parent_refs": [
+              "C5-P150-CAPTURE",
+              "C5-P150-JUSTICE"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P150-EARLY",
+              "C5-P150-CAPTURE",
+              "C5-P150-JUSTICE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《旧唐书》卷一百一十六《承天皇帝倓传》：https://zh.wikisource.org/zh-hans/舊唐書_(四庫全書本)/卷116",
+            "《旧唐书》卷一百八十四《李辅国传》：https://zh.wikisource.org/zh-hans/舊唐書/卷184"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 李倓案：极深单案，不等于系统模式",
+              "details": [
+                "建宁王李倓多次揭发张良娣、李辅国，二人反诬其欲害广平王，肃宗震怒，直接赐死。",
+                "李泌后来当面指出系谗言，肃宗流泪承认错误，但死亡不可逆。",
+                "这是非常纯的正常警告近幸 → 被近幸反诬 → 皇帝未充分复核即处死 → 事后认错，个案烈度可列本轴最高一档之一。",
+                "但从覆盖形态看仍是 NEGATIVE / MI2_LIFECYCLE，不能因冤死本身升级成持续/系统性负链。"
+              ]
+            },
+            {
+              "title": "B. 李辅国长期扩权主要仍是C3，C5只消费本人明确选择",
+              "details": [
+                "李辅国掌禁军、宫门并“矫诏”迁玄宗，说明肃宗授权结构和实际控制严重失衡；但“矫诏”本身不是肃宗主动命令。",
+                "肃宗并非完全放弃边界：李辅国求宰相时，肃宗明确不许，并核实裴冕、萧华是否真正联名推荐。",
+                "临终前在病重失能状态下最终受迫罢萧华，归责应降低。",
+                "因此“长期授权近幸”可作为C5负向背景，但不足独立建立 MI3/MI4 强制主模式。"
+              ]
+            },
+            {
+              "title": "C. 早期异议安全是真实反证",
+              "details": [
+                "李泌等在灵武至收复两京阶段可以长期与肃宗争论敏感政策而基本安全。",
+                "这不能因为政策采纳与否直接加C5分，但至少证明反馈者安全并未全期封闭。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 2,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 152,
+          "ruler_id": "RULER-TANG-LISHI",
+          "ruler_name": "李适",
+          "axis_grade": "G2",
+          "position": "HIGH",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "裴延龄持续攻击陆贽等，德宗最终把陆贽贬为忠州别驾，张滂、李充等亦遭贬逐；陆贽等被逐后，群臣恐惧无人敢言。",
+          "grade_basis": "裴延龄持续攻击陆贽等，德宗最终把陆贽贬为忠州别驾，张滂、李充等亦遭贬逐；《新唐书》直接把这批人描述为延龄“诬逐”对象；他们并非现实夺权政敌，而是正常专业官僚；属 NEGATIVE / MI3_SUSTAINED_SYSTEMIC 的近幸保护/专业反馈压制。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-HIGH。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P152-EARLY",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "早期监察上达和司法改革运行。"
+            },
+            {
+              "parent_id": "C5-P152-LATE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "陆贽方案受阻、近幸宦官俘获长期延续。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-TANG-DEZONG-TWO-TAX-FORMATION-001",
+                "I2-TANG-DEZONG-TWO-TAX-RECEPTION-R3",
+                "I2-TANG-DZONG-CIRCUIT-INSPECTION-001",
+                "I2-TANG-LISHI-CENTRAL-ASSESSMENT-001",
+                "FACT-A910A4230118C5AC"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "两税、考课和军事授权主要验证组织运行。"
+            },
+            {
+              "unit_ids": [
+                "MC-TANG-DZONG-EARLY-REFORM",
+                "MC-TANG-DZONG-EARLY-FEEDBACK-ACCOUNTABILITY"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P152-EARLY",
+              "reason": "早期司法和跨层级反馈实际运行。"
+            },
+            {
+              "unit_ids": [
+                "SECOND_B1::MC-TANG-DZONG-LATE-CAPTURE-M2-M3-02-AUDIT",
+                "SECOND_B2::MC-TANG-DZONG-LATE-CAPTURE-M2-M3-02-AUDIT",
+                "SECOND_B1::MC-TANG-DZONG-LUQI-CRISIS-M2-M3-02-AUDIT",
+                "SECOND_B2::MC-TANG-DZONG-LUQI-CRISIS-M2-M3-02-AUDIT",
+                "FACT-8A662C838E16ED2C",
+                "FACT-1042A5D8D0807D19"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P152-LATE",
+              "reason": "卢杞裴延龄、陆贽受阻和宦官军权按中后期俘获父链合并。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-TANG-LISHI",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 51,
+          "score_100": 51,
+          "current_entry_unit_count": 13,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 5,
+            "SCORING_PARENT": 8
+          },
+          "axis_evidence_level": "E3",
+          "promotion_normalization": {
+            "working_evidence_level": "E4",
+            "formal_evidence_level": "E3",
+            "reason": "FORMAL_CONTRACT_USES_E1_E2_E3; E4_COLLAPSED_TO_SUFFICIENT_HIGH_DENSITY_E3_WITHOUT_GRADE_CHANGE"
+          },
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-TANG-LISHI",
+          "actual_power_window": "779—805年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P152-EARLY",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "早期监察上达和司法改革运行。"
+            },
+            {
+              "parent_id": "C5-P152-LATE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "陆贽方案受阻、近幸宦官俘获长期延续。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P152-EARLY"
+            ],
+            "negative_parent_refs": [
+              "C5-P152-LATE"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P152-EARLY",
+              "C5-P152-LATE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《新唐书》卷一百九十四《阳城传》：极论裴延龄、救陆贽等、阻止延龄入相。",
+            "https://zh.wikisource.org/zh-hans/新唐书/卷194",
+            "《新唐书》卷一百六十七《裴延龄传》。"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 陆贽、张滂、李充：裴延龄构陷导致专业官僚被逐",
+              "details": [
+                "裴延龄持续攻击陆贽等，德宗最终把陆贽贬为忠州别驾，张滂、李充等亦遭贬逐。",
+                "《新唐书》直接把这批人描述为延龄“诬逐”对象。",
+                "他们并非现实夺权政敌，而是正常专业官僚。",
+                "属 NEGATIVE / MI3_SUSTAINED_SYSTEMIC 的近幸保护/专业反馈压制。"
+              ]
+            },
+            {
+              "title": "B. 阳城：极端犯颜仍安全，并实际阻止裴延龄入相",
+              "details": [
+                "陆贽等被逐后，群臣恐惧无人敢言。",
+                "谏议大夫阳城却公开说“不可令天子杀无罪大臣”，连续数日上疏极论裴延龄。",
+                "德宗“大怒”，欲治阳城罪，太子出面救解后才免。",
+                "阳城进一步公开表示：若裴延龄为相，他要扯毁白麻、哭于朝廷。",
+                "最终德宗没有让裴延龄入相，史书明确说“城力也”。",
+                "阳城因此只被下迁国子司业，没有生命或重刑处分。",
+                "这是很强的 MIXED_POSITIVE / MI3_SUSTAINED_SYSTEMIC。",
+                "皇帝宠臣利益 → 直臣持续极谏 → 皇帝盛怒 → 外部救解 → 直臣安全 → 宠臣入相最终被阻止。"
+              ]
+            },
+            {
+              "title": "C. 卢杞等用人失败主要不再重复计C5",
+              "details": [
+                "卢杞误国、奉天之变和后续再用争议，很多属于识人、战略和政策。",
+                "只有当正常监督者因揭发卢杞遭报复时，才进入C5。",
+                "不再用“信卢杞”本身做MI4负证。"
+              ]
+            },
+            {
+              "title": "D. 后期仍存在真实反馈空间",
+              "details": [
+                "韩滉、李泌等能就宦官、财政、藩镇等问题持续争论。",
+                "阳城能多年居谏官且极端犯颜不死。",
+                "说明德宗后期并非稳定以暴力压制所有异议。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 3,
+            "linked_source_count": 1,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 151,
+          "ruler_id": "RULER-TANG-LILONGJI",
+          "ruler_name": "李隆基",
+          "axis_grade": "G2",
+          "position": "MID",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "王忠嗣因反对石堡城冒险等问题被李林甫构陷，玄宗最终使其免死而贬，后不久去世；李林甫借诏狱、构陷等手段处理韦坚等案件，并使朝臣对言事明显畏惧；玄宗长期维持其权位，应承担最高监督责任。",
+          "grade_basis": "王忠嗣因反对石堡城冒险等问题被李林甫构陷，玄宗最终使其免死而贬，后不久去世；这是专业履职者在触及皇帝意志后遭政治打击的深负证，但仍属于人物级生命周期；李林甫借诏狱、构陷等手段处理韦坚等案件，并使朝臣对言事明显畏惧；玄宗长期维持其权位，应承担最高监督责任；但具体每一宗李林甫政治案件仍需区分本人直接授权与权臣自行构陷，不能全部倒灌为皇帝亲自清洗。",
+          "position_basis": "剥离军事授权与战略失败后，主要剩外戚近幸特权及反馈压制。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P151-EARLY",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "前期法律巡察和止奢反馈真实运行。"
+            },
+            {
+              "parent_id": "C5-P151-LATE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "后期私人圈层、中枢与军事授权俘获。"
+            },
+            {
+              "parent_id": "C5-P151-RESOURCE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "贵宠资源外部化跨年扩大且不纠正。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-TANG-XZ-ZHONGSHU-MENXIA-RECEPTION-001",
+                "MC-TANG-XZ-LEGAL-ORDER-M2-M3-02-AUDIT",
+                "SECOND_A::MC-TANG-XZ-REGIONAL-INSPECTION-M2-M3-02-AUDIT",
+                "SECOND_B1::MC-TANG-XZ-REGIONAL-INSPECTION-M2-M3-02-AUDIT",
+                "SECOND_B2::MC-TANG-XZ-REGIONAL-INSPECTION-M2-M3-02-AUDIT"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P151-EARLY",
+              "reason": "前期规则与巡察仅在实际反馈运行范围内计正。"
+            },
+            {
+              "unit_ids": [
+                "SECOND_B1::MC-TANG-XZ-LATE-CAPTURE",
+                "SECOND_B2::MC-TANG-XZ-LATE-CAPTURE",
+                "FACT-9092C1677DD8B385",
+                "FACT-64DB68D511A5CCAB",
+                "FACT-3E4169FBED2AD2F6",
+                "FACT-C356F58FB082B331"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P151-LATE",
+              "reason": "后期履职旁落、三镇权力集中与专业权限压制合并为系统俘获父链。"
+            },
+            {
+              "unit_ids": [
+                "FACT-F675F78A6174649C"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P151-RESOURCE",
+              "reason": "早期止奢与后期贵宠资源失守按完整生命周期裁决。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-TANG-LILONGJI",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 45,
+          "score_100": 45,
+          "current_entry_unit_count": 12,
+          "current_entry_disposition_counts": {
+            "SCORING_PARENT": 12
+          },
+          "axis_evidence_level": "E3",
+          "promotion_normalization": {
+            "working_evidence_level": "E4",
+            "formal_evidence_level": "E3",
+            "reason": "FORMAL_CONTRACT_USES_E1_E2_E3; E4_COLLAPSED_TO_SUFFICIENT_HIGH_DENSITY_E3_WITHOUT_GRADE_CHANGE"
+          },
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-TANG-LILONGJI",
+          "actual_power_window": "712—756年；756年失去实权后停止",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P151-EARLY",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "前期法律巡察和止奢反馈真实运行。"
+            },
+            {
+              "parent_id": "C5-P151-LATE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "后期私人圈层、中枢与军事授权俘获。"
+            },
+            {
+              "parent_id": "C5-P151-RESOURCE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "贵宠资源外部化跨年扩大且不纠正。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P151-EARLY"
+            ],
+            "negative_parent_refs": [
+              "C5-P151-LATE",
+              "C5-P151-RESOURCE"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P151-EARLY",
+              "C5-P151-LATE",
+              "C5-P151-RESOURCE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《旧唐书·王忠嗣传》。",
+            "https://zh.wikisource.org/zh-hans/舊唐書/卷103",
+            "《旧唐书·杨贵妃传》。",
+            "https://zh.wikisource.org/zh-hans/舊唐書/卷51",
+            "《旧唐书·李林甫传》《杨国忠传》。"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 王忠嗣案是深个案，不是MI4",
+              "details": [
+                "王忠嗣因反对石堡城冒险等问题被李林甫构陷，玄宗最终使其免死而贬，后不久去世。",
+                "这是专业履职者在触及皇帝意志后遭政治打击的深负证，但仍属于人物级生命周期。"
+              ]
+            },
+            {
+              "title": "B. 李林甫时期真正的C5问题是反馈安全下降",
+              "details": [
+                "李林甫借诏狱、构陷等手段处理韦坚等案件，并使朝臣对言事明显畏惧；玄宗长期维持其权位，应承担最高监督责任。",
+                "但具体每一宗李林甫政治案件仍需区分本人直接授权与权臣自行构陷，不能全部倒灌为皇帝亲自清洗。"
+              ]
+            },
+            {
+              "title": "C. 杨氏外戚构成持续私人特权负链",
+              "details": [
+                "杨贵妃家族“势倾天下”，五家请托使府县承迎“峻如诏敕”，四方贿赂其门如市。",
+                "这是很纯的 MI3_SUSTAINED_SYSTEMIC 私人关系穿透公权。"
+              ]
+            },
+            {
+              "title": "D. 为什么回到G2-MID",
+              "details": [
+                "天宝后确有持续的反馈压制与外戚特权，但剥离安禄山授权、战争判断等轴外材料后，并没有足够证据证明玄宗本人建立了G1级广域法外惩罚体系。",
+                "前期开元时期又存在较强的制度和直言反例。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 3,
+            "locator_count": 5,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 155,
+          "ruler_id": "RULER-TANG-LIXUAN",
+          "ruler_name": "李儇",
+          "axis_grade": "G2",
+          "position": "MID",
+          "confidence": "MEDIUM",
+          "output_mode": "BOUNDED_PROFILE",
+          "score_status": "EVIDENCE_LIMITED",
+          "typical_pattern": "田令孜长期掌神策军、制置和中外事务，确实使皇帝最高权力受近幸反向控制；现有材料大量来自战乱、播迁和田令孜的独立操作；很多处分无法闭合为李儇本人主动选择。",
+          "grade_basis": "田令孜长期掌神策军、制置和中外事务，确实使皇帝最高权力受近幸反向控制；但“皇帝被权臣/宦官俘获”本身首先属于C3；C5只能消费其中本人长期容许近幸以私人网络绕程序、压制履职者、制造法外惩罚的切片；现有材料大量来自战乱、播迁和田令孜的独立操作；很多处分无法闭合为李儇本人主动选择；也没有像灵帝党锢、嘉靖廷杖那样的全国性表达/肉刑制度。",
+          "position_basis": "田令孜俘获大量属于实际控制力问题，本人直接C5归责不足。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P155-CAPTURE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "田令孜掌军政、墨敕请托和反制者退场长期运行。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "MC-TANG-XIZONG-CRISIS-DELEGATION-M2-M3-02-AUDIT",
+                "MC-TANG-XIZONG-EXECUTION-COLLAPSE-M2-M3-02-AUDIT",
+                "FACT-A65C60D1F8F1B54B"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "危机委任、执行崩坏和军事授权作为组织背景，不单独评分。"
+            },
+            {
+              "unit_ids": [
+                "SECOND_B1::MC-TANG-XIZONG-CAPTURE-M2-M3-02-AUDIT",
+                "SECOND_B2::MC-TANG-XIZONG-CAPTURE-M2-M3-02-AUDIT",
+                "FACT-EC6BF46365D526EE"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P155-CAPTURE",
+              "reason": "田令孜俘获跨入口合并。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-TANG-LIXUAN",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 45,
+          "score_100": 45,
+          "current_entry_unit_count": 6,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 3,
+            "SCORING_PARENT": 3
+          },
+          "axis_evidence_level": "E2",
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-TANG-LIXUAN",
+          "actual_power_window": "873—888年，出奔期间仍保留但显著受制",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P155-CAPTURE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "田令孜掌军政、墨敕请托和反制者退场长期运行。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [
+              "C5-P155-CAPTURE"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P155-CAPTURE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《旧唐书·僖宗本纪》。",
+            "《旧唐书》卷一百八十四《宦官传》田令孜、杨复恭相关。",
+            "https://zh.wikisource.org/zh-hans/舊唐書/卷184",
+            "《资治通鉴》乾符、广明、中和年间相关条目。"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 田令孜俘获首先是实际控制力问题",
+              "details": [
+                "田令孜长期掌神策军、制置和中外事务，确实使皇帝最高权力受近幸反向控制。",
+                "但“皇帝被权臣/宦官俘获”本身首先属于C3；C5只能消费其中本人长期容许近幸以私人网络绕程序、压制履职者、制造法外惩罚的切片。"
+              ]
+            },
+            {
+              "title": "B. 本人直接C5归责不够厚",
+              "details": [
+                "现有材料大量来自战乱、播迁和田令孜的独立操作；很多处分无法闭合为李儇本人主动选择。",
+                "也没有像灵帝党锢、嘉靖廷杖那样的全国性表达/肉刑制度。"
+              ]
+            },
+            {
+              "title": "C. 仍不能回G3",
+              "details": [
+                "李儇长期把关键强制资源交给近侍，正常官僚反制空间狭窄；并在明确后果后又出现近侍替代性俘获。",
+                "故仍是明显短板，但证据完成度降至E2更诚实。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 3,
+            "locator_count": 4,
+            "linked_source_count": 1,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 158,
+          "ruler_id": "RULER-TANG-LIZHI",
+          "ruler_name": "李治",
+          "axis_grade": "G2",
+          "position": "MID",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "许敬宗借韦季方、李巢案牵引长孙无忌，构造谋反指控；褚遂良此前因反对立武氏被连续远贬；无忌案后又被追削官爵。",
+          "grade_basis": "改定 G2-MID / E3；画像为：在武后立后的核心政治重组中出现跨多人、跨家属的集团性清洗，是明显而偏深的短板；但尚不足定义全期为历史下沿级权力失控。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-MID。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P158-HAO",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "两次独立纳谏均即时停止行为。"
+            },
+            {
+              "parent_id": "C5-P158-DEPOSE",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "废后这一重大决策中连续拒谏并贬逐顾命大臣，属于单一决策生命周期。"
+            },
+            {
+              "parent_id": "C5-P158-LATE-JUSTICE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "后期多年深文、刑讯和杖死反复发生于本人最终控制期，具有持续、广域运行及最高监督责任；强度明显高于两个处死个案。"
+            },
+            {
+              "parent_id": "C5-P158-RESOURCE",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "宫室营建跨二十余年反复，饥荒反馈后仍再启；同时保留减马、停建和临终废宫等纠正。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-LAW-CHAIN-YONGHUI-001",
+                "MC-TANG-GZ-LVSHU-CONSOLIDATION-M2-M3-02-AUDIT",
+                "MC-TANG-GZ-SELECTION-REFORM",
+                "I2-TANG-GZ-TEN-CIRCUIT-RELIEF-OVERSIGHT-001",
+                "I2-TANG-GZ-YONGHUI-GOVERNANCE-OUTCOME-001",
+                "I2-TANG-LIZHI-JUDICIAL-OFFICIAL-ASSESSMENT-001",
+                "FACT-F2D9D5F939C3F9A2",
+                "FACT-2FA216379FBE0270"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "律疏、选任、行政、考课、健康替代与军事授权只作背景。"
+            },
+            {
+              "unit_ids": [
+                "I2-TANG-GAOZONG-HAOCHUJUN-CORRECTIONS-001"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P158-HAO",
+              "reason": "两次异议均改变原定行为。"
+            },
+            {
+              "unit_ids": [
+                "MC-TANG-GZ-REMONSTRANCE-FAILURE-M2-M3-02-AUDIT",
+                "FACT-10DB192978F1D967"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P158-DEPOSE",
+              "reason": "郝处俊正链由B2闭合，本单元归废后议重大拒谏反证。"
+            },
+            {
+              "unit_ids": [
+                "SECOND_B1::MC-TANG-GZ-JUSTICE-DETERIORATION-M2-M3-02-AUDIT",
+                "SECOND_B2::MC-TANG-GZ-JUSTICE-DETERIORATION-M2-M3-02-AUDIT"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P158-LATE-JUSTICE",
+              "reason": "后期司法恶化按重复运行父链消费，不与资源工程跨构念合并拔高。"
+            },
+            {
+              "unit_ids": [
+                "FACT-93E6DFCABE8EEF11"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P158-RESOURCE",
+              "reason": "跨二十余年的宫室资源失守及多次纠正独立构成资源约束父链。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-TANG-LIZHI",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 45,
+          "score_100": 45,
+          "current_entry_unit_count": 14,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 8,
+            "SCORING_PARENT": 6
+          },
+          "axis_evidence_level": "E3",
+          "promotion_normalization": {
+            "working_evidence_level": "E4",
+            "formal_evidence_level": "E3",
+            "reason": "FORMAL_CONTRACT_USES_E1_E2_E3; E4_COLLAPSED_TO_SUFFICIENT_HIGH_DENSITY_E3_WITHOUT_GRADE_CHANGE"
+          },
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-TANG-LIZHI",
+          "actual_power_window": "649—683年；660年后与武则天共享部分权力",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P158-HAO",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "两次独立纳谏均即时停止行为。"
+            },
+            {
+              "parent_id": "C5-P158-DEPOSE",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "废后这一重大决策中连续拒谏并贬逐顾命大臣，属于单一决策生命周期。"
+            },
+            {
+              "parent_id": "C5-P158-LATE-JUSTICE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "后期多年深文、刑讯和杖死反复发生于本人最终控制期，具有持续、广域运行及最高监督责任；强度明显高于两个处死个案。"
+            },
+            {
+              "parent_id": "C5-P158-RESOURCE",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "宫室营建跨二十余年反复，饥荒反馈后仍再启；同时保留减马、停建和临终废宫等纠正。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P158-HAO"
+            ],
+            "negative_parent_refs": [
+              "C5-P158-DEPOSE",
+              "C5-P158-LATE-JUSTICE"
+            ],
+            "mixed_parent_refs": [
+              "C5-P158-RESOURCE"
+            ]
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P158-HAO",
+              "C5-P158-DEPOSE",
+              "C5-P158-LATE-JUSTICE",
+              "C5-P158-RESOURCE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《资治通鉴》卷二百：许敬宗构陷长孙无忌、褚遂良子被杀、柳奭韩瑗追捕、近亲流岭南、赵持满案。",
+            "https://zh.wikisource.org/zh-hans/資治通鑑/卷200",
+            "《通鉴纪事本末》卷三十：显庆旧臣清洗。",
+            "https://zh.wikisource.org/zh-hant/通鑑紀事本末_(四部叢刊本)/卷第三十",
+            "《新唐书·褚遂良传》：褚遂良二子彦甫、彦冲流爱州后被杀。"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 长孙无忌案：证据可疑仍进入谋反程序",
+              "details": [
+                "许敬宗借韦季方、李巢案牵引长孙无忌，构造谋反指控。",
+                "高宗本人最初明确表示怀疑，却未亲自召问无忌，最终接受推论，将其流黔州，后被逼自缢。",
+                "单看无忌本人，是一条高烈度 MI2_LIFECYCLE。"
+              ]
+            },
+            {
+              "title": "B. 清算向旧顾命集团及家属扩大：真正的MI3主体",
+              "details": [
+                "褚遂良此前因反对立武氏被连续远贬；无忌案后又被追削官爵。",
+                "柳奭、韩瑗被追拿；长孙无忌子弟除名流岭表；褚遂良二子流爱州后被杀；多家近亲被流岭南甚至没为奴婢。",
+                "这些人并非都闭合为现实谋反参与者，且处罚明确跨向旧日政治异议者和子弟亲属。",
+                "这已经不是“一个大臣之死”，应定为 NEGATIVE / MI3_SUSTAINED_SYSTEMIC 的集团性政治清洗。",
+                "但它仍是一轮高度集中于显庆政治重组的清洗，不能仅凭人数与株连自动升级为MI4。"
+              ]
+            },
+            {
+              "title": "C. 赵持满：同机制的独立复验",
+              "details": [
+                "赵持满因与韩瑗、长孙氏亲属关系，被许敬宗担心“作难”，再被牵入谋反。",
+                "经酷讯不改供后，办案者代作狱辞，最终被诛并暴尸。",
+                "这是同一清洗机制向关联者继续复制，作为 NEGATIVE / MI2_LIFECYCLE 复验。"
+              ]
+            },
+            {
+              "title": "D. 废后本身不扣，处罚正常反对者才扣",
+              "details": [
+                "王皇后被废、武后被立属于宫廷权力重组。",
+                "C5真正消费的是：褚遂良、韩瑗等以顾命身份正常反对后，后续遭贬逐并最终被卷入更大的谋反清洗。"
+              ]
+            },
+            {
+              "title": "E. 郝处俊等正向自限仍成立",
+              "details": [
+                "郝处俊等在高宗私人行为、求长生等场景直接劝止，皇帝确有即时停止或接受。",
+                "这类正证只到MI2，但证明李治并非普遍关闭异议和自我约束。",
+                "顾命旧臣集团清洗明显重于张蕴古、盖宽饶、张裕等单人案，也重于普通两案重复，因此不能回到G3。",
+                "但古代宫廷权力重组中一轮多家族清洗虽属强负证，仍不能与党锢、文字狱、长期酷吏体系、跨社会群体株连等G1/G0主模式等权。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 3,
+            "locator_count": 5,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 154,
+          "ruler_id": "RULER-TANG-LIXIAN",
+          "ruler_name": "李显",
+          "axis_grade": "G1",
+          "position": "HIGH",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "中宗朝韦后、安乐公主、太平公主、上官婕妤等可以通过侧门降墨敕、斜封授官；安乐、长宁、定安三公主家奴掠民子女为奴婢。",
+          "grade_basis": "中宗朝韦后、安乐公主、太平公主、上官婕妤等可以通过侧门降墨敕、斜封授官；数量达到“凡数千员”，吏部正常选官秩序因此严重失效；这不是普通外戚专权；斜封、墨敕最终使用的是皇帝名义和最高任命权。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G1-HIGH。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P154-CORRECT",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "追夺酷吏并复查平反部分冤狱。"
+            },
+            {
+              "parent_id": "C5-P154-FAMILY",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "韦后安乐公主及斜封官持续突破公权。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "SECOND_A::MC-TANG-ZX-SLOPING-APPOINTMENTS-M2-M3-02-AUDIT",
+                "SECOND_B1::MC-TANG-ZX-SLOPING-APPOINTMENTS-M2-M3-02-AUDIT"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P154-FAMILY",
+              "reason": "斜封任官和家族参政合并为私人权力俘获。"
+            },
+            {
+              "unit_ids": [
+                "MC-TANG-ZX-CORRECTION"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P154-CORRECT",
+              "reason": "冤狱复查形成实质纠正。"
+            },
+            {
+              "unit_ids": [
+                "FACT-C89A9820DAE42554",
+                "FACT-E042A4369C072E13"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P154-FAMILY",
+              "reason": "反馈单元含平反正链和家族侵权反证；平反由B2闭合，本单元归主导负链。"
+            },
+            {
+              "unit_ids": [
+                "FACT-5B0E1861804FB4B4"
+              ],
+              "status": "AXIS_OUT_WITH_REASON",
+              "reason": "军事授权属C3/M1。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-TANG-LIXIAN",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 31,
+          "score_100": 31,
+          "current_entry_unit_count": 6,
+          "current_entry_disposition_counts": {
+            "AXIS_OUT_WITH_REASON": 1,
+            "SCORING_PARENT": 5
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 1,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-TANG-LIXIAN",
+          "actual_power_window": "705—710年复位后的实际统治；684年名义短期排除",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P154-CORRECT",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "追夺酷吏并复查平反部分冤狱。"
+            },
+            {
+              "parent_id": "C5-P154-FAMILY",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "韦后安乐公主及斜封官持续突破公权。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P154-CORRECT"
+            ],
+            "negative_parent_refs": [
+              "C5-P154-FAMILY"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P154-CORRECT",
+              "C5-P154-FAMILY"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《新唐书》卷四十五：中宗朝斜封官数千、选举纲纪大溃。",
+            "https://zh.wikisource.org/zh-hans/新唐書/卷045",
+            "《新唐书》卷八十三《安乐公主传》：掠民子女、袁从一拘捕、李显手诏求免；营第侵民、巨额公共赏赐。",
+            "https://zh.wikisource.org/zh-hans/新唐書/卷083"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 斜封官：数千官位被私人请托直接穿透正式选官",
+              "details": [
+                "中宗朝韦后、安乐公主、太平公主、上官婕妤等可以通过侧门降墨敕、斜封授官。",
+                "数量达到“凡数千员”，吏部正常选官秩序因此严重失效。",
+                "这不是普通外戚专权。",
+                "斜封、墨敕最终使用的是皇帝名义和最高任命权。",
+                "中宗长期允许其绕过正常铨选。",
+                "可定 NEGATIVE / MI3_SUSTAINED_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "B. 安乐公主奴仆掠民子女，皇帝亲自发手诏要求免罪",
+              "details": [
+                "安乐、长宁、定安三公主家奴掠民子女为奴婢。",
+                "左台侍御史袁从一依法将涉事者拘入狱。",
+                "安乐公主入宫申诉，李显亲自发手诏要求释放。",
+                "袁从一明确指出：若因公主请求就放纵奴仆掠民，国家法律如何成立，并坚持不纳。",
+                "这是极纯的：皇女私人利益 → 普通百姓人身自由受侵害 → 监察机关依法追究 → 皇帝本人动用手诏为特权者脱罪。",
+                "属 NEGATIVE / MI2_LIFECYCLE 深下沿。"
+              ]
+            },
+            {
+              "title": "C. 安乐公主营第直接侵夺民宅，公共财物大量外流",
+              "details": [
+                "公主宅第“旁彻民庐，怨声嚣然”，并使用宫廷仪仗、音乐、巨额金帛，甚至使“禁藏空殚”。",
+                "中宗本人亲临其宅宴饮，又在婚嫁、生育等私人家事中反复大赦、赐勋和巨额赏赐。",
+                "这已经不是单纯“无法管住女儿”，而是最高权力主动把国家礼制和财政资源转化为皇女私人特权。",
+                "可与斜封官共同支撑 MI3 持续负链。"
+              ]
+            },
+            {
+              "title": "D. 昆明池一案说明他并非毫无私人边界",
+              "details": [
+                "安乐公主要求把昆明池赐为私沼，中宗明确拒绝，理由是先帝从未把它赐人。",
+                "公主不悦后自造定昆池。",
+                "这是一条有限正证：最高权力并非所有请求都同意。",
+                "但后续大规模营第、掠民、斜封和公共赏赐表明这种边界极不稳定。"
+              ]
+            },
+            {
+              "title": "E. “追夺酷吏、平反冤狱”只能作一般司法反证",
+              "details": [
+                "中宗复位后确有对武周酷吏旧案的部分纠正。",
+                "但这些一般司法恢复无法抵消皇帝本人在皇族私人利益场景主动绕法的持续父链。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 4,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 159,
+          "ruler_id": "RULER-TANG-WUZETIAN",
+          "ruler_name": "武则天",
+          "axis_grade": "G1",
+          "position": "MID",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "徐敬业、李贞等已经公开举兵，属于现实政治斗争；武则天广开告密入口，把告密者直接送到最高权力和制狱机构。",
+          "grade_basis": "徐敬业、李贞等已经公开举兵，属于现实政治斗争；对其本人战争失败后的处置不再作为C5负证；若存在无关家属、普通党附的扩大，则另行消费；武则天广开告密入口，把告密者直接送到最高权力和制狱机构。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G1-MID。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P159-TERROR",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "告密制狱酷吏长期运行并制造系统恐惧。"
+            },
+            {
+              "parent_id": "C5-P159-LATE",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "后期禁止部分告密并处死来俊臣。"
+            },
+            {
+              "parent_id": "C5-P159-PROTECTION",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "保护苏安恒与逼杀宗室等反例并存。"
+            },
+            {
+              "parent_id": "C5-P159-RESOURCE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "大饥后巨构、百姓苦之且谏不从。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-PERSON-WZ-DUAL-CENSORATE-001",
+                "I2-PERSON-WZ-TRIAL-OFFICIALS-NEGATIVE-001",
+                "I2-TANG-WZ-PALACE-EXAM-PROTOTYPE-001",
+                "MC-TANG-WZ-MILITARY-EXAM",
+                "I2-TANG-WZ-HEBEI-PACIFICATION-001",
+                "FACT-7E8CBD09C14EF607"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "监察结构、考试、河北交付与行政授权不直接支撑C5。"
+            },
+            {
+              "unit_ids": [
+                "SECOND_B1::MC-TANG-WZ-INFORMER-TERROR",
+                "SECOND_B2::MC-TANG-WZ-INFORMER-TERROR",
+                "FACT-4ECAEDB58764AEF9"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P159-TERROR",
+              "reason": "告密酷吏授权与系统冤狱跨入口合并。"
+            },
+            {
+              "unit_ids": [
+                "I2-PERSON-WZ-RULE-ROUTING-CORRECTION-001",
+                "MC-TANG-WZ-LATE-CORRECTION",
+                "FACT-4FB387C4F219E914"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P159-LATE",
+              "reason": "迟到收束作为独立恢复链；单元中告密负证已归系统父链。"
+            },
+            {
+              "unit_ids": [
+                "FACT-7F41A003094C9CCF",
+                "FACT-36B0599FDF89043E"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P159-PROTECTION",
+              "reason": "李贤及二张相关处置和苏安恒保护合并评价异议安全。"
+            },
+            {
+              "unit_ids": [
+                "FACT-0CDE72D456F0252F"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P159-RESOURCE",
+              "reason": "巨构在饥荒和停建反馈后继续。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-TANG-WUZETIAN",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 25,
+          "score_100": 25,
+          "current_entry_unit_count": 15,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 6,
+            "SCORING_PARENT": 9
+          },
+          "axis_evidence_level": "E3",
+          "promotion_normalization": {
+            "working_evidence_level": "E4",
+            "formal_evidence_level": "E3",
+            "reason": "FORMAL_CONTRACT_USES_E1_E2_E3; E4_COLLAPSED_TO_SUFFICIENT_HIGH_DENSITY_E3_WITHOUT_GRADE_CHANGE"
+          },
+          "grade_numeric": 1,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-TANG-WUZETIAN",
+          "actual_power_window": "660—705年由参政、临朝到称帝的连续实际权力期",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P159-TERROR",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "告密制狱酷吏长期运行并制造系统恐惧。"
+            },
+            {
+              "parent_id": "C5-P159-LATE",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "后期禁止部分告密并处死来俊臣。"
+            },
+            {
+              "parent_id": "C5-P159-PROTECTION",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "保护苏安恒与逼杀宗室等反例并存。"
+            },
+            {
+              "parent_id": "C5-P159-RESOURCE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "大饥后巨构、百姓苦之且谏不从。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P159-LATE"
+            ],
+            "negative_parent_refs": [
+              "C5-P159-TERROR",
+              "C5-P159-RESOURCE"
+            ],
+            "mixed_parent_refs": [
+              "C5-P159-PROTECTION"
+            ]
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P159-TERROR",
+              "C5-P159-LATE",
+              "C5-P159-PROTECTION",
+              "C5-P159-RESOURCE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《资治通鉴》卷二百四：https://zh.wikisource.org/zh-hans/資治通鑑_(四庫全書本)/卷204",
+            "《旧唐书》卷一百八十六上《酷吏·来俊臣》",
+            "https://zh.wikisource.org/zh/舊唐書/卷186上",
+            "《唐会要》卷四十一《酷吏》"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 真正叛乱者本人退出，不改变主档",
+              "details": [
+                "徐敬业、李贞等已经公开举兵，属于现实政治斗争。",
+                "对其本人战争失败后的处置不再作为C5负证。",
+                "若存在无关家属、普通党附的扩大，则另行消费。"
+              ]
+            },
+            {
+              "title": "B. 告密—制狱体系是本人主动建立和授权",
+              "details": [
+                "武则天广开告密入口，把告密者直接送到最高权力和制狱机构。",
+                "索元礼、周兴、来俊臣等被连续拔擢使用。",
+                "《旧唐书》记来俊臣前后坐族千余家，朝廷官员因随时可能被收捕而形成普遍恐惧。",
+                "这不是一个政敌清单，而是把“可能谋反”转化为可复制的司法生产机制。"
+              ]
+            },
+            {
+              "title": "C. “太后不听”对司法重审警告，是强归责",
+              "details": [
+                "李嗣真明确上疏指出。",
+                "告密虚多实少：狱官单独推鞫、不令复审。",
+                "九品官员擅掌杀生：冤滥无法复核。",
+                "武则天不接受该警告，系统继续运行。",
+                "这使“酷吏横行”不能简单降为C3授权失败，而是最高权力在明确风险反馈后继续维持制度。"
+              ]
+            },
+            {
+              "title": "D. 正向收束也真实存在",
+              "details": [
+                "武则天后来杀周兴、索元礼、来俊臣等部分酷吏，徐有功等守法官员也一度得到重新起用。",
+                "对王庆之等要求废李氏皇嗣、立武承嗣者，最终反而命人杖杀王庆之，说明她并非只会顺应武氏集团。",
+                "这些是迟来的纠正，能够阻止继续压入G0。"
+              ]
+            },
+            {
+              "title": "E. 为什么政治斗争口径不能显著上调",
+              "details": [
+                "真实叛乱者本人只占体系中很小一部分。",
+                "来俊臣等的特点正是“欲陷一人即数处同告”“诈为款”“不问一款先杀”等，意味着大量对象并非已闭合现实政敌。",
+                "因而新口径不触及核心主负链。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 3,
+            "locator_count": 4,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "VALIDATED"
+        }
+      ]
+    }
+  }
+}

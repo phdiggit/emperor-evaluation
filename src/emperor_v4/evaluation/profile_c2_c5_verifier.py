@@ -5,6 +5,8 @@ from pathlib import Path
 
 import yaml
 
+from emperor_v4.evaluation.formal_json_store import load_json
+
 from emperor_v4.evaluation.profile_markdown import render_profile_markdown
 
 
@@ -43,7 +45,8 @@ def _read(path: Path) -> bytes:
 
 
 def _load(path: Path) -> dict:
-    return json.loads(_read(path).decode("utf-8"))
+    _read(path)
+    return load_json(path)
 
 
 def _md_rows() -> list[tuple[int, str, str, str, str, str]]:

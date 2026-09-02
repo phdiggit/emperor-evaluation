@@ -10,6 +10,7 @@ from typing import Any, Mapping
 import yaml
 
 from emperor_v4.evaluation.battle_registry_store import load_battle_registry
+from emperor_v4.evaluation.formal_json_store import load_json, load_ruler_polities, write_json
 
 
 ELIGIBLE_STATUS = "ELIGIBLE_DYNASTY_FOUNDER"
@@ -931,7 +932,7 @@ def render_first_item_a_registry_markdown(payload: Mapping[str, Any]) -> str:
 
 def write_first_item_a_registry(workspace_root: Path) -> dict[str, Path]:
     def load(path: Path) -> dict[str, Any]:
-        return json.loads(path.read_text(encoding="utf-8"))
+        return load_json(path)
 
     efficiency_inputs = load(
         workspace_root / "config/first-item/first-item-a-strategic-efficiency-inputs.json"
@@ -954,6 +955,6 @@ def write_first_item_a_registry(workspace_root: Path) -> dict[str, Path]:
     output_dir.mkdir(parents=True, exist_ok=True)
     json_path = output_dir / "01-第一项A战略决策能力结算.json"
     markdown_path = output_dir / "01-第一项A战略决策能力结算.md"
-    json_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    write_json(json_path, payload, ruler_polities=load_ruler_polities(workspace_root))
     markdown_path.write_text(render_first_item_a_registry_markdown(payload), encoding="utf-8")
     return {"json": json_path, "markdown": markdown_path}

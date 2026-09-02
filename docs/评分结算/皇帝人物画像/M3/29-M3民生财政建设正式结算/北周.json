@@ -1,0 +1,236 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "北周",
+  "collections": {
+    "records": {
+      "positions": [
+        107
+      ],
+      "records": [
+        {
+          "task_code": "PROFILE-M3-RULER-SHADOW-宇文邕",
+          "ruler_id": "RULER-SHADOW-宇文邕",
+          "ruler_name": "宇文邕",
+          "polity": "北周",
+          "actual_power_window": "572—578年诛宇文护后亲政",
+          "axis_code": "M3",
+          "axis_name": "民生财政建设",
+          "axis_grade": "G2",
+          "position": "MID",
+          "score_100": 45,
+          "radar_value": 45,
+          "components": {
+            "C1": {
+              "band": "C1-2",
+              "score": 17.1
+            },
+            "C2": {
+              "band": "C2-3",
+              "score": 14.9
+            },
+            "C3": {
+              "band": "C3-3",
+              "score": 28.0
+            },
+            "C4": {
+              "band": "C4-1",
+              "score": 1.0
+            }
+          },
+          "absolute_state_tier": 3,
+          "absolute_state_meanings": {
+            "C1": "民生低位且脆弱",
+            "C2": "经济财政尚可运行",
+            "C3": "社会安全基本可用"
+          },
+          "ability_evidence": {
+            "route": "LIMITED_IMPROVEMENT",
+            "trajectory": {
+              "start_vector": [
+                2,
+                3,
+                3
+              ],
+              "main_vector": [
+                2,
+                3,
+                3
+              ],
+              "peak_vector": [
+                2,
+                3,
+                3
+              ],
+              "end_vector": [
+                2,
+                3,
+                3
+              ],
+              "peak_improvement_vector": [
+                0,
+                0,
+                0
+              ],
+              "retained_change_vector": [
+                0,
+                0,
+                0
+              ],
+              "rollback_vector": [
+                0,
+                0,
+                0
+              ],
+              "improved_axis_count": 0,
+              "deep_improvement_axis_count": 0,
+              "retained_improvement_axis_count": 0,
+              "rollback_axis_count": 0,
+              "recovery_score_27": 0.0,
+              "stability_score_18": 10.0,
+              "start_tier": 3,
+              "peak_tier": 3,
+              "end_tier": 3
+            },
+            "governance_scale_class": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+            "governance_scale_basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+            "governance_scale_gate": {
+              "status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+              "classification": "UNRESOLVED",
+              "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+              "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+              "formal_subitem_sources": [
+                {
+                  "axis": "C4",
+                  "field_path": "m3_governance_scale_adjudication",
+                  "ref": "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-宇文邕"
+                }
+              ],
+              "supporting_formal_fields": []
+            },
+            "six_band_main_state": false,
+            "deterioration_penalty": 0.0,
+            "destructive_amplification_penalty": 9.0,
+            "upstream_sync": {
+              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_01",
+              "source_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-宇文邕",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-宇文邕",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-宇文邕",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-宇文邕"
+              ]
+            },
+            "destructive_amplification_grade": "DA2",
+            "stability_k_basis": {
+              "C1": {
+                "K_grade": "K4",
+                "factor": 1.0
+              },
+              "C2": {
+                "K_grade": "K4",
+                "factor": 1.0
+              },
+              "C3": {
+                "K_grade": "K4",
+                "factor": 1.0
+              }
+            },
+            "weighted_K": 1.0,
+            "stability_k_structure_status": "STRUCTURED_C4_FORMAL",
+            "stability_k_public_basis": "三轴无跨档恢复；C1长期受频岁师旅、农亩废业、年谷不登与民有散亡约束。三个K4只表示主态建立后没有独立更低谷，不意味着高生活状态；终局2/3/3限制稳定信用。 按跨档难度计，恢复分0.0/27；weighted_K=1.00，稳定分10.0；正向保留10.0。"
+          },
+          "dynamic_class": "LIMITED_OR_MIXED_MAINTENANCE",
+          "dynamic_label": "维持有限且正负并存",
+          "value_mode": "SEMANTIC_HOLISTIC_ADJUDICATION_WITH_FIXED_GRADE_PROJECTION",
+          "axis_evidence_level": "E2",
+          "confidence": "MEDIUM",
+          "output_mode": "BOUNDED_PROFILE",
+          "score_status": "FINAL",
+          "formal_status": "FORMAL_CURRENT",
+          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[2, 3, 3]、[2, 3, 3]、[2, 3, 3]、[2, 3, 3]；恢复0.0/27，稳定10.0/18；恶化扣减0.0，主动成本DA2/9.0。正式逐人裁决为G2-MID。",
+          "counterpattern": "566年信州行动发生在当前最高权力窗口前，不计入其登记成本。亲政后本人明确长期筹划东讨，576—577总戎灭北齐，国家军役扩张至“后夏人半为兵矣”的量级；但频岁师旅、农亩废业、年谷不登和民有散亡已进入C1二档、稳定与交班，尚未另行闭合国家主力级毁损、独立极重财政占用或未被C1吸收的广域家庭传导。按残余成本门只足DA2，扣9.0分。",
+          "starting_context": "按572—578实际最高权力窗口，最新三轴为C1 2→2→2、C2 3→3→3、C3 3→3→3。",
+          "construction_and_maintenance": "按正式档界公式重算恢复分0.0/27；稳定承压按当前K结构计10.0/18，未把恢复信用并入稳定分；正向保留10.0。",
+          "costs_and_consequences": "交班局面为[2, 3, 3]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA2，扣减9.0。",
+          "behavior_chain": "566年信州行动发生在当前最高权力窗口前，不计入其登记成本。亲政后本人明确长期筹划东讨，576—577总戎灭北齐，国家军役扩张至“后夏人半为兵矣”的量级；但频岁师旅、农亩废业、年谷不登和民有散亡已进入C1二档、稳定与交班，尚未另行闭合国家主力级毁损、独立极重财政占用或未被C1吸收的广域家庭传导。按残余成本门只足DA2，扣9.0分。",
+          "handoff_state": "按交班向量[2, 3, 3]推导终局为C4T-3，正向上限24.9。",
+          "public_adjudication": "按572—578实际最高权力窗口，最新三轴为C1 2→2→2、C2 3→3→3、C3 3→3→3。 三轴无跨档恢复；C1长期受频岁师旅、农亩废业、年谷不登与民有散亡约束。三个K4只表示主态建立后没有独立更低谷，不意味着高生活状态；终局2/3/3限制稳定信用。 按跨档难度计，恢复分0.0；weighted_K=1.00，稳定分10.0；正向保留10.0。 566年信州行动发生在当前最高权力窗口前，不计入其登记成本。亲政后本人明确长期筹划东讨，576—577总戎灭北齐，国家军役扩张至“后夏人半为兵矣”的量级；但频岁师旅、农亩废业、年谷不登和民有散亡已进入C1二档、稳定与交班，尚未另行闭合国家主力级毁损、独立极重财政占用或未被C1吸收的广域家庭传导。按残余成本门只足DA2，扣9.0分。 交班原始为C1-2/C2-3/C3-3，普通家庭仍处明显高压而国家组织能力维持。 终局C4T-3，正向上限24.9。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G2。 当前档内位置为MID；不以结构字段自动替代逐人语义裁决。",
+          "grade_basis": "依据当前C1—C4结构字段与逐人语义裁决，正式档位为G2。",
+          "position_basis": "当前档内位置为MID；不以结构字段自动替代逐人语义裁决。",
+          "axis_relevance_check": {
+            "status": "HOLISTIC_C1_C4_SEMANTIC_ADJUDICATION",
+            "component_codes": [
+              "C1",
+              "C2",
+              "C3",
+              "C4"
+            ],
+            "component_sum_used": false,
+            "quantile_or_normalization_used": false,
+            "name_override_used": false,
+            "old_process_material_role": "BEHAVIOR_CHAIN_AND_ATTRIBUTION_REVIEW_ONLY"
+          },
+          "parents": [
+            {
+              "parent_id": "M3P-SEM-6D3B3B2A8E8E",
+              "direction": "MIXED",
+              "material_intensity": "MI1_CASE",
+              "constraint_and_task": "督地方劝农并暂停非机要事务、蠲免积欠税役",
+              "personal_choice": "",
+              "feedback_and_response": "现有材料未闭合反馈与再选择环节",
+              "source_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/northern_zhou.json#material_id=I2-NZHOU-YUWENYONG-AGRICULTURE-RELIEF-M2-AUDIT",
+                "https://zh.wikisource.org/w/index.php?title=周書/卷06&oldid=2589015"
+              ],
+              "use_boundary": "BEHAVIOR_FEEDBACK_ATTRIBUTION_REVIEW_NOT_INDEPENDENT_GRADE_CONVERSION"
+            }
+          ],
+          "limitations": [
+            "572年接手局面缺独立全国状态锚，只采用同一核心统治区的连续性背景，不计入本人直接得分",
+            "统一北方的安全收益归第三项",
+            "国家强盛不等于百姓温饱",
+            "DIRECTLY STATED ALTERNATIVES",
+            "PHASE EXACTNESS",
+            "FEEDBACK CLOSURE"
+          ],
+          "supplement_review": {
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-宇文邕",
+            "old_m3_parent_chain_count": 1,
+            "old_m3_candidate_count": 1,
+            "axis_dispositions": {
+              "C1": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+              "C2": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+              "C3": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+              "C4": "REVIEWED_C4_ATTRIBUTION_RETAINED"
+            }
+          },
+          "source_refs": [
+            "docs/公共成果/制度行政/01-制度行政计分材料登记/northern_zhou.json#material_id=I2-NZHOU-YUWENYONG-AGRICULTURE-RELIEF-M2-AUDIT",
+            "https://zh.wikisource.org/w/index.php?title=周書/卷06&oldid=2589015",
+            "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-宇文邕",
+            "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-宇文邕",
+            "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-宇文邕",
+            "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-宇文邕"
+          ],
+          "source_evidence": [
+            {
+              "source_title": "《周书·武帝纪》",
+              "quote": "頃興造無度，徵發不已，加以頻歲師旅，農畝廢業。去秋災蝗，年穀不登，民有散亡，家空杼軸。",
+              "source_origin": "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION"
+            },
+            {
+              "source_title": "《周书·武帝纪》",
+              "quote": "自今正調以外，無妄徵發。",
+              "source_origin": "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION"
+            },
+            {
+              "source_title": "《周书·武帝纪》",
+              "quote": "逋租懸調，兵役殘功，並宜蠲免。",
+              "source_origin": "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION"
+            }
+          ],
+          "contract_version": "FORMAL-V3.6"
+        }
+      ]
+    }
+  }
+}

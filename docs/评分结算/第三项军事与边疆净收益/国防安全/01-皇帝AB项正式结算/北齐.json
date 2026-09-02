@@ -1,0 +1,810 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "北齐",
+  "collections": {
+    "records": {
+      "positions": [
+        75,
+        76,
+        77
+      ],
+      "records": [
+        {
+          "AB_score_points": 98.65,
+          "adjudication_status": "REVIEWED",
+          "ambiguous_event_refs": [
+            "WAR-LEAD-164-09"
+          ],
+          "axes": {
+            "A1": {
+              "axis_points": 23.2,
+              "base_trajectory_value": 58,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A1S4_STABLE_ADVANTAGE",
+              "rationale": "北齐受禅时与西魏北周争衡，柔然、突厥、契丹和山胡方向均存风险，起点3档。任内远袭契丹、三路讨山胡并击柔然，北方主要威胁总体受控；西魏北周仍在，终点4档。",
+              "start": "A1S3_CONTESTED_BALANCE",
+              "trajectory_value": 58,
+              "transition": "IMPROVED",
+              "transition_attribution": "PRIMARY_RULER_ACTION"
+            },
+            "A2": {
+              "axis_points": 23.2,
+              "base_trajectory_value": 58,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "rationale": "起点河北—河南主要方向可运作，北方草原仍缺少稳定缓冲，为3档。对契丹、山胡的迁置和对柔然部的册立、驻援形成北方纵深，整体防御有效；突厥兴起是明显缺口，终点4档。",
+              "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
+              "trajectory_value": 58,
+              "transition": "IMPROVED",
+              "transition_attribution": "PRIMARY_RULER_ACTION"
+            },
+            "B1": {
+              "axis_points": 15.0,
+              "band_position": "LOW",
+              "grade": "B1-3",
+              "rationale": "保守复用高欢交班后东魏边界2.8；高洋对柔然旧部的册立、征调和迁置关系使草原覆盖由0.25升至0.50，新增0.875；交班3.675、净增0.875、加权值1.995，落B1-3 LOW。",
+              "raw_net_change": 0.875,
+              "score_rate": 60,
+              "terminal_collapse_override": false,
+              "weighted_control_value": 1.995
+            },
+            "B2": {
+              "axis_points": 22.5,
+              "band_position": "LOW",
+              "grade": "B2-4",
+              "rationale": "柔然属部缓冲与契丹、山胡迁置显著改善邺都北侧战略纵深，对主要方向有关键作用；突厥已兴起，成果未达决定性。",
+              "score_rate": 75
+            },
+            "B4": {
+              "axis_points": 14.75,
+              "band_position": "HIGH",
+              "grade": "B4-2",
+              "rationale": "部众迁置、册立和驻援已形成若干结构，但高度依赖高洋个人远征与临时重兵，柔然部本身仍在移动，只达2档高位。",
+              "score_rate": 59
+            }
+          },
+          "b1_control_equivalents": {
+            "end": 3.675,
+            "net_change": 0.875,
+            "start": 2.8,
+            "weighted_value": 1.995
+          },
+          "b1_region_adjudications": [
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.6,
+              "control_form": "边郡、戍防、迁置或可执行属部管理",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-东魏-北齐-550",
+                "《资治通鉴》卷一百六十四北齐册立并安置柔然余部",
+                "WAR-LEAD-165-QI-KHITAN-553",
+                "WAR-LEAD-165-QI-SHANHU-554",
+                "WAR-LEAD-166-QI-RUORAN-555"
+              ],
+              "object_id": "HENAN_SHUOFANG",
+              "object_name": "河南地—朔方",
+              "reason": "有界推断：按任期边界州郡、防线、迁置及属部可执行关系，对标准区域取1.00（整体有效）；不由一次胜负或单次归附外推更大控制。",
+              "spatial_weight": 0.6
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.525,
+              "control_form": "边郡、戍防、迁置或可执行属部管理",
+              "counted": true,
+              "coverage_factor": 0.75,
+              "evidence_refs": [
+                "HANDOVER-东魏-北齐-550",
+                "《资治通鉴》卷一百六十四北齐册立并安置柔然余部",
+                "WAR-LEAD-165-QI-KHITAN-553",
+                "WAR-LEAD-165-QI-SHANHU-554",
+                "WAR-LEAD-166-QI-RUORAN-555"
+              ],
+              "object_id": "HUAI_FRONTIER",
+              "object_name": "淮河边疆",
+              "reason": "有界推断：按任期边界州郡、防线、迁置及属部可执行关系，对标准区域取0.75（大部有效但仍有明显缺口）；不由一次胜负或单次归附外推更大控制。",
+              "spatial_weight": 0.7
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.8,
+              "control_form": "边郡、戍防、迁置或可执行属部管理",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-东魏-北齐-550",
+                "《资治通鉴》卷一百六十四北齐册立并安置柔然余部",
+                "WAR-LEAD-165-QI-KHITAN-553",
+                "WAR-LEAD-165-QI-SHANHU-554",
+                "WAR-LEAD-166-QI-RUORAN-555"
+              ],
+              "object_id": "NORTHERN_FRONTIER",
+              "object_name": "北方边郡",
+              "reason": "有界推断：按任期边界州郡、防线、迁置及属部可执行关系，对标准区域取1.00（整体有效）；不由一次胜负或单次归附外推更大控制。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "start"
+              ],
+              "control_equivalent": 0.875,
+              "control_form": "边郡、戍防、迁置或可执行属部管理",
+              "counted": true,
+              "coverage_factor": 0.25,
+              "evidence_refs": [
+                "HANDOVER-东魏-北齐-550",
+                "《资治通鉴》卷一百六十四北齐册立并安置柔然余部",
+                "WAR-LEAD-165-QI-KHITAN-553",
+                "WAR-LEAD-165-QI-SHANHU-554",
+                "WAR-LEAD-166-QI-RUORAN-555"
+              ],
+              "object_id": "NORTHERN_GRASSLAND",
+              "object_name": "北方草原整体",
+              "reason": "有界推断：按任期边界州郡、防线、迁置及属部可执行关系，对标准区域取0.25（孤立据点或明确小支点）；不由一次胜负或单次归附外推更大控制。",
+              "spatial_weight": 3.5
+            },
+            {
+              "anchors": [
+                "end"
+              ],
+              "control_equivalent": 1.75,
+              "control_form": "边郡、戍防、迁置或可执行属部管理",
+              "counted": true,
+              "coverage_factor": 0.5,
+              "evidence_refs": [
+                "HANDOVER-东魏-北齐-550",
+                "《资治通鉴》卷一百六十四北齐册立并安置柔然余部",
+                "WAR-LEAD-165-QI-KHITAN-553",
+                "WAR-LEAD-165-QI-SHANHU-554",
+                "WAR-LEAD-166-QI-RUORAN-555"
+              ],
+              "object_id": "NORTHERN_GRASSLAND",
+              "object_name": "北方草原整体",
+              "reason": "有界推断：按任期边界州郡、防线、迁置及属部可执行关系，对标准区域取0.50（约半个主要走廊或网络）；不由一次胜负或单次归附外推更大控制。",
+              "spatial_weight": 3.5
+            }
+          ],
+          "b1_region_control": {
+            "end": {
+              "HENAN_SHUOFANG": 0.6,
+              "HUAI_FRONTIER": 0.525,
+              "NORTHERN_FRONTIER": 0.8,
+              "NORTHERN_GRASSLAND": 1.75
+            },
+            "start": {
+              "HENAN_SHUOFANG": 0.6,
+              "HUAI_FRONTIER": 0.525,
+              "NORTHERN_FRONTIER": 0.8,
+              "NORTHERN_GRASSLAND": 0.875
+            }
+          },
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "control_contribution_grade_cap": 5,
+          "control_contribution_type": "NEW_RECOVERED_REBUILT",
+          "coverage_status": "FORMAL_CURRENT",
+          "defense_event_count": 6,
+          "evidence_event_refs": [
+            "WAR-LEAD-164-07",
+            "WAR-LEAD-164-08",
+            "WAR-LEAD-164-09",
+            "WAR-LEAD-165-DONGGUAN-553",
+            "WAR-LEAD-165-QI-KHITAN-553",
+            "WAR-LEAD-165-QI-SHANHU-554",
+            "WAR-LEAD-166-QI-RUORAN-555",
+            "WAR-LEAD-166-QI-YUANMING-555",
+            "WAR-LEAD-167-QI-WENHOU-559"
+          ],
+          "hold_event_refs": [],
+          "major_in_reign_reversal_refs": [],
+          "non_defense_routing_refs": [],
+          "partition": "两晋十六国南北朝隋",
+          "polity": "北齐",
+          "primary_control_package_refs": [
+            "《资治通鉴》卷一百六十四北齐册立并安置柔然余部",
+            "WAR-LEAD-165-QI-SHANHU-554",
+            "WAR-LEAD-166-QI-RUORAN-555"
+          ],
+          "primary_threat_refs": [
+            "WAR-LEAD-165-QI-KHITAN-553",
+            "WAR-LEAD-166-QI-RUORAN-555"
+          ],
+          "rationale": "分区实审已完成五轴、主体方向、交班边界与B1空间快照闭合。",
+          "reign_range": [
+            550,
+            559
+          ],
+          "ruler_id": "RULER-SHADOW-高洋",
+          "ruler_name": "高洋",
+          "score_ready": true,
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "terminal_polity_collapse": false,
+          "parent_cycle_refs": [
+            "NC-V164-LEAD-164-08",
+            "V165-LEAD-165-QI-KHITAN-553",
+            "V165-LEAD-165-DONGGUAN-553",
+            "V166-LEAD-166-QI-YUANMING-555",
+            "NC-QI-WALL-555-556-OPEN",
+            "WAR-LEAD-167-QI-WENHOU-559"
+          ],
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "excluded_founding_unification_refs": [],
+          "observed_parent_cycle_count": 7,
+          "A120_non_cost_anchor_points": 57.6,
+          "A120_positive_result_credit_points": 12.0,
+          "A120_score_points": 69.6,
+          "B80_score_points": 46.83,
+          "AB200_score_points": 116.43,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": 1.0,
+              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 34.8,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 4,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": 1,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 58.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            },
+            "A2": {
+              "attributable_delta": 1.0,
+              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 34.8,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 4,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": 1,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 58.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 46.83,
+            "formal_B1_rate": 60.0,
+            "formal_B2_rate": 75.0,
+            "formal_B4_rate": 59.0,
+            "adjudicated_B1_rate": 60.0,
+            "adjudicated_B2_rate": 75.0,
+            "adjudicated_B4_rate": 59.0,
+            "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          }
+        },
+        {
+          "AB_score_points": 83.85,
+          "adjudication_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "axes": {
+            "A1": {
+              "axis_points": 10.4,
+              "base_trajectory_value": 26,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A1S3_CONTESTED_BALANCE",
+              "rationale": "接班时北齐对北周仍占总体主动，起点4档。任内虽守住晋阳、解洛阳之围，但突厥十万协攻后纵掠晋阳以北七百余里，又两次入长城掠幽州；固定父链明确判定只获区域阶段改善、未改变威胁状态。交班时周、突厥与齐形成相互制衡而非齐方稳定主动，终点3档。",
+              "start": "A1S4_STABLE_ADVANTAGE",
+              "trajectory_value": 26,
+              "transition": "WORSENED",
+              "transition_attribution": "MIXED_WITH_INADEQUATE_RESPONSE"
+            },
+            "A2": {
+              "axis_points": 19.2,
+              "base_trajectory_value": 48,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "rationale": "起点河北、河南与北边的防线、纵深总体有效，为4档。并州、晋阳、洛阳方向在联军压力下完成救援与阻击，体系经受高强度检验；突厥缺口仍在，终点4档。",
+              "start": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "trajectory_value": 48,
+              "transition": "STABLE",
+              "transition_attribution": "PRIMARY_RULER_ACTION"
+            },
+            "B1": {
+              "axis_points": 11.25,
+              "band_position": "LOW",
+              "grade": "B1-2",
+              "rationale": "接班与交班均只计河南地—朔方、淮河边疆和北方边郡，共1.925；北方草原整体因无可执行控制且遭突厥大举入侵而排除。净变化0、加权值0.77，机械落B1-2 LOW。",
+              "raw_net_change": 0.0,
+              "score_rate": 45,
+              "terminal_collapse_override": false,
+              "weighted_control_value": 0.77
+            },
+            "B2": {
+              "axis_points": 22.5,
+              "band_position": "LOW",
+              "grade": "B2-4",
+              "rationale": "保全并州—晋阳与洛阳两个主要方向，阻止北周突厥联军改变战略格局，属于主要失控压力下的关键保全，不作扩地。",
+              "score_rate": 75
+            },
+            "B4": {
+              "axis_points": 20.5,
+              "band_position": "MID",
+              "grade": "B4-4",
+              "rationale": "被保全的北边与河洛体系已有常设城戍、指挥、补给和多将领协同，并完成实战压力检验；突厥持续威胁是次要缺口。",
+              "score_rate": 82
+            }
+          },
+          "b1_control_equivalents": {
+            "end": 1.925,
+            "net_change": 0.0,
+            "start": 1.925,
+            "weighted_value": 0.77
+          },
+          "b1_region_adjudications": [
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.6,
+              "control_form": "边郡、戍防、迁置或可执行属部管理",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-北齐-高洋-后续",
+                "WAR-PARENT-169-ZHOU-TURK-QI-563-564",
+                "WAR-PARENT-169-ZHOU-QI-LUOYANG-564"
+              ],
+              "object_id": "HENAN_SHUOFANG",
+              "object_name": "河南地—朔方",
+              "reason": "有界推断：依任期边界的州郡、防线、迁置和属部可执行关系，按标准区域取1.00（整体有效）；不由一次胜负或单次归附外推更大控制。",
+              "spatial_weight": 0.6
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.525,
+              "control_form": "边郡、戍防、迁置或可执行属部管理",
+              "counted": true,
+              "coverage_factor": 0.75,
+              "evidence_refs": [
+                "HANDOVER-北齐-高洋-后续",
+                "WAR-PARENT-169-ZHOU-TURK-QI-563-564",
+                "WAR-PARENT-169-ZHOU-QI-LUOYANG-564"
+              ],
+              "object_id": "HUAI_FRONTIER",
+              "object_name": "淮河边疆",
+              "reason": "有界推断：依任期边界的州郡、防线、迁置和属部可执行关系，按标准区域取0.75（孤立据点或明确小支点）；不由一次胜负或单次归附外推更大控制。",
+              "spatial_weight": 0.7
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.8,
+              "control_form": "边郡、戍防、迁置或可执行属部管理",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-北齐-高洋-后续",
+                "WAR-PARENT-169-ZHOU-TURK-QI-563-564",
+                "WAR-PARENT-169-ZHOU-QI-LUOYANG-564"
+              ],
+              "object_id": "NORTHERN_FRONTIER",
+              "object_name": "北方边郡",
+              "reason": "有界推断：依任期边界的州郡、防线、迁置和属部可执行关系，按标准区域取1.00（整体有效）；不由一次胜负或单次归附外推更大控制。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [],
+              "control_equivalent": 0.0,
+              "control_form": "未形成对北方草原政权或空间的可执行控制",
+              "counted": false,
+              "coverage_factor": 0.0,
+              "evidence_refs": [
+                "WAR-PARENT-169-ZHOU-TURK-QI-563-564",
+                "《资治通鉴》卷一百六十九周突厥攻齐及晋阳以北七百余里被掠"
+              ],
+              "object_id": "NORTHERN_GRASSLAND",
+              "object_name": "北方草原整体",
+              "reason": "排除：北齐未在高湛交班前形成对突厥及北方草原整体的直接统治或可执行宗主权；563—564年突厥十万协同北周攻齐、退军后掠晋阳以北七百余里，反证该空间不满足B1实际受控门。",
+              "spatial_weight": 3.5
+            }
+          ],
+          "b1_region_control": {
+            "end": {
+              "HENAN_SHUOFANG": 0.6,
+              "HUAI_FRONTIER": 0.525,
+              "NORTHERN_FRONTIER": 0.8
+            },
+            "start": {
+              "HENAN_SHUOFANG": 0.6,
+              "HUAI_FRONTIER": 0.525,
+              "NORTHERN_FRONTIER": 0.8
+            }
+          },
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "control_contribution_grade_cap": 4,
+          "control_contribution_type": "SAVED_UNDER_MAJOR_PRESSURE",
+          "coverage_status": "FORMAL_CURRENT",
+          "defense_event_count": 1,
+          "evidence_event_refs": [
+            "WAR-LEAD-168-QI-GUIYAN-562",
+            "WAR-LEAD-168-QI-KUMOXI-560",
+            "WAR-LEAD-168-QI-PALACE-COUP-560",
+            "WAR-PARENT-169-ZHOU-QI-LUOYANG-564",
+            "WAR-PARENT-169-ZHOU-TURK-QI-563-564"
+          ],
+          "hold_event_refs": [],
+          "major_in_reign_reversal_refs": [
+            "WAR-LEAD-168-QI-GUIYAN-562"
+          ],
+          "non_defense_routing_refs": [],
+          "partition": "两晋十六国南北朝隋",
+          "polity": "北齐",
+          "primary_control_package_refs": [
+            "WAR-PARENT-169-ZHOU-QI-LUOYANG-564"
+          ],
+          "primary_threat_refs": [
+            "WAR-PARENT-169-ZHOU-TURK-QI-563-564",
+            "WAR-PARENT-169-ZHOU-QI-LUOYANG-564"
+          ],
+          "rationale": "分区实审已完成五轴、主体方向、交班边界与B1空间快照闭合。",
+          "reign_range": [
+            561,
+            565
+          ],
+          "ruler_id": "RULER-SHADOW-高湛",
+          "ruler_name": "高湛",
+          "score_ready": true,
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "terminal_polity_collapse": false,
+          "parent_cycle_refs": [
+            "V168-LEAD-168-QI-GUIYAN-562"
+          ],
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "excluded_founding_unification_refs": [],
+          "observed_parent_cycle_count": 2,
+          "A120_non_cost_anchor_points": 47.4,
+          "A120_positive_result_credit_points": 6.0,
+          "A120_score_points": 53.4,
+          "B80_score_points": 44.27,
+          "AB200_score_points": 97.67,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": -0.5,
+              "attribution_basis": "消费现行语义标签MIXED_WITH_INADEQUATE_RESPONSE",
+              "attribution_category": "SHARED_MATERIAL",
+              "axis_points": 18.6,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 3,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": -1,
+              "reversal_basis": "终点下降已消费负向结果，禁止重复处罚",
+              "reversal_grade": "CONSUMED_BY_TERMINAL_DECLINE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 4,
+              "trajectory_value": 31.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            },
+            "A2": {
+              "attributable_delta": 0.0,
+              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_category": "NO_CHANGE",
+              "axis_points": 34.8,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 4,
+              "maintenance_basis": "边界体系确有独立高压运转材料，但不得与A1重复消费同一战果",
+              "maintenance_bonus": 10,
+              "maintenance_difficulty": "TESTED",
+              "negative_adjustment": 0,
+              "objective_delta": 0,
+              "reversal_basis": "逆转未证明改变本轴，避免双轴重复处罚",
+              "reversal_grade": "NONE_DIFFERENT_AXIS",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 4,
+              "trajectory_value": 58.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 44.27,
+            "formal_B1_rate": 45.0,
+            "formal_B2_rate": 75.0,
+            "formal_B4_rate": 82.0,
+            "adjudicated_B1_rate": 45.0,
+            "adjudicated_B2_rate": 75.0,
+            "adjudicated_B4_rate": 82.0,
+            "consistency_basis": "B1已排除无实际控制的北方草原整体；B2、B4只评价并州—晋阳和河洛保全，与该空间排除及D负向链不冲突。"
+          }
+        },
+        {
+          "AB_score_points": 0.0,
+          "adjudication_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "axes": {
+            "A1": {
+              "axis_points": 0.0,
+              "base_trajectory_value": 0,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A1S0_EXISTENTIAL_CRISIS",
+              "rationale": "即位时北齐刚守住晋阳、洛阳，但突厥已大掠晋阳以北并两次入长城，主要威胁未受稳定控制，按高湛交班锚接续为3档。任内自损军政指挥，平阳—晋阳防线崩溃并亡国，终点0档。",
+              "start": "A1S3_CONTESTED_BALANCE",
+              "trajectory_value": 0,
+              "transition": "WORSENED",
+              "transition_attribution": "PRIMARY_RULER_ACTION"
+            },
+            "A2": {
+              "axis_points": 0.0,
+              "base_trajectory_value": 0,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A2S0_CORE_EXPOSED",
+              "rationale": "起点北边、晋阳和河洛防线体系总体有效，为4档。北周进攻时平阳、晋阳、邺城连续崩溃，核心、纵深与指挥枢纽同时归零，终点0档。",
+              "start": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "trajectory_value": 0,
+              "transition": "WORSENED",
+              "transition_attribution": "PRIMARY_RULER_ACTION"
+            },
+            "B1": {
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "grade": "B1-0",
+              "rationale": "接班边疆当量校正为1.925，北齐覆亡时交班为0。北周灭齐不计胜方国防收益，但败方客观终点仍执行亡国终局门，B1强制0档LOW。",
+              "raw_net_change": -1.925,
+              "score_rate": 0,
+              "terminal_collapse_override": true,
+              "weighted_control_value": -1.155
+            },
+            "B2": {
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "grade": "B2-0",
+              "rationale": "政权覆亡时无可实际移交的边疆控制成果。",
+              "score_rate": 0
+            },
+            "B4": {
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "grade": "B4-0",
+              "rationale": "中央政权与全部主要控制体系终结，依终局门归零。",
+              "score_rate": 0
+            }
+          },
+          "b1_control_equivalents": {
+            "end": 0,
+            "net_change": -1.925,
+            "start": 1.925,
+            "weighted_value": -1.155
+          },
+          "b1_region_adjudications": [
+            {
+              "anchors": [
+                "start"
+              ],
+              "control_equivalent": 0.6,
+              "control_form": "边郡、戍防、迁置或可执行属部管理",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-北齐-高湛-后续",
+                "《资治通鉴》卷一百七十二至一百七十三北齐覆亡"
+              ],
+              "object_id": "HENAN_SHUOFANG",
+              "object_name": "河南地—朔方",
+              "reason": "有界推断：依任期边界的州郡、防线、迁置和属部可执行关系，按标准区域取1.00（整体有效）；不由一次胜负或单次归附外推更大控制。",
+              "spatial_weight": 0.6
+            },
+            {
+              "anchors": [
+                "start"
+              ],
+              "control_equivalent": 0.525,
+              "control_form": "边郡、戍防、迁置或可执行属部管理",
+              "counted": true,
+              "coverage_factor": 0.75,
+              "evidence_refs": [
+                "HANDOVER-北齐-高湛-后续",
+                "《资治通鉴》卷一百七十二至一百七十三北齐覆亡"
+              ],
+              "object_id": "HUAI_FRONTIER",
+              "object_name": "淮河边疆",
+              "reason": "有界推断：依任期边界的州郡、防线、迁置和属部可执行关系，按标准区域取0.75（孤立据点或明确小支点）；不由一次胜负或单次归附外推更大控制。",
+              "spatial_weight": 0.7
+            },
+            {
+              "anchors": [
+                "start"
+              ],
+              "control_equivalent": 0.8,
+              "control_form": "边郡、戍防、迁置或可执行属部管理",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-北齐-高湛-后续",
+                "《资治通鉴》卷一百七十二至一百七十三北齐覆亡"
+              ],
+              "object_id": "NORTHERN_FRONTIER",
+              "object_name": "北方边郡",
+              "reason": "有界推断：依任期边界的州郡、防线、迁置和属部可执行关系，按标准区域取1.00（整体有效）；不由一次胜负或单次归附外推更大控制。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [],
+              "control_equivalent": 0.0,
+              "control_form": "未形成对北方草原政权或空间的可执行控制",
+              "counted": false,
+              "coverage_factor": 0.0,
+              "evidence_refs": [
+                "WAR-PARENT-169-ZHOU-TURK-QI-563-564",
+                "《资治通鉴》卷一百六十九周突厥攻齐及晋阳以北七百余里被掠"
+              ],
+              "object_id": "NORTHERN_GRASSLAND",
+              "object_name": "北方草原整体",
+              "reason": "排除：北齐未在高湛交班前形成对突厥及北方草原整体的直接统治或可执行宗主权；563—564年突厥十万协同北周攻齐、退军后掠晋阳以北七百余里，反证该空间不满足B1实际受控门。",
+              "spatial_weight": 3.5
+            }
+          ],
+          "b1_region_control": {
+            "end": {},
+            "start": {
+              "HENAN_SHUOFANG": 0.6,
+              "HUAI_FRONTIER": 0.525,
+              "NORTHERN_FRONTIER": 0.8
+            }
+          },
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "control_contribution_grade_cap": 0,
+          "control_contribution_type": "INHERITED_ONLY",
+          "coverage_status": "FORMAL_CURRENT",
+          "defense_event_count": 2,
+          "evidence_event_refs": [
+            "WAR-LEAD-171-QI-SIHAO-574",
+            "WAR-PARENT-172-ZHOU-QI-HEYIN-575"
+          ],
+          "hold_event_refs": [],
+          "major_in_reign_reversal_refs": [
+            "WAR-LEAD-171-QI-SIHAO-574",
+            "《资治通鉴》卷一百七十二平阳晋阳崩溃"
+          ],
+          "non_defense_routing_refs": [],
+          "partition": "两晋十六国南北朝隋",
+          "polity": "北齐",
+          "primary_control_package_refs": [],
+          "primary_threat_refs": [
+            "《资治通鉴》卷一百七十二北周攻齐"
+          ],
+          "rationale": "分区实审已完成五轴、主体方向、交班边界与B1空间快照闭合。",
+          "reign_range": [
+            565,
+            577
+          ],
+          "ruler_id": "RULER-SHADOW-高纬",
+          "ruler_name": "高纬",
+          "score_ready": true,
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "terminal_polity_collapse": true,
+          "parent_cycle_refs": [
+            "V171-LEAD-171-QI-SIHAO-574",
+            "V172-PARENT-172-ZHOU-QI-HEYIN-575"
+          ],
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "excluded_founding_unification_refs": [],
+          "observed_parent_cycle_count": 2,
+          "A120_non_cost_anchor_points": 0.0,
+          "A120_positive_result_credit_points": 0.0,
+          "A120_score_points": 0.0,
+          "B80_score_points": 0.0,
+          "AB200_score_points": 0.0,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": -3.0,
+              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 0.0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 0,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": -3,
+              "reversal_basis": "终点下降已消费负向结果，禁止重复处罚",
+              "reversal_grade": "CONSUMED_BY_TERMINAL_DECLINE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            },
+            "A2": {
+              "attributable_delta": -4.0,
+              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 0.0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 0,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": -4,
+              "reversal_basis": "终点下降已消费负向结果，禁止重复处罚",
+              "reversal_grade": "CONSUMED_BY_TERMINAL_DECLINE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 4,
+              "trajectory_value": 0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 0.0,
+            "formal_B1_rate": 0.0,
+            "formal_B2_rate": 0.0,
+            "formal_B4_rate": 0.0,
+            "adjudicated_B1_rate": 0.0,
+            "adjudicated_B2_rate": 0.0,
+            "adjudicated_B4_rate": 0.0,
+            "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          }
+        }
+      ]
+    }
+  }
+}

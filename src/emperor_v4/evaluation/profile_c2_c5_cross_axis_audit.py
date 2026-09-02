@@ -4,6 +4,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from emperor_v4.evaluation.formal_json_store import load_json
+
 
 ROOT = Path(__file__).resolve().parents[3]
 PROFILE_ROOT = ROOT / "docs/评分结算/皇帝人物画像"
@@ -12,7 +14,7 @@ C5 = PROFILE_ROOT / "C5/02-C5权力运用风格与克制正式结算.json"
 
 
 def _load(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text(encoding="utf-8"))
+    return load_json(path)
 
 
 def inspect_cross_axis_drift() -> dict[str, Any]:

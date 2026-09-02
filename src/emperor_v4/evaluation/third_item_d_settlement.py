@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 from typing import Any, Mapping
 
+from emperor_v4.evaluation.formal_json_store import load_json
+
 
 FORMAL_SETTLEMENT_JSON_PATH = Path(
     "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
@@ -26,7 +28,7 @@ def _load(path: Path) -> dict[str, Any]:
     raw = path.read_bytes()
     if raw.startswith(b"\xef\xbb\xbf"):
         raise ValueError(f"UTF-8 BOM forbidden: {path}")
-    return json.loads(raw.decode("utf-8"))
+    return load_json(path)
 
 
 def _distribution(records: list[dict[str, Any]], key: str) -> dict[str, int]:

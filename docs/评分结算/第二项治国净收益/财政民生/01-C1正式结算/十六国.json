@@ -1,0 +1,2228 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "十六国",
+  "collections": {
+    "scores": {
+      "positions": [
+        29,
+        30,
+        32,
+        79,
+        81,
+        84,
+        85,
+        91,
+        92,
+        93,
+        146,
+        150,
+        184,
+        185,
+        186,
+        187,
+        189
+      ],
+      "records": [
+        {
+          "adjudication_reason": "主档不变，但证据模式收紧。草创期“仓帑未盈—三年后资储已足”主要是国家生产/储备恢复背景，不能单独替代家庭状态；真正承担C1的是迁酒泉后“年谷频登、百姓乐业”。两者结合可受约束闭合酒泉—敦煌核心统治区普遍温饱，但范围和家庭余量强度都不足C1-5。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "anchor_time": "迁居酒泉后至少三年",
+              "described_state": "草创期主动停兵务农，三年后公共储备达到可支撑政权运行和防务的水平，证明生产与积储已实际恢复。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "proof_scope_constraints": [],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_url": "https://zh.wikisource.org/zh-hans/晋书/卷087",
+              "source_voice": "THIRD_PARTY_CHRONICLE_OR_TREATISE",
+              "source_voice_basis": "新增联网材料按来源载体和主要发声者人工裁决。",
+              "source_voice_matches": [
+                "THIRD_PARTY_CHRONICLE_OR_TREATISE"
+              ],
+              "source_works": [
+                "《晋书》卷八十七《凉武昭王李玄盛传》"
+              ],
+              "state_roles": [
+                "李暠任内恢复阶段",
+                "C1-3升档观察"
+              ],
+              "verbatim_excerpt": "窃以诸事草创，仓帑未盈，故息兵按甲，务农养士。时移节迈，荏苒三年……今资储已足，器械已充。",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+              ]
+            },
+            {
+              "anchor_time": "迁酒泉后任内中后期",
+              "described_state": "西凉核心统治区出现连续丰收与百姓安业，并与此前资储恢复形成两个可区分阶段，足以闭合主要地区普遍温饱。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "BOUNDED_MULTI_AXIS_MACRO",
+              "proof_scope_constraints": [
+                "CORE_POLITY_SCOPE"
+              ],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_url": "https://zh.wikisource.org/zh-hans/晋书/卷087",
+              "source_voice": "THIRD_PARTY_CHRONICLE_OR_TREATISE",
+              "source_voice_basis": "新增联网材料按来源载体和主要发声者人工裁决。",
+              "source_voice_matches": [
+                "THIRD_PARTY_CHRONICLE_OR_TREATISE"
+              ],
+              "source_works": [
+                "《晋书》卷八十七《凉武昭王李玄盛传》"
+              ],
+              "state_roles": [
+                "李暠任内主要状态",
+                "李暠交班状态",
+                "C1-4直接锚"
+              ],
+              "verbatim_excerpt": "玄盛既迁酒泉，乃敦劝稼穑。郡僚以年谷频登，百姓乐业，请勒铭酒泉，玄盛许之。",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+              ]
+            }
+          ],
+          "evidence_mode": "DIRECT_MACRO_ANCHOR",
+          "main_band": "C1-4",
+          "material_limitations": [
+            "材料集中于酒泉—敦煌核心区且带颂扬语境；K4仅表示现有材料没有确认恢复后的有效低谷，不把史料沉默本身当稳定正证。"
+          ],
+          "peak_band": null,
+          "polity": "西凉",
+          "rank": 7,
+          "reign_range": [
+            400,
+            417
+          ],
+          "ruler_id": "RULER-SHADOW-李暠",
+          "ruler_name": "李暠",
+          "score": 54.9,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-2",
+            "S_avg": "C1-4",
+            "S_end": "C1-4"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-李暠"
+          },
+          "review_remediation": {
+            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
+            "status": "APPLIED",
+            "problem": "C1-4本身有较纯核心区结果锚，但旧理由以“蒙逊连年侵扰”生成K3，违反当前K门；治理复杂度也不能声明为完全不参与正式档。",
+            "directive": "主档与三锚维持 C1-2→4→4，score 54.9；K K3→K4；建议记录 raw_state_band=C1-4 / formal_band=C1-4。 “年谷频登、百姓乐业”与此前息兵务农后的连续恢复足以保4；材料主要限于酒泉—敦煌核心区且有颂扬语境，不升5。蒙逊来攻、战败等未闭合逃户、饥困、卖产、流亡等家庭结果，不再生成K。"
+          },
+          "raw_state_band": "C1-4",
+          "formal_band": "C1-4",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+          ],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "stages": [],
+            "basis": "审查未确认恢复完成后的有效阶段跌破raw主态；不以材料沉默证明K4，依据见人物审查修正。"
+          },
+          "persistence_review": {
+            "status": "COMPLETE",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-2",
+            "to_band": "C1-4",
+            "basis": "主档与三锚维持 C1-2→4→4，score 54.9；K K3→K4；建议记录 raw_state_band=C1-4 / formal_band=C1-4。 “年谷频登、百姓乐业”与此前息兵务农后的连续恢复足以保4；材料主要限于酒泉—敦煌核心区且有颂扬语境，不升5。蒙逊来攻、战败等未闭合逃户、饥困、卖产、流亡等家庭结果，不再生成K。"
+          },
+          "dynasty_curve_review": {
+            "status": "COMPLETE",
+            "handoff_continuity_checked": true,
+            "basis": "主档与三锚维持 C1-2→4→4，score 54.9；K K3→K4；建议记录 raw_state_band=C1-4 / formal_band=C1-4。 “年谷频登、百姓乐业”与此前息兵务农后的连续恢复足以保4；材料主要限于酒泉—敦煌核心区且有颂扬语境，不升5。蒙逊来攻、战败等未闭合逃户、饥困、卖产、流亡等家庭结果，不再生成K。"
+          },
+          "inference_review": {
+            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
+            "inference_source_anchor": null,
+            "inference_hops": 0,
+            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
+          },
+          "material_basis": [
+            {
+              "book": "《晋书》",
+              "original_text": "窃以诸事草创，仓帑未盈，故息兵按甲，务农养士。时移节迈，荏苒三年……今资储已足，器械已充。"
+            },
+            {
+              "book": "《晋书》",
+              "original_text": "玄盛既迁酒泉，乃敦劝稼穑。郡僚以年谷频登，百姓乐业，请勒铭酒泉，玄盛许之。"
+            }
+          ],
+          "stability_basis": "恢复完成后未确认独立且已经实现的家庭生计跌破C1-4阶段。蒙逊来攻、战败等若未闭合逃户、饥困、卖产或流亡，不进入K；故K4维持。"
+        },
+        {
+          "adjudication_reason": "本轮高档门反而确认旧raw C1-5可以保留：《资治通鉴》同一总评中，“民多富实”直接闭合家庭财富余量，“事少役希、新附者皆给复除”提供第二纯C1轴互证，且年谷屡熟说明并非单年高点。raw五档成立；但成汉实际控制范围和治理复杂度较低，formal仍封顶C1-4。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "anchor_time": "李雄中后期",
+              "described_state": "轻赋稀役、新附复除与连年丰收共同形成民多富实和稳定秩序。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "BOUNDED_MULTI_AXIS_MACRO",
+              "proof_scope_constraints": [],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_voice": "THIRD_PARTY_CHRONICLE_OR_TREATISE",
+              "source_voice_basis": "机械粗分；按source_works与verbatim中的史书、奏议、诏令标记识别。",
+              "source_voice_matches": [
+                "THIRD_PARTY_CHRONICLE_OR_TREATISE"
+              ],
+              "source_works": [
+                "《资治通鉴》共享通读卡正文"
+              ],
+              "state_roles": [
+                "S_avg",
+                "S_end",
+                "稳定性"
+              ],
+              "verbatim_excerpt": "蜀中连年丰收，民多富实，门不闭、路不拾遗。",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS",
+                "NET_TAX_LABOR_BURDEN"
+              ]
+            }
+          ],
+          "evidence_mode": "DIRECT_MACRO_ANCHOR",
+          "main_band": "C1-5",
+          "material_limitations": [
+            "C1只消费“事少役希、民多富实、新附给复、年谷屡熟”；治安部分转C3语义。小政权复杂度限制formal，不否认其raw家庭绝对状态。"
+          ],
+          "peak_band": null,
+          "polity": "成汉",
+          "rank": 7,
+          "reign_range": [
+            304,
+            334
+          ],
+          "ruler_id": "RULER-SHADOW-李雄",
+          "ruler_name": "李雄",
+          "score": 74.3,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-1",
+            "S_avg": "C1-5",
+            "S_end": "C1-5"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-238CDC973B4D"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-238CDC973B4D",
+                "candidate_ids_trace_only": [
+                  "I2-SK-LIXIONG-LOW-TAX-GOVERNANCE-001"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "事少役稀并出现富实与治安结果 | 简刑约法，实行低丁谷和低户调、少役。 | 原文直接记载事少役稀、百姓富贵、闾门不闭和无相侵盗；不附加未在本材料引文中的三十年与流民概括。 | 低税少役与简刑约法形成长期民政交付 | 事少役稀，百姓富貴，閭門不閉，無相侵盜。",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/sixteen_kingdoms.json#material_id=I2-SK-LIXIONG-LOW-TAX-GOVERNANCE-001",
+                  "https://zh.wikisource.org/wiki/%E6%99%89%E6%9B%B8/%E5%8D%B7121"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-238CDC973B4D"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-李雄"
+          },
+          "review_remediation": {
+            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
+            "status": "APPLIED",
+            "problem": "纯C1证据实际达到高位，但成汉治理盘面复杂度明显低于大一统王朝",
+            "directive": "改为 raw_state_band=C1-5，formal_band=C1-4，正式分维持54.9；正式曲线仍按formal写 C1-1→4→4；K=K4。 绝对状态层承认“事少役稀、百姓富实”达到5档；“门不闭、无相侵盗”移C3。因主要控制区集中于蜀地，人口、地域、多核心、边疆与制度异质性均明显低于大一统盘面，高档按复杂度门折算一档。若另存raw曲线，可记 1→5→5。",
+            "rule_conflict_resolution": "人物行保留formal曲线的说法被后置R21取代；动态链统一使用raw。"
+          },
+          "raw_state_band": "C1-5",
+          "formal_band": "C1-5",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS",
+            "NET_TAX_LABOR_BURDEN"
+          ],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "stages": [],
+            "basis": "审查未确认恢复完成后的有效阶段跌破raw主态；不以材料沉默证明K4，依据见人物审查修正。"
+          },
+          "persistence_review": {
+            "status": "COMPLETE",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-1",
+            "to_band": "C1-5",
+            "basis": "改为 raw_state_band=C1-5，formal_band=C1-4，正式分维持54.9；正式曲线仍按formal写 C1-1→4→4；K=K4。 绝对状态层承认“事少役稀、百姓富实”达到5档；“门不闭、无相侵盗”移C3。因主要控制区集中于蜀地，人口、地域、多核心、边疆与制度异质性均明显低于大一统盘面，高档按复杂度门折算一档。若另存raw曲线，可记 1→5→5。"
+          },
+          "dynasty_curve_review": {
+            "status": "COMPLETE",
+            "handoff_continuity_checked": true,
+            "basis": "改为 raw_state_band=C1-5，formal_band=C1-4，正式分维持54.9；正式曲线仍按formal写 C1-1→4→4；K=K4。 绝对状态层承认“事少役稀、百姓富实”达到5档；“门不闭、无相侵盗”移C3。因主要控制区集中于蜀地，人口、地域、多核心、边疆与制度异质性均明显低于大一统盘面，高档按复杂度门折算一档。若另存raw曲线，可记 1→5→5。"
+          },
+          "inference_review": {
+            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
+            "inference_source_anchor": null,
+            "inference_hops": 0,
+            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷八十九",
+              "original_text": "其赋民，男丁岁谷三斛，女丁半之，疾病又半之。户调绢不过数丈，绵数两。事少役希，民多富实，新附者皆给复除。是时天下大乱，而蜀独无事，年谷屡熟，乃至闾门不闭，路不拾遗。"
+            }
+          ],
+          "stability_basis": "恢复完成后未确认独立、已经实现且低于raw C1-5的家庭生计阶段，K4维持。“天下大乱而蜀独无事”“门不闭、路不拾遗”属于C3安全语义，不在C1重复当稳定加分。"
+        },
+        {
+          "adjudication_reason": "任内前中期主要统治区普通家庭总体达到稳定温饱，但没有C1-5所要求的广域家庭余量强锚。《晋书·苻坚载记》“关、陇清晏，百姓丰乐”可直接承担C1-4主态；田畴、仓库、工商与治安只作其他轴或背景互证。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "anchor_time": "苻坚361—364年",
+              "described_state": "生产开辟、公共储备和治安在前中期同步改善。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "proof_scope_constraints": [],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_voice": "THIRD_PARTY_CHRONICLE_OR_TREATISE",
+              "source_voice_basis": "source_works命中资治通鉴、通典或项目固定卡所承载的编年/制度性叙述标记。",
+              "source_voice_matches": [
+                "THIRD_PARTY_CHRONICLE_OR_TREATISE"
+              ],
+              "source_works": [
+                "《资治通鉴》共享通读卡正文"
+              ],
+              "state_roles": [
+                "S_avg",
+                "稳定性"
+              ],
+              "verbatim_excerpt": "田畴开辟，仓库充实，盗贼屏息。",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+              ]
+            },
+            {
+              "anchor_time": "苻坚371—375年",
+              "described_state": "劝农桑和官政治理后形成国富、大治的中期总叙。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "LABEL_ONLY",
+              "proof_scope_constraints": [],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_voice": "THIRD_PARTY_CHRONICLE_OR_TREATISE",
+              "source_voice_basis": "source_works命中资治通鉴、通典或项目固定卡所承载的编年/制度性叙述标记。",
+              "source_voice_matches": [
+                "THIRD_PARTY_CHRONICLE_OR_TREATISE"
+              ],
+              "source_works": [
+                "《资治通鉴》共享通读卡正文"
+              ],
+              "state_roles": [
+                "S_avg",
+                "稳定性"
+              ],
+              "verbatim_excerpt": "国富兵强，秦国大治。",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+              ]
+            }
+          ],
+          "evidence_mode": "DIRECT_MACRO_ANCHOR",
+          "main_band": "C1-4",
+          "material_limitations": [
+            "“百姓丰乐”足够C1-4但未过C1-5家庭余量强门；终局崩坏的外因、战争责任与本人放大程度另交C4，不在C1倒推归责。"
+          ],
+          "peak_band": null,
+          "polity": "前秦",
+          "rank": 7,
+          "reign_range": [
+            357,
+            385
+          ],
+          "ruler_id": "RULER-SHADOW-苻坚",
+          "ruler_name": "苻坚",
+          "score": 46.1,
+          "stability_class_diagnostic_only": "K0",
+          "state_anchors": {
+            "S0": "C1-2",
+            "S_avg": "C1-4",
+            "S_end": "C1-1"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-51921CFDBA47"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-51921CFDBA47",
+                "candidate_ids_trace_only": [
+                  "M3H-36F8A4BE2DF98A0D"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- 刘卫辰再掠秦边民五十余口为奴，苻坚责令归还；刘卫辰随后叛秦归代，人口已实际获释 | - 乌桓独孤部、鲜卑没弈干各数万降秦，初安塞南；苻融提出边患风险，苻坚将其迁塞外。归附带来国家整合，迁居位置变更亦是已执行处置 | ### FIN-LEAD-101-QIN-GOV-361-364 秦治理与晋田租",
+                "source_refs": [
+                  "docs/史料通读产物/唐以前编年/两晋/卷101-通读总结.md#L276"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-51921CFDBA47"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-苻坚"
+          },
+          "review_remediation": {
+            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
+            "status": "APPLIED",
+            "problem": "当前 C1-2→4→1 字段基本正确，但正式理由把轻税劝农、田畴开辟、仓库充实等政策/C2结果作为C1-4主要证明，纯度不足。",
+            "directive": "主档与三锚维持 C1-2→4→1，score 54.9，K=K0；只重写证据链。 前中期C1-4直接主证改为《晋书·苻坚载记》“关、陇清晏，百姓丰乐”，C1只消费“百姓丰乐”；清晏、道路、工商、仓库分别留给其他轴。淝水后幽冀“人相食、百姓死几绝”、关中“人皆流散、千里无烟”及长安大掠足以独立闭合终点1/K0。"
+          },
+          "raw_state_band": "C1-4",
+          "formal_band": "C1-4",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+          ],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "stages": [
+              {
+                "stage_band": "C1-1",
+                "depth_from_raw_main": 3,
+                "scope_class": "TERMINAL_SCOPE",
+                "duration_class": "TERMINAL",
+                "repeat_group": "ATTACHED_REVIEW_CONSOLIDATED_CHAIN",
+                "recovery_confirmed": false,
+                "evidence_strength": "ATTACHED_REVIEW_WITH_FORMAL_SOURCE_ENTRIES",
+                "counts_toward_k": true,
+                "exclusion_reason": null,
+                "basis": "主档与三锚维持 C1-2→4→1，score 54.9，K=K0；只重写证据链。 前中期C1-4直接主证改为《晋书·苻坚载记》“关、陇清晏，百姓丰乐”，C1只消费“百姓丰乐”；清晏、道路、工商、仓库分别留给其他轴。淝水后幽冀“人相食、百姓死几绝”、关中“人皆流散、千里无烟”及长安大掠足以独立闭合终点1/K0。"
+              }
+            ]
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "COMPLETE",
+            "handoff_continuity_checked": true,
+            "basis": "主档与三锚维持 C1-2→4→1，score 54.9，K=K0；只重写证据链。 前中期C1-4直接主证改为《晋书·苻坚载记》“关、陇清晏，百姓丰乐”，C1只消费“百姓丰乐”；清晏、道路、工商、仓库分别留给其他轴。淝水后幽冀“人相食、百姓死几绝”、关中“人皆流散、千里无烟”及长安大掠足以独立闭合终点1/K0。"
+          },
+          "inference_review": {
+            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
+            "inference_source_anchor": null,
+            "inference_hops": 0,
+            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
+          },
+          "material_basis": [
+            {
+              "book": "《晋书·苻坚载记》",
+              "original_text": "关、陇清晏，百姓丰乐。"
+            },
+            {
+              "book": "《晋书·苻坚载记》",
+              "original_text": "慕容垂军人饥甚，多奔山中，幽、冀人相食……与丕相持经年，百姓死几绝。"
+            },
+            {
+              "book": "《晋书·苻坚载记》",
+              "original_text": "冲毒暴关中，人皆流散，道路断绝，千里无烟。"
+            },
+            {
+              "book": "《晋书·苻坚载记》",
+              "original_text": "慕容冲入据长安，纵兵大掠，死者不可胜计。"
+            }
+          ],
+          "stability_basis": "末期形成未恢复的系统下坠，K0维持。幽、冀已经出现“人相食”，慕容垂与苻丕相持经年使“百姓死几绝”；关中又见“人皆流散，道路断绝，千里无烟”，随后长安被大掠、死者不可胜计。该低态覆盖多个核心区域并直接进入交班终局，足以闭合S_end=C1-1；前中期C1-4仍由较长阶段“百姓丰乐”承担。"
+        },
+        {
+          "adjudication_reason": "从草创低位恢复到基本维持。劝农、省徭薄赋并形成“朝野竞劝”的实际社会响应，足以支持C1-3；但缺家庭温饱/余量强锚，不升C1-4。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "anchor_time": "冯跋411—414年前后",
+              "described_state": "轻税省役和劝农实施后形成广泛社会接受，但未直接证明普遍温饱。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "proof_scope_constraints": [
+                "POLICY_ONLY_NO_REALIZED_BURDEN"
+              ],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_voice": "POLICY_OR_EDICT",
+              "source_voice_basis": "机械粗分；按source_works与verbatim中的史书、奏议、诏令标记识别。",
+              "source_voice_matches": [
+                "POLICY_OR_EDICT",
+                "THIRD_PARTY_CHRONICLE_OR_TREATISE"
+              ],
+              "source_works": [
+                "《资治通鉴》共享通读卡正文"
+              ],
+              "state_roles": [
+                "S_avg",
+                "S_end",
+                "稳定性"
+              ],
+              "verbatim_excerpt": "劝课农桑，省徭役，薄赋敛，燕人悦服。",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS",
+                "NET_TAX_LABOR_BURDEN"
+              ]
+            }
+          ],
+          "evidence_mode": "MULTI_RESULT_STRONG_INFERENCE",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "“朝野竞劝”只能支持恢复和基本运行，不等于普遍温饱；北燕规模较小且生活量值稀疏。"
+          ],
+          "peak_band": null,
+          "polity": "北燕",
+          "rank": 36,
+          "reign_range": [
+            409,
+            430
+          ],
+          "ruler_id": "RULER-SHADOW-冯跋",
+          "ruler_name": "冯跋",
+          "score": 32.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-1",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-5250D7098FA6"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-5250D7098FA6",
+                "candidate_ids_trace_only": [
+                  "I2-NYAN-FENGBA-AGRI-TAX-RULES-001"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "UNRESOLVED_DIRECTION",
+                "mechanisms": [
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "农桑、赋役与守宰问政形成条制和运行结果 | 只消费逐字引文闭合的制度接口、本人归责和实际运行或失灵。 | 经两层独立固定史源和五门禁复裁进入A；不自动取得S或R3。 | 跋勵意農桑，勤心政事，乃下書省徭薄賦，墮農者戮之，力田者褒賞，命尚書紀達為之條制。每遣守宰，必親見東堂，問為政事之要，令極言無隱，以觀其志，於是朝野競勸焉。",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/sixteen_kingdoms.json#material_id=I2-NYAN-FENGBA-AGRI-TAX-RULES-001",
+                  "https://zh.wikisource.org/w/index.php?title=%E6%99%89%E6%9B%B8/%E5%8D%B7125&oldid=2180625"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-5250D7098FA6"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-冯跋"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS",
+            "NET_TAX_LABOR_BURDEN"
+          ],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "PRESERVED_PENDING_DEDICATED_REVIEW",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-1",
+            "to_band": "C1-3",
+            "basis": "沿用当前正式证据；本补丁未新增人物裁决。"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "勤政、劝农、省役薄赋并形成燕人悦服，足以从草创低位恢复到基本维持；缺普遍温饱或家庭余裕结果。"
+          },
+          "material_basis": [
+            {
+              "book": "《晋书·冯跋载记》",
+              "original_text": "跋励意农桑，勤心政事，乃下书省徭薄赋……于是朝野竞劝焉。"
+            }
+          ],
+          "stability_basis": "S0=C1-1后的恢复过程不计K；现有已审材料没有确认主态C1-3建立后又独立跌破3档的家庭生计阶段，故K4。K4只表示未确认有效低谷，不把材料稀疏当稳定正证。"
+        },
+        {
+          "adjudication_reason": "二十二年窗口内有降众归农和长期政权运行，足以从困顿恢复到基本维持。旧S_end=C1-2主要由病末及死后后秦迅速分裂反推，纯C1家庭结果不足，故终点2→3。",
+          "confidence": "MEDIUM_LOW",
+          "evidence": [
+            {
+              "cost_scale": "WC2",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-108-LATERCIN-WEST-396",
+              "stages": [
+                "S0_EARLY"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-108-LATERCIN-WEST-396",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC2",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-109-LATERCIN-JIN-397",
+              "stages": [
+                "S0_EARLY"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-109-LATERCIN-JIN-397",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC2",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-111-LATERCIN-LUOYANG-399",
+              "stages": [
+                "S0_EARLY"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-111-LATERCIN-LUOYANG-399",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC2",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-111-LATERCIN-WESTQIN-400",
+              "stages": [
+                "S0_EARLY"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-111-LATERCIN-WESTQIN-400",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC3",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-112-CHAIBI-402",
+              "stages": [
+                "S_AVG_MIDDLE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-112-CHAIBI-402",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "MULTI_RESULT_STRONG_INFERENCE",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "第二条只用于切断继任期倒算，不作为姚兴本人负证；C1-3仍属受约束推断。"
+          ],
+          "peak_band": null,
+          "polity": "后秦",
+          "rank": 36,
+          "reign_range": [
+            394,
+            416
+          ],
+          "ruler_id": "RULER-SHADOW-姚兴",
+          "ruler_name": "姚兴",
+          "score": 32.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-2",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-姚兴"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "二十二年窗口内有解散降众归农和政权长期运行，足以从困顿升至基本维持；末期多线战争、镇户离散与仓储压力使交班回落。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷一百八",
+              "original_text": "散其众，使归农业。"
+            },
+            {
+              "book": "《资治通鉴》卷一百一十七",
+              "original_text": "兴卒。羌酋党容叛……姚宣……帅户三万八千，弃李闰，南保邢望。"
+            }
+          ],
+          "stability_basis": "可直接定位的大规模叛乱与三万八千户离散发生在“兴卒”之后，属于姚泓窗口，不能倒算姚兴S_end；本人恢复完成后也未确认独立跌破主3的有效家庭低谷，故K4。"
+        },
+        {
+          "adjudication_reason": "任内普通家庭总体能够维持基本生活，但尚无充分材料证明多数家庭普遍达到稳定温饱；任内普通家庭总体能够维持基本生活，但尚无充分材料证明多数家庭普遍达到稳定温饱。",
+          "confidence": "MEDIUM_LOW",
+          "evidence": [
+            {
+              "cost_scale": "WC2",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-107-WEI-LIUXIAN-387",
+              "stages": [
+                "S0_EARLY"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-107-WEI-LIUXIAN-387",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC2",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-107-WEI-NORTH-388-391",
+              "stages": [
+                "S0_EARLY",
+                "S_AVG_MIDDLE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-107-WEI-NORTH-388-391",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC1",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-107-YAN-HELAN-389-391",
+              "stages": [
+                "S_AVG_MIDDLE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-107-YAN-HELAN-389-391",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC2",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-107-YAN-WUZHU-390",
+              "stages": [
+                "S_AVG_MIDDLE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-107-YAN-WUZHU-390",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC4",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-107-ZHAILIAO-387-391",
+              "stages": [
+                "S0_EARLY",
+                "S_AVG_MIDDLE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-107-ZHAILIAO-387-391",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "DIRECT_DAMAGE_CONSTRAINED_INFERENCE",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "395参合陂惨败只确认军事损失，未闭合普通家庭跌破基本维持状态，故不降稳定性判断。"
+          ],
+          "peak_band": null,
+          "polity": "后燕",
+          "rank": 36,
+          "reign_range": [
+            384,
+            396
+          ],
+          "ruler_id": "RULER-SHADOW-慕容垂",
+          "ruler_name": "慕容垂",
+          "score": 32.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-1",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-慕容垂"
+          },
+          "review_remediation": {
+            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
+            "status": "APPLIED",
+            "problem": "当前 C1-2 把后燕全任都停在早期战争低谷，漏掉386年后持续恢复",
+            "directive": "主档 C1-2→C1-3；S_avg 2→3；S_end 2→3；score 17.1→32.0；S0=C1-1不变；K=K4。 385年中山“抚旧招新、劝课农桑、民归附相继、仓库充溢”先闭合核心生产恢复；其后“天下渐平，兵革方偃”，翟氏七郡三万八千户“皆安堵如故”、另安置徐州流人七千余户，足以把长期后段定为基本维持。395参合陂惨败只确认军事损失，未闭合普通家庭跌破C1-3，故不降S_end/K。persistence建议 REPEATED_PHASES_CONFIRMED。"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "stages": [],
+            "basis": "S0战乱低位及其恢复不计K。恢复后现有材料未闭合普通家庭实际跌破C1-3的独立阶段；参合陂首先是军队损失，不能自动转换为家庭生计低谷，K4维持。"
+          },
+          "persistence_review": {
+            "status": "COMPLETE",
+            "persistence_class": "REPEATED_PHASES_CONFIRMED",
+            "from_band": "C1-1",
+            "to_band": "C1-3",
+            "basis": "主档 C1-2→C1-3；S_avg 2→3；S_end 2→3；score 17.1→32.0；S0=C1-1不变；K=K4。 385年中山“抚旧招新、劝课农桑、民归附相继、仓库充溢”先闭合核心生产恢复；其后“天下渐平，兵革方偃”，翟氏七郡三万八千户“皆安堵如故”、另安置徐州流人七千余户，足以把长期后段定为基本维持。395参合陂惨败只确认军事损失，未闭合普通家庭跌破C1-3，故不降S_end/K。persistence建议 REPEATED_PHASES_CONFIRMED。"
+          },
+          "dynasty_curve_review": {
+            "status": "COMPLETE",
+            "handoff_continuity_checked": true,
+            "basis": "S0战乱低位及其恢复不计K。恢复后现有材料未闭合普通家庭实际跌破C1-3的独立阶段；参合陂首先是军队损失，不能自动转换为家庭生计低谷，K4维持。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "主档 C1-2→C1-3；S_avg 2→3；S_end 2→3；score 17.1→32.0；S0=C1-1不变；K=K4。 385年中山“抚旧招新、劝课农桑、民归附相继、仓库充溢”先闭合核心生产恢复；其后“天下渐平，兵革方偃”，翟氏七郡三万八千户“皆安堵如故”、另安置徐州流人七千余户，足以把长期后段定为基本维持。395参合陂惨败只确认军事损失，未闭合普通家庭跌破C1-3，故不降S_end/K。persistence建议 REPEATED_PHASES_CONFIRMED。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷一百六",
+              "original_text": "抚旧招新，劝课农桑，民归附者相继，仓库充溢。"
+            }
+          ],
+          "stability_basis": "S0战乱低位及其恢复不计K。恢复后现有材料未闭合普通家庭实际跌破C1-3的独立阶段；参合陂首先是军队损失，不能自动转换为家庭生计低谷，K4维持。",
+          "c1_reaudit": {
+            "review_date": "2026-08-31",
+            "status": "REVIEWED_CUMULATIVE",
+            "rating_change": "NONE",
+            "k_final": "K4",
+            "summary": "S0战乱低位及其恢复不计K。恢复后现有材料未闭合普通家庭实际跌破C1-3的独立阶段；参合陂首先是军队损失，不能自动转换为家庭生计低谷，K4维持。"
+          }
+        },
+        {
+          "adjudication_reason": "从迁徙、战争低位进入青齐立足后，对迁民和旧民长期复除，支持生产与家庭重建继续运行；证据主要是减负安排，只能受约束闭合C1-3。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "cost_scale": "WC2",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-113-SOUTHYAN-SECURITY-403",
+              "stages": [
+                "S_AVG_MIDDLE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-113-SOUTHYAN-SECURITY-403",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "MULTI_RESULT_STRONG_INFERENCE",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "复除不等于已经实现普遍温饱；南燕短窗且核心区家庭生活量值有限。"
+          ],
+          "peak_band": null,
+          "polity": "南燕",
+          "rank": 36,
+          "reign_range": [
+            398,
+            405
+          ],
+          "ruler_id": "RULER-SHADOW-慕容德",
+          "ruler_name": "慕容德",
+          "score": 32.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-1",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-慕容德"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "PRESERVED_PENDING_DEDICATED_REVIEW",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-1",
+            "to_band": "C1-3",
+            "basis": "沿用当前正式证据；本补丁未新增人物裁决。"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "南燕短政权以长期免役安置迁徙人口，并检出大量隐户，证明人口与征收体系已恢复基本运行；不足证明普遍温饱。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷一百一十三",
+              "original_text": "民从迁者，复十年；旧民复二年租税。"
+            }
+          ],
+          "stability_basis": "S0=C1-1后的迁徙与立国恢复过程不计K；现有材料未确认主态C1-3建立后另有独立家庭生计下坠，故K4。"
+        },
+        {
+          "adjudication_reason": "从连年战争和“户无粒食”的低位，经减徭、专功农业与行政整顿恢复到基本维持；原“屠城”材料属于战区暴力，撤出C1主证。",
+          "confidence": "LOW",
+          "evidence": [
+            {
+              "cost_scale": "WC4",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-112-MENGXUN-401",
+              "stages": [
+                "S0_EARLY"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-112-MENGXUN-401",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC2",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-NC-NORTHERN-LIANG-WESTERN-LIANG",
+              "stages": [],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-NC-NORTHERN-LIANG-WESTERN-LIANG",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "CONTINUITY_CONSTRAINED_INFERENCE",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "减徭劝农主要证明恢复方向，缺广域家庭温饱直接锚；屠城首先属于人身安全/战争结果，不再承担C1主证。"
+          ],
+          "peak_band": null,
+          "polity": "北凉",
+          "rank": 36,
+          "reign_range": [
+            401,
+            433
+          ],
+          "ruler_id": "RULER-SHADOW-沮渠蒙逊",
+          "ruler_name": "沮渠蒙逊",
+          "score": 32.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-1",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-D78967ABB098"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-D78967ABB098",
+                "candidate_ids_trace_only": [
+                  "I2-SK-MENGXUN-AGRICULTURE-RELIEF-001"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "闭合政策和行政化表达，后续跨期产出未在本页直接量化。 | 面对连年战争与户无粒食，下令减徭、专功南亩并明设科条。 | 蠲省徭役并以科条恢复农业 | 可蠲省百徭，專功南畝，明設科條，務盡地利。",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/sixteen_kingdoms.json#material_id=I2-SK-MENGXUN-AGRICULTURE-RELIEF-001",
+                  "https://zh.wikisource.org/wiki/%E6%99%89%E6%9B%B8/%E5%8D%B7129"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-D78967ABB098"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-沮渠蒙逊"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "PRESERVED_PENDING_DEDICATED_REVIEW",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-1",
+            "to_band": "C1-3",
+            "basis": "沿用当前正式证据；本补丁未新增人物裁决。"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "北凉三十二年持续维持河西农业、交通和税源组织，战争成本未形成强门；长时运行足以推基本维持，不能升普遍温饱。"
+          },
+          "material_basis": [
+            {
+              "book": "《晋书·沮渠蒙逊载记》",
+              "original_text": "可蠲省百徭，专功南亩，明设科条，务尽地利。"
+            }
+          ],
+          "stability_basis": "“户无粒食”及减徭劝农属于S0=C1-1向主3恢复的同一链，不压K；恢复后未确认独立跌破3档的家庭阶段，故K4。"
+        },
+        {
+          "adjudication_reason": "战乱后大规模流民复业并进入“民始复业，资储未丰”的基本运行阶段，说明家庭生产已恢复但余量有限，主态C1-3合适。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "cost_scale": "WC4",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-CHENCHUAN-319",
+              "stages": [
+                "S0_EARLY"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-CHENCHUAN-319",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC3",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-HEBIN-325",
+              "stages": [
+                "S_AVG_MIDDLE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-HEBIN-325",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC5",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-HENAN-322",
+              "stages": [
+                "S0_EARLY"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-HENAN-322",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC2",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-HEXI-327",
+              "stages": [
+                "S_AVG_MIDDLE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-HEXI-327",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC4",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-HUAINAN-326",
+              "stages": [
+                "S_AVG_MIDDLE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-HUAINAN-326",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "MULTI_RESULT_STRONG_INFERENCE",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "复业三万余户和“资储未丰”只能支持基本维持；持续战争规模本身不机械形成C1低谷。"
+          ],
+          "peak_band": null,
+          "polity": "后赵",
+          "rank": 36,
+          "reign_range": [
+            319,
+            333
+          ],
+          "ruler_id": "RULER-SHADOW-石勒",
+          "ruler_name": "石勒",
+          "score": 32.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-1",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-石勒"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "PRESERVED_PENDING_DEDICATED_REVIEW",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-1",
+            "to_band": "C1-3",
+            "basis": "沿用当前正式证据；本补丁未新增人物裁决。"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "大规模流民复业、减少粮食非食用消耗和乡里复除共同证明从战乱低谷恢复到基本维持；范围仍不足证明普遍温饱。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷九十一",
+              "original_text": "散其所聚流民三万余户，复其本业，置守宰以抚之。"
+            },
+            {
+              "book": "《资治通鉴》卷九十一",
+              "original_text": "勒以民始复业，资储未丰，于是重制禁酿。"
+            }
+          ],
+          "stability_basis": "S0=C1-1后的流民复业与“民始复业，资储未丰”属于恢复链；现有已审材料没有确认恢复完成后另有独立跌破C1-3的家庭生计阶段，故K4。"
+        },
+        {
+          "adjudication_reason": "建政初期从关中战乱低位恢复，史书以“政尚宽简”“秦人悦服”约束基本运行；缺普通家庭温饱和余量强锚，主态维持C1-3。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "cost_scale": "WC4",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-099-HUANQIN-354",
+              "stages": [
+                "S_AVG_MIDDLE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-099-HUANQIN-354",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC4",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-099-LIANGQIN-353-354",
+              "stages": [
+                "S_AVG_MIDDLE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-099-LIANGQIN-353-354",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC4",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-099-QIN-REBELS-352-354",
+              "stages": [
+                "S0_EARLY",
+                "S_AVG_MIDDLE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-099-QIN-REBELS-352-354",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC1",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-099-QIUCHI-353",
+              "stages": [
+                "S_AVG_MIDDLE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-099-QIUCHI-353",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC2",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-099-SIMAXUN-351",
+              "stages": [
+                "S0_EARLY"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-099-SIMAXUN-351",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "MULTI_RESULT_STRONG_INFERENCE",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "“悦服”不是家庭温饱强锚；西入关前强制种麦及杀不从者属于军事草创/迁徙高压窗口，不在恢复完成后重复压K。"
+          ],
+          "peak_band": null,
+          "polity": "前秦",
+          "rank": 36,
+          "reign_range": [
+            351,
+            355
+          ],
+          "ruler_id": "RULER-SHADOW-苻健",
+          "ruler_name": "苻健",
+          "score": 32.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-1",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-F77983D8475C"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-F77983D8475C",
+                "candidate_ids_trace_only": [
+                  "M3H-9F88A3423A5DA628"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "NEGATIVE",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "PUBLIC_WORKS"
+                ],
+                "chain_summary": "- 史源：永和六年正月至十二月条 | - 财政民生后果：苻健在枋头强课民种麦，不从者被杀示众，是已发生农业强制与人员损害；盟津浮梁、分路进军及焚桥是军运工程和战术动作。姚襄败军三万余“斩获”属敌方战果口径，不反计苻氏WC；秦雍流民与三辅堡壁归附先记人口保全和整合，不当战利资产。 | - P推定：评价主体=本卡评价主体；P_observed=杀不从强课者人数不详，可证非零人员损害、上限由事件边界约束；推定人数区间=1—80死亡当量；几何中心=9；P_scoring=P1估；推定依据=只可确认实际武装接触或个别人员损害，受损群体与构成均失载；上限理由=无明确兵力基数、围歼比例、逃散被俘构成或补兵遗属后效，不上P2；置信度=低。 | - 影子定位：`P1估/S0/M2/A1 → base_WC2 → WC2`〔评价主体为苻氏；杀不从强课者人数不详，可证非零人员损害、上限由事件边界约束；敌境进军不计S；分路进军为M2；浮梁工程为A1。敌军损失不进P；置信度：P低，其余轴沿用原判〕；SB3〔同前〕；WR4〔同前〕。",
+                "source_refs": [
+                  "docs/史料通读产物/唐以前编年/两晋/卷098-通读总结.md#L212"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-F77983D8475C"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-苻健"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "PRESERVED_PENDING_DEDICATED_REVIEW",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-1",
+            "to_band": "C1-3",
+            "basis": "沿用当前正式证据；本补丁未新增人物裁决。"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "短任从关中战乱低位实施减敛、开放禁地和废不便民苛政，并形成秦人悦服；结果足以达到基本维持，不足证明普遍温饱。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷九十九",
+              "original_text": "政尚宽简，躬行节俭，秦人悦服。"
+            }
+          ],
+          "stability_basis": "S0=C1-1的军政草创和西入关高压阶段属于恢复起点；主3建立后未确认独立、已经实现的家庭生计下坠，故K4。"
+        },
+        {
+          "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活；任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。",
+          "confidence": "LOW",
+          "evidence": [
+            {
+              "cost_scale": "WC4",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-HANZHAO-HEBEI-309",
+              "stages": [
+                "S_END_LATE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-HANZHAO-HEBEI-309",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC2",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-HANZHAO-HUGUAN-309",
+              "stages": [
+                "S_END_LATE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-HANZHAO-HUGUAN-309",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC2",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-HANZHAO-SUCCESSION-310",
+              "stages": [
+                "S_END_LATE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-HANZHAO-SUCCESSION-310",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "CONTINUITY_CONSTRAINED_INFERENCE",
+          "main_band": "C1-2",
+          "material_limitations": [
+            "缺直接广域民生总评；离石大饥不外推全境。"
+          ],
+          "peak_band": null,
+          "polity": "汉赵",
+          "rank": 121,
+          "reign_range": [
+            304,
+            310
+          ],
+          "ruler_id": "RULER-SHADOW-刘渊",
+          "ruler_name": "刘渊",
+          "score": 16.8,
+          "stability_class_diagnostic_only": "K3",
+          "state_anchors": {
+            "S0": "C1-1",
+            "S_avg": "C1-2",
+            "S_end": "C1-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-刘渊"
+          },
+          "review_remediation": {
+            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
+            "status": "APPLIED",
+            "problem": "正式K字段需补录；旧理由依赖草创期缺证",
+            "directive": "主档与曲线维持 C1-1→2→2；补 K=K3；重写受约束推断。 离石大饥为局部低于主态阶段。"
+          },
+          "raw_state_band": "C1-2",
+          "formal_band": "C1-2",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "stages": [
+              {
+                "stage_band": "C1-1",
+                "depth_from_raw_main": 1,
+                "scope_class": "LOCAL_OR_BOUNDED",
+                "duration_class": "SHORT_OR_BOUNDED",
+                "repeat_group": "ATTACHED_REVIEW_CONSOLIDATED_CHAIN",
+                "recovery_confirmed": true,
+                "evidence_strength": "ATTACHED_REVIEW_WITH_FORMAL_SOURCE_ENTRIES",
+                "counts_toward_k": true,
+                "exclusion_reason": null,
+                "basis": "主档与曲线维持 C1-1→2→2；补 K=K3；重写受约束推断。 离石大饥为局部低于主态阶段。"
+              }
+            ]
+          },
+          "persistence_review": {
+            "status": "COMPLETE",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-1",
+            "to_band": "C1-2",
+            "basis": "主档与曲线维持 C1-1→2→2；补 K=K3；重写受约束推断。 离石大饥为局部低于主态阶段。"
+          },
+          "dynasty_curve_review": {
+            "status": "COMPLETE",
+            "handoff_continuity_checked": true,
+            "basis": "主档与曲线维持 C1-1→2→2；补 K=K3；重写受约束推断。 离石大饥为局部低于主态阶段。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "主档与曲线维持 C1-1→2→2；补 K=K3；重写受约束推断。 离石大饥为局部低于主态阶段。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷八十七",
+              "original_text": "离石大饥。"
+            }
+          ],
+          "stability_basis": "离石大饥是本人窗口内可定位、空间受限的家庭生计低谷；其余主态2主要为从战争低位向困顿状态的受约束恢复推断。该低谷不足聚合为宏观次级状态，故K3。"
+        },
+        {
+          "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活；任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。",
+          "confidence": "LOW",
+          "evidence": [
+            {
+              "cost_scale": "WC2",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-107-LATERCIN-REBELS-390",
+              "stages": [
+                "S_AVG_MIDDLE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-107-LATERCIN-REBELS-390",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "CONTINUITY_CONSTRAINED_INFERENCE",
+          "main_band": "C1-2",
+          "material_limitations": [
+            "新平惨案可进入家庭形成/再生产结果，但区域有限；不以战争胜负或屠杀标签机械外推全境。"
+          ],
+          "peak_band": null,
+          "polity": "后秦",
+          "rank": 121,
+          "reign_range": [
+            384,
+            393
+          ],
+          "ruler_id": "RULER-SHADOW-姚苌",
+          "ruler_name": "姚苌",
+          "score": 16.8,
+          "stability_class_diagnostic_only": "K3",
+          "state_anchors": {
+            "S0": "C1-1",
+            "S_avg": "C1-2",
+            "S_end": "C1-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-姚苌"
+          },
+          "review_remediation": {
+            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
+            "status": "APPLIED",
+            "problem": "正式K字段需补录；旧理由“草创+缺C1-3材料”不合规",
+            "directive": "主档与曲线维持 C1-1→2→2；补 K=K3；重写为受约束推断。 新平局部万人级被坑杀为可定位低于主态阶段。"
+          },
+          "raw_state_band": "C1-2",
+          "formal_band": "C1-2",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "stages": [
+              {
+                "stage_band": "C1-1",
+                "depth_from_raw_main": 1,
+                "scope_class": "LOCAL_OR_BOUNDED",
+                "duration_class": "SHORT_OR_BOUNDED",
+                "repeat_group": "ATTACHED_REVIEW_CONSOLIDATED_CHAIN",
+                "recovery_confirmed": true,
+                "evidence_strength": "ATTACHED_REVIEW_WITH_FORMAL_SOURCE_ENTRIES",
+                "counts_toward_k": true,
+                "exclusion_reason": null,
+                "basis": "主档与曲线维持 C1-1→2→2；补 K=K3；重写为受约束推断。 新平局部万人级被坑杀为可定位低于主态阶段。"
+              }
+            ]
+          },
+          "persistence_review": {
+            "status": "COMPLETE",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-1",
+            "to_band": "C1-2",
+            "basis": "主档与曲线维持 C1-1→2→2；补 K=K3；重写为受约束推断。 新平局部万人级被坑杀为可定位低于主态阶段。"
+          },
+          "dynasty_curve_review": {
+            "status": "COMPLETE",
+            "handoff_continuity_checked": true,
+            "basis": "主档与曲线维持 C1-1→2→2；补 K=K3；重写为受约束推断。 新平局部万人级被坑杀为可定位低于主态阶段。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "主档与曲线维持 C1-1→2→2；补 K=K3；重写为受约束推断。 新平局部万人级被坑杀为可定位低于主态阶段。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷一百七",
+              "original_text": "新平粮竭……诱其民出，男女五千余人，尽坑之。"
+            }
+          ],
+          "stability_basis": "新平民数千被诱出后坑杀，是空间与对象边界明确但深度很高的家庭结构低谷；它不足聚合为后秦全境的次级宏观状态，故K3维持。"
+        },
+        {
+          "adjudication_reason": "任内普通家庭的基本生计普遍失保，主要统治区长期处于严重破坏状态；任内普通家庭的基本生计普遍失保，主要统治区长期处于严重破坏状态。",
+          "confidence": "MEDIUM_LOW",
+          "evidence": [
+            {
+              "cost_scale": "WC7",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-099-ZHAO-COLLAPSE-351",
+              "stages": [
+                "S0_EARLY",
+                "S_AVG_MIDDLE",
+                "S_END_LATE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-099-ZHAO-COLLAPSE-351",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "DIRECT_DAMAGE_CONSTRAINED_INFERENCE",
+          "main_band": "C1-1",
+          "material_limitations": [
+            "缺常规财政民生数据；短任不等于自动低状态，本例低状态来自已证崩溃环境。"
+          ],
+          "peak_band": null,
+          "polity": "冉魏",
+          "rank": 180,
+          "reign_range": [
+            350,
+            352
+          ],
+          "ruler_id": "RULER-SHADOW-冉闵",
+          "ruler_name": "冉闵",
+          "score": 5.7,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-1",
+            "S_avg": "C1-1",
+            "S_end": "C1-1"
+          },
+          "raw_state_band": "C1-1",
+          "formal_band": "C1-1",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "两年政权全程处于后赵解体、人口屠杀和战争中，没有形成可持续生产财政或社会恢复的时间窗。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷九十九",
+              "original_text": "青、雍、幽、荆州徙户及诸氐、羌、胡、蛮数百万，各还本土，道路交错，互相杀掠。"
+            }
+          ],
+          "stability_basis": "S_main已处C1-1最低档，状态体系不存在可继续“跌破主态”的更低档位，因此K按定义取K4。这里的K4只表示K指标在底档没有向下分辨空间，不代表民生稳定、韧性良好或可在C4领取高位稳定承压信用；S0→C1-1的恶化及底档持续由绝对状态与C4归责处理，不在K重复消费。"
+        },
+        {
+          "adjudication_reason": "任内普通家庭的基本生计普遍失保，主要统治区长期处于严重破坏状态；任内普通家庭的基本生计普遍失保，主要统治区长期处于严重破坏状态。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "cost_scale": "WC7",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-FALL-CHANGAN-316",
+              "stages": [
+                "S0_EARLY",
+                "S_AVG_MIDDLE",
+                "S_END_LATE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-FALL-CHANGAN-316",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC2",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-HANZHAO-SUCCESSION-310",
+              "stages": [
+                "S0_EARLY"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-HANZHAO-SUCCESSION-310",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC4",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-HEDONG-317",
+              "stages": [
+                "S_END_LATE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-HEDONG-317",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC1",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-JIN-NORTH-313",
+              "stages": [
+                "S_AVG_MIDDLE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-JIN-NORTH-313",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC2",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-JINYANG-312A",
+              "stages": [
+                "S0_EARLY"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-JINYANG-312A",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "DIRECT_DAMAGE_CONSTRAINED_INFERENCE",
+          "main_band": "C1-1",
+          "material_limitations": [
+            "部分损害发生于晋方城市，裁决只消费汉赵授权汲取及其统治区后果；不把征服收益抵消民生损害。"
+          ],
+          "peak_band": null,
+          "polity": "汉赵",
+          "rank": 180,
+          "reign_range": [
+            310,
+            318
+          ],
+          "ruler_id": "RULER-SHADOW-刘聪",
+          "ruler_name": "刘聪",
+          "score": 5.7,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-2",
+            "S_avg": "C1-1",
+            "S_end": "C1-1"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-A21EC924580B"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-A21EC924580B",
+                "candidate_ids_trace_only": [
+                  "M3H-808CB17C33492E15"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "PUBLIC_WORKS"
+                ],
+                "chain_summary": "| 313二月至四月 | 怀帝被杀；秦王鄴在残破长安即位为愍帝 | 皇统转移 | `DEF-LEAD-JIN-CHANGAN-313` | `#建興元年`至`即皇帝位` | | | 313三月 | 刘聪为刘娥起皇仪殿，陈元达以四十余殿、军运饥疫切谏，工程暂停 | 宫殿与民力 | `FIN-LEAD-HAN-PALACES-312-313` | `#漢主聰立貴嬪劉娥為皇后` | | | 313四月至五月 | 石虎取鄴，三台流民归降；慕容廆广纳北方士民并置乐浪郡 | 人口与州郡整合 | `DEF-LEAD-NORTH-INTEGRATION-313` | `#石勒使石虎攻鄴`以后 | | | 313五月至八月 | 愍帝诏三路大举北伐，刘琨与拓跋进兵后因汉军布防而退；司马睿不出 | 战略动员未兑现 | `WAR-LEAD-JIN-NORTH-313` | `#壬辰以琅邪王睿為左丞相`以后 |",
+                "source_refs": [
+                  "docs/史料通读产物/唐以前编年/两晋/卷088-通读总结.md#L28"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-A21EC924580B"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-刘聪"
+          },
+          "raw_state_band": "C1-1",
+          "formal_band": "C1-1",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "宫殿、供奉、赏赐和军费错配与永嘉人口生产崩落同窗发生，直接构成社会再生产近乎瓦解的主态。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷九十",
+              "original_text": "平阳饥甚，人相食。"
+            }
+          ],
+          "stability_basis": "S_main已处C1-1最低档，状态体系不存在可继续“跌破主态”的更低档位，因此K按定义取K4。这里的K4只表示K指标在底档没有向下分辨空间，不代表民生稳定、韧性良好或可在C4领取高位稳定承压信用；S0→C1-1的恶化及底档持续由绝对状态与C4归责处理，不在K重复消费。"
+        },
+        {
+          "adjudication_reason": "任内普通家庭的基本生计普遍失保，主要统治区长期处于严重破坏状态；任内普通家庭的基本生计普遍失保，主要统治区长期处于严重破坏状态。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "cost_scale": "WC5",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-106-DAYU-385-386",
+              "stages": [
+                "S0_EARLY"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-106-DAYU-385-386",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC4",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-107-LIANG-387",
+              "stages": [
+                "S0_EARLY"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-107-LIANG-387",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC4",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-108-HEXI-392-393",
+              "stages": [
+                "S_AVG_MIDDLE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-108-HEXI-392-393",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC2",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-109-LIANG-WESTQIN-397",
+              "stages": [
+                "S_END_LATE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-109-LIANG-WESTQIN-397",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC2",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-111-LIANG-NORTHLIANG-399",
+              "stages": [
+                "S_END_LATE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-111-LIANG-NORTHLIANG-399",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "DIRECT_DAMAGE_CONSTRAINED_INFERENCE",
+          "main_band": "C1-1",
+          "material_limitations": [
+            "死亡比例基数未知；不因灾害发生自动归责，降状态依据是实际崩溃且未恢复。"
+          ],
+          "peak_band": null,
+          "polity": "后凉",
+          "rank": 180,
+          "reign_range": [
+            386,
+            399
+          ],
+          "ruler_id": "RULER-SHADOW-吕光",
+          "ruler_name": "吕光",
+          "score": 5.7,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-2",
+            "S_avg": "C1-1",
+            "S_end": "C1-1"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-吕光"
+          },
+          "raw_state_band": "C1-1",
+          "formal_band": "C1-1",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "后凉长期内战、强迁与饥荒形成跨年人口和生产崩坏，恢复线索不足，主态为崩溃。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷一百一十一",
+              "original_text": "姑臧大饥，米斗直钱五千，人相食，死者太半。"
+            }
+          ],
+          "stability_basis": "S_main已处C1-1最低档，状态体系不存在可继续“跌破主态”的更低档位，因此K按定义取K4。这里的K4只表示K指标在底档没有向下分辨空间，不代表民生稳定、韧性良好或可在C4领取高位稳定承压信用；S0→C1-1的恶化及底档持续由绝对状态与C4归责处理，不在K重复消费。"
+        },
+        {
+          "adjudication_reason": "任内普通家庭的基本生计普遍失保，主要统治区长期处于严重破坏状态。数十万级工程征发、夺取人口牲畜及广泛流亡，形成生产和家庭承载瓦解。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "anchor_time": "石虎345年前后",
+              "described_state": "数十万级工程征发、夺取人口牲畜及广泛流亡，形成生产和家庭承载瓦解。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "proof_scope_constraints": [],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_voice": "THIRD_PARTY_CHRONICLE_OR_TREATISE",
+              "source_voice_basis": "source_works命中资治通鉴、通典或项目固定卡所承载的编年/制度性叙述标记。",
+              "source_voice_matches": [
+                "THIRD_PARTY_CHRONICLE_OR_TREATISE"
+              ],
+              "source_works": [
+                "《资治通鉴》共享通读卡正文"
+              ],
+              "state_roles": [
+                "S_avg",
+                "S_end",
+                "稳定性"
+              ],
+              "verbatim_excerpt": "关中役烦赋重；发十六万人治未央宫，又发二十六万人修洛阳宫。",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS",
+                "NET_TAX_LABOR_BURDEN",
+                "HOUSEHOLD_FORMATION_REPRODUCTION"
+              ]
+            }
+          ],
+          "evidence_mode": "DIRECT_MACRO_ANCHOR",
+          "main_band": "C1-1",
+          "material_limitations": [
+            "不把自然灾害发生本身归责；工程与战争共同损害按父事件去重；直接锚只按其明示时段、地域与证据类型消费，不外推为全任全境。"
+          ],
+          "peak_band": null,
+          "polity": "后赵",
+          "rank": 180,
+          "reign_range": [
+            334,
+            349
+          ],
+          "ruler_id": "RULER-SHADOW-石虎",
+          "ruler_name": "石虎",
+          "score": 5.7,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-3",
+            "S_avg": "C1-1",
+            "S_end": "C1-1"
+          },
+          "m3_supplement_review": {
+            "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-石虎"
+          },
+          "raw_state_band": "C1-1",
+          "formal_band": "C1-1",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_FORMATION_REPRODUCTION",
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS",
+            "NET_TAX_LABOR_BURDEN"
+          ],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
+            "inference_source_anchor": null,
+            "inference_hops": 0,
+            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》",
+              "original_text": "关中役烦赋重；发十六万人治未央宫，又发二十六万人修洛阳宫。"
+            }
+          ],
+          "stability_basis": "S_main已处C1-1最低档，状态体系不存在可继续“跌破主态”的更低档位，因此K按定义取K4。这里的K4只表示K指标在底档没有向下分辨空间，不代表民生稳定、韧性良好或可在C4领取高位稳定承压信用；S0→C1-1的恶化及底档持续由绝对状态与C4归责处理，不在K重复消费。"
+        },
+        {
+          "adjudication_reason": "任内普通家庭的基本生计普遍失保，主要统治区长期处于严重破坏状态；任内普通家庭的基本生计普遍失保，主要统治区长期处于严重破坏状态。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "cost_scale": "WC4",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-118-XIA-TAKE-CHANGAN-418",
+              "stages": [
+                "S_AVG_MIDDLE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-118-XIA-TAKE-CHANGAN-418",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC1",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-118-XIA-TUYUHUN-419",
+              "stages": [
+                "S_AVG_MIDDLE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-118-XIA-TUYUHUN-419",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "DIRECT_DAMAGE_CONSTRAINED_INFERENCE",
+          "main_band": "C1-1",
+          "material_limitations": [
+            "统万城人数和死亡来自工程补证层，卷120本身只追述规模；不以城防效益抵消民生损害。"
+          ],
+          "peak_band": null,
+          "polity": "胡夏",
+          "rank": 180,
+          "reign_range": [
+            407,
+            425
+          ],
+          "ruler_id": "RULER-SHADOW-赫连勃勃",
+          "ruler_name": "赫连勃勃",
+          "score": 5.7,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-1",
+            "S_avg": "C1-1",
+            "S_end": "C1-1"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-赫连勃勃"
+          },
+          "raw_state_band": "C1-1",
+          "formal_band": "C1-1",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "统万城超大工程与高压用民构成明确人口、劳役和生产损害，长期战争下没有恢复机制，主态为崩溃。"
+          },
+          "material_basis": [
+            {
+              "book": "《晋书·赫连勃勃载记》",
+              "original_text": "蒸土筑城，锥入一寸，即杀作者而并筑之。"
+            }
+          ],
+          "stability_basis": "S_main已处C1-1最低档，状态体系不存在可继续“跌破主态”的更低档位，因此K按定义取K4。这里的K4只表示K指标在底档没有向下分辨空间，不代表民生稳定、韧性良好或可在C4领取高位稳定承压信用；S0→C1-1的恶化及底档持续由绝对状态与C4归责处理，不在K重复消费。"
+        }
+      ]
+    }
+  }
+}

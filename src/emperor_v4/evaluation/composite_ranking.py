@@ -5,6 +5,8 @@ from pathlib import Path
 from statistics import mean, median
 from typing import Any, Mapping
 
+from emperor_v4.evaluation.formal_json_store import load_json
+
 
 POOL_PATH = "config/common/canonical-ruler-pool.json"
 OUTPUT_JSON = "docs/评分结算/00-皇帝综合评价总榜.json"
@@ -35,7 +37,7 @@ SETTLEMENT_SPECS = {
 
 
 def _read_json(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text(encoding="utf-8"))
+    return load_json(path)
 
 
 def _competition_rank(scores: list[float], index: int) -> int:

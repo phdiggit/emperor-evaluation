@@ -1,0 +1,2815 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "五代十国",
+  "collections": {
+    "scores": {
+      "positions": [
+        6,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        82,
+        98,
+        99,
+        120,
+        121,
+        122,
+        144,
+        152,
+        155
+      ],
+      "records": [
+        {
+          "adjudication_reason": "维持C1-4，但证据模式改为受约束推断。称帝前实际掌权期“江淮旷土尽辟，桑柘满野”证明生产恢复；称帝期“江淮连年丰稔，兵食有余”只能作供给背景，不能直接等同普通家庭余量。拒绝账外羡余并指出其可能来自“掊民刻军”，用于约束额外汲取风险。现证足以支持核心统治区长期正常运行，但不足C1-5。",
+          "confidence": "MEDIUM_HIGH",
+          "evidence": [
+            {
+              "anchor_time": "称帝前实际掌吴政窗口",
+              "described_state": "蠲欠、改税后江淮荒地开垦和桑柘扩展，作为本人实际掌权阶段的生产背景锚。",
+              "evidence_id": "EVD-FD12-FISCAL-084",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "proof_scope_constraints": [
+                "PRE_ACCESSION_ACTUAL_POWER_BACKGROUND"
+              ],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_locator": "SRC-ZZTJ-270-803281-P0051",
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-270.source-summary.md"
+              ],
+              "verbatim_excerpt": "江淮旷土尽辟，桑柘满野，国以富强。",
+              "macro_anchor_specificity_detail": "SCOPED_PRODUCTION_RESULT",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS",
+                "NET_TAX_LABOR_BURDEN"
+              ]
+            },
+            {
+              "anchor_time": "937—943年称帝窗口",
+              "described_state": "称帝窗口江淮连续丰收且军粮有余，闭合核心统治区生产和供给长期正常。",
+              "evidence_id": "EVD-FD12-FISCAL-087",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "proof_scope_constraints": [],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_locator": "SRC-ZZTJ-282-2303983-P0099",
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-282.source-summary.md"
+              ],
+              "verbatim_excerpt": "江淮连年丰稔，兵食有余。",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+              ]
+            },
+            {
+              "anchor_time": "937—943年称帝窗口",
+              "described_state": "拒收账外羡余，明确识别其来自对军民的额外刻取；只作低汲取约束，不单独证明家庭富足。",
+              "evidence_id": "EVD-FD12-FISCAL-086",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "proof_scope_constraints": [],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_locator": "SRC-ZZTJ-282-2303983-P0070",
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-282.source-summary.md"
+              ],
+              "verbatim_excerpt": "如此羡余必由掊民刻军而来。",
+              "macro_anchor_specificity_detail": "NON_MACRO_EXTRACTION_CONSTRAINT",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+              ]
+            }
+          ],
+          "evidence_mode": "STRUCTURED_CONSTRAINED_INFERENCE",
+          "main_band": "C1-4",
+          "material_limitations": [
+            "第三项军事成本C4高位主要由安州同链约四千本方军事人员损失准入；该事实仍是军队口径，未闭合普通家庭缺粮、卖产、流亡或家庭结构损伤，不生成新的C1低谷。"
+          ],
+          "peak_band": null,
+          "polity": "南唐",
+          "rank": 7,
+          "reign_range": "937-943",
+          "ruler_id": "RULER-FD-LI-BIAN",
+          "ruler_name": "李昪",
+          "score": 54.9,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-4",
+            "S_avg": "C1-4",
+            "S_end": "C1-4"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-228D8A959AE7",
+              "M3P-SEM-1ACE96C30C4F",
+              "M3P-SEM-09D515F79BFC"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-228D8A959AE7",
+                "candidate_ids_trace_only": [
+                  "I2-FD-MAT-537F86DD3704B612",
+                  "I2-FD-MAT-68608CBF5ECF3A5E"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "反对以加赋和刻扣军费制造财政余粮 | 指出余粮只能来自掊民或刻军 | 阻止把侵害民众和军队的征敛包装成财政成绩 | 审查所谓财政余粮的来源 | 如此餘糧必來自掊民刻軍 | # 《资治通鉴》卷282非战役通读总结 | - source_unit_id：SRC-ZZTJ-282-2303983 | - revision_ref：2303983 | - raw_sha256：ad8a9271dd93fceac79a9af5ca44105a2d5b0c180b164b22c7c5788fefe79184 | - 通读范围：`SRC-ZZTJ-282-2303983-P0001` 至 `SRC-ZZTJ-282-2303983-P0133`；正文实质叙事至 `SRC-ZZTJ-282-2303983-P0127`。 | - 执行口径：本文件只写未进入战役裁决卡的事实。朔方寇钞、闽宫禁政变、溪州战争、闽—建州内战、安州战争、吐谷浑军事逐返、凉州军乱、安重荣与安从进叛乱等均转入 `volume-282.battle-adjudications.json`。 | ## 一、财政、民生、工程与灾害 | - 闽主用陈守元之言在禁中建三清殿，以黄金数千斤铸宝皇大帝、天尊、老君像，昼夜作乐祈求神丹；政事大小又由林兴假传“宝皇命”裁决。原文定位：`SRC-ZZTJ-282-2303983-P0025`。 | - 闽北宫失火，“焚宮殿殆盡”。其后清理余烬时又日役内外营兵万人，士卒苦役；这一劳役事实本身计入非战役总结，随后发生的军事政变另见战役 JSON。原文定位：`SRC-ZZTJ-282-2303983-P0034`、`SRC-ZZTJ-282-2303983-P0039`。；按田地肥瘠定税并统一后续赋役基准 | 调兵、兴役及其他赋敛统一按税钱比例执行 | 形成跨事项可复用的田税和赋役基准 | 依据田地质量核定税额 | 按田肥瘠定稅；此後江淮調兵、興役及其他賦斂皆以稅錢為率 | # 《资治通鉴》卷282非战役通读总结 | - source_unit_id：SRC-ZZTJ-282-2303983 | - revision_ref：2303983 | - raw_sha256：ad8a9271dd93fceac79a9af5ca44105a2d5b0c180b164b22c7c5788fefe79184 | - 通读范围：`SRC-ZZTJ-282-2303983-P0001` 至 `SRC-ZZTJ-282-2303983-P0133`；正文实质叙事至 `SRC-ZZTJ-282-2303983-P0127`。 | - 执行口径：本文件只写未进入战役裁决卡的事实。朔方寇钞、闽宫禁政变、溪州战争、闽—建州内战、安州战争、吐谷浑军事逐返、凉州军乱、安重荣与安从进叛乱等均转入 `volume-282.battle-adjudications.json`。 | ## 一、财政、民生、工程与灾害 | - 闽主用陈守元之言在禁中建三清殿，以黄金数千斤铸宝皇大帝、天尊、老君像，昼夜作乐祈求神丹；政事大小又由林兴假传“宝皇命”裁决。原文定位：`SRC-ZZTJ-282-2303983-P0025`。 | - 闽北宫失火，“焚宮殿殆盡”。其后清理余烬时又日役内外营兵万人，士卒苦役；这一劳役事实本身计入非战役总结，随后发生的军事政变另见战役 JSON。原文定位：`SRC-ZZTJ-282-2303983-P0034`、`SRC-ZZTJ-282-2303983-P0039`。",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/five_dynasties.json#material_id=I2-FD-MAT-537F86DD3704B612",
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-282.source-summary.md",
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/five_dynasties.json#material_id=I2-FD-MAT-68608CBF5ECF3A5E"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-228D8A959AE7"
+              },
+              {
+                "parent_id": "M3P-SEM-1ACE96C30C4F",
+                "candidate_ids_trace_only": [
+                  "M3H-CF54F5D38F2FC7CA",
+                  "M3H-802A9CB37122A428",
+                  "M3H-DBB6F96F7B3F4026"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "MARKET_TRADE",
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- 后蜀自建国以来不少节度使遥领禁兵、留成都而委僚佐治州，结果“專事聚斂，政事不治，民無所訴”。蜀主因此罢赵廷隐、王处回、张公铎等节度实权，改派李昊、刘英图、崔銮、谢从志、张言赞分别知军。原文定位：`SRC-ZZTJ-282-2303983-P0095`。 | - 李昪面对群臣趁北方多难恢复旧疆的建议，称自己少长军旅，深知“兵之為民害”，且江淮连年丰稔、兵食有余，不愿再启战争；南汉又提议共取楚、分其地，也被拒绝。原文定位：`SRC-ZZTJ-282-2303983-P0099`。 | - 桑维翰反对安重荣贸然与契丹开战，直陈中国“府庫虛竭，蒸民困弊”，若绝和则兵多饷运不继、禁军疲于奔命，镇定甚至可能无遗民；他主张训农习战、养兵息民后再观衅而动。原文定位：`SRC-ZZTJ-282-2303983-P0102`。 | - 闽王曦因淫侈“資用不給”，陈匡范承诺“日進萬金”，把商税增数倍；仍不足时又挪借诸省务钱。继任黄绍颇进一步推行输金授官，按资望与州县房口定价百至千缗。原文定位：`SRC-ZZTJ-282-2303983-P0102`。；- 闽王曦因淫侈“資用不給”，陈匡范承诺“日進萬金”，把商税增数倍；仍不足时又挪借诸省务钱。继任黄绍颇进一步推行输金授官，按资望与州县房口定价百至千缗。原文定位：`SRC-ZZTJ-282-2303983-P0102`。 | - 吴越府署失火，宫室府库几乎尽毁，钱元瓘因此惊惧发狂。南唐群臣有人劝趁灾进取，李昪拒绝“利人之災”，反派使慰问并周济其匮乏。原文定位：`SRC-ZZTJ-282-2303983-P0105`。 | - 杜重威掌军后“所至黷貨，民多逃亡”；这属于军政剥削造成的人口逃散，不因其军职身份转入战役成本。原文定位：`SRC-ZZTJ-282-2303983-P0108`。 | - 钱弘佐继位后询问仓储，得知可支十年，认为军食已足，遂免吴越境内税三年。原文定位：`SRC-ZZTJ-282-2303983-P0110`。；- 钱弘佐继位后询问仓储，得知可支十年，认为军食已足，遂免吴越境内税三年。原文定位：`SRC-ZZTJ-282-2303983-P0110`。 | - 南唐李昪平日穿蒲鞋、以铁盎盥洗，暑天卧青葛帷，服饰粗略；死于国事者即使普通士卒也给禄三年。他又派使者按田肥瘠定税，原文称民间认为平允，此后江淮调兵、兴役及其他赋敛皆以税钱为率。原文定位：`SRC-ZZTJ-282-2303983-P0119`。 | ## 二、政治秩序、外交与人口变化",
+                "source_refs": [
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-282.source-summary.md#L23",
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-282.source-summary.md#L26",
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-282.source-summary.md#L29"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-1ACE96C30C4F"
+              },
+              {
+                "parent_id": "M3P-SEM-09D515F79BFC",
+                "candidate_ids_trace_only": [
+                  "M3H-61CAF13374F4A294"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "PUBLIC_WORKS"
+                ],
+                "chain_summary": "- 南唐烈祖服金石丹药后渐躁急，临终自承“始欲益壽，乃更傷生”；道士王栖霞以“國用方乏”拒绝由朝廷为其筑坛。原文定位：`SRC-ZZTJ-283-810796-P0056`、`SRC-ZZTJ-283-810796-P0057`。 | - 南唐遗诏被冯延己、冯延鲁夹入“听民卖男女”条款。萧俨指出李昪昔为吴相时曾出府钱赎回被卖男女，并从宫中找到冯延鲁旧疏证明先帝原先反对此策；但因遗诏已行，李璟最终未改。原文定位：`SRC-ZZTJ-283-810796-P0060`。 | - 王延政在建州称帝、国号大殷后，原文直书“國小民貧，軍旅不息”；杨思恭加征田亩、山泽以及鱼盐蔬果，几乎无物不倍征，国人称其“楊剝皮”。原文定位：`SRC-ZZTJ-283-810796-P0061`。 | - 潘承祐上十事，集中指出赋敛繁重、力役无节、发民为兵、杨思恭夺民衣食、地狭却多置州县、括高资户、逋负受刑、津渡连果菜鱼米也征，以及宫室台榭崇饰无度；王延政怒而削其官爵。原文定位：`SRC-ZZTJ-283-810796-P0071`。",
+                "source_refs": [
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-283.source-summary.md#L20"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-09D515F79BFC"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [
+              "M3H-13D09E56781E7CC6"
+            ],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-FD-LI-BIAN"
+          },
+          "review_remediation": {
+            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
+            "status": "APPLIED",
+            "problem": "主档不变，但证据模式与K需结构化修正",
+            "directive": "维持 C1-4→4→4；补 K=K4；将旧“直接宏观锚”改为按7.2受约束推断，删除“兵食有余”作为C1主证。"
+          },
+          "raw_state_band": "C1-4",
+          "formal_band": "C1-4",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS",
+            "NET_TAX_LABOR_BURDEN"
+          ],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "stages": [],
+            "basis": "现有证据没有确认恢复完成后独立、已经实现且低于C1-4的家庭生计阶段。K4仅表示当前未确认有效低谷，不把史料沉默本身当作正面稳定证据。"
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "COMPLETE",
+            "handoff_continuity_checked": true,
+            "basis": "主档C1-4、曲线4→4→4维持；改按受约束推断结算，兵食有余不再充当C1主证；未确认恢复后独立家庭低谷。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "主档C1-4、曲线4→4→4维持；改按受约束推断结算，兵食有余不再充当C1主证；未确认恢复后独立家庭低谷。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷270",
+              "original_text": "江淮旷土尽辟，桑柘满野，国以富强。"
+            },
+            {
+              "book": "《资治通鉴》卷282",
+              "original_text": "江淮连年丰稔，兵食有余。"
+            },
+            {
+              "book": "《资治通鉴》卷282",
+              "original_text": "如此羡余必由掊民刻军而来。"
+            }
+          ],
+          "stability_basis": "恢复完成后未确认独立且已实现的家庭生计下滑，K4。这里不是以史料沉默证明稳定，而是现有已审材料没有形成低于C1-4的有效阶段。",
+          "military_cost_c1_review": {
+            "D_cost_band": "C4",
+            "D_cost_position": "HIGH",
+            "D_status": "CONFIRMED",
+            "D_cost_basis": "安州同链闭合约四千本方军事人员损失，形成C4高位；不与其他链跨链拼接。",
+            "household_closure": "当前只闭合军队人员损失，未闭合普通家庭缺粮、破产、流亡、卖产或家庭结构损害。",
+            "c1_disposition": "NO_C1_LOW_CREATED_K4_UNCHANGED"
+          },
+          "c1_reaudit": {
+            "review_date": "2026-08-30",
+            "status": "REVIEWED_CUMULATIVE",
+            "rating_change": "NONE",
+            "k_final": "K4",
+            "summary": "主档C1-4、曲线4→4→4维持；改按受约束推断结算，兵食有余不再充当C1主证；未确认恢复后独立家庭低谷。"
+          }
+        },
+        {
+          "adjudication_reason": "任内普通家庭总体仍为基本维持，缺广域C1-4直接锚。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "黄河自杨刘至博州一百二十里连年东决，分流汇成数百里大泽，又破古堤灌齐、棣、淄直至海滨，民田庐漂没不可胜计，流民靠采菰稗、捕鱼为生。李谷奉命督役徒六万，三十日堵塞完成。`SRC-ZZTJ-292-1769707-P0031`",
+              "evidence_id": "EVD-FD12-FISCAL-062",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-292-1769707-P0031"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-292.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS",
+                "NET_TAX_LABOR_BURDEN"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "后周改革漕运损耗制度，规定每斛给耗一斗。原文追叙晋、汉以来不给斗耗，运输自然亏欠常由纲吏赔偿，甚至多人因此抵死；新制直接承认运输合理耗损。`SRC-ZZTJ-292-1769707-P0038`",
+              "evidence_id": "EVD-FD12-FISCAL-063",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-292-1769707-P0038"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-292.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "后周规划扩建大梁外城，先立标界，规定只在冬季农隙施工，春耕开始即停，次年再续；标界内坟墓迁到七里外，除街衢、仓场、营廨外，其余土地允许百姓自由建屋。显德三年正月实际征开封府及曹、滑、郑州民十余万筑城。`SRC-ZZTJ-292-1769707-P0050` `SRC-ZZTJ-292-1769707-P0080`",
+              "evidence_id": "EVD-FD12-FISCAL-064",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-292-1769707-P0050",
+                "SRC-ZZTJ-292-1769707-P0080"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-292.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "因官府长期少铸钱、民间又大量熔钱制作器物和佛像，后周设监采铜铸钱；除法定官物、军器及部分寺观钟磬外，其余民间铜器、佛像限五十日输官，按价给钱。逾期私藏五斤以上者处死，不足五斤分等治罪。`SRC-ZZTJ-292-1769707-P0064`",
+              "evidence_id": "EVD-FD12-FISCAL-065",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-292-1769707-P0064"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-292.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "DIRECT_PLUS_CONSTRAINED_INFERENCE",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "K1来自短任内独立宏观低态，不是按灾年条数累加。"
+          ],
+          "peak_band": null,
+          "polity": "后周",
+          "rank": 36,
+          "reign_range": "954-959",
+          "ruler_id": "RULER-FD-CHAI-RONG",
+          "ruler_name": "柴荣",
+          "score": 29.4,
+          "stability_class_diagnostic_only": "K1",
+          "state_anchors": {
+            "S0": "C1-3",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-A0912563B699"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-A0912563B699",
+                "candidate_ids_trace_only": [
+                  "I2-FD-MAT-0EF377A16B67B9D1",
+                  "I2-FD-MAT-921AD902726FD41B"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "NEUTRAL_ADMINISTRATIVE_ADJUSTMENT",
+                "mechanisms": [
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "把课户和俸户归还州县管理 | 诸色课户、俸户统一归入州县 | 基层户籍与赋役重新纳入州县行政 | 撤销特殊依附户的分散控制 | 諸色課戶及俸戶並勒歸州縣 | # 《资治通鉴》卷294非战役通读总结 | - source_unit_id：SRC-ZZTJ-294-2594143 | - revision_ref：2594143 | - raw_sha256：1175e45b97c2206c75a4f15234ffe41549e2b310c5d25e6df2fc2c63431bcea1 | - 通读范围：`SRC-ZZTJ-294-2594143-P0001` 至 `SRC-ZZTJ-294-2594143-P0128`（128段） | - 说明：本文件仅保留未进入战役裁决卡的财政、民生、工程、政治秩序、外交、人口、制度及《资治通鉴》编纂跋文事实；实际武装行动、战时工程与动员、战争伤亡、军资得失和空间控制变化见同卷 `volume-294.battle-adjudications.json`。 | ## 一、财政、民生、工程与灾害 | - 后周废匡国军；后蜀则在果州新置永宁军，并以通州隶属之。两项均属军镇行政建制调整，本段未见武装冲突。原文定位：`SRC-ZZTJ-294-2594143-P0012`、`SRC-ZZTJ-294-2594143-P0020`。 | - 后周在战后扬州旧城东南角另筑小城作为新的治理据点，韩令坤发丁夫一万余人施工。扬州此前焦土撤退造成的战争破坏已在卷293战役卡结算；本段只记后续城市治理工程。原文定位：`SRC-ZZTJ-294-2594143-P0022`“發丁夫萬餘，築故城之東南隅為小城以治之”。；分州均定田租并建立百户团耆长 | 三十四人分行诸州，并以约百户设团和耆长 | 田租核定与基层组织形成统一接口 | 派员巡行各州核定田租 | 派艾穎等三十四人分行諸州均定田租；諸州、鄉村大體每百戶為一團、置耆長三人 | # 《资治通鉴》卷294非战役通读总结 | - source_unit_id：SRC-ZZTJ-294-2594143 | - revision_ref：2594143 | - raw_sha256：1175e45b97c2206c75a4f15234ffe41549e2b310c5d25e6df2fc2c63431bcea1 | - 通读范围：`SRC-ZZTJ-294-2594143-P0001` 至 `SRC-ZZTJ-294-2594143-P0128`（128段） | - 说明：本文件仅保留未进入战役裁决卡的财政、民生、工程、政治秩序、外交、人口、制度及《资治通鉴》编纂跋文事实；实际武装行动、战时工程与动员、战争伤亡、军资得失和空间控制变化见同卷 `volume-294.battle-adjudications.json`。 | ## 一、财政、民生、工程与灾害 | - 后周废匡国军；后蜀则在果州新置永宁军，并以通州隶属之。两项均属军镇行政建制调整，本段未见武装冲突。原文定位：`SRC-ZZTJ-294-2594143-P0012`、`SRC-ZZTJ-294-2594143-P0020`。 | - 后周在战后扬州旧城东南角另筑小城作为新的治理据点，韩令坤发丁夫一万余人施工。扬州此前焦土撤退造成的战争破坏已在卷293战役卡结算；本段只记后续城市治理工程。原文定位：`SRC-ZZTJ-294-2594143-P0022`“發丁夫萬餘，築故城之東南隅為小城以治之”。",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/five_dynasties.json#material_id=I2-FD-MAT-0EF377A16B67B9D1",
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-294.source-summary.md",
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/five_dynasties.json#material_id=I2-FD-MAT-921AD902726FD41B"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-A0912563B699"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-FD-CHAI-RONG"
+          },
+          "review_remediation": {
+            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
+            "status": "APPLIED",
+            "problem": "当前 C1-3→3→3 主档基本合理。R19收紧后需确认K1不是仅凭“两组低谷”保留；关键在其任期很短，而黄河低态本身又是连年、广域、深度家庭损害。",
+            "directive": "主档与三锚维持 C1-3→3→3，score 32.0；K K3→K1 仍保留。 黄河自杨刘至博州一百二十里连年东决，分流成数百里大泽并灌齐棣淄至海滨，民田庐漂没不可胜计，流民靠采菰稗、捕鱼维生；这已不是单点灾害，而是一条持续、广域的C1低态。随后寿州/淮南战后又发生饥馑。对约5年短任而言，低态在持续/重复与范围两项均属强条件，足以成为主3的次级竞争状态，故K1通过新门。筑城丁夫、南征、水运工程本身不重复扣K。"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS",
+            "NET_TAX_LABOR_BURDEN"
+          ],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "stages": [
+              {
+                "stage_band": "C1-2",
+                "depth_from_raw_main": 1,
+                "scope_class": "MULTI_MAJOR_REGION",
+                "duration_class": "REPEATED_OR_LONG_RELATIVE_TO_WINDOW",
+                "repeat_group": "ATTACHED_REVIEW_CONSOLIDATED_CHAIN",
+                "recovery_confirmed": true,
+                "evidence_strength": "ATTACHED_REVIEW_WITH_FORMAL_SOURCE_ENTRIES",
+                "counts_toward_k": true,
+                "exclusion_reason": null,
+                "basis": "主档与三锚维持 C1-3→3→3，score 32.0；K K3→K1 仍保留。 黄河自杨刘至博州一百二十里连年东决，分流成数百里大泽并灌齐棣淄至海滨，民田庐漂没不可胜计，流民靠采菰稗、捕鱼维生；这已不是单点灾害，而是一条持续、广域的C1低态。随后寿州/淮南战后又发生饥馑。对约5年短任而言，低态在持续/重复与范围两项均属强条件，足以成为主3的次级竞争状态，故K1通过新门。筑城丁夫、南征、水运工程本身不重复扣K。"
+              }
+            ]
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "COMPLETE",
+            "handoff_continuity_checked": true,
+            "basis": "主档与三锚维持 C1-3→3→3，score 32.0；K K3→K1 仍保留。 黄河自杨刘至博州一百二十里连年东决，分流成数百里大泽并灌齐棣淄至海滨，民田庐漂没不可胜计，流民靠采菰稗、捕鱼维生；这已不是单点灾害，而是一条持续、广域的C1低态。随后寿州/淮南战后又发生饥馑。对约5年短任而言，低态在持续/重复与范围两项均属强条件，足以成为主3的次级竞争状态，故K1通过新门。筑城丁夫、南征、水运工程本身不重复扣K。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "主档与三锚维持 C1-3→3→3，score 32.0；K K3→K1 仍保留。 黄河自杨刘至博州一百二十里连年东决，分流成数百里大泽并灌齐棣淄至海滨，民田庐漂没不可胜计，流民靠采菰稗、捕鱼维生；这已不是单点灾害，而是一条持续、广域的C1低态。随后寿州/淮南战后又发生饥馑。对约5年短任而言，低态在持续/重复与范围两项均属强条件，足以成为主3的次级竞争状态，故K1通过新门。筑城丁夫、南征、水运工程本身不重复扣K。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷二百九十二",
+              "original_text": "民田庐舍漂没不可胜计，流民采菰稗、捕鱼以给食。"
+            }
+          ],
+          "stability_basis": "黄河连年东决形成跨齐、棣、淄及沿河大片区域的连续家庭低态，民田庐舍漂没、流民采菰稗捕鱼维生；在约5年短任内相对持续与覆盖均强，且主态3并非由该危机降档而来，因此通过去重后的K1聚合门。"
+        },
+        {
+          "adjudication_reason": "承接“河北困弊”低位后，通过减轻额外汲取等措施恢复到基本维持；现证不足C1-4。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "郭威出镇邺都前后，原文明言“河北困弊”，可见长期军役与边患背景下河北社会经济承压。原文定位：`SRC-ZZTJ-289-1769444-P0033`“河北困弊”。",
+              "evidence_id": "EVD-FD12-FISCAL-048",
+              "identity_window_gate": "BACKGROUND_ONLY",
+              "source_locator": [
+                "SRC-ZZTJ-289-1769444-P0033"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-289.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS",
+                "NET_TAX_LABOR_BURDEN"
+              ],
+              "macro_anchor_specificity": "NOT_APPLICABLE_AFTER_IDENTITY_GATE",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "郭威即位后首先改革仓场、库务征耗：掌纳官吏不得再收“斗余、称耗”，旧有羡余悉罢；刑法也恢复较轻旧制，非反逆不得族诛、籍没。原文定位：`SRC-ZZTJ-290-1554171-P0012`“無得收斗餘、稱耗”“罪人非反逆，無得誅及親族”。",
+              "evidence_id": "EVD-FD12-FISCAL-049",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-290-1554171-P0012"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-290.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "郭威自称出身寒微、备尝艰苦，下诏罢四方珍美食物贡奉，并向文武官征求“益国利民”之术，要求直书而勿事辞藻。原文定位：`SRC-ZZTJ-290-1554171-P0029`“悉罷之”“各具封事以聞”。",
+              "evidence_id": "EVD-FD12-FISCAL-050",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-290-1554171-P0029"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-290.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "郭威又把汉宫宝玉器数十件当庭击碎，禁止珍华悦目之物再入宫，以汉隐帝沉溺珍玩为戒。原文定位：`SRC-ZZTJ-290-1554171-P0035`“碎之於庭”。",
+              "evidence_id": "EVD-FD12-FISCAL-051",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-290-1554171-P0035"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-290.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "DIRECT_PLUS_CONSTRAINED_INFERENCE",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "“民有恒产”等覆盖有限，不足外推全国普遍温饱。"
+          ],
+          "peak_band": null,
+          "polity": "后周",
+          "rank": 36,
+          "reign_range": "951-954",
+          "ruler_id": "RULER-FD-GUO-WEI",
+          "ruler_name": "郭威",
+          "score": 32.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-2",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-6A8400B8454D",
+              "M3P-SEM-AE24BC0CAC14",
+              "M3P-SEM-4289D0AFC350",
+              "M3P-SEM-8B3D4383F6D5"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-6A8400B8454D",
+                "candidate_ids_trace_only": [
+                  "I2-FD-MAT-7252CAE6EF9C6248",
+                  "M3H-37E432783DD6F038",
+                  "M3H-3715C58B8D43BCD0",
+                  "M3H-08EFACA6B6E2AF50"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "PUBLIC_WORKS",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "禁止斗余称耗并限制株连亲族 | 禁止额外收取斗余称耗，非反逆罪不得诛及亲族 | 赋税附加和刑事株连受到明确约束 | 恢复征敛和刑罚边界 | 無得收斗餘、稱耗；罪人非反逆，無得誅及親族 | # 《资治通鉴》卷290非战役通读总结 | - source_unit_id：`SRC-ZZTJ-290-1554171` | - revision_ref：`1554171` | - raw_sha256：`551c6cfe6c353c8cd99ebec81d6108b33d98e73f03936d4c8869849d54b07cd2` | - 通读范围：`SRC-ZZTJ-290-1554171-P0001` 至 `SRC-ZZTJ-290-1554171-P0137`；正文事实主要见 `P0011—P0131`。 | - 口径：只保留未进入 `volume-290.battle-adjudications.json` 的非战役事实；实际交战、攻守、武装政变、武装叛乱及其直接战争损害不在本文件重复。 | ## 一、财政、民生、工程与灾害 | - 郭威即位后首先改革仓场、库务征耗：掌纳官吏不得再收“斗余、称耗”，旧有羡余悉罢；刑法也恢复较轻旧制，非反逆不得族诛、籍没。原文定位：`SRC-ZZTJ-290-1554171-P0012`“無得收斗餘、稱耗”“罪人非反逆，無得誅及親族”。 | - 北汉开国时财政基础薄弱：不建宗庙，宰相月俸仅百缗、节度使三十缗，其余官员资给更少；原文直言因此“国中少廉吏”。原文定位：`SRC-ZZTJ-290-1554171-P0026`“故其國中少廉吏”。；- 郭威即位后首先改革仓场、库务征耗：掌纳官吏不得再收“斗余、称耗”，旧有羡余悉罢；刑法也恢复较轻旧制，非反逆不得族诛、籍没。原文定位：`SRC-ZZTJ-290-1554171-P0012`“無得收斗餘、稱耗”“罪人非反逆，無得誅及親族”。 | - 北汉开国时财政基础薄弱：不建宗庙，宰相月俸仅百缗、节度使三十缗，其余官员资给更少；原文直言因此“国中少廉吏”。原文定位：`SRC-ZZTJ-290-1554171-P0026`“故其國中少廉吏”。 | - 郭威自称出身寒微、备尝艰苦，下诏罢四方珍美食物贡奉，并向文武官征求“益国利民”之术，要求直书而勿事辞藻。原文定位：`SRC-ZZTJ-290-1554171-P0029`“悉罷之”“各具封事以聞”。；- 北汉开国时财政基础薄弱：不建宗庙，宰相月俸仅百缗、节度使三十缗，其余官员资给更少；原文直言因此“国中少廉吏”。原文定位：`SRC-ZZTJ-290-1554171-P0026`“故其國中少廉吏”。 | - 郭威自称出身寒微、备尝艰苦，下诏罢四方珍美食物贡奉，并向文武官征求“益国利民”之术，要求直书而勿事辞藻。原文定位：`SRC-ZZTJ-290-1554171-P0029`“悉罷之”“各具封事以聞”。 | - 郭威又把汉宫宝玉器数十件当庭击碎，禁止珍华悦目之物再入宫，以汉隐帝沉溺珍玩为戒。原文定位：`SRC-ZZTJ-290-1554171-P0035`“碎之於庭”。 | - 马希萼取得长沙后，杀戮无度、纵酒荒淫，政务多委马希崇；此前军乱耗尽府库，继而籍民财赏军，士卒仍因分配不均而怨。这里只记录治理、财政和民生后果，后续武装离心另见裁决卡。原文定位：`SRC-ZZTJ-290-1554171-P0042`“籍民財以賞繼士卒”。；- 郭威自称出身寒微、备尝艰苦，下诏罢四方珍美食物贡奉，并向文武官征求“益国利民”之术，要求直书而勿事辞藻。原文定位：`SRC-ZZTJ-290-1554171-P0029`“悉罷之”“各具封事以聞”。 | - 郭威又把汉宫宝玉器数十件当庭击碎，禁止珍华悦目之物再入宫，以汉隐帝沉溺珍玩为戒。原文定位：`",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/five_dynasties.json#material_id=I2-FD-MAT-7252CAE6EF9C6248",
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-290.source-summary.md",
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-290.source-summary.md#L11",
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-290.source-summary.md#L13",
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-290.source-summary.md#L14"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-6A8400B8454D"
+              },
+              {
+                "parent_id": "M3P-SEM-AE24BC0CAC14",
+                "candidate_ids_trace_only": [
+                  "M3H-47C9D9A045F467A8"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "PUBLIC_WORKS"
+                ],
+                "chain_summary": "- 后汉南下前讨论进军路线时，郭威以“上黨山路險澀，粟少民殘，無以供億”为由反对走上党，直接反映该区战后人口、粮食和供给承载力不足。原文定位：`SRC-ZZTJ-287-1329024-P0015`。 | - 萧翰撤离大梁前，刘审交称当地已“大亂之餘，公私窮竭，遺民無幾”，若再守城受围一月恐“無噍類”；这是经历契丹占领与连续战争后首都社会经济状态的直接描述。原文定位：`SRC-ZZTJ-287-1329024-P0024`。 | - 杜重威叛乱期间，原文称“兵荒之餘，公私匱竭”，而北来军与朝廷军合并后人数骤增数倍。三司使王章请求罢不急之务、省无益之费以供军，结果“用度克贍”。这是独立财政紧缩政策，不把具体战役征调重复写入本总结。原文定位：`SRC-ZZTJ-287-1329024-P0046`。",
+                "source_refs": [
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-287.source-summary.md#L11"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-AE24BC0CAC14"
+              },
+              {
+                "parent_id": "M3P-SEM-4289D0AFC350",
+                "candidate_ids_trace_only": [
+                  "M3H-5BD89FCE418B3A5B",
+                  "M3H-00EFC6AD45564B80",
+                  "M3H-FEAEB2604A17C26B"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "MONETARY_CREDIT",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- 黄河在郑、滑决口，朝廷遣使巡视修塞；至广顺三年九月白重赞奏决口已经堵塞。显德元年正月又追记灵河、鱼池、酸枣、阳武、常乐驿、河阴、六明镇、原武共八处决口，朝廷再次分遣使者修塞。`SRC-ZZTJ-291-1554151-P0030` `SRC-ZZTJ-291-1554151-P0070` `SRC-ZZTJ-291-1554151-P0093` | - 侯章入朝献“买宴”绢千匹、银五百两，郭威拒收，认为诸侯入觐本应由天子宴劳，不应反取臣下财物，并下令以后同类献纳一概不受。`SRC-ZZTJ-291-1554151-P0031` | - 后周废户部营田务，把营田户归入州县，将现佃田、庐舍、牛和农具一并赐给佃户为永业，并取消延续数十年的租牛课。当年户部增三万余户；原文称民有恒产后开始修屋种树，地利数倍。有人建议出售肥沃营田可得数十万缗，郭威答“利在于民，犹在国也”。`SRC-ZZTJ-291-1554151-P0040` | - 常思离宋州时奏称自己“举丝”四万余两留在民间，请朝廷代为征收上进。郭威后来下敕全部蠲免，已经缴纳的也退还百姓。`SRC-ZZTJ-291-1554151-P0062`；- 后周废户部营田务，把营田户归入州县，将现佃田、庐舍、牛和农具一并赐给佃户为永业，并取消延续数十年的租牛课。当年户部增三万余户；原文称民有恒产后开始修屋种树，地利数倍。有人建议出售肥沃营田可得数十万缗，郭威答“利在于民，犹在国也”。`SRC-ZZTJ-291-1554151-P0040` | - 常思离宋州时奏称自己“举丝”四万余两留在民间，请朝廷代为征收上进。郭威后来下敕全部蠲免，已经缴纳的也退还百姓。`SRC-ZZTJ-291-1554151-P0062` | - 南唐大旱，井泉干涸，淮水浅至可徒涉，大批饥民向北流动。郭威认为“彼我之民一也”，允许其过淮买米；南唐于是沿边设仓购粮。后周随后规定，人畜背负少量米粮可过境，舟车大宗运输则禁止。饥民与守兵冲突的治安事实不列为战役。`SRC-ZZTJ-291-1554151-P0068` | - 青、徐以西南北多地同遭大水，东到青、徐，南到安、复，西到丹、慈，北到贝、镇，范围很广。`SRC-ZZTJ-291-1554151-P0073`；- 常思离宋州时奏称自己“举丝”四万余两留在民间，请朝廷代为征收上进。郭威后来下敕全部蠲免，已经缴纳的也退还百姓。`SRC-ZZTJ-291-1554151-P0062` | - 南唐大旱，井泉干涸，淮水浅至可徒涉，大批饥民向北流动。郭威认为“彼我之民一也”，允许其过淮买米；南唐于是沿边设仓购粮。后周随后规定，人畜背负少量米粮可过境，舟车大宗运输则禁止。饥民与守兵冲突的治安事实不列为战役。`SRC-ZZTJ-291-1554151-P0068` | - 青、徐以西南北多地同遭大水，东到青、徐，南到安、复，西到丹、慈，北到贝、镇，范围很广。`SRC-ZZTJ-291-1554151-P0073` | - 南唐在楚州筹修白水塘并广辟荒地屯田，地方官借机大兴力役、侵夺大量民田，百姓“愁怨无诉”。徐铉奉命核查后把被占田地全部归还原主，却遭谗流舒州；白水塘最终也没有建成。`SRC-ZZTJ-291-1554151-P0080`",
+                "source_refs": [
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-291.source-summary.md#L14",
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-291.source-summary.md#L16",
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-291.source-summary.md#L17"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-4289D0AFC350"
+              },
+              {
+                "parent_id": "M3P-SEM-8B3D4383F6D5",
+                "candidate_ids_trace_only": [
+                  "M3H-F78AFF817F3F7931"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "PUBLIC_WORKS"
+                ],
+                "chain_summary": "- 郭威临终遗命薄葬：纸衣、瓦棺、砖圹，不久停尸，不役民采石，不设下宫、守陵宫人和石兽；工程劳力必须和雇，只募陵旁三十户并免杂徭守墓。`SRC-ZZTJ-291-1554151-P0092` | - 郭威在处理军士怨赏时说明，府库积蓄和四方贡献除养军外所余很少，反映后周财政支出高度军事化；同段对散布怨赏流言者的搜捕处刑属于军政秩序，不计战争人员损失。`SRC-ZZTJ-291-1554151-P0088` | ## 二、政治秩序、外交与人口变化",
+                "source_refs": [
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-291.source-summary.md#L21"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-8B3D4383F6D5"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [
+              "M3H-9865D0D0A4552C3B",
+              "M3H-8D73C9ED315A8C63",
+              "M3H-BB0D8F524D6C5EAF",
+              "M3H-799D5D86DFFA3579"
+            ],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-FD-GUO-WEI"
+          },
+          "review_remediation": {
+            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
+            "status": "APPLIED",
+            "problem": "当前 C1-2→3→3 主档可保；旧K3主要由兖州战乱、洪水等事件名目支撑。本人窗口真正闭合的家庭正结果包括把营田户田、庐舍、牛具给为永业并取消租牛课，原文称“民有恒产”；另有减输退税。",
+            "directive": "主档与三锚维持 C1-2→3→3，score 32.0；K K3→K4。 S0=2是继承低位、本人处于恢复过程，不压K；兖州战乱和大水在缺家庭结果时不得生成低谷。“民有恒产”覆盖有限，不足把全国主态抬4。"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS",
+            "NET_TAX_LABOR_BURDEN"
+          ],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "stages": [],
+            "basis": "审查未确认恢复完成后的有效阶段跌破raw主态；不以材料沉默证明K4，依据见人物审查修正。"
+          },
+          "persistence_review": {
+            "status": "COMPLETE",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-2",
+            "to_band": "C1-3",
+            "basis": "主档与三锚维持 C1-2→3→3，score 32.0；K K3→K4。 S0=2是继承低位、本人处于恢复过程，不压K；兖州战乱和大水在缺家庭结果时不得生成低谷。“民有恒产”覆盖有限，不足把全国主态抬4。"
+          },
+          "dynasty_curve_review": {
+            "status": "COMPLETE",
+            "handoff_continuity_checked": true,
+            "basis": "主档与三锚维持 C1-2→3→3，score 32.0；K K3→K4。 S0=2是继承低位、本人处于恢复过程，不压K；兖州战乱和大水在缺家庭结果时不得生成低谷。“民有恒产”覆盖有限，不足把全国主态抬4。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "主档与三锚维持 C1-2→3→3，score 32.0；K K3→K4。 S0=2是继承低位、本人处于恢复过程，不压K；兖州战乱和大水在缺家庭结果时不得生成低谷。“民有恒产”覆盖有限，不足把全国主态抬4。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷289",
+              "original_text": "河北困弊。"
+            },
+            {
+              "book": "《资治通鉴》卷290",
+              "original_text": "无得收斗余、称耗。"
+            }
+          ],
+          "stability_basis": "S0=C1-2及其恢复过程不计K；恢复到主态3后，兖州战乱、水灾等未闭合新的家庭生计结果，故K4。"
+        },
+        {
+          "adjudication_reason": "战乱低位后恢复到基本维持，短阶段出现“军民皆足”峰值，但持续不足代表全任。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "anchor_time": "926—927年任圜判三司约一年",
+              "described_state": "府库与军民供给在恢复初段出现明确高点。",
+              "evidence_id": "EVD-FD12-FISCAL-025",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "proof_scope_constraints": [
+                "ONE_YEAR_PEAK_NOT_MAIN_STATE"
+              ],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_locator": "SRC-ZZTJ-275-803286-P0030",
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-275.source-summary.md"
+              ],
+              "verbatim_excerpt": "府库充实，军民皆足，朝纲粗立。",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ]
+            },
+            {
+              "anchor_time": "明宗丰年窗口",
+              "described_state": "丰年谷贱并未转成普通农户余量，农户仍以未来产出换取眼前生计。",
+              "evidence_id": "EVD-FD12-FISCAL-027",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "proof_scope_constraints": [],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_locator": "SRC-ZZTJ-276-1767667-P0114",
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-276.source-summary.md"
+              ],
+              "verbatim_excerpt": "二月卖新丝，五月粜新谷；医得眼下疮，剜却心头肉。",
+              "macro_anchor_specificity_detail": "SCOPED_HOUSEHOLD_COUNTEREVIDENCE",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+              ]
+            },
+            {
+              "anchor_time": "926—933年全任总评",
+              "described_state": "年谷屡丰、兵革罕用支持恢复持续，但结论明确限定为与五代相比的粗小康。",
+              "evidence_id": "EVD-FD12-FISCAL-034",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "proof_scope_constraints": [
+                "INTERNAL_PERIOD_RELATIVE_NOT_CROSS_ERA_ABSOLUTE"
+              ],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_locator": "SRC-ZZTJ-278-1768855-P0085",
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-278.source-summary.md"
+              ],
+              "verbatim_excerpt": "在位期间年谷屡丰、兵革罕用，校于五代，粗为小康。",
+              "macro_anchor_specificity_detail": "RELATIVE_DYNASTIC_SUMMARY",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ]
+            }
+          ],
+          "evidence_mode": "DIRECT_MACRO_AND_COUNTEREVIDENCE",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "“军民皆足”覆盖短；“粗为小康”为时代内比较，均不外推长期C1-4。"
+          ],
+          "peak_band": "C1-4",
+          "polity": "后唐",
+          "rank": 36,
+          "reign_range": "926-933",
+          "ruler_id": "RULER-FD-LI-SIYUAN",
+          "ruler_name": "李嗣源",
+          "score": 32.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-1",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-B002EC6B1490"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-B002EC6B1490",
+                "candidate_ids_trace_only": [
+                  "M3H-87D798FF6B21922D"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "MARKET_TRADE",
+                  "MONETARY_CREDIT",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- 明宗大幅裁减宫廷冗费：后宫只留百人、宦官三十、教坊百人、鹰坊二十、御厨五十，其余遣散；有名无实的使务也被裁撤。另禁止中外臣僚进献鹰犬奇玩。原文定位：`SRC-ZZTJ-275-803286-P0026`；`P0029`。 | - 庄宗后宫原仍有千余人。李嗣源监国后拒绝再收数百年轻宫人，只用熟悉旧制的年长者补职，并把年轻宫人及蜀中所送宫人放归亲属或任其自去。原文定位：`SRC-ZZTJ-275-803286-P0017`。 | - 任圜兼判三司后，原文评价其“忧公如家”、简拔贤俊、杜绝侥幸，约一年间“府库充实，军民皆足，朝纲粗立”；这一治理成绩同时激化安重诲对他的嫉忌。原文定位：`SRC-ZZTJ-275-803286-P0030`。 | - 前平蜀军曾强令蜀中富民输犒赏钱五百万缗，可用金银缯帛折充，昼夜督责到有人自杀；给军后仍余二百万。赵季良后来赴成都发取财物时，孟知祥只同意交府库旧积，拒交州县租税，称要供“镇兵十万”。原文定位：`SRC-ZZTJ-275-803286-P0072`。",
+                "source_refs": [
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-275.source-summary.md#L13"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-B002EC6B1490"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [
+              "M3H-66C2284A3C1380F7",
+              "M3H-95EA9B1F02C0A96A",
+              "M3H-823810BC36A8D866",
+              "M3H-D9C60CFF7B000AD4"
+            ],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-FD-LI-SIYUAN"
+          },
+          "review_remediation": {
+            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
+            "status": "APPLIED",
+            "problem": "已判C1-4有界峰值但未登记",
+            "directive": "peak_band=C1-4；JSON/Markdown同步"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": "C1-4",
+          "formal_peak_band": "C1-4",
+          "lane_axis_coverage": [
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+          ],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "stages": [],
+            "basis": "审查未确认恢复完成后的有效阶段跌破raw主态；不以材料沉默证明K4，依据见人物审查修正。"
+          },
+          "persistence_review": {
+            "status": "COMPLETE",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-1",
+            "to_band": "C1-4",
+            "basis": "peak_band=C1-4；JSON/Markdown同步"
+          },
+          "dynasty_curve_review": {
+            "status": "COMPLETE",
+            "handoff_continuity_checked": true,
+            "basis": "peak_band=C1-4；JSON/Markdown同步"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "peak_band=C1-4；JSON/Markdown同步"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷275",
+              "original_text": "府库充实，军民皆足，朝纲粗立。"
+            },
+            {
+              "book": "《资治通鉴》卷276",
+              "original_text": "二月卖新丝，五月粜新谷；医得眼下疮，剜却心头肉。"
+            },
+            {
+              "book": "《资治通鉴》卷278",
+              "original_text": "校于五代，粗为小康。"
+            }
+          ],
+          "stability_basis": "S0与恢复过程不计K；“二月卖新丝，五月粜新谷”是丰年下农户余量有限的结构警告，可限制高档，却不是可定位的独立跌破C1-3阶段，故K4。"
+        },
+        {
+          "adjudication_reason": "纯C1家庭宏观材料稀疏，按连续性与基本社会运行受约束留C1-3；学校、选官、府库与边境材料均不能充当家庭温饱证据。",
+          "confidence": "LOW",
+          "evidence": [
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "南汉采纳杨洞潜建议，建立学校、举行贡举并设置铨选，形成一套较完整的教育—取士—选官制度。原文定位：`SRC-ZZTJ-271-1751976-P0024`“立學校，開貢舉，設銓選”。",
+              "evidence_id": "EVD-FD12-FISCAL-112",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-271-1751976-P0024"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-271.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "HOUSEHOLD_FORMATION_REPRODUCTION"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "南汉赵光裔任相二十余年，史文概括其时“府庫充實，邊境無虞”；赵光裔死后，其子赵损继任宰相。原文定位：`SRC-ZZTJ-282-2303983-P0052`。",
+              "evidence_id": "EVD-FD12-FISCAL-113",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-282-2303983-P0052"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-282.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "HOUSEHOLD_FORMATION_REPRODUCTION"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "南汉高祖死前后，原文追述岭南珍异汇集、宫殿尽饰金玉珠翠，并列灌鼻、割舌、支解、刳剔、砲炙、烹蒸及“水狱”等酷刑；杨洞潜谏而不听。末年又因猜忌士人而专任宦官。原文定位：`SRC-ZZTJ-283-810796-P0022`。",
+              "evidence_id": "EVD-FD12-FISCAL-114",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-283-810796-P0022"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-283.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "CONSTRAINED_INFERENCE",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "材料稀疏只降低置信度，不自动降档；也不能用其他轴负证虚构C1-K。"
+          ],
+          "peak_band": null,
+          "polity": "南汉",
+          "rank": 36,
+          "reign_range": "917-942",
+          "ruler_id": "RULER-FD-LIU-YAN",
+          "ruler_name": "刘龑",
+          "score": 32.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-3",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-FD-LIU-YAN"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_FORMATION_REPRODUCTION"
+          ],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "migration_source": "PRE_REVIEW_FORMAL_PROSE_UNIQUE_K_ENUM",
+            "stages": [
+              {
+                "stage_band": "C1-2",
+                "depth_from_raw_main": 1,
+                "scope_class": "PRESERVED_FROM_PRE_REVIEW_PROSE",
+                "duration_class": "PRESERVED_FROM_PRE_REVIEW_PROSE",
+                "repeat_group": "PRE_REVIEW_UNIQUE_K_PROSE",
+                "recovery_confirmed": true,
+                "evidence_strength": "EXISTING_FORMAL_PROSE_UNIQUE_ENUM",
+                "counts_toward_k": true,
+                "exclusion_reason": null,
+                "basis": "旧正式人物记录只出现一个K枚举，结构化迁移该唯一值；未改变人物裁决。"
+              }
+            ],
+            "basis": "旧正式人物记录的唯一K枚举迁入结构字段，未从材料沉默推定。"
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "府库充实与边境无虞只直接支持公共财政和安全，不等同民富；宫室奢丽和酷刑也不自动外推全国贫困。结合交州及东方多州受损，保守闭合C1/C2三档、K2及脆弱可续交班。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷271",
+              "original_text": "立学校，开贡举，设铨选。（制度背景，不作C1主证）"
+            },
+            {
+              "book": "《资治通鉴》卷282",
+              "original_text": "府库充实，边境无虞。（C2/C3背景）"
+            }
+          ],
+          "stability_basis": "恢复完成后未确认独立且低于C1-3的家庭生计阶段；“水狱”等酷刑属于C3，不能拿来补C1低谷，因此K2改K4。"
+        },
+        {
+          "adjudication_reason": "任内普通家庭总体处于基本维持。节度使“专事聚敛”、权臣侵夺构成结构裂缝，但未闭合全境长期广泛困顿。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "后蜀把三司分判为赵季良户部、毋昭裔盐铁、张业度支，进一步明确财政分工。原文定位：`SRC-ZZTJ-282-2303983-P0062`。",
+              "evidence_id": "EVD-FD12-FISCAL-101",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-282-2303983-P0062"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-282.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "后蜀自建国以来不少节度使遥领禁兵、留成都而委僚佐治州，结果“專事聚斂，政事不治，民無所訴”。蜀主因此罢赵廷隐、王处回、张公铎等节度实权，改派李昊、刘英图、崔銮、谢从志、张言赞分别知军。原文定位：`SRC-ZZTJ-282-2303983-P0095`。",
+              "evidence_id": "EVD-FD12-FISCAL-102",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-282-2303983-P0095"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-282.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "后蜀宰相张业豪侈强买民田宅、私藏亡命、私设牢狱拘债户，甚至使人瘐死；王处回长期卖官鬻狱、截取四方馈献，家资巨万。张业被杀后王处回惧而辞枢密权，后听归私第并改武德节度使。原文定位：`SRC-ZZTJ-288-1769130-P0041`、`P0042`。",
+              "evidence_id": "EVD-FD12-FISCAL-103",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-288-1769130-P0041"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-288.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "王昭远进入后蜀枢密后，蜀主允许其任取府库金帛而“不復會計”，反映中央财政资产失去常规核算约束。原文定位：`SRC-ZZTJ-288-1769130-P0043`。",
+              "evidence_id": "EVD-FD12-FISCAL-104",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-288-1769130-P0043"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-288.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "CONSTRAINED_INFERENCE",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "宋军入成都后数日的掠子女、夺财货发生在孟昶退出最高权力以后，不得倒算本人交班状态。"
+          ],
+          "peak_band": null,
+          "polity": "后蜀",
+          "rank": 36,
+          "reign_range": "934-965",
+          "ruler_id": "RULER-FD-MENG-CHANG",
+          "ruler_name": "孟昶",
+          "score": 31.5,
+          "stability_class_diagnostic_only": "K3",
+          "state_anchors": {
+            "S0": "C1-3",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [
+              "M3H-5FB97790352689F9"
+            ],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-FD-MENG-CHANG"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+          ],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "migration_source": "PRE_REVIEW_FORMAL_PROSE_UNIQUE_K_ENUM",
+            "stages": [
+              {
+                "stage_band": "C1-1",
+                "depth_from_raw_main": 2,
+                "scope_class": "PRESERVED_FROM_PRE_REVIEW_PROSE",
+                "duration_class": "PRESERVED_FROM_PRE_REVIEW_PROSE",
+                "repeat_group": "PRE_REVIEW_UNIQUE_K_PROSE",
+                "recovery_confirmed": false,
+                "evidence_strength": "EXISTING_FORMAL_PROSE_UNIQUE_ENUM",
+                "counts_toward_k": true,
+                "exclusion_reason": null,
+                "basis": "旧正式人物记录只出现一个K枚举，结构化迁移该唯一值；未改变人物裁决。"
+              }
+            ],
+            "basis": "旧正式人物记录的唯一K枚举迁入结构字段，未从材料沉默推定。"
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "长期基本运行与局部救济不足以抵消后期铁钱、榷铁、民苦、四州成片失控及964—965全国崩解；主态仍为三档，交班按两档深度K0和C4崩解结算。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷282",
+              "original_text": "专事聚敛，政事不治，民无所诉。"
+            },
+            {
+              "book": "《续资治通鉴长编》卷六",
+              "original_text": "谕西川将吏、百姓等，使皆安堵如故……民乏食者赈之。"
+            }
+          ],
+          "stability_basis": "这些侵夺只形成局部/结构性低谷；投降短窗宋廷仍谕西川将吏百姓“安堵如故”，并仅对乏食者赈济，故旧S_end=C1-1撤销，改C1-3，K0改K3。"
+        },
+        {
+          "adjudication_reason": "任初“兵火之余，民间困穷”，随后“数年之间，中国稍安”恢复到基本维持；天福后段税敛重新压穿家庭承受。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "后晋初得天下时，原文直书“兵火之餘，府庫殫竭，民間困窮”，契丹又“徵求無厭”。桑维翰主张一面安抚藩镇、厚礼契丹，一面训练军队、务农桑、实仓廪、通商贾；原文回顾“數年之間，中國稍安”。原文定位：`SRC-ZZTJ-281-1769092-P0017`。",
+              "evidence_id": "EVD-FD12-FISCAL-035",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-281-1769092-P0017"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-281.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "后晋先因唐末以来三十六铸钱冶尽废、钱日益耗且民多销钱制铜器，禁止民间制造铜器；天福三年十一月又允许公私铸钱、盐铁颁模范，旋因铜难得而放宽钱重轻重，只禁缺漏。原文定位：`SRC-ZZTJ-281-1769092-P0077`、`SRC-ZZTJ-281-1769092-P0109`、`SRC-ZZTJ-281-1769092-P0111`。",
+              "evidence_id": "EVD-FD12-FISCAL-036",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-281-1769092-P0077",
+                "SRC-ZZTJ-281-1769092-P0109",
+                "SRC-ZZTJ-281-1769092-P0111"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-281.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "高行周奏修洛阳宫，薛融以魏城未下且“公私困窘”为由反对，指出现存宫室虽毁仍奢于古圣，石敬瑭采纳并褒奖。原文定位：`SRC-ZZTJ-281-1769092-P0084`。",
+              "evidence_id": "EVD-FD12-FISCAL-037",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-281-1769092-P0084"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-281.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "经铸上奏乡村浮户困境：农民垦田植木刚成生业，就被县司收役、重赋严刑，因而“捐功舍業，更思他適”；朝廷采纳其建议，规定垦田五顷以上且三年后再征徭。原文定位：`SRC-ZZTJ-281-1769092-P0085`。",
+              "evidence_id": "EVD-FD12-FISCAL-038",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-281-1769092-P0085"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-281.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS",
+                "NET_TAX_LABOR_BURDEN"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "CONSTRAINED_INFERENCE",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "末期下坠由家庭税敛结果承担，不以割地、事契丹等政治评价直接替代C1。"
+          ],
+          "peak_band": null,
+          "polity": "后晋",
+          "rank": 36,
+          "reign_range": "936-942",
+          "ruler_id": "RULER-FD-SHI-JINGTANG",
+          "ruler_name": "石敬瑭",
+          "score": 29.4,
+          "stability_class_diagnostic_only": "K0",
+          "state_anchors": {
+            "S0": "C1-2",
+            "S_avg": "C1-3",
+            "S_end": "C1-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-09C790082F21"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-09C790082F21",
+                "candidate_ids_trace_only": [
+                  "M3H-5474D2097E588B3B",
+                  "M3H-E5C1C1D961ECDBCB"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "NEGATIVE",
+                "mechanisms": [
+                  "MARKET_TRADE",
+                  "MONETARY_CREDIT",
+                  "PUBLIC_WORKS"
+                ],
+                "chain_summary": "- 后晋先因唐末以来三十六铸钱冶尽废、钱日益耗且民多销钱制铜器，禁止民间制造铜器；天福三年十一月又允许公私铸钱、盐铁颁模范，旋因铜难得而放宽钱重轻重，只禁缺漏。原文定位：`SRC-ZZTJ-281-1769092-P0077`、`SRC-ZZTJ-281-1769092-P0109`、`SRC-ZZTJ-281-1769092-P0111`。 | - 高行周奏修洛阳宫，薛融以魏城未下且“公私困窘”为由反对，指出现存宫室虽毁仍奢于古圣，石敬瑭采纳并褒奖。原文定位：`SRC-ZZTJ-281-1769092-P0084`。 | - 经铸上奏乡村浮户困境：农民垦田植木刚成生业，就被县司收役、重赋严刑，因而“捐功舍業，更思他適”；朝廷采纳其建议，规定垦田五顷以上且三年后再征徭。原文定位：`SRC-ZZTJ-281-1769092-P0085`。 | - 晋对契丹除岁输金帛三十万外，吉凶庆吊、岁时及对太后、太子、诸王、大臣的馈赠不断；原文又说明固定岁输约当“數縣租賦”，有时还托民困而不能足额。原文定位：`SRC-ZZTJ-281-1769092-P0088`。；- 晋对契丹除岁输金帛三十万外，吉凶庆吊、岁时及对太后、太子、诸王、大臣的馈赠不断；原文又说明固定岁输约当“數縣租賦”，有时还托民困而不能足额。原文定位：`SRC-ZZTJ-281-1769092-P0088`。 | - 石敬瑭以大梁“舟車所會，便於漕運”正式建东京，改汴州为开封府；此前东巡也曾以洛阳漕运有阙为名。原文定位：`SRC-ZZTJ-281-1769092-P0026`、`SRC-ZZTJ-281-1769092-P0098`。 | - 黄河在郓州决口，本卷只记发生，未载损失数字。原文定位：`SRC-ZZTJ-281-1769092-P0104`。",
+                "source_refs": [
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-281.source-summary.md#L16",
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-281.source-summary.md#L19"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-09C790082F21"
+              }
+            ],
+            "applied_orphan_candidate_ids": [
+              "M3H-DA3BBAAF9126BF3C",
+              "M3H-96D9468215F6C0EE"
+            ],
+            "excluded_orphan_candidate_ids": [
+              "M3H-7999A7763E316F96",
+              "M3H-BF63686E4827DFD7"
+            ],
+            "applied_orphan_candidate_supplements": [
+              {
+                "candidate_id": "M3H-DA3BBAAF9126BF3C",
+                "route": "APPLIED_RESULT_EVIDENCE_FRAGMENT",
+                "direction": "NOT_SCORED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "MONETARY_CREDIT",
+                  "PUBLIC_WORKS"
+                ],
+                "source_refs": [
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-280.source-summary.md#L11"
+                ],
+                "semantic_source_ref": "config/profile/m3-semantic-review-decisions.json#candidate_id=M3H-DA3BBAAF9126BF3C"
+              },
+              {
+                "candidate_id": "M3H-96D9468215F6C0EE",
+                "route": "APPLIED_RESULT_EVIDENCE_FRAGMENT",
+                "direction": "NOT_SCORED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "MONETARY_CREDIT",
+                  "PUBLIC_WORKS"
+                ],
+                "source_refs": [
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-280.source-summary.md#L13"
+                ],
+                "semantic_source_ref": "config/profile/m3-semantic-review-decisions.json#candidate_id=M3H-96D9468215F6C0EE"
+              }
+            ],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-FD-SHI-JINGTANG"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS",
+            "NET_TAX_LABOR_BURDEN"
+          ],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "PRESERVED_PENDING_DEDICATED_REVIEW",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-2",
+            "to_band": "C1-3",
+            "basis": "沿用当前正式证据；本补丁未新增人物裁决。"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "兵火后府库殚竭、民间困穷，经务农桑、实仓廪、通商贾而数年稍安；岁输契丹、区域叛乱、币制反复和局部重敛限制主档与稳定性，交班仍属脆弱可续。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷281",
+              "original_text": "兵火之余，府库殚竭，民间困穷……数年之间，中国稍安。"
+            },
+            {
+              "book": "《新五代史·晋本纪第八》",
+              "original_text": "三月，除民二年至四年以前税。〈见时敛重而民不堪。〉"
+            }
+          ],
+          "stability_basis": "S0低位及恢复不计K；天福六年仍需追免二至四年旧税，《新五代史》直评“敛重而民不堪”，距去世仅一年且无同尺度恢复，故S_end=C1-2并判K0。"
+        },
+        {
+          "adjudication_reason": "蜀地长期基本社会生产可运行，但缺C1-4广域家庭温饱锚；军马、甲兵等国家能力不进入C1主证。",
+          "confidence": "LOW",
+          "evidence": [
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "王建长期补充蜀中军马。朱全忠使者称蜀“甲兵诚多，但乏马”，王建遂在星宿山大阅，集官马八千、私马四千；原文追记其得蜀以后持续在文、黎、维、茂买马，十年积至此数。这是独立于当卷具体战斗结果的军备与市场采购事实。原文定位：`SRC-ZZTJ-264-1775896-P0029`“官马八千，私马四千”“于文、黎、维、茂州市胡马，十年之间，遂及兹数”。",
+              "evidence_id": "EVD-FD12-FISCAL-093",
+              "identity_window_gate": "BACKGROUND_ONLY",
+              "source_locator": [
+                "SRC-ZZTJ-264-1775896-P0029"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-264.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NOT_APPLICABLE_AFTER_IDENTITY_GATE",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "王建与李茂贞修好后，李茂贞屡求财货、甲兵，王建皆给与；同段又明载“王建賦斂重，人莫敢言”。冯涓借王建生日献颂，先颂功德、后陈“生民之苦”，王建惭谢，自此“賦斂稍損”。这是本卷最直接的赋役民生事实。原文定位：`SRC-ZZTJ-265-803276-P0016`“茂貞數求貨及甲兵於建，建皆與之”“王建賦斂重，人莫敢言”“自是賦斂稍損”。",
+              "evidence_id": "EVD-FD12-FISCAL-094",
+              "identity_window_gate": "BACKGROUND_ONLY",
+              "source_locator": [
+                "SRC-ZZTJ-265-803276-P0016"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-265.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "NET_TAX_LABOR_BURDEN"
+              ],
+              "macro_anchor_specificity": "NOT_APPLICABLE_AFTER_IDENTITY_GATE",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "蜀主王建登兴义楼时，有僧人自抉一目献上。王建原命“飯僧萬人”作为回报，翰林学士张格以“无故自残、不宜崇奖败风俗”进谏，王建遂止。原文定位：`SRC-ZZTJ-266-803277-P0074`。",
+              "evidence_id": "EVD-FD12-FISCAL-095",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-266-803277-P0074"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-266.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "岐王屡向蜀求财货，蜀主均给；再索巴、剑二州时，蜀主以割地“是棄民”为由拒绝，改给丝、茶、布、帛七万。原文定位：`SRC-ZZTJ-267-1765571-P0102`。",
+              "evidence_id": "EVD-FD12-FISCAL-096",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-267-1765571-P0102"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-267.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "CONSTRAINED_INFERENCE",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "一条广泛重敛链足以K2，但未形成长期次级主态；军备规模不机械扣C1。"
+          ],
+          "peak_band": null,
+          "polity": "前蜀",
+          "rank": 36,
+          "reign_range": "907-918",
+          "ruler_id": "RULER-FD-WANG-JIAN",
+          "ruler_name": "王建",
+          "score": 30.7,
+          "stability_class_diagnostic_only": "K2",
+          "state_anchors": {
+            "S0": "C1-2",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-D381C3EAE068"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-D381C3EAE068",
+                "candidate_ids_trace_only": [
+                  "M3H-0B258EA72D69C52F"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "PUBLIC_WORKS",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- 王建与李茂贞修好后，李茂贞屡求财货、甲兵，王建皆给与；同段又明载“王建賦斂重，人莫敢言”。冯涓借王建生日献颂，先颂功德、后陈“生民之苦”，王建惭谢，自此“賦斂稍損”。这是本卷最直接的赋役民生事实。原文定位：`SRC-ZZTJ-265-803276-P0016`“茂貞數求貨及甲兵於建，建皆與之”“王建賦斂重，人莫敢言”“自是賦斂稍損”。 | - 河东都押牙盖寓临终遗书劝李克用“省營繕，薄賦斂，求賢俊”。原文只见政策建议，未写本卷已经实行，故只作治理思想旁录，不把它当成已经实现的减役减税。原文定位：`SRC-ZZTJ-265-803276-P0050`“遺書勸李克用省營繕，薄賦斂，求賢俊”。 | - 四月西北出现彗星；五月又记彗星“長竟天”。原文没有直接记载由此发生的农业、人口或财政灾损；后续柳璨等借星变推动政治清洗，属政治秩序事实。原文定位：`SRC-ZZTJ-265-803276-P0050`“有彗星出西北”；`SRC-ZZTJ-265-803276-P0053`“彗星長竟天”。",
+                "source_refs": [
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-265.source-summary.md#L11"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-D381C3EAE068"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [
+              "M3H-CA3DFC10DAF82E20",
+              "M3H-35CE6749863FC7B8",
+              "M3H-9DD016BF3F7AC2BD"
+            ],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-FD-WANG-JIAN"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "NET_TAX_LABOR_BURDEN"
+          ],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "PRESERVED_PENDING_DEDICATED_REVIEW",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-2",
+            "to_band": "C1-3",
+            "basis": "沿用当前正式证据；本补丁未新增人物裁决。"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "重赋及生民之苦主要形成起点约束，窗口内有局部减敛、资源组织和边防未伤本土，但缺合格宏观锚；据基本生产连续性闭合三档，继承安排存在风险但财政、社会运行未证断裂。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷265",
+              "original_text": "王建赋敛重，人莫敢言……生民之苦……自是赋敛稍损。"
+            }
+          ],
+          "stability_basis": "天祐元年明确“王建赋敛重，人莫敢言”，冯涓直陈“生民之苦”；这是稳定掌权期内的实质家庭净负担低谷。其后“赋敛稍损”确认纠偏恢复，故K2而非K0/K1。"
+        },
+        {
+          "adjudication_reason": "纯C1宏观锚不足，按战乱后恢复与基本社会运行受约束留C1-3；建昌院、府库和“用度稍充”仅属财政背景。",
+          "confidence": "LOW",
+          "evidence": [
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "后梁建立后，朱温把原四镇时期仓库簿籍所设“建昌院”继续制度化，以养子朱友文判院事，“掌凡國之金穀”；其后又把东都旧第改为建昌宫。原文定位：`SRC-ZZTJ-266-803277-P0032`“掌凡國之金穀”；`P0043`。",
+              "evidence_id": "EVD-FD12-FISCAL-001",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-266-803277-P0032"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-266.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "HOUSEHOLD_FORMATION_REPRODUCTION"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "朱温过去在藩镇实行极严军法：将校战死时把其所部士卒悉斩，称“跋隊斬”；又给军士刺面，逃兵在关津被捕送回即死，乡里也不敢容纳，因此逃亡者反而聚山泽为盗，“大為州縣之患”。开平元年十一月下诏赦免这类文面逃兵，准其还乡，随后“盜減什七八”。原文定位：`SRC-ZZTJ-266-803277-P0067`。",
+              "evidence_id": "EVD-FD12-FISCAL-002",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-266-803277-P0067"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-266.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "梁迁洛阳后，开平三年正月因“用度稍充”，开始给百官发足额俸禄。原文定位：`SRC-ZZTJ-267-1765571-P0031`“用度稍充，始給百官全俸”。",
+              "evidence_id": "EVD-FD12-FISCAL-003",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-267-1765571-P0031"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-267.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "宋州正遭大水时，衡王朱友谅献一茎三穗瑞麦。朱晃以“豐年為上瑞”斥责祥瑞粉饰，并除本县令名、遣使责友谅。原文定位：`SRC-ZZTJ-267-1765571-P0098`。",
+              "evidence_id": "EVD-FD12-FISCAL-004",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-267-1765571-P0098"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-267.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "CONSTRAINED_INFERENCE",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "S0及恢复过程不压K；财政改善也不自动证明家庭普遍温饱。"
+          ],
+          "peak_band": null,
+          "polity": "后梁",
+          "rank": 36,
+          "reign_range": "907-912",
+          "ruler_id": "RULER-FD-ZHU-WEN",
+          "ruler_name": "朱温",
+          "score": 32.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-2",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-C1269E447910"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-C1269E447910",
+                "candidate_ids_trace_only": [
+                  "M3H-52C90D235870F5C5"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "MARKET_TRADE",
+                  "MONETARY_CREDIT",
+                  "PUBLIC_WORKS"
+                ],
+                "chain_summary": "- 刘仁恭在大安山营造壮丽馆舍，“擬於帝者”，并广选美女居之；又尽敛境内钱币埋于山顶，强令民间使用堇泥所制代币；同时禁止江南茶商入境，改采山中草木为“茶”出售。该段直接反映其财政汲取、货币强制与贸易管制。原文定位：`SRC-ZZTJ-266-803277-P0023`“悉斂境內錢，瘞於山顛”“令民間用堇泥為錢”“禁江南茶商無得入境”。 | - 后梁建立后，朱温把原四镇时期仓库簿籍所设“建昌院”继续制度化，以养子朱友文判院事，“掌凡國之金穀”；其后又把东都旧第改为建昌宫。原文定位：`SRC-ZZTJ-266-803277-P0032`“掌凡國之金穀”；`P0043`。 | - 荆南旧统八州，到高季昌就任时只剩江陵，且“城邑殘毀，戶口雕耗”。高季昌安集流散人口，原文明言“民皆復業”。这是本卷最明确的战后人口回流与恢复生产事实；造成残毁的既往战争不在此重复计入战役成本。原文定位：`SRC-ZZTJ-266-803277-P0041`。 | - 朱温过去在藩镇实行极严军法：将校战死时把其所部士卒悉斩，称“跋隊斬”；又给军士刺面，逃兵在关津被捕送回即死，乡里也不敢容纳，因此逃亡者反而聚山泽为盗，“大為州縣之患”。开平元年十一月下诏赦免这类文面逃兵，准其还乡，随后“盜減什七八”。原文定位：`SRC-ZZTJ-266-803277-P0067`。",
+                "source_refs": [
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-266.source-summary.md#L13"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-C1269E447910"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [
+              "M3H-B5EBCF627F92962D"
+            ],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-FD-ZHU-WEN"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_FORMATION_REPRODUCTION"
+          ],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "PRESERVED_PENDING_DEDICATED_REVIEW",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-2",
+            "to_band": "C1-3",
+            "basis": "沿用当前正式证据；本补丁未新增人物裁决。"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "窗口内只见盗患显著下降、财政用度稍充与区域军政扰动；没有合格宏观总评，故由低起点、实际治理结果及政权连续性闭合基本维持，不把材料沉默推成温饱。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷266",
+              "original_text": "跋队斩……大为州县之患……盗减什七八。"
+            },
+            {
+              "book": "《资治通鉴》卷267",
+              "original_text": "用度稍充。（财政背景，不作C1高档主证）"
+            }
+          ],
+          "stability_basis": "严酷军法、逃兵聚盗主要属于称帝前后低起点与恢复链；赦免后“盗减什七八”，恢复到主态3后未确认新的家庭端下滑，故K4。"
+        },
+        {
+          "adjudication_reason": "去横赋、安集流散形成明确恢复方向，基本盘从后唐灭蜀后的低位回到可维持状态；缺普通家庭普遍温饱强锚，不升C1-4。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "anchor_time": "925—934年实际割据窗口",
+              "described_state": "除横赋和安集流散形成正向恢复，同时存在大规模徭役反证。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "source_locator": "SRC-ZZTJ-276-1767667-P0031",
+              "source_works": [
+                "volume-274.source-summary.md",
+                "volume-276.source-summary.md"
+              ],
+              "verbatim_excerpt": "擇廉吏、去橫賦、安集流散，與民更始；發民丁二十萬修成都城。",
+              "macro_anchor_specificity_detail": "RECOVERY_WITH_DIRECT_BURDEN_COUNTEREVIDENCE",
+              "result_axis_owner": [
+                "NET_TAX_LABOR_BURDEN"
+              ]
+            }
+          ],
+          "evidence_mode": "DIRECT_RECOVERY_AND_COUNTEREVIDENCE",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "“蜀中富饶”是接手背景，不直接归为本人家庭福利成果；二十万城役不得脱离S0恢复阶段重复消费。"
+          ],
+          "peak_band": null,
+          "polity": "五代十国",
+          "rank": 36,
+          "reign_range": "925-934实际割据",
+          "ruler_id": "RULER-SHADOW-孟知祥",
+          "ruler_name": "孟知祥",
+          "score": 32.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-2",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-204DCEF74D3C",
+              "M3P-SEM-7791C2AF3DB4",
+              "M3P-SEM-19BD2BD376FA"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-204DCEF74D3C",
+                "candidate_ids_trace_only": [
+                  "M3H-F1B7E13A17E2558F",
+                  "M3H-2E3317889C000E42",
+                  "M3H-4F94A96125AE222B"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "PUBLIC_WORKS",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- 天成二年十月，明宗下诏免除三司逋负近二百万缗。原文定位：`SRC-ZZTJ-276-1767667-P0024`“免三司逋負近二百萬緡”。 | - 孟知祥十二月发民丁二十万修成都城，是本卷规模最大的明确徭役工程；这一工程发生在两川与中央关系尚未正式开战之前，因此独立留在非战役账。原文定位：`SRC-ZZTJ-276-1767667-P0031`“發民丁二十萬修成都城”。 | - 蔚、代沿边粟价低，每斗不超过十钱。原文定位：`SRC-ZZTJ-276-1767667-P0036`。 | - 孟知祥与董璋争盐利，在汉州设置三个税场对东川盐重征，每年得钱七万缗，同时使商旅不再前往东川。原文定位：`SRC-ZZTJ-276-1767667-P0047`“歲得錢七萬緡，商旅不復之東川”。；- 蔚、代沿边粟价低，每斗不超过十钱。原文定位：`SRC-ZZTJ-276-1767667-P0036`。 | - 孟知祥与董璋争盐利，在汉州设置三个税场对东川盐重征，每年得钱七万缗，同时使商旅不再前往东川。原文定位：`SRC-ZZTJ-276-1767667-P0047`“歲得錢七萬緡，商旅不復之東川”。 | - 西川原奉诏由毛重威率三千人戍夔州。孟知祥以夔、忠、万已平、继续驻戍增加馈运为由请撤，朝廷不许，于是暗中诱导军士鼓噪逃归，事后再为其请免罪。这里没有双方交战，作为军粮与中央—西川军权矛盾保留。原文定位：`SRC-ZZTJ-276-1767667-P0057`“請召戍兵還，以省饋運”。 | - 东都原对私造酒曲者甚至族诛，随后改制为允许百姓造曲，并在秋税中每亩加收五钱。原文定位：`SRC-ZZTJ-276-1767667-P0060`。；- 孟知祥与董璋争盐利，在汉州设置三个税场对东川盐重征，每年得钱七万缗，同时使商旅不再前往东川。原文定位：`SRC-ZZTJ-276-1767667-P0047`“歲得錢七萬緡，商旅不復之東川”。 | - 西川原奉诏由毛重威率三千人戍夔州。孟知祥以夔、忠、万已平、继续驻戍增加馈运为由请撤，朝廷不许，于是暗中诱导军士鼓噪逃归，事后再为其请免罪。这里没有双方交战，作为军粮与中央—西川军权矛盾保留。原文定位：`SRC-ZZTJ-276-1767667-P0057`“請召戍兵還，以省饋運”。 | - 东都原对私造酒曲者甚至族诛，随后改制为允许百姓造曲，并在秋税中每亩加收五钱。原文定位：`SRC-ZZTJ-276-1767667-P0060`。 | - 定州战争中的三州租税、长期馈运属于战争实际成本，已进入战役JSON；但战后王晏球入朝时只自责“久烦馈运”，没有夸功，作为军政作风亦可见于 `SRC-ZZTJ-276-1767667-P0097`。",
+                "source_refs": [
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-276.source-summary.md#L12",
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-276.source-summary.md#L14",
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-276.source-summary.md#L15"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-204DCEF74D3C"
+              },
+              {
+                "parent_id": "M3P-SEM-7791C2AF3DB4",
+                "candidate_ids_trace_only": [
+                  "M3H-2377A162AA89DEA3"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- 南郊前，后唐要求西川献钱一百万缗、东川五十万缗；两川都以军用不足拒绝足额，最后西川献五十万、东川十万。原文定位：`SRC-ZZTJ-276-1767667-P0107`。 | - 西川长期被要求向峡路输送刍粮。孟知祥以本道兵多、财力不足为由屡次拒绝，朝廷反复催督后仍正式奏称不能奉诏。原文定位：`SRC-ZZTJ-276-1767667-P0120`。 | - 冯道在丰年向明宗指出农民并非自然富足：荒年会流殍，丰年也会因谷贱受害，并引用“二月卖新丝，五月粜新谷；医得眼下疮，剜却心头肉”说明农户以未来产出救眼前急迫的困境。明宗命左右抄录、常加讽诵。原文定位：`SRC-ZZTJ-276-1767667-P0114`。 | - 孟知祥部下孟容之弟任资州税官，因自盗判死；即使冯璩、王处回求情，孟知祥仍称连自己弟弟犯法也不可赦，拒绝徇私。原文定位：`SRC-ZZTJ-276-1767667-P0116`。",
+                "source_refs": [
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-276.source-summary.md#L21"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-7791C2AF3DB4"
+              },
+              {
+                "parent_id": "M3P-SEM-19BD2BD376FA",
+                "candidate_ids_trace_only": [
+                  "M3H-0A91E14AE79ADAAA"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- 明宗在位久后宫中用度渐侈。王德妃取外库锦作地衣，安重诲切谏并以刘后为戒，王德妃由此怨之；原文定位：`SRC-ZZTJ-277-1768811-P0021`“宫中用度稍侈”“取外库锦造地衣”。 | - 孟知祥请把云安等十三盐监划归西川，以盐直供给宁江屯兵，朝廷准许；这是明确的盐政—军费划拨；原文定位：`SRC-ZZTJ-277-1768811-P0032`“割云安等十三盐监隶西川，以盐直赡宁江屯兵”。 | - 朝廷任张延朗行工部尚书、充三司使，原文特记“三司使之名自此始”；原文定位：`SRC-ZZTJ-277-1768811-P0037`。 | - 闽王延钧罢亩税麴钱，城中官麴价格减旧半，乡村允许百姓自造，原文直称“民甚便之”；原文定位：`SRC-ZZTJ-277-1768811-P0094`。",
+                "source_refs": [
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-277.source-summary.md#L13"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-19BD2BD376FA"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [
+              "M3H-6A89F7C13F702BB9",
+              "M3H-E4DC5D2A689D9341",
+              "M3H-1557F29DCFC3C41F"
+            ],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-孟知祥"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "NET_TAX_LABOR_BURDEN"
+          ],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "PRESERVED_PENDING_DEDICATED_REVIEW",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-2",
+            "to_band": "C1-3",
+            "basis": "沿用当前正式证据；本补丁未新增人物裁决。"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "入蜀后选廉吏、除横赋、安集流散形成民生恢复；但扩军、二十万民丁修城、盐税竞争与两川战争持续占用民力，不能证明主要家庭稳定温饱，故主态为C1-3。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》",
+              "original_text": "择廉吏、去横赋、安集流散，与民更始。"
+            },
+            {
+              "book": "《资治通鉴》",
+              "original_text": "天成二年十二月，孟知祥发民丁二十万修成都城。"
+            }
+          ],
+          "stability_basis": "天成二年发民丁二十万修成都城是很重的劳役成本，但发生在S0=C1-2向主3恢复的早期窗口，按规则不压K；其后重盐征主要闭合市场/贸易而非家庭维生。现证未确认主3建立后的独立C1低谷，故K4。"
+        },
+        {
+          "adjudication_reason": "茶贸、织造和区域富赡证明生产与交换体系长期运行，但不能直接证明多数家庭稳定温饱，故主态保C1-3。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "anchor_time": "896—930年实际割据窗口",
+              "described_state": "茶业、贸易和织造政策形成明确富赡结果，并下沉到民间生产。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "BOUNDED_MULTI_AXIS_MACRO",
+              "source_locator": "SRC-ZZTJ-266-803277-P0111",
+              "source_works": [
+                "volume-266.source-summary.md",
+                "volume-274.source-summary.md",
+                "《新五代史》卷六十六"
+              ],
+              "verbatim_excerpt": "聽民自採茶賣於北客，收其征以贍軍……湖南由是富贍；國以富饒，民間機杼大盛。",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+              ]
+            }
+          ],
+          "evidence_mode": "DIRECT_MULTI_AXIS_MACRO",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "生产与区域富赡主要限制高档门，不自动闭合家庭净余量。"
+          ],
+          "peak_band": null,
+          "polity": "五代十国",
+          "rank": 36,
+          "reign_range": "896-930实际割据",
+          "ruler_id": "RULER-SHADOW-马殷",
+          "ruler_name": "马殷",
+          "score": 32.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-2",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-9404FEE4665D",
+              "M3P-SEM-C9B78975F245",
+              "M3P-SEM-435C184E2BF5"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-9404FEE4665D",
+                "candidate_ids_trace_only": [
+                  "M3H-5F02D4A6D72F344A"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "UNRESOLVED_DIRECTION",
+                "mechanisms": [
+                  "PUBLIC_WORKS"
+                ],
+                "chain_summary": "- 裴枢入相出自朱全忠推荐。李克用听闻崔胤专横，判断其“外倚贼势，内胁其君”；朱全忠又请求朝廷优加李克用恩泽，李克用则认为朱全忠将有事淄青、只是担心河东牵制。此处是政治判断与策略交涉，不重复相关战事。原文定位：`SRC-ZZTJ-264-1775896-P0020`—`P0021`。 | - 杨行密遣使马殷，要求其与朱全忠绝交、约为兄弟。许德勋以朱全忠虽无道但仍“挟天子以令诸侯”、马殷素奉王室为由劝其不可轻绝，马殷采纳。原文定位：`SRC-ZZTJ-264-1775896-P0027`。 | - 王建一面经营与朱全忠关系，一面遣韦庄入贡。朱全忠遣王殷报聘，双方宴饮并以蜀中军马问题互相试探。原文定位：`SRC-ZZTJ-264-1775896-P0029`。 | - 李茂贞因畏朱全忠，认为自己所兼尚书令名位在朱全忠之上，屡表请求解除；朝廷改复其中书令。原文定位：`SRC-ZZTJ-264-1775896-P0033`。",
+                "source_refs": [
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-264.source-summary.md#L27"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-9404FEE4665D"
+              },
+              {
+                "parent_id": "M3P-SEM-C9B78975F245",
+                "candidate_ids_trace_only": [
+                  "M3H-E423AC415ABD4F7F"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- 徐温在清除张颢后掌握淮南军府，提出“力行善政，使人解衣而寢”，建立法度、禁止强暴、整顿纲纪；又把军旅事务交严可求、财赋交支计官骆知祥，二人皆称职，淮南并称“严、骆”。实际武装政变阶段另见裁决卡。原文定位：`SRC-ZZTJ-266-803277-P0103`。 | - 湖南判官高郁建议放开民间自行采茶并出售给北方商客，以征税补军费；马殷采纳后，又在汴、荆、襄、唐、郢、复等州设“回圖務”，运茶北售，换回缯纩与战马，并每年向梁贡茶二十五万斤。原文总结“湖南由是富贍”。这是本卷非常明确的财政—商业政策及结果。原文定位：`SRC-ZZTJ-266-803277-P0111`“聽民自採茶賣於北客，收其征以贍軍”“歲貢茶二十五萬斤”“湖南由是富贍”。 | ## 二、政治秩序、外交与人口变化",
+                "source_refs": [
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-266.source-summary.md#L21"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-C9B78975F245"
+              },
+              {
+                "parent_id": "M3P-SEM-435C184E2BF5",
+                "candidate_ids_trace_only": [
+                  "M3H-2F08422F3476A19A"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "MONETARY_CREDIT",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- 军储不足时庄宗一度想去汴州“就食”，谏官认为应先节俭、且吴国尚未灭，不可向外暴露财政虚实，庄宗才停止。原文定位：`SRC-ZZTJ-274-803285-P0035`。 | - 楚王马殷在湖南不征商旅税，吸引四方商旅；又采高郁建议铸铅铁钱，使商旅出境时必须换取本地其他货物，利用地方剩余物交换天下百货。因湖南民间少养蚕，又规定纳税者用帛代钱，很快推动“民间机杼大盛”。原文定位：`SRC-ZZTJ-274-803285-P0039`“不征商旅”“國以富饒”“民間機杼大盛”。 | - 邺都军变扩大后，军食更加不足，朝廷命河南尹预借夏、秋税，原文直书“民不聊生”。原文定位：`SRC-ZZTJ-274-803285-P0077`。 | - 租庸使因仓储不足进一步削减军粮，军中流言加重。宰相请求动用内库赈救军士家属，称“诸军室家不能相保”，刘后却以天命论拒绝，只摆出妆具、三个银盆和三个幼子，声称宫中余物只有这些。原文定位：`SRC-ZZTJ-274-803285-P0079`“頗朘刻軍糧”“諸軍室家不能相保”。",
+                "source_refs": [
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-274.source-summary.md#L16"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-435C184E2BF5"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-马殷"
+          },
+          "review_remediation": {
+            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
+            "status": "APPLIED",
+            "problem": "当前C1-4把“湖南富赡”“国以富饶”“民间机杼大盛”合成为生产—家庭实现链。前两条主要是区域/国家经济结果；“机杼大盛”又直接由以帛纳税诱发，只能证明家庭生产响应，不能证明纳税后的家庭净温饱。旧S_end=3若主要来自马希声用事、高郁被杀，也属权力/C3-C5问题。",
+            "directive": "主档 C1-4→C1-3；S_avg 4→3；S_end维持C1-3；S0=C1-2不变；score 54.9→32.0；K=K4；曲线改 C1-2→3→3。 三档按长期茶贸、市场交换、民间织造与基本生活体系持续运行作受约束闭合，不上推“多数家庭稳定温饱”；铅铁钱、军费与战争若无家庭结果不机械扣K。"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+          ],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "stages": [],
+            "basis": "审查未确认恢复完成后的有效阶段跌破raw主态；不以材料沉默证明K4，依据见人物审查修正。"
+          },
+          "persistence_review": {
+            "status": "COMPLETE",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-2",
+            "to_band": "C1-3",
+            "basis": "主档 C1-4→C1-3；S_avg 4→3；S_end维持C1-3；S0=C1-2不变；score 54.9→32.0；K=K4；曲线改 C1-2→3→3。 三档按长期茶贸、市场交换、民间织造与基本生活体系持续运行作受约束闭合，不上推“多数家庭稳定温饱”；铅铁钱、军费与战争若无家庭结果不机械扣K。"
+          },
+          "dynasty_curve_review": {
+            "status": "COMPLETE",
+            "handoff_continuity_checked": true,
+            "basis": "主档 C1-4→C1-3；S_avg 4→3；S_end维持C1-3；S0=C1-2不变；score 54.9→32.0；K=K4；曲线改 C1-2→3→3。 三档按长期茶贸、市场交换、民间织造与基本生活体系持续运行作受约束闭合，不上推“多数家庭稳定温饱”；铅铁钱、军费与战争若无家庭结果不机械扣K。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "主档 C1-4→C1-3；S_avg 4→3；S_end维持C1-3；S0=C1-2不变；score 54.9→32.0；K=K4；曲线改 C1-2→3→3。 三档按长期茶贸、市场交换、民间织造与基本生活体系持续运行作受约束闭合，不上推“多数家庭稳定温饱”；铅铁钱、军费与战争若无家庭结果不机械扣K。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷266",
+              "original_text": "听民自采茶卖于北客……湖南由是富赡；国以富饶，民间机杼大盛。"
+            }
+          ],
+          "stability_basis": "S0=C1-2后的恢复过程不计K；恢复到C1-3后未确认独立且已经实现的家庭生计下滑，K4。"
+        },
+        {
+          "adjudication_reason": "主档C1-3维持。荆南接手时城邑残毁、户口凋耗，随后安集流散并出现“民皆复业”，足以证明核心控制区从崩坏低位恢复到基本维持；政权尺度和家庭余量证据均不足C1-4。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "anchor_time": "907—929年实际割据窗口",
+              "described_state": "战后人口回流并恢复生产。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "source_locator": "SRC-ZZTJ-266-803277-P0041",
+              "source_works": [
+                "volume-266.source-summary.md",
+                "《新五代史》卷六十九"
+              ],
+              "verbatim_excerpt": "城邑殘毀，戶口雕耗；安集流散，民皆復業。",
+              "macro_anchor_specificity_detail": "SCOPED_RECOVERY_RESULT",
+              "result_axis_owner": [
+                "HOUSEHOLD_FORMATION_REPRODUCTION"
+              ]
+            }
+          ],
+          "evidence_mode": "DIRECT_RECOVERY_RESULT",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "K只消费实际低于主态的家庭阶段；灾害、战争、政策或财政名目本身不直接换档。同一危机簇若已参与主态定档，不再整体二次消费为K1。"
+          ],
+          "peak_band": null,
+          "polity": "五代十国",
+          "rank": 36,
+          "reign_range": "907-929实际割据",
+          "ruler_id": "RULER-SHADOW-高季兴",
+          "ruler_name": "高季兴",
+          "score": 32.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-1",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-高季兴"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_FORMATION_REPRODUCTION"
+          ],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "PRESERVED_PENDING_DEDICATED_REVIEW",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-1",
+            "to_band": "C1-3",
+            "basis": "沿用当前正式证据；本补丁未新增人物裁决。"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "荆南接手时城邑残毁、户口凋耗；安集流散后‘民皆复业’，足以闭合由崩溃到基本生产生活恢复。辖境狭小、持续军争且缺多数家庭温饱余量锚，故C1主态止于三档。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》",
+              "original_text": "城邑残毁，户口凋耗；安集流散，民皆复业。"
+            }
+          ],
+          "stability_basis": "S0=C1-1及战后复业完全排除出K。恢复完成后现证未确认独立家庭生计低谷，故补K4。"
+        },
+        {
+          "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。庄宗在中牟游猎践踏民田，中牟令当马谏称皇帝为民父母，不应毁民食；庄宗怒欲杀之，敬新磨又以反讽方式替县令解围，庄宗笑而释之。国用不足，中书奏请裁减三省、寺、监冗官，西班上将军以下也按类似办法处理，待现任满二十五个月再依次补人；政策实施后“人颇咨怨”。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "庄宗在中牟游猎践踏民田，中牟令当马谏称皇帝为民父母，不应毁民食。庄宗怒欲杀之，敬新磨又以反讽方式替县令解围，庄宗笑而释之。原文定位：`SRC-ZZTJ-272-1554183-P0063`“奈何毀其所食，使轉死溝壑乎”。",
+              "evidence_id": "EVD-FD12-FISCAL-009",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-272-1554183-P0063"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-272.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "国用不足，中书奏请裁减三省、寺、监冗官，西班上将军以下也按类似办法处理，待现任满二十五个月再依次补人；政策实施后“人颇咨怨”。原文定位：`SRC-ZZTJ-272-1554183-P0071`。",
+              "evidence_id": "EVD-FD12-FISCAL-010",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-272-1554183-P0071"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-272.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "南郊大赦时，赦文所免税负仍被孔谦重新征收，自此诏令信用受损，“人皆不信，百姓愁怨”。原文定位：`SRC-ZZTJ-273-1502848-P0022`“凡赦文所蠲者，謙復徵之”。",
+              "evidence_id": "EVD-FD12-FISCAL-011",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-273-1502848-P0022"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-273.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "NET_TAX_LABOR_BURDEN"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "宦官推动把天下财赋分为内外府：州县上供入外府供国家经费，方镇贡物入内府供宴游、近臣赏赐，结果“外府常虚竭无余而内府山积”。南郊时有司连劳军钱都不足，郭崇韬献十万缗并要求皇帝动内库，皇帝仍不愿；军士因赏赐不足开始怨恨离心。原文定位：`SRC-ZZTJ-273-1502848-P0023`“外府常虛竭無餘而內府山積”“軍士皆不滿望，始怨恨，有離心矣”。",
+              "evidence_id": "EVD-FD12-FISCAL-012",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-273-1502848-P0023"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-273.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "NET_TAX_LABOR_BURDEN"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "DIRECT_PLUS_CONSTRAINED_INFERENCE",
+          "main_band": "C1-2",
+          "material_limitations": [],
+          "peak_band": null,
+          "polity": "后唐",
+          "rank": 121,
+          "reign_range": "923-926",
+          "ruler_id": "RULER-FD-LI-CUNXU",
+          "ruler_name": "李存勖",
+          "score": 15.7,
+          "stability_class_diagnostic_only": "K0",
+          "state_anchors": {
+            "S0": "C1-3",
+            "S_avg": "C1-2",
+            "S_end": "C1-1"
+          },
+          "m3_supplement_review": {
+            "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [
+              "M3H-69A368CBE984826A"
+            ],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-FD-LI-CUNXU"
+          },
+          "raw_state_band": "C1-2",
+          "formal_band": "C1-2",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS",
+            "NET_TAX_LABOR_BURDEN"
+          ],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "stages": [
+              {
+                "stage_band": "C1-1",
+                "depth_from_raw_main": 1,
+                "scope_class": "TERMINAL_SCOPE",
+                "duration_class": "TERMINAL",
+                "repeat_group": "C1_REAUDIT_2026_08_31_BATCH8",
+                "recovery_confirmed": false,
+                "evidence_strength": "REAUDIT_WITH_PRIMARY_SOURCE_OR_EXISTING_FORMAL_MATERIAL",
+                "counts_toward_k": true,
+                "exclusion_reason": null,
+                "basis": "同光末形成未恢复的终局下坠。《旧五代史·食货志》总括庄宗平梁后“峻法以剥下，厚敛以奉上，民产虽竭，军食尚亏，加之兵革、饥馑”，三四年内持续恶化；S_end=C1-1低于主态2，按合同直接K0。"
+              }
+            ],
+            "basis": "同光末形成未恢复的终局下坠。《旧五代史·食货志》总括庄宗平梁后“峻法以剥下，厚敛以奉上，民产虽竭，军食尚亏，加之兵革、饥馑”，三四年内持续恶化；S_end=C1-1低于主态2，按合同直接K0。"
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "COMPLETE",
+            "handoff_continuity_checked": true,
+            "basis": "同光末形成未恢复的终局下坠。《旧五代史·食货志》总括庄宗平梁后“峻法以剥下，厚敛以奉上，民产虽竭，军食尚亏，加之兵革、饥馑”，三四年内持续恶化；S_end=C1-1低于主态2，按合同直接K0。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "急征重敛、外府虚竭、饥荒流亡、仓廪空竭与军户卖妻鬻子共同闭合末期多轴崩溃；灭蜀所得不以国库缴获冲销家庭与财政失灵。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷272",
+              "original_text": "奈何毀其所食，使轉死溝壑乎。"
+            },
+            {
+              "book": "《资治通鉴》卷272",
+              "original_text": "人颇咨怨。"
+            },
+            {
+              "book": "《资治通鉴》卷273",
+              "original_text": "人皆不信，百姓愁怨；凡赦文所蠲者，謙復徵之。"
+            },
+            {
+              "book": "《旧五代史·食货志》",
+              "original_text": "及庄宗平定梁室，任吏人孔谦为租庸使，峻法以剥下，厚敛以奉上，民产虽竭，军食尚亏，加之以兵革，因之以饥馑，不三四年以致颠陨。"
+            }
+          ],
+          "stability_basis": "同光末形成未恢复的终局下坠。《旧五代史·食货志》总括庄宗平梁后“峻法以剥下，厚敛以奉上，民产虽竭，军食尚亏，加之兵革、饥馑”，三四年内持续恶化；S_end=C1-1低于主态2，按合同直接K0。",
+          "c1_reaudit": {
+            "review_date": "2026-08-31",
+            "status": "REVIEWED_CUMULATIVE",
+            "rating_change": "K_ONLY",
+            "k_final": "K0",
+            "summary": "同光末形成未恢复的终局下坠。《旧五代史·食货志》总括庄宗平梁后“峻法以剥下，厚敛以奉上，民产虽竭，军食尚亏，加之兵革、饥馑”，三四年内持续恶化；S_end=C1-1低于主态2，按合同直接K0。"
+          }
+        },
+        {
+          "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。废屯田后管理侵扰退出，民稍休息，只支持基本维持起点。铁钱贬值、物价上涨并连续饥荒，须依赖宋方粮援，闭合广泛困顿任内主要状态。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "anchor_time": "961年后",
+              "described_state": "废屯田后管理侵扰退出，民稍休息，只支持三档起点。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "proof_scope_constraints": [],
+              "source_voice": "THIRD_PARTY_CHRONICLE_OR_TREATISE",
+              "source_works": [
+                "《续资治通鉴》卷二通读总结"
+              ],
+              "state_roles": [
+                "本人窗口主要状态或终点反证"
+              ],
+              "verbatim_excerpt": "侵扰州县，豪夺民利，大为时患；民稍休息",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ]
+            },
+            {
+              "anchor_time": "李煜中期",
+              "described_state": "铁钱贬值、物价上涨并连续饥荒，须依赖宋方粮援，闭合二档主态。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "proof_scope_constraints": [],
+              "source_voice": "THIRD_PARTY_CHRONICLE_OR_TREATISE",
+              "source_works": [
+                "《续资治通鉴》卷三至卷五通读总结"
+              ],
+              "state_roles": [
+                "本人窗口主要状态或终点反证"
+              ],
+              "verbatim_excerpt": "铁钱十易铜钱一；物价益贵；赐南唐米十万斛，饥故也",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+              ]
+            },
+            {
+              "anchor_time": "974—975年",
+              "described_state": "围城使交通、采樵与城市供给断裂，宋接管后仍须赈济金陵饥民，闭合一档终点。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "proof_scope_constraints": [],
+              "source_voice": "THIRD_PARTY_CHRONICLE_OR_TREATISE",
+              "source_works": [
+                "《续资治通鉴》卷八与南唐终局父周期"
+              ],
+              "state_roles": [
+                "本人窗口主要状态或终点反证"
+              ],
+              "verbatim_excerpt": "诏出米十万石赈城中饥民",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+              ]
+            }
+          ],
+          "evidence_mode": "DIRECT_WINDOW_EVIDENCE",
+          "main_band": "C1-2",
+          "material_limitations": [
+            ":冻结卷2—8未见本人窗口内饥荒与币制恶化后恢复至家庭生计/生产与市场三状态的广域结果；该缺口不单独扣分，主状态由连续直接负面状态闭合。"
+          ],
+          "peak_band": null,
+          "polity": "南唐",
+          "rank": 121,
+          "reign_range": "961-975",
+          "ruler_id": "RULER-FD-LI-YU",
+          "ruler_name": "李煜",
+          "score": 15.7,
+          "stability_class_diagnostic_only": "K0",
+          "state_anchors": {
+            "S0": "C1-3",
+            "S_avg": "C1-2",
+            "S_end": "C1-1"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-FD-LI-YU"
+          },
+          "raw_state_band": "C1-2",
+          "formal_band": "C1-2",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+          ],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "stages": [
+              {
+                "stage_band": "C1-1",
+                "depth_from_raw_main": 1,
+                "scope_class": "TERMINAL_SCOPE",
+                "duration_class": "TERMINAL",
+                "repeat_group": "C1_REAUDIT_2026_08_31_BATCH8",
+                "recovery_confirmed": false,
+                "evidence_strength": "REAUDIT_WITH_PRIMARY_SOURCE_OR_EXISTING_FORMAL_MATERIAL",
+                "counts_toward_k": true,
+                "exclusion_reason": null,
+                "basis": "铁钱贬值、物价上涨与连续饥荒已经构成C1-2主态，宋军围城阶段又出现城中饥民须大量赈米，退出最高权力前未恢复，S_end=C1-1低于主态2，故K0。"
+              }
+            ],
+            "basis": "铁钱贬值、物价上涨与连续饥荒已经构成C1-2主态，宋军围城阶段又出现城中饥民须大量赈米，退出最高权力前未恢复，S_end=C1-1低于主态2，故K0。"
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "COMPLETE",
+            "handoff_continuity_checked": true,
+            "basis": "铁钱贬值、物价上涨与连续饥荒已经构成C1-2主态，宋军围城阶段又出现城中饥民须大量赈米，退出最高权力前未恢复，S_end=C1-1低于主态2，故K0。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "961年废屯田后民稍休息只支持C1-3起点；其后铁钱贬值、物价益贵与江南荐饥、反复依赖宋米和跨区运粮，共同闭合C1-2任内主态；974—975围城、采樵道路断绝与金陵饥民在宋接管后仍须十万石赈济，闭合C1-1交班终点。"
+          },
+          "material_basis": [
+            {
+              "book": "《续资治通鉴》",
+              "original_text": "侵扰州县，豪夺民利，大为时患；民稍休息"
+            },
+            {
+              "book": "《续资治通鉴》",
+              "original_text": "铁钱十易铜钱一；物价益贵；赐南唐米十万斛，饥故也"
+            },
+            {
+              "book": "《续资治通鉴》",
+              "original_text": "诏出米十万石赈城中饥民"
+            }
+          ],
+          "stability_basis": "铁钱贬值、物价上涨与连续饥荒已经构成C1-2主态，宋军围城阶段又出现城中饥民须大量赈米，退出最高权力前未恢复，S_end=C1-1低于主态2，故K0。",
+          "c1_reaudit": {
+            "review_date": "2026-08-31",
+            "status": "REVIEWED_CUMULATIVE",
+            "rating_change": "K_ONLY",
+            "k_final": "K0",
+            "summary": "铁钱贬值、物价上涨与连续饥荒已经构成C1-2主态，宋军围城阶段又出现城中饥民须大量赈米，退出最高权力前未恢复，S_end=C1-1低于主态2，故K0。"
+          }
+        },
+        {
+          "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。梁在朱友贞即位后给杨师厚兼中书令、邺王等重位，政事“无巨细皆咨之而后行”，显示中枢对强军头的依赖进一步制度化。杨师厚死后，梁廷为削弱魏博，把六州拆为两镇，并计划将魏州“将士、府库之半”迁往相州；魏博军户父子世袭、族姻盘结，分徙政策直接触发军中强烈反弹。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "梁在朱友贞即位后给杨师厚兼中书令、邺王等重位，政事“无巨细皆咨之而后行”，显示中枢对强军头的依赖进一步制度化。原文定位：`SRC-ZZTJ-268-2307909-P0111`。",
+              "evidence_id": "EVD-FD12-FISCAL-005",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-268-2307909-P0111"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-268.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "杨师厚死后，梁廷为削弱魏博，把六州拆为两镇，并计划将魏州“将士、府库之半”迁往相州。魏博军户父子世袭、族姻盘结，分徙政策直接触发军中强烈反弹；该政策本身作为军镇与财政重组记录，随后武装军变另入 JSON。原文定位：`SRC-ZZTJ-269-1765765-P0037`“分魏博六州為兩鎮”“將士、府庫各分其半”。",
+              "evidence_id": "EVD-FD12-FISCAL-006",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-269-1765765-P0037"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-269.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "HOUSEHOLD_FORMATION_REPRODUCTION"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "梁帝拟在洛阳行南郊，敬翔以连年失利后“公私困竭”为由反对，认为礼仪赏赉会为虚名加重实弊；梁帝起初不听，后来因前线危机与道路讹言才停止。这里记录财政判断与决策过程，前线实际战果另入 JSON。原文定位：`SRC-ZZTJ-270-803281-P0029`。",
+              "evidence_id": "EVD-FD12-FISCAL-007",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-270-803281-P0029"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-270.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "anchor_time": "五代十国本人固定统治窗口",
+              "described_state": "司马光对朱友贞的概括是：为人温恭俭约、无荒淫之失，但宠信赵岩、张汉杰，使其擅威福，又疏弃敬翔、李振等旧臣、不用其言，以至灭亡。原文定位：`SRC-ZZTJ-272-1554183-P0045`。",
+              "evidence_id": "EVD-FD12-FISCAL-008",
+              "identity_window_gate": "ELIGIBLE",
+              "source_locator": [
+                "SRC-ZZTJ-272-1554183-P0045"
+              ],
+              "source_works": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-272.source-summary.md"
+              ],
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "CONSTRAINED_INFERENCE",
+          "main_band": "C1-2",
+          "material_limitations": [
+            "材料边界：家庭生计/生产与市场起点主要承接前任与早期战争后果。"
+          ],
+          "peak_band": null,
+          "polity": "后梁",
+          "rank": 121,
+          "reign_range": "913-923",
+          "ruler_id": "RULER-FD-ZHU-YOUZHEN",
+          "ruler_name": "朱友贞",
+          "score": 15.7,
+          "stability_class_diagnostic_only": "K0",
+          "state_anchors": {
+            "S0": "C1-3",
+            "S_avg": "C1-2",
+            "S_end": "C1-1"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-FD-ZHU-YOUZHEN"
+          },
+          "raw_state_band": "C1-2",
+          "formal_band": "C1-2",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_FORMATION_REPRODUCTION",
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+          ],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "stages": [
+              {
+                "stage_band": "C1-1",
+                "depth_from_raw_main": 1,
+                "scope_class": "TERMINAL_SCOPE",
+                "duration_class": "TERMINAL",
+                "repeat_group": "C1_REAUDIT_2026_08_31_BATCH8",
+                "recovery_confirmed": false,
+                "evidence_strength": "REAUDIT_WITH_PRIMARY_SOURCE_OR_EXISTING_FORMAL_MATERIAL",
+                "counts_toward_k": true,
+                "exclusion_reason": null,
+                "basis": "末期“公私困竭”与长期战争、转输压力延续至政权终局，S_end=C1-1低于主态2且未恢复；K0维持。亡国本身不作为K0依据。"
+              }
+            ],
+            "basis": "末期“公私困竭”与长期战争、转输压力延续至政权终局，S_end=C1-1低于主态2且未恢复；K0维持。亡国本身不作为K0依据。"
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "COMPLETE",
+            "handoff_continuity_checked": true,
+            "basis": "末期“公私困竭”与长期战争、转输压力延续至政权终局，S_end=C1-1低于主态2且未恢复；K0维持。亡国本身不作为K0依据。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "公私困竭、河北成片失控并最终大梁与国家系统崩解，主态判广泛困顿、交班判崩溃；末期同一崩解只在K0与C4终端韧性分别消费，不作事件重复扣分。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷268",
+              "original_text": "无巨细皆咨之而后行。"
+            },
+            {
+              "book": "《资治通鉴》卷269",
+              "original_text": "将士、府库之半；分魏博六州為兩鎮；將士、府庫各分其半。"
+            },
+            {
+              "book": "《资治通鉴》卷270",
+              "original_text": "公私困竭。"
+            }
+          ],
+          "stability_basis": "末期“公私困竭”与长期战争、转输压力延续至政权终局，S_end=C1-1低于主态2且未恢复；K0维持。亡国本身不作为K0依据。",
+          "c1_reaudit": {
+            "review_date": "2026-08-31",
+            "status": "REVIEWED_CUMULATIVE",
+            "rating_change": "NONE",
+            "k_final": "K0",
+            "summary": "末期“公私困竭”与长期战争、转输压力延续至政权终局，S_end=C1-1低于主态2且未恢复；K0维持。亡国本身不作为K0依据。"
+          }
+        },
+        {
+          "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。北汉地狭而军事化程度高，后周入境时北汉民众直接泣诉刘氏赋役之重；这类广泛役负本身已用于闭合C1-2主态。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "anchor_time": "951—954年实际统治窗口",
+              "described_state": "紧凑财政底盘与高军事动员并存。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "source_locator": "https://zh.wikisource.org/wiki/新五代史/卷70",
+              "source_works": [
+                "volume-288.source-summary.md",
+                "《新五代史》卷七十"
+              ],
+              "verbatim_excerpt": "十州征賦足以自給；籍民為兵，募兵修甲，實府庫。",
+              "macro_anchor_specificity_detail": "FISCAL_BACKGROUND_WITH_BURDEN_CONSTRAINT",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ]
+            }
+          ],
+          "evidence_mode": "CONSTRAINED_INFERENCE",
+          "main_band": "C1-2",
+          "material_limitations": [
+            "后周军入境后的剽掠属于外敌战争后果，不倒算刘崇；“赋役之重”用于主态2，不再二次消费为K。"
+          ],
+          "peak_band": null,
+          "polity": "五代十国",
+          "rank": 121,
+          "reign_range": "951-954",
+          "ruler_id": "RULER-SHADOW-刘崇",
+          "ruler_name": "刘崇",
+          "score": 17.1,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-2",
+            "S_avg": "C1-2",
+            "S_end": "C1-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-刘崇"
+          },
+          "raw_state_band": "C1-2",
+          "formal_band": "C1-2",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "北汉十余州征赋可自给仅证明政权财政底盘；籍壮丁扩军、停止上供及连续出兵显示普通家庭承受受军事化约束，现证不足以闭合多数家庭基本维持，故保守定C1-2。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷290",
+              "original_text": "十余州之地……北汉主收散卒，缮甲兵，完城堑。"
+            },
+            {
+              "book": "《资治通鉴》卷291",
+              "original_text": "其民争以食物迎周师，泣诉刘氏赋役之重，愿供军须，助攻晋阳。"
+            }
+          ],
+          "stability_basis": "刘氏赋役之重与籍民为兵属于主态C1-2的组成证据；恢复完成后未确认一个独立、明显低于C1-2的家庭生计阶段，因此K4。"
+        },
+        {
+          "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。河东军府长期军需不足，沙陀亲军又直接侵暴良民，史文明言“河东甚苦之”，足以限制主态于C1-2。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "anchor_time": "895—908年实际割据窗口",
+              "described_state": "长期军需不足和亲军侵扰直接压低普通家庭承受。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "source_locator": "SRC-ZZTJ-263-1502862-P0022",
+              "source_works": [
+                "volume-263.source-summary.md"
+              ],
+              "verbatim_excerpt": "帑藏空虛，諸軍賣馬以自給；沙陀親軍侵暴良民，河東甚苦之。",
+              "macro_anchor_specificity_detail": "SCOPED_DIRECT_MACRO",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ]
+            }
+          ],
+          "evidence_mode": "DIRECT_MACRO_ANCHOR",
+          "main_band": "C1-2",
+          "material_limitations": [
+            "军队自身缺饷、卖马只作背景；进入C1的是“侵暴良民、河东甚苦之”等家庭端结果。"
+          ],
+          "peak_band": null,
+          "polity": "五代十国",
+          "rank": 121,
+          "reign_range": "895-908实际割据",
+          "ruler_id": "RULER-SHADOW-李克用",
+          "ruler_name": "李克用",
+          "score": 17.1,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-2",
+            "S_avg": "C1-2",
+            "S_end": "C1-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-468BEC7DE13F"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-468BEC7DE13F",
+                "candidate_ids_trace_only": [
+                  "M3H-3ED66E97D9D33EDB"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "NEGATIVE",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- 河东军府在汴军压力下公开暴露长期军需困境。李克用询问“不贮军食”“不置兵甲”“不修城池”何以聚众御敌；李袭吉反对以加税、改法、重役解决，主张“崇德爱人，去奢省役，设险固境，训兵务农”。李克用又明言“帑藏空虚，诸军卖马以自给”，并承认沙陀亲军侵暴良民、“河东甚苦之”；李存勖要求整治，李克用以严治会导致军士散去为由暂缓。原文定位：`SRC-ZZTJ-263-1502862-P0022`“帑藏空虛，諸軍賣馬以自給”“河東甚苦之”。 | - 钱镠此前把孙儒败兵大量编为“武勇都”，杜稜曾警告其“狼子野心”，主张以本地兵替换而未获采纳。该军队编制背景随后成为杭州兵变的政治—组织前史，但本段本身不是战斗。原文定位：`SRC-ZZTJ-263-1502862-P0042`“錢鏐愛其驍悍，以為中軍，號武勇都”。 | - 本卷未见可独立于战役阶段记账的大型自然灾害或常规工程灾害。凤翔大雪、饥荒、薙草封锁以及宿州、韶州粮运中断均直接属于战争阶段成本，已移入战役裁决卡，不在此重复。",
+                "source_refs": [
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-263.source-summary.md#L11"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-468BEC7DE13F"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [
+              "M3H-46434849A46BE601",
+              "M3H-72D110FD115FC3B8"
+            ],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-李克用"
+          },
+          "raw_state_band": "C1-2",
+          "formal_band": "C1-2",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
+            "inference_source_anchor": null,
+            "inference_hops": 0,
+            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷263",
+              "original_text": "帑藏空虚，诸军卖马以自给；沙陀亲军侵暴良民，河东甚苦之。"
+            }
+          ],
+          "stability_basis": "亲军侵暴良民与长期军需压力本身已经用于确定主态2；未确认独立、明显低于2的家庭生计阶段，故K4。"
+        },
+        {
+          "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。城市和工程形成正面背景，但系统性重敛与催欠体罚直接约束家庭福利。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "anchor_time": "893—932年实际割据窗口",
+              "described_state": "城市和工程形成正面背景，但系统性重敛与催欠体罚直接约束家庭福利。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "source_locator": "https://zh.wikisource.org/wiki/新五代史/卷67",
+              "source_works": [
+                "volume-267.source-summary.md",
+                "《新五代史》卷六十七"
+              ],
+              "verbatim_excerpt": "錢唐富庶盛於東南；自鏐世常重斂其民……少者猶積數十，多者至笞百餘，人尤不勝其苦。",
+              "macro_anchor_specificity_detail": "DYNASTIC_SUMMARY_WITH_COUNTEREVIDENCE",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+              ]
+            }
+          ],
+          "evidence_mode": "DIRECT_MACRO_AND_COUNTEREVIDENCE",
+          "main_band": "C1-2",
+          "material_limitations": [
+            "吴越后期材料不得倒填钱镠本人窗口"
+          ],
+          "peak_band": null,
+          "polity": "五代十国",
+          "rank": 121,
+          "reign_range": "893-932实际割据",
+          "ruler_id": "RULER-SHADOW-钱镠",
+          "ruler_name": "钱镠",
+          "score": 17.1,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-2",
+            "S_avg": "C1-2",
+            "S_end": "C1-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [
+              "M3H-89F30707EBE44868"
+            ],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-钱镠"
+          },
+          "review_remediation": {
+            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
+            "status": "APPLIED",
+            "problem": "正式K字段需补录",
+            "directive": "主档与曲线维持 C1-2→2→2；补 K=K4。"
+          },
+          "raw_state_band": "C1-2",
+          "formal_band": "C1-2",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+          ],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "stages": [],
+            "basis": "审查未确认恢复完成后的有效阶段跌破raw主态；不以材料沉默证明K4，依据见人物审查修正。"
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "COMPLETE",
+            "handoff_continuity_checked": true,
+            "basis": "主档与曲线维持 C1-2→2→2；补 K=K4。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "主档与曲线维持 C1-2→2→2；补 K=K4。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》卷267",
+              "original_text": "錢唐富庶盛於東南；自鏐世常重斂其民……少者猶積數十，多者至笞百餘，人尤不勝其苦。"
+            }
+          ],
+          "stability_basis": "“自镠世常重敛其民”及催欠笞责已经是主态C1-2的核心负证；未确认独立于该长期重敛之外、明显低于2的家庭生计阶段，故K4维持。"
+        }
+      ]
+    }
+  }
+}

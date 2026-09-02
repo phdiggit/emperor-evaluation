@@ -7,6 +7,8 @@ from typing import Any, Mapping
 
 import yaml
 
+from emperor_v4.evaluation.formal_json_store import load_json
+
 
 POOL_JSON = "config/common/canonical-ruler-pool.json"
 POOL_MARKDOWN = "docs/项目总纲/正式评价对象范围.md"
@@ -63,9 +65,17 @@ CANONICAL_LEGACY_ID_REFS = {
     "RULER-PUBLIC-310D1C92CEE1924D": ["RULER-ROSTER-310D1C92CEE1924D"],
 }
 
+FIRST_ITEM_OUTSIDE_POLITIES = {
+    "塔不烟": "辽",
+    "洪秀全": "太平天国",
+    "耶律璟": "辽",
+    "萧普速完": "辽",
+    "黄巢": "大齐",
+}
+
 
 def _read_json(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text(encoding="utf-8"))
+    return load_json(path)
 
 
 def _load_admission_adjudications(workspace_root: Path) -> dict[str, Any]:
@@ -235,6 +245,10 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
             {
                 "ruler_id": str(row["ruler_id"]),
                 "ruler_name": str(row["ruler_name"]),
+                "polity": str(
+                    row.get("polity")
+                    or FIRST_ITEM_OUTSIDE_POLITIES[str(row["ruler_name"])]
+                ),
                 "pool_relation": "OUTSIDE_CANONICAL_CANDIDATE_POOL",
             }
             for canonical_name, row in indexed["first_item"].items()

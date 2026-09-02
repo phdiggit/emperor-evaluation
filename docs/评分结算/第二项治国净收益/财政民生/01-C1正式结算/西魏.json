@@ -1,0 +1,108 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "西魏",
+  "collections": {
+    "scores": {
+      "positions": [
+        83
+      ],
+      "records": [
+        {
+          "adjudication_reason": "西魏草创后新制连续运行，史书明确“数年之间，百姓便之”，足以受约束确认基本运行改善；但不足闭合普通家庭普遍温饱，主态仍C1-3。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "anchor_time": "宇文泰541—544年及数年后",
+              "described_state": "西魏减官、基层治理、屯田和六条连续实施后出现数年运行结果。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "proof_scope_constraints": [],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_voice": "THIRD_PARTY_CHRONICLE_OR_TREATISE",
+              "source_voice_basis": "机械粗分；按source_works与verbatim中的史书、奏议、诏令标记识别。",
+              "source_voice_matches": [
+                "THIRD_PARTY_CHRONICLE_OR_TREATISE"
+              ],
+              "source_works": [
+                "《资治通鉴》共享通读卡正文"
+              ],
+              "state_roles": [
+                "S_avg",
+                "稳定性"
+              ],
+              "verbatim_excerpt": "六条与后续新制颁行，数年后百姓得到便利。",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ]
+            }
+          ],
+          "evidence_mode": "MULTI_RESULT_STRONG_INFERENCE",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "“百姓便之”证明实际便利，不等于普遍温饱；江陵等新占区损害不外推西魏核心区。"
+          ],
+          "peak_band": null,
+          "polity": "西魏",
+          "rank": 36,
+          "reign_range": [
+            535,
+            556
+          ],
+          "ruler_id": "RULER-SHADOW-宇文泰",
+          "ruler_name": "宇文泰",
+          "score": 32.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-2",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-宇文泰"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "PRESERVED_PENDING_DEDICATED_REVIEW",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-2",
+            "to_band": "C1-3",
+            "basis": "沿用当前正式证据；本补丁未新增人物裁决。"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "西魏草创低位后，六条和新制实施数年形成‘百姓便利’的直接运行结果，长期主态达到基本维持；晚期江陵等新占区损害保留为区域和战争压力，但不足以把西魏核心区交班状态降回困顿。"
+          },
+          "material_basis": [
+            {
+              "book": "《周书·文帝纪下》",
+              "original_text": "于是搜简贤才，以为牧守令长，皆依新制而遣焉。数年之间，百姓便之。"
+            }
+          ],
+          "stability_basis": "S0=C1-2后的草创恢复不计K；新制运行后，现有材料未确认西魏核心区另有独立跌破C1-3的家庭低谷。江陵等主动战争成本须有核心家庭端闭合才能进入K，故K4。"
+        }
+      ]
+    }
+  }
+}

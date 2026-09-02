@@ -1,0 +1,255 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "西晋",
+  "collections": {
+    "records": {
+      "positions": [
+        11
+      ],
+      "records": [
+        {
+          "task_code": "PROFILE-M3-RULER-SHADOW-司马炎",
+          "ruler_id": "RULER-SHADOW-司马炎",
+          "ruler_name": "司马炎",
+          "polity": "西晋",
+          "actual_power_window": "265—290年",
+          "axis_code": "M3",
+          "axis_name": "民生财政建设",
+          "axis_grade": "G4",
+          "position": "MID",
+          "score_100": 82,
+          "radar_value": 82,
+          "components": {
+            "C1": {
+              "band": "C1-4",
+              "score": 50.5
+            },
+            "C2": {
+              "band": "C2-4",
+              "score": 23.6
+            },
+            "C3": {
+              "band": "C3-4",
+              "score": 40.0
+            },
+            "C4": {
+              "band": "C4-2",
+              "score": 12.7
+            }
+          },
+          "absolute_state_tier": 4,
+          "absolute_state_meanings": {
+            "C1": "民生多数阶段稳定",
+            "C2": "经济财政健康",
+            "C3": "社会安全稳定"
+          },
+          "ability_evidence": {
+            "route": "SUBSTANTIAL_CONSTRUCTION",
+            "trajectory": {
+              "start_vector": [
+                3,
+                3,
+                3
+              ],
+              "main_vector": [
+                4,
+                4,
+                4
+              ],
+              "peak_vector": [
+                4,
+                4,
+                4
+              ],
+              "end_vector": [
+                4,
+                4,
+                4
+              ],
+              "peak_improvement_vector": [
+                1,
+                1,
+                1
+              ],
+              "retained_change_vector": [
+                1,
+                1,
+                1
+              ],
+              "rollback_vector": [
+                0,
+                0,
+                0
+              ],
+              "improved_axis_count": 3,
+              "deep_improvement_axis_count": 0,
+              "retained_improvement_axis_count": 3,
+              "rollback_axis_count": 0,
+              "recovery_score_27": 10.0,
+              "stability_score_18": 11.7,
+              "start_tier": 3,
+              "peak_tier": 4,
+              "end_tier": 4
+            },
+            "governance_scale_class": "FULL_OR_MAJOR_REGIONAL",
+            "governance_scale_basis": "太康阶段的赋税、生产与社会秩序裁决覆盖全国性治理链，属于完整治理尺度。",
+            "governance_scale_gate": {
+              "status": "FULL_OR_MAJOR_REGIONAL",
+              "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+              "dimension": "ACTUAL_GOVERNANCE_SCALE",
+              "basis": "太康阶段的赋税、生产与社会秩序裁决覆盖全国性治理链，属于完整治理尺度。",
+              "formal_subitem_sources": [
+                {
+                  "axis": "C4",
+                  "field_path": "m3_governance_scale_adjudication",
+                  "ref": "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-司马炎"
+                }
+              ],
+              "supporting_formal_fields": [
+                {
+                  "axis": "C1",
+                  "field_path": "adjudication_reason"
+                },
+                {
+                  "axis": "C2",
+                  "field_path": "adjudication_reason"
+                },
+                {
+                  "axis": "C3",
+                  "field_path": "adjudication_reason"
+                }
+              ]
+            },
+            "six_band_main_state": false,
+            "deterioration_penalty": 0.0,
+            "destructive_amplification_penalty": 9.0,
+            "upstream_sync": {
+              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_01",
+              "source_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-司马炎",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-司马炎",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-司马炎",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-司马炎"
+              ]
+            },
+            "destructive_amplification_grade": "DA2",
+            "stability_k_basis": {
+              "C1": {
+                "K_grade": "K1",
+                "factor": 0.3
+              },
+              "C2": {
+                "K_grade": "K4",
+                "factor": 1.0
+              },
+              "C3": {
+                "K_grade": "K4",
+                "factor": 1.0
+              }
+            },
+            "weighted_K": 0.65,
+            "stability_k_structure_status": "STRUCTURED_C4_FORMAL",
+            "stability_k_public_basis": "三轴均跨3→4。C1太康六至九年连续多郡水旱螟灾构成宏观家庭低态，K1；C2虽有结构性财政农业警告，但未闭合独立跌破四档的实际经济财政阶段，K4；C3统一后的普通社会未确认再次跌破四档，K4。 按新合同跨档难度加权为1.00，恢复分10.0/27；K加权系数0.65，稳定raw 11.7，经终局约束后稳定分11.7。终局4/4/4的terminal_quality=4.00，对应C4T-4、正向上限34.9，故正向保留21.7。"
+          },
+          "dynamic_class": "POSITIVE_MAINTENANCE",
+          "dynamic_label": "实现正向守成或温和改善",
+          "value_mode": "SEMANTIC_HOLISTIC_ADJUDICATION_WITH_FIXED_GRADE_PROJECTION",
+          "axis_evidence_level": "E2",
+          "confidence": "MEDIUM",
+          "output_mode": "BOUNDED_PROFILE",
+          "score_status": "FINAL",
+          "formal_status": "FORMAL_CURRENT",
+          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[3, 3, 3]、[4, 4, 4]、[4, 4, 4]、[4, 4, 4]；恢复10.0/27，稳定11.7/18；恶化扣减0.0，主动成本DA2/9.0。正式逐人裁决为G4-MID。",
+          "counterpattern": "终局无档差恶化。军事成本登记C5低位里交趾、慕容等多为边境安全压力，但272年西陵链是为接应步阐而主动扩大的跨方向行动；羊祜所统八万余人，仍出现“兵少粮悬，军人挫衄”的失败结果，属于一次大规模、可选择且已实现的战争成本，足以独立进入DA2。宫闱增饰只作奢费背景，不再另升档。 可归责恶化扣0.0，DA2扣9.0分。",
+          "starting_context": "司马炎接手锚点更新为民生三档、经济财政三档、社会安全三档；最新曲线为三轴均三档→四档→四档。先前裁决把C3交班错误降为三档。",
+          "construction_and_maintenance": "按正式档界公式重算恢复分10.0/27；稳定承压按当前K结构计11.7/18，未把恢复信用并入稳定分；正向保留21.7。",
+          "costs_and_consequences": "交班局面为[4, 4, 4]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA2，扣减9.0。",
+          "behavior_chain": "终局无档差恶化。军事成本登记C5低位里交趾、慕容等多为边境安全压力，但272年西陵链是为接应步阐而主动扩大的跨方向行动；羊祜所统八万余人，仍出现“兵少粮悬，军人挫衄”的失败结果，属于一次大规模、可选择且已实现的战争成本，足以独立进入DA2。宫闱增饰只作奢费背景，不再另升档。 可归责恶化扣0.0，DA2扣9.0分。",
+          "handoff_state": "按交班向量[4, 4, 4]推导终局为C4T-4，正向上限34.9。",
+          "public_adjudication": "司马炎接手锚点校正为民生三档、经济财政三档、社会安全三档；最新曲线为三轴均三档→四档→四档。原C4把C3交班错误降为三档。 三轴均跨3→4。C1太康六至九年连续多郡水旱螟灾构成宏观家庭低态，K1；C2虽有结构性财政农业警告，但未闭合独立跌破四档的实际经济财政阶段，K4；C3统一后的普通社会未确认再次跌破四档，K4。 按新规则跨档难度加权为1.00，恢复分10.0；K加权系数0.65，稳定原始 11.7，经终局约束后稳定分11.7。终局4/4/4的终局质量=4.00，对应C4T-4、正向上限34.9，故正向保留21.7。 终局无档差恶化。军事成本登记C5低位里交趾、慕容等多为边境安全压力，但272年西陵链是为接应步阐而主动扩大的跨方向行动；羊祜所统八万余人，仍出现“兵少粮悬，军人挫衄”的失败结果，属于一次大规模、可选择且已实现的战争成本，足以独立进入DA2。宫闱增饰只作奢费背景，不再另升档。 可归责恶化扣0.0，DA2扣9.0分。 交班原始锚点为民生4档、经济财政4档、社会安全4档；终局层级C4T-4，正向上限34.9。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G4。 当前档内位置为MID；不以结构字段自动替代逐人语义裁决。",
+          "grade_basis": "依据当前C1—C4结构字段与逐人语义裁决，正式档位为G4。",
+          "position_basis": "当前档内位置为MID；不以结构字段自动替代逐人语义裁决。",
+          "axis_relevance_check": {
+            "status": "HOLISTIC_C1_C4_SEMANTIC_ADJUDICATION",
+            "component_codes": [
+              "C1",
+              "C2",
+              "C3",
+              "C4"
+            ],
+            "component_sum_used": false,
+            "quantile_or_normalization_used": false,
+            "name_override_used": false,
+            "old_process_material_role": "BEHAVIOR_CHAIN_AND_ATTRIBUTION_REVIEW_ONLY"
+          },
+          "parents": [],
+          "limitations": [
+            "现有正式结果材料没有闭合到独立的本人过程父链，行为归责仅使用C4已审定部分，不能外推为完整政策能力画像。",
+            "核心证据集中于统一后的太康阶段。",
+            "官品特权和依附结构构成限制，且缺任末同口径锚点。"
+          ],
+          "supplement_review": {
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-司马炎",
+            "old_m3_parent_chain_count": 0,
+            "old_m3_candidate_count": 0,
+            "axis_dispositions": {
+              "C1": "SEARCHED_NO_OLD_M3_CANDIDATE",
+              "C2": "SEARCHED_NO_OLD_M3_CANDIDATE",
+              "C3": "SEARCHED_NO_OLD_M3_CANDIDATE",
+              "C4": "REVIEWED_C4_ATTRIBUTION_RETAINED"
+            }
+          },
+          "source_refs": [
+            "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-司马炎",
+            "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-司马炎",
+            "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-司马炎",
+            "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-司马炎"
+          ],
+          "source_evidence": [
+            {
+              "source_title": "《晋书·食货志》",
+              "quote": "是时天下无事，赋税平均，人咸安其业而乐其事。",
+              "source_origin": "C4_FORMAL_PUBLIC_SOURCE"
+            },
+            {
+              "source_title": "《晋书·武帝纪》",
+              "quote": "以比岁不登，免租贷宿负……郡国四旱，十大水，坏百姓庐舍。",
+              "source_origin": "C4_FORMAL_PUBLIC_SOURCE"
+            },
+            {
+              "source_title": "《晋书·武帝纪》",
+              "quote": "郡国三十二大旱，伤麦……郡国二十四螟。",
+              "source_origin": "C4_FORMAL_PUBLIC_SOURCE"
+            },
+            {
+              "source_title": "《晋书·羊祜传》",
+              "quote": "祜所统八万余人，贼众不过三万……乃遣杨肇偏军入险，兵少粮悬，军人挫衄。",
+              "source_origin": "C4_FORMAL_PUBLIC_SOURCE"
+            },
+            {
+              "source_title": "《隋书·刑法志》",
+              "quote": "晋氏平吴，九州宁一……实曰轻平，称为简易。",
+              "source_origin": "C4_FORMAL_PUBLIC_SOURCE"
+            },
+            {
+              "source_title": "《晋书·食货志》",
+              "quote": "是時天下無事，賦稅平均，人咸安其業而樂其事。",
+              "source_origin": "M3_SUPPLEMENT"
+            },
+            {
+              "source_title": "《晋书·食货志》",
+              "quote": "河濱海岸，三丘八藪，耒耨之所不至者，人皆受焉……世屬升平，物流倉府。",
+              "source_origin": "M3_SUPPLEMENT"
+            },
+            {
+              "source_title": "《晋书·傅咸传》",
+              "quote": "今之不農，不可勝計。縱使五稼普收，僅足相接；暫有災患，便不繼贍。",
+              "source_origin": "M3_SUPPLEMENT"
+            }
+          ],
+          "contract_version": "FORMAL-V3.6"
+        }
+      ]
+    }
+  }
+}

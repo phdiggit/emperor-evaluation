@@ -1,0 +1,629 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "明",
+  "collections": {
+    "records": {
+      "positions": [
+        2,
+        61,
+        70,
+        127,
+        128,
+        129,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141
+      ],
+      "records": [
+        {
+          "ruler_id": "RULER-MING-ZHU-YUANZHANG",
+          "ruler_name": "朱元璋",
+          "polity": "明",
+          "reign_range": "1368-1398",
+          "scope_status": "ELIGIBLE_DYNASTY_FOUNDER",
+          "score_applicable": true,
+          "founder_role": "PRIMARY_FOUNDER_AND_UNIFIER",
+          "difficulty_start_boundary": "贫农、乞食僧出身，投军前无可持续军政资源",
+          "initial_resource_position": "贫农、乞食僧出身，投军前无可持续军政资源；1353年集团是本人取得的成果",
+          "initial_resource_share_pct": 0.0,
+          "initial_resource_source_refs": [
+            "明史/卷1@2594614#自將征陳理。",
+            "明史/卷1@2594614#復自將征武昌，陳理降，漢、沔、荊、岳皆下。"
+          ],
+          "initial_resource_source_status": "SOURCE_ANCHORED_RULE_MAPPED",
+          "initial_resource_class": "R0_NO_EFFECTIVE_RESOURCE",
+          "initial_resource_share_basis": "史源锚用于确认‘贫农、乞食僧出身，投军前无可持续军政资源’这一事实起点；百分比不是史书原文数字，而是按合同R0_NO_EFFECTIVE_RESOURCE档（没有可持续调用的独立部众、地盘或官职军政资源）在同档人物间依可调用资源广度裁为0%。",
+          "start_boundary": "1353年形成独立军事集团",
+          "end_boundary": "1382年云南平定",
+          "starting_position": "小规模江淮起兵集团",
+          "A1": {
+            "axis": "A1",
+            "name": "创业战略增益与难度兑现",
+            "starting_resource_share": 0.0,
+            "starting_resource_disadvantage": 100.0,
+            "project_start_resource_share": 5.0,
+            "project_start_resource_disadvantage": 95.0,
+            "contribution_start_field": {
+              "subject_units": 5.0,
+              "other_actors": {
+                "元朝中央及地方军": 42,
+                "陈友谅": 22,
+                "张士诚": 15,
+                "其他割据": 16
+              }
+            },
+            "opponent_pressure": 63.64,
+            "opponent_system_pressure": 69.25,
+            "relative_resource_pressure": 50.54,
+            "major_opponent_count": 4,
+            "major_opponent_systems": [
+              {
+                "opponent_system_ref": "OPP-MING-CHEN-HAN",
+                "opponent_label": "陈友谅汉国国家机器",
+                "organization_grade": "O5",
+                "organization_rate": 85.0,
+                "source_campaign_refs": [
+                  "CAMPAIGN-MING-JIANGZHOU-1361-1362",
+                  "CAMPAIGN-MING-CHEN-HAN-END-1363-1364"
+                ]
+              },
+              {
+                "opponent_system_ref": "OPP-MING-YUAN-CENTRAL",
+                "opponent_label": "元朝中央与北方国家体系",
+                "organization_grade": "O4",
+                "organization_rate": 70.0,
+                "source_campaign_refs": [
+                  "CAMPAIGN-MING-NORTHERN-EXPEDITION-1367-1368",
+                  "CAMPAIGN-MING-SHANXI-SHAANXI-1368-1369"
+                ]
+              },
+              {
+                "opponent_system_ref": "OPP-MING-YUAN-HEZHOU-GARRISON",
+                "opponent_label": "元朝和州区域守军体系",
+                "organization_grade": "O3",
+                "organization_rate": 50.0,
+                "source_campaign_refs": [
+                  "WAR-POST-B77F4593C82B83B63EFA"
+                ]
+              },
+              {
+                "opponent_system_ref": "OPP-MING-YUAN-JIANGNAN-GARRISONS",
+                "opponent_label": "元朝江南区域守军体系",
+                "organization_grade": "O3",
+                "organization_rate": 50.0,
+                "source_campaign_refs": [
+                  "WAR-POST-8E237CF09CE7CA2EBB78"
+                ]
+              }
+            ],
+            "unknown_opponent_campaign_refs": [],
+            "opponent_threat_source_status": "OPPONENT_SYSTEM_O_GRADE_WITH_RELATIVE_RESOURCES",
+            "opponent_threat_routing_basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。",
+            "competitive_fragmentation": 88.54,
+            "a1_strategic_responsibility_factor": 100.0,
+            "a1_strategic_responsibility_basis": "role_default:PRIMARY_FOUNDER_AND_UNIFIER",
+            "start_difficulty_rate": 96.5,
+            "pure_difficulty_rate": 80.07,
+            "difficulty_rate": 94.2,
+            "terminal_completion_rate": 100.0,
+            "attributed_completion_rate": 100.0,
+            "result_rate": 100.0,
+            "rate": 94.2,
+            "weight": 60,
+            "points": 56.5
+          },
+          "A2": {
+            "axis": "A2",
+            "name": "创业路线效率与稳固",
+            "created_net_control_value": 957.0,
+            "recovered_net_control_value": 0.0,
+            "gross_unification_control_value": 957.0,
+            "effective_unification_control_value": 957.0,
+            "recovered_control_scoring_rate": 50.0,
+            "raw_control_scale_rate": 95.7,
+            "control_scale_score_rate": 97.83,
+            "closure_years": 29.0,
+            "value_weighted_acquisition_years": 12.0,
+            "control_acquisition_efficiency": 79.75,
+            "acquisition_pace_rate": 92.39,
+            "scale_expected_closure_years": 10.55,
+            "closure_pace_rate": 36.38,
+            "time_rate": 69.98,
+            "control_retention_rate": 96.0,
+            "durability_rate": 94.4,
+            "terminal_completion_rate": 100.0,
+            "early_stability_rate": 92.0,
+            "strategic_positive_decisions": [],
+            "objective_result_points": 32.1,
+            "strategic_positive_decision_points": 0.0,
+            "strategic_error_points": 0.0,
+            "strategic_error_events": [],
+            "rate": 80.2,
+            "weight": 40,
+            "points": 32.1
+          },
+          "strategic_error_events": [],
+          "strategic_error_review": {
+            "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+            "searched_evidence_refs": [
+              "明史/卷1@2594614#自將征陳理。",
+              "明史/卷1@2594614#復自將征武昌，陳理降，漢、沔、荊、岳皆下。"
+            ],
+            "no_error_basis": "已复核统一窗口内的战役负项；岭北远征等失败能闭合到具体战役结果，但现有锚不足以证明三路战略设计本身错误，不能因败果反推A误判。"
+          },
+          "A_score_points": 88.6,
+          "canonical_rank": 3,
+          "responsibility_basis": "13阶段均与本人窗口重合；徐达等将领不复制A控制。",
+          "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+          "evidence_status_basis": "A2控制量沿用当前C区域底账的保守数值下限；本轮没有新增足以解除该下限的区域价值或人物结果证据。",
+          "evidence_lower_bound": true,
+          "limitations": [
+            "A2控制量沿用当前C区域底账的保守数值下限；本轮没有新增足以解除该下限的区域价值或人物结果证据。"
+          ],
+          "unknown_control_scope": null,
+          "source_refs": []
+        },
+        {
+          "ruler_id": "RULER-MING-ZHU-YOULANG",
+          "ruler_name": "朱由榔",
+          "polity": "南明永历政权",
+          "reign_range": "1646-1662",
+          "scope_status": "ELIGIBLE_DYNASTY_FOUNDER",
+          "score_applicable": true,
+          "founder_role": "RESTORATION_FOUNDER",
+          "difficulty_start_boundary": "南明宗室名位与两广残余资源是实际起点",
+          "initial_resource_position": "南明宗室名位与两广残余资源是实际起点",
+          "initial_resource_share_pct": 10.0,
+          "initial_resource_source_refs": [
+            "https://zh.wikisource.org/zh-hans/明史/卷120"
+          ],
+          "initial_resource_source_status": "SOURCE_ANCHORED_RULE_MAPPED",
+          "initial_resource_class": "R3_REGIONAL_MACHINE",
+          "initial_resource_share_basis": "史源锚用于确认‘南明宗室名位与两广残余资源是实际起点’这一事实起点；百分比不是史书原文数字，而是按合同R3_REGIONAL_MACHINE档（拥有成熟区域军政集团、一个主要战略区或相当规模的继承性机器）在同档人物间依可调用资源广度裁为10%。",
+          "start_boundary": "1646年肇庆即位并承担恢复",
+          "end_boundary": "1652年形成西南阶段核心",
+          "starting_position": "南明残余名义与两广有限资源",
+          "A1": {
+            "axis": "A1",
+            "name": "创业战略增益与难度兑现",
+            "starting_resource_share": 10.0,
+            "starting_resource_disadvantage": 90.0,
+            "project_start_resource_share": 10.0,
+            "project_start_resource_disadvantage": 90.0,
+            "contribution_start_field": {
+              "subject_units": 10.0,
+              "other_actors": {
+                "清国家机器": 60,
+                "孙可望等地方军事集团": 22,
+                "其他": 8
+              }
+            },
+            "opponent_pressure": 69.31,
+            "opponent_system_pressure": 65.0,
+            "relative_resource_pressure": 79.36,
+            "major_opponent_count": 2,
+            "major_opponent_systems": [
+              {
+                "opponent_system_ref": "OPP-A-YONGLI-QING",
+                "opponent_label": "清国家战争机器",
+                "organization_grade": "O6",
+                "organization_rate": 100.0,
+                "source_campaign_refs": [
+                  "https://zh.wikisource.org/zh-hans/永曆實錄",
+                  "https://zh.wikisource.org/zh-hans/明史/卷120"
+                ]
+              },
+              {
+                "opponent_system_ref": "OPP-A-YONGLI-SUNKEWANG",
+                "opponent_label": "孙可望等西南军政集团",
+                "organization_grade": "O3",
+                "organization_rate": 50.0,
+                "source_campaign_refs": [
+                  "https://zh.wikisource.org/zh-hans/永曆實錄"
+                ]
+              }
+            ],
+            "unknown_opponent_campaign_refs": [],
+            "opponent_threat_source_status": "OPPONENT_SYSTEM_O_GRADE_WITH_RELATIVE_RESOURCES",
+            "opponent_threat_routing_basis": "本人贡献窗口内实际面对的独立战争机器；国家母体按实际投入裁档，同体系多阶段只消费一次。",
+            "competitive_fragmentation": 77.32,
+            "a1_strategic_responsibility_factor": 100.0,
+            "a1_strategic_responsibility_basis": "role_default:RESTORATION_FOUNDER",
+            "start_difficulty_rate": 90.0,
+            "pure_difficulty_rate": 79.65,
+            "difficulty_rate": 93.71,
+            "terminal_completion_rate": 35.0,
+            "attributed_completion_rate": 35.0,
+            "result_rate": 35.0,
+            "rate": 32.8,
+            "weight": 60,
+            "points": 19.7
+          },
+          "A2": {
+            "axis": "A2",
+            "name": "创业路线效率与稳固",
+            "created_net_control_value": 20.0,
+            "recovered_net_control_value": 0.0,
+            "gross_unification_control_value": 20.0,
+            "effective_unification_control_value": 20.0,
+            "recovered_control_scoring_rate": 50.0,
+            "raw_control_scale_rate": 2.0,
+            "control_scale_score_rate": 14.14,
+            "closure_years": 6.0,
+            "value_weighted_acquisition_years": 3.0,
+            "control_acquisition_efficiency": 6.67,
+            "acquisition_pace_rate": 38.76,
+            "scale_expected_closure_years": 1.53,
+            "closure_pace_rate": 25.42,
+            "time_rate": 33.42,
+            "control_retention_rate": 45.0,
+            "durability_rate": 39.0,
+            "terminal_completion_rate": 35.0,
+            "early_stability_rate": 30.0,
+            "strategic_positive_decisions": [],
+            "objective_result_points": 3.5,
+            "strategic_positive_decision_points": 0.0,
+            "strategic_error_points": 0.0,
+            "strategic_error_events": [],
+            "rate": 8.67,
+            "weight": 40,
+            "points": 3.5
+          },
+          "strategic_error_events": [],
+          "strategic_error_review": {
+            "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+            "searched_evidence_refs": [
+              "https://zh.wikisource.org/zh-hans/明史/卷120"
+            ],
+            "no_error_basis": "窗口内存在西南集团争权和控制不稳，但材料未闭合到朱由榔本人作出的、导致重大反复的具体错误战争或联盟处置；不把‘未能控制诸将’本身当作决策事件。"
+          },
+          "A_score_points": 23.2,
+          "canonical_rank": 62,
+          "responsibility_basis": "20只表示本人建政、任命和维持恢复名义的控制下限；李定国孙可望战果不转写。",
+          "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+          "evidence_status_basis": "A2控制量沿用当前C区域底账的保守数值下限；本轮没有新增足以解除该下限的区域价值或人物结果证据。",
+          "evidence_lower_bound": true,
+          "limitations": [
+            "A2控制量沿用当前C区域底账的保守数值下限；本轮没有新增足以解除该下限的区域价值或人物结果证据。"
+          ],
+          "unknown_control_scope": null,
+          "source_refs": [
+            "https://zh.wikisource.org/zh-hans/永曆實錄"
+          ]
+        },
+        {
+          "ruler_id": "RULER-MING-ZHU-YUJIAN",
+          "ruler_name": "朱聿键",
+          "polity": "南明隆武政权",
+          "reign_range": "1645-1646",
+          "scope_status": "ELIGIBLE_DYNASTY_FOUNDER",
+          "score_applicable": true,
+          "founder_role": "RESTORATION_FOUNDER",
+          "difficulty_start_boundary": "南明宗室名位与福建有限资源是恢复路线起点",
+          "initial_resource_position": "南明宗室名位与福建有限资源是恢复路线起点",
+          "initial_resource_share_pct": 12.0,
+          "initial_resource_source_refs": [
+            "https://zh.wikisource.org/zh-hans/明史/卷118"
+          ],
+          "initial_resource_source_status": "SOURCE_ANCHORED_RULE_MAPPED",
+          "initial_resource_class": "R3_REGIONAL_MACHINE",
+          "initial_resource_share_basis": "史源锚用于确认‘南明宗室名位与福建有限资源是恢复路线起点’这一事实起点；百分比不是史书原文数字，而是按合同R3_REGIONAL_MACHINE档（拥有成熟区域军政集团、一个主要战略区或相当规模的继承性机器）在同档人物间依可调用资源广度裁为12%。",
+          "start_boundary": "1645年福州即位并提出恢复路线",
+          "end_boundary": "1646年政权覆亡",
+          "starting_position": "南明残余名义与福建有限资源",
+          "A1": {
+            "axis": "A1",
+            "name": "创业战略增益与难度兑现",
+            "starting_resource_share": 12.0,
+            "starting_resource_disadvantage": 88.0,
+            "project_start_resource_share": 12.0,
+            "project_start_resource_disadvantage": 88.0,
+            "contribution_start_field": {
+              "subject_units": 12.0,
+              "other_actors": {
+                "清国家机器": 65,
+                "南明其他集团": 15,
+                "地方力量": 8
+              }
+            },
+            "opponent_pressure": 66.48,
+            "opponent_system_pressure": 61.0,
+            "relative_resource_pressure": 79.25,
+            "major_opponent_count": 2,
+            "major_opponent_systems": [
+              {
+                "opponent_system_ref": "OPP-A-LONGWU-QING",
+                "opponent_label": "清东南征服战争机器",
+                "organization_grade": "O6",
+                "organization_rate": 100.0,
+                "source_campaign_refs": [
+                  "https://zh.wikisource.org/zh-hans/明史/卷118"
+                ]
+              },
+              {
+                "opponent_system_ref": "OPP-A-LONGWU-INTERNAL",
+                "opponent_label": "南明东南内部军政集团",
+                "organization_grade": "O2",
+                "organization_rate": 30.0,
+                "source_campaign_refs": [
+                  "https://www.dpm.org.cn/court/event/159831.html"
+                ]
+              }
+            ],
+            "unknown_opponent_campaign_refs": [],
+            "opponent_threat_source_status": "OPPONENT_SYSTEM_O_GRADE_WITH_RELATIVE_RESOURCES",
+            "opponent_threat_routing_basis": "本人贡献窗口内实际面对的独立战争机器；国家母体按实际投入裁档，同体系多阶段只消费一次。",
+            "competitive_fragmentation": 73.65,
+            "a1_strategic_responsibility_factor": 100.0,
+            "a1_strategic_responsibility_basis": "role_default:RESTORATION_FOUNDER",
+            "start_difficulty_rate": 88.0,
+            "pure_difficulty_rate": 77.24,
+            "difficulty_rate": 90.87,
+            "terminal_completion_rate": 20.0,
+            "attributed_completion_rate": 20.0,
+            "result_rate": 20.0,
+            "rate": 18.17,
+            "weight": 60,
+            "points": 10.9
+          },
+          "A2": {
+            "axis": "A2",
+            "name": "创业路线效率与稳固",
+            "created_net_control_value": 10.0,
+            "recovered_net_control_value": 0.0,
+            "gross_unification_control_value": 10.0,
+            "effective_unification_control_value": 10.0,
+            "recovered_control_scoring_rate": 50.0,
+            "raw_control_scale_rate": 1.0,
+            "control_scale_score_rate": 10.0,
+            "closure_years": 1.0,
+            "value_weighted_acquisition_years": 1.0,
+            "control_acquisition_efficiency": 10.0,
+            "acquisition_pace_rate": 44.67,
+            "scale_expected_closure_years": 1.08,
+            "closure_pace_rate": 100.0,
+            "time_rate": 66.8,
+            "control_retention_rate": 0.0,
+            "durability_rate": 0.0,
+            "terminal_completion_rate": 20.0,
+            "early_stability_rate": 0.0,
+            "strategic_positive_decisions": [],
+            "objective_result_points": 2.4,
+            "strategic_positive_decision_points": 0.0,
+            "strategic_error_points": 0.0,
+            "strategic_error_events": [],
+            "rate": 6.0,
+            "weight": 40,
+            "points": 2.4
+          },
+          "strategic_error_events": [],
+          "strategic_error_review": {
+            "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+            "searched_evidence_refs": [
+              "https://zh.wikisource.org/zh-hans/明史/卷118"
+            ],
+            "no_error_basis": "政权迅速覆亡是结果，但现有锚不能把郑氏不出兵和各地力量未整合归结为朱聿键某一项可识别的错误决定；能力不足或未能实现目标不能替代战略误判事件。"
+          },
+          "A_score_points": 13.3,
+          "canonical_rank": 71,
+          "responsibility_basis": "只给本人恢复路线和有限政权控制10下限；郑氏及部将战果不转写。",
+          "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+          "evidence_status_basis": "A2控制量沿用当前C区域底账的保守数值下限；本轮没有新增足以解除该下限的区域价值或人物结果证据。",
+          "evidence_lower_bound": true,
+          "limitations": [
+            "A2控制量沿用当前C区域底账的保守数值下限；本轮没有新增足以解除该下限的区域价值或人物结果证据。"
+          ],
+          "unknown_control_scope": null,
+          "source_refs": [
+            "https://www.dpm.org.cn/court/event/159831.html",
+            "https://www.dpm.org.cn/Uploads/File/2020/02/26/u5e5609522e15d.pdf"
+          ]
+        },
+        {
+          "ruler_id": "RULER-MING-ZHU-YUNWEN",
+          "ruler_name": "朱允炆",
+          "polity": "明",
+          "reign_range": "1398-1402",
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        },
+        {
+          "ruler_id": "RULER-MING-ZHU-HOUZHAO",
+          "ruler_name": "朱厚照",
+          "polity": "明",
+          "reign_range": "1505-1521",
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        },
+        {
+          "ruler_id": "RULER-MING-ZHU-HOUCONG",
+          "ruler_name": "朱厚熜",
+          "polity": "明",
+          "reign_range": "1521-1567",
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        },
+        {
+          "ruler_id": "RULER-MING-ZHU-DI",
+          "ruler_name": "朱棣",
+          "polity": "明",
+          "reign_range": "1399-1424（完整军事生涯）",
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        },
+        {
+          "ruler_id": "RULER-MING-ZHU-YOUSONG",
+          "ruler_name": "朱由崧",
+          "polity": "南明弘光政权",
+          "reign_range": "1644-1645",
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "现有材料只闭合马士英、江北四镇及南京官员拥立福王，以及弘光年号和短期朝廷存在；未闭合朱由崧本人对复国建国主链的独立实际贡献。"
+        },
+        {
+          "ruler_id": "RULER-MING-ZHU-YOUJIAO",
+          "ruler_name": "朱由校",
+          "polity": "明",
+          "reign_range": "1620-1627",
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        },
+        {
+          "ruler_id": "RULER-MING-ZHU-YOUJIAN",
+          "ruler_name": "朱由检",
+          "polity": "明",
+          "reign_range": "1627-1644",
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        },
+        {
+          "ruler_id": "RULER-MING-ZHU-ZHANJI",
+          "ruler_name": "朱瞻基",
+          "polity": "明",
+          "reign_range": "1425-1435",
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        },
+        {
+          "ruler_id": "RULER-MING-ZHU-QIYU",
+          "ruler_name": "朱祁钰",
+          "polity": "明",
+          "reign_range": "1449-1457",
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        },
+        {
+          "ruler_id": "RULER-MING-ZHU-QIZHEN",
+          "ruler_name": "朱祁镇",
+          "polity": "明",
+          "reign_range": "1435-1449,1457-1464",
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        },
+        {
+          "ruler_id": "RULER-MING-ZHU-YOUCHENG",
+          "ruler_name": "朱祐樘",
+          "polity": "明",
+          "reign_range": "1487-1505",
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        },
+        {
+          "ruler_id": "RULER-MING-ZHU-YIJUN",
+          "ruler_name": "朱翊钧",
+          "polity": "明",
+          "reign_range": "1572-1620",
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        },
+        {
+          "ruler_id": "RULER-MING-ZHU-JIANSHEN",
+          "ruler_name": "朱见深",
+          "polity": "明",
+          "reign_range": "1464-1487",
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        },
+        {
+          "ruler_id": "RULER-MING-ZHU-ZAIHOU",
+          "ruler_name": "朱载坖",
+          "polity": "明",
+          "reign_range": "1567-1572",
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        }
+      ]
+    }
+  }
+}

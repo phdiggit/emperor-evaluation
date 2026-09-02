@@ -7,6 +7,8 @@ from typing import Any
 
 import yaml
 
+from emperor_v4.evaluation.formal_json_store import load_json
+
 
 ROOT = Path(__file__).resolve().parents[3]
 PROJECT = ROOT / "config" / "project.yml"
@@ -51,7 +53,7 @@ def _read_json(path: Path) -> dict[str, Any]:
     raw = path.read_bytes()
     if raw.startswith(b"\xef\xbb\xbf"):
         raise ValueError(f"UTF-8 BOM forbidden: {path}")
-    return json.loads(raw.decode("utf-8"))
+    return load_json(path)
 
 
 def _project_profile_config() -> dict[str, Any]:

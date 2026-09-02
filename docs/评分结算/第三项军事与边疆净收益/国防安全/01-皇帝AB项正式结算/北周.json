@@ -1,0 +1,274 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "北周",
+  "collections": {
+    "records": {
+      "positions": [
+        79
+      ],
+      "records": [
+        {
+          "AB_score_points": 94.15,
+          "adjudication_status": "REVIEWED",
+          "ambiguous_event_refs": [
+            "WAR-LEAD-NC-QI-RESTORATION-578"
+          ],
+          "axes": {
+            "A1": {
+              "axis_points": 23.2,
+              "base_trajectory_value": 58,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A1S4_STABLE_ADVANTAGE",
+              "rationale": "起点北周与北齐相互制衡，突厥能影响双方战略，为3档。本轴排除灭北齐统一战争的收益；仅以灭宕昌、平稽胡及抑制复齐残部等非统一事实判定主要威胁总体受控，但突厥仍可连年入寇，终点4档。",
+              "start": "A1S3_CONTESTED_BALANCE",
+              "trajectory_value": 58,
+              "transition": "IMPROVED",
+              "transition_attribution": "PRIMARY_RULER_ACTION"
+            },
+            "A2": {
+              "axis_points": 23.2,
+              "base_trajectory_value": 58,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "rationale": "起点西北、巴蜀和河南主要节点已能运作，但北线缓冲与突厥通道仍有明显缺口，为3档。宕昌转为州级直接节点、稽胡方向受控后，主要边界总体有效；突厥是未决缺口，终点4档。北齐领土不进入本轴。",
+              "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
+              "trajectory_value": 58,
+              "transition": "IMPROVED",
+              "transition_attribution": "PRIMARY_RULER_ACTION"
+            },
+            "B1": {
+              "axis_points": 11.0,
+              "band_position": "HIGH",
+              "grade": "B1-1",
+              "rationale": "复用西魏—北周非统一边疆存量1.6；宕昌由属国转州郡只改变成熟度，不重复增加已计西南空间。灭北齐为统一战争，其领土全部排除；净增0、加权值0.64，落B1-1 HIGH。",
+              "raw_net_change": 0.0,
+              "score_rate": 44,
+              "terminal_collapse_override": false,
+              "weighted_control_value": 0.64
+            },
+            "B2": {
+              "axis_points": 18.0,
+              "band_position": "LOW",
+              "grade": "B2-3",
+              "rationale": "宕昌转为宕州与稽胡方向稳定，对陇蜀通道和西南主要区域具重要作用；未将灭北齐的全国统一价值混入本档。",
+              "score_rate": 60
+            },
+            "B4": {
+              "axis_points": 18.75,
+              "band_position": "LOW",
+              "grade": "B4-4",
+              "rationale": "宕昌已改设州郡并配置守宰、驻防和交通节点，从属国关系转为可常态移交的直接控制；突厥压力使整个成果包仅取4档低位。",
+              "score_rate": 75
+            }
+          },
+          "b1_control_equivalents": {
+            "end": 1.6,
+            "net_change": 0.0,
+            "start": 1.6,
+            "weighted_value": 0.64
+          },
+          "b1_region_adjudications": [
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.3,
+              "control_form": "边郡、戍防、迁置或可执行属部管理",
+              "counted": true,
+              "coverage_factor": 0.5,
+              "evidence_refs": [
+                "HANDOVER-西魏-北周",
+                "WAR-LEAD-169-ZHOU-DANGCHANG-564",
+                "EXCLUDED_UNIFICATION-NORTHERN-ZHOU-QI-575-577"
+              ],
+              "object_id": "HENAN_SHUOFANG",
+              "object_name": "河南地—朔方",
+              "reason": "有界推断：依任期边界的州郡、防线、迁置和属部可执行关系，按标准区域取0.50（约半个主要走廊或网络）；不由一次胜负或单次归附外推更大控制。",
+              "spatial_weight": 0.6
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.8,
+              "control_form": "边郡、戍防、迁置或可执行属部管理",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-西魏-北周",
+                "WAR-LEAD-169-ZHOU-DANGCHANG-564",
+                "EXCLUDED_UNIFICATION-NORTHERN-ZHOU-QI-575-577"
+              ],
+              "object_id": "NORTHWEST_FRONTIER",
+              "object_name": "西北边疆",
+              "reason": "有界推断：依任期边界的州郡、防线、迁置和属部可执行关系，按标准区域取1.00（整体有效）；不由一次胜负或单次归附外推更大控制。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.5,
+              "control_form": "边郡、戍防、迁置或可执行属部管理",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-西魏-北周",
+                "WAR-LEAD-169-ZHOU-DANGCHANG-564",
+                "EXCLUDED_UNIFICATION-NORTHERN-ZHOU-QI-575-577"
+              ],
+              "object_id": "SOUTHWEST",
+              "object_name": "西南边疆",
+              "reason": "有界推断：依任期边界的州郡、防线、迁置和属部可执行关系，按标准区域取1.00（整体有效）；不由一次胜负或单次归附外推更大控制。",
+              "spatial_weight": 0.5
+            }
+          ],
+          "b1_region_control": {
+            "end": {
+              "HENAN_SHUOFANG": 0.3,
+              "NORTHWEST_FRONTIER": 0.8,
+              "SOUTHWEST": 0.5
+            },
+            "start": {
+              "HENAN_SHUOFANG": 0.3,
+              "NORTHWEST_FRONTIER": 0.8,
+              "SOUTHWEST": 0.5
+            }
+          },
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "control_contribution_grade_cap": 5,
+          "control_contribution_type": "NEW_RECOVERED_REBUILT",
+          "coverage_status": "FORMAL_CURRENT",
+          "defense_event_count": 5,
+          "evidence_event_refs": [
+            "WAR-LEAD-169-ZHOU-DANGCHANG-564",
+            "WAR-LEAD-170-ZHOU-HENGLENG-568",
+            "WAR-LEAD-171-ZHOU-WEIZHI-574",
+            "WAR-LEAD-NC-PENGCHENG-577-578",
+            "WAR-LEAD-NC-QI-RESTORATION-578",
+            "WAR-LEAD-NC-ZHOU-CHEN-HUAINAN-579",
+            "WAR-LEAD-NC-ZHOU-JIHU-577",
+            "WAR-LEAD-NC-ZHOU-TURK-578-579",
+            "WAR-LEAD-168-YINGZHOU-560",
+            "WAR-LEAD-169-ZHOU-WANRONG-566",
+            "WAR-LEAD-170-MIANZHOU-567",
+            "WAR-LEAD-170-ZHOU-YUEXI-570",
+            "WAR-LEAD-172-ZHOU-TUYUHUN-576",
+            "WAR-PARENT-168-XIANGZHOU-560-561",
+            "WAR-PARENT-169-ZHOU-QI-LUOYANG-564",
+            "WAR-PARENT-169-ZHOU-TURK-QI-563-564",
+            "WAR-PARENT-169-ZHOU-XINZHOU-566",
+            "WAR-PARENT-169-ZHOUDI-562-565",
+            "WAR-PARENT-170-ZHOU-QI-YIYANG-FENBEI-569-571",
+            "WAR-PARENT-172-ZHOU-QI-HEYIN-575"
+          ],
+          "hold_event_refs": [],
+          "major_in_reign_reversal_refs": [
+            "WAR-LEAD-171-ZHOU-WEIZHI-574",
+            "WAR-LEAD-NC-ZHOU-TURK-578-579"
+          ],
+          "non_defense_routing_refs": [],
+          "partition": "两晋十六国南北朝隋",
+          "polity": "北周",
+          "primary_control_package_refs": [
+            "WAR-LEAD-169-ZHOU-DANGCHANG-564"
+          ],
+          "primary_threat_refs": [
+            "WAR-LEAD-NC-ZHOU-TURK-578-579"
+          ],
+          "rationale": "分区实审已完成五轴、主体方向、交班边界与B1空间快照闭合。",
+          "reign_range": [
+            560,
+            578
+          ],
+          "ruler_id": "RULER-SHADOW-宇文邕",
+          "ruler_name": "宇文邕",
+          "score_ready": true,
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "terminal_polity_collapse": false,
+          "parent_cycle_refs": [
+            "V169-PARENT-169-ZHOU-XINZHOU-566",
+            "V173-LEAD-NC-ZHOU-JIHU-577",
+            "V173-LEAD-NC-QI-RESTORATION-578",
+            "V173-LEAD-NC-ZHOU-TURK-578-579",
+            "WAR-LEAD-NC-ZHOU-DESTROY-QI-577"
+          ],
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "excluded_founding_unification_refs": [],
+          "observed_parent_cycle_count": 4,
+          "A120_non_cost_anchor_points": 57.6,
+          "A120_positive_result_credit_points": 12.0,
+          "A120_score_points": 69.6,
+          "B80_score_points": 37.89,
+          "AB200_score_points": 107.49,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": 1.0,
+              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 34.8,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 4,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": 1,
+              "reversal_basis": "现有材料未闭合本人造成且未被终点表达的额外恶化",
+              "reversal_grade": "NONE_RECOVERED_OR_NOT_ATTRIBUTABLE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 58.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            },
+            "A2": {
+              "attributable_delta": 1.0,
+              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 34.8,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 4,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": 1,
+              "reversal_basis": "逆转未证明改变本轴，避免双轴重复处罚",
+              "reversal_grade": "NONE_DIFFERENT_AXIS",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 58.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 37.89,
+            "formal_B1_rate": 44.0,
+            "formal_B2_rate": 60.0,
+            "formal_B4_rate": 75.0,
+            "adjudicated_B1_rate": 44.0,
+            "adjudicated_B2_rate": 60.0,
+            "adjudicated_B4_rate": 75.0,
+            "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          }
+        }
+      ]
+    }
+  }
+}

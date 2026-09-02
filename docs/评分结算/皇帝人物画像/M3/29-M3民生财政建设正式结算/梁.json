@@ -1,0 +1,218 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "梁",
+  "collections": {
+    "records": {
+      "positions": [
+        161
+      ],
+      "records": [
+        {
+          "task_code": "PROFILE-M3-RULER-SHADOW-萧衍",
+          "ruler_id": "RULER-SHADOW-萧衍",
+          "ruler_name": "萧衍",
+          "polity": "梁",
+          "actual_power_window": "502—549年",
+          "axis_code": "M3",
+          "axis_name": "民生财政建设",
+          "axis_grade": "G1",
+          "position": "LOW",
+          "score_100": 18,
+          "radar_value": 18,
+          "components": {
+            "C1": {
+              "band": "C1-3",
+              "score": 28.2
+            },
+            "C2": {
+              "band": "C2-4",
+              "score": 19.8
+            },
+            "C3": {
+              "band": "C3-4",
+              "score": 33.6
+            },
+            "C4": {
+              "band": "C4N-3",
+              "score": -22.5
+            }
+          },
+          "absolute_state_tier": 4,
+          "absolute_state_meanings": {
+            "C1": "民生维持中等盘面",
+            "C2": "经济财政健康",
+            "C3": "社会安全稳定"
+          },
+          "ability_evidence": {
+            "route": "SUBSTANTIAL_CONSTRUCTION",
+            "trajectory": {
+              "start_vector": [
+                2,
+                2,
+                3
+              ],
+              "main_vector": [
+                3,
+                4,
+                4
+              ],
+              "peak_vector": [
+                3,
+                4,
+                4
+              ],
+              "end_vector": [
+                1,
+                1,
+                1
+              ],
+              "peak_improvement_vector": [
+                1,
+                2,
+                1
+              ],
+              "retained_change_vector": [
+                -1,
+                -1,
+                -2
+              ],
+              "rollback_vector": [
+                2,
+                3,
+                3
+              ],
+              "improved_axis_count": 3,
+              "deep_improvement_axis_count": 1,
+              "retained_improvement_axis_count": 0,
+              "rollback_axis_count": 3,
+              "recovery_score_27": 10.6,
+              "stability_score_18": 0.0,
+              "start_tier": 2,
+              "peak_tier": 4,
+              "end_tier": 1
+            },
+            "governance_scale_class": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+            "governance_scale_basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+            "governance_scale_gate": {
+              "status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+              "classification": "UNRESOLVED",
+              "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+              "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+              "formal_subitem_sources": [
+                {
+                  "axis": "C4",
+                  "field_path": "m3_governance_scale_adjudication",
+                  "ref": "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-萧衍"
+                }
+              ],
+              "supporting_formal_fields": []
+            },
+            "six_band_main_state": false,
+            "deterioration_penalty": 16.9,
+            "destructive_amplification_penalty": 13.5,
+            "upstream_sync": {
+              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_01",
+              "source_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-萧衍",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-萧衍",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-萧衍",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-萧衍"
+              ]
+            },
+            "destructive_amplification_grade": "DA3",
+            "stability_k_basis": {
+              "C1": {
+                "K_grade": "K0",
+                "factor": 0.0
+              },
+              "C2": {
+                "K_grade": "K0",
+                "factor": 0.0
+              },
+              "C3": {
+                "K_grade": "K0",
+                "factor": 0.0
+              }
+            },
+            "weighted_K": 0.0,
+            "stability_k_structure_status": "STRUCTURED_C4_FORMAL",
+            "stability_k_public_basis": "恢复分10.6/27；稳定承压0.0/18；C1=K0；C2=K0；C3=K0；正向保留7.9分。恢复事实按raw，C1恢复难度按formal复杂度门折算。"
+          },
+          "dynamic_class": "ATTRIBUTABLE_OR_MIXED_DECLINE",
+          "dynamic_label": "出现可归责或混合性退步",
+          "value_mode": "SEMANTIC_HOLISTIC_ADJUDICATION_WITH_FIXED_GRADE_PROJECTION",
+          "axis_evidence_level": "E2",
+          "confidence": "MEDIUM",
+          "output_mode": "BOUNDED_PROFILE",
+          "score_status": "FINAL",
+          "formal_status": "FORMAL_CURRENT",
+          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[2, 2, 3]、[3, 4, 4]、[3, 4, 4]、[1, 1, 1]；恢复10.6/27，稳定0.0/18；恶化扣减16.9，主动成本DA3/13.5。正式逐人裁决为G1-LOW。",
+          "counterpattern": "逐轴恶化归责：C1=MATERIAL；C2=MATERIAL；C3=MATERIAL，合计恶化扣16.9分。钟离等必要防御剔除；505—506北伐、525彭城、529陈庆之—元颢等多次主动北进反复形成国家级投入与F3级兵团毁损，累计严重，裁DA3。",
+          "starting_context": "接手三轴起点为C1-2/C2-2/C3-3；最新全任曲线为C1-2→C1-3→C1-1；C2-2→C2-4→C2-1；C3-3→C3-4→C3-1。",
+          "construction_and_maintenance": "按正式档界公式重算恢复分10.6/27；稳定承压按当前K结构计0.0/18，未把恢复信用并入稳定分；正向保留10.6。",
+          "costs_and_consequences": "交班局面为[1, 1, 1]；可归责恶化扣减16.9；本人可选择行为的残余额外成本为DA3，扣减13.5。",
+          "behavior_chain": "逐轴恶化归责：C1=MATERIAL；C2=MATERIAL；C3=MATERIAL，合计恶化扣16.9分。钟离等必要防御剔除；505—506北伐、525彭城、529陈庆之—元颢等多次主动北进反复形成国家级投入与F3级兵团毁损，累计严重，裁DA3。",
+          "handoff_state": "按交班向量[1, 1, 1]推导终局为C4T-1，正向上限7.9。",
+          "public_adjudication": "接手三轴起点为C1-2/C2-2/C3-3；最新全任曲线为C1-2→C1-3→C1-1；C2-2→C2-4→C2-1；C3-3→C3-4→C3-1。 恢复分10.6/27；稳定承压0.0/18；C1=K0；C2=K0；C3=K0；正向保留7.9分。恢复事实按原始，C1恢复难度按正式复杂度门折算。 逐轴恶化归责：C1=MATERIAL；C2=MATERIAL；C3=MATERIAL，合计恶化扣16.9分。钟离等必要防御剔除；505—506北伐、525彭城、529陈庆之—元颢等多次主动北进反复形成国家级投入与F3级兵团毁损，累计严重，裁DA3。 交班原始为C1-1/C2-1/C3-1；终局C4T-1，正向上限7.9分。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G1。 当前档内位置为LOW；不以结构字段自动替代逐人语义裁决。",
+          "grade_basis": "依据当前C1—C4结构字段与逐人语义裁决，正式档位为G1。",
+          "position_basis": "当前档内位置为LOW；不以结构字段自动替代逐人语义裁决。",
+          "axis_relevance_check": {
+            "status": "HOLISTIC_C1_C4_SEMANTIC_ADJUDICATION",
+            "component_codes": [
+              "C1",
+              "C2",
+              "C3",
+              "C4"
+            ],
+            "component_sum_used": false,
+            "quantile_or_normalization_used": false,
+            "name_override_used": false,
+            "old_process_material_role": "BEHAVIOR_CHAIN_AND_ATTRIBUTION_REVIEW_ONLY"
+          },
+          "parents": [],
+          "limitations": [
+            "现有正式结果材料没有闭合到独立的本人过程父链，行为归责仅使用C4已审定部分，不能外推为完整政策能力画像。",
+            "前中期缺普遍温饱原文",
+            "完整任期任内主态与交班崩溃必须分开",
+            "直接锚只按其明示时段、地域与证据类型消费，不外推为全任全境。"
+          ],
+          "supplement_review": {
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-萧衍",
+            "old_m3_parent_chain_count": 0,
+            "old_m3_candidate_count": 0,
+            "axis_dispositions": {
+              "C1": "SEARCHED_NO_OLD_M3_CANDIDATE",
+              "C2": "SEARCHED_NO_OLD_M3_CANDIDATE",
+              "C3": "SEARCHED_NO_OLD_M3_CANDIDATE",
+              "C4": "REVIEWED_C4_ATTRIBUTION_RETAINED"
+            }
+          },
+          "source_refs": [
+            "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-萧衍",
+            "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-萧衍",
+            "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-萧衍",
+            "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-萧衍"
+          ],
+          "source_evidence": [
+            {
+              "source_title": "《资治通鉴·卷一百四十五》",
+              "quote": "台家府藏空竭，复无器仗，三仓无米，东境饥流。",
+              "source_origin": "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION"
+            },
+            {
+              "source_title": "《隋书·食货志》",
+              "quote": "梁初，唯京师及三吴、荆、郢、江、湘、梁、益用钱。其余州郡，则杂以谷帛交易。",
+              "source_origin": "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION"
+            },
+            {
+              "source_title": "《隋书·食货志》",
+              "quote": "及大同已后，所在铁钱遂如丘山，物价腾贵。交易者以车载钱，不复计数，而唯论贯。",
+              "source_origin": "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION"
+            }
+          ],
+          "contract_version": "FORMAL-V3.6"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,3102 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "三国",
+  "collections": {
+    "records": {
+      "positions": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34
+      ],
+      "records": [
+        {
+          "AB_score_points": 116.85,
+          "adjudication_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "axes": {
+            "A1": {
+              "axis_points": 27.2,
+              "base_trajectory_value": 68,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A1S4_STABLE_ADVANTAGE",
+              "rationale": "只看外部边防：196年北方乌丸、南匈奴及羌胡方向均可介入中原，起点为多威胁劣势；白狼山击破三郡乌丸、留呼厨泉并分南匈奴五部后，北边取得稳定主动，但鲜卑等未决，终点定4档。",
+              "start": "A1S2_STRATEGIC_DISADVANTAGE",
+              "trajectory_value": 68,
+              "transition": "IMPROVED",
+              "transition_attribution": "PRIMARY_RULER_ACTION"
+            },
+            "A2": {
+              "axis_points": 31.2,
+              "base_trajectory_value": 78,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "rationale": "196年汉末边防体系碎裂，外患可与地方势力联动；至交班，乌丸精骑被纳入、南匈奴单于留邺且五部分领，形成北边多层控制，但鲜卑方向仍有缺口，终点定4档。",
+              "start": "A2S1_BROKEN_BOUNDARY",
+              "trajectory_value": 78,
+              "transition": "IMPROVED",
+              "transition_attribution": "PRIMARY_RULER_ACTION"
+            },
+            "B1": {
+              "axis_points": 11.25,
+              "band_position": "LOW",
+              "grade": "B1-2",
+              "rationale": "统一战争及其土地成果不入账；仅把三郡乌丸击破、降众迁用与南匈奴五部分领合并为北方边疆整体控制0.8。起点0、交班0.8，净增及加权值均0.8，落B1-2 LOW。",
+              "raw_net_change": 0.8,
+              "score_rate": 45,
+              "terminal_collapse_override": false,
+              "weighted_control_value": 0.8
+            },
+            "B2": {
+              "axis_points": 26.7,
+              "band_position": "HIGH",
+              "grade": "B2-4",
+              "rationale": "对白狼山后乌丸与南匈奴的组合处置，使北方主要战略方向由外患可深度介入转为魏方掌握主动，具有关键战略作用。",
+              "score_rate": 89
+            },
+            "B4": {
+              "axis_points": 20.5,
+              "band_position": "MID",
+              "grade": "B4-4",
+              "rationale": "乌丸降众纳入军事体系，南匈奴形成单于留邺、右贤王监国、五部分领的制度闭合；鲜卑未纳入同等体系，故为4档中段。",
+              "score_rate": 82
+            }
+          },
+          "b1_control_equivalents": {
+            "end": 0.8,
+            "net_change": 0.8,
+            "start": 0.0,
+            "weighted_value": 0.8
+          },
+          "b1_region_adjudications": [
+            {
+              "anchors": [
+                "end"
+              ],
+              "control_equivalent": 0.8,
+              "control_form": "三郡乌丸降众迁用、南匈奴单于留邺及五部分领",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "《三国志》卷一《武帝纪》建安十二年、二十一年",
+                "《三国志》卷三十《乌丸鲜卑东夷传》",
+                "《晋书》卷一百一《刘元海载记》"
+              ],
+              "object_id": "NORTHERN_FRONTIER",
+              "object_name": "乌丸—南匈奴北方边疆控制包",
+              "reason": "有界推断：事实范围覆盖乌丸主要入塞集团和南匈奴五部，按北方边疆标准区域整体取1.00；不向漠北或鲜卑活动区外推更大空间，亦不计统一战争取得的并州、河北土地。",
+              "spatial_weight": 0.8
+            }
+          ],
+          "b1_region_control": {
+            "end": {
+              "NORTHERN_FRONTIER": 0.8
+            },
+            "start": {
+              "NORTHERN_FRONTIER": 0.0
+            }
+          },
+          "boundary_stage_excluded_refs": [
+            "WAR-LEAD-HAN-BINGZHOU-206",
+            "WAR-LEAD-HAN-BOWANG-202",
+            "WAR-LEAD-HAN-FANCHENG-JINGZHOU-219",
+            "WAR-LEAD-HAN-FENGYI-LIANGXING-212",
+            "WAR-LEAD-HAN-HANZHONG-217-219",
+            "WAR-LEAD-HAN-HEDONG-WEIGU-205",
+            "WAR-LEAD-HAN-HEFEI-208-209-END",
+            "WAR-LEAD-HAN-HEFEI-XIAOYAOJIN-215",
+            "WAR-LEAD-HAN-IMPERIAL-FLIGHT-194-196",
+            "WAR-LEAD-HAN-JINGZHOU-REDCILIFFS-208",
+            "WAR-LEAD-HAN-LIUBIAO-JINGNAN-198-200",
+            "WAR-LEAD-HAN-NANJUN-208-209-END",
+            "WAR-LEAD-HAN-NORTHERN-TRIBES-216",
+            "WAR-LEAD-HAN-RUXU-212-213",
+            "WAR-LEAD-HAN-RUXU-217",
+            "WAR-LEAD-HAN-SANBA-215",
+            "WAR-LEAD-HAN-SHANGYONG-219",
+            "WAR-LEAD-HAN-SUNLIU-JINGZHOU-215",
+            "WAR-LEAD-HAN-SUNQUAN-LISHU-200",
+            "WAR-LEAD-HAN-SUNQUAN-SHANYUE-203",
+            "WAR-LEAD-HAN-TONGGUAN-LONGYOU-211-214-END",
+            "WAR-LEAD-HAN-WAN-218-219",
+            "WAR-LEAD-HAN-WANCHENG-214",
+            "WAR-LEAD-HAN-WU-DANYANG-208",
+            "WAR-LEAD-HAN-WU-SHANYUE-217",
+            "WAR-LEAD-HAN-WUHUAN-206-207",
+            "WAR-LEAD-HAN-WUHUAN-GUANGPING-205",
+            "WAR-LEAD-HAN-WUHUAN-XIANBEI-218",
+            "WAR-LEAD-HAN-YIZHOU-ZHAOWEI-200-201",
+            "WAR-LEAD-SG-WEI-HEXI-220",
+            "WAR-LEAD-SG-WEI-SHANGYONG-220"
+          ],
+          "boundary_stage_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "control_contribution_grade_cap": 5,
+          "control_contribution_type": "NEW_RECOVERED_REBUILT",
+          "coverage_status": "FORMAL_CURRENT",
+          "defense_event_count": 16,
+          "evidence_event_refs": [
+            "WAR-LEAD-HAN-BINGZHOU-206",
+            "WAR-LEAD-HAN-FANCHENG-JINGZHOU-219",
+            "WAR-LEAD-HAN-FENGYI-LIANGXING-212",
+            "WAR-LEAD-HAN-HANZHONG-217-219",
+            "WAR-LEAD-HAN-HEDONG-WEIGU-205",
+            "WAR-LEAD-HAN-HEFEI-208-209-END",
+            "WAR-LEAD-HAN-HEFEI-XIAOYAOJIN-215",
+            "WAR-LEAD-HAN-JINGZHOU-REDCILIFFS-208",
+            "WAR-LEAD-HAN-NANJUN-208-209-END",
+            "WAR-LEAD-HAN-NORTHERN-TRIBES-216",
+            "WAR-LEAD-HAN-QINGZHOU-YELLOW-TURBAN-191-192",
+            "WAR-LEAD-HAN-RUXU-212-213",
+            "WAR-LEAD-HAN-RUXU-217",
+            "WAR-LEAD-HAN-SANBA-215",
+            "WAR-LEAD-HAN-SHANGYONG-219",
+            "WAR-LEAD-HAN-TONGGUAN-LONGYOU-211-214-END",
+            "WAR-LEAD-HAN-WAN-218-219",
+            "WAR-LEAD-HAN-WANCHENG-214",
+            "WAR-LEAD-HAN-WUHUAN-206-207",
+            "WAR-LEAD-HAN-WUHUAN-GUANGPING-205",
+            "WAR-LEAD-HAN-WUHUAN-XIANBEI-218",
+            "WAR-LEAD-HAN-YANZHOU-LUBU-194-195"
+          ],
+          "hold_event_refs": [],
+          "major_in_reign_reversal_refs": [],
+          "non_defense_routing_refs": [],
+          "partition": "秦汉三国",
+          "polity": "汉末魏政权",
+          "primary_control_package_refs": [
+            "《三国志》卷一《武帝纪》建安十二年、二十一年",
+            "《晋书》卷一百一《刘元海载记》"
+          ],
+          "primary_threat_refs": [
+            "《三国志》卷三十《乌丸鲜卑东夷传》"
+          ],
+          "rationale": "分区实审已完成五轴、主体方向、交班边界与B1空间快照闭合。",
+          "reign_range": "196—220",
+          "ruler_id": "RULER-WEI-CAOCAO",
+          "ruler_name": "曹操",
+          "score_ready": true,
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "terminal_polity_collapse": false,
+          "parent_cycle_refs": [
+            "HAN-HEISHAN-185-205",
+            "PCR-HAN-CAOCAO-HUGUAN-206",
+            "PCR-HAN-CAOCAO-QINGZHOU-YELLOW-TURBAN-192",
+            "PCR-HAN-CAOCAO-WANCHENG-197-FAILURE",
+            "WAR-LEAD-HAN-CAO-ZHANGXIU-197-199",
+            "WAR-LEAD-HAN-CHANGXI-201",
+            "WAR-LEAD-HAN-GUANDU-199-200",
+            "WAR-LEAD-HAN-HANZHONG-215",
+            "WAR-LEAD-HAN-HEBEI-201-205",
+            "WAR-LEAD-HAN-JINGZHOU-REDCILIFFS-208",
+            "WAR-LEAD-HAN-RUXU-212-213",
+            "WAR-LEAD-HAN-WUHUAN-206-207",
+            "WAR-LEAD-HAN-WUHUAN-GUANGPING-205",
+            "WAR-LEAD-HAN-XUZHOU-LUBU-196-198",
+            "WAR-LEAD-HAN-YANZHOU-LUBU-194-195",
+            "WAR-LEAD-HAN-YOUZHOU-ZHAODU-HUONU-205"
+          ],
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "excluded_founding_unification_refs": [],
+          "observed_parent_cycle_count": 1,
+          "A120_non_cost_anchor_points": 51.6,
+          "A120_positive_result_credit_points": 30.0,
+          "A120_score_points": 81.6,
+          "B80_score_points": 49.04,
+          "AB200_score_points": 130.64,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": 2.0,
+              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 40.8,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 4,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": 2,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 2,
+              "trajectory_value": 68.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            },
+            "A2": {
+              "attributable_delta": 3.0,
+              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 40.8,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 4,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 10,
+              "objective_delta": 3,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 1,
+              "trajectory_value": 68.0,
+              "within_band_deterioration_basis": "汉中主链EN2并形成主要方向退控",
+              "within_band_deterioration_penalty": 10
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 49.04,
+            "formal_B1_rate": 45.0,
+            "formal_B2_rate": 89.0,
+            "formal_B4_rate": 82.0,
+            "adjudicated_B1_rate": 45.0,
+            "adjudicated_B2_rate": 89.0,
+            "adjudicated_B4_rate": 82.0,
+            "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          }
+        },
+        {
+          "AB_score_points": 82.75,
+          "adjudication_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "axes": {
+            "A1": {
+              "axis_points": 14.4,
+              "base_trajectory_value": 36,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A1S3_CONTESTED_BALANCE",
+              "rationale": "曹魏建国时蜀、吴均为强敌，起点3档。三次南征未突破长江，北方轲比能方向得到压制并恢复西域联系，但未改变与吴蜀的总体均势，交班仍为3档。",
+              "start": "A1S3_CONTESTED_BALANCE",
+              "trajectory_value": 36,
+              "transition": "STABLE",
+              "transition_attribution": "MIXED"
+            },
+            "A2": {
+              "axis_points": 14.4,
+              "base_trajectory_value": 36,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
+              "rationale": "北边和西北有可运作控制体系，故起点3档；江陵、濡须与广陵方向多次出征无决定性进展，西域通道虽恢复但远端控制有限，交班维持3档。",
+              "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
+              "trajectory_value": 36,
+              "transition": "STABLE",
+              "transition_attribution": "MIXED"
+            },
+            "B1": {
+              "axis_points": 15.0,
+              "band_position": "LOW",
+              "grade": "B1-3",
+              "rationale": "人工重判220年实际承接：北边0.8、河西陇右0.8，共1.6；任内西域主要网络恢复1.0，并有高昌门户0.2，交班2.8。净增1.2、加权值1.84，落B1-3 LOW。",
+              "raw_net_change": 1.2,
+              "score_rate": 60,
+              "terminal_collapse_override": false,
+              "weighted_control_value": 1.84
+            },
+            "B2": {
+              "axis_points": 22.2,
+              "band_position": "HIGH",
+              "grade": "B2-3",
+              "rationale": "西域重新通达并置戊己校尉，对西北方向有显著价值；但南征未形成控制收益，且西域主要体现通贡与门户恢复，未升关键档。",
+              "score_rate": 74
+            },
+            "B4": {
+              "axis_points": 16.75,
+              "band_position": "MID",
+              "grade": "B4-3",
+              "rationale": "戊己校尉恢复了制度节点并有多国奉献，但缺少都护级全域体系与持续驻防闭合，成熟度为3档中段。",
+              "score_rate": 67
+            }
+          },
+          "b1_control_equivalents": {
+            "end": 2.8,
+            "net_change": 1.2,
+            "start": 1.6,
+            "weighted_value": 1.84
+          },
+          "b1_region_adjudications": [
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.8,
+              "control_form": "乌丸降众及南匈奴五部分领",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-MANUAL-汉末魏政权-曹魏",
+                "WAR-LEAD-SG-WEI-XIANBEI-224-225"
+              ],
+              "object_id": "NORTHERN_FRONTIER",
+              "object_name": "乌丸—南匈奴北方边疆控制包",
+              "reason": "有界推断：220年实际承接乌丸与南匈奴控制包，标准区域取1.00；任内轲比能威胁被逐且未出现跨阶梯失控，交班维持1.00；不外推至整个鲜卑草原。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.8,
+              "control_form": "凉州、陇右郡县与边防通道",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-MANUAL-汉末魏政权-曹魏",
+                "《三国志》卷二《文帝纪》黄初元年酒泉张掖平定"
+              ],
+              "object_id": "NORTHWEST_FRONTIER",
+              "object_name": "河西—陇右西北边疆",
+              "reason": "有界推断：曹魏建国时实际控制河西、陇右主要郡县，按标准区域取1.00；本任叛乱平定且无跨阶梯失地，交班维持1.00；该起点不倒算为曹操国防贡献。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "end"
+              ],
+              "control_equivalent": 1.0,
+              "control_form": "鄯善、龟兹、于阗等款塞奉献及戊己校尉统摄",
+              "counted": true,
+              "coverage_factor": 0.5,
+              "evidence_refs": [
+                "《三国志》卷二《文帝纪》黄初三年二月"
+              ],
+              "object_id": "WESTERN_REGIONS",
+              "object_name": "西域主要属国联系网络",
+              "reason": "有界推断：史料明确西域遂通并置戊己校尉，事实范围至少覆盖主要交通与属国联系网络，取0.50；不取0.75或1.00，因没有都护级全域驻防及稳定行政闭合证据。",
+              "spatial_weight": 2.0
+            },
+            {
+              "anchors": [
+                "end"
+              ],
+              "control_equivalent": 0.2,
+              "control_form": "戊己校尉门户屯戍节点",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "《三国志》卷二《文帝纪》黄初三年二月"
+              ],
+              "object_id": "GAOCHANG_XIZHOU",
+              "object_name": "高昌—西域东部门户",
+              "reason": "有界推断：置戊己校尉直接对应西域东部门户独立支点，按0.2基准整体有效取1.00；不重复外推整个西域，后者仅按0.50另计。",
+              "spatial_weight": 0.2
+            }
+          ],
+          "b1_region_control": {
+            "end": {
+              "GAOCHANG_XIZHOU": 0.2,
+              "NORTHERN_FRONTIER": 0.8,
+              "NORTHWEST_FRONTIER": 0.8,
+              "WESTERN_REGIONS": 1.0
+            },
+            "start": {
+              "NORTHERN_FRONTIER": 0.8,
+              "NORTHWEST_FRONTIER": 0.8
+            }
+          },
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "control_contribution_grade_cap": 5,
+          "control_contribution_type": "NEW_RECOVERED_REBUILT",
+          "coverage_status": "FORMAL_CURRENT",
+          "defense_event_count": 1,
+          "evidence_event_refs": [
+            "WAR-LEAD-SG-SHU-NORTH-228",
+            "WAR-LEAD-SG-WEI-HEXI-220",
+            "WAR-LEAD-SG-WEI-HEXI-221",
+            "WAR-LEAD-SG-WEI-MENGDA-227-228",
+            "WAR-LEAD-SG-WEI-SHANGYONG-220",
+            "WAR-LEAD-SG-WEI-WU-222-223",
+            "WAR-LEAD-SG-WEI-WU-224-225",
+            "WAR-LEAD-SG-WEI-WU-226",
+            "WAR-LEAD-SG-WEI-XIANBEI-224-225"
+          ],
+          "hold_event_refs": [],
+          "major_in_reign_reversal_refs": [],
+          "non_defense_routing_refs": [],
+          "partition": "秦汉三国",
+          "polity": "魏",
+          "primary_control_package_refs": [
+            "《三国志》卷二《文帝纪》黄初三年二月"
+          ],
+          "primary_threat_refs": [
+            "WAR-LEAD-SG-WEI-WU-222-223",
+            "WAR-LEAD-SG-WEI-WU-224-225",
+            "WAR-LEAD-SG-WEI-XIANBEI-224-225"
+          ],
+          "rationale": "分区实审已完成五轴、主体方向、交班边界与B1空间快照闭合。",
+          "reign_range": "220—226",
+          "ruler_id": "RULER-WEI-CAOPI",
+          "ruler_name": "曹丕",
+          "score_ready": true,
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "terminal_polity_collapse": false,
+          "parent_cycle_refs": [
+            "CAMPAIGN-V070-SG-WEI-WU-224-225"
+          ],
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "excluded_founding_unification_refs": [],
+          "observed_parent_cycle_count": 2,
+          "A120_non_cost_anchor_points": 43.2,
+          "A120_positive_result_credit_points": 0.0,
+          "A120_score_points": 43.2,
+          "B80_score_points": 47.79,
+          "AB200_score_points": 90.99,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": 0.0,
+              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_category": "NO_CHANGE",
+              "axis_points": 21.6,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 3,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": 0,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 36.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            },
+            "A2": {
+              "attributable_delta": 0.0,
+              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_category": "NO_CHANGE",
+              "axis_points": 21.6,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 3,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": 0,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 36.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 47.79,
+            "formal_B1_rate": 60.0,
+            "formal_B2_rate": 74.0,
+            "formal_B4_rate": 67.0,
+            "adjudicated_B1_rate": 60.0,
+            "adjudicated_B2_rate": 74.0,
+            "adjudicated_B4_rate": 67.0,
+            "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          }
+        },
+        {
+          "AB_score_points": 104.6,
+          "adjudication_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "axes": {
+            "A1": {
+              "axis_points": 23.2,
+              "base_trajectory_value": 58,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A1S4_STABLE_ADVANTAGE",
+              "rationale": "起点共享曹丕A1S3。任内挡住蜀、吴多轮主攻，平孟达并灭辽东燕；虽有石亭败绩、武都阴平丧失和伐汉中失败，吴蜀仍在，综合为掌握主动但仍有明显强敌的4档。",
+              "start": "A1S3_CONTESTED_BALANCE",
+              "trajectory_value": 58,
+              "transition": "IMPROVED",
+              "transition_attribution": "PRIMARY_RULER_ACTION"
+            },
+            "A2": {
+              "axis_points": 23.2,
+              "base_trajectory_value": 58,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "rationale": "陈仓预修、合肥新城及各方向救援构成可验证的多节点防御，辽东四郡纳入后东北缺口闭合；西北丢失武都阴平且鲜卑仍反复，故终点为4档。",
+              "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
+              "trajectory_value": 58,
+              "transition": "IMPROVED",
+              "transition_attribution": "PRIMARY_RULER_ACTION"
+            },
+            "B1": {
+              "axis_points": 14.75,
+              "band_position": "HIGH",
+              "grade": "B1-2",
+              "rationale": "同政权接班复用曹丕2.8；灭辽东新增东北0.5，武都阴平丧失使西北0.8降至0.6，其余维持，交班3.1。净增0.3、加权值1.42，落B1-2 HIGH。",
+              "raw_net_change": 0.3,
+              "score_rate": 59,
+              "terminal_collapse_override": false,
+              "weighted_control_value": 1.42
+            },
+            "B2": {
+              "axis_points": 26.7,
+              "band_position": "HIGH",
+              "grade": "B2-4",
+              "rationale": "辽东四郡平定消除了与吴联动的东北割据强权，并把东北主要方向纳入直接控制，具有关键战略价值；防御性胜利不冒充土地收益。",
+              "score_rate": 89
+            },
+            "B4": {
+              "axis_points": 16.75,
+              "band_position": "MID",
+              "grade": "B4-3",
+              "rationale": "辽东、带方、乐浪、玄菟恢复郡制，制度形态明确；但成果距交班仅数月、诛杀与迁徙强烈且239年吴军仍能掠辽东守将，稳定成熟度仅3档中段。",
+              "score_rate": 67
+            }
+          },
+          "b1_control_equivalents": {
+            "end": 3.1,
+            "net_change": 0.3,
+            "start": 2.8,
+            "weighted_value": 1.42
+          },
+          "b1_region_adjudications": [
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.8,
+              "control_form": "既有北边分领与塞防",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-魏-曹丕-曹叡",
+                "WAR-LEAD-SG-WEI-XIANBEI-228",
+                "WAR-LEAD-SG-WEI-XIANBEI-233"
+              ],
+              "object_id": "NORTHERN_FRONTIER",
+              "object_name": "乌丸—南匈奴北方边疆控制包",
+              "reason": "有界推断：同政权接班复用整体1.00；马城解围及233年叛合后秦朗逐至漠北，未出现标准区域跨阶梯失控，交班维持1.00；不外推漠北鲜卑空间。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "start"
+              ],
+              "control_equivalent": 0.8,
+              "control_form": "凉州、陇右郡县与边防通道",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-魏-曹丕-曹叡"
+              ],
+              "object_id": "NORTHWEST_FRONTIER",
+              "object_name": "河西—陇右西北边疆",
+              "reason": "有界推断：直接复用曹丕交班时标准区域整体1.00；曹叡任内变化在终点另项记载。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "end"
+              ],
+              "control_equivalent": 0.6,
+              "control_form": "武都阴平丧失后的河西陇右主体",
+              "counted": true,
+              "coverage_factor": 0.75,
+              "evidence_refs": [
+                "WAR-LEAD-SG-SHU-WUDU-YINPING-229",
+                "《三国志》卷三十三《后主传》建兴七年"
+              ],
+              "object_id": "NORTHWEST_FRONTIER",
+              "object_name": "河西—陇右西北边疆",
+              "reason": "有界推断：蜀明确克定武都、阴平，但河西及陇右主体仍由魏控制，覆盖由1.00降至0.75；不降至0.50，因丧失的是边缘二郡而非标准区域半数或主要骨架。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 1.0,
+              "control_form": "款塞奉献及戊己校尉联系网络",
+              "counted": true,
+              "coverage_factor": 0.5,
+              "evidence_refs": [
+                "HANDOVER-魏-曹丕-曹叡",
+                "《三国志》卷三《明帝纪》焉耆入侍、大月氏奉献"
+              ],
+              "object_id": "WESTERN_REGIONS",
+              "object_name": "西域主要属国联系网络",
+              "reason": "有界推断：接班复用西域主要联系网络0.50，任内焉耆入侍、大月氏奉献但无全域驻防跨阶梯事实，交班维持0.50；不升0.75。",
+              "spatial_weight": 2.0
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.2,
+              "control_form": "戊己校尉门户屯戍节点",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-魏-曹丕-曹叡"
+              ],
+              "object_id": "GAOCHANG_XIZHOU",
+              "object_name": "高昌—西域东部门户",
+              "reason": "有界推断：同政权接班复用独立门户支点1.00，任内无失控或撤废事实，交班维持1.00；不与西域整体重复扩张。",
+              "spatial_weight": 0.2
+            },
+            {
+              "anchors": [
+                "end"
+              ],
+              "control_equivalent": 0.5,
+              "control_form": "平公孙渊后恢复四郡直接行政",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "WAR-LEAD-SG-WEI-LIAODONG-238",
+                "《资治通鉴》卷七十四景初二年"
+              ],
+              "object_id": "NORTHEAST_LIAODONG",
+              "object_name": "辽东、带方、乐浪、玄菟四郡",
+              "reason": "有界推断：史料明载四郡皆平，事实范围覆盖东北标准区域，按整体取1.00；不外推高句丽或辽东以外空间。",
+              "spatial_weight": 0.5
+            }
+          ],
+          "b1_region_control": {
+            "end": {
+              "GAOCHANG_XIZHOU": 0.2,
+              "NORTHEAST_LIAODONG": 0.5,
+              "NORTHERN_FRONTIER": 0.8,
+              "NORTHWEST_FRONTIER": 0.6,
+              "WESTERN_REGIONS": 1.0
+            },
+            "start": {
+              "GAOCHANG_XIZHOU": 0.2,
+              "NORTHERN_FRONTIER": 0.8,
+              "NORTHWEST_FRONTIER": 0.8,
+              "WESTERN_REGIONS": 1.0
+            }
+          },
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "control_contribution_grade_cap": 5,
+          "control_contribution_type": "NEW_RECOVERED_REBUILT",
+          "coverage_status": "FORMAL_CURRENT",
+          "defense_event_count": 4,
+          "evidence_event_refs": [
+            "WAR-LEAD-SG-CHENCANG-WALL-228",
+            "WAR-LEAD-SG-HEFEI-NEW-CITY-232",
+            "WAR-LEAD-SG-SHU-CHENCANG-228",
+            "WAR-LEAD-SG-SHU-NORTH-228",
+            "WAR-LEAD-SG-SHU-QISHAN-231",
+            "WAR-LEAD-SG-SHU-WUDU-YINPING-229",
+            "WAR-LEAD-SG-SHU-WUZHANG-234",
+            "WAR-LEAD-SG-WEI-HANZHONG-230",
+            "WAR-LEAD-SG-WEI-HANZHONG-244",
+            "WAR-LEAD-SG-WEI-LIAODONG-238",
+            "WAR-LEAD-SG-WEI-MENGDA-227-228",
+            "WAR-LEAD-SG-WEI-WU-226",
+            "WAR-LEAD-SG-WEI-WU-234",
+            "WAR-LEAD-SG-WEI-WU-FULING-231",
+            "WAR-LEAD-SG-WEI-WU-HEFEI-230",
+            "WAR-LEAD-SG-WEI-WU-HEFEI-233",
+            "WAR-LEAD-SG-WEI-WU-SHITING-228",
+            "WAR-LEAD-SG-WEI-XIANBEI-228",
+            "WAR-LEAD-SG-WEI-XIANBEI-233"
+          ],
+          "hold_event_refs": [],
+          "major_in_reign_reversal_refs": [
+            "WAR-LEAD-SG-SHU-WUDU-YINPING-229",
+            "WAR-LEAD-SG-WEI-WU-SHITING-228"
+          ],
+          "non_defense_routing_refs": [],
+          "partition": "秦汉三国",
+          "polity": "魏",
+          "primary_control_package_refs": [
+            "WAR-LEAD-SG-WEI-LIAODONG-238",
+            "《资治通鉴》卷七十四景初二年"
+          ],
+          "primary_threat_refs": [
+            "WAR-LEAD-SG-SHU-NORTH-228",
+            "WAR-LEAD-SG-SHU-QISHAN-231",
+            "WAR-LEAD-SG-SHU-WUZHANG-234",
+            "WAR-LEAD-SG-WEI-WU-234",
+            "WAR-LEAD-SG-WEI-XIANBEI-233"
+          ],
+          "rationale": "分区实审已完成五轴、主体方向、交班边界与B1空间快照闭合。",
+          "reign_range": "226—239",
+          "ruler_id": "RULER-WEI-CAORUI",
+          "ruler_name": "曹叡",
+          "score_ready": true,
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "terminal_polity_collapse": false,
+          "parent_cycle_refs": [
+            "CAMPAIGN-SHU-FIRST-NORTH-227-228",
+            "CAMPAIGN-V071-SG-WEI-WU-SHITING-228",
+            "CAMPAIGN-V071-SG-WEI-HANZHONG-230",
+            "CAMPAIGN-WEI-LIAODONG-232-238"
+          ],
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "excluded_founding_unification_refs": [],
+          "observed_parent_cycle_count": 5,
+          "A120_non_cost_anchor_points": 51.6,
+          "A120_positive_result_credit_points": 12.0,
+          "A120_score_points": 63.6,
+          "B80_score_points": 52.26,
+          "AB200_score_points": 115.86,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": 1.0,
+              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 28.8,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 4,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 10,
+              "objective_delta": 1,
+              "reversal_basis": "现有材料未闭合本人造成且未被终点表达的额外恶化",
+              "reversal_grade": "NONE_RECOVERED_OR_NOT_ATTRIBUTABLE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 48.0,
+              "within_band_deterioration_basis": "石亭主动多路进攻形成EN2，未形成耐久控制损失",
+              "within_band_deterioration_penalty": 10
+            },
+            "A2": {
+              "attributable_delta": 1.0,
+              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 34.8,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 4,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": 1,
+              "reversal_basis": "现有材料未闭合本人造成且未被终点表达的额外恶化",
+              "reversal_grade": "NONE_RECOVERED_OR_NOT_ATTRIBUTABLE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 58.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 52.26,
+            "formal_B1_rate": 59.0,
+            "formal_B2_rate": 89.0,
+            "formal_B4_rate": 67.0,
+            "adjudicated_B1_rate": 59.0,
+            "adjudicated_B2_rate": 89.0,
+            "adjudicated_B4_rate": 67.0,
+            "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          }
+        },
+        {
+          "AB_score_points": 92.0,
+          "adjudication_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "axes": {
+            "A1": {
+              "axis_points": 19.2,
+              "base_trajectory_value": 48,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A1S4_STABLE_ADVANTAGE",
+              "reason": "起点由239—249空档桥承接4档。任内麴城攻防迫蜀前出两城投降并保住洮城，250—251年南线进攻亦有战斗和降口收益，但吴蜀仍具主要方向作战能力，魏没有达到主导秩序；交班维持主要威胁总体受控、魏掌握主动的4档。",
+              "start": "A1S4_STABLE_ADVANTAGE",
+              "trajectory_value": 48,
+              "transition": "STABLE",
+              "transition_attribution": "PRIMARILY_COMMAND_SYSTEM_ACTION"
+            },
+            "A2": {
+              "axis_points": 19.2,
+              "base_trajectory_value": 48,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "reason": "起点已有陇右、合肥、荆襄与辽东等总体有效边界。麴城—牛头—洮城行动证明陇右救援、断粮断水和据点协同仍可运作，南线未取得持续突破；边界无跨档新增，也无主要体系破裂，交班保持4档。",
+              "start": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "trajectory_value": 48,
+              "transition": "STABLE",
+              "transition_attribution": "PRIMARILY_COMMAND_SYSTEM_ACTION"
+            },
+            "B1": {
+              "axis_points": 13.0,
+              "band_position": "MID",
+              "grade": "B1-2",
+              "raw_net_change": 0.0,
+              "reason": "接班经空档桥承接曹叡交班3.1；麴城两堡本为蜀前出据点，迫降和保洮城只恢复、保全原边线，不形成新增标准区域，南线亦未夺主要城地。交班仍为3.1，净增0、加权值1.24，机械落B1-2中段。",
+              "score_rate": 52,
+              "weighted_control_value": 1.24
+            },
+            "B2": {
+              "axis_points": 20.1,
+              "band_position": "MID",
+              "grade": "B2-3",
+              "reason": "主要成果包是麴城—牛头—洮城：蜀前出堡垒被迫投降，洮城获保，陇右门户、道路和羌胡接触面恢复稳定，对一个主要区域的防御与交通具有重要作用；没有改变魏蜀全国攻防格局，取3档中段。",
+              "score_rate": 67
+            },
+            "B4": {
+              "axis_points": 20.5,
+              "band_position": "MID",
+              "grade": "B4-4",
+              "reason": "与B2同一成果包已完成迫降前出两堡、保全洮城、控制补水与补给通道并处置羌胡质任，交班时从战时围攻转回常态边防；仍依赖既有陇右体系且未闭合武都、阴平缺口，取4档中段。",
+              "score_rate": 82
+            }
+          },
+          "b1_control_equivalents": {
+            "end": 3.1,
+            "net_change": 0.0,
+            "start": 3.1,
+            "weighted_value": 1.24
+          },
+          "b1_region_adjudications": [
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.8,
+              "control_form": "既有北边分领与塞防",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "GAP-BRIDGE-曹叡-司马懿"
+              ],
+              "object_id": "NORTHERN_FRONTIER",
+              "object_name": "乌丸—南匈奴北方边疆控制包",
+              "reason": "有界推断：空档桥承接标准区域整体1.00，任内无跨覆盖阶梯失控或新增，起终均维持1.00；不外推鲜卑草原。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.6,
+              "control_form": "武都阴平丧失后的河西陇右主体",
+              "counted": true,
+              "coverage_factor": 0.75,
+              "evidence_refs": [
+                "GAP-BRIDGE-曹叡-司马懿",
+                "WAR-LEAD-SG-WEI-SHU-QUCHENG-249"
+              ],
+              "object_id": "NORTHWEST_FRONTIER",
+              "object_name": "河西—陇右西北边疆",
+              "reason": "有界推断：承接覆盖0.75；本任迫麴城两堡投降并保洮城，属于保全既有陇右主体，不恢复已失武都、阴平，也不新增标准区域，起终均为0.75。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 1.0,
+              "control_form": "款塞奉献及戊己校尉联系网络",
+              "counted": true,
+              "coverage_factor": 0.5,
+              "evidence_refs": [
+                "GAP-BRIDGE-曹叡-司马懿"
+              ],
+              "object_id": "WESTERN_REGIONS",
+              "object_name": "西域主要属国联系网络",
+              "reason": "有界推断：承接主要联系网络0.50，任内无足以使其跨覆盖阶梯的新增或失控事实，起终维持0.50。",
+              "spatial_weight": 2.0
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.2,
+              "control_form": "戊己校尉门户屯戍节点",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "GAP-BRIDGE-曹叡-司马懿"
+              ],
+              "object_id": "GAOCHANG_XIZHOU",
+              "object_name": "高昌—西域东部门户",
+              "reason": "有界推断：承接独立门户支点整体1.00，任内无撤废或失控事实，起终维持1.00。",
+              "spatial_weight": 0.2
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.5,
+              "control_form": "四郡直接行政",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "GAP-BRIDGE-曹叡-司马懿",
+                "WAR-LEAD-SG-WEI-GOGURYEO-246"
+              ],
+              "object_id": "NORTHEAST_LIAODONG",
+              "object_name": "辽东、带方、乐浪、玄菟四郡",
+              "reason": "有界推断：承接四郡整体1.00；空档期重创高句丽但不外推其土地，司马懿任内亦无跨阶梯变化，起终维持1.00。",
+              "spatial_weight": 0.5
+            }
+          ],
+          "b1_region_control": {
+            "end": {
+              "GAOCHANG_XIZHOU": 0.2,
+              "NORTHEAST_LIAODONG": 0.5,
+              "NORTHERN_FRONTIER": 0.8,
+              "NORTHWEST_FRONTIER": 0.6,
+              "WESTERN_REGIONS": 1.0
+            },
+            "start": {
+              "GAOCHANG_XIZHOU": 0.2,
+              "NORTHEAST_LIAODONG": 0.5,
+              "NORTHERN_FRONTIER": 0.8,
+              "NORTHWEST_FRONTIER": 0.6,
+              "WESTERN_REGIONS": 1.0
+            }
+          },
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "control_contribution_grade_cap": 4,
+          "control_contribution_type": "SAVED_UNDER_MAJOR_PRESSURE",
+          "coverage_status": "FORMAL_CURRENT",
+          "defense_event_count": 2,
+          "evidence_event_refs": [
+            "WAR-LEAD-SG-WEI-GOGURYEO-246",
+            "WAR-LEAD-SG-WEI-SHU-QUCHENG-249",
+            "WAR-LEAD-SG-WEI-SHU-TAOXI-247",
+            "WAR-LEAD-SG-WEI-WU-250-251",
+            "WAR-LEAD-SG-WEI-WU-DONGXING-252"
+          ],
+          "hold_event_refs": [],
+          "major_in_reign_reversal_refs": [],
+          "non_defense_routing_refs": [],
+          "partition": "秦汉三国",
+          "polity": "魏",
+          "primary_control_package_refs": [
+            "WAR-LEAD-SG-WEI-SHU-QUCHENG-249",
+            "《三国志》卷四《齐王纪》嘉平元年"
+          ],
+          "primary_threat_refs": [
+            "WAR-LEAD-SG-WEI-SHU-QUCHENG-249",
+            "WAR-LEAD-SG-WEI-WU-250-251"
+          ],
+          "rationale": "分区实审已完成五轴、主体方向、交班边界与B1空间快照闭合。",
+          "reign_range": "249—251",
+          "ruler_id": "RULER-WEI-SIMAYI",
+          "ruler_name": "司马懿",
+          "score_ready": true,
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "terminal_polity_collapse": false,
+          "parent_cycle_refs": [
+            "WAR-LEAD-SG-WEI-SHU-QUCHENG-249",
+            "WAR-LEAD-SG-WEI-WU-250-251"
+          ],
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "excluded_founding_unification_refs": [],
+          "observed_parent_cycle_count": 0,
+          "A120_non_cost_anchor_points": 57.6,
+          "A120_positive_result_credit_points": 0.0,
+          "A120_score_points": 57.6,
+          "B80_score_points": 44.46,
+          "AB200_score_points": 102.06,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": 0.0,
+              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_category": "NO_CHANGE",
+              "axis_points": 28.8,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 4,
+              "maintenance_basis": "没有闭合到本轴的成功现实高压守成",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NONE",
+              "negative_adjustment": 0,
+              "objective_delta": 0,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 4,
+              "trajectory_value": 48.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            },
+            "A2": {
+              "attributable_delta": 0.0,
+              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_category": "NO_CHANGE",
+              "axis_points": 28.8,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 4,
+              "maintenance_basis": "没有闭合到本轴的成功现实高压守成",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NONE",
+              "negative_adjustment": 0,
+              "objective_delta": 0,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 4,
+              "trajectory_value": 48.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 44.46,
+            "formal_B1_rate": 52.0,
+            "formal_B2_rate": 67.0,
+            "formal_B4_rate": 82.0,
+            "adjudicated_B1_rate": 52.0,
+            "adjudicated_B2_rate": 67.0,
+            "adjudicated_B4_rate": 82.0,
+            "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          }
+        },
+        {
+          "AB_score_points": 98.6,
+          "adjudication_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "axes": {
+            "A1": {
+              "axis_points": 19.2,
+              "base_trajectory_value": 48,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A1S4_STABLE_ADVANTAGE",
+              "reason": "起点直接承接司马懿4档。252年东兴七万主力遭吴重创、死者数万，255年废立和清洗又诱发毌丘俭、文钦起兵；但合肥新城在吴二十万围攻下守住，陇西短期失点后恢复，淮南起兵亦在其去世前平定。重大反转必须登记，但终点魏仍总体压制吴蜀，维持4档。",
+              "start": "A1S4_STABLE_ADVANTAGE",
+              "trajectory_value": 48,
+              "transition": "STABLE",
+              "transition_attribution": "MIXED_WITH_MAJOR_SELF_INDUCED_REVERSALS"
+            },
+            "A2": {
+              "axis_points": 19.2,
+              "base_trajectory_value": 48,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "reason": "起点主要边界总体有效。东兴远征失败未破魏边界，合肥四千守军在损失过半后仍以新城、诈缓和抢修撑至吴退，陇西与淮南最终恢复；淮南军政受损和民户南逃构成明显缺口，但其他主要方向仍可协同，交班仍属4档而非无缺口5档。",
+              "start": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "trajectory_value": 48,
+              "transition": "STABLE",
+              "transition_attribution": "MIXED_WITH_MAJOR_SELF_INDUCED_REVERSALS"
+            },
+            "B1": {
+              "axis_points": 13.0,
+              "band_position": "MID",
+              "grade": "B1-2",
+              "raw_net_change": 0.0,
+              "reason": "直接承接司马懿3.1。东兴和合肥均未改边线，254年河间、临洮仅短期被拔且随姜维还军恢复，第一次淮南叛乱也只恢复原控制；交班仍3.1，净增0、加权值1.24，机械落B1-2中段。",
+              "score_rate": 52,
+              "weighted_control_value": 1.24
+            },
+            "B2": {
+              "axis_points": 26.7,
+              "band_position": "HIGH",
+              "grade": "B2-4",
+              "reason": "主要成果包只取合肥新城保全：吴动员二十万、围城逾月，守军仅四千且死伤过半，司马师坚持不仓促决战，由张特守至修城迫退吴军。合肥是淮南—江淮决定性门户，保全显著维持一个主要战略方向的攻防条件，取4档高段；东兴败绩与自致淮南叛乱不转写为正成果。",
+              "score_rate": 89
+            },
+            "B4": {
+              "axis_points": 20.5,
+              "band_position": "MID",
+              "grade": "B4-4",
+              "reason": "全部主要控制净成果一并审计：合肥新城、常驻守军、中央援军节制和持续补防已经闭合；淮南起兵在任内恢复，东兴败绩未形成持续退控，但暴露出显著军政损耗，故取4档中段而非高段。",
+              "score_rate": 82
+            }
+          },
+          "b1_control_equivalents": {
+            "end": 3.1,
+            "net_change": 0.0,
+            "start": 3.1,
+            "weighted_value": 1.24
+          },
+          "b1_region_adjudications": [
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.8,
+              "control_form": "既有北边分领与塞防",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-司马懿-司马师"
+              ],
+              "object_id": "NORTHERN_FRONTIER",
+              "object_name": "乌丸—南匈奴北方边疆控制包",
+              "reason": "有界推断：直接接班复用整体1.00，任内无跨覆盖阶梯变化，起终维持1.00。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.6,
+              "control_form": "武都阴平丧失后的河西陇右主体",
+              "counted": true,
+              "coverage_factor": 0.75,
+              "evidence_refs": [
+                "HANDOVER-司马懿-司马师",
+                "WAR-LEAD-SG-SHU-LONGXI-254"
+              ],
+              "object_id": "NORTHWEST_FRONTIER",
+              "object_name": "河西—陇右西北边疆",
+              "reason": "有界推断：河间、临洮虽一度被拔，但姜维撤军后未形成驻守、行政或持续边线变化，不能把战时失点写为终点退控，起终均为0.75。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 1.0,
+              "control_form": "款塞奉献及戊己校尉联系网络",
+              "counted": true,
+              "coverage_factor": 0.5,
+              "evidence_refs": [
+                "HANDOVER-司马懿-司马师"
+              ],
+              "object_id": "WESTERN_REGIONS",
+              "object_name": "西域主要属国联系网络",
+              "reason": "有界推断：直接接班复用0.50，任内无跨覆盖阶梯新增或失控事实，起终维持0.50。",
+              "spatial_weight": 2.0
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.2,
+              "control_form": "戊己校尉门户屯戍节点",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-司马懿-司马师"
+              ],
+              "object_id": "GAOCHANG_XIZHOU",
+              "object_name": "高昌—西域东部门户",
+              "reason": "有界推断：直接接班复用整体1.00，任内无撤废或失控事实，起终维持1.00。",
+              "spatial_weight": 0.2
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.5,
+              "control_form": "四郡直接行政",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-司马懿-司马师"
+              ],
+              "object_id": "NORTHEAST_LIAODONG",
+              "object_name": "辽东、带方、乐浪、玄菟四郡",
+              "reason": "有界推断：直接接班复用四郡整体1.00，任内无跨覆盖阶梯变化，起终维持1.00。",
+              "spatial_weight": 0.5
+            }
+          ],
+          "b1_region_control": {
+            "end": {
+              "GAOCHANG_XIZHOU": 0.2,
+              "NORTHEAST_LIAODONG": 0.5,
+              "NORTHERN_FRONTIER": 0.8,
+              "NORTHWEST_FRONTIER": 0.6,
+              "WESTERN_REGIONS": 1.0
+            },
+            "start": {
+              "GAOCHANG_XIZHOU": 0.2,
+              "NORTHEAST_LIAODONG": 0.5,
+              "NORTHERN_FRONTIER": 0.8,
+              "NORTHWEST_FRONTIER": 0.6,
+              "WESTERN_REGIONS": 1.0
+            }
+          },
+          "boundary_stage_excluded_refs": [
+            "WAR-LEAD-SG-DONGXING-DIKE-252"
+          ],
+          "boundary_stage_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "control_contribution_grade_cap": 4,
+          "control_contribution_type": "SAVED_UNDER_MAJOR_PRESSURE",
+          "coverage_status": "FORMAL_CURRENT",
+          "defense_event_count": 1,
+          "evidence_event_refs": [
+            "WAR-LEAD-SG-SHU-DIDAO-255",
+            "WAR-LEAD-SG-WEI-GOGURYEO-246",
+            "WAR-LEAD-SG-WEI-HUAINAN-255",
+            "WAR-LEAD-SG-WEI-SHU-QUCHENG-249",
+            "WAR-LEAD-SG-WEI-SHU-TAOXI-247",
+            "WAR-LEAD-SG-WEI-WU-250-251",
+            "WAR-LEAD-SG-WEI-WU-DONGXING-252",
+            "WAR-LEAD-SG-WU-HEFEI-253",
+            "WAR-LEAD-SG-SHU-LONGXI-254"
+          ],
+          "hold_event_refs": [],
+          "major_in_reign_reversal_refs": [
+            "WAR-LEAD-SG-WEI-WU-DONGXING-252",
+            "WAR-LEAD-SG-WEI-HUAINAN-255"
+          ],
+          "non_defense_routing_refs": [],
+          "partition": "秦汉三国",
+          "polity": "魏",
+          "primary_control_package_refs": [
+            "WAR-LEAD-SG-WU-HEFEI-253",
+            "《三国志》卷四《齐王纪》嘉平五年"
+          ],
+          "primary_threat_refs": [
+            "WAR-LEAD-SG-WEI-WU-DONGXING-252",
+            "WAR-LEAD-SG-WU-HEFEI-253",
+            "WAR-LEAD-SG-SHU-LONGXI-254",
+            "WAR-LEAD-SG-WEI-HUAINAN-255"
+          ],
+          "rationale": "分区实审已完成五轴、主体方向、交班边界与B1空间快照闭合。",
+          "reign_range": "251—255",
+          "ruler_id": "RULER-WEI-SIMASHI",
+          "ruler_name": "司马师",
+          "score_ready": true,
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "terminal_polity_collapse": false,
+          "parent_cycle_refs": [
+            "CAMPAIGN-V075-SG-WEI-WU-DONGXING-252"
+          ],
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "excluded_founding_unification_refs": [],
+          "observed_parent_cycle_count": 2,
+          "A120_non_cost_anchor_points": 45.6,
+          "A120_positive_result_credit_points": 0.0,
+          "A120_score_points": 45.6,
+          "B80_score_points": 51.95,
+          "AB200_score_points": 97.55,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": 0.0,
+              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_category": "NO_CHANGE",
+              "axis_points": 16.8,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 4,
+              "maintenance_basis": "没有闭合到本轴的成功现实高压守成",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NONE",
+              "negative_adjustment": 20,
+              "objective_delta": 0,
+              "reversal_basis": "现行归责明示本人制造或放大，且达到多次或结构性影响",
+              "reversal_grade": "SEVERE",
+              "reversal_penalty": 20,
+              "score_ready": true,
+              "start_grade": 4,
+              "trajectory_value": 28.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            },
+            "A2": {
+              "attributable_delta": 0.0,
+              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_category": "NO_CHANGE",
+              "axis_points": 28.8,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 4,
+              "maintenance_basis": "没有闭合到本轴的成功现实高压守成",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NONE",
+              "negative_adjustment": 0,
+              "objective_delta": 0,
+              "reversal_basis": "逆转未证明改变本轴，避免双轴重复处罚",
+              "reversal_grade": "NONE_DIFFERENT_AXIS",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 4,
+              "trajectory_value": 48.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 51.95,
+            "formal_B1_rate": 52.0,
+            "formal_B2_rate": 89.0,
+            "formal_B4_rate": 82.0,
+            "adjudicated_B1_rate": 52.0,
+            "adjudicated_B2_rate": 89.0,
+            "adjudicated_B4_rate": 82.0,
+            "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          }
+        },
+        {
+          "AB_score_points": 94.5,
+          "adjudication_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "axes": {
+            "A1": {
+              "axis_points": 19.2,
+              "base_trajectory_value": 48,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A1S4_STABLE_ADVANTAGE",
+              "reason": "起点直接承接司马师4档。255年洮西野战死者数万、257—258年寿春自致反乱又迫使二十六万大军长期围援，264年钟会统领新附大军在成都兵变；三次重大反转均须登记。狄道、寿春和军权危机最终收束，且灭蜀统一收益完全隔离、不用于抬高终点，故按非统一事实看交班仍为魏总体掌握主动但强敌未决的4档。",
+              "start": "A1S4_STABLE_ADVANTAGE",
+              "trajectory_value": 48,
+              "transition": "STABLE",
+              "transition_attribution": "MIXED_WITH_MAJOR_SELF_INDUCED_REVERSALS"
+            },
+            "A2": {
+              "axis_points": 19.2,
+              "base_trajectory_value": 48,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "reason": "起点主要边界总体有效。狄道曾濒临粮尽、淮南军镇再次反叛，说明西北和东南均出现严重压力；陈泰解狄道后修城分守，寿春亦在任内恢复。交趾仅任官遣援而援军未到，永安又属统一战争衍生节点，二者均不用于补强本轴；交班仍为总体有效而有明显缺口的4档。",
+              "start": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "trajectory_value": 48,
+              "transition": "STABLE",
+              "transition_attribution": "MIXED_WITH_MAJOR_SELF_INDUCED_REVERSALS"
+            },
+            "B1": {
+              "axis_points": 13.0,
+              "band_position": "MID",
+              "grade": "B1-2",
+              "raw_net_change": 0.0,
+              "reason": "直接承接司马师3.1。狄道、寿春最终仅恢复原控制；交趾虽转向魏晋并获任官遣援，但吕兴在援军到达前被杀，不能把吴方失控反推为魏方实际控制；灭蜀及永安收益彻底排除。交班仍3.1，净增0、加权值1.24，机械落B1-2中段。",
+              "score_rate": 52,
+              "weighted_control_value": 1.24
+            },
+            "B2": {
+              "axis_points": 24.6,
+              "band_position": "MID",
+              "grade": "B2-4",
+              "reason": "主要成果包只取狄道保全：魏军洮西野战死者数万，狄道守军不足万人且粮将尽，陈泰按统一调度迅速进军解围，保住陇右关键门户和河西通道。该结果对一个主要战略方向具有关键作用，但只是恢复战前控制、且前段损失极重，取4档中段；寿春自致复城、灭蜀和永安均不补分。",
+              "score_rate": 82
+            },
+            "B4": {
+              "axis_points": 18.5,
+              "band_position": "HIGH",
+              "grade": "B4-3",
+              "reason": "狄道解围后的分军守御、城堑修复和西北协同能够常态运行；但全部主要净成果审计还必须计入洮西主力重损、武都阴平未复以及寿春、钟会兵变造成的军政结构损害。虽然后两者被平定，交班仍有明显缺口，最高只能取3档高段。",
+              "score_rate": 74
+            }
+          },
+          "b1_control_equivalents": {
+            "end": 3.1,
+            "net_change": 0.0,
+            "start": 3.1,
+            "weighted_value": 1.24
+          },
+          "b1_region_adjudications": [
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.8,
+              "control_form": "既有北边分领与塞防",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-司马师-司马昭"
+              ],
+              "object_id": "NORTHERN_FRONTIER",
+              "object_name": "乌丸—南匈奴北方边疆控制包",
+              "reason": "有界推断：直接接班复用整体1.00，任内无跨覆盖阶梯变化，起终维持1.00。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.6,
+              "control_form": "武都阴平丧失后的河西陇右主体",
+              "counted": true,
+              "coverage_factor": 0.75,
+              "evidence_refs": [
+                "HANDOVER-司马师-司马昭",
+                "WAR-LEAD-SG-SHU-DIDAO-255"
+              ],
+              "object_id": "NORTHWEST_FRONTIER",
+              "object_name": "河西—陇右西北边疆",
+              "reason": "有界推断：洮西野战虽死者数万，蜀军仍未克狄道；陈泰解围、修城并分军守御后，河西陇右主体未跨0.75覆盖阶梯，起终均为0.75。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 1.0,
+              "control_form": "款塞奉献及戊己校尉联系网络",
+              "counted": true,
+              "coverage_factor": 0.5,
+              "evidence_refs": [
+                "HANDOVER-司马师-司马昭"
+              ],
+              "object_id": "WESTERN_REGIONS",
+              "object_name": "西域主要属国联系网络",
+              "reason": "有界推断：直接接班复用0.50，任内无跨覆盖阶梯新增或失控事实，起终维持0.50。",
+              "spatial_weight": 2.0
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.2,
+              "control_form": "戊己校尉门户屯戍节点",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-司马师-司马昭"
+              ],
+              "object_id": "GAOCHANG_XIZHOU",
+              "object_name": "高昌—西域东部门户",
+              "reason": "有界推断：直接接班复用整体1.00，任内无撤废或失控事实，起终维持1.00。",
+              "spatial_weight": 0.2
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.5,
+              "control_form": "四郡直接行政",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-司马师-司马昭"
+              ],
+              "object_id": "NORTHEAST_LIAODONG",
+              "object_name": "辽东、带方、乐浪、玄菟四郡",
+              "reason": "有界推断：直接接班复用四郡整体1.00，任内无跨覆盖阶梯变化，起终维持1.00。",
+              "spatial_weight": 0.5
+            },
+            {
+              "anchors": [],
+              "control_equivalent": 0.0,
+              "control_form": "任官遣援但援军未到、代理人被杀",
+              "counted": false,
+              "coverage_factor": 0.0,
+              "evidence_refs": [
+                "WAR-LEAD-SG-JIAOZHI-263",
+                "《资治通鉴》卷七十八景元四年至咸熙元年"
+              ],
+              "object_id": "LINGNAN_JIAOZHI_UNREALIZED",
+              "object_name": "交趾、九真、日南转附线索",
+              "reason": "吴失去稳定控制不等于魏取得实际控制；吕兴请降后虽获任安南将军，霍弋亦选官遣兵，但援军未到吕兴即被杀，现有证据不足以在265年交班点计入任何控制当量。",
+              "spatial_weight": 0.0
+            },
+            {
+              "anchors": [],
+              "control_equivalent": 0.0,
+              "control_form": "统一战争成果",
+              "counted": false,
+              "coverage_factor": 0.0,
+              "evidence_refs": [
+                "WAR-LEAD-SG-WEISHU-263"
+              ],
+              "object_id": "SHU_CORE_UNIFICATION_EXCLUDED",
+              "object_name": "灭蜀统一战争取得的蜀地",
+              "reason": "统一战争完全隔离，蜀核心区及其郡县不进入国防安全B1、B2、B4，也不用于触发终局得失门。",
+              "spatial_weight": 0.0
+            },
+            {
+              "anchors": [],
+              "control_equivalent": 0.0,
+              "control_form": "灭蜀后新接收节点的守御",
+              "counted": false,
+              "coverage_factor": 0.0,
+              "evidence_refs": [
+                "WAR-LEAD-SG-YONGAN-264"
+              ],
+              "object_id": "BADONG_YONGAN_UNIFICATION_DERIVED",
+              "object_name": "永安—巴东新接收节点",
+              "reason": "罗宪守城及魏援侧击确有军事事实，但所保全空间源自灭蜀统一成果；为防统一收益绕账，不计B1、B2或B4。",
+              "spatial_weight": 0.0
+            }
+          ],
+          "b1_region_control": {
+            "end": {
+              "GAOCHANG_XIZHOU": 0.2,
+              "NORTHEAST_LIAODONG": 0.5,
+              "NORTHERN_FRONTIER": 0.8,
+              "NORTHWEST_FRONTIER": 0.6,
+              "WESTERN_REGIONS": 1.0
+            },
+            "start": {
+              "GAOCHANG_XIZHOU": 0.2,
+              "NORTHEAST_LIAODONG": 0.5,
+              "NORTHERN_FRONTIER": 0.8,
+              "NORTHWEST_FRONTIER": 0.6,
+              "WESTERN_REGIONS": 1.0
+            }
+          },
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "control_contribution_grade_cap": 4,
+          "control_contribution_type": "SAVED_UNDER_MAJOR_PRESSURE",
+          "coverage_status": "FORMAL_CURRENT",
+          "defense_event_count": 4,
+          "evidence_event_refs": [
+            "WAR-LEAD-SG-JIAOZHI-263",
+            "WAR-LEAD-SG-JUSHUI-CANCEL-261",
+            "WAR-LEAD-SG-SHOUCHUN-257",
+            "WAR-LEAD-SG-SHU-DIDAO-255",
+            "WAR-LEAD-SG-WEI-HUAINAN-255",
+            "WAR-LEAD-SG-YONGAN-264",
+            "WAR-LEAD-SG-ZHONGHUI-264"
+          ],
+          "hold_event_refs": [],
+          "major_in_reign_reversal_refs": [
+            "WAR-LEAD-SG-SHU-DIDAO-255",
+            "WAR-LEAD-SG-SHOUCHUN-257",
+            "WAR-LEAD-SG-ZHONGHUI-264"
+          ],
+          "non_defense_routing_refs": [],
+          "partition": "秦汉三国",
+          "polity": "魏",
+          "primary_control_package_refs": [
+            "WAR-LEAD-SG-SHU-DIDAO-255",
+            "《资治通鉴》卷七十六正元二年"
+          ],
+          "primary_threat_refs": [
+            "WAR-LEAD-SG-SHU-DIDAO-255",
+            "WAR-LEAD-SG-SHOUCHUN-257",
+            "WAR-LEAD-SG-ZHONGHUI-264"
+          ],
+          "rationale": "分区实审已完成五轴、主体方向、交班边界与B1空间快照闭合。",
+          "reign_range": "255—265",
+          "ruler_id": "RULER-WEI-SIMAZHAO",
+          "ruler_name": "司马昭",
+          "score_ready": true,
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "terminal_polity_collapse": false,
+          "parent_cycle_refs": [
+            "CAMPAIGN-V076-SG-SHU-DIDAO-255",
+            "CAMPAIGN-V077-SG-SHOUCHUN-257",
+            "WAR-LEAD-SG-YONGAN-264",
+            "WAR-LEAD-SG-WEISHU-263"
+          ],
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "excluded_founding_unification_refs": [],
+          "observed_parent_cycle_count": 4,
+          "A120_non_cost_anchor_points": 45.6,
+          "A120_positive_result_credit_points": 0.0,
+          "A120_score_points": 45.6,
+          "B80_score_points": 48.31,
+          "AB200_score_points": 93.91,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": 0.0,
+              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_category": "NO_CHANGE",
+              "axis_points": 16.8,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 4,
+              "maintenance_basis": "没有闭合到本轴的成功现实高压守成",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NONE",
+              "negative_adjustment": 20,
+              "objective_delta": 0,
+              "reversal_basis": "现行归责明示本人制造或放大，且达到多次或结构性影响",
+              "reversal_grade": "SEVERE",
+              "reversal_penalty": 20,
+              "score_ready": true,
+              "start_grade": 4,
+              "trajectory_value": 28.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            },
+            "A2": {
+              "attributable_delta": 0.0,
+              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_category": "NO_CHANGE",
+              "axis_points": 28.8,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 4,
+              "maintenance_basis": "没有闭合到本轴的成功现实高压守成",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NONE",
+              "negative_adjustment": 0,
+              "objective_delta": 0,
+              "reversal_basis": "逆转未证明改变本轴，避免双轴重复处罚",
+              "reversal_grade": "NONE_DIFFERENT_AXIS",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 4,
+              "trajectory_value": 48.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 48.31,
+            "formal_B1_rate": 52.0,
+            "formal_B2_rate": 82.0,
+            "formal_B4_rate": 74.0,
+            "adjudicated_B1_rate": 52.0,
+            "adjudicated_B2_rate": 82.0,
+            "adjudicated_B4_rate": 74.0,
+            "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          }
+        },
+        {
+          "AB_score_points": 35.0,
+          "adjudication_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "axes": {
+            "A1": {
+              "axis_points": 9.6,
+              "base_trajectory_value": 24,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A1S2_STRATEGIC_DISADVANTAGE",
+              "rationale": "221年蜀汉已失荆州，北有国力明显占优的魏，东与吴敌对，起点为战略劣势2档。夷陵大败进一步损伤野战力量，但孙权因刘备驻白帝而遣使请和、刘备答使，去世前未形成吴方进逼蜀核心的存亡态势；终点仍为2档，不因败役机械降至1档。",
+              "start": "A1S2_STRATEGIC_DISADVANTAGE",
+              "trajectory_value": 24,
+              "transition": "STABLE",
+              "transition_attribution": "SELF_INDUCED_SETBACK_PARTLY_RESTORED"
+            },
+            "A2": {
+              "axis_points": 14.4,
+              "base_trajectory_value": 36,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
+              "rationale": "接班时汉中由魏延镇守并有成都至白水关亭障，北面主防线可运作；夷陵失败后东线退至永安，但刘备本人驻守且吴方请和，汉中、永安两个决定性方向仍有可执行节点。体系有明显缺口而未破碎，起终均为3档。",
+              "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
+              "trajectory_value": 36,
+              "transition": "STABLE",
+              "transition_attribution": "MIXED"
+            },
+            "B1": {
+              "axis_points": 11.0,
+              "band_position": "HIGH",
+              "grade": "B1-1",
+              "rationale": "统一核心不入表；接班、交班均维持汉中边疆0.8和南中西南边郡0.5，共1.3。夷陵未取得吴地，五溪短期响应未形成交班控制；净变化0、加权值0.52，落B1-1 HIGH。",
+              "raw_net_change": 0.0,
+              "score_rate": 44,
+              "terminal_collapse_override": false,
+              "weighted_control_value": 0.52
+            },
+            "B2": {
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "grade": "B2-0",
+              "rationale": "章武年间没有留下新增、收复或结构性保全的边疆控制成果；夷陵进军与五溪响应均在交班前失效。",
+              "score_rate": 0
+            },
+            "B4": {
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "grade": "B4-0",
+              "rationale": "没有与B2相同的合格本人控制成果包可评价成熟度。",
+              "score_rate": 0
+            }
+          },
+          "b1_control_equivalents": {
+            "end": 1.3,
+            "net_change": 0.0,
+            "start": 1.3,
+            "weighted_value": 0.52
+          },
+          "b1_region_adjudications": [
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.8,
+              "control_form": "汉中都督、关隘亭障与郡县军政",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "《三国志》卷三十二《先主传》魏延镇汉中、成都至白水关亭障四百余区"
+              ],
+              "object_id": "SHU_HANZHONG_FRONTIER",
+              "object_name": "汉中—白水北方门户",
+              "reason": "有界推断：221年汉中郡县、都督和白水关通道均在蜀汉实际控制，按西北边疆标准区域整体取1.00；任内战争在东线且无汉中退控事实，交班维持1.00；不外推关中陇右。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.5,
+              "control_form": "益州、永昌、牂柯、越巂等既有郡县与属部",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-蜀汉建国实际状态",
+                "《三国志》卷三十三《后主传》建兴元年秋前后叛乱时间"
+              ],
+              "object_id": "SHU_SOUTHWEST_NANZHONG",
+              "object_name": "南中西南边郡",
+              "reason": "有界推断：刘备即位至去世时南中既有四郡仍属蜀汉，明确叛乱在刘禅建兴元年夏秋展开，刘备交班仍按西南标准区域整体1.00；不把后继任内叛乱倒灌为刘备终点退控。",
+              "spatial_weight": 0.5
+            },
+            {
+              "anchors": [],
+              "control_equivalent": 0.0,
+              "control_form": "夷陵战役期间遣使请兵与响应",
+              "counted": false,
+              "coverage_factor": 0.0,
+              "evidence_refs": [
+                "《三国志》卷三十二《先主传》章武元年至二年"
+              ],
+              "object_id": "SHU_WULING_WUXI_TEMPORARY",
+              "object_name": "武陵五溪短期响应",
+              "reason": "五溪响应依附于夷陵进军，败退后没有蜀方驻防、设治或可执行属部关系存续到交班，不进入B1。",
+              "spatial_weight": 0.5
+            }
+          ],
+          "b1_region_control": {
+            "end": {
+              "SHU_HANZHONG_FRONTIER": 0.8,
+              "SHU_SOUTHWEST_NANZHONG": 0.5
+            },
+            "start": {
+              "SHU_HANZHONG_FRONTIER": 0.8,
+              "SHU_SOUTHWEST_NANZHONG": 0.5
+            }
+          },
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "control_contribution_grade_cap": 0,
+          "control_contribution_type": "INHERITED_ONLY",
+          "coverage_status": "FORMAL_CURRENT",
+          "defense_event_count": 3,
+          "evidence_event_refs": [
+            "WAR-LEAD-HAN-FANCHENG-JINGZHOU-219",
+            "WAR-LEAD-HAN-HANZHONG-217-219",
+            "WAR-LEAD-HAN-SANBA-215",
+            "WAR-LEAD-HAN-SHANGYONG-219",
+            "WAR-LEAD-HAN-SUNLIU-JINGZHOU-215",
+            "WAR-LEAD-SG-SHU-NANZHONG-223-225",
+            "WAR-LEAD-SG-SHU-NORTH-228",
+            "WAR-LEAD-SG-WEI-SHANGYONG-220",
+            "WAR-LEAD-SG-WU-HAN-YILING-221-222"
+          ],
+          "hold_event_refs": [],
+          "major_in_reign_reversal_refs": [
+            "《三国志》卷三十二《先主传》夷陵败退与白帝复和"
+          ],
+          "non_defense_routing_refs": [],
+          "partition": "秦汉三国",
+          "polity": "蜀汉",
+          "primary_control_package_refs": [],
+          "primary_threat_refs": [
+            "《三国志》卷三十二《先主传》章武元年至三年"
+          ],
+          "rationale": "分区实审已完成五轴、主体方向、交班边界与B1空间快照闭合。",
+          "reign_range": "221—223",
+          "ruler_id": "RULER-SHU-LIUBEI",
+          "ruler_name": "刘备",
+          "score_ready": true,
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "terminal_polity_collapse": false,
+          "parent_cycle_refs": [
+            "CAMPAIGN-SG-WU-HAN-YILING-221-222",
+            "WAR-LEAD-HAN-LIUBEI-YIZHOU-211-214-END",
+            "WAR-LEAD-HAN-XUZHOU-LUBU-196-198"
+          ],
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "excluded_founding_unification_refs": [],
+          "observed_parent_cycle_count": 1,
+          "A120_non_cost_anchor_points": 30.0,
+          "A120_positive_result_credit_points": 0.0,
+          "A120_score_points": 30.0,
+          "B80_score_points": 13.55,
+          "AB200_score_points": 43.55,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": 0.0,
+              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_category": "NO_CHANGE",
+              "axis_points": 8.4,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 2,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 10,
+              "objective_delta": 0,
+              "reversal_basis": "现行归责明示本人制造或放大的档内逆转",
+              "reversal_grade": "MATERIAL",
+              "reversal_penalty": 10,
+              "score_ready": true,
+              "start_grade": 2,
+              "trajectory_value": 14.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            },
+            "A2": {
+              "attributable_delta": 0.0,
+              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_category": "NO_CHANGE",
+              "axis_points": 21.6,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 3,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": 0,
+              "reversal_basis": "逆转未证明改变本轴，避免双轴重复处罚",
+              "reversal_grade": "NONE_DIFFERENT_AXIS",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 36.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 13.55,
+            "formal_B1_rate": 44.0,
+            "formal_B2_rate": 0.0,
+            "formal_B4_rate": 0.0,
+            "adjudicated_B1_rate": 44.0,
+            "adjudicated_B2_rate": 0.0,
+            "adjudicated_B4_rate": 0.0,
+            "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          }
+        },
+        {
+          "AB_score_points": 0.0,
+          "adjudication_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "axes": {
+            "A1": {
+              "axis_points": 0.0,
+              "base_trajectory_value": 0,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A1S0_EXISTENTIAL_CRISIS",
+              "rationale": "刘禅奉玺绶降魏并令姜维、诸郡罢兵，蜀汉没有可移交的国防中央。终点按本人实际失权、投降或政权终结取0档；对手的正向统一收益归第一项，不删除败方第三项的客观亡国终点。史源：資治通鑑/卷078@2074603#遣张绍等奉玺绶以降于艾。",
+              "start": "A1S2_STRATEGIC_DISADVANTAGE",
+              "trajectory_value": 0,
+              "transition": "WORSENED",
+              "transition_attribution": "MIXED_WITH_RULER_GOVERNANCE_AND_REPEATED_OFFENSIVE_LOSSES"
+            },
+            "A2": {
+              "axis_points": 0.0,
+              "base_trajectory_value": 0,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A2S0_CORE_EXPOSED",
+              "rationale": "刘禅奉玺绶降魏并令姜维、诸郡罢兵，蜀汉没有可移交的国防中央。终点按本人实际失权、投降或政权终结取0档；对手的正向统一收益归第一项，不删除败方第三项的客观亡国终点。史源：資治通鑑/卷078@2074603#遣张绍等奉玺绶以降于艾。",
+              "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
+              "trajectory_value": 0,
+              "transition": "WORSENED",
+              "transition_attribution": "MIXED_WITH_LATE_COMMAND_AND_WARNING_FAILURE"
+            },
+            "B1": {
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "grade": "B1-0",
+              "rationale": "本人终局时政权已经终结，交班控制空间归零；接班1.3、交班0，净变化-1.3、加权值-0.78，执行终局门取B1-0 LOW。",
+              "raw_net_change": -1.3,
+              "score_rate": 0,
+              "terminal_collapse_override": true,
+              "weighted_control_value": -0.78
+            },
+            "B2": {
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "grade": "B2-0",
+              "rationale": "刘禅奉玺绶降魏并令姜维、诸郡罢兵，蜀汉没有可移交的国防中央。任内阶段成果保留在事件与能力底账，但本人交班时已无本政权控制成果可移交，执行终局门取0档。",
+              "score_rate": 0
+            },
+            "B4": {
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "grade": "B4-0",
+              "rationale": "刘禅奉玺绶降魏并令姜维、诸郡罢兵，蜀汉没有可移交的国防中央。任内阶段成果保留在事件与能力底账，但本人交班时已无本政权控制成果可移交，执行终局门取0档。",
+              "score_rate": 0
+            }
+          },
+          "b1_control_equivalents": {
+            "end": 0.0,
+            "net_change": -1.3,
+            "start": 1.3,
+            "weighted_value": -0.78
+          },
+          "b1_region_adjudications": [
+            {
+              "anchors": [
+                "start"
+              ],
+              "control_equivalent": 0.8,
+              "control_form": "汉中郡县、汉乐城及诸围守体系",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-蜀汉-刘备-刘禅",
+                "WAR-LEAD-SG-HANZHONG-WALL-229",
+                "WAR-LEAD-SG-WEI-HANZHONG-230",
+                "WAR-LEAD-SG-WEI-HANZHONG-244",
+                "《三国志》卷四十四《姜维传》敛兵聚谷与诸围设置"
+              ],
+              "object_id": "SHU_HANZHONG_FRONTIER",
+              "object_name": "汉中—白水北方门户",
+              "reason": "有界推断：接班复用刘备汉中标准区域整体1.00；230、244年守成及后期汉乐城、诸围仍证明交班结算点存在实际郡县驻防，维持1.00；A2因联动失效降档，但不得由体系质量反扣B1实际空间，也不读取统一战役退控。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "start"
+              ],
+              "control_equivalent": 0.5,
+              "control_form": "建宁、云南、兴古、永昌、越巂等郡县与地方属部",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-蜀汉-刘备-刘禅",
+                "WAR-LEAD-SG-SHU-NANZHONG-223-225",
+                "WAR-LEAD-SG-SHU-YUEXI-240",
+                "《三国志》卷三十三《后主传》建兴三年、延熙三年"
+              ],
+              "object_id": "SHU_SOUTHWEST_NANZHONG",
+              "object_name": "南中西南边郡",
+              "reason": "有界推断：接班时叛乱尚未展开，复用西南标准区域整体1.00；任内虽发生南中四郡叛乱和越巂多年失治，但分别于225、240年恢复，结算终点无跨阶梯失控事实，交班维持1.00；中途恢复进入B2/B4而不制造B1净增。",
+              "spatial_weight": 0.5
+            },
+            {
+              "anchors": [],
+              "control_equivalent": 0.2,
+              "control_form": "克定二郡后的郡县与西北通道控制",
+              "counted": false,
+              "coverage_factor": 0.25,
+              "evidence_refs": [
+                "WAR-LEAD-SG-SHU-WUDU-YINPING-229",
+                "《三国志》卷三十三《后主传》建兴七年",
+                "《资治通鉴》卷七十一建兴七年"
+              ],
+              "object_id": "SHU_NORTHWEST_WUDU_YINPING",
+              "object_name": "武都、阴平二郡西北支点",
+              "reason": "有界推断：史料明确克定武都、阴平，并持续成为蜀汉西北防区；两郡只覆盖河西陇右标准区域的边缘小部分，按0.25取0.2；不取0.50，因未取得天水、南安、安定或陇右主要骨架。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [],
+              "control_equivalent": 0.0,
+              "control_form": "短期响应、筑城、迁民或战役占领",
+              "counted": false,
+              "coverage_factor": 0.0,
+              "evidence_refs": [
+                "WAR-LEAD-SG-SHU-NORTH-228",
+                "WAR-LEAD-SG-WEI-SHU-QUCHENG-249",
+                "WAR-LEAD-SG-SHU-DIDAO-255",
+                "WAR-LEAD-SG-SHU-LONGXI-254"
+              ],
+              "object_id": "SHU_LONGXI_FORWARD_TARGETS",
+              "object_name": "陇西狄道、麴城等前出目标",
+              "reason": "三郡响应、麴城筑城、洮西野战胜利和迁民均未形成存续到结算终点的蜀方区域控制，不进入B1。",
+              "spatial_weight": 1.2
+            }
+          ],
+          "b1_region_control": {
+            "end": {},
+            "start": {
+              "SHU_HANZHONG_FRONTIER": 0.8,
+              "SHU_SOUTHWEST_NANZHONG": 0.5
+            }
+          },
+          "boundary_stage_excluded_refs": [
+            "WAR-LEAD-SG-DONGXING-DIKE-252",
+            "WAR-LEAD-SG-WEI-GOGURYEO-246"
+          ],
+          "boundary_stage_refs": [
+            "WAR-LEAD-SG-SHU-NORTH-227"
+          ],
+          "boundary_stage_review_status": "REVIEWED",
+          "control_contribution_grade_cap": 5,
+          "control_contribution_type": "NEW_RECOVERED_REBUILT",
+          "coverage_status": "FORMAL_CURRENT",
+          "defense_event_count": 6,
+          "evidence_event_refs": [
+            "WAR-LEAD-SG-DUANGU-256",
+            "WAR-LEAD-SG-HOUHE-262",
+            "WAR-LEAD-SG-MANGSHUI-257",
+            "WAR-LEAD-SG-SHU-CHENCANG-228",
+            "WAR-LEAD-SG-SHU-DIDAO-255",
+            "WAR-LEAD-SG-SHU-NANZHONG-223-225",
+            "WAR-LEAD-SG-SHU-NORTH-228",
+            "WAR-LEAD-SG-SHU-QISHAN-231",
+            "WAR-LEAD-SG-SHU-WUDU-YINPING-229",
+            "WAR-LEAD-SG-SHU-WUZHANG-234",
+            "WAR-LEAD-SG-SHU-YUEXI-240",
+            "WAR-LEAD-SG-WEI-HANZHONG-230",
+            "WAR-LEAD-SG-WEI-HANZHONG-244",
+            "WAR-LEAD-SG-WEI-SHU-QUCHENG-249",
+            "WAR-LEAD-SG-WEI-SHU-TAOXI-247",
+            "WAR-LEAD-SG-HANZHONG-WALL-229",
+            "WAR-LEAD-SG-SHU-LIUZHOU-233",
+            "WAR-LEAD-SG-SHU-LONGXI-254",
+            "WAR-LEAD-SG-SHU-WEIYAN-234"
+          ],
+          "hold_event_refs": [],
+          "major_in_reign_reversal_refs": [
+            "WAR-LEAD-SG-SHU-NANZHONG-223-225",
+            "WAR-LEAD-SG-SHU-YUEXI-240",
+            "WAR-LEAD-SG-DUANGU-256",
+            "WAR-LEAD-SG-HOUHE-262"
+          ],
+          "non_defense_routing_refs": [],
+          "partition": "秦汉三国",
+          "polity": "蜀汉",
+          "primary_control_package_refs": [],
+          "primary_threat_refs": [
+            "WAR-LEAD-SG-SHU-NORTH-228",
+            "WAR-LEAD-SG-WEI-HANZHONG-244",
+            "WAR-LEAD-SG-DUANGU-256",
+            "WAR-LEAD-SG-HOUHE-262"
+          ],
+          "rationale": "败方终局按人物—评价主体—收益方向独立结算；胜方统一链归第一项，不构成删除本人的亡国A/B终点。",
+          "reign_range": "223—263",
+          "ruler_id": "RULER-SHU-LIUSHAN",
+          "ruler_name": "刘禅",
+          "score_ready": true,
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "terminal_polity_collapse": true,
+          "parent_cycle_refs": [
+            "CAMPAIGN-V070-SG-SHU-NANZHONG-223-225",
+            "CAMPAIGN-V071-SG-SHU-CHENCANG-228",
+            "CAMPAIGN-V074-SG-SHU-YUEXI-240",
+            "WAR-LEAD-SG-WEI-HANZHONG-244",
+            "CAMPAIGN-V077-SG-DUANGU-256",
+            "CAMPAIGN-V078-SG-HOUHE-262"
+          ],
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "excluded_founding_unification_refs": [],
+          "observed_parent_cycle_count": 6,
+          "A120_non_cost_anchor_points": 0.0,
+          "A120_positive_result_credit_points": 0.0,
+          "A120_score_points": 0.0,
+          "B80_score_points": 0.0,
+          "AB200_score_points": 0.0,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": -0.75,
+              "attribution_basis": "刘禅奉玺绶降魏并令姜维、诸郡罢兵，蜀汉没有可移交的国防中央。客观终点必须归零；败亡责任仍沿用人物裁决，不从胜方第一项信用机械反推。",
+              "attribution_category": "SHARED_MATERIAL",
+              "axis_points": 0.0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 0,
+              "maintenance_basis": "终局崩溃不进入高位守成",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": -2,
+              "reversal_basis": "终局下降已经由0档客观终点完整消费",
+              "reversal_grade": "CONSUMED_BY_TERMINAL_DECLINE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 2,
+              "trajectory_value": 0.0,
+              "within_band_deterioration_basis": "终局归零后不再追加档内恶化",
+              "within_band_deterioration_penalty": 0
+            },
+            "A2": {
+              "attributable_delta": -0.75,
+              "attribution_basis": "刘禅奉玺绶降魏并令姜维、诸郡罢兵，蜀汉没有可移交的国防中央。客观终点必须归零；败亡责任仍沿用人物裁决，不从胜方第一项信用机械反推。",
+              "attribution_category": "SHARED_MATERIAL",
+              "axis_points": 0.0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 0,
+              "maintenance_basis": "终局崩溃不进入高位守成",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": -3,
+              "reversal_basis": "终局下降已经由0档客观终点完整消费",
+              "reversal_grade": "CONSUMED_BY_TERMINAL_DECLINE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 0.0,
+              "within_band_deterioration_basis": "终局归零后不再追加档内恶化",
+              "within_band_deterioration_penalty": 0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 0.0,
+            "formal_B1_rate": 0.0,
+            "formal_B2_rate": 0.0,
+            "formal_B4_rate": 0.0,
+            "adjudicated_B1_rate": 0.0,
+            "adjudicated_B2_rate": 0.0,
+            "adjudicated_B4_rate": 0.0,
+            "consistency_basis": "A1、A2、B1交班均归零，执行终局门，B2、B4不保留阶段成果分。"
+          }
+        },
+        {
+          "AB_score_points": 97.3,
+          "adjudication_status": "REVIEWED",
+          "ambiguous_event_refs": [
+            {
+              "reason": "事件账仍为REVIEWED_HOLD，且不足以改变任期总体状态或B1覆盖阶梯，不用于计分。",
+              "war_event_id": "WAR-LEAD-SG-WU-HANAN-242"
+            },
+            {
+              "reason": "叛乱起因和失控范围不足；仅以郡县恢复证明未跨交班覆盖阶梯，不另定安全收益。",
+              "war_event_id": "WAR-LEAD-SG-WU-LIAOSHI-239-240"
+            }
+          ],
+          "axes": {
+            "A1": {
+              "axis_points": 18.4,
+              "base_trajectory_value": 46,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A1S3_CONTESTED_BALANCE",
+              "reason": "222年接班时吴虽有夷陵胜势，却同时面对国力更强的魏三路进攻，江陵、濡须均承压，整体仍明显被动。其后吴在石亭等战取得主动，并连续守住江陵、濡须及合肥方向，使魏吴形成双方均有进攻能力而无稳定压倒主动的格局；交班升至3档，不因若干远征失败降回2档。",
+              "start": "A1S2_STRATEGIC_DISADVANTAGE",
+              "trajectory_value": 46,
+              "transition": "IMPROVED",
+              "transition_attribution": "PRIMARILY_RULER_AND_COMMAND_SYSTEM_ACTION"
+            },
+            "A2": {
+              "axis_points": 23.2,
+              "base_trajectory_value": 58,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "reason": "起点已有长江主线和江陵、濡须等可运作支点，但多方向仍在现实强攻下检验。任内形成并反复运用上游江陵、西线武陵、中游濡须—巢湖诸水道及东线水军协同，主要门户总体有效；仍不能把未夺合肥和上游强敌压力说成无缺口，终点为4档。",
+              "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
+              "trajectory_value": 58,
+              "transition": "IMPROVED",
+              "transition_attribution": "PRIMARILY_RULER_AND_COMMAND_SYSTEM_ACTION"
+            },
+            "B1": {
+              "axis_points": 11.25,
+              "band_position": "LOW",
+              "grade": "B1-2",
+              "raw_net_change": 0.375,
+              "reason": "接班交州0.8、丹阳山地外围0.125、武陵五溪0.5，合计1.425；交班三处分别为0.8、0.5、0.5，合计1.8。净增0.375，加权值0.945，机械落B1-2低段。",
+              "score_rate": 45,
+              "weighted_control_value": 0.945
+            },
+            "B2": {
+              "axis_points": 22.2,
+              "band_position": "HIGH",
+              "grade": "B2-3",
+              "reason": "主要成果包是丹阳跨四郡山地整体纳管，并与武陵五溪的恢复共同稳固建业腹地和长江中上游后方；对一个主要区域的兵源、交通与内部安全具有重要作用，但未单独改变对魏全国攻防条件，取3档高段。",
+              "score_rate": 74
+            },
+            "B4": {
+              "axis_points": 22.25,
+              "band_position": "HIGH",
+              "grade": "B4-4",
+              "reason": "与B2同一成果包已由郡守、分军封锁、招降、择丁充兵及州郡常态管辖闭合；五溪平定后亦有明确长期安静结语。交班时可由常设官军接续，只有山地反复这一非决定性风险，取4档高段。",
+              "score_rate": 89
+            }
+          },
+          "b1_control_equivalents": {
+            "end": 1.8,
+            "net_change": 0.375,
+            "start": 1.425,
+            "weighted_value": 0.945
+          },
+          "b1_region_adjudications": [
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.8,
+              "control_form": "士燮服属、质子与贡赋关系，继而转为吴直接州郡军政控制",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "三國志/卷49#士燮遣子入質及歲貢",
+                "WAR-LEAD-SG-WU-JIAOZHOU-226",
+                "WAR-LEAD-SG-WU-JIAOZHOU-248",
+                "三國志/卷60#呂岱交州經略"
+              ],
+              "object_id": "WU_LINGNAN_JIAOZHOU",
+              "object_name": "交州及岭南南部郡县",
+              "reason": "起点士燮已受孙权官爵、送子为质并岁贡，具可执行服属关系；226年自致反乱后改为直接州郡控制，248年交趾九真骚动亦在任内恢复。起终均能限定岭南主要郡县整体有效，取1.00；不因控制形式改变重复增加空间。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "start"
+              ],
+              "control_equivalent": 0.125,
+              "control_form": "仅外围县邑可达，深山居民长期不入城邑、不见长吏",
+              "counted": true,
+              "coverage_factor": 0.25,
+              "evidence_refs": [
+                "三國志/卷64#丹陽山險民未入城邑"
+              ],
+              "object_id": "WU_DANYANG_INTERIOR",
+              "object_name": "丹阳四郡山地控制空间",
+              "reason": "有界推断：起点只明确外围郡县受控，深山核心长期不纳官府，按孤立外围支点取0.25；不取0.50，因为史文明言官军历来难入且山中能自行制兵。",
+              "spatial_weight": 0.5
+            },
+            {
+              "anchors": [
+                "end"
+              ],
+              "control_equivalent": 0.5,
+              "control_form": "诸葛恪分军封锁、招降、择丁充兵并纳入郡县军政",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "WAR-LEAD-SG-WU-DANYANG-234-237",
+                "WAR-LEAD-SG-WU-DONGAN",
+                "三國志/卷64#諸葛恪丹陽經略"
+              ],
+              "object_id": "WU_DANYANG_INTERIOR",
+              "object_name": "丹阳四郡山地控制空间",
+              "reason": "234—237年诸葛恪以万兵分守要路、绝收获并招降山民，结果与预期相符，跨四郡山地从长期官军难入转为可征发、可任官、可驻守的整体军政网络，交班取1.00；东安郡招附万余人与该空间重叠，不另拆区域重复计数。",
+              "spatial_weight": 0.5
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.5,
+              "control_form": "武陵太守、州郡军队与五溪属部控制",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "三國志/卷61#潘濬平五溪一方寧靜",
+                "WAR-LEAD-SG-WU-WUXI-231-234",
+                "三國志/卷60#呂岱武陵平定"
+              ],
+              "object_id": "WU_WULING_WUXI",
+              "object_name": "武陵五溪边疆控制空间",
+              "reason": "起点承接夺取荆州后已设武陵军政，任内231—234年五溪大乱属于同区失控后恢复；潘濬、吕岱收束后史称一方宁静。起终均取整体有效1.00，中途恢复不另作净新增。",
+              "spatial_weight": 0.5
+            },
+            {
+              "anchors": [],
+              "control_equivalent": 0.0,
+              "control_form": "远海册封与一次称臣",
+              "counted": false,
+              "coverage_factor": 0.0,
+              "evidence_refs": [
+                "WAR-LEAD-SG-WU-LIAODONG-233"
+              ],
+              "object_id": "WU_LIAODONG_RELATION",
+              "object_name": "辽东公孙渊册封关系",
+              "reason": "公孙渊无可执行的吴方驻防、征调或问罪关系，且杀吴使者后关系破裂，不进入B1。",
+              "spatial_weight": 0.0
+            },
+            {
+              "anchors": [],
+              "control_equivalent": 0.0,
+              "control_form": "短期远海求民，无驻守设治",
+              "counted": false,
+              "coverage_factor": 0.0,
+              "evidence_refs": [
+                "WAR-LEAD-SG-WU-YIZHOU-230-231"
+              ],
+              "object_id": "WU_YIZHOU_DANZHOU",
+              "object_name": "夷洲、但洲远海目标",
+              "reason": "远征未建立行政、驻防或可执行宗主关系，所得人口与到达事实不能推出受控空间。",
+              "spatial_weight": 0.0
+            }
+          ],
+          "b1_region_control": {
+            "end": {
+              "WU_DANYANG_INTERIOR": 0.5,
+              "WU_LINGNAN_JIAOZHOU": 0.8,
+              "WU_WULING_WUXI": 0.5
+            },
+            "start": {
+              "WU_DANYANG_INTERIOR": 0.125,
+              "WU_LINGNAN_JIAOZHOU": 0.8,
+              "WU_WULING_WUXI": 0.5
+            }
+          },
+          "boundary_stage_excluded_refs": [
+            "WAR-LEAD-SG-WU-YIZHOU-230",
+            "WAR-LEAD-SG-DONGXING-DIKE-252",
+            "WAR-LEAD-SG-WEI-GOGURYEO-246"
+          ],
+          "boundary_stage_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "control_contribution_grade_cap": 5,
+          "control_contribution_type": "NEW_RECOVERED_REBUILT",
+          "coverage_status": "FORMAL_CURRENT",
+          "defense_event_count": 11,
+          "evidence_event_refs": [
+            "WAR-LEAD-HAN-FANCHENG-JINGZHOU-219",
+            "WAR-LEAD-HAN-HEFEI-208-209-END",
+            "WAR-LEAD-HAN-HEFEI-XIAOYAOJIN-215",
+            "WAR-LEAD-HAN-JINGZHOU-REDCILIFFS-208",
+            "WAR-LEAD-HAN-NANJUN-208-209-END",
+            "WAR-LEAD-HAN-RUXU-212-213",
+            "WAR-LEAD-HAN-RUXU-217",
+            "WAR-LEAD-HAN-SUNLIU-JINGZHOU-215",
+            "WAR-LEAD-HAN-SUNQUAN-LISHU-200",
+            "WAR-LEAD-HAN-SUNQUAN-SHANYUE-203",
+            "WAR-LEAD-HAN-WANCHENG-214",
+            "WAR-LEAD-HAN-WU-DANYANG-208",
+            "WAR-LEAD-HAN-WU-SHANYUE-217",
+            "WAR-LEAD-SG-DONGXING-DIKE-252",
+            "WAR-LEAD-SG-WEI-WU-222-223",
+            "WAR-LEAD-SG-WEI-WU-224-225",
+            "WAR-LEAD-SG-WEI-WU-226",
+            "WAR-LEAD-SG-WEI-WU-234",
+            "WAR-LEAD-SG-WEI-WU-241",
+            "WAR-LEAD-SG-WEI-WU-250-251",
+            "WAR-LEAD-SG-WEI-WU-DONGXING-252",
+            "WAR-LEAD-SG-WEI-WU-FULING-231",
+            "WAR-LEAD-SG-WEI-WU-HEFEI-230",
+            "WAR-LEAD-SG-WEI-WU-HEFEI-233",
+            "WAR-LEAD-SG-WEI-WU-SHITING-228",
+            "WAR-LEAD-SG-WU-DANYANG-234-237",
+            "WAR-LEAD-SG-WU-DONGAN",
+            "WAR-LEAD-SG-WU-HAN-YILING-221-222",
+            "WAR-LEAD-SG-WU-JIAOZHOU-226",
+            "WAR-LEAD-SG-WU-JIAOZHOU-248",
+            "WAR-LEAD-SG-WU-LIAODONG-233",
+            "WAR-LEAD-SG-WU-LIAOSHI-239-240",
+            "WAR-LEAD-SG-WU-POYANG-225-227",
+            "WAR-LEAD-SG-WU-TUTANG-250",
+            "WAR-LEAD-SG-WU-WUXI-231-234",
+            "WAR-LEAD-SG-WU-YIZHOU-230-231",
+            "WAR-LEAD-SG-WU-HANAN-242"
+          ],
+          "hold_event_refs": [],
+          "major_in_reign_reversal_refs": [],
+          "non_defense_routing_refs": [],
+          "partition": "秦汉三国",
+          "polity": "吴",
+          "primary_control_package_refs": [
+            "WAR-LEAD-SG-WU-DANYANG-234-237",
+            "WAR-LEAD-SG-WU-DONGAN",
+            "WAR-LEAD-SG-WU-WUXI-231-234"
+          ],
+          "primary_threat_refs": [
+            "WAR-LEAD-SG-WEI-WU-222-223",
+            "WAR-LEAD-SG-WEI-WU-SHITING-228",
+            "WAR-LEAD-SG-WEI-WU-234",
+            "WAR-LEAD-SG-WEI-WU-241"
+          ],
+          "rationale": "分区实审已完成五轴、主体方向、交班边界与B1空间快照闭合。",
+          "reign_range": "222—252",
+          "ruler_id": "RULER-WU-SUNQUAN",
+          "ruler_name": "孙权",
+          "score_ready": true,
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "terminal_polity_collapse": false,
+          "parent_cycle_refs": [
+            "CAMPAIGN-V070-SG-WU-POYANG-225-227",
+            "CAMPAIGN-V070-SG-WU-JIAOZHOU-226",
+            "CAMPAIGN-V072-SG-WU-WUXI-231-234",
+            "CAMPAIGN-V072-SG-WU-LIAODONG-233",
+            "CAMPAIGN-V072-SG-WEI-WU-234",
+            "CAMPAIGN-V073-SG-WU-DANYANG-234-237",
+            "CAMPAIGN-V074-SG-WU-LIAOSHI-239-240",
+            "CAMPAIGN-V075-SG-WU-JIAOZHOU-248",
+            "CAMPAIGN-V075-SG-WU-TUTANG-250",
+            "WAR-LEAD-HAN-SUNQUAN-HUANGZU-203",
+            "WAR-LEAD-HAN-WU-HUANGZU-208"
+          ],
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "excluded_founding_unification_refs": [],
+          "observed_parent_cycle_count": 9,
+          "A120_non_cost_anchor_points": 50.4,
+          "A120_positive_result_credit_points": 12.0,
+          "A120_score_points": 62.4,
+          "B80_score_points": 44.91,
+          "AB200_score_points": 107.31,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": 1.0,
+              "attribution_basis": "消费现行语义标签PRIMARILY_RULER_AND_COMMAND_SYSTEM_ACTION",
+              "attribution_category": "RULER_COMMAND_SYSTEM",
+              "axis_points": 27.6,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 3,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": 1,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 2,
+              "trajectory_value": 46.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            },
+            "A2": {
+              "attributable_delta": 1.0,
+              "attribution_basis": "消费现行语义标签PRIMARILY_RULER_AND_COMMAND_SYSTEM_ACTION",
+              "attribution_category": "RULER_COMMAND_SYSTEM",
+              "axis_points": 34.8,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 4,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": 1,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 58.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 44.91,
+            "formal_B1_rate": 45.0,
+            "formal_B2_rate": 74.0,
+            "formal_B4_rate": 89.0,
+            "adjudicated_B1_rate": 45.0,
+            "adjudicated_B2_rate": 74.0,
+            "adjudicated_B4_rate": 89.0,
+            "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          }
+        },
+        {
+          "AB_score_points": 57.6,
+          "adjudication_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "axes": {
+            "A1": {
+              "axis_points": 5.6,
+              "base_trajectory_value": 14,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A1S2_STRATEGIC_DISADVANTAGE",
+              "reason": "起点由孙亮空档桥承接魏吴制衡3档。263年蜀亡后，魏晋取得长江上游并可从蜀地南下；同年交趾因吴官贪暴、远役征调而反，264年孙休增兵三万攻永安仍被罗宪与魏援逼退。吴在西、南两向同时转为被动，但建业尚无即时存亡危机，终点为2档而非1档。",
+              "start": "A1S3_CONTESTED_BALANCE",
+              "trajectory_value": 14,
+              "transition": "WORSENED",
+              "transition_attribution": "MIXED_WITH_SELF_INDUCED_SOUTHERN_LOSS_AND_EXTERNAL_SHU_COLLAPSE"
+            },
+            "A2": {
+              "axis_points": 10.4,
+              "base_trajectory_value": 26,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
+              "reason": "起点总体长江边界仍有效。交班时武陵五溪虽由钟离牧恢复，但交趾失控，巴东—永安又落入魏晋体系并挡住吴军，南方与上游形成两个显著缺口；中下游长江主线仍能运作，故降至3档，不降为孤立据点型2档。",
+              "start": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "trajectory_value": 26,
+              "transition": "WORSENED",
+              "transition_attribution": "MIXED_WITH_SELF_INDUCED_SOUTHERN_LOSS_AND_EXTERNAL_SHU_COLLAPSE"
+            },
+            "B1": {
+              "axis_points": 9.25,
+              "band_position": "MID",
+              "grade": "B1-1",
+              "raw_net_change": -0.4,
+              "reason": "接班共享孙权交班并经孙亮空档桥核实的1.8。交班时交州南部主要郡县失控，岭南对象由0.8降至0.4；丹阳、武陵各0.5维持，交班1.4。净退0.4、加权值0.32，机械落B1-1中段。",
+              "score_rate": 37,
+              "weighted_control_value": 0.32
+            },
+            "B2": {
+              "axis_points": 15.6,
+              "band_position": "MID",
+              "grade": "B2-2",
+              "reason": "可归责控制成果仅为钟离牧在魏方渗透和五溪响应压力下恢复武陵局部交通、城邑与属部；作用明确但没有改变对魏晋的整体战略方向，取2档中段。",
+              "score_rate": 52
+            },
+            "B4": {
+              "axis_points": 16.75,
+              "band_position": "MID",
+              "grade": "B4-3",
+              "reason": "与B2同一武陵成果包在交班前已经平定五溪，但胜利主要依靠钟离牧以三千兵长驱二千里快速处置，随后又迁公安、濡须，交班时未见属部、补给和继任指挥均已闭合的同期证据。成果已恢复常态控制但仍有个人依赖与边境压力，取3档中段。",
+              "score_rate": 67
+            }
+          },
+          "b1_control_equivalents": {
+            "end": 1.4,
+            "net_change": -0.4,
+            "start": 1.8,
+            "weighted_value": 0.32
+          },
+          "b1_region_adjudications": [
+            {
+              "anchors": [
+                "start"
+              ],
+              "control_equivalent": 0.8,
+              "control_form": "吴交州州郡军政体系",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-GAP-吴-孙权-孙休",
+                "WAR-LEAD-SG-JIAOZHI-263"
+              ],
+              "object_id": "WU_LINGNAN_JIAOZHOU",
+              "object_name": "交州及岭南南部郡县",
+              "reason": "接班复用孙权交班1.00并经孙亮空档核实；258年尚无交州跨阶失控事实，取0.8。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "end"
+              ],
+              "control_equivalent": 0.4,
+              "control_form": "广州及北部岭南仍属吴，交趾为中心的南部网络转附魏晋",
+              "counted": true,
+              "coverage_factor": 0.5,
+              "evidence_refs": [
+                "WAR-LEAD-SG-JIAOZHI-263",
+                "三國志/卷48#交阯郡吏呂興殺守叛附魏",
+                "三國志/卷04#鄧荀調兵及呂興求太守兵援",
+                "晉書/卷57#陶璜傳交阯叛附"
+              ],
+              "object_id": "WU_LINGNAN_JIAOZHOU",
+              "object_name": "交州及岭南南部郡县",
+              "reason": "有界推断：263—264年明确失去交趾并由魏晋任命交州、交趾官员，但广州及岭南北部仍由吴官军控制；按南北约半个主要网络取0.50。不取0.75，因为交趾是南部行政与交通核心且叛方已获得魏晋正式接收；不取0.25，因为吴并未丧失整个岭南。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.5,
+              "control_form": "郡县、驻军与已纳编山民体系",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-GAP-吴-孙权-孙休"
+              ],
+              "object_id": "WU_DANYANG_INTERIOR",
+              "object_name": "丹阳四郡山地控制空间",
+              "reason": "接班共享孙权交班的整体有效1.00；任内无丹阳失控或撤废事实，交班维持，不从交趾和永安事件机械冲减。",
+              "spatial_weight": 0.5
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.5,
+              "control_form": "武陵太守、属部与地方驻军体系",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-GAP-吴-孙权-孙休",
+                "WAR-LEAD-SG-WULING-263",
+                "三國志/卷60#鍾離牧率三千平五溪"
+              ],
+              "object_id": "WU_WULING_WUXI",
+              "object_name": "武陵五溪边疆控制空间",
+              "reason": "起点复用1.00。263年郭纯渗透和诸夷进攻酉阳构成现实失控压力，但钟离牧三千人长驱恢复迁陵、酉阳，史书以五溪平定收束；交班仍取1.00，中途恢复不记新增空间。",
+              "spatial_weight": 0.5
+            },
+            {
+              "anchors": [],
+              "control_equivalent": 0.0,
+              "control_form": "六个月围攻失败，未建立吴方控制",
+              "counted": false,
+              "coverage_factor": 0.0,
+              "evidence_refs": [
+                "WAR-LEAD-SG-YONGAN-264",
+                "晉書/卷57#羅憲守永安"
+              ],
+              "object_id": "WU_YONGAN_BADONG",
+              "object_name": "永安—巴东上游目标",
+              "reason": "吴军未夺永安，罗宪以魏晋接收体系守住巴东；不能把攻城投入或全球事件的魏晋正向方向转写为吴方B1。",
+              "spatial_weight": 0.0
+            }
+          ],
+          "b1_region_control": {
+            "end": {
+              "WU_DANYANG_INTERIOR": 0.5,
+              "WU_LINGNAN_JIAOZHOU": 0.4,
+              "WU_WULING_WUXI": 0.5
+            },
+            "start": {
+              "WU_DANYANG_INTERIOR": 0.5,
+              "WU_LINGNAN_JIAOZHOU": 0.8,
+              "WU_WULING_WUXI": 0.5
+            }
+          },
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "control_contribution_grade_cap": 4,
+          "control_contribution_type": "SAVED_UNDER_MAJOR_PRESSURE",
+          "coverage_status": "FORMAL_CURRENT",
+          "defense_event_count": 1,
+          "evidence_event_refs": [
+            "WAR-LEAD-SG-JIAOZHI-263",
+            "WAR-LEAD-SG-SHOUCHUN-257",
+            "WAR-LEAD-SG-WULING-263",
+            "WAR-LEAD-SG-YONGAN-264"
+          ],
+          "hold_event_refs": [],
+          "major_in_reign_reversal_refs": [
+            "WAR-LEAD-SG-JIAOZHI-263"
+          ],
+          "non_defense_routing_refs": [],
+          "partition": "秦汉三国",
+          "polity": "吴",
+          "primary_control_package_refs": [
+            "WAR-LEAD-SG-WULING-263"
+          ],
+          "primary_threat_refs": [
+            "WAR-LEAD-SG-JIAOZHI-263",
+            "WAR-LEAD-SG-YONGAN-264",
+            "WAR-LEAD-SG-WULING-263"
+          ],
+          "rationale": "分区实审已完成五轴、主体方向、交班边界与B1空间快照闭合。",
+          "reign_range": "258—264",
+          "ruler_id": "RULER-WU-SUNXIU",
+          "ruler_name": "孙休",
+          "score_ready": true,
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "terminal_polity_collapse": false,
+          "parent_cycle_refs": [
+            "CAMPAIGN-V078-SG-JIAOZHI-263"
+          ],
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "excluded_founding_unification_refs": [],
+          "observed_parent_cycle_count": 2,
+          "A120_non_cost_anchor_points": 27.0,
+          "A120_positive_result_credit_points": 0.0,
+          "A120_score_points": 27.0,
+          "B80_score_points": 31.54,
+          "AB200_score_points": 58.54,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": -0.75,
+              "attribution_basis": "消费现行语义标签MIXED_WITH_SELF_INDUCED_SOUTHERN_LOSS_AND_EXTERNAL_SHU_COLLAPSE",
+              "attribution_category": "SHARED_MATERIAL",
+              "axis_points": 9.9,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 2,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": -1,
+              "reversal_basis": "终点下降已消费负向结果，禁止重复处罚",
+              "reversal_grade": "CONSUMED_BY_TERMINAL_DECLINE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 16.5,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            },
+            "A2": {
+              "attributable_delta": -0.75,
+              "attribution_basis": "消费现行语义标签MIXED_WITH_SELF_INDUCED_SOUTHERN_LOSS_AND_EXTERNAL_SHU_COLLAPSE",
+              "attribution_category": "SHARED_MATERIAL",
+              "axis_points": 17.1,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 3,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": -1,
+              "reversal_basis": "终点下降已消费负向结果，禁止重复处罚",
+              "reversal_grade": "CONSUMED_BY_TERMINAL_DECLINE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 4,
+              "trajectory_value": 28.5,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 31.54,
+            "formal_B1_rate": 37.0,
+            "formal_B2_rate": 52.0,
+            "formal_B4_rate": 67.0,
+            "adjudicated_B1_rate": 37.0,
+            "adjudicated_B2_rate": 52.0,
+            "adjudicated_B4_rate": 67.0,
+            "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          }
+        },
+        {
+          "AB_score_points": 0.0,
+          "adjudication_status": "REVIEWED",
+          "ambiguous_event_refs": [
+            {
+              "reason": "同卡并列晋吴多线攻防；吴方北攻全部退兵但未改变控制阶梯，仅作A1同档内不利背景，不生成控制成果。",
+              "war_event_id": "WAR-LEAD-JINWU-268"
+            },
+            {
+              "reason": "掳千余家是袭扰和人口事件，未形成吴方可持续控制，不进入B1/B2/B4。",
+              "war_event_id": "WAR-LEAD-JINWU-BORDER-277"
+            }
+          ],
+          "axes": {
+            "A1": {
+              "axis_points": 0.0,
+              "base_trajectory_value": 0,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A1S0_EXISTENTIAL_CRISIS",
+              "start": "A1S2_STRATEGIC_DISADVANTAGE",
+              "trajectory_value": 0,
+              "transition": "WORSENED",
+              "transition_attribution": "MIXED_WITH_RULER_GOVERNANCE_AND_DEFENSE_NEGLECT",
+              "rationale": "孙皓向晋军投降，吴中央及州郡转入晋制，没有本政权国防成果可交班。终点按本人实际失权、投降或政权终结取0档；对手的正向统一收益归第一项，不删除败方第三项的客观亡国终点。史源：資治通鑑/卷081@2080689#吴主皓面缚舆榇诣军门降。"
+            },
+            "A2": {
+              "axis_points": 0.0,
+              "base_trajectory_value": 0,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A2S0_CORE_EXPOSED",
+              "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
+              "trajectory_value": 0,
+              "transition": "WORSENED",
+              "transition_attribution": "MIXED_OFFSETTING_RECOVERY_AND_STRUCTURAL_NEGLECT",
+              "rationale": "孙皓向晋军投降，吴中央及州郡转入晋制，没有本政权国防成果可交班。终点按本人实际失权、投降或政权终结取0档；对手的正向统一收益归第一项，不删除败方第三项的客观亡国终点。史源：資治通鑑/卷081@2080689#吴主皓面缚舆榇诣军门降。"
+            },
+            "B1": {
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "grade": "B1-0",
+              "raw_net_change": -1.4,
+              "score_rate": 0,
+              "weighted_control_value": -0.84,
+              "rationale": "本人终局时政权已经终结，交班控制空间归零；接班1.4、交班0，净变化-1.4、加权值-0.84，执行终局门取B1-0 LOW。",
+              "terminal_collapse_override": true
+            },
+            "B2": {
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "grade": "B2-0",
+              "score_rate": 0,
+              "rationale": "孙皓向晋军投降，吴中央及州郡转入晋制，没有本政权国防成果可交班。任内阶段成果保留在事件与能力底账，但本人交班时已无本政权控制成果可移交，执行终局门取0档。"
+            },
+            "B4": {
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "grade": "B4-0",
+              "score_rate": 0,
+              "rationale": "孙皓向晋军投降，吴中央及州郡转入晋制，没有本政权国防成果可交班。任内阶段成果保留在事件与能力底账，但本人交班时已无本政权控制成果可移交，执行终局门取0档。"
+            }
+          },
+          "b1_control_equivalents": {
+            "end": 0.0,
+            "net_change": -1.4,
+            "start": 1.4,
+            "weighted_value": -0.84
+          },
+          "b1_region_adjudications": [
+            {
+              "anchors": [
+                "start"
+              ],
+              "control_equivalent": 0.4,
+              "control_form": "广州及北部岭南仍属吴，交趾为中心的南部网络转附魏晋",
+              "counted": true,
+              "coverage_factor": 0.5,
+              "evidence_refs": [
+                "HANDOVER-吴-孙休-孙皓",
+                "WAR-LEAD-SG-JIAOZHI-263",
+                "三國志/卷48#蜀初亡而交阯攜叛"
+              ],
+              "object_id": "WU_LINGNAN_JIAOZHOU",
+              "object_name": "交州及岭南南部郡县",
+              "reason": "接班共享孙休交班的有界推断0.50：吴仍有广州与北部岭南，交趾及南部网络已脱离。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [],
+              "control_equivalent": 0.8,
+              "control_form": "交州牧、州郡军政、地方属部与新置郡县网络",
+              "counted": false,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "WAR-LEAD-JINWU-JIAOZHI-268",
+                "資治通鑑/卷79#吳陷交趾九真日南皆降州境皆平",
+                "晉書/卷57#陶璜傳陷交阯開置三郡三十餘縣"
+              ],
+              "object_id": "WU_LINGNAN_JIAOZHOU",
+              "object_name": "交州及岭南南部郡县",
+              "reason": "271年吴军攻陷交趾，九真、日南皆降，陶璜任交州牧并开置武平、九德、新昌三郡及三十余县；能够限定岭南南部整体军政恢复，交班取1.00。不取较低阶梯，因为州郡、官职、征讨和地方请留均证明可执行控制；其高维持压力留B4处理。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "start"
+              ],
+              "control_equivalent": 0.5,
+              "control_form": "郡县、驻军与已纳编山民体系",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-吴-孙休-孙皓"
+              ],
+              "object_id": "WU_DANYANG_INTERIOR",
+              "object_name": "丹阳四郡山地控制空间",
+              "reason": "接班共享孙休交班整体有效1.00；结算终点前无丹阳跨阶失控事实，维持1.00。",
+              "spatial_weight": 0.5
+            },
+            {
+              "anchors": [
+                "start"
+              ],
+              "control_equivalent": 0.5,
+              "control_form": "武陵太守、属部与地方驻军体系",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-吴-孙休-孙皓",
+                "三國志/卷60#鍾離牧卒子祎嗣領兵"
+              ],
+              "object_id": "WU_WULING_WUXI",
+              "object_name": "武陵五溪边疆控制空间",
+              "reason": "接班共享孙休交班1.00，钟离牧去世后其子承领兵众，结算终点前无覆盖跨阶事实，维持1.00。",
+              "spatial_weight": 0.5
+            },
+            {
+              "anchors": [],
+              "control_equivalent": 0.0,
+              "control_form": "既有核心边界门户在叛乱与晋援压力下保全",
+              "counted": false,
+              "coverage_factor": 0.0,
+              "evidence_refs": [
+                "WAR-LEAD-JINWU-XILING-272",
+                "三國志/卷58#陸抗克西陵"
+              ],
+              "object_id": "WU_XILING_DEFENSE",
+              "object_name": "西陵既有长江门户",
+              "reason": "西陵在步阐叛乱后被收复，属于既有长江核心边界的保全，不是统一核心领土之外的新边疆空间；进入A2及控制成果成熟度，不在B1重复增加区域。",
+              "spatial_weight": 0.0
+            },
+            {
+              "anchors": [],
+              "control_equivalent": 0.0,
+              "control_form": "孙休任内围攻失败，孙皓接班前已收束",
+              "counted": false,
+              "coverage_factor": 0.0,
+              "evidence_refs": [
+                "WAR-LEAD-SG-YONGAN-264",
+                "晉書/卷57#羅憲守永安"
+              ],
+              "object_id": "WU_YONGAN_BADONG",
+              "object_name": "永安—巴东上游目标",
+              "reason": "永安战在孙休任内已撤军，孙皓没有取得或继承该节点，不进入其B1。",
+              "spatial_weight": 0.0
+            }
+          ],
+          "b1_region_control": {
+            "end": {},
+            "start": {
+              "WU_DANYANG_INTERIOR": 0.5,
+              "WU_LINGNAN_JIAOZHOU": 0.4,
+              "WU_WULING_WUXI": 0.5
+            }
+          },
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "control_contribution_grade_cap": 5,
+          "control_contribution_type": "NEW_RECOVERED_REBUILT",
+          "coverage_status": "FORMAL_CURRENT",
+          "defense_event_count": 3,
+          "evidence_event_refs": [
+            "WAR-LEAD-JIN-WANCHENG-278",
+            "WAR-LEAD-JIN-XILING-278",
+            "WAR-LEAD-JINWU-268",
+            "WAR-LEAD-JINWU-BORDER-277",
+            "WAR-LEAD-JINWU-JIAOZHI-268",
+            "WAR-LEAD-JINWU-XILING-272",
+            "WAR-LEAD-SG-JIAOZHI-263",
+            "WAR-LEAD-SG-YONGAN-264"
+          ],
+          "hold_event_refs": [],
+          "major_in_reign_reversal_refs": [
+            "WAR-LEAD-JINWU-XILING-272"
+          ],
+          "non_defense_routing_refs": [],
+          "partition": "秦汉三国",
+          "polity": "吴",
+          "primary_control_package_refs": [],
+          "primary_threat_refs": [
+            "WAR-LEAD-JINWU-XILING-272",
+            "WAR-LEAD-JIN-XILING-278",
+            "資治通鑑/卷79#王濬造舟及吾彥請增兵"
+          ],
+          "rationale": "败方终局按人物—评价主体—收益方向独立结算；胜方统一链归第一项，不构成删除本人的亡国A/B终点。",
+          "reign_range": "264—280",
+          "ruler_id": "RULER-WU-SUNHAO",
+          "ruler_name": "孙皓",
+          "score_ready": true,
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "terminal_polity_collapse": true,
+          "parent_cycle_refs": [
+            "CAMPAIGN-V078-SG-YONGAN-264",
+            "WAR-LEAD-JINWU-JIAOZHI-268",
+            "CAMPAIGN-V079-JINWU-XILING-272"
+          ],
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "excluded_founding_unification_refs": [],
+          "observed_parent_cycle_count": 1,
+          "A120_non_cost_anchor_points": 0.0,
+          "A120_positive_result_credit_points": 0.0,
+          "A120_score_points": 0.0,
+          "B80_score_points": 0.0,
+          "AB200_score_points": 0.0,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": -0.75,
+              "attribution_basis": "孙皓向晋军投降，吴中央及州郡转入晋制，没有本政权国防成果可交班。客观终点必须归零；败亡责任仍沿用人物裁决，不从胜方第一项信用机械反推。",
+              "attribution_category": "SHARED_MATERIAL",
+              "axis_points": 0.0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 0,
+              "maintenance_basis": "终局崩溃不进入高位守成",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": -2,
+              "reversal_basis": "终局下降已经由0档客观终点完整消费",
+              "reversal_grade": "CONSUMED_BY_TERMINAL_DECLINE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 2,
+              "trajectory_value": 0.0,
+              "within_band_deterioration_basis": "终局归零后不再追加档内恶化",
+              "within_band_deterioration_penalty": 0
+            },
+            "A2": {
+              "attributable_delta": 0.0,
+              "attribution_basis": "孙皓向晋军投降，吴中央及州郡转入晋制，没有本政权国防成果可交班。客观终点必须归零；败亡责任仍沿用人物裁决，不从胜方第一项信用机械反推。",
+              "attribution_category": "NO_CHANGE",
+              "axis_points": 0.0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 0,
+              "maintenance_basis": "终局崩溃不进入高位守成",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": -3,
+              "reversal_basis": "终局下降已经由0档客观终点完整消费",
+              "reversal_grade": "CONSUMED_BY_TERMINAL_DECLINE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 0.0,
+              "within_band_deterioration_basis": "终局归零后不再追加档内恶化",
+              "within_band_deterioration_penalty": 0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 0.0,
+            "formal_B1_rate": 0.0,
+            "formal_B2_rate": 0.0,
+            "formal_B4_rate": 0.0,
+            "adjudicated_B1_rate": 0.0,
+            "adjudicated_B2_rate": 0.0,
+            "adjudicated_B4_rate": 0.0,
+            "consistency_basis": "A1、A2、B1交班均归零，执行终局门，B2、B4不保留阶段成果分。"
+          }
+        }
+      ]
+    }
+  }
+}

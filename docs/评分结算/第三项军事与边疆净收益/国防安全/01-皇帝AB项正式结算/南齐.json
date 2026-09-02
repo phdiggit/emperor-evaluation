@@ -1,0 +1,519 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "南齐",
+  "collections": {
+    "records": {
+      "positions": [
+        60,
+        61
+      ],
+      "records": [
+        {
+          "AB_score_points": 30.2,
+          "adjudication_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "axes": {
+            "A1": {
+              "axis_points": 9.6,
+              "base_trajectory_value": 24,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A1S2_STRATEGIC_DISADVANTAGE",
+              "rationale": "南齐建立时北魏在淮北占优，南方主要方向明显被动，起点2档。谢天盖附魏风险被消解，但淮北五固接应失败，未改变总体劣势，终点仍2档。",
+              "start": "A1S2_STRATEGIC_DISADVANTAGE",
+              "trajectory_value": 24,
+              "transition": "STABLE",
+              "transition_attribution": "MIXED"
+            },
+            "A2": {
+              "axis_points": 9.6,
+              "base_trajectory_value": 24,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A2S2_LOCAL_DEFENSIBLE_POINTS",
+              "rationale": "交接时主要北线仅余淮河和若干节点，尚未形成完整边界体系。五固起事未能转化为新纵深，交班延续2档。",
+              "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
+              "trajectory_value": 24,
+              "transition": "STABLE",
+              "transition_attribution": "MIXED"
+            },
+            "B1": {
+              "axis_points": 11.0,
+              "band_position": "HIGH",
+              "grade": "B1-1",
+              "rationale": "南齐建政时承接淮河半走廊、西南与岭南共1.65；任内无足以改变覆盖阶梯的得失，交班仍1.65，加权值0.66，落B1-1 HIGH。",
+              "raw_net_change": 0.0,
+              "score_rate": 44,
+              "terminal_collapse_override": false,
+              "weighted_control_value": 0.66
+            },
+            "B2": {
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "grade": "B2-0",
+              "rationale": "五固接应失败，谢天盖事件只恢复原态安全；无新建、收复或重建的实际控制成果。",
+              "score_rate": 0
+            },
+            "B4": {
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "grade": "B4-0",
+              "rationale": "交班时只有继承边疆存量，本人没有可识别的控制成果包，按INHERITED_ONLY归零。",
+              "score_rate": 0
+            }
+          },
+          "b1_control_equivalents": {
+            "end": 1.65,
+            "net_change": 0.0,
+            "start": 1.65,
+            "weighted_value": 0.66
+          },
+          "b1_region_adjudications": [
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.35,
+              "control_form": "边郡、戍防和可执行地方管理",
+              "counted": true,
+              "coverage_factor": 0.5,
+              "evidence_refs": [
+                "HANDOVER-刘宋-南齐-479",
+                "WAR-LEAD-NC-HUAIBEI-FIVE-FORTS-480-481"
+              ],
+              "object_id": "HUAI_FRONTIER",
+              "object_name": "淮河边疆",
+              "reason": "有界推断：依任期边界的州郡、防线及守戍存续，按该标准区域取0.50（约半个主要走廊或网络）；不将一次胜负或名义声索外推为更大控制。",
+              "spatial_weight": 0.7
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.8,
+              "control_form": "边郡、戍防和可执行地方管理",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-刘宋-南齐-479",
+                "WAR-LEAD-NC-HUAIBEI-FIVE-FORTS-480-481"
+              ],
+              "object_id": "LINGNAN",
+              "object_name": "岭南边疆",
+              "reason": "有界推断：依任期边界的州郡、防线及守戍存续，按该标准区域取1.00（整体有效）；不将一次胜负或名义声索外推为更大控制。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.5,
+              "control_form": "边郡、戍防和可执行地方管理",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-刘宋-南齐-479",
+                "WAR-LEAD-NC-HUAIBEI-FIVE-FORTS-480-481"
+              ],
+              "object_id": "SOUTHWEST",
+              "object_name": "西南边疆",
+              "reason": "有界推断：依任期边界的州郡、防线及守戍存续，按该标准区域取1.00（整体有效）；不将一次胜负或名义声索外推为更大控制。",
+              "spatial_weight": 0.5
+            }
+          ],
+          "b1_region_control": {
+            "end": {
+              "HUAI_FRONTIER": 0.35,
+              "LINGNAN": 0.8,
+              "SOUTHWEST": 0.5
+            },
+            "start": {
+              "HUAI_FRONTIER": 0.35,
+              "LINGNAN": 0.8,
+              "SOUTHWEST": 0.5
+            }
+          },
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "control_contribution_grade_cap": 0,
+          "control_contribution_type": "INHERITED_ONLY",
+          "coverage_status": "FORMAL_CURRENT",
+          "defense_event_count": 3,
+          "evidence_event_refs": [
+            "WAR-LEAD-NC-HUAIBEI-FIVE-FORTS-480-481",
+            "WAR-LEAD-NC-RUORAN-WEI-479",
+            "WAR-LEAD-NC-XIETIANGAI-479-480",
+            "WAR-LEAD-142-01",
+            "WAR-LEAD-142-03",
+            "WAR-LEAD-142-04",
+            "WAR-LEAD-142-05",
+            "WAR-LEAD-144-07",
+            "WAR-LEAD-NC-FIVE-STATE-MAN-480",
+            "WAR-LEAD-NC-LI-WUNU-479-480"
+          ],
+          "hold_event_refs": [],
+          "major_in_reign_reversal_refs": [],
+          "non_defense_routing_refs": [],
+          "partition": "两晋十六国南北朝隋",
+          "polity": "南齐",
+          "primary_control_package_refs": [],
+          "primary_threat_refs": [
+            "WAR-LEAD-NC-HUAIBEI-FIVE-FORTS-480-481",
+            "WAR-LEAD-NC-XIETIANGAI-479-480"
+          ],
+          "rationale": "分区实审已完成五轴、主体方向、交班边界与B1空间快照闭合。",
+          "reign_range": [
+            479,
+            482
+          ],
+          "ruler_id": "RULER-SHADOW-萧道成",
+          "ruler_name": "萧道成",
+          "score_ready": true,
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "terminal_polity_collapse": false,
+          "parent_cycle_refs": [
+            "NC-XIETIANGAI-479-480",
+            "NC-HUAIBEI-FIVE-FORTS-480-481",
+            "NC-LI-WUNU-479-OPEN"
+          ],
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "excluded_founding_unification_refs": [],
+          "observed_parent_cycle_count": 6,
+          "A120_non_cost_anchor_points": 28.8,
+          "A120_positive_result_credit_points": 0.0,
+          "A120_score_points": 28.8,
+          "B80_score_points": 13.55,
+          "AB200_score_points": 42.35,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": 0.0,
+              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_category": "NO_CHANGE",
+              "axis_points": 14.4,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 2,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": 0,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 2,
+              "trajectory_value": 24.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            },
+            "A2": {
+              "attributable_delta": 0.0,
+              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_category": "NO_CHANGE",
+              "axis_points": 14.4,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 2,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": 0,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 2,
+              "trajectory_value": 24.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 13.55,
+            "formal_B1_rate": 44.0,
+            "formal_B2_rate": 0.0,
+            "formal_B4_rate": 0.0,
+            "adjudicated_B1_rate": 44.0,
+            "adjudicated_B2_rate": 0.0,
+            "adjudicated_B4_rate": 0.0,
+            "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          }
+        },
+        {
+          "AB_score_points": 19.65,
+          "adjudication_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "axes": {
+            "A1": {
+              "axis_points": 9.6,
+              "base_trajectory_value": 24,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A1S2_STRATEGIC_DISADVANTAGE",
+              "rationale": "起点北魏已在北线掌握主动，南齐处于战略被动，为2档。任内南阳、新野等节点受损，涡阳援军溃退，又发生王敬则之乱；但魏军尚未形成直接存亡危机，终点仍为2档下位。",
+              "start": "A1S2_STRATEGIC_DISADVANTAGE",
+              "trajectory_value": 24,
+              "transition": "STABLE",
+              "transition_attribution": "PRIMARY_RULER_ACTION"
+            },
+            "A2": {
+              "axis_points": 0.8,
+              "base_trajectory_value": 2,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A2S1_BROKEN_BOUNDARY",
+              "rationale": "起点主要北线仅有淮河及南阳新野等局部节点，为2档。魏军连续取得南阳—新野—襄樊外围与武兴仇池方向收益，主要防线破裂，交班只能依赖更近核心区的应急防守，降为1档。",
+              "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
+              "trajectory_value": 2,
+              "transition": "WORSENED",
+              "transition_attribution": "PRIMARY_RULER_ACTION"
+            },
+            "B1": {
+              "axis_points": 9.25,
+              "band_position": "MID",
+              "grade": "B1-1",
+              "rationale": "接班边疆当量1.65；南阳新野与武兴仇池方向受损使西南覆盖由整体降至约半，交班1.4、净减0.25、加权值0.41，落B1-1 MID。",
+              "raw_net_change": -0.25,
+              "score_rate": 37,
+              "terminal_collapse_override": false,
+              "weighted_control_value": 0.41
+            },
+            "B2": {
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "grade": "B2-0",
+              "rationale": "对魏作战未形成交班时仍在的新控制成果，只有继承存量。",
+              "score_rate": 0
+            },
+            "B4": {
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "grade": "B4-0",
+              "rationale": "没有可识别的本人控制成果包，按INHERITED_ONLY归零。",
+              "score_rate": 0
+            }
+          },
+          "b1_control_equivalents": {
+            "end": 1.4,
+            "net_change": -0.25,
+            "start": 1.65,
+            "weighted_value": 0.41
+          },
+          "b1_region_adjudications": [
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.35,
+              "control_form": "边郡、戍防与可执行地方管理",
+              "counted": true,
+              "coverage_factor": 0.5,
+              "evidence_refs": [
+                "HANDOVER-南齐-494",
+                "WAR-LEAD-141-01",
+                "WAR-LEAD-141-02"
+              ],
+              "object_id": "HUAI_FRONTIER",
+              "object_name": "淮河边疆",
+              "reason": "有界推断：依任期边界的州郡、防线与守戍存续，按标准区域取0.50（约半个主要走廊或网络）；不由一次胜负或名义声索外推更大控制。",
+              "spatial_weight": 0.7
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.8,
+              "control_form": "边郡、戍防与可执行地方管理",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-南齐-494",
+                "WAR-LEAD-141-01",
+                "WAR-LEAD-141-02"
+              ],
+              "object_id": "LINGNAN",
+              "object_name": "岭南边疆",
+              "reason": "有界推断：依任期边界的州郡、防线与守戍存续，按标准区域取1.00（整体有效）；不由一次胜负或名义声索外推更大控制。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "start"
+              ],
+              "control_equivalent": 0.5,
+              "control_form": "边郡、戍防与可执行地方管理",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-南齐-494",
+                "WAR-LEAD-141-01",
+                "WAR-LEAD-141-02"
+              ],
+              "object_id": "SOUTHWEST",
+              "object_name": "西南边疆",
+              "reason": "有界推断：依任期边界的州郡、防线与守戍存续，按标准区域取1.00（整体有效）；不由一次胜负或名义声索外推更大控制。",
+              "spatial_weight": 0.5
+            },
+            {
+              "anchors": [
+                "end"
+              ],
+              "control_equivalent": 0.25,
+              "control_form": "边郡、戍防与可执行地方管理",
+              "counted": true,
+              "coverage_factor": 0.5,
+              "evidence_refs": [
+                "HANDOVER-南齐-494",
+                "WAR-LEAD-141-01",
+                "WAR-LEAD-141-02"
+              ],
+              "object_id": "SOUTHWEST",
+              "object_name": "西南边疆",
+              "reason": "有界推断：依任期边界的州郡、防线与守戍存续，按标准区域取0.50（约半个主要走廊或网络）；不由一次胜负或名义声索外推更大控制。",
+              "spatial_weight": 0.5
+            }
+          ],
+          "b1_region_control": {
+            "end": {
+              "HUAI_FRONTIER": 0.35,
+              "LINGNAN": 0.8,
+              "SOUTHWEST": 0.25
+            },
+            "start": {
+              "HUAI_FRONTIER": 0.35,
+              "LINGNAN": 0.8,
+              "SOUTHWEST": 0.5
+            }
+          },
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "control_contribution_grade_cap": 0,
+          "control_contribution_type": "INHERITED_ONLY",
+          "coverage_status": "FORMAL_CURRENT",
+          "defense_event_count": 4,
+          "evidence_event_refs": [
+            "WAR-LEAD-141-01",
+            "WAR-LEAD-141-02",
+            "WAR-LEAD-141-03",
+            "WAR-LEAD-141-04",
+            "WAR-LEAD-142-01",
+            "WAR-LEAD-142-03",
+            "WAR-LEAD-142-04",
+            "WAR-LEAD-142-05",
+            "WAR-LEAD-144-07",
+            "WAR-PARENT-NC-QI-COUPS-494"
+          ],
+          "hold_event_refs": [],
+          "major_in_reign_reversal_refs": [
+            "WAR-LEAD-141-01",
+            "WAR-LEAD-141-03"
+          ],
+          "non_defense_routing_refs": [],
+          "partition": "两晋十六国南北朝隋",
+          "polity": "南齐",
+          "primary_control_package_refs": [],
+          "primary_threat_refs": [
+            "WAR-LEAD-141-01",
+            "WAR-LEAD-141-03",
+            "WAR-LEAD-141-04"
+          ],
+          "rationale": "分区实审已完成五轴、主体方向、交班边界与B1空间快照闭合。",
+          "reign_range": [
+            494,
+            498
+          ],
+          "ruler_id": "RULER-SHADOW-萧鸾",
+          "ruler_name": "萧鸾",
+          "score_ready": true,
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "terminal_polity_collapse": false,
+          "parent_cycle_refs": [
+            "NC-V141-LEAD-141-03",
+            "NC-V141-LEAD-141-04",
+            "NC-V141-LEAD-141-01",
+            "NC-QI-COUPS-494"
+          ],
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "excluded_founding_unification_refs": [],
+          "observed_parent_cycle_count": 8,
+          "A120_non_cost_anchor_points": 15.6,
+          "A120_positive_result_credit_points": 0.0,
+          "A120_score_points": 15.6,
+          "B80_score_points": 11.4,
+          "AB200_score_points": 27.0,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": 0.0,
+              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_category": "NO_CHANGE",
+              "axis_points": 14.4,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 2,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": 0,
+              "reversal_basis": "现有材料未闭合本人造成且未被终点表达的额外恶化",
+              "reversal_grade": "NONE_RECOVERED_OR_NOT_ATTRIBUTABLE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 2,
+              "trajectory_value": 24.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            },
+            "A2": {
+              "attributable_delta": -1.0,
+              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 1.2,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 1,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": -1,
+              "reversal_basis": "终点下降已消费负向结果，禁止重复处罚",
+              "reversal_grade": "CONSUMED_BY_TERMINAL_DECLINE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 2,
+              "trajectory_value": 2.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 11.4,
+            "formal_B1_rate": 37.0,
+            "formal_B2_rate": 0.0,
+            "formal_B4_rate": 0.0,
+            "adjudicated_B1_rate": 37.0,
+            "adjudicated_B2_rate": 0.0,
+            "adjudicated_B4_rate": 0.0,
+            "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -30,6 +30,17 @@ canonical_ruler_pool:
   markdown: docs/项目总纲/正式评价对象范围.md
   policy: effective independent highest power for at least 3 years; pending second-item settlement blocks composite readiness, not admission
 
+formal_json_routing:
+  status: current
+  schema_version: formal-json-polity-router-v1
+  shard_schema_version: formal-json-polity-shard-v1
+  route_key: polity
+  routed_file_count: 22
+  loader: src/emperor_v4/evaluation/formal_json_store.py
+  polity_source: canonical ruler id, source-item id and legacy id map to config/common/canonical-ruler-pool.json polity; unmatched historical records retain their explicit polity
+  scope: tracked settlement JSON files at least 500KB
+  exclusions: audit, review, acceptance and report JSON sidecars remain monolithic
+
 formal_settlements:
   first_item:
     max_points: 240

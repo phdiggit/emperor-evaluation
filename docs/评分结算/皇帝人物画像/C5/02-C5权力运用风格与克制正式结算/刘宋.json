@@ -1,0 +1,581 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "刘宋",
+  "collections": {
+    "records": {
+      "positions": [
+        82,
+        83,
+        164,
+        172
+      ],
+      "records": [
+        {
+          "sequence": 93,
+          "ruler_id": "RULER-SHADOW-刘义隆",
+          "ruler_name": "刘义隆",
+          "axis_grade": "G2",
+          "position": "HIGH",
+          "confidence": "MEDIUM",
+          "output_mode": "BOUNDED_PROFILE",
+          "score_status": "EVIDENCE_LIMITED",
+          "typical_pattern": "檀道济没有已经发动的现实叛乱，文帝与刘义康主要基于功高、军望和皇帝病重后的潜在威胁实施预防性处置；刘义康早年确曾“势倾天下”，其集团多次出现谋立活动；失势后又发生范晔案、胡诞世等人欲奉其为主。",
+          "grade_basis": "檀道济案足以形成非常深的下沿，并把刘义隆压在G2；但一条大案即使覆盖一家多人，也不能与长期酷吏、党锢、文字狱或跨阶段群体清洗等权；刘义康案又存在现实政治风险，不能用于凑成MI4；定 G2-HIGH / E2。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-HIGH。",
+          "limitations": [
+            "刘义康等政治处置的具体证据、程序和本人终局决定需进一步闭合。"
+          ],
+          "parents": [
+            {
+              "parent_id": "C5-P093-JUDICIAL",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "停止强迫子孙指证父祖。"
+            },
+            {
+              "parent_id": "C5-P093-COERCIVE",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "异议者强制追究与宗室权力收回。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-LSONG-LIUYILONG-ACADEMY-SYSTEM-001",
+                "I2-QIN95-F---124-043-governor-rotation"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "学馆与地方轮换属于一般制度行政。"
+            },
+            {
+              "unit_ids": [
+                "I2-LSONG-WENDI-CAIKUO-JUDICIAL-CORRECTION-001"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P093-JUDICIAL",
+              "reason": "司法异议到达并实际改变亲属指证程序。"
+            },
+            {
+              "unit_ids": [
+                "FACT-AB27ED63937035D2"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P093-COERCIVE",
+              "reason": "宗室权力收回与政治处置进入C5。"
+            },
+            {
+              "unit_ids": [
+                "I2-LSONG-WENDI-NORTHERN-EXPEDITION-CORRECTION-FAILURE-001",
+                "FACT-6D6CD5D1EB686F38"
+              ],
+              "status": "AXIS_OUT_WITH_REASON",
+              "reason": "北伐多方劝阻不纳主要评价战略判断C1。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-SHADOW-刘义隆",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 51,
+          "score_100": 51,
+          "current_entry_unit_count": 6,
+          "current_entry_disposition_counts": {
+            "AXIS_OUT_WITH_REASON": 2,
+            "BACKGROUND_VALIDATION": 2,
+            "SCORING_PARENT": 2
+          },
+          "axis_evidence_level": "E2",
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-SHADOW-刘义隆",
+          "actual_power_window": "424—453年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P093-JUDICIAL",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "停止强迫子孙指证父祖。"
+            },
+            {
+              "parent_id": "C5-P093-COERCIVE",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "异议者强制追究与宗室权力收回。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P093-JUDICIAL"
+            ],
+            "negative_parent_refs": [
+              "C5-P093-COERCIVE"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P093-JUDICIAL",
+              "C5-P093-COERCIVE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《宋书》卷四十三《檀道济传》：https://www.zhonghuashu.com/wiki/宋書_(四庫全書本)/卷043",
+            "《宋书·彭城王义康传》相关材料。"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 檀道济案：覆盖很宽、烈度极深，但本质仍是一条清算生命周期",
+              "details": [
+                "檀道济没有已经发动的现实叛乱，文帝与刘义康主要基于功高、军望和皇帝病重后的潜在威胁实施预防性处置。",
+                "《宋书》记檀道济被收付廷尉后，檀氏多名儿子及薛彤、高进之等腹心先后被诛，范围明显超过只处理本人。",
+                "这不是普通“误杀一个功臣”，而是预防性清除核心统帅并向子嗣、腹心扩大，个案烈度和覆盖均很高。",
+                "但所有行动仍围绕同一檀道济安全案件展开，应定 NEGATIVE / MI2_LIFECYCLE，增加 EXTENDED_FAMILY_PURGE / EXTREME_DEEP_FLOOR 标记；不能仅因杀多人直接称MI4。"
+              ]
+            },
+            {
+              "title": "B. 刘义康终局负证需降低纯度",
+              "details": [
+                "刘义康早年确曾“势倾天下”，其集团多次出现谋立活动；失势后又发生范晔案、胡诞世等人欲奉其为主。",
+                "元嘉二十八年北魏大军南下时，文帝因担心再次被拥立而赐死义康，仍具有明显预防性和不可逆性。",
+                "但由于真实拥立/谋反集团反复存在，不能把刘义康简单写成“已无任何现实威胁的无辜宗室”；该案只保留 MIXED_NEGATIVE / MI2_LIFECYCLE，归责纯度低于檀道济案。"
+              ]
+            },
+            {
+              "title": "C. 反向材料是真实的",
+              "details": [
+                "讨谢晦等现实政敌时，文帝曾明令“罪止元凶，馀无所问”。",
+                "檀道济早年虽被胁从卷入废立，文帝也曾区分其并非创谋而继续重用。",
+                "说明“扩大清洗”并非全期、全场景固定模式。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 2,
+            "linked_source_count": 1,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "VALIDATED"
+        },
+        {
+          "sequence": 98,
+          "ruler_id": "RULER-SHADOW-刘裕",
+          "ruler_name": "刘裕",
+          "axis_grade": "G2",
+          "position": "HIGH",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "刘裕受禅后，司马德文已降为零陵王，失去军政权力；零陵王所生男孩，史载“每生男辄杀”。",
+          "grade_basis": "晋恭帝一族不是普通“杀一个前朝皇帝”：其男性后嗣被反复预防性清除，已经达到持续性家族灭绝模式；但它仍是同一皇族的一条持续负链，不等于全国性或跨集团MI4清洗；负链烈度极深，正向又有两个独立自限场景，G2-HIGH / E3维持最稳。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-HIGH。",
+          "limitations": [
+            "惩罚父链的对象、程序和后续恢复材料有限。"
+          ],
+          "parents": [
+            {
+              "parent_id": "C5-P098-CORRECTION",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "异议到达后立即停止宠幸妨政。"
+            },
+            {
+              "parent_id": "C5-P098-PURSUIT",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "异议者遭强制追究。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-QIN95-LIUYU-AB1-CENTRAL",
+                "FACT-439D9BB94B18CC23"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "中枢运转与军事授权属于C3背景。"
+            },
+            {
+              "unit_ids": [
+                "FACT-A7C71B0235303C1E"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P098-CORRECTION",
+              "reason": "异议进入且本人即时调整，构成正向生命周期。"
+            },
+            {
+              "unit_ids": [
+                "I2-QIN95-F---118-079-coercive-pursuit"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P098-PURSUIT",
+              "reason": "对异议者的强制处置作为独立负向父链。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-SHADOW-刘裕",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 51,
+          "score_100": 51,
+          "current_entry_unit_count": 4,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 2,
+            "SCORING_PARENT": 2
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-SHADOW-刘裕",
+          "actual_power_window": "404—422年实际掌权至宋帝",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P098-CORRECTION",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "异议到达后立即停止宠幸妨政。"
+            },
+            {
+              "parent_id": "C5-P098-PURSUIT",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "异议者遭强制追究。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P098-CORRECTION"
+            ],
+            "negative_parent_refs": [
+              "C5-P098-PURSUIT"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P098-CORRECTION",
+              "C5-P098-PURSUIT"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《资治通鉴》卷一百一十九：晋恭帝及男嗣处置。",
+            "https://zh.wikisource.org/zh-hans/資治通鑑/卷119",
+            "《宋书》卷四十四《谢晦传》。",
+            "《宋书》卷四十五《王镇恶传》。"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 晋恭帝退位后仍遭谋杀：政治斗争豁免已经结束",
+              "details": [
+                "刘裕受禅后，司马德文已降为零陵王，失去军政权力。",
+                "刘裕先令张伟以毒酒鸩杀；张伟不忍，自己饮毒而死。",
+                "这是最高权力主动谋杀已经退出现实争权的前君主，C5直接计负。"
+              ]
+            },
+            {
+              "title": "B. “每生男辄杀”：同一皇族内的持续灭嗣",
+              "details": [
+                "零陵王所生男孩，史载“每生男辄杀”。",
+                "儿童显然不是现实政治竞争者；这是对未来潜在威胁的预防性清除。",
+                "其特点是反复、持续、对象由前君主扩大到无辜男性后嗣，烈度和持续性都远高于普通单次误杀。"
+              ]
+            },
+            {
+              "title": "D. 对现实政敌的非扩大正证",
+              "details": [
+                "讨刘毅前，刘裕明确命王镇恶“罪止一人，其余一无所问”。",
+                "这里真正有C5价值的是主动放弃继续清党，可定 POSITIVE / MI2_LIFECYCLE。"
+              ]
+            },
+            {
+              "title": "E. 私人享用也有实际收束",
+              "details": [
+                "后秦宗室女子得宠妨政，谢晦微谏后刘裕即时遣出。",
+                "岭南贡极细布，刘裕以劳民为由退还并禁制。",
+                "可合并为第二组 POSITIVE / MI2_LIFECYCLE 反证。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 3,
+            "locator_count": 4,
+            "linked_source_count": 1,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 99,
+          "ruler_id": "RULER-SHADOW-刘骏",
+          "ruler_name": "刘骏",
+          "axis_grade": "G1",
+          "position": "LOW",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "竟陵王刘诞公开叛乱，处置刘诞本人属于政治斗争，不计C5；颜竣因私下怨言、被人转述，后又被诬与刘诞通谋；刘骏先折其足再赐死，妻子流徙，途中又沉杀其男口。",
+          "grade_basis": "竟陵王刘诞公开叛乱，处置刘诞本人属于政治斗争，不计C5；但城破后刘骏命广陵城中士民“无大小悉杀”，经沈庆之力争才保全五尺以下；最终仍杀三千余口，女子给军赏；这显然已经越过对现实叛乱首领的必要处置，属于战后向普通人口扩大的群体惩罚，应定高覆盖 MI3/MI4 负链；颜竣因私下怨言、被人转述，后又被诬与刘诞通谋；刘骏先折其足再赐死，妻子流徙，途中又沉杀其男口。",
+          "position_basis": "广陵战后平民大杀与跨对象恐惧环境坐实强短板。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P099-FEAR",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "长期猜忌、横死恐惧和法律责任扩大。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-LIUSONG-LIUJUN-LAW-FILIAL-OFFENSE-EXPANSION",
+                "I2-LIUSONG-LIUJUN-LAW-OFFICIAL-HOMICIDE-RULING",
+                "I2-QIN95-F---130-010-predecessor-death",
+                "FACT-F561B3B51EB302B9"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P099-FEAR",
+              "reason": "法律扩责、异议者安全崩溃和长期恐惧共同闭合系统父链。"
+            },
+            {
+              "unit_ids": [
+                "FACT-D1DA7AFF044434FC"
+              ],
+              "status": "AXIS_OUT_WITH_REASON",
+              "reason": "军事授权失败属于C3/M1。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-SHADOW-刘骏",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 18,
+          "score_100": 18,
+          "current_entry_unit_count": 6,
+          "current_entry_disposition_counts": {
+            "AXIS_OUT_WITH_REASON": 1,
+            "SCORING_PARENT": 5
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 1,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-SHADOW-刘骏",
+          "actual_power_window": "453—464年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P099-FEAR",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "长期猜忌、横死恐惧和法律责任扩大。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [
+              "C5-P099-FEAR"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P099-FEAR"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《资治通鉴》卷一百二十九：广陵平叛后士民大杀、颜竣案。",
+            "https://zh.wikisource.org/zh-hans/資治通鑑_(四庫全書本)/卷129",
+            "《宋书》卷六《孝武帝纪》。",
+            "https://zh.wikisource.org/zh-hans/宋書/卷6"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 广陵平叛后的士民大杀是高覆盖强证",
+              "details": [
+                "竟陵王刘诞公开叛乱，处置刘诞本人属于政治斗争，不计C5。",
+                "但城破后刘骏命广陵城中士民“无大小悉杀”，经沈庆之力争才保全五尺以下；最终仍杀三千余口，女子给军赏。",
+                "这显然已经越过对现实叛乱首领的必要处置，属于战后向普通人口扩大的群体惩罚，应定高覆盖 MI3/MI4 负链。"
+              ]
+            },
+            {
+              "title": "B. 颜竣案再次出现个人怨望—酷刑—家属扩大",
+              "details": [
+                "颜竣因私下怨言、被人转述，后又被诬与刘诞通谋；刘骏先折其足再赐死，妻子流徙，途中又沉杀其男口。",
+                "这不是普通一人处死，而是对表达和疑忌的家属扩大。"
+              ]
+            },
+            {
+              "title": "C. 恐惧已成为全朝环境",
+              "details": [
+                "后世材料概括孝武时“王公大臣惧诛，重足屏息”，其死后多人相贺“今日始免横死”。",
+                "结合上述群体与家属扩大，足以维持强短板下沿。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 4,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "VALIDATED"
+        },
+        {
+          "sequence": 95,
+          "ruler_id": "RULER-SHADOW-刘彧",
+          "ruler_name": "刘彧",
+          "axis_grade": "G0",
+          "position": "MID",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "《宋书·明帝纪》所载晚年忌讳不是几个著名个案：言语文书需回避者“数百千品”，有犯即加罪戮，内外常惧触犯、人不自保；正史概括“左右失旨忤意，往往有斮刳断截者”，说明法外肢解已经是重复惩罚风格，而不是一次盛怒误杀。",
+          "grade_basis": "表达禁忌系统 + 任意酷刑仍足以留在G0；但覆盖主要集中宫廷、中枢和晚期阶段，不与万人级、全国多机制G0-LOW等权；改为 G0-MID / E3。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G0-MID。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P095-TORTURE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "忤意者反复遭酷刑肢解。"
+            },
+            {
+              "parent_id": "C5-P095-TABOO",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "言语文书忌讳系统化并以罪戮维持。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-QIN95-F---133-031-central-reassurance",
+                "FACT-40EF3E85B4C9E8DC"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "中枢安定与军事授权属于一般行政/C3背景。"
+            },
+            {
+              "unit_ids": [
+                "FACT-5A646302B4937F13"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P095-TORTURE",
+              "reason": "跨对象持续酷刑直接命中比例和程序。"
+            },
+            {
+              "unit_ids": [
+                "I2-LSONG-MINGDI-FEEDBACK-SAFETY-COLLAPSE-001",
+                "FACT-23C286E3C3BB43A1"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P095-TABOO",
+              "reason": "言语文书反馈安全和系统寒蝉为同一父链。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-SHADOW-刘彧",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 7,
+          "score_100": 7,
+          "current_entry_unit_count": 5,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 2,
+            "SCORING_PARENT": 3
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 0,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-SHADOW-刘彧",
+          "actual_power_window": "465—472年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P095-TORTURE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "忤意者反复遭酷刑肢解。"
+            },
+            {
+              "parent_id": "C5-P095-TABOO",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "言语文书忌讳系统化并以罪戮维持。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [
+              "C5-P095-TORTURE",
+              "C5-P095-TABOO"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P095-TORTURE",
+              "C5-P095-TABOO"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《资治通鉴》卷一百三十三：晚年“数百千品”禁忌、“有犯必加罪戮”、左右忤意往往刳斮。",
+            "https://zh.wikisource.org/zh-hans/资治通鉴_(四库全书本)/卷133",
+            "《钦定古今图书集成》引《宋书·明帝本纪》同段。",
+            "https://zh.wikisource.org/zh-hans/钦定古今图书集成/明伦汇编/人事典/第055卷"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 数百千种禁忌并“犯者必加罪戮”是真正系统恐怖",
+              "details": [
+                "《宋书·明帝纪》所载晚年忌讳不是几个著名个案：言语文书需回避者“数百千品”，有犯即加罪戮，内外常惧触犯、人不自保。",
+                "这是跨对象、持续的表达安全压制，可保留 MI4。"
+              ]
+            },
+            {
+              "title": "B. 任意酷刑也是重复行为而非单案",
+              "details": [
+                "正史概括“左右失旨忤意，往往有斮刳断截者”，说明法外肢解已经是重复惩罚风格，而不是一次盛怒误杀。",
+                "另有宫中身份/生育强制等私人权力滥用，强化下沿。"
+              ]
+            },
+            {
+              "title": "C. 宗室处置需要政治斗争拆分",
+              "details": [
+                "休祐、休仁、休若等多名兄弟被预防性清除非常恶劣，但处于皇位继承、幼主安排和宗室掌兵风险中；不应把所有宗室死亡重复堆成MI4。",
+                "这次降档主要来自这里的轴纯度修正。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 4,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        }
+      ]
+    }
+  }
+}

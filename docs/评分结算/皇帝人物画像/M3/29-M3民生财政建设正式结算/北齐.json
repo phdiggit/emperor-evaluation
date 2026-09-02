@@ -1,0 +1,642 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "北齐",
+  "collections": {
+    "records": {
+      "positions": [
+        125,
+        163,
+        182
+      ],
+      "records": [
+        {
+          "task_code": "PROFILE-M3-RULER-SHADOW-高湛",
+          "ruler_id": "RULER-SHADOW-高湛",
+          "ruler_name": "高湛",
+          "polity": "北齐",
+          "actual_power_window": "561—569年含太上皇实际掌权期",
+          "axis_code": "M3",
+          "axis_name": "民生财政建设",
+          "axis_grade": "G2",
+          "position": "LOW",
+          "score_100": 38,
+          "radar_value": 38,
+          "components": {
+            "C1": {
+              "band": "C1-2",
+              "score": 17.1
+            },
+            "C2": {
+              "band": "C2-2",
+              "score": 7.0
+            },
+            "C3": {
+              "band": "C3-3",
+              "score": 26.9
+            },
+            "C4": {
+              "band": "C4-1",
+              "score": 7.4
+            }
+          },
+          "absolute_state_tier": 2,
+          "absolute_state_meanings": {
+            "C1": "民生低位且脆弱",
+            "C2": "经济财政低位承压",
+            "C3": "社会安全脆弱"
+          },
+          "ability_evidence": {
+            "route": "STAGNATION_OR_FAILURE",
+            "trajectory": {
+              "start_vector": [
+                2,
+                3,
+                2
+              ],
+              "main_vector": [
+                2,
+                2,
+                3
+              ],
+              "peak_vector": [
+                2,
+                2,
+                3
+              ],
+              "end_vector": [
+                2,
+                2,
+                3
+              ],
+              "peak_improvement_vector": [
+                0,
+                0,
+                1
+              ],
+              "retained_change_vector": [
+                0,
+                -1,
+                1
+              ],
+              "rollback_vector": [
+                0,
+                0,
+                0
+              ],
+              "improved_axis_count": 1,
+              "deep_improvement_axis_count": 0,
+              "retained_improvement_axis_count": 1,
+              "rollback_axis_count": 0,
+              "recovery_score_27": 2.4,
+              "stability_score_18": 6.4,
+              "start_tier": 2,
+              "peak_tier": 2,
+              "end_tier": 2
+            },
+            "governance_scale_class": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+            "governance_scale_basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+            "governance_scale_gate": {
+              "status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+              "classification": "UNRESOLVED",
+              "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+              "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+              "formal_subitem_sources": [
+                {
+                  "axis": "C4",
+                  "field_path": "m3_governance_scale_adjudication",
+                  "ref": "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-高湛"
+                }
+              ],
+              "supporting_formal_fields": []
+            },
+            "six_band_main_state": false,
+            "deterioration_penalty": 1.4,
+            "destructive_amplification_penalty": 0.0,
+            "upstream_sync": {
+              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_01",
+              "source_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-高湛",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-高湛",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-高湛",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-高湛"
+              ]
+            },
+            "destructive_amplification_grade": "DA0",
+            "stability_k_basis": {
+              "C1": {
+                "K_grade": "K4",
+                "factor": 1.0
+              },
+              "C2": {
+                "K_grade": "K4",
+                "factor": 1.0
+              },
+              "C3": {
+                "K_grade": "K2",
+                "factor": 0.6
+              }
+            },
+            "weighted_K": 0.87,
+            "stability_k_structure_status": "STRUCTURED_C4_FORMAL",
+            "stability_k_public_basis": "恢复分2.4/27；稳定承压6.4/18；C1=K4；C2=K4；C3=K2；正向保留8.8分。恢复事实按raw，C1恢复难度按formal复杂度门折算。"
+          },
+          "dynamic_class": "ATTRIBUTABLE_OR_MIXED_DECLINE",
+          "dynamic_label": "出现可归责或混合性退步",
+          "value_mode": "SEMANTIC_HOLISTIC_ADJUDICATION_WITH_FIXED_GRADE_PROJECTION",
+          "axis_evidence_level": "E2",
+          "confidence": "MEDIUM",
+          "output_mode": "BOUNDED_PROFILE",
+          "score_status": "FINAL",
+          "formal_status": "FORMAL_CURRENT",
+          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[2, 3, 2]、[2, 2, 3]、[2, 2, 3]、[2, 2, 3]；恢复2.4/27，稳定6.4/18；恶化扣减1.4，主动成本DA0/0.0。正式逐人裁决为G2-LOW。",
+          "counterpattern": "逐轴恶化归责：C1=NONE；C2=MATERIAL；C3=NONE，合计恶化扣1.4分。周、突厥方向主体为必要防御；两万人修墙具有明显防务基线，现有材料不足把其独立裁成非必要大型工程。役繁赋重等已进入C1/C2状态，不重复做DA，故DA0。",
+          "starting_context": "接手三轴起点为C1-2/C2-3/C3-2；最新全任曲线为C1-2→C1-2→C1-2；C2-3→C2-2→C2-2；C3-2→C3-3→C3-3。",
+          "construction_and_maintenance": "按正式档界公式重算恢复分2.4/27；稳定承压按当前K结构计6.4/18，未把恢复信用并入稳定分；正向保留8.8。",
+          "costs_and_consequences": "交班局面为[2, 2, 3]；可归责恶化扣减1.4；本人可选择行为的残余额外成本为DA0，扣减0.0。",
+          "behavior_chain": "逐轴恶化归责：C1=NONE；C2=MATERIAL；C3=NONE，合计恶化扣1.4分。周、突厥方向主体为必要防御；两万人修墙具有明显防务基线，现有材料不足把其独立裁成非必要大型工程。役繁赋重等已进入C1/C2状态，不重复做DA，故DA0。",
+          "handoff_state": "按交班向量[2, 2, 3]推导终局为C4T-2，正向上限15.9。",
+          "public_adjudication": "接手三轴起点为C1-2/C2-3/C3-2；最新全任曲线为C1-2→C1-2→C1-2；C2-3→C2-2→C2-2；C3-2→C3-3→C3-3。 恢复分2.4/27；稳定承压6.4/18；C1=K4；C2=K4；C3=K2；正向保留8.8分。恢复事实按原始，C1恢复难度按正式复杂度门折算。 逐轴恶化归责：C1=NONE；C2=MATERIAL；C3=NONE，合计恶化扣1.4分。周、突厥方向主体为必要防御；两万人修墙具有明显防务基线，现有材料不足把其独立裁成非必要大型工程。役繁赋重等已进入C1/C2状态，不重复做DA，故DA0。 交班原始为C1-2/C2-2/C3-3；终局C4T-2，正向上限15.9分。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G2。 当前档内位置为LOW；不以结构字段自动替代逐人语义裁决。",
+          "grade_basis": "依据当前C1—C4结构字段与逐人语义裁决，正式档位为G2。",
+          "position_basis": "当前档内位置为LOW；不以结构字段自动替代逐人语义裁决。",
+          "axis_relevance_check": {
+            "status": "HOLISTIC_C1_C4_SEMANTIC_ADJUDICATION",
+            "component_codes": [
+              "C1",
+              "C2",
+              "C3",
+              "C4"
+            ],
+            "component_sum_used": false,
+            "quantile_or_normalization_used": false,
+            "name_override_used": false,
+            "old_process_material_role": "BEHAVIOR_CHAIN_AND_ATTRIBUTION_REVIEW_ONLY"
+          },
+          "parents": [],
+          "limitations": [
+            "现有正式结果材料没有闭合到独立的本人过程父链，行为归责仅使用C4已审定部分，不能外推为完整政策能力画像。",
+            "受灾和战区有地域边界",
+            "政权整体仍在运行",
+            "直接锚只按其明示时段、地域与证据类型消费，不外推为全任全境。"
+          ],
+          "supplement_review": {
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-高湛",
+            "old_m3_parent_chain_count": 0,
+            "old_m3_candidate_count": 0,
+            "axis_dispositions": {
+              "C1": "SEARCHED_NO_OLD_M3_CANDIDATE",
+              "C2": "SEARCHED_NO_OLD_M3_CANDIDATE",
+              "C3": "SEARCHED_NO_OLD_M3_CANDIDATE",
+              "C4": "REVIEWED_C4_ATTRIBUTION_RETAINED"
+            }
+          },
+          "source_refs": [
+            "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-高湛",
+            "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-高湛",
+            "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-高湛",
+            "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-高湛"
+          ],
+          "source_evidence": [
+            {
+              "source_title": "《隋书·食货志》",
+              "quote": "是时频岁大水，州郡多遇沉溺，谷价腾踊。朝廷遣使开仓，从贵价以粜之，而百姓无益，饥馑尤甚，重以疾疫相乘，死者十四五焉。",
+              "source_origin": "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION"
+            },
+            {
+              "source_title": "《北齐书·武成帝纪》",
+              "quote": "四年二月壬申，以年谷不登，禁酤酒。己卯，诏减百官食禀各有差。",
+              "source_origin": "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION"
+            },
+            {
+              "source_title": "《北齐书·武成帝纪》",
+              "quote": "诏给……遭水潦之处贫下户粟各有差，家别斗升而已，又多不付。",
+              "source_origin": "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION"
+            }
+          ],
+          "contract_version": "FORMAL-V3.6"
+        },
+        {
+          "task_code": "PROFILE-M3-RULER-SHADOW-高纬",
+          "ruler_id": "RULER-SHADOW-高纬",
+          "ruler_name": "高纬",
+          "polity": "北齐",
+          "actual_power_window": "569—577年亲政至亡国",
+          "axis_code": "M3",
+          "axis_name": "民生财政建设",
+          "axis_grade": "G1",
+          "position": "LOW",
+          "score_100": 18,
+          "radar_value": 18,
+          "components": {
+            "C1": {
+              "band": "C1-2",
+              "score": 17.1
+            },
+            "C2": {
+              "band": "C2-1",
+              "score": 1.8
+            },
+            "C3": {
+              "band": "C3-2",
+              "score": 14.7
+            },
+            "C4": {
+              "band": "C4N-2",
+              "score": -13.9
+            }
+          },
+          "absolute_state_tier": 1,
+          "absolute_state_meanings": {
+            "C1": "民生低位且脆弱",
+            "C2": "经济财政接近失序",
+            "C3": "社会安全严重失守"
+          },
+          "ability_evidence": {
+            "route": "STAGNATION_OR_FAILURE",
+            "trajectory": {
+              "start_vector": [
+                2,
+                2,
+                3
+              ],
+              "main_vector": [
+                2,
+                1,
+                2
+              ],
+              "peak_vector": [
+                2,
+                1,
+                2
+              ],
+              "end_vector": [
+                2,
+                1,
+                1
+              ],
+              "peak_improvement_vector": [
+                0,
+                0,
+                0
+              ],
+              "retained_change_vector": [
+                0,
+                -1,
+                -2
+              ],
+              "rollback_vector": [
+                0,
+                0,
+                1
+              ],
+              "improved_axis_count": 0,
+              "deep_improvement_axis_count": 0,
+              "retained_improvement_axis_count": 0,
+              "rollback_axis_count": 1,
+              "recovery_score_27": 0.0,
+              "stability_score_18": 6.4,
+              "start_tier": 2,
+              "peak_tier": 2,
+              "end_tier": 1
+            },
+            "governance_scale_class": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+            "governance_scale_basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+            "governance_scale_gate": {
+              "status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+              "classification": "UNRESOLVED",
+              "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+              "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+              "formal_subitem_sources": [
+                {
+                  "axis": "C4",
+                  "field_path": "m3_governance_scale_adjudication",
+                  "ref": "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-高纬"
+                }
+              ],
+              "supporting_formal_fields": []
+            },
+            "six_band_main_state": false,
+            "deterioration_penalty": 6.8,
+            "destructive_amplification_penalty": 13.5,
+            "upstream_sync": {
+              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_01",
+              "source_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-高纬",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-高纬",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-高纬",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-高纬"
+              ]
+            },
+            "destructive_amplification_grade": "DA3",
+            "stability_k_basis": {
+              "C1": {
+                "K_grade": "K4",
+                "factor": 1.0
+              },
+              "C2": {
+                "K_grade": "K4",
+                "factor": 1.0
+              },
+              "C3": {
+                "K_grade": "K0",
+                "factor": 0.0
+              }
+            },
+            "weighted_K": 0.67,
+            "stability_k_structure_status": "STRUCTURED_C4_FORMAL",
+            "stability_k_public_basis": "恢复分0.0/27；稳定承压6.4/18；C1=K4；C2=K4；C3=K0；正向保留6.4分。恢复事实按raw，C1恢复难度按formal复杂度门折算。"
+          },
+          "dynamic_class": "ATTRIBUTABLE_OR_MIXED_DECLINE",
+          "dynamic_label": "出现可归责或混合性退步",
+          "value_mode": "SEMANTIC_HOLISTIC_ADJUDICATION_WITH_FIXED_GRADE_PROJECTION",
+          "axis_evidence_level": "E2",
+          "confidence": "MEDIUM",
+          "output_mode": "BOUNDED_PROFILE",
+          "score_status": "FINAL",
+          "formal_status": "FORMAL_CURRENT",
+          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[2, 2, 3]、[2, 1, 2]、[2, 1, 2]、[2, 1, 1]；恢复0.0/27，稳定6.4/18；恶化扣减6.8，主动成本DA3/13.5。正式逐人裁决为G1-LOW。",
+          "counterpattern": "逐轴恶化归责：C1=NONE；C2=FULL；C3=MATERIAL，合计恶化扣6.8分。周齐终局防御不计DA；DA计入持续奢建、赏赐导致府藏空竭，继而卖官、赋繁役重的主动成本。规模已由宫廷扩张传导到国家财政与广域民户，裁DA3。",
+          "starting_context": "接手三轴起点为C1-2/C2-2/C3-3；最新全任曲线为C1-2→C1-2→C1-2；C2-2→C2-1→C2-1；C3-3→C3-2→C3-1。",
+          "construction_and_maintenance": "按正式档界公式重算恢复分0.0/27；稳定承压按当前K结构计6.4/18，未把恢复信用并入稳定分；正向保留6.4。",
+          "costs_and_consequences": "交班局面为[2, 1, 1]；可归责恶化扣减6.8；本人可选择行为的残余额外成本为DA3，扣减13.5。",
+          "behavior_chain": "逐轴恶化归责：C1=NONE；C2=FULL；C3=MATERIAL，合计恶化扣6.8分。周齐终局防御不计DA；DA计入持续奢建、赏赐导致府藏空竭，继而卖官、赋繁役重的主动成本。规模已由宫廷扩张传导到国家财政与广域民户，裁DA3。",
+          "handoff_state": "按交班向量[2, 1, 1]推导终局为C4T-2，正向上限15.9。",
+          "public_adjudication": "接手三轴起点为C1-2/C2-2/C3-3；最新全任曲线为C1-2→C1-2→C1-2；C2-2→C2-1→C2-1；C3-3→C3-2→C3-1。 恢复分0.0/27；稳定承压6.4/18；C1=K4；C2=K4；C3=K0；正向保留6.4分。恢复事实按原始，C1恢复难度按正式复杂度门折算。 逐轴恶化归责：C1=NONE；C2=FULL；C3=MATERIAL，合计恶化扣6.8分。周齐终局防御不计DA；DA计入持续奢建、赏赐导致府藏空竭，继而卖官、赋繁役重的主动成本。规模已由宫廷扩张传导到国家财政与广域民户，裁DA3。 交班原始为C1-2/C2-1/C3-1；终局C4T-2，正向上限15.9分。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G1。 当前档内位置为LOW；不以结构字段自动替代逐人语义裁决。",
+          "grade_basis": "依据当前C1—C4结构字段与逐人语义裁决，正式档位为G1。",
+          "position_basis": "当前档内位置为LOW；不以结构字段自动替代逐人语义裁决。",
+          "axis_relevance_check": {
+            "status": "HOLISTIC_C1_C4_SEMANTIC_ADJUDICATION",
+            "component_codes": [
+              "C1",
+              "C2",
+              "C3",
+              "C4"
+            ],
+            "component_sum_used": false,
+            "quantile_or_normalization_used": false,
+            "name_override_used": false,
+            "old_process_material_role": "BEHAVIOR_CHAIN_AND_ATTRIBUTION_REVIEW_ONLY"
+          },
+          "parents": [],
+          "limitations": [
+            "现有正式结果材料没有闭合到独立的本人过程父链，行为归责仅使用C4已审定部分，不能外推为完整政策能力画像。",
+            "568年放宫口、准流人还乡等正面止损保留",
+            "亡国标签本身不扣档",
+            "直接锚只按其明示时段、地域与证据类型消费，不外推为全任全境。"
+          ],
+          "supplement_review": {
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-高纬",
+            "old_m3_parent_chain_count": 0,
+            "old_m3_candidate_count": 0,
+            "axis_dispositions": {
+              "C1": "SEARCHED_NO_OLD_M3_CANDIDATE",
+              "C2": "SEARCHED_NO_OLD_M3_CANDIDATE",
+              "C3": "SEARCHED_NO_OLD_M3_CANDIDATE",
+              "C4": "REVIEWED_C4_ATTRIBUTION_RETAINED"
+            }
+          },
+          "source_refs": [
+            "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-高纬",
+            "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-高纬",
+            "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-高纬",
+            "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-高纬"
+          ],
+          "source_evidence": [
+            {
+              "source_title": "《资治通鉴》",
+              "quote": "罷各地百工細作，釋老病宮人官口，坐流徙者聽還鄉。",
+              "source_origin": "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION"
+            },
+            {
+              "source_title": "《资治通鉴》",
+              "quote": "府藏空竭，賣官取直；賦繁役重，民不聊生。",
+              "source_origin": "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION"
+            }
+          ],
+          "contract_version": "FORMAL-V3.6"
+        },
+        {
+          "task_code": "PROFILE-M3-RULER-SHADOW-高洋",
+          "ruler_id": "RULER-SHADOW-高洋",
+          "ruler_name": "高洋",
+          "polity": "北齐",
+          "actual_power_window": "550—559年",
+          "axis_code": "M3",
+          "axis_name": "民生财政建设",
+          "axis_grade": "G0",
+          "position": "LOW",
+          "score_100": 2,
+          "radar_value": 2,
+          "components": {
+            "C1": {
+              "band": "C1-2",
+              "score": 17.1
+            },
+            "C2": {
+              "band": "C2-2",
+              "score": 7.0
+            },
+            "C3": {
+              "band": "C3-2",
+              "score": 16.0
+            },
+            "C4": {
+              "band": "C4N-4",
+              "score": -27.8
+            }
+          },
+          "absolute_state_tier": 2,
+          "absolute_state_meanings": {
+            "C1": "民生低位且脆弱",
+            "C2": "经济财政低位承压",
+            "C3": "社会安全脆弱"
+          },
+          "ability_evidence": {
+            "route": "STAGNATION_OR_FAILURE",
+            "trajectory": {
+              "start_vector": [
+                3,
+                4,
+                3
+              ],
+              "main_vector": [
+                2,
+                2,
+                2
+              ],
+              "peak_vector": [
+                2,
+                2,
+                2
+              ],
+              "end_vector": [
+                2,
+                2,
+                2
+              ],
+              "peak_improvement_vector": [
+                0,
+                0,
+                0
+              ],
+              "retained_change_vector": [
+                -1,
+                -2,
+                -1
+              ],
+              "rollback_vector": [
+                0,
+                0,
+                0
+              ],
+              "improved_axis_count": 0,
+              "deep_improvement_axis_count": 0,
+              "retained_improvement_axis_count": 0,
+              "rollback_axis_count": 0,
+              "recovery_score_27": 0.0,
+              "stability_score_18": 6.4,
+              "start_tier": 3,
+              "peak_tier": 2,
+              "end_tier": 2
+            },
+            "governance_scale_class": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+            "governance_scale_basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+            "governance_scale_gate": {
+              "status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+              "classification": "UNRESOLVED",
+              "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+              "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+              "formal_subitem_sources": [
+                {
+                  "axis": "C4",
+                  "field_path": "m3_governance_scale_adjudication",
+                  "ref": "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-高洋"
+                }
+              ],
+              "supporting_formal_fields": []
+            },
+            "six_band_main_state": false,
+            "deterioration_penalty": 16.2,
+            "destructive_amplification_penalty": 18.0,
+            "upstream_sync": {
+              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_01",
+              "source_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-高洋",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-高洋",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-高洋",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-高洋"
+              ]
+            },
+            "destructive_amplification_grade": "DA4",
+            "stability_k_basis": {
+              "C1": {
+                "K_grade": "K4",
+                "factor": 1.0
+              },
+              "C2": {
+                "K_grade": "K4",
+                "factor": 1.0
+              },
+              "C3": {
+                "K_grade": "K4",
+                "factor": 1.0
+              }
+            },
+            "weighted_K": 1.0,
+            "stability_k_structure_status": "STRUCTURED_C4_FORMAL",
+            "stability_k_public_basis": "恢复分0.0/27；稳定承压6.4/18；C1=K4；C2=K4；C3=K4；正向保留6.4分。恢复事实按raw，C1恢复难度按formal复杂度门折算。"
+          },
+          "dynamic_class": "ATTRIBUTABLE_OR_MIXED_DECLINE",
+          "dynamic_label": "出现可归责或混合性退步",
+          "value_mode": "SEMANTIC_HOLISTIC_ADJUDICATION_WITH_FIXED_GRADE_PROJECTION",
+          "axis_evidence_level": "E2",
+          "confidence": "MEDIUM",
+          "output_mode": "BOUNDED_PROFILE",
+          "score_status": "FINAL",
+          "formal_status": "FORMAL_CURRENT",
+          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[3, 4, 3]、[2, 2, 2]、[2, 2, 2]、[2, 2, 2]；恢复0.0/27，稳定6.4/18；恶化扣减16.2，主动成本DA4/18.0。正式逐人裁决为G0-LOW。",
+          "counterpattern": "逐轴恶化归责：C1=FULL；C2=FULL；C3=FULL，合计恶化扣16.2分。除主动外战外，天保六年一次征发一百八十万人筑九百余里长城，规模远超普通营造；与台殿、赏赐等叠加，对全国生产劳役形成极端汲取，裁DA4。",
+          "starting_context": "接手三轴起点为C1-3/C2-4/C3-3；最新全任曲线为C1-3→C1-2→C1-2；C2-4→C2-2→C2-2；C3-3→C3-2→C3-2。",
+          "construction_and_maintenance": "按正式档界公式重算恢复分0.0/27；稳定承压按当前K结构计6.4/18，未把恢复信用并入稳定分；正向保留6.4。",
+          "costs_and_consequences": "交班局面为[2, 2, 2]；可归责恶化扣减16.2；本人可选择行为的残余额外成本为DA4，扣减18.0。",
+          "behavior_chain": "逐轴恶化归责：C1=FULL；C2=FULL；C3=FULL，合计恶化扣16.2分。除主动外战外，天保六年一次征发一百八十万人筑九百余里长城，规模远超普通营造；与台殿、赏赐等叠加，对全国生产劳役形成极端汲取，裁DA4。",
+          "handoff_state": "按交班向量[2, 2, 2]推导终局为C4T-2，正向上限15.9。",
+          "public_adjudication": "接手三轴起点为C1-3/C2-4/C3-3；最新全任曲线为C1-3→C1-2→C1-2；C2-4→C2-2→C2-2；C3-3→C3-2→C3-2。 恢复分0.0/27；稳定承压6.4/18；C1=K4；C2=K4；C3=K4；正向保留6.4分。恢复事实按原始，C1恢复难度按正式复杂度门折算。 逐轴恶化归责：C1=FULL；C2=FULL；C3=FULL，合计恶化扣16.2分。除主动外战外，天保六年一次征发一百八十万人筑九百余里长城，规模远超普通营造；与台殿、赏赐等叠加，对全国生产劳役形成极端汲取，裁DA4。 交班原始为C1-2/C2-2/C3-2；终局C4T-2，正向上限15.9分。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G0。 当前档内位置为LOW；不以结构字段自动替代逐人语义裁决。",
+          "grade_basis": "依据当前C1—C4结构字段与逐人语义裁决，正式档位为G0。",
+          "position_basis": "当前档内位置为LOW；不以结构字段自动替代逐人语义裁决。",
+          "axis_relevance_check": {
+            "status": "HOLISTIC_C1_C4_SEMANTIC_ADJUDICATION",
+            "component_codes": [
+              "C1",
+              "C2",
+              "C3",
+              "C4"
+            ],
+            "component_sum_used": false,
+            "quantile_or_normalization_used": false,
+            "name_override_used": false,
+            "old_process_material_role": "BEHAVIOR_CHAIN_AND_ATTRIBUTION_REVIEW_ONLY"
+          },
+          "parents": [
+            {
+              "parent_id": "M3P-SEM-5E24AD811D82",
+              "direction": "NEGATIVE",
+              "material_intensity": "MI2_LIFECYCLE",
+              "constraint_and_task": "高洋后期滥杀营造与赏罚失序形成行政主导负向",
+              "personal_choice": "",
+              "feedback_and_response": "",
+              "source_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/northern_qi.json#material_id=I2-NQI-GAOYANG-LATE-ADMIN-COLLAPSE-001",
+                "https://zh.wikisource.org/w/index.php?title=%E5%8C%97%E9%BD%8A%E6%9B%B8%2F%E5%8D%B74&oldid=2576166"
+              ],
+              "use_boundary": "BEHAVIOR_FEEDBACK_ATTRIBUTION_REVIEW_NOT_INDEPENDENT_GRADE_CONVERSION"
+            }
+          ],
+          "limitations": [
+            "财政接近失灵但未证全国社会运行全面崩溃",
+            "国家府藏不足不单独等同民穷",
+            "直接锚只按其明示时段、地域与证据类型消费，不外推为全任全境。",
+            "DIRECTLY STATED ALTERNATIVES",
+            "PHASE EXACTNESS"
+          ],
+          "supplement_review": {
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-高洋",
+            "old_m3_parent_chain_count": 1,
+            "old_m3_candidate_count": 1,
+            "axis_dispositions": {
+              "C1": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+              "C2": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+              "C3": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+              "C4": "REVIEWED_C4_ATTRIBUTION_RETAINED"
+            }
+          },
+          "source_refs": [
+            "docs/公共成果/制度行政/01-制度行政计分材料登记/northern_qi.json#material_id=I2-NQI-GAOYANG-LATE-ADMIN-COLLAPSE-001",
+            "https://zh.wikisource.org/w/index.php?title=%E5%8C%97%E9%BD%8A%E6%9B%B8%2F%E5%8D%B74&oldid=2576166",
+            "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-高洋",
+            "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-高洋",
+            "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-高洋",
+            "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-高洋"
+          ],
+          "source_evidence": [
+            {
+              "source_title": "《隋书·食货志》",
+              "quote": "豪党兼并，户口益多隐漏……由是奸欺尤甚，户口租调，十亡六七。",
+              "source_origin": "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION"
+            },
+            {
+              "source_title": "《隋书·食货志》",
+              "quote": "是时用度转广，赐与无节，府藏之积不足以供，乃减百官之禄，撤军人常廪。",
+              "source_origin": "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION"
+            },
+            {
+              "source_title": "《隋书·食货志》",
+              "quote": "百姓惊扰，属以频岁不熟，米籴踊贵矣。",
+              "source_origin": "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION"
+            }
+          ],
+          "contract_version": "FORMAL-V3.6"
+        }
+      ]
+    }
+  }
+}

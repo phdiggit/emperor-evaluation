@@ -1,0 +1,1489 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "辽",
+  "collections": {
+    "records": {
+      "positions": [
+        3,
+        5,
+        17,
+        40,
+        78,
+        108,
+        114,
+        130,
+        138,
+        139
+      ],
+      "records": [
+        {
+          "sequence": 43,
+          "ruler_id": "RULER-LIAO-YELU-LONGXU",
+          "ruler_name": "耶律隆绪",
+          "axis_grade": "G4",
+          "position": "HIGH",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "大延琳叛乱中“杀渤海兵八百”出现在前线将领处置链，现有材料不足以闭合为圣宗本人直接命令；圣宗时期持续推进契丹、汉人杀人同法、贵戚犯法入刑、主人不得任意杀奴、死刑及重大案件进入复核。",
+          "grade_basis": "大延琳叛乱中“杀渤海兵八百”出现在前线将领处置链，现有材料不足以闭合为圣宗本人直接命令；且事件发生于真实武装叛乱中，必须适用政治斗争边界；不能继续作为圣宗个人C5深负链；圣宗时期持续推进契丹、汉人杀人同法、贵戚犯法入刑、主人不得任意杀奴、死刑及重大案件进入复核；这些规则不是纯文本，确实有地方官、权势者被实际追责和复审实例，能达到 MI4_CROSS_PHASE_SYSTEMIC。",
+          "position_basis": "撤销“本人杀渤海兵八百”归责。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P043-EQUAL-LAW",
+              "direction": "POSITIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "同罪同法、贵戚问罪、巡审复核跨地区长期运行。"
+            },
+            {
+              "parent_id": "C5-P043-TOKYO",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "东京扩税严刑推动叛乱，事后免租止损。"
+            },
+            {
+              "parent_id": "C5-P043-BOHAI",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "保州方向杀渤海兵八百。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-LIAO-MAT-641CEBE4E850D389"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "贡举与法制接口结构只作制度背景。"
+            },
+            {
+              "unit_ids": [
+                "I2-LIAO-MAT-7DCD550072C43C99",
+                "I2-LIAO-MAT-8BDE529603B242E2"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P043-EQUAL-LAW",
+              "reason": "规则、运行、贵戚受约束和共同复核闭合系统自缚。"
+            },
+            {
+              "unit_ids": [
+                "FACT-C14E80483542DAC6",
+                "FACT-93322EAAA1777696"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P043-TOKYO",
+              "reason": "东京税役严刑、监督失效和事后纠正按一条生命周期消费。"
+            },
+            {
+              "unit_ids": [
+                "FACT-7FD18DA865BDEA90"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P043-BOHAI",
+              "reason": "宽刑主模式与保州杀戮反证共载于正式事实；负向切片独立成父链。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-LIAO-YELU-LONGXU",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 87,
+          "score_100": 87,
+          "current_entry_unit_count": 9,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 1,
+            "SCORING_PARENT": 8
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 4,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-LIAO-YELU-LONGXU",
+          "actual_power_window": "[[982, 1009], [1009, 1031]]",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P043-EQUAL-LAW",
+              "direction": "POSITIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "同罪同法、贵戚问罪、巡审复核跨地区长期运行。"
+            },
+            {
+              "parent_id": "C5-P043-TOKYO",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "东京扩税严刑推动叛乱，事后免租止损。"
+            },
+            {
+              "parent_id": "C5-P043-BOHAI",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "保州方向杀渤海兵八百。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P043-EQUAL-LAW"
+            ],
+            "negative_parent_refs": [
+              "C5-P043-BOHAI"
+            ],
+            "mixed_parent_refs": [
+              "C5-P043-TOKYO"
+            ]
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P043-EQUAL-LAW",
+              "C5-P043-TOKYO",
+              "C5-P043-BOHAI"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《辽史·圣宗本纪》。",
+            "《辽史·刑法志》。"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 原渤海八百负链归责不足",
+              "details": [
+                "大延琳叛乱中“杀渤海兵八百”出现在前线将领处置链，现有材料不足以闭合为圣宗本人直接命令。",
+                "且事件发生于真实武装叛乱中，必须适用政治斗争边界；不能继续作为圣宗个人C5深负链。"
+              ]
+            },
+            {
+              "title": "B. 同罪同法与贵戚问罪仍是真正高强度正链",
+              "details": [
+                "圣宗时期持续推进契丹、汉人杀人同法、贵戚犯法入刑、主人不得任意杀奴、死刑及重大案件进入复核。",
+                "这些规则不是纯文本，确实有地方官、权势者被实际追责和复审实例，能达到 MI4_CROSS_PHASE_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "C. 不因此升G5",
+              "details": [
+                "辽代法律身份结构并未在其一朝完全消失；地方严刑、强制迁置以及战争占领处置仍构成反例背景。",
+                "同时高档证据相当依赖刑法志的制度汇总，反例暴露不如刘恒、赵祯、李世民完整。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 2,
+            "linked_source_count": 0,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "VALIDATED"
+        },
+        {
+          "sequence": 85,
+          "ruler_id": "RULER-ROSTER-0F3BA2C535371D66",
+          "ruler_name": "萧绰",
+          "axis_grade": "G4",
+          "position": "MID",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "承天太后称制二十余年间，刑法改革、贵戚问罪、限制主人私刑及巡狱复核均持续推进；该案属于私人情感和盛怒直接转为生命处分，烈度高；但仍是单一 MI1/MI2 深案，没有跨对象同构复发。",
+          "grade_basis": "承天太后称制二十余年间，刑法改革、贵戚问罪、限制主人私刑及巡狱复核均持续推进；《辽史》明确称其“留心听断”，并劝圣宗宽法律，不能把全部正向只归圣宗；该案属于私人情感和盛怒直接转为生命处分，烈度高；但仍是单一 MI1/MI2 深案，没有跨对象同构复发。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G4-MID。",
+          "limitations": [
+            "SOURCE_DENSITY_ASYMMETRY_REVIEW=COUNTEREVIDENCE_FOUND；现有官修史已暴露本人怒杀臣属个案。"
+          ],
+          "parents": [
+            {
+              "parent_id": "C5-P085-EQUAL-LAW",
+              "direction": "POSITIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "同罪同法、贵戚问罪、巡狱复核和宫廷财政约束长期运行。"
+            },
+            {
+              "parent_id": "C5-P085-HORSEMAN-KILLING",
+              "direction": "NEGATIVE",
+              "intensity": "MI1_CASE",
+              "basis": "韩德让击鞠坠马后，太后迁怒并杀当事侍从；本人归责且不可逆使其成为单案深下沿，但不是持续模式。",
+              "source_refs": [
+                "https://zh.wikisource.org/zh-hant/遼史/卷12"
+              ]
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-LIAO-MAT-BBAFC52C0C5ED8D3",
+                "FACT-4842658F6909B102"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "共同议政和军事授权属于组织/C3背景。"
+            },
+            {
+              "unit_ids": [
+                "I2-LIAO-MAT-5B20CB4093E25289",
+                "I2-LIAO-MAT-7146342BC93FCF7F"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P085-EQUAL-LAW",
+              "reason": "规则、实际运行、贵戚受约束和宫廷财政说明义务闭合系统自缚。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-ROSTER-0F3BA2C535371D66",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 82,
+          "score_100": 82,
+          "current_entry_unit_count": 7,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 3,
+            "SCORING_PARENT": 4
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 4,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-ROSTER-0F3BA2C535371D66",
+          "actual_power_window": "982—1009年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P085-EQUAL-LAW",
+              "direction": "POSITIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "同罪同法、贵戚问罪、巡狱复核和宫廷财政约束长期运行。"
+            },
+            {
+              "parent_id": "C5-P085-HORSEMAN-KILLING",
+              "direction": "NEGATIVE",
+              "intensity": "MI1_CASE",
+              "basis": "韩德让击鞠坠马后，太后迁怒并杀当事侍从；本人归责且不可逆使其成为单案深下沿，但不是持续模式。",
+              "source_refs": [
+                "https://zh.wikisource.org/zh-hant/遼史/卷12"
+              ]
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P085-EQUAL-LAW"
+            ],
+            "negative_parent_refs": [
+              "C5-P085-HORSEMAN-KILLING"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P085-EQUAL-LAW",
+              "C5-P085-HORSEMAN-KILLING"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《辽史·后妃传·睿智皇后》。",
+            "《辽史·刑法志》。",
+            "《辽史·圣宗本纪》。"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 同罪同法与贵戚约束可归责于其摄政窗口",
+              "details": [
+                "承天太后称制二十余年间，刑法改革、贵戚问罪、限制主人私刑及巡狱复核均持续推进。",
+                "《辽史》明确称其“留心听断”，并劝圣宗宽法律，不能把全部正向只归圣宗。"
+              ]
+            },
+            {
+              "title": "B. 韩德让坠马后怒杀侍从仍是深下沿",
+              "details": [
+                "该案属于私人情感和盛怒直接转为生命处分，烈度高；但仍是单一 MI1/MI2 深案，没有跨对象同构复发。"
+              ]
+            },
+            {
+              "title": "C. 高档结论",
+              "details": [
+                "制度性正向覆盖十余年至二十余年；单一怒杀和辽代身份结构反证锁住G4中位。"
+              ]
+            },
+            {
+              "title": "补充事实与边界",
+              "details": [
+                "《辽史·后妃传·睿智皇后》。",
+                "《辽史·刑法志》。",
+                "《辽史·圣宗本纪》。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 3,
+            "locator_count": 3,
+            "linked_source_count": 0,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "VALIDATED"
+        },
+        {
+          "sequence": 40,
+          "ruler_id": "RULER-LIAO-YELU-DASHI",
+          "ruler_name": "耶律大石",
+          "axis_grade": "G3",
+          "position": "HIGH",
+          "confidence": "MEDIUM",
+          "output_mode": "BOUNDED_PROFILE",
+          "score_status": "EVIDENCE_LIMITED",
+          "typical_pattern": "大石此前因立耶律淳一事已与天祚帝发生严重政治冲突；《宋史纪事本末》概括耶律大石西行。",
+          "grade_basis": "大石此前因立耶律淳一事已与天祚帝发生严重政治冲突；天祚反攻失败、政权继续崩解后，大石“自不安”，杀萧乙薛、坡里括，随即自立为王并率二百骑夜遁；这整个行为链就是大石与天祚旧政权决裂、自立的现实权力斗争；现有正史没有闭合：两人已经解除威胁后再被报复。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G3-HIGH。",
+          "limitations": [
+            "早晚两个权力窗口材料不对称。"
+          ],
+          "parents": [
+            {
+              "parent_id": "C5-P040-SURRENDER",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "归附者安置与军令边界。"
+            },
+            {
+              "parent_id": "C5-P040-KILLINGS",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "亲杀萧乙薛、坡里括。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-LIAO-MAT-B3D57EBA3A9F4240",
+                "I2-LIAO-MAT-BBDB2CC6360D73FA"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "国家组织与归附安置结构只作运行背景。"
+            },
+            {
+              "unit_ids": [
+                "I2-LIAO-MAT-FFD55161165E7D07",
+                "FACT-A6CACA1962298E79"
+              ],
+              "status": "AXIS_OUT_WITH_REASON",
+              "reason": "东征复盘和军事授权属于C1/C3/M1。"
+            },
+            {
+              "unit_ids": [
+                "FACT-7F0757E4014F4C0A"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P040-SURRENDER",
+              "reason": "同一事实单元含归附保护与亲杀政治对象；正负拆为两个父链，不按条数相抵。"
+            },
+            {
+              "unit_ids": [],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P040-KILLINGS",
+              "reason": "负向切片与上一等价事实单元共源，由父链拆分但不重复单元消费。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-LIAO-YELU-DASHI",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 71,
+          "score_100": 71,
+          "current_entry_unit_count": 7,
+          "current_entry_disposition_counts": {
+            "AXIS_OUT_WITH_REASON": 2,
+            "BACKGROUND_VALIDATION": 4,
+            "SCORING_PARENT": 1
+          },
+          "axis_evidence_level": "E2",
+          "grade_numeric": 3,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-LIAO-YELU-DASHI",
+          "actual_power_window": "1124—1143年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P040-SURRENDER",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "归附者安置与军令边界。"
+            },
+            {
+              "parent_id": "C5-P040-KILLINGS",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "亲杀萧乙薛、坡里括。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P040-SURRENDER"
+            ],
+            "negative_parent_refs": [
+              "C5-P040-KILLINGS"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P040-SURRENDER",
+              "C5-P040-KILLINGS"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《辽史》卷三十《耶律大石》",
+            "https://zh.wikisource.org/zh-hans/遼史/卷30",
+            "《宋史纪事本末》卷五十二：“所过敌者胜之，降者安之”",
+            "https://zh.wikisource.org/zh-hans/宋史紀事本末/卷52"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 萧乙薛、坡里括处置发生在现实最高权力冲突中",
+              "details": [
+                "大石此前因立耶律淳一事已与天祚帝发生严重政治冲突。",
+                "天祚反攻失败、政权继续崩解后，大石“自不安”，杀萧乙薛、坡里括，随即自立为王并率二百骑夜遁。",
+                "这整个行为链就是大石与天祚旧政权决裂、自立的现实权力斗争。",
+                "现有正史没有闭合：两人已经解除威胁后再被报复。",
+                "杀后二人家属被株连。",
+                "普通旧党遭扩大清洗。",
+                "因此不再作为C5负证。"
+              ]
+            },
+            {
+              "title": "B. 西行征服中的“降者安之”可以作为直接C5正向",
+              "details": [
+                "《宋史纪事本末》概括耶律大石西行。",
+                "“所过敌者胜之，降者安之。”。",
+                "这不是单一投降者个案，而是跨多个政治实体的持续征服规则。",
+                "对仍抵抗者作战：对已经投降者安置而不是继续杀戮。",
+                "它直接命中本项目新增规则最关注的“斗争结束后是否扩大报复”。",
+                "可作为 POSITIVE / MI3_SUSTAINED_SYSTEMIC 的候选，但因具体逐案史料密度不足，保守仍按E2发布，不升E3。"
+              ]
+            },
+            {
+              "title": "C. 回鹘等归附者获得协商式通过",
+              "details": [
+                "大石西行前致书回鹘王，请求借道；回鹘王迎接、提供人质并护送出境。",
+                "这说明其扩张并非统一使用无差别强制，但主要属于外交/联盟材料，不直接拔高C5。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 4,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 45,
+          "ruler_id": "RULER-LIAO-YELU-XIAN",
+          "ruler_name": "耶律贤",
+          "axis_grade": "G3",
+          "position": "MID",
+          "confidence": "MEDIUM",
+          "output_mode": "BOUNDED_PROFILE",
+          "score_status": "EVIDENCE_LIMITED",
+          "typical_pattern": "登闻鼓、上封事只能证明反馈入口存在，不能自动证明最高权力真正受约束。",
+          "grade_basis": "裁决：G3-HIGH → G3-MID / E2；登闻鼓、上封事只能证明反馈入口存在，不能自动证明最高权力真正受约束；正向直接案：近侍实鲁里误触神纛，依法当死，最终杖释，属于比例收束。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G3-MID。",
+          "limitations": [
+            "主要入口缺逆风个案与反例暴露，制度结构不得自动顶格。"
+          ],
+          "parents": [
+            {
+              "parent_id": "C5-P045-FEEDBACK",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "登闻鼓、封事与巡问形成开放反馈接口。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-LIAO-MAT-BF187224EAAEC9A8",
+                "I2-LIAO-MAT-8EB9CB96D9603E16",
+                "FACT-3F5610BD82625DF8"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "救济前置运行、共同决策和健康边界只验证组织环境。"
+            },
+            {
+              "unit_ids": [
+                "I2-LIAO-MAT-C6DF54F5718178EA"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P045-FEEDBACK",
+              "reason": "登闻鼓、封事和巡问提供制度性反馈，但尚未达到最高权力自缚。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-LIAO-YELU-XIAN",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 65,
+          "score_100": 65,
+          "current_entry_unit_count": 6,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 3,
+            "SCORING_PARENT": 3
+          },
+          "axis_evidence_level": "E2",
+          "grade_numeric": 3,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-LIAO-YELU-XIAN",
+          "actual_power_window": "969—982年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P045-FEEDBACK",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "登闻鼓、封事与巡问形成开放反馈接口。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P045-FEEDBACK"
+            ],
+            "negative_parent_refs": [],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P045-FEEDBACK"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《辽史》卷八、卷九。",
+            "维基文库：https://zh.wikisource.org/zh-hans/遼史/卷8",
+            "维基文库：https://zh.wikisource.org/zh-hans/遼史/卷9"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "补充事实与边界",
+              "details": [
+                "登闻鼓、上封事只能证明反馈入口存在，不能自动证明最高权力真正受约束。",
+                "正向直接案：近侍实鲁里误触神纛，依法当死，最终杖释，属于比例收束。",
+                "反面：韩匡嗣有多罪而未得到相称处罚；郭袭劝减畋猎，虽“嘉纳”却“纳而不用”。",
+                "综合为有一定比例克制和反馈接口，但不足以证明稳定强长板。",
+                "《辽史》卷八、卷九。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 1,
+            "locator_count": 3,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 44,
+          "ruler_id": "RULER-LIAO-YELU-RUAN",
+          "ruler_name": "耶律阮",
+          "axis_grade": "G2",
+          "position": "HIGH",
+          "confidence": "MEDIUM",
+          "output_mode": "BOUNDED_PROFILE",
+          "score_status": "EVIDENCE_LIMITED",
+          "typical_pattern": "世宗即位本身就处在皇位竞争中；《辽史·刑法志》记世宗天禄二年。",
+          "grade_basis": "政治清洗笼统父链撤销后，负向从“持续宗室恐怖”降为“同罪异罚的司法任意”；因而应从G2中位上调到 G2-HIGH / E2；尚没有足够高质量本人自缚材料进入G3。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-HIGH。",
+          "limitations": [
+            "短窗口且宫廷暴烈行为跨场景覆盖不足。"
+          ],
+          "parents": [
+            {
+              "parent_id": "C5-P044-UNEQUAL-PURGE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "族属异法、同罪异罚与宗室清洗。"
+            },
+            {
+              "parent_id": "C5-P044-LIMITED",
+              "direction": "POSITIVE",
+              "intensity": "MI1_CASE",
+              "basis": "部分反对者获得有限处置。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-LIAO-MAT-7BA24E736A016C26"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "政事省和铨注接口只作组织背景。"
+            },
+            {
+              "unit_ids": [
+                "I2-LIAO-MAT-EA32AEC88E6FBA79",
+                "I2-LIAO-MAT-96BFCE46FB966CD1"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P044-UNEQUAL-PURGE",
+              "reason": "族属异罚和宗室清洗直接评价程序与比例。"
+            },
+            {
+              "unit_ids": [
+                "FACT-359CA2CBA6380329"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P044-LIMITED",
+              "reason": "事实单元同时记录暴烈与有限处置，作为下沿和恢复反证。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-LIAO-YELU-RUAN",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 51,
+          "score_100": 51,
+          "current_entry_unit_count": 6,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 2,
+            "SCORING_PARENT": 4
+          },
+          "axis_evidence_level": "E2",
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-LIAO-YELU-RUAN",
+          "actual_power_window": "947—951年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P044-UNEQUAL-PURGE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "族属异法、同罪异罚与宗室清洗。"
+            },
+            {
+              "parent_id": "C5-P044-LIMITED",
+              "direction": "POSITIVE",
+              "intensity": "MI1_CASE",
+              "basis": "部分反对者获得有限处置。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P044-LIMITED"
+            ],
+            "negative_parent_refs": [
+              "C5-P044-UNEQUAL-PURGE"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P044-UNEQUAL-PURGE",
+              "C5-P044-LIMITED"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《辽史》卷六十一《刑法志上》",
+            "https://zh.wikisource.org/zh-hans/遼史_(四庫全書本)/全覽3"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 宗室冲突大量退出C5主评分",
+              "details": [
+                "世宗即位本身就处在皇位竞争中。",
+                "对实际谋反、夺位的宗室本人进行拘押、流放、处死，若未扩大到无关家属与普通从属者，先按政治斗争处理。",
+                "原父链中的“宗室反复清洗”必须逐案拆解，不能再作为笼统MI3。"
+              ]
+            },
+            {
+              "title": "B. “同罪异罚”仍是直接C5负证",
+              "details": [
+                "《辽史·刑法志》记世宗天禄二年。",
+                "天德、萧翰、刘哥及其弟等均涉同一谋反案。",
+                "结果一人处死、一人杖、一人流、一人远遣。",
+                "史书直接评论“四人之罪均而刑异”，并称辽世“同罪异论者盖多”。",
+                "谋反本人属于政治斗争，但同罪因身份关系被截然不同处罚，评价的是最高权力是否任意适用法律，仍可进入C5。",
+                "这是一条明显的程序/比例负证。"
+              ]
+            },
+            {
+              "title": "C. 释放前朝籍没人口是反向材料",
+              "details": [
+                "《辽史·刑法志》又记太祖以来因案件没入的著帐郎君，到世宗时“诏免之”。",
+                "表明其确有对前朝连带身份惩罚的阶段性解除。",
+                "可作为 POSITIVE / MI2_LIFECYCLE，但材料不够说明系统平等化。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 1,
+            "locator_count": 1,
+            "linked_source_count": 1,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 47,
+          "ruler_id": "RULER-LIAO-YELU-ZONGZHEN",
+          "ruler_name": "耶律宗真",
+          "axis_grade": "G2",
+          "position": "MID",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "《契丹国志》直接评论重熙时；兴宗主动询问民间异闻，萧韩家奴以“炒栗”比喻大小失衡，借机讽谏，皇帝大笑而受之。",
+          "grade_basis": "一边是持续的私人请托、宗教宠信与官爵滥授；一边是极高质量的史官/谏臣安全和部分特权同法；正负都达到持续性，G2-MID / E3维持。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-MID。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P047-LAW",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "整理成文法并减轻刑罚。"
+            },
+            {
+              "parent_id": "C5-P047-FAVORITISM",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "个人好恶宽免与私谒滥授在直谏后反复。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-LIAO-MAT-B29C33BA648B5E06"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P047-LAW",
+              "reason": "成文法与减刑提供规则收束，但未证明最高权力自缚。"
+            },
+            {
+              "unit_ids": [
+                "I2-LIAO-MAT-6025C7F2B85427F3",
+                "I2-LIAO-MAT-8CBE4CBE3ED0CC7F",
+                "FACT-4473B0560F66100B",
+                "FACT-EBF47577045FC2FE"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P047-FAVORITISM",
+              "reason": "皇亲好恶、私谒滥授与对直谏者的压力构成同一特权父链。"
+            },
+            {
+              "unit_ids": [
+                "FACT-2BF7852BF52452CF"
+              ],
+              "status": "AXIS_OUT_WITH_REASON",
+              "reason": "军事授权属于C3/M1。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-LIAO-YELU-ZONGZHEN",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 45,
+          "score_100": 45,
+          "current_entry_unit_count": 9,
+          "current_entry_disposition_counts": {
+            "AXIS_OUT_WITH_REASON": 1,
+            "SCORING_PARENT": 8
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-LIAO-YELU-ZONGZHEN",
+          "actual_power_window": "1031—1055年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P047-LAW",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "整理成文法并减轻刑罚。"
+            },
+            {
+              "parent_id": "C5-P047-FAVORITISM",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "个人好恶宽免与私谒滥授在直谏后反复。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P047-LAW"
+            ],
+            "negative_parent_refs": [
+              "C5-P047-FAVORITISM"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P047-LAW",
+              "C5-P047-FAVORITISM"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《契丹国志》卷十九《马保忠》：“重熙之时，私谒肆行，除授无法……其滥极矣。”",
+            "https://ctext.org/wiki.pl?chapter=348716&if=gb",
+            "《辽史》卷一百零三《萧韩家奴传》：徭役、游猎之谏及“史笔当如是”。",
+            "https://zh.wikisource.org/zh-hans/遼史/卷103",
+            "《辽史》卷十九《兴宗本纪二》：帐郎君与百姓犯禁同罪。",
+            "https://zh.wikisource.org/zh-hans/遼史/卷19"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 私谒、滥授官爵是持续公共权力私人化负证",
+              "details": [
+                "《契丹国志》直接评论重熙时。",
+                "“私谒肆行，除授无法”。",
+                "僧人甚至正拜三公、三师。",
+                "官爵“滥极”。：马保忠曾从容进谏，要求崇儒、量才授官；兴宗“怫然怒之”，意见长期没有实质改变。",
+                "这不是一般用人水平问题，而是私人请托、宗教宠信直接穿透正式官爵资源，并在明确反馈后继续存在。",
+                "可定 NEGATIVE / MI3_SUSTAINED_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "B. 萧韩家奴：极尖锐讽谏长期安全",
+              "details": [
+                "兴宗主动询问民间异闻，萧韩家奴以“炒栗”比喻大小失衡，借机讽谏，皇帝大笑而受之。",
+                "后来韩家奴直接批评西戍、徭役、游幸、赋敛、奢侈，仍被擢升翰林都林牙、日见亲信。",
+                "这不是一两次“纳谏”，而是长期允许一个核心文臣持续对最高政策和私人游猎进行批评。"
+              ]
+            },
+            {
+              "title": "C. 史官可以把皇帝不愿留下的负面事实重新写回",
+              "details": [
+                "兴宗秋猎时熊虎伤死数十人。",
+                "韩家奴如实记入史册，皇帝最初命删。",
+                "韩家奴出门后又重新写回。",
+                "皇帝再见后没有处罚，反而承认“史笔当如是”。",
+                "这是非常纯的：最高权力要求抹掉本人负面记录 → 史官拒绝 → 再次写回 → 皇帝接受并保护履职者。",
+                "可定 POSITIVE / MI3_SUSTAINED_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "D. 特权平等也有可见实例",
+              "details": [
+                "本纪重熙十年明确规定：诸帐郎君在禁地射鹿，与百姓犯罪按同一标准论处。",
+                "这说明至少部分族帐贵族并非当然获得法律豁免。",
+                "但不能因此洗掉官爵滥授问题。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 3,
+            "locator_count": 5,
+            "linked_source_count": 3,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "VALIDATED"
+        },
+        {
+          "sequence": 86,
+          "ruler_id": "RULER-ROSTER-2035C039E3532021",
+          "ruler_name": "耶律阿保机",
+          "axis_grade": "G2",
+          "position": "MID",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "神册六年，阿保机命制定“契丹及诸夷之法”，汉人则断以律令；《辽史·刑法志》概括太祖初年。",
+          "grade_basis": "神册六年，阿保机命制定“契丹及诸夷之法”，汉人则断以律令；这证明不同人群适用不同法源，但不能只因法域不同就推导“同罪异罚”；原 UNEQUAL-LAW 父链需要降级或重写；《辽史·刑法志》概括太祖初年。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-MID。",
+          "limitations": [
+            "国家创建与个人强制权力边界的具体案件有限。"
+          ],
+          "parents": [
+            {
+              "parent_id": "C5-P086-UNEQUAL-LAW",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "族属异法与非常酷刑长期并存。"
+            },
+            {
+              "parent_id": "C5-P086-REMONSTRANCE",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "招谏图与季度询问利病。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-LIAO-MAT-07525BDC36E729F0",
+                "I2-LIAO-MAT-638AEF59804F04CA",
+                "FACT-C4085299A710061C"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "国家组织、安置汉人和军事授权属于制度/C3背景。"
+            },
+            {
+              "unit_ids": [
+                "I2-LIAO-MAT-69607751B211C926"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P086-UNEQUAL-LAW",
+              "reason": "族属异法和非常酷刑直接评价比例与平等。"
+            },
+            {
+              "unit_ids": [
+                "I2-LIAO-MAT-AB06B1EA59616470"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P086-REMONSTRANCE",
+              "reason": "制度性招谏和季度民情反馈提供相反正链。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-ROSTER-2035C039E3532021",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 45,
+          "score_100": 45,
+          "current_entry_unit_count": 9,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 5,
+            "SCORING_PARENT": 4
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-ROSTER-2035C039E3532021",
+          "actual_power_window": "907—926年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P086-UNEQUAL-LAW",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "族属异法与非常酷刑长期并存。"
+            },
+            {
+              "parent_id": "C5-P086-REMONSTRANCE",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "招谏图与季度询问利病。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P086-REMONSTRANCE"
+            ],
+            "negative_parent_refs": [
+              "C5-P086-UNEQUAL-LAW"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P086-UNEQUAL-LAW",
+              "C5-P086-REMONSTRANCE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《辽史》卷六十一《刑法志上》",
+            "https://zh.wikisource.org/zh-hans/遼史_(四庫全書本)/全覽3"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 多法域本身不直接扣分",
+              "details": [
+                "神册六年，阿保机命制定“契丹及诸夷之法”，汉人则断以律令。",
+                "这证明不同人群适用不同法源，但不能只因法域不同就推导“同罪异罚”。",
+                "原 UNEQUAL-LAW 父链需要降级或重写。"
+              ]
+            },
+            {
+              "title": "B. 极端刑罚明确存在，而且针对的不只是武装政敌",
+              "details": [
+                "《辽史·刑法志》概括太祖初年。",
+                "亲王从逆等有特别重刑。",
+                "“讪詈犯上者以熟铁锥摏其口杀之”。",
+                "另有枭磔、生瘗、炮掷、支解等非常刑。",
+                "对真实反叛首领本人的处置可以按政治斗争豁免。",
+                "但“讪詈犯上”即以铁锥刺口致死，直接把言语冒犯转换成极端生命刑，不能豁免。",
+                "且这些并非一次个案，而是制度化早期刑制。",
+                "应定 NEGATIVE / MI3_SUSTAINED_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "C. 申冤接口与休战后清狱是真实正向机制",
+              "details": [
+                "阿保机北征后，明确称四方狱讼积滞，命大臣分道疏决，“无或冤枉”。",
+                "又设置钟院，使有冤者可直接申诉。",
+                "这不是单一宽免，而是建立长期上达接口。",
+                "可定 POSITIVE / MI3_SUSTAINED_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "D. 正负两条持续机制并存",
+              "details": [
+                "一边是非常刑与对“讪詈犯上”的极端表达处罚。",
+                "一边是分道清狱、钟院申冤和法制化。",
+                "两者都不是单案，因此原G2中位的混合画像反而基本合理。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 1,
+            "locator_count": 1,
+            "linked_source_count": 1,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 46,
+          "ruler_id": "RULER-LIAO-YELU-YANXI",
+          "ruler_name": "耶律延禧",
+          "axis_grade": "G2",
+          "position": "LOW",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "萧奉先为维护元妃一系，诬称萧昱、余睹等谋立晋王；天祚因此诛萧昱等、赐死文妃；余睹率千余骑叛金、燕地另立耶律淳等都已形成现实政权竞争。",
+          "grade_basis": "纯C5剩下的是一条极深的继承猜忌持续链，以及晚期权臣俘获造成的处刑错误；严重，但远未达到党锢、文字狱、全国酷刑体系；重调为 G2-LOW / E3。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-LOW。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P046-CAPTURE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "朋党隐瞒军情、构陷继承人与酷刑军纪失序。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-LIAO-MAT-0235528E2049AB21",
+                "I2-LIAO-MAT-2A04572675FC5098",
+                "I2-LIAO-MAT-2A6F57D2976EFC34"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P046-CAPTURE",
+              "reason": "酷刑、继承破坏、朋党保护和信息封闭组成同一跨阶段权力俘获父链。"
+            },
+            {
+              "unit_ids": [
+                "FACT-726E68165A33B1F4"
+              ],
+              "status": "AXIS_OUT_WITH_REASON",
+              "reason": "军事授权终局失败属于C3/M1，且事实单元没有具体C5行为。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-LIAO-YELU-YANXI",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 38,
+          "score_100": 38,
+          "current_entry_unit_count": 6,
+          "current_entry_disposition_counts": {
+            "AXIS_OUT_WITH_REASON": 1,
+            "SCORING_PARENT": 5
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-LIAO-YELU-YANXI",
+          "actual_power_window": "1101—1125年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P046-CAPTURE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "朋党隐瞒军情、构陷继承人与酷刑军纪失序。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [
+              "C5-P046-CAPTURE"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P046-CAPTURE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《辽史》卷二十九《天祚三》：萧奉先诬陷、文妃赐死、晋王赐死、后续“尽释其党”。",
+            "https://zh.wikisource.org/zh-hans/遼史/卷29"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 文妃—晋王链：很重，但集中于继承猜忌",
+              "details": [
+                "萧奉先为维护元妃一系，诬称萧昱、余睹等谋立晋王；天祚因此诛萧昱等、赐死文妃。",
+                "次年萧奉先又称余睹来袭是为了拥立晋王，天祚接受“不惜一子”的建议，赐晋王死。",
+                "晋王本身并无已闭合的现实叛乱行为，诸军闻其死而流涕，因此这是极深的C5下沿。",
+                "但这一整组材料高度集中在同一个储位—外戚竞争机制，可定 NEGATIVE / MI3_SUSTAINED_SYSTEMIC，不再叫全局MI4。"
+              ]
+            },
+            {
+              "title": "B. 对首谋、现实夺权集团必须执行政治斗争豁免",
+              "details": [
+                "余睹率千余骑叛金、燕地另立耶律淳等都已形成现实政权竞争。",
+                "对这些直接参与者的战争、追捕和处死不能因亡国结局恶劣就自动扣C5。"
+              ]
+            },
+            {
+              "title": "C. 伤害反馈后存在真实收束",
+              "details": [
+                "天祚后来醒悟萧奉先误国并将其赐死。",
+                "对萧德妃集团后续处置时，《辽史》又明确记“尽释其党”。",
+                "这些纠正发生太晚，不能洗掉晋王之死，但足以否定“始终扩大到普通党附”的画像。"
+              ]
+            },
+            {
+              "title": "D. 战略拒谏和军事崩坏退出C5",
+              "details": [
+                "不听耶律大石等关于抗金战略的建议、各路军事失误、亡国期军纪失序，主要归C1/C2/M1/C3。",
+                "这些不能继续拿来帮助C5压入G0。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 1,
+            "locator_count": 2,
+            "linked_source_count": 1,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 41,
+          "ruler_id": "RULER-LIAO-YELU-DEGUANG",
+          "ruler_name": "耶律德光",
+          "axis_grade": "G1",
+          "position": "HIGH",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "辽军占据大梁后，中原政权已经基本失去中央抵抗；相州先一度请降，后因怀疑辽方欺骗又继续守城。",
+          "grade_basis": "占领期持续汲取 + 相州破城后的群体杀戮，足以形成强短板；迟来招抚与保护部分旧臣阻止更低档；G1-HIGH / E3维持。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G1-HIGH。",
+          "limitations": [
+            "占领期具体侵害的逐项本人命令密度有限。"
+          ],
+          "parents": [
+            {
+              "parent_id": "C5-P041-OCCUPATION",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "纵兵括借后迟来纠正。"
+            },
+            {
+              "parent_id": "C5-P041-OLD-OFFICIALS",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "释放前朝使者并继续使用政务接口。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-LIAO-MAT-E6236E9DE3DAD191"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "多元司法辖区结构只作制度背景。"
+            },
+            {
+              "unit_ids": [
+                "I2-LIAO-MAT-866441EED0DD93D4",
+                "FACT-1B477D69076F5113"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P041-OCCUPATION",
+              "reason": "占领纵兵括借、反馈恶化与迟来撤回构成完整负向生命周期。"
+            },
+            {
+              "unit_ids": [
+                "I2-LIAO-MAT-42706E7EBFD41BA6"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P041-OLD-OFFICIALS",
+              "reason": "释放使者并保护旧政务人员形成相反情境。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-LIAO-YELU-DEGUANG",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 31,
+          "score_100": 31,
+          "current_entry_unit_count": 7,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 1,
+            "SCORING_PARENT": 6
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 1,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-LIAO-YELU-DEGUANG",
+          "actual_power_window": "927—947年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P041-OCCUPATION",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "纵兵括借后迟来纠正。"
+            },
+            {
+              "parent_id": "C5-P041-OLD-OFFICIALS",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "释放前朝使者并继续使用政务接口。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P041-OLD-OFFICIALS"
+            ],
+            "negative_parent_refs": [],
+            "mixed_parent_refs": [
+              "C5-P041-OCCUPATION"
+            ]
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P041-OCCUPATION",
+              "C5-P041-OLD-OFFICIALS"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《资治通鉴》后晋纪相关条目：相州破城、“悉杀城中男子，驱其妇女而北”及北归途中不禁剽掠。",
+            "可参见：https://www.gujimi.com/a/19824rrof/264347q.html",
+            "https://www.diancangwang.cn/lishizhuanji/5e9e48af9f29/424958aef4fd.html"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 中原占领期的广域汲取不是普通战时征发",
+              "details": [
+                "辽军占据大梁后，中原政权已经基本失去中央抵抗。",
+                "契丹军仍以牧马、“打草谷”等形式四出剽掠，民间财物、粮草和人口广受侵扰。",
+                "辽主北归时看到沿途村落空虚，虽命张榜招抚，却仍“竟不禁胡骑剽掠”。",
+                "这说明伤害已经清楚可见，最高权力仍不能或不愿及时停止己方强制。",
+                "应定 NEGATIVE / MI3_SUSTAINED_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "B. 相州：破城后对普通人口实施群体惩罚",
+              "details": [
+                "相州先一度请降，后因怀疑辽方欺骗又继续守城。",
+                "城破后，耶律德光下令/纵许。",
+                "悉杀城中男子：驱妇女北去。",
+                "甚至出现胡兵将婴儿抛空、以刃承接取乐的暴行。",
+                "后来清理遗骸，传世材料记数量极大。",
+                "城防已经结束后，对整个男性人口杀戮、妇女驱掠，显然超出只处置守城军政首领的范围。",
+                "属直接 NEGATIVE / MI2_LIFECYCLE 深下沿。"
+              ]
+            },
+            {
+              "title": "C. 迟来纠正是真实，但过晚",
+              "details": [
+                "耶律德光后来已认识到中原治理失败，撤换部分安排并急于北返。",
+                "沿途又命张榜招抚百姓。",
+                "这说明并非完全没有伤害反馈。",
+                "但直到北撤时仍不能阻止骑兵继续剽掠，修复明显晚于大规模不可逆伤害。"
+              ]
+            },
+            {
+              "title": "D. 保护旧臣使者是有限正证",
+              "details": [
+                "对部分前朝使臣、降附官员有释放和继续任用。",
+                "说明政治征服对象并非一律灭绝。",
+                "但不能抵消普通人口层面的广域强制。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 1,
+            "locator_count": 1,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 42,
+          "ruler_id": "RULER-LIAO-YELU-HONGJI",
+          "ruler_name": "耶律洪基",
+          "axis_grade": "G1",
+          "position": "HIGH",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "宫婢等诬告皇后与伶官赵惟一私通；乙辛等第一次告太子党谋废立，朝廷“案无迹，不治”。",
+          "grade_basis": "宫婢等诬告皇后与伶官赵惟一私通；道宗直接命乙辛、张孝杰审理；案件被“因而实之”；乙辛等第一次告太子党谋废立，朝廷“案无迹，不治”；乙辛随后又制造新证词。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G1-HIGH。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P042-YIXIN",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "乙辛俘获、皇后太子诬狱与晚期纠正为一完整生命周期。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-LIAO-MAT-C97A55401A5EFF4C",
+                "I2-LIAO-MAT-ED656D18C1FD8939",
+                "FACT-4D8288D0F32F9EA8"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "法编纂、外交接口与军事授权不直接评价C5。"
+            },
+            {
+              "unit_ids": [
+                "I2-LIAO-MAT-FBD5F40848E1D631",
+                "FACT-11C099D789CE3E60",
+                "FACT-0CFB1422903FE446"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P042-YIXIN",
+              "reason": "告首、酷刑伪供、皇后太子处置及晚期清除乙辛按同一父链去重。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-LIAO-YELU-HONGJI",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 31,
+          "score_100": 31,
+          "current_entry_unit_count": 8,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 3,
+            "SCORING_PARENT": 5
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 1,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-LIAO-YELU-HONGJI",
+          "actual_power_window": "1055—1101年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P042-YIXIN",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "乙辛俘获、皇后太子诬狱与晚期纠正为一完整生命周期。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [],
+            "mixed_parent_refs": [
+              "C5-P042-YIXIN"
+            ]
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P042-YIXIN"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《辽史》卷七十一《后妃传》",
+            "https://zh.wikisource.org/wiki/遼史/卷71",
+            "《辽史》卷七十二《昭怀太子》",
+            "https://zh.wikisource.org/zh-hans/遼史/卷72",
+            "《辽史》卷六十二《刑法志》",
+            "https://zh.wikisource.org/wiki/遼史/卷62"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 皇后萧观音案：道宗直接归责极重",
+              "details": [
+                "宫婢等诬告皇后与伶官赵惟一私通。",
+                "道宗直接命乙辛、张孝杰审理；案件被“因而实之”。",
+                "结果：赵惟一被族诛。",
+                "皇后被赐死。：后世追谥平反进一步说明原案严重失实。",
+                "这是标准 NEGATIVE / MI3_SUSTAINED_SYSTEMIC 深负链。"
+              ]
+            },
+            {
+              "title": "B. 太子濬案：皇帝直接完成废黜和重刑，但终局杀害是乙辛私自实施",
+              "details": [
+                "乙辛等第一次告太子党谋废立，朝廷“案无迹，不治”。",
+                "乙辛随后又制造新证词。",
+                "道宗信之：幽太子：由乙辛党人鞫问。",
+                "太子自称冤枉，供词仍被改成认罪。",
+                "道宗大怒，废为庶人、徙上京。",
+                "这部分皇帝直接归责非常明确。",
+                "但太子最终被杀，是乙辛私遣人到上京杀害，并以病死欺骗皇帝。",
+                "太子妃也由乙辛暗杀。",
+                "因而原结算不能把“太子被杀”全额写成道宗本人命令。"
+              ]
+            },
+            {
+              "title": "C. 扩大杀戮仍真实存在",
+              "details": [
+                "太子案同时杀三十五人，又杀部分涉案者诸子，并籍没幼童、妇女、奴婢、家产。",
+                "即使把首谋/现实政治竞争者本人视为可争议对象，幼儿、妇女、奴婢、家产整体没入显然属于扩大清算。",
+                "这使道宗仍然稳居G1。"
+              ]
+            },
+            {
+              "title": "D. 道宗后来确实感悟、追复并清除乙辛",
+              "details": [
+                "道宗后来知道太子冤枉，“悔恨无及”，追谥昭怀太子，以天子礼改葬。",
+                "又逐步外放、囚禁并最终诛乙辛。",
+                "同时保护皇孙延禧、逐乙辛余党。",
+                "这是实质恢复，不是继任者完成。",
+                "应作为 POSITIVE / MI3_SUSTAINED_SYSTEMIC 的迟来纠正。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 3,
+            "locator_count": 6,
+            "linked_source_count": 3,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        }
+      ]
+    }
+  }
+}

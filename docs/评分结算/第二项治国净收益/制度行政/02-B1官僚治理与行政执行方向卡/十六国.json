@@ -1,0 +1,1849 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "十六国",
+  "collections": {
+    "records": {
+      "positions": [
+        15,
+        51,
+        52,
+        66,
+        68,
+        69,
+        70,
+        71,
+        72,
+        95,
+        112,
+        113,
+        145,
+        146,
+        166,
+        168,
+        170
+      ],
+      "records": [
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "signed_weight": 2.0,
+              "material_id": "B1-SUPP-BEYAN-FENGBA-PERSONNEL-ACCOUNTABILITY-CORE",
+              "mechanism": "守宰选任面问、兰台都官澄察、贪赇责任追究与亲见守宰问政形成跨年personnel/accountability core",
+              "result_closure": "sustained_or_systemic",
+              "lifecycle_key": "B1:RULER-SHADOW-冯跋:V56:PERSONNEL-ACCOUNTABILITY-CORE",
+              "lifecycle_group_key": "B1:RULER-SHADOW-冯跋:V56:PERSONNEL-ACCOUNTABILITY-CORE",
+              "profile_id": "B1-PROFILE-197D33876059CE66",
+              "b1_role": "core",
+              "source_basis": "《晋书》卷125：守宰不得侵害百姓、兰台都官澄察；马弗勤受赇案处置；每遣守宰亲见东堂问为政事之要。"
+            },
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "signed_weight": 0.0,
+              "material_id": "B1-SUPP-BEYAN-FENGBA-CORRUPTION-RESULT",
+              "mechanism": "“于是上下肃然，请赇路绝”只是前述澄察—贪赇问责core的结果闭合，不再作为独立G4第二验证",
+              "result_closure": "observed_or_repeated",
+              "lifecycle_key": "B1:RULER-SHADOW-冯跋:V56:PERSONNEL-ACCOUNTABILITY-CORE",
+              "lifecycle_group_key": "B1:RULER-SHADOW-冯跋:V56:PERSONNEL-ACCOUNTABILITY-CORE",
+              "profile_id": "B1-PROFILE-15A0F0A34A03F94D",
+              "b1_role": "context",
+              "position_count_mode": "absorbed_same_lifecycle",
+              "absorbed_into_lifecycle_key": "B1:RULER-SHADOW-冯跋:V56:PERSONNEL-ACCOUNTABILITY-CORE",
+              "position_weight_override": 0.0,
+              "position_exclusion_reason": "该句直接描述同一贪赇问责链的运行结果，不能再拆成独立M2。"
+            },
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "signed_weight": 2.0,
+              "material_id": "B1-SUPP-BEYAN-FENGBA-RELIEF-INSPECTION-M3",
+              "mechanism": "任初及在位后期反复分遣使者巡行郡国、问察疾苦，并对孤老久病不能自存者实际赈给谷帛",
+              "result_closure": "sustained_or_systemic",
+              "lifecycle_key": "B1:RULER-SHADOW-冯跋:V56:CROSS-STAGE-RELIEF-DELIVERY",
+              "lifecycle_group_key": "B1:RULER-SHADOW-冯跋:V56:CROSS-STAGE-RELIEF-DELIVERY",
+              "profile_id": "B1-PROFILE-0A9A1B20F3693C7E",
+              "b1_role": "support",
+              "source_basis": "《晋书》卷125：即位初分遣使者巡行郡国观察风俗；其后巡行郡国赈孤老久病谷帛；在位十一年又分遣使者巡行郡国问疾苦并赐谷帛。"
+            }
+          ],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "B1-SUPP-BEYAN-FENGBA-PERSONNEL-ACCOUNTABILITY-CORE",
+            "B1-SUPP-BEYAN-FENGBA-CORRUPTION-RESULT",
+            "B1-SUPP-BEYAN-FENGBA-RELIEF-INSPECTION-M3"
+          ],
+          "direction_card_write": true,
+          "direction_index": 80.4,
+          "evidence_sufficiency_gate": "PASS_TARGETED_READJUDICATION",
+          "formal_evidence_state": "WORKING_READJUDICATED_TARGET_RECORD",
+          "formal_evidence_maturity": "primary_source_targeted_gate_review",
+          "grade": "G4",
+          "grade_basis": "守宰选任—亲见问政—兰台澄察—贪赇问责构成core M3。原结算把“上下肃然、请赇路绝”另拆M2，实为同一core的结果闭合，现吸收去重。与此同时，《晋书》显示任初、中段及在位十一年均有分遣使者巡行郡国、问疾苦并实际赈谷帛，构成因果独立、跨阶段support M3，可合法承担G4第二验证。",
+          "grade_gate_basis": "G4消费personnel/accountability core M3 + 跨阶段巡行赈恤support M3；旧“请赇路绝”结果句不再单独消费门槛。",
+          "grade_gate_code": "B1_G4_BROAD_STABLE_DELIVERY",
+          "g3_gate_route": "CORE_M3",
+          "g3_gate_profile_ids": [
+            "B1-PROFILE-197D33876059CE66"
+          ],
+          "g4_core_profile_id": "B1-PROFILE-197D33876059CE66",
+          "g4_secondary_profile_id": "B1-PROFILE-0A9A1B20F3693C7E",
+          "index_interval": [
+            70.0,
+            84.9
+          ],
+          "position": "middle-upper",
+          "position_q": 0.7,
+          "position_basis": "有效生命周期签名M权重合计扣除G4门槛占用3后，净余量=1，按合同机械映射为middle-upper。",
+          "rank": 10,
+          "reign_range": [
+            409,
+            430
+          ],
+          "ruler_id": "RULER-SHADOW-冯跋",
+          "ruler_name": "冯跋",
+          "polity": "北燕",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为1，机械裁定G4-中上位（80.4）"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "守宰选任面问、兰台都官澄察、贪赇责任追究与亲见守宰问政形成跨年选任与考课/accountability 核心行政机制"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "任初及在位后期反复分遣使者巡行郡国、问察疾苦，并对孤老久病不能自存者实际赈给谷帛"
+            },
+            {
+              "role": "负向依据（无可计M档）",
+              "text": "未闭合可计的负向运行链"
+            }
+          ],
+          "review_material_absorption_status": "TARGETED_REVIEW_SUPERSEDES_SOURCE_RECORD_FOR_G4_SECOND_GATE",
+          "source_snapshot": {
+            "grade": "G4",
+            "position": "middle",
+            "direction_index": 77.5
+          },
+          "supplemental_material_registration_required": [
+            "B1-SUPP-BEYAN-FENGBA-PERSONNEL-ACCOUNTABILITY-CORE",
+            "B1-SUPP-BEYAN-FENGBA-RELIEF-INSPECTION-M3"
+          ],
+          "position_residual": 1.0,
+          "grade_threshold_consumed": 3.0
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "I2-SK-MURONGDE-HOUSEHOLD-AUDIT-001",
+              "mechanism": "权贵约束与基层权益保护",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2.0,
+              "profile_id": "B1-PROFILE-673971748EC978A4",
+              "b1_role": "support"
+            },
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "I2-SK-MURONGDE-RELOCATION-GOVERNANCE-001",
+              "mechanism": "沿途郡县开门迎纳，迁徙与接管没有退化为单纯军事掠夺。",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 1.0,
+              "profile_id": "B1-PROFILE-79C6C2A11826FD13",
+              "b1_role": "support"
+            }
+          ],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-SK-MURONGDE-HOUSEHOLD-AUDIT-001",
+            "I2-SK-MURONGDE-RELOCATION-GOVERNANCE-001"
+          ],
+          "direction_card_write": true,
+          "direction_index": 65.4,
+          "evidence_sufficiency_gate": "G3_BLOCKED_REQUIRES_M3_PLUS_INDEPENDENT_M2_OPERATION",
+          "formal_evidence_maturity": "fixed_primary_with_four_constrained_b2_adjudications",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G3",
+          "grade_basis": "已吸收v20/v50计分材料（冲突以v50为准），再按V5.3合同重裁；当前主档为G3。材料裁决来源：v50。",
+          "grade_gate_basis": "已吸收v20/v50计分材料（冲突以v50为准），再按V5.3合同重裁；当前主档为G3。材料裁决来源：v50。",
+          "grade_gate_code": "B1_G3_MAIN_STAGE_USABLE",
+          "index_interval": [
+            55.0,
+            69.9
+          ],
+          "polity": "南燕",
+          "position": "middle-upper",
+          "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=1，按合同机械映射为middle-upper。",
+          "position_q": 0.7,
+          "rank": 45,
+          "reign_range": [
+            398,
+            405
+          ],
+          "ruler_id": "RULER-SHADOW-慕容德",
+          "ruler_name": "慕容德",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为1，机械裁定G3-中上位（65.4）"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "权贵约束与基层权益保护"
+            },
+            {
+              "role": "正向依据（M2）",
+              "text": "沿途郡县开门迎纳，迁徙与接管没有退化为单纯军事掠夺。"
+            },
+            {
+              "role": "负向依据（无可计M档）",
+              "text": "未闭合可计的负向运行链"
+            }
+          ],
+          "position_residual": 1.0,
+          "grade_threshold_consumed": 2.0,
+          "v50_source_line": 179,
+          "review_material_basis": [
+            {
+              "version": "v20",
+              "line": 517,
+              "review_grade": "G2",
+              "review_position": "upper",
+              "basis": "慕容钟、封孚受任降常态名臣基线；隐户核查和征服后安堵为support。",
+              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
+            },
+            {
+              "version": "v50",
+              "line": 179,
+              "review_grade": "G3",
+              "review_position": "middle-upper",
+              "basis": "《晋书·慕容德载记》｜链：尚书韩𧨳提出隐实户籍→慕容德命慕容镇率骑3000防逃、授韩𧨳行台尚书巡郡县→检出荫户5.8万，且“所在野次，人不扰焉”，是一条强广域户籍/资源行政support M3。另有亲策诸生及征服后郡县接管等有限M2，但现证未形成独立选任考课或central core M3；因此不因一条高结果support越级G4。",
+              "status": "ABSORBED_ACTIVE_PRECEDENCE"
+            }
+          ],
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
+          "g3_gate_route": "MULTI_CHAIN",
+          "g3_gate_profile_ids": [
+            "B1-PROFILE-673971748EC978A4",
+            "B1-PROFILE-79C6C2A11826FD13"
+          ]
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M2",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "material_id": "I2-SK-LIXIONG-ORG-DEFECTS-001",
+              "mechanism": "制度实际运行存在专业化和组织可靠性短板。",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -1.0,
+              "profile_id": "B1-PROFILE-CE70B61AA4AD0388",
+              "b1_role": "core"
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "I2-SK-LIXIONG-LOW-TAX-GOVERNANCE-001",
+              "mechanism": "法律、司法与刑罚运行",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2.0,
+              "profile_id": "B1-PROFILE-FF553AA54176C473",
+              "b1_role": "support"
+            },
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "I2-SK-LIXIONG-PERSONNEL-QUALITY-001",
+              "mechanism": "多来源人才吸收、责任配置与区域稳定合并为personnel正向主导M3",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2.0,
+              "profile_id": "B1-PROFILE-FC2AD13915B3A5D7",
+              "b1_role": "core"
+            }
+          ],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-SK-LIXIONG-LOW-TAX-GOVERNANCE-001",
+            "I2-SK-LIXIONG-ORG-DEFECTS-001",
+            "I2-SK-LIXIONG-PERSONNEL-QUALITY-001"
+          ],
+          "direction_card_write": true,
+          "direction_index": 65.4,
+          "evidence_sufficiency_gate": "not_applicable",
+          "formal_evidence_maturity": "fixed_primary_with_four_constrained_b2_adjudications",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G3",
+          "grade_basis": "已吸收v20/v50计分材料（冲突以v50为准），再按V5.3合同重裁；当前主档为G3。材料裁决来源：v50。",
+          "grade_gate_basis": "已吸收v20/v50计分材料（冲突以v50为准），再按V5.3合同重裁；当前主档为G3。材料裁决来源：v50。",
+          "grade_gate_code": "B1_G3_MAIN_STAGE_USABLE",
+          "index_interval": [
+            55.0,
+            69.9
+          ],
+          "polity": "成汉",
+          "position": "middle-upper",
+          "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=1，按合同机械映射为middle-upper。",
+          "position_q": 0.7,
+          "rank": 45,
+          "reign_range": [
+            304,
+            334
+          ],
+          "ruler_id": "RULER-SHADOW-李雄",
+          "ruler_name": "李雄",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为1，机械裁定G3-中上位（65.4）"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "法律、司法与刑罚运行"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "多来源人才吸收、责任配置与区域稳定合并为选任与考课正向主导M3"
+            },
+            {
+              "role": "负向依据（M2）",
+              "text": "制度实际运行存在专业化和组织可靠性短板。"
+            }
+          ],
+          "position_residual": 1.0,
+          "grade_threshold_consumed": 2.0,
+          "v50_source_line": 210,
+          "review_material_basis": [
+            {
+              "version": "v20",
+              "line": 538,
+              "review_grade": "G2",
+              "review_position": "upper",
+              "basis": "强support结果 + core M2；长期受委名臣不足闭合选任考课替补M3。",
+              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
+            },
+            {
+              "version": "v50",
+              "line": 210,
+              "review_grade": "G3",
+              "review_position": "middle",
+              "basis": "《晋书·李雄载记》｜正链：建国草创后接受尚书令阎式建议明确百官职分；随后“下宽大之令，降附者皆假复除”，并“虚己爱人，授用皆得其才，益州遂定”；李钊归降后又被厚待，朝廷仪式、丧纪等实际交其裁定，形成多来源人才吸收—责任配置—区域稳定的personnel M3。总体结果另见“蜀独无事，归之者相寻”“事少役稀，百姓富实”，只作G3复验。负生命周期也直接落在人事：诸将进金银“多有以得官者”，且长期“官无禄秩、班序不别”，说明专业官僚激励存在系统缺陷；故正向选任必须合并为mixed_positive M3，不能承担G4干净主core，维持G3-middle。",
+              "status": "ABSORBED_ACTIVE_PRECEDENCE"
+            }
+          ],
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
+          "g3_gate_route": "CORE_M3",
+          "g3_gate_profile_ids": [
+            "B1-PROFILE-FC2AD13915B3A5D7"
+          ]
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "I2-SK-MURONGCHUI-DELEGATION-001",
+              "mechanism": "中山中央、太子尚书与龙城留台多责任中枢core",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2.0,
+              "lifecycle_key": "B1:RULER-SK-MURONGCHUI:V50:CENTRAL-CORE",
+              "lifecycle_group_key": "B1:RULER-SK-MURONGCHUI:V50:CENTRAL-CORE",
+              "profile_id": "B1-PROFILE-B8AED2399E10DFCD",
+              "b1_role": "core"
+            }
+          ],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-SK-MURONGCHUI-DELEGATION-001"
+          ],
+          "direction_card_write": true,
+          "direction_index": 62.5,
+          "evidence_sufficiency_gate": "G3_BLOCKED_REQUIRES_M3_PLUS_INDEPENDENT_M2_OPERATION",
+          "formal_evidence_maturity": "fixed_primary_with_four_constrained_b2_adjudications",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G3",
+          "grade_basis": "《晋书·慕容垂载记》｜链①：建兴元年称帝后置百官，以封衡掌吏部、慕容德都督中外兼司隶、慕容麟卫大将军等分担中枢/监察/军政；随后太子宝“录尚书政事，巨细皆委之”，龙城又设留台、由慕容隆录留台尚书事，形成**中山中央—太子尚书—龙城留台**多责任中心的central M3。链②：平翟钊后其七郡3.8万户“皆安堵如故”，另迁徐州流人7000余户于黎阳；南略泰山、琅邪后实际“置守宰而还”，形成征服后地方接管support M2/M3。限制：太子宝作为核心受托者在参合陂阶段忽视预警并造成重大军政损失，虽主要属军事结果，但可作为授权可靠性的负M2；现证不足把central主链与地方接管串成长期稳定G4主链，故升G3-middle-upper。",
+          "grade_gate_basis": "《晋书·慕容垂载记》｜链①：建兴元年称帝后置百官，以封衡掌吏部、慕容德都督中外兼司隶、慕容麟卫大将军等分担中枢/监察/军政；随后太子宝“录尚书政事，巨细皆委之”，龙城又设留台、由慕容隆录留台尚书事，形成**中山中央—太子尚书—龙城留台**多责任中心的central M3。链②：平翟钊后其七郡3.8万户“皆安堵如故”，另迁徐州流人7000余户于黎阳；南略泰山、琅邪后实际“置守宰而还”，形成征服后地方接管support M2/M3。限制：太子宝作为核心受托者在参合陂阶段忽视预警并造成重大军政损失，虽主要属军事结果，但可作为授权可靠性的负M2；现证不足把central主链与地方接管串成长期稳定G4主链，故升G3-middle-upper。",
+          "grade_gate_code": "B1_G3_MAIN_STAGE_USABLE",
+          "index_interval": [
+            55.0,
+            69.9
+          ],
+          "polity": "后燕",
+          "position": "middle",
+          "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=0，按合同机械映射为middle。",
+          "position_q": 0.5,
+          "rank": 57,
+          "reign_range": [
+            384,
+            396
+          ],
+          "ruler_id": "RULER-SHADOW-慕容垂",
+          "ruler_name": "慕容垂",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为0，机械裁定G3-中位（62.5）"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "中山中央、太子尚书与龙城留台多责任中枢核心行政机制"
+            },
+            {
+              "role": "负向依据（无可计M档）",
+              "text": "未闭合可计的负向运行链"
+            }
+          ],
+          "position_residual": 0.0,
+          "grade_threshold_consumed": 2.0,
+          "v50_source_line": 209,
+          "review_material_basis": [
+            {
+              "version": "v20",
+              "line": 561,
+              "review_grade": "G2",
+              "review_position": "middle",
+              "basis": "时代差异专项复核后仍不跨档。正向可确认本人能做中枢—区域分工，并长期使用慕容德、慕容农、慕容隆等承担不同方向事务；早年在前燕又有绥怀降卒、反对坑杀的治理取向，但这些多是军事/创业阶段，不能倒投后燕B1。后燕在位期现有《十六国春秋》《晋书》材料仍以征伐、宗室分镇为主，缺少本人窗口内至少3名地方/中枢责任官的“治理结果→中央识别→奖升/替换”闭环，也缺独立考课/问责主链。参合陂等战争结果不计B1。故原G2方向基本正确，本轮仅锁定合法position为middle。",
+              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
+            },
+            {
+              "version": "v50",
+              "line": 209,
+              "review_grade": "G3",
+              "review_position": "middle-upper",
+              "basis": "《晋书·慕容垂载记》｜链①：建兴元年称帝后置百官，以封衡掌吏部、慕容德都督中外兼司隶、慕容麟卫大将军等分担中枢/监察/军政；随后太子宝“录尚书政事，巨细皆委之”，龙城又设留台、由慕容隆录留台尚书事，形成中山中央—太子尚书—龙城留台多责任中心的central M3。链②：平翟钊后其七郡3.8万户“皆安堵如故”，另迁徐州流人7000余户于黎阳；南略泰山、琅邪后实际“置守宰而还”，形成征服后地方接管support M2/M3。限制：太子宝作为核心受托者在参合陂阶段忽视预警并造成重大军政损失，虽主要属军事结果，但可作为授权可靠性的负M2；现证不足把central主链与地方接管串成长期稳定G4主链，故升G3-middle-upper。",
+              "status": "ABSORBED_ACTIVE_PRECEDENCE"
+            }
+          ],
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
+          "g3_gate_route": "CORE_M3",
+          "g3_gate_profile_ids": [
+            "B1-PROFILE-B8AED2399E10DFCD"
+          ]
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "I2-SK-LIGAO-FAIR-ADMINISTRATION-001",
+              "mechanism": "中枢与多郡责任官配置、人口安置及玉门阳关屯田形成多区域运行distributed",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2.0,
+              "lifecycle_key": "B1:RULER-SK-LIGAO:V50:DISTRIBUTED",
+              "lifecycle_group_key": "B1:RULER-SK-LIGAO:V50:DISTRIBUTED",
+              "profile_id": "B1-PROFILE-468EEFE98A4ACA44",
+              "b1_role": "distributed"
+            }
+          ],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-SK-LIGAO-FAIR-ADMINISTRATION-001"
+          ],
+          "direction_card_write": true,
+          "direction_index": 62.5,
+          "evidence_sufficiency_gate": "G3_BLOCKED_REQUIRES_M3_PLUS_INDEPENDENT_M2_OPERATION",
+          "formal_evidence_maturity": "fixed_primary_with_four_constrained_b2_adjudications",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G3",
+          "grade_basis": "已吸收v20/v50计分材料（冲突以v50为准），再按V5.3合同重裁；当前主档为G3。材料裁决来源：v50。",
+          "grade_gate_basis": "已吸收v20/v50计分材料（冲突以v50为准），再按V5.3合同重裁；当前主档为G3。材料裁决来源：v50。",
+          "grade_gate_code": "B1_G3_MAIN_STAGE_USABLE",
+          "index_interval": [
+            55.0,
+            69.9
+          ],
+          "polity": "西凉",
+          "position": "middle",
+          "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=0，按合同机械映射为middle。",
+          "position_q": 0.5,
+          "rank": 57,
+          "reign_range": [
+            400,
+            417
+          ],
+          "ruler_id": "RULER-SHADOW-李暠",
+          "ruler_name": "李暠",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为0，机械裁定G3-中位（62.5）"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "中枢与多郡责任官配置、人口安置及玉门阳关屯田形成多区域运行多责任官样本"
+            },
+            {
+              "role": "负向依据（无可计M档）",
+              "text": "未闭合可计的负向运行链"
+            }
+          ],
+          "position_residual": 0.0,
+          "grade_threshold_consumed": 2.0,
+          "v50_source_line": 211,
+          "review_material_basis": [
+            {
+              "version": "v20",
+              "line": 537,
+              "review_grade": "G2",
+              "review_position": null,
+              "basis": "人员整合有运行，但民政结果有限。",
+              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
+            },
+            {
+              "version": "v50",
+              "line": 211,
+              "review_grade": "G3",
+              "review_position": "lower-middle",
+              "basis": "《晋书·凉武昭王传》｜链①：庚子建政后一次性把唐瑶、宋繇、张邈、尹建兴等配置到中枢，同时令狐迁、氾德瑜、张靖、索训、赵开、索慈、阴亮、令狐赫、索术分别任多郡太守；宋繇又东取凉兴及玉门以西诸城，并在玉门、阳关“广田积谷”，形成多区域责任配置与资源行政M2/M3。链②：东迁酒泉后把南人5000户置会稽郡、中州人5000户置广夏郡，其余1.3万户分置武威、武兴、张掖三郡，并调整敦煌/建康等守官，形成跨郡人口安置support M3。限制：李暠本人手令明确承认临莅五年“兵难骚动，未得休众息役、惠康士庶”，说明行政结果厚度有限；任官和人口安置虽真实，但缺持续考课/替补闭环，故升G3-lower-middle而不进G4。",
+              "status": "ABSORBED_ACTIVE_PRECEDENCE"
+            }
+          ],
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
+          "g3_gate_route": "CENTRAL_OR_DISTRIBUTED_M3",
+          "g3_gate_profile_ids": [
+            "B1-PROFILE-468EEFE98A4ACA44"
+          ]
+        },
+        {
+          "M_mixed_profile": [
+            {
+              "M": "M2",
+              "direction": "positive_correction",
+              "direction_factor": 1.0,
+              "material_id": "I2-SK-MENGXUN-RELATIVE-ACCOUNTABILITY-001",
+              "mechanism": "展示亲属不能完全豁免，但只有两案。",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 1.0,
+              "profile_id": "B1-PROFILE-17F9E9ED2E904507",
+              "b1_role": "support"
+            }
+          ],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "I2-SK-MENGXUN-AGRICULTURE-RELIEF-001",
+              "mechanism": "闭合政策和行政化表达，后续跨期产出未在本页直接量化。",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 1.0,
+              "profile_id": "B1-PROFILE-37C74E989F000266",
+              "b1_role": "support"
+            },
+            {
+              "M": "M0",
+              "direction": "context",
+              "direction_factor": 0.0,
+              "material_id": "I2-SK-MENGXUN-CONQUEST-INTEGRATION-001",
+              "mechanism": "财政、户籍与资源行政",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 0.0,
+              "profile_id": "B1-PROFILE-46684D6807FFB3B1",
+              "position_count_mode": "context_only",
+              "position_weight_override": 0.0,
+              "position_exclusion_reason": "仅描述政策价值、结果类别或泛化领域，未闭合B1责任链、传导、问责或组织交付失灵。",
+              "b1_role": "context"
+            }
+          ],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-SK-MENGXUN-AGRICULTURE-RELIEF-001",
+            "I2-SK-MENGXUN-CONQUEST-INTEGRATION-001",
+            "I2-SK-MENGXUN-RELATIVE-ACCOUNTABILITY-001"
+          ],
+          "direction_card_write": true,
+          "direction_index": 62.5,
+          "evidence_sufficiency_gate": "G3_BLOCKED_REQUIRES_M3_PLUS_INDEPENDENT_M2_OPERATION",
+          "formal_evidence_maturity": "fixed_primary_with_four_constrained_b2_adjudications",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G3",
+          "grade_basis": "《资治通鉴》卷119、《魏书·宋繇传》｜链：入酒泉后先禁侵掠→史载“士民安堵”→任宋繇吏部郎中并“委之选举/铨衡”→凉旧臣有才望者实际录用→牧犍任酒泉太守、索元绪任敦煌太守，形成接管—选任—区域配置的personnel/admin M3；但同一体系又出现索元绪“粗险好杀，大失人和”并诱发敦煌叛乱，必须合并为mixed_positive M3。另有亲属/责任官问责等有限M2，但不足形成独立G4第二系统链，维持G3-middle-upper。",
+          "grade_gate_basis": "《资治通鉴》卷119、《魏书·宋繇传》｜链：入酒泉后先禁侵掠→史载“士民安堵”→任宋繇吏部郎中并“委之选举/铨衡”→凉旧臣有才望者实际录用→牧犍任酒泉太守、索元绪任敦煌太守，形成接管—选任—区域配置的personnel/admin M3；但同一体系又出现索元绪“粗险好杀，大失人和”并诱发敦煌叛乱，必须合并为mixed_positive M3。另有亲属/责任官问责等有限M2，但不足形成独立G4第二系统链，维持G3-middle-upper。",
+          "grade_gate_code": "B1_G3_MAIN_STAGE_USABLE",
+          "index_interval": [
+            55.0,
+            69.9
+          ],
+          "polity": "北凉",
+          "position": "middle",
+          "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=0，按合同机械映射为middle。",
+          "position_q": 0.5,
+          "rank": 57,
+          "reign_range": [
+            401,
+            433
+          ],
+          "ruler_id": "RULER-SHADOW-沮渠蒙逊",
+          "ruler_name": "沮渠蒙逊",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为0，机械裁定G3-中位（62.5）"
+            },
+            {
+              "role": "正向依据（M2）",
+              "text": "闭合政策和行政化表达，后续跨期产出未在本页直接量化。"
+            },
+            {
+              "role": "正向依据（M2）",
+              "text": "展示亲属不能完全豁免，但只有两案。"
+            },
+            {
+              "role": "负向依据（无可计M档）",
+              "text": "未闭合可计的负向运行链"
+            }
+          ],
+          "position_residual": 0.0,
+          "grade_threshold_consumed": 2.0,
+          "v50_source_line": 194,
+          "review_material_basis": [
+            {
+              "version": "v20",
+              "line": 459,
+              "review_grade": "G3",
+              "review_position": null,
+              "basis": "多条独立M2形成组合，无广域M3。",
+              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
+            },
+            {
+              "version": "v50",
+              "line": 194,
+              "review_grade": "G3",
+              "review_position": "middle-upper",
+              "basis": "《资治通鉴》卷119、《魏书·宋繇传》｜链：入酒泉后先禁侵掠→史载“士民安堵”→任宋繇吏部郎中并“委之选举/铨衡”→凉旧臣有才望者实际录用→牧犍任酒泉太守、索元绪任敦煌太守，形成接管—选任—区域配置的personnel/admin M3；但同一体系又出现索元绪“粗险好杀，大失人和”并诱发敦煌叛乱，必须合并为mixed_positive M3。另有亲属/责任官问责等有限M2，但不足形成独立G4第二系统链，维持G3-middle-upper。",
+              "status": "ABSORBED_ACTIVE_PRECEDENCE"
+            }
+          ],
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
+          "g3_gate_route": "MULTI_CHAIN",
+          "g3_gate_profile_ids": [
+            "B1-PROFILE-37C74E989F000266",
+            "B1-PROFILE-17F9E9ED2E904507"
+          ]
+        },
+        {
+          "M_mixed_profile": [
+            {
+              "M": "M2",
+              "direction": "mixed_positive",
+              "direction_factor": 0.5,
+              "material_id": "I2-SK-SHILE-ADMIN-DELIVERY-001",
+              "mechanism": "州郡劝课农桑与户籍租赋开始运行，民生净结果未闭合",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0,
+              "profile_id": "B1-PROFILE-FDCF1346BE6B540B",
+              "b1_role": "distributed"
+            }
+          ],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "material_id": "I2-SK-SHILE-DELIBERATION-001",
+              "mechanism": "N3-cross：程遐长期控制高层任免、正常议政与官僚安全",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -2.0,
+              "lifecycle_key": "B1:RULER-SHADOW-石勒:V50:SEVERITY-NEGATIVE",
+              "lifecycle_group_key": "B1:RULER-SHADOW-石勒:V50:SEVERITY-NEGATIVE",
+              "evidence_slice": "SEVERITY-NEGATIVE",
+              "severity": "N3-cross",
+              "severity_scope": "major-stage",
+              "severity_basis": "程遐实际控制高层任免、排挤责任官并领吏部，组织俘获cross成立，阻G4",
+              "profile_id": "B1-PROFILE-C33FD1FF77E5CB0F",
+              "b1_role": "core"
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "I2-SK-SHILE-DELIBERATION-001",
+              "mechanism": "中枢组织与议政纠偏",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2.0,
+              "profile_id": "B1-PROFILE-F97ECBC2B7B00173",
+              "b1_role": "central"
+            },
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "I2-SK-SHILE-PERSONNEL-EDUCATION-001",
+              "mechanism": "制度跨荐举、教育、考核和升迁环节运行，且有太学生实际擢任佐著作郎。",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2.0,
+              "profile_id": "B1-PROFILE-BDF0DD57F68E1115",
+              "b1_role": "core"
+            }
+          ],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-SK-SHILE-ADMIN-DELIVERY-001",
+            "I2-SK-SHILE-DELIBERATION-001",
+            "I2-SK-SHILE-PERSONNEL-EDUCATION-001"
+          ],
+          "direction_card_write": true,
+          "direction_index": 62.5,
+          "evidence_sufficiency_gate": "not_applicable",
+          "formal_evidence_maturity": "fixed_primary_with_four_constrained_b2_adjudications",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G3",
+          "grade_basis": "链：徐光谏止移B2；选任考试core M3仍在。程遐实际控制高层任免、排挤责任官并领吏部，组织俘获cross成立，阻G4。",
+          "grade_gate_basis": "链：徐光谏止移B2；选任考试core M3仍在。程遐实际控制高层任免、排挤责任官并领吏部，组织俘获cross成立，阻G4。",
+          "grade_gate_code": "B1_G3_MAIN_STAGE_USABLE",
+          "index_interval": [
+            55.0,
+            69.9
+          ],
+          "polity": "后赵",
+          "position": "middle",
+          "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=0.5，按合同机械映射为middle。",
+          "position_q": 0.5,
+          "rank": 57,
+          "reign_range": [
+            319,
+            333
+          ],
+          "ruler_id": "RULER-SHADOW-石勒",
+          "ruler_name": "石勒",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为0.5，机械裁定G3-中位（62.5）"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "中枢组织与议政纠偏"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "制度跨荐举、教育、考核和升迁环节运行，且有太学生实际擢任佐著作郎。"
+            },
+            {
+              "role": "正向依据（M2）",
+              "text": "州郡劝课农桑与户籍租赋开始运行，民生净结果未闭合"
+            },
+            {
+              "role": "负向依据（M3，cross）",
+              "text": "N3（跨功能失灵）：程遐长期控制高层任免、正常议政与官僚安全"
+            }
+          ],
+          "position_residual": 0.5,
+          "grade_threshold_consumed": 2.0,
+          "v50_source_line": 226,
+          "review_material_basis": [
+            {
+              "version": "v20",
+              "line": 450,
+              "review_grade": "G3",
+              "review_position": "lower-middle",
+              "basis": "双向复审后主档不变、position下修，并纠正此前把三段不同事件机械拼成一条cross的做法。正向很强：公卿百僚岁荐贤良等多科人才、答策授官，郡国学官“三考修成，显升台府”且实际擢太学生五人为佐著作郎，闭合选任—考核—升迁core M3；另有霍皓、朱表、陆充循行州郡“核定户籍、劝课农桑”，农桑最修者赐爵，构成高厚度support M2；石勒还明令怒发中旨须门下列奏、徐光谏止杀续咸后停役奖直，说明正式纠偏链确有运行。真正的N3-cross主要应落在程遐生命周期：程遐借东宫姻亲排挤张宾系统、谮杀张披，随后“总执朝政，朝臣莫不震惧，赴于程氏”，至330年又领吏部尚书，已同时覆盖高层任免、正常议政和官僚安全。严震“威权过主相”本身只作常态/异常授权M2，不再与程遐重复拼cross；石虎病末矫命隔绝内外属极重terminal窗口，但集中临终数日，不外推全任。故仍G3；按cross残差后锁lower-middle。",
+              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
+            },
+            {
+              "version": "v50",
+              "line": 226,
+              "review_grade": "G3",
+              "review_position": "lower-middle",
+              "basis": "链：徐光谏止移B2；选任考试core M3仍在。程遐实际控制高层任免、排挤责任官并领吏部，组织俘获cross成立，阻G4。",
+              "status": "ABSORBED_ACTIVE_PRECEDENCE"
+            }
+          ],
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
+          "g3_gate_route": "CORE_M3",
+          "g3_gate_profile_ids": [
+            "B1-PROFILE-BDF0DD57F68E1115"
+          ]
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "I2-SK-FUJIAN-RULE-DELIVERY-001",
+              "mechanism": "关右以‘来苏’评价新政，形成建国初期的综合治理结果。",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 1.0,
+              "profile_id": "B1-PROFILE-514375EE923FB117",
+              "b1_role": "support"
+            },
+            {
+              "material_id": "I2-SK-FUJIAN-RULE-DELIVERY-001",
+              "evidence_slice": "V50-STATE-RESPONSIBILITY-M2",
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "signed_weight": 1.0,
+              "mechanism": "中央与州镇责任接口实际运行",
+              "lifecycle_key": "B1:RULER-SK-FUJIAN:V50:STATE-RESPONSIBILITY-M2",
+              "lifecycle_group_key": "B1:RULER-SK-FUJIAN:V50:STATE-RESPONSIBILITY-M2",
+              "result_closure": "observed_or_repeated",
+              "profile_id": "B1-PROFILE-C2C33BB4B72692B8",
+              "b1_role": "support"
+            }
+          ],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-SK-FUJIAN-RULE-DELIVERY-001"
+          ],
+          "direction_card_write": true,
+          "direction_index": 62.5,
+          "evidence_sufficiency_gate": "G3_BLOCKED_REQUIRES_M3_PLUS_INDEPENDENT_M2_OPERATION",
+          "formal_evidence_maturity": "fixed_primary_with_four_constrained_b2_adjudications",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G3",
+          "grade_basis": "《晋书·苻健载记》｜链①：入关后称天王、置百官，以苻雄丞相/都督中外兼雍州刺史，后又把张遇任司空、豫州刺史镇许昌，并在上洛设荆州以通关市，说明中央—州镇责任接口实际运行；虽多伴随征服背景，仍有真实行政承接。链②：本人在位后期“与百姓约法三章，薄赋卑宫，垂心政事，优礼耆老，修尚儒学”，史料直接收束“关右称来苏”；蝗灾、水灾时又实际蠲租、减膳撤乐，形成多个有限民政/资源M2并有总体结果复验。现证尚缺一条跨多年、带考课/替补的干净core M3，但多独立M2 + 同窗口“来苏”结果足G3组合门，故升G3-middle。",
+          "grade_gate_basis": "《晋书·苻健载记》｜链①：入关后称天王、置百官，以苻雄丞相/都督中外兼雍州刺史，后又把张遇任司空、豫州刺史镇许昌，并在上洛设荆州以通关市，说明中央—州镇责任接口实际运行；虽多伴随征服背景，仍有真实行政承接。链②：本人在位后期“与百姓约法三章，薄赋卑宫，垂心政事，优礼耆老，修尚儒学”，史料直接收束“关右称来苏”；蝗灾、水灾时又实际蠲租、减膳撤乐，形成多个有限民政/资源M2并有总体结果复验。现证尚缺一条跨多年、带考课/替补的干净core M3，但多独立M2 + 同窗口“来苏”结果足G3组合门，故升G3-middle。",
+          "grade_gate_code": "B1_G3_MAIN_STAGE_USABLE",
+          "index_interval": [
+            55.0,
+            69.9
+          ],
+          "polity": "前秦",
+          "position": "middle",
+          "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=0，按合同机械映射为middle。",
+          "position_q": 0.5,
+          "rank": 57,
+          "reign_range": [
+            351,
+            355
+          ],
+          "ruler_id": "RULER-SHADOW-苻健",
+          "ruler_name": "苻健",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为0，机械裁定G3-中位（62.5）"
+            },
+            {
+              "role": "正向依据（M2）",
+              "text": "关右以‘来苏’评价新政，形成建国初期的综合治理结果。"
+            },
+            {
+              "role": "正向依据（M2）",
+              "text": "中央与州镇责任接口实际运行"
+            },
+            {
+              "role": "负向依据（无可计M档）",
+              "text": "未闭合可计的负向运行链"
+            }
+          ],
+          "position_residual": 0.0,
+          "grade_threshold_consumed": 2.0,
+          "v50_source_line": 212,
+          "review_material_basis": [
+            {
+              "version": "v20",
+              "line": 540,
+              "review_grade": "G2",
+              "review_position": null,
+              "basis": "建国初期有综合治理结果，厚度不足主要阶段系统链。",
+              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
+            },
+            {
+              "version": "v50",
+              "line": 212,
+              "review_grade": "G3",
+              "review_position": "middle",
+              "basis": "《晋书·苻健载记》｜链①：入关后称天王、置百官，以苻雄丞相/都督中外兼雍州刺史，后又把张遇任司空、豫州刺史镇许昌，并在上洛设荆州以通关市，说明中央—州镇责任接口实际运行；虽多伴随征服背景，仍有真实行政承接。链②：本人在位后期“与百姓约法三章，薄赋卑宫，垂心政事，优礼耆老，修尚儒学”，史料直接收束“关右称来苏”；蝗灾、水灾时又实际蠲租、减膳撤乐，形成多个有限民政/资源M2并有总体结果复验。现证尚缺一条跨多年、带考课/替补的干净core M3，但多独立M2 + 同窗口“来苏”结果足G3组合门，故升G3-middle。",
+              "status": "ABSORBED_ACTIVE_PRECEDENCE"
+            }
+          ],
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
+          "g3_gate_route": "MULTI_CHAIN",
+          "g3_gate_profile_ids": [
+            "B1-PROFILE-514375EE923FB117",
+            "B1-PROFILE-C2C33BB4B72692B8"
+          ]
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "material_id": "I2-SK-FUJIAN-INTEGRATION-CONTINUITY-COLLAPSE-M3-AUDIT",
+              "mechanism": "末期慕容垂、姚苌等受任责任中心迅速脱离，落实为中央任命—地方责任中心—命令/控制链在多区域同步断裂；不再以淝水战败或继承失败本身计负",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -2.0,
+              "profile_id": "B1-PROFILE-3E18C1D9ABB122AB",
+              "b1_role": "core",
+              "lifecycle_key": "I2-SK-FUJIAN-INTEGRATION-CONTINUITY-COLLAPSE-M3-AUDIT",
+              "lifecycle_group_key": "I2-SK-FUJIAN-INTEGRATION-CONTINUITY-COLLAPSE-M3-AUDIT",
+              "severity": "N3-cross",
+              "severity_scope": "broad",
+              "severity_basis": "跨多个已授权责任中心发生组织脱离，闭合至少两个地方责任/控制功能面；战争结果本身已剥离。"
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "I2-SK-FUJIAN-EDUCATION-PROFESSIONALIZATION-001",
+              "mechanism": "学校与专业训练具有持续频率和覆盖扩展，但任官质量结果仍不充分",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 1.0,
+              "profile_id": "B1-PROFILE-2D09921D476A410C",
+              "b1_role": "core",
+              "lifecycle_key": "I2-SK-FUJIAN-EDUCATION-PROFESSIONALIZATION-001",
+              "lifecycle_group_key": "I2-SK-FUJIAN-EDUCATION-PROFESSIONALIZATION-001"
+            },
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "I2-SK-FUJIAN-SELECTION-ACCOUNTABILITY-M3-AUDIT",
+              "mechanism": "荐举问责、专才考核与统一铨衡形成持续选任结果",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2.0,
+              "profile_id": "B1-PROFILE-98E9D13A5346297D",
+              "b1_role": "core",
+              "lifecycle_key": "I2-SK-FUJIAN-SELECTION-ACCOUNTABILITY-M3-AUDIT",
+              "lifecycle_group_key": "I2-SK-FUJIAN-SELECTION-ACCOUNTABILITY-M3-AUDIT"
+            },
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "I2-SK-FUJIAN-WANGMENG-GOVERNANCE-M3-AUDIT",
+              "mechanism": "持续授权王猛整肃豪强、任贤，并在关东授权简召英俊补守宰、中央再正式除授，形成地方配置与结果验证",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2.0,
+              "profile_id": "B1-PROFILE-923A6476A32FDF6E",
+              "b1_role": "support",
+              "lifecycle_key": "I2-SK-FUJIAN-WANGMENG-GOVERNANCE-M3-AUDIT",
+              "lifecycle_group_key": "I2-SK-FUJIAN-WANGMENG-GOVERNANCE-M3-AUDIT"
+            }
+          ],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-SK-FUJIAN-EDUCATION-PROFESSIONALIZATION-001",
+            "I2-SK-FUJIAN-INTEGRATION-CONTINUITY-COLLAPSE-M3-AUDIT",
+            "I2-SK-FUJIAN-SELECTION-ACCOUNTABILITY-M3-AUDIT",
+            "I2-SK-FUJIAN-WANGMENG-GOVERNANCE-M3-AUDIT"
+          ],
+          "direction_card_write": true,
+          "direction_index": 62.5,
+          "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
+          "formal_evidence_state": "WORKING_READJUDICATED_TARGET_RECORD",
+          "formal_evidence_maturity": "latest_settlement_plus_targeted_expansion_review",
+          "grade": "G3",
+          "grade_basis": "王猛及荐举考核正链很强，但末期多个受任责任中心脱离已闭合broad N3-cross。按合同broad cross阻G4，且有效负M3进入档内位置，重裁为G3中上位。",
+          "grade_gate_basis": "王猛及荐举考核正链很强，但末期多个受任责任中心脱离已闭合broad N3-cross。按合同broad cross阻G4，且有效负M3进入档内位置，重裁为G3中上位。",
+          "grade_gate_code": "B1_G3_MAIN_STAGE_USABLE",
+          "index_interval": [
+            55.0,
+            69.9
+          ],
+          "position": "middle",
+          "position_q": 0.5,
+          "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=0.5，按合同机械映射为middle。",
+          "rank": 57,
+          "reign_range": [
+            357,
+            385
+          ],
+          "ruler_id": "RULER-SHADOW-苻坚",
+          "ruler_name": "苻坚",
+          "polity": "前秦",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为0.5，机械裁定G3-中位（62.5）"
+            },
+            {
+              "role": "正向依据（M2）",
+              "text": "学校与专业训练具有持续频率和覆盖扩展，但任官质量结果仍不充分"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "荐举问责、专才考核与统一铨衡形成持续选任结果"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "持续授权王猛整肃豪强、任贤，并在关东授权简召英俊补守宰、中央再正式除授，形成地方配置与结果验证"
+            },
+            {
+              "role": "负向依据（M3，cross）",
+              "text": "末期慕容垂、姚苌等受任责任中心迅速脱离，落实为中央任命—地方责任中心—命令/控制链在多区域同步断裂；不再以淝水战败或继承失败本身计负"
+            }
+          ],
+          "review_material_absorption_status": "TARGETED_REVIEW_SUPERSEDES_SOURCE_RECORD_FOR_LISTED_PROFILES",
+          "source_snapshot": {
+            "grade": "G3",
+            "position": "upper",
+            "direction_index": 68.4
+          },
+          "g3_gate_route": "CORE_M3",
+          "g3_gate_profile_ids": [
+            "B1-PROFILE-98E9D13A5346297D"
+          ],
+          "g3_core_profile_id": "B1-PROFILE-98E9D13A5346297D",
+          "position_residual": 0.5,
+          "grade_threshold_consumed": 2.0
+        },
+        {
+          "M_mixed_profile": [
+            {
+              "M": "M2",
+              "direction": "positive_correction",
+              "direction_factor": 1.0,
+              "material_id": "I2-SK-YAOXING-CORRUPTION-CORRECTION-001",
+              "mechanism": "廉政监督与贪腐惩治",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 1.0,
+              "profile_id": "B1-PROFILE-D8B0B628C2024D39",
+              "b1_role": "core"
+            }
+          ],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "material_id": "I2-SK-YAOXING-HEIR-CAPTURE-001",
+              "mechanism": "姚弼入尚书令并借御史伪证诬杀姚文宗，使群臣不敢言其短，击中人事与监察问责",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -2.0,
+              "profile_id": "B1-PROFILE-700A41CEB8076F58",
+              "b1_role": "core",
+              "severity": "N3-cross",
+              "severity_scope": "major-stage",
+              "severity_basis": "按v20/v50材料并集复核，裁为N3-cross / major-stage。"
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M0",
+              "direction": "context",
+              "direction_factor": 0.0,
+              "material_id": "I2-SK-YAOXING-EDUCATION-GOVERNANCE-001",
+              "mechanism": "长安远来诸生达万数千，学者受到持续激励，儒风形成。",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 0.0,
+              "position_count_mode": "context_only",
+              "position_weight_override": 0.0,
+              "position_exclusion_reason": "诸生规模与儒风只作教育背景。",
+              "profile_id": "B1-PROFILE-3F91720894B1C93E",
+              "b1_role": "context"
+            },
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "I2-SK-YAOXING-LAW-ADMINISTRATION-001",
+              "mechanism": "律学训练、郡县决狱、廷尉复核与咨议堂疑狱形成多层司法support M3",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2.0,
+              "profile_id": "B1-PROFILE-161E5BD90C55E818",
+              "b1_role": "support"
+            }
+          ],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-SK-YAOXING-CORRUPTION-CORRECTION-001",
+            "I2-SK-YAOXING-EDUCATION-GOVERNANCE-001",
+            "I2-SK-YAOXING-HEIR-CAPTURE-001",
+            "I2-SK-YAOXING-LAW-ADMINISTRATION-001"
+          ],
+          "direction_card_write": true,
+          "direction_index": 56.5,
+          "evidence_sufficiency_gate": "not_applicable",
+          "formal_evidence_maturity": "fixed_primary_with_four_constrained_b2_adjudications",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G3",
+          "grade_basis": "已吸收v20/v50计分材料（冲突以v50为准），再按V5.3合同重裁；当前主档为G3。材料裁决来源：v50。",
+          "grade_gate_basis": "已吸收v20/v50计分材料（冲突以v50为准），再按V5.3合同重裁；当前主档为G3。材料裁决来源：v50。",
+          "grade_gate_code": "B1_G3_MAIN_STAGE_USABLE",
+          "index_interval": [
+            55.0,
+            69.9
+          ],
+          "polity": "后秦",
+          "position": "lower",
+          "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=-1.5，按合同机械映射为lower。",
+          "position_q": 0.1,
+          "rank": 86,
+          "reign_range": [
+            394,
+            416
+          ],
+          "ruler_id": "RULER-SHADOW-姚兴",
+          "ruler_name": "姚兴",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为-1.5，机械裁定G3-下位（56.5）"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "律学训练、郡县决狱、廷尉复核与咨议堂疑狱形成多层司法行政交付 M3"
+            },
+            {
+              "role": "正向依据（M2）",
+              "text": "廉政监督与贪腐惩治"
+            },
+            {
+              "role": "负向依据（M3，cross）",
+              "text": "姚弼入尚书令并借御史伪证诬杀姚文宗，使群臣不敢言其短，击中人事与监察问责"
+            }
+          ],
+          "position_residual": -1.5,
+          "grade_threshold_consumed": 2.0,
+          "v50_source_line": 182,
+          "review_material_basis": [
+            {
+              "version": "v20",
+              "line": 457,
+              "review_grade": "G3",
+              "review_position": null,
+              "basis": "教育选任、司法行政强正链；太子集团N3-cross阻G4。",
+              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
+            },
+            {
+              "version": "v50",
+              "line": 182,
+              "review_grade": "G3",
+              "review_position": "middle-upper",
+              "basis": "《晋书·姚兴载记上/下》｜正链①：长安立律学→召郡县散吏受学→通明者还郡县决狱→州郡县不能决者谳廷尉→姚兴临咨议堂听疑狱→史载“时号无冤滞”，为多层司法support M3。正链②：命百僚举殊才异行、褒升郭抚/强超/鱼佩等清勤官，并诛始平太守周班等贪吏后“郡国肃然”，形成人事/问责M2。负链：姚弼入尚书令等高位→以侍御史廉桃生作伪证诬姚文宗→姚兴赐文宗死→“群臣累足，莫敢言弼之短”，实际击中高层人事与监察问责；后期进入主要阶段，阻G4。太学诸生万数千只作教育背景，不直接当选官M3。",
+              "status": "ABSORBED_ACTIVE_PRECEDENCE"
+            }
+          ],
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
+          "g3_gate_route": "MULTI_CHAIN",
+          "g3_gate_profile_ids": [
+            "B1-PROFILE-161E5BD90C55E818",
+            "B1-PROFILE-D8B0B628C2024D39"
+          ]
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "I2-SK-LIUYUAN-FAMINE-DELIVERY-001",
+              "mechanism": "中央官职承担实际粮运，避免只把饥荒当背景。",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 1.0,
+              "profile_id": "B1-PROFILE-01A8EED521636CD4",
+              "b1_role": "support"
+            },
+            {
+              "M": "M0",
+              "direction": "context",
+              "direction_factor": 0.0,
+              "material_id": "I2-SK-LIUYUAN-FIVE-TRIBES-GOV-001",
+              "mechanism": "法律、司法与刑罚运行",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 0.0,
+              "profile_id": "B1-PROFILE-891A57A096ED8720",
+              "position_count_mode": "context_only",
+              "position_weight_override": 0.0,
+              "position_exclusion_reason": "仅描述政策价值、结果类别或泛化领域，未闭合B1责任链、传导、问责或组织交付失灵。",
+              "b1_role": "context"
+            }
+          ],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-SK-LIUYUAN-FAMINE-DELIVERY-001",
+            "I2-SK-LIUYUAN-FIVE-TRIBES-GOV-001"
+          ],
+          "direction_card_write": true,
+          "direction_index": 47.5,
+          "evidence_sufficiency_gate": "G3_BLOCKED_REQUIRES_M3_PLUS_INDEPENDENT_M2_OPERATION",
+          "formal_evidence_maturity": "fixed_primary_with_four_constrained_b2_adjudications",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G2",
+          "grade_basis": "实证链为地方行政与政策交付、法律、司法与刑罚运行；只证明有限交付或可用与失能并存，未覆盖主要阶段",
+          "grade_gate_basis": "实证链为地方行政与政策交付、法律、司法与刑罚运行；只证明有限交付或可用与失能并存，未覆盖主要阶段",
+          "grade_gate_code": "B1_G2_LIMITED_OR_MIXED",
+          "index_interval": [
+            40.0,
+            54.9
+          ],
+          "polity": "汉赵",
+          "position": "middle",
+          "position_basis": "有效生命周期签名M权重合计扣除G2门槛占用1后，净余量=0，按合同机械映射为middle。",
+          "position_q": 0.5,
+          "rank": 109,
+          "reign_range": [
+            304,
+            310
+          ],
+          "ruler_id": "RULER-SHADOW-刘渊",
+          "ruler_name": "刘渊",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为0，机械裁定G2-中位（47.5）"
+            },
+            {
+              "role": "正向依据（M2）",
+              "text": "中央官职承担实际粮运，避免只把饥荒当背景。"
+            },
+            {
+              "role": "负向依据（无可计M档）",
+              "text": "未闭合可计的负向运行链"
+            }
+          ],
+          "position_residual": 0.0,
+          "grade_threshold_consumed": 1.0,
+          "review_material_basis": [],
+          "review_material_absorption_status": "NOT_LISTED_PRESERVE_FORMAL_MATERIALS"
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "I2-SK-YAOCHANG-WARTIME-ORGANIZATION-001",
+              "mechanism": "闭合了战时组织激励动作，但未见跨期民政结果。",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 1.0,
+              "profile_id": "B1-PROFILE-C5312B0445EC8D75",
+              "b1_role": "support"
+            }
+          ],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-SK-YAOCHANG-WARTIME-ORGANIZATION-001"
+          ],
+          "direction_card_write": true,
+          "direction_index": 47.5,
+          "evidence_sufficiency_gate": "G3_BLOCKED_REQUIRES_M3_PLUS_INDEPENDENT_M2_OPERATION",
+          "formal_evidence_maturity": "fixed_primary_with_four_constrained_b2_adjudications",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G2",
+          "grade_basis": "《晋书·姚苌载记》｜称帝后的本人窗口可确认多条有限接口：建初元年置百官、以弟绪为司隶校尉镇长安；取秦州后以硕德都督陇右并任秦州刺史，古成诜因提出人才/军政建议实际擢尚书郎；姚苌在安定“修德政、布惠化、省非急之费”，并显异闾阎士；长期出征时以太子兴镇长安、尚书令姚旻等分别守安定/参与决策，另对战死将帅加秩、士卒褒赠。说明中央—区域责任配置与奖惩真实存在，至少形成多个M2；但现证大量收束仍依赖战争/降城结果，缺一条多年、跨层且有独立行政结果的干净core M3，故维持G2-middle-upper。",
+          "grade_gate_basis": "《晋书·姚苌载记》｜称帝后的本人窗口可确认多条有限接口：建初元年置百官、以弟绪为司隶校尉镇长安；取秦州后以硕德都督陇右并任秦州刺史，古成诜因提出人才/军政建议实际擢尚书郎；姚苌在安定“修德政、布惠化、省非急之费”，并显异闾阎士；长期出征时以太子兴镇长安、尚书令姚旻等分别守安定/参与决策，另对战死将帅加秩、士卒褒赠。说明中央—区域责任配置与奖惩真实存在，至少形成多个M2；但现证大量收束仍依赖战争/降城结果，缺一条多年、跨层且有独立行政结果的干净core M3，故维持G2-middle-upper。",
+          "grade_gate_code": "B1_G2_LIMITED_OR_MIXED",
+          "index_interval": [
+            40.0,
+            54.9
+          ],
+          "polity": "后秦",
+          "position": "middle",
+          "position_basis": "有效生命周期签名M权重合计扣除G2门槛占用1后，净余量=0，按合同机械映射为middle。",
+          "position_q": 0.5,
+          "rank": 109,
+          "reign_range": [
+            384,
+            393
+          ],
+          "ruler_id": "RULER-SHADOW-姚苌",
+          "ruler_name": "姚苌",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为0，机械裁定G2-中位（47.5）"
+            },
+            {
+              "role": "正向依据（M2）",
+              "text": "闭合了战时组织激励动作，但未见跨期民政结果。"
+            },
+            {
+              "role": "负向依据（无可计M档）",
+              "text": "未闭合可计的负向运行链"
+            }
+          ],
+          "position_residual": 0.0,
+          "grade_threshold_consumed": 1.0,
+          "v50_source_line": 249,
+          "review_material_basis": [
+            {
+              "version": "v20",
+              "line": 541,
+              "review_grade": "G2",
+              "review_position": null,
+              "basis": "学官考试随才擢叙、禁私仇等真实行政接口，但多为命令/规则，缺反复结果。",
+              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
+            },
+            {
+              "version": "v50",
+              "line": 249,
+              "review_grade": "G2",
+              "review_position": "middle-upper",
+              "basis": "《晋书·姚苌载记》｜称帝后的本人窗口可确认多条有限接口：建初元年置百官、以弟绪为司隶校尉镇长安；取秦州后以硕德都督陇右并任秦州刺史，古成诜因提出人才/军政建议实际擢尚书郎；姚苌在安定“修德政、布惠化、省非急之费”，并显异闾阎士；长期出征时以太子兴镇长安、尚书令姚旻等分别守安定/参与决策，另对战死将帅加秩、士卒褒赠。说明中央—区域责任配置与奖惩真实存在，至少形成多个M2；但现证大量收束仍依赖战争/降城结果，缺一条多年、跨层且有独立行政结果的干净core M3，故维持G2-middle-upper。",
+              "status": "ABSORBED_ACTIVE_PRECEDENCE"
+            }
+          ],
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE"
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "material_id": "I2-SK-LVGUANG-FAVORITE-CAPTURE-001",
+              "mechanism": "末期误杀尚书与郡守后地方责任中心接连反叛，中央救援和区域服从同步失效",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -2.0,
+              "severity": "N3-cross",
+              "severity_scope": "major-stage",
+              "severity_basis": "链①：入姑臧后实际设置武威太守等州郡责任官；麟嘉年间张掖督邮傅曜按校属县→丘池令尹兴赃状败露并杀督邮→吕光遣使覆核、结果与事实相合后诛尹兴，形成地方监察—中央覆核—问责M2；负生命周期：末期因谗杀尚书沮渠罗仇、三河太守沮渠麹粥→沮渠蒙逊、男成起兵，建康太守段业因中央援军不至转立；郭黁又在东苑叛，吕光本人承认“泽不逮远，百城离叛”，实际形成高层任免失误+地方控制/中央救援失效的late-stage broad cross；该cross极重但主要集中统治末段，前中期州郡、监察、财政仓储仍运行，故由G1回G2-middle，不以饥荒/战败本身扣B1",
+              "profile_id": "B1-PROFILE-A3061F16C13FFC6C",
+              "b1_role": "core"
+            },
+            {
+              "M": "M0",
+              "direction": "context",
+              "direction_factor": 0.0,
+              "material_id": "I2-SK-LVGUANG-LATE-COLLAPSE-001",
+              "mechanism": "法律、司法与刑罚运行",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 0.0,
+              "profile_id": "B1-PROFILE-7EC592948CF53555",
+              "position_count_mode": "context_only",
+              "position_weight_override": 0.0,
+              "position_exclusion_reason": "仅描述政策价值、结果类别或泛化领域，未闭合B1责任链、传导、问责或组织交付失灵。",
+              "b1_role": "context"
+            }
+          ],
+          "M_positive_profile": [],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-SK-LVGUANG-FAVORITE-CAPTURE-001",
+            "I2-SK-LVGUANG-LATE-COLLAPSE-001"
+          ],
+          "direction_card_write": true,
+          "direction_index": 41.5,
+          "evidence_sufficiency_gate": "not_applicable",
+          "formal_evidence_maturity": "fixed_primary_with_four_constrained_b2_adjudications",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G2",
+          "grade_basis": "《晋书·吕光载记》｜正链①：入姑臧后实际设置武威太守等州郡责任官；麟嘉年间张掖督邮傅曜按校属县→丘池令尹兴赃状败露并杀督邮→吕光遣使覆核、结果与事实相合后诛尹兴，形成地方监察—中央覆核—问责M2。正链②：段业批评刑法峻重→吕光“改容谢之”，随后正式下令责躬并“崇宽简之政”；这句话本身含B2采纳切片，但B1只消费其后行政规则实际改向的M2。负生命周期：末期因谗杀尚书沮渠罗仇、三河太守沮渠麹粥→沮渠蒙逊、男成起兵，建康太守段业因中央援军不至转立；郭黁又在东苑叛，吕光本人承认“泽不逮远，百城离叛”，实际形成**高层任免失误+地方控制/中央救援失效**的late-stage broad cross。该cross极重但主要集中统治末段，前中期州郡、监察、财政仓储仍运行，故由G1回G2-middle，不以饥荒/战败本身扣B1。",
+          "grade_gate_basis": "《晋书·吕光载记》｜正链①：入姑臧后实际设置武威太守等州郡责任官；麟嘉年间张掖督邮傅曜按校属县→丘池令尹兴赃状败露并杀督邮→吕光遣使覆核、结果与事实相合后诛尹兴，形成地方监察—中央覆核—问责M2。正链②：段业批评刑法峻重→吕光“改容谢之”，随后正式下令责躬并“崇宽简之政”；这句话本身含B2采纳切片，但B1只消费其后行政规则实际改向的M2。负生命周期：末期因谗杀尚书沮渠罗仇、三河太守沮渠麹粥→沮渠蒙逊、男成起兵，建康太守段业因中央援军不至转立；郭黁又在东苑叛，吕光本人承认“泽不逮远，百城离叛”，实际形成**高层任免失误+地方控制/中央救援失效**的late-stage broad cross。该cross极重但主要集中统治末段，前中期州郡、监察、财政仓储仍运行，故由G1回G2-middle，不以饥荒/战败本身扣B1。",
+          "grade_gate_code": "B1_G2_LIMITED_OR_MIXED",
+          "index_interval": [
+            40.0,
+            54.9
+          ],
+          "polity": "后凉",
+          "position": "lower",
+          "position_basis": "有效生命周期签名M权重合计扣除G2门槛占用1后，净余量=-3.5，按合同机械映射为lower。",
+          "position_q": 0.1,
+          "rank": 134,
+          "reign_range": [
+            386,
+            399
+          ],
+          "ruler_id": "RULER-SHADOW-吕光",
+          "ruler_name": "吕光",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为-3.5，机械裁定G2-下位（41.5）"
+            },
+            {
+              "role": "正向依据（无可计M档）",
+              "text": "未闭合可计的正向运行链"
+            },
+            {
+              "role": "负向依据（M3，cross）",
+              "text": "末期误杀尚书与郡守后地方责任中心接连反叛，中央救援和区域服从同步失效"
+            }
+          ],
+          "position_residual": -3.5,
+          "grade_threshold_consumed": 1.0,
+          "v50_source_line": 242,
+          "review_material_basis": [
+            {
+              "version": "v20",
+              "line": 610,
+              "review_grade": "G1",
+              "review_position": "lower",
+              "basis": "近幸俘获与后期法律行政崩坏多条负M3。",
+              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
+            },
+            {
+              "version": "v50",
+              "line": 242,
+              "review_grade": "G2",
+              "review_position": "middle",
+              "basis": "《晋书·吕光载记》｜正链①：入姑臧后实际设置武威太守等州郡责任官；麟嘉年间张掖督邮傅曜按校属县→丘池令尹兴赃状败露并杀督邮→吕光遣使覆核、结果与事实相合后诛尹兴，形成地方监察—中央覆核—问责M2。正链②：段业批评刑法峻重→吕光“改容谢之”，随后正式下令责躬并“崇宽简之政”；这句话本身含B2采纳切片，但B1只消费其后行政规则实际改向的M2。负生命周期：末期因谗杀尚书沮渠罗仇、三河太守沮渠麹粥→沮渠蒙逊、男成起兵，建康太守段业因中央援军不至转立；郭黁又在东苑叛，吕光本人承认“泽不逮远，百城离叛”，实际形成高层任免失误+地方控制/中央救援失效的late-stage broad cross。该cross极重但主要集中统治末段，前中期州郡、监察、财政仓储仍运行，故由G1回G2-middle，不以饥荒/战败本身扣B1。",
+              "status": "ABSORBED_ACTIVE_PRECEDENCE"
+            }
+          ],
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE"
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "material_id": "I2-SK-HELIAN-CONSTRUCTION-KILLING-001",
+              "mechanism": "将作质量验收以处死工匠为固定奖惩规则，工程责任链形成制度化逆向激励",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -2.0,
+              "profile_id": "B1-PROFILE-5D04484FBFDE3CD6",
+              "b1_role": "support",
+              "severity": "N3-domain",
+              "severity_scope": "localized",
+              "severity_basis": "按该负生命周期实际击中的B1组织功能面与责任窗口裁为N3-domain / localized。"
+            },
+            {
+              "M": "M0",
+              "direction": "context",
+              "direction_factor": 0.0,
+              "material_id": "I2-SK-HELIAN-PLUNDER-STATE-001",
+              "mechanism": "强制迁徙与掠夺只作政策及战争后果背景",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 0.0,
+              "profile_id": "B1-PROFILE-FA09FCC807E5F3D0",
+              "position_count_mode": "context_only",
+              "position_weight_override": 0.0,
+              "position_exclusion_reason": "迁徙、掠夺及城门关闭未闭合独立B1组织接口失灵。",
+              "b1_role": "context"
+            }
+          ],
+          "M_positive_profile": [],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-SK-HELIAN-CONSTRUCTION-KILLING-001",
+            "I2-SK-HELIAN-PLUNDER-STATE-001"
+          ],
+          "direction_card_write": true,
+          "direction_index": 41.5,
+          "evidence_sufficiency_gate": "not_applicable",
+          "formal_evidence_maturity": "fixed_primary_with_four_constrained_b2_adjudications",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G2",
+          "grade_basis": "《晋书·赫连勃勃载记》｜正链：义熙三年建国后确实配置丞相、御史大夫、司隶、尚书令/左右仆射等责任位；击破齐难后“岭北夷夏降附者数万计”并实际“拜置守宰以抚之”，后续又以右地代领幽州、安定/阴密等地设置刺史/留镇责任官，证明地方接管与中枢岗位不是纯纸面，正M2。负链直接消费组织激励而非“残暴名声”：修统万城时任叱干阿利将作大匠，采用锥验城墙、入一寸即杀作者并筑入墙中；制造兵器又规定穿甲则杀铠匠、不穿则杀弓人，史载“杀工匠数千”，属于国家工程责任链中长期、制度化的极端负向奖惩M3；另征隐士韦祖思后因礼节不合直接杀之，显示人才入口稳定性差。正向行政接管与系统性恶劣任务执行并存，维持G2-lower，不因建都/征服成功加分，也不因民役代价本身重复扣分。",
+          "grade_gate_basis": "《晋书·赫连勃勃载记》｜正链：义熙三年建国后确实配置丞相、御史大夫、司隶、尚书令/左右仆射等责任位；击破齐难后“岭北夷夏降附者数万计”并实际“拜置守宰以抚之”，后续又以右地代领幽州、安定/阴密等地设置刺史/留镇责任官，证明地方接管与中枢岗位不是纯纸面，正M2。负链直接消费组织激励而非“残暴名声”：修统万城时任叱干阿利将作大匠，采用锥验城墙、入一寸即杀作者并筑入墙中；制造兵器又规定穿甲则杀铠匠、不穿则杀弓人，史载“杀工匠数千”，属于国家工程责任链中长期、制度化的极端负向奖惩M3；另征隐士韦祖思后因礼节不合直接杀之，显示人才入口稳定性差。正向行政接管与系统性恶劣任务执行并存，维持G2-lower，不因建都/征服成功加分，也不因民役代价本身重复扣分。",
+          "grade_gate_code": "B1_G2_LIMITED_OR_MIXED",
+          "index_interval": [
+            40.0,
+            54.9
+          ],
+          "polity": "胡夏",
+          "position": "lower",
+          "position_basis": "有效生命周期签名M权重合计扣除G2门槛占用1后，净余量=-3，按合同机械映射为lower。",
+          "position_q": 0.1,
+          "rank": 134,
+          "reign_range": [
+            407,
+            425
+          ],
+          "ruler_id": "RULER-SHADOW-赫连勃勃",
+          "ruler_name": "赫连勃勃",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为-3，机械裁定G2-下位（41.5）"
+            },
+            {
+              "role": "正向依据（无可计M档）",
+              "text": "未闭合可计的正向运行链"
+            },
+            {
+              "role": "负向依据（M3）",
+              "text": "将作质量验收以处死工匠为固定奖惩规则，工程责任链形成制度化逆向激励"
+            }
+          ],
+          "position_residual": -3.0,
+          "grade_threshold_consumed": 1.0,
+          "v50_source_line": 254,
+          "review_material_basis": [
+            {
+              "version": "v20",
+              "line": 542,
+              "review_grade": "G2",
+              "review_position": "lower-middle",
+              "basis": "暴虐/战争成本退出B1；征服后守宰配置与南台接口有限，尚无广域结果。",
+              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
+            },
+            {
+              "version": "v50",
+              "line": 254,
+              "review_grade": "G2",
+              "review_position": "lower",
+              "basis": "《晋书·赫连勃勃载记》｜正链：义熙三年建国后确实配置丞相、御史大夫、司隶、尚书令/左右仆射等责任位；击破齐难后“岭北夷夏降附者数万计”并实际“拜置守宰以抚之”，后续又以右地代领幽州、安定/阴密等地设置刺史/留镇责任官，证明地方接管与中枢岗位不是纯纸面，正M2。负链直接消费组织激励而非“残暴名声”：修统万城时任叱干阿利将作大匠，采用锥验城墙、入一寸即杀作者并筑入墙中；制造兵器又规定穿甲则杀铠匠、不穿则杀弓人，史载“杀工匠数千”，属于国家工程责任链中长期、制度化的极端负向奖惩M3；另征隐士韦祖思后因礼节不合直接杀之，显示人才入口稳定性差。正向行政接管与系统性恶劣任务执行并存，维持G2-lower，不因建都/征服成功加分，也不因民役代价本身重复扣分。",
+              "status": "ABSORBED_ACTIVE_PRECEDENCE"
+            }
+          ],
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE"
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "material_id": "I2-SK-RANMIN-ETHNIC-KILLING-001",
+              "mechanism": "以斩首数量直接晋官授职，扭曲选任奖惩并推动官僚军政集团逃散",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -2.0,
+              "profile_id": "B1-PROFILE-38FDC12ECA00DAA8",
+              "b1_role": "support",
+              "severity": "N3-domain",
+              "severity_scope": "broad",
+              "severity_basis": "直接以斩首数量决定文官晋级和武职授予，闭合官员选任奖惩的广域逆向激励；人口死亡本身不作为B1扣分。"
+            },
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "material_id": "I2-SK-RANMIN-STATE-COLLAPSE-001",
+              "mechanism": "诛杀中枢责任官并绕开正式军政方案决战，继而使中枢岗位与地方服从链同步失稳",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -2.0,
+              "profile_id": "B1-PROFILE-F0A64AD0557086A3",
+              "b1_role": "core",
+              "severity": "N3-cross",
+              "severity_scope": "major-stage",
+              "severity_basis": "两年窗口内先后诛李农、王泰等责任官，正式军政方案被旁路，中枢责任官与多地责任中心随后同步退出，闭合高层任命问责、军政决策和中央—地方服从的cross；饥荒、迁徙、被俘及继任灭亡不参与B1门禁。"
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "I2-SK-RANMIN-SELECTION-RESET-001",
+              "mechanism": "出现短期翕然评价，但未跨越持续战争形成稳定运行。",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 1.0,
+              "profile_id": "B1-PROFILE-C7BBB418BAD9B0E5",
+              "b1_role": "support"
+            }
+          ],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-SK-RANMIN-ETHNIC-KILLING-001",
+            "I2-SK-RANMIN-SELECTION-RESET-001",
+            "I2-SK-RANMIN-STATE-COLLAPSE-001"
+          ],
+          "direction_card_write": true,
+          "direction_index": 22.0,
+          "evidence_sufficiency_gate": "not_applicable",
+          "formal_evidence_maturity": "fixed_primary_with_four_constrained_b2_adjudications",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G1",
+          "grade_basis": "《晋书·石季龙载记下》｜短暂正链：即位后以李农录尚书事，苍亭大捷后“清定九流，准才授任，儒学后门多蒙显进，于时翕然”，证明并非完全没有选任/中枢运行，最高正M2。负生命周期随即压倒：冉闵先诛太宰李农及三子、尚书令王谟等；襄国战前卫将军王泰提出固垒待援的正式军政方案，冉闵先欲从、后听道士决战致主力惨败，继而又以王泰被告招集秦人为由诛其三族；战败后司空石璞、尚书令徐机、侍中李琳、中书监卢谌等大批中枢责任官死亡，随后徐州、兖州、豫州、荆州等地方责任中心相继归顺他方。两年统治内**高层任命/问责+军政决策+中央—地方服从**持续失稳且占主要阶段，G1成立；大屠杀、饥荒、人相食等只作为结果背景，不单独制造B1负项。",
+          "grade_gate_basis": "《晋书·石季龙载记下》｜短暂正链：即位后以李农录尚书事，苍亭大捷后“清定九流，准才授任，儒学后门多蒙显进，于时翕然”，证明并非完全没有选任/中枢运行，最高正M2。负生命周期随即压倒：冉闵先诛太宰李农及三子、尚书令王谟等；襄国战前卫将军王泰提出固垒待援的正式军政方案，冉闵先欲从、后听道士决战致主力惨败，继而又以王泰被告招集秦人为由诛其三族；战败后司空石璞、尚书令徐机、侍中李琳、中书监卢谌等大批中枢责任官死亡，随后徐州、兖州、豫州、荆州等地方责任中心相继归顺他方。两年统治内**高层任命/问责+军政决策+中央—地方服从**持续失稳且占主要阶段，G1成立；大屠杀、饥荒、人相食等只作为结果背景，不单独制造B1负项。",
+          "grade_gate_code": "B1_G1_DYSFUNCTION_DOMINANT",
+          "index_interval": [
+            20.0,
+            39.9
+          ],
+          "polity": "冉魏",
+          "position": "lower",
+          "position_basis": "有效生命周期签名M权重合计扣除G1门槛占用0.5后，净余量=-4，按合同机械映射为lower。",
+          "position_q": 0.1,
+          "rank": 154,
+          "reign_range": [
+            350,
+            352
+          ],
+          "ruler_id": "RULER-SHADOW-冉闵",
+          "ruler_name": "冉闵",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为-4，机械裁定G1-下位（22.0）"
+            },
+            {
+              "role": "正向依据（M2）",
+              "text": "出现短期翕然评价，但未跨越持续战争形成稳定运行。"
+            },
+            {
+              "role": "负向依据（M3）",
+              "text": "以斩首数量直接晋官授职，扭曲选任奖惩并推动官僚军政集团逃散"
+            },
+            {
+              "role": "负向依据（M3，cross）",
+              "text": "诛杀中枢责任官并绕开正式军政方案决战，继而使中枢岗位与地方服从链同步失稳"
+            }
+          ],
+          "position_residual": -4.0,
+          "grade_threshold_consumed": 0.5,
+          "v50_source_line": 290,
+          "review_material_basis": [
+            {
+              "version": "v20",
+              "line": 584,
+              "review_grade": "G1",
+              "review_position": null,
+              "basis": "把杀人纳入官员晋级奖励，系统扭曲奖惩；饥荒迁徙死亡不重复算B1。",
+              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
+            },
+            {
+              "version": "v50",
+              "line": 290,
+              "review_grade": "G1",
+              "review_position": "lower-middle",
+              "basis": "《晋书·石季龙载记下》｜短暂正链：即位后以李农录尚书事，苍亭大捷后“清定九流，准才授任，儒学后门多蒙显进，于时翕然”，证明并非完全没有选任/中枢运行，最高正M2。负生命周期随即压倒：冉闵先诛太宰李农及三子、尚书令王谟等；襄国战前卫将军王泰提出固垒待援的正式军政方案，冉闵先欲从、后听道士决战致主力惨败，继而又以王泰被告招集秦人为由诛其三族；战败后司空石璞、尚书令徐机、侍中李琳、中书监卢谌等大批中枢责任官死亡，随后徐州、兖州、豫州、荆州等地方责任中心相继归顺他方。两年统治内高层任命/问责+军政决策+中央—地方服从持续失稳且占主要阶段，G1成立；大屠杀、饥荒、人相食等只作为结果背景，不单独制造B1负项。",
+              "status": "ABSORBED_ACTIVE_PRECEDENCE"
+            }
+          ],
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE"
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "material_id": "I2-SK-LIUCONG-EUNUCH-CAPTURE-001",
+              "mechanism": "近幸截留群臣奏事并以爱憎决策，同时控制铨选奖惩形成跨官僚链俘获",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -2.0,
+              "profile_id": "B1-PROFILE-9CADEE44EA61ED73",
+              "severity": "N3-cross",
+              "severity_scope": "major-stage",
+              "severity_basis": "后期百日不出、群臣奏事多被截留，选举不以实且政以贿成，闭合中枢信息决策与官员选任奖惩两项核心功能失灵。",
+              "b1_role": "core"
+            }
+          ],
+          "M_positive_profile": [],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-SK-LIUCONG-EUNUCH-CAPTURE-001"
+          ],
+          "direction_card_write": true,
+          "direction_index": 22.0,
+          "evidence_sufficiency_gate": "not_applicable",
+          "formal_evidence_maturity": "fixed_primary_with_four_constrained_b2_adjudications",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G1",
+          "grade_basis": "实证链为未闭合正向运行链；同尺度反例为权力俘获、强制与反馈压制；失能、俘获或执行中断在主要阶段占主导，正向链不足以扭转",
+          "grade_gate_basis": "实证链为未闭合正向运行链；同尺度反例为权力俘获、强制与反馈压制；失能、俘获或执行中断在主要阶段占主导，正向链不足以扭转",
+          "grade_gate_code": "B1_G1_DYSFUNCTION_DOMINANT",
+          "index_interval": [
+            20.0,
+            39.9
+          ],
+          "polity": "汉赵",
+          "position": "lower",
+          "position_basis": "有效生命周期签名M权重合计扣除G1门槛占用0.5后，净余量=-3，按合同机械映射为lower。",
+          "position_q": 0.1,
+          "rank": 154,
+          "reign_range": [
+            310,
+            318
+          ],
+          "ruler_id": "RULER-SHADOW-刘聪",
+          "ruler_name": "刘聪",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为-3，机械裁定G1-下位（22.0）"
+            },
+            {
+              "role": "正向依据（无可计M档）",
+              "text": "未闭合可计的正向运行链"
+            },
+            {
+              "role": "负向依据（M3，cross）",
+              "text": "近幸截留群臣奏事并以爱憎决策，同时控制铨选奖惩形成跨官僚链俘获"
+            }
+          ],
+          "position_residual": -3.0,
+          "grade_threshold_consumed": 0.5,
+          "review_material_basis": [],
+          "review_material_absorption_status": "NOT_LISTED_PRESERVE_FORMAL_MATERIALS"
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "material_id": "I2-SK-SHIHU-COURT-BYPASS-001",
+              "mechanism": "刺史二千石多出其门，九卿以下趋附。",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -2.0,
+              "severity": "N3-cross",
+              "severity_scope": "major-stage",
+              "severity_basis": "链①：申扁受宠后“专综机密”，石虎不亲省事，石宣又荒酒内游→“生杀除拜皆扁所决”，刺史二千石多出其门、九卿以下趋附，直接俘获中央信息/决策+高层与地方任命；链②：公侯牧宰“竞兴私利”，史载百姓失业十室而七，地方行政/廉洁激励广域恶化；石宣又经张离奏夺诸公府吏兵、五万余兵配东宫，造成高层责任中心间资源分割与怨恨；也就是说是中枢任命/机密俘获+地方牧宰失范的重度cross，尚未到正式行政机器整体归零，故G1而非G0；宫室、征发、船夫死亡等政策/民役成本不直接作为B1 terminal依据",
+              "profile_id": "B1-PROFILE-2A139700A34915FE",
+              "b1_role": "core"
+            },
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "material_id": "I2-SK-SHIHU-DELIVERY-EXTRACTION-001",
+              "mechanism": "权贵约束与基层权益保护",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -2.0,
+              "profile_id": "B1-PROFILE-7D015C5F49421B8B",
+              "b1_role": "support",
+              "severity": "N3-domain",
+              "severity_scope": "localized",
+              "severity_basis": "按该负生命周期实际击中的B1组织功能面与责任窗口裁为N3-domain / localized。"
+            }
+          ],
+          "M_positive_profile": [],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-SK-SHIHU-COURT-BYPASS-001",
+            "I2-SK-SHIHU-DELIVERY-EXTRACTION-001"
+          ],
+          "direction_card_write": true,
+          "direction_index": 22.0,
+          "evidence_sufficiency_gate": "not_applicable",
+          "formal_evidence_maturity": "fixed_primary_with_four_constrained_b2_adjudications",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G1",
+          "grade_basis": "《晋书·石季龙载记上/下》《十六国春秋辑补·后赵录》｜负链①：申扁受宠后“专综机密”，石虎不亲省事，石宣又荒酒内游→“生杀除拜皆扁所决”，刺史二千石多出其门、九卿以下趋附，直接俘获**中央信息/决策+高层与地方任命**。负链②：公侯牧宰“竞兴私利”，史载百姓失业十室而七，地方行政/廉洁激励广域恶化；石宣又经张离奏夺诸公府吏兵、五万余兵配东宫，造成高层责任中心间资源分割与怨恨。**但不能判G0**：石虎任内仍持续存在尚书奏事系统——石韬与太子宣迭日省可尚书奏事；中书监王波、侍中石璞等仍能在外交/军政策略中提出意见并部分被采纳；幽州至白狼有大兴屯田，州郡军政、征发和跨区兵力调度长期实际运行。也就是说是**中枢任命/机密俘获+地方牧宰失范**的重度cross，尚未到正式行政机器整体归零，故G1而非G0。宫室、征发、船夫死亡等政策/民役成本不直接作为B1 terminal依据。",
+          "grade_gate_basis": "《晋书·石季龙载记上/下》《十六国春秋辑补·后赵录》｜负链①：申扁受宠后“专综机密”，石虎不亲省事，石宣又荒酒内游→“生杀除拜皆扁所决”，刺史二千石多出其门、九卿以下趋附，直接俘获**中央信息/决策+高层与地方任命**。负链②：公侯牧宰“竞兴私利”，史载百姓失业十室而七，地方行政/廉洁激励广域恶化；石宣又经张离奏夺诸公府吏兵、五万余兵配东宫，造成高层责任中心间资源分割与怨恨。**但不能判G0**：石虎任内仍持续存在尚书奏事系统——石韬与太子宣迭日省可尚书奏事；中书监王波、侍中石璞等仍能在外交/军政策略中提出意见并部分被采纳；幽州至白狼有大兴屯田，州郡军政、征发和跨区兵力调度长期实际运行。也就是说是**中枢任命/机密俘获+地方牧宰失范**的重度cross，尚未到正式行政机器整体归零，故G1而非G0。宫室、征发、船夫死亡等政策/民役成本不直接作为B1 terminal依据。",
+          "grade_gate_code": "B1_G1_DYSFUNCTION_DOMINANT",
+          "index_interval": [
+            20.0,
+            39.9
+          ],
+          "polity": "后赵",
+          "position": "lower",
+          "position_basis": "有效生命周期签名M权重合计扣除G1门槛占用0.5后，净余量=-5，按合同机械映射为lower。",
+          "position_q": 0.1,
+          "rank": 154,
+          "reign_range": [
+            334,
+            349
+          ],
+          "ruler_id": "RULER-SHADOW-石虎",
+          "ruler_name": "石虎",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为-5，机械裁定G1-下位（22.0）"
+            },
+            {
+              "role": "正向依据（无可计M档）",
+              "text": "未闭合可计的正向运行链"
+            },
+            {
+              "role": "负向依据（M3，cross）",
+              "text": "刺史二千石多出其门，九卿以下趋附。"
+            },
+            {
+              "role": "负向依据（M3）",
+              "text": "权贵约束与基层权益保护"
+            }
+          ],
+          "position_residual": -5.0,
+          "grade_threshold_consumed": 0.5,
+          "v50_source_line": 279,
+          "review_material_basis": [
+            {
+              "version": "v20",
+              "line": 623,
+              "review_grade": "G0",
+              "review_position": "lower",
+              "basis": "任免、信息、地方行政、救济交付多功能面同时失效，N3-terminal。",
+              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
+            },
+            {
+              "version": "v50",
+              "line": 279,
+              "review_grade": "G1",
+              "review_position": "lower",
+              "basis": "《晋书·石季龙载记上/下》《十六国春秋辑补·后赵录》｜负链①：申扁受宠后“专综机密”，石虎不亲省事，石宣又荒酒内游→“生杀除拜皆扁所决”，刺史二千石多出其门、九卿以下趋附，直接俘获中央信息/决策+高层与地方任命。负链②：公侯牧宰“竞兴私利”，史载百姓失业十室而七，地方行政/廉洁激励广域恶化；石宣又经张离奏夺诸公府吏兵、五万余兵配东宫，造成高层责任中心间资源分割与怨恨。但不能判G0：石虎任内仍持续存在尚书奏事系统——石韬与太子宣迭日省可尚书奏事；中书监王波、侍中石璞等仍能在外交/军政策略中提出意见并部分被采纳；幽州至白狼有大兴屯田，州郡军政、征发和跨区兵力调度长期实际运行。也就是说是中枢任命/机密俘获+地方牧宰失范的重度cross，尚未到正式行政机器整体归零，故G1而非G0。宫室、征发、船夫死亡等政策/民役成本不直接作为B1 terminal依据。",
+              "status": "ABSORBED_ACTIVE_PRECEDENCE"
+            }
+          ],
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE"
+        }
+      ]
+    }
+  }
+}

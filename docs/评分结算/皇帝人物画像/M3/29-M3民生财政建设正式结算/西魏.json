@@ -1,0 +1,233 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "西魏",
+  "collections": {
+    "records": {
+      "positions": [
+        43
+      ],
+      "records": [
+        {
+          "task_code": "PROFILE-M3-RULER-SHADOW-宇文泰",
+          "ruler_id": "RULER-SHADOW-宇文泰",
+          "ruler_name": "宇文泰",
+          "polity": "西魏",
+          "actual_power_window": "535—556年西魏实际掌权",
+          "axis_code": "M3",
+          "axis_name": "民生财政建设",
+          "axis_grade": "G3",
+          "position": "HIGH",
+          "score_100": 71,
+          "radar_value": 71,
+          "components": {
+            "C1": {
+              "band": "C1-3",
+              "score": 32.0
+            },
+            "C2": {
+              "band": "C2-3",
+              "score": 14.9
+            },
+            "C3": {
+              "band": "C3-3",
+              "score": 28.0
+            },
+            "C4": {
+              "band": "C4-2",
+              "score": 10.8
+            }
+          },
+          "absolute_state_tier": 3,
+          "absolute_state_meanings": {
+            "C1": "民生维持中等盘面",
+            "C2": "经济财政尚可运行",
+            "C3": "社会安全基本可用"
+          },
+          "ability_evidence": {
+            "route": "SUBSTANTIAL_CONSTRUCTION",
+            "trajectory": {
+              "start_vector": [
+                2,
+                2,
+                1
+              ],
+              "main_vector": [
+                3,
+                3,
+                3
+              ],
+              "peak_vector": [
+                3,
+                3,
+                3
+              ],
+              "end_vector": [
+                3,
+                3,
+                3
+              ],
+              "peak_improvement_vector": [
+                1,
+                1,
+                2
+              ],
+              "retained_change_vector": [
+                1,
+                1,
+                2
+              ],
+              "rollback_vector": [
+                0,
+                0,
+                0
+              ],
+              "improved_axis_count": 3,
+              "deep_improvement_axis_count": 1,
+              "retained_improvement_axis_count": 3,
+              "rollback_axis_count": 0,
+              "recovery_score_27": 9.8,
+              "stability_score_18": 10.0,
+              "start_tier": 2,
+              "peak_tier": 3,
+              "end_tier": 3
+            },
+            "governance_scale_class": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+            "governance_scale_basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+            "governance_scale_gate": {
+              "status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+              "classification": "UNRESOLVED",
+              "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+              "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+              "formal_subitem_sources": [
+                {
+                  "axis": "C4",
+                  "field_path": "m3_governance_scale_adjudication",
+                  "ref": "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-宇文泰"
+                }
+              ],
+              "supporting_formal_fields": []
+            },
+            "six_band_main_state": false,
+            "deterioration_penalty": 0.0,
+            "destructive_amplification_penalty": 9.0,
+            "upstream_sync": {
+              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_01",
+              "source_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-宇文泰",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-宇文泰",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-宇文泰",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-宇文泰"
+              ]
+            },
+            "destructive_amplification_grade": "DA2",
+            "stability_k_basis": {
+              "C1": {
+                "K_grade": "K4",
+                "factor": 1.0
+              },
+              "C2": {
+                "K_grade": "K4",
+                "factor": 1.0
+              },
+              "C3": {
+                "K_grade": "K4",
+                "factor": 1.0
+              }
+            },
+            "weighted_K": 1.0,
+            "stability_k_structure_status": "STRUCTURED_C4_FORMAL",
+            "stability_k_public_basis": "C1跨2→3、C2跨2→3、C3跨1→3；恢复完成后未确认西魏核心区独立跌破相应主态，三轴均K4。 按新合同跨档难度加权为0.98，恢复分9.8/27；K加权系数1.00，稳定raw 18.0，经终局约束后稳定分10.0。终局3/3/3的terminal_quality=3.00，对应C4T-3、正向上限24.9，故正向保留19.8。"
+          },
+          "dynamic_class": "POSITIVE_MAINTENANCE",
+          "dynamic_label": "实现正向守成或温和改善",
+          "value_mode": "SEMANTIC_HOLISTIC_ADJUDICATION_WITH_FIXED_GRADE_PROJECTION",
+          "axis_evidence_level": "E2",
+          "confidence": "MEDIUM",
+          "output_mode": "BOUNDED_PROFILE",
+          "score_status": "FINAL",
+          "formal_status": "FORMAL_CURRENT",
+          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[2, 2, 1]、[3, 3, 3]、[3, 3, 3]、[3, 3, 3]；恢复9.8/27，稳定10.0/18；恶化扣减0.0，主动成本DA2/9.0。正式逐人裁决为G3-HIGH。",
+          "counterpattern": "终局无档差恶化。军事成本登记C5高位主要由东魏—北齐方向颍川F3准入，该部分现实安全战争不直接转DA；但553年取蜀、554年江陵两次主动扩张连续发生，后者又形成大规模俘掠与新占区人口损害。剥离必要防御后，两条主动扩张已经形成显著跨方向成本，维持DA2；不把敌对/新占区全部人口损害等同本方核心区C1/C3恶化。 可归责恶化扣0.0，DA2扣9.0分。",
+          "starting_context": "宇文泰接手锚点更新为民生二档、经济财政二档、社会安全一档；最新曲线为民生二档→三档→三档、经济财政二档→三档→三档、社会安全一档→三档→三档。先前裁决把C2交班误写为四档。",
+          "construction_and_maintenance": "按正式档界公式重算恢复分9.8/27；稳定承压按当前K结构计10.0/18，未把恢复信用并入稳定分；正向保留19.8。",
+          "costs_and_consequences": "交班局面为[3, 3, 3]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA2，扣减9.0。",
+          "behavior_chain": "终局无档差恶化。军事成本登记C5高位主要由东魏—北齐方向颍川F3准入，该部分现实安全战争不直接转DA；但553年取蜀、554年江陵两次主动扩张连续发生，后者又形成大规模俘掠与新占区人口损害。剥离必要防御后，两条主动扩张已经形成显著跨方向成本，维持DA2；不把敌对/新占区全部人口损害等同本方核心区C1/C3恶化。 可归责恶化扣0.0，DA2扣9.0分。",
+          "handoff_state": "按交班向量[3, 3, 3]推导终局为C4T-3，正向上限24.9。",
+          "public_adjudication": "宇文泰接手锚点校正为民生二档、经济财政二档、社会安全一档；最新曲线为民生二档→三档→三档、经济财政二档→三档→三档、社会安全一档→三档→三档。原C4把C2交班误写为四档。 C1跨2→3、C2跨2→3、C3跨1→3；恢复完成后未确认西魏核心区独立跌破相应主态，三轴均K4。 按新规则跨档难度加权为0.98，恢复分9.8；K加权系数1.00，稳定原始 18.0，经终局约束后稳定分10.0。终局3/3/3的终局质量=3.00，对应C4T-3、正向上限24.9，故正向保留19.8。 终局无档差恶化。军事成本登记C5高位主要由东魏—北齐方向颍川F3准入，该部分现实安全战争不自动转DA；但553年取蜀、554年江陵两次主动扩张连续发生，后者又形成大规模俘掠与新占区人口损害。剥离必要防御后，两条主动扩张已经形成显著跨方向成本，维持DA2；不把敌对/新占区全部人口损害等同本方核心区C1/C3恶化。 可归责恶化扣0.0，DA2扣9.0分。 交班原始锚点为民生3档、经济财政3档、社会安全3档；终局层级C4T-3，正向上限24.9。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G3。 当前档内位置为HIGH；不以结构字段自动替代逐人语义裁决。",
+          "grade_basis": "依据当前C1—C4结构字段与逐人语义裁决，正式档位为G3。",
+          "position_basis": "当前档内位置为HIGH；不以结构字段自动替代逐人语义裁决。",
+          "axis_relevance_check": {
+            "status": "HOLISTIC_C1_C4_SEMANTIC_ADJUDICATION",
+            "component_codes": [
+              "C1",
+              "C2",
+              "C3",
+              "C4"
+            ],
+            "component_sum_used": false,
+            "quantile_or_normalization_used": false,
+            "name_override_used": false,
+            "old_process_material_role": "BEHAVIOR_CHAIN_AND_ATTRIBUTION_REVIEW_ONLY"
+          },
+          "parents": [],
+          "limitations": [
+            "现有正式结果材料没有闭合到独立的本人过程父链，行为归责仅使用C4已审定部分，不能外推为完整政策能力画像。",
+            "‘百姓便利’证明基本运行改善，不足进入普遍温饱。",
+            "同卡东魏仓盐、谷价和山东恢复不得归宇文泰。",
+            "江陵损害主要位于新占领区，不外推西魏全境崩溃。"
+          ],
+          "supplement_review": {
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-宇文泰",
+            "old_m3_parent_chain_count": 0,
+            "old_m3_candidate_count": 0,
+            "axis_dispositions": {
+              "C1": "SEARCHED_NO_OLD_M3_CANDIDATE",
+              "C2": "SEARCHED_NO_OLD_M3_CANDIDATE",
+              "C3": "SEARCHED_NO_OLD_M3_CANDIDATE",
+              "C4": "REVIEWED_C4_ATTRIBUTION_RETAINED"
+            }
+          },
+          "source_refs": [
+            "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-宇文泰",
+            "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-宇文泰",
+            "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-宇文泰",
+            "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-宇文泰"
+          ],
+          "source_evidence": [
+            {
+              "source_title": "《周书·文帝纪下》",
+              "quote": "数年之间，百姓便之。",
+              "source_origin": "C4_FORMAL_PUBLIC_SOURCE"
+            },
+            {
+              "source_title": "《周书·苏绰传》",
+              "quote": "今军用资广，虽未遑减省以恤民瘼，然令平均，使下无匮。",
+              "source_origin": "C4_FORMAL_PUBLIC_SOURCE"
+            },
+            {
+              "source_title": "《周书·苏绰传》",
+              "quote": "贫弱者重徭而远戍，富强者轻使而近防。",
+              "source_origin": "C4_FORMAL_PUBLIC_SOURCE"
+            },
+            {
+              "source_title": "《资治通鉴》卷一百六十五",
+              "quote": "太师泰阴有图江陵之志。",
+              "source_origin": "C4_FORMAL_PUBLIC_SOURCE"
+            },
+            {
+              "source_title": "《周书·文帝纪下》",
+              "quote": "并虏其百官及士民以归。",
+              "source_origin": "C4_FORMAL_PUBLIC_SOURCE"
+            },
+            {
+              "source_title": "《大事记续编》引《周书·苏绰传》",
+              "quote": "其三尽地利……诸州郡县每至岁首，必戒敕部民……皆令就田。",
+              "source_origin": "M3_SUPPLEMENT"
+            }
+          ],
+          "contract_version": "FORMAL-V3.6"
+        }
+      ]
+    }
+  }
+}

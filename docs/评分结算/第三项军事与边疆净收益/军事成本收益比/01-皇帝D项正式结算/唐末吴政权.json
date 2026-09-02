@@ -1,0 +1,250 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "唐末吴政权",
+  "collections": {
+    "records": {
+      "positions": [
+        130
+      ],
+      "records": [
+        {
+          "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
+          "ruler_id": "RULER-SHADOW-杨行密",
+          "ruler_name": "杨行密",
+          "polity": "吴",
+          "reign_range": "902-905",
+          "identity_source": "D_FORMAL_EXTENSION",
+          "D_grade": "D3",
+          "D_within_grade_position": "HIGH",
+          "D_score_points": 28.0,
+          "D_score_status": "DIRECT_D_SCORE_ASSIGNED",
+          "signed_security_candidate_before_cost": "D4",
+          "cost_grade_delta": -1,
+          "security_result_distribution": {
+            "E3_REGIONAL_TERMINAL": 1,
+            "E4_MAJOR_STRATEGIC": 2,
+            "EN1": 1
+          },
+          "external_strategic_chains": [
+            {
+              "chain_id": "CHAIN-YANGXINGMI-FENGHONGDUO-902",
+              "effective_opponent_challenge_grade": "O2_BORDER_RAIDING",
+              "effective_opponent_challenge_basis": "An independent armored tower-ship group threatened the regional river route but not a full major direction.",
+              "achievement_grade": "E3_REGIONAL_TERMINAL",
+              "acquisition_mode": "NAVAL_DEFEAT_FOLLOWED_BY_NEGOTIATED_INCORPORATION",
+              "result_type": "INDEPENDENT_REGIONAL_FLEET_THREAT_TERMINATED",
+              "within_grade_position": "LOW",
+              "terminal_result_profile": "The fleet was defeated at Geshan and then incorporated intact through Yangs personal negotiation, ending its independent threat.",
+              "control_change": "NO_TERRITORIAL_CONTROL_CHANGE_FLEET_THREAT_TERMINATED",
+              "security_change_basis": "A single organized regional naval group was durably terminated; no polity-scale direction supports E4.",
+              "mobilization_peak": "M3_DIRECTIONAL_FLEET",
+              "force_destruction": "NOT_CLOSED_NO_F3",
+              "force_destruction_basis": "Battle losses are estimated and the opponent fleet later incorporated; no own-side formation denominator or collapse.",
+              "process_burden": {
+                "repetition": "SINGLE_NAVAL_CHAIN",
+                "duration": "ONE_YEAR",
+                "post_disaster_remobilization": "NO"
+              },
+              "ruler_responsibility": "DIRECT_RULER_NEGOTIATION_AND_AUTHORIZATION",
+              "responsibility_basis": "Post-acquisition 902 independent threat resolution under Yangs authority.",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-263.battle-adjudications.json#PARENT-FENGHONGDUO-FLEET-902"
+              ],
+              "member_cycle_refs": [
+                "PARENT-FENGHONGDUO-FLEET-902"
+              ],
+              "challenge_context": "An independent armored tower-ship group threatened the regional river route but not a full major direction.",
+              "effective_opponent_challenge_source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-263.battle-adjudications.json#PARENT-FENGHONGDUO-FLEET-902"
+              ],
+              "achievement_grade_detail": "E3_REGIONAL_TERMINAL",
+              "security_result_grade": "E3_REGIONAL_TERMINAL"
+            },
+            {
+              "chain_id": "CHAIN-YANGXINGMI-BIAN-SUZHOU-902-904",
+              "effective_opponent_challenge_grade": "O4_MULTI_DIRECTION_OR_CORE_REGION_THREAT",
+              "effective_opponent_challenge_basis": "Later Liang/Bian forces were a major multi-region power capable of relieving Suzhou and pressuring Huainan directions.",
+              "achievement_grade": "EN1_LIMITED_DETERIORATION",
+              "acquisition_mode": "PROLONGED_SIEGE_AND_LOGISTICS_WITHDRAWAL",
+              "result_type": "FAILED_DIRECTIONAL_OFFENSIVE_WITHOUT_CONTROL_LOSS",
+              "within_grade_position": "HIGH",
+              "terminal_result_profile": "Huainan repeatedly attacked Suzhou but withdrew after relief and supply failure; no own core control was lost.",
+              "control_change": "NO_NET_CONTROL_CHANGE_OFFENSIVE_FAILED",
+              "security_change_basis": "Same opponent and continuous authorization are merged; repeated unsuccessful stages remain one EN1 chain, not several negative votes.",
+              "mobilization_peak": "M4_MULTI_ARMY_DIRECTIONAL_OFFENSIVE",
+              "force_destruction": "NOT_CLOSED_NO_F3",
+              "force_destruction_basis": "No Huainan denominator, loss ratio, or formation-collapse evidence; enemy losses excluded.",
+              "process_burden": {
+                "repetition": "MULTI_STAGE_SAME_OPPONENT",
+                "duration": "CROSS_YEAR",
+                "post_disaster_remobilization": "NO_CLOSED_F3"
+              },
+              "ruler_responsibility": "DIRECT_RULER_OFFENSIVE_AUTHORIZATION",
+              "responsibility_basis": "Yang ordered repeated Suzhou operations and bears the failed logistics burden.",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-263.battle-adjudications.json",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-264.battle-adjudications.json"
+              ],
+              "member_cycle_refs": [
+                "ZZTJ-263-YANGXINGMI-SUZHOU-0902",
+                "ZZTJ-264-HUAINAN-SUZHOU-0903"
+              ],
+              "challenge_context": "Later Liang/Bian forces were a major multi-region power capable of relieving Suzhou and pressuring Huainan directions.",
+              "effective_opponent_challenge_source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-263.battle-adjudications.json",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-264.battle-adjudications.json"
+              ],
+              "achievement_grade_detail": "EN1_LIMITED_DETERIORATION",
+              "security_result_grade": "EN1"
+            },
+            {
+              "chain_id": "CHAIN-YANGXINGMI-DUHONG-EOZHOU-902-905",
+              "effective_opponent_challenge_grade": "O3_MAJOR_DIRECTION_THREAT",
+              "effective_opponent_challenge_basis": "Du Hong and Bian support held the Ezhou middle-Yangtze node as a major directional threat, not a national suppressor.",
+              "achievement_grade": "E4_MAJOR_STRATEGIC",
+              "acquisition_mode": "MULTI_YEAR_SIEGE_RELIEF_DEFEAT_AND_CAPTURE",
+              "result_type": "DURABLE_TERMINATION_OF_MAJOR_MIDDLE_YANGTZE_STRONGHOLD",
+              "within_grade_position": "LOW",
+              "terminal_result_profile": "After a multi-year siege and relief fighting, Ezhou fell in 905, Du Hong and the supporting Bian force were captured, and the hostile middle-Yangtze node was terminated.",
+              "control_change": "EOZHOU_CONTROL_GAIN_CROSS_ITEM_DEDUPLICATED_SECURITY_TERMINATION_RETAINED",
+              "cross_item_control_gain_deduplicated": true,
+              "security_change_basis": "Territorial control gain is deducted if consumed by first item; the durable termination of the hostile directional stronghold remains an E4 security result.",
+              "mobilization_peak": "M4_MULTI_FORCE_MULTI_YEAR",
+              "force_destruction": "NOT_CLOSED_NO_F3",
+              "force_destruction_basis": "Captured and executed opponents are enemy losses; no Huainan F3.",
+              "process_burden": {
+                "repetition": "MULTI_YEAR_SIEGE_AND_RELIEF",
+                "duration": "902-905",
+                "post_disaster_remobilization": "NO_CLOSED_F3"
+              },
+              "ruler_responsibility": "DIRECT_RULER_PERSISTENT_AUTHORIZATION",
+              "responsibility_basis": "Yang repeatedly reappointed commanders and refused to abandon the Ezhou objective.",
+              "frozen34_comparative_anchors": [
+                {
+                  "anchor_ruler": "王建",
+                  "anchor_grade": "E4_MAJOR_STRATEGIC",
+                  "relation": "nearest_equal",
+                  "basis": "Comparable durable termination of a major regional direction."
+                },
+                {
+                  "anchor_ruler": "赵昀",
+                  "anchor_grade": "E4_MAJOR_STRATEGIC",
+                  "relation": "nearest_equal",
+                  "basis": "Comparable E4 without E5 systemic prerequisites."
+                }
+              ],
+              "comparative_anchor_refs": [
+                "李治::LZ-WEST-TURKS",
+                "李世民::LSM-TUYUHUN",
+                "拓跋焘::NC-WEI-XIA-426-430"
+              ],
+              "comparative_anchor_basis": "Not lower than E3 because a major directional hostile stronghold was durably terminated; not higher than E4 because no O6 suppressor or multi-direction durable order was ended.",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-263.battle-adjudications.json",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-264.battle-adjudications.json",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#PARENT-HUAINAN-DUHONG-EOZHOU-902-905"
+              ],
+              "member_cycle_refs": [
+                "PARENT-HUAINAN-DUHONG-EOZHOU-902-905"
+              ],
+              "challenge_context": "Du Hong and Bian support held the Ezhou middle-Yangtze node as a major directional threat, not a national suppressor.",
+              "effective_opponent_challenge_source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-263.battle-adjudications.json",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-264.battle-adjudications.json",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#PARENT-HUAINAN-DUHONG-EOZHOU-902-905"
+              ],
+              "comparative_scale_basis": "与冻结34人同通道锚点比较对手终结程度、覆盖范围和耐久性；高成果不由灭国名称、本方投入或单次战果自动生成。",
+              "achievement_grade_detail": "E4_MAJOR_STRATEGIC",
+              "security_result_grade": "E4_MAJOR_STRATEGIC"
+            }
+          ],
+          "strategic_internal_chains": [
+            {
+              "chain_id": "CHAIN-YANGXINGMI-TIANJUN-ANRENYI-903-905",
+              "achievement_grade": "E4_MAJOR_INTERNAL_STRATEGIC",
+              "within_grade_position": "LOW",
+              "terminal_result_profile": "The same coalition rebellion is merged from Tian Jun through the An Renyi remnant; Xuanzhou and Runzhou command control were restored by 905.",
+              "control_change": "MAJOR_INTERNAL_COMMAND_SPLIT_TERMINATED",
+              "mobilization_peak": "M4_MULTI_FORCE_INTERNAL_WAR",
+              "force_destruction": "F3_NAMED_FLEET_SYSTEM_DESTROYED",
+              "force_destruction_basis": "The source explicitly states the Dongtang warships were all burned, closing organizational destruction of a named fleet system. Other rebel deaths and drownings are excluded from Huainan cost.",
+              "process_burden": {
+                "repetition": "CONTINUOUS_COALITION_REBELLION",
+                "duration": "903-905",
+                "post_disaster_remobilization": "YES_SAME_CHAIN_BUT_NOT_C6_BY_ITSELF"
+              },
+              "ruler_responsibility": "DIRECT_RULER_INTERNAL_WAR_AUTHORITY_WITH_TRIGGER_BOUNDARY",
+              "responsibility_basis": "Yang bears authority for the multi-year suppression; Tian Jun and An Renyi bear direct rebellion responsibility. The destroyed government fleet remains attributable polity cost.",
+              "frozen34_comparative_anchors": [
+                {
+                  "anchor_ruler": "耶律阮",
+                  "anchor_grade": "E4_MAJOR_INTERNAL_STRATEGIC",
+                  "relation": "nearest_equal",
+                  "basis": "Comparable termination of a major internal military split."
+                },
+                {
+                  "anchor_ruler": "耶律洪基",
+                  "anchor_grade": "E4_MAJOR_INTERNAL_STRATEGIC",
+                  "relation": "nearest_equal",
+                  "basis": "Comparable major internal-system threat without nationwide collapse."
+                }
+              ],
+              "comparative_anchor_refs": [],
+              "comparative_anchor_basis": "Not lower than E3 because two major commands and the fleet system were restored after multi-year war; not higher because the threat did not become nationwide systemic collapse.",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-264.battle-adjudications.json#PARENT-HUAINAN-TIANJUN-REBELLION-903",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#PARENT-HUAINAN-ANRENYI-903-905"
+              ],
+              "member_cycle_refs": [
+                "PARENT-HUAINAN-TIANJUN-REBELLION-903",
+                "PARENT-HUAINAN-ANRENYI-903-905"
+              ],
+              "challenge_context": "相对于本方的开战前有效威胁事实见本链basis。",
+              "acquisition_mode": "MULTI_STAGE_COMBAT",
+              "result_type": "MAJOR_THREAT_TERMINATED_OR_DIRECTION_RESTRUCTURED",
+              "achievement_grade_detail": "E4_MAJOR_INTERNAL_STRATEGIC",
+              "security_result_grade": "E4_MAJOR_STRATEGIC"
+            }
+          ],
+          "ordinary_suppression_summary": {
+            "count": 1,
+            "cycle_refs": [
+              "PARENT-ZHUYANSHOU-CONSPIRACY-903"
+            ],
+            "presumed_or_explicit_success_count": 1,
+            "explicit_failure_or_unresolved_count": 0,
+            "abnormal_cost_chain_count": 1,
+            "abnormal_process_chain_count": 1,
+            "excluded_nonconsumable_count": 1,
+            "notes": "The 887-892 Huainan acquisition civil war is excluded as Yangs polity-acquisition parent chain. Zhu Yanshou was neutralized without a strategic battle and remains ordinary/non-battle summary only.",
+            "source_refs": [
+              "docs/史料通读产物/五代十国/资治通鉴/volume-264.battle-adjudications.json#PARENT-ZHUYANSHOU-CONSPIRACY-903",
+              "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json"
+            ]
+          },
+          "cross_item_excluded_chains": [],
+          "non_military_loss_cost_exclusions": [],
+          "attributable_cost_profile": {
+            "cost_band": "C5",
+            "status": "CONFIRMED",
+            "position": "HIGH",
+            "single_admission_fact": "Within the single 903-905 coalition-rebellion chain, the named Dongtang fleet system was entirely burned, closing F3, followed by multi-year restoration operations.",
+            "admission_route": "SINGLE_CHAIN_F3_NAMED_SYSTEM_WITH_SUSTAINED_RECOVERY",
+            "basis": "C5 high only. One F3 plus later mobilization is explicitly insufficient for C6; there is no repeated F3/F4 or nationwide multi-direction extreme structure.",
+            "source_refs": [
+              "docs/史料通读产物/五代十国/资治通鉴/volume-264.battle-adjudications.json#PARENT-HUAINAN-TIANJUN-REBELLION-903",
+              "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#PARENT-HUAINAN-ANRENYI-903-905"
+            ]
+          },
+          "adjudication_basis": "外部E4+E3对EN1仍净正向至D4；内部E4只作异常内部处置与成本背景，不抬基础档。孤立F3对应C5，影子候选仍为D3高位。",
+          "coverage_status": "CONFIRMED",
+          "source_batch": "sol_c",
+          "canonical_status": "FORMAL_CURRENT",
+          "formal_grade_write": true,
+          "formal_score_write": true,
+          "database_write": false
+        }
+      ]
+    }
+  }
+}

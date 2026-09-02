@@ -1,0 +1,823 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "东晋",
+  "collections": {
+    "records": {
+      "positions": [
+        36,
+        37,
+        38
+      ],
+      "records": [
+        {
+          "AB_score_points": 36.2,
+          "adjudication_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "axes": {
+            "A1": {
+              "axis_points": 0.0,
+              "base_trajectory_value": 0,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A1S0_EXISTENTIAL_CRISIS",
+              "rationale": "317年东晋新立，河南、荆襄和北方晋系据点分散，主要方向处于明显被动但江东核心尚无即时存亡危机。任末祖逖河南线成体系收缩，王敦又攻入建康并控制任免贡赋，首都和中央主权已现实失控，交班按0档；王敦危机的形成与处置失当归本任。",
+              "start": "A1S2_STRATEGIC_DISADVANTAGE",
+              "trajectory_value": 0,
+              "transition": "WORSENED",
+              "transition_attribution": "PRIMARY_RULER_ACTION"
+            },
+            "A2": {
+              "axis_points": 9.6,
+              "base_trajectory_value": 24,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A2S2_LOCAL_DEFENSIBLE_POINTS",
+              "rationale": "起点只有淮南以北残余据点、祖逖军和荆襄州镇等分散支点。祖逖一度形成谯地前沿，随后浚仪、蓬关、襄城、城父、陈留及徐兖坞壁连续丧失；交班仍只能依靠淮南、荆襄等局部节点，未形成协同主防线，维持2档。",
+              "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
+              "trajectory_value": 24,
+              "transition": "STABLE",
+              "transition_attribution": "MIXED"
+            },
+            "B1": {
+              "axis_points": 11.0,
+              "band_position": "HIGH",
+              "grade": "B1-1",
+              "rationale": "稳定核心不计，只登记岭南交州0.8与西南宁州0.5。祖逖谯地、浚仪等前沿在任内取得后又于交班前基本收缩，不进入端点快照。起点、终点均1.3，净增0，加权值0.52，落B1-1 HIGH。",
+              "raw_net_change": 0.0,
+              "score_rate": 44,
+              "terminal_collapse_override": false,
+              "weighted_control_value": 0.52
+            },
+            "B2": {
+              "axis_points": 15.6,
+              "band_position": "MID",
+              "grade": "B2-2",
+              "rationale": "祖逖取得太丘、谯城和坞众，对河南局部交通与淮北缓冲具有明确作用；但浚仪战败及322年整线收缩使成果未能改变主要方向，战略价值止于2档中段。",
+              "score_rate": 52
+            },
+            "B4": {
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "grade": "B4-0",
+              "rationale": "B2所读祖逖河南控制包在交班前已丧失主要节点，徐兖坞壁又多降后赵，没有可移交的成熟新增控制成果。",
+              "score_rate": 0
+            }
+          },
+          "b1_control_equivalents": {
+            "end": 1.3,
+            "net_change": 0.0,
+            "start": 1.3,
+            "weighted_value": 0.52
+          },
+          "b1_region_adjudications": [
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.8,
+              "control_form": "交州郡县行政及地方军政",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "《晋书》卷十五《地理志下》交州",
+                "《资治通鉴》卷九十至九十二"
+              ],
+              "object_id": "LINGNAN_JIAOZHOU",
+              "object_name": "岭南交州控制包",
+              "reason": "有界推断：317年建国时交州郡县行政实际承接，任内无跨阶梯失控事实，按岭南标准区域整体取1.00；不向林邑以南或未受郡县控制区域外推。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.5,
+              "control_form": "宁州主要郡县与边防州镇",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "《晋书》卷十四《地理志上》宁州",
+                "《资治通鉴》卷九十至九十二"
+              ],
+              "object_id": "SOUTHWEST_NINGZHOU",
+              "object_name": "宁州西南边疆",
+              "reason": "有界推断：宁州主要州郡在两个端点均由东晋体系实际控制，按西南标准区域整体取1.00；不外推成汉控制的益州空间。",
+              "spatial_weight": 0.5
+            },
+            {
+              "anchors": [],
+              "control_equivalent": 0,
+              "control_form": "太丘、谯城、浚仪、蓬关及徐兖坞壁",
+              "counted": false,
+              "coverage_factor": 0.0,
+              "evidence_refs": [
+                "WAR-LEAD-ZUTI-QIAO-317",
+                "WAR-LEAD-CHENCHUAN-319",
+                "WAR-LEAD-HENAN-322"
+              ],
+              "object_id": "HENAN_FORWARD_NODES",
+              "object_name": "祖逖河南前沿节点",
+              "reason": "任内曾取得局部前沿，但浚仪、蓬关先失，322年襄城、城父、陈留及徐兖坞壁又成体系收缩；成果未留到交班，起终点均不计。",
+              "spatial_weight": 0.6
+            }
+          ],
+          "b1_region_control": {
+            "end": {
+              "LINGNAN_JIAOZHOU": 0.8,
+              "SOUTHWEST_NINGZHOU": 0.5
+            },
+            "start": {
+              "LINGNAN_JIAOZHOU": 0.8,
+              "SOUTHWEST_NINGZHOU": 0.5
+            }
+          },
+          "boundary_stage_excluded_refs": [
+            "WAR-LEAD-CHENAN-322"
+          ],
+          "boundary_stage_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "control_contribution_grade_cap": 5,
+          "control_contribution_type": "NEW_RECOVERED_REBUILT",
+          "coverage_status": "FORMAL_CURRENT",
+          "defense_event_count": 7,
+          "evidence_event_refs": [
+            "WAR-LEAD-CHANGSHA-322",
+            "WAR-LEAD-CHENCHUAN-319",
+            "WAR-LEAD-DUZENG-END-319",
+            "WAR-LEAD-GANZHUO-322",
+            "WAR-LEAD-HANMIAN-317",
+            "WAR-LEAD-HEDONG-317",
+            "WAR-LEAD-HENAN-322",
+            "WAR-LEAD-LIANGZHOU-317",
+            "WAR-LEAD-LIUKUN-DEATH-318",
+            "WAR-LEAD-LUORUI-318",
+            "WAR-LEAD-SOUTHWEST-323",
+            "WAR-LEAD-WANGDUN-322",
+            "WAR-LEAD-XINGYANG-317",
+            "WAR-LEAD-ZUTI-CHENCHENG-320",
+            "WAR-LEAD-ZUTI-QIAO-317",
+            "WAR-LEAD-JINZHUN-318",
+            "WAR-LEAD-PINGYANG-318",
+            "WAR-LEAD-XUGONG-322",
+            "WAR-LEAD-YANCI-320-321",
+            "WAR-LEAD-YOUZIYUAN-320"
+          ],
+          "hold_event_refs": [],
+          "major_in_reign_reversal_refs": [
+            "WAR-LEAD-CHENCHUAN-319",
+            "WAR-LEAD-HENAN-322",
+            "WAR-LEAD-WANGDUN-322"
+          ],
+          "non_defense_routing_refs": [],
+          "partition": "两晋十六国南北朝隋",
+          "polity": "东晋",
+          "primary_control_package_refs": [
+            "WAR-LEAD-ZUTI-QIAO-317"
+          ],
+          "primary_threat_refs": [
+            "WAR-LEAD-HENAN-322",
+            "WAR-LEAD-WANGDUN-322"
+          ],
+          "rationale": "分区实审已完成五轴、主体方向、交班边界与B1空间快照闭合。",
+          "reign_range": [
+            317,
+            322
+          ],
+          "ruler_id": "RULER-SHADOW-司马睿",
+          "ruler_name": "司马睿",
+          "score_ready": true,
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "terminal_polity_collapse": false,
+          "parent_cycle_refs": [
+            "WAR-LEAD-HANMIAN-317",
+            "CAMPAIGN-V090-HEDONG-317",
+            "WAR-LEAD-LIUKUN-DEATH-318",
+            "CAMPAIGN-V091-CHENCHUAN-319",
+            "CAMPAIGN-JIN-DUZENG-315-319",
+            "CAMPAIGN-V092-CHANGSHA-322",
+            "CAMPAIGN-V090-JINZHUN-318"
+          ],
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "excluded_founding_unification_refs": [],
+          "observed_parent_cycle_count": 7,
+          "A120_non_cost_anchor_points": 8.4,
+          "A120_positive_result_credit_points": 0.0,
+          "A120_score_points": 8.4,
+          "B80_score_points": 26.66,
+          "AB200_score_points": 35.06,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": -2.0,
+              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 0.0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 0,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": -2,
+              "reversal_basis": "终点下降已消费负向结果，禁止重复处罚",
+              "reversal_grade": "CONSUMED_BY_TERMINAL_DECLINE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 2,
+              "trajectory_value": 0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            },
+            "A2": {
+              "attributable_delta": 0.0,
+              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_category": "NO_CHANGE",
+              "axis_points": 8.4,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 2,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 10,
+              "objective_delta": 0,
+              "reversal_basis": "起终档未表达的EN2/EN3档内恶化",
+              "reversal_grade": "MATERIAL",
+              "reversal_penalty": 10,
+              "score_ready": true,
+              "start_grade": 2,
+              "trajectory_value": 14.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 26.66,
+            "formal_B1_rate": 44.0,
+            "formal_B2_rate": 52.0,
+            "formal_B4_rate": 0.0,
+            "adjudicated_B1_rate": 44.0,
+            "adjudicated_B2_rate": 52.0,
+            "adjudicated_B4_rate": 0.0,
+            "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          }
+        },
+        {
+          "AB_score_points": 66.8,
+          "adjudication_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "axes": {
+            "A1": {
+              "axis_points": 17.6,
+              "base_trajectory_value": 44,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A1S2_STRATEGIC_DISADVANTAGE",
+              "rationale": "直接承接王敦控制上游军镇并再次威胁建康的0档危机。324年守住建康并击灭王敦核心集团，中央存亡危机解除；但325年河南晋系据点尽失、后赵推进至淮，主要外部方向仍明显被动，交班定2档。",
+              "start": "A1S0_EXISTENTIAL_CRISIS",
+              "trajectory_value": 44,
+              "transition": "IMPROVED",
+              "transition_attribution": "PRIMARY_RULER_ACTION"
+            },
+            "A2": {
+              "axis_points": 9.6,
+              "base_trajectory_value": 24,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A2S2_LOCAL_DEFENSIBLE_POINTS",
+              "rationale": "起点只有淮南、荆襄、宁交等分散支点。任内保住宁州主体并恢复交州，然而石梁战后河南晋系控制退至淮线，尚无一条跨方向协同主防线，终点仍为2档；击败王敦属于核心安全恢复，不冒充边疆体系建设。",
+              "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
+              "trajectory_value": 24,
+              "transition": "STABLE",
+              "transition_attribution": "MIXED"
+            },
+            "B1": {
+              "axis_points": 9.25,
+              "band_position": "MID",
+              "grade": "B1-1",
+              "rationale": "共享司马睿交班1.3。交州恢复到原有0.8；宁州虽阻止成军继续深入，但越巂、汉嘉二郡已失，西南0.5按大部有效0.75折为0.375，交班1.175。净退0.125、加权值0.395，落B1-1 MID。",
+              "raw_net_change": -0.125,
+              "score_rate": 37,
+              "terminal_collapse_override": false,
+              "weighted_control_value": 0.395
+            },
+            "B2": {
+              "axis_points": 15.6,
+              "band_position": "MID",
+              "grade": "B2-2",
+              "rationale": "323年晋军阻止成军继续推进宁州并恢复交州行政，对西南、岭南交通和州级控制具有明确局部作用；河南整体退控使其不能提升为主要方向级成果。王敦平定不进入本轴。",
+              "score_rate": 52
+            },
+            "B4": {
+              "axis_points": 14.75,
+              "band_position": "HIGH",
+              "grade": "B4-2",
+              "rationale": "交州由陶侃遣军平梁硕后恢复州级行政，宁州主体亦保住；但成果取得不久，越巂、汉嘉仍失且西南防御依赖临时州镇军，成熟度为2档高段。",
+              "score_rate": 59
+            }
+          },
+          "b1_control_equivalents": {
+            "end": 1.175,
+            "net_change": -0.125,
+            "start": 1.3,
+            "weighted_value": 0.395
+          },
+          "b1_region_adjudications": [
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.8,
+              "control_form": "交州郡县行政及地方军政",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-东晋-司马睿-司马绍",
+                "WAR-LEAD-SOUTHWEST-323"
+              ],
+              "object_id": "LINGNAN_JIAOZHOU",
+              "object_name": "岭南交州控制包",
+              "reason": "有界推断：直接承接交州标准区域整体1.00；梁硕一度夺龙编后，高宝斩梁硕并恢复交州行政，交班仍取1.00，不向林邑以南外推。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "start"
+              ],
+              "control_equivalent": 0.5,
+              "control_form": "接班时宁州主要州郡",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "HANDOVER-东晋-司马睿-司马绍"
+              ],
+              "object_id": "SOUTHWEST_NINGZHOU",
+              "object_name": "宁州西南边疆",
+              "reason": "直接共享司马睿交班时宁州标准区域整体1.00；任内变化在终点另项登记。",
+              "spatial_weight": 0.5
+            },
+            {
+              "anchors": [
+                "end"
+              ],
+              "control_equivalent": 0.375,
+              "control_form": "越巂、汉嘉失守后仍保有的宁州主体",
+              "counted": true,
+              "coverage_factor": 0.75,
+              "evidence_refs": [
+                "WAR-LEAD-SOUTHWEST-323",
+                "《资治通鉴》卷九十二太宁元年春夏条"
+              ],
+              "object_id": "SOUTHWEST_NINGZHOU",
+              "object_name": "宁州西南边疆",
+              "reason": "有界推断：越巂、汉嘉二郡降成，但晋军在螗螂击退来军并阻止继续深入，宁州主体仍有效，覆盖取0.75；不取1.00因两郡明确丧失，不降0.50因主要州镇和防御骨架未失。",
+              "spatial_weight": 0.5
+            }
+          ],
+          "b1_region_control": {
+            "end": {
+              "LINGNAN_JIAOZHOU": 0.8,
+              "SOUTHWEST_NINGZHOU": 0.375
+            },
+            "start": {
+              "LINGNAN_JIAOZHOU": 0.8,
+              "SOUTHWEST_NINGZHOU": 0.5
+            }
+          },
+          "boundary_stage_excluded_refs": [
+            "WAR-LEAD-CHENAN-322"
+          ],
+          "boundary_stage_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "control_contribution_grade_cap": 4,
+          "control_contribution_type": "SAVED_UNDER_MAJOR_PRESSURE",
+          "coverage_status": "FORMAL_CURRENT",
+          "defense_event_count": 1,
+          "evidence_event_refs": [
+            "WAR-LEAD-CHANGSHA-322",
+            "WAR-LEAD-GANZHUO-322",
+            "WAR-LEAD-HENAN-322",
+            "WAR-LEAD-HUAINAN-326",
+            "WAR-LEAD-SOUTHWEST-323",
+            "WAR-LEAD-WANGDUN-322",
+            "WAR-LEAD-WANGDUN-324"
+          ],
+          "hold_event_refs": [],
+          "major_in_reign_reversal_refs": [
+            "WAR-LEAD-WANGDUN-324",
+            "WAR-LEAD-SHILIANG-325",
+            "WAR-LEAD-SOUTHWEST-323"
+          ],
+          "non_defense_routing_refs": [],
+          "partition": "两晋十六国南北朝隋",
+          "polity": "东晋",
+          "primary_control_package_refs": [
+            "WAR-LEAD-SOUTHWEST-323"
+          ],
+          "primary_threat_refs": [
+            "WAR-LEAD-WANGDUN-324",
+            "WAR-LEAD-SHILIANG-325"
+          ],
+          "rationale": "分区实审已完成五轴、主体方向、交班边界与B1空间快照闭合。",
+          "reign_range": [
+            322,
+            325
+          ],
+          "ruler_id": "RULER-SHADOW-司马绍",
+          "ruler_name": "司马绍",
+          "score_ready": true,
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "terminal_polity_collapse": false,
+          "parent_cycle_refs": [
+            "WAR-LEAD-GANZHUO-322"
+          ],
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "excluded_founding_unification_refs": [],
+          "observed_parent_cycle_count": 1,
+          "A120_non_cost_anchor_points": 28.8,
+          "A120_positive_result_credit_points": 12.0,
+          "A120_score_points": 40.8,
+          "B80_score_points": 30.7,
+          "AB200_score_points": 71.5,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": 2.0,
+              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 26.4,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 2,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": 2,
+              "reversal_basis": "现有材料未闭合本人造成且未被终点表达的额外恶化",
+              "reversal_grade": "NONE_RECOVERED_OR_NOT_ATTRIBUTABLE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 0,
+              "trajectory_value": 44.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            },
+            "A2": {
+              "attributable_delta": 0.0,
+              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_category": "NO_CHANGE",
+              "axis_points": 14.4,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 2,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": 0,
+              "reversal_basis": "现有材料未闭合本人造成且未被终点表达的额外恶化",
+              "reversal_grade": "NONE_RECOVERED_OR_NOT_ATTRIBUTABLE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 2,
+              "trajectory_value": 24.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 30.7,
+            "formal_B1_rate": 37.0,
+            "formal_B2_rate": 52.0,
+            "formal_B4_rate": 59.0,
+            "adjudicated_B1_rate": 37.0,
+            "adjudicated_B2_rate": 52.0,
+            "adjudicated_B4_rate": 59.0,
+            "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          }
+        },
+        {
+          "AB_score_points": 104.75,
+          "adjudication_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "axes": {
+            "A1": {
+              "axis_points": 27.2,
+              "base_trajectory_value": 68,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A1S4_STABLE_ADVANTAGE",
+              "rationale": "372年前秦已形成压倒性北方强权，东晋主要方向处于战略劣势。虽在376—379年丧失南乡、襄阳、魏兴并遭淮南大举进攻，383年淝水防御胜利摧毁前秦南征体系，继以多线反攻恢复襄沔并推进河南；交班时北方诸国仍在而东晋掌握主动，定4档。",
+              "start": "A1S2_STRATEGIC_DISADVANTAGE",
+              "trajectory_value": 68,
+              "transition": "IMPROVED",
+              "transition_attribution": "PRIMARY_RULER_ACTION"
+            },
+            "A2": {
+              "axis_points": 23.2,
+              "base_trajectory_value": 58,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "rationale": "起点已有淮河与襄沔两条可运作主要边界，但前秦仍能逐层突破。淝水后恢复襄阳、鲁阳等节点，河南设置四州统一指挥并在洛阳、石门、滑台等处置戍，淮河—襄沔—河南形成纵深；河南前沿仍反复且覆盖不全，故终点4档而非5档。",
+              "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
+              "trajectory_value": 58,
+              "transition": "IMPROVED",
+              "transition_attribution": "PRIMARY_RULER_ACTION"
+            },
+            "B1": {
+              "axis_points": 13.0,
+              "band_position": "MID",
+              "grade": "B1-2",
+              "rationale": "与司马绍相隔四十七年，按372年事实独立重建：淮河0.7、襄沔0.8、交州0.8，共2.3。任内襄阳与交州均失而复得，389—390年又在河南形成洛阳、石门、鄄城、滑台等半走廊0.3，交班2.6。净增0.3、加权值1.22，落B1-2 MID。",
+              "raw_net_change": 0.3,
+              "score_rate": 52,
+              "terminal_collapse_override": false,
+              "weighted_control_value": 1.22
+            },
+            "B2": {
+              "axis_points": 24.6,
+              "band_position": "MID",
+              "grade": "B2-4",
+              "rationale": "只评价控制成果：淝水后恢复襄阳、鲁阳与汉水沿线城镇，并以洛阳、石门等前沿置戍把淮河防线向北扩展纵深，对北方主要战略方向具有关键作用；淝水战役胜利本身不重复计作控制。",
+              "score_rate": 82
+            },
+            "B4": {
+              "axis_points": 16.75,
+              "band_position": "MID",
+              "grade": "B4-3",
+              "rationale": "交州恢复州级行政，襄阳重新纳入汉沔防区，河南又有四州统一指挥及洛阳、石门驻戍；但黎阳、泰山一度失控，黄河南线仍靠多处前沿军镇维持，成熟控制与脆弱控制并存，定3档中段。",
+              "score_rate": 67
+            }
+          },
+          "b1_control_equivalents": {
+            "end": 2.6,
+            "net_change": 0.3,
+            "start": 2.3,
+            "weighted_value": 1.22
+          },
+          "b1_region_adjudications": [
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.7,
+              "control_form": "广陵、淮南及沿淮防御节点",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "《资治通鉴》卷一百四太元三年至四年",
+                "WAR-LEAD-105-FEISHUI-383"
+              ],
+              "object_id": "HUAI_FRONTIER",
+              "object_name": "淮河边疆",
+              "reason": "有界推断：372年淮河主要防区实际存在，378—383年连续受压但三阿、君川与淝水后仍完整保有，两个端点均按淮河标准区域整体1.00；不把彭城等淮北节点并入本对象。",
+              "spatial_weight": 0.7
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.8,
+              "control_form": "襄阳、汉水门户及相邻州镇",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "WAR-LEAD-104-XIANGYANG-378-379",
+                "WAR-LEAD-105-JIN-NORTH-384",
+                "WAR-LEAD-107-JIN-NORTH-389-390"
+              ],
+              "object_id": "XIANGMIAN_FRONTIER",
+              "object_name": "襄阳—汉沔边疆",
+              "reason": "有界推断：起点襄阳与汉沔门户整体有效；378—379年虽失，384年反攻恢复，终点又由襄阳与河南防区协同，两个端点均取西北边疆标准区域1.00；任内失复只列重大逆转，不重复改变端点净额。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.8,
+              "control_form": "交州郡县行政及地方军政",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "WAR-LEAD-104-JIAOZHOU-380-381",
+                "《资治通鉴》卷一百四太元五年至六年"
+              ],
+              "object_id": "LINGNAN_JIAOZHOU",
+              "object_name": "岭南交州控制包",
+              "reason": "有界推断：372年交州郡县行政实际存在，李逊跨年据州后杜瑗斩李逊、交州恢复，两个端点均按岭南标准区域整体1.00；不向林邑以南外推。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "end"
+              ],
+              "control_equivalent": 0.3,
+              "control_form": "洛阳、石门、鄄城、滑台等置戍与局部控制",
+              "counted": true,
+              "coverage_factor": 0.5,
+              "evidence_refs": [
+                "WAR-LEAD-105-HEBEI-384",
+                "WAR-LEAD-106-JIN-NORTH-386",
+                "WAR-LEAD-107-JIN-NORTH-389-390"
+              ],
+              "object_id": "HENAN_FORWARD_CORRIDOR",
+              "object_name": "河南黄河南线前沿走廊",
+              "reason": "有界推断：389—390年有四州统一指挥、洛阳与石门置戍，并恢复鄄城、滑台等局部节点，按河南标准区域取约半个主要走廊0.50；不取0.75或1.00，因386年退控后恢复仍属离散前沿且黄河北岸不在稳定控制内。",
+              "spatial_weight": 0.6
+            }
+          ],
+          "b1_region_control": {
+            "end": {
+              "HENAN_FORWARD_CORRIDOR": 0.3,
+              "HUAI_FRONTIER": 0.7,
+              "LINGNAN_JIAOZHOU": 0.8,
+              "XIANGMIAN_FRONTIER": 0.8
+            },
+            "start": {
+              "HUAI_FRONTIER": 0.7,
+              "LINGNAN_JIAOZHOU": 0.8,
+              "XIANGMIAN_FRONTIER": 0.8
+            }
+          },
+          "boundary_stage_excluded_refs": [
+            "WAR-LEAD-104-WESTERN-382",
+            "WAR-LEAD-105-CHANGAN-384",
+            "WAR-LEAD-105-GUANZHONG-384",
+            "WAR-LEAD-105-XINPING-384",
+            "WAR-LEAD-106-CHANGAN-385",
+            "WAR-LEAD-106-FUDENG-386",
+            "WAR-LEAD-106-LONGYOU-386",
+            "WAR-LEAD-106-QIN-LATERCIN-386",
+            "WAR-LEAD-106-XINPING-385",
+            "WAR-LEAD-106-XIYAN-QIN-386",
+            "WAR-LEAD-107-QIN-LATERCIN-387",
+            "WAR-LEAD-107-QIN-LATERCIN-388-389",
+            "WAR-LEAD-107-QIN-LATERCIN-390-391",
+            "WAR-LEAD-108-QIN-LATERCIN-392",
+            "WAR-LEAD-108-FORMERQIN-END-394",
+            "WAR-LEAD-108-WESTQIN-LIANG-395",
+            "WAR-LEAD-108-WESTQIN-LONGXI-394"
+          ],
+          "boundary_stage_refs": [
+            "WAR-LEAD-104-MIANBEI-382"
+          ],
+          "boundary_stage_review_status": "REVIEWED",
+          "control_contribution_grade_cap": 5,
+          "control_contribution_type": "NEW_RECOVERED_REBUILT",
+          "coverage_status": "FORMAL_CURRENT",
+          "defense_event_count": 6,
+          "evidence_event_refs": [
+            "WAR-LEAD-103-JINGKOU-372",
+            "WAR-LEAD-104-GUANCHENG-381",
+            "WAR-LEAD-104-JIAOZHOU-380-381",
+            "WAR-LEAD-105-FEISHUI-383",
+            "WAR-LEAD-105-JIN-OFFENSIVE-383",
+            "WAR-LEAD-106-JIN-NORTH-386",
+            "WAR-LEAD-107-JIN-NORTH-389-390",
+            "WAR-LEAD-103-BOHAN-373",
+            "WAR-LEAD-103-DAI-WEICHEN-374",
+            "WAR-LEAD-103-LUSONG-372",
+            "WAR-LEAD-103-SHU-REVOLT-374",
+            "WAR-LEAD-104-DAI-376",
+            "WAR-LEAD-104-FULUO-380",
+            "WAR-LEAD-104-GUOHU-376",
+            "WAR-LEAD-104-HUAINAN-378-379",
+            "WAR-LEAD-104-LIANG-376",
+            "WAR-LEAD-104-NANXIANG-376",
+            "WAR-LEAD-104-WEICHEN-376",
+            "WAR-LEAD-104-WEIXING-379",
+            "WAR-LEAD-104-XIANGYANG-378-379",
+            "WAR-LEAD-104-ZHAOBAO-378",
+            "WAR-LEAD-105-HEBEI-384",
+            "WAR-LEAD-105-JIN-NORTH-384",
+            "WAR-LEAD-105-KUCHA-383-384",
+            "WAR-LEAD-106-DAYU-385-386",
+            "WAR-LEAD-107-LIANG-387",
+            "WAR-LEAD-107-ZHAILIAO-387-391"
+          ],
+          "hold_event_refs": [],
+          "major_in_reign_reversal_refs": [
+            "WAR-LEAD-104-XIANGYANG-378-379",
+            "WAR-LEAD-104-WEIXING-379",
+            "WAR-LEAD-105-FEISHUI-383",
+            "WAR-LEAD-105-JIN-NORTH-384",
+            "WAR-LEAD-106-JIN-NORTH-386",
+            "WAR-LEAD-107-JIN-NORTH-389-390"
+          ],
+          "non_defense_routing_refs": [],
+          "partition": "两晋十六国南北朝隋",
+          "polity": "东晋",
+          "primary_control_package_refs": [
+            "WAR-LEAD-104-JIAOZHOU-380-381",
+            "WAR-LEAD-105-JIN-NORTH-384",
+            "WAR-LEAD-107-JIN-NORTH-389-390"
+          ],
+          "primary_threat_refs": [
+            "WAR-LEAD-104-XIANGYANG-378-379",
+            "WAR-LEAD-104-HUAINAN-378-379",
+            "WAR-LEAD-105-FEISHUI-383"
+          ],
+          "rationale": "分区实审已完成五轴、主体方向、交班边界与B1空间快照闭合。",
+          "reign_range": [
+            372,
+            396
+          ],
+          "ruler_id": "RULER-SHADOW-司马曜",
+          "ruler_name": "司马曜",
+          "score_ready": true,
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "terminal_polity_collapse": false,
+          "parent_cycle_refs": [
+            "CAMPAIGN-V104-104-XIANGYANG-378-379",
+            "CAMPAIGN-V104-104-HUAINAN-378-379",
+            "CAMPAIGN-V105-105-JIN-OFFENSIVE-383",
+            "CAMPAIGN-FEISHUI-382-383",
+            "CAMPAIGN-V106-106-JIN-NORTH-386",
+            "CAMPAIGN-V107-107-LIANG-387"
+          ],
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "excluded_founding_unification_refs": [],
+          "observed_parent_cycle_count": 5,
+          "A120_non_cost_anchor_points": 51.6,
+          "A120_positive_result_credit_points": 18.0,
+          "A120_score_points": 69.6,
+          "B80_score_points": 47.21,
+          "AB200_score_points": 116.81,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": 2.0,
+              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 40.8,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 4,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": 2,
+              "reversal_basis": "现有材料未闭合本人造成且未被终点表达的额外恶化",
+              "reversal_grade": "NONE_RECOVERED_OR_NOT_ATTRIBUTABLE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 2,
+              "trajectory_value": 68.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            },
+            "A2": {
+              "attributable_delta": 1.0,
+              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 28.8,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 4,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 10,
+              "objective_delta": 1,
+              "reversal_basis": "现有材料未闭合本人造成且未被终点表达的额外恶化",
+              "reversal_grade": "NONE_RECOVERED_OR_NOT_ATTRIBUTABLE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 48.0,
+              "within_band_deterioration_basis": "黎阳、泰山等北线节点收缩形成EN2",
+              "within_band_deterioration_penalty": 10
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 47.21,
+            "formal_B1_rate": 52.0,
+            "formal_B2_rate": 82.0,
+            "formal_B4_rate": 67.0,
+            "adjudicated_B1_rate": 52.0,
+            "adjudicated_B2_rate": 82.0,
+            "adjudicated_B4_rate": 67.0,
+            "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          }
+        }
+      ]
+    }
+  }
+}

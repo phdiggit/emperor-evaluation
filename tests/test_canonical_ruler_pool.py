@@ -3,6 +3,7 @@ from pathlib import Path
 
 import yaml
 
+from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.canonical_ruler_pool import (
     build_canonical_ruler_pool,
     verify_canonical_ruler_pool,
@@ -141,11 +142,9 @@ def test_qing_second_item_ids_are_canonical_with_legacy_refs() -> None:
 
 
 def test_first_item_default_basis_is_disclosed_in_formal_limitations() -> None:
-    c_payload = json.loads(
-        (
-            ROOT
-            / "docs/评分结算/第一项创业与政权取得能力/军事夺取能力/01-第一项C军事夺取能力结算.json"
-        ).read_text(encoding="utf-8")
+    c_payload = load_json(
+        ROOT
+        / "docs/评分结算/第一项创业与政权取得能力/军事夺取能力/01-第一项C军事夺取能力结算.json"
     )
     formal_payload = json.loads(
         (

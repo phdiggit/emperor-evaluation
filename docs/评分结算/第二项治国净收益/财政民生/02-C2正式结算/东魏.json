@@ -1,0 +1,124 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "东魏",
+  "collections": {
+    "scores": {
+      "positions": [
+        54
+      ],
+      "records": [
+        {
+          "adjudication_reason": "原结算已抓到仓储、盐业与丰年恢复，但把这些结果只判作“基本运行”偏严。《资治通鉴》同一段直接闭合：沿河津梁广置仓积谷、四州煮盐后“军国之费粗得周赡”，随后东方连岁大稔、谷斛九钱；《通典》又记清查无籍户后“租调之入有加”。这已经同时给出P与F/R实际健康结果，足以升C2-4。之所以不进5，是财政表述仅到“粗得周赡”，M面亦缺独立强结果。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《资治通鉴》卷一百五十八"
+              ],
+              "verbatim_excerpt": "欢命诸州滨河及津、梁皆置仓积谷以相转漕，供军旅，备饥馑，又于幽、瀛、沧、青四州傍海煮盐，军国之费粗得周赡。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《资治通鉴》卷一百五十八"
+              ],
+              "verbatim_excerpt": "至是，东方连岁大稔，谷斛至九钱，山东之民稍复苏息矣。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《通典·食货》"
+              ],
+              "verbatim_excerpt": "齐神武秉政……得无籍之户六十馀万……是后租调之入有加焉。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_5_PASS_C2_4",
+            "basis": "P与F/R都闭合健康；但F只到周赡、M无独立广域强锚，五档门不闭合。"
+          },
+          "main_band": "C2-4",
+          "material_limitations": [
+            "战争成本不机械扣C2",
+            "只消费史料已经形成的财政与生产绝对状态。",
+            "括户增长只证明税基修复，不把户口数字本身当高档。"
+          ],
+          "peak_band": null,
+          "polity": "东魏",
+          "rank": 12,
+          "reign_range": [
+            534,
+            547
+          ],
+          "ruler_id": "RULER-SHADOW-高欢",
+          "ruler_name": "高欢",
+          "score": 23.6,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-4",
+            "S_end": "C2-4"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-28B334C0C12A"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-28B334C0C12A",
+                "candidate_ids_trace_only": [
+                  "M3H-51DE0B2C59A8CEC6"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE"
+                ],
+                "chain_summary": "- 并、肆多年霜旱，降户掘田鼠充饥，是明确灾荒和饥饿事实；原文未载官府先前赈济、粮价或死亡人数。 | - 高欢请二十余万降户赴山东就食，是以生存和温饱为目标的迁置安排；不得仅因人口规模大推定粮食压力、供养负担或财政损害。 | - 陈庆之所在边区罢义阳镇兵、停止水陆漕运，江、湖诸州实际“并得休息”；开田六十顷，两年后仓廪充实，是明确的持续收益。漕运停罢不是全国漕运制度终止，只限本段所述区域。 | - **史源定位**：卷154，十二月降户段与卷末陈庆之段。",
+                "source_refs": [
+                  "docs/史料通读产物/唐以前编年/南北朝/卷154-通读总结.md#L128"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-28B334C0C12A"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-高欢"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C7",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-2",
+              "S_avg": "C2-3",
+              "S_end": "C2-4"
+            }
+          },
+          "old_settlement_review": "UPGRADE_FROM_C2_3；保留：原结算关于仓盐、屯田/税役和山东恢复的方向全部保留。；推翻/修正：原结算低估“军国之费粗得周赡”与连续丰年的双柱闭合强度，主档升四。。"
+        }
+      ]
+    }
+  }
+}

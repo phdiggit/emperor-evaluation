@@ -6,6 +6,8 @@ from pathlib import Path
 
 import yaml
 
+from emperor_v4.evaluation.formal_json_store import ROUTER_SCHEMA, load_json
+
 from emperor_v4.evaluation.profile_markdown import render_profile_markdown
 
 
@@ -19,7 +21,7 @@ def _load(path: Path) -> dict:
     raw = path.read_bytes()
     if raw.startswith(b"\xef\xbb\xbf"):
         raise ValueError(f"UTF-8 BOM is forbidden: {path}")
-    return json.loads(raw.decode("utf-8"))
+    return load_json(path)
 
 
 def _contract_scores(contract: Path) -> dict[tuple[str, str], int]:
@@ -47,6 +49,10 @@ def _cached_text(path: Path, cache: dict[Path, str]) -> str:
     text = cache.get(path)
     if text is None:
         text = path.read_text(encoding="utf-8")
+        if path.suffix == ".json":
+            raw = json.loads(text)
+            if isinstance(raw, dict) and raw.get("schema_version") == ROUTER_SCHEMA:
+                text = json.dumps(load_json(path), ensure_ascii=False)
         cache[path] = text
     return text
 

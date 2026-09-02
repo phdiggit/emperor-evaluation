@@ -6,6 +6,8 @@ from pathlib import Path
 
 import pytest
 
+from emperor_v4.evaluation.formal_json_store import load_json
+
 from emperor_v4.evaluation.third_item_d_settlement import (
     FORMAL_SETTLEMENT_JSON_PATH,
     validate_third_item_d_payload,
@@ -17,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def _payload() -> dict:
-    return json.loads((ROOT / FORMAL_SETTLEMENT_JSON_PATH).read_text(encoding="utf-8"))
+    return load_json(ROOT / FORMAL_SETTLEMENT_JSON_PATH)
 
 
 def test_third_item_d_formal_snapshot_passes_lightweight_verifier() -> None:

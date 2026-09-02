@@ -1,0 +1,213 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "唐末吴政权",
+  "collections": {
+    "records": {
+      "positions": [
+        124
+      ],
+      "records": [
+        {
+          "ruler_id": "RULER-SHADOW-杨行密",
+          "ruler_name": "杨行密",
+          "polity": "吴",
+          "reign_range": "902-905",
+          "axes": {
+            "A1": {
+              "start": "A1S3_CONTESTED_BALANCE",
+              "end": "A1S4_STABLE_ADVANTAGE",
+              "base_trajectory_value": 58,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "ceiling_bonus": 0,
+              "trajectory_value": 58,
+              "axis_points": 23.2,
+              "transition": "IMPROVED",
+              "reason": "鄂州敌对中游节点经多年围城终结，淮南西向压力下降；汴军仍在且宿州方向失败，不能到5。"
+            },
+            "A2": {
+              "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
+              "end": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "base_trajectory_value": 58,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "ceiling_bonus": 0,
+              "trajectory_value": 58,
+              "axis_points": 23.2,
+              "transition": "IMPROVED",
+              "reason": "鄂州敌对中游节点经多年围城终结，淮南西向压力下降；汴军仍在且宿州方向失败，不能到5。"
+            },
+            "B1": {
+              "grade": "B1-1",
+              "band_position": "LOW",
+              "score_rate": 30,
+              "axis_points": 7.5,
+              "reason": "逐真实区域快照计算；无可确认新/维护控制时不从战果反推。"
+            },
+            "B2": {
+              "grade": "B2-4",
+              "band_position": "HIGH",
+              "score_rate": 89,
+              "axis_points": 26.7,
+              "reason": "只消费本窗口实际保全、恢复或新形成的控制成果。"
+            },
+            "B4": {
+              "grade": "B4-2",
+              "band_position": "HIGH",
+              "score_rate": 59,
+              "axis_points": 14.8,
+              "reason": "只读取本人交班时的闭合状态，不读后继者结果。"
+            }
+          },
+          "AB_score_points": 95.4,
+          "b1_control_equivalents": {
+            "start": 0.0,
+            "end": 0.5,
+            "net_change": 0.5,
+            "weighted_value": 0.5
+          },
+          "b1_region_control": {
+            "start": {
+              "HUAINAN_MIDDLE_YANGTZE_EZHOU": 0.0
+            },
+            "end": {
+              "HUAINAN_MIDDLE_YANGTZE_EZHOU": 0.5
+            }
+          },
+          "b1_region_adjudications": [
+            {
+              "region_id": "HUAINAN_MIDDLE_YANGTZE_EZHOU",
+              "region_name": "鄂州中游节点",
+              "spatial_weight": 0.5,
+              "start_coverage": 0,
+              "end_coverage": 1,
+              "start_equivalent": 0.0,
+              "end_equivalent": 0.5,
+              "control_form": "围城终结杜洪并接收鄂州",
+              "reason": "905鄂州陷落、杜洪及援军被俘，形成可确认节点控制；不将短期水战或内乱重复加计。",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-263.battle-adjudications.json#ZZTJ-263-GESHAN-0902",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-264.battle-adjudications.json"
+              ]
+            }
+          ],
+          "primary_threat_refs": [
+            "CHAIN-YANGXINGMI-FENGHONGDUO-902",
+            "CHAIN-YANGXINGMI-BIAN-SUZHOU-902-904",
+            "CHAIN-YANGXINGMI-DUHONG-EOZHOU-902-905",
+            "CHAIN-YANGXINGMI-TIANJUN-ANRENYI-903-905"
+          ],
+          "primary_control_package_refs": [
+            "CHAIN-YANGXINGMI-FENGHONGDUO-902",
+            "CHAIN-YANGXINGMI-BIAN-SUZHOU-902-904",
+            "CHAIN-YANGXINGMI-DUHONG-EOZHOU-902-905",
+            "CHAIN-YANGXINGMI-TIANJUN-ANRENYI-903-905"
+          ],
+          "parent_cycle_refs": [
+            "CHAIN-YANGXINGMI-FENGHONGDUO-902",
+            "CHAIN-YANGXINGMI-BIAN-SUZHOU-902-904",
+            "CHAIN-YANGXINGMI-DUHONG-EOZHOU-902-905",
+            "CHAIN-YANGXINGMI-TIANJUN-ANRENYI-903-905"
+          ],
+          "evidence_event_refs": [
+            "PARENT-FENGHONGDUO-FLEET-902",
+            "PARENT-HUAINAN-ANRENYI-903-905",
+            "PARENT-HUAINAN-DUHONG-EOZHOU-902-905",
+            "PARENT-HUAINAN-TIANJUN-REBELLION-903",
+            "ZZTJ-263-YANGXINGMI-SUZHOU-0902",
+            "ZZTJ-264-HUAINAN-SUZHOU-0903"
+          ],
+          "boundary_stage_refs": [],
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "ambiguous_event_refs": [],
+          "major_in_reign_reversal_refs": [],
+          "non_defense_routing_refs": [],
+          "control_contribution_type": "NEW_RECOVERED_REBUILT",
+          "rationale": "鄂州敌对中游节点经多年围城终结，淮南西向压力下降；汴军仍在且宿州方向失败，不能到5。；逐真实区域快照计算；无可确认新/维护控制时不从战果反推。；只消费本窗口实际保全、恢复或新形成的控制成果。；只读取本人交班时的闭合状态，不读后继者结果。",
+          "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "score_ready": true,
+          "adjudication_status": "REVIEWED",
+          "source_refs": [
+            "docs/史料通读产物/五代十国/资治通鉴/volume-263.battle-adjudications.json",
+            "docs/史料通读产物/五代十国/资治通鉴/volume-263.battle-adjudications.json#PARENT-FENGHONGDUO-FLEET-902",
+            "docs/史料通读产物/五代十国/资治通鉴/volume-263.battle-adjudications.json#ZZTJ-263-GESHAN-0902",
+            "docs/史料通读产物/五代十国/资治通鉴/volume-264.battle-adjudications.json",
+            "docs/史料通读产物/五代十国/资治通鉴/volume-264.battle-adjudications.json#PARENT-HUAINAN-TIANJUN-REBELLION-903",
+            "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#PARENT-HUAINAN-ANRENYI-903-905",
+            "docs/史料通读产物/五代十国/资治通鉴/volume-265.battle-adjudications.json#PARENT-HUAINAN-DUHONG-EOZHOU-902-905"
+          ],
+          "unresolved_gaps": [],
+          "control_contribution_basis": "逐区域账是证据结构，不是人物贡献类型；按现有成果事实归一为合同贡献类型。",
+          "control_contribution_grade_cap": 5,
+          "A120_non_cost_anchor_points": 54.6,
+          "A120_positive_result_credit_points": 12.0,
+          "A120_score_points": 66.6,
+          "B80_score_points": 39.68,
+          "AB200_score_points": 106.28,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": 1.0,
+              "attribution_basis": "材料门后按人物窗口逐段裁决",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 31.8,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 4,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 5,
+              "objective_delta": 1,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 53.0,
+              "within_band_deterioration_basis": "宿州方向连续攻势无果形成EN1",
+              "within_band_deterioration_penalty": 5
+            },
+            "A2": {
+              "attributable_delta": 1.0,
+              "attribution_basis": "材料门后按人物窗口逐段裁决",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 34.8,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 4,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": 1,
+              "reversal_basis": "无重大逆转登记",
+              "reversal_grade": "NONE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 58.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 39.68,
+            "formal_B1_rate": 30.0,
+            "formal_B2_rate": 89.0,
+            "formal_B4_rate": 59.0,
+            "adjudicated_B1_rate": 30.0,
+            "adjudicated_B2_rate": 89.0,
+            "adjudicated_B4_rate": 59.0,
+            "consistency_basis": "逐区域账是证据结构，不是人物贡献类型；按现有成果事实归一为合同贡献类型。"
+          },
+          "excluded_founding_unification_refs": [],
+          "defense_event_count": 4,
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+        }
+      ]
+    }
+  }
+}

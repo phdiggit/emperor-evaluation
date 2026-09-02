@@ -1,0 +1,295 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "东晋",
+  "collections": {
+    "scores": {
+      "positions": [
+        73,
+        74,
+        75
+      ],
+      "records": [
+        {
+          "adjudication_reason": "原结算的曲线方向基本正确。中前段有“时和年丰、谷帛殷阜”的强生产结果，但这条主要闭合P；到太元后段，范宁直接指出“边烽不举而仓库空匮”，且劳役“殆无三日之休”，F/R已明显落到脆弱。前后阶段差异大，不能把后段二档覆盖成全任主态，也不能用中段P强态抬到四档，故仍主态三、交班二。",
+          "confidence": "MEDIUM_HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《晋书·食货志》"
+              ],
+              "verbatim_excerpt": "天下无事，时和年丰，百姓乐业，谷帛殷阜，几乎家给人足矣。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《资治通鉴》卷一百七"
+              ],
+              "verbatim_excerpt": "今边烽不举而仓库空匮。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《资治通鉴》卷一百七"
+              ],
+              "verbatim_excerpt": "古者使民岁不过三日，今之劳扰，殆无三日之休。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "P中段强，但F/R后段长期脆弱，主态只能基本运行。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "“家给人足”不进入C2。",
+            "劳役只在已闭合到生产/财政负担时消费，不按战争责任机械扣档。"
+          ],
+          "peak_band": null,
+          "polity": "东晋",
+          "rank": 56,
+          "reign_range": [
+            376,
+            396
+          ],
+          "ruler_id": "RULER-SHADOW-司马曜",
+          "ruler_name": "司马曜",
+          "score": 13.7,
+          "stability_class_diagnostic_only": "K0",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-3",
+            "S_end": "C2-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-司马曜"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C4",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-3",
+              "S_end": "C2-2"
+            }
+          },
+          "old_settlement_review": "KEEP_BAND_STRENGTHEN_CURVE；保留：前期恢复、后期财政转嫁与仓空的判断保留。；推翻/修正：删除“淝水后恢复”这种C4式动态措辞，改为直接P/F/R状态。。"
+        },
+        {
+          "adjudication_reason": "原结算“草创低位恢复”可以保留，但应改写成结果轴。元帝为晋王时已按入谷多少考核，并要求军队自佃；太兴后频年麦作“为益犹多”，同时三吴大饥时仍可开仓振给并省众役。这说明P与R/F均达到基本运行，但军兴、运漕和大量游食人口仍是直接结构约束，尚不足两柱健康，故保三。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《晋书·食货志》"
+              ],
+              "verbatim_excerpt": "元帝为晋王，课督农功，诏二千石长吏以入谷多少为殿最。其非宿卫要任，皆宜赴农，使军各自佃作，即以为廪。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《晋书·食货志》"
+              ],
+              "verbatim_excerpt": "其后频年麦虽有旱蝗，而为益犹多。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《晋书·食货志》"
+              ],
+              "verbatim_excerpt": "二年，三吴大饥，死者以百数……元帝时使黄门侍郎虞𩦎、桓彝开仓廪振给，并省众役。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《晋书·食货志》"
+              ],
+              "verbatim_excerpt": "军兴以来，征战运漕，朝廷宗庙，百官用度，既已殷广，下及工商流寓僮仆不亲农桑而游食者，以十万计。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "两柱都能运转，但军兴财政与生产结构余量有限，四档失败。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "开仓赈济只证明储备和调度仍在，不按C4抗灾能力加分。"
+          ],
+          "peak_band": null,
+          "polity": "东晋",
+          "rank": 56,
+          "reign_range": [
+            317,
+            322
+          ],
+          "ruler_id": "RULER-SHADOW-司马睿",
+          "ruler_name": "司马睿",
+          "score": 14.9,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-3",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-4468BF4F688D"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-4468BF4F688D",
+                "candidate_ids_trace_only": [
+                  "M3H-EB5F5148838D1F95"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- 司马睿初到建业声望轻，江东士族不附；王导通过禊礼威仪并亲访顾荣、贺循，建立本地合作 | - 治理措施：王导建议谦接士、俭足用、清静施政、安抚新旧；司马睿停止因饮酒废事，任本地人士参与军府政事，原文称江东归心 | - 财政证据：只见“俭以足用”的政策方向，未载减税、仓储、支出数和工程；不能把归心量化为收入增长",
+                "source_refs": [
+                  "docs/史料通读产物/唐以前编年/两晋/卷086-通读总结.md#L225"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-4468BF4F688D"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-司马睿"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C4",
+            "cost_status": "CONFIRMED",
+            "cost_position": "MID",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-2",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          },
+          "old_settlement_review": "KEEP_BAND_REWRITE_TO_RESULTS；保留：草创期低位恢复、财政基础狭窄的方向保留。；推翻/修正：把“推广麦作、安置流民”等动作改写为本人窗口实际产出与储备结果。。"
+        },
+        {
+          "adjudication_reason": "原结算三档结论保留，但原两张证据卡一张是江东大火、一张是石勒补偿樊坦，均不能直接承担司马绍C2。本轮按短任口径重做：他直接承接司马睿C2-3交班盘面；温峤在明帝时仍建议恢复田曹、劝课农桑，表明农业财政机器尚处继续修复阶段，而太宁三年自春至六月不雨亦构成生产压力。没有新证据证明两柱健康或长期脆弱，因此用一跳连续性闭合C2-3。",
+          "confidence": "LOW",
+          "evidence": [
+            {
+              "source_works": [
+                "《玉海》引《晋书·食货志》"
+              ],
+              "verbatim_excerpt": "温峤明帝时奏军国要务曰：司徒置田曹掾，州一人，劝课农桑，察吏能否，今宜依旧置之。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《晋书·五行志》"
+              ],
+              "verbatim_excerpt": "明帝太宁三年，自春不雨，至于六月。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "短任缺本人窗口两柱健康硬证；直接继承三档状态且无系统性失灵证据，故三档。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "S0=C2-3与本批司马睿S_end强制同步。",
+            "原结算两张与本人C2关系不足的证据卡已删除。",
+            "灾旱仅作P面压力，不因灾害本身降二。"
+          ],
+          "peak_band": null,
+          "polity": "东晋",
+          "rank": 56,
+          "reign_range": [
+            322,
+            325
+          ],
+          "ruler_id": "RULER-SHADOW-司马绍",
+          "ruler_name": "司马绍",
+          "score": 14.9,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-3",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": null,
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C4",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          },
+          "old_settlement_review": "KEEP_BAND_REPLACE_EVIDENCE；保留：短任以连续性和有限结果作中档推断的原则保留。；推翻/修正：原证据相关性不足，全部替换。。"
+        }
+      ]
+    }
+  }
+}

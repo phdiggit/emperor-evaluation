@@ -1,0 +1,116 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "西魏",
+  "collections": {
+    "records": {
+      "positions": [
+        39
+      ],
+      "records": [
+        {
+          "ruler_id": "RULER-SHADOW-宇文泰",
+          "ruler_name": "宇文泰",
+          "polity": "西魏",
+          "scope_status": "APPLICABLE_DYNASTY_FOUNDER",
+          "score_applicable": true,
+          "C1": {
+            "axis": "C1",
+            "raw_index": 6.0,
+            "grade": 2,
+            "position": "MID",
+            "rate": 52,
+            "weight": 50,
+            "points": 26.0,
+            "positive_result_value": 6.0,
+            "negative_result_value": 0,
+            "campaign_results": [
+              {
+                "result_ref": "MANUAL:宇文泰:WAR-LEAD-155-05:宇文泰",
+                "window_ref": "MANUAL:宇文泰",
+                "campaign_group_id": "WAR-LEAD-155-05",
+                "result_direction": "positive",
+                "personal_result_tier": "A",
+                "result_value": 4.0,
+                "basis": "说服关中军转向并以轻骑先驱取长安，闭合关中方向；不继承韩陵D4。",
+                "source_refs": [
+                  "docs/史料通读产物/唐以前编年/南北朝/卷155-通读总结.md"
+                ]
+              },
+              {
+                "result_ref": "MANUAL:宇文泰:WAR-LEAD-156-02:宇文泰",
+                "window_ref": "MANUAL:宇文泰",
+                "campaign_group_id": "WAR-LEAD-156-02",
+                "result_direction": "positive",
+                "personal_result_tier": "B",
+                "result_value": 2.0,
+                "basis": "击破侯莫陈悦并承接关陇军权。 本项只结算本人可观察的正向结果，不继承父群其他方向、其他人物或未完成部分。",
+                "source_refs": [
+                  "docs/史料通读产物/唐以前编年/南北朝/卷156-通读总结.md"
+                ]
+              }
+            ]
+          },
+          "C2": {
+            "axis": "C2",
+            "raw_index": 3.6,
+            "peak_quality_index": 3.6,
+            "grade": 3,
+            "position": "LOW",
+            "rate": 50,
+            "weight": 30,
+            "points": 15.0,
+            "grade_path": "A_D2_OR_S_MINUS_PEAK",
+            "grade_cap": 5,
+            "cap_reasons": [],
+            "positive_context_count": 2,
+            "high_difficulty_context_count": 0,
+            "negative_context_count": 0,
+            "command_failure_count": 0,
+            "negative_position_steps": 0,
+            "abundant_grade_5_validation": false,
+            "frontline_results": [
+              {
+                "capability_episode_ref": "MANUAL:宇文泰:WAR-LEAD-155-05:宇文泰",
+                "window_ref": "MANUAL:宇文泰",
+                "campaign_group_id": "WAR-LEAD-155-05",
+                "result_direction": "positive",
+                "personal_result_tier": "A",
+                "combat_difficulty": "D2",
+                "quality_index": 3.6,
+                "basis": "说服关中军转向并以轻骑先驱取长安，闭合关中方向；不继承韩陵D4。",
+                "source_refs": [
+                  "docs/史料通读产物/唐以前编年/南北朝/卷155-通读总结.md"
+                ]
+              },
+              {
+                "capability_episode_ref": "MANUAL:宇文泰:WAR-LEAD-156-02:宇文泰",
+                "window_ref": "MANUAL:宇文泰",
+                "campaign_group_id": "WAR-LEAD-156-02",
+                "result_direction": "positive",
+                "personal_result_tier": "B",
+                "combat_difficulty": "D2",
+                "quality_index": 2.6,
+                "basis": "击破侯莫陈悦并承接关陇军权。 本项只结算本人可观察的正向结果，不继承父群其他方向、其他人物或未完成部分。",
+                "source_refs": [
+                  "docs/史料通读产物/唐以前编年/南北朝/卷156-通读总结.md"
+                ]
+              }
+            ],
+            "command_failures": []
+          },
+          "C_score_points": 41.0,
+          "window_refs": [
+            "MANUAL:宇文泰"
+          ],
+          "military_talent_grade": "top",
+          "coverage_status": "CALIBRATED_C_WINDOW_RESULT",
+          "default_applied": false,
+          "default_basis": null,
+          "unresolved_gaps": [],
+          "score_ready": true,
+          "canonical_rank": 40
+        }
+      ]
+    }
+  }
+}

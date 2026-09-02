@@ -1,0 +1,155 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "北周",
+  "collections": {
+    "records": {
+      "positions": [
+        52
+      ],
+      "records": [
+        {
+          "sequence": 108,
+          "ruler_id": "RULER-SHADOW-宇文邕",
+          "task_code": "PROFILE-C1-RULER-SHADOW-宇文邕",
+          "ruler_name": "宇文邕",
+          "polity": "北周",
+          "actual_power_window": "572—578年诛宇文护后亲政",
+          "axis_code": "C1",
+          "axis_name": "战略判断与风险控制",
+          "score_status": "FINAL",
+          "axis_grade": "G3",
+          "position": "HIGH",
+          "score_100": 71,
+          "radar_value": 71,
+          "axis_evidence_level": "E3",
+          "output_mode": "FULL_GRADE",
+          "confidence": "HIGH",
+          "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-SHADOW-宇文邕",
+          "parents": [
+            {
+              "parent_id": "C1-P108-QI-ROUTE-CORRECTION",
+              "direction": "POSITIVE",
+              "intensity": "MI3",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/第一项创业与政权取得能力/战略决策能力/01-第一项A战略决策能力结算.json#ruler_id=RULER-SHADOW-宇文邕",
+                "docs/评分结算/皇帝人物画像/M1/01-M1军事判断与统帅能力正式结算.json#ruler_id=RULER-SHADOW-宇文邕"
+              ],
+              "direct_process_refs": [
+                "資治通鑑/卷172@1502703",
+                "WAR-LEAD-NC-ZHOU-DESTROY-QI-577"
+              ],
+              "cycle_basis": "河阴路线失败后，本人改取晋州；晋阳首攻不利又重组再进，最终收束北齐。换路与反馈调整构成一个完整PS2周期，具体战役执行留在M1。",
+              "diagnostic_role": "PS2"
+            },
+            {
+              "parent_id": "C1-P108-HEYIN-COUNTER",
+              "direction": "NEGATIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "GOAL_RESOURCE_FIT",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/第一项创业与政权取得能力/战略决策能力/01-第一项A战略决策能力结算.json#ruler_id=RULER-SHADOW-宇文邕"
+              ],
+              "direct_process_refs": [
+                "WAR-PARENT-172-ZHOU-QI-HEYIN-575"
+              ],
+              "cycle_basis": "多将提出汾曲、河北和汾潞等替代路线时，本人拒绝并攻河阴，取城不能守而撤；本人归责、现实替代和显著无效投入闭合，后续有效换路且未同构复发，裁DW2。",
+              "diagnostic_role": "DW2"
+            }
+          ],
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C1-P108-QI-ROUTE-CORRECTION",
+              "direction": "POSITIVE",
+              "intensity": "MI3",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/第一项创业与政权取得能力/战略决策能力/01-第一项A战略决策能力结算.json#ruler_id=RULER-SHADOW-宇文邕",
+                "docs/评分结算/皇帝人物画像/M1/01-M1军事判断与统帅能力正式结算.json#ruler_id=RULER-SHADOW-宇文邕"
+              ],
+              "direct_process_refs": [
+                "資治通鑑/卷172@1502703",
+                "WAR-LEAD-NC-ZHOU-DESTROY-QI-577"
+              ],
+              "cycle_basis": "河阴路线失败后，本人改取晋州；晋阳首攻不利又重组再进，最终收束北齐。换路与反馈调整构成一个完整PS2周期，具体战役执行留在M1。",
+              "diagnostic_role": "PS2"
+            },
+            {
+              "parent_id": "C1-P108-HEYIN-COUNTER",
+              "direction": "NEGATIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "GOAL_RESOURCE_FIT",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/第一项创业与政权取得能力/战略决策能力/01-第一项A战略决策能力结算.json#ruler_id=RULER-SHADOW-宇文邕"
+              ],
+              "direct_process_refs": [
+                "WAR-PARENT-172-ZHOU-QI-HEYIN-575"
+              ],
+              "cycle_basis": "多将提出汾曲、河北和汾潞等替代路线时，本人拒绝并攻河阴，取城不能守而撤；本人归责、现实替代和显著无效投入闭合，后续有效换路且未同构复发，裁DW2。",
+              "diagnostic_role": "DW2"
+            }
+          ],
+          "typical_pattern": "575路线失败后能改变重点至晋州—晋阳并完成北齐收束，显示反馈换路；强军事化承载与突厥高价联盟限制上沿。",
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C1-P108-QI-ROUTE-CORRECTION"
+            ],
+            "counter_parent_refs": [
+              "C1-P108-HEYIN-COUNTER"
+            ]
+          },
+          "grade_basis": "北齐路线纠正为PS2；河阴首轮错误和成本为DW2，仍属单一战争战略域。",
+          "position_basis": "统一收益不换分；路线纠正只闭合单一战争域PS2，首次错误为DW2。",
+          "axis_relevance_check": {
+            "status": "CLOSED",
+            "scoring_parent_refs": [
+              "C1-P108-QI-ROUTE-CORRECTION",
+              "C1-P108-HEYIN-COUNTER"
+            ],
+            "result_nonconversion": true
+          },
+          "reviews": {
+            "window": "COVERAGE_CLOSED",
+            "relevance": "CLOSED",
+            "attribution": "CLOSED",
+            "dedup": "CLOSED",
+            "bidirectional": "CLOSED",
+            "density": "COUNTEREVIDENCE_FOUND",
+            "capability_profile": "CLOSED",
+            "low_grade_gate": {
+              "status": "NOT_REQUIRED",
+              "inherited_bad_hand": "NOT_REQUIRED",
+              "feasible_alternative": "NOT_REQUIRED",
+              "feedback_reachability": "NOT_REQUIRED",
+              "stop_loss": "NOT_REQUIRED"
+            }
+          },
+          "limitations": [
+            "统一收益不换分；路线纠正只闭合单一战争域PS2，首次错误为DW2。"
+          ],
+          "formal_status": "FORMAL_CURRENT",
+          "grade_numeric": 3,
+          "formal_order": 53
+        }
+      ]
+    }
+  }
+}

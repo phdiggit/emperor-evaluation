@@ -1,0 +1,293 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "西魏",
+  "collections": {
+    "records": {
+      "positions": [
+        78
+      ],
+      "records": [
+        {
+          "AB_score_points": 125.9,
+          "adjudication_status": "REVIEWED",
+          "ambiguous_event_refs": [
+            "WAR-LEAD-157-01",
+            "WAR-LEAD-157-03",
+            "WAR-LEAD-157-05",
+            "WAR-LEAD-163-12"
+          ],
+          "axes": {
+            "A1": {
+              "axis_points": 31.2,
+              "base_trajectory_value": 78,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A1S4_STABLE_ADVANTAGE",
+              "rationale": "西魏分立时东魏兵力、人口与财赋均占优，潼关和长安存在国家级危机，起点1档。沙苑反转危局、玉壁两次守成，又取巴蜀汉中和江陵，交班时西魏已掌主动；北齐与突厥仍是明显未决强敌，终点4档。",
+              "start": "A1S1_SEVERE_THREAT",
+              "trajectory_value": 78,
+              "transition": "IMPROVED",
+              "transition_attribution": "PRIMARY_RULER_ACTION"
+            },
+            "A2": {
+              "axis_points": 31.2,
+              "base_trajectory_value": 78,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A2S4_OVERALL_SECURE_WITH_GAPS",
+              "rationale": "分立初期关中外围连续争夺，主要防线破裂，起点1档。潼关—渭北、玉壁、陇右与巴蜀汉中纵深相互支撑，全局防御总体有效；河南前线反复为主要缺口，终点4档。",
+              "start": "A2S1_BROKEN_BOUNDARY",
+              "trajectory_value": 78,
+              "transition": "IMPROVED",
+              "transition_attribution": "PRIMARY_RULER_ACTION"
+            },
+            "B1": {
+              "axis_points": 13.0,
+              "band_position": "MID",
+              "grade": "B1-2",
+              "rationale": "起点只计西北边疆0.8，不将关中核心领土作边疆增益。交班时巴蜀汉中对西南标准区域整体有效0.5，河南—江陵前线保守取半走廊0.3；交班1.6、净增0.8、加权值1.12，落B1-2 MID。",
+              "raw_net_change": 0.8,
+              "score_rate": 52,
+              "terminal_collapse_override": false,
+              "weighted_control_value": 1.12
+            },
+            "B2": {
+              "axis_points": 30.0,
+              "band_position": "HIGH",
+              "grade": "B2-5",
+              "rationale": "巴蜀、汉中的人口物资和山川纵深直接改变西魏与东魏北齐的总体实力对比，江陵又构成长江上游门户，对政权存续和整体战略格局具决定性价值。",
+              "score_rate": 100
+            },
+            "B4": {
+              "axis_points": 20.5,
+              "band_position": "MID",
+              "grade": "B4-4",
+              "rationale": "巴蜀汉中已设州郡、驻军和补给节点，能为后续政权常态运用；江陵仍借西梁宗主安排并需重兵支撑，故为4档中位。",
+              "score_rate": 82
+            }
+          },
+          "b1_control_equivalents": {
+            "end": 1.6,
+            "net_change": 0.8,
+            "start": 0.8,
+            "weighted_value": 1.12
+          },
+          "b1_region_adjudications": [
+            {
+              "anchors": [
+                "end"
+              ],
+              "control_equivalent": 0.3,
+              "control_form": "边郡、戍防、迁置或可执行属部管理",
+              "counted": true,
+              "coverage_factor": 0.5,
+              "evidence_refs": [
+                "WAR-LEAD-159-03",
+                "WAR-LEAD-163-03",
+                "WAR-LEAD-165-WEIBA-554",
+                "WAR-LEAD-165-WEISHU-553",
+                "WAR-LEAD-165-JIANGLING-554"
+              ],
+              "object_id": "HENAN_SHUOFANG",
+              "object_name": "河南地—朔方",
+              "reason": "有界推断：依任期边界的州郡、防线、迁置和属部可执行关系，按标准区域取0.50（约半个主要走廊或网络）；不由一次胜负或单次归附外推更大控制。",
+              "spatial_weight": 0.6
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.8,
+              "control_form": "边郡、戍防、迁置或可执行属部管理",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "WAR-LEAD-159-03",
+                "WAR-LEAD-163-03",
+                "WAR-LEAD-165-WEIBA-554",
+                "WAR-LEAD-165-WEISHU-553",
+                "WAR-LEAD-165-JIANGLING-554"
+              ],
+              "object_id": "NORTHWEST_FRONTIER",
+              "object_name": "西北边疆",
+              "reason": "有界推断：依任期边界的州郡、防线、迁置和属部可执行关系，按标准区域取1.00（整体有效）；不由一次胜负或单次归附外推更大控制。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "end"
+              ],
+              "control_equivalent": 0.5,
+              "control_form": "边郡、戍防、迁置或可执行属部管理",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "WAR-LEAD-159-03",
+                "WAR-LEAD-163-03",
+                "WAR-LEAD-165-WEIBA-554",
+                "WAR-LEAD-165-WEISHU-553",
+                "WAR-LEAD-165-JIANGLING-554"
+              ],
+              "object_id": "SOUTHWEST",
+              "object_name": "西南边疆",
+              "reason": "有界推断：依任期边界的州郡、防线、迁置和属部可执行关系，按标准区域取1.00（整体有效）；不由一次胜负或单次归附外推更大控制。",
+              "spatial_weight": 0.5
+            }
+          ],
+          "b1_region_control": {
+            "end": {
+              "HENAN_SHUOFANG": 0.3,
+              "NORTHWEST_FRONTIER": 0.8,
+              "SOUTHWEST": 0.5
+            },
+            "start": {
+              "NORTHWEST_FRONTIER": 0.8
+            }
+          },
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "control_contribution_grade_cap": 5,
+          "control_contribution_type": "NEW_RECOVERED_REBUILT",
+          "coverage_status": "FORMAL_CURRENT",
+          "defense_event_count": 12,
+          "evidence_event_refs": [
+            "WAR-LEAD-157-01",
+            "WAR-LEAD-157-03",
+            "WAR-LEAD-157-04",
+            "WAR-LEAD-157-05",
+            "WAR-LEAD-157-08",
+            "WAR-LEAD-158-01",
+            "WAR-LEAD-158-02",
+            "WAR-LEAD-158-03",
+            "WAR-LEAD-158-04",
+            "WAR-LEAD-158-06",
+            "WAR-LEAD-159-03",
+            "WAR-LEAD-159-04",
+            "WAR-LEAD-161-01",
+            "WAR-LEAD-162-05",
+            "WAR-LEAD-163-03",
+            "WAR-LEAD-163-09",
+            "WAR-LEAD-163-12",
+            "WAR-LEAD-165-TUYUHUN-553",
+            "WAR-LEAD-165-WEIBA-554",
+            "WAR-LEAD-165-WEISHU-553",
+            "WAR-LEAD-166-TURK-TUYUHUN-556",
+            "WAR-LEAD-166-WEI-LIAO-556"
+          ],
+          "hold_event_refs": [],
+          "major_in_reign_reversal_refs": [
+            "WAR-LEAD-158-01",
+            "WAR-LEAD-158-02",
+            "WAR-LEAD-162-05"
+          ],
+          "non_defense_routing_refs": [],
+          "partition": "两晋十六国南北朝隋",
+          "polity": "西魏",
+          "primary_control_package_refs": [
+            "WAR-LEAD-165-WEISHU-553",
+            "WAR-LEAD-165-WEIBA-554",
+            "WAR-LEAD-165-JIANGLING-554"
+          ],
+          "primary_threat_refs": [
+            "WAR-LEAD-157-08",
+            "WAR-LEAD-158-06",
+            "WAR-LEAD-159-04"
+          ],
+          "rationale": "分区实审已完成五轴、主体方向、交班边界与B1空间快照闭合。",
+          "reign_range": [
+            535,
+            556
+          ],
+          "ruler_id": "RULER-SHADOW-宇文泰",
+          "ruler_name": "宇文泰",
+          "score_ready": true,
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "terminal_polity_collapse": false,
+          "parent_cycle_refs": [
+            "NC-V157-LEAD-157-04",
+            "WAR-LEAD-157-05",
+            "NC-V158-LEAD-158-01",
+            "NC-V158-LEAD-158-02",
+            "NC-V158-LEAD-158-03",
+            "NC-V158-LEAD-158-04",
+            "NC-V159-LEAD-159-04",
+            "NC-V162-LEAD-162-05",
+            "NC-V163-LEAD-163-09",
+            "V165-LEAD-165-WEISHU-553",
+            "WAR-LEAD-165-JIANGLING-554",
+            "NC-EAST-WEST-WEI-537"
+          ],
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "excluded_founding_unification_refs": [],
+          "observed_parent_cycle_count": 13,
+          "A120_non_cost_anchor_points": 51.6,
+          "A120_positive_result_credit_points": 36.0,
+          "A120_score_points": 87.6,
+          "B80_score_points": 55.7,
+          "AB200_score_points": 143.3,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": 3.0,
+              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 46.8,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 4,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": 3,
+              "reversal_basis": "现有材料未闭合本人造成且未被终点表达的额外恶化",
+              "reversal_grade": "NONE_RECOVERED_OR_NOT_ATTRIBUTABLE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 1,
+              "trajectory_value": 78.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            },
+            "A2": {
+              "attributable_delta": 3.0,
+              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 40.8,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 4,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 10,
+              "objective_delta": 3,
+              "reversal_basis": "现有材料未闭合本人造成且未被终点表达的额外恶化",
+              "reversal_grade": "NONE_RECOVERED_OR_NOT_ATTRIBUTABLE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 1,
+              "trajectory_value": 68.0,
+              "within_band_deterioration_basis": "东魏—北齐主链多方向耐久退控，A2整数终档未表达",
+              "within_band_deterioration_penalty": 10
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 55.7,
+            "formal_B1_rate": 52.0,
+            "formal_B2_rate": 100.0,
+            "formal_B4_rate": 82.0,
+            "adjudicated_B1_rate": 52.0,
+            "adjudicated_B2_rate": 100.0,
+            "adjudicated_B4_rate": 82.0,
+            "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          }
+        }
+      ]
+    }
+  }
+}

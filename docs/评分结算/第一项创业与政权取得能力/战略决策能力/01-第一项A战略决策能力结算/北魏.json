@@ -1,0 +1,361 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "北魏",
+  "collections": {
+    "records": {
+      "positions": [
+        32,
+        47,
+        84,
+        85,
+        123,
+        124
+      ],
+      "records": [
+        {
+          "ruler_id": "RULER-SHADOW-拓跋珪",
+          "ruler_name": "拓跋珪",
+          "polity": "北魏",
+          "reign_range": [
+            386,
+            409
+          ],
+          "scope_status": "ELIGIBLE_DYNASTY_FOUNDER",
+          "score_applicable": true,
+          "founder_role": "RESTORATION_FOUNDER",
+          "difficulty_start_boundary": "代王宗室身份和少量旧部可计，但复代后的国家能力是成果",
+          "initial_resource_position": "代王宗室身份和少量旧部可计，但复代后的国家能力是成果",
+          "initial_resource_share_pct": 2.0,
+          "initial_resource_source_refs": [
+            "WAR-LEAD-106-WEI-385-386",
+            "WAR-LEAD-107-WEI-LIUWEICHEN-391"
+          ],
+          "initial_resource_source_status": "SOURCE_ANCHORED_RULE_MAPPED",
+          "initial_resource_class": "R1_PERSONAL_OR_TINY_FOLLOWING",
+          "initial_resource_share_basis": "史源锚用于确认‘代王宗室身份和少量旧部可计，但复代后的国家能力是成果’这一事实起点；百分比不是史书原文数字，而是按合同R1_PERSONAL_OR_TINY_FOLLOWING档（仅有个人声望、宗族乡兵、少量亲随或初级军职资源）在同档人物间依可调用资源广度裁为2%。",
+          "start_boundary": "386年复代",
+          "end_boundary": "391年稳定草原核心",
+          "starting_position": "旧部与部族身份资源但无稳定国家",
+          "A1": {
+            "axis": "A1",
+            "name": "创业战略增益与难度兑现",
+            "starting_resource_share": 2.0,
+            "starting_resource_disadvantage": 98.0,
+            "project_start_resource_share": 5.0,
+            "project_start_resource_disadvantage": 95.0,
+            "contribution_start_field": {
+              "subject_units": 5.0,
+              "other_actors": {
+                "刘显等代北部族": 24,
+                "贺兰等中间部族": 18,
+                "后燕": 35,
+                "其他草原力量": 18
+              }
+            },
+            "opponent_pressure": 54.89,
+            "opponent_system_pressure": 48.5,
+            "relative_resource_pressure": 69.82,
+            "major_opponent_count": 2,
+            "major_opponent_systems": [
+              {
+                "opponent_system_ref": "OPP-TUOBA-LIUWEICHEN",
+                "opponent_label": "刘卫辰朔方政权",
+                "organization_grade": "O4",
+                "organization_rate": 70.0,
+                "source_campaign_refs": [
+                  "WAR-LEAD-107-WEI-LIUWEICHEN-391"
+                ]
+              },
+              {
+                "opponent_system_ref": "OPP-TUOBA-KUHUN",
+                "opponent_label": "窟咄代北竞争部众",
+                "organization_grade": "O3",
+                "organization_rate": 50.0,
+                "source_campaign_refs": [
+                  "WAR-LEAD-106-WEI-385-386"
+                ]
+              }
+            ],
+            "unknown_opponent_campaign_refs": [],
+            "opponent_threat_source_status": "OPPONENT_SYSTEM_O_GRADE_WITH_RELATIVE_RESOURCES",
+            "opponent_threat_routing_basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。",
+            "competitive_fragmentation": 91.77,
+            "a1_strategic_responsibility_factor": 100.0,
+            "a1_strategic_responsibility_basis": "role_default:RESTORATION_FOUNDER",
+            "start_difficulty_rate": 95.9,
+            "pure_difficulty_rate": 75.4,
+            "difficulty_rate": 88.7,
+            "terminal_completion_rate": 68.0,
+            "attributed_completion_rate": 68.0,
+            "result_rate": 68.0,
+            "rate": 60.32,
+            "weight": 60,
+            "points": 36.2
+          },
+          "A2": {
+            "axis": "A2",
+            "name": "创业路线效率与稳固",
+            "created_net_control_value": 32.75,
+            "recovered_net_control_value": 0.0,
+            "gross_unification_control_value": 32.75,
+            "effective_unification_control_value": 32.75,
+            "recovered_control_scoring_rate": 50.0,
+            "raw_control_scale_rate": 3.28,
+            "control_scale_score_rate": 18.1,
+            "closure_years": 5.0,
+            "value_weighted_acquisition_years": 3.0,
+            "control_acquisition_efficiency": 10.92,
+            "acquisition_pace_rate": 46.06,
+            "scale_expected_closure_years": 1.95,
+            "closure_pace_rate": 39.03,
+            "time_rate": 43.25,
+            "control_retention_rate": 82.0,
+            "durability_rate": 75.2,
+            "terminal_completion_rate": 68.0,
+            "early_stability_rate": 65.0,
+            "strategic_positive_decisions": [
+              {
+                "event": "利用旧部网络复代并重建草原政治核心",
+                "impact": "DECISIVE",
+                "basis": "卷106保存拓跋珪在牛川即代王位、设置南北部大人与治民官、迁盛乐后务农息民并改称魏王，足以支持复国组织与政治核心重建。",
+                "source_refs": [
+                  "WAR-LEAD-106-WEI-385-386",
+                  "資治通鑑/卷106#386年正月牛川即代王位"
+                ],
+                "base_points": 5.0,
+                "position": 1,
+                "position_weight": 1.0,
+                "effective_points": 5.0
+              }
+            ],
+            "objective_result_points": 5.2,
+            "strategic_positive_decision_points": 5.0,
+            "strategic_error_points": 0.0,
+            "strategic_error_events": [],
+            "rate": 25.47,
+            "weight": 40,
+            "points": 10.2
+          },
+          "strategic_error_events": [],
+          "strategic_error_review": {
+            "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+            "searched_evidence_refs": [
+              "WAR-LEAD-106-WEI-385-386",
+              "WAR-LEAD-107-WEI-LIUWEICHEN-391"
+            ],
+            "no_error_basis": "386—391年复代、保盛乐并终结刘卫辰方向均成功；终局屠杀是战争行为负项，但未形成可证的统一链战略反复，不与A混用。"
+          },
+          "A_score_points": 46.4,
+          "canonical_rank": 33,
+          "responsibility_basis": "完成复国与草原核心建基，但北方统一属于后续数代，晚期内部失序降低稳固度。",
+          "evidence_status": "CALIBRATED_CURRENT",
+          "evidence_status_basis": "A2控制量已绑定当前C区域控制底账，未保留额外数值下限。",
+          "evidence_lower_bound": false,
+          "limitations": [],
+          "unknown_control_scope": null,
+          "source_refs": []
+        },
+        {
+          "ruler_id": "RULER-SHADOW-拓跋焘",
+          "ruler_name": "拓跋焘",
+          "polity": "北魏",
+          "reign_range": [
+            423,
+            452
+          ],
+          "scope_status": "ELIGIBLE_DYNASTY_FOUNDER",
+          "score_applicable": true,
+          "founder_role": "SUCCESSOR_FULL_UNIFIER",
+          "difficulty_start_boundary": "承接北魏河北主体",
+          "initial_resource_position": "承接北魏河北主体",
+          "initial_resource_share_pct": 55.0,
+          "initial_resource_source_refs": [
+            "WAR-LEAD-NC-WEI-RURAN-429",
+            "WAR-LEAD-NC-WEI-NORTHERN-LIANG-439",
+            "WAR-LEAD-NC-WEI-RURAN-443"
+          ],
+          "initial_resource_source_status": "SOURCE_ANCHORED_RULE_MAPPED",
+          "initial_resource_class": "R5_HEGEMONIC_STATE",
+          "initial_resource_share_basis": "史源锚用于确认‘承接北魏河北主体’这一事实起点；百分比不是史书原文数字，而是按合同R5_HEGEMONIC_STATE档（已经控制全国竞争中的主要国家机器或统一工程的大部分资源）在同档人物间依可调用资源广度裁为55%。",
+          "start_boundary": "423年继承北魏最高权力",
+          "end_boundary": "439年灭北凉完成北方统一",
+          "starting_position": "继承北魏河北主体",
+          "A1": {
+            "axis": "A1",
+            "name": "创业战略增益与难度兑现",
+            "starting_resource_share": 55.0,
+            "starting_resource_disadvantage": 45.0,
+            "project_start_resource_share": 55.0,
+            "project_start_resource_disadvantage": 45.0,
+            "contribution_start_field": {
+              "subject_units": 55.0,
+              "other_actors": {
+                "北凉": 12,
+                "柔然": 23,
+                "北方其他力量": 10
+              }
+            },
+            "opponent_pressure": 41.47,
+            "opponent_system_pressure": 48.5,
+            "relative_resource_pressure": 25.06,
+            "major_opponent_count": 2,
+            "major_opponent_systems": [
+              {
+                "opponent_system_ref": "OPP-NORTHERN-WEI-NORTHERN-LIANG",
+                "opponent_label": "北凉河西国家机器",
+                "organization_grade": "O4",
+                "organization_rate": 70.0,
+                "source_campaign_refs": [
+                  "WAR-LEAD-NC-WEI-NORTHERN-LIANG-439"
+                ]
+              },
+              {
+                "opponent_system_ref": "OPP-NORTHERN-WEI-GAIWU",
+                "opponent_label": "盖吴关中起事体系",
+                "organization_grade": "O3",
+                "organization_rate": 50.0,
+                "source_campaign_refs": [
+                  "WAR-LEAD-NC-GAIWU-445-446"
+                ]
+              }
+            ],
+            "unknown_opponent_campaign_refs": [],
+            "opponent_threat_source_status": "OPPONENT_SYSTEM_O_GRADE_WITH_RELATIVE_RESOURCES",
+            "opponent_threat_routing_basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。",
+            "competitive_fragmentation": 83.07,
+            "a1_strategic_responsibility_factor": 85.0,
+            "a1_strategic_responsibility_basis": "role_default:SUCCESSOR_FULL_UNIFIER",
+            "start_difficulty_rate": 45.0,
+            "pure_difficulty_rate": 43.23,
+            "difficulty_rate": 50.86,
+            "terminal_completion_rate": 100.0,
+            "attributed_completion_rate": 85.0,
+            "result_rate": 85.0,
+            "rate": 43.23,
+            "weight": 60,
+            "points": 25.9
+          },
+          "A2": {
+            "axis": "A2",
+            "name": "创业路线效率与稳固",
+            "created_net_control_value": 70.5,
+            "recovered_net_control_value": 0.0,
+            "gross_unification_control_value": 70.5,
+            "effective_unification_control_value": 70.5,
+            "recovered_control_scoring_rate": 50.0,
+            "raw_control_scale_rate": 7.05,
+            "control_scale_score_rate": 26.55,
+            "closure_years": 16.0,
+            "value_weighted_acquisition_years": 8.0,
+            "control_acquisition_efficiency": 8.81,
+            "acquisition_pace_rate": 42.74,
+            "scale_expected_closure_years": 2.86,
+            "closure_pace_rate": 17.9,
+            "time_rate": 32.8,
+            "control_retention_rate": 96.0,
+            "durability_rate": 93.6,
+            "terminal_completion_rate": 100.0,
+            "early_stability_rate": 90.0,
+            "strategic_positive_decisions": [],
+            "objective_result_points": 7.8,
+            "strategic_positive_decision_points": 0.0,
+            "strategic_error_points": 0.0,
+            "strategic_error_events": [],
+            "rate": 19.5,
+            "weight": 40,
+            "points": 7.8
+          },
+          "strategic_error_events": [],
+          "strategic_error_review": {
+            "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+            "searched_evidence_refs": [
+              "WAR-LEAD-NC-WEI-RURAN-429",
+              "WAR-LEAD-NC-WEI-NORTHERN-LIANG-439",
+              "WAR-LEAD-NC-WEI-RURAN-443"
+            ],
+            "no_error_basis": "423—439年完成北方统一；429柔然远征虽高风险但形成阶段效果，439灭北凉闭合。443鹿浑谷失败在窗口外。"
+          },
+          "A_score_points": 33.7,
+          "canonical_rank": 48,
+          "responsibility_basis": "只读本人阶段取得并保持的河西北凉方向，不复制拓跋珪建基。",
+          "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+          "evidence_status_basis": "A2控制量沿用当前C区域底账的保守数值下限；本轮没有新增足以解除该下限的区域价值或人物结果证据。",
+          "evidence_lower_bound": true,
+          "limitations": [
+            "A2控制量沿用当前C区域底账的保守数值下限；本轮没有新增足以解除该下限的区域价值或人物结果证据。"
+          ],
+          "unknown_control_scope": null,
+          "source_refs": []
+        },
+        {
+          "ruler_id": "RULER-SHADOW-元恪",
+          "ruler_name": "元恪",
+          "polity": "北魏",
+          "reign_range": [
+            499,
+            515
+          ],
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-冯太后",
+          "ruler_name": "冯太后",
+          "polity": "北魏",
+          "reign_range": [
+            465,
+            490
+          ],
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-拓跋嗣",
+          "ruler_name": "拓跋嗣",
+          "polity": "北魏",
+          "reign_range": [
+            409,
+            423
+          ],
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-拓跋宏",
+          "ruler_name": "拓跋宏",
+          "polity": "北魏",
+          "reign_range": [
+            490,
+            499
+          ],
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        }
+      ]
+    }
+  }
+}

@@ -6,6 +6,8 @@ from pathlib import Path
 
 import pytest
 
+from emperor_v4.evaluation.formal_json_store import load_json
+
 from emperor_v4.evaluation.profile_c3_verifier import (
     AUDIT,
     HIGH_REVIEW,
@@ -17,7 +19,7 @@ from emperor_v4.evaluation.profile_c3_verifier import (
 
 
 def _load(path: Path):
-    return json.loads(path.read_text(encoding="utf-8"))
+    return load_json(path)
 
 
 @pytest.fixture()

@@ -4,6 +4,8 @@ import json
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
+from emperor_v4.evaluation.formal_json_store import load_json, load_ruler_polities, write_json
+
 from emperor_v4.evaluation.third_item_d_settlement import (
     FORMAL_SETTLEMENT_JSON_PATH as FORMAL_D_PATH,
 )
@@ -28,7 +30,7 @@ def _reign_range_label(value: object) -> str:
 
 
 def _load(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text(encoding="utf-8"))
+    return load_json(path)
 
 
 def _index(records: Sequence[Mapping[str, Any]], component: str) -> dict[str, Mapping[str, Any]]:
@@ -580,7 +582,7 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
             },
         }
     )
-    _write_text_atomic(ab_path, json.dumps(ab_payload, ensure_ascii=False, indent=2) + "\n")
+    write_json(ab_path, ab_payload, ruler_polities=load_ruler_polities(workspace_root))
     _write_text_atomic(ab_path.with_suffix(".md"), _render_formal_markdown("AB", ab_payload["records"]))
 
 
@@ -775,7 +777,7 @@ def _synchronize_current_c_outcome_view(workspace_root: Path) -> None:
         "source": str(C_OUTCOME_ADJUDICATIONS_PATH).replace("\\", "/"),
         "rule": "同一父任务按显式ruler_id与CURRENT/CAPABILITY_ONLY范围分别消费，不复制另一人物行动、结果或成本。",
     }
-    _write_text_atomic(c_path, json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
+    write_json(c_path, payload, ruler_polities=load_ruler_polities(workspace_root))
     _write_text_atomic(
         c_path.with_suffix(".md"),
         _render_formal_markdown("C", payload["records"]),

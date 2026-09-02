@@ -1,0 +1,302 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "北齐",
+  "collections": {
+    "scores": {
+      "positions": [
+        181,
+        182,
+        194
+      ],
+      "records": [
+        {
+          "adjudication_reason": "原结算已认定后期户籍租调崩坏、府库不足与役使扩张，但只给C2-3偏宽。《隋书·食货志》给出的不是单点压力，而是完整结构：豪党兼并、隐漏后“户口租调，十亡六七”；同时“用度转广，赐与无节，府藏之积不足以供”，以至减百官禄、撤军人常廪；天保八年又“频岁不熟，米籴踊贵”。F/R与P/M两面都在本人后半窗口长期落入脆弱，符合C2-2。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《隋书·食货志》"
+              ],
+              "verbatim_excerpt": "豪党兼并，户口益多隐漏……由是奸欺尤甚，户口租调，十亡六七。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《隋书·食货志》"
+              ],
+              "verbatim_excerpt": "是时用度转广，赐与无节，府藏之积不足以供，乃减百官之禄，撤军人常廪。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《隋书·食货志》"
+              ],
+              "verbatim_excerpt": "百姓惊扰，属以频岁不熟，米籴踊贵矣。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "PASS_C2_2_FAIL_C2_3",
+            "basis": "税基大量流失、府藏不足以支付常规禄廪，并叠加持续生产与粮价问题，已不是“基本正常运行”的三档。"
+          },
+          "main_band": "C2-2",
+          "material_limitations": [
+            "南征、长城和宫殿役使本身不机械扣分",
+            "降二只消费它们已闭合出的税基、府藏和粮价后果。",
+            "S0保C2-4",
+            "高欢与高洋之间隔高澄、高澄未称帝且存在政权转换，不做直接双锚硬同步。"
+          ],
+          "peak_band": null,
+          "polity": "北齐",
+          "rank": 146,
+          "reign_range": [
+            550,
+            559
+          ],
+          "ruler_id": "RULER-SHADOW-高洋",
+          "ruler_name": "高洋",
+          "score": 7.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-4",
+            "S_avg": "C2-2",
+            "S_end": "C2-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-5E24AD811D82"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-5E24AD811D82",
+                "candidate_ids_trace_only": [
+                  "I2-NQI-GAOYANG-LATE-ADMIN-COLLAPSE-001"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "NEGATIVE",
+                "mechanisms": [
+                  "PUBLIC_WORKS"
+                ],
+                "chain_summary": "高洋后期滥杀营造与赏罚失序形成行政主导负向 | 后期长期滥杀官员、营造繁兴、赏赐失度，百官朝不谋夕。 | 朝野怨惧，府藏空虚，公私劳弊。 | 用全阶段总评替代一条孤立俘获个案作为B1主负向。 | 六七年後，以功業自矜，遂留連耽湎，肆行淫暴。 | 百僚戰慄，不敢為非，文武近臣，朝不謀夕。 | 又多所營繕，百役繁興，舉國騷擾，公私勞弊。",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/northern_qi.json#material_id=I2-NQI-GAOYANG-LATE-ADMIN-COLLAPSE-001",
+                  "https://zh.wikisource.org/w/index.php?title=%E5%8C%97%E9%BD%8A%E6%9B%B8%2F%E5%8D%B74&oldid=2576166"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-5E24AD811D82"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-高洋"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C5",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-4",
+              "S_avg": "C2-3",
+              "S_end": "C2-2"
+            }
+          },
+          "old_settlement_review": "DOWNGRADE_FROM_C2_3；保留：原结算关于户籍租调崩坏、府库不足、役使扩张与后期恶化全部保留。；推翻/修正：原结算对这些反证的持续性和结构性消费不足；按现行C2-2门应降二。。"
+        },
+        {
+          "adjudication_reason": "原结算所说“北齐脆弱结构继续下行”成立，但需去掉笼统的宫廷高压措辞，改用结果轴。河清三、四年连续出现大水、年谷不登和谷价腾踊；国家虽有仓储制度，却“开仓从贵价粜之而百姓无益”，甚至赈粮“家别斗升而已，又多不付”，同时减百官食禀。对一个只有四年左右的实权窗口而言，这些P/M与R/F弱态覆盖过广，足以把主态由3降2。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "source_works": [
+                "《隋书·食货志》"
+              ],
+              "verbatim_excerpt": "是时频岁大水，州郡多遇沉溺，谷价腾踊。朝廷遣使开仓，从贵价以粜之，而百姓无益，饥馑尤甚，重以疾疫相乘，死者十四五焉。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《北齐书·武成帝纪》"
+              ],
+              "verbatim_excerpt": "四年二月壬申，以年谷不登，禁酤酒。己卯，诏减百官食禀各有差。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《北齐书·武成帝纪》"
+              ],
+              "verbatim_excerpt": "诏给……遭水潦之处贫下户粟各有差，家别斗升而已，又多不付。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "PASS_C2_2_FAIL_C2_3",
+            "basis": "灾害本身不扣档，但灾害已经闭合为持续高粮价、救济失灵和常规食禀削减，代表两柱长期脆弱。"
+          },
+          "main_band": "C2-2",
+          "material_limitations": [
+            "不因大水本身机械降档",
+            "消费的是已实现的粮价、供给、财政调度结果。",
+            "后主时期更严重的财政失衡不倒灌给高湛，仅用来说明这些问题并非瞬间后果。"
+          ],
+          "peak_band": null,
+          "polity": "北齐",
+          "rank": 146,
+          "reign_range": [
+            561,
+            565
+          ],
+          "ruler_id": "RULER-SHADOW-高湛",
+          "ruler_name": "高湛",
+          "score": 7.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-2",
+            "S_end": "C2-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-高湛"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C4",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-3",
+              "S_end": "C2-2"
+            }
+          },
+          "old_settlement_review": "DOWNGRADE_FROM_C2_3；保留：原结算关于役使、财政余量和交班下行的方向保留。；推翻/修正：把笼统评价替换为本人窗口连续P/M/R/F低位结果，因此主态降二。。"
+        },
+        {
+          "adjudication_reason": "高纬窗口的公共财政失效是直接而非由亡国倒推：史料明确记“府藏空竭”，随后卖官取直，赋繁役重并达到“民不聊生”。这把F/R不足与对民间生产、资产的额外汲取连成同一链。早期罢百工细作、放老病宫人等止损保留，但不足逆转中后期公私双柱系统性失效，故维持一档。",
+          "confidence": "MEDIUM_HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《资治通鉴》共享通读卡正文"
+              ],
+              "verbatim_excerpt": "罷各地百工細作，釋老病宮人官口，坐流徙者聽還鄉。",
+              "pillar_tags": [
+                "F_FISCAL_BASE",
+                "P_PRODUCTION"
+              ],
+              "evidence_role": "SUPPORTING_RESULT",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《资治通鉴》共享通读卡正文"
+              ],
+              "verbatim_excerpt": "府藏空竭，賣官取直；賦繁役重，民不聊生。",
+              "pillar_tags": [
+                "F_FISCAL_BASE",
+                "R_RESERVE_BUFFER",
+                "P_PRODUCTION"
+              ],
+              "evidence_role": "DIRECT_RESULT",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "DIRECT_AND_CONSTRAINED",
+          "high_band_gate": {
+            "status": "PASS_C2_1_SYSTEMIC_FAILURE",
+            "basis": "府藏空竭与卖官补财构成公共财政失效，赋繁役重又同步压低民间经济，公私双柱均断裂。"
+          },
+          "main_band": "C2-1",
+          "material_limitations": [
+            "北齐亡国和战争失败不作为C2自动扣档。",
+            "早期减省与释放措施是真实反证，但没有闭合到财政储备和民间生产重新恢复。"
+          ],
+          "peak_band": null,
+          "polity": "北齐",
+          "rank": 184,
+          "reign_range": [
+            569,
+            577
+          ],
+          "ruler_id": "RULER-SHADOW-高纬",
+          "ruler_name": "高纬",
+          "score": 1.8,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-1",
+            "S_end": "C2-1"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-高纬"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": "NOT_RECHECKED",
+            "cost_band": "NOT_RECHECKED",
+            "cost_status": "NOT_RECHECKED",
+            "cost_position": "NOT_RECHECKED",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-1",
+            "score": 1.8,
+            "state_anchors": {
+              "S0": "C2-2",
+              "S_avg": "C2-1",
+              "S_end": "C2-1"
+            }
+          },
+          "old_settlement_review": "KEEP_MAIN_BAND_STRENGTHEN_DIRECT_CHAIN；保留：原结算关于宫苑佛寺、重税和财政民生崩坏的方向。；推翻/修正：以“府藏空竭—卖官—赋繁役重”直接链替代泛化的亡国前韧性表述。"
+        }
+      ]
+    }
+  }
+}

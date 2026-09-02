@@ -1,0 +1,1407 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "唐",
+  "collections": {
+    "scores": {
+      "positions": [
+        27,
+        30,
+        32,
+        33,
+        36,
+        112,
+        113,
+        115,
+        116,
+        118,
+        161,
+        167,
+        188
+      ],
+      "records": [
+        {
+          "adjudication_reason": "贞观起点是户口凋残、仓廪未实的低位；中期以后农业产出和价格长期明显改善，义仓、常平仓与正常赋役体系使公共财政至少恢复到健康。与此同时，贞观十一年前后魏征仍称“仓廪尚虚”，马周也指出赋役与营缮压力，因此财政储备不能判强；两柱合成四档，不进五档。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《旧唐书·戴胄传》"
+              ],
+              "verbatim_excerpt": "今丧乱已后，户口凋残，每岁纳租，未实仓廪，随即出给，才供当年，若有灾凶，将何赈恤？",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《通典·食货》"
+              ],
+              "verbatim_excerpt": "至八年、九年，频至丰稔，米斗四五钱，马牛布野……至十五年，米每斗值两钱。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《唐会要》"
+              ],
+              "verbatim_excerpt": "贞观十三年……诏于洛、相、幽、徐、齐、并、秦、蒲州置常平仓，粟藏九年，米藏五年……皆著于令。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《唐会要》"
+              ],
+              "verbatim_excerpt": "积岁一丰，仓廪尚虚。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《资治通鉴》卷一百九十五"
+              ],
+              "verbatim_excerpt": "今比年丰穰，匹绢得粟十余斛……营缮不休，民安得息。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_5_PASS_C2_4",
+            "basis": "民间生产柱强，但公共财政/储备仅健康，且中期仍有“仓廪尚虚”等硬反证；按瓶颈规则最高四档。"
+          },
+          "main_band": "C2-4",
+          "material_limitations": [
+            "删除“外户不闭、道路安全”等C3材料。",
+            "不因贞观名望或战争承压能力额外加分。"
+          ],
+          "peak_band": null,
+          "polity": "唐",
+          "rank": 12,
+          "reign_range": "626-649",
+          "ruler_id": "RULER-TANG-LISHIMIN",
+          "ruler_name": "李世民",
+          "score": 23.6,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-4",
+            "S_end": "C2-4"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-TANG-TAIZONG-REGIME-CHAIN",
+              "M3P-TANG-TAIZONG-LATE-REVERSAL"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-TANG-TAIZONG-REGIME-CHAIN",
+                "candidate_ids_trace_only": [],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED_POSITIVE",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR",
+                  "WAR_FINANCE"
+                ],
+                "chain_summary": "唐初户口凋残、仓廪仅供当年，边防、宫室、外交供亿与国家仪典同时竞争民力和财政余量。",
+                "source_refs": [
+                  "docs/史料通读产物/唐以前编年/唐/卷193-通读总结.md#L96-L142",
+                  "docs/史料通读产物/唐以前编年/唐/卷194-通读总结.md#L108-L119",
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/tang.json#material_id=I2-TANG-TS-YICANG-OPERATION-001-M2-M3-02-AUDIT",
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/tang.json#material_id=MC-TANG-TS-DELIBERATION-M3-AUDIT"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-TANG-TAIZONG-REGIME-CHAIN"
+              },
+              {
+                "parent_id": "M3P-TANG-TAIZONG-LATE-REVERSAL",
+                "candidate_ids_trace_only": [],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED_NEGATIVE",
+                "mechanisms": [
+                  "PUBLIC_WORKS",
+                  "TAX_LABOR",
+                  "WAR_FINANCE"
+                ],
+                "chain_summary": "中后期高丽战争、宫室营造和连续土功重新占用军粮、船役与民力，要求在既有恢复余量和扩张目标之间再排序。",
+                "source_refs": [
+                  "docs/史料通读产物/唐以前编年/唐/卷196-通读总结.md#L104-L115",
+                  "docs/史料通读产物/唐以前编年/唐/卷198-通读总结.md#L100-L105",
+                  "docs/史料通读产物/唐以前编年/唐/卷199-通读总结.md#L57-L70",
+                  "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-TANG-LISHIMIN"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-TANG-TAIZONG-LATE-REVERSAL"
+              }
+            ],
+            "applied_orphan_candidate_ids": [
+              "I2-TANG-TS-YICANG-OPERATION-001-M2-M3-02-AUDIT",
+              "MC-TANG-TS-DELIBERATION-M3-AUDIT"
+            ],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [
+              {
+                "candidate_id": "I2-TANG-TS-YICANG-OPERATION-001-M2-M3-02-AUDIT",
+                "route": "APPLIED_PROCESS_EVIDENCE_FRAGMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "RELIEF_STORAGE"
+                ],
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/tang.json#material_id=I2-TANG-TS-YICANG-OPERATION-001-M2-M3-02-AUDIT",
+                  "https://zh.wikisource.org/w/index.php?title=%E8%88%8A%E5%94%90%E6%9B%B8%2F%E5%8D%B749&oldid=2557914"
+                ],
+                "semantic_source_ref": "config/profile/m3-semantic-review-decisions.json#candidate_id=I2-TANG-TS-YICANG-OPERATION-001-M2-M3-02-AUDIT"
+              },
+              {
+                "candidate_id": "MC-TANG-TS-DELIBERATION-M3-AUDIT",
+                "route": "APPLIED_PROCESS_EVIDENCE_FRAGMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "RELIEF_STORAGE"
+                ],
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/tang.json#material_id=MC-TANG-TS-DELIBERATION-M3-AUDIT",
+                  "https://zh.wikisource.org/w/index.php?title=%E8%B2%9E%E8%A7%80%E6%94%BF%E8%A6%81%2F%E5%8D%B701&oldid=2692710",
+                  "https://zh.wikisource.org/wiki/%E8%B2%9E%E8%A7%80%E6%94%BF%E8%A6%81/%E5%8D%B702",
+                  "https://zh.wikisource.org/wiki/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B771",
+                  "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7193"
+                ],
+                "semantic_source_ref": "config/profile/m3-semantic-review-decisions.json#candidate_id=MC-TANG-TS-DELIBERATION-M3-AUDIT"
+              }
+            ],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-TANG-LISHIMIN"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C4",
+            "cost_status": "LOWER_BOUND",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-4",
+            "score": 23.6,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-4",
+              "S_end": "C2-4"
+            }
+          }
+        },
+        {
+          "adjudication_reason": "大中期公共财政与运输储备能够维持健康运行：两池盐课在整顿后明显增加，漕运三年形成一百二十万斛无损入仓；但盐茶体系同时存在高税、严刑和私盗活跃，民间市场柱只能判健康而非强。旧理由中的“恢复”“社会余量”删除后，四档仍成立。",
+          "confidence": "LOW",
+          "evidence": [
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "户部侍郎裴休为盐铁使，上盐法八事，其法皆施行，两池榷课大增。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《旧唐书·食货志》"
+              ],
+              "verbatim_excerpt": "始者，漕米岁四十万斛，其能至渭仓者，十不三四……由是三岁漕米至渭滨，积一百二十万斛，无升合沉弃焉。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "宣宗即位，茶、盐之法益密，粜盐少、私盗多者，谪观察、判官，不计十犯。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "天下税茶增倍贞元……诸道盐铁使于悰每斤增税钱五，谓之剩茶钱。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_5_PASS_C2_4",
+            "basis": "公共财政/储备健康偏强，但市场税负与盐茶管制存在直接约束，民间经济柱不足判强，故不能进五档。"
+          },
+          "main_band": "C2-4",
+          "material_limitations": [
+            "灾区先赈后报属于C4动态工具，不再承担C2主档。",
+            "户口与“社会余量”不作为高档核心锚。"
+          ],
+          "peak_band": null,
+          "polity": "唐",
+          "rank": 12,
+          "reign_range": "846-859",
+          "ruler_id": "RULER-TANG-LICHEN",
+          "ruler_name": "李忱",
+          "score": 23.6,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-4",
+            "S_end": "C2-4"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-TANG-LICHEN"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C3",
+            "cost_status": "LOWER_BOUND",
+            "cost_position": "LOW",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-4",
+            "score": 23.6,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-4",
+              "S_end": "C2-4"
+            }
+          }
+        },
+        {
+          "adjudication_reason": "高宗前中期承接并延续贞观的生产高位，麟德三年米价仍低，人口与生产基盘继续扩展；但显庆以后恶钱、乾封泉宝失败和钱粮比价失衡反复，永淳元年又出现京师饥荒、米斗四百钱。主要时段两柱仍可判健康，终点则明显跌入脆弱，故主档保四。",
+          "confidence": "MEDIUM_HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《通典·食货》"
+              ],
+              "verbatim_excerpt": "麟德三年，米每斗直五文。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "显庆五年，以恶钱多，官为市之，以一善钱售五恶钱。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "乾封元年改铸乾封泉宝……逾年而旧钱多废，明年以商贾不通、米帛踊贵，复行开元通宝钱。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "仪凤中濒江民多私铸钱为业……是时铸多钱贱，米粟踊贵。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《通典·食货》"
+              ],
+              "verbatim_excerpt": "永淳元年，京师大雨，饥荒，米每斗四百钱，加以疾疫，死者甚众。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_5_PASS_C2_4",
+            "basis": "前中期民间生产与公共财政系统仍属健康，但货币面持续反复，且终点发生明显市场—生产低位，五档不成立。"
+          },
+          "main_band": "C2-4",
+          "material_limitations": [
+            "永淳灾害本身不因C4逻辑扣档",
+            "只消费已经形成的米价、饥荒等绝对状态。",
+            "人口增长不单独承担高档。"
+          ],
+          "peak_band": null,
+          "polity": "唐",
+          "rank": 12,
+          "reign_range": "649-683",
+          "ruler_id": "RULER-TANG-LIZHI",
+          "ruler_name": "李治",
+          "score": 20.8,
+          "stability_class_diagnostic_only": "K0",
+          "state_anchors": {
+            "S0": "C2-4",
+            "S_avg": "C2-4",
+            "S_end": "C2-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-TANG-GAOZONG-SHIPBUILDING-STOP",
+              "M3P-TANG-GAOZONG-CURRENCY-PALACE-REVERSAL"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-TANG-GAOZONG-SHIPBUILDING-STOP",
+                "candidate_ids_trace_only": [],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "CENTER_LOCAL_TRANSFER",
+                  "TAX_LABOR",
+                  "WAR_FINANCE"
+                ],
+                "chain_summary": "海东累年用兵使河北与三十六州承担征调、造船和人员损失，中央需要决定是否继续转嫁。",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/tang.json#material_id=I2-TANG-GZ-TEN-CIRCUIT-RELIEF-OVERSIGHT-001",
+                  "docs/史料通读产物/唐以前编年/唐/卷201-通读总结.md"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-TANG-GAOZONG-SHIPBUILDING-STOP"
+              },
+              {
+                "parent_id": "M3P-TANG-GAOZONG-CURRENCY-PALACE-REVERSAL",
+                "candidate_ids_trace_only": [],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED_NEGATIVE",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "MONETARY_CREDIT",
+                  "PUBLIC_WORKS"
+                ],
+                "chain_summary": "乾封阶段在宫室、厩马和仓库渐虚背景下发行一当十的新钱，市场价格与交易信用迅速受冲击。",
+                "source_refs": [
+                  "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-TANG-LIZHI",
+                  "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-TANG-LIZHI"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-TANG-GAOZONG-CURRENCY-PALACE-REVERSAL"
+              }
+            ],
+            "applied_orphan_candidate_ids": [
+              "I2-TANG-GZ-TEN-CIRCUIT-RELIEF-OVERSIGHT-001"
+            ],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [
+              {
+                "candidate_id": "I2-TANG-GZ-TEN-CIRCUIT-RELIEF-OVERSIGHT-001",
+                "route": "APPLIED_PROCESS_EVIDENCE_FRAGMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "RELIEF_STORAGE"
+                ],
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/tang.json#material_id=I2-TANG-GZ-TEN-CIRCUIT-RELIEF-OVERSIGHT-001",
+                  "docs/史料通读产物/唐以前编年/唐/卷201-通读总结.md"
+                ],
+                "semantic_source_ref": "config/profile/m3-semantic-review-decisions.json#candidate_id=I2-TANG-GZ-TEN-CIRCUIT-RELIEF-OVERSIGHT-001"
+              }
+            ],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-TANG-LIZHI"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C5",
+            "cost_status": "LOWER_BOUND",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-4",
+            "score": 23.6,
+            "state_anchors": {
+              "S0": "C2-4",
+              "S_avg": "C2-4",
+              "S_end": "C2-2"
+            }
+          }
+        },
+        {
+          "adjudication_reason": "开元前中期出现民间生产、市场价格与国家收入的罕见高峰，可登记C2-5阶段峰值；但同一长期窗口内公共支出已经出现“常过其所入”，天宝后进一步转为聚敛并在安史冲击中系统崩解。高峰不足代表全任主态，故主态四档、峰值五档、交班一档。",
+          "confidence": "MEDIUM_HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "是時，海內富實，米斗之價錢十三，青、齊間斗纔三錢，絹一匹錢二百。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "天下歲入之物，租錢二百餘萬緡，粟千九百八十餘萬斛。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "大抵用物之數，常過其所入。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "民物耗弊，天下蕭然。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "MAIN_C2_4_PEAK_C2_5",
+            "basis": "开元阶段两柱可过五档门，但全任存在长期财政失衡与末期系统崩解。"
+          },
+          "main_band": "C2-4",
+          "material_limitations": [
+            "开元高峰直接成立，但高峰不能替代全任主态。",
+            "安史战争价值归第三项",
+            "这里只消费其已经实现的经济财政崩解状态。"
+          ],
+          "peak_band": null,
+          "polity": "唐",
+          "rank": 12,
+          "reign_range": "712-756",
+          "ruler_id": "RULER-TANG-LILONGJI",
+          "ruler_name": "李隆基",
+          "score": 19.8,
+          "stability_class_diagnostic_only": "K0",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-4",
+            "S_end": "C2-1"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-TANG-LILONGJI"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C6",
+            "cost_status": "LOWER_BOUND",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-5",
+            "score": 29.8,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-5",
+              "S_end": "C2-1"
+            }
+          }
+        },
+        {
+          "adjudication_reason": "武周期间生产和公共储备总体延续高宗后期恢复后的可运行状态，旧唐书还明确称高宗、则天数十年义仓未被杂用；但武后时恶钱标准放宽后盗铸蜂起，长安中又出现择钱困难、交易留滞，市场货币面长期受损。因此两柱可闭合健康但不能判强，交班端下调到三档。",
+          "confidence": "LOW",
+          "evidence": [
+            {
+              "source_works": [
+                "《旧唐书·食货志》"
+              ],
+              "verbatim_excerpt": "以至高宗、则天，数十年间，义仓不许杂用。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "武后时钱非穿穴及铁锡铜液皆得用之……自是盗铸蜂起，江淮游民依大山陂海以铸，吏莫能捕。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《旧唐书·食货志》"
+              ],
+              "verbatim_excerpt": "则天长安中，又令悬样于市……简择艰难，交易留滞。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "自是盗铸蜂起……先天之际两京钱益滥恶。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_5_PASS_C2_4",
+            "basis": "公共储备可判健康，生产侧无系统性崩坏证据；但货币市场有直接长期弱点，民间经济柱只能整体判健康，五档失败。"
+          },
+          "main_band": "C2-4",
+          "material_limitations": [
+            "《通典》“武太后、孝和朝……府库空竭”跨武则天与中宗且混入后任寺观支出，本轮不把全部空竭倒算武则天。",
+            "本人窗口P面直接宏观强证较薄，因此置信度不设HIGH。",
+            "S0由C2-3修正为C2-2，按直接交班双锚与李治的S_end同步。"
+          ],
+          "peak_band": null,
+          "polity": "唐",
+          "rank": 12,
+          "reign_range": "684-705",
+          "ruler_id": "RULER-TANG-WUZETIAN",
+          "ruler_name": "武则天",
+          "score": 21.7,
+          "stability_class_diagnostic_only": "K0",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-4",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-247377CB167E"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-247377CB167E",
+                "candidate_ids_trace_only": [
+                  "I2-TANG-WZ-HEBEI-PACIFICATION-001"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "RELIEF_STORAGE"
+                ],
+                "chain_summary": "河北赦免赈济修驿禁扰并达到遂安结果 | 狄仁杰负责执行并禁止部下、使者强索供顿，闭合战后行政和基层纪律。 | 编年明确收束为‘河北遂安’，与此前战争惨败及官军二次伤害并存。 | 赦河北胁从者，归还被掳人口，散运粮赈贫并修邮驿。 | 武后赦免河北胁从；归还被突厥驱掠者至本籍，散军粮赈贫，修邮驿并禁止将使侵扰；编年明确记‘河北遂安’。 | # 《资治通鉴》卷二百六通读总结 | - 固定来源：`資治通鑑/卷206` | - revision：`1554189` | - 来源地址：<https://zh.wikisource.org/wiki/資治通鑑/卷206> | - source_unit_id：`SRC-ZZTJ-206-1554189` | - 固定输入：`tmp/chronicle-tongdian-source-cache.sqlite3` | - 完整通读范围：武周神功元年（697）至久视元年六月（700），全卷通读 | - 本卷性质：契丹战争收束、默啜因资助与婚盟失策而坐大并深入河北、远戍财政民生压力，以及九鼎、三阳宫等大型营造 | - 与前卷衔接：契丹孙万荣之乱未平，突厥默啜既受周廷借力又持续侵边 | - 与后卷衔接：默啜已拥兵四十万、控制西北诸部；河北虽经赈抚暂安，北边军团与远戍负担继续",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/tang.json#material_id=I2-TANG-WZ-HEBEI-PACIFICATION-001",
+                  "docs/史料通读产物/唐以前编年/唐/卷206-通读总结.md"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-247377CB167E"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-TANG-WUZETIAN"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C6",
+            "cost_status": "LOWER_BOUND",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-4",
+            "score": 23.6,
+            "state_anchors": {
+              "S0": "C2-2",
+              "S_avg": "C2-4",
+              "S_end": "C2-4"
+            }
+          }
+        },
+        {
+          "adjudication_reason": "原结算三档结论成立。短任不能倒算开元盛世，而且本人窗口继承的是中宗以后义仓“费用向尽”、神龙—先天两京用钱“尤滥恶”的状态。M与R都有弱点，但尚未见常规税收、生产与交易系统持续全面失灵，因此不足二档；同时也无两柱健康结果支撑四档，保C2-3。",
+          "confidence": "LOW",
+          "evidence": [
+            {
+              "source_works": [
+                "《旧唐书·食货志》"
+              ],
+              "verbatim_excerpt": "自中宗神龙之后，天下义仓费用向尽。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《旧唐书·食货志》"
+              ],
+              "verbatim_excerpt": "自是盗铸蜂起，滥恶益众……以至神龙、先天之际，两京用钱尤滥恶。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "M与R存在本人窗口硬弱点；但没有覆盖P/F到长期系统性脆弱，故三档而非二档。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "不把李隆基后续开元恢复倒算给李旦。",
+            "S_end=C2-3与已重裁李隆基S0同步。"
+          ],
+          "peak_band": null,
+          "polity": "唐",
+          "rank": 56,
+          "reign_range": "710-712",
+          "ruler_id": "RULER-TANG-LIDAN",
+          "ruler_name": "李旦",
+          "score": 14.9,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-3",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": null,
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C5",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          },
+          "old_settlement_review": "KEEP_BAND_STRENGTHEN_BOTTLENECK；保留：短任、独立财政民生证据有限、不能倒算开元的判断保留。；推翻/修正：将“稳定”类泛化措辞删除，直接以义仓近尽和滥恶钱约束三档。。"
+        },
+        {
+          "adjudication_reason": "原结算抓住了两个真正的结构问题：神龙以后天下义仓“费用向尽”，以及神龙—先天两京货币“尤滥恶”。本轮继续保留，但删去过于泛化的“封户侵渔、宫廷赏赐即压档”措辞。义仓近耗尽使R明显偏弱，恶钱又使M持续受损；但本人五年窗口并没有P与常规F同时落入长期脆弱的证据，税收、生产与交易体系仍在运转。因此仍是C2-3，而不是因两项负证叠加就直接降二。",
+          "confidence": "LOW",
+          "evidence": [
+            {
+              "source_works": [
+                "《旧唐书·食货志》"
+              ],
+              "verbatim_excerpt": "其后公私窘迫，渐贷义仓支用。自中宗神龙之后，天下义仓费用向尽。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《旧唐书·食货志》"
+              ],
+              "verbatim_excerpt": "自是盗铸蜂起，滥恶益众……以至神龙、先天之际，两京用钱尤滥恶。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN_PASS_C2_3",
+            "basis": "R与M有明显弱点，四档门失败；但P与F尚未闭合到持续脆弱，仍高于C2-2。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "S0由旧C2-4修正为C2-3，与已重裁武则天S_end直接同步。",
+            "李显之后隔李重茂短暂在位再到李旦，故只做近邻状态校验，不列严格直接双锚。"
+          ],
+          "peak_band": null,
+          "polity": "唐",
+          "rank": 56,
+          "reign_range": "705-710",
+          "ruler_id": "RULER-TANG-LIXIAN",
+          "ruler_name": "李显",
+          "score": 14.9,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-3",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-TANG-LIXIAN"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C5",
+            "cost_status": "LOWER_BOUND",
+            "cost_position": "LOW",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-4",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          },
+          "old_settlement_review": "KEEP_BAND_RETAIN_CORE_NEGATIVES；保留：义仓趋尽、恶钱持续这两个原结算核心反证全部保留。；推翻/修正：删除把权贵赏赐本身直接视作C2降档结果的做法；主档仍三。。"
+        },
+        {
+          "adjudication_reason": "原结算关于隋末极低位、武德恢复与短任限制的框架保留。本轮补入两项本人窗口硬结果：武德四年开元通宝“远近甚便之”，M面从隋末恶币中恢复；武德七年租调与役制正式定型，常规财政机器能够运行。但贞观二年对紧邻交班状态的追诊仍是“户口凋残、每岁纳租未实仓廪、才供当年”，说明S_end的F/R仍脆弱。故全任主态三档，交班端修为C2-2，与李世民S0同步。",
+          "confidence": "MEDIUM_HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《唐会要·泉货》"
+              ],
+              "verbatim_excerpt": "武德四年七月十日，废五铢钱，行开元通宝钱……以轻重大小最为折衷，远近甚便之。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《唐会要·租税上》"
+              ],
+              "verbatim_excerpt": "武德七年三月二十九日，始定均田赋税……每丁岁入粟二石……通正役不过五十日。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《旧唐书·食货志》"
+              ],
+              "verbatim_excerpt": "今丧乱之后，户口凋残，每岁纳租，未实仓廪，随即出给，才供当年，若有灾凶，将何赈恤？",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "M和财政制度已恢复，但交班附近F/R仍只能供当年，公共柱未达健康稳定。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "贞观二年材料用于近邻交班追诊，不把李世民后续治理倒算李渊。",
+            "S_end由旧C2-3修正为C2-2，与已重裁李世民S0硬同步。"
+          ],
+          "peak_band": null,
+          "polity": "唐",
+          "rank": 56,
+          "reign_range": "618-626",
+          "ruler_id": "RULER-TANG-LIYUAN",
+          "ruler_name": "李渊",
+          "score": 13.7,
+          "stability_class_diagnostic_only": "K0",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-3",
+            "S_end": "C2-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-TANG-LIYUAN"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C6",
+            "cost_status": "CONFIRMED",
+            "cost_position": "MID",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-2",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          },
+          "old_settlement_review": "KEEP_BAND_LOWER_END_ANCHOR；保留：隋末低位、武德恢复、短任仍处恢复期的原判断保留。；推翻/修正：补入开元通宝的实际市场结果；同时按交班近邻证据把S_end从3压到2。。"
+        },
+        {
+          "adjudication_reason": "元和前中期确有财政整顿和继承性府库储备，但后期钱荒、钱帛比价失衡持续，讨淮西时史料直接记“经费屈竭”，继而对流通货币实行额外抽取与强制限藏。这里消费的是已经闭合的财政和市场结果，而不是战争成本本身。公共财政与货币面均只能基本运行，旧四档下调三档。",
+          "confidence": "MEDIUM_HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "是时，因德宗府库之积，颇约费用……及刘辟、李锜既平，訾藏皆入内库。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "然钱重帛轻如故。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "会吴元济、王承宗连衡拒命，以七道兵讨之，经费屈竭。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "皇甫镈建议内外用钱每缗垫二十，外复抽五十送度支以赡军。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "而富家钱过五千贯者死，王公重贬，没入于官。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "两柱均存在本人窗口直接硬约束；早期储备不能覆盖后半段持续的钱荒和财政紧张，四档门失败。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "战争本身不机械扣C2",
+            "只消费“经费屈竭”、额外抽钱和货币限藏等已实现后果。",
+            "减免与税制整理属于工具，不能抵消后期绝对弱态。"
+          ],
+          "peak_band": null,
+          "polity": "唐",
+          "rank": 56,
+          "reign_range": "805-820",
+          "ruler_id": "RULER-TANG-LICHUN",
+          "ruler_name": "李纯",
+          "score": 14.9,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-3",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-F3C7383C9F42"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-F3C7383C9F42",
+                "candidate_ids_trace_only": [
+                  "MC-TANG-XIANZONG-DELIBERATION"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "BUDGET_TREASURY"
+                ],
+                "chain_summary": "中枢形成一段可持续的公开争论窗口，用人和部分财政、军政决定得到纠偏。 | 李绛能在皇帝变色或宰相争论时继续极言，皇帝解怒、辨论并多次从其意见。 | 擢李绛入翰林和宰相班，使其参与财政、用人及军国决策。 | 登城，门已锁，守者不为开。左右曰：“中丞也。”对曰：“夜中难辩真伪，虽中丞亦不可。”元膺乃还。明日，擢为重职。翰林学士、司勋郎中李张面陈吐突承璀专横，语极恳切。上作色曰：“卿言太过！”绛泣曰：“陛下置臣于腹心耳目之地，若臣畏避左右，爱身不言，是臣负陛下；言之而陛下恶闻，乃陛下负臣也。”上怒解，曰：“卿所言皆人所不能言，使联闻所不闻，真忠臣也！他日尽言，皆应如是。”己丑，以绛为中书舍人，学士如故。绛尝从容谏上聚财，上曰：“今两河数十州，皆国家政令所不及，河、湟数千里，沦于左衽，朕日夜思雪祖宗之耻，而财力不赡，故不得不蓄聚耳。不然，朕宫中用度极俭薄，多藏何用邪！”宪宗昭文章武大圣至神孝皇帝上之下元和六年（辛卯，公元八一一年）春，正月，甲辰，以彰义留后吴少阳为节度使。庚申，以前淮南节度使李吉甫为中书侍郎，同平章事。二月壬申，李籓罢为太子詹事。己丑，忻王造薨。宦官恶李绛在翰林，以为户部侍郎，判本司。上问绛：“故事，户部侍郎皆进羡馀，卿 | ，其女嫁不以时，选尚者皆由宦官，率以厚赂自达。李吉甫上言：“自古尚主必择其人，独近世不然。”十二月，壬申，诏封恩王等六女为县主，委中书、门下、宗正、吏部选门地人才称可者嫁之。己丑，以户部侍郎李绛为中书侍郎、同平章事。李吉甫为相，多修旧怨，上颇知之，故擢绛为相。吉甫善逢迎上意，而绛鲠直，数争论于上前；上多直绛而从其言，由是二人有隙。闰月，辛卯朔，黔州奏：辰、溆贼帅张伯靖寇播州、费州。试太子通事舍人李涉知上于吐突承璀恩顾未衰，乃投匦上疏，称“承璀有功，希光无罪。承璀久委心腹，不宜遽弃。”知匦使、谏议大夫孔癸戈见其副章，诘责不受。涉乃行赂，诣光顺门通之。癸戈闻之，上疏极言“涉奸险欺天，请加显戮。”戊申，贬涉峡州司仓。涉，渤之兄；癸戈，巢父之子也。辛亥，惠昭太子宁薨。是岁，天下大稔，米斗有直二钱者。宪宗昭文章武大圣至神孝皇帝上之下元和七年（壬辰，公元八一二年）春，正月，辛未，以京兆尹元义方为鄜坊观察使。初，义方媚事吐突承璀，李吉甫欲",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/tang.json#material_id=MC-TANG-XIANZONG-DELIBERATION",
+                  "https://zh.wikisource.org/w/index.php?title=%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91%2F%E5%8D%B7238&oldid=1151323"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-F3C7383C9F42"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-TANG-LICHUN"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C4",
+            "cost_status": "PROVISIONAL",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-4",
+            "score": 23.6,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-4",
+              "S_end": "C2-3"
+            }
+          }
+        },
+        {
+          "adjudication_reason": "原结算关于刘晏盐漕与战后恢复的正面方向保留，同时也保留“流庸未复、税赋不足供费”的起点约束。本轮补入大历末盐利从四十万缗增至六百余万缗、占天下之赋约半，并承担宫闱、军饷与百官禄俸，说明公共财政已经恢复出很强的专卖收入与支付能力；但《新唐书》同段仍明确以“流庸未复，税赋不足供费”为制度出发点，P与常规税基只恢复到基本运行，不能用单一盐利强柱抬成四档。因此仍判C2-3。",
+          "confidence": "MEDIUM_HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "自兵起，流庸未复，税赋不足供费，盐铁使刘晏以为因民所急而税之，则国足用。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "晏之始至也，盐利岁才四十万缗，至大历末，六百馀万缗。天下之赋，盐利居半，宫闱服御、军饟、百官禄俸皆仰给焉。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《通典·食货》"
+              ],
+              "verbatim_excerpt": "户至大历中，唯有百三十万户。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "公共财政专卖收入强，但民间生产与正常税基仍只是基本运行；单柱强不能越过四档门。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "不把盐利占比高本身当作经济繁荣",
+            "它同时说明财政对单一专卖收入依赖较大。",
+            "S_end=C2-3，与已重裁李适S0直接同步。"
+          ],
+          "peak_band": null,
+          "polity": "唐",
+          "rank": 56,
+          "reign_range": "762-779",
+          "ruler_id": "RULER-TANG-LIYU",
+          "ruler_name": "李豫",
+          "score": 14.3,
+          "stability_class_diagnostic_only": "K2",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-3",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-TANG-LIYU"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C5",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-2",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          },
+          "old_settlement_review": "KEEP_BAND_STRENGTHEN_PUBLIC_PILLAR；保留：刘晏盐漕、币制恢复和战后税基尚弱的原判断保留。；推翻/修正：原结算对刘晏财政结果写得偏轻，但强化公共柱后仍因P/常规税基瓶颈保三。。"
+        },
+        {
+          "adjudication_reason": "原结算二档成立，而且可用本人窗口材料进一步纯化。肃宗接手时两京陷没后“民物耗弊、天下萧然”；为筹经费又对江淮蜀汉富商实行率贷，后来“天下用度不充”而卖官、度僧。乾元大钱反复改制进一步造成物价腾踊、米斗七千与大量饿死。这里P、M、F均处脆弱，但至退出权力时国家供给、税收与市场并未全面消失，故由一档低点恢复到二档，主态二。",
+          "confidence": "MEDIUM_HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "自两京陷没，民物耗弊，天下萧然。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "籍江淮、蜀汉富商右族訾畜，十收其二，谓之率贷。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "天下用度不充……鬻官号、度僧尼以资用。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "物价腾踊，米斗钱至七千，饿死者满道。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "PASS_C2_2_END_C2_2",
+            "basis": "起点接近全面低位，任内财政和市场仍明显脆弱；但中央供给体系持续运行，故主态与交班为二档而非一档。"
+          },
+          "main_band": "C2-2",
+          "material_limitations": [
+            "S0=C2-1，与已重裁李隆基S_end直接同步。",
+            "战争本身不机械扣C2",
+            "降档依据是率贷、用度不足、币制与物价等实际结果。",
+            "S_end=C2-2，与已重裁李豫S0直接同步。"
+          ],
+          "peak_band": null,
+          "polity": "唐",
+          "rank": 146,
+          "reign_range": "756-762",
+          "ruler_id": "RULER-TANG-LIHENG",
+          "ruler_name": "李亨",
+          "score": 7.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-1",
+            "S_avg": "C2-2",
+            "S_end": "C2-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-TANG-LIHENG"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C4",
+            "cost_status": "PROVISIONAL",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-2",
+            "score": 7.0,
+            "state_anchors": {
+              "S0": "C2-1",
+              "S_avg": "C2-2",
+              "S_end": "C2-2"
+            }
+          },
+          "old_settlement_review": "KEEP_BAND_REWRITE_TO_DIRECT_RESULTS；保留：原结算关于安史低点、率贷/卖官和乾元大钱转嫁压力的方向保留。；推翻/修正：删除以代宗卷末总评倒算本人窗口的证据，改用肃宗本人《食货志》材料闭合。。"
+        },
+        {
+          "adjudication_reason": "原结算已经罗列两税后追加征敛、逃户摊邻、借商、间架除陌和进奉等结构压力，但主档仍给3偏宽。建中四年“常赋不能供”后直接实施间架、除陌，对公私交易广泛抽取；朱泚平后又长期“常赋之外，进奉不息”。《新唐书·食货志》同时总结两税折纳中“物价愈下，所纳愈多”“一室空而四邻亦尽”“唯安居不迁之民，赋役日重”。这些不是一两年应急，而是贯穿德宗中后期的F与M/P结构性脆弱，符合C2-2。",
+          "confidence": "LOW",
+          "evidence": [
+            {
+              "source_works": [
+                "《资治通鉴》卷二百二十八"
+              ],
+              "verbatim_excerpt": "月费钱百三十馀万缗，常赋不能供。判度支赵赞乃奏行二法……税间架、除陌钱法……于是愁怨之声盈于远近。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "自初定两税，货重钱轻……既而物价愈下，所纳愈多……虽赋不增旧，而民愈困矣。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "逃死阙税，取于居者，一室空而四邻亦尽……唯安居不迁之民，赋役日重。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "朱泚既平，于是帝属意聚敛，常赋之外，进奉不息……自裴延龄用事，益为天子积私财，而生民重困。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "PASS_C2_2_FAIL_C2_3",
+            "basis": "常规财政长期不能自足并依赖额外抽取，税基与市场交易持续受损，弱柱覆盖本人统治主体时段，主态应为二档。"
+          },
+          "main_band": "C2-2",
+          "material_limitations": [
+            "战争本身不机械扣C2",
+            "降档依据全部是已形成的常赋不足、交易抽税、税基脆弱和长期非常进奉。",
+            "两税法作为制度改革本身不加分，消费其后实际折纳与负担结果。"
+          ],
+          "peak_band": null,
+          "polity": "唐",
+          "rank": 146,
+          "reign_range": "779-805",
+          "ruler_id": "RULER-TANG-LISHI",
+          "ruler_name": "李适",
+          "score": 7.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-2",
+            "S_end": "C2-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-TANG-LISHI"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C6",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          },
+          "old_settlement_review": "DOWNGRADE_FROM_C2_3；保留：原结算关于两税整合收益有限、追加征敛与逃户摊邻长期化的判断全部保留。；推翻/修正：原结算低估这些问题的持续时间与公共财政依赖非常收入的严重程度，按现定义应降二。。"
+        },
+        {
+          "adjudication_reason": "僖宗窗口的一档有本项内部总括硬证：淮北水灾后征赋已不能办理，随后山东饥荒，而田令孜进一步督赋；《新唐书·食货志》最终以“天下遂乱，公私困竭”收束。这里公共财政的征收能力与民间生产、资产余量同时失效；王仙芝、黄巢起事只作为时序背景，不承担一档本身。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "淮北大水，征賦不能辦，人人思亂。",
+              "pillar_tags": [
+                "F_FISCAL_BASE",
+                "P_PRODUCTION"
+              ],
+              "evidence_role": "DIRECT_RESULT",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "乾符初，大水，山東饑。中官田令孜……督賦益急。",
+              "pillar_tags": [
+                "P_PRODUCTION",
+                "F_FISCAL_BASE"
+              ],
+              "evidence_role": "DIRECT_RESULT",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《新唐书·食货志》"
+              ],
+              "verbatim_excerpt": "天下遂亂，公私困竭。",
+              "pillar_tags": [
+                "P_PRODUCTION",
+                "M_MARKET_MONEY",
+                "F_FISCAL_BASE",
+                "R_RESERVE_BUFFER"
+              ],
+              "evidence_role": "DIRECT_RESULT",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "DIRECT_AND_CONSTRAINED",
+          "high_band_gate": {
+            "status": "PASS_C2_1_SYSTEMIC_FAILURE",
+            "basis": "征赋不能办理与公私困竭同时出现，公私双柱已系统失效。"
+          },
+          "main_band": "C2-1",
+          "material_limitations": [
+            "黄巢战争与政权失控不按D档位机械扣C2；核心依据是征赋失灵、饥荒下继续急征和公私困竭。"
+          ],
+          "peak_band": null,
+          "polity": "唐",
+          "rank": 184,
+          "reign_range": "873-888",
+          "ruler_id": "RULER-TANG-LIXUAN",
+          "ruler_name": "李儇",
+          "score": 1.8,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-1",
+            "S_end": "C2-1"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-TANG-LIXUAN"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": "NOT_RECHECKED",
+            "cost_band": "NOT_RECHECKED",
+            "cost_status": "NOT_RECHECKED",
+            "cost_position": "NOT_RECHECKED",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-1",
+            "score": 1.8,
+            "state_anchors": {
+              "S0": "C2-2",
+              "S_avg": "C2-1",
+              "S_end": "C2-1"
+            }
+          },
+          "old_settlement_review": "KEEP_MAIN_BAND_REWRITE_PILLAR_LOGIC；保留：原结算关于急征、灾荒与生产财政全面失效的核心判断。；推翻/修正：把黄巢战争从主因降为背景，以C2直接结果独立闭合一档。"
+        }
+      ]
+    }
+  }
+}

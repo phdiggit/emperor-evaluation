@@ -1,0 +1,2087 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "宋",
+  "collections": {
+    "records": {
+      "positions": [
+        4,
+        5,
+        46,
+        81,
+        82,
+        83,
+        99,
+        100,
+        101,
+        102,
+        124,
+        125,
+        137,
+        158,
+        177
+      ],
+      "records": [
+        {
+          "sequence": 22,
+          "task_code": "PROFILE-C2-RULER-NS-ZHAO-KUANGYIN",
+          "ruler_id": "RULER-NS-ZHAO-KUANGYIN",
+          "ruler_name": "赵匡胤",
+          "polity": "宋",
+          "actual_power_window": "960-976",
+          "axis_code": "C2",
+          "axis_name": "信息处理、学习与纠错",
+          "axis_grade": "G4",
+          "grade_numeric": 4,
+          "position": "MID",
+          "radar_value": 82,
+          "score_100": 82,
+          "axis_evidence_level": "E2",
+          "output_mode": "BOUNDED_PROFILE",
+          "confidence": "MEDIUM",
+          "score_status": "EVIDENCE_LIMITED",
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C2-CHAT-REVIEW-V2#RULER-NS-ZHAO-KUANGYIN",
+          "typical_pattern": "检田异地复核、死刑覆案、广州盗罪重诊断、符彦卿任命撤回及赵普信源修复跨域成立；酒坊案保留迟改反证。",
+          "counterpattern": "反向暴露、阶段差异和材料缺口均按已闭合C2生命周期单独处理，不由名望、战果或样本分布反推。",
+          "grade_basis": "赵匡胤：检田异地复核、死刑覆案、广州盗罪重诊断、符彦卿任命撤回及赵普信源修复跨域成立；酒坊案保留迟改反证。",
+          "position_basis": "赵匡胤：异地检田、死刑覆案、广州盗罪重诊断、任命撤回和信源修复跨制度、司法与人事领域反复成立，强长板的迁移与复验已超过G4下沿；酒坊案迟改及阶段覆盖限制其上探HIGH，因此定为G4-MID。",
+          "axis_relevance_check": {
+            "status": "C2_RELEVANT",
+            "scoring_parent_refs": [
+              "C2-V2-ZHAOKUANGYIN-LAND",
+              "C2-V2-ZHAOKUANGYIN-DEATH",
+              "C2-V2-ZHAOKUANGYIN-GUANGZHOU",
+              "C2-V2-ZHAOKUANGYIN-FUYANQING",
+              "C2-V2-ZHAOKUANGYIN-ZHAOPU",
+              "C2-V2-ZHAOKUANGYIN-FIRE"
+            ]
+          },
+          "limitations": [
+            "证据完成度为E2，当前仍是有界画像；新增跨阶段或同构复验可能改变档内位置。"
+          ],
+          "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C2-V2-ZHAOKUANGYIN-LAND",
+              "cycle_type": "TRUTH_ACQUISITION",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "馆陶检田争议中，赵匡胤允许基层申诉触发异地复核，以复核结果纠正前朝以来的执行失真。",
+              "cycle_anchor_refs": [
+                "https://zh.wikisource.org/zh-hant/續資治通鑑長編/卷002"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：馆陶检田争议中，赵匡胤允许基层申诉触发异地复核，以复核结果纠正前朝以来的执行失真。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI2_LIFECYCLE",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            },
+            {
+              "parent_id": "C2-V2-ZHAOKUANGYIN-DEATH",
+              "cycle_type": "TRUTH_ACQUISITION",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "把地方死刑改为中央详覆并持续亲录囚徒，使最高判断反复接受案件信息复核。",
+              "cycle_anchor_refs": [
+                "https://zh.wikisource.org/zh-hant/宋史/卷199"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：把地方死刑改为中央详覆并持续亲录囚徒，使最高判断反复接受案件信息复核。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            },
+            {
+              "parent_id": "C2-V2-ZHAOKUANGYIN-GUANGZHOU",
+              "cycle_type": "ERROR_CORRECTION",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "广州要求取消盗罪覆奏时，赵匡胤没有只改流程，而是重新诊断地方量刑失真并调整实体规则。",
+              "cycle_anchor_refs": [
+                "https://zh.wikisource.org/zh-hant/宋史/卷199"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：广州要求取消盗罪覆奏时，赵匡胤没有只改流程，而是重新诊断地方量刑失真并调整实体规则。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI2_LIFECYCLE",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            },
+            {
+              "parent_id": "C2-V2-ZHAOKUANGYIN-FUYANQING",
+              "cycle_type": "ERROR_CORRECTION",
+              "direction": "POSITIVE",
+              "intensity": "MI1_CASE",
+              "basis": "符彦卿军职诏命已发，在反证解释到达后撤回任命。",
+              "cycle_anchor_refs": [
+                "https://zh.wikisource.org/zh-hant/宋史/卷250"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：符彦卿军职诏命已发，在反证解释到达后撤回任命。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI1_CASE",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            },
+            {
+              "parent_id": "C2-V2-ZHAOKUANGYIN-ZHAOPU",
+              "cycle_type": "TRUTH_ACQUISITION",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "对赵普长期信任形成的信息俘获，在多源事实累积后重新调查并拆除单一接口。",
+              "cycle_anchor_refs": [
+                "https://zh.wikisource.org/zh-hant/宋史/卷256"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：对赵普长期信任形成的信息俘获，在多源事实累积后重新调查并拆除单一接口。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI2_LIFECYCLE",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            },
+            {
+              "parent_id": "C2-V2-ZHAOKUANGYIN-FIRE",
+              "cycle_type": "ERROR_CORRECTION",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI1_CASE",
+              "basis": "酒坊火灾案中盛怒处置后虽有纠正，但发生明显过迟，构成强情绪约束下的反例。",
+              "cycle_anchor_refs": [
+                "https://zh.wikisource.org/zh-hant/續資治通鑑長編/卷002"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：酒坊火灾案中盛怒处置后虽有纠正，但发生明显过迟，构成强情绪约束下的反例。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI1_CASE",
+              "feedback_suppression_review": {
+                "review_status": "REVIEWED",
+                "sanction_or_exclusion_intensity": "MODERATE",
+                "recurrence_scope": "SINGLE_CASE",
+                "future_channel_effect": "TEMPORARY_CHILLING",
+                "feedback_arrival": "聊天版全池重裁已明确可信反馈或反证到达本人。",
+                "c2_slice": "只消费本人理解、拒绝核验、拒绝更新或同构复发。",
+                "c5_exclusion": "异议者安全、处罚比例与权力程序仍留C5。"
+              }
+            }
+          ],
+          "parents": [
+            {
+              "parent_id": "C2-V2-ZHAOKUANGYIN-LAND",
+              "cycle_type": "TRUTH_ACQUISITION",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "馆陶检田争议中，赵匡胤允许基层申诉触发异地复核，以复核结果纠正前朝以来的执行失真。",
+              "cycle_anchor_refs": [
+                "https://zh.wikisource.org/zh-hant/續資治通鑑長編/卷002"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：馆陶检田争议中，赵匡胤允许基层申诉触发异地复核，以复核结果纠正前朝以来的执行失真。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI2_LIFECYCLE",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            },
+            {
+              "parent_id": "C2-V2-ZHAOKUANGYIN-DEATH",
+              "cycle_type": "TRUTH_ACQUISITION",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "把地方死刑改为中央详覆并持续亲录囚徒，使最高判断反复接受案件信息复核。",
+              "cycle_anchor_refs": [
+                "https://zh.wikisource.org/zh-hant/宋史/卷199"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：把地方死刑改为中央详覆并持续亲录囚徒，使最高判断反复接受案件信息复核。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            },
+            {
+              "parent_id": "C2-V2-ZHAOKUANGYIN-GUANGZHOU",
+              "cycle_type": "ERROR_CORRECTION",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "广州要求取消盗罪覆奏时，赵匡胤没有只改流程，而是重新诊断地方量刑失真并调整实体规则。",
+              "cycle_anchor_refs": [
+                "https://zh.wikisource.org/zh-hant/宋史/卷199"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：广州要求取消盗罪覆奏时，赵匡胤没有只改流程，而是重新诊断地方量刑失真并调整实体规则。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI2_LIFECYCLE",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            },
+            {
+              "parent_id": "C2-V2-ZHAOKUANGYIN-FUYANQING",
+              "cycle_type": "ERROR_CORRECTION",
+              "direction": "POSITIVE",
+              "intensity": "MI1_CASE",
+              "basis": "符彦卿军职诏命已发，在反证解释到达后撤回任命。",
+              "cycle_anchor_refs": [
+                "https://zh.wikisource.org/zh-hant/宋史/卷250"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：符彦卿军职诏命已发，在反证解释到达后撤回任命。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI1_CASE",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            },
+            {
+              "parent_id": "C2-V2-ZHAOKUANGYIN-ZHAOPU",
+              "cycle_type": "TRUTH_ACQUISITION",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "对赵普长期信任形成的信息俘获，在多源事实累积后重新调查并拆除单一接口。",
+              "cycle_anchor_refs": [
+                "https://zh.wikisource.org/zh-hant/宋史/卷256"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：对赵普长期信任形成的信息俘获，在多源事实累积后重新调查并拆除单一接口。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI2_LIFECYCLE",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            },
+            {
+              "parent_id": "C2-V2-ZHAOKUANGYIN-FIRE",
+              "cycle_type": "ERROR_CORRECTION",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI1_CASE",
+              "basis": "酒坊火灾案中盛怒处置后虽有纠正，但发生明显过迟，构成强情绪约束下的反例。",
+              "cycle_anchor_refs": [
+                "https://zh.wikisource.org/zh-hant/續資治通鑑長編/卷002"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：酒坊火灾案中盛怒处置后虽有纠正，但发生明显过迟，构成强情绪约束下的反例。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI1_CASE",
+              "feedback_suppression_review": {
+                "review_status": "REVIEWED",
+                "sanction_or_exclusion_intensity": "MODERATE",
+                "recurrence_scope": "SINGLE_CASE",
+                "future_channel_effect": "TEMPORARY_CHILLING",
+                "feedback_arrival": "聊天版全池重裁已明确可信反馈或反证到达本人。",
+                "c2_slice": "只消费本人理解、拒绝核验、拒绝更新或同构复发。",
+                "c5_exclusion": "异议者安全、处罚比例与权力程序仍留C5。"
+              }
+            }
+          ],
+          "source_unit_ids": [
+            "C2-V2-UNIT-D7D0E5F01CC6B7F5",
+            "C2-V2-UNIT-C791212711F7CA56",
+            "C2-V2-UNIT-29CEB90CFF775D76",
+            "C2-V2-UNIT-B3D00DC91268520D",
+            "C2-V2-UNIT-8DDBA487B1D29675",
+            "C2-V2-UNIT-0D9298F42649FD89"
+          ],
+          "source_refs": [
+            "docs/史料通读产物/北宋/续资治通鉴/volume-002.source-summary.md",
+            "https://zh.wikisource.org/wiki/宋史/卷001",
+            "https://zh.wikisource.org/wiki/續資治通鑑/卷002",
+            "https://zh.wikisource.org/zh-hant/續資治通鑑長編/卷002",
+            "https://zh.wikisource.org/zh-hant/宋史/卷199"
+          ],
+          "coverage_review": {
+            "method": "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION",
+            "actual_power_window": "960-976",
+            "local_normative_entries_role": "DISCOVERY_LOCATION_BACKGROUND_ONLY",
+            "direct_chronological_or_primary_refs": [
+              "NS-ZK-V002-REVIEW-ACCOUNTABILITY",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-002.source-summary.md"
+            ],
+            "positive_window_status": "CLOSED_PARENT_PRESENT",
+            "negative_window_status": "CLOSED_PARENT_PRESENT",
+            "phase_domain_coverage_status": "BOUNDED_NOT_FULL_LIFETIME",
+            "unresolved_phase_domain_windows": [
+              "仍缺连续全生涯跨领域正文覆盖；按E1/E2有界发布。"
+            ],
+            "publication_mode": "BOUNDED_PROFILE"
+          },
+          "review_status": "REBUILT_SPECIAL",
+          "directional_strength_balance_review": {
+            "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+            "positive_pattern_strength": "按独立生命周期、本人理解份额、落实和复验裁强度，不按正例条数相加。",
+            "negative_pattern_strength": "按反馈到达、拒绝更新、复发范围和渠道影响裁决，不由坏结果倒推。",
+            "suppression_parent_ids": [
+              "C2-V2-ZHAOKUANGYIN-FIRE"
+            ],
+            "isolated_positive_parent_ids": [
+              "C2-V2-ZHAOKUANGYIN-FUYANQING"
+            ],
+            "asymmetry_decision": "MI3/MI4系统性反馈压制不能由孤立MI1正例抵消；本轮不按父链数量换档。",
+            "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、MI计数或目标分布换算。"
+          }
+        },
+        {
+          "sequence": 5,
+          "task_code": "PROFILE-C2-RULER-NS-ZHAO-ZHEN",
+          "ruler_id": "RULER-NS-ZHAO-ZHEN",
+          "ruler_name": "赵祯",
+          "polity": "宋",
+          "actual_power_window": "1033-1063亲政",
+          "axis_code": "C2",
+          "axis_name": "信息处理、学习与纠错",
+          "axis_grade": "G4",
+          "grade_numeric": 4,
+          "position": "MID",
+          "radar_value": 82,
+          "score_100": 82,
+          "axis_evidence_level": "E2",
+          "output_mode": "BOUNDED_PROFILE",
+          "confidence": "MEDIUM",
+          "score_status": "EVIDENCE_LIMITED",
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C2-CHAT-REVIEW-V2#RULER-NS-ZHAO-ZHEN",
+          "typical_pattern": "视朝和言路受限后，灾异、台谏论列与伏阁求对共同暴露信息阻塞；赵祯恢复日朝、解除部分限制并让台谏重新进入决策；更新真实，但同类阻塞曾反复。 唐介触怒赵祯后先遭重贬，多方说明言事职责与处置过重，赵祯重新理解案件性质并改轻处置；只计判断更新，不计唐介安全与处罚比例。 侬智高危机中，朝廷对狄青资历、用兵方式和地方报告意见分裂；赵祯比较前线军情与枢密意见后授狄青统一指挥，并按战场结果继续授权，闭合一次重大信源辨别。",
+          "counterpattern": "反向暴露、阶段差异和材料缺口均按已闭合C2生命周期单独处理，不由名望、战果或样本分布反推。",
+          "grade_basis": "赵祯：视朝和言路受限后，灾异、台谏论列与伏阁求对共同暴露信息阻塞；赵祯恢复日朝、解除部分限制并让台谏重新进入决策；更新真实，但同类阻塞曾反复。 唐介触怒赵祯后先遭重贬，多方说明言事职责与处置过重，赵祯重新理解案件性质并改轻处置；只计判断更新，不计唐介安全与处罚比例。 侬智高危机中，朝廷对狄青资历、用兵方式和地方报告意见分裂；赵祯比较前线军情与枢密意见后授狄青统一指挥，并按战场结果继续授权，闭合一次重大信源辨别。",
+          "position_basis": "赵祯：多个独立周期和跨域迁移形成稳定强长板，反向暴露或阶段覆盖使其停在本档中位，定为G4-MID。",
+          "axis_relevance_check": {
+            "status": "C2_RELEVANT",
+            "scoring_parent_refs": [
+              "C2-P072-DISASTER-SPEECH",
+              "C2-P072-TANGJIE-RECONSIDERATION",
+              "C2-P072-NONGZHIGAO-REPORTS",
+              "C2-P072-QINGLI-REVERSAL",
+              "C2-P072-INTERNAL-COMMAND-REVIEW"
+            ]
+          },
+          "limitations": [
+            "证据完成度为E2，当前仍是有界画像；新增跨阶段或同构复验可能改变档内位置。"
+          ],
+          "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C2-P072-DISASTER-SPEECH",
+              "cycle_type": "ERROR_CORRECTION",
+              "direction": "MIXED_POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "视朝和言路受限后，灾异、台谏论列与伏阁求对共同暴露信息阻塞；赵祯恢复日朝、解除部分限制并让台谏重新进入决策；更新真实，但同类阻塞曾反复。",
+              "cycle_anchor_refs": [
+                "https://zh.wikisource.org/zh-hant/續資治通鑑/卷041"
+              ],
+              "source_parent_refs": [
+                "NS-ZZ-V041-DISASTER-FEEDBACK",
+                "NS-ZZ-V039-PALACE-GATE-SUPPRESSION"
+              ],
+              "lifecycle_review": "按C2生命周期核对：视朝和言路受限后，灾异、台谏论列与伏阁求对共同暴露信息阻塞；赵祯恢复日朝、解除部分限制并让台谏重新进入决策；更新真实，但同类阻塞曾反复。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            },
+            {
+              "parent_id": "C2-P072-TANGJIE-RECONSIDERATION",
+              "cycle_type": "ERROR_CORRECTION",
+              "direction": "MIXED_POSITIVE",
+              "intensity": "MI1_CASE",
+              "basis": "唐介触怒赵祯后先遭重贬，多方说明言事职责与处置过重，赵祯重新理解案件性质并改轻处置；只计判断更新，不计唐介安全与处罚比例。",
+              "cycle_anchor_refs": [
+                "https://zh.wikisource.org/zh-hant/續資治通鑑/卷055"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：唐介触怒赵祯后先遭重贬，多方说明言事职责与处置过重，赵祯重新理解案件性质并改轻处置；只计判断更新，不计唐介安全与处罚比例。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI1_CASE",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            },
+            {
+              "parent_id": "C2-P072-NONGZHIGAO-REPORTS",
+              "cycle_type": "TRUTH_ACQUISITION",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "侬智高危机中，朝廷对狄青资历、用兵方式和地方报告意见分裂；赵祯比较前线军情与枢密意见后授狄青统一指挥，并按战场结果继续授权，闭合一次重大信源辨别。",
+              "cycle_anchor_refs": [
+                "https://zh.wikisource.org/zh-hant/續資治通鑑/卷055"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：侬智高危机中，朝廷对狄青资历、用兵方式和地方报告意见分裂；赵祯比较前线军情与枢密意见后授狄青统一指挥，并按战场结果继续授权，闭合一次重大信源辨别。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI2_LIFECYCLE",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            },
+            {
+              "parent_id": "C2-P072-QINGLI-REVERSAL",
+              "cycle_type": "REFUSAL_OR_RECURRENCE",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "庆历改革执行反馈尚未充分复验时，朋党指控与近臣意见改变了赵祯对范仲淹等人的判断；他撤换核心人员，却未建立对指控的同强交叉核验，显示在高政治压力下信息更新易受标签支配。",
+              "cycle_anchor_refs": [
+                "https://zh.wikisource.org/zh-hant/續資治通鑑/卷047"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：庆历改革执行反馈尚未充分复验时，朋党指控与近臣意见改变了赵祯对范仲淹等人的判断；他撤换核心人员，却未建立对指控的同强交叉核验，显示在高政治压力下信息更新易受标签支配。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI2_LIFECYCLE",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            },
+            {
+              "parent_id": "C2-P072-INTERNAL-COMMAND-REVIEW",
+              "cycle_type": "ERROR_CORRECTION",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "宫中传命和内降多次绕开有司后，赵祯接受台谏与二府反馈，处分传旨内侍，并形成百司执奏、台谏察举、内降关白二府的连续复核接口；这里仅计原命令能够被新信息重开，不重复计算程序克制。",
+              "cycle_anchor_refs": [
+                ".tmp/north_song_promotion/source-cache/songshi-010.json",
+                ".tmp/north_song_promotion/source-cache/songshi-012.json",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-039.source-summary.md"
+              ],
+              "source_parent_refs": [
+                "NS-ZZ-PRIMARY-INTERNAL-COMMAND-REVIEW",
+                "NS-ZZ-V039-CENSOR-SELECTION"
+              ],
+              "lifecycle_review": "按C2生命周期核对：宫中传命和内降多次绕开有司后，赵祯接受台谏与二府反馈，处分传旨内侍，并形成百司执奏、台谏察举、内降关白二府的连续复核接口；这里仅计原命令能够被新信息重开，不重复计算程序克制。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新/拒绝更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            }
+          ],
+          "parents": [
+            {
+              "parent_id": "C2-P072-DISASTER-SPEECH",
+              "cycle_type": "ERROR_CORRECTION",
+              "direction": "MIXED_POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "视朝和言路受限后，灾异、台谏论列与伏阁求对共同暴露信息阻塞；赵祯恢复日朝、解除部分限制并让台谏重新进入决策；更新真实，但同类阻塞曾反复。",
+              "cycle_anchor_refs": [
+                "https://zh.wikisource.org/zh-hant/續資治通鑑/卷041"
+              ],
+              "source_parent_refs": [
+                "NS-ZZ-V041-DISASTER-FEEDBACK",
+                "NS-ZZ-V039-PALACE-GATE-SUPPRESSION"
+              ],
+              "lifecycle_review": "按C2生命周期核对：视朝和言路受限后，灾异、台谏论列与伏阁求对共同暴露信息阻塞；赵祯恢复日朝、解除部分限制并让台谏重新进入决策；更新真实，但同类阻塞曾反复。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            },
+            {
+              "parent_id": "C2-P072-TANGJIE-RECONSIDERATION",
+              "cycle_type": "ERROR_CORRECTION",
+              "direction": "MIXED_POSITIVE",
+              "intensity": "MI1_CASE",
+              "basis": "唐介触怒赵祯后先遭重贬，多方说明言事职责与处置过重，赵祯重新理解案件性质并改轻处置；只计判断更新，不计唐介安全与处罚比例。",
+              "cycle_anchor_refs": [
+                "https://zh.wikisource.org/zh-hant/續資治通鑑/卷055"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：唐介触怒赵祯后先遭重贬，多方说明言事职责与处置过重，赵祯重新理解案件性质并改轻处置；只计判断更新，不计唐介安全与处罚比例。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI1_CASE",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            },
+            {
+              "parent_id": "C2-P072-NONGZHIGAO-REPORTS",
+              "cycle_type": "TRUTH_ACQUISITION",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "侬智高危机中，朝廷对狄青资历、用兵方式和地方报告意见分裂；赵祯比较前线军情与枢密意见后授狄青统一指挥，并按战场结果继续授权，闭合一次重大信源辨别。",
+              "cycle_anchor_refs": [
+                "https://zh.wikisource.org/zh-hant/續資治通鑑/卷055"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：侬智高危机中，朝廷对狄青资历、用兵方式和地方报告意见分裂；赵祯比较前线军情与枢密意见后授狄青统一指挥，并按战场结果继续授权，闭合一次重大信源辨别。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI2_LIFECYCLE",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            },
+            {
+              "parent_id": "C2-P072-QINGLI-REVERSAL",
+              "cycle_type": "REFUSAL_OR_RECURRENCE",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "庆历改革执行反馈尚未充分复验时，朋党指控与近臣意见改变了赵祯对范仲淹等人的判断；他撤换核心人员，却未建立对指控的同强交叉核验，显示在高政治压力下信息更新易受标签支配。",
+              "cycle_anchor_refs": [
+                "https://zh.wikisource.org/zh-hant/續資治通鑑/卷047"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：庆历改革执行反馈尚未充分复验时，朋党指控与近臣意见改变了赵祯对范仲淹等人的判断；他撤换核心人员，却未建立对指控的同强交叉核验，显示在高政治压力下信息更新易受标签支配。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI2_LIFECYCLE",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            },
+            {
+              "parent_id": "C2-P072-INTERNAL-COMMAND-REVIEW",
+              "cycle_type": "ERROR_CORRECTION",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "宫中传命和内降多次绕开有司后，赵祯接受台谏与二府反馈，处分传旨内侍，并形成百司执奏、台谏察举、内降关白二府的连续复核接口；这里仅计原命令能够被新信息重开，不重复计算程序克制。",
+              "cycle_anchor_refs": [
+                ".tmp/north_song_promotion/source-cache/songshi-010.json",
+                ".tmp/north_song_promotion/source-cache/songshi-012.json",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-039.source-summary.md"
+              ],
+              "source_parent_refs": [
+                "NS-ZZ-PRIMARY-INTERNAL-COMMAND-REVIEW",
+                "NS-ZZ-V039-CENSOR-SELECTION"
+              ],
+              "lifecycle_review": "按C2生命周期核对：宫中传命和内降多次绕开有司后，赵祯接受台谏与二府反馈，处分传旨内侍，并形成百司执奏、台谏察举、内降关白二府的连续复核接口；这里仅计原命令能够被新信息重开，不重复计算程序克制。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新/拒绝更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            }
+          ],
+          "source_unit_ids": [
+            "NS-ZZ-V041-DISASTER-FEEDBACK",
+            "NS-ZZ-PRIMARY-INTERNAL-COMMAND-REVIEW",
+            "NS-ZZ-V039-CENSOR-SELECTION",
+            "NS-ZZ-V039-PALACE-GATE-SUPPRESSION"
+          ],
+          "source_refs": [
+            "docs/史料通读产物/北宋/续资治通鉴/volume-039.source-summary.md#P0087-P0091",
+            "docs/史料通读产物/北宋/续资治通鉴/volume-041.source-summary.md#P0017-P0044",
+            "docs/史料通读产物/北宋/续资治通鉴/volume-042.source-summary.md#P0095,P0099",
+            "https://zh.wikisource.org/zh-hant/續資治通鑑/卷041",
+            "https://zh.wikisource.org/zh-hant/續資治通鑑/卷055"
+          ],
+          "coverage_review": {
+            "method": "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION",
+            "actual_power_window": "1033-1063亲政",
+            "local_normative_entries_role": "FULL_UNION_DISCOVERY_LOCATION_BACKGROUND_OR_SCORING_BY_SEMANTIC_REVIEW",
+            "direct_chronological_or_primary_refs": [
+              "NS-ZZ-V041-DISASTER-FEEDBACK",
+              "NS-ZZ-PRIMARY-INTERNAL-COMMAND-REVIEW",
+              "NS-ZZ-V039-CENSOR-SELECTION",
+              "NS-ZZ-V039-PALACE-GATE-SUPPRESSION",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-039.source-summary.md#P0087-P0091",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-041.source-summary.md#P0017-P0044",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-042.source-summary.md#P0095,P0099",
+              "docs/评分结算/皇帝人物画像/C5/02-C5权力运用风格与克制正式结算.json#parent_id=C5-P072-TANGJIE",
+              "https://zh.wikisource.org/zh-hant/續資治通鑑/卷041",
+              "https://zh.wikisource.org/zh-hant/續資治通鑑/卷047",
+              "https://zh.wikisource.org/zh-hant/續資治通鑑/卷055",
+              "https://zh.wikisource.org/zh-hant/續資治通鑑/卷062"
+            ],
+            "positive_window_status": "CLOSED_PARENT_PRESENT",
+            "negative_window_status": "CLOSED_PARENT_PRESENT",
+            "phase_domain_coverage_status": "BOUNDED_NOT_FULL_LIFETIME",
+            "unresolved_phase_domain_windows": [
+              "仍缺连续全生涯跨领域正文覆盖；按E1/E2有界发布。"
+            ],
+            "publication_mode": "BOUNDED_PROFILE",
+            "material_budget_policy": "MAX_4_SUPPLEMENTAL_PRIMARY_SOURCE_UNITS_PER_CANDIDATE",
+            "material_units_consumed": [
+              "https://zh.wikisource.org/zh-hant/續資治通鑑/卷041",
+              "https://zh.wikisource.org/zh-hant/續資治通鑑/卷047",
+              "https://zh.wikisource.org/zh-hant/續資治通鑑/卷055",
+              "https://zh.wikisource.org/zh-hant/續資治通鑑/卷062"
+            ],
+            "normative_entry_refs": [
+              "NS-ZZ-V041-DISASTER-FEEDBACK",
+              "NS-ZZ-PRIMARY-INTERNAL-COMMAND-REVIEW",
+              "NS-ZZ-V039-CENSOR-SELECTION",
+              "NS-ZZ-V039-PALACE-GATE-SUPPRESSION",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-039.source-summary.md#P0087-P0091",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-041.source-summary.md#P0017-P0044",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-042.source-summary.md#P0095,P0099",
+              "docs/评分结算/皇帝人物画像/C5/02-C5权力运用风格与克制正式结算.json#parent_id=C5-P072-TANGJIE"
+            ],
+            "supplemental_primary_units": [
+              "https://zh.wikisource.org/zh-hant/續資治通鑑/卷041",
+              "https://zh.wikisource.org/zh-hant/續資治通鑑/卷047",
+              "https://zh.wikisource.org/zh-hant/續資治通鑑/卷055",
+              "https://zh.wikisource.org/zh-hant/續資治通鑑/卷062"
+            ],
+            "excluded_person_specific_source_refs": [],
+            "combined_source_refs": [
+              "NS-ZZ-V041-DISASTER-FEEDBACK",
+              "NS-ZZ-PRIMARY-INTERNAL-COMMAND-REVIEW",
+              "NS-ZZ-V039-CENSOR-SELECTION",
+              "NS-ZZ-V039-PALACE-GATE-SUPPRESSION",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-039.source-summary.md#P0087-P0091",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-041.source-summary.md#P0017-P0044",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-042.source-summary.md#P0095,P0099",
+              "docs/评分结算/皇帝人物画像/C5/02-C5权力运用风格与克制正式结算.json#parent_id=C5-P072-TANGJIE",
+              "https://zh.wikisource.org/zh-hant/續資治通鑑/卷041",
+              "https://zh.wikisource.org/zh-hant/續資治通鑑/卷047",
+              "https://zh.wikisource.org/zh-hant/續資治通鑑/卷055",
+              "https://zh.wikisource.org/zh-hant/續資治通鑑/卷062"
+            ],
+            "excluded_person_specific_source_count": 0
+          },
+          "directional_strength_balance_review": {
+            "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+            "positive_pattern_strength": "按独立生命周期、本人理解份额、落实和复验裁强度，不按正例条数相加。",
+            "negative_pattern_strength": "按反馈到达、拒绝更新、复发范围和渠道影响裁决，不由坏结果倒推。",
+            "suppression_parent_ids": [],
+            "isolated_positive_parent_ids": [
+              "C2-P072-TANGJIE-RECONSIDERATION"
+            ],
+            "asymmetry_decision": "MI3/MI4系统性反馈压制不能由孤立MI1正例抵消；本轮不按父链数量换档。",
+            "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、MI计数或目标分布换算。"
+          },
+          "review_status": "VALID"
+        },
+        {
+          "sequence": 30,
+          "task_code": "PROFILE-C2-RULER-NS-ZHAO-HENG",
+          "ruler_id": "RULER-NS-ZHAO-HENG",
+          "ruler_name": "赵恒",
+          "polity": "宋",
+          "actual_power_window": "997-1022",
+          "axis_code": "C2",
+          "axis_name": "信息处理、学习与纠错",
+          "axis_grade": "G2",
+          "grade_numeric": 2,
+          "position": "HIGH",
+          "radar_value": 51,
+          "score_100": 51,
+          "axis_evidence_level": "E2",
+          "output_mode": "BOUNDED_PROFILE",
+          "confidence": "MEDIUM",
+          "score_status": "EVIDENCE_LIMITED",
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C2-CHAT-REVIEW-V2#RULER-NS-ZHAO-HENG",
+          "typical_pattern": "辽军深入时迁都、亲征与议和信息相互冲突，赵恒接受寇准等对前线士气和都城风险的判断而赴澶州，并把关南不让设为谈判底线；本人使用信息并改变行动，但判断与执行高度依赖臣下。 封禅和宫观消耗与灾荒财政压力持续到达后，赵恒仍维持礼制投入，后期执政遮蔽又未获有效纠正；明确信息没有转成主政策更新。",
+          "counterpattern": "反向暴露、阶段差异和材料缺口均按已闭合C2生命周期单独处理，不由名望、战果或样本分布反推。",
+          "grade_basis": "赵恒：辽军深入时迁都、亲征与议和信息相互冲突，赵恒接受寇准等对前线士气和都城风险的判断而赴澶州，并把关南不让设为谈判底线；本人使用信息并改变行动，但判断与执行高度依赖臣下。 封禅和宫观消耗与灾荒财政压力持续到达后，赵恒仍维持礼制投入，后期执政遮蔽又未获有效纠正；明确信息没有转成主政策更新。",
+          "position_basis": "赵恒：信息处理短板仍存在，但可用的核验、更新或恢复机制较清楚，故位于明显短板档上沿，定为G2-HIGH。",
+          "axis_relevance_check": {
+            "status": "C2_RELEVANT",
+            "scoring_parent_refs": [
+              "C2-P066-CHANYUAN-INFO",
+              "C2-P066-LATE-RITUAL"
+            ]
+          },
+          "limitations": [
+            "证据完成度为E2，当前仍是有界画像；新增跨阶段或同构复验可能改变档内位置。"
+          ],
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C2-P066-CHANYUAN-INFO",
+              "cycle_type": "TRUTH_ACQUISITION",
+              "direction": "MIXED_POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "辽军深入时迁都、亲征与议和信息相互冲突，赵恒接受寇准等对前线士气和都城风险的判断而赴澶州，并把关南不让设为谈判底线；本人使用信息并改变行动，但判断与执行高度依赖臣下。",
+              "cycle_anchor_refs": [
+                "docs/史料通读产物/北宋/续资治通鉴/volume-024.source-summary.md#L70",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-025.source-summary.md#L24"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：辽军深入时迁都、亲征与议和信息相互冲突，赵恒接受寇准等对前线士气和都城风险的判断而赴澶州，并把关南不让设为谈判底线；本人使用信息并改变行动，但判断与执行高度依赖臣下。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "只消费君主取得真实信息和认知更新；异议安全、刑罚比例及清洗另留C5。",
+              "material_intensity": "MI2_LIFECYCLE",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            },
+            {
+              "parent_id": "C2-P066-LATE-RITUAL",
+              "cycle_type": "REFUSAL_OR_RECURRENCE",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "封禅和宫观消耗与灾荒财政压力持续到达后，赵恒仍维持礼制投入，后期执政遮蔽又未获有效纠正；明确信息没有转成主政策更新。",
+              "cycle_anchor_refs": [
+                "NS-ZH-V035-INFORMATION-CLOSURE",
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-NS-ZHAO-HENG"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：封禅和宫观消耗与灾荒财政压力持续到达后，赵恒仍维持礼制投入，后期执政遮蔽又未获有效纠正；明确信息没有转成主政策更新。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "只消费君主取得真实信息和认知更新；异议安全、刑罚比例及清洗另留C5。",
+              "material_intensity": "MI2_LIFECYCLE",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            }
+          ],
+          "parents": [
+            {
+              "parent_id": "C2-P066-CHANYUAN-INFO",
+              "cycle_type": "TRUTH_ACQUISITION",
+              "direction": "MIXED_POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "辽军深入时迁都、亲征与议和信息相互冲突，赵恒接受寇准等对前线士气和都城风险的判断而赴澶州，并把关南不让设为谈判底线；本人使用信息并改变行动，但判断与执行高度依赖臣下。",
+              "cycle_anchor_refs": [
+                "docs/史料通读产物/北宋/续资治通鉴/volume-024.source-summary.md#L70",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-025.source-summary.md#L24"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：辽军深入时迁都、亲征与议和信息相互冲突，赵恒接受寇准等对前线士气和都城风险的判断而赴澶州，并把关南不让设为谈判底线；本人使用信息并改变行动，但判断与执行高度依赖臣下。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "只消费君主取得真实信息和认知更新；异议安全、刑罚比例及清洗另留C5。",
+              "material_intensity": "MI2_LIFECYCLE",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            },
+            {
+              "parent_id": "C2-P066-LATE-RITUAL",
+              "cycle_type": "REFUSAL_OR_RECURRENCE",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "封禅和宫观消耗与灾荒财政压力持续到达后，赵恒仍维持礼制投入，后期执政遮蔽又未获有效纠正；明确信息没有转成主政策更新。",
+              "cycle_anchor_refs": [
+                "NS-ZH-V035-INFORMATION-CLOSURE",
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-NS-ZHAO-HENG"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：封禅和宫观消耗与灾荒财政压力持续到达后，赵恒仍维持礼制投入，后期执政遮蔽又未获有效纠正；明确信息没有转成主政策更新。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "只消费君主取得真实信息和认知更新；异议安全、刑罚比例及清洗另留C5。",
+              "material_intensity": "MI2_LIFECYCLE",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            }
+          ],
+          "source_unit_ids": [
+            "NS-ZH-V022-ROTATING-AUDIENCE",
+            "NS-ZH-V023-SILVER-TERRACE",
+            "NS-ZH-V035-INFORMATION-CLOSURE"
+          ],
+          "source_refs": [
+            "docs/史料通读产物/北宋/续资治通鉴/volume-024.source-summary.md#L70",
+            "docs/史料通读产物/北宋/续资治通鉴/volume-025.source-summary.md#L24"
+          ],
+          "coverage_review": {
+            "method": "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION",
+            "actual_power_window": "997-1022",
+            "local_normative_entries_role": "DISCOVERY_LOCATION_BACKGROUND_ONLY",
+            "direct_chronological_or_primary_refs": [
+              "NS-ZH-V035-INFORMATION-CLOSURE",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-024.source-summary.md#L70",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-025.source-summary.md#L24",
+              "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-NS-ZHAO-HENG"
+            ],
+            "positive_window_status": "CLOSED_PARENT_PRESENT",
+            "negative_window_status": "CLOSED_PARENT_PRESENT",
+            "phase_domain_coverage_status": "BOUNDED_NOT_FULL_LIFETIME",
+            "unresolved_phase_domain_windows": [
+              "仍缺连续全生涯跨领域正文覆盖；按E1/E2有界发布。"
+            ],
+            "publication_mode": "BOUNDED_PROFILE"
+          },
+          "review_status": "VALID",
+          "directional_strength_balance_review": {
+            "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+            "positive_pattern_strength": "按独立生命周期、本人理解份额、落实和复验裁强度，不按正例条数相加。",
+            "negative_pattern_strength": "按反馈到达、拒绝更新、复发范围和渠道影响裁决，不由坏结果倒推。",
+            "suppression_parent_ids": [],
+            "isolated_positive_parent_ids": [],
+            "asymmetry_decision": "MI3/MI4系统性反馈压制不能由孤立MI1正例抵消；本轮不按父链数量换档。",
+            "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、MI计数或目标分布换算。"
+          }
+        },
+        {
+          "sequence": 61,
+          "task_code": "PROFILE-C2-RULER-NS-GAO-TAOTAO",
+          "ruler_id": "RULER-NS-GAO-TAOTAO",
+          "ruler_name": "高滔滔",
+          "polity": "宋",
+          "actual_power_window": "1085-1093摄政",
+          "axis_code": "C2",
+          "axis_name": "信息处理、学习与纠错",
+          "axis_grade": "G2",
+          "grade_numeric": 2,
+          "position": "MID",
+          "radar_value": 45,
+          "score_100": 45,
+          "axis_evidence_level": "E1",
+          "output_mode": "BOUNDED_PROFILE",
+          "confidence": "LOW",
+          "score_status": "EVIDENCE_LIMITED",
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C2-CHAT-REVIEW-V2#RULER-NS-GAO-TAOTAO",
+          "typical_pattern": "现有直接材料尚未闭合足够的独立信息取得、反证理解与纠错生命周期，只能描述少量已观察现象，不能据此推断全生涯能力。",
+          "counterpattern": "反向暴露、阶段差异和材料缺口均按已闭合C2生命周期单独处理，不由名望、战果或样本分布反推。",
+          "grade_basis": "高滔滔：现有直接材料尚未闭合足够的独立信息取得、反证理解与纠错生命周期，只能描述少量已观察现象，不能据此推断全生涯能力。",
+          "position_basis": "高滔滔：现有直接材料不足以把少量现象扩展成全生涯判断；当前G2-MID只表示已观察模式的证据下限，不是对全生涯能力存在明显短板的断言。新增直接状态转移材料可重新裁决。",
+          "axis_relevance_check": {
+            "status": "C2_RELEVANT",
+            "scoring_parent_refs": []
+          },
+          "limitations": [
+            "当前档位只表示已观察模式的证据下限，不是全生涯能力低下结论；新增直接状态转移材料可重新裁决。"
+          ],
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "representative_parent_contexts": [],
+          "parents": [],
+          "source_unit_ids": [],
+          "source_refs": [
+            "本轮未补得合格计分闭环；见原条目缺口"
+          ],
+          "coverage_review": {
+            "method": "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION",
+            "actual_power_window": "1085-1093摄政",
+            "local_normative_entries_role": "DISCOVERY_LOCATION_BACKGROUND_ONLY",
+            "direct_chronological_or_primary_refs": [],
+            "positive_window_status": "NO_CLOSED_POSITIVE_PARENT",
+            "negative_window_status": "NO_CLOSED_NEGATIVE_PARENT",
+            "phase_domain_coverage_status": "BOUNDED_NOT_FULL_LIFETIME",
+            "unresolved_phase_domain_windows": [
+              "仍缺连续全生涯跨领域正文覆盖；按E1/E2有界发布。"
+            ],
+            "publication_mode": "BOUNDED_PROFILE"
+          },
+          "review_status": "EVIDENCE_FLOOR",
+          "directional_strength_balance_review": {
+            "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+            "positive_pattern_strength": "按独立生命周期、本人理解份额、落实和复验裁强度，不按正例条数相加。",
+            "negative_pattern_strength": "按反馈到达、拒绝更新、复发范围和渠道影响裁决，不由坏结果倒推。",
+            "suppression_parent_ids": [],
+            "isolated_positive_parent_ids": [],
+            "asymmetry_decision": "MI3/MI4系统性反馈压制不能由孤立MI1正例抵消；本轮不按父链数量换档。",
+            "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、MI计数或目标分布换算。"
+          }
+        },
+        {
+          "sequence": 62,
+          "task_code": "PROFILE-C2-RULER-NS-LIU-E",
+          "ruler_id": "RULER-NS-LIU-E",
+          "ruler_name": "刘娥",
+          "polity": "宋",
+          "actual_power_window": "1022-1033摄政",
+          "axis_code": "C2",
+          "axis_name": "信息处理、学习与纠错",
+          "axis_grade": "G2",
+          "grade_numeric": 2,
+          "position": "MID",
+          "radar_value": 45,
+          "score_100": 45,
+          "axis_evidence_level": "E2",
+          "output_mode": "BOUNDED_PROFILE",
+          "confidence": "MEDIUM",
+          "score_status": "EVIDENCE_LIMITED",
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C2-CHAT-REVIEW-V2#RULER-NS-LIU-E",
+          "typical_pattern": "外家临幸安排受到劝止后，刘娥接受利害说明并停止，形成一次明确改令。 限制直接奏事、要求经两府附奏造成壅蔽的反馈已出现，刘娥未恢复同强度独立入口；这只计其继续依赖失真过滤的认知后果，曹利用之死与异议安全仍留C5。",
+          "counterpattern": "反向暴露、阶段差异和材料缺口均按已闭合C2生命周期单独处理，不由名望、战果或样本分布反推。",
+          "grade_basis": "刘娥：外家临幸安排受到劝止后，刘娥接受利害说明并停止，形成一次明确改令。 限制直接奏事、要求经两府附奏造成壅蔽的反馈已出现，刘娥未恢复同强度独立入口；这只计其继续依赖失真过滤的认知后果，曹利用之死与异议安全仍留C5。",
+          "position_basis": "刘娥：受限或依赖外部补救是更常见模式，同时仍保留部分可用机制，故取本档中位，定为G2-MID。",
+          "axis_relevance_check": {
+            "status": "C2_RELEVANT",
+            "scoring_parent_refs": [
+              "C2-P064-OUTER-KIN-VISIT",
+              "C2-P064-INFORMATION-CLOSURE"
+            ]
+          },
+          "limitations": [
+            "证据完成度为E2，当前仍是有界画像；新增跨阶段或同构复验可能改变档内位置。"
+          ],
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C2-P064-OUTER-KIN-VISIT",
+              "cycle_type": "ERROR_CORRECTION",
+              "direction": "POSITIVE",
+              "intensity": "MI1_CASE",
+              "basis": "外家临幸安排受到劝止后，刘娥接受利害说明并停止，形成一次明确改令。",
+              "cycle_anchor_refs": [
+                "docs/史料通读产物/北宋/续资治通鉴/volume-037.source-summary.md"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：外家临幸安排受到劝止后，刘娥接受利害说明并停止，形成一次明确改令。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "只消费君主取得真实信息和认知更新；异议安全、刑罚比例及清洗另留C5。",
+              "material_intensity": "MI1_CASE",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            },
+            {
+              "parent_id": "C2-P064-INFORMATION-CLOSURE",
+              "cycle_type": "REFUSAL_OR_RECURRENCE",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "限制直接奏事、要求经两府附奏造成壅蔽的反馈已出现，刘娥未恢复同强度独立入口；这只计其继续依赖失真过滤的认知后果，曹利用之死与异议安全仍留C5。",
+              "cycle_anchor_refs": [
+                "NS-LE-V036-DIRECT-AUDIENCE",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-037.source-summary.md"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：限制直接奏事、要求经两府附奏造成壅蔽的反馈已出现，刘娥未恢复同强度独立入口；这只计其继续依赖失真过滤的认知后果，曹利用之死与异议安全仍留C5。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "只消费君主取得真实信息和认知更新；异议安全、刑罚比例及清洗另留C5。",
+              "material_intensity": "MI2_LIFECYCLE",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            }
+          ],
+          "parents": [
+            {
+              "parent_id": "C2-P064-OUTER-KIN-VISIT",
+              "cycle_type": "ERROR_CORRECTION",
+              "direction": "POSITIVE",
+              "intensity": "MI1_CASE",
+              "basis": "外家临幸安排受到劝止后，刘娥接受利害说明并停止，形成一次明确改令。",
+              "cycle_anchor_refs": [
+                "docs/史料通读产物/北宋/续资治通鉴/volume-037.source-summary.md"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：外家临幸安排受到劝止后，刘娥接受利害说明并停止，形成一次明确改令。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "只消费君主取得真实信息和认知更新；异议安全、刑罚比例及清洗另留C5。",
+              "material_intensity": "MI1_CASE",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            },
+            {
+              "parent_id": "C2-P064-INFORMATION-CLOSURE",
+              "cycle_type": "REFUSAL_OR_RECURRENCE",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "限制直接奏事、要求经两府附奏造成壅蔽的反馈已出现，刘娥未恢复同强度独立入口；这只计其继续依赖失真过滤的认知后果，曹利用之死与异议安全仍留C5。",
+              "cycle_anchor_refs": [
+                "NS-LE-V036-DIRECT-AUDIENCE",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-037.source-summary.md"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：限制直接奏事、要求经两府附奏造成壅蔽的反馈已出现，刘娥未恢复同强度独立入口；这只计其继续依赖失真过滤的认知后果，曹利用之死与异议安全仍留C5。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "只消费君主取得真实信息和认知更新；异议安全、刑罚比例及清洗另留C5。",
+              "material_intensity": "MI2_LIFECYCLE",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            }
+          ],
+          "source_unit_ids": [
+            "NS-LE-V035-CENSOR-INDEPENDENCE",
+            "NS-LE-V036-DIRECT-AUDIENCE",
+            "NS-LE-V037-CAO-LIYONG-DEATH"
+          ],
+          "source_refs": [
+            "docs/史料通读产物/北宋/续资治通鉴/volume-037.source-summary.md",
+            "NS-LE-V036-DIRECT-AUDIENCE"
+          ],
+          "coverage_review": {
+            "method": "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION",
+            "actual_power_window": "1022-1033摄政",
+            "local_normative_entries_role": "DISCOVERY_LOCATION_BACKGROUND_ONLY",
+            "direct_chronological_or_primary_refs": [
+              "NS-LE-V036-DIRECT-AUDIENCE",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-037.source-summary.md"
+            ],
+            "positive_window_status": "CLOSED_PARENT_PRESENT",
+            "negative_window_status": "CLOSED_PARENT_PRESENT",
+            "phase_domain_coverage_status": "BOUNDED_NOT_FULL_LIFETIME",
+            "unresolved_phase_domain_windows": [
+              "仍缺连续全生涯跨领域正文覆盖；按E1/E2有界发布。"
+            ],
+            "publication_mode": "BOUNDED_PROFILE"
+          },
+          "review_status": "VALID",
+          "directional_strength_balance_review": {
+            "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+            "positive_pattern_strength": "按独立生命周期、本人理解份额、落实和复验裁强度，不按正例条数相加。",
+            "negative_pattern_strength": "按反馈到达、拒绝更新、复发范围和渠道影响裁决，不由坏结果倒推。",
+            "suppression_parent_ids": [],
+            "isolated_positive_parent_ids": [
+              "C2-P064-OUTER-KIN-VISIT"
+            ],
+            "asymmetry_decision": "MI3/MI4系统性反馈压制不能由孤立MI1正例抵消；本轮不按父链数量换档。",
+            "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、MI计数或目标分布换算。"
+          }
+        },
+        {
+          "sequence": 31,
+          "task_code": "PROFILE-C2-RULER-NS-ZHAO-SHU",
+          "ruler_id": "RULER-NS-ZHAO-SHU",
+          "ruler_name": "赵曙",
+          "polity": "宋",
+          "actual_power_window": "1063-1067",
+          "axis_code": "C2",
+          "axis_name": "信息处理、学习与纠错",
+          "axis_grade": "G2",
+          "grade_numeric": 2,
+          "position": "MID",
+          "radar_value": 45,
+          "score_100": 45,
+          "axis_evidence_level": "E1",
+          "output_mode": "BOUNDED_PROFILE",
+          "confidence": "LOW",
+          "score_status": "EVIDENCE_LIMITED",
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C2-CHAT-REVIEW-V2#RULER-NS-ZHAO-SHU",
+          "typical_pattern": "现有直接材料尚未闭合足够的独立信息取得、反证理解与纠错生命周期，只能描述少量已观察现象，不能据此推断全生涯能力。",
+          "counterpattern": "反向暴露、阶段差异和材料缺口均按已闭合C2生命周期单独处理，不由名望、战果或样本分布反推。",
+          "grade_basis": "赵曙：现有直接材料尚未闭合足够的独立信息取得、反证理解与纠错生命周期，只能描述少量已观察现象，不能据此推断全生涯能力。",
+          "position_basis": "赵曙：现有直接材料不足以把少量现象扩展成全生涯判断；当前G2-MID只表示已观察模式的证据下限，不是对全生涯能力存在明显短板的断言。新增直接状态转移材料可重新裁决。",
+          "axis_relevance_check": {
+            "status": "C2_RELEVANT",
+            "scoring_parent_refs": []
+          },
+          "limitations": [
+            "当前档位只表示已观察模式的证据下限，不是全生涯能力低下结论；新增直接状态转移材料可重新裁决。"
+          ],
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "representative_parent_contexts": [],
+          "parents": [],
+          "source_unit_ids": [],
+          "source_refs": [
+            "本轮未补得合格计分闭环；见原条目缺口"
+          ],
+          "coverage_review": {
+            "method": "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION",
+            "actual_power_window": "1063-1067",
+            "local_normative_entries_role": "DISCOVERY_LOCATION_BACKGROUND_ONLY",
+            "direct_chronological_or_primary_refs": [],
+            "positive_window_status": "NO_CLOSED_POSITIVE_PARENT",
+            "negative_window_status": "NO_CLOSED_NEGATIVE_PARENT",
+            "phase_domain_coverage_status": "BOUNDED_NOT_FULL_LIFETIME",
+            "unresolved_phase_domain_windows": [
+              "仍缺连续全生涯跨领域正文覆盖；按E1/E2有界发布。"
+            ],
+            "publication_mode": "BOUNDED_PROFILE"
+          },
+          "review_status": "EVIDENCE_FLOOR",
+          "directional_strength_balance_review": {
+            "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+            "positive_pattern_strength": "按独立生命周期、本人理解份额、落实和复验裁强度，不按正例条数相加。",
+            "negative_pattern_strength": "按反馈到达、拒绝更新、复发范围和渠道影响裁决，不由坏结果倒推。",
+            "suppression_parent_ids": [],
+            "isolated_positive_parent_ids": [],
+            "asymmetry_decision": "MI3/MI4系统性反馈压制不能由孤立MI1正例抵消；本轮不按父链数量换档。",
+            "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、MI计数或目标分布换算。"
+          }
+        },
+        {
+          "sequence": 101,
+          "task_code": "PROFILE-C2-RULER-SS-ZHAO-GOU",
+          "ruler_id": "RULER-SS-ZHAO-GOU",
+          "ruler_name": "赵构",
+          "polity": "宋",
+          "actual_power_window": "1127-1162",
+          "axis_code": "C2",
+          "axis_name": "信息处理、学习与纠错",
+          "axis_grade": "G2",
+          "grade_numeric": 2,
+          "position": "MID",
+          "radar_value": 45,
+          "score_100": 45,
+          "axis_evidence_level": "E1",
+          "output_mode": "BOUNDED_PROFILE",
+          "confidence": "LOW",
+          "score_status": "EVIDENCE_LIMITED",
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C2-CHAT-REVIEW-V2#RULER-SS-ZHAO-GOU",
+          "typical_pattern": "现有直接材料尚未闭合足够的独立信息取得、反证理解与纠错生命周期，只能描述少量已观察现象，不能据此推断全生涯能力。",
+          "counterpattern": "反向暴露、阶段差异和材料缺口均按已闭合C2生命周期单独处理，不由名望、战果或样本分布反推。",
+          "grade_basis": "赵构：现有直接材料尚未闭合足够的独立信息取得、反证理解与纠错生命周期，只能描述少量已观察现象，不能据此推断全生涯能力。",
+          "position_basis": "赵构：现有直接材料不足以把少量现象扩展成全生涯判断；当前G2-MID只表示已观察模式的证据下限，不是对全生涯能力存在明显短板的断言。新增直接状态转移材料可重新裁决。",
+          "axis_relevance_check": {
+            "status": "C2_RELEVANT",
+            "scoring_parent_refs": []
+          },
+          "limitations": [
+            "当前档位只表示已观察模式的证据下限，不是全生涯能力低下结论；新增直接状态转移材料可重新裁决。"
+          ],
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "representative_parent_contexts": [],
+          "parents": [],
+          "source_unit_ids": [],
+          "source_refs": [
+            "續資治通鑑/卷100@2300291#命知揚州呂頤浩修城池，發運副使李祐等為隨軍轉運使，以將南遷也",
+            "續資治通鑑/卷100@2300291#帝至揚州，駐蹕州治"
+          ],
+          "coverage_review": {
+            "method": "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION",
+            "actual_power_window": "1127-1162",
+            "local_normative_entries_role": "DISCOVERY_LOCATION_BACKGROUND_ONLY",
+            "direct_chronological_or_primary_refs": [
+              "docs/史料通读产物/北宋/续资治通鉴/volume-096.source-summary.md#L71",
+              "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P144-POSITIVE",
+              "docs/评分结算/第一项创业与政权取得能力/战略决策能力/01-第一项A战略决策能力结算.json#ruler_id=RULER-SS-ZHAO-GOU",
+              "docs/评分结算/第一项创业与政权取得能力/政治整合能力/01-第一项B政治整合能力结算.json#records/24",
+              "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/42",
+              "續資治通鑑/卷100@2300291#命知揚州呂頤浩修城池，發運副使李祐等為隨軍轉運使，以將南遷也",
+              "續資治通鑑/卷100@2300291#帝至揚州，駐蹕州治",
+              "續資治通鑑/卷123@2309484#一日奉十二金字牌",
+              "續資治通鑑/卷123@2309484#十年之功，廢於一旦",
+              "續資治通鑑/卷124@2309489#岳飛為樞密副使",
+              "續資治通鑑/卷124@2309489#岳飛賜死於大理寺"
+            ],
+            "positive_window_status": "NO_CLOSED_POSITIVE_PARENT",
+            "negative_window_status": "NO_CLOSED_NEGATIVE_PARENT",
+            "phase_domain_coverage_status": "BOUNDED_NOT_FULL_LIFETIME",
+            "unresolved_phase_domain_windows": [
+              "仍缺连续全生涯跨领域正文覆盖；按E1/E2有界发布。"
+            ],
+            "publication_mode": "BOUNDED_PROFILE"
+          },
+          "review_status": "EVIDENCE_FLOOR",
+          "directional_strength_balance_review": {
+            "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+            "positive_pattern_strength": "按独立生命周期、本人理解份额、落实和复验裁强度，不按正例条数相加。",
+            "negative_pattern_strength": "按反馈到达、拒绝更新、复发范围和渠道影响裁决，不由坏结果倒推。",
+            "suppression_parent_ids": [],
+            "isolated_positive_parent_ids": [],
+            "asymmetry_decision": "MI3/MI4系统性反馈压制不能由孤立MI1正例抵消；本轮不按父链数量换档。",
+            "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、MI计数或目标分布换算。"
+          }
+        },
+        {
+          "sequence": 136,
+          "task_code": "PROFILE-C2-RULER-SS-ZHAO-KUO",
+          "ruler_id": "RULER-SS-ZHAO-KUO",
+          "ruler_name": "赵扩",
+          "polity": "宋",
+          "actual_power_window": "1194-1224",
+          "axis_code": "C2",
+          "axis_name": "信息处理、学习与纠错",
+          "axis_grade": "G2",
+          "grade_numeric": 2,
+          "position": "MID",
+          "radar_value": 45,
+          "score_100": 45,
+          "axis_evidence_level": "E1",
+          "output_mode": "BOUNDED_PROFILE",
+          "confidence": "LOW",
+          "score_status": "EVIDENCE_LIMITED",
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C2-CHAT-REVIEW-V2#RULER-SS-ZHAO-KUO",
+          "typical_pattern": "现有直接材料尚未闭合足够的独立信息取得、反证理解与纠错生命周期，只能描述少量已观察现象，不能据此推断全生涯能力。",
+          "counterpattern": "反向暴露、阶段差异和材料缺口均按已闭合C2生命周期单独处理，不由名望、战果或样本分布反推。",
+          "grade_basis": "赵扩：现有直接材料尚未闭合足够的独立信息取得、反证理解与纠错生命周期，只能描述少量已观察现象，不能据此推断全生涯能力。",
+          "position_basis": "赵扩：现有直接材料不足以把少量现象扩展成全生涯判断；当前G2-MID只表示已观察模式的证据下限，不是对全生涯能力存在明显短板的断言。新增直接状态转移材料可重新裁决。",
+          "axis_relevance_check": {
+            "status": "C2_RELEVANT",
+            "scoring_parent_refs": []
+          },
+          "limitations": [
+            "当前档位只表示已观察模式的证据下限，不是全生涯能力低下结论；新增直接状态转移材料可重新裁决。"
+          ],
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "representative_parent_contexts": [],
+          "parents": [],
+          "source_unit_ids": [],
+          "source_refs": [
+            "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/143",
+            "docs/评分结算/第五项统治者政治素质/04-第五项统治者政治素质正式结算.json#records/61"
+          ],
+          "coverage_review": {
+            "method": "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION",
+            "actual_power_window": "1194-1224",
+            "local_normative_entries_role": "DISCOVERY_LOCATION_BACKGROUND_ONLY",
+            "direct_chronological_or_primary_refs": [
+              "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P145-COUNTER",
+              "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/143",
+              "docs/评分结算/第五项统治者政治素质/04-第五项统治者政治素质正式结算.json#records/61"
+            ],
+            "positive_window_status": "NO_CLOSED_POSITIVE_PARENT",
+            "negative_window_status": "NO_CLOSED_NEGATIVE_PARENT",
+            "phase_domain_coverage_status": "BOUNDED_NOT_FULL_LIFETIME",
+            "unresolved_phase_domain_windows": [
+              "仍缺连续全生涯跨领域正文覆盖；按E1/E2有界发布。"
+            ],
+            "publication_mode": "BOUNDED_PROFILE"
+          },
+          "review_status": "EVIDENCE_FLOOR",
+          "directional_strength_balance_review": {
+            "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+            "positive_pattern_strength": "按独立生命周期、本人理解份额、落实和复验裁强度，不按正例条数相加。",
+            "negative_pattern_strength": "按反馈到达、拒绝更新、复发范围和渠道影响裁决，不由坏结果倒推。",
+            "suppression_parent_ids": [],
+            "isolated_positive_parent_ids": [],
+            "asymmetry_decision": "MI3/MI4系统性反馈压制不能由孤立MI1正例抵消；本轮不按父链数量换档。",
+            "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、MI计数或目标分布换算。"
+          }
+        },
+        {
+          "sequence": 44,
+          "task_code": "PROFILE-C2-RULER-SS-ZHAO-SHEN",
+          "ruler_id": "RULER-SS-ZHAO-SHEN",
+          "ruler_name": "赵昚",
+          "polity": "宋",
+          "actual_power_window": "1162-1189",
+          "axis_code": "C2",
+          "axis_name": "信息处理、学习与纠错",
+          "axis_grade": "G2",
+          "grade_numeric": 2,
+          "position": "MID",
+          "radar_value": 45,
+          "score_100": 45,
+          "axis_evidence_level": "E1",
+          "output_mode": "BOUNDED_PROFILE",
+          "confidence": "LOW",
+          "score_status": "EVIDENCE_LIMITED",
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C2-CHAT-REVIEW-V2#RULER-SS-ZHAO-SHEN",
+          "typical_pattern": "现有材料主要显示战和行动随局势变化，能够直接归于本人理解反证并更新判断的份额有限，尚不足证明稳定迁移。",
+          "counterpattern": "反向暴露、阶段差异和材料缺口均按已闭合C2生命周期单独处理，不由名望、战果或样本分布反推。",
+          "grade_basis": "赵昚：现有材料主要显示战和行动随局势变化，能够直接归于本人理解反证并更新判断的份额有限，尚不足证明稳定迁移。",
+          "position_basis": "赵昚：受限或依赖外部补救是更常见模式，同时仍保留部分可用机制，故取本档中位，定为G2-MID。",
+          "axis_relevance_check": {
+            "status": "C2_RELEVANT",
+            "scoring_parent_refs": [
+              "C2-V2-727FC78FBCB7"
+            ]
+          },
+          "limitations": [
+            "证据完成度为E1，当前仍是有界画像；新增跨阶段或同构复验可能改变档内位置。"
+          ],
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C2-V2-727FC78FBCB7",
+              "cycle_type": "ERROR_CORRECTION",
+              "direction": "MIXED",
+              "intensity": "MI1_CASE",
+              "basis": "现有材料主要显示行动或结果发生变化，但本人如何辨别新信息、理解反证并形成更新仍不充分，只能确认有限的C2份额。",
+              "cycle_anchor_refs": [
+                "docs/史料通读产物/南宋/续资治通鉴/volume-137.source-summary.md#L27",
+                "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/114"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：现有材料主要显示行动或结果发生变化，但本人如何辨别新信息、理解反证并形成更新仍不充分，只能确认有限的C2份额。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI1_CASE",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            }
+          ],
+          "parents": [
+            {
+              "parent_id": "C2-V2-727FC78FBCB7",
+              "cycle_type": "ERROR_CORRECTION",
+              "direction": "MIXED",
+              "intensity": "MI1_CASE",
+              "basis": "现有材料主要显示行动或结果发生变化，但本人如何辨别新信息、理解反证并形成更新仍不充分，只能确认有限的C2份额。",
+              "cycle_anchor_refs": [
+                "docs/史料通读产物/南宋/续资治通鉴/volume-137.source-summary.md#L27",
+                "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/114"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：现有材料主要显示行动或结果发生变化，但本人如何辨别新信息、理解反证并形成更新仍不充分，只能确认有限的C2份额。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI1_CASE",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            }
+          ],
+          "source_unit_ids": [
+            "C2-V2-UNIT-118AAFAE54C172F8"
+          ],
+          "source_refs": [
+            "docs/史料通读产物/南宋/续资治通鉴/volume-137.source-summary.md#L27",
+            "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/114"
+          ],
+          "coverage_review": {
+            "method": "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION",
+            "actual_power_window": "1162-1189",
+            "local_normative_entries_role": "DISCOVERY_LOCATION_BACKGROUND_ONLY",
+            "direct_chronological_or_primary_refs": [
+              "docs/史料通读产物/南宋/续资治通鉴/volume-137.source-summary.md#L27",
+              "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P146-POSITIVE",
+              "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/114"
+            ],
+            "positive_window_status": "NO_CLOSED_POSITIVE_PARENT",
+            "negative_window_status": "CLOSED_PARENT_PRESENT",
+            "phase_domain_coverage_status": "BOUNDED_NOT_FULL_LIFETIME",
+            "unresolved_phase_domain_windows": [
+              "仍缺连续全生涯跨领域正文覆盖；按E1/E2有界发布。"
+            ],
+            "publication_mode": "BOUNDED_PROFILE"
+          },
+          "review_status": "RECLASSIFIED_RESULT_HEAVY",
+          "directional_strength_balance_review": {
+            "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+            "positive_pattern_strength": "按独立生命周期、本人理解份额、落实和复验裁强度，不按正例条数相加。",
+            "negative_pattern_strength": "按反馈到达、拒绝更新、复发范围和渠道影响裁决，不由坏结果倒推。",
+            "suppression_parent_ids": [],
+            "isolated_positive_parent_ids": [],
+            "asymmetry_decision": "MI3/MI4系统性反馈压制不能由孤立MI1正例抵消；本轮不按父链数量换档。",
+            "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、MI计数或目标分布换算。"
+          }
+        },
+        {
+          "sequence": 171,
+          "task_code": "PROFILE-C2-RULER-SS-ZHAO-YUN",
+          "ruler_id": "RULER-SS-ZHAO-YUN",
+          "ruler_name": "赵昀",
+          "polity": "宋",
+          "actual_power_window": "1224-1264",
+          "axis_code": "C2",
+          "axis_name": "信息处理、学习与纠错",
+          "axis_grade": "G2",
+          "grade_numeric": 2,
+          "position": "MID",
+          "radar_value": 45,
+          "score_100": 45,
+          "axis_evidence_level": "E1",
+          "output_mode": "BOUNDED_PROFILE",
+          "confidence": "LOW",
+          "score_status": "EVIDENCE_LIMITED",
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C2-CHAT-REVIEW-V2#RULER-SS-ZHAO-YUN",
+          "typical_pattern": "现有直接材料尚未闭合足够的独立信息取得、反证理解与纠错生命周期，只能描述少量已观察现象，不能据此推断全生涯能力。",
+          "counterpattern": "反向暴露、阶段差异和材料缺口均按已闭合C2生命周期单独处理，不由名望、战果或样本分布反推。",
+          "grade_basis": "赵昀：现有直接材料尚未闭合足够的独立信息取得、反证理解与纠错生命周期，只能描述少量已观察现象，不能据此推断全生涯能力。",
+          "position_basis": "赵昀：现有直接材料不足以把少量现象扩展成全生涯判断；当前G2-MID只表示已观察模式的证据下限，不是对全生涯能力存在明显短板的断言。新增直接状态转移材料可重新裁决。",
+          "axis_relevance_check": {
+            "status": "C2_RELEVANT",
+            "scoring_parent_refs": []
+          },
+          "limitations": [
+            "当前档位只表示已观察模式的证据下限，不是全生涯能力低下结论；新增直接状态转移材料可重新裁决。"
+          ],
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "representative_parent_contexts": [],
+          "parents": [],
+          "source_unit_ids": [],
+          "source_refs": [
+            "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/160",
+            "docs/评分结算/第五项统治者政治素质/04-第五项统治者政治素质正式结算.json#records/165"
+          ],
+          "coverage_review": {
+            "method": "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION",
+            "actual_power_window": "1224-1264",
+            "local_normative_entries_role": "DISCOVERY_LOCATION_BACKGROUND_ONLY",
+            "direct_chronological_or_primary_refs": [
+              "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P147-COUNTER",
+              "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/160",
+              "docs/评分结算/第五项统治者政治素质/04-第五项统治者政治素质正式结算.json#records/165"
+            ],
+            "positive_window_status": "NO_CLOSED_POSITIVE_PARENT",
+            "negative_window_status": "NO_CLOSED_NEGATIVE_PARENT",
+            "phase_domain_coverage_status": "BOUNDED_NOT_FULL_LIFETIME",
+            "unresolved_phase_domain_windows": [
+              "仍缺连续全生涯跨领域正文覆盖；按E1/E2有界发布。"
+            ],
+            "publication_mode": "BOUNDED_PROFILE"
+          },
+          "review_status": "EVIDENCE_FLOOR",
+          "directional_strength_balance_review": {
+            "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+            "positive_pattern_strength": "按独立生命周期、本人理解份额、落实和复验裁强度，不按正例条数相加。",
+            "negative_pattern_strength": "按反馈到达、拒绝更新、复发范围和渠道影响裁决，不由坏结果倒推。",
+            "suppression_parent_ids": [],
+            "isolated_positive_parent_ids": [],
+            "asymmetry_decision": "MI3/MI4系统性反馈压制不能由孤立MI1正例抵消；本轮不按父链数量换档。",
+            "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、MI计数或目标分布换算。"
+          }
+        },
+        {
+          "sequence": 86,
+          "task_code": "PROFILE-C2-RULER-NS-ZHAO-XU",
+          "ruler_id": "RULER-NS-ZHAO-XU",
+          "ruler_name": "赵顼",
+          "polity": "宋",
+          "actual_power_window": "1067-1085",
+          "axis_code": "C2",
+          "axis_name": "信息处理、学习与纠错",
+          "axis_grade": "G2",
+          "grade_numeric": 2,
+          "position": "LOW",
+          "radar_value": 38,
+          "score_100": 38,
+          "axis_evidence_level": "E2",
+          "output_mode": "BOUNDED_PROFILE",
+          "confidence": "MEDIUM",
+          "score_status": "EVIDENCE_LIMITED",
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C2-CHAT-REVIEW-V2#RULER-NS-ZHAO-XU",
+          "typical_pattern": "维持旧约、有限边堡或大举灭夏均可选；反对者已指出无统一大帅与后勤风险，本人仍发动五路伐夏；退军与永乐失败后才出现停兵意向，交换退出延至继任期，反馈止损迟缓。",
+          "counterpattern": "反向暴露、阶段差异和材料缺口均按已闭合C2生命周期单独处理，不由名望、战果或样本分布反推。",
+          "grade_basis": "赵顼：维持旧约、有限边堡或大举灭夏均可选；反对者已指出无统一大帅与后勤风险，本人仍发动五路伐夏；退军与永乐失败后才出现停兵意向，交换退出延至继任期，反馈止损迟缓。",
+          "position_basis": "赵顼：拒绝更新、依赖失真接口或同构复发较突出，仅见有限恢复，故取明显短板档下沿，定为G2-LOW。",
+          "axis_relevance_check": {
+            "status": "C2_RELEVANT",
+            "scoring_parent_refs": [
+              "C2-P070-C1-AFA01C67"
+            ]
+          },
+          "limitations": [
+            "证据完成度为E2，当前仍是有界画像；新增跨阶段或同构复验可能改变档内位置。"
+          ],
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C2-P070-C1-AFA01C67",
+              "direction": "NEGATIVE",
+              "intensity": "MI4",
+              "basis": "维持旧约、有限边堡或大举灭夏均可选；反对者已指出无统一大帅与后勤风险，本人仍发动五路伐夏；退军与永乐失败后才出现停兵意向，交换退出延至继任期，反馈止损迟缓。",
+              "cycle_anchor_refs": [
+                "STRATEGIC-SONG-ZHAO-XU-XIA-1081-1082",
+                "WAR-NS-0A04B726A2F0399B8BB1",
+                "WAR-NS-0B610DB66232C933B232",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-068.source-summary.md#L72",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-068.source-summary.md#L76",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-076.source-summary.md#L34",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-076.source-summary.md#L48",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-077.source-summary.md#L65",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-079.source-summary.md#L48",
+                "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P070-XIXIA-ESCALATION",
+                "docs/评分结算/皇帝人物画像/M1/01-M1军事判断与统帅能力正式结算.json#ruler_id=RULER-NS-ZHAO-XU"
+              ],
+              "source_parent_refs": [
+                "C1-P070-XIXIA-ESCALATION"
+              ],
+              "lifecycle_review": "按C2生命周期核对：维持旧约、有限边堡或大举灭夏均可选；反对者已指出无统一大帅与后勤风险，本人仍发动五路伐夏；退军与永乐失败后才出现停兵意向，交换退出延至继任期，反馈止损迟缓。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得真实信息和认知更新切片；异议安全、处罚、清洗和程序比例留C5。",
+              "cycle_type": "REFUSAL_OR_RECURRENCE",
+              "material_intensity": "MI4",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            }
+          ],
+          "parents": [
+            {
+              "parent_id": "C2-P070-C1-AFA01C67",
+              "direction": "NEGATIVE",
+              "intensity": "MI4",
+              "basis": "维持旧约、有限边堡或大举灭夏均可选；反对者已指出无统一大帅与后勤风险，本人仍发动五路伐夏；退军与永乐失败后才出现停兵意向，交换退出延至继任期，反馈止损迟缓。",
+              "cycle_anchor_refs": [
+                "STRATEGIC-SONG-ZHAO-XU-XIA-1081-1082",
+                "WAR-NS-0A04B726A2F0399B8BB1",
+                "WAR-NS-0B610DB66232C933B232",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-068.source-summary.md#L72",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-068.source-summary.md#L76",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-076.source-summary.md#L34",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-076.source-summary.md#L48",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-077.source-summary.md#L65",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-079.source-summary.md#L48",
+                "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P070-XIXIA-ESCALATION",
+                "docs/评分结算/皇帝人物画像/M1/01-M1军事判断与统帅能力正式结算.json#ruler_id=RULER-NS-ZHAO-XU"
+              ],
+              "source_parent_refs": [
+                "C1-P070-XIXIA-ESCALATION"
+              ],
+              "lifecycle_review": "按C2生命周期核对：维持旧约、有限边堡或大举灭夏均可选；反对者已指出无统一大帅与后勤风险，本人仍发动五路伐夏；退军与永乐失败后才出现停兵意向，交换退出延至继任期，反馈止损迟缓。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得真实信息和认知更新切片；异议安全、处罚、清洗和程序比例留C5。",
+              "cycle_type": "REFUSAL_OR_RECURRENCE",
+              "material_intensity": "MI4",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            }
+          ],
+          "source_unit_ids": [
+            "NS-ZX-V067-HANQI-FEEDBACK",
+            "NS-ZX-V067-CENSOR-EMPTY",
+            "NS-ZX-V070-REFORM-REVERSAL"
+          ],
+          "source_refs": [
+            "docs/史料通读产物/北宋/续资治通鉴/volume-072.source-summary.md",
+            "docs/史料通读产物/北宋/续资治通鉴/volume-068.source-summary.md#L72",
+            "docs/史料通读产物/北宋/续资治通鉴/volume-068.source-summary.md#L76"
+          ],
+          "coverage_review": {
+            "method": "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION",
+            "actual_power_window": "1067-1085",
+            "local_normative_entries_role": "DISCOVERY_LOCATION_BACKGROUND_ONLY",
+            "direct_chronological_or_primary_refs": [
+              "STRATEGIC-SONG-ZHAO-XU-XIA-1081-1082",
+              "WAR-NS-0A04B726A2F0399B8BB1",
+              "WAR-NS-0B610DB66232C933B232",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-068.source-summary.md#L72",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-068.source-summary.md#L76",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-076.source-summary.md#L34",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-076.source-summary.md#L48",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-077.source-summary.md#L65",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-079.source-summary.md#L48",
+              "docs/评分结算/皇帝人物画像/M1/01-M1军事判断与统帅能力正式结算.json#ruler_id=RULER-NS-ZHAO-XU",
+              "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P070-XIXIA-ESCALATION"
+            ],
+            "positive_window_status": "NO_CLOSED_POSITIVE_PARENT",
+            "negative_window_status": "CLOSED_PARENT_PRESENT",
+            "phase_domain_coverage_status": "BOUNDED_NOT_FULL_LIFETIME",
+            "unresolved_phase_domain_windows": [
+              "仍缺连续全生涯跨领域正文覆盖；按E1/E2有界发布。"
+            ],
+            "publication_mode": "BOUNDED_PROFILE"
+          },
+          "review_status": "VALID_NEGATIVE",
+          "directional_strength_balance_review": {
+            "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+            "positive_pattern_strength": "按独立生命周期、本人理解份额、落实和复验裁强度，不按正例条数相加。",
+            "negative_pattern_strength": "按反馈到达、拒绝更新、复发范围和渠道影响裁决，不由坏结果倒推。",
+            "suppression_parent_ids": [],
+            "isolated_positive_parent_ids": [],
+            "asymmetry_decision": "MI3/MI4系统性反馈压制不能由孤立MI1正例抵消；本轮不按父链数量换档。",
+            "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、MI计数或目标分布换算。"
+          }
+        },
+        {
+          "sequence": 63,
+          "task_code": "PROFILE-C2-RULER-NS-ZHAO-XU-ZHEZONG",
+          "ruler_id": "RULER-NS-ZHAO-XU-ZHEZONG",
+          "ruler_name": "赵煦",
+          "polity": "宋",
+          "actual_power_window": "1093-1100亲政",
+          "axis_code": "C2",
+          "axis_name": "信息处理、学习与纠错",
+          "axis_grade": "G2",
+          "grade_numeric": 2,
+          "position": "LOW",
+          "radar_value": 38,
+          "score_100": 38,
+          "axis_evidence_level": "E2",
+          "output_mode": "BOUNDED_PROFILE",
+          "confidence": "MEDIUM",
+          "score_status": "EVIDENCE_LIMITED",
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C2-CHAT-REVIEW-V2#RULER-NS-ZHAO-XU-ZHEZONG",
+          "typical_pattern": "亲政后对元祐/熙丰争议高度预设立场，多次异议进入后仍持续沿单一政治解释推进；部分个案能宽宥，故不下G1。",
+          "counterpattern": "反向暴露、阶段差异和材料缺口均按已闭合C2生命周期单独处理，不由名望、战果或样本分布反推。",
+          "grade_basis": "赵煦：亲政后对元祐/熙丰争议高度预设立场，多次异议进入后仍持续沿单一政治解释推进；部分个案能宽宥，故不下G1。",
+          "position_basis": "赵煦：拒绝更新、依赖失真接口或同构复发较突出，仅见有限恢复，故取明显短板档下沿，定为G2-LOW。",
+          "axis_relevance_check": {
+            "status": "C2_RELEVANT",
+            "scoring_parent_refs": [
+              "C2-V2-22FD950A24AF"
+            ]
+          },
+          "limitations": [
+            "证据完成度为E2，当前仍是有界画像；新增跨阶段或同构复验可能改变档内位置。"
+          ],
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C2-V2-22FD950A24AF",
+              "cycle_type": "REFUSAL_OR_RECURRENCE",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "亲政后对元祐/熙丰争议高度预设立场，多次异议进入后仍持续沿单一政治解释推进；部分个案能宽宥，故不下G1。",
+              "cycle_anchor_refs": [
+                "https://zh.wikisource.org/zh-hans/續資治通鑑長編_(四庫全書本)/卷485",
+                "https://zh.wikisource.org/zh-hans/續資治通鑑長編_(四庫全書本)/卷490"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：亲政后对元祐/熙丰争议高度预设立场，多次异议进入后仍持续沿单一政治解释推进；部分个案能宽宥，故不下G1。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI2_LIFECYCLE",
+              "feedback_suppression_review": {
+                "review_status": "REVIEWED",
+                "sanction_or_exclusion_intensity": "MODERATE",
+                "recurrence_scope": "REPEATED_SAME_MECHANISM",
+                "future_channel_effect": "TEMPORARY_CHILLING",
+                "feedback_arrival": "聊天版全池重裁已明确可信反馈或反证到达本人。",
+                "c2_slice": "只消费本人理解、拒绝核验、拒绝更新或同构复发。",
+                "c5_exclusion": "异议者安全、处罚比例与权力程序仍留C5。"
+              }
+            }
+          ],
+          "parents": [
+            {
+              "parent_id": "C2-V2-22FD950A24AF",
+              "cycle_type": "REFUSAL_OR_RECURRENCE",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "亲政后对元祐/熙丰争议高度预设立场，多次异议进入后仍持续沿单一政治解释推进；部分个案能宽宥，故不下G1。",
+              "cycle_anchor_refs": [
+                "https://zh.wikisource.org/zh-hans/續資治通鑑長編_(四庫全書本)/卷485",
+                "https://zh.wikisource.org/zh-hans/續資治通鑑長編_(四庫全書本)/卷490"
+              ],
+              "source_parent_refs": [],
+              "lifecycle_review": "按C2生命周期核对：亲政后对元祐/熙丰争议高度预设立场，多次异议进入后仍持续沿单一政治解释推进；部分个案能宽宥，故不下G1。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
+              "material_intensity": "MI2_LIFECYCLE",
+              "feedback_suppression_review": {
+                "review_status": "REVIEWED",
+                "sanction_or_exclusion_intensity": "MODERATE",
+                "recurrence_scope": "REPEATED_SAME_MECHANISM",
+                "future_channel_effect": "TEMPORARY_CHILLING",
+                "feedback_arrival": "聊天版全池重裁已明确可信反馈或反证到达本人。",
+                "c2_slice": "只消费本人理解、拒绝核验、拒绝更新或同构复发。",
+                "c5_exclusion": "异议者安全、处罚比例与权力程序仍留C5。"
+              }
+            }
+          ],
+          "source_unit_ids": [
+            "C2-V2-UNIT-7B42261D33A32E8A"
+          ],
+          "source_refs": [
+            "https://zh.wikisource.org/zh-hans/續資治通鑑長編_(四庫全書本)/卷485",
+            "https://zh.wikisource.org/zh-hans/續資治通鑑長編_(四庫全書本)/卷490"
+          ],
+          "coverage_review": {
+            "method": "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION",
+            "actual_power_window": "1093-1100亲政",
+            "local_normative_entries_role": "DISCOVERY_LOCATION_BACKGROUND_ONLY",
+            "direct_chronological_or_primary_refs": [],
+            "positive_window_status": "NO_CLOSED_POSITIVE_PARENT",
+            "negative_window_status": "CLOSED_PARENT_PRESENT",
+            "phase_domain_coverage_status": "BOUNDED_NOT_FULL_LIFETIME",
+            "unresolved_phase_domain_windows": [
+              "仍缺连续全生涯跨领域正文覆盖；按E1/E2有界发布。"
+            ],
+            "publication_mode": "BOUNDED_PROFILE"
+          },
+          "review_status": "REBUILT_NEGATIVE",
+          "directional_strength_balance_review": {
+            "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+            "positive_pattern_strength": "按独立生命周期、本人理解份额、落实和复验裁强度，不按正例条数相加。",
+            "negative_pattern_strength": "按反馈到达、拒绝更新、复发范围和渠道影响裁决，不由坏结果倒推。",
+            "suppression_parent_ids": [
+              "C2-V2-22FD950A24AF"
+            ],
+            "isolated_positive_parent_ids": [],
+            "asymmetry_decision": "MI3/MI4系统性反馈压制不能由孤立MI1正例抵消；本轮不按父链数量换档。",
+            "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、MI计数或目标分布换算。"
+          }
+        },
+        {
+          "sequence": 170,
+          "task_code": "PROFILE-C2-RULER-SS-ZHAO-DUN",
+          "ruler_id": "RULER-SS-ZHAO-DUN",
+          "ruler_name": "赵惇",
+          "polity": "宋",
+          "actual_power_window": "1189-1194",
+          "axis_code": "C2",
+          "axis_name": "信息处理、学习与纠错",
+          "axis_grade": "G2",
+          "grade_numeric": 2,
+          "position": "LOW",
+          "radar_value": 38,
+          "score_100": 38,
+          "axis_evidence_level": "E1",
+          "output_mode": "BOUNDED_PROFILE",
+          "confidence": "LOW",
+          "score_status": "EVIDENCE_LIMITED",
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C2-CHAT-REVIEW-V2#RULER-SS-ZHAO-DUN",
+          "typical_pattern": "未主动启衅；误信谗言后在留正出走反馈下撤姜特立，纠正存在但不稳定。",
+          "counterpattern": "反向暴露、阶段差异和材料缺口均按已闭合C2生命周期单独处理，不由名望、战果或样本分布反推。",
+          "grade_basis": "赵惇：未主动启衅；误信谗言后在留正出走反馈下撤姜特立，纠正存在但不稳定。",
+          "position_basis": "赵惇：拒绝更新、依赖失真接口或同构复发较突出，仅见有限恢复，故取明显短板档下沿，定为G2-LOW。",
+          "axis_relevance_check": {
+            "status": "C2_RELEVANT",
+            "scoring_parent_refs": [
+              "C2-P143-C1-6B2D4FC3"
+            ]
+          },
+          "limitations": [
+            "证据完成度为E1，当前仍是有界画像；新增跨阶段或同构复验可能改变档内位置。"
+          ],
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C2-P143-C1-6B2D4FC3",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI2",
+              "basis": "未主动启衅；误信谗言后在留正出走反馈下撤姜特立，纠正存在但不稳定。",
+              "cycle_anchor_refs": [
+                "docs/史料通读产物/南宋/续资治通鉴/volume-151.source-summary.md",
+                "docs/史料通读产物/南宋/续资治通鉴/volume-152.source-summary.md",
+                "docs/史料通读产物/南宋/续资治通鉴/volume-153.source-summary.md",
+                "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json#ruler_id=RULER-SS-ZHAO-DUN/traits/A2/0"
+              ],
+              "source_parent_refs": [
+                "C1-P143-CONSTRAINED"
+              ],
+              "lifecycle_review": "按C2生命周期核对：未主动启衅；误信谗言后在留正出走反馈下撤姜特立，纠正存在但不稳定。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得真实信息和认知更新切片；异议安全、处罚、清洗和程序比例留C5。",
+              "cycle_type": "ERROR_CORRECTION",
+              "material_intensity": "MI2",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            }
+          ],
+          "parents": [
+            {
+              "parent_id": "C2-P143-C1-6B2D4FC3",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI2",
+              "basis": "未主动启衅；误信谗言后在留正出走反馈下撤姜特立，纠正存在但不稳定。",
+              "cycle_anchor_refs": [
+                "docs/史料通读产物/南宋/续资治通鉴/volume-151.source-summary.md",
+                "docs/史料通读产物/南宋/续资治通鉴/volume-152.source-summary.md",
+                "docs/史料通读产物/南宋/续资治通鉴/volume-153.source-summary.md",
+                "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json#ruler_id=RULER-SS-ZHAO-DUN/traits/A2/0"
+              ],
+              "source_parent_refs": [
+                "C1-P143-CONSTRAINED"
+              ],
+              "lifecycle_review": "按C2生命周期核对：未主动启衅；误信谗言后在留正出走反馈下撤姜特立，纠正存在但不稳定。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得真实信息和认知更新切片；异议安全、处罚、清洗和程序比例留C5。",
+              "cycle_type": "ERROR_CORRECTION",
+              "material_intensity": "MI2",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            }
+          ],
+          "source_unit_ids": [
+            "SS-ZD-PALACE-CAPTURE",
+            "SS-ZD-PERSISTENT-REFUSAL"
+          ],
+          "source_refs": [
+            "docs/史料通读产物/南宋/续资治通鉴/volume-151.source-summary.md",
+            "docs/史料通读产物/南宋/续资治通鉴/volume-152.source-summary.md",
+            "docs/史料通读产物/南宋/续资治通鉴/volume-153.source-summary.md"
+          ],
+          "coverage_review": {
+            "method": "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION",
+            "actual_power_window": "1189-1194",
+            "local_normative_entries_role": "DISCOVERY_LOCATION_BACKGROUND_ONLY",
+            "direct_chronological_or_primary_refs": [
+              "docs/史料通读产物/南宋/续资治通鉴/volume-151.source-summary.md",
+              "docs/史料通读产物/南宋/续资治通鉴/volume-152.source-summary.md",
+              "docs/史料通读产物/南宋/续资治通鉴/volume-153.source-summary.md",
+              "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json#ruler_id=RULER-SS-ZHAO-DUN/traits/A2/0"
+            ],
+            "positive_window_status": "NO_CLOSED_POSITIVE_PARENT",
+            "negative_window_status": "CLOSED_PARENT_PRESENT",
+            "phase_domain_coverage_status": "BOUNDED_NOT_FULL_LIFETIME",
+            "unresolved_phase_domain_windows": [
+              "仍缺连续全生涯跨领域正文覆盖；按E1/E2有界发布。"
+            ],
+            "publication_mode": "BOUNDED_PROFILE"
+          },
+          "review_status": "VALID_SINGLE_MIXED",
+          "directional_strength_balance_review": {
+            "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+            "positive_pattern_strength": "按独立生命周期、本人理解份额、落实和复验裁强度，不按正例条数相加。",
+            "negative_pattern_strength": "按反馈到达、拒绝更新、复发范围和渠道影响裁决，不由坏结果倒推。",
+            "suppression_parent_ids": [],
+            "isolated_positive_parent_ids": [],
+            "asymmetry_decision": "MI3/MI4系统性反馈压制不能由孤立MI1正例抵消；本轮不按父链数量换档。",
+            "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、MI计数或目标分布换算。"
+          }
+        },
+        {
+          "sequence": 122,
+          "task_code": "PROFILE-C2-RULER-NS-ZHAO-GUANGYI",
+          "ruler_id": "RULER-NS-ZHAO-GUANGYI",
+          "ruler_name": "赵光义",
+          "polity": "宋",
+          "actual_power_window": "976-997",
+          "axis_code": "C2",
+          "axis_name": "信息处理、学习与纠错",
+          "axis_grade": "G1",
+          "grade_numeric": 1,
+          "position": "HIGH",
+          "radar_value": 31,
+          "score_100": 31,
+          "axis_evidence_level": "E2",
+          "output_mode": "BOUNDED_PROFILE",
+          "confidence": "MEDIUM",
+          "score_status": "EVIDENCE_LIMITED",
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C2-CHAT-REVIEW-V2#RULER-NS-ZHAO-GUANGYI",
+          "typical_pattern": "灭北汉后休整、互市或攻燕均可行；军粮将尽、士卒疲乏和诸将反对已知，本人仍攻幽州而败；其后一度听取先养兵积储而止，却在枢密院封闭决策中再发动雍熙北伐；再败后才承认程序错误。",
+          "counterpattern": "反向暴露、阶段差异和材料缺口均按已闭合C2生命周期单独处理，不由名望、战果或样本分布反推。",
+          "grade_basis": "赵光义：灭北汉后休整、互市或攻燕均可行；军粮将尽、士卒疲乏和诸将反对已知，本人仍攻幽州而败；其后一度听取先养兵积储而止，却在枢密院封闭决策中再发动雍熙北伐；再败后才承认程序错误。",
+          "position_basis": "赵光义：主要机制反复失效，但仍有少量可用更新或归责边界，故停在强短板档上沿，定为G1-HIGH。",
+          "axis_relevance_check": {
+            "status": "C2_RELEVANT",
+            "scoring_parent_refs": [
+              "C2-P065-C1-AEDC8BD3"
+            ]
+          },
+          "limitations": [
+            "证据完成度为E2，当前仍是有界画像；新增跨阶段或同构复验可能改变档内位置。"
+          ],
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C2-P065-C1-AEDC8BD3",
+              "direction": "NEGATIVE",
+              "intensity": "MI4",
+              "basis": "灭北汉后休整、互市或攻燕均可行；军粮将尽、士卒疲乏和诸将反对已知，本人仍攻幽州而败；其后一度听取先养兵积储而止，却在枢密院封闭决策中再发动雍熙北伐；再败后才承认程序错误。",
+              "cycle_anchor_refs": [
+                "續資治通鑑/卷010@2311081#饋餉且盡，軍士罷乏",
+                "續資治通鑑/卷010@2311081#諸將皆不願行",
+                "續資治通鑑/卷010@2311081#車駕北征，發鎮州",
+                "續資治通鑑/卷010@2311081#戰於高梁河",
+                "QGZ-SONG-LIAO-YONGXI-986",
+                "XZTJ-009-010-SONG-NORTHHAN-CONQUEST-0979",
+                "XZTJ-010-SONG-LIAO-YANJING-0979",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-010.source-summary.md#L58",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-010.source-summary.md#L47",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-013.source-summary.md#L28",
+                "docs/评分结算/第一项创业与政权取得能力/战略决策能力/01-第一项A战略决策能力结算.json#ruler_id=RULER-NS-ZHAO-GUANGYI",
+                "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P065-LIAO-WARS",
+                "docs/评分结算/皇帝人物画像/M1/01-M1军事判断与统帅能力正式结算.json#ruler_id=RULER-NS-ZHAO-GUANGYI"
+              ],
+              "source_parent_refs": [
+                "C1-P065-LIAO-OVERREACH"
+              ],
+              "lifecycle_review": "按C2生命周期核对：灭北汉后休整、互市或攻燕均可行；军粮将尽、士卒疲乏和诸将反对已知，本人仍攻幽州而败；其后一度听取先养兵积储而止，却在枢密院封闭决策中再发动雍熙北伐；再败后才承认程序错误。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得真实信息和认知更新切片；异议安全、处罚、清洗和程序比例留C5。",
+              "cycle_type": "REFUSAL_OR_RECURRENCE",
+              "material_intensity": "MI4",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            }
+          ],
+          "parents": [
+            {
+              "parent_id": "C2-P065-C1-AEDC8BD3",
+              "direction": "NEGATIVE",
+              "intensity": "MI4",
+              "basis": "灭北汉后休整、互市或攻燕均可行；军粮将尽、士卒疲乏和诸将反对已知，本人仍攻幽州而败；其后一度听取先养兵积储而止，却在枢密院封闭决策中再发动雍熙北伐；再败后才承认程序错误。",
+              "cycle_anchor_refs": [
+                "續資治通鑑/卷010@2311081#饋餉且盡，軍士罷乏",
+                "續資治通鑑/卷010@2311081#諸將皆不願行",
+                "續資治通鑑/卷010@2311081#車駕北征，發鎮州",
+                "續資治通鑑/卷010@2311081#戰於高梁河",
+                "QGZ-SONG-LIAO-YONGXI-986",
+                "XZTJ-009-010-SONG-NORTHHAN-CONQUEST-0979",
+                "XZTJ-010-SONG-LIAO-YANJING-0979",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-010.source-summary.md#L58",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-010.source-summary.md#L47",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-013.source-summary.md#L28",
+                "docs/评分结算/第一项创业与政权取得能力/战略决策能力/01-第一项A战略决策能力结算.json#ruler_id=RULER-NS-ZHAO-GUANGYI",
+                "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P065-LIAO-WARS",
+                "docs/评分结算/皇帝人物画像/M1/01-M1军事判断与统帅能力正式结算.json#ruler_id=RULER-NS-ZHAO-GUANGYI"
+              ],
+              "source_parent_refs": [
+                "C1-P065-LIAO-OVERREACH"
+              ],
+              "lifecycle_review": "按C2生命周期核对：灭北汉后休整、互市或攻燕均可行；军粮将尽、士卒疲乏和诸将反对已知，本人仍攻幽州而败；其后一度听取先养兵积储而止，却在枢密院封闭决策中再发动雍熙北伐；再败后才承认程序错误。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得真实信息和认知更新切片；异议安全、处罚、清洗和程序比例留C5。",
+              "cycle_type": "REFUSAL_OR_RECURRENCE",
+              "material_intensity": "MI4",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            }
+          ],
+          "source_unit_ids": [
+            "NS-ZGY-V014-CENSOR-PRINCE",
+            "NS-ZGY-V018-DIRECT-REPORT",
+            "NS-ZGY-V017-DRUM-PETITION"
+          ],
+          "source_refs": [
+            "續資治通鑑/卷010@2311081#饋餉且盡，軍士罷乏",
+            "續資治通鑑/卷010@2311081#諸將皆不願行"
+          ],
+          "coverage_review": {
+            "method": "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION",
+            "actual_power_window": "976-997",
+            "local_normative_entries_role": "DISCOVERY_LOCATION_BACKGROUND_ONLY",
+            "direct_chronological_or_primary_refs": [
+              "QGZ-SONG-LIAO-YONGXI-986",
+              "XZTJ-009-010-SONG-NORTHHAN-CONQUEST-0979",
+              "XZTJ-010-SONG-LIAO-YANJING-0979",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-010.source-summary.md#L47",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-010.source-summary.md#L58",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-013.source-summary.md#L28",
+              "docs/评分结算/皇帝人物画像/M1/01-M1军事判断与统帅能力正式结算.json#ruler_id=RULER-NS-ZHAO-GUANGYI",
+              "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P065-LIAO-WARS",
+              "docs/评分结算/第一项创业与政权取得能力/战略决策能力/01-第一项A战略决策能力结算.json#ruler_id=RULER-NS-ZHAO-GUANGYI",
+              "續資治通鑑/卷010@2311081#戰於高梁河",
+              "續資治通鑑/卷010@2311081#諸將皆不願行",
+              "續資治通鑑/卷010@2311081#車駕北征，發鎮州",
+              "續資治通鑑/卷010@2311081#饋餉且盡，軍士罷乏"
+            ],
+            "positive_window_status": "NO_CLOSED_POSITIVE_PARENT",
+            "negative_window_status": "CLOSED_PARENT_PRESENT",
+            "phase_domain_coverage_status": "BOUNDED_NOT_FULL_LIFETIME",
+            "unresolved_phase_domain_windows": [
+              "仍缺连续全生涯跨领域正文覆盖；按E1/E2有界发布。"
+            ],
+            "publication_mode": "BOUNDED_PROFILE"
+          },
+          "review_status": "VALID_NEGATIVE",
+          "directional_strength_balance_review": {
+            "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+            "positive_pattern_strength": "按独立生命周期、本人理解份额、落实和复验裁强度，不按正例条数相加。",
+            "negative_pattern_strength": "按反馈到达、拒绝更新、复发范围和渠道影响裁决，不由坏结果倒推。",
+            "suppression_parent_ids": [],
+            "isolated_positive_parent_ids": [],
+            "asymmetry_decision": "MI3/MI4系统性反馈压制不能由孤立MI1正例抵消；本轮不按父链数量换档。",
+            "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、MI计数或目标分布换算。"
+          }
+        },
+        {
+          "sequence": 181,
+          "task_code": "PROFILE-C2-RULER-NS-ZHAO-JI",
+          "ruler_id": "RULER-NS-ZHAO-JI",
+          "ruler_name": "赵佶",
+          "polity": "宋",
+          "actual_power_window": "1100-1126",
+          "axis_code": "C2",
+          "axis_name": "信息处理、学习与纠错",
+          "axis_grade": "G0",
+          "grade_numeric": 0,
+          "position": "HIGH",
+          "radar_value": 12,
+          "score_100": 12,
+          "axis_evidence_level": "E2",
+          "output_mode": "BOUNDED_PROFILE",
+          "confidence": "MEDIUM",
+          "score_status": "EVIDENCE_LIMITED",
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C2-CHAT-REVIEW-V2#RULER-NS-ZHAO-JI",
+          "typical_pattern": "维持辽宋均势、条件合作或联金灭辽均可选；反对意见、宋军两次攻燕失败和金方逐步削地加价均已到达，本人仍推进并接纳张觉、否认粮约，既无盟约隔离也无北防退出；金军压境后罪己与撤苛政不能修复。",
+          "counterpattern": "反向暴露、阶段差异和材料缺口均按已闭合C2生命周期单独处理，不由名望、战果或样本分布反推。",
+          "grade_basis": "赵佶：维持辽宋均势、条件合作或联金灭辽均可选；反对意见、宋军两次攻燕失败和金方逐步削地加价均已到达，本人仍推进并接纳张觉、否认粮约，既无盟约隔离也无北防退出；金军压境后罪己与撤苛政不能修复。",
+          "position_basis": "赵佶：系统性失能已经成立，但仍存在少量边界或局部恢复，故位于历史级负面档上沿，定为G0-HIGH。",
+          "axis_relevance_check": {
+            "status": "C2_RELEVANT",
+            "scoring_parent_refs": [
+              "C2-P067-C1-14216A0B"
+            ]
+          },
+          "limitations": [
+            "证据完成度为E2，当前仍是有界画像；新增跨阶段或同构复验可能改变档内位置。"
+          ],
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C2-P067-C1-14216A0B",
+              "direction": "NEGATIVE",
+              "intensity": "MI4",
+              "basis": "维持辽宋均势、条件合作或联金灭辽均可选；反对意见、宋军两次攻燕失败和金方逐步削地加价均已到达，本人仍推进并接纳张觉、否认粮约，既无盟约隔离也无北防退出；金军压境后罪己与撤苛政不能修复。",
+              "cycle_anchor_refs": [
+                "docs/史料通读产物/北宋/续资治通鉴/volume-092.source-summary.md",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-093.source-summary.md",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-094.source-summary.md",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-095.source-summary.md",
+                "STRATEGIC-SONG-ZHAO-JI-XIA-1104-1119",
+                "WAR-NS-005B8A98A145E4FE7F4A",
+                "WAR-NS-047DF28B2E9818457A6E",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-093.source-summary.md#L48",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-093.source-summary.md#L51",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-093.source-summary.md#L55",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-094.source-summary.md#L34",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-094.source-summary.md#L46",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-094.source-summary.md#L47",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-095.source-summary.md#L58",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-095.source-summary.md#L94",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-095.source-summary.md#L102",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-095.source-summary.md#L134",
+                "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P067-SEA-ALLIANCE",
+                "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json#ruler_id=RULER-NS-ZHAO-JI/traits/A2/0",
+                "docs/评分结算/皇帝人物画像/M1/01-M1军事判断与统帅能力正式结算.json#ruler_id=RULER-NS-ZHAO-JI"
+              ],
+              "source_parent_refs": [
+                "C1-P067-SEA-ALLIANCE-FAILURE"
+              ],
+              "lifecycle_review": "按C2生命周期核对：维持辽宋均势、条件合作或联金灭辽均可选；反对意见、宋军两次攻燕失败和金方逐步削地加价均已到达，本人仍推进并接纳张觉、否认粮约，既无盟约隔离也无北防退出；金军压境后罪己与撤苛政不能修复。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得真实信息和认知更新切片；异议安全、处罚、清洗和程序比例留C5。",
+              "cycle_type": "REFUSAL_OR_RECURRENCE",
+              "material_intensity": "MI4",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            }
+          ],
+          "parents": [
+            {
+              "parent_id": "C2-P067-C1-14216A0B",
+              "direction": "NEGATIVE",
+              "intensity": "MI4",
+              "basis": "维持辽宋均势、条件合作或联金灭辽均可选；反对意见、宋军两次攻燕失败和金方逐步削地加价均已到达，本人仍推进并接纳张觉、否认粮约，既无盟约隔离也无北防退出；金军压境后罪己与撤苛政不能修复。",
+              "cycle_anchor_refs": [
+                "docs/史料通读产物/北宋/续资治通鉴/volume-092.source-summary.md",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-093.source-summary.md",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-094.source-summary.md",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-095.source-summary.md",
+                "STRATEGIC-SONG-ZHAO-JI-XIA-1104-1119",
+                "WAR-NS-005B8A98A145E4FE7F4A",
+                "WAR-NS-047DF28B2E9818457A6E",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-093.source-summary.md#L48",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-093.source-summary.md#L51",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-093.source-summary.md#L55",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-094.source-summary.md#L34",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-094.source-summary.md#L46",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-094.source-summary.md#L47",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-095.source-summary.md#L58",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-095.source-summary.md#L94",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-095.source-summary.md#L102",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-095.source-summary.md#L134",
+                "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P067-SEA-ALLIANCE",
+                "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json#ruler_id=RULER-NS-ZHAO-JI/traits/A2/0",
+                "docs/评分结算/皇帝人物画像/M1/01-M1军事判断与统帅能力正式结算.json#ruler_id=RULER-NS-ZHAO-JI"
+              ],
+              "source_parent_refs": [
+                "C1-P067-SEA-ALLIANCE-FAILURE"
+              ],
+              "lifecycle_review": "按C2生命周期核对：维持辽宋均势、条件合作或联金灭辽均可选；反对意见、宋军两次攻燕失败和金方逐步削地加价均已到达，本人仍推进并接纳张觉、否认粮约，既无盟约隔离也无北防退出；金军压境后罪己与撤苛政不能修复。只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "secondary_projection_reason": "C2只消费本人取得真实信息和认知更新切片；异议安全、处罚、清洗和程序比例留C5。",
+              "cycle_type": "REFUSAL_OR_RECURRENCE",
+              "material_intensity": "MI4",
+              "feedback_suppression_review": {
+                "review_status": "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"
+              }
+            }
+          ],
+          "source_unit_ids": [
+            "NS-ZJ-V088-SPEECH-PURGE",
+            "NS-ZJ-V091-IMPERIAL-NOTE-BYPASS",
+            "NS-ZJ-V092-CENSOR-PUNISHED"
+          ],
+          "source_refs": [
+            "docs/史料通读产物/北宋/续资治通鉴/volume-092.source-summary.md",
+            "docs/史料通读产物/北宋/续资治通鉴/volume-093.source-summary.md",
+            "docs/史料通读产物/北宋/续资治通鉴/volume-094.source-summary.md",
+            "docs/史料通读产物/北宋/续资治通鉴/volume-095.source-summary.md"
+          ],
+          "coverage_review": {
+            "method": "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION",
+            "actual_power_window": "1100-1126",
+            "local_normative_entries_role": "DISCOVERY_LOCATION_BACKGROUND_ONLY",
+            "direct_chronological_or_primary_refs": [
+              "STRATEGIC-SONG-ZHAO-JI-XIA-1104-1119",
+              "WAR-NS-005B8A98A145E4FE7F4A",
+              "WAR-NS-047DF28B2E9818457A6E",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-092.source-summary.md",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-093.source-summary.md",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-093.source-summary.md#L48",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-093.source-summary.md#L51",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-093.source-summary.md#L55",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-094.source-summary.md",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-094.source-summary.md#L34",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-094.source-summary.md#L46",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-094.source-summary.md#L47",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-095.source-summary.md",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-095.source-summary.md#L102",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-095.source-summary.md#L134",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-095.source-summary.md#L58",
+              "docs/史料通读产物/北宋/续资治通鉴/volume-095.source-summary.md#L94",
+              "docs/评分结算/皇帝人物画像/M1/01-M1军事判断与统帅能力正式结算.json#ruler_id=RULER-NS-ZHAO-JI",
+              "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P067-SEA-ALLIANCE",
+              "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json#ruler_id=RULER-NS-ZHAO-JI/traits/A2/0"
+            ],
+            "positive_window_status": "NO_CLOSED_POSITIVE_PARENT",
+            "negative_window_status": "CLOSED_PARENT_PRESENT",
+            "phase_domain_coverage_status": "BOUNDED_NOT_FULL_LIFETIME",
+            "unresolved_phase_domain_windows": [
+              "仍缺连续全生涯跨领域正文覆盖；按E1/E2有界发布。"
+            ],
+            "publication_mode": "BOUNDED_PROFILE"
+          },
+          "review_status": "VALID_SYSTEMIC_NEGATIVE",
+          "directional_strength_balance_review": {
+            "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
+            "positive_pattern_strength": "按独立生命周期、本人理解份额、落实和复验裁强度，不按正例条数相加。",
+            "negative_pattern_strength": "按反馈到达、拒绝更新、复发范围和渠道影响裁决，不由坏结果倒推。",
+            "suppression_parent_ids": [],
+            "isolated_positive_parent_ids": [],
+            "asymmetry_decision": "MI3/MI4系统性反馈压制不能由孤立MI1正例抵消；本轮不按父链数量换档。",
+            "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、MI计数或目标分布换算。"
+          }
+        }
+      ]
+    }
+  }
+}

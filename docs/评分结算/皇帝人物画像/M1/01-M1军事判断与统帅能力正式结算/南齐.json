@@ -1,0 +1,447 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "南齐",
+  "collections": {
+    "records": {
+      "positions": [
+        65,
+        122
+      ],
+      "records": [
+        {
+          "sequence": 128,
+          "review_batch_code": "M1-V04-CANON-026",
+          "task_code": "PROFILE-M1-RULER-SHADOW-萧道成",
+          "ruler_id": "RULER-SHADOW-萧道成",
+          "ruler_name": "萧道成",
+          "polity": "南齐",
+          "actual_power_window": "477—482年实际掌权至齐帝",
+          "applicability_status": "APPLICABLE",
+          "applicability_review_complete": true,
+          "not_applicable_reason": null,
+          "formal_write": true,
+          "axis_evidence_level": "E3",
+          "output_mode": "FULL_GRADE",
+          "confidence": "HIGH",
+          "score_status": "FINAL",
+          "axis_grade": "G3",
+          "position": "HIGH",
+          "score_100": 71,
+          "radar_value": 71,
+          "applicability_basis": "两份规范军事登记已有本人指挥、战争方向或统筹联合情境。",
+          "whole_distribution_grade_basis": "武将锚仅important且记录为单一情境；不足以形成全生涯强长板。",
+          "role_attribution": "本人军旅生涯早于称帝但属于实际统军窗口，按FOUNDING_SUBORDINATE/PRIMARY处理。",
+          "phase_profile": "本人军旅生涯早于称帝但属于实际统军窗口，按FOUNDING_SUBORDINATE/PRIMARY处理。",
+          "failure_and_recovery": "早年对魏亦有受围和撤退，下沿真实；后续在不同压力下恢复并完成政权建立，取G4中位。",
+          "limitations": [
+            "SINGLE_CONTEXT_ONLY"
+          ],
+          "diagnostic_context_refs": [],
+          "search_scope": "V0.3已冻结的01战役登记与02武将人才登记联合情境；V0.4仅重开适用性和发布门。",
+          "decision_origin": "V03_EXPLICIT_WHOLE_DISTRIBUTION_ADJUDICATION_REUSED",
+          "adjudication_ref": "M1-V05-ADJ-RULER-SHADOW-萧道成",
+          "representative_parent_contexts": [
+            {
+              "parent_ref": "WAR-LEAD-133-03",
+              "material_intensity": "MI1_CASE",
+              "intensity_and_role_basis": "本轮按武将登记逐项复核：A/D3，桂阳王休范攻建康，角色=commander_in_chief。制定建康近层防御、驻新亭并组织夜战、军心安抚和收复东府，对完整保卫首都战役承担最高实际责任。",
+              "direction": "POSITIVE"
+            }
+          ],
+          "typical_pattern": "定点补查南齐书确认其早年对魏作战、资源匮乏下夜间疑兵解围及后期平乱掌军，覆盖多个独立任务而非单峰。",
+          "counterpattern": "本人创业统筹与关键方向选择构成长板，但战役厚度和跨对象复验不足以闭合G4，取G3高位。",
+          "grade_basis": "武将锚仅important且记录为单一情境；不足以形成全生涯强长板。",
+          "position_basis": "萧道成：以已发布的G3-HIGH为唯一档内结论；具体长短项、反例和证据边界见裁档理由、代表父链与限制。",
+          "axis_relevance_check": {
+            "status": "M1_RELEVANT",
+            "basis": "两份规范军事登记已有本人指挥、战争方向或统筹联合情境。"
+          },
+          "same_chain_semantic_conflict_review_status": "INHERITED_V04_NO_UNRESOLVED_CONFLICT",
+          "explicit_adjudication_source_origin": "M1_V04_EXPLICIT_PERSON_ROW_INHERITED_WITH_V05_TRACE_FIELDS",
+          "grade_basis_claimed_material_intensities": [],
+          "material_intensity_claim_text_fields": [
+            "grade_basis",
+            "typical_pattern"
+          ],
+          "representative_context_max_material_intensity": "MI1_CASE",
+          "material_intensity_claim_consistency_status": "PASS_NO_EXPLICIT_INTENSITY_CLAIM_IN_INHERITED_GRADE_BASIS",
+          "normative_entry_coverage_ref": "M1-V05-NORMATIVE-ENTRY-COVERAGE-RULER-SHADOW-萧道成",
+          "normative_entry_coverage": {
+            "sequence": 128,
+            "task_code": "PROFILE-M1-RULER-SHADOW-萧道成",
+            "ruler_id": "RULER-SHADOW-萧道成",
+            "ruler_name": "萧道成",
+            "axis_code": "M1",
+            "entries": [
+              {
+                "entry_code": "M1_BATTLE_REGISTRY",
+                "source_path": "docs/公共成果/军事/01-战役登记.json",
+                "connection_attempted": true,
+                "connection_status": "MATCHED_STABLE_PARENTS",
+                "stable_parent_refs": [
+                  "WAR-LEAD-133-03"
+                ],
+                "stable_parent_ref_count": 1,
+                "no_hit_reason": null,
+                "supplement_required": false,
+                "entry_mapping_remediation_required": false,
+                "full_grade_entry_gate_passed": true,
+                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
+              },
+              {
+                "entry_code": "M1_MILITARY_TALENT_REGISTRY",
+                "source_path": "docs/公共成果/军事/02-武将人才等级.json",
+                "connection_attempted": true,
+                "connection_status": "MATCHED_STABLE_PARENTS",
+                "stable_parent_refs": [
+                  "WAR-LEAD-133-03"
+                ],
+                "stable_parent_ref_count": 1,
+                "no_hit_reason": null,
+                "supplement_required": false,
+                "entry_mapping_remediation_required": false,
+                "full_grade_entry_gate_passed": true,
+                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
+              },
+              {
+                "entry_code": "M1_FIRST_ITEM_C",
+                "source_path": "docs/评分结算/第一项创业与政权取得能力/军事夺取能力/01-第一项C军事夺取能力结算.json",
+                "connection_attempted": true,
+                "connection_status": "MATCHED_STABLE_PARENTS",
+                "stable_parent_refs": [
+                  "MANUAL:萧道成:WAR-LEAD-133-03:萧道成",
+                  "WAR-LEAD-133-03"
+                ],
+                "stable_parent_ref_count": 2,
+                "no_hit_reason": null,
+                "supplement_required": false,
+                "entry_mapping_remediation_required": false,
+                "full_grade_entry_gate_passed": true,
+                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
+              },
+              {
+                "entry_code": "M1_THIRD_ITEM_ADJUDICATIONS",
+                "source_path": "docs/评分结算/第三项军事与边疆净收益/**/01-皇帝*项正式结算.json",
+                "connection_attempted": true,
+                "connection_status": "MATCHED_STABLE_PARENTS",
+                "stable_parent_refs": [
+                  "NC-HUAIBEI-FIVE-FORTS-480-481",
+                  "NC-LI-WUNU-479-OPEN",
+                  "NC-XIETIANGAI-479-480",
+                  "WAR-LEAD-142-01",
+                  "WAR-LEAD-142-03",
+                  "WAR-LEAD-142-04",
+                  "WAR-LEAD-142-05",
+                  "WAR-LEAD-144-07",
+                  "WAR-LEAD-NC-FIVE-STATE-MAN-480",
+                  "WAR-LEAD-NC-HUAIBEI-FIVE-FORTS-480-481",
+                  "WAR-LEAD-NC-LI-WUNU-479-480",
+                  "WAR-LEAD-NC-RUORAN-WEI-479",
+                  "WAR-LEAD-NC-XIETIANGAI-479-480"
+                ],
+                "stable_parent_ref_count": 13,
+                "no_hit_reason": null,
+                "supplement_required": false,
+                "entry_mapping_remediation_required": false,
+                "full_grade_entry_gate_passed": true,
+                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
+              }
+            ],
+            "all_normative_entries_attempted": true,
+            "stable_parent_entry_count": 4,
+            "entry_gap_count": 0,
+            "full_grade_normative_entry_gate_passed": true,
+            "historical_supplement_status": "NOT_REQUIRED_NORMATIVE_ENTRIES_HAVE_STABLE_PARENT",
+            "historical_supplement_required": false,
+            "existing_supplement_parent_refs": []
+          },
+          "normative_entry_gate_mode_adjustment": "NO_MODE_ADJUSTMENT",
+          "formal_status": "FORMAL_CURRENT",
+          "military_talent_anchor": {
+            "status": "FORMAL_PROFILE_CONNECTED",
+            "match_method": "EXISTING_STABLE_PROFILE_REF",
+            "matched_surface": "萧道成",
+            "profile_person": "萧道成",
+            "person_ref": "MIL-PER-FF7D2B4198C07289",
+            "military_grade": "important",
+            "grade_status": "current_battle_registry_grade",
+            "stability_status": "no_comparable_major_failure_established",
+            "profile_ref": "MIL-PROFILE-FF7D2B4198C07289"
+          },
+          "pre_structural_review_grade_basis": "定点补查南齐书确认其早年对魏作战、资源匮乏下夜间疑兵解围及后期平乱掌军，覆盖多个独立任务而非单峰。",
+          "structural_review": {
+            "status": "REVISED",
+            "basis_code": "G4_SINGLE_CONTEXT_GATE",
+            "basis": "武将锚仅important且记录为单一情境；不足以形成全生涯强长板。"
+          },
+          "military_talent_registry_projection": {
+            "status": "FORMAL_PROFILE_MARKDOWN_CELLS_COPIED",
+            "source_path": "docs/公共成果/军事/02-武将人才等级.md",
+            "profile_ref": "MIL-PROFILE-FF7D2B4198C07289",
+            "profile_person": "萧道成",
+            "result_difficulty_combinations_display": "1) 前线+ `A/D3`",
+            "result_difficulty_combination_items": [
+              "1) 前线+ `A/D3`"
+            ],
+            "campaign_group_roles_display": "1) 桂阳王休范攻建康／主帅",
+            "campaign_group_role_items": [
+              "1) 桂阳王休范攻建康／主帅"
+            ],
+            "paired_result_difficulty_campaign_role_items": [
+              "1) 前线+ `A/D3`｜桂阳王休范攻建康／主帅"
+            ],
+            "paired_result_difficulty_campaign_roles_display": "1) 前线+ `A/D3`｜桂阳王休范攻建康／主帅"
+          },
+          "full_pool_readjudication": {
+            "status": "FULL_LIFETIME_REVIEWED",
+            "decision_status": "RETAINED",
+            "before": {
+              "axis_grade": "G3",
+              "position": "HIGH",
+              "radar_value": 71
+            },
+            "after": {
+              "axis_grade": "G3",
+              "position": "HIGH",
+              "radar_value": 71
+            },
+            "result_difficulty_role_reviewed": true,
+            "failure_gate": "NO_TARGET_FAILURE_AUTOMATIC_DEFEAT;REQUIRE_LOSS_RATIO_PHASE_RESULT_AND_ATTRIBUTION",
+            "basis": "武将锚仅important且记录为单一情境；不足以形成全生涯强长板。"
+          },
+          "third_item_strategy_crosscheck": {
+            "status": "FORMAL_THIRD_ITEM_CROSSCHECKED",
+            "mode": "MIXED_FRONTLINE_AND_STRATEGIC",
+            "source_path": "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json",
+            "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          }
+        },
+        {
+          "sequence": 129,
+          "review_batch_code": "M1-V04-CANON-026",
+          "task_code": "PROFILE-M1-RULER-SHADOW-萧鸾",
+          "ruler_id": "RULER-SHADOW-萧鸾",
+          "ruler_name": "萧鸾",
+          "polity": "南齐",
+          "actual_power_window": "493—498年实际掌权",
+          "applicability_status": "APPLICABLE",
+          "applicability_review_complete": true,
+          "not_applicable_reason": null,
+          "formal_write": true,
+          "axis_evidence_level": "E1",
+          "output_mode": "EPISODE_TAG",
+          "confidence": "LOW",
+          "score_status": "EVIDENCE_LIMITED",
+          "axis_grade": "G2",
+          "position": "HIGH",
+          "score_100": 51,
+          "radar_value": 51,
+          "applicability_basis": "掌权及在位期拥有内部军事控制与边防授权。",
+          "whole_distribution_grade_basis": "军事能力主要体现在夺权和控制，外战机制少且未形成强长板。",
+          "role_attribution": "第三项父链只用于定位机会、约束和结果；档位说明单独裁本人方向、统筹或授权，不继承国家净收益与将领能力。",
+          "phase_profile": "限定于实际权力窗口 493—498年实际掌权 内已登记的军事机会。",
+          "failure_and_recovery": "只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。",
+          "limitations": [
+            "内部政治清洗不当作M1成功。"
+          ],
+          "diagnostic_context_refs": [
+            "NC-QI-COUPS-494",
+            "NC-V141-LEAD-141-01",
+            "NC-V141-LEAD-141-03",
+            "NC-V141-LEAD-141-04",
+            "NC-WEI-QI-SOUTH-494-495-XIAOLUAN-SIDE",
+            "WAR-LEAD-141-01",
+            "WAR-LEAD-141-02",
+            "WAR-LEAD-141-03",
+            "WAR-LEAD-141-04",
+            "WAR-LEAD-142-01",
+            "WAR-LEAD-142-03",
+            "WAR-LEAD-142-04",
+            "WAR-LEAD-142-05",
+            "WAR-LEAD-144-07",
+            "WAR-PARENT-NC-QI-COUPS-494",
+            "XL-WEI-QI-SOUTH-494-495",
+            "XL-WOYANG-RELIEF-OFFENSIVE-498"
+          ],
+          "search_scope": "现行第三项AB/C/D父链与国防安全登记",
+          "targeted_supplement_ref": "M1-V04-SUPP-RULER-SHADOW-萧鸾",
+          "decision_origin": "V04_EXPLICIT_ZERO_REGISTRY_CONTEXT_TARGETED_LOCAL_ADJUDICATION",
+          "adjudication_ref": "M1-V05-ADJ-RULER-SHADOW-萧鸾",
+          "representative_parent_contexts": [
+            {
+              "parent_ref": "NC-QI-COUPS-494",
+              "material_intensity": "MI1_CASE",
+              "intensity_and_role_basis": "稳定父链NC-QI-COUPS-494已在本轮结合实际权力窗口、本人角色与全生涯分布复核；其人物级作用由本轮结论“军事能力主要体现在夺权和控制，外战机制少且未形成强长板。”限定，不按父链条数等权抬档。"
+            },
+            {
+              "parent_ref": "NC-V141-LEAD-141-01",
+              "material_intensity": "MI1_CASE",
+              "intensity_and_role_basis": "稳定父链NC-V141-LEAD-141-01已在本轮结合实际权力窗口、本人角色与全生涯分布复核；其人物级作用由本轮结论“军事能力主要体现在夺权和控制，外战机制少且未形成强长板。”限定，不按父链条数等权抬档。"
+            },
+            {
+              "parent_ref": "NC-V141-LEAD-141-03",
+              "material_intensity": "MI1_CASE",
+              "intensity_and_role_basis": "稳定父链NC-V141-LEAD-141-03已在本轮结合实际权力窗口、本人角色与全生涯分布复核；其人物级作用由本轮结论“军事能力主要体现在夺权和控制，外战机制少且未形成强长板。”限定，不按父链条数等权抬档。"
+            }
+          ],
+          "typical_pattern": "军事能力主要体现在夺权和控制，外战机制少且未形成强长板。",
+          "counterpattern": "只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。",
+          "grade_basis": "军事能力主要体现在夺权和控制，外战机制少且未形成强长板。",
+          "position_basis": "档内高位：限定于实际权力窗口 493—498年实际掌权 内已登记的军事机会。；只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。；限制：内部政治清洗不当作M1成功。",
+          "axis_relevance_check": {
+            "status": "M1_RELEVANT",
+            "basis": "掌权及在位期拥有内部军事控制与边防授权。"
+          },
+          "same_chain_semantic_conflict_review_status": "INHERITED_V04_NO_UNRESOLVED_CONFLICT",
+          "explicit_adjudication_source_origin": "M1_V04_EXPLICIT_PERSON_ROW_INHERITED_WITH_V05_TRACE_FIELDS",
+          "grade_basis_claimed_material_intensities": [],
+          "material_intensity_claim_text_fields": [
+            "grade_basis",
+            "typical_pattern"
+          ],
+          "representative_context_max_material_intensity": "MI1_CASE",
+          "material_intensity_claim_consistency_status": "PASS_NO_EXPLICIT_INTENSITY_CLAIM_IN_INHERITED_GRADE_BASIS",
+          "normative_entry_coverage_ref": "M1-V05-NORMATIVE-ENTRY-COVERAGE-RULER-SHADOW-萧鸾",
+          "normative_entry_coverage": {
+            "sequence": 129,
+            "task_code": "PROFILE-M1-RULER-SHADOW-萧鸾",
+            "ruler_id": "RULER-SHADOW-萧鸾",
+            "ruler_name": "萧鸾",
+            "axis_code": "M1",
+            "entries": [
+              {
+                "entry_code": "M1_BATTLE_REGISTRY",
+                "source_path": "docs/公共成果/军事/01-战役登记.json",
+                "connection_attempted": true,
+                "connection_status": "CONNECTED_NO_ELIGIBLE_RULER_ROLE_PARENT",
+                "stable_parent_refs": [],
+                "stable_parent_ref_count": 0,
+                "no_hit_reason": "反向连接未发现本人统兵、方向决定或战区统筹父链",
+                "supplement_required": false,
+                "entry_mapping_remediation_required": false,
+                "full_grade_entry_gate_passed": true,
+                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
+              },
+              {
+                "entry_code": "M1_MILITARY_TALENT_REGISTRY",
+                "source_path": "docs/公共成果/军事/02-武将人才等级.json",
+                "connection_attempted": true,
+                "connection_status": "CONNECTED_PROFILE_WITH_NO_ELIGIBLE_CAPABILITY_PARENT",
+                "stable_parent_refs": [],
+                "stable_parent_ref_count": 0,
+                "no_hit_reason": "人物画像已连接，但无可用于M1的已消费本人能力父情境",
+                "supplement_required": false,
+                "entry_mapping_remediation_required": false,
+                "full_grade_entry_gate_passed": true,
+                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
+              },
+              {
+                "entry_code": "M1_FIRST_ITEM_C",
+                "source_path": "docs/评分结算/第一项创业与政权取得能力/军事夺取能力/01-第一项C军事夺取能力结算.json",
+                "connection_attempted": true,
+                "connection_status": "CONNECTED_FORMAL_NOT_APPLICABLE",
+                "stable_parent_refs": [],
+                "stable_parent_ref_count": 0,
+                "no_hit_reason": "NOT_APPLICABLE_NON_FOUNDER",
+                "supplement_required": false,
+                "entry_mapping_remediation_required": false,
+                "full_grade_entry_gate_passed": true,
+                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
+              },
+              {
+                "entry_code": "M1_THIRD_ITEM_ADJUDICATIONS",
+                "source_path": "docs/评分结算/第三项军事与边疆净收益/**/01-皇帝*项正式结算.json",
+                "connection_attempted": true,
+                "connection_status": "MATCHED_STABLE_PARENTS",
+                "stable_parent_refs": [
+                  "NC-QI-COUPS-494",
+                  "NC-V141-LEAD-141-01",
+                  "NC-V141-LEAD-141-03",
+                  "NC-V141-LEAD-141-04",
+                  "WAR-LEAD-141-01",
+                  "WAR-LEAD-141-02",
+                  "WAR-LEAD-141-03",
+                  "WAR-LEAD-141-04",
+                  "WAR-LEAD-142-01",
+                  "WAR-LEAD-142-03",
+                  "WAR-LEAD-142-04",
+                  "WAR-LEAD-142-05",
+                  "WAR-LEAD-144-07",
+                  "WAR-PARENT-NC-QI-COUPS-494"
+                ],
+                "stable_parent_ref_count": 14,
+                "no_hit_reason": null,
+                "supplement_required": false,
+                "entry_mapping_remediation_required": false,
+                "full_grade_entry_gate_passed": true,
+                "connection_method": "STRUCTURED_STABLE_ID_FIELDS_ONLY_NO_KEYWORD_EXTRACTION"
+              }
+            ],
+            "all_normative_entries_attempted": true,
+            "stable_parent_entry_count": 1,
+            "entry_gap_count": 0,
+            "full_grade_normative_entry_gate_passed": true,
+            "historical_supplement_status": "NOT_REQUIRED_NORMATIVE_ENTRIES_HAVE_STABLE_PARENT",
+            "historical_supplement_required": false,
+            "existing_supplement_parent_refs": []
+          },
+          "normative_entry_gate_mode_adjustment": "NO_MODE_ADJUSTMENT",
+          "formal_status": "FORMAL_CURRENT",
+          "military_talent_anchor": {
+            "status": "FORMAL_PROFILE_CONNECTED",
+            "match_method": "EXISTING_STABLE_PROFILE_REF",
+            "matched_surface": "萧鸾",
+            "profile_person": "萧鸾",
+            "person_ref": "MIL-PER-7160DA0EC0C9E655",
+            "military_grade": "ordinary",
+            "grade_status": "current_battle_registry_grade",
+            "stability_status": "no_comparable_major_failure_established",
+            "profile_ref": "MIL-PROFILE-7160DA0EC0C9E655"
+          },
+          "structural_review": {
+            "status": "NOT_IN_HIGH_GRADE_REVIEW"
+          },
+          "military_talent_registry_projection": {
+            "status": "FORMAL_PROFILE_MARKDOWN_CELLS_COPIED",
+            "source_path": "docs/公共成果/军事/02-武将人才等级.md",
+            "profile_ref": "MIL-PROFILE-7160DA0EC0C9E655",
+            "profile_person": "萧鸾",
+            "result_difficulty_combinations_display": "—",
+            "result_difficulty_combination_items": [
+              "—"
+            ],
+            "campaign_group_roles_display": "—",
+            "campaign_group_role_items": [
+              "—"
+            ],
+            "paired_result_difficulty_campaign_role_items": [],
+            "paired_result_difficulty_campaign_roles_display": "—"
+          },
+          "full_pool_readjudication": {
+            "status": "FULL_LIFETIME_REVIEWED",
+            "decision_status": "RETAINED",
+            "before": {
+              "axis_grade": "G2",
+              "position": "HIGH",
+              "radar_value": 51
+            },
+            "after": {
+              "axis_grade": "G2",
+              "position": "HIGH",
+              "radar_value": 51
+            },
+            "result_difficulty_role_reviewed": true,
+            "failure_gate": "NO_TARGET_FAILURE_AUTOMATIC_DEFEAT;REQUIRE_LOSS_RATIO_PHASE_RESULT_AND_ATTRIBUTION",
+            "basis": "军事能力主要体现在夺权和控制，外战机制少且未形成强长板。"
+          },
+          "third_item_strategy_crosscheck": {
+            "status": "FORMAL_THIRD_ITEM_CROSSCHECKED",
+            "mode": "STRATEGIC_AUTHORIZATION_DOMINANT",
+            "source_path": "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json",
+            "use_boundary": "PARENT_CYCLE_REFERENCE_ONLY_NOT_SCORE_OR_GRADE_MAPPING"
+          }
+        }
+      ]
+    }
+  }
+}

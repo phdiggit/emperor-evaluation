@@ -1,0 +1,937 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "元",
+  "collections": {
+    "scores": {
+      "positions": [
+        39,
+        92,
+        168,
+        169,
+        173,
+        178,
+        179,
+        186
+      ],
+      "records": [
+        {
+          "adjudication_reason": "原结算低估了本人窗口的双柱结果。耶律楚材整顿税课后，窝阔台直接称“能使国用充足”；官为代偿民间旧债、整顿庶政后又有“民稍苏息”，而官方回顾本人时期更称“华夏富庶，羊马成群，旅不赍粮，时称治平”。这已经不是单纯制度动作，P与F/R至少达到健康。原结算指出的后期税包翻倍和楚材所言“民之困穷将自此始”仍然必须保留，因此后段回落到3，也正好阻断五档。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "source_works": [
+                "《元史·耶律楚材传》"
+              ],
+              "verbatim_excerpt": "汝不去朕左右，而能使国用充足。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《元史·耶律楚材传》"
+              ],
+              "verbatim_excerpt": "民间所负者，官为代偿之……庶政略备，民稍苏息焉。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《元史·太宗本纪》"
+              ],
+              "verbatim_excerpt": "华夏富庶，羊马成群，旅不赍粮，时称治平。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《元史·耶律楚材传》"
+              ],
+              "verbatim_excerpt": "课银增至一百一十万两……又增至二百二十万两……民之困穷，将自此始矣！",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_5_PASS_C2_4",
+            "basis": "P与F/R在中段已闭合健康甚至偏强，但后期税包翻倍形成直接民间与财政结构反证，M也缺独立长期强锚，故五档失败。"
+          },
+          "main_band": "C2-4",
+          "material_limitations": [
+            "税收增长本身不作为高档证据",
+            "后期翻倍反而作为汲取结构反证。",
+            "S_end保C2-3",
+            "其后贵由、蒙哥未在本批已裁链中，不做机械双锚。"
+          ],
+          "peak_band": null,
+          "polity": "元",
+          "rank": 12,
+          "reign_range": "1229-1241",
+          "ruler_id": "RULER-YUAN-OGEDEI",
+          "ruler_name": "窝阔台",
+          "score": 21.7,
+          "stability_class_diagnostic_only": "K0",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-4",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-651D515F7AA3",
+              "M3P-SEM-110016F61F4E"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-651D515F7AA3",
+                "candidate_ids_trace_only": [
+                  "EM-O-004"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "MARKET_TRADE"
+                ],
+                "chain_summary": "限制羊羔息、官代偿并整理衡量符印均输驿券 | 债役损害获得实际纠正，庶政略备且民稍苏息 | 先是，州郡長吏多借賈人銀以償官，息累數倍，曰羊羔兒利，至奴其妻子，猶不足償。楚材奏令本利相侔而止，永為定制，民間所負者，官為代償之。至一衡量，給符印，立鈔法，定均輸，布遞傳，明驛券，庶政略備，民稍蘇息焉。",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/yuan.json#material_id=EM-O-004",
+                  "https://zh.wikisource.org/w/index.php?title=%E5%85%83%E5%8F%B2%2F%E5%8D%B7146&oldid=2255553"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-651D515F7AA3"
+              },
+              {
+                "parent_id": "M3P-SEM-110016F61F4E",
+                "candidate_ids_trace_only": [
+                  "EM-O-005"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "MONETARY_CREDIT",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "准行税课扑买并将课银额加倍 | 拒绝强烈反对；民困为同时代预警，尚非独立宏观结果 | 自庚寅定課稅格，至甲午平河南，歲有增羨，至戊戌課銀增至一百一十萬兩。譯史安天合者，諂事鎮海，首引奧都剌合蠻撲買課稅，又增至二百二十萬兩。楚材極力辨諫，至聲色俱厲，言與涕俱。帝曰：「爾欲搏鬭耶？」又曰：「爾欲為百姓哭耶？姑令試行之。」楚材力不能止，乃歎息曰：「民之困窮，將自此始矣！」",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/yuan.json#material_id=EM-O-005",
+                  "https://zh.wikisource.org/w/index.php?title=%E5%85%83%E5%8F%B2%2F%E5%8D%B7146&oldid=2255553"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-110016F61F4E"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-YUAN-OGEDEI"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C5",
+            "cost_status": "CONFIRMED",
+            "cost_position": "LOW",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-2",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          },
+          "old_settlement_review": "UPGRADE_FROM_C2_3；保留：原结算关于债务、站役、后期税包和民困风险的负面全部保留。；推翻/修正：补足本人窗口‘国用充足’与广域生产流通结果，推翻只能三档的旧结论。。"
+        },
+        {
+          "adjudication_reason": "原结算判断“经费长期大于岁入、但海运与货币系统仍能运行”基本成立；本轮进一步补出至元末的全口径收支硬账：岁入约二百九十八万锭，而当年已办不足一百九十万锭，自春至今支出约三百六十四万锭，明确出现长期入不敷出。与此同时海漕仍能百万石级运行、旧钞可兑换新钞，说明M与F/R并未全面失灵。因此全任主态仍三档，但晚年至元末公共财政已经持续脆弱，S_end由3下调为2。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "source_works": [
+                "《元史·世祖本纪》"
+              ],
+              "verbatim_excerpt": "国家经费既广，岁入恒不偿所出……不足者余百万锭。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《元史·世祖本纪》"
+              ],
+              "verbatim_excerpt": "一岁天下所入，凡二百九十七万八千三百五锭……今岁已办者才一百八十九万三千九百九十三锭……自春至今，凡出三百六十三万八千五百四十三锭，出数已逾入数六十六万二百三十八锭矣。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《元史·食货志》"
+              ],
+              "verbatim_excerpt": "张瑄、朱清海道运粮，以四岁计之，总百一万石。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《元史·食货志》"
+              ],
+              "verbatim_excerpt": "商贩有中统钞，听易至元钞以行。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN_PASS_C2_3",
+            "basis": "长期财政赤字阻断四档，但大规模海漕和货币兑换仍在运转，主态未到二档；晚期F/R持续脆弱使交班端降二。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "不因对外战争或大工程本身扣档",
+            "只消费已经形成的全口径财政缺口。",
+            "S_end=C2-2，与铁穆耳S0硬同步。"
+          ],
+          "peak_band": null,
+          "polity": "元",
+          "rank": 56,
+          "reign_range": "1260-1294",
+          "ruler_id": "RULER-YUAN-KUBLAI",
+          "ruler_name": "忽必烈",
+          "score": 13.7,
+          "stability_class_diagnostic_only": "K0",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-3",
+            "S_end": "C2-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [
+              "M3P-SEM-BC343A900939"
+            ],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-YUAN-KUBLAI"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C6",
+            "cost_status": "PROVISIONAL",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          },
+          "old_settlement_review": "KEEP_MAIN_BAND_LOWER_END；保留：原结算关于经费不偿所出、海漕和货币运行的核心逻辑保留。；推翻/修正：补入至元末全口径财政账，明确把交班端由3压到2。。"
+        },
+        {
+          "adjudication_reason": "海山窗口内公共财政弱柱非常清楚：帑藏已经空竭，国家粮储又出现岁费持续增加而所入不足；至大银钞、铜钱旋即罢行，说明货币工具也未形成稳定结果。与此同时，尚书省、粮储与钱法仍能继续组织和调整，系统尚未彻底失去运转能力，因此保留C2-2而不降一档。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "source_works": [
+                "《续资治通鉴》卷一百九十六"
+              ],
+              "verbatim_excerpt": "國之糧儲，歲費浸之，而所入不足。",
+              "pillar_tags": [
+                "F_FISCAL_BASE",
+                "R_RESERVE_BUFFER"
+              ],
+              "evidence_role": "DIRECT_RESULT",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《续资治通鉴》卷一百九十六"
+              ],
+              "verbatim_excerpt": "帑藏空竭。",
+              "pillar_tags": [
+                "F_FISCAL_BASE",
+                "R_RESERVE_BUFFER"
+              ],
+              "evidence_role": "DIRECT_RESULT",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《续资治通鉴》卷一百九十七"
+              ],
+              "verbatim_excerpt": "罷行至大銀鈔、銅錢。",
+              "pillar_tags": [
+                "M_MARKET_MONEY",
+                "F_FISCAL_BASE"
+              ],
+              "evidence_role": "NEGATIVE_CONSTRAINT",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "DIRECT_AND_CONSTRAINED",
+          "high_band_gate": {
+            "status": "PASS_C2_2_FAIL_C2_3",
+            "basis": "F/R直接处于缺口状态，货币工具又短期失败；但财政行政与调粮体系仍在运作，未到系统失效的一档。"
+          },
+          "main_band": "C2-2",
+          "material_limitations": [
+            "帑藏空竭和粮储入不敷出是C2内部结果，不把对外战争本身重复扣档。",
+            "S0按直接交班双锚由旧C2-3修正为C2-2，与铁穆耳S_end同步。"
+          ],
+          "peak_band": null,
+          "polity": "元",
+          "rank": 146,
+          "reign_range": "1307-1311",
+          "ruler_id": "RULER-YUAN-KULUG",
+          "ruler_name": "海山",
+          "score": 7.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-2",
+            "S_end": "C2-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-23B72B6A6D61"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-23B72B6A6D61",
+                "candidate_ids_trace_only": [
+                  "YUAN-KULUG-B2-REMONSTRANCE-01"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "PUBLIC_WORKS"
+                ],
+                "chain_summary": "对财政与制度十弊的高层言事渠道 | 信息实际提出但言者遭排斥构罪，反馈安全与纠偏闭合不足 | 张养浩因直言尚书省、赏赐、法禁、土木、宗教等十弊，被执政排斥、构罪，最后改名逃亡 | # 《续资治通鉴》卷197非战役通读总结 | - source_unit_id：`SRC-XUZIZHITONGJIAN-197-2334246` | - revision_ref：`2334246` | - raw_sha256：`888723c226142a68d99bc082f527f9786ee9890413c8ec54077bc182ada65856` | - 通读范围：`SRC-XUZIZHITONGJIAN-197-2334246-P0001` 至 `P0169`，固定修订共169段；`P0002`、`P0077`为页面“编辑”标记，`P0168—P0169`为版权元数据，实质历史正文止于`P0167`。 | - 分流说明：仁宗即位后再次遣兵击八百媳妇的实际出兵阶段转入 `volume-197.battle-adjudications.json`；谋不轨、处刑、驻防设置和军费统计均按合同留在非战役或 `NOT_A_BATTLE`。 | ## 一、财政、民生、工程与灾害 | - 至大三年初裁中书官吏，自客省使以下共一百八十一员。原文定位：`SRC-XUZIZHITONGJIAN-197-2334246-P0003`。 | - 禁近侍擅自增加课额或另进贡物干扰既定财政制度。原文定位：`P0005`。",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/yuan.json#material_id=YUAN-KULUG-B2-REMONSTRANCE-01",
+                  "docs/史料通读产物/元/续资治通鉴&元史/volume-197.source-summary.md"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-23B72B6A6D61"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-YUAN-KULUG"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": "NOT_RECHECKED",
+            "cost_band": "NOT_RECHECKED",
+            "cost_status": "NOT_RECHECKED",
+            "cost_position": "NOT_RECHECKED",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-2",
+            "score": 7.0,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-2",
+              "S_end": "C2-2"
+            }
+          },
+          "old_settlement_review": "KEEP_MAIN_BAND_FIX_S0_HANDOFF；保留：原结算关于帑藏空竭、粮储入不敷出与币制短期失败的核心判断。；推翻/修正：按铁穆耳直接交班双锚，S0由C2-3修正为C2-2。"
+        },
+        {
+          "adjudication_reason": "原结算二档成立。仁宗即位初李孟直接报出每岁常见支钞、营缮、赏赐、北边军需合计远超可用储备，而帑藏仅“十一万余锭”；延祐元年又因“经用不给”，连动钞本、加赋税、增课额都被认为会进一步破坏钞法或毒及黎庶，只能预卖来岁盐引、铁货并经理江南田粮。括田随后实际造成“苛急烦扰”。这表明F/R长期脆弱且M受钞法约束；虽有停营缮、减少钞发等纠偏，仍不足把全任主体抬回三档。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "source_works": [
+                "《元史·仁宗本纪》"
+              ],
+              "verbatim_excerpt": "今每岁支钞六百馀万锭……今帑藏见贮止十一万馀锭，若此安能周给。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《元史·铁木迭儿传》"
+              ],
+              "verbatim_excerpt": "又经用不给……动钞本则钞法愈虚；加赋税则毒流黎庶；增课额则比国初已倍五十矣。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《元史·铁木迭儿传》"
+              ],
+              "verbatim_excerpt": "寻遣使者分行各省，括田增税，苛急烦扰，江右为甚……乃罢其事。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《元史·仁宗本纪》"
+              ],
+              "verbatim_excerpt": "帝纳其言，凡营缮悉罢之。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "PASS_C2_2_FAIL_C2_1",
+            "basis": "F/R长期明显脆弱且钞法受约束，但仍有真实纠偏与可运行财政体系，故二档而非一档。"
+          },
+          "main_band": "C2-2",
+          "material_limitations": [
+            "S0暂保C2-2",
+            "下一批裁海山时必须以海山S_end与本记录S0反向校验。",
+            "税额倍数不能单独定档，只与经用不给、钞本脆弱和括田后果共同消费。"
+          ],
+          "peak_band": null,
+          "polity": "元",
+          "rank": 146,
+          "reign_range": "1311-1320",
+          "ruler_id": "RULER-YUAN-AYURBARWADA",
+          "ruler_name": "爱育黎拔力八达",
+          "score": 7.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-2",
+            "S_end": "C2-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-467EB6F3AD1E",
+              "M3P-SEM-E263AC6E50E8"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-467EB6F3AD1E",
+                "candidate_ids_trace_only": [
+                  "YUAN-AR-FISCAL-CORRECTION"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "MONETARY_CREDIT"
+                ],
+                "chain_summary": "撤销失败银钞、铜钱并行体系及专设机构 | 承认倍数、供应与并用失宜并恢复铜器买卖 | - 至大银钞、铜钱施行未满两年即被全面停止。诏书承认银钞倍数失宜、铜钱供应不足且新旧并用导致弊端加重，并撤销资国院、泉货监等机构，恢复民间铜器自由买卖。原文定位：`P0117`。",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/yuan.json#material_id=YUAN-AR-FISCAL-CORRECTION",
+                  "https://zh.wikisource.org/wiki/續資治通鑑/卷197"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-467EB6F3AD1E"
+              },
+              {
+                "parent_id": "M3P-SEM-E263AC6E50E8",
+                "candidate_ids_trace_only": [
+                  "YUAN-AR-LAND-SURVEY-HARM"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "特们德尔推动经理田粮，各省苛急执行 | 拆屋、发墓、虚增田亩并诱发社会冲突，最终停止 | - 特们德尔推动括田后，各省执行“苛急烦扰”，江西尤甚。本卷记新丰一县因经理田粮拆民屋一千九百区、夷墓扬骨、虚张田亩；朝廷最终停止经理及冒括田租。该政策同时成为本卷重大社会冲突的直接诱因，具体武装过程另见战役裁决。原文定位：`P0010`、`P0024`。",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/yuan.json#material_id=YUAN-AR-LAND-SURVEY-HARM",
+                  "https://zh.wikisource.org/wiki/續資治通鑑/卷199"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-E263AC6E50E8"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-YUAN-AYURBARWADA"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C4",
+            "cost_status": "LOWER_BOUND",
+            "cost_position": "LOW",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-2",
+            "score": 7.0,
+            "state_anchors": {
+              "S0": "C2-2",
+              "S_avg": "C2-2",
+              "S_end": "C2-2"
+            }
+          },
+          "old_settlement_review": "KEEP_BAND_AND_STRENGTHEN_DIRECT_CHAIN；保留：原结算关于十一万锭低储备、钞法、预支与括田损害的判断全部保留。；推翻/修正：补足直接原文链，进一步确认二档而非仅因单一国库存量判低。。"
+        },
+        {
+          "adjudication_reason": "户籍与钱粮理算说明财政机器仍能运作，但本人窗口同时出现对浮费、不公理算和百姓疲弊的直接诊断。现有材料不能把这种状态抬到常规财政与民间经济均稳定的三档；反过来，国家仍能登记户籍、清理钱粮并实施财政约束，也不足判为一档系统失效，故维持C2-2。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "source_works": [
+                "《元史·宪宗本纪》"
+              ],
+              "verbatim_excerpt": "是歲，籍漢地民戶。",
+              "pillar_tags": [
+                "F_FISCAL_BASE"
+              ],
+              "evidence_role": "OPERATION_RESULT",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《元史·宪宗本纪》"
+              ],
+              "verbatim_excerpt": "秋七月，詔官吏之赴朝理算錢糧者，許自首不公，仍禁以後浮費。",
+              "pillar_tags": [
+                "F_FISCAL_BASE"
+              ],
+              "evidence_role": "NEGATIVE_CONSTRAINT",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《元史·宪宗本纪》"
+              ],
+              "verbatim_excerpt": "方今百姓疲弊，所急者錢爾，朕獨有此何為？",
+              "pillar_tags": [
+                "P_PRODUCTION",
+                "M_MARKET_MONEY"
+              ],
+              "evidence_role": "NEGATIVE_CONSTRAINT",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "DIRECT_AND_CONSTRAINED",
+          "high_band_gate": {
+            "status": "PASS_C2_2_FAIL_C2_3",
+            "basis": "财政系统仍可运作，但民间余量与财政规范性均有直接弱证，不能闭合三档稳定运行。"
+          },
+          "main_band": "C2-2",
+          "material_limitations": [
+            "“百姓疲弊”为本人自述式宏观诊断，需与钱粮理算、浮费约束共同消费，不能单句定档。",
+            "与忽必烈之间存在1259—1260继承争位与实权断层，不执行简单S_end=S0硬同步。"
+          ],
+          "peak_band": null,
+          "polity": "元",
+          "rank": 146,
+          "reign_range": "1251-1259",
+          "ruler_id": "RULER-YUAN-MONGKE",
+          "ruler_name": "蒙哥",
+          "score": 7.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-2",
+            "S_end": "C2-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-260AB78E18D0"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-260AB78E18D0",
+                "candidate_ids_trace_only": [
+                  "EM-M-001"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "收回滥发牌印、限诸王驿马招户与官属敛财并减远输停工役 | 形成全国性整顿命令，直接减轻部分赋役接口；结果持续性仍待证 | 遂頒便益事宜於國中：凡朝廷及諸王濫發牌印、詔旨、宣命，盡收之；諸王馳驛，許乘三馬，遠行亦不過四；諸王不得擅招民戶；諸官屬不得以朝覲為名賦歛民財；民糧遠輸者，許於近倉輸之。罷築和林城役千五百人。",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/yuan.json#material_id=EM-M-001",
+                  "https://zh.wikisource.org/w/index.php?title=%E5%85%83%E5%8F%B2%2F%E5%8D%B7003&oldid=2189694"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-260AB78E18D0"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-YUAN-MONGKE"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": "NOT_RECHECKED",
+            "cost_band": "NOT_RECHECKED",
+            "cost_status": "NOT_RECHECKED",
+            "cost_position": "NOT_RECHECKED",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-2",
+            "score": 7.0,
+            "state_anchors": {
+              "S0": "C2-2",
+              "S_avg": "C2-2",
+              "S_end": "C2-2"
+            }
+          },
+          "old_settlement_review": "KEEP_MAIN_BAND_REWRITE_REASON；保留：原结算关于财政仍运行但民间余量不足的核心判断。；推翻/修正：按当前两柱瓶颈口径重写，不再以材料稀疏本身作为低档理由。"
+        },
+        {
+          "adjudication_reason": "本人窗口的关键问题不是财政制度名目少，而是州郡长吏可以擅自征发、夺取货财并兼并土田，税收与财产权尚未进入稳定常规体系。后续禁擅征发使“贪暴之风稍戢”，说明系统存在纠偏和最低限度行政能力，因此判脆弱而非失序；征服所得与战利品不作为财政健康正证。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "source_works": [
+                "《元史·耶律楚材传》"
+              ],
+              "verbatim_excerpt": "帝自經營西土，未暇定制，州郡長吏，生殺任情，至孥人妻女，取貨財，兼土田。",
+              "pillar_tags": [
+                "P_PRODUCTION",
+                "M_MARKET_MONEY",
+                "F_FISCAL_BASE"
+              ],
+              "evidence_role": "DIRECT_RESULT",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《元史·耶律楚材传》"
+              ],
+              "verbatim_excerpt": "請禁州郡，非奉璽書，不得擅徵發……於是貪暴之風稍戢。",
+              "pillar_tags": [
+                "F_FISCAL_BASE",
+                "P_PRODUCTION"
+              ],
+              "evidence_role": "SUPPORTING_RESULT",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "DIRECT_AND_CONSTRAINED",
+          "high_band_gate": {
+            "status": "PASS_C2_2_FAIL_C2_3",
+            "basis": "财产与征发秩序长期脆弱，但中央仍能实施约束并使贪暴稍戢，未到系统失效。"
+          },
+          "main_band": "C2-2",
+          "material_limitations": [
+            "征服疆域、俘获与战利品不作为C2财政健康正证。",
+            "史料集中于征发和财产权秩序，市场货币与常规储备直证较薄，故置信度保守。"
+          ],
+          "peak_band": null,
+          "polity": "元",
+          "rank": 146,
+          "reign_range": "1206-1227",
+          "ruler_id": "RULER-YUAN-TEMUJI",
+          "ruler_name": "铁木真",
+          "score": 7.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-2",
+            "S_end": "C2-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-YUAN-TEMUJI"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": "NOT_RECHECKED",
+            "cost_band": "NOT_RECHECKED",
+            "cost_status": "NOT_RECHECKED",
+            "cost_position": "NOT_RECHECKED",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-2",
+            "score": 7.0,
+            "state_anchors": {
+              "S0": "C2-2",
+              "S_avg": "C2-2",
+              "S_end": "C2-2"
+            }
+          },
+          "old_settlement_review": "KEEP_MAIN_BAND_REWRITE_REASON；保留：原结算关于公共财政尚未常规化、不能由战利品倒推健康的判断。；推翻/修正：明确以擅征发、取货财兼土田及其后有限纠偏闭合二档。"
+        },
+        {
+          "adjudication_reason": "原结算已经判断财政入不敷出和钞法受损，但把它留在C2-3偏宽。元贞二年即称此前所储“散之殆尽”；大德二年岁入仍不足、需从至元钞本中借二十万锭；大德三年更直接出现“岁入之数不支半岁，自余皆借及别支，钞法亦坏”，大德四年再称“横费不节，府库渐虚”。这些F/R与M弱证从统治前段持续到中段，覆盖主体窗口，符合C2-2而非三档。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "source_works": [
+                "《元史·成宗本纪》"
+              ],
+              "verbatim_excerpt": "向之所储，散之殆尽。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《元史·成宗本纪》"
+              ],
+              "verbatim_excerpt": "岁入之数……然犹不足于用，又于至元钞本中借二十万锭。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《元史·成宗本纪》"
+              ],
+              "verbatim_excerpt": "比年公帑所费，动辄巨万，岁入之数，不支半岁，自余皆借及别支，臣恐理财失宜，钞法亦坏。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《元史·成宗本纪》"
+              ],
+              "verbatim_excerpt": "横费不节，府库渐虚。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "PASS_C2_2_FAIL_C2_3",
+            "basis": "财政收入不能覆盖半岁、依赖借钞本并伴随钞法受损，且从前段持续至中段，主态已是脆弱而非基本正常。"
+          },
+          "main_band": "C2-2",
+          "material_limitations": [
+            "后期蠲免、赈济等只能证明调度机器尚未完全失效，因此不降C2-1",
+            "不能反过来抬回三档。",
+            "S0=C2-2与忽必烈S_end直接同步。"
+          ],
+          "peak_band": null,
+          "polity": "元",
+          "rank": 146,
+          "reign_range": "1294-1307",
+          "ruler_id": "RULER-YUAN-TEMUR",
+          "ruler_name": "铁穆耳",
+          "score": 7.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-2",
+            "S_end": "C2-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-B794D566D56C"
+            ],
+            "excluded_parent_ids": [
+              "M3P-SEM-4227251A59DF"
+            ],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-B794D566D56C",
+                "candidate_ids_trace_only": [
+                  "AUDIT-TEMUR-B2-TAX-CORRECTION-RAW"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "御史台上达地方重复征税问题 | 皇帝命中书立即停止加征 | 御史臺言：「江南宋時行兩稅法，自阿爾哈雅改為門搜攤，增課錢至五萬錠。今宣慰張國紀請復科夏稅，與門攤並征，以圖升進，湖、湘重罹其害。」帝命中書趣罷之。 | --- | work_title: 續資治通鑑 | page_title: 續資治通鑑/卷193 | volume: 193 | source_unit_id: SRC-XUZIZHITONGJIAN-193-2333762 | source_url: https://zh.wikisource.org/wiki/%E7%BA%8C%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7193 | source_url_origin: cache | revision_ref: 2333762 | source_text_origin: cache_raw_text | raw_sha256: 1c2eab2c2e8a55477af13642b33924118a85f368026f7a4b92460fe86aead0b6 | paragraph_count: 183 | source_license_note: Retain source URL and attribution; verify reuse terms at the source before redistribution.",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/yuan.json#material_id=AUDIT-TEMUR-B2-TAX-CORRECTION-RAW",
+                  ".cache/source-text/续资治通鉴-南宋/卷193.md"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-B794D566D56C"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-YUAN-TEMUR"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C5",
+            "cost_status": "LOWER_BOUND",
+            "cost_position": "LOW",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          },
+          "old_settlement_review": "DOWNGRADE_FROM_C2_3；保留：原结算关于收入不足、货币受损的核心负证全部保留。；推翻/修正：按持续时间和财政依赖借支的强度，旧三档偏宽，本轮降二。。"
+        },
+        {
+          "adjudication_reason": "顺帝后期的一档由M与F直接闭合：更钞后不久物价腾踊逾十倍，兵兴后各地转为以物易物，公私旧积货币失去作用，并直接出现“国用由是大乏”。这不是由首都失守或王朝覆灭倒推，而是货币、交易和公共财政在本人窗口内已经系统性断裂，故主态与交班均为一档。",
+          "confidence": "MEDIUM_HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《续资治通鉴》卷二百九"
+              ],
+              "verbatim_excerpt": "物價騰踴至逾十倍。",
+              "pillar_tags": [
+                "M_MARKET_MONEY"
+              ],
+              "evidence_role": "DIRECT_RESULT",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《续资治通鉴》卷二百九"
+              ],
+              "verbatim_excerpt": "皆以物貸相貿易。",
+              "pillar_tags": [
+                "M_MARKET_MONEY"
+              ],
+              "evidence_role": "DIRECT_RESULT",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《续资治通鉴》卷二百九"
+              ],
+              "verbatim_excerpt": "國用由是大乏。",
+              "pillar_tags": [
+                "F_FISCAL_BASE",
+                "R_RESERVE_BUFFER"
+              ],
+              "evidence_role": "DIRECT_RESULT",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "DIRECT_AND_CONSTRAINED",
+          "high_band_gate": {
+            "status": "PASS_C2_1_SYSTEMIC_FAILURE",
+            "basis": "货币交换体系与公共财政同时失灵，M和F/R双弱柱足以闭合一档。"
+          },
+          "main_band": "C2-1",
+          "material_limitations": [
+            "“兵兴”只作背景，不按战争规模机械扣C2；一档由物价、以物易物和国用大乏的已实现结果闭合。",
+            "“皆以物貸相贸易”沿项目固定通读文本原字保留，不自行改字。"
+          ],
+          "peak_band": null,
+          "polity": "元",
+          "rank": 184,
+          "reign_range": "1333-1370",
+          "ruler_id": "RULER-YUAN-TOGHON-TEMUR",
+          "ruler_name": "妥懽帖睦尔",
+          "score": 1.8,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-1",
+            "S_avg": "C2-1",
+            "S_end": "C2-1"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-F1197D30312B"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-F1197D30312B",
+                "candidate_ids_trace_only": [
+                  "YUAN-TT-CURRENCY-COLLAPSE"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "NEGATIVE",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "MARKET_TRADE",
+                  "MONETARY_CREDIT"
+                ],
+                "chain_summary": "反对意见被压后强推新交钞 | 物价逾十倍、以物易物、旧币不行、国用大乏 | - 新钞议最终实行：中统交钞一贯折铜钱一千文、准至元宝钞二贯，同时铸钱并行。原文明确记载不久“物价腾踊至逾十倍”；兵兴后各地转为以物易物，公私旧积货币皆不行，“国用由是大乏”。这是本卷最重要的货币—财政崩坏材料。原文定位：`P0237`“物價騰踴至逾十倍”“皆以物貸相貿易”“國用由是大乏”。",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/yuan.json#material_id=YUAN-TT-CURRENCY-COLLAPSE",
+                  "https://zh.wikisource.org/wiki/續資治通鑑/卷209"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-F1197D30312B"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-YUAN-TOGHON-TEMUR"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": "NOT_RECHECKED",
+            "cost_band": "NOT_RECHECKED",
+            "cost_status": "NOT_RECHECKED",
+            "cost_position": "NOT_RECHECKED",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-1",
+            "score": 1.8,
+            "state_anchors": {
+              "S0": "C2-1",
+              "S_avg": "C2-1",
+              "S_end": "C2-1"
+            }
+          },
+          "old_settlement_review": "KEEP_MAIN_BAND_STRENGTHEN_DIRECT_CHAIN；保留：原结算关于货币、交易、公共财政和税基多面断裂的核心判断。；推翻/修正：删除由单一钞价或终局败亡推低的可能歧义。"
+        }
+      ]
+    }
+  }
+}

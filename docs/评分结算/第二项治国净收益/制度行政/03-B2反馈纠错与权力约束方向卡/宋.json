@@ -1,0 +1,1530 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "宋",
+  "collections": {
+    "records": {
+      "positions": [
+        1,
+        2,
+        4,
+        7,
+        10,
+        20,
+        29,
+        30,
+        58,
+        59,
+        101,
+        122,
+        136,
+        137,
+        138,
+        178
+      ],
+      "records": [
+        {
+          "M_mixed_profile": [
+            {
+              "M": "M3",
+              "direction": "mixed_positive",
+              "direction_factor": 0.5,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-ZHEN:台官对宰相独立",
+              "material_id": "NS-ZZ-V039-CENSOR-SELECTION",
+              "mechanism": "台官保持对宰相的人事独立并能持续问责高官",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0
+            }
+          ],
+          "M_negative_profile": [
+            {
+              "M": "M0",
+              "absorbed_into_lifecycle_key": "B2:RULER-NS-ZHAO-ZHEN:CENSOR-SPEECH-LIFECYCLE",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-ZHEN:集体请对者安全",
+              "material_id": "NS-ZZ-V039-PALACE-GATE-SUPPRESSION",
+              "mechanism": "废后争议中伏阁求对的谏官被逐，作为台谏生命周期的负面阶段",
+              "position_count_mode": "absorbed_same_lifecycle",
+              "position_exclusion_reason": "废后逐谏官与台谏独立并入同一言路正负生命周期",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 0.0
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "absorbed_into_lifecycle_key": "B2:RULER-NS-ZHAO-ZHEN:MULTICHANNEL-G5-GATE",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-ZHEN:灾异求言后的制度纠正",
+              "material_id": "NS-ZZ-V041-DISASTER-FEEDBACK",
+              "mechanism": "灾异求言、恢复日朝并罢免四执政，作为多渠道约束的一部分",
+              "position_count_mode": "absorbed_same_lifecycle",
+              "position_exclusion_reason": "灾异求言、恢复日朝与罢四执政用于G5跨渠道门，不重复增加position",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 0.0
+            },
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-ZHEN:INTERNAL-COMMAND-REVIEW",
+              "material_id": "NS-ZZ-PRIMARY-INTERNAL-COMMAND-REVIEW",
+              "mechanism": "宫中内降必须经过有司、台谏和二府复核，反复阻止或纠正直接命令",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2.0
+            }
+          ],
+          "coverage_audit_ids": [
+            "NS11-TWO-SOURCE-FAMILY-GATE",
+            "NS11-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "NS-ZZ-PRIMARY-INTERNAL-COMMAND-REVIEW",
+            "NS-ZZ-V039-CENSOR-SELECTION",
+            "NS-ZZ-V039-PALACE-GATE-SUPPRESSION",
+            "NS-ZZ-V041-DISASTER-FEEDBACK"
+          ],
+          "direction_card_write": true,
+          "direction_index": 76.4,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "chronicle_plus_official_history_or_treatise",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G5",
+          "grade_basis": "内降复核、台谏独立、高官问责、灾异求言与日朝恢复构成长期多渠道约束；负例已吸收进生命周期，G5保留",
+          "grade_gate_basis": "内降复核、台谏独立、高官问责、灾异求言与日朝恢复构成长期多渠道约束；负例已吸收进生命周期，G5保留",
+          "grade_gate_code": "B2_G5_RARE_MULTICHANNEL_INSTITUTIONALIZED",
+          "index_interval": [
+            68,
+            80
+          ],
+          "polity": "北宋",
+          "position": "middle-upper",
+          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
+          "position_q": 0.7,
+          "rank": 2,
+          "reign_range": "1033-1063（亲政）",
+          "ruler_id": "RULER-NS-ZHAO-ZHEN",
+          "ruler_name": "赵祯",
+          "verification_material_ids": [
+            "NS-VERIFY-RULER-NS-ZHAO-ZHEN"
+          ],
+          "material_basis": [
+            "仁宗把宫中传命与内降纳入有司、台谏和二府复核",
+            "台官人选不由宰相自用，以保证能够批评宰相过失",
+            "孔道辅、范仲淹等十名台谏在废后争议中伏阁求对，部分谏官随后被逐",
+            "灾异后仁宗公开求言、罢免四名执政，并恢复每日御前殿视事"
+          ],
+          "settlement_basis": [
+            "正向 M3：宫中内降纳入有司、台谏和二府复核，反复阻止或纠正绕过审议的直接命令",
+            "混合正向 M3：台官保持对宰相的人事独立并持续问责高官；废后争议中逐谏官的负例并入同一言路生命周期",
+            "正向 M3：灾异求言、恢复每日御前视事和罢免四执政共同闭合另一条长期反馈渠道；该条用于 G5 多渠道门，不重复增加位置计权",
+            "档位结论：内降复核、台谏独立、高官问责、灾异求言与日朝恢复跨渠道长期运行，满足 G5 中上部"
+          ]
+        },
+        {
+          "M_mixed_profile": [
+            {
+              "M": "M0",
+              "direction": "mixed",
+              "direction_factor": 0.0,
+              "lifecycle_key": "B2:RULER-SS-ZHAO-SHEN:SS-ZS-SALT-REVERSAL",
+              "material_id": "SS-ZS-SALT-REVERSAL",
+              "mechanism": "淳熙十六年，应孟明复核后正式奏称盐钞抑勒民户、流毒一方",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 0.0
+            }
+          ],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "B2:RULER-SS-ZHAO-SHEN:SS-ZS-OPEN-SPEECH",
+              "material_id": "SS-ZS-OPEN-SPEECH",
+              "mechanism": "言路、台谏和近臣批评长期安全运行并产生制度纠正",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 2.0
+            },
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "B2:RULER-SS-ZHAO-SHEN:SS-ZS-JUDICIAL-OPERATION",
+              "material_id": "SS-ZS-JUDICIAL-OPERATION",
+              "mechanism": "法司复核、年度虑囚和内臣交大理审讯形成独立程序纠错渠道",
+              "result_closure": "sustained_or_systemic",
+              "review_basis_ref": "B2整改清单:P1-64:渠道B",
+              "signed_weight": 2.0
+            }
+          ],
+          "coverage_audit_ids": [
+            "SS5-TWO-SOURCE-FAMILY-GATE",
+            "SS5-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "SS-ZS-CRITICISM-SAFE",
+            "SS-ZS-JUDICIAL-OPERATION",
+            "SS-ZS-OPEN-SPEECH",
+            "SS-ZS-SALT-REVERSAL"
+          ],
+          "direction_card_write": true,
+          "direction_index": 62.0,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "fixed_primary_and_independent_treatise_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G4",
+          "grade_basis": "言路与近臣纠偏形成正向M3，法司和司法复核形成独立正向M3；地方盐钞、救荒信息上达并促成改策，无主导负M3，定G4中部。",
+          "grade_gate_basis": "两条独立正向M3分别闭合外部约束和程序纠错，地方信息上达满足跨层级入口，G4硬门完整。",
+          "grade_gate_code": "B2_G4_MULTICHANNEL_CROSSLEVEL_SUPREME",
+          "index_interval": [
+            56,
+            67.9
+          ],
+          "polity": "南宋",
+          "position": "middle",
+          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
+          "position_q": 0.5,
+          "rank": 3,
+          "reign_range": "1162—1189",
+          "ruler_id": "RULER-SS-ZHAO-SHEN",
+          "ruler_name": "赵昚",
+          "settlement_basis": [
+            "正向 M3：张栻、朱熹、罗点等能够持续批评近习和信息阻隔，赵汝愚反对内侍典兵后形成永久禁令。",
+            "正向 M3：年度虑囚、条法复核、宰臣纠正条款和内臣交大理审讯构成独立的司法程序纠错渠道。",
+            "正向 M2：广西盐钞和浙东救荒等地方信息上达后促成改策，满足跨层级信息上达。",
+            "档位结论（G4中部）：两条独立M3与跨层级入口均闭合，且没有主导负M3。"
+          ],
+          "verification_material_ids": [],
+          "material_basis": [
+            "张栻遗言、朱熹长疏与罗点封事均集中批评近习、信息阻隔和政治趋利",
+            "赵汝愚反对内侍陈源兼领兵职后，孝宗下诏自今内侍不得兼兵职并定为永久规则",
+            "孝宗每年临轩虑囚，先令有司进案披阅后再作决遣",
+            "法司改律令时逐条复核不合理条款，内臣包庇案件交大理审讯并实际决配",
+            "孝宗即位即广开言路到“中外士庶”",
+            "广西盐钞弊害经地方复核上达后恢复旧法",
+            "浙东救荒和地方民力信息经朱熹等上达后，多项措施获准"
+          ]
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "material_ids": [
+                "NS-GTT-V080-FACTIONAL-RETALIATION"
+              ],
+              "mechanism": "因言事或互劾被外调贬黜",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": -1.0
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_ids": [
+                "NS-GTT-V078-MASS-PETITIONS"
+              ],
+              "mechanism": "官民实封把基层疾苦持续送入中枢并促成政策修正",
+              "result_closure": "sustained_or_systemic",
+              "review_basis_ref": "B2整改清单:P1-115:渠道A",
+              "signed_weight": 2.0
+            },
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_ids": [
+                "NS-GTT-V078-CENSOR-REBUILD",
+                "NS-VERIFY-RULER-NS-GAO-TAOTAO"
+              ],
+              "mechanism": "台谏与执政持续提出异议并实际约束最高决策",
+              "result_closure": "sustained_or_systemic",
+              "review_basis_ref": "B2整改清单:P1-115:渠道B",
+              "signed_weight": 2.0
+            }
+          ],
+          "coverage_audit_ids": [
+            "NS11-TWO-SOURCE-FAMILY-GATE",
+            "NS11-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "NS-GTT-V080-FACTIONAL-RETALIATION"
+          ],
+          "direction_card_write": true,
+          "direction_index": 59.6,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "chronicle_plus_official_history_or_treatise",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G4",
+          "grade_basis": "官民实封形成稳定的跨层级信息上达M3，台谏与执政形成独立的外部约束M3；蔡确诗案及救援者受贬构成负M2，但未发展为主要阶段的系统压制，定G4中下。",
+          "grade_gate_basis": "两条独立正向M3分别满足跨层级信息上达和外部约束；负M2压低档内位置但未击穿G4主档。",
+          "grade_gate_code": "B2_G4_MULTICHANNEL_CROSSLEVEL_SUPREME",
+          "index_interval": [
+            56,
+            67.9
+          ],
+          "polity": "北宋",
+          "position": "lower-middle",
+          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
+          "position_q": 0.3,
+          "rank": 4,
+          "reign_range": "1085-1093（实际主政）",
+          "ruler_id": "RULER-NS-GAO-TAOTAO",
+          "ruler_name": "高滔滔",
+          "settlement_basis": [
+            "正向 M3：官民实封允许地方疾苦不经压下直达中枢，数千臣民意见及一百五十道农民疾苦推动多项新法收缩或撤除。",
+            "正向 M3：司马光、刘挚、王岩叟、苏辙等通过台谏和执政渠道反复提出异议，并使求言限制、边事及制度处置发生改变。",
+            "负向 M2：蔡确因诗案远窜，范纯仁、王存等救援者随后受贬，说明党争阶段的表达安全受到明显损害。",
+            "档位结论（G4中下）：两条独立M3满足多渠道、外部约束和跨层级上达；负面以职业处分为主，尚未压倒主要阶段的反馈运行。"
+          ],
+          "verification_material_ids": [
+            "NS-GTT-V078-CENSOR-REBUILD",
+            "NS-GTT-V078-MASS-PETITIONS",
+            "NS-VERIFY-RULER-NS-GAO-TAOTAO"
+          ],
+          "material_basis": [
+            "司马光要求官民均可实封、地方立即附递且不得索取副本或压下，高滔滔接受",
+            "求言诏夹带限制后，司马光指出将使天下无复可言，高滔滔删除限制并重新下诏",
+            "称新法不便的臣民达到数千人，司马光又整理一百五十道农民疾苦实封",
+            "强制栽桑、罚金、保甲、市易和方田等政策在持续反馈后收缩或撤除",
+            "台谏与执政长期进入人事、边事、财政和制度争论，多次改变原定处置",
+            "蔡确因车盖亭诗案被远窜新州，反对以暧昧文字罪人的范纯仁、王存等随后受贬"
+          ]
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M2",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-KUANGYIN:对直指宰相问题者的安全",
+              "material_id": "NS-ZK-V005-REMONSTRANCE-RETALIATION",
+              "mechanism": "直指宰相问题者被柱斧击伤并一度拟处极刑，形成异议安全反例",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": -1.0
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-KUANGYIN:基层申诉是否能改变原处理",
+              "material_id": "NS-ZK-V002-REVIEW-ACCOUNTABILITY",
+              "mechanism": "馆陶民郭贽申诉检田不均，复核确认隐漏并改变原处理",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-KUANGYIN:常态化多议题反馈",
+              "material_id": "NS-ZK-V002-ROTATING-AUDIENCE",
+              "mechanism": "轮对围绕时政、急务、刑狱和民间疾苦形成常态多议题反馈",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 2.0
+            },
+            {
+              "M": "M0",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-KUANGYIN:地方独立上报",
+              "material_id": "NS-ZK-V003-TONGPAN-DUAL",
+              "mechanism": "通判共同处理军民政务并可直接奏事，但现有材料主要证明接口设置",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 0.0,
+              "position_count_mode": "context_only_no_effective_mechanism",
+              "position_exclusion_reason": "只闭合地方独立上报接口，未闭合反复结果链"
+            }
+          ],
+          "coverage_audit_ids": [
+            "NS11-TWO-SOURCE-FAMILY-GATE",
+            "NS11-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "NS-ZK-V002-REVIEW-ACCOUNTABILITY",
+            "NS-ZK-V002-ROTATING-AUDIENCE",
+            "NS-ZK-V003-TONGPAN-DUAL",
+            "NS-ZK-V005-REMONSTRANCE-RETALIATION"
+          ],
+          "direction_card_write": true,
+          "direction_index": 54.7,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "chronicle_plus_official_history_or_treatise",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G3",
+          "grade_basis": "当前展示不足以闭合G4的两条独立反复结果链与external_constraint硬门",
+          "grade_gate_basis": "当前展示不足以闭合G4的两条独立反复结果链与external_constraint硬门",
+          "grade_gate_code": "B2_G3_MAIN_STAGE_FEEDBACK_SAFE",
+          "index_interval": [
+            44,
+            55.9
+          ],
+          "polity": "北宋",
+          "position": "upper",
+          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
+          "position_q": 0.9,
+          "rank": 8,
+          "reign_range": "960-976",
+          "ruler_id": "RULER-NS-ZHAO-KUANGYIN",
+          "ruler_name": "赵匡胤",
+          "verification_material_ids": [
+            "NS-VERIFY-RULER-NS-ZHAO-KUANGYIN"
+          ],
+          "material_basis": [
+            "馆陶民郭贽申诉检田不均，复核证实隐漏属实并改变原处理",
+            "赵匡胤要求轮对官直陈时政得失、急务、刑狱冤滥和百姓疾苦",
+            "通判与知州共同处理军民政务，并可直接向中央奏事",
+            "直指宰相问题者被赵匡胤以柱斧击伤口齿，并一度拟处极刑"
+          ],
+          "settlement_basis": [
+            "正向 M2：馆陶民郭贽申诉检田不均，复核确认隐漏并改变原处理，闭合一条基层申诉纠错链",
+            "正向 M3：轮对围绕时政、急务、刑狱和民间疾苦形成常态多议题反馈，支撑 G3 的主要阶段运行",
+            "正向 M0：通判共同处理军民政务并可直接奏事，现有材料主要证明地方独立上报接口",
+            "负向 M2：直指宰相问题者被柱斧击伤并一度拟处极刑，形成明确异议安全反例",
+            "档位结论：只有一条主要阶段 M3，地方通判仍停留在接口设置，现有材料不足两条独立反复结果链和外部约束硬门；保 G3 上部"
+          ]
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_ids": [],
+              "mechanism": "田锡在军政、边事、用人、制度和灾异等议题上长期直谏并多次获采纳",
+              "result_closure": "sustained_or_systemic",
+              "review_basis_ref": "B2整改清单:赵光义最新裁决",
+              "signed_weight": 2.0
+            },
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-GUANGYI:监察能否约束亲王",
+              "material_id": "NS-ZGY-V014-CENSOR-PRINCE",
+              "mechanism": "监察能否约束亲王",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-GUANGYI:远地异常信息上达",
+              "material_id": "NS-ZGY-V018-DIRECT-REPORT",
+              "mechanism": "远地异常信息上达",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M0",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-GUANGYI:民众越级申诉",
+              "material_id": "NS-ZGY-V017-DRUM-PETITION",
+              "mechanism": "民众越级申诉",
+              "position_count_mode": "context_only_no_effective_mechanism",
+              "position_exclusion_reason": "只有命令、方案、单点接触或未闭合结果；保留为定档/复验上下文但不计position",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 0.0
+            }
+          ],
+          "coverage_audit_ids": [
+            "NS11-TWO-SOURCE-FAMILY-GATE",
+            "NS11-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "NS-ZGY-V014-CENSOR-PRINCE",
+            "NS-ZGY-V017-DRUM-PETITION",
+            "NS-ZGY-V018-DIRECT-REPORT"
+          ],
+          "direction_card_write": true,
+          "direction_index": 52.3,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "chronicle_plus_official_history_or_treatise",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G3",
+          "grade_basis": "田锡长期直谏并多次获采纳，形成正向M3；姚坦之谏促成毁除假山且本人获保护，魏廷式远道奏事可直接进入。反馈持续且安全，但缺第二条同强度M3，定G3中上。",
+          "grade_gate_basis": "持续正向M3代表主要阶段，另有独立纠偏和远地信息入口；第二条长期M3不足，未过G4门。",
+          "grade_gate_code": "B2_G3_MAIN_STAGE_FEEDBACK_SAFE",
+          "index_interval": [
+            44,
+            55.9
+          ],
+          "polity": "北宋",
+          "position": "middle-upper",
+          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
+          "position_q": 0.7,
+          "rank": 9,
+          "reign_range": "976-997",
+          "ruler_id": "RULER-NS-ZHAO-GUANGYI",
+          "ruler_name": "赵光义",
+          "settlement_basis": [
+            "正向 M3：田锡在军政、边事、用人、制度和灾异等议题上长期直谏，多次获得明确采纳。",
+            "正向 M2：姚坦反对营造假山后，太宗毁掉假山并保护姚坦不受王府谗间。",
+            "正向 M2：魏廷式远道奏事拒绝先报中书，太宗当即非时召见，地方异常信息能够直接进入。",
+            "档位结论（G3中上）：持续中枢反馈和异议安全成立；缺少第二条同强度长期M3，止于G3。"
+          ],
+          "verification_material_ids": [
+            "NS-VERIFY-RULER-NS-ZHAO-GUANGYI"
+          ],
+          "material_basis": [
+            "田锡在军政、边事、用人、制度和灾异等议题长期直谏，多次获太宗嘉纳",
+            "田锡后期仍屡次召对并被称许为直臣，其外调史载缘于忤宰相而非皇帝报复",
+            "姚坦以血山之谏反对营造，太宗随后毁掉假山",
+            "太宗明确保护姚坦，不允许王府以谗言离间",
+            "魏廷式远道奏事拒绝先报中书，太宗当即非时召见"
+          ]
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M2",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "B2:RULER-NS-LIU-E:抵制内降者的安全",
+              "material_id": "NS-LE-V037-CAO-LIYONG-DEATH",
+              "mechanism": "曹利用抵制内降后遭连坐贬逐并在押送中自尽",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": -1.0
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "B2:RULER-NS-LIU-E:监察官独立发言",
+              "material_id": "NS-LE-V035-CENSOR-INDEPENDENCE",
+              "mechanism": "鲁宗道长期约束最高权力并在礼制、外戚和恩荫等事项上获得结果",
+              "result_closure": "sustained_or_systemic",
+              "review_basis_ref": "B2整改清单:刘娥最新裁决",
+              "signed_weight": 2.0
+            },
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "B2:RULER-NS-LIU-E:外任官直接反馈",
+              "material_id": "NS-LE-V036-DIRECT-AUDIENCE",
+              "mechanism": "外任官直接反馈",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0
+            }
+          ],
+          "coverage_audit_ids": [
+            "NS11-TWO-SOURCE-FAMILY-GATE",
+            "NS11-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "NS-LE-V035-CENSOR-INDEPENDENCE",
+            "NS-LE-V036-DIRECT-AUDIENCE",
+            "NS-LE-V037-CAO-LIYONG-DEATH"
+          ],
+          "direction_card_write": true,
+          "direction_index": 47.6,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "chronicle_plus_official_history_or_treatise",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G3",
+          "grade_basis": "专项扩搜并按负面烈度重裁后升G3。鲁宗道在临朝期长期直接约束最高权力：否定刘氏七庙、反对太后乘先帝大辇、抑制外戚与馆阁恩荫，且长期在政府安全履职，构成external_constraint M3；王曾、冯拯等又能在丁谓、曹利用等重案中阻止太后采取更极端处分。曹利用因抵制内降而结怨宦官，后借从子案被连坐贬逐并在押送中自尽，是高烈度单一负链，但不是跨多角色、跨阶段的系统清洗；张士逊等因辩护被罢则进一步加重该链。总体主要阶段反馈真实运行且反对者通常安全，G3成立；负例压低档内位置，不足压回G2",
+          "grade_gate_basis": "专项扩搜并按负面烈度重裁后升G3。鲁宗道在临朝期长期直接约束最高权力：否定刘氏七庙、反对太后乘先帝大辇、抑制外戚与馆阁恩荫，且长期在政府安全履职，构成external_constraint M3；王曾、冯拯等又能在丁谓、曹利用等重案中阻止太后采取更极端处分。曹利用因抵制内降而结怨宦官，后借从子案被连坐贬逐并在押送中自尽，是高烈度单一负链，但不是跨多角色、跨阶段的系统清洗；张士逊等因辩护被罢则进一步加重该链。总体主要阶段反馈真实运行且反对者通常安全，G3成立；负例压低档内位置，不足压回G2",
+          "grade_gate_code": "B2_G3_MAIN_STAGE_FEEDBACK_SAFE",
+          "index_interval": [
+            44,
+            55.9
+          ],
+          "polity": "北宋",
+          "position": "lower-middle",
+          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
+          "position_q": 0.3,
+          "rank": 18,
+          "reign_range": "1022-1033（实际主政）",
+          "ruler_id": "RULER-NS-LIU-E",
+          "ruler_name": "刘娥",
+          "settlement_basis": [
+            "正向 M3：鲁宗道长期约束最高权力，在礼制、外戚和恩荫等事项上反复产生结果并安全履职。",
+            "正向 M2：王曾、冯拯等在丁谓、曹利用等重案中阻止更极端处分。",
+            "负向 M2：曹利用抵制内降后遭连坐贬逐并在押送中自尽，张士逊等辩护者亦受罢黜。",
+            "档位结论（G3中下）：主要阶段反馈真实且反对者通常安全；高烈度单一负链压低档内位置。"
+          ],
+          "verification_material_ids": [
+            "NS-VERIFY-RULER-NS-LIU-E"
+          ],
+          "material_basis": [
+            "鲁宗道反对为刘氏立七庙和太后乘先帝大辇，相关意见得到采纳",
+            "鲁宗道抑制外戚与馆阁恩荫，长期在政府安全履职",
+            "王曾、冯拯等在丁谓、曹利用等重案中阻止太后采取更极端处分",
+            "曹利用因抵制内降结怨宦官，后被连坐贬逐并在押送中自尽",
+            "张士逊等因替曹利用辩护而被罢"
+          ]
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-HENG:执政遮蔽君主信息",
+              "material_id": "NS-ZH-V035-INFORMATION-CLOSURE",
+              "mechanism": "执政遮蔽君主信息",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": -2.0
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-HENG:转对意见留存",
+              "material_id": "NS-ZH-V022-ROTATING-AUDIENCE",
+              "mechanism": "转对意见留存",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 2.0
+            },
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-HENG:章疏与诏敕纠错",
+              "material_id": "NS-ZH-V023-SILVER-TERRACE",
+              "mechanism": "章疏与诏敕纠错",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 2.0
+            }
+          ],
+          "coverage_audit_ids": [
+            "NS11-TWO-SOURCE-FAMILY-GATE",
+            "NS11-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "NS-ZH-V022-ROTATING-AUDIENCE",
+            "NS-ZH-V023-SILVER-TERRACE",
+            "NS-ZH-V035-INFORMATION-CLOSURE"
+          ],
+          "direction_card_write": true,
+          "direction_index": 45.2,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "chronicle_plus_official_history_or_treatise",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G3",
+          "grade_basis": "负M3严重度与阶段归责重审后升G3。咸平至大中祥符前中期转对恢复、章疏留中、陈彭年五事全部采纳，以及多次对地方异常/欠负的直接复核，足以形成主要阶段正向反馈M3。晚年丁谓擅权、李迪受排挤、真宗久病甚至忘记既往命令，形成信息遮蔽负M3；但它集中于重病末段，部分最高权力已向太子、皇后及丁谓网络转移，主要伤害是信息控制与贬逐，不是大规模不可逆清洗。负态重要但不支配整个统治窗口，故由G2升G3，position受晚期失控明显压低",
+          "grade_gate_basis": "负M3严重度与阶段归责重审后升G3。咸平至大中祥符前中期转对恢复、章疏留中、陈彭年五事全部采纳，以及多次对地方异常/欠负的直接复核，足以形成主要阶段正向反馈M3。晚年丁谓擅权、李迪受排挤、真宗久病甚至忘记既往命令，形成信息遮蔽负M3；但它集中于重病末段，部分最高权力已向太子、皇后及丁谓网络转移，主要伤害是信息控制与贬逐，不是大规模不可逆清洗。负态重要但不支配整个统治窗口，故由G2升G3，position受晚期失控明显压低",
+          "grade_gate_code": "B2_G3_MAIN_STAGE_FEEDBACK_SAFE",
+          "index_interval": [
+            44,
+            55.9
+          ],
+          "polity": "北宋",
+          "position": "lower",
+          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
+          "position_q": 0.1,
+          "rank": 28,
+          "reign_range": "997-1022",
+          "ruler_id": "RULER-NS-ZHAO-HENG",
+          "ruler_name": "赵恒",
+          "verification_material_ids": [
+            "NS-VERIFY-RULER-NS-ZHAO-HENG"
+          ],
+          "material_basis": [
+            "把转对章疏另录一本留中",
+            "诏敕不便，均逐项条奏",
+            "说明最高层信息被严重遮蔽"
+          ],
+          "settlement_basis": [
+            "正向 M3：转对意见留存",
+            "正向 M3：章疏与诏敕纠错",
+            "负向 M3：执政遮蔽君主信息",
+            "裁决说明：负M3严重度与阶段归责重审后升G3",
+            "裁决说明：咸平至大中祥符前中期转对恢复、章疏留中、陈彭年五事全部采纳，以及多次对地方异常/欠负的直接复核，足以形成主要阶段正向反馈M3",
+            "裁决说明：晚年丁谓擅权、李迪受排挤、真宗久病甚至忘记既往命令，形成信息遮蔽负M3",
+            "裁决说明：但它集中于重病末段，部分最高权力已向太子、皇后及丁谓网络转移，主要伤害是信息控制与贬逐，不是大规模不可逆清洗",
+            "档位结论：负态重要但不支配整个统治窗口，故由G2升G3，position受晚期失控明显压低"
+          ]
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M2",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-HUAN:纠错意见与政令可信度",
+              "material_id": "NS-ZHUA-V097-ORDER-INSTABILITY",
+              "mechanism": "纠错意见与政令可信度",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": -1.0
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-HUAN:监察御史言事权",
+              "material_id": "NS-ZHUA-V096-CENSOR-SPEECH-RESTORE",
+              "mechanism": "监察御史言事权",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-HUAN:台谏对宰执独立",
+              "material_id": "NS-ZHUA-V096-CENSOR-SELECTION-INDEPENDENCE",
+              "mechanism": "台谏对宰执独立",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_ids": [],
+              "mechanism": "李纲反对弃京和军民伏阙请复用均使钦宗改变处置",
+              "result_closure": "observed_or_repeated",
+              "review_basis_ref": "B2整改清单:赵桓最新裁决",
+              "signed_weight": 1.0
+            }
+          ],
+          "coverage_audit_ids": [
+            "NS11-TWO-SOURCE-FAMILY-GATE",
+            "NS11-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "NS-ZHUA-V096-CENSOR-SELECTION-INDEPENDENCE",
+            "NS-ZHUA-V096-CENSOR-SPEECH-RESTORE",
+            "NS-ZHUA-V097-ORDER-INSTABILITY"
+          ],
+          "direction_card_write": true,
+          "direction_index": 45.2,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "chronicle_plus_official_history_or_treatise",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G3",
+          "grade_basis": "专项扩搜后由原目标G2再升G3。靖康初李纲当面反对弃京出狩，钦宗从其意见并停止出逃；李纲被罢后，陈东、太学生及数万军民伏阙请复用，钦宗不仅免陈东死罪，还当日恢复李纲右丞和守御职；其后李纲建议按澶渊故事护送/尾击退金军，钦宗一度批准。另有监察御史言事按祖宗法、限制宰执荐举等制度动作。负面是政策反复、李纲后来再遭贬逐、支持李纲者亦有外调，但主要为职业处分与危机派系摇摆，无批量拘禁处死式压制。三条以上跨角色真实闭环、学生军民跨层上达且反对者在钦宗朝通常仍可表达，满足G3多M2路径；因统治极短且纠偏复发严重，只取G3下位",
+          "grade_gate_basis": "专项扩搜后由原目标G2再升G3。靖康初李纲当面反对弃京出狩，钦宗从其意见并停止出逃；李纲被罢后，陈东、太学生及数万军民伏阙请复用，钦宗不仅免陈东死罪，还当日恢复李纲右丞和守御职；其后李纲建议按澶渊故事护送/尾击退金军，钦宗一度批准。另有监察御史言事按祖宗法、限制宰执荐举等制度动作。负面是政策反复、李纲后来再遭贬逐、支持李纲者亦有外调，但主要为职业处分与危机派系摇摆，无批量拘禁处死式压制。三条以上跨角色真实闭环、学生军民跨层上达且反对者在钦宗朝通常仍可表达，满足G3多M2路径；因统治极短且纠偏复发严重，只取G3下位",
+          "grade_gate_code": "B2_G3_MAIN_STAGE_FEEDBACK_SAFE",
+          "index_interval": [
+            44,
+            55.9
+          ],
+          "polity": "北宋",
+          "position": "lower",
+          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
+          "position_q": 0.1,
+          "rank": 28,
+          "reign_range": "1126-1127",
+          "ruler_id": "RULER-NS-ZHAO-HUAN",
+          "ruler_name": "赵桓",
+          "settlement_basis": [
+            "正向 M2：李纲反对弃京出狩，钦宗接受并停止出逃。",
+            "正向 M2：李纲被罢后，陈东、太学生及数万军民伏阙请复用，钦宗当日恢复李纲职务。",
+            "正向 M2：李纲提出护送并尾击退金军，钦宗一度批准。",
+            "负向 M2：政策反复，李纲后来再遭贬逐，部分支持者亦被外调。",
+            "档位结论（G3下部）：多条跨角色闭环并含军民跨层上达；统治期短且纠偏反复，只取G3下部。"
+          ],
+          "verification_material_ids": [
+            "NS-VERIFY-RULER-NS-ZHAO-HUAN"
+          ],
+          "material_basis": [
+            "李纲当面反对弃京出狩，钦宗接受并停止出逃",
+            "李纲被罢后，陈东、太学生及数万军民伏阙请复用，钦宗当日恢复李纲职务",
+            "李纲提出按澶渊故事护送并尾击退金军，钦宗一度批准",
+            "监察御史言事权按祖宗法恢复，并限制宰执荐举台谏",
+            "李纲后来再遭贬逐，部分支持者亦被外调，但主要为职业处分"
+          ]
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M2",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-SHU:政策异议的复核独立性",
+              "material_id": "NS-ZS-V063-SELF-REVIEW-LOOP",
+              "mechanism": "政策异议的复核独立性",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": -1.0
+            },
+            {
+              "M": "M2",
+              "absorbed_into_lifecycle_key": "NS-ZS-V063-SELF-REVIEW-LOOP",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-SHU:台官处分的程序约束",
+              "material_id": "NS-ZS-V064-CENSOR-PROCEDURE-BYPASS",
+              "mechanism": "台官处分的程序约束",
+              "position_count_mode": "absorbed_same_lifecycle",
+              "position_exclusion_reason": "同一阶段台谏复核独立性受损的程序生命周期",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 0.0
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-SHU:内侍权力监督",
+              "material_id": "NS-ZS-V062-EUNUCH-REMOVAL",
+              "mechanism": "内侍权力监督",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-SHU:内降封驳",
+              "material_id": "NS-ZS-V063-NEIJANG-BLOCK",
+              "mechanism": "内降封驳",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0
+            }
+          ],
+          "coverage_audit_ids": [
+            "NS11-TWO-SOURCE-FAMILY-GATE",
+            "NS11-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "NS-ZS-V062-EUNUCH-REMOVAL",
+            "NS-ZS-V063-NEIJANG-BLOCK",
+            "NS-ZS-V063-SELF-REVIEW-LOOP",
+            "NS-ZS-V064-CENSOR-PROCEDURE-BYPASS"
+          ],
+          "direction_card_write": true,
+          "direction_index": 35.6,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "chronicle_plus_official_history_or_treatise",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G2",
+          "grade_basis": "主档维持G2，position降至中下。司马光、吕诲交章弹劾任守忠后次日即黜，以及中书封驳僧官内降并最终恢复考试选补，是两条独立正M2。濮议中吕诲、范纯仁、吕大防等因直接反对最高权力尊亲礼制而被外贬，且处分时中书绕开封驳程序，这是与异议行为有直接触发关系的多人职业处分，不能因没有死亡而轻写；同时台谏封章大量不报，反馈稳定性偏弱。两条正M2足以稳居G2，但正向数量未达新G3多M2门，负向又是纯B2敏感议题报复，故取G2-lower-middle。",
+          "grade_gate_basis": "主档维持G2，position降至中下。司马光、吕诲交章弹劾任守忠后次日即黜，以及中书封驳僧官内降并最终恢复考试选补，是两条独立正M2。濮议中吕诲、范纯仁、吕大防等因直接反对最高权力尊亲礼制而被外贬，且处分时中书绕开封驳程序，这是与异议行为有直接触发关系的多人职业处分，不能因没有死亡而轻写；同时台谏封章大量不报，反馈稳定性偏弱。两条正M2足以稳居G2，但正向数量未达新G3多M2门，负向又是纯B2敏感议题报复，故取G2-lower-middle。",
+          "grade_gate_code": "B2_G2_ONE_CLOSED_OR_MIXED",
+          "index_interval": [
+            32,
+            43.9
+          ],
+          "polity": "北宋",
+          "position": "lower-middle",
+          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
+          "position_q": 0.3,
+          "rank": 49,
+          "reign_range": "1063-1067",
+          "ruler_id": "RULER-NS-ZHAO-SHU",
+          "ruler_name": "赵曙",
+          "verification_material_ids": [
+            "NS-VERIFY-RULER-NS-ZHAO-SHU"
+          ],
+          "material_basis": [
+            "司马光、吕诲交章弹劾",
+            "中书执奏不可",
+            "耳目之官“与不设同”",
+            "纪纲之失，无甚于此"
+          ],
+          "settlement_basis": [
+            "正向 M2：内侍权力监督",
+            "正向 M2：内降封驳",
+            "负向 M2：政策异议的复核独立性",
+            "负向 M2（不重复计权）：台官处分的程序约束",
+            "裁决说明：主档维持G2，position降至中下",
+            "裁决说明：司马光、吕诲交章弹劾任守忠后次日即黜，以及中书封驳僧官内降并最终恢复考试选补，是两条独立正M2",
+            "裁决说明：濮议中吕诲、范纯仁、吕大防等因直接反对最高权力尊亲礼制而被外贬，且处分时中书绕开封驳程序，这是与异议行为有直接触发关系的多人职业处分，不能因没有死亡而轻写",
+            "裁决说明：同时台谏封章大量不报，反馈稳定性偏弱",
+            "档位结论：两条正M2足以稳居G2，但正向数量未达新G3多M2门，负向又是纯B2敏感议题报复，故取G2-中下部"
+          ]
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-XU:台谏持续独立性",
+              "material_id": "NS-ZX-V067-CENSOR-EMPTY",
+              "mechanism": "台谏持续独立性",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": -2.0
+            },
+            {
+              "M": "M2",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-XU:灾民信息能否形成稳定纠正",
+              "material_id": "NS-ZX-V070-REFORM-REVERSAL",
+              "mechanism": "灾民信息能否形成稳定纠正",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": -1.0
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-XU:政策负面信息进入中枢",
+              "material_id": "NS-ZX-V067-HANQI-FEEDBACK",
+              "mechanism": "政策负面信息进入中枢",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0
+            }
+          ],
+          "coverage_audit_ids": [
+            "NS11-TWO-SOURCE-FAMILY-GATE",
+            "NS11-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "NS-ZX-V067-CENSOR-EMPTY",
+            "NS-ZX-V067-HANQI-FEEDBACK",
+            "NS-ZX-V070-REFORM-REVERSAL"
+          ],
+          "direction_card_write": true,
+          "direction_index": 35.6,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "chronicle_plus_official_history_or_treatise",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G2",
+          "grade_basis": "负M3严重度重审后升G2。熙宁初李定服丧争议导致数月内台谏大批罢逐、“台谏一空”，系统覆盖成立，因此M3本身保留；但主要后果是罢免/外出，未形成批量拘禁、肉刑或死亡，且高度集中于新法初期一个政治阶段，烈度明显低于明代廷杖清洗或酷吏政治。韩琦上疏青苗害民后神宗明确承认“不意乃害民如此”，随后出现不得抑配、边州停给等范围修正，正M2闭环成立。正向闭环与中烈度阶段负态并存，按G1/G2优先级应G2，不再以“有负M3”机械压G1",
+          "grade_gate_basis": "负M3严重度重审后升G2。熙宁初李定服丧争议导致数月内台谏大批罢逐、“台谏一空”，系统覆盖成立，因此M3本身保留；但主要后果是罢免/外出，未形成批量拘禁、肉刑或死亡，且高度集中于新法初期一个政治阶段，烈度明显低于明代廷杖清洗或酷吏政治。韩琦上疏青苗害民后神宗明确承认“不意乃害民如此”，随后出现不得抑配、边州停给等范围修正，正M2闭环成立。正向闭环与中烈度阶段负态并存，按G1/G2优先级应G2，不再以“有负M3”机械压G1",
+          "grade_gate_code": "B2_G2_ONE_CLOSED_OR_MIXED",
+          "index_interval": [
+            32,
+            43.9
+          ],
+          "polity": "北宋",
+          "position": "lower-middle",
+          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
+          "position_q": 0.3,
+          "rank": 49,
+          "reign_range": "1067-1085",
+          "ruler_id": "RULER-NS-ZHAO-XU",
+          "ruler_name": "赵顼",
+          "verification_material_ids": [
+            "NS-VERIFY-RULER-NS-ZHAO-XU"
+          ],
+          "material_basis": [
+            "反对者被罢逐",
+            "不意乃害民如此",
+            "共十八事一度停罢"
+          ],
+          "settlement_basis": [
+            "正向 M2：政策负面信息进入中枢",
+            "负向 M3：台谏持续独立性",
+            "负向 M2：灾民信息能否形成稳定纠正",
+            "裁决说明：负M3严重度重审后升G2",
+            "裁决说明：熙宁初李定服丧争议导致数月内台谏大批罢逐、“台谏一空”，系统覆盖成立，因此M3本身保留",
+            "裁决说明：但主要后果是罢免/外出，未形成批量拘禁、肉刑或死亡，且高度集中于新法初期一个政治阶段，烈度明显低于明代廷杖清洗或酷吏政治",
+            "裁决说明：韩琦上疏青苗害民后神宗明确承认“不意乃害民如此”，随后出现不得抑配、边州停给等范围修正，正M2闭环成立",
+            "档位结论：正向闭环与中烈度阶段负态并存，按G1/G2优先级应G2，不再以“有负M3”机械压G1"
+          ]
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "B2:RULER-SS-ZHAO-DUN:SS-ZD-PALACE-CAPTURE",
+              "material_id": "SS-ZD-PALACE-CAPTURE",
+              "mechanism": "多年过宫问安意见进入后仅短暂接受，核心纠偏持续复发",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -2.0
+            },
+            {
+              "M": "M3",
+              "absorbed_into_lifecycle_key": "B2:RULER-SS-ZHAO-DUN:SS-ZD-PALACE-CAPTURE",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "B2:RULER-SS-ZHAO-DUN:SS-ZD-PALACE-CAPTURE",
+              "material_id": "SS-ZD-PERSISTENT-REFUSAL",
+              "mechanism": "寿皇病危时再次拒绝问疾，作为同一复发周期终局",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 0.0,
+              "position_count_mode": "absorbed_same_lifecycle",
+              "position_exclusion_reason": "并入过宫问安纠偏反复的同一生命周期"
+            }
+          ],
+          "M_positive_profile": [],
+          "coverage_audit_ids": [
+            "SS5-TWO-SOURCE-FAMILY-GATE",
+            "SS5-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "SS-ZD-PALACE-CAPTURE",
+            "SS-ZD-PERSISTENT-REFUSAL"
+          ],
+          "direction_card_write": true,
+          "direction_index": 30.3,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "fixed_primary_and_independent_treatise_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G1",
+          "grade_basis": "重审后仍G1，但理由改为“持续纠偏失效”，不是异议惩罚。彭龟年、留正、罗点、陈傅良及太学生等多年反复要求过宫问安，光宗通常允许其上疏、面谏，彭龟年叩额流血也未受惩罚，说明反馈安全本身并未系统崩坏；且个别阶段确有受谏后过宫的正M2。但同一核心问题反复复发，答应后又不执行，至孝宗病危仍拒绝，多次形成“意见进入→口头接受/短暂纠正→迅速复发”。在其短统治期内，纠偏复发本身支配主要阶段，因此仍G1；应放G1上部，而非因高压压低",
+          "grade_gate_basis": "重审后仍G1，但理由改为“持续纠偏失效”，不是异议惩罚。彭龟年、留正、罗点、陈傅良及太学生等多年反复要求过宫问安，光宗通常允许其上疏、面谏，彭龟年叩额流血也未受惩罚，说明反馈安全本身并未系统崩坏；且个别阶段确有受谏后过宫的正M2。但同一核心问题反复复发，答应后又不执行，至孝宗病危仍拒绝，多次形成“意见进入→口头接受/短暂纠正→迅速复发”。在其短统治期内，纠偏复发本身支配主要阶段，因此仍G1；应放G1上部，而非因高压压低",
+          "grade_gate_code": "B2_G1_FORMAL_OR_FAILURE_DOMINANT",
+          "index_interval": [
+            16,
+            31.9
+          ],
+          "polity": "南宋",
+          "position": "upper",
+          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
+          "position_q": 0.9,
+          "rank": 100,
+          "reign_range": "1189—1194",
+          "ruler_id": "RULER-SS-ZHAO-DUN",
+          "ruler_name": "赵惇",
+          "verification_material_ids": [],
+          "material_basis": [
+            "彭龟年、留正、罗点、陈傅良及太学生多年反复要求赵惇过宫问安",
+            "赵惇一度前往重华宫，随后又停止，形成意见进入、短暂纠正、再次复发",
+            "彭龟年叩额流血仍未受惩罚，说明反馈安全未系统崩坏",
+            "绍熙五年寿皇病重时赵惇再次长期拒绝问疾"
+          ],
+          "settlement_basis": [
+            "负向 M3：彭龟年、留正、罗点、陈傅良及太学生多年要求过宫问安，意见虽能进入且偶有短暂采纳，核心问题却持续复发",
+            "同生命周期终局：寿皇病危时赵惇再次长期拒绝问疾，不另重复计一条 M3",
+            "安全边界：彭龟年叩额流血等激烈进谏未受惩罚，问题是纠偏反复失效，不是系统性惩罚异议",
+            "档位结论：短统治期主要阶段由持续纠偏失效支配，定 G1 上部"
+          ]
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M2",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-XU-ZHEZONG:亲政初政策预警",
+              "material_id": "NS-ZXZ-V083-IGNORED-PETITIONS",
+              "mechanism": "亲政初政策预警",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": -1.0
+            },
+            {
+              "M": "M2",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-XU-ZHEZONG:政策异议者安全",
+              "material_id": "NS-ZXZ-V084-REMONSTRANT-REMOVAL",
+              "mechanism": "政策异议者安全",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": -1.0
+            },
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-XU-ZHEZONG:政治案件证据真实性",
+              "material_id": "NS-ZXZ-V085-FABRICATED-EVIDENCE",
+              "mechanism": "政治案件证据真实性",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": -2.0
+            }
+          ],
+          "M_positive_profile": [],
+          "coverage_audit_ids": [
+            "NS11-TWO-SOURCE-FAMILY-GATE",
+            "NS11-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "NS-ZXZ-V083-IGNORED-PETITIONS",
+            "NS-ZXZ-V084-REMONSTRANT-REMOVAL",
+            "NS-ZXZ-V085-FABRICATED-EVIDENCE"
+          ],
+          "direction_card_write": true,
+          "direction_index": 24.0,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "chronicle_plus_official_history_or_treatise",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G1",
+          "grade_basis": "现有材料能证明拒谏、言官受罚与政治案件证据失真，但尚未闭合多渠道系统封闭；不足G0硬门",
+          "grade_gate_basis": "现有材料能证明拒谏、言官受罚与政治案件证据失真，但尚未闭合多渠道系统封闭；不足G0硬门",
+          "grade_gate_code": "B2_G1_FORMAL_OR_FAILURE_DOMINANT",
+          "index_interval": [
+            16,
+            31.9
+          ],
+          "polity": "北宋",
+          "position": "middle",
+          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
+          "position_q": 0.5,
+          "rank": 120,
+          "reign_range": "1093-1100（亲政）",
+          "ruler_id": "RULER-NS-ZHAO-XU-ZHEZONG",
+          "ruler_name": "赵煦",
+          "verification_material_ids": [
+            "NS-VERIFY-RULER-NS-ZHAO-XU-ZHEZONG"
+          ],
+          "material_basis": [
+            "担忧亲政后迅速翻转元祐政令",
+            "因蔡京指为“欲伸元祐之奸”，孙谔被罢言职",
+            "有追造、诱导和无证问题"
+          ],
+          "settlement_basis": [
+            "负向 M2：亲政初政策预警",
+            "负向 M2：政策异议者安全",
+            "负向 M3：政治案件证据真实性",
+            "档位结论：现有材料能证明拒谏、言官受罚与政治案件证据失真，但尚未闭合多渠道系统封闭；不足G0硬门"
+          ]
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "B2:RULER-SS-ZHAO-GOU:SS-ZG-QIN-HUI-JUDICIAL-CAPTURE",
+              "material_id": "SS-ZG-QIN-HUI-JUDICIAL-CAPTURE",
+              "mechanism": "秦桧时期持续压制反和议、批评壅蔽的台谏侍从并重塑言路安全",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -2.0
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "B2:RULER-SS-ZHAO-GOU:SS-ZG-OPEN-UPLINK",
+              "material_id": "SS-ZG-OPEN-UPLINK",
+              "mechanism": "言路制度被重新打开",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "B2:RULER-SS-ZHAO-GOU:SS-ZG-REVIEW-RESTORE",
+              "material_id": "SS-ZG-REVIEW-RESTORE",
+              "mechanism": "秦桧死后恢复司法复核与案件纠正",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 2.0
+            },
+            {
+              "M": "M3",
+              "absorbed_into_lifecycle_key": "B2:RULER-SS-ZHAO-GOU:SS-ZG-REVIEW-RESTORE",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "B2:RULER-SS-ZHAO-GOU:SS-ZG-REVIEW-RESTORE",
+              "material_id": "SS-ZG-POST-QIN-CORRECTION",
+              "mechanism": "恢复三省枢密录黄、给舍封驳和台谏检察，作为秦桧后同一修复阶段",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 0.0,
+              "position_count_mode": "absorbed_same_lifecycle",
+              "position_exclusion_reason": "并入秦桧死后恢复司法与言路的同一修复生命周期"
+            }
+          ],
+          "coverage_audit_ids": [
+            "SS5-TWO-SOURCE-FAMILY-GATE",
+            "SS5-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "SS-ZG-OPEN-UPLINK",
+            "SS-ZG-POST-QIN-CORRECTION",
+            "SS-ZG-QIN-HUI-JUDICIAL-CAPTURE",
+            "SS-ZG-REVIEW-RESTORE"
+          ],
+          "direction_card_write": true,
+          "direction_index": 20.8,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "fixed_primary_and_independent_treatise_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G1",
+          "grade_basis": "扩搜后仍G1。秦桧时期负M3属于高严重度：持续约十八年，覆盖台谏、侍从、枢密/政事堂等多类反馈角色，胡铨等因反对和议被除名、编管并继续远谪，李光等批评壅蔽者亦遭长期排斥；它不仅是“有一条负M3”，而是长期重塑中央言路安全与信息结构。秦桧死后高宗确有恢复言路、司法与人才的真实正向阶段，但时间较短且属于后期修复，不能抵消主要阶段的高覆盖负态，按G1优先级保G1",
+          "grade_gate_basis": "扩搜后仍G1。秦桧时期负M3属于高严重度：持续约十八年，覆盖台谏、侍从、枢密/政事堂等多类反馈角色，胡铨等因反对和议被除名、编管并继续远谪，李光等批评壅蔽者亦遭长期排斥；它不仅是“有一条负M3”，而是长期重塑中央言路安全与信息结构。秦桧死后高宗确有恢复言路、司法与人才的真实正向阶段，但时间较短且属于后期修复，不能抵消主要阶段的高覆盖负态，按G1优先级保G1",
+          "grade_gate_code": "B2_G1_FORMAL_OR_FAILURE_DOMINANT",
+          "index_interval": [
+            16,
+            31.9
+          ],
+          "polity": "南宋",
+          "position": "lower-middle",
+          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
+          "position_q": 0.3,
+          "rank": 126,
+          "reign_range": "1127—1162",
+          "ruler_id": "RULER-SS-ZHAO-GOU",
+          "ruler_name": "赵构",
+          "verification_material_ids": [
+            "SS-ZG-WTC-SALT-CORRECTION"
+          ],
+          "material_basis": [
+            "彗星出现后高宗避殿减膳，要求士庶实封陈言",
+            "秦桧时期胡铨因反对和议被除名、编管并继续远谪，李光等批评壅蔽者也长期遭排斥",
+            "秦桧死后恢复司法复核与案件纠正",
+            "秦桧死后恢复三省、枢密院录黄和画黄制度，并要求给舍封驳、台谏检察恢复运行"
+          ],
+          "settlement_basis": [
+            "正向 M2：高宗曾重开士庶实封陈言等上达入口",
+            "正向 M3：秦桧死后恢复司法复核、案件纠正和言路制度；三省枢密录黄等属于同一修复阶段，不重复计权",
+            "负向 M3：秦桧时期约十八年持续压制反和议、批评壅蔽的台谏侍从，覆盖多类反馈角色并重塑中央言路安全",
+            "档位结论：后期修复真实但短于主要负态，不能抵消长期高覆盖压制，定 G1"
+          ]
+        },
+        {
+          "M_mixed_profile": [
+            {
+              "M": "M3",
+              "direction": "mixed_negative",
+              "direction_factor": -0.5,
+              "lifecycle_key": "B2:RULER-SS-ZHAO-KUO:SS-ZK-PARTY-PURGE",
+              "material_id": "SS-ZK-PARTY-PURGE",
+              "mechanism": "庆元党禁从官员处分扩展到伪学名单、科举和荐举禁制",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -1.0
+            },
+            {
+              "M": "M3",
+              "absorbed_into_lifecycle_key": "B2:RULER-SS-ZHAO-KUO:SS-ZK-PARTY-PURGE",
+              "direction": "mixed_negative",
+              "direction_factor": -0.5,
+              "lifecycle_key": "B2:RULER-SS-ZHAO-KUO:SS-ZK-PARTY-PURGE",
+              "material_id": "SS-ZK-PURGE-SLACKENED",
+              "mechanism": "党禁后期逐渐松动，作为同一生命周期的阶段变化",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 0.0,
+              "position_count_mode": "absorbed_same_lifecycle",
+              "position_exclusion_reason": "并入庆元党禁扩张至弛禁的同一生命周期"
+            },
+            {
+              "M": "M3",
+              "absorbed_into_lifecycle_key": "B2:RULER-SS-ZHAO-KUO:SS-ZK-PARTY-PURGE",
+              "direction": "mixed_negative",
+              "direction_factor": -0.5,
+              "lifecycle_key": "B2:RULER-SS-ZHAO-KUO:SS-ZK-PARTY-PURGE",
+              "material_id": "SS-ZK-PURGE-ENDED-CAPTURED",
+              "mechanism": "嘉泰二年弛禁及部分复官，作为同一生命周期终局",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 0.0,
+              "position_count_mode": "absorbed_same_lifecycle",
+              "position_exclusion_reason": "并入庆元党禁扩张至弛禁的同一生命周期"
+            }
+          ],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "B2:RULER-SS-ZHAO-KUO:SS-ZK-ADMIN-CAPTURE",
+              "material_id": "SS-ZK-ADMIN-CAPTURE",
+              "mechanism": "陈自强任右丞相后韩侂胄所欲几无阻力，形成中枢权力俘获",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -2.0
+            }
+          ],
+          "M_positive_profile": [],
+          "coverage_audit_ids": [
+            "SS5-TWO-SOURCE-FAMILY-GATE",
+            "SS5-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "SS-ZK-ADMIN-CAPTURE",
+            "SS-ZK-PARTY-PURGE",
+            "SS-ZK-PURGE-ENDED-CAPTURED",
+            "SS-ZK-PURGE-SLACKENED"
+          ],
+          "direction_card_write": true,
+          "direction_index": 20.8,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "fixed_primary_and_independent_treatise_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G1",
+          "grade_basis": "负M3严重度重审后仍G1。庆元党禁不是单纯几名官员外调：赵汝愚被逐、朱熹落职，伪学/逆党名单扩大到59人，荐举、科举与师承均受禁，吕祖泰等因直接挑战韩侂胄遭决杖远流，形成跨言路、学术、选官的系统寒蝉。后期党禁虽逐步弛解、部分人物复官，但更多是韩侂胄为避免报复而自行收缩，宁宗本人缺少可与之对衡的长期独立正向纠偏链；且韩侂胄后又转入开禧权力集中。负态覆盖与角色广度足以主导，保G1",
+          "grade_gate_basis": "负M3严重度重审后仍G1。庆元党禁不是单纯几名官员外调：赵汝愚被逐、朱熹落职，伪学/逆党名单扩大到59人，荐举、科举与师承均受禁，吕祖泰等因直接挑战韩侂胄遭决杖远流，形成跨言路、学术、选官的系统寒蝉。后期党禁虽逐步弛解、部分人物复官，但更多是韩侂胄为避免报复而自行收缩，宁宗本人缺少可与之对衡的长期独立正向纠偏链；且韩侂胄后又转入开禧权力集中。负态覆盖与角色广度足以主导，保G1",
+          "grade_gate_code": "B2_G1_FORMAL_OR_FAILURE_DOMINANT",
+          "index_interval": [
+            16,
+            31.9
+          ],
+          "polity": "南宋",
+          "position": "lower-middle",
+          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
+          "position_q": 0.3,
+          "rank": 126,
+          "reign_range": "1194—1224",
+          "ruler_id": "RULER-SS-ZHAO-KUO",
+          "ruler_name": "赵扩",
+          "verification_material_ids": [],
+          "material_basis": [
+            "赵汝愚被逐、朱熹落职，伪学和逆党名单扩大到五十九人",
+            "考生家状须写明不是伪学，监司和帅守荐举改官也须声明非伪学",
+            "庆元五年末胡紘、刘德秀去位，韩侂胄厌前事，京镗、何澹推动给部分被禁者祠禄，党禁渐弛",
+            "嘉泰二年二月正式弛伪学、伪党禁",
+            "陈自强任右丞相后韩侂胄所欲几无阻力"
+          ],
+          "settlement_basis": [
+            "混合负向 M3：庆元党禁由官员处分扩展至伪学名单、科举、荐举和身份登记，形成跨言路、学术与选官的系统寒蝉",
+            "同生命周期变化：庆元末党禁渐弛、嘉泰二年正式弛禁并有部分复官，均不重复计为新的 M3",
+            "负向 M3：陈自强任右丞相后韩侂胄所欲几无阻力，形成持续中枢权力俘获",
+            "档位结论：弛禁更多源于韩侂胄自行收缩，宁宗缺少长期独立纠偏链，负态主导，定 G1"
+          ]
+        },
+        {
+          "M_mixed_profile": [
+            {
+              "M": "M2",
+              "direction": "mixed_negative",
+              "direction_factor": -0.5,
+              "lifecycle_key": "B2:RULER-SS-ZHAO-YUN:SS-ZY-CENSOR-APPOINTMENT",
+              "material_id": "SS-ZY-CENSOR-APPOINTMENT",
+              "mechanism": "台谏独立任用曾形成有限正向阶段，随后转入控制",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": -0.5
+            },
+            {
+              "M": "M2",
+              "absorbed_into_lifecycle_key": "B2:RULER-SS-ZHAO-YUN:SS-ZY-CENSOR-APPOINTMENT",
+              "direction": "mixed_negative",
+              "direction_factor": -0.5,
+              "lifecycle_key": "B2:RULER-SS-ZHAO-YUN:SS-ZY-CENSOR-APPOINTMENT",
+              "material_id": "SS-ZY-CENSOR-CONTROL",
+              "mechanism": "内降节贴删改涉及嬖宠私党的弹文，作为同一台谏控制生命周期终局",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 0.0,
+              "position_count_mode": "absorbed_same_lifecycle",
+              "position_exclusion_reason": "并入台谏独立任用转为受控的同一生命周期"
+            }
+          ],
+          "M_negative_profile": [
+            {
+              "M": "M2",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "B2:RULER-SS-ZHAO-YUN:SS-ZY-EARLY-CAPTURE",
+              "material_id": "SS-ZY-EARLY-CAPTURE",
+              "mechanism": "史弥远权力仍凌驾于求言政策",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": -1.0
+            },
+            {
+              "M": "M2",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "B2:RULER-SS-ZHAO-YUN:SS-ZY-LATE-SPEECH-SUPPRESSION",
+              "material_id": "SS-ZY-LATE-SPEECH-SUPPRESSION",
+              "mechanism": "理宗后期言路明显收紧",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": -1.0
+            },
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "B2:RULER-SS-ZHAO-YUN:SS-ZY-JIA-CAPTURE",
+              "material_id": "SS-ZY-JIA-CAPTURE",
+              "mechanism": "吴潜因迁幸建议、立储意见及与贾似道矛盾被罢，后不断远谪",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -2.0
+            },
+            {
+              "M": "M3",
+              "absorbed_into_lifecycle_key": "B2:RULER-SS-ZHAO-YUN:JIA-CAPTURE",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "B2:RULER-SS-ZHAO-YUN:SS-ZY-PUBLIC-LAND-SPEECH",
+              "material_id": "SS-ZY-PUBLIC-LAND-SPEECH",
+              "mechanism": "公田法引起广泛反对时，理宗公开支持贾似道，要求其“任事亦当任怨”",
+              "position_count_mode": "absorbed_same_lifecycle",
+              "position_exclusion_reason": "公田异议压制并入贾似道权力俘获生命周期",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 0.0
+            },
+            {
+              "M": "M3",
+              "absorbed_into_lifecycle_key": "B1:RULER-SS-ZHAO-YUN:LATE-JUSTICE",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "B2:RULER-SS-ZHAO-YUN:SS-ZY-LATE-JUSTICE-COLLAPSE",
+              "material_id": "SS-ZY-LATE-JUSTICE-COLLAPSE",
+              "mechanism": "至理宗時，往往讞不時報，囚多瘐死",
+              "position_count_mode": "absorbed_same_lifecycle",
+              "position_exclusion_reason": "司法行政迟滞主体归B1；B2仅作同阶段复验",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 0.0
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "B2:RULER-SS-ZHAO-YUN:SS-ZY-REQUEST-SUPERVISION",
+              "material_id": "SS-ZY-REQUEST-SUPERVISION",
+              "mechanism": "宋廷重申禁绝百司、州郡托请举荐，并要求每月申报“无请托”，由御史台持续监察",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0
+            }
+          ],
+          "coverage_audit_ids": [
+            "SS5-TWO-SOURCE-FAMILY-GATE",
+            "SS5-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "SS-ZY-CENSOR-APPOINTMENT",
+            "SS-ZY-CENSOR-CONTROL",
+            "SS-ZY-EARLY-CAPTURE",
+            "SS-ZY-JIA-CAPTURE",
+            "SS-ZY-LATE-JUSTICE-COLLAPSE",
+            "SS-ZY-LATE-SPEECH-SUPPRESSION",
+            "SS-ZY-PUBLIC-LAND-SPEECH",
+            "SS-ZY-REQUEST-SUPERVISION"
+          ],
+          "direction_card_write": true,
+          "direction_index": 20.8,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "fixed_primary_and_independent_treatise_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G1",
+          "grade_basis": "负M3重审后仍G1。理宗四十年并非全程同强度封闭，但前期史弥远、后期丁大全/贾似道形成两段权臣俘获，跨越主要统治窗口；吴潜等能上疏格君心、董槐等亦敢直言，说明正向入口存在，但贤相多不能久用。后期董槐被丁大全以台檄调兵围相府、吴潜因立储与迁幸意见持续远谪，谢枋得批评权奸又被窜逐，说明关键异议者存在实际惩罚。负态不是一次大清洗，但跨阶段、跨宰辅/言官且持续时间极长，主态仍G1",
+          "grade_gate_basis": "负M3重审后仍G1。理宗四十年并非全程同强度封闭，但前期史弥远、后期丁大全/贾似道形成两段权臣俘获，跨越主要统治窗口；吴潜等能上疏格君心、董槐等亦敢直言，说明正向入口存在，但贤相多不能久用。后期董槐被丁大全以台檄调兵围相府、吴潜因立储与迁幸意见持续远谪，谢枋得批评权奸又被窜逐，说明关键异议者存在实际惩罚。负态不是一次大清洗，但跨阶段、跨宰辅/言官且持续时间极长，主态仍G1",
+          "grade_gate_code": "B2_G1_FORMAL_OR_FAILURE_DOMINANT",
+          "index_interval": [
+            16,
+            31.9
+          ],
+          "polity": "南宋",
+          "position": "lower-middle",
+          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
+          "position_q": 0.3,
+          "rank": 126,
+          "reign_range": "1224—1264",
+          "ruler_id": "RULER-SS-ZHAO-YUN",
+          "ruler_name": "赵昀",
+          "verification_material_ids": [],
+          "material_basis": [
+            "宋廷禁绝百司州郡托请举荐，要求每月申报无请托并由御史台监察",
+            "台谏一度独立任用，后来涉及嬖宠私党的弹文被内降节贴要求删去，台谏不敢争",
+            "史弥远权力仍凌驾求言政策，史嵩之起复又引发持续数月政治危机",
+            "吴潜因迁幸、立储意见及与贾似道冲突被罢，随后不断远谪",
+            "公田法遭广泛反对时理宗公开支持贾似道，要求其任事亦当任怨"
+          ],
+          "settlement_basis": [
+            "正向 M2：禁绝百司州郡托请举荐并要求每月申报无请托，由御史台持续监察",
+            "混合负向 M2：台谏独立任用一度形成有限正向阶段，随后内降节贴删改涉及嬖宠私党的弹文；两条属于同一生命周期，只计一次",
+            "负向 M2：史弥远权力凌驾求言政策，后期言路又明显收紧",
+            "负向 M3：吴潜等因迁幸、立储等关键异议被罢并持续远谪，贾似道权力俘获覆盖主要后期",
+            "档位结论：正向入口存在但贤相不能久用，前后两段权臣俘获跨越主要统治窗口，定 G1"
+          ]
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-JI:异议与学术传播安全",
+              "material_id": "NS-ZJ-V088-SPEECH-PURGE",
+              "mechanism": "异议与学术传播安全",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": -2.0
+            },
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-JI:诏令审议与封驳",
+              "material_id": "NS-ZJ-V091-IMPERIAL-NOTE-BYPASS",
+              "mechanism": "诏令审议与封驳",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": -2.0
+            },
+            {
+              "M": "M2",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "B2:RULER-NS-ZHAO-JI:监察权臣的实际后果",
+              "material_id": "NS-ZJ-V092-CENSOR-PUNISHED",
+              "mechanism": "监察权臣的实际后果",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": -1.0
+            }
+          ],
+          "M_positive_profile": [],
+          "coverage_audit_ids": [
+            "NS11-TWO-SOURCE-FAMILY-GATE",
+            "NS11-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "NS-ZJ-V088-SPEECH-PURGE",
+            "NS-ZJ-V091-IMPERIAL-NOTE-BYPASS",
+            "NS-ZJ-V092-CENSOR-PUNISHED"
+          ],
+          "direction_card_write": true,
+          "direction_index": 1.6,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "chronicle_plus_official_history_or_treatise",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G0",
+          "grade_basis": "多渠道被系统关闭或转为迫害工具，形成严重信息失明。",
+          "grade_gate_basis": "实证链为未闭合正向运行链；同尺度反例为异议与学术传播安全、诏令审议与封驳、监察权臣的实际后果；反馈和外部约束在主要阶段系统失灵或遭压制",
+          "grade_gate_code": "B2_G0_SYSTEM_CLOSURE",
+          "index_interval": [
+            0,
+            15.9
+          ],
+          "polity": "北宋",
+          "position": "lower",
+          "position_basis": "仅限G0同档比较：去重后有效M2/M3有符号合计=-5.00，主档门槛占用=0.00（G1的0.5是完成度占用，不是M1材料），净余=-5.00，负向绝对量=5.00，对应lower。M0上下文与吸收链展示但不计position。",
+          "position_q": 0.1,
+          "rank": 173,
+          "reign_range": "1100-1125",
+          "ruler_id": "RULER-NS-ZHAO-JI",
+          "ruler_name": "赵佶",
+          "verification_material_ids": [
+            "NS-VERIFY-RULER-NS-ZHAO-JI"
+          ],
+          "material_basis": [
+            "多人“永不得收叙”",
+            "绕过中书、门下议令程序",
+            "未被采纳，反遭贬逐"
+          ],
+          "settlement_basis": [
+            "负向 M3：异议与学术传播安全",
+            "负向 M3：诏令审议与封驳",
+            "负向 M2：监察权臣的实际后果",
+            "档位结论：多渠道被系统关闭或转为迫害工具，形成严重信息失明。"
+          ]
+        }
+      ]
+    }
+  }
+}

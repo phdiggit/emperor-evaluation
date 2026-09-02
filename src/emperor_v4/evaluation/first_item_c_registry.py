@@ -8,6 +8,7 @@ from typing import Any, Mapping
 from emperor_v4.evaluation.first_item_a_registry import (
     load_qin_qing_first_item_roster,
 )
+from emperor_v4.evaluation.formal_json_store import load_json, load_ruler_polities, write_json
 from emperor_v4.evaluation.first_item_settlement import (
     build_first_item_formal_settlement,
     render_first_item_formal_settlement_markdown,
@@ -1713,7 +1714,7 @@ def render_first_item_summary(
 
 def write_first_item_c_registry(workspace_root: Path) -> dict[str, Path]:
     def load(path: Path) -> dict[str, Any]:
-        return json.loads(path.read_text(encoding="utf-8"))
+        return load_json(path)
 
     efficiency_inputs = load(
         workspace_root / "config/first-item/first-item-a-strategic-efficiency-inputs.json"
@@ -1746,9 +1747,7 @@ def write_first_item_c_registry(workspace_root: Path) -> dict[str, Path]:
     output_dir.mkdir(parents=True, exist_ok=True)
     json_path = output_dir / "01-第一项C军事夺取能力结算.json"
     markdown_path = output_dir / "01-第一项C军事夺取能力结算.md"
-    json_path.write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
-    )
+    write_json(json_path, payload, ruler_polities=load_ruler_polities(workspace_root))
     markdown_path.write_text(
         render_first_item_c_registry_markdown(payload), encoding="utf-8"
     )

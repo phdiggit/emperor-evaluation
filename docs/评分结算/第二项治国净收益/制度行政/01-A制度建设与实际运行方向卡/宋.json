@@ -1,0 +1,3472 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "宋",
+  "collections": {
+    "records": {
+      "positions": [
+        4,
+        5,
+        6,
+        12,
+        46,
+        47,
+        48,
+        71,
+        72,
+        86,
+        92,
+        97,
+        103,
+        104,
+        117,
+        179
+      ],
+      "records": [
+        {
+          "A_C_A_support_mechanism": "《宋刑统》承接唐周法源并全国颁行",
+          "A_grade_thickness_cost": 2.0,
+          "A_independent_M_position_weight": 7.0,
+          "A_independent_M_signed": 7.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": 7.0,
+          "A_structural_thickness": 7.0,
+          "C_A": 2,
+          "M_mixed_profile": [
+            {
+              "M": "M3",
+              "counts_toward_S": false,
+              "direction": "mixed",
+              "direction_factor": 0.0,
+              "institution_domain": "军政身份与行政动员",
+              "institution_node_id": "IDN-CAA1150DBB4F",
+              "label_zh": "禁军集中、更戍与将兵分离接口",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "EV004"
+              ],
+              "mechanism": "禁军集中、更戍与将兵分离接口",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 0.0
+            }
+          ],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "counts_toward_S": true,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "中央—地方层级",
+              "institution_node_id": "IDN-92178BF78390",
+              "label_zh": "文臣知州—通判—支郡直隶中央地方接口",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "EV001",
+                "EV002"
+              ],
+              "mechanism": "文臣知州—通判—支郡直隶中央地方接口",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 3.0,
+              "S_effect": "S+",
+              "S_minus_weight": 0,
+              "S_depth_weight": 1,
+              "source_kind": "S_PLUS_BASELINE_NODE"
+            },
+            {
+              "M": "M3",
+              "counts_toward_S": true,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "选官与官僚人事",
+              "institution_node_id": "IDN-E1CCD8CD49C5",
+              "label_zh": "殿试成为贡举常式",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "EV006"
+              ],
+              "mechanism": "殿试成为贡举常式",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 3.0,
+              "S_effect": "S+",
+              "S_minus_weight": 0,
+              "S_depth_weight": 1,
+              "source_kind": "S_PLUS_BASELINE_NODE"
+            },
+            {
+              "M": "M2",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "法律与司法",
+              "institution_node_id": "IDN-26A4E3051E4C",
+              "label_zh": "《宋刑统》承接唐周法源并全国颁行",
+              "major_node_role": "CANONICALIZATION",
+              "material_ids": [
+                "EV062",
+                "EV063"
+              ],
+              "mechanism": "《宋刑统》承接唐周法源并全国颁行",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 1.0
+            }
+          ],
+          "S_depth_units": 2,
+          "S_minus": 0.0,
+          "S_minus_node_ids": [],
+          "S_net": 2.0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 2,
+          "S_total": 2,
+          "coverage_audit_ids": [
+            "NS11-TWO-SOURCE-FAMILY-GATE",
+            "NS11-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "EV001",
+            "EV002",
+            "EV004",
+            "EV006",
+            "EV062",
+            "EV063"
+          ],
+          "direct_material_roles": {
+            "EV001": [
+              "A_OPERATION",
+              "S_CONSTRUCTION"
+            ],
+            "EV002": [
+              "A_OPERATION",
+              "S_CONSTRUCTION"
+            ],
+            "EV004": [
+              "A_OPERATION",
+              "S_NODE_EVIDENCE"
+            ],
+            "EV006": [
+              "A_OPERATION",
+              "S_CONSTRUCTION"
+            ],
+            "EV062": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV063": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 83.5,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "chronicle_plus_official_history_or_treatise",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G4",
+          "grade_basis": "按正式显式复核完成canonical生命周期复核；V2净值7，结算G4-upper。",
+          "important_institutions": [
+            {
+              "S_depth_weight": 1,
+              "S_effect": "S+",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV001",
+                "EV002"
+              ],
+              "counts_toward_S": true,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "PASS_COUNTS_TOWARD_S",
+              "durability_material_ids": [
+                "EV003"
+              ],
+              "institution_domain": "中央—地方层级",
+              "institution_lineage": "郡县—州县地方行政谱系",
+              "institution_node_id": "IDN-92178BF78390",
+              "label_zh": "文臣知州—通判—支郡直隶中央地方接口",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "EV001",
+                "EV002"
+              ],
+              "normative_direction": "positive",
+              "reason": "太祖朝以文臣知州、通判共治和支郡直隶重组地方接口；仁宗朝仍以知州、通判和监司组成亲民官任用、考核链，跨多帝保持核心规则，计普通S+。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/north_song.json",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-003.source-summary.md",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-059.source-summary.md"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "S_PLUS_BASELINE_NODE"
+            },
+            {
+              "S_depth_weight": 1,
+              "S_effect": "S+",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV006"
+              ],
+              "counts_toward_S": true,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "PASS_COUNTS_TOWARD_S",
+              "durability_material_ids": [
+                "NS-R4-ZKY-PALACE-EXAM-YUAN-MING"
+              ],
+              "institution_domain": "选官与官僚人事",
+              "institution_lineage": "贡举考试选官谱系",
+              "institution_node_id": "IDN-E1CCD8CD49C5",
+              "label_zh": "殿试成为贡举常式",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "EV006"
+              ],
+              "normative_direction": "positive",
+              "reason": "太祖朝使殿试成为贡举常式；元代恢复科举后反复举行廷试，明代固定乡试—会试—殿试，跨王朝断裂仍保留皇帝终试贡士的核心接口，计S++。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/north_song.json",
+                "docs/史料通读产物/元/续资治通鉴&元史/volume-198.source-summary.md",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-007.source-summary.md",
+                "docs/史料通读产物/明/明通鉴/volume-012.source-summary.md"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "S_PLUS_BASELINE_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV062",
+                "EV063"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "NON_S_MAJOR_CONTRIBUTION",
+              "durability_material_ids": [],
+              "institution_domain": "法律与司法",
+              "institution_lineage": "魏晋—隋唐—五代—宋律典法源谱系",
+              "institution_node_id": "IDN-26A4E3051E4C",
+              "label_zh": "《宋刑统》承接唐周法源并全国颁行",
+              "major_node_role": "CANONICALIZATION",
+              "material_ids": [
+                "EV062",
+                "EV063"
+              ],
+              "normative_direction": "positive",
+              "reason": "按跨朝同领域谱系横向复裁：只保留改变核心规则的创设、重大重组、重大重建、权威化定型或重大文明纠偏；一般沿袭和维护已排除。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/north_song.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV004"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "FAIL_MIXED_CORE_RULE_NO_INDEPENDENT_POSITIVE_RECEPTION",
+              "durability_material_ids": [
+                "EV005"
+              ],
+              "institution_domain": "军政身份与行政动员",
+              "institution_lineage": "宋代中央禁军控制谱系",
+              "institution_node_id": "IDN-CAA1150DBB4F",
+              "label_zh": "禁军集中、更戍与将兵分离接口",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "EV004"
+              ],
+              "normative_direction": "mixed",
+              "reason": "中央收兵权降低武人割据风险，但本节点把更戍、将兵分离同时固化；后者造成将兵不相习的内生损害。现有材料未把正向接口拆成可独立接收的完整节点，按mixed重大重组保留C_A与M，不计S。",
+              "source_artifact_refs": [
+                "docs/史料通读产物/北宋/续资治通鉴/volume-001.source-summary.md",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-096.source-summary.md"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            }
+          ],
+          "index_interval": [
+            70.0,
+            84.9
+          ],
+          "polity": "北宋",
+          "position": "upper",
+          "position_basis": "V2净值=7，P_gross=7，N_gross=0；档内横向结构复核后定upper。",
+          "position_q": 0.9,
+          "rank": 4,
+          "reign_range": "960-976",
+          "ruler_id": "RULER-NS-ZHAO-KUANGYIN",
+          "ruler_name": "赵匡胤",
+          "verification_material_ids": [
+            "EV003",
+            "EV005",
+            "NS-R4-ZKY-PALACE-EXAM-YUAN-MING",
+            "NS-VERIFY-RULER-NS-ZHAO-KUANGYIN"
+          ],
+          "v2_mechanical_shadow": {
+            "net": 10.0,
+            "p": 10.0,
+            "n": 0,
+            "shadow_grade": "G4",
+            "unfloored": "G4",
+            "floor": null
+          },
+          "extreme_delta_reopen": false,
+          "A_net_units": 7.0,
+          "P_gross": 7.0,
+          "N_gross": 0.0,
+          "polarization_ratio": 0.0,
+          "unfloored_grade": "G4",
+          "polarization_floor_triggered": false,
+          "floor_grade": null,
+          "extreme_delta_review": "NOT_REQUIRED",
+          "v2_explicit_patch": true
+        },
+        {
+          "A_C_A_support_mechanism": "审官院—考课院分掌官员考课差遣",
+          "A_grade_thickness_cost": 2.0,
+          "A_independent_M_position_weight": 7.0,
+          "A_independent_M_signed": 7.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": 7.0,
+          "A_structural_thickness": 7.0,
+          "C_A": 2,
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "counts_toward_S": false,
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "institution_domain": "监察反馈",
+              "institution_node_id": "A-SONG-ZHAOGUANGYI-CIRCUIT-JUSTICE-ABOLITION",
+              "label_zh": "太宗朝提点刑狱短期撤销",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [],
+              "mechanism": "太宗朝提点刑狱短期撤销",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": -2.0
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "counts_toward_S": true,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "法律与司法",
+              "institution_node_id": "IDN-F69D2ED14098",
+              "label_zh": "审刑院—大理—刑部—中书多层复核",
+              "major_node_role": "FOUNDATIONAL_CREATION",
+              "material_ids": [
+                "EV012"
+              ],
+              "mechanism": "审刑院—大理—刑部—中书多层复核",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 3.0,
+              "S_effect": "S+",
+              "S_minus_weight": 0,
+              "S_depth_weight": 1,
+              "source_kind": "S_PLUS_BASELINE_NODE"
+            },
+            {
+              "M": "M3",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "选官与官僚人事",
+              "institution_node_id": "IDN-FBBDB5A115B5",
+              "label_zh": "复试糊名与锁院避请托接口",
+              "major_node_role": "FOUNDATIONAL_CREATION",
+              "material_ids": [
+                "I2-NSONG-ZGY-EXAM-ANONYMITY-001"
+              ],
+              "mechanism": "复试糊名与锁院避请托接口",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 2.0
+            },
+            {
+              "M": "M3",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "选官与官僚人事",
+              "institution_node_id": "GAPN-1156E74B0B09",
+              "label_zh": "审官院—考课院分掌官员考课差遣",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "EV008",
+                "EV009"
+              ],
+              "mechanism": "审官院—考课院分掌官员考课差遣",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 2.0
+            },
+            {
+              "M": "M3",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "国家行政标准与文书",
+              "institution_node_id": "GAPN-7AF6C7B98C19",
+              "label_zh": "通进银台掌章奏出入与封驳接口",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "EV010",
+                "EV011"
+              ],
+              "mechanism": "通进银台掌章奏出入与封驳接口",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 2.0
+            }
+          ],
+          "S_depth_units": 1,
+          "S_minus": 0.0,
+          "S_minus_node_ids": [],
+          "S_net": 1.0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 1,
+          "S_total": 1,
+          "coverage_audit_ids": [
+            "NS11-TWO-SOURCE-FAMILY-GATE",
+            "NS11-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "EV008",
+            "EV009",
+            "EV010",
+            "EV011",
+            "EV012",
+            "EV013",
+            "EV014",
+            "I2-NSONG-ZGY-EXAM-ANONYMITY-001"
+          ],
+          "direct_material_roles": {
+            "EV008": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV009": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV010": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV011": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV012": [
+              "A_OPERATION",
+              "S_CONSTRUCTION"
+            ],
+            "EV013": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV014": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "I2-NSONG-ZGY-EXAM-ANONYMITY-001": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 83.5,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "chronicle_plus_official_history_or_treatise",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G4",
+          "grade_basis": "按正式显式复核完成canonical生命周期复核；V2净值7，结算G4-upper。",
+          "important_institutions": [
+            {
+              "S_depth_weight": 1,
+              "S_effect": "S+",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV012"
+              ],
+              "counts_toward_S": true,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "PASS_COUNTS_TOWARD_S",
+              "durability_material_ids": [
+                "NS-R3-ZGY-JUDICIAL-REVIEW-LATER-USE"
+              ],
+              "institution_domain": "法律与司法",
+              "institution_lineage": "宋代中央死刑多层复核谱系",
+              "institution_node_id": "IDN-F69D2ED14098",
+              "label_zh": "审刑院—大理—刑部—中书多层复核",
+              "major_node_role": "FOUNDATIONAL_CREATION",
+              "material_ids": [
+                "EV012"
+              ],
+              "normative_direction": "positive",
+              "reason": "太宗朝建立审刑院—大理—刑部—中书多层复核；仁宗、神宗阶段仍实际运行并因奏案增长恢复详议详断职能，跨多帝保持核心复核接口，计普通S+。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/north_song.json",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-015.source-summary.md",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-056.source-summary.md",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-074.source-summary.md",
+                "docs/公共成果/法律/回源资料/历代刑法志通读/source-texts/宋史__卷199.txt"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "S_PLUS_BASELINE_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "I2-NSONG-ZGY-EXAM-ANONYMITY-001"
+              ],
+              "counts_toward_S": false,
+              "decision": "STRUCTURAL_NON_DURABLE",
+              "durability_gate": "FAIL_NO_INDEPENDENT_R3_RECEPTION",
+              "durability_material_ids": [],
+              "institution_domain": "选官与官僚人事",
+              "institution_lineage": "宋代贡举匿名防弊谱系",
+              "institution_node_id": "IDN-FBBDB5A115B5",
+              "label_zh": "复试糊名与锁院避请托接口",
+              "major_node_role": "FOUNDATIONAL_CREATION",
+              "material_ids": [
+                "I2-NSONG-ZGY-EXAM-ANONYMITY-001"
+              ],
+              "normative_direction": "positive",
+              "reason": "建设动作成立，但现有固定材料未闭合独立R3接收；保留非S重大建设，不计S。",
+              "source_artifact_refs": [
+                "docs/史料通读产物/北宋/续资治通鉴/volume-016.source-summary.md"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "S_PLUS_BASELINE_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV008",
+                "EV009"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "DURABILITY_EVIDENCE_PENDING",
+              "durability_material_ids": [],
+              "institution_domain": "选官与官僚人事",
+              "institution_lineage": "北宋审官考课差遣谱系",
+              "institution_node_id": "GAPN-1156E74B0B09",
+              "label_zh": "审官院—考课院分掌官员考课差遣",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "EV008",
+                "EV009"
+              ],
+              "normative_direction": "positive",
+              "reason": "既有北宋双来源材料已把审官院—考课院作为持续运行的官员考课差遣接口闭合；此前漏出03，现补回。",
+              "source_artifact_refs": [
+                "01-A制度建设与实际运行方向卡.json#material:EV008",
+                "01-A制度建设与实际运行方向卡.json#material:EV009"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV010",
+                "EV011"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "DURABILITY_EVIDENCE_PENDING",
+              "durability_material_ids": [],
+              "institution_domain": "国家行政标准与文书",
+              "institution_lineage": "北宋通进银台章奏封驳谱系",
+              "institution_node_id": "GAPN-7AF6C7B98C19",
+              "label_zh": "通进银台掌章奏出入与封驳接口",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "EV010",
+                "EV011"
+              ],
+              "normative_direction": "positive",
+              "reason": "章奏收发与封驳形成稳定的国家文书入口和复核接口，属于独立制度节点，不与审官或审刑打包。",
+              "source_artifact_refs": [
+                "01-A制度建设与实际运行方向卡.json#material:EV010",
+                "01-A制度建设与实际运行方向卡.json#material:EV011"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "ADJUDICATED_NON_S",
+              "durability_material_ids": [],
+              "institution_domain": "监察反馈",
+              "institution_lineage": "太宗朝提点刑狱短期撤销谱系",
+              "institution_node_id": "A-SONG-ZHAOGUANGYI-CIRCUIT-JUSTICE-ABOLITION",
+              "label_zh": "太宗朝提点刑狱短期撤销",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [],
+              "normative_direction": "negative",
+              "reason": "按A审查清单完成单一制度接口裁决。",
+              "source_artifact_refs": [
+                "https://zh.wikisource.org/zh-hans/%E5%AE%8B%E5%8F%B2/%E5%8D%B705"
+              ],
+              "external_verification_refs": [
+                {
+                  "title": "《宋史》卷5：太宗朝提点刑狱建置变动",
+                  "url": "https://zh.wikisource.org/zh-hans/%E5%AE%8B%E5%8F%B2/%E5%8D%B705"
+                }
+              ],
+              "source_kind": "NON_S_MAJOR_NODE"
+            }
+          ],
+          "index_interval": [
+            70.0,
+            84.9
+          ],
+          "polity": "北宋",
+          "position": "upper",
+          "position_basis": "V2净值=7，P_gross=9，N_gross=2；档内横向结构复核后定upper。",
+          "position_q": 0.9,
+          "rank": 4,
+          "reign_range": "976-997",
+          "ruler_id": "RULER-NS-ZHAO-GUANGYI",
+          "ruler_name": "赵光义",
+          "verification_material_ids": [
+            "EV064",
+            "EV065",
+            "NS-R3-ZGY-JUDICIAL-REVIEW-LATER-USE",
+            "NS-VERIFY-RULER-NS-ZHAO-GUANGYI"
+          ],
+          "v2_mechanical_shadow": {
+            "net": 7.0,
+            "p": 9.0,
+            "n": 2.0,
+            "shadow_grade": "G4",
+            "unfloored": "G4",
+            "floor": null
+          },
+          "extreme_delta_reopen": false,
+          "A_net_units": 7.0,
+          "P_gross": 9.0,
+          "N_gross": 2.0,
+          "polarization_ratio": 0.2222,
+          "unfloored_grade": "G4",
+          "polarization_floor_triggered": false,
+          "floor_grade": null,
+          "extreme_delta_review": "NOT_REQUIRED",
+          "v2_explicit_patch": true
+        },
+        {
+          "A_C_A_support_mechanism": "复置诸路提点刑狱并固定巡察奏劾",
+          "A_grade_thickness_cost": 2.0,
+          "A_independent_M_position_weight": 7.0,
+          "A_independent_M_signed": 7.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": 7.0,
+          "A_structural_thickness": 7.0,
+          "C_A": 2,
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "counts_toward_S": true,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "户籍田制与国家资源行政",
+              "institution_node_id": "IDN-8ABDDA823805",
+              "label_zh": "全国常平仓平籴平粜接口",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "EV015"
+              ],
+              "mechanism": "全国常平仓平籴平粜接口",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 3.0,
+              "S_effect": "S+",
+              "S_minus_weight": 0,
+              "S_depth_weight": 1,
+              "source_kind": "S_PLUS_BASELINE_NODE"
+            },
+            {
+              "M": "M3",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "监察反馈",
+              "institution_node_id": "GAPN-C2CCA446A631",
+              "label_zh": "复置诸路提点刑狱并固定巡察奏劾",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "EV017",
+                "EV018",
+                "EV066",
+                "EV067"
+              ],
+              "mechanism": "复置诸路提点刑狱并固定巡察奏劾",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 2.0
+            },
+            {
+              "M": "M3",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "选官与官僚人事",
+              "institution_node_id": "IDN-42D3DE86BC4B",
+              "label_zh": "封弥誊录院与校勘监封接口",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "I2-NSONG-ZH-TRANSCRIPTION-INSTITUTE-001"
+              ],
+              "mechanism": "封弥誊录院与校勘监封接口",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 2.0
+            }
+          ],
+          "S_depth_units": 1,
+          "S_minus": 0.0,
+          "S_minus_node_ids": [],
+          "S_net": 1.0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 1,
+          "S_total": 1,
+          "coverage_audit_ids": [
+            "NS11-TWO-SOURCE-FAMILY-GATE",
+            "NS11-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "EV015",
+            "EV017",
+            "EV018",
+            "EV019",
+            "EV066",
+            "EV067",
+            "I2-NSONG-ZH-TRANSCRIPTION-INSTITUTE-001"
+          ],
+          "direct_material_roles": {
+            "EV015": [
+              "A_OPERATION",
+              "S_CONSTRUCTION"
+            ],
+            "EV017": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV018": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV019": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV066": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV067": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "I2-NSONG-ZH-TRANSCRIPTION-INSTITUTE-001": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 83.5,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "chronicle_plus_official_history_or_treatise",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G4",
+          "grade_basis": "按正式显式复核完成canonical生命周期复核；V2净值7，结算G4-upper。",
+          "important_institutions": [
+            {
+              "S_depth_weight": 1,
+              "S_effect": "S+",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV015"
+              ],
+              "counts_toward_S": true,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "PASS_COUNTS_TOWARD_S",
+              "durability_material_ids": [
+                "EV016"
+              ],
+              "institution_domain": "户籍田制与国家资源行政",
+              "institution_lineage": "常平仓粮价调节与储备行政谱系",
+              "institution_node_id": "IDN-8ABDDA823805",
+              "label_zh": "全国常平仓平籴平粜接口",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "EV015"
+              ],
+              "normative_direction": "positive",
+              "reason": "真宗朝把常平仓扩为全国州级平籴平粜接口；神宗朝仍承担粮价调节、赈济和信贷功能，核心规则跨多帝实际采用，计普通S+；汉代常平谱系起点另待补裁。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/north_song.json",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-026.source-summary.md",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-073.source-summary.md"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "S_PLUS_BASELINE_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV017",
+                "EV018",
+                "EV066",
+                "EV067"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "DURABILITY_EVIDENCE_PENDING",
+              "durability_material_ids": [],
+              "institution_domain": "监察反馈",
+              "institution_lineage": "北宋路级司法巡察谱系",
+              "institution_node_id": "GAPN-C2CCA446A631",
+              "label_zh": "复置诸路提点刑狱并固定巡察奏劾",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "EV017",
+                "EV018",
+                "EV066",
+                "EV067"
+              ],
+              "normative_direction": "positive",
+              "reason": "真宗朝复置提点刑狱并固定路级巡察、奏劾职责，形成中央对地方司法的常设反馈监督接口。",
+              "source_artifact_refs": [
+                "01-A制度建设与实际运行方向卡.json#material:EV017",
+                "01-A制度建设与实际运行方向卡.json#material:EV018",
+                "01-A制度建设与实际运行方向卡.json#material:EV066",
+                "01-A制度建设与实际运行方向卡.json#material:EV067"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "I2-NSONG-ZH-TRANSCRIPTION-INSTITUTE-001"
+              ],
+              "counts_toward_S": false,
+              "decision": "STRUCTURAL_NON_DURABLE",
+              "durability_gate": "FAIL_NO_INDEPENDENT_R3_RECEPTION",
+              "durability_material_ids": [],
+              "institution_domain": "选官与官僚人事",
+              "institution_lineage": "宋代贡举匿名防弊谱系",
+              "institution_node_id": "IDN-42D3DE86BC4B",
+              "label_zh": "封弥誊录院与校勘监封接口",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "I2-NSONG-ZH-TRANSCRIPTION-INSTITUTE-001"
+              ],
+              "normative_direction": "positive",
+              "reason": "建设动作成立，但现有固定材料未闭合独立R3接收；保留非S重大建设，不计S。",
+              "source_artifact_refs": [
+                "docs/史料通读产物/北宋/续资治通鉴/volume-032.source-summary.md"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "S_PLUS_BASELINE_NODE"
+            }
+          ],
+          "index_interval": [
+            70.0,
+            84.9
+          ],
+          "polity": "北宋",
+          "position": "upper",
+          "position_basis": "V2净值=7，P_gross=7，N_gross=0；档内横向结构复核后定upper。",
+          "position_q": 0.9,
+          "rank": 4,
+          "reign_range": "997-1022",
+          "ruler_id": "RULER-NS-ZHAO-HENG",
+          "ruler_name": "赵恒",
+          "verification_material_ids": [
+            "EV016",
+            "NS-VERIFY-RULER-NS-ZHAO-HENG"
+          ],
+          "v2_mechanical_shadow": {
+            "net": 7.0,
+            "p": 7.0,
+            "n": 0,
+            "shadow_grade": "G4",
+            "unfloored": "G4",
+            "floor": null
+          },
+          "extreme_delta_reopen": false,
+          "A_net_units": 7.0,
+          "P_gross": 7.0,
+          "N_gross": 0.0,
+          "polarization_ratio": 0.0,
+          "unfloored_grade": "G4",
+          "polarization_floor_triggered": false,
+          "floor_grade": null,
+          "extreme_delta_review": "NOT_REQUIRED",
+          "v2_explicit_patch": true
+        },
+        {
+          "A_C_A_support_mechanism": "门下省谏院形成专职言谏接口",
+          "A_grade_thickness_cost": 2.0,
+          "A_independent_M_position_weight": 0.5,
+          "A_independent_M_signed": 2.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": 0.5,
+          "A_structural_thickness": 2.0,
+          "C_A": 2,
+          "M_mixed_profile": [
+            {
+              "M": "M2",
+              "direction": "balanced",
+              "direction_factor": 0.0,
+              "lifecycle_key": "A:RULER-NS-LIU-E:NS-A-LE-PRINT",
+              "material_id": "EV024",
+              "mechanism": "刑部摹印诏书与洁本控制",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 0.0
+            },
+            {
+              "M": "M2",
+              "direction": "balanced",
+              "direction_factor": 0.0,
+              "lifecycle_key": "A:RULER-NS-LIU-E:NS-A-LE-TIXING",
+              "material_id": "EV025",
+              "mechanism": "天圣六年撤提点刑狱",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 0.0
+            }
+          ],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "counts_toward_S": true,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "户籍田制与国家资源行政",
+              "institution_node_id": "IDN-D8B388E9B803",
+              "label_zh": "民间交子转为国家发行管理",
+              "major_node_role": "FOUNDATIONAL_CREATION",
+              "material_ids": [
+                "EV020"
+              ],
+              "mechanism": "民间交子转为国家发行管理",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 2.0
+            },
+            {
+              "M": "M3",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "监察反馈",
+              "institution_node_id": "GAPN-D0249401D19A",
+              "label_zh": "门下省谏院形成专职言谏接口",
+              "major_node_role": "FOUNDATIONAL_CREATION",
+              "material_ids": [
+                "EV022",
+                "EV023"
+              ],
+              "mechanism": "门下省谏院形成专职言谏接口",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 2.0
+            }
+          ],
+          "S_depth_units": 1,
+          "S_minus": 0,
+          "S_minus_node_ids": [],
+          "S_net": 1,
+          "S_plus_plus": 0,
+          "S_plus_regular": 1,
+          "S_total": 1,
+          "coverage_audit_ids": [
+            "NS11-TWO-SOURCE-FAMILY-GATE",
+            "NS11-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "EV020",
+            "EV022",
+            "EV023",
+            "EV024",
+            "EV025"
+          ],
+          "direct_material_roles": {
+            "EV020": [
+              "A_OPERATION",
+              "S_CONSTRUCTION"
+            ],
+            "EV022": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV023": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV024": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV025": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 77.5,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "chronicle_plus_official_history_or_treatise",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G4",
+          "grade_basis": "民间交子转为国家发行管理通过R3门禁，S_net=1，达到G4。",
+          "important_institutions": [
+            {
+              "S_depth_weight": 1,
+              "S_effect": "S+",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV020"
+              ],
+              "counts_toward_S": true,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "PASS_COUNTS_TOWARD_S",
+              "durability_material_ids": [
+                "EV021",
+                "NS-R3-LE-OFFICIAL-PAPER-CURRENCY-LATER-USE"
+              ],
+              "institution_domain": "户籍田制与国家资源行政",
+              "institution_lineage": "宋代官方纸币发行管理谱系",
+              "institution_node_id": "IDN-D8B388E9B803",
+              "label_zh": "民间交子转为国家发行管理",
+              "major_node_role": "FOUNDATIONAL_CREATION",
+              "material_ids": [
+                "EV020"
+              ],
+              "normative_direction": "positive",
+              "reason": "刘娥主政期把民间交子转为官府设务发行；仁宗、神宗及南宋仍由国家管理纸币发行与准备，核心接口跨多阶段采用，计普通S+。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/north_song.json",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-036.source-summary.md",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-048.source-summary.md",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-071.source-summary.md",
+                "docs/史料通读产物/南宋/续资治通鉴/volume-116.source-summary.md"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "S_PLUS_BASELINE_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV022"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "DURABILITY_EVIDENCE_PENDING",
+              "durability_material_ids": [
+                "EV023"
+              ],
+              "institution_domain": "监察反馈",
+              "institution_lineage": "北宋谏院专职言谏谱系",
+              "institution_node_id": "GAPN-D0249401D19A",
+              "label_zh": "门下省谏院形成专职言谏接口",
+              "major_node_role": "FOUNDATIONAL_CREATION",
+              "material_ids": [
+                "EV022",
+                "EV023"
+              ],
+              "normative_direction": "positive",
+              "reason": "门下省始置谏院，形成独立专职言谏接口；唐介后续仍知谏院只作后继运行证明，不倒灌为刘娥任内建制材料。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/north_song.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            }
+          ],
+          "index_interval": [
+            70,
+            84.9
+          ],
+          "polity": "北宋",
+          "position": "middle",
+          "position_basis": "A结构厚度=2.00（G4/G5由S净值与S++深度构成），G4主档消费=2.00；C_A不参与高档结构奖励，其支撑链按普通独立M计入后，独立有符号M原值=2.00、position权重=0.50；统一净余=0.50，对应middle。",
+          "position_q": 0.5,
+          "rank": 14,
+          "reign_range": "1022-1033（实际主政）",
+          "ruler_id": "RULER-NS-LIU-E",
+          "ruler_name": "刘娥",
+          "verification_material_ids": [
+            "EV021",
+            "NS-R3-LE-OFFICIAL-PAPER-CURRENCY-LATER-USE",
+            "NS-VERIFY-RULER-NS-LIU-E"
+          ],
+          "v2_mechanical_shadow": {
+            "net": 5.0,
+            "p": 5.0,
+            "n": 0,
+            "shadow_grade": "G4",
+            "unfloored": "G4",
+            "floor": null
+          },
+          "extreme_delta_reopen": false
+        },
+        {
+          "A_C_A_support_mechanism": "《元祐敕令式》《元祐敕令格》编成颁行",
+          "A_grade_thickness_cost": 1.0,
+          "A_independent_M_position_weight": 0.0,
+          "A_independent_M_signed": 0.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": 0.0,
+          "A_structural_thickness": 1.0,
+          "C_A": 2,
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "A:RULER-NS-GAO-TAOTAO:NS-A-GTT-REVERSAL",
+              "material_id": "EV045",
+              "mechanism": "差役与河工反复更令",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": -2
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "A:RULER-NS-GAO-TAOTAO:NS-A-GTT-DELIBERATION",
+              "material_id": "EV043",
+              "mechanism": "都堂日聚共同议事",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "A:RULER-NS-GAO-TAOTAO:NS-A-GTT-REFORM",
+              "material_id": "EV044",
+              "mechanism": "元祐更化对青苗市易役法等回撤",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M2",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "法律与司法",
+              "institution_node_id": "GAPN-E4DF9B44DC2F",
+              "label_zh": "《元祐敕令式》《元祐敕令格》编成颁行",
+              "major_node_role": "CANONICALIZATION",
+              "material_ids": [
+                "EV041",
+                "EV042"
+              ],
+              "mechanism": "《元祐敕令式》《元祐敕令格》编成颁行",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 1.0
+            }
+          ],
+          "S_depth_units": 0,
+          "S_minus": 0,
+          "S_minus_node_ids": [],
+          "S_net": 0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [
+            "NS11-TWO-SOURCE-FAMILY-GATE",
+            "NS11-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "EV041",
+            "EV042",
+            "EV043",
+            "EV044",
+            "EV045"
+          ],
+          "direct_material_roles": {
+            "EV041": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV042": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV043": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV044": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV045": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 62.5,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "chronicle_plus_official_history_or_treatise",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G3",
+          "grade_basis": "《元祐敕令式》《元祐敕令格》编成颁行形成非S重大制度建设，但S_net=0，按合同上限结算G3。",
+          "important_institutions": [
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV041",
+                "EV042"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "DURABILITY_EVIDENCE_PENDING",
+              "durability_material_ids": [],
+              "institution_domain": "法律与司法",
+              "institution_lineage": "北宋敕令格式法源编纂谱系",
+              "institution_node_id": "GAPN-E4DF9B44DC2F",
+              "label_zh": "《元祐敕令式》《元祐敕令格》编成颁行",
+              "major_node_role": "CANONICALIZATION",
+              "material_ids": [
+                "EV041",
+                "EV042"
+              ],
+              "normative_direction": "positive",
+              "reason": "敕、令、格、式的成套编纂并颁行使中央法令体系完成一次权威整理；材料未闭合跨任期耐久接收，故只计非S定型。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/north_song.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            }
+          ],
+          "index_interval": [
+            55,
+            69.9
+          ],
+          "polity": "北宋",
+          "position": "middle",
+          "position_basis": "A结构厚度=1.00（G0—G3含已消费的C_A/2），G3主档消费=1.00；排除S与已消费C_A支撑链后，独立有符号M原值=0.00、position权重=0.00；统一净余=0.00，对应middle。",
+          "position_q": 0.5,
+          "rank": 27,
+          "reign_range": "1085-1093（实际主政）",
+          "ruler_id": "RULER-NS-GAO-TAOTAO",
+          "ruler_name": "高滔滔",
+          "verification_material_ids": [
+            "NS-VERIFY-RULER-NS-GAO-TAOTAO"
+          ],
+          "v2_mechanical_shadow": {
+            "net": 1.0,
+            "p": 3.0,
+            "n": 2.0,
+            "shadow_grade": "G2",
+            "unfloored": "G2",
+            "floor": null
+          },
+          "extreme_delta_reopen": true
+        },
+        {
+          "A_C_A_support_mechanism": "元丰三省六部职事官制与寄禄体系重构",
+          "A_grade_thickness_cost": 1.0,
+          "A_independent_M_position_weight": 0.5,
+          "A_independent_M_signed": 2.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": 0.5,
+          "A_structural_thickness": 1.0,
+          "C_A": 2,
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "A:RULER-NS-ZHAO-XU:NS-A-SZ-DELAY",
+              "material_id": "EV040",
+              "mechanism": "元丰新官制公事稽延",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": -2
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "中央组织",
+              "institution_node_id": "IDN-41E949D3D030",
+              "label_zh": "元丰三省六部职事官制与寄禄体系重构",
+              "lifecycle_key": "A:RULER-NS-ZHAO-XU:NS-A-SZ-YUANFENG",
+              "material_id": "EV035",
+              "mechanism": "元丰三省六部职事官制与寄禄体系重构",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2
+            },
+            {
+              "M": "M3",
+              "absorbed_into_lifecycle_key": "A:RULER-NS-ZHAO-XU:NS-A-SZ-YUANFENG",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "A:RULER-NS-ZHAO-XU:NS-A-SZ-YUANFENG",
+              "material_id": "EV036",
+              "mechanism": "元丰三省六部职事官制与寄禄体系重构",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 0.0
+            },
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "A:RULER-NS-ZHAO-XU:NS-A-SZ-SCHOOL",
+              "material_id": "EV037",
+              "mechanism": "太学三舍—贡举接口重构",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2
+            },
+            {
+              "M": "M3",
+              "absorbed_into_lifecycle_key": "A:RULER-NS-ZHAO-XU:NS-A-SZ-SCHOOL",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "A:RULER-NS-ZHAO-XU:NS-A-SZ-SCHOOL",
+              "material_id": "EV038",
+              "mechanism": "太学三舍—贡举接口重构",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 0.0
+            },
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "A:RULER-NS-ZHAO-XU:NS-A-SZ-REFORM-ADMIN",
+              "material_id": "EV039",
+              "mechanism": "新法执行机构与常平考课组合",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "A:RULER-NS-ZHAO-XU:NS-A-SZ-LAW-SOURCES",
+              "material_id": "EV070",
+              "mechanism": "敕令格式四分法源结构化",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M2",
+              "absorbed_into_lifecycle_key": "A:RULER-NS-ZHAO-XU:NS-A-SZ-LAW-SOURCES",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "A:RULER-NS-ZHAO-XU:NS-A-SZ-LAW-SOURCES",
+              "material_id": "EV071",
+              "mechanism": "敕令格式四分法源结构化",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 0.0
+            }
+          ],
+          "S_depth_units": 0,
+          "S_minus": 0,
+          "S_minus_node_ids": [],
+          "S_net": 0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [
+            "NS11-TWO-SOURCE-FAMILY-GATE",
+            "NS11-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "EV035",
+            "EV036",
+            "EV037",
+            "EV038",
+            "EV039",
+            "EV040",
+            "EV070",
+            "EV071"
+          ],
+          "direct_material_roles": {
+            "EV035": [
+              "A_OPERATION",
+              "S_NODE_EVIDENCE"
+            ],
+            "EV036": [
+              "A_OPERATION",
+              "S_NODE_EVIDENCE"
+            ],
+            "EV037": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV038": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV039": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV040": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV070": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV071": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 62.5,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "chronicle_plus_official_history_or_treatise",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G3",
+          "grade_basis": "元丰三省六部职事官制与寄禄体系重构、太学三舍—贡举接口重构、新法执行机构与常平考课组合、敕令格式四分法源结构化达到重大重建、定型、纠偏或结构改革的完成度，但长期国家基线门尚未闭合，或正负骨架抵消后净计为0；同时存在元丰新官制公事稽延的负向限制",
+          "important_institutions": [
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV035",
+                "EV036"
+              ],
+              "counts_toward_S": false,
+              "decision": "STRUCTURAL_NON_DURABLE",
+              "durability_gate": "FAIL_CORE_RULE_REPLACED_1129",
+              "durability_material_ids": [
+                "NS-FAIL-ZX-YUANFENG-CORE-REPLACED"
+              ],
+              "institution_domain": "中央组织",
+              "institution_lineage": "隋唐中央决策执行组织谱系",
+              "institution_node_id": "IDN-41E949D3D030",
+              "label_zh": "元丰三省六部职事官制与寄禄体系重构",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "EV035",
+                "EV036"
+              ],
+              "normative_direction": "positive",
+              "reason": "元丰官制完成重大组织重组，但三省分班很快需要回调，北宋末已紊乱，1129年合并三省，核心规则未达到R3；保留非S重大建设与C_A，不计S。",
+              "source_artifact_refs": [
+                "docs/史料通读产物/北宋/续资治通鉴/volume-075.source-summary.md",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-078.source-summary.md",
+                "docs/史料通读产物/北宋/续资治通鉴/volume-091.source-summary.md",
+                "docs/史料通读产物/南宋/续资治通鉴/volume-105.source-summary.md"
+              ],
+              "source_kind": "NON_S_MAJOR_NODE"
+            }
+          ],
+          "index_interval": [
+            55.0,
+            69.9
+          ],
+          "polity": "北宋",
+          "position": "middle",
+          "position_basis": "A结构厚度=1.00（G0—G3含已消费的C_A/2），G3主档消费=1.00；排除S与已消费C_A支撑链后，独立有符号M原值=2.00、position权重=0.50；统一净余=0.50，对应middle。",
+          "position_q": 0.5,
+          "rank": 27,
+          "reign_range": "1067-1085",
+          "ruler_id": "RULER-NS-ZHAO-XU",
+          "ruler_name": "赵顼",
+          "verification_material_ids": [
+            "NS-FAIL-ZX-YUANFENG-CORE-REPLACED",
+            "NS-VERIFY-RULER-NS-ZHAO-XU"
+          ],
+          "v2_mechanical_shadow": {
+            "net": 6.0,
+            "p": 8.0,
+            "n": 2.0,
+            "shadow_grade": "G3",
+            "unfloored": "G3",
+            "floor": null
+          },
+          "extreme_delta_reopen": false
+        },
+        {
+          "A_C_A_support_mechanism": "封弥誊录锁厅与亲嫌回避的贡举防弊组合",
+          "A_grade_thickness_cost": 1.0,
+          "A_independent_M_position_weight": 0.5,
+          "A_independent_M_signed": 2.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": 0.5,
+          "A_structural_thickness": 1.0,
+          "C_A": 2,
+          "M_mixed_profile": [
+            {
+              "M": "M2",
+              "direction": "balanced",
+              "direction_factor": 0.0,
+              "lifecycle_key": "A:RULER-NS-ZHAO-ZHEN:NS-A-RZ-TIXING",
+              "material_id": "EV031",
+              "mechanism": "提点刑狱考课与运行修订",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 0.0
+            }
+          ],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "选官与官僚人事",
+              "institution_node_id": "IDN-1C488F26FA43",
+              "label_zh": "公卷废止、锁厅与亲嫌回避扩展",
+              "lifecycle_key": "A:RULER-NS-ZHAO-ZHEN:NS-A-RZ-EXAM",
+              "material_id": "EV026",
+              "mechanism": "公卷废止、锁厅与亲嫌回避扩展",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2
+            },
+            {
+              "M": "M3",
+              "absorbed_into_lifecycle_key": "A:RULER-NS-ZHAO-ZHEN:NS-A-RZ-EXAM",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "A:RULER-NS-ZHAO-ZHEN:NS-A-RZ-EXAM",
+              "material_id": "EV027",
+              "mechanism": "封弥誊录锁厅与亲嫌回避的贡举防弊组合",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 0.0
+            },
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "A:RULER-NS-ZHAO-ZHEN:NS-A-RZ-CODE",
+              "material_id": "EV028",
+              "mechanism": "嘉祐编敕与续附令敕分编颁行",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M2",
+              "absorbed_into_lifecycle_key": "A:RULER-NS-ZHAO-ZHEN:NS-A-RZ-CODE",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "A:RULER-NS-ZHAO-ZHEN:NS-A-RZ-CODE",
+              "material_id": "EV068",
+              "mechanism": "嘉祐编敕与续附令敕分编颁行",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 0.0
+            },
+            {
+              "M": "M2",
+              "absorbed_into_lifecycle_key": "A:RULER-NS-ZHAO-ZHEN:NS-A-RZ-CODE",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "A:RULER-NS-ZHAO-ZHEN:NS-A-RZ-CODE",
+              "material_id": "EV069",
+              "mechanism": "嘉祐编敕与续附令敕分编颁行",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 0.0
+            },
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "A:RULER-NS-ZHAO-ZHEN:NS-A-RZ-QINGLI",
+              "material_id": "EV029",
+              "mechanism": "庆历州县学校—科举组合改革",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M2",
+              "absorbed_into_lifecycle_key": "A:RULER-NS-ZHAO-ZHEN:NS-A-RZ-QINGLI",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "A:RULER-NS-ZHAO-ZHEN:NS-A-RZ-QINGLI",
+              "material_id": "EV030",
+              "mechanism": "庆历州县学校—科举组合改革",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 0.0
+            }
+          ],
+          "S_depth_units": 0,
+          "S_minus": 0,
+          "S_minus_node_ids": [],
+          "S_net": 0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [
+            "NS11-TWO-SOURCE-FAMILY-GATE",
+            "NS11-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "EV026",
+            "EV027",
+            "EV028",
+            "EV029",
+            "EV030",
+            "EV031",
+            "EV068",
+            "EV069"
+          ],
+          "direct_material_roles": {
+            "EV026": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV027": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV028": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV029": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV030": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV031": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV068": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV069": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 62.5,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "chronicle_plus_official_history_or_treatise",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G3",
+          "grade_basis": "公卷废止、锁厅与亲嫌回避扩展、封弥誊录锁厅与亲嫌回避的贡举防弊组合、嘉祐编敕与续附令敕分编颁行、庆历州县学校—科举组合改革达到重大重建、定型、纠偏或结构改革的完成度，但长期国家基线门尚未闭合，或正负骨架抵消后净计为0",
+          "important_institutions": [
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV026",
+                "EV027"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "NON_S_MAJOR_CONTRIBUTION",
+              "durability_material_ids": [],
+              "institution_domain": "选官与官僚人事",
+              "institution_lineage": "宋代贡举匿名防弊谱系",
+              "institution_node_id": "IDN-1C488F26FA43",
+              "label_zh": "公卷废止、锁厅与亲嫌回避扩展",
+              "major_node_role": "CANONICALIZATION",
+              "material_ids": [
+                "EV026",
+                "EV027"
+              ],
+              "normative_direction": "positive",
+              "reason": "按跨朝同领域谱系横向复裁：只保留改变核心规则的创设、重大重组、重大重建、权威化定型或重大文明纠偏；一般沿袭和维护已排除。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/north_song.json"
+              ],
+              "source_kind": "NON_S_MAJOR_NODE"
+            }
+          ],
+          "index_interval": [
+            55.0,
+            69.9
+          ],
+          "polity": "北宋",
+          "position": "middle",
+          "position_basis": "A结构厚度=1.00（G0—G3含已消费的C_A/2），G3主档消费=1.00；排除S与已消费C_A支撑链后，独立有符号M原值=2.00、position权重=0.50；统一净余=0.50，对应middle。",
+          "position_q": 0.5,
+          "rank": 27,
+          "reign_range": "1033-1063（亲政）",
+          "ruler_id": "RULER-NS-ZHAO-ZHEN",
+          "ruler_name": "赵祯",
+          "verification_material_ids": [
+            "NS-VERIFY-RULER-NS-ZHAO-ZHEN"
+          ],
+          "v2_mechanical_shadow": {
+            "net": 6.0,
+            "p": 6.0,
+            "n": 0,
+            "shadow_grade": "G3",
+            "unfloored": "G3",
+            "floor": null
+          },
+          "extreme_delta_reopen": false
+        },
+        {
+          "A_C_A_support_mechanism": "南宋国家机器与法源复建",
+          "A_grade_thickness_cost": 1.0,
+          "A_independent_M_position_weight": 0.0,
+          "A_independent_M_signed": 0.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": 0.0,
+          "A_structural_thickness": 1.0,
+          "C_A": 2,
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "中央组织",
+              "institution_node_id": "IDN-DF2E05495CCA",
+              "label_zh": "南宋中央国家机器与法源复建",
+              "lifecycle_key": "A:RULER-SS-ZHAO-GOU:SS-ZG-STATE-REBUILD",
+              "material_id": "SS-ZG-STATE-REBUILD",
+              "mechanism": "南宋中央国家机器与法源复建",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2.0
+            },
+            {
+              "M": "M3",
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "absorbed_into_lifecycle_key": "A:RULER-SS-ZHAO-GOU:SS-ZG-STATE-REBUILD",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "A:RULER-SS-ZHAO-GOU:SS-ZG-STATE-REBUILD",
+              "material_id": "SS-ZG-PERSONNEL-CODE",
+              "mechanism": "南宋国家机器与法源复建",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 0.0
+            },
+            {
+              "M": "M3",
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "absorbed_into_lifecycle_key": "A:RULER-SS-ZHAO-GOU:SS-ZG-STATE-REBUILD",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "A:RULER-SS-ZHAO-GOU:SS-ZG-STATE-REBUILD",
+              "material_id": "SS-ZG-REVIEW-RESTORE",
+              "mechanism": "南宋国家机器与法源复建",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 0.0
+            },
+            {
+              "M": "M3",
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "absorbed_into_lifecycle_key": "A:RULER-SS-ZHAO-GOU:SS-ZG-STATE-REBUILD",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "A:RULER-SS-ZHAO-GOU:SS-ZG-STATE-REBUILD",
+              "material_id": "SS-ZG-SHAOXING-CODE",
+              "mechanism": "南宋国家机器与法源复建",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 0.0
+            }
+          ],
+          "S_depth_units": 0,
+          "S_minus": 0,
+          "S_minus_node_ids": [],
+          "S_net": 0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [
+            "SS5-TWO-SOURCE-FAMILY-GATE",
+            "SS5-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "SS-ZG-PERSONNEL-CODE",
+            "SS-ZG-REVIEW-RESTORE",
+            "SS-ZG-SHAOXING-CODE",
+            "SS-ZG-STATE-REBUILD"
+          ],
+          "direct_material_roles": {
+            "SS-ZG-PERSONNEL-CODE": [
+              "A_OPERATION",
+              "NON_S_MAJOR_CONSTRUCTION"
+            ],
+            "SS-ZG-REVIEW-RESTORE": [
+              "A_OPERATION",
+              "NON_S_MAJOR_CONSTRUCTION"
+            ],
+            "SS-ZG-SHAOXING-CODE": [
+              "A_OPERATION",
+              "NON_S_MAJOR_CONSTRUCTION"
+            ],
+            "SS-ZG-STATE-REBUILD": [
+              "A_OPERATION",
+              "NON_S_MAJOR_CONSTRUCTION"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 62.5,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "fixed_primary_and_independent_treatise_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G3",
+          "grade_basis": "南宋中央国家机器与法源复建、南宋国家机器与法源复建达到重大重建、定型、纠偏或结构改革的完成度，但长期国家基线门尚未闭合，或正负骨架抵消后净计为0",
+          "important_institutions": [
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "SS-ZG-PERSONNEL-CODE",
+                "SS-ZG-REVIEW-RESTORE",
+                "SS-ZG-SHAOXING-CODE",
+                "SS-ZG-STATE-REBUILD"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "NON_S_MAJOR_CONTRIBUTION",
+              "durability_material_ids": [],
+              "institution_domain": "中央组织",
+              "institution_lineage": "南宋国家组织重建谱系",
+              "institution_node_id": "IDN-DF2E05495CCA",
+              "label_zh": "南宋中央国家机器与法源复建",
+              "major_node_role": "MAJOR_RECONSTRUCTION",
+              "material_ids": [
+                "SS-ZG-PERSONNEL-CODE",
+                "SS-ZG-REVIEW-RESTORE",
+                "SS-ZG-SHAOXING-CODE",
+                "SS-ZG-STATE-REBUILD"
+              ],
+              "normative_direction": "positive",
+              "reason": "按跨朝同领域谱系横向复裁：只保留改变核心规则的创设、重大重组、重大重建、权威化定型或重大文明纠偏；一般沿袭和维护已排除。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/southern_song.json"
+              ],
+              "source_kind": "NON_S_MAJOR_NODE"
+            }
+          ],
+          "index_interval": [
+            55.0,
+            69.9
+          ],
+          "polity": "南宋",
+          "position": "middle",
+          "position_basis": "A结构厚度=1.00（G0—G3含已消费的C_A/2），G3主档消费=1.00；排除S与已消费C_A支撑链后，独立有符号M原值=0.00、position权重=0.00；统一净余=0.00，对应middle。",
+          "position_q": 0.5,
+          "rank": 27,
+          "reign_range": "1127—1162",
+          "ruler_id": "RULER-SS-ZHAO-GOU",
+          "ruler_name": "赵构",
+          "verification_material_ids": [
+            "SS-ZG-WTC-CODE-VERIFY"
+          ],
+          "v2_mechanical_shadow": {
+            "net": 4.0,
+            "p": 4.0,
+            "n": 0,
+            "shadow_grade": "G3",
+            "unfloored": "G3",
+            "floor": null
+          },
+          "extreme_delta_reopen": false
+        },
+        {
+          "A_C_A_support_mechanism": "会计录、都历与跨州财政核验",
+          "A_grade_thickness_cost": 1.0,
+          "A_independent_M_position_weight": 0.25,
+          "A_independent_M_signed": 1.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": 0.25,
+          "A_structural_thickness": 1.0,
+          "C_A": 2,
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "户籍田制与国家资源行政",
+              "institution_node_id": "IDN-D8DB70B205BB",
+              "label_zh": "诸州统一都历、会计录与外部核验",
+              "lifecycle_key": "A:RULER-SS-ZHAO-SHEN:SS-ZS-ACCOUNTING-CORPUS",
+              "material_id": "SS-ZS-ACCOUNTING-CORPUS",
+              "mechanism": "诸州统一都历、会计录与外部核验",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2.0
+            },
+            {
+              "M": "M3",
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "absorbed_into_lifecycle_key": "A:RULER-SS-ZHAO-SHEN:SS-ZS-ACCOUNTING-CORPUS",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "A:RULER-SS-ZHAO-SHEN:SS-ZS-ACCOUNTING-CORPUS",
+              "material_id": "SS-ZS-UNIFIED-FISCAL-LEDGER",
+              "mechanism": "会计录、都历与跨州财政核验",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 0.0
+            },
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "A:RULER-SS-ZHAO-SHEN:SS-ZS-JUDICIAL-OPERATION",
+              "material_id": "SS-ZS-JUDICIAL-OPERATION",
+              "mechanism": "律令订正与条法定型",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 1.0
+            }
+          ],
+          "S_depth_units": 0,
+          "S_minus": 0,
+          "S_minus_node_ids": [],
+          "S_net": 0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [
+            "SS5-TWO-SOURCE-FAMILY-GATE",
+            "SS5-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "SS-ZS-ACCOUNTING-CORPUS",
+            "SS-ZS-JUDICIAL-OPERATION",
+            "SS-ZS-UNIFIED-FISCAL-LEDGER"
+          ],
+          "direct_material_roles": {
+            "SS-ZS-ACCOUNTING-CORPUS": [
+              "A_OPERATION",
+              "NON_S_MAJOR_CONSTRUCTION"
+            ],
+            "SS-ZS-JUDICIAL-OPERATION": [
+              "A_OPERATION",
+              "NON_S_MAJOR_CONSTRUCTION"
+            ],
+            "SS-ZS-UNIFIED-FISCAL-LEDGER": [
+              "A_OPERATION",
+              "NON_S_MAJOR_CONSTRUCTION"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 62.5,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "fixed_primary_and_independent_treatise_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G3",
+          "grade_basis": "诸州统一都历、会计录与外部核验、会计录、都历与跨州财政核验、律令订正与条法定型达到重大重建、定型、纠偏或结构改革的完成度，但长期国家基线门尚未闭合，或正负骨架抵消后净计为0",
+          "important_institutions": [
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "SS-ZS-ACCOUNTING-CORPUS",
+                "SS-ZS-UNIFIED-FISCAL-LEDGER"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "NON_S_MAJOR_CONTRIBUTION",
+              "durability_material_ids": [],
+              "institution_domain": "户籍田制与国家资源行政",
+              "institution_lineage": "宋代公共会计与财赋核验谱系",
+              "institution_node_id": "IDN-D8DB70B205BB",
+              "label_zh": "诸州统一都历、会计录与外部核验",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "SS-ZS-ACCOUNTING-CORPUS",
+                "SS-ZS-UNIFIED-FISCAL-LEDGER"
+              ],
+              "normative_direction": "positive",
+              "reason": "按跨朝同领域谱系横向复裁：只保留改变核心规则的创设、重大重组、重大重建、权威化定型或重大文明纠偏；一般沿袭和维护已排除。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/southern_song.json"
+              ],
+              "source_kind": "NON_S_MAJOR_NODE"
+            }
+          ],
+          "index_interval": [
+            55.0,
+            69.9
+          ],
+          "polity": "南宋",
+          "position": "middle",
+          "position_basis": "A结构厚度=1.00（G0—G3含已消费的C_A/2），G3主档消费=1.00；排除S与已消费C_A支撑链后，独立有符号M原值=1.00、position权重=0.25；统一净余=0.25，对应middle。",
+          "position_q": 0.5,
+          "rank": 27,
+          "reign_range": "1162—1189",
+          "ruler_id": "RULER-SS-ZHAO-SHEN",
+          "ruler_name": "赵昚",
+          "verification_material_ids": [
+            "SS-ZS-WTC-LAW-CORPUS"
+          ],
+          "v2_mechanical_shadow": {
+            "net": 5.0,
+            "p": 5.0,
+            "n": 0,
+            "shadow_grade": "G3",
+            "unfloored": "G3",
+            "floor": null
+          },
+          "extreme_delta_reopen": false
+        },
+        {
+          "A_C_A_support_mechanism": "绍圣重建元丰役法与常平提举执行体系",
+          "A_grade_thickness_cost": 1.0,
+          "A_independent_M_position_weight": -0.75,
+          "A_independent_M_signed": -3.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": -0.75,
+          "A_structural_thickness": 1.0,
+          "C_A": 2,
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "A:RULER-NS-ZHAO-XU-ZHEZONG:NS-A-ZZ2-HISTORY",
+              "material_id": "EV048",
+              "mechanism": "重修实录与党争性改史",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": -2
+            },
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "lifecycle_key": "A:RULER-NS-ZHAO-XU-ZHEZONG:NS-A-ZZ2-PURGE",
+              "material_id": "EV049",
+              "mechanism": "元祐旧臣追责与诉理株连制度化",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": -2
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "选官与官僚人事",
+              "institution_node_id": "GAPN-98FE5A641218",
+              "label_zh": "县令四善三最考课法",
+              "major_node_role": "LOCAL_OR_SECONDARY_CONSTRUCTION",
+              "material_ids": [
+                "EV047"
+              ],
+              "mechanism": "县令四善三最考课法",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M2",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "户籍田制与国家资源行政",
+              "institution_node_id": "INST-NSONG-ZHAOXU-YUANFENG-SERVICE-LAW-RESTORATION",
+              "label_zh": "绍圣重建元丰役法与常平提举执行体系",
+              "major_node_role": "MAJOR_RECONSTRUCTION",
+              "material_ids": [
+                "EV046"
+              ],
+              "mechanism": "绍圣重建元丰役法与常平提举执行体系",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 1.0
+            }
+          ],
+          "S_depth_units": 0,
+          "S_minus": 0,
+          "S_minus_node_ids": [],
+          "S_net": 0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [
+            "NS11-TWO-SOURCE-FAMILY-GATE",
+            "NS11-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "EV047",
+            "EV046",
+            "EV048",
+            "EV049"
+          ],
+          "direct_material_roles": {
+            "EV046": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV047": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV048": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV049": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 59.5,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "chronicle_plus_official_history_or_treatise",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G3",
+          "grade_basis": "县令四善三最考课法、绍圣重建元丰役法与常平提举执行体系形成非S重大制度建设，但S_net=0，按合同上限结算G3。",
+          "important_institutions": [
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV047"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "DURABILITY_EVIDENCE_PENDING",
+              "durability_material_ids": [],
+              "institution_domain": "选官与官僚人事",
+              "institution_lineage": "北宋县令考课规则谱系",
+              "institution_node_id": "GAPN-98FE5A641218",
+              "label_zh": "县令四善三最考课法",
+              "major_node_role": "LOCAL_OR_SECONDARY_CONSTRUCTION",
+              "material_ids": [
+                "EV047"
+              ],
+              "normative_direction": "positive",
+              "reason": "县令四善三最属于明确、可执行的地方官考课规则，粒度单一，按次级重要制度节点登记。",
+              "source_artifact_refs": [
+                "01-A制度建设与实际运行方向卡.json#material:EV047"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV046"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "NON_S_MAJOR_CONTRIBUTION",
+              "durability_material_ids": [],
+              "institution_domain": "户籍田制与国家资源行政",
+              "institution_lineage": "北宋役法与常平提举行政谱系",
+              "institution_node_id": "INST-NSONG-ZHAOXU-YUANFENG-SERVICE-LAW-RESTORATION",
+              "label_zh": "绍圣重建元丰役法与常平提举执行体系",
+              "major_node_role": "MAJOR_RECONSTRUCTION",
+              "material_ids": [
+                "EV046"
+              ],
+              "normative_direction": "positive",
+              "reason": "恢复元丰役法条约并重新设置常平提举官，重建中央至地方的役法执行接口；其后接收与长期稳定性未闭合，故不计S。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/north_song.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            }
+          ],
+          "index_interval": [
+            55,
+            69.9
+          ],
+          "polity": "北宋",
+          "position": "lower-middle",
+          "position_basis": "A结构厚度=1.00（G0—G3含已消费的C_A/2），G3主档消费=1.00；排除S与已消费C_A支撑链后，独立有符号M原值=-3.00、position权重=-0.75；统一净余=-0.75，对应lower-middle。",
+          "position_q": 0.3,
+          "rank": 79,
+          "reign_range": "1093-1100（亲政）",
+          "ruler_id": "RULER-NS-ZHAO-XU-ZHEZONG",
+          "ruler_name": "赵煦",
+          "verification_material_ids": [
+            "NS-VERIFY-RULER-NS-ZHAO-XU-ZHEZONG"
+          ],
+          "v2_mechanical_shadow": {
+            "net": -2.0,
+            "p": 2.0,
+            "n": 4.0,
+            "shadow_grade": "G0",
+            "unfloored": "G0",
+            "floor": null
+          },
+          "extreme_delta_reopen": true
+        },
+        {
+          "A_C_A_support_mechanism": "会子改革监察执行",
+          "A_grade_thickness_cost": 1.0,
+          "A_independent_M_position_weight": 0.25,
+          "A_independent_M_signed": 1.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": -0.25,
+          "A_structural_thickness": 0.5,
+          "C_A": 1,
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "A:RULER-SS-ZHAO-YUN:SS-ZY-MONETARY-AUDIT",
+              "material_id": "SS-ZY-MONETARY-AUDIT",
+              "mechanism": "会子改革被要求由两监察御史监督地方执行，防止监司守令纵吏舞弊",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "A:RULER-SS-ZHAO-YUN:SS-ZY-ASSET-INVENTORY",
+              "material_id": "SS-ZY-ASSET-INVENTORY",
+              "mechanism": "朝廷要求中央各仓库逐项核实钱谷、货币、器用、图书",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M0",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "A:RULER-SS-ZHAO-YUN:SS-ZY-CENSOR-APPOINTMENT",
+              "material_id": "SS-ZY-CENSOR-APPOINTMENT",
+              "mechanism": "台谏不得由大臣荐进",
+              "position_count_mode": "context_only_no_effective_mechanism",
+              "position_exclusion_reason": "主体是言路反馈与任用纠偏，属于B2，不是A项制度建设链",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 0.0
+            }
+          ],
+          "S_depth_units": 0,
+          "S_minus": 0,
+          "S_minus_node_ids": [],
+          "S_net": 0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [
+            "SS5-TWO-SOURCE-FAMILY-GATE",
+            "SS5-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "SS-ZY-ASSET-INVENTORY",
+            "SS-ZY-CENSOR-APPOINTMENT",
+            "SS-ZY-MONETARY-AUDIT"
+          ],
+          "direct_material_roles": {
+            "SS-ZY-ASSET-INVENTORY": [
+              "A_OPERATION",
+              "LOCAL_OR_SECONDARY_CONSTRUCTION"
+            ],
+            "SS-ZY-CENSOR-APPOINTMENT": [
+              "A_OPERATION",
+              "LOCAL_OR_SECONDARY_CONSTRUCTION"
+            ],
+            "SS-ZY-MONETARY-AUDIT": [
+              "A_OPERATION",
+              "LOCAL_OR_SECONDARY_CONSTRUCTION"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 59.5,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "fixed_primary_and_independent_treatise_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G3",
+          "grade_basis": "会子改革监察执行、中央仓库逐项核账与台谏不得由大臣荐进，分别闭合货币执行监督、国家资产核验和监察任用三个次级接口；按多个次级制度形成可识别组合结算G3，但不虚构单项非S重大节点，C_A仍为1。",
+          "important_institutions": [],
+          "index_interval": [
+            55.0,
+            69.9
+          ],
+          "polity": "南宋",
+          "position": "lower-middle",
+          "position_basis": "A结构厚度=0.50（G0—G3含已消费的C_A/2），G3主档消费=1.00；排除S与已消费C_A支撑链后，独立有符号M原值=1.00、position权重=0.25；统一净余=-0.25，对应lower-middle。",
+          "position_q": 0.3,
+          "rank": 79,
+          "reign_range": "1224—1264",
+          "ruler_id": "RULER-SS-ZHAO-YUN",
+          "ruler_name": "赵昀",
+          "verification_material_ids": [],
+          "v2_mechanical_shadow": {
+            "net": 2.0,
+            "p": 2.0,
+            "n": 0,
+            "shadow_grade": "G3",
+            "unfloored": "G3",
+            "floor": null
+          },
+          "extreme_delta_reopen": false
+        },
+        {
+          "A_C_A_support_mechanism": "州县学—州学—太学三舍升贡体系",
+          "A_grade_thickness_cost": 1.0,
+          "A_independent_M_position_weight": -1.0,
+          "A_independent_M_signed": -1.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": -1.0,
+          "A_structural_thickness": -1.0,
+          "C_A": 2,
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "counts_toward_S": false,
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "institution_domain": "中央组织",
+              "institution_node_id": "A-SONG-ZHAOJI-GOVERNMENT-NAMES",
+              "label_zh": "政和官名机构重定与元丰官制紊乱",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [],
+              "mechanism": "政和官名机构重定与元丰官制紊乱",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": -2.0
+            },
+            {
+              "M": "M3",
+              "counts_toward_S": false,
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "institution_domain": "选官与官僚人事",
+              "institution_node_id": "GAPN-A820D785E0AE",
+              "label_zh": "党籍石刻及亲属婚姻科举限制制度化",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [
+                "EV053"
+              ],
+              "mechanism": "党籍石刻及亲属婚姻科举限制制度化",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": -2.0
+            },
+            {
+              "M": "M3",
+              "counts_toward_S": false,
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "institution_domain": "中央组织",
+              "institution_node_id": "GAPN-AD58B22891E8",
+              "label_zh": "御笔手诏绕过中书门下的制令接口",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [
+                "EV054",
+                "EV072",
+                "EV073"
+              ],
+              "mechanism": "御笔手诏绕过中书门下的制令接口",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": -2.0
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "国家教育与官学",
+              "institution_node_id": "GAPN-C78D3B20409E",
+              "label_zh": "州县学—州学—太学三舍升贡体系",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "EV050",
+                "EV051",
+                "EV052"
+              ],
+              "mechanism": "州县学—州学—太学三舍升贡体系",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 2.0
+            },
+            {
+              "M": "M3",
+              "counts_toward_S": false,
+              "direction": "mixed_positive",
+              "direction_factor": 0.5,
+              "institution_domain": "公共服务与社会救济",
+              "institution_node_id": "A-SONG-ZHAOJI-CHARITY-HOME",
+              "label_zh": "居养院全国救济及内生成本生命周期",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [],
+              "mechanism": "居养院全国救济及内生成本生命周期",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M3",
+              "counts_toward_S": false,
+              "direction": "mixed_positive",
+              "direction_factor": 0.5,
+              "institution_domain": "公共服务与社会救济",
+              "institution_node_id": "A-SONG-ZHAOJI-ANJI-MEDICAL",
+              "label_zh": "安济坊医疗救济及常平资金成本生命周期",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [],
+              "mechanism": "安济坊医疗救济及常平资金成本生命周期",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M3",
+              "counts_toward_S": false,
+              "direction": "mixed_positive",
+              "direction_factor": 0.5,
+              "institution_domain": "公共服务与社会救济",
+              "institution_node_id": "A-SONG-ZHAOJI-BURIAL",
+              "label_zh": "漏泽园全国安葬及附加资给裁减生命周期",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [],
+              "mechanism": "漏泽园全国安葬及附加资给裁减生命周期",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 1.0
+            }
+          ],
+          "S_depth_units": 0,
+          "S_minus": 0.0,
+          "S_minus_node_ids": [],
+          "S_net": 0.0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [
+            "NS11-TWO-SOURCE-FAMILY-GATE",
+            "NS11-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "EV053",
+            "EV050",
+            "EV051",
+            "EV052",
+            "EV054",
+            "EV072",
+            "EV073",
+            "EV056",
+            "EV055"
+          ],
+          "direct_material_roles": {
+            "EV050": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV051": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV052": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV053": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV054": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV055": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV056": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV072": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV073": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 41.5,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "chronicle_plus_official_history_or_treatise",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G2",
+          "grade_basis": "高强度正负制度建设高度对冲，V2净值-1；按正式显式复核极化托底结算G2-lower，不是正常净收益档。",
+          "important_institutions": [
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV050",
+                "EV051",
+                "EV052"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "DURABILITY_EVIDENCE_PENDING",
+              "durability_material_ids": [],
+              "institution_domain": "国家教育与官学",
+              "institution_lineage": "北宋三舍—学校升贡谱系",
+              "institution_node_id": "GAPN-C78D3B20409E",
+              "label_zh": "州县学—州学—太学三舍升贡体系",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "EV050",
+                "EV051",
+                "EV052"
+              ],
+              "normative_direction": "positive",
+              "reason": "州县学校、州学、太学形成逐级升贡并一度取代州郡发解和礼部试，且有跨州县学舍生徒运行结果，达到非S重大重组。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/north_song.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "ADJUDICATED_NON_S",
+              "durability_material_ids": [],
+              "institution_domain": "公共服务与社会救济",
+              "institution_lineage": "居养院全国救济及内生成本生命周期谱系",
+              "institution_node_id": "A-SONG-ZHAOJI-CHARITY-HOME",
+              "label_zh": "居养院全国救济及内生成本生命周期",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [],
+              "normative_direction": "mixed_positive",
+              "reason": "按A审查清单完成单一制度接口裁决。",
+              "source_artifact_refs": [
+                "https://zh.wikisource.org/zh-hans/%E5%AE%8B%E5%8F%B2/%E5%8D%B7178"
+              ],
+              "external_verification_refs": [
+                {
+                  "title": "《宋史》卷178：居养、安济与漏泽救济制度",
+                  "url": "https://zh.wikisource.org/zh-hans/%E5%AE%8B%E5%8F%B2/%E5%8D%B7178"
+                }
+              ],
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "ADJUDICATED_NON_S",
+              "durability_material_ids": [],
+              "institution_domain": "公共服务与社会救济",
+              "institution_lineage": "安济坊医疗救济及常平资金成本生命周期谱系",
+              "institution_node_id": "A-SONG-ZHAOJI-ANJI-MEDICAL",
+              "label_zh": "安济坊医疗救济及常平资金成本生命周期",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [],
+              "normative_direction": "mixed_positive",
+              "reason": "按A审查清单完成单一制度接口裁决。",
+              "source_artifact_refs": [
+                "https://zh.wikisource.org/zh-hans/%E5%AE%8B%E5%8F%B2/%E5%8D%B7178"
+              ],
+              "external_verification_refs": [
+                {
+                  "title": "《宋史》卷178：安济坊医疗救济",
+                  "url": "https://zh.wikisource.org/zh-hans/%E5%AE%8B%E5%8F%B2/%E5%8D%B7178"
+                }
+              ],
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "ADJUDICATED_NON_S",
+              "durability_material_ids": [],
+              "institution_domain": "公共服务与社会救济",
+              "institution_lineage": "漏泽园全国安葬及附加资给裁减生命周期谱系",
+              "institution_node_id": "A-SONG-ZHAOJI-BURIAL",
+              "label_zh": "漏泽园全国安葬及附加资给裁减生命周期",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [],
+              "normative_direction": "mixed_positive",
+              "reason": "按A审查清单完成单一制度接口裁决。",
+              "source_artifact_refs": [
+                "https://zh.wikisource.org/zh-hans/%E5%AE%8B%E5%8F%B2/%E5%8D%B7178"
+              ],
+              "external_verification_refs": [
+                {
+                  "title": "《宋史》卷178：漏泽园贫民安葬",
+                  "url": "https://zh.wikisource.org/zh-hans/%E5%AE%8B%E5%8F%B2/%E5%8D%B7178"
+                }
+              ],
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "ADJUDICATED_NON_S",
+              "durability_material_ids": [],
+              "institution_domain": "中央组织",
+              "institution_lineage": "政和官名机构重定与元丰官制紊乱谱系",
+              "institution_node_id": "A-SONG-ZHAOJI-GOVERNMENT-NAMES",
+              "label_zh": "政和官名机构重定与元丰官制紊乱",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [],
+              "normative_direction": "negative",
+              "reason": "按A审查清单完成单一制度接口裁决。",
+              "source_artifact_refs": [
+                "https://zh.wikisource.org/zh-hans/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7091"
+              ],
+              "external_verification_refs": [
+                {
+                  "title": "《资治通鉴》卷91：政和官名与元丰官制紊乱",
+                  "url": "https://zh.wikisource.org/zh-hans/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7091"
+                }
+              ],
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV053"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "DURABILITY_EVIDENCE_PENDING",
+              "durability_material_ids": [],
+              "institution_domain": "选官与官僚人事",
+              "institution_lineage": "北宋党籍身份—任官限制谱系",
+              "institution_node_id": "GAPN-A820D785E0AE",
+              "label_zh": "党籍石刻及亲属婚姻科举限制制度化",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [
+                "EV053"
+              ],
+              "normative_direction": "negative",
+              "reason": "党籍限制扩展至亲属、婚姻和科举，把政治排斥制度化到身份与选官接口，计非S重大负向节点。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/north_song.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV054",
+                "EV072",
+                "EV073"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "DURABILITY_EVIDENCE_PENDING",
+              "durability_material_ids": [],
+              "institution_domain": "中央组织",
+              "institution_lineage": "北宋御笔手诏绕过常规中枢谱系",
+              "institution_node_id": "GAPN-AD58B22891E8",
+              "label_zh": "御笔手诏绕过中书门下的制令接口",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [
+                "EV054",
+                "EV072",
+                "EV073"
+              ],
+              "normative_direction": "negative",
+              "reason": "御笔手诏持续绕过中书门下议令程序，并禁止断罪后赴尚书省申诉，形成制度化的常规程序旁路。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/north_song.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            }
+          ],
+          "index_interval": [
+            55,
+            69.9
+          ],
+          "polity": "北宋",
+          "position": "lower",
+          "position_basis": "V2净值=-1，P_gross=5，N_gross=6；档内横向结构复核后定lower。",
+          "position_q": 0.1,
+          "rank": 126,
+          "reign_range": "1100-1125",
+          "ruler_id": "RULER-NS-ZHAO-JI",
+          "ruler_name": "赵佶",
+          "verification_material_ids": [
+            "NS-VERIFY-RULER-NS-ZHAO-JI"
+          ],
+          "v2_mechanical_shadow": {
+            "net": -4.0,
+            "p": 2.0,
+            "n": 6.0,
+            "shadow_grade": "G0",
+            "unfloored": "G0",
+            "floor": null
+          },
+          "extreme_delta_reopen": false,
+          "A_net_units": -1.0,
+          "P_gross": 5.0,
+          "N_gross": 6.0,
+          "polarization_ratio": 1.2,
+          "unfloored_grade": "G0",
+          "polarization_floor_triggered": true,
+          "floor_grade": "G2",
+          "extreme_delta_review": "NOT_REQUIRED",
+          "v2_explicit_patch": true
+        },
+        {
+          "A_C_A_support_mechanism": "恢复监察御史依祖宗法言事",
+          "A_grade_thickness_cost": 0.5,
+          "A_independent_M_position_weight": 0.0,
+          "A_independent_M_signed": 0.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": 0.0,
+          "A_structural_thickness": 0.5,
+          "C_A": 1,
+          "M_mixed_profile": [
+            {
+              "M": "M2",
+              "counts_toward_S": false,
+              "direction": "balanced",
+              "direction_factor": 0.0,
+              "institution_domain": "中央组织",
+              "institution_node_id": "INST-NSONG-ZHAOHUAN-OFFICE-ABOLITION",
+              "label_zh": "裁撤内外官司局所一百零五处",
+              "major_node_role": "LOCAL_OR_SECONDARY_CONSTRUCTION",
+              "material_ids": [
+                "EV057"
+              ],
+              "mechanism": "裁撤内外官司局所一百零五处",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 0.0
+            }
+          ],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "监察反馈",
+              "institution_node_id": "INST-NSONG-ZHAOHUAN-CENSOR-SPEECH-RESTORATION",
+              "label_zh": "恢复监察御史依祖宗法言事",
+              "major_node_role": "LOCAL_OR_SECONDARY_CONSTRUCTION",
+              "material_ids": [
+                "EV059"
+              ],
+              "mechanism": "恢复监察御史依祖宗法言事",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 1.0
+            }
+          ],
+          "S_depth_units": 0,
+          "S_minus": 0,
+          "S_minus_node_ids": [],
+          "S_net": 0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [
+            "NS11-TWO-SOURCE-FAMILY-GATE",
+            "NS11-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "EV059",
+            "EV058",
+            "EV074",
+            "EV057"
+          ],
+          "direct_material_roles": {
+            "EV057": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV058": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV059": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV060": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV061": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV074": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 47.5,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "chronicle_plus_official_history_or_treatise",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G2",
+          "grade_basis": "恢复监察御史依祖宗法言事、参祖宗法删修成书但未完成、裁撤内外官司局所一百零五处只闭合局部或次级制度接口，结算G2。",
+          "important_institutions": [
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV059"
+              ],
+              "counts_toward_S": false,
+              "decision": "LOCAL_NODE",
+              "durability_gate": "NON_S_LOCAL_CONTRIBUTION",
+              "durability_material_ids": [],
+              "institution_domain": "监察反馈",
+              "institution_lineage": "北宋监察御史言事谱系",
+              "institution_node_id": "INST-NSONG-ZHAOHUAN-CENSOR-SPEECH-RESTORATION",
+              "label_zh": "恢复监察御史依祖宗法言事",
+              "major_node_role": "LOCAL_OR_SECONDARY_CONSTRUCTION",
+              "material_ids": [
+                "EV059"
+              ],
+              "normative_direction": "positive",
+              "reason": "恢复监察御史依祖宗法言事，闭合一项反馈接口的局部恢复。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/north_song.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV058",
+                "EV074"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "NON_S_MAJOR_CONTRIBUTION",
+              "durability_material_ids": [],
+              "institution_domain": "法律与司法",
+              "institution_lineage": "北宋御笔手诏法源清理谱系",
+              "institution_node_id": "INST-NSONG-ZHAOHUAN-LAW-COMPILATION-ATTEMPT",
+              "label_zh": "参祖宗法删修成书但未完成",
+              "major_node_role": "PAPER_OR_INCOMPLETE_CONSTRUCTION",
+              "material_ids": [
+                "EV058",
+                "EV074"
+              ],
+              "normative_direction": "mixed",
+              "reason": "启动参祖宗法与现行法删修成书，但史源明确‘书不果成’，只计未完成法源清理。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/north_song.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV057"
+              ],
+              "counts_toward_S": false,
+              "decision": "LOCAL_NODE",
+              "durability_gate": "NON_S_LOCAL_CONTRIBUTION",
+              "durability_material_ids": [],
+              "institution_domain": "中央组织",
+              "institution_lineage": "北宋冗设官司局所裁撤谱系",
+              "institution_node_id": "INST-NSONG-ZHAOHUAN-OFFICE-ABOLITION",
+              "label_zh": "裁撤内外官司局所一百零五处",
+              "major_node_role": "LOCAL_OR_SECONDARY_CONSTRUCTION",
+              "material_ids": [
+                "EV057"
+              ],
+              "normative_direction": "mixed",
+              "reason": "一次裁撤内外官司局所一百零五处，规模可见但后续组织运行未闭合，按混合局部调整处理。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/north_song.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            }
+          ],
+          "index_interval": [
+            40,
+            54.9
+          ],
+          "polity": "北宋",
+          "position": "middle",
+          "position_basis": "A结构厚度=0.50（G0—G3含已消费的C_A/2），G2主档消费=0.50；排除S与已消费C_A支撑链后，独立有符号M原值=0.00、position权重=0.00；统一净余=0.00，对应middle。",
+          "position_q": 0.5,
+          "rank": 101,
+          "reign_range": "1126-1127",
+          "ruler_id": "RULER-NS-ZHAO-HUAN",
+          "ruler_name": "赵桓",
+          "verification_material_ids": [
+            "NS-VERIFY-RULER-NS-ZHAO-HUAN"
+          ],
+          "v2_mechanical_shadow": {
+            "net": 1.0,
+            "p": 1.0,
+            "n": 0,
+            "shadow_grade": "G2",
+            "unfloored": "G2",
+            "floor": null
+          },
+          "extreme_delta_reopen": false
+        },
+        {
+          "A_C_A_support_mechanism": "宫廷费用纳入三司账目",
+          "A_grade_thickness_cost": 0.5,
+          "A_independent_M_position_weight": 0.25,
+          "A_independent_M_signed": 1.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": 0.25,
+          "A_structural_thickness": 0.5,
+          "C_A": 1,
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "户籍田制与国家资源行政",
+              "institution_node_id": "INST-NSONG-ZHAOSHU-PALACE-EXPENSE-TREASURY",
+              "label_zh": "宫廷费用纳入三司账目",
+              "major_node_role": "LOCAL_OR_SECONDARY_CONSTRUCTION",
+              "material_ids": [
+                "EV032"
+              ],
+              "mechanism": "宫廷费用纳入三司账目",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M2",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "中央组织",
+              "institution_node_id": "INST-NSONG-ZHAOSHU-TWO-COUNCILS-ROUTINE-RETURN",
+              "label_zh": "两府细务归还有司并定期议事",
+              "major_node_role": "LOCAL_OR_SECONDARY_CONSTRUCTION",
+              "material_ids": [
+                "EV033"
+              ],
+              "mechanism": "两府细务归还有司并定期议事",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 1.0
+            }
+          ],
+          "S_depth_units": 0,
+          "S_minus": 0,
+          "S_minus_node_ids": [],
+          "S_net": 0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [
+            "NS11-TWO-SOURCE-FAMILY-GATE",
+            "NS11-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "EV032",
+            "EV033"
+          ],
+          "direct_material_roles": {
+            "EV032": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV033": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ],
+            "EV034": [
+              "A_OPERATION",
+              "NON_S_OR_LOCAL_CONSTRUCTION"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 47.5,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "chronicle_plus_official_history_or_treatise",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G2",
+          "grade_basis": "宫廷费用纳入三司账目、两府细务归还有司并定期议事只闭合局部或次级制度接口，结算G2。",
+          "important_institutions": [
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV032"
+              ],
+              "counts_toward_S": false,
+              "decision": "LOCAL_NODE",
+              "durability_gate": "NON_S_LOCAL_CONTRIBUTION",
+              "durability_material_ids": [],
+              "institution_domain": "户籍田制与国家资源行政",
+              "institution_lineage": "北宋宫廷费用财政核算谱系",
+              "institution_node_id": "INST-NSONG-ZHAOSHU-PALACE-EXPENSE-TREASURY",
+              "label_zh": "宫廷费用纳入三司账目",
+              "major_node_role": "LOCAL_OR_SECONDARY_CONSTRUCTION",
+              "material_ids": [
+                "EV032"
+              ],
+              "normative_direction": "positive",
+              "reason": "将宫廷费用纳入三司账目，闭合一项中央财政核算的次级接口。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/north_song.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV033"
+              ],
+              "counts_toward_S": false,
+              "decision": "LOCAL_NODE",
+              "durability_gate": "NON_S_LOCAL_CONTRIBUTION",
+              "durability_material_ids": [],
+              "institution_domain": "中央组织",
+              "institution_lineage": "北宋两府细务分流谱系",
+              "institution_node_id": "INST-NSONG-ZHAOSHU-TWO-COUNCILS-ROUTINE-RETURN",
+              "label_zh": "两府细务归还有司并定期议事",
+              "major_node_role": "LOCAL_OR_SECONDARY_CONSTRUCTION",
+              "material_ids": [
+                "EV033"
+              ],
+              "normative_direction": "positive",
+              "reason": "把中书、枢密院细务归还有司并形成定期议事，属于中央流程的次级调整。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/north_song.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            }
+          ],
+          "index_interval": [
+            40,
+            54.9
+          ],
+          "polity": "北宋",
+          "position": "middle",
+          "position_basis": "A结构厚度=0.50（G0—G3含已消费的C_A/2），G2主档消费=0.50；排除S与已消费C_A支撑链后，独立有符号M原值=1.00、position权重=0.25；统一净余=0.25，对应middle。",
+          "position_q": 0.5,
+          "rank": 101,
+          "reign_range": "1063-1067",
+          "ruler_id": "RULER-NS-ZHAO-SHU",
+          "ruler_name": "赵曙",
+          "verification_material_ids": [
+            "NS-VERIFY-RULER-NS-ZHAO-SHU"
+          ],
+          "v2_mechanical_shadow": {
+            "net": 2.0,
+            "p": 2.0,
+            "n": 0,
+            "shadow_grade": "G3",
+            "unfloored": "G3",
+            "floor": null
+          },
+          "extreme_delta_reopen": true
+        },
+        {
+          "A_C_A_support_mechanism": "编《绍熙会计录》核都司与户部财赋",
+          "A_grade_thickness_cost": 0.5,
+          "A_independent_M_position_weight": 0.25,
+          "A_independent_M_signed": 1.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": 0.25,
+          "A_structural_thickness": 0.5,
+          "C_A": 1,
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "户籍田制与国家资源行政",
+              "institution_node_id": "INST-SSONG-ZHAODUN-SHAOXI-ACCOUNTING-RECORD",
+              "label_zh": "编《绍熙会计录》核都司与户部财赋",
+              "major_node_role": "LOCAL_OR_SECONDARY_CONSTRUCTION",
+              "material_ids": [
+                "SS-ZD-SHAOXI-ACCOUNT"
+              ],
+              "mechanism": "编《绍熙会计录》核都司与户部财赋",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M2",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "法律与司法",
+              "institution_node_id": "INST-SSONG-ZHAODUN-MILITARY-COURT-OVERSIGHT",
+              "label_zh": "军队后司推狱改由通晓条制属官兼管",
+              "major_node_role": "LOCAL_OR_SECONDARY_CONSTRUCTION",
+              "material_ids": [
+                "SS-ZD-MILITARY-COURT-RULE"
+              ],
+              "mechanism": "军队后司推狱改由通晓条制属官兼管",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 1.0
+            }
+          ],
+          "S_depth_units": 0,
+          "S_minus": 0,
+          "S_minus_node_ids": [],
+          "S_net": 0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [
+            "SS5-TWO-SOURCE-FAMILY-GATE",
+            "SS5-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "SS-ZD-SHAOXI-ACCOUNT",
+            "SS-ZD-MILITARY-COURT-RULE"
+          ],
+          "direct_material_roles": {
+            "SS-ZD-MILITARY-COURT-RULE": [
+              "A_OPERATION",
+              "LOCAL_OR_SECONDARY_CONSTRUCTION"
+            ],
+            "SS-ZD-SHAOXI-ACCOUNT": [
+              "A_OPERATION",
+              "LOCAL_OR_SECONDARY_CONSTRUCTION"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 47.5,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "fixed_primary_and_independent_treatise_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G2",
+          "grade_basis": "编《绍熙会计录》核都司与户部财赋、军队后司推狱改由通晓条制属官兼管只闭合局部或次级制度接口，结算G2。",
+          "important_institutions": [
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "SS-ZD-SHAOXI-ACCOUNT"
+              ],
+              "counts_toward_S": false,
+              "decision": "LOCAL_NODE",
+              "durability_gate": "NON_S_LOCAL_CONTRIBUTION",
+              "durability_material_ids": [],
+              "institution_domain": "户籍田制与国家资源行政",
+              "institution_lineage": "南宋会计录与中央财赋核算谱系",
+              "institution_node_id": "INST-SSONG-ZHAODUN-SHAOXI-ACCOUNTING-RECORD",
+              "label_zh": "编《绍熙会计录》核都司与户部财赋",
+              "major_node_role": "LOCAL_OR_SECONDARY_CONSTRUCTION",
+              "material_ids": [
+                "SS-ZD-SHAOXI-ACCOUNT"
+              ],
+              "normative_direction": "positive",
+              "reason": "即位后编《绍熙会计录》核都司和户部财赋出入，形成中央财政账目整理的局部接口。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/southern_song.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "SS-ZD-MILITARY-COURT-RULE"
+              ],
+              "counts_toward_S": false,
+              "decision": "LOCAL_NODE",
+              "durability_gate": "NON_S_LOCAL_CONTRIBUTION",
+              "durability_material_ids": [],
+              "institution_domain": "法律与司法",
+              "institution_lineage": "南宋军队后司推狱监督谱系",
+              "institution_node_id": "INST-SSONG-ZHAODUN-MILITARY-COURT-OVERSIGHT",
+              "label_zh": "军队后司推狱改由通晓条制属官兼管",
+              "major_node_role": "LOCAL_OR_SECONDARY_CONSTRUCTION",
+              "material_ids": [
+                "SS-ZD-MILITARY-COURT-RULE"
+              ],
+              "normative_direction": "positive",
+              "reason": "把三衙和江上诸军后司推狱纳入通晓条制属官兼管，并禁止非死罪案件送英德府逼供，形成司法程序局部纠偏。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/southern_song.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            }
+          ],
+          "index_interval": [
+            40,
+            54.9
+          ],
+          "polity": "南宋",
+          "position": "middle",
+          "position_basis": "A结构厚度=0.50（G0—G3含已消费的C_A/2），G2主档消费=0.50；排除S与已消费C_A支撑链后，独立有符号M原值=1.00、position权重=0.25；统一净余=0.25，对应middle。",
+          "position_q": 0.5,
+          "rank": 101,
+          "reign_range": "1189—1194",
+          "ruler_id": "RULER-SS-ZHAO-DUN",
+          "ruler_name": "赵惇",
+          "verification_material_ids": [],
+          "v2_mechanical_shadow": {
+            "net": 2.0,
+            "p": 2.0,
+            "n": 0,
+            "shadow_grade": "G3",
+            "unfloored": "G3",
+            "floor": null
+          },
+          "extreme_delta_reopen": true
+        },
+        {
+          "A_C_A_support_mechanism": "举人不得举宰执子弟亲党的未完成规则",
+          "A_grade_thickness_cost": 0.25,
+          "A_independent_M_position_weight": -0.5,
+          "A_independent_M_signed": -2.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": -0.25,
+          "A_structural_thickness": 0.25,
+          "C_A": 0.5,
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "counts_toward_S": false,
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "institution_domain": "选官与官僚人事",
+              "institution_node_id": "IDN-774B8F0B6AC0",
+              "label_zh": "党禁扩展至任官、荐举、科举与身份登记",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [
+                "SS-ZK-PARTY-PURGE"
+              ],
+              "mechanism": "党禁扩展至任官、荐举、科举与身份登记",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": -2.0
+            }
+          ],
+          "M_positive_profile": [],
+          "S_depth_units": 0,
+          "S_minus": 0,
+          "S_minus_node_ids": [],
+          "S_net": 0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [
+            "SS5-TWO-SOURCE-FAMILY-GATE",
+            "SS5-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "SS-ZK-PARTY-PURGE",
+            "SS-ZK-ANTI-NEPOTISM"
+          ],
+          "direct_material_roles": {
+            "SS-ZK-ANTI-NEPOTISM": [
+              "A_OPERATION",
+              "LOCAL_OR_SECONDARY_CONSTRUCTION"
+            ],
+            "SS-ZK-PARTY-PURGE": [
+              "A_NEGATIVE",
+              "LOCAL_OR_SECONDARY_CONSTRUCTION"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 6.0,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "fixed_primary_and_independent_treatise_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G0",
+          "grade_basis": "举荐回避宰执亲党只闭合未完成规则，同朝党禁已扩展至任官、荐举、科举和身份登记并主导制度方向；按G0边界保留C_A=0.5。",
+          "important_institutions": [
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "SS-ZK-PARTY-PURGE"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "NON_S_MAJOR_CONTRIBUTION",
+              "durability_material_ids": [],
+              "institution_domain": "选官与官僚人事",
+              "institution_lineage": "宋代党籍政治身份清洗谱系",
+              "institution_node_id": "IDN-774B8F0B6AC0",
+              "label_zh": "党禁扩展至任官、荐举、科举与身份登记",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [
+                "SS-ZK-PARTY-PURGE"
+              ],
+              "normative_direction": "negative",
+              "reason": "按跨朝同领域谱系横向复裁：只保留改变核心规则的创设、重大重组、重大重建、权威化定型或重大文明纠偏；一般沿袭和维护已排除。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/southern_song.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "SS-ZK-ANTI-NEPOTISM"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "NON_S_MAJOR_CONTRIBUTION",
+              "durability_material_ids": [],
+              "institution_domain": "选官与官僚人事",
+              "institution_lineage": "南宋举荐回避宰执亲党谱系",
+              "institution_node_id": "INST-SSONG-ZHAOKUO-ANTI-NEPOTISM-ATTEMPT",
+              "label_zh": "举人不得举宰执子弟亲党的未完成规则",
+              "major_node_role": "PAPER_OR_INCOMPLETE_CONSTRUCTION",
+              "material_ids": [
+                "SS-ZK-ANTI-NEPOTISM"
+              ],
+              "normative_direction": "positive",
+              "reason": "要求两省、侍从、台谏举人不得举宰执子弟亲党，但未闭合稳定运行，且同朝党禁扩张主导，故只计未完成规则。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/southern_song.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            }
+          ],
+          "index_interval": [
+            20,
+            39.9
+          ],
+          "polity": "南宋",
+          "position": "lower-middle",
+          "position_basis": "A结构厚度=0.25（G0—G3含已消费的C_A/2），G0主档消费=0.00；排除S与已消费C_A支撑链后，独立有符号M原值=-2.00、position权重=-0.50；统一净余=-0.25，对应lower-middle。",
+          "position_q": 0.3,
+          "rank": 167,
+          "reign_range": "1194—1224",
+          "ruler_id": "RULER-SS-ZHAO-KUO",
+          "ruler_name": "赵扩",
+          "verification_material_ids": [],
+          "v2_mechanical_shadow": {
+            "net": -2.0,
+            "p": 0,
+            "n": 2.0,
+            "shadow_grade": "G0",
+            "unfloored": "G0",
+            "floor": null
+          },
+          "extreme_delta_reopen": false
+        }
+      ]
+    }
+  }
+}

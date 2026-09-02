@@ -1,0 +1,814 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "北魏",
+  "collections": {
+    "scores": {
+      "positions": [
+        28,
+        77,
+        78,
+        86,
+        87,
+        88,
+        89
+      ],
+      "records": [
+        {
+          "adjudication_reason": "这是冯太后重审后的交班联动修正。旧S0及峰值C1-5依赖太和十二年以后“公私丰赡”的高档外推；冯太后终点按C1-5硬门重审为C1-4后，交班连续性要求拓跋宏S0同步降4。本人亲政窗口没有新的“家庭余量核心锚+第二纯C1轴”强证据重新打开C1-5，故峰值也撤销；主档C1-4不变。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "anchor_time": "冯太后实际掌权的太和改革期至拓跋宏太和十二年后",
+              "described_state": "常平方案及多项治理并行后形成公私充足和水旱不困的综合结果。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "proof_scope_constraints": [],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_voice": "THIRD_PARTY_CHRONICLE_OR_TREATISE",
+              "source_voice_basis": "机械粗分；按source_works与verbatim中的史书、奏议、诏令标记识别。",
+              "source_voice_matches": [
+                "THIRD_PARTY_CHRONICLE_OR_TREATISE"
+              ],
+              "source_works": [
+                "《资治通鉴》共享通读卡正文"
+              ],
+              "state_roles": [
+                "冯太后S_avg与S_end",
+                "拓跋宏S0与后续高位",
+                "S_avg",
+                "S_end",
+                "稳定性"
+              ],
+              "verbatim_excerpt": "公私丰赡，虽有水旱而民不困。",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+              ]
+            }
+          ],
+          "evidence_mode": "DIRECT_MACRO_ANCHOR",
+          "main_band": "C1-4",
+          "material_limitations": [
+            "“公私丰赡”作为跨前后任持续状态只能约束亲政初期不低于C1-4，不能单独给本人C1-5；军事规模与继任期灾荒均不得跨项、跨任回填。"
+          ],
+          "peak_band": null,
+          "polity": "北魏",
+          "rank": 7,
+          "reign_range": [
+            490,
+            499
+          ],
+          "ruler_id": "RULER-SHADOW-拓跋宏",
+          "ruler_name": "拓跋宏",
+          "score": 54.1,
+          "stability_class_diagnostic_only": "K3",
+          "state_anchors": {
+            "S0": "C1-4",
+            "S_avg": "C1-4",
+            "S_end": "C1-4"
+          },
+          "m3_supplement_review": {
+            "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-拓跋宏"
+          },
+          "review_remediation": {
+            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
+            "status": "APPLIED",
+            "problem": "二次跨项复核撤回主C1-5。 太和十二年后“公私丰赡、虽水旱不为灾”足以证明其亲政起点/早期达到formal=C1-5，但此前裁决错误地把该高态直接外推到490—499全任及交班。第三项已独立闭合其军事成本C6：对南齐多年国家级重复动员、明确万级己方人员损害、灾后再动员且本人连续授权；太和二十一、二十二年连续两次二十万级州郡兵征发，二十二年高车更因“不愿南行”“背役逃归”而叛。宣武帝亲政初又追述“比年以来连有军旅，役务既多，百姓雕敝”，构成晚孝文—早宣武广域民生耗损的强反证。",
+            "directive": "主档改回 C1-4；score 74.3→54.9；曲线 C1-5→4→4；保留 peak_band=C1-5；K=K3。 早期5档真实且治理复杂度过门，但494—498连续南征使5档不能代表全任主态；现有可严格归入本人窗口的已实现低态中，高车因远役逃役并叛是明确局部裂缝，故K3。宣武初“百姓雕敝”虽强，但跨越499后灾荒与继续战争，暂不足把孝文S_end直接压到3，终点取4。C4同步重算其5→4恶化及C6军事成本归责。"
+          },
+          "raw_state_band": "C1-4",
+          "formal_band": "C1-4",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+          ],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "stages": [
+              {
+                "stage_band": "C1-3",
+                "depth_from_raw_main": 1,
+                "scope_class": "LOCAL_OR_BOUNDED",
+                "duration_class": "SHORT_OR_BOUNDED",
+                "repeat_group": "ATTACHED_REVIEW_CONSOLIDATED_CHAIN",
+                "recovery_confirmed": true,
+                "evidence_strength": "ATTACHED_REVIEW_WITH_FORMAL_SOURCE_ENTRIES",
+                "counts_toward_k": true,
+                "exclusion_reason": null,
+                "basis": "主档改回 C1-4；score 74.3→54.9；曲线 C1-5→4→4；保留 peak_band=C1-5；K=K3。 早期5档真实且治理复杂度过门，但494—498连续南征使5档不能代表全任主态；现有可严格归入本人窗口的已实现低态中，高车因远役逃役并叛是明确局部裂缝，故K3。宣武初“百姓雕敝”虽强，但跨越499后灾荒与继续战争，暂不足把孝文S_end直接压到3，终点取4。C4同步重算其5→4恶化及C6军事成本归责。"
+              }
+            ]
+          },
+          "persistence_review": {
+            "status": "COMPLETE",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-5",
+            "to_band": "C1-5",
+            "basis": "主档改回 C1-4；score 74.3→54.9；曲线 C1-5→4→4；保留 peak_band=C1-5；K=K3。 早期5档真实且治理复杂度过门，但494—498连续南征使5档不能代表全任主态；现有可严格归入本人窗口的已实现低态中，高车因远役逃役并叛是明确局部裂缝，故K3。宣武初“百姓雕敝”虽强，但跨越499后灾荒与继续战争，暂不足把孝文S_end直接压到3，终点取4。C4同步重算其5→4恶化及C6军事成本归责。"
+          },
+          "dynasty_curve_review": {
+            "status": "COMPLETE",
+            "handoff_continuity_checked": true,
+            "basis": "主档改回 C1-4；score 74.3→54.9；曲线 C1-5→4→4；保留 peak_band=C1-5；K=K3。 早期5档真实且治理复杂度过门，但494—498连续南征使5档不能代表全任主态；现有可严格归入本人窗口的已实现低态中，高车因远役逃役并叛是明确局部裂缝，故K3。宣武初“百姓雕敝”虽强，但跨越499后灾荒与继续战争，暂不足把孝文S_end直接压到3，终点取4。C4同步重算其5→4恶化及C6军事成本归责。"
+          },
+          "inference_review": {
+            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
+            "inference_source_anchor": null,
+            "inference_hops": 0,
+            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
+          },
+          "material_basis": [
+            {
+              "book": "《魏书·食货志》",
+              "original_text": "自此公私丰赡，虽时有水旱，不为灾也。"
+            },
+            {
+              "book": "《魏书·京兆王黎传》",
+              "original_text": "高车顽党，不识威宪，轻相合集，背役逃归。"
+            }
+          ],
+          "stability_basis": "主态确定后，只确认高车“背役逃归”这一局部劳役裂缝；494—498连续南征本身不能机械扣C1，宣武初“百姓雕敝”又跨越499年后的新灾荒和继续战争，不倒算为孝文末态。故S_end=C1-4、K3。"
+        },
+        {
+          "adjudication_reason": "前期承接较高盘面，但延昌年间多区域饥馑与死亡反复出现，足以阻断普遍温饱；现证仍不足证明多数家庭长期进入C1-2，故主态维持C1-3。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "anchor_time": "元恪512—513年",
+              "described_state": "迁食救荒与严重死亡并存，且饥荒中仍维持拟议军馈，交班稳定性受限。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "LABEL_ONLY",
+              "proof_scope_constraints": [
+                "REMONSTRANCE_WARNING"
+              ],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_voice": "MINISTER_REMONSTRANCE",
+              "source_voice_basis": "发现明确奏疏/谏议/臣下劝谏标记；不把收录该材料的编年史书误当成主要声音。",
+              "source_voice_matches": [
+                "MINISTER_REMONSTRANCE"
+              ],
+              "source_works": [
+                "《资治通鉴》共享通读卡正文"
+              ],
+              "state_roles": [
+                "S_end",
+                "稳定性"
+              ],
+              "verbatim_excerpt": "魏饥，民饿死数万；仍拟兴军馈运，谏止未被采纳。",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS",
+                "HOUSEHOLD_FORMATION_REPRODUCTION"
+              ]
+            }
+          ],
+          "evidence_mode": "MULTI_RESULT_STRONG_INFERENCE",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "神龟、正光和预征六年租调均在518年后，严禁归给元恪；延昌末危机很深，但不足把全局S_end压C1-2。"
+          ],
+          "peak_band": null,
+          "polity": "北魏",
+          "rank": 36,
+          "reign_range": [
+            499,
+            515
+          ],
+          "ruler_id": "RULER-SHADOW-元恪",
+          "ruler_name": "元恪",
+          "score": 30.7,
+          "stability_class_diagnostic_only": "K2",
+          "state_anchors": {
+            "S0": "C1-4",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-元恪"
+          },
+          "review_remediation": {
+            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
+            "status": "APPLIED",
+            "problem": "拓跋宏二次复核后S_end由5改回4",
+            "directive": "S0恢复 C1-5→C1-4；主档C1-3、S_end=C1-3不改。 499年即位后十八州水而民饥、500年十七州大饥属于继位后的新冲击；501年亲政诏“比年以来连有军旅，役务既多，百姓雕敝”同时证明晚孝文—早宣武存在跨期耗损，但不再需要假设一个5档交班后瞬时暴跌。C4按4→3重算。"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_FORMATION_REPRODUCTION",
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+          ],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "stages": [],
+            "basis": "审查未确认恢复完成后的有效阶段跌破raw主态；不以材料沉默证明K4，依据见人物审查修正。"
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "COMPLETE",
+            "handoff_continuity_checked": true,
+            "basis": "S0恢复 C1-5→C1-4；主档C1-3、S_end=C1-3不改。 499年即位后十八州水而民饥、500年十七州大饥属于继位后的新冲击；501年亲政诏“比年以来连有军旅，役务既多，百姓雕敝”同时证明晚孝文—早宣武存在跨期耗损，但不再需要假设一个5档交班后瞬时暴跌。C4按4→3重算。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "S0恢复 C1-5→C1-4；主档C1-3、S_end=C1-3不改。 499年即位后十八州水而民饥、500年十七州大饥属于继位后的新冲击；501年亲政诏“比年以来连有军旅，役务既多，百姓雕敝”同时证明晚孝文—早宣武存在跨期耗损，但不再需要假设一个5档交班后瞬时暴跌。C4按4→3重算。"
+          },
+          "material_basis": [
+            {
+              "book": "《魏书·世宗纪》",
+              "original_text": "延昌二年，六镇大饥，开仓赈赡……民饿死者数万口。"
+            },
+            {
+              "book": "《魏书·世宗纪》",
+              "original_text": "延昌二年六月，青州民饥，诏使者开仓赈恤；延昌三年夏四月，青州民饥，开仓赈恤。"
+            }
+          ],
+          "stability_basis": "延昌二至三年六镇、青州等地大饥，并出现数万饿死，构成一个实质且较深的家庭低谷；但同一延昌危机簇已经参与主态C1-3的确定，不能整体二次消费为K1，且范围不足证明全局交班跌至C1-2，故K2。"
+        },
+        {
+          "adjudication_reason": "旧判把太和十二年以后的短期改善反铺到整个实际掌权窗口，需降档。第一次摄政起点仍有“兵革不起、畜积有余”背景；但第二次摄政的太和二年至十年前后，多年、跨大量州镇反复出现水旱与民饥，太和七年仅冀、定二州道路给粥即活百余万口，太和九年更出现饥民卖鬻男女。太和十二年以后“公私丰赡”只能确认晚期恢复到普遍温饱，持续不足代表全任主态。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "anchor_time": "冯太后实际掌权的太和改革期至拓跋宏太和十二年后",
+              "described_state": "常平方案及多项治理并行后形成公私充足和水旱不困的综合结果。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "proof_scope_constraints": [],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_voice": "THIRD_PARTY_CHRONICLE_OR_TREATISE",
+              "source_voice_basis": "机械粗分；按source_works与verbatim中的史书、奏议、诏令标记识别。",
+              "source_voice_matches": [
+                "THIRD_PARTY_CHRONICLE_OR_TREATISE"
+              ],
+              "source_works": [
+                "《资治通鉴》共享通读卡正文"
+              ],
+              "state_roles": [
+                "冯太后S_avg与S_end",
+                "拓跋宏S0与后续高位",
+                "S_avg",
+                "S_end",
+                "稳定性"
+              ],
+              "verbatim_excerpt": "公私丰赡，虽有水旱而民不困。",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+              ]
+            }
+          ],
+          "evidence_mode": "DIRECT_MACRO_ANCHOR",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "自然水旱本身不归责本人，但已实现的民饥、给粥和卖鬻男女可以进入绝对状态；同一太和六至九年危机簇既已参与主态下调，不再整体重复消费为K1，只把其中更深的C1-2家庭裂缝计为K2低谷。第一次、第二次摄政之间不属于本人实际最高权力窗口，不参与动态结算。“公私丰赡”缺C1-5所需第二纯C1强轴，故不再登记五档峰值。"
+          ],
+          "peak_band": null,
+          "polity": "北魏",
+          "rank": 36,
+          "reign_range": [
+            [
+              465,
+              467
+            ],
+            [
+              476,
+              490
+            ]
+          ],
+          "ruler_id": "RULER-SHADOW-冯太后",
+          "ruler_name": "冯太后",
+          "score": 30.7,
+          "stability_class_diagnostic_only": "K2",
+          "state_anchors": {
+            "S0": "C1-4",
+            "S_avg": "C1-3",
+            "S_end": "C1-4"
+          },
+          "m3_supplement_review": {
+            "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [
+              "M3P-SEM-2CFB1D6AF8CF"
+            ],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-冯太后"
+          },
+          "review_remediation": {
+            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
+            "status": "APPLIED",
+            "problem": "拓跋宏亲政起点升5后，原S_end=4违反交班硬连续",
+            "directive": "主档C1-4维持；S_end C1-4→C1-5；登记晚期peak=C1-5。 太和十二年以后“公私丰赡、虽水旱不为灾”形成于其实际掌权末段，但持续时间不足把其全任主态改5。"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+          ],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "stages": [],
+            "basis": "审查未确认恢复完成后的有效阶段跌破raw主态；不以材料沉默证明K4，依据见人物审查修正。"
+          },
+          "persistence_review": {
+            "status": "COMPLETE",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-4",
+            "to_band": "C1-5",
+            "basis": "主档C1-4维持；S_end C1-4→C1-5；登记晚期peak=C1-5。 太和十二年以后“公私丰赡、虽水旱不为灾”形成于其实际掌权末段，但持续时间不足把其全任主态改5。"
+          },
+          "dynasty_curve_review": {
+            "status": "COMPLETE",
+            "handoff_continuity_checked": true,
+            "basis": "主档C1-4维持；S_end C1-4→C1-5；登记晚期peak=C1-5。 太和十二年以后“公私丰赡、虽水旱不为灾”形成于其实际掌权末段，但持续时间不足把其全任主态改5。"
+          },
+          "inference_review": {
+            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
+            "inference_source_anchor": null,
+            "inference_hops": 0,
+            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
+          },
+          "material_basis": [
+            {
+              "book": "《魏书·显祖纪》",
+              "original_text": "今兵革不起，畜积有余，诸有杂调，一以与民。"
+            },
+            {
+              "book": "《魏书·高祖纪》",
+              "original_text": "以冀、定二州民饥，诏郡县为粥于路以食之……定州上言，为粥给饥人，所活九十四万七千余口……冀州上言，为粥给饥民，所活七十五万一千七百余口。"
+            },
+            {
+              "book": "《魏书·高祖纪》",
+              "original_text": "诏以州镇十五水旱，民饥，遣使者循行，问所疾苦，开仓赈恤。"
+            },
+            {
+              "book": "《魏书·高祖纪》",
+              "original_text": "数州灾水，饥馑荐臻，致有卖鬻男女者……今自太和六年以来，买定、冀、幽、相四州饥民良口者，尽还所亲。"
+            },
+            {
+              "book": "《魏书·食货志》",
+              "original_text": "自此公私丰赡，虽时有水旱，不为灾也。"
+            }
+          ],
+          "stability_basis": "太和六至九年广域饥馑及卖鬻男女确认了低于C1-3的实质性家庭低谷；但这组危机本身已经是全任主态从C1-4下调至C1-3的重要依据，不能再整体二次消费为K1。其内部更深的家庭裂缝足以超过局部轻波动，故取K2。太和十二年后的恢复确认S_end=C1-4，因此不是K0。"
+        },
+        {
+          "adjudication_reason": "任内普通家庭总体能够维持基本生活，但尚无充分材料证明多数家庭普遍达到稳定温饱。定向迁食、安集和劝农后，次年明确出现丰收与民众富安。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "anchor_time": "拓跋嗣415—416年",
+              "described_state": "定向迁食、安集和劝农后，次年明确出现丰收与民众富安。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "BOUNDED_MULTI_AXIS_MACRO",
+              "proof_scope_constraints": [],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_voice": "THIRD_PARTY_CHRONICLE_OR_TREATISE",
+              "source_voice_basis": "机械粗分；按source_works与verbatim中的史书、奏议、诏令标记识别。",
+              "source_voice_matches": [
+                "THIRD_PARTY_CHRONICLE_OR_TREATISE"
+              ],
+              "source_works": [
+                "《资治通鉴》共享通读卡正文"
+              ],
+              "state_roles": [
+                "S_avg",
+                "稳定性"
+              ],
+              "verbatim_excerpt": "次年丰收，民众富安。",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+              ]
+            }
+          ],
+          "evidence_mode": "DIRECT_MACRO_ANCHOR",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "起点军国供给不等于民生；未达到富庶状态所需生活余裕证据；直接锚只按其明示时段、地域与证据类型消费，不外推为全任全境"
+          ],
+          "peak_band": null,
+          "polity": "北魏",
+          "rank": 36,
+          "reign_range": [
+            409,
+            423
+          ],
+          "ruler_id": "RULER-SHADOW-拓跋嗣",
+          "ruler_name": "拓跋嗣",
+          "score": 30.7,
+          "stability_class_diagnostic_only": "K2",
+          "state_anchors": {
+            "S0": "C1-3",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-拓跋嗣"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+          ],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "migration_source": "PRE_REVIEW_FORMAL_PROSE_UNIQUE_K_ENUM",
+            "stages": [],
+            "basis": "旧正式人物记录的唯一K枚举迁入结构字段，未从材料沉默推定。"
+          },
+          "persistence_review": {
+            "status": "PRESERVED_PENDING_DEDICATED_REVIEW",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-2",
+            "to_band": "C1-3",
+            "basis": "沿用当前正式证据；本补丁未新增人物裁决。"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
+            "inference_source_anchor": null,
+            "inference_hops": 0,
+            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》",
+              "original_text": "次年丰收，民众富安。"
+            },
+            {
+              "book": "《魏书·食货志》",
+              "original_text": "神瑞二年，又不熟，京畿之内，路有行馑……分简尤贫者就食山东。"
+            }
+          ],
+          "stability_basis": "承接拓跋珪修正后的C1-3交班。本人窗口主态仍C1-3；神瑞二年京畿不熟、路有行馑并迁贫民就食是一个实质低谷，且泰常八年末又有岁饥开仓，故K2维持。"
+        },
+        {
+          "adjudication_reason": "天安、皇兴间连旱、山东征戍转运造成明显承压，随后罢杂调、按贫富定输，史书明确“赋敛稍轻，民复赡”，足以闭合由低位恢复到基本维持。",
+          "confidence": "MEDIUM_WINDOW_READJUDICATED",
+          "evidence": [
+            {
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/南北朝/卷132-通读总结.md#FIN-LEAD-132-01",
+                "docs/评分结算/第四项文明与国家整合收益/国家共同体与社会整合/01-皇帝A项正式结算.md:711"
+              ],
+              "summary": "连年旱饥与青徐战争后按贫富三等输租、罢常赋外杂调十五，文本明言民稍赡；又调四州粟赈彭城新民并设僧祇粟备荒。反面是青齐强迁、部分人口没为奴婢及佛图户役属。",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "DIRECT_LOCAL_WINDOW_READJUDICATION",
+          "main_band": "C1-3",
+          "polity": "北魏",
+          "reign_range": "465—476年；471年退位后仍掌权",
+          "ruler_id": "RULER-SHADOW-拓跋弘",
+          "ruler_name": "拓跋弘",
+          "score": 32.0,
+          "state_anchors": {
+            "S0": "C1-2",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_origin": "NEW_FORMAL_RECORD_FROM_M3_C1_C4_READJUDICATION",
+          "material_limitations": [
+            "与冯太后实际权力窗口严格分离；连旱与恢复不得双重消费。"
+          ],
+          "peak_band": null,
+          "stability_class_diagnostic_only": "K4",
+          "m3_supplement_review": {
+            "disposition": "APPLIED_SCORE_CHANGE_NEW_FORMAL_RECORD",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-拓跋弘"
+          },
+          "rank": 36,
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "PRESERVED_PENDING_DEDICATED_REVIEW",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-2",
+            "to_band": "C1-3",
+            "basis": "沿用当前正式证据；本补丁未新增人物裁决。"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "租调纠偏、调粟赈民与民稍赡闭合从受损盘面恢复到基本稳定；强迁、奴婢化和战争赋役反证阻断四档。"
+          },
+          "material_basis": [
+            {
+              "book": "《魏书·食货志》",
+              "original_text": "至天安、皇兴间，岁频大旱……山东之民咸勤于征戍转运，帝深以为念。"
+            },
+            {
+              "book": "《魏书·食货志》",
+              "original_text": "至是乃终罢焉，于是赋敛稍轻，民复赡矣。"
+            }
+          ],
+          "stability_basis": "上述旱役压力与“民复赡”构成S0=C1-2向主3恢复的同一链，不拆成年份反复压K；恢复后未确认独立再跌破3档的家庭低谷，故K4。"
+        },
+        {
+          "adjudication_reason": "联动前任泰常八年末饥荒，S0 C1-4→C1-3。任内多数阶段维持基本生活，但神麚四年、太平真君元年和九年仍见多次实际饥馑，尤其十五州镇民饥构成实质低谷。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "cost_scale": "WC5",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-NC-GAIWU-445-446",
+              "stages": [
+                "S_END_LATE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-NC-GAIWU-445-446",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC2",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-NC-JIUQUAN-440-441",
+              "stages": [
+                "S_AVG_MIDDLE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-NC-JIUQUAN-440-441",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC3",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-NC-LIU-CHAO-446",
+              "stages": [
+                "S_END_LATE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-NC-LIU-CHAO-446",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC3",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-NC-LUSHUANG-DEFECTION-451",
+              "stages": [
+                "S_END_LATE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-NC-LUSHUANG-DEFECTION-451",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            },
+            {
+              "cost_scale": "WC3",
+              "limitations": "只约束任内战争成本和冲击，不从战争频度直接推出民生档位。",
+              "source_id": "WAR-LEAD-NC-NORTHERN-YAN-END-436-438",
+              "stages": [
+                "S0_EARLY",
+                "S_AVG_MIDDLE"
+              ],
+              "support_type": "REVIEWED_WAR_COST_WINDOW",
+              "title": "WAR-LEAD-NC-NORTHERN-YAN-END-436-438",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "DIRECT_DAMAGE_CONSTRAINED_INFERENCE",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "南征“所过杀掠”首先属于战区暴力/C3和战争后果，不直接替代北魏核心家庭C1状态；饥荒不按记载条数拼K1。"
+          ],
+          "peak_band": null,
+          "polity": "北魏",
+          "rank": 36,
+          "reign_range": [
+            423,
+            452
+          ],
+          "ruler_id": "RULER-SHADOW-拓跋焘",
+          "ruler_name": "拓跋焘",
+          "score": 30.7,
+          "stability_class_diagnostic_only": "K2",
+          "state_anchors": {
+            "S0": "C1-3",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-拓跋焘"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "继承高位，但军国用足不能等同百姓温饱；长期征役、迁徙与盖吴、宋魏战争使主要状态回落到基本维持。"
+          },
+          "material_basis": [
+            {
+              "book": "《册府元龟》",
+              "original_text": "太武以泰常八年十一月即位，开仓库赈穷乏，河南流民相率内属者甚众。"
+            },
+            {
+              "book": "《魏书·世祖纪》",
+              "original_text": "太平真君元年，州镇十五民饥，开仓赈恤。"
+            },
+            {
+              "book": "《魏书·世祖纪》",
+              "original_text": "太平真君九年二月，山东民饥，诏开仓赈之。"
+            }
+          ],
+          "stability_basis": "定州饥、十五州镇饥、山东饥均为真实低态，其中太平真君元年范围较强；但这些阶段分散在长任中，且部分压力已参与主态3判断，未形成独立次级宏观常态，故K2而非K1。"
+        },
+        {
+          "adjudication_reason": "从晋末战争低位接手后，拓跋珪在中原与畿内推行授田、给牛和劝农，随后“比岁大熟”；但戎车不息，史书又明确称虽频有年仍不足久赡。按受约束推断，多数家庭已恢复到基本维持C1-3，但抗冲击余量有限，不足C1-4。",
+          "confidence": "中低",
+          "evidence": [
+            {
+              "anchor_time": "拓跋珪定中原后至季年",
+              "described_state": "战后安定需求与季年社会治理失序并存，不能以任一端代表全期。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "proof_scope_constraints": [],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_voice": "OFFICIAL_SUMMARY",
+              "source_voice_basis": "机械粗分；按source_works与verbatim中的史书、奏议、诏令标记识别。",
+              "source_voice_matches": [
+                "OFFICIAL_SUMMARY"
+              ],
+              "source_works": [
+                "魏书·刑罚志"
+              ],
+              "state_roles": [
+                "跨任期前后转折材料"
+              ],
+              "verbatim_excerpt": "天下民久苦兵亂，畏法樂安……季年災異屢見，綱紀褫頓，刑罰頗為濫酷。",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ]
+            }
+          ],
+          "evidence_mode": "DIRECT_MACRO_ANCHOR",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "“比岁大熟”首先是生产结果，C1-3依赖授田给牛、持续丰收与缺乏继续广域失保反证的受约束推断；“犹未足以久赡”明确封住C1-4。"
+          ],
+          "peak_band": null,
+          "polity": "北魏",
+          "rank": 36,
+          "reign_range": [
+            386,
+            409
+          ],
+          "ruler_id": "RULER-SHADOW-拓跋珪",
+          "ruler_name": "拓跋珪",
+          "score": 32.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-1",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-拓跋珪"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "PRESERVED_PENDING_DEDICATED_REVIEW",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-1",
+            "to_band": "C1-2",
+            "basis": "沿用当前正式证据；本补丁未新增人物裁决。"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
+            "inference_source_anchor": null,
+            "inference_hops": 0,
+            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
+          },
+          "material_basis": [
+            {
+              "book": "《魏书·食货志》",
+              "original_text": "太祖定中原，接丧乱之弊，兵革并起，民废农业……各给耕牛，计口授田……自后比岁大熟……是时戎车不息，虽频有年，犹未足以久赡矣。"
+            }
+          ],
+          "stability_basis": "S0=C1-1之后的战后恢复过程不降低K；恢复到C1-3后，现有材料没有确认独立、已经实现且低于3的家庭生计阶段，故K4。"
+        }
+      ]
+    }
+  }
+}

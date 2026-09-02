@@ -1,0 +1,182 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "唐末吴政权",
+  "collections": {
+    "records": {
+      "positions": [
+        88
+      ],
+      "records": [
+        {
+          "sequence": 121,
+          "ruler_id": "RULER-SHADOW-杨行密",
+          "ruler_name": "杨行密",
+          "axis_grade": "G2",
+          "position": "HIGH",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "孙儒屠高邮后，残兵七百人溃围逃到杨州；杨行密担心孙儒乘胜取海陵，命高霸把当地兵民全部迁入广陵，并威胁“有违命者族之”。",
+          "grade_basis": "孙儒屠高邮后，残兵七百人溃围逃到杨州；杨行密因担心其“为变”，把这些残兵分隶诸将，一夜尽坑之；这些人不是正在与杨行密交战的敌军，而是从己方失守地区逃回的残兵；仅凭“担心可能叛变”就进行预防性群体杀戮，属于 NEGATIVE / MI2_LIFECYCLE 极深下沿。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-HIGH。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P121-HAILING",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "早期强迁海陵数万户并以族诛威胁，未见直接补偿。"
+            },
+            {
+              "parent_id": "C5-P121-SUCCESSION",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "继承警告与召嗣文书一度被压，后有有限纠正。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "SECOND_A::I2-FD-MAT-B127B8914FF8EE65",
+                "SECOND_B1::I2-FD-MAT-B127B8914FF8EE65",
+                "FACT-CA06A5900373D84D"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "组织接口与军事授权只作背景。"
+            },
+            {
+              "unit_ids": [
+                "SECOND_B1::I2-FD-MAT-82FCB0CE65403A36",
+                "SECOND_B2::I2-FD-MAT-82FCB0CE65403A36",
+                "FACT-0AAEE4EF0B2C8938"
+              ],
+              "status": "AXIS_OUT_WITH_REASON",
+              "reason": "宽宥任用与跨领域采纳主要属于C2/C3，不能作为C5 MI3正证。"
+            },
+            {
+              "unit_ids": [
+                "I2-FD-MAT-2161C2E5B9610B3B",
+                "I2-FD-MAT-CE0348AAEB9FC7D5"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P121-SUCCESSION",
+              "reason": "同一召嗣文书受压后纠正的生命周期。"
+            },
+            {
+              "unit_ids": [
+                "FACT-2E176731FE949BF3",
+                "FACT-1A6A299F228619F9"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P121-HAILING",
+              "reason": "早期内战强迁及后期资源纠正合并评价，负向不可被繁荣结果抹除。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-SHADOW-杨行密",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 51,
+          "score_100": 51,
+          "current_entry_unit_count": 10,
+          "current_entry_disposition_counts": {
+            "AXIS_OUT_WITH_REASON": 3,
+            "BACKGROUND_VALIDATION": 3,
+            "SCORING_PARENT": 4
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-SHADOW-杨行密",
+          "actual_power_window": "883—905年淮南实际主政",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P121-HAILING",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "早期强迁海陵数万户并以族诛威胁，未见直接补偿。"
+            },
+            {
+              "parent_id": "C5-P121-SUCCESSION",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "继承警告与召嗣文书一度被压，后有有限纠正。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [
+              "C5-P121-HAILING"
+            ],
+            "mixed_parent_refs": [
+              "C5-P121-SUCCESSION"
+            ]
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P121-HAILING",
+              "C5-P121-SUCCESSION"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED",
+          "source_refs": [
+            "《资治通鉴》卷二百五十七：高邮残兵七百“一夕尽坑之”；海陵数万户在族诛威胁下强迁。",
+            "https://zh.wikisource.org/zh-hans/資治通鑑_(四部叢刊本)/卷第二百五十七",
+            "《资治通鉴》卷二百五十九：蔡俦掘杨氏祖坟，杨行密拒绝报复其父母坟墓。",
+            "https://zh.wikisource.org/zh-hans/資治通鑑_(胡三省音注)/卷259"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 高邮残兵七百被坑：直接本人强负证",
+              "details": [
+                "孙儒屠高邮后，残兵七百人溃围逃到杨州。",
+                "杨行密因担心其“为变”，把这些残兵分隶诸将，一夜尽坑之。",
+                "这些人不是正在与杨行密交战的敌军，而是从己方失守地区逃回的残兵。",
+                "仅凭“担心可能叛变”就进行预防性群体杀戮，属于 NEGATIVE / MI2_LIFECYCLE 极深下沿。"
+              ]
+            },
+            {
+              "title": "B. 海陵数万户强迁：仍是负证，但战争紧急状态显著限制强度",
+              "details": [
+                "杨行密担心孙儒乘胜取海陵，命高霸把当地兵民全部迁入广陵，并威胁“有违命者族之”。",
+                "数万户弃资产、焚庐舍、携老幼迁徙。",
+                "普通民众不是现实政敌，因此仍属于C5人口强制。",
+                "但动机是敌军已大规模屠城后即将进逼的战时撤离，和纯粹为控制人口、榨取资源而强迁不同。",
+                "这应记 NEGATIVE / MI2_LIFECYCLE，与高邮案合并形成一次高压危机周期，而非MI3跨阶段常态。"
+              ]
+            },
+            {
+              "title": "C. 对蔡俦私人复仇明确自限",
+              "details": [
+                "蔡俦曾发杨行密父祖墓。",
+                "杨行密攻克庐州、斩蔡俦后，左右要求再掘蔡俦父母墓报复。",
+                "杨行密明确拒绝：“俦以此得罪，吾何为效之！”。",
+                "这是非常纯的：本人祖坟受辱 → 仇敌已败 → 报复便利极高 → 主动拒绝把惩罚扩大到无辜父母坟墓。",
+                "定 POSITIVE / MI2_LIFECYCLE。"
+              ]
+            },
+            {
+              "title": "D. 其后治理方向并未延续早年高压强迁",
+              "details": [
+                "淮南战乱六年后，杨行密实行轻徭薄敛、招抚流散，数年间公私恢复。",
+                "他本人生活俭素，对部属轻微侵取也有容忍。",
+                "这些首先属于一般治理，但至少说明海陵式群体强制没有在稳定统治期反复复发。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 4,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        }
+      ]
+    }
+  }
+}

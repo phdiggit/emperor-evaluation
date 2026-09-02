@@ -1,0 +1,243 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "东魏",
+  "collections": {
+    "records": {
+      "positions": [
+        72
+      ],
+      "records": [
+        {
+          "task_code": "PROFILE-M3-RULER-SHADOW-高欢",
+          "ruler_id": "RULER-SHADOW-高欢",
+          "ruler_name": "高欢",
+          "polity": "东魏",
+          "actual_power_window": "534—547年东魏实际掌权",
+          "axis_code": "M3",
+          "axis_name": "民生财政建设",
+          "axis_grade": "G3",
+          "position": "MID",
+          "score_100": 65,
+          "radar_value": 65,
+          "components": {
+            "C1": {
+              "band": "C1-3",
+              "score": 32.0
+            },
+            "C2": {
+              "band": "C2-4",
+              "score": 23.6
+            },
+            "C3": {
+              "band": "C3-3",
+              "score": 28.0
+            },
+            "C4": {
+              "band": "C4-1",
+              "score": 6.5
+            }
+          },
+          "absolute_state_tier": 3,
+          "absolute_state_meanings": {
+            "C1": "民生维持中等盘面",
+            "C2": "经济财政健康",
+            "C3": "社会安全基本可用"
+          },
+          "ability_evidence": {
+            "route": "SUBSTANTIAL_CONSTRUCTION",
+            "trajectory": {
+              "start_vector": [
+                2,
+                2,
+                2
+              ],
+              "main_vector": [
+                3,
+                4,
+                3
+              ],
+              "peak_vector": [
+                3,
+                4,
+                3
+              ],
+              "end_vector": [
+                3,
+                4,
+                3
+              ],
+              "peak_improvement_vector": [
+                1,
+                2,
+                1
+              ],
+              "retained_change_vector": [
+                1,
+                2,
+                1
+              ],
+              "rollback_vector": [
+                0,
+                0,
+                0
+              ],
+              "improved_axis_count": 3,
+              "deep_improvement_axis_count": 1,
+              "retained_improvement_axis_count": 3,
+              "rollback_axis_count": 0,
+              "recovery_score_27": 10.0,
+              "stability_score_18": 10.0,
+              "start_tier": 2,
+              "peak_tier": 3,
+              "end_tier": 3
+            },
+            "governance_scale_class": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+            "governance_scale_basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+            "governance_scale_gate": {
+              "status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+              "classification": "UNRESOLVED",
+              "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+              "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+              "formal_subitem_sources": [
+                {
+                  "axis": "C4",
+                  "field_path": "m3_governance_scale_adjudication",
+                  "ref": "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-高欢"
+                }
+              ],
+              "supporting_formal_fields": []
+            },
+            "six_band_main_state": false,
+            "deterioration_penalty": 0.0,
+            "destructive_amplification_penalty": 13.5,
+            "upstream_sync": {
+              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_01",
+              "source_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-高欢",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-高欢",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-高欢",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-高欢"
+              ]
+            },
+            "destructive_amplification_grade": "DA3",
+            "stability_k_basis": {
+              "C1": {
+                "K_grade": "K4",
+                "factor": 1.0
+              },
+              "C2": {
+                "K_grade": "K4",
+                "factor": 1.0
+              },
+              "C3": {
+                "K_grade": "K4",
+                "factor": 1.0
+              }
+            },
+            "weighted_K": 1.0,
+            "stability_k_structure_status": "STRUCTURED_C4_FORMAL",
+            "stability_k_public_basis": "C1跨2→3、C2跨2→4、C3跨2→3；恢复完成后的已审绝对状态材料没有确认新的独立低谷，三轴均K4。 按新合同跨档难度加权为1.00，恢复分10.0/27；K加权系数1.00，稳定raw 18.0，经终局约束后稳定分10.0。终局3/4/3的terminal_quality=3.20，对应C4T-3、正向上限24.9，故正向保留20.0。"
+          },
+          "dynamic_class": "LIMITED_OR_MIXED_MAINTENANCE",
+          "dynamic_label": "维持有限且正负并存",
+          "value_mode": "SEMANTIC_HOLISTIC_ADJUDICATION_WITH_FIXED_GRADE_PROJECTION",
+          "axis_evidence_level": "E2",
+          "confidence": "MEDIUM",
+          "output_mode": "BOUNDED_PROFILE",
+          "score_status": "FINAL",
+          "formal_status": "FORMAL_CURRENT",
+          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[2, 2, 2]、[3, 4, 3]、[3, 4, 3]、[3, 4, 3]；恢复10.0/27，稳定10.0/18；恶化扣减0.0，主动成本DA3/13.5。正式逐人裁决为G3-MID。",
+          "counterpattern": "终局无档差恶化。军事成本登记为C7高位且责任门明确：沙苑国家主力大败、河桥后续成建制重大损失、546玉壁五十日攻坚战病死七万，均处在本人主动西征链并由其承担决定性统帅责任。按新规则，这已经是国家级、多阶段的严重已实现成本，直接取DA3；不需要再以“反馈后是否继续”作为升档门槛，也未达到系统崩坏级DA3。 可归责恶化扣0.0，DA3扣13.5分。",
+          "starting_context": "高欢接手锚点为民生二档、经济财政二档、社会安全二档；最新曲线为民生二档→三档→三档、经济财政二档→四档→四档、社会安全二档→三档→三档。先前裁决仍把C2主态写成三档。",
+          "construction_and_maintenance": "按正式档界公式重算恢复分10.0/27；稳定承压按当前K结构计10.0/18，未把恢复信用并入稳定分；正向保留20.0。",
+          "costs_and_consequences": "交班局面为[3, 4, 3]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA3，扣减13.5。",
+          "behavior_chain": "终局无档差恶化。军事成本登记为C7高位且责任门明确：沙苑国家主力大败、河桥后续成建制重大损失、546玉壁五十日攻坚战病死七万，均处在本人主动西征链并由其承担决定性统帅责任。按新规则，这已经是国家级、多阶段的严重已实现成本，直接取DA3；不需要再以“反馈后是否继续”作为升档门槛，也未达到系统崩坏级DA3。 可归责恶化扣0.0，DA3扣13.5分。",
+          "handoff_state": "按交班向量[3, 4, 3]推导终局为C4T-3，正向上限24.9。",
+          "public_adjudication": "高欢接手锚点为民生二档、经济财政二档、社会安全二档；最新曲线为民生二档→三档→三档、经济财政二档→四档→四档、社会安全二档→三档→三档。原C4仍把C2主态写成三档。 C1跨2→3、C2跨2→4、C3跨2→3；恢复完成后的已审绝对状态材料没有确认新的独立低谷，三轴均K4。 按新规则跨档难度加权为1.00，恢复分10.0；K加权系数1.00，稳定原始 18.0，经终局约束后稳定分10.0。终局3/4/3的终局质量=3.20，对应C4T-3、正向上限24.9，故正向保留20.0。 终局无档差恶化。军事成本登记为C7高位且责任门明确：沙苑国家主力大败、河桥后续成建制重大损失、546玉壁五十日攻坚战病死七万，均处在本人主动西征链并由其承担决定性统帅责任。按新规则，这已经是国家级、多阶段的严重已实现成本，直接取DA3；不需要再以“反馈后是否继续”作为升档门槛，也未达到系统崩坏级DA3。 可归责恶化扣0.0，DA3扣13.5分。 交班原始锚点为民生3档、经济财政4档、社会安全3档；终局层级C4T-3，正向上限24.9。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G3。 当前档内位置为MID；不以结构字段自动替代逐人语义裁决。",
+          "grade_basis": "依据当前C1—C4结构字段与逐人语义裁决，正式档位为G3。",
+          "position_basis": "当前档内位置为MID；不以结构字段自动替代逐人语义裁决。",
+          "axis_relevance_check": {
+            "status": "HOLISTIC_C1_C4_SEMANTIC_ADJUDICATION",
+            "component_codes": [
+              "C1",
+              "C2",
+              "C3",
+              "C4"
+            ],
+            "component_sum_used": false,
+            "quantile_or_normalization_used": false,
+            "name_override_used": false,
+            "old_process_material_role": "BEHAVIOR_CHAIN_AND_ATTRIBUTION_REVIEW_ONLY"
+          },
+          "parents": [
+            {
+              "parent_id": "M3P-SEM-28B334C0C12A",
+              "direction": "MIXED",
+              "material_intensity": "MI2_LIFECYCLE",
+              "constraint_and_task": "- 并、肆多年霜旱，降户掘田鼠充饥，是明确灾荒和饥饿事实；原文未载官府先前赈济、粮价或死亡人数。",
+              "personal_choice": "",
+              "feedback_and_response": "",
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/南北朝/卷154-通读总结.md#L128"
+              ],
+              "use_boundary": "BEHAVIOR_FEEDBACK_ATTRIBUTION_REVIEW_NOT_INDEPENDENT_GRADE_CONVERSION"
+            }
+          ],
+          "limitations": [
+            "粮价低可能含国家供给和市场结构因素",
+            "无家庭生活余裕证据",
+            "直接锚只按其明示时段、地域与证据类型消费，不外推为全任全境。",
+            "DIRECTLY STATED ALTERNATIVES",
+            "PHASE EXACTNESS"
+          ],
+          "supplement_review": {
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-高欢",
+            "old_m3_parent_chain_count": 1,
+            "old_m3_candidate_count": 1,
+            "axis_dispositions": {
+              "C1": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+              "C2": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+              "C3": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+              "C4": "REVIEWED_C4_ATTRIBUTION_RETAINED"
+            }
+          },
+          "source_refs": [
+            "docs/史料通读产物/唐以前编年/南北朝/卷154-通读总结.md#L128",
+            "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-高欢",
+            "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-高欢",
+            "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-高欢",
+            "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-高欢"
+          ],
+          "source_evidence": [
+            {
+              "source_title": "《资治通鉴》卷一百五十八",
+              "quote": "欢命诸州滨河及津、梁皆置仓积谷以相转漕，供军旅，备饥馑，又于幽、瀛、沧、青四州傍海煮盐，军国之费粗得周赡。",
+              "source_origin": "C4_FORMAL_PUBLIC_SOURCE"
+            },
+            {
+              "source_title": "《资治通鉴》卷一百五十八",
+              "quote": "至是，东方连岁大稔，谷斛至九钱，山东之民稍复苏息矣。",
+              "source_origin": "C4_FORMAL_PUBLIC_SOURCE"
+            },
+            {
+              "source_title": "《通典·食货》",
+              "quote": "齐神武秉政……得无籍之户六十馀万……是后租调之入有加焉。",
+              "source_origin": "C4_FORMAL_PUBLIC_SOURCE"
+            },
+            {
+              "source_title": "《资治通鉴》卷一百五十七",
+              "quote": "欢号令克蒲坂，失利于沙苑，丧甲士八万人，弃铠仗十八万。",
+              "source_origin": "C4_FORMAL_PUBLIC_SOURCE"
+            },
+            {
+              "source_title": "《资治通鉴》卷一百五十九",
+              "quote": "东魏苦攻凡五十日，士卒战及病死者共七万人……十一月，庚子，解围去。",
+              "source_origin": "C4_FORMAL_PUBLIC_SOURCE"
+            }
+          ],
+          "contract_version": "FORMAL-V3.6"
+        }
+      ]
+    }
+  }
+}

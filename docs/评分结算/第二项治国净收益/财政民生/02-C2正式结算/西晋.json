@@ -1,0 +1,111 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "西晋",
+  "collections": {
+    "scores": {
+      "positions": [
+        18
+      ],
+      "records": [
+        {
+          "adjudication_reason": "太康阶段生产与仓府均达到较高绝对状态，《晋书》又直接记“赋税平均”，公共财政至少健康；统一后大量土地重新进入耕作，物资持续流入仓府。另一方面，本人窗口缺少强市场货币面的独立闭合，且当时已有官冗、不农人口和“暂有灾患便不继赡”的结构性警告，因此不能把太康富盛直接升成双柱强态，主档四档。",
+          "confidence": "MEDIUM_HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《晋书·食货志》"
+              ],
+              "verbatim_excerpt": "是時天下無事，賦稅平均，人咸安其業而樂其事。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《晋书·食货志》"
+              ],
+              "verbatim_excerpt": "河濱海岸，三丘八藪，耒耨之所不至者，人皆受焉……世屬升平，物流倉府。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《晋书·傅咸传》"
+              ],
+              "verbatim_excerpt": "今之不農，不可勝計。縱使五稼普收，僅足相接；暫有災患，便不繼贍。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《晋书·食货志》"
+              ],
+              "verbatim_excerpt": "宮闈增飾，服玩相輝……物盛則衰，固其宜也。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_5_PASS_C2_4",
+            "basis": "P与F/R达到健康至强，但M面缺独立强证，且农业/储备结构已有当时人直接警告，五档门不闭合。"
+          },
+          "main_band": "C2-4",
+          "material_limitations": [
+            "平吴带来的三吴蓄藏属于绝对状态可见，但不能把征服缴获本身当作经济创造。",
+            "“天下无事”属于环境背景，不直接抬C2。"
+          ],
+          "peak_band": null,
+          "polity": "西晋",
+          "rank": 12,
+          "reign_range": [
+            265,
+            290
+          ],
+          "ruler_id": "RULER-SHADOW-司马炎",
+          "ruler_name": "司马炎",
+          "score": 23.6,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-4",
+            "S_end": "C2-4"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-司马炎"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C5",
+            "cost_status": "LOWER_BOUND",
+            "cost_position": "LOW",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-4",
+            "score": 23.6,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-4",
+              "S_end": "C2-4"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

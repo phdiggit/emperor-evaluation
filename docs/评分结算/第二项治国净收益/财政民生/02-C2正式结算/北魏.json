@@ -1,0 +1,710 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "北魏",
+  "collections": {
+    "scores": {
+      "positions": [
+        0,
+        5,
+        11,
+        20,
+        21,
+        96,
+        97
+      ],
+      "records": [
+        {
+          "adjudication_reason": "太和改革窗口有“公私丰赡”的直接综合结果，三长制实施后课调成本大幅下降并获“上下安之”，同时闭合民间生产性余量与公共财政运行。剔除“水旱不困”的C4语义后，两柱仍足以进入五档。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《资治通鉴》卷一百三十六"
+              ],
+              "verbatim_excerpt": "既而課調省費十餘倍，上下安之。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《资治通鉴》卷一百三十六"
+              ],
+              "verbatim_excerpt": "由是公私豐贍，雖時有水旱而民不困窮。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "PASS_C2_5",
+            "basis": "本人实际主政窗口有公私两柱直接强结果。"
+          },
+          "main_band": "C2-5",
+          "material_limitations": [
+            "五档依赖“公私丰赡”与课调实际省费的两柱结果，不依赖均田、三长等制度名目本身。"
+          ],
+          "peak_band": null,
+          "polity": "北魏",
+          "rank": 1,
+          "reign_range": [
+            [
+              465,
+              467
+            ],
+            [
+              476,
+              490
+            ]
+          ],
+          "ruler_id": "RULER-SHADOW-冯太后",
+          "ruler_name": "冯太后",
+          "score": 29.8,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-4",
+            "S_avg": "C2-5",
+            "S_end": "C2-5"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-08C7529128F9"
+            ],
+            "excluded_parent_ids": [
+              "M3P-SEM-2CFB1D6AF8CF"
+            ],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-08C7529128F9",
+                "candidate_ids_trace_only": [
+                  "I2-NWEI-FT-HOUSEHOLD-THREE-CHIEFS-M3-AUDIT"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY"
+                ],
+                "chain_summary": "三长制、核户与课调形成持续运行结果 | 主持推行三长制并形成课调省费与上下安定的运行结果 | 文明太后曰：‘立三长则课调有常准，苞荫之户可出，侥幸之人可止，何为不可！’甲戌，初立党、里、邻三长，定民户籍。民始皆愁苦，豪强者尤不愿。既而课调省费十余倍，上下安之。",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/northern_wei.json#material_id=I2-NWEI-FT-HOUSEHOLD-THREE-CHIEFS-M3-AUDIT",
+                  "https://zh.wikisource.org/w/index.php?title=資治通鑑/卷136&oldid=1554191"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-08C7529128F9"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-冯太后"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C4",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-5",
+            "score": 29.8,
+            "state_anchors": {
+              "S0": "C2-4",
+              "S_avg": "C2-5",
+              "S_end": "C2-5"
+            }
+          },
+          "handoff_segment_anchors": [
+            {
+              "raw_text": "465—467首次临朝=C2-4→C2-2"
+            },
+            {
+              "raw_text": "476—490再次临朝=C2-3→C2-5"
+            }
+          ]
+        },
+        {
+          "adjudication_reason": "490—499比较窗口已经处于太和改革实现后的强态。均输/农官方案实施后，《魏书·食货志》直接给出“自此公私丰赡”，同时三长实施后计省旧负担十余倍；495年太和五铢又在京师和诸州镇通行，市场货币面至少达到健康。P很强、M健康，F/R强，按刘询同类组合可将民间经济柱与公共财政柱均判强，因此由旧C2-4上调C2-5。",
+          "confidence": "MEDIUM_HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《魏书·食货志》"
+              ],
+              "verbatim_excerpt": "行此二事，數年之中，則穀積而民足矣……自此公私豐贍，雖時有水旱，不為災也。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《魏书·食货志》"
+              ],
+              "verbatim_excerpt": "事施行後，計省昔十有餘倍，於是海內安之。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《魏书·食货志》"
+              ],
+              "verbatim_excerpt": "高祖始詔天下用錢焉。十九年，冶鑄粗備，文曰『太和五銖』，詔京師及諸州鎮皆通行之。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《魏书·食货志》"
+              ],
+              "verbatim_excerpt": "民有欲鑄，聽就鑄之，銅必精鍊，無所和雜。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_6_PASS_C2_5",
+            "basis": "P强、M至少健康，F/R强，足以把两柱判强；但货币流通仍存在地域不均和后续恶钱问题，M面不具六档要求的长期、广域、无裂缝强证。"
+          },
+          "main_band": "C2-5",
+          "material_limitations": [
+            "“公私丰赡”是本人窗口直接结果，可作为五档综合锚",
+            "但六档不能把同一条综合史评拆成四个独立强锚。",
+            "太和五铢在后续时期出现地区流通不一，故不把货币面判为罕见极强。",
+            "迁都和对南齐战争的成本只作D侧压力，不机械压低C2。"
+          ],
+          "peak_band": null,
+          "polity": "北魏",
+          "rank": 1,
+          "reign_range": [
+            490,
+            499
+          ],
+          "ruler_id": "RULER-SHADOW-拓跋宏",
+          "ruler_name": "拓跋宏",
+          "score": 29.8,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-5",
+            "S_avg": "C2-5",
+            "S_end": "C2-5"
+          },
+          "m3_supplement_review": {
+            "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-拓跋宏"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C6",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-4",
+            "score": 23.6,
+            "state_anchors": {
+              "S0": "C2-5",
+              "S_avg": "C2-4",
+              "S_end": "C2-4"
+            }
+          }
+        },
+        {
+          "adjudication_reason": "元恪承接太和改革后的高位系统，任内没有常规财政结构性失效的硬证，且延昌元年面对京师谷贵仍能一次性出仓粟八十万石，说明R至少健康。后期连续水旱、京师粮价与多地就谷迁食形成本人窗口内真实的生产—市场压力，使S_end降至三档；但这些冲击没有闭合为全任公共财政脆弱，故主态仍保四。",
+          "confidence": "MEDIUM_HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《魏书·宣武帝纪》"
+              ],
+              "verbatim_excerpt": "以頻水旱，百姓饑弊，分遣使者開倉賑恤。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《魏书·宣武帝纪》"
+              ],
+              "verbatim_excerpt": "州郡十一大水，詔開倉賑恤。以京師穀貴，出倉粟八十萬石以賑貧者。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《魏书·宣武帝纪》"
+              ],
+              "verbatim_excerpt": "詔河北民就穀燕恆二州。詔饑民就穀六鎮。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《魏书·食货志》"
+              ],
+              "verbatim_excerpt": "世宗延昌三年春，有司奏長安驪山有銀鑛……詔並置銀官，常令採鑄。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_5_PASS_C2_4",
+            "basis": "R有硬直证，P/M/F结合太和后连续盘面足以判健康；但后期粮食供给和价格压力明显，且本人窗口缺两柱同时强的直接材料。"
+          },
+          "main_band": "C2-4",
+          "material_limitations": [
+            "水旱本身不因C4逻辑扣C2",
+            "真正进入C2的是“京师谷贵、就谷迁食”等已实现的绝对经济状态。",
+            "正光以后预征六年租调、帑藏空竭发生在元恪死后，不得回填。",
+            "S0由C2-4修正为C2-5，按直接交班双锚与拓跋宏的S_end同步。"
+          ],
+          "peak_band": null,
+          "polity": "北魏",
+          "rank": 12,
+          "reign_range": [
+            499,
+            515
+          ],
+          "ruler_id": "RULER-SHADOW-元恪",
+          "ruler_name": "元恪",
+          "score": 21.7,
+          "stability_class_diagnostic_only": "K0",
+          "state_anchors": {
+            "S0": "C2-5",
+            "S_avg": "C2-4",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-元恪"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C4",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-4",
+            "score": 23.6,
+            "state_anchors": {
+              "S0": "C2-4",
+              "S_avg": "C2-4",
+              "S_end": "C2-3"
+            }
+          }
+        },
+        {
+          "adjudication_reason": "按既有审核结论保C2-4，但删除“冲击后恢复能力”这一C4污染。本人窗口直接材料显示灾荒后确已形成“岁数丰穰、畜牧滋息”的生产结果；泰常三年又能集中积租于定、相、冀并在多次水灾后减免租税，说明常规财政和粮储体系仍在运行。公共财政的直接余量证据弱于生产面，故四档可保、五档不开放。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《魏书·食货志》"
+              ],
+              "verbatim_excerpt": "自是民皆力勤，故歲數豐穰，畜牧滋息。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《魏书·明元帝纪》"
+              ],
+              "verbatim_excerpt": "九月甲寅，詔諸州調民租，戶五十石，積於定、相、冀三州。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《魏书·明元帝纪》"
+              ],
+              "verbatim_excerpt": "以范陽去年水，復其租稅……雁門、河內大雨水，復其租稅。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《魏书·食货志》"
+              ],
+              "verbatim_excerpt": "神瑞二年，又不熟，京畿之內，路有行饉……分簡尤貧者就食山東。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_5_PASS_C2_4",
+            "basis": "P有直接健康/强结果，F/R可闭合健康运作，但M与公共财政余量都不足以形成双柱强直证，止于四档。"
+          },
+          "main_band": "C2-4",
+          "material_limitations": [
+            "不以灾荒后的恢复速度给C2加分",
+            "只消费恢复后已经出现的“岁数丰穰、畜牧滋息”绝对状态。",
+            "泰常三年户五十石积租可能本身负担不轻，因此仅证明财政粮储能运作，不判强。"
+          ],
+          "peak_band": null,
+          "polity": "北魏",
+          "rank": 12,
+          "reign_range": [
+            409,
+            423
+          ],
+          "ruler_id": "RULER-SHADOW-拓跋嗣",
+          "ruler_name": "拓跋嗣",
+          "score": 23.6,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-4",
+            "S_avg": "C2-4",
+            "S_end": "C2-4"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-拓跋嗣"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C5",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-4",
+            "score": 23.6,
+            "state_anchors": {
+              "S0": "C2-4",
+              "S_avg": "C2-4",
+              "S_end": "C2-4"
+            }
+          }
+        },
+        {
+          "adjudication_reason": "本人窗口内既有长期征运造成的生产损耗，也有太平真君阶段农牧生产恢复、军国供给充足与府藏盈积。公共财政的常规税基细节不够完整，市场货币面材料亦薄，但合同规定缺证只能降低置信度，不能自动判坏；现有P与F/R实际结果足以闭合两柱至少健康，故保四档。",
+          "confidence": "MEDIUM_HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《魏书·食货志》"
+              ],
+              "verbatim_excerpt": "世祖之平统万，定秦陇，以河西水草善，乃以为牧地。畜产滋息，马至二百余万匹，橐驼将半之，牛羊则无数。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《魏书·食货志》"
+              ],
+              "verbatim_excerpt": "真君中，恭宗下令修农职之教……此后数年之中，军国用足矣。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《魏书·食货志》"
+              ],
+              "verbatim_excerpt": "自太祖定中原，世祖平方难，收获珍宝，府藏盈积。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《魏书·太武帝本纪》"
+              ],
+              "verbatim_excerpt": "故频年屡征，有事西北，运输之役，百姓勤劳，废失农业，遭离水旱。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_5_PASS_C2_4",
+            "basis": "两柱可判健康，但M面缺少本人窗口强结果，F面又不能完全排除对非常规战争获取的依赖，五档的“两柱都强”不闭合。"
+          },
+          "main_band": "C2-4",
+          "material_limitations": [
+            "旧结算把战争成本用于档内压分，本轮删除该C4式逻辑",
+            "这里只消费史料已经闭合到的生产损耗。",
+            "市场货币材料不足降低置信度，不因缺证直接判弱。"
+          ],
+          "peak_band": null,
+          "polity": "北魏",
+          "rank": 12,
+          "reign_range": [
+            423,
+            452
+          ],
+          "ruler_id": "RULER-SHADOW-拓跋焘",
+          "ruler_name": "拓跋焘",
+          "score": 22.7,
+          "stability_class_diagnostic_only": "K2",
+          "state_anchors": {
+            "S0": "C2-4",
+            "S_avg": "C2-4",
+            "S_end": "C2-4"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-拓跋焘"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C4",
+            "cost_status": "LOWER_BOUND",
+            "cost_position": "MID",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-4",
+            "score": 23.6,
+            "state_anchors": {
+              "S0": "C2-4",
+              "S_avg": "C2-4",
+              "S_end": "C2-4"
+            }
+          }
+        },
+        {
+          "adjudication_reason": "原结算关于三等九品租输、罢十五项杂调和山东征戍转运压力的框架基本成立。新核史料还直接给出“赋敛稍轻，民复赡矣”，说明改革后至少恢复到基本可运行；但这仍主要闭合税负与P侧生活/生产余量，缺市场货币和公共储备的健康结果，而且天安、皇兴间连年大旱与山东转运构成持续约束。因此保C2-3，不把改革动作本身抬成四档。",
+          "confidence": "MEDIUM_WINDOW_READJUDICATED",
+          "evidence": [
+            {
+              "source_works": [
+                "《魏书·食货志》"
+              ],
+              "verbatim_excerpt": "遂因民贫富，为租输三等九品之制。千里内纳粟，千里外纳米，上三品户入京师，中三品入他州要仓，下三品入本州。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《魏书·食货志》"
+              ],
+              "verbatim_excerpt": "至是乃终罢焉。于是赋敛稍轻，民复赡矣。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《魏书·食货志》"
+              ],
+              "verbatim_excerpt": "至天安、皇兴间，岁频大旱……山东之民，咸勤于征戍转运。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "税基与生产可恢复，但M/R健康未闭合，且持续转运压力明显，四档失败。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "本人主政只消费467—476实际掌权段。",
+            "冯太后有465—467与476以后两段实权，本次另设分段锚，不用她全任单一S0/S_end机械对接。"
+          ],
+          "peak_band": null,
+          "polity": "北魏",
+          "rank": 56,
+          "reign_range": "465—476年；471年退位后仍掌权",
+          "ruler_id": "RULER-SHADOW-拓跋弘",
+          "ruler_name": "拓跋弘",
+          "score": 14.9,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-3",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_SCORE_CHANGE_NEW_FORMAL_RECORD",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-拓跋弘"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C4",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-2",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          },
+          "old_settlement_review": "KEEP_BAND_STRENGTHEN_EVIDENCE；保留：分等租输、罢杂调与战争转运压力均保留。；推翻/修正：删除任何把“民复赡”直接解释成公共财政健康的倾向。。",
+          "handoff_segment_anchors": [
+            {
+              "raw_text": "467—476本人实际主政=C2-2→C2-3"
+            }
+          ]
+        },
+        {
+          "adjudication_reason": "原结算关于给牛授田和农业组织形成北魏早期生产基础可以保留；但新核《魏书·食货志》同时给出了很关键的上限反证：虽“比岁大熟”，却“犹未足以久赡”。这意味着P已经强劲恢复，但F/R仍只有有限供给余量。征服所得珍宝畜产只可说明一时国用，不能作为正常财政强证。故主态仍C2-3，晚段生产改善使交班锚维持C2-4，与拓跋嗣S0同步。",
+          "confidence": "MEDIUM_HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《魏书·食货志》"
+              ],
+              "verbatim_excerpt": "各给耕牛，计口授田……劝课农耕，量校收入，以为殿最。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《魏书·食货志》"
+              ],
+              "verbatim_excerpt": "自后比岁大熟，匹中八十余斛。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《魏书·食货志》"
+              ],
+              "verbatim_excerpt": "是时戎车不息，虽频有年，犹未足以久赡矣。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "P强，但F/R明确只有有限余量，弱柱把主态压在三档。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "“破卫辰，收珍宝畜产，渐增国用”属于征服资产，不计正常财政高档。",
+            "S_end=C2-4与已重裁拓跋嗣S0同步。"
+          ],
+          "peak_band": null,
+          "polity": "北魏",
+          "rank": 56,
+          "reign_range": [
+            386,
+            409
+          ],
+          "ruler_id": "RULER-SHADOW-拓跋珪",
+          "ruler_name": "拓跋珪",
+          "score": 14.9,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-3",
+            "S_end": "C2-4"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-拓跋珪"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C4",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-2",
+              "S_avg": "C2-3",
+              "S_end": "C2-4"
+            }
+          },
+          "old_settlement_review": "KEEP_BAND_ADD_BOTTLENECK；保留：给牛授田、农业恢复的正面判断保留。；推翻/修正：旧结算未充分消费“犹未足以久赡”的公共余量反证。。"
+        }
+      ]
+    }
+  }
+}

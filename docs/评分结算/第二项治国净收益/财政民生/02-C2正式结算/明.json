@@ -1,0 +1,2608 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "明",
+  "collections": {
+    "scores": {
+      "positions": [
+        6,
+        23,
+        24,
+        25,
+        26,
+        101,
+        102,
+        103,
+        105,
+        106,
+        107,
+        108,
+        156,
+        157,
+        158,
+        159,
+        160
+      ],
+      "records": [
+        {
+          "adjudication_reason": "《明史·食货志》对洪、永、熙、宣整体窗口给出极强绝对状态：垦辟后“土无莱芜、人敦本业”，府藏衍溢，边军粮饷相当部分不仰县官，形成民间生产与公共财政两柱同时强。宣德九年多地灾荒使交班前状态有所回落，但国家仍可调南京、临清仓粟赈济，不能把灾荒本身按C4逻辑直接打成财政崩坏。主态五档成立。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《明史·食货志》"
+              ],
+              "verbatim_excerpt": "洪、永、熙、宣之際……府藏衍溢。蓋是時，劭農務墾闢，土無萊蕪，人敦本業，又開屯田、中鹽以給邊軍，餫餉不仰藉於縣官，故上下交足，軍民胥裕。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·宣宗本纪》"
+              ],
+              "verbatim_excerpt": "兩畿、浙江、湖廣、江西饑，以應運南京及臨清倉粟振濟。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·食货志》"
+              ],
+              "verbatim_excerpt": "明初，沿元之舊，錢法不通而用鈔，又禁民間以銀交易，宜若不便於民。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_6_PASS_C2_5",
+            "basis": "生产与公共财政两柱有直接广域强态，足以进五档；但钱法与交易媒介存在持续结构摩擦，M面不满足六档罕见强态。"
+          },
+          "main_band": "C2-5",
+          "material_limitations": [
+            "《明史》“洪永熙宣”属于跨四朝总括，但宣德完整处于该状态窗口，C2又结算绝对状态而非独占功劳，因此可消费",
+            "不能据此把前朝功劳归给朱瞻基。",
+            "宣德九年灾荒属于C4动态冲击",
+            "除非其闭合为长期绝对财政弱态，否则不能单因灾荒把C2末端打到二档。"
+          ],
+          "peak_band": null,
+          "polity": "明",
+          "rank": 1,
+          "reign_range": "1425-1435",
+          "ruler_id": "RULER-MING-ZHU-ZHANJI",
+          "ruler_name": "朱瞻基",
+          "score": 27.4,
+          "stability_class_diagnostic_only": "K0",
+          "state_anchors": {
+            "S0": "C2-4",
+            "S_avg": "C2-5",
+            "S_end": "C2-4"
+          },
+          "m3_supplement_review": {
+            "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-MING-ZHU-ZHANJI"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C5",
+            "cost_status": "LOWER_BOUND",
+            "cost_position": "LOW",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-4",
+            "score": 23.6,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-4",
+              "S_end": "C2-2"
+            }
+          }
+        },
+        {
+          "adjudication_reason": "洪武长期窗口的P面已有垦辟、屯田与生产扩张的直接结果，F/R面亦有府藏衍溢、仓储和常规赋税体系，因此绝对状态不能只按“国家有汲取能力”处理。原结算提出的反证仍保留：卫屯兵食、黄册本身确实只能证明征调/登记能力，宗藩世禄、军匠户籍及重役又构成对民间的刚性转嫁，不能据这些材料把公共财政判强。本轮新增并强化的M侧结果表明商税、跨区贸易和实际交易体系广泛存在，因此“完全缺市场证据”不再成立；但洪武后期宝钞严重贬值、两浙江西闽广重钱轻钞并出现物价翔贵，说明市场货币仍是明确瓶颈。综合而言，两柱至少健康，故由旧C2-3上调C2-4；旧裁决中的刚性转嫁与正常财政余量疑问继续作为上限反证，阻断C2-5。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "source_works": [
+                "《明史·食货志》"
+              ],
+              "verbatim_excerpt": "洪、永、熙、宣之际……府藏衍溢。盖是时，劭农务垦辟，土无莱芜，人敦本业，又开屯田、中盐以给边军，餫饷不仰藉于县官。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·食货志》"
+              ],
+              "verbatim_excerpt": "凡商税，三十而取一。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·食货志》"
+              ],
+              "verbatim_excerpt": "两浙江西闽广民重钱轻钞，有以钱一百文十文折钞一贯者，由是物价翔贵，而法益坏不行。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·食货志》"
+              ],
+              "verbatim_excerpt": "太祖初征酒醋之税，收官店钱……帝曰：税有定额，若以恢办为能，是剥削下民，失吏职也。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_5_PASS_C2_4",
+            "basis": "P与F/R强，市场体系可运行，但M的钞法与价格失衡不是轻微裂缝；民间经济柱只能整体判健康，五档失败。"
+          },
+          "main_band": "C2-4",
+          "material_limitations": [
+            "“百姓充实”“军民胥裕”偏C1，只消费同段的垦辟、屯田、府藏和军饷结构。",
+            "府藏和屯田不能重复拆成多条独立强锚冲六档。",
+            "原结算关于卫屯/黄册仅能证明汲取能力、宗藩世禄与军匠户籍形成刚性转嫁的反证继续保留",
+            "本轮升四并非把国家征调能力等同财政健康。"
+          ],
+          "peak_band": null,
+          "polity": "明",
+          "rank": 12,
+          "reign_range": "1368-1398",
+          "ruler_id": "RULER-MING-ZHU-YUANZHANG",
+          "ruler_name": "朱元璋",
+          "score": 22.7,
+          "stability_class_diagnostic_only": "K2",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-4",
+            "S_end": "C2-4"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-D146EB4DECBE",
+              "M3P-SEM-EB4CF06CEC8C",
+              "M3P-SEM-065675084011",
+              "M3P-SEM-DD9D75558EBF",
+              "M3P-SEM-75592D20827F",
+              "M3P-SEM-8CFCBDC4E7DB",
+              "M3P-SEM-764DCC126E5C",
+              "M3P-SEM-AA5BE36AA4EA",
+              "M3P-SEM-3C10DFC4E18D",
+              "M3P-SEM-C1704CDA5B5E",
+              "M3P-SEM-886693B6205D",
+              "M3P-SEM-95B2B4C4B2D2",
+              "M3P-SEM-D5757482F694",
+              "M3P-SEM-8DF28FC040D1",
+              "M3P-SEM-07486CA24A31",
+              "M3P-SEM-F49F68C57FD8",
+              "M3P-SEM-DC2DE7F73488",
+              "M3P-SEM-3FB66B1F2E10",
+              "M3P-SEM-3A0EE9C9C6B2",
+              "M3P-SEM-990E0F7BB9B4",
+              "M3P-SEM-4F6D83EC6D58",
+              "M3P-SEM-98035E880D1D",
+              "M3P-SEM-27B1EFBB8204",
+              "M3P-SEM-25FB4CC2C7DD",
+              "M3P-SEM-41C6B2FE0359",
+              "M3P-SEM-73D00A40B40C",
+              "M3P-SEM-1DF5C0ADDAA0",
+              "M3P-SEM-623DACB2D91C",
+              "M3P-SEM-8315672120C6",
+              "M3P-SEM-EAA9C293AC3B",
+              "M3P-SEM-C5D4A4456F74",
+              "M3P-SEM-42E29A466805",
+              "M3P-SEM-DB1889DD29AF",
+              "M3P-SEM-A6B7E3698246",
+              "M3P-SEM-2F6EE3E200D9",
+              "M3P-SEM-1640EE193378",
+              "M3P-SEM-F50EA781DF50"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-D146EB4DECBE",
+                "candidate_ids_trace_only": [
+                  "M3H-01F4CBA666066B92",
+                  "M3H-F5238B22F4954928"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "PUBLIC_WORKS"
+                ],
+                "chain_summary": "- **1358年设都水营田使，财政—农业关系被直接说透。** 朱元璋称“今军事方殷，度支为急，理财之道，莫先于农”，要求康茂才巡修堤防、专掌水利，使高地免旱、低地免涝；又特别警告不得借设官馆舍、迎送奔走反扰百姓。原文定位：`SRC-MINGTONGJIAN-001-2445850-L0255`。 | - **刑狱实行明显的战后从轻。** 朱元璋命巡郡县录囚：笞罪释放、杖罪减半，重囚亦从减；面对“用法不宜太宽”的意见，他以百姓“初离创残”解释新国宜用轻典。原文定位：`SRC-MINGTONGJIAN-001-2445850-L0260`“民初離創殘……刑新國則宜用輕典”。；- **刑狱实行明显的战后从轻。** 朱元璋命巡郡县录囚：笞罪释放、杖罪减半，重囚亦从减；面对“用法不宜太宽”的意见，他以百姓“初离创残”解释新国宜用轻典。原文定位：`SRC-MINGTONGJIAN-001-2445850-L0260`“民初離創殘……刑新國則宜用輕典”。 | - **浦江对避兵民户采取返家与禁侵措施。** 李文忠访得避兵山谷的郑氏宗族后，全部送还家中，并禁军士侵犯。原文定位：`SRC-MINGTONGJIAN-001-2445850-L0271`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-001.source-summary.md#L28",
+                  "docs/史料通读产物/明/明通鉴/volume-001.source-summary.md#L30"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-D146EB4DECBE"
+              },
+              {
+                "parent_id": "M3P-SEM-EB4CF06CEC8C",
+                "candidate_ids_trace_only": [
+                  "M3H-25556843E436A6AB"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "RELIEF_STORAGE"
+                ],
+                "chain_summary": "- **朱元璋直接承认财政积累不足、征取于民。** 婺州之役途中，他说“我积少而费多，取给于民，甚非得已，恒思所以休息之”。这条不是后世概括，而是本卷直接把战争财政压力与民众负担连在一起，价值很高。原文定位：`SRC-MINGTONGJIAN-001-2445850-L0287`。 | - **婺州接管后开仓赈贫。** 入城后“首发仓粟振贫民”，同时禁酒；这是可确认的即时救济，但本卷未给赈粮数量。原文定位：`SRC-MINGTONGJIAN-001-2445850-L0291`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-001.source-summary.md#L36"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-EB4CF06CEC8C"
+              },
+              {
+                "parent_id": "M3P-SEM-065675084011",
+                "candidate_ids_trace_only": [
+                  "M3H-F61A50C21FC827A0",
+                  "M3H-47A4C3E305AECF8D",
+                  "M3H-E34579FA62E68745"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "PUBLIC_WORKS",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- **郭子兴内部军权长期不稳。** 郭子兴与赵均用等互相拘执、彭大介入解救，后又与孙德崖发生武装冲突；其中实际冲突入 JSON，这里只保留其政治后果：濠州集团长期多头并立，朱元璋的军权亦一度被郭收回。原文定位：`L0140`、`L0165`、`L0169`、`L0179`。 | - **朱元璋取得和州后开始建立对诸将的统一军令。** 他凭郭子兴檄令总军事，以筑城逾期为例压服不相下的诸将，实际完成从部将到一军统帅的权威重组。原文定位：`SRC-MINGTONGJIAN-001-2445850-L0176`。；- **北平水灾后拒绝立即重修公署。** 高阳等县此前被水，分司廨宇倒塌；朱元璋认为应先问民疾苦，待年丰再修，直接以避免劳民为理由停止工程。原文定位：`SRC-MINGTONGJIAN-012-2445861-L0141`。 | - **凤阳、和州田租获免；应天、太平、镇江、宁国、广德税粮再免。** 后一诏还明确把五郡视为创业供给重地，并警告有司不得侵渔。原文定位：`SRC-MINGTONGJIAN-012-2445861-L0146`、`L0165`。 | - **畿内十二州县养马户免田租一年，滁州免二年。** 属对承担马役人户的直接减负。原文定位：`SRC-MINGTONGJIAN-012-2445861-L0171`。；- **畿内十二州县养马户免田租一年，滁州免二年。** 属对承担马役人户的直接减负。原文定位：`SRC-MINGTONGJIAN-012-2445861-L0171`。 | - **“频岁丰稔而民多贫困”被朝廷直接提出。** 朱元璋追问贫困是否源于徭役过重及官民因缘为奸，要求地方思考振救方法，并称烦苛者不赦。原文定位：`SRC-MINGTONGJIAN-012-2445861-L0187`。 | - **江西龙泉永新平乱军队一度侵掠，后因地方士人当面责将而停止。** 邓镇所部“兵不戢”，萧执责问后，邓镇谢罪并禁止侵掠，“邑人以安”。该事实同时写入相关战役卡的战争行为旁证；这里保留军纪纠偏结果。原文定位：`SRC-MINGTONGJIAN-012-2445861-L0188`。 | - **洪武十七年常德水灾田租获免。** 原文定位：`SRC-MINGTONGJIAN-012-2445861-L0225`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-001.source-summary.md#L46",
+                  "docs/史料通读产物/明/明通鉴/volume-012.source-summary.md#L13",
+                  "docs/史料通读产物/明/明通鉴/volume-012.source-summary.md#L16"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-065675084011"
+              },
+              {
+                "parent_id": "M3P-SEM-DD9D75558EBF",
+                "candidate_ids_trace_only": [
+                  "M3H-FF19AFBBCE7201FB"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "UNRESOLVED_DIRECTION",
+                "mechanisms": [
+                  "BUDGET_TREASURY"
+                ],
+                "chain_summary": "- **张士诚1356年曾提出高额岁输求和。** 所请为每年粮二十万石、黄金五百两、白金三百斤；朱元璋反要求归还杨宪并岁输粮五十万石，谈判未成。此为财政能力与外交条件材料，不作为战场缴获。原文定位：`SRC-MINGTONGJIAN-001-2445850-L0211`。 | - **张士德被俘后，张士诚方面再次提出财货交换。** 其母愿以岁输粮十万石、绢一万匹求释张士德，未获接受；张士德反建议张士诚降元，张随后名义归元而仍保有城池、甲兵、钱谷。原文定位：`SRC-MINGTONGJIAN-001-2445850-L0234`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-001.source-summary.md#L54"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-DD9D75558EBF"
+              },
+              {
+                "parent_id": "M3P-SEM-75592D20827F",
+                "candidate_ids_trace_only": [
+                  "M3H-8F6C80D3B0C3609C",
+                  "M3H-B2CA85D39D9BE042"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "PUBLIC_WORKS"
+                ],
+                "chain_summary": "- **方国珍处在元与朱元璋之间，且承担海运粮。** 朱方授其福建行省平章等官而其仅受印诰、仍不愿受实控；与此同时元廷亦授官，并令其治运，每年海漕十万石入京。这是本卷重要的沿海财政—漕运材料。原文定位：`SRC-MINGTONGJIAN-002-2445851-L0168`“歲漕十萬石于京師”。 | - **朱元璋对方国珍暂缓用兵，先以书面威慑。** 夏煜报告其反复后，朱元璋说“吾方致力姑苏，未暇与校”，继续遣使责其改过。其核心是多线压力下的资源优先级，而不是已实现控制。原文定位：`SRC-MINGTONGJIAN-002-2445851-L0182`。；- **朱元璋对方国珍暂缓用兵，先以书面威慑。** 夏煜报告其反复后，朱元璋说“吾方致力姑苏，未暇与校”，继续遣使责其改过。其核心是多线压力下的资源优先级，而不是已实现控制。原文定位：`SRC-MINGTONGJIAN-002-2445851-L0182`。 | - **福建福宁、福清出现非战斗性归附。** 元福建官员因闽中大扰、国势不振而遣书纳款，朱元璋接受并褒谕。本段没有实际接战，故不立战争收益卡。原文定位：`SRC-MINGTONGJIAN-002-2445851-L0186`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-002.source-summary.md#L20",
+                  "docs/史料通读产物/明/明通鉴/volume-002.source-summary.md#L22"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-75592D20827F"
+              },
+              {
+                "parent_id": "M3P-SEM-8CFCBDC4E7DB",
+                "candidate_ids_trace_only": [
+                  "M3H-9F898AD3532A39A5",
+                  "M3H-A58812E0C2570C69",
+                  "M3H-32A45666160988C7",
+                  "M3H-8033E94E1F8DBE30",
+                  "M3H-E360B333E331915F",
+                  "M3H-676F6343D364FEFC"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "MONETARY_CREDIT",
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- **拒收金玉马鞍，明确把人才、粮帛置于宝玩之前。** 朱元璋说“四方”有事时，所需是人才、所用是“粟帛”，其他宝玩“非所好也”。这直接反映资源偏好。原文定位：`SRC-MINGTONGJIAN-002-2445851-L0223`。 | - **太平战后采用“官粮贷种、秋熟归还”方式恢复农业。** 范常任太平知府，朱元璋指出当地“民数困于兵”，令兴学恤民；官廪有谷数千石，可贷给缺种农民，秋熟后再输还官仓，目标是“公私皆足”。这是本卷最有价值的战后生产恢复材料之一。原文定位：`SRC-MINGTONGJIAN-002-2445851-L0230`。；- **太平战后采用“官粮贷种、秋熟归还”方式恢复农业。** 范常任太平知府，朱元璋指出当地“民数困于兵”，令兴学恤民；官廪有谷数千石，可贷给缺种农民，秋熟后再输还官仓，目标是“公私皆足”。这是本卷最有价值的战后生产恢复材料之一。原文定位：`SRC-MINGTONGJIAN-002-2445851-L0230`。 | - **统治者个人节俭被明确当作示范。** 宋思颜称朱元璋所换衣物皆经洗濯，认为可“示法子孙”；这是宫廷消费态度材料，但不能据此推算财政节省规模。原文定位：`SRC-MINGTONGJIAN-002-2445851-L0232`。；- **统治者个人节俭被明确当作示范。** 宋思颜称朱元璋所换衣物皆经洗濯，认为可“示法子孙”；这是宫廷消费态度材料，但不能据此推算财政节省规模。原文定位：`SRC-MINGTONGJIAN-002-2445851-L0232`。 | - **龙兴/洪都接管后开仓赈贫并废陈氏苛政。** 胡廷瑞来降后，朱元璋入城先谒孔庙，继而“开仓库振贫乏，悉除陈氏苛政”，民大悦。原文定位：`SRC-MINGTONGJIAN-002-2445851-L0251`。；- **龙兴/洪都接管后开仓赈贫并废陈氏苛政。** 胡廷瑞来降后，朱元璋入城先谒孔庙，继而“开仓库振贫乏，悉除陈氏苛政”，民大悦。原文定位：`SRC-MINGTONGJIAN-002-2445851-L0251`。 | - **胡大海平日军纪明确为“不杀、不掠妇女、不焚毁庐舍”。** 此为人物长期军纪标签；其遇害本身属于武装叛乱，进入 JSON。原文定位：`SRC-MINGTONGJIAN-002-2445851-L0254`。；- **禁酒军令对胡大海之子也执行。** 胡大海子犯禁，朱元璋以“宁可使大海叛我，不可使我法不行”为由处死，体现军令的刚性执行；这是刑政/军纪事实，不作为战役。原文定位：`SRC-MINGTONGJIAN-002-2445851-L0254`。 | - **洪都城防按地形重新规划。** 朱元璋认为旧城西南临水不利守御，将城墙内移三十步，东南又展二里余；至1362年工程完成。该工程后来直接影响洪都攻守，但本段本身属于工程，不预支后续战役收益。原文定位：`SRC-MINGTONGJIAN-002-2445851-L0259`。；- **洪都城防按地形重新规划。** 朱元璋认为旧城西南临水不利守御，将城墙内移三十步，东南又展二里余；至1362年工程完成。该工程后来直接影响洪都攻守，但本段本身属于工程，不预支后续战役收益。原文定位：`SRC-MINGTONGJIAN-002-2445851-L0259`。 | - **1362年设关市批验所，盐税十分取一、他物十五分取一。** 这是明确的商业税率。原文定位：`SRC-MINGTONGJIAN-002-2445851-L0279`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-002.source-summary.md#L36",
+                  "docs/史料通读产物/明/明通鉴/volume-002.source-summary.md#L38",
+                  "docs/史料通读产物/明/明通鉴/volume-002.source-summary.md#L40",
+                  "docs/史料通读产物/明/明通鉴/volume-002.source-summary.md#L42",
+                  "docs/史料通读产物/明/明通鉴/volume-002.source-summary.md#L46",
+                  "docs/史料通读产物/明/明通鉴/volume-002.source-summary.md#L48"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-8CFCBDC4E7DB"
+              },
+              {
+                "parent_id": "M3P-SEM-764DCC126E5C",
+                "candidate_ids_trace_only": [
+                  "M3H-E870F8A3FBE1F8A3",
+                  "M3H-636E6A5AF8D82B82"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- **关市税随后因“税重反伤军储”而回调。** 胡深指出原例二十取一，后改盐十取一、他物十五取一后，出现“商贩不通，军储缺乏”，且江西、浙东百姓食用困难；请求恢复二十取一，朱元璋批准。此条把税率、商业流通、军储和民用直接串成因果链，是本卷财政民生的核心材料。原文定位：`SRC-MINGTONGJIAN-002-2445851-L0302`。 | - **鄱阳湖战后对将士以田、金帛行赏。** 朱元璋回应天后，赐常遇春、廖永忠田，其他将士金帛有差。这属于战后财政支出，不并入单场物资收益 WR。原文定位：`SRC-MINGTONGJIAN-002-2445851-L0321`。；- **鄱阳湖战后对将士以田、金帛行赏。** 朱元璋回应天后，赐常遇春、廖永忠田，其他将士金帛有差。这属于战后财政支出，不并入单场物资收益 WR。原文定位：`SRC-MINGTONGJIAN-002-2445851-L0321`。 | ## 二、政治秩序、外交与人口变化",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-002.source-summary.md#L54",
+                  "docs/史料通读产物/明/明通鉴/volume-002.source-summary.md#L56"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-764DCC126E5C"
+              },
+              {
+                "parent_id": "M3P-SEM-AA5BE36AA4EA",
+                "candidate_ids_trace_only": [
+                  "M3H-A0197C004AA3D557"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "BUDGET_TREASURY"
+                ],
+                "chain_summary": "- **元廷试图授朱元璋江西行省平章等官，朱拒绝接受。** 方国珍又试图借张昶使团两面邀功；这反映名义招抚与实际独立的分离。原文定位：`SRC-MINGTONGJIAN-002-2445851-L0283`。 | - **叶兑提出较完整的区域战略与财政—军事一体方案。** 包括定都建康、守江淮、优先解决张士诚、以锁城和屯田切断平江、控制粮道、再处理方国珍与福建。它是战略建议而不是已执行事实，不写入战争收益。原文定位：`SRC-MINGTONGJIAN-002-2445851-L0284`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-002.source-summary.md#L80"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-AA5BE36AA4EA"
+              },
+              {
+                "parent_id": "M3P-SEM-3C10DFC4E18D",
+                "candidate_ids_trace_only": [
+                  "M3H-D3CB5A0390673D1F",
+                  "M3H-6AEE2A82E2072566",
+                  "M3H-64771EBAD94EBF9B"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "MARKET_TRADE",
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- **武昌受降后立即赈饥。** 六个月围城后城中居民已经“飢困”，朱元璋命给米赈济并召父老抚慰；战役终局本身进入 JSON，这里只保留战后救济事实。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0131`“城中民飢困，命給米振之”。 | - **销毁陈友谅镂金床，明确反对奢侈性财政消费。** 江西行省进陈氏镂金床，朱元璋以孟昶七宝溺器相比，认为一床如此则其他奢费可知，随即命毁。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0144`。 | - **限制功臣家僮恃势扰民。** 得知功臣家僮“恃勢驕恣踰越禮法”，朱元璋要求徐达、常遇春等迅速清除这类隐患。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0151`。；- **武昌受降后立即赈饥。** 六个月围城后城中居民已经“飢困”，朱元璋命给米赈济并召父老抚慰；战役终局本身进入 JSON，这里只保留战后救济事实。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0131`“城中民飢困，命給米振之”。 | - **销毁陈友谅镂金床，明确反对奢侈性财政消费。** 江西行省进陈氏镂金床，朱元璋以孟昶七宝溺器相比，认为一床如此则其他奢费可知，随即命毁。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0144`。 | - **限制功臣家僮恃势扰民。** 得知功臣家僮“恃勢驕恣踰越禮法”，朱元璋要求徐达、常遇春等迅速清除这类隐患。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0151`。 | - **湖广恢复铁冶以直接供应军需。** 中书省以“方今用武之際，非鐡無以資軍用”为由，请复州县旧铁冶，获准。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0153`。；- **销毁陈友谅镂金床，明确反对奢侈性财政消费。** 江西行省进陈氏镂金床，朱元璋以孟昶七宝溺器相比，认为一床如此则其他奢费可知，随即命毁。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0144`。 | - **限制功臣家僮恃势扰民。** 得知功臣家僮“恃勢驕恣踰越禮法”，朱元璋要求徐达、常遇春等迅速清除这类隐患。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0151`。 | - **湖广恢复铁冶以直接供应军需。** 中书省以“方今用武之際，非鐡無以資軍用”为由，请复州县旧铁冶，获准。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0153`。 | - **商税统一为三十分取一。** 并规定超额征收按违例论处，在都与府州县分别设宣课司、通课司。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0157`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-003.source-summary.md#L14",
+                  "docs/史料通读产物/明/明通鉴/volume-003.source-summary.md#L15",
+                  "docs/史料通读产物/明/明通鉴/volume-003.source-summary.md#L16"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-3C10DFC4E18D"
+              },
+              {
+                "parent_id": "M3P-SEM-C1704CDA5B5E",
+                "candidate_ids_trace_only": [
+                  "M3H-A078B23A9724BA3A",
+                  "M3H-DFA53ADF0948C764"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "MARKET_TRADE",
+                  "MONETARY_CREDIT",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- **庐州新接管区以招辑流民、恢复生产为重点。** 俞通海镇庐州后，史文明言“兵革之際，民多逃匿”，其日加招辑，复业者众。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0169`。 | - **赣州长期围城后取消横征并免欠粮。** 熊天瑞原“加賦橫斂民財”；克赣后，朱元璋令全部废除，并免上一年尚未输纳的秋粮。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0200`。 | - **安福军队掳掠千余男女后被强制归还。** 邓愈部卒掠男女千余，潘枢直谏后，邓愈下令掠民者斩，搜出军中被掳者，由潘枢护送归家；有人夜图再劫，被鞭以徇。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0201`。 | - **襄阳初平即实行军屯。** 邓愈受命镇襄阳，朱元璋令“小校以下悉令屯糧，且耕且戰”；章溢又以荆襄多废地，请分兵屯田并控制北方，获准。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0219`。；- **安福军队掳掠千余男女后被强制归还。** 邓愈部卒掠男女千余，潘枢直谏后，邓愈下令掠民者斩，搜出军中被掳者，由潘枢护送归家；有人夜图再劫，被鞭以徇。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0201`。 | - **襄阳初平即实行军屯。** 邓愈受命镇襄阳，朱元璋令“小校以下悉令屯糧，且耕且戰”；章溢又以荆襄多废地，请分兵屯田并控制北方，获准。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0219`。 | - **强制桑、麻、木棉种植，并设实物罚则。** 农户五至十亩者须各种半亩，十亩以上加倍；不种桑罚绢一匹，不种麻、木棉分别罚麻布、棉布。此为明确的农业生产行政干预。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0226`。 | - **渡江老兵建立伤残与遗属抚恤。** 对从渡江士卒，受创致残者供养，死亡者“歸其妻子”。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0240`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-003.source-summary.md#L21",
+                  "docs/史料通读产物/明/明通鉴/volume-003.source-summary.md#L23"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-C1704CDA5B5E"
+              },
+              {
+                "parent_id": "M3P-SEM-886693B6205D",
+                "candidate_ids_trace_only": [
+                  "M3H-4D292C07B2A78C61",
+                  "M3H-F43829E7CE827C9B"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- **出征张士诚前再次把农作和军纪写入军令。** 下令军民不要因战事逃散废农，并已敕大将军约束官兵，有掳掠者按军律治罪。实际战事另入 JSON。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0249`。 | - **禁止种糯稻以从源头压缩酿酒耗粮。** 先前禁酒后米麦价格稍平，朱元璋认为仍应“塞其源”，遂令当年农民不得种糯。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0285`。 | - **濠州乡里获阶段性租赋减免。** 朱元璋省墓离开时说明“鄉縣租賦已命有司勿征”，并称一二年后再归。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0304`。 | - **应天大规模扩城。** 新宫定在钟山之阳，旧城东北继续扩筑，延亘周围“五十餘里”；工程属于首都建设，不预支后续战争收益。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0310`。；- **禁止种糯稻以从源头压缩酿酒耗粮。** 先前禁酒后米麦价格稍平，朱元璋认为仍应“塞其源”，遂令当年农民不得种糯。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0285`。 | - **濠州乡里获阶段性租赋减免。** 朱元璋省墓离开时说明“鄉縣租賦已命有司勿征”，并称一二年后再归。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0304`。 | - **应天大规模扩城。** 新宫定在钟山之阳，旧城东北继续扩筑，延亘周围“五十餘里”；工程属于首都建设，不预支后续战争收益。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0310`。 | - **陈友定维持对元海运，但远洋损耗极大。** 其据福建八郡后每年向大都输粟数十万石，因海道辽远，“至者嘗十之三四”；这既反映福建粮源，也显示远程海运效率很低。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0312`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-003.source-summary.md#L27",
+                  "docs/史料通读产物/明/明通鉴/volume-003.source-summary.md#L28"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-886693B6205D"
+              },
+              {
+                "parent_id": "M3P-SEM-95B2B4C4B2D2",
+                "candidate_ids_trace_only": [
+                  "M3H-FCA92665212279A7",
+                  "M3H-06D97AB12D158F53"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "MONETARY_CREDIT"
+                ],
+                "chain_summary": "- **张士诚进一步架空元江浙行省。** 张士信逼取丞相符印、张氏迫死元御史大夫等官员，张士诚遂“專有江浙”，但政务委于士信；原文又详载士信奢淫、不理军务。政治胁迫未见实际军队接战，不按战役卡处理。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0176`。 | - **朱文正因骄暴与“异志”指控被免官安置，而非发生武装政变。** 朱元璋亲至南昌召回，最终免官安置桐城，没有军队交战，故不进战争账户。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0204`。 | - **以演练筛除冗兵。** 朱元璋认为“兵不貴多而貴精”，亲行训练考验，对伤而不退者赏银、给药，并指出募兵存在冗滥。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0205`。 | - **起居注被要求兼具进谏功能。** 滕毅、杨训文受命不仅记录，还须“輸忠納誨”，并被命搜集桀、纣、秦始皇、隋炀帝等亡国事作为鉴戒。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0227`。；- **朱文正因骄暴与“异志”指控被免官安置，而非发生武装政变。** 朱元璋亲至南昌召回，最终免官安置桐城，没有军队交战，故不进战争账户。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0204`。 | - **以演练筛除冗兵。** 朱元璋认为“兵不貴多而貴精”，亲行训练考验，对伤而不退者赏银、给药，并指出募兵存在冗滥。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0205`。 | - **起居注被要求兼具进谏功能。** 滕毅、杨训文受命不仅记录，还须“輸忠納誨”，并被命搜集桀、纣、秦始皇、隋炀帝等亡国事作为鉴戒。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0227`。 | - **设太史监、国子学。** 至正二十五年七月设太史监、刘基为太史令；九月以故集庆路学设国子学。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0236`、`SRC-MINGTONGJIAN-003-2445852-L0243`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-003.source-summary.md#L42",
+                  "docs/史料通读产物/明/明通鉴/volume-003.source-summary.md#L43"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-95B2B4C4B2D2"
+              },
+              {
+                "parent_id": "M3P-SEM-D5757482F694",
+                "candidate_ids_trace_only": [
+                  "M3H-CF07F9ECA664A973",
+                  "M3H-3D051FF49D34DBC5"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "MONETARY_CREDIT"
+                ],
+                "chain_summary": "- **元内部军令体系进一步碎裂。** 库库特穆尔奉命总天下兵，但李思齐、张良弼、图鲁卜、孔兴拒不受调，最终东西构兵；实际武装阶段进入 JSON。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0292`。 | - **濠州省墓时要求乡民孝悌力田、少从远商。** 同时朱元璋承认淮河沿线仍“尚苦寇掠”。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0300`。 | - **方国珍仍然是名义许诺而非实际纳土。** 虽屡称愿献三郡、输岁币，史文明言“終不納土”“歲幣亦不至”，朱元璋决定待平江后再处理。不能据名义表态计 BCP/WR。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0346`。 | - **韩林儿瓜步死亡存在明确史源争议。** 正文写廖永忠迎其赴应天途中沉江，卷末史论又集中讨论究竟为授意还是擅杀；事件没有军队交战或军事节点争夺，本卷作为政治死亡旁录。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0342—L0343`。；- **濠州省墓时要求乡民孝悌力田、少从远商。** 同时朱元璋承认淮河沿线仍“尚苦寇掠”。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0300`。 | - **方国珍仍然是名义许诺而非实际纳土。** 虽屡称愿献三郡、输岁币，史文明言“終不納土”“歲幣亦不至”，朱元璋决定待平江后再处理。不能据名义表态计 BCP/WR。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0346`。 | - **韩林儿瓜步死亡存在明确史源争议。** 正文写廖永忠迎其赴应天途中沉江，卷末史论又集中讨论究竟为授意还是擅杀；事件没有军队交战或军事节点争夺，本卷作为政治死亡旁录。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0342—L0343`。 | - **明夏继续互遣使者，朱方使者并绘取蜀地山川险易。** 这是外交兼情报活动。原文定位：`SRC-MINGTONGJIAN-003-2445852-L0344`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-003.source-summary.md#L51",
+                  "docs/史料通读产物/明/明通鉴/volume-003.source-summary.md#L52"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-D5757482F694"
+              },
+              {
+                "parent_id": "M3P-SEM-8DF28FC040D1",
+                "candidate_ids_trace_only": [
+                  "M3H-A720A02376C0DA6A",
+                  "M3H-093D92E280A0849E",
+                  "M3H-2180B8E53E1D675F",
+                  "M3H-FC52C683FA287583",
+                  "M3H-630A06D48F217672",
+                  "M3H-41F4231388BE57F1"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- **创业核心区获得大幅租税减免。** 朱元璋直接回忆早年“在军中乏粮，空腹出战”，又指出太平、应天等地长期承担供亿、农民田业有限而“供需百出”；遂免太平租二年，应天、镇江、宁国、广德各一年。原文定位：`SRC-MINGTONGJIAN-004-2445853-L0125`。 | - **两浙盐政正式制度化。** 在杭州设两浙都转运盐司，下设三十六场。原文定位：`SRC-MINGTONGJIAN-004-2445853-L0136`。 | - **旱灾与战争新附地区叠加时，实行三年田租复免。** 五月旱，朱元璋减膳素食，并称中原人民流离；徐、宿、濠、泗、寿、邳、海安、襄阳、安陆等新附民“皆復田租三年”。原文定位：`SRC-MINGTONGJIAN-004-2445853-L0159`。；- **两浙盐政正式制度化。** 在杭州设两浙都转运盐司，下设三十六场。原文定位：`SRC-MINGTONGJIAN-004-2445853-L0136`。 | - **旱灾与战争新附地区叠加时，实行三年田租复免。** 五月旱，朱元璋减膳素食，并称中原人民流离；徐、宿、濠、泗、寿、邳、海安、襄阳、安陆等新附民“皆復田租三年”。原文定位：`SRC-MINGTONGJIAN-004-2445853-L0159`。 | - **因旱清理滞狱并尝试限制滥杀。** 刘基请决滞狱，朱元璋命平反；随后又请立法定制“以止濫殺”，获准。原文定位：`SRC-MINGTONGJIAN-004-2445853-L0160`。 | - **六月降雨后仍承认禾稼已受损，免当年田租。** 群臣因雨请恢复常膳，朱元璋答“雖雨，傷禾已多”，赐民当年田租。原文定位：`SRC-MINGTONGJIAN-004-2445853-L0164`。；- **旱灾与战争新附地区叠加时，实行三年田租复免。** 五月旱，朱元璋减膳素食，并称中原人民流离；徐、宿、濠、泗、寿、邳、海安、襄阳、安陆等新附民“皆復田租三年”。原文定位：`SRC-MINGTONGJIAN-004-2445853-L0159`。 | - **因旱清理滞狱并尝试限制滥杀。** 刘基请决滞狱，朱元璋命平反；随后又请立法定制“以止濫殺”，获准。原文定位：`SRC-MINGTONGJIAN-004-2445853-L0160`。 | - **六月降雨后仍承认禾稼已受损，免当年田租。** 群臣因雨请恢复常膳，朱元璋答“雖雨，傷禾已多”，赐民当年田租。原文定位：`SRC-MINGTONGJIAN-004-2445853-L0164`。 | - **给新任地方官布帛、路费及家属资助，明确用于抑制侵渔。** 任命郡县官二百三十四人时，除给本人道里费，还给父母妻子布帛，并说明目的是“以養汝廉……毋漁民以自利”。原文定位：`SRC-MINGTONGJIAN-004-2445853-L0170`。；- **因旱清理滞狱并尝试限制滥杀。** 刘基请决滞狱，朱元璋命平反；随后又请立法定制“以止濫殺”，获准。原文定位：`SRC-MINGTONGJIAN-004-2445853-L0160`。 | - **六月降雨后仍承认禾稼已受损，免当年田租。** 群臣因雨请恢复常膳，朱元璋答“雖雨，傷禾已多”，赐民当年田租。原文定位：`SRC-MINGTONGJIAN-004-2445853-L0164`。 | - **给新任地方官布帛、路费及家属资助，明确用于抑制侵渔。** 任命郡县官二百三十四人时，除给本人道里费，还给父母妻子布帛，并说明目的是“以養汝廉……毋漁民以自利”。原文定位：`SRC-MINGTONGJIAN-004-2445853-L0170`。 | - **平江长期围城造成城内民居、祠庙被守军拆毁作炮具。** 张士诚方面因木石耗尽，进一步“毀祠廟民居為礮具”；这",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-004.source-summary.md#L14",
+                  "docs/史料通读产物/明/明通鉴/volume-004.source-summary.md#L16",
+                  "docs/史料通读产物/明/明通鉴/volume-004.source-summary.md#L17",
+                  "docs/史料通读产物/明/明通鉴/volume-004.source-summary.md#L18",
+                  "docs/史料通读产物/明/明通鉴/volume-004.source-summary.md#L22",
+                  "docs/史料通读产物/明/明通鉴/volume-004.source-summary.md#L23"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-8DF28FC040D1"
+              },
+              {
+                "parent_id": "M3P-SEM-07486CA24A31",
+                "candidate_ids_trace_only": [
+                  "M3H-0030B4F928C711CA"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "UNRESOLVED_DIRECTION",
+                "mechanisms": [
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- **新接管山东县域开始配置守将与行政等级。** 徐达在邹平、章丘、蒲台等地部署守将，朝廷又按税粮规模区分上中下县，说明军事推进之后已转入行政接管。原文定位：`SRC-MINGTONGJIAN-004-2445853-L0266`、`L0275`。 | - **新宫仪卫继续删去夸大性标语。** “天下太平，皇帝万岁”被朱元璋视为夸大之词而命去。原文定位：`SRC-MINGTONGJIAN-004-2445853-L0270`。 | ## 三、跨卷连续性",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-004.source-summary.md#L53"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-07486CA24A31"
+              },
+              {
+                "parent_id": "M3P-SEM-F49F68C57FD8",
+                "candidate_ids_trace_only": [
+                  "M3H-AD04B08923B853C3",
+                  "M3H-D357CF1B9324A43F"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY"
+                ],
+                "chain_summary": "- **浙西重新核田并压低战时加征。** 派周铸等一百六十四人核实田亩，理由是兵革后版籍多亡、超额取民为害；处州因军粮加征曾达常额十倍，后改按宋制亩加五合，余悉除。原文定位：`SRC-MINGTONGJIAN-005-2445854-L0142`。 | - **朱元璋把“宽民”具体化为节用、省役、禁贪。** 明言不节用则民财竭、不省役则民力困，不禁贪暴则民不得遂生。原文定位：`SRC-MINGTONGJIAN-005-2445854-L0142`。 | - **军卫制度固定后，军户来源包括从征、归附、谪发，并世籍化。** 卫五千六百人、千户所一千一百二十人；将领出征佩印、还师缴印，军士归卫，调兵权归朝廷。该制度关系长期兵役负担，但本段没有单场战争成本，留作制度事实。原文定位：`SRC-MINGTONGJIAN-005-2445854-L0154`。 | - **对地方官反复强调战后财力困乏。** 朱元璋以“鸟初飞、木初植”比喻天下新定，要求廉吏勿朘民。原文定位：`SRC-MINGTONGJIAN-005-2445854-L0156`。；- **军卫制度固定后，军户来源包括从征、归附、谪发，并世籍化。** 卫五千六百人、千户所一千一百二十人；将领出征佩印、还师缴印，军士归卫，调兵权归朝廷。该制度关系长期兵役负担，但本段没有单场战争成本，留作制度事实。原文定位：`SRC-MINGTONGJIAN-005-2445854-L0154`。 | - **对地方官反复强调战后财力困乏。** 朱元璋以“鸟初飞、木初植”比喻天下新定，要求廉吏勿朘民。原文定位：`SRC-MINGTONGJIAN-005-2445854-L0156`。 | - **北伐设置海运军粮。** 大军北伐时，明州造舟、由海道向直沽运粮；卷末又记浙江、江西、苏州等九府运粮三百万石至汴梁，忻、崞、代、坚、台五州运粮大同，并发莱州洋海仓，开始固定辽东、北平海道轮饷。这是本卷最硬的战争财政/运输数字。原文定位：`SRC-MINGTONGJIAN-005-2445854-L0158`、`SRC-MINGTONGJIAN-005-2445854-L0327`。 | - **建立“均工夫”役法，并限定农隙三十日。** 田一顷出夫一人，不足一顷者合田凑夫；每年农隙赴京供役三十日，田主给佃人米一石；朱元璋同时要求不急、浮泛之役一律停止。原文定位：`SRC-MINGTONGJIAN-005-2445854-L0174`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-005.source-summary.md#L18",
+                  "docs/史料通读产物/明/明通鉴/volume-005.source-summary.md#L20"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-F49F68C57FD8"
+              },
+              {
+                "parent_id": "M3P-SEM-DC2DE7F73488",
+                "candidate_ids_trace_only": [
+                  "M3H-F6CC91268516C5E2"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- **靖江破城时禁止屠城。** 张彬曾扬言城下尽屠，杨璟先令“杀人者死”，因而城中人心安定。实际攻城归 JSON，这里只保留军纪事实。原文定位：`SRC-MINGTONGJIAN-005-2445854-L0234`。 | - **北征前再发“不虏掠、不焚荡”军令。** 朱元璋称中原民“久苦兵革”，强调克城后必须使市肆不移、百姓安生，并善待元宗戚。原文定位：`SRC-MINGTONGJIAN-005-2445854-L0252`。 | - **新附北方守令被要求“简役省费”。** 同时新授府州县官给白金十两、布六匹以养廉；要求安养凋敝新附民，不得扰害。原文定位：`SRC-MINGTONGJIAN-005-2445854-L0268`。 | - **多地因水旱免租。** 吴江、广德、太平、宁国、和州、滁州等水旱地区蠲租。原文定位：`SRC-MINGTONGJIAN-005-2445854-L0270`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-005.source-summary.md#L26"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-DC2DE7F73488"
+              },
+              {
+                "parent_id": "M3P-SEM-3FB66B1F2E10",
+                "candidate_ids_trace_only": [
+                  "M3H-000DA75489A220B6"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "PUBLIC_WORKS",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- **京畿漕运司为持续北征而设。** 薛祥负责河南转漕，后在淮安筑堤数百里，史称徭役均平、民无怨言，并存恤南迁官民。原文定位：`SRC-MINGTONGJIAN-005-2445854-L0303`。 | - **反对继续减浙西税但只部分采纳。** 王禕请求浙西既平后减科敛，朱元璋嘉纳但“不能尽从”，说明减负原则与实际财政需求之间仍有张力。原文定位：`SRC-MINGTONGJIAN-005-2445854-L0288`。 | - **拒绝奢华计时器与宫殿游观。** 命碎元代水晶刻漏，称“作无益，害有益”；又拒绝金饰车舆及宫中亭台游观，理由是“不忍重伤民力”。原文定位：`SRC-MINGTONGJIAN-005-2445854-L0301`、`SRC-MINGTONGJIAN-005-2445854-L0332`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-005.source-summary.md#L33"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-3FB66B1F2E10"
+              },
+              {
+                "parent_id": "M3P-SEM-3A0EE9C9C6B2",
+                "candidate_ids_trace_only": [
+                  "M3H-C1081A6EA38217C5"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- **秦陇新附州县获得税粮蠲免/赐免。** 原文在临洮归附后即记“賜秦隴新附各州縣稅糧”，反映西北推进后同步减轻新附区负担。原文定位：`SRC-MINGTONGJIAN-006-2445855-L0166`。 | - **对“祥瑞”采取明显克制态度，并要求灾异无论大小即时上报。** 各地进瑞麦时，朱元璋以汉武好功生事、海内空虚为戒，称国家之瑞在“三光平、寒暑时”；又批评礼部只议祥瑞不议灾异，命以后灾异大小皆报。原文定位：`SRC-MINGTONGJIAN-006-2445855-L0171`。 | - **西北新附区继续承担并调整军粮体系。** 大军深入关陕时，临洮、鞏昌等地纳入军粮和驻守体系；但卷内多处城市主要以归附接管，不把这类行政供给自动作为单场战役A/M重复累计。 | - **设置京卫军储仓并扩至二十所，又设临濠、临清二仓。** 直接服务于京师军粮储备和转运。原文定位：`SRC-MINGTONGJIAN-006-2445855-L0203`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-006.source-summary.md#L17"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-3A0EE9C9C6B2"
+              },
+              {
+                "parent_id": "M3P-SEM-990E0F7BB9B4",
+                "candidate_ids_trace_only": [
+                  "M3H-3BDDAF8F69B5BD48",
+                  "M3H-2DD27B721D17DE7C"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- **允许老亲在世官员归养。** 朱元璋见鹊育雏而感念母子之恩，令群臣有亲老者可以归养；元降人陈兴因八十余岁老母在嵩州求归，也获白金、衣服遣还。原文定位：`SRC-MINGTONGJIAN-007-2445856-L0128`。 | - **三月大范围蠲免田租。** 南畿、河南、山东、北平以及浙江、江西、广信、饶州当年田租均免；徐州、邳州夏税又另行蠲免。原文定位：`SRC-MINGTONGJIAN-007-2445856-L0140`、`L0146`。 | - **北方战后治理明确转向屯田、积粟、招流民。** 郑州知州苏琦指出关辅、平凉、北平、辽右余敌未平，转饷困难，应屯田积粟；又主张招集流亡、官给牛种，并建议将沙漠人口分徙内地、守臣填守要害。朱元璋命中书省采行。原文定位：`SRC-MINGTONGJIAN-007-2445856-L0144`。；- **三月大范围蠲免田租。** 南畿、河南、山东、北平以及浙江、江西、广信、饶州当年田租均免；徐州、邳州夏税又另行蠲免。原文定位：`SRC-MINGTONGJIAN-007-2445856-L0140`、`L0146`。 | - **北方战后治理明确转向屯田、积粟、招流民。** 郑州知州苏琦指出关辅、平凉、北平、辽右余敌未平，转饷困难，应屯田积粟；又主张招集流亡、官给牛种，并建议将沙漠人口分徙内地、守臣填守要害。朱元璋命中书省采行。原文定位：`SRC-MINGTONGJIAN-007-2445856-L0144`。 | - **开中盐法把边储与商运直接结合。** 大同粮原从陵县经太和岭转运，路远费烦；新法允许商人在大同、太原仓纳米换淮盐引，借商业运输充实边储、节省官运。后各行省边境多仿行。原文定位：`SRC-MINGTONGJIAN-007-2445856-L0189`。 | - **设置义冢。** 诏天下郡县设义冢，并禁江西、浙江等地水葬、火葬。原文定位：`SRC-MINGTONGJIAN-007-2445856-L0191`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-007.source-summary.md#L14",
+                  "docs/史料通读产物/明/明通鉴/volume-007.source-summary.md#L16"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-990E0F7BB9B4"
+              },
+              {
+                "parent_id": "M3P-SEM-4F6D83EC6D58",
+                "candidate_ids_trace_only": [
+                  "M3H-49F746C298329B9B",
+                  "M3H-5FC049A84BD927E4",
+                  "M3H-17479DBCB6730ECF"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- **军队逃亡规模达到四万七千九百余。** 自吴元年至洪武三年十一月核计军士逃亡者 `47,900余`，朝廷下追捕令，并按所辖逃兵数量处罚小旗、总旗、百户、千户，在外从征者加等处罚。这是本卷极重要的持续服役压力与军伍稳定性材料，不能拆散回填某一场战役P。原文定位：`SRC-MINGTONGJIAN-007-2445856-L0232`。 | - **薛显擅杀军中人员后的补偿。** 朱元璋虽因其战功未治重罪，但封侯不给铁券，并把禄分三份，其中一份赡养被其擅杀的吴富及马军之家，另给其母妻；明确提出“功过无相掩”。原文定位：`SRC-MINGTONGJIAN-007-2445856-L0235`。 | - **陕西察罕诺尔设盐课提举司。** 属西北新附区财政制度化。原文定位：`SRC-MINGTONGJIAN-007-2445856-L0244`。 | - **明确要求大战后“少休息”。** 朱元璋称徐达等连年征伐、冒霜露矢石，天下既定宜稍休息，遂将常朝改为三日或五日一朝，有事再召议。原文定位：`SRC-MINGTONGJIAN-007-2445856-L0246`。；- **陕西察罕诺尔设盐课提举司。** 属西北新附区财政制度化。原文定位：`SRC-MINGTONGJIAN-007-2445856-L0244`。 | - **明确要求大战后“少休息”。** 朱元璋称徐达等连年征伐、冒霜露矢石，天下既定宜稍休息，遂将常朝改为三日或五日一朝，有事再召议。原文定位：`SRC-MINGTONGJIAN-007-2445856-L0246`。 | - **江西秋粮获得减免。** 翰林编修罗复仁晚年被召，奏减江西秋粮，朱元璋准许。原文定位：`SRC-MINGTONGJIAN-007-2445856-L0249`。；- **明确要求大战后“少休息”。** 朱元璋称徐达等连年征伐、冒霜露矢石，天下既定宜稍休息，遂将常朝改为三日或五日一朝，有事再召议。原文定位：`SRC-MINGTONGJIAN-007-2445856-L0246`。 | - **江西秋粮获得减免。** 翰林编修罗复仁晚年被召，奏减江西秋粮，朱元璋准许。原文定位：`SRC-MINGTONGJIAN-007-2445856-L0249`。 | ## 二、政治秩序、外交与人口变化",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-007.source-summary.md#L23",
+                  "docs/史料通读产物/明/明通鉴/volume-007.source-summary.md#L25",
+                  "docs/史料通读产物/明/明通鉴/volume-007.source-summary.md#L26"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-4F6D83EC6D58"
+              },
+              {
+                "parent_id": "M3P-SEM-98035E880D1D",
+                "candidate_ids_trace_only": [
+                  "M3H-498FD23B9BBB67A4"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "MARKET_TRADE",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- **茶马司以“十取其一”税茶换番马。** 在秦、洮、河、雅诸州设司，自碉门、黎雅至朵甘、乌斯藏，贸易路线五千余里。原文定位：`SRC-MINGTONGJIAN-008-2445857-L0248`。 | - **拒绝继续役使应天京民。** 应天府请役京民运输官物，朱元璋以京民从开国以来“劳费倍于外郡”、兵革渐息应休养为由拒绝，并赐京民每户绢一匹。原文定位：`SRC-MINGTONGJIAN-008-2445857-L0252`。 | - **削减高丽过密朝贡，明确以民力与海难为理由。** 高丽元旦、圣节频繁入贡，泛海遇风多人溺死；明廷改为三年一贡，贡品只取土产且不得奢侈。原文定位：`SRC-MINGTONGJIAN-008-2445857-L0254`。 | - **济南、莱州饥荒获赈。** 原文定位：`SRC-MINGTONGJIAN-008-2445857-L0258`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-008.source-summary.md#L28"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-98035E880D1D"
+              },
+              {
+                "parent_id": "M3P-SEM-27B1EFBB8204",
+                "candidate_ids_trace_only": [
+                  "M3H-15B686D3C3684715",
+                  "M3H-2F63F8821EE9060C"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- **真定等地出现严重饥荒，百姓已食草实、木皮。** 饶阳知县郭樌上报后，朝廷查知晋、冀等州亦饥，遣兵部尚书刘仁分赴州县赈济并蠲租。原文定位：`SRC-MINGTONGJIAN-009-2445858-L0190`。 | - **拒绝地方贡品以免劳民。** 潞州进人参时，朱元璋称此前金华香米、太原葡萄酒都已停止，国家以养民为务，不应因口腹之欲加重采办运输。原文定位：`SRC-MINGTONGJIAN-009-2445858-L0193`。 | - **《大明律》六百零六条颁行，立法叙述仍强调刑罚只是“药石”。** 朱元璋把仁义比作充饥膏粱、刑罚比作治病药石，要求新律“务合轻重之宜”；但同卷又明言自己因惩元末“宽纵”而颇用重典，形成明显张力。原文定位：`SRC-MINGTONGJIAN-009-2445858-L0179`、`L0199`。 | - **精简僧道机构，直接以“蠹财耗民”为理由。** 天下府州县只留大观寺一处集中僧道，无戒行、不能通经典者不得领取度牒，四十岁以下女子不得出家为尼。原文定位：`SRC-MINGTONGJIAN-009-2445858-L0203`。；- **拒绝地方贡品以免劳民。** 潞州进人参时，朱元璋称此前金华香米、太原葡萄酒都已停止，国家以养民为务，不应因口腹之欲加重采办运输。原文定位：`SRC-MINGTONGJIAN-009-2445858-L0193`。 | - **《大明律》六百零六条颁行，立法叙述仍强调刑罚只是“药石”。** 朱元璋把仁义比作充饥膏粱、刑罚比作治病药石，要求新律“务合轻重之宜”；但同卷又明言自己因惩元末“宽纵”而颇用重典，形成明显张力。原文定位：`SRC-MINGTONGJIAN-009-2445858-L0179`、`L0199`。 | - **精简僧道机构，直接以“蠹财耗民”为理由。** 天下府州县只留大观寺一处集中僧道，无戒行、不能通经典者不得领取度牒，四十岁以下女子不得出家为尼。原文定位：`SRC-MINGTONGJIAN-009-2445858-L0203`。 | - **军士训练开始按骑射、步射成绩制度化考核。** 能者奖赏，不合格军士遣回，自都指挥以下将官降官、夺俸有差。原文定位：`SRC-MINGTONGJIAN-009-2445858-L0210`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-009.source-summary.md#L16",
+                  "docs/史料通读产物/明/明通鉴/volume-009.source-summary.md#L17"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-27B1EFBB8204"
+              },
+              {
+                "parent_id": "M3P-SEM-25FB4CC2C7DD",
+                "candidate_ids_trace_only": [
+                  "M3H-5C1E52E94DFB33F5"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- **河间、广平、顺德、真定再因饥荒获赈并蠲租税。** 原文定位：`SRC-MINGTONGJIAN-009-2445858-L0264`。 | - **洪武八年建立面向“穷民无告者”的最低生活救助原则。** 命地方对无告穷民给屋舍、衣食，朱元璋以自己早年亲见鳏寡孤独饥寒为由，要求“不可以使天下有一夫不获”。原文定位：`SRC-MINGTONGJIAN-009-2445858-L0294`。 | - **黄河决开封大黄堤，发民夫三万堵决。** 这是本卷规模最大的明确工程徭役数字。原文定位：`SRC-MINGTONGJIAN-009-2445858-L0302`。 | - **刑罚与劳役结合继续扩大。** 各处人民杂犯死罪以下者改为终身工役；官吏犯私罪，轻者屯种、重者工役，均谪凤阳。原文定位：`SRC-MINGTONGJIAN-009-2445858-L0306`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-009.source-summary.md#L28"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-25FB4CC2C7DD"
+              },
+              {
+                "parent_id": "M3P-SEM-41C6B2FE0359",
+                "candidate_ids_trace_only": [
+                  "M3H-BF319A44E7A61498"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "MARKET_TRADE",
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- **洪武九年大规模免除多省租赋，直接把长期战争、转运和王府营建列为民困来源。** 诏称西征敦煌、北伐沙漠的军需甲仗主要取给山西、陕西，又有秦、晋二府宫殿工程，畿辅土木屡兴、外郡疲于转运，因此淮扬安徽池五府及山西、陕西、河南、福建、江西、浙江、北平、湖广当年租赋全部免除。原文定位：`SRC-MINGTONGJIAN-010-2445859-L0137`。 | - **拒绝把催运、增商税作为地方官“上考”依据。** 日照知县马亮长于督运、平遥主簿成乐能恢办商税，原被注上考；朱元璋认为令佐职责在抚安百姓，不能以督促征输、增办税额为能，责令吏部查问考核者。原文定位：`SRC-MINGTONGJIAN-010-2445859-L0156`。 | - **苏松嘉湖水灾田租一次蠲免二十九万九千四百余石，永平旱灾又免租并赈济。** 原文定位：`SRC-MINGTONGJIAN-010-2445859-L0160`。 | - **北方荒地税制明确禁止基层虚增亩数。** 张致中建议北方新垦旷土由农民自报亩数定税，守令不得纵容里甲虚增额数；同时建议京师、府州县设常平仓随时敛放，均获采行。原文定位：`SRC-MINGTONGJIAN-010-2445859-L0196`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-010.source-summary.md#L15"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-41C6B2FE0359"
+              },
+              {
+                "parent_id": "M3P-SEM-73D00A40B40C",
+                "candidate_ids_trace_only": [
+                  "M3H-80DFC265645F21EB",
+                  "M3H-01FD8C851314EF74",
+                  "M3H-76ADC5BE5E644C28",
+                  "M3H-8E57B55E85099D6E"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "MONETARY_CREDIT",
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- **苏松嘉湖春季赈灾十三万一千二百余户，每户给米一石。** 原文定位：`SRC-MINGTONGJIAN-010-2445859-L0206`。 | - **湖广救灾迟延造成“民之死者多”，主管官因此被诛。** 荆蕲等地上年十一月已有水灾，户部主事赵乾延至次年五六月才赈；朱元璋明确把饥民死亡归责于救济延误，下令处死赵乾。该条既是重大民生事实，也说明灾害行政迟滞已造成实际人口损害。原文定位：`SRC-MINGTONGJIAN-010-2445859-L0213`。 | - **威州秋税由输牛羊改为输粮，减少跨区畜力转运导致的破产。** 原制民户秋税须折牛羊送陕西，外县运输牲畜常至破产；威州知州吴履改以粮纳本州，再由官府转输，州民得以免除重负。原文定位：`SRC-MINGTONGJIAN-010-2445859-L0214`。 | - **河南、陕西、广东、湖广灾区再免田租。** 原文定位：`SRC-MINGTONGJIAN-010-2445859-L0242`。；- **河南、陕西、广东、湖广灾区再免田租。** 原文定位：`SRC-MINGTONGJIAN-010-2445859-L0242`。 | - **秦王就藩时再次承认关中民众长期承担战争与转输。** 朱元璋称关内自元末以来受乱，又因明朝平天下承担转输，“民未休息”，因此王府已成后不急事务必须停止。原文定位：`SRC-MINGTONGJIAN-010-2445859-L0269`。 | - **苏松嘉湖洪武十一年再遭水灾，户给米一石，并免逋赋六十五万有奇。** 户部原欲追究苏州欠赋官员，朱元璋拒绝，理由是追官最终仍会把欠额压到百姓身上，使“民倾资输官，困将益甚”。原文定位：`SRC-MINGTONGJIAN-010-2445859-L0274`。 | - **苏、松、台、扬四府海溢，“人多溺死”，朝廷遣官存恤。** 原文定位：`SRC-MINGTONGJIAN-010-2445859-L0282`。；- **秦王就藩时再次承认关中民众长期承担战争与转输。** 朱元璋称关内自元末以来受乱，又因明朝平天下承担转输，“民未休息”，因此王府已成后不急事务必须停止。原文定位：`SRC-MINGTONGJIAN-010-2445859-L0269`。 | - **苏松嘉湖洪武十一年再遭水灾，户给米一石，并免逋赋六十五万有奇。** 户部原欲追究苏州欠赋官员，朱元璋拒绝，理由是追官最终仍会把欠额压到百姓身上，使“民倾资输官，困将益甚”。原文定位：`SRC-MINGTONGJIAN-010-2445859-L0274`。 | - **苏、松、台、扬四府海溢，“人多溺死”，朝廷遣官存恤。** 原文定位：`SRC-MINGTONGJIAN-010-2445859-L0282`。 | - **应天、太平、镇江、宁国、广德秋粮获免。** 原文定位：`SRC-MINGTONGJIAN-010-2445859-L0284`。；- **应天、太平、镇江、宁国、广德秋粮获免。** 原文定位：`SRC-MINGTONGJIAN-010-2445859-L0284`。 | - **洮州长期驻军的粮运与民劳已被朝臣直接指出。** 李文忠认为官军守洮州“饷艰民劳”；朱元璋承认成本，但以洮州西控羌戎、东蔽湟陇为由坚持设卫，并认为战争缴获的牛羊足供军食两年。此项驻防财政民生事实独立于洮州战役收益。原文定位：`SRC-MINGTONGJIAN-010-2445859-L0311`。 | - **洪武十二年春雨雪连旬，天下穷民多困于饥寒。** 朝廷命地方给钞救济，京师孤幼每户给盐十五斤、孤寡十斤。原文定位：`SRC-MINGTONGJIAN-010-2445859-L0313`。 | - **北平田租获免。** 原文定位：`SRC-",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-010.source-summary.md#L20",
+                  "docs/史料通读产物/明/明通鉴/volume-010.source-summary.md#L23",
+                  "docs/史料通读产物/明/明通鉴/volume-010.source-summary.md#L24",
+                  "docs/史料通读产物/明/明通鉴/volume-010.source-summary.md#L27"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-73D00A40B40C"
+              },
+              {
+                "parent_id": "M3P-SEM-1DF5C0ADDAA0",
+                "candidate_ids_trace_only": [
+                  "M3H-78664C5267B18315"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- **五府及开封、陈州等灾区田租获免。** 应天、太平、广德、镇江、宁国以及开封、祥符等八县、陈州被水田租均免。原文定位：`SRC-MINGTONGJIAN-011-2445860-L0264`。 | - **胡惟庸案后税课机构被裁撤一批，并明确取消婚丧、舟车丝布等杂税及竹木抽分。** 全国征商不足额的税课机构经复核后，有三百六十四处因岁额米不足五百石而罢；朱元璋以“聚敛锥刀”为耻，要求军民嫁娶丧葬物、舟车丝布类不再征税。原文定位：`SRC-MINGTONGJIAN-011-2445860-L0197`。 | - **北征转入常态化后，徐达形成“春出冬还”的年度镇边制度。** 这是持续服役和边军压力的制度事实，不把每年轮换本身塞入某一战斗 M 轴。原文定位：`SRC-MINGTONGJIAN-011-2445860-L0204`。 | - **云南远征为三十万步骑国家级动员，并在贵州、乌撒等地留兵戍守。** 大军动员本身进入相关战役卡的 M 轴；非战役层面还应看到远征后需要继续留屯、设卫、筑路和保障军食。原文定位：`SRC-MINGTONGJIAN-011-2445860-L0249—L0251`、`L0276—L0277`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-011.source-summary.md#L19"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-1DF5C0ADDAA0"
+              },
+              {
+                "parent_id": "M3P-SEM-623DACB2D91C",
+                "candidate_ids_trace_only": [
+                  "M3H-D08578C8CFB574DE",
+                  "M3H-673E46BB4EBA9B82"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE"
+                ],
+                "chain_summary": "- **云南初定后立即面对“兵燹后图籍不存、豪右隐田、卫军缺粮”的治理底账。** 傅友德报告当地多经兵燹、图籍不存、兵数难核，元末田土又多被豪右隐占；朝廷同意把当年征粮、官田及盐课收入优先供给诸卫军食，并置云南盐课司。原文定位：`SRC-MINGTONGJIAN-011-2445860-L0313`。 | - **拒绝恢复临水镇铁冶，理由是民生刚定、开矿会重扰百姓。** 朱元璋提出“利不在官，即在民”，认为不能为搜利重开铁冶；此前军兴时全国曾设十三处铁冶，之后一度陆续停罢。原文定位：`SRC-MINGTONGJIAN-011-2445860-L0328`。 | - **海运军士溺死问题已经严重到推动辽东屯田政策。** 朝廷因得知海运士卒多溺死，转而讨论在辽东屯田以减少跨海运输。原文定位：`SRC-MINGTONGJIAN-011-2445860-L0332`。 | - **滇、黔、蜀交通工程规模巨大：诸部按疆界远近开筑宽十丈道路、六十里一驿。** 这属于征服后的长期交通与驻军建设成本，不能重复塞进单场战役 A/M。原文定位：`SRC-MINGTONGJIAN-011-2445860-L0333`。；- **滇、黔、蜀交通工程规模巨大：诸部按疆界远近开筑宽十丈道路、六十里一驿。** 这属于征服后的长期交通与驻军建设成本，不能重复塞进单场战役 A/M。原文定位：`SRC-MINGTONGJIAN-011-2445860-L0333`。 | - **云南新占区士卒军食被明确视为困难。** 朱元璋因此反对过度分屯，主张只在赤水、毕节、七星关等关键节点集中设卫，以保障交通。原文定位：`SRC-MINGTONGJIAN-011-2445860-L0349`。 | - **北平受灾屯田士卒获赈。** 原文定位：`SRC-MINGTONGJIAN-011-2445860-L0380`。 | - **空印案后形成半印勘合制度。** 各府州县钱粮书册改用半印勘合、年终送底簿清册互相稽核，以替代此前导致大规模株连的空印惯例。原文定位：`SRC-MINGTONGJIAN-011-2445860-L0384`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-011.source-summary.md#L23",
+                  "docs/史料通读产物/明/明通鉴/volume-011.source-summary.md#L26"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-623DACB2D91C"
+              },
+              {
+                "parent_id": "M3P-SEM-8315672120C6",
+                "candidate_ids_trace_only": [
+                  "M3H-A3B5A38D939E3840"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "MONETARY_CREDIT",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- **畿内田租再次全免，并命天下郡县埋葬暴露遗骨。** 原文定位：`SRC-MINGTONGJIAN-012-2445861-L0309`。 | - **郭桓案造成极大行政与民间财产破坏。** 郭桓被控盗官粮七百余万石，拷讯供词牵引直省官吏，系狱拟罪数万人；“民中人之家大氐皆破”。御史指出大量供词来自法司逼招后，朱元璋承认“复生奸扰吾民”，又处死审刑官。原文定位：`SRC-MINGTONGJIAN-012-2445861-L0311`。 | - **河南水灾继续获赈。** 原文定位：`SRC-MINGTONGJIAN-012-2445861-L0338`。 | - **《大诰》把极重刑罚进一步制度化和社会化。** 其中凌迟、枭示、族诛“无虑千百”，弃市以下万数；十九万余师生因讲读《大诰》入朝。史文总结郭桓案后“诛戮益多，官吏皆重足而立”。这是本卷极重要的社会—行政高压材料。原文定位：`SRC-MINGTONGJIAN-012-2445861-L0348`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-012.source-summary.md#L28"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-8315672120C6"
+              },
+              {
+                "parent_id": "M3P-SEM-EAA9C293AC3B",
+                "candidate_ids_trace_only": [
+                  "M3H-55A9D4A19267DD7D"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "18. **畿内官田租减半。** 原文定位：`SRC-MINGTONGJIAN-014-2445863-L0254`。 | 19. **龙阳长期水患与税粮积欠暴露严重基层负担。** 原文称逋赋“数十万”，催征中“敲朴死者相踵”。典史青文胜多次请命未报，最终在登闻鼓下自缢；朱元璋随后减龙阳租二万四千余石并定为新额，且以公田百亩养其贫困妻子。这里既有基层征税致死的强负证，也有事后减额纠偏。原文定位：`SRC-MINGTONGJIAN-014-2445863-L0255`。 | 20. **北平、河间水灾田租获免；河南水灾再获赈。** 原文定位：`SRC-MINGTONGJIAN-014-2445863-L0266`、`SRC-MINGTONGJIAN-014-2445863-L0272`。 | 21. **赋役黄册完成并给出全国户丁总数。** 共计户一千零六十八万四千四百三十五、丁五千六百七十七万四千五百六十一。黄册是洪武财政赋役基层登记的核心底账。原文定位：`SRC-MINGTONGJIAN-014-2445863-L0284`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-014.source-summary.md#L32"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-EAA9C293AC3B"
+              },
+              {
+                "parent_id": "M3P-SEM-C5D4A4456F74",
+                "candidate_ids_trace_only": [
+                  "M3H-E9DE3806D481DF34",
+                  "M3H-A2C57153B4EC5B63"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "31. **洪武二十六年免天下耆民来朝。** 取消全国老年耆民赴京朝见，可直接减少长途差旅负担。原文定位：`SRC-MINGTONGJIAN-014-2445863-L0369`。 | 32. **孝感饥荒救济形成“先贷后闻”制度。** 地方请发预备仓粮一万一千石，朱元璋认为等奏报往返会使饥民死亡，规定今后遇岁饥先贷粮、后奏闻。原文定位：`SRC-MINGTONGJIAN-014-2445863-L0394`。 | 33. **臙脂河工程以降低两浙漕运成本和覆溺为目标。** 朱元璋指出两浙赋税运京，陆转“甚难”、溯江又多覆溺，故命李新开河以通浙运，后漕运多由常、镇。工程本身的人役成本本卷无数，不能只算收益；但政策目标明确指向减少转输劳苦与运输风险。原文定位：`SRC-MINGTONGJIAN-014-2445863-L0421`。 | 34. **全国土地与夏税秋粮完成一次总核。** 土田八百五十万七千六百二十三顷，并核夏税、秋粮实数。原文定位：`SRC-MINGTONGJIAN-014-2445863-L0430`。；32. **孝感饥荒救济形成“先贷后闻”制度。** 地方请发预备仓粮一万一千石，朱元璋认为等奏报往返会使饥民死亡，规定今后遇岁饥先贷粮、后奏闻。原文定位：`SRC-MINGTONGJIAN-014-2445863-L0394`。 | 33. **臙脂河工程以降低两浙漕运成本和覆溺为目标。** 朱元璋指出两浙赋税运京，陆转“甚难”、溯江又多覆溺，故命李新开河以通浙运，后漕运多由常、镇。工程本身的人役成本本卷无数，不能只算收益；但政策目标明确指向减少转输劳苦与运输风险。原文定位：`SRC-MINGTONGJIAN-014-2445863-L0421`。 | 34. **全国土地与夏税秋粮完成一次总核。** 土田八百五十万七千六百二十三顷，并核夏税、秋粮实数。原文定位：`SRC-MINGTONGJIAN-014-2445863-L0430`。 | 35. **洪武二十七年全国预备仓陈粮改为贷给贫民、以后收新粮轮换。** 此举同时处理赈贷与久储腐坏问题。原文定位：`SRC-MINGTONGJIAN-014-2445863-L0445`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-014.source-summary.md#L45",
+                  "docs/史料通读产物/明/明通鉴/volume-014.source-summary.md#L46"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-C5D4A4456F74"
+              },
+              {
+                "parent_id": "M3P-SEM-42E29A466805",
+                "candidate_ids_trace_only": [
+                  "M3H-EB4AB49F80F5B36F",
+                  "M3H-E018C32A9B375072",
+                  "M3H-D777656D3BAA739D"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "37. **派国子监生分行天下督修水利，并明令不得妄兴工役、不得掊克百姓。** 这是中央主动防止水利工程转化为过度徭役的明确约束。原文定位：`SRC-MINGTONGJIAN-014-2445863-L0465`。 | 38. **暂停修建岷王宫殿，理由明确是云南“民力未纾”。** 朱元璋称可等十五年后再建，是本卷罕见的因民力不足直接停止王府工程的止损材料。原文定位：`SRC-MINGTONGJIAN-014-2445863-L0474`。 | ## 二、刑政、吏治与政治秩序；6. **詹徽、袁泰用法“务为苛严”。** 这是作者对洪武后期都察院司法风格的直接概括。原文定位：`SRC-MINGTONGJIAN-014-2445863-L0282`。 | 7. **李善长被诛后，王国用上疏公开质疑其谋反逻辑与“以杀大臣应天象”。** 朱元璋没有治罪；作者随后也明确批评胡、蓝两案。原文定位：`SRC-MINGTONGJIAN-014-2445863-L0287`、`SRC-MINGTONGJIAN-014-2445863-L0288`。 | 8. **守令因小过动辄被逮，但多地百姓赴阙请求保留清官后，朝廷有复职甚至破格升迁。** 余彦诚、高彬、刘郁、纪惟正、杜濩等均属此类。原文定位：`SRC-MINGTONGJIAN-014-2445863-L0359`。 | 9. **蓝玉案株连一万五千余人，且大量文士因关联被杀。** 原文称“列侯以下，坐党夷灭者，凡万五千余人”；这是洪武后期政治刑杀规模的重要强负证，但没有发生蓝玉实际起兵，故不进入战役账。原文定位：`SRC-MINGTONGJIAN-014-2445863-L0376`、`SRC-MINGTONGJIAN-014-2445863-L0377`。；- 朱元璋多次强调刑狱应推恕、民情应上达，但本卷同时存在胡案、蓝案及大量功臣政治处决。评价时必须把政策言论与实际司法后果分开登记。锚点：`SRC-MINGTONGJIAN-014-2445863-L0172`、`SRC-MINGTONGJIAN-014-2445863-L0376`、`SRC-MINGTONGJIAN-014-2445863-L0417`。 | - 周敬心奏疏不是泛泛劝谏，而是把**徭役、赋敛、征兵、籍财、征伐、营造**串成同一现实负担链，属于本卷财政民生评价的高价值同期材料。锚点：`SRC-MINGTONGJIAN-014-2445863-L0354`。 | - 水利上，卷首有25万民夫筑海堤的超大役，卷末又明令“毋妄兴工役，毋掊克吾民”；两者共同显示洪武后期既存在超重工程动员，也存在中央对过度工程的明确约束。锚点：`SRC-MINGTONGJIAN-014-2445863-L0180`、`SRC-MINGTONGJIAN-014-2445863-L0465`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-014.source-summary.md#L51",
+                  "docs/史料通读产物/明/明通鉴/volume-014.source-summary.md#L61",
+                  "docs/史料通读产物/明/明通鉴/volume-014.source-summary.md#L92"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-42E29A466805"
+              },
+              {
+                "parent_id": "M3P-SEM-DB1889DD29AF",
+                "candidate_ids_trace_only": [
+                  "M3H-64C9FF1439657C5F"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "NEGATIVE",
+                "mechanisms": [
+                  "RELIEF_STORAGE"
+                ],
+                "chain_summary": "12. **期服奔丧制度收紧。** 除父母及承重祖父母外，其余期丧不得离官奔赴，理由是长途奔丧造成频繁缺官。原文定位：`SRC-MINGTONGJIAN-014-2445863-L0403`。 | 13. **对弟代兄赴边戍的个案，朱元璋认可为义并给路费，还奖励准许代行的押送者。** 原文定位：`SRC-MINGTONGJIAN-014-2445863-L0405`。 | 14. **皇太孙教育被要求日常讲“民间利害、田里稼穑”。** 反映继承人教育中明确纳入基层民生与农业。原文定位：`SRC-MINGTONGJIAN-014-2445863-L0410`。 | 15. **各省学官入朝被要求直陈政治得失，直言者门克新获擢用。** 原文定位：`SRC-MINGTONGJIAN-014-2445863-L0426`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-014.source-summary.md#L67"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-DB1889DD29AF"
+              },
+              {
+                "parent_id": "M3P-SEM-A6B7E3698246",
+                "candidate_ids_trace_only": [
+                  "M3H-116D86706265C8FA"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "NEGATIVE",
+                "mechanisms": [
+                  "MARKET_TRADE",
+                  "MONETARY_CREDIT",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "11. **货币体系出现严重折价和物价上涨。** 江、浙、闽、广重钱轻钞，一百六十文钱即可折宝钞一贯，“物价翔涌，圜法益坏”；朝廷再次禁止银交易。原文定位：`SRC-MINGTONGJIAN-015-2445864-L0287`。 | 12. **陕西积欠税粮严重，朝廷扩大折纳并主动降低折算负担。** 洪武二十八年前的逋租准以米、绢、棉花及金银等土产折纳；户部提出折价后，朱元璋仍认为过重，把金银折米额度再放宽一倍，宝钞也改为二贯五百文折米一石。原文定位：`SRC-MINGTONGJIAN-015-2445864-L0287`“陝西逋賦困甚”“上猶以為重”。 | 13. **山东、河南被认为农事怠惰，中央派人逐郡县督耕并登记田亩、年收。** 这是农业生产直接监督和产量统计。原文定位：`SRC-MINGTONGJIAN-015-2445864-L0297`。 | 14. **沐春镇云南七年的非战役治理实绩很硬。** 原文追述其整顿屯政，开田三十余万亩，凿铁池河灌宜良旱田数万亩，使五千余户民众复业。原文定位：`SRC-MINGTONGJIAN-015-2445864-L0336`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-015.source-summary.md#L25"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-A6B7E3698246"
+              },
+              {
+                "parent_id": "M3P-SEM-2F6EE3E200D9",
+                "candidate_ids_trace_only": [
+                  "M3H-B238C8561E5CEB8D",
+                  "M3H-180A1B32E88CD8A3"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "PUBLIC_WORKS"
+                ],
+                "chain_summary": "9. **藩王营造被纳入中央审批。** 诸王不得自行兴建工程，确有必要者必须上闻。原文定位：`SRC-MINGTONGJIAN-015-2445864-L0269`。 | 10. **朱元璋晚年进一步强调不要轻启对朝鲜战争。** 面对朝鲜贡表用词争议和不交郑道传，廷臣请讨，朱元璋仍以其僻处海隅、“不欲稱兵召釁”为由拒绝。原文定位：`SRC-MINGTONGJIAN-015-2445864-L0306`。 | 11. **安南—思明边界存在长期现实纠纷。** 思明土官称安南已越传统铜柱界侵夺五县，明廷遣使要求归还，黎季犛拒绝；朱元璋决定“姑静以俟之”，本卷没有发动新战争。原文定位：`SRC-MINGTONGJIAN-015-2445864-L0290`。 | 12. **朱元璋遗诏明确要求丧礼节用、陵寝不改作，并阻止诸王赴京奔丧。** 原文定位：`SRC-MINGTONGJIAN-015-2445864-L0315`。；10. **朱元璋晚年进一步强调不要轻启对朝鲜战争。** 面对朝鲜贡表用词争议和不交郑道传，廷臣请讨，朱元璋仍以其僻处海隅、“不欲稱兵召釁”为由拒绝。原文定位：`SRC-MINGTONGJIAN-015-2445864-L0306`。 | 11. **安南—思明边界存在长期现实纠纷。** 思明土官称安南已越传统铜柱界侵夺五县，明廷遣使要求归还，黎季犛拒绝；朱元璋决定“姑静以俟之”，本卷没有发动新战争。原文定位：`SRC-MINGTONGJIAN-015-2445864-L0290`。 | 12. **朱元璋遗诏明确要求丧礼节用、陵寝不改作，并阻止诸王赴京奔丧。** 原文定位：`SRC-MINGTONGJIAN-015-2445864-L0315`。 | 13. **史作者在太祖盖棺论中一面肯定屯田、水利与统一，一面明确记“晚年诛僇过多，功臣芟夷略尽”。** 这是作者综合评论，不能替代本卷具体刑杀事实，但可作为洪武末年政治秩序评价旁证。原文定位：`SRC-MINGTONGJIAN-015-2445864-L0315`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-015.source-summary.md#L46",
+                  "docs/史料通读产物/明/明通鉴/volume-015.source-summary.md#L47"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-2F6EE3E200D9"
+              },
+              {
+                "parent_id": "M3P-SEM-1640EE193378",
+                "candidate_ids_trace_only": [
+                  "M3-FT-585CE465019B17F8"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "UNRESOLVED_DIRECTION",
+                "mechanisms": [
+                  "MONETARY_CREDIT",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "漕运仓库段；区分运输改制、军民负担、仓储和后见结果。",
+                "source_refs": [
+                  "https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B779"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-1640EE193378"
+              },
+              {
+                "parent_id": "M3P-SEM-F50EA781DF50",
+                "candidate_ids_trace_only": [
+                  "M3-FT-6A7609356F08A672"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "MONETARY_CREDIT",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "上供采办与宫廷支出段；保留减省和反向扩张，避免只记节用诏令。",
+                "source_refs": [
+                  "https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B782"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-F50EA781DF50"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-MING-ZHU-YUANZHANG"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C5",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-2",
+              "S_avg": "C2-3",
+              "S_end": "C2-4"
+            }
+          },
+          "old_settlement_review": "OVERTURN_MAIN_BAND_RETAIN_NEGATIVES；保留：卫屯兵食与黄册不能单独证明财政健康，只能证明征调/登记能力。；宗藩世禄、军匠户籍及重役对民间存在刚性转嫁。；正常财政余量不能仅由国家可征、可调度反推。；推翻/修正：“缺市场货币证据”不再成立：本轮加入商税、跨区贸易和实际交易体系证据。；“缺公私互证”不再足以压到三档：P与F/R已有独立结果，但仍不足五档。。"
+        },
+        {
+          "adjudication_reason": "永乐期公共财政与储备远强于旧三档：本色税粮三千余万石、赋入盈羡，府县仓廪蓄积甚丰，甚至红腐不可食；生产侧又有大规模屯田与副业产出。真正阻断五档的是货币面——宝钞已“物重钞轻”，价值较洪武初减九成，民间用银又受厉禁。两柱整体仍能判健康，但私经济柱存在明显M瓶颈，因此主档由3升4而不进5。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "source_works": [
+                "《明史·食货志》"
+              ],
+              "verbatim_excerpt": "天下本色税粮三千余万石，丝钞等二千余万。计是时，宇内富庶，赋入盈羡，米粟自输京师数百万石外，府县仓廪蓄积甚丰，至红腐不可食。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·食货志》"
+              ],
+              "verbatim_excerpt": "岁歉，有司往往先发粟振贷，然后以闻。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·食货志》"
+              ],
+              "verbatim_excerpt": "比岁钞法不通，皆缘朝廷出钞太多，收敛无法，以致物重钞轻。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·食货志》"
+              ],
+              "verbatim_excerpt": "税粮课程赃罚俱折收钞，其直视洪武初减十之九。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·食货志》"
+              ],
+              "verbatim_excerpt": "虽岁贡银三十万两有奇，而民间交易用银，仍有厉禁。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_5_PASS_C2_4",
+            "basis": "P与F/R达到强态，但M存在严重货币失灵与交易媒介压制，私经济柱只能整体判健康，五档失败。"
+          },
+          "main_band": "C2-4",
+          "material_limitations": [
+            "仁宗即位后撤宝船、采办等只作交班压力背景，不能单凭政策撤销反推财政崩坏。",
+            "永乐“宇内富庶”不单独承担C2高档",
+            "核心是赋入、仓储和生产实物结果。"
+          ],
+          "peak_band": null,
+          "polity": "明",
+          "rank": 12,
+          "reign_range": "1402-1424",
+          "ruler_id": "RULER-MING-ZHU-DI",
+          "ruler_name": "朱棣",
+          "score": 23.6,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-4",
+            "S_end": "C2-4"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-535B36722B70",
+              "M3P-SEM-ED8D38127BBC",
+              "M3P-SEM-90D254B033BF",
+              "M3P-SEM-B9F8CFA4276A",
+              "M3P-SEM-571FB65951F2",
+              "M3P-SEM-47968985DC16",
+              "M3P-SEM-81DABEC0936C"
+            ],
+            "excluded_parent_ids": [
+              "M3P-SEM-79B68183AF83"
+            ],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-535B36722B70",
+                "candidate_ids_trace_only": [
+                  "M3H-80E753298F7FCF84",
+                  "M3H-87A714455D2FFC68"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "RELIEF_STORAGE"
+                ],
+                "chain_summary": "5. **北京、辽东、平凉、甘肃增设苑马寺。** 属持续扩充国家军马生产体系的财政—资源建设。原文定位：`SRC-MINGTONGJIAN-019-2445868-L0171`。 | 6. **严冬羁押促成大赦。** 法司月系囚数百，大辟约十分之一；朱棣担忧寒冻中有“不当罪”者死亡，先要求两日内发遣杂犯死罪以下，随后赦天下殊死以下。原文定位：`SRC-MINGTONGJIAN-019-2445868-L0179`。 | 7. **顺天、河间、保定饥荒获赈。** 原文定位：`SRC-MINGTONGJIAN-019-2445868-L0209`。 | 8. **河南连续旱涝而地方隐灾，实际出现饥死。** 朱棣称有司报称丰熟，实地核查后有的地方收成不足正常四五成、甚至不足一成，百姓掘草实而食；朝廷急发粟，并治隐灾官罪，明令今后匿灾者不赦。原文定位：`SRC-MINGTONGJIAN-019-2445868-L0214`。；7. **顺天、河间、保定饥荒获赈。** 原文定位：`SRC-MINGTONGJIAN-019-2445868-L0209`。 | 8. **河南连续旱涝而地方隐灾，实际出现饥死。** 朱棣称有司报称丰熟，实地核查后有的地方收成不足正常四五成、甚至不足一成，百姓掘草实而食；朝廷急发粟，并治隐灾官罪，明令今后匿灾者不赦。原文定位：`SRC-MINGTONGJIAN-019-2445868-L0214`。 | 9. **交阯直接郡县化后，保留旧官、解除黎氏苛政并大量征举当地人才。** 除放此前受刑者、旧官与新官参治外，又征求山林隐逸、农民、技术、兵法等各类人才，张辅等先后举送九千余人。原文定位：`SRC-MINGTONGJIAN-019-2445868-L0215`、`SRC-MINGTONGJIAN-019-2445868-L0222`。 | 10. **河溢河南。** 原文定位：`SRC-MINGTONGJIAN-019-2445868-L0229`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-019.source-summary.md#L21",
+                  "docs/史料通读产物/明/明通鉴/volume-019.source-summary.md#L23"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-535B36722B70"
+              },
+              {
+                "parent_id": "M3P-SEM-ED8D38127BBC",
+                "candidate_ids_trace_only": [
+                  "M3H-ECBA767322895F23"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "9. **永乐十年要求一千五百余名入觐官员逐人陈述“民瘼”，不言者治罪，言不中亦不追究。** 原文定位：`SRC-MINGTONGJIAN-020-2445869-L0193`。 | 10. **平阳饥荒已到百姓采蒺藜、掘蒲根为食的程度。** 朱棣追究布政司及郡县隐匿不报之罪。原文定位：`SRC-MINGTONGJIAN-020-2445869-L0197`。 | 11. **地方守令被禁止频繁抽调办理造作杂务。** 这是防止地方主官脱离民政的一项制度性约束。原文定位：`SRC-MINGTONGJIAN-020-2445869-L0199`。 | 12. **山西、河南永乐八年以前逋赋获免；北京水灾亦免租税。** 原文定位：`SRC-MINGTONGJIAN-020-2445869-L0201`、`SRC-MINGTONGJIAN-020-2445869-L0209`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-020.source-summary.md#L25"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-ED8D38127BBC"
+              },
+              {
+                "parent_id": "M3P-SEM-90D254B033BF",
+                "candidate_ids_trace_only": [
+                  "M3H-7DDAE2316E159E91"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "31. **永乐十四年北京、河南、山东大规模赈饥，发粟一百三十七万余石，并免永乐十二年以前逋赋。** 原文定位：`SRC-MINGTONGJIAN-020-2445869-L0406`。 | 32. **朱棣以“四方多水旱疾疫”为由拒绝封禅。** 这说明灾情被直接作为否决大型政治礼仪工程的现实理由。原文定位：`SRC-MINGTONGJIAN-020-2445869-L0419`。 | 33. **北京、河南、山东派员捕蝗；黄河又决开封十四州县，经怀远入淮。** 原文定位：`SRC-MINGTONGJIAN-020-2445869-L0422`、`SRC-MINGTONGJIAN-020-2445869-L0424`。 | 34. **北京西宫继续营造并于永乐十五年完成。** 原文定位：`SRC-MINGTONGJIAN-020-2445869-L0430`、`SRC-MINGTONGJIAN-020-2445869-L0483`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-020.source-summary.md#L47"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-90D254B033BF"
+              },
+              {
+                "parent_id": "M3P-SEM-B9F8CFA4276A",
+                "candidate_ids_trace_only": [
+                  "M3H-384A51F60D35BE6C",
+                  "M3H-4E62911332E0E406",
+                  "M3H-4E7E14F044834768"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "1. **连年征讨已经挤占常规漕运军力，东南漕粮重新转由民运。** 支运法原由官军递运入北京，永乐十六年因“连年征讨，官军悉以供调遣”，改令民众自行轮运北京。这是战争对常规运输体系和民役的直接外溢。原文定位：`SRC-MINGTONGJIAN-021-2445870-L0147`。 | 2. **陕西连续灾荒发展到流亡、饿殍，中央连续督赈。** 永乐十六年陕西岁屡不登，朱棣责地方“致民流莩”而不报，随后王通等赈饥民九万八千余户、给米十万四千三百余石。原文定位：`SRC-MINGTONGJIAN-021-2445870-L0159`、`SRC-MINGTONGJIAN-021-2445870-L0165`。 | 3. **朱棣再次强调不得妄役、擅敛，但原文明言官吏仍“恣肆自若，百姓苦之”。** 永乐十六年末因此重申贪赃必法办。原文定位：`SRC-MINGTONGJIAN-021-2445870-L0163`。 | 4. **交阯被要求重新核实户口、田赋和军民利病。** 黄宗载同时指出新入版图而郡县官多未受完整国学训练，请把九年考绩缩短为到任两年以上即可由巡按、两司核实举按，朱棣采纳并强调慎选守令。原文定位：`SRC-MINGTONGJIAN-021-2445870-L0195`、`SRC-MINGTONGJIAN-021-2445870-L0196`。；2. **陕西连续灾荒发展到流亡、饿殍，中央连续督赈。** 永乐十六年陕西岁屡不登，朱棣责地方“致民流莩”而不报，随后王通等赈饥民九万八千余户、给米十万四千三百余石。原文定位：`SRC-MINGTONGJIAN-021-2445870-L0159`、`SRC-MINGTONGJIAN-021-2445870-L0165`。 | 3. **朱棣再次强调不得妄役、擅敛，但原文明言官吏仍“恣肆自若，百姓苦之”。** 永乐十六年末因此重申贪赃必法办。原文定位：`SRC-MINGTONGJIAN-021-2445870-L0163`。 | 4. **交阯被要求重新核实户口、田赋和军民利病。** 黄宗载同时指出新入版图而郡县官多未受完整国学训练，请把九年考绩缩短为到任两年以上即可由巡按、两司核实举按，朱棣采纳并强调慎选守令。原文定位：`SRC-MINGTONGJIAN-021-2445870-L0195`、`SRC-MINGTONGJIAN-021-2445870-L0196`。 | 5. **唐赛儿案后全国出家妇女遭大规模搜捕，先后达数万人。** 因怀疑唐赛儿削发混入尼、女道士中，先尽逮山东、北京尼，继而尽逮天下出家妇女；段民到任后才尽量宽宥株连者。原文定位：`SRC-MINGTONGJIAN-021-2445870-L0216`。；3. **朱棣再次强调不得妄役、擅敛，但原文明言官吏仍“恣肆自若，百姓苦之”。** 永乐十六年末因此重申贪赃必法办。原文定位：`SRC-MINGTONGJIAN-021-2445870-L0163`。 | 4. **交阯被要求重新核实户口、田赋和军民利病。** 黄宗载同时指出新入版图而郡县官多未受完整国学训练，请把九年考绩缩短为到任两年以上即可由巡按、两司核实举按，朱棣采纳并强调慎选守令。原文定位：`SRC-MINGTONGJIAN-021-2445870-L0195`、`SRC-MINGTONGJIAN-021-2445870-L0196`。 | 5. **唐赛儿案后全国出家妇女遭大规模搜捕，先后达数万人。** 因怀疑唐赛儿削发混入尼、女道士中，先尽逮山东、北京尼，继而尽逮天下出家妇女；段民到任后才尽量宽宥株连者。原文定位：`SRC-MINGTONGJIAN-021-2445870-L0216`。 | 6. **北京迁都与宫殿工程在永乐十八年完成制度和实体收束。** 九月正",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-021.source-summary.md#L17",
+                  "docs/史料通读产物/明/明通鉴/volume-021.source-summary.md#L18",
+                  "docs/史料通读产物/明/明通鉴/volume-021.source-summary.md#L19"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-B9F8CFA4276A"
+              },
+              {
+                "parent_id": "M3P-SEM-571FB65951F2",
+                "candidate_ids_trace_only": [
+                  "M3H-EC37B0F6F6E9466A",
+                  "M3H-4879D105C349D604",
+                  "M3H-360511BBF0AF73E5"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "MONETARY_CREDIT",
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "7. **山东青、莱及邹县饥荒获赈，皇太子要求把人均三斗提高到六斗并先发后奏。** 这是仁宗监国期间较强的赈灾执行正证。原文定位：`SRC-MINGTONGJIAN-021-2445870-L0237`、`SRC-MINGTONGJIAN-021-2445870-L0239`、`SRC-MINGTONGJIAN-021-2445870-L0240`。 | 8. **永乐十九年三殿火灾触发全面财政民生自检。** 朱棣在诏中逐项列出“掊克及田里”“租税太重、徭役不均”“军旅未息、征调无方、馈饷乏”“工作过度、民力敝”等问题，随后停“不便于民及不急诸务”、蠲永乐十七年前逋赋并免灾田粮。原文定位：`SRC-MINGTONGJIAN-021-2445870-L0268`、`SRC-MINGTONGJIAN-021-2445870-L0270`。 | 9. **邹缉奏疏提供永乐后期财政民生最强的一组同期负证。** 他称北京营建“调度以百万计”，农民终岁供役无暇耕作；非土产物料动辄科派千百，进纳层层留难，甚至二万贯钞不足供一柱；营建中居民被反复驱迁三四次；山东、河南、山西等水旱相仍，百姓剥树皮草根，流移道路，卖妻鬻子；京师僧道万余日耗廪米百余石；外蕃买马“所出常数十万，而所取曾不能一二”，劣马又责民牧养，死伤须赔，甚至鬻妻子以供马。奏上“不省”。原文定位：`SRC-MINGTONGJIAN-021-2445870-L0276`。 | 10. **交阯军粮因“地远、不通馈运”转向军屯。** 李彬请分军屯田，以供粮饷并按地势决定屯守和征调，朱棣准行。这是长期占领成本本地化的直接措施。原文定位：`SRC-MINGTONGJIAN-021-2445870-L0279`。；9. **邹缉奏疏提供永乐后期财政民生最强的一组同期负证。** 他称北京营建“调度以百万计”，农民终岁供役无暇耕作；非土产物料动辄科派千百，进纳层层留难，甚至二万贯钞不足供一柱；营建中居民被反复驱迁三四次；山东、河南、山西等水旱相仍，百姓剥树皮草根，流移道路，卖妻鬻子；京师僧道万余日耗廪米百余石；外蕃买马“所出常数十万，而所取曾不能一二”，劣马又责民牧养，死伤须赔，甚至鬻妻子以供马。奏上“不省”。原文定位：`SRC-MINGTONGJIAN-021-2445870-L0276`。 | 10. **交阯军粮因“地远、不通馈运”转向军屯。** 李彬请分军屯田，以供粮饷并按地势决定屯守和征调，朱棣准行。这是长期占领成本本地化的直接措施。原文定位：`SRC-MINGTONGJIAN-021-2445870-L0279`。 | 11. **苏州吴县、浙江西安、江西瑞昌、安庆潜山、河间东光等地获赈。** 原文定位：`SRC-MINGTONGJIAN-021-2445870-L0281`。 | 12. **北征前夕出现极强的财政军资警报。** 夏原吉明确说“比年师出无功，军马储蓄十丧八九，灾眚迭作，内外俱疲”，反对朱棣再亲征；方宾、吴中亦言军兴费乏。朱棣不纳，反将夏原吉、吴中等下狱，方宾惧而自缢。此处是跨多轮战争的宏观财政军事耗竭证据，不能简单塞入某一场战役P/A重复计算。原文定位：`SRC-MINGTONGJIAN-021-2445870-L0293`。；11. **苏州吴县、浙江西安、江西瑞昌、安庆潜山、河间东光等地获赈。** 原文定位：`SRC-MINGTONGJIAN-021-2445870-L0281`。 | 12. **北征前夕出现极强的财政军资警报。** 夏原吉明确说“比年师出无功，军马储蓄十丧八九，灾眚迭作，内外俱疲”，反对朱棣再亲征；方宾、吴中亦言军兴费乏。朱棣不纳，反将夏原吉、吴中等下狱，方宾惧而自缢。此处是跨多轮战争的宏观财政军事耗竭证据，不能简单塞入某一场战役P/A重复计算。原文定位：`",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-021.source-summary.md#L23",
+                  "docs/史料通读产物/明/明通鉴/volume-021.source-summary.md#L25",
+                  "docs/史料通读产物/明/明通鉴/volume-021.source-summary.md#L27"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-571FB65951F2"
+              },
+              {
+                "parent_id": "M3P-SEM-47968985DC16",
+                "candidate_ids_trace_only": [
+                  "M3H-9E023C33DE60035B"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "1. **永乐二十二年最后一次亲征仍是全国性军事动员，但本卷同时保留明确止损信号。** 出塞后天气寒雨、士卒衣甲沾湿，朱棣反复询问军士劳苦；前锋粮尽时张辅请再给一月粮继续深入，朱棣以“不欲重劳将士”拒绝并班师。原文定位：`SRC-MINGTONGJIAN-022-2445849-L0143`、`SRC-MINGTONGJIAN-022-2445849-L0153`。 | 2. **“白骨蔽野”是永乐后期多年用兵的累计人员负证。** 朱棣梦见“上帝好生”后下令赦除阿鲁台外诸部，并命沿途收瘗暴骨；原文明言“时比年用兵，白骨蔽野”。这属于连续多年战争形成的宏观后果，不能机械倒算为永乐二十二年这一次无战远征的新增P。原文定位：`SRC-MINGTONGJIAN-022-2445849-L0144`。 | 3. **班师途中继续强调不得杀胁从者。** 朱棣命阿鲁台部众中不持兵、受胁者不得杀伤。原文定位：`SRC-MINGTONGJIAN-022-2445849-L0145`。 | 4. **浙江、福建山民聚众劫掠后，朝廷拒绝立即大举用兵，改派官员招抚而自行解散。** 这项武装威胁的实际收束另见战役JSON；政策上体现一次避免扩大军役的处理。原文定位：`SRC-MINGTONGJIAN-022-2445849-L0152`。",
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-022.source-summary.md#L17"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-47968985DC16"
+              },
+              {
+                "parent_id": "M3P-SEM-81DABEC0936C",
+                "candidate_ids_trace_only": [
+                  "M3-FT-CA13E73899DB3B6D"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "MONETARY_CREDIT",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "上供采办与宫廷支出段；保留减省和反向扩张，避免只记节用诏令。",
+                "source_refs": [
+                  "https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B782"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-81DABEC0936C"
+              }
+            ],
+            "applied_orphan_candidate_ids": [
+              "M3H-589A41DBA2E4EC57",
+              "M3H-A32410DD41E07D0A"
+            ],
+            "excluded_orphan_candidate_ids": [
+              "M3H-DAFBCF68048DFAA1",
+              "M3H-C2B23CA882CFFC01",
+              "M3H-1AF66F69EC051DC5"
+            ],
+            "applied_orphan_candidate_supplements": [
+              {
+                "candidate_id": "M3H-589A41DBA2E4EC57",
+                "route": "APPLIED_RESULT_EVIDENCE_FRAGMENT",
+                "direction": "NOT_SCORED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "PUBLIC_WORKS"
+                ],
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-022.source-summary.md#L16"
+                ],
+                "semantic_source_ref": "config/profile/m3-semantic-review-decisions.json#candidate_id=M3H-589A41DBA2E4EC57"
+              },
+              {
+                "candidate_id": "M3H-A32410DD41E07D0A",
+                "route": "APPLIED_RESULT_EVIDENCE_FRAGMENT",
+                "direction": "NOT_SCORED",
+                "mechanisms": [
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "source_refs": [
+                  "docs/史料通读产物/明/明通鉴/volume-022.source-summary.md#L18"
+                ],
+                "semantic_source_ref": "config/profile/m3-semantic-review-decisions.json#candidate_id=M3H-A32410DD41E07D0A"
+              }
+            ],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-MING-ZHU-DI"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C6",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          }
+        },
+        {
+          "adjudication_reason": "正统前段承接宣德末健康盘面，财政与市场货币都有本人窗口直接结果：正统七年设太仓银库，折银税课等形成常规银财政归集；英宗即位后又弛银禁，朝野实际转向用银，小额交易用钱，说明钞法失灵并未拖垮市场货币体系。土木之变只作压力事实，不机械压主档；复辟后承接景泰末三档，故交班端降三。整体主要统治时段仍以四档为代表。",
+          "confidence": "LOW",
+          "evidence": [
+            {
+              "source_works": [
+                "《明史·食货志》"
+              ],
+              "verbatim_excerpt": "正统七年乃设户部太仓库。各直省派剩麦米，十库中绵丝、绢布及马草、盐课、关税，凡折银者，皆入太仓库。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·食货志》"
+              ],
+              "verbatim_excerpt": "英宗即位收赋有米麦折银之令，遂减诸纳钞者，而以米银钱当钞，弛用银之禁，朝野率皆用银，其小者乃用钱。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·食货志》"
+              ],
+              "verbatim_excerpt": "正统初诏凡课程门摊俱遵洪武旧额，不得籍口钞法妄增。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_5_PASS_C2_4",
+            "basis": "F/R与M均有本人窗口健康结果，但P_PRODUCTION缺同等级广域强证，且两段统治之间存在明显波动，五档失败。"
+          },
+          "main_band": "C2-4",
+          "material_limitations": [
+            "S0与已重裁朱瞻基S_end=C2-4对齐。",
+            "土木之变及失权期不按D/C4机械扣C2",
+            "只登记其后实际经济财政状态。",
+            "钞法崩坏必须与银货币实际接替并行消费，不能只取负面。"
+          ],
+          "peak_band": null,
+          "polity": "明",
+          "rank": 12,
+          "reign_range": "1435-1449; 1457-1464",
+          "ruler_id": "RULER-MING-ZHU-QIZHEN",
+          "ruler_name": "朱祁镇",
+          "score": 21.7,
+          "stability_class_diagnostic_only": "K0",
+          "state_anchors": {
+            "S0": "C2-4",
+            "S_avg": "C2-4",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-994F6347F397",
+              "M3P-SEM-821F781E162D"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-994F6347F397",
+                "candidate_ids_trace_only": [
+                  "MING-QZ-EARLY-001"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "旧臣辅政、减税赈灾与内阁运行 | 幼主继承时旧行政机器仍可运行，减荒田税、巡抚会廷议和多地赈免有实际交付；后期王振掌权构成相反阶段。 | 五月壬午，戶部言浙江、蘇、松荒田稅糧減除二百七十七萬餘石，請加覆覈。帝以覈實必增額為民患，不許。九月壬辰，詔督漕總兵及諸巡撫官，歲以八月至京會廷臣議事。是月，王振掌司禮監。",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json#material_id=MING-QZ-EARLY-001",
+                  "https://zh.wikisource.org/w/index.php?title=明史/卷10&oldid=2594623"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-994F6347F397"
+              },
+              {
+                "parent_id": "M3P-SEM-821F781E162D",
+                "candidate_ids_trace_only": [
+                  "M3-FT-D589118FC5450315"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "UNRESOLVED_DIRECTION",
+                "mechanisms": [
+                  "MONETARY_CREDIT",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "漕运仓库段；区分运输改制、军民负担、仓储和后见结果。",
+                "source_refs": [
+                  "https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B779"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-821F781E162D"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-MING-ZHU-QIZHEN"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C6",
+            "cost_status": "LOWER_BOUND",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-2",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          },
+          "handoff_segment_anchors": [
+            {
+              "raw_text": "1435—1449=C2-4→C2-3"
+            },
+            {
+              "raw_text": "1457—1464=C2-3→C2-3"
+            }
+          ]
+        },
+        {
+          "adjudication_reason": "成化期仍能维持明中期生产与财政系统的健康运行，荆襄大规模流民被重新编入生产性土地体系，说明部分生产基盘修复；但成化末盐法已出现数百万引积欠和商引壅滞，市场—财政联动开始形成结构性问题。主态保四，终点回落三。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《明史·食货志》"
+              ],
+              "verbatim_excerpt": "憲宗命原傑出撫，招流民十二萬戶，給閒田，置鄖陽府，立上津等縣統治之。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·食货志》"
+              ],
+              "verbatim_excerpt": "初，天下府庫各有存積，邊餉不借支於內，京師不收括於外。成化時，巡鹽御史楊澄始請發各鹽運提舉司贓罰銀入京庫。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·食货志》"
+              ],
+              "verbatim_excerpt": "憲宗末年，閹宦竊勢，奏討淮、浙鹽無算，兩淮積欠至五百餘萬引，商引壅滯。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_5_PASS_C2_4",
+            "basis": "两柱在全任大部分时间可判健康，但没有同时强的直接广域结果，且盐法/商引在末期出现硬性结构反证。"
+          },
+          "main_band": "C2-4",
+          "material_limitations": [
+            "荆襄招抚只证明区域生产恢复，不外推成全国强生产。",
+            "旧结算的“太仓数百万两”不再作为本轮核心锚，避免未闭合来源的高档支撑。",
+            "成化末盐引壅滞属于C2内部市场—财政结构问题，直接消费。"
+          ],
+          "peak_band": null,
+          "polity": "明",
+          "rank": 12,
+          "reign_range": "1464-1487",
+          "ruler_id": "RULER-MING-ZHU-JIANSHEN",
+          "ruler_name": "朱见深",
+          "score": 21.7,
+          "stability_class_diagnostic_only": "K0",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-4",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-MING-ZHU-JIANSHEN"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C5",
+            "cost_status": "CONFIRMED",
+            "cost_position": "LOW",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-4",
+            "score": 23.6,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-4",
+              "S_end": "C2-3"
+            }
+          }
+        },
+        {
+          "adjudication_reason": "建文从洪武末四档盘面起步，常规赋税与行政体系仍能运行；但短短四年本人窗口几乎没有P/M/F/R的独立健康结果，现有材料主要是蠲赋、均田赋等政策动作和靖难战争过程。按合同，不能靠纯继承把高状态完整延续，也不能因战争机械降档，因此取受约束的三档主态，终点仍三而非按亡国压低。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "source_works": [
+                "《明史·惠帝本纪》"
+              ],
+              "verbatim_excerpt": "六月，省幷州县，革冗员。秋七月，诏行宽政，赦有罪，蠲逋赋。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·惠帝本纪》"
+              ],
+              "verbatim_excerpt": "建文二年二月，均江、浙田赋。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·惠帝本纪》"
+              ],
+              "verbatim_excerpt": "乙丑，燕兵犯金川门……都城陷。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "起点健康，但本人窗口缺两柱健康的直接结果；纯连续性不足以维持四档，战争本身又不允许机械压低，故三档。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "S0与本轮朱元璋S_end=C2-4同步。",
+            "蠲赋、均田赋是政策动作，不直接承担四档。",
+            "亡国不等于C2-1/2，故S_end仍保三。"
+          ],
+          "peak_band": null,
+          "polity": "明",
+          "rank": 56,
+          "reign_range": "1398-1402",
+          "ruler_id": "RULER-MING-ZHU-YUNWEN",
+          "ruler_name": "朱允炆",
+          "score": 14.9,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-4",
+            "S_avg": "C2-3",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-MING-ZHU-YUNWEN"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C6",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-4",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          }
+        },
+        {
+          "adjudication_reason": "正德朝商业社会本身仍然活跃，但国家财政已出现持续向太仓抽取以补内府的结构性压力，《明史》直言内承运库中官屡称“内府财用不充，请支太仓银”。皇庄、皇店又将部分市场与土地收益转向皇室财政。公共财政只能基本运行，缺两柱同时健康的结果，故保三档。",
+          "confidence": "medium",
+          "evidence": [
+            {
+              "source_works": [
+                "《明史·食货志》"
+              ],
+              "verbatim_excerpt": "正德时，内承运库中官数言内府财用不充，请支太仓银。户部执奏不能沮。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·武宗本纪》"
+              ],
+              "verbatim_excerpt": "遗诏……革京城内外皇店……停不急工役，收宣府行宫金宝还内库。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "国家财政仍可运行但对太仓抽支明显，且缺本人窗口F/R健康余量；商业活跃不能跨越公共财政瓶颈抬到四档。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "旧版把遗诏能执行当作‘未崩解’属政权能力语义，本轮不作为C2加分。",
+            "皇店本身不自动判负，只消费其与内府财政抽取结构的关系。"
+          ],
+          "peak_band": null,
+          "polity": "明",
+          "rank": 56,
+          "reign_range": "1505-1521",
+          "ruler_id": "RULER-MING-ZHU-HOUZHAO",
+          "ruler_name": "朱厚照",
+          "score": 14.9,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-3",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-MING-ZHU-HOUZHAO"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C5",
+            "cost_status": "LOWER_BOUND",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          }
+        },
+        {
+          "adjudication_reason": "嘉靖前中期明朝市场商业和白银化仍在扩张，故民间经济并非低位失效；但公共财政在本人窗口持续恶化：内府供应由弘治水平倍增，太仓老库从八百余万两降到仅百二十万两，史臣又直称“营建繁兴，府藏告匮”。公共财政形成明确弱柱，所以主态三档、末段二档。",
+          "confidence": "medium",
+          "evidence": [
+            {
+              "source_works": [
+                "《明史·食货志》"
+              ],
+              "verbatim_excerpt": "嘉靖初，内府供应视弘治时，其后乃倍之。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·食货志》"
+              ],
+              "verbatim_excerpt": "初，太仓中库积银八百余万两……及是时，老库所存者仅百二十万两。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·世宗本纪赞》"
+              ],
+              "verbatim_excerpt": "营建繁兴，府藏告匮，百余年富庶治平之业，因以渐替。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "民间市场仍有活力，但公共财政储备被本人窗口的长期支出消耗到明确弱态；弱柱限制主态三档。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "不因倭寇、俺答等战争本身机械扣C2",
+            "核心降档证据是太仓存银下降和府藏告匮。",
+            "“富庶治平之业渐替”是总括，只作终段方向佐证，不单独降档。"
+          ],
+          "peak_band": null,
+          "polity": "明",
+          "rank": 56,
+          "reign_range": "1521-1567",
+          "ruler_id": "RULER-MING-ZHU-HOUCONG",
+          "ruler_name": "朱厚熜",
+          "score": 14.9,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-3",
+            "S_end": "C2-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-DCEFCB74AD60"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-DCEFCB74AD60",
+                "candidate_ids_trace_only": [
+                  "M3-FT-9403B1235D11F825"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "田赋、屯田与赋役制度段；只取明确创设、维持、修改、停止或拒绝。",
+                "source_refs": [
+                  "https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B778"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-DCEFCB74AD60"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-MING-ZHU-HOUCONG"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C5",
+            "cost_status": "LOWER_BOUND",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-3",
+              "S_end": "C2-2"
+            }
+          }
+        },
+        {
+          "adjudication_reason": "弘光政权控制区包含当时受战乱较轻、商业生产仍强的江南，私经济柱并非崩溃；但公共财政从建立起即被军饷和狭窄税基压住，后期出现催饷使四出、主要上供只依赖苏松江浙，国课又被侵蚀、四镇长期缺饷。典型结构是强私经济×脆弱公共财政，因此主态三档，临亡端公共财政进一步降至二。",
+          "confidence": "LOW",
+          "evidence": [
+            {
+              "source_works": [
+                "《南明史稿》卷九"
+              ],
+              "verbatim_excerpt": "四月癸亥，马士英言虏寇并急，请征皖饷。户部奏催各府县练饷。辛未，申绍芳亲催浙、直饷，一时催饷之使四出。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《南明史稿》卷九"
+              ],
+              "verbatim_excerpt": "养兵上供者，止苏、嵩、江、浙。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《南明史稿》卷九"
+              ],
+              "verbatim_excerpt": "国课所入，皆为马士英、阮大铖等侵蚀。四镇缺饷，靳而不发。史可法标兵至度岁无资。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "公共财政全任持续脆弱；江南私经济底盘只能有限补偿到三档，不能抬到四档。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "不把南京失守本身当C2-1",
+            "S_end=C2-2来自财政体系已闭合出的缺饷、狭窄税基和国课侵蚀。",
+            "江南经济活跃主要作为区域底盘约束，未用其替代弘光本人财政结果。"
+          ],
+          "peak_band": null,
+          "polity": "明",
+          "rank": 56,
+          "reign_range": "1644-1645南京弘光实际中枢；不扩张到全部南方名义辖境",
+          "ruler_id": "RULER-MING-ZHU-YOUSONG",
+          "ruler_name": "朱由崧",
+          "score": 13.7,
+          "stability_class_diagnostic_only": "K0",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-3",
+            "S_end": "C2-2"
+          },
+          "m3_supplement_review": null,
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C5",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          }
+        },
+        {
+          "adjudication_reason": "景泰朝在土木之变后仍能维持京通仓、跨区调粮和百万石级赈济，说明公共财政并未失效；但边事孔棘时已需以纳粟纳马入监筹资，且大规模蠲漕、赈粮主要证明调度能力，不能反推财政有余。市场与民间生产又缺本人窗口广域健康直证，故三档。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "source_works": [
+                "《明史·景帝本纪》"
+              ],
+              "verbatim_excerpt": "景泰五年九月，免苏、松、常、扬、杭、嘉、湖漕粮二百余万石。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·景帝本纪》"
+              ],
+              "verbatim_excerpt": "景泰六年九月，振苏、松饥民米麦一百余万石。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·选举志》"
+              ],
+              "verbatim_excerpt": "例监始于景泰元年，以边事孔棘，令天下纳粟纳马者入监读书，限千人止。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·食货志》"
+              ],
+              "verbatim_excerpt": "景泰初，移直隶武清卫诸仓于通州。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "公共调度仍有功能，但存在额外筹资压力，且P/M健康缺直接闭合；两柱只能基本运行。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "赈济和蠲免属于财政动作，不因其‘抗冲击’功能按C4加分。",
+            "百万石调度可证明R仍在运作，但不能自动等价于财政盈余。"
+          ],
+          "peak_band": null,
+          "polity": "明",
+          "rank": 56,
+          "reign_range": "1449-1457",
+          "ruler_id": "RULER-MING-ZHU-QIYU",
+          "ruler_name": "朱祁钰",
+          "score": 14.9,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-3",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-CA726A200D22"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-CA726A200D22",
+                "candidate_ids_trace_only": [
+                  "MING-QY-FISCAL-001"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "广域赈济、蠲粮与财政救济 | 多地免税、停采办、百万石级赈济持续到任末，支持从危机起点恢复为基本健康状态，但不足证明富实高位。 | 景泰五年九月，免蘇、松、常、揚、杭、嘉、湖漕糧二百餘萬石。十一月，罷蘇、松、常、鎮織造採辦。六年九月，振蘇、松饑民米麥一百餘萬石。七年冬，免畿內、山東被災稅糧，並蠲逋賦。",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json#material_id=MING-QY-FISCAL-001",
+                  "https://zh.wikisource.org/w/index.php?title=明史/卷11&oldid=2594653"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-CA726A200D22"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-MING-ZHU-QIYU"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C4",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          },
+          "handoff_segment_anchors": [
+            {
+              "raw_text": "1449—1457=C2-3→C2-3"
+            }
+          ]
+        },
+        {
+          "adjudication_reason": "弘治期市场与银财政仍能运转，太仓一度积银百余万；但盐法改折银后商屯撤业、边粮腾贵并出现“边储日虚”，同时内府供应繁多而持续抽取太仓。公共财政不是失效，却存在本人窗口明确的结构性余量不足，按瓶颈规则只能三档。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《明史·食货志》"
+              ],
+              "verbatim_excerpt": "弘治五年……一时太仓银累至百馀万。然赴边开中之法废，商屯撤业，菽粟翔贵，边储日虚矣。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·食货志》"
+              ],
+              "verbatim_excerpt": "弘治时，内府供应繁多，每收太仓银入内库。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·食货志》"
+              ],
+              "verbatim_excerpt": "孝宗初御史陈瑶言崇文门监税官以掊克为能非国体，乃命客货外车辆毋得搜阻。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "市场仍运行，但F/R有直接结构性弱证，无法满足四档“两柱至少健康”。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "“弘治中兴”“民物康阜”等总评不承担C2档位。",
+            "太仓百余万与边储日虚必须并行消费，不能用中央银储覆盖边区粮储结构问题。"
+          ],
+          "peak_band": null,
+          "polity": "明",
+          "rank": 56,
+          "reign_range": "1487-1505",
+          "ruler_id": "RULER-MING-ZHU-YOUCHENG",
+          "ruler_name": "朱祐樘",
+          "score": 14.9,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-3",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-EA9EDE31B718"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-EA9EDE31B718",
+                "candidate_ids_trace_only": [
+                  "EV-HZ-B2-01"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "户部请求灾年免粮，皇帝明确采纳 | 外朝信息上达并改变财政决定 | 二月壬辰，免河南被災秋糧。甲午，戶部請免南畿、湖廣稅糧。上曰：「凶歲義當損上益下。必欲取盈，如病民何。」悉從之。 | --- | work_title: 明史 | page_title: 明史/卷15 | volume: 15 | source_unit_id: SRC-MINGSHI-015-2594630 | source_url: https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B715 | source_url_origin: cache | revision_ref: 2594630 | source_text_origin: cache_raw_text | raw_sha256: cef4fb81043071d05260a26a0e57f91789ebd2c11ed56f835e33de51494bee05 | paragraph_count: 228 | source_license_note: Retain source URL and attribution; verify reuse terms at the source before redistribution.",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json#material_id=EV-HZ-B2-01",
+                  ".cache/source-text/明史-明/卷015.md"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-EA9EDE31B718"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-MING-ZHU-YOUCHENG"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C5",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          }
+        },
+        {
+          "adjudication_reason": "隆庆承接嘉靖末公共财政低位。市场货币面在隆庆初由“钱法不行”逐步恢复到“稍稍通”，贡市也扩大边贸；但同一窗口《明史》明确记太仓银被反复抽入内库，甚至承运库中官以空扎索取，公共财政余量仍然偏弱。故由二恢复到三，但不足四。",
+          "confidence": "medium",
+          "evidence": [
+            {
+              "source_works": [
+                "《明史·食货志》"
+              ],
+              "verbatim_excerpt": "隆庆初钱法不行……帝深然之，钱法复稍稍通矣。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·食货志》"
+              ],
+              "verbatim_excerpt": "隆庆中，数取太仓银入内库，承运库中官至以空扎下户部取之。廷臣疏谏，皆不听。又数取光禄太仆银。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·穆宗本纪》"
+              ],
+              "verbatim_excerpt": "许俺答封贡，减赋息民。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "M面恢复健康，但F/R仍有本人窗口直接弱证，四档门失败。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "S0与已重裁朱厚熜S_end=C2-2对齐。",
+            "节俭、减赋属于工具和结构背景，不自动抬档。"
+          ],
+          "peak_band": null,
+          "polity": "明",
+          "rank": 56,
+          "reign_range": "1567-1572",
+          "ruler_id": "RULER-MING-ZHU-ZAIHOU",
+          "ruler_name": "朱载坖",
+          "score": 14.9,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-3",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-5F4DF33A5759"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-5F4DF33A5759",
+                "candidate_ids_trace_only": [
+                  "EV-LQ-C2-01"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "MARKET_TRADE",
+                  "PUBLIC_WORKS",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "罢额外采买和斋醮工程，减半田赋并免旧逋 | 形成财政止损方向，未直接闭合市场、常规收支或储备恢复结果 | 四十五年十二月庚子，世宗崩。壬子，即皇帝位。以明年為隆慶元年，大赦天下。先朝政令不便者，皆以遺詔改之。召用建言得罪諸臣，死者卹錄。方士悉付法司治罪，罷一切齋醮工作及例外採買。免明年天下田賦之半，及嘉靖四十三年以前逋賦。釋戶部主事海瑞於獄。 | --- | work_title: 明史 | page_title: 明史/卷19 | volume: 19 | source_unit_id: SRC-MINGSHI-019-2594635 | source_url: https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B719 | source_url_origin: cache | revision_ref: 2594635 | source_text_origin: cache_raw_text | raw_sha256: 8b53c448bc1ddbfc29de8566bdb1683753c6dfee7acaee5b99e45022c201f3f2 | paragraph_count: 70 | source_license_note: Retain source URL and attribution; verify reuse terms at the source before redistribution.",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json#material_id=EV-LQ-C2-01",
+                  ".cache/source-text/明史-明/卷019.md"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-5F4DF33A5759"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-MING-ZHU-ZAIHOU"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C5",
+            "cost_status": "LOWER_BOUND",
+            "cost_position": "LOW",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-2",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          }
+        },
+        {
+          "adjudication_reason": "原结算“常规财政仍能赈济和减税，但工程、内廷与地方财力被强制透支”的二档判断成立。本轮补入《明史》本人窗口硬证：天启元年仍承接万历九厘辽饷加派的税基结构；天启六年又直接命南京守备内臣“搜括应天各府贮库银，充殿工、兵饷”。到天启七年仍可赈凤阳饥、免潼关咸阳商税，证明机器没有失灵到一档。因此全任维持C2-2，S_end也保二。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "source_works": [
+                "《明史·食货志》卷七十八"
+              ],
+              "verbatim_excerpt": "天启元年……辽饷加派，易致不均。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·熹宗本纪》"
+              ],
+              "verbatim_excerpt": "命南京守备内臣搜括应天各府贮库银，充殿工、兵饷。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·熹宗本纪》"
+              ],
+              "verbatim_excerpt": "七年春正月辛未，振凤阳饥。辛卯，免榷潼关、咸阳商税。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "PASS_C2_2_FAIL_C2_1",
+            "basis": "财政长期脆弱并依赖搜括地方储备，但仍能进行赈济、减税和常规财政运作，故二档而非一档。"
+          },
+          "main_band": "C2-2",
+          "material_limitations": [
+            "S_end=C2-2，与本批朱由检S0直接同步。",
+            "建逆祠等工程本身不机械扣档，只消费已经闭合的搜括府库银结果。"
+          ],
+          "peak_band": null,
+          "polity": "明",
+          "rank": 146,
+          "reign_range": "1620-1627；只按本人实际最高治理权，魏忠贤为受权执行链",
+          "ruler_id": "RULER-MING-ZHU-YOUJIAO",
+          "ruler_name": "朱由校",
+          "score": 7.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-2",
+            "S_end": "C2-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-MING-ZHU-YOUJIAO"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C6",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-2",
+            "score": 7.0,
+            "state_anchors": {
+              "S0": "C2-2",
+              "S_avg": "C2-2",
+              "S_end": "C2-2"
+            }
+          },
+          "old_settlement_review": "KEEP_BAND_REPLACE_CROSS_AXIS_DETAIL；保留：原结算关于工程/内廷透支地方财力而财政仍未全面崩解的结论保留。；推翻/修正：以辽饷和搜括府库银替代过多政治高压材料，纯化为C2证据。。"
+        },
+        {
+          "adjudication_reason": "原结算主态二档正确，但旧数据字段把S_end误留在C2-2，与原结算理由“终点常规财政与征收中枢断裂”自相矛盾。本轮补足结果轴：崇祯二年京边岁入名额三百二十六万余，而逋负后实际“不满二百万”，仅既定支出即已“出浮于入”一百十三万余；随后辽、剿、练三饷累计增赋一千六百七十万，“民不聊生，益起为盗”。到1644中央财政与征收中枢随京师陷落停止运转，已经符合一柱广泛失灵并多面断裂的终点一档。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《明史·毕自严传》"
+              ],
+              "verbatim_excerpt": "而逋负相沿，所入不满二百万，即尽充边饷，尚无赢馀……出浮于入，已一百十三万六千。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·杨嗣昌传》"
+              ],
+              "verbatim_excerpt": "先后增赋千六百七十万，民不聊生，益起为盗矣。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·思宗本纪》"
+              ],
+              "verbatim_excerpt": "京营兵溃，外城陷，内城陷。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "PASS_C2_2_END_C2_1",
+            "basis": "主态阶段财政长期脆弱而非全面失效；退出权力时中央征收、支付和行政财政中枢已实际终止，S_end=C2-1。"
+          },
+          "main_band": "C2-2",
+          "material_limitations": [
+            "S0=C2-2，与朱由校S_end直接同步。",
+            "明亡本身不自动等于一档",
+            "终点一档依赖此前长期财政断裂与中央征收支付中枢实际停止的组合证据。"
+          ],
+          "peak_band": null,
+          "polity": "明",
+          "rank": 146,
+          "reign_range": "1627-1644北京内城陷落前；不把战役成败重复写入治理轴",
+          "ruler_id": "RULER-MING-ZHU-YOUJIAN",
+          "ruler_name": "朱由检",
+          "score": 6.4,
+          "stability_class_diagnostic_only": "K0",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-2",
+            "S_end": "C2-1"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-MING-ZHU-YOUJIAN"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C6",
+            "cost_status": "LOWER_BOUND",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-2",
+            "score": 7.0,
+            "state_anchors": {
+              "S0": "C2-2",
+              "S_avg": "C2-2",
+              "S_end": "C2-2"
+            }
+          },
+          "old_settlement_review": "KEEP_MAIN_BAND_FIX_END_FIELD；保留：原结算关于三饷透支、税基恶化和终点财政中枢断裂的核心判断全部保留。；推翻/修正：修复旧JSON中S_end仍为C2-2的字段错误，改为与原理由一致的C2-1。。"
+        },
+        {
+          "adjudication_reason": "原结算关于永历政权仍有局部生产、行政收入但财政依赖军头和流动中枢的判断保留。南明总体食货总结已经给出其所处结构：“兵额倍广，供亿烦多，调度不继，愈趋掊克”“大臣愈富，帑藏愈细”；本人又长期在桂、滇间依附军事集团，财政行政完整性有限。到进入缅甸、从官被杀、本人被交出时，已经不再保有可持续税基、储备和财政行政网络，终点应由旧字段C2-2修为C2-1。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "source_works": [
+                "《南明史稿·食货志》"
+              ],
+              "verbatim_excerpt": "南渡，外患益深，地力不修，兵额倍广，供亿烦多，调度不继，愈趋掊克。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《南明史稿·食货志》"
+              ],
+              "verbatim_excerpt": "大臣愈富，帑藏愈细。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·桂王传》"
+              ],
+              "verbatim_excerpt": "由榔走腾越，又走南甸，抵囊木河，是为缅境……缅人以兵围从官，杀沐天波、马吉翔等四十有二人。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "PASS_C2_2_END_C2_1",
+            "basis": "主体阶段仍有区域税收与军政财政可运行，故主态二；进入缅甸后实际财政行政网络消失，终点一档。"
+          },
+          "main_band": "C2-2",
+          "material_limitations": [
+            "南明食货总评跨弘光、隆武、永历，只用于约束三朝共同财政结构",
+            "本人终点另以桂王实际流亡和行政集团瓦解闭合。",
+            "军事失败不自动判一档。"
+          ],
+          "peak_band": null,
+          "polity": "明",
+          "rank": 146,
+          "reign_range": "1646-1661实际可支配中枢；1661被缅方控制移交后失权，1662死亡仅作终局确认",
+          "ruler_id": "RULER-MING-ZHU-YOULANG",
+          "ruler_name": "朱由榔",
+          "score": 6.4,
+          "stability_class_diagnostic_only": "K0",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-2",
+            "S_end": "C2-1"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-MING-ZHU-YOULANG"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C4",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-2",
+            "score": 7.0,
+            "state_anchors": {
+              "S0": "C2-2",
+              "S_avg": "C2-2",
+              "S_end": "C2-2"
+            }
+          },
+          "old_settlement_review": "KEEP_MAIN_BAND_LOWER_END；保留：原结算关于军头控制、流动中枢和财政行政最终消失的判断保留。；推翻/修正：把原理由中的“终点财政行政消失”真正写入S_end=C2-1。。"
+        },
+        {
+          "adjudication_reason": "原结算对万历亲政期的判断基本成立，并且必须继续排除张居正主政阶段对本人高峰的机械回填。万历六年太仓岁入曾达四百五十余万两，说明亲政起点仍承接一个可运行财政底盘；但“久之，太仓、光禄、太仆银括取几尽”，矿税四出、加赋重征又闭合成“海内困敝而储积益以空乏”。万历四十六年以后辽饷九厘累计增赋五百二十万并成为岁额，F/R长期脆弱覆盖亲政后段主体，因此主态仍二。",
+          "confidence": "high",
+          "evidence": [
+            {
+              "source_works": [
+                "《明史·食货志》卷七十九"
+              ],
+              "verbatim_excerpt": "至神宗万历六年，太仓岁入凡四百五十馀万两……久之，太仓、光禄、太仆银，括取几尽。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·食货志》卷七十七"
+              ],
+              "verbatim_excerpt": "神宗乃加赋重征，矿税四出，移正供以实左藏……海内困敝，而储积益以空乏。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·食货志》卷七十八"
+              ],
+              "verbatim_excerpt": "通前后九釐，增赋五百二十万，遂为岁额。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "PASS_C2_2_FAIL_C2_1",
+            "basis": "公共财政长期依赖额外汲取且储积趋空，二档成立；但民间市场和正常税收并未在全任主体阶段广泛失灵，未到一档。"
+          },
+          "main_band": "C2-2",
+          "material_limitations": [
+            "S0按本人实际亲政起点取C2-3",
+            "1572—1582张居正主政阶段只作交接背景，不单独登记本人C2-4峰值。",
+            "三大征等战争本身不机械扣C2，降档依据是已经实现的加赋、储备耗尽和税基转嫁。"
+          ],
+          "peak_band": null,
+          "polity": "明",
+          "rank": 146,
+          "reign_range": "1572-1620",
+          "ruler_id": "RULER-MING-ZHU-YIJUN",
+          "ruler_name": "朱翊钧",
+          "score": 7.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-2",
+            "S_end": "C2-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-B1E6A41800F3"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-B1E6A41800F3",
+                "candidate_ids_trace_only": [
+                  "M3-FT-8FAF6DEFFB0857FD"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "UNRESOLVED_DIRECTION",
+                "mechanisms": [
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE"
+                ],
+                "chain_summary": "漕运仓库段；区分运输改制、军民负担、仓储和后见结果。",
+                "source_refs": [
+                  "https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B779"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-B1E6A41800F3"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-MING-ZHU-YIJUN"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C5",
+            "cost_status": "LOWER_BOUND",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-2",
+            "score": 7.0,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-2",
+              "S_end": "C2-2"
+            }
+          },
+          "old_settlement_review": "KEEP_BAND_AND_PERSONAL_WINDOW；保留：原结算关于矿税、额外汲取、辽饷与任末财政失灵的核心判断保留。；推翻/修正：补入太仓曲线以证明不是全任一开始即二档，但不足推翻二档主态。。"
+        },
+        {
+          "adjudication_reason": "原结算“饷绌限制执行、财政依赖紧急动员而无储备高位”的二档判断成立，而且可用《明史》直接强化：郑芝龙拟战守兵二十余万而“计饷不支其半”，只能预借两税一年、群下捐俸、绅士输助、征未解银谷，结果“官吏督迫，闾里骚然”，广开事例仍不足。这里是典型F长期脆弱；但福建税基与市场并未全面断裂，隆武政权覆灭也不能自动把S_end压到一档，所以二→二→二。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "source_works": [
+                "《明史·唐王传》"
+              ],
+              "verbatim_excerpt": "芝龙议简战守兵二十馀万，计饷不支其半。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明史·唐王传》"
+              ],
+              "verbatim_excerpt": "请预借两税一年，令群下捐俸，劝绅士输助，征府县银谷未解者。官吏督迫，闾里骚然。又广开事例，犹苦不足。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《明会要·卷一》"
+              ],
+              "verbatim_excerpt": "聿键屡促芝龙出兵，辄以饷绌辞。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "PASS_C2_2_FAIL_C2_1_END",
+            "basis": "公共财政明显脆弱且依赖非常动员，但区域生产、市场和税收系统仍可运转，终点缺多面系统断裂证据。"
+          },
+          "main_band": "C2-2",
+          "material_limitations": [
+            "政权覆灭不自动等于C2-1。",
+            "与朱由榔之间存在绍武及区域分裂，不列直接双锚。"
+          ],
+          "peak_band": null,
+          "polity": "明",
+          "rank": 146,
+          "reign_range": "1645-1646福建隆武实际中枢；郑氏控制作为本人权责限制而非扩张辖境",
+          "ruler_id": "RULER-MING-ZHU-YUJIAN",
+          "ruler_name": "朱聿键",
+          "score": 7.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-2",
+            "S_end": "C2-2"
+          },
+          "m3_supplement_review": null,
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C4",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-2",
+            "score": 7.0,
+            "state_anchors": {
+              "S0": "C2-2",
+              "S_avg": "C2-2",
+              "S_end": "C2-2"
+            }
+          },
+          "old_settlement_review": "KEEP_BAND_STRENGTHEN_DIRECT_FISCAL_EVIDENCE；保留：原结算关于饷绌、紧急筹饷和缺储备高位的核心判断全部保留。；推翻/修正：补入预借两税、捐输和闾里骚然的直接结果，使二档更扎实。。"
+        }
+      ]
+    }
+  }
+}

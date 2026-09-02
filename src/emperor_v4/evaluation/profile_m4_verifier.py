@@ -7,6 +7,8 @@ from urllib.parse import urlparse
 
 import yaml
 
+from emperor_v4.evaluation.formal_json_store import load_json
+
 from emperor_v4.evaluation.profile_m4_settlement import (
     ACCEPTANCE,
     AUDIT,
@@ -32,7 +34,8 @@ def _read(path: Path) -> bytes:
 
 
 def _load(path: Path) -> Any:
-    return json.loads(_read(path).decode("utf-8"))
+    _read(path)
+    return load_json(path)
 
 
 def _walk(value: Any):

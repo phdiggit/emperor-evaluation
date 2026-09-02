@@ -7,6 +7,8 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
+from emperor_v4.evaluation.formal_json_store import load_json, load_ruler_polities, write_json
+
 
 B1_PATH = Path("docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json")
 METHOD_PATH = Path("docs/评分结算/第二项治国净收益/制度行政/04-治理手段165分正式结算.json")
@@ -531,7 +533,7 @@ def render_b1_markdown(payload: dict[str, Any], workspace_root: Path) -> str:
 
 def rebuild_derived(workspace_root: Path, *, write: bool = False) -> dict[str, Any]:
     b1_path = workspace_root / B1_PATH
-    b1 = refresh_b1_payload(json.loads(b1_path.read_text(encoding="utf-8")))
+    b1 = refresh_b1_payload(load_json(b1_path))
     validate_gate_references(b1)
     b1_md = render_b1_markdown(b1, workspace_root)
 
@@ -562,7 +564,7 @@ def rebuild_derived(workspace_root: Path, *, write: bool = False) -> dict[str, A
     finance_by_axis = {
         axis: {
             row["ruler_id"]: row
-            for row in json.loads((workspace_root / path).read_text(encoding="utf-8"))["scores"]
+            for row in load_json(workspace_root / path)["scores"]
         }
         for axis, path in FINANCE_PATHS.items()
     }
@@ -595,7 +597,7 @@ def rebuild_derived(workspace_root: Path, *, write: bool = False) -> dict[str, A
         )
     total_md_text = "\n".join(total_md) + "\n"
     if write:
-        b1_path.write_text(json.dumps(b1, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
+        write_json(b1_path, b1, ruler_polities=load_ruler_polities(workspace_root))
         b1_path.with_suffix(".md").write_text(b1_md, encoding="utf-8", newline="\n")
         method_path.write_text(json.dumps(method, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
         method_path.with_suffix(".md").write_text(method_md_text, encoding="utf-8", newline="\n")

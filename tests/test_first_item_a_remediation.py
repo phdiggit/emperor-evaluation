@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 from emperor_v4.evaluation.first_item_settlement import build_first_item_formal_settlement
+from emperor_v4.evaluation.formal_json_store import load_json
 
 
 ROOT = Path(".")
@@ -11,7 +12,7 @@ A_PATH = ROOT / "docs/评分结算/第一项创业与政权取得能力/战略�
 
 
 def _load(path: Path) -> dict:
-    return json.loads(path.read_text(encoding="utf-8"))
+    return load_json(path)
 
 
 def test_first_item_a_uses_decided_weights_and_full_o_coverage() -> None:

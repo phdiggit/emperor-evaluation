@@ -1,0 +1,3234 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "明",
+  "collections": {
+    "records": {
+      "positions": [
+        11,
+        41,
+        42,
+        43,
+        44,
+        45,
+        123,
+        124,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        172,
+        173,
+        184
+      ],
+      "records": [
+        {
+          "A_C_A_support_mechanism": "巡抚、六科覆奏与审覆重囚",
+          "A_grade_thickness_cost": 2.0,
+          "A_independent_M_position_weight": 0.5,
+          "A_independent_M_signed": 2.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": 0.5,
+          "A_structural_thickness": 2.0,
+          "C_A": 2.0,
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "S_depth_weight": 1,
+              "S_effect": "S+",
+              "counts_toward_S": true,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "中央—地方层级",
+              "institution_node_id": "I2-MING-ZJ-GOVERNOR-INTERFACE",
+              "label_zh": "巡抚跨府州协调与中央委派接口",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "MING-ZJ-A-GOVERNOR-CONSTRUCTION-POSITIVE-001",
+                "MING-ZJ-A-GOVERNOR-RECEPTION-R3"
+              ],
+              "mechanism": "巡抚跨府州协调与中央委派接口",
+              "result_closure": "SUSTAINED_OR_SYSTEMIC",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M2",
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "监察反馈",
+              "institution_node_id": "I2-MING-ZJ-SIX-OFFICES-EUNUCH-ORDERS",
+              "label_zh": "巡抚、六科覆奏与审覆重囚",
+              "major_node_role": "STRUCTURAL_NON_DURABLE",
+              "material_ids": [
+                "MING-ZJ-ADMIN-001"
+              ],
+              "mechanism": "巡抚、六科覆奏与审覆重囚",
+              "position_count_mode": "c_a_support_excluded_from_independent_m",
+              "position_exclusion_reason": "该链已支撑C_A，避免在独立M余量中重复消费",
+              "result_closure": "OBSERVED",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M2",
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_node_id": "I2-MING-ZJ-MULTI-OFFICE-PRISON-REVIEW",
+              "label_zh": "巡抚、六科覆奏与审覆重囚",
+              "major_node_role": "MAINTENANCE_REVISION",
+              "material_ids": [
+                "MING-ZJ-ADMIN-001"
+              ],
+              "mechanism": "巡抚、六科覆奏与审覆重囚",
+              "result_closure": "OBSERVED",
+              "signed_weight": 1.0
+            }
+          ],
+          "S_depth_units": 1,
+          "S_minus": 0,
+          "S_minus_node_ids": [],
+          "S_net": 1,
+          "S_plus_plus": 0,
+          "S_plus_regular": 1,
+          "S_total": 1,
+          "coverage_audit_ids": [
+            "MING17-TWO-SOURCE-FAMILY-GATE",
+            "MING17-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "MING-ZJ-A-GOVERNOR-CONSTRUCTION-POSITIVE-001",
+            "MING-ZJ-A-GOVERNOR-RECEPTION-R3",
+            "MING-ZJ-ADMIN-001"
+          ],
+          "direct_material_roles": {
+            "MING-ZJ-A-GOVERNOR-CONSTRUCTION-POSITIVE-001": [
+              "A_OPERATION",
+              "S_CONSTRUCTION"
+            ],
+            "MING-ZJ-A-GOVERNOR-RECEPTION-R3": [
+              "S_DURABILITY_GATE"
+            ],
+            "MING-ZJ-ADMIN-001": [
+              "A_OPERATION"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 77.5,
+          "evidence_sufficiency_gate": "PASS_FIXED_PRIMARY_PLUS_INDEPENDENT_SOURCE",
+          "formal_evidence_maturity": "fixed_primary_and_independent_history_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G4",
+          "grade_basis": "巡抚跨府州协调与中央委派接口中至少一条正向国家骨架通过后继实际接收门，正负长期骨架净计为1；独立领域或文明深度尚不足G5罕见组合",
+          "important_institutions": [
+            {
+              "S_depth_weight": 1,
+              "S_effect": "S+",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "MING-ZJ-A-GOVERNOR-CONSTRUCTION-POSITIVE-001"
+              ],
+              "counts_toward_S": true,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "PASS_COUNTS_TOWARD_S",
+              "durability_material_ids": [
+                "MING-ZJ-A-GOVERNOR-RECEPTION-R3"
+              ],
+              "institution_domain": "中央—地方层级",
+              "institution_lineage": "MING-REGIONAL-GOVERNOR-LINEAGE",
+              "institution_node_id": "I2-MING-ZJ-GOVERNOR-INTERFACE",
+              "label_zh": "巡抚跨府州协调与中央委派接口",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "MING-ZJ-A-GOVERNOR-CONSTRUCTION-POSITIVE-001",
+                "MING-ZJ-A-GOVERNOR-RECEPTION-R3"
+              ],
+              "normative_direction": "positive",
+              "reason": "宣德设置巡抚的中央委派与跨府州协调接口，成化朝各直省巡抚继续实际考察官吏、访军民疾苦，闭合R3。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json"
+              ],
+              "source_kind": "S_PLUS_BASELINE_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "MING-ZJ-ADMIN-001"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "FAIL_R_PENDING",
+              "durability_material_ids": [],
+              "institution_domain": "监察反馈",
+              "institution_lineage": "MING-IMPERIAL-ORDER-REVIEW-LINEAGE",
+              "institution_node_id": "I2-MING-ZJ-SIX-OFFICES-EUNUCH-ORDERS",
+              "label_zh": "巡抚、六科覆奏与审覆重囚",
+              "major_node_role": "STRUCTURAL_NON_DURABLE",
+              "material_ids": [
+                "MING-ZJ-ADMIN-001"
+              ],
+              "normative_direction": "positive",
+              "reason": "实际建立对中官传旨的复核，但现有节点证据没有独立闭合后继R3。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json"
+              ],
+              "source_kind": "NON_S_MAJOR_NODE"
+            }
+          ],
+          "index_interval": [
+            70.0,
+            84.9
+          ],
+          "polity": "明",
+          "position": "middle",
+          "position_basis": "A结构厚度=2.00（G4/G5由S净值与S++深度构成），G4主档消费=2.00；C_A不参与高档结构奖励，其支撑链按普通独立M计入后，独立有符号M原值=2.00、position权重=0.50；统一净余=0.50，对应middle。",
+          "position_q": 0.5,
+          "rank": 14,
+          "reign_range": "1425-1435",
+          "ruler_id": "RULER-MING-ZHU-ZHANJI",
+          "ruler_name": "朱瞻基",
+          "verification_material_ids": [],
+          "v2_mechanical_shadow": {
+            "net": 4.0,
+            "p": 4.0,
+            "n": 0,
+            "shadow_grade": "G4",
+            "unfloored": "G4",
+            "floor": null
+          },
+          "extreme_delta_reopen": false
+        },
+        {
+          "A_C_A_support_mechanism": "巡按、赈灾、漕运和灾情上达",
+          "A_grade_thickness_cost": 1.0,
+          "A_independent_M_position_weight": 0.5,
+          "A_independent_M_signed": 2.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": 0.5,
+          "A_structural_thickness": 1.0,
+          "C_A": 2.0,
+          "M_mixed_profile": [
+            {
+              "M": "M3",
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "counts_toward_S": false,
+              "direction": "mixed_positive",
+              "direction_factor": 0.5,
+              "institution_domain": "户籍田制与国家资源行政",
+              "institution_node_id": "I2-MING-DI-BEIJING-CANAL",
+              "label_zh": "巡按、赈灾、漕运和灾情上达",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "MING-DI-ADMIN-001"
+              ],
+              "mechanism": "巡按、赈灾、漕运和灾情上达",
+              "result_closure": "SUSTAINED_OR_SYSTEMIC",
+              "signed_weight": 1.0
+            }
+          ],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "S_depth_weight": 0,
+              "S_effect": "S-1",
+              "counts_toward_S": true,
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "institution_domain": "监察反馈",
+              "institution_node_id": "I2-MING-DI-EASTERN-DEPOT",
+              "label_zh": "五覆奏与厂卫并存",
+              "major_node_role": "FOUNDATIONAL_CREATION",
+              "material_ids": [
+                "MING-DI-JUSTICE-001",
+                "MING-DI-A-EASTERN-DEPOT-001"
+              ],
+              "mechanism": "五覆奏与厂卫并存",
+              "result_closure": "SUSTAINED_OR_SYSTEMIC",
+              "signed_weight": -2.0
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "S_depth_weight": 1,
+              "S_effect": "S+",
+              "counts_toward_S": true,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "中央组织",
+              "institution_node_id": "I2-MING-DI-WENYUAN-CABINET",
+              "label_zh": "文渊阁机务参预与制诰协作接口",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "MING-DI-A-WENYUAN-CONSTRUCTION-POSITIVE-001",
+                "MING-DI-A-WENYUAN-RECEPTION-001"
+              ],
+              "mechanism": "文渊阁机务参预与制诰协作接口",
+              "result_closure": "SUSTAINED_OR_SYSTEMIC",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M2",
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "监察反馈",
+              "institution_node_id": "I2-MING-DI-INSPECTOR-PATROL",
+              "label_zh": "巡按、赈灾、漕运和灾情上达",
+              "major_node_role": "CANONICALIZATION",
+              "material_ids": [
+                "MING-DI-ADMIN-001"
+              ],
+              "mechanism": "巡按、赈灾、漕运和灾情上达",
+              "position_count_mode": "c_a_support_excluded_from_independent_m",
+              "position_exclusion_reason": "该链已支撑C_A，避免在独立M余量中重复消费",
+              "result_closure": "OBSERVED",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M2",
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_node_id": "I2-MING-DI-FIVE-REVIEWS",
+              "label_zh": "五覆奏与厂卫并存",
+              "major_node_role": "MAINTENANCE_REVISION",
+              "material_ids": [
+                "MING-DI-JUSTICE-001"
+              ],
+              "mechanism": "五覆奏与厂卫并存",
+              "result_closure": "OBSERVED",
+              "signed_weight": 1.0
+            }
+          ],
+          "S_depth_units": 1,
+          "S_minus": 1.0,
+          "S_minus_node_ids": [
+            "I2-MING-DI-EASTERN-DEPOT"
+          ],
+          "S_net": 0.0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 1,
+          "S_total": 1,
+          "coverage_audit_ids": [
+            "MING17-TWO-SOURCE-FAMILY-GATE",
+            "MING17-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "MING-DI-A-EASTERN-DEPOT-001",
+            "MING-DI-A-WENYUAN-CONSTRUCTION-POSITIVE-001",
+            "MING-DI-A-WENYUAN-RECEPTION-001",
+            "MING-DI-ADMIN-001",
+            "MING-DI-JUSTICE-001",
+            "MING-DI-SUCCESSOR-001",
+            "MING-DI-TAKEOVER-001"
+          ],
+          "direct_material_roles": {
+            "MING-DI-A-EASTERN-DEPOT-001": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ],
+            "MING-DI-A-WENYUAN-CONSTRUCTION-POSITIVE-001": [
+              "A_OPERATION",
+              "S_CONSTRUCTION"
+            ],
+            "MING-DI-A-WENYUAN-RECEPTION-001": [
+              "S_DURABILITY_GATE"
+            ],
+            "MING-DI-ADMIN-001": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ],
+            "MING-DI-JUSTICE-001": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ],
+            "MING-DI-SUCCESSOR-001": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ],
+            "MING-DI-TAKEOVER-001": [
+              "A_OPERATION"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 62.5,
+          "evidence_sufficiency_gate": "PASS_FIXED_PRIMARY_PLUS_INDEPENDENT_SOURCE",
+          "formal_evidence_maturity": "fixed_primary_and_independent_history_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G3",
+          "grade_basis": "文渊阁机务参预与制诰协作接口达到重大重建、定型、纠偏或结构改革的完成度，但长期国家基线门尚未闭合，或正负骨架抵消后净计为0；同时存在五覆奏与厂卫并存的负向限制",
+          "important_institutions": [
+            {
+              "S_depth_weight": 1,
+              "S_effect": "S+",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "MING-DI-A-WENYUAN-CONSTRUCTION-POSITIVE-001"
+              ],
+              "counts_toward_S": true,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "PASS_COUNTS_TOWARD_S",
+              "durability_material_ids": [
+                "MING-DI-A-WENYUAN-RECEPTION-001"
+              ],
+              "institution_domain": "中央组织",
+              "institution_lineage": "MING-WENYUAN-CABINET-LINEAGE",
+              "institution_node_id": "I2-MING-DI-WENYUAN-CABINET",
+              "label_zh": "文渊阁机务参预与制诰协作接口",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "MING-DI-A-WENYUAN-CONSTRUCTION-POSITIVE-001",
+                "MING-DI-A-WENYUAN-RECEPTION-001"
+              ],
+              "normative_direction": "positive",
+              "reason": "建制仅使用入直文渊阁并预机务的正向句，不再消费靖难清洗；同一机务接口跨仁宣、正统实际运行，闭合R4。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json"
+              ],
+              "source_kind": "S_PLUS_BASELINE_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "MING-DI-ADMIN-001"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "FAIL_R_PENDING",
+              "durability_material_ids": [],
+              "institution_domain": "监察反馈",
+              "institution_lineage": "MING-CENSORIAL-PATROL-LINEAGE",
+              "institution_node_id": "I2-MING-DI-INSPECTOR-PATROL",
+              "label_zh": "巡按、赈灾、漕运和灾情上达",
+              "major_node_role": "CANONICALIZATION",
+              "material_ids": [
+                "MING-DI-ADMIN-001"
+              ],
+              "normative_direction": "positive",
+              "reason": "灾情上达有实际正链，但未以直接材料闭合后继R3同核心巡按规则。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json"
+              ],
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "MING-DI-ADMIN-001"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "MIXED_NO_S",
+              "durability_material_ids": [],
+              "institution_domain": "户籍田制与国家资源行政",
+              "institution_lineage": "MING-BEIJING-CANAL-RESOURCE-LINEAGE",
+              "institution_node_id": "I2-MING-DI-BEIJING-CANAL",
+              "label_zh": "巡按、赈灾、漕运和灾情上达",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "MING-DI-ADMIN-001"
+              ],
+              "normative_direction": "mixed",
+              "reason": "漕运降低部分运输成本但把东南资源持续转向北方首都，国家动员与工程规模不等于民间净收益；继任撤采办是终点压力反证。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json"
+              ],
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "S-1",
+              "S_minus_weight": 1,
+              "construction_operation_material_ids": [
+                "MING-DI-JUSTICE-001",
+                "MING-DI-A-EASTERN-DEPOT-001"
+              ],
+              "counts_toward_S": true,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "PASS_NEGATIVE_R4",
+              "durability_material_ids": [
+                "MING-DI-A-EASTERN-DEPOT-001"
+              ],
+              "institution_domain": "监察反馈",
+              "institution_lineage": "MING-FACTORY-GUARD-LINEAGE",
+              "institution_node_id": "I2-MING-DI-EASTERN-DEPOT",
+              "label_zh": "五覆奏与厂卫并存",
+              "major_node_role": "FOUNDATIONAL_CREATION",
+              "material_ids": [
+                "MING-DI-JUSTICE-001",
+                "MING-DI-A-EASTERN-DEPOT-001"
+              ],
+              "normative_direction": "negative",
+              "reason": "绕开法司、以宦官和秘密侦缉制约官民，内生制造恐惧、诬陷和法外权力。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json"
+              ],
+              "source_kind": "S_MINUS_BASELINE_NODE"
+            }
+          ],
+          "index_interval": [
+            55.0,
+            69.9
+          ],
+          "polity": "明",
+          "position": "middle",
+          "position_basis": "A结构厚度=1.00（G0—G3含已消费的C_A/2），G3主档消费=1.00；排除S与已消费C_A支撑链后，独立有符号M原值=2.00、position权重=0.50；统一净余=0.50，对应middle。",
+          "position_q": 0.5,
+          "rank": 27,
+          "reign_range": "1402-1424",
+          "ruler_id": "RULER-MING-ZHU-DI",
+          "ruler_name": "朱棣",
+          "verification_material_ids": [],
+          "v2_mechanical_shadow": {
+            "net": 2.0,
+            "p": 5.0,
+            "n": 3.0,
+            "shadow_grade": "G4",
+            "unfloored": "G4",
+            "floor": null
+          },
+          "extreme_delta_reopen": true
+        },
+        {
+          "A_C_A_support_mechanism": "皇太子摄事与遗诏终止殉葬",
+          "A_grade_thickness_cost": 1,
+          "A_independent_M_position_weight": 0.0,
+          "A_independent_M_signed": 0.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": 0.0,
+          "A_structural_thickness": 1.0,
+          "C_A": 2.0,
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "身份秩序与人身制度",
+              "institution_node_id": "I2-MING-QZ-ABOLISH-CONSORT-SACRIFICE",
+              "label_zh": "皇太子摄事与遗诏终止殉葬",
+              "major_node_role": "MAJOR_CIVILIZATIONAL_CORRECTION",
+              "material_ids": [
+                "MING-QZ-FINAL-001",
+                "MING-QZ-A-ABOLISH-CONSORT-001"
+              ],
+              "mechanism": "皇太子摄事与遗诏终止殉葬",
+              "position_count_mode": "c_a_support_excluded_from_independent_m",
+              "position_exclusion_reason": "该链已支撑C_A，避免在独立M余量中重复消费",
+              "result_closure": "SUSTAINED_OR_SYSTEMIC",
+              "signed_weight": 1.0
+            }
+          ],
+          "S_depth_units": 0,
+          "S_minus": 0,
+          "S_minus_node_ids": [],
+          "S_net": 0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [
+            "MING17-TWO-SOURCE-FAMILY-GATE",
+            "MING17-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "MING-QZ-EARLY-001",
+            "MING-QZ-FINAL-001",
+            "MING-QZ-A-ABOLISH-CONSORT-001"
+          ],
+          "direct_material_roles": {
+            "MING-QZ-A-ABOLISH-CONSORT-001": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ],
+            "MING-QZ-EARLY-001": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ],
+            "MING-QZ-FINAL-001": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 62.5,
+          "evidence_sufficiency_gate": "PASS_FIXED_PRIMARY_PLUS_INDEPENDENT_SOURCE",
+          "formal_evidence_maturity": "fixed_primary_and_independent_history_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G3",
+          "grade_basis": "皇太子摄事与遗诏终止殉葬达到重大重建、定型、纠偏或结构改革的完成度，但长期国家基线门尚未闭合，或正负骨架抵消后净计为0",
+          "important_institutions": [
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "MING-QZ-FINAL-001",
+                "MING-QZ-A-ABOLISH-CONSORT-001"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "PASS_CORRECTION_NON_S",
+              "durability_material_ids": [
+                "MING-QZ-A-ABOLISH-CONSORT-001"
+              ],
+              "institution_domain": "身份秩序与人身制度",
+              "institution_lineage": "MING-CONSORT-BURIAL-SACRIFICE-LINEAGE",
+              "institution_node_id": "I2-MING-QZ-ABOLISH-CONSORT-SACRIFICE",
+              "label_zh": "皇太子摄事与遗诏终止殉葬",
+              "major_node_role": "MAJOR_CIVILIZATIONAL_CORRECTION",
+              "material_ids": [
+                "MING-QZ-FINAL-001",
+                "MING-QZ-A-ABOLISH-CONSORT-001"
+              ],
+              "normative_direction": "positive",
+              "reason": "废止直接移除按宫廷身份剥夺生命的既有规则，是重大正向制度纠正；属于文明基线恢复，不是新创国家骨架。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json"
+              ],
+              "source_kind": "NON_S_MAJOR_NODE"
+            }
+          ],
+          "index_interval": [
+            55,
+            69.9
+          ],
+          "polity": "明",
+          "position": "middle",
+          "position_basis": "A结构厚度=1.00（G0—G3含已消费的C_A/2），G3主档消费=1.00；排除S与已消费C_A支撑链后，独立有符号M原值=0.00、position权重=0.00；统一净余=0.00，对应middle。",
+          "position_q": 0.5,
+          "rank": 27,
+          "reign_range": "1435-1449; 1457-1464",
+          "ruler_id": "RULER-MING-ZHU-QIZHEN",
+          "ruler_name": "朱祁镇",
+          "verification_material_ids": [],
+          "v2_mechanical_shadow": {
+            "net": 1.0,
+            "p": 1.0,
+            "n": 0,
+            "shadow_grade": "G2",
+            "unfloored": "G2",
+            "floor": null
+          },
+          "extreme_delta_reopen": true
+        },
+        {
+          "A_C_A_support_mechanism": "缩小永远充军勾补范围",
+          "A_grade_thickness_cost": 1,
+          "A_independent_M_position_weight": 0.12,
+          "A_independent_M_signed": 0.5,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": 0.12,
+          "A_structural_thickness": 1.0,
+          "C_A": 2.0,
+          "M_mixed_profile": [
+            {
+              "M": "M2",
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "counts_toward_S": false,
+              "direction": "mixed_positive",
+              "direction_factor": 0.5,
+              "institution_node_id": "A-WL-OFFICIAL-STREAMLINING",
+              "label_zh": "汰内外冗官",
+              "major_node_role": "MAINTENANCE_REVISION",
+              "material_ids": [
+                "EV-WL-A-02"
+              ],
+              "mechanism": "汰内外冗官",
+              "result_closure": "未闭合",
+              "signed_weight": 0.5
+            }
+          ],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "身份秩序与人身制度",
+              "institution_node_id": "A-WL-EXILE-NARROWING",
+              "label_zh": "缩小永远充军勾补范围",
+              "major_node_role": "MAJOR_CIVILIZATIONAL_CORRECTION",
+              "material_ids": [
+                "EV-WL-A-01"
+              ],
+              "mechanism": "缩小永远充军勾补范围",
+              "position_count_mode": "c_a_support_excluded_from_independent_m",
+              "position_exclusion_reason": "该链已支撑C_A，避免在独立M余量中重复消费",
+              "result_closure": "已观察",
+              "signed_weight": 1.0
+            }
+          ],
+          "S_depth_units": 0,
+          "S_minus": 0,
+          "S_minus_node_ids": [],
+          "S_net": 0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [
+            "MING17-TWO-SOURCE-FAMILY-GATE",
+            "MING17-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "EV-WL-A-01",
+            "EV-WL-A-02"
+          ],
+          "direct_material_roles": {
+            "EV-WL-A-01": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ],
+            "EV-WL-A-02": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 62.5,
+          "evidence_sufficiency_gate": "PASS_FIXED_PRIMARY_PLUS_INDEPENDENT_SOURCE",
+          "formal_evidence_maturity": "fixed_primary_and_independent_history_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G3",
+          "grade_basis": "缩小永远充军勾补范围达到重大重建、定型、纠偏或结构改革的完成度，但长期国家基线门尚未闭合，或正负骨架抵消后净计为0",
+          "important_institutions": [
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV-WL-A-01"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "NON_S_MAJOR_CIVILIZATIONAL_CORRECTION",
+              "durability_material_ids": [],
+              "institution_domain": "身份秩序与人身制度",
+              "institution_lineage": "B-MING-MILITARY-EXILE",
+              "institution_node_id": "A-WL-EXILE-NARROWING",
+              "label_zh": "缩小永远充军勾补范围",
+              "major_node_role": "MAJOR_CIVILIZATIONAL_CORRECTION",
+              "material_ids": [
+                "EV-WL-A-01"
+              ],
+              "normative_direction": "positive",
+              "reason": "正式缩小世袭勾补并使其他充军止于本人，终止部分代际连带处罚、恢复人身责任止于本人的文明基线；属于纠偏而非新骨架。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json"
+              ],
+              "source_kind": "NON_S_MAJOR_NODE"
+            }
+          ],
+          "index_interval": [
+            55,
+            69.9
+          ],
+          "polity": "明",
+          "position": "middle",
+          "position_basis": "A结构厚度=1.00（G0—G3含已消费的C_A/2），G3主档消费=1.00；排除S与已消费C_A支撑链后，独立有符号M原值=0.50、position权重=0.12；统一净余=0.12，对应middle。",
+          "position_q": 0.5,
+          "rank": 27,
+          "reign_range": "1572-1620",
+          "ruler_id": "RULER-MING-ZHU-YIJUN",
+          "ruler_name": "朱翊钧",
+          "verification_material_ids": [],
+          "v2_mechanical_shadow": {
+            "net": 1.5,
+            "p": 1.5,
+            "n": 0,
+            "shadow_grade": "G2",
+            "unfloored": "G2",
+            "floor": null
+          },
+          "extreme_delta_reopen": true
+        },
+        {
+          "A_C_A_support_mechanism": "编成《大明会典》",
+          "A_grade_thickness_cost": 1,
+          "A_independent_M_position_weight": 0.0,
+          "A_independent_M_signed": 0.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": 0.0,
+          "A_structural_thickness": 1.0,
+          "C_A": 2.0,
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "国家行政标准与文书",
+              "institution_node_id": "A-HZ-MING-HUIDIAN",
+              "label_zh": "编成《大明会典》",
+              "major_node_role": "CANONICALIZATION",
+              "material_ids": [
+                "EV-HZ-A-01"
+              ],
+              "mechanism": "编成《大明会典》",
+              "position_count_mode": "c_a_support_excluded_from_independent_m",
+              "position_exclusion_reason": "该链已支撑C_A，避免在独立M余量中重复消费",
+              "result_closure": "已观察",
+              "signed_weight": 2.0
+            }
+          ],
+          "S_depth_units": 0,
+          "S_minus": 0,
+          "S_minus_node_ids": [],
+          "S_net": 0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [
+            "MING17-TWO-SOURCE-FAMILY-GATE",
+            "MING17-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "EV-HZ-A-01"
+          ],
+          "direct_material_roles": {
+            "EV-HZ-A-01": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 62.5,
+          "evidence_sufficiency_gate": "PASS_FIXED_PRIMARY_PLUS_INDEPENDENT_SOURCE",
+          "formal_evidence_maturity": "fixed_primary_and_independent_history_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G3",
+          "grade_basis": "编成《大明会典》达到重大重建、定型、纠偏或结构改革的完成度，但长期国家基线门尚未闭合，或正负骨架抵消后净计为0",
+          "important_institutions": [
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV-HZ-A-01"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "NON_S_ROLE_CANONICALIZATION_DURABILITY_NOT_REQUIRED",
+              "durability_material_ids": [],
+              "institution_domain": "国家行政标准与文书",
+              "institution_lineage": "MING-HUIDIAN-CANONICALIZATION",
+              "institution_node_id": "A-HZ-MING-HUIDIAN",
+              "label_zh": "编成《大明会典》",
+              "major_node_role": "CANONICALIZATION",
+              "material_ids": [
+                "EV-HZ-A-01"
+              ],
+              "normative_direction": "positive",
+              "reason": "把分散行政规范汇成可统一查用的会典接口，提高规则可知性和跨官署一致性；仅编成不自动证明长期运行。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json"
+              ],
+              "source_kind": "NON_S_MAJOR_NODE"
+            }
+          ],
+          "index_interval": [
+            55,
+            69.9
+          ],
+          "polity": "明",
+          "position": "middle",
+          "position_basis": "A结构厚度=1.00（G0—G3含已消费的C_A/2），G3主档消费=1.00；排除S与已消费C_A支撑链后，独立有符号M原值=0.00、position权重=0.00；统一净余=0.00，对应middle。",
+          "position_q": 0.5,
+          "rank": 27,
+          "reign_range": "1487-1505",
+          "ruler_id": "RULER-MING-ZHU-YOUCHENG",
+          "ruler_name": "朱祐樘",
+          "verification_material_ids": [],
+          "v2_mechanical_shadow": {
+            "net": 2.0,
+            "p": 2.0,
+            "n": 0,
+            "shadow_grade": "G3",
+            "unfloored": "G3",
+            "floor": null
+          },
+          "extreme_delta_reopen": false
+        },
+        {
+          "A_C_A_support_mechanism": "宽法、裁冗、采访、减赋和求直言",
+          "A_grade_thickness_cost": 1,
+          "A_independent_M_position_weight": 0.75,
+          "A_independent_M_signed": 3.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": 0.75,
+          "A_structural_thickness": 1.0,
+          "C_A": 2.0,
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "中央—地方层级",
+              "institution_node_id": "I2-MING-YW-COUNTY-REDUNDANCY",
+              "label_zh": "宽法、裁冗、采访、减赋和求直言",
+              "major_node_role": "STRUCTURAL_NON_DURABLE",
+              "material_ids": [
+                "MING-YW-REFORM-001"
+              ],
+              "mechanism": "宽法、裁冗、采访、减赋和求直言",
+              "position_count_mode": "c_a_support_excluded_from_independent_m",
+              "position_exclusion_reason": "该链已支撑C_A，避免在独立M余量中重复消费",
+              "result_closure": "REVERSED",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M2",
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_node_id": "I2-MING-YW-LENIENT-LAW",
+              "label_zh": "宽法、裁冗、采访、减赋和求直言",
+              "major_node_role": "MAINTENANCE_REVISION",
+              "material_ids": [
+                "MING-YW-REFORM-001"
+              ],
+              "mechanism": "宽法、裁冗、采访、减赋和求直言",
+              "result_closure": "REVERSED",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M2",
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "监察反馈",
+              "institution_node_id": "I2-MING-YW-INSPECTION-COMMISSIONERS",
+              "label_zh": "宽法、裁冗、采访、减赋和求直言",
+              "major_node_role": "STRUCTURAL_NON_DURABLE",
+              "material_ids": [
+                "MING-YW-REFORM-001"
+              ],
+              "mechanism": "宽法、裁冗、采访、减赋和求直言",
+              "result_closure": "REVERSED",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M2",
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "户籍田制与国家资源行政",
+              "institution_node_id": "I2-MING-YW-JIANGZHE-LAND-TAX",
+              "label_zh": "宽法、裁冗、采访、减赋和求直言",
+              "major_node_role": "STRUCTURAL_NON_DURABLE",
+              "material_ids": [
+                "MING-YW-REFORM-001"
+              ],
+              "mechanism": "宽法、裁冗、采访、减赋和求直言",
+              "result_closure": "REVERSED",
+              "signed_weight": 1.0
+            }
+          ],
+          "S_depth_units": 0,
+          "S_minus": 0,
+          "S_minus_node_ids": [],
+          "S_net": 0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [
+            "MING17-TWO-SOURCE-FAMILY-GATE",
+            "MING17-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "MING-YW-REFORM-001"
+          ],
+          "direct_material_roles": {
+            "MING-YW-REFORM-001": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 62.5,
+          "evidence_sufficiency_gate": "PASS_FIXED_PRIMARY_PLUS_INDEPENDENT_SOURCE",
+          "formal_evidence_maturity": "fixed_primary_and_independent_history_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G3",
+          "grade_basis": "宽法、裁冗、采访、减赋和求直言达到重大重建、定型、纠偏或结构改革的完成度，但长期国家基线门尚未闭合，或正负骨架抵消后净计为0",
+          "important_institutions": [
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "MING-YW-REFORM-001"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "FAIL_R1_REVERSED",
+              "durability_material_ids": [],
+              "institution_domain": "中央—地方层级",
+              "institution_lineage": "MING-COUNTY-ADMIN-CONSOLIDATION-LINEAGE",
+              "institution_node_id": "I2-MING-YW-COUNTY-REDUNDANCY",
+              "label_zh": "宽法、裁冗、采访、减赋和求直言",
+              "major_node_role": "STRUCTURAL_NON_DURABLE",
+              "material_ids": [
+                "MING-YW-REFORM-001"
+              ],
+              "normative_direction": "positive",
+              "reason": "地方编制得到实际精简，但短窗后被永乐复旧，未成为长期基线。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json"
+              ],
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "MING-YW-REFORM-001"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "FAIL_R1_REVERSED",
+              "durability_material_ids": [],
+              "institution_domain": "监察反馈",
+              "institution_lineage": "MING-TEMPORARY-INSPECTION-COMMISSIONER-LINEAGE",
+              "institution_node_id": "I2-MING-YW-INSPECTION-COMMISSIONERS",
+              "label_zh": "宽法、裁冗、采访、减赋和求直言",
+              "major_node_role": "STRUCTURAL_NON_DURABLE",
+              "material_ids": [
+                "MING-YW-REFORM-001"
+              ],
+              "normative_direction": "positive",
+              "reason": "形成一次中央—地方巡察运行，但后继接收未闭合。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json"
+              ],
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "MING-YW-REFORM-001"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "FAIL_R1_REVERSED",
+              "durability_material_ids": [],
+              "institution_domain": "户籍田制与国家资源行政",
+              "institution_lineage": "MING-JIANGZHE-LAND-TAX-EQUALIZATION-LINEAGE",
+              "institution_node_id": "I2-MING-YW-JIANGZHE-LAND-TAX",
+              "label_zh": "宽法、裁冗、采访、减赋和求直言",
+              "major_node_role": "STRUCTURAL_NON_DURABLE",
+              "material_ids": [
+                "MING-YW-REFORM-001"
+              ],
+              "normative_direction": "positive",
+              "reason": "区域田赋接口得到实际调整，但覆盖有限且未获长期接收。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json"
+              ],
+              "source_kind": "NON_S_MAJOR_NODE"
+            }
+          ],
+          "index_interval": [
+            55,
+            69.9
+          ],
+          "polity": "明",
+          "position": "middle",
+          "position_basis": "A结构厚度=1.00（G0—G3含已消费的C_A/2），G3主档消费=1.00；排除S与已消费C_A支撑链后，独立有符号M原值=3.00、position权重=0.75；统一净余=0.75，对应middle。",
+          "position_q": 0.5,
+          "rank": 27,
+          "reign_range": "1398-1402",
+          "ruler_id": "RULER-MING-ZHU-YUNWEN",
+          "ruler_name": "朱允炆",
+          "verification_material_ids": [],
+          "v2_mechanical_shadow": {
+            "net": 4.0,
+            "p": 4.0,
+            "n": 0,
+            "shadow_grade": "G3",
+            "unfloored": "G3",
+            "floor": null
+          },
+          "extreme_delta_reopen": false
+        },
+        {
+          "A_C_A_support_mechanism": "赎刑替代部分身体刑、徒流及死罪",
+          "A_grade_thickness_cost": 0.5,
+          "A_independent_M_position_weight": -0.25,
+          "A_independent_M_signed": -1.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": -0.25,
+          "A_structural_thickness": 0.5,
+          "C_A": 1,
+          "M_mixed_profile": [
+            {
+              "M": "M2",
+              "counts_toward_S": false,
+              "direction": "balanced",
+              "direction_factor": 0.0,
+              "institution_domain": "法律与司法",
+              "institution_node_id": "INST-MING-ZHUHOUCONG-REDEMPTION-PUNISHMENT",
+              "label_zh": "赎刑替代部分身体刑、徒流及死罪",
+              "major_node_role": "LOCAL_OR_SECONDARY_CONSTRUCTION",
+              "material_ids": [
+                "EV-JJ-A-01"
+              ],
+              "mechanism": "赎刑替代部分身体刑、徒流及死罪",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 0.0
+            }
+          ],
+          "M_negative_profile": [
+            {
+              "M": "M2",
+              "counts_toward_S": false,
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "institution_domain": "身份秩序与人身制度",
+              "institution_node_id": "A-JJ-PERPETUAL-EXILE",
+              "label_zh": "扩张永远充军与世袭勾补",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [
+                "EV-JJ-A-02"
+              ],
+              "mechanism": "扩张永远充军与世袭勾补",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": -1.0
+            }
+          ],
+          "M_positive_profile": [],
+          "S_depth_units": 0,
+          "S_minus": 0,
+          "S_minus_node_ids": [],
+          "S_net": 0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [
+            "MING17-TWO-SOURCE-FAMILY-GATE",
+            "MING17-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "EV-JJ-A-02",
+            "EV-JJ-A-01"
+          ],
+          "direct_material_roles": {
+            "EV-JJ-A-01": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ],
+            "EV-JJ-A-02": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 44.5,
+          "evidence_sufficiency_gate": "PASS_FIXED_PRIMARY_PLUS_INDEPENDENT_SOURCE",
+          "formal_evidence_maturity": "fixed_primary_and_independent_history_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G2",
+          "grade_basis": "赎刑替代部分身体刑、徒流及死罪只闭合局部或次级制度接口，结算G2。负向限制：扩张永远充军与世袭勾补。",
+          "important_institutions": [
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV-JJ-A-02"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "FAIL_STANDARD_GATE_RECEPTION_PENDING",
+              "durability_material_ids": [],
+              "institution_domain": "身份秩序与人身制度",
+              "institution_lineage": "明代永远充军与世袭勾补谱系",
+              "institution_node_id": "A-JJ-PERPETUAL-EXILE",
+              "label_zh": "扩张永远充军与世袭勾补",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [
+                "EV-JJ-A-02"
+              ],
+              "normative_direction": "negative",
+              "reason": "永远充军及世袭勾补把本人刑罚扩张为后代持续义务，代际连带伤害属于规则设计内生结果。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV-JJ-A-01"
+              ],
+              "counts_toward_S": false,
+              "decision": "LOCAL_NODE",
+              "durability_gate": "NON_S_LOCAL_CONTRIBUTION",
+              "durability_material_ids": [],
+              "institution_domain": "法律与司法",
+              "institution_lineage": "明代赎刑替代身体刑谱系",
+              "institution_node_id": "INST-MING-ZHUHOUCONG-REDEMPTION-PUNISHMENT",
+              "label_zh": "赎刑替代部分身体刑、徒流及死罪",
+              "major_node_role": "LOCAL_OR_SECONDARY_CONSTRUCTION",
+              "material_ids": [
+                "EV-JJ-A-01"
+              ],
+              "normative_direction": "mixed",
+              "reason": "赎刑在嘉靖阶段实际替代部分身体刑、徒流及死罪，但赎刑本身兼有身份和财力差异，按混合局部接口处理。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            }
+          ],
+          "index_interval": [
+            40,
+            54.9
+          ],
+          "polity": "明",
+          "position": "lower-middle",
+          "position_basis": "A结构厚度=0.50（G0—G3含已消费的C_A/2），G2主档消费=0.50；排除S与已消费C_A支撑链后，独立有符号M原值=-1.00、position权重=-0.25；统一净余=-0.25，对应lower-middle。",
+          "position_q": 0.3,
+          "rank": 124,
+          "reign_range": "1521-1567",
+          "ruler_id": "RULER-MING-ZHU-HOUCONG",
+          "ruler_name": "朱厚熜",
+          "verification_material_ids": [
+            "EV-JJ-B2-01"
+          ],
+          "v2_mechanical_shadow": {
+            "net": -1.0,
+            "p": 0,
+            "n": 1.0,
+            "shadow_grade": "G0",
+            "unfloored": "G0",
+            "floor": null
+          },
+          "extreme_delta_reopen": true
+        },
+        {
+          "A_C_A_support_mechanism": "废中书省、罢丞相并使六部直领天下事",
+          "A_grade_thickness_cost": 0.5,
+          "A_independent_M_position_weight": -1.0,
+          "A_independent_M_signed": -1.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": -1.0,
+          "A_structural_thickness": -1.0,
+          "C_A": 2,
+          "M_mixed_profile": [
+            {
+              "M": "M3",
+              "counts_toward_S": false,
+              "direction": "balanced",
+              "direction_factor": 0.0,
+              "institution_domain": "中央组织",
+              "institution_node_id": "I2-MING-YZ-ABOLISH-CHANCELLOR-SIX-MINISTRIES",
+              "label_zh": "废中书省、罢丞相并使六部直领天下事",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "MING-YZ-A-CENTRAL-ORG-001"
+              ],
+              "mechanism": "废中书省、罢丞相并使六部直领天下事",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 0.0
+            },
+            {
+              "M": "M3",
+              "counts_toward_S": false,
+              "direction": "balanced",
+              "direction_factor": 0.0,
+              "institution_domain": "户籍田制与国家资源行政",
+              "institution_node_id": "I2-MING-YZ-LIJIA-CORVEE",
+              "label_zh": "里甲编役与差役绑定体系",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "MING-YZ-A-YELLOW-REGISTER-001"
+              ],
+              "mechanism": "里甲编役与差役绑定体系",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 0.0
+            },
+            {
+              "M": "M2",
+              "counts_toward_S": false,
+              "direction": "balanced",
+              "direction_factor": 0.0,
+              "institution_domain": "户籍田制与国家资源行政",
+              "institution_node_id": "I2-MING-YZ-MARITIME-TRADE-BAN",
+              "label_zh": "市舶—贡贸与私通海禁反复切换",
+              "major_node_role": "STRUCTURAL_NON_DURABLE",
+              "material_ids": [
+                "MING-YZ-A-MARITIME-001"
+              ],
+              "mechanism": "市舶—贡贸与私通海禁反复切换",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 0.0
+            }
+          ],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "counts_toward_S": true,
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "institution_domain": "身份秩序与人身制度",
+              "institution_node_id": "I2-MING-YZ-CONSORT-SACRIFICE",
+              "label_zh": "宫妃殉葬成为宫廷继承礼制并延续",
+              "major_node_role": "SEVERE_CIVILIZATIONAL_REVERSAL",
+              "material_ids": [
+                "MING-YZ-A-CONSORT-SACRIFICE-001"
+              ],
+              "mechanism": "宫妃殉葬成为宫廷继承礼制并延续",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": -3.0,
+              "S_effect": "S-1",
+              "S_minus_weight": 1,
+              "S_depth_weight": 0,
+              "source_kind": "S_MINUS_BASELINE_NODE"
+            },
+            {
+              "M": "M3",
+              "counts_toward_S": true,
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "institution_domain": "军政身份与行政动员",
+              "institution_node_id": "I2-MING-YZ-HEREDITARY-MILITARY-HOUSEHOLDS",
+              "label_zh": "民军匠按职业著籍并限制脱离",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [
+                "MING-YZ-A-HEREDITARY-HOUSEHOLDS-001"
+              ],
+              "mechanism": "民军匠按职业著籍并限制脱离",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": -3.0,
+              "S_effect": "S-1",
+              "S_minus_weight": 1,
+              "S_depth_weight": 0,
+              "source_kind": "S_MINUS_BASELINE_NODE"
+            },
+            {
+              "M": "M3",
+              "counts_toward_S": false,
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "institution_domain": "法律与司法",
+              "institution_node_id": "I2-MING-YZ-DAGAO",
+              "label_zh": "以《大诰》公布害民事理并追究诸司贪酷",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [
+                "MING-YZ-DAGAO-001",
+                "MING-YZ-DAGAO-002",
+                "MING-YZ-A-DAGAO-DIRECTION-001"
+              ],
+              "mechanism": "以《大诰》公布害民事理并追究诸司贪酷",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": -2.0
+            },
+            {
+              "M": "M3",
+              "counts_toward_S": false,
+              "direction": "mixed_negative",
+              "direction_factor": -0.5,
+              "institution_domain": "法律与司法",
+              "institution_node_id": "I2-MING-YZ-DAMING-LAW-FREEZE",
+              "label_zh": "拒绝因律例冲突调整定律",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [
+                "MING-YZ-A-LAW-FREEZE-001"
+              ],
+              "mechanism": "拒绝因律例冲突调整定律",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": -1.0
+            },
+            {
+              "M": "M3",
+              "counts_toward_S": true,
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "institution_domain": "中央—地方层级",
+              "institution_node_id": "I2-MING-YZ-PRINCELY-ENFEOFFMENT",
+              "label_zh": "宗藩世禄及地方秋粮供给",
+              "major_node_role": "FOUNDATIONAL_CREATION",
+              "material_ids": [
+                "MING-YZ-A-PRINCELY-FISCAL-001"
+              ],
+              "mechanism": "宗藩世禄及地方秋粮供给",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": -3.0,
+              "S_effect": "S-1",
+              "S_minus_weight": 1,
+              "S_depth_weight": 0,
+              "source_kind": "S_MINUS_BASELINE_NODE"
+            },
+            {
+              "M": "M3",
+              "counts_toward_S": false,
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "institution_domain": "中央—地方层级",
+              "institution_node_id": "I2-MING-YZ-PRINCELY-MILITARY-POWER",
+              "label_zh": "边藩护卫与宗王地方军权",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [
+                "MING-YZ-A-PRINCELY-POWER-001"
+              ],
+              "mechanism": "边藩护卫与宗王地方军权",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": -2.0
+            },
+            {
+              "M": "M3",
+              "counts_toward_S": true,
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "institution_domain": "身份秩序与人身制度",
+              "institution_node_id": "I2-MING-YZ-COURT-CANING",
+              "label_zh": "廷杖作为法外政治惩罚的制度起点",
+              "major_node_role": "SEVERE_CIVILIZATIONAL_REVERSAL",
+              "material_ids": [],
+              "mechanism": "廷杖作为法外政治惩罚的制度起点",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": -3.0,
+              "S_effect": "S-1",
+              "S_minus_weight": 1,
+              "S_depth_weight": 0,
+              "source_kind": "S_MINUS_BASELINE_NODE"
+            },
+            {
+              "M": "M3",
+              "counts_toward_S": false,
+              "direction": "mixed_negative",
+              "direction_factor": -0.5,
+              "institution_domain": "法律与司法",
+              "institution_node_id": "I2-MING-YZ-JINYIWEI-IMPERIAL-PRISON",
+              "label_zh": "锦衣卫北镇抚司诏狱的创设、使用与洪武撤禁",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [],
+              "mechanism": "锦衣卫北镇抚司诏狱的创设、使用与洪武撤禁",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": -1.0
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "counts_toward_S": true,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "法律与司法",
+              "institution_node_id": "I2-MING-YZ-DAMING-LAW-POSITIVE-CORE",
+              "label_zh": "《大明律》统一公开法源并获后世遵行",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "MING-YZ-A-LAW-CONSTRUCTION-POSITIVE-001",
+                "MING-YZ-A-LAW-RECEPTION-001"
+              ],
+              "mechanism": "《大明律》统一公开法源并获后世遵行",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 3.0,
+              "S_effect": "S+",
+              "S_minus_weight": 0,
+              "S_depth_weight": 1,
+              "source_kind": "S_PLUS_BASELINE_NODE"
+            },
+            {
+              "M": "M3",
+              "counts_toward_S": true,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "户籍田制与国家资源行政",
+              "institution_node_id": "I2-MING-YZ-YELLOW-REGISTER",
+              "label_zh": "黄册十年大造户籍登记体系",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "MING-YZ-A-YELLOW-REGISTER-CONSTRUCTION-POSITIVE-001",
+                "MING-YZ-A-YELLOW-REGISTER-RECEPTION-R4"
+              ],
+              "mechanism": "黄册十年大造户籍登记体系",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 3.0,
+              "S_effect": "S+",
+              "S_minus_weight": 0,
+              "S_depth_weight": 1,
+              "source_kind": "S_PLUS_BASELINE_NODE"
+            },
+            {
+              "M": "M3",
+              "counts_toward_S": true,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "监察反馈",
+              "institution_node_id": "I2-MING-YZ-CENSORATE",
+              "label_zh": "都察院监察体系重建",
+              "major_node_role": "MAJOR_RECONSTRUCTION",
+              "material_ids": [
+                "MING-YZ-STATE-001"
+              ],
+              "mechanism": "都察院监察体系重建",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 3.0,
+              "S_effect": "S+",
+              "S_minus_weight": 0,
+              "S_depth_weight": 1,
+              "source_kind": "S_PLUS_BASELINE_NODE"
+            },
+            {
+              "M": "M3",
+              "counts_toward_S": true,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "中央—地方层级",
+              "institution_node_id": "I2-MING-YZ-PROVINCIAL-THREE-ADMINISTRATIONS",
+              "label_zh": "省级布政—按察—都司三线分置的地方治理结构",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [],
+              "mechanism": "省级布政—按察—都司三线分置的地方治理结构",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 3.0,
+              "S_effect": "S+",
+              "S_minus_weight": 0,
+              "S_depth_weight": 1,
+              "source_kind": "S_PLUS_BASELINE_NODE"
+            },
+            {
+              "M": "M3",
+              "counts_toward_S": true,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "军政身份与行政动员",
+              "institution_node_id": "I2-MING-YZ-WEISUO-MILITARY-ORGANIZATION",
+              "label_zh": "卫所军政组织骨架",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [],
+              "mechanism": "卫所军政组织骨架",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 3.0,
+              "S_effect": "S+",
+              "S_minus_weight": 0,
+              "S_depth_weight": 1,
+              "source_kind": "S_PLUS_BASELINE_NODE"
+            },
+            {
+              "M": "M2",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "监察反馈",
+              "institution_node_id": "I2-MING-YZ-TONGZHENGSI-MEMORIAL-CHANNEL",
+              "label_zh": "通政司章奏收受与驳正接口",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [],
+              "mechanism": "通政司章奏收受与驳正接口",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M2",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "法律与司法",
+              "institution_node_id": "I2-MING-YZ-THREE-JUDICIAL-OFFICES",
+              "label_zh": "刑部—都察院—大理寺三法司复核接口",
+              "major_node_role": "DURABILITY_EVIDENCE_PENDING",
+              "material_ids": [
+                "MING-YZ-STATE-001"
+              ],
+              "mechanism": "刑部—都察院—大理寺三法司复核接口",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 1.0
+            }
+          ],
+          "S_depth_units": 5,
+          "S_minus": 4.0,
+          "S_minus_node_ids": [
+            "I2-MING-YZ-CONSORT-SACRIFICE",
+            "I2-MING-YZ-HEREDITARY-MILITARY-HOUSEHOLDS",
+            "I2-MING-YZ-PRINCELY-ENFEOFFMENT",
+            "I2-MING-YZ-COURT-CANING"
+          ],
+          "S_net": 1.0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 5,
+          "S_total": 5,
+          "coverage_audit_ids": [
+            "MING17-TWO-SOURCE-FAMILY-GATE",
+            "MING17-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "MING-YZ-A-CENTRAL-ORG-001",
+            "MING-YZ-STATE-001",
+            "MING-YZ-A-CONSORT-SACRIFICE-001",
+            "MING-YZ-DAGAO-001",
+            "MING-YZ-DAGAO-002",
+            "MING-YZ-A-DAGAO-DIRECTION-001",
+            "MING-YZ-A-LAW-FREEZE-001",
+            "MING-YZ-A-LAW-CONSTRUCTION-POSITIVE-001",
+            "MING-YZ-A-LAW-RECEPTION-001",
+            "MING-YZ-A-HEREDITARY-HOUSEHOLDS-001",
+            "MING-YZ-A-YELLOW-REGISTER-001",
+            "MING-YZ-A-MARITIME-001",
+            "MING-YZ-A-PRINCELY-FISCAL-001",
+            "MING-YZ-A-PRINCELY-POWER-001",
+            "MING-YZ-A-YELLOW-REGISTER-CONSTRUCTION-POSITIVE-001",
+            "MING-YZ-A-YELLOW-REGISTER-RECEPTION-R4"
+          ],
+          "direct_material_roles": {
+            "MING-YZ-A-CENTRAL-ORG-001": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ],
+            "MING-YZ-A-CONSORT-SACRIFICE-001": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ],
+            "MING-YZ-A-DAGAO-DIRECTION-001": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ],
+            "MING-YZ-A-HEREDITARY-HOUSEHOLDS-001": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ],
+            "MING-YZ-A-LAW-BASELINE-001": [
+              "A_OPERATION"
+            ],
+            "MING-YZ-A-LAW-CONSTRUCTION-POSITIVE-001": [
+              "A_OPERATION",
+              "S_CONSTRUCTION"
+            ],
+            "MING-YZ-A-LAW-FORMATION-001": [
+              "A_OPERATION"
+            ],
+            "MING-YZ-A-LAW-FREEZE-001": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ],
+            "MING-YZ-A-LAW-FREEZE-OUTCOME-001": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ],
+            "MING-YZ-A-LAW-RECEPTION-001": [
+              "S_DURABILITY_GATE"
+            ],
+            "MING-YZ-A-MARITIME-001": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ],
+            "MING-YZ-A-PRINCELY-FISCAL-001": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ],
+            "MING-YZ-A-PRINCELY-POWER-001": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ],
+            "MING-YZ-A-YELLOW-REGISTER-001": [
+              "A_OPERATION"
+            ],
+            "MING-YZ-A-YELLOW-REGISTER-CONSTRUCTION-POSITIVE-001": [
+              "A_OPERATION",
+              "S_CONSTRUCTION"
+            ],
+            "MING-YZ-A-YELLOW-REGISTER-RECEPTION-R4": [
+              "S_DURABILITY_GATE"
+            ],
+            "MING-YZ-DAGAO-001": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ],
+            "MING-YZ-STATE-001": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 56.5,
+          "evidence_sufficiency_gate": "PASS_FIXED_PRIMARY_PLUS_INDEPENDENT_SOURCE",
+          "formal_evidence_maturity": "fixed_primary_and_independent_history_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G3",
+          "grade_basis": "高强度正负制度建设高度对冲，净收益接近零；G3-lower来自“极化托底”，不是正常G3净收益。",
+          "important_institutions": [
+            {
+              "S_depth_weight": 1,
+              "S_effect": "S+",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "MING-YZ-A-LAW-CONSTRUCTION-POSITIVE-001"
+              ],
+              "counts_toward_S": true,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "PASS_COUNTS_TOWARD_S",
+              "durability_material_ids": [
+                "MING-YZ-A-LAW-RECEPTION-001"
+              ],
+              "institution_domain": "法律与司法",
+              "institution_lineage": "明清律典—律例法源谱系",
+              "institution_node_id": "I2-MING-YZ-DAMING-LAW-POSITIVE-CORE",
+              "label_zh": "《大明律》统一公开法源并获后世遵行",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "MING-YZ-A-LAW-CONSTRUCTION-POSITIVE-001",
+                "MING-YZ-A-LAW-RECEPTION-001"
+              ],
+              "normative_direction": "positive",
+              "reason": "正向核心限于统一、公开、可复用的正式法源；建文、永乐、成化三阶段实际依正律拟狱，闭合R4。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "S_PLUS_BASELINE_NODE"
+            },
+            {
+              "S_depth_weight": 1,
+              "S_effect": "S+",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "MING-YZ-A-YELLOW-REGISTER-CONSTRUCTION-POSITIVE-001"
+              ],
+              "counts_toward_S": true,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "PASS_COUNTS_TOWARD_S",
+              "durability_material_ids": [
+                "MING-YZ-A-YELLOW-REGISTER-RECEPTION-R4"
+              ],
+              "institution_domain": "户籍田制与国家资源行政",
+              "institution_lineage": "明代黄册户籍登记谱系",
+              "institution_node_id": "I2-MING-YZ-YELLOW-REGISTER",
+              "label_zh": "黄册十年大造户籍登记体系",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "MING-YZ-A-YELLOW-REGISTER-CONSTRUCTION-POSITIVE-001",
+                "MING-YZ-A-YELLOW-REGISTER-RECEPTION-R4"
+              ],
+              "normative_direction": "positive",
+              "reason": "正向核心限于十年更新、人口丁粮登记和户部—布政司—府县多级留存；里甲差役另判mixed，后期沦为具文不抹去永乐至正统多次实际大造的R4。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "S_PLUS_BASELINE_NODE"
+            },
+            {
+              "S_depth_weight": 1,
+              "S_effect": "S+",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "MING-YZ-STATE-001"
+              ],
+              "counts_toward_S": true,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "PASS_COUNTS_TOWARD_S",
+              "durability_material_ids": [
+                "MING-YZ-STATE-001"
+              ],
+              "institution_domain": "监察反馈",
+              "institution_lineage": "明清都察院监察谱系",
+              "institution_node_id": "I2-MING-YZ-CENSORATE",
+              "label_zh": "都察院监察体系重建",
+              "major_node_role": "MAJOR_RECONSTRUCTION",
+              "material_ids": [
+                "MING-YZ-STATE-001"
+              ],
+              "normative_direction": "positive",
+              "reason": "洪武十五年重建都察院，形成分道监察并延续为明清监察主干；建设、运行与后继接收闭合，计正向M3、S+。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json",
+                "https://zh.wikisource.org/zh-hans/明史/卷73"
+              ],
+              "external_verification_refs": [
+                {
+                  "title": "《明史》卷73《职官志》：洪武十五年改御史台为都察院，设十三道监察御史",
+                  "url": "https://zh.wikisource.org/zh-hans/明史/卷73"
+                }
+              ],
+              "source_kind": "S_PLUS_BASELINE_NODE"
+            },
+            {
+              "S_depth_weight": 1,
+              "S_effect": "S+",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [],
+              "counts_toward_S": true,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "PASS_COUNTS_TOWARD_S",
+              "durability_material_ids": [],
+              "institution_domain": "中央—地方层级",
+              "institution_lineage": "明代省级三司分权谱系",
+              "institution_node_id": "I2-MING-YZ-PROVINCIAL-THREE-ADMINISTRATIONS",
+              "label_zh": "省级布政—按察—都司三线分置的地方治理结构",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [],
+              "normative_direction": "positive",
+              "reason": "布政司掌民政财赋、按察司掌刑名按劾、都司掌一方军政，三线分置构成明代省级治理骨架并长期接收；计正向M3、S+。",
+              "source_artifact_refs": [
+                "https://zh.wikisource.org/zh-hans/%E6%98%8E%E5%8F%B2/%E5%8D%B775",
+                "https://zh.wikisource.org/zh-hans/%E6%98%8E%E5%8F%B2/%E5%8D%B776"
+              ],
+              "external_verification_refs": [
+                {
+                  "title": "《明史》卷75《职官志》：承宣布政使司、提刑按察使司",
+                  "url": "https://zh.wikisource.org/zh-hans/%E6%98%8E%E5%8F%B2/%E5%8D%B775"
+                },
+                {
+                  "title": "《明史》卷76《职官志》：都司掌一方军政，洪武八年各都卫改都指挥使司",
+                  "url": "https://zh.wikisource.org/zh-hans/%E6%98%8E%E5%8F%B2/%E5%8D%B776"
+                }
+              ],
+              "source_kind": "S_PLUS_BASELINE_NODE"
+            },
+            {
+              "S_depth_weight": 1,
+              "S_effect": "S+",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [],
+              "counts_toward_S": true,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "PASS_COUNTS_TOWARD_S",
+              "durability_material_ids": [],
+              "institution_domain": "军政身份与行政动员",
+              "institution_lineage": "明代卫所军政组织谱系",
+              "institution_node_id": "I2-MING-YZ-WEISUO-MILITARY-ORGANIZATION",
+              "label_zh": "卫所军政组织骨架",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [],
+              "normative_direction": "positive",
+              "reason": "外由都司、内由五军都督府统辖卫所，征发时调兵、事毕归卫，形成可复制军政组织骨架；仅计组织接口，世袭军户身份锁定另作负向节点，互不重复。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json",
+                "https://zh.wikisource.org/zh-hans/明史/卷89"
+              ],
+              "external_verification_refs": [
+                {
+                  "title": "《明史》卷89《兵志》：自京师达于郡县皆立卫所，外统都司、内统五军都督府",
+                  "url": "https://zh.wikisource.org/zh-hans/明史/卷89"
+                }
+              ],
+              "source_kind": "S_PLUS_BASELINE_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "ADJUDICATED_NON_S",
+              "durability_material_ids": [],
+              "institution_domain": "监察反馈",
+              "institution_lineage": "明代通政司章奏传递谱系",
+              "institution_node_id": "I2-MING-YZ-TONGZHENGSI-MEMORIAL-CHANNEL",
+              "label_zh": "通政司章奏收受与驳正接口",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [],
+              "normative_direction": "positive",
+              "reason": "设置通政司收受内外章奏、申诉并转达覆核，形成独立信息入口；按正向M2、非S结算。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json",
+                "https://zh.wikisource.org/zh-hans/明史/卷75"
+              ],
+              "external_verification_refs": [
+                {
+                  "title": "《明史》卷75《职官志》：通政使司掌内外章奏、封驳与呈状传达",
+                  "url": "https://zh.wikisource.org/zh-hans/明史/卷75"
+                }
+              ],
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "MING-YZ-STATE-001"
+              ],
+              "counts_toward_S": false,
+              "decision": "DURABILITY_EVIDENCE_PENDING",
+              "durability_gate": "DURABILITY_EVIDENCE_PENDING_NO_R3",
+              "durability_material_ids": [],
+              "institution_domain": "法律与司法",
+              "institution_lineage": "明代三法司司法复核谱系",
+              "institution_node_id": "I2-MING-YZ-THREE-JUDICIAL-OFFICES",
+              "label_zh": "刑部—都察院—大理寺三法司复核接口",
+              "major_node_role": "DURABILITY_EVIDENCE_PENDING",
+              "material_ids": [
+                "MING-YZ-STATE-001"
+              ],
+              "normative_direction": "positive",
+              "reason": "A项已引用该制度节点；重构03时补回登记，使引用前置完整。其角色按现合同仅作相应建设/背景处理。",
+              "source_artifact_refs": [
+                "01-A制度建设与实际运行方向卡.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "A_PROFILE_BACKFILL"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "MING-YZ-A-CENTRAL-ORG-001"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "MIXED_NO_S",
+              "durability_material_ids": [
+                "MING-YZ-A-CENTRAL-ORG-001"
+              ],
+              "institution_domain": "中央组织",
+              "institution_lineage": "明代废相后中枢协调谱系",
+              "institution_node_id": "I2-MING-YZ-ABOLISH-CHANCELLOR-SIX-MINISTRIES",
+              "label_zh": "废中书省、罢丞相并使六部直领天下事",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "MING-YZ-A-CENTRAL-ORG-001"
+              ],
+              "normative_direction": "mixed",
+              "reason": "可复制正面是六部专业直达；不可分割负面是最高权力负荷、跨部协调和制衡缺口，后继以内阁再造协调层。结构重大不等于净正向。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "MING-YZ-A-YELLOW-REGISTER-001"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "MIXED_NO_S",
+              "durability_material_ids": [
+                "MING-YZ-A-YELLOW-REGISTER-001"
+              ],
+              "institution_domain": "户籍田制与国家资源行政",
+              "institution_lineage": "明代里甲编役谱系",
+              "institution_node_id": "I2-MING-YZ-LIJIA-CORVEE",
+              "label_zh": "里甲编役与差役绑定体系",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "MING-YZ-A-YELLOW-REGISTER-001"
+              ],
+              "normative_direction": "mixed",
+              "reason": "轮役有均衡目的，但把基层家庭纳入固定差役和连带催征；不能因国家交付更强而自动正向。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "MING-YZ-A-MARITIME-001"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "MIXED_NO_S",
+              "durability_material_ids": [
+                "MING-YZ-A-MARITIME-001"
+              ],
+              "institution_domain": "户籍田制与国家资源行政",
+              "institution_lineage": "明初市舶贡贸与海禁谱系",
+              "institution_node_id": "I2-MING-YZ-MARITIME-TRADE-BAN",
+              "label_zh": "市舶—贡贸与私通海禁反复切换",
+              "major_node_role": "STRUCTURAL_NON_DURABLE",
+              "material_ids": [
+                "MING-YZ-A-MARITIME-001"
+              ],
+              "normative_direction": "mixed",
+              "reason": "市舶监管可降低冲突，全面私通禁令则压缩合法交易并诱发规避；现证未闭合洪武期同尺度净结果。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "S-1",
+              "S_minus_weight": 1,
+              "construction_operation_material_ids": [
+                "MING-YZ-A-CONSORT-SACRIFICE-001"
+              ],
+              "counts_toward_S": true,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "PASS_SEVERE_REVERSAL_LIMITED_SCOPE_S_MINUS_1",
+              "durability_material_ids": [
+                "MING-QZ-A-ABOLISH-CONSORT-001"
+              ],
+              "institution_domain": "身份秩序与人身制度",
+              "institution_lineage": "明代宫妃殉葬—废止谱系",
+              "institution_node_id": "I2-MING-YZ-CONSORT-SACRIFICE",
+              "label_zh": "宫妃殉葬成为宫廷继承礼制并延续",
+              "major_node_role": "SEVERE_CIVILIZATIONAL_REVERSAL",
+              "material_ids": [
+                "MING-YZ-A-CONSORT-SACRIFICE-001"
+              ],
+              "normative_direction": "negative",
+              "reason": "恢复并制度化宫妃殉葬，性质符合S--严重文明逆转；但直接适用人数有限，按影响范围裁量降为普通S-1。后继沿用与英宗废止只证明制度延续和终止，不替建立者减责。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "S_MINUS_BASELINE_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "S-1",
+              "S_minus_weight": 1,
+              "construction_operation_material_ids": [
+                "MING-YZ-A-HEREDITARY-HOUSEHOLDS-001"
+              ],
+              "counts_toward_S": true,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "PASS_NEGATIVE_R3",
+              "durability_material_ids": [
+                "MING-YZ-A-HEREDITARY-HOUSEHOLDS-001"
+              ],
+              "institution_domain": "军政身份与行政动员",
+              "institution_lineage": "明代世袭职业户籍谱系",
+              "institution_node_id": "I2-MING-YZ-HEREDITARY-MILITARY-HOUSEHOLDS",
+              "label_zh": "民军匠按职业著籍并限制脱离",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [
+                "MING-YZ-A-HEREDITARY-HOUSEHOLDS-001"
+              ],
+              "normative_direction": "negative",
+              "reason": "军户与匠户同属按职业世袭著籍、限制家庭退出的一个制度生命周期；国家动员收益不能抵销人身身份锁定，合并计一个S−。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "S_MINUS_BASELINE_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "MING-YZ-DAGAO-001",
+                "MING-YZ-DAGAO-002",
+                "MING-YZ-A-DAGAO-DIRECTION-001"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "FAIL_S_MINUS_R1_NON_SEVERE",
+              "durability_material_ids": [],
+              "institution_domain": "法律与司法",
+              "institution_lineage": "明初《大诰》非常刑政谱系",
+              "institution_node_id": "I2-MING-YZ-DAGAO",
+              "label_zh": "以《大诰》公布害民事理并追究诸司贪酷",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [
+                "MING-YZ-DAGAO-001",
+                "MING-YZ-DAGAO-002",
+                "MING-YZ-A-DAGAO-DIRECTION-001"
+              ],
+              "normative_direction": "negative",
+              "reason": "法外峻令、抄札重罚与强制传播扩大恐惧和任意处罚；国家控制强度不等于文明进步。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "MING-YZ-A-LAW-FREEZE-001"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "ADJUDICATED_NON_S",
+              "durability_material_ids": [
+                "MING-YZ-A-LAW-FREEZE-OUTCOME-001"
+              ],
+              "institution_domain": "法律与司法",
+              "institution_lineage": "明代祖制冻结与律例更新约束谱系",
+              "institution_node_id": "I2-MING-YZ-DAMING-LAW-FREEZE",
+              "label_zh": "拒绝因律例冲突调整定律",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [
+                "MING-YZ-A-LAW-FREEZE-001"
+              ],
+              "normative_direction": "mixed_negative",
+              "reason": "定律稳定性有统一法源收益，但拒绝随制度冲突修律使后继以例破律；按混合偏负M3、非S结算，只计-1。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "S-1",
+              "S_minus_weight": 1,
+              "construction_operation_material_ids": [
+                "MING-YZ-A-PRINCELY-FISCAL-001"
+              ],
+              "counts_toward_S": true,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "PASS_NEGATIVE_R3",
+              "durability_material_ids": [
+                "MING-YZ-A-PRINCELY-FISCAL-001"
+              ],
+              "institution_domain": "中央—地方层级",
+              "institution_lineage": "明代宗藩世禄与地方供给谱系",
+              "institution_node_id": "I2-MING-YZ-PRINCELY-ENFEOFFMENT",
+              "label_zh": "宗藩世禄及地方秋粮供给",
+              "major_node_role": "FOUNDATIONAL_CREATION",
+              "material_ids": [
+                "MING-YZ-A-PRINCELY-FISCAL-001"
+              ],
+              "normative_direction": "negative",
+              "reason": "宗藩定额世禄并转由附近州县秋粮长期供给，形成跨代地方财政刚性；按负向M3、普通S−结算。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "S_MINUS_BASELINE_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "MING-YZ-A-PRINCELY-POWER-001"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "ADJUDICATED_NON_S",
+              "durability_material_ids": [],
+              "institution_domain": "中央—地方层级",
+              "institution_lineage": "明初宗王地方军权谱系",
+              "institution_node_id": "I2-MING-YZ-PRINCELY-MILITARY-POWER",
+              "label_zh": "边藩护卫与宗王地方军权",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [
+                "MING-YZ-A-PRINCELY-POWER-001"
+              ],
+              "normative_direction": "negative",
+              "reason": "边藩护卫和节制沿边士马把地方军权制度性授予宗王，并为靖难式中央权力竞争提供组织资源；与宗藩世禄财政链拆分，计负向M3、非S。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json"
+              ],
+              "external_verification_refs": [],
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "S-1",
+              "S_minus_weight": 1,
+              "construction_operation_material_ids": [],
+              "counts_toward_S": true,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "PASS_NEGATIVE_R3",
+              "durability_material_ids": [],
+              "institution_domain": "身份秩序与人身制度",
+              "institution_lineage": "明代廷杖政治惩罚谱系",
+              "institution_node_id": "I2-MING-YZ-COURT-CANING",
+              "label_zh": "廷杖作为法外政治惩罚的制度起点",
+              "major_node_role": "SEVERE_CIVILIZATIONAL_REVERSAL",
+              "material_ids": [],
+              "normative_direction": "negative",
+              "reason": "洪武朝以杖辱及杖杀大臣开廷杖先例，后继沿用并制度化；绕开常规司法且直接摧折言责，计负向M3、普通S−。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json",
+                "https://zh.wikisource.org/zh-hans/明史/卷95"
+              ],
+              "external_verification_refs": [
+                {
+                  "title": "《明史》卷95《刑法志》：廷杖之刑亦自太祖始",
+                  "url": "https://zh.wikisource.org/zh-hans/明史/卷95"
+                }
+              ],
+              "source_kind": "S_MINUS_BASELINE_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "ADJUDICATED_NON_S",
+              "durability_material_ids": [],
+              "institution_domain": "法律与司法",
+              "institution_lineage": "明代厂卫侦缉与法外司法谱系",
+              "institution_node_id": "I2-MING-YZ-JINYIWEI-IMPERIAL-PRISON",
+              "label_zh": "锦衣卫北镇抚司诏狱的创设、使用与洪武撤禁",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [],
+              "normative_direction": "mixed_negative",
+              "reason": "洪武十五年置锦衣卫并由北司专理诏狱，太祖曾用以断治大狱；后焚刑具、送囚法司并申禁，故合并同一生命周期按混合偏负M3、非S计-1。永乐复用归后继，不倒灌朱元璋。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json",
+                "https://zh.wikisource.org/zh-hans/明史/卷95",
+                "https://zh.wikisource.org/zh-hans/明史/卷76"
+              ],
+              "external_verification_refs": [
+                {
+                  "title": "《明史》卷95《刑法志》：太祖使用锦衣卫狱，后焚刑具并于洪武二十六年申禁",
+                  "url": "https://zh.wikisource.org/zh-hans/明史/卷95"
+                },
+                {
+                  "title": "《明史》卷76《职官志》：洪武十五年改置锦衣卫，二十年罢锦衣狱",
+                  "url": "https://zh.wikisource.org/zh-hans/明史/卷76"
+                }
+              ],
+              "source_kind": "NON_S_MAJOR_NODE"
+            }
+          ],
+          "index_interval": [
+            40,
+            54.9
+          ],
+          "polity": "明",
+          "position": "lower",
+          "position_basis": "V2净值=-1，P_gross=17，N_gross=18，N/P≈1.06；按极化托底结算G3-lower。",
+          "position_q": 0.1,
+          "rank": 95,
+          "reign_range": "1368-1398",
+          "ruler_id": "RULER-MING-ZHU-YUANZHANG",
+          "ruler_name": "朱元璋",
+          "verification_material_ids": [],
+          "v2_mechanical_shadow": {
+            "net": -3.0,
+            "p": 8.0,
+            "n": 11.0,
+            "shadow_grade": "G0",
+            "unfloored": "G0",
+            "floor": null
+          },
+          "extreme_delta_reopen": false,
+          "A_net_units": -1.0,
+          "P_gross": 17.0,
+          "N_gross": 18.0,
+          "polarization_ratio": 1.0588,
+          "unfloored_grade": "G0",
+          "polarization_floor_triggered": true,
+          "floor_grade": "G3",
+          "extreme_delta_review": "NOT_REQUIRED",
+          "v2_explicit_patch": true
+        },
+        {
+          "A_C_A_support_mechanism": null,
+          "A_grade_thickness_cost": 0.0,
+          "A_independent_M_position_weight": 0.0,
+          "A_independent_M_signed": 0.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": 0.0,
+          "A_structural_thickness": 0.0,
+          "C_A": 0,
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [],
+          "S_depth_units": 0,
+          "S_minus": 0,
+          "S_minus_node_ids": [],
+          "S_net": 0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [
+            "MING17-TWO-SOURCE-FAMILY-GATE",
+            "MING17-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [],
+          "direct_material_roles": {
+            "MING-QY-CRISIS-001": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 10.0,
+          "evidence_sufficiency_gate": "PASS_FIXED_PRIMARY_PLUS_INDEPENDENT_SOURCE",
+          "formal_evidence_maturity": "fixed_primary_and_independent_history_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G0",
+          "grade_basis": "未见达到A建设门槛的正向制度节点。",
+          "important_institutions": [],
+          "index_interval": [
+            0,
+            19.9
+          ],
+          "polity": "明",
+          "position": "middle",
+          "position_basis": "A结构厚度=0.00（G0—G3含已消费的C_A/2），G0主档消费=0.00；排除S与已消费C_A支撑链后，独立有符号M原值=0.00、position权重=0.00；统一净余=0.00，对应middle。",
+          "position_q": 0.5,
+          "rank": 141,
+          "reign_range": "1449-1457",
+          "ruler_id": "RULER-MING-ZHU-QIYU",
+          "ruler_name": "朱祁钰",
+          "verification_material_ids": [],
+          "v2_mechanical_shadow": {
+            "net": 0,
+            "p": 0,
+            "n": 0,
+            "shadow_grade": "G0",
+            "unfloored": "G0",
+            "floor": null
+          },
+          "extreme_delta_reopen": false
+        },
+        {
+          "A_C_A_support_mechanism": null,
+          "A_grade_thickness_cost": 0.0,
+          "A_independent_M_position_weight": -2.0,
+          "A_independent_M_signed": -2.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": -2.0,
+          "A_structural_thickness": -2.0,
+          "C_A": 0,
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "counts_toward_S": false,
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "institution_domain": "国家行政标准与文书",
+              "institution_node_id": "A-MING-ZHUYOUJIAN-POST-RELAY-CUT",
+              "label_zh": "崇祯裁驿与通信生计系统损害",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [],
+              "mechanism": "崇祯裁驿与通信生计系统损害",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": -2.0
+            }
+          ],
+          "M_positive_profile": [],
+          "S_depth_units": 0,
+          "S_minus": 0.0,
+          "S_minus_node_ids": [],
+          "S_net": 0.0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [
+            "MING17-TWO-SOURCE-FAMILY-GATE",
+            "MING17-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [],
+          "direct_material_roles": {
+            "M2-LSM-E005": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ],
+            "M2-LSM-E006": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 2.0,
+          "evidence_sufficiency_gate": "PASS_FIXED_PRIMARY_PLUS_INDEPENDENT_SOURCE",
+          "formal_evidence_maturity": "fixed_primary_and_independent_history_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G0",
+          "grade_basis": "按正式显式复核完成canonical生命周期复核；V2净值-2，结算G0-lower。",
+          "important_institutions": [
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "ADJUDICATED_NON_S",
+              "durability_material_ids": [],
+              "institution_domain": "国家行政标准与文书",
+              "institution_lineage": "崇祯裁驿与通信生计系统损害谱系",
+              "institution_node_id": "A-MING-ZHUYOUJIAN-POST-RELAY-CUT",
+              "label_zh": "崇祯裁驿与通信生计系统损害",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [],
+              "normative_direction": "negative",
+              "reason": "按A审查清单完成单一制度接口裁决。",
+              "source_artifact_refs": [
+                "https://zh.wikisource.org/zh-hans/%E6%98%8E%E5%8F%B2/%E5%8D%B724"
+              ],
+              "external_verification_refs": [
+                {
+                  "title": "《明史》卷24：崇祯朝裁驿及其后果",
+                  "url": "https://zh.wikisource.org/zh-hans/%E6%98%8E%E5%8F%B2/%E5%8D%B724"
+                }
+              ],
+              "source_kind": "NON_S_MAJOR_NODE"
+            }
+          ],
+          "index_interval": [
+            0,
+            19.9
+          ],
+          "polity": "明",
+          "position": "lower",
+          "position_basis": "V2净值=-2，P_gross=0，N_gross=2；档内横向结构复核后定lower。",
+          "position_q": 0.1,
+          "rank": 181,
+          "reign_range": "1627-1644北京内城陷落前；不把战役成败重复写入治理轴",
+          "ruler_id": "RULER-MING-ZHU-YOUJIAN",
+          "ruler_name": "朱由检",
+          "verification_material_ids": [],
+          "v2_mechanical_shadow": {
+            "net": 0,
+            "p": 0,
+            "n": 0,
+            "shadow_grade": "G0",
+            "unfloored": "G0",
+            "floor": null
+          },
+          "extreme_delta_reopen": false,
+          "A_net_units": -2.0,
+          "P_gross": 0.0,
+          "N_gross": 2.0,
+          "polarization_ratio": null,
+          "unfloored_grade": "G0",
+          "polarization_floor_triggered": false,
+          "floor_grade": null,
+          "extreme_delta_review": "NOT_REQUIRED",
+          "v2_explicit_patch": true
+        },
+        {
+          "A_C_A_support_mechanism": null,
+          "A_grade_thickness_cost": 0,
+          "A_independent_M_position_weight": 0.0,
+          "A_independent_M_signed": 0.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": 0.0,
+          "A_structural_thickness": 0.0,
+          "C_A": 0.0,
+          "M_mixed_profile": [
+            {
+              "M": "M2",
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "counts_toward_S": false,
+              "direction": "mixed_positive",
+              "direction_factor": 0.5,
+              "institution_node_id": "M2-LSM-AN006",
+              "label_zh": "肇庆建政后反复迁徙，科层意见偶能纠偏但军头控制最高决策",
+              "major_node_role": "TRANSITIONAL_RESTORATION",
+              "material_ids": [
+                "M2-LSM-E013",
+                "M2-LSM-E014"
+              ],
+              "mechanism": "肇庆建政后反复迁徙，科层意见偶能纠偏但军头控制最高决策",
+              "position_count_mode": "context_only_no_effective_mechanism",
+              "position_exclusion_reason": "维护、过渡或失败候选不进入A档内净余量",
+              "result_closure": "已观察",
+              "signed_weight": 0.0
+            }
+          ],
+          "M_negative_profile": [],
+          "M_positive_profile": [],
+          "S_depth_units": 0,
+          "S_minus": 0,
+          "S_minus_node_ids": [],
+          "S_net": 0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [
+            "MING17-TWO-SOURCE-FAMILY-GATE",
+            "MING17-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "M2-LSM-E013"
+          ],
+          "direct_material_roles": {
+            "M2-LSM-E013": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 10.0,
+          "evidence_sufficiency_gate": "PASS_FIXED_PRIMARY_PLUS_INDEPENDENT_SOURCE",
+          "formal_evidence_maturity": "fixed_primary_and_independent_history_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G0",
+          "grade_basis": "现有材料只闭合到制度破坏、弃置或互相冲突，未形成可计的正向建设；主导限制为关键接口失灵",
+          "important_institutions": [],
+          "index_interval": [
+            0,
+            19.9
+          ],
+          "polity": "明",
+          "position": "middle",
+          "position_basis": "A结构厚度=0.00（G0—G3含已消费的C_A/2），G0主档消费=0.00；排除S与已消费C_A支撑链后，独立有符号M原值=0.00、position权重=0.00；统一净余=0.00，对应middle。",
+          "position_q": 0.5,
+          "rank": 141,
+          "reign_range": "1646-1661实际可支配中枢；1661被缅方控制移交后失权，1662死亡仅作终局确认",
+          "ruler_id": "RULER-MING-ZHU-YOULANG",
+          "ruler_name": "朱由榔",
+          "verification_material_ids": [
+            "M2-LSM-E014"
+          ],
+          "v2_mechanical_shadow": {
+            "net": 0,
+            "p": 0,
+            "n": 0,
+            "shadow_grade": "G0",
+            "unfloored": "G0",
+            "floor": null
+          },
+          "extreme_delta_reopen": false
+        },
+        {
+          "A_C_A_support_mechanism": null,
+          "A_grade_thickness_cost": 0.0,
+          "A_independent_M_position_weight": 0.0,
+          "A_independent_M_signed": 0.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": 0.0,
+          "A_structural_thickness": 0.0,
+          "C_A": 0,
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "counts_toward_S": false,
+              "direction": "mixed_positive",
+              "direction_factor": 0.5,
+              "institution_node_id": "M2-LSM-AN003",
+              "label_zh": "南京旧官署紧急重启并由六阁臣运行，但依赖军头拥立且一年内终止",
+              "major_node_role": "TRANSITIONAL_RESTORATION",
+              "material_ids": [
+                "M2-LSM-E010"
+              ],
+              "mechanism": "南京旧官署紧急重启并由六阁臣运行，但依赖军头拥立且一年内终止",
+              "position_count_mode": "context_only_no_effective_mechanism",
+              "position_exclusion_reason": "维护、过渡或失败候选不进入A档内净余量",
+              "result_closure": "已观察",
+              "signed_weight": 0.0
+            }
+          ],
+          "S_depth_units": 0,
+          "S_minus": 0,
+          "S_minus_node_ids": [],
+          "S_net": 0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [
+            "MING17-TWO-SOURCE-FAMILY-GATE",
+            "MING17-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "M2-LSM-E010"
+          ],
+          "direct_material_roles": {
+            "M2-LSM-E009": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ],
+            "M2-LSM-E010": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 10.0,
+          "evidence_sufficiency_gate": "PASS_FIXED_PRIMARY_PLUS_INDEPENDENT_SOURCE",
+          "formal_evidence_maturity": "fixed_primary_and_independent_history_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G0",
+          "grade_basis": "未见达到A建设门槛的正向制度节点。",
+          "important_institutions": [],
+          "index_interval": [
+            0,
+            19.9
+          ],
+          "polity": "明",
+          "position": "middle",
+          "position_basis": "A结构厚度=0.00（G0—G3含已消费的C_A/2），G0主档消费=0.00；排除S与已消费C_A支撑链后，独立有符号M原值=0.00、position权重=0.00；统一净余=0.00，对应middle。",
+          "position_q": 0.5,
+          "rank": 141,
+          "reign_range": "1644-1645南京弘光实际中枢；不扩张到全部南方名义辖境",
+          "ruler_id": "RULER-MING-ZHU-YOUSONG",
+          "ruler_name": "朱由崧",
+          "verification_material_ids": [],
+          "v2_mechanical_shadow": {
+            "net": 0,
+            "p": 0,
+            "n": 0,
+            "shadow_grade": "G0",
+            "unfloored": "G0",
+            "floor": null
+          },
+          "extreme_delta_reopen": false
+        },
+        {
+          "A_C_A_support_mechanism": null,
+          "A_grade_thickness_cost": 0,
+          "A_independent_M_position_weight": 0.0,
+          "A_independent_M_signed": 0.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": 0.0,
+          "A_structural_thickness": 0.0,
+          "C_A": 0.0,
+          "M_mixed_profile": [
+            {
+              "M": "M2",
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "counts_toward_S": false,
+              "direction": "mixed_positive",
+              "direction_factor": 0.5,
+              "institution_node_id": "M2-LSM-AN005",
+              "label_zh": "福州紧急建政、任命阁部，但实权和财政军政接口受郑氏控制",
+              "major_node_role": "TRANSITIONAL_RESTORATION",
+              "material_ids": [
+                "M2-LSM-E011"
+              ],
+              "mechanism": "福州紧急建政、任命阁部，但实权和财政军政接口受郑氏控制",
+              "position_count_mode": "context_only_no_effective_mechanism",
+              "position_exclusion_reason": "维护、过渡或失败候选不进入A档内净余量",
+              "result_closure": "已观察",
+              "signed_weight": 0.0
+            }
+          ],
+          "M_negative_profile": [],
+          "M_positive_profile": [],
+          "S_depth_units": 0,
+          "S_minus": 0,
+          "S_minus_node_ids": [],
+          "S_net": 0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [
+            "MING17-TWO-SOURCE-FAMILY-GATE",
+            "MING17-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "M2-LSM-E011"
+          ],
+          "direct_material_roles": {
+            "M2-LSM-E011": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 10.0,
+          "evidence_sufficiency_gate": "PASS_FIXED_PRIMARY_PLUS_INDEPENDENT_SOURCE",
+          "formal_evidence_maturity": "fixed_primary_and_independent_history_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G0",
+          "grade_basis": "现有材料只闭合到制度破坏、弃置或互相冲突，未形成可计的正向建设；主导限制为关键接口失灵",
+          "important_institutions": [],
+          "index_interval": [
+            0,
+            19.9
+          ],
+          "polity": "明",
+          "position": "middle",
+          "position_basis": "A结构厚度=0.00（G0—G3含已消费的C_A/2），G0主档消费=0.00；排除S与已消费C_A支撑链后，独立有符号M原值=0.00、position权重=0.00；统一净余=0.00，对应middle。",
+          "position_q": 0.5,
+          "rank": 141,
+          "reign_range": "1645-1646福建隆武实际中枢；郑氏控制作为本人权责限制而非扩张辖境",
+          "ruler_id": "RULER-MING-ZHU-YUJIAN",
+          "ruler_name": "朱聿键",
+          "verification_material_ids": [],
+          "v2_mechanical_shadow": {
+            "net": 0,
+            "p": 0,
+            "n": 0,
+            "shadow_grade": "G0",
+            "unfloored": "G0",
+            "floor": null
+          },
+          "extreme_delta_reopen": false
+        },
+        {
+          "A_C_A_support_mechanism": null,
+          "A_grade_thickness_cost": 0.0,
+          "A_independent_M_position_weight": 3.0,
+          "A_independent_M_signed": 3.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": 3.0,
+          "A_structural_thickness": 3.0,
+          "C_A": 0,
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "counts_toward_S": true,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "财政与贸易行政",
+              "institution_node_id": "A-MING-ZHUZAIHOU-YUEGANG",
+              "label_zh": "隆庆月港合法贸易—督饷征税接口",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "SRC-HAICHENG-GAZETTEER-LONGQING-OPEN",
+                "SRC-MING-YUEGANG-RECEPTION"
+              ],
+              "mechanism": "隆庆月港合法贸易—督饷征税接口",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 3.0,
+              "S_effect": "S+",
+              "S_minus_weight": 0,
+              "S_depth_weight": 1,
+              "source_kind": "S_PLUS_BASELINE_NODE"
+            }
+          ],
+          "S_depth_units": 1,
+          "S_minus": 0.0,
+          "S_minus_node_ids": [],
+          "S_net": 1.0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 1,
+          "S_total": 1,
+          "coverage_audit_ids": [
+            "MING17-TWO-SOURCE-FAMILY-GATE",
+            "MING17-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [],
+          "direct_material_roles": {
+            "EV-LQ-A-01": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ],
+            "EV-LQ-A-02": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ],
+            "EV-LQ-A-03": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 77.5,
+          "evidence_sufficiency_gate": "PASS_FIXED_PRIMARY_PLUS_INDEPENDENT_SOURCE",
+          "formal_evidence_maturity": "fixed_primary_and_independent_history_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G4",
+          "grade_basis": "按正式显式复核完成canonical生命周期复核；V2净值3，结算G4-middle。",
+          "important_institutions": [
+            {
+              "S_depth_weight": 1,
+              "S_effect": "S+",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "SRC-HAICHENG-GAZETTEER-LONGQING-OPEN"
+              ],
+              "counts_toward_S": true,
+              "decision": "S_PLUS_NODE",
+              "durability_gate": null,
+              "durability_material_ids": [
+                "SRC-MING-YUEGANG-RECEPTION"
+              ],
+              "institution_domain": "财政与贸易行政",
+              "institution_lineage": "明代海禁—月港合法贸易谱系",
+              "institution_node_id": "A-MING-ZHUZAIHOU-YUEGANG",
+              "label_zh": "隆庆月港合法贸易—督饷征税接口",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "SRC-HAICHENG-GAZETTEER-LONGQING-OPEN",
+                "SRC-MING-YUEGANG-RECEPTION"
+              ],
+              "normative_direction": "positive",
+              "reason": "中央批准月港准贩东西二洋，并形成海澄口岸的许可、登记与征税接口；万历至明末继续运行，闭合R3。",
+              "source_artifact_refs": [
+                "https://www.shidianguji.com/zh/book/NA02956/chapter/1ktai5nji27f3",
+                "https://www.dpm.org.cn/Uploads/File/2022/03/09/u62282aa6179a6.pdf"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "S_PLUS_BASELINE_NODE"
+            }
+          ],
+          "index_interval": [
+            0,
+            19.9
+          ],
+          "polity": "明",
+          "position": "middle",
+          "position_basis": "V2净值=3，P_gross=3，N_gross=0；档内横向结构复核后定middle。",
+          "position_q": 0.5,
+          "rank": 14,
+          "reign_range": "1567-1572",
+          "ruler_id": "RULER-MING-ZHU-ZAIHOU",
+          "ruler_name": "朱载坖",
+          "verification_material_ids": [
+            "EV-LQ-C2-01"
+          ],
+          "v2_mechanical_shadow": {
+            "net": 3.0,
+            "p": 3.0,
+            "n": 0,
+            "shadow_grade": "G4",
+            "unfloored": "G4",
+            "floor": null
+          },
+          "extreme_delta_reopen": false,
+          "A_net_units": 3.0,
+          "P_gross": 3.0,
+          "N_gross": 0.0,
+          "polarization_ratio": 0.0,
+          "unfloored_grade": "G4",
+          "polarization_floor_triggered": false,
+          "floor_grade": null,
+          "extreme_delta_review": "NOT_REQUIRED",
+          "v2_explicit_patch": true
+        },
+        {
+          "A_C_A_support_mechanism": null,
+          "A_grade_thickness_cost": 0.0,
+          "A_independent_M_position_weight": -0.5,
+          "A_independent_M_signed": -2.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": -0.5,
+          "A_structural_thickness": 0.0,
+          "C_A": 0,
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "counts_toward_S": false,
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "institution_domain": "监察反馈",
+              "institution_node_id": "A-ZD-INTERNAL-DEPOT",
+              "label_zh": "西厂、内行厂与厂卫扩张",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [
+                "EV-ZD-A-02"
+              ],
+              "mechanism": "西厂、内行厂与厂卫扩张",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": -2.0
+            }
+          ],
+          "M_positive_profile": [],
+          "S_depth_units": 0,
+          "S_minus": 0,
+          "S_minus_node_ids": [],
+          "S_net": 0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [
+            "MING17-TWO-SOURCE-FAMILY-GATE",
+            "MING17-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "EV-ZD-A-02"
+          ],
+          "direct_material_roles": {
+            "EV-ZD-A-01": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ],
+            "EV-ZD-A-02": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 6.0,
+          "evidence_sufficiency_gate": "PASS_FIXED_PRIMARY_PLUS_INDEPENDENT_SOURCE",
+          "formal_evidence_maturity": "fixed_primary_and_independent_history_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G0",
+          "grade_basis": "未见达到A建设门槛的正向制度节点。负向限制：西厂、内行厂与厂卫扩张。",
+          "important_institutions": [
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "EV-ZD-A-02"
+              ],
+              "counts_toward_S": false,
+              "decision": "STRUCTURAL_NON_DURABLE",
+              "durability_gate": "STRUCTURAL_NON_DURABLE_R2",
+              "durability_material_ids": [],
+              "institution_domain": "监察反馈",
+              "institution_lineage": "明代厂卫侦缉与法外司法谱系",
+              "institution_node_id": "A-ZD-INTERNAL-DEPOT",
+              "label_zh": "西厂、内行厂与厂卫扩张",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [
+                "EV-ZD-A-02"
+              ],
+              "normative_direction": "negative",
+              "reason": "扩张厂卫和内行厂的平行侦缉、逮捕与酷刑接口，核心结构绕开法司制衡。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "S_MINUS_BASELINE_NODE"
+            }
+          ],
+          "index_interval": [
+            0,
+            19.9
+          ],
+          "polity": "明",
+          "position": "lower-middle",
+          "position_basis": "A结构厚度=0.00（G0—G3含已消费的C_A/2），G0主档消费=0.00；排除S与已消费C_A支撑链后，独立有符号M原值=-2.00、position权重=-0.50；统一净余=-0.50，对应lower-middle。",
+          "position_q": 0.3,
+          "rank": 167,
+          "reign_range": "1505-1521",
+          "ruler_id": "RULER-MING-ZHU-HOUZHAO",
+          "ruler_name": "朱厚照",
+          "verification_material_ids": [
+            "EV-ZD-B1-01"
+          ],
+          "v2_mechanical_shadow": {
+            "net": -2.0,
+            "p": 0,
+            "n": 2.0,
+            "shadow_grade": "G0",
+            "unfloored": "G0",
+            "floor": null
+          },
+          "extreme_delta_reopen": false
+        },
+        {
+          "A_C_A_support_mechanism": null,
+          "A_grade_thickness_cost": 0,
+          "A_independent_M_position_weight": -0.5,
+          "A_independent_M_signed": -2.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": -0.5,
+          "A_structural_thickness": 0.0,
+          "C_A": 0.0,
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "counts_toward_S": false,
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "institution_domain": "法律与司法",
+              "institution_node_id": "M2-LSM-AN001",
+              "label_zh": "魏忠贤集团控制章奏、厂卫、都察院与地方政治激励",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "M2-LSM-E001",
+                "M2-LSM-E004"
+              ],
+              "mechanism": "魏忠贤集团控制章奏、厂卫、都察院与地方政治激励",
+              "result_closure": "持续或系统",
+              "signed_weight": -2.0
+            }
+          ],
+          "M_positive_profile": [],
+          "S_depth_units": 0,
+          "S_minus": 0,
+          "S_minus_node_ids": [],
+          "S_net": 0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [
+            "MING17-TWO-SOURCE-FAMILY-GATE",
+            "MING17-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "M2-LSM-E001"
+          ],
+          "direct_material_roles": {
+            "M2-LSM-E001": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 6.0,
+          "evidence_sufficiency_gate": "PASS_FIXED_PRIMARY_PLUS_INDEPENDENT_SOURCE",
+          "formal_evidence_maturity": "fixed_primary_and_independent_history_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G0",
+          "grade_basis": "现有材料只闭合到制度破坏、弃置或互相冲突，未形成可计的正向建设；主导限制为魏忠贤集团控制章奏、厂卫、都察院与地方政治激励",
+          "important_institutions": [
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "M2-LSM-E001",
+                "M2-LSM-E004"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "FAIL_R0_NO_LONG_TERM_RECEPTION",
+              "durability_material_ids": [],
+              "institution_domain": "法律与司法",
+              "institution_lineage": "MING_FACTORY_GUARD_EXTRAJUDICIAL_COERCION",
+              "institution_node_id": "M2-LSM-AN001",
+              "label_zh": "魏忠贤集团控制章奏、厂卫、都察院与地方政治激励",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "M2-LSM-E001",
+                "M2-LSM-E004"
+              ],
+              "normative_direction": "negative",
+              "reason": "厂卫与镇抚司法外司法把侦缉、拘捕、酷刑置于常规司法制衡之外，制度核心规则稳定产生系统性伤害。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json"
+              ],
+              "source_kind": "NON_S_MAJOR_NODE"
+            }
+          ],
+          "index_interval": [
+            0,
+            19.9
+          ],
+          "polity": "明",
+          "position": "lower-middle",
+          "position_basis": "A结构厚度=0.00（G0—G3含已消费的C_A/2），G0主档消费=0.00；排除S与已消费C_A支撑链后，独立有符号M原值=-2.00、position权重=-0.50；统一净余=-0.50，对应lower-middle。",
+          "position_q": 0.3,
+          "rank": 167,
+          "reign_range": "1620-1627；只按本人实际最高治理权，魏忠贤为受权执行链",
+          "ruler_id": "RULER-MING-ZHU-YOUJIAO",
+          "ruler_name": "朱由校",
+          "verification_material_ids": [
+            "M2-LSM-E004"
+          ],
+          "v2_mechanical_shadow": {
+            "net": -2.0,
+            "p": 0,
+            "n": 2.0,
+            "shadow_grade": "G0",
+            "unfloored": "G0",
+            "floor": null
+          },
+          "extreme_delta_reopen": false
+        },
+        {
+          "A_C_A_support_mechanism": null,
+          "A_grade_thickness_cost": 0,
+          "A_independent_M_position_weight": 0.0,
+          "A_independent_M_signed": 0.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": -2.0,
+          "A_structural_thickness": -2.0,
+          "C_A": 0.0,
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "S_depth_weight": 0,
+              "S_effect": "S-1",
+              "counts_toward_S": true,
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "institution_domain": "监察反馈",
+              "institution_node_id": "A-JS-WESTERN-DEPOT",
+              "label_zh": "设置、复设并维持西厂侦缉体系",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "EV-JS-A-01"
+              ],
+              "mechanism": "设置、复设并维持西厂侦缉体系",
+              "result_closure": "持续或系统",
+              "signed_weight": -2.0
+            }
+          ],
+          "M_positive_profile": [],
+          "S_depth_units": 0,
+          "S_minus": 1.0,
+          "S_minus_node_ids": [
+            "A-JS-WESTERN-DEPOT"
+          ],
+          "S_net": -1.0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [
+            "MING17-TWO-SOURCE-FAMILY-GATE",
+            "MING17-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "EV-JS-A-01"
+          ],
+          "direct_material_roles": {
+            "EV-JS-A-01": [
+              "A_OPERATION",
+              "S_OR_MAJOR_NODE_EVIDENCE"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 2.0,
+          "evidence_sufficiency_gate": "PASS_FIXED_PRIMARY_PLUS_INDEPENDENT_SOURCE",
+          "formal_evidence_maturity": "fixed_primary_and_independent_history_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G0",
+          "grade_basis": "现有材料只闭合到制度破坏、弃置或互相冲突，未形成可计的正向建设；主导限制为设置、复设并维持西厂侦缉体系",
+          "important_institutions": [
+            {
+              "S_depth_weight": 0,
+              "S_effect": "S-1",
+              "S_minus_weight": 1,
+              "construction_operation_material_ids": [
+                "EV-JS-A-01"
+              ],
+              "counts_toward_S": true,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "PASS_STANDARD_MAJOR_NEGATIVE_R4",
+              "durability_material_ids": [],
+              "institution_domain": "监察反馈",
+              "institution_lineage": "MING-FACTORY-SURVEILLANCE",
+              "institution_node_id": "A-JS-WESTERN-DEPOT",
+              "label_zh": "设置、复设并维持西厂侦缉体系",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "EV-JS-A-01"
+              ],
+              "normative_direction": "negative",
+              "reason": "以中官侦缉、厂狱形成常规法司之外的平行司法和信息入口，核心规则内生扩大任意逮系风险。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/ming.json",
+                "docs/史料通读产物/明/制度行政独立史源补证.json"
+              ],
+              "source_kind": "S_MINUS_BASELINE_NODE"
+            }
+          ],
+          "index_interval": [
+            0,
+            19.9
+          ],
+          "polity": "明",
+          "position": "lower",
+          "position_basis": "A结构厚度=-2.00（G0—G3含已消费的C_A/2），G0主档消费=0.00；排除S与已消费C_A支撑链后，独立有符号M原值=0.00、position权重=0.00；统一净余=-2.00，对应lower。",
+          "position_q": 0.1,
+          "rank": 181,
+          "reign_range": "1464-1487",
+          "ruler_id": "RULER-MING-ZHU-JIANSHEN",
+          "ruler_name": "朱见深",
+          "verification_material_ids": [
+            "EV-JS-B2-01",
+            "EV-JS-B1-01"
+          ],
+          "v2_mechanical_shadow": {
+            "net": -3.0,
+            "p": 0,
+            "n": 3.0,
+            "shadow_grade": "G0",
+            "unfloored": "G0",
+            "floor": null
+          },
+          "extreme_delta_reopen": false
+        }
+      ]
+    }
+  }
+}

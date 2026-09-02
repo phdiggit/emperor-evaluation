@@ -1,0 +1,154 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "北周",
+  "collections": {
+    "records": {
+      "positions": [
+        25
+      ],
+      "records": [
+        {
+          "ruler_id": "RULER-SHADOW-宇文邕",
+          "ruler_name": "宇文邕",
+          "polity": "北周",
+          "reign_range": [
+            560,
+            578
+          ],
+          "scope_status": "ELIGIBLE_DYNASTY_FOUNDER",
+          "score_applicable": true,
+          "founder_role": "SUCCESSOR_FULL_UNIFIER",
+          "difficulty_start_boundary": "继承北周皇位与关陇国家机器，575年开战只是贡献节点",
+          "initial_resource_position": "继承北周皇位与关陇国家机器，575年开战只是贡献节点",
+          "initial_resource_share_pct": 42.0,
+          "initial_resource_source_refs": [
+            "資治通鑑/卷172@1502703",
+            "PCR-AUDIT-WAR-PARENT-172-ZHOU-QI-HEYIN-575-宇文邕"
+          ],
+          "initial_resource_source_status": "SOURCE_ANCHORED_RULE_MAPPED",
+          "initial_resource_class": "R4_MAJOR_STATE_MACHINE",
+          "initial_resource_share_basis": "史源锚用于确认‘继承北周皇位与关陇国家机器，575年开战只是贡献节点’这一事实起点；百分比不是史书原文数字，而是按合同R4_MAJOR_STATE_MACHINE档（继承或控制多个主要区域、强藩或可独立建国的大型军政机器）在同档人物间依可调用资源广度裁为42%。",
+          "start_boundary": "575年首次亲自发动北齐统一战争",
+          "end_boundary": "577年灭北齐",
+          "starting_position": "继承北周关陇国家机器",
+          "A1": {
+            "axis": "A1",
+            "name": "创业战略增益与难度兑现",
+            "starting_resource_share": 42.0,
+            "starting_resource_disadvantage": 58.0,
+            "project_start_resource_share": 42.0,
+            "project_start_resource_disadvantage": 58.0,
+            "contribution_start_field": {
+              "subject_units": 42.0,
+              "other_actors": {
+                "北齐": 48,
+                "南陈及其他": 10
+              }
+            },
+            "opponent_pressure": 48.72,
+            "opponent_system_pressure": 46.75,
+            "relative_resource_pressure": 53.33,
+            "major_opponent_count": 1,
+            "major_opponent_systems": [
+              {
+                "opponent_system_ref": "OPP-NORTHERN-ZHOU-NORTHERN-QI",
+                "opponent_label": "北齐国家机器",
+                "organization_grade": "O5",
+                "organization_rate": 85.0,
+                "source_campaign_refs": [
+                  "WAR-LEAD-NC-ZHOU-DESTROY-QI-577"
+                ]
+              }
+            ],
+            "unknown_opponent_campaign_refs": [],
+            "opponent_threat_source_status": "OPPONENT_SYSTEM_O_GRADE_WITH_RELATIVE_RESOURCES",
+            "opponent_threat_routing_basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。",
+            "competitive_fragmentation": 86.19,
+            "a1_strategic_responsibility_factor": 85.0,
+            "a1_strategic_responsibility_basis": "role_default:SUCCESSOR_FULL_UNIFIER",
+            "start_difficulty_rate": 58.0,
+            "pure_difficulty_rate": 53.36,
+            "difficulty_rate": 62.78,
+            "terminal_completion_rate": 100.0,
+            "attributed_completion_rate": 85.0,
+            "result_rate": 85.0,
+            "rate": 53.36,
+            "weight": 60,
+            "points": 32.0
+          },
+          "A2": {
+            "axis": "A2",
+            "name": "创业路线效率与稳固",
+            "created_net_control_value": 301.88,
+            "recovered_net_control_value": 0.0,
+            "gross_unification_control_value": 301.88,
+            "effective_unification_control_value": 301.88,
+            "recovered_control_scoring_rate": 50.0,
+            "raw_control_scale_rate": 30.19,
+            "control_scale_score_rate": 54.94,
+            "closure_years": 2.0,
+            "value_weighted_acquisition_years": 1.8,
+            "control_acquisition_efficiency": 167.71,
+            "acquisition_pace_rate": 100.0,
+            "scale_expected_closure_years": 5.93,
+            "closure_pace_rate": 100.0,
+            "time_rate": 100.0,
+            "control_retention_rate": 98.0,
+            "durability_rate": 96.8,
+            "terminal_completion_rate": 100.0,
+            "early_stability_rate": 95.0,
+            "strategic_positive_decisions": [],
+            "objective_result_points": 19.6,
+            "strategic_positive_decision_points": 0.0,
+            "strategic_error_points": 2.0,
+            "strategic_error_events": [
+              {
+                "event": "575年否定多路建议，坚持河阴—金墉路线，阶段取城后围攻不克撤军",
+                "severity": "MATERIAL",
+                "basis": "本人否定汾曲、河北及汾潞等替代路线并亲定河阴方向；阶段成果不能保持且统一战争被迫中止，属于最高路线选择失误。",
+                "c_nonduplication_basis": "C保留本人mixed A/D2的战场结果；A只消费选择作战方向并造成统一链延迟的决策责任，不重复扣围城战术表现。",
+                "source_refs": [
+                  "資治通鑑/卷172@1502703",
+                  "PCR-AUDIT-WAR-PARENT-172-ZHOU-QI-HEYIN-575-宇文邕"
+                ]
+              }
+            ],
+            "rate": 44.05,
+            "weight": 40,
+            "points": 17.6
+          },
+          "strategic_error_events": [
+            {
+              "event": "575年否定多路建议，坚持河阴—金墉路线，阶段取城后围攻不克撤军",
+              "severity": "MATERIAL",
+              "basis": "本人否定汾曲、河北及汾潞等替代路线并亲定河阴方向；阶段成果不能保持且统一战争被迫中止，属于最高路线选择失误。",
+              "c_nonduplication_basis": "C保留本人mixed A/D2的战场结果；A只消费选择作战方向并造成统一链延迟的决策责任，不重复扣围城战术表现。",
+              "source_refs": [
+                "資治通鑑/卷172@1502703",
+                "PCR-AUDIT-WAR-PARENT-172-ZHOU-QI-HEYIN-575-宇文邕"
+              ]
+            }
+          ],
+          "strategic_error_review": {
+            "review_status": "REVIEWED_ERRORS",
+            "searched_evidence_refs": [
+              "資治通鑑/卷172@1502703",
+              "PCR-AUDIT-WAR-PARENT-172-ZHOU-QI-HEYIN-575-宇文邕"
+            ]
+          },
+          "A_score_points": 49.6,
+          "canonical_rank": 26,
+          "responsibility_basis": "只结算575—577本人亲决、亲统的灭齐统一窗口；不回收宇文泰既有控制。",
+          "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+          "evidence_status_basis": "A2控制量沿用当前C区域底账的保守数值下限；本轮没有新增足以解除该下限的区域价值或人物结果证据。",
+          "evidence_lower_bound": true,
+          "limitations": [
+            "A2控制量沿用当前C区域底账的保守数值下限；本轮没有新增足以解除该下限的区域价值或人物结果证据。"
+          ],
+          "unknown_control_scope": null,
+          "source_refs": []
+        }
+      ]
+    }
+  }
+}

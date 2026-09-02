@@ -1,0 +1,182 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "北周",
+  "collections": {
+    "records": {
+      "positions": [
+        86
+      ],
+      "records": [
+        {
+          "sequence": 108,
+          "ruler_id": "RULER-SHADOW-宇文邕",
+          "ruler_name": "宇文邕",
+          "axis_grade": "G2",
+          "position": "HIGH",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "《周书·武帝纪》记建德三年下诏；灭教前曾召集儒、释、道公开辩论。",
+          "grade_basis": "全国性灭佛灭道已经形成明显、持续的强制权短板；但监督者、公开辩论者并没有普遍遭到人身清洗，且王轨能实际制约储君；因此 G2-HIGH / E3，不降入G1。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-HIGH。",
+          "limitations": [
+            "宗教强制的范围、持续期与后续纠正材料有限。"
+          ],
+          "parents": [
+            {
+              "parent_id": "C5-P108-COUNCIL",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "集议和联姻意见被采纳。"
+            },
+            {
+              "parent_id": "C5-P108-RELIGION",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "宗教强制构成权力克制反证。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-NZHOU-YUWENYONG-MILITARY-REGISTRATION-REFORM",
+                "I2-NZHOU-YUWENYONG-AGRICULTURE-RELIEF-M2-AUDIT",
+                "FACT-AF956653A6722CE3"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "军籍、地方交付与军事授权不直接评价C5。"
+            },
+            {
+              "unit_ids": [
+                "I2-QIN95-YUWENYONG-B2-COUNCIL",
+                "FACT-104747961DFB277C"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P108-COUNCIL",
+              "reason": "意见到达并改变本人决定；同事实合并。"
+            },
+            {
+              "unit_ids": [],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P108-RELIGION",
+              "reason": "第五项A稳定事实中的宗教强制反证按同父链裁决。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-SHADOW-宇文邕",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 51,
+          "score_100": 51,
+          "current_entry_unit_count": 5,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 3,
+            "SCORING_PARENT": 2
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-SHADOW-宇文邕",
+          "actual_power_window": "572—578年诛宇文护后亲政",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P108-COUNCIL",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "集议和联姻意见被采纳。"
+            },
+            {
+              "parent_id": "C5-P108-RELIGION",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "宗教强制构成权力克制反证。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P108-COUNCIL"
+            ],
+            "negative_parent_refs": [
+              "C5-P108-RELIGION"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P108-COUNCIL",
+              "C5-P108-RELIGION"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《周书》武帝纪建德三年灭佛道诏",
+            "《周书》卷四十《王轨传》",
+            "https://zh.wikisource.org/zh-hans/周書/卷40"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 建德三年灭佛灭道：全国性身份与组织强制",
+              "details": [
+                "《周书·武帝纪》记建德三年下诏。",
+                "断佛、道二教：经像悉毁。",
+                "沙门、道士并令还民。",
+                "佛教编年材料记当时被迫还俗者达到二百余万乃至更高数量级。",
+                "即使不采用宗教史文献的最高数字，正史层面也足以确认。",
+                "整个宗教身份被国家强制取消，寺观与经像被系统毁除。",
+                "对象并非现实政敌，而是以宗教身份为基础的广泛社会群体。",
+                "应定 NEGATIVE / MI4_CROSS_PHASE_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "B. 这是在公开辩论之后仍执行，反馈到达但不改变",
+              "details": [
+                "灭教前曾召集儒、释、道公开辩论。",
+                "僧人慧远等当面激烈反驳皇帝，双方多轮辩论。",
+                "无论如何评价教义是非，至少可以确认反对意见已经直接到达最高权力。",
+                "武帝最终仍全面废二教。",
+                "因而这不是“不了解代价”，而是明确反馈后仍执行大范围身份强制。"
+              ]
+            },
+            {
+              "title": "C. 但异议者本人并未因辩论被处死：保留反向证据",
+              "details": [
+                "参与争论的僧人能够当面反驳，并未因辩论本身遭到处死。",
+                "说明强制重点在宗教制度和身份，而非建立普遍言论恐怖。",
+                "这限制下档深度，不进入G1/G0。"
+              ]
+            },
+            {
+              "title": "D. 王轨监督皇太子：履职者确有保护空间",
+              "details": [
+                "王轨、宇文孝伯等向武帝报告太子宇文赟在军中失德。",
+                "武帝不因对象是自己的储君而压下，反而怒杖太子并处分其近幸郑译。",
+                "后来王轨又公开指出太子“不克负荷”，武帝“深以为然”，只是因其他诸子更不合适而未废。",
+                "这是高质量的规则/监督可触及最高权力最私人的继承利益正证。",
+                "可定 POSITIVE / MI2_LIFECYCLE，并作为宗教强制主模式的反向限制。"
+              ]
+            },
+            {
+              "title": "E. 不把宣帝后来杀王轨倒灌武帝",
+              "details": [
+                "王轨最终被杀发生在宇文赟即位之后。",
+                "反而证明武帝在位时长期保护了一个持续批评储君的人。",
+                "不能把后继者报复计到武帝头上。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 3,
+            "linked_source_count": 1,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        }
+      ]
+    }
+  }
+}

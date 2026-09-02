@@ -1,0 +1,981 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "三国",
+  "collections": {
+    "scores": {
+      "positions": [
+        15,
+        22,
+        57,
+        70,
+        71,
+        72,
+        81,
+        82,
+        99,
+        100,
+        151
+      ],
+      "records": [
+        {
+          "adjudication_reason": "原结算低估了刘禅长期前中段的绝对状态，而且旧证据竟主要是魏吴灾情，相关性不足。本轮换用本人窗口：诸葛亮实际执政期有“田畴辟，仓廪实，蓄积饶”，直接闭合P与R强态；这一秩序又由蒋琬、费祎延续较长时间。后期到景元二年薛珝已见“经其野，民皆菜色”，P明显回落，但263年投降清册仍有米四十余万斛、金银各二千斤、锦绮彩绢各二十万匹，说明公共储备并未同步崩溃。全任约四十年中，健康/强态覆盖主体阶段，故升C2-4，终点回落三档。",
+          "confidence": "LOW",
+          "evidence": [
+            {
+              "source_works": [
+                "《三国志·诸葛亮传》裴注引《袁子》"
+              ],
+              "verbatim_excerpt": "亮之治蜀，田畴辟，仓廪实，器械利，蓄积饶。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《资治通鉴》卷七十八"
+              ],
+              "verbatim_excerpt": "入其朝不闻直言，经其野民皆菜色。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《三国志·后主传》裴注引王隐《蜀记》"
+              ],
+              "verbatim_excerpt": "领户二十八万……米四十馀万斛，金银各二千斤，锦绮彩绢各二十万匹，馀物称此。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_5_PASS_C2_4",
+            "basis": "长期前中段P/R直接强，足以使两柱至少健康；但M与正常F基盘缺同等级独立强证，后期P又明显弱化，五档失败。"
+          },
+          "main_band": "C2-4",
+          "material_limitations": [
+            "C2结算的是刘禅在位窗口绝对状态，不把诸葛亮、蒋琬、费祎的治理功劳错误归到刘禅个人能力",
+            "这里只登记这些状态确实发生在其统治窗口。",
+            "后期北伐军费不机械扣C2",
+            "只消费“民皆菜色”等已经实现的绝对结果。",
+            "S0=C2-3与刘备S_end同步。"
+          ],
+          "peak_band": null,
+          "polity": "蜀汉",
+          "rank": 12,
+          "reign_range": "223—263",
+          "ruler_id": "RULER-SHU-LIUSHAN",
+          "ruler_name": "刘禅",
+          "score": 21.7,
+          "stability_class_diagnostic_only": "K0",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-4",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHU-LIUSHAN"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C6",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          },
+          "old_settlement_review": "UPGRADE_FROM_C2_3_REPLACE_IRRELEVANT_EVIDENCE；保留：原结算关于后期持续军费与政务恶化压低交班状态的方向保留。；推翻/修正：删除魏吴灾情作为核心证据；补入本人窗口长期P/R强态，因此主态升四。。"
+        },
+        {
+          "adjudication_reason": "原结算正确识别了屯田使生产税基从汉末崩解中恢复，但只据“仓廪皆满”仍判C2-3偏低。本轮把同一《晋书·食货志》上下文补全：许下屯田得谷百万斛，郡国列置田官后数年“所在积粟，仓廪皆满”；平袁氏后又明确固定“亩粟四升、户绢二匹绵二斤，余皆不得擅兴”，说明P与F/R不只是能征调，而是形成了稳定常规税基和广域储粮。货币侧虽恢复五铢，但“不铸钱既久，货本不多”，M仍是明显上限。因此由3升4，不进5。",
+          "confidence": "MEDIUM_HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《晋书·食货志》"
+              ],
+              "verbatim_excerpt": "魏武于是乃募良民屯田许下，又于州郡列置田官，岁有数千万斛以充兵戎之用。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《晋书·食货志》"
+              ],
+              "verbatim_excerpt": "数年之中，所在积粟，仓廪皆满。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《晋书·食货志》"
+              ],
+              "verbatim_excerpt": "及初平袁氏以定邺都，令收田租亩粟四升，户绢二匹而绵二斤，馀皆不得擅兴。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《晋书·食货志》"
+              ],
+              "verbatim_excerpt": "至魏武为相，于是罢之，还用五铢。是时不铸钱既久，货本不多，又更无增益。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_5_PASS_C2_4",
+            "basis": "P与F/R达到健康乃至强态，但M货币供给长期偏弱，五档“两柱都强”不闭合。"
+          },
+          "main_band": "C2-4",
+          "material_limitations": [
+            "军屯与战争用途不使仓储结果失效，但也不能把军事动员本身当额外C2加分。",
+            "原结算只写“战争成本很重”过于跨轴",
+            "本轮只消费其已经闭合到经济财政状态的部分。",
+            "S_end=C2-4，与曹丕S0硬同步。"
+          ],
+          "peak_band": null,
+          "polity": "汉末魏政权",
+          "rank": 12,
+          "reign_range": "196—220",
+          "ruler_id": "RULER-WEI-CAOCAO",
+          "ruler_name": "曹操",
+          "score": 23.6,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-1",
+            "S_avg": "C2-4",
+            "S_end": "C2-4"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-47D3C6AE74DC"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-47D3C6AE74DC",
+                "candidate_ids_trace_only": [
+                  "I2-HAN-CAOCAO-TUNTIAN-OPERATION-M3-AUDIT"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "UNRESOLVED_DIRECTION",
+                "mechanisms": [
+                  "RELIEF_STORAGE"
+                ],
+                "chain_summary": "屯田由专官推行并形成多年粮储结果 | 屯田由专官推行并形成持续粮储结果 | 太祖以峻为典农中郎将，募百姓屯田於许下，得谷百万斛，郡国列置田官，数年中所在积粟，仓廪皆满。",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/late_eastern_han.json#material_id=I2-HAN-CAOCAO-TUNTIAN-OPERATION-M3-AUDIT",
+                  "https://zh.wikisource.org/w/index.php?title=三國志/卷16&oldid=2610840"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-47D3C6AE74DC"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-WEI-CAOCAO"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C5",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-1",
+              "S_avg": "C2-3",
+              "S_end": "C2-4"
+            }
+          },
+          "old_settlement_review": "UPGRADE_FROM_C2_3；保留：屯田、仓储与生产税基恢复的原核心判断完全保留。；推翻/修正：补入固定田租与“余不得擅兴”，证明公共财政并非只有汲取能力；因此升四。。"
+        },
+        {
+          "adjudication_reason": "原结算“建政期恢复有限、证据稀疏”的结论保留，但补足其实际控制益州阶段材料。成都初定时将田宅归还、允许安居复业，P侧开始恢复；刘巴建议直百钱与官市后“数月之间，府库充实”，说明短期R/F回升。不过这组财政恢复高度依赖非常规大钱和官市，后续币值与市场稳定并无同等级结果，不能据“府库充实”单柱抬四，故保C2-3。",
+          "confidence": "LOW",
+          "evidence": [
+            {
+              "source_works": [
+                "《三国志·赵云传》裴注引《云别传》"
+              ],
+              "verbatim_excerpt": "益州人民，初罹兵革，田宅皆可归还，令安居复业，然后可役调……先主即从之。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《三国志·刘巴传》裴注引《零陵先贤传》"
+              ],
+              "verbatim_excerpt": "但当铸直百钱，平诸物价，令吏为官市。备从之，数月之间，府库充实。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "P恢复与短期府库结果清楚，但M的长期后效、正常财政余量均不闭合，四档门失败。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "项目旧口径已将214以后刘备实际控制益州阶段纳入其C2窗口，本轮沿用，不只截取221—223帝号期。",
+            "直百钱“数月府库充实”不能等同长期健康货币或常规财政。",
+            "S_end=C2-3与刘禅S0同步。"
+          ],
+          "peak_band": null,
+          "polity": "蜀汉",
+          "rank": 56,
+          "reign_range": "221—223",
+          "ruler_id": "RULER-SHU-LIUBEI",
+          "ruler_name": "刘备",
+          "score": 14.9,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-3",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHU-LIUBEI"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C0",
+            "cost_status": "CONFIRMED",
+            "cost_position": "LOW",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-2",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          },
+          "old_settlement_review": "KEEP_BAND_STRENGTHEN_DIRECT_EVIDENCE；保留：短任/建政阶段、财政民生恢复有限以及货币后效未载的限制保留。；推翻/修正：将原笼统证据拆为P恢复与短期R/F结果，但不足推翻三档。。"
+        },
+        {
+          "adjudication_reason": "原结算的关键不是‘没找到坏事所以给3’，而是短掌权窗本身没有足够独立宏观结果。司马懿—邓艾此前建设的淮南北屯田与漕渠在这一时期继续提供‘资食有储而无水害’的结构底盘；但这主要是军事粮运与区域生产结果，不能自动外推成全魏民间经济和公共财政均健康。本人又只有约四年实权，缺P/M/F/R新的广域强结果，因此保C2-3。",
+          "confidence": "LOW",
+          "evidence": [
+            {
+              "source_works": [
+                "《三国志·邓艾传》"
+              ],
+              "verbatim_excerpt": "每东南有事，大军兴众，泛舟而下，达于江、淮，资食有储而无水害。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "可确认生产储运体系基本正常，但M与全国常规F健康均未闭合；短窗只能三档。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "不因缺证自动判坏，故不降二。",
+            "S0=C2-3与司马懿S_end同步。"
+          ],
+          "peak_band": null,
+          "polity": "魏",
+          "rank": 56,
+          "reign_range": "251—255",
+          "ruler_id": "RULER-WEI-SIMASHI",
+          "ruler_name": "司马师",
+          "score": 14.9,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-3",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-WEI-SIMASHI"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C6",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          },
+          "old_settlement_review": "KEEP_BAND_STRICT_CONTINUITY；保留：短掌权窗、材料以军事政治为主，不能贸然高档的原判断保留。；推翻/修正：将旧臣子治理群压缩为明确的淮南北屯田连续性证据，不把跨区域臣绩全部算给司马师。。"
+        },
+        {
+          "adjudication_reason": "原结算保三合理，但需要把‘治理与战争成本均有限’改成纯结果轴。正始年间由司马懿采纳并推行的淮南北屯田、水渠和漕运，最终达到‘资食有储而无水害’，是本人可以直接关联的P/R/F结果；然而该体系高度集中于军屯和淮南北区域，不能等同全国民间市场与正常财政均健康。实际独揽权力又仅249—251年，因此保C2-3。",
+          "confidence": "MEDIUM_HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《三国志·邓艾传》"
+              ],
+              "verbatim_excerpt": "宣王善之，事皆施行。正始二年，乃开广漕渠，每东南有事，大军兴众，泛舟而下，达于江、淮，资食有储而无水害。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《太平御览·屯田》"
+              ],
+              "verbatim_excerpt": "穿渠三百馀里，溉田二万顷……自寿春到京师，农官兵田，鸡犬之声，阡陌相属。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "区域P/R结果强，但M与全国F健康缺证；区域军屯不能单柱外推四档。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "正始屯田建设早于249年独揽政权，但属于司马懿本人直接主持并在其实际控制窗口继续存在的结构结果",
+            "只用于状态约束，不因功劳归属额外加分。",
+            "S_end=C2-3与司马师S0同步。"
+          ],
+          "peak_band": null,
+          "polity": "魏",
+          "rank": 56,
+          "reign_range": "249—251",
+          "ruler_id": "RULER-WEI-SIMAYI",
+          "ruler_name": "司马懿",
+          "score": 14.9,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-3",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": null,
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C2",
+            "cost_status": "CONFIRMED",
+            "cost_position": "LOW",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          },
+          "old_settlement_review": "KEEP_BAND_REWRITE_TO_RESULTS；保留：淮南北水运屯田的直接结构成果保留。；推翻/修正：删除‘战争成本有限’这种跨轴表述，以区域性和第二柱不足作为四档瓶颈。。"
+        },
+        {
+          "adjudication_reason": "司马昭执政窗口内能确认灭蜀后对益州实行五年减半租赋和若干制度整理，但这些主要是政策与恢复动作；旧四档依赖曹操、曹魏屯田和更早财政体系连续性过多。本人窗口缺少广域生产、市场货币、常规财政余量的直接健康结果，因此按受约束推断只能闭合三档。",
+          "confidence": "LOW",
+          "evidence": [
+            {
+              "source_works": [
+                "《三国志考证》引魏志"
+              ],
+              "verbatim_excerpt": "蜀平……特赦益州士民，复除租赋之半五年。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《通志·晋纪》"
+              ],
+              "verbatim_excerpt": "诸禁网烦苛及法式不便于时者，帝皆奏除之。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "缺本人窗口两柱同时健康的直接结果；前代屯田、盐利和仓储不能连续跨任替代司马昭的C2状态证据。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "灭蜀收益不计C2正向",
+            "只消费战后益州实际财政安排。",
+            "旧结算中曹操、卫觊等前代材料全部移出本人高档门。"
+          ],
+          "peak_band": null,
+          "polity": "魏",
+          "rank": 56,
+          "reign_range": "255—265",
+          "ruler_id": "RULER-WEI-SIMAZHAO",
+          "ruler_name": "司马昭",
+          "score": 14.9,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-3",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-WEI-SIMAZHAO"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C6",
+            "cost_status": "CONFIRMED",
+            "cost_position": "LOW",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-4",
+            "score": 23.6,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-4",
+              "S_end": "C2-4"
+            }
+          }
+        },
+        {
+          "adjudication_reason": "原结算三档可以保留，但旧证据仅是孙亮时期浦里塘工程的背景，相关性太弱。本轮换成本人永安元年诏书：吏家五人中可有三人兼重服役，还需出‘限米’，军出又从，已经说明P/F负担结构不轻；孙休只削减其中一人役与米限，属于纠偏动作而非健康结果。与此同时没有M、R持续崩坏证据，因此仍是C2-3。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "source_works": [
+                "《三国志·孙休传》所载永安元年诏"
+              ],
+              "verbatim_excerpt": "诸吏家有五人，三人兼重为役，父兄在都，子弟给郡县吏，既出限米，军出又从，至于家事，无经护者，朕甚愍之。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《三国志·孙休传》所载永安元年诏"
+              ],
+              "verbatim_excerpt": "其有五人，三人为役，听其父兄所欲留，除其米限，军出不从。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "赋役负担明显，P/F只能判基本运行；但M/R未见长期系统性失灵，故不降二。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "原结算以孙亮时期浦里塘作S0背景可以保留为时代背景，但不能承担孙休本人主档。",
+            "S_end=C2-3",
+            "未来裁孙皓时其S0须同步。"
+          ],
+          "peak_band": null,
+          "polity": "吴",
+          "rank": 56,
+          "reign_range": "258—264",
+          "ruler_id": "RULER-WU-SUNXIU",
+          "ruler_name": "孙休",
+          "score": 14.9,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-3",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-WU-SUNXIU"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C2",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          },
+          "old_settlement_review": "KEEP_BAND_REPLACE_CORE_EVIDENCE；保留：承接吴末脆弱结构、短任无全面恢复证据的原判断保留。；推翻/修正：把旧旁证替换为孙休本人诏书中的赋役结构结果。。"
+        },
+        {
+          "adjudication_reason": "原结算的‘农业经营可运行、但大钱与晚期征发反复拖累’方向保留。孙权时期确有明确农业扩展背景，《晋书·食货志》称吴之务农重谷始于此；但嘉禾五年至赤乌间的大泉五百、当千造成‘钱既太贵，但有空名，人间患之’，且持续约十年后才因民间不便而停止回收。P能维持，M却长期结构性失衡；公共财政又缺独立健康余额与储备结果。因此保C2-3。",
+          "confidence": "MEDIUM",
+          "evidence": [
+            {
+              "source_works": [
+                "《晋书·食货志》"
+              ],
+              "verbatim_excerpt": "有吴之务农重谷，始于此焉。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《晋书·食货志》"
+              ],
+              "verbatim_excerpt": "孙权嘉禾五年，铸大钱一当五百。赤乌元年，又铸当千钱。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《晋书·食货志》"
+              ],
+              "verbatim_excerpt": "钱既太贵，但有空名，人间患之。权闻百姓不以为便，省息之，铸为器物，官勿复出也。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "P可以判健康，但M长期弱，F/R又缺健康硬证，私经济与公共财政两柱不能同时判健康。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "币制后来纠偏是真实正向，但不能抹掉持续约十年的市场失衡。",
+            "不以江东开发的宏观历史印象代替本人窗口公共财政证据。"
+          ],
+          "peak_band": null,
+          "polity": "吴",
+          "rank": 56,
+          "reign_range": "222—252",
+          "ruler_id": "RULER-WU-SUNQUAN",
+          "ruler_name": "孙权",
+          "score": 14.3,
+          "stability_class_diagnostic_only": "K2",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-3",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-WU-SUNQUAN"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C6",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          },
+          "old_settlement_review": "KEEP_BAND_STRENGTHEN_MARKET_BOTTLENECK；保留：农业经营、货币弊病和长期混合状态的原判断保留。；推翻/修正：删除对句容工程等工程成本的跨轴机械扣分，改用已闭合的货币结果作为主要瓶颈。。"
+        },
+        {
+          "adjudication_reason": "原结算关于承接曹操生产储备高位、黄初二年废五铢后市场交易恶化的判断成立。本轮不再用重复南征与宫室支出机械扣分，而只消费C2内部结果：以谷帛为市后，至明帝初已长期出现湿谷、薄绢等欺诈，“虽处以严刑而不能禁”，说明M从健康跌为结构性弱面。P与F/R仍承接曹操末期的健康底盘，故主态三档，不降二；交班同为三档，未形成低于主态的末期逆转，K4。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《晋书·食货志》"
+              ],
+              "verbatim_excerpt": "及黄初二年，魏文帝罢五铢钱，使百姓以谷帛为市。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《晋书·食货志》"
+              ],
+              "verbatim_excerpt": "至明帝世，钱废谷用既久，人间巧伪渐多，竞湿谷以要利，作薄绢以为市，虽处以严刑而不能禁也。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《晋书·食货志》"
+              ],
+              "verbatim_excerpt": "数年之中，所在积粟，仓廪皆满。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN_PASS_C2_3",
+            "basis": "M长期结构性失衡使私经济柱跌出健康，但P与F/R尚未同步脆弱，故三档而非二档。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "S0=C2-4与曹操S_end直接同步",
+            "S_end=C2-3与曹叡S0同步。",
+            "战争与宫室只在形成经济财政后果时消费，不机械扣档。"
+          ],
+          "peak_band": null,
+          "polity": "魏",
+          "rank": 56,
+          "reign_range": "220—226",
+          "ruler_id": "RULER-WEI-CAOPI",
+          "ruler_name": "曹丕",
+          "score": 14.9,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-4",
+            "S_avg": "C2-3",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-36D4BD49EAB2"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-36D4BD49EAB2",
+                "candidate_ids_trace_only": [
+                  "M3H-55DE8F852BCAF92E"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "NEGATIVE",
+                "mechanisms": [
+                  "BUDGET_TREASURY"
+                ],
+                "chain_summary": "| 223冬—224 | 邓芝使吴，孙权判断联蜀利害后绝魏；吴蜀互派使者，陆逊参与审核国书，联盟连续运作 | 外交联盟重建 | `DIP-LEAD-SG-WU-SHU-223` | `#黃初四年14`、`#黃初五年3` | | | 224秋 | 曹丕不纳辛毗“土广民稀、养民屯田十年”之谏，造水军亲征广陵；徐盛连造数百里疑城假楼、陈列舟舰，曹丕因江势与吴防御撤军，龙舟遇暴风险覆 | 第二次南征、目标未达与帝王风险 | `WAR-LEAD-SG-WEI-WU-224-225` | `#黃初五年4` | | | 224 | 轲比能兼并后强盛，步度根万余落保太原、雁门；田豫乘虚击破其部将，轲比能转而屡寇幽、并 | 北边威胁演变 | `WAR-LEAD-SG-WEI-XIANBEI-224-225` | `#黃初五年8` | | | 225 | 梁习大破轲比能；同年诸葛亮分三路进南中，斩雍闿、高定，七擒七纵孟获，平益州、永昌、牂柯、越巂四郡 | 北边反击、南中战争收束 | 两张续卡 | `#黃初六年2—3、8` |",
+                "source_refs": [
+                  "docs/史料通读产物/唐以前编年/三国/卷070-通读总结.md#L24"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-36D4BD49EAB2"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-WEI-CAOPI"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C5",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-4",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          },
+          "old_settlement_review": "KEEP_BAND_REMOVE_CROSS_AXIS_DEDUCTION；保留：废五铢造成交易欺诈、短任未到系统崩溃的原判断保留。；推翻/修正：删除把南征和宫室支出本身直接作为降档理由的做法。。"
+        },
+        {
+          "adjudication_reason": "原结算的方向基本正确：明帝恢复五铢，使M得到实质纠偏；但中后期宫室与辽东用兵已闭合为“百僚编于手役、天下失其躬稼”，关东水灾后“民亡产业”，并且“皆以国乏经用”。这些P与F/R弱证主要集中在后段，足以把交班端由旧C2-3压到C2-2，却尚不足覆盖全任主体而把主态降二。因此仍主态三档。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《晋书·食货志》"
+              ],
+              "verbatim_excerpt": "魏明帝乃更立五铢钱，至晋用之，不闻有所改创。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《晋书·食货志》"
+              ],
+              "verbatim_excerpt": "魏明帝不恭，淫于宫籞，百僚编于手役，天下失其躬稼。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《晋书·食货志》"
+              ],
+              "verbatim_excerpt": "此后关东遇水，民亡产业，而兴师辽阳，坐甲江甸，皆以国乏经用。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN_PASS_C2_3",
+            "basis": "M有恢复，但后段P与F/R转入脆弱；弱态不足覆盖全任主态，故3，交班2。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "灾水与战争本身不机械扣C2",
+            "只消费“民亡产业”“国乏经用”等已经闭合的结果。",
+            "S0=C2-3与曹丕S_end同步。"
+          ],
+          "peak_band": null,
+          "polity": "魏",
+          "rank": 56,
+          "reign_range": "226—239",
+          "ruler_id": "RULER-WEI-CAORUI",
+          "ruler_name": "曹叡",
+          "score": 13.7,
+          "stability_class_diagnostic_only": "K0",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-3",
+            "S_end": "C2-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-303BA95AA0A9"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-303BA95AA0A9",
+                "candidate_ids_trace_only": [
+                  "I2-TK-CR-PALACE-FEEDBACK-FAILURE-001"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE"
+                ],
+                "chain_summary": "国家交付被宫廷工程挤占，反馈虽存在但多数不能改变主线。 | 三四万役工、农桑失业与即时处死均有运行结果。 | 宫室、园林、铜铸持续推进，逾期者可被当面处死。 | 魏明帝時，宮室盛興，而期會迫急，有稽限者，帝親召問，言猶在口，身首已分。 | 夏，四月，漢主以蔣琬為大將軍、錄尚書事；費禕代琬為尚書令。帝好土功，既作許昌宮，又治洛陽宮，起昭陽太極殿，築總章觀，高十餘丈。力役不已，農桑失業。司空陳群上疏曰：「昔禹承唐、虞之盛，猶卑宮室而惡衣服。況今喪亂之後，人民至少，比漢文、景之時，不過一大郡。加以邊境有事，將士勞苦，若有水旱之患，國家之深憂也。昔劉備自成都至白水，多作傳捨，興費人役，太祖知其疲民也。今中國勞力，亦吳、蜀之所願。此安危之機也，惟陛下慮之！」帝答曰：「王業、宮室，亦宜並立。滅賊之後，但當罷守禦耳，豈可復興役邪！是固君之職，蕭何之大略也。」群曰：「昔漢祖惟與項羽爭天下，羽已滅，宮室燒焚，是以蕭何建武庫、太倉，皆是要急，然高祖猶非其壯麗。今二虜未平，誠不宜與古同也。夫人之所欲，莫不有辭，況乃天王，莫之敢違。前欲壞武庫，謂不可不壞也；後欲置之，謂不可不置也。若必作之，固非臣下辭言所屈；若少留神，卓然回意，亦非臣下之所及也。漢明帝欲起德陽殿，鐘離意諫，即用其言，後乃復作之；殿成，謂群臣曰：『鐘離尚書在，不得成此殿也。』夫王者豈憚一臣！蓋為百姓也。今臣曾不能少凝聖德，不及意遠矣。」帝乃為之少有減省。帝耽於內寵，婦官秩石擬百官之數，自貴人以下至掖庭灑掃者，凡數千人，選女子知書可付信者六人，以為女尚書，使典省外奏事，處當畫可。廷尉高柔上疏曰：「昔漢文惜十家之資，不營小台之娛；去病臣匈奴之害，不遑治第之事。況今所損者非惟百金之費，所憂者非徒北鍬之患乎！可粗成見所營立以充朝宴之儀，訖罷作者，使得就養；二方平定，復可徐興。《周禮》：天子后妃以下百二十人，嬪嬙之儀，既已盛矣。竊聞後庭之數，或復過之，聖嗣不昌，殆能由此。臣愚以為可妙簡淑媛以備內官之數，其餘盡遣還家，且以育精養神，專靜為寶。如此，則《螽斯》之征可庶而致矣。」帝報曰：「卿輒昌言，他復以聞。」是時獵法嚴峻，殺禁地鹿者身死，財產沒官，有能覺告者，厚加賞賜。柔復上疏曰：「中間以來，百姓供給眾役，親田者既減；加頃復有獵禁，群鹿犯暴，殘食生苗，處處為害，所傷不貲，民雖障離，力不能御。至如滎陽左右，周數百里，歲略不收。方今天下生生者甚少，而麋鹿之損者甚多，卒有兵戎之役，凶年之災，將無以待之。惟陛下寬放民間，使得捕鹿，遂除其禁，則眾庶永濟，莫不悅豫矣。」帝又欲平北芒，令於其上作台觀，望見孟津。衛尉辛毘諫曰：「天地之性，高高下下。今而反之，既非其理；加以損費人功，民不堪役。且若九河盈溢，洪水為害，而丘陵皆夷，將何以御之！」帝乃止。\n\n尚書涿郡孫禮固請罷役，帝詔曰：「欽納讜言。」促遣民作；監作者復奏留一月，有所成訖。禮徑至作所，不復重奏，稱詔罷民，帝奇其意而不責。帝雖不能盡用群臣直諫之言，然皆優容之。\n\n詔復立崇華殿，更名曰九龍。通引穀水過九龍殿前，為玉井綺欄，蟾蜍含受，神龍吐出。使博士扶風馬鈞作司南車，水轉百戲。陵霄闕始構，有鵲巢其上，帝以問高堂隆，對曰：「《詩》曰：『惟鵲有巢，惟鳩居之。』今興宮室，起陵霄闕，而鵲巢之，此宮未成身不得居之象也。大意若曰：『宮室未成，將有他姓制御之』。斯乃上天之戒也。夫天道無親，惟與善人，太戊、武丁睹災悚懼，故天降之福。今若休罷百役，增崇德政，則三王可四，五帝可六，豈惟商宗轉禍為福而已哉！」帝為之動容。帝性嚴急，其督修宮室有稽限者，帝親召問，言猶在口，身首已分。散騎常侍領秘書監王肅上疏曰：「今宮室未就，見作者三四萬人。九龍可以安聖體，其內足以列六宮；惟泰極已前，功夫尚大。願陛下取常食稟之士，非急要者之用，選其丁壯，擇留萬人，使一期而更之。咸知息代有日，則莫不悅以即事，勞而不怨矣。計",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/three_kingdoms.json#material_id=I2-TK-CR-PALACE-FEEDBACK-FAILURE-001",
+                  "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7073"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-303BA95AA0A9"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-WEI-CAORUI"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C5",
+            "cost_status": "CONFIRMED",
+            "cost_position": "MID",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          },
+          "old_settlement_review": "KEEP_MAIN_BAND_LOWER_END；保留：恢复五铢、后期劳役妨农与财政承压的原判断全部保留。；推翻/修正：旧S_end=C2-3低估后期‘国乏经用’与‘民亡产业’的交班含义，改为C2-2。。"
+        },
+        {
+          "adjudication_reason": "原结算二档正确，但旧S_end=C2-1混入了亡国结果。本人窗口中，华覈已直接指出“军资空匮、仓廪不实”“家户贫困，衣食不足”，宫廷消费又有“府藏为空”，P与F/R长期脆弱，二档很硬。然而280年投降时《晋阳秋》仍记有户五十二万余、米谷二百八十万斛、舟船五千余艘，说明登记、储粮和物资系统并未在退出权力前全面失效。故主态二档不变，终点由一档修为二档。",
+          "confidence": "MEDIUM_HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《三国志·华覈传》"
+              ],
+              "verbatim_excerpt": "遂使军资空匮，仓廪不实……重以失业，家户不赡。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《三国志·孙皓传》裴注引《江表传》"
+              ],
+              "verbatim_excerpt": "工匠因缘偷盗，府藏为空。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《三国志·孙皓传》裴注引《晋阳秋》"
+              ],
+              "verbatim_excerpt": "户五十二万三千，吏三万二千，兵二十三万，男女口二百三十万，米谷二百八十万斛，舟船五千馀艘。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "PASS_C2_2_FAIL_C2_1_END",
+            "basis": "P与F/R长期脆弱足以二档，但投降时仍有大额粮储、户籍与物资体系，不能因亡国自动判一。"
+          },
+          "main_band": "C2-2",
+          "material_limitations": [
+            "S0=C2-3，与已重裁孙休S_end直接同步。",
+            "晋灭吴不作为C2-1自动门",
+            "S_end按投降时实际经济财政存量判定。"
+          ],
+          "peak_band": null,
+          "polity": "吴",
+          "rank": 146,
+          "reign_range": "264—280",
+          "ruler_id": "RULER-WU-SUNHAO",
+          "ruler_name": "孙皓",
+          "score": 7.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-2",
+            "S_end": "C2-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-WU-SUNHAO"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C6",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-2",
+            "score": 7.0,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-2",
+              "S_end": "C2-1"
+            }
+          },
+          "old_settlement_review": "KEEP_MAIN_BAND_RAISE_END；保留：原结算关于仓库空匮、编户失业与家庭低余量的核心判断保留。；推翻/修正：旧终点过度消费亡国，补入投降清册后S_end由C2-1修为C2-2。。"
+        }
+      ]
+    }
+  }
+}

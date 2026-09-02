@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from emperor_v4.evaluation.formal_json_store import load_json
+
 
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE_ROOT = ROOT / "docs" / "评分结算" / "皇帝人物画像"
@@ -13,7 +15,7 @@ POOL = ROOT / "config" / "common" / "canonical-ruler-pool.json"
 def _load(path: Path) -> dict:
     raw = path.read_bytes()
     assert not raw.startswith(b"\xef\xbb\xbf")
-    return json.loads(raw.decode("utf-8"))
+    return load_json(path)
 
 
 def _included_ids() -> set[str]:

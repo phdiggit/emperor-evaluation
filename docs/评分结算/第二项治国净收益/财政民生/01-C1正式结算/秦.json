@@ -1,0 +1,284 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "秦",
+  "collections": {
+    "scores": {
+      "positions": [
+        141,
+        183
+      ],
+      "records": [
+        {
+          "adjudication_reason": "统一后“男子力耕不足粮饷，女子纺绩不足衣服”等直接闭合广泛困顿主态2；郑国渠只约束早期关中局部状态。",
+          "confidence": "MEDIUM_HIGH",
+          "evidence": [
+            {
+              "anchor_time": "秦始皇元年以后郑国渠完成、秦统一前",
+              "described_state": "郑国渠完成后，关中核心农业区获得明确灌溉、收成和富饶结果，证明嬴政早期并非只有抽象制度能力或未知生产基线。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "proof_scope_constraints": [],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_voice": "OTHER",
+              "source_voice_basis": "同一条目同时列官修正史/食货志与资治通鉴/通典等不同来源，当前字段不足以拆分主声音。",
+              "source_voice_matches": [
+                "OTHER"
+              ],
+              "source_works": [
+                "资治通鉴卷六财政民生卡",
+                "汉书·沟洫志秦基线总结"
+              ],
+              "state_roles": [
+                "嬴政S0与早期状态支持",
+                "统一后下行的区域基线"
+              ],
+              "verbatim_excerpt": "渠成，注填閼之水，溉舄鹵之地四萬餘頃，收皆畝一鍾，於是關中為沃野，無凶年，秦以富強。",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+              ]
+            },
+            {
+              "anchor_time": "秦始皇统一后至末年，约前221—前210",
+              "described_state": "国家汲取和跨区动员能力极强，但农业、纺织、民间负担与财政需求同时失衡，并已形成广域怨叛基础。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "BOUNDED_MULTI_AXIS_MACRO",
+              "proof_scope_constraints": [],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_voice": "OFFICIAL_SUMMARY",
+              "source_voice_basis": "source_works命中正史、食货志、会要等官修史书/官方汇总标记。",
+              "source_voice_matches": [
+                "OFFICIAL_SUMMARY"
+              ],
+              "source_works": [
+                "汉书·食货志",
+                "秦统一后财政赋役专题总结"
+              ],
+              "state_roles": [
+                "嬴政任内持续状态",
+                "胡亥接班背景"
+              ],
+              "verbatim_excerpt": "至於始皇，遂并天下，內興功作，外攘夷狄，收泰半之賦，發閭左之戍。男子力耕不足糧饟，女子紡績不足衣服。竭天下之資財以奉其政，猶未足以澹其欲也。海內愁怨，遂用潰畔。",
+              "result_axis_owner": [
+                "NET_TAX_LABOR_BURDEN",
+                "HOUSEHOLD_FORMATION_REPRODUCTION"
+              ]
+            }
+          ],
+          "evidence_mode": "DIRECT_MACRO_ANCHOR",
+          "main_band": "C1-2",
+          "material_limitations": [
+            "海内总括不能证明每地同强度；归责和工程战争选择另交C4。"
+          ],
+          "peak_band": null,
+          "polity": "秦",
+          "rank": 121,
+          "reign_range": "前238—前210",
+          "ruler_id": "RULER-QIN-YINGZHENG",
+          "ruler_name": "嬴政",
+          "score": 17.1,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-3",
+            "S_avg": "C1-2",
+            "S_end": "C1-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-QIN-YINGZHENG"
+          },
+          "review_remediation": {
+            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
+            "status": "APPLIED",
+            "problem": "正式K字段需补录",
+            "directive": "主档与曲线维持 C1-3→2→2；补 K=K4。"
+          },
+          "raw_state_band": "C1-2",
+          "formal_band": "C1-2",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_FORMATION_REPRODUCTION",
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS",
+            "NET_TAX_LABOR_BURDEN"
+          ],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "stages": [],
+            "basis": "审查未确认恢复完成后的有效阶段跌破raw主态；不以材料沉默证明K4，依据见人物审查修正。"
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "COMPLETE",
+            "handoff_continuity_checked": true,
+            "basis": "主档与曲线维持 C1-3→2→2；补 K=K4。"
+          },
+          "inference_review": {
+            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
+            "inference_source_anchor": null,
+            "inference_hops": 0,
+            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
+          },
+          "material_basis": [
+            {
+              "book": "《汉书》",
+              "original_text": "至于始皇，遂并天下，内兴功作，外攘夷狄，收泰半之赋，发闾左之戍。男子力耕不足粮饷，女子纺绩不足衣服……海内愁怨，遂用溃畔。"
+            }
+          ],
+          "stability_basis": "统一后高汲取链本身已经用于主态2，不能二次消费为K；现无可独立识别、明显低于主态的C1-1家庭阶段，故K4维持。"
+        },
+        {
+          "adjudication_reason": "任内普通家庭的基本生计普遍失保，主要统治区长期处于严重破坏状态。国家汲取和跨区动员能力极强，但农业、纺织、民间负担与财政需求同时失衡，并已形成广域怨叛基础。既有高汲取结构在反抗已起时继续加码，中央供给以郡县和运输者额外承压维持，纠偏机制失效。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "anchor_time": "秦始皇统一后至末年，约前221—前210",
+              "described_state": "国家汲取和跨区动员能力极强，但农业、纺织、民间负担与财政需求同时失衡，并已形成广域怨叛基础。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "BOUNDED_MULTI_AXIS_MACRO",
+              "proof_scope_constraints": [],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_voice": "OFFICIAL_SUMMARY",
+              "source_voice_basis": "source_works命中正史、食货志、会要等官修史书/官方汇总标记。",
+              "source_voice_matches": [
+                "OFFICIAL_SUMMARY"
+              ],
+              "source_works": [
+                "汉书·食货志",
+                "秦统一后财政赋役专题总结"
+              ],
+              "state_roles": [
+                "嬴政任内持续状态",
+                "胡亥接班背景"
+              ],
+              "verbatim_excerpt": "至於始皇，遂并天下，內興功作，外攘夷狄，收泰半之賦，發閭左之戍。男子力耕不足糧饟，女子紡績不足衣服。竭天下之資財以奉其政，猶未足以澹其欲也。海內愁怨，遂用潰畔。",
+              "result_axis_owner": [
+                "NET_TAX_LABOR_BURDEN",
+                "HOUSEHOLD_FORMATION_REPRODUCTION"
+              ]
+            },
+            {
+              "anchor_time": "秦二世元年至三年，约前209—前207",
+              "described_state": "既有高汲取结构在反抗已起时继续加码，中央供给以郡县和运输者额外承压维持，纠偏机制失效。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "LABEL_ONLY",
+              "proof_scope_constraints": [
+                "REMONSTRANCE_WARNING"
+              ],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_voice": "MINISTER_REMONSTRANCE",
+              "source_voice_basis": "发现明确奏疏/谏议/臣下劝谏标记；不把收录该材料的编年史书误当成主要声音。",
+              "source_voice_matches": [
+                "MINISTER_REMONSTRANCE"
+              ],
+              "source_works": [
+                "史记·秦始皇本纪",
+                "史记卷六财政节点总结",
+                "资治通鉴卷七通读总结"
+              ],
+              "state_roles": [
+                "任内持续恶化",
+                "交班前崩解状态"
+              ],
+              "verbatim_excerpt": "二世在骊山工程结束后恢复阿房，又征五万人屯卫咸阳，命郡县转输粮食草料、运输者自带口粮，并禁止咸阳三百里内食用当地谷物。冯去疾、李斯、冯劫明确把群盗并起与戍、漕、转、作及赋税过重相连，请停阿房、减省四边戍转；二世拒绝并继续执行。",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS",
+                "NET_TAX_LABOR_BURDEN"
+              ]
+            }
+          ],
+          "evidence_mode": "DIRECT_MACRO_ANCHOR",
+          "main_band": "C1-1",
+          "material_limitations": [
+            "秦末战争、政治清洗和地方权力瓦解是复合原因；五万屯兵、工程劳力和各战役人数不能机械相加。"
+          ],
+          "peak_band": null,
+          "polity": "秦",
+          "rank": 180,
+          "reign_range": "前210—前207",
+          "ruler_id": "RULER-QIN-HUHAI",
+          "ruler_name": "胡亥",
+          "score": 5.7,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-2",
+            "S_avg": "C1-1",
+            "S_end": "C1-1"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-BC9E1677265E"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-BC9E1677265E",
+                "candidate_ids_trace_only": [
+                  "I2-QIN-HUHAI-TRANSFER-LAW-DESTRUCTION-001"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "PUBLIC_WORKS"
+                ],
+                "chain_summary": "加深郡县转输和严法负担并拒绝减省纠偏 | 只消费逐字引文闭合的制度接口、本人归责和实际运行或失灵。 | 经两层独立固定史源和五门禁复裁进入A；不自动取得S或R3。 | 四月，二世還至咸陽，曰：「先帝為咸陽朝廷小，故營阿房宮為室堂。未就，會上崩，罷其作者，復土酈山。酈山事大畢，今釋阿房宮弗就，則是章先帝舉事過也。」復作阿房宮。外撫四夷，如始皇計。盡徵其材士五萬人為屯衛咸陽，令教射狗馬禽獸。當食者多，度不足，下調郡縣轉輸菽粟芻稿，皆令自齎糧食，咸陽三百里內不得食其穀。用法益刻深。 | 是時，盜賊益多，而關中捽髮東擊盜者無已。右丞相馮去疾、左丞相李斯、將軍馮劫進諫曰：「關東群盜並起，秦發兵追擊，所殺亡甚眾，然猶不止。盜多，皆以戍、漕、轉、作事苦，稅賦大也。請且止阿房宮作者，減省四邊戍、轉。」二世曰：「凡所為貴有天下者，得肆意極欲，主重明法，下不敢為非，以制御海內矣。夫虞、夏之主，貴為天子，親處窮苦之實以徇百姓，尚何於法！且先帝起諸侯，兼天下，天下已定，外攘四夷以安邊境，作宮室以章得意，而君觀先帝功業有緒。今朕即位，二年之間，群盜並起，君不能禁，又欲罷先帝之所為，是上無以報先帝，次不為朕盡忠力，何以在位！」下去疾、斯、劫吏，案責他罪。去疾、劫自殺，獨李斯就獄。二世以屬趙高治之，責斯與子由謀反狀，皆收捕宗族、賓客。趙高治斯，榜掠千餘，不勝痛，自誣服。",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/qin.json#material_id=I2-QIN-HUHAI-TRANSFER-LAW-DESTRUCTION-001",
+                  "https://zh.wikisource.org/w/index.php?title=%E5%8F%B2%E8%A8%98%2F%E5%8D%B7006&oldid=7907969&action=raw",
+                  "https://zh.wikisource.org/w/index.php?title=%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91%2F%E5%8D%B7008&oldid=1249914&action=raw"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-BC9E1677265E"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-QIN-HUHAI"
+          },
+          "raw_state_band": "C1-1",
+          "formal_band": "C1-1",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_FORMATION_REPRODUCTION",
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS",
+            "NET_TAX_LABOR_BURDEN"
+          ],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
+            "inference_source_anchor": null,
+            "inference_hops": 0,
+            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
+          },
+          "material_basis": [
+            {
+              "book": "《史记·秦始皇本纪》",
+              "original_text": "四月，二世還至咸陽，曰：『先帝為咸陽朝廷小，故營阿房宮為室堂。未就，會上崩，罷其作者，復土酈山。酈山事大畢，今釋阿房宮弗就，則是章先帝舉事過也。』復作阿房宮。外撫四夷，如始皇計。盡徵其材士五萬人為屯衛咸陽，令教射狗馬禽獸。當食者多，度不足，下調郡縣轉輸菽粟芻稿，皆令自齎糧食，咸陽三百里內不得食其穀。用法益刻深。"
+            }
+          ],
+          "stability_basis": "S_main已处C1-1最低档，状态体系不存在可继续“跌破主态”的更低档位，因此K按定义取K4。这里的K4只表示K指标在底档没有向下分辨空间，不代表民生稳定、韧性良好或可在C4领取高位稳定承压信用；S0→C1-1的恶化及底档持续由绝对状态与C4归责处理，不在K重复消费。"
+        }
+      ]
+    }
+  }
+}

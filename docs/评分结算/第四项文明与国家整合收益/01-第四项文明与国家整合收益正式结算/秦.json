@@ -1,0 +1,185 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "秦",
+  "collections": {
+    "records": {
+      "positions": [
+        108,
+        109
+      ],
+      "records": [
+        {
+          "rank": 58,
+          "ruler_id": "RULER-QIN-HUHAI",
+          "ruler_name": "胡亥",
+          "polity": "秦",
+          "source_group": "秦",
+          "status": "FORMAL_ZERO_ADJUSTMENT",
+          "triggered_axis_count": 0,
+          "axis_results": [
+            {
+              "axis": "A",
+              "disposition": "NO_ELIGIBLE_CIVILIZATION_INCREMENT",
+              "direction": null,
+              "magnitude_grade": null,
+              "band": null,
+              "signed_adjustment": 0,
+              "package_refs": []
+            },
+            {
+              "axis": "B",
+              "disposition": "NO_ELIGIBLE_CIVILIZATION_INCREMENT",
+              "direction": null,
+              "magnitude_grade": null,
+              "band": null,
+              "signed_adjustment": 0,
+              "package_refs": []
+            },
+            {
+              "axis": "C",
+              "disposition": "NO_ELIGIBLE_CIVILIZATION_INCREMENT",
+              "direction": null,
+              "magnitude_grade": null,
+              "band": null,
+              "signed_adjustment": 0,
+              "package_refs": []
+            }
+          ],
+          "fourth_item_signed_adjustment": 0
+        },
+        {
+          "rank": 58,
+          "ruler_id": "RULER-QIN-YINGZHENG",
+          "ruler_name": "嬴政",
+          "polity": "秦",
+          "source_group": "秦",
+          "status": "FORMAL_ZERO_ADJUSTMENT",
+          "triggered_axis_count": 1,
+          "axis_results": [
+            {
+              "axis": "A",
+              "disposition": "NO_ELIGIBLE_CIVILIZATION_INCREMENT",
+              "direction": null,
+              "magnitude_grade": null,
+              "band": null,
+              "signed_adjustment": 0,
+              "package_refs": []
+            },
+            {
+              "axis": "B",
+              "disposition": "NO_ELIGIBLE_CIVILIZATION_INCREMENT",
+              "direction": null,
+              "magnitude_grade": null,
+              "band": null,
+              "signed_adjustment": 0,
+              "package_refs": []
+            },
+            {
+              "axis": "C",
+              "disposition": "OBSERVED_OFFSETTING_OR_BALANCED_EFFECTS",
+              "direction": "BALANCED",
+              "magnitude_grade": "CIV0",
+              "band": null,
+              "signed_adjustment": 0,
+              "package_refs": [
+                "I4PKG-RULER-QIN-YINGZHENG-C-01",
+                "I4PKG-RULER-QIN-YINGZHENG-C-02"
+              ]
+            }
+          ],
+          "fourth_item_signed_adjustment": 0
+        }
+      ]
+    },
+    "accepted_packages": {
+      "positions": [
+        86,
+        87
+      ],
+      "records": [
+        {
+          "package_code": "I4PKG-RULER-QIN-YINGZHENG-C-01",
+          "ruler_id": "RULER-QIN-YINGZHENG",
+          "ruler_name": "嬴政",
+          "polity": "秦",
+          "axis": "C",
+          "direction": "POSITIVE",
+          "net_tendency": "POSITIVE_DOMINANT",
+          "episode_refs": [
+            "C-QIN-YINGZHENG-WRITING-STANDARDIZATION"
+          ],
+          "same_chain_support_refs": [],
+          "same_chain_effect": "NONE",
+          "independent_reinforcement_refs": [],
+          "independent_reinforcement_effect": "NONE_UNTIL_SCENE_VALIDATION",
+          "folded_support": [],
+          "inherited_baseline": "Warring States writing systems had substantial regional variation",
+          "contemporary_feasible_frontier": null,
+          "background_trend": null,
+          "attributable_change": "书同文字及小篆规范由统一政权推动，降低跨区域行政与文本传递障碍；相对战国文字分化形成可持续的知识互通基础，属于文明进步增量",
+          "relative_change_level": "R3",
+          "relative_change_level_basis": "CROSS_REGIONAL_TEXT_INTEROPERABILITY_WITH_DURABLE_ADOPTION",
+          "positive_component_level": null,
+          "negative_component_level": null,
+          "field_coverage": "state and elite textual exchange across the unified realm; not general literacy",
+          "access_expansion": null,
+          "durability_and_handoff": "standardized writing remained a durable interoperability base after Qin",
+          "cross_scene_replication": null,
+          "attribution_strength": "SEMANTIC_NODE_RULER_WINDOW",
+          "counterevidence": {
+            "count": 2
+          },
+          "hard_negative_gate": "NONE",
+          "knowledge_public_reach": "BROAD_ADMINISTRATIVE_AND_ELITE_TEXT_USE_NOT_MASS_LITERACY",
+          "source_coverage": "ADEQUATE",
+          "source_refs": [],
+          "dissemination_era": "MANUSCRIPT_AND_EARLY_ACADEMY",
+          "era_relative_difficulty": "adjudicated against MANUSCRIPT_AND_EARLY_ACADEMY, not raw copies or reader counts",
+          "content_progress_relative_to_inherited_baseline": "POSITIVE_RELATIVE_TO_INHERITED_KNOWLEDGE_OR_ACCESS_BASELINE",
+          "public_reach_ceiling": "BROAD_ADMINISTRATIVE_AND_ELITE_TEXT_USE_NOT_MASS_LITERACY"
+        },
+        {
+          "package_code": "I4PKG-RULER-QIN-YINGZHENG-C-02",
+          "ruler_id": "RULER-QIN-YINGZHENG",
+          "ruler_name": "嬴政",
+          "polity": "秦",
+          "axis": "C",
+          "direction": "NEGATIVE",
+          "net_tendency": "NEGATIVE_DOMINANT",
+          "episode_refs": [
+            "C-QIN-YINGZHENG-BOOK-BURNING"
+          ],
+          "same_chain_support_refs": [],
+          "same_chain_effect": "NONE",
+          "independent_reinforcement_refs": [],
+          "independent_reinforcement_effect": "NONE_UNTIL_SCENE_VALIDATION",
+          "folded_support": [],
+          "inherited_baseline": "private historical and school texts remained available before the state destruction order",
+          "contemporary_feasible_frontier": null,
+          "background_trend": null,
+          "attributable_change": "《史记》保存李斯提出并获准的非秦史籍及特定私藏文本焚毁命令；毁弃文本和压低历史争鸣空间直接触发C5",
+          "relative_change_level": "R3",
+          "relative_change_level_basis": "HARD_NEGATIVE_PRINCIPAL_FIELD_LOWER_BOUND",
+          "positive_component_level": null,
+          "negative_component_level": null,
+          "field_coverage": "broad targeted categories across the unified realm, with explicit exemptions; not all knowledge",
+          "access_expansion": null,
+          "durability_and_handoff": "text loss was partly irreversible even though later collection policies changed",
+          "cross_scene_replication": null,
+          "attribution_strength": "SEMANTIC_NODE_RULER_WINDOW",
+          "counterevidence": {
+            "count": 2
+          },
+          "hard_negative_gate": "ACTIVE",
+          "knowledge_public_reach": "UNRESOLVED",
+          "source_coverage": "ADEQUATE",
+          "source_refs": [],
+          "dissemination_era": "MANUSCRIPT_AND_EARLY_ACADEMY",
+          "era_relative_difficulty": "adjudicated against MANUSCRIPT_AND_EARLY_ACADEMY, not raw copies or reader counts",
+          "content_progress_relative_to_inherited_baseline": "REGRESSION_FROM_INHERITED_PLURALITY_OR_ACCESS",
+          "public_reach_ceiling": "UNRESOLVED"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,357 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "东晋",
+  "collections": {
+    "records": {
+      "positions": [
+        89,
+        127,
+        147
+      ],
+      "records": [
+        {
+          "A_C_A_support_mechanism": "中央组织",
+          "A_grade_thickness_cost": 1.0,
+          "A_independent_M_position_weight": -0.25,
+          "A_independent_M_signed": -1.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": -0.25,
+          "A_structural_thickness": 1.0,
+          "C_A": 2.0,
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "counts_toward_S": false,
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "institution_domain": "法律与司法",
+              "institution_node_id": "IDN-2DE18BFE4E99",
+              "label_zh": "军兴权宜诏书与亲属牵连侵蚀常法",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [
+                "CL-JIN-SIXTEEN-KINGDOMS-YUANDI-WARTIME-EXCEPTION"
+              ],
+              "mechanism": "军兴权宜诏书与亲属牵连侵蚀常法",
+              "result_closure": "institutionalized_major_negative",
+              "signed_weight": -2.0
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "I2-JIN-SMR-EDUCATION-SELECTION-001",
+              "mechanism": "学员、经费和任官成效不足，不能抬为官僚专业性全面改善。",
+              "result_closure": "observed",
+              "signed_weight": 1.0
+            },
+            {
+              "M": "M3",
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "中央组织",
+              "institution_node_id": "EJIN_STATE_REBUILD",
+              "label_zh": "东晋国家组织重建",
+              "major_node_role": "MAJOR_RECONSTRUCTION",
+              "material_ids": [
+                "I2-JIN-SMR-STATE-REBUILD-001"
+              ],
+              "mechanism": "东晋国家组织重建",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 2.0
+            }
+          ],
+          "S_depth_units": 0,
+          "S_minus": 0,
+          "S_minus_node_ids": [],
+          "S_net": 0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-JIN-SMR-EDUCATION-SELECTION-001",
+            "I2-JIN-SMR-STATE-REBUILD-001"
+          ],
+          "direct_material_roles": {
+            "I2-JIN-SMR-EDUCATION-SELECTION-001": [
+              "A_SEMANTIC_SUPPORT"
+            ],
+            "I2-JIN-SMR-STATE-REBUILD-001": [
+              "NON_S_MAJOR_CONSTRUCTION",
+              "A_OPERATION"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 59.5,
+          "evidence_sufficiency_gate": "not_applicable",
+          "formal_evidence_maturity": "fixed_primary_exact_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G3",
+          "grade_basis": "学员、经费和任官成效不足，不能抬为官僚专业性全面改善。、东晋国家组织重建达到重大重建、定型、纠偏或结构改革的完成度，但长期国家基线门尚未闭合，或正负骨架抵消后净计为0；同时存在军兴权宜诏书与亲属牵连侵蚀常法的负向限制",
+          "important_institutions": [
+            {
+              "S_depth_weight": 0,
+              "S_effect": null,
+              "S_minus_weight": null,
+              "construction_operation_material_ids": [],
+              "counts_toward_S": false,
+              "decision": "NON_COUNTING_MAJOR_CONTRIBUTION",
+              "durability_gate": "NON_S_MAJOR_CONTRIBUTION",
+              "durability_material_ids": [
+                "I2-JIN-SMR-STATE-REBUILD-001"
+              ],
+              "institution_domain": "中央组织",
+              "institution_lineage": "晋代中央国家组织谱系",
+              "institution_node_id": "EJIN_STATE_REBUILD",
+              "label_zh": "东晋国家组织重建",
+              "major_node_role": "MAJOR_RECONSTRUCTION",
+              "material_ids": [
+                "I2-JIN-SMR-STATE-REBUILD-001"
+              ],
+              "normative_direction": "positive",
+              "reason": "东晋建国和组织恢复重要，但未证明另改中央组织基线。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/two_jin.json"
+              ],
+              "source_kind": "NON_S_MAJOR_NODE"
+            },
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "CL-JIN-SIXTEEN-KINGDOMS-YUANDI-WARTIME-EXCEPTION"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "NON_S_MAJOR_CONTRIBUTION",
+              "durability_material_ids": [],
+              "institution_domain": "法律与司法",
+              "institution_lineage": "战时例外侵蚀常法谱系",
+              "institution_node_id": "IDN-2DE18BFE4E99",
+              "label_zh": "军兴权宜诏书与亲属牵连侵蚀常法",
+              "major_node_role": "MAJOR_NEGATIVE_RESTRUCTURE",
+              "material_ids": [
+                "CL-JIN-SIXTEEN-KINGDOMS-YUANDI-WARTIME-EXCEPTION"
+              ],
+              "normative_direction": "negative",
+              "reason": "按跨朝同领域谱系横向复裁：只保留改变核心规则的创设、重大重组、重大重建、权威化定型或重大文明纠偏；一般沿袭和维护已排除。",
+              "source_artifact_refs": [
+                "docs/公共成果/法律/回源资料/历代刑法志通读/16-刑法全历史治理成果底账.md"
+              ],
+              "source_kind": "NON_S_MAJOR_NODE"
+            }
+          ],
+          "index_interval": [
+            55.0,
+            69.9
+          ],
+          "polity": "东晋",
+          "position": "lower-middle",
+          "position_basis": "A结构厚度=1.00（G0—G3含已消费的C_A/2），G3主档消费=1.00；排除S与已消费C_A支撑链后，独立有符号M原值=-1.00、position权重=-0.25；统一净余=-0.25，对应lower-middle。",
+          "position_q": 0.3,
+          "rank": 79,
+          "reign_range": [
+            317,
+            322
+          ],
+          "ruler_id": "RULER-SHADOW-司马睿",
+          "ruler_name": "司马睿",
+          "verification_material_ids": [],
+          "v2_mechanical_shadow": {
+            "net": 1.0,
+            "p": 3.0,
+            "n": 2.0,
+            "shadow_grade": "G2",
+            "unfloored": "G2",
+            "floor": null
+          },
+          "extreme_delta_reopen": true
+        },
+        {
+          "A_C_A_support_mechanism": "土断与全丁半丁年龄调整的部分采纳",
+          "A_grade_thickness_cost": 0.25,
+          "A_independent_M_position_weight": 1.0,
+          "A_independent_M_signed": 1.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": 1.0,
+          "A_structural_thickness": 1.0,
+          "C_A": 0.5,
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "counts_toward_S": false,
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "institution_domain": "户籍田制与国家资源行政",
+              "institution_node_id": "INST-EJIN-SIMAYAO-TUDUAN-DINGLING-ATTEMPT",
+              "label_zh": "土断与全丁半丁年龄调整的部分采纳",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "I2-JIN-SMYAO-FANNING-REFORM-001"
+              ],
+              "mechanism": "土断与全丁半丁年龄调整的部分采纳",
+              "result_closure": "institution_lifecycle_adjudicated",
+              "signed_weight": 1.0
+            }
+          ],
+          "S_depth_units": 0,
+          "S_minus": 0.0,
+          "S_minus_node_ids": [],
+          "S_net": 0.0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-JIN-SMYAO-FANNING-REFORM-001"
+          ],
+          "direct_material_roles": {
+            "I2-JIN-SMYAO-FANNING-REFORM-001": [
+              "A_SEMANTIC_SUPPORT"
+            ]
+          },
+          "direction_card_write": true,
+          "direction_index": 41.5,
+          "evidence_sufficiency_gate": "not_applicable",
+          "formal_evidence_maturity": "fixed_primary_exact_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G2",
+          "grade_basis": "按正式显式复核完成canonical生命周期复核；V2净值1，结算G2-lower。",
+          "important_institutions": [
+            {
+              "S_depth_weight": 0,
+              "S_effect": "NON_S",
+              "S_minus_weight": 0,
+              "construction_operation_material_ids": [
+                "I2-JIN-SMYAO-FANNING-REFORM-001"
+              ],
+              "counts_toward_S": false,
+              "decision": "MAJOR_NODE",
+              "durability_gate": "ADJUDICATED_NON_S",
+              "durability_material_ids": [],
+              "institution_domain": "户籍田制与国家资源行政",
+              "institution_lineage": "东晋土断与丁役年龄调整谱系",
+              "institution_node_id": "INST-EJIN-SIMAYAO-TUDUAN-DINGLING-ATTEMPT",
+              "label_zh": "土断与全丁半丁年龄调整的部分采纳",
+              "major_node_role": "MAJOR_RESTRUCTURE",
+              "material_ids": [
+                "I2-JIN-SMYAO-FANNING-REFORM-001"
+              ],
+              "normative_direction": "positive",
+              "reason": "范宁所议土断和丁役年龄调整仅记‘多纳用之’，逐项实施范围与运行结果未闭合，按部分采纳的未完成建设处理。",
+              "source_artifact_refs": [
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/two_jin.json"
+              ],
+              "external_verification_refs": null,
+              "source_kind": "NON_S_MAJOR_NODE"
+            }
+          ],
+          "index_interval": [
+            20,
+            39.9
+          ],
+          "polity": "东晋",
+          "position": "lower",
+          "position_basis": "V2净值=1，P_gross=1，N_gross=0；档内横向结构复核后定lower。",
+          "position_q": 0.1,
+          "rank": 126,
+          "reign_range": [
+            376,
+            396
+          ],
+          "ruler_id": "RULER-SHADOW-司马曜",
+          "ruler_name": "司马曜",
+          "verification_material_ids": [],
+          "v2_mechanical_shadow": {
+            "net": 0,
+            "p": 0,
+            "n": 0,
+            "shadow_grade": "G0",
+            "unfloored": "G0",
+            "floor": null
+          },
+          "extreme_delta_reopen": false,
+          "A_net_units": 1.0,
+          "P_gross": 1.0,
+          "N_gross": 0.0,
+          "polarization_ratio": 0.0,
+          "unfloored_grade": "G2",
+          "polarization_floor_triggered": false,
+          "floor_grade": null,
+          "extreme_delta_review": "NOT_REQUIRED",
+          "v2_explicit_patch": true
+        },
+        {
+          "A_C_A_support_mechanism": null,
+          "A_grade_thickness_cost": 0.0,
+          "A_independent_M_position_weight": 0.0,
+          "A_independent_M_signed": 0.0,
+          "A_position_formula_code": "A_NET_DURABILITY_V2",
+          "A_position_residual": 0.0,
+          "A_structural_thickness": 0.0,
+          "C_A": 0.0,
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [],
+          "S_depth_units": 0,
+          "S_minus": 0,
+          "S_minus_node_ids": [],
+          "S_net": 0,
+          "S_plus_plus": 0,
+          "S_plus_regular": 0,
+          "S_total": 0,
+          "coverage_audit_ids": [
+            "AB12-NEG-017"
+          ],
+          "database_write": false,
+          "direct_material_ids": [],
+          "direct_material_roles": {},
+          "direction_card_write": true,
+          "direction_index": 10.0,
+          "evidence_sufficiency_gate": "PASS_UNIFORM_NEGATIVE_SEARCH_TWO_INDEPENDENT_FIXED_LAYERS",
+          "formal_evidence_maturity": "fixed_primary_exact_backsourced",
+          "formal_evidence_state": "FORMAL_OBSERVED_NO_ELIGIBLE_MECHANISM",
+          "grade": "G0",
+          "grade_basis": "公共登记与两层固定史源专项检索均未发现达到制度建设门槛的本人机制，也未发现需要另立负向制度节点的同谱系系统破坏；按已观察零机制进入G0",
+          "important_institutions": [],
+          "index_interval": [
+            0.0,
+            19.9
+          ],
+          "polity": "东晋",
+          "position": "middle",
+          "position_basis": "A结构厚度=0.00（G0—G3含已消费的C_A/2），G0主档消费=0.00；排除S与已消费C_A支撑链后，独立有符号M原值=0.00、position权重=0.00；统一净余=0.00，对应middle。",
+          "position_q": 0.5,
+          "rank": 141,
+          "reign_range": [
+            322,
+            325
+          ],
+          "ruler_id": "RULER-SHADOW-司马绍",
+          "ruler_name": "司马绍",
+          "verification_material_ids": [],
+          "v2_mechanical_shadow": {
+            "net": 0,
+            "p": 0,
+            "n": 0,
+            "shadow_grade": "G0",
+            "unfloored": "G0",
+            "floor": null
+          },
+          "extreme_delta_reopen": false
+        }
+      ]
+    }
+  }
+}

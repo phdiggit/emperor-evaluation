@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from emperor_v4.evaluation.formal_json_store import load_json
+
 
 ROOT = Path(".")
 C_PATH = ROOT / "docs/评分结算/第一项创业与政权取得能力/军事夺取能力/01-第一项C军事夺取能力结算.json"
@@ -11,7 +13,7 @@ COMPLETED_NAMES = {"刘崇", "孟知祥", "李克用", "杨行密", "钱镠", "�
 
 
 def _load(path: Path) -> dict:
-    return json.loads(path.read_text(encoding="utf-8"))
+    return load_json(path)
 
 
 def test_first_item_c_completed_founders_have_current_results() -> None:

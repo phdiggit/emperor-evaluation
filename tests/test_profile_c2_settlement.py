@@ -6,6 +6,7 @@ from pathlib import Path
 
 import pytest
 
+from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.profile_c2_verifier import verify, verify_payloads
 
 
@@ -14,7 +15,7 @@ BASE = ROOT / "docs" / "评分结算" / "皇帝人物画像"
 
 
 def load(name: str):
-    return json.loads((BASE / name).read_text(encoding="utf-8"))
+    return load_json(BASE / name)
 
 
 def payloads():

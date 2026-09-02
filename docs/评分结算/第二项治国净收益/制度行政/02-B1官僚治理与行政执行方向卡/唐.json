@@ -1,0 +1,1472 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "唐",
+  "collections": {
+    "records": {
+      "positions": [
+        1,
+        25,
+        74,
+        79,
+        80,
+        100,
+        116,
+        117,
+        150,
+        151,
+        174,
+        175,
+        176
+      ],
+      "records": [
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "material_id": "I2-TANG-TS-LOCAL-OFFICIAL-OVERSIGHT-001",
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "signed_weight": 2.0,
+              "mechanism": "地方官选任、巡察考课与中央问责core",
+              "lifecycle_key": "B1:RULER-TANG-LISHIMIN:V50:LOCAL-OFFICIAL-CORE",
+              "lifecycle_group_key": "B1:RULER-TANG-LISHIMIN:V50:LOCAL-OFFICIAL-CORE",
+              "result_closure": "sustained_or_systemic",
+              "profile_id": "B1-PROFILE-96320B79CE51703D",
+              "b1_role": "core"
+            },
+            {
+              "material_id": "MC-TANG-TS-OFFICIAL-QUOTA",
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "signed_weight": 2.0,
+              "mechanism": "B1-central中书门下复核、百司商量与宰相统筹",
+              "lifecycle_key": "B1:RULER-TANG-LISHIMIN:V50:CENTRAL-CORE",
+              "lifecycle_group_key": "B1:RULER-TANG-LISHIMIN:V50:CENTRAL-CORE",
+              "result_closure": "sustained_or_systemic",
+              "profile_id": "B1-PROFILE-F1C28AD8394F4B4A",
+              "b1_role": "central"
+            },
+            {
+              "material_id": "MC-TANG-TS-POWERFUL-RESTRAINT-M2-M3-02-AUDIT",
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "signed_weight": 2.0,
+              "mechanism": "特权势力干预约束与官僚独立执行core",
+              "lifecycle_key": "B1:RULER-TANG-LISHIMIN:V50:ELITE-RESTRAINT-CORE",
+              "lifecycle_group_key": "B1:RULER-TANG-LISHIMIN:V50:ELITE-RESTRAINT-CORE",
+              "result_closure": "sustained_or_systemic",
+              "profile_id": "B1-PROFILE-CED7C6A0472A53CD",
+              "b1_role": "core"
+            },
+            {
+              "material_id": "MC-TANG-TS-ANTI-CORRUPTION-M2-M3-02-AUDIT",
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "signed_weight": 2.0,
+              "mechanism": "廉政问责材料并入特权势力约束core",
+              "lifecycle_key": "B1:RULER-TANG-LISHIMIN:V50:ELITE-RESTRAINT-CORE",
+              "lifecycle_group_key": "B1:RULER-TANG-LISHIMIN:V50:ELITE-RESTRAINT-CORE",
+              "result_closure": "sustained_or_systemic",
+              "position_count_mode": "absorbed_same_lifecycle",
+              "absorbed_into_lifecycle_key": "B1:RULER-TANG-LISHIMIN:V50:ELITE-RESTRAINT-CORE",
+              "position_weight_override": 0.0,
+              "profile_id": "B1-PROFILE-4E9F2CBCC8A6912B",
+              "b1_role": "context"
+            }
+          ],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-TANG-TS-LOCAL-OFFICIAL-OVERSIGHT-001",
+            "MC-TANG-TS-ANTI-CORRUPTION-M2-M3-02-AUDIT",
+            "MC-TANG-TS-OFFICIAL-QUOTA",
+            "MC-TANG-TS-POWERFUL-RESTRAINT-M2-M3-02-AUDIT"
+          ],
+          "direction_card_write": true,
+          "direction_index": 98.5,
+          "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
+          "formal_evidence_maturity": "fixed_primary_exact_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G5",
+          "grade_basis": "链：地方官选任—巡察—黜陟主链与`中书→门下→百司商量→宰相筹画→奏行`central M3独立；戴胄、刘德威纠正皇帝事实已移B2。另有特权势力无法侵夺细民的B1独立执行链，G5成立。",
+          "grade_gate_basis": "链：地方官选任—巡察—黜陟主链与`中书→门下→百司商量→宰相筹画→奏行`central M3独立；戴胄、刘德威纠正皇帝事实已移B2。另有特权势力无法侵夺细民的B1独立执行链，G5成立。",
+          "grade_gate_code": "B1_G5_RARE_RELIABILITY",
+          "index_interval": [
+            85.0,
+            100.0
+          ],
+          "polity": "唐",
+          "position": "upper",
+          "position_basis": "有效生命周期签名M权重合计扣除G5门槛占用4后，净余量=2，按合同机械映射为upper。",
+          "position_q": 0.9,
+          "rank": 1,
+          "reign_range": "626-649",
+          "ruler_id": "RULER-TANG-LISHIMIN",
+          "ruler_name": "李世民",
+          "verification_material_ids": [
+            "I2-TANG-TS-NATIONAL-OUTCOME-XVERIFY-001"
+          ],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为2，机械裁定G5-上位（98.5）"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "地方官选任、巡察考课与中央问责核心行政机制"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "中枢运行中书门下复核、百司商量与宰相统筹"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "特权势力干预约束与官僚独立执行核心行政机制"
+            },
+            {
+              "role": "负向依据（无可计M档）",
+              "text": "未闭合可计的负向运行链"
+            }
+          ],
+          "position_residual": 2.0,
+          "grade_threshold_consumed": 4.0,
+          "v50_source_line": 119,
+          "g5_extra_route": "THIRD_CORE_M3",
+          "review_material_basis": [
+            {
+              "version": "v20",
+              "line": 404,
+              "review_grade": "G5",
+              "review_position": "middle-upper",
+              "basis": "B1/B2串项复核后G5维持，但第二core重写。第一条仍为地方官选任—巡察—黜陟core M3。第二条恢复原B1“特权势力干预约束/官僚独立执行”材料：《贞观政要》卷一末记贪赃官吏必依法处置，遂“官吏多自清谨”，王公、妃主、大姓豪猾皆畏威屏迹、无敢侵欺细人，闭合廉政问责—特权干预受制—基层执行结果的广域core M3。另补一条真正的`B1-central`中枢运行链：《政体第二》连续记中书出诏、门下复核，天下政务“皆委百司商量，宰相筹画，于事稳便方可奏行”；房玄龄长期“总任百司”，房杜共掌朝政、台阁规模典章文物由二人统筹，证明不是静态三省设置。戴胄驳旨、刘德威促使皇帝依法改判等事实全部退出B1直接计分，归B2。三条B1链分别覆盖地方人事、中枢运行、特权势力对行政执行的干预约束，G5仍成立；贞观后期官僚安全反例继续压住upper，锁middle-upper。",
+              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
+            },
+            {
+              "version": "v50",
+              "line": 119,
+              "review_grade": "G5",
+              "review_position": "middle-upper",
+              "basis": "链：地方官选任—巡察—黜陟主链与`中书→门下→百司商量→宰相筹画→奏行`central M3独立；戴胄、刘德威纠正皇帝事实已移B2。另有特权势力无法侵夺细民的B1独立执行链，G5成立。",
+              "status": "ABSORBED_ACTIVE_PRECEDENCE"
+            }
+          ],
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
+          "g4_core_profile_id": "B1-PROFILE-96320B79CE51703D",
+          "g4_secondary_profile_id": "B1-PROFILE-F1C28AD8394F4B4A",
+          "g5_extra_basis_id": "B1-PROFILE-CED7C6A0472A53CD"
+        },
+        {
+          "M_mixed_profile": [
+            {
+              "M": "M2",
+              "direction": "mixed_negative",
+              "direction_factor": -0.5,
+              "material_id": "MC-TANG-XIANZONG-EUNUCH-POWER-M2-M3-02-AUDIT",
+              "mechanism": "吐突承璀近侍干预—削降—复起生命周期",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -1.0,
+              "lifecycle_key": "B1:RULER-TANG-LICHUN:V50:MIXED-NEGATIVE-LIFECYCLE",
+              "lifecycle_group_key": "B1:RULER-TANG-LICHUN:V50:MIXED-NEGATIVE-LIFECYCLE",
+              "profile_id": "B1-PROFILE-AAC45A1D5D4E1244",
+              "b1_role": "support"
+            }
+          ],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "TANG-XIANZONG-CHANCELLOR-CENTRAL-ADMIN",
+              "material_id": "I2-TANG-LICHUN-CHANCELLOR-ADMIN-001",
+              "mechanism": "宰相行政、中外传导与组织纪律",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2.0,
+              "profile_id": "B1-PROFILE-49F2054E6536BE96",
+              "b1_role": "central"
+            },
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "TANG-XIANZONG-PROFESSIONAL-SELECTION",
+              "material_id": "I2-TANG-LICHUN-PROFESSIONAL-SELECTION-001",
+              "mechanism": "专业选任、考课与关键替补",
+              "result_closure": "sustained_or_systemic",
+              "shared_result_summary_control": "中外咸理/百度寖理只作共同复验，不重复产生M或position增量",
+              "signed_weight": 2.0,
+              "profile_id": "B1-PROFILE-C46306E284AFBEF1",
+              "b1_role": "core"
+            }
+          ],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-TANG-LICHUN-CHANCELLOR-ADMIN-001",
+            "I2-TANG-LICHUN-PROFESSIONAL-SELECTION-001",
+            "MC-TANG-XIANZONG-EUNUCH-POWER-M2-M3-02-AUDIT"
+          ],
+          "direction_card_write": true,
+          "direction_index": 77.5,
+          "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
+          "formal_evidence_maturity": "fixed_primary_exact_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G4",
+          "grade_basis": "链：裴垍考核才实、成组荐举实际用尽、机密关垍、替换严绶等闭合central/personnel M3；吐突承璀实际授权—专擅—升降复起合并mixed负生命周期。谏争本身移B2。",
+          "grade_gate_basis": "链：裴垍考核才实、成组荐举实际用尽、机密关垍、替换严绶等闭合central/personnel M3；吐突承璀实际授权—专擅—升降复起合并mixed负生命周期。谏争本身移B2。",
+          "grade_gate_code": "B1_G4_BROAD_STABLE_DELIVERY",
+          "index_interval": [
+            70.0,
+            84.9
+          ],
+          "polity": "唐",
+          "position": "middle",
+          "position_basis": "有效生命周期签名M权重合计扣除G4门槛占用3后，净余量=0，按合同机械映射为middle。",
+          "position_q": 0.5,
+          "rank": 17,
+          "reign_range": "805-820",
+          "ruler_id": "RULER-TANG-LICHUN",
+          "ruler_name": "李纯",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为0，机械裁定G4-中位（77.5）"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "宰相行政、中外传导与组织纪律"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "专业选任、考课与关键替补"
+            },
+            {
+              "role": "负向依据（M2）",
+              "text": "吐突承璀近侍干预—削降—复起生命周期"
+            }
+          ],
+          "position_residual": 0.0,
+          "grade_threshold_consumed": 3.0,
+          "v50_source_line": 164,
+          "review_material_basis": [
+            {
+              "version": "v20",
+              "line": 414,
+              "review_grade": "G4",
+              "review_position": "lower-middle",
+              "basis": "双向复审后主档保留，但把吐突承璀链由“有限宦官扩权”上调为完整的`mixed_negative M3`生命周期。正向裴垍core M3仍极强：举荐三十余人并大量实际任用、课吏治、分淑慝；承璀欲关说时宪宗因惮裴垍而禁其开口，说明正式选任链一度能有效挡住近侍。反向则跨元和四至八年反复：群谏反对承璀统兵仅迫使改名义，出师无功后降职；受贿案牵连又出为淮南监军；但宪宗宠意未衰，李绛屡论其过，元和八年为召承璀还竟先罢李绛相位，承璀复任神策中尉，已经击中反馈与高层替补。与此同时宪宗又拒绝了承璀干预储位，且此前两次实际削降其权，说明负链有反复纠偏而非持续不可逆俘获。故不单列N3-cross残差，G4仍成立；但该mixed生命周期压住position，继续锁lower-middle，明显不足G5。",
+              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
+            },
+            {
+              "version": "v50",
+              "line": 164,
+              "review_grade": "G4",
+              "review_position": "lower-middle",
+              "basis": "链：裴垍考核才实、成组荐举实际用尽、机密关垍、替换严绶等闭合central/personnel M3；吐突承璀实际授权—专擅—升降复起合并mixed负生命周期。谏争本身移B2。",
+              "status": "ABSORBED_ACTIVE_PRECEDENCE"
+            }
+          ],
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
+          "g4_core_profile_id": "B1-PROFILE-C46306E284AFBEF1",
+          "g4_secondary_profile_id": "B1-PROFILE-49F2054E6536BE96"
+        },
+        {
+          "M_mixed_profile": [
+            {
+              "M": "M3",
+              "direction": "mixed_positive",
+              "direction_factor": 0.5,
+              "material_id": "MC-TANG-XZ-REGIONAL-INSPECTION-M2-M3-02-AUDIT",
+              "mechanism": "开元采访—考课—中央复核长期有效，但天宝同一监察/黜陟接口出现张利贞受安禄山贿、黜陟使失真背书；正负合并为同一跨阶段mixed生命周期，不另造负链",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2.0,
+              "profile_id": "B1-PROFILE-B98889D390C2E0AE",
+              "b1_role": "core",
+              "lifecycle_key": "B1:RULER-TANG-LILONGJI:REGIONAL-INSPECTION-LIFECYCLE",
+              "lifecycle_group_key": "B1:RULER-TANG-LILONGJI:REGIONAL-INSPECTION-LIFECYCLE"
+            }
+          ],
+          "M_negative_profile": [],
+          "M_positive_profile": [],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "MC-TANG-XZ-REGIONAL-INSPECTION-M2-M3-02-AUDIT"
+          ],
+          "direction_card_write": true,
+          "direction_index": 62.5,
+          "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
+          "formal_evidence_state": "WORKING_READJUDICATED_TARGET_RECORD",
+          "formal_evidence_maturity": "latest_settlement_plus_targeted_expansion_review",
+          "grade": "G3",
+          "grade_basis": "开元考课链仍足以支撑G3，但天宝期俘获直接击中同一监察考课接口，必须合并为mixed-positive M3；该mixed链不得承担G4主core，故维持G3中位。",
+          "grade_gate_basis": "开元考课链仍足以支撑G3，但天宝期俘获直接击中同一监察考课接口，必须合并为mixed-positive M3；该mixed链不得承担G4主core，故维持G3中位。",
+          "grade_gate_code": "B1_G3_MAIN_STAGE_USABLE",
+          "index_interval": [
+            55.0,
+            69.9
+          ],
+          "position": "middle",
+          "position_q": 0.5,
+          "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=0，按合同机械映射为middle。",
+          "rank": 57,
+          "reign_range": "712-756",
+          "ruler_id": "RULER-TANG-LILONGJI",
+          "ruler_name": "李隆基",
+          "polity": "唐",
+          "verification_material_ids": [
+            "MC-TANG-XZ-EARLY-CENTRAL-ADMIN-M2-M3-02-AUDIT"
+          ],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为0，机械裁定G3-中位（62.5）"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "开元采访—考课—中央复核长期有效，但天宝同一监察/黜陟接口出现张利贞受安禄山贿、黜陟使失真背书；正负合并为同一跨阶段mixed生命周期，不另造负链"
+            },
+            {
+              "role": "负向依据（无可计M档）",
+              "text": "未闭合可计的负向运行链"
+            }
+          ],
+          "review_material_absorption_status": "TARGETED_REVIEW_SUPERSEDES_SOURCE_RECORD_FOR_LISTED_PROFILES",
+          "source_snapshot": {
+            "grade": "G3",
+            "position": "middle",
+            "direction_index": 62.5
+          },
+          "g3_gate_route": "CORE_M3",
+          "g3_gate_profile_ids": [
+            "B1-PROFILE-B98889D390C2E0AE"
+          ],
+          "g3_core_profile_id": "B1-PROFILE-B98889D390C2E0AE",
+          "position_residual": 0.0,
+          "grade_threshold_consumed": 2.0
+        },
+        {
+          "M_mixed_profile": [
+            {
+              "M": "M0",
+              "direction": "context",
+              "direction_factor": 0.0,
+              "material_id": "I2-TANG-GZ-YONGHUI-GOVERNANCE-OUTCOME-001",
+              "mechanism": "高宗初“百姓阜安、贞观遗风”仅为宏观阶段结果，不再作为B1正M3",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 0.0,
+              "profile_id": "B1-PROFILE-0245717A5356E51E",
+              "b1_role": "context",
+              "lifecycle_key": "I2-TANG-GZ-YONGHUI-GOVERNANCE-OUTCOME-001",
+              "lifecycle_group_key": "I2-TANG-GZ-YONGHUI-GOVERNANCE-OUTCOME-001",
+              "position_count_mode": "context_only",
+              "position_weight_override": 0.0,
+              "position_exclusion_reason": "宏观治绩未单独闭合B1组织接口。"
+            },
+            {
+              "M": "M3",
+              "direction": "mixed_negative",
+              "direction_factor": -0.5,
+              "material_id": "MC-TANG-GZ-EMPRESS-DELEGATION",
+              "mechanism": "李义府长期主选卖官并介入狱讼、构陷异己，高宗前期多次优容，至龙朔三年查办流放；合并为选任/司法问责与官僚安全受损后恢复的单一mixed生命周期",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -2.0,
+              "profile_id": "B1-PROFILE-50DB869411B4BD27",
+              "b1_role": "core",
+              "lifecycle_key": "MC-TANG-GZ-EMPRESS-DELEGATION",
+              "lifecycle_group_key": "MC-TANG-GZ-EMPRESS-DELEGATION"
+            }
+          ],
+          "M_negative_profile": [
+            {
+              "M": "M0",
+              "direction": "context",
+              "direction_factor": 0.0,
+              "material_id": "MC-TANG-GZ-JUSTICE-DETERIORATION-M2-M3-02-AUDIT",
+              "mechanism": "“高宗后期深文刑讯与杖死恶化”若不进一步闭合具体组织接口，仅作司法结果背景；相关可归责部分已吸收进李义府mixed生命周期",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 0.0,
+              "profile_id": "B1-PROFILE-832FC61009896350",
+              "b1_role": "context",
+              "lifecycle_key": "MC-TANG-GZ-JUSTICE-DETERIORATION-M2-M3-02-AUDIT",
+              "lifecycle_group_key": "MC-TANG-GZ-JUSTICE-DETERIORATION-M2-M3-02-AUDIT",
+              "position_count_mode": "context_only",
+              "position_weight_override": 0.0,
+              "position_exclusion_reason": "避免以司法恶果本身直接生成B1负链，并避免与李义府生命周期重复。"
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "I2-TANG-GZ-TEN-CIRCUIT-RELIEF-OVERSIGHT-001",
+              "mechanism": "停三十六州造船，并遣十道使问疾苦、黜陟官吏，形成一次跨道监督—处置接口",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0,
+              "profile_id": "B1-PROFILE-A9C8E57EF5A11CB6",
+              "b1_role": "core",
+              "lifecycle_key": "I2-TANG-GZ-TEN-CIRCUIT-RELIEF-OVERSIGHT-001",
+              "lifecycle_group_key": "I2-TANG-GZ-TEN-CIRCUIT-RELIEF-OVERSIGHT-001"
+            },
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "I2-TANG-LIZHI-JUDICIAL-OFFICIAL-ASSESSMENT-001",
+              "mechanism": "狄仁杰考第经张文瓘按断狱实绩复核改定、宗室滕王元婴被书下下考；开耀元年县令有声绩者优先进考，并与裴行俭、李敬玄长期典选共同闭合实绩考核—升降—选任核心行政机制",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2.0,
+              "profile_id": "B1-PROFILE-13C8A622E08E6707",
+              "b1_role": "core",
+              "lifecycle_key": "I2-TANG-LIZHI-JUDICIAL-OFFICIAL-ASSESSMENT-001",
+              "lifecycle_group_key": "I2-TANG-LIZHI-JUDICIAL-OFFICIAL-ASSESSMENT-001"
+            }
+          ],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-TANG-GZ-TEN-CIRCUIT-RELIEF-OVERSIGHT-001",
+            "I2-TANG-GZ-YONGHUI-GOVERNANCE-OUTCOME-001",
+            "I2-TANG-LIZHI-JUDICIAL-OFFICIAL-ASSESSMENT-001",
+            "MC-TANG-GZ-EMPRESS-DELEGATION",
+            "MC-TANG-GZ-JUSTICE-DETERIORATION-M2-M3-02-AUDIT"
+          ],
+          "direction_card_write": true,
+          "direction_index": 59.5,
+          "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
+          "formal_evidence_state": "WORKING_READJUDICATED_TARGET_RECORD",
+          "formal_evidence_maturity": "latest_settlement_plus_targeted_expansion_review",
+          "grade": "G3",
+          "grade_basis": "撤销“贞观遗风”背景M3；以实绩考课—升降—典选重建core M3。李义府卖官、鬻狱与构陷合并为major-stage N3-domain mixed负链；中后期百司表奏长期外置武后进一步限制本人归责，故不进G4。",
+          "grade_gate_basis": "撤销“贞观遗风”背景M3；以实绩考课—升降—典选重建core M3。李义府卖官、鬻狱与构陷合并为major-stage N3-domain mixed负链；中后期百司表奏长期外置武后进一步限制本人归责，故不进G4。",
+          "grade_gate_code": "B1_G3_MAIN_STAGE_USABLE",
+          "index_interval": [
+            55.0,
+            69.9
+          ],
+          "position": "lower-middle",
+          "position_q": 0.3,
+          "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=-1，按合同机械映射为lower-middle。",
+          "rank": 77,
+          "reign_range": "649-683",
+          "ruler_id": "RULER-TANG-LIZHI",
+          "ruler_name": "李治",
+          "polity": "唐",
+          "verification_material_ids": [
+            "MC-TANG-GZ-LVSHU-CONSOLIDATION-M2-M3-02-AUDIT",
+            "MC-TANG-GZ-SELECTION-REFORM"
+          ],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为-1，机械裁定G3-中下位（59.5）"
+            },
+            {
+              "role": "正向依据（M2）",
+              "text": "停三十六州造船，并遣十道使问疾苦、黜陟官吏，形成一次跨道监督—处置接口"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "狄仁杰考第经张文瓘按断狱实绩复核改定、宗室滕王元婴被书下下考；开耀元年县令有声绩者优先进考，并与裴行俭、李敬玄长期典选共同闭合实绩考核—升降—选任核心行政机制"
+            },
+            {
+              "role": "负向依据（M3）",
+              "text": "李义府长期主选卖官并介入狱讼、构陷异己，高宗前期多次优容，至龙朔三年查办流放；合并为选任/司法问责与官僚安全受损后恢复的单一mixed生命周期"
+            }
+          ],
+          "review_material_absorption_status": "TARGETED_REVIEW_SUPERSEDES_SOURCE_RECORD_FOR_LISTED_PROFILES",
+          "source_snapshot": {
+            "grade": "G3",
+            "position": "middle",
+            "direction_index": 62.5
+          },
+          "g3_gate_route": "CORE_M3",
+          "g3_gate_profile_ids": [
+            "B1-PROFILE-13C8A622E08E6707"
+          ],
+          "g3_core_profile_id": "B1-PROFILE-13C8A622E08E6707",
+          "position_residual": -1.0,
+          "grade_threshold_consumed": 2.0
+        },
+        {
+          "M_mixed_profile": [
+            {
+              "M": "M0",
+              "direction": "context",
+              "direction_factor": 0.0,
+              "material_id": "I2-PERSON-WZ-TRIAL-OFFICIALS-NEGATIVE-001",
+              "mechanism": "试官扩张仅形成有限行政入口质量负担，不与告密酷吏主链重复计权",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 0.0,
+              "profile_id": "B1-PROFILE-F54908D1DF475ABF",
+              "b1_role": "context",
+              "lifecycle_key": "I2-PERSON-WZ-TRIAL-OFFICIALS-NEGATIVE-001",
+              "lifecycle_group_key": "I2-PERSON-WZ-TRIAL-OFFICIALS-NEGATIVE-001",
+              "position_count_mode": "context_only",
+              "position_weight_override": 0.0,
+              "position_exclusion_reason": "仅作背景，不闭合可计B1组织机制。"
+            }
+          ],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "material_id": "MC-TANG-WZ-INFORMER-TERROR",
+              "mechanism": "开放告密并由来俊臣、周兴等酷吏承接推鞫，告密—刑讯—构罪旁路长期替代正常司法/监察程序，造成信息入口失真、司法问责与官僚安全同时受损",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -2.0,
+              "profile_id": "B1-PROFILE-90C48B35078D47B6",
+              "b1_role": "core",
+              "lifecycle_key": "MC-TANG-WZ-INFORMER-TERROR",
+              "lifecycle_group_key": "MC-TANG-WZ-INFORMER-TERROR",
+              "severity": "N3-cross",
+              "severity_scope": "major-stage",
+              "severity_basis": "至少闭合信息入口/监察司法问责与官僚安全两个独立B1功能面；冤狱数量与恐惧本身不作为Severity依据。"
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "B1-SUPP-TANG-WZ-SELECTION-TRIAL-CORE-001",
+              "mechanism": "广开荐举与自举后实际试任，随后严课并快速黜退不肖、骤升有能者，形成主要阶段反复运行的选任—试任—考察—升黜core",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2.0,
+              "profile_id": "B1-PROFILE-21749203166FC43F",
+              "b1_role": "core",
+              "lifecycle_key": "B1-SUPP-TANG-WZ-SELECTION-TRIAL-CORE-001",
+              "lifecycle_group_key": "B1-SUPP-TANG-WZ-SELECTION-TRIAL-CORE-001",
+              "source_refs": [
+                "陆贽关于武周选举“所荐必行、所举辄试…不肖者旋黜、才能者骤升”的概括",
+                "《资治通鉴》武周选官与不称职者速黜记载"
+              ]
+            },
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "I2-PERSON-WZ-DUAL-CENSORATE-001",
+              "mechanism": "分置左右肃政台分别监察京内与京外官僚",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0,
+              "profile_id": "B1-PROFILE-EF4BF79086053CA1",
+              "b1_role": "core",
+              "lifecycle_key": "I2-PERSON-WZ-DUAL-CENSORATE-001",
+              "lifecycle_group_key": "I2-PERSON-WZ-DUAL-CENSORATE-001"
+            },
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "I2-TANG-WZ-HEBEI-PACIFICATION-001",
+              "mechanism": "河北赦免、赈济、修驿、禁扰并达到遂安结果；作为区域行政交付验证，不再单独抬为M3",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0,
+              "profile_id": "B1-PROFILE-8129818B69EA12DD",
+              "b1_role": "support",
+              "lifecycle_key": "I2-TANG-WZ-HEBEI-PACIFICATION-001",
+              "lifecycle_group_key": "I2-TANG-WZ-HEBEI-PACIFICATION-001"
+            }
+          ],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "B1-SUPP-TANG-WZ-SELECTION-TRIAL-CORE-001",
+            "I2-PERSON-WZ-DUAL-CENSORATE-001",
+            "I2-PERSON-WZ-TRIAL-OFFICIALS-NEGATIVE-001",
+            "I2-TANG-WZ-HEBEI-PACIFICATION-001",
+            "MC-TANG-WZ-INFORMER-TERROR"
+          ],
+          "direction_card_write": true,
+          "direction_index": 59.5,
+          "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
+          "formal_evidence_state": "WORKING_READJUDICATED_TARGET_RECORD",
+          "formal_evidence_maturity": "latest_settlement_plus_targeted_expansion_review",
+          "grade": "G3",
+          "grade_basis": "正向补入主要阶段“广搜—试任—严课—速黜/骤升”选任core M3；告密酷吏体系仍为N3-cross / major-stage，但周兴、来俊臣等后期被清理并有有限恢复。正负相抵后维持G3，位置由下位上修至中位。",
+          "grade_gate_basis": "正向补入主要阶段“广搜—试任—严课—速黜/骤升”选任core M3；告密酷吏体系仍为N3-cross / major-stage，但周兴、来俊臣等后期被清理并有有限恢复。正负相抵后维持G3，位置由下位上修至中位。",
+          "grade_gate_code": "B1_G3_MAIN_STAGE_USABLE",
+          "index_interval": [
+            55.0,
+            69.9
+          ],
+          "position": "lower-middle",
+          "position_q": 0.3,
+          "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=-0.5，按合同机械映射为lower-middle。",
+          "rank": 77,
+          "reign_range": "684-705",
+          "ruler_id": "RULER-TANG-WUZETIAN",
+          "ruler_name": "武则天",
+          "polity": "唐",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为-0.5，机械裁定G3-中下位（59.5）"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "广开荐举与自举后实际试任，随后严课并快速黜退不肖、骤升有能者，形成主要阶段反复运行的选任—试任—考察—升黜核心行政机制"
+            },
+            {
+              "role": "正向依据（M2）",
+              "text": "分置左右肃政台分别监察京内与京外官僚"
+            },
+            {
+              "role": "正向依据（M2）",
+              "text": "河北赦免、赈济、修驿、禁扰并达到遂安结果；作为区域行政交付验证，不再单独抬为M3"
+            },
+            {
+              "role": "负向依据（M3，cross）",
+              "text": "开放告密并由来俊臣、周兴等酷吏承接推鞫，告密—刑讯—构罪旁路长期替代正常司法/监察程序，造成信息入口失真、司法问责与官僚安全同时受损"
+            }
+          ],
+          "review_material_absorption_status": "TARGETED_REVIEW_SUPERSEDES_SOURCE_RECORD_FOR_LISTED_PROFILES",
+          "source_snapshot": {
+            "grade": "G3",
+            "position": "lower",
+            "direction_index": 56.5
+          },
+          "g3_gate_route": "CORE_M3",
+          "g3_gate_profile_ids": [
+            "B1-PROFILE-21749203166FC43F"
+          ],
+          "g3_core_profile_id": "B1-PROFILE-21749203166FC43F",
+          "position_residual": -0.5,
+          "grade_threshold_consumed": 2.0
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "signed_weight": -2.0,
+              "material_id": "B1-SUPP-TANG-XUANZONG-EUNUCH-CROSS-N3",
+              "mechanism": "宣宗虽诛部分过甚宦官并惩治与中尉交通者，但神策军仍由中官掌握；皇帝自承对宦官“尚畏之在”，与令狐绹谋裁抑的密奏又被宦者窃见，南北司由此如水火，说明军政责任、机密信息与中枢协同旁路未恢复",
+              "result_closure": "sustained_or_systemic",
+              "lifecycle_key": "B1:RULER-TANG-LICHEN:V57:EUNUCH-CROSS",
+              "lifecycle_group_key": "B1:RULER-TANG-LICHEN:V57:EUNUCH-CROSS",
+              "profile_id": "B1-PROFILE-1D85FD21F0BB89D3",
+              "b1_role": "core",
+              "severity": "N3-cross",
+              "severity_scope": "major-stage",
+              "severity_basis": "同时击中神策军军政责任中心、中央机密信息安全与南北司协同；皇帝虽有局部约束，但本人明确承认未解决，任内不存在完整组织恢复。",
+              "source_basis": [
+                "《资治通鉴》卷249：宣宗称宦官权势“全未，全未！尚畏之在”；与令狐绹谋渐耗宦官的密奏被宦者窃见，南北司如水火。",
+                "《旧唐书》卷184：至宣宗即位虽诛其太甚者，“阍寺之势，仍握军权之重”。",
+                "《旧唐书》卷44：神策军长期以中官为帅。"
+              ]
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "signed_weight": 2.0,
+              "material_id": "B1-SUPP-TANG-XUANZONG-LOCAL-PERFORMANCE-M3",
+              "mechanism": "地方官绩效识别、升任与替补多责任官样本core",
+              "result_closure": "sustained_or_systemic",
+              "lifecycle_key": "B1:RULER-TANG-LICHEN:V57:LOCAL-PERFORMANCE-CORE",
+              "lifecycle_group_key": "B1:RULER-TANG-LICHEN:V57:LOCAL-PERFORMANCE-CORE",
+              "profile_id": "B1-PROFILE-6EC91BD1F2001B2D",
+              "b1_role": "core",
+              "source_basis": "《资治通鉴》卷249：边将贪暴致叛后改选廉良、先罪边将；李君奭治绩经百姓乞留被识别并不次迁任等。"
+            },
+            {
+              "M": "M3",
+              "direction": "mixed_negative",
+              "direction_factor": -0.5,
+              "signed_weight": 0.0,
+              "material_id": "B1-SUPP-TANG-XUANZONG-CENTRAL-ROUTE-MIXED",
+              "mechanism": "原所谓“正式命令链、中枢路由与旁路约束”与宦官旁路属于同一中央控制生命周期；因神策军与保密路由未恢复，不再作为独立正M3消费",
+              "result_closure": "not_restored",
+              "lifecycle_key": "B1:RULER-TANG-LICHEN:V57:EUNUCH-CROSS",
+              "lifecycle_group_key": "B1:RULER-TANG-LICHEN:V57:EUNUCH-CROSS",
+              "profile_id": "B1-PROFILE-2659C3F22868FCC9",
+              "b1_role": "context",
+              "position_count_mode": "absorbed_same_lifecycle",
+              "absorbed_into_lifecycle_key": "B1:RULER-TANG-LICHEN:V57:EUNUCH-CROSS",
+              "position_weight_override": 0.0,
+              "position_exclusion_reason": "中央正式路由与宦官旁路正负事实属于同一功能面，必须先合并；未完成恢复时不得同时把中央路由记正M3。"
+            }
+          ],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "B1-SUPP-TANG-XUANZONG-LOCAL-PERFORMANCE-M3",
+            "B1-SUPP-TANG-XUANZONG-EUNUCH-CROSS-N3",
+            "B1-SUPP-TANG-XUANZONG-CENTRAL-ROUTE-MIXED"
+          ],
+          "direction_card_write": true,
+          "direction_index": 56.5,
+          "evidence_sufficiency_gate": "PASS_TARGETED_LIFECYCLE_MERGE_REVIEW",
+          "formal_evidence_state": "WORKING_READJUDICATED_TARGET_RECORD",
+          "formal_evidence_maturity": "primary_source_targeted_negative_and_lifecycle_review",
+          "grade": "G3",
+          "grade_basis": "地方官治绩识别—升任—替补仍成立personnel core M3，足以进入G3。但原结算把“正式命令链、中枢路由与旁路约束”单列为第二正M3，同时只以“宦官组织和禁军权力未解除”轻扣M2，违反同一功能生命周期先合并规则。宣宗本人明确承认仍畏宦官，神策军仍握于中官，裁抑宦官的密奏又被窃见并引发南北司对立；这是覆盖主要阶段的军政责任+机密信息/中枢协同N3-cross，且任内未完成恢复，故G4硬门禁失败。",
+          "grade_gate_basis": "地方官personnel core M3满足G3；major-stage N3-cross阻断G4。",
+          "grade_gate_code": "B1_G3_MAIN_STAGE_USABLE",
+          "g3_gate_route": "CORE_M3",
+          "g3_gate_profile_ids": [
+            "B1-PROFILE-6EC91BD1F2001B2D"
+          ],
+          "g4_core_profile_id": null,
+          "g4_secondary_profile_id": null,
+          "index_interval": [
+            55.0,
+            69.9
+          ],
+          "position": "lower",
+          "position_q": 0.1,
+          "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=-2.5，按合同机械映射为lower。",
+          "rank": 86,
+          "reign_range": [
+            846,
+            859
+          ],
+          "ruler_id": "RULER-TANG-LICHEN",
+          "ruler_name": "李忱",
+          "polity": "唐",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为-2.5，机械裁定G3-下位（56.5）"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "地方官绩效识别、升任与替补多责任官样本核心行政机制"
+            },
+            {
+              "role": "负向依据（M3，cross）",
+              "text": "宣宗虽诛部分过甚宦官并惩治与中尉交通者，但神策军仍由中官掌握；皇帝自承对宦官“尚畏之在”，与令狐绹谋裁抑的密奏又被宦者窃见，南北司由此如水火，说明军政责任、机密信息与中枢协同旁路未恢复"
+            }
+          ],
+          "review_material_absorption_status": "TARGETED_REVIEW_SUPERSEDES_SOURCE_RECORD_FOR_CENTRAL_LIFECYCLE",
+          "source_snapshot": {
+            "grade": "G4",
+            "position": "middle",
+            "direction_index": 77.5
+          },
+          "supplemental_material_registration_required": [
+            "B1-SUPP-TANG-XUANZONG-LOCAL-PERFORMANCE-M3",
+            "B1-SUPP-TANG-XUANZONG-EUNUCH-CROSS-N3"
+          ],
+          "position_residual": -2.5,
+          "grade_threshold_consumed": 2.0
+        },
+        {
+          "M_mixed_profile": [
+            {
+              "M": "M2",
+              "direction": "mixed_negative",
+              "direction_factor": -0.5,
+              "material_id": "MC-TANG-RZ-SLOPING-REVERSAL-M2-AUDIT",
+              "mechanism": "斜封选任修复—近亲干预—修复撤回",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -1.0,
+              "lifecycle_key": "B1:RULER-TANG-LIDAN:V50:MIXED-NEGATIVE-LIFECYCLE",
+              "lifecycle_group_key": "B1:RULER-TANG-LIDAN:V50:MIXED-NEGATIVE-LIFECYCLE",
+              "profile_id": "B1-PROFILE-AEA630197A37FE27",
+              "b1_role": "core"
+            }
+          ],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "MC-TANG-RZ-SELECTION-CLEANUP",
+              "mechanism": "出现可观察的筛选收缩与公正声誉。",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 2.0,
+              "profile_id": "B1-PROFILE-0A8E33CD37BC9368",
+              "b1_role": "support"
+            }
+          ],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "MC-TANG-RZ-SELECTION-CLEANUP",
+            "MC-TANG-RZ-SLOPING-REVERSAL-M2-AUDIT"
+          ],
+          "direction_card_write": true,
+          "direction_index": 47.5,
+          "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
+          "formal_evidence_maturity": "fixed_primary_exact_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G2",
+          "grade_basis": "《新唐书·柳泽传》《唐书·选举志》｜生命周期：景云初姚崇、宋璟辅政→实际罢斜封官数千、澄革崔湜郑愔时期混乱铨选；二人旋因太平公主势力被贬外州→景云二年又“尽复斜封别敕官”。同一选任接口出现**成规模清理→政治责任中心更替→原问题大规模恢复**，必须合并为mixed personnel M3/M2，不能把“罢数千斜封官”单独当纯正M3。十道按察使初置主要仍是建制/部署，现证缺成组巡察结果。短短两年中人事机器真实活动但稳定性不足G3，维持G2-middle-upper。",
+          "grade_gate_basis": "《新唐书·柳泽传》《唐书·选举志》｜生命周期：景云初姚崇、宋璟辅政→实际罢斜封官数千、澄革崔湜郑愔时期混乱铨选；二人旋因太平公主势力被贬外州→景云二年又“尽复斜封别敕官”。同一选任接口出现**成规模清理→政治责任中心更替→原问题大规模恢复**，必须合并为mixed personnel M3/M2，不能把“罢数千斜封官”单独当纯正M3。十道按察使初置主要仍是建制/部署，现证缺成组巡察结果。短短两年中人事机器真实活动但稳定性不足G3，维持G2-middle-upper。",
+          "grade_gate_code": "B1_G2_LIMITED_OR_MIXED",
+          "index_interval": [
+            40.0,
+            54.9
+          ],
+          "polity": "唐",
+          "position": "middle",
+          "position_basis": "有效生命周期签名M权重合计扣除G2门槛占用1后，净余量=0，按合同机械映射为middle。",
+          "position_q": 0.5,
+          "rank": 109,
+          "reign_range": "710-712",
+          "ruler_id": "RULER-TANG-LIDAN",
+          "ruler_name": "李旦",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为0，机械裁定G2-中位（47.5）"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "出现可观察的筛选收缩与公正声誉。"
+            },
+            {
+              "role": "负向依据（M2）",
+              "text": "斜封选任修复—近亲干预—修复撤回"
+            }
+          ],
+          "position_residual": 0.0,
+          "grade_threshold_consumed": 1.0,
+          "v50_source_line": 255,
+          "review_material_basis": [
+            {
+              "version": "v20",
+              "line": 545,
+              "review_grade": "G2",
+              "review_position": "middle",
+              "basis": "时代差异专项复核后维持。正向并非没有：睿宗复位后以宋璟、李乂、卢从愿澄革中宗末斜封选弊，一度“铨总平允”；景云二年又设置十道按察使，说明有恢复正式选任与地方监察的意图。问题在于同一生命周期迅速发生反转：太平公主施压后，睿宗恢复此前已停的斜封别敕官，姚崇、宋璟因主张外置太平及诸王而被贬，窦怀贞等又依附太平入相。选任修复—近亲干预—修复撤回属于`mixed_negative M3`，且在其短短两年实际执政窗口占比很高；十道按察又缺足够实际黜陟闭环。因此只能证明有限可用，锁G2-middle，不升G3。",
+              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
+            },
+            {
+              "version": "v50",
+              "line": 255,
+              "review_grade": "G2",
+              "review_position": "middle-upper",
+              "basis": "《新唐书·柳泽传》《唐书·选举志》｜生命周期：景云初姚崇、宋璟辅政→实际罢斜封官数千、澄革崔湜郑愔时期混乱铨选；二人旋因太平公主势力被贬外州→景云二年又“尽复斜封别敕官”。同一选任接口出现成规模清理→政治责任中心更替→原问题大规模恢复，必须合并为mixed personnel M3/M2，不能把“罢数千斜封官”单独当纯正M3。十道按察使初置主要仍是建制/部署，现证缺成组巡察结果。短短两年中人事机器真实活动但稳定性不足G3，维持G2-middle-upper。",
+              "status": "ABSORBED_ACTIVE_PRECEDENCE"
+            }
+          ],
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE"
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "TANG-LIYUAN-CENTRAL-ASSESSMENT",
+              "material_id": "I2-TANG-LIYUAN-CENTRAL-ASSESSMENT-001",
+              "mechanism": "中央考课与升黜",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0,
+              "profile_id": "B1-PROFILE-A97F6A2B9280231A",
+              "b1_role": "core"
+            },
+            {
+              "M": "M0",
+              "direction": "context",
+              "direction_factor": 0.0,
+              "material_id": "MC-TANG-LY-ENTRY",
+              "mechanism": "法律、司法与刑罚运行",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 0.0,
+              "profile_id": "B1-PROFILE-D9BD262D6B4FB886",
+              "position_count_mode": "context_only",
+              "position_weight_override": 0.0,
+              "position_exclusion_reason": "仅描述政策价值、结果类别或泛化领域，未闭合B1责任链、传导、问责或组织交付失灵。",
+              "b1_role": "context"
+            }
+          ],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-TANG-LIYUAN-CENTRAL-ASSESSMENT-001",
+            "MC-TANG-LY-ENTRY"
+          ],
+          "direction_card_write": true,
+          "direction_index": 47.5,
+          "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
+          "formal_evidence_maturity": "mixed_fixed_primary_and_accepted_summary_adjudicated",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G2",
+          "grade_basis": "实证链为法律、司法与刑罚运行、中央考课与升黜；只证明有限交付或可用与失能并存，未覆盖主要阶段",
+          "grade_gate_basis": "实证链为法律、司法与刑罚运行、中央考课与升黜；只证明有限交付或可用与失能并存，未覆盖主要阶段",
+          "grade_gate_code": "B1_G2_LIMITED_OR_MIXED",
+          "index_interval": [
+            40.0,
+            54.9
+          ],
+          "polity": "唐",
+          "position": "middle",
+          "position_basis": "有效生命周期签名M权重合计扣除G2门槛占用1后，净余量=0，按合同机械映射为middle。",
+          "position_q": 0.5,
+          "rank": 109,
+          "reign_range": "618-626",
+          "ruler_id": "RULER-TANG-LIYUAN",
+          "ruler_name": "李渊",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为0，机械裁定G2-中位（47.5）"
+            },
+            {
+              "role": "正向依据（M2）",
+              "text": "中央考课与升黜"
+            },
+            {
+              "role": "负向依据（无可计M档）",
+              "text": "未闭合可计的负向运行链"
+            }
+          ],
+          "position_residual": 0.0,
+          "grade_threshold_consumed": 1.0,
+          "review_material_basis": [],
+          "review_material_absorption_status": "NOT_LISTED_PRESERVE_FORMAL_MATERIALS"
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "material_id": "MC-TANG-DZONG-LATE-CAPTURE-M2-M3-02-AUDIT",
+              "mechanism": "N3-cross：卢杞、裴延龄先后扭曲中枢信息、任免与问责",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -2.0,
+              "lifecycle_key": "B1:RULER-TANG-LISHI:V50:SEVERITY-NEGATIVE",
+              "lifecycle_group_key": "B1:RULER-TANG-LISHI:V50:SEVERITY-NEGATIVE",
+              "severity": "N3-cross",
+              "severity_scope": "major-stage",
+              "severity_basis": "裴延龄以失真财政/行政信息进入最高决策→陆贽、张滂、李充、李铦等实际罢职左迁→又借度支/比部等正式接口继续构案；独立击中中枢信息真实性/路由 + 高层任免问责，major-stage central cross成立",
+              "profile_id": "B1-PROFILE-1D85A7360153E46D",
+              "b1_role": "core"
+            },
+            {
+              "M": "M2",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "material_id": "MC-TANG-DZONG-LUQI-CRISIS-M2-M3-02-AUDIT",
+              "mechanism": "卢杞严刻路线、预警失效与奉天危机后纠偏",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -1.0,
+              "profile_id": "B1-PROFILE-19EAB0F03BB8E2BD",
+              "b1_role": "support"
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "I2-TANG-DZONG-CIRCUIT-INSPECTION-001",
+              "mechanism": "诸道巡察、地方考课与奖惩",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0,
+              "profile_id": "B1-PROFILE-CBA697C5CAAD4D8A",
+              "b1_role": "core"
+            },
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_key": "TANG-DEZONG-CENTRAL-ASSESSMENT",
+              "material_id": "I2-TANG-LISHI-CENTRAL-ASSESSMENT-001",
+              "mechanism": "中央内外官考课与实际升黜",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2.0,
+              "profile_id": "B1-PROFILE-FD9B0EACEB194E16",
+              "b1_role": "core"
+            },
+            {
+              "M": "M0",
+              "direction": "context",
+              "direction_factor": 0.0,
+              "material_id": "MC-TANG-DZONG-EARLY-REFORM",
+              "mechanism": "法律、司法与刑罚运行",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 0.0,
+              "profile_id": "B1-PROFILE-FA441CA14F98BEF5",
+              "position_count_mode": "context_only",
+              "position_weight_override": 0.0,
+              "position_exclusion_reason": "仅描述政策价值、结果类别或泛化领域，未闭合B1责任链、传导、问责或组织交付失灵。",
+              "b1_role": "context"
+            }
+          ],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-TANG-DZONG-CIRCUIT-INSPECTION-001",
+            "I2-TANG-LISHI-CENTRAL-ASSESSMENT-001",
+            "MC-TANG-DZONG-EARLY-REFORM",
+            "MC-TANG-DZONG-LATE-CAPTURE-M2-M3-02-AUDIT",
+            "MC-TANG-DZONG-LUQI-CRISIS-M2-M3-02-AUDIT"
+          ],
+          "direction_card_write": true,
+          "direction_index": 41.5,
+          "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
+          "formal_evidence_maturity": "fixed_primary_exact_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G2",
+          "grade_basis": "链：卢杞阶段树党排斥并改变中枢责任官配置；裴延龄以失真财政/行政信息进入最高决策→陆贽、张滂、李充、李铦等实际罢职左迁→又借度支/比部等正式接口继续构案。独立击中中枢信息真实性/路由 + 高层任免问责，major-stage central cross成立；陆贽等劝谏本身归B2。",
+          "grade_gate_basis": "链：卢杞阶段树党排斥并改变中枢责任官配置；裴延龄以失真财政/行政信息进入最高决策→陆贽、张滂、李充、李铦等实际罢职左迁→又借度支/比部等正式接口继续构案。独立击中中枢信息真实性/路由 + 高层任免问责，major-stage central cross成立；陆贽等劝谏本身归B2。",
+          "grade_gate_code": "B1_G2_LIMITED_OR_MIXED",
+          "index_interval": [
+            40.0,
+            54.9
+          ],
+          "polity": "唐",
+          "position": "lower",
+          "position_basis": "有效生命周期签名M权重合计扣除G2门槛占用1后，净余量=-1.5，按合同机械映射为lower。",
+          "position_q": 0.1,
+          "rank": 134,
+          "reign_range": "779-805",
+          "ruler_id": "RULER-TANG-LISHI",
+          "ruler_name": "李适",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为-1.5，机械裁定G2-下位（41.5）"
+            },
+            {
+              "role": "正向依据（M2）",
+              "text": "诸道巡察、地方考课与奖惩"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "中央内外官考课与实际升黜"
+            },
+            {
+              "role": "负向依据（M3，cross）",
+              "text": "N3（跨功能失灵）：卢杞、裴延龄先后扭曲中枢信息、任免与问责"
+            },
+            {
+              "role": "负向依据（M2）",
+              "text": "卢杞严刻路线、预警失效与奉天危机后纠偏"
+            }
+          ],
+          "position_residual": -1.5,
+          "grade_threshold_consumed": 1.0,
+          "v50_source_line": 266,
+          "review_material_basis": [
+            {
+              "version": "v20",
+              "line": 526,
+              "review_grade": "G2",
+              "review_position": "middle-upper",
+              "basis": "时代差异专项由G2-middle上修。建中元年分遣诸道黜陟使不是纯建制：山南使韦正实际荐严震“理行为山南第一”，德宗据此特赐上下考、封郧国公，闭合全国巡察—绩效识别—奖升的core M2/近M3；贞元九年前后陆贽又推动台省长官荐属并承担举主连坐，德宗一度允许，赵憬“审官六议”等亦获嘉纳。负向则跨两个主要阶段：早期卢杞树党排善、直接导致中枢信息与任免扭曲；后期裴延龄以虚妄财政叙事构陷陆贽、张滂、李充等，德宗明知其诞妄仍信用，朝廷中外惴恐，属于`major-stage central N3-cross`。两段之间正式行政仍有恢复，故不进G1；但正向主链不够持续稳定，仍不足G3。锁G2-middle-upper。",
+              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
+            },
+            {
+              "version": "v50",
+              "line": 266,
+              "review_grade": "G2",
+              "review_position": "middle-upper",
+              "basis": "链：卢杞阶段树党排斥并改变中枢责任官配置；裴延龄以失真财政/行政信息进入最高决策→陆贽、张滂、李充、李铦等实际罢职左迁→又借度支/比部等正式接口继续构案。独立击中中枢信息真实性/路由 + 高层任免问责，major-stage central cross成立；陆贽等劝谏本身归B2。",
+              "status": "ABSORBED_ACTIVE_PRECEDENCE"
+            }
+          ],
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE"
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "material_id": "MC-TANG-DZ-EUNUCH-CAPTURE-M2-M3-02-AUDIT",
+              "mechanism": "N3-cross：李辅国、程元振、鱼朝恩、元载连续俘获中枢责任中心",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -2.0,
+              "lifecycle_key": "B1:RULER-TANG-LIYU:V50:SEVERITY-NEGATIVE",
+              "lifecycle_group_key": "B1:RULER-TANG-LIYU:V50:SEVERITY-NEGATIVE",
+              "severity": "N3-cross",
+              "severity_scope": "major-stage",
+              "severity_basis": "负生命周期①：程元振忌宿将、构离郭子仪等→诸道征兵“卒无至者”→吐蕃入京、代宗出奔→元振实际罢官流放；②：鱼朝恩专典神策、北军私设狱罗织富人→大历五年观军容使被罢、本人及刘希暹清除；③：元载长期“官由贿成”，大小官爵分别由元载及中书主书掌握→大历十二年元载伏诛，常衮接任后贿路被断但选官又一度壅滞",
+              "profile_id": "B1-PROFILE-7C852DCADF0BBB15",
+              "b1_role": "core"
+            }
+          ],
+          "M_positive_profile": [],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "MC-TANG-DZ-EUNUCH-CAPTURE-M2-M3-02-AUDIT"
+          ],
+          "direction_card_write": true,
+          "direction_index": 41.5,
+          "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
+          "formal_evidence_maturity": "fixed_primary_exact_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G2",
+          "grade_basis": "《旧唐书·宦官传》《新唐书·食货志》《新唐书·刘晏传》《旧唐书·元载传》｜正链：广德二年起代宗令刘晏专领东都、河南、淮西、江南东西转运/租庸/盐铁→分官督运、分段船纲→未十年岁转粟110万石且“无升斗溺者”；盐法又设多监、十三巡院，至大历末岁入六百余万缗，另由刘晏考所属官吏善恶，构成广域财政行政`B1-support M3`并带实际问责接口。负生命周期①：程元振忌宿将、构离郭子仪等→诸道征兵“卒无至者”→吐蕃入京、代宗出奔→元振实际罢官流放；②：鱼朝恩专典神策、北军私设狱罗织富人→大历五年观军容使被罢、本人及刘希暹清除；③：元载长期“官由贿成”，大小官爵分别由元载及中书主书掌握→大历十二年元载伏诛，常衮接任后贿路被断但选官又一度壅滞。三轮俘获均重，但均发生清算/替换，且刘晏系统在主要阶段持续高强度交付，故应裁“可用与反复俘获并存”的G2，而非失能主导G1；负面覆盖很长，锁middle不进G3。",
+          "grade_gate_basis": "《旧唐书·宦官传》《新唐书·食货志》《新唐书·刘晏传》《旧唐书·元载传》｜正链：广德二年起代宗令刘晏专领东都、河南、淮西、江南东西转运/租庸/盐铁→分官督运、分段船纲→未十年岁转粟110万石且“无升斗溺者”；盐法又设多监、十三巡院，至大历末岁入六百余万缗，另由刘晏考所属官吏善恶，构成广域财政行政`B1-support M3`并带实际问责接口。负生命周期①：程元振忌宿将、构离郭子仪等→诸道征兵“卒无至者”→吐蕃入京、代宗出奔→元振实际罢官流放；②：鱼朝恩专典神策、北军私设狱罗织富人→大历五年观军容使被罢、本人及刘希暹清除；③：元载长期“官由贿成”，大小官爵分别由元载及中书主书掌握→大历十二年元载伏诛，常衮接任后贿路被断但选官又一度壅滞。三轮俘获均重，但均发生清算/替换，且刘晏系统在主要阶段持续高强度交付，故应裁“可用与反复俘获并存”的G2，而非失能主导G1；负面覆盖很长，锁middle不进G3。",
+          "grade_gate_code": "B1_G2_LIMITED_OR_MIXED",
+          "index_interval": [
+            40.0,
+            54.9
+          ],
+          "polity": "唐",
+          "position": "lower",
+          "position_basis": "有效生命周期签名M权重合计扣除G2门槛占用1后，净余量=-3.5，按合同机械映射为lower。",
+          "position_q": 0.1,
+          "rank": 134,
+          "reign_range": "762-779",
+          "ruler_id": "RULER-TANG-LIYU",
+          "ruler_name": "李豫",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为-3.5，机械裁定G2-下位（41.5）"
+            },
+            {
+              "role": "正向依据（无可计M档）",
+              "text": "未闭合可计的正向运行链"
+            },
+            {
+              "role": "负向依据（M3，cross）",
+              "text": "N3（跨功能失灵）：李辅国、程元振、鱼朝恩、元载连续俘获中枢责任中心"
+            }
+          ],
+          "position_residual": -3.5,
+          "grade_threshold_consumed": 1.0,
+          "v50_source_line": 235,
+          "review_material_basis": [
+            {
+              "version": "v20",
+              "line": 604,
+              "review_grade": "G1",
+              "review_position": null,
+              "basis": "新G1门槛复核后仍维持。这里不是“一个长期强臣cross”而是连续更换责任中心后的串联式中枢俘获：宝应元年李辅国令“外事听老奴处分”，群臣出入先谒；代宗削其权后，程元振不逾岁权震天下、忌害功臣并压住吐蕃入寇信息，最终造成征诸道兵“无一士奔命”；其后鱼朝恩又专典神策、每奏事期在必允，至大历五年被诛；朝恩死后元载继而长期排忠引贪、货赂公行，代宗多次戒而不悛，直到大历十二年方诛。四个不同责任中心几乎覆盖全任，说明清算并未恢复稳定的中枢约束机制，而是反复被下一集团接管，满足“cross压倒独立正链、失能主导”的G1新门槛。刘晏转运等真实行政交付继续保留，故不到G0。",
+              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
+            },
+            {
+              "version": "v50",
+              "line": 235,
+              "review_grade": "G2",
+              "review_position": "middle",
+              "basis": "《旧唐书·宦官传》《新唐书·食货志》《新唐书·刘晏传》《旧唐书·元载传》｜正链：广德二年起代宗令刘晏专领东都、河南、淮西、江南东西转运/租庸/盐铁→分官督运、分段船纲→未十年岁转粟110万石且“无升斗溺者”；盐法又设多监、十三巡院，至大历末岁入六百余万缗，另由刘晏考所属官吏善恶，构成广域财政行政`B1-support M3`并带实际问责接口。负生命周期①：程元振忌宿将、构离郭子仪等→诸道征兵“卒无至者”→吐蕃入京、代宗出奔→元振实际罢官流放；②：鱼朝恩专典神策、北军私设狱罗织富人→大历五年观军容使被罢、本人及刘希暹清除；③：元载长期“官由贿成”，大小官爵分别由元载及中书主书掌握→大历十二年元载伏诛，常衮接任后贿路被断但选官又一度壅滞。三轮俘获均重，但均发生清算/替换，且刘晏系统在主要阶段持续高强度交付，故应裁“可用与反复俘获并存”的G2，而非失能主导G1；负面覆盖很长，锁middle不进G3。",
+              "status": "ABSORBED_ACTIVE_PRECEDENCE"
+            }
+          ],
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE"
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "material_id": "MC-TANG-SZ-COURT-CAPTURE",
+              "mechanism": "任内中枢与官僚组织持续遭近侍网络俘获。",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -2.0,
+              "severity": "N3-cross",
+              "severity_scope": "major-stage",
+              "severity_basis": "链：肃宗即位后把“四方奏事、御前符印军号”一并委李辅国→返京后宰臣百司非定时奏事“皆因辅国上决”，银台门另设察事厅→府县按鞫、三司制狱“必诣辅国取决”，其处分皆称制敕→辅国又逼使宰相萧华实际罢知政事；实际形成奏事信息入口 + 司法问责 + 高层任免被私人近侍同一集团占用的major-stage N3-cross；旧“监察反馈压制”标题全部改写为上述组织事实",
+              "profile_id": "B1-PROFILE-5DD43F5B06AA7FEF",
+              "b1_role": "core"
+            }
+          ],
+          "M_positive_profile": [],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "MC-TANG-SZ-COURT-CAPTURE"
+          ],
+          "direction_card_write": true,
+          "direction_index": 22.0,
+          "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
+          "formal_evidence_maturity": "mixed_fixed_primary_and_accepted_summary_adjudicated",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G1",
+          "grade_basis": "《旧唐书·宦官传·李辅国》｜链：肃宗即位后把“四方奏事、御前符印军号”一并委李辅国→返京后宰臣百司非定时奏事“皆因辅国上决”，银台门另设察事厅→府县按鞫、三司制狱“必诣辅国取决”，其处分皆称制敕→辅国又逼使宰相萧华实际罢知政事。实际形成**奏事信息入口 + 司法问责 + 高层任免**被私人近侍同一集团占用的major-stage N3-cross；百司仍存在、战时行政仍能部分运行，故G1而非G0。旧“监察反馈压制”标题全部改写为上述组织事实。",
+          "grade_gate_basis": "《旧唐书·宦官传·李辅国》｜链：肃宗即位后把“四方奏事、御前符印军号”一并委李辅国→返京后宰臣百司非定时奏事“皆因辅国上决”，银台门另设察事厅→府县按鞫、三司制狱“必诣辅国取决”，其处分皆称制敕→辅国又逼使宰相萧华实际罢知政事。实际形成**奏事信息入口 + 司法问责 + 高层任免**被私人近侍同一集团占用的major-stage N3-cross；百司仍存在、战时行政仍能部分运行，故G1而非G0。旧“监察反馈压制”标题全部改写为上述组织事实。",
+          "grade_gate_code": "B1_G1_DYSFUNCTION_DOMINANT",
+          "index_interval": [
+            20.0,
+            39.9
+          ],
+          "polity": "唐",
+          "position": "lower",
+          "position_basis": "有效生命周期签名M权重合计扣除G1门槛占用0.5后，净余量=-3，按合同机械映射为lower。",
+          "position_q": 0.1,
+          "rank": 154,
+          "reign_range": "756-762",
+          "ruler_id": "RULER-TANG-LIHENG",
+          "ruler_name": "李亨",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为-3，机械裁定G1-下位（22.0）"
+            },
+            {
+              "role": "正向依据（无可计M档）",
+              "text": "未闭合可计的正向运行链"
+            },
+            {
+              "role": "负向依据（M3，cross）",
+              "text": "任内中枢与官僚组织持续遭近侍网络俘获。"
+            }
+          ],
+          "position_residual": -3.0,
+          "grade_threshold_consumed": 0.5,
+          "v50_source_line": 276,
+          "review_material_basis": [
+            {
+              "version": "v20",
+              "line": 599,
+              "review_grade": "G1",
+              "review_position": null,
+              "basis": "李辅国掌四方文奏、宝印符契、军号禁兵，宰相百司及司法先咨禀，信息/命令/司法/军政外置，重N3-cross。",
+              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
+            },
+            {
+              "version": "v50",
+              "line": 276,
+              "review_grade": "G1",
+              "review_position": "lower",
+              "basis": "《旧唐书·宦官传·李辅国》｜链：肃宗即位后把“四方奏事、御前符印军号”一并委李辅国→返京后宰臣百司非定时奏事“皆因辅国上决”，银台门另设察事厅→府县按鞫、三司制狱“必诣辅国取决”，其处分皆称制敕→辅国又逼使宰相萧华实际罢知政事。实际形成奏事信息入口 + 司法问责 + 高层任免被私人近侍同一集团占用的major-stage N3-cross；百司仍存在、战时行政仍能部分运行，故G1而非G0。旧“监察反馈压制”标题全部改写为上述组织事实。",
+              "status": "ABSORBED_ACTIVE_PRECEDENCE"
+            }
+          ],
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE"
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "material_id": "MC-TANG-ZX-SLOPING-APPOINTMENTS-M2-M3-02-AUDIT",
+              "mechanism": "斜封墨敕与内廷特权同时旁路铨选编制、监察司法及中枢替补",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -2.0,
+              "profile_id": "B1-PROFILE-ADA2677B93760EBC",
+              "b1_role": "core",
+              "severity": "N3-cross",
+              "severity_scope": "major-stage",
+              "severity_basis": "斜封官数千并透支员阙，安乐公主又以手诏旁路监察司法，韦武集团替换复位功臣，闭合选任编制、监察问责和中枢替补的主要阶段cross。"
+            }
+          ],
+          "M_positive_profile": [],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "MC-TANG-ZX-SLOPING-APPOINTMENTS-M2-M3-02-AUDIT"
+          ],
+          "direction_card_write": true,
+          "direction_index": 22.0,
+          "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
+          "formal_evidence_maturity": "fixed_primary_exact_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G1",
+          "grade_basis": "《新唐书·选举志》《新唐书·安乐公主传》《新唐书·张柬之等传》｜负链①：神龙后期韦后、太平/安乐公主等通过侧门墨敕斜封授官→斜封官数千、内外盈溢“无听事以居”；郑愔掌吏部又大纳货赂，选人滞积到“逆用三年员阙”，《选举志》直接收束“纲纪大溃”，形成**选任/编制接口系统俘获**。负链②：安乐公主府官大量来自屠贩、纳资售官；其家奴掠民子女被左台侍御史袁从一拘捕后，公主可直接入诉并取得手诏要求释放，说明特权网络实际旁路监察司法/基层独立执行。负链③：武三思复起后张柬之、敬晖、桓彦范等五王被排出中枢并最终遭杀，前段功臣中枢替补迅速被韦武集团置换。虽然宰相、羽林、州县等正式机构仍实际运行，未到G0；但五年复位窗口的大部时期，高层选任和监察问责两核心功能持续被内廷/妃主网络占用，失能主导，维持G1-lower-middle。单纯“反对韦武而被杀”的意见价值归B2，B1只消费实际岗位退出与机构旁路。",
+          "grade_gate_basis": "《新唐书·选举志》《新唐书·安乐公主传》《新唐书·张柬之等传》｜负链①：神龙后期韦后、太平/安乐公主等通过侧门墨敕斜封授官→斜封官数千、内外盈溢“无听事以居”；郑愔掌吏部又大纳货赂，选人滞积到“逆用三年员阙”，《选举志》直接收束“纲纪大溃”，形成**选任/编制接口系统俘获**。负链②：安乐公主府官大量来自屠贩、纳资售官；其家奴掠民子女被左台侍御史袁从一拘捕后，公主可直接入诉并取得手诏要求释放，说明特权网络实际旁路监察司法/基层独立执行。负链③：武三思复起后张柬之、敬晖、桓彦范等五王被排出中枢并最终遭杀，前段功臣中枢替补迅速被韦武集团置换。虽然宰相、羽林、州县等正式机构仍实际运行，未到G0；但五年复位窗口的大部时期，高层选任和监察问责两核心功能持续被内廷/妃主网络占用，失能主导，维持G1-lower-middle。单纯“反对韦武而被杀”的意见价值归B2，B1只消费实际岗位退出与机构旁路。",
+          "grade_gate_code": "B1_G1_DYSFUNCTION_DOMINANT",
+          "index_interval": [
+            20.0,
+            39.9
+          ],
+          "polity": "唐",
+          "position": "lower",
+          "position_basis": "有效生命周期签名M权重合计扣除G1门槛占用0.5后，净余量=-3，按合同机械映射为lower。",
+          "position_q": 0.1,
+          "rank": 154,
+          "reign_range": "705-710",
+          "ruler_id": "RULER-TANG-LIXIAN",
+          "ruler_name": "李显",
+          "verification_material_ids": [
+            "MC-TANG-ZX-WUSANSI-CAPTURE-M2-M3-02-AUDIT"
+          ],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为-3，机械裁定G1-下位（22.0）"
+            },
+            {
+              "role": "正向依据（无可计M档）",
+              "text": "未闭合可计的正向运行链"
+            },
+            {
+              "role": "负向依据（M3，cross）",
+              "text": "斜封墨敕与内廷特权同时旁路铨选编制、监察司法及中枢替补"
+            }
+          ],
+          "position_residual": -3.0,
+          "grade_threshold_consumed": 0.5,
+          "v50_source_line": 291,
+          "review_material_basis": [
+            {
+              "version": "v20",
+              "line": 590,
+              "review_grade": "G1",
+              "review_position": null,
+              "basis": "斜封墨敕数千官、职位壅塞、未来员缺透支，任用与规则N3-cross。",
+              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
+            },
+            {
+              "version": "v50",
+              "line": 291,
+              "review_grade": "G1",
+              "review_position": "lower-middle",
+              "basis": "《新唐书·选举志》《新唐书·安乐公主传》《新唐书·张柬之等传》｜负链①：神龙后期韦后、太平/安乐公主等通过侧门墨敕斜封授官→斜封官数千、内外盈溢“无听事以居”；郑愔掌吏部又大纳货赂，选人滞积到“逆用三年员阙”，《选举志》直接收束“纲纪大溃”，形成选任/编制接口系统俘获。负链②：安乐公主府官大量来自屠贩、纳资售官；其家奴掠民子女被左台侍御史袁从一拘捕后，公主可直接入诉并取得手诏要求释放，说明特权网络实际旁路监察司法/基层独立执行。负链③：武三思复起后张柬之、敬晖、桓彦范等五王被排出中枢并最终遭杀，前段功臣中枢替补迅速被韦武集团置换。虽然宰相、羽林、州县等正式机构仍实际运行，未到G0；但五年复位窗口的大部时期，高层选任和监察问责两核心功能持续被内廷/妃主网络占用，失能主导，维持G1-lower-middle。单纯“反对韦武而被杀”的意见价值归B2，B1只消费实际岗位退出与机构旁路。",
+              "status": "ABSORBED_ACTIVE_PRECEDENCE"
+            }
+          ],
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE"
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "material_id": "MC-TANG-XIZONG-CAPTURE-M2-M3-02-AUDIT",
+              "mechanism": "N3-cross：田令孜长期控制禁军、财政、任免与危机命令链",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -2.0,
+              "lifecycle_key": "B1:RULER-TANG-LIXUAN:V50:SEVERITY-NEGATIVE",
+              "lifecycle_group_key": "B1:RULER-TANG-LIXUAN:V50:SEVERITY-NEGATIVE",
+              "severity": "N3-cross",
+              "severity_scope": "major-stage",
+              "severity_basis": "链①：田令孜任神策中尉后，僖宗“政事一委之”，本人呼其为“父”→令孜可“贩鬻官爵，除拜不待旨”，并通过内园使者直接掠商旅财货，形成中枢决策/任命+财政行政私人化；各地盗起时上下相掩，皇帝“不及知”，正式信息链也被击穿；链②：黄巢逼近时神策军名籍长期被富家子弟占据，出征前多人雇贫民代行；潼关守军反复告急却“甲卒未增一人、馈饷未闻影响”，最终关防迅速崩解，说明财政/兵员名册失真已经外溢到军政执行；因此不是G0，但田令孜俘获与首都军政崩溃覆盖主要阶段，维持G1-lower-middle",
+              "profile_id": "B1-PROFILE-59BD62A217E0B83C",
+              "b1_role": "core"
+            },
+            {
+              "M": "M2",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "material_id": "MC-TANG-XIZONG-EXECUTION-COLLAPSE-M2-M3-02-AUDIT",
+              "mechanism": "神策虚耗、补给预警落空与首都命令链崩溃",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -1.0,
+              "profile_id": "B1-PROFILE-15030227584518B3",
+              "b1_role": "support"
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "MC-TANG-XIZONG-CRISIS-DELEGATION-M2-M3-02-AUDIT",
+              "mechanism": "行在重建统帅分工与郑畋、王铎危机执行",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2.0,
+              "profile_id": "B1-PROFILE-DA7DCF46E5D810B1",
+              "b1_role": "support"
+            }
+          ],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "MC-TANG-XIZONG-CAPTURE-M2-M3-02-AUDIT",
+            "MC-TANG-XIZONG-CRISIS-DELEGATION-M2-M3-02-AUDIT",
+            "MC-TANG-XIZONG-EXECUTION-COLLAPSE-M2-M3-02-AUDIT"
+          ],
+          "direction_card_write": true,
+          "direction_index": 22.0,
+          "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
+          "formal_evidence_maturity": "fixed_primary_exact_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G1",
+          "grade_basis": "《新唐书·宦者传·田令孜》《资治通鉴》卷254｜负链①：田令孜任神策中尉后，僖宗“政事一委之”，本人呼其为“父”→令孜可“贩鬻官爵，除拜不待旨”，并通过内园使者直接掠商旅财货，形成**中枢决策/任命+财政行政**私人化；各地盗起时上下相掩，皇帝“不及知”，正式信息链也被击穿。负链②：黄巢逼近时神策军名籍长期被富家子弟占据，出征前多人雇贫民代行；潼关守军反复告急却“甲卒未增一人、馈饷未闻影响”，最终关防迅速崩解，说明财政/兵员名册失真已经外溢到军政执行。正向恢复链仍存在：西幸后僖宗授权郑畋便宜从事→郑畋重新招集散失禁兵、与邻道结盟；随后王铎等组织多路收复长安，证明机器未全归零。因此不是G0，但田令孜俘获与首都军政崩溃覆盖主要阶段，维持G1-lower-middle。",
+          "grade_gate_basis": "《新唐书·宦者传·田令孜》《资治通鉴》卷254｜负链①：田令孜任神策中尉后，僖宗“政事一委之”，本人呼其为“父”→令孜可“贩鬻官爵，除拜不待旨”，并通过内园使者直接掠商旅财货，形成**中枢决策/任命+财政行政**私人化；各地盗起时上下相掩，皇帝“不及知”，正式信息链也被击穿。负链②：黄巢逼近时神策军名籍长期被富家子弟占据，出征前多人雇贫民代行；潼关守军反复告急却“甲卒未增一人、馈饷未闻影响”，最终关防迅速崩解，说明财政/兵员名册失真已经外溢到军政执行。正向恢复链仍存在：西幸后僖宗授权郑畋便宜从事→郑畋重新招集散失禁兵、与邻道结盟；随后王铎等组织多路收复长安，证明机器未全归零。因此不是G0，但田令孜俘获与首都军政崩溃覆盖主要阶段，维持G1-lower-middle。",
+          "grade_gate_code": "B1_G1_DYSFUNCTION_DOMINANT",
+          "index_interval": [
+            20.0,
+            39.9
+          ],
+          "polity": "唐",
+          "position": "lower",
+          "position_basis": "有效生命周期签名M权重合计扣除G1门槛占用0.5后，净余量=-2，按合同机械映射为lower。",
+          "position_q": 0.1,
+          "rank": 154,
+          "reign_range": "873-888",
+          "ruler_id": "RULER-TANG-LIXUAN",
+          "ruler_name": "李儇",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为-2，机械裁定G1-下位（22.0）"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "行在重建统帅分工与郑畋、王铎危机执行"
+            },
+            {
+              "role": "负向依据（M3，cross）",
+              "text": "N3（跨功能失灵）：田令孜长期控制禁军、财政、任免与危机命令链"
+            },
+            {
+              "role": "负向依据（M2）",
+              "text": "神策虚耗、补给预警落空与首都命令链崩溃"
+            }
+          ],
+          "position_residual": -2.0,
+          "grade_threshold_consumed": 0.5,
+          "v50_source_line": 293,
+          "review_material_basis": [
+            {
+              "version": "v20",
+              "line": 613,
+              "review_grade": "G1",
+              "review_position": "lower-middle",
+              "basis": "新G1门槛复核后维持并锁合法position。田令孜在乾符—光启主要阶段同时掌神策、观军容和危机资源配置，威权振天下；国用不足时将两池盐利直接划入神策，遭王重荣按常规财政接口抗议后，不走复核而改任王处存、调禁军讨重荣，最终再次迫使皇帝出奔。其后又以杨复恭代己而外镇西川，说明近侍军政旁路已经覆盖财政、任免、中央—地方执行与危机决策，是`major-stage broad N3-cross`，且同期独立正向行政主链不足以压过该结构。黄巢战争与长安失守本身不计B1；危机中有限授权与复归仍保留正向，所以不到G0。",
+              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
+            },
+            {
+              "version": "v50",
+              "line": 293,
+              "review_grade": "G1",
+              "review_position": "lower-middle",
+              "basis": "《新唐书·宦者传·田令孜》《资治通鉴》卷254｜负链①：田令孜任神策中尉后，僖宗“政事一委之”，本人呼其为“父”→令孜可“贩鬻官爵，除拜不待旨”，并通过内园使者直接掠商旅财货，形成中枢决策/任命+财政行政私人化；各地盗起时上下相掩，皇帝“不及知”，正式信息链也被击穿。负链②：黄巢逼近时神策军名籍长期被富家子弟占据，出征前多人雇贫民代行；潼关守军反复告急却“甲卒未增一人、馈饷未闻影响”，最终关防迅速崩解，说明财政/兵员名册失真已经外溢到军政执行。正向恢复链仍存在：西幸后僖宗授权郑畋便宜从事→郑畋重新招集散失禁兵、与邻道结盟；随后王铎等组织多路收复长安，证明机器未全归零。因此不是G0，但田令孜俘获与首都军政崩溃覆盖主要阶段，维持G1-lower-middle。",
+              "status": "ABSORBED_ACTIVE_PRECEDENCE"
+            }
+          ],
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE"
+        }
+      ]
+    }
+  }
+}

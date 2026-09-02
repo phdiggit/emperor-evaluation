@@ -1,0 +1,126 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "西晋",
+  "collections": {
+    "records": {
+      "positions": [
+        50
+      ],
+      "records": [
+        {
+          "sequence": 101,
+          "ruler_id": "RULER-SHADOW-司马炎",
+          "task_code": "PROFILE-C1-RULER-SHADOW-司马炎",
+          "ruler_name": "司马炎",
+          "polity": "西晋",
+          "actual_power_window": "265—290年",
+          "axis_code": "C1",
+          "axis_name": "战略判断与风险控制",
+          "score_status": "FINAL",
+          "axis_grade": "G3",
+          "position": "HIGH",
+          "score_100": 71,
+          "radar_value": 71,
+          "axis_evidence_level": "E3",
+          "output_mode": "FULL_GRADE",
+          "confidence": "HIGH",
+          "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-SHADOW-司马炎",
+          "parents": [
+            {
+              "parent_id": "C1-P101-UNIFICATION-TO-SUCCESSION",
+              "direction": "MIXED_POSITIVE",
+              "intensity": "MI4",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/第一项创业与政权取得能力/战略决策能力/01-第一项A战略决策能力结算.json#ruler_id=RULER-SHADOW-司马炎",
+                "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json#ruler_id=RULER-SHADOW-司马炎/traits/A2/0"
+              ],
+              "direct_process_refs": [
+                "SEC-LEAD-JIN-FOUNDING-265",
+                "資治通鑑/卷079@2025610#泰始元年十二月",
+                "WAR-LEAD-JIN-CONQUEST-WU-280",
+                "WAR-LEAD-JIN-MALONG-279",
+                "https://zh.wikisource.org/zh-hant/晋书/卷003",
+                "docs/史料通读产物/唐以前编年/三国/卷078-通读总结.md",
+                "docs/史料通读产物/唐以前编年/两晋/卷079-通读总结.md",
+                "docs/史料通读产物/唐以前编年/两晋/卷080-通读总结.md"
+              ],
+              "cycle_basis": "统一前可继续对峙或分路灭吴，本人采六路方案并持续授权；平吴后资源充足，却在直言反馈下转向游宴、卖官，明知太子不任事仍未建立有效继承隔离。前强后弱构成跨阶段主模式。"
+            }
+          ],
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C1-P101-UNIFICATION-TO-SUCCESSION",
+              "direction": "MIXED_POSITIVE",
+              "intensity": "MI4",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/第一项创业与政权取得能力/战略决策能力/01-第一项A战略决策能力结算.json#ruler_id=RULER-SHADOW-司马炎",
+                "docs/评分结算/第五项统治者政治素质/01-A轴核心履职与认知正式结算.json#ruler_id=RULER-SHADOW-司马炎/traits/A2/0"
+              ],
+              "direct_process_refs": [
+                "SEC-LEAD-JIN-FOUNDING-265",
+                "資治通鑑/卷079@2025610#泰始元年十二月",
+                "WAR-LEAD-JIN-CONQUEST-WU-280",
+                "WAR-LEAD-JIN-MALONG-279",
+                "https://zh.wikisource.org/zh-hant/晋书/卷003",
+                "docs/史料通读产物/唐以前编年/三国/卷078-通读总结.md",
+                "docs/史料通读产物/唐以前编年/两晋/卷079-通读总结.md",
+                "docs/史料通读产物/唐以前编年/两晋/卷080-通读总结.md"
+              ],
+              "cycle_basis": "统一前可继续对峙或分路灭吴，本人采六路方案并持续授权；平吴后资源充足，却在直言反馈下转向游宴、卖官，明知太子不任事仍未建立有效继承隔离。前强后弱构成跨阶段主模式。"
+            }
+          ],
+          "typical_pattern": "前期能在反对意见下坚持分路灭吴并容纳直言，平吴后转向怠政、卖官与继承风险不处置，创业转守成明显退化。",
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C1-P101-UNIFICATION-TO-SUCCESSION"
+            ],
+            "counter_parent_refs": []
+          },
+          "grade_basis": "前期能在反对意见下坚持分路灭吴并容纳直言，平吴后转向怠政、卖官与继承风险不处置，创业转守成明显退化。",
+          "position_basis": "灭吴战术归将领；晚期退化使其不入G4。",
+          "axis_relevance_check": {
+            "status": "CLOSED",
+            "scoring_parent_refs": [
+              "C1-P101-UNIFICATION-TO-SUCCESSION"
+            ],
+            "result_nonconversion": true
+          },
+          "reviews": {
+            "window": "COVERAGE_CLOSED",
+            "relevance": "CLOSED",
+            "attribution": "CLOSED",
+            "dedup": "CLOSED",
+            "bidirectional": "CLOSED",
+            "density": "COVERAGE_CLOSED",
+            "capability_profile": "NOT_HIGH_GRADE_REQUIRED",
+            "low_grade_gate": {
+              "status": "NOT_REQUIRED",
+              "inherited_bad_hand": "NOT_REQUIRED",
+              "feasible_alternative": "NOT_REQUIRED",
+              "feedback_reachability": "NOT_REQUIRED",
+              "stop_loss": "NOT_REQUIRED"
+            }
+          },
+          "limitations": [
+            "灭吴战术归将领；晚期退化使其不入G4。"
+          ],
+          "formal_status": "FORMAL_CURRENT",
+          "grade_numeric": 3,
+          "formal_order": 51
+        }
+      ]
+    }
+  }
+}

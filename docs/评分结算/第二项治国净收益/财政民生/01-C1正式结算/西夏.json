@@ -1,0 +1,942 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "西夏",
+  "collections": {
+    "scores": {
+      "positions": [
+        114,
+        115,
+        116,
+        172,
+        173,
+        174,
+        175,
+        192
+      ],
+      "records": [
+        {
+          "adjudication_reason": "长期和平、互市和基本社会运行支持C1-3，但缺直接广域家庭温饱锚，不升4。",
+          "confidence": "MEDIUM_HIGH_WINDOW_READJUDICATED",
+          "evidence": [
+            {
+              "source_refs": [
+                "docs/史料通读产物/西夏/西夏书事/volume-008.source-summary.md:12",
+                "docs/史料通读产物/西夏/西夏书事/volume-009.source-summary.md:12",
+                "docs/史料通读产物/西夏/西夏书事/volume-009.source-summary.md:13",
+                "docs/史料通读产物/西夏/西夏书事/volume-009.source-summary.md:14"
+              ],
+              "summary": "对宋臣服条件明确包含岁赐、俸给、回图贸易和青盐；此后使臣市易、道路桥梁与接待体系持续运行，较长和平窗口支持财政、市场与生活盘面稳定。",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "DIRECT_LOCAL_WINDOW_READJUDICATION",
+          "main_band": "C1-3",
+          "polity": "西夏",
+          "reign_range": "1004—1032年",
+          "ruler_id": "RULER-XIXIA-LIDEMING",
+          "ruler_name": "李德明",
+          "score": 30.7,
+          "state_anchors": {
+            "S0": "C1-3",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_origin": "NEW_FORMAL_RECORD_FROM_M3_C1_C4_READJUDICATION",
+          "material_limitations": [
+            "连续灾情不得按年份拆成多个低谷；大规模役作无家庭端实现后果时不进入K。"
+          ],
+          "peak_band": null,
+          "stability_class_diagnostic_only": "K2",
+          "m3_supplement_review": {
+            "disposition": "APPLIED_SCORE_CHANGE_NEW_FORMAL_RECORD",
+            "applied_parent_ids": [
+              "M3P-SEM-A24CD3030604"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-A24CD3030604",
+                "candidate_ids_trace_only": [
+                  "M3H-89247A5B30A3ED0E"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "MARKET_TRADE",
+                  "MONETARY_CREDIT",
+                  "PUBLIC_WORKS"
+                ],
+                "chain_summary": "- **宋廷在德明初立时设计了极高额的部族招抚奖励。** 对万山、万遇、龎罗逝安等，如果率部归顺，可授团练使，并给**银一万两、绢一万匹、钱五万缗、茶五千斤**；亡命者也许罪甄录。原文说诸蕃因继迁残暴“久不聊生”，争看诏书而泣。这既是财政投入方案，也反映继迁后期部族治理的民生压力。原文定位：`P0013—P0014`。 | - **景德二年德明正式向宋请降时，双方把财政贸易条件明确列成交换项。** 宋方最初要求纳灵州、遣子弟宿卫、散蕃汉兵、送还被掠官吏和人口等七事；作为交换，许定难节度、**岁赐、内地节度俸、回图贸易和放行青盐**等五事。德明一开始多所邀求，不肯自立誓约。原文定位：`P0044—P0045`。 | - **辽册德明为西平王时同步赐车、旗、衣、币。** 这是一笔外交性政权扶持资源，不作为战役缴获。原文定位：`P0046—P0047`。",
+                "source_refs": [
+                  "docs/史料通读产物/西夏/西夏书事/volume-008.source-summary.md#L12"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-A24CD3030604"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-XIXIA-LIDEMING"
+          },
+          "rank": 36,
+          "review_remediation": {
+            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
+            "status": "APPLIED",
+            "problem": "当前C1-4主要靠互市恢复、贸易活跃、“势日强盛”等C2/国家能力材料维持；家庭端有绥银夏旱灾—灵夏大饥、随后“境内荒歉”，以及盐禁下“蕃部困敝”。R19收紧后需去掉把同一旱饥链拆成多个repeat的旧算法。",
+            "directive": "主档 C1-4→C1-3；S_avg 4→3；S_end 4→3；S0=C1-3不变；score 54.9→32.0；K K1→K2；曲线维持 C1-3→3→3。 卷009所见绥、银、夏严重旱灾、灵夏禾麦不登“大饥”与其后“境内荒歉”应首先视为同一连续旱饥压力链，不能拆成两次repeat；卷010“西盐不通，蕃部困敝”可另算一组实际家庭/部族生计低谷。两组足以超过K3，但在28年统治中尚未闭合低位长期、广域反复到可与主3竞争，故取K2。民夫数万营建仅有动员规模、无独立家庭结果时不进入K。"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "stages": [
+              {
+                "stage_band": "C1-2",
+                "depth_from_raw_main": 1,
+                "scope_class": "MATERIAL_REGION_OR_DEPTH",
+                "duration_class": "MATERIAL",
+                "repeat_group": "ATTACHED_REVIEW_CONSOLIDATED_CHAIN",
+                "recovery_confirmed": true,
+                "evidence_strength": "ATTACHED_REVIEW_WITH_FORMAL_SOURCE_ENTRIES",
+                "counts_toward_k": true,
+                "exclusion_reason": null,
+                "basis": "主档 C1-4→C1-3；S_avg 4→3；S_end 4→3；S0=C1-3不变；score 54.9→32.0；K K1→K2；曲线维持 C1-3→3→3。 卷009所见绥、银、夏严重旱灾、灵夏禾麦不登“大饥”与其后“境内荒歉”应首先视为同一连续旱饥压力链，不能拆成两次repeat；卷010“西盐不通，蕃部困敝”可另算一组实际家庭/部族生计低谷。两组足以超过K3，但在28年统治中尚未闭合低位长期、广域反复到可与主3竞争，故取K2。民夫数万营建仅有动员规模、无独立家庭结果时不进入K。"
+              }
+            ]
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "COMPLETE",
+            "handoff_continuity_checked": true,
+            "basis": "主档 C1-4→C1-3；S_avg 4→3；S_end 4→3；S0=C1-3不变；score 54.9→32.0；K K1→K2；曲线维持 C1-3→3→3。 卷009所见绥、银、夏严重旱灾、灵夏禾麦不登“大饥”与其后“境内荒歉”应首先视为同一连续旱饥压力链，不能拆成两次repeat；卷010“西盐不通，蕃部困敝”可另算一组实际家庭/部族生计低谷。两组足以超过K3，但在28年统治中尚未闭合低位长期、广域反复到可与主3竞争，故取K2。民夫数万营建仅有动员规模、无独立家庭结果时不进入K。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "主档 C1-4→C1-3；S_avg 4→3；S_end 4→3；S0=C1-3不变；score 54.9→32.0；K K1→K2；曲线维持 C1-3→3→3。 卷009所见绥、银、夏严重旱灾、灵夏禾麦不登“大饥”与其后“境内荒歉”应首先视为同一连续旱饥压力链，不能拆成两次repeat；卷010“西盐不通，蕃部困敝”可另算一组实际家庭/部族生计低谷。两组足以超过K3，但在28年统治中尚未闭合低位长期、广域反复到可与主3竞争，故取K2。民夫数万营建仅有动员规模、无独立家庭结果时不进入K。"
+          },
+          "material_basis": [
+            {
+              "book": "《西夏书事》卷九",
+              "original_text": "夏州大旱，禾麦不登，民大饥。"
+            }
+          ],
+          "stability_basis": "绥银夏旱灾—灵夏大饥—境内荒歉合并为一条连续危机；“西盐不通，蕃部困敝”另算一组低谷。两组足以K2，但在28年窗口内仍未形成C1-2次级主态。"
+        },
+        {
+          "adjudication_reason": "任内普通家庭总体能够维持基本生活，但尚无充分材料证明多数家庭普遍达到稳定温饱。早期饥荒至卖子、战争与岁赐中断；和议后恢复岁赐，跨州发粟赈旱饥并维持公共供给。",
+          "confidence": "HIGH_WINDOW_READJUDICATED",
+          "evidence": [
+            {
+              "source_refs": [
+                "docs/史料通读产物/西夏/西夏书事/volume-030.source-summary.md:15",
+                "docs/史料通读产物/西夏/西夏书事/volume-031.source-summary.md:14",
+                "docs/史料通读产物/西夏/西夏书事/volume-031.source-summary.md:15",
+                "docs/史料通读产物/西夏/西夏书事/volume-032.source-summary.md:13",
+                "docs/史料通读产物/西夏/西夏书事/volume-032.source-summary.md:15"
+              ],
+              "summary": "早期饥荒至卖子、战争与岁赐中断；和议后恢复岁赐，跨州发粟赈旱饥并维持公共供给。后期仍有仓储不足、点集害农、边地满目疮痍且对减战建议称善不用。",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "DIRECT_LOCAL_WINDOW_READJUDICATION",
+          "main_band": "C1-3",
+          "polity": "西夏",
+          "reign_range": "1099—1139年",
+          "ruler_id": "RULER-XIXIA-LIQIANSHUN",
+          "ruler_name": "李乾顺",
+          "score": 30.7,
+          "state_anchors": {
+            "S0": "C1-2",
+            "S_avg": "C1-3",
+            "S_end": "C1-4"
+          },
+          "m3_supplement_origin": "NEW_FORMAL_RECORD_FROM_M3_C1_C4_READJUDICATION",
+          "material_limitations": [
+            "长窗口同时保留早期梁氏战争后果、本人赈济和议和恢复，以及后期拒绝采用减战财政建议的反证。"
+          ],
+          "peak_band": null,
+          "stability_class_diagnostic_only": "K2",
+          "m3_supplement_review": {
+            "disposition": "APPLIED_SCORE_CHANGE_NEW_FORMAL_RECORD",
+            "applied_parent_ids": [
+              "M3P-SEM-10428404EF5D",
+              "M3P-SEM-4924F2597B1C",
+              "M3P-SEM-1C7DB40C4FFE"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-10428404EF5D",
+                "candidate_ids_trace_only": [
+                  "M3H-7EAABDEA1C651B1F"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE"
+                ],
+                "chain_summary": "- **边境耕地竞争已经转化为一种日常化的土地利用策略。** 绍圣四年四月，乾顺令近边蕃部夜间越至大理河东、葭芦境上侵耕旷地，白昼再退回本界，并宣称“城里是汉家，城外是蕃家”。原文同时指出西夏近边二三百里人户众多、资粮易集，说明人口密度、耕地与战争补给高度绑定。原文定位：`SRC-XIXIASHUSHI-030-2289659-P0028`—`P0029`“近邊二三百里人戶衆多，資糧易集”。 | - **本卷出现极重的直接民生危机：国内饥荒已迫使百姓鬻卖子女换食。** 七月“国中大困”，民众把子女卖往辽国和西蕃以求生，这是卷029“部族疲于奔命”之后更严重的社会后果。原文只明确饥荒与卖子求食，不把作者后文“乃大兵之后必有凶年”的按语当作已证因果。原文定位：`SRC-XIXIASHUSHI-030-2289659-P0042`—`P0043`“民鬻子女于遼國、西蕃以爲食”。 | - **战争、边堡推进与疆土收缩已经成为西夏向辽求援时的核心财政—安全叙事。** 西夏向辽称宋“于诸要害进筑城砦不少”，当年又多修筑，导致“疆宇日更朘削”；这不仅是外交辞令，也反映持续筑城对土地、资粮和边防资源的结构性挤压。原文定位：`SRC-XIXIASHUSHI-030-2289659-P0038`—`P0039`、`P0046`—`P0047`。",
+                "source_refs": [
+                  "docs/史料通读产物/西夏/西夏书事/volume-030.source-summary.md#L14"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-10428404EF5D"
+              },
+              {
+                "parent_id": "M3P-SEM-4924F2597B1C",
+                "candidate_ids_trace_only": [
+                  "M3H-E20A04CD51C9C642",
+                  "M3H-B7E5045FA475D370"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "MONETARY_CREDIT",
+                  "PUBLIC_WORKS"
+                ],
+                "chain_summary": "- **连年宋夏战争已被当时外交文书明确描述为民生负担。** 辽给宋书中直接劝止继续用兵，称与其“小不忍而穷兵，民罹困敝”，不如保全长期和平；宋方回书则追叙西夏此前驱“竭国之众”攻近塞，历二旬后“死伤数以万计，粮尽力屈，众溃宵归”。后一段属于对前役的外交追叙，不在本卷重新计算战役成本，但可作为战争长期消耗的非战役背景证据。原文定位：`SRC-XIXIASHUSHI-031-2289802-P0015`“與其小不忍而窮兵，民罹困敝”“糧盡力屈，衆潰宵歸”。 | - **议和前西夏既失岁赐，又承认旧地被削。** 乾顺谢罪誓表称“久绝岁币之常仪，顿削祖宗之故地”；宋最终允其复盟后明确“恩礼、恩赐并如旧例”。这形成一条直接财政链：长期战争导致外部经常性收入中断，和议恢复后该项外来财政收益重新启动。原文定位：`SRC-XIXIASHUSHI-031-2289802-P0041`“久絕歲幣之常儀”“自今以後，恩禮、恩賜並如舊例”。 | - **国学建立带有持续公共供给。** 乾顺认为蕃学盛而汉学衰，士风“鲜廉耻”，采薛元礼建议在蕃学之外另建国学，置教授、设弟子员三百，并设“养贤务”供应廪食；这是明确的教育机构与常设供给安排。原文定位：`SRC-XIXIASHUSHI-031-2289802-P0060—P0062`“設弟子員三百，立養賢務以廩食之”。 | - **战死高级将领家属获得常规性抚恤。** 仁多洗忠战死熙河后，其子尚幼未授职，乾顺先命“以廪禄赐其家”，属于军人遗属供给。原文定位：`SRC-XIXIASHUSHI-031-2289802-P0065—P0066`“先命以廩祿賜其家”。；- **议和前西夏既失岁赐，又承认旧地被削。** 乾顺谢罪誓表称“久绝岁币之常仪，顿削祖宗之故地”；宋最终允其复盟后明确“恩礼、恩赐并如旧例”。这形成一条直接财政链：长期战争导致外部经常性收入中断，和议恢复后该项外来财政收益重新启动。原文定位：`SRC-XIXIASHUSHI-031-2289802-P0041`“久絕歲幣之常儀”“自今以後，恩禮、恩賜並如舊例”。 | - **国学建立带有持续公共供给。** 乾顺认为蕃学盛而汉学衰，士风“鲜廉耻”，采薛元礼建议在蕃学之外另建国学，置教授、设弟子员三百，并设“养贤务”供应廪食；这是明确的教育机构与常设供给安排。原文定位：`SRC-XIXIASHUSHI-031-2289802-P0060—P0062`“設弟子員三百，立養賢務以廩食之”。 | - **战死高级将领家属获得常规性抚恤。** 仁多洗忠战死熙河后，其子尚幼未授职，乾顺先命“以廪禄赐其家”，属于军人遗属供给。原文定位：`SRC-XIXIASHUSHI-031-2289802-P0065—P0066`“先命以廩祿賜其家”。 | - **宗教工程继续发生。** 甘州僧发现三尊古卧佛后，乾顺命建寺供奉并赐额“卧佛”，其动机与梁氏死后为母祈福有关；原文无工程规模和费用数字，不据此推高财政影响。原文定位：`SRC-XIXIASHUSHI-031-2289802-P0076—P0077`“乾順令建寺供之，賜額臥佛”。",
+                "source_refs": [
+                  "docs/史料通读产物/西夏/西夏书事/volume-031.source-summary.md#L14",
+                  "docs/史料通读产物/西夏/西夏书事/volume-031.source-summary.md#L15"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-4924F2597B1C"
+              },
+              {
+                "parent_id": "M3P-SEM-1C7DB40C4FFE",
+                "candidate_ids_trace_only": [
+                  "M3H-16B6474E69892D0B",
+                  "M3H-1234C9CB178A2649"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "MARKET_TRADE",
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE"
+                ],
+                "chain_summary": "- **瓜、沙、肃三州在大观四年发生严重旱饥，且直接冲击以畜牧为主的生计结构。** 原文称三州“素鲜耕稼，专以畜牧为生”，自三月不雨至九月，水草俱绝、赤地数百里，牛羊无所食，蕃民流亡甚众。监军司上报后，乾顺下令从灵州、夏州发粟赈济。这既是本卷最明确的自然灾害—民生链，也是跨区域调粮赈灾证据。原文定位：`SRC-XIXIASHUSHI-032-2289928-P0068—P0069`“赤地數百里，牛羊無所食，蕃民流亡者甚衆”“發靈、夏諸州粟賑之”。 | - **夏州大水造成军营、仓储与民居的成片实物损毁。** 政和元年八月大风雨，河水暴涨，汉源渠溢、长堤被陷，洪水入城，毁坏军营五所、仓库和民舍一千余区。这是直接可见的公共资产、军需仓储与居民住房损失。原文定位：`SRC-XIXIASHUSHI-032-2289928-P0074—P0075`“壞軍營五所、倉庫民舍千餘區”。 | - **谋宁克任的奏疏提供了本阶段极重要的国家财政—民生底账。** 他指出青、白两盐不能互市后，膏腴土地逐渐衰落；军队“无百日之粮”，仓储“无三年之蓄”，国家过度依赖西北与契丹交易。更关键的是，自延庆用兵以来，反复点集“害农时”，争斗“伤民力”，山界数州“非侵即削”，近边列堡“有战无耕”，以至“满目疮痍”。这组材料把贸易受阻、粮储不足、战争动员、农业停顿和边地破坏直接连成一条财政民生链。乾顺虽称善，却“不能用”。原文定位：`SRC-XIXIASHUSHI-032-2289928-P0081`“兵行無百日之糧，倉儲無三年之蓄”“㸃集則害農時，爭鬬則傷民力”“近邊列堡，有戰無耕”。；- **夏州大水造成军营、仓储与民居的成片实物损毁。** 政和元年八月大风雨，河水暴涨，汉源渠溢、长堤被陷，洪水入城，毁坏军营五所、仓库和民舍一千余区。这是直接可见的公共资产、军需仓储与居民住房损失。原文定位：`SRC-XIXIASHUSHI-032-2289928-P0074—P0075`“壞軍營五所、倉庫民舍千餘區”。 | - **谋宁克任的奏疏提供了本阶段极重要的国家财政—民生底账。** 他指出青、白两盐不能互市后，膏腴土地逐渐衰落；军队“无百日之粮”，仓储“无三年之蓄”，国家过度依赖西北与契丹交易。更关键的是，自延庆用兵以来，反复点集“害农时”，争斗“伤民力”，山界数州“非侵即削”，近边列堡“有战无耕”，以至“满目疮痍”。这组材料把贸易受阻、粮储不足、战争动员、农业停顿和边地破坏直接连成一条财政民生链。乾顺虽称善，却“不能用”。原文定位：`SRC-XIXIASHUSHI-032-2289928-P0081`“兵行無百日之糧，倉儲無三年之蓄”“㸃集則害農時，爭鬬則傷民力”“近邊列堡，有戰無耕”。 | - **上一卷建立的重学政策在本卷出现军事机会成本争论。** 谋宁克任并非反对文教本身，而是认为“国中养贤重学，兵政日弛”，建议在隆文治之外同步修武备。原文只证明当时人的政策判断，不能把“兵政日弛”机械转化为某一具体战役成本档。原文定位：`SRC-XIXIASHUSHI-032-2289928-P0081`。",
+                "source_refs": [
+                  "docs/史料通读产物/西夏/西夏书事/volume-032.source-summary.md#L13",
+                  "docs/史料通读产物/西夏/西夏书事/volume-032.source-summary.md#L15"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-1C7DB40C4FFE"
+              }
+            ],
+            "applied_orphan_candidate_ids": [
+              "M3H-D992ACB6E3CDAAF0"
+            ],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [
+              {
+                "candidate_id": "M3H-D992ACB6E3CDAAF0",
+                "route": "APPLIED_RESULT_EVIDENCE_FRAGMENT",
+                "direction": "NOT_SCORED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "RELIEF_STORAGE"
+                ],
+                "source_refs": [
+                  "docs/史料通读产物/西夏/西夏书事/volume-032.source-summary.md#L28"
+                ],
+                "semantic_source_ref": "config/profile/m3-semantic-review-decisions.json#candidate_id=M3H-D992ACB6E3CDAAF0"
+              }
+            ],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-XIXIA-LIQIANSHUN"
+          },
+          "rank": 36,
+          "review_remediation": {
+            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
+            "status": "APPLIED",
+            "problem": "当前S_end=C1-3与仁孝“初立，境宇小康，人民乐业”的直接继承期总结冲突；1128年“秋稼不登、饥饿困敝”是较早低谷，不能无证延伸到1139交班。临终前大规模出兵虽成本很高，但未闭合交班时普通家庭因此跌档。",
+            "directive": "主档C1-3、score 32.0维持；S_end C1-3→C1-4。 以仁孝即位初“境宇小康、人民乐业”作R9反向交班锚；不据此把乾顺全任主态升4。C4按新终点重算；K仍按乾顺本人实际低谷独立消费。"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "stages": [
+              {
+                "stage_band": "C1-2",
+                "depth_from_raw_main": 1,
+                "scope_class": "MATERIAL_REGION_OR_DEPTH",
+                "duration_class": "MATERIAL_OR_MULTIPLE_BOUNDED",
+                "repeat_group": "C1_REAUDIT_2026_08_31_BATCH8",
+                "recovery_confirmed": true,
+                "evidence_strength": "REAUDIT_WITH_PRIMARY_SOURCE_OR_EXISTING_FORMAL_MATERIAL",
+                "counts_toward_k": true,
+                "exclusion_reason": null,
+                "basis": "S0低位及早期梁氏战争后的恢复过程不计K。恢复后至建炎二年仍出现秋稼不登、饥饿困敝的实质低谷；但现证只有一个主要阶段，不能成为次级主态，K2维持。"
+              }
+            ],
+            "basis": "S0低位及早期梁氏战争后的恢复过程不计K。恢复后至建炎二年仍出现秋稼不登、饥饿困敝的实质低谷；但现证只有一个主要阶段，不能成为次级主态，K2维持。"
+          },
+          "persistence_review": {
+            "status": "COMPLETE",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-2",
+            "to_band": "C1-3",
+            "basis": "主档C1-3、score 32.0维持；S_end C1-3→C1-4。 以仁孝即位初“境宇小康、人民乐业”作R9反向交班锚；不据此把乾顺全任主态升4。C4按新终点重算；K仍按乾顺本人实际低谷独立消费。"
+          },
+          "dynasty_curve_review": {
+            "status": "COMPLETE",
+            "handoff_continuity_checked": true,
+            "basis": "S0低位及早期梁氏战争后的恢复过程不计K。恢复后至建炎二年仍出现秋稼不登、饥饿困敝的实质低谷；但现证只有一个主要阶段，不能成为次级主态，K2维持。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "主档C1-3、score 32.0维持；S_end C1-3→C1-4。 以仁孝即位初“境宇小康、人民乐业”作R9反向交班锚；不据此把乾顺全任主态升4。C4按新终点重算；K仍按乾顺本人实际低谷独立消费。"
+          },
+          "material_basis": [
+            {
+              "book": "《西夏书事》卷三十八",
+              "original_text": "境宇小康，人民乐业。"
+            }
+          ],
+          "stability_basis": "S0低位及早期梁氏战争后的恢复过程不计K。恢复后至建炎二年仍出现秋稼不登、饥饿困敝的实质低谷；但现证只有一个主要阶段，不能成为次级主态，K2维持。",
+          "c1_reaudit": {
+            "review_date": "2026-08-31",
+            "status": "REVIEWED_CUMULATIVE",
+            "rating_change": "NONE",
+            "k_final": "K2",
+            "summary": "S0低位及早期梁氏战争后的恢复过程不计K。恢复后至建炎二年仍出现秋稼不登、饥饿困敝的实质低谷；但现证只有一个主要阶段，不能成为次级主态，K2维持。"
+          }
+        },
+        {
+          "adjudication_reason": "早期承接较高状态，但55年长任中缺足以维持普遍温饱主态的纯C1连续锚，故主态3。",
+          "confidence": "MEDIUM_HIGH_WINDOW_READJUDICATED",
+          "evidence": [
+            {
+              "source_refs": [
+                "docs/史料通读产物/西夏/西夏书事/volume-037.source-summary.md:13",
+                "docs/史料通读产物/西夏/西夏书事/volume-037.source-summary.md:14",
+                "docs/史料通读产物/西夏/西夏书事/volume-037.source-summary.md:15",
+                "docs/史料通读产物/西夏/西夏书事/volume-037.source-summary.md:22",
+                "docs/史料通读产物/西夏/西夏书事/volume-037.source-summary.md:29",
+                "docs/史料通读产物/西夏/西夏书事/volume-037.source-summary.md:30"
+              ],
+              "summary": "长期边贸与对金礼赐流入、禁奢和监察纠偏支持稳定；任得敬专权、监督受挫和分国胁迫构成重大反证，最终借外部支持清除权臣恢复中枢。",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "DIRECT_LOCAL_WINDOW_READJUDICATION",
+          "main_band": "C1-3",
+          "polity": "西夏",
+          "reign_range": "1139—1193年",
+          "ruler_id": "RULER-XIXIA-LIRENXIAO",
+          "ruler_name": "李仁孝",
+          "score": 30.7,
+          "state_anchors": {
+            "S0": "C1-4",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_origin": "NEW_FORMAL_RECORD_FROM_M3_C1_C4_READJUDICATION",
+          "material_limitations": [
+            "军役规模和农业损失只有明确传导到家庭维生后才进入C1。"
+          ],
+          "peak_band": null,
+          "stability_class_diagnostic_only": "K2",
+          "m3_supplement_review": {
+            "disposition": "APPLIED_SCORE_CHANGE_NEW_FORMAL_RECORD",
+            "applied_parent_ids": [
+              "M3P-SEM-E22FA84EFD4C"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-E22FA84EFD4C",
+                "candidate_ids_trace_only": [
+                  "M3H-CC935DBE0ACD4D15",
+                  "M3H-1313F467B3336BAA"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "MARKET_TRADE",
+                  "MONETARY_CREDIT",
+                  "PUBLIC_WORKS"
+                ],
+                "chain_summary": "- 天盛十五年五月仁孝下令禁奢侈。原文解释，西夏世禄之家竞相以奢侈相高；编者进一步把禁令与“国用之虚实”联系起来。可直接确认的是朝廷已经针对上层消费风气采取限制措施，不能把编者后设的“家给人足”类比较当成西夏实际财政结果。原文定位：`SRC-XIXIASHUSHI-037-2290608-P0006`—`P0008`“禁奢侈”“國多世祿之家，悉以奢侈相高”。 | - 同年七月金使至榷场买马，仁孝“不敢拒”。这是边市中由宗主国发起的战马采购，反映西夏马匹资源与金—夏贸易的政治不对等。原文定位：`P0009`—`P0010`“金主遣使至榷場市馬，仁孝不敢拒”。 | - 天盛十六年正旦使赴金后，金把大批礼物赐给西夏使团，并将此后做成定制：使副币帛一百四十段、金镀银束带三、鞍辔三及多件书匣；从人另得银二百三十五两、绢二百三十五匹。属于可量化的对外礼赐资源流入。原文定位：`P0016`—`P0017`“復賜人從銀二百三十五兩，絹二百三十五疋。其後遂爲定制”。；- 天盛十五年五月仁孝下令禁奢侈。原文解释，西夏世禄之家竞相以奢侈相高；编者进一步把禁令与“国用之虚实”联系起来。可直接确认的是朝廷已经针对上层消费风气采取限制措施，不能把编者后设的“家给人足”类比较当成西夏实际财政结果。原文定位：`SRC-XIXIASHUSHI-037-2290608-P0006`—`P0008`“禁奢侈”“國多世祿之家，悉以奢侈相高”。 | - 同年七月金使至榷场买马，仁孝“不敢拒”。这是边市中由宗主国发起的战马采购，反映西夏马匹资源与金—夏贸易的政治不对等。原文定位：`P0009`—`P0010`“金主遣使至榷場市馬，仁孝不敢拒”。 | - 天盛十六年正旦使赴金后，金把大批礼物赐给西夏使团，并将此后做成定制：使副币帛一百四十段、金镀银束带三、鞍辔三及多件书匣；从人另得银二百三十五两、绢二百三十五匹。属于可量化的对外礼赐资源流入。原文定位：`P0016`—`P0017`“復賜人從銀二百三十五兩，絹二百三十五疋。其後遂爲定制”。 | - 西夏连续两次向金请求停止追索此前战乱中被掠人口；第一次不许，天盛十八年再次由李克勤、焦景颜奉表请求后金主方许。此处只把“免索”作为外交与人口处置政策记录；P0027对旧战人员、财畜、冻馁和连年军役损耗的追叙另进入战役复核待补，不与本总结混账。原文定位：`P0026`—`P0027`、`P0049`—`P0050`“復乞金免索人口”“金主方許之”。",
+                "source_refs": [
+                  "docs/史料通读产物/西夏/西夏书事/volume-037.source-summary.md#L13",
+                  "docs/史料通读产物/西夏/西夏书事/volume-037.source-summary.md#L14"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-E22FA84EFD4C"
+              }
+            ],
+            "applied_orphan_candidate_ids": [
+              "M3H-980F04334BEBD1CE"
+            ],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [
+              {
+                "candidate_id": "M3H-980F04334BEBD1CE",
+                "route": "APPLIED_RESULT_EVIDENCE_FRAGMENT",
+                "direction": "NOT_SCORED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "MARKET_TRADE",
+                  "PUBLIC_WORKS"
+                ],
+                "source_refs": [
+                  "docs/史料通读产物/西夏/西夏书事/volume-038.source-summary.md#L13"
+                ],
+                "semantic_source_ref": "config/profile/m3-semantic-review-decisions.json#candidate_id=M3H-980F04334BEBD1CE"
+              }
+            ],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-XIXIA-LIRENXIAO"
+          },
+          "rank": 36,
+          "review_remediation": {
+            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
+            "status": "APPLIED",
+            "problem": "当前 C1-3→4→4 把“初立小康、人民乐业”的早期高态外推成55年主态；1142年已“民间升米百钱”，1143年地震毁官私庐舍、人畜死万数，继而“大饥、诸部无食”；旧K1又把1164十万人级筑城动员直接当成第二个C1家庭低态。",
+            "directive": "S0 C1-3→C1-4；主档/S_avg C1-4→C1-3；S_end C1-4→C1-3；score 54.9→32.0；K=K2；曲线改 C1-4→3→3。 1142粮价暴涨—1143地震—大饥/诸部无食属于一条连续深度危机，足以构成一个实质性低于主3的阶段，故至少K2；但1164十万人级役作只有超大动员规模，现证未闭合普通家庭破产、缺食、流亡等C1结果，不能充当第二个K低态。1176旱蝗虽“河西诸州食稼殆尽”，当前也只闭合生产损失，尚未闭合家庭结果。对55年长任而言，现有唯一家庭深低谷不足成为次级主态竞争者，故K1→K2。"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "stages": [
+              {
+                "stage_band": "C1-2",
+                "depth_from_raw_main": 1,
+                "scope_class": "MATERIAL_REGION_OR_DEPTH",
+                "duration_class": "MATERIAL",
+                "repeat_group": "ATTACHED_REVIEW_CONSOLIDATED_CHAIN",
+                "recovery_confirmed": true,
+                "evidence_strength": "ATTACHED_REVIEW_WITH_FORMAL_SOURCE_ENTRIES",
+                "counts_toward_k": true,
+                "exclusion_reason": null,
+                "basis": "S0 C1-3→C1-4；主档/S_avg C1-4→C1-3；S_end C1-4→C1-3；score 54.9→32.0；K=K2；曲线改 C1-4→3→3。 1142粮价暴涨—1143地震—大饥/诸部无食属于一条连续深度危机，足以构成一个实质性低于主3的阶段，故至少K2；但1164十万人级役作只有超大动员规模，现证未闭合普通家庭破产、缺食、流亡等C1结果，不能充当第二个K低态。1176旱蝗虽“河西诸州食稼殆尽”，当前也只闭合生产损失，尚未闭合家庭结果。对55年长任而言，现有唯一家庭深低谷不足成为次级主态竞争者，故K1→K2。"
+              }
+            ]
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "COMPLETE",
+            "handoff_continuity_checked": true,
+            "basis": "S0 C1-3→C1-4；主档/S_avg C1-4→C1-3；S_end C1-4→C1-3；score 54.9→32.0；K=K2；曲线改 C1-4→3→3。 1142粮价暴涨—1143地震—大饥/诸部无食属于一条连续深度危机，足以构成一个实质性低于主3的阶段，故至少K2；但1164十万人级役作只有超大动员规模，现证未闭合普通家庭破产、缺食、流亡等C1结果，不能充当第二个K低态。1176旱蝗虽“河西诸州食稼殆尽”，当前也只闭合生产损失，尚未闭合家庭结果。对55年长任而言，现有唯一家庭深低谷不足成为次级主态竞争者，故K1→K2。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "S0 C1-3→C1-4；主档/S_avg C1-4→C1-3；S_end C1-4→C1-3；score 54.9→32.0；K=K2；曲线改 C1-4→3→3。 1142粮价暴涨—1143地震—大饥/诸部无食属于一条连续深度危机，足以构成一个实质性低于主3的阶段，故至少K2；但1164十万人级役作只有超大动员规模，现证未闭合普通家庭破产、缺食、流亡等C1结果，不能充当第二个K低态。1176旱蝗虽“河西诸州食稼殆尽”，当前也只闭合生产损失，尚未闭合家庭结果。对55年长任而言，现有唯一家庭深低谷不足成为次级主态竞争者，故K1→K2。"
+          },
+          "material_basis": [
+            {
+              "book": "《西夏书事》卷三十七",
+              "original_text": "河西诸州食稼殆尽。"
+            }
+          ],
+          "stability_basis": "1142粮价暴涨—1143地震—大饥/诸部无食为一条连续深低谷；1164超大役作及1176食稼受损未闭合家庭端结果，不能补成第二低谷。长任仅此一条深危机，K2。"
+        },
+        {
+          "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。废纯佑自立后，蒙古连续入侵并围中兴；安全向金求援被拒，纳女请降后成为蒙古役属，后续征发日多、不堪奔命。",
+          "confidence": "MEDIUM_WINDOW_READJUDICATED",
+          "evidence": [
+            {
+              "source_refs": [
+                "docs/史料通读产物/西夏/西夏书事/volume-039.source-summary.md:29",
+                "docs/史料通读产物/西夏/西夏书事/volume-039.source-summary.md:32",
+                "docs/史料通读产物/西夏/西夏书事/volume-040.source-summary.md:16",
+                "docs/史料通读产物/西夏/西夏书事/volume-040.source-summary.md:20"
+              ],
+              "summary": "废纯佑自立后，蒙古连续入侵并围中兴；安全向金求援被拒，纳女请降后成为蒙古役属，后续征发日多、不堪奔命。赎回人口是局部正向，但不足扭转战争和从属造成的财政社会下行。",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "DIRECT_LOCAL_WINDOW_READJUDICATION",
+          "main_band": "C1-2",
+          "polity": "西夏",
+          "reign_range": "1206—1211年",
+          "ruler_id": "RULER-XIXIA-LIANQUAN",
+          "ruler_name": "李安全",
+          "score": 17.1,
+          "state_anchors": {
+            "S0": "C1-3",
+            "S_avg": "C1-2",
+            "S_end": "C1-2"
+          },
+          "m3_supplement_origin": "NEW_FORMAL_RECORD_FROM_M3_C1_C4_READJUDICATION",
+          "material_limitations": [],
+          "peak_band": null,
+          "stability_class_diagnostic_only": "K4",
+          "m3_supplement_review": {
+            "disposition": "APPLIED_SCORE_CHANGE_NEW_FORMAL_RECORD",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [
+              "M3P-SEM-B8A188804592"
+            ],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [
+              "M3H-13629559F87F840D"
+            ],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-XIXIA-LIANQUAN"
+          },
+          "rank": 121,
+          "raw_state_band": "C1-2",
+          "formal_band": "C1-2",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "COMPLETE",
+            "handoff_continuity_checked": true,
+            "basis": "S0承接李纯佑桥接终点C1-3；1208年大稔发生在李安全本人窗口，不得倒写为纯佑末期丰收。蒙古战争、围都和役属征发闭合本人窗口下坠至raw/formal主态C1-2，赎回人口不足以恢复主态。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "S0承接李纯佑桥接终点C1-3；1208年大稔发生在李安全本人窗口，不得倒写为纯佑末期丰收。蒙古战争、围都和役属征发闭合本人窗口下坠至raw/formal主态C1-2，赎回人口不足以恢复主态。"
+          },
+          "review_remediation": {
+            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
+            "status": "APPLIED_LINKED_HANDOFF_FIX",
+            "directive": "李纯佑桥接3→3；李安全S0由4改3，删除纯佑末期丰收错误理由。"
+          },
+          "material_basis": [
+            {
+              "book": "《西夏书事》卷四十",
+              "original_text": "继征发日多，不堪奔命，礼意渐疏。"
+            }
+          ],
+          "stability_basis": "“征发日多，不堪奔命”本身正是C1-2主态的重要组成，不能再整体二次消费K。现证未独立闭合低于C1-2的广域饥饿死亡、卖产鬻子或逃散阶段，故K4。"
+        },
+        {
+          "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。十分之九人马点集、长期旱灾与民大饥构成低位压力；跨州运粮赈济、止兵和恢复使贡贸易形成局部修复，但梁氏长期用兵已造成强烈民怨。",
+          "confidence": "MEDIUM_WINDOW_READJUDICATED",
+          "evidence": [
+            {
+              "source_refs": [
+                "docs/史料通读产物/西夏/西夏书事/volume-027.source-summary.md:14",
+                "docs/史料通读产物/西夏/西夏书事/volume-027.source-summary.md:15",
+                "docs/史料通读产物/西夏/西夏书事/volume-027.source-summary.md:16",
+                "docs/史料通读产物/西夏/西夏书事/volume-027.source-summary.md:17"
+              ],
+              "summary": "十分之九人马点集、长期旱灾与民大饥构成低位压力；跨州运粮赈济、止兵和恢复使贡贸易形成局部修复，但梁氏长期用兵已造成强烈民怨。",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "DIRECT_LOCAL_WINDOW_READJUDICATION",
+          "main_band": "C1-2",
+          "polity": "西夏",
+          "reign_range": "1081—1086年",
+          "ruler_id": "RULER-XIXIA-LIBINGCHANG",
+          "ruler_name": "李秉常",
+          "score": 17.1,
+          "state_anchors": {
+            "S0": "C1-2",
+            "S_avg": "C1-2",
+            "S_end": "C1-2"
+          },
+          "m3_supplement_origin": "NEW_FORMAL_RECORD_FROM_M3_C1_C4_READJUDICATION",
+          "material_limitations": [
+            "只结算本人恢复名义与实权后的窗口；梁氏外戚承担的政策责任单独限制本人归责系数。"
+          ],
+          "peak_band": null,
+          "stability_class_diagnostic_only": "K4",
+          "m3_supplement_review": {
+            "disposition": "APPLIED_SCORE_CHANGE_NEW_FORMAL_RECORD",
+            "applied_parent_ids": [
+              "M3P-SEM-D44ABCE5C02A"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-D44ABCE5C02A",
+                "candidate_ids_trace_only": [
+                  "M3H-C3535E4273161082",
+                  "M3H-222BA0495C2A3FD9"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "MARKET_TRADE",
+                  "MONETARY_CREDIT",
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE"
+                ],
+                "chain_summary": "- **元丰七年二月，西夏因讹传宋将城葫芦河而发动极端强度的预防性点集。** 秉常发“河南、北人马十分之九”，集中练家流争葫芦河；因未见宋军，才改谋各路侵掠。这一段没有形成当场交战，因此不立战役卡，但它直接说明西夏在边境警报下可一次抽调河南、河北绝大多数军力，动员负担极重。原文定位：`SRC-XIXIASHUSHI-027-2289108-P0003`—`P0004`“發河南、北人馬十分之九”。 | - **银、夏州自三月至七月长期无雨，形成严重旱灾和饥荒。** 史文称“日赤如火，田野龟拆，禾麦尽稿”，秉常祈禳二十日无效，群臣一致请求赈恤；最终令从甘、凉诸州调运粮食救济。这是本卷最明确的财政民生救灾材料，反映核心州县农业绝收后需要跨州粮运维持。原文定位：`SRC-XIXIASHUSHI-027-2289108-P0048`—`P0049`“民大飢……運甘、涼諸州粟濟之”。 | - **梁乙埋、梁乙逋长期用兵已经在国内形成明显的民力与政治反弹。** 卷中追叙吕大忠奏议称梁氏兄弟“虐用其民，上下怨嗟，皆欲食其肉”；虽然这是评价性材料，仍可作为反复征战与统治负担引发社会怨恨的直接史料旁证。原文定位：`SRC-XIXIASHUSHI-027-2289108-P0032`—`P0034`。；- **元丰七年二月，西夏因讹传宋将城葫芦河而发动极端强度的预防性点集。** 秉常发“河南、北人马十分之九”，集中练家流争葫芦河；因未见宋军，才改谋各路侵掠。这一段没有形成当场交战，因此不立战役卡，但它直接说明西夏在边境警报下可一次抽调河南、河北绝大多数军力，动员负担极重。原文定位：`SRC-XIXIASHUSHI-027-2289108-P0003`—`P0004`“發河南、北人馬十分之九”。 | - **银、夏州自三月至七月长期无雨，形成严重旱灾和饥荒。** 史文称“日赤如火，田野龟拆，禾麦尽稿”，秉常祈禳二十日无效，群臣一致请求赈恤；最终令从甘、凉诸州调运粮食救济。这是本卷最明确的财政民生救灾材料，反映核心州县农业绝收后需要跨州粮运维持。原文定位：`SRC-XIXIASHUSHI-027-2289108-P0048`—`P0049`“民大飢……運甘、涼諸州粟濟之”。 | - **梁乙埋、梁乙逋长期用兵已经在国内形成明显的民力与政治反弹。** 卷中追叙吕大忠奏议称梁氏兄弟“虐用其民，上下怨嗟，皆欲食其肉”；虽然这是评价性材料，仍可作为反复征战与统治负担引发社会怨恨的直接史料旁证。原文定位：`SRC-XIXIASHUSHI-027-2289108-P0032`—`P0034`。 | - **恢复对宋使贡在西夏国内形成显著的贸易—财政收益。** 卷末称夏使入京受赐并贸易，一次可得绢帛五万余匹，回国后每匹可值五六千；连同其他物品，“一使所获不下三十万缗”。因此频繁进奉并不只是礼仪行为，也有稳定获取赐物和跨境贸易利润的财政动机。原文定位：`SRC-XIXIASHUSHI-027-2289108-P0092`—`P0093`“一使所獲不下三十萬緡”。",
+                "source_refs": [
+                  "docs/史料通读产物/西夏/西夏书事/volume-027.source-summary.md#L14",
+                  "docs/史料通读产物/西夏/西夏书事/volume-027.source-summary.md#L15"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-D44ABCE5C02A"
+              }
+            ],
+            "applied_orphan_candidate_ids": [
+              "M3H-6271AF5513E47C20"
+            ],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [
+              {
+                "candidate_id": "M3H-6271AF5513E47C20",
+                "route": "APPLIED_RESULT_EVIDENCE_FRAGMENT",
+                "direction": "NOT_SCORED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "PUBLIC_WORKS"
+                ],
+                "source_refs": [
+                  "docs/史料通读产物/西夏/西夏书事/volume-025.source-summary.md#L14"
+                ],
+                "semantic_source_ref": "config/profile/m3-semantic-review-decisions.json#candidate_id=M3H-6271AF5513E47C20"
+              }
+            ],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-XIXIA-LIBINGCHANG"
+          },
+          "rank": 121,
+          "raw_state_band": "C1-2",
+          "formal_band": "C1-2",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "核心州县绝收与民大饥、极端点集负担覆盖短窗口；跨州运粟只能避免进一步崩溃，不能抬回三档。"
+          },
+          "material_basis": [
+            {
+              "book": "《西夏书事》卷二十七",
+              "original_text": "旱，民大饥。"
+            }
+          ],
+          "stability_basis": "长期旱灾与“民大饥”已经参与C1-2主态判定；现有材料未进一步闭合一个可独立识别的C1-1家庭崩溃阶段。按主态—低谷去重原则，K4。"
+        },
+        {
+          "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。频年点集导致横山羌众志乖离，继而强迁族帐至兴州，出现内附、人口流失与长期兵役负担的闭合链。",
+          "confidence": "MEDIUM_WINDOW_READJUDICATED",
+          "evidence": [
+            {
+              "source_refs": [
+                "docs/史料通读产物/西夏/西夏书事/volume-021.source-summary.md:33"
+              ],
+              "summary": "频年点集导致横山羌众志乖离，继而强迁族帐至兴州，出现内附、人口流失与长期兵役负担的闭合链。",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "DIRECT_LOCAL_WINDOW_READJUDICATION",
+          "main_band": "C1-2",
+          "polity": "西夏",
+          "reign_range": "1061—1067年",
+          "ruler_id": "RULER-XIXIA-LILIANGZUO",
+          "ruler_name": "李谅祚",
+          "score": 17.1,
+          "state_anchors": {
+            "S0": "C1-3",
+            "S_avg": "C1-2",
+            "S_end": "C1-2"
+          },
+          "m3_supplement_origin": "NEW_FORMAL_RECORD_FROM_M3_C1_C4_READJUDICATION",
+          "material_limitations": [
+            "只结算本人掌权后的晚期窗口，幼年没藏氏摄政不倒算本人。"
+          ],
+          "peak_band": null,
+          "stability_class_diagnostic_only": "K4",
+          "m3_supplement_review": {
+            "disposition": "APPLIED_SCORE_CHANGE_NEW_FORMAL_RECORD",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-XIXIA-LILIANGZUO"
+          },
+          "rank": 121,
+          "raw_state_band": "C1-2",
+          "formal_band": "C1-2",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "频年点集、强迁与战争负担压低家庭生计，短窗内未见广域恢复。"
+          },
+          "material_basis": [
+            {
+              "book": "《西夏书事》卷二十一",
+              "original_text": "夏国频年点集，众志乖离，横山羌益思内附。"
+            }
+          ],
+          "stability_basis": "频年点集、强迁与人口流失已经构成C1-2主态的核心压力链；恢复完成后未另见明显低于C1-2的独立家庭崩溃阶段，故K4。"
+        },
+        {
+          "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。建成财政仓储农业和军区架构，但十五岁起系统兵役、战争导致互市断裂、人口畜产迁避与资用乏困；和约后互市恢复，却又以数万丁夫建宫苑、役民建寺，身后总评为劳役无时、众怨方兴。",
+          "confidence": "HIGH_WINDOW_READJUDICATED",
+          "evidence": [
+            {
+              "source_refs": [
+                "docs/史料通读产物/西夏/西夏书事/volume-012.source-summary.md:14",
+                "docs/史料通读产物/西夏/西夏书事/volume-012.source-summary.md:18",
+                "docs/史料通读产物/西夏/西夏书事/volume-013.source-summary.md:14",
+                "docs/史料通读产物/西夏/西夏书事/volume-013.source-summary.md:18",
+                "docs/史料通读产物/西夏/西夏书事/volume-015.source-summary.md:15",
+                "docs/史料通读产物/西夏/西夏书事/volume-018.source-summary.md:12",
+                "docs/史料通读产物/西夏/西夏书事/volume-018.source-summary.md:15",
+                "docs/史料通读产物/西夏/西夏书事/volume-018.source-summary.md:16",
+                "docs/史料通读产物/西夏/西夏书事/volume-018.source-summary.md:21"
+              ],
+              "summary": "建成财政仓储农业和军区架构，但十五岁起系统兵役、战争导致互市断裂、人口畜产迁避与资用乏困；和约后互市恢复，却又以数万丁夫建宫苑、役民建寺，身后总评为劳役无时、众怨方兴。",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "DIRECT_LOCAL_WINDOW_READJUDICATION",
+          "main_band": "C1-2",
+          "polity": "西夏",
+          "reign_range": "1032—1048年",
+          "ruler_id": "RULER-XIXIA-LIYUANHAO",
+          "ruler_name": "李元昊",
+          "score": 17.1,
+          "state_anchors": {
+            "S0": "C1-3",
+            "S_avg": "C1-2",
+            "S_end": "C1-2"
+          },
+          "m3_supplement_origin": "NEW_FORMAL_RECORD_FROM_M3_C1_C4_READJUDICATION",
+          "material_limitations": [
+            "国家建构与战争财政同时结算；建制数量不自动转成高状态，晚期劳役和民怨不得被称帝成果遮蔽。"
+          ],
+          "peak_band": null,
+          "stability_class_diagnostic_only": "K4",
+          "m3_supplement_review": {
+            "disposition": "APPLIED_SCORE_CHANGE_NEW_FORMAL_RECORD",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [
+              "M3H-F6D688AD68D76789"
+            ],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-XIXIA-LIYUANHAO"
+          },
+          "rank": 121,
+          "raw_state_band": "C1-2",
+          "formal_band": "C1-2",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "国家建构未抵消系统兵役、战争迁避、资用乏困和晚期数万劳役；主态与终点二档。"
+          },
+          "material_basis": [
+            {
+              "book": "《西夏书事》卷十八",
+              "original_text": "穷奢极欲，劳役无时，众怨方兴。"
+            }
+          ],
+          "stability_basis": "长期兵役、互市断裂、资用乏困及晚期劳役无时共同承担C1-2主态；这些同一压力链不再整体重复消费K。现证未闭合独立C1-1阶段，故K4。"
+        },
+        {
+          "adjudication_reason": "任内普通家庭的基本生计普遍失保，主要统治区长期处于严重破坏状态。接班时田野荒芜、民生涂炭；修金与恢复互市形成短暂止损，但拒履行质子承诺、收纳蒙古仇敌，叠加旱灾、正军营田妨农和蒙古入侵，窗口末全面崩解。",
+          "confidence": "HIGH_WINDOW_READJUDICATED",
+          "evidence": [
+            {
+              "source_refs": [
+                "docs/史料通读产物/西夏/西夏书事/volume-042.source-summary.md:14",
+                "docs/史料通读产物/西夏/西夏书事/volume-042.source-summary.md:15",
+                "docs/史料通读产物/西夏/西夏书事/volume-042.source-summary.md:17",
+                "docs/史料通读产物/西夏/西夏书事/volume-042.source-summary.md:23",
+                "docs/史料通读产物/西夏/西夏书事/volume-042.source-summary.md:24",
+                "docs/史料通读产物/西夏/西夏书事/volume-042.source-summary.md:27"
+              ],
+              "summary": "接班时田野荒芜、民生涂炭；修金与恢复互市形成短暂止损，但拒履行质子承诺、收纳蒙古仇敌，叠加旱灾、正军营田妨农和蒙古入侵，窗口末全面崩解。",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ],
+              "macro_anchor_specificity": "NON_MACRO_RESULT",
+              "macro_anchor_specificity_detail": "MISSING_IN_PRE_REVIEW_SNAPSHOT"
+            }
+          ],
+          "evidence_mode": "DIRECT_LOCAL_WINDOW_READJUDICATION",
+          "main_band": "C1-1",
+          "polity": "西夏",
+          "reign_range": "1223—1226年",
+          "ruler_id": "RULER-XIXIA-LIDEWANG",
+          "ruler_name": "李德旺",
+          "score": 5.7,
+          "state_anchors": {
+            "S0": "C1-1",
+            "S_avg": "C1-1",
+            "S_end": "C1-1"
+          },
+          "m3_supplement_origin": "NEW_FORMAL_RECORD_FROM_M3_C1_C4_READJUDICATION",
+          "material_limitations": [
+            "承接遵顼十余年战争与饥荒低位；建议被称善或授官不等于全部执行。"
+          ],
+          "peak_band": null,
+          "stability_class_diagnostic_only": "K4",
+          "m3_supplement_review": {
+            "disposition": "APPLIED_SCORE_CHANGE_NEW_FORMAL_RECORD",
+            "applied_parent_ids": [
+              "M3P-SEM-B96FDE0C2B8F"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-B96FDE0C2B8F",
+                "candidate_ids_trace_only": [
+                  "M3H-A9E189A4540C599E"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "UNRESOLVED_DIRECTION",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE"
+                ],
+                "chain_summary": "- **1224年陵寝灾异持续二十日。** 裕陵、泰陵发生灾异，原文称草木皆“流血”，德旺遣官禳之二十日才止。这里只按灾异与礼制应对记录，不作战争因果。原文定位：`SRC-XIXIASHUSHI-042-2291165-P0001—P0002`。 | - **张公辅“经国七事”保存了末期最系统的财政民生自救诊断。** 他首先要求招集战后潰卒与四散饥民，核其室家并“给以衣食”；又要求修城池、整军政、联烽堠。最重要的是第六条直称“国经兵燹，民不聊生，耕织无时，财用并乏”，主张削宫府浮靡及勋戚赏赉，“崇节俭以裕军储”。这些都是政策建议与形势诊断，不能当作已经全部执行的实际节支。原文定位：`P0018—P0019`。 | - **1226年河西旱灾直接造成草木枯黄、民无所食。** 这是蒙古最终大举同年的独立农业与饥荒冲击，不能与后续军队掠夺重复计入一笔损失。原文定位：`P0039—P0040`“河西諸州草木旱黃，民無所食”。",
+                "source_refs": [
+                  "docs/史料通读产物/西夏/西夏书事/volume-042.source-summary.md#L13"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-B96FDE0C2B8F"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-XIXIA-LIDEWANG"
+          },
+          "rank": 180,
+          "raw_state_band": "C1-1",
+          "formal_band": "C1-1",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
+            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
+            "inference_hops": 1,
+            "inference_basis": "接班即民不聊生，末期旱灾、民无所食、窖积被掠和营田妨农持续，短暂修好互市未改变生存断裂。"
+          },
+          "material_basis": [
+            {
+              "book": "《西夏书事》卷四十二",
+              "original_text": "河西诸州草木旱黄，民无所食。"
+            }
+          ],
+          "stability_basis": "S_main已处C1-1最低档，状态体系不存在可继续“跌破主态”的更低档位，因此K按定义取K4。这里的K4只表示K指标在底档没有向下分辨空间，不代表民生稳定、韧性良好或可在C4领取高位稳定承压信用；S0→C1-1的恶化及底档持续由绝对状态与C4归责处理，不在K重复消费。"
+        }
+      ]
+    }
+  }
+}

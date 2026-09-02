@@ -1,0 +1,103 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "北周",
+  "collections": {
+    "records": {
+      "positions": [
+        65
+      ],
+      "records": [
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "I2-NZHOU-YUWENYONG-AGRICULTURE-RELIEF-M2-AUDIT",
+              "mechanism": "亲政期选任、任职结果与中央奖惩core",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2.0,
+              "lifecycle_key": "B1:RULER-SHADOW-宇文邕:V50:MAIN-CORE",
+              "lifecycle_group_key": "B1:RULER-SHADOW-宇文邕:V50:MAIN-CORE",
+              "profile_id": "B1-PROFILE-6393BE3167A8ED9C",
+              "b1_role": "core"
+            }
+          ],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-NZHOU-YUWENYONG-AGRICULTURE-RELIEF-M2-AUDIT"
+          ],
+          "direction_card_write": true,
+          "direction_index": 62.5,
+          "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
+          "formal_evidence_maturity": "fixed_primary_plus_reused_law_and_handoff_bounded_synthesis",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G3",
+          "grade_basis": "《周书·武帝纪》《周书·宇文神举传》｜归责只从建德元年诛宇文护后亲政计算。链①：建德三年令六府举贤良清正；建德四年要求刺史守令亲劝农、百司分番，并对李意、于寔等“有罪免”，形成选任/地方责任/问责M2。链②：灭北齐后重新配置新占区责任官，其中宇文神举任并州刺史→旬月间“远迩悦服”→其后地方五千人聚众又以州兵平定，闭合中央任命—区域治理—地方治安结果的强M2/M3样本。限制：亲政仅六年，新占区虽有多个任命，但现证还不足串成跨多年、多个地区反复运行的distributed→core M3；宇文护摄政期运行不得倒投。多接口和强区域样本足G3，维持middle。",
+          "grade_gate_basis": "《周书·武帝纪》《周书·宇文神举传》｜归责只从建德元年诛宇文护后亲政计算。链①：建德三年令六府举贤良清正；建德四年要求刺史守令亲劝农、百司分番，并对李意、于寔等“有罪免”，形成选任/地方责任/问责M2。链②：灭北齐后重新配置新占区责任官，其中宇文神举任并州刺史→旬月间“远迩悦服”→其后地方五千人聚众又以州兵平定，闭合中央任命—区域治理—地方治安结果的强M2/M3样本。限制：亲政仅六年，新占区虽有多个任命，但现证还不足串成跨多年、多个地区反复运行的distributed→core M3；宇文护摄政期运行不得倒投。多接口和强区域样本足G3，维持middle。",
+          "grade_gate_code": "B1_G3_MAIN_STAGE_USABLE",
+          "index_interval": [
+            55.0,
+            69.9
+          ],
+          "polity": "北周",
+          "position": "middle",
+          "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=0，按合同机械映射为middle。",
+          "position_q": 0.5,
+          "rank": 57,
+          "reign_range": [
+            572,
+            578
+          ],
+          "ruler_id": "RULER-SHADOW-宇文邕",
+          "ruler_name": "宇文邕",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为0，机械裁定G3-中位（62.5）"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "亲政期选任、任职结果与中央奖惩核心行政机制"
+            },
+            {
+              "role": "负向依据（无可计M档）",
+              "text": "未闭合可计的负向运行链"
+            }
+          ],
+          "position_residual": 0.0,
+          "grade_threshold_consumed": 2.0,
+          "v50_source_line": 203,
+          "review_material_basis": [
+            {
+              "version": "v20",
+              "line": 484,
+              "review_grade": "G3",
+              "review_position": "middle",
+              "basis": "时代差异专项由G2上调。旧行只记录劝农、蠲欠等support，漏掉亲政前后的选任与绩效识别。其一，武帝因于翼“善于鉴识人物”，把皇太子及诸王相傅以下选任交其办理，所选“咸得其人”，属明确选任core M2/M3；其二，小吏部宇文弼擢八人为县令，八人“皆有异绩”，是成组的人事结果验证；其三，建德初代王宇文达任荆州刺史“在州有政绩”，武帝亲手敕褒美，并能密报所辖刺史蔡泽赃案；另有建德四年李意、于寔有罪即免，说明亲政期奖惩接口真实运作。负向必须计入：武帝前约十二年“政出权宰”，宇文护长期外置中枢权力；建德元年诛护后才“始亲万机”，形成明显前后阶段差。故主要责任窗口只能证明后段总体可用，足进G3；长期前段externalized_power阻断G4，锁middle。",
+              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
+            },
+            {
+              "version": "v50",
+              "line": 203,
+              "review_grade": "G3",
+              "review_position": "middle",
+              "basis": "《周书·武帝纪》《周书·宇文神举传》｜归责只从建德元年诛宇文护后亲政计算。链①：建德三年令六府举贤良清正；建德四年要求刺史守令亲劝农、百司分番，并对李意、于寔等“有罪免”，形成选任/地方责任/问责M2。链②：灭北齐后重新配置新占区责任官，其中宇文神举任并州刺史→旬月间“远迩悦服”→其后地方五千人聚众又以州兵平定，闭合中央任命—区域治理—地方治安结果的强M2/M3样本。限制：亲政仅六年，新占区虽有多个任命，但现证还不足串成跨多年、多个地区反复运行的distributed→core M3；宇文护摄政期运行不得倒投。多接口和强区域样本足G3，维持middle。",
+              "status": "ABSORBED_ACTIVE_PRECEDENCE"
+            }
+          ],
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
+          "g3_gate_route": "CORE_M3",
+          "g3_gate_profile_ids": [
+            "B1-PROFILE-6393BE3167A8ED9C"
+          ]
+        }
+      ]
+    }
+  }
+}

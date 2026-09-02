@@ -1,0 +1,157 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "东魏",
+  "collections": {
+    "records": {
+      "positions": [
+        130
+      ],
+      "records": [
+        {
+          "sequence": 137,
+          "ruler_id": "RULER-SHADOW-高欢",
+          "task_code": "PROFILE-C1-RULER-SHADOW-高欢",
+          "ruler_name": "高欢",
+          "polity": "东魏",
+          "actual_power_window": "534—547年东魏实际掌权",
+          "axis_code": "C1",
+          "axis_name": "战略判断与风险控制",
+          "score_status": "FINAL",
+          "axis_grade": "G2",
+          "position": "MID",
+          "score_100": 45,
+          "radar_value": 45,
+          "axis_evidence_level": "E3",
+          "output_mode": "FULL_GRADE",
+          "confidence": "HIGH",
+          "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-SHADOW-高欢",
+          "parents": [
+            {
+              "parent_id": "C1-P137-XINDU-FOUNDING",
+              "direction": "POSITIVE",
+              "intensity": "MI3",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "資治通鑑/卷155#信都起兵与重建核心"
+              ],
+              "direct_process_refs": [
+                "資治通鑑/卷155#信都起兵与重建核心"
+              ],
+              "cycle_basis": "危局中选择信都建基、整合河北资源并重建东魏核心。",
+              "diagnostic_role": "PS3"
+            },
+            {
+              "parent_id": "C1-P137-WESTERN-REPETITION",
+              "direction": "NEGATIVE",
+              "intensity": "MI3",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY"
+              ],
+              "source_refs": [
+                "資治通鑑/卷155#沙苑路线预警",
+                "資治通鑑/卷159#玉壁高投入复发"
+              ],
+              "direct_process_refs": [
+                "資治通鑑/卷155#沙苑路线预警",
+                "資治通鑑/卷159#玉壁高投入复发"
+              ],
+              "cycle_basis": "沙苑拒绝路线和地形意见后重创，玉壁再次投入构成同机制复发。",
+              "diagnostic_role": "DW3"
+            }
+          ],
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C1-P137-XINDU-FOUNDING",
+              "direction": "POSITIVE",
+              "intensity": "MI3",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "資治通鑑/卷155#信都起兵与重建核心"
+              ],
+              "direct_process_refs": [
+                "資治通鑑/卷155#信都起兵与重建核心"
+              ],
+              "cycle_basis": "危局中选择信都建基、整合河北资源并重建东魏核心。",
+              "diagnostic_role": "PS3"
+            },
+            {
+              "parent_id": "C1-P137-WESTERN-REPETITION",
+              "direction": "NEGATIVE",
+              "intensity": "MI3",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY"
+              ],
+              "source_refs": [
+                "資治通鑑/卷155#沙苑路线预警",
+                "資治通鑑/卷159#玉壁高投入复发"
+              ],
+              "direct_process_refs": [
+                "資治通鑑/卷155#沙苑路线预警",
+                "資治通鑑/卷159#玉壁高投入复发"
+              ],
+              "cycle_basis": "沙苑拒绝路线和地形意见后重创，玉壁再次投入构成同机制复发。",
+              "diagnostic_role": "DW3"
+            }
+          ],
+          "typical_pattern": "信都创业与重建东魏核心形成强正向链；沙苑后仍在玉壁方向重复高投入，目标—路径与风险隔离缺陷跨年复发。",
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C1-P137-XINDU-FOUNDING"
+            ],
+            "counter_parent_refs": [
+              "C1-P137-WESTERN-REPETITION"
+            ]
+          },
+          "grade_basis": "信都创业与重建东魏核心形成强正向链；沙苑后仍在玉壁方向重复高投入，目标—路径与风险隔离缺陷跨年复发。",
+          "position_basis": "玉壁只作跨年复发验证，不伪造与沙苑同等级的事前预警。",
+          "axis_relevance_check": {
+            "status": "CLOSED",
+            "scoring_parent_refs": [
+              "C1-P137-XINDU-FOUNDING",
+              "C1-P137-WESTERN-REPETITION"
+            ],
+            "result_nonconversion": true
+          },
+          "reviews": {
+            "window": "COVERAGE_CLOSED",
+            "relevance": "CLOSED",
+            "attribution": "CLOSED",
+            "dedup": "CLOSED",
+            "bidirectional": "CLOSED",
+            "density": "COUNTEREVIDENCE_FOUND",
+            "capability_profile": "CLOSED",
+            "low_grade_gate": {
+              "status": "NOT_REQUIRED",
+              "inherited_bad_hand": "NOT_REQUIRED",
+              "feasible_alternative": "NOT_REQUIRED",
+              "feedback_reachability": "NOT_REQUIRED",
+              "stop_loss": "NOT_REQUIRED"
+            }
+          },
+          "limitations": [
+            "玉壁只作跨年复发验证，不伪造与沙苑同等级的事前预警。"
+          ],
+          "formal_status": "FORMAL_CURRENT",
+          "grade_numeric": 2,
+          "formal_order": 131
+        }
+      ]
+    }
+  }
+}

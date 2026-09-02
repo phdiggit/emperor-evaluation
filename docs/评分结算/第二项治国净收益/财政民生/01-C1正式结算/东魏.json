@@ -1,0 +1,132 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "东魏",
+  "collections": {
+    "scores": {
+      "positions": [
+        100
+      ],
+      "records": [
+        {
+          "adjudication_reason": "主档C1-3维持。东魏控制区在战乱后出现连年丰收、低谷价及“山东民稍复”，证明生产与基本生计恢复；但低粮价和国家仓储不能替代家庭稳定温饱余量，C1-4仍不开放。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "anchor_time": "高欢控制下元善见时期",
+              "described_state": "仓储转漕、盐业供给与连年丰收后，军国费用粗足、山东民众逐渐恢复。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "proof_scope_constraints": [],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_voice": "THIRD_PARTY_CHRONICLE_OR_TREATISE",
+              "source_voice_basis": "机械粗分；按source_works与verbatim中的史书、奏议、诏令标记识别。",
+              "source_voice_matches": [
+                "THIRD_PARTY_CHRONICLE_OR_TREATISE"
+              ],
+              "source_works": [
+                "《资治通鉴》共享通读卡正文"
+              ],
+              "state_roles": [
+                "S_avg",
+                "S_end",
+                "稳定性"
+              ],
+              "verbatim_excerpt": "连年丰收后谷一斛九钱，山东民众逐渐恢复。",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+              ]
+            }
+          ],
+          "evidence_mode": "DIRECT_MACRO_ANCHOR",
+          "main_band": "C1-3",
+          "material_limitations": [
+            "K只消费实际低于主态的家庭阶段；灾害、战争、政策或财政名目本身不直接换档。同一危机簇若已参与主态定档，不再整体二次消费为K1。"
+          ],
+          "peak_band": null,
+          "polity": "东魏",
+          "rank": 36,
+          "reign_range": [
+            534,
+            547
+          ],
+          "ruler_id": "RULER-SHADOW-高欢",
+          "ruler_name": "高欢",
+          "score": 32.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C1-2",
+            "S_avg": "C1-3",
+            "S_end": "C1-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-28B334C0C12A"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-28B334C0C12A",
+                "candidate_ids_trace_only": [
+                  "M3H-51DE0B2C59A8CEC6"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "MIXED",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE"
+                ],
+                "chain_summary": "- 并、肆多年霜旱，降户掘田鼠充饥，是明确灾荒和饥饿事实；原文未载官府先前赈济、粮价或死亡人数。 | - 高欢请二十余万降户赴山东就食，是以生存和温饱为目标的迁置安排；不得仅因人口规模大推定粮食压力、供养负担或财政损害。 | - 陈庆之所在边区罢义阳镇兵、停止水陆漕运，江、湖诸州实际“并得休息”；开田六十顷，两年后仓廪充实，是明确的持续收益。漕运停罢不是全国漕运制度终止，只限本段所述区域。 | - **史源定位**：卷154，十二月降户段与卷末陈庆之段。",
+                "source_refs": [
+                  "docs/史料通读产物/唐以前编年/南北朝/卷154-通读总结.md#L128"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-28B334C0C12A"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-高欢"
+          },
+          "raw_state_band": "C1-3",
+          "formal_band": "C1-3",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+          ],
+          "stability_stage_review": {
+            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
+            "stages": []
+          },
+          "persistence_review": {
+            "status": "PRESERVED_PENDING_DEDICATED_REVIEW",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-2",
+            "to_band": "C1-3",
+            "basis": "沿用当前正式证据；本补丁未新增人物裁决。"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
+            "inference_source_anchor": null,
+            "inference_hops": 0,
+            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
+          },
+          "material_basis": [
+            {
+              "book": "《资治通鉴》",
+              "original_text": "连年丰收后谷一斛九钱，山东民众逐渐恢复。"
+            }
+          ],
+          "stability_basis": "S0=C1-2及战后恢复不计K；现有已审家庭材料未确认恢复后独立跌破C1-3的阶段，故补K4。战争规模和胜负本身不机械制造C1低谷。"
+        }
+      ]
+    }
+  }
+}

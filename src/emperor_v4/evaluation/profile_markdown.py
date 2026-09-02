@@ -7,6 +7,8 @@ from collections import Counter
 from pathlib import Path
 from typing import Any, Iterable
 
+from emperor_v4.evaluation.formal_json_store import load_json
+
 ROOT = Path(__file__).resolve().parents[3]
 PROFILE_ROOT = ROOT / "docs" / "评分结算" / "皇帝人物画像"
 AXIS_FILES = {
@@ -391,7 +393,7 @@ def write_axes(axis_codes: Iterable[str]) -> list[Path]:
     axes = list(axis_codes)
     for axis in axes:
         json_path = PROFILE_ROOT / AXIS_FILES[axis]
-        payload = json.loads(json_path.read_text(encoding="utf-8"))
+        payload = load_json(json_path)
         markdown_path = json_path.with_suffix(".md")
         markdown_path.write_text(render_profile_markdown(payload), encoding="utf-8", newline="\n")
         written.append(markdown_path)

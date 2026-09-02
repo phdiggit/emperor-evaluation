@@ -1,0 +1,622 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "梁",
+  "collections": {
+    "records": {
+      "positions": [
+        62,
+        63
+      ],
+      "records": [
+        {
+          "AB_score_points": 7.25,
+          "adjudication_status": "REVIEWED",
+          "ambiguous_event_refs": [
+            "WAR-LEAD-150-06",
+            "WAR-LEAD-153-04",
+            "WAR-LEAD-154-02",
+            "WAR-LEAD-156-03",
+            "WAR-LEAD-157-05"
+          ],
+          "axes": {
+            "A1": {
+              "axis_points": 0.0,
+              "base_trajectory_value": 0,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A1S0_EXISTENTIAL_CRISIS",
+              "rationale": "建国初期梁与北魏对峙，北线虽被动但无即时存亡危机，起点2档。中期钟离、寿阳等胜利及扩张不能抵消末期接纳侯景、都城陷落和皇帝被困，交班时政权存续正受现实威胁，终点0档。",
+              "start": "A1S2_STRATEGIC_DISADVANTAGE",
+              "trajectory_value": 0,
+              "transition": "WORSENED",
+              "transition_attribution": "PRIMARY_RULER_ACTION"
+            },
+            "A2": {
+              "axis_points": 0.0,
+              "base_trajectory_value": 0,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A2S0_CORE_EXPOSED",
+              "rationale": "起点仍有淮河和西南局部防守节点。虽一度取得淮南诸城，交班时建康已被侯景控制，江湘、岭南各军不能构成可供中央调度的防线，核心区无有效边界，终点0档。",
+              "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
+              "trajectory_value": 0,
+              "transition": "WORSENED",
+              "transition_attribution": "PRIMARY_RULER_ACTION"
+            },
+            "B1": {
+              "axis_points": 7.25,
+              "band_position": "HIGH",
+              "grade": "B1-0",
+              "rationale": "中期淮南扩张在交班前已复失，建康陷落又使岭南只剩地方军政网络的约半实际联系；起点1.4、交班0.65、净减0.75、加权值-0.19，落B1-0 HIGH。",
+              "raw_net_change": -0.75,
+              "score_rate": 29,
+              "terminal_collapse_override": false,
+              "weighted_control_value": -0.19
+            },
+            "B2": {
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "grade": "B2-0",
+              "rationale": "任内曾形成的淮南及北线成果在交班前已丧失，不以历史峰值冒充交班控制成果。",
+              "score_rate": 0
+            },
+            "B4": {
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "grade": "B4-0",
+              "rationale": "主要控制成果已丧失，且中央受困、地方各自为战，交班时无可成熟移交的成果包。",
+              "score_rate": 0
+            }
+          },
+          "b1_control_equivalents": {
+            "end": 0.65,
+            "net_change": -0.75,
+            "start": 1.4,
+            "weighted_value": -0.19
+          },
+          "b1_region_adjudications": [
+            {
+              "anchors": [
+                "start"
+              ],
+              "control_equivalent": 0.35,
+              "control_form": "边郡、戍防与可执行地方管理",
+              "counted": true,
+              "coverage_factor": 0.5,
+              "evidence_refs": [
+                "WAR-LEAD-146-01",
+                "WAR-LEAD-151-03",
+                "WAR-LEAD-151-07",
+                "WAR-LEAD-162-06",
+                "WAR-LEAD-162-07",
+                "WAR-LEAD-162-10"
+              ],
+              "object_id": "HUAI_FRONTIER",
+              "object_name": "淮河边疆",
+              "reason": "有界推断：依任期边界的州郡、防线与守戍存续，按标准区域取0.50（约半个主要走廊或网络）；不由一次胜负或名义声索外推更大控制。",
+              "spatial_weight": 0.7
+            },
+            {
+              "anchors": [
+                "start"
+              ],
+              "control_equivalent": 0.8,
+              "control_form": "边郡、戍防与可执行地方管理",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "WAR-LEAD-146-01",
+                "WAR-LEAD-151-03",
+                "WAR-LEAD-151-07",
+                "WAR-LEAD-162-06",
+                "WAR-LEAD-162-07",
+                "WAR-LEAD-162-10"
+              ],
+              "object_id": "LINGNAN",
+              "object_name": "岭南边疆",
+              "reason": "有界推断：依任期边界的州郡、防线与守戍存续，按标准区域取1.00（整体有效）；不由一次胜负或名义声索外推更大控制。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "end"
+              ],
+              "control_equivalent": 0.4,
+              "control_form": "边郡、戍防与可执行地方管理",
+              "counted": true,
+              "coverage_factor": 0.5,
+              "evidence_refs": [
+                "WAR-LEAD-146-01",
+                "WAR-LEAD-151-03",
+                "WAR-LEAD-151-07",
+                "WAR-LEAD-162-06",
+                "WAR-LEAD-162-07",
+                "WAR-LEAD-162-10"
+              ],
+              "object_id": "LINGNAN",
+              "object_name": "岭南边疆",
+              "reason": "有界推断：依任期边界的州郡、防线与守戍存续，按标准区域取0.50（约半个主要走廊或网络）；不由一次胜负或名义声索外推更大控制。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.25,
+              "control_form": "边郡、戍防与可执行地方管理",
+              "counted": true,
+              "coverage_factor": 0.5,
+              "evidence_refs": [
+                "WAR-LEAD-146-01",
+                "WAR-LEAD-151-03",
+                "WAR-LEAD-151-07",
+                "WAR-LEAD-162-06",
+                "WAR-LEAD-162-07",
+                "WAR-LEAD-162-10"
+              ],
+              "object_id": "SOUTHWEST",
+              "object_name": "西南边疆",
+              "reason": "有界推断：依任期边界的州郡、防线与守戍存续，按标准区域取0.50（约半个主要走廊或网络）；不由一次胜负或名义声索外推更大控制。",
+              "spatial_weight": 0.5
+            }
+          ],
+          "b1_region_control": {
+            "end": {
+              "LINGNAN": 0.4,
+              "SOUTHWEST": 0.25
+            },
+            "start": {
+              "HUAI_FRONTIER": 0.35,
+              "LINGNAN": 0.8,
+              "SOUTHWEST": 0.25
+            }
+          },
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "control_contribution_grade_cap": 0,
+          "control_contribution_type": "INHERITED_ONLY",
+          "coverage_status": "FORMAL_CURRENT",
+          "defense_event_count": 29,
+          "evidence_event_refs": [
+            "WAR-LEAD-145-03",
+            "WAR-LEAD-145-04",
+            "WAR-LEAD-145-06",
+            "WAR-LEAD-145-07",
+            "WAR-LEAD-146-01",
+            "WAR-LEAD-146-02",
+            "WAR-LEAD-146-03",
+            "WAR-LEAD-146-04",
+            "WAR-LEAD-146-06",
+            "WAR-LEAD-146-07",
+            "WAR-LEAD-147-02",
+            "WAR-LEAD-147-04",
+            "WAR-LEAD-147-05",
+            "WAR-LEAD-147-06",
+            "WAR-LEAD-147-07",
+            "WAR-LEAD-148-01",
+            "WAR-LEAD-148-03",
+            "WAR-LEAD-148-04",
+            "WAR-LEAD-149-04",
+            "WAR-LEAD-150-03",
+            "WAR-LEAD-150-06",
+            "WAR-LEAD-150-07",
+            "WAR-LEAD-150-08",
+            "WAR-LEAD-151-03",
+            "WAR-LEAD-151-06",
+            "WAR-LEAD-151-07",
+            "WAR-LEAD-152-05",
+            "WAR-LEAD-152-06",
+            "WAR-LEAD-153-02",
+            "WAR-LEAD-153-04",
+            "WAR-LEAD-154-02",
+            "WAR-LEAD-156-03",
+            "WAR-LEAD-157-05",
+            "WAR-LEAD-161-01",
+            "WAR-LEAD-161-04",
+            "WAR-LEAD-162-06",
+            "WAR-LEAD-162-07",
+            "WAR-LEAD-162-09",
+            "WAR-LEAD-162-10",
+            "WAR-LEAD-145-02",
+            "WAR-LEAD-149-01",
+            "WAR-LEAD-149-02",
+            "WAR-LEAD-149-03",
+            "WAR-LEAD-149-05",
+            "WAR-LEAD-151-08",
+            "WAR-LEAD-152-03",
+            "WAR-LEAD-152-04",
+            "WAR-LEAD-152-07",
+            "WAR-LEAD-153-03",
+            "WAR-LEAD-153-05",
+            "WAR-LEAD-154-01",
+            "WAR-LEAD-154-04",
+            "WAR-LEAD-154-05",
+            "WAR-LEAD-155-01",
+            "WAR-LEAD-155-05",
+            "WAR-LEAD-155-06",
+            "WAR-LEAD-156-01",
+            "WAR-LEAD-156-02",
+            "WAR-LEAD-156-06",
+            "WAR-LEAD-156-07",
+            "WAR-LEAD-157-01",
+            "WAR-LEAD-157-02",
+            "WAR-LEAD-157-03",
+            "WAR-LEAD-157-04",
+            "WAR-LEAD-157-08",
+            "WAR-LEAD-158-01",
+            "WAR-LEAD-158-02",
+            "WAR-LEAD-158-03",
+            "WAR-LEAD-158-04",
+            "WAR-LEAD-158-06",
+            "WAR-LEAD-158-07",
+            "WAR-LEAD-159-03",
+            "WAR-LEAD-159-04",
+            "WAR-LEAD-160-07",
+            "WAR-LEAD-161-05",
+            "WAR-LEAD-162-05",
+            "WAR-LEAD-162-08",
+            "WAR-LEAD-163-02",
+            "WAR-LEAD-163-03",
+            "WAR-LEAD-163-09",
+            "WAR-LEAD-163-12",
+            "WAR-LEAD-164-05",
+            "WAR-LEAD-164-07",
+            "WAR-LEAD-164-08",
+            "WAR-LEAD-164-09"
+          ],
+          "hold_event_refs": [],
+          "major_in_reign_reversal_refs": [
+            "WAR-LEAD-161-01",
+            "WAR-LEAD-162-06",
+            "WAR-LEAD-162-07",
+            "WAR-LEAD-162-09"
+          ],
+          "non_defense_routing_refs": [],
+          "partition": "两晋十六国南北朝隋",
+          "polity": "梁",
+          "primary_control_package_refs": [],
+          "primary_threat_refs": [
+            "WAR-LEAD-161-01",
+            "WAR-LEAD-162-06",
+            "WAR-LEAD-162-07"
+          ],
+          "rationale": "分区实审已完成五轴、主体方向、交班边界与B1空间快照闭合。",
+          "reign_range": [
+            502,
+            549
+          ],
+          "ruler_id": "RULER-SHADOW-萧衍",
+          "ruler_name": "萧衍",
+          "score_ready": true,
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "terminal_polity_collapse": false,
+          "parent_cycle_refs": [
+            "NC-V145-LEAD-145-04",
+            "NC-V145-LEAD-145-06",
+            "NC-V146-LEAD-146-01",
+            "NC-V146-LEAD-146-02",
+            "NC-V146-LEAD-146-04",
+            "NC-V146-LEAD-146-06",
+            "NC-V146-LEAD-146-07",
+            "NC-WEI-LIANG-HUAI-506-507",
+            "NC-V147-LEAD-147-04",
+            "NC-V147-LEAD-147-05",
+            "NC-V147-LEAD-147-06",
+            "NC-V150-LEAD-150-03",
+            "NC-V150-LEAD-150-06",
+            "NC-V151-LEAD-151-03",
+            "NC-V151-LEAD-151-07",
+            "NC-V152-LEAD-152-05",
+            "NC-CHEN-QINGZHI-YUANHAO-529",
+            "NC-V153-LEAD-153-04",
+            "NC-V154-LEAD-154-02",
+            "NC-V156-LEAD-156-03",
+            "NC-V157-LEAD-157-05",
+            "NC-V158-LEAD-158-07",
+            "NC-HOUJING-EASTWEI-547-548",
+            "NC-LI-BI-541-548",
+            "NC-V162-LEAD-162-06",
+            "NC-V162-LEAD-162-07",
+            "NC-V162-LEAD-162-09",
+            "NC-V162-LEAD-162-10",
+            "NC-HOUJING-LIANG-548-552"
+          ],
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "excluded_founding_unification_refs": [],
+          "observed_parent_cycle_count": 39,
+          "A120_non_cost_anchor_points": 0.0,
+          "A120_positive_result_credit_points": 0.0,
+          "A120_score_points": 0.0,
+          "B80_score_points": 8.93,
+          "AB200_score_points": 8.93,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": -2.0,
+              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 0.0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 0,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": -2,
+              "reversal_basis": "终点下降已消费负向结果，禁止重复处罚",
+              "reversal_grade": "CONSUMED_BY_TERMINAL_DECLINE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 2,
+              "trajectory_value": 0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            },
+            "A2": {
+              "attributable_delta": -2.0,
+              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 0.0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 0,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": -2,
+              "reversal_basis": "终点下降已消费负向结果，禁止重复处罚",
+              "reversal_grade": "CONSUMED_BY_TERMINAL_DECLINE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 2,
+              "trajectory_value": 0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 8.93,
+            "formal_B1_rate": 29.0,
+            "formal_B2_rate": 0.0,
+            "formal_B4_rate": 0.0,
+            "adjudicated_B1_rate": 29.0,
+            "adjudicated_B2_rate": 0.0,
+            "adjudicated_B4_rate": 0.0,
+            "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          }
+        },
+        {
+          "AB_score_points": 0.0,
+          "adjudication_status": "REVIEWED",
+          "ambiguous_event_refs": [
+            "WAR-LEAD-166-CHEN-COUP-555"
+          ],
+          "axes": {
+            "A1": {
+              "axis_points": 0.0,
+              "base_trajectory_value": 0,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A1S0_EXISTENTIAL_CRISIS",
+              "rationale": "即位时虽已消灭侯景，梁仍由多个宗室军政中心分裂，西魏、北齐可乘虚介入，起点1档。内战杀萧纪、拒绝西魏要求后江陵陷落，本人中央政权覆亡，终点0档。",
+              "start": "A1S1_SEVERE_THREAT",
+              "trajectory_value": 0,
+              "transition": "WORSENED",
+              "transition_attribution": "PRIMARY_RULER_ACTION"
+            },
+            "A2": {
+              "axis_points": 0.0,
+              "base_trajectory_value": 0,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A2S0_CORE_EXPOSED",
+              "rationale": "起点以江陵和长江中游节点构成局部可守体系，为2档。西魏攻破江陵后核心、补给与指挥枢纽同时归零，终点0档。",
+              "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
+              "trajectory_value": 0,
+              "transition": "WORSENED",
+              "transition_attribution": "PRIMARY_RULER_ACTION"
+            },
+            "B1": {
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "grade": "B1-0",
+              "rationale": "即位时江陵体系对西南标准区域只达小支点阶梯0.25；江陵陷落后本人中央无可移交控制，交班为0。执行终局门，B1强制0档LOW。",
+              "raw_net_change": -0.25,
+              "score_rate": 0,
+              "terminal_collapse_override": true,
+              "weighted_control_value": -0.15
+            },
+            "B2": {
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "grade": "B2-0",
+              "rationale": "江陵政权随本人被杀而终结，任内阶段成果不再作为已留下的边疆控制收益。",
+              "score_rate": 0
+            },
+            "B4": {
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "grade": "B4-0",
+              "rationale": "中央政权已无实际移交能力，按终局门归零。",
+              "score_rate": 0
+            }
+          },
+          "b1_control_equivalents": {
+            "end": 0,
+            "net_change": -0.25,
+            "start": 0.25,
+            "weighted_value": -0.15
+          },
+          "b1_region_adjudications": [
+            {
+              "anchors": [
+                "start"
+              ],
+              "control_equivalent": 0.25,
+              "control_form": "边郡、戍防与可执行地方管理",
+              "counted": true,
+              "coverage_factor": 0.5,
+              "evidence_refs": [
+                "WAR-LEAD-165-JIANGLING-554"
+              ],
+              "object_id": "SOUTHWEST",
+              "object_name": "西南边疆",
+              "reason": "有界推断：依任期边界的州郡、防线与守戍存续，按标准区域取0.50（约半个主要走廊或网络）；不由一次胜负或名义声索外推更大控制。",
+              "spatial_weight": 0.5
+            }
+          ],
+          "b1_region_control": {
+            "end": {},
+            "start": {
+              "SOUTHWEST": 0.25
+            }
+          },
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "control_contribution_grade_cap": 0,
+          "control_contribution_type": "INHERITED_ONLY",
+          "coverage_status": "FORMAL_CURRENT",
+          "defense_event_count": 7,
+          "evidence_event_refs": [
+            "WAR-LEAD-164-05",
+            "WAR-LEAD-164-07",
+            "WAR-LEAD-165-DONGGUAN-553",
+            "WAR-LEAD-165-JIANGLING-554",
+            "WAR-LEAD-165-LIANG-QI-554",
+            "WAR-LEAD-165-LUNA-553",
+            "WAR-LEAD-165-WULING-553",
+            "WAR-LEAD-166-CHEN-COUP-555",
+            "WAR-LEAD-162-05",
+            "WAR-LEAD-162-06",
+            "WAR-LEAD-162-07",
+            "WAR-LEAD-162-08",
+            "WAR-LEAD-162-09",
+            "WAR-LEAD-162-10",
+            "WAR-LEAD-163-02",
+            "WAR-LEAD-163-03",
+            "WAR-LEAD-163-09",
+            "WAR-LEAD-163-12",
+            "WAR-LEAD-164-08",
+            "WAR-LEAD-164-09",
+            "WAR-LEAD-165-QI-KHITAN-553",
+            "WAR-LEAD-165-QI-SHANHU-554",
+            "WAR-LEAD-165-TUYUHUN-553",
+            "WAR-LEAD-165-WEIBA-554",
+            "WAR-LEAD-165-WEISHU-553",
+            "WAR-LEAD-166-QI-RUORAN-555",
+            "WAR-LEAD-166-QI-YUANMING-555",
+            "WAR-LEAD-166-SANWU-555-556",
+            "WAR-LEAD-166-XUSIHUI-555",
+            "WAR-PARENT-165-QI-RUORAN-553-554"
+          ],
+          "hold_event_refs": [],
+          "major_in_reign_reversal_refs": [
+            "WAR-LEAD-165-WULING-553",
+            "WAR-LEAD-165-JIANGLING-554"
+          ],
+          "non_defense_routing_refs": [],
+          "partition": "两晋十六国南北朝隋",
+          "polity": "梁",
+          "primary_control_package_refs": [],
+          "primary_threat_refs": [
+            "WAR-LEAD-165-WULING-553",
+            "WAR-LEAD-165-JIANGLING-554"
+          ],
+          "rationale": "分区实审已完成五轴、主体方向、交班边界与B1空间快照闭合。",
+          "reign_range": [
+            552,
+            555
+          ],
+          "ruler_id": "RULER-SHADOW-萧绎",
+          "ruler_name": "萧绎",
+          "score_ready": true,
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "terminal_polity_collapse": true,
+          "parent_cycle_refs": [
+            "NC-V164-LEAD-164-05",
+            "NC-HOUJING-LIANG-548-552",
+            "NC-LUNA-XIANGZHOU-552-553",
+            "V165-LEAD-165-WEISHU-553",
+            "V165-LEAD-165-WULING-553",
+            "V165-LEAD-165-LIANG-QI-554",
+            "V165-LEAD-165-JIANGLING-554"
+          ],
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "excluded_founding_unification_refs": [],
+          "observed_parent_cycle_count": 15,
+          "A120_non_cost_anchor_points": 0.0,
+          "A120_positive_result_credit_points": 0.0,
+          "A120_score_points": 0.0,
+          "B80_score_points": 0.0,
+          "AB200_score_points": 0.0,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": -1.0,
+              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 0.0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 0,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": -1,
+              "reversal_basis": "终点下降已消费负向结果，禁止重复处罚",
+              "reversal_grade": "CONSUMED_BY_TERMINAL_DECLINE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 1,
+              "trajectory_value": 0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            },
+            "A2": {
+              "attributable_delta": -2.0,
+              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_category": "PRIMARY_RULER",
+              "axis_points": 0.0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 0,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 0,
+              "objective_delta": -2,
+              "reversal_basis": "终点下降已消费负向结果，禁止重复处罚",
+              "reversal_grade": "CONSUMED_BY_TERMINAL_DECLINE",
+              "reversal_penalty": 0,
+              "score_ready": true,
+              "start_grade": 2,
+              "trajectory_value": 0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 0.0,
+            "formal_B1_rate": 0.0,
+            "formal_B2_rate": 0.0,
+            "formal_B4_rate": 0.0,
+            "adjudicated_B1_rate": 0.0,
+            "adjudicated_B2_rate": 0.0,
+            "adjudicated_B4_rate": 0.0,
+            "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          }
+        }
+      ]
+    }
+  }
+}

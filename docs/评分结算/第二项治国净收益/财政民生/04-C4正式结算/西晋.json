@@ -1,0 +1,233 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "西晋",
+  "collections": {
+    "scores": {
+      "positions": [
+        34
+      ],
+      "records": [
+        {
+          "adjudication_reason": "按C4七档DA合同：正向保留10.0；可归责恶化0.0；DA1残余主动成本4.5；C4=5.5。已执行必要行为剔除、客观成本下限与跨项去重门。",
+          "attribution_factor": 0.0,
+          "closed_recovery_axes": [
+            "C1",
+            "C2",
+            "C3"
+          ],
+          "destructive_amplification_grade": "DA1",
+          "destructive_amplification_penalty": 4.5,
+          "deterioration_attribution": "NONE",
+          "deterioration_curve_summary": "行为链：原DA2过度读取“所统八万”及军损；实际可选择投入不足DA2锚，且无大型营造补强。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣0.0分，最终DA1扣4.5分。",
+          "deterioration_penalty": 0.0,
+          "main_band": "C4-2",
+          "negative_tail_adjudication_reason": "行为链：原DA2过度读取“所统八万”及军损；实际可选择投入不足DA2锚，且无大型营造补强。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣0.0分，最终DA1扣4.5分。",
+          "period": "qin_through_tang",
+          "polity": "西晋",
+          "positive_score_retained": 10.0,
+          "pre_negative_tail_band": "C4-2",
+          "pre_negative_tail_raw_score": 21.7,
+          "pre_negative_tail_score": 21.7,
+          "rank": 35,
+          "raw_score": 5.5,
+          "recovery_score": 10.0,
+          "reign_range": [
+            265,
+            290
+          ],
+          "ruler_id": "RULER-SHADOW-司马炎",
+          "ruler_name": "司马炎",
+          "score": 5.5,
+          "terminal_band": "C4T-4",
+          "terminal_cap": 27.0,
+          "terminal_cap_applied": false,
+          "terminal_reason": "交班raw锚点为民生4档、经济财政4档、社会安全4档；终局层级C4T-4，正向上限34.9。",
+          "weighted_attributable_deterioration": 0.0,
+          "weighted_net_recovery_delta": 1.0,
+          "m3_supplement_review": {
+            "disposition": "REVIEWED_C4_ATTRIBUTION_RETAINED",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-司马炎",
+            "c4_attribution_review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-SHADOW-司马炎"
+          },
+          "attribution_readjudication_reason": "行为链：原DA2过度读取“所统八万”及军损；实际可选择投入不足DA2锚，且无大型营造补强。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣0.0分，最终DA1扣4.5分。",
+          "c4_attribution_readjudication": {
+            "review_status": "FULLY_ADJUDICATED",
+            "basis_version": "C4-DA0-DA6-CALIBRATION-2026-09-02",
+            "final_grade": "DA1",
+            "final_penalty": 4.5,
+            "change_type": "FORMAL_CHECKLIST_PATCH",
+            "behavior_chain_basis": "行为链：原DA2过度读取“所统八万”及军损；实际可选择投入不足DA2锚，且无大型营造补强。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣0.0分，最终DA1扣4.5分。",
+            "grade_boundary_basis": "当前正式逐人裁决为DA1，扣4.5分。",
+            "duplicate_control": {
+              "C1_C2_C3_absorption": "C1/C2/C3结算客观状态；同一事实在已闭合S0→S_end下降及本人归责时可同时支撑C4恶化，DA不得重复扣减已吸收的主动成本。",
+              "K_absorption": "K只折损C1/C2/C3主态完整度；已由K表达的终局跌幅不得再次进入DA。",
+              "DA_residual_scope": "只计未被主态、K与可归责恶化消费的本人主动家庭、劳役、军粮转输、财政抽取或平民伤害成本；纯军队人员损失不单列。"
+            },
+            "review_ref": "BATCH6_INLINE_2026-08-31"
+          },
+          "public_basis_version": "C4-CONTRACT-2026-08-31-BATCH6",
+          "starting_context": "接手三轴为C1-3/C2-3/C3-3；交班三轴为C1-4/C2-4/C3-4。",
+          "recovery_and_absorption": "恢复原值10.0；归责FULL（100%）；可归责恢复10.0/27；交班上限27.0；正向保留10.0。",
+          "behavior_and_attribution": "行为链：原DA2过度读取“所统八万”及军损；实际可选择投入不足DA2锚，且无大型营造补强。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣0.0分，最终DA1扣4.5分。",
+          "handoff_state": "交班raw锚点为民生4档、经济财政4档、社会安全4档；终局层级C4T-4，正向上限34.9。",
+          "public_source_refs": [
+            "《晋书·食货志》：是时天下无事，赋税平均，人咸安其业而乐其事。",
+            "《晋书·武帝纪》：以比岁不登，免租贷宿负……郡国四旱，十大水，坏百姓庐舍。",
+            "《晋书·武帝纪》：郡国三十二大旱，伤麦……郡国二十四螟。",
+            "《晋书·羊祜传》：祜所统八万余人，贼众不过三万……乃遣杨肇偏军入险，兵少粮悬，军人挫衄。",
+            "《隋书·刑法志》：晋氏平吴，九州宁一……实曰轻平，称为简易。"
+          ],
+          "public_adjudication": "按C4七档DA合同：正向保留10.0；可归责恶化0.0；DA1残余主动成本4.5；C4=5.5。已执行必要行为剔除、客观成本下限与跨项去重门。",
+          "recovery_formula_version": "C4-CONTRACT-2026-08-31-C1_FORMAL_RECOVERY-DA_COST_MAGNITUDE",
+          "recovery_boundary_difficulty": {
+            "1_TO_2": 0.6,
+            "2_TO_3": 0.8,
+            "3_TO_4": 1.0,
+            "4_TO_5": 1.3,
+            "5_TO_6": 1.6
+          },
+          "recovery_path_basis": {
+            "C1": {
+              "start_band": "C1-3",
+              "highest_achieved_band": "C1-4",
+              "linear_delta": 1,
+              "boundary_difficulty_credit": 1.0,
+              "axis_weight": 0.5,
+              "weighted_difficulty_credit": 0.5
+            },
+            "C2": {
+              "start_band": "C2-3",
+              "highest_achieved_band": "C2-4",
+              "linear_delta": 1,
+              "boundary_difficulty_credit": 1.0,
+              "axis_weight": 0.2,
+              "weighted_difficulty_credit": 0.2
+            },
+            "C3": {
+              "start_band": "C3-3",
+              "highest_achieved_band": "C3-4",
+              "linear_delta": 1,
+              "boundary_difficulty_credit": 1.0,
+              "axis_weight": 0.3,
+              "weighted_difficulty_credit": 0.3
+            }
+          },
+          "difficulty_weighted_recovery_credit": 1.0,
+          "uncapped_positive_score": 10.0,
+          "source_basis_format": "BOOK_PLUS_VERBATIM_EXCERPTS",
+          "input_sync_status": "SYNCED_TO_LATEST_C1_C2_C3_BATCH6。",
+          "batch_review_status": "REVIEWED_BATCH_6_2026-08-31",
+          "terminal_quality": 4.0,
+          "deterioration_path_basis": {
+            "C1": {
+              "reference_band": "C1-4",
+              "end_band": "C1-4",
+              "raw_drop": 0,
+              "attribution": "NONE",
+              "attribution_factor": 0.0,
+              "attributable_drop": 0.0,
+              "axis_weight": 0.5
+            },
+            "C2": {
+              "reference_band": "C2-4",
+              "end_band": "C2-4",
+              "raw_drop": 0,
+              "attribution": "NONE",
+              "attribution_factor": 0.0,
+              "attributable_drop": 0.0,
+              "axis_weight": 0.2
+            },
+            "C3": {
+              "reference_band": "C3-4",
+              "end_band": "C3-4",
+              "raw_drop": 0,
+              "attribution": "NONE",
+              "attribution_factor": 0.0,
+              "attributable_drop": 0.0,
+              "axis_weight": 0.3
+            }
+          },
+          "military_cost_review": {
+            "status": "FORMAL_SYNCED_CURRENT_C4_CONTRACT",
+            "final_grade": "DA1",
+            "basis": "军事动员只消费可选择增量的兵役、军粮、运输与财政资源占用；军队伤亡本身不直接转入第二项。"
+          },
+          "large_construction_review": {
+            "status": "FORMAL_SYNCED",
+            "basis": "本轮没有用独立营造链上调DA；营造不是该人物当前DA的独立计档依据。",
+            "construction_types": [],
+            "classification_status": "NO_CONSTRUCTION_CHAIN_USED_FOR_DA"
+          },
+          "material_basis": [
+            {
+              "book": "《晋书·食货志》",
+              "original_text": "是时天下无事，赋税平均，人咸安其业而乐其事。"
+            },
+            {
+              "book": "《晋书·武帝纪》",
+              "original_text": "以比岁不登，免租贷宿负……郡国四旱，十大水，坏百姓庐舍。"
+            },
+            {
+              "book": "《晋书·武帝纪》",
+              "original_text": "郡国三十二大旱，伤麦……郡国二十四螟。"
+            },
+            {
+              "book": "《晋书·羊祜传》",
+              "original_text": "祜所统八万余人，贼众不过三万……乃遣杨肇偏军入险，兵少粮悬，军人挫衄。"
+            },
+            {
+              "book": "《隋书·刑法志》",
+              "original_text": "晋氏平吴，九州宁一……实曰轻平，称为简易。"
+            }
+          ],
+          "military_cost_public_basis": "原DA2过度读取“所统八万”及军损；实际可选择投入不足DA2锚，且无大型营造补强。",
+          "large_construction_public_basis": "本轮没有用独立营造链上调DA；营造不是该人物当前DA的独立计档依据。",
+          "typical_pattern": {
+            "status": "STRUCTURED_C4_FORMAL",
+            "recovery_score": 10.0,
+            "positive_score_retained": 21.7,
+            "closed_recovery_axes": [
+              "C1",
+              "C2",
+              "C3"
+            ]
+          },
+          "gross_recovery_score": 10.0,
+          "recovery_attribution": {
+            "grade": "FULL",
+            "factor": 1.0,
+            "basis": "恢复发生于本人唯一或明确主导的实际最高权力窗口。"
+          },
+          "m3_governance_scale_adjudication": {
+            "schema_version": "m3-governance-scale-adjudication-v1",
+            "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+            "gate_status": "FULL_OR_MAJOR_REGIONAL",
+            "dimension": "ACTUAL_GOVERNANCE_SCALE",
+            "basis": "太康阶段的赋税、生产与社会秩序裁决覆盖全国性治理链，属于完整治理尺度。",
+            "supporting_formal_fields": [
+              {
+                "axis": "C1",
+                "field_path": "adjudication_reason"
+              },
+              {
+                "axis": "C2",
+                "field_path": "adjudication_reason"
+              },
+              {
+                "axis": "C3",
+                "field_path": "adjudication_reason"
+              }
+            ],
+            "name_or_polity_inference_used": false
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "东晋",
+  "collections": {
+    "records": {
+      "positions": [
+        31,
+        106,
+        107
+      ],
+      "records": [
+        {
+          "ruler_id": "RULER-SHADOW-司马睿",
+          "ruler_name": "司马睿",
+          "polity": "东晋",
+          "reign_range": [
+            317,
+            322
+          ],
+          "scope_status": "ELIGIBLE_DYNASTY_FOUNDER",
+          "score_applicable": true,
+          "founder_role": "RESTORATION_FOUNDER",
+          "difficulty_start_boundary": "晋室宗王、琅邪王名位和江东任职资源是南渡前已有起点",
+          "initial_resource_position": "晋室宗王、琅邪王名位和江东任职资源是南渡前已有起点",
+          "initial_resource_share_pct": 22.0,
+          "initial_resource_source_refs": [
+            "WAR-LEAD-HANMIAN-317",
+            "WAR-LEAD-ZUTI-QIAO-317",
+            "WAR-LEAD-XINGYANG-317"
+          ],
+          "initial_resource_source_status": "SOURCE_ANCHORED_RULE_MAPPED",
+          "initial_resource_class": "R3_REGIONAL_MACHINE",
+          "initial_resource_share_basis": "史源锚用于确认‘晋室宗王、琅邪王名位和江东任职资源是南渡前已有起点’这一事实起点；百分比不是史书原文数字，而是按合同R3_REGIONAL_MACHINE档（拥有成熟区域军政集团、一个主要战略区或相当规模的继承性机器）在同档人物间依可调用资源广度裁为22%。",
+          "start_boundary": "307年移镇建邺",
+          "end_boundary": "317年建立东晋",
+          "starting_position": "晋室宗王、江东军政名义与北人南渡资源",
+          "A1": {
+            "axis": "A1",
+            "name": "创业战略增益与难度兑现",
+            "starting_resource_share": 22.0,
+            "starting_resource_disadvantage": 78.0,
+            "project_start_resource_share": 22.0,
+            "project_start_resource_disadvantage": 78.0,
+            "contribution_start_field": {
+              "subject_units": 22.0,
+              "other_actors": {
+                "西晋北方中枢与诸王": 25,
+                "江东士族军政力量": 28,
+                "北方汉赵及其他势力": 25
+              }
+            },
+            "opponent_pressure": 55.57,
+            "opponent_system_pressure": 56.75,
+            "relative_resource_pressure": 52.83,
+            "major_opponent_count": 2,
+            "major_opponent_systems": [
+              {
+                "opponent_system_ref": "OPP-HANZHAO-STATE",
+                "opponent_label": "汉赵国家机器",
+                "organization_grade": "O5",
+                "organization_rate": 85.0,
+                "source_campaign_refs": [
+                  "WAR-LEAD-HEDONG-317"
+                ]
+              },
+              {
+                "opponent_system_ref": "OPP-EASTERN-JIN-DUZENG",
+                "opponent_label": "杜曾汉沔军政集团",
+                "organization_grade": "O3",
+                "organization_rate": 50.0,
+                "source_campaign_refs": [
+                  "WAR-LEAD-HANMIAN-317"
+                ]
+              }
+            ],
+            "unknown_opponent_campaign_refs": [],
+            "opponent_threat_source_status": "OPPONENT_SYSTEM_O_GRADE_WITH_RELATIVE_RESOURCES",
+            "opponent_threat_routing_basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。",
+            "competitive_fragmentation": 99.74,
+            "a1_strategic_responsibility_factor": 100.0,
+            "a1_strategic_responsibility_basis": "role_default:RESTORATION_FOUNDER",
+            "start_difficulty_rate": 78.0,
+            "pure_difficulty_rate": 66.79,
+            "difficulty_rate": 78.57,
+            "terminal_completion_rate": 60.0,
+            "attributed_completion_rate": 60.0,
+            "result_rate": 60.0,
+            "rate": 47.14,
+            "weight": 60,
+            "points": 28.3
+          },
+          "A2": {
+            "axis": "A2",
+            "name": "创业路线效率与稳固",
+            "created_net_control_value": 200.0,
+            "recovered_net_control_value": 0.0,
+            "gross_unification_control_value": 200.0,
+            "effective_unification_control_value": 200.0,
+            "recovered_control_scoring_rate": 50.0,
+            "raw_control_scale_rate": 20.0,
+            "control_scale_score_rate": 44.72,
+            "closure_years": 10.0,
+            "value_weighted_acquisition_years": 7.0,
+            "control_acquisition_efficiency": 28.57,
+            "acquisition_pace_rate": 64.5,
+            "scale_expected_closure_years": 4.82,
+            "closure_pace_rate": 48.23,
+            "time_rate": 57.99,
+            "control_retention_rate": 91.0,
+            "durability_rate": 72.6,
+            "terminal_completion_rate": 60.0,
+            "early_stability_rate": 45.0,
+            "strategic_positive_decisions": [
+              {
+                "event": "选择建邺承接南渡资源并保存晋室政权",
+                "impact": "DECISIVE",
+                "basis": "卷090保存司马睿在建康由晋王到皇帝、建立百官宗庙社稷并接受北方残余势力劝进，足以锚定江东根据地和晋室合法性承接。",
+                "source_refs": [
+                  "DEF-LEAD-EASTERNJIN-317-318",
+                  "資治通鑑/卷090#辛巳宋哲至建康"
+                ],
+                "base_points": 5.0,
+                "position": 1,
+                "position_weight": 1.0,
+                "effective_points": 5.0
+              }
+            ],
+            "objective_result_points": 13.3,
+            "strategic_positive_decision_points": 5.0,
+            "strategic_error_points": 0.0,
+            "strategic_error_events": [],
+            "rate": 45.77,
+            "weight": 40,
+            "points": 18.3
+          },
+          "strategic_error_events": [],
+          "strategic_error_review": {
+            "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+            "searched_evidence_refs": [
+              "WAR-LEAD-HANMIAN-317",
+              "WAR-LEAD-ZUTI-QIAO-317",
+              "WAR-LEAD-XINGYANG-317"
+            ],
+            "no_error_basis": "窗口止于317年建国；317年祖逖等河南方向仅形成有限进展，未见本人可归责且达到门槛的失败决定，319年以后陈川等事件在窗口外。"
+          },
+          "A_score_points": 46.6,
+          "canonical_rank": 32,
+          "responsibility_basis": "保存晋室南方政权，但依赖王氏、北方失守和中枢独立性不足限制闭合与稳定。",
+          "evidence_status": "CALIBRATED_CURRENT",
+          "evidence_status_basis": "A2控制量已绑定当前C区域控制底账，未保留额外数值下限。",
+          "evidence_lower_bound": false,
+          "limitations": [],
+          "unknown_control_scope": null,
+          "source_refs": []
+        },
+        {
+          "ruler_id": "RULER-SHADOW-司马曜",
+          "ruler_name": "司马曜",
+          "polity": "东晋",
+          "reign_range": [
+            372,
+            396
+          ],
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        },
+        {
+          "ruler_id": "RULER-SHADOW-司马绍",
+          "ruler_name": "司马绍",
+          "polity": "东晋",
+          "reign_range": [
+            322,
+            325
+          ],
+          "scope_status": "NOT_APPLICABLE_NON_FOUNDER",
+          "score_applicable": false,
+          "founder_role": null,
+          "A1": null,
+          "A2": null,
+          "A_score_points": null,
+          "canonical_rank": null,
+          "basis": "未发现本人对所属王朝或独立政权建国、统一主链形成实际可归责贡献。"
+        }
+      ]
+    }
+  }
+}

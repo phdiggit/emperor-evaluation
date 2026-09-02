@@ -1,0 +1,121 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "西晋",
+  "collections": {
+    "records": {
+      "positions": [
+        94
+      ],
+      "records": [
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "material_id": "I2-JIN-SMY-NINE-RANK-ELITE-CAPTURE-001",
+              "mechanism": "九品中正的门第、党利与货赂俘获选任N3-domain",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": -2.0,
+              "lifecycle_key": "B1:RULER-SHADOW-司马炎:V50:EXPLICIT-N3-DOMAIN",
+              "lifecycle_group_key": "B1:RULER-SHADOW-司马炎:V50:EXPLICIT-N3-DOMAIN",
+              "severity": "N3-domain",
+              "severity_scope": "major-stage",
+              "profile_id": "B1-PROFILE-21F8136D370670D4",
+              "b1_role": "core",
+              "severity_basis": "按v20/v50材料并集复核，裁为N3-domain / major-stage。"
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "I2-JIN-SMY-MINISTERIAL-DELIVERY-001",
+              "mechanism": "山涛长期掌吏部、列名择用并使内外选举得才，形成central/personnel M3",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2.0,
+              "profile_id": "B1-PROFILE-2CAF84626AE8DADC",
+              "b1_role": "central"
+            }
+          ],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-JIN-SMY-MINISTERIAL-DELIVERY-001",
+            "I2-JIN-SMY-NINE-RANK-ELITE-CAPTURE-001"
+          ],
+          "direction_card_write": true,
+          "direction_index": 56.5,
+          "evidence_sufficiency_gate": "not_applicable",
+          "formal_evidence_maturity": "fixed_primary_exact_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G3",
+          "grade_basis": "已吸收v20/v50计分材料（冲突以v50为准），再按V5.3合同重裁；当前主档为G3。材料裁决来源：v50。",
+          "grade_gate_basis": "已吸收v20/v50计分材料（冲突以v50为准），再按V5.3合同重裁；当前主档为G3。材料裁决来源：v50。",
+          "grade_gate_code": "B1_G3_MAIN_STAGE_USABLE",
+          "index_interval": [
+            55.0,
+            69.9
+          ],
+          "polity": "西晋",
+          "position": "lower",
+          "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=-2，按合同机械映射为lower。",
+          "position_q": 0.1,
+          "rank": 86,
+          "reign_range": [
+            265,
+            290
+          ],
+          "ruler_id": "RULER-SHADOW-司马炎",
+          "ruler_name": "司马炎",
+          "verification_material_ids": [
+            "I2-JIN-SMY-LOCAL-DISARMAMENT-001"
+          ],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "裁决说明",
+              "text": "按有效生命周期与合同门禁重裁，净余量为-2，机械裁定G3-下位（56.5）"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "山涛长期掌吏部、列名择用并使内外选举得才，形成中枢运行/选任与考课 M3"
+            },
+            {
+              "role": "负向依据（M3）",
+              "text": "九品中正的门第、党利与货赂俘获选任N3（单功能系统失灵）"
+            }
+          ],
+          "position_residual": -2.0,
+          "grade_threshold_consumed": 2.0,
+          "v50_source_line": 200,
+          "review_material_basis": [
+            {
+              "version": "v20",
+              "line": 480,
+              "review_grade": "G3",
+              "review_position": "lower-middle",
+              "basis": "时代差异专项由G2上调。正向不应只写羊祜：泰始中窦允因浩亹长清勤被武帝明诏要求“详复参访”“旌表擢用”，再任临水令、迁钜鹿太守均有政绩；王宏泰始初汲郡有殊绩，经司隶石鉴上报后武帝亲诏褒奖、赐谷并布告天下，旋迁卫尉、河南尹、大司农；《晋书·良吏传》又保存胡威等地方长官在武帝窗口内“勤于政术、风化大行”并连续迁任，足以形成早期式`distributed core M3`。同时刘毅任司隶校尉“纠正豪右、守令望风投印绶”证明问责仍能运行。负向同样必须保留：刘毅所论九品中正已长期出现“上品无寒门、下品无势族”、党利与货赂左右品第，武帝虽容纳批评却最终不废，属主要阶段选任结构性N3-domain，并伴随卖官/私门等用人激励恶化。正负长期并存，足升G3但不能进G4，锁lower-middle。",
+              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
+            },
+            {
+              "version": "v50",
+              "line": 200,
+              "review_grade": "G3",
+              "review_position": "lower-middle",
+              "basis": "《晋书·山涛传》《晋书·刘毅传》｜正链：山涛先在冀州搜拔隐滞三十余人并使风俗“颇革”→武帝反复召其掌吏部→“再居选职十有余年”，每有职位空缺先列数人、武帝择用，史称“前后选举周遍内外而并得其才”，形成长期central/personnel M3。负生命周期处在同一选官体系：刘毅上疏指出九品中正“高下任意、荣党横越、威福擅行”，中正长期控制品第而缺乏真实问责；贾充、荀勖等集团又能通过高层关系排挤任恺等责任官。故不能把山涛专业选任与九品中正失真拆成两套互不相干体系，整体裁mixed_positive M3；后世八王之乱等不倒投武帝B1，维持G3-lower-middle。",
+              "status": "ABSORBED_ACTIVE_PRECEDENCE"
+            }
+          ],
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
+          "g3_gate_route": "CENTRAL_OR_DISTRIBUTED_M3",
+          "g3_gate_profile_ids": [
+            "B1-PROFILE-2CAF84626AE8DADC"
+          ]
+        }
+      ]
+    }
+  }
+}

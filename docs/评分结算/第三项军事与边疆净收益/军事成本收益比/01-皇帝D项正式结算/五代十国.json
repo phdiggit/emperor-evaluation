@@ -1,0 +1,2806 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "五代十国",
+  "collections": {
+    "records": {
+      "positions": [
+        11,
+        22,
+        33,
+        54,
+        55,
+        85,
+        87,
+        106,
+        107,
+        108,
+        114,
+        119,
+        131,
+        139,
+        143,
+        185,
+        186,
+        194,
+        195
+      ],
+      "records": [
+        {
+          "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
+          "ruler_id": "RULER-SHADOW-刘崇",
+          "ruler_name": "刘崇",
+          "polity": "北汉",
+          "reign_range": "951—954",
+          "identity_source": "D_FORMAL_EXTENSION",
+          "D_grade": "D0",
+          "D_within_grade_position": "LOW",
+          "D_score_points": 0.0,
+          "D_score_status": "DIRECT_D_SCORE_ASSIGNED",
+          "signed_security_candidate_before_cost": "D1",
+          "cost_grade_delta": -1,
+          "security_result_distribution": {
+            "E2": 1,
+            "EN2": 2
+          },
+          "external_strategic_chains": [
+            {
+              "chain_id": "NORTHERN-HAN-ZHOU-SHANXI-951",
+              "member_cycle_refs": [
+                "WAR-FD-658CD9E5D1745FD890DB",
+                "WAR-FD-96CDC79A15D8278D4CFB",
+                "WAR-FD-3D2D512EB20AA0C4E0C2"
+              ],
+              "effective_opponent_challenge_grade": "O4_MULTI_DIRECTION_OR_CORE_REGION_THREAT",
+              "challenge_context": "新建后周已能以多镇援军守晋、隰并追击至霍邑，是可持续投送的成熟中原国家。",
+              "achievement_grade": "EN2_REPEATED_MAJOR_OFFENSIVE_FAILURE",
+              "acquisition_mode": "REPEATED_SOUTHWARD_INVASION_AND_FAILED_SIEGES",
+              "result_type": "NO_CONTROL_GAIN_WITH_REPEATED_FORCE_DAMAGE_AND_RETREAT",
+              "within_grade_position": "HIGH",
+              "terminal_result_profile": "北汉先以一万步骑攻晋、隰，死伤千余且连续退兵；后刘旻亲率二万会契丹五万再围晋州，仍因雪、乏食撤退并在霍邑遭追击，未取得晋南节点。",
+              "control_change": "恢复后汉旧土的创业扩张目标未实现，无新增控制收益；D消费连续失败后本方南向攻势能力与安全位置恶化。",
+              "cross_item_control_gain_deduplicated": true,
+              "security_change_basis": "同一对手和恢复晋南目标在951年连续授权，终点反复重大受损且无控制所得，构成EN2高位；北汉核心国防与领土尚未崩溃，不上EN3。",
+              "mobilization_peak": "W20000_OWN_FORCE_PLUS_50000_ALLIED_FORCE",
+              "mobilization_basis": "本方峰值为刘旻亲率二万；契丹五万为盟军而非本方成本，不将其损耗并入北汉F档。",
+              "force_destruction": "F2_LARGE_PERSONNEL_LOSS_WITHOUT_SINGLE_FORCE_DENOMINATOR_CLOSURE",
+              "force_destruction_basis": "一万人攻晋州阶段死伤千余、后续北汉兵坠崖甚众，但不同阶段组织分母和同维度累计死亡失载；不把契丹士马十损三四计为北汉损失，故不上F3。",
+              "process_burden": {
+                "repetition": "TWO_MAJOR_INVASIONS_AND_MULTIPLE_FAILED_SIEGES",
+                "duration": "LONG_MULTI_EPISODE_951"
+              },
+              "ruler_responsibility": "DIRECT_PERSONAL_STRATEGIC_AUTHORIZATION_AND_SECOND_CAMPAIGN_COMMAND",
+              "responsibility_basis": "刘崇发动连续南攻并亲率第二次二万主力，直接承担重复攻城、缺粮撤退和追击损害责任。",
+              "source_refs": [
+                "docs/公共成果/军事/01-战役登记/five_dynasties-06.json#WAR-FD-658CD9E5D1745FD890DB",
+                "docs/公共成果/军事/01-战役登记/five_dynasties-08.json#WAR-FD-96CDC79A15D8278D4CFB",
+                "docs/公共成果/军事/01-战役登记/five_dynasties-09.json#WAR-FD-3D2D512EB20AA0C4E0C2",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-290.battle-adjudications.json#ZZTJ-290-NH-ZHOU-SHANXI-0951"
+              ],
+              "effective_opponent_challenge_basis": "新建后周已能以多镇援军守晋、隰并追击至霍邑，是可持续投送的成熟中原国家。",
+              "effective_opponent_challenge_source_refs": [
+                "docs/公共成果/军事/01-战役登记/five_dynasties-06.json#WAR-FD-658CD9E5D1745FD890DB",
+                "docs/公共成果/军事/01-战役登记/five_dynasties-08.json#WAR-FD-96CDC79A15D8278D4CFB",
+                "docs/公共成果/军事/01-战役登记/five_dynasties-09.json#WAR-FD-3D2D512EB20AA0C4E0C2",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-290.battle-adjudications.json#ZZTJ-290-NH-ZHOU-SHANXI-0951"
+              ],
+              "achievement_grade_detail": "EN2_REPEATED_MAJOR_OFFENSIVE_FAILURE",
+              "security_result_grade": "EN2"
+            },
+            {
+              "chain_id": "NORTHERN-HAN-ZHOU-FRONTIER-952-953",
+              "member_cycle_refs": [
+                "WAR-FD-177EA59869352420E01F",
+                "WAR-FD-1DB7EC948460EE11C94E"
+              ],
+              "effective_opponent_challenge_grade": "O3_MAJOR_DIRECTION_THREAT",
+              "challenge_context": "后周府州体系能连续击退北汉并反取岢岚，形成多个边境节点的区域防御。",
+              "achievement_grade": "EN2_IMPORTANT_FRONTIER_NODE_LOSS",
+              "acquisition_mode": "REPEATED_FRONTIER_RAIDS_AND_FAILED_ASSAULTS",
+              "result_type": "FAILED_RAIDS_WITH_COUNTERLOSS_OF_KELAN",
+              "within_grade_position": "MID",
+              "terminal_result_profile": "952北汉攻府州被杀二千余并反失岢岚军；953乔赟再攻府州仍被击退，未扭转边境节点损失。",
+              "control_change": "岢岚军为北汉既有边境节点净失，直接计入D负安全结果；不存在可供重复结算的新增疆土收益。",
+              "cross_item_control_gain_deduplicated": false,
+              "security_change_basis": "同一府州方向连续两年授权，以重大人员损失和重要节点净失闭合EN2中位；范围未扩至全国核心防务，故不上EN3。",
+              "mobilization_peak": "W_REGIONAL_FRONTIER_ARMY",
+              "mobilization_basis": "多轮边军出击，具体本方总规模失载。",
+              "force_destruction": "F2_EXPLICIT_THOUSANDS_LOSS_WITHOUT_ORGANIZATIONAL_DENOMINATOR",
+              "force_destruction_basis": "952明确被杀二千余，但无北汉该军总分母、比例失能和重建证据，死亡绝对数不得直接F3。",
+              "process_burden": {
+                "repetition": "REPEATED_TWO_YEAR_FRONTIER_FAILURES",
+                "duration": "LONG_952_TO_953"
+              },
+              "ruler_responsibility": "CENTRAL_AUTHORIZATION_WITH_DELEGATED_EXECUTION",
+              "responsibility_basis": "刘崇承担连续出兵授权；具体战术由边将执行，未闭合本人直接战术误判。",
+              "source_refs": [
+                "docs/公共成果/军事/01-战役登记/five_dynasties-13.json#WAR-FD-177EA59869352420E01F",
+                "docs/公共成果/军事/01-战役登记/five_dynasties-03.json#WAR-FD-1DB7EC948460EE11C94E",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-290.source-summary.md#府州"
+              ],
+              "effective_opponent_challenge_basis": "后周府州体系能连续击退北汉并反取岢岚，形成多个边境节点的区域防御。",
+              "effective_opponent_challenge_source_refs": [
+                "docs/公共成果/军事/01-战役登记/five_dynasties-13.json#WAR-FD-177EA59869352420E01F",
+                "docs/公共成果/军事/01-战役登记/five_dynasties-03.json#WAR-FD-1DB7EC948460EE11C94E",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-290.source-summary.md#府州"
+              ],
+              "achievement_grade_detail": "EN2_IMPORTANT_FRONTIER_NODE_LOSS",
+              "security_result_grade": "EN2"
+            },
+            {
+              "chain_id": "NORTHERN-HAN-ZHOU-GAOPING-TAIYUAN-954",
+              "member_cycle_refs": [
+                "WAR-FD-67F493C688EE46EFA297",
+                "WAR-FD-19647EC5A12E17FA44CF",
+                "WAR-FD-C504271F839171210D3A",
+                "WAR-FD-90C480CBD3DB0685B1D3"
+              ],
+              "effective_opponent_challenge_grade": "O5_CORE_DEFENSE_SYSTEM_THREAT",
+              "challenge_context": "后周可由皇帝亲统国家主力逆转高平并集结数十万围晋阳，直接压迫北汉全国核心防务。",
+              "achievement_grade": "E2_CORE_DEFENSE_SURVIVAL_AND_RECOVERY",
+              "acquisition_mode": "FAILED_INVASION_FOLLOWED_BY_CORE_DEFENSE_AND_COUNTERRECOVERY",
+              "result_type": "CATASTROPHIC_FIELD_DEFEAT_BUT_CAPITAL_SURVIVAL_AND_PERIPHERAL_RECOVERY",
+              "within_grade_position": "HIGH",
+              "terminal_result_profile": "北汉三万与契丹万余南侵，高平主力溃败、刘旻仅百余骑逃归；后周继取多州并围晋阳。北汉守住首都，趁周军撤退恢复大部分外围州县并取代州，但未恢复主动进攻能力。",
+              "control_change": "954攻周扩张收益未实现；晋阳守住及外围恢复属于既有控制恢复，D只消费从高平灾败到解除全国核心危机的安全反转，不制造创业疆土收益。",
+              "cross_item_control_gain_deduplicated": true,
+              "security_change_basis": "终点守住全国核心并恢复外围，故不以高平过程成本倒灌为EN3；然而只恢复开战前安全且对周战略劣势仍存，裁E2高位而非E3/E4。",
+              "negative_stages": [
+                {
+                  "stage": "高平主力全军溃败",
+                  "stage_result": "EN3_NATIONAL_MAIN_FORCE_COLLAPSE_STAGE",
+                  "basis": "三万主力在高平溃败、将帅阵亡、尸满山谷、军资尽弃，刘旻仅百余骑逃回；作为同链全国级负阶段保留，终局因晋阳守住并复外围而净裁E2。"
+                }
+              ],
+              "mobilization_peak": "W30000_NATIONAL_MAIN_ARMY_THEN_CORE_DEFENSE_REMOBILIZATION",
+              "mobilization_basis": "刘旻亲率三万南侵，灾后又组织晋阳防御和外围恢复；契丹援军、后周数十万均不计本方成本。",
+              "force_destruction": "F4_NATIONAL_MAIN_FORCE_CATASTROPHIC_COLLAPSE",
+              "force_destruction_basis": "本方三万主力具明确分母，终局张元徽等将帅阵亡、尸满山谷、军资杂畜大量遗弃，刘旻仅率百余骑逃回，闭合全国主力成建制灾难性崩溃；敌我后续伤亡不混入。",
+              "process_burden": {
+                "repetition": "MAIN_FORCE_DISASTER_CORE_SIEGE_AND_POST_DISASTER_REMOBILIZATION",
+                "duration": "LONG_MULTI_PHASE_954"
+              },
+              "ruler_responsibility": "DIRECT_PERSONAL_COMMAND_AGAINST_EXPLICIT_CAUTION",
+              "responsibility_basis": "刘崇亲统南侵，未采纳契丹杨衮慎战意见并在轻敌后发动会战，直接承担F4灾败；随后也承担晋阳防御和恢复动员责任。",
+              "source_refs": [
+                "docs/公共成果/军事/01-战役登记/five_dynasties-06.json#WAR-FD-67F493C688EE46EFA297",
+                "docs/公共成果/军事/01-战役登记/five_dynasties-16.json#WAR-FD-19647EC5A12E17FA44CF",
+                "docs/公共成果/军事/01-战役登记/five_dynasties-20.json#WAR-FD-C504271F839171210D3A",
+                "docs/公共成果/军事/01-战役登记/five_dynasties-00.json#WAR-FD-90C480CBD3DB0685B1D3",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-291.source-summary.md#高平"
+              ],
+              "effective_opponent_challenge_basis": "后周可由皇帝亲统国家主力逆转高平并集结数十万围晋阳，直接压迫北汉全国核心防务。",
+              "effective_opponent_challenge_source_refs": [
+                "docs/公共成果/军事/01-战役登记/five_dynasties-06.json#WAR-FD-67F493C688EE46EFA297",
+                "docs/公共成果/军事/01-战役登记/five_dynasties-16.json#WAR-FD-19647EC5A12E17FA44CF",
+                "docs/公共成果/军事/01-战役登记/five_dynasties-20.json#WAR-FD-C504271F839171210D3A",
+                "docs/公共成果/军事/01-战役登记/five_dynasties-00.json#WAR-FD-90C480CBD3DB0685B1D3",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-291.source-summary.md#高平"
+              ],
+              "achievement_grade_detail": "E2_CORE_DEFENSE_SURVIVAL_AND_RECOVERY",
+              "security_result_grade": "E2"
+            }
+          ],
+          "strategic_internal_chains": [],
+          "ordinary_suppression_summary": {
+            "count": 0,
+            "presumed_or_explicit_success_count": 0,
+            "explicit_failure_or_unresolved_count": 0,
+            "abnormal_cost_chain_count": 3,
+            "abnormal_process_chain_count": 3,
+            "notes": "建国和恢复后汉旧土的控制收益由第一项去重，但951后主动战争的失败、己方损害和954灾后防御仍进入D。契丹盟军损失、后周军损失与地方平民赋役伤害均不进入北汉军事成本。"
+          },
+          "cross_item_excluded_chains": [],
+          "non_military_loss_cost_exclusions": [],
+          "attributable_cost_profile": {
+            "cost_band": "C6",
+            "status": "CONFIRMED",
+            "position": "HIGH",
+            "admission_fact": "954高平—晋阳同一链中，刘崇亲统三万全国主力，在未采纳慎战意见后遭F4灾难性崩溃，仅百余骑随本人逃回，继而全国核心晋阳被围并必须灾后再动员。",
+            "basis": "C6由单链三万主力F4、首都核心危机、灾后再动员和统治者本人重大直接责任共同准入；不是把951、952—953过程拼入，也不消费敌方或盟军规模。单一三万级F4不足与百万级多轮或三十余万近没的全池最高结构同列C7。"
+          },
+          "adjudication_basis": "951与952—953两链分别为EN2，954虽由EN3负阶段反转为守都复外围的E2高位，整体仍由重复主动失败强支配，成本前D1低位；954单链C6高位且本人重大责任修正一档，影子D0低位。",
+          "coverage_status": "CONFIRMED",
+          "source_batch": "sol_a",
+          "canonical_status": "FORMAL_CURRENT",
+          "formal_grade_write": true,
+          "formal_score_write": true,
+          "database_write": false
+        },
+        {
+          "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
+          "ruler_id": "RULER-SHADOW-刘知远",
+          "ruler_name": "刘知远",
+          "polity": "后汉",
+          "reign_range": "947—948",
+          "identity_source": "D_FORMAL_EXTENSION",
+          "D_grade": "D2",
+          "D_within_grade_position": "HIGH",
+          "D_score_points": 22.0,
+          "D_score_status": "DIRECT_D_SCORE_ASSIGNED",
+          "signed_security_candidate_before_cost": "D3",
+          "cost_grade_delta": -1,
+          "security_result_distribution": {
+            "E3_MAJOR_STAGE": 1,
+            "E3_REGIONAL_TERMINAL": 1
+          },
+          "external_strategic_chains": [
+            {
+              "chain_id": "HAN-KHITAN-HENAN-947",
+              "member_cycle_refs": [
+                "WAR-FD-3E1DC6A1B35CE8F1E90B",
+                "WAR-FD-390B77185284810FA9CD",
+                "WAR-FD-B2CFD4861F2103037973"
+              ],
+              "effective_opponent_challenge_grade": "O5_CORE_DEFENSE_SYSTEM_THREAT",
+              "challenge_context": "契丹灭后晋后仍以多支军队控制或压迫陕、潞、泽、河阳等中原方向，具有全国级占领军体系。",
+              "achievement_grade": "E3_MAJOR_MULTI_NODE_SECURITY_RELIEF",
+              "acquisition_mode": "LOCAL_DEFECTION_RELIEF_AND_MULTI_NODE_COUNTERATTACK",
+              "result_type": "MAJOR_REGIONAL_OCCUPATION_PRESSURE_REMOVED_WITHOUT_ENEMY_SYSTEM_TERMINATION",
+              "within_grade_position": "HIGH",
+              "terminal_result_profile": "陕州守住契丹反攻，史弘肇、马诲解除潞州威胁并迫敌退怀州；河阳方向虽两次野战受挫，终因契丹撤出而保持。契丹国家体系未被终结。",
+              "control_change": "陕州、昭义及中原接收等建国控制收益已由第一项消费；D只记契丹占领军从河南主要节点退却、外部压力阶段性下降。",
+              "cross_item_control_gain_deduplicated": true,
+              "security_change_basis": "O5占领军在多个主要节点退却形成E3高位，但关键控制多由归附和敌军主动北撤完成，且契丹体系仍能再侵，不上E4。",
+              "mobilization_peak": "W10000_RELIEF_FORCE_PLUS_MULTI_GARRISON_DEFENSE",
+              "mobilization_basis": "史弘肇步骑万人救潞，并有陕州、河阳多节点守军；敌方伤亡只用于结果，不计本方成本。",
+              "force_destruction": "F2_MULTI_BATTLE_PERSONNEL_LOSS_WITHOUT_ORGANIZATIONAL_DENOMINATOR",
+              "force_destruction_basis": "张遇数千援军战败身死、武行德再败，证明本方重大人员损害，但缺死亡总数、编组比例、成建制崩溃与重建证据，故不上F3。",
+              "process_burden": {
+                "repetition": "MULTI_NODE_DEFENSE_AND_COUNTERATTACK",
+                "duration": "MEDIUM_947_CAMPAIGN_SEQUENCE"
+              },
+              "ruler_responsibility": "CENTRAL_AUTHORIZATION_WITH_DELEGATED_EXECUTION",
+              "responsibility_basis": "刘知远承担后汉中央抗契丹授权；史弘肇、赵晖、武行德等承担各节点执行，河阳败绩未闭合为其本人重大误判。",
+              "source_refs": [
+                "docs/公共成果/军事/01-战役登记/five_dynasties-00.json#WAR-FD-3E1DC6A1B35CE8F1E90B",
+                "docs/公共成果/军事/01-战役登记/five_dynasties-02.json#WAR-FD-390B77185284810FA9CD",
+                "docs/公共成果/军事/01-战役登记/five_dynasties-22.json#WAR-FD-B2CFD4861F2103037973",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-286.source-summary.md#947"
+              ],
+              "effective_opponent_challenge_basis": "契丹灭后晋后仍以多支军队控制或压迫陕、潞、泽、河阳等中原方向，具有全国级占领军体系。",
+              "effective_opponent_challenge_source_refs": [
+                "docs/公共成果/军事/01-战役登记/five_dynasties-00.json#WAR-FD-3E1DC6A1B35CE8F1E90B",
+                "docs/公共成果/军事/01-战役登记/five_dynasties-02.json#WAR-FD-390B77185284810FA9CD",
+                "docs/公共成果/军事/01-战役登记/five_dynasties-22.json#WAR-FD-B2CFD4861F2103037973",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-286.source-summary.md#947"
+              ],
+              "achievement_grade_detail": "E3_MAJOR_MULTI_NODE_SECURITY_RELIEF",
+              "security_result_grade": "E3_MAJOR_STAGE"
+            }
+          ],
+          "strategic_internal_chains": [
+            {
+              "chain_id": "HAN-DUCHONGWEI-YEDU-947-948",
+              "member_cycle_refs": [
+                "WAR-FD-50BEA63DCDF07E1EF65F"
+              ],
+              "effective_opponent_challenge_grade": "O4_MAJOR_REGIONAL_GARRISON_REBELLION",
+              "achievement_grade": "E3_REGIONAL_INTERNAL_TERMINAL",
+              "basis": "杜重威以邺都和成建制军镇公开叛乱；长期围困最终迫其开门投降并恢复邺都控制，但刘知远生前亲督强攻曾死千余、伤万余而未克。",
+              "mobilization_peak": "W_NATIONAL_MULTI_ARMY_SIEGE",
+              "force_destruction": "F2_LARGE_ABSOLUTE_PERSONNEL_LOSS_WITHOUT_ORGANIZATIONAL_DENOMINATOR",
+              "force_destruction_basis": "同一强攻阶段明确死千余、伤万余，但后汉攻军总分母、按编组失能比例和灾后重建失载，人员绝对损失不得直接裁F3。",
+              "process_burden": {
+                "repetition": "LONG_SIEGE_FAILED_ASSAULT_AND_BLOCKADE",
+                "duration": "LONG_947_TO_948"
+              },
+              "ruler_responsibility": "DIRECT_PERSONAL_FAILED_ASSAULT_DECISION",
+              "responsibility_basis": "刘知远亲临邺都并听从慕容彦超急攻、亲督诸将强攻，直接承担千死万伤的重大决策责任；后续围降终局按其生前授权闭合。",
+              "source_refs": [
+                "docs/公共成果/军事/01-战役登记/five_dynasties-00.json#WAR-FD-50BEA63DCDF07E1EF65F",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-287.source-summary.md#ZZTJ-287-DU-CHONGWEI-YEDU"
+              ],
+              "challenge_context": "相对于本方的开战前有效威胁事实见本链basis。",
+              "acquisition_mode": "MULTI_STAGE_COMBAT",
+              "result_type": "MAJOR_OR_REGIONAL_GAIN",
+              "within_grade_position": "MID",
+              "terminal_result_profile": {
+                "threat_change": "MAJOR_OR_REGIONAL_GAIN",
+                "control_change": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "material_return": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "durability": "LIMITED_OR_NOT_CLOSED",
+                "terminal_member_ref": "WAR-FD-50BEA63DCDF07E1EF65F",
+                "aggregation_basis": "同一对手、同一战略目标和连续授权合链；终点成果只消费一次。"
+              },
+              "achievement_grade_detail": "E3_REGIONAL_INTERNAL_TERMINAL",
+              "security_result_grade": "E3_REGIONAL_TERMINAL"
+            }
+          ],
+          "ordinary_suppression_summary": {
+            "count": 1,
+            "presumed_or_explicit_success_count": 0,
+            "explicit_failure_or_unresolved_count": 1,
+            "abnormal_cost_chain_count": 2,
+            "abnormal_process_chain_count": 2,
+            "notes": "繁台围杀一千五百幽州戍兵发生在未闭合既成叛乱的预防性处置中，属于非战斗人员/降附军处置，不纳入本方军事成本。中原接收和疆土收益由第一项消费，但抗契丹威胁变化和邺都己方损害继续进入D。"
+          },
+          "cross_item_excluded_chains": [],
+          "non_military_loss_cost_exclusions": [],
+          "attributable_cost_profile": {
+            "cost_band": "C5",
+            "status": "CONFIRMED",
+            "position": "HIGH",
+            "admission_fact": "邺都同一内部链中刘知远亲督强攻，自寅至辰未克，明确造成本方死千余、伤万余。",
+            "basis": "C5由同链重大绝对人员伤害、长期围城和统治者本人直接错误授权准入；因无攻军组织分母、比例失能和灾后重建，不裁F3，也不得仅凭远久或与抗契丹链拼接进C6。"
+          },
+          "adjudication_basis": "剔除中原取得收益后，抗契丹链仍形成E3高位，邺都异常内乱亦以E3收束但不制造外部高档，成本前D3；邺都C5高位且本人直接负责，修正一档为影子D2高位。",
+          "coverage_status": "CONFIRMED",
+          "source_batch": "sol_a",
+          "canonical_status": "FORMAL_CURRENT",
+          "formal_grade_write": true,
+          "formal_score_write": true,
+          "database_write": false
+        },
+        {
+          "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
+          "ruler_id": "RULER-FD-LIU-YAN",
+          "ruler_name": "刘龑",
+          "polity": "南汉",
+          "reign_range": "917-942",
+          "identity_source": "PREVIOUS_D_FORMAL",
+          "D_grade": "D0",
+          "D_within_grade_position": "LOW",
+          "D_score_points": 0.0,
+          "D_score_status": "DIRECT_D_SCORE_ASSIGNED",
+          "signed_security_candidate_before_cost": "D0",
+          "cost_grade_delta": 0,
+          "security_result_distribution": {
+            "EN2": 2
+          },
+          "external_strategic_chains": [
+            {
+              "chain_id": "CHAIN-SOUTHERN-HAN-JIAOZHOU-931",
+              "effective_opponent_challenge_grade": "O3_MAJOR_DIRECTION_THREAT",
+              "effective_opponent_challenge_basis": "杨廷艺以爱州三千人为基础攻取交州并建立稳定地方军政中心，能压迫南汉完整南方战略区域；未及全国防务。",
+              "achievement_grade": "EN2_MAJOR_DETERIORATION",
+              "acquisition_mode": "REGIONAL_CENTER_SEIZURE_AND_FAILED_RELIEF",
+              "result_type": "DURABLE_STRATEGIC_REGION_CONTROL_LOSS",
+              "within_grade_position": "HIGH",
+              "terminal_result_profile": "交州完整战略行政军政区域失陷，南汉程宝援军再围失败且主将战死，终点杨廷艺军政中心稳定存在。",
+              "control_change": "BCN3_DURABLE_JIAOZHOU_STRATEGIC_REGION_LOSS",
+              "security_change_basis": "SN4/BCN3与S4闭合主要战略区域重大恶化，统一裁EN2高位；尚非全国防务或国家存续崩溃，不上EN3。",
+              "mobilization_peak": "M2_REGIONAL_RELIEF",
+              "force_destruction": "NOT_CLOSED_NO_F3",
+              "force_destruction_basis": "南汉P2及主将程宝战死无援军分母、损失比例或成建制崩溃，不授F3；交州失守结果不倒灌F。",
+              "process_burden": {
+                "repetition": "CITY_FALL_AND_FAILED_RELIEF",
+                "duration": "ONE_YEAR",
+                "post_disaster_remobilization": "LIMITED_RELIEF_WITHOUT_ORGANIZATIONAL_DISASTER"
+              },
+              "ruler_responsibility": "DIRECT_SOVEREIGN_DEFENSE_RESPONSIBILITY",
+              "responsibility_basis": "931年位于刘龑实际统治窗口，对交州防务与程宝援军承担君主责任；杨廷艺军及当地非军事损失排除。",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-277.battle-adjudications.json#ZZTJ-277-JIAOZHOU-0931",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#ZZTJ-277-JIAOZHOU-0931"
+              ],
+              "member_cycle_refs": [
+                "ZZTJ-277-JIAOZHOU-0931"
+              ],
+              "challenge_context": "杨廷艺以爱州三千人为基础攻取交州并建立稳定地方军政中心，能压迫南汉完整南方战略区域；未及全国防务。",
+              "effective_opponent_challenge_source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-277.battle-adjudications.json#ZZTJ-277-JIAOZHOU-0931",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#ZZTJ-277-JIAOZHOU-0931"
+              ],
+              "achievement_grade_detail": "EN2_MAJOR_DETERIORATION",
+              "security_result_grade": "EN2"
+            }
+          ],
+          "strategic_internal_chains": [
+            {
+              "chain_id": "ZZTJ-283-ZHANG-YUXIAN-HAN",
+              "achievement_grade": "EN2_MAJOR_INTERNAL_DETERIORATION",
+              "basis": "南汉军钱帛馆败、二王被围，东方多州县及循州陷落，张遇贤组织与区域控制相对战前增强；只消费刘龑窗口终点，不倒灌后续平定。",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-283.battle-adjudications.json#ZZTJ-283-ZHANG-YUXIAN-HAN",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#ZZTJ-283-ZHANG-YUXIAN-HAN"
+              ],
+              "member_cycle_refs": [
+                "ZZTJ-283-ZHANG-YUXIAN-HAN"
+              ],
+              "challenge_context": "相对于本方的开战前有效威胁事实见本链basis。",
+              "acquisition_mode": "MULTI_STAGE_COMBAT",
+              "result_type": "MAJOR_SECURITY_DETERIORATION",
+              "within_grade_position": "MID",
+              "terminal_result_profile": {
+                "threat_change": "MAJOR_SECURITY_DETERIORATION",
+                "control_change": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "material_return": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "durability": "STRUCTURAL_OR_LONG",
+                "terminal_member_ref": "ZZTJ-283-ZHANG-YUXIAN-HAN",
+                "aggregation_basis": "同一对手、同一战略目标和连续授权合链；终点成果只消费一次。"
+              },
+              "achievement_grade_detail": "EN2_MAJOR_INTERNAL_DETERIORATION",
+              "security_result_grade": "EN2"
+            }
+          ],
+          "ordinary_suppression_summary": {
+            "count": 0,
+            "cycle_refs": [],
+            "presumed_or_explicit_success_count": 0,
+            "explicit_failure_or_unresolved_count": 0,
+            "abnormal_cost_chain_count": 0,
+            "abnormal_process_chain_count": 0,
+            "excluded_nonconsumable_count": 0,
+            "notes": "两条公共记录均为刘龑在位完整战略链；未与创业统一链重叠，也不剥离失败阶段或倒灌后续成功。",
+            "source_refs": [
+              "docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.json",
+              "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json"
+            ]
+          },
+          "cross_item_excluded_chains": [],
+          "non_military_loss_cost_exclusions": [],
+          "attributable_cost_profile": {
+            "cost_band": "C3",
+            "status": "CONFIRMED",
+            "position": "HIGH",
+            "single_admission_fact": "931同一交州链中，南汉在区域中枢失陷后实际组织程宝援军再围，形成M2/A2区域救援投入并以主将战死收束。",
+            "admission_route": "SAME_CHAIN_REGIONAL_RELIEF_M2_A2_WITHOUT_F3",
+            "basis": "C3只由交州同链实际M2/A2救援负担准入；交州丧失与张遇贤多州失控属于结果，不能倒灌成本，也不跨链拼C4。",
+            "source_refs": [
+              "docs/史料通读产物/五代十国/资治通鉴/volume-277.battle-adjudications.json#ZZTJ-277-JIAOZHOU-0931",
+              "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#ZZTJ-277-JIAOZHOU-0931"
+            ]
+          },
+          "adjudication_basis": "交州外部EN2且无正向成果，成本前D0；张遇贤内部EN2进一步压低档内位置。C3不再降档，影子D0低位。",
+          "coverage_status": "CONFIRMED",
+          "source_batch": "sol_c",
+          "canonical_status": "FORMAL_CURRENT",
+          "formal_grade_write": true,
+          "formal_score_write": true,
+          "database_write": false
+        },
+        {
+          "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
+          "ruler_id": "RULER-FD-MENG-CHANG",
+          "ruler_name": "孟昶",
+          "polity": "后蜀",
+          "reign_range": "934-965",
+          "identity_source": "PREVIOUS_D_FORMAL",
+          "D_grade": "D0",
+          "D_within_grade_position": "LOW",
+          "D_score_points": 0.0,
+          "D_score_status": "DIRECT_D_SCORE_ASSIGNED",
+          "signed_security_candidate_before_cost": "D0",
+          "cost_grade_delta": 0,
+          "security_result_distribution": {
+            "EN2": 1,
+            "EN3": 1
+          },
+          "external_strategic_chains": [
+            {
+              "chain_id": "MC-LATER-ZHOU-QINFENG-955",
+              "member_cycle_refs": [
+                "ZZTJ-292-ZHOU-SHU-QINFENG-0955"
+              ],
+              "acquisition_mode": "FAILED_MULTI_STAGE_FRONTIER_DEFENSE",
+              "result_type": "MAJOR_DIRECTION_TERRITORIAL_AND_DEFENSE_LOSS",
+              "effective_opponent_challenge_grade": "O4_MULTI_DIRECTION_OR_CORE_REGION_THREAT",
+              "challenge_context": "后周能持续断粮、击败援军并攻取秦凤阶成四州，摧毁后蜀西北主要方向防务。",
+              "achievement_grade": "EN2_MAJOR_DETERIORATION",
+              "within_grade_position": "HIGH",
+              "terminal_result_profile": "后蜀局部反击后在黄花、唐仓失败，三千与五千守军被俘，秦凤阶成四州及多寨成片丧失。",
+              "control_change": "QIN_FENG_JIE_CHENG_FOUR_PREFECTURES_LOST",
+              "mobilization_peak": "M3_MULTI_STAGE_FRONTIER_DEFENSE",
+              "mobilization_basis": "多路援军、断粮反制与多州持续边防作战。",
+              "force_destruction": "F3_MULTIPLE_FORMED_GARRISONS_CAPTURED",
+              "force_destruction_basis": "王峦三千将士与凤州五千守军分别以明确编组整体被俘，具组织分母与成建制丧失；后周军损排除。",
+              "process_burden": {
+                "repetition": "MULTI_STAGE_DEFENSE_AND_FOUR_PREFECTURE_LOSS",
+                "duration": "ONE_CAMPAIGN_YEAR"
+              },
+              "ruler_responsibility": "MAJOR_DRIVER",
+              "responsibility_basis": "孟昶最高授权西北防务并承担援军与四州失守责任，具体战术由守将执行。",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-292.battle-adjudications.json#ZZTJ-292-ZHOU-SHU-QINFENG-0955"
+              ],
+              "effective_opponent_challenge_basis": "后周能持续断粮、击败援军并攻取秦凤阶成四州，摧毁后蜀西北主要方向防务。",
+              "effective_opponent_challenge_source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-292.battle-adjudications.json#ZZTJ-292-ZHOU-SHU-QINFENG-0955"
+              ],
+              "achievement_grade_detail": "EN2_MAJOR_DETERIORATION",
+              "security_result_grade": "EN2"
+            },
+            {
+              "chain_id": "MC-SONG-LATER-SHU-COLLAPSE-964-965",
+              "member_cycle_refs": [
+                "LATER_SHU_DEFENSE_AND_CAPITULATION_964_965"
+              ],
+              "acquisition_mode": "FAILED_NATIONAL_MULTI_DIRECTION_DEFENSE_AND_CAPITULATION",
+              "result_type": "NATIONAL_DEFENSE_AND_POLITY_COLLAPSE",
+              "effective_opponent_challenge_grade": "O5_CORE_DEFENSE_SYSTEM_THREAT",
+              "challenge_context": "宋军分路进攻并在六十六日内连续击穿剑门、多州与成都全国防线，具终结后蜀国家防务体系能力。",
+              "achievement_grade": "EN3_NATIONAL_SYSTEM_COLLAPSE",
+              "within_grade_position": "HIGHEST",
+              "terminal_result_profile": "后蜀数战数败，剑门天险、主力、中央军令与成都控制连续崩解，孟昶奉表降国；EN最高仅EN3，亡国严重度在档内表达。",
+              "control_change": "LATER_SHU_NATIONAL_CONTROL_TERMINATED_AND_CAPITAL_SURRENDERED",
+              "mobilization_peak": "M5_NATIONAL_MULTI_DIRECTION_DEFENSE",
+              "mobilization_basis": "全国防线与国都守御应对宋军分路进攻。",
+              "force_destruction": "F4_NATIONAL_DEFENSE_FORCE_ORGANIZATIONAL_COLLAPSE",
+              "force_destruction_basis": "数战数败、剑门主力瓦解、太子弃军、统帅被擒并需全国防线收束，证明成建制国家防御组织崩溃；不以亡国结果或宋军损失反推。",
+              "process_burden": {
+                "repetition": "MULTI_LINE_DEFEATS_TO_CAPITAL_SURRENDER",
+                "duration": "SIXTY_SIX_DAYS"
+              },
+              "ruler_responsibility": "DIRECT_MAJOR_DRIVER",
+              "responsibility_basis": "孟昶作为最高统治者直接承担全国防务准备、指挥体系迅速瓦解与降国责任。",
+              "source_refs": [
+                "config/third-item/five-dynasties-third-item-adjudications.json#supplemental_records[campaign_group_ref=LATER_SHU_DEFENSE_AND_CAPITULATION_964_965]",
+                "續資治通鑑/卷004@2299538#宋分路伐蜀",
+                "續資治通鑑/卷004@2299538#劍門失守與蜀主奉降表"
+              ],
+              "effective_opponent_challenge_basis": "宋军分路进攻并在六十六日内连续击穿剑门、多州与成都全国防线，具终结后蜀国家防务体系能力。",
+              "effective_opponent_challenge_source_refs": [
+                "config/third-item/five-dynasties-third-item-adjudications.json#supplemental_records[campaign_group_ref=LATER_SHU_DEFENSE_AND_CAPITULATION_964_965]",
+                "續資治通鑑/卷004@2299538#宋分路伐蜀",
+                "續資治通鑑/卷004@2299538#劍門失守與蜀主奉降表"
+              ],
+              "achievement_grade_detail": "EN3_NATIONAL_SYSTEM_COLLAPSE",
+              "security_result_grade": "EN3"
+            }
+          ],
+          "strategic_internal_chains": [],
+          "ordinary_suppression_summary": {
+            "count": 1,
+            "cycle_refs": [
+              "ZZTJ-290-SHU-WUDE-MUTINY-0952"
+            ],
+            "presumed_or_explicit_success_count": 1,
+            "explicit_failure_or_unresolved_count": 0,
+            "abnormal_cost_chain_count": 0,
+            "abnormal_process_chain_count": 0,
+            "notes": "武德军军府短暂失控后当日擒斩首领，列普通平乱辅助，不制造外部成果。",
+            "source_refs": [
+              "docs/史料通读产物/五代十国/资治通鉴/volume-290.battle-adjudications.json#ZZTJ-290-SHU-WUDE-MUTINY-0952",
+              "SRC-ZZTJ-290-1554171-P0128"
+            ]
+          },
+          "cross_item_excluded_chains": [],
+          "non_military_loss_cost_exclusions": [
+            "宋军、武德军叛军与城市平民损失不进入后蜀军事P/F/C。"
+          ],
+          "attributable_cost_profile": {
+            "cost_band": "C6",
+            "status": "CONFIRMED",
+            "position": "HIGH",
+            "basis": "C6由秦凤两支明确守军F3、终局全国防御组织F4、M5/A5防务承载与孟昶本人责任准入；亡国结果只进入EN3，不自动生成成本。"
+          },
+          "adjudication_basis": "秦凤EN2与宋攻后蜀EN3同权后强支配，普通平乱不抵消，成本前已D0；C6触底不重复扣档，列D0低位。",
+          "coverage_status": "CONFIRMED",
+          "source_batch": "sol_b",
+          "canonical_status": "FORMAL_CURRENT",
+          "formal_grade_write": true,
+          "formal_score_write": true,
+          "database_write": false
+        },
+        {
+          "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
+          "ruler_id": "RULER-SHADOW-孟知祥",
+          "ruler_name": "孟知祥",
+          "polity": "后蜀",
+          "reign_range": "934称帝—934去世",
+          "identity_source": "D_FORMAL_EXTENSION",
+          "D_grade": "D1",
+          "D_within_grade_position": "LOW",
+          "D_score_points": 10.0,
+          "D_score_status": "DIRECT_D_SCORE_ASSIGNED",
+          "signed_security_candidate_before_cost": "D1",
+          "cost_grade_delta": 0,
+          "security_result_distribution": {},
+          "external_strategic_chains": [],
+          "strategic_internal_chains": [],
+          "ordinary_suppression_summary": {
+            "count": 0,
+            "presumed_or_explicit_success_count": 0,
+            "explicit_failure_or_unresolved_count": 0,
+            "abnormal_cost_chain_count": 0,
+            "abnormal_process_chain_count": 0,
+            "notes": "930击退后唐、取得遂利峡路以及932兼并东川均发生在934称帝前，是第一项已消费的创业、疆土扩张和两川统一整链；固定材料未闭合934称帝后新的外敌或异常内乱授权链。跨项去重不是删除取得后外战，但本对象极短正式统治窗口内确无新增合格链。"
+          },
+          "cross_item_excluded_chains": [],
+          "non_military_loss_cost_exclusions": [],
+          "attributable_cost_profile": {
+            "cost_band": "C0",
+            "status": "CONFIRMED",
+            "position": "LOW",
+            "admission_fact": "934称帝后窗口没有闭合合格军事战略链、己方人员伤害、组织性兵团毁损或再动员事实。",
+            "basis": "934称帝后无合格D军事链，故C0；不得硬套最低正成本档，也不得把930—932创业统一链的远征、三千东川军死亡或己方动员倒灌至934后D，其中敌军死亡更不计本方成本。"
+          },
+          "adjudication_basis": "934称帝后的最小充分证据未闭合新的外部安全改善或恶化，亦无异常内乱，故成本前D1低位；C0不修正，影子D1低位。此结论不把称帝前统一成果重复转化为D。",
+          "coverage_status": "CONFIRMED",
+          "source_batch": "sol_a",
+          "canonical_status": "FORMAL_CURRENT",
+          "formal_grade_write": true,
+          "formal_score_write": true,
+          "database_write": false
+        },
+        {
+          "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
+          "ruler_id": "RULER-FD-ZHU-YOUZHEN",
+          "ruler_name": "朱友贞",
+          "polity": "后梁",
+          "reign_range": "913-923",
+          "identity_source": "PREVIOUS_D_FORMAL",
+          "D_grade": "D0",
+          "D_within_grade_position": "LOW",
+          "D_score_points": 0.0,
+          "D_score_status": "DIRECT_D_SCORE_ASSIGNED",
+          "signed_security_candidate_before_cost": "D0",
+          "cost_grade_delta": 0,
+          "security_result_distribution": {
+            "E2": 1,
+            "E3_REGIONAL_TERMINAL": 1,
+            "EN3": 1
+          },
+          "external_strategic_chains": [
+            {
+              "chain_id": "ZYZ-JIN-LATERTANG-HEBEI-HUANGHE-FINAL-915-923",
+              "member_cycle_refs": [
+                "ZZTJ-269-JIN-HEBEI-0915",
+                "ZZTJ-269-LIANG-JINYANG-0916",
+                "ZZTJ-270-LIANG-JIN-HUANGHE-0919",
+                "ZZTJ-271-TONGZHOU-0920",
+                "ZZTJ-272-LIANG-TANG-FINAL-0923"
+              ],
+              "acquisition_mode": "CONTINUOUS_OFFENSIVE_DEFENSIVE_STATE_WAR",
+              "result_type": "REGIME_SURVIVAL_SYSTEM_COLLAPSE",
+              "effective_opponent_challenge_grade": "O6_REGIME_SURVIVAL_SUPPRESSOR",
+              "challenge_context": "晋及后唐同一政权军事体系能连续夺取河北诸州、掌握黄河主动、击毁后梁国家主力并最终倍道入大梁，直接终结政权存续。",
+              "achievement_grade": "EN3_SYSTEMIC_COLLAPSE",
+              "within_grade_position": "HIGHEST",
+              "terminal_result_profile": "915—916河北成片丧失，918—920黄河与同州方向继续恶化，923河防突破、中都败亡、段凝五万解甲并失去大梁与中原核心；连续阶段只消费亡国终点一次。",
+              "control_change": "HEBEI_HUANGHE_AND_CENTRAL_REALM_LOST_REGIME_ENDED",
+              "mobilization_peak": "M5_NATIONAL_MULTI_ROUND",
+              "mobilization_basis": "七万步军、三万晋阳奇袭军、多轮黄河主力及末期五万段凝军跨八年反复国家级投入。",
+              "force_destruction": "F4_REPEATED_MAJOR_FORMATION_DESTRUCTION",
+              "force_destruction_basis": "元城七万步卒败后杀溺殆尽，构成大型国家主力近乎全毁；其后晋阳三万军死伤十之二三、胡柳陂近三万死亡及末期多轮万人级损害与五万解甲，闭合重复重大组织毁损和灾后再动员。",
+              "process_burden": {
+                "repetition": "REPEATED_NATIONAL_DEFEAT_AND_REMOBILIZATION",
+                "duration": "EIGHT_YEAR_CONTINUOUS_STATE_WAR"
+              },
+              "ruler_responsibility": "DIRECT_MAJOR_DRIVER",
+              "responsibility_basis": "朱友贞在完整在位窗口持续承担河北、晋阳、黄河、同州及末期国家战争的最高授权责任；亡国结果本身不用于生成成本。",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-269.battle-adjudications.json#ZZTJ-269-JIN-HEBEI-0915",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-269.battle-adjudications.json#ZZTJ-269-LIANG-JINYANG-0916",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-270.battle-adjudications.json#ZZTJ-270-LIANG-JIN-HUANGHE-0919",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-271.battle-adjudications.json#ZZTJ-271-TONGZHOU-0920",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-272.battle-adjudications.json#ZZTJ-272-LIANG-TANG-FINAL-0923"
+              ],
+              "effective_opponent_challenge_basis": "晋及后唐同一政权军事体系能连续夺取河北诸州、掌握黄河主动、击毁后梁国家主力并最终倍道入大梁，直接终结政权存续。",
+              "effective_opponent_challenge_source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-269.battle-adjudications.json#ZZTJ-269-JIN-HEBEI-0915",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-269.battle-adjudications.json#ZZTJ-269-LIANG-JINYANG-0916",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-270.battle-adjudications.json#ZZTJ-270-LIANG-JIN-HUANGHE-0919",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-271.battle-adjudications.json#ZZTJ-271-TONGZHOU-0920",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-272.battle-adjudications.json#ZZTJ-272-LIANG-TANG-FINAL-0923"
+              ],
+              "achievement_grade_detail": "EN3_SYSTEMIC_COLLAPSE",
+              "security_result_grade": "EN3"
+            }
+          ],
+          "strategic_internal_chains": [
+            {
+              "chain_id": "ZYZ-XUZHOU-WANGYIN-914",
+              "member_cycle_refs": [
+                "ZZTJ-269-LIANG-XUZHOU-WANGYIN-0914"
+              ],
+              "achievement_grade": "E3_REGIONAL_TERMINAL",
+              "basis": "王殷拒代据徐州并引吴援，梁军跨年击退外援、克彭城并终结据城集团，恢复重要区域控制；开国与统一成果不在此重复消费。",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-269.battle-adjudications.json#ZZTJ-269-LIANG-XUZHOU-WANGYIN-0914",
+                "SRC-ZZTJ-269-1765765-P0029",
+                "SRC-ZZTJ-269-1765765-P0035"
+              ],
+              "challenge_context": "相对于本方的开战前有效威胁事实见本链basis。",
+              "acquisition_mode": "MULTI_STAGE_COMBAT",
+              "result_type": "REGIONAL_THREAT_TERMINATED",
+              "within_grade_position": "MID",
+              "terminal_result_profile": {
+                "threat_change": "REGIONAL_THREAT_TERMINATED",
+                "control_change": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "material_return": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "durability": "LIMITED_OR_NOT_CLOSED",
+                "terminal_member_ref": "ZZTJ-269-LIANG-XUZHOU-WANGYIN-0914",
+                "aggregation_basis": "同一对手、同一战略目标和连续授权合链；终点成果只消费一次。"
+              },
+              "achievement_grade_detail": "E3_REGIONAL_TERMINAL",
+              "security_result_grade": "E3_REGIONAL_TERMINAL"
+            },
+            {
+              "chain_id": "ZYZ-ZHUYOUNENG-REBELLION-921",
+              "member_cycle_refs": [
+                "ZZTJ-271-ZHUYOUNENG-0921"
+              ],
+              "achievement_grade": "E2_CORE_THREAT_CONTAINMENT",
+              "basis": "朱友能叛军进逼大梁后在陈留败退、陈州受围投降，属于国都方向内部威胁止损；规模不足以制造外部主要战略成果。",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-271.battle-adjudications.json#ZZTJ-271-ZHUYOUNENG-0921",
+                "SRC-ZZTJ-271-1751976-P0056",
+                "SRC-ZZTJ-271-1751976-P0060"
+              ],
+              "challenge_context": "相对于本方的开战前有效威胁事实见本链basis。",
+              "acquisition_mode": "MULTI_STAGE_COMBAT",
+              "result_type": "REGIONAL_CONTROL_STABILIZED",
+              "within_grade_position": "MID",
+              "terminal_result_profile": {
+                "threat_change": "REGIONAL_CONTROL_STABILIZED",
+                "control_change": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "material_return": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "durability": "LIMITED_OR_NOT_CLOSED",
+                "terminal_member_ref": "ZZTJ-271-ZHUYOUNENG-0921",
+                "aggregation_basis": "同一对手、同一战略目标和连续授权合链；终点成果只消费一次。"
+              },
+              "achievement_grade_detail": "E2_CORE_THREAT_CONTAINMENT",
+              "security_result_grade": "E2"
+            }
+          ],
+          "ordinary_suppression_summary": {
+            "count": 0,
+            "cycle_refs": [],
+            "presumed_or_explicit_success_count": 0,
+            "explicit_failure_or_unresolved_count": 0,
+            "abnormal_cost_chain_count": 0,
+            "abnormal_process_chain_count": 0,
+            "notes": "七条固定票全部进入一条外部国家战争链或两条异常内部链，不按票数加减D。",
+            "source_refs": []
+          },
+          "cross_item_excluded_chains": [],
+          "non_military_loss_cost_exclusions": [
+            "晋/后唐军、吴援军、王殷与朱友能叛军及平民损失均不进入后梁军事P/F；只消费有明确后梁军主体的组织性损失。"
+          ],
+          "attributable_cost_profile": {
+            "cost_band": "C7",
+            "status": "CONFIRMED",
+            "position": "LOW",
+            "basis": "C7由同一晋—后唐链的F4重复国家主力毁损、灾后持续再动员、M5/A5国家级末期投入和朱友贞DIRECT_MAJOR_DRIVER责任准入；元城七万军近乎全毁提供明确组织与比例，后续又有多次万人级损害。亡国和失地终点只进EN3，绝不倒灌C。"
+          },
+          "adjudication_basis": "唯一外部连续国家战争链终点EN3且无闭合外部正向成果，安全候选已为D0；两条内部收束不能抵消河北—黄河—中原系统崩溃。C7触底后不重复扣档，置D0低位。",
+          "coverage_status": "CONFIRMED",
+          "source_batch": "sol_b",
+          "canonical_status": "FORMAL_CURRENT",
+          "formal_grade_write": true,
+          "formal_score_write": true,
+          "database_write": false
+        },
+        {
+          "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
+          "ruler_id": "RULER-FD-ZHU-WEN",
+          "ruler_name": "朱温",
+          "polity": "后梁",
+          "reign_range": "907-912",
+          "identity_source": "PREVIOUS_D_FORMAL",
+          "D_grade": "D1",
+          "D_within_grade_position": "HIGH",
+          "D_score_points": 14.0,
+          "D_score_status": "DIRECT_D_SCORE_ASSIGNED",
+          "signed_security_candidate_before_cost": "D2",
+          "cost_grade_delta": -1,
+          "security_result_distribution": {
+            "E1": 1,
+            "E2": 1,
+            "E3_MAJOR_STAGE": 1
+          },
+          "external_strategic_chains": [
+            {
+              "chain_id": "CHAIN-LATER-LIANG-LINGZHOU-BINNING-909",
+              "effective_opponent_challenge_grade": "O3_MAJOR_DIRECTION_THREAT",
+              "effective_opponent_challenge_basis": "开战前岐军及刘知俊体系能够围灵州并在邠宁—庆州、西北回师通道持续作战，构成后梁一个重要西北方向威胁；不足以压迫后梁全国国防体系。",
+              "achievement_grade": "E1_COSTLY_LIMITED_GAIN",
+              "acquisition_mode": "OFFENSIVE_SIEGE_RELIEF_AND_MULTI_NODE_CAPTURE_FOLLOWED_BY_AMBUSH_LOSSES",
+              "result_type": "LIMITED_DURABLE_NODE_GAIN_WITH_MAJOR_FIELD_FORCE_DESTRUCTION",
+              "within_grade_position": "LOW",
+              "terminal_result_profile": "后梁攻邠宁迫刘知俊解灵州围，并在阶段终点仍持有宁、衍二州及庆州南城；但回师在三水、升平接连中伏，康怀贞仅身免、李德遇等数军皆没，西北野战能力严重受损。",
+              "control_change": "BCP3_MULTI_NODE_STAGE_GAIN_WITH_NO_PREWAR_BCN",
+              "security_change_basis": "SB2/BCP3闭合有限区域节点收益，SN3所示本方野战能力恶化与F3成本同权保留，使链净成果降为E1低位；不把控制收益和毁损拆成两条展示链，也不因敌方围城解除抬E3。",
+              "mobilization_peak": "M3_MAJOR_DIRECTION_MULTI_FORCE_OPERATION",
+              "force_destruction": "F3_MULTIPLE_FIELD_FORMATIONS_DESTROYED",
+              "force_destruction_basis": "固定材料明确回师连续中伏、康怀贞仅身免且李德遇等数军皆没，直接给出多个出动军组织完全覆没事实，足以闭合F3；P3千人级人员损害和A3随军资产损失分别记载，不互相替代。",
+              "process_burden": {
+                "repetition": "OFFENSIVE_ADVANCE_AND_TWO_AMBUSH_LOSSES",
+                "duration": "ONE_YEAR_MULTI_STAGE",
+                "post_disaster_remobilization": "NO_LATER_REMOBILIZATION_CLOSED_IN_THIS_CHAIN"
+              },
+              "ruler_responsibility": "DIRECT_SOVEREIGN_OFFENSIVE_AUTHORIZATION",
+              "responsibility_basis": "朱温为实际统治者并授权西北攻势，对战略目标、投入和数军覆没承担直接君主责任；具体行军与伏击处置仍归康怀贞、李德遇等将帅，岐军损失不计后梁成本。",
+              "source_refs": [
+                "config/third-item/third-item-d-cycle-adjudications.json#legacy_unknown_manual_batches[status=CLOSED][investment_cycle_ref=ZZTJ-267-LINGZHOU-BINNING-0909]",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-267.battle-adjudications.json#ZZTJ-267-LINGZHOU-BINNING-0909",
+                "docs/公共成果/军事/01-战役登记/five_dynasties-20.json#ZZTJ-267-LINGZHOU-BINNING-0909",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#ZZTJ-267-LINGZHOU-BINNING-0909",
+                "SRC-ZZTJ-267-1765571-P0086"
+              ],
+              "member_cycle_refs": [
+                "ZZTJ-267-LINGZHOU-BINNING-0909"
+              ],
+              "challenge_context": "开战前岐军及刘知俊体系能够围灵州并在邠宁—庆州、西北回师通道持续作战，构成后梁一个重要西北方向威胁；不足以压迫后梁全国国防体系。",
+              "effective_opponent_challenge_source_refs": [
+                "config/third-item/third-item-d-cycle-adjudications.json#legacy_unknown_manual_batches[status=CLOSED][investment_cycle_ref=ZZTJ-267-LINGZHOU-BINNING-0909]",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-267.battle-adjudications.json#ZZTJ-267-LINGZHOU-BINNING-0909",
+                "docs/公共成果/军事/01-战役登记/five_dynasties-20.json#ZZTJ-267-LINGZHOU-BINNING-0909",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#ZZTJ-267-LINGZHOU-BINNING-0909",
+                "SRC-ZZTJ-267-1765571-P0086"
+              ],
+              "achievement_grade_detail": "E1_COSTLY_LIMITED_GAIN",
+              "security_result_grade": "E1"
+            }
+          ],
+          "strategic_internal_chains": [
+            {
+              "chain_id": "ZZTJ-267-LIUZHIJUN-REBELLION-0909",
+              "achievement_grade": "E3_REGIONAL_CORE_RECOVERY",
+              "basis": "刘知俊据同州叛附岐、袭华州守潼关并策反长安，梁军奇袭后恢复潼关、华州与长安关中核心节点，叛乱控制结构瓦解，裁内部E3。",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-267.battle-adjudications.json#ZZTJ-267-LIUZHIJUN-REBELLION-0909",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#ZZTJ-267-LIUZHIJUN-REBELLION-0909"
+              ],
+              "member_cycle_refs": [
+                "ZZTJ-267-LIUZHIJUN-REBELLION-0909"
+              ],
+              "challenge_context": "相对于本方的开战前有效威胁事实见本链basis。",
+              "acquisition_mode": "MULTI_STAGE_COMBAT",
+              "result_type": "MAJOR_OR_REGIONAL_GAIN",
+              "within_grade_position": "MID",
+              "terminal_result_profile": {
+                "threat_change": "MAJOR_OR_REGIONAL_GAIN",
+                "control_change": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "material_return": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "durability": "LIMITED_OR_NOT_CLOSED",
+                "terminal_member_ref": "ZZTJ-267-LIUZHIJUN-REBELLION-0909",
+                "aggregation_basis": "同一对手、同一战略目标和连续授权合链；终点成果只消费一次。"
+              },
+              "achievement_grade_detail": "E3_REGIONAL_CORE_RECOVERY",
+              "security_result_grade": "E3_MAJOR_STAGE"
+            },
+            {
+              "chain_id": "ZZTJ-267-XIANGZHOU-MUTINY-0909",
+              "achievement_grade": "E2_REGIONAL_SUPPRESSION",
+              "basis": "襄州杀帅据州、房州响应并附蜀后，后梁与荆南会军收复襄房、消灭叛乱组织；属于两州区域控制恢复，裁内部E2，不按票数抬档。",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-267.battle-adjudications.json#ZZTJ-267-XIANGZHOU-MUTINY-0909",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#ZZTJ-267-XIANGZHOU-MUTINY-0909",
+                "SRC-ZZTJ-267-1765571-P0068",
+                "SRC-ZZTJ-267-1765571-P0077"
+              ],
+              "member_cycle_refs": [
+                "ZZTJ-267-XIANGZHOU-MUTINY-0909"
+              ],
+              "challenge_context": "相对于本方的开战前有效威胁事实见本链basis。",
+              "acquisition_mode": "MULTI_STAGE_COMBAT",
+              "result_type": "REGIONAL_CONTROL_STABILIZED",
+              "within_grade_position": "MID",
+              "terminal_result_profile": {
+                "threat_change": "REGIONAL_CONTROL_STABILIZED",
+                "control_change": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "material_return": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "durability": "LIMITED_OR_NOT_CLOSED",
+                "terminal_member_ref": "ZZTJ-267-XIANGZHOU-MUTINY-0909",
+                "aggregation_basis": "同一对手、同一战略目标和连续授权合链；终点成果只消费一次。"
+              },
+              "achievement_grade_detail": "E2_REGIONAL_SUPPRESSION",
+              "security_result_grade": "E2"
+            }
+          ],
+          "ordinary_suppression_summary": {
+            "count": 0,
+            "cycle_refs": [],
+            "presumed_or_explicit_success_count": 0,
+            "explicit_failure_or_unresolved_count": 0,
+            "abnormal_cost_chain_count": 0,
+            "abnormal_process_chain_count": 0,
+            "excluded_nonconsumable_count": 0,
+            "notes": "三条公共记录分别进入一条外部战略链和两条内部战略链，无普通平乱票；内部恢复不制造外部E。",
+            "source_refs": [
+              "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json"
+            ]
+          },
+          "cross_item_excluded_chains": [],
+          "non_military_loss_cost_exclusions": [],
+          "attributable_cost_profile": {
+            "cost_band": "C5",
+            "status": "CONFIRMED",
+            "position": "HIGH",
+            "single_admission_fact": "909同一灵州—邠宁外部链回师阶段，康怀贞仅身免且李德遇等数军皆没，多个实际出动的后梁野战编组发生明确组织性覆灭F3。",
+            "admission_route": "SAME_CHAIN_F3_MULTIPLE_FIELD_FORMATION_DESTRUCTION",
+            "basis": "C5仅由灵州—邠宁同链多个野战编组皆没的F3准入；不把襄州、刘知俊两条内部链成本拼接，不以P3人数、敌军损失或创业统一结果抬档。朱温直接发动攻势，责任充分，故C5高位。",
+            "source_refs": [
+              "config/third-item/third-item-d-cycle-adjudications.json#legacy_unknown_manual_batches[status=CLOSED][investment_cycle_ref=ZZTJ-267-LINGZHOU-BINNING-0909]",
+              "docs/史料通读产物/五代十国/资治通鉴/volume-267.battle-adjudications.json#ZZTJ-267-LINGZHOU-BINNING-0909",
+              "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#ZZTJ-267-LINGZHOU-BINNING-0909"
+            ]
+          },
+          "adjudication_basis": "唯一外部链仅为高成本低位E1，成本前D2；两条内部区域恢复不能抬外部R。灵州—邠宁同链F3及本人直接进攻责任触发C5高位降一档，影子D1高位。",
+          "coverage_status": "CONFIRMED",
+          "source_batch": "sol_c",
+          "canonical_status": "FORMAL_CURRENT",
+          "formal_grade_write": true,
+          "formal_score_write": true,
+          "database_write": false
+        },
+        {
+          "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
+          "ruler_id": "RULER-SHADOW-李克用",
+          "ruler_name": "李克用",
+          "polity": "晋",
+          "reign_range": "895—908（晋王主政窗口）",
+          "identity_source": "D_FORMAL_EXTENSION",
+          "D_grade": "D1",
+          "D_within_grade_position": "HIGH",
+          "D_score_points": 14.0,
+          "D_score_status": "DIRECT_D_SCORE_ASSIGNED",
+          "signed_security_candidate_before_cost": "D2",
+          "cost_grade_delta": -1,
+          "security_result_distribution": {
+            "E0": 1,
+            "E1": 1,
+            "E2": 1,
+            "E3_MAJOR_STAGE": 1,
+            "EN1": 1,
+            "EN2": 1
+          },
+          "external_strategic_chains": [
+            {
+              "chain_id": "HEDONG-BIAN-JINYANG-902",
+              "member_cycle_refs": [
+                "WAR-FD-9B32D83821ED49194189"
+              ],
+              "effective_opponent_challenge_grade": "O4_MULTI_DIRECTION_OR_CORE_REGION_THREAT",
+              "challenge_context": "朱全忠汴军具十万级方向动员、连续攻州与围晋阳能力，能够直接压迫河东核心军府。",
+              "achievement_grade": "EN2_MAJOR_DIRECTION_CAPABILITY_DETERIORATION",
+              "acquisition_mode": "OFFENSIVE_ADVANCE_FOLLOWED_BY_FIELD_COLLAPSE_AND_CORE_DEFENSE",
+              "result_type": "CATASTROPHIC_REVERSAL_WITH_CORE_SURVIVAL_BUT_DURABLE_STRATEGIC_INFERIORITY",
+              "within_grade_position": "HIGH",
+              "terminal_result_profile": "河东先取慈、隰并短取绛州，蒲南遭断归路后不及数万之军惊溃，杀获万余、兵仗辎重几尽；晋阳经夜袭和汴军疫退得保并复三州，但固定材料明确河东此后累年不敢与朱全忠争。",
+              "control_change": "同链早期新增州地及最终复地中的取得性控制收益不在D重复；D只消费主力崩溃后虽守住核心却长期丧失对汴战略主动的安全恶化。",
+              "cross_item_control_gain_deduplicated": true,
+              "security_change_basis": "终点没有永久失去晋阳与三州，故不以败绩成本倒灌EN3；但O4对手造成主力结构性受损并使河东多年失去主要方向竞争能力，闭合EN2高位。",
+              "mobilization_peak": "W_TENS_OF_THOUSANDS_OFFENSIVE_AND_CORE_DEFENSE_REMOBILIZATION",
+              "mobilization_basis": "河东投入不及数万主攻军，灾后又收集溃兵、守晋阳并多次夜袭；汴军十万只用于O档。",
+              "force_destruction": "F3_MAJOR_ORGANIZATIONAL_FORCE_DESTRUCTION",
+              "force_destruction_basis": "本方不及数万的明确组织分母面对杀获万余、惊溃、宗室被俘及兵仗辎重几尽，闭合显著比例和组织失能；残部仍能复集守城，故不上F4。",
+              "process_burden": {
+                "repetition": "OFFENSIVE_COLLAPSE_CORE_SIEGE_AND_POST_DISASTER_REMOBILIZATION",
+                "duration": "MEDIUM_SINGLE_YEAR_MULTI_PHASE"
+              },
+              "ruler_responsibility": "DIRECT_STRATEGIC_AUTHORIZATION_WITH_DELEGATED_FIELD_COMMAND",
+              "responsibility_basis": "李克用批准深入进攻并承担灾害后的晋阳核心决策责任；前线断路与溃败由李嗣昭、周德威等执行，不越证据写成本人战术指挥。",
+              "source_refs": [
+                "docs/公共成果/军事/01-战役登记/five_dynasties-05.json#WAR-FD-9B32D83821ED49194189",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-263.source-summary.md#ZZTJ-263-HEDONG-BIAN-0902"
+              ],
+              "effective_opponent_challenge_basis": "朱全忠汴军具十万级方向动员、连续攻州与围晋阳能力，能够直接压迫河东核心军府。",
+              "effective_opponent_challenge_source_refs": [
+                "docs/公共成果/军事/01-战役登记/five_dynasties-05.json#WAR-FD-9B32D83821ED49194189",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-263.source-summary.md#ZZTJ-263-HEDONG-BIAN-0902"
+              ],
+              "achievement_grade_detail": "EN2_MAJOR_DIRECTION_CAPABILITY_DETERIORATION",
+              "security_result_grade": "EN2"
+            },
+            {
+              "chain_id": "HEDONG-XINGZHOU-906",
+              "member_cycle_refs": [
+                "WAR-FD-29BC416045BE5B83399D"
+              ],
+              "effective_opponent_challenge_grade": "O2_BORDER_RAIDING",
+              "challenge_context": "邢州守军及张筠援骑能凭城与马岭伏击阻断河东三千骑，但只构成单一州城方向。",
+              "achievement_grade": "E0_NO_SECURITY_IMPROVEMENT",
+              "acquisition_mode": "LIMITED_CAVALRY_SIEGE_AND_FAILED_RELIEF_OPERATION",
+              "result_type": "FAILED_ASSAULT_WITHOUT_CONTROL_OR_SECURITY_GAIN",
+              "within_grade_position": "LOW",
+              "terminal_result_profile": "三千骑围邢州七日后在马岭中伏败退，未取得邢州，也未改变该方向外部威胁结构。",
+              "control_change": "无新增或净失控制；未发生的疆土收益不计。",
+              "cross_item_control_gain_deduplicated": false,
+              "security_change_basis": "目标失败但终点未证明对手扩大威胁范围或取得河东既有控制，故为E0，不把人员成本倒灌EN。",
+              "mobilization_peak": "W3000_CAVALRY",
+              "mobilization_basis": "明确三千骑单路行动。",
+              "force_destruction": "F2_PERSONNEL_LOSS_WITHOUT_ORGANIZATIONAL_DENOMINATOR",
+              "force_destruction_basis": "固定卡只推定百人级损害，未闭合死亡比例、成建制崩溃或灾后重建，故不上F3。",
+              "process_burden": {
+                "repetition": "SINGLE_SIEGE_AND_AMBUSHED_RETREAT",
+                "duration": "SHORT_SEVEN_DAY_OPERATION"
+              },
+              "ruler_responsibility": "CENTRAL_AUTHORIZATION_WITH_DELEGATED_EXECUTION",
+              "responsibility_basis": "李克用遣李嗣昭救援，承担出兵授权责任；具体围城和马岭败战由前线执行。",
+              "source_refs": [
+                "docs/公共成果/军事/01-战役登记/five_dynasties-18.json#WAR-FD-29BC416045BE5B83399D",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-265.source-summary.md#ZZTJ-265-HEDONG-XINGZHOU-0906"
+              ],
+              "effective_opponent_challenge_basis": "邢州守军及张筠援骑能凭城与马岭伏击阻断河东三千骑，但只构成单一州城方向。",
+              "effective_opponent_challenge_source_refs": [
+                "docs/公共成果/军事/01-战役登记/five_dynasties-18.json#WAR-FD-29BC416045BE5B83399D",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-265.source-summary.md#ZZTJ-265-HEDONG-XINGZHOU-0906"
+              ],
+              "achievement_grade_detail": "E0_NO_SECURITY_IMPROVEMENT",
+              "security_result_grade": "E0"
+            },
+            {
+              "chain_id": "HEDONG-LUZHOU-906",
+              "member_cycle_refs": [
+                "WAR-FD-75D371546C658817947B"
+              ],
+              "effective_opponent_challenge_grade": "O4_MULTI_DIRECTION_OR_CORE_REGION_THREAT",
+              "challenge_context": "朱全忠体系正围沧州并控制潞州方向，具跨区持续战争能力；幽州三万援军和河东主力共同施压。",
+              "achievement_grade": "E3_MAJOR_REGIONAL_SECURITY_GAIN",
+              "acquisition_mode": "COALITION_PRESSURE_AND_GARRISON_DEFECTION",
+              "result_type": "IMPORTANT_STRATEGIC_NODE_GAIN_AND_RELIEF_OF_EXTERNAL_SIEGE",
+              "within_grade_position": "HIGH",
+              "terminal_result_profile": "丁会举昭义军归河东，潞州易手并迫使朱全忠立即解除沧州之围，形成主要方向阶段性改善；汴军体系仍存，未达E4。",
+              "control_change": "潞州和昭义军的新增控制作为晋政权扩张收益由第一项消费；D只记迫使O4对手解除沧州围攻、改善上党方向外部威胁状态。",
+              "cross_item_control_gain_deduplicated": true,
+              "security_change_basis": "取得重要节点并直接解除另一主要围城，达到E3高位；低对抗归附不机械进E4/E5，且汴军主体未被结构性终结。",
+              "mobilization_peak": "W_MULTI_FORCE_COALITION_WITH_30000_ALLIED_ARMY",
+              "mobilization_basis": "河东军与幽州三万援军协同进逼潞州；盟军规模只记动员背景，不转为本方损失。",
+              "force_destruction": "F1_LIMITED_OWN_LOSS_WITHOUT_DENOMINATOR",
+              "force_destruction_basis": "归降为主且本方伤亡失载，只确认行动损害非零；无组织分母，不上F3。",
+              "process_burden": {
+                "repetition": "SINGLE_COALITION_PRESSURE_OPERATION",
+                "duration": "SHORT_906_CAMPAIGN"
+              },
+              "ruler_responsibility": "DIRECT_STRATEGIC_AUTHORIZATION_WITH_DELEGATED_EXECUTION",
+              "responsibility_basis": "李克用与刘仁恭和解并组织联兵，承担战略授权；周德威、李嗣昭等执行前线行动。",
+              "source_refs": [
+                "docs/公共成果/军事/01-战役登记/five_dynasties-18.json#WAR-FD-75D371546C658817947B",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-265.source-summary.md#ZZTJ-265-LUZHOU-0906"
+              ],
+              "effective_opponent_challenge_basis": "朱全忠体系正围沧州并控制潞州方向，具跨区持续战争能力；幽州三万援军和河东主力共同施压。",
+              "effective_opponent_challenge_source_refs": [
+                "docs/公共成果/军事/01-战役登记/five_dynasties-18.json#WAR-FD-75D371546C658817947B",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-265.source-summary.md#ZZTJ-265-LUZHOU-0906"
+              ],
+              "achievement_grade_detail": "E3_MAJOR_REGIONAL_SECURITY_GAIN",
+              "security_result_grade": "E3_MAJOR_STAGE"
+            },
+            {
+              "chain_id": "HEDONG-KHITAN-YUNZHOU-907",
+              "member_cycle_refs": [
+                "WAR-FD-EFCC9EA78CBC25E9AC61"
+              ],
+              "effective_opponent_challenge_grade": "O5_CORE_DEFENSE_SYSTEM_THREAT",
+              "challenge_context": "阿保机统一后的契丹以三十万众进入云州方向，具全国级动员和直接压迫河东北缘能力。",
+              "achievement_grade": "E1_TEMPORARY_CRISIS_AVOIDANCE",
+              "acquisition_mode": "NEGOTIATED_WITHDRAWAL_AND_SHORT_LIVED_ALLIANCE",
+              "result_type": "NO_CONTROL_LOSS_BUT_NO_DURABLE_THREAT_REDUCTION",
+              "within_grade_position": "HIGH",
+              "terminal_result_profile": "李克用以会盟和金缯换取契丹十日后撤离，云州未失；阿保机返国后背盟转附梁，未形成耐久安全改善。",
+              "control_change": "云州控制保持，无新增疆土；马畜回酬不作为D安全成果。",
+              "cross_item_control_gain_deduplicated": false,
+              "security_change_basis": "面对O5危机避免失地但未削弱契丹能力，故仅E1高位；不能把谈判撤离机械升为E5。",
+              "mobilization_peak": "W_DIPLOMATIC_RESPONSE_TO_300000_OPPONENT_FORCE",
+              "mobilization_basis": "本方未闭合大军出战，三十万为敌方规模，只用于O档。",
+              "force_destruction": "F0_NO_OWN_FORCE_DESTRUCTION",
+              "force_destruction_basis": "未见本方交战伤亡或兵团毁损；金缯支出是外交资产，不伪装为F档。",
+              "process_burden": {
+                "repetition": "SINGLE_TEN_DAY_BORDER_CRISIS",
+                "duration": "SHORT_907_EPISODE"
+              },
+              "ruler_responsibility": "DIRECT_PERSONAL_NEGOTIATION",
+              "responsibility_basis": "李克用亲自会见阿保机、结盟并赠金缯，直接承担危机处置责任。",
+              "source_refs": [
+                "docs/公共成果/军事/01-战役登记/five_dynasties-07.json#WAR-FD-EFCC9EA78CBC25E9AC61",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-266.source-summary.md#ZZTJ-266-KHITAN-ABAOGI-0907"
+              ],
+              "effective_opponent_challenge_basis": "阿保机统一后的契丹以三十万众进入云州方向，具全国级动员和直接压迫河东北缘能力。",
+              "effective_opponent_challenge_source_refs": [
+                "docs/公共成果/军事/01-战役登记/five_dynasties-07.json#WAR-FD-EFCC9EA78CBC25E9AC61",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-266.source-summary.md#ZZTJ-266-KHITAN-ABAOGI-0907"
+              ],
+              "achievement_grade_detail": "E1_TEMPORARY_CRISIS_AVOIDANCE",
+              "security_result_grade": "E1"
+            }
+          ],
+          "strategic_internal_chains": [
+            {
+              "chain_id": "HEDONG-ZHENWU-MUTINY-903",
+              "member_cycle_refs": [
+                "WAR-FD-3BC4FEEE9F982BB0B04E"
+              ],
+              "effective_opponent_challenge_grade": "O2_IMPORTANT_GARRISON_MUTINY",
+              "achievement_grade": "E2_LOCAL_INTERNAL_TERMINAL",
+              "basis": "契苾让逐戍将据振武，李克用遣军攻复；叛军首领自焚、军镇控制恢复。",
+              "mobilization_peak": "W_REGIONAL_GARRISON_RECOVERY_FORCE",
+              "force_destruction": "F1_LIMITED_OWN_LOSS_WITHOUT_DENOMINATOR",
+              "force_destruction_basis": "攻城只支持本方损害非零；被杀二千余是吐谷浑叛军，不计本方成本，也不据此裁F3。",
+              "process_burden": {
+                "repetition": "SINGLE_GARRISON_RECOVERY",
+                "duration": "SHORT_903_OPERATION"
+              },
+              "ruler_responsibility": "CENTRAL_AUTHORIZATION_WITH_DELEGATED_EXECUTION",
+              "responsibility_basis": "李克用承担平乱授权，李嗣昭等承担攻城执行。",
+              "source_refs": [
+                "docs/公共成果/军事/01-战役登记/five_dynasties-05.json#WAR-FD-3BC4FEEE9F982BB0B04E",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-264.source-summary.md#ZZTJ-264-ZHENWU-MUTINY-0903"
+              ],
+              "challenge_context": "相对于本方的开战前有效威胁事实见本链basis。",
+              "acquisition_mode": "MULTI_STAGE_COMBAT",
+              "result_type": "REGIONAL_CONTROL_STABILIZED",
+              "within_grade_position": "MID",
+              "terminal_result_profile": {
+                "threat_change": "REGIONAL_CONTROL_STABILIZED",
+                "control_change": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "material_return": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "durability": "LIMITED_OR_NOT_CLOSED",
+                "terminal_member_ref": "WAR-FD-3BC4FEEE9F982BB0B04E",
+                "aggregation_basis": "同一对手、同一战略目标和连续授权合链；终点成果只消费一次。"
+              },
+              "achievement_grade_detail": "E2_LOCAL_INTERNAL_TERMINAL",
+              "security_result_grade": "E2"
+            },
+            {
+              "chain_id": "HEDONG-YUNZHOU-MUTINY-903",
+              "member_cycle_refs": [
+                "WAR-FD-36376D4A0439DF5C964C"
+              ],
+              "effective_opponent_challenge_grade": "O3_GARRISON_WITH_50000_EXTERNAL_RELIEF",
+              "achievement_grade": "EN1_UNRESOLVED_INTERNAL_CONTROL_CRISIS",
+              "basis": "王敬晖杀刺史据云州并获刘仁恭五万援军，河东讨军退保乐安；王敬晖随后弃城，但现有材料未闭合河东重新接管时点。",
+              "mobilization_peak": "W_MULTI_FORCE_GARRISON_SUPPRESSION",
+              "force_destruction": "F1_LIMITED_OWN_LOSS_WITHOUT_DENOMINATOR",
+              "force_destruction_basis": "退保乐安证明行动受挫，但本方死亡、比例和组织重建均失载，故不上F3；外援五万只用于O档。",
+              "process_burden": {
+                "repetition": "SINGLE_FAILED_SUPPRESSION_WITH_UNRESOLVED_HANDOVER",
+                "duration": "SHORT_903_OPERATION"
+              },
+              "ruler_responsibility": "CENTRAL_AUTHORIZATION_WITH_DELEGATED_EXECUTION",
+              "responsibility_basis": "李克用承担讨伐授权与终局未闭合责任，前线由李嗣昭、李存审执行。",
+              "source_refs": [
+                "docs/公共成果/军事/01-战役登记/five_dynasties-10.json#WAR-FD-36376D4A0439DF5C964C",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-264.source-summary.md#ZZTJ-264-YUNZHOU-MUTINY-0903"
+              ],
+              "challenge_context": "相对于本方的开战前有效威胁事实见本链basis。",
+              "acquisition_mode": "MULTI_STAGE_COMBAT",
+              "result_type": "LIMITED_SECURITY_DETERIORATION",
+              "within_grade_position": "MID",
+              "terminal_result_profile": {
+                "threat_change": "LIMITED_SECURITY_DETERIORATION",
+                "control_change": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "material_return": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "durability": "LIMITED_OR_NOT_CLOSED",
+                "terminal_member_ref": "WAR-FD-36376D4A0439DF5C964C",
+                "aggregation_basis": "同一对手、同一战略目标和连续授权合链；终点成果只消费一次。"
+              },
+              "achievement_grade_detail": "EN1_UNRESOLVED_INTERNAL_CONTROL_CRISIS",
+              "security_result_grade": "EN1"
+            }
+          ],
+          "ordinary_suppression_summary": {
+            "count": 1,
+            "presumed_or_explicit_success_count": 0,
+            "explicit_failure_or_unresolved_count": 1,
+            "abnormal_cost_chain_count": 3,
+            "abnormal_process_chain_count": 3,
+            "notes": "903攻晋州因昭宗东归即罢兵，未达独立战略链门。895前取得基础整链排除；取得后的州地扩张收益逐链去重，但902主力灾害、906解除外部围城和907契丹危机仍进入D。敌军、叛军和平民损失全部排除。"
+          },
+          "cross_item_excluded_chains": [],
+          "non_military_loss_cost_exclusions": [],
+          "attributable_cost_profile": {
+            "cost_band": "C5",
+            "status": "CONFIRMED",
+            "position": "HIGH",
+            "admission_fact": "902河东—汴军同一链中，不及数万主攻军被杀获万余并惊溃、兵仗辎重几尽，随后必须收集溃兵、守晋阳和多次夜袭完成灾后再动员。",
+            "basis": "C5由902单链F3比例性组织毁损、核心围城、灾后再动员和李克用战略授权责任准入；按冻结补丁，单一F3加同链灾后再动员仍不足C6，且没有F4、第二个F3、长期全国承压或重大本人错误。汴军十万只用于O档，不进入本方成本，也不与906、907或两条内乱链拼接。"
+          },
+          "adjudication_basis": "902面对O4汴军形成EN2高位，906潞州链在剔除新增控制后仍以解除沧州围攻形成E3高位，邢州E0与契丹E1不足抬升整体；组合成本前D2。902单链C5高位修正一档，影子D1高位。",
+          "coverage_status": "CONFIRMED",
+          "source_batch": "sol_a",
+          "canonical_status": "FORMAL_CURRENT",
+          "formal_grade_write": true,
+          "formal_score_write": true,
+          "database_write": false
+        },
+        {
+          "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
+          "ruler_id": "RULER-FD-LI-SIYUAN",
+          "ruler_name": "李嗣源",
+          "polity": "后唐",
+          "reign_range": "926-933",
+          "identity_source": "PREVIOUS_D_FORMAL",
+          "D_grade": "D1",
+          "D_within_grade_position": "HIGH",
+          "D_score_points": 14.0,
+          "D_score_status": "DIRECT_D_SCORE_ASSIGNED",
+          "signed_security_candidate_before_cost": "D2",
+          "cost_grade_delta": -1,
+          "security_result_distribution": {
+            "E3_MAJOR_STAGE": 1,
+            "E3_REGIONAL_TERMINAL": 2,
+            "EN2": 1
+          },
+          "external_strategic_chains": [
+            {
+              "chain_id": "LSY-JINGNAN-THREE-GORGES-927",
+              "member_cycle_refs": [
+                "ZZTJ-275-TANG-JINGNAN-0927"
+              ],
+              "acquisition_mode": "FAILED_CORE_SIEGE_THEN_SUCCESSFUL_REGIONAL_COUNTEROFFENSIVE",
+              "result_type": "REGIONAL_CONTROL_RECOVERY",
+              "effective_opponent_challenge_grade": "O3_MAJOR_DIRECTION_THREAT",
+              "challenge_context": "荆南能守江陵并以峡中水军控制三峡州镇，构成独立主要方向威胁，但不足以压迫后唐国家中枢。",
+              "achievement_grade": "E3_REGIONAL_TERMINAL",
+              "within_grade_position": "MID",
+              "terminal_result_profile": "四万军三面攻江陵不克，但撤围后在峡中击败荆南水军并复取夔、忠、万三州，形成三峡方向区域控制恢复；江陵仍存限制档内位置。",
+              "control_change": "KUI_ZHONG_WAN_THREE_PREFECTURES_RECOVERED",
+              "mobilization_peak": "M3_40000_THREE_DIRECTION_FORCE",
+              "mobilization_basis": "后唐步骑四万并联蜀楚三面围江陵，随后进行峡中水战。",
+              "force_destruction": "F1_LIMITED_FORCE_LOSS",
+              "force_destruction_basis": "围城与水战确认本方非零损害，但人数、比例和组织后效均失载；荆南水军损失不计本方成本。",
+              "process_burden": {
+                "repetition": "FAILED_SIEGE_THEN_REGIONAL_RECOVERY",
+                "duration": "SINGLE_YEAR"
+              },
+              "ruler_responsibility": "MAJOR_DRIVER",
+              "responsibility_basis": "李嗣源最高授权四万军攻江陵及后续三峡作战，未闭合本人错误造成重大兵团毁损。",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-275.battle-adjudications.json#ZZTJ-275-TANG-JINGNAN-0927"
+              ],
+              "effective_opponent_challenge_basis": "荆南能守江陵并以峡中水军控制三峡州镇，构成独立主要方向威胁，但不足以压迫后唐国家中枢。",
+              "effective_opponent_challenge_source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-275.battle-adjudications.json#ZZTJ-275-TANG-JINGNAN-0927"
+              ],
+              "achievement_grade_detail": "E3_REGIONAL_TERMINAL",
+              "security_result_grade": "E3_REGIONAL_TERMINAL"
+            },
+            {
+              "chain_id": "LSY-LIANGCHUAN-EXPEDITION-930",
+              "member_cycle_refs": [
+                "ZZTJ-277-LIANGCHUAN-0930"
+              ],
+              "acquisition_mode": "DIRECT_OFFENSIVE_EXPEDITION",
+              "result_type": "FAILED_EXPEDITION_AND_MAJOR_REGIONAL_CONTROL_LOSS",
+              "effective_opponent_challenge_grade": "O4_MULTI_DIRECTION_OR_CORE_REGION_THREAT",
+              "challenge_context": "两川军政体系能阻断剑门山道补给、迫退后唐远征军并连续夺取遂阆利及川东峡路多州，达到主要方向强敌门。",
+              "achievement_grade": "EN2_MAJOR_DETERIORATION",
+              "within_grade_position": "HIGH",
+              "terminal_result_profile": "短取剑门、进剑州后因山道转饷崩困焚营北归，终局遂阆利与巴蓬果忠万夔等多州成片失控，两川东向纵深显著扩大。",
+              "control_change": "MULTI_PREFECTURE_SICHUAN_CORRIDOR_LOST",
+              "mobilization_peak": "M3_MAJOR_THEATER_EXPEDITION",
+              "mobilization_basis": "跨剑门山道的大战区攻势、攻城与长期转饷明确，兵力总数失载。",
+              "force_destruction": "F2_LARGE_PERSONNEL_IMPAIRMENT_FORCE_STRUCTURE_NOT_CLOSED",
+              "force_destruction_basis": "剑州多战百余损失叠加山道转运人畜毙踣不可胜纪，支持重大人员与后勤损害，但无同一作战兵团分母、比例或成建制崩溃证据，不判F3。",
+              "process_burden": {
+                "repetition": "OFFENSIVE_ADVANCE_LOGISTICS_COLLAPSE_AND_RETREAT",
+                "duration": "SINGLE_MAJOR_EXPEDITION"
+              },
+              "ruler_responsibility": "DIRECT_MAJOR_DRIVER",
+              "responsibility_basis": "征两川为李嗣源在位下国家级主动授权，山道转饷崩困与撤军成本可直接归于该决策链。",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-277.battle-adjudications.json#ZZTJ-277-LIANGCHUAN-0930"
+              ],
+              "effective_opponent_challenge_basis": "两川军政体系能阻断剑门山道补给、迫退后唐远征军并连续夺取遂阆利及川东峡路多州，达到主要方向强敌门。",
+              "effective_opponent_challenge_source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-277.battle-adjudications.json#ZZTJ-277-LIANGCHUAN-0930"
+              ],
+              "achievement_grade_detail": "EN2_MAJOR_DETERIORATION",
+              "security_result_grade": "EN2"
+            }
+          ],
+          "strategic_internal_chains": [
+            {
+              "chain_id": "LSY-BIANZHOU-ZHUSHOUYIN-927",
+              "member_cycle_refs": [
+                "ZZTJ-276-BIANZHOU-ZHUSHOUYIN-0927"
+              ],
+              "achievement_grade": "E3_CORE_CITY_RECOVERY",
+              "basis": "朱守殷据大梁拒命后，五百骑先压城、石敬瑭继进及皇帝主力四面进攻同链收束，迅速恢复国家核心城市控制。",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-276.battle-adjudications.json#ZZTJ-276-BIANZHOU-ZHUSHOUYIN-0927",
+                "SRC-ZZTJ-276-1767667-P0022",
+                "SRC-ZZTJ-276-1767667-P0023"
+              ],
+              "challenge_context": "相对于本方的开战前有效威胁事实见本链basis。",
+              "acquisition_mode": "MULTI_STAGE_COMBAT",
+              "result_type": "MAJOR_OR_REGIONAL_GAIN",
+              "within_grade_position": "MID",
+              "terminal_result_profile": {
+                "threat_change": "MAJOR_OR_REGIONAL_GAIN",
+                "control_change": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "material_return": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "durability": "LIMITED_OR_NOT_CLOSED",
+                "terminal_member_ref": "ZZTJ-276-BIANZHOU-ZHUSHOUYIN-0927",
+                "aggregation_basis": "同一对手、同一战略目标和连续授权合链；终点成果只消费一次。"
+              },
+              "achievement_grade_detail": "E3_CORE_CITY_RECOVERY",
+              "security_result_grade": "E3_MAJOR_STAGE"
+            },
+            {
+              "chain_id": "LSY-DINGZHOU-WANGDU-928-929",
+              "member_cycle_refs": [
+                "ZZTJ-276-DINGZHOU-WANGDU-0928"
+              ],
+              "achievement_grade": "E3_REGIONAL_TERMINAL",
+              "basis": "王都据定州并获契丹两轮万骑级援军，后唐长期围守、消灭外援并收复义武军核心，终结强军政割据；三千强攻死伤无全军分母，不判F3。",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-276.battle-adjudications.json#ZZTJ-276-DINGZHOU-WANGDU-0928"
+              ],
+              "challenge_context": "相对于本方的开战前有效威胁事实见本链basis。",
+              "acquisition_mode": "MULTI_STAGE_COMBAT",
+              "result_type": "REGIONAL_THREAT_TERMINATED",
+              "within_grade_position": "MID",
+              "terminal_result_profile": {
+                "threat_change": "REGIONAL_THREAT_TERMINATED",
+                "control_change": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "material_return": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "durability": "LIMITED_OR_NOT_CLOSED",
+                "terminal_member_ref": "ZZTJ-276-DINGZHOU-WANGDU-0928",
+                "aggregation_basis": "同一对手、同一战略目标和连续授权合链；终点成果只消费一次。"
+              },
+              "achievement_grade_detail": "E3_REGIONAL_TERMINAL",
+              "security_result_grade": "E3_REGIONAL_TERMINAL"
+            }
+          ],
+          "ordinary_suppression_summary": {
+            "count": 3,
+            "cycle_refs": [
+              "ZZTJ-275-BIANZHOU-KONGHE-MUTINY-0926",
+              "ZZTJ-275-LUTAI-MUTINY-0927",
+              "ZZTJ-277-HEZHONG-MUTINY-0930"
+            ],
+            "presumed_or_explicit_success_count": 3,
+            "explicit_failure_or_unresolved_count": 0,
+            "abnormal_cost_chain_count": 0,
+            "abnormal_process_chain_count": 0,
+            "notes": "汴州控鹤、鹿台九指挥与河中兵变均在单一军州范围内终结，只展示归宿，不因三次成功加D。鹿台乱兵几乎全灭属于叛军损失，不进入本方P/F。",
+            "source_refs": [
+              "docs/史料通读产物/五代十国/资治通鉴/volume-275.battle-adjudications.json#ZZTJ-275-BIANZHOU-KONGHE-MUTINY-0926",
+              "SRC-ZZTJ-275-803286-P0040",
+              "docs/史料通读产物/五代十国/资治通鉴/volume-275.battle-adjudications.json#ZZTJ-275-LUTAI-MUTINY-0927",
+              "SRC-ZZTJ-275-803286-P0095",
+              "docs/史料通读产物/五代十国/资治通鉴/volume-277.battle-adjudications.json#ZZTJ-277-HEZHONG-MUTINY-0930",
+              "SRC-ZZTJ-277-1768811-P0026",
+              "SRC-ZZTJ-277-1768811-P0028"
+            ]
+          },
+          "cross_item_excluded_chains": [],
+          "non_military_loss_cost_exclusions": [
+            "荆南、两川、契丹与各叛军损失均不进入后唐军事P/F；鹿台三千五百乱兵殆尽属于叛军毁损，不是李嗣源本方兵团成本。"
+          ],
+          "attributable_cost_profile": {
+            "cost_band": "C5",
+            "status": "CONFIRMED",
+            "position": "LOW",
+            "basis": "C5仅由两川主动远征同链的山道转饷崩困、焚营撤军、S5多州军政交通系统失能和李嗣源DIRECT_MAJOR_DRIVER责任准入；现有各链均无本方兵团分母、过半比例或成建制重建证据，故无F3。叛军损失完全排除。"
+          },
+          "adjudication_basis": "荆南三峡E3与两川EN2同权后仅形成有限区域净改善，成本前为D2；C5虽无F3，但主动远征的重大后勤崩困、区域系统损害及本人责任闭合实质降档门。大梁、定州内部收束只作有限正向位置修正，列D1高位。",
+          "coverage_status": "CONFIRMED",
+          "source_batch": "sol_b",
+          "canonical_status": "FORMAL_CURRENT",
+          "formal_grade_write": true,
+          "formal_score_write": true,
+          "database_write": false
+        },
+        {
+          "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
+          "ruler_id": "RULER-FD-LI-CUNXU",
+          "ruler_name": "李存勖",
+          "polity": "后唐",
+          "reign_range": "923-926",
+          "identity_source": "PREVIOUS_D_FORMAL",
+          "D_grade": "D0",
+          "D_within_grade_position": "LOW",
+          "D_score_points": 0.0,
+          "D_score_status": "DIRECT_D_SCORE_ASSIGNED",
+          "signed_security_candidate_before_cost": "D0",
+          "cost_grade_delta": 0,
+          "security_result_distribution": {
+            "E2": 2,
+            "EN3": 1
+          },
+          "external_strategic_chains": [
+            {
+              "chain_id": "LCX-KHITAN-YOUDING-923-925",
+              "member_cycle_refs": [
+                "ZZTJ-273-KHITAN-YOUZHOU-0923-0925"
+              ],
+              "acquisition_mode": "MULTI_YEAR_FRONTIER_DEFENSE_AND_RELIEF",
+              "result_type": "MAJOR_DIRECTION_CONTAINMENT_WITH_LIMITED_RECOVERY",
+              "effective_opponent_challenge_grade": "O3_MAJOR_DIRECTION_THREAT",
+              "challenge_context": "契丹跨年压迫幽定、袭扰转输，迫后唐调发三万七千人救援，构成主要边防方向威胁。",
+              "achievement_grade": "E2_MAJOR_CONTAINMENT",
+              "within_grade_position": "HIGH",
+              "terminal_result_profile": "后唐在涿州方向取胜并恢复新州，遏止当轮契丹压力；契丹结构性威胁未终结，也无耐久多方向秩序重构。",
+              "control_change": "XINZHOU_RECOVERED_WITH_FRONTIER_PRESSURE_CONTAINED",
+              "mobilization_peak": "M3_MULTI_YEAR_REGIONAL_RELIEF_FORCE",
+              "mobilization_basis": "923—925跨年应对并实际调发三万七千人。",
+              "force_destruction": "F1_LIMITED_UNQUANTIFIED_FORCE_LOSS",
+              "force_destruction_basis": "本方仅闭合非零接战损害，无百人级明确死亡，更无组织分母；契丹损失不入后唐F。",
+              "process_burden": {
+                "repetition": "MULTI_YEAR_FRONTIER_PRESSURE_AND_RELIEF",
+                "duration": "923_TO_925"
+              },
+              "ruler_responsibility": "MAJOR_DRIVER",
+              "responsibility_basis": "李存勖最高授权跨年幽定防务，具体作战由边将执行。",
+              "source_refs": [
+                "SRC-ZZTJ-273-1502848-P0091",
+                "SRC-ZZTJ-273-1502848-P0096",
+                "docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.json",
+                "ZZTJ-271-KHITAN-YOUDING-0921::923-925-LI-CUNXU-WINDOW"
+              ],
+              "effective_opponent_challenge_basis": "契丹跨年压迫幽定、袭扰转输，迫后唐调发三万七千人救援，构成主要边防方向威胁。",
+              "effective_opponent_challenge_source_refs": [
+                "SRC-ZZTJ-273-1502848-P0091",
+                "SRC-ZZTJ-273-1502848-P0096",
+                "docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.json",
+                "ZZTJ-271-KHITAN-YOUDING-0921::923-925-LI-CUNXU-WINDOW"
+              ],
+              "achievement_grade_detail": "E2_MAJOR_CONTAINMENT",
+              "security_result_grade": "E2"
+            }
+          ],
+          "strategic_internal_chains": [
+            {
+              "chain_id": "LCX-LUZHOU-MUTINY-924",
+              "member_cycle_refs": [
+                "ZZTJ-273-LUZHOU-YANGLI-0924"
+              ],
+              "result_type": "REGIONAL_COMMAND_RECOVERED",
+              "achievement_grade": "E2_INTERNAL_REGIONAL_RECOVERY",
+              "within_grade_position": "MID",
+              "terminal_result_profile": "安义军三千占潞州军政中枢后被当轮击败，控制恢复；只作内部辅助。",
+              "control_change": "LUZHOU_COMMAND_RESTORED",
+              "mobilization_peak": "M2_REGIONAL_RELIEF",
+              "mobilization_basis": "后唐出兵恢复潞州，投入达到方向级。",
+              "force_destruction": "F0_NO_OWN_PERSONNEL_LOSS_RECORDED",
+              "force_destruction_basis": "完整行动未见后唐官军死亡、伤残、被俘或失踪；叛军损失排除。",
+              "process_burden": {
+                "repetition": "SINGLE_MUTINY_AND_RECOVERY",
+                "duration": "SHORT"
+              },
+              "ruler_responsibility": "MAJOR_DRIVER",
+              "responsibility_basis": "朝廷授权平乱，具体夜袭由张廷蕴执行。",
+              "source_refs": [
+                "SRC-ZZTJ-273-1502848-P0042",
+                "SRC-ZZTJ-273-1502848-P0053",
+                "docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.json",
+                "ZZTJ-273-LUZHOU-YANGLI-0924"
+              ],
+              "challenge_context": "相对于本方的开战前有效威胁事实见本链basis。",
+              "acquisition_mode": "MULTI_STAGE_COMBAT",
+              "achievement_grade_detail": "E2_INTERNAL_REGIONAL_RECOVERY",
+              "security_result_grade": "E2"
+            },
+            {
+              "chain_id": "LCX-YEDU-BIANLUO-COLLAPSE-926",
+              "member_cycle_refs": [
+                "ZZTJ-274-YEDU-MUTINY-0926"
+              ],
+              "result_type": "INTERNAL_NATIONAL_COMMAND_AND_CAPITAL_COLLAPSE",
+              "achievement_grade": "EN3_NATIONAL_SYSTEM_COLLAPSE",
+              "within_grade_position": "HIGH",
+              "terminal_result_profile": "邺都兵变扩展至多州军镇，东征军离散、李嗣源所部倒向并取汴洛，洛阳宿卫崩溃，中央军令未恢复。",
+              "control_change": "YEDU_BIANZHOU_AND_LUOYANG_LOST_WITH_REGIME_COLLAPSE",
+              "mobilization_peak": "M3_MULTI_REGION_SUPPRESSION_FORCE",
+              "mobilization_basis": "庄宗派军围讨并跨多州军镇应对，终因军队倒戈失效。",
+              "force_destruction": "F2_MAJOR_SYSTEM_DISPERSAL_WITHOUT_ORGANIZATION_DENOMINATOR",
+              "force_destruction_basis": "东征军离散和宿卫崩溃说明组织失效，但本方死亡、整支兵团基数及毁损比例不闭合，不判F3。",
+              "process_burden": {
+                "repetition": "MUTINY_EXPANSION_FAILED_SUPPRESSION_AND_CAPITAL_COLLAPSE",
+                "duration": "ONE_TERMINAL_YEAR"
+              },
+              "ruler_responsibility": "DIRECT_MAJOR_DRIVER",
+              "responsibility_basis": "李存勖本人承担军饷、将帅清洗与连续错误处置使军变扩大的重大责任。",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-274.battle-adjudications.json#ZZTJ-274-YEDU-MUTINY-0926",
+                "SRC-ZZTJ-274-803285-P0079",
+                "docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.json",
+                "ZZTJ-274-YEDU-MUTINY-0926",
+                "ZZTJ-274-XINGZHOU-ZHAOTAI-0926",
+                "ZZTJ-274-CANGZHOU-MUTINY-0926",
+                "ZZTJ-274-SUIYIN-MUTINY-0926",
+                "ZZTJ-274-QINGZHOU-WANGGONGYAN-0926",
+                "ZZTJ-274-LISIYUAN-YEDU-0926",
+                "ZZTJ-274-LISIYUAN-BIANZHOU-0926",
+                "ZZTJ-275-LUOYANG-GATE-MUTINY-0926"
+              ],
+              "challenge_context": "相对于本方的开战前有效威胁事实见本链basis。",
+              "acquisition_mode": "MULTI_STAGE_COMBAT",
+              "achievement_grade_detail": "EN3_NATIONAL_SYSTEM_COLLAPSE",
+              "security_result_grade": "EN3"
+            }
+          ],
+          "ordinary_suppression_summary": {
+            "count": 0,
+            "cycle_refs": [],
+            "presumed_or_explicit_success_count": 0,
+            "explicit_failure_or_unresolved_count": 0,
+            "abnormal_cost_chain_count": 1,
+            "abnormal_process_chain_count": 2,
+            "notes": "潞州占军镇中枢、邺都扩展至国家崩溃，均超过普通平乱门。创业统一战争成果严格排除。",
+            "source_refs": []
+          },
+          "cross_item_excluded_chains": [],
+          "non_military_loss_cost_exclusions": [
+            "契丹军、潞州与邺都叛军、城市居民损失均不进入后唐军事P/F/C。"
+          ],
+          "attributable_cost_profile": {
+            "cost_band": "C5",
+            "status": "CONFIRMED",
+            "position": "HIGH",
+            "basis": "C5由邺都同链跨区M3、S5国家军令系统受损、持续围讨失败及李存勖本人重大责任准入；不由亡国结果倒推，也无F3。"
+          },
+          "adjudication_basis": "契丹E2和潞州内部恢复无法抵消邺都—汴洛内部EN3；创业统一成果不重复消费，成本前已D0。C5触底不重复降档，列D0低位。",
+          "coverage_status": "CONFIRMED",
+          "source_batch": "sol_b",
+          "canonical_status": "FORMAL_CURRENT",
+          "formal_grade_write": true,
+          "formal_score_write": true,
+          "database_write": false
+        },
+        {
+          "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
+          "ruler_id": "RULER-FD-LI-BIAN",
+          "ruler_name": "李昪",
+          "polity": "南唐",
+          "reign_range": "937-943",
+          "identity_source": "PREVIOUS_D_FORMAL",
+          "D_grade": "D0",
+          "D_within_grade_position": "HIGH",
+          "D_score_points": 6.0,
+          "D_score_status": "DIRECT_D_SCORE_ASSIGNED",
+          "signed_security_candidate_before_cost": "D1",
+          "cost_grade_delta": -1,
+          "security_result_distribution": {
+            "E0": 1,
+            "EN2": 1
+          },
+          "external_strategic_chains": [
+            {
+              "chain_id": "CHAIN-SOUTHERN-TANG-ANZHOU-940",
+              "effective_opponent_challenge_grade": "O2_BORDER_RAIDING",
+              "effective_opponent_challenge_basis": "安州对手能在单一区域中枢反复作战，但未形成南唐主要方向或全国防务压力。",
+              "achievement_grade": "E0_NO_CLOSED_SECURITY_GAIN",
+              "acquisition_mode": "BRIEF_OCCUPATION_AND_FAILED_DEFENSE",
+              "result_type": "TRANSIENT_CONTROL_GAIN_FULLY_REVERSED",
+              "within_grade_position": "LOW",
+              "terminal_result_profile": "南唐短暂控制安州后连续战败并损失四千人，临时所得在父窗口终点全部恢复原状。",
+              "control_change": "NO_DURABLE_CONTROL_GAIN_OR_PREWAR_CONTROL_LOSS",
+              "security_change_basis": "SB0/SN0、BCP0/BCN0闭合E0；失败与四千人员损失进入成本，不倒灌EN。",
+              "mobilization_peak": "M2_REGIONAL_OPERATION",
+              "force_destruction": "NOT_CLOSED_NO_F3",
+              "force_destruction_basis": "四千南唐人员损失闭合P3，但无军团总分母、损失比例或成建制崩溃，不授F3。",
+              "process_burden": {
+                "repetition": "REPEATED_BATTLES_IN_ONE_REGIONAL_CHAIN",
+                "duration": "ONE_YEAR",
+                "post_disaster_remobilization": "NO_CLOSED_POST_DISASTER_PHASE"
+              },
+              "ruler_responsibility": "DIRECT_SOVEREIGN_AUTHORIZATION",
+              "responsibility_basis": "940年晚于918—937第一项创业窗口三年，整链归本项。",
+              "source_refs": [
+                "SRC-ZZTJ-282-2303983-P0066",
+                "SRC-ZZTJ-282-2303983-P0068",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-282.battle-adjudications.json#ZZTJ-282-ANZHOU-LIJINQUAN-0940",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#ZZTJ-282-ANZHOU-LIJINQUAN-0940"
+              ],
+              "member_cycle_refs": [
+                "ZZTJ-282-ANZHOU-LIJINQUAN-0940"
+              ],
+              "challenge_context": "安州对手能在单一区域中枢反复作战，但未形成南唐主要方向或全国防务压力。",
+              "effective_opponent_challenge_source_refs": [
+                "SRC-ZZTJ-282-2303983-P0066",
+                "SRC-ZZTJ-282-2303983-P0068",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-282.battle-adjudications.json#ZZTJ-282-ANZHOU-LIJINQUAN-0940",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#ZZTJ-282-ANZHOU-LIJINQUAN-0940"
+              ],
+              "achievement_grade_detail": "E0_NO_CLOSED_SECURITY_GAIN",
+              "security_result_grade": "E0"
+            }
+          ],
+          "strategic_internal_chains": [
+            {
+              "chain_id": "ZZTJ-283-ZHANG-YUXIAN-QIANZHOU",
+              "achievement_grade": "EN2_MAJOR_INTERNAL_DETERIORATION",
+              "basis": "张遇贤十余万军越岭攻陷虔州多个县、两败州兵并建白云洞营署，终点多县仍失控且威胁组织扩大；只消费李昪窗口，不倒灌后续他朝平定。",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-283.battle-adjudications.json#ZZTJ-283-ZHANG-YUXIAN-QIANZHOU",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#ZZTJ-283-ZHANG-YUXIAN-QIANZHOU"
+              ],
+              "member_cycle_refs": [
+                "ZZTJ-283-ZHANG-YUXIAN-QIANZHOU"
+              ],
+              "challenge_context": "相对于本方的开战前有效威胁事实见本链basis。",
+              "acquisition_mode": "MULTI_STAGE_COMBAT",
+              "result_type": "MAJOR_SECURITY_DETERIORATION",
+              "within_grade_position": "MID",
+              "terminal_result_profile": {
+                "threat_change": "MAJOR_SECURITY_DETERIORATION",
+                "control_change": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "material_return": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "durability": "STRUCTURAL_OR_LONG",
+                "terminal_member_ref": "ZZTJ-283-ZHANG-YUXIAN-QIANZHOU",
+                "aggregation_basis": "同一对手、同一战略目标和连续授权合链；终点成果只消费一次。"
+              },
+              "achievement_grade_detail": "EN2_MAJOR_INTERNAL_DETERIORATION",
+              "security_result_grade": "EN2"
+            }
+          ],
+          "ordinary_suppression_summary": {
+            "count": 0,
+            "cycle_refs": [],
+            "presumed_or_explicit_success_count": 0,
+            "explicit_failure_or_unresolved_count": 0,
+            "abnormal_cost_chain_count": 0,
+            "abnormal_process_chain_count": 0,
+            "excluded_nonconsumable_count": 0,
+            "notes": "两条记录均为第一项窗口后完整战略链；整链保留。",
+            "source_refs": [
+              "docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.json",
+              "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json"
+            ]
+          },
+          "cross_item_excluded_chains": [],
+          "non_military_loss_cost_exclusions": [],
+          "attributable_cost_profile": {
+            "cost_band": "C4",
+            "status": "CONFIRMED",
+            "position": "HIGH",
+            "single_admission_fact": "940同一安州链中，南唐短暂占领后连续战败并明确损失四千本方人员，闭合P3重大人员负担。",
+            "admission_route": "SAME_CHAIN_P3_MAJOR_PERSONNEL_LOSS_WITHOUT_F3",
+            "basis": "C4只由安州同链明确四千本方人员损失准入；P3不等于F3，不与虔州跨链拼C5。",
+            "source_refs": [
+              "SRC-ZZTJ-282-2303983-P0066",
+              "SRC-ZZTJ-282-2303983-P0068",
+              "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#ZZTJ-282-ANZHOU-LIJINQUAN-0940"
+            ]
+          },
+          "adjudication_basis": "外部安州无成果，成本前D1；虔州内部EN2与安州C4高位共同压低一档，影子D0高位。",
+          "coverage_status": "CONFIRMED",
+          "source_batch": "sol_c",
+          "canonical_status": "FORMAL_CURRENT",
+          "formal_grade_write": true,
+          "formal_score_write": true,
+          "database_write": false
+        },
+        {
+          "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
+          "ruler_id": "RULER-FD-LI-YU",
+          "ruler_name": "李煜",
+          "polity": "南唐",
+          "reign_range": "961-975",
+          "identity_source": "PREVIOUS_D_FORMAL",
+          "D_grade": "D0",
+          "D_within_grade_position": "LOW",
+          "D_score_points": 0.0,
+          "D_score_status": "DIRECT_D_SCORE_ASSIGNED",
+          "signed_security_candidate_before_cost": "D0",
+          "cost_grade_delta": 0,
+          "security_result_distribution": {
+            "EN3": 1
+          },
+          "external_strategic_chains": [
+            {
+              "chain_id": "CHAIN-SONG-SOUTHERN-TANG-DEFENSE-CAPITULATION-974-975",
+              "effective_opponent_challenge_grade": "O5_CORE_DEFENSE_SYSTEM_THREAT",
+              "effective_opponent_challenge_basis": "链起点宋军已具跨江架桥、水陆多线推进和围攻金陵的全国核心防务压迫能力，闭合单一有效O5；不以后来南唐亡国倒推。",
+              "achievement_grade": "EN3_NATIONAL_CORE_DEFENSE_COLLAPSE",
+              "acquisition_mode": "FULL_SCALE_CROSS_RIVER_INVASION_MULTI_LINE_SIEGE_AND_CAPITULATION",
+              "result_type": "NATIONAL_CORE_DEFENSE_CAPITAL_AND_POLITY_TERMINATION",
+              "within_grade_position": "HIGH",
+              "terminal_result_profile": "宋军架设采石浮梁渡江，南唐水陆防线连续失败，金陵自春至冬被围后陷落，李煜奉表纳降，十九州三军一百零八县国家控制终止。",
+              "control_change": "BCN5_NATIONAL_TERRITORY_CAPITAL_AND_COMMAND_CONTROL_LOST",
+              "security_change_basis": "SN5/BCN5与金陵、国家防务和政权终止统一裁安全负结果上限EN3；亡国严重度只决定档内高位。",
+              "mobilization_peak": "M5_NATIONAL_MULTI_LINE_DEFENSE_AND_TEN_MONTH_CAPITAL_SIEGE",
+              "force_destruction": "F3_SINGLE_TEN_WAN_REINFORCEMENT_FORMATION_DESTROYED",
+              "force_destruction_basis": "朱全贇十万级援军明确覆灭，提供单一实际编组的成建制毁损证据，闭合F3；其他水陆防线失败和全国投降未提供第二个独立F3、国家主力重建失败或F4组织证据，亡国不得倒灌F。",
+              "process_burden": {
+                "repetition": "CONTINUOUS_MULTI_LINE_DEFENSE_WITH_ONE_CLOSED_F3",
+                "duration": "974_TO_975_AND_CAPITAL_SIEGE_FROM_SPRING_TO_WINTER",
+                "post_disaster_remobilization": "NO_PROVEN_REPEATED_NATIONAL_RECOMMITMENT_AFTER_F3"
+              },
+              "ruler_responsibility": "DIRECT_SOVEREIGN_HIGH_SHARED_COMMAND_RESPONSIBILITY",
+              "responsibility_basis": "李煜长期在位并对974—975国家防御、援军投入与终局处置承担直接君主责任；具体水陆作战失败由朱全贇等将帅分担，宋军、平民及非军事损失不计其本方成本。",
+              "source_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#SOUTHERN_TANG_DEFENSE_AND_CAPITULATION_974_975"
+              ],
+              "member_cycle_refs": [
+                "SOUTHERN_TANG_DEFENSE_AND_CAPITULATION_974_975"
+              ],
+              "challenge_context": "链起点宋军已具跨江架桥、水陆多线推进和围攻金陵的全国核心防务压迫能力，闭合单一有效O5；不以后来南唐亡国倒推。",
+              "effective_opponent_challenge_source_refs": [
+                "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#SOUTHERN_TANG_DEFENSE_AND_CAPITULATION_974_975"
+              ],
+              "achievement_grade_detail": "EN3_NATIONAL_CORE_DEFENSE_COLLAPSE",
+              "security_result_grade": "EN3"
+            }
+          ],
+          "strategic_internal_chains": [],
+          "ordinary_suppression_summary": {
+            "count": 0,
+            "cycle_refs": [],
+            "presumed_or_explicit_success_count": 0,
+            "explicit_failure_or_unresolved_count": 0,
+            "abnormal_cost_chain_count": 0,
+            "abnormal_process_chain_count": 0,
+            "excluded_nonconsumable_count": 0,
+            "notes": "只消费974—975南唐国家防御链；宋方灭南唐及统一成果属于第一项或第三项C对象，整链不在李煜方重复计正向成果。",
+            "source_refs": [
+              "docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.json",
+              "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json"
+            ]
+          },
+          "cross_item_excluded_chains": [],
+          "non_military_loss_cost_exclusions": [],
+          "attributable_cost_profile": {
+            "cost_band": "C5",
+            "status": "CONFIRMED",
+            "position": "HIGH",
+            "single_admission_fact": "974—975同一国家防御链中，朱全贇十万级援军明确成建制覆灭，闭合单个F3。",
+            "admission_route": "SAME_CHAIN_SINGLE_F3_WITH_M5_PROLONGED_NATIONAL_DEFENSE_CAPPED_AT_C5",
+            "basis": "C5由同链单个F3及M5长期全国核心防务投入准入；材料未证明F3后连续全国再投入、反复重大组织毁损、F4国家主力结构或多年全国多方向极端整体结构，孤立F3明确封顶C5。投降、全国失地和亡国EN3不参与成本倒灌。",
+            "source_refs": [
+              "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#SOUTHERN_TANG_DEFENSE_AND_CAPITULATION_974_975"
+            ]
+          },
+          "adjudication_basis": "唯一外链为O5/EN3且无正向成果，成本前D0；C5、单个F3与本人责任不再降档，影子D0低位。",
+          "coverage_status": "CONFIRMED",
+          "source_batch": "sol_c",
+          "canonical_status": "FORMAL_CURRENT",
+          "formal_grade_write": true,
+          "formal_score_write": true,
+          "database_write": false
+        },
+        {
+          "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
+          "ruler_id": "RULER-FD-CHAI-RONG",
+          "ruler_name": "柴荣",
+          "polity": "后周",
+          "reign_range": "954-959",
+          "identity_source": "PREVIOUS_D_FORMAL",
+          "D_grade": "D3",
+          "D_within_grade_position": "MID",
+          "D_score_points": 26.0,
+          "D_score_status": "DIRECT_D_SCORE_ASSIGNED",
+          "signed_security_candidate_before_cost": "D3",
+          "cost_grade_delta": 0,
+          "security_result_distribution": {
+            "E3_MAJOR_STAGE": 1
+          },
+          "external_strategic_chains": [
+            {
+              "chain_id": "STRATEGIC-FD-CHAI-RONG-NORTHERN-DEFENSE-0954-0955",
+              "chain_name": "北汉—契丹核心方向防御（954—955）",
+              "effective_opponent_challenge_grade": "O4_MULTI_DIRECTION_OR_CORE_REGION_THREAT",
+              "effective_opponent_challenge_basis": "954高平与955胡卢河为同一北方核心防线连续防御目标，不拆为逐票主链。",
+              "achievement_grade": "E3_MAJOR_STAGE",
+              "within_grade_position": "MID",
+              "final_control_result": "高平反击与胡卢河防御连续守住中原核心方向，但未终结北汉/契丹体系。",
+              "mobilization_peak": "W10_30",
+              "force_destruction_or_personnel_disaster": "F1｜先败后反击与防御成功均有记录，但本方成建制损失未闭合。",
+              "long_term_or_repeated_burden": "MULTI_ROUND/CROSS_YEAR",
+              "ruler_responsibility": "NOT_ESTABLISHED｜亲督反击确立窗口承担，但前线损失与皇帝责任边界仍需回源。",
+              "headline": "高平反击与胡卢河防御连续守住中原核心方向，但未终结北汉/契丹体系。",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-291.battle-adjudications.json#ZZTJ-291-NH-KHITAN-GAOPING-CAMPAIGN-0954",
+                "WAR-FD-19647EC5A12E17FA44CF-P01",
+                "WAR-FD-19647EC5A12E17FA44CF-P02",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-292.battle-adjudications.json#ZZTJ-292-HULUHE-DEFENSE-0955"
+              ],
+              "achievement_grade_previous": "E3_MAJOR_STAGE",
+              "chain_security_profile": {
+                "start_security_state": "954高平与955胡卢河为同一北方核心防线连续防御目标，不拆为逐票主链。",
+                "stage_security_evidence": [
+                  {
+                    "summary": "高平反击与胡卢河防御连续守住中原核心方向，但未终结北汉/契丹体系。",
+                    "stage_axes_if_available": "NOT_RECORDED",
+                    "source_refs": [
+                      "docs/史料通读产物/五代十国/资治通鉴/volume-291.battle-adjudications.json#ZZTJ-291-NH-KHITAN-GAOPING-CAMPAIGN-0954",
+                      "WAR-FD-19647EC5A12E17FA44CF-P01",
+                      "WAR-FD-19647EC5A12E17FA44CF-P02",
+                      "docs/史料通读产物/五代十国/资治通鉴/volume-292.battle-adjudications.json#ZZTJ-292-HULUHE-DEFENSE-0955"
+                    ]
+                  }
+                ],
+                "peak_positive_stage": "E3_MAJOR_STAGE",
+                "worst_negative_stage": "NONE",
+                "terminal_security_state": "高平反击与胡卢河防御连续守住中原核心方向，但未终结北汉/契丹体系。",
+                "net_security_change": "REGIONAL_IMPROVEMENT",
+                "chain_SB": 3,
+                "chain_SN": 0,
+                "control_change": "高平反击与胡卢河防御连续守住中原核心方向，但未终结北汉/契丹体系。",
+                "trajectory_type": "MONOTONIC_IMPROVEMENT",
+                "durability": "CHAIN_TERMINAL_AS_ADJUDICATED",
+                "aggregation_basis": "按战略链起点—阶段—终点比较；周期SB/SN只作阶段证据，不求和、不平均、不简单取最大；阶段成果与终局对象不重复消费。",
+                "source_refs": [
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-291.battle-adjudications.json#ZZTJ-291-NH-KHITAN-GAOPING-CAMPAIGN-0954",
+                  "WAR-FD-19647EC5A12E17FA44CF-P01",
+                  "WAR-FD-19647EC5A12E17FA44CF-P02",
+                  "docs/史料通读产物/五代十国/资治通鉴/volume-292.battle-adjudications.json#ZZTJ-292-HULUHE-DEFENSE-0955"
+                ]
+              },
+              "acquisition_mode": "DIRECT_COMBAT_DEFEAT",
+              "acquisition_mode_basis": "成果或失败主要经实际军事交战形成；具体归责与终点耐久仍分别裁定。",
+              "member_cycle_refs": [
+                "STRATEGIC-FD-CHAI-RONG-NORTHERN-DEFENSE-0954-0955"
+              ],
+              "challenge_context": "954高平与955胡卢河为同一北方核心防线连续防御目标，不拆为逐票主链。",
+              "result_type": "MAJOR_STAGE_GAIN_TARGET_NOT_CLOSED",
+              "terminal_result_profile": {
+                "threat_change": "MAJOR_STAGE_GAIN_TARGET_NOT_CLOSED",
+                "control_change": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "material_return": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "durability": "LIMITED_OR_NOT_CLOSED",
+                "terminal_member_ref": "STRATEGIC-FD-CHAI-RONG-NORTHERN-DEFENSE-0954-0955",
+                "aggregation_basis": "同一对手、同一战略目标和连续授权合链；终点成果只消费一次。"
+              },
+              "effective_opponent_challenge_source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-291.battle-adjudications.json#ZZTJ-291-NH-KHITAN-GAOPING-CAMPAIGN-0954",
+                "WAR-FD-19647EC5A12E17FA44CF-P01",
+                "WAR-FD-19647EC5A12E17FA44CF-P02",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-292.battle-adjudications.json#ZZTJ-292-HULUHE-DEFENSE-0955"
+              ],
+              "achievement_grade_detail": "E3_MAJOR_STAGE",
+              "security_result_grade": "E3_MAJOR_STAGE"
+            }
+          ],
+          "strategic_internal_chains": [],
+          "ordinary_suppression_summary": {
+            "status": "COMPRESSED_NOT_EXPANDED",
+            "count": null,
+            "presumed_or_explicit_success_count": null,
+            "abnormal_cost_chain_count": 0,
+            "abnormal_process_chain_count": 0,
+            "notes": "本草稿只列异常战略内部项；普通平乱不逐项展开、不按数量加分；null不是零链或低成本。"
+          },
+          "cross_item_excluded_chains": [],
+          "non_military_loss_cost_exclusions": [],
+          "attributable_cost_profile": {
+            "mobilization_peak": "W10_30",
+            "W10_plus_chains": [],
+            "major_force_losses": [
+              "STRATEGIC-FD-CHAI-RONG-NORTHERN-DEFENSE-0954-0955:F1｜先败后反击与防御成功均有记录，但本方成建制损失未闭合。"
+            ],
+            "explicit_personnel_disasters": [
+              "STRATEGIC-FD-CHAI-RONG-NORTHERN-DEFENSE-0954-0955｜战斗有先败后反击，但固定卡未闭合本方死亡总量。"
+            ],
+            "long_or_repeated_chains": [
+              "STRATEGIC-FD-CHAI-RONG-NORTHERN-DEFENSE-0954-0955"
+            ],
+            "ruler_major_responsibility": "NOT_ESTABLISHED｜亲督反击构成行动事实，但不据此推个人贡献或败责。",
+            "coverage": "{\"loss_coverage\":\"SPARSE\",\"mobilization_coverage\":\"PARTIAL\",\"not_recorded_is_not_low_cost\":true,\"status\":\"PARTIAL_OR_CLOSED_PER_PERSON\"}",
+            "cost_comparison_hint": "本人物成本仅作影子描述；不生成C档、D档或排序。",
+            "cost_summary": {
+              "cost_band": "C3",
+              "cost_band_status": "PROVISIONAL",
+              "within_band_position": "LOW",
+              "comparative_cost_signature": {
+                "single_chain_highest_structure": "F1边战/防御损失线索；无F2+记录",
+                "full_reign_cumulative_force_loss": "F1×1；其余F2+/F3/F4未记录",
+                "full_reign_mobilization_and_repetition": "peak W10_30；W10+链0；长/反复链1；短链结构",
+                "same_or_continuous_chain_post_disaster_remobilization": "当前链未见灾后连续再动员证据",
+                "ruler_personal_responsibility": "NOT_ESTABLISHED",
+                "evidence_coverage": "损失SPARSE；动员PARTIAL"
+              },
+              "comparative_cost_signature_line": "C3 PROVISIONAL-LOW｜F1边战/防御损失线索；无F2+记录｜F1×1；其余F2+/F3/F4未记录｜peak W10_30；W10+链0；长/反复链1；短链结构",
+              "basis": "高平—胡卢河单链峰值已达W10_30，按合同进入C3；仅F1损失线索、无F2+与灾后再动员，故为C3低位而非C4。",
+              "evidence_gaps": [
+                "F1事件的本方分母与对象；未进入本批的局部战事；峰值动员与责任。"
+              ],
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-291.battle-adjudications.json#ZZTJ-291-NH-KHITAN-GAOPING-CAMPAIGN-0954"
+              ],
+              "descriptive_only_not_final_D": true
+            },
+            "cost_band": "C3",
+            "status": "PROVISIONAL",
+            "position": "LOW"
+          },
+          "adjudication_basis": "高平—胡卢河单链守住核心方向并形成E3重大阶段成果，未终结北汉/契丹；C3低位支持D3，但成果组合仅一链，横向置中位。",
+          "coverage_status": "CALIBRATED_SOURCE_BATCH",
+          "source_batch": "frozen34_mapping",
+          "canonical_status": "FORMAL_CURRENT",
+          "formal_grade_write": true,
+          "formal_score_write": true,
+          "database_write": false
+        },
+        {
+          "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
+          "ruler_id": "RULER-FD-WANG-JIAN",
+          "ruler_name": "王建",
+          "polity": "前蜀",
+          "reign_range": "907-918",
+          "identity_source": "PREVIOUS_D_FORMAL",
+          "D_grade": "D4",
+          "D_within_grade_position": "LOW",
+          "D_score_points": 30.0,
+          "D_score_status": "DIRECT_D_SCORE_ASSIGNED",
+          "signed_security_candidate_before_cost": "D4",
+          "cost_grade_delta": 0,
+          "security_result_distribution": {
+            "E3_REGIONAL_TERMINAL": 1,
+            "E4_MAJOR_STRATEGIC": 1
+          },
+          "external_strategic_chains": [
+            {
+              "chain_id": "CHAIN-FORMER-SHU-JINGNAN-KUIZHOU-914",
+              "effective_opponent_challenge_grade": "O3_MAJOR_DIRECTION_THREAT",
+              "effective_opponent_challenge_basis": "荆南水军能沿江进攻夔州与瞿塘关隘，构成前蜀东向门户的重要方向威胁；未形成多方向或全国防务压力。",
+              "achievement_grade": "E3_REGIONAL_TERMINAL",
+              "acquisition_mode": "FORTIFIED_RIVER_DEFENSE_AND_FIELD_DEFEAT",
+              "result_type": "INVADING_REGIONAL_FORCE_DEFEATED_WITHOUT_CONTROL_CHANGE",
+              "within_grade_position": "LOW",
+              "terminal_result_profile": "前蜀依瞿塘关隘与夔州守军击败荆南水军，斩获五千并重创本轮区域主战组织；无新增或恢复控制对象。",
+              "control_change": "NO_NET_CONTROL_CHANGE_KUIZHOU_HELD",
+              "security_change_basis": "SB3闭合区域主战组织重创，BCP0限制为E3低位；敌军五千损失不计本方成本。",
+              "mobilization_peak": "M2_DIRECTIONAL_DEFENSE",
+              "force_destruction": "NOT_CLOSED_NO_F3",
+              "force_destruction_basis": "前蜀仅P1非零人员损害，无本方兵团分母、比例或成建制崩溃；荆南五千斩获属于敌军损失。",
+              "process_burden": {
+                "repetition": "SINGLE_DEFENSIVE_CAMPAIGN",
+                "duration": "ONE_YEAR",
+                "post_disaster_remobilization": "NO"
+              },
+              "ruler_responsibility": "DIRECT_SOVEREIGN_DEFENSE_AUTHORIZATION",
+              "responsibility_basis": "914年已在王建907—918皇帝窗口内，且晚于888—907第一项创业窗口，整链归本项；王建承担防御授权责任，将帅承担执行责任。",
+              "source_refs": [
+                "SRC-ZZTJ-269-1765765-P0020",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-269.battle-adjudications.json#ZZTJ-269-JINGNAN-SHU-KUIZHOU-0914",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#ZZTJ-269-JINGNAN-SHU-KUIZHOU-0914"
+              ],
+              "member_cycle_refs": [
+                "ZZTJ-269-JINGNAN-SHU-KUIZHOU-0914"
+              ],
+              "challenge_context": "荆南水军能沿江进攻夔州与瞿塘关隘，构成前蜀东向门户的重要方向威胁；未形成多方向或全国防务压力。",
+              "effective_opponent_challenge_source_refs": [
+                "SRC-ZZTJ-269-1765765-P0020",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-269.battle-adjudications.json#ZZTJ-269-JINGNAN-SHU-KUIZHOU-0914",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#ZZTJ-269-JINGNAN-SHU-KUIZHOU-0914"
+              ],
+              "achievement_grade_detail": "E3_REGIONAL_TERMINAL",
+              "security_result_grade": "E3_REGIONAL_TERMINAL"
+            },
+            {
+              "chain_id": "CHAIN-FORMER-SHU-NANZHAO-LIZHOU-914",
+              "effective_opponent_challenge_grade": "O3_MAJOR_DIRECTION_THREAT",
+              "effective_opponent_challenge_basis": "南诏具国家级跨境军队并从黎州—大度河方向连续攻寨，足以压迫前蜀南向主要边防；未在开战前压迫前蜀全国防务，故O3。",
+              "achievement_grade": "E4_MAJOR_STRATEGIC",
+              "acquisition_mode": "MULTI_ROUTE_FRONTIER_COUNTEROFFENSIVE_AND_FORCE_DEFEAT",
+              "result_type": "DURABLE_TERMINATION_OF_A_MAJOR_INVASION_DIRECTION",
+              "within_grade_position": "LOW",
+              "terminal_result_profile": "前蜀多路连破潘仓嶂、山口、武侯岭十三寨并在大度河重创来军，终点明确南诏后续不复敢犯边；黎州和大度河防线始终维持。",
+              "control_change": "NO_NEW_CONTROL_GAIN_WITH_DURABLE_EXISTING_FRONTIER_SECURITY",
+              "security_change_basis": "SB4闭合一个主要方向长期威胁结构终止，裁E4低位；BCP0与O3限制其不能上E5A，且仅南向单一方向不满足E5B。",
+              "mobilization_peak": "M3_MULTI_ROUTE_FRONTIER_COUNTEROFFENSIVE",
+              "force_destruction": "NOT_CLOSED_NO_F3",
+              "force_destruction_basis": "前蜀P3为多路作战千人级有界损害，但无兵团分母、比例或组织崩溃；数万级重损为南诏敌军，不计本方F。",
+              "process_burden": {
+                "repetition": "MULTI_ROUTE_MULTI_POSITION",
+                "duration": "ONE_CAMPAIGN",
+                "post_disaster_remobilization": "NO_ORGANIZATIONAL_DISASTER_CLOSED"
+              },
+              "ruler_responsibility": "DIRECT_SOVEREIGN_DEFENSE_AUTHORIZATION",
+              "responsibility_basis": "914年严格位于王建皇帝窗口且晚于第一项创业统一窗口，整条防御链归本项；王建承担多路防御授权责任。",
+              "frozen34_comparative_anchors": [
+                {
+                  "anchor_ruler": "赵构",
+                  "anchor_grade": "E4_MAJOR_STRATEGIC",
+                  "relation": "nearest_lower_or_equal",
+                  "basis": "均为主要方向持久安全恢复；王建链对手起点仅O3且无多州控制恢复，故不高于赵构E4尺度。"
+                },
+                {
+                  "anchor_ruler": "赵恒",
+                  "anchor_grade": "E4_MAJOR_STRATEGIC",
+                  "relation": "nearest_upper_or_equal",
+                  "basis": "赵恒以耐久协议重塑完整双边关系、制度耐久性更强；本链虽明确不复犯边但只是一场南向防御，故不升E5，也不低于E3，因为SB4有明确长期终止事实。"
+                }
+              ],
+              "comparative_anchor_refs": [
+                "李治::LZ-WEST-TURKS",
+                "李世民::LSM-TUYUHUN",
+                "拓跋焘::NC-WEI-XIA-426-430"
+              ],
+              "comparative_anchor_basis": "下界以赵构主要方向持久恢复为近邻，本链有明确不复犯边故不降E3；上界以赵恒耐久双边秩序为近邻，本链覆盖更窄且无制度化双边重塑，故不升E5。",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-269.battle-adjudications.json#ZZTJ-269-SHU-NANZHAO-LIZHOU-0914",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#ZZTJ-269-SHU-NANZHAO-LIZHOU-0914",
+                "WAR-FD-SHU-NANZHAO-LIZHOU-914-P01"
+              ],
+              "member_cycle_refs": [
+                "ZZTJ-269-SHU-NANZHAO-LIZHOU-0914"
+              ],
+              "challenge_context": "南诏具国家级跨境军队并从黎州—大度河方向连续攻寨，足以压迫前蜀南向主要边防；未在开战前压迫前蜀全国防务，故O3。",
+              "effective_opponent_challenge_source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-269.battle-adjudications.json#ZZTJ-269-SHU-NANZHAO-LIZHOU-0914",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#ZZTJ-269-SHU-NANZHAO-LIZHOU-0914",
+                "WAR-FD-SHU-NANZHAO-LIZHOU-914-P01"
+              ],
+              "comparative_scale_basis": "与冻结34人同通道锚点比较对手终结程度、覆盖范围和耐久性；高成果不由灭国名称、本方投入或单次战果自动生成。",
+              "achievement_grade_detail": "E4_MAJOR_STRATEGIC",
+              "security_result_grade": "E4_MAJOR_STRATEGIC"
+            }
+          ],
+          "strategic_internal_chains": [],
+          "ordinary_suppression_summary": {
+            "count": 0,
+            "cycle_refs": [],
+            "presumed_or_explicit_success_count": 0,
+            "explicit_failure_or_unresolved_count": 0,
+            "abnormal_cost_chain_count": 0,
+            "abnormal_process_chain_count": 0,
+            "excluded_nonconsumable_count": 0,
+            "notes": "两条公共记录均为914年、晚于第一项888—907创业窗口的独立外部战略链；整链保留，无内部或普通平乱。",
+            "source_refs": [
+              "docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.json",
+              "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json"
+            ]
+          },
+          "cross_item_excluded_chains": [],
+          "non_military_loss_cost_exclusions": [],
+          "attributable_cost_profile": {
+            "cost_band": "C4",
+            "status": "CONFIRMED",
+            "position": "LOW",
+            "single_admission_fact": "914同一南诏—黎州链中，前蜀以王宗范、王宗播、王宗寿等多路连续作战十三寨与大度河方向，形成M3并闭合P3千人级有界本方人员负担。",
+            "admission_route": "SAME_CHAIN_MULTI_ROUTE_M3_WITH_P3_PERSONNEL_BURDEN",
+            "basis": "C4仅由南诏同链M3/P3区域承载准入；P3不等于F3，不与夔州链拼C5，也不计敌军数万损害。",
+            "source_refs": [
+              "docs/史料通读产物/五代十国/资治通鉴/volume-269.battle-adjudications.json#ZZTJ-269-SHU-NANZHAO-LIZHOU-0914",
+              "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#ZZTJ-269-SHU-NANZHAO-LIZHOU-0914"
+            ]
+          },
+          "adjudication_basis": "一条低位E4与独立E3、N0形成成本前D4低位；只有一条E4且无E5，不满足D5。C4低位不降档，影子D4低位。",
+          "coverage_status": "CONFIRMED",
+          "source_batch": "sol_c",
+          "canonical_status": "FORMAL_CURRENT",
+          "formal_grade_write": true,
+          "formal_score_write": true,
+          "database_write": false
+        },
+        {
+          "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
+          "ruler_id": "RULER-FD-SHI-JINGTANG",
+          "ruler_name": "石敬瑭",
+          "polity": "后晋",
+          "reign_range": "936-942",
+          "identity_source": "PREVIOUS_D_FORMAL",
+          "D_grade": "D1",
+          "D_within_grade_position": "HIGH",
+          "D_score_points": 14.0,
+          "D_score_status": "DIRECT_D_SCORE_ASSIGNED",
+          "signed_security_candidate_before_cost": "D1",
+          "cost_grade_delta": 0,
+          "security_result_distribution": {
+            "E3_REGIONAL_TERMINAL": 3,
+            "E4_MAJOR_STRATEGIC": 1
+          },
+          "external_strategic_chains": [],
+          "strategic_internal_chains": [
+            {
+              "chain_id": "ZZTJ-281-FANYANGUANG-REBELLION-0937",
+              "effective_opponent_challenge_grade": "NOT_APPLICABLE",
+              "achievement_grade": "E3_REGIONAL_TERMINAL",
+              "basis": "范延光二万军及魏博核心跨年叛乱经岁余围战后收束，恢复广晋府和魏博控制；六明镇斩首三千主要是叛军损失，不能计作后晋本方兵团毁损。",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-281.battle-adjudications.json#ZZTJ-281-FANYANGUANG-REBELLION-0937",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#ZZTJ-281-FANYANGUANG-REBELLION-0937"
+              ],
+              "member_cycle_refs": [
+                "ZZTJ-281-FANYANGUANG-REBELLION-0937"
+              ],
+              "challenge_context": "相对于本方的开战前有效威胁事实见本链basis。",
+              "acquisition_mode": "MULTI_STAGE_COMBAT",
+              "result_type": "REGIONAL_THREAT_TERMINATED",
+              "within_grade_position": "MID",
+              "terminal_result_profile": {
+                "threat_change": "REGIONAL_THREAT_TERMINATED",
+                "control_change": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "material_return": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "durability": "LIMITED_OR_NOT_CLOSED",
+                "terminal_member_ref": "ZZTJ-281-FANYANGUANG-REBELLION-0937",
+                "aggregation_basis": "同一对手、同一战略目标和连续授权合链；终点成果只消费一次。"
+              },
+              "achievement_grade_detail": "E3_REGIONAL_TERMINAL",
+              "security_result_grade": "E3_REGIONAL_TERMINAL"
+            },
+            {
+              "chain_id": "ZZTJ-281-ZHANGCONGBIN-REBELLION-0937",
+              "effective_opponent_challenge_grade": "NOT_APPLICABLE",
+              "achievement_grade": "E3_REGIONAL_TERMINAL",
+              "basis": "张从宾夺洛阳、汜水并杀皇子后被短期反击消灭，恢复东都通道；万余叛军被俘斩殆尽属于叛军损失，不进入本方军损。",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-281.battle-adjudications.json#ZZTJ-281-ZHANGCONGBIN-REBELLION-0937",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#ZZTJ-281-ZHANGCONGBIN-REBELLION-0937"
+              ],
+              "member_cycle_refs": [
+                "ZZTJ-281-ZHANGCONGBIN-REBELLION-0937"
+              ],
+              "challenge_context": "相对于本方的开战前有效威胁事实见本链basis。",
+              "acquisition_mode": "MULTI_STAGE_COMBAT",
+              "result_type": "REGIONAL_THREAT_TERMINATED",
+              "within_grade_position": "MID",
+              "terminal_result_profile": {
+                "threat_change": "REGIONAL_THREAT_TERMINATED",
+                "control_change": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "material_return": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "durability": "LIMITED_OR_NOT_CLOSED",
+                "terminal_member_ref": "ZZTJ-281-ZHANGCONGBIN-REBELLION-0937",
+                "aggregation_basis": "同一对手、同一战略目标和连续授权合链；终点成果只消费一次。"
+              },
+              "achievement_grade_detail": "E3_REGIONAL_TERMINAL",
+              "security_result_grade": "E3_REGIONAL_TERMINAL"
+            },
+            {
+              "chain_id": "ZZTJ-282-283-AN-CHONGRONG-ZHENZHOU",
+              "effective_opponent_challenge_grade": "NOT_APPLICABLE",
+              "achievement_grade": "E4_MAJOR_STRATEGIC",
+              "basis": "安重荣数万军、镇州军政中心与个人网络彻底覆灭，恢复成德关键节点，达到异常内部主要战略终局；宗城斩首、冻死和镇州平民被杀均不可直接算作后晋官军成本。",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-282.battle-adjudications.json#ZZTJ-282-ANCHONGRONG-REBELLION-0941",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-283.battle-adjudications.json#ZZTJ-282-283-AN-CHONGRONG-ZHENZHOU",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#ZZTJ-282-283-AN-CHONGRONG-ZHENZHOU"
+              ],
+              "member_cycle_refs": [
+                "ZZTJ-282-283-AN-CHONGRONG-ZHENZHOU"
+              ],
+              "challenge_context": "相对于本方的开战前有效威胁事实见本链basis。",
+              "acquisition_mode": "MULTI_STAGE_COMBAT",
+              "result_type": "MAJOR_THREAT_TERMINATED_OR_DIRECTION_RESTRUCTURED",
+              "within_grade_position": "MID",
+              "terminal_result_profile": {
+                "threat_change": "MAJOR_THREAT_TERMINATED_OR_DIRECTION_RESTRUCTURED",
+                "control_change": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "material_return": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "durability": "STRUCTURAL_OR_LONG",
+                "terminal_member_ref": "ZZTJ-282-283-AN-CHONGRONG-ZHENZHOU",
+                "aggregation_basis": "同一对手、同一战略目标和连续授权合链；终点成果只消费一次。"
+              },
+              "achievement_grade_detail": "E4_MAJOR_STRATEGIC",
+              "security_result_grade": "E4_MAJOR_STRATEGIC"
+            },
+            {
+              "chain_id": "ZZTJ-282-283-AN-CONGJIN-XIANGZHOU",
+              "effective_opponent_challenge_grade": "NOT_APPLICABLE",
+              "achievement_grade": "E3_REGIONAL_TERMINAL",
+              "basis": "安从进军政中心与襄州最后据点经逾年围城后消失，恢复战略州级中枢；举族自焚与双方混合损害不构成本方组织性毁损。",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-282.battle-adjudications.json#ZZTJ-282-ANCONGJIN-REBELLION-0941",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-283.battle-adjudications.json#ZZTJ-282-283-AN-CONGJIN-XIANGZHOU",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#ZZTJ-282-283-AN-CONGJIN-XIANGZHOU"
+              ],
+              "member_cycle_refs": [
+                "ZZTJ-282-283-AN-CONGJIN-XIANGZHOU"
+              ],
+              "challenge_context": "相对于本方的开战前有效威胁事实见本链basis。",
+              "acquisition_mode": "MULTI_STAGE_COMBAT",
+              "result_type": "REGIONAL_THREAT_TERMINATED",
+              "within_grade_position": "MID",
+              "terminal_result_profile": {
+                "threat_change": "REGIONAL_THREAT_TERMINATED",
+                "control_change": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "material_return": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "durability": "LIMITED_OR_NOT_CLOSED",
+                "terminal_member_ref": "ZZTJ-282-283-AN-CONGJIN-XIANGZHOU",
+                "aggregation_basis": "同一对手、同一战略目标和连续授权合链；终点成果只消费一次。"
+              },
+              "achievement_grade_detail": "E3_REGIONAL_TERMINAL",
+              "security_result_grade": "E3_REGIONAL_TERMINAL"
+            }
+          ],
+          "ordinary_suppression_summary": {
+            "count": 0,
+            "presumed_or_explicit_success_count": 0,
+            "explicit_failure_or_unresolved_count": 0,
+            "abnormal_cost_chain_count": 4,
+            "abnormal_process_chain_count": 4,
+            "excluded_nonconsumable_count": 0,
+            "notes": "四条CONSUMED均涉及区域军政中枢、跨年围战或数万级叛军，全部进入异常内部链；不得按四次平乱数量给外部成果加分。",
+            "source_refs": [
+              "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json"
+            ]
+          },
+          "cross_item_excluded_chains": [],
+          "non_military_loss_cost_exclusions": [],
+          "attributable_cost_profile": {
+            "cost_band": "C4",
+            "status": "CONFIRMED",
+            "position": "HIGH",
+            "single_admission_fact": null,
+            "basis": "四条异常内部链中有两条逾年围战并反复M3投入，构成显著累计承载，故C4高位。没有本方F3/F4、同链灾后国家级再动员或本人重大责任闭合；安重荣一链P4中的叛军、冻死与平民损失被排除，不能借不同维度拼接进C5。",
+            "source_refs": [
+              "docs/史料通读产物/五代十国/资治通鉴/volume-281.battle-adjudications.json#ZZTJ-281-FANYANGUANG-REBELLION-0937",
+              "docs/史料通读产物/五代十国/资治通鉴/volume-282.battle-adjudications.json#ZZTJ-282-ANCHONGRONG-REBELLION-0941",
+              "docs/史料通读产物/五代十国/资治通鉴/volume-283.battle-adjudications.json#ZZTJ-282-283-AN-CONGJIN-XIANGZHOU"
+            ]
+          },
+          "adjudication_basis": "任内没有对外战略链，故统一外部安全组合为R0+N0，不能把四次内部平乱相加为高档成果；四条异常内乱均成功收束，使其位于D1高位。C4只调档内位置，不降整档。",
+          "coverage_status": "CONFIRMED",
+          "source_batch": "sol_c",
+          "canonical_status": "FORMAL_CURRENT",
+          "formal_grade_write": true,
+          "formal_score_write": true,
+          "database_write": false
+        },
+        {
+          "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
+          "ruler_id": "RULER-FD-GUO-WEI",
+          "ruler_name": "郭威",
+          "polity": "后周",
+          "reign_range": "951-954",
+          "identity_source": "PREVIOUS_D_FORMAL",
+          "D_grade": "D1",
+          "D_within_grade_position": "LOW",
+          "D_score_points": 10.0,
+          "D_score_status": "DIRECT_D_SCORE_ASSIGNED",
+          "signed_security_candidate_before_cost": "D1",
+          "cost_grade_delta": 0,
+          "security_result_distribution": {
+            "E2": 1
+          },
+          "external_strategic_chains": [],
+          "strategic_internal_chains": [
+            {
+              "chain_id": "ZZTJ-290-MURONG-YANZHOU-0952",
+              "achievement_grade": "E2_REGIONAL_INTERNAL_RECOVERY",
+              "basis": "慕容彦超据兖州、外援五千，后周多路围城数月并御驾亲征，终点叛乱集团消灭且兖州控制恢复；仍为单州区域武装，裁内部E2。该链晚于951创业窗口，整链保留。",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-290.battle-adjudications.json#ZZTJ-290-MURONG-YANZHOU-0952",
+                "SRC-ZZTJ-290-1554171-P0117",
+                "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#ZZTJ-290-MURONG-YANZHOU-0952"
+              ],
+              "member_cycle_refs": [
+                "ZZTJ-290-MURONG-YANZHOU-0952"
+              ],
+              "challenge_context": "相对于本方的开战前有效威胁事实见本链basis。",
+              "acquisition_mode": "MULTI_STAGE_COMBAT",
+              "result_type": "REGIONAL_CONTROL_STABILIZED",
+              "within_grade_position": "MID",
+              "terminal_result_profile": {
+                "threat_change": "REGIONAL_CONTROL_STABILIZED",
+                "control_change": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "material_return": "NOT_CLOSED_IN_CURRENT_SOURCE",
+                "durability": "LIMITED_OR_NOT_CLOSED",
+                "terminal_member_ref": "ZZTJ-290-MURONG-YANZHOU-0952",
+                "aggregation_basis": "同一对手、同一战略目标和连续授权合链；终点成果只消费一次。"
+              },
+              "achievement_grade_detail": "E2_REGIONAL_INTERNAL_RECOVERY",
+              "security_result_grade": "E2"
+            }
+          ],
+          "ordinary_suppression_summary": {
+            "count": 0,
+            "cycle_refs": [],
+            "presumed_or_explicit_success_count": 0,
+            "explicit_failure_or_unresolved_count": 0,
+            "abnormal_cost_chain_count": 0,
+            "abnormal_process_chain_count": 0,
+            "excluded_nonconsumable_count": 0,
+            "notes": "唯一公共记录为创业窗口结束后的兖州内部链，整链保留。",
+            "source_refs": [
+              "docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.json",
+              "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json"
+            ]
+          },
+          "cross_item_excluded_chains": [],
+          "non_military_loss_cost_exclusions": [],
+          "attributable_cost_profile": {
+            "cost_band": "C4",
+            "status": "CONFIRMED",
+            "position": "HIGH",
+            "single_admission_fact": "952同一兖州链中，后周多路军围区域军政中枢数月并由皇帝亲征，实际形成M3/A3长期攻城承载。",
+            "admission_route": "SAME_CHAIN_LONG_SIEGE_M3_A3_WITH_DIRECT_SOVEREIGN_RESPONSIBILITY",
+            "basis": "C4只由同链M3/A3准入；近万居民死亡不作为军事P/F，叛军和外援损失排除。",
+            "source_refs": [
+              "docs/史料通读产物/五代十国/资治通鉴/volume-290.battle-adjudications.json#ZZTJ-290-MURONG-YANZHOU-0952",
+              "docs/公共成果/军事/03-军事行动成本和收益登记/tang_five_dynasties.json#ZZTJ-290-MURONG-YANZHOU-0952"
+            ]
+          },
+          "adjudication_basis": "无外部链，成本前D1；内部虽收复，但长期围城、城市重损及本人亲征责任使档内居低。",
+          "coverage_status": "CONFIRMED",
+          "source_batch": "sol_c",
+          "canonical_status": "FORMAL_CURRENT",
+          "formal_grade_write": true,
+          "formal_score_write": true,
+          "database_write": false
+        },
+        {
+          "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
+          "ruler_id": "RULER-SHADOW-钱镠",
+          "ruler_name": "钱镠",
+          "polity": "吴越",
+          "reign_range": "907-932",
+          "identity_source": "D_FORMAL_EXTENSION",
+          "D_grade": "D2",
+          "D_within_grade_position": "HIGH",
+          "D_score_points": 22.0,
+          "D_score_status": "DIRECT_D_SCORE_ASSIGNED",
+          "signed_security_candidate_before_cost": "D3",
+          "cost_grade_delta": -1,
+          "security_result_distribution": {
+            "E2": 1,
+            "E3_REGIONAL_TERMINAL": 1
+          },
+          "external_strategic_chains": [
+            {
+              "chain_id": "CHAIN-QIANLIU-WUYUE-WU-919",
+              "effective_opponent_challenge_grade": "O4_MULTI_DIRECTION_OR_CORE_REGION_THREAT",
+              "effective_opponent_challenge_basis": "Wu held a major multi-region polity and a fleet capable of contesting the lower Yangtze, but did not prewar suppress Wuyue national defense.",
+              "achievement_grade": "E3_REGIONAL_TERMINAL",
+              "acquisition_mode": "FLEET_OFFENSIVE_COUNTEROFFENSIVE_AND_NEGOTIATED_PEACE",
+              "result_type": "MUTUAL_MAJOR_FLEET_DAMAGE_ENDING_IN_DURABLE_PEACE",
+              "within_grade_position": "LOW",
+              "terminal_result_profile": "Wuyue destroyed four hundred Wu ships at Langshanjiang, then its thirty-thousand army suffered a ten-thousand-level defeat at Wuxi and withdrew; the merged chain ended in prisoner exchange and durable peace without control change.",
+              "control_change": "NO_NET_CONTROL_CHANGE_DURABLE_BILATERAL_PEACE",
+              "security_change_basis": "Same-opponent continuous 919 phases are one chain. The opening win and later reversal are not split into display chains; durable peace supports low E3, not E4.",
+              "mobilization_peak": "M3_MAJOR_FLEET_AND_DIRECTIONAL_ARMY",
+              "force_destruction": "F3_MAJOR_FORMATION_DAMAGE_CLOSED",
+              "force_destruction_basis": "The Wuxi phase names a thirty-thousand Wuyue army and ten-thousand-level beheadings followed by repeated defeats and withdrawal, closing at least one-third loss and major formation damage. Enemy Wu fleet losses are excluded from Wuyue cost.",
+              "process_burden": {
+                "repetition": "MULTI_STAGE_SAME_OPPONENT",
+                "duration": "ONE_YEAR",
+                "post_disaster_remobilization": "NO_CONTINUED_NATIONAL_REMOBILIZATION_CLOSED"
+              },
+              "ruler_responsibility": "DIRECT_RULER_OFFENSIVE_AUTHORIZATION",
+              "responsibility_basis": "Liang ordered the attack, but Qian Liu accepted and deployed the 500-ship fleet and 30,000 army; own-side Wuxi loss is attributable to his ruler window.",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-270.battle-adjudications.json#ZZTJ-270-WUYUE-WU-0919",
+                "SRC-ZZTJ-270-803281-P0083",
+                "SRC-ZZTJ-270-803281-P0085",
+                "SRC-ZZTJ-270-803281-P0090",
+                "SRC-ZZTJ-270-803281-P0098"
+              ],
+              "member_cycle_refs": [
+                "ZZTJ-270-WUYUE-WU-0919"
+              ],
+              "challenge_context": "Wu held a major multi-region polity and a fleet capable of contesting the lower Yangtze, but did not prewar suppress Wuyue national defense.",
+              "effective_opponent_challenge_source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-270.battle-adjudications.json#ZZTJ-270-WUYUE-WU-0919",
+                "SRC-ZZTJ-270-803281-P0083",
+                "SRC-ZZTJ-270-803281-P0085",
+                "SRC-ZZTJ-270-803281-P0090",
+                "SRC-ZZTJ-270-803281-P0098"
+              ],
+              "achievement_grade_detail": "E3_REGIONAL_TERMINAL",
+              "security_result_grade": "E3_REGIONAL_TERMINAL"
+            }
+          ],
+          "strategic_internal_chains": [
+            {
+              "chain_id": "CHAIN-QIANLIU-HUZHOU-GAOLI-909",
+              "achievement_grade": "E2_REGIONAL_INTERNAL_RECOVERY",
+              "within_grade_position": "LOW",
+              "terminal_result_profile": "Gao Li fled with five thousand followers after local forces refused entry, and Qian restored Huzhou command control.",
+              "control_change": "HUZHOU_COMMAND_CONTROL_RESTORED",
+              "mobilization_peak": "M1_LOCAL",
+              "force_destruction": "NOT_CLOSED_NO_F3",
+              "force_destruction_basis": "Three thousand killed were militia/civilians killed by the rebel group; they are not converted into Wuyue organized force loss. Suppression itself has only P1 estimated harm.",
+              "process_burden": {
+                "repetition": "SINGLE_INTERNAL_MUTINY",
+                "duration": "ONE_YEAR",
+                "post_disaster_remobilization": "NO"
+              },
+              "ruler_responsibility": "POLITY_RESPONSIBILITY_PARTIAL_CAUSAL_BOUNDARY",
+              "responsibility_basis": "The ruler bears responsibility for restoring command, while Gao Li bears direct responsibility for massacre and arson; rebel and civilian deaths do not enter ruler military cost.",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-267.battle-adjudications.json#ZZTJ-267-HUZHOU-GAOLI-0909",
+                "SRC-ZZTJ-267-1765571-P0083",
+                "SRC-ZZTJ-267-1765571-P0095"
+              ],
+              "member_cycle_refs": [
+                "ZZTJ-267-HUZHOU-GAOLI-0909"
+              ],
+              "challenge_context": "相对于本方的开战前有效威胁事实见本链basis。",
+              "acquisition_mode": "MULTI_STAGE_COMBAT",
+              "result_type": "REGIONAL_CONTROL_STABILIZED",
+              "achievement_grade_detail": "E2_REGIONAL_INTERNAL_RECOVERY",
+              "security_result_grade": "E2"
+            }
+          ],
+          "ordinary_suppression_summary": {
+            "count": 0,
+            "cycle_refs": [],
+            "presumed_or_explicit_success_count": 0,
+            "explicit_failure_or_unresolved_count": 0,
+            "abnormal_cost_chain_count": 1,
+            "abnormal_process_chain_count": 1,
+            "excluded_nonconsumable_count": 1,
+            "notes": "The 907 Xinzhou-Ganlu action remains inside direct founding consolidation and is excluded as a whole chain. The independent 909 internal mutiny and 919 Wu war are retained.",
+            "source_refs": [
+              "docs/史料通读产物/五代十国/资治通鉴/volume-266.battle-adjudications.json#ZZTJ-266-XINZHOU-GANLU-0907",
+              "docs/史料通读产物/五代十国/资治通鉴/volume-267.battle-adjudications.json#ZZTJ-267-HUZHOU-GAOLI-0909",
+              "docs/史料通读产物/五代十国/资治通鉴/volume-270.battle-adjudications.json#ZZTJ-270-WUYUE-WU-0919"
+            ]
+          },
+          "cross_item_excluded_chains": [],
+          "non_military_loss_cost_exclusions": [],
+          "attributable_cost_profile": {
+            "cost_band": "C5",
+            "status": "CONFIRMED",
+            "position": "LOW",
+            "single_admission_fact": "In the single 919 Wu chain, a named 30,000 Wuyue army suffered ten-thousand-level beheadings and repeated defeat before withdrawal, closing F3 by denominator and ratio.",
+            "admission_route": "SINGLE_CHAIN_F3_WITH_DENOMINATOR_RATIO_AND_COLLAPSE_SEQUENCE",
+            "basis": "An isolated F3 is capped at C5. It is not combined with the separate 909 mutiny or long process to reach C6.",
+            "source_refs": [
+              "docs/史料通读产物/五代十国/资治通鉴/volume-270.battle-adjudications.json#ZZTJ-270-WUYUE-WU-0919",
+              "SRC-ZZTJ-270-803281-P0090"
+            ]
+          },
+          "adjudication_basis": "Low E3 durable peace plus an internal E2 recovery yields pre-cost D3 low; the same-chain isolated F3 C5 lowers the shadow candidate to D2 high.",
+          "coverage_status": "CONFIRMED",
+          "source_batch": "sol_c",
+          "canonical_status": "FORMAL_CURRENT",
+          "formal_grade_write": true,
+          "formal_score_write": true,
+          "database_write": false
+        },
+        {
+          "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
+          "ruler_id": "RULER-SHADOW-马殷",
+          "ruler_name": "马殷",
+          "polity": "楚",
+          "reign_range": "907-930",
+          "identity_source": "D_FORMAL_EXTENSION",
+          "D_grade": "D3",
+          "D_within_grade_position": "LOW",
+          "D_score_points": 24.0,
+          "D_score_status": "DIRECT_D_SCORE_ASSIGNED",
+          "signed_security_candidate_before_cost": "D3",
+          "cost_grade_delta": 0,
+          "security_result_distribution": {
+            "E1": 1,
+            "E2": 1,
+            "E3_REGIONAL_TERMINAL": 1,
+            "EN1": 1
+          },
+          "external_strategic_chains": [
+            {
+              "chain_id": "CHAIN-MAYIN-WU-SHANGGAO-917",
+              "effective_opponent_challenge_grade": "O2_BORDER_RAIDING",
+              "effective_opponent_challenge_basis": "Prewar challenge assessed without result backflow.",
+              "achievement_grade": "E1_CONTAINED_OR_RESTORED",
+              "acquisition_mode": "LIMITED_RAID_AND_WITHDRAWAL",
+              "result_type": "LOCAL_RAID_WITH_CAPTURES_NO_CONTROL",
+              "within_grade_position": "HIGH",
+              "terminal_result_profile": "Chu raided Shanggao, took captives, and withdrew without stable control or strategic closure.",
+              "control_change": "NO_CONTROL_CHANGE_LOCAL_RAID",
+              "security_change_basis": "Same-opponent stages are merged; enemy losses and temporary control are not converted into additional E votes.",
+              "mobilization_peak": "M1_LOCAL",
+              "force_destruction": "NOT_CLOSED_NO_F3",
+              "force_destruction_basis": "No own-side major loss or organizational damage evidence.",
+              "process_burden": {
+                "repetition": "SINGLE_MERGED_AUTHORIZATION",
+                "duration": "ONE_CAMPAIGN",
+                "post_disaster_remobilization": "NO_CLOSED_F3"
+              },
+              "ruler_responsibility": "DIRECT_RULER_AUTHORIZATION",
+              "responsibility_basis": "The campaign falls after the 907 polity-acquisition boundary and under Ma Yins ruler authority.",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-269.battle-adjudications.json#ZZTJ-269-CHU-WU-SHANGGAO-0917",
+                "SRC-ZZTJ-269-1765765-P0112"
+              ],
+              "member_cycle_refs": [
+                "ZZTJ-269-CHU-WU-SHANGGAO-0917"
+              ],
+              "challenge_context": "Prewar challenge assessed without result backflow.",
+              "effective_opponent_challenge_source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-269.battle-adjudications.json#ZZTJ-269-CHU-WU-SHANGGAO-0917",
+                "SRC-ZZTJ-269-1765765-P0112"
+              ],
+              "achievement_grade_detail": "E1_CONTAINED_OR_RESTORED",
+              "security_result_grade": "E1"
+            },
+            {
+              "chain_id": "CHAIN-MAYIN-CHU-JINGNAN-928",
+              "effective_opponent_challenge_grade": "O3_MAJOR_DIRECTION_THREAT",
+              "effective_opponent_challenge_basis": "Prewar challenge assessed without result backflow.",
+              "achievement_grade": "E2_LIMITED_STRATEGIC",
+              "acquisition_mode": "RIVERINE_AMBUSH_AND_REPEATED_BORDER_FIGHTING",
+              "result_type": "MIXED_DIRECTIONAL_SUCCESS_WITHOUT_DURABLE_TERMINATION",
+              "within_grade_position": "HIGH",
+              "terminal_result_profile": "Chu won decisively at Liulangfu and forced immediate peace, but later Baitian and Shishou fighting remained mixed; no durable termination of Jingnan.",
+              "control_change": "NO_DURABLE_CONTROL_CHANGE_LIMITED_DIRECTIONAL_SECURITY_GAIN",
+              "security_change_basis": "Same-opponent stages are merged; enemy losses and temporary control are not converted into additional E votes.",
+              "mobilization_peak": "M2_DIRECTIONAL_FLEET",
+              "force_destruction": "NOT_CLOSED_NO_F3",
+              "force_destruction_basis": "Enemy thousands captured or killed do not enter Chu cost; Chu own losses have no formation denominator.",
+              "process_burden": {
+                "repetition": "SINGLE_MERGED_AUTHORIZATION",
+                "duration": "ONE_CAMPAIGN",
+                "post_disaster_remobilization": "NO_CLOSED_F3"
+              },
+              "ruler_responsibility": "DIRECT_RULER_AUTHORIZATION",
+              "responsibility_basis": "The campaign falls after the 907 polity-acquisition boundary and under Ma Yins ruler authority.",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-276.battle-adjudications.json#ZZTJ-276-CHU-JINGNAN-0928",
+                "SRC-ZZTJ-276-1767667-P0048",
+                "SRC-ZZTJ-276-1767667-P0055",
+                "SRC-ZZTJ-276-1767667-P0072",
+                "SRC-ZZTJ-276-1767667-P0101"
+              ],
+              "member_cycle_refs": [
+                "ZZTJ-276-CHU-JINGNAN-0928"
+              ],
+              "challenge_context": "Prewar challenge assessed without result backflow.",
+              "effective_opponent_challenge_source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-276.battle-adjudications.json#ZZTJ-276-CHU-JINGNAN-0928",
+                "SRC-ZZTJ-276-1767667-P0048",
+                "SRC-ZZTJ-276-1767667-P0055",
+                "SRC-ZZTJ-276-1767667-P0072",
+                "SRC-ZZTJ-276-1767667-P0101"
+              ],
+              "achievement_grade_detail": "E2_LIMITED_STRATEGIC",
+              "security_result_grade": "E2"
+            },
+            {
+              "chain_id": "CHAIN-MAYIN-WU-YUEZHOU-928",
+              "effective_opponent_challenge_grade": "O3_MAJOR_DIRECTION_THREAT",
+              "effective_opponent_challenge_basis": "Prewar challenge assessed without result backflow.",
+              "achievement_grade": "E3_REGIONAL_TERMINAL",
+              "acquisition_mode": "LARGE_FLEET_DEFENSE_AND_ENVELOPMENT",
+              "result_type": "MAJOR_INVADING_FLEET_DEFEATED_AND_DIRECTION_HELD",
+              "within_grade_position": "HIGH",
+              "terminal_result_profile": "A ten-thousand Wu fleet attack on Yuezhou was enveloped by Chu fleets; both commanders were captured and Yuezhou remained held.",
+              "control_change": "YUEZHOU_HELD_NO_NEW_CONTROL_GAIN",
+              "security_change_basis": "Same-opponent stages are merged; enemy losses and temporary control are not converted into additional E votes.",
+              "mobilization_peak": "M3_LARGE_FLEET_DEFENSE",
+              "force_destruction": "NOT_CLOSED_NO_F3",
+              "force_destruction_basis": "The defeated ten-thousand force was Wu enemy loss. Chu own casualties are unrecorded and no F3 can be inferred.",
+              "process_burden": {
+                "repetition": "SINGLE_MERGED_AUTHORIZATION",
+                "duration": "ONE_CAMPAIGN",
+                "post_disaster_remobilization": "NO_CLOSED_F3"
+              },
+              "ruler_responsibility": "DIRECT_RULER_AUTHORIZATION",
+              "responsibility_basis": "The campaign falls after the 907 polity-acquisition boundary and under Ma Yins ruler authority.",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-276.battle-adjudications.json#ZZTJ-276-WU-CHU-YUEZHOU-0928",
+                "SRC-ZZTJ-276-1767667-P0049"
+              ],
+              "member_cycle_refs": [
+                "ZZTJ-276-WU-CHU-YUEZHOU-0928"
+              ],
+              "challenge_context": "Prewar challenge assessed without result backflow.",
+              "effective_opponent_challenge_source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-276.battle-adjudications.json#ZZTJ-276-WU-CHU-YUEZHOU-0928",
+                "SRC-ZZTJ-276-1767667-P0049"
+              ],
+              "achievement_grade_detail": "E3_REGIONAL_TERMINAL",
+              "security_result_grade": "E3_REGIONAL_TERMINAL"
+            },
+            {
+              "chain_id": "CHAIN-MAYIN-CHU-SOUTHERN-HAN-FENGZHOU-928",
+              "effective_opponent_challenge_grade": "O3_MAJOR_DIRECTION_THREAT",
+              "effective_opponent_challenge_basis": "Prewar challenge assessed without result backflow.",
+              "achievement_grade": "EN1_LIMITED_DETERIORATION",
+              "acquisition_mode": "LARGE_FLEET_SIEGE_AND_FAILED_WITHDRAWAL",
+              "result_type": "FAILED_DIRECTIONAL_ASSAULT_WITHOUT_HOME_CONTROL_LOSS",
+              "within_grade_position": "HIGH",
+              "terminal_result_profile": "Chu besieged Fengzhou but Southern Han used cross-river chains and crossbows to defeat the fleet; Chu withdrew without losing home territory.",
+              "control_change": "NO_HOME_CONTROL_CHANGE_FAILED_OFFENSIVE",
+              "security_change_basis": "Same-opponent stages are merged; enemy losses and temporary control are not converted into additional E votes.",
+              "mobilization_peak": "M2_DIRECTIONAL_FLEET",
+              "force_destruction": "NOT_CLOSED_NO_F3",
+              "force_destruction_basis": "The source says Chu was badly defeated but gives no Chu fleet denominator, loss ratio, or whole-formation collapse; no F3.",
+              "process_burden": {
+                "repetition": "SINGLE_MERGED_AUTHORIZATION",
+                "duration": "ONE_CAMPAIGN",
+                "post_disaster_remobilization": "NO_CLOSED_F3"
+              },
+              "ruler_responsibility": "DIRECT_RULER_AUTHORIZATION",
+              "responsibility_basis": "The campaign falls after the 907 polity-acquisition boundary and under Ma Yins ruler authority.",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-276.battle-adjudications.json#ZZTJ-276-CHU-HAN-FENGZHOU-0928",
+                "SRC-ZZTJ-276-1767667-P0048"
+              ],
+              "member_cycle_refs": [
+                "ZZTJ-276-CHU-HAN-FENGZHOU-0928"
+              ],
+              "challenge_context": "Prewar challenge assessed without result backflow.",
+              "effective_opponent_challenge_source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-276.battle-adjudications.json#ZZTJ-276-CHU-HAN-FENGZHOU-0928",
+                "SRC-ZZTJ-276-1767667-P0048"
+              ],
+              "achievement_grade_detail": "EN1_LIMITED_DETERIORATION",
+              "security_result_grade": "EN1"
+            }
+          ],
+          "strategic_internal_chains": [],
+          "ordinary_suppression_summary": {
+            "count": 0,
+            "cycle_refs": [],
+            "presumed_or_explicit_success_count": 0,
+            "explicit_failure_or_unresolved_count": 0,
+            "abnormal_cost_chain_count": 0,
+            "abnormal_process_chain_count": 0,
+            "excluded_nonconsumable_count": 3,
+            "notes": "The 896-899 Hunan unification, 900 Guizhou five-prefecture conquest, and 907-910 direct northern consolidation/Yuezhou recovery remain whole-chain first-item exclusions. Only goal-disconnected later authorizations are retained.",
+            "source_refs": [
+              "docs/史料通读产物/五代十国/资治通鉴/volume-261.battle-adjudications.json#PARENT-MAYIN-HUNAN-896-899",
+              "docs/史料通读产物/五代十国/资治通鉴/volume-262.battle-adjudications.json#PARENT-HUNAN-GUIZHOU-900",
+              "docs/史料通读产物/五代十国/资治通鉴/volume-266.battle-adjudications.json",
+              "docs/史料通读产物/五代十国/资治通鉴/volume-269.battle-adjudications.json",
+              "docs/史料通读产物/五代十国/资治通鉴/volume-276.battle-adjudications.json"
+            ]
+          },
+          "cross_item_excluded_chains": [],
+          "non_military_loss_cost_exclusions": [],
+          "attributable_cost_profile": {
+            "cost_band": "C4",
+            "status": "CONFIRMED",
+            "position": "LOW",
+            "single_admission_fact": "The single 928 Yuezhou defense chain deployed a thousand-ship fleet system and a 300-ship blocking force to defeat a ten-thousand invading fleet, closing M3 organizational burden.",
+            "admission_route": "SAME_CHAIN_LARGE_FLEET_M3",
+            "basis": "C4 low only. Enemy ten-thousand losses do not count, Fengzhou has no F3, and separate 928 directions are not spliced into C5.",
+            "source_refs": [
+              "docs/史料通读产物/五代十国/资治通鉴/volume-276.battle-adjudications.json#ZZTJ-276-WU-CHU-YUEZHOU-0928",
+              "SRC-ZZTJ-276-1767667-P0049"
+            ]
+          },
+          "adjudication_basis": "One high E3 defense, one E2, one E1 and one EN1 yield pre-cost D3 low. C4 low does not reduce the shadow grade.",
+          "coverage_status": "CONFIRMED",
+          "source_batch": "sol_c",
+          "canonical_status": "FORMAL_CURRENT",
+          "formal_grade_write": true,
+          "formal_score_write": true,
+          "database_write": false
+        },
+        {
+          "schema_id": "emperor-v4-d-strategy-chain-formal-record-v2",
+          "ruler_id": "RULER-SHADOW-高季兴",
+          "ruler_name": "高季兴",
+          "polity": "荆南",
+          "reign_range": "924-928",
+          "identity_source": "D_FORMAL_EXTENSION",
+          "D_grade": "D2",
+          "D_within_grade_position": "LOW",
+          "D_score_points": 18.0,
+          "D_score_status": "DIRECT_D_SCORE_ASSIGNED",
+          "signed_security_candidate_before_cost": "D2",
+          "cost_grade_delta": 0,
+          "security_result_distribution": {
+            "E3_REGIONAL_TERMINAL": 1,
+            "EN1": 2
+          },
+          "external_strategic_chains": [
+            {
+              "chain_id": "CHAIN-GAOJIXING-SHIZHOU-925",
+              "effective_opponent_challenge_grade": "O3_MAJOR_DIRECTION_THREAT",
+              "effective_opponent_challenge_basis": "Prewar challenge assessed without result backflow.",
+              "achievement_grade": "EN1_LOCAL_REVERSAL",
+              "acquisition_mode": "RIVERINE_ASSAULT",
+              "result_type": "FAILED_DIRECTIONAL_ASSAULT",
+              "within_grade_position": "HIGH",
+              "terminal_result_profile": "Iron-chain defense and wind destroyed attack craft; Gao escaped by light boat and gained no three-prefecture control.",
+              "control_change": "NO_CONTROL_GAIN_LOCAL_SECURITY_REVERSAL",
+              "security_change_basis": "Security result follows the merged same-opponent chain; no cross-opponent vote splitting.",
+              "mobilization_peak": "M2_DIRECTIONAL_RAID",
+              "force_destruction": "NOT_CLOSED_NO_F3",
+              "force_destruction_basis": "Damaged ships are not proven to be the whole fleet or a collapsed formation; no F3.",
+              "process_burden": {
+                "repetition": "MERGED_CONTINUOUS_AUTHORIZATION",
+                "duration": "MULTI_STAGE",
+                "post_disaster_remobilization": "NO_CLOSED_F3"
+              },
+              "ruler_responsibility": "DIRECT_RULER_AUTHORIZATION",
+              "responsibility_basis": "Action and response fall inside the 924-928 Jingnan ruler window.",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-273.battle-adjudications.json#ZZTJ-273-JINGNAN-SHIZHOU-0925",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-275.battle-adjudications.json",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-276.battle-adjudications.json"
+              ],
+              "member_cycle_refs": [
+                "ZZTJ-273-JINGNAN-SHIZHOU-0925"
+              ],
+              "challenge_context": "Prewar challenge assessed without result backflow.",
+              "effective_opponent_challenge_source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-273.battle-adjudications.json#ZZTJ-273-JINGNAN-SHIZHOU-0925",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-275.battle-adjudications.json",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-276.battle-adjudications.json"
+              ],
+              "achievement_grade_detail": "EN1_LOCAL_REVERSAL",
+              "security_result_grade": "EN1"
+            },
+            {
+              "chain_id": "CHAIN-GAOJIXING-LATER-TANG-926-928",
+              "effective_opponent_challenge_grade": "O5_CORE_DEFENSE_SYSTEM_THREAT",
+              "effective_opponent_challenge_basis": "Prewar challenge assessed without result backflow.",
+              "achievement_grade": "E3_REGIONAL_TERMINAL",
+              "acquisition_mode": "FORTIFIED_CORE_DEFENSE_AND_DIPLOMATIC_BALANCING",
+              "result_type": "CORE_REGIME_SURVIVED_MULTI_DIRECTION_INVASION",
+              "within_grade_position": "LOW",
+              "terminal_result_profile": "Later Tang multi-direction forces failed to take Jiangling; the core polity survived, but disputed gorge prefectures were not durably retained and no lasting order was closed under Gao.",
+              "control_change": "CORE_HELD_WITHOUT_DURABLE_PERIPHERAL_GAIN",
+              "security_change_basis": "Security result follows the merged same-opponent chain; no cross-opponent vote splitting.",
+              "mobilization_peak": "M3_CORE_DEFENSE",
+              "force_destruction": "NOT_CLOSED_NO_F3",
+              "force_destruction_basis": "Enemy disease and withdrawal are excluded from Jingnan cost; no own-side denominator or collapse closes F3.",
+              "process_burden": {
+                "repetition": "MERGED_CONTINUOUS_AUTHORIZATION",
+                "duration": "MULTI_STAGE",
+                "post_disaster_remobilization": "NO_CLOSED_F3"
+              },
+              "ruler_responsibility": "DIRECT_RULER_AUTHORIZATION",
+              "responsibility_basis": "Action and response fall inside the 924-928 Jingnan ruler window.",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-273.battle-adjudications.json#ZZTJ-273-JINGNAN-SHIZHOU-0925",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-275.battle-adjudications.json",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-276.battle-adjudications.json"
+              ],
+              "member_cycle_refs": [
+                "ZZTJ-275-JINGNAN-KUIZHOU-JIANGLING-0926",
+                "ZZTJ-276-LATER-TANG-JINGNAN-0928"
+              ],
+              "challenge_context": "Prewar challenge assessed without result backflow.",
+              "effective_opponent_challenge_source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-273.battle-adjudications.json#ZZTJ-273-JINGNAN-SHIZHOU-0925",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-275.battle-adjudications.json",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-276.battle-adjudications.json"
+              ],
+              "achievement_grade_detail": "E3_REGIONAL_TERMINAL",
+              "security_result_grade": "E3_REGIONAL_TERMINAL"
+            },
+            {
+              "chain_id": "CHAIN-GAOJIXING-CHU-927-928",
+              "effective_opponent_challenge_grade": "O3_MAJOR_DIRECTION_THREAT",
+              "effective_opponent_challenge_basis": "Prewar challenge assessed without result backflow.",
+              "achievement_grade": "EN1_LOCAL_REVERSAL",
+              "acquisition_mode": "RIVERINE_BATTLE_AND_NEGOTIATED_WITHDRAWAL",
+              "result_type": "LOCAL_DEFEAT_FOLLOWED_BY_PEACE",
+              "within_grade_position": "HIGH",
+              "terminal_result_profile": "Jingnan fleet lost at Liulangfu and returned the detained envoy; a later Chu advance ended by negotiated withdrawal without durable core loss.",
+              "control_change": "NO_CORE_CONTROL_CHANGE_LOCAL_MILITARY_REVERSAL",
+              "security_change_basis": "Security result follows the merged same-opponent chain; no cross-opponent vote splitting.",
+              "mobilization_peak": "M3_DIRECTIONAL_FLEET",
+              "force_destruction": "NOT_CLOSED_NO_F3",
+              "force_destruction_basis": "Thousands captured or killed lack a Jingnan fleet denominator and include mixed outcomes; do not infer F3.",
+              "process_burden": {
+                "repetition": "MERGED_CONTINUOUS_AUTHORIZATION",
+                "duration": "MULTI_STAGE",
+                "post_disaster_remobilization": "NO_CLOSED_F3"
+              },
+              "ruler_responsibility": "DIRECT_RULER_AUTHORIZATION",
+              "responsibility_basis": "Action and response fall inside the 924-928 Jingnan ruler window.",
+              "source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-273.battle-adjudications.json#ZZTJ-273-JINGNAN-SHIZHOU-0925",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-275.battle-adjudications.json",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-276.battle-adjudications.json"
+              ],
+              "member_cycle_refs": [
+                "ZZTJ-276-CHU-JINGNAN-LIULANGFU-0927",
+                "ZZTJ-276-CHU-JINGNAN-SHATOU-0928"
+              ],
+              "challenge_context": "Prewar challenge assessed without result backflow.",
+              "effective_opponent_challenge_source_refs": [
+                "docs/史料通读产物/五代十国/资治通鉴/volume-273.battle-adjudications.json#ZZTJ-273-JINGNAN-SHIZHOU-0925",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-275.battle-adjudications.json",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-276.battle-adjudications.json"
+              ],
+              "achievement_grade_detail": "EN1_LOCAL_REVERSAL",
+              "security_result_grade": "EN1"
+            }
+          ],
+          "strategic_internal_chains": [],
+          "ordinary_suppression_summary": {
+            "count": 0,
+            "cycle_refs": [],
+            "presumed_or_explicit_success_count": 0,
+            "explicit_failure_or_unresolved_count": 0,
+            "abnormal_cost_chain_count": 0,
+            "abnormal_process_chain_count": 0,
+            "excluded_nonconsumable_count": 0,
+            "notes": "Three post-acquisition external chains retained; pre-924 appointment and polity-acquisition activity excluded.",
+            "source_refs": [
+              "docs/史料通读产物/五代十国/资治通鉴/volume-273.battle-adjudications.json#ZZTJ-273-JINGNAN-SHIZHOU-0925",
+              "docs/史料通读产物/五代十国/资治通鉴/volume-275.battle-adjudications.json",
+              "docs/史料通读产物/五代十国/资治通鉴/volume-276.battle-adjudications.json"
+            ]
+          },
+          "cross_item_excluded_chains": [],
+          "non_military_loss_cost_exclusions": [],
+          "attributable_cost_profile": {
+            "cost_band": "C4",
+            "status": "CONFIRMED",
+            "position": "HIGH",
+            "single_admission_fact": "The single 926 Later Tang chain required sustained defense of the Jingnan capital against a multi-direction siege while maintaining the core command system.",
+            "admission_route": "SAME_CHAIN_SUSTAINED_CORE_DEFENSE_M3",
+            "basis": "C4 only; no F3 and no cross-chain splicing. A single M3 defense cannot reach C5 or C6.",
+            "source_refs": [
+              "docs/史料通读产物/五代十国/资治通鉴/volume-275.battle-adjudications.json"
+            ]
+          },
+          "adjudication_basis": "One low E3 core-survival result is offset by two local EN1 reversals. C4 does not reduce the D2 shadow candidate.",
+          "coverage_status": "CONFIRMED",
+          "source_batch": "sol_c",
+          "canonical_status": "FORMAL_CURRENT",
+          "formal_grade_write": true,
+          "formal_score_write": true,
+          "database_write": false
+        }
+      ]
+    }
+  }
+}

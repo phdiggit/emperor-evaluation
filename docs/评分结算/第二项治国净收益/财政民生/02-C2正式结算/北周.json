@@ -1,0 +1,111 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "北周",
+  "collections": {
+    "scores": {
+      "positions": [
+        86
+      ],
+      "records": [
+        {
+          "adjudication_reason": "实际掌权起点的硬盘面并不健康：建德元年诏书直接承认长期兴造征发和频岁师旅已经造成“农亩废业”，并出现年谷不登、民户散亡；此后虽停止正调外妄征并多次蠲免，但这些首先是治理动作，缺少在其短短六年实际掌权窗口内把P/M与F/R重新闭合到两柱健康的结果材料。因此旧C2-4过度奖励政策动作，本轮降C2-3。",
+          "confidence": "MEDIUM_HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《周书·武帝纪》"
+              ],
+              "verbatim_excerpt": "頃興造無度，徵發不已，加以頻歲師旅，農畝廢業。去秋災蝗，年穀不登，民有散亡，家空杼軸。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《周书·武帝纪》"
+              ],
+              "verbatim_excerpt": "自今正調以外，無妄徵發。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《周书·武帝纪》"
+              ],
+              "verbatim_excerpt": "逋租懸調，兵役殘功，並宜蠲免。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《周书·武帝纪》"
+              ],
+              "verbatim_excerpt": "建德二年，改軍士為侍官，募百姓充之，除其縣籍，後夏人半為兵矣。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_PASS_C2_3",
+            "basis": "起点P/F存在直接弱态，后续正向多为制度动作而非两柱健康结果；短窗口内没有足够闭环支持四档。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "灭北齐的统一收益属于其他轴/外生规模变化，不能自动替代C2经济财政结果。",
+            "废佛、节用、水利等如无实际产出/财政结果闭合，不单独加档。"
+          ],
+          "peak_band": null,
+          "polity": "北周",
+          "rank": 56,
+          "reign_range": [
+            572,
+            578
+          ],
+          "ruler_id": "RULER-SHADOW-宇文邕",
+          "ruler_name": "宇文邕",
+          "score": 14.9,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-3",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-宇文邕"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C5",
+            "cost_status": "CONFIRMED",
+            "cost_position": "MID",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-4",
+            "score": 23.6,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-4",
+              "S_end": "C2-4"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

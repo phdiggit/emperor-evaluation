@@ -1,0 +1,239 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "隋",
+  "collections": {
+    "scores": {
+      "positions": [
+        34,
+        190
+      ],
+      "records": [
+        {
+          "adjudication_reason": "开皇中后期公共财政和储备是明确强柱：库藏皆满且多年大额赐用不减，州仓体系持续积储；货币统一后亦有“所在流布”的直接市场结果。民间生产虽总体扩展，但核心高档证据仍较依赖户口、垦田和仓储侧反映，且京辅三河有人地紧张反证，因此私经济柱判健康而非强，保四档。",
+          "confidence": "MEDIUM_HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《隋书·食货志》"
+              ],
+              "verbatim_excerpt": "十二年，有司上言，库藏皆满……用处常出，纳处常入……每年赐用至数百万段，曾无减损。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《隋书·食货志》"
+              ],
+              "verbatim_excerpt": "五年正月，诏又严其制，自是钱货始一，所在流布，百姓便之。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《隋书·食货志》"
+              ],
+              "verbatim_excerpt": "开皇十七年，户口滋盛，中外仓库无不盈积。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《隋书·食货志》"
+              ],
+              "verbatim_excerpt": "开皇十二年……京辅及三河地少而人众，衣食不给。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_5_PASS_C2_4",
+            "basis": "公共财政强，市场健康，但P面没有与财政同等级的独立、广域强结果，且核心区域存在生产—人口张力，五档门不闭合。"
+          },
+          "main_band": "C2-4",
+          "material_limitations": [
+            "府库、仓储只能证明公共财政/储备，不能重复拆成民间生产强证。",
+            "户口增长只作生产基盘辅助证。"
+          ],
+          "peak_band": null,
+          "polity": "隋",
+          "rank": 12,
+          "reign_range": [
+            581,
+            604
+          ],
+          "ruler_id": "RULER-SHADOW-杨坚",
+          "ruler_name": "杨坚",
+          "score": 23.6,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-4",
+            "S_end": "C2-4"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-杨坚"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C6",
+            "cost_status": "LOWER_BOUND",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-4",
+            "score": 23.6,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-4",
+              "S_end": "C2-4"
+            }
+          }
+        },
+        {
+          "adjudication_reason": "杨广从开皇末公共储备强盘面起步，但本人窗口很快出现跨全国的生产与财政失衡。《隋书·食货志》直接记大工程“不计于人力”、天下死于役而家伤于财、老弱耕稼不足救饥、妇工不足资装，并在租赋之外继续一切征敛。这里P与F均已系统性跌穿基本运行，一档不依赖高句丽战争档位本身。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《隋书·食货志》"
+              ],
+              "verbatim_excerpt": "開皇十七年，戶口滋盛，中外倉庫，無不盈積……煬皇嗣守鴻基，國家殷富。",
+              "pillar_tags": [
+                "F_FISCAL_BASE",
+                "R_RESERVE_BUFFER"
+              ],
+              "evidence_role": "BACKGROUND_CONSTRAINT",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《隋书·食货志》"
+              ],
+              "verbatim_excerpt": "長城御河，不計於人力……天下死於役而家傷於財……老弱耕稼，不足以救飢餒，婦工紡績，不足以贍資裝。",
+              "pillar_tags": [
+                "P_PRODUCTION",
+                "F_FISCAL_BASE"
+              ],
+              "evidence_role": "DIRECT_RESULT",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《隋书·食货志》"
+              ],
+              "verbatim_excerpt": "租賦之外，一切徵斂，趣以周備，不顧元元。",
+              "pillar_tags": [
+                "F_FISCAL_BASE",
+                "P_PRODUCTION"
+              ],
+              "evidence_role": "DIRECT_RESULT",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "DIRECT_AND_CONSTRAINED",
+          "high_band_gate": {
+            "status": "PASS_C2_1_SYSTEMIC_FAILURE",
+            "basis": "从强公共储备起点跌至生产供给不足、家庭资产受损和租赋外全面征敛，P与F同时系统失效。"
+          },
+          "main_band": "C2-1",
+          "material_limitations": [
+            "运河等工程的长期效益不否定本人全任主要窗口已经形成的P/F低位结果。",
+            "征高句丽等战争规模与责任交D/C4；C2只消费已实现的劳力、生产、征敛和财政状态。"
+          ],
+          "peak_band": null,
+          "polity": "隋",
+          "rank": 184,
+          "reign_range": [
+            604,
+            618
+          ],
+          "ruler_id": "RULER-SHADOW-杨广",
+          "ruler_name": "杨广",
+          "score": 1.8,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-4",
+            "S_avg": "C2-1",
+            "S_end": "C2-1"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-MANUAL-A958F9A4A830"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-MANUAL-A958F9A4A830",
+                "candidate_ids_trace_only": [
+                  "M3P-SUI-YANGDI-MEGAWORKS",
+                  "M3P-SUI-YANGDI-WAR-LOGISTICS"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "NEGATIVE",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "CENTRAL_LOCAL_TRANSFER",
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR",
+                  "WAR_FINANCE"
+                ],
+                "chain_summary": "东都、运河、宫室等巨型工程与连续高丽战争争夺民力、粮运和国用，逃亡、失期与区域叛乱构成持续反馈。",
+                "source_refs": [
+                  "docs/史料通读产物/唐以前编年/隋/卷180-通读总结.md#L103-L127",
+                  "docs/史料通读产物/唐以前编年/隋/卷181-通读总结.md#L110-L119",
+                  "docs/史料通读产物/唐以前编年/隋/卷181-通读总结.md#L149-L169",
+                  "docs/史料通读产物/唐以前编年/隋/卷182-通读总结.md#L34-L39",
+                  "docs/史料通读产物/唐以前编年/隋/卷182-通读总结.md#L149-L152"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-MANUAL-A958F9A4A830"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-杨广"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": "NOT_RECHECKED",
+            "cost_band": "NOT_RECHECKED",
+            "cost_status": "NOT_RECHECKED",
+            "cost_position": "NOT_RECHECKED",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-1",
+            "score": 1.8,
+            "state_anchors": {
+              "S0": "C2-4",
+              "S_avg": "C2-1",
+              "S_end": "C2-1"
+            }
+          },
+          "old_settlement_review": "KEEP_MAIN_BAND_REWRITE_PILLAR_LOGIC；保留：原结算关于超大役使、破产、饥荒与财政崩坏的核心判断。；推翻/修正：删除以战争和“交班崩溃”本身替代C2结果的表述。"
+        }
+      ]
+    }
+  }
+}

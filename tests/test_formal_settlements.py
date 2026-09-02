@@ -11,6 +11,7 @@ from emperor_v4.evaluation.formal_settlements import (
     verify_second_item_b2_snapshot,
 )
 from emperor_v4.evaluation.composite_ranking import build_composite_ranking
+from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.second_item_b1_settlement import validate_gate_references
 
 
@@ -63,11 +64,7 @@ def test_second_item_a_snapshot_applies_v2_explicit_patch_and_registry() -> None
         "extreme_delta_reopen_count": 36,
     }
 
-    payload = json.loads(
-        Path("docs/评分结算/第二项治国净收益/制度行政/01-A制度建设与实际运行方向卡.json").read_text(
-            encoding="utf-8"
-        )
-    )
+    payload = load_json(Path("docs/评分结算/第二项治国净收益/制度行政/01-A制度建设与实际运行方向卡.json"))
     rows = {row["ruler_name"]: row for row in payload["records"]}
     assert all(row["C_A"] in {0, 0.5, 1, 2} for row in payload["records"])
     assert all(
@@ -142,11 +139,7 @@ def test_second_item_b1_snapshot_applies_v20_v50_union_and_v54_contract_recalcul
         "structured_basis_count": 185,
     }
 
-    payload = json.loads(
-        Path("docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json").read_text(
-            encoding="utf-8"
-        )
-    )
+    payload = load_json(Path("docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json"))
     rows = {row["ruler_name"]: row for row in payload["records"]}
     assert (rows["刘裕"]["grade"], rows["刘裕"]["position"], rows["刘裕"]["direction_index"]) == (
         "G4", "middle-upper", 80.4
@@ -207,11 +200,7 @@ def test_second_item_b1_snapshot_applies_v20_v50_union_and_v54_contract_recalcul
 
 
 def test_second_item_b1_v54_validator_blocks_hidden_weights_severity_cross_low_gates_and_support_core() -> None:
-    payload = json.loads(
-        Path("docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json").read_text(
-            encoding="utf-8"
-        )
-    )
+    payload = load_json(Path("docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json"))
     validate_gate_references(payload)
 
     broken = deepcopy(payload)
@@ -309,7 +298,7 @@ def test_composite_ranking_uses_only_ready_rulers_and_current_formula() -> None:
 def test_liu_hu_and_liu_zhi_finance_records_use_personal_rule_windows() -> None:
     root = Path("docs/评分结算/第二项治国净收益/财政民生")
     payloads = {
-        axis: json.loads((root / filename).read_text(encoding="utf-8"))
+        axis: load_json(root / filename)
         for axis, filename in {
             "C1": "01-C1正式结算.json",
             "C2": "02-C2正式结算.json",
@@ -358,7 +347,7 @@ def test_liu_hu_and_liu_zhi_finance_records_use_personal_rule_windows() -> None:
 
 def test_c4_uses_one_current_destructive_amplification_verdict() -> None:
     path = Path("docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json")
-    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload = load_json(path)
     penalties = {
         "DA0": 0.0, "DA1": 4.5, "DA2": 9.0, "DA3": 13.5,
         "DA4": 18.0, "DA5": 22.5, "DA6": 27.0,
@@ -392,7 +381,7 @@ def test_five_dynasties_batch_is_fully_settled() -> None:
     rows = {
         axis: {
             row["ruler_name"]: row
-            for row in json.loads((finance / filename).read_text(encoding="utf-8"))["scores"]
+            for row in load_json(finance / filename)["scores"]
         }
         for axis, filename in files.items()
     }
@@ -422,15 +411,11 @@ def test_recent_batch_calibration_keeps_rare_feedback_grades_rare() -> None:
     }
     b1 = {
         row["ruler_name"]: row
-        for row in json.loads(
-            (root / "制度行政/02-B1官僚治理与行政执行方向卡.json").read_text(encoding="utf-8")
-        )["records"]
+        for row in load_json(root / "制度行政/02-B1官僚治理与行政执行方向卡.json")["records"]
     }
     b2 = {
         row["ruler_name"]: row
-        for row in json.loads(
-            (root / "制度行政/03-B2反馈纠错与权力约束方向卡.json").read_text(encoding="utf-8")
-        )["records"]
+        for row in load_json(root / "制度行政/03-B2反馈纠错与权力约束方向卡.json")["records"]
     }
     assert {name for name in recent if b1[name]["grade"] == "G5"} == {"完颜雍"}
     assert {name for name in recent if b2[name]["grade"] == "G4"} == {"完颜雍"}

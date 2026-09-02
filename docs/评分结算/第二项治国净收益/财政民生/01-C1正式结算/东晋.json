@@ -1,0 +1,405 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "东晋",
+  "collections": {
+    "scores": {
+      "positions": [
+        26,
+        148,
+        149
+      ],
+      "records": [
+        {
+          "adjudication_reason": "太元末《晋书·食货志》直称天下无事、时和年丰、百姓乐业、谷帛殷阜、几乎家给人足，足以闭合C1-4并确认后期恢复。但C1-5要求家庭余量核心锚之外至少另一纯C1正向强轴互证；现有第二轴反而是太元十四年前后范宁揭示的重役与婚育裂缝，因此旧raw C1-5撤销。",
+          "confidence": "中",
+          "evidence": [
+            {
+              "anchor_time": "太元后期",
+              "described_state": "后期天下无事、年丰，史书称百姓乐业、谷帛丰富、接近家给人足。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "BOUNDED_MULTI_AXIS_MACRO",
+              "proof_scope_constraints": [],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_voice": "OFFICIAL_SUMMARY",
+              "source_voice_basis": "机械粗分；按source_works与verbatim中的史书、奏议、诏令标记识别。",
+              "source_voice_matches": [
+                "OFFICIAL_SUMMARY"
+              ],
+              "source_works": [
+                "正史《晋书·食货志》固定文本及通读总结"
+              ],
+              "state_roles": [
+                "阶段状态材料"
+              ],
+              "verbatim_excerpt": "天下無事，時和年豐，百姓樂業，穀帛殷阜，幾乎家給人足矣。",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+              ]
+            },
+            {
+              "anchor_time": "司马曜太元十四年（389）前后",
+              "described_state": "范宁奏报边烽未举而仓储、征役和家庭再生产已出现严重压力。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "proof_scope_constraints": [],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_voice": "THIRD_PARTY_CHRONICLE_OR_TREATISE",
+              "source_voice_basis": "机械粗分；按source_works与verbatim中的史书、奏议、诏令标记识别。",
+              "source_voice_matches": [
+                "THIRD_PARTY_CHRONICLE_OR_TREATISE"
+              ],
+              "source_works": [
+                "《资治通鉴》共享通读卡正文"
+              ],
+              "state_roles": [
+                "S_end",
+                "稳定性"
+              ],
+              "verbatim_excerpt": "仓库空匮，百姓全年几无休息，甚至不育婴儿、鳏寡不婚。",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS",
+                "NET_TAX_LABOR_BURDEN",
+                "HOUSEHOLD_FORMATION_REPRODUCTION"
+              ]
+            }
+          ],
+          "evidence_mode": "DIRECT_MACRO_ANCHOR",
+          "main_band": "C1-4",
+          "material_limitations": [
+            "范宁疏具有劝谏语境，已实现家庭结果可以入低谷，但不能据一次奏疏外推为长期次级主态；“太元末年”正锚本身位于更晚阶段，因此不能再把交班状态压到C1-4以下。"
+          ],
+          "peak_band": null,
+          "polity": "东晋",
+          "rank": 7,
+          "reign_range": [
+            376,
+            396
+          ],
+          "ruler_id": "RULER-SHADOW-司马曜",
+          "ruler_name": "司马曜",
+          "score": 52.7,
+          "stability_class_diagnostic_only": "K2",
+          "state_anchors": {
+            "S0": "C1-3",
+            "S_avg": "C1-4",
+            "S_end": "C1-4"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-司马曜"
+          },
+          "review_remediation": {
+            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
+            "status": "APPLIED",
+            "problem": "原S_end=C1-3过度依赖太元十四年范宁奏疏，压过《晋书·食货志》同窗口更高优先级的宏观总评",
+            "directive": "formal主档C1-4维持，score 54.9；记录 raw_state_band=C1-5 / formal_band=C1-4；S_end C1-3→C1-4；K=K3。 《晋书·食货志》明确定位“太元末年”，称“百姓乐业，谷帛殷阜，几乎家给人足”，绝对状态已达raw5；但东晋治理盘面属中等复杂度，按R1 formal仍4。范宁所称“劳扰殆无三日休停，至有生儿不复举养、鳏寡不敢妻娶”是已实现家庭裂缝，不能完全忽略；但“至有”覆盖不足以把终点压3，且末年宏观总评确认高位恢复，故作为局部/有限低谷记K3。",
+            "rule_conflict_resolution": "人物行写K3，与后置R21及K0定义冲突；采用后置通则K0。"
+          },
+          "raw_state_band": "C1-4",
+          "formal_band": "C1-4",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_FORMATION_REPRODUCTION",
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS",
+            "NET_TAX_LABOR_BURDEN"
+          ],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "stages": [
+              {
+                "stage_band": "C1-4",
+                "depth_from_raw_main": 1,
+                "scope_class": "TERMINAL_SCOPE",
+                "duration_class": "TERMINAL",
+                "repeat_group": "ATTACHED_REVIEW_CONSOLIDATED_CHAIN",
+                "recovery_confirmed": false,
+                "evidence_strength": "ATTACHED_REVIEW_WITH_FORMAL_SOURCE_ENTRIES",
+                "counts_toward_k": true,
+                "exclusion_reason": null,
+                "basis": "formal主档C1-4维持，score 54.9；记录 raw_state_band=C1-5 / formal_band=C1-4；S_end C1-3→C1-4；K=K3。 《晋书·食货志》明确定位“太元末年”，称“百姓乐业，谷帛殷阜，几乎家给人足”，绝对状态已达raw5；但东晋治理盘面属中等复杂度，按R1 formal仍4。范宁所称“劳扰殆无三日休停，至有生儿不复举养、鳏寡不敢妻娶”是已实现家庭裂缝，不能完全忽略；但“至有”覆盖不足以把终点压3，且末年宏观总评确认高位恢复，故作为局部/有限低谷记K3。"
+              }
+            ]
+          },
+          "persistence_review": {
+            "status": "COMPLETE",
+            "persistence_class": "SINGLE_PHASE_CONFIRMED",
+            "from_band": "C1-3",
+            "to_band": "C1-5",
+            "basis": "formal主档C1-4维持，score 54.9；记录 raw_state_band=C1-5 / formal_band=C1-4；S_end C1-3→C1-4；K=K3。 《晋书·食货志》明确定位“太元末年”，称“百姓乐业，谷帛殷阜，几乎家给人足”，绝对状态已达raw5；但东晋治理盘面属中等复杂度，按R1 formal仍4。范宁所称“劳扰殆无三日休停，至有生儿不复举养、鳏寡不敢妻娶”是已实现家庭裂缝，不能完全忽略；但“至有”覆盖不足以把终点压3，且末年宏观总评确认高位恢复，故作为局部/有限低谷记K3。"
+          },
+          "dynasty_curve_review": {
+            "status": "COMPLETE",
+            "handoff_continuity_checked": true,
+            "basis": "formal主档C1-4维持，score 54.9；记录 raw_state_band=C1-5 / formal_band=C1-4；S_end C1-3→C1-4；K=K3。 《晋书·食货志》明确定位“太元末年”，称“百姓乐业，谷帛殷阜，几乎家给人足”，绝对状态已达raw5；但东晋治理盘面属中等复杂度，按R1 formal仍4。范宁所称“劳扰殆无三日休停，至有生儿不复举养、鳏寡不敢妻娶”是已实现家庭裂缝，不能完全忽略；但“至有”覆盖不足以把终点压3，且末年宏观总评确认高位恢复，故作为局部/有限低谷记K3。"
+          },
+          "inference_review": {
+            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
+            "inference_source_anchor": null,
+            "inference_hops": 0,
+            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
+          },
+          "material_basis": [
+            {
+              "book": "《晋书·食货志》",
+              "original_text": "至于末年，天下无事，时和年丰，百姓乐业，谷帛殷阜，几乎家给人足矣。"
+            },
+            {
+              "book": "《晋书·范宁传》",
+              "original_text": "今四境晏如，烽燧不举，而仓庾虚耗，帑藏空匮。古者使人，岁不过三日，今之劳扰，殆无三日休停，至有残刑翦发，要求复除，生儿不复举养，鳏寡不敢妻娶。"
+            }
+          ],
+          "stability_basis": "太元十四年前后范宁奏疏不是单纯政策批评，已闭合到“劳扰殆无三日休停”、自残求免、弃养婴儿与鳏寡不婚，属于一个实质宏观低谷，强于K3；但持续时长和重复度不足以过K1聚合门，而且太元末高位总评确认后来恢复，故K2。原K0撤销。"
+        },
+        {
+          "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。推广种麦后农业有所恢复，但江东核心区仍反复遭遇大饥、旱疫，绝对主态维持C1-2。",
+          "confidence": "中低",
+          "evidence": [
+            {
+              "anchor_time": "太兴元年前后",
+              "described_state": "元帝按地方官入谷多少考核，要求非宿卫要员赴农、军队自行佃作；太兴元年推广徐扬种麦，后虽有旱蝗仍“为益犹多”。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "SCOPED_MACRO_SUMMARY",
+              "proof_scope_constraints": [],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_voice": "OFFICIAL_SUMMARY",
+              "source_voice_basis": "source_works命中正史、食货志、会要等官修史书/官方汇总标记。",
+              "source_voice_matches": [
+                "OFFICIAL_SUMMARY"
+              ],
+              "source_works": [
+                "正史《晋书·食货志》固定文本及通读总结"
+              ],
+              "state_roles": [
+                "阶段状态材料"
+              ],
+              "verbatim_excerpt": "其後頻年麥雖有旱蝗，而為益猶多。",
+              "result_axis_owner": [
+                "C1_SUPPORT_CONTEXT_ONLY"
+              ]
+            }
+          ],
+          "evidence_mode": "DIRECT_MACRO_ANCHOR",
+          "main_band": "C1-2",
+          "material_limitations": [
+            "灾害结果进入绝对状态与K，但自然成因不归责本人；三吴与京畿深灾仍不足外推全境C1-1。"
+          ],
+          "peak_band": null,
+          "polity": "东晋",
+          "rank": 121,
+          "reign_range": [
+            317,
+            322
+          ],
+          "ruler_id": "RULER-SHADOW-司马睿",
+          "ruler_name": "司马睿",
+          "score": 16.4,
+          "stability_class_diagnostic_only": "K2",
+          "state_anchors": {
+            "S0": "C1-2",
+            "S_avg": "C1-2",
+            "S_end": "C1-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-4468BF4F688D"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-4468BF4F688D",
+                "candidate_ids_trace_only": [
+                  "M3H-EB5F5148838D1F95"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "PUBLIC_WORKS",
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "- 司马睿初到建业声望轻，江东士族不附；王导通过禊礼威仪并亲访顾荣、贺循，建立本地合作 | - 治理措施：王导建议谦接士、俭足用、清静施政、安抚新旧；司马睿停止因饮酒废事，任本地人士参与军府政事，原文称江东归心 | - 财政证据：只见“俭以足用”的政策方向，未载减税、仓储、支出数和工程；不能把归心量化为收入增长",
+                "source_refs": [
+                  "docs/史料通读产物/唐以前编年/两晋/卷086-通读总结.md#L225"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-4468BF4F688D"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-SHADOW-司马睿"
+          },
+          "review_remediation": {
+            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
+            "status": "APPLIED",
+            "problem": "原C1-2理由使用“5个WC4+1个WC5机械下推”，违反合同",
+            "directive": "主档与三锚暂维持 C1-2→2→2，score 17.1；K补 K3，彻底删除WC数量阈值。 正面“频年麦…为益犹多”证明农业恢复但不足闭合全政权多数家庭稳定维生；太兴二年三吴大饥、流人回返与永昌元年王敦之乱叠加大旱大疫，证明本人窗口仍有直接困顿。永昌末局部/短时已低于通常2档，故K3。"
+          },
+          "raw_state_band": "C1-2",
+          "formal_band": "C1-2",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "stages": [
+              {
+                "stage_band": "C1-1",
+                "depth_from_raw_main": 1,
+                "scope_class": "LOCAL_OR_BOUNDED",
+                "duration_class": "SHORT_OR_BOUNDED",
+                "repeat_group": "ATTACHED_REVIEW_CONSOLIDATED_CHAIN",
+                "recovery_confirmed": true,
+                "evidence_strength": "ATTACHED_REVIEW_WITH_FORMAL_SOURCE_ENTRIES",
+                "counts_toward_k": true,
+                "exclusion_reason": null,
+                "basis": "主档与三锚暂维持 C1-2→2→2，score 17.1；K补 K3，彻底删除WC数量阈值。 正面“频年麦…为益犹多”证明农业恢复但不足闭合全政权多数家庭稳定维生；太兴二年三吴大饥、流人回返与永昌元年王敦之乱叠加大旱大疫，证明本人窗口仍有直接困顿。永昌末局部/短时已低于通常2档，故K3。"
+              }
+            ]
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "COMPLETE",
+            "handoff_continuity_checked": true,
+            "basis": "主档与三锚暂维持 C1-2→2→2，score 17.1；K补 K3，彻底删除WC数量阈值。 正面“频年麦…为益犹多”证明农业恢复但不足闭合全政权多数家庭稳定维生；太兴二年三吴大饥、流人回返与永昌元年王敦之乱叠加大旱大疫，证明本人窗口仍有直接困顿。永昌末局部/短时已低于通常2档，故K3。"
+          },
+          "inference_review": {
+            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
+            "inference_source_anchor": null,
+            "inference_hops": 0,
+            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
+          },
+          "material_basis": [
+            {
+              "book": "《晋书·食货志》",
+              "original_text": "其后频年麦虽有旱蝗，而为益犹多。"
+            },
+            {
+              "book": "《晋书》",
+              "original_text": "太兴二年，三吴大饥。"
+            },
+            {
+              "book": "《晋书》",
+              "original_text": "永昌元年大旱、大疫，死者众。"
+            }
+          ],
+          "stability_basis": "太兴二年三吴大饥与永昌元年大旱、大疫属于两个可区分的深低阶段；在短任窗口中已超过单一局部轻波动，但仍未闭合整个东晋统治区持续进入C1-1，故K3→K2，三锚维持2→2→2。"
+        },
+        {
+          "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。东晋主要统治区处于社会凋弊、百姓困穷与国用匮乏并存状态，吴郡灾荒又形成局部饥死阶段。",
+          "confidence": "MEDIUM_HIGH",
+          "evidence": [
+            {
+              "anchor_time": "太宁元年至二年",
+              "described_state": "东晋主要统治区处于社会凋弊、百姓困穷与国用匮乏并存状态，吴郡灾荒又形成局部饥死阶段。",
+              "identity_window_gate": "ELIGIBLE",
+              "macro_anchor_specificity": "BOUNDED_MULTI_AXIS_MACRO",
+              "proof_scope_constraints": [
+                "NATURAL_SHOCK_NOT_AUTOMATICALLY_ATTRIBUTED"
+              ],
+              "registration_metric_role": "NOT_REGISTRATION_METRIC",
+              "source_url": "https://zh.wikisource.org/zh-hans/晋书/卷006",
+              "source_voice": "THIRD_PARTY_CHRONICLE_OR_TREATISE",
+              "source_voice_basis": "新增联网材料按来源载体和主要发声者人工裁决。",
+              "source_voice_matches": [
+                "THIRD_PARTY_CHRONICLE_OR_TREATISE"
+              ],
+              "source_works": [
+                "《晋书》卷六《明帝纪》"
+              ],
+              "state_roles": [
+                "司马绍任内主要状态",
+                "司马绍稳定性反证"
+              ],
+              "verbatim_excerpt": "天下凋弊，加以灾荒，百姓困穷，国用并匮……吴郡大饥，死者以百数。",
+              "result_axis_owner": [
+                "HOUSEHOLD_SUBSISTENCE_SURPLUS",
+                "HOUSEHOLD_FORMATION_REPRODUCTION"
+              ]
+            }
+          ],
+          "evidence_mode": "DIRECT_MACRO_ANCHOR",
+          "main_band": "C1-2",
+          "material_limitations": [
+            "人物窗口短、直接材料少；吴郡灾情不外推全境。"
+          ],
+          "peak_band": null,
+          "polity": "东晋",
+          "rank": 121,
+          "reign_range": [
+            322,
+            325
+          ],
+          "ruler_id": "RULER-SHADOW-司马绍",
+          "ruler_name": "司马绍",
+          "score": 16.8,
+          "stability_class_diagnostic_only": "K3",
+          "state_anchors": {
+            "S0": "C1-2",
+            "S_avg": "C1-2",
+            "S_end": "C1-2"
+          },
+          "raw_state_band": "C1-2",
+          "formal_band": "C1-2",
+          "raw_peak_band": null,
+          "formal_peak_band": null,
+          "lane_axis_coverage": [
+            "HOUSEHOLD_FORMATION_REPRODUCTION",
+            "HOUSEHOLD_SUBSISTENCE_SURPLUS"
+          ],
+          "stability_stage_review": {
+            "status": "COMPLETE",
+            "migration_source": "PRE_REVIEW_FORMAL_PROSE_UNIQUE_K_ENUM",
+            "stages": [
+              {
+                "stage_band": "C1-1",
+                "depth_from_raw_main": 1,
+                "scope_class": "PRESERVED_FROM_PRE_REVIEW_PROSE",
+                "duration_class": "PRESERVED_FROM_PRE_REVIEW_PROSE",
+                "repeat_group": "PRE_REVIEW_UNIQUE_K_PROSE",
+                "recovery_confirmed": true,
+                "evidence_strength": "EXISTING_FORMAL_PROSE_UNIQUE_ENUM",
+                "counts_toward_k": true,
+                "exclusion_reason": null,
+                "basis": "旧正式人物记录只出现一个K枚举，结构化迁移该唯一值；未改变人物裁决。"
+              }
+            ],
+            "basis": "旧正式人物记录的唯一K枚举迁入结构字段，未从材料沉默推定。"
+          },
+          "persistence_review": {
+            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
+          },
+          "dynasty_curve_review": {
+            "status": "PRESERVED",
+            "handoff_continuity_checked": false,
+            "basis": "当前附件未要求改变本人物交班锚。"
+          },
+          "inference_review": {
+            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
+            "inference_source_anchor": null,
+            "inference_hops": 0,
+            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
+          },
+          "material_basis": [
+            {
+              "book": "《晋书》",
+              "original_text": "天下凋弊，加以灾荒，百姓困穷，国用并匮……吴郡大饥，死者以百数。"
+            }
+          ],
+          "stability_basis": "吴郡大饥并有饥死是短任内明确的局部深低谷；覆盖仍有限，未形成独立宏观次级状态，故K3维持。"
+        }
+      ]
+    }
+  }
+}

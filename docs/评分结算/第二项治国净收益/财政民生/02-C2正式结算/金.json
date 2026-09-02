@@ -1,0 +1,873 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "金",
+  "collections": {
+    "scores": {
+      "positions": [
+        19,
+        87,
+        88,
+        89,
+        90,
+        91,
+        152,
+        153,
+        154
+      ],
+      "records": [
+        {
+          "adjudication_reason": "大定初承接正隆战争后的仓储与财政受损盘面，随后生产基盘和财政储备恢复到健康状态；但世宗晚年出现明确的全国性钱少、民间货币流通不足。公共财政有积钱，民间货币面却形成瓶颈，因此只能判健康稳定，不能进五档。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《金史·食货志》"
+              ],
+              "verbatim_excerpt": "大定初，天下戶纔三百餘萬。至二十七年，天下戶六百七十八萬九千四百四十九，口四千四百七十萬五千八十六。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《金史·完颜克宁传》"
+              ],
+              "verbatim_excerpt": "中外皆患錢少，今京師積錢止五百萬貫。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《金史·食货志》"
+              ],
+              "verbatim_excerpt": "何為不隨處起倉，年豐則多糴以備賑贍……而徒使錢充府庫，將安用之。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_5_PASS_C2_4",
+            "basis": "生产与中央财政健康，但货币流通有直接结构性短板，两柱不足以同时判强。"
+          },
+          "main_band": "C2-4",
+          "material_limitations": [
+            "户口增长不是C2高档的独立证据。",
+            "“钱充府库”与“民间钱少”必须同时消费：中央储备充足不能覆盖市场货币短缺。",
+            "1161—1165国家级战争成本只作压力核对，不机械扣档。",
+            "S0由C2-3修正为C2-2，按直接交班双锚与完颜亮的S_end同步。"
+          ],
+          "peak_band": null,
+          "polity": "金",
+          "rank": 12,
+          "reign_range": "1161-1189",
+          "ruler_id": "RULER-JIN-SHIZONG",
+          "ruler_name": "完颜雍",
+          "score": 22.7,
+          "stability_class_diagnostic_only": "K2",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-4",
+            "S_end": "C2-4"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-ABA4063BC242"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-ABA4063BC242",
+                "candidate_ids_trace_only": [
+                  "M3-FT-AEAD9CFB90658D20"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "POSITIVE",
+                "mechanisms": [
+                  "RELIEF_STORAGE",
+                  "TAX_LABOR"
+                ],
+                "chain_summary": "租税、灾免、预借、牛头税与差役段；区分拒绝预借、灾税蠲免和征收反复。",
+                "source_refs": [
+                  "https://zh.wikisource.org/wiki/%E9%87%91%E5%8F%B2/%E5%8D%B747"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-ABA4063BC242"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-JIN-SHIZONG"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C5",
+            "cost_status": "LOWER_BOUND",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-4",
+            "score": 23.6,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-4",
+              "S_end": "C2-4"
+            }
+          }
+        },
+        {
+          "adjudication_reason": "海陵朝并非经济财政全面失灵：贞元以后恢复钞引、正隆鼓铸，市场与财政工具仍在运行；但同一窗口对民间铜器、珠采和南伐物资实行强制抽取，正隆六年又出现五十六万余匹马的大括取、河南仓粮专供大军及大规模夫役征发，已经闭合为生产与公共财政的现实挤压。主态只能基本运行，末段降至脆弱。起点同步承接本轮完颜亶S_end=C2-3。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《金史·食货志》"
+              ],
+              "verbatim_excerpt": "海陵庶人贞元二年迁都之后，户部尚书蔡松年复钞引法，遂制交钞，与钱并用。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《金史·食货志》"
+              ],
+              "verbatim_excerpt": "正隆二年……初禁铜越外界……括民间铜铤器。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《金史·海陵纪》"
+              ],
+              "verbatim_excerpt": "买珠于乌古德烈统军司及扶余路，禁私相贸易，仍调两路民采珠一年。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《金史·李通传》"
+              ],
+              "verbatim_excerpt": "于是大括天下骡马……凡调马五十六万余匹……所过蹂践民田，调发牵马夫役。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《金史·李通传》"
+              ],
+              "verbatim_excerpt": "诏河南州县所贮粮米以备大军，不得他用……天下始骚然矣。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "货币与财政工具仍存，但P与F/R在后半段有持续硬性挤压，两柱不能同时判健康。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "战争本身不机械扣C2",
+            "只消费已经落地的大括取、仓粮专用、夫役与生产损害。",
+            "S0由已重裁完颜亶S_end=C2-3同步修正，删除旧表C2-4起点。"
+          ],
+          "peak_band": null,
+          "polity": "金",
+          "rank": 56,
+          "reign_range": "1149-1161",
+          "ruler_id": "RULER-JIN-HAILING",
+          "ruler_name": "完颜亮",
+          "score": 13.7,
+          "stability_class_diagnostic_only": "K0",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-3",
+            "S_end": "C2-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+            "applied_parent_ids": [
+              "M3P-SEM-8E519125AA2B"
+            ],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [
+              {
+                "parent_id": "M3P-SEM-8E519125AA2B",
+                "candidate_ids_trace_only": [
+                  "I2-JIN-MAT-309547C07D18F1E4"
+                ],
+                "route": "APPLIED_PARENT_CHAIN_SUPPLEMENT",
+                "direction": "NEGATIVE",
+                "mechanisms": [
+                  "BUDGET_TREASURY",
+                  "PUBLIC_WORKS"
+                ],
+                "chain_summary": "宫室反复拆建、长期采珠和南伐征调形成极端财政民役负担 | 宫室反复拆建、长期采珠和南伐征调形成极端财政民役负担。原文定位：`P0019、P0058、P0074`。 | # 《金史》卷005非战役通读总结 | - source_unit_id：`SRC-JINSHI-005-2432720` | - source_url：`https://zh.wikisource.org/wiki/金史/卷5` | - revision_ref：`2432720` | - raw_sha256：`8f5fd670cecf6fbaabc37911087bcde67df00df688e7bc441e8641934223d448` | - 通读范围：`SRC-JINSHI-005-2432720-P0001` 至 `SRC-JINSHI-005-2432720-P0076`；固定修订共76段。 | - 分流说明：本文件只保留未进入战役裁决卡的事实。P0005宫廷武装政变、P0059—P0061东海叛乱、P0067以后契丹诸部与单州/大名叛乱，以及P0055—P0074南伐动员、淮南/海上战斗和瓜洲军变，统一转入`volume-005.battle-adjudications.json`。 | ## 一、财政、民生、工程与灾害 | - **即位初诏书把务农、恤穷与节财列为公开施政目标。** 海陵天德二年诏中外七事，包括“务农时”“恤穷民”“节财用”。这是政策宣示，不能直接当成治理成效；原文定位：`SRC-JINSHI-005-2432720-P0006`。",
+                "source_refs": [
+                  "docs/公共成果/制度行政/01-制度行政计分材料登记/jin.json#material_id=I2-JIN-MAT-309547C07D18F1E4",
+                  "docs/史料通读产物/金/金史/volume-005.source-summary.md"
+                ],
+                "old_parent_ref": "config/profile/m3-adjudications.json#parent_id=M3P-SEM-8E519125AA2B"
+              }
+            ],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-JIN-HAILING"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C6",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-4",
+              "S_avg": "C2-3",
+              "S_end": "C2-2"
+            }
+          }
+        },
+        {
+          "adjudication_reason": "皇统期榷场、岁币和赈济工具证明市场与财政仍能运作，但本人窗口缺少常规财政余额和储备达到“健康稳定”的直接闭合；同时《金史·食货志》对熙宗、海陵阶段明确揭示“会计者告用乏”“用不加饶”、州县稍遇岁侵即不足的结构问题。两柱均可基本运行，却不能同时判健康，因此校正为C2-3。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《金史·食货志》"
+              ],
+              "verbatim_excerpt": "榷場者，與敵國互市之所也。皆設場官，嚴厲禁，廣屋宇以通二國之貨，歲之所獲亦大有助於經用焉。熙宗皇統二年五月，許宋人之請，遂各置於兩界。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《金史·食货志》"
+              ],
+              "verbatim_excerpt": "罷之未久，會計者告用乏，又即舉行。其罷也志以便民，而民未見德。其行也志以足用，而用不加饒。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《金史·食货志》"
+              ],
+              "verbatim_excerpt": "嘗自計其國用，數亦浩瀚，若足支歷年者，郡縣稍遇歲侵，又遽不足，竟莫詰其故焉。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《金史》"
+              ],
+              "verbatim_excerpt": "皇統四年，蒲、解饑，流民典雇為奴婢者，官給絹贖為良，放還其家。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_PASS_C2_3",
+            "basis": "榷场与岁币可以证明交易和财政来源存在，但不能替代常规财政余额与储备健康；金代总论虽跨朝，但明确点名“熙宗、海陵之世”，可作为本人窗口结构约束。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "灾荒本身不按C4逻辑机械扣档",
+            "这里只消费其与“稍遇岁侵即不足”闭合出的绝对财政脆弱性。",
+            "旧理由中的酗酒、妄杀、社会安全全部移出C2。"
+          ],
+          "peak_band": null,
+          "polity": "金",
+          "rank": 56,
+          "reign_range": "1135-1149",
+          "ruler_id": "RULER-JIN-XIZONG",
+          "ruler_name": "完颜亶",
+          "score": 14.9,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-3",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-JIN-XIZONG"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C5",
+            "cost_status": "CONFIRMED",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-4",
+            "score": 23.6,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-4",
+              "S_end": "C2-4"
+            }
+          }
+        },
+        {
+          "adjudication_reason": "太宗时女真本部丰年和赋税体系开始形成，说明生产与常规财政逐步进入可运行状态；但天会三年仍直言“官无储积”，正处在储备体系起建阶段，同时新占中原长期受战争破坏。现有本人窗口材料只能闭合基本税基、生产与备荒制度开始运转，不能证明两柱都健康，故三档。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《金史·食货志》"
+              ],
+              "verbatim_excerpt": "天会三年，太宗以岁稔，官无储积，无以备饥馑，诏令一耒赋粟一石，每谋克别为一廪贮之。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《金史·食货志》"
+              ],
+              "verbatim_excerpt": "四年，诏内地诸路，每牛一具赋粟五斗，为定制。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "丰年可证生产恢复，但“官无储积”直接阻断公共储备健康；后续建仓与定税主要仍是制度动作，四档门不闭合。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "建仓和定税本身不视为高档结果。",
+            "对辽宋战争造成的破坏仅在史料明确闭合到经济状态时消费，不机械按D成本扣档。",
+            "S0已按直接交班双锚与完颜阿骨打S_end=C2-3同步",
+            "原C2-2来自天会三年以后弱证，不应回写到1123交接点。"
+          ],
+          "peak_band": null,
+          "polity": "金",
+          "rank": 56,
+          "reign_range": "1123-1135",
+          "ruler_id": "RULER-JIN-TAIZONG",
+          "ruler_name": "完颜晟",
+          "score": 14.7,
+          "stability_class_diagnostic_only": "K3",
+          "state_anchors": {
+            "S0": "C2-3",
+            "S_avg": "C2-3",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-JIN-TAIZONG"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C4",
+            "cost_status": "LOWER_BOUND",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          }
+        },
+        {
+          "adjudication_reason": "章宗即位时承接大定较健康盘面，但明昌元年已经直接暴露粮食蓄积仅够约四十四日，皇帝本人亦称“蓄积不多”。承安以后银钞持续阻滞、承安宝货不能行并出现京师闭肆，军需又推动额外财政征敛。后半段货币与公共财政形成持续弱柱，主态只能判基本运行，末段降至脆弱。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《金史·食货志》"
+              ],
+              "verbatim_excerpt": "而粟止五千二百二十六萬一千餘石，除官兵二年之費，餘驗口計之，口月食五斗，可為四十四日之食。上曰：『蓄積不多，是力農者少故也。』",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《金史·食货志》"
+              ],
+              "verbatim_excerpt": "時私鑄承安寶貨者多雜以銅錫，寖不能行，京師閉肆。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《金史·食货志》"
+              ],
+              "verbatim_excerpt": "比以軍儲調發，支出交鈔數多。遂鑄寶貨，與錢兼用，以代鈔本，蓋權時之制，非經久之法。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "即位初可触及健康状态，但中后期M与F/R连续出现硬约束，弱柱持续时间足以压低全任主态。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "明昌、泰和户口和版籍增长只能作背景，不用来覆盖“蓄积不多”和货币阻滞。",
+            "1205—1208开禧战争成本只确认财政压力方向",
+            "本项降档依据仍是C2内部已经闭合的钱粮与货币后果。"
+          ],
+          "peak_band": null,
+          "polity": "金",
+          "rank": 56,
+          "reign_range": "1189-1208",
+          "ruler_id": "RULER-JIN-ZHANGZONG",
+          "ruler_name": "完颜璟",
+          "score": 13.7,
+          "stability_class_diagnostic_only": "K0",
+          "state_anchors": {
+            "S0": "C2-4",
+            "S_avg": "C2-3",
+            "S_end": "C2-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-JIN-ZHANGZONG"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C5",
+            "cost_status": "LOWER_BOUND",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-4",
+            "score": 23.6,
+            "state_anchors": {
+              "S0": "C2-4",
+              "S_avg": "C2-4",
+              "S_end": "C2-3"
+            }
+          }
+        },
+        {
+          "adjudication_reason": "收国初仍有岁凶民饥、贫民依豪族并陷为奴的明显低位；随后通过屯种泰州等安排形成可运行的生产与税基框架，但本人窗口缺市场货币、常规财政余量和储备的广域健康结果。故主态三档，交班三档。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《金史·食货志》"
+              ],
+              "verbatim_excerpt": "比以岁凶民饥，多附豪族，因陷为奴隶。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《金史·食货志》"
+              ],
+              "verbatim_excerpt": "言可种植，遂摘诸猛安谋克中民户万余，使宗人婆卢火统之，屯种于泰州。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《金史·食货志》"
+              ],
+              "verbatim_excerpt": "挈家属耕具，徙于泰州，仍赐婆卢火耕牛五十。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "FAIL_C2_4_MAIN",
+            "basis": "生产恢复到基本运行，但M与F/R健康结果不足，四档失败。"
+          },
+          "main_band": "C2-3",
+          "material_limitations": [
+            "S_end=C2-3与完颜晟S0同步",
+            "本轮同步把既有完颜晟S0由C2-2修正为C2-3。",
+            "征服所得与强制迁徙本身不作为C2正向",
+            "只消费已实现的屯种结果。"
+          ],
+          "peak_band": null,
+          "polity": "金",
+          "rank": 56,
+          "reign_range": "1115-1123",
+          "ruler_id": "RULER-ROSTER-323631DDD7CB22F6",
+          "ruler_name": "完颜阿骨打",
+          "score": 14.9,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-3",
+            "S_end": "C2-3"
+          },
+          "m3_supplement_review": {
+            "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [
+              "M3H-6C349B29BF357A41"
+            ],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-ROSTER-323631DDD7CB22F6"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C0",
+            "cost_status": "NOT_APPLICABLE",
+            "cost_position": "NOT_APPLICABLE",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-3",
+            "score": 14.9,
+            "state_anchors": {
+              "S0": "C2-2",
+              "S_avg": "C2-3",
+              "S_end": "C2-3"
+            }
+          }
+        },
+        {
+          "adjudication_reason": "原结算把哀宗主态判二、终点判一的方向成立，但旧理由夹杂学校、官僚整顿等非C2材料。本轮收紧到纯结果轴：继承宣宗末二档盘面后，南京阶段反复括粟、粮道成为关键瓶颈；天兴元年已出现军士白昼取丰备仓米、京城人相食，出奔前又要发府库器皿和宫人衣服赐将士。F/R与P在末段形成多面系统性断裂，因此主态二、终点一。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《金史·哀宗本纪下》"
+              ],
+              "verbatim_excerpt": "遣张开、干色辛、刘益、高显率步军护陈留、通许粮道。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《金史·哀宗本纪下》"
+              ],
+              "verbatim_excerpt": "辛酉，再括京城粟。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《金史·哀宗本纪下》"
+              ],
+              "verbatim_excerpt": "己酉，卫州军校白昼取丰备仓米……壬子，京城人相食。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《金史·哀宗本纪下》"
+              ],
+              "verbatim_excerpt": "丁亥，上御端门，发府库及两府器皿、宫人衣服赐将士。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "PASS_C2_2_END_C2_1",
+            "basis": "大部分在位阶段仍有征收、粮运和财政组织，故主态不直接判一；天兴末P/F/R多面断裂足以判S_end=C2-1。"
+          },
+          "main_band": "C2-2",
+          "material_limitations": [
+            "S0=C2-2，与本批完颜珣S_end直接同步。",
+            "蔡州亡国本身不作为一档依据",
+            "一档由括粟、人相食、仓储被取和府库器物用于军饷等已实现状态闭合。"
+          ],
+          "peak_band": null,
+          "polity": "金",
+          "rank": 146,
+          "reign_range": "1224-1234",
+          "ruler_id": "RULER-JIN-AIZONG",
+          "ruler_name": "完颜守绪",
+          "score": 6.4,
+          "stability_class_diagnostic_only": "K0",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-2",
+            "S_end": "C2-1"
+          },
+          "m3_supplement_review": {
+            "disposition": "SEARCHED_NO_OLD_M3_CANDIDATE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-JIN-AIZONG"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C4",
+            "cost_status": "PROVISIONAL",
+            "cost_position": "MID",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-2",
+            "score": 7.0,
+            "state_anchors": {
+              "S0": "C2-2",
+              "S_avg": "C2-2",
+              "S_end": "C2-1"
+            }
+          },
+          "old_settlement_review": "KEEP_BAND_REWRITE_TO_PURE_C2；保留：原结算关于粮运断裂、军储失灵和终局崩溃的核心判断保留。；推翻/修正：删除学校、司法复核等跨项材料，以P/F/R多面断裂重新闭合终点一档。。"
+        },
+        {
+          "adjudication_reason": "原结算正确抓住大旱大饥、括马签军和卖敕筹饷，但旧S0=C2-3、S_end=C2-1都不再成立。其即位直接承接章宗末已经重裁为C2-2的盘面；崇庆元年又出现大规模签军、括马、卖空名敕牒，以及河东陕西“斗米钱数千，流莩满野”。这足以维持主态二档。与此同时朝廷仍能跨路赈灾，1213年的政变弑君并不等于经济财政系统全面崩解，所以交班仍应是二档。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《金史·卫绍王纪》"
+              ],
+              "verbatim_excerpt": "签陕西勇敢军二万人、射粮军一万人，赴中都。括陕西马。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《金史·卫绍王纪》"
+              ],
+              "verbatim_excerpt": "诏卖空名敕牒。河东、陕西大饥，斗米钱数千，流莩满野。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《金史·卫绍王纪》"
+              ],
+              "verbatim_excerpt": "赈河东南路、南京路、陕西东路、山东西路、卫州旱灾。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "PASS_C2_2_FAIL_C2_1_END",
+            "basis": "至少一柱长期明显脆弱，但财政与赈济系统仍在运行；政变不是C2-1自动门。"
+          },
+          "main_band": "C2-2",
+          "material_limitations": [
+            "S0=C2-2，与已重裁完颜璟S_end同步。",
+            "S_end由旧C2-1修为C2-2，并与本批完颜珣S0同步。"
+          ],
+          "peak_band": null,
+          "polity": "金",
+          "rank": 146,
+          "reign_range": "1208-1213",
+          "ruler_id": "RULER-JIN-WEISHAOWANG",
+          "ruler_name": "完颜永济",
+          "score": 7.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-2",
+            "S_end": "C2-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-JIN-WEISHAOWANG"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C6",
+            "cost_status": "CONFIRMED",
+            "cost_position": "LOW",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-2",
+            "score": 7.0,
+            "state_anchors": {
+              "S0": "C2-3",
+              "S_avg": "C2-2",
+              "S_end": "C2-1"
+            }
+          },
+          "old_settlement_review": "KEEP_MAIN_BAND_FIX_BOTH_ANCHORS；保留：原结算关于大饥、签军、括马和卖敕筹饷的核心负证全部保留。；推翻/修正：旧起点高估章宗交班盘面；旧终点又把弑君/政变混同经济财政崩解，双向修正为2。。"
+        },
+        {
+          "adjudication_reason": "原结算认为南迁后财政军储持续低位，方向成立；但旧S_end=C2-1偏重。贞祐、兴定间已经有“军储不继”，并直接出现流亡逋赋转嫁给现户、额外军需钱过多，以至皇帝反问“人何以堪”“亡者讵肯复业”。这说明F与P长期处于脆弱二档；然而政府仍能维持税收减免、贷种和部分仓储军政组织，至1223年尚未进入哀宗天兴末那种多面断裂，因此S_end应保二。",
+          "confidence": "HIGH",
+          "evidence": [
+            {
+              "source_works": [
+                "《金史·宣宗中》"
+              ],
+              "verbatim_excerpt": "尚书省以军储不继，请罢州府学生廪给。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《金史·宣宗中》"
+              ],
+              "verbatim_excerpt": "百姓流亡逋赋皆配见户，人何以堪？又添征军须钱太多，亡者讵肯复业？其并议除之。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            },
+            {
+              "source_works": [
+                "《金史·宣宗中》"
+              ],
+              "verbatim_excerpt": "戊午，以霖雨诏宽农民输税之限。",
+              "pillar_tags": [],
+              "evidence_role": "UNCLASSIFIED_FROM_MD",
+              "identity_window_gate": "ELIGIBLE",
+              "proof_scope_constraints": []
+            }
+          ],
+          "evidence_mode": "SYNCED_FROM_MD_MATERIAL_BASIS",
+          "high_band_gate": {
+            "status": "PASS_C2_2_FAIL_C2_1_END",
+            "basis": "F/P长期脆弱足以二档，但至退出权力时仍有常规财政与行政调节，未形成多面系统性断裂。"
+          },
+          "main_band": "C2-2",
+          "material_limitations": [
+            "S0=C2-2，与本批完颜永济S_end同步",
+            "S_end=C2-2，与完颜守绪S0同步。",
+            "迁都和战争本身不机械扣档，只消费军储、逋赋转嫁与额外军需钱等已实现后果。"
+          ],
+          "peak_band": null,
+          "polity": "金",
+          "rank": 146,
+          "reign_range": "1213-1224",
+          "ruler_id": "RULER-JIN-XUANZONG",
+          "ruler_name": "完颜珣",
+          "score": 7.0,
+          "stability_class_diagnostic_only": "K4",
+          "state_anchors": {
+            "S0": "C2-2",
+            "S_avg": "C2-2",
+            "S_end": "C2-2"
+          },
+          "m3_supplement_review": {
+            "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+            "applied_parent_ids": [],
+            "excluded_parent_ids": [],
+            "applied_parent_chain_supplements": [],
+            "applied_orphan_candidate_ids": [],
+            "excluded_orphan_candidate_ids": [],
+            "applied_orphan_candidate_supplements": [],
+            "review_ref": "config/profile/m3-c1-c4-supplement-adjudications.json#task_code=PROFILE-M3-C1C4-RULER-JIN-XUANZONG"
+          },
+          "d_cost_crosscheck": {
+            "D_grade": null,
+            "cost_band": "C6",
+            "cost_status": "LOWER_BOUND",
+            "cost_position": "HIGH",
+            "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
+          },
+          "old_settlement": {
+            "main_band": "C2-2",
+            "score": 7.0,
+            "state_anchors": {
+              "S0": "C2-2",
+              "S_avg": "C2-2",
+              "S_end": "C2-1"
+            }
+          },
+          "old_settlement_review": "KEEP_MAIN_BAND_RAISE_END；保留：原结算关于迁都后军储失灵、税基受损和低位下行的核心判断保留。；推翻/修正：旧S_end=C2-1过度提前消费了哀宗时期的终局崩溃，修为C2-2。。"
+        }
+      ]
+    }
+  }
+}

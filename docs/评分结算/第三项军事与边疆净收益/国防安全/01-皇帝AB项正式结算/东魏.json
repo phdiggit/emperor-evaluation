@@ -1,0 +1,318 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "东魏",
+  "collections": {
+    "records": {
+      "positions": [
+        74
+      ],
+      "records": [
+        {
+          "AB_score_points": 75.3,
+          "adjudication_status": "REVIEWED",
+          "ambiguous_event_refs": [
+            "WAR-LEAD-156-07",
+            "WAR-LEAD-157-01",
+            "WAR-LEAD-157-03",
+            "WAR-LEAD-157-05"
+          ],
+          "axes": {
+            "A1": {
+              "axis_points": 14.4,
+              "base_trajectory_value": 36,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A1S3_CONTESTED_BALANCE",
+              "rationale": "东西魏分立时东魏控制河北核心且人口、财赋与兵力总体占优；迁邺和洛阳争夺说明双方存在高强度竞争，但不能把新政权分立本身定为严重存亡威胁。沙苑大败、河桥与邙山胜负相抵，交班仍为相互制衡3档。",
+              "start": "A1S3_CONTESTED_BALANCE",
+              "trajectory_value": 36,
+              "transition": "STABLE",
+              "transition_attribution": "PRIMARY_RULER_ACTION"
+            },
+            "A2": {
+              "axis_points": 14.4,
+              "base_trajectory_value": 36,
+              "ceiling_bonus": 0,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_refs": [],
+              "end": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
+              "rationale": "分立起点东魏已有河北纵深、邺城中枢及河南方向多节点，主要边界能够运行；洛阳、河东与潼关外围反复属于显著缺口，而非边界只剩应急状态。任内恢复河南四州但玉壁方向始终未突破，起终均为3档。",
+              "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
+              "trajectory_value": 36,
+              "transition": "STABLE",
+              "transition_attribution": "PRIMARY_RULER_ACTION"
+            },
+            "B1": {
+              "axis_points": 13.0,
+              "band_position": "MID",
+              "grade": "B1-2",
+              "rationale": "分裂后只计东魏实际边界存量2.625；任内虽有河东河南反复，交班前收复河南四州，使淮河标准区从0.50升至0.75，交班2.8、净增0.175、加权值1.225，落B1-2 MID。",
+              "raw_net_change": 0.175,
+              "score_rate": 52,
+              "terminal_collapse_override": false,
+              "weighted_control_value": 1.225
+            },
+            "B2": {
+              "axis_points": 22.5,
+              "band_position": "LOW",
+              "grade": "B2-4",
+              "rationale": "收复河南四州与维持河桥—邙山线对邺都西南门户和与西魏争衡具关键作用；未能拔除玉壁和关中核心。",
+              "score_rate": 75
+            },
+            "B4": {
+              "axis_points": 11.0,
+              "band_position": "HIGH",
+              "grade": "B4-1",
+              "rationale": "538年河南四州恢复后曾形成方面军控制，但546年末高欢病重时，侯景已识破无暗记召书、拒绝赴晋阳并拥河南兵自固；该事实发生在高欢本人交班锚内，说明成果仍依赖个人约定和军头，中央即时指挥已经失效，处于随时整体脱离状态。按B4-1高位，不读取高欢死后公开叛变追加扣档。",
+              "score_rate": 44
+            }
+          },
+          "b1_control_equivalents": {
+            "end": 2.8,
+            "net_change": 0.175,
+            "start": 2.625,
+            "weighted_value": 1.225
+          },
+          "b1_region_adjudications": [
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.6,
+              "control_form": "边郡、戍防、迁置或可执行属部管理",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "WAR-LEAD-156-06",
+                "WAR-LEAD-157-08",
+                "WAR-LEAD-158-01",
+                "WAR-LEAD-158-04"
+              ],
+              "object_id": "HENAN_SHUOFANG",
+              "object_name": "河南地—朔方",
+              "reason": "有界推断：按任期边界州郡、防线、迁置及属部可执行关系，对标准区域取1.00（整体有效）；不由一次胜负或单次归附外推更大控制。",
+              "spatial_weight": 0.6
+            },
+            {
+              "anchors": [
+                "start"
+              ],
+              "control_equivalent": 0.35,
+              "control_form": "边郡、戍防、迁置或可执行属部管理",
+              "counted": true,
+              "coverage_factor": 0.5,
+              "evidence_refs": [
+                "WAR-LEAD-156-06",
+                "WAR-LEAD-157-08",
+                "WAR-LEAD-158-01",
+                "WAR-LEAD-158-04"
+              ],
+              "object_id": "HUAI_FRONTIER",
+              "object_name": "淮河边疆",
+              "reason": "有界推断：按任期边界州郡、防线、迁置及属部可执行关系，对标准区域取0.50（约半个主要走廊或网络）；不由一次胜负或单次归附外推更大控制。",
+              "spatial_weight": 0.7
+            },
+            {
+              "anchors": [
+                "end"
+              ],
+              "control_equivalent": 0.525,
+              "control_form": "边郡、戍防、迁置或可执行属部管理",
+              "counted": true,
+              "coverage_factor": 0.75,
+              "evidence_refs": [
+                "WAR-LEAD-156-06",
+                "WAR-LEAD-157-08",
+                "WAR-LEAD-158-01",
+                "WAR-LEAD-158-04"
+              ],
+              "object_id": "HUAI_FRONTIER",
+              "object_name": "淮河边疆",
+              "reason": "有界推断：按任期边界州郡、防线、迁置及属部可执行关系，对标准区域取0.75（大部有效但仍有明显缺口）；不由一次胜负或单次归附外推更大控制。",
+              "spatial_weight": 0.7
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.8,
+              "control_form": "边郡、戍防、迁置或可执行属部管理",
+              "counted": true,
+              "coverage_factor": 1.0,
+              "evidence_refs": [
+                "WAR-LEAD-156-06",
+                "WAR-LEAD-157-08",
+                "WAR-LEAD-158-01",
+                "WAR-LEAD-158-04"
+              ],
+              "object_id": "NORTHERN_FRONTIER",
+              "object_name": "北方边郡",
+              "reason": "有界推断：按任期边界州郡、防线、迁置及属部可执行关系，对标准区域取1.00（整体有效）；不由一次胜负或单次归附外推更大控制。",
+              "spatial_weight": 0.8
+            },
+            {
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "control_equivalent": 0.875,
+              "control_form": "边郡、戍防、迁置或可执行属部管理",
+              "counted": true,
+              "coverage_factor": 0.25,
+              "evidence_refs": [
+                "WAR-LEAD-156-06",
+                "WAR-LEAD-157-08",
+                "WAR-LEAD-158-01",
+                "WAR-LEAD-158-04"
+              ],
+              "object_id": "NORTHERN_GRASSLAND",
+              "object_name": "北方草原整体",
+              "reason": "有界推断：按任期边界州郡、防线、迁置及属部可执行关系，对标准区域取0.25（孤立据点或明确小支点）；不由一次胜负或单次归附外推更大控制。",
+              "spatial_weight": 3.5
+            }
+          ],
+          "b1_region_control": {
+            "end": {
+              "HENAN_SHUOFANG": 0.6,
+              "HUAI_FRONTIER": 0.525,
+              "NORTHERN_FRONTIER": 0.8,
+              "NORTHERN_GRASSLAND": 0.875
+            },
+            "start": {
+              "HENAN_SHUOFANG": 0.6,
+              "HUAI_FRONTIER": 0.35,
+              "NORTHERN_FRONTIER": 0.8,
+              "NORTHERN_GRASSLAND": 0.875
+            }
+          },
+          "boundary_stage_excluded_refs": [],
+          "boundary_stage_refs": [],
+          "boundary_stage_review_status": "REVIEWED",
+          "control_contribution_grade_cap": 5,
+          "control_contribution_type": "NEW_RECOVERED_REBUILT",
+          "coverage_status": "FORMAL_CURRENT",
+          "defense_event_count": 7,
+          "evidence_event_refs": [
+            "WAR-LEAD-156-06",
+            "WAR-LEAD-156-07",
+            "WAR-LEAD-157-01",
+            "WAR-LEAD-157-02",
+            "WAR-LEAD-157-03",
+            "WAR-LEAD-157-04",
+            "WAR-LEAD-157-05",
+            "WAR-LEAD-157-08",
+            "WAR-LEAD-158-01",
+            "WAR-LEAD-158-04",
+            "WAR-LEAD-158-06",
+            "WAR-LEAD-158-07",
+            "WAR-LEAD-161-01",
+            "WAR-LEAD-159-04"
+          ],
+          "hold_event_refs": [],
+          "major_in_reign_reversal_refs": [
+            "WAR-LEAD-157-08",
+            "WAR-LEAD-158-06"
+          ],
+          "non_defense_routing_refs": [],
+          "partition": "两晋十六国南北朝隋",
+          "polity": "东魏",
+          "primary_control_package_refs": [
+            "WAR-LEAD-158-01",
+            "WAR-LEAD-159-05"
+          ],
+          "primary_threat_refs": [
+            "WAR-LEAD-156-06",
+            "WAR-LEAD-158-06"
+          ],
+          "rationale": "B2继续承认本人体系收复河南四州的关键战略价值；B4改读交班锚内侯景拒召、拥兵自固的真实余量。删除混合金墉毁弃、河南柵堡和西魏玉壁设防的WAR-LEAD-158-04，改挂四州恢复与交班前指挥失效两条直接材料。",
+          "reign_range": [
+            534,
+            547
+          ],
+          "ruler_id": "RULER-SHADOW-高欢",
+          "ruler_name": "高欢",
+          "score_ready": true,
+          "subject_binding_review_status": "REVIEWED_SUFFICIENT",
+          "terminal_polity_collapse": false,
+          "parent_cycle_refs": [
+            "NC-EAST-WEST-WEI-SPLIT-534",
+            "NC-V157-LEAD-157-04",
+            "NC-V157-LEAD-157-05",
+            "NC-EAST-WEST-WEI-537",
+            "NC-V158-LEAD-158-07",
+            "NC-V159-LEAD-159-04",
+            "NC-HOUJING-EASTWEI-547-548"
+          ],
+          "parent_cycle_merge_adjudications": [],
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "excluded_founding_unification_refs": [],
+          "observed_parent_cycle_count": 10,
+          "A120_non_cost_anchor_points": 31.2,
+          "A120_positive_result_credit_points": 0.0,
+          "A120_score_points": 31.2,
+          "B80_score_points": 41.5,
+          "AB200_score_points": 72.7,
+          "A120_axis_adjudications": {
+            "A1": {
+              "attributable_delta": 0.0,
+              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_category": "NO_CHANGE",
+              "axis_points": 15.6,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 3,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 10,
+              "objective_delta": 0,
+              "reversal_basis": "起终档未表达的EN2/EN3档内恶化",
+              "reversal_grade": "MATERIAL",
+              "reversal_penalty": 10,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 26.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            },
+            "A2": {
+              "attributable_delta": 0.0,
+              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_category": "NO_CHANGE",
+              "axis_points": 15.6,
+              "ceiling_progress": "NONE",
+              "ceiling_progress_bonus": 0,
+              "end_grade": 3,
+              "maintenance_basis": "非4→4或5→5",
+              "maintenance_bonus": 0,
+              "maintenance_difficulty": "NOT_APPLICABLE",
+              "negative_adjustment": 10,
+              "objective_delta": 0,
+              "reversal_basis": "起终档未表达的EN2/EN3档内恶化",
+              "reversal_grade": "MATERIAL",
+              "reversal_penalty": 10,
+              "score_ready": true,
+              "start_grade": 3,
+              "trajectory_value": 26.0,
+              "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+              "within_band_deterioration_penalty": 0
+            }
+          },
+          "B80_adjudication": {
+            "B80_points": 41.5,
+            "formal_B1_rate": 52.0,
+            "formal_B2_rate": 75.0,
+            "formal_B4_rate": 44.0,
+            "adjudicated_B1_rate": 52.0,
+            "adjudicated_B2_rate": 75.0,
+            "adjudicated_B4_rate": 44.0,
+            "consistency_basis": "B2继续承认本人体系收复河南四州的关键战略价值；B4改读交班锚内侯景拒召、拥兵自固的真实余量。删除混合金墉毁弃、河南柵堡和西魏玉壁设防的WAR-LEAD-158-04，改挂四州恢复与交班前指挥失效两条直接材料。"
+          }
+        }
+      ]
+    }
+  }
+}
