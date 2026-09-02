@@ -5,7 +5,7 @@ import json
 from collections import Counter, defaultdict
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Iterable, Mapping, Sequence
+from typing import Any, Mapping, Sequence
 
 
 AB_ROUTER_PATH = Path("docs/评分结算/第三项军事与边疆净收益/国防安全/01-皇帝AB项正式结算.json")
@@ -130,12 +130,6 @@ def _grade_for_weighted(value: float) -> str:
     return "B1-5"
 
 
-def _snapshot(record: Mapping[str, Any], anchor: str) -> Mapping[str, Any]:
-    control = record.get("b1_region_control") or {}
-    value = control.get(anchor) if isinstance(control, Mapping) else None
-    return value if isinstance(value, Mapping) else {}
-
-
 def _rate(record: Mapping[str, Any], key: str) -> float | None:
     adjudication = record.get("B80_adjudication") or {}
     return _numeric(adjudication.get(key)) if isinstance(adjudication, Mapping) else None
@@ -167,7 +161,6 @@ def _audit_snapshot_regions(
         return 0.0, 0.0
 
     totals: dict[str, float] = {}
-    active_by_anchor: dict[str, set[str]] = {}
     for anchor_name in ("start", "end"):
         snapshot = control.get(anchor_name)
         if snapshot is None:
@@ -212,7 +205,6 @@ def _audit_snapshot_regions(
             if len(used) > 1:
                 issues.append(_issue("B1_OVERLAPPING_ANCHORS", "BLOCKER", "同一快照同时使用互斥空间锚，存在重复消费风险。", anchor=anchor_name, region_ids=used))
         totals[anchor_name] = round(total, 9)
-        active_by_anchor[anchor_name] = active
 
     return totals.get("start", 0.0), totals.get("end", 0.0)
 
@@ -247,6 +239,8 @@ def _audit_region_ledger(
         if not isinstance(row, Mapping):
             issues.append(_issue("B1_LEDGER_ROW_INVALID", "BLOCKER", "逐区域裁决项不是对象。", index=index))
             continue
+        if row.get("counted") is False:
+            continue
         raw_id = row.get("object_id", row.get("region_id"))
         if raw_id is None:
             issues.append(_issue("B1_LEDGER_REGION_ID_MISSING", "BLOCKER", "逐区域裁决缺少object_id/region_id。", index=index))
@@ -277,10 +271,7 @@ def _audit_region_ledger(
                 issues.append(_issue("B1_NONSTANDARD_LEDGER_COVERAGE", "BLOCKER", "逐区域裁决使用非标准覆盖阶梯。", index=index, region_id=region_id, field=key, value=value))
 
 
-def audit_record(
-    record: Mapping[str, Any],
-    anchor_payload: Mapping[str, Any],
-) -> dict[str, Any]:
+def audit_record(record: Mapping[str, Any], anchor_payload: Mapping[str, Any]) -> dict[str, Any]:
     anchors, aliases, must_rebuild, overlap_sets, coverage_steps = _anchor_index(anchor_payload)
     issues: list[AuditIssue] = []
 
