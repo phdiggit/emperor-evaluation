@@ -28,7 +28,9 @@
               "start": "A1S3_CONTESTED_BALANCE",
               "trajectory_value": 36,
               "transition": "STABLE",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "东西魏分立时东魏控制河北核心且人口、财赋与兵力总体占优；迁邺和洛阳争夺说明双方存在高强度竞争，但不能把新政权分立本身定为严重存亡威胁。沙苑大败、河桥与邙山胜负相抵，交班仍为相互制衡3档。"
             },
             "A2": {
               "axis_points": 14.4,
@@ -41,7 +43,9 @@
               "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
               "trajectory_value": 36,
               "transition": "STABLE",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "分立起点东魏已有河北纵深、邺城中枢及河南方向多节点，主要边界能够运行；洛阳、河东与潼关外围反复属于显著缺口，而非边界只剩应急状态。任内恢复河南四州但玉壁方向始终未突破，起终均为3档。"
             },
             "B1": {
               "axis_points": 13.0,
@@ -49,9 +53,10 @@
               "grade": "B1-2",
               "rationale": "分裂后只计东魏实际边界存量2.625；任内虽有河东河南反复，交班前收复河南四州，使淮河标准区从0.50升至0.75，交班2.8、净增0.175、加权值1.225，落B1-2 MID。",
               "raw_net_change": 0.175,
-              "score_rate": 52,
+              "score_rate": 52.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 1.225
+              "weighted_control_value": 1.225,
+              "reason": "规模与控制强度：B1全量重审已确认最终档内率。"
             },
             "B2": {
               "axis_points": 22.5,
@@ -276,7 +281,8 @@
               "start_grade": 3,
               "trajectory_value": 26.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -298,7 +304,8 @@
               "start_grade": 3,
               "trajectory_value": 26.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
@@ -310,6 +317,12 @@
             "adjudicated_B2_rate": 75.0,
             "adjudicated_B4_rate": 44.0,
             "consistency_basis": "B2继续承认本人体系收复河南四州的关键战略价值；B4改读交班锚内侯景拒召、拥兵自固的真实余量。删除混合金墉毁弃、河南柵堡和西魏玉壁设防的WAR-LEAD-158-04，改挂四州恢复与交班前指挥失效两条直接材料。"
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "CONFIRMED_NORMALIZED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 52.0
           }
         }
       ]

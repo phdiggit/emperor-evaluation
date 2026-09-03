@@ -10,7 +10,7 @@
     "formula": "objective_weighted=end-0.6*start；第三项有效值再扣除第一项已消费的本任净增。"
   },
   "data_conventions": {
-    "objective_vs_effective": "先重建客观边疆库存，再做第一项去重；本任被第一项消费的新增不重复计分，但其交班库存可成为后任start并产生40%守成信用。",
+    "objective_vs_effective": "先重建客观边疆库存，再按成果是否属于元朝建国/统一主链中不可重复的前置成果逐对象去重；被第一项消费的本任新增不重复计分，但其交班库存可成为后任start并产生40%守成信用。形式称号与1206年节点本身不决定归属。",
     "stable_core_exclusion": "蒙古本部、稳定内地化的中原与江南核心不进入B1。",
     "subject_scope_bridge": "蒙古帝国分裂后，西方诸汗国只有在大汗/元廷仍具可执行征调、任免或直接军政权时才可计入；1260后对忽必烈不再计西方诸汗国名义宗主。",
     "korea_rule": "高丽使用KOREA_PENINSULA_NETWORK；孤立战时攻陷不形成交班控制，耽罗属于高丽网络内部强化。",
@@ -53,16 +53,16 @@
       "review_status": "REVIEWED",
       "confidence": "HIGH",
       "objective_regions": {
-        "WESTERN_REGIONS_WHOLE": {"w":2.0,"s":0.0,"e":1.0,"se":0.0,"ee":2.0},
-        "TRANSOXIANA_KHWARAZM": {"w":1.5,"s":0.0,"e":1.0,"se":0.0,"ee":1.5},
-        "KHORASAN_EAST_IRAN": {"w":1.0,"s":0.0,"e":0.75,"se":0.0,"ee":0.75},
-        "HEXI_NINGXIA_ORDOS": {"w":0.8,"s":0.0,"e":1.0,"se":0.0,"ee":0.8},
-        "NORTHEAST_LIAODONG_SONGWAI": {"w":1.0,"s":0.0,"e":0.5,"se":0.0,"ee":0.5}
+        "WESTERN_REGIONS_WHOLE": {"w":2.0,"s":0.0,"e":1.0,"se":0.0,"ee":2.0,"reason":"西域整体控制来自花剌子模—中亚西征，不是后来元朝中国统一的不可重复前置成果，保留在第三项。"},
+        "TRANSOXIANA_KHWARAZM": {"w":1.5,"s":0.0,"e":1.0,"se":0.0,"ee":1.5,"reason":"花剌子模国家体系被击破并形成河中控制，属于独立帝国扩张方向，保留在第三项。"},
+        "KHORASAN_EAST_IRAN": {"w":1.0,"s":0.0,"e":0.75,"se":0.0,"ee":0.75,"reason":"呼罗珊—东伊朗已形成大部有效控制但仍有札兰丁抵抗，按0.75；该西亚成果与元朝中国统一主链无直接奠基关系，保留在第三项。"},
+        "HEXI_NINGXIA_ORDOS": {"w":0.8,"s":0.0,"e":1.0,"se":0.0,"ee":0.8,"reason":"1226—1227灭西夏终局形成后继蒙古—元直接承接的统一前置成果，本任新增从第三项排除；早期攻夏、掠袭和阶段性臣服不据此另造耐久控制净增。"},
+        "NORTHEAST_LIAODONG_SONGWAI": {"w":1.0,"s":0.0,"e":0.5,"se":0.0,"ee":0.5,"reason":"攻金后形成并遗留给后继者继续推进的东北—辽东实际控制，属于灭金统一链的不可重复前置成果，本任新增从第三项排除；无耐久控制的掠袭仍只作为第三项安全/能力事实。"}
       },
       "objective_totals": {"start":0.0,"end":5.55,"net":5.55,"weighted":5.55},
-      "cross_item_excluded_net_gain": 5.55,
-      "third_item_effective_result": {"weighted":0.0,"grade":"B1-0","position":"LOW","rate":0},
-      "legacy_resolution": "废止旧底账0与formal_B1_rate=90的override冲突；1206—1227本人边疆新增整链由第一项消费，第三项B1有效率为0。"
+      "cross_item_excluded_net_gain": 1.3,
+      "third_item_effective_result": {"weighted":4.25,"grade":"B1-4","position":"MID","rate":82},
+      "legacy_resolution": "废止‘1206—1227新增整链一律归第一项’的形式节点切法；只排除灭夏终局0.8及攻金遗留控制0.5，花剌子模—中亚—西亚4.25保留在第三项，机械落B1-4 MID。"
     },
     {
       "ruler_id": "RULER-YUAN-OGEDEI",
@@ -73,17 +73,17 @@
       "objective_regions": {
         "WESTERN_REGIONS_WHOLE": {"w":2.0,"s":1.0,"e":1.0,"se":2.0,"ee":2.0},
         "TRANSOXIANA_KHWARAZM": {"w":1.5,"s":1.0,"e":1.0,"se":1.5,"ee":1.5},
-        "KHORASAN_EAST_IRAN": {"w":1.0,"s":0.75,"e":1.0,"se":0.75,"ee":1.0,"reason":"东伊朗由大部有效推进至整体有效；新增0.25由第一项消费。"},
+        "KHORASAN_EAST_IRAN": {"w":1.0,"s":0.75,"e":1.0,"se":0.75,"ee":1.0,"reason":"东伊朗由大部有效推进至整体有效；新增0.25属于西亚扩张而非元朝中国统一前置成果，保留在第三项。"},
         "HEXI_NINGXIA_ORDOS": {"w":0.8,"s":1.0,"e":1.0,"se":0.8,"ee":0.8},
         "NORTHEAST_LIAODONG_SONGWAI": {"w":1.0,"s":0.5,"e":1.0,"se":0.5,"ee":1.0,"reason":"东夏终局后东北复合控制带闭合；新增0.5由第一项消费。"},
         "HUAI_FRONTIER": {"w":0.7,"s":0.0,"e":1.0,"se":0.0,"ee":0.7,"reason":"灭金后形成对南宋淮河主要边界；新增由第一项消费。"},
-        "KIPCHAK_RUS_NETWORK": {"w":2.0,"s":0.0,"e":0.75,"se":0.0,"ee":1.5,"reason":"1236—1241钦察—罗斯征服形成大部耐久宗主网络；中欧短期占领不计，取0.75。本任新增由第一项西征链消费。"},
-        "MESOPOTAMIA_CAUCASUS_NETWORK": {"w":1.2,"s":0.0,"e":0.5,"se":0.0,"ee":0.6,"reason":"1238—1239格鲁吉亚、亚美尼亚等南高加索主要节点已受控，但伊拉克尚未进入，复合锚取0.50；本任新增由第一项西征链消费。"}
+        "KIPCHAK_RUS_NETWORK": {"w":2.0,"s":0.0,"e":0.75,"se":0.0,"ee":1.5,"reason":"1236—1241钦察—罗斯征服形成大部耐久宗主网络；中欧短期占领不计，取0.75。该欧洲扩张与元朝中国统一主链无直接奠基关系，保留在第三项。"},
+        "MESOPOTAMIA_CAUCASUS_NETWORK": {"w":1.2,"s":0.0,"e":0.5,"se":0.0,"ee":0.6,"reason":"1238—1239格鲁吉亚、亚美尼亚等南高加索主要节点已受控，但伊拉克尚未进入，复合锚取0.50；该西亚扩张保留在第三项。"}
       },
       "objective_totals": {"start":5.55,"end":9.1,"net":3.55,"weighted":5.77},
-      "cross_item_excluded_net_gain": 3.55,
-      "third_item_effective_result": {"weighted":2.22,"grade":"B1-3","position":"MID","rate":67},
-      "reason": "本人新增的灭金、东夏和西征空间全部去重；铁木真交班5.55边疆库存的40%守成信用仍为2.22，因此最终仍为B1-3 MID。"
+      "cross_item_excluded_net_gain": 1.2,
+      "third_item_effective_result": {"weighted":4.57,"grade":"B1-4","position":"MID","rate":82},
+      "reason": "本人新增中只排除灭金终局形成的东北0.5与淮河边界0.7；东伊朗0.25、钦察—罗斯1.5、南高加索0.6均属元朝中国统一主链之外的帝国扩张，连同铁木真交班库存的40%守成信用，第三项有效加权值4.57，机械落B1-4 MID。"
     },
     {
       "ruler_id": "RULER-YUAN-MONGKE",
@@ -210,8 +210,8 @@
     "records_reviewed": 8,
     "status": "FULLY_CLOSED",
     "legacy_rate_changes": [
-      {"ruler":"铁木真","old_rate":90,"new_rate":0,"cause":"删除无底账支撑的formal override；本任新增由第一项消费"},
-      {"ruler":"窝阔台","old_rate":0,"new_rate":67,"cause":"补回铁木真交班边疆库存；本人新增西征继续跨项去重"},
+      {"ruler":"铁木真","old_rate":90,"new_rate":82,"cause":"按统一前置成果逐对象分流：排除灭夏终局和攻金遗留控制，保留花剌子模、中亚、西亚控制净增"},
+      {"ruler":"窝阔台","old_rate":0,"new_rate":82,"cause":"排除本人灭金终局新增，保留东伊朗、钦察—罗斯和南高加索扩张，并承接铁木真第三项库存"},
       {"ruler":"蒙哥","old_rate":30,"new_rate":89,"cause":"补回钦察—罗斯继承库存、南高加索—两河控制及吐蕃独立净增，并删除高丽六城短占"},
       {"ruler":"忽必烈","old_rate":52,"new_rate":75,"cause":"补回辽东、吐蕃、高丽整体宗主网络"},
       {"ruler":"铁穆耳","old_rate":30,"new_rate":60,"cause":"补全继承库存并按统一锚表达西南真实退控"},
@@ -220,6 +220,6 @@
       {"ruler":"妥懽帖睦尔","old_rate":0,"new_rate":0,"cause":"删除中原/江南核心伪B1对象，改由高丽、吐蕃、西北真实边疆退控压到0"}
     ],
     "remaining_anchor_gap": null,
-    "conclusion": "元/蒙古帝国主链B1已完全闭合，不再保留下限、UNKNOWN或待补空间锚。"
+    "conclusion": "元/蒙古帝国主链B1已按‘是否属于元朝建国/统一主链的不可重复前置成果’逐对象闭合；不再以1206年形式节点整体切分，也不保留下限、UNKNOWN或待补空间锚。"
   }
 }

@@ -39,6 +39,7 @@ from emperor_v4.evaluation.third_item_current_settlement import (
     verify_current_third_item_settlement,
     write_current_third_item_settlement,
 )
+from emperor_v4.evaluation.third_item_b1_settlement import rebuild_third_item_b1
 from emperor_v4.evaluation.third_item_d_settlement import (
     verify_third_item_d_formal_settlement,
 )
@@ -95,6 +96,9 @@ def _parser() -> argparse.ArgumentParser:
     third_current = commands.add_parser("third-item-current-settlement")
     third_current.add_argument("--workspace-root", type=Path, default=Path("."))
     third_current.add_argument("--write", action="store_true")
+    third_b1 = commands.add_parser("third-item-b1-settlement")
+    third_b1.add_argument("--workspace-root", type=Path, default=Path("."))
+    third_b1.add_argument("--write", action="store_true")
     return parser
 
 
@@ -226,6 +230,13 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.command == "third-item-d-verify":
         result = verify_third_item_d_formal_settlement(workspace_root)
         print(json.dumps(result, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "third-item-b1-settlement":
+        print(json.dumps(
+            rebuild_third_item_b1(workspace_root, write=args.write),
+            ensure_ascii=False,
+            indent=2,
+        ))
         return 0
     if args.command == "third-item-current-settlement":
         payload = (

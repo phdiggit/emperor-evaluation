@@ -315,11 +315,14 @@ def audit_record(record: Mapping[str, Any], anchor_payload: Mapping[str, Any]) -
 
     if stored_start is not None and stored_end is not None:
         expected_net = stored_end - stored_start
-        expected_weighted = stored_end - 0.6 * stored_start
+        excluded_weighted = _numeric(
+            record.get("b1_cross_item_excluded_weighted_value")
+        ) or 0.0
+        expected_weighted = stored_end - 0.6 * stored_start - excluded_weighted
         if stored_net is not None and not _close(stored_net, expected_net):
             issues.append(_issue("B1_NET_CHANGE_MISMATCH", "BLOCKER", "net_change不等于end-start。", expected=round(expected_net, 9), stored=stored_net))
         if stored_weighted is not None and not _close(stored_weighted, expected_weighted):
-            issues.append(_issue("B1_WEIGHTED_VALUE_MISMATCH", "BLOCKER", "weighted_value不等于end-0.6×start。", expected=round(expected_weighted, 9), stored=stored_weighted))
+            issues.append(_issue("B1_WEIGHTED_VALUE_MISMATCH", "BLOCKER", "weighted_value不等于end-0.6×start扣除跨项排除值。", expected=round(expected_weighted, 9), stored=stored_weighted, cross_item_excluded=excluded_weighted))
 
     axis = _axis_b1(record)
     grade = str(axis.get("grade") or "")

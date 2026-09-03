@@ -27,7 +27,9 @@
               "start": "A1S3_CONTESTED_BALANCE",
               "trajectory_value": 58,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "北齐受禅时与西魏北周争衡，柔然、突厥、契丹和山胡方向均存风险，起点3档。任内远袭契丹、三路讨山胡并击柔然，北方主要威胁总体受控；西魏北周仍在，终点4档。"
             },
             "A2": {
               "axis_points": 23.2,
@@ -40,7 +42,9 @@
               "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
               "trajectory_value": 58,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "起点河北—河南主要方向可运作，北方草原仍缺少稳定缓冲，为3档。对契丹、山胡的迁置和对柔然部的册立、驻援形成北方纵深，整体防御有效；突厥兴起是明显缺口，终点4档。"
             },
             "B1": {
               "axis_points": 15.0,
@@ -48,9 +52,10 @@
               "grade": "B1-3",
               "rationale": "保守复用高欢交班后东魏边界2.8；高洋对柔然旧部的册立、征调和迁置关系使草原覆盖由0.25升至0.50，新增0.875；交班3.675、净增0.875、加权值1.995，落B1-3 LOW。",
               "raw_net_change": 0.875,
-              "score_rate": 60,
+              "score_rate": 60.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 1.995
+              "weighted_control_value": 1.995,
+              "reason": "规模与控制强度：B1全量重审已确认最终档内率。"
             },
             "B2": {
               "axis_points": 22.5,
@@ -272,7 +277,15 @@
               "start_grade": 3,
               "trajectory_value": 58.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 1.0,
@@ -294,7 +307,15 @@
               "start_grade": 3,
               "trajectory_value": 58.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             }
           },
           "B80_adjudication": {
@@ -306,6 +327,12 @@
             "adjudicated_B2_rate": 75.0,
             "adjudicated_B4_rate": 59.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "CONFIRMED_NORMALIZED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 60.0
           }
         },
         {
@@ -324,7 +351,9 @@
               "start": "A1S4_STABLE_ADVANTAGE",
               "trajectory_value": 26,
               "transition": "WORSENED",
-              "transition_attribution": "MIXED_WITH_INADEQUATE_RESPONSE"
+              "transition_attribution": "MIXED_WITH_INADEQUATE_RESPONSE",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "接班时北齐对北周仍占总体主动，起点4档。任内虽守住晋阳、解洛阳之围，但突厥十万协攻后纵掠晋阳以北七百余里，又两次入长城掠幽州；固定父链明确判定只获区域阶段改善、未改变威胁状态。交班时周、突厥与齐形成相互制衡而非齐方稳定主动，终点3档。"
             },
             "A2": {
               "axis_points": 19.2,
@@ -337,7 +366,9 @@
               "start": "A2S4_OVERALL_SECURE_WITH_GAPS",
               "trajectory_value": 48,
               "transition": "STABLE",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "起点河北、河南与北边的防线、纵深总体有效，为4档。并州、晋阳、洛阳方向在联军压力下完成救援与阻击，体系经受高强度检验；突厥缺口仍在，终点4档。"
             },
             "B1": {
               "axis_points": 11.25,
@@ -345,9 +376,10 @@
               "grade": "B1-2",
               "rationale": "接班与交班均只计河南地—朔方、淮河边疆和北方边郡，共1.925；北方草原整体因无可执行控制且遭突厥大举入侵而排除。净变化0、加权值0.77，机械落B1-2 LOW。",
               "raw_net_change": 0.0,
-              "score_rate": 45,
+              "score_rate": 45.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 0.77
+              "weighted_control_value": 0.77,
+              "reason": "规模与控制强度：B1全量重审已确认最终档内率。"
             },
             "B2": {
               "axis_points": 22.5,
@@ -527,7 +559,8 @@
               "start_grade": 4,
               "trajectory_value": 31.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -537,7 +570,7 @@
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 4,
-              "maintenance_basis": "边界体系确有独立高压运转材料，但不得与A1重复消费同一战果",
+              "maintenance_basis": "边界体系有现实高压运转材料；但同轮压力已造成A1由4降3，且晋阳以北、幽州受掠，不满足历史级整体守成。",
               "maintenance_bonus": 10,
               "maintenance_difficulty": "TESTED",
               "negative_adjustment": 0,
@@ -549,7 +582,8 @@
               "start_grade": 4,
               "trajectory_value": 58.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
@@ -561,6 +595,12 @@
             "adjudicated_B2_rate": 75.0,
             "adjudicated_B4_rate": 82.0,
             "consistency_basis": "B1已排除无实际控制的北方草原整体；B2、B4只评价并州—晋阳和河洛保全，与该空间排除及D负向链不冲突。"
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "CONFIRMED_NORMALIZED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 45.0
           }
         },
         {
@@ -579,7 +619,9 @@
               "start": "A1S3_CONTESTED_BALANCE",
               "trajectory_value": 0,
               "transition": "WORSENED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "即位时北齐刚守住晋阳、洛阳，但突厥已大掠晋阳以北并两次入长城，主要威胁未受稳定控制，按高湛交班锚接续为3档。任内自损军政指挥，平阳—晋阳防线崩溃并亡国，终点0档。"
             },
             "A2": {
               "axis_points": 0.0,
@@ -592,7 +634,9 @@
               "start": "A2S4_OVERALL_SECURE_WITH_GAPS",
               "trajectory_value": 0,
               "transition": "WORSENED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "起点北边、晋阳和河洛防线体系总体有效，为4档。北周进攻时平阳、晋阳、邺城连续崩溃，核心、纵深与指挥枢纽同时归零，终点0档。"
             },
             "B1": {
               "axis_points": 0.0,
@@ -600,9 +644,10 @@
               "grade": "B1-0",
               "rationale": "接班边疆当量校正为1.925，北齐覆亡时交班为0。北周灭齐不计胜方国防收益，但败方客观终点仍执行亡国终局门，B1强制0档LOW。",
               "raw_net_change": -1.925,
-              "score_rate": 0,
+              "score_rate": 0.0,
               "terminal_collapse_override": true,
-              "weighted_control_value": -1.155
+              "weighted_control_value": -1.155,
+              "reason": "规模与控制强度：B1全量重审已确认最终档内率。"
             },
             "B2": {
               "axis_points": 0.0,
@@ -768,7 +813,8 @@
               "start_grade": 3,
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": -4.0,
@@ -790,7 +836,8 @@
               "start_grade": 4,
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
@@ -802,6 +849,12 @@
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "CONFIRMED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 0.0
           }
         }
       ]

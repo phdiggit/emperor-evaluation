@@ -33,7 +33,9 @@
               "start": "A1S2_STRATEGIC_DISADVANTAGE",
               "trajectory_value": 24,
               "transition": "STABLE",
-              "transition_attribution": "MIXED"
+              "transition_attribution": "MIXED",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "统一创业收益隔离后，起点已面对恢复河南故地、控弦三十余万的冒顿匈奴；白登受挫、和亲及持续北患证明交班时仍处战略劣势，南越低成本和解不足以改变首要威胁档。"
             },
             "A2": {
               "axis_points": 9.6,
@@ -46,7 +48,9 @@
               "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
               "trajectory_value": 24,
               "transition": "STABLE",
-              "transition_attribution": "MIXED"
+              "transition_attribution": "MIXED",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "北方边郡和代地存在可守节点，但白登链证明尚无能封闭主要方向的体系；交班前未形成跨档改善。"
             },
             "B1": {
               "axis_points": 9.25,
@@ -54,9 +58,10 @@
               "grade": "B1-1",
               "rationale": "统一核心领土不计；北方边郡实际控制起终均按0.8，入侵未达到边郡整体退控阶梯。",
               "raw_net_change": 0.0,
-              "score_rate": 37,
+              "score_rate": 37.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 0.32
+              "weighted_control_value": 0.32,
+              "reason": "规模与控制强度：数值不变；NORTHERN_FRONTIER规范化。"
             },
             "B2": {
               "axis_points": 22.5,
@@ -81,30 +86,33 @@
           },
           "b1_region_adjudications": [
             {
+              "object_id": "NORTHERN_BORDER_COMMANDERIES",
+              "object_name": "北方边郡与塞防带",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
               "anchors": [
                 "start",
                 "end"
               ],
-              "control_equivalent": 0.8,
-              "control_form": "直接边郡、封国驻军与塞防节点",
               "counted": true,
-              "coverage_factor": 1.0,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.8
+              },
               "evidence_refs": [
                 "WAR-LEAD-HAN-XIONGNU-BAIDENG",
                 "WAR-LEAD-HAN-CHENXI"
               ],
-              "object_id": "NORTHERN_FRONTIER",
-              "object_name": "汉初北方边郡与代地塞防",
-              "reason": "有界推断：史料确认韩王信、陈豨叛乱与匈奴入侵造成战事，但汉在接班、交班锚仍实际控制主要北方边郡；取整体有效1.00阶梯即0.8，不取更低因未见边郡体系永久退出。",
-              "spatial_weight": 0.8
+              "reason": "汉初代、雁门等北方边郡在起终锚均保持实际行政与塞防控制；战争和入侵未形成边郡整体永久退出。"
             }
           ],
           "b1_region_control": {
-            "end": {
-              "NORTHERN_FRONTIER": 0.8
-            },
             "start": {
-              "NORTHERN_FRONTIER": 0.8
+              "NORTHERN_BORDER_COMMANDERIES": 0.8
+            },
+            "end": {
+              "NORTHERN_BORDER_COMMANDERIES": 0.8
             }
           },
           "boundary_stage_excluded_refs": [],
@@ -187,7 +195,8 @@
               "start_grade": 2,
               "trajectory_value": 24.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -209,7 +218,8 @@
               "start_grade": 2,
               "trajectory_value": 24.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
@@ -221,7 +231,14 @@
             "adjudicated_B2_rate": 75.0,
             "adjudicated_B4_rate": 67.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
-          }
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/西汉.json",
+            "final_B1_rate": 37.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT"
         },
         {
           "AB_score_points": 28.45,
@@ -239,7 +256,9 @@
               "start": "A1S2_STRATEGIC_DISADVANTAGE",
               "trajectory_value": 24,
               "transition": "STABLE",
-              "transition_attribution": "SELF_INDUCED_AND_EXTERNAL"
+              "transition_attribution": "SELF_INDUCED_AND_EXTERNAL",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "北方仍受匈奴主导压力；南越禁运、攻长沙和失败远征造成恶化，但至交班尚不足把国家推入更低的全国性安全状态。"
             },
             "A2": {
               "axis_points": 9.6,
@@ -252,7 +271,9 @@
               "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
               "trajectory_value": 24,
               "transition": "STABLE",
-              "transition_attribution": "SELF_INDUCED_AND_EXTERNAL"
+              "transition_attribution": "SELF_INDUCED_AND_EXTERNAL",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "北边可守节点未能阻止两次入寇，南边又有长沙数县受攻；边界存在缺口但未低于局部可守点状态，交班与刘恒接班2档一致。"
             },
             "B1": {
               "axis_points": 9.25,
@@ -260,9 +281,10 @@
               "grade": "B1-1",
               "rationale": "南越普通称臣从未计入B1，关系破裂不重复扣空间；北方边郡0.8仍实际受控。",
               "raw_net_change": 0.0,
-              "score_rate": 37,
+              "score_rate": 37.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 0.32
+              "weighted_control_value": 0.32,
+              "reason": "规模与控制强度：数值不变；旧ID规范化。"
             },
             "B2": {
               "axis_points": 0.0,
@@ -287,44 +309,32 @@
           },
           "b1_region_adjudications": [
             {
+              "object_id": "NORTHERN_BORDER_COMMANDERIES",
+              "object_name": "北方边郡与塞防带",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
               "anchors": [
                 "start",
                 "end"
               ],
-              "control_equivalent": 0.8,
-              "control_form": "直接边郡与塞防节点",
               "counted": true,
-              "coverage_factor": 1.0,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.8
+              },
               "evidence_refs": [
-                "WAR-LEAD-HAN-NORTHERN-BORDER",
-                "https://ctext.org/wiki.pl?chapter=453306&if=gb"
+                "WAR-LEAD-HAN-NORTHERN-BORDER"
               ],
-              "object_id": "NORTHERN_FRONTIER",
-              "object_name": "汉初北方边郡与代地塞防",
-              "reason": "有界推断：高后六七年匈奴寇狄道、掠二千余人证明防务失效，但未载边郡整体退出，仍取整体有效1.00阶梯即0.8；不把人口损失机械折成退地。",
-              "spatial_weight": 0.8
-            },
-            {
-              "anchors": [],
-              "control_equivalent": 0.0,
-              "control_form": "普通称臣与通使，后关系破裂",
-              "counted": false,
-              "coverage_factor": 0.0,
-              "evidence_refs": [
-                "WAR-LEAD-HAN-NANYUE-EMBARGO"
-              ],
-              "object_id": "NANYUE",
-              "object_name": "南越政权",
-              "reason": "高帝时称臣缺少驻军、征调、问罪或任免执行力，本来就不进入B1；关系破裂只进入A1/A2。",
-              "spatial_weight": 0.8
+              "reason": "匈奴入寇证明防务承压，但未见代、雁门等北部边郡整体退出；人口损失不机械折成退地。"
             }
           ],
           "b1_region_control": {
-            "end": {
-              "NORTHERN_FRONTIER": 0.8
-            },
             "start": {
-              "NORTHERN_FRONTIER": 0.8
+              "NORTHERN_BORDER_COMMANDERIES": 0.8
+            },
+            "end": {
+              "NORTHERN_BORDER_COMMANDERIES": 0.8
             }
           },
           "boundary_stage_excluded_refs": [
@@ -403,7 +413,8 @@
               "start_grade": 2,
               "trajectory_value": 4.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -425,7 +436,8 @@
               "start_grade": 2,
               "trajectory_value": 4.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
@@ -437,7 +449,14 @@
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
-          }
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/西汉.json",
+            "final_B1_rate": 37.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT"
         },
         {
           "AB_score_points": 28.45,
@@ -455,7 +474,9 @@
               "start": "A1S2_STRATEGIC_DISADVANTAGE",
               "trajectory_value": 24,
               "transition": "STABLE",
-              "transition_attribution": "REGENT_GOVERNMENT"
+              "transition_attribution": "REGENT_GOVERNMENT",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "承接刘邦交班；白登后和亲未削弱匈奴能力，至惠帝去世仍无外部格局跨档事实。"
             },
             "A2": {
               "axis_points": 9.6,
@@ -468,7 +489,9 @@
               "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
               "trajectory_value": 24,
               "transition": "STABLE",
-              "transition_attribution": "REGENT_GOVERNMENT"
+              "transition_attribution": "REGENT_GOVERNMENT",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "北方边郡可守节点延续，但没有形成闭合主要边界；与吕雉实际掌权窗口的成果不重复归责。"
             },
             "B1": {
               "axis_points": 9.25,
@@ -476,9 +499,10 @@
               "grade": "B1-1",
               "rationale": "北方边郡0.8接交快照维持。",
               "raw_net_change": 0.0,
-              "score_rate": 37,
+              "score_rate": 37.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 0.32
+              "weighted_control_value": 0.32,
+              "reason": "规模与控制强度：数值不变；补齐逐区域账并明确与吕雉的重叠窗口关系。"
             },
             "B2": {
               "axis_points": 0.0,
@@ -503,29 +527,30 @@
           },
           "b1_region_adjudications": [
             {
+              "object_id": "NORTHERN_BORDER_COMMANDERIES",
+              "object_name": "北方边郡与塞防带",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
               "anchors": [
                 "start",
                 "end"
               ],
-              "control_equivalent": 0.8,
-              "control_form": "直接边郡与塞防节点",
               "counted": true,
-              "coverage_factor": 1.0,
-              "evidence_refs": [
-                "HANDOVER-汉-刘邦-刘盈"
-              ],
-              "object_id": "NORTHERN_FRONTIER",
-              "object_name": "汉初北方边郡与代地塞防",
-              "reason": "接班承接刘邦0.8快照；和亲属于非军事计分的外交事实，不能作为B1空间控制证据。",
-              "spatial_weight": 0.8
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.8
+              },
+              "evidence_refs": [],
+              "reason": "国家北方边郡客观存量在本人名义窗口内未见覆盖阶梯变化；军事行动归责不在B1客观快照中重复处理。"
             }
           ],
           "b1_region_control": {
-            "end": {
-              "NORTHERN_FRONTIER": 0.8
-            },
             "start": {
-              "NORTHERN_FRONTIER": 0.8
+              "NORTHERN_BORDER_COMMANDERIES": 0.8
+            },
+            "end": {
+              "NORTHERN_BORDER_COMMANDERIES": 0.8
             }
           },
           "boundary_stage_excluded_refs": [
@@ -593,7 +618,8 @@
               "start_grade": 2,
               "trajectory_value": 24.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -615,7 +641,8 @@
               "start_grade": 2,
               "trajectory_value": 24.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
@@ -627,7 +654,14 @@
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
-          }
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/西汉.json",
+            "final_B1_rate": 37.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT"
         },
         {
           "AB_score_points": 60.9,
@@ -643,7 +677,9 @@
               "end": "A1S2_STRATEGIC_DISADVANTAGE",
               "start": "A1S2_STRATEGIC_DISADVANTAGE",
               "trajectory_value": 24,
-              "transition": "STABLE"
+              "transition": "STABLE",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "主要威胁匈奴仍能反复深入并迫使汉朝被动防御，其压力既未升级到即时存亡危机，也未被显著压低，故A1维持2档。"
             },
             "A2": {
               "axis_points": 9.6,
@@ -654,16 +690,19 @@
               "end": "A2S2_LOCAL_DEFENSIBLE_POINTS",
               "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
               "trajectory_value": 24,
-              "transition": "STABLE"
+              "transition": "STABLE",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "代、雁门、上谷等北方边郡只是分散可守支点，缺少能阻止匈奴深入的连续防线和纵深协同，故A2维持2档。"
             },
             "B1": {
               "axis_points": 9.25,
               "band_position": "MID",
               "grade": "B1-1",
               "raw_net_change": 0.0,
-              "score_rate": 37,
+              "score_rate": 37.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 0.32
+              "weighted_control_value": 0.32,
+              "reason": "规模与控制强度：数值不变；补齐逐区域账。"
             },
             "B2": {
               "axis_points": 17.7,
@@ -686,13 +725,37 @@
             "start": 0.8,
             "weighted_value": 0.32
           },
-          "b1_region_adjudications": [],
+          "b1_region_adjudications": [
+            {
+              "object_id": "NORTHERN_BORDER_COMMANDERIES",
+              "object_name": "北方边郡与塞防带",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.8
+              },
+              "evidence_refs": [
+                "WAR-LEAD-HAN-XIONGNU-158",
+                "WAR-LEAD-HAN-XIONGNU-162",
+                "WAR-LEAD-HAN-XIONGNU-166",
+                "WAR-LEAD-HAN-XIONGNU-177"
+              ],
+              "reason": "反复入侵说明安全态势未改善，但未闭合为北方边郡整体永久退控；B1维持1.00覆盖。"
+            }
+          ],
           "b1_region_control": {
-            "end": {
-              "NORTHERN_FRONTIER": 0.8
-            },
             "start": {
-              "NORTHERN_FRONTIER": 0.8
+              "NORTHERN_BORDER_COMMANDERIES": 0.8
+            },
+            "end": {
+              "NORTHERN_BORDER_COMMANDERIES": 0.8
             }
           },
           "boundary_stage_excluded_refs": [],
@@ -768,7 +831,8 @@
               "start_grade": 2,
               "trajectory_value": 24.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -790,7 +854,8 @@
               "start_grade": 2,
               "trajectory_value": 24.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
@@ -802,7 +867,15 @@
             "adjudicated_B2_rate": 59.0,
             "adjudicated_B4_rate": 59.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
-          }
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/西汉.json",
+            "final_B1_rate": 37.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "汉朝北方边郡继续存在，但匈奴反复深入，文帝窗口没有形成结构性反攻成果。"
         },
         {
           "AB_score_points": 28.45,
@@ -818,7 +891,9 @@
               "end": "A1S2_STRATEGIC_DISADVANTAGE",
               "start": "A1S2_STRATEGIC_DISADVANTAGE",
               "trajectory_value": 24,
-              "transition": "STABLE"
+              "transition": "STABLE",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "主要威胁匈奴仍掌握边境主动且汉朝缺少有效反击，压力同档内恶化但未达到即时国家级危机，故A1维持2档。"
             },
             "A2": {
               "axis_points": 9.6,
@@ -829,16 +904,19 @@
               "end": "A2S2_LOCAL_DEFENSIBLE_POINTS",
               "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
               "trajectory_value": 24,
-              "transition": "STABLE"
+              "transition": "STABLE",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "北方边郡仍能局部防守，却不能阻止匈奴穿透或形成相互支援的主要边界体系，故A2维持2档。"
             },
             "B1": {
               "axis_points": 9.25,
               "band_position": "MID",
               "grade": "B1-1",
               "raw_net_change": 0.0,
-              "score_rate": 37,
+              "score_rate": 37.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 0.32
+              "weighted_control_value": 0.32,
+              "reason": "规模与控制强度：数值不变；补齐逐区域账。"
             },
             "B2": {
               "axis_points": 0.0,
@@ -861,13 +939,34 @@
             "start": 0.8,
             "weighted_value": 0.32
           },
-          "b1_region_adjudications": [],
+          "b1_region_adjudications": [
+            {
+              "object_id": "NORTHERN_BORDER_COMMANDERIES",
+              "object_name": "北方边郡与塞防带",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.8
+              },
+              "evidence_refs": [
+                "WAR-LEAD-HAN-XIONGNU-152-142"
+              ],
+              "reason": "多年匈奴入侵构成A轴恶化，但没有形成代、雁门、上谷等既有北方边郡的覆盖阶梯退出。"
+            }
+          ],
           "b1_region_control": {
-            "end": {
-              "NORTHERN_FRONTIER": 0.8
-            },
             "start": {
-              "NORTHERN_FRONTIER": 0.8
+              "NORTHERN_BORDER_COMMANDERIES": 0.8
+            },
+            "end": {
+              "NORTHERN_BORDER_COMMANDERIES": 0.8
             }
           },
           "boundary_stage_excluded_refs": [],
@@ -930,7 +1029,8 @@
               "start_grade": 2,
               "trajectory_value": 14.0,
               "within_band_deterioration_basis": "三条匈奴边境EN1合并，虽无耐久失地仍构成连续档内恶化",
-              "within_band_deterioration_penalty": 10
+              "within_band_deterioration_penalty": 10,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -952,7 +1052,8 @@
               "start_grade": 2,
               "trajectory_value": 24.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
@@ -964,10 +1065,18 @@
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
-          }
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/西汉.json",
+            "final_B1_rate": 37.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "本人承接文帝交班状态，匈奴继续多年入侵；七国之乱平定只恢复内地原控制。"
         },
         {
-          "AB_score_points": 121.9,
+          "AB_score_points": 122.15,
           "adjudication_status": "REVIEWED",
           "ambiguous_event_refs": [],
           "axes": {
@@ -980,7 +1089,9 @@
               "end": "A1S4_STABLE_ADVANTAGE",
               "start": "A1S2_STRATEGIC_DISADVANTAGE",
               "trajectory_value": 68,
-              "transition": "IMPROVED"
+              "transition": "IMPROVED",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "主要威胁匈奴的南下和支配能力被大幅压低，汉朝由战略被动转为稳定主动；匈奴主体仍存，故A1由2档升至4档。"
             },
             "A2": {
               "axis_points": 27.2,
@@ -991,16 +1102,19 @@
               "end": "A2S4_OVERALL_SECURE_WITH_GAPS",
               "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
               "trajectory_value": 68,
-              "transition": "IMPROVED"
+              "transition": "IMPROVED",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "河西走廊、北方边郡与西域通道形成新的门户和纵深，南越、朝鲜方向亦设治；远域脆弱且北方仍有缺口，故A2由2档升至4档。"
             },
             "B1": {
-              "axis_points": 18.5,
-              "band_position": "HIGH",
-              "grade": "B1-3",
-              "raw_net_change": 2.2,
-              "score_rate": 74,
+              "axis_points": 18.75,
+              "band_position": "LOW",
+              "grade": "B1-4",
+              "raw_net_change": 3.0,
+              "score_rate": 75.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 2.52
+              "weighted_control_value": 3.32,
+              "reason": "规模与控制强度：重大修正：旧end 3.0→3.8，net 2.2→3.0，weighted 2.52→3.32；B1-3 HIGH(74)→B1-4 LOW(75)。"
             },
             "B2": {
               "axis_points": 28.5,
@@ -1018,113 +1132,147 @@
             }
           },
           "b1_control_equivalents": {
-            "end": 3.0,
-            "net_change": 2.2,
+            "end": 3.8,
+            "net_change": 3.0,
             "start": 0.8,
-            "weighted_value": 2.52
+            "weighted_value": 3.32
           },
           "b1_region_adjudications": [
             {
-              "region_id": "NORTHERN_FRONTIER",
-              "region_name": "北部接班边防",
-              "spatial_weight": 0.8,
-              "start_equivalent": 0.8,
-              "end_equivalent": 0.0,
-              "start_coverage": 1.0,
-              "end_coverage": 0.0,
-              "control_form": "HANDOVER_REUSED",
-              "reason": "接班快照。",
-              "source_refs": [
-                "HANDOVER-汉-刘启-刘彻"
-              ],
-              "evidence_status": "CLOSED"
-            },
-            {
-              "region_id": "HAN_HENAN_SHUOFANG",
-              "region_name": "河南—朔方",
+              "object_id": "HENAN_SHUOFANG_CORRIDOR",
+              "object_name": "河南地—朔方走廊",
               "spatial_weight": 0.6,
-              "start_equivalent": 0.0,
-              "end_equivalent": 0.6,
               "start_coverage": 0.0,
               "end_coverage": 1.0,
-              "control_form": "NEW_RECOVERED_REBUILT",
-              "reason": "河南朔方军政控制。",
-              "source_refs": [
-                "docs/公共成果/军事/03-军事行动成本和收益登记/ancient_sui.json#HAN-HENAN-SHUFANG"
+              "anchors": [
+                "start",
+                "end"
               ],
-              "evidence_status": "CLOSED"
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.0,
+                "end": 0.6
+              },
+              "evidence_refs": [
+                "WAR-LEAD-HAN-HENAN-SHUFANG"
+              ],
+              "reason": "河南地—朔方新增军政控制完整形成，取1.00；与既有北方边郡锚按实际地理边界拆分，不重复。"
             },
             {
-              "region_id": "LINGNAN_SOUTH",
-              "region_name": "岭南南部",
+              "object_id": "HEXI_LONGYOU_CORRIDOR",
+              "object_name": "河西—陇右走廊",
               "spatial_weight": 0.8,
-              "start_equivalent": 0.0,
-              "end_equivalent": 0.8,
               "start_coverage": 0.0,
               "end_coverage": 1.0,
-              "control_form": "NEW_RECOVERED_REBUILT",
-              "reason": "南越终结后的郡县控制。",
-              "source_refs": [
-                "docs/史料通读产物/唐以前编年/汉/卷019-通读总结.md#WAR-LEAD-HAN-NANYUE-112-111"
+              "anchors": [
+                "start",
+                "end"
               ],
-              "evidence_status": "CLOSED"
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.0,
+                "end": 0.8
+              },
+              "evidence_refs": [
+                "WAR-LEAD-HAN-HEXICORRIDOR-121",
+                "WAR-LEAD-HAN-WESTERN-ROUTE-111"
+              ],
+              "reason": "河西走廊形成持续军政与交通控制，取1.00。"
             },
             {
-              "region_id": "NORTHEAST_KOREA",
-              "region_name": "朝鲜东北节点",
+              "object_id": "KOREA_HAN_COMMANDERIES",
+              "object_name": "朝鲜故地汉郡体系",
               "spatial_weight": 0.3,
-              "start_equivalent": 0.0,
-              "end_equivalent": 0.3,
               "start_coverage": 0.0,
               "end_coverage": 1.0,
-              "control_form": "NEW_RECOVERED_REBUILT",
-              "reason": "朝鲜战争后的郡县节点。",
-              "source_refs": [
-                "docs/史料通读产物/唐以前编年/汉/卷019-通读总结.md#WAR-LEAD-HAN-CHAOXIAN-109-108"
+              "anchors": [
+                "start",
+                "end"
               ],
-              "evidence_status": "CLOSED"
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.0,
+                "end": 0.3
+              },
+              "evidence_refs": [
+                "WAR-LEAD-HAN-CHAOXIAN-109-108"
+              ],
+              "reason": "灭卫氏朝鲜后设置汉郡，按小范围直接控制锚0.3计。"
             },
             {
-              "region_id": "NORTHWEST_HEXI",
-              "region_name": "河西走廊",
+              "object_id": "LINGNAN_FRONTIER",
+              "object_name": "岭南边疆控制带",
               "spatial_weight": 0.8,
-              "start_equivalent": 0.0,
-              "end_equivalent": 0.8,
               "start_coverage": 0.0,
               "end_coverage": 1.0,
-              "control_form": "NEW_RECOVERED_REBUILT",
-              "reason": "河西军政走廊。",
-              "source_refs": [
-                "docs/史料通读产物/唐以前编年/汉/卷019-通读总结.md#WAR-LEAD-HAN-HEXICORRIDOR-121"
+              "anchors": [
+                "start",
+                "end"
               ],
-              "evidence_status": "CLOSED"
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.0,
+                "end": 0.8
+              },
+              "evidence_refs": [
+                "WAR-LEAD-HAN-NANYUE-112-111"
+              ],
+              "reason": "南越终结后形成直接郡县控制；本西汉连续链沿用岭南边疆0.8统一口径。"
             },
             {
-              "region_id": "SOUTHWEST",
-              "region_name": "西南郡县与属部",
+              "object_id": "NORTHERN_BORDER_COMMANDERIES",
+              "object_name": "北方边郡与塞防带",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.8
+              },
+              "evidence_refs": [
+                "WAR-LEAD-HAN-NORTHERN-FORTS-104-102",
+                "WAR-LEAD-HAN-SHUOFANG-87"
+              ],
+              "reason": "旧账把既有北方边郡在end直接归零不成立。河南—朔方向外新增后，代、雁门、上谷等既有北部边郡仍实际存在并承担塞防；本锚明确不含新增河南—朔方走廊，因此可与后者并计。"
+            },
+            {
+              "object_id": "SOUTHWEST_FRONTIER",
+              "object_name": "西南边疆主要控制空间",
               "spatial_weight": 0.5,
-              "start_equivalent": 0.0,
-              "end_equivalent": 0.5,
               "start_coverage": 0.0,
               "end_coverage": 1.0,
-              "control_form": "NEW_RECOVERED_REBUILT",
-              "reason": "按现有保守区域快照；匈奴败亡不转草原控制。",
-              "source_refs": [
-                "docs/公共成果/军事/03-军事行动成本和收益登记/ancient_sui.json#HAN-SOUTHWEST-109-105"
+              "anchors": [
+                "start",
+                "end"
               ],
-              "evidence_status": "BOUNDED"
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.0,
+                "end": 0.5
+              },
+              "evidence_refs": [
+                "WAR-LEAD-HAN-SOUTHWEST-109-105",
+                "WAR-LEAD-HAN-SOUTHWEST-111"
+              ],
+              "reason": "西南夷主要郡县与属部控制形成，按统一0.5锚整体计，不按郡数拆分。"
             }
           ],
           "b1_region_control": {
-            "end": {
-              "HAN_HENAN_SHUOFANG": 0.6,
-              "LINGNAN_SOUTH": 0.8,
-              "NORTHEAST_KOREA": 0.3,
-              "NORTHWEST_HEXI": 0.8,
-              "SOUTHWEST": 0.5
-            },
             "start": {
-              "NORTHERN_FRONTIER": 0.8
+              "NORTHERN_BORDER_COMMANDERIES": 0.8
+            },
+            "end": {
+              "HENAN_SHUOFANG_CORRIDOR": 0.6,
+              "HEXI_LONGYOU_CORRIDOR": 0.8,
+              "KOREA_HAN_COMMANDERIES": 0.3,
+              "LINGNAN_FRONTIER": 0.8,
+              "NORTHERN_BORDER_COMMANDERIES": 0.8,
+              "SOUTHWEST_FRONTIER": 0.5
             }
           },
           "boundary_stage_excluded_refs": [],
@@ -1220,8 +1368,8 @@
           "A120_non_cost_anchor_points": 51.6,
           "A120_positive_result_credit_points": 24.0,
           "A120_score_points": 75.6,
-          "B80_score_points": 63.15,
-          "AB200_score_points": 138.75,
+          "B80_score_points": 63.57,
+          "AB200_score_points": 139.17,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 2.0,
@@ -1243,7 +1391,21 @@
               "start_grade": 2,
               "trajectory_value": 58.0,
               "within_band_deterioration_basis": "后期匈奴主链EN2，威胁态势档内恶化",
-              "within_band_deterioration_penalty": 10
+              "within_band_deterioration_penalty": 10,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 1.0,
+                  "basis": "材料门后按人物窗口逐段裁决"
+                },
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "材料门后按人物窗口逐段裁决"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 2.0,
@@ -1265,19 +1427,41 @@
               "start_grade": 2,
               "trajectory_value": 68.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 1.0,
+                  "basis": "材料门后按人物窗口逐段裁决"
+                },
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "材料门后按人物窗口逐段裁决"
+                }
+              ]
             }
           },
           "B80_adjudication": {
-            "B80_points": 63.15,
-            "formal_B1_rate": 74.0,
+            "B80_points": 63.57,
+            "formal_B1_rate": 75.0,
             "formal_B2_rate": 95.0,
             "formal_B4_rate": 82.0,
-            "adjudicated_B1_rate": 74.0,
+            "adjudicated_B1_rate": 75.0,
             "adjudicated_B2_rate": 95.0,
             "adjudicated_B4_rate": 82.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
-          }
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/西汉.json",
+            "final_B1_rate": 75.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "对匈奴长期战争与河西、南越、朝鲜等方向扩展共同重塑汉朝安全格局。"
         },
         {
           "AB_score_points": 130.25,
@@ -1293,7 +1477,9 @@
               "end": "A1S5_DOMINANT_ORDER",
               "start": "A1S4_STABLE_ADVANTAGE",
               "trajectory_value": 70,
-              "transition": "IMPROVED"
+              "transition": "IMPROVED",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "主要威胁匈奴发生分裂，呼韩邪归附使其难再主导北方安全，汉朝形成结构性主导秩序，故A1由4档升至5档。"
             },
             "A2": {
               "axis_points": 28.0,
@@ -1304,16 +1490,19 @@
               "end": "A2S5_SECURE_STRATEGIC_SYSTEM",
               "start": "A2S4_OVERALL_SECURE_WITH_GAPS",
               "trajectory_value": 70,
-              "transition": "IMPROVED"
+              "transition": "IMPROVED",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "西域都护把河西—西域交通、驻防和属国关系纳入常态体系，北方与西域主要方向形成稳定纵深，故A2由4档升至5档。"
             },
             "B1": {
               "axis_points": 20.5,
               "band_position": "MID",
               "grade": "B1-4",
               "raw_net_change": 3.0,
-              "score_rate": 82,
+              "score_rate": 82.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 4.2
+              "weighted_control_value": 4.52,
+              "reason": "规模与控制强度：承接武帝遗漏修正：start 3.0→3.8，end 6.0→6.8，weighted 4.20→4.52；档位与得分率不变。"
             },
             "B2": {
               "axis_points": 30.0,
@@ -1331,161 +1520,179 @@
             }
           },
           "b1_control_equivalents": {
-            "end": 6.0,
+            "end": 6.8,
             "net_change": 3.0,
-            "start": 3.0,
-            "weighted_value": 4.2
+            "start": 3.8,
+            "weighted_value": 4.52
           },
           "b1_region_adjudications": [
             {
+              "object_id": "HENAN_SHUOFANG_CORRIDOR",
+              "object_name": "河南地—朔方走廊",
+              "spatial_weight": 0.6,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
               "anchors": [
                 "start",
                 "end"
               ],
-              "control_equivalent": 0.8,
-              "control_form": "直接郡县、屯戍与交通体系",
               "counted": true,
-              "coverage_factor": 1.0,
-              "evidence_refs": [
-                "WAR-LEAD-HAN-HEXICORRIDOR-121",
-                "WAR-LEAD-HAN-WESTERN-ROUTE-111"
-              ],
-              "object_id": "NORTHWEST_HEXI",
-              "object_name": "河西四郡与走廊",
-              "reason": "空间基准0.8×直接控制1.0；武帝时取得，宣帝继承。",
-              "spatial_weight": 0.8
+              "control_equivalent": {
+                "start": 0.6,
+                "end": 0.6
+              },
+              "evidence_refs": [],
+              "reason": "河南—朔方直接控制连续维持。"
             },
             {
+              "object_id": "HEXI_LONGYOU_CORRIDOR",
+              "object_name": "河西—陇右走廊",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
               "anchors": [
                 "start",
                 "end"
               ],
-              "control_equivalent": 0.6,
-              "control_form": "直接郡县、塞防与移民体系",
               "counted": true,
-              "coverage_factor": 1.0,
-              "evidence_refs": [
-                "WAR-LEAD-HAN-HENAN-SHUFANG"
-              ],
-              "object_id": "HAN_HENAN_SHUOFANG",
-              "object_name": "河南地—朔方郡",
-              "reason": "空间基准0.6×直接控制1.0；武帝取得，宣帝继承。",
-              "spatial_weight": 0.6
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.8
+              },
+              "evidence_refs": [],
+              "reason": "河西四郡与走廊连续维持。"
             },
             {
-              "anchors": [
-                "start",
-                "end"
-              ],
-              "control_equivalent": 0.3,
-              "control_form": "灭卫氏朝鲜后设置郡县",
-              "counted": true,
-              "coverage_factor": 1.0,
-              "evidence_refs": [
-                "WAR-LEAD-HAN-CHAOXIAN-109-108"
-              ],
-              "object_id": "NORTHEAST_KOREA",
+              "object_id": "KOREA_HAN_COMMANDERIES",
               "object_name": "朝鲜故地汉郡体系",
-              "reason": "空间基准0.3×直接控制1.0；不把四郡逐郡累加。",
-              "spatial_weight": 0.3
-            },
-            {
+              "spatial_weight": 0.3,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
               "anchors": [
                 "start",
                 "end"
               ],
-              "control_equivalent": 0.5,
-              "control_form": "郡县、属国与局部羁縻并存",
               "counted": true,
-              "coverage_factor": 1.0,
-              "evidence_refs": [
-                "WAR-LEAD-HAN-SOUTHWEST-109-105",
-                "WAR-LEAD-HAN-SOUTHWEST-111"
-              ],
-              "object_id": "SOUTHWEST",
-              "object_name": "西南夷郡县与属国体系",
-              "reason": "统一空间基准0.5；区域内部强弱合并，不按郡数拆分。",
-              "spatial_weight": 0.5
+              "control_equivalent": {
+                "start": 0.3,
+                "end": 0.3
+              },
+              "evidence_refs": [],
+              "reason": "朝鲜汉郡体系维持。"
             },
             {
+              "object_id": "LINGNAN_FRONTIER",
+              "object_name": "岭南边疆控制带",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
               "anchors": [
                 "start",
                 "end"
               ],
-              "control_equivalent": 0.8,
-              "control_form": "灭南越后九郡直接统治，含跨海延伸",
               "counted": true,
-              "coverage_factor": 1.0,
-              "evidence_refs": [
-                "WAR-LEAD-HAN-NANYUE-112-111",
-                "WAR-LEAD-HAN-ZHUYAI-52-46"
-              ],
-              "object_id": "LINGNAN_SOUTH",
-              "object_name": "南越故地岭南诸郡及珠崖",
-              "reason": "空间基准0.8×直接控制1.0；宣帝终点尚未罢珠崖。",
-              "spatial_weight": 0.8
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.8
+              },
+              "evidence_refs": [],
+              "reason": "宣帝交班前珠崖尚未罢弃，维持1.00。"
             },
             {
+              "object_id": "NORTHERN_BORDER_COMMANDERIES",
+              "object_name": "北方边郡与塞防带",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
               "anchors": [
+                "start",
                 "end"
               ],
-              "control_equivalent": 2.0,
-              "control_form": "乌垒西域都护及属国军事行政网络",
               "counted": true,
-              "coverage_factor": 1.0,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.8
+              },
+              "evidence_refs": [],
+              "reason": "既有北方边郡连续维持，无跨覆盖阶梯退控。"
+            },
+            {
+              "object_id": "SOUTHWEST_FRONTIER",
+              "object_name": "西南边疆主要控制空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.5
+              },
+              "evidence_refs": [],
+              "reason": "西南郡县与属部体系维持。"
+            },
+            {
+              "object_id": "WESTERN_REGIONS_WHOLE",
+              "object_name": "西域整体",
+              "spatial_weight": 2.0,
+              "start_coverage": 0.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.0,
+                "end": 2.0
+              },
               "evidence_refs": [
                 "DEF-LEAD-HAN-WESTERN-PROTECTORATE-60"
               ],
-              "object_id": "WESTERN_REGIONS",
-              "object_name": "西域南北道三十六国",
-              "reason": "达到实际受控门槛，按西域整体空间基准2.0计；制度成熟度另入B4。",
-              "spatial_weight": 2.0
+              "reason": "西域南北道主要制度节点闭合并达到实际受控门，按整体2.0计。"
             },
             {
+              "object_id": "XIONGNU_VASSAL_SPACE",
+              "object_name": "匈奴可执行属部空间",
+              "spatial_weight": 1.0,
+              "start_coverage": 0.0,
+              "end_coverage": 1.0,
               "anchors": [
+                "start",
                 "end"
               ],
-              "control_equivalent": 1.0,
-              "control_form": "送子入侍、称臣朝见、汉军驻援与粮援的属国",
               "counted": true,
-              "coverage_factor": 1.0,
+              "control_equivalent": {
+                "start": 0.0,
+                "end": 1.0
+              },
               "evidence_refs": [
                 "DEF-LEAD-HAN-XIONGNU-GARRISON-58-49"
               ],
-              "object_id": "HAN_HUHHANYE_VASSAL",
-              "object_name": "呼韩邪所部匈奴",
-              "reason": "呼韩邪所部达到可执行宗主权门槛，按其实际属部空间基准1.0计；郅支仍独立，不把整个匈奴地图算给汉。",
-              "spatial_weight": 1.0
-            },
-            {
-              "anchors": [],
-              "control_equivalent": 0.0,
-              "control_form": "盟国、和亲及分立影响",
-              "counted": false,
-              "coverage_factor": 0.0,
-              "evidence_refs": [],
-              "object_id": "HAN_WUSUN",
-              "object_name": "乌孙",
-              "reason": "关系反复且汉不能稳定决定其继承，不单列控制区域；相关影响已包含在西域网络而不重复。",
-              "spatial_weight": 0.0
+              "reason": "呼韩邪所部达到可执行宗主权门槛；只计该属部空间，不把整个匈奴草原算给汉。"
             }
           ],
           "b1_region_control": {
-            "end": {
-              "HAN_HENAN_SHUOFANG": 0.6,
-              "HAN_HUHHANYE_VASSAL": 1.0,
-              "LINGNAN_SOUTH": 0.8,
-              "NORTHEAST_KOREA": 0.3,
-              "NORTHWEST_HEXI": 0.8,
-              "SOUTHWEST": 0.5,
-              "WESTERN_REGIONS": 2.0
-            },
             "start": {
-              "HAN_HENAN_SHUOFANG": 0.6,
-              "LINGNAN_SOUTH": 0.8,
-              "NORTHEAST_KOREA": 0.3,
-              "NORTHWEST_HEXI": 0.8,
-              "SOUTHWEST": 0.5
+              "HENAN_SHUOFANG_CORRIDOR": 0.6,
+              "HEXI_LONGYOU_CORRIDOR": 0.8,
+              "KOREA_HAN_COMMANDERIES": 0.3,
+              "LINGNAN_FRONTIER": 0.8,
+              "NORTHERN_BORDER_COMMANDERIES": 0.8,
+              "SOUTHWEST_FRONTIER": 0.5
+            },
+            "end": {
+              "HENAN_SHUOFANG_CORRIDOR": 0.6,
+              "HEXI_LONGYOU_CORRIDOR": 0.8,
+              "KOREA_HAN_COMMANDERIES": 0.3,
+              "LINGNAN_FRONTIER": 0.8,
+              "NORTHERN_BORDER_COMMANDERIES": 0.8,
+              "SOUTHWEST_FRONTIER": 0.5,
+              "WESTERN_REGIONS_WHOLE": 2.0,
+              "XIONGNU_VASSAL_SPACE": 1.0
             }
           },
           "boundary_stage_excluded_refs": [],
@@ -1559,7 +1766,15 @@
               "start_grade": 4,
               "trajectory_value": 65.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 4,
+                  "to_grade": 5,
+                  "credit": 0.5,
+                  "basis": "材料门后按人物窗口逐段裁决"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 0.5,
@@ -1581,7 +1796,15 @@
               "start_grade": 4,
               "trajectory_value": 65.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 4,
+                  "to_grade": 5,
+                  "credit": 0.5,
+                  "basis": "材料门后按人物窗口逐段裁决"
+                }
+              ]
             }
           },
           "B80_adjudication": {
@@ -1593,10 +1816,18 @@
             "adjudicated_B2_rate": 100.0,
             "adjudicated_B4_rate": 95.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
-          }
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/西汉.json",
+            "final_B1_rate": 82.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "本人承接武帝以后高位格局，新设西域都护并形成对呼韩邪所部的可执行宗主关系。"
         },
         {
-          "AB_score_points": 97.2,
+          "AB_score_points": 98.95,
           "adjudication_status": "REVIEWED",
           "ambiguous_event_refs": [],
           "axes": {
@@ -1609,7 +1840,9 @@
               "end": "A1S5_DOMINANT_ORDER",
               "start": "A1S5_DOMINANT_ORDER",
               "trajectory_value": 60,
-              "transition": "STABLE"
+              "transition": "STABLE",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "主要威胁匈奴继续处于分裂和受制状态，郅支覆亡进一步维持汉朝主导，故A1保持5档。"
             },
             "A2": {
               "axis_points": 24.0,
@@ -1620,16 +1853,19 @@
               "end": "A2S5_SECURE_STRATEGIC_SYSTEM",
               "start": "A2S5_SECURE_STRATEGIC_SYSTEM",
               "trajectory_value": 60,
-              "transition": "STABLE"
+              "transition": "STABLE",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "北方—西域战略体系仍完整运作，呼韩邪关系与都护网络延续；珠崖局部退控不构成全国主要方向结构缺口，故A2保持5档。"
             },
             "B1": {
-              "axis_points": 16.75,
-              "band_position": "MID",
+              "axis_points": 18.5,
+              "band_position": "HIGH",
               "grade": "B1-3",
               "raw_net_change": -0.2,
-              "score_rate": 67,
+              "score_rate": 74.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 2.2
+              "weighted_control_value": 2.52,
+              "reason": "规模与控制强度：承接北方边郡遗漏修正：start 6.0→6.8，end 5.8→6.6，weighted 2.20→2.52；B1-3 MID(67)→HIGH(74)。"
             },
             "B2": {
               "axis_points": 17.7,
@@ -1647,30 +1883,181 @@
             }
           },
           "b1_control_equivalents": {
-            "end": 5.8,
+            "end": 6.6,
             "net_change": -0.2,
-            "start": 6.0,
-            "weighted_value": 2.2
+            "start": 6.8,
+            "weighted_value": 2.52
           },
-          "b1_region_adjudications": [],
-          "b1_region_control": {
-            "end": {
-              "HAN_HENAN_SHUOFANG": 0.6,
-              "HAN_HUHHANYE_VASSAL": 1.0,
-              "LINGNAN_SOUTH": 0.6,
-              "NORTHEAST_KOREA": 0.3,
-              "NORTHWEST_HEXI": 0.8,
-              "SOUTHWEST": 0.5,
-              "WESTERN_REGIONS": 2.0
+          "b1_region_adjudications": [
+            {
+              "object_id": "HENAN_SHUOFANG_CORRIDOR",
+              "object_name": "河南地—朔方走廊",
+              "spatial_weight": 0.6,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.6,
+                "end": 0.6
+              },
+              "evidence_refs": [],
+              "reason": "直接郡县与塞防体系维持。"
             },
+            {
+              "object_id": "HEXI_LONGYOU_CORRIDOR",
+              "object_name": "河西—陇右走廊",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.8
+              },
+              "evidence_refs": [],
+              "reason": "河西走廊维持。"
+            },
+            {
+              "object_id": "KOREA_HAN_COMMANDERIES",
+              "object_name": "朝鲜故地汉郡体系",
+              "spatial_weight": 0.3,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.3,
+                "end": 0.3
+              },
+              "evidence_refs": [],
+              "reason": "汉郡体系维持。"
+            },
+            {
+              "object_id": "LINGNAN_FRONTIER",
+              "object_name": "岭南边疆控制带",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 0.75,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.6
+              },
+              "evidence_refs": [
+                "WAR-LEAD-HAN-ZHUYAI-52-46"
+              ],
+              "reason": "珠崖罢郡形成明确局部退控，但岭南主要郡县仍有效；由1.00降至0.75。"
+            },
+            {
+              "object_id": "NORTHERN_BORDER_COMMANDERIES",
+              "object_name": "北方边郡与塞防带",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.8
+              },
+              "evidence_refs": [],
+              "reason": "既有北方边郡持续受控。"
+            },
+            {
+              "object_id": "SOUTHWEST_FRONTIER",
+              "object_name": "西南边疆主要控制空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.5
+              },
+              "evidence_refs": [],
+              "reason": "西南体系维持。"
+            },
+            {
+              "object_id": "WESTERN_REGIONS_WHOLE",
+              "object_name": "西域整体",
+              "spatial_weight": 2.0,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 2.0,
+                "end": 2.0
+              },
+              "evidence_refs": [
+                "WAR-LEAD-HAN-ZHIZHI-44-36"
+              ],
+              "reason": "西域都护网络仍有效，郅支方向变化未造成整体覆盖下降。"
+            },
+            {
+              "object_id": "XIONGNU_VASSAL_SPACE",
+              "object_name": "匈奴可执行属部空间",
+              "spatial_weight": 1.0,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 1.0,
+                "end": 1.0
+              },
+              "evidence_refs": [],
+              "reason": "呼韩邪系可执行属国关系在本任未见失效。"
+            }
+          ],
+          "b1_region_control": {
             "start": {
-              "HAN_HENAN_SHUOFANG": 0.6,
-              "HAN_HUHHANYE_VASSAL": 1.0,
-              "LINGNAN_SOUTH": 0.8,
-              "NORTHEAST_KOREA": 0.3,
-              "NORTHWEST_HEXI": 0.8,
-              "SOUTHWEST": 0.5,
-              "WESTERN_REGIONS": 2.0
+              "HENAN_SHUOFANG_CORRIDOR": 0.6,
+              "HEXI_LONGYOU_CORRIDOR": 0.8,
+              "KOREA_HAN_COMMANDERIES": 0.3,
+              "LINGNAN_FRONTIER": 0.8,
+              "NORTHERN_BORDER_COMMANDERIES": 0.8,
+              "SOUTHWEST_FRONTIER": 0.5,
+              "WESTERN_REGIONS_WHOLE": 2.0,
+              "XIONGNU_VASSAL_SPACE": 1.0
+            },
+            "end": {
+              "HENAN_SHUOFANG_CORRIDOR": 0.6,
+              "HEXI_LONGYOU_CORRIDOR": 0.8,
+              "KOREA_HAN_COMMANDERIES": 0.3,
+              "LINGNAN_FRONTIER": 0.6,
+              "NORTHERN_BORDER_COMMANDERIES": 0.8,
+              "SOUTHWEST_FRONTIER": 0.5,
+              "WESTERN_REGIONS_WHOLE": 2.0,
+              "XIONGNU_VASSAL_SPACE": 1.0
             }
           },
           "boundary_stage_excluded_refs": [],
@@ -1713,8 +2100,8 @@
           "A120_non_cost_anchor_points": 66.0,
           "A120_positive_result_credit_points": 0.0,
           "A120_score_points": 66.0,
-          "B80_score_points": 44.48,
-          "AB200_score_points": 110.48,
+          "B80_score_points": 47.18,
+          "AB200_score_points": 113.18,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 0.0,
@@ -1736,7 +2123,8 @@
               "start_grade": 5,
               "trajectory_value": 60.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -1758,22 +2146,31 @@
               "start_grade": 5,
               "trajectory_value": 50.0,
               "within_band_deterioration_basis": "珠崖直接郡县控制撤销形成EN2",
-              "within_band_deterioration_penalty": 10
+              "within_band_deterioration_penalty": 10,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
-            "B80_points": 44.48,
-            "formal_B1_rate": 67.0,
+            "B80_points": 47.18,
+            "formal_B1_rate": 74.0,
             "formal_B2_rate": 59.0,
             "formal_B4_rate": 59.0,
-            "adjudicated_B1_rate": 67.0,
+            "adjudicated_B1_rate": 74.0,
             "adjudicated_B2_rate": 59.0,
             "adjudicated_B4_rate": 59.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
-          }
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/西汉.json",
+            "final_B1_rate": 74.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "本人承接宣帝交班的主导秩序，郅支覆亡、呼韩邪关系延续，同时发生珠崖罢郡。"
         },
         {
-          "AB_score_points": 77.85,
+          "AB_score_points": 79.6,
           "adjudication_status": "REVIEWED",
           "ambiguous_event_refs": [
             "WAR-LEAD-HAN-WUSUN-11"
@@ -1790,7 +2187,9 @@
               "start": "A1S5_DOMINANT_ORDER",
               "trajectory_value": 38,
               "transition": "WORSENED",
-              "transition_attribution": "MIXED"
+              "transition_attribution": "MIXED",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "起点严格承接刘奭已校准的A1S5。乌孙继承、围都护和西南叛乱均被处置，但西域属国体系反复且未再呈宣元时期整体主导，终点降为仍掌主动但有明显未决方向的4档。"
             },
             "A2": {
               "axis_points": 15.2,
@@ -1803,17 +2202,20 @@
               "start": "A2S5_SECURE_STRATEGIC_SYSTEM",
               "trajectory_value": 38,
               "transition": "WORSENED",
-              "transition_attribution": "MIXED"
+              "transition_attribution": "MIXED",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "起点承接刘奭A2S5；西域都护节点仍能解围并干预乌孙继承，体系没有崩断，但持续围困和继承危机证明已出现主要缺口，终点为4档。"
             },
             "B1": {
-              "axis_points": 16.75,
-              "band_position": "MID",
+              "axis_points": 18.5,
+              "band_position": "HIGH",
               "grade": "B1-3",
               "rationale": "接班和交班均采用刘奭已校准的5.8空间快照；现有事件只证局部危机与恢复，不足以改变区域覆盖比例。",
               "raw_net_change": 0.0,
-              "score_rate": 67,
+              "score_rate": 74.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 2.32
+              "weighted_control_value": 2.64,
+              "reason": "规模与控制强度：承接北方边郡遗漏修正：start/end 5.8→6.6，weighted 2.32→2.64；B1-3 MID(67)→HIGH(74)。"
             },
             "B2": {
               "axis_points": 17.7,
@@ -1831,154 +2233,182 @@
             }
           },
           "b1_control_equivalents": {
-            "end": 5.8,
+            "end": 6.6,
             "net_change": 0.0,
-            "start": 5.8,
-            "weighted_value": 2.32
+            "start": 6.6,
+            "weighted_value": 2.64
           },
           "b1_region_adjudications": [
             {
+              "object_id": "HENAN_SHUOFANG_CORRIDOR",
+              "object_name": "河南地—朔方走廊",
+              "spatial_weight": 0.6,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
               "anchors": [
                 "start",
                 "end"
               ],
-              "control_equivalent": 0.6,
-              "control_form": "直接郡县、塞防与移民体系",
               "counted": true,
-              "coverage_factor": 1.0,
-              "evidence_refs": [
-                "WAR-LEAD-HAN-HENAN-SHUFANG"
-              ],
-              "object_id": "HAN_HENAN_SHUOFANG",
-              "object_name": "河南地—朔方郡",
-              "reason": "空间基准0.6×覆盖1.0；严格承接刘奭已校准交班快照，刘骜任内未见跨覆盖档变化。",
-              "spatial_weight": 0.6
+              "control_equivalent": {
+                "start": 0.6,
+                "end": 0.6
+              },
+              "evidence_refs": [],
+              "reason": "直接郡县与塞防体系维持。"
             },
             {
+              "object_id": "HEXI_LONGYOU_CORRIDOR",
+              "object_name": "河西—陇右走廊",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
               "anchors": [
                 "start",
                 "end"
               ],
-              "control_equivalent": 1.0,
-              "control_form": "具驻援、粮援和朝见义务的可执行属国关系",
               "counted": true,
-              "coverage_factor": 1.0,
-              "evidence_refs": [
-                "DEF-LEAD-HAN-XIONGNU-GARRISON-58-49"
-              ],
-              "object_id": "HAN_HUHHANYE_VASSAL",
-              "object_name": "呼韩邪所部匈奴",
-              "reason": "空间基准1.0×覆盖1.0；继承的可执行宗主关系在本任期未见失效，不把一般和亲另计。",
-              "spatial_weight": 1.0
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.8
+              },
+              "evidence_refs": [],
+              "reason": "河西走廊维持。"
             },
             {
-              "anchors": [
-                "start",
-                "end"
-              ],
-              "control_equivalent": 0.6,
-              "control_form": "直接郡县体系；珠崖退出后的有效覆盖",
-              "counted": true,
-              "coverage_factor": 0.75,
-              "evidence_refs": [
-                "WAR-LEAD-HAN-NANYUE-112-111",
-                "WAR-LEAD-HAN-ZHUYAI-52-46"
-              ],
-              "object_id": "LINGNAN_SOUTH",
-              "object_name": "岭南诸郡有效控制部分",
-              "reason": "岭南基准0.8×有效覆盖0.75=0.6；承接刘奭快照，本任期无进一步跨覆盖档得失。",
-              "spatial_weight": 0.8
-            },
-            {
-              "anchors": [
-                "start",
-                "end"
-              ],
-              "control_equivalent": 0.3,
-              "control_form": "直接郡县与边郡驻防",
-              "counted": true,
-              "coverage_factor": 1.0,
-              "evidence_refs": [
-                "WAR-LEAD-HAN-CHAOXIAN-109-108"
-              ],
-              "object_id": "NORTHEAST_KOREA",
+              "object_id": "KOREA_HAN_COMMANDERIES",
               "object_name": "朝鲜故地汉郡体系",
-              "reason": "空间基准0.3×覆盖1.0；继承汉郡体系，现有任期事件未证明覆盖变化。",
-              "spatial_weight": 0.3
-            },
-            {
+              "spatial_weight": 0.3,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
               "anchors": [
                 "start",
                 "end"
               ],
-              "control_equivalent": 0.8,
-              "control_form": "直接郡县、屯戍与交通体系",
               "counted": true,
-              "coverage_factor": 1.0,
-              "evidence_refs": [
-                "WAR-LEAD-HAN-HEXICORRIDOR-121"
-              ],
-              "object_id": "NORTHWEST_HEXI",
-              "object_name": "河西四郡与走廊",
-              "reason": "空间基准0.8×覆盖1.0；承接既有直接控制，本任期无跨覆盖档变化。",
-              "spatial_weight": 0.8
+              "control_equivalent": {
+                "start": 0.3,
+                "end": 0.3
+              },
+              "evidence_refs": [],
+              "reason": "汉郡体系维持。"
             },
             {
+              "object_id": "LINGNAN_FRONTIER",
+              "object_name": "岭南边疆控制带",
+              "spatial_weight": 0.8,
+              "start_coverage": 0.75,
+              "end_coverage": 0.75,
               "anchors": [
                 "start",
                 "end"
               ],
-              "control_equivalent": 0.5,
-              "control_form": "郡县、属国与局部羁縻并存",
               "counted": true,
-              "coverage_factor": 1.0,
+              "control_equivalent": {
+                "start": 0.6,
+                "end": 0.6
+              },
+              "evidence_refs": [],
+              "reason": "珠崖退出后的岭南主要郡县维持0.75。"
+            },
+            {
+              "object_id": "NORTHERN_BORDER_COMMANDERIES",
+              "object_name": "北方边郡与塞防带",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.8
+              },
+              "evidence_refs": [],
+              "reason": "既有北方边郡持续受控。"
+            },
+            {
+              "object_id": "SOUTHWEST_FRONTIER",
+              "object_name": "西南边疆主要控制空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.5
+              },
               "evidence_refs": [
-                "WAR-LEAD-HAN-SOUTHWEST-109-105",
                 "WAR-LEAD-HAN-YELANG-27"
               ],
-              "object_id": "SOUTHWEST",
-              "object_name": "西南夷郡县与属国体系",
-              "reason": "空间基准0.5×覆盖1.0；夜郎叛乱被平定并恢复行政秩序，未形成净退控。",
-              "spatial_weight": 0.5
+              "reason": "夜郎叛乱平定后恢复原行政秩序，未形成净退控。"
             },
             {
+              "object_id": "WESTERN_REGIONS_WHOLE",
+              "object_name": "西域整体",
+              "spatial_weight": 2.0,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
               "anchors": [
                 "start",
                 "end"
               ],
-              "control_equivalent": 2.0,
-              "control_form": "西域都护、屯田与属国军事行政网络",
               "counted": true,
-              "coverage_factor": 1.0,
+              "control_equivalent": {
+                "start": 2.0,
+                "end": 2.0
+              },
               "evidence_refs": [
-                "DEF-LEAD-HAN-WESTERN-PROTECTORATE-60",
                 "WAR-LEAD-HAN-WUSUN-SIEGE-29",
                 "WAR-LEAD-HAN-WUSUN-SUCCESSION-21"
               ],
-              "object_id": "WESTERN_REGIONS",
-              "object_name": "西域南北道控制网络",
-              "reason": "空间基准2.0×覆盖1.0；都护节点解围、乌孙秩序恢复，危机影响成熟度和A轴，但未证明整体空间覆盖下降。",
-              "spatial_weight": 2.0
+              "reason": "都护解围与乌孙危机影响A/B4，但未证明西域整体覆盖跨阶梯下降。"
+            },
+            {
+              "object_id": "XIONGNU_VASSAL_SPACE",
+              "object_name": "匈奴可执行属部空间",
+              "spatial_weight": 1.0,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 1.0,
+                "end": 1.0
+              },
+              "evidence_refs": [],
+              "reason": "呼韩邪系属国关系持续，未见可执行关系整体失效。"
             }
           ],
           "b1_region_control": {
-            "end": {
-              "HAN_HENAN_SHUOFANG": 0.6,
-              "HAN_HUHHANYE_VASSAL": 1.0,
-              "LINGNAN_SOUTH": 0.6,
-              "NORTHEAST_KOREA": 0.3,
-              "NORTHWEST_HEXI": 0.8,
-              "SOUTHWEST": 0.5,
-              "WESTERN_REGIONS": 2.0
-            },
             "start": {
-              "HAN_HENAN_SHUOFANG": 0.6,
-              "HAN_HUHHANYE_VASSAL": 1.0,
-              "LINGNAN_SOUTH": 0.6,
-              "NORTHEAST_KOREA": 0.3,
-              "NORTHWEST_HEXI": 0.8,
-              "SOUTHWEST": 0.5,
-              "WESTERN_REGIONS": 2.0
+              "HENAN_SHUOFANG_CORRIDOR": 0.6,
+              "HEXI_LONGYOU_CORRIDOR": 0.8,
+              "KOREA_HAN_COMMANDERIES": 0.3,
+              "LINGNAN_FRONTIER": 0.6,
+              "NORTHERN_BORDER_COMMANDERIES": 0.8,
+              "SOUTHWEST_FRONTIER": 0.5,
+              "WESTERN_REGIONS_WHOLE": 2.0,
+              "XIONGNU_VASSAL_SPACE": 1.0
+            },
+            "end": {
+              "HENAN_SHUOFANG_CORRIDOR": 0.6,
+              "HEXI_LONGYOU_CORRIDOR": 0.8,
+              "KOREA_HAN_COMMANDERIES": 0.3,
+              "LINGNAN_FRONTIER": 0.6,
+              "NORTHERN_BORDER_COMMANDERIES": 0.8,
+              "SOUTHWEST_FRONTIER": 0.5,
+              "WESTERN_REGIONS_WHOLE": 2.0,
+              "XIONGNU_VASSAL_SPACE": 1.0
             }
           },
           "boundary_stage_excluded_refs": [],
@@ -2031,8 +2461,8 @@
           "A120_non_cost_anchor_points": 51.6,
           "A120_positive_result_credit_points": 0.0,
           "A120_score_points": 51.6,
-          "B80_score_points": 43.42,
-          "AB200_score_points": 95.02,
+          "B80_score_points": 46.05,
+          "AB200_score_points": 97.65,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": -0.5,
@@ -2054,7 +2484,8 @@
               "start_grade": 5,
               "trajectory_value": 43.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": -0.5,
@@ -2076,22 +2507,30 @@
               "start_grade": 5,
               "trajectory_value": 43.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
-            "B80_points": 43.42,
-            "formal_B1_rate": 67.0,
+            "B80_points": 46.05,
+            "formal_B1_rate": 74.0,
             "formal_B2_rate": 59.0,
             "formal_B4_rate": 52.0,
-            "adjudicated_B1_rate": 67.0,
+            "adjudicated_B1_rate": 74.0,
             "adjudicated_B2_rate": 59.0,
             "adjudicated_B4_rate": 52.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
-          }
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/西汉.json",
+            "final_B1_rate": 74.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT"
         },
         {
-          "AB_score_points": 46.35,
+          "AB_score_points": 48.1,
           "adjudication_status": "REVIEWED",
           "ambiguous_event_refs": [],
           "axes": {
@@ -2106,7 +2545,9 @@
               "start": "A1S4_STABLE_ADVANTAGE",
               "trajectory_value": 48,
               "transition": "STABLE",
-              "transition_attribution": "MIXED"
+              "transition_attribution": "MIXED",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "起点共享刘骜终点。车师属部千余人投匈奴证明西域方向恶化，但未证匈奴或其他威胁已恢复制造国家级危机的能力，A1仍为4档。"
             },
             "A2": {
               "axis_points": 10.4,
@@ -2119,17 +2560,20 @@
               "start": "A2S4_OVERALL_SECURE_WITH_GAPS",
               "trajectory_value": 26,
               "transition": "WORSENED",
-              "transition_attribution": "MIXED"
+              "transition_attribution": "MIXED",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "但钦拒援、玉门关拒绝接纳和属部转降匈奴共同证明西域门户协同失灵；主边界仍运作但出现显著缺口，终点降为3档。"
             },
             "B1": {
-              "axis_points": 16.75,
-              "band_position": "MID",
+              "axis_points": 18.5,
+              "band_position": "HIGH",
               "grade": "B1-3",
               "rationale": "接班严格复用刘骜5.8交班快照。车师属部千余人转降匈奴造成A2门户缺口，但不足以证明西域整体空间覆盖跨档，故交班仍为5.8；不把小规模退控虚构成自由小数。",
               "raw_net_change": 0.0,
-              "score_rate": 67,
+              "score_rate": 74.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 2.32
+              "weighted_control_value": 2.64,
+              "reason": "规模与控制强度：承接北方边郡遗漏修正：start/end 5.8→6.6，weighted 2.32→2.64；B1-3 MID(67)→HIGH(74)。"
             },
             "B2": {
               "axis_points": 0.0,
@@ -2147,150 +2591,179 @@
             }
           },
           "b1_control_equivalents": {
-            "end": 5.8,
+            "end": 6.6,
             "net_change": 0.0,
-            "start": 5.8,
-            "weighted_value": 2.32
+            "start": 6.6,
+            "weighted_value": 2.64
           },
           "b1_region_adjudications": [
             {
+              "object_id": "HENAN_SHUOFANG_CORRIDOR",
+              "object_name": "河南地—朔方走廊",
+              "spatial_weight": 0.6,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
               "anchors": [
                 "start",
                 "end"
               ],
-              "control_equivalent": 0.6,
-              "control_form": "直接郡县、塞防与移民体系",
               "counted": true,
-              "coverage_factor": 1.0,
-              "evidence_refs": [
-                "HANDOVER-汉-刘骜-刘欣"
-              ],
-              "object_id": "HAN_HENAN_SHUOFANG",
-              "object_name": "河南地—朔方郡",
-              "reason": "直接复用刘骜交班快照；本任期无覆盖变化证据。",
-              "spatial_weight": 0.6
+              "control_equivalent": {
+                "start": 0.6,
+                "end": 0.6
+              },
+              "evidence_refs": [],
+              "reason": "直接郡县与塞防体系维持。"
             },
             {
+              "object_id": "HEXI_LONGYOU_CORRIDOR",
+              "object_name": "河西—陇右走廊",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
               "anchors": [
                 "start",
                 "end"
               ],
-              "control_equivalent": 1.0,
-              "control_form": "具驻援、粮援和朝见义务的可执行属国关系",
               "counted": true,
-              "coverage_factor": 1.0,
-              "evidence_refs": [
-                "HANDOVER-汉-刘骜-刘欣"
-              ],
-              "object_id": "HAN_HUHHANYE_VASSAL",
-              "object_name": "呼韩邪所部匈奴",
-              "reason": "直接复用刘骜交班快照；未见关系失效证据。",
-              "spatial_weight": 1.0
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.8
+              },
+              "evidence_refs": [],
+              "reason": "河西走廊维持。"
             },
             {
-              "anchors": [
-                "start",
-                "end"
-              ],
-              "control_equivalent": 0.6,
-              "control_form": "直接郡县体系；珠崖退出后的有效覆盖",
-              "counted": true,
-              "coverage_factor": 0.75,
-              "evidence_refs": [
-                "HANDOVER-汉-刘骜-刘欣"
-              ],
-              "object_id": "LINGNAN_SOUTH",
-              "object_name": "岭南诸郡有效控制部分",
-              "reason": "有界推断：岭南主要郡县有效但珠崖已退出，取0.75；本任期无跨阶梯变化，不取1.00。",
-              "spatial_weight": 0.8
-            },
-            {
-              "anchors": [
-                "start",
-                "end"
-              ],
-              "control_equivalent": 0.3,
-              "control_form": "直接郡县与边郡驻防",
-              "counted": true,
-              "coverage_factor": 1.0,
-              "evidence_refs": [
-                "HANDOVER-汉-刘骜-刘欣"
-              ],
-              "object_id": "NORTHEAST_KOREA",
+              "object_id": "KOREA_HAN_COMMANDERIES",
               "object_name": "朝鲜故地汉郡体系",
-              "reason": "直接复用刘骜交班快照；无退控证据。",
-              "spatial_weight": 0.3
-            },
-            {
+              "spatial_weight": 0.3,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
               "anchors": [
                 "start",
                 "end"
               ],
-              "control_equivalent": 0.8,
-              "control_form": "直接郡县、屯戍与交通体系",
               "counted": true,
-              "coverage_factor": 1.0,
-              "evidence_refs": [
-                "HANDOVER-汉-刘骜-刘欣"
-              ],
-              "object_id": "NORTHWEST_HEXI",
-              "object_name": "河西四郡与走廊",
-              "reason": "直接复用刘骜交班快照；无覆盖变化证据。",
-              "spatial_weight": 0.8
+              "control_equivalent": {
+                "start": 0.3,
+                "end": 0.3
+              },
+              "evidence_refs": [],
+              "reason": "汉郡体系维持。"
             },
             {
+              "object_id": "LINGNAN_FRONTIER",
+              "object_name": "岭南边疆控制带",
+              "spatial_weight": 0.8,
+              "start_coverage": 0.75,
+              "end_coverage": 0.75,
               "anchors": [
                 "start",
                 "end"
               ],
-              "control_equivalent": 0.5,
-              "control_form": "郡县、属国与局部羁縻并存",
               "counted": true,
-              "coverage_factor": 1.0,
-              "evidence_refs": [
-                "HANDOVER-汉-刘骜-刘欣"
-              ],
-              "object_id": "SOUTHWEST",
-              "object_name": "西南夷郡县与属国体系",
-              "reason": "直接复用刘骜交班快照；无覆盖变化证据。",
-              "spatial_weight": 0.5
+              "control_equivalent": {
+                "start": 0.6,
+                "end": 0.6
+              },
+              "evidence_refs": [],
+              "reason": "珠崖退出后的主要岭南郡县维持。"
             },
             {
+              "object_id": "NORTHERN_BORDER_COMMANDERIES",
+              "object_name": "北方边郡与塞防带",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
               "anchors": [
                 "start",
                 "end"
               ],
-              "control_equivalent": 2.0,
-              "control_form": "西域都护、屯田与属国军事行政网络",
               "counted": true,
-              "coverage_factor": 1.0,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.8
+              },
+              "evidence_refs": [],
+              "reason": "既有北方边郡持续受控。"
+            },
+            {
+              "object_id": "SOUTHWEST_FRONTIER",
+              "object_name": "西南边疆主要控制空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.5
+              },
+              "evidence_refs": [],
+              "reason": "西南体系维持。"
+            },
+            {
+              "object_id": "WESTERN_REGIONS_WHOLE",
+              "object_name": "西域整体",
+              "spatial_weight": 2.0,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 2.0,
+                "end": 2.0
+              },
               "evidence_refs": [
                 "WAR-LEAD-HAN-CHESHI-DEFECTION-2"
               ],
-              "object_id": "WESTERN_REGIONS",
-              "object_name": "西域南北道控制网络",
-              "reason": "但钦拒援与唐兜转降造成结构缺口并压低A2；仅涉一个属部千余人，未证西域整体覆盖跨档，B1仍按整体基准2.0。",
-              "spatial_weight": 2.0
+              "reason": "车师属部千余人转降形成边界协同缺口，但不足以使西域整体覆盖跨至0.75，B1仍取1.00。"
+            },
+            {
+              "object_id": "XIONGNU_VASSAL_SPACE",
+              "object_name": "匈奴可执行属部空间",
+              "spatial_weight": 1.0,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 1.0,
+                "end": 1.0
+              },
+              "evidence_refs": [],
+              "reason": "本任未见可执行属国关系整体失效。"
             }
           ],
           "b1_region_control": {
-            "end": {
-              "HAN_HENAN_SHUOFANG": 0.6,
-              "HAN_HUHHANYE_VASSAL": 1.0,
-              "LINGNAN_SOUTH": 0.6,
-              "NORTHEAST_KOREA": 0.3,
-              "NORTHWEST_HEXI": 0.8,
-              "SOUTHWEST": 0.5,
-              "WESTERN_REGIONS": 2.0
-            },
             "start": {
-              "HAN_HENAN_SHUOFANG": 0.6,
-              "HAN_HUHHANYE_VASSAL": 1.0,
-              "LINGNAN_SOUTH": 0.6,
-              "NORTHEAST_KOREA": 0.3,
-              "NORTHWEST_HEXI": 0.8,
-              "SOUTHWEST": 0.5,
-              "WESTERN_REGIONS": 2.0
+              "HENAN_SHUOFANG_CORRIDOR": 0.6,
+              "HEXI_LONGYOU_CORRIDOR": 0.8,
+              "KOREA_HAN_COMMANDERIES": 0.3,
+              "LINGNAN_FRONTIER": 0.6,
+              "NORTHERN_BORDER_COMMANDERIES": 0.8,
+              "SOUTHWEST_FRONTIER": 0.5,
+              "WESTERN_REGIONS_WHOLE": 2.0,
+              "XIONGNU_VASSAL_SPACE": 1.0
+            },
+            "end": {
+              "HENAN_SHUOFANG_CORRIDOR": 0.6,
+              "HEXI_LONGYOU_CORRIDOR": 0.8,
+              "KOREA_HAN_COMMANDERIES": 0.3,
+              "LINGNAN_FRONTIER": 0.6,
+              "NORTHERN_BORDER_COMMANDERIES": 0.8,
+              "SOUTHWEST_FRONTIER": 0.5,
+              "WESTERN_REGIONS_WHOLE": 2.0,
+              "XIONGNU_VASSAL_SPACE": 1.0
             }
           },
           "boundary_stage_excluded_refs": [],
@@ -2329,8 +2802,8 @@
           "A120_non_cost_anchor_points": 47.4,
           "A120_positive_result_credit_points": 0.0,
           "A120_score_points": 47.4,
-          "B80_score_points": 20.64,
-          "AB200_score_points": 68.04,
+          "B80_score_points": 22.79,
+          "AB200_score_points": 70.19,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 0.0,
@@ -2352,7 +2825,8 @@
               "start_grade": 4,
               "trajectory_value": 48.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": -0.5,
@@ -2374,19 +2848,27 @@
               "start_grade": 4,
               "trajectory_value": 31.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
-            "B80_points": 20.64,
-            "formal_B1_rate": 67.0,
+            "B80_points": 22.79,
+            "formal_B1_rate": 74.0,
             "formal_B2_rate": 0.0,
             "formal_B4_rate": 0.0,
-            "adjudicated_B1_rate": 67.0,
+            "adjudicated_B1_rate": 74.0,
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
-          }
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/西汉.json",
+            "final_B1_rate": 74.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT"
         },
         {
           "AB_score_points": 0.0,
@@ -2404,7 +2886,9 @@
               "start": "A1S4_STABLE_ADVANTAGE",
               "trajectory_value": 0,
               "transition": "WORSENED",
-              "transition_attribution": "SELF_INDUCED"
+              "transition_attribution": "SELF_INDUCED",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "早期仍继承能够运作的全国安全秩序；本人政策诱发匈奴、西域、西南和东北多向危机，昆阳后全国主力、首都和政权均告终结。"
             },
             "A2": {
               "axis_points": 0.0,
@@ -2417,17 +2901,20 @@
               "start": "A2S4_OVERALL_SECURE_WITH_GAPS",
               "trajectory_value": 0,
               "transition": "WORSENED",
-              "transition_attribution": "SELF_INDUCED"
+              "transition_attribution": "SELF_INDUCED",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "西域断绝、西南未复、北边持续入寇，最终长安直接失守，满足核心暴露零档。"
             },
             "B1": {
               "axis_points": 0.0,
               "band_position": "LOW",
               "grade": "B1-0",
               "rationale": "前1—6年现有国防材料未见边疆区域覆盖跨档变化，起点桥接刘欣5.8交班快照；交班时政权无可移交受控空间，净变化-5.8、加权值-3.48并执行终局门。",
-              "raw_net_change": -5.8,
-              "score_rate": 0,
+              "raw_net_change": -6.6,
+              "score_rate": 0.0,
               "terminal_collapse_override": true,
-              "weighted_control_value": -3.48
+              "weighted_control_value": -3.96,
+              "reason": "规模与控制强度：承接北方边郡遗漏修正：start 5.8→6.6，weighted -3.48→-3.96；终局门下档位与得分率不变。"
             },
             "B2": {
               "axis_points": 0.0,
@@ -2445,140 +2932,177 @@
             }
           },
           "b1_control_equivalents": {
-            "end": 0.0,
-            "net_change": -5.8,
-            "start": 5.8,
-            "weighted_value": -3.48
+            "end": 0,
+            "net_change": -6.6,
+            "start": 6.6,
+            "weighted_value": -3.96
           },
           "b1_region_adjudications": [
             {
+              "object_id": "HENAN_SHUOFANG_CORRIDOR",
+              "object_name": "河南地—朔方走廊",
+              "spatial_weight": 0.6,
+              "start_coverage": 1.0,
+              "end_coverage": 0.0,
               "anchors": [
-                "start"
+                "start",
+                "end"
               ],
-              "control_equivalent": 0.6,
-              "control_form": "新朝接收的直接郡县与塞防体系",
               "counted": true,
-              "coverage_factor": 1.0,
-              "evidence_refs": [
-                "GAP-HAN-LIUXIN-WANGMANG-1BCE-6CE"
-              ],
-              "object_id": "HAN_HENAN_SHUOFANG",
-              "object_name": "河南地—朔方郡",
-              "reason": "桥接刘欣交班快照；政权终结时归零。",
-              "spatial_weight": 0.6
+              "control_equivalent": {
+                "start": 0.6,
+                "end": 0.0
+              },
+              "evidence_refs": [],
+              "reason": "起点继承；亡国终局归零。"
             },
             {
+              "object_id": "HEXI_LONGYOU_CORRIDOR",
+              "object_name": "河西—陇右走廊",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 0.0,
               "anchors": [
-                "start"
+                "start",
+                "end"
               ],
-              "control_equivalent": 1.0,
-              "control_form": "新朝接收的属国关系",
               "counted": true,
-              "coverage_factor": 1.0,
-              "evidence_refs": [
-                "GAP-HAN-LIUXIN-WANGMANG-1BCE-6CE",
-                "WAR-LEAD-XIN-XIONGNU-15-22"
-              ],
-              "object_id": "HAN_HUHHANYE_VASSAL",
-              "object_name": "南匈奴属部关系",
-              "reason": "起点桥接既有关系；本人政策破坏后持续入寇，终局无可移交关系。",
-              "spatial_weight": 1.0
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.0
+              },
+              "evidence_refs": [],
+              "reason": "起点继承；亡国终局归零。"
             },
             {
+              "object_id": "KOREA_HAN_COMMANDERIES",
+              "object_name": "朝鲜故地汉郡体系",
+              "spatial_weight": 0.3,
+              "start_coverage": 1.0,
+              "end_coverage": 0.0,
               "anchors": [
-                "start"
+                "start",
+                "end"
               ],
-              "control_equivalent": 0.6,
-              "control_form": "新朝接收的直接郡县体系",
               "counted": true,
-              "coverage_factor": 0.75,
+              "control_equivalent": {
+                "start": 0.3,
+                "end": 0.0
+              },
               "evidence_refs": [
-                "GAP-HAN-LIUXIN-WANGMANG-1BCE-6CE"
-              ],
-              "object_id": "LINGNAN_SOUTH",
-              "object_name": "岭南诸郡有效控制部分",
-              "reason": "有界推断：起点桥接岭南主要郡县0.75，不取1.00因珠崖已退出；亡国终局归零。",
-              "spatial_weight": 0.8
-            },
-            {
-              "anchors": [
-                "start"
-              ],
-              "control_equivalent": 0.3,
-              "control_form": "新朝接收的边郡体系",
-              "counted": true,
-              "coverage_factor": 1.0,
-              "evidence_refs": [
-                "GAP-HAN-LIUXIN-WANGMANG-1BCE-6CE",
                 "WAR-LEAD-XIN-GOGURYEO-12"
               ],
-              "object_id": "NORTHEAST_KOREA",
-              "object_name": "朝鲜故地汉郡体系",
-              "reason": "起点桥接；强征诱发东北失控，终局归零。",
-              "spatial_weight": 0.3
+              "reason": "起点继承；本人强征引发东北失控，终局归零。"
             },
             {
+              "object_id": "LINGNAN_FRONTIER",
+              "object_name": "岭南边疆控制带",
+              "spatial_weight": 0.8,
+              "start_coverage": 0.75,
+              "end_coverage": 0.0,
               "anchors": [
-                "start"
+                "start",
+                "end"
               ],
-              "control_equivalent": 0.8,
-              "control_form": "新朝接收的直接郡县、屯戍与交通体系",
               "counted": true,
-              "coverage_factor": 1.0,
-              "evidence_refs": [
-                "GAP-HAN-LIUXIN-WANGMANG-1BCE-6CE"
-              ],
-              "object_id": "NORTHWEST_HEXI",
-              "object_name": "河西四郡与走廊",
-              "reason": "起点桥接；亡国终局归零。",
-              "spatial_weight": 0.8
+              "control_equivalent": {
+                "start": 0.6,
+                "end": 0.0
+              },
+              "evidence_refs": [],
+              "reason": "起点继承珠崖退出后的0.75覆盖；亡国终局归零。"
             },
             {
+              "object_id": "NORTHERN_BORDER_COMMANDERIES",
+              "object_name": "北方边郡与塞防带",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 0.0,
               "anchors": [
-                "start"
+                "start",
+                "end"
               ],
-              "control_equivalent": 0.5,
-              "control_form": "新朝接收的郡县与属国体系",
               "counted": true,
-              "coverage_factor": 1.0,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.0
+              },
+              "evidence_refs": [],
+              "reason": "起点继承既有边郡；亡国终局无可移交控制。"
+            },
+            {
+              "object_id": "SOUTHWEST_FRONTIER",
+              "object_name": "西南边疆主要控制空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 0.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.0
+              },
               "evidence_refs": [
-                "GAP-HAN-LIUXIN-WANGMANG-1BCE-6CE",
                 "WAR-LEAD-XIN-SOUTHWEST-16-22"
               ],
-              "object_id": "SOUTHWEST",
-              "object_name": "西南夷郡县与属国体系",
-              "reason": "起点桥接；西南控制未恢复并随政权终结归零。",
-              "spatial_weight": 0.5
+              "reason": "起点继承；西南控制未恢复并随政权终结归零。"
             },
             {
+              "object_id": "WESTERN_REGIONS_WHOLE",
+              "object_name": "西域整体",
+              "spatial_weight": 2.0,
+              "start_coverage": 1.0,
+              "end_coverage": 0.0,
               "anchors": [
-                "start"
+                "start",
+                "end"
               ],
-              "control_equivalent": 2.0,
-              "control_form": "新朝接收的都护、屯田与属国网络",
               "counted": true,
-              "coverage_factor": 1.0,
+              "control_equivalent": {
+                "start": 2.0,
+                "end": 0.0
+              },
               "evidence_refs": [
-                "GAP-HAN-LIUXIN-WANGMANG-1BCE-6CE",
                 "WAR-LEAD-XIN-WESTERNREGIONS-16"
               ],
-              "object_id": "WESTERN_REGIONS",
-              "object_name": "西域南北道控制网络",
-              "reason": "起点桥接西域整体网络；23年西域遂绝，终局归零。",
-              "spatial_weight": 2.0
+              "reason": "起点继承西域整体网络；后续西域断绝，终局归零。"
+            },
+            {
+              "object_id": "XIONGNU_VASSAL_SPACE",
+              "object_name": "匈奴可执行属部空间",
+              "spatial_weight": 1.0,
+              "start_coverage": 1.0,
+              "end_coverage": 0.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 1.0,
+                "end": 0.0
+              },
+              "evidence_refs": [
+                "WAR-LEAD-XIN-XIONGNU-15-22"
+              ],
+              "reason": "起点继承汉末可执行属国关系；本人政策破坏后持续战争，终局无可移交关系。"
             }
           ],
           "b1_region_control": {
-            "end": {},
             "start": {
-              "HAN_HENAN_SHUOFANG": 0.6,
-              "HAN_HUHHANYE_VASSAL": 1.0,
-              "LINGNAN_SOUTH": 0.6,
-              "NORTHEAST_KOREA": 0.3,
-              "NORTHWEST_HEXI": 0.8,
-              "SOUTHWEST": 0.5,
-              "WESTERN_REGIONS": 2.0
-            }
+              "HENAN_SHUOFANG_CORRIDOR": 0.6,
+              "HEXI_LONGYOU_CORRIDOR": 0.8,
+              "KOREA_HAN_COMMANDERIES": 0.3,
+              "LINGNAN_FRONTIER": 0.6,
+              "NORTHERN_BORDER_COMMANDERIES": 0.8,
+              "SOUTHWEST_FRONTIER": 0.5,
+              "WESTERN_REGIONS_WHOLE": 2.0,
+              "XIONGNU_VASSAL_SPACE": 1.0
+            },
+            "end": {}
           },
           "boundary_stage_excluded_refs": [],
           "boundary_stage_refs": [
@@ -2663,7 +3187,8 @@
               "start_grade": 4,
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": -4.0,
@@ -2685,7 +3210,8 @@
               "start_grade": 4,
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
@@ -2697,7 +3223,14 @@
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
-          }
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/西汉.json",
+            "final_B1_rate": 0.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT"
         }
       ]
     }

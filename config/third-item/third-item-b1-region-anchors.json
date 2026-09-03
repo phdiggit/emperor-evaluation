@@ -35,6 +35,13 @@
     {"grade": "B1-5", "condition": "weighted_control_value >= 6.0"}
   ],
   "anchors": [
+    {"region_id":"KIPCHAK_RUS_NETWORK","display_name":"钦察—罗斯可执行宗主/军政网络","spatial_weight":2.0,"kind":"STANDARD","domain":"EASTERN_EUROPE","notes":"蒙古西征后形成的跨伏尔加—罗斯主要宗主与征调网络；不把短期远征占领计满。","origin":"FINAL_REAUDIT_CALIBRATED","calibration_basis":"低于北方草原整体3.5，高于河中—花剌子模1.5；控制形式较松散，按2.0校准。"},
+    {"region_id":"MESOPOTAMIA_AZERBAIJAN_SOUTH_CAUCASUS","display_name":"两河—阿塞拜疆—南高加索主要军政网络","spatial_weight":1.2,"kind":"STANDARD","domain":"WEST_ASIA","notes":"蒙古时期两河主要城市与阿塞拜疆—南高加索军政网络。","origin":"FINAL_REAUDIT_CALIBRATED","calibration_basis":"与山东河北/关中陇右1.2同量级；高于呼罗珊—东伊朗1.0，低于河中—花剌子模1.5。"},
+    {"region_id":"HENAN_LUOYANG_FORWARD_CORRIDOR","display_name":"河南—洛阳—黄河南线前沿走廊","spatial_weight":0.6,"kind":"STANDARD","domain":"CENTRAL_FRONTIER","notes":"两晋南北朝时期现代河南、洛阳、淮北北缘的真实外部边疆前沿；不得误用河南地—朔方锚。","origin":"FINAL_REAUDIT_CALIBRATED","calibration_basis":"与河南地—朔方0.6仅同尺度不同空间。"},
+    {"region_id":"HANZHONG_QINLING_FRONTIER","display_name":"汉中—秦岭北部门户边疆","spatial_weight":0.8,"kind":"STANDARD","domain":"CENTRAL_FRONTIER","notes":"只在汉中—秦岭构成独立外缘门户而非稳定核心时使用。","origin":"FINAL_REAUDIT_CALIBRATED","calibration_basis":"与河西陇右/西北边疆0.8同量级。"},
+    {"region_id":"XIANGMIAN_HANSHUI_FRONTIER","display_name":"襄沔—汉水主要边疆走廊","spatial_weight":0.8,"kind":"STANDARD","domain":"CENTRAL_FRONTIER","notes":"用于襄阳—沔水确为外部边疆体系的时期，不把江汉稳定核心泛化。","origin":"FINAL_REAUDIT_CALIBRATED","calibration_basis":"与跨区域主要边防走廊0.8尺度一致。"},
+    {"region_id":"JINXI_NORTH_FRONT","display_name":"晋隰北线门户","spatial_weight":0.75,"kind":"STANDARD","domain":"NORTH_CHINA","notes":"五代北方局部边境专用固定锚。","origin":"FINAL_REAUDIT_CALIBRATED","calibration_basis":"规模介于河南—朔方0.6与北方边郡0.8之间。"},
+    {"region_id":"NORTHERN_HAN_OUTER_PREFECTURES","display_name":"北汉晋阳外围边州县网络","spatial_weight":0.3,"kind":"STANDARD","domain":"NORTH_CHINA","notes":"只覆盖晋阳核心之外可独立识别的外围州县，不把太原核心包装成B1。","origin":"FINAL_REAUDIT_CALIBRATED","calibration_basis":"北汉小政权局部外缘锚，按小型控制网络0.3校准。"},
     {"region_id":"NORTH_GRASSLAND_WHOLE","display_name":"北方草原整体","spatial_weight":3.5,"kind":"COMPOSITE","domain":"NORTH_STEPPE","notes":"用于能够整体覆盖蒙古高原/北方草原主要政治—军事空间的控制；不得与同一主体空间的漠北、漠南子锚重复。","origin":"EXISTING_CONTRACT_OR_EXISTING_SETTLEMENT_SCALE"},
     {"region_id":"MOBEI_TIELE_SPACE","display_name":"漠北铁勒—北部草原空间","spatial_weight":3.5,"kind":"STANDARD","domain":"NORTH_STEPPE","notes":"沿用唐漠北铁勒空间历史锚；与NORTH_GRASSLAND_WHOLE为替代口径，不同一账重复。","origin":"EXISTING_CONTRACT_OR_EXISTING_SETTLEMENT_SCALE"},
     {"region_id":"WESTERN_REGIONS_WHOLE","display_name":"西域整体","spatial_weight":2.0,"kind":"COMPOSITE","domain":"WESTERN_REGIONS","notes":"西域南北道整体控制网络；若使用此锚，不再叠加龟兹、高昌等内部节点。","origin":"EXISTING_CONTRACT_OR_EXISTING_SETTLEMENT_SCALE"},
@@ -79,6 +86,7 @@
     {"set_id":"KOREA_OVERLAP","members":["KOREA_PENINSULA_NETWORK","KOREA_HAN_COMMANDERIES"],"rule":"同一时期同一空间不得同时按半岛整体网络和汉郡小锚重复。"}
   ],
   "legacy_aliases": {
+    "MESOPOTAMIA_CAUCASUS_NETWORK":"MESOPOTAMIA_AZERBAIJAN_SOUTH_CAUCASUS",
     "HAN_HENAN_SHUOFANG":"HENAN_SHUOFANG_CORRIDOR",
     "NORTHWEST_HEXI":"HEXI_LONGYOU_CORRIDOR",
     "TANG_HEXI_LONGYOU":"HEXI_LONGYOU_CORRIDOR",

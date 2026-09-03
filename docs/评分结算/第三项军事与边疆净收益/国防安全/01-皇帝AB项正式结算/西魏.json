@@ -28,7 +28,9 @@
               "start": "A1S1_SEVERE_THREAT",
               "trajectory_value": 78,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "西魏分立时东魏兵力、人口与财赋均占优，潼关和长安存在国家级危机，起点1档。沙苑反转危局、玉壁两次守成，又取巴蜀汉中和江陵，交班时西魏已掌主动；北齐与突厥仍是明显未决强敌，终点4档。"
             },
             "A2": {
               "axis_points": 31.2,
@@ -41,7 +43,9 @@
               "start": "A2S1_BROKEN_BOUNDARY",
               "trajectory_value": 78,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "分立初期关中外围连续争夺，主要防线破裂，起点1档。潼关—渭北、玉壁、陇右与巴蜀汉中纵深相互支撑，全局防御总体有效；河南前线反复为主要缺口，终点4档。"
             },
             "B1": {
               "axis_points": 13.0,
@@ -49,9 +53,10 @@
               "grade": "B1-2",
               "rationale": "起点只计西北边疆0.8，不将关中核心领土作边疆增益。交班时巴蜀汉中对西南标准区域整体有效0.5，河南—江陵前线保守取半走廊0.3；交班1.6、净增0.8、加权值1.12，落B1-2 MID。",
               "raw_net_change": 0.8,
-              "score_rate": 52,
+              "score_rate": 52.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 1.12
+              "weighted_control_value": 0.94,
+              "reason": "规模与控制强度：夏州—朔方0.3与西北0.8为起终存量；西南边疆0.5为任内新增，交班1.6并与北周起点闭合。"
             },
             "B2": {
               "axis_points": 30.0,
@@ -72,7 +77,7 @@
             "end": 1.6,
             "net_change": 0.8,
             "start": 0.8,
-            "weighted_value": 1.12
+            "weighted_value": 0.94
           },
           "b1_region_adjudications": [
             {
@@ -251,7 +256,27 @@
               "start_grade": 1,
               "trajectory_value": 78.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 1,
+                  "to_grade": 2,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                },
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                },
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 3.0,
@@ -273,7 +298,27 @@
               "start_grade": 1,
               "trajectory_value": 68.0,
               "within_band_deterioration_basis": "东魏—北齐主链多方向耐久退控，A2整数终档未表达",
-              "within_band_deterioration_penalty": 10
+              "within_band_deterioration_penalty": 10,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 1,
+                  "to_grade": 2,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                },
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                },
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             }
           },
           "B80_adjudication": {
@@ -285,7 +330,14 @@
             "adjudicated_B2_rate": 100.0,
             "adjudicated_B4_rate": 82.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
-          }
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "CONFIRMED_WITH_REBUILT_ANCHOR",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 52.0
+          },
+          "b1_cross_item_excluded_weighted_value": 0.18
         }
       ]
     }

@@ -40,7 +40,7 @@ SETTLEMENT_SPECS = {
     },
     "third_item": {
         "path": "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json",
-        "schema": "emperor-v4-third-item-formal-settlement-v6-current-only",
+        "schema": "emperor-v4-third-item-formal-settlement-v7-fixed-cost-debit",
         "score": "third_item_score_points",
         "rank": "rank",
         "range": (-40, 250),

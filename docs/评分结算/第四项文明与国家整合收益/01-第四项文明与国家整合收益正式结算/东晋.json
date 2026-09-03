@@ -4,19 +4,19 @@
   "collections": {
     "records": {
       "positions": [
-        120,
-        121,
-        122
+        81,
+        82,
+        148
       ],
       "records": [
         {
-          "rank": 58,
+          "rank": 76,
           "ruler_id": "RULER-SHADOW-司马曜",
           "ruler_name": "司马曜",
           "polity": "东晋",
           "source_group": "东晋",
-          "status": "FORMAL_ZERO_ADJUSTMENT",
-          "triggered_axis_count": 0,
+          "status": "FORMAL_SIGNED_ADJUSTMENT",
+          "triggered_axis_count": 1,
           "axis_results": [
             {
               "axis": "A",
@@ -29,12 +29,14 @@
             },
             {
               "axis": "B",
-              "disposition": "NO_ELIGIBLE_CIVILIZATION_INCREMENT",
-              "direction": null,
-              "magnitude_grade": null,
-              "band": null,
-              "signed_adjustment": 0,
-              "package_refs": []
+              "disposition": "SIGNED_CIVILIZATION_ADJUSTMENT_READY",
+              "direction": "POSITIVE",
+              "magnitude_grade": "CIV2",
+              "band": "LOW",
+              "signed_adjustment": 7.5,
+              "package_refs": [
+                "I4PKG-WORK-SIMAYAO-B-01"
+              ]
             },
             {
               "axis": "C",
@@ -46,16 +48,17 @@
               "package_refs": []
             }
           ],
-          "fourth_item_signed_adjustment": 0
+          "fourth_item_signed_adjustment": 7.5,
+          "zero_scan_checked": true
         },
         {
-          "rank": 58,
+          "rank": 76,
           "ruler_id": "RULER-SHADOW-司马睿",
           "ruler_name": "司马睿",
           "polity": "东晋",
           "source_group": "东晋",
-          "status": "FORMAL_ZERO_ADJUSTMENT",
-          "triggered_axis_count": 0,
+          "status": "FORMAL_SIGNED_ADJUSTMENT",
+          "triggered_axis_count": 1,
           "axis_results": [
             {
               "axis": "A",
@@ -68,12 +71,14 @@
             },
             {
               "axis": "B",
-              "disposition": "NO_ELIGIBLE_CIVILIZATION_INCREMENT",
-              "direction": null,
-              "magnitude_grade": null,
-              "band": null,
-              "signed_adjustment": 0,
-              "package_refs": []
+              "disposition": "SIGNED_CIVILIZATION_ADJUSTMENT_READY",
+              "direction": "POSITIVE",
+              "magnitude_grade": "CIV2",
+              "band": "LOW",
+              "signed_adjustment": 7.5,
+              "package_refs": [
+                "I4PKG-WORK-SIMARUI-B-01"
+              ]
             },
             {
               "axis": "C",
@@ -85,10 +90,11 @@
               "package_refs": []
             }
           ],
-          "fourth_item_signed_adjustment": 0
+          "fourth_item_signed_adjustment": 7.5,
+          "zero_scan_checked": true
         },
         {
-          "rank": 58,
+          "rank": 115,
           "ruler_id": "RULER-SHADOW-司马绍",
           "ruler_name": "司马绍",
           "polity": "东晋",
@@ -124,7 +130,92 @@
               "package_refs": []
             }
           ],
-          "fourth_item_signed_adjustment": 0
+          "fourth_item_signed_adjustment": 0,
+          "zero_scan_checked": true
+        }
+      ]
+    },
+    "accepted_packages": {
+      "positions": [
+        142,
+        143
+      ],
+      "records": [
+        {
+          "package_code": "I4PKG-WORK-SIMAYAO-B-01",
+          "ruler_id": "RULER-SHADOW-司马曜",
+          "ruler_name": "司马曜",
+          "polity": "东晋",
+          "axis": "B",
+          "direction": "POSITIVE",
+          "net_tendency": "POSITIVE_DOMINANT",
+          "episode_refs": [],
+          "same_chain_support_refs": [],
+          "same_chain_effect": "NONE",
+          "independent_reinforcement_refs": [],
+          "independent_reinforcement_effect": "NONE",
+          "folded_support": [],
+          "inherited_baseline": "国学自永和八年罢废，中央教育长期只剩不稳定太学层。",
+          "contemporary_feasible_frontier": null,
+          "background_trend": null,
+          "attributable_change": "太元九年在国学已停废三十余年的背景下复建国学，并增置太学生百人，使淝水战后中央儒学教育重新出现实际学生和制度供给。",
+          "relative_change_level": "R2",
+          "relative_change_level_basis": "RESTORATION_OF_CENTRAL_GUOXUE_AND_REALIZED_STUDENT_CAPACITY",
+          "positive_component_level": null,
+          "negative_component_level": null,
+          "field_coverage": "复建国学及新增百名太学生。",
+          "access_expansion": "CENTRAL_GUOXUE_REOPENING_WITH_BOUNDED_STUDENT_CAPACITY",
+          "durability_and_handoff": "复建国学成为孝武后期中央儒官与教育政治的重要节点。",
+          "cross_scene_replication": null,
+          "attribution_strength": "RULER_GOVERNMENT",
+          "counterevidence": {
+            "count": 2,
+            "summary": "只闭合到中央一层、百名学生，未形成地方学校扩张或新社会群体入口，所以取CIV2-LOW。"
+          },
+          "hard_negative_gate": "NONE",
+          "knowledge_public_reach": "NOT_APPLICABLE",
+          "source_coverage": "PARTIAL_BUT_SUFFICIENT",
+          "source_refs": [
+            "https://xbzs.ecnu.edu.cn/CN/article/downloadArticleFile.do?attachType=PDF&id=11783"
+          ]
+        },
+        {
+          "package_code": "I4PKG-WORK-SIMARUI-B-01",
+          "ruler_id": "RULER-SHADOW-司马睿",
+          "ruler_name": "司马睿",
+          "polity": "东晋",
+          "axis": "B",
+          "direction": "POSITIVE",
+          "net_tendency": "POSITIVE_DOMINANT",
+          "episode_refs": [],
+          "same_chain_support_refs": [],
+          "same_chain_effect": "NONE",
+          "independent_reinforcement_refs": [],
+          "independent_reinforcement_effect": "NONE",
+          "folded_support": [],
+          "inherited_baseline": "西晋覆亡、北方战乱后原中央太学体系中断，南渡政权需要重新建立中央教育供给。",
+          "contemporary_feasible_frontier": null,
+          "background_trend": null,
+          "attributable_change": "建武元年即在新建江左政权恢复太学，随后增置博士，太兴二年皇太子在太学讲经、行释奠；虽然初建两年教学尚不完备，但中央教育机构已从战乱断裂中重新运转。",
+          "relative_change_level": "R2",
+          "relative_change_level_basis": "POST_COLLAPSE_REFOUNDATION_OF_CENTRAL_TAIXUE_WITH_REALIZED_TEACHING",
+          "positive_component_level": null,
+          "negative_component_level": null,
+          "field_coverage": "东晋中央太学、博士系统及早期实际讲学。",
+          "access_expansion": "POSTWAR_CENTRAL_HIGHER_EDUCATION_REOPENING",
+          "durability_and_handoff": "太学与博士制度此后成为东晋中央教育的持续制度基线。",
+          "cross_scene_replication": null,
+          "attribution_strength": "RULER_GOVERNMENT_WITH_MINISTERIAL_PROPOSAL",
+          "counterevidence": {
+            "count": 2,
+            "summary": "立学初期‘教养未备’，规模和社会覆盖有限；属于恢复中央层而非多地域扩张，因此CIV2-LOW。"
+          },
+          "hard_negative_gate": "NONE",
+          "knowledge_public_reach": "NOT_APPLICABLE",
+          "source_coverage": "PARTIAL_BUT_SUFFICIENT",
+          "source_refs": [
+            "https://xbzs.ecnu.edu.cn/CN/article/downloadArticleFile.do?attachType=PDF&id=11783"
+          ]
         }
       ]
     }

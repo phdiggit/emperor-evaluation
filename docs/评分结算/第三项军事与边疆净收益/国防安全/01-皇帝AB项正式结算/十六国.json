@@ -39,7 +39,9 @@
               "start": "A1S1_SEVERE_THREAT",
               "trajectory_value": 56,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "304年初立时仍受西晋国家机器与周边晋军现实压制，存续需长期高强度作战；至310年已在并州、上党和河北形成持续军团网络，能与晋方相互攻守，但尚未取得稳定全国主动。"
             },
             "A2": {
               "axis_points": 13.6,
@@ -52,7 +54,9 @@
               "start": "A2S1_BROKEN_BOUNDARY",
               "trajectory_value": 34,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "起点只有离石—左国城核心附近应急据点；壶关受降后形成屯留、长子等北向节点，但河北石勒军仍属流动军团，未形成一条可验证的协同主防线，终点只到局部可守点。"
             },
             "B1": {
               "axis_points": 7.5,
@@ -60,9 +64,10 @@
               "grade": "B1-1",
               "rationale": "稳定核心不计；交班仅把壶关—上党通道按西北边疆孤立支点0.25计0.2。起点0、终点0.2，净增0.2、加权值0.2，机械落B1-1 LOW。",
               "raw_net_change": 0.2,
-              "score_rate": 30,
+              "score_rate": 30.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 0.2
+              "weighted_control_value": 0.2,
+              "reason": "规模与控制强度：B1全量重审已确认最终档内率。"
             },
             "B2": {
               "axis_points": 15.6,
@@ -82,7 +87,7 @@
           "b1_control_equivalents": {
             "end": 0.2,
             "net_change": 0.2,
-            "start": 0.0,
+            "start": 0,
             "weighted_value": 0.2
           },
           "b1_region_adjudications": [
@@ -204,7 +209,21 @@
               "start_grade": 1,
               "trajectory_value": 56.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 1,
+                  "to_grade": 2,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                },
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 1.0,
@@ -226,7 +245,15 @@
               "start_grade": 1,
               "trajectory_value": 34.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 1,
+                  "to_grade": 2,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             }
           },
           "B80_adjudication": {
@@ -238,6 +265,12 @@
             "adjudicated_B2_rate": 52.0,
             "adjudicated_B4_rate": 45.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "CONFIRMED_NORMALIZED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 30.0
           }
         },
         {
@@ -256,7 +289,9 @@
               "start": "A1S3_CONTESTED_BALANCE",
               "trajectory_value": 58,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "直接承接汉赵与晋相互制衡状态。本人任内平定继承危机、攻取三渚并持续压低晋方国家级威胁，至本人去世时总体掌握主动；石勒集团自主性和东晋残存使终点不能进5档。石勒吞并王弥已按其创业兼并路由排除，不再作为刘聪正向依据。"
             },
             "A2": {
               "axis_points": 18.4,
@@ -269,7 +304,9 @@
               "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
               "trajectory_value": 46,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "接班时只有上党等局部节点；至318年去世时，河东—河南方向已有多个可运作军团、城地和交通节点，形成一个决定性主要方向边界，但各军团权责分散且河北、关中仍有明显缺口。"
             },
             "B1": {
               "axis_points": 7.5,
@@ -277,9 +314,10 @@
               "grade": "B1-1",
               "rationale": "承接壶关—上党0.2，任内三渚只形成河南单点0.15；交班0.35，净增0.15、加权值0.23，落B1-1 LOW。石勒河北军团因缺少可执行皇权控制证据不计属国空间。",
               "raw_net_change": 0.15,
-              "score_rate": 30,
+              "score_rate": 30.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 0.23
+              "weighted_control_value": 0.23,
+              "reason": "规模与控制强度：B1全量重审已确认最终档内率。"
             },
             "B2": {
               "axis_points": 13.2,
@@ -456,7 +494,15 @@
               "start_grade": 3,
               "trajectory_value": 58.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 1.0,
@@ -478,7 +524,15 @@
               "start_grade": 2,
               "trajectory_value": 46.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             }
           },
           "B80_adjudication": {
@@ -490,6 +544,12 @@
             "adjudicated_B2_rate": 44.0,
             "adjudicated_B4_rate": 45.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "CONFIRMED_NORMALIZED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 30.0
           }
         },
         {
@@ -508,7 +568,9 @@
               "start": "A1S3_CONTESTED_BALANCE",
               "trajectory_value": 36,
               "transition": "STABLE",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "国防窗口从319年后赵政权成立起算，不能再以309年流动军团无根据地状态制造0档创业起点。剥离创业兼并后，任内面对东晋、辽东前燕等外部强敌，始终属于有攻有守而未形成稳定压倒优势的3档。"
             },
             "A2": {
               "axis_points": 18.4,
@@ -521,17 +583,20 @@
               "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
               "trajectory_value": 46,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "319年已有襄国等局部可守节点；至333年后赵本体形成可运行的主要方向边界，但其大部分空间扩展属于创业兼并，不能据此直接抬到4档总体稳固。剥离统一维度后只确认2→3。"
             },
             "B1": {
               "axis_points": 7.25,
               "band_position": "HIGH",
               "grade": "B1-0",
               "rationale": "石勒由流动军团到后赵北方政权的空间扩展已全部路由为创业兼并，只进入战役底账；国防B1起终点不以这些统一成果结算，净变化和加权控制值均为0，机械落B1-0高段。",
-              "raw_net_change": 0.0,
-              "score_rate": 29,
+              "raw_net_change": 0,
+              "score_rate": 29.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 0.0
+              "weighted_control_value": 0.0,
+              "reason": "规模与控制强度：B1全量重审已确认最终档内率。"
             },
             "B2": {
               "axis_points": 0.0,
@@ -549,9 +614,9 @@
             }
           },
           "b1_control_equivalents": {
-            "end": 0.0,
-            "net_change": 0.0,
-            "start": 0.0,
+            "end": 0,
+            "net_change": 0,
+            "start": 0,
             "weighted_value": 0.0
           },
           "b1_region_adjudications": [
@@ -671,7 +736,8 @@
               "start_grade": 3,
               "trajectory_value": 36.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": 1.0,
@@ -693,7 +759,15 @@
               "start_grade": 2,
               "trajectory_value": 46.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             }
           },
           "B80_adjudication": {
@@ -705,6 +779,12 @@
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "CONFIRMED_NORMALIZED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 29.0
           }
         },
         {
@@ -725,7 +805,9 @@
               "start": "A1S4_STABLE_ADVANTAGE",
               "trajectory_value": 26,
               "transition": "WORSENED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "接班时后赵已主导北方。任内虽取得段氏四十余城并击破斛摩头，但两次超大动员无果、梁犊十万级兵变横贯核心区，军力与中央控制明显受损；本人去世时主要对手与后赵仍可相互攻守，降至3档。"
             },
             "A2": {
               "axis_points": 10.4,
@@ -738,7 +820,9 @@
               "start": "A2S4_OVERALL_SECURE_WITH_GAPS",
               "trajectory_value": 26,
               "transition": "WORSENED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "接班时河北—关陇—河南多州边界总体有效。段氏故地虽扩展辽西前沿，但安平袭击无持续控制，两次远征动员未形成新体系，梁犊兵变又暴露关中至陈留通道缺口；交班为一个主要方向有效而整体有显著缺口的3档。"
             },
             "B1": {
               "axis_points": 15.0,
@@ -746,9 +830,10 @@
               "grade": "B1-3",
               "rationale": "承接石勒交班3.4，任内段氏故地按辽东标准区域大部有效0.75计0.375，交班3.775。净增0.375、加权值1.735，机械落B1-3 LOW。",
               "raw_net_change": 0.375,
-              "score_rate": 60,
+              "score_rate": 60.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 1.735
+              "weighted_control_value": 1.735,
+              "reason": "规模与控制强度：B1全量重审已确认最终档内率。"
             },
             "B2": {
               "axis_points": 20.1,
@@ -1007,7 +1092,8 @@
               "start_grade": 4,
               "trajectory_value": 26.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": -1.0,
@@ -1029,7 +1115,8 @@
               "start_grade": 4,
               "trajectory_value": 26.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
@@ -1041,6 +1128,12 @@
             "adjudicated_B2_rate": 67.0,
             "adjudicated_B4_rate": 60.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "CONFIRMED_NORMALIZED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 60.0
           }
         },
         {
@@ -1059,7 +1152,9 @@
               "start": "A1S0_EXISTENTIAL_CRISIS",
               "trajectory_value": 0,
               "transition": "STABLE",
-              "transition_attribution": "SELF_INDUCED_AND_EXTERNAL_CONQUEST"
+              "transition_attribution": "SELF_INDUCED_AND_EXTERNAL_CONQUEST",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "350年冉魏建立即处于后赵残余、前燕及多方军团夹击，邺城与政权存续持续受现实威胁；352年冉闵被俘杀、邺城失守，国家终结，起终均为0档。"
             },
             "A2": {
               "axis_points": 0.0,
@@ -1072,7 +1167,9 @@
               "start": "A2S0_CORE_EXPOSED",
               "trajectory_value": 0,
               "transition": "STABLE",
-              "transition_attribution": "SELF_INDUCED_AND_EXTERNAL_CONQUEST"
+              "transition_attribution": "SELF_INDUCED_AND_EXTERNAL_CONQUEST",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "起点只有邺城及河北零散据点，核心区直接暴露于多方军队；任内未形成可协同边界，终点邺城失守，维持0档。"
             },
             "B1": {
               "axis_points": 0.0,
@@ -1080,9 +1177,10 @@
               "grade": "B1-0",
               "rationale": "起点仅把河北孤立控制支点保守计0.3，交班随冉魏终结归零；净变化-0.3、加权值-0.18，并执行终局门落B1-0 LOW。",
               "raw_net_change": -0.3,
-              "score_rate": 0,
+              "score_rate": 0.0,
               "terminal_collapse_override": true,
-              "weighted_control_value": -0.18
+              "weighted_control_value": -0.18,
+              "reason": "规模与控制强度：B1全量重审已确认最终档内率。"
             },
             "B2": {
               "axis_points": 0.0,
@@ -1100,7 +1198,7 @@
             }
           },
           "b1_control_equivalents": {
-            "end": 0.0,
+            "end": 0,
             "net_change": -0.3,
             "start": 0.3,
             "weighted_value": -0.18
@@ -1209,7 +1307,8 @@
               "start_grade": 0,
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -1231,7 +1330,8 @@
               "start_grade": 0,
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
@@ -1243,6 +1343,12 @@
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "CONFIRMED_NORMALIZED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 0.0
           }
         },
         {
@@ -1263,7 +1369,7 @@
               "trajectory_value": 68,
               "axis_points": 27.2,
               "score_exclusion_reason": null,
-              "assessment_scope": "OVERALL_FRONTIER_STRATEGIC_SITUATION",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
               "reason": "整体边疆形势：第一项已结算302—304年接掌流民集团和建立成国，第三项不得再以草创政权本身作为1档起点。304年后只看晋、仇池等非统一外部压力，起点为战略劣势2档；任内守住四川核心并取得涪城、南中方向成果，交班为稳定优势4档。"
             },
             "A2": {
@@ -1279,7 +1385,7 @@
               "trajectory_value": 46,
               "axis_points": 18.4,
               "score_exclusion_reason": null,
-              "assessment_scope": "OVERALL_FRONTIER_STRATEGIC_SITUATION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
               "reason": "整体边疆形势：排除302—304建国启动链后，起点已有成都核心及局部可守节点，不能按边界破裂1档重复领取创业改善；至交班形成涪城门户和南中宁州方向，但汉中、仇池仍是显著缺口，结算2档至3档。"
             },
             "B1": {
@@ -1288,9 +1394,10 @@
               "grade": "B1-1",
               "rationale": "稳定四川核心不计；交班计涪城北部门户0.2、南中宁州0.5，共0.7。起点0、净增和加权值均0.7，机械落B1-1 HIGH。",
               "raw_net_change": 0.7,
-              "score_rate": 44,
+              "score_rate": 44.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 0.7
+              "weighted_control_value": 0.7,
+              "reason": "规模与控制强度：B1全量重审已确认最终档内率。"
             },
             "B2": {
               "axis_points": 20.1,
@@ -1310,7 +1417,7 @@
           "b1_control_equivalents": {
             "end": 0.7,
             "net_change": 0.7,
-            "start": 0.0,
+            "start": 0,
             "weighted_value": 0.7
           },
           "b1_region_adjudications": [
@@ -1486,7 +1593,21 @@
               "start_grade": 2,
               "trajectory_value": 68.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签RULER_REIGN_NET_RESULT"
+                },
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签RULER_REIGN_NET_RESULT"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 1.0,
@@ -1508,7 +1629,15 @@
               "start_grade": 2,
               "trajectory_value": 46.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签RULER_REIGN_NET_RESULT"
+                }
+              ]
             }
           },
           "B80_adjudication": {
@@ -1520,6 +1649,12 @@
             "adjudicated_B2_rate": 67.0,
             "adjudicated_B4_rate": 75.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "CONFIRMED_NORMALIZED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 44.0
           }
         },
         {
@@ -1538,7 +1673,9 @@
               "start": "A1S1_SEVERE_THREAT",
               "trajectory_value": 56,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "351年前秦初据关中，仍面临地方武装、仇池与东晋北伐的现实高强度压力。352—354年多处武装被平，且桓温北伐最终退去；交班时前秦能与周边主要对手制衡，但未取得稳定整体主动。"
             },
             "A2": {
               "axis_points": 13.6,
@@ -1551,17 +1688,20 @@
               "start": "A2S1_BROKEN_BOUNDARY",
               "trajectory_value": 34,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "起点关中州郡和关塞尚未闭合。跨年平定池阳、鄠、司竹、雍等节点后形成若干可守支点；354年晋军仍能深入灞上附近，说明主要方向体系可被穿透，终点只到2档。"
             },
             "B1": {
               "axis_points": 7.25,
               "band_position": "HIGH",
               "grade": "B1-0",
               "rationale": "关中平乱恢复的是新政权核心控制，按统一核心排除；仇池进攻失败，未留下边疆控制成果。起终均0、加权值0，机械落B1-0 HIGH。",
-              "raw_net_change": 0.0,
-              "score_rate": 29,
+              "raw_net_change": 0,
+              "score_rate": 29.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 0.0
+              "weighted_control_value": 0.0,
+              "reason": "规模与控制强度：B1全量重审已确认最终档内率。"
             },
             "B2": {
               "axis_points": 0.0,
@@ -1579,9 +1719,9 @@
             }
           },
           "b1_control_equivalents": {
-            "end": 0.0,
-            "net_change": 0.0,
-            "start": 0.0,
+            "end": 0,
+            "net_change": 0,
+            "start": 0,
             "weighted_value": 0.0
           },
           "b1_region_adjudications": [
@@ -1704,7 +1844,21 @@
               "start_grade": 1,
               "trajectory_value": 56.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 1,
+                  "to_grade": 2,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                },
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 1.0,
@@ -1726,7 +1880,15 @@
               "start_grade": 1,
               "trajectory_value": 34.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 1,
+                  "to_grade": 2,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             }
           },
           "B80_adjudication": {
@@ -1738,10 +1900,16 @@
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "CONFIRMED_NORMALIZED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 29.0
           }
         },
         {
-          "AB_score_points": 37.25,
+          "AB_score_points": 30.0,
           "adjudication_status": "REVIEWED",
           "ambiguous_event_refs": [],
           "axes": {
@@ -1756,7 +1924,9 @@
               "start": "A1S3_CONTESTED_BALANCE",
               "trajectory_value": 0,
               "transition": "WORSENED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "357年接班时前秦已能与周边主要对手制衡。任内一度灭前燕、前凉、代并取得梁益和西域，但383年淝水体系性惨败后燕、后秦等相继反叛；至385年苻坚离开长安后被俘杀，首都、核心区和政权存续均处现实危机，终点降为0档。"
             },
             "A2": {
               "axis_points": 0.0,
@@ -1769,17 +1939,20 @@
               "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
               "trajectory_value": 0,
               "transition": "WORSENED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "起点关中有若干关塞州镇但主要方向仍可被深入。扩张期曾建立跨区域军镇体系，淝水后关东、河西、北方和梁益控制相继断裂，长安被围且本人出走遇害；交班时核心直接暴露、无有效全国边界，终点0档。"
             },
             "B1": {
-              "axis_points": 7.25,
-              "band_position": "HIGH",
+              "axis_points": 0.0,
+              "band_position": "LOW",
               "grade": "B1-0",
               "rationale": "稳定关中核心不计。前燕、前凉、代、梁益、仇池和西域等任内扩张均在385年交班前失去可执行中央控制，起终端点均0、加权值0，机械落B1-0 HIGH；阶段性超大扩张保留在B2和重大逆转事实。",
-              "raw_net_change": 0.0,
-              "score_rate": 29,
+              "raw_net_change": 0,
+              "score_rate": 0.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 0.0
+              "weighted_control_value": 0.0,
+              "reason": "规模与控制强度：B1全量重审已确认最终档内率。"
             },
             "B2": {
               "axis_points": 30.0,
@@ -1797,9 +1970,9 @@
             }
           },
           "b1_control_equivalents": {
-            "end": 0.0,
-            "net_change": 0.0,
-            "start": 0.0,
+            "end": 0,
+            "net_change": 0,
+            "start": 0,
             "weighted_value": 0.0
           },
           "b1_region_adjudications": [
@@ -2050,7 +2223,8 @@
               "start_grade": 3,
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": -2.0,
@@ -2072,18 +2246,25 @@
               "start_grade": 2,
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
             "B80_points": 0.0,
-            "formal_B1_rate": 29.0,
+            "formal_B1_rate": 0.0,
             "formal_B2_rate": 100.0,
             "formal_B4_rate": 0.0,
             "adjudicated_B1_rate": 0.0,
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "B2所读灭前燕、前凉、代及西域阶段扩张已进入第一项创业统一完成度；失去成果只由A终局与负链表达"
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "CONFIRMED_NORMALIZED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 0.0
           }
         },
         {
@@ -2102,7 +2283,9 @@
               "start": "A1S1_SEVERE_THREAT",
               "trajectory_value": 56,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "384年后秦初起时仍受前秦中枢及苻登军现实高压，政权存续需长期作战；至393年本人去世时已控制长安和关中主体，并多次挫败前秦反攻，但苻登主力仍存，终点为相互制衡3档。"
             },
             "A2": {
               "axis_points": 13.6,
@@ -2115,17 +2298,20 @@
               "start": "A2S1_BROKEN_BOUNDARY",
               "trajectory_value": 34,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "起点只有北地、安定等应急据点。任内取得长安并建立若干关中军镇，但与苻登在关陇反复机动，尚无一条可闭合主要方向的防线、纵深和补给协同，终点仅为局部可守点2档。"
             },
             "B1": {
               "axis_points": 7.25,
               "band_position": "HIGH",
               "grade": "B1-0",
               "rationale": "后秦建国及长安—关中控制属于创业统一核心，按规则排除；任内未确认核心之外可计端点边疆空间。起终均0、加权值0，机械落B1-0 HIGH。",
-              "raw_net_change": 0.0,
-              "score_rate": 29,
+              "raw_net_change": 0,
+              "score_rate": 29.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 0.0
+              "weighted_control_value": 0.0,
+              "reason": "规模与控制强度：B1全量重审已确认最终档内率。"
             },
             "B2": {
               "axis_points": 0.0,
@@ -2143,9 +2329,9 @@
             }
           },
           "b1_control_equivalents": {
-            "end": 0.0,
-            "net_change": 0.0,
-            "start": 0.0,
+            "end": 0,
+            "net_change": 0,
+            "start": 0,
             "weighted_value": 0.0
           },
           "b1_region_adjudications": [
@@ -2256,7 +2442,21 @@
               "start_grade": 1,
               "trajectory_value": 56.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 1,
+                  "to_grade": 2,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                },
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 1.0,
@@ -2278,7 +2478,15 @@
               "start_grade": 1,
               "trajectory_value": 34.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 1,
+                  "to_grade": 2,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             }
           },
           "B80_adjudication": {
@@ -2290,6 +2498,12 @@
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "CONFIRMED_NORMALIZED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 29.0
           }
         },
         {
@@ -2308,7 +2522,9 @@
               "start": "A1S3_CONTESTED_BALANCE",
               "trajectory_value": 0,
               "transition": "WORSENED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "394年接班时后秦与前秦相持，旋即消灭苻登并一度控制秦陇、河东、河南。402年柴壁后军力受损，408—416年胡夏连续摧毁北方军镇和数万级方面军，夺嫡又转为宫门内战；交班时主要威胁具有制造国家级危机的现实能力，降至1档。"
             },
             "A2": {
               "axis_points": 0.8,
@@ -2321,7 +2537,9 @@
               "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
               "trajectory_value": 2,
               "transition": "WORSENED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "起点关中只有若干可守军镇。任内曾将洛阳、河南和北部堡链接入纵深，但归还十二郡后南线收缩，胡夏又连续攻破岭北、安定、杏城和阴密；交班时主要边界已破，只能依靠核心附近应急防御，终点1档。"
             },
             "B1": {
               "axis_points": 9.25,
@@ -2329,9 +2547,10 @@
               "grade": "B1-1",
               "rationale": "起点排除关中核心后为0。交班仅确认洛阳—河南残余走廊大部网络中的约半覆盖0.3；北部和南部主要新增控制均已退失。净增与加权值0.3，机械落B1-1 MID。",
               "raw_net_change": 0.3,
-              "score_rate": 37,
+              "score_rate": 37.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 0.3
+              "weighted_control_value": 0.3,
+              "reason": "规模与控制强度：B1全量重审已确认最终档内率。"
             },
             "B2": {
               "axis_points": 22.5,
@@ -2351,7 +2570,7 @@
           "b1_control_equivalents": {
             "end": 0.3,
             "net_change": 0.3,
-            "start": 0.0,
+            "start": 0,
             "weighted_value": 0.3
           },
           "b1_region_adjudications": [
@@ -2600,7 +2819,8 @@
               "start_grade": 3,
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": -1.0,
@@ -2622,7 +2842,8 @@
               "start_grade": 2,
               "trajectory_value": 2.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
@@ -2634,10 +2855,16 @@
             "adjudicated_B2_rate": 75.0,
             "adjudicated_B4_rate": 59.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "CONFIRMED_NORMALIZED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 37.0
           }
         },
         {
-          "AB_score_points": 92.7,
+          "AB_score_points": 77.7,
           "adjudication_status": "REVIEWED",
           "ambiguous_event_refs": [],
           "axes": {
@@ -2652,7 +2879,9 @@
               "start": "A1S1_SEVERE_THREAT",
               "trajectory_value": 34,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "384年后燕复国时仍受前秦残余和河北多方军政集团高压。任内消灭翟魏、西燕并扩展北方秩序，但395年参合陂主力覆灭；396年报复平城只能局部止损，交班时北魏已成为反复且主动的主要威胁，终点为2档。"
             },
             "A2": {
               "axis_points": 22.4,
@@ -2665,17 +2894,20 @@
               "start": "A2S1_BROKEN_BOUNDARY",
               "trajectory_value": 56,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "起点只有新集结军团和零散城地。灭翟魏、西燕后河北—并州已有多区域州郡和交通网络，形成一个可运作主要边界；参合陂后北向军力断裂、平城控制短暂，整体仍有显著缺口，终点3档。"
             },
             "B1": {
-              "axis_points": 15.0,
+              "axis_points": 0.0,
               "band_position": "LOW",
-              "grade": "B1-3",
+              "grade": "B1-0",
               "rationale": "创业核心河北不计；交班计翟魏七郡走廊0.6、西燕并州八郡0.8、平城孤立支点0.2，共1.6。起点0、净增和加权值均1.6，机械落B1-3 LOW。",
               "raw_net_change": 1.6,
-              "score_rate": 60,
+              "score_rate": 0.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 1.6
+              "weighted_control_value": 0.0,
+              "reason": "规模与控制强度：B1全量重审已确认最终档内率。"
             },
             "B2": {
               "axis_points": 26.7,
@@ -2695,8 +2927,8 @@
           "b1_control_equivalents": {
             "end": 1.6,
             "net_change": 1.6,
-            "start": 0.0,
-            "weighted_value": 1.6
+            "start": 0,
+            "weighted_value": 0.0
           },
           "b1_region_adjudications": [
             {
@@ -2862,7 +3094,15 @@
               "start_grade": 1,
               "trajectory_value": 34.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 1,
+                  "to_grade": 2,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 2.0,
@@ -2884,18 +3124,39 @@
               "start_grade": 1,
               "trajectory_value": 56.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 1,
+                  "to_grade": 2,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                },
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             }
           },
           "B80_adjudication": {
             "B80_points": 0.0,
-            "formal_B1_rate": 60.0,
+            "formal_B1_rate": 0.0,
             "formal_B2_rate": 89.0,
             "formal_B4_rate": 60.0,
             "adjudicated_B1_rate": 0.0,
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "翟魏、西燕已在AB的创业排除表，却又被B计分；平城仅短期支点且D确认无耐久控制"
+          },
+          "b1_cross_item_excluded_weighted_value": 1.6,
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "CONFIRMED_NORMALIZED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 0.0
           }
         },
         {
@@ -2914,7 +3175,9 @@
               "start": "A1S1_SEVERE_THREAT",
               "trajectory_value": 56,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "398年南燕初立、由滑台转入青州时仍受北魏和东晋强邻现实压制。至405年本人去世时已在广固与青齐形成稳定区域政权，403年宫变和王始起事均被控制；强邻仍在而可相互制衡，终点3档。"
             },
             "A2": {
               "axis_points": 22.4,
@@ -2927,17 +3190,20 @@
               "start": "A2S1_BROKEN_BOUNDARY",
               "trajectory_value": 56,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "起点缺少稳定边界和纵深；迁广固后以青齐城群、州郡和坚城形成一个可运作主要方向体系。全国规模很小且北魏、东晋两向均有缺口，故终点3档而非4档。"
             },
             "B1": {
               "axis_points": 7.25,
               "band_position": "HIGH",
               "grade": "B1-0",
               "rationale": "南燕建立及青齐核心接管属于创业统一核心，按规则排除；本人任内未确认核心之外合格边疆控制增量。起终均0、加权值0，机械落B1-0 HIGH。",
-              "raw_net_change": 0.0,
-              "score_rate": 29,
+              "raw_net_change": 0,
+              "score_rate": 29.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 0.0
+              "weighted_control_value": 0.0,
+              "reason": "规模与控制强度：B1全量重审已确认最终档内率。"
             },
             "B2": {
               "axis_points": 0.0,
@@ -2955,9 +3221,9 @@
             }
           },
           "b1_control_equivalents": {
-            "end": 0.0,
-            "net_change": 0.0,
-            "start": 0.0,
+            "end": 0,
+            "net_change": 0,
+            "start": 0,
             "weighted_value": 0.0
           },
           "b1_region_adjudications": [
@@ -3092,7 +3358,21 @@
               "start_grade": 1,
               "trajectory_value": 56.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 1,
+                  "to_grade": 2,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                },
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 2.0,
@@ -3114,7 +3394,21 @@
               "start_grade": 1,
               "trajectory_value": 56.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 1,
+                  "to_grade": 2,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                },
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             }
           },
           "B80_adjudication": {
@@ -3126,6 +3420,12 @@
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "CONFIRMED_NORMALIZED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 29.0
           }
         },
         {
@@ -3144,7 +3444,9 @@
               "start": "A1S2_STRATEGIC_DISADVANTAGE",
               "trajectory_value": 2,
               "transition": "WORSENED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "386年后凉初立时已有吕光西征军和姑臧支点，但河西多方军政力量并存，主要方向仍明显被动。387年一度统一河西核心；至399年西秦、南凉和北凉多向压迫，连续远征无功，首都圈亦受牵制，主要威胁具国家级危机能力，终点降至1档。"
             },
             "A2": {
               "axis_points": 0.8,
@@ -3157,17 +3459,20 @@
               "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
               "trajectory_value": 2,
               "transition": "WORSENED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "起点只有姑臧及若干河西节点。统一河西后曾形成走廊，但张掖、金城等方向持续脱离，北凉坚守和南凉袭扰使姑臧成为核心附近应急防御；交班时主要边界已经破裂，终点1档。"
             },
             "B1": {
               "axis_points": 7.25,
               "band_position": "HIGH",
               "grade": "B1-0",
               "rationale": "姑臧—河西核心的建立属于创业统一核心，排除；金城等任内外缘节点均未留到交班。起终均0、加权值0，机械落B1-0 HIGH。",
-              "raw_net_change": 0.0,
-              "score_rate": 29,
+              "raw_net_change": 0,
+              "score_rate": 29.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 0.0
+              "weighted_control_value": 0.0,
+              "reason": "规模与控制强度：B1全量重审已确认最终档内率。"
             },
             "B2": {
               "axis_points": 11.1,
@@ -3185,9 +3490,9 @@
             }
           },
           "b1_control_equivalents": {
-            "end": 0.0,
-            "net_change": 0.0,
-            "start": 0.0,
+            "end": 0,
+            "net_change": 0,
+            "start": 0,
             "weighted_value": 0.0
           },
           "b1_region_adjudications": [
@@ -3340,7 +3645,8 @@
               "start_grade": 2,
               "trajectory_value": 2.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": -1.0,
@@ -3362,7 +3668,8 @@
               "start_grade": 2,
               "trajectory_value": 2.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
@@ -3374,6 +3681,12 @@
             "adjudicated_B2_rate": 37.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "CONFIRMED_NORMALIZED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 29.0
           }
         },
         {
@@ -3392,7 +3705,9 @@
               "start": "A1S2_STRATEGIC_DISADVANTAGE",
               "trajectory_value": 46,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "400年西凉初立时地域狭小，北凉能反复压迫酒泉—敦煌方向，整体处于战略被动。任内虽有马庙失利，406、411年均守住主要城地，417年又在解支涧重创北凉；主要威胁未消失，但交班时已能稳定相互制衡，终点3档。"
             },
             "A2": {
               "axis_points": 18.4,
@@ -3405,17 +3720,20 @@
               "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
               "trajectory_value": 46,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "起点依赖敦煌、酒泉等若干孤立城镇。连续防御后，闭城疲敌、城镇补给与走廊机动形成一个可运作的河西西段边界；北凉仍能在建康筑城置戍，整体有显著缺口，终点3档。"
             },
             "B1": {
               "axis_points": 7.25,
               "band_position": "HIGH",
               "grade": "B1-0",
               "rationale": "敦煌—酒泉属于西凉创业核心，按规则排除；任内没有在核心之外形成可计端点增量。起终均0、加权值0，机械落B1-0 HIGH。",
-              "raw_net_change": 0.0,
-              "score_rate": 29,
+              "raw_net_change": 0,
+              "score_rate": 29.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 0.0
+              "weighted_control_value": 0.0,
+              "reason": "规模与控制强度：B1全量重审已确认最终档内率。"
             },
             "B2": {
               "axis_points": 20.1,
@@ -3434,9 +3752,9 @@
             }
           },
           "b1_control_equivalents": {
-            "end": 0.0,
-            "net_change": 0.0,
-            "start": 0.0,
+            "end": 0,
+            "net_change": 0,
+            "start": 0,
             "weighted_value": 0.0
           },
           "b1_region_adjudications": [
@@ -3603,7 +3921,15 @@
               "start_grade": 2,
               "trajectory_value": 46.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 1.0,
@@ -3625,7 +3951,15 @@
               "start_grade": 2,
               "trajectory_value": 46.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             }
           },
           "B80_adjudication": {
@@ -3637,10 +3971,16 @@
             "adjudicated_B2_rate": 67.0,
             "adjudicated_B4_rate": 67.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "CONFIRMED_NORMALIZED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 29.0
           }
         },
         {
-          "AB_score_points": 104.9,
+          "AB_score_points": 95.65,
           "adjudication_status": "REVIEWED",
           "ambiguous_event_refs": [],
           "axes": {
@@ -3655,7 +3995,9 @@
               "start": "A1S2_STRATEGIC_DISADVANTAGE",
               "trajectory_value": 68,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "401年夺取北凉时张掖核心尚受后凉、西凉、南凉及西秦多向压力，整体处于战略劣势。任内逐步控制河西中西段并消灭西凉，交班时主要区域对手已被结构性压低、北凉掌握河西主动；北魏仍是明显强邻，终点4档。"
             },
             "A2": {
               "axis_points": 27.2,
@@ -3668,17 +4010,20 @@
               "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
               "trajectory_value": 68,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "起点只有张掖等局部支点。灭西凉并取得敦煌后，姑臧—张掖—酒泉—敦煌走廊形成多节点、纵深和交通协同，主要河西方向总体有效；对北魏及西秦仍有次要缺口，终点4档。"
             },
             "B1": {
-              "axis_points": 9.25,
-              "band_position": "MID",
-              "grade": "B1-1",
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "grade": "B1-0",
               "rationale": "张掖创业核心不计；交班将灭西凉取得的酒泉—敦煌河西西段按整个河西标准区域的约半覆盖计0.4。起点0、净增和加权值0.4，机械落B1-1 MID。",
               "raw_net_change": 0.4,
-              "score_rate": 37,
+              "score_rate": 0.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 0.4
+              "weighted_control_value": 0.0,
+              "reason": "规模与控制强度：B1全量重审已确认最终档内率。"
             },
             "B2": {
               "axis_points": 22.5,
@@ -3698,8 +4043,8 @@
           "b1_control_equivalents": {
             "end": 0.4,
             "net_change": 0.4,
-            "start": 0.0,
-            "weighted_value": 0.4
+            "start": 0,
+            "weighted_value": 0.0
           },
           "b1_region_adjudications": [
             {
@@ -3859,7 +4204,21 @@
               "start_grade": 2,
               "trajectory_value": 68.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                },
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 2.0,
@@ -3881,22 +4240,43 @@
               "start_grade": 2,
               "trajectory_value": 68.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                },
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             }
           },
           "B80_adjudication": {
             "B80_points": 0.0,
-            "formal_B1_rate": 37.0,
+            "formal_B1_rate": 0.0,
             "formal_B2_rate": 75.0,
             "formal_B4_rate": 75.0,
             "adjudicated_B1_rate": 0.0,
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "灭西凉、取酒泉敦煌已由第一项消费；现有B三轴均只读取该控制包"
+          },
+          "b1_cross_item_excluded_weighted_value": 0.4,
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "CONFIRMED_NORMALIZED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 0.0
           }
         },
         {
-          "AB_score_points": 102.55,
+          "AB_score_points": 91.3,
           "adjudication_status": "REVIEWED",
           "ambiguous_event_refs": [],
           "axes": {
@@ -3911,7 +4291,9 @@
               "start": "A1S1_SEVERE_THREAT",
               "trajectory_value": 78,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "407年胡夏初起时兵力和根据地有限，仍受后秦国家体系现实压制。任内连续摧毁后秦北部方面军和堡链，418年乘晋军内变夺取长安关中；交班时后秦已亡、胡夏掌握西北主动，北魏仍为明显强敌，终点4档。"
             },
             "A2": {
               "axis_points": 18.4,
@@ -3924,17 +4306,20 @@
               "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
               "trajectory_value": 46,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "起点已有朔方若干据点但尚无完整体系。统万城、岭北军镇与长安关中形成两个主要控制包和一定纵深；二者距离大、交通和权责仍依赖宗室军团，整体存在显著缺口，终点3档。"
             },
             "B1": {
-              "axis_points": 11.25,
+              "axis_points": 0.0,
               "band_position": "LOW",
-              "grade": "B1-2",
+              "grade": "B1-0",
               "rationale": "朔方—统万创业核心不计；418年取得长安和关中，在交班时仍由宗室军镇维持，按关中陇右1.2的大部有效0.75计0.9。起点0、净增与加权值0.9，机械落B1-2 LOW。",
               "raw_net_change": 0.9,
-              "score_rate": 45,
+              "score_rate": 0.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 0.9
+              "weighted_control_value": 0.0,
+              "reason": "规模与控制强度：B1全量重审已确认最终档内率。"
             },
             "B2": {
               "axis_points": 26.7,
@@ -3954,8 +4339,8 @@
           "b1_control_equivalents": {
             "end": 0.9,
             "net_change": 0.9,
-            "start": 0.0,
-            "weighted_value": 0.9
+            "start": 0,
+            "weighted_value": 0.0
           },
           "b1_region_adjudications": [
             {
@@ -4064,7 +4449,27 @@
               "start_grade": 1,
               "trajectory_value": 78.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 1,
+                  "to_grade": 2,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                },
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                },
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 1.0,
@@ -4086,18 +4491,33 @@
               "start_grade": 2,
               "trajectory_value": 46.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             }
           },
           "B80_adjudication": {
             "B80_points": 0.0,
-            "formal_B1_rate": 45.0,
+            "formal_B1_rate": 0.0,
             "formal_B2_rate": 89.0,
             "formal_B4_rate": 60.0,
             "adjudicated_B1_rate": 0.0,
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "长安关中控制包属第一项创业统一终局；B三轴整包排除"
+          },
+          "b1_cross_item_excluded_weighted_value": 0.9,
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "CONFIRMED_NORMALIZED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 0.0
           }
         },
         {
@@ -4116,7 +4536,9 @@
               "start": "A1S2_STRATEGIC_DISADVANTAGE",
               "trajectory_value": 24,
               "transition": "STABLE",
-              "transition_attribution": "PRIMARY_RULER_ACTION_WITH_PERSISTENT_EXTERNAL_PRESSURE"
+              "transition_attribution": "PRIMARY_RULER_ACTION_WITH_PERSISTENT_EXTERNAL_PRESSURE",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "409年北燕政权更替后即处于北魏强权压力，主要方向明显被动但龙城核心尚无即时存亡危机。任内平定两州宗室叛乱并长期维持政权，却没有结构性压低北魏威胁，交班仍为2档；不因少战自动抬档。"
             },
             "A2": {
               "axis_points": 18.4,
@@ -4129,17 +4551,20 @@
               "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
               "trajectory_value": 46,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "起点依赖龙城及辽西若干孤立据点。二十余年维持辽西州镇、龙城纵深以及与高句丽等外部通道，使一个主要方向形成可运作体系；全国规模小、北魏方向仍有显著缺口，终点3档。"
             },
             "B1": {
               "axis_points": 7.25,
               "band_position": "HIGH",
               "grade": "B1-0",
               "rationale": "龙城—辽西属于北燕创业核心，排除；任内无证据表明核心之外形成可计端点边疆增量。起终均0、加权值0，机械落B1-0 HIGH。",
-              "raw_net_change": 0.0,
-              "score_rate": 29,
+              "raw_net_change": 0,
+              "score_rate": 29.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 0.0
+              "weighted_control_value": 0.0,
+              "reason": "规模与控制强度：B1全量重审已确认最终档内率。"
             },
             "B2": {
               "axis_points": 0.0,
@@ -4157,9 +4582,9 @@
             }
           },
           "b1_control_equivalents": {
-            "end": 0.0,
-            "net_change": 0.0,
-            "start": 0.0,
+            "end": 0,
+            "net_change": 0,
+            "start": 0,
             "weighted_value": 0.0
           },
           "b1_region_adjudications": [
@@ -4260,7 +4685,8 @@
               "start_grade": 2,
               "trajectory_value": 24.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": 1.0,
@@ -4282,7 +4708,15 @@
               "start_grade": 2,
               "trajectory_value": 46.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             }
           },
           "B80_adjudication": {
@@ -4294,6 +4728,12 @@
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "CONFIRMED_NORMALIZED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 29.0
           }
         }
       ]

@@ -4,51 +4,12 @@
   "collections": {
     "records": {
       "positions": [
-        108,
-        109
+        141,
+        189
       ],
       "records": [
         {
-          "rank": 58,
-          "ruler_id": "RULER-QIN-HUHAI",
-          "ruler_name": "胡亥",
-          "polity": "秦",
-          "source_group": "秦",
-          "status": "FORMAL_ZERO_ADJUSTMENT",
-          "triggered_axis_count": 0,
-          "axis_results": [
-            {
-              "axis": "A",
-              "disposition": "NO_ELIGIBLE_CIVILIZATION_INCREMENT",
-              "direction": null,
-              "magnitude_grade": null,
-              "band": null,
-              "signed_adjustment": 0,
-              "package_refs": []
-            },
-            {
-              "axis": "B",
-              "disposition": "NO_ELIGIBLE_CIVILIZATION_INCREMENT",
-              "direction": null,
-              "magnitude_grade": null,
-              "band": null,
-              "signed_adjustment": 0,
-              "package_refs": []
-            },
-            {
-              "axis": "C",
-              "disposition": "NO_ELIGIBLE_CIVILIZATION_INCREMENT",
-              "direction": null,
-              "magnitude_grade": null,
-              "band": null,
-              "signed_adjustment": 0,
-              "package_refs": []
-            }
-          ],
-          "fourth_item_signed_adjustment": 0
-        },
-        {
-          "rank": 58,
+          "rank": 115,
           "ruler_id": "RULER-QIN-YINGZHENG",
           "ruler_name": "嬴政",
           "polity": "秦",
@@ -82,102 +43,174 @@
               "band": null,
               "signed_adjustment": 0,
               "package_refs": [
-                "I4PKG-RULER-QIN-YINGZHENG-C-01",
-                "I4PKG-RULER-QIN-YINGZHENG-C-02"
+                "I4PKG-WORK-YINGZHENG-C-POS",
+                "I4PKG-WORK-YINGZHENG-C-NEG"
               ]
             }
           ],
-          "fourth_item_signed_adjustment": 0
+          "fourth_item_signed_adjustment": 0,
+          "zero_scan_checked": true
+        },
+        {
+          "rank": 186,
+          "ruler_id": "RULER-QIN-HUHAI",
+          "ruler_name": "胡亥",
+          "polity": "秦",
+          "source_group": "秦",
+          "status": "FORMAL_SIGNED_ADJUSTMENT",
+          "triggered_axis_count": 1,
+          "axis_results": [
+            {
+              "axis": "A",
+              "disposition": "SIGNED_CIVILIZATION_ADJUSTMENT_READY",
+              "direction": "NEGATIVE",
+              "magnitude_grade": "CIV2",
+              "band": "HIGH",
+              "signed_adjustment": -11.5,
+              "package_refs": [
+                "I4PKG-WORK-HUHAI-A-01"
+              ]
+            },
+            {
+              "axis": "B",
+              "disposition": "NO_ELIGIBLE_CIVILIZATION_INCREMENT",
+              "direction": null,
+              "magnitude_grade": null,
+              "band": null,
+              "signed_adjustment": 0,
+              "package_refs": []
+            },
+            {
+              "axis": "C",
+              "disposition": "NO_ELIGIBLE_CIVILIZATION_INCREMENT",
+              "direction": null,
+              "magnitude_grade": null,
+              "band": null,
+              "signed_adjustment": 0,
+              "package_refs": []
+            }
+          ],
+          "fourth_item_signed_adjustment": -11.5,
+          "zero_scan_checked": true
         }
       ]
     },
     "accepted_packages": {
       "positions": [
-        86,
-        87
+        199,
+        200,
+        246
       ],
       "records": [
         {
-          "package_code": "I4PKG-RULER-QIN-YINGZHENG-C-01",
-          "ruler_id": "RULER-QIN-YINGZHENG",
-          "ruler_name": "嬴政",
-          "polity": "秦",
-          "axis": "C",
-          "direction": "POSITIVE",
-          "net_tendency": "POSITIVE_DOMINANT",
-          "episode_refs": [
-            "C-QIN-YINGZHENG-WRITING-STANDARDIZATION"
-          ],
-          "same_chain_support_refs": [],
-          "same_chain_effect": "NONE",
-          "independent_reinforcement_refs": [],
-          "independent_reinforcement_effect": "NONE_UNTIL_SCENE_VALIDATION",
-          "folded_support": [],
-          "inherited_baseline": "Warring States writing systems had substantial regional variation",
-          "contemporary_feasible_frontier": null,
-          "background_trend": null,
-          "attributable_change": "书同文字及小篆规范由统一政权推动，降低跨区域行政与文本传递障碍；相对战国文字分化形成可持续的知识互通基础，属于文明进步增量",
-          "relative_change_level": "R3",
-          "relative_change_level_basis": "CROSS_REGIONAL_TEXT_INTEROPERABILITY_WITH_DURABLE_ADOPTION",
-          "positive_component_level": null,
-          "negative_component_level": null,
-          "field_coverage": "state and elite textual exchange across the unified realm; not general literacy",
-          "access_expansion": null,
-          "durability_and_handoff": "standardized writing remained a durable interoperability base after Qin",
-          "cross_scene_replication": null,
-          "attribution_strength": "SEMANTIC_NODE_RULER_WINDOW",
-          "counterevidence": {
-            "count": 2
-          },
-          "hard_negative_gate": "NONE",
-          "knowledge_public_reach": "BROAD_ADMINISTRATIVE_AND_ELITE_TEXT_USE_NOT_MASS_LITERACY",
-          "source_coverage": "ADEQUATE",
-          "source_refs": [],
-          "dissemination_era": "MANUSCRIPT_AND_EARLY_ACADEMY",
-          "era_relative_difficulty": "adjudicated against MANUSCRIPT_AND_EARLY_ACADEMY, not raw copies or reader counts",
-          "content_progress_relative_to_inherited_baseline": "POSITIVE_RELATIVE_TO_INHERITED_KNOWLEDGE_OR_ACCESS_BASELINE",
-          "public_reach_ceiling": "BROAD_ADMINISTRATIVE_AND_ELITE_TEXT_USE_NOT_MASS_LITERACY"
-        },
-        {
-          "package_code": "I4PKG-RULER-QIN-YINGZHENG-C-02",
+          "package_code": "I4PKG-WORK-YINGZHENG-C-NEG",
           "ruler_id": "RULER-QIN-YINGZHENG",
           "ruler_name": "嬴政",
           "polity": "秦",
           "axis": "C",
           "direction": "NEGATIVE",
           "net_tendency": "NEGATIVE_DOMINANT",
-          "episode_refs": [
-            "C-QIN-YINGZHENG-BOOK-BURNING"
-          ],
+          "episode_refs": [],
           "same_chain_support_refs": [],
           "same_chain_effect": "NONE",
           "independent_reinforcement_refs": [],
-          "independent_reinforcement_effect": "NONE_UNTIL_SCENE_VALIDATION",
+          "independent_reinforcement_effect": "NONE",
           "folded_support": [],
-          "inherited_baseline": "private historical and school texts remained available before the state destruction order",
+          "inherited_baseline": "私人历史与诸子经典文本此前仍可广泛持有和传习。",
           "contemporary_feasible_frontier": null,
           "background_trend": null,
-          "attributable_change": "《史记》保存李斯提出并获准的非秦史籍及特定私藏文本焚毁命令；毁弃文本和压低历史争鸣空间直接触发C5",
+          "attributable_change": "批准李斯建议，焚毁非秦史书以及民间特定诗书百家文本，并禁止以古非今，造成全国范围的文本毁损和思想讨论空间收缩；医药、卜筮、种树及博士官藏等有明确豁免。",
           "relative_change_level": "R3",
-          "relative_change_level_basis": "HARD_NEGATIVE_PRINCIPAL_FIELD_LOWER_BOUND",
+          "relative_change_level_basis": "REALM_LEVEL_TARGETED_TEXT_DESTRUCTION_AND_KNOWLEDGE_PLURALITY_CONTRACTION",
           "positive_component_level": null,
           "negative_component_level": null,
-          "field_coverage": "broad targeted categories across the unified realm, with explicit exemptions; not all knowledge",
+          "field_coverage": "历史、诗书百家等多个主要文本类别及相关讨论空间。",
           "access_expansion": null,
-          "durability_and_handoff": "text loss was partly irreversible even though later collection policies changed",
+          "durability_and_handoff": null,
           "cross_scene_replication": null,
-          "attribution_strength": "SEMANTIC_NODE_RULER_WINDOW",
+          "attribution_strength": "RULER_APPROVED_STATE_POLICY",
           "counterevidence": {
-            "count": 2
+            "count": 2,
+            "summary": "存在明确类别豁免且并非毁尽天下知识；与同窗文字标准化R3正向相当，故C轴最终CIV0而非单向负分。"
           },
           "hard_negative_gate": "ACTIVE",
-          "knowledge_public_reach": "UNRESOLVED",
-          "source_coverage": "ADEQUATE",
-          "source_refs": [],
-          "dissemination_era": "MANUSCRIPT_AND_EARLY_ACADEMY",
-          "era_relative_difficulty": "adjudicated against MANUSCRIPT_AND_EARLY_ACADEMY, not raw copies or reader counts",
-          "content_progress_relative_to_inherited_baseline": "REGRESSION_FROM_INHERITED_PLURALITY_OR_ACCESS",
-          "public_reach_ceiling": "UNRESOLVED"
+          "knowledge_public_reach": "BROAD_TEXT_AND_ELITE_KNOWLEDGE_NETWORK_CONTRACTION",
+          "source_coverage": "PARTIAL_BUT_SUFFICIENT",
+          "source_refs": []
+        },
+        {
+          "package_code": "I4PKG-WORK-YINGZHENG-C-POS",
+          "ruler_id": "RULER-QIN-YINGZHENG",
+          "ruler_name": "嬴政",
+          "polity": "秦",
+          "axis": "C",
+          "direction": "POSITIVE",
+          "net_tendency": "POSITIVE_DOMINANT",
+          "episode_refs": [],
+          "same_chain_support_refs": [],
+          "same_chain_effect": "NONE",
+          "independent_reinforcement_refs": [],
+          "independent_reinforcement_effect": "NONE",
+          "folded_support": [],
+          "inherited_baseline": "战国各国文字存在显著地域差异。",
+          "contemporary_feasible_frontier": null,
+          "background_trend": null,
+          "attributable_change": "统一政权推动书同文字和小篆规范，显著降低战国地域文字差异造成的跨区域行政、文书和精英文本互通成本，并形成长期延续的文字互操作基础。",
+          "relative_change_level": "R3",
+          "relative_change_level_basis": "CROSS_REGIONAL_TEXT_INTEROPERABILITY_WITH_DURABLE_ADOPTION",
+          "positive_component_level": null,
+          "negative_component_level": null,
+          "field_coverage": "统一帝国内行政与精英文本交换。",
+          "access_expansion": null,
+          "durability_and_handoff": null,
+          "cross_scene_replication": null,
+          "attribution_strength": "RULER_GOVERNMENT",
+          "counterevidence": {
+            "count": 1,
+            "summary": "不等同于大众识字普及，也不把统一战争功业本身计入。"
+          },
+          "hard_negative_gate": "NONE",
+          "knowledge_public_reach": "BROAD_ADMINISTRATIVE_AND_ELITE_TEXT_USE_NOT_MASS_LITERACY",
+          "source_coverage": "PARTIAL_BUT_SUFFICIENT",
+          "source_refs": []
+        },
+        {
+          "package_code": "I4PKG-WORK-HUHAI-A-01",
+          "ruler_id": "RULER-QIN-HUHAI",
+          "ruler_name": "胡亥",
+          "polity": "秦",
+          "axis": "A",
+          "direction": "NEGATIVE",
+          "net_tendency": "NEGATIVE_DOMINANT",
+          "episode_refs": [],
+          "same_chain_support_refs": [],
+          "same_chain_effect": "NONE",
+          "independent_reinforcement_refs": [],
+          "independent_reinforcement_effect": "NONE",
+          "folded_support": [],
+          "inherited_baseline": "始皇诸子女作为皇族群体原具有基本人身和家族安全。",
+          "contemporary_feasible_frontier": null,
+          "background_trend": null,
+          "attributable_change": "即位后为消除皇位威胁，系统清洗始皇诸子女：史籍记载多名公子公主被处死，公子将闾兄弟三人被无罪逼迫自杀，公子高因恐株连家属而主动请求殉葬。清洗明确按宗室血缘身份展开，并几乎摧毁始皇子女群体。",
+          "relative_change_level": "R2",
+          "relative_change_level_basis": "SYSTEMATIC_DYNASTIC_KIN_GROUP_DESTRUCTION",
+          "positive_component_level": null,
+          "negative_component_level": null,
+          "field_coverage": "秦始皇子女及其家庭这一宗室血缘群体。",
+          "access_expansion": null,
+          "durability_and_handoff": "死亡和宗室结构毁灭不可逆。",
+          "cross_scene_replication": null,
+          "attribution_strength": "RULER_DIRECT_AND_ZHAO_GAO_IMPLEMENTATION",
+          "counterevidence": {
+            "count": 2,
+            "summary": "受害对象高度集中于皇族政治群体，不能升级为主要社会领域R3；但清洗广泛、身份指向明确且死亡不可逆，足以CIV2-HIGH。"
+          },
+          "hard_negative_gate": "ACTIVE",
+          "knowledge_public_reach": "NOT_APPLICABLE",
+          "source_coverage": "PARTIAL_BUT_SUFFICIENT",
+          "source_refs": [
+            "https://zh.wikisource.org/zh-hans/%E5%B0%9A%E5%8F%B2_%28%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC%29/%E5%8D%B7076"
+          ]
         }
       ]
     }

@@ -19,6 +19,14 @@ COST_CREDIT_FACTORS_PATH = Path("config/third-item/third-item-cost-credit-factor
 MILITARY_NET_LOSS_PENALTIES_PATH = Path("config/third-item/third-item-military-net-loss-penalties.json")
 C_OUTCOME_ADJUDICATIONS_PATH = Path("config/third-item/third-item-c-outcome-adjudications.json")
 AB_HANDOFF_ADJUDICATIONS_PATH = Path("config/third-item/third-item-ab-handoff-adjudications.json")
+A_AXIS_NARRATIVE_ADJUDICATIONS_PATH = Path(
+    "config/third-item/third-item-a-axis-narrative-adjudications.json"
+)
+
+A_AXIS_SCOPES = {
+    "A1": "STRATEGIC_THREAT_CONTROL_STATE",
+    "A2": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+}
 
 
 def _reign_range_label(value: object) -> str:
@@ -31,6 +39,207 @@ def _reign_range_label(value: object) -> str:
 
 def _load(path: Path) -> dict[str, Any]:
     return load_json(path)
+
+
+def _cost_detail_text(value: object) -> str:
+    if value is None or value == "" or value == [] or value == {}:
+        return "未单列"
+    if isinstance(value, bool):
+        return "是" if value else "否"
+    if isinstance(value, Mapping):
+        visible = [
+            item
+            for key, item in value.items()
+            if key not in {"occurrence_count", "source_refs"}
+            and item not in (None, "", [], {}, 0, False)
+        ]
+        return "、".join(_cost_detail_text(item) for item in visible) or "未单列"
+    if isinstance(value, (list, tuple)):
+        return "；".join(_cost_detail_text(item) for item in value)
+    text = str(value)
+    translations = {
+        "W1_3": "1万—3万级动员",
+        "W3_10": "3万—10万级动员",
+        "W10_30": "10万—30万级动员",
+        "W30_100": "30万—100万级动员",
+        "W50_100": "50万—100万级动员",
+        "W100_PLUS": "100万以上级动员",
+        "W100_PLUS_MULTI_THEATER": "全国多方向大规模动员",
+        "W100_PLUS_MULTI_STATE": "跨多州全国级动员",
+        "W_NOT_RECORDED_EXPEDITION": "远征规模未载",
+        "W_NOT_RECORDED_MULTI_ROUND": "多轮动员规模未载",
+        "NOT_RECORDED": "未载",
+        "NONE": "未见重大损失或额外责任",
+        "SINGLE": "单轮",
+        "SHORT": "短期",
+        "CROSS_YEAR": "跨年",
+        "LONG": "长期",
+        "MULTI_ROUND": "多轮",
+        "REINFORCED": "有增援",
+        "F1_LIMITED_FORCE_LOSS": "有限兵力损失",
+        "F2_LARGE_PERSONNEL_IMPAIRMENT_FORCE_STRUCTURE_RETAINED": "重大人员损害，部队组织仍存",
+        "F3_THEATER_FORCE_SEVERE_LOSS": "主要方向兵团严重毁损",
+        "F3_MAJOR_FORMATION_DESTRUCTION": "主要兵团组织性毁损",
+        "F4_NATIONAL_FIELD_FORCE_COLLAPSE": "国家级野战主力组织崩溃",
+        "MAJOR_DRIVER": "本人负主要责任",
+        "DECISIVE_DRIVER": "本人负决定性责任",
+        "DECISIVE_PERSONAL_CAUSE": "本人构成决定性原因",
+        "CONTRIBUTED": "本人有实质责任",
+        "SETBACKS_BUT_CLOSED": "过程有挫折但已收束",
+    }
+    if "｜" in text:
+        code, detail = text.split("｜", 1)
+        short_code = code.rsplit(":", 1)[-1]
+        label = translations.get(short_code)
+        return f"{label}：{detail}" if label else detail
+    if "/" in text and all(part in translations for part in text.split("/")):
+        return "、".join(translations[part] for part in text.split("/"))
+    if text in translations:
+        return translations[text]
+    return text.replace("LOWER_BOUND", "证据下限").replace("CONFIRMED", "已确认")
+
+
+def _cost_dimension(chain: Mapping[str, Any], fields: Sequence[str]) -> str:
+    parts = [
+        _cost_detail_text(chain[field])
+        for field in fields
+        if chain.get(field) not in (None, "", [], {})
+    ]
+    return "；".join(parts) if parts else "未单列"
+
+
+def _raw_cost_text(value: object) -> str:
+    return json.dumps(value, ensure_ascii=False) if not isinstance(value, str) else value
+
+
+def _is_significant_cost_chain(chain: Mapping[str, Any]) -> bool:
+    mobilization = _raw_cost_text(chain.get("mobilization_peak") or "")
+    high_mobilization = any(
+        token in mobilization for token in ("W10_30", "W30_100", "W50_100", "W100_PLUS")
+    ) or bool(chain.get("high_mobilization_facts"))
+    force = " ".join(
+        _raw_cost_text(chain.get(field) or "")
+        for field in (
+            "force_destruction",
+            "force_destruction_or_personnel_disaster",
+            "cost",
+            "catastrophe_facts",
+            "force_destruction_events",
+            "force_loss_magnitude_events",
+            "abnormal_cost",
+        )
+    )
+    major_force = any(token in force for token in ("F2", "F3", "F4")) or bool(
+        chain.get("cost") or chain.get("abnormal_cost") or chain.get("catastrophe_facts")
+    )
+    process = " ".join(
+        _raw_cost_text(chain.get(field) or "")
+        for field in (
+            "process_burden",
+            "long_term_or_repeated_burden",
+            "process_efficiency",
+            "abnormal_process",
+        )
+    )
+    repeated = any(
+        token in process
+        for token in ("MULTI", "LONG", "CROSS_YEAR", "REPEATED", "REINFORCED")
+    )
+    responsibility = " ".join(
+        _raw_cost_text(chain.get(field) or "")
+        for field in (
+            "ruler_responsibility",
+            "responsibility_basis",
+            "command_or_policy_failure",
+            "responsibility",
+        )
+    )
+    material_responsibility = any(
+        token in responsibility
+        for token in ("MAJOR_DRIVER", "DECISIVE", "CONTRIBUTED", "FULL", "MATERIAL")
+    )
+    return high_mobilization or major_force or repeated or material_responsibility
+
+
+def _build_cost_detail(
+    d_row: Mapping[str, Any],
+    restored_c_chain_ids: Sequence[str],
+) -> list[str]:
+    profile = d_row["attributable_cost_profile"]
+    aggregate_fields = (
+        "admission_fact",
+        "admission_facts",
+        "single_admission_fact",
+        "mobilization_peak",
+        "ruler_major_responsibility",
+    )
+    aggregate_labels = {
+        "admission_fact": "准入事实",
+        "admission_facts": "准入事实",
+        "single_admission_fact": "单一准入事实",
+        "mobilization_peak": "全期动员峰值",
+        "ruler_major_responsibility": "本人重大责任",
+    }
+    details = [
+        f"总体{aggregate_labels[field]}：{_cost_detail_text(profile[field])}"
+        for field in aggregate_fields
+        if profile.get(field) not in (None, "", [], {})
+    ]
+    chain_groups = (
+        ("对外战略链", d_row.get("external_strategic_chains") or ()),
+        ("异常内部链", d_row.get("strategic_internal_chains") or ()),
+    )
+    for scope, group in chain_groups:
+        for chain in group:
+            if not _is_significant_cost_chain(chain):
+                continue
+            chain_id = str(chain["chain_id"])
+            chain_name = str(
+                chain.get("chain_name") or chain.get("name") or chain_id
+            )
+            chain_label = f"「{chain_name}」"
+            if chain_name == chain_id:
+                chain_label = f"`{chain_id}`"
+            dimensions = []
+            mobilization = _cost_dimension(chain, ("mobilization_peak", "mobilization_basis", "high_mobilization_facts"))
+            if mobilization != "未单列" and "未载" not in mobilization:
+                dimensions.append(("动员", mobilization))
+            force = _cost_dimension(chain, ("force_destruction", "force_destruction_or_personnel_disaster", "force_destruction_basis", "cost", "catastrophe_facts", "force_destruction_events", "force_loss_magnitude_events", "abnormal_cost"))
+            if force != "未单列" and not force.startswith("未见重大损失或额外责任"):
+                dimensions.append(("毁损", force))
+            process = _cost_dimension(chain, ("process_burden", "long_term_or_repeated_burden", "process_efficiency", "abnormal_process"))
+            if process != "未单列" and process not in ("单轮、短期", "SINGLE/SHORT"):
+                dimensions.append(("过程", process))
+            responsibility = _cost_dimension(chain, ("ruler_responsibility", "responsibility_basis", "command_or_policy_failure", "responsibility"))
+            raw_responsibility = " ".join(
+                _raw_cost_text(chain.get(field) or "")
+                for field in ("ruler_responsibility", "responsibility_basis", "command_or_policy_failure", "responsibility")
+            )
+            if any(token in raw_responsibility for token in ("MAJOR_DRIVER", "DECISIVE", "CONTRIBUTED", "FULL", "MATERIAL")):
+                dimensions.append(("责任", responsibility))
+            readable = "；".join(
+                f"{label}：{value}" for label, value in dimensions
+            )
+            if readable:
+                details.append(f"{scope}{chain_label}：{readable.rstrip('。')}。")
+    if restored_c_chain_ids:
+        details.append(
+            "C项恢复成本链："
+            + "、".join(f"`{chain_id}`" for chain_id in restored_c_chain_ids)
+            + "；其成本事实已恢复至全局成本视图，具体准入见上列全局成本依据。"
+        )
+    for chain in d_row.get("cross_item_excluded_chains") or ():
+        reason = str(
+            chain.get("reason")
+            or chain.get("basis")
+            or "跨项整链排除，不进入本人成本。"
+        )
+        details.append(f"跨项排除链 `{chain['chain_id']}`：{reason}")
+    details.extend(
+        f"非本方军事成本排除：{item}"
+        for item in d_row.get("non_military_loss_cost_exclusions") or ()
+    )
+    return details
 
 
 def _index(records: Sequence[Mapping[str, Any]], component: str) -> dict[str, Mapping[str, Any]]:
@@ -94,7 +303,215 @@ def _decompose_a120_axis(axis: Mapping[str, Any]) -> tuple[float, float]:
     return round(anchor * 0.6, 2), round((with_positive - anchor) * 0.6, 2)
 
 
+def _validate_result_credit_contract(
+    payload: Mapping[str, Any],
+    formal_ab_payload: Mapping[str, Any] | None = None,
+    *,
+    require_synchronized: bool = False,
+) -> None:
+    if payload.get("schema_id") != "emperor-v4-third-item-result-credit-adjudications-v2":
+        raise ValueError("A120结果信用合同schema不合法")
+    contract = payload.get("contract") or {}
+    if contract.get("improvement_attribution_scale") != {
+        "NONE": 0,
+        "LIMITED": 0.25,
+        "JOINT": 0.5,
+        "PRIMARY": 0.75,
+        "LEADING": 1.0,
+    }:
+        raise ValueError("A120逐档改善归责映射不合法")
+    if contract.get("improvement_attribution_formula") != (
+        "positive attributable_delta = sum(improvement_step_credits.credit)"
+    ):
+        raise ValueError("A120逐档改善归责公式不合法")
+    maintenance_bonus = contract.get("maintenance_bonus") or {}
+    if maintenance_bonus != {"NONE": 0, "TESTED": 10, "SEVERE": 25, "HISTORIC": 40}:
+        raise ValueError("A120守成加点映射不合法")
+
+    records = list(payload.get("records") or ())
+    if payload.get("record_count") != len(records) or len(records) != 201:
+        raise ValueError("A120结果信用覆盖不闭合")
+    if len({str(row.get("ruler_id")) for row in records}) != len(records):
+        raise ValueError("A120结果信用存在重复人物ID")
+
+    formal_by_id: dict[str, Mapping[str, Any]] = {}
+    if formal_ab_payload is not None:
+        formal_by_id = {
+            str(row["ruler_id"]): row
+            for row in formal_ab_payload.get("records") or ()
+        }
+
+    allowed_credits = {0.0, 0.25, 0.5, 0.75, 1.0}
+    allowed_maintenance = {
+        "NOT_APPLICABLE": 0,
+        "NONE": 0,
+        "TESTED": 10,
+        "SEVERE": 25,
+        "HISTORIC": 40,
+    }
+    for row in records:
+        ruler_id = str(row["ruler_id"])
+        formal = formal_by_id.get(ruler_id)
+        if formal_ab_payload is not None and formal is None:
+            raise ValueError(f"{row['ruler_name']}缺少AB正式人物记录")
+        axis_points = 0.0
+        historic_ref_sets: list[set[str]] = []
+        for axis_name in ("A1", "A2"):
+            axis = row["axes"][axis_name]
+            start = int(axis["start_grade"])
+            end = int(axis["end_grade"])
+            objective_delta = int(axis["objective_delta"])
+            attributable_delta = float(axis["attributable_delta"])
+            active_segments = list(axis.get("active_window_segments") or ())
+            expected_objective_delta = (
+                sum(int(segment["delta"]) for segment in active_segments)
+                if active_segments
+                else end - start
+            )
+            if (
+                not 0 <= start <= 5
+                or not 0 <= end <= 5
+                or objective_delta != expected_objective_delta
+            ):
+                raise ValueError(f"{row['ruler_name']} {axis_name}客观起终档不闭合")
+
+            steps = list(axis.get("improvement_step_credits") or ())
+            expected_step_count = max(0, objective_delta)
+            if len(steps) != expected_step_count:
+                raise ValueError(f"{row['ruler_name']} {axis_name}逐档改善归责数量不一致")
+            for index, step in enumerate(steps):
+                if (
+                    int(step.get("from_grade", -1)) != start + index
+                    or int(step.get("to_grade", -1)) != start + index + 1
+                    or float(step.get("credit", -1)) not in allowed_credits
+                    or not str(step.get("basis") or "").strip()
+                ):
+                    raise ValueError(f"{row['ruler_name']} {axis_name}逐档改善归责不合法")
+            if objective_delta > 0 and abs(sum(float(step["credit"]) for step in steps) - attributable_delta) > 0.001:
+                raise ValueError(f"{row['ruler_name']} {axis_name}逐档改善归责汇总不一致")
+            if objective_delta <= 0 and attributable_delta > 0:
+                raise ValueError(f"{row['ruler_name']} {axis_name}无改善却记正向归责")
+
+            difficulty = str(axis["maintenance_difficulty"])
+            bonus = float(axis["maintenance_bonus"])
+            if difficulty not in allowed_maintenance or bonus != allowed_maintenance[difficulty]:
+                raise ValueError(f"{row['ruler_name']} {axis_name}守成档与加点不一致")
+            if difficulty in {"TESTED", "SEVERE", "HISTORIC"} and not (
+                start == end and start in {4, 5}
+            ):
+                raise ValueError(f"{row['ruler_name']} {axis_name}不满足高位守成入口")
+            if difficulty == "HISTORIC":
+                if any(
+                    int(row["axes"][other_axis]["objective_delta"]) < 0
+                    for other_axis in ("A1", "A2")
+                ):
+                    raise ValueError(f"{row['ruler_name']}存在A轴终点下降，不得记历史级守成")
+                gate = axis.get("historic_maintenance_gate") or {}
+                pressure_refs = list(gate.get("pressure_refs") or ())
+                continuity_refs = list(gate.get("continued_effectiveness_refs") or ())
+                if gate.get("pressure_level") not in {"O5_O6_REALIZED", "REPEATED_O4_EQUIVALENT"}:
+                    raise ValueError(f"{row['ruler_name']} {axis_name}历史级守成压力不合法")
+                if float(gate.get("maintenance_attribution_credit") or 0) not in {0.75, 1.0}:
+                    raise ValueError(f"{row['ruler_name']} {axis_name}历史级守成本人归责不足")
+                if gate.get("pressure_origin") != "EXTERNAL_NOT_SELF_INDUCED":
+                    raise ValueError(f"{row['ruler_name']} {axis_name}历史级守成危机来源不合法")
+                if gate.get("terminal_grade_held") is not True or not pressure_refs or not continuity_refs:
+                    raise ValueError(f"{row['ruler_name']} {axis_name}历史级守成持续有效性未闭合")
+                if gate.get("cross_axis_consumption_check") != "PASS":
+                    raise ValueError(f"{row['ruler_name']} {axis_name}历史级守成跨轴去重未闭合")
+                if float(axis.get("negative_adjustment") or 0) != 0:
+                    raise ValueError(f"{row['ruler_name']} {axis_name}历史级守成存在未消化负向调整")
+                if formal is not None:
+                    allowed_refs = {
+                        str(ref) for ref in formal.get("parent_cycle_refs") or ()
+                    } | {
+                        str(ref) for ref in formal.get("evidence_event_refs") or ()
+                    }
+                    if not set(map(str, pressure_refs + continuity_refs)).issubset(allowed_refs):
+                        raise ValueError(f"{row['ruler_name']} {axis_name}历史级守成引用越界")
+                historic_ref_sets.append(set(map(str, pressure_refs + continuity_refs)))
+            elif axis.get("historic_maintenance_gate") is not None:
+                raise ValueError(f"{row['ruler_name']} {axis_name}非历史级守成不得保留历史门")
+
+            expected_trajectory = _clamp(
+                0.0,
+                100.0,
+                12 * end
+                + 10 * attributable_delta
+                + max(float(axis.get("ceiling_progress_bonus") or 0), bonus)
+                - float(axis.get("negative_adjustment") or 0),
+            )
+            if abs(float(axis["trajectory_value"]) - expected_trajectory) > 0.001:
+                raise ValueError(f"{row['ruler_name']} {axis_name}轨迹值不一致")
+            expected_axis_points = round(expected_trajectory * 0.6, 2)
+            if abs(float(axis["axis_points"]) - expected_axis_points) > 0.001:
+                raise ValueError(f"{row['ruler_name']} {axis_name}轴分不一致")
+            axis_points += expected_axis_points
+
+        if len(historic_ref_sets) > 1 and historic_ref_sets[0] & historic_ref_sets[1]:
+            raise ValueError(f"{row['ruler_name']}同一防守链不得在A1、A2重复记历史级守成")
+
+        if abs(float(row["A120_points"]) - round(axis_points, 2)) > 0.001:
+            raise ValueError(f"{row['ruler_name']} A120汇总不一致")
+        if require_synchronized and formal is not None and (
+            float(formal.get("A120_score_points")) != float(row["A120_points"])
+            or formal.get("A120_axis_adjudications") != row["axes"]
+            or formal.get("B80_adjudication") != row["B80_adjudication"]
+        ):
+            raise ValueError(f"{row['ruler_name']} A120/B80正式视图未同步")
+
+
+def _validate_ab_axis_narratives(payload: Mapping[str, Any]) -> None:
+    records = list(payload.get("records") or ())
+    if len(records) != 201:
+        raise ValueError("A轴逐人依据覆盖不闭合")
+    for row in records:
+        axes = row.get("axes") or {}
+        bases: dict[str, str] = {}
+        for axis_name, expected_scope in A_AXIS_SCOPES.items():
+            axis = axes.get(axis_name) or {}
+            if axis.get("assessment_scope") != expected_scope:
+                raise ValueError(
+                    f"{row['ruler_name']} {axis_name}叙事作用域不合法"
+                )
+            basis = str(axis.get("reason") or axis.get("rationale") or "").strip()
+            if not basis:
+                raise ValueError(f"{row['ruler_name']} {axis_name}缺少轴专属依据")
+            bases[axis_name] = basis
+        if bases["A1"] == bases["A2"]:
+            raise ValueError(f"{row['ruler_name']} A1、A2不得使用完全相同的轴专属依据")
+
+
+def _load_a_axis_narrative_adjudications(
+    workspace_root: Path,
+) -> dict[str, Mapping[str, Any]]:
+    payload = _load(workspace_root / A_AXIS_NARRATIVE_ADJUDICATIONS_PATH)
+    if payload.get("schema_id") != (
+        "emperor-v4-third-item-a-axis-narrative-adjudications-v1"
+    ):
+        raise ValueError("A轴叙事裁决schema不合法")
+    records = list(payload.get("adjudications") or ())
+    indexed = {str(row.get("ruler_id")): row for row in records}
+    if len(indexed) != len(records) or any(not ruler_id for ruler_id in indexed):
+        raise ValueError("A轴叙事裁决人物ID缺失或重复")
+    for row in records:
+        if any(
+            not str(row.get(field) or "").strip()
+            for field in ("ruler_name", "shared_context", "A1_basis", "A2_basis")
+        ):
+            raise ValueError(f"A轴叙事裁决字段不完整：{row.get('ruler_name')}")
+        if str(row["A1_basis"]).strip() == str(row["A2_basis"]).strip():
+            raise ValueError(f"A轴叙事裁决未拆轴：{row['ruler_name']}")
+    return indexed
+
+
 def _validate_cost_factor_contract(payload: Mapping[str, Any]) -> None:
+    if payload.get("schema_id") != "emperor-v4-third-item-cost-debits-v2":
+        raise ValueError("军事成本固定扣分合同schema不合法")
+    if float(payload.get("cost_debit_base_points") or 0) != 80.0:
+        raise ValueError("军事成本固定扣分基数必须为80")
+    if payload.get("ml_combination_rule") != "TAKE_HIGHER_ABSOLUTE_DEBIT_NOT_ADDITIVE":
+        raise ValueError("军事成本与ML必须取高且不叠加")
     factors = payload["factor_by_global_cost_band_and_position"]
     ordered = [
         ("C1", "LOW"), ("C1", "MID"), ("C1", "HIGH"),
@@ -107,7 +524,7 @@ def _validate_cost_factor_contract(payload: Mapping[str, Any]) -> None:
     ]
     values = [float(factors[band][position]) for band, position in ordered]
     if any(left <= right for left, right in zip(values, values[1:])):
-        raise ValueError("成本成果信用系数必须按成本严重度严格递减")
+        raise ValueError("成本系数必须按成本严重度严格递减")
     if float(factors["C0"]["LOW"]) != 1.0:
         raise ValueError("C0-LOW必须保持1.0")
 
@@ -134,6 +551,10 @@ def _render_current_weighted_markdown(records: Sequence[Mapping[str, Any]]) -> s
             .replace("LOWER_BOUND", "证据下限")
             .replace("PROVISIONAL", "暂定")
             .replace("CONFIRMED", "已确认")
+            .replace(
+                "C5 rests only on the merged Song chain M5 burden. No F3 is inferred and no separate chain is combined; therefore not C6.",
+                "C5仅由合并后的攻宋链M5负担准入；不推定F3，也不拼接其他独立链，因此不进C6。",
+            )
         )
 
     eligible = sorted(
@@ -143,10 +564,12 @@ def _render_current_weighted_markdown(records: Sequence[Mapping[str, Any]]) -> s
     lines = [
         "# 秦至清第三项军事与边疆正式结算",
         "",
-        "本表按A120战略安全结果、B80边疆控制结果、C50军事体系能力合并；成本先折算A正向成果信用和B成果信用。只有第三项自身闭合EN2/EN3、C5以上本方军事成本和本人责任时，才另加0至-40分军事净毁损尾部。",
+        "本表按A120战略安全结果、B80边疆控制结果、C50军事体系能力合并。普通成本按既有档位固定扣分；军事净毁损（ML）与普通成本取高，不叠加。",
         "",
-        "| 排名 | 皇帝 | 政权 | 在位 | A120 | B80 | C50 | 全局成本 | 系数 | 净毁损 | 总分 |",
-        "|---:|---|---|---|---:|---:|---:|---|---:|---:|---:|",
+        "公式：第三项 = A120 + B80 + C50 - max（固定成本扣分，|ML|）。",
+        "",
+        "| 排名 | 皇帝 | 政权 | 在位 | A120 | B80 | C50 | 全局成本 | 固定成本 | ML | 实际扣分 | 总分 |",
+        "|---:|---|---|---|---:|---:|---:|---|---:|---:|---:|---:|",
     ]
     for row in eligible:
         profile = row["global_cost_credit_profile"]
@@ -154,16 +577,41 @@ def _render_current_weighted_markdown(records: Sequence[Mapping[str, Any]]) -> s
             f"| {row['rank']} | {row['ruler_name']} | {row['polity']} | {_reign_range_label(row['reign_range'])} | "
             f"{float(row['A120_score_points']):.2f} | {float(row['B80_score_points']):.2f} | "
             f"{float(row['C50_score_points']):.2f} | {human_label(profile['cost_band'])}-{human_label(profile['position'])} | "
-            f"{float(row['cost_credit_factor']):.3f} | {float(row['military_net_loss_penalty']):.2f} | {float(row['third_item_score_points']):.2f} |"
+            f"{float(row['cost_debit_points']):.2f} | "
+            f"{abs(float(row['military_net_loss_penalty'])):.2f} | {float(row['applied_military_debit_points']):.2f} | "
+            f"{float(row['third_item_score_points']):.2f} |"
         )
     lines += ["", "## 逐人结算依据", ""]
     for row in eligible:
         profile = row["global_cost_credit_profile"]
+        debit_source = {
+            "NONE": "无扣分",
+            "COST": "普通成本",
+            "ML": "军事净毁损",
+            "COST_AND_ML_EQUAL": "普通成本与军事净毁损同额",
+        }[str(row["applied_military_debit_source"])]
         lines += [
             f"### {row['rank']}. {row['ruler_name']}（{float(row['third_item_score_points']):.2f}）",
             "",
-            f"- 成本依据：{human_basis(profile['basis'])}",
-            f"- 军事净毁损：{float(row['military_net_loss_penalty']):.2f}分。{human_basis(row['military_net_loss_basis'])}",
+            f"- 成本：{human_label(profile['cost_band'])}-{human_label(profile['position'])}，固定扣{float(row['cost_debit_points']):.2f}分。{human_basis(profile['basis'])}",
+        ]
+        detail_items = row["cost_detail_items"]
+        display_count = len(detail_items) if detail_items else 1
+        lines += [
+            "",
+            "<details>",
+            f"<summary>成本明细（{display_count}条，点击展开）</summary>",
+            "",
+        ]
+        for item in detail_items:
+            lines.append(f"- {human_basis(item)}")
+        if not detail_items:
+            lines.append("- 当前正式D记录未另列逐链成本事实；以成本档及其依据为准。")
+        lines += [
+            "",
+            "</details>",
+            "",
+            f"- ML：{row['military_net_loss_grade']}（{abs(float(row['military_net_loss_penalty'])):.2f}分）。与普通成本取高，实际扣{float(row['applied_military_debit_points']):.2f}分（{debit_source}）。{human_basis(row['military_net_loss_basis'])}",
             "",
         ]
     return "\n".join(lines).rstrip() + "\n"
@@ -174,13 +622,15 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
         "AB": workspace_root / AB_PATH,
         "C": workspace_root / C_PATH,
         "D": workspace_root / FORMAL_D_PATH,
-        "combined": workspace_root / FORMAL_PATH,
         "result_credit": workspace_root / RESULT_CREDIT_ADJUDICATIONS_PATH,
         "cost_credit": workspace_root / COST_CREDIT_FACTORS_PATH,
         "military_net_loss": workspace_root / MILITARY_NET_LOSS_PENALTIES_PATH,
     }
     payloads = {key: _load(path) for key, path in paths.items()}
     _validate_cost_factor_contract(payloads["cost_credit"])
+    _validate_result_credit_contract(
+        payloads["result_credit"], payloads["AB"], require_synchronized=True
+    )
     indexed = {
         key: _index(payloads[key]["records"], key)
         for key in ("AB", "C", "D", "result_credit")
@@ -243,7 +693,6 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
         restored = set(cost_overrides[name]["restored_third_item_c_chain_ids"])
         if chain_ids != restored:
             raise ValueError(f"{name}第三项C消费者退出链未完整恢复：{chain_ids} != {restored}")
-    existing = _index(payloads["combined"]["records"], "combined")
     ordered_names = list(indexed["AB"])
     ordered_names.extend(name for name in indexed["C"] if name not in indexed["AB"])
     ordered_names.extend(
@@ -264,18 +713,7 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
         d_row = indexed["D"].get(name)
         credit_row = indexed["result_credit"].get(name)
         ruler_id = _component_identity(name, (ab_row, c_row, d_row, credit_row))
-        base = dict(existing.get(name) or {})
-        for stale_key in (
-            "A_score_points",
-            "B_score_points",
-            "AB_score_points",
-            "C_score_points",
-            "D_score_points",
-            "D_score_status",
-            "axes",
-            "military_long_term_debt",
-        ):
-            base.pop(stale_key, None)
+        base: dict[str, Any] = {}
 
         c50_points = (
             float(c_row["C_score_points"])
@@ -289,6 +727,7 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
         local_cost_profile: dict[str, Any] | None = None
         global_cost_profile: dict[str, Any] | None = None
         cost_factor: float | None = None
+        cost_debit: float | None = None
         if credit_row is not None:
             axis_parts = [_decompose_a120_axis(credit_row["axes"][axis]) for axis in ("A1", "A2")]
             a120_anchor = round(sum(part[0] for part in axis_parts), 2)
@@ -325,6 +764,10 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
             cost_factor = float(
                 factor_table[global_cost_profile["cost_band"]][global_cost_profile["position"]]
             )
+            cost_debit = round(
+                float(payloads["cost_credit"]["cost_debit_base_points"]) * (1.0 - cost_factor),
+                2,
+            )
         net_loss = military_net_loss_by_name.get(name)
         net_loss_grade = str(net_loss["grade"]) if net_loss else "ML0"
         net_loss_penalty = float(expected_penalties[net_loss_grade])
@@ -337,14 +780,18 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
             else "FULL"
         )
         total = None
-        if None not in (a120_anchor, a120_positive, b80_points, c50_points, cost_factor):
-            total = round(
-                float(a120_anchor)
-                + float(cost_factor) * (float(a120_positive) + float(b80_points))
-                + float(c50_points)
-                + net_loss_penalty,
-                2,
+        applied_debit: float | None = None
+        applied_debit_source: str | None = None
+        if None not in (a120_points, b80_points, c50_points, cost_debit):
+            ml_debit = abs(net_loss_penalty)
+            applied_debit = max(float(cost_debit), ml_debit)
+            applied_debit_source = (
+                "NONE" if applied_debit == 0
+                else "COST" if float(cost_debit) > ml_debit
+                else "ML" if ml_debit > float(cost_debit)
+                else "COST_AND_ML_EQUAL"
             )
+            total = round(float(a120_points) + float(b80_points) + float(c50_points) - applied_debit, 2)
         missing = []
         if ab_row is None:
             missing.append("AB_SOURCE")
@@ -363,18 +810,27 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
             "polity": polity_source.get("polity") or "—",
             "reign_range": reign_source.get("reign_range"),
             "A120_score_points": a120_points,
-            "A120_non_cost_anchor_points": a120_anchor,
-            "A120_positive_result_credit_points": a120_positive,
             "B80_score_points": b80_points,
             "C50_score_points": c50_points,
             "D_local_cost_profile": local_cost_profile,
             "global_cost_credit_profile": global_cost_profile,
+            "cost_detail_items": (
+                _build_cost_detail(
+                    d_row,
+                    global_cost_profile["restored_third_item_c_chain_ids"],
+                )
+                if d_row is not None and global_cost_profile is not None
+                else None
+            ),
             "cost_credit_factor": cost_factor,
-            "score_formula": "A120_non_cost_anchor + factor * (A120_positive_result_credit + B80) + C50 + military_net_loss_penalty",
+            "cost_debit_points": cost_debit,
+            "score_formula": "A120 + B80 + C50 - max(cost_debit, abs(military_net_loss_penalty))",
             "military_net_loss_grade": net_loss_grade,
             "military_net_loss_attribution": net_loss_attribution,
             "military_net_loss_penalty": net_loss_penalty,
             "military_net_loss_basis": net_loss_basis,
+            "applied_military_debit_points": applied_debit,
+            "applied_military_debit_source": applied_debit_source,
             "third_item_score_points": total,
             "third_item_score_rate": None if total is None else round(total / 250 * 100, 2),
             "coverage_status": {
@@ -398,30 +854,43 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
         )
     )
     scores = [float(row["third_item_score_points"]) for row in records if row["third_item_score_points"] is not None]
-    old = payloads["combined"]
     result = {
-        **{
-            key: value
-            for key, value in old.items()
-            if key not in {"records", "score_recalculation_policy"}
-        },
-        "schema_id": "emperor-v4-third-item-formal-settlement-v6-current-only",
+        "schema_id": "emperor-v4-third-item-formal-settlement-v7-fixed-cost-debit",
+        "canonical_status": "FORMAL_CURRENT",
+        "item_name": "第三项 军事与边疆净收益",
+        "item_max_points": 250,
         "record_count": len(records),
         "score_ready_count": len(scores),
         "C_unassessed_count": sum(row["C50_score_points"] is None for row in records),
-        "scope": "当前AB/C/D组件与A120/B80裁决并集；A120非成本锚加成本折算后的A正向及B成果信用，再加C50与军事净毁损尾部",
+        "formal_score_write": len(scores) == len(records),
+        "database_write": False,
+        "rank_tie_policy": "COMPETITION_RANK",
+        "source_contracts": [
+            "docs/分项规则/第三项军事与边疆净收益/国防安全/00-规则与结算合同.md",
+            "docs/分项规则/第三项军事与边疆净收益/军事体系有效性/00-规则与计分合同.md",
+            "docs/分项规则/第三项军事与边疆净收益/军事成本收益比/00-规则与结算合同.md",
+        ],
+        "source_results": [
+            "国防安全/01-皇帝AB项正式结算.json",
+            "军事体系有效性/01-皇帝C项正式结算.json",
+            "军事成本收益比/01-皇帝D项正式结算.json",
+        ],
+        "scope": "当前AB/C/D组件与A120/B80裁决并集；A120、B80、C50相加后，扣除普通成本与军事净毁损绝对值中的较高者",
         "score_contract": {
             "maximum_points": 250,
             "minimum_points": -40,
             "A120_maximum": 120,
             "B80_maximum": 80,
             "C50_maximum": 50,
-            "D_cost_role": "GLOBAL_COST_CREDIT_FACTOR_SOURCE_NOT_ADDITIVE",
+            "D_cost_role": "GLOBAL_FIXED_COST_DEBIT_SOURCE",
+            "cost_debit_base_points": 80,
+            "cost_debit_range": [0, 40],
             "military_net_loss_penalty_range": [-40, 0],
-            "formula": "A120_non_cost_anchor + factor * (A120_positive_result_credit + B80) + C50 + military_net_loss_penalty",
+            "cost_and_ml_combination": "MAX_NOT_ADDITIVE",
+            "formula": "A120 + B80 + C50 - max(cost_debit, abs(military_net_loss_penalty))",
             "rounding": "ROUND_FINAL_SCORE_TO_2_DECIMALS",
         },
-        "score_recalculation_policy": "A120_CURRENT_PLUS_B80_COST_CREDIT_PLUS_C50_PLUS_MILITARY_NET_LOSS",
+        "score_recalculation_policy": "A120_PLUS_B80_PLUS_C50_MINUS_MAX_FIXED_COST_OR_ML",
         "score_range": {"minimum": min(scores), "maximum": max(scores)},
         "component_coverage_counts": {
             "AB": len(indexed["AB"]),
@@ -445,9 +914,23 @@ def _write_text_atomic(path: Path, content: str) -> None:
 
 def verify_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
     """Validate the formal combined snapshot without rebuilding its components."""
+    from emperor_v4.evaluation.five_dynasties_third_item import _render_formal_markdown
+
     payload = _load(workspace_root / FORMAL_PATH)
+    credit_payload = _load(workspace_root / RESULT_CREDIT_ADJUDICATIONS_PATH)
+    ab_payload = _load(workspace_root / AB_PATH)
+    _validate_result_credit_contract(
+        credit_payload,
+        ab_payload,
+        require_synchronized=True,
+    )
+    _validate_ab_axis_narratives(ab_payload)
+    expected_ab_markdown = _render_formal_markdown("AB", ab_payload["records"])
+    actual_ab_markdown = (workspace_root / AB_PATH).with_suffix(".md").read_text(encoding="utf-8")
+    if actual_ab_markdown != expected_ab_markdown:
+        raise ValueError("第三项AB Markdown与正式JSON渲染结果不一致")
     records = list(payload.get("records") or ())
-    if payload.get("schema_id") != "emperor-v4-third-item-formal-settlement-v6-current-only":
+    if payload.get("schema_id") != "emperor-v4-third-item-formal-settlement-v7-fixed-cost-debit":
         raise ValueError("第三项正式结算schema不合法")
     if payload.get("record_count") != len(records) or len(records) != 201:
         raise ValueError("第三项正式结算覆盖不闭合")
@@ -462,19 +945,40 @@ def verify_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]
                 raise ValueError(f"第三项待结算状态不完整：{row.get('ruler_name')}")
             continue
         components = (
-            row.get("A120_non_cost_anchor_points"),
-            row.get("A120_positive_result_credit_points"),
+            row.get("A120_score_points"),
             row.get("B80_score_points"),
             row.get("C50_score_points"),
             row.get("cost_credit_factor"),
+            row.get("cost_debit_points"),
             row.get("military_net_loss_penalty"),
+            row.get("applied_military_debit_points"),
+            row.get("applied_military_debit_source"),
         )
         if any(value is None for value in components):
             raise ValueError(f"第三项机械计分字段不完整：{row.get('ruler_name')}")
-        anchor, positive, b80, c50, factor, penalty = map(float, components)
-        expected = round(anchor + factor * (positive + b80) + c50 + penalty, 2)
+        a120, b80, c50, factor, cost_debit, penalty, applied_debit = map(float, components[:-1])
+        expected_cost_debit = round(80 * (1 - factor), 2)
+        if cost_debit != expected_cost_debit:
+            raise ValueError(f"第三项固定成本扣分与factor不一致：{row.get('ruler_name')}")
+        expected_applied = max(cost_debit, abs(penalty))
+        if applied_debit != expected_applied:
+            raise ValueError(f"第三项成本与ML取高不一致：{row.get('ruler_name')}")
+        expected_source = (
+            "NONE" if expected_applied == 0
+            else "COST" if cost_debit > abs(penalty)
+            else "ML" if abs(penalty) > cost_debit
+            else "COST_AND_ML_EQUAL"
+        )
+        if row.get("applied_military_debit_source") != expected_source:
+            raise ValueError(f"第三项实际扣分来源不一致：{row.get('ruler_name')}")
+        expected = round(a120 + b80 + c50 - applied_debit, 2)
         if float(score) != expected:
             raise ValueError(f"第三项正式分数与给定裁决不一致：{row.get('ruler_name')}")
+        cost_detail_items = row.get("cost_detail_items")
+        if not isinstance(cost_detail_items, list) or not all(
+            isinstance(item, str) and item.strip() for item in cost_detail_items
+        ):
+            raise ValueError(f"第三项成本明细结构不完整：{row.get('ruler_name')}")
         if not row.get("formal_score_write") or row.get("component_join_status") != "READY":
             raise ValueError(f"第三项正式写入状态不闭合：{row.get('ruler_name')}")
         ready.append(row)
@@ -507,6 +1011,12 @@ def verify_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]
         raise ValueError("第三项就绪计数不一致")
     if payload.get("score_range") != {"minimum": min(scores), "maximum": max(scores)}:
         raise ValueError("第三项分数范围不一致")
+    expected_markdown = _render_current_weighted_markdown(records)
+    actual_markdown = (workspace_root / FORMAL_PATH).with_suffix(".md").read_text(
+        encoding="utf-8"
+    )
+    if actual_markdown != expected_markdown:
+        raise ValueError("第三项Markdown与正式JSON渲染结果不一致")
     return {
         "status": "PASS", "record_count": len(records),
         "score_ready_count": len(ready), "pending_count": len(records) - len(ready),
@@ -523,6 +1033,8 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
     ab_payload = _load(ab_path)
     credit_payload = _load(credit_path)
     handoff_payload = _load(workspace_root / AB_HANDOFF_ADJUDICATIONS_PATH)
+    narrative_adjudications = _load_a_axis_narrative_adjudications(workspace_root)
+    _validate_result_credit_contract(credit_payload)
     credits = _index(credit_payload["records"], "result_credit")
     threat_supplements = {
         str(item["ruler_id"]): item
@@ -551,6 +1063,18 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
                 "B80_adjudication": credit["B80_adjudication"],
             }
         )
+        for axis_name, scope in A_AXIS_SCOPES.items():
+            axis = row["axes"][axis_name]
+            axis["assessment_scope"] = scope
+            if not str(axis.get("reason") or "").strip():
+                axis["reason"] = str(axis.get("rationale") or "").strip()
+        narrative = narrative_adjudications.get(str(row["ruler_id"]))
+        if narrative:
+            if str(narrative["ruler_name"]) != name:
+                raise ValueError(f"{name}的A轴叙事裁决人物名不一致")
+            row["A_axis_common_context"] = str(narrative["shared_context"])
+            row["axes"]["A1"]["reason"] = str(narrative["A1_basis"])
+            row["axes"]["A2"]["reason"] = str(narrative["A2_basis"])
         threat_supplement = threat_supplements.get(str(row["ruler_id"]))
         if threat_supplement:
             refs = list(dict.fromkeys(
@@ -568,9 +1092,16 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
                 raise ValueError(f"{name}的AB主压力补充缺少理由")
             row["primary_threat_refs"] = refs
             row["primary_threat_basis"] = str(threat_supplement["reason"])
+    unknown_narrative_ids = set(narrative_adjudications) - {
+        str(row["ruler_id"]) for row in ab_payload["records"]
+    }
+    if unknown_narrative_ids:
+        raise ValueError(f"A轴叙事裁决存在池外人物：{sorted(unknown_narrative_ids)}")
+    _validate_ab_axis_narratives(ab_payload)
+    _validate_result_credit_contract(credit_payload, ab_payload)
     ab_payload.update(
         {
-            "schema_id": "emperor-v4-third-item-ab-formal-settlement-v2-current-a120-b80",
+            "schema_id": "emperor-v4-third-item-ab-formal-settlement-v3-attribution-maintenance",
             "score_contract": {
                 "maximum_points": 200,
                 "A120_maximum": 120,

@@ -1,9 +1,12 @@
 {
-  "schema_id": "emperor-v4-third-item-cost-credit-factors-v1",
-  "task_code": "THIRD-ITEM-COST-CREDIT-FACTORS-V1",
+  "schema_id": "emperor-v4-third-item-cost-debits-v2",
+  "task_code": "THIRD-ITEM-COST-DEBITS-V2",
   "canonical_status": "FORMAL_CURRENT",
-  "formula": "A_non_cost_anchor + factor * (A_positive_result_credit + B80_result_credit) + C50",
-  "rounding": "Only the final third-item score is rounded to 2 decimals; displayed A and B adjusted credits do not feed the total.",
+  "formula": "A120 + B80 + C50 - max(80 * (1 - factor), abs(military_net_loss_penalty))",
+  "cost_debit_base_points": 80,
+  "cost_debit_formula": "80 * (1 - factor)",
+  "ml_combination_rule": "TAKE_HIGHER_ABSOLUTE_DEBIT_NOT_ADDITIVE",
+  "rounding": "Only the final third-item score is rounded to 2 decimals.",
   "factor_by_global_cost_band_and_position": {
     "C0": {
       "LOW": 1.0,
@@ -87,10 +90,10 @@
   ],
   "scope_rules": {
     "d_local_cost_view": "Keeps the current D-consumer scope and does not restore chains consumed elsewhere.",
-    "global_cost_credit_view": "Restores current-third-item C-consumed chains only for result-credit discounting.",
+    "global_cost_credit_view": "Restores current-third-item C-consumed chains for fixed cost-debit calculation.",
     "first_item_whole_chain_exclusion": "Founding, unification and polity-acquisition chains consumed by Item 1 remain fully excluded.",
     "item_2_exclusion": "Civilian livelihood, taxation, production and fiscal consequences remain in Item 2.",
     "item_7_exclusion": "Long-run structural military damage remains in Item 7.",
-    "c50_exclusion": "Military-system capability points are not discounted by this factor."
+    "c50_exclusion": "C50 remains unchanged before the total military debit is subtracted."
   }
 }

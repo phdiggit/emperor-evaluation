@@ -10,24 +10,24 @@
 
 ## 总权重与合并合同
 
-第三项可排序上限保持250分。D不恢复旧式独立40分正向加总，但在成果信用折算之外增加本项内部的军事净毁损负向尾部，最低-40分：
+第三项范围为-40至250分。D不独立加分，只形成固定成本扣分：
 
-- A1、A2各60分，共A120。每轴先保留客观终点、本人可归责负向变化和重大逆转形成的非成本锚；本人可归责正向改善、结构推进与高压守成形成正向成果信用。
+- A1、A2各60分，共A120。改善按每档`0／0.25／0.5／0.75／1.0`归责；守成按`NONE／TESTED／SEVERE／HISTORIC=0／10／25／40`裁决，HISTORIC另过现实压力、主要归责、非自致、终点不降和持续有效五门。
 - B80消费B1控制规模与B2战略价值，并由B4交班成熟度修正：`B80=80×(0.55×B1率+0.45×B2率)×(0.70+0.30×B4率)`。
 - C50继续只评价军事体系实战兑现、持续作战与可靠性，不受成本系数折算。
-- D先提供成果信用成本系数；只有可归责军事投入形成严重净负安全结果并超过A/B/C的非负下限表达能力时，才另生成`military_net_loss_penalty`，范围0至-40分。
+- D按现有成本档与档内位置读取`factor`，换算`cost_debit=80×(1-factor)`；ML为0至40分的严重度扣分下限。
 
 ```text
-第三项 = A非成本锚 + factor × (A正向成果信用 + B80) + C50 + military_net_loss_penalty
+第三项 = A120 + B80 + C50 - max(cost_debit, |military_net_loss_penalty|)
 ```
 
-只对最终总分保留两位小数。A、B折算后展示值不得分别舍入再反灌总分。成本系数由[`config/third-item/third-item-cost-credit-factors.json`](../../../config/third-item/third-item-cost-credit-factors.json)唯一给出，并按成本档与档内位置严格单调；材料状态只决定复核队列，不产生个人分数区间。
+只对最终总分保留两位小数。factor表由[`config/third-item/third-item-cost-credit-factors.json`](../../../config/third-item/third-item-cost-credit-factors.json)唯一给出；现有排序和坡度不变。普通成本与ML取高，不叠加。
 
 成本保留两种不混用的视图：
 
 1. `D_local_cost_profile`沿用D消费者范围，第三项C或第一项已经整链消费的对象不恢复进D分。
-2. `global_cost_credit_profile`同时服务成果信用折算和本项军事净毁损门；它恢复第三项C能力层独占消费、但实际发生于本人第三项正式统治窗口的直接军事成本。普通高成本仍只折损正向成果；只有同时闭合重大净负安全结果、本人归责与超下限门时才生成负分，且不再折损C50。
+2. `global_cost_credit_profile`用于换算固定成本扣分和校验ML门；它恢复第三项C能力层独占消费、但发生于本人正式统治窗口的直接军事成本。
 
 第一项创业统一与政权取得整链继续全部排除；第二项财政民生结果、第四项文明损害和第五项人物素质均不得进入全局成本系数或军事净毁损门。军事安全、边疆控制、军事体系和本方军事资源毁损的跨期尾部只在第三项内部结算，不另设历史负债扣分。201人的A120/B80逐轴裁决唯一读取[`config/third-item/third-item-result-credit-adjudications.json`](../../../config/third-item/third-item-result-credit-adjudications.json)，军事净毁损裁决读取[`config/third-item/third-item-military-net-loss-penalties.json`](../../../config/third-item/third-item-military-net-loss-penalties.json)；201人总榜已完成回放。
 
-所有分区写入器在完成AB/C及D分区重建后，必须统一调用current settlement writer，重建A120、B80、C50、成本系数和竞争排名；禁止再写旧式`AB+C+D`加法总分。分区重跑必须保留其他分区current字段、C逐父任务分类和第一项切点，不得返回旧公式、旧字段或错误READY/PENDING计数。第一项闭合窗口内的成果若仅作为第三项起点存量，必须同时从A本人正向信用、B新增控制包和D成果/成本链排除；切点之后确有独立成果时才可另行消费，并保留对应成本。
+所有分区写入器完成AB/C及D重建后，必须统一调用current settlement writer，重建固定成本扣分、ML取高值和竞争排名；不得返回旧乘数公式。第一项闭合窗口内的成果若仅作为第三项起点存量，必须同时从A本人正向信用、B新增控制包和D成果/成本链排除。

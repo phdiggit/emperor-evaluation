@@ -24,7 +24,9 @@
               "start": "A1S2_STRATEGIC_DISADVANTAGE",
               "trajectory_value": 24,
               "transition": "STABLE",
-              "transition_attribution": "MIXED"
+              "transition_attribution": "MIXED",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "南齐建立时北魏在淮北占优，南方主要方向明显被动，起点2档。谢天盖附魏风险被消解，但淮北五固接应失败，未改变总体劣势，终点仍2档。"
             },
             "A2": {
               "axis_points": 9.6,
@@ -37,7 +39,9 @@
               "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
               "trajectory_value": 24,
               "transition": "STABLE",
-              "transition_attribution": "MIXED"
+              "transition_attribution": "MIXED",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "交接时主要北线仅余淮河和若干节点，尚未形成完整边界体系。五固起事未能转化为新纵深，交班延续2档。"
             },
             "B1": {
               "axis_points": 11.0,
@@ -45,9 +49,10 @@
               "grade": "B1-1",
               "rationale": "南齐建政时承接淮河半走廊、西南与岭南共1.65；任内无足以改变覆盖阶梯的得失，交班仍1.65，加权值0.66，落B1-1 HIGH。",
               "raw_net_change": 0.0,
-              "score_rate": 44,
+              "score_rate": 44.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 0.66
+              "weighted_control_value": 0.66,
+              "reason": "规模与控制强度：B1全量重审已确认最终档内率。"
             },
             "B2": {
               "axis_points": 0.0,
@@ -212,7 +217,8 @@
               "start_grade": 2,
               "trajectory_value": 24.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -234,7 +240,8 @@
               "start_grade": 2,
               "trajectory_value": 24.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
@@ -246,6 +253,12 @@
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "CONFIRMED_NORMALIZED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 44.0
           }
         },
         {
@@ -264,7 +277,9 @@
               "start": "A1S2_STRATEGIC_DISADVANTAGE",
               "trajectory_value": 24,
               "transition": "STABLE",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "起点北魏已在北线掌握主动，南齐处于战略被动，为2档。任内南阳、新野等节点受损，涡阳援军溃退，又发生王敬则之乱；但魏军尚未形成直接存亡危机，终点仍为2档下位。"
             },
             "A2": {
               "axis_points": 0.8,
@@ -277,7 +292,9 @@
               "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
               "trajectory_value": 2,
               "transition": "WORSENED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "起点主要北线仅有淮河及南阳新野等局部节点，为2档。魏军连续取得南阳—新野—襄樊外围与武兴仇池方向收益，主要防线破裂，交班只能依赖更近核心区的应急防守，降为1档。"
             },
             "B1": {
               "axis_points": 9.25,
@@ -285,9 +302,10 @@
               "grade": "B1-1",
               "rationale": "接班边疆当量1.65；南阳新野与武兴仇池方向受损使西南覆盖由整体降至约半，交班1.4、净减0.25、加权值0.41，落B1-1 MID。",
               "raw_net_change": -0.25,
-              "score_rate": 37,
+              "score_rate": 37.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 0.41
+              "weighted_control_value": 0.41,
+              "reason": "规模与控制强度：B1全量重审已确认最终档内率。"
             },
             "B2": {
               "axis_points": 0.0,
@@ -477,7 +495,8 @@
               "start_grade": 2,
               "trajectory_value": 24.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": -1.0,
@@ -499,7 +518,8 @@
               "start_grade": 2,
               "trajectory_value": 2.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
@@ -511,6 +531,12 @@
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "CONFIRMED_NORMALIZED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 37.0
           }
         }
       ]

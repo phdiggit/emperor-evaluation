@@ -4,17 +4,17 @@
   "collections": {
     "records": {
       "positions": [
-        193
+        173
       ],
       "records": [
         {
-          "rank": 194,
+          "rank": 173,
           "ruler_id": "RULER-SHADOW-宇文邕",
           "ruler_name": "宇文邕",
           "polity": "北周",
           "source_group": "北周",
           "status": "FORMAL_SIGNED_ADJUSTMENT",
-          "triggered_axis_count": 2,
+          "triggered_axis_count": 3,
           "axis_results": [
             {
               "axis": "A",
@@ -24,119 +24,155 @@
               "band": "LOW",
               "signed_adjustment": 3.0,
               "package_refs": [
-                "I4PKG-RULER-SHADOW-宇文邕-A-01"
+                "I4PKG-WORK-YUWENYONG-A-01"
               ]
             },
             {
               "axis": "B",
-              "disposition": "NO_ELIGIBLE_CIVILIZATION_INCREMENT",
-              "direction": null,
-              "magnitude_grade": null,
-              "band": null,
-              "signed_adjustment": 0,
-              "package_refs": []
+              "disposition": "SIGNED_CIVILIZATION_ADJUSTMENT_READY",
+              "direction": "POSITIVE",
+              "magnitude_grade": "CIV2",
+              "band": "LOW",
+              "signed_adjustment": 7.5,
+              "package_refs": [
+                "I4PKG-WORK-YUWENYONG-B-01"
+              ]
             },
             {
               "axis": "C",
               "disposition": "SIGNED_CIVILIZATION_ADJUSTMENT_READY",
               "direction": "NEGATIVE",
               "magnitude_grade": "CIV3",
-              "band": "HIGH",
-              "signed_adjustment": -18.0,
+              "band": "LOW",
+              "signed_adjustment": -13.5,
               "package_refs": [
-                "I4PKG-RULER-SHADOW-宇文邕-C-01"
+                "I4PKG-WORK-YUWENYONG-C-01"
               ]
             }
           ],
-          "fourth_item_signed_adjustment": -15.0
+          "fourth_item_signed_adjustment": -3.0,
+          "zero_scan_checked": true
         }
       ]
     },
     "accepted_packages": {
       "positions": [
-        110,
-        111
+        222,
+        223,
+        224
       ],
       "records": [
         {
-          "package_code": "I4PKG-RULER-SHADOW-宇文邕-A-01",
+          "package_code": "I4PKG-WORK-YUWENYONG-A-01",
           "ruler_id": "RULER-SHADOW-宇文邕",
           "ruler_name": "宇文邕",
           "polity": "北周",
           "axis": "A",
           "direction": "POSITIVE",
           "net_tendency": "POSITIVE_DOMINANT",
-          "episode_refs": [
-            "I4-NZ-JIANGLING-A-004"
-          ],
+          "episode_refs": [],
           "same_chain_support_refs": [],
           "same_chain_effect": "NONE",
           "independent_reinforcement_refs": [],
-          "independent_reinforcement_effect": "NONE_UNTIL_SCENE_VALIDATION",
+          "independent_reinforcement_effect": "NONE",
           "folded_support": [],
-          "inherited_baseline": "Jiangling official dependents remained in an unfree status after conquest",
+          "inherited_baseline": "江陵征服后的部分官口仍处于依附身份。",
           "contemporary_feasible_frontier": null,
           "background_trend": null,
-          "attributable_change": "免江陵官口为民",
+          "attributable_change": "免江陵部分官口为民，使一个征服后依附群体恢复自由民身份。",
           "relative_change_level": "R1",
-          "relative_change_level_basis": "STATUS_RELEASE_FOR_ONE_CONQUERED_OFFICIAL_DEPENDENT_GROUP",
+          "relative_change_level_basis": "STATUS_RELEASE_FOR_ONE_CONQUERED_DEPENDENT_GROUP",
           "positive_component_level": null,
           "negative_component_level": null,
-          "field_coverage": "one identifiable conquered dependent group released into commoner status",
+          "field_coverage": "一个明确依附群体的身份释放。",
           "access_expansion": null,
           "durability_and_handoff": null,
           "cross_scene_replication": null,
           "attribution_strength": "RULER_DIRECT",
           "counterevidence": {
-            "count": 0
+            "count": 1,
+            "summary": "对象单一且覆盖有限，维持CIV1-LOW。"
           },
           "hard_negative_gate": "NONE",
           "knowledge_public_reach": "NOT_APPLICABLE",
-          "source_coverage": "PARTIAL_BUT_SUFFICIENT_BY_USER_INFERENCE_RULE",
+          "source_coverage": "PARTIAL_BUT_SUFFICIENT",
           "source_refs": []
         },
         {
-          "package_code": "I4PKG-RULER-SHADOW-宇文邕-C-01",
+          "package_code": "I4PKG-WORK-YUWENYONG-B-01",
+          "ruler_id": "RULER-SHADOW-宇文邕",
+          "ruler_name": "宇文邕",
+          "polity": "北周",
+          "axis": "B",
+          "direction": "POSITIVE",
+          "net_tendency": "POSITIVE_DOMINANT",
+          "episode_refs": [],
+          "same_chain_support_refs": [],
+          "same_chain_effect": "NONE",
+          "independent_reinforcement_refs": [],
+          "independent_reinforcement_effect": "NONE",
+          "folded_support": [],
+          "inherited_baseline": "北周已有太学等教育基础，但缺少同等露门学中央教育节点。",
+          "contemporary_feasible_frontier": null,
+          "background_trend": null,
+          "attributable_change": "天和年间设露门学并配置文学博士、露门博士和学士，形成面向宗室贵族子弟的稳定中央教育层级；教学由文学转向经学，确有持续教学和人才培养结果。",
+          "relative_change_level": "R2",
+          "relative_change_level_basis": "NEW_STABLE_CENTRAL_ELITE_LUMEN_SCHOOL_LAYER",
+          "positive_component_level": null,
+          "negative_component_level": null,
+          "field_coverage": "宗室、贵族子弟及中央文学—经学教学网络。",
+          "access_expansion": "NEW_CENTRAL_ELITE_EDUCATION_LAYER",
+          "durability_and_handoff": "露门学在北周形成实际教学活动，并对后续北朝文学教育留下影响。",
+          "cross_scene_replication": null,
+          "attribution_strength": "RULER_GOVERNMENT",
+          "counterevidence": {
+            "count": 2,
+            "summary": "覆盖高度集中于宗室贵族，且并非全国学校扩张，因此只取CIV2-LOW。"
+          },
+          "hard_negative_gate": "NONE",
+          "knowledge_public_reach": "NOT_APPLICABLE",
+          "source_coverage": "PARTIAL_BUT_SUFFICIENT",
+          "source_refs": [
+            "https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003348150"
+          ]
+        },
+        {
+          "package_code": "I4PKG-WORK-YUWENYONG-C-01",
           "ruler_id": "RULER-SHADOW-宇文邕",
           "ruler_name": "宇文邕",
           "polity": "北周",
           "axis": "C",
           "direction": "NEGATIVE",
           "net_tendency": "NEGATIVE_DOMINANT",
-          "episode_refs": [
-            "C-NZ-YUWENYONG-RELIGIOUS-SUPPRESSION"
-          ],
-          "same_chain_support_refs": [
-            "I4-NZ-RELIGION-AC-005"
-          ],
-          "same_chain_effect": "CONFIDENCE_ONLY",
+          "episode_refs": [],
+          "same_chain_support_refs": [],
+          "same_chain_effect": "NONE",
           "independent_reinforcement_refs": [],
-          "independent_reinforcement_effect": "NONE_UNTIL_SCENE_VALIDATION",
+          "independent_reinforcement_effect": "NONE",
           "folded_support": [],
-          "inherited_baseline": "Buddhist and Daoist organizations, texts, images, and specialist identities were operating",
+          "inherited_baseline": "佛、道组织、经典、寺观和专业宗教身份仍在北周及北齐广泛运行。",
           "contemporary_feasible_frontier": null,
           "background_trend": null,
-          "attributable_change": "禁佛道、毁经像并令沙门道士还俗，宗教组织、文本载体和身份同时收缩",
+          "attributable_change": "建德三年起禁佛道二教，毁经像、收寺观财产并强令僧道还俗；灭北齐后又把禁令扩至齐境，北方宗教组织、文本载体与专业身份发生系统性断裂。",
           "relative_change_level": "R3",
-          "relative_change_level_basis": "HARD_NEGATIVE_PRINCIPAL_FIELD_LOWER_BOUND",
+          "relative_change_level_basis": "REALM_LEVEL_RELIGIOUS_TEXT_INSTITUTION_AND_SPECIALIST_RUPTURE",
           "positive_component_level": null,
           "negative_component_level": null,
-          "field_coverage": "realm-wide contraction of a principal religious knowledge field",
+          "field_coverage": "佛道宗教知识、文本、寺观与僧道专业网络。",
           "access_expansion": null,
-          "durability_and_handoff": "immediate institutional and material loss; later restoration does not erase the realized rupture",
-          "cross_scene_replication": null,
-          "attribution_strength": "SEMANTIC_NODE_RULER_WINDOW",
+          "durability_and_handoff": "当期毁经像和组织解体是真实损失，但后续恢复明显，阻止升至更高带位。",
+          "cross_scene_replication": "北周本境禁佛道与灭北齐后向齐境扩展。",
+          "attribution_strength": "RULER_DIRECT",
           "counterevidence": {
-            "count": 1
+            "count": 3,
+            "summary": "未系统屠杀沙门；设置通道观保留约120名佛道名士；禁令持续时间较短且隋初迅速恢复。故R3不变，但带位由HIGH压至LOW。"
           },
           "hard_negative_gate": "ACTIVE",
-          "knowledge_public_reach": "UNRESOLVED",
-          "source_coverage": "ADEQUATE",
-          "source_refs": [],
-          "dissemination_era": "MANUSCRIPT_AND_EARLY_ACADEMY",
-          "era_relative_difficulty": "adjudicated against MANUSCRIPT_AND_EARLY_ACADEMY, not raw copies or reader counts",
-          "content_progress_relative_to_inherited_baseline": "REGRESSION_FROM_INHERITED_PLURALITY_OR_ACCESS",
-          "public_reach_ceiling": "UNRESOLVED"
+          "knowledge_public_reach": "BROAD_RELIGIOUS_KNOWLEDGE_AND_INSTITUTIONAL_RUPTURE",
+          "source_coverage": "PARTIAL_BUT_SUFFICIENT",
+          "source_refs": [
+            "https://www.dpm.org.cn/lemmas/239698.html"
+          ]
         }
       ]
     }

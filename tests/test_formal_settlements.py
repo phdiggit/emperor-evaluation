@@ -272,9 +272,9 @@ def test_composite_ranking_uses_only_ready_rulers_and_current_formula() -> None:
     assert payload["pending_second_item_count"] == 10
     assert payload["records"][0]["ruler_name"] == "李世民"
     assert payload["formula"] == "T = S2 + S3 + S5 + 0.10 * 757 * (S1 / 240) ^ 1.25 + CIV4"
-    assert payload["records"][0]["total_score"] == 809.04
+    assert payload["records"][0]["total_score"] == 810.21
     assert payload["records"][1]["ruler_name"] == "玄烨"
-    assert payload["records"][1]["total_score"] == 592.74
+    assert payload["records"][1]["total_score"] == 583.0
     zhao_ji = next(row for row in payload["records"] if row["ruler_name"] == "赵佶")
     assert zhao_ji["first_item_status"] == "NOT_APPLICABLE"
     assert zhao_ji["first_item_raw_score"] is None

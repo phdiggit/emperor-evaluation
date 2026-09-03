@@ -33,7 +33,8 @@
               "trajectory_value": 36,
               "axis_points": 14.4,
               "transition": "STABLE",
-              "reason": "1007—1012对甘州、六谷多轮用兵均未取得控制或安全净改善；整体安全与主要边界维持原状态。反复动员证明有限持续能力，但连续不兑现压低C1与C3。"
+              "reason": "主要威胁仍是甘州、六谷方向的对手；连续用兵未能结构性压低其压力，整体仍为相互制衡，故A1维持3档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
@@ -45,14 +46,17 @@
               "trajectory_value": 36,
               "axis_points": 14.4,
               "transition": "STABLE",
-              "reason": "1007—1012对甘州、六谷多轮用兵均未取得控制或安全净改善；整体安全与主要边界维持原状态。反复动员证明有限持续能力，但连续不兑现压低C1与C3。"
+              "reason": "甘州、六谷方向没有形成可移交的新防线、纵深或缓冲区，既有主要边界仍可运作但未改善，故A2维持3档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
-              "grade": "B1-0",
+              "grade": "B1-1",
               "band_position": "LOW",
-              "score_rate": 0,
-              "axis_points": 0.0,
-              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+              "score_rate": 30.0,
+              "axis_points": 7.5,
+              "reason": "规模与控制强度：河西—宁夏—鄂尔多斯边疆带由半覆盖扩展至整体；本任0.4新增属第一项创业链去重，客观0.8传给李元昊。",
+              "weighted_control_value": 0.16,
+              "raw_net_change": 0
             },
             "B2": {
               "grade": "B2-0",
@@ -69,12 +73,12 @@
               "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
             }
           },
-          "AB_score_points": 28.8,
+          "AB_score_points": 36.3,
           "b1_control_equivalents": {
-            "start": 0.0,
-            "end": 0.0,
-            "net_change": 0.0,
-            "weighted_value": 0.0
+            "start": 0,
+            "end": 0,
+            "net_change": 0,
+            "weighted_value": 0.16
           },
           "b1_region_control": {
             "start": {},
@@ -115,8 +119,8 @@
           "A120_non_cost_anchor_points": 43.2,
           "A120_positive_result_credit_points": 0.0,
           "A120_score_points": 43.2,
-          "B80_score_points": 0.0,
-          "AB200_score_points": 43.2,
+          "B80_score_points": 9.24,
+          "AB200_score_points": 52.44,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 0.0,
@@ -138,7 +142,8 @@
               "start_grade": 3,
               "trajectory_value": 36.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -160,15 +165,16 @@
               "start_grade": 3,
               "trajectory_value": 36.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
-            "B80_points": 0.0,
-            "formal_B1_rate": 0.0,
+            "B80_points": 9.24,
+            "formal_B1_rate": 30.0,
             "formal_B2_rate": 0.0,
             "formal_B4_rate": 0.0,
-            "adjudicated_B1_rate": 0.0,
+            "adjudicated_B1_rate": 30.0,
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
@@ -176,7 +182,15 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 1,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_cross_item_excluded_weighted_value": -0.16,
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVISED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 30.0
+          },
+          "A_axis_common_context": "1007—1012年对甘州、六谷多轮用兵均未取得耐久控制或安全净改善。"
         },
         {
           "ruler_id": "RULER-XIXIA-LIRENXIAO",
@@ -196,7 +210,8 @@
               "trajectory_value": 36,
               "axis_points": 14.4,
               "transition": "STABLE",
-              "reason": "1140夏州恢复与1143多州盗乱平定均属内部区域性威胁收束，只证明恢复既有控制，不证明外部安全秩序升档。两项成功支持C1交付，但现有卡未闭合高强度持续后勤和多名将领跨阶段可靠性。"
+              "reason": "夏州与多州内乱压力被压低，但没有证据证明外部主要强敌的威胁能力发生跨档下降，故A1维持3档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
@@ -208,14 +223,17 @@
               "trajectory_value": 36,
               "axis_points": 14.4,
               "transition": "STABLE",
-              "reason": "1140夏州恢复与1143多州盗乱平定均属内部区域性威胁收束，只证明恢复既有控制，不证明外部安全秩序升档。两项成功支持C1交付，但现有卡未闭合高强度持续后勤和多名将领跨阶段可靠性。"
+              "reason": "夏州恢复使既有边界重新可运作，却未形成新的门户、连续防线或战略纵深，故A2维持3档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
-              "grade": "B1-0",
-              "band_position": "LOW",
-              "score_rate": 0,
-              "axis_points": 0.0,
-              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+              "grade": "B1-1",
+              "band_position": "MID",
+              "score_rate": 37.0,
+              "axis_points": 9.25,
+              "reason": "规模与控制强度：B1全量重审已确认最终档内率。",
+              "weighted_control_value": 0.32,
+              "raw_net_change": 0
             },
             "B2": {
               "grade": "B2-0",
@@ -232,12 +250,12 @@
               "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
             }
           },
-          "AB_score_points": 28.8,
+          "AB_score_points": 38.05,
           "b1_control_equivalents": {
-            "start": 0.0,
-            "end": 0.0,
-            "net_change": 0.0,
-            "weighted_value": 0.0
+            "start": 0,
+            "end": 0,
+            "net_change": 0,
+            "weighted_value": 0.32
           },
           "b1_region_control": {
             "start": {},
@@ -281,8 +299,8 @@
           "A120_non_cost_anchor_points": 43.2,
           "A120_positive_result_credit_points": 0.0,
           "A120_score_points": 43.2,
-          "B80_score_points": 0.0,
-          "AB200_score_points": 43.2,
+          "B80_score_points": 11.4,
+          "AB200_score_points": 54.6,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 0.0,
@@ -304,7 +322,8 @@
               "start_grade": 3,
               "trajectory_value": 36.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -326,15 +345,16 @@
               "start_grade": 3,
               "trajectory_value": 36.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
-            "B80_points": 0.0,
-            "formal_B1_rate": 0.0,
+            "B80_points": 11.4,
+            "formal_B1_rate": 37.0,
             "formal_B2_rate": 0.0,
             "formal_B4_rate": 0.0,
-            "adjudicated_B1_rate": 0.0,
+            "adjudicated_B1_rate": 37.0,
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
@@ -342,7 +362,15 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 2,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVISED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 37.0
+          },
+          "b1_cross_item_excluded_weighted_value": -0.32,
+          "A_axis_common_context": "1140年夏州恢复与1143年多州盗乱平定均属既有统治范围内的区域性收束。"
         },
         {
           "ruler_id": "RULER-XIXIA-LIQIANSHUN",
@@ -362,7 +390,8 @@
               "trajectory_value": 14,
               "axis_points": 5.6,
               "transition": "WORSENED",
-              "reason": "按本人统治窗口1条去重战略链重建交接状态：安全结果={'EN2': 1}。A1取3→2、A2取3→2；B1-0只消费已在终点实际保留的控制，B2-0评价其战略价值，B4-0评价交班成熟度。创业统一取得链与纯威胁削弱不转成B控制分；负向终局也不由D成本倒推。"
+              "reason": "主要威胁是宋朝在西线持续进攻并压迫西夏主动权，至交班压力未被结构性压低，故A1由3档降至2档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
@@ -374,14 +403,17 @@
               "trajectory_value": 14,
               "axis_points": 5.6,
               "transition": "WORSENED",
-              "reason": "按本人统治窗口1条去重战略链重建交接状态：安全结果={'EN2': 1}。A1取3→2、A2取3→2；B1-0只消费已在终点实际保留的控制，B2-0评价其战略价值，B4-0评价交班成熟度。创业统一取得链与纯威胁削弱不转成B控制分；负向终局也不由D成本倒推。"
+              "reason": "西线城寨、交通与缓冲地带在反复争夺中失去连续协同，只剩若干可守节点，故A2由3档降至2档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
-              "grade": "B1-0",
-              "band_position": "LOW",
-              "score_rate": 0,
-              "axis_points": 0.0,
-              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+              "grade": "B1-1",
+              "band_position": "MID",
+              "score_rate": 37.0,
+              "axis_points": 9.25,
+              "reason": "规模与控制强度：B1全量重审已确认最终档内率。",
+              "weighted_control_value": 0.32,
+              "raw_net_change": 0
             },
             "B2": {
               "grade": "B2-0",
@@ -398,12 +430,12 @@
               "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
             }
           },
-          "AB_score_points": 11.2,
+          "AB_score_points": 20.45,
           "b1_control_equivalents": {
-            "start": 0.0,
-            "end": 0.0,
-            "net_change": 0.0,
-            "weighted_value": 0.0
+            "start": 0,
+            "end": 0,
+            "net_change": 0,
+            "weighted_value": 0.32
           },
           "b1_region_control": {
             "start": {},
@@ -433,7 +465,7 @@
           "major_in_reign_reversal_refs": [],
           "non_defense_routing_refs": [],
           "control_contribution_type": "INHERITED_ONLY",
-          "rationale": "战略链可支持A1/A2的客观起终安全状态；现有材料没有闭合本人新增或维护的边疆控制空间，B1/B2/B4均不以阶段战果或威胁下降倒推。",
+          "rationale": "接手时宋夏西线尚属相持，主要边界仍能运行；1096至1126年宋军持续筑城推进，天都等节点反复受压，西线主动权下降，至交班转为战略劣势且仅余局部可守支点。",
           "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
           "subject_binding_review_status": "REVIEWED_SUFFICIENT",
           "score_ready": true,
@@ -453,8 +485,8 @@
           "A120_non_cost_anchor_points": 19.8,
           "A120_positive_result_credit_points": 0.0,
           "A120_score_points": 19.8,
-          "B80_score_points": 0.0,
-          "AB200_score_points": 19.8,
+          "B80_score_points": 11.4,
+          "AB200_score_points": 31.2,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": -0.75,
@@ -476,7 +508,8 @@
               "start_grade": 3,
               "trajectory_value": 16.5,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": -0.75,
@@ -498,15 +531,16 @@
               "start_grade": 3,
               "trajectory_value": 16.5,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
-            "B80_points": 0.0,
-            "formal_B1_rate": 0.0,
+            "B80_points": 11.4,
+            "formal_B1_rate": 37.0,
             "formal_B2_rate": 0.0,
             "formal_B4_rate": 0.0,
-            "adjudicated_B1_rate": 0.0,
+            "adjudicated_B1_rate": 37.0,
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
@@ -514,7 +548,15 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 1,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVISED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 37.0
+          },
+          "b1_cross_item_excluded_weighted_value": -0.32,
+          "A_axis_common_context": "1087—1126年宋夏西线长期争夺，阶段性得失没有形成可保留的新增控制成果。"
         },
         {
           "ruler_id": "RULER-XIXIA-LIANQUAN",
@@ -534,7 +576,8 @@
               "trajectory_value": 2,
               "axis_points": 0.8,
               "transition": "WORSENED",
-              "reason": "按本人统治窗口1条去重战略链重建交接状态：安全结果={'EN2': 1}。A1取2→1、A2取2→1；B1-0只消费已在终点实际保留的控制，B2-0评价其战略价值，B4-0评价交班成熟度。创业统一取得链与纯威胁削弱不转成B控制分；负向终局也不由D成本倒推。"
+              "reason": "蒙古已由外部强敌升级为具备制造国家级危机能力的主要威胁，西夏未能压低其进攻能力，故A1由2档降至1档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
@@ -546,14 +589,17 @@
               "trajectory_value": 2,
               "axis_points": 0.8,
               "transition": "WORSENED",
-              "reason": "按本人统治窗口1条去重战略链重建交接状态：安全结果={'EN2': 1}。A1取2→1、A2取2→1；B1-0只消费已在终点实际保留的控制，B2-0评价其战略价值，B4-0评价交班成熟度。创业统一取得链与纯威胁削弱不转成B控制分；负向终局也不由D成本倒推。"
+              "reason": "河西北部防线被突破后，门户与纵深无法形成主要方向体系，只能依赖近核心应急防守，故A2由2档降至1档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
-              "grade": "B1-0",
-              "band_position": "LOW",
-              "score_rate": 0,
-              "axis_points": 0.0,
-              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+              "grade": "B1-1",
+              "band_position": "MID",
+              "score_rate": 37.0,
+              "axis_points": 9.25,
+              "reason": "规模与控制强度：1209对蒙古屈服改变A/B4，不等于永久丧失河西—宁夏—鄂尔多斯主体控制。",
+              "weighted_control_value": 0.32,
+              "raw_net_change": 0
             },
             "B2": {
               "grade": "B2-0",
@@ -570,12 +616,12 @@
               "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
             }
           },
-          "AB_score_points": 1.6,
+          "AB_score_points": 10.85,
           "b1_control_equivalents": {
-            "start": 0.0,
-            "end": 0.0,
-            "net_change": 0.0,
-            "weighted_value": 0.0
+            "start": 0,
+            "end": 0,
+            "net_change": 0,
+            "weighted_value": 0.32
           },
           "b1_region_control": {
             "start": {},
@@ -599,7 +645,7 @@
           "major_in_reign_reversal_refs": [],
           "non_defense_routing_refs": [],
           "control_contribution_type": "INHERITED_ONLY",
-          "rationale": "战略链可支持A1/A2的客观起终安全状态；现有材料没有闭合本人新增或维护的边疆控制空间，B1/B2/B4均不以阶段战果或威胁下降倒推。",
+          "rationale": "接手时西夏已处战略劣势，仅有局部防守支点；1209年蒙古军深入河西并围攻中兴府，迫使西夏屈服，主要防线进一步破裂，交班处于严重外部威胁。",
           "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
           "subject_binding_review_status": "REVIEWED_SUFFICIENT",
           "score_ready": true,
@@ -615,8 +661,8 @@
           "A120_non_cost_anchor_points": 2.4,
           "A120_positive_result_credit_points": 0.0,
           "A120_score_points": 2.4,
-          "B80_score_points": 0.0,
-          "AB200_score_points": 2.4,
+          "B80_score_points": 11.4,
+          "AB200_score_points": 13.8,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": -1.0,
@@ -638,7 +684,8 @@
               "start_grade": 2,
               "trajectory_value": 2.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": -1.0,
@@ -660,15 +707,16 @@
               "start_grade": 2,
               "trajectory_value": 2.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
-            "B80_points": 0.0,
-            "formal_B1_rate": 0.0,
+            "B80_points": 11.4,
+            "formal_B1_rate": 37.0,
             "formal_B2_rate": 0.0,
             "formal_B4_rate": 0.0,
-            "adjudicated_B1_rate": 0.0,
+            "adjudicated_B1_rate": 37.0,
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
@@ -676,7 +724,15 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 1,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVISED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 37.0
+          },
+          "b1_cross_item_excluded_weighted_value": -0.32,
+          "A_axis_common_context": "1209年蒙古自河西方向进攻，直接检验西夏北部与核心方向。"
         },
         {
           "ruler_id": "RULER-XIXIA-LIDEWANG",
@@ -696,7 +752,8 @@
               "trajectory_value": 2,
               "axis_points": 0.8,
               "transition": "WORSENED",
-              "reason": "按本人统治窗口1条去重战略链重建交接状态：安全结果={'EN2': 1}。A1取2→1、A2取2→1；B1-0只消费已在终点实际保留的控制，B2-0评价其战略价值，B4-0评价交班成熟度。创业统一取得链与纯威胁削弱不转成B控制分；负向终局也不由D成本倒推。"
+              "reason": "主要威胁蒙古仍能持续深入并夺取关键节点，国家级危机能力继续增强，故A1由2档降至1档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
@@ -708,14 +765,17 @@
               "trajectory_value": 2,
               "axis_points": 0.8,
               "transition": "WORSENED",
-              "reason": "按本人统治窗口1条去重战略链重建交接状态：安全结果={'EN2': 1}。A1取2→1、A2取2→1；B1-0只消费已在终点实际保留的控制，B2-0评价其战略价值，B4-0评价交班成熟度。创业统一取得链与纯威胁削弱不转成B控制分；负向终局也不由D成本倒推。"
+              "reason": "银州门户失守使北部防线和核心纵深进一步断裂，原有局部支点不足以组成有效边界，故A2由2档降至1档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
-              "grade": "B1-0",
+              "grade": "B1-1",
               "band_position": "LOW",
-              "score_rate": 0,
-              "axis_points": 0.0,
-              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+              "score_rate": 30.0,
+              "axis_points": 7.5,
+              "reason": "规模与控制强度：1226蒙古总攻已造成西北外缘与多处节点实质退出，但中兴核心与主体边疆带仍在，按0.75覆盖。",
+              "weighted_control_value": 0.12,
+              "raw_net_change": 0
             },
             "B2": {
               "grade": "B2-0",
@@ -732,12 +792,12 @@
               "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
             }
           },
-          "AB_score_points": 1.6,
+          "AB_score_points": 9.1,
           "b1_control_equivalents": {
-            "start": 0.0,
-            "end": 0.0,
-            "net_change": 0.0,
-            "weighted_value": 0.0
+            "start": 0,
+            "end": 0,
+            "net_change": 0,
+            "weighted_value": 0.12
           },
           "b1_region_control": {
             "start": {},
@@ -761,7 +821,7 @@
           "major_in_reign_reversal_refs": [],
           "non_defense_routing_refs": [],
           "control_contribution_type": "INHERITED_ONLY",
-          "rationale": "战略链可支持A1/A2的客观起终安全状态；现有材料没有闭合本人新增或维护的边疆控制空间，B1/B2/B4均不以阶段战果或威胁下降倒推。",
+          "rationale": "接手时蒙古压力已使西夏处于战略劣势，边界仅余局部支点；1224至1226年蒙古连续进攻，西北外缘与多处节点退出，虽主体尚存，交班已降为严重威胁和主要防线破裂。",
           "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
           "subject_binding_review_status": "REVIEWED_SUFFICIENT",
           "score_ready": true,
@@ -777,8 +837,8 @@
           "A120_non_cost_anchor_points": 11.4,
           "A120_positive_result_credit_points": 0.0,
           "A120_score_points": 11.4,
-          "B80_score_points": 0.0,
-          "AB200_score_points": 11.4,
+          "B80_score_points": 9.24,
+          "AB200_score_points": 20.64,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": -0.25,
@@ -800,7 +860,8 @@
               "start_grade": 2,
               "trajectory_value": 9.5,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": -0.25,
@@ -822,15 +883,16 @@
               "start_grade": 2,
               "trajectory_value": 9.5,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
-            "B80_points": 0.0,
-            "formal_B1_rate": 0.0,
+            "B80_points": 9.24,
+            "formal_B1_rate": 30.0,
             "formal_B2_rate": 0.0,
             "formal_B4_rate": 0.0,
-            "adjudicated_B1_rate": 0.0,
+            "adjudicated_B1_rate": 30.0,
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
@@ -838,7 +900,15 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 1,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVISED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 30.0
+          },
+          "b1_cross_item_excluded_weighted_value": -0.12,
+          "A_axis_common_context": "1224年蒙古进攻银州，西夏在连续蒙夏战争中已处高压状态。"
         },
         {
           "ruler_id": "RULER-XIXIA-LIXIAN",
@@ -858,7 +928,8 @@
               "trajectory_value": 0,
               "axis_points": 0.0,
               "transition": "WORSENED",
-              "reason": "按本人统治窗口1条去重战略链重建交接状态：安全结果={'EN2': 1}。A1取1→0、A2取1→0；B1-0只消费已在终点实际保留的控制，B2-0评价其战略价值，B4-0评价交班成熟度。创业统一取得链与纯威胁削弱不转成B控制分；负向终局也不由D成本倒推。"
+              "reason": "蒙古是直接终结西夏的存亡级主要威胁，本人窗口未能保住政权，故A1由1档降至0档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "start": "A2S1_BROKEN_BOUNDARY",
@@ -870,14 +941,17 @@
               "trajectory_value": 0,
               "axis_points": 0.0,
               "transition": "WORSENED",
-              "reason": "按本人统治窗口1条去重战略链重建交接状态：安全结果={'EN2': 1}。A1取1→0、A2取1→0；B1-0只消费已在终点实际保留的控制，B2-0评价其战略价值，B4-0评价交班成熟度。创业统一取得链与纯威胁削弱不转成B控制分；负向终局也不由D成本倒推。"
+              "reason": "应理、夏州等最后门户与核心防线相继失守，交班时不存在可移交的边界体系，故A2由1档降至0档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
               "grade": "B1-0",
               "band_position": "LOW",
-              "score_rate": 0,
+              "score_rate": 0.0,
               "axis_points": 0.0,
-              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+              "reason": "规模与控制强度：承接李德旺修正后0.6，1227灭国后全部退出；分率仍0。",
+              "weighted_control_value": -0.36,
+              "raw_net_change": 0
             },
             "B2": {
               "grade": "B2-0",
@@ -896,10 +970,10 @@
           },
           "AB_score_points": 0.0,
           "b1_control_equivalents": {
-            "start": 0.0,
-            "end": 0.0,
-            "net_change": 0.0,
-            "weighted_value": 0.0
+            "start": 0,
+            "end": 0,
+            "net_change": 0,
+            "weighted_value": -0.36
           },
           "b1_region_control": {
             "start": {},
@@ -923,7 +997,7 @@
           "major_in_reign_reversal_refs": [],
           "non_defense_routing_refs": [],
           "control_contribution_type": "INHERITED_ONLY",
-          "rationale": "战略链可支持A1/A2的客观起终安全状态；现有材料没有闭合本人新增或维护的边疆控制空间，B1/B2/B4均不以阶段战果或威胁下降倒推。",
+          "rationale": "接手即承受蒙古总攻，主要防线已经破裂；1227年中兴府失守、西夏灭亡，交班时核心直接暴露，政权存续危机成为现实。",
           "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
           "subject_binding_review_status": "REVIEWED_SUFFICIENT",
           "score_ready": true,
@@ -962,7 +1036,8 @@
               "start_grade": 1,
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": -0.25,
@@ -984,7 +1059,8 @@
               "start_grade": 1,
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
@@ -1000,7 +1076,15 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 1,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVISED_LEDGER_ONLY",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 0.0
+          },
+          "b1_cross_item_excluded_weighted_value": 0.36,
+          "A_axis_common_context": "1226—1227年蒙古进攻应理、夏州并推进至西夏最后核心，政权最终覆亡。"
         },
         {
           "ruler_id": "RULER-XIXIA-LIBINGCHANG",
@@ -1020,7 +1104,8 @@
               "trajectory_value": 56,
               "axis_points": 22.4,
               "transition": "IMPROVED",
-              "reason": "按本人统治窗口2条去重战略链重建交接状态：安全结果={'E3_MAJOR_STAGE': 1, 'EN1': 1}。A1取1→3、A2取2→3；B1-1只消费已在终点实际保留的控制，B2-3评价其战略价值，B4-2评价交班成熟度。创业统一取得链与纯威胁削弱不转成B控制分；负向终局也不由D成本倒推。"
+              "reason": "主要威胁宋朝从能够制造严重危机降为可相互制衡的西线对手，但仍未被结构性压低，故A1由1档升至3档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
@@ -1032,14 +1117,17 @@
               "trajectory_value": 46,
               "axis_points": 18.4,
               "transition": "IMPROVED",
-              "reason": "按本人统治窗口2条去重战略链重建交接状态：安全结果={'E3_MAJOR_STAGE': 1, 'EN1': 1}。A1取1→3、A2取2→3；B1-1只消费已在终点实际保留的控制，B2-3评价其战略价值，B4-2评价交班成熟度。创业统一取得链与纯威胁削弱不转成B控制分；负向终局也不由D成本倒推。"
+              "reason": "五路进攻被挡后，西线城寨、交通和纵深恢复为可运作的主要防线；甘州等方向仍有缺口，故A2由2档升至3档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
-              "grade": "B1-0",
-              "band_position": "LOW",
-              "score_rate": 0,
-              "axis_points": 0.0,
-              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+              "grade": "B1-1",
+              "band_position": "MID",
+              "score_rate": 37.0,
+              "axis_points": 9.25,
+              "reason": "规模与控制强度：宋夏反复主要改变安全与局部堡寨，不足使HEXI_NINGXIA_ORDOS跨覆盖阶梯。",
+              "weighted_control_value": 0.32,
+              "raw_net_change": 0
             },
             "B2": {
               "grade": "B2-0",
@@ -1056,12 +1144,12 @@
               "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
             }
           },
-          "AB_score_points": 40.8,
+          "AB_score_points": 50.05,
           "b1_control_equivalents": {
-            "start": 0.0,
-            "end": 0.0,
-            "net_change": 0.0,
-            "weighted_value": 0.0
+            "start": 0,
+            "end": 0,
+            "net_change": 0,
+            "weighted_value": 0.32
           },
           "b1_region_control": {
             "start": {},
@@ -1091,7 +1179,7 @@
           "major_in_reign_reversal_refs": [],
           "non_defense_routing_refs": [],
           "control_contribution_type": "INHERITED_ONLY",
-          "rationale": "战略链可支持A1/A2的客观起终安全状态；现有材料没有闭合本人新增或维护的边疆控制空间，B1/B2/B4均不以阶段战果或威胁下降倒推。",
+          "rationale": "接手时宋朝西进形成严重威胁，边界仅有局部可守支点；1081至1082年抵御宋军五路进攻后西线得以稳定，交班恢复到相互制衡与主要边界有效运行。",
           "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
           "subject_binding_review_status": "REVIEWED_SUFFICIENT",
           "score_ready": true,
@@ -1111,8 +1199,8 @@
           "A120_non_cost_anchor_points": 40.2,
           "A120_positive_result_credit_points": 9.0,
           "A120_score_points": 49.2,
-          "B80_score_points": 0.0,
-          "AB200_score_points": 49.2,
+          "B80_score_points": 11.4,
+          "AB200_score_points": 60.6,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 1.0,
@@ -1134,7 +1222,21 @@
               "start_grade": 1,
               "trajectory_value": 41.0,
               "within_band_deterioration_basis": "甘州新方向威胁升级形成EN1",
-              "within_band_deterioration_penalty": 5
+              "within_band_deterioration_penalty": 5,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 1,
+                  "to_grade": 2,
+                  "credit": 0.5,
+                  "basis": "1→2由母后主政、将帅执行与本人名义窗口共同形成。"
+                },
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 0.5,
+                  "basis": "2→3的五路防御成果仍属共同归责，不授本人主要信用。"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 0.5,
@@ -1156,15 +1258,23 @@
               "start_grade": 2,
               "trajectory_value": 41.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 0.5,
+                  "basis": "材料门后按人物窗口逐段裁决"
+                }
+              ]
             }
           },
           "B80_adjudication": {
-            "B80_points": 0.0,
-            "formal_B1_rate": 0.0,
+            "B80_points": 11.4,
+            "formal_B1_rate": 37.0,
             "formal_B2_rate": 0.0,
             "formal_B4_rate": 0.0,
-            "adjudicated_B1_rate": 0.0,
+            "adjudicated_B1_rate": 37.0,
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
@@ -1172,7 +1282,15 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 2,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVISED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 37.0
+          },
+          "b1_cross_item_excluded_weighted_value": -0.32,
+          "A_axis_common_context": "宋夏西线1070—1082年持续作战，并叠加1084年甘州方向压力。"
         },
         {
           "ruler_id": "RULER-XIXIA-LILIANGZUO",
@@ -1192,7 +1310,8 @@
               "trajectory_value": 14,
               "axis_points": 5.6,
               "transition": "WORSENED",
-              "reason": "按本人统治窗口3条去重战略链重建交接状态：安全结果={'E0': 1, 'E2': 1, 'EN2': 1}。A1取3→2、A2取3→2；B1-0只消费已在终点实际保留的控制，B2-0评价其战略价值，B4-0评价交班成熟度。创业统一取得链与纯威胁削弱不转成B控制分；负向终局也不由D成本倒推。"
+              "reason": "辽与宋仍是主要威胁，多向作战未能建立稳定主动，交班压力反而加重，故A1由3档降至2档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
@@ -1204,14 +1323,17 @@
               "trajectory_value": 14,
               "axis_points": 5.6,
               "transition": "WORSENED",
-              "reason": "按本人统治窗口3条去重战略链重建交接状态：安全结果={'E0': 1, 'E2': 1, 'EN2': 1}。A1取3→2、A2取3→2；B1-0只消费已在终点实际保留的控制，B2-0评价其战略价值，B4-0评价交班成熟度。创业统一取得链与纯威胁削弱不转成B控制分；负向终局也不由D成本倒推。"
+              "reason": "北部与东南方向的防线、交通和缓冲关系在反复冲突中失去协同，只剩局部可守节点，故A2由3档降至2档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
-              "grade": "B1-0",
-              "band_position": "LOW",
-              "score_rate": 0,
-              "axis_points": 0.0,
-              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+              "grade": "B1-1",
+              "band_position": "MID",
+              "score_rate": 37.0,
+              "axis_points": 9.25,
+              "reason": "规模与控制强度：B1全量重审已确认最终档内率。",
+              "weighted_control_value": 0.32,
+              "raw_net_change": 0
             },
             "B2": {
               "grade": "B2-0",
@@ -1228,12 +1350,12 @@
               "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
             }
           },
-          "AB_score_points": 11.2,
+          "AB_score_points": 20.45,
           "b1_control_equivalents": {
-            "start": 0.0,
-            "end": 0.0,
-            "net_change": 0.0,
-            "weighted_value": 0.0
+            "start": 0,
+            "end": 0,
+            "net_change": 0,
+            "weighted_value": 0.32
           },
           "b1_region_control": {
             "start": {},
@@ -1264,7 +1386,7 @@
           "major_in_reign_reversal_refs": [],
           "non_defense_routing_refs": [],
           "control_contribution_type": "INHERITED_ONLY",
-          "rationale": "战略链可支持A1/A2的客观起终安全状态；现有材料没有闭合本人新增或维护的边疆控制空间，B1/B2/B4均不以阶段战果或威胁下降倒推。",
+          "rationale": "接手时宋辽方向尚能相持，主要边界可以运行；1049至1058年对辽、宋及青唐多线交战造成持续消耗和节点受压，交班转为战略劣势，边界只余局部可守支点。",
           "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
           "subject_binding_review_status": "REVIEWED_SUFFICIENT",
           "score_ready": true,
@@ -1280,8 +1402,8 @@
           "A120_non_cost_anchor_points": 16.8,
           "A120_positive_result_credit_points": 0.0,
           "A120_score_points": 16.8,
-          "B80_score_points": 0.0,
-          "AB200_score_points": 16.8,
+          "B80_score_points": 11.4,
+          "AB200_score_points": 28.2,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": -1.0,
@@ -1303,7 +1425,8 @@
               "start_grade": 3,
               "trajectory_value": 14.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": -1.0,
@@ -1325,15 +1448,16 @@
               "start_grade": 3,
               "trajectory_value": 14.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
-            "B80_points": 0.0,
-            "formal_B1_rate": 0.0,
+            "B80_points": 11.4,
+            "formal_B1_rate": 37.0,
             "formal_B2_rate": 0.0,
             "formal_B4_rate": 0.0,
-            "adjudicated_B1_rate": 0.0,
+            "adjudicated_B1_rate": 37.0,
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
@@ -1341,7 +1465,15 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 3,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVISED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 37.0
+          },
+          "b1_cross_item_excluded_weighted_value": -0.32,
+          "A_axis_common_context": "辽夏战争、宋夏屈野河方向冲突及青唐用兵共同造成多向压力。"
         },
         {
           "ruler_id": "RULER-XIXIA-LIYUANHAO",
@@ -1384,7 +1516,7 @@
               "ceiling_bonus": 0,
               "trajectory_value": 36,
               "axis_points": 14.4,
-              "assessment_scope": "OVERALL_FRONTIER_STRATEGIC_SITUATION",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
               "reason": "1032年接掌时已据河西并在宋辽之间形成可独立评价的制衡格局；对宋多次大捷巩固地位，但宋辽国家机器均未被压倒，交班仍为3档。"
             },
             "A2": {
@@ -1398,16 +1530,18 @@
               "ceiling_bonus": 0,
               "trajectory_value": 36,
               "axis_points": 14.4,
-              "assessment_scope": "OVERALL_FRONTIER_STRATEGIC_SITUATION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
               "reason": "河西走廊与兴灵核心在起点已构成有效主要边界；任内防御和攻势证明体系可运作，但宋夏边线长期争夺且无全国性安全体系，起终均为3档。"
             },
             "B1": {
-              "grade": "B1-0",
-              "band_position": "LOW",
-              "score_rate": 0,
-              "axis_points": 0.0,
+              "grade": "B1-1",
+              "band_position": "MID",
+              "score_rate": 37.0,
+              "axis_points": 9.25,
               "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
-              "reason": "本人用于建立政权和统一核心区的控制量已经归第一项；当前没有第一项贡献窗口之外、可另行识别的边疆控制净成果，故B1/B2/B4均不重复计分。"
+              "reason": "规模与控制强度：继承完整边疆带并交班维持；建国核心与宋夏战争价值不重复转B1面积。",
+              "weighted_control_value": 0.32,
+              "raw_net_change": 0
             },
             "B2": {
               "grade": "B2-0",
@@ -1426,12 +1560,12 @@
               "reason": "本人用于建立政权和统一核心区的控制量已经归第一项；当前没有第一项贡献窗口之外、可另行识别的边疆控制净成果，故B1/B2/B4均不重复计分。"
             }
           },
-          "AB_score_points": 28.8,
+          "AB_score_points": 38.05,
           "b1_control_equivalents": {
-            "start": 0.0,
-            "end": 0.0,
-            "net_change": 0.0,
-            "weighted_value": 0.0
+            "start": 0,
+            "end": 0,
+            "net_change": 0,
+            "weighted_value": 0.32
           },
           "b1_region_control": {
             "start": {},
@@ -1454,8 +1588,8 @@
           "A120_non_cost_anchor_points": 43.2,
           "A120_positive_result_credit_points": 0.0,
           "A120_score_points": 43.2,
-          "B80_score_points": 0.0,
-          "AB200_score_points": 43.2,
+          "B80_score_points": 11.4,
+          "AB200_score_points": 54.6,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 0.0,
@@ -1477,7 +1611,8 @@
               "start_grade": 3,
               "trajectory_value": 36.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -1499,19 +1634,27 @@
               "start_grade": 3,
               "trajectory_value": 36.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
-            "B80_points": 0.0,
-            "formal_B1_rate": 0.0,
+            "B80_points": 11.4,
+            "formal_B1_rate": 37.0,
             "formal_B2_rate": 0.0,
             "formal_B4_rate": 0.0,
-            "adjudicated_B1_rate": 0.0,
+            "adjudicated_B1_rate": 37.0,
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "创业统一控制收益由第一项整链消费，本项无独立控制成果包。"
-          }
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVISED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 37.0
+          },
+          "b1_cross_item_excluded_weighted_value": -0.32
         }
       ]
     }

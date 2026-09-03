@@ -1676,14 +1676,13 @@
           "D_within_grade_position": "HIGH",
           "D_score_points": 28.0,
           "D_score_status": "DIRECT_D_SCORE_ASSIGNED",
-          "signed_security_candidate_before_cost": "D4",
-          "cost_grade_delta": -1,
+          "signed_security_candidate_before_cost": "D3",
+          "cost_grade_delta": 0,
           "security_result_distribution": {
             "E2": 1,
-            "E3_REGIONAL_TERMINAL": 1,
-            "E4_MAJOR_STRATEGIC": 2
+            "E3_REGIONAL_TERMINAL": 1
           },
-          "external_strategic_chains": [
+          "cross_item_excluded_chains": [
             {
               "chain_id": "CHAIN-OGEDEI-JIN-1231-1234",
               "effective_opponent_challenge_grade": "O4_MULTI_DIRECTION_OR_CORE_REGION_THREAT",
@@ -1807,7 +1806,9 @@
               "comparative_scale_basis": "与冻结34人同通道锚点比较对手终结程度、覆盖范围和耐久性；高成果不由灭国名称、本方投入或单次战果自动生成。",
               "achievement_grade_detail": "E4_MAJOR_STRATEGIC",
               "security_result_grade": "E4_MAJOR_STRATEGIC"
-            },
+            }
+          ],
+          "external_strategic_chains": [
             {
               "chain_id": "CHAIN-OGEDEI-QIPCHAQ-1237",
               "effective_opponent_challenge_grade": "O2_BORDER_RAIDING",
@@ -1918,14 +1919,13 @@
             "abnormal_cost_chain_count": 0,
             "abnormal_process_chain_count": 0,
             "excluded_nonconsumable_count": 0,
-            "notes": "Four post-accession successor-ruler external chains restored. Only territorial/unification gains are cross-item deduplicated.",
+            "notes": "灭金与东夏终局作为元朝统一主链的不可重复前置成果整链退出D；钦察与攻宋两条非统一链保留。",
             "source_refs": [
               "docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.json#窝阔台",
               "docs/评分结算/第三项军事与边疆净收益/军事体系有效性/01-皇帝C项正式结算.json#窝阔台",
               "docs/公共成果/军事/03-军事行动成本和收益登记.json#窝阔台"
             ]
           },
-          "cross_item_excluded_chains": [],
           "non_military_loss_cost_exclusions": [],
           "attributable_cost_profile": {
             "cost_band": "C5",
@@ -1942,7 +1942,7 @@
               "XZTJ-MONGOL-SONG-SICHUAN-1241-CHENGDU-HANZHOU"
             ]
           },
-          "adjudication_basis": "OVERLAP_GATE: the Jin and Dongxia E4 chains overlap in the northeast/Jin-order result object and cannot be stacked as two fully independent E4 directions. Pre-cost D4 remains; same-chain Song C5 lowers the shadow candidate to D3 high.",
+          "adjudication_basis": "灭金及东夏终局属于元朝中国统一主链的不可重复前置成果，成果与成本整链退出D；钦察E3与攻宋E2保留，前者闭合区域性终局、后者只形成有限阶段改善，组合为D3高位。C5成本来自保留的攻宋同链，但无F3级毁损，不再额外降档。",
           "coverage_status": "CONFIRMED",
           "source_batch": "sol_c",
           "canonical_status": "FORMAL_CURRENT",
@@ -2078,10 +2078,9 @@
             "E2": 1,
             "E3_MAJOR_STAGE": 1,
             "E3_REGIONAL_TERMINAL": 1,
-            "E4_MAJOR_STRATEGIC": 2,
             "E5B": 1
           },
-          "external_strategic_chains": [
+          "chain_evidence_catalog": [
             {
               "chain_id": "MONGOL-XIXIA-1207-1210",
               "member_cycle_refs": [
@@ -2155,9 +2154,9 @@
               "result_type": "NORTHERN_DEFENSE_SYSTEM_SHATTERED_WITH_STATE_SURVIVAL",
               "within_grade_position": "HIGH",
               "terminal_result_profile": "金军北方防线和河北多数州县被突破，中都于1215陷落，金廷南迁后仍存续；这是重要方向的耐久战略改写，而非对金全国体系的不可逆终结。",
-              "control_change": "河北州县与中都等新增控制和征服收益由第三项B消费；D仅消费金北方国防体系被击穿、首都方向威胁能力长期下降的安全结果。",
-              "cross_item_control_gain_deduplicated": false,
-              "security_change_basis": "O5对手的北方国防与都城方向被耐久击穿，达到E4高位；金国仍存且未形成跨多个重要方向的新秩序，不升E5A/E5B。",
+              "control_change": "河北州县与中都等耐久控制由后继蒙古—元直接承接，属于灭金统一主链的不可重复前置成果；成果与成本整链归第一项。",
+              "cross_item_control_gain_deduplicated": true,
+              "security_change_basis": "本条仅在证据目录保留原始E4判断供C能力专用复核；不进入第三项D计分数组。",
               "negative_stages": [
                 {
                   "stage": "1212围西京、中箭后撤围",
@@ -2299,9 +2298,9 @@
               "result_type": "REGIONAL_STATE_DEFENSE_SYSTEM_TERMINATED",
               "within_grade_position": "HIGH",
               "terminal_result_profile": "蒙古连续攻取黑水、甘肃诸州并击败西夏主力，围中兴且使李睍出降，西夏国家军政体系终局瓦解，西部侧翼方向威胁被不可逆终结。",
-              "control_change": "黑水、甘、肃、临洮等新增疆土与统一控制收益由第三项B消费；D仅消费西夏O4国家防务体系终结及西部战略方向安全改变。",
-              "cross_item_control_gain_deduplicated": false,
-              "security_change_basis": "单一重要方向的O4成熟国家威胁被不可逆终结，达到E4高位；灭国本身不自动E5A，西夏也不满足开战前压迫蒙古全国防务的门，且本链不是跨多个重要方向的新秩序。",
+              "control_change": "黑水、甘、肃、临洮等取得及李睍出降形成灭夏终局，由后继蒙古—元直接继承，属于统一主链前置成果；成果与成本整链归第一项。",
+              "cross_item_control_gain_deduplicated": true,
+              "security_change_basis": "本条仅在证据目录保留原始E4判断供C能力专用复核；不进入第三项D计分数组。",
               "comparative_anchor_refs": [
                 "李治::LZ-WEST-TURKS",
                 "李世民::LSM-TUYUHUN",
@@ -2374,18 +2373,73 @@
             "explicit_failure_or_unresolved_count": 0,
             "abnormal_cost_chain_count": 1,
             "abnormal_process_chain_count": 1,
-            "notes": "1206年前草原统一整链留在第一项；1206年后五条外部链全部进入第三项。控制量由第三项B消费，D只消费外部威胁状态、阶段或终局安全结果和可归责成本；张致叛军、共同体人口及处刑损失不进入本方军事成本。"
+            "notes": "不按1206年节点整体切分：攻金形成的统一前置成果与1226—1227灭夏终局整链归第一项；1207—1210、1217两次未形成耐久统一成果的攻夏安全行动及花剌子模链留在第三项。张致叛军、共同体人口及处刑损失不进入本方军事成本。"
           },
-          "cross_item_excluded_chains": [],
+          "external_strategic_chains": [
+            {
+              "chain_id": "MONGOL-XIXIA-1207-1210",
+              "source_refs": [
+                "docs/公共成果/军事/01-战役登记/yuan-21.json#WAR-POST-D703F24B87E4F7E32097",
+                "docs/公共成果/军事/01-战役登记/yuan-21.json#WAR-POST-C2804621471CE4C2C821",
+                "docs/公共成果/军事/01-战役登记/yuan-21.json#WAR-POST-AD4864D640E94CB87AE5"
+              ],
+              "achievement_grade": "E3_MAJOR_STAGE",
+              "terminal_result_profile": "早期攻夏迫使西夏阶段性臣服但未终结其国家体系，属于第三项边疆安全行动，不作为后来灭夏统一成果重复结算。",
+              "security_change_basis": "形成阶段性侧翼安全改善而无耐久统一终局，保留E3阶段成果。"
+            },
+            {
+              "chain_id": "MONGOL-XIXIA-ZHONGXING-1217",
+              "source_refs": [
+                "docs/公共成果/军事/01-战役登记/xixia-11.json#WAR-POST-C3CE17DFCD01090FD482"
+              ],
+              "achievement_grade": "E2_LIMITED_TEMPORARY_SECURITY_GAIN",
+              "terminal_result_profile": "围中兴后西夏再次请降而蒙古撤军，未形成灭夏统一链的耐久控制成果。",
+              "security_change_basis": "只形成短期主要方向安全改善，保留E2。"
+            },
+            {
+              "chain_id": "MONGOL-KHWARAZM-1219-1224",
+              "source_refs": [
+                "docs/公共成果/军事/01-战役登记/yuan-14.json#WAR-POST-D93BB824455764B93E15",
+                "config/third-item/third-item-c-outcome-adjudications.json#铁木真/花剌子模/O5"
+              ],
+              "achievement_grade": "E5B_MULTI_DIRECTION_DURABLE_ORDER_CHANGE",
+              "terminal_result_profile": "花剌子模多核心失守、主体系瓦解并改变河中与呼罗珊多方向秩序；札兰丁继续抵抗限制终局完整度。",
+              "security_change_basis": "该中亚—西亚成果与元朝中国统一主链无直接奠基关系，成果、阶段反转和成本均留在第三项。"
+            }
+          ],
+          "cross_item_excluded_chains": [
+            {
+              "original_role": "EXTERNAL_STRATEGIC",
+              "chain_id": "MONGOL-JIN-1211-1215",
+              "member_cycle_refs": [
+                "WAR-POST-1DE62BDB6820F4304D73",
+                "WAR-POST-87C42CA8EBC66CEFAD41",
+                "WAR-POST-4913D0DB320B61F2B5BC",
+                "WAR-POST-B2C5A447E7B0FAA59FE7",
+                "WAR-POST-C84CBE25C04B24C2F22B"
+              ],
+              "result_type": "FIRST_ITEM_UNIFICATION_PRECURSOR_OUTCOME_EXCLUDED_FROM_D",
+              "reason": "河北州县与中都等耐久控制被后继蒙古—元直接作为灭金起点，属于元朝统一主链不可重复的前置成果；成果与成本整链退出D，仅可按C合同作为能力专用证据。"
+            },
+            {
+              "original_role": "EXTERNAL_STRATEGIC",
+              "chain_id": "MONGOL-XIXIA-1226-1227",
+              "member_cycle_refs": [
+                "WAR-POST-B1BE4C2409653FE5B24C"
+              ],
+              "result_type": "FIRST_ITEM_UNIFICATION_PRECURSOR_OUTCOME_EXCLUDED_FROM_D",
+              "reason": "攻取西夏多州并迫使李睍出降形成灭夏终局，由后继蒙古—元国家直接继承，属于统一主链前置成果；成果与成本整链退出D，仅可按C合同作为能力专用证据。"
+            }
+          ],
           "non_military_loss_cost_exclusions": [],
           "attributable_cost_profile": {
             "cost_band": "C5",
             "status": "LOWER_BOUND",
             "position": "HIGH",
             "admission_fact": "花剌子模1219—1223并以1224返程闭合的同一外部链，形成帝国方向、国家级多军团、跨洲多方向、连续围城追击和超长距离补给的全期动员负担。",
-            "basis": "花剌子模同链足以把成本推到C5高位，但现有证据没有闭合F3/F4级本方组织毁损、反复重大人员或资产灾害、灾后全国再动员，也没有由统治者重大错误造成的额外负担，故不满足C6例外门。攻金、攻夏和张致链只进入全期累计展示，不跨链拼接C6。人数证据未闭合，因此状态为LOWER_BOUND。"
+            "basis": "花剌子模同链足以把成本推到C5高位，但现有证据没有闭合F3/F4级本方组织毁损、反复重大人员或资产灾害、灾后全国再动员，也没有由统治者重大错误造成的额外负担，故不满足C6例外门。攻金与灭夏终局随第一项统一前置成果整链退出；两次非终局攻夏和张致链只作保留链累计展示，不跨链拼接C6。人数证据未闭合，因此状态为LOWER_BOUND。"
           },
-          "adjudication_basis": "花剌子模链虽只构成响应前O3主要方向威胁，但在剔除疆土收益后仍以跨多个重要方向的主体系瓦解构成E5B中位；金1211—1215与西夏1226—1227分别构成E4高位，早期和1217攻夏为E3、E2，负阶段均保留且无独立EN。组合成本前为D5；C5高位长期国家级投入修正一档，影子D4高位。",
+          "adjudication_basis": "攻金耐久成果及1226—1227灭夏终局属于元朝统一主链前置成果，成果与成本整链退出D。花剌子模链在中亚、西亚跨多个重要方向造成主体系瓦解，独立构成E5B中位；1207—1210及1217攻夏只形成E3、E2阶段性安全改善。保留组合成本前仍为D5；花剌子模C5高位长期投入修正一档，D4高位不变。",
           "coverage_status": "CONFIRMED",
           "source_batch": "sol_a",
           "canonical_status": "FORMAL_CURRENT",

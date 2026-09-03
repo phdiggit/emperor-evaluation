@@ -11,7 +11,7 @@
       ],
       "records": [
         {
-          "AB_score_points": 69.2,
+          "AB_score_points": 58.2,
           "adjudication_status": "REVIEWED",
           "ambiguous_event_refs": [],
           "axes": {
@@ -26,7 +26,9 @@
               "start": "A1S1_SEVERE_THREAT",
               "trajectory_value": 34,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "建国时王琳控制长江中游并联络北齐，岭南、豫章等各有武装，主要威胁可制造国家级危机，起点1档。平萧勃、余孝顷等后南方后方改善，但沌口败后王琳仍控中游，终点只升至2档。"
             },
             "A2": {
               "axis_points": 13.6,
@@ -39,17 +41,20 @@
               "start": "A2S1_BROKEN_BOUNDARY",
               "trajectory_value": 34,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "建国时长江中游防线断裂，核心只能依赖建康周边应急防守，起点1档。岭南与赣江后方节点得到恢复，但上游仍被王琳截断，终点为2档。"
             },
             "B1": {
-              "axis_points": 11.0,
-              "band_position": "HIGH",
-              "grade": "B1-1",
+              "axis_points": 0.0,
+              "band_position": "LOW",
+              "grade": "B1-0",
               "rationale": "建国时对岭南仅有陈霸先旧部和若干支点的约半网络；平萧勃并打通北上通道后达整体有效，起点0.4、交班0.8、净增0.4、加权值0.56，落B1-1 HIGH。",
               "raw_net_change": 0.4,
-              "score_rate": 44,
+              "score_rate": 0.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 0.56
+              "weighted_control_value": 0.0,
+              "reason": "规模与控制强度：B1全量重审已确认最终档内率。"
             },
             "B2": {
               "axis_points": 18.0,
@@ -70,7 +75,7 @@
             "end": 0.8,
             "net_change": 0.4,
             "start": 0.4,
-            "weighted_value": 0.56
+            "weighted_value": 0.0
           },
           "b1_region_adjudications": [
             {
@@ -199,7 +204,15 @@
               "start_grade": 1,
               "trajectory_value": 34.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 1,
+                  "to_grade": 2,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 1.0,
@@ -221,22 +234,37 @@
               "start_grade": 1,
               "trajectory_value": 34.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 1,
+                  "to_grade": 2,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             }
           },
           "B80_adjudication": {
             "B80_points": 0.0,
-            "formal_B1_rate": 44.0,
+            "formal_B1_rate": 0.0,
             "formal_B2_rate": 60.0,
             "formal_B4_rate": 52.0,
             "adjudicated_B1_rate": 0.0,
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "D中岭南萧勃链已作创业统一整链排除；B的岭南控制包与其同一"
-          }
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "CONFIRMED_CORE_EXCLUSION",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 0.0
+          },
+          "b1_cross_item_excluded_weighted_value": 0.56
         },
         {
-          "AB_score_points": 88.8,
+          "AB_score_points": 85.3,
           "adjudication_status": "REVIEWED",
           "ambiguous_event_refs": [],
           "axes": {
@@ -251,7 +279,9 @@
               "start": "A1S2_STRATEGIC_DISADVANTAGE",
               "trajectory_value": 46,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "接班时王琳仍控长江中游并获北齐支持，陈处于战略被动，起点2档。击破王琳体系、平熊昙朗等后，内部主要军政威胁解体；但北齐、北周仍能在江淮施压，终点为3档。"
             },
             "A2": {
               "axis_points": 18.4,
@@ -264,17 +294,20 @@
               "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
               "trajectory_value": 46,
               "transition": "IMPROVED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "起点只有岭南后方与下游若干节点，中游缺口显著，为2档。王琳被逐、豫章与郢州节点恢复后，长江主要方向形成可运作防线，但江北纵深不足，终点3档。"
             },
             "B1": {
-              "axis_points": 11.0,
-              "band_position": "HIGH",
+              "axis_points": 7.5,
+              "band_position": "LOW",
               "grade": "B1-1",
               "rationale": "复用陈霸先交班岭南0.8；平王琳与熊昙朗后对赣湘取西南半走廊0.25，孙瑂18事使郢州只作淮河标准区小支点0.175；交班1.225、净增0.425、加权值0.745，落B1-1 HIGH。",
               "raw_net_change": 0.425,
-              "score_rate": 44,
+              "score_rate": 30.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 0.745
+              "weighted_control_value": 0.175,
+              "reason": "规模与控制强度：仅保留淮河边疆0.7×0.25；删除岭南0.8与赣湘/西南0.25核心项。"
             },
             "B2": {
               "axis_points": 22.5,
@@ -295,7 +328,7 @@
             "end": 1.225,
             "net_change": 0.425,
             "start": 0.8,
-            "weighted_value": 0.745
+            "weighted_value": 0.175
           },
           "b1_region_adjudications": [
             {
@@ -422,8 +455,8 @@
           "A120_non_cost_anchor_points": 43.2,
           "A120_positive_result_credit_points": 12.0,
           "A120_score_points": 55.2,
-          "B80_score_points": 42.74,
-          "AB200_score_points": 97.94,
+          "B80_score_points": 37.06,
+          "AB200_score_points": 92.26,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 1.0,
@@ -445,7 +478,15 @@
               "start_grade": 2,
               "trajectory_value": 46.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 1.0,
@@ -467,22 +508,37 @@
               "start_grade": 2,
               "trajectory_value": 46.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 1.0,
+                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                }
+              ]
             }
           },
           "B80_adjudication": {
-            "B80_points": 42.74,
-            "formal_B1_rate": 44.0,
+            "B80_points": 37.06,
+            "formal_B1_rate": 30.0,
             "formal_B2_rate": 75.0,
             "formal_B4_rate": 74.0,
-            "adjudicated_B1_rate": 44.0,
+            "adjudicated_B1_rate": 30.0,
             "adjudicated_B2_rate": 75.0,
             "adjudicated_B4_rate": 74.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
-          }
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVISED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 30.0
+          },
+          "b1_cross_item_excluded_weighted_value": 0.57
         },
         {
-          "AB_score_points": 23.65,
+          "AB_score_points": 21.65,
           "adjudication_status": "REVIEWED",
           "ambiguous_event_refs": [],
           "axes": {
@@ -497,7 +553,9 @@
               "start": "A1S3_CONTESTED_BALANCE",
               "trajectory_value": 0,
               "transition": "WORSENED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "即位时陈已消除王琳等内部主要威胁，与北齐尚能争衡，起点3档。北伐一度取淮南，但北周灭齐后尽夺江北；581—582年仅计陈方主动进攻、失利后求和所示的低收益对隋阶段，交班时主要威胁具备制造国家级危机的能力，降为1档。"
             },
             "A2": {
               "axis_points": 14.4,
@@ -510,17 +568,20 @@
               "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
               "trajectory_value": 36,
               "transition": "STABLE",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "接班时长江主要方向已有可运作防线，为3档。淮南北伐收益在579年前后尽失，但长江防线、郢州及下游交通仍可运作，交班不降至只有孤立节点，维持3档。"
             },
             "B1": {
-              "axis_points": 9.25,
-              "band_position": "MID",
-              "grade": "B1-1",
+              "axis_points": 7.25,
+              "band_position": "HIGH",
+              "grade": "B1-0",
               "rationale": "任内淮南控制的历史峰值在北周攻势下全部退出，交班不计过程占领；起点1.225、交班1.05、净减0.175、加权值0.315，落B1-1 MID。",
               "raw_net_change": -0.175,
-              "score_rate": 37,
+              "score_rate": 29.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 0.315
+              "weighted_control_value": -0.105,
+              "reason": "规模与控制强度：淮北前沿在任内退出；其余旧终点均为稳定核心，不进入B1。"
             },
             "B2": {
               "axis_points": 0.0,
@@ -541,7 +602,7 @@
             "end": 1.05,
             "net_change": -0.175,
             "start": 1.225,
-            "weighted_value": 0.315
+            "weighted_value": -0.105
           },
           "b1_region_adjudications": [
             {
@@ -678,8 +739,8 @@
           "A120_non_cost_anchor_points": 9.6,
           "A120_positive_result_credit_points": 0.0,
           "A120_score_points": 9.6,
-          "B80_score_points": 11.4,
-          "AB200_score_points": 21.0,
+          "B80_score_points": 8.93,
+          "AB200_score_points": 18.53,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": -2.0,
@@ -701,7 +762,8 @@
               "start_grade": 3,
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -723,19 +785,27 @@
               "start_grade": 3,
               "trajectory_value": 16.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
-            "B80_points": 11.4,
-            "formal_B1_rate": 37.0,
+            "B80_points": 8.93,
+            "formal_B1_rate": 29.0,
             "formal_B2_rate": 0.0,
             "formal_B4_rate": 0.0,
-            "adjudicated_B1_rate": 37.0,
+            "adjudicated_B1_rate": 29.0,
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
-          }
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVISED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 29.0
+          },
+          "b1_cross_item_excluded_weighted_value": 0.42
         },
         {
           "AB_score_points": 0.0,
@@ -753,7 +823,9 @@
               "start": "A1S1_SEVERE_THREAT",
               "trajectory_value": 0,
               "transition": "WORSENED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "接班时隋已统一北方并可发动国家级攻势，起点1档。任内未能降低威胁，隋军进攻后建康陷落、皇帝被俘、政权覆亡，终点0档。"
             },
             "A2": {
               "axis_points": 0.0,
@@ -766,7 +838,9 @@
               "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
               "trajectory_value": 0,
               "transition": "WORSENED",
-              "transition_attribution": "PRIMARY_RULER_ACTION"
+              "transition_attribution": "PRIMARY_RULER_ACTION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "即位时长江防线仍为可运作的主要边界，起点3档。隋军多路渡江后指挥、戍防与核心区同时崩解，终点0档。"
             },
             "B1": {
               "axis_points": 0.0,
@@ -774,9 +848,10 @@
               "grade": "B1-0",
               "rationale": "接班边疆当量1.05，隋灭陈后交班为0。灭陈战争作为统一战争不作国防收益事件，但客观交班终点仍须归零；执行终局门，B1强制0档LOW。",
               "raw_net_change": -1.05,
-              "score_rate": 0,
+              "score_rate": 0.0,
               "terminal_collapse_override": true,
-              "weighted_control_value": -0.63
+              "weighted_control_value": 0.0,
+              "reason": "规模与控制强度：陈顼修正后已无独立B1边疆库存；589亡国不重复制造核心领土负空间。"
             },
             "B2": {
               "axis_points": 0.0,
@@ -797,7 +872,7 @@
             "end": 0,
             "net_change": -1.05,
             "start": 1.05,
-            "weighted_value": -0.63
+            "weighted_value": 0.0
           },
           "b1_region_adjudications": [
             {
@@ -910,7 +985,8 @@
               "start_grade": 1,
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": -3.0,
@@ -932,7 +1008,8 @@
               "start_grade": 3,
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
@@ -944,7 +1021,14 @@
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
-          }
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "CONFIRMED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
+            "final_B1_rate": 0.0
+          },
+          "b1_cross_item_excluded_weighted_value": -0.63
         }
       ]
     }

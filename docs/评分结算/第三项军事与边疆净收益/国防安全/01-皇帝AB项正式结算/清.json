@@ -38,7 +38,8 @@
               "trajectory_value": 0,
               "axis_points": 0.0,
               "transition": "WORSENED",
-              "reason": "鸦片战争使海防、条约和门户控制发生结构性破口；回疆收束不能抵消国家主要方向恶化。"
+              "reason": "主要威胁转为能够从海上迫使清廷接受城下条约的英国；其现实危机能力未被压低，反而显著上升，故A1由4档降至1档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "start": "A2S4_OVERALL_SECURE_WITH_GAPS",
@@ -50,14 +51,17 @@
               "trajectory_value": 0,
               "axis_points": 0.0,
               "transition": "WORSENED",
-              "reason": "鸦片战争使海防、条约和门户控制发生结构性破口；回疆收束不能抵消国家主要方向恶化。"
+              "reason": "东南海防、沿海门户和条约前沿被连续突破，既有海疆防御体系由总体有效降为主要防线破裂；回疆控制尚存不足以补回海防缺口，故A2由4档降至1档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
-              "grade": "B1-0",
-              "band_position": "LOW",
-              "score_rate": 0,
-              "axis_points": 0.0,
-              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+              "grade": "B1-3",
+              "band_position": "HIGH",
+              "score_rate": 74.0,
+              "axis_points": 18.5,
+              "reason": "规模与控制强度：回疆两轮危机均未形成交班覆盖跨阶梯失控；鸦片战争严重打击安全状态，但没有使蒙古、青藏、新疆、台湾、松外这五个B1边疆存量在1850交班时消失。",
+              "weighted_control_value": 2.85,
+              "raw_net_change": 0.0
             },
             "B2": {
               "grade": "B2-0",
@@ -74,39 +78,119 @@
               "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
             }
           },
-          "AB_score_points": 0.0,
+          "AB_score_points": 18.5,
           "b1_control_equivalents": {
-            "start": 0.2,
-            "end": 0.0,
-            "net_change": -0.2,
-            "weighted_value": -0.12
+            "start": 7.125,
+            "end": 7.125,
+            "net_change": 0.0,
+            "weighted_value": 2.85
           },
           "b1_region_control": {
             "start": {
-              "QING_HONGKONG_KOWLOON_GATEWAY": 0.2
+              "NORTH_GRASSLAND_WHOLE": 2.625,
+              "SONGWAI_JIMI_SPACE": 0.5,
+              "TAIWAN_PENGHU": 0.5,
+              "TIBETAN_PLATEAU_SYSTEM": 1.5,
+              "WESTERN_REGIONS_WHOLE": 2.0
             },
             "end": {
-              "QING_HONGKONG_KOWLOON_GATEWAY": 0.0
+              "NORTH_GRASSLAND_WHOLE": 2.625,
+              "SONGWAI_JIMI_SPACE": 0.5,
+              "TAIWAN_PENGHU": 0.5,
+              "TIBETAN_PLATEAU_SYSTEM": 1.5,
+              "WESTERN_REGIONS_WHOLE": 2.0
             }
           },
           "b1_region_adjudications": [
             {
-              "object_id": "QING_HONGKONG_KOWLOON_GATEWAY",
-              "object_name": "QING_HONGKONG_KOWLOON_GATEWAY",
+              "object_id": "NORTH_GRASSLAND_WHOLE",
+              "object_name": "北方草原整体",
+              "spatial_weight": 3.5,
+              "start_coverage": 0.75,
+              "end_coverage": 0.75,
               "anchors": [
-                "start"
+                "start",
+                "end"
               ],
               "counted": true,
-              "spatial_weight": 0.2,
-              "coverage_factor": 1.0,
-              "control_equivalent": 0.2,
-              "control_form": "本人窗口内失去的边疆控制",
-              "evidence_refs": [
-                "BLIND-MN-FIRST-OPIUM-WAR-1839-1842",
-                "BLIND-MN-JHANGIR-1820-1828",
-                "BLIND-MN-KASHGAR-1846-1847"
+              "control_equivalent": {
+                "start": 2.625,
+                "end": 2.625
+              },
+              "evidence_refs": [],
+              "reason": "回疆两轮危机均未形成交班覆盖跨阶梯失控；鸦片战争严重打击安全状态，但没有使蒙古、青藏、新疆、台湾、松外这五个B1边疆存量在1850交班时消失。"
+            },
+            {
+              "object_id": "SONGWAI_JIMI_SPACE",
+              "object_name": "松外羁縻/属部空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
               ],
-              "reason": "鸦片战争使海防、条约和门户控制发生结构性破口；回疆收束不能抵消国家主要方向恶化。"
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.5
+              },
+              "evidence_refs": [],
+              "reason": "回疆两轮危机均未形成交班覆盖跨阶梯失控；鸦片战争严重打击安全状态，但没有使蒙古、青藏、新疆、台湾、松外这五个B1边疆存量在1850交班时消失。"
+            },
+            {
+              "object_id": "TAIWAN_PENGHU",
+              "object_name": "台湾—澎湖海防控制空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.5
+              },
+              "evidence_refs": [],
+              "reason": "回疆两轮危机均未形成交班覆盖跨阶梯失控；鸦片战争严重打击安全状态，但没有使蒙古、青藏、新疆、台湾、松外这五个B1边疆存量在1850交班时消失。"
+            },
+            {
+              "object_id": "TIBETAN_PLATEAU_SYSTEM",
+              "object_name": "青藏高原主要控制体系",
+              "spatial_weight": 1.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 1.5,
+                "end": 1.5
+              },
+              "evidence_refs": [],
+              "reason": "回疆两轮危机均未形成交班覆盖跨阶梯失控；鸦片战争严重打击安全状态，但没有使蒙古、青藏、新疆、台湾、松外这五个B1边疆存量在1850交班时消失。"
+            },
+            {
+              "object_id": "WESTERN_REGIONS_WHOLE",
+              "object_name": "西域整体",
+              "spatial_weight": 2.0,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 2.0,
+                "end": 2.0
+              },
+              "evidence_refs": [],
+              "reason": "回疆两轮危机均未形成交班覆盖跨阶梯失控；鸦片战争严重打击安全状态，但没有使蒙古、青藏、新疆、台湾、松外这五个B1边疆存量在1850交班时消失。"
             }
           ],
           "primary_threat_refs": [
@@ -194,8 +278,8 @@
           "A120_non_cost_anchor_points": 0.0,
           "A120_positive_result_credit_points": 0.0,
           "A120_score_points": 0.0,
-          "B80_score_points": 0.0,
-          "AB200_score_points": 0.0,
+          "B80_score_points": 22.79,
+          "AB200_score_points": 22.79,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": -2.25,
@@ -217,7 +301,8 @@
               "start_grade": 4,
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": -2.25,
@@ -239,15 +324,16 @@
               "start_grade": 4,
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
-            "B80_points": 0.0,
-            "formal_B1_rate": 0.0,
+            "B80_points": 22.79,
+            "formal_B1_rate": 74.0,
             "formal_B2_rate": 0.0,
             "formal_B4_rate": 0.0,
-            "adjudicated_B1_rate": 0.0,
+            "adjudicated_B1_rate": 74.0,
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
@@ -255,7 +341,15 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 3,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/清.json",
+            "final_B1_rate": 74.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "鸦片战争与回疆诸役同时发生，但局部收束不能抵消国家主要方向的结构性恶化。"
         },
         {
           "ruler_id": "RULER-PUBLIC-310D1C92CEE1924D",
@@ -275,7 +369,8 @@
               "trajectory_value": 0,
               "axis_points": 0.0,
               "transition": "WORSENED",
-              "reason": "第二次鸦片战争与太平天国危机共同使核心和主要边界体系破裂；喀什噶尔及数起内部恢复不改变交班净态势。"
+              "reason": "英法联军与太平天国是足以制造国家级危机的主要威胁，至交班仍未被本人窗口收束；喀什噶尔等局部恢复不能改变总体压力，故A1由3档降至1档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
@@ -287,14 +382,17 @@
               "trajectory_value": 0,
               "axis_points": 0.0,
               "transition": "WORSENED",
-              "reason": "第二次鸦片战争与太平天国危机共同使核心和主要边界体系破裂；喀什噶尔及数起内部恢复不改变交班净态势。"
+              "reason": "京津门户被突破，江南—长江防务与多地交通纵深同时失效，主要边界和核心防御只剩应急支点，故A2由3档降至1档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
-              "grade": "B1-0",
-              "band_position": "LOW",
-              "score_rate": 0,
-              "axis_points": 0.0,
-              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+              "grade": "B1-3",
+              "band_position": "MID",
+              "score_rate": 67.0,
+              "axis_points": 16.75,
+              "reason": "规模与控制强度：旧账只记九龙半个门户0.1并把其他存量全部漏掉；真正可进入B1的耐久退控是松外/外东北边疆小锚退出。",
+              "weighted_control_value": 2.35,
+              "raw_net_change": -0.5
             },
             "B2": {
               "grade": "B2-0",
@@ -311,45 +409,118 @@
               "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
             }
           },
-          "AB_score_points": 0.0,
+          "AB_score_points": 16.75,
           "b1_control_equivalents": {
-            "start": 0.1,
-            "end": 0.0,
-            "net_change": -0.1,
-            "weighted_value": -0.06
+            "start": 7.125,
+            "end": 6.625,
+            "net_change": -0.5,
+            "weighted_value": 2.35
           },
           "b1_region_control": {
             "start": {
-              "QING_HONGKONG_KOWLOON_GATEWAY": 0.1
+              "NORTH_GRASSLAND_WHOLE": 2.625,
+              "SONGWAI_JIMI_SPACE": 0.5,
+              "TAIWAN_PENGHU": 0.5,
+              "TIBETAN_PLATEAU_SYSTEM": 1.5,
+              "WESTERN_REGIONS_WHOLE": 2.0
             },
             "end": {
-              "QING_HONGKONG_KOWLOON_GATEWAY": 0.0
+              "NORTH_GRASSLAND_WHOLE": 2.625,
+              "TAIWAN_PENGHU": 0.5,
+              "TIBETAN_PLATEAU_SYSTEM": 1.5,
+              "WESTERN_REGIONS_WHOLE": 2.0
             }
           },
           "b1_region_adjudications": [
             {
-              "object_id": "QING_HONGKONG_KOWLOON_GATEWAY",
-              "object_name": "QING_HONGKONG_KOWLOON_GATEWAY",
+              "object_id": "NORTH_GRASSLAND_WHOLE",
+              "object_name": "北方草原整体",
+              "spatial_weight": 3.5,
+              "start_coverage": 0.75,
+              "end_coverage": 0.75,
               "anchors": [
-                "start"
+                "start",
+                "end"
               ],
               "counted": true,
-              "spatial_weight": 0.1,
-              "coverage_factor": 1.0,
-              "control_equivalent": 0.1,
-              "control_form": "本人窗口内失去的边疆控制",
-              "evidence_refs": [
-                "YZ-SECOND-OPIUM-WAR-1856-1860",
-                "YZ-KASHGAR-KHOQAND-1857",
-                "YZ-TIBET-GURKHA-1855-1856",
-                "YZ-TAIPING-1850-1861",
-                "YZ-NIAN-1851-1861",
-                "YZ-GUIZHOU-1854-1861",
-                "YZ-YUNNAN-HUI-1853-1861",
-                "YZ-GUANGDONG-1854-1856",
-                "YZ-FUJIAN-1853"
+              "control_equivalent": {
+                "start": 2.625,
+                "end": 2.625
+              },
+              "evidence_refs": [],
+              "reason": "旧账只记九龙半个门户0.1并把其他存量全部漏掉；真正可进入B1的耐久退控是松外/外东北边疆小锚退出。"
+            },
+            {
+              "object_id": "SONGWAI_JIMI_SPACE",
+              "object_name": "松外羁縻/属部空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 0.0,
+              "anchors": [
+                "start",
+                "end"
               ],
-              "reason": "第二次鸦片战争与太平天国危机共同使核心和主要边界体系破裂；喀什噶尔及数起内部恢复不改变交班净态势。"
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.0
+              },
+              "evidence_refs": [],
+              "reason": "旧账只记九龙半个门户0.1并把其他存量全部漏掉；真正可进入B1的耐久退控是松外/外东北边疆小锚退出。"
+            },
+            {
+              "object_id": "TAIWAN_PENGHU",
+              "object_name": "台湾—澎湖海防控制空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.5
+              },
+              "evidence_refs": [],
+              "reason": "旧账只记九龙半个门户0.1并把其他存量全部漏掉；真正可进入B1的耐久退控是松外/外东北边疆小锚退出。"
+            },
+            {
+              "object_id": "TIBETAN_PLATEAU_SYSTEM",
+              "object_name": "青藏高原主要控制体系",
+              "spatial_weight": 1.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 1.5,
+                "end": 1.5
+              },
+              "evidence_refs": [],
+              "reason": "旧账只记九龙半个门户0.1并把其他存量全部漏掉；真正可进入B1的耐久退控是松外/外东北边疆小锚退出。"
+            },
+            {
+              "object_id": "WESTERN_REGIONS_WHOLE",
+              "object_name": "西域整体",
+              "spatial_weight": 2.0,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 2.0,
+                "end": 2.0
+              },
+              "evidence_refs": [],
+              "reason": "旧账只记九龙半个门户0.1并把其他存量全部漏掉；真正可进入B1的耐久退控是松外/外东北边疆小锚退出。"
             }
           ],
           "primary_threat_refs": [
@@ -431,8 +602,8 @@
           "A120_non_cost_anchor_points": 0.0,
           "A120_positive_result_credit_points": 0.0,
           "A120_score_points": 0.0,
-          "B80_score_points": 0.0,
-          "AB200_score_points": 0.0,
+          "B80_score_points": 20.64,
+          "AB200_score_points": 20.64,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": -1.5,
@@ -454,7 +625,8 @@
               "start_grade": 3,
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": -1.5,
@@ -476,15 +648,16 @@
               "start_grade": 3,
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
-            "B80_points": 0.0,
-            "formal_B1_rate": 0.0,
+            "B80_points": 20.64,
+            "formal_B1_rate": 67.0,
             "formal_B2_rate": 0.0,
             "formal_B4_rate": 0.0,
-            "adjudicated_B1_rate": 0.0,
+            "adjudicated_B1_rate": 67.0,
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
@@ -492,7 +665,15 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 9,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/清.json",
+            "final_B1_rate": 67.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "第二次鸦片战争、太平天国及多地内乱共同压迫清朝核心与边疆。"
         },
         {
           "ruler_id": "RULER-PUBLIC-79839092B61C3D74",
@@ -512,7 +693,8 @@
               "trajectory_value": 0,
               "axis_points": 0.0,
               "transition": "WORSENED",
-              "reason": "甲午战争丧失台湾澎湖并使主要海防方向崩解，庚子危机进一步暴露核心；局部平乱不能抵消。"
+              "reason": "日本及列强已具备击溃主力、迫近或控制核心的现实能力，主要威胁由相互制衡上升为国家级严重压力，故A1由3档降至1档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
@@ -524,14 +706,17 @@
               "trajectory_value": 0,
               "axis_points": 0.0,
               "transition": "WORSENED",
-              "reason": "甲午战争丧失台湾澎湖并使主要海防方向崩解，庚子危机进一步暴露核心；局部平乱不能抵消。"
+              "reason": "台湾、澎湖退出控制，北洋海防崩解，胶州与京津门户相继失守；局部平乱不能重建连续海防和核心纵深，故A2由3档降至1档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
-              "grade": "B1-0",
-              "band_position": "LOW",
-              "score_rate": 0,
-              "axis_points": 0.0,
-              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+              "grade": "B1-3",
+              "band_position": "MID",
+              "score_rate": 67.0,
+              "axis_points": 16.75,
+              "reason": "规模与控制强度：甲午使台湾澎湖0.5耐久退出；其余三大边疆存量仍在。不能因为存在净损失就把整个B1清零。",
+              "weighted_control_value": 2.15,
+              "raw_net_change": -0.5
             },
             "B2": {
               "grade": "B2-0",
@@ -548,39 +733,98 @@
               "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
             }
           },
-          "AB_score_points": 0.0,
+          "AB_score_points": 16.75,
           "b1_control_equivalents": {
-            "start": 0.5,
-            "end": 0.0,
+            "start": 6.625,
+            "end": 6.125,
             "net_change": -0.5,
-            "weighted_value": -0.3
+            "weighted_value": 2.15
           },
           "b1_region_control": {
             "start": {
-              "QING_TAIWAN_PENGHU": 0.5
+              "NORTH_GRASSLAND_WHOLE": 2.625,
+              "TAIWAN_PENGHU": 0.5,
+              "TIBETAN_PLATEAU_SYSTEM": 1.5,
+              "WESTERN_REGIONS_WHOLE": 2.0
             },
             "end": {
-              "QING_TAIWAN_PENGHU": 0.0
+              "NORTH_GRASSLAND_WHOLE": 2.625,
+              "TIBETAN_PLATEAU_SYSTEM": 1.5,
+              "WESTERN_REGIONS_WHOLE": 2.0
             }
           },
           "b1_region_adjudications": [
             {
-              "object_id": "QING_TAIWAN_PENGHU",
-              "object_name": "QING_TAIWAN_PENGHU",
+              "object_id": "NORTH_GRASSLAND_WHOLE",
+              "object_name": "北方草原整体",
+              "spatial_weight": 3.5,
+              "start_coverage": 0.75,
+              "end_coverage": 0.75,
               "anchors": [
-                "start"
+                "start",
+                "end"
               ],
               "counted": true,
+              "control_equivalent": {
+                "start": 2.625,
+                "end": 2.625
+              },
+              "evidence_refs": [],
+              "reason": "甲午使台湾澎湖0.5耐久退出；其余三大边疆存量仍在。不能因为存在净损失就把整个B1清零。"
+            },
+            {
+              "object_id": "TAIWAN_PENGHU",
+              "object_name": "台湾—澎湖海防控制空间",
               "spatial_weight": 0.5,
-              "coverage_factor": 1.0,
-              "control_equivalent": 0.5,
-              "control_form": "本人窗口内失去的边疆控制",
-              "evidence_refs": [
-                "CHAIN-QING-FIRST-SINO-JAPANESE-WAR-1894-1895",
-                "CHAIN-QING-GERMAN-JIAOZHOU-SEIZURE-1897-1898",
-                "QSG-GX-GANSU-HUI-1895-1896"
+              "start_coverage": 1.0,
+              "end_coverage": 0.0,
+              "anchors": [
+                "start",
+                "end"
               ],
-              "reason": "甲午战争丧失台湾澎湖并使主要海防方向崩解，庚子危机进一步暴露核心；局部平乱不能抵消。"
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.0
+              },
+              "evidence_refs": [],
+              "reason": "甲午使台湾澎湖0.5耐久退出；其余三大边疆存量仍在。不能因为存在净损失就把整个B1清零。"
+            },
+            {
+              "object_id": "TIBETAN_PLATEAU_SYSTEM",
+              "object_name": "青藏高原主要控制体系",
+              "spatial_weight": 1.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 1.5,
+                "end": 1.5
+              },
+              "evidence_refs": [],
+              "reason": "甲午使台湾澎湖0.5耐久退出；其余三大边疆存量仍在。不能因为存在净损失就把整个B1清零。"
+            },
+            {
+              "object_id": "WESTERN_REGIONS_WHOLE",
+              "object_name": "西域整体",
+              "spatial_weight": 2.0,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 2.0,
+                "end": 2.0
+              },
+              "evidence_refs": [],
+              "reason": "甲午使台湾澎湖0.5耐久退出；其余三大边疆存量仍在。不能因为存在净损失就把整个B1清零。"
             }
           ],
           "primary_threat_refs": [
@@ -633,8 +877,8 @@
           "A120_non_cost_anchor_points": 2.4,
           "A120_positive_result_credit_points": 0.0,
           "A120_score_points": 2.4,
-          "B80_score_points": 0.0,
-          "AB200_score_points": 2.4,
+          "B80_score_points": 20.64,
+          "AB200_score_points": 23.04,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": -1.0,
@@ -656,7 +900,8 @@
               "start_grade": 3,
               "trajectory_value": 2.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": -1.0,
@@ -678,15 +923,16 @@
               "start_grade": 3,
               "trajectory_value": 2.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
-            "B80_points": 0.0,
-            "formal_B1_rate": 0.0,
+            "B80_points": 20.64,
+            "formal_B1_rate": 67.0,
             "formal_B2_rate": 0.0,
             "formal_B4_rate": 0.0,
-            "adjudicated_B1_rate": 0.0,
+            "adjudicated_B1_rate": 67.0,
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
@@ -694,7 +940,15 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 3,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/清.json",
+            "final_B1_rate": 67.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "甲午战争、胶州湾被占及庚子危机共同暴露清朝海陆主要方向的失控。"
         },
         {
           "ruler_id": "RULER-PUBLIC-A36AC4C1AD8EAA3B",
@@ -714,7 +968,8 @@
               "trajectory_value": 0,
               "axis_points": 0.0,
               "transition": "WORSENED",
-              "reason": "本人窗口终于政权军事生存终止；稳定核心不进入B1边疆空间表，故B无正向控制成果。"
+              "reason": "主要威胁从多地革命军发展为直接终结中央政权的现实力量，国家生存未能维持，故A1由战略劣势降至0档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
@@ -726,14 +981,17 @@
               "trajectory_value": 0,
               "axis_points": 0.0,
               "transition": "WORSENED",
-              "reason": "本人窗口终于政权军事生存终止；稳定核心不进入B1边疆空间表，故B无正向控制成果。"
+              "reason": "各省军政体系脱离后，既有边界支点与核心区之间不再构成可执行的防御体系，最终无可移交边界，故A2由2档降至0档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
               "grade": "B1-0",
               "band_position": "LOW",
-              "score_rate": 0,
+              "score_rate": 0.0,
               "axis_points": 0.0,
-              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+              "reason": "规模与控制强度：1908接班时清廷仍有蒙古、青藏、新疆实际边疆存量；1912政权终结才使end归零。旧账把start也写成0，抹掉了终局退控。",
+              "weighted_control_value": -3.675,
+              "raw_net_change": -6.125
             },
             "B2": {
               "grade": "B2-0",
@@ -752,16 +1010,75 @@
           },
           "AB_score_points": 0.0,
           "b1_control_equivalents": {
-            "start": 0,
+            "start": 6.125,
             "end": 0,
-            "net_change": 0,
-            "weighted_value": 0.0
+            "net_change": -6.125,
+            "weighted_value": -3.675
           },
           "b1_region_control": {
-            "start": {},
+            "start": {
+              "NORTH_GRASSLAND_WHOLE": 2.625,
+              "TIBETAN_PLATEAU_SYSTEM": 1.5,
+              "WESTERN_REGIONS_WHOLE": 2.0
+            },
             "end": {}
           },
-          "b1_region_adjudications": [],
+          "b1_region_adjudications": [
+            {
+              "object_id": "NORTH_GRASSLAND_WHOLE",
+              "object_name": "北方草原整体",
+              "spatial_weight": 3.5,
+              "start_coverage": 0.75,
+              "end_coverage": 0.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 2.625,
+                "end": 0.0
+              },
+              "evidence_refs": [],
+              "reason": "1908接班时清廷仍有蒙古、青藏、新疆实际边疆存量；1912政权终结才使end归零。旧账把start也写成0，抹掉了终局退控。"
+            },
+            {
+              "object_id": "TIBETAN_PLATEAU_SYSTEM",
+              "object_name": "青藏高原主要控制体系",
+              "spatial_weight": 1.5,
+              "start_coverage": 1.0,
+              "end_coverage": 0.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 1.5,
+                "end": 0.0
+              },
+              "evidence_refs": [],
+              "reason": "1908接班时清廷仍有蒙古、青藏、新疆实际边疆存量；1912政权终结才使end归零。旧账把start也写成0，抹掉了终局退控。"
+            },
+            {
+              "object_id": "WESTERN_REGIONS_WHOLE",
+              "object_name": "西域整体",
+              "spatial_weight": 2.0,
+              "start_coverage": 1.0,
+              "end_coverage": 0.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 2.0,
+                "end": 0.0
+              },
+              "evidence_refs": [],
+              "reason": "1908接班时清廷仍有蒙古、青藏、新疆实际边疆存量；1912政权终结才使end归零。旧账把start也写成0，抹掉了终局退控。"
+            }
+          ],
           "primary_threat_refs": [
             "CHAIN-QING-KHAM-TIBET-CAMPAIGN-1909-1911",
             "QSG-XINHAI-NATIONAL-COLLAPSE-1911-1912"
@@ -830,7 +1147,8 @@
               "start_grade": 2,
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": -0.0,
@@ -852,7 +1170,8 @@
               "start_grade": 2,
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
@@ -868,7 +1187,15 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 2,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED_TERMINAL_GATE",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/清.json",
+            "final_B1_rate": 0.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "宣统窗口内边疆危机与辛亥革命相继发生，最终以清朝中央政权终止告终。"
         },
         {
           "ruler_id": "RULER-ROSTER-D4955237564AB2D6",
@@ -910,7 +1237,8 @@
                   "end_grade": 1,
                   "delta": 0
                 }
-              ]
+              ],
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
@@ -942,14 +1270,17 @@
                   "end_grade": 1,
                   "delta": 0
                 }
-              ]
+              ],
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
-              "grade": "B1-0",
-              "band_position": "LOW",
-              "score_rate": 0,
-              "axis_points": 0.0,
-              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+              "grade": "B1-3",
+              "band_position": "MID",
+              "score_rate": 67.0,
+              "axis_points": 16.75,
+              "reason": "规模与控制强度：分段净变化必须抵消第一窗口新疆大退控和第二窗口收复；载湉亲政期台湾损失排除。最终仍承认1908交班时蒙古、青藏、新疆的大规模存量。",
+              "weighted_control_value": 2.45,
+              "raw_net_change": -0.5
             },
             "B2": {
               "grade": "B2-0",
@@ -966,12 +1297,12 @@
               "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
             }
           },
-          "AB_score_points": 1.6,
+          "AB_score_points": 18.35,
           "b1_control_equivalents": {
             "start": 0.5,
             "end": 0.0,
             "net_change": -0.5,
-            "weighted_value": -0.3
+            "weighted_value": 2.45
           },
           "b1_region_control": {
             "start": {
@@ -1198,8 +1529,8 @@
           "A120_non_cost_anchor_points": 2.4,
           "A120_positive_result_credit_points": 0.0,
           "A120_score_points": 2.4,
-          "B80_score_points": 0.0,
-          "AB200_score_points": 2.4,
+          "B80_score_points": 20.64,
+          "AB200_score_points": 23.04,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": -1.0,
@@ -1241,7 +1572,8 @@
                   "end_grade": 1,
                   "delta": 0
                 }
-              ]
+              ],
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": -1.0,
@@ -1283,15 +1615,16 @@
                   "end_grade": 1,
                   "delta": 0
                 }
-              ]
+              ],
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
-            "B80_points": 0.0,
-            "formal_B1_rate": 0.0,
+            "B80_points": 20.64,
+            "formal_B1_rate": 67.0,
             "formal_B2_rate": 0.0,
             "formal_B4_rate": 0.0,
-            "adjudicated_B1_rate": 0.0,
+            "adjudicated_B1_rate": 67.0,
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
@@ -1299,7 +1632,14 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 15,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED_DISCONTINUOUS_WINDOWS",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/清.json",
+            "final_B1_rate": 67.0
+          },
+          "b1_cross_item_excluded_weighted_value": -2.75
         },
         {
           "ruler_id": "RULER-PUBLIC-4EB7AC987FECC59F",
@@ -1319,7 +1659,8 @@
               "trajectory_value": 26,
               "axis_points": 10.4,
               "transition": "WORSENED",
-              "reason": "青海—西藏主要方向出现耐久恶化，交班仍有有效体系但从稳定优势退至争衡；没有闭合的新增边疆控制包。"
+              "reason": "准噶尔及其关联压力仍是西北主要威胁，青藏方向的耐久恶化使清朝由稳定主动退回相互制衡，故A1由4档降至3档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "start": "A2S4_OVERALL_SECURE_WITH_GAPS",
@@ -1331,14 +1672,17 @@
               "trajectory_value": 26,
               "axis_points": 10.4,
               "transition": "WORSENED",
-              "reason": "青海—西藏主要方向出现耐久恶化，交班仍有有效体系但从稳定优势退至争衡；没有闭合的新增边疆控制包。"
+              "reason": "青海—西藏联系、驻防和缓冲体系出现持续缺口，虽仍有可运作主干却不再达到总体安全，故A2由4档降至3档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
-              "grade": "B1-0",
-              "band_position": "LOW",
-              "score_rate": 0,
-              "axis_points": 0.0,
-              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+              "grade": "B1-3",
+              "band_position": "MID",
+              "score_rate": 67.0,
+              "axis_points": 16.75,
+              "reason": "规模与控制强度：旧账把青海、西藏全部只当A轴恶化材料，既漏继承存量，也漏本人收束后的实际控制恢复/深化。B1客观空间与A威胁状态可以同时一降一升，不矛盾。",
+              "weighted_control_value": 2.275,
+              "raw_net_change": 0.375
             },
             "B2": {
               "grade": "B2-0",
@@ -1355,18 +1699,101 @@
               "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
             }
           },
-          "AB_score_points": 20.8,
+          "AB_score_points": 37.55,
           "b1_control_equivalents": {
-            "start": 0,
-            "end": 0,
-            "net_change": 0,
-            "weighted_value": 0.0
+            "start": 4.75,
+            "end": 5.125,
+            "net_change": 0.375,
+            "weighted_value": 2.275
           },
           "b1_region_control": {
-            "start": {},
-            "end": {}
+            "start": {
+              "NORTH_GRASSLAND_WHOLE": 2.625,
+              "SONGWAI_JIMI_SPACE": 0.5,
+              "TAIWAN_PENGHU": 0.5,
+              "TIBETAN_PLATEAU_SYSTEM": 1.125
+            },
+            "end": {
+              "NORTH_GRASSLAND_WHOLE": 2.625,
+              "SONGWAI_JIMI_SPACE": 0.5,
+              "TAIWAN_PENGHU": 0.5,
+              "TIBETAN_PLATEAU_SYSTEM": 1.5
+            }
           },
-          "b1_region_adjudications": [],
+          "b1_region_adjudications": [
+            {
+              "object_id": "NORTH_GRASSLAND_WHOLE",
+              "object_name": "北方草原整体",
+              "spatial_weight": 3.5,
+              "start_coverage": 0.75,
+              "end_coverage": 0.75,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 2.625,
+                "end": 2.625
+              },
+              "evidence_refs": [],
+              "reason": "旧账把青海、西藏全部只当A轴恶化材料，既漏继承存量，也漏本人收束后的实际控制恢复/深化。B1客观空间与A威胁状态可以同时一降一升，不矛盾。"
+            },
+            {
+              "object_id": "SONGWAI_JIMI_SPACE",
+              "object_name": "松外羁縻/属部空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.5
+              },
+              "evidence_refs": [],
+              "reason": "旧账把青海、西藏全部只当A轴恶化材料，既漏继承存量，也漏本人收束后的实际控制恢复/深化。B1客观空间与A威胁状态可以同时一降一升，不矛盾。"
+            },
+            {
+              "object_id": "TAIWAN_PENGHU",
+              "object_name": "台湾—澎湖海防控制空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.5
+              },
+              "evidence_refs": [],
+              "reason": "旧账把青海、西藏全部只当A轴恶化材料，既漏继承存量，也漏本人收束后的实际控制恢复/深化。B1客观空间与A威胁状态可以同时一降一升，不矛盾。"
+            },
+            {
+              "object_id": "TIBETAN_PLATEAU_SYSTEM",
+              "object_name": "青藏高原主要控制体系",
+              "spatial_weight": 1.5,
+              "start_coverage": 0.75,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 1.125,
+                "end": 1.5
+              },
+              "evidence_refs": [],
+              "reason": "旧账把青海、西藏全部只当A轴恶化材料，既漏继承存量，也漏本人收束后的实际控制恢复/深化。B1客观空间与A威胁状态可以同时一降一升，不矛盾。"
+            }
+          ],
           "primary_threat_refs": [
             "YZ-DZUNGAR",
             "YZ-ZHONGMIAO",
@@ -1422,8 +1849,8 @@
           "A120_non_cost_anchor_points": 31.2,
           "A120_positive_result_credit_points": 0.0,
           "A120_score_points": 31.2,
-          "B80_score_points": 0.0,
-          "AB200_score_points": 31.2,
+          "B80_score_points": 20.64,
+          "AB200_score_points": 51.84,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": -1.0,
@@ -1445,7 +1872,8 @@
               "start_grade": 4,
               "trajectory_value": 26.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": -1.0,
@@ -1467,15 +1895,16 @@
               "start_grade": 4,
               "trajectory_value": 26.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
-            "B80_points": 0.0,
-            "formal_B1_rate": 0.0,
+            "B80_points": 20.64,
+            "formal_B1_rate": 67.0,
             "formal_B2_rate": 0.0,
             "formal_B4_rate": 0.0,
-            "adjudicated_B1_rate": 0.0,
+            "adjudicated_B1_rate": 67.0,
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
@@ -1483,7 +1912,15 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 5,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/清.json",
+            "final_B1_rate": 67.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "青海、西藏、准噶尔等西北方向在本人窗口内持续发生军事与控制波动。"
         },
         {
           "ruler_id": "RULER-PUBLIC-72F243B5404B1686",
@@ -1503,7 +1940,8 @@
               "trajectory_value": 56,
               "axis_points": 22.4,
               "transition": "IMPROVED",
-              "reason": "多项战略内乱或区域威胁最终收束，使整体安全和边界可运作性改善；恢复战前本土控制不作为B新增空间。"
+              "reason": "主要内部军事威胁由足以制造国家级危机降为仍可相互制衡的区域压力；但日本台湾行动和新疆未完全收复说明威胁未受稳定控制，故A1由1档回升至3档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
@@ -1515,14 +1953,17 @@
               "trajectory_value": 46,
               "axis_points": 18.4,
               "transition": "IMPROVED",
-              "reason": "多项战略内乱或区域威胁最终收束，使整体安全和边界可运作性改善；恢复战前本土控制不作为B新增空间。"
+              "reason": "陕甘与东北秩序恢复使主要陆上边界重新可运作，但新疆仍有控制缺口、台湾海防受现实试探，体系只恢复到一条主要方向有效，故A2由2档升至3档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
-              "grade": "B1-0",
-              "band_position": "LOW",
-              "score_rate": 0,
-              "axis_points": 0.0,
-              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+              "grade": "B1-3",
+              "band_position": "MID",
+              "score_rate": 67.0,
+              "axis_points": 16.75,
+              "reason": "规模与控制强度：短亲政期没有恢复新疆整体，也没有失去台湾；但他客观接手并交班的蒙古、青藏、台湾及新疆东路局部存量不能写成0。",
+              "weighted_control_value": 2.05,
+              "raw_net_change": 0.0
             },
             "B2": {
               "grade": "B2-0",
@@ -1539,18 +1980,101 @@
               "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
             }
           },
-          "AB_score_points": 40.8,
+          "AB_score_points": 57.55,
           "b1_control_equivalents": {
-            "start": 0.0,
-            "end": 0.0,
+            "start": 5.125,
+            "end": 5.125,
             "net_change": 0.0,
-            "weighted_value": 0.0
+            "weighted_value": 2.05
           },
           "b1_region_control": {
-            "start": {},
-            "end": {}
+            "start": {
+              "NORTH_GRASSLAND_WHOLE": 2.625,
+              "TAIWAN_PENGHU": 0.5,
+              "TIBETAN_PLATEAU_SYSTEM": 1.5,
+              "WESTERN_REGIONS_WHOLE": 0.5
+            },
+            "end": {
+              "NORTH_GRASSLAND_WHOLE": 2.625,
+              "TAIWAN_PENGHU": 0.5,
+              "TIBETAN_PLATEAU_SYSTEM": 1.5,
+              "WESTERN_REGIONS_WHOLE": 0.5
+            }
           },
-          "b1_region_adjudications": [],
+          "b1_region_adjudications": [
+            {
+              "object_id": "NORTH_GRASSLAND_WHOLE",
+              "object_name": "北方草原整体",
+              "spatial_weight": 3.5,
+              "start_coverage": 0.75,
+              "end_coverage": 0.75,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 2.625,
+                "end": 2.625
+              },
+              "evidence_refs": [],
+              "reason": "短亲政期没有恢复新疆整体，也没有失去台湾；但他客观接手并交班的蒙古、青藏、台湾及新疆东路局部存量不能写成0。"
+            },
+            {
+              "object_id": "TAIWAN_PENGHU",
+              "object_name": "台湾—澎湖海防控制空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.5
+              },
+              "evidence_refs": [],
+              "reason": "短亲政期没有恢复新疆整体，也没有失去台湾；但他客观接手并交班的蒙古、青藏、台湾及新疆东路局部存量不能写成0。"
+            },
+            {
+              "object_id": "TIBETAN_PLATEAU_SYSTEM",
+              "object_name": "青藏高原主要控制体系",
+              "spatial_weight": 1.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 1.5,
+                "end": 1.5
+              },
+              "evidence_refs": [],
+              "reason": "短亲政期没有恢复新疆整体，也没有失去台湾；但他客观接手并交班的蒙古、青藏、台湾及新疆东路局部存量不能写成0。"
+            },
+            {
+              "object_id": "WESTERN_REGIONS_WHOLE",
+              "object_name": "西域整体",
+              "spatial_weight": 2.0,
+              "start_coverage": 0.25,
+              "end_coverage": 0.25,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.5
+              },
+              "evidence_refs": [],
+              "reason": "短亲政期没有恢复新疆整体，也没有失去台湾；但他客观接手并交班的蒙古、青藏、台湾及新疆东路局部存量不能写成0。"
+            }
+          ],
           "primary_threat_refs": [
             "CHAIN-QING-JAPAN-TAIWAN-1874",
             "CHAIN-QING-VIETNAM-BORDER-BANDITS-1873-TERMINAL",
@@ -1611,8 +2135,8 @@
           "A120_non_cost_anchor_points": 37.2,
           "A120_positive_result_credit_points": 0.0,
           "A120_score_points": 37.2,
-          "B80_score_points": 0.0,
-          "AB200_score_points": 37.2,
+          "B80_score_points": 20.64,
+          "AB200_score_points": 57.84,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 0.0,
@@ -1634,7 +2158,21 @@
               "start_grade": 1,
               "trajectory_value": 36.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 1,
+                  "to_grade": 2,
+                  "credit": 0.0,
+                  "basis": "1→2发生于摄政主政窗口，不归载淳本人。"
+                },
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 0.0,
+                  "basis": "2→3发生于摄政主政窗口，不归载淳本人。"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -1656,15 +2194,23 @@
               "start_grade": 2,
               "trajectory_value": 26.0,
               "within_band_deterioration_basis": "新疆回乱同治窗口形成EN2控制恶化",
-              "within_band_deterioration_penalty": 10
+              "within_band_deterioration_penalty": 10,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 0.0,
+                  "basis": "材料门后按人物窗口逐段裁决"
+                }
+              ]
             }
           },
           "B80_adjudication": {
-            "B80_points": 0.0,
-            "formal_B1_rate": 0.0,
+            "B80_points": 20.64,
+            "formal_B1_rate": 67.0,
             "formal_B2_rate": 0.0,
             "formal_B4_rate": 0.0,
-            "adjudicated_B1_rate": 0.0,
+            "adjudicated_B1_rate": 67.0,
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
@@ -1672,7 +2218,15 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 5,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/清.json",
+            "final_B1_rate": 67.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "陕甘回乱、新疆回乱、东北匪患及越南边境压力在同治窗口内部分收束，台湾方向又出现日本现实压力。"
         },
         {
           "ruler_id": "RULER-PUBLIC-93F6E8CA07BBD59F",
@@ -1692,7 +2246,8 @@
               "trajectory_value": 58,
               "axis_points": 23.2,
               "transition": "IMPROVED",
-              "reason": "多项战略内乱或区域威胁最终收束，使整体安全和边界可运作性改善；恢复战前本土控制不作为B新增空间。"
+              "reason": "白莲教与蔡牵等主要威胁先后被收束，交班时已难继续制造国家级危机；仍有局部动荡，故A1由3档升至4档而非5档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
@@ -1704,14 +2259,17 @@
               "trajectory_value": 58,
               "axis_points": 23.2,
               "transition": "IMPROVED",
-              "reason": "多项战略内乱或区域威胁最终收束，使整体安全和边界可运作性改善；恢复战前本土控制不作为B新增空间。"
+              "reason": "内陆交通与东南海防在平乱、清剿后恢复联动，台湾—沿海门户重新纳入可运作体系；次要缺口仍存，故A2由3档升至4档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
-              "grade": "B1-0",
-              "band_position": "LOW",
-              "score_rate": 0,
-              "axis_points": 0.0,
-              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+              "grade": "B1-3",
+              "band_position": "HIGH",
+              "score_rate": 74.0,
+              "axis_points": 18.5,
+              "reason": "规模与控制强度：白莲教等为核心内乱，不能制造新增B1；但同样不能把其继承并继续交班的全套边疆存量删除。",
+              "weighted_control_value": 2.85,
+              "raw_net_change": 0.0
             },
             "B2": {
               "grade": "B2-0",
@@ -1728,18 +2286,121 @@
               "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
             }
           },
-          "AB_score_points": 46.4,
+          "AB_score_points": 64.9,
           "b1_control_equivalents": {
-            "start": 0.0,
-            "end": 0.0,
+            "start": 7.125,
+            "end": 7.125,
             "net_change": 0.0,
-            "weighted_value": 0.0
+            "weighted_value": 2.85
           },
           "b1_region_control": {
-            "start": {},
-            "end": {}
+            "start": {
+              "NORTH_GRASSLAND_WHOLE": 2.625,
+              "SONGWAI_JIMI_SPACE": 0.5,
+              "TAIWAN_PENGHU": 0.5,
+              "TIBETAN_PLATEAU_SYSTEM": 1.5,
+              "WESTERN_REGIONS_WHOLE": 2.0
+            },
+            "end": {
+              "NORTH_GRASSLAND_WHOLE": 2.625,
+              "SONGWAI_JIMI_SPACE": 0.5,
+              "TAIWAN_PENGHU": 0.5,
+              "TIBETAN_PLATEAU_SYSTEM": 1.5,
+              "WESTERN_REGIONS_WHOLE": 2.0
+            }
           },
-          "b1_region_adjudications": [],
+          "b1_region_adjudications": [
+            {
+              "object_id": "NORTH_GRASSLAND_WHOLE",
+              "object_name": "北方草原整体",
+              "spatial_weight": 3.5,
+              "start_coverage": 0.75,
+              "end_coverage": 0.75,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 2.625,
+                "end": 2.625
+              },
+              "evidence_refs": [],
+              "reason": "白莲教等为核心内乱，不能制造新增B1；但同样不能把其继承并继续交班的全套边疆存量删除。"
+            },
+            {
+              "object_id": "SONGWAI_JIMI_SPACE",
+              "object_name": "松外羁縻/属部空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.5
+              },
+              "evidence_refs": [],
+              "reason": "白莲教等为核心内乱，不能制造新增B1；但同样不能把其继承并继续交班的全套边疆存量删除。"
+            },
+            {
+              "object_id": "TAIWAN_PENGHU",
+              "object_name": "台湾—澎湖海防控制空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.5
+              },
+              "evidence_refs": [],
+              "reason": "白莲教等为核心内乱，不能制造新增B1；但同样不能把其继承并继续交班的全套边疆存量删除。"
+            },
+            {
+              "object_id": "TIBETAN_PLATEAU_SYSTEM",
+              "object_name": "青藏高原主要控制体系",
+              "spatial_weight": 1.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 1.5,
+                "end": 1.5
+              },
+              "evidence_refs": [],
+              "reason": "白莲教等为核心内乱，不能制造新增B1；但同样不能把其继承并继续交班的全套边疆存量删除。"
+            },
+            {
+              "object_id": "WESTERN_REGIONS_WHOLE",
+              "object_name": "西域整体",
+              "spatial_weight": 2.0,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 2.0,
+                "end": 2.0
+              },
+              "evidence_refs": [],
+              "reason": "白莲教等为核心内乱，不能制造新增B1；但同样不能把其继承并继续交班的全套边疆存量删除。"
+            }
+          ],
           "primary_threat_refs": [
             "CHAIN-QING-CAIQIAN-MARITIME-WAR-1804-1809",
             "QSG-JQ-WHITE-LOTUS-REBELLION-1796-1804",
@@ -1799,8 +2460,8 @@
           "A120_non_cost_anchor_points": 57.6,
           "A120_positive_result_credit_points": 12.0,
           "A120_score_points": 69.6,
-          "B80_score_points": 0.0,
-          "AB200_score_points": 69.6,
+          "B80_score_points": 22.79,
+          "AB200_score_points": 92.39,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 1.0,
@@ -1822,7 +2483,15 @@
               "start_grade": 3,
               "trajectory_value": 58.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "材料门后按人物窗口逐段裁决"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 1.0,
@@ -1844,15 +2513,23 @@
               "start_grade": 3,
               "trajectory_value": 58.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "材料门后按人物窗口逐段裁决"
+                }
+              ]
             }
           },
           "B80_adjudication": {
-            "B80_points": 0.0,
-            "formal_B1_rate": 0.0,
+            "B80_points": 22.79,
+            "formal_B1_rate": 74.0,
             "formal_B2_rate": 0.0,
             "formal_B4_rate": 0.0,
-            "adjudicated_B1_rate": 0.0,
+            "adjudicated_B1_rate": 74.0,
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
@@ -1860,7 +2537,15 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 5,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/清.json",
+            "final_B1_rate": 74.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "白莲教、苗乱、蔡牵海上战争及后续兵变构成嘉庆朝主要军事压力。"
         },
         {
           "ruler_id": "RULER-ROSTER-B32BFAF97E1D9690",
@@ -1880,7 +2565,8 @@
               "reason": "主政窗口结束时北方核心控制已较即位稳定，但南方统一战争、地方反清与海上方向仍未闭合；不因后续完成统一而提高终点。",
               "start": "A1S2_STRATEGIC_DISADVANTAGE",
               "trajectory_value": 46,
-              "transition": "IMPROVED"
+              "transition": "IMPROVED",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "axis_points": 18.4,
@@ -1892,14 +2578,17 @@
               "reason": "山海关—华北核心已有可运作防线和纵深，仍没有覆盖全国的成熟安全体系。",
               "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
               "trajectory_value": 46,
-              "transition": "IMPROVED"
+              "transition": "IMPROVED",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
-              "axis_points": 0.0,
-              "band_position": "LOW",
-              "grade": "B1-0",
-              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。",
-              "score_rate": 0
+              "axis_points": 11.0,
+              "band_position": "HIGH",
+              "grade": "B1-1",
+              "reason": "规模与控制强度：入关与南下统一收益继续跨项排除，但不能因此删除接手的察哈尔和松外边疆存量；主政窗口交班时二者仍在。",
+              "score_rate": 44.0,
+              "weighted_control_value": 0.55,
+              "raw_net_change": 0.0
             },
             "B2": {
               "axis_points": 0.0,
@@ -1916,18 +2605,61 @@
               "score_rate": 0
             }
           },
-          "AB_score_points": 36.8,
+          "AB_score_points": 47.8,
           "b1_control_equivalents": {
-            "end": 0,
-            "net_change": 0,
-            "start": 0,
-            "weighted_value": 0
+            "end": 1.375,
+            "net_change": 0.0,
+            "start": 1.375,
+            "weighted_value": 0.55
           },
           "b1_region_control": {
-            "end": {},
-            "start": {}
+            "start": {
+              "NORTH_GRASSLAND_WHOLE": 0.875,
+              "SONGWAI_JIMI_SPACE": 0.5
+            },
+            "end": {
+              "NORTH_GRASSLAND_WHOLE": 0.875,
+              "SONGWAI_JIMI_SPACE": 0.5
+            }
           },
-          "b1_region_adjudications": [],
+          "b1_region_adjudications": [
+            {
+              "object_id": "NORTH_GRASSLAND_WHOLE",
+              "object_name": "北方草原整体",
+              "spatial_weight": 3.5,
+              "start_coverage": 0.25,
+              "end_coverage": 0.25,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.875,
+                "end": 0.875
+              },
+              "evidence_refs": [],
+              "reason": "入关与南下统一收益继续跨项排除，但不能因此删除接手的察哈尔和松外边疆存量；主政窗口交班时二者仍在。"
+            },
+            {
+              "object_id": "SONGWAI_JIMI_SPACE",
+              "object_name": "松外羁縻/属部空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.5
+              },
+              "evidence_refs": [],
+              "reason": "入关与南下统一收益继续跨项排除，但不能因此删除接手的察哈尔和松外边疆存量；主政窗口交班时二者仍在。"
+            }
+          ],
           "primary_threat_refs": [
             "QSHL-SZ-DONGMING-TIANZHENG-REBELLION-1648",
             "QSHL-SZ-TIANJIN-BANDITS-1648"
@@ -1965,8 +2697,8 @@
           "A120_non_cost_anchor_points": 43.2,
           "A120_positive_result_credit_points": 12.0,
           "A120_score_points": 55.2,
-          "B80_score_points": 0.0,
-          "AB200_score_points": 55.2,
+          "B80_score_points": 13.55,
+          "AB200_score_points": 68.75,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 1.0,
@@ -1988,7 +2720,15 @@
               "start_grade": 2,
               "trajectory_value": 46.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 1.0,
+                  "basis": "材料门后按人物窗口逐段裁决"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 1.0,
@@ -2010,15 +2750,23 @@
               "start_grade": 2,
               "trajectory_value": 46.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 1.0,
+                  "basis": "材料门后按人物窗口逐段裁决"
+                }
+              ]
             }
           },
           "B80_adjudication": {
-            "B80_points": 0.0,
-            "formal_B1_rate": 0.0,
+            "B80_points": 13.55,
+            "formal_B1_rate": 44.0,
             "formal_B2_rate": 0.0,
             "formal_B4_rate": 0.0,
-            "adjudicated_B1_rate": 0.0,
+            "adjudicated_B1_rate": 44.0,
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
@@ -2026,7 +2774,14 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 2,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/清.json",
+            "final_B1_rate": 44.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT"
         },
         {
           "ruler_id": "RULER-PUBLIC-6DACD59C17927ECA",
@@ -2046,7 +2801,8 @@
               "reason": "接班与交班均为总体主导秩序；缅甸、安南失败和晚期内乱不改写为全国级外部威胁失控。",
               "start": "A1S5_DOMINANT_ORDER",
               "trajectory_value": 60,
-              "transition": "STABLE"
+              "transition": "STABLE",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "axis_points": 24.0,
@@ -2058,14 +2814,17 @@
               "reason": "主要国防方向在两端均有安全体系；西北新增控制不将既有高位状态再计作双锚改善。",
               "start": "A2S5_SECURE_STRATEGIC_SYSTEM",
               "trajectory_value": 60,
-              "transition": "STABLE"
+              "transition": "STABLE",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
-              "axis_points": 16.75,
+              "axis_points": 20.5,
               "band_position": "MID",
-              "grade": "B1-3",
-              "reason": "只计新疆一项真实新控制：西域整体权重2.0、接班0、交班覆盖1.00，故加权值2.0；不将金川、苗乱、缅甸、安南或尼泊尔战果打包为控制空间。",
-              "score_rate": 67
+              "grade": "B1-4",
+              "reason": "规模与控制强度：旧账‘只计新疆一项真实新控制’违反继承规则：新疆确为唯一主要净新增，但蒙古、松外、青藏、台湾等既有边疆存量必须进入start和end。",
+              "score_rate": 82.0,
+              "weighted_control_value": 4.05,
+              "raw_net_change": 2.0
             },
             "B2": {
               "axis_points": 26.7,
@@ -2082,35 +2841,118 @@
               "score_rate": 82
             }
           },
-          "AB_score_points": 111.95,
+          "AB_score_points": 115.7,
           "b1_control_equivalents": {
-            "end": 2.0,
+            "end": 7.125,
             "net_change": 2.0,
-            "start": 0,
-            "weighted_value": 2.0
+            "start": 5.125,
+            "weighted_value": 4.05
           },
           "b1_region_control": {
-            "end": {
-              "WESTERN_REGIONS_XINJIANG": 2.0
+            "start": {
+              "NORTH_GRASSLAND_WHOLE": 2.625,
+              "SONGWAI_JIMI_SPACE": 0.5,
+              "TAIWAN_PENGHU": 0.5,
+              "TIBETAN_PLATEAU_SYSTEM": 1.5
             },
-            "start": {}
+            "end": {
+              "NORTH_GRASSLAND_WHOLE": 2.625,
+              "SONGWAI_JIMI_SPACE": 0.5,
+              "TAIWAN_PENGHU": 0.5,
+              "TIBETAN_PLATEAU_SYSTEM": 1.5,
+              "WESTERN_REGIONS_WHOLE": 2.0
+            }
           },
           "b1_region_adjudications": [
             {
-              "control_mode": "DIRECT_GARRISON_AND_CIVIL_MILITARY_ADMINISTRATION",
-              "end_coverage": 1.0,
-              "end_equivalent": 2.0,
-              "excluded_from_other_regions": true,
-              "reason": "有界推断取整体1.00：终局后设置伊犁将军、乌鲁木齐与南北路驻防军政；同一西域整体不再与准噶尔、回部重复相加。",
-              "region_id": "WESTERN_REGIONS_XINJIANG",
-              "region_label": "天山南北—准噶尔/回部西域整体",
-              "source_refs": [
-                "docs/公共成果/军事/03-军事行动成本和收益登记/qing.json#RULER-PUBLIC-6DACD59C17927ECA::1735—1796::QSG-012-QING-HOJAS-WAR-1757-1759",
-                "docs/公共成果/军事/03-军事行动成本和收益登记/qing.json#RULER-PUBLIC-6DACD59C17927ECA::1735—1796::QSG-011-QING-DZUNGAR-CONQUEST-1755"
+              "object_id": "NORTH_GRASSLAND_WHOLE",
+              "object_name": "北方草原整体",
+              "spatial_weight": 3.5,
+              "start_coverage": 0.75,
+              "end_coverage": 0.75,
+              "anchors": [
+                "start",
+                "end"
               ],
-              "space_weight": 2.0,
-              "start_coverage": 0,
-              "start_equivalent": 0.0
+              "counted": true,
+              "control_equivalent": {
+                "start": 2.625,
+                "end": 2.625
+              },
+              "evidence_refs": [],
+              "reason": "旧账‘只计新疆一项真实新控制’违反继承规则：新疆确为唯一主要净新增，但蒙古、松外、青藏、台湾等既有边疆存量必须进入start和end。"
+            },
+            {
+              "object_id": "SONGWAI_JIMI_SPACE",
+              "object_name": "松外羁縻/属部空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.5
+              },
+              "evidence_refs": [],
+              "reason": "旧账‘只计新疆一项真实新控制’违反继承规则：新疆确为唯一主要净新增，但蒙古、松外、青藏、台湾等既有边疆存量必须进入start和end。"
+            },
+            {
+              "object_id": "TAIWAN_PENGHU",
+              "object_name": "台湾—澎湖海防控制空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.5
+              },
+              "evidence_refs": [],
+              "reason": "旧账‘只计新疆一项真实新控制’违反继承规则：新疆确为唯一主要净新增，但蒙古、松外、青藏、台湾等既有边疆存量必须进入start和end。"
+            },
+            {
+              "object_id": "TIBETAN_PLATEAU_SYSTEM",
+              "object_name": "青藏高原主要控制体系",
+              "spatial_weight": 1.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 1.5,
+                "end": 1.5
+              },
+              "evidence_refs": [],
+              "reason": "旧账‘只计新疆一项真实新控制’违反继承规则：新疆确为唯一主要净新增，但蒙古、松外、青藏、台湾等既有边疆存量必须进入start和end。"
+            },
+            {
+              "object_id": "WESTERN_REGIONS_WHOLE",
+              "object_name": "西域整体",
+              "spatial_weight": 2.0,
+              "start_coverage": 0.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.0,
+                "end": 2.0
+              },
+              "evidence_refs": [],
+              "reason": "旧账‘只计新疆一项真实新控制’违反继承规则：新疆确为唯一主要净新增，但蒙古、松外、青藏、台湾等既有边疆存量必须进入start和end。"
             }
           ],
           "primary_threat_refs": [
@@ -2170,8 +3012,8 @@
           "A120_non_cost_anchor_points": 72.0,
           "A120_positive_result_credit_points": 0.0,
           "A120_score_points": 72.0,
-          "B80_score_points": 58.2,
-          "AB200_score_points": 130.2,
+          "B80_score_points": 64.44,
+          "AB200_score_points": 136.44,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 0.0,
@@ -2193,7 +3035,8 @@
               "start_grade": 5,
               "trajectory_value": 60.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -2215,15 +3058,16 @@
               "start_grade": 5,
               "trajectory_value": 60.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
-            "B80_points": 58.2,
-            "formal_B1_rate": 67.0,
+            "B80_points": 64.44,
+            "formal_B1_rate": 82.0,
             "formal_B2_rate": 89.0,
             "formal_B4_rate": 82.0,
-            "adjudicated_B1_rate": 67.0,
+            "adjudicated_B1_rate": 82.0,
             "adjudicated_B2_rate": 89.0,
             "adjudicated_B4_rate": 82.0,
             "consistency_basis": "逐区域账是证据结构，不是人物贡献类型；按现有成果事实归一为合同贡献类型。"
@@ -2231,7 +3075,14 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 5,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/清.json",
+            "final_B1_rate": 82.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT"
         },
         {
           "ruler_id": "RULER-PUBLIC-5B02E75C191C9829",
@@ -2251,7 +3102,8 @@
               "reason": "三藩、郑氏、噶尔丹与俄境问题均在窗口内获得结构性压低；终点主要威胁不足以继续构成全国性均势。",
               "start": "A1S3_CONTESTED_BALANCE",
               "trajectory_value": 80,
-              "transition": "IMPROVED"
+              "transition": "IMPROVED",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "axis_points": 32.0,
@@ -2263,14 +3115,17 @@
               "reason": "北方、东北及海峡方向形成相互配合的体系；西藏与西线不以单次援藏的成本或后继局势改写终点。",
               "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
               "trajectory_value": 80,
-              "transition": "IMPROVED"
+              "transition": "IMPROVED",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
-              "axis_points": 16.75,
-              "band_position": "MID",
-              "grade": "B1-3",
-              "reason": "分列喀尔喀0.50覆盖×3.5=1.75与台湾—澎湖1.00×0.5=0.5，合计2.25；不把雅克萨谈判边界、噶尔丹战果或西藏恢复再充作控制空间。",
-              "score_rate": 67
+              "axis_points": 18.75,
+              "band_position": "LOW",
+              "grade": "B1-4",
+              "reason": "规模与控制强度：旧账只记喀尔喀新控与台湾，漏掉察哈尔/松外继承存量并完全漏掉1720西藏实际控制；台湾因跨项不进入本人scoring_end。",
+              "score_rate": 75.0,
+              "weighted_control_value": 3.425,
+              "raw_net_change": 2.875
             },
             "B2": {
               "axis_points": 26.7,
@@ -2287,50 +3142,78 @@
               "score_rate": 89
             }
           },
-          "AB_score_points": 129.7,
+          "AB_score_points": 131.7,
           "b1_control_equivalents": {
-            "end": 2.25,
-            "net_change": 2.25,
-            "start": 0,
-            "weighted_value": 2.25
+            "end": 4.25,
+            "net_change": 2.875,
+            "start": 1.375,
+            "weighted_value": 3.425
           },
           "b1_region_control": {
-            "end": {
-              "KHALKHA_OUTER_MONGOLIA": 1.75,
-              "TAIWAN_PENGHU": 0.5
+            "start": {
+              "NORTH_GRASSLAND_WHOLE": 0.875,
+              "SONGWAI_JIMI_SPACE": 0.5
             },
-            "start": {}
+            "end": {
+              "NORTH_GRASSLAND_WHOLE": 2.625,
+              "SONGWAI_JIMI_SPACE": 0.5,
+              "TIBETAN_PLATEAU_SYSTEM": 1.125
+            }
           },
           "b1_region_adjudications": [
             {
-              "control_mode": "BANNER_ALLIANCE_WITH_EXECUTABLE_QING_SUZERAINTY",
-              "end_coverage": 0.5,
-              "end_equivalent": 1.75,
-              "excluded_from_other_regions": true,
-              "reason": "有界推断取0.50：盟旗/会盟与清廷调度、驻援已可执行，但不以名义归附代替整片草原直接控制。",
-              "region_id": "KHALKHA_OUTER_MONGOLIA",
-              "region_label": "喀尔喀外蒙古缓冲空间",
-              "source_refs": [
-                "docs/公共成果/军事/03-军事行动成本和收益登记/qing.json#RULER-PUBLIC-5B02E75C191C9829::1661—1722::QSG-007-QING-DZUNGAR-ZUUNMOD-WENGJIN-1696"
+              "object_id": "NORTH_GRASSLAND_WHOLE",
+              "object_name": "北方草原整体",
+              "spatial_weight": 3.5,
+              "start_coverage": 0.25,
+              "end_coverage": 0.75,
+              "anchors": [
+                "start",
+                "end"
               ],
-              "space_weight": 3.5,
-              "start_coverage": 0,
-              "start_equivalent": 0.0
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.875,
+                "end": 2.625
+              },
+              "evidence_refs": [],
+              "reason": "旧账只记喀尔喀新控与台湾，漏掉察哈尔/松外继承存量并完全漏掉1720西藏实际控制；台湾因跨项不进入本人scoring_end。"
             },
             {
-              "control_mode": "DIRECT_COUNTY_AND_GARRISON_ADMINISTRATION",
+              "object_id": "SONGWAI_JIMI_SPACE",
+              "object_name": "松外羁縻/属部空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
               "end_coverage": 1.0,
-              "end_equivalent": 0.5,
-              "excluded_from_other_regions": true,
-              "reason": "施琅取台湾后设府县、驻防，交班时持续有效，取整体1.00。",
-              "region_id": "TAIWAN_PENGHU",
-              "region_label": "台湾—澎湖海防控制空间",
-              "source_refs": [
-                "docs/公共成果/军事/03-军事行动成本和收益登记/qing.json#RULER-PUBLIC-5B02E75C191C9829::1661—1722::QSG-007-QING-TAIWAN-1683"
+              "anchors": [
+                "start",
+                "end"
               ],
-              "space_weight": 0.5,
-              "start_coverage": 0,
-              "start_equivalent": 0.0
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.5
+              },
+              "evidence_refs": [],
+              "reason": "旧账只记喀尔喀新控与台湾，漏掉察哈尔/松外继承存量并完全漏掉1720西藏实际控制；台湾因跨项不进入本人scoring_end。"
+            },
+            {
+              "object_id": "TIBETAN_PLATEAU_SYSTEM",
+              "object_name": "青藏高原主要控制体系",
+              "spatial_weight": 1.5,
+              "start_coverage": 0.0,
+              "end_coverage": 0.75,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.0,
+                "end": 1.125
+              },
+              "evidence_refs": [],
+              "reason": "旧账只记喀尔喀新控与台湾，漏掉察哈尔/松外继承存量并完全漏掉1720西藏实际控制；台湾因跨项不进入本人scoring_end。"
             }
           ],
           "primary_threat_refs": [
@@ -2383,8 +3266,8 @@
           "A120_non_cost_anchor_points": 72.0,
           "A120_positive_result_credit_points": 24.0,
           "A120_score_points": 96.0,
-          "B80_score_points": 54.62,
-          "AB200_score_points": 150.62,
+          "B80_score_points": 58.02,
+          "AB200_score_points": 154.02,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 2.0,
@@ -2406,7 +3289,21 @@
               "start_grade": 3,
               "trajectory_value": 80.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "材料门后按人物窗口逐段裁决"
+                },
+                {
+                  "from_grade": 4,
+                  "to_grade": 5,
+                  "credit": 1.0,
+                  "basis": "材料门后按人物窗口逐段裁决"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 2.0,
@@ -2428,15 +3325,29 @@
               "start_grade": 3,
               "trajectory_value": 80.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "材料门后按人物窗口逐段裁决"
+                },
+                {
+                  "from_grade": 4,
+                  "to_grade": 5,
+                  "credit": 1.0,
+                  "basis": "材料门后按人物窗口逐段裁决"
+                }
+              ]
             }
           },
           "B80_adjudication": {
-            "B80_points": 54.62,
-            "formal_B1_rate": 67.0,
+            "B80_points": 58.02,
+            "formal_B1_rate": 75.0,
             "formal_B2_rate": 89.0,
             "formal_B4_rate": 89.0,
-            "adjudicated_B1_rate": 67.0,
+            "adjudicated_B1_rate": 75.0,
             "adjudicated_B2_rate": 75.0,
             "adjudicated_B4_rate": 89.0,
             "consistency_basis": "台湾—澎湖控制收益已由第一项消费；B只保留喀尔喀等独立控制包，逐区域事实档与跨项裁决档分层保存。"
@@ -2444,7 +3355,14 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 6,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/清.json",
+            "final_B1_rate": 75.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT"
         },
         {
           "ruler_id": "RULER-PUBLIC-6339E33979E7CCF5",
@@ -2464,7 +3382,8 @@
               "reason": "虽重创明军、压服察哈尔并迫朝鲜屈服，明朝核心仍存且入关统一未发生，故终点只能取总体优势而非主导秩序。",
               "start": "A1S3_CONTESTED_BALANCE",
               "trajectory_value": 58,
-              "transition": "IMPROVED"
+              "transition": "IMPROVED",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "axis_points": 23.2,
@@ -2476,14 +3395,17 @@
               "reason": "辽西方向的松锦收束、蒙古缓冲改善了防线，但通向华北的全面边界体系尚未完成。",
               "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
               "trajectory_value": 58,
-              "transition": "IMPROVED"
+              "transition": "IMPROVED",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
               "axis_points": 11.25,
               "band_position": "LOW",
               "grade": "B1-2",
-              "reason": "只计察哈尔蒙古空间：北方草原3.5的0.25有界覆盖=0.875，交班加权值0.875；朝鲜朝贡、辽西战场突破及对明掠战不构成可移交边疆控制。",
-              "score_rate": 45
+              "reason": "规模与控制强度：本人B1仍只消费察哈尔可执行控制；东北第一项存量另列carryout，不重复得分。",
+              "score_rate": 45.0,
+              "weighted_control_value": 0.875,
+              "raw_net_change": 0.875
             },
             "B2": {
               "axis_points": 22.2,
@@ -2508,27 +3430,29 @@
             "weighted_value": 0.875
           },
           "b1_region_control": {
+            "start": {},
             "end": {
-              "CHAHAR_MONGOLIA": 0.875
-            },
-            "start": {}
+              "NORTH_GRASSLAND_WHOLE": 0.875
+            }
           },
           "b1_region_adjudications": [
             {
-              "control_mode": "BANNER_INCORPORATION_AND_EXECUTABLE_SUZERAINTY",
+              "object_id": "NORTH_GRASSLAND_WHOLE",
+              "object_name": "北方草原整体",
+              "spatial_weight": 3.5,
+              "start_coverage": 0.0,
               "end_coverage": 0.25,
-              "end_equivalent": 0.875,
-              "excluded_from_other_regions": true,
-              "reason": "有界推断取0.25：额哲与部众归附并编入体系，限于察哈尔部及其可执行控制范围；不以全蒙古名义取更高覆盖。",
-              "region_id": "CHAHAR_MONGOLIA",
-              "region_label": "察哈尔蒙古缓冲空间",
-              "source_refs": [
-                "docs/公共成果/军事/03-军事行动成本和收益登记/qing.json#皇太极",
-                "docs/史料通读产物/清/清史稿/volume-002.battle-adjudications.json#cards[32].subject_phase_cards[0]"
+              "anchors": [
+                "start",
+                "end"
               ],
-              "space_weight": 3.5,
-              "start_coverage": 0,
-              "start_equivalent": 0.0
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.0,
+                "end": 0.875
+              },
+              "evidence_refs": [],
+              "reason": "本人B1仍只消费察哈尔可执行控制；东北第一项存量另列carryout，不重复得分。"
             }
           ],
           "primary_threat_refs": [
@@ -2650,7 +3574,15 @@
               "start_grade": 3,
               "trajectory_value": 58.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "材料门后按人物窗口逐段裁决"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 1.0,
@@ -2672,7 +3604,15 @@
               "start_grade": 3,
               "trajectory_value": 58.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "材料门后按人物窗口逐段裁决"
+                }
+              ]
             }
           },
           "B80_adjudication": {
@@ -2688,7 +3628,14 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 4,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/清.json",
+            "final_B1_rate": 45.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT"
         },
         {
           "ruler_id": "RULER-PUBLIC-AD29E67DF9E98569",
@@ -2708,7 +3655,8 @@
               "reason": "南明残余和内战风险在窗口中被压低，交班时总体安全较稳；统一完成本身不转换为B成果。",
               "start": "A1S3_CONTESTED_BALANCE",
               "trajectory_value": 58,
-              "transition": "IMPROVED"
+              "transition": "IMPROVED",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "axis_points": 23.2,
@@ -2720,14 +3668,17 @@
               "reason": "核心边界与西南方向较接班时稳固，但俄境与东北方向仍有缺口，不能取A2S5。",
               "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
               "trajectory_value": 58,
-              "transition": "IMPROVED"
+              "transition": "IMPROVED",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
-              "axis_points": 0.0,
-              "band_position": "LOW",
-              "grade": "B1-0",
-              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。",
-              "score_rate": 0
+              "axis_points": 11.0,
+              "band_position": "HIGH",
+              "grade": "B1-1",
+              "reason": "规模与控制强度：南明与西南统一链不进B1新增，但继承的蒙古、松外边疆存量必须进入起终快照。",
+              "score_rate": 44.0,
+              "weighted_control_value": 0.55,
+              "raw_net_change": 0.0
             },
             "B2": {
               "axis_points": 0.0,
@@ -2744,18 +3695,61 @@
               "score_rate": 0
             }
           },
-          "AB_score_points": 46.4,
+          "AB_score_points": 57.4,
           "b1_control_equivalents": {
-            "end": 0,
-            "net_change": 0,
-            "start": 0,
-            "weighted_value": 0
+            "end": 1.375,
+            "net_change": 0.0,
+            "start": 1.375,
+            "weighted_value": 0.55
           },
           "b1_region_control": {
-            "end": {},
-            "start": {}
+            "start": {
+              "NORTH_GRASSLAND_WHOLE": 0.875,
+              "SONGWAI_JIMI_SPACE": 0.5
+            },
+            "end": {
+              "NORTH_GRASSLAND_WHOLE": 0.875,
+              "SONGWAI_JIMI_SPACE": 0.5
+            }
           },
-          "b1_region_adjudications": [],
+          "b1_region_adjudications": [
+            {
+              "object_id": "NORTH_GRASSLAND_WHOLE",
+              "object_name": "北方草原整体",
+              "spatial_weight": 3.5,
+              "start_coverage": 0.25,
+              "end_coverage": 0.25,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.875,
+                "end": 0.875
+              },
+              "evidence_refs": [],
+              "reason": "南明与西南统一链不进B1新增，但继承的蒙古、松外边疆存量必须进入起终快照。"
+            },
+            {
+              "object_id": "SONGWAI_JIMI_SPACE",
+              "object_name": "松外羁縻/属部空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.5
+              },
+              "evidence_refs": [],
+              "reason": "南明与西南统一链不进B1新增，但继承的蒙古、松外边疆存量必须进入起终快照。"
+            }
+          ],
           "primary_threat_refs": [
             "FL-AMUR-RUSSIA-1654-1660",
             "FL-ORDOS-DORJI-1652"
@@ -2792,8 +3786,8 @@
           "A120_non_cost_anchor_points": 57.6,
           "A120_positive_result_credit_points": 0.0,
           "A120_score_points": 57.6,
-          "B80_score_points": 0.0,
-          "AB200_score_points": 57.6,
+          "B80_score_points": 13.55,
+          "AB200_score_points": 71.15,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 0.0,
@@ -2815,7 +3809,15 @@
               "start_grade": 3,
               "trajectory_value": 48.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 0.0,
+                  "basis": "材料门后按人物窗口逐段裁决"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -2837,15 +3839,23 @@
               "start_grade": 3,
               "trajectory_value": 48.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 0.0,
+                  "basis": "材料门后按人物窗口逐段裁决"
+                }
+              ]
             }
           },
           "B80_adjudication": {
-            "B80_points": 0.0,
-            "formal_B1_rate": 0.0,
+            "B80_points": 13.55,
+            "formal_B1_rate": 44.0,
             "formal_B2_rate": 0.0,
             "formal_B4_rate": 0.0,
-            "adjudicated_B1_rate": 0.0,
+            "adjudicated_B1_rate": 44.0,
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
@@ -2853,7 +3863,14 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 2,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/清.json",
+            "final_B1_rate": 44.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT"
         },
         {
           "ruler_id": "RULER-PUBLIC-6E925E92C6F5ECA5",
@@ -2895,7 +3912,7 @@
               "ceiling_bonus": 0,
               "trajectory_value": 46,
               "axis_points": 18.4,
-              "assessment_scope": "OVERALL_FRONTIER_STRATEGIC_SITUATION",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
               "reason": "1616年建国时明朝仍以成熟国家战争机器压迫后金，整体处战略劣势；萨尔浒后夺取辽东使后金升入制衡，但宁远受挫、明朝核心尚存，交班止于3档。"
             },
             "A2": {
@@ -2909,16 +3926,18 @@
               "ceiling_bonus": 0,
               "trajectory_value": 46,
               "axis_points": 18.4,
-              "assessment_scope": "OVERALL_FRONTIER_STRATEGIC_SITUATION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
               "reason": "建国初只有女真核心与局部防御点；辽沈诸城、驻防与迁都形成一个可运作主要方向，但辽西走廊未闭合，交班取3档。"
             },
             "B1": {
               "grade": "B1-0",
               "band_position": "LOW",
-              "score_rate": 0,
+              "score_rate": 0.0,
               "axis_points": 0.0,
               "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
-              "reason": "本人用于建立政权和统一核心区的控制量已经归第一项；当前没有第一项贡献窗口之外、可另行识别的边疆控制净成果，故B1/B2/B4均不重复计分。"
+              "reason": "规模与控制强度：建国与统一女真核心的控制收益已由第一项整链消费；未闭合第一项窗口之外的独立边疆控制包。",
+              "weighted_control_value": 0.0,
+              "raw_net_change": 0
             },
             "B2": {
               "grade": "B2-0",
@@ -2939,9 +3958,9 @@
           },
           "AB_score_points": 36.8,
           "b1_control_equivalents": {
-            "start": 0.0,
-            "end": 0.0,
-            "net_change": 0.0,
+            "start": 0,
+            "end": 0,
+            "net_change": 0,
             "weighted_value": 0.0
           },
           "b1_region_control": {
@@ -2987,7 +4006,15 @@
               "start_grade": 2,
               "trajectory_value": 36.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 0.0,
+                  "basis": "消费现行语义标签OBJECTIVE_POLITY_STATE_AFTER_FOUNDING_CONTROL_EXCLUSION"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -3009,7 +4036,15 @@
               "start_grade": 2,
               "trajectory_value": 36.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 0.0,
+                  "basis": "消费现行语义标签OBJECTIVE_POLITY_STATE_AFTER_FOUNDING_CONTROL_EXCLUSION"
+                }
+              ]
             }
           },
           "B80_adjudication": {
@@ -3021,7 +4056,14 @@
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "创业统一控制收益由第一项整链消费，本项无独立控制成果包。"
-          }
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/清.json",
+            "final_B1_rate": 0.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT"
         }
       ]
     }

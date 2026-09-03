@@ -4,14 +4,14 @@
   "collections": {
     "records": {
       "positions": [
-        176,
-        177,
-        178,
-        179,
-        180,
-        181,
-        182,
-        183
+        164,
+        165,
+        166,
+        167,
+        168,
+        169,
+        170,
+        171
       ],
       "records": [
         {
@@ -20,12 +20,15 @@
           "polity": "元",
           "partition": "元",
           "reign_range": "1206-1227",
-          "independent_task_count": 4,
+          "independent_task_count": 7,
           "independent_task_groups": [
             "XZTJ-DONGXIA-WANNU-1216",
             "XZTJ-JIN-ZEZHOU-RECOVERY-1222",
             "XZTJ-LIAO-YELULIUGE-1214-1215",
-            "XZTJ-MONGOL-ZHANGZHI-REBELLION-1215-1216"
+            "XZTJ-MONGOL-ZHANGZHI-REBELLION-1215-1216",
+            "WAR-POST-B2C5A447E7B0FAA59FE7",
+            "MONGOL-KHWARAZM-1219-1224",
+            "WAR-POST-B1BE4C2409653FE5B24C"
           ],
           "parent_cycle_merge_adjudications": [],
           "settled_event_refs": [
@@ -37,27 +40,35 @@
           "cross_reign_slice_refs": [],
           "non_war_evidence_refs": [],
           "major_system_failure_refs": [],
-          "major_system_success_refs": [],
+          "major_system_success_refs": [
+            "WAR-POST-B2C5A447E7B0FAA59FE7",
+            "MONGOL-KHWARAZM-1219-1224",
+            "WAR-POST-B1BE4C2409653FE5B24C"
+          ],
+          "capability_only_parent_refs": [
+            "WAR-POST-B2C5A447E7B0FAA59FE7",
+            "WAR-POST-B1BE4C2409653FE5B24C"
+          ],
           "score_ready": true,
           "coverage_status": "FULL_REIGN_WAR_EVENT_BINDING",
           "unresolved_gaps": [],
-          "combat_delivery_grade": "C1-3",
-          "operational_sustainability_cap": "C2-3",
-          "system_reliability_cap": "C3-3",
-          "C_overall_grade": "C-3",
-          "C_score_rate": 60.0,
-          "C_score_points": 30.0,
+          "combat_delivery_grade": "C1-5",
+          "operational_sustainability_cap": "C2-5",
+          "system_reliability_cap": "C3-5",
+          "C_overall_grade": "C-5",
+          "C_score_rate": 100.0,
+          "C_score_points": 50.0,
           "C_score_support_surplus": 0,
           "C_score_band": {
-            "lower_rate": 60,
-            "upper_rate": 74
+            "lower_rate": 90,
+            "upper_rate": 100
           },
           "adjudication_method": "SUBJECT_PHASE_CONTRACT_ADJUDICATION",
           "score_status": "DIRECT_C_SCORE_ASSIGNED",
           "evidence_ceiling": 5,
           "evidence_ceiling_adjustments": [],
           "cap_reasons": [
-            "三个非创业父周期规模有限，能够执行但不足以证明独立于创业链的高档投送、持续与可靠性，按C3下限结算。"
+            "花剌子模—中亚—西亚战争属于第三项现期能力事实；攻金耐久成果与灭夏终局归第一项，但两条战役仅按C合同作为能力专用证据。多个O4以上对手、多方向远征及跨顶级将领交付分别闭合C1/C2/C3五档；金夏疆土收益、控制量与成本不回流第三项。"
           ],
           "collapse_profile": "NO_NATIONWIDE_DOMINANT_COLLAPSE",
           "passive_C1_adjustment": null,
@@ -65,40 +76,49 @@
           "passive_loss_rationale": null,
           "passive_loss_refs": [],
           "major_victory_gate": {
-            "required_count": 0,
-            "actual_count": 0,
+            "required_count": 1,
+            "actual_count": 3,
             "status": "PASSED"
           },
-          "C_score_axis_surplus_position": 0.0,
-          "C_score_outcome_position": 0.0,
-          "C_score_band_position": 0.0,
+          "C_score_axis_surplus_position": 1.0,
+          "C_score_outcome_position": 1.0,
+          "C_score_band_position": 1.0,
           "C_score_position_method": "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY",
           "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
-          "current_item_task_count": 4,
+          "current_item_task_count": 5,
           "current_item_task_refs": [
             "XZTJ-DONGXIA-WANNU-1216",
             "XZTJ-JIN-ZEZHOU-RECOVERY-1222",
             "XZTJ-LIAO-YELULIUGE-1214-1215",
-            "XZTJ-MONGOL-ZHANGZHI-REBELLION-1215-1216"
+            "XZTJ-MONGOL-ZHANGZHI-REBELLION-1215-1216",
+            "MONGOL-KHWARAZM-1219-1224"
           ],
           "task_outcome_profile": {
             "source": "CURRENT_C_TASKS_WITH_EXPLICIT_UNKNOWN_CLOSURE",
-            "selected_task_count": 4,
+            "selected_task_count": 5,
             "known_outcome_count": 0,
             "return_class_counts": {
-              "UNKNOWN": 4
+              "UNKNOWN": 5
             },
             "return_class_refs": {
               "UNKNOWN": [
                 "XZTJ-DONGXIA-WANNU-1216",
                 "XZTJ-JIN-ZEZHOU-RECOVERY-1222",
                 "XZTJ-LIAO-YELULIUGE-1214-1215",
-                "XZTJ-MONGOL-ZHANGZHI-REBELLION-1215-1216"
+                "XZTJ-MONGOL-ZHANGZHI-REBELLION-1215-1216",
+                "MONGOL-KHWARAZM-1219-1224"
               ]
             },
             "status": "UNQUANTIFIED"
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期4项，已知结果0项，回报剖面={'UNKNOWN': 4}；重大体系胜绩0项、重大体系失败0项。"
+          "current_task_basis_reason": "当前第三项独立体系压力父周期5项，已知结果0项，回报剖面={'UNKNOWN': 5}；重大体系胜绩3项、重大体系失败0项。",
+          "c5_scarcity_gate": {
+            "required_major_system_success_count": 3,
+            "actual_major_system_success_count": 3,
+            "requires_zero_major_system_failure": true,
+            "actual_major_system_failure_count": 0,
+            "status": "PASSED"
+          }
         },
         {
           "ruler_id": "RULER-YUAN-OGEDEI",
@@ -106,12 +126,15 @@
           "polity": "元",
           "partition": "元",
           "reign_range": "1229-1241",
-          "independent_task_count": 4,
+          "independent_task_count": 7,
           "independent_task_groups": [
             "XZTJ-JIN-MONGOL-TANGQING-1232",
             "XZTJ-MONGOL-GORYEO-1241",
             "XZTJ-MONGOL-SONG-SICHUAN-1241-CHENGDU-HANZHOU",
-            "XZTJ-SONG-MONGOL-QINGYEYUAN-1231"
+            "XZTJ-SONG-MONGOL-QINGYEYUAN-1231",
+            "XZTJ-MONGOL-JIN-SANFENGSHAN-1232",
+            "XZTJ-MONGOL-DONGXIA-1233",
+            "XZTJ-MONGOL-QIPCHAQ-BACHMAN-1237"
           ],
           "parent_cycle_merge_adjudications": [
             {
@@ -139,27 +162,35 @@
           "cross_reign_slice_refs": [],
           "non_war_evidence_refs": [],
           "major_system_failure_refs": [],
-          "major_system_success_refs": [],
+          "major_system_success_refs": [
+            "XZTJ-MONGOL-JIN-SANFENGSHAN-1232",
+            "XZTJ-MONGOL-DONGXIA-1233",
+            "XZTJ-MONGOL-QIPCHAQ-BACHMAN-1237"
+          ],
+          "capability_only_parent_refs": [
+            "XZTJ-MONGOL-JIN-SANFENGSHAN-1232",
+            "XZTJ-MONGOL-DONGXIA-1233"
+          ],
           "score_ready": true,
           "coverage_status": "FULL_REIGN_WAR_EVENT_BINDING",
           "unresolved_gaps": [],
-          "combat_delivery_grade": "C1-3",
-          "operational_sustainability_cap": "C2-3",
-          "system_reliability_cap": "C3-3",
-          "C_overall_grade": "C-3",
-          "C_score_rate": 60.0,
-          "C_score_points": 30.0,
+          "combat_delivery_grade": "C1-4",
+          "operational_sustainability_cap": "C2-4",
+          "system_reliability_cap": "C3-4",
+          "C_overall_grade": "C-4",
+          "C_score_rate": 75.0,
+          "C_score_points": 37.5,
           "C_score_support_surplus": 0,
           "C_score_band": {
-            "lower_rate": 60,
-            "upper_rate": 74
+            "lower_rate": 75,
+            "upper_rate": 89
           },
           "adjudication_method": "SUBJECT_PHASE_CONTRACT_ADJUDICATION",
           "score_status": "DIRECT_C_SCORE_ASSIGNED",
           "evidence_ceiling": 5,
           "evidence_ceiling_adjustments": [],
           "cap_reasons": [
-            "合并后的攻宋父周期完成多路投送并取得区域收益，但独立于第一项的实质样本仅一项，不上调至需重大胜绩支持的C4。"
+            "灭金终局与东夏的统一前置成果归第一项，两条战役只作为C能力专用证据；钦察及西方远征属于第三项现期能力表现。多方向远距离投送支持三轴4档，但长期保障链和至少两名top/historic将领门槛不足以升5。"
           ],
           "collapse_profile": "NO_NATIONWIDE_DOMINANT_COLLAPSE",
           "passive_C1_adjustment": null,
@@ -167,8 +198,8 @@
           "passive_loss_rationale": null,
           "passive_loss_refs": [],
           "major_victory_gate": {
-            "required_count": 0,
-            "actual_count": 0,
+            "required_count": 1,
+            "actual_count": 3,
             "status": "PASSED"
           },
           "C_score_axis_surplus_position": 0.0,
@@ -176,31 +207,33 @@
           "C_score_band_position": 0.0,
           "C_score_position_method": "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY",
           "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
-          "current_item_task_count": 4,
+          "current_item_task_count": 5,
           "current_item_task_refs": [
             "XZTJ-JIN-MONGOL-TANGQING-1232",
             "XZTJ-MONGOL-GORYEO-1241",
             "XZTJ-MONGOL-SONG-SICHUAN-1241-CHENGDU-HANZHOU",
-            "XZTJ-SONG-MONGOL-QINGYEYUAN-1231"
+            "XZTJ-SONG-MONGOL-QINGYEYUAN-1231",
+            "XZTJ-MONGOL-QIPCHAQ-BACHMAN-1237"
           ],
           "task_outcome_profile": {
             "source": "CURRENT_C_TASKS_WITH_EXPLICIT_UNKNOWN_CLOSURE",
-            "selected_task_count": 4,
+            "selected_task_count": 5,
             "known_outcome_count": 0,
             "return_class_counts": {
-              "UNKNOWN": 4
+              "UNKNOWN": 5
             },
             "return_class_refs": {
               "UNKNOWN": [
                 "XZTJ-JIN-MONGOL-TANGQING-1232",
                 "XZTJ-MONGOL-GORYEO-1241",
                 "XZTJ-MONGOL-SONG-SICHUAN-1241-CHENGDU-HANZHOU",
-                "XZTJ-SONG-MONGOL-QINGYEYUAN-1231"
+                "XZTJ-SONG-MONGOL-QINGYEYUAN-1231",
+                "XZTJ-MONGOL-QIPCHAQ-BACHMAN-1237"
               ]
             },
             "status": "UNQUANTIFIED"
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期4项，已知结果0项，回报剖面={'UNKNOWN': 4}；重大体系胜绩0项、重大体系失败0项。"
+          "current_task_basis_reason": "当前第三项独立体系压力父周期5项，已知结果0项，回报剖面={'UNKNOWN': 5}；重大体系胜绩3项、重大体系失败0项。"
         },
         {
           "ruler_id": "RULER-YUAN-MONGKE",

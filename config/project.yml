@@ -58,6 +58,8 @@ formal_settlements:
     role: common_military
     json: docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json
     markdown: docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.md
+    a_axis_narrative_authority_mode: formal_settlement_patch_source
+    a_axis_narrative_json: config/third-item/third-item-a-axis-narrative-adjudications.json
     d_authority_mode: formal_settlement_patch_source
     d_json: docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json
     d_markdown: docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.md
@@ -65,7 +67,7 @@ formal_settlements:
     range: [-67.5, 67.5]
     role: signed_civilization_add_on
     json: docs/评分结算/第四项文明与国家整合收益/01-第四项文明与国家整合收益正式结算.json
-    markdown: docs/评分结算/第四项文明与国家整合收益/02-第四项正式结算汇总.md
+    markdown: docs/评分结算/第四项文明与国家整合收益/02-第四项文明与国家整合收益正式总榜.md
   fifth_item:
     range: [-18, 120]
     role: common_political_quality
@@ -200,6 +202,6 @@ retained_build_chain:
   military_talent_registry: docs/公共成果/军事/02-武将人才等级.json
   military_cost_benefit_audit_lineage: docs/公共成果/军事/03-军事行动成本和收益登记.json
   first_item_commands: [first-item-a-registry, first-item-b-registry, first-item-c-registry]
-  third_item_commands: [third-item-d-verify, third-item-current-settlement]
+  third_item_commands: [third-item-b1-settlement, third-item-d-verify, third-item-current-settlement]
   composite_ranking_command: composite-ranking --write
   verification_command: formal-settlements-verify

@@ -294,10 +294,12 @@ def write_composite_ranking(workspace_root: Path) -> dict[str, Path]:
     json_path = workspace_root / OUTPUT_JSON
     markdown_path = workspace_root / OUTPUT_MARKDOWN
     json_path.write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+        newline="\n",
     )
     markdown_path.write_text(
-        render_composite_ranking_markdown(payload), encoding="utf-8"
+        render_composite_ranking_markdown(payload), encoding="utf-8", newline="\n"
     )
     return {"json": json_path, "markdown": markdown_path}
 

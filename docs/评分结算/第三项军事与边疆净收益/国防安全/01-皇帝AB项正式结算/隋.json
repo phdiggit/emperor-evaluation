@@ -9,7 +9,7 @@
       ],
       "records": [
         {
-          "AB_score_points": 108.6,
+          "AB_score_points": 112.6,
           "adjudication_status": "REVIEWED",
           "ambiguous_event_refs": [],
           "axes": {
@@ -22,7 +22,9 @@
               "end": "A1S4_STABLE_ADVANTAGE",
               "start": "A1S2_STRATEGIC_DISADVANTAGE",
               "trajectory_value": 68,
-              "transition": "IMPROVED"
+              "transition": "IMPROVED",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "主要威胁突厥在接手时掌握明显主动，任内分化其汗国并压低大举入寇能力，使隋朝转为稳定优势；高句丽等仍存，故A1由2档升至4档。"
             },
             "A2": {
               "axis_points": 23.2,
@@ -31,19 +33,21 @@
               "ceiling_progress": "NONE",
               "ceiling_progress_refs": [],
               "end": "A2S4_OVERALL_SECURE_WITH_GAPS",
-              "reason": "581年接手的是已经统一北方、拥有北线城戍和关陇—河北纵深的北周体系；突厥虽强且可大举入寇，但不能把改朝换代或南陈尚存当作边界仅有局部支点，起点应为3档。任内分化突厥并强化北方安排后升至4档，高句丽等方向仍有缺口。",
+              "reason": "北线城戍和关陇—河北纵深在接手时已构成有效主要防线，分化突厥并强化北方安排后总体安全；高句丽等方向仍有缺口，故A2由3档升至4档。",
               "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
               "trajectory_value": 58,
-              "transition": "IMPROVED"
+              "transition": "IMPROVED",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
-              "axis_points": 11.0,
-              "band_position": "HIGH",
-              "grade": "B1-1",
-              "raw_net_change": 0.0,
-              "score_rate": 44,
+              "axis_points": 15.0,
+              "band_position": "LOW",
+              "grade": "B1-3",
+              "raw_net_change": 1.8,
+              "score_rate": 60.0,
               "terminal_collapse_override": false,
-              "weighted_control_value": 0.52
+              "weighted_control_value": 1.96,
+              "reason": "规模与控制强度：旧1.3→1.3混淆西南与交州，并漏记北方边郡和启民属部。重建客观库存为2.4→4.2；其中602交州0.8作为统一尾链由第一项消费，第三项有效weighted=2.76-0.8=1.96，B1率44→60。"
             },
             "B2": {
               "axis_points": 26.7,
@@ -61,52 +65,141 @@
             }
           },
           "b1_control_equivalents": {
-            "end": 1.3,
-            "net_change": 0.0,
-            "start": 1.3,
-            "weighted_value": 0.52
+            "end": 4.2,
+            "net_change": 1.8,
+            "start": 2.4,
+            "weighted_value": 1.96
           },
           "b1_region_adjudications": [
             {
-              "region_id": "NORTHWEST_HEXI",
-              "region_name": "西北河西边防",
+              "object_id": "ANNAM_NORTHERN_VIETNAM",
+              "object_name": "交趾—安南北部控制空间",
               "spatial_weight": 0.8,
-              "start_equivalent": 0.8,
-              "end_equivalent": 0.8,
-              "start_coverage": 1.0,
+              "start_coverage": 0.0,
               "end_coverage": 1.0,
-              "control_form": "SAVED_UNDER_MAJOR_PRESSURE",
-              "reason": "接班与交班均0.8；突厥羁縻不计直接领土。",
-              "source_refs": [
-                "docs/史料通读产物/唐以前编年/隋/卷176-通读总结.md#WAR-LEAD-SUI-TURK-581-587"
+              "anchors": [
+                "start",
+                "end"
               ],
-              "evidence_status": "CLOSED"
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.0,
+                "end": 0.8
+              },
+              "evidence_refs": [
+                "WAR-LEAD-SUI-JIAOZHOU-602"
+              ],
+              "reason": "581年交州尚非北周继承库存；602年李佛子据越王故城、龙编、乌延后，刘方率二十七营迫降并闭合州郡军政控制。客观库存计入604 end，但该0.8新增归杨坚第一项统一尾链消费，第三项不重复计净增。"
             },
             {
-              "region_id": "SOUTHWEST",
-              "region_name": "西南边防与交州节点",
-              "spatial_weight": 0.5,
-              "start_equivalent": 0.5,
-              "end_equivalent": 0.5,
+              "object_id": "HENAN_SHUOFANG_CORRIDOR",
+              "object_name": "河南地—朔方走廊",
+              "spatial_weight": 0.6,
+              "start_coverage": 0.5,
+              "end_coverage": 0.5,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.3,
+                "end": 0.3
+              },
+              "evidence_refs": [],
+              "reason": "承接北周河南地—朔方北缘控制的半走廊库存；不与现代河南州郡混同。"
+            },
+            {
+              "object_id": "HEXI_LONGYOU_CORRIDOR",
+              "object_name": "河西—陇右走廊",
+              "spatial_weight": 0.8,
               "start_coverage": 1.0,
               "end_coverage": 1.0,
-              "control_form": "SAVED_UNDER_MAJOR_PRESSURE",
-              "reason": "贵州、南宁、交州行动支持既有节点维持，不制造净新增。",
-              "source_refs": [
-                "docs/史料通读产物/唐以前编年/隋/卷178-通读总结.md#WAR-LEAD-SUI-GUIZHOU-597",
-                "docs/史料通读产物/唐以前编年/隋/卷179-通读总结.md#WAR-LEAD-SUI-JIAOZHOU-602"
+              "anchors": [
+                "start",
+                "end"
               ],
-              "evidence_status": "CLOSED"
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.8
+              },
+              "evidence_refs": [],
+              "reason": "承接北周西北边疆完整走廊；突厥战争期间未形成跨覆盖阶梯的实际退控。"
+            },
+            {
+              "object_id": "NORTHERN_BORDER_COMMANDERIES",
+              "object_name": "北方边郡与塞防带",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.8
+              },
+              "evidence_refs": [],
+              "reason": "581年已继承北周统一北方后的北线城戍与边郡体系；A2旧账本身承认“北线城戍和关陇—河北纵深”，B1旧账漏记该继承边疆库存。"
+            },
+            {
+              "object_id": "SOUTHWEST_FRONTIER",
+              "object_name": "西南边疆主要控制空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.5
+              },
+              "evidence_refs": [],
+              "reason": "承接北周宕昌—陇蜀西南边疆存量。旧账把该0.5混写成“西南与交州”，现与交州拆开。597南宁、桂州反复后仍有州县与地方首领任官体系，交班维持整体有效。"
+            },
+            {
+              "object_id": "XIONGNU_VASSAL_SPACE",
+              "object_name": "匈奴可执行属部空间",
+              "spatial_weight": 1.0,
+              "start_coverage": 0.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.0,
+                "end": 1.0
+              },
+              "evidence_refs": [
+                "WAR-PARENT-SUI-TURK-599-603",
+                "WAR-LEAD-SUI-TURK-600",
+                "WAR-LEAD-SUI-TURK-601-603"
+              ],
+              "reason": "603年步迦部众瓦解，十余部归启民，史文明言“启民于是尽有步迦之众”；结合隋方筑城、驻援和受降安排，满足可执行宗主权门，按属部锚1.0整体有效。"
             }
           ],
           "b1_region_control": {
-            "end": {
-              "NORTHWEST_HEXI": 0.8,
-              "SOUTHWEST": 0.5
-            },
             "start": {
-              "NORTHWEST_HEXI": 0.8,
-              "SOUTHWEST": 0.5
+              "HENAN_SHUOFANG_CORRIDOR": 0.3,
+              "HEXI_LONGYOU_CORRIDOR": 0.8,
+              "NORTHERN_BORDER_COMMANDERIES": 0.8,
+              "SOUTHWEST_FRONTIER": 0.5
+            },
+            "end": {
+              "ANNAM_NORTHERN_VIETNAM": 0.8,
+              "HENAN_SHUOFANG_CORRIDOR": 0.3,
+              "HEXI_LONGYOU_CORRIDOR": 0.8,
+              "NORTHERN_BORDER_COMMANDERIES": 0.8,
+              "SOUTHWEST_FRONTIER": 0.5,
+              "XIONGNU_VASSAL_SPACE": 1.0
             }
           },
           "boundary_stage_excluded_refs": [],
@@ -175,8 +268,8 @@
           "A120_non_cost_anchor_points": 57.6,
           "A120_positive_result_credit_points": 18.0,
           "A120_score_points": 75.6,
-          "B80_score_points": 48.62,
-          "AB200_score_points": 124.22,
+          "B80_score_points": 55.28,
+          "AB200_score_points": 130.88,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 2.0,
@@ -198,7 +291,21 @@
               "start_grade": 2,
               "trajectory_value": 68.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 1.0,
+                  "basis": "材料门后按人物窗口逐段裁决"
+                },
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "材料门后按人物窗口逐段裁决"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 1.0,
@@ -220,20 +327,37 @@
               "start_grade": 3,
               "trajectory_value": 58.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "材料门后按人物窗口逐段裁决"
+                }
+              ]
             }
           },
           "B80_adjudication": {
-            "B80_points": 48.62,
-            "formal_B1_rate": 44.0,
+            "B80_points": 55.28,
+            "formal_B1_rate": 60.0,
             "formal_B2_rate": 89.0,
             "formal_B4_rate": 82.0,
-            "adjudicated_B1_rate": 44.0,
+            "adjudicated_B1_rate": 60.0,
             "adjudicated_B2_rate": 89.0,
             "adjudicated_B4_rate": 82.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
           },
-          "primary_threat_basis": "SAVED_UNDER_MAJOR_PRESSURE只由581—587年突厥主压力链解锁；灭陈统一链不进入第三项B成果包。"
+          "primary_threat_basis": "SAVED_UNDER_MAJOR_PRESSURE只由581—587年突厥主压力链解锁；灭陈统一链不进入第三项B成果包。",
+          "b1_cross_item_excluded_weighted_value": 0.8,
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/隋.json",
+            "final_B1_rate": 60.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "本人承接北周统一北方后的防务状态，581—582年对陈只计守边阶段，突厥分化构成主要改善。"
         },
         {
           "AB_score_points": 0.0,
@@ -249,7 +373,9 @@
               "end": "A1S0_EXISTENTIAL_CRISIS",
               "start": "A1S4_STABLE_ADVANTAGE",
               "trajectory_value": 0,
-              "transition": "WORSENED"
+              "transition": "WORSENED",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
+              "reason": "主要威胁由高句丽及各地叛乱共同发展为终结隋朝中央政权的力量，前期战果不能抵消最终存亡危机，故A1由4档降至0档。"
             },
             "A2": {
               "axis_points": 0.0,
@@ -260,16 +386,19 @@
               "end": "A2S0_CORE_EXPOSED",
               "start": "A2S4_OVERALL_SECURE_WITH_GAPS",
               "trajectory_value": 0,
-              "transition": "WORSENED"
+              "transition": "WORSENED",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
+              "reason": "高句丽战争抽空纵深，全国交通、边防增援和核心控制相继崩溃，交班时无可执行边界体系，故A2由4档降至0档。"
             },
             "B1": {
               "axis_points": 0.0,
               "band_position": "LOW",
               "grade": "B1-0",
-              "raw_net_change": -1.3,
-              "score_rate": 0,
+              "raw_net_change": -4.2,
+              "score_rate": 0.0,
               "terminal_collapse_override": true,
-              "weighted_control_value": -0.78
+              "weighted_control_value": -2.52,
+              "reason": "规模与控制强度：旧账仅以1.3→0并启用terminal_collapse_override。现改为从杨坚真实4.2交班库存逐区域核退出；吐谷浑、伊吾阶段新增另存峰值但不进入618终点。最终B1率仍0，但不是由终局标签强制清零。"
             },
             "B2": {
               "axis_points": 0.0,
@@ -288,17 +417,130 @@
           },
           "b1_control_equivalents": {
             "end": 0,
-            "net_change": -1.3,
-            "start": 1.3,
-            "weighted_value": -0.78
+            "net_change": -4.2,
+            "start": 4.2,
+            "weighted_value": -2.52
           },
-          "b1_region_adjudications": [],
-          "b1_region_control": {
-            "end": {},
-            "start": {
-              "NORTHWEST_HEXI": 0.8,
-              "SOUTHWEST": 0.5
+          "b1_region_adjudications": [
+            {
+              "object_id": "ANNAM_NORTHERN_VIETNAM",
+              "object_name": "交趾—安南北部控制空间",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 0.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.0
+              },
+              "evidence_refs": [],
+              "reason": "接班承接602后交州控制；即使该新增由杨坚第一项消费，它在604已经是客观边疆库存，必须进入杨广start。至618中枢与岭南—交州持续指挥、征调和任免链已断，交班归零。"
+            },
+            {
+              "object_id": "HENAN_SHUOFANG_CORRIDOR",
+              "object_name": "河南地—朔方走廊",
+              "spatial_weight": 0.6,
+              "start_coverage": 0.5,
+              "end_coverage": 0.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.3,
+                "end": 0.0
+              },
+              "evidence_refs": [],
+              "reason": "接班承接杨坚0.3；617年梁师都、郭子和等西北割据并连突厥，朔方—河南地已不再受炀帝中央可执行控制。"
+            },
+            {
+              "object_id": "HEXI_LONGYOU_CORRIDOR",
+              "object_name": "河西—陇右走廊",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 0.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.0
+              },
+              "evidence_refs": [],
+              "reason": "接班0.8；617年李轨据武威并取河西五郡、薛举尽有陇西，河西—陇右走廊主体退出隋中央控制。"
+            },
+            {
+              "object_id": "NORTHERN_BORDER_COMMANDERIES",
+              "object_name": "北方边郡与塞防带",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 0.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.0
+              },
+              "evidence_refs": [],
+              "reason": "615始毕围雁门时四十一城失三十九已显著破坏北线；617刘武周取马邑、楼烦、汾阳宫、定襄并围雁门百余日，北方边郡体系交班归零。"
+            },
+            {
+              "object_id": "SOUTHWEST_FRONTIER",
+              "object_name": "西南边疆主要控制空间",
+              "spatial_weight": 0.5,
+              "start_coverage": 1.0,
+              "end_coverage": 0.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.5,
+                "end": 0.0
+              },
+              "evidence_refs": [],
+              "reason": "接班0.5。616—618中央军政链已无法对远端西南形成稳定征调、任免与持续军事执行；不把地方隋旧官或首领的自行维持等同于炀帝中央交班控制。"
+            },
+            {
+              "object_id": "XIONGNU_VASSAL_SPACE",
+              "object_name": "匈奴可执行属部空间",
+              "spatial_weight": 1.0,
+              "start_coverage": 1.0,
+              "end_coverage": 0.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 1.0,
+                "end": 0.0
+              },
+              "evidence_refs": [],
+              "reason": "接班承接启民属部网络；启民死后始毕转为敌对，615数十万围雁门，后又介入刘武周、梁师都、李渊等势力，原可执行宗主网络已反向崩解。"
             }
+          ],
+          "b1_region_control": {
+            "start": {
+              "ANNAM_NORTHERN_VIETNAM": 0.8,
+              "HENAN_SHUOFANG_CORRIDOR": 0.3,
+              "HEXI_LONGYOU_CORRIDOR": 0.8,
+              "NORTHERN_BORDER_COMMANDERIES": 0.8,
+              "SOUTHWEST_FRONTIER": 0.5,
+              "XIONGNU_VASSAL_SPACE": 1.0
+            },
+            "end": {}
           },
           "boundary_stage_excluded_refs": [],
           "boundary_stage_refs": [],
@@ -380,7 +622,8 @@
               "start_grade": 4,
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": -4.0,
@@ -402,7 +645,8 @@
               "start_grade": 4,
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
@@ -414,7 +658,15 @@
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
-          }
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/隋.json",
+            "final_B1_rate": 0.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "吐谷浑等阶段扩张与高句丽战争、全国叛乱及隋朝覆亡构成本人完整轨迹。"
         }
       ]
     }

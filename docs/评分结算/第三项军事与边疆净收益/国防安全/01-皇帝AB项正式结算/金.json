@@ -33,7 +33,8 @@
               "trajectory_value": 4,
               "axis_points": 1.6,
               "transition": "WORSENED",
-              "reason": "继位时金在宋金边界占优；1161南伐失败、军变弑君，南部战略主动与边防秩序同时坍塌。"
+              "reason": "主要对手南宋由受压一方恢复为能击败金军并反攻的现实强敌，金朝战略主动显著丧失，故A1由4档降至2档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "start": "A2S4_OVERALL_SECURE_WITH_GAPS",
@@ -45,14 +46,17 @@
               "trajectory_value": 4,
               "axis_points": 1.6,
               "transition": "WORSENED",
-              "reason": "继位时金在宋金边界占优；1161南伐失败、军变弑君，南部战略主动与边防秩序同时坍塌。"
+              "reason": "淮河—长江进攻体系崩溃，军变又切断指挥和补给，南部边界由总体有效退化为仅余局部可守支点，故A2由4档降至2档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
               "grade": "B1-0",
-              "band_position": "LOW",
-              "score_rate": 0,
-              "axis_points": 0.0,
-              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+              "band_position": "MID",
+              "score_rate": 15.0,
+              "axis_points": 3.75,
+              "reason": "规模与控制强度：旧0→0无法表达真实退控；重建为3.0→1.65，B1率0→15。",
+              "weighted_control_value": -0.15,
+              "raw_net_change": -1.35
             },
             "B2": {
               "grade": "B2-0",
@@ -69,18 +73,87 @@
               "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
             }
           },
-          "AB_score_points": 3.2,
+          "AB_score_points": 6.95,
           "b1_control_equivalents": {
-            "start": 0,
-            "end": 0,
-            "net_change": 0,
-            "weighted_value": 0.0
+            "start": 3.0,
+            "end": 1.65,
+            "net_change": -1.35,
+            "weighted_value": -0.15
           },
           "b1_region_control": {
-            "start": {},
-            "end": {}
+            "start": {
+              "HEXI_LONGYOU_CORRIDOR": 0.8,
+              "HUAI_FRONTIER": 0.7,
+              "MONAN_EASTERN_TURKS_SPACE": 1.5
+            },
+            "end": {
+              "HUAI_FRONTIER": 0.525,
+              "MONAN_EASTERN_TURKS_SPACE": 1.125
+            }
           },
-          "b1_region_adjudications": [],
+          "b1_region_adjudications": [
+            {
+              "object_id": "HEXI_LONGYOU_CORRIDOR",
+              "object_name": "河西—陇右走廊",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 0.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.0
+              },
+              "evidence_refs": [
+                "JIN-HAILING-SONG-INVASION-AND-ARMY-COLLAPSE-1161",
+                "JIN-SHIZONG-SONG-NORTHWEST-RECOVERY-1161-1163"
+              ],
+              "reason": "世宗初明确需要恢复陕西西北十六州，反证海陵交班时该西线控制已形成结构性退出。"
+            },
+            {
+              "object_id": "HUAI_FRONTIER",
+              "object_name": "淮河边疆",
+              "spatial_weight": 0.7,
+              "start_coverage": 1.0,
+              "end_coverage": 0.75,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.7,
+                "end": 0.525
+              },
+              "evidence_refs": [
+                "JIN-HAILING-SONG-INVASION-AND-ARMY-COLLAPSE-1161"
+              ],
+              "reason": "南伐崩溃及宋军反攻使东南主边界部分失控，但金仍保有大部淮北控制，取0.75而非归零。"
+            },
+            {
+              "object_id": "MONAN_EASTERN_TURKS_SPACE",
+              "object_name": "漠南东突厥空间",
+              "spatial_weight": 1.5,
+              "start_coverage": 1.0,
+              "end_coverage": 0.75,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 1.5,
+                "end": 1.125
+              },
+              "evidence_refs": [
+                "JINSHI-QIDAN-WOA-REBELLION-1161-1162::HAILING"
+              ],
+              "reason": "1161契丹窝斡等北方军政失序使属部网络出现明显缺口，但尚非整体退出，交班取0.75。"
+            }
+          ],
           "primary_threat_refs": [
             "CHAIN-JIN-HAILING-SONG-INVASION-1161",
             "CHAIN-JIN-HAILING-INTERNAL-MILITARY-DISINTEGRATION-1161"
@@ -124,8 +197,8 @@
           "A120_non_cost_anchor_points": 4.8,
           "A120_positive_result_credit_points": 0.0,
           "A120_score_points": 4.8,
-          "B80_score_points": 0.0,
-          "AB200_score_points": 4.8,
+          "B80_score_points": 4.62,
+          "AB200_score_points": 9.42,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": -2.0,
@@ -147,7 +220,8 @@
               "start_grade": 4,
               "trajectory_value": 4.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": -2.0,
@@ -169,15 +243,16 @@
               "start_grade": 4,
               "trajectory_value": 4.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
-            "B80_points": 0.0,
-            "formal_B1_rate": 0.0,
+            "B80_points": 4.62,
+            "formal_B1_rate": 15.0,
             "formal_B2_rate": 0.0,
             "formal_B4_rate": 0.0,
-            "adjudicated_B1_rate": 0.0,
+            "adjudicated_B1_rate": 15.0,
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
@@ -185,7 +260,15 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 2,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/金.json",
+            "final_B1_rate": 15.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "1161年南伐失败与军中政变同时发生，金朝南部方向从主动转为失衡。"
         },
         {
           "ruler_id": "RULER-JIN-XIZONG",
@@ -205,7 +288,8 @@
               "trajectory_value": 48,
               "axis_points": 19.2,
               "transition": "STABLE",
-              "reason": "即位与交班均以宋金主要方向总体占优、淮河边界可运作为锚；1140—1142收复把任内危机拉回原有高位，却不足以把仍存的南宋压成全国主导秩序。"
+              "reason": "主要威胁始终是南宋；其反攻造成现实压力但未改变金朝总体占优，收复后压力回到受控状态，故A1保持4档，南宋仍存使其不能到5档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "start": "A2S4_OVERALL_SECURE_WITH_GAPS",
@@ -217,14 +301,17 @@
               "trajectory_value": 48,
               "axis_points": 19.2,
               "transition": "STABLE",
-              "reason": "即位与交班均以宋金主要方向总体占优、淮河边界可运作为锚；1140—1142收复把任内危机拉回原有高位，却不足以把仍存的南宋压成全国主导秩序。"
+              "reason": "河南、陕西与淮河防线在危机后恢复连贯，交班时主要门户和纵深能够协同；淮河前线仍是明显缺口，故A2保持4档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
-              "grade": "B1-1",
-              "band_position": "LOW",
-              "score_rate": 30,
-              "axis_points": 7.5,
-              "reason": "区域逐项快照计算；没有可确认的新增或维护控制时为0，不由成果档倒推。"
+              "grade": "B1-2",
+              "band_position": "MID",
+              "score_rate": 52.0,
+              "axis_points": 13.0,
+              "reason": "规模与控制强度：旧1.4→1.4、weighted0.56、rate30；补回长期漏记的北方边疆1.5及统一淮河锚后，3.0→3.0、weighted1.20、rate52。",
+              "weighted_control_value": 1.2,
+              "raw_net_change": 0.0
             },
             "B2": {
               "grade": "B2-4",
@@ -241,53 +328,85 @@
               "reason": "仅按本人交班时的制度、驻防、和议或防务闭合度裁定，不读继任者结果。"
             }
           },
-          "AB_score_points": 91.0,
+          "AB_score_points": 96.5,
           "b1_control_equivalents": {
-            "start": 1.4,
-            "end": 1.4,
+            "start": 3.0,
+            "end": 3.0,
             "net_change": 0.0,
-            "weighted_value": 0.56
+            "weighted_value": 1.2
           },
           "b1_region_control": {
             "start": {
-              "JIN_HENAN_FRONTIER": 0.6,
-              "JIN_SHAANXI_FRONTIER": 0.8
+              "HEXI_LONGYOU_CORRIDOR": 0.8,
+              "HUAI_FRONTIER": 0.7,
+              "MONAN_EASTERN_TURKS_SPACE": 1.5
             },
             "end": {
-              "JIN_HENAN_FRONTIER": 0.6,
-              "JIN_SHAANXI_FRONTIER": 0.8
+              "HEXI_LONGYOU_CORRIDOR": 0.8,
+              "HUAI_FRONTIER": 0.7,
+              "MONAN_EASTERN_TURKS_SPACE": 1.5
             }
           },
           "b1_region_adjudications": [
             {
-              "region_id": "JIN_HENAN_FRONTIER",
-              "region_name": "河南前线控制带",
-              "spatial_weight": 0.6,
-              "start_coverage": 1,
-              "end_coverage": 1,
-              "start_equivalent": 0.6,
-              "end_equivalent": 0.6,
-              "control_form": "直接州郡与淮河北岸防务",
-              "reason": "即位时已属金，1140—1142失而复得后交班仍有效；不将同一空间作为净扩张，只保留交班规模的40%维护信用。",
-              "source_refs": [
-                "docs/史料通读产物/金/金史/volume-004.battle-adjudications.json#JSH-JIN-SONG-HENAN-SHAANXI-1140",
-                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json#JIN-XIZONG-SONG-HENAN-SHAANXI-HUAI-1140-1142"
-              ]
+              "object_id": "HEXI_LONGYOU_CORRIDOR",
+              "object_name": "河西—陇右走廊",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.8
+              },
+              "evidence_refs": [
+                "JSH-JIN-SONG-HENAN-SHAANXI-1140",
+                "JIN-XIZONG-SONG-HENAN-SHAANXI-HUAI-1140-1142"
+              ],
+              "reason": "陕西西部—陇右外缘失而复得，交班恢复完整覆盖。"
             },
             {
-              "region_id": "JIN_SHAANXI_FRONTIER",
-              "region_name": "陕西前线控制带",
-              "spatial_weight": 0.8,
-              "start_coverage": 1,
-              "end_coverage": 1,
-              "start_equivalent": 0.8,
-              "end_equivalent": 0.8,
-              "control_form": "直接州郡与西线防务",
-              "reason": "同为继承控制、宋军一度反攻后恢复；边界在本窗口终点存在，按同一快照列入。",
-              "source_refs": [
-                "docs/史料通读产物/金/金史/volume-004.battle-adjudications.json#JSH-JIN-SONG-HENAN-SHAANXI-1140",
-                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json#JIN-XIZONG-SONG-HENAN-SHAANXI-HUAI-1140-1142"
-              ]
+              "object_id": "HUAI_FRONTIER",
+              "object_name": "淮河边疆",
+              "spatial_weight": 0.7,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.7,
+                "end": 0.7
+              },
+              "evidence_refs": [
+                "JSH-JIN-SONG-HENAN-SHAANXI-1140",
+                "JIN-XIZONG-SONG-HENAN-SHAANXI-HUAI-1140-1142"
+              ],
+              "reason": "1140—1142一度失守后恢复，交班仍为完整淮河主边界。"
+            },
+            {
+              "object_id": "MONAN_EASTERN_TURKS_SPACE",
+              "object_name": "漠南东突厥空间",
+              "spatial_weight": 1.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 1.5,
+                "end": 1.5
+              },
+              "evidence_refs": [],
+              "reason": "继承并维持北方草原—属部边疆网络；无闭合到覆盖阶梯变化的退控。"
             }
           ],
           "primary_threat_refs": [
@@ -324,8 +443,8 @@
           "A120_non_cost_anchor_points": 57.6,
           "A120_positive_result_credit_points": 12.0,
           "A120_score_points": 69.6,
-          "B80_score_points": 40.41,
-          "AB200_score_points": 110.01,
+          "B80_score_points": 49.57,
+          "AB200_score_points": 119.17,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 0.0,
@@ -347,7 +466,8 @@
               "start_grade": 4,
               "trajectory_value": 58.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -369,15 +489,16 @@
               "start_grade": 4,
               "trajectory_value": 58.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
-            "B80_points": 40.41,
-            "formal_B1_rate": 30.0,
+            "B80_points": 49.57,
+            "formal_B1_rate": 52.0,
             "formal_B2_rate": 82.0,
             "formal_B4_rate": 82.0,
-            "adjudicated_B1_rate": 30.0,
+            "adjudicated_B1_rate": 52.0,
             "adjudicated_B2_rate": 82.0,
             "adjudicated_B4_rate": 82.0,
             "consistency_basis": "逐区域账是证据结构，不是人物贡献类型；按现有成果事实归一为合同贡献类型。"
@@ -385,7 +506,15 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 1,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/金.json",
+            "final_B1_rate": 52.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "1140—1142年宋金战争一度打破原有高位状态，随后收复与和议把局势拉回。"
         },
         {
           "ruler_id": "RULER-JIN-AIZONG",
@@ -405,7 +534,8 @@
               "trajectory_value": 0,
               "axis_points": 0.0,
               "transition": "WORSENED",
-              "reason": "继位时蒙古已压迫多数核心方向；交班前蔡州陷落，国家生存和可移交边界系统均归零。"
+              "reason": "蒙古已是直接决定金朝存亡的主要威胁，且本人窗口未能压低其能力，最终政权覆亡，故A1由1档降至0档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "start": "A2S1_BROKEN_BOUNDARY",
@@ -417,14 +547,17 @@
               "trajectory_value": 0,
               "axis_points": 0.0,
               "transition": "WORSENED",
-              "reason": "继位时蒙古已压迫多数核心方向；交班前蔡州陷落，国家生存和可移交边界系统均归零。"
+              "reason": "河北、河东等纵深既失后只余河南—蔡州近核心防守，蔡州陷落使最后边界与核心防御一并终止，故A2由1档降至0档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
               "grade": "B1-0",
               "band_position": "LOW",
-              "score_rate": 0,
+              "score_rate": 0.0,
               "axis_points": 0.0,
-              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+              "reason": "规模与控制强度：有效率仍0，但旧0→0改为0.725→0，真实表达终局退控。",
+              "weighted_control_value": -0.435,
+              "raw_net_change": -0.725
             },
             "B2": {
               "grade": "B2-0",
@@ -443,16 +576,63 @@
           },
           "AB_score_points": 0.0,
           "b1_control_equivalents": {
-            "start": 0,
+            "start": 0.725,
             "end": 0,
-            "net_change": 0,
-            "weighted_value": 0.0
+            "net_change": -0.725,
+            "weighted_value": -0.435
           },
           "b1_region_control": {
-            "start": {},
+            "start": {
+              "HEXI_LONGYOU_CORRIDOR": 0.2,
+              "HUAI_FRONTIER": 0.525
+            },
             "end": {}
           },
-          "b1_region_adjudications": [],
+          "b1_region_adjudications": [
+            {
+              "object_id": "HEXI_LONGYOU_CORRIDOR",
+              "object_name": "河西—陇右走廊",
+              "spatial_weight": 0.8,
+              "start_coverage": 0.25,
+              "end_coverage": 0.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.2,
+                "end": 0.0
+              },
+              "evidence_refs": [
+                "JIN-MONGOL-SHANXI-1224",
+                "MONGOL-JIN-DESHUN-PINGYANG-1227"
+              ],
+              "reason": "接班仅余孤立西线节点，随后继续退出；国家覆亡终点归零。"
+            },
+            {
+              "object_id": "HUAI_FRONTIER",
+              "object_name": "淮河边疆",
+              "spatial_weight": 0.7,
+              "start_coverage": 0.75,
+              "end_coverage": 0.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.525,
+                "end": 0.0
+              },
+              "evidence_refs": [
+                "WYS-SONG-FRONTIER",
+                "JIN-SONG-CHUZHOU-DEFECTION-1226",
+                "JIN-SONG-DENGZHOU-DEFECTION-1233"
+              ],
+              "reason": "南部残存边界在蒙宋夹击和地方倒戈中持续收缩，蔡州终局无可移交控制。"
+            }
+          ],
           "primary_threat_refs": [
             "WYS-NATIONAL-SURVIVAL",
             "WYS-SONG-FRONTIER",
@@ -532,7 +712,8 @@
               "start_grade": 1,
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": -0.25,
@@ -554,7 +735,8 @@
               "start_grade": 1,
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
@@ -570,7 +752,15 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 4,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/金.json",
+            "final_B1_rate": 0.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "蒙古持续进攻、内部军变及宋金边境压力共同压缩金朝生存空间，最终蔡州陷落。"
         },
         {
           "ruler_id": "RULER-JIN-TAIZONG",
@@ -590,7 +780,8 @@
               "trajectory_value": 58,
               "axis_points": 23.2,
               "transition": "IMPROVED",
-              "reason": "即位时辽残余、北宋与南部方向仍构成制衡；辽终结及北中国控制建立使整体威胁转为优势，但南宋继起和西线反复使两个终点都止4。"
+              "reason": "辽残余和北宋两大对手被终结，使主要威胁从相互制衡降到金朝稳定占优；南宋与西线仍有现实反制能力，故A1由3档升至4档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
@@ -602,15 +793,16 @@
               "trajectory_value": 58,
               "axis_points": 23.2,
               "transition": "IMPROVED",
-              "reason": "即位时辽残余、北宋与南部方向仍构成制衡；辽终结及北中国控制建立使整体威胁转为优势，但南宋继起和西线反复使两个终点都止4。"
+              "reason": "北中国控制与燕云—河朔纵深成形，南部主要门户前推；长江追击失败及陕西反复留下结构缺口，故A2由3档升至4档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
               "grade": "B1-1",
               "band_position": "LOW",
-              "score_rate": 30,
+              "score_rate": 30.0,
               "axis_points": 7.5,
-              "reason": "第一项已消费辽东北、北中国创业统一控制量；第三项B1只保留1129—1133陕西—泾原熙河西线0.40实际控制当量。",
-              "raw_net_change": 0.4,
+              "reason": "规模与控制强度：有效B1率仍为30；新增完整3.0客观交班库存，避免熙宗只继承1.4的残缺快照。",
+              "raw_net_change": 1.875,
               "weighted_control_value": 0.4
             },
             "B2": {
@@ -630,36 +822,84 @@
           },
           "AB_score_points": 95.25,
           "b1_control_equivalents": {
-            "start": 0.0,
-            "end": 0.4,
-            "net_change": 0.4,
+            "start": 1.125,
+            "end": 3.0,
+            "net_change": 1.875,
             "weighted_value": 0.4
           },
           "b1_region_control": {
             "start": {
-              "JIN_SHAANXI_WESTERN_FRONTIER": 0.0
+              "MONAN_EASTERN_TURKS_SPACE": 1.125
             },
             "end": {
-              "JIN_SHAANXI_WESTERN_FRONTIER": 0.4
+              "HEXI_LONGYOU_CORRIDOR": 0.8,
+              "HUAI_FRONTIER": 0.7,
+              "MONAN_EASTERN_TURKS_SPACE": 1.5
             }
           },
           "b1_region_adjudications": [
             {
-              "region_id": "JIN_SHAANXI_WESTERN_FRONTIER",
-              "region_name": "陕西—泾原熙河西线",
+              "object_id": "HEXI_LONGYOU_CORRIDOR",
+              "object_name": "河西—陇右走廊",
               "spatial_weight": 0.8,
-              "start_coverage": 0,
-              "end_coverage": 0.5,
-              "start_equivalent": 0.0,
-              "end_equivalent": 0.4,
-              "control_form": "西线门户与防线推进",
-              "reason": "扶风、陕西作战及汉中门户推进只闭合半数有效控制，江南短占明确排除。",
-              "source_refs": [
-                "docs/史料通读产物/金/金史/volume-003.battle-adjudications.json#JSH-JIN-LIAO-FINAL-1125",
-                "docs/史料通读产物/金/金史/volume-003.battle-adjudications.json#JSH-JIN-SONG-FIRST-WEST-1125",
-                "docs/史料通读产物/金/金史/volume-003.battle-adjudications.json#JSH-JIN-SONG-FUPING-SHAANXI-1130-1131",
-                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json#DINV::JIN-TAIZONG::SECOND-SONG-INVASION-1126-1129"
-              ]
+              "start_coverage": 0.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.0,
+                "end": 0.8
+              },
+              "evidence_refs": [
+                "JIN-TAIZONG-SONG-SHAANXI-FUPING-1130-1131",
+                "JIN-TAIZONG-SONG-HANZHONG-1132-1133"
+              ],
+              "reason": "只计陕西西部—陇右外缘边疆；1130—1133形成可持续西线控制，江南短占排除。"
+            },
+            {
+              "object_id": "HUAI_FRONTIER",
+              "object_name": "淮河边疆",
+              "spatial_weight": 0.7,
+              "start_coverage": 0.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.0,
+                "end": 0.7
+              },
+              "evidence_refs": [
+                "DINV::JIN-TAIZONG::SECOND-SONG-INVASION-1126-1129",
+                "JIN-TAIZONG-SONG-YANGTZE-PURSUIT-1129-1130"
+              ],
+              "reason": "不计北中国统一核心；只计宋金长期边界最终稳定在淮河方向形成的实际边疆存量。"
+            },
+            {
+              "object_id": "MONAN_EASTERN_TURKS_SPACE",
+              "object_name": "漠南东突厥空间",
+              "spatial_weight": 1.5,
+              "start_coverage": 0.75,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 1.125,
+                "end": 1.5
+              },
+              "evidence_refs": [
+                "JSH-LIAO-REMNANTS-XINGZHONG-1123-1124",
+                "JSH-JIN-LIAO-FINAL-1125"
+              ],
+              "reason": "承接阿骨打大部控制；1125辽残余终结后漠南主要军政/属部网络闭合至1.00。"
             }
           ],
           "primary_threat_refs": [
@@ -759,7 +999,15 @@
               "start_grade": 3,
               "trajectory_value": 58.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "材料门后按人物窗口逐段裁决"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 1.0,
@@ -781,7 +1029,15 @@
               "start_grade": 3,
               "trajectory_value": 58.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "材料门后按人物窗口逐段裁决"
+                }
+              ]
             }
           },
           "B80_adjudication": {
@@ -797,7 +1053,16 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 2,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/金.json",
+            "final_B1_rate": 30.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "b1_cross_item_excluded_weighted_value": 1.925,
+          "A_axis_common_context": "辽残余终结、北宋覆亡与南宋继起共同重塑金朝南北主要方向。"
         },
         {
           "ruler_id": "RULER-JIN-WEISHAOWANG",
@@ -817,7 +1082,8 @@
               "trajectory_value": 0,
               "axis_points": 0.0,
               "transition": "WORSENED",
-              "reason": "即位时金仍能维持北方主要防线；蒙古突破居庸、河北、辽西等并围中都，交班时边界只余孤立防守点。"
+              "reason": "蒙古由北方强敌升级为能够深入河北、围逼中都的国家级现实威胁，金朝已无法维持相互制衡，故A1由3档降至1档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
@@ -829,14 +1095,17 @@
               "trajectory_value": 0,
               "axis_points": 0.0,
               "transition": "WORSENED",
-              "reason": "即位时金仍能维持北方主要防线；蒙古突破居庸、河北、辽西等并围中都，交班时边界只余孤立防守点。"
+              "reason": "居庸、辽西与河北防线被连续突破，北方边界失去纵深联动，只余孤立城镇和近核心防守点，故A2由3档降至1档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
               "grade": "B1-0",
-              "band_position": "LOW",
-              "score_rate": 0,
-              "axis_points": 0.0,
-              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+              "band_position": "MID",
+              "score_rate": 15.0,
+              "axis_points": 3.75,
+              "reason": "规模与控制强度：旧0→0掩盖蒙古造成的真实退控；重建3.0→1.5，rate 0→15。",
+              "weighted_control_value": -0.3,
+              "raw_net_change": -1.5
             },
             "B2": {
               "grade": "B2-0",
@@ -853,18 +1122,85 @@
               "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
             }
           },
-          "AB_score_points": 0.0,
+          "AB_score_points": 3.75,
           "b1_control_equivalents": {
-            "start": 0,
-            "end": 0,
-            "net_change": 0,
-            "weighted_value": 0.0
+            "start": 3.0,
+            "end": 1.5,
+            "net_change": -1.5,
+            "weighted_value": -0.3
           },
           "b1_region_control": {
-            "start": {},
-            "end": {}
+            "start": {
+              "HEXI_LONGYOU_CORRIDOR": 0.8,
+              "HUAI_FRONTIER": 0.7,
+              "MONAN_EASTERN_TURKS_SPACE": 1.5
+            },
+            "end": {
+              "HEXI_LONGYOU_CORRIDOR": 0.8,
+              "HUAI_FRONTIER": 0.7
+            }
           },
-          "b1_region_adjudications": [],
+          "b1_region_adjudications": [
+            {
+              "object_id": "HEXI_LONGYOU_CORRIDOR",
+              "object_name": "河西—陇右走廊",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.8
+              },
+              "evidence_refs": [
+                "JINSHI-JIN-XIA-BORDER-1210-1213"
+              ],
+              "reason": "西夏方向受压但现有材料不足以把整个陕西—陇右边疆降一覆盖阶梯，保守维持。"
+            },
+            {
+              "object_id": "HUAI_FRONTIER",
+              "object_name": "淮河边疆",
+              "spatial_weight": 0.7,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.7,
+                "end": 0.7
+              },
+              "evidence_refs": [],
+              "reason": "主要崩解发生在北方；南宋主边界未闭合为空间退控，维持1.00。"
+            },
+            {
+              "object_id": "MONAN_EASTERN_TURKS_SPACE",
+              "object_name": "漠南东突厥空间",
+              "spatial_weight": 1.5,
+              "start_coverage": 1.0,
+              "end_coverage": 0.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 1.5,
+                "end": 0.0
+              },
+              "evidence_refs": [
+                "JINSHI-MONGOL-JIN-NORTH-1211-1212",
+                "CHAIN-MONGOL-JIN-NORTH-1211-1212-YONGJI"
+              ],
+              "reason": "蒙古突破北方防线、居庸及辽西并围中都，原可执行漠南属部—军政边疆网络已失去整体控制，交班归零。"
+            }
+          ],
           "primary_threat_refs": [
             "CHAIN-MONGOL-JIN-NORTH-1211-1212-YONGJI",
             "CHAIN-JIN-XIA-BORDER-1210-1213-YONGJI"
@@ -903,8 +1239,8 @@
           "A120_non_cost_anchor_points": 0.0,
           "A120_positive_result_credit_points": 0.0,
           "A120_score_points": 0.0,
-          "B80_score_points": 0.0,
-          "AB200_score_points": 0.0,
+          "B80_score_points": 4.62,
+          "AB200_score_points": 4.62,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": -1.5,
@@ -926,7 +1262,8 @@
               "start_grade": 3,
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": -1.5,
@@ -948,15 +1285,16 @@
               "start_grade": 3,
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
-            "B80_points": 0.0,
-            "formal_B1_rate": 0.0,
+            "B80_points": 4.62,
+            "formal_B1_rate": 15.0,
             "formal_B2_rate": 0.0,
             "formal_B4_rate": 0.0,
-            "adjudicated_B1_rate": 0.0,
+            "adjudicated_B1_rate": 15.0,
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
@@ -964,7 +1302,15 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 2,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/金.json",
+            "final_B1_rate": 15.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "1211—1212年蒙古大举南下，并与金夏边境冲突叠加。"
         },
         {
           "ruler_id": "RULER-JIN-XUANZONG",
@@ -984,7 +1330,8 @@
               "trajectory_value": 2,
               "axis_points": 0.8,
               "transition": "WORSENED",
-              "reason": "继位时中都北方已破而政权尚存；交班时河北、山东、河东失控未逆转，仍有河南核心防线但整体明显被动。"
+              "reason": "蒙古仍是足以制造亡国危机的主要威胁，南宋等方向又分散力量；压力较接班继续加重，故A1由2档降至1档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "start": "A2S2_LOCAL_DEFENSIBLE_POINTS",
@@ -996,14 +1343,17 @@
               "trajectory_value": 2,
               "axis_points": 0.8,
               "transition": "WORSENED",
-              "reason": "继位时中都北方已破而政权尚存；交班时河北、山东、河东失控未逆转，仍有河南核心防线但整体明显被动。"
+              "reason": "河北、山东、河东失控未逆转，河南防线虽能暂守却已缺乏北方纵深和相互支援，故A2由2档降至1档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
               "grade": "B1-0",
-              "band_position": "LOW",
-              "score_rate": 0,
-              "axis_points": 0.0,
-              "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+              "band_position": "HIGH",
+              "score_rate": 29.0,
+              "axis_points": 7.25,
+              "reason": "规模与控制强度：旧0→0无法表达河北、山东、河东、陕西持续退控；重建1.5→0.725，rate 0→29。",
+              "weighted_control_value": -0.175,
+              "raw_net_change": -0.775
             },
             "B2": {
               "grade": "B2-0",
@@ -1020,18 +1370,86 @@
               "reason": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
             }
           },
-          "AB_score_points": 1.6,
+          "AB_score_points": 8.85,
           "b1_control_equivalents": {
-            "start": 0,
-            "end": 0,
-            "net_change": 0,
-            "weighted_value": 0.0
+            "start": 1.5,
+            "end": 0.725,
+            "net_change": -0.775,
+            "weighted_value": -0.175
           },
           "b1_region_control": {
-            "start": {},
-            "end": {}
+            "start": {
+              "HEXI_LONGYOU_CORRIDOR": 0.8,
+              "HUAI_FRONTIER": 0.7
+            },
+            "end": {
+              "HEXI_LONGYOU_CORRIDOR": 0.2,
+              "HUAI_FRONTIER": 0.525
+            }
           },
-          "b1_region_adjudications": [],
+          "b1_region_adjudications": [
+            {
+              "object_id": "HEXI_LONGYOU_CORRIDOR",
+              "object_name": "河西—陇右走廊",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 0.25,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.2
+              },
+              "evidence_refs": [
+                "JINSHI-JIN-XIA-SHAANXI-1215-1223",
+                "JINSHI-MONGOL-JIN-HEDONG-SHAANXI-1222-1223",
+                "JINSHI-MONGOL-JIN-SHAANXI-1221-1222"
+              ],
+              "reason": "陕西、河东连续受蒙古与西夏压力并成片退出；至1224只保留孤立西线节点，取0.25。"
+            },
+            {
+              "object_id": "HUAI_FRONTIER",
+              "object_name": "淮河边疆",
+              "spatial_weight": 0.7,
+              "start_coverage": 1.0,
+              "end_coverage": 0.75,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.7,
+                "end": 0.525
+              },
+              "evidence_refs": [
+                "DINV::JIN-XUANZONG::SONG-WAR-1217-1223",
+                "JINSHI-REDJACKET-SHANDONG-HUAI-1221-1223"
+              ],
+              "reason": "主动攻宋失败并叠加山东—淮北军政失序，主边界仍存但出现明显缺口，交班取0.75。"
+            },
+            {
+              "object_id": "MONAN_EASTERN_TURKS_SPACE",
+              "object_name": "漠南东突厥空间",
+              "spatial_weight": 1.5,
+              "start_coverage": 0.0,
+              "end_coverage": 0.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.0,
+                "end": 0.0
+              },
+              "evidence_refs": [],
+              "reason": "北方草原边疆在接班前已退出，不因短期反攻重新开启。"
+            }
+          ],
           "primary_threat_refs": [
             "CHAIN-JIN-MONGOL-CORE-DEFENSE-1213-1223",
             "CHAIN-JIN-XIA-BORDER-1213-1223",
@@ -1118,8 +1536,8 @@
           "A120_non_cost_anchor_points": 8.4,
           "A120_positive_result_credit_points": 0.0,
           "A120_score_points": 8.4,
-          "B80_score_points": 0.0,
-          "AB200_score_points": 8.4,
+          "B80_score_points": 8.93,
+          "AB200_score_points": 17.33,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": -0.5,
@@ -1141,7 +1559,8 @@
               "start_grade": 2,
               "trajectory_value": 7.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": -0.5,
@@ -1163,15 +1582,16 @@
               "start_grade": 2,
               "trajectory_value": 7.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
-            "B80_points": 0.0,
-            "formal_B1_rate": 0.0,
+            "B80_points": 8.93,
+            "formal_B1_rate": 29.0,
             "formal_B2_rate": 0.0,
             "formal_B4_rate": 0.0,
-            "adjudicated_B1_rate": 0.0,
+            "adjudicated_B1_rate": 29.0,
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
@@ -1179,7 +1599,15 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 7,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/金.json",
+            "final_B1_rate": 29.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "迁都后蒙古、南宋、西夏及河北山东内部军事失控共同压迫金朝。"
         },
         {
           "ruler_id": "RULER-JIN-ZHANGZONG",
@@ -1199,7 +1627,8 @@
               "trajectory_value": 48,
               "axis_points": 19.2,
               "transition": "STABLE",
-              "reason": "两端均为宋金边界总体占优；开禧北伐被击退并和议、北边一度收束，但没有新证据把原有高位推进为主导秩序。"
+              "reason": "南宋北伐被击退，北方压力亦一度收束，主要对手总体受控；南宋和北方风险仍存，故A1保持4档而不升5档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "start": "A2S4_OVERALL_SECURE_WITH_GAPS",
@@ -1211,14 +1640,17 @@
               "trajectory_value": 48,
               "axis_points": 19.2,
               "transition": "STABLE",
-              "reason": "两端均为宋金边界总体占优；开禧北伐被击退并和议、北边一度收束，但没有新证据把原有高位推进为主导秩序。"
+              "reason": "淮河边界在开禧战争中维持运作，河西—陇右及漠南方向亦未发生跨档破口；仍有未决前线，故A2保持4档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
-              "grade": "B1-0",
-              "band_position": "LOW",
-              "score_rate": 0,
-              "axis_points": 0.0,
-              "reason": "区域逐项快照计算；没有可确认的新增或维护控制时为0，不由成果档倒推。"
+              "grade": "B1-2",
+              "band_position": "MID",
+              "score_rate": 52.0,
+              "axis_points": 13.0,
+              "reason": "规模与控制强度：旧B1 0→0与其A/B材料直接矛盾；补全三方向继承库存后rate 0→52。",
+              "weighted_control_value": 1.2,
+              "raw_net_change": 0.0
             },
             "B2": {
               "grade": "B2-4",
@@ -1235,18 +1667,88 @@
               "reason": "仅按本人交班时的制度、驻防、和议或防务闭合度裁定，不读继任者结果。"
             }
           },
-          "AB_score_points": 85.6,
+          "AB_score_points": 98.6,
           "b1_control_equivalents": {
-            "start": 0,
-            "end": 0,
-            "net_change": 0,
-            "weighted_value": 0.0
+            "start": 3.0,
+            "end": 3.0,
+            "net_change": 0.0,
+            "weighted_value": 1.2
           },
           "b1_region_control": {
-            "start": {},
-            "end": {}
+            "start": {
+              "HEXI_LONGYOU_CORRIDOR": 0.8,
+              "HUAI_FRONTIER": 0.7,
+              "MONAN_EASTERN_TURKS_SPACE": 1.5
+            },
+            "end": {
+              "HEXI_LONGYOU_CORRIDOR": 0.8,
+              "HUAI_FRONTIER": 0.7,
+              "MONAN_EASTERN_TURKS_SPACE": 1.5
+            }
           },
-          "b1_region_adjudications": [],
+          "b1_region_adjudications": [
+            {
+              "object_id": "HEXI_LONGYOU_CORRIDOR",
+              "object_name": "河西—陇右走廊",
+              "spatial_weight": 0.8,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.8,
+                "end": 0.8
+              },
+              "evidence_refs": [
+                "JINSHI-JIN-XIA-BORDER-ALUDAI-1191"
+              ],
+              "reason": "西夏方向有冲突但没有闭合结构性失地，维持完整西线边疆库存。"
+            },
+            {
+              "object_id": "HUAI_FRONTIER",
+              "object_name": "淮河边疆",
+              "spatial_weight": 0.7,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.7,
+                "end": 0.7
+              },
+              "evidence_refs": [
+                "DINV::JIN-ZHANGZONG::KAIXI-WAR-1205-1208"
+              ],
+              "reason": "开禧北伐被击退并和议，淮河主边界在交班仍完整有效。"
+            },
+            {
+              "object_id": "MONAN_EASTERN_TURKS_SPACE",
+              "object_name": "漠南东突厥空间",
+              "spatial_weight": 1.5,
+              "start_coverage": 1.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 1.5,
+                "end": 1.5
+              },
+              "evidence_refs": [
+                "JIN-ZHANGZONG-NORTH-FRONTIER-1195-1196",
+                "JINSHI-NORTH-FRONTIER-CLOSURE-1198"
+              ],
+              "reason": "1195—1198北边受压但最终收束；A项已保留局部恶化，未闭合实际覆盖跨阶梯退控，B1维持1.00。"
+            }
+          ],
           "primary_threat_refs": [
             "CHAIN-JIN-SONG-KAIXI-WAR-1205-1208",
             "CHAIN-JIN-NORTH-FRONTIER-1195-1198",
@@ -1291,8 +1793,8 @@
           "A120_non_cost_anchor_points": 54.6,
           "A120_positive_result_credit_points": 12.0,
           "A120_score_points": 66.6,
-          "B80_score_points": 30.31,
-          "AB200_score_points": 96.91,
+          "B80_score_points": 51.95,
+          "AB200_score_points": 118.55,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 0.0,
@@ -1314,7 +1816,8 @@
               "start_grade": 4,
               "trajectory_value": 53.0,
               "within_band_deterioration_basis": "北边局部指挥损失形成EN1",
-              "within_band_deterioration_penalty": 5
+              "within_band_deterioration_penalty": 5,
+              "improvement_step_credits": []
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -1336,15 +1839,16 @@
               "start_grade": 4,
               "trajectory_value": 58.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": []
             }
           },
           "B80_adjudication": {
-            "B80_points": 30.31,
-            "formal_B1_rate": 0.0,
+            "B80_points": 51.95,
+            "formal_B1_rate": 52.0,
             "formal_B2_rate": 89.0,
             "formal_B4_rate": 82.0,
-            "adjudicated_B1_rate": 0.0,
+            "adjudicated_B1_rate": 52.0,
             "adjudicated_B2_rate": 89.0,
             "adjudicated_B4_rate": 82.0,
             "consistency_basis": "旧扩展记录把证据状态写成贡献类型；现按本人可识别的保全或维护成果包归一。"
@@ -1352,7 +1856,15 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 3,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/金.json",
+            "final_B1_rate": 52.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "北边阶段性收束与开禧北伐、和议共同检验金朝的高位状态。"
         },
         {
           "ruler_id": "RULER-JIN-SHIZONG",
@@ -1372,7 +1884,8 @@
               "trajectory_value": 58,
               "axis_points": 23.2,
               "transition": "IMPROVED",
-              "reason": "继位时海陵南伐失败后宋军多线反攻、边防失衡；1165和议与西北、东南恢复令交班时回到总体优势，但仍有宋这一主要对手，不能取5。"
+              "reason": "主要威胁是南宋反攻并叠加内部契丹叛乱；两者被压低后金朝恢复稳定主动，但南宋仍是完整强敌，故A1由3档升至4档。",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
             },
             "A2": {
               "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
@@ -1384,14 +1897,17 @@
               "trajectory_value": 58,
               "axis_points": 23.2,
               "transition": "IMPROVED",
-              "reason": "继位时海陵南伐失败后宋军多线反攻、边防失衡；1165和议与西北、东南恢复令交班时回到总体优势，但仍有宋这一主要对手，不能取5。"
+              "reason": "淮河、陕西和东南边防由失衡恢复到可协同运作，和议固定了主要边界；南部前线仍是明显缺口，故A2由3档升至4档。",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
-              "grade": "B1-2",
-              "band_position": "LOW",
-              "score_rate": 45,
-              "axis_points": 11.2,
-              "reason": "区域逐项快照计算；没有可确认的新增或维护控制时为0，不由成果档倒推。"
+              "grade": "B1-3",
+              "band_position": "MID",
+              "score_rate": 67.0,
+              "axis_points": 16.75,
+              "reason": "规模与控制强度：旧0→1.0、weighted1.0、rate45只记南西恢复；补入继承库存和北方恢复后1.65→3.0、weighted2.01、rate67。",
+              "weighted_control_value": 2.01,
+              "raw_net_change": 1.35
             },
             "B2": {
               "grade": "B2-4",
@@ -1408,57 +1924,85 @@
               "reason": "仅按本人交班时的制度、驻防、和议或防务闭合度裁定，不读继任者结果。"
             }
           },
-          "AB_score_points": 104.8,
+          "AB_score_points": 110.35,
           "b1_control_equivalents": {
-            "start": 0.0,
-            "end": 1.0,
-            "net_change": 1.0,
-            "weighted_value": 1.0
+            "start": 1.65,
+            "end": 3.0,
+            "net_change": 1.35,
+            "weighted_value": 2.01
           },
           "b1_region_control": {
             "start": {
-              "JIN_NORTHWEST_RECOVERED_FRONTIER": 0.0,
-              "JIN_SOUTHEAST_CHU_SHANG_NODES": 0.0
+              "HUAI_FRONTIER": 0.525,
+              "MONAN_EASTERN_TURKS_SPACE": 1.125
             },
             "end": {
-              "JIN_NORTHWEST_RECOVERED_FRONTIER": 0.8,
-              "JIN_SOUTHEAST_CHU_SHANG_NODES": 0.2
+              "HEXI_LONGYOU_CORRIDOR": 0.8,
+              "HUAI_FRONTIER": 0.7,
+              "MONAN_EASTERN_TURKS_SPACE": 1.5
             }
           },
           "b1_region_adjudications": [
             {
-              "region_id": "JIN_NORTHWEST_RECOVERED_FRONTIER",
-              "region_name": "陕西西北十六州恢复带",
+              "object_id": "HEXI_LONGYOU_CORRIDOR",
+              "object_name": "河西—陇右走廊",
               "spatial_weight": 0.8,
-              "start_coverage": 0,
-              "end_coverage": 1,
-              "start_equivalent": 0.0,
-              "end_equivalent": 0.8,
-              "control_form": "宋军侵取后的恢复、驻防与和议确认",
-              "reason": "1161时为宋军侵取或战区争夺，1163恢复十六州并在交班可运作，取全覆盖。",
-              "source_refs": [
-                "docs/史料通读产物/金/金史/volume-006.battle-adjudications.json#JINSHI-JIN-SONG-RECOVERY-1162-1163",
-                "docs/史料通读产物/金/金史/volume-006.battle-adjudications.json#JINSHI-JIN-SONG-LINGBI-HONG-SUZHOU-1163",
-                "docs/史料通读产物/金/金史/volume-006.battle-adjudications.json#JINSHI-QIDAN-WOA-REBELLION-1161-1162",
-                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json#JIN-SHIZONG-SONG-NORTHWEST-RECOVERY-1161-1163"
-              ]
+              "start_coverage": 0.0,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.0,
+                "end": 0.8
+              },
+              "evidence_refs": [
+                "JIN-SHIZONG-SONG-NORTHWEST-RECOVERY-1161-1163"
+              ],
+              "reason": "恢复陕西西北十六州并留存为常态边疆控制，取完整0.8。"
             },
             {
-              "region_id": "JIN_SOUTHEAST_CHU_SHANG_NODES",
-              "region_name": "东南楚、商节点",
-              "spatial_weight": 0.2,
-              "start_coverage": 0,
-              "end_coverage": 1,
-              "start_equivalent": 0.0,
-              "end_equivalent": 0.2,
-              "control_form": "反攻恢复后的边防节点控制",
-              "reason": "只将明确取得且留戍的楚、商节点列0.2，不把整条淮防或前任继承领土重复计入。",
-              "source_refs": [
-                "docs/史料通读产物/金/金史/volume-006.battle-adjudications.json#JINSHI-JIN-SONG-RECOVERY-1162-1163",
-                "docs/史料通读产物/金/金史/volume-006.battle-adjudications.json#JINSHI-JIN-SONG-LINGBI-HONG-SUZHOU-1163",
-                "docs/史料通读产物/金/金史/volume-006.battle-adjudications.json#JINSHI-QIDAN-WOA-REBELLION-1161-1162",
-                "docs/公共成果/军事/03-军事行动成本和收益登记/jin.json#JIN-SHIZONG-SONG-NORTHWEST-RECOVERY-1161-1163"
-              ]
+              "object_id": "HUAI_FRONTIER",
+              "object_name": "淮河边疆",
+              "spatial_weight": 0.7,
+              "start_coverage": 0.75,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.525,
+                "end": 0.7
+              },
+              "evidence_refs": [
+                "JIN-SHIZONG-SONG-SOUTHEAST-WAR-1163-1165"
+              ],
+              "reason": "宋军反攻后重新稳定东南主边界并以1165和议闭合，恢复至1.00。"
+            },
+            {
+              "object_id": "MONAN_EASTERN_TURKS_SPACE",
+              "object_name": "漠南东突厥空间",
+              "spatial_weight": 1.5,
+              "start_coverage": 0.75,
+              "end_coverage": 1.0,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 1.125,
+                "end": 1.5
+              },
+              "evidence_refs": [
+                "JINSHI-QIDAN-WOA-REBELLION-1161-1162::SHIZONG",
+                "JINSHI-QIDAN-XI-KAOLAO-GUBEIKOU-1162"
+              ],
+              "reason": "镇压契丹叛乱后北方属部与军镇网络恢复完整运行。"
             }
           ],
           "primary_threat_refs": [
@@ -1510,8 +2054,8 @@
           "A120_non_cost_anchor_points": 51.6,
           "A120_positive_result_credit_points": 12.0,
           "A120_score_points": 63.6,
-          "B80_score_points": 49.04,
-          "AB200_score_points": 112.64,
+          "B80_score_points": 58.2,
+          "AB200_score_points": 121.8,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 1.0,
@@ -1533,7 +2077,15 @@
               "start_grade": 3,
               "trajectory_value": 48.0,
               "within_band_deterioration_basis": "中都内部夺控形成EN2，威胁态势整数终档未表达",
-              "within_band_deterioration_penalty": 10
+              "within_band_deterioration_penalty": 10,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "材料门后按人物窗口逐段裁决"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 1.0,
@@ -1555,15 +2107,23 @@
               "start_grade": 3,
               "trajectory_value": 58.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 3,
+                  "to_grade": 4,
+                  "credit": 1.0,
+                  "basis": "材料门后按人物窗口逐段裁决"
+                }
+              ]
             }
           },
           "B80_adjudication": {
-            "B80_points": 49.04,
-            "formal_B1_rate": 45.0,
+            "B80_points": 58.2,
+            "formal_B1_rate": 67.0,
             "formal_B2_rate": 89.0,
             "formal_B4_rate": 82.0,
-            "adjudicated_B1_rate": 45.0,
+            "adjudicated_B1_rate": 67.0,
             "adjudicated_B2_rate": 89.0,
             "adjudicated_B4_rate": 82.0,
             "consistency_basis": "逐区域账是证据结构，不是人物贡献类型；按现有成果事实归一为合同贡献类型。"
@@ -1571,7 +2131,15 @@
           "excluded_founding_unification_refs": [],
           "defense_event_count": 3,
           "parent_cycle_merge_adjudications": [],
-          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS"
+          "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/金.json",
+            "final_B1_rate": 67.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "A_axis_common_context": "海陵南伐失败后的宋军反攻、契丹叛乱及1165年和议共同构成本人接手与收束环境。"
         },
         {
           "ruler_id": "RULER-ROSTER-323631DDD7CB22F6",
@@ -1613,7 +2181,7 @@
               "ceiling_bonus": 0,
               "trajectory_value": 46,
               "axis_points": 18.4,
-              "assessment_scope": "OVERALL_FRONTIER_STRATEGIC_SITUATION",
+              "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
               "reason": "1115年建国时辽仍是覆盖多方向的强大国家机器，金虽连续取胜仍处总体劣势；至1123年辽主力与主要都会体系已被重创，金取得制衡地位，但辽残余与北宋仍存，交班取3档。"
             },
             "A2": {
@@ -1627,16 +2195,18 @@
               "ceiling_bonus": 0,
               "trajectory_value": 46,
               "axis_points": 18.4,
-              "assessment_scope": "OVERALL_FRONTIER_STRATEGIC_SITUATION",
+              "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
               "reason": "建国初防务依赖女真核心和少数夺取节点；至燕京等方向推进后形成可运作的东北—南向边界，但新得区尚未长期整合，交班止3档，与完颜晟接班锚一致。"
             },
             "B1": {
               "grade": "B1-0",
               "band_position": "LOW",
-              "score_rate": 0,
+              "score_rate": 0.0,
               "axis_points": 0.0,
               "assessment_scope": "CONTROL_SCALE_AND_INTENSITY",
-              "reason": "本人用于建立政权和统一核心区的控制量已经归第一项；当前没有第一项贡献窗口之外、可另行识别的边疆控制净成果，故B1/B2/B4均不重复计分。"
+              "reason": "规模与控制强度：正式第三项有效率仍为0；新增1.125客观交班快照，解决后任继承边疆存量无来源问题。",
+              "weighted_control_value": 0.0,
+              "raw_net_change": 1.125
             },
             "B2": {
               "grade": "B2-0",
@@ -1657,16 +2227,41 @@
           },
           "AB_score_points": 36.8,
           "b1_control_equivalents": {
-            "start": 0.0,
-            "end": 0.0,
-            "net_change": 0.0,
+            "start": 0,
+            "end": 1.125,
+            "net_change": 1.125,
             "weighted_value": 0.0
           },
           "b1_region_control": {
             "start": {},
-            "end": {}
+            "end": {
+              "MONAN_EASTERN_TURKS_SPACE": 1.125
+            }
           },
-          "b1_region_adjudications": [],
+          "b1_region_adjudications": [
+            {
+              "object_id": "MONAN_EASTERN_TURKS_SPACE",
+              "object_name": "漠南东突厥空间",
+              "spatial_weight": 1.5,
+              "start_coverage": 0.0,
+              "end_coverage": 0.75,
+              "anchors": [
+                "start",
+                "end"
+              ],
+              "counted": true,
+              "control_equivalent": {
+                "start": 0.0,
+                "end": 1.125
+              },
+              "evidence_refs": [
+                "docs/公共成果/军事/01-战役登记/jin-14.json#WAR-POST-338B5CB56AFF7769DE9B",
+                "docs/公共成果/军事/01-战役登记/jin-09.json#WAR-POST-FD76F5AA3B72624B7202",
+                "docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.json#完颜阿骨打"
+              ],
+              "reason": "1123年辽主体已基本瓦解但残余尚未完全终结，漠南主要网络大部进入金方控制，按统一1.5锚取0.75；该形成过程属于创业统一链。"
+            }
+          ],
           "primary_threat_refs": [],
           "primary_control_package_refs": [],
           "control_contribution_type": "INHERITED_ONLY",
@@ -1705,7 +2300,15 @@
               "start_grade": 2,
               "trajectory_value": 36.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 0.0,
+                  "basis": "消费现行语义标签OBJECTIVE_POLITY_STATE_AFTER_FOUNDING_CONTROL_EXCLUSION"
+                }
+              ]
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -1727,7 +2330,15 @@
               "start_grade": 2,
               "trajectory_value": 36.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-              "within_band_deterioration_penalty": 0
+              "within_band_deterioration_penalty": 0,
+              "improvement_step_credits": [
+                {
+                  "from_grade": 2,
+                  "to_grade": 3,
+                  "credit": 0.0,
+                  "basis": "消费现行语义标签OBJECTIVE_POLITY_STATE_AFTER_FOUNDING_CONTROL_EXCLUSION"
+                }
+              ]
             }
           },
           "B80_adjudication": {
@@ -1739,7 +2350,15 @@
             "adjudicated_B2_rate": 0.0,
             "adjudicated_B4_rate": 0.0,
             "consistency_basis": "创业统一控制收益由第一项整链消费，本项无独立控制成果包。"
-          }
+          },
+          "b1_reaudit": {
+            "status": "FINAL_201_OF_201",
+            "decision_status": "REVIEWED",
+            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/金.json",
+            "final_B1_rate": 0.0
+          },
+          "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
+          "b1_cross_item_excluded_weighted_value": 1.125
         }
       ]
     }

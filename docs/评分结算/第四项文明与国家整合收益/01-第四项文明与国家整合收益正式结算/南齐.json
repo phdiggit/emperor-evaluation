@@ -4,18 +4,18 @@
   "collections": {
     "records": {
       "positions": [
-        132,
-        133
+        95,
+        192
       ],
       "records": [
         {
-          "rank": 58,
+          "rank": 91,
           "ruler_id": "RULER-SHADOW-萧道成",
           "ruler_name": "萧道成",
           "polity": "南齐",
           "source_group": "南齐",
-          "status": "FORMAL_ZERO_ADJUSTMENT",
-          "triggered_axis_count": 0,
+          "status": "FORMAL_SIGNED_ADJUSTMENT",
+          "triggered_axis_count": 1,
           "axis_results": [
             {
               "axis": "A",
@@ -37,33 +37,38 @@
             },
             {
               "axis": "C",
-              "disposition": "NO_ELIGIBLE_CIVILIZATION_INCREMENT",
-              "direction": null,
-              "magnitude_grade": null,
-              "band": null,
-              "signed_adjustment": 0,
-              "package_refs": []
+              "disposition": "SIGNED_CIVILIZATION_ADJUSTMENT_READY",
+              "direction": "POSITIVE",
+              "magnitude_grade": "CIV1",
+              "band": "HIGH",
+              "signed_adjustment": 6.0,
+              "package_refs": [
+                "I4PKG-WORK-XIAODAOCHENG-C-01"
+              ]
             }
           ],
-          "fourth_item_signed_adjustment": 0
+          "fourth_item_signed_adjustment": 6.0,
+          "zero_scan_checked": true
         },
         {
-          "rank": 58,
+          "rank": 186,
           "ruler_id": "RULER-SHADOW-萧鸾",
           "ruler_name": "萧鸾",
           "polity": "南齐",
           "source_group": "南齐",
-          "status": "FORMAL_ZERO_ADJUSTMENT",
-          "triggered_axis_count": 0,
+          "status": "FORMAL_SIGNED_ADJUSTMENT",
+          "triggered_axis_count": 1,
           "axis_results": [
             {
               "axis": "A",
-              "disposition": "NO_ELIGIBLE_CIVILIZATION_INCREMENT",
-              "direction": null,
-              "magnitude_grade": null,
-              "band": null,
-              "signed_adjustment": 0,
-              "package_refs": []
+              "disposition": "SIGNED_CIVILIZATION_ADJUSTMENT_READY",
+              "direction": "NEGATIVE",
+              "magnitude_grade": "CIV2",
+              "band": "HIGH",
+              "signed_adjustment": -11.5,
+              "package_refs": [
+                "I4PKG-WORK-XIAOLUAN-A-01"
+              ]
             },
             {
               "axis": "B",
@@ -84,7 +89,92 @@
               "package_refs": []
             }
           ],
-          "fourth_item_signed_adjustment": 0
+          "fourth_item_signed_adjustment": -11.5,
+          "zero_scan_checked": true
+        }
+      ]
+    },
+    "accepted_packages": {
+      "positions": [
+        165,
+        250
+      ],
+      "records": [
+        {
+          "package_code": "I4PKG-WORK-XIAODAOCHENG-C-01",
+          "ruler_id": "RULER-SHADOW-萧道成",
+          "ruler_name": "萧道成",
+          "polity": "南齐",
+          "axis": "C",
+          "direction": "POSITIVE",
+          "net_tendency": "POSITIVE_DOMINANT",
+          "episode_refs": [],
+          "same_chain_support_refs": [],
+          "same_chain_effect": "NONE",
+          "independent_reinforcement_refs": [],
+          "independent_reinforcement_effect": "NONE",
+          "folded_support": [],
+          "inherited_baseline": "宋末大明、泰始以来文坛更偏豪奢、文采与宫廷化。",
+          "contemporary_feasible_frontier": null,
+          "background_trend": null,
+          "attributable_change": "萧道成长期与入南青齐豪族及经史士人交往，并把其重经史、崇古的文化取向带入新政权；南齐前期由宋末大明、泰始的豪奢文风转向‘崇古’，成为连接元嘉经史传统和永明文学的重要过渡。",
+          "relative_change_level": "R1",
+          "relative_change_level_basis": "RULER_LINKED_EARLY_SOUTHERN_QI_CLASSICIST_CULTURAL_SHIFT_WITH_DIFFUSE_ATTRIBUTION",
+          "positive_component_level": null,
+          "negative_component_level": null,
+          "field_coverage": "南齐前期经史、崇古文风和北方青齐学术传统向南方的渗透。",
+          "access_expansion": null,
+          "durability_and_handoff": "南齐前期崇古风气为永明时期儒学与文学发展提供前史。",
+          "cross_scene_replication": null,
+          "attribution_strength": "RULER_PERSONAL_INTELLECTUAL_NETWORK_WITH_BROAD_BACKGROUND_TREND",
+          "counterevidence": {
+            "count": 3,
+            "summary": "这一文风变化由青齐豪族、士人迁徙和时代反拨共同形成，不能独归萧道成；国学直到临终前才下诏筹建且未完成。因此只取CIV1-HIGH，不进R2。"
+          },
+          "hard_negative_gate": "NONE",
+          "knowledge_public_reach": "ELITE_LITERARY_AND_CLASSICAL_CULTURAL_ECOLOGY",
+          "source_coverage": "ADEQUATE",
+          "source_refs": [
+            "https://www.cssn.cn/wx/wx_zggdwx/202604/t20260420_5981138.shtml"
+          ]
+        },
+        {
+          "package_code": "I4PKG-WORK-XIAOLUAN-A-01",
+          "ruler_id": "RULER-SHADOW-萧鸾",
+          "ruler_name": "萧鸾",
+          "polity": "南齐",
+          "axis": "A",
+          "direction": "NEGATIVE",
+          "net_tendency": "NEGATIVE_DOMINANT",
+          "episode_refs": [],
+          "same_chain_support_refs": [],
+          "same_chain_effect": "NONE",
+          "independent_reinforcement_refs": [],
+          "independent_reinforcement_effect": "NONE",
+          "folded_support": [],
+          "inherited_baseline": "高、武、文三帝诸子仍作为宗室群体存续，具有基本人身与家族安全。",
+          "contemporary_feasible_frontier": null,
+          "background_trend": null,
+          "attributable_change": "从控制萧昭文时期起持续清洗高帝、武帝、文帝诸子，先杀年长诸王，临终前又将幸存诸子基本诛尽，形成按宗室血缘身份实施的重复性群体毁灭。",
+          "relative_change_level": "R2",
+          "relative_change_level_basis": "REPEATED_DYNASTIC_PRINCE_KIN_GROUP_DESTRUCTION",
+          "positive_component_level": null,
+          "negative_component_level": null,
+          "field_coverage": "南齐皇族多个支系、诸王及其家庭的持续性血缘政治清洗。",
+          "access_expansion": null,
+          "durability_and_handoff": "被杀宗室不可恢复，皇族结构永久改变。",
+          "cross_scene_replication": null,
+          "attribution_strength": "RULER_DIRECT",
+          "counterevidence": {
+            "count": 2,
+            "summary": "杀戮反复、身份指向明确且不可逆，足以R2-HIGH；但目标仍是非常狭窄的皇族政治群体，并非主要社会领域的广泛毁灭，所以不进R3。"
+          },
+          "hard_negative_gate": "ACTIVE",
+          "knowledge_public_reach": "NOT_APPLICABLE",
+          "source_coverage": "PARTIAL_BUT_SUFFICIENT",
+          "source_refs": [
+            "https://ctext.org/datawiki.pl?if=gb&remap=gb&res=70557"
+          ]
         }
       ]
     }
