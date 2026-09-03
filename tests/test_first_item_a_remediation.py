@@ -51,7 +51,7 @@ def test_first_item_a2_lineage_covers_c_inputs_without_hash_binding() -> None:
     assert len(lineage["aligned_names"]) == 84
     assert lineage["pending_names"] == []
     expected_supplemental = {
-        "刘崇", "孟知祥", "李克用", "杨行密", "钱镠", "马殷", "高季兴", "李德明"
+        "刘崇", "孟知祥", "李克用", "杨行密", "钱镠", "马殷", "高季兴", "李德明", "铁木真"
     }
     assert set(lineage["supplemental_control_window_names"]) == expected_supplemental
     controls = {
@@ -61,6 +61,31 @@ def test_first_item_a2_lineage_covers_c_inputs_without_hash_binding() -> None:
     assert set(controls) == expected_supplemental
     assert controls["刘崇"]["created_net_control_value"] == 0
     assert all(row["source_refs"] for row in controls.values())
+
+
+def test_first_item_a_cofounder_allocations_and_temujin_are_settled() -> None:
+    payload = _load(A_PATH)
+    by_name = {row["ruler_name"]: row for row in payload["records"]}
+    expected = {
+        "李世民": (51.0, 31.0, 82.0),
+        "李渊": (39.0, 17.0, 56.0),
+        "李存勖": (41.6, 2.5, 44.1),
+        "李嗣源": (33.4, 8.2, 41.6),
+        "石勒": (45.4, 20.3, 65.7),
+        "石虎": (35.6, 10.4, 46.0),
+        "蒙哥": (5.4, 3.1, 8.5),
+        "忽必烈": (44.8, 14.3, 59.1),
+        "耶律阿保机": (41.9, 5.3, 47.2),
+        "述律平": (26.3, 4.0, 30.3),
+        "铁木真": (49.6, 28.4, 78.0),
+    }
+    assert {
+        name: (row["A1"]["points"], row["A2"]["points"], row["A_score_points"])
+        for name, row in by_name.items()
+        if name in expected
+    } == expected
+    assert by_name["述律平"]["end_boundary"].startswith("916")
+    assert by_name["铁木真"]["end_boundary"].startswith("1227")
 
 
 def test_formal_settlement_propagates_a_b_c_limitations() -> None:

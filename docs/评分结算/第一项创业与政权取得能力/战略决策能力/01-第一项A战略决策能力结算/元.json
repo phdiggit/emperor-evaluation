@@ -4,16 +4,243 @@
   "collections": {
     "records": {
       "positions": [
-        11,
-        15,
-        48,
-        71,
+        4,
+        12,
+        47,
+        75,
         111,
         159,
         160,
         185
       ],
       "records": [
+        {
+          "ruler_id": "RULER-YUAN-TEMUJI",
+          "ruler_name": "铁木真",
+          "polity": "蒙古帝国（元前身）",
+          "reign_range": "1206-1227",
+          "scope_status": "ELIGIBLE_DYNASTY_FOUNDER",
+          "score_applicable": true,
+          "founder_role": "MONGOL_EMPIRE_PRIMARY_FOUNDER",
+          "difficulty_start_boundary": "父死后家族被部众抛弃，孛儿只斤血缘仅构成微量号召资源",
+          "initial_resource_position": "父死后家族被部众抛弃，孛儿只斤血缘仅构成微量号召资源；1189年前后集团是本人形成",
+          "initial_resource_share_pct": 0.5,
+          "initial_resource_source_refs": [
+            "元朝秘史/卷07@853108#將俺家業破壞了",
+            "元朝秘史/卷07@853108#點視軍馬，有二千六百。",
+            "元史/卷001@2259382#薄中興府，引河水灌之",
+            "元史/卷001@2259382#堤決，水外潰，遂撤圍還"
+          ],
+          "initial_resource_source_status": "SOURCE_ANCHORED_RULE_MAPPED",
+          "initial_resource_class": "R1_PERSONAL_OR_TINY_FOLLOWING",
+          "initial_resource_share_basis": "史源锚用于确认‘父死后家族被部众抛弃，孛儿只斤血缘仅构成微量号召资源’这一事实起点；百分比不是史书原文数字，而是按合同R1_PERSONAL_OR_TINY_FOLLOWING档（仅有个人声望、宗族乡兵、少量亲随或初级军职资源）在同档人物间依可调用资源广度裁为0.5%。",
+          "start_boundary": "1189年前后形成独立汗权并进入蒙古高原统一竞争",
+          "end_boundary": "1227年西夏终局；只纳入元统一主链可直接继承成果",
+          "starting_position": "蒙古高原多竞争集团中的新兴汗权",
+          "A1": {
+            "axis": "A1",
+            "name": "创业战略增益与难度兑现",
+            "starting_resource_share": 0.5,
+            "starting_resource_disadvantage": 99.5,
+            "project_start_resource_share": 34.62,
+            "project_start_resource_disadvantage": 65.38,
+            "contribution_start_field": {
+              "subject_units": 18.0,
+              "other_actors": {
+                "克烈乃蛮等草原强权": 34
+              }
+            },
+            "opponent_pressure": 64.89,
+            "opponent_system_pressure": 72.65,
+            "relative_resource_pressure": 46.77,
+            "major_opponent_count": 4,
+            "major_opponent_systems": [
+              {
+                "opponent_system_ref": "OPP-YUAN-JIN",
+                "opponent_label": "金朝国家机器",
+                "organization_grade": "O5",
+                "organization_rate": 85.0,
+                "source_campaign_refs": [
+                  "CAMPAIGN-YUAN-JIN-1211",
+                  "CAMPAIGN-YUAN-JIN-1212",
+                  "CAMPAIGN-YUAN-JIN-THREE-ARMIES-1213",
+                  "CAMPAIGN-YUAN-JIN-ZHONGDU-1214-1215",
+                  "CAMPAIGN-YUAN-MUKHALI-JIN-1217-1223"
+                ],
+                "scoring_source_refs": [
+                  {
+                    "ref": "CAMPAIGN-YUAN-JIN-1211",
+                    "event_date": {
+                      "start_year": 1211,
+                      "end_year": 1211
+                    }
+                  },
+                  {
+                    "ref": "CAMPAIGN-YUAN-JIN-1212",
+                    "event_date": {
+                      "start_year": 1212,
+                      "end_year": 1212
+                    }
+                  },
+                  {
+                    "ref": "CAMPAIGN-YUAN-JIN-THREE-ARMIES-1213",
+                    "event_date": {
+                      "start_year": 1213,
+                      "end_year": 1213
+                    }
+                  },
+                  {
+                    "ref": "CAMPAIGN-YUAN-JIN-ZHONGDU-1214-1215",
+                    "event_date": {
+                      "start_year": 1214,
+                      "end_year": 1215
+                    }
+                  },
+                  {
+                    "ref": "CAMPAIGN-YUAN-MUKHALI-JIN-1217-1223",
+                    "event_date": {
+                      "start_year": 1217,
+                      "end_year": 1223
+                    }
+                  }
+                ],
+                "context_only_source_refs": [
+                  "CAMPAIGN-YUAN-JIN-1230-1231",
+                  "CAMPAIGN-YUAN-JIN-SANFENG-1232",
+                  "CAMPAIGN-YUAN-JIN-NANJING-1232-1233",
+                  "CAMPAIGN-YUAN-JIN-CAIZHOU-1233-1234"
+                ]
+              },
+              {
+                "opponent_system_ref": "OPP-MONGOL-KERAIT",
+                "opponent_label": "克烈部草原霸权体系",
+                "organization_grade": "O4",
+                "organization_rate": 70.0,
+                "source_campaign_refs": [
+                  "WAR-POST-10D1A36A5BEB714C46C7"
+                ],
+                "scoring_source_refs": [],
+                "context_only_source_refs": []
+              },
+              {
+                "opponent_system_ref": "OPP-MONGOL-NAIMAN",
+                "opponent_label": "乃蛮草原霸权体系",
+                "organization_grade": "O4",
+                "organization_rate": 70.0,
+                "source_campaign_refs": [
+                  "WAR-POST-23B4249A3D4961258484"
+                ],
+                "scoring_source_refs": [],
+                "context_only_source_refs": []
+              },
+              {
+                "opponent_system_ref": "OPP-YUAN-WESTERN-XIA",
+                "opponent_label": "西夏国家机器",
+                "organization_grade": "O4",
+                "organization_rate": 70.0,
+                "source_campaign_refs": [
+                  "CAMPAIGN-YUAN-XIXIA-1226-1227"
+                ],
+                "scoring_source_refs": [
+                  {
+                    "ref": "CAMPAIGN-YUAN-XIXIA-1226-1227",
+                    "event_date": {
+                      "start_year": 1226,
+                      "end_year": 1227
+                    }
+                  }
+                ],
+                "context_only_source_refs": [
+                  "CAMPAIGN-YUAN-XIXIA-1205",
+                  "CAMPAIGN-YUAN-XIXIA-1209"
+                ]
+              }
+            ],
+            "unknown_opponent_campaign_refs": [],
+            "opponent_threat_source_status": "OPPONENT_SYSTEM_O_GRADE_WITH_RELATIVE_RESOURCES",
+            "opponent_threat_routing_basis": "1189至1227窗口内只消费蒙古高原统一，以及元统一主链直接继承的金1211至1223与西夏1227成果；花剌子模、中亚西亚及无持久控制的行动排除。",
+            "competitive_fragmentation": 93.06,
+            "a1_strategic_responsibility_factor": 100.0,
+            "a1_strategic_responsibility_basis": "role_default:MONGOL_EMPIRE_PRIMARY_FOUNDER",
+            "start_difficulty_rate": 75.62,
+            "pure_difficulty_rate": 70.25,
+            "difficulty_rate": 82.65,
+            "terminal_completion_rate": 100.0,
+            "attributed_completion_rate": 100.0,
+            "result_rate": 100.0,
+            "rate": 82.65,
+            "weight": 60,
+            "points": 49.6
+          },
+          "A2": {
+            "axis": "A2",
+            "name": "创业路线效率与稳固",
+            "created_net_control_value": 600.0,
+            "recovered_net_control_value": 0.0,
+            "gross_unification_control_value": 600.0,
+            "effective_unification_control_value": 600.0,
+            "recovered_control_scoring_rate": 50.0,
+            "raw_control_scale_rate": 60.0,
+            "control_scale_score_rate": 77.46,
+            "closure_years": 38.0,
+            "value_weighted_acquisition_years": 29.47,
+            "control_acquisition_efficiency": 20.36,
+            "acquisition_pace_rate": 57.29,
+            "scale_expected_closure_years": 8.35,
+            "closure_pace_rate": 21.98,
+            "time_rate": 43.17,
+            "control_retention_rate": 94.0,
+            "durability_rate": 92.4,
+            "terminal_completion_rate": 100.0,
+            "early_stability_rate": 90.0,
+            "strategic_positive_decisions": [
+              {
+                "event": "完成草原主要竞争集团整合后，以诸王群臣大会、皇帝尊号和统一最高权力完成国家建构",
+                "impact": "DECISIVE",
+                "basis": "锚点覆盖克烈、乃蛮余众归附和1206年大会即位；正向消费仅落在整合后的国家权力建构，不把具体消灭对手的战役方法当作A2奖励。",
+                "source_refs": [
+                  "元史/卷001@2259382#盡降克烈部眾",
+                  "元史/卷001@2259382#明日，餘眾悉降",
+                  "元史/卷001@2259382#建九游白旗，即皇帝位於斡難河之源",
+                  "元史/卷001@2259382#共上尊號曰成吉思皇帝"
+                ],
+                "base_points": 5.0,
+                "position": 1,
+                "position_weight": 1.0,
+                "effective_points": 5.0
+              }
+            ],
+            "objective_result_points": 23.4,
+            "strategic_positive_decision_points": 5.0,
+            "strategic_error_points": 0.0,
+            "strategic_error_events": [],
+            "rate": 70.98,
+            "weight": 40,
+            "points": 28.4
+          },
+          "strategic_error_events": [],
+          "strategic_error_review": {
+            "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
+            "searched_evidence_refs": [
+              "元朝秘史/卷07@853108#將俺家業破壞了",
+              "元朝秘史/卷07@853108#點視軍馬，有二千六百。",
+              "元史/卷001@2259382#薄中興府，引河水灌之",
+              "元史/卷001@2259382#堤決，水外潰，遂撤圍還"
+            ],
+            "no_error_basis": "班朱尼前损失与中兴府决堤撤围均为战役/工程结果，且其后战略主链恢复并闭合；现有证据不能把它们提升为错误的战争发动、方向或控制安排，故仅留C负项。"
+          },
+          "A_score_points": 78.0,
+          "canonical_rank": 5,
+          "responsibility_basis": "保留1189至1206蒙古高原统一60；增加1211至1223对金形成且由后继蒙古至元直接继承的360，以及1227西夏终局180。花剌子模、中亚西亚与无持久控制的行动全部排除。",
+          "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
+          "evidence_status_basis": "A2由铁木真人物窗口区域控制底账三组成果确定性汇总为600，不人工填写结算分。",
+          "evidence_lower_bound": true,
+          "limitations": [
+            "A2由铁木真人物窗口区域控制底账三组成果确定性汇总为600，不人工填写结算分。"
+          ],
+          "unknown_control_scope": null,
+          "source_refs": []
+        },
         {
           "ruler_id": "RULER-YUAN-KUBLAI",
           "ruler_name": "忽必烈",
@@ -69,7 +296,9 @@
                 "organization_rate": 85.0,
                 "source_campaign_refs": [
                   "CAMPAIGN-YUAN-SONG-CONQUEST"
-                ]
+                ],
+                "scoring_source_refs": [],
+                "context_only_source_refs": []
               },
               {
                 "opponent_system_ref": "OPP-MONGOL-ARIQ-BOKE",
@@ -78,7 +307,9 @@
                 "organization_rate": 70.0,
                 "source_campaign_refs": [
                   "WAR-POST-BA3FB02E30A244166851"
-                ]
+                ],
+                "scoring_source_refs": [],
+                "context_only_source_refs": []
               },
               {
                 "opponent_system_ref": "OPP-YUAN-DALI",
@@ -88,7 +319,9 @@
                 "source_campaign_refs": [
                   "CAMPAIGN-YUAN-DALI-1253",
                   "CAMPAIGN-YUAN-DALI-1253-1254"
-                ]
+                ],
+                "scoring_source_refs": [],
+                "context_only_source_refs": []
               }
             ],
             "unknown_opponent_campaign_refs": [],
@@ -110,26 +343,26 @@
           "A2": {
             "axis": "A2",
             "name": "创业路线效率与稳固",
-            "created_net_control_value": 420.0,
+            "created_net_control_value": 388.0,
             "recovered_net_control_value": 0.0,
-            "gross_unification_control_value": 420.0,
-            "effective_unification_control_value": 420.0,
+            "gross_unification_control_value": 388.0,
+            "effective_unification_control_value": 388.0,
             "recovered_control_scoring_rate": 50.0,
-            "raw_control_scale_rate": 42.0,
-            "control_scale_score_rate": 64.81,
+            "raw_control_scale_rate": 38.8,
+            "control_scale_score_rate": 62.29,
             "closure_years": 26.0,
             "value_weighted_acquisition_years": 10.0,
-            "control_acquisition_efficiency": 42.0,
-            "acquisition_pace_rate": 73.81,
-            "scale_expected_closure_years": 6.99,
-            "closure_pace_rate": 26.88,
-            "time_rate": 55.04,
+            "control_acquisition_efficiency": 38.8,
+            "acquisition_pace_rate": 71.79,
+            "scale_expected_closure_years": 6.72,
+            "closure_pace_rate": 25.84,
+            "time_rate": 53.41,
             "control_retention_rate": 93.0,
             "durability_rate": 91.0,
             "terminal_completion_rate": 100.0,
             "early_stability_rate": 88.0,
             "strategic_positive_decisions": [],
-            "objective_result_points": 20.2,
+            "objective_result_points": 19.3,
             "strategic_positive_decision_points": 0.0,
             "strategic_error_points": 5.0,
             "strategic_error_events": [
@@ -148,9 +381,14 @@
                 ]
               }
             ],
-            "rate": 37.96,
+            "rate": 35.75,
             "weight": 40,
-            "points": 15.2
+            "points": 14.3,
+            "formula_points_before_adjudication": 14.3,
+            "settlement_basis": "本轮整改清单给出的共同创业分账终值是正式人物级裁决；生成器保留公式诊断值并硬校验、输出该终值，不以反推未裁决参数制造同分。",
+            "shared_result_group_refs": [
+              "SRG-YUAN-DALI-1253-1254"
+            ]
           },
           "strategic_error_events": [
             {
@@ -182,154 +420,9 @@
               "元史/卷004@2201383#報，請速還。丁"
             ]
           },
-          "A_score_points": 60.0,
-          "canonical_rank": 12,
+          "A_score_points": 59.1,
+          "canonical_rank": 13,
           "responsibility_basis": "个人共享大理80并唯一取得灭宋340；王朝unique只另记340。",
-          "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
-          "evidence_status_basis": "A2控制量沿用当前C区域底账的保守数值下限；本轮没有新增足以解除该下限的区域价值或人物结果证据。",
-          "evidence_lower_bound": true,
-          "limitations": [
-            "A2控制量沿用当前C区域底账的保守数值下限；本轮没有新增足以解除该下限的区域价值或人物结果证据。"
-          ],
-          "unknown_control_scope": null,
-          "source_refs": []
-        },
-        {
-          "ruler_id": "RULER-YUAN-TEMUJI",
-          "ruler_name": "铁木真",
-          "polity": "蒙古帝国（元前身）",
-          "reign_range": "1206-1227",
-          "scope_status": "ELIGIBLE_DYNASTY_FOUNDER",
-          "score_applicable": true,
-          "founder_role": "MONGOL_EMPIRE_PRIMARY_FOUNDER",
-          "difficulty_start_boundary": "父死后家族被部众抛弃，孛儿只斤血缘仅构成微量号召资源",
-          "initial_resource_position": "父死后家族被部众抛弃，孛儿只斤血缘仅构成微量号召资源；1189年前后集团是本人形成",
-          "initial_resource_share_pct": 0.5,
-          "initial_resource_source_refs": [
-            "元朝秘史/卷07@853108#將俺家業破壞了",
-            "元朝秘史/卷07@853108#點視軍馬，有二千六百。",
-            "元史/卷001@2259382#薄中興府，引河水灌之",
-            "元史/卷001@2259382#堤決，水外潰，遂撤圍還"
-          ],
-          "initial_resource_source_status": "SOURCE_ANCHORED_RULE_MAPPED",
-          "initial_resource_class": "R1_PERSONAL_OR_TINY_FOLLOWING",
-          "initial_resource_share_basis": "史源锚用于确认‘父死后家族被部众抛弃，孛儿只斤血缘仅构成微量号召资源’这一事实起点；百分比不是史书原文数字，而是按合同R1_PERSONAL_OR_TINY_FOLLOWING档（仅有个人声望、宗族乡兵、少量亲随或初级军职资源）在同档人物间依可调用资源广度裁为0.5%。",
-          "start_boundary": "1189年前后形成独立汗权并进入蒙古高原统一竞争",
-          "end_boundary": "1206年蒙古诸部统一并建立大蒙古国",
-          "starting_position": "蒙古高原多竞争集团中的新兴汗权",
-          "A1": {
-            "axis": "A1",
-            "name": "创业战略增益与难度兑现",
-            "starting_resource_share": 0.5,
-            "starting_resource_disadvantage": 99.5,
-            "project_start_resource_share": 34.62,
-            "project_start_resource_disadvantage": 65.38,
-            "contribution_start_field": {
-              "subject_units": 18.0,
-              "other_actors": {
-                "克烈乃蛮等草原强权": 34
-              }
-            },
-            "opponent_pressure": 50.78,
-            "opponent_system_pressure": 52.5,
-            "relative_resource_pressure": 46.77,
-            "major_opponent_count": 2,
-            "major_opponent_systems": [
-              {
-                "opponent_system_ref": "OPP-MONGOL-KERAIT",
-                "opponent_label": "克烈部草原霸权体系",
-                "organization_grade": "O4",
-                "organization_rate": 70.0,
-                "source_campaign_refs": [
-                  "WAR-POST-10D1A36A5BEB714C46C7"
-                ]
-              },
-              {
-                "opponent_system_ref": "OPP-MONGOL-NAIMAN",
-                "opponent_label": "乃蛮草原霸权体系",
-                "organization_grade": "O4",
-                "organization_rate": 70.0,
-                "source_campaign_refs": [
-                  "WAR-POST-23B4249A3D4961258484"
-                ]
-              }
-            ],
-            "unknown_opponent_campaign_refs": [],
-            "opponent_threat_source_status": "OPPONENT_SYSTEM_O_GRADE_WITH_RELATIVE_RESOURCES",
-            "opponent_threat_routing_basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。",
-            "competitive_fragmentation": 93.06,
-            "a1_strategic_responsibility_factor": 100.0,
-            "a1_strategic_responsibility_basis": "role_default:MONGOL_EMPIRE_PRIMARY_FOUNDER",
-            "start_difficulty_rate": 75.62,
-            "pure_difficulty_rate": 63.2,
-            "difficulty_rate": 74.35,
-            "terminal_completion_rate": 100.0,
-            "attributed_completion_rate": 100.0,
-            "result_rate": 100.0,
-            "rate": 74.35,
-            "weight": 60,
-            "points": 44.6
-          },
-          "A2": {
-            "axis": "A2",
-            "name": "创业路线效率与稳固",
-            "created_net_control_value": 60.0,
-            "recovered_net_control_value": 0.0,
-            "gross_unification_control_value": 60.0,
-            "effective_unification_control_value": 60.0,
-            "recovered_control_scoring_rate": 50.0,
-            "raw_control_scale_rate": 6.0,
-            "control_scale_score_rate": 24.49,
-            "closure_years": 17.0,
-            "value_weighted_acquisition_years": 8.0,
-            "control_acquisition_efficiency": 7.5,
-            "acquisition_pace_rate": 40.39,
-            "scale_expected_closure_years": 2.64,
-            "closure_pace_rate": 15.54,
-            "time_rate": 30.45,
-            "control_retention_rate": 94.0,
-            "durability_rate": 92.4,
-            "terminal_completion_rate": 100.0,
-            "early_stability_rate": 90.0,
-            "strategic_positive_decisions": [
-              {
-                "event": "完成草原主要竞争集团整合后，以诸王群臣大会、皇帝尊号和统一最高权力完成国家建构",
-                "impact": "DECISIVE",
-                "basis": "锚点覆盖克烈、乃蛮余众归附和1206年大会即位；正向消费仅落在整合后的国家权力建构，不把具体消灭对手的战役方法当作A2奖励。",
-                "source_refs": [
-                  "元史/卷001@2259382#盡降克烈部眾",
-                  "元史/卷001@2259382#明日，餘眾悉降",
-                  "元史/卷001@2259382#建九游白旗，即皇帝位於斡難河之源",
-                  "元史/卷001@2259382#共上尊號曰成吉思皇帝"
-                ],
-                "base_points": 5.0,
-                "position": 1,
-                "position_weight": 1.0,
-                "effective_points": 5.0
-              }
-            ],
-            "objective_result_points": 7.1,
-            "strategic_positive_decision_points": 5.0,
-            "strategic_error_points": 0.0,
-            "strategic_error_events": [],
-            "rate": 30.29,
-            "weight": 40,
-            "points": 12.1
-          },
-          "strategic_error_events": [],
-          "strategic_error_review": {
-            "review_status": "REVIEWED_NO_THRESHOLD_ERROR",
-            "searched_evidence_refs": [
-              "元朝秘史/卷07@853108#將俺家業破壞了",
-              "元朝秘史/卷07@853108#點視軍馬，有二千六百。",
-              "元史/卷001@2259382#薄中興府，引河水灌之",
-              "元史/卷001@2259382#堤決，水外潰，遂撤圍還"
-            ],
-            "no_error_basis": "班朱尼前损失与中兴府决堤撤围均为战役/工程结果，且其后战略主链恢复并闭合；现有证据不能把它们提升为错误的战争发动、方向或控制安排，故仅留C负项。"
-          },
-          "A_score_points": 56.7,
-          "canonical_rank": 16,
-          "responsibility_basis": "只读取1189—1206年蒙古高原政治统一60点校准值；1206年后金、西夏、花剌子模等外部战争全部转入第三项。",
           "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
           "evidence_status_basis": "A2控制量沿用当前C区域底账的保守数值下限；本轮没有新增足以解除该下限的区域价值或人物结果证据。",
           "evidence_lower_bound": true,
@@ -394,7 +487,9 @@
                   "CAMPAIGN-YUAN-JIN-SANFENG-1232",
                   "CAMPAIGN-YUAN-JIN-NANJING-1232-1233",
                   "CAMPAIGN-YUAN-JIN-CAIZHOU-1233-1234"
-                ]
+                ],
+                "scoring_source_refs": [],
+                "context_only_source_refs": []
               }
             ],
             "unknown_opponent_campaign_refs": [],
@@ -453,7 +548,7 @@
             "no_error_basis": "窗口内灭金总方向和多路协同实现终局；没有发现导致统一链重大反复的独立战略误判。"
           },
           "A_score_points": 32.5,
-          "canonical_rank": 49,
+          "canonical_rank": 48,
           "responsibility_basis": "只消费灭金终局新增河东80和河南100；拖雷等前线成果只归各自C。",
           "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
           "evidence_status_basis": "A2控制量沿用当前C区域底账的保守数值下限；本轮没有新增足以解除该下限的区域价值或人物结果证据。",
@@ -517,7 +612,9 @@
                 "organization_rate": 85.0,
                 "source_campaign_refs": [
                   "CAMPAIGN-YUAN-SONG-CONQUEST"
-                ]
+                ],
+                "scoring_source_refs": [],
+                "context_only_source_refs": []
               }
             ],
             "unknown_opponent_campaign_refs": [],
@@ -539,26 +636,26 @@
           "A2": {
             "axis": "A2",
             "name": "创业路线效率与稳固",
-            "created_net_control_value": 80.0,
+            "created_net_control_value": 32.0,
             "recovered_net_control_value": 0.0,
-            "gross_unification_control_value": 80.0,
-            "effective_unification_control_value": 80.0,
+            "gross_unification_control_value": 32.0,
+            "effective_unification_control_value": 32.0,
             "recovered_control_scoring_rate": 50.0,
-            "raw_control_scale_rate": 8.0,
-            "control_scale_score_rate": 28.28,
+            "raw_control_scale_rate": 3.2,
+            "control_scale_score_rate": 17.89,
             "closure_years": 8.0,
             "value_weighted_acquisition_years": 2.0,
-            "control_acquisition_efficiency": 40.0,
-            "acquisition_pace_rate": 72.56,
-            "scale_expected_closure_years": 3.05,
-            "closure_pace_rate": 38.13,
-            "time_rate": 58.79,
+            "control_acquisition_efficiency": 16.0,
+            "acquisition_pace_rate": 52.66,
+            "scale_expected_closure_years": 1.93,
+            "closure_pace_rate": 24.12,
+            "time_rate": 41.24,
             "control_retention_rate": 85.0,
             "durability_rate": 75.8,
             "terminal_completion_rate": 40.0,
             "early_stability_rate": 62.0,
             "strategic_positive_decisions": [],
-            "objective_result_points": 8.5,
+            "objective_result_points": 5.1,
             "strategic_positive_decision_points": 0.0,
             "strategic_error_points": 2.0,
             "strategic_error_events": [
@@ -576,9 +673,14 @@
                 ]
               }
             ],
-            "rate": 16.29,
+            "rate": 7.75,
             "weight": 40,
-            "points": 6.5
+            "points": 3.1,
+            "formula_points_before_adjudication": 3.1,
+            "settlement_basis": "本轮整改清单给出的共同创业分账终值是正式人物级裁决；生成器保留公式诊断值并硬校验、输出该终值，不以反推未裁决参数制造同分。",
+            "shared_result_group_refs": [
+              "SRG-YUAN-DALI-1253-1254"
+            ]
           },
           "strategic_error_events": [
             {
@@ -607,8 +709,8 @@
               "元史/卷003@2189694#帝崩于釣魚山"
             ]
           },
-          "A_score_points": 11.9,
-          "canonical_rank": 72,
+          "A_score_points": 8.5,
+          "canonical_rank": 76,
           "responsibility_basis": "与忽必烈共享大理80项目基线，王朝unique只记一次；四川灭宋目标未闭合。",
           "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
           "evidence_status_basis": "A2控制量沿用当前C区域底账的保守数值下限；本轮没有新增足以解除该下限的区域价值或人物结果证据。",

@@ -46,8 +46,8 @@ def test_each_first_item_subitem_has_person_by_person_basis() -> None:
 
 def test_first_item_summary_uses_current_rank_and_evidence_scopes() -> None:
     text = SUMMARY_PATH.read_text(encoding="utf-8")
-    assert "李世民以215.2居首" in text
-    assert "朱元璋以213.9列第二" in text
+    assert "李世民以204.3列第3" in text
+    assert "朱元璋以216.5列第1" in text
     assert "A、B、C保留100/60/80原始量尺，分别折算为130/40/70计入" in text
     assert "C有6人因创业军事证据缺口采用保守值" in text
     assert "正式总表另有54人标记为证据下限" in text
@@ -82,9 +82,9 @@ def test_first_item_formal_total_uses_a130_b40_c70() -> None:
             ).quantize(Decimal("0.1"), rounding=ROUND_HALF_UP)
         )
     assert [(row["ruler_name"], row["first_item_score_points"]) for row in eligible[:3]] == [
-        ("李世民", 215.2),
-        ("朱元璋", 213.9),
+        ("朱元璋", 216.5),
         ("刘秀", 210.9),
+        ("李世民", 204.3),
     ]
 
 
@@ -117,14 +117,14 @@ def test_first_item_weight_change_is_bounded_across_full_pool() -> None:
         old_ranks[row["ruler_name"]] = current_rank
     assert [row["ruler_name"] for row in old_order[:4]] == [
         "朱元璋",
-        "李世民",
         "刘秀",
+        "李世民",
         "刘邦",
     ]
     assert [row["ruler_name"] for row in eligible[:4]] == [
-        "李世民",
         "朱元璋",
         "刘秀",
+        "李世民",
         "刘邦",
     ]
     assert max(

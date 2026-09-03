@@ -19,6 +19,81 @@
     "durability": "60% control retention + 40% early stability",
     "A2": "clamp(36*control_scale_score*(50%+25%*time_rate+25%*durability)+positive decision points-error points,0,40)"
   },
+  "shared_result_groups": [
+    {
+      "shared_result_group": "SRG-TANG-617-628",
+      "result_label": "唐初共同创业暂未细分控制成果",
+      "objective_control_value": 934.25,
+      "allocation_policy": "r_i / sum(r)",
+      "allocations": [
+        {"ruler_name": "李世民", "strategic_responsibility_weight": 85, "allocated_control_value_exact": "529.4083333333333333333333333", "allocated_control_value": 529.41},
+        {"ruler_name": "李渊", "strategic_responsibility_weight": 65, "allocated_control_value_exact": "404.8416666666666666666666667", "allocated_control_value": 404.84}
+      ],
+      "basis": "现有934.25控制底账尚未进一步拆成个人成果节点；细分完成后由细分结果覆盖本临时共享组。"
+    },
+    {
+      "shared_result_group": "SRG-LATER-TANG-908-923",
+      "result_label": "后唐共同创业暂未细分控制成果",
+      "objective_control_value": 180.0,
+      "allocation_policy": "r_i / sum(r)",
+      "allocations": [
+        {"ruler_name": "李存勖", "strategic_responsibility_weight": 85, "allocated_control_value_exact": "105.5172413793103448275862069", "allocated_control_value": 105.52},
+        {"ruler_name": "李嗣源", "strategic_responsibility_weight": 60, "allocated_control_value_exact": "74.4827586206896551724137931", "allocated_control_value": 74.48}
+      ],
+      "basis": "现有180控制底账尚未进一步拆成个人成果节点。"
+    },
+    {
+      "shared_result_group": "SRG-LATER-ZHAO-FORMER-ZHAO-END",
+      "result_label": "后赵共同完成前赵终局",
+      "objective_control_value": 141.0,
+      "allocation_policy": "r_i / sum(r)",
+      "allocations": [
+        {"ruler_name": "石勒", "strategic_responsibility_weight": 100, "allocated_control_value_exact": "85.45454545454545454545454545", "allocated_control_value": 85.45, "exclusive_control_value": 176.45, "total_person_control_value": 261.9},
+        {"ruler_name": "石虎", "strategic_responsibility_weight": 65, "allocated_control_value_exact": "55.54545454545454545454545455", "allocated_control_value": 55.55, "exclusive_control_value": 73.01, "total_person_control_value": 128.56}
+      ],
+      "basis": "前赵终局141按该组战略责任分配；个人独占成果不进入共享分配。"
+    },
+    {
+      "shared_result_group": "SRG-YUAN-DALI-1253-1254",
+      "result_label": "蒙古至元大理共同成果",
+      "objective_control_value": 80.0,
+      "allocation_policy": "r_i / sum(r)",
+      "allocations": [
+        {"ruler_name": "蒙哥", "strategic_responsibility_weight": 60, "allocated_control_value_exact": "32", "allocated_control_value": 32.0},
+        {"ruler_name": "忽必烈", "strategic_responsibility_weight": 90, "allocated_control_value_exact": "48", "allocated_control_value": 48.0, "exclusive_control_value": 340.0, "total_person_control_value": 388.0}
+      ],
+      "basis": "大理共同成果80按该组战略责任分配；忽必烈后续独占成果340另计。"
+    },
+    {
+      "shared_result_group": "SRG-LIAO-STATE-CREATION-901-916",
+      "result_label": "契丹国家共同创建成果",
+      "objective_control_value": 45.0,
+      "allocation_policy": "r_i / sum(r)",
+      "allocations": [
+        {"ruler_name": "耶律阿保机", "strategic_responsibility_weight": 100, "allocated_control_value_exact": "28.125", "allocated_control_value": 28.13},
+        {"ruler_name": "述律平", "strategic_responsibility_weight": 60, "allocated_control_value_exact": "16.875", "allocated_control_value": 16.88}
+      ],
+      "basis": "只结算901至916契丹国家创建；916年后材料不得倒灌第一项。"
+    }
+  ],
+  "settled_axis_points": {
+    "basis": "本轮整改清单给出的共同创业分账终值是正式人物级裁决；生成器保留公式诊断值并硬校验、输出该终值，不以反推未裁决参数制造同分。",
+    "A1": {
+      "述律平": 26.3
+    },
+    "A2": {
+      "李世民": 31.0,
+      "李渊": 17.0,
+      "李存勖": 2.5,
+      "李嗣源": 8.2,
+      "石勒": 20.3,
+      "石虎": 10.4,
+      "蒙哥": 3.1,
+      "忽必烈": 14.3,
+      "耶律阿保机": 5.3,
+      "述律平": 4.0
+    }
+  },
   "class_values": {
     "strategic_error_points": {
       "MINOR": 1.0,
@@ -339,6 +414,8 @@
       {
         "event": "统一后纵容并追认冤杀郭崇韬，继而族诛朱友谦集团，直接激化军心并引发后唐中央迅速崩解",
         "severity": "CRITICAL",
+        "event_date": {"start_year": 926, "end_year": 926},
+        "post_closure_stability_audit": true,
         "basis": "灭梁后三年内，皇后未经查证杀郭崇韬，李存勖随后追认并扩大清洗，又亲令族诛朱友谦；魏博兵变、李嗣源军势扩大和中央军倒戈紧随发生，属于同一创业路线的稳定审计。",
         "c_nonduplication_basis": "A结算功臣清洗和军政联盟处置；魏博兵变、洛阳崩解等具体军事过程仍由战役账保存。",
         "source_refs": [
@@ -552,19 +629,19 @@
     "李德明": []
   },
   "created_net_control_values": {
-    "李渊": 934.25,
+    "李渊": 404.84,
     "刘邦": 550.25,
     "刘秀": 702.75,
     "王莽": 30.0,
     "高欢": 170.0,
     "司马懿": 30.0,
     "嬴政": 433.12,
-    "李世民": 934.25,
+    "李世民": 529.41,
     "杨坚": 281.75,
     "刘裕": 385.12,
     "司马炎": 311.75,
     "萧衍": 181.12,
-    "石勒": 317.45,
+    "石勒": 261.9,
     "宇文泰": 83.12,
     "曹操": 350.0,
     "拓跋珪": 32.75,
@@ -594,23 +671,23 @@
     "姚兴": 17.63,
     "宇文邕": 301.88,
     "拓跋焘": 70.5,
-    "石虎": 214.01,
+    "石虎": 128.56,
     "苻坚": 468.38,
     "朱温": 225,
-    "李存勖": 180,
-    "李嗣源": 180,
+    "李存勖": 105.52,
+    "李嗣源": 74.48,
     "石敬瑭": 255,
     "王建": 80,
-    "耶律阿保机": 45,
+    "耶律阿保机": 28.13,
     "完颜阿骨打": 100,
     "完颜吴乞买": 225,
     "赵匡胤": 265,
     "赵光义": 60,
     "李元昊": 30,
-    "铁木真": 60,
+    "铁木真": 600.0,
     "窝阔台": 180,
-    "蒙哥": 80,
-    "忽必烈": 420,
+    "蒙哥": 32.0,
+    "忽必烈": 388.0,
     "朱元璋": 957,
     "努尔哈赤": 80,
     "皇太极": 20,
@@ -620,7 +697,7 @@
     "刘龑": 10,
     "郭威": 100,
     "柴荣": 120,
-    "述律平": 85,
+    "述律平": 16.88,
     "耶律大石": 0,
     "赵构": 0,
     "朱聿键": 10,
@@ -693,7 +770,7 @@
     "赵匡胤": 7.0,
     "赵光义": 2.0,
     "李元昊": 5.0,
-    "铁木真": 8.0,
+    "铁木真": 29.47,
     "窝阔台": 3.0,
     "蒙哥": 2.0,
     "忽必烈": 10.0,
@@ -706,7 +783,7 @@
     "刘龑": 3.0,
     "郭威": 1.0,
     "柴荣": 3.0,
-    "述律平": 12.0,
+    "述律平": 8.0,
     "耶律大石": 5.0,
     "赵构": 8.0,
     "朱聿键": 1.0,
@@ -1284,15 +1361,15 @@
     },
     {
       "ruler_name": "述律平",
-      "founder_role": "CO_FOUNDER_AND_SUCCESSION_CLOSER",
+      "founder_role": "CO_FOUNDER",
       "start_boundary": "阿保机建国期首次实际贡献",
-      "end_boundary": "927年摄政主链终止",
+      "end_boundary": "916年契丹国家创建主链闭合",
       "starting_position": "契丹联盟核心共同领导者",
-      "terminal_completion_rate": 0.85,
-      "effective_years": 26.0,
-      "control_retention_rate": 0.96,
-      "early_stability_rate": 0.82,
-      "responsibility_basis": "作为同期共同奠基者共享辽项目85客观基线；不得因摄政身份复制前线C成果。",
+      "terminal_completion_rate": 1.0,
+      "effective_years": 15.0,
+      "control_retention_rate": 0.95,
+      "early_stability_rate": 0.9,
+      "responsibility_basis": "只读取916年前契丹国家创建主链，并从共同建国45控制量按60/(100+60)分得16.88；916年后渤海征服与继承安排不进入第一项。",
       "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
       "difficulty_start_boundary": "部族贵族婚姻与氏族网络可计，但共同建国后形成的最高权力不可倒灌",
       "initial_resource_position": "部族贵族婚姻与氏族网络可计，但共同建国后形成的最高权力不可倒灌",
@@ -1301,11 +1378,11 @@
         "辽史/卷71#太祖淳钦皇后述律氏"
       ],
       "a1_strategic_responsibility_factor": 0.6,
-      "a1_strategic_responsibility_basis": "只结算继承与中枢稳定，不共享辽全部建国完成度",
+      "a1_strategic_responsibility_basis": "契丹国家创建共同奠基责任60%；A1责任不作零和分配",
       "initial_resource_source_status": "SOURCE_ANCHORED_RULE_MAPPED",
       "initial_resource_class": "R2_LOCAL_BASE_OR_SMALL_COMMAND",
       "initial_resource_share_basis": "史源锚用于确认‘部族贵族婚姻与氏族网络可计，但共同建国后形成的最高权力不可倒灌’这一事实起点；百分比不是史书原文数字，而是按合同R2_LOCAL_BASE_OR_SMALL_COMMAND档（已经拥有地方据点、小型成建制部众或受命接收单一地方军政节点）在同档人物间依可调用资源广度裁为8%。",
-      "evidence_status_basis": "A2控制量沿用当前C区域底账的保守数值下限；本轮没有新增足以解除该下限的区域价值或人物结果证据。"
+      "evidence_status_basis": "A2只读取901至916共同建国成果的分账值；916年后材料已排除。"
     },
     {
       "ruler_name": "完颜阿骨打",
@@ -1421,13 +1498,13 @@
       "ruler_name": "铁木真",
       "founder_role": "MONGOL_EMPIRE_PRIMARY_FOUNDER",
       "start_boundary": "1189年前后形成独立汗权并进入蒙古高原统一竞争",
-      "end_boundary": "1206年蒙古诸部统一并建立大蒙古国",
+      "end_boundary": "1227年西夏终局；只纳入元统一主链可直接继承成果",
       "starting_position": "蒙古高原多竞争集团中的新兴汗权",
       "terminal_completion_rate": 1.0,
-      "effective_years": 17.0,
+      "effective_years": 38.0,
       "control_retention_rate": 0.94,
       "early_stability_rate": 0.9,
-      "responsibility_basis": "只读取1189—1206年蒙古高原政治统一60点校准值；1206年后金、西夏、花剌子模等外部战争全部转入第三项。",
+      "responsibility_basis": "保留1189至1206蒙古高原统一60；增加1211至1223对金形成且由后继蒙古至元直接继承的360，以及1227西夏终局180。花剌子模、中亚西亚与无持久控制的行动全部排除。",
       "evidence_status": "CALIBRATED_EVIDENCE_LOWER_BOUND",
       "difficulty_start_boundary": "父死后家族被部众抛弃，孛儿只斤血缘仅构成微量号召资源",
       "initial_resource_position": "父死后家族被部众抛弃，孛儿只斤血缘仅构成微量号召资源；1189年前后集团是本人形成",
@@ -1443,7 +1520,7 @@
       "initial_resource_source_status": "SOURCE_ANCHORED_RULE_MAPPED",
       "initial_resource_class": "R1_PERSONAL_OR_TINY_FOLLOWING",
       "initial_resource_share_basis": "史源锚用于确认‘父死后家族被部众抛弃，孛儿只斤血缘仅构成微量号召资源’这一事实起点；百分比不是史书原文数字，而是按合同R1_PERSONAL_OR_TINY_FOLLOWING档（仅有个人声望、宗族乡兵、少量亲随或初级军职资源）在同档人物间依可调用资源广度裁为0.5%。",
-      "evidence_status_basis": "A2控制量沿用当前C区域底账的保守数值下限；本轮没有新增足以解除该下限的区域价值或人物结果证据。"
+      "evidence_status_basis": "A2由铁木真人物窗口区域控制底账三组成果确定性汇总为600，不人工填写结算分。"
     },
     {
       "ruler_name": "窝阔台",
@@ -3226,17 +3303,16 @@
     {
       "ruler_name": "述律平",
       "eligibility_decision": "ADMIT",
-      "eligibility_basis": "916年建国时参与军谋并亲自组织击破乘虚来袭的室韦，之后又实际主导德光继承；存在独立、可观察的建国与继承闭合贡献。",
+      "eligibility_basis": "916年建国前参与军谋并亲自组织击破乘虚来袭的室韦，属于契丹国家创建主链的独立、可观察共同奠基贡献；916年后继承安排不进入第一项。",
       "polity": "辽（契丹）",
-      "contribution_window": "阿保机建国准备期首次参与最高军谋，至927年完成德光继承闭合",
+      "contribution_window": "阿保机建国准备期首次参与最高军谋，至916年契丹国家创建主链闭合",
       "person_ref": null,
       "name_aliases": [
         "述律月理朵",
         "淳钦皇后"
       ],
       "evidence_refs": [
-        "CHF-ZZTJ-269-KHITAN-STATE-BUILDING-916",
-        "CHF-ZZTJ-275-DEGUANG-KHITAN-SUCCESSION-926"
+        "CHF-ZZTJ-269-KHITAN-STATE-BUILDING-916"
       ]
     },
     {
@@ -3318,9 +3394,9 @@
     {
       "ruler_name": "铁木真",
       "eligibility_decision": "ADMIT",
-      "eligibility_basis": "本人统一克烈、乃蛮等蒙古高原主要竞争极，并于1206年建立大蒙古国；此后的金、西夏和花剌子模外战转入第三项。",
+      "eligibility_basis": "本人统一蒙古高原主要竞争极并建立大蒙古国；1211至1223对金与1227西夏终局中由后继蒙古至元直接继承的成果继续属于尚未闭合的元统一前置主链，花剌子模及其他帝国扩张排除。",
       "polity": "蒙古帝国（元前身）",
-      "contribution_window": "1189年前后形成独立集团至1206年蒙古国家形成",
+      "contribution_window": "1189年前后形成独立集团至1227年西夏终局；仅限元统一主链直接继承成果",
       "person_ref": "MIL-PER-BA28C6F26A53F67D",
       "name_aliases": [
         "成吉思汗",
@@ -5664,18 +5740,7 @@
       }
     ],
     "柴荣": [],
-    "述律平": [
-      {
-        "event": "在阿保机死后主导继承与中枢权力重组，拥立耶律德光并掌决国事",
-        "impact": "MAJOR",
-        "basis": "编年可定位述律平操纵拥立德光并掌决国事；只奖励继承和权力结构闭合，清洗诸将的负面内容不得被正向表述遮蔽。",
-        "source_refs": [
-          "資治通鑑/卷275@803286#爭執德光轡歡躍",
-          "資治通鑑/卷275@803286#遂立之為天皇王",
-          "資治通鑑/卷275@803286#國事皆決焉"
-        ]
-      }
-    ],
+    "述律平": [],
     "耶律大石": [
       {
         "event": "脱离已崩解的辽朝中枢后选择西迁，在可敦城重新建立军政根据地并完成独立国家合法性",
@@ -5801,7 +5866,7 @@
       "黄巢"
     ],
     "pending_names": [],
-    "policy": "A2区域控制输入未变；2026-08-24仅新增8名奠基人的C人物结果、败绩与无本人贡献复核，经逐人对照确认不改变A2控制值后重绑完整acquisition配置指纹。",
+    "policy": "A2读取人物窗口区域控制底账；共同创业成果先按阶段、区域或成果节点分账，无法继续切分者才使用shared_result_group按战略责任权重零和分配。2026-09-03新增铁木真1189至1227元统一前置主链控制分组。",
     "supplemental_control_window_names": [
       "刘崇",
       "孟知祥",
@@ -5810,7 +5875,8 @@
       "杨行密",
       "钱镠",
       "马殷",
-      "高季兴"
+      "高季兴",
+      "铁木真"
     ]
   }
 }

@@ -7032,6 +7032,79 @@
         "https://zh.wikisource.org/wiki/宋史紀事本末/卷14"
       ],
       "adjudication_status": "CALIBRATED_C_CONTROL_WINDOW"
+    },
+    {
+      "ruler_name": "铁木真",
+      "window_start": "1189年前后形成独立汗权",
+      "window_end": "1227年西夏终局；仅结算元统一主链直接继承成果",
+      "baseline_control": "1189年前本人尚未形成可计入本项目的独立控制；花剌子模、中亚西亚及无持久控制的行动始终排除",
+      "terminal_control": "蒙古高原统一成果60；截至1223由后继蒙古至元直接继承的河东、河北、山东、幽燕辽东控制360；1227西夏终局的陇右、河西、朔方控制180",
+      "created_net_control_value": 600.0,
+      "recovered_net_control_value": 0,
+      "value_weighted_acquisition_years": 29.47,
+      "control_groups": [
+        {
+          "group_ref": "FIRST-ITEM-TEMUJI-MONGOL-1189-1206",
+          "scope_route": "FIRST_ITEM_UNIFICATION_MAIN_CHAIN",
+          "created_net_control_value": 60.0,
+          "value_weighted_acquisition_years": 8.0,
+          "basis": "保留原1189至1206蒙古高原统一控制底账。",
+          "source_refs": [
+            "WAR-POST-23B4249A3D4961258484",
+            "WAR-POST-10D1A36A5BEB714C46C7"
+          ]
+        },
+        {
+          "group_ref": "FIRST-ITEM-TEMUJI-JIN-1211-1223",
+          "scope_route": "FIRST_ITEM_UNIFICATION_MAIN_CHAIN",
+          "created_net_control_value": 360.0,
+          "value_weighted_acquisition_years": 28.78,
+          "region_control_nodes": [
+            {"region_id": "MR-YOUYAN-LIAODONG", "control_fraction": 1.0, "region_value_weight": 100.0, "weighted_control_value": 100.0, "acquisition_year": 1215},
+            {"region_id": "MR-HEBEI", "control_fraction": 1.0, "region_value_weight": 100.0, "weighted_control_value": 100.0, "acquisition_year": 1217},
+            {"region_id": "MR-HEDONG", "control_fraction": 1.0, "region_value_weight": 80.0, "weighted_control_value": 80.0, "acquisition_year": 1220},
+            {"region_id": "MR-SHANDONG", "control_fraction": 1.0, "region_value_weight": 80.0, "weighted_control_value": 80.0, "acquisition_year": 1220}
+          ],
+          "basis": "只计1211至1223金方向在窗口末仍成立并由后继蒙古至元直接继承的宏区控制；河南与关中终局未在本窗口闭合，不计入。木华黎独立执行可以形成A项目结果，但不转成铁木真C。",
+          "source_refs": [
+            "CAMPAIGN-YUAN-JIN-1211",
+            "CAMPAIGN-YUAN-JIN-1212",
+            "CAMPAIGN-YUAN-JIN-THREE-ARMIES-1213",
+            "CAMPAIGN-YUAN-JIN-ZHONGDU-1214-1215",
+            "CAMPAIGN-YUAN-MUKHALI-JIN-1217-1223"
+          ]
+        },
+        {
+          "group_ref": "FIRST-ITEM-TEMUJI-XIXIA-1227",
+          "scope_route": "FIRST_ITEM_UNIFICATION_MAIN_CHAIN",
+          "created_net_control_value": 180.0,
+          "value_weighted_acquisition_years": 38.0,
+          "region_control_nodes": [
+            {"region_id": "MR-LONGYOU", "control_fraction": 1.0, "region_value_weight": 60.0, "weighted_control_value": 60.0, "acquisition_year": 1227},
+            {"region_id": "MR-HEXI", "control_fraction": 1.0, "region_value_weight": 60.0, "weighted_control_value": 60.0, "acquisition_year": 1227},
+            {"region_id": "MR-SHUOFANG", "control_fraction": 1.0, "region_value_weight": 60.0, "weighted_control_value": 60.0, "acquisition_year": 1227}
+          ],
+          "basis": "1227西夏主投降形成终局控制并由后继蒙古至元国家直接继承。",
+          "source_refs": [
+            "CAMPAIGN-YUAN-XIXIA-1226-1227"
+          ]
+        }
+      ],
+      "excluded_scope_routes": [
+        "KHWAREZM_CAMPAIGN",
+        "CENTRAL_ASIA_WEST_ASIA_EXPANSION",
+        "NON_DURABLE_RAID_OR_DETERRENCE"
+      ],
+      "basis": "600由三组正式区域控制节点求和，29.47由各组控制价值按自1189起的取得年加权生成；不得把该结果人工替换为总分。",
+      "source_refs": [
+        "CAMPAIGN-YUAN-JIN-1211",
+        "CAMPAIGN-YUAN-JIN-1212",
+        "CAMPAIGN-YUAN-JIN-THREE-ARMIES-1213",
+        "CAMPAIGN-YUAN-JIN-ZHONGDU-1214-1215",
+        "CAMPAIGN-YUAN-MUKHALI-JIN-1217-1223",
+        "CAMPAIGN-YUAN-XIXIA-1226-1227"
+      ],
+      "adjudication_status": "CALIBRATED_C_CONTROL_WINDOW"
     }
   ]
 }

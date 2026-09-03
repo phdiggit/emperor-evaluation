@@ -3279,10 +3279,9 @@
     "OPP-TANG-EASTERN-TURKS": {
       "opponent_label": "东突厥汗国战争机器",
       "organization_grade": "O6",
-      "basis": "东突厥在隋末唐初拥有超越各中原集团的草原军事能量，长期扶植、调控并反复攻击统一竞争各方，且曾大军直抵关中，符合持续压制奠基政权的O6。",
+      "basis": "隋末至唐初持续支配北方政治军事格局；李唐早期对其妥协、纳贡并借其外部力量约束北方局势，东突厥多次南下，626年直接威胁长安，符合持续压制奠基政权的O6。629至630年灭东突厥属于创业窗口之后的军事成果，不用于本项定档。",
       "source_campaign_refs": [
-        "WAR-LEAD-TANG-TURK-624/625",
-        "CAMPAIGN-TANG-EASTERN-TURKS-629-630"
+        "WAR-LEAD-TANG-TURK-624/625"
       ]
     },
     "OPP-TANG-TUYUHUN": {
@@ -4302,10 +4301,36 @@
     "铁木真": {
       "system_refs": [
         "OPP-MONGOL-KERAIT",
-        "OPP-MONGOL-NAIMAN"
+        "OPP-MONGOL-NAIMAN",
+        "OPP-YUAN-JIN",
+        "OPP-YUAN-WESTERN-XIA"
       ],
+      "scoring_source_refs_by_system": {
+        "OPP-YUAN-JIN": [
+          {"ref": "CAMPAIGN-YUAN-JIN-1211", "event_date": {"start_year": 1211, "end_year": 1211}},
+          {"ref": "CAMPAIGN-YUAN-JIN-1212", "event_date": {"start_year": 1212, "end_year": 1212}},
+          {"ref": "CAMPAIGN-YUAN-JIN-THREE-ARMIES-1213", "event_date": {"start_year": 1213, "end_year": 1213}},
+          {"ref": "CAMPAIGN-YUAN-JIN-ZHONGDU-1214-1215", "event_date": {"start_year": 1214, "end_year": 1215}},
+          {"ref": "CAMPAIGN-YUAN-MUKHALI-JIN-1217-1223", "event_date": {"start_year": 1217, "end_year": 1223}}
+        ],
+        "OPP-YUAN-WESTERN-XIA": [
+          {"ref": "CAMPAIGN-YUAN-XIXIA-1226-1227", "event_date": {"start_year": 1226, "end_year": 1227}}
+        ]
+      },
+      "context_only_source_refs_by_system": {
+        "OPP-YUAN-WESTERN-XIA": [
+          "CAMPAIGN-YUAN-XIXIA-1205",
+          "CAMPAIGN-YUAN-XIXIA-1209"
+        ],
+        "OPP-YUAN-JIN": [
+          "CAMPAIGN-YUAN-JIN-1230-1231",
+          "CAMPAIGN-YUAN-JIN-SANFENG-1232",
+          "CAMPAIGN-YUAN-JIN-NANJING-1232-1233",
+          "CAMPAIGN-YUAN-JIN-CAIZHOU-1233-1234"
+        ]
+      },
       "unknown_campaign_refs": [],
-      "basis": "本人统一贡献窗口内实际面对的独立战争机器；同体系多阶段、复起、残余终局只消费一次。"
+      "basis": "1189至1227窗口内只消费蒙古高原统一，以及元统一主链直接继承的金1211至1223与西夏1227成果；花剌子模、中亚西亚及无持久控制的行动排除。"
     },
     "陈霸先": {
       "system_refs": [
@@ -4449,11 +4474,10 @@
     },
     "述律平": {
       "system_refs": [
-        "OPP-A-SHULUPING-KHITAN",
-        "OPP-A-SHULUPING-BOHAI"
+        "OPP-A-SHULUPING-KHITAN"
       ],
       "unknown_campaign_refs": [],
-      "basis": "本人贡献窗口内实际面对的独立战争机器；国家母体按实际投入裁档，同体系多阶段只消费一次。"
+      "basis": "只读取916年前契丹创建项目环境；渤海及其他916年后材料不进入第一项。"
     },
     "郭威": {
       "system_refs": [

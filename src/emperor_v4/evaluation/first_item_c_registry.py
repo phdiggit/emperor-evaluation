@@ -6,6 +6,8 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from emperor_v4.evaluation.first_item_a_registry import (
+    _validate_scoring_ref_date,
+    _window_years,
     load_qin_qing_first_item_roster,
 )
 from emperor_v4.evaluation.formal_json_store import load_json, load_ruler_polities, write_json
@@ -128,6 +130,52 @@ def validate_first_item_c_territorial_control(
             or float(row.get("value_weighted_acquisition_years") or 0.0) <= 0
         ):
             raise ValueError(f"第一项A2补充控制窗口不闭合: {ruler_name}")
+        control_groups = list(row.get("control_groups") or ())
+        if control_groups:
+            group_refs = [str(group.get("group_ref") or "") for group in control_groups]
+            if not all(group_refs) or len(group_refs) != len(set(group_refs)):
+                raise ValueError(f"第一项A2控制分组重复或为空: {ruler_name}")
+            created_total = sum(
+                float(group.get("created_net_control_value") or 0.0)
+                for group in control_groups
+            )
+            weighted_years = sum(
+                float(group.get("created_net_control_value") or 0.0)
+                * float(group.get("value_weighted_acquisition_years") or 0.0)
+                for group in control_groups
+            ) / created_total
+            if (
+                abs(created_total - float(row["created_net_control_value"])) > 0.01
+                or abs(weighted_years - float(row["value_weighted_acquisition_years"])) > 0.01
+            ):
+                raise ValueError(f"第一项A2控制分组未闭合到总量或加权时间: {ruler_name}")
+            seen_regions: set[str] = set()
+            for group in control_groups:
+                if (
+                    group.get("scope_route") != "FIRST_ITEM_UNIFICATION_MAIN_CHAIN"
+                    or not group.get("source_refs")
+                    or not str(group.get("basis") or "").strip()
+                ):
+                    raise ValueError(f"第一项A2控制分组范围或证据无效: {ruler_name}/{group.get('group_ref')}")
+                nodes = list(group.get("region_control_nodes") or ())
+                if nodes:
+                    node_total = 0.0
+                    for node in nodes:
+                        region_id = str(node.get("region_id") or "")
+                        fraction = float(node.get("control_fraction") or 0.0)
+                        weight = float(node.get("region_value_weight") or 0.0)
+                        value = float(node.get("weighted_control_value") or 0.0)
+                        if (
+                            region_id not in catalog
+                            or region_id in seen_regions
+                            or not 0 < fraction <= 1
+                            or abs(fraction * weight - value) > 0.01
+                        ):
+                            raise ValueError(f"第一项A2控制节点无效: {ruler_name}/{region_id}")
+                        seen_regions.add(region_id)
+                        node_total += value
+                    if abs(node_total - float(group["created_net_control_value"])) > 0.01:
+                        raise ValueError(f"第一项A2控制节点未闭合到分组: {ruler_name}/{group.get('group_ref')}")
 
     pending_portfolio_refs: list[str] = []
     missing_profile_refs: dict[str, list[str]] = {}
@@ -1093,6 +1141,26 @@ def build_first_item_c_registry(
         requested_adverse = [
             str(value) for value in supplement.get("adverse_campaign_refs") or ()
         ]
+        scoring_ref_event_dates = dict(
+            supplement.get("scoring_ref_event_dates") or {}
+        )
+        if scoring_ref_event_dates:
+            scoring_window = _window_years(
+                next(
+                    row
+                    for row in scope_inputs.get("records") or ()
+                    if str(row.get("ruler_name")) == ruler_name
+                )
+            )
+            requested_refs = set(requested_positive) | set(requested_adverse)
+            if set(scoring_ref_event_dates) != requested_refs:
+                raise ValueError(f"第一项C结构化事件时间未覆盖全部计分ref: {ruler_name}")
+            for campaign_ref, event_date in scoring_ref_event_dates.items():
+                _validate_scoring_ref_date(
+                    ruler_name=ruler_name,
+                    scoring_ref={"ref": campaign_ref, "event_date": event_date},
+                    window_years=scoring_window,
+                )
         if len(requested_positive) != len(set(requested_positive)) or len(
             requested_adverse
         ) != len(set(requested_adverse)):
@@ -1129,6 +1197,11 @@ def build_first_item_c_registry(
                     "result_value": result_value,
                     "basis": str(source.get("basis") or supplement.get("basis") or ""),
                     "source_refs": list(source.get("source_refs") or ()),
+                    **(
+                        {"event_date": scoring_ref_event_dates[campaign_ref]}
+                        if campaign_ref in scoring_ref_event_dates
+                        else {}
+                    ),
                 }
                 metrics[ruler_name]["window_refs"].add(
                     f"TALENT-SUPPLEMENT:{ruler_name}"
@@ -1148,6 +1221,11 @@ def build_first_item_c_registry(
                     "quality_index": round(quality, 2),
                     "basis": str(source.get("basis") or supplement.get("basis") or ""),
                     "source_refs": list(source.get("source_refs") or ()),
+                    **(
+                        {"event_date": scoring_ref_event_dates[campaign_ref]}
+                        if campaign_ref in scoring_ref_event_dates
+                        else {}
+                    ),
                 }
     for supplement in window_config.get("public_person_result_supplements") or ():
         ruler_name = str(supplement.get("ruler_name") or "")

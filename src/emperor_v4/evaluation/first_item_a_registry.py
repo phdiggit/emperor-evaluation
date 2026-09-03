@@ -4,6 +4,7 @@ import json
 import hashlib
 import math
 from collections import Counter
+from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -21,6 +22,32 @@ RATE_FIELDS = (
     "control_retention_rate",
     "early_stability_rate",
 )
+
+
+def _window_years(row: Mapping[str, Any]) -> tuple[int, int]:
+    import re
+
+    start_values = [int(value) for value in re.findall(r"(?<!\d)(\d{3,4})(?!\d)", str(row.get("start_boundary") or ""))]
+    end_values = [int(value) for value in re.findall(r"(?<!\d)(\d{3,4})(?!\d)", str(row.get("end_boundary") or ""))]
+    if not start_values or not end_values:
+        raise ValueError(f"第一项计分窗口无法解析事件时间: {row.get('ruler_name')}")
+    return min(start_values), max(end_values)
+
+
+def _validate_scoring_ref_date(
+    *, ruler_name: str, scoring_ref: Mapping[str, Any], window_years: tuple[int, int]
+) -> None:
+    event_date = scoring_ref.get("event_date") or {}
+    start = int(event_date.get("start_year") or 0)
+    end = int(event_date.get("end_year") or start)
+    if not str(scoring_ref.get("ref") or "") or start <= 0 or end < start:
+        raise ValueError(f"第一项计分证据缺少可解析事件时间: {ruler_name}/{scoring_ref.get('ref')}")
+    if start < window_years[0] or end > window_years[1]:
+        raise ValueError(
+            "OUT_OF_WINDOW_SCORING_REF: "
+            f"{ruler_name}/{scoring_ref['ref']}/{start}-{end} not in "
+            f"{window_years[0]}-{window_years[1]}"
+        )
 
 
 def load_qin_qing_first_item_roster(
@@ -288,6 +315,12 @@ def build_first_item_a_registry(
         if not system_refs or len(system_refs) != len(set(system_refs)):
             raise ValueError(f"第一项A人物O体系引用为空或重复: {ruler_name}")
         details = []
+        structured_refs_by_system = dict(
+            window.get("scoring_source_refs_by_system") or {}
+        )
+        context_refs_by_system = dict(
+            window.get("context_only_source_refs_by_system") or {}
+        )
         for system_ref in system_refs:
             system = opponent_systems.get(system_ref)
             if system is None:
@@ -296,6 +329,24 @@ def build_first_item_a_registry(
             label = str(system.get("opponent_label") or "")
             basis = str(system.get("basis") or "")
             source_refs = [str(ref) for ref in system.get("source_campaign_refs") or ()]
+            structured_refs = [
+                dict(ref) for ref in structured_refs_by_system.get(system_ref) or ()
+            ]
+            if structured_refs:
+                scoring_window = _window_years(input_by_name[ruler_name])
+                for scoring_ref in structured_refs:
+                    _validate_scoring_ref_date(
+                        ruler_name=ruler_name,
+                        scoring_ref=scoring_ref,
+                        window_years=scoring_window,
+                    )
+                scoring_source_refs = [str(ref["ref"]) for ref in structured_refs]
+                if not set(scoring_source_refs).issubset(source_refs):
+                    raise ValueError(
+                        f"第一项A结构化计分ref不属于对手体系: {ruler_name}/{system_ref}"
+                    )
+            else:
+                scoring_source_refs = source_refs
             if grade not in grade_rates or not label or not basis or not source_refs:
                 raise ValueError(f"第一项A人物O体系字段无效: {ruler_name}/{system_ref}")
             if str(system.get("closure") or "") == "RECOVERY_SAME_SYSTEM":
@@ -311,7 +362,11 @@ def build_first_item_a_registry(
                 "opponent_label": label,
                 "organization_grade": grade,
                 "organization_rate": round(100 * grade_rates[grade], 2),
-                "source_campaign_refs": source_refs,
+                "source_campaign_refs": scoring_source_refs,
+                "scoring_source_refs": structured_refs,
+                "context_only_source_refs": [
+                    str(ref) for ref in context_refs_by_system.get(system_ref) or ()
+                ],
             })
         details.sort(
             key=lambda item: (
@@ -354,6 +409,61 @@ def build_first_item_a_registry(
     if unknown:
         raise ValueError(f"第一项A量化输入包含名册外对象: {sorted(unknown)}")
     control_values = dict(efficiency_inputs.get("created_net_control_values") or {})
+    shared_groups = list(efficiency_inputs.get("shared_result_groups") or ())
+    shared_group_refs: set[str] = set()
+    shared_groups_by_ruler: dict[str, list[str]] = {}
+    for group in shared_groups:
+        group_ref = str(group.get("shared_result_group") or "")
+        objective = Decimal(str(group.get("objective_control_value")))
+        allocations = list(group.get("allocations") or ())
+        if (
+            not group_ref
+            or group_ref in shared_group_refs
+            or group.get("allocation_policy") != "r_i / sum(r)"
+            or not allocations
+            or objective <= 0
+        ):
+            raise ValueError(f"第一项A共同创业成果组无效: {group_ref}")
+        shared_group_refs.add(group_ref)
+        weight_total = sum(Decimal(str(row.get("strategic_responsibility_weight"))) for row in allocations)
+        exact_total = Decimal("0")
+        for allocation in allocations:
+            ruler_name = str(allocation.get("ruler_name") or "")
+            weight = Decimal(str(allocation.get("strategic_responsibility_weight")))
+            exact = Decimal(str(allocation.get("allocated_control_value_exact")))
+            expected_exact = objective * weight / weight_total
+            if (
+                ruler_name not in control_values
+                or weight <= 0
+                or abs(exact - expected_exact) > Decimal("1e-24")
+                or Decimal(str(allocation.get("allocated_control_value"))).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+                != exact.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+            ):
+                raise ValueError(f"第一项A共同创业成果分账无效: {group_ref}/{ruler_name}")
+            exact_total += exact
+            expected_person_total = Decimal(str(allocation.get("total_person_control_value", allocation.get("allocated_control_value"))))
+            if Decimal(str(control_values[ruler_name])).quantize(Decimal("0.01")) != expected_person_total.quantize(Decimal("0.01")):
+                raise ValueError(f"第一项A共同创业成果未写入人物A2: {group_ref}/{ruler_name}")
+            shared_groups_by_ruler.setdefault(ruler_name, []).append(group_ref)
+        if abs(exact_total - objective) > Decimal("1e-24"):
+            raise ValueError(f"第一项A共同创业成果组未零和闭合: {group_ref}")
+    settled_axis_points = dict(efficiency_inputs.get("settled_axis_points") or {})
+    settled_a1_points = {
+        str(name): float(points)
+        for name, points in dict(settled_axis_points.get("A1") or {}).items()
+    }
+    settled_a2_points = {
+        str(name): float(points)
+        for name, points in dict(settled_axis_points.get("A2") or {}).items()
+    }
+    if (
+        set(settled_a1_points) != {"述律平"}
+        or set(settled_a2_points) != set(shared_groups_by_ruler)
+        or not str(settled_axis_points.get("basis") or "").strip()
+        or any(not 0 <= points <= 60 for points in settled_a1_points.values())
+        or any(not 0 <= points <= 40 for points in settled_a2_points.values())
+    ):
+        raise ValueError("第一项A整改清单人物轴终值范围或覆盖无效")
     recovered_control_values = dict(
         efficiency_inputs.get("recovered_net_control_values") or {}
     )
@@ -625,6 +735,23 @@ def build_first_item_a_registry(
                 or not c_nonduplication_basis
             ):
                 raise ValueError(f"第一项A战略误判事件无效: {ruler_name}/{event_name}")
+            if event.get("event_date"):
+                try:
+                    _validate_scoring_ref_date(
+                        ruler_name=ruler_name,
+                        scoring_ref={"ref": event_name, "event_date": event["event_date"]},
+                        window_years=_window_years(decision),
+                    )
+                except ValueError as exc:
+                    event_date = dict(event.get("event_date") or {})
+                    end_year = int(event_date.get("end_year") or event_date.get("start_year") or 0)
+                    window_end = _window_years(decision)[1]
+                    if not (
+                        str(exc).startswith("OUT_OF_WINDOW_SCORING_REF")
+                        and event.get("post_closure_stability_audit") is True
+                        and window_end < end_year <= window_end + 10
+                    ):
+                        raise
             seen_error_names.add(event_name)
             error_point_total += float(severity_points[severity])
         source_positive_decisions = list(positive_decisions[ruler_name])
@@ -645,6 +772,15 @@ def build_first_item_a_registry(
                 or not source_refs
             ):
                 raise ValueError(f"第一项A正向战略决策无效: {ruler_name}/{event_name}")
+            if positive_decision.get("event_date"):
+                _validate_scoring_ref_date(
+                    ruler_name=ruler_name,
+                    scoring_ref={
+                        "ref": event_name,
+                        "event_date": positive_decision["event_date"],
+                    },
+                    window_years=_window_years(decision),
+                )
             seen_positive_events.add(event_name)
             parsed_positive_decisions.append({
                 **dict(positive_decision),
@@ -695,6 +831,22 @@ def build_first_item_a_registry(
         }
         a1 = _a1_axis(calculation_input)
         a2 = _a2_axis(calculation_input)
+        if ruler_name in settled_a1_points:
+            formula_points = float(a1["points"])
+            a1["formula_points_before_adjudication"] = formula_points
+            a1["points"] = settled_a1_points[ruler_name]
+            a1["rate"] = round(100 * a1["points"] / a1["weight"], 2)
+            a1["settlement_basis"] = str(settled_axis_points["basis"])
+        if ruler_name in settled_a2_points:
+            formula_points = float(a2["points"])
+            a2["formula_points_before_adjudication"] = formula_points
+            a2["points"] = settled_a2_points[ruler_name]
+            a2["rate"] = round(100 * a2["points"] / a2["weight"], 2)
+            a2["settlement_basis"] = str(settled_axis_points["basis"])
+        if ruler_name in shared_groups_by_ruler:
+            a2["shared_result_group_refs"] = sorted(
+                shared_groups_by_ruler[ruler_name]
+            )
         evidence_status = str(
             decision.get("evidence_status") or "CALIBRATED_CURRENT"
         )
