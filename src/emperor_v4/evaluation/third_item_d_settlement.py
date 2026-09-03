@@ -3,6 +3,7 @@ from __future__ import annotations
 from collections import Counter
 import json
 from pathlib import Path
+import re
 from typing import Any, Mapping
 
 from emperor_v4.evaluation.formal_json_store import load_json
@@ -92,22 +93,158 @@ def _chain_name(chain: Mapping[str, Any]) -> str:
     return str(chain.get("chain_name") or chain.get("name") or chain["chain_id"])
 
 
+_CHALLENGE_LABELS = {
+    "O1_LOCAL_PRESSURE": "局部武装或地方压力",
+    "O2_BORDER_RAIDING": "可持续袭扰边境或争夺有限区域的压力",
+    "O3_MAJOR_DIRECTION_THREAT": "一个主要战略方向的持续压力",
+    "O4_MULTI_DIRECTION_OR_CORE_REGION_THREAT": "多方向或核心区域威胁",
+    "O5_CORE_DEFENSE_SYSTEM_THREAT": "迫使核心防务体系系统响应的威胁",
+    "O6_EXISTENTIAL_MILITARY_THREAT": "威胁政权军事生存的压力",
+}
+
+_RESULT_LABELS = {
+    "E0": "未形成净安全改善",
+    "E1": "止损、击退或恢复原线",
+    "E2": "稳定或恢复一个区域性方向",
+    "E3_MAJOR_STAGE": "取得重大阶段成果，但战略目标未闭合",
+    "E3_REGIONAL_TERMINAL": "终结区域对手或使单一区域方向永久稳定",
+    "E4_MAJOR_STRATEGIC": "终结主要威胁或长期重构主要国防方向",
+    "E5A": "终结或不可逆降级全国防务级外部体系",
+    "E5B": "长期重构多个重要方向的战略体系",
+    "EN1": "局部方向净恶化",
+    "EN2": "一个或多个主要方向耐久恶化",
+    "EN3": "全国或多数核心防务体系崩溃",
+    "NOT_CLOSED": "终点材料不足，未作结果裁决",
+    "NOT_APPLICABLE": "仅作成本或过程证据",
+}
+
+_CHANGE_LABELS = {
+    "OPPONENT_SYSTEM_TERMINATED": "对手体系终结",
+    "LARGE_STRATEGIC_SYSTEM_RECONSTRUCTED": "大型战略体系重构",
+    "MAJOR_THREAT_TERMINATED_OR_DIRECTION_RESTRUCTURED": "主要威胁终结或方向重构",
+    "REGIONAL_THREAT_TERMINATED": "区域威胁终结",
+    "REGIONAL_CONTROL_STABILIZED": "区域控制稳定",
+    "THREAT_CONTAINED_WITHOUT_DURABLE_CLOSURE": "威胁受遏制，但未形成耐久闭合",
+    "MAJOR_STAGE_GAIN_TARGET_NOT_CLOSED": "取得重大阶段成果，但目标未闭合",
+    "NOT_CLOSED": "材料未闭合",
+    "NOT_CLOSED_IN_CURRENT_SOURCE": "现有材料未闭合",
+}
+
+_DURABILITY_LABELS = {
+    "STRUCTURAL_OR_LONG": "结构性或长期",
+    "LIMITED_OR_NOT_CLOSED": "有限或尚未闭合",
+    "NOT_CLOSED": "尚未闭合",
+}
+
+
+def _label(value: object, labels: Mapping[str, str]) -> str:
+    text = str(value)
+    return labels.get(text, _reader_text(text))
+
+
 def _chain_result(chain: Mapping[str, Any]) -> str:
-    return str(
+    raw = (
         chain.get("security_result_grade")
         or chain.get("achievement_grade_detail")
         or chain.get("achievement_grade")
         or chain.get("result_type")
         or "仅作成本或过程证据"
     )
+    return _label(raw, _RESULT_LABELS)
 
 
 def _chain_basis(chain: Mapping[str, Any]) -> str:
-    return _reader_text(
+    basis = (
         chain.get("security_change_basis")
         or chain.get("basis")
         or chain.get("terminal_result_profile")
     )
+    if not isinstance(basis, Mapping):
+        return _reader_text(basis)
+
+    parts: list[str] = []
+    threat_change = basis.get("threat_change")
+    if threat_change:
+        parts.append(f"安全变化：{_label(threat_change, _CHANGE_LABELS)}")
+    control_change = basis.get("control_change")
+    if control_change and control_change != "NOT_CLOSED_IN_CURRENT_SOURCE":
+        parts.append(f"控制变化：{_label(control_change, _CHANGE_LABELS)}")
+    material_return = basis.get("material_return")
+    if material_return and material_return != "NOT_CLOSED_IN_CURRENT_SOURCE":
+        parts.append(f"资源回收：{_label(material_return, _CHANGE_LABELS)}")
+    durability = basis.get("durability")
+    if durability:
+        parts.append(f"持续性：{_label(durability, _DURABILITY_LABELS)}")
+    aggregation = basis.get("aggregation_basis")
+    standard_aggregation = "同一对手、同一战略目标和连续授权合链；终点成果只消费一次。"
+    if aggregation and str(aggregation) != standard_aggregation:
+        parts.append(f"归并依据：{_reader_text(aggregation)}")
+    return "；".join(parts) if parts else "未另列链级结果说明。"
+
+
+def _compact_challenge_grade(chain: Mapping[str, Any]) -> str:
+    value = str(chain.get("effective_opponent_challenge_grade") or "")
+    match = re.match(r"(O[1-6])(?:_|$)", value)
+    return match.group(1) if match else "不适用"
+
+
+def _chain_terminal_summary(chain: Mapping[str, Any]) -> str:
+    raw = str(
+        chain.get("headline")
+        or chain.get("final_control_result")
+        or (chain.get("chain_security_profile") or {}).get("terminal_security_state")
+        or ""
+    )
+    axes = re.search(r"终点\s*(SB\d+/SN\d+/BCP\d+/BCN\d+)", raw)
+    if axes:
+        summary = raw[axes.end():].lstrip("；;。 ")
+        return f"终点{axes.group(1)}" + (f"；{summary}" if summary else "。")
+    return _reader_text(raw) if raw else "终点四轴未单列。"
+
+
+def _chain_evidence_line(chain: Mapping[str, Any]) -> str:
+    grade = str(
+        chain.get("achievement_grade")
+        or chain.get("security_result_grade")
+        or chain.get("achievement_grade_detail")
+        or "NOT_APPLICABLE"
+    )
+    position = {
+        "LOW": "低位",
+        "MID": "中位",
+        "HIGH": "高位",
+        "HIGHEST": "最高位",
+        "NOT_APPLICABLE": "不适用",
+    }.get(str(chain.get("within_grade_position") or "NOT_APPLICABLE"), "不适用")
+    return (
+        f"**{_chain_name(chain)}**：{_compact_challenge_grade(chain)}；"
+        f"{grade}·{position}。{_chain_terminal_summary(chain)}"
+    )
+
+
+def _cost_structure_lines(profile: Mapping[str, Any]) -> list[str]:
+    signature = (profile.get("cost_summary") or {}).get("comparative_cost_signature")
+    if not isinstance(signature, Mapping):
+        admission = (
+            profile.get("single_admission_fact")
+            or profile.get("admission_fact")
+            or profile.get("basis")
+            or "正式JSON未另列更细的成本拆分。"
+        )
+        return [f"  - **成本准入**：{_reader_text(admission)}"]
+    labels = {
+        "single_chain_highest_structure": "单链峰值与毁损",
+        "full_reign_cumulative_force_loss": "全期累计毁损",
+        "full_reign_mobilization_and_repetition": "动员与反复投入",
+        "same_or_continuous_chain_post_disaster_remobilization": "灾后再动员",
+        "ruler_personal_responsibility": "本人责任",
+        "evidence_coverage": "证据覆盖",
+    }
+    return [
+        f"  - **{label}**：{_reader_text(signature[key])}"
+        for key, label in labels.items()
+        if signature.get(key)
+    ]
 
 
 def _ordinary_summary(value: object) -> str:
@@ -224,19 +361,13 @@ def render_third_item_d_markdown(payload: Mapping[str, Any]) -> str:
         if not external:
             lines.append("  - 无合格独立链。")
         for chain in external:
-            challenge = chain.get("effective_opponent_challenge_grade")
-            challenge_text = f"{challenge}；" if challenge else ""
-            lines.append(
-                f"  - `{_chain_name(chain)}`：{challenge_text}{_chain_result(chain)}。{_chain_basis(chain)}"
-            )
+            lines.append(f"  - {_chain_evidence_line(chain)}")
         lines.append("- **异常内部链**：")
         internal = list(row.get("strategic_internal_chains") or ())
         if not internal:
             lines.append("  - 无。")
         for chain in internal:
-            lines.append(
-                f"  - `{_chain_name(chain)}`：{_chain_result(chain)}。{_chain_basis(chain)}"
-            )
+            lines.append(f"  - {_chain_evidence_line(chain)}")
         excluded = list(row.get("cross_item_excluded_chains") or ())
         lines.append("- **跨项排除链**：")
         if not excluded:
@@ -244,16 +375,11 @@ def render_third_item_d_markdown(payload: Mapping[str, Any]) -> str:
         for chain in excluded:
             reason = chain.get("reason") or chain.get("basis") or "整链退出D，不参与成果或成本计算。"
             lines.append(f"  - `{chain['chain_id']}`：{_reader_text(reason)}")
-        cost_basis = (
-            profile.get("basis")
-            or profile.get("admission_fact")
-            or profile.get("single_admission_fact")
-            or (profile.get("cost_summary") or {}).get("basis")
-            or "正式JSON未另列成本说明。"
-        )
         lines.append(
-            f"- **可归责成本**：{profile['cost_band']}（{cost_status}，{cost_position}）。{_reader_text(cost_basis)}"
+            f"- **可归责成本**：{profile['cost_band']}（{cost_status}，{cost_position}）。"
         )
+        cost_structure = _cost_structure_lines(profile)
+        lines += ["- **成本结构**：", *cost_structure]
         exclusions = list(row.get("non_military_loss_cost_exclusions") or ())
         if exclusions:
             lines.append(f"- **非本方军事成本排除**：{_reader_text(exclusions)}")

@@ -10,6 +10,7 @@ from emperor_v4.evaluation.formal_json_store import load_json
 
 from emperor_v4.evaluation.third_item_d_settlement import (
     FORMAL_SETTLEMENT_JSON_PATH,
+    render_third_item_d_markdown,
     validate_third_item_d_payload,
     verify_third_item_d_formal_settlement,
 )
@@ -28,6 +29,17 @@ def test_third_item_d_formal_snapshot_passes_lightweight_verifier() -> None:
     assert result["record_count"] == 201
     assert result["strategic_chain_count"] == 720
     assert result["excluded_chain_count"] == 18
+
+
+def test_third_item_d_reader_view_uses_compact_chain_and_cost_structure() -> None:
+    markdown = render_third_item_d_markdown(_payload())
+    assert "threat_change：" not in markdown
+    assert "terminal_member_ref：" not in markdown
+    assert "aggregation_basis：" not in markdown
+    assert "**东突厥终结**：O5；E5A·高位。终点SB5/SN0/BCP4/BCN0" in markdown
+    assert "- **成本结构**：" in markdown
+    assert "  - **单链峰值与毁损**：" in markdown
+    assert markdown.count("- **成本结构**：") == 201
 
 
 def test_mongol_yuan_unification_precursor_chains_exit_d_whole() -> None:
