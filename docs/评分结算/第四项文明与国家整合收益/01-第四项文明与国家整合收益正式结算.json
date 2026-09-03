@@ -2,53 +2,359 @@
   "schema_version": "formal-json-polity-router-v1",
   "route_key": "polity",
   "content_schema_version": "fourth-item-signed-addon-formal-settlement-v1",
-  "payload_key_order": ["schema_version","status","formal_score_write","item_ranking_write","database_write","cross_item_ranking_write","contract","statistics","promotion_gate","coverage_completion_gate","macro_cultural_curve_checks","records","accepted_packages"],
+  "payload_key_order": [
+    "schema_version",
+    "status",
+    "formal_score_write",
+    "item_ranking_write",
+    "database_write",
+    "cross_item_ranking_write",
+    "contract",
+    "statistics",
+    "promotion_gate",
+    "coverage_completion_gate",
+    "macro_cultural_curve_checks",
+    "records",
+    "accepted_packages"
+  ],
   "payload_metadata": {
     "schema_version": "fourth-item-signed-addon-formal-settlement-v1",
-    "status": "FORMAL_CURRENT_REAUDIT_IN_PROGRESS",
+    "status": "FORMALLY_SETTLED_REV11_LOCAL_REAUDIT_ABSORBED",
     "formal_score_write": true,
     "item_ranking_write": true,
     "database_write": false,
     "cross_item_ranking_write": false,
-    "contract": {"item":"第四项文明与国家整合收益","role":"SIGNED_ADDON_OUTSIDE_COMMON_POSITIVE_DENOMINATOR","formula":"T = S_common + F + CIV4","common_positive_denominator":757,"range":[-67.5,67.5],"axis_range":[-22.5,22.5],"axes":{"A":"国家共同体与社会整合","B":"教育可及与人才流动","C":"文化知识生产传播与生态"},"empty_fixed_scan_adjustment":0,"observed_balanced_adjustment":0,"unresolved_gap_blocks":true,"contract_path":"docs/分项规则/第四项文明与国家整合收益/00-规则与计分合同.md"},
-    "statistics": {"ruler_count":201,"zero_adjustment_count":55,"positive_adjustment_count":114,"negative_adjustment_count":32,"axis_direction_counts":{"BALANCED":12,"NEGATIVE":53,"POSITIVE":175,"UNTRIGGERED":363},"magnitude_grade_counts":{"CIV0":12,"CIV1":61,"CIV2":113,"CIV3":54,"CIV4":0,"UNTRIGGERED":363},"package_count":265,"nonzero_adjustment_count":146},
-    "promotion_gate": {"all_201_rulers_unique":true,"all_603_axis_cells_unique":true,"no_unresolved_adjustment":true,"all_packages_semantically_closed":false,"mixed_components_separated":true,"cross_axis_consumption_distinct":true,"boundary_anchors_stable":true},
-    "coverage_completion_gate": {"builder_validation_pass":true,"no_unselected_personal_candidates":false,"mandatory_recoveries_present":false,"strong_empty_axis_collisions_closed":false,"macro_literary_curves_complete":true,"cultural_dissemination_era_and_content_progress_complete":false},
+    "contract": {
+      "item": "第四项文明与国家整合收益",
+      "role": "SIGNED_ADDON_OUTSIDE_COMMON_POSITIVE_DENOMINATOR",
+      "formula": "T = S_common + F + CIV4",
+      "common_positive_denominator": 757,
+      "range": [
+        -67.5,
+        67.5
+      ],
+      "axis_range": [
+        -22.5,
+        22.5
+      ],
+      "axes": {
+        "A": "国家共同体与社会整合",
+        "B": "教育可及与人才流动",
+        "C": "文化知识生产传播与生态"
+      },
+      "empty_fixed_scan_adjustment": 0,
+      "observed_balanced_adjustment": 0,
+      "unresolved_gap_blocks": true,
+      "contract_path": "docs/分项规则/第四项文明与国家整合收益/00-规则与计分合同.md"
+    },
+    "statistics": {
+      "ruler_count": 201,
+      "positive_count": 114,
+      "negative_count": 36,
+      "zero_count": 51,
+      "revised_ruler_count": 40,
+      "revised_package_count": 54,
+      "source_coverage": {
+        "ACADEMIC_AND_INSTITUTIONAL_CROSSCHECK": 3,
+        "ACADEMIC_SECONDARY_SOURCE_CROSSCHECKED": 2,
+        "ADEQUATE": 128,
+        "ADEQUATE_EXISTING_POOL_AND_ACADEMIC_CROSSCHECK": 1,
+        "ADEQUATE_EXISTING_POOL_AND_MEDICAL_HISTORY_CROSSCHECK": 1,
+        "ADEQUATE_PRIMARY_AND_ACADEMIC_CROSSCHECK": 1,
+        "PARTIAL_BUT_SUFFICIENT": 176,
+        "PARTIAL_BUT_SUFFICIENT_BY_USER_INFERENCE_RULE": 7
+      }
+    },
+    "promotion_gate": {
+      "all_201_rulers_unique": true,
+      "all_603_axis_cells_unique": true,
+      "no_unresolved_adjustment": true,
+      "all_packages_semantically_closed": false,
+      "mixed_components_separated": true,
+      "cross_axis_consumption_distinct": true,
+      "boundary_anchors_stable": true
+    },
+    "coverage_completion_gate": {
+      "builder_validation_pass": true,
+      "no_unselected_personal_candidates": false,
+      "mandatory_recoveries_present": false,
+      "strong_empty_axis_collisions_closed": false,
+      "macro_literary_curves_complete": true,
+      "cultural_dissemination_era_and_content_progress_complete": false
+    },
     "macro_cultural_curve_checks": [
-      {"curve_code":"HAN_YUEFU","label":"汉乐府","status":"CURVE_CONFIRMED_AND_PERSONAL_PACKAGE_ROUTED","personal_ruler":"刘彻","package_anchor":"I4PKG-RULER-HAN-LIUCHE-C-01","scoring_rule":"乐府采集与文化生产按刘彻可归责机制消费；不把后世对汉乐府的整体文学评价全部倒算给本人","source_refs":["https://www.cssn.cn/wx/xslh/202305/t20230523_5639925.shtml"]},
-      {"curve_code":"HIGH_TANG_POETRY","label":"唐诗与盛唐诗坛","status":"CURVE_CONFIRMED_PERSONAL_CREDIT_MECHANISM_LIMITED","personal_ruler":"李隆基","package_anchor":"I4PKG-RULER-TANG-LILONGJI-C-S01","scoring_rule":"开元天宝诗歌高峰作为时代曲线和反漏检校验；个人只消费集贤院、国家知识工程及可闭合的文化生态支持，不把诗人创作总成就直接归帝","source_refs":["https://www.gdwx.fudan.edu.cn/1d/5f/c3811a466271/page.htm","https://zgswh.scu.edu.cn/info/1057/3372.htm"]},
-      {"curve_code":"SONG_CI","label":"宋词","status":"CURVE_CONFIRMED_NO_AUTOMATIC_PERSONAL_SCORE","personal_ruler":null,"package_anchor":null,"scoring_rule":"城市商业、表演和词作传播构成跨统治窗口的时代生态；只有某皇帝可归责地改变出版、演出、教育或表达生态并形成结果时才投影个人","source_refs":["https://iqh.ruc.edu.cn/old/qdshsyj/shrk/1a98af2bc80e4d61811c00ca6751e318.htm","https://www.cssn.cn/dsskhs/202303/t20230309_5602150.shtml"]},
-      {"curve_code":"YUAN_QU","label":"元曲与元杂剧","status":"CURVE_CONFIRMED_NO_AUTOMATIC_PERSONAL_SCORE","personal_ruler":null,"package_anchor":null,"scoring_rule":"城市、演出市场、跨区域流动和创作者生态构成时代曲线；不能因元曲成为一代文学就把成果整包归给忽必烈或任一皇帝","source_refs":["https://wxy.zznu.edu.cn/info/1271/29041.htm","https://xuebao.nankai.edu.cn/jss/CN/abstract/abstract118.shtml"]}
+      {
+        "curve_code": "HAN_YUEFU",
+        "label": "汉乐府",
+        "status": "CURVE_CONFIRMED_AND_PERSONAL_PACKAGE_ROUTED",
+        "personal_ruler": "刘彻",
+        "package_anchor": "I4PKG-RULER-HAN-LIUCHE-C-01",
+        "scoring_rule": "乐府采集与文化生产按刘彻可归责机制消费；不把后世对汉乐府的整体文学评价全部倒算给本人",
+        "source_refs": [
+          "https://www.cssn.cn/wx/xslh/202305/t20230523_5639925.shtml"
+        ]
+      },
+      {
+        "curve_code": "HIGH_TANG_POETRY",
+        "label": "唐诗与盛唐诗坛",
+        "status": "CURVE_CONFIRMED_PERSONAL_CREDIT_MECHANISM_LIMITED",
+        "personal_ruler": "李隆基",
+        "package_anchor": "I4PKG-RULER-TANG-LILONGJI-C-S01",
+        "scoring_rule": "开元天宝诗歌高峰作为时代曲线和反漏检校验；个人只消费集贤院、国家知识工程及可闭合的文化生态支持，不把诗人创作总成就直接归帝",
+        "source_refs": [
+          "https://www.gdwx.fudan.edu.cn/1d/5f/c3811a466271/page.htm",
+          "https://zgswh.scu.edu.cn/info/1057/3372.htm"
+        ]
+      },
+      {
+        "curve_code": "SONG_CI",
+        "label": "宋词",
+        "status": "CURVE_CONFIRMED_NO_AUTOMATIC_PERSONAL_SCORE",
+        "personal_ruler": null,
+        "package_anchor": null,
+        "scoring_rule": "城市商业、表演和词作传播构成跨统治窗口的时代生态；只有某皇帝可归责地改变出版、演出、教育或表达生态并形成结果时才投影个人",
+        "source_refs": [
+          "https://iqh.ruc.edu.cn/old/qdshsyj/shrk/1a98af2bc80e4d61811c00ca6751e318.htm",
+          "https://www.cssn.cn/dsskhs/202303/t20230309_5602150.shtml"
+        ]
+      },
+      {
+        "curve_code": "YUAN_QU",
+        "label": "元曲与元杂剧",
+        "status": "CURVE_CONFIRMED_NO_AUTOMATIC_PERSONAL_SCORE",
+        "personal_ruler": null,
+        "package_anchor": null,
+        "scoring_rule": "城市、演出市场、跨区域流动和创作者生态构成时代曲线；不能因元曲成为一代文学就把成果整包归给忽必烈或任一皇帝",
+        "source_refs": [
+          "https://wxy.zznu.edu.cn/info/1271/29041.htm",
+          "https://xuebao.nankai.edu.cn/jss/CN/abstract/abstract118.shtml"
+        ]
+      }
     ]
   },
-  "collections": {"records":{"record_count":201},"accepted_packages":{"record_count":265}},
+  "collections": {
+    "records": {
+      "record_count": 201
+    },
+    "accepted_packages": {
+      "record_count": 319
+    }
+  },
   "routes": [
-    {"polity":"三国","path":"01-第四项文明与国家整合收益正式结算/三国.json","collection_counts":{"records":11,"accepted_packages":12}},
-    {"polity":"东晋","path":"01-第四项文明与国家整合收益正式结算/东晋.json","collection_counts":{"records":3,"accepted_packages":2}},
-    {"polity":"东汉","path":"01-第四项文明与国家整合收益正式结算/东汉.json","collection_counts":{"records":11,"accepted_packages":21}},
-    {"polity":"东魏","path":"01-第四项文明与国家整合收益正式结算/东魏.json","collection_counts":{"records":1,"accepted_packages":3}},
-    {"polity":"五代十国","path":"01-第四项文明与国家整合收益正式结算/五代十国.json","collection_counts":{"records":19,"accepted_packages":19}},
-    {"polity":"元","path":"01-第四项文明与国家整合收益正式结算/元.json","collection_counts":{"records":8,"accepted_packages":12}},
-    {"polity":"刘宋","path":"01-第四项文明与国家整合收益正式结算/刘宋.json","collection_counts":{"records":4,"accepted_packages":9}},
-    {"polity":"北周","path":"01-第四项文明与国家整合收益正式结算/北周.json","collection_counts":{"records":1,"accepted_packages":3}},
-    {"polity":"北魏","path":"01-第四项文明与国家整合收益正式结算/北魏.json","collection_counts":{"records":7,"accepted_packages":15}},
-    {"polity":"北齐","path":"01-第四项文明与国家整合收益正式结算/北齐.json","collection_counts":{"records":3,"accepted_packages":3}},
-    {"polity":"十六国","path":"01-第四项文明与国家整合收益正式结算/十六国.json","collection_counts":{"records":17,"accepted_packages":18}},
-    {"polity":"南齐","path":"01-第四项文明与国家整合收益正式结算/南齐.json","collection_counts":{"records":2,"accepted_packages":2}},
-    {"polity":"唐","path":"01-第四项文明与国家整合收益正式结算/唐.json","collection_counts":{"records":13,"accepted_packages":13}},
-    {"polity":"唐末吴政权","path":"01-第四项文明与国家整合收益正式结算/唐末吴政权.json","collection_counts":{"records":1}},
-    {"polity":"宋","path":"01-第四项文明与国家整合收益正式结算/宋.json","collection_counts":{"records":16,"accepted_packages":21}},
-    {"polity":"明","path":"01-第四项文明与国家整合收益正式结算/明.json","collection_counts":{"records":17,"accepted_packages":16}},
-    {"polity":"梁","path":"01-第四项文明与国家整合收益正式结算/梁.json","collection_counts":{"records":2,"accepted_packages":4}},
-    {"polity":"清","path":"01-第四项文明与国家整合收益正式结算/清.json","collection_counts":{"records":14,"accepted_packages":17}},
-    {"polity":"秦","path":"01-第四项文明与国家整合收益正式结算/秦.json","collection_counts":{"records":2,"accepted_packages":3}},
-    {"polity":"西夏","path":"01-第四项文明与国家整合收益正式结算/西夏.json","collection_counts":{"records":9,"accepted_packages":8}},
-    {"polity":"西晋","path":"01-第四项文明与国家整合收益正式结算/西晋.json","collection_counts":{"records":2,"accepted_packages":4}},
-    {"polity":"西汉","path":"01-第四项文明与国家整合收益正式结算/西汉.json","collection_counts":{"records":11,"accepted_packages":17}},
-    {"polity":"西魏","path":"01-第四项文明与国家整合收益正式结算/西魏.json","collection_counts":{"records":1,"accepted_packages":2}},
-    {"polity":"辽","path":"01-第四项文明与国家整合收益正式结算/辽.json","collection_counts":{"records":11,"accepted_packages":12}},
-    {"polity":"金","path":"01-第四项文明与国家整合收益正式结算/金.json","collection_counts":{"records":9,"accepted_packages":16}},
-    {"polity":"陈","path":"01-第四项文明与国家整合收益正式结算/陈.json","collection_counts":{"records":4,"accepted_packages":4}},
-    {"polity":"隋","path":"01-第四项文明与国家整合收益正式结算/隋.json","collection_counts":{"records":2,"accepted_packages":9}}
+    {
+      "polity": "三国",
+      "path": "01-第四项文明与国家整合收益正式结算/三国.json",
+      "collection_counts": {
+        "records": 11,
+        "accepted_packages": 15
+      }
+    },
+    {
+      "polity": "东晋",
+      "path": "01-第四项文明与国家整合收益正式结算/东晋.json",
+      "collection_counts": {
+        "records": 3,
+        "accepted_packages": 2
+      }
+    },
+    {
+      "polity": "东汉",
+      "path": "01-第四项文明与国家整合收益正式结算/东汉.json",
+      "collection_counts": {
+        "records": 11,
+        "accepted_packages": 21
+      }
+    },
+    {
+      "polity": "东魏",
+      "path": "01-第四项文明与国家整合收益正式结算/东魏.json",
+      "collection_counts": {
+        "records": 1,
+        "accepted_packages": 3
+      }
+    },
+    {
+      "polity": "五代十国",
+      "path": "01-第四项文明与国家整合收益正式结算/五代十国.json",
+      "collection_counts": {
+        "records": 19,
+        "accepted_packages": 20
+      }
+    },
+    {
+      "polity": "元",
+      "path": "01-第四项文明与国家整合收益正式结算/元.json",
+      "collection_counts": {
+        "records": 8,
+        "accepted_packages": 18
+      }
+    },
+    {
+      "polity": "刘宋",
+      "path": "01-第四项文明与国家整合收益正式结算/刘宋.json",
+      "collection_counts": {
+        "records": 4,
+        "accepted_packages": 9
+      }
+    },
+    {
+      "polity": "北周",
+      "path": "01-第四项文明与国家整合收益正式结算/北周.json",
+      "collection_counts": {
+        "records": 1,
+        "accepted_packages": 3
+      }
+    },
+    {
+      "polity": "北魏",
+      "path": "01-第四项文明与国家整合收益正式结算/北魏.json",
+      "collection_counts": {
+        "records": 7,
+        "accepted_packages": 16
+      }
+    },
+    {
+      "polity": "北齐",
+      "path": "01-第四项文明与国家整合收益正式结算/北齐.json",
+      "collection_counts": {
+        "records": 3,
+        "accepted_packages": 4
+      }
+    },
+    {
+      "polity": "十六国",
+      "path": "01-第四项文明与国家整合收益正式结算/十六国.json",
+      "collection_counts": {
+        "records": 17,
+        "accepted_packages": 20
+      }
+    },
+    {
+      "polity": "南齐",
+      "path": "01-第四项文明与国家整合收益正式结算/南齐.json",
+      "collection_counts": {
+        "records": 2,
+        "accepted_packages": 2
+      }
+    },
+    {
+      "polity": "唐",
+      "path": "01-第四项文明与国家整合收益正式结算/唐.json",
+      "collection_counts": {
+        "records": 13,
+        "accepted_packages": 16
+      }
+    },
+    {
+      "polity": "唐末吴政权",
+      "path": "01-第四项文明与国家整合收益正式结算/唐末吴政权.json",
+      "collection_counts": {
+        "records": 1
+      }
+    },
+    {
+      "polity": "宋",
+      "path": "01-第四项文明与国家整合收益正式结算/宋.json",
+      "collection_counts": {
+        "records": 16,
+        "accepted_packages": 29
+      }
+    },
+    {
+      "polity": "明",
+      "path": "01-第四项文明与国家整合收益正式结算/明.json",
+      "collection_counts": {
+        "records": 17,
+        "accepted_packages": 26
+      }
+    },
+    {
+      "polity": "梁",
+      "path": "01-第四项文明与国家整合收益正式结算/梁.json",
+      "collection_counts": {
+        "records": 2,
+        "accepted_packages": 4
+      }
+    },
+    {
+      "polity": "清",
+      "path": "01-第四项文明与国家整合收益正式结算/清.json",
+      "collection_counts": {
+        "records": 14,
+        "accepted_packages": 25
+      }
+    },
+    {
+      "polity": "秦",
+      "path": "01-第四项文明与国家整合收益正式结算/秦.json",
+      "collection_counts": {
+        "records": 2,
+        "accepted_packages": 3
+      }
+    },
+    {
+      "polity": "西夏",
+      "path": "01-第四项文明与国家整合收益正式结算/西夏.json",
+      "collection_counts": {
+        "records": 9,
+        "accepted_packages": 10
+      }
+    },
+    {
+      "polity": "西晋",
+      "path": "01-第四项文明与国家整合收益正式结算/西晋.json",
+      "collection_counts": {
+        "records": 2,
+        "accepted_packages": 4
+      }
+    },
+    {
+      "polity": "西汉",
+      "path": "01-第四项文明与国家整合收益正式结算/西汉.json",
+      "collection_counts": {
+        "records": 11,
+        "accepted_packages": 18
+      }
+    },
+    {
+      "polity": "西魏",
+      "path": "01-第四项文明与国家整合收益正式结算/西魏.json",
+      "collection_counts": {
+        "records": 1,
+        "accepted_packages": 2
+      }
+    },
+    {
+      "polity": "辽",
+      "path": "01-第四项文明与国家整合收益正式结算/辽.json",
+      "collection_counts": {
+        "records": 11,
+        "accepted_packages": 16
+      }
+    },
+    {
+      "polity": "金",
+      "path": "01-第四项文明与国家整合收益正式结算/金.json",
+      "collection_counts": {
+        "records": 9,
+        "accepted_packages": 17
+      }
+    },
+    {
+      "polity": "陈",
+      "path": "01-第四项文明与国家整合收益正式结算/陈.json",
+      "collection_counts": {
+        "records": 4,
+        "accepted_packages": 4
+      }
+    },
+    {
+      "polity": "隋",
+      "path": "01-第四项文明与国家整合收益正式结算/隋.json",
+      "collection_counts": {
+        "records": 2,
+        "accepted_packages": 12
+      }
+    }
   ]
 }
