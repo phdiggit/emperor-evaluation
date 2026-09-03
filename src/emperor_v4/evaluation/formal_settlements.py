@@ -7,6 +7,9 @@ from typing import Any
 
 from emperor_v4.evaluation.canonical_ruler_pool import verify_canonical_ruler_pool
 from emperor_v4.evaluation.composite_ranking import verify_composite_ranking
+from emperor_v4.evaluation.first_item_markdown_settlement import (
+    verify_first_item_markdown_settlement,
+)
 from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.second_item_b1_settlement import (
     active_groups,
@@ -24,13 +27,6 @@ from emperor_v4.evaluation.third_item_d_settlement import (
 
 
 SETTLEMENT_SPECS = {
-    "first_item": {
-        "path": "docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.json",
-        "schema": "first-item-formal-settlement-v3",
-        "score": "first_item_score_points",
-        "rank": "canonical_rank",
-        "range": (0, 240),
-    },
     "second_item": {
         "path": "docs/评分结算/第二项治国净收益/01-第二项治国净收益正式结算.json",
         "schema": "i2_total_387_signed_formal_v5_da6",
@@ -859,7 +855,9 @@ def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
 
 
 def verify_formal_settlements(workspace_root: Path) -> dict[str, Any]:
-    reports: dict[str, Any] = {}
+    reports: dict[str, Any] = {
+        "first_item": verify_first_item_markdown_settlement(workspace_root)
+    }
     for item, spec in SETTLEMENT_SPECS.items():
         path = workspace_root / str(spec["path"])
         payload = load_json(path)

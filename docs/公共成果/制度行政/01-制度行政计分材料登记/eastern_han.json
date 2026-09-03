@@ -1,6 +1,6 @@
 {
   "partition": "东汉",
-  "record_count": 66,
+  "record_count": 67,
   "records": [
     {
       "adjudicated_handoff_level": "H2",
@@ -899,8 +899,8 @@
         "刘秀:B1"
       ],
       "usage_roles": {
-        "刘庄:B1": "same_chain_or_gate_verification",
-        "刘秀:B1": "same_chain_or_gate_verification"
+        "刘庄:B1": "B1_VERIFICATION",
+        "刘秀:B1": "B1_VERIFICATION"
       }
     },
     {
@@ -1012,7 +1012,7 @@
         "梁妠:B2"
       ],
       "usage_roles": {
-        "梁妠:B1": "B1_NEGATIVE_DIRECT",
+        "梁妠:B1": "B1_DIRECT",
         "梁妠:B2": "B2_NEGATIVE_DIRECT"
       }
     },
@@ -1110,7 +1110,7 @@
         "刘保:B2"
       ],
       "usage_roles": {
-        "刘保:B1": "B1_MIXED_DIRECT",
+        "刘保:B1": "B1_POSITIVE_DIRECT",
         "刘保:B2": "B2_MIXED_DIRECT"
       }
     },
@@ -1205,7 +1205,7 @@
       ],
       "usage_roles": {
         "刘保:A": "score_evidence",
-        "刘保:B1": "B1_MIXED_DIRECT"
+        "刘保:B1": "B1_DIRECT"
       }
     },
     {
@@ -1316,13 +1316,11 @@
       "strength": "M2",
       "terminality": "none",
       "title": "窦氏在章帝死后立即控制尚书、百官与军事决策，和帝与内外臣僚不能相接。",
-      "usage_count": 2,
+      "usage_count": 1,
       "usage_refs": [
-        "刘炟:B1",
         "刘炟:B2"
       ],
       "usage_roles": {
-        "刘炟:B1": "same_chain_or_gate_verification",
         "刘炟:B2": "same_chain_or_gate_verification"
       }
     },
@@ -1453,7 +1451,7 @@
         "刘炟:B2"
       ],
       "usage_roles": {
-        "刘炟:B1": "B1_NEGATIVE_DIRECT",
+        "刘炟:B1": "B1_DIRECT",
         "刘炟:B2": "B2_NEGATIVE_DIRECT"
       }
     },
@@ -1519,13 +1517,11 @@
       "strength": "M2",
       "terminality": "none",
       "title": "采纳杨终、第五伦关于边事劳费的异议",
-      "usage_count": 2,
+      "usage_count": 1,
       "usage_refs": [
-        "刘炟:B1",
         "刘炟:B2"
       ],
       "usage_roles": {
-        "刘炟:B1": "B1_POSITIVE_DIRECT",
         "刘炟:B2": "B2_POSITIVE_DIRECT"
       }
     },
@@ -1716,7 +1712,7 @@
         "刘宏:B2"
       ],
       "usage_roles": {
-        "刘宏:B1": "B1_NEGATIVE_DIRECT",
+        "刘宏:B1": "B1_DIRECT",
         "刘宏:B2": "B2_NEGATIVE_DIRECT"
       }
     },
@@ -1991,7 +1987,7 @@
       ],
       "usage_roles": {
         "刘秀:A": "score_evidence",
-        "刘秀:B1": "B1_MIXED_DIRECT"
+        "刘秀:B1": "B1_POSITIVE_DIRECT"
       }
     },
     {
@@ -2664,7 +2660,7 @@
         "刘玄:B2"
       ],
       "usage_roles": {
-        "刘玄:B1": "B1_NEGATIVE_DIRECT",
+        "刘玄:B1": "B1_DIRECT",
         "刘玄:B2": "B2_NEGATIVE_DIRECT"
       }
     },
@@ -2922,7 +2918,7 @@
         "刘肇:B2"
       ],
       "usage_roles": {
-        "刘肇:B1": "B1_MIXED_DIRECT",
+        "刘肇:B1": "B1_POSITIVE_DIRECT",
         "刘肇:B2": "B2_MIXED_DIRECT"
       }
     },
@@ -3142,7 +3138,7 @@
         "刘志:B2"
       ],
       "usage_roles": {
-        "刘志:B1": "B1_NEGATIVE_DIRECT",
+        "刘志:B1": "B1_DIRECT",
         "刘志:B2": "B2_NEGATIVE_DIRECT"
       }
     },
@@ -3298,7 +3294,7 @@
         "刘庄:B1"
       ],
       "usage_roles": {
-        "刘庄:B1": "B1_MIXED_DIRECT"
+        "刘庄:B1": "B1_DIRECT"
       }
     },
     {
@@ -3438,7 +3434,7 @@
         "刘庄:B1"
       ],
       "usage_roles": {
-        "刘庄:B1": "B1_POSITIVE_DIRECT"
+        "刘庄:B1": "B1_NEGATIVE_DIRECT"
       }
     },
     {
@@ -3474,7 +3470,7 @@
       ],
       "usage_roles": {
         "刘秀:A": "score_evidence",
-        "刘秀:B1": "same_chain_or_gate_verification"
+        "刘秀:B1": "B1_VERIFICATION"
       }
     },
     {
@@ -3509,6 +3505,46 @@
       ],
       "usage_roles": {
         "刘秀:A": "score_evidence"
+      }
+    },
+    {
+      "attribution": "归责于刘炟正式 B1 结算窗口；本登记只同步已冻结的材料角色与归责边界。",
+      "backsource_review_eligible": true,
+      "backsource_status": "BACKSOURCE_CLOSED",
+      "continuity": "按 B1 正式卡冻结的生命周期与结果闭合口径登记。",
+      "cost_or_capture": "仅服务 B1 官僚治理与行政执行结算，不扩张至其他项目。",
+      "direction": "positive",
+      "dynasty": "东汉",
+      "evidence": [
+        {
+          "evidence_id": "B1-REG-837AAE85B56CD8",
+          "evidence_tier": "fixed_primary_or_local_exact_summary",
+          "exact_quote": "《资治通鉴》章帝时期选举、二千石与朱晖等用人记载",
+          "exact_quote_sha256": "98243b789636cd091c097380257def03c0651c21d67a8329928239ec48b1a624",
+          "revision_ref": "20260903",
+          "source_title": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json",
+          "source_url": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json"
+        }
+      ],
+      "material_id": "B1-SUPP-EHAN-ZHANGDI-SELECTION-001",
+      "measure": "明慎选举、进柔良退贪猾，并以二千石得人为重点；对地方治绩者存在征擢样本，形成有限选任/绩效识别接口",
+      "mechanism_dimension_zh": "官僚治理与行政执行",
+      "operation": "明慎选举、进柔良退贪猾，并以二千石得人为重点；对地方治绩者存在征擢样本，形成有限选任/绩效识别接口",
+      "primary_ruler": "刘炟",
+      "reception_scope": "R1",
+      "result": "sustained_or_systemic",
+      "result_closure": "sustained_or_systemic",
+      "score_contribution": true,
+      "source_mechanism_domain": "第二项B1正式结算同步",
+      "strength": "M2",
+      "terminality": "none",
+      "title": "明慎选举、进柔良退贪猾，并以二千石得人为重点；对地方治绩者存在征擢样本，形成有限选任/绩效识别接口",
+      "usage_count": 1,
+      "usage_refs": [
+        "刘炟:B1"
+      ],
+      "usage_roles": {
+        "刘炟:B1": "B1_POSITIVE_DIRECT"
       }
     }
   ],

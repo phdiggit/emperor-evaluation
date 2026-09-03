@@ -1,6 +1,6 @@
 {
   "partition": "西汉",
-  "record_count": 73,
+  "record_count": 78,
   "records": [
     {
       "adjudicated_handoff_level": "H3",
@@ -1276,7 +1276,7 @@
         "刘启:B1"
       ],
       "usage_roles": {
-        "刘启:B1": "same_chain_or_gate_verification"
+        "刘启:B1": "B1_VERIFICATION"
       }
     },
     {
@@ -2176,7 +2176,7 @@
         "刘恒:B2"
       ],
       "usage_roles": {
-        "刘恒:B1": "B1_MIXED_DIRECT",
+        "刘恒:B1": "B1_DIRECT",
         "刘恒:B2": "B2_MIXED_DIRECT"
       }
     },
@@ -2340,7 +2340,7 @@
         "刘恒:B1"
       ],
       "usage_roles": {
-        "刘恒:B1": "same_chain_or_gate_verification"
+        "刘恒:B1": "B1_VERIFICATION"
       }
     },
     {
@@ -2470,13 +2470,9 @@
       "strength": "M2",
       "terminality": "none",
       "title": "反复劝农诏失灵后增设谒者核问与基层常员接口",
-      "usage_count": 1,
-      "usage_refs": [
-        "刘恒:B1"
-      ],
-      "usage_roles": {
-        "刘恒:B1": "B1_MIXED_DIRECT"
-      }
+      "usage_count": 0,
+      "usage_refs": [],
+      "usage_roles": {}
     },
     {
       "attribution": "沿用既有节点的皇帝归责；本轮只裁定子项投影边界。",
@@ -3327,14 +3323,12 @@
       "strength": "M3",
       "terminality": "none",
       "title": "史源明确记公卿大夫士吏中文学之士增加，形成教育—察举—任官链。",
-      "usage_count": 2,
+      "usage_count": 1,
       "usage_refs": [
-        "刘彻:A",
-        "刘彻:B1"
+        "刘彻:A"
       ],
       "usage_roles": {
-        "刘彻:A": "score_evidence",
-        "刘彻:B1": "B1_MIXED_DIRECT"
+        "刘彻:A": "score_evidence"
       }
     },
     {
@@ -3829,13 +3823,11 @@
       "strength": "M2",
       "terminality": "none",
       "title": "宣帝绕开尚书封锁并分步解除霍氏军政控制",
-      "usage_count": 2,
+      "usage_count": 1,
       "usage_refs": [
-        "刘询:B1",
         "刘询:B2"
       ],
       "usage_roles": {
-        "刘询:B1": "B1_POSITIVE_DIRECT",
         "刘询:B2": "B2_MIXED_DIRECT"
       }
     },
@@ -4019,13 +4011,9 @@
       "strength": "M2",
       "terminality": "none",
       "title": "宣帝综核名实形成考绩行政与民安其业结果",
-      "usage_count": 1,
-      "usage_refs": [
-        "刘询:B1"
-      ],
-      "usage_roles": {
-        "刘询:B1": "B1_POSITIVE_DIRECT"
-      }
+      "usage_count": 0,
+      "usage_refs": [],
+      "usage_roles": {}
     },
     {
       "attribution": "刘询承担考绩奖惩误判责任；王成承担虚报责任。",
@@ -4168,6 +4156,206 @@
       "usage_roles": {
         "刘奭:B1": "B1_NEGATIVE_DIRECT",
         "刘奭:B2": "B2_NEGATIVE_DIRECT"
+      }
+    },
+    {
+      "attribution": "归责于刘询正式 B1 结算窗口；本登记只同步已冻结的材料角色与归责边界。",
+      "backsource_review_eligible": true,
+      "backsource_status": "BACKSOURCE_CLOSED",
+      "continuity": "按 B1 正式卡冻结的生命周期与结果闭合口径登记。",
+      "cost_or_capture": "仅服务 B1 官僚治理与行政执行结算，不扩张至其他项目。",
+      "direction": "context",
+      "dynasty": "西汉",
+      "evidence": [
+        {
+          "evidence_id": "B1-REG-27D5B8ADEBA09C",
+          "evidence_tier": "fixed_primary_or_local_exact_summary",
+          "exact_quote": "《汉书》卷71：于定国在宣帝朝为廷尉，决疑平法、罪疑从轻，长期任廷尉十八年，朝廷称“民自以不冤”。",
+          "exact_quote_sha256": "c0975ad5821c917f87047b27716e00449d09e5dcfdc44ca646808734b0ca1402",
+          "revision_ref": "20260903",
+          "source_title": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json",
+          "source_url": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json"
+        }
+      ],
+      "material_id": "B1-SUPP-WHAN-LIUXUN-YUDINGGUO-JUDICIAL-M3",
+      "measure": "于定国长期主持廷尉疑狱复核与平法，十八年持续运行并形成“民自以不冤”的中央司法行政结果",
+      "mechanism_dimension_zh": "官僚治理与行政执行",
+      "operation": "于定国长期主持廷尉疑狱复核与平法，十八年持续运行并形成“民自以不冤”的中央司法行政结果",
+      "primary_ruler": "刘询",
+      "reception_scope": "R1",
+      "result": "sustained_or_systemic",
+      "result_closure": "sustained_or_systemic",
+      "score_contribution": true,
+      "source_mechanism_domain": "第二项B1正式结算同步",
+      "strength": "M0",
+      "terminality": "none",
+      "title": "于定国长期主持廷尉疑狱复核与平法，十八年持续运行并形成“民自以不冤”的中央司法行政结果",
+      "usage_count": 1,
+      "usage_refs": [
+        "刘询:B1"
+      ],
+      "usage_roles": {
+        "刘询:B1": "B1_DIRECT"
+      }
+    },
+    {
+      "attribution": "归责于刘询正式 B1 结算窗口；本登记只同步已冻结的材料角色与归责边界。",
+      "backsource_review_eligible": true,
+      "backsource_status": "BACKSOURCE_CLOSED",
+      "continuity": "按 B1 正式卡冻结的生命周期与结果闭合口径登记。",
+      "cost_or_capture": "仅服务 B1 官僚治理与行政执行结算，不扩张至其他项目。",
+      "direction": "positive",
+      "dynasty": "西汉",
+      "evidence": [
+        {
+          "evidence_id": "B1-REG-F499762C746693",
+          "evidence_tier": "fixed_primary_or_local_exact_summary",
+          "exact_quote": "《汉书》卷74：霍氏诛后上躬亲政、省尚书事；魏相视事九岁、掾史归府即白四方异闻并奏郡国不上事项；丙吉在边警到来时预查边郡二千石，后续丞相御史替补亦按所荐持续运行。",
+          "exact_quote_sha256": "0ecdbd4d2b38552f5ebbf95481505f7dfe5dd76f9da2ce0b7b284892aa8b5f1a",
+          "revision_ref": "20260903",
+          "source_title": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json",
+          "source_url": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json"
+        }
+      ],
+      "material_id": "B1-SUPP-WHAN-LIUXUN-HUO-EXIT-CENTRAL-RECOVERY-M3",
+      "measure": "霍氏退出后取消尚书副封屏蔽接口、重构中枢信息与责任中心，形成有限但独立的central M2验证",
+      "mechanism_dimension_zh": "官僚治理与行政执行",
+      "operation": "霍氏退出后取消尚书副封屏蔽接口、重构中枢信息与责任中心，形成有限但独立的central M2验证",
+      "primary_ruler": "刘询",
+      "reception_scope": "R1",
+      "result": "sustained_or_systemic",
+      "result_closure": "sustained_or_systemic",
+      "score_contribution": true,
+      "source_mechanism_domain": "第二项B1正式结算同步",
+      "strength": "M2",
+      "terminality": "none",
+      "title": "霍氏退出后取消尚书副封屏蔽接口、重构中枢信息与责任中心，形成有限但独立的central M2验证",
+      "usage_count": 1,
+      "usage_refs": [
+        "刘询:B1"
+      ],
+      "usage_roles": {
+        "刘询:B1": "B1_POSITIVE_DIRECT"
+      }
+    },
+    {
+      "attribution": "归责于刘恒正式 B1 结算窗口；本登记只同步已冻结的材料角色与归责边界。",
+      "backsource_review_eligible": true,
+      "backsource_status": "BACKSOURCE_CLOSED",
+      "continuity": "按 B1 正式卡冻结的生命周期与结果闭合口径登记。",
+      "cost_or_capture": "仅服务 B1 官僚治理与行政执行结算，不扩张至其他项目。",
+      "direction": "positive",
+      "dynasty": "西汉",
+      "evidence": [
+        {
+          "evidence_id": "B1-REG-98C83049168D47",
+          "evidence_tier": "fixed_primary_or_local_exact_summary",
+          "exact_quote": "反复劝农诏失灵后增设谒者核问与基层常员接口",
+          "exact_quote_sha256": "aea407e84816a327d435693db6ba14d035b48a8ef2450c7f5087ee942e1a01e7",
+          "revision_ref": "20260903",
+          "source_title": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json",
+          "source_url": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json"
+        }
+      ],
+      "material_id": "I2-WHAN-WEN-AGRICULTURE-MONITORING-001",
+      "measure": "反复劝农诏失灵后增设谒者核问与基层常员接口",
+      "mechanism_dimension_zh": "官僚治理与行政执行",
+      "operation": "反复劝农诏失灵后增设谒者核问与基层常员接口",
+      "primary_ruler": "刘恒",
+      "reception_scope": "R1",
+      "result": "observed_or_repeated",
+      "result_closure": "observed_or_repeated",
+      "score_contribution": true,
+      "source_mechanism_domain": "第二项B1正式结算同步",
+      "strength": "M2",
+      "terminality": "none",
+      "title": "反复劝农诏失灵后增设谒者核问与基层常员接口",
+      "usage_count": 1,
+      "usage_refs": [
+        "刘恒:B1"
+      ],
+      "usage_roles": {
+        "刘恒:B1": "B1_POSITIVE_DIRECT"
+      }
+    },
+    {
+      "attribution": "归责于刘彻正式 B1 结算窗口；本登记只同步已冻结的材料角色与归责边界。",
+      "backsource_review_eligible": true,
+      "backsource_status": "BACKSOURCE_CLOSED",
+      "continuity": "按 B1 正式卡冻结的生命周期与结果闭合口径登记。",
+      "cost_or_capture": "仅服务 B1 官僚治理与行政执行结算，不扩张至其他项目。",
+      "direction": "positive",
+      "dynasty": "西汉",
+      "evidence": [
+        {
+          "evidence_id": "B1-REG-871C0ED7B7F7BB",
+          "evidence_tier": "fixed_primary_or_local_exact_summary",
+          "exact_quote": "郡国岁举孝廉、未举者问责及茂材异等形成持续选任入口；因制度承继与个体结果归责限制，降作独立M2验证",
+          "exact_quote_sha256": "e354c57ade37a0658e5573b79cebd08fd903293c905752848a389c7e3984a62a",
+          "revision_ref": "20260903",
+          "source_title": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json",
+          "source_url": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json"
+        }
+      ],
+      "material_id": "I2-WHAN-WUDI-SELECTION-ACCOUNTABILITY-001",
+      "measure": "郡国岁举孝廉、未举者问责及茂材异等形成持续选任入口；因制度承继与个体结果归责限制，降作独立M2验证",
+      "mechanism_dimension_zh": "官僚治理与行政执行",
+      "operation": "郡国岁举孝廉、未举者问责及茂材异等形成持续选任入口；因制度承继与个体结果归责限制，降作独立M2验证",
+      "primary_ruler": "刘彻",
+      "reception_scope": "R1",
+      "result": "sustained_or_systemic",
+      "result_closure": "sustained_or_systemic",
+      "score_contribution": true,
+      "source_mechanism_domain": "第二项B1正式结算同步",
+      "strength": "M2",
+      "terminality": "none",
+      "title": "郡国岁举孝廉、未举者问责及茂材异等形成持续选任入口；因制度承继与个体结果归责限制，降作独立M2验证",
+      "usage_count": 1,
+      "usage_refs": [
+        "刘彻:B1"
+      ],
+      "usage_roles": {
+        "刘彻:B1": "B1_POSITIVE_DIRECT"
+      }
+    },
+    {
+      "attribution": "归责于刘彻正式 B1 结算窗口；本登记只同步已冻结的材料角色与归责边界。",
+      "backsource_review_eligible": true,
+      "backsource_status": "BACKSOURCE_CLOSED",
+      "continuity": "按 B1 正式卡冻结的生命周期与结果闭合口径登记。",
+      "cost_or_capture": "仅服务 B1 官僚治理与行政执行结算，不扩张至其他项目。",
+      "direction": "positive",
+      "dynasty": "西汉",
+      "evidence": [
+        {
+          "evidence_id": "B1-REG-58DE7242CFCAB7",
+          "evidence_tier": "fixed_primary_or_local_exact_summary",
+          "exact_quote": "《汉书》汲黯、兒宽、王欣相关传记及《资治通鉴》对应记载",
+          "exact_quote_sha256": "7f6e5d574f33615d265664d9fb69e847ea07dacc4858a9adea642cc9f02036a7",
+          "revision_ref": "20260903",
+          "source_title": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json",
+          "source_url": "docs/评分结算/第二项治国净收益/制度行政/02-B1官僚治理与行政执行方向卡.json"
+        }
+      ],
+      "material_id": "B1-SUPP-WHAN-WUDI-DISTRIBUTED-PERFORMANCE-001",
+      "measure": "汲黯任东海太守后“岁余大治”被中央闻知召入九卿；兒宽地方治绩由课殿反转为最并升御史大夫；王欣京畿任职结果经武帝亲见后转正，三组样本闭合任职结果—中央识别—迁擢/转正distributed core",
+      "mechanism_dimension_zh": "官僚治理与行政执行",
+      "operation": "汲黯任东海太守后“岁余大治”被中央闻知召入九卿；兒宽地方治绩由课殿反转为最并升御史大夫；王欣京畿任职结果经武帝亲见后转正，三组样本闭合任职结果—中央识别—迁擢/转正distributed core",
+      "primary_ruler": "刘彻",
+      "reception_scope": "R1",
+      "result": "sustained_or_systemic",
+      "result_closure": "sustained_or_systemic",
+      "score_contribution": true,
+      "source_mechanism_domain": "第二项B1正式结算同步",
+      "strength": "M3",
+      "terminality": "none",
+      "title": "汲黯任东海太守后“岁余大治”被中央闻知召入九卿；兒宽地方治绩由课殿反转为最并升御史大夫；王欣京畿任职结果经武帝亲见后转正，三组样本闭合任职结果—中央识别—迁擢/转正distributed core",
+      "usage_count": 1,
+      "usage_refs": [
+        "刘彻:B1"
+      ],
+      "usage_roles": {
+        "刘彻:B1": "B1_POSITIVE_DIRECT"
       }
     }
   ],

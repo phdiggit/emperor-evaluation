@@ -21,8 +21,8 @@
 - `docs/评分结算/`：五项唯一正式 JSON 与 Markdown 阅读视图。
 - `docs/公共成果/`、`docs/治理/`、`docs/史料通读产物/`：仍被评分结果引用的证据与公共登记。
 - `config/project.yml`：项目状态、正式结果入口和保留的重建接口。
-- `config/common/`：正式评价池、分项候选名册与实体身份；其中`canonical-ruler-pool.json`是综合范围唯一机器入口，`所有君主.yml`继续作为第一项确定性重建的候选输入。`config/first-item/`、`config/third-item/`保存对应分项的当前裁决输入；`config/military/`保存公共军事登记与人才登记的当前输入。
-- `src/emperor_v4/evaluation/`：公共军事登记、第一项和第三项的确定性结算逻辑。
+- `config/common/`：正式评价池、分项候选名册与实体身份；其中`canonical-ruler-pool.json`是综合范围唯一机器入口。`config/third-item/`保存第三项当前裁决输入；`config/military/`保存公共军事登记与人才登记的当前输入。
+- `src/emperor_v4/evaluation/`：公共军事登记、第一项 Markdown 正式结算读取和第三项确定性结算逻辑。
 
 ## 验证
 
@@ -56,7 +56,7 @@ codex-win run -- python v4.py composite-ranking --write
 codex-win run -- python -m pytest -q
 ```
 
-第一项、第三项与综合总榜保留可重建命令；命令只读取 Git 中的当前公共登记、裁决配置和正式分项结果，不访问网络、模型或数据库。使用 `python v4.py --help` 查看入口。
+第三项与综合总榜保留可重建命令；综合总榜直接读取第一项 Markdown 正式结算，第一项不再由 JSON 生成 Markdown。命令只读取 Git 中的当前公共登记、裁决配置和正式分项结果，不访问网络、模型或数据库。使用 `python v4.py --help` 查看入口。
 
 ## 边界
 

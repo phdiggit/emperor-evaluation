@@ -45,8 +45,15 @@ formal_settlements:
   first_item:
     max_points: 240
     role: conditional_founder_add_on
-    json: docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.json
+    authority_mode: markdown_settlement_source
+    contract: docs/分项规则/第一项创业与政权取得能力/00-第一项创业与政权取得能力规则与计分合同.md
     markdown: docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.md
+    component_markdown:
+      - docs/评分结算/第一项创业与政权取得能力/01-第一项A统一主链客观贡献正式结算.md
+      - docs/评分结算/第一项创业与政权取得能力/02-第一项B1创业难度与战略效率正式结算.md
+      - docs/评分结算/第一项创业与政权取得能力/03-第一项B2创业组织与政治整合正式结算.md
+      - docs/评分结算/第一项创业与政权取得能力/04-第一项C1本人军事统帅能力正式结算.md
+      - docs/评分结算/第一项创业与政权取得能力/05-第一项C2本人前线指挥能力正式结算.md
   second_item:
     range: [-27.5, 387]
     role: common_governance
@@ -195,13 +202,12 @@ profile_assessment:
 retained_build_chain:
   input_roots:
     common: config/common
-    first_item: config/first-item
     third_item: config/third-item
     military: config/military
   battle_registry: docs/公共成果/军事/01-战役登记.json
   military_talent_registry: docs/公共成果/军事/02-武将人才等级.json
   military_cost_benefit_audit_lineage: docs/公共成果/军事/03-军事行动成本和收益登记.json
-  first_item_commands: [first-item-a-registry, first-item-b-registry, first-item-c-registry]
+  first_item_commands: []
   third_item_commands: [third-item-b1-settlement, third-item-d-verify, third-item-current-settlement]
   composite_ranking_command: composite-ranking --write
   verification_command: formal-settlements-verify

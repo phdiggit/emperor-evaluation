@@ -1,7 +1,7 @@
 {
   "schema_version": "institution-administration-scoring-material-shard-v1",
   "partition": "辽",
-  "record_count": 41,
+  "record_count": 42,
   "records": [
     {
       "attribution": "归责于耶律延禧本人窗口；D1仅消费退出后有限窗口投影",
@@ -83,7 +83,7 @@
       ],
       "usage_roles": {
         "耶律阿保机:A": "A_POSITIVE_DIRECT",
-        "耶律阿保机:B1": "B1_POSITIVE_DIRECT",
+        "耶律阿保机:B1": "B1_DIRECT",
         "耶律阿保机:D1": "D1_POSITIVE_DIRECT"
       }
     },
@@ -337,7 +337,7 @@
       ],
       "usage_roles": {
         "萧绰:A": "A_POSITIVE_DIRECT",
-        "萧绰:B1": "B1_POSITIVE_DIRECT",
+        "萧绰:B1": "B1_NEGATIVE_DIRECT",
         "萧绰:B2": "B2_POSITIVE_DIRECT"
       }
     },
@@ -505,7 +505,7 @@
       ],
       "usage_roles": {
         "耶律阿保机:A": "A_NEGATIVE_DIRECT",
-        "耶律阿保机:B1": "B1_NEGATIVE_DIRECT",
+        "耶律阿保机:B1": "B1_DIRECT",
         "耶律阿保机:B2": "B2_NEGATIVE_DIRECT"
       }
     },
@@ -923,7 +923,7 @@
         "耶律宗真:B2"
       ],
       "usage_roles": {
-        "耶律宗真:B1": "B1_NEGATIVE_DIRECT",
+        "耶律宗真:B1": "B1_MIXED_DIRECT",
         "耶律宗真:B2": "B2_NEGATIVE_DIRECT"
       }
     },
@@ -1711,6 +1711,55 @@
       ],
       "usage_roles": {
         "耶律大石:B2": "B2_NEGATIVE_DIRECT"
+      }
+    },
+    {
+      "attribution": "归责于耶律隆绪实际最高权力窗口；邢抱朴为受命按察与执行者，不替代皇帝对跨年监察、黜陟机制的制度责任。",
+      "backsource_review_eligible": true,
+      "backsource_status": "BACKSOURCE_CLOSED",
+      "continuity": "统和以来察贪酷、举才行与守令按察，至太平年间仍有实际黜陟和滞狱处置，构成跨年连续机制。",
+      "cost_or_capture": "不消费军事或财政结果；只结算官僚监察、考核与黜陟的行政运行。",
+      "direction": "positive",
+      "dynasty": "辽",
+      "evidence": [
+        {
+          "evidence_id": "I2-LIAO-EV-6E4F66C45F4670",
+          "evidence_tier": "fixed_primary_or_local_exact_summary",
+          "exact_quote": "辽诏诸道举才行、察贪酷、抚高年、禁奢僭，并录死于王事者子孙。",
+          "exact_quote_sha256": "e9f1435917eaf2b63870a9123d923b4be318c2ef79cc7b32530bb618479cceac",
+          "revision_ref": "20260903",
+          "source_title": "docs/史料通读产物/北宋/续资治通鉴/volume-015.source-summary.md",
+          "source_url": "docs/史料通读产物/北宋/续资治通鉴/volume-015.source-summary.md"
+        },
+        {
+          "evidence_id": "I2-LIAO-EV-E06D8B2C2B08D1",
+          "evidence_tier": "fixed_primary_or_local_exact_summary",
+          "exact_quote": "辽南院枢密使邢抱朴卒。原文称其奉命甄别守令颇得人望，两次处理滞狱使“民无冤滥”。",
+          "exact_quote_sha256": "bfa302934d00f1be8bdfa59cf550cbd201711ab3585ab73ac0a59097e5036f7d",
+          "revision_ref": "20260903",
+          "source_title": "docs/史料通读产物/北宋/续资治通鉴/volume-024.source-summary.md",
+          "source_url": "docs/史料通读产物/北宋/续资治通鉴/volume-024.source-summary.md"
+        }
+      ],
+      "material_id": "B1-SUPP-LIAO-SHENGZONG-OFFICIAL-INSPECTION-001",
+      "measure": "诸道察贪举才、守令按察与黜陟荐拔形成跨年官僚监察机制",
+      "mechanism_dimension_zh": "官僚治理与行政执行",
+      "operation": "诏令诸道举才行、察贪酷；受命甄别守令、处理滞狱，并由考察结果进入黜陟荐拔。",
+      "primary_ruler": "耶律隆绪",
+      "reception_scope": "R1",
+      "result": "监察、考核、处置与人事黜陟形成连续行政闭环。",
+      "result_closure": "sustained_or_systemic",
+      "score_contribution": true,
+      "source_mechanism_domain": "辽代官僚监察与守令考核",
+      "strength": "M3",
+      "terminality": "none",
+      "title": "诸道察贪举才、守令按察与黜陟荐拔形成跨年官僚监察机制",
+      "usage_count": 1,
+      "usage_refs": [
+        "耶律隆绪:B1"
+      ],
+      "usage_roles": {
+        "耶律隆绪:B1": "B1_POSITIVE_DIRECT"
       }
     }
   ]

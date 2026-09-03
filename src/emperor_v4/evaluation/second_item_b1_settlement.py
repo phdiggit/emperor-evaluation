@@ -148,7 +148,9 @@ def _reader_text(text: str) -> str:
         "support": "行政交付",
         "core": "核心行政机制",
         "personnel": "选任与考课",
+        "capture": "控制",
         "major-stage": "主要阶段",
+        "mixed": "复合",
         "N3-cross": "N3（跨功能失灵）",
         "N3-terminal": "N3（广域整体失效）",
         "N3-domain": "N3（单功能系统失灵）",
@@ -470,7 +472,7 @@ def _material_basis(workspace_root: Path, payload: dict[str, Any]) -> dict[str, 
                         lines.append(f"  - 《补充裁决材料》：{mechanism}")
                 continue
             for evidence in material.get("evidence") or []:
-                quote = str(evidence.get("exact_quote") or "").strip()
+                quote = _reader_text(str(evidence.get("exact_quote") or "").strip())
                 if not quote or quote in seen:
                     continue
                 seen.add(quote)

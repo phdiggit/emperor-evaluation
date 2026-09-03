@@ -8,13 +8,15 @@ from typing import Any, Mapping
 import yaml
 
 from emperor_v4.evaluation.formal_json_store import load_json
+from emperor_v4.evaluation.first_item_markdown_settlement import (
+    load_first_item_markdown_settlement,
+)
 
 
 POOL_JSON = "config/common/canonical-ruler-pool.json"
 POOL_MARKDOWN = "docs/项目总纲/正式评价对象范围.md"
 ADMISSION_ADJUDICATIONS = "config/common/canonical-ruler-admission-adjudications.yml"
 SETTLEMENT_PATHS = {
-    "first_item": "docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.json",
     "second_item": "docs/评分结算/第二项治国净收益/01-第二项治国净收益正式结算.json",
     "third_item": "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json",
     "fourth_item": "docs/评分结算/第四项文明与国家整合收益/01-第四项文明与国家整合收益正式结算.json",
@@ -183,7 +185,6 @@ def _fifth_evidence_counts(row: Mapping[str, Any]) -> tuple[int, int]:
 def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
     paths = {key: workspace_root / relative for key, relative in SETTLEMENT_PATHS.items()}
     payloads = {key: _read_json(path) for key, path in paths.items()}
-    indexed = {key: _index_by_name(payload, key) for key, payload in payloads.items()}
     admission_adjudications = _load_admission_adjudications(workspace_root)
     exclusions = admission_adjudications["exclusions"]
     actual_power_window_overrides = admission_adjudications.get(
@@ -212,6 +213,28 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
     master_id_by_name = {
         str(row["ruler_name"]): str(row["ruler_id"]) for row in master_records
     }
+    prior_pool = _read_json(workspace_root / POOL_JSON)
+    prior_first_ids = {
+        str(row["ruler_name"]): str((row.get("source_item_ids") or {}).get("first_item") or "")
+        for row in prior_pool.get("records") or ()
+    }
+    first_records = []
+    for row in load_first_item_markdown_settlement(workspace_root):
+        canonical_name = ITEM_NAME_ALIASES["first_item"].get(row["name"], row["name"])
+        first_records.append(
+            {
+                "ruler_id": (
+                    master_id_by_name.get(canonical_name)
+                    or prior_first_ids.get(canonical_name)
+                    or f"FIRST-MARKDOWN-{row['rank']:03d}"
+                ),
+                "ruler_name": row["name"],
+                "first_item_score_points": row["total"],
+                "polity": FIRST_ITEM_OUTSIDE_POLITIES.get(row["name"]),
+            }
+        )
+    payloads["first_item"] = {"records": first_records}
+    indexed = {key: _index_by_name(payload, key) for key, payload in payloads.items()}
     for item in ("second_item", "third_item", "fourth_item", "fifth_item"):
         mismatches = {
             name: (str(row.get("ruler_id") or ""), master_id_by_name.get(name))
@@ -257,7 +280,7 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
         key=lambda row: (row["ruler_name"], row["ruler_id"]),
     )
     outside_names = {row["ruler_name"] for row in first_item_outside_candidate_pool}
-    expected_outside_names = {"塔不烟", "洪秀全", "耶律璟", "萧普速完", "黄巢"}
+    expected_outside_names = {"洪秀全", "黄巢"}
     if outside_names != expected_outside_names:
         raise ValueError(f"第一项池外记录集合漂移：{sorted(outside_names)}")
 
@@ -293,18 +316,6 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
                 raise ValueError(f"正式池候选{name}第四项未闭合")
             if source_rows["fifth_item"].get("fifth_item_score_points") is None:
                 raise ValueError(f"正式池候选{name}第五项无分")
-            if (
-                source_rows["second_item"] is not None
-                and source_rows["first_item"] is None
-                and name not in FIRST_ITEM_NOT_APPLICABLE_ALLOWLIST
-            ):
-                raise ValueError(f"正式池候选{name}缺少第一项记录且没有不适用裁决")
-            if (
-                source_rows["first_item"] is None
-                and name not in FIRST_ITEM_NOT_APPLICABLE_ALLOWLIST
-                and name not in FIRST_ITEM_PENDING_FORMAL_SETTLEMENT
-            ):
-                raise ValueError(f"正式池候选{name}缺少第一项适用性裁决")
             if source_rows["second_item"] is None and name not in pending_feasibility:
                 raise ValueError(f"正式池候选{name}缺少第二项本地材料可行性裁决")
 
@@ -375,6 +386,7 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
                     else (
                         FIRST_ITEM_NOT_APPLICABLE_ALLOWLIST.get(name)
                         or FIRST_ITEM_PENDING_FORMAL_SETTLEMENT.get(name)
+                        or "新第一项正式总榜未列示；按现行合同不适用，F=0。"
                     )
                 ),
                 "first_item_readiness": (
@@ -387,11 +399,7 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
                             else "FORMAL_RECORD_PRESENT"
                         )
                         if source_rows["first_item"] is not None
-                        else (
-                            "EXPLICIT_NOT_APPLICABLE_F0"
-                            if name in FIRST_ITEM_NOT_APPLICABLE_ALLOWLIST
-                            else "PENDING_FIRST_ITEM_FORMAL_SETTLEMENT"
-                        )
+                        else "EXPLICIT_NOT_APPLICABLE_F0"
                     )
                 ),
             }

@@ -6,6 +6,9 @@ from statistics import mean, median
 from typing import Any, Mapping
 
 from emperor_v4.evaluation.formal_json_store import load_json
+from emperor_v4.evaluation.first_item_markdown_settlement import (
+    load_first_item_markdown_settlement,
+)
 
 
 POOL_PATH = "config/common/canonical-ruler-pool.json"
@@ -13,10 +16,6 @@ OUTPUT_JSON = "docs/评分结算/00-皇帝综合评价总榜.json"
 OUTPUT_MARKDOWN = "docs/评分结算/00-皇帝综合评价总榜.md"
 
 SETTLEMENT_SPECS = {
-    "first_item": (
-        "docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.json",
-        "first_item_score_points",
-    ),
     "second_item": (
         "docs/评分结算/第二项治国净收益/01-第二项治国净收益正式结算.json",
         "second_item_score",
@@ -63,6 +62,10 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
     indexed = {
         item: _index_records(payload, item) for item, payload in payloads.items()
     }
+    first_item_scores = {
+        row["name"]: row["total"]
+        for row in load_first_item_markdown_settlement(workspace_root)
+    }
 
     ready = [
         row
@@ -89,18 +92,11 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
     records: list[dict[str, Any]] = []
     for pool_row in ready:
         source_ids = pool_row["source_item_ids"]
-        first_source_id = source_ids.get("first_item")
-        first_value = (
-            indexed["first_item"][first_source_id].get("first_item_score_points")
-            if first_source_id and first_source_id in indexed["first_item"]
-            else None
-        )
+        first_value = first_item_scores.get(pool_row["ruler_name"])
         first_applicable = first_value is not None
         first_score = float(first_value) if first_applicable else 0.0
         scores: dict[str, float] = {"first_item": first_score}
         for item, (_, score_field) in SETTLEMENT_SPECS.items():
-            if item == "first_item":
-                continue
             source_id = source_ids.get(item)
             if not source_id or source_id not in indexed[item]:
                 raise ValueError(f"{pool_row['ruler_name']}缺少{item}正式记录")
