@@ -186,6 +186,10 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         "不是把“不适用”判成第一项零分。总分保留两位小数，采用竞争排名；同分记录按"
         "规范`ruler_id`稳定排序。",
         "",
+        "总分小数表示规则计算精度，不代表史料与历史判断具有同等精度。名次为现行规则及"
+        "正式裁决下的条件排序；微小分差不应直接解释为可辨识的历史优劣。本榜尚未评估"
+        "证据与参数扰动下的排名稳健性，不提供证据置信等级或排名区间；未评估不等于排名稳定。",
+        "",
         (
             f"当前均分{payload['mean_score']:.2f}，中位数{payload['median_score']:.2f}，"
             f"范围{payload['min_score']:.2f}—{payload['max_score']:.2f}。"
@@ -196,8 +200,8 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         "### 1. 榜首与头部结构",
         "",
         (
-            f"{leader['ruler_name']}以{leader['total_score']:.2f}分居首，领先第二名"
-            f"{runner_up['ruler_name']}{lead:.2f}分。其构成为：第一项折算"
+            f"在现行结算下，{leader['ruler_name']}以{leader['total_score']:.2f}分居首，结算分比第二名"
+            f"{runner_up['ruler_name']}高{lead:.2f}分。其构成为：第一项折算"
             f"{leader['first_item_add_on']:.2f}、第二项{leader['second_item_score']:.1f}、"
             f"第三项{leader['third_item_score']:.2f}、第四项{leader['fourth_item_adjustment']:+.1f}。头部差距来自前四项正式结果的共同合成，"
             "不是生成总榜时追加的主观修正。"
