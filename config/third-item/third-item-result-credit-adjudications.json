@@ -6,7 +6,7 @@
   "contract": {
     "A1_max": 60,
     "A2_max": 60,
-    "formula": "0.6 * clamp(0,100,12*end+10*attributable_delta+max(ceiling_bonus,maintenance_bonus)-max(reversal_penalty,within_band_deterioration_penalty))",
+    "formula": "0.6 * clamp(0,100,12*end+10*attributable_delta+max(ceiling_bonus,maintenance_bonus,within_band_structure_credit)-max(reversal_penalty,within_band_deterioration_penalty))",
     "improvement_attribution_scale": {
       "NONE": 0,
       "LIMITED": 0.25,
@@ -24,7 +24,7 @@
   },
   "records": [
     {
-      "A120_points": 120.0,
+      "A120_points": 114.0,
       "axes": {
         "A1": {
           "attributable_delta": 4.0,
@@ -75,10 +75,10 @@
           ]
         },
         "A2": {
-          "attributable_delta": 4.0,
-          "attribution_basis": "材料门后按人物窗口逐段裁决",
+          "attributable_delta": 3.0,
+          "attribution_basis": "共享李渊交班A2-2，仅结算2→3、3→4、4→5三档本人改善；任初渭水危机不改写接班锚，也不另加1→2恢复信用。",
           "attribution_category": "PRIMARY_RULER",
-          "axis_points": 60.0,
+          "axis_points": 54.0,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 5,
@@ -86,39 +86,33 @@
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
-          "objective_delta": 4,
+          "objective_delta": 3,
           "reversal_basis": "无重大逆转登记",
           "reversal_grade": "NONE",
           "reversal_penalty": 0,
           "score_ready": true,
-          "start_grade": 1,
-          "trajectory_value": 100,
+          "start_grade": 2,
+          "trajectory_value": 90.0,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
           "improvement_step_credits": [
             {
-              "from_grade": 1,
-              "to_grade": 2,
-              "credit": 1.0,
-              "basis": "材料门后按人物窗口逐段裁决"
-            },
-            {
               "from_grade": 2,
               "to_grade": 3,
               "credit": 1.0,
-              "basis": "材料门后按人物窗口逐段裁决"
+              "basis": "共享李渊交班A2-2，仅结算2→3、3→4、4→5三档本人改善；任初渭水危机不改写接班锚，也不另加1→2恢复信用。"
             },
             {
               "from_grade": 3,
               "to_grade": 4,
               "credit": 1.0,
-              "basis": "材料门后按人物窗口逐段裁决"
+              "basis": "共享李渊交班A2-2，仅结算2→3、3→4、4→5三档本人改善；任初渭水危机不改写接班锚，也不另加1→2恢复信用。"
             },
             {
               "from_grade": 4,
               "to_grade": 5,
               "credit": 1.0,
-              "basis": "材料门后按人物窗口逐段裁决"
+              "basis": "共享李渊交班A2-2，仅结算2→3、3→4、4→5三档本人改善；任初渭水危机不改写接班锚，也不另加1→2恢复信用。"
             }
           ]
         }
@@ -140,13 +134,13 @@
       }
     },
     {
-      "A120_points": 96.0,
+      "A120_points": 84.0,
       "axes": {
         "A1": {
-          "attributable_delta": 2.0,
-          "attribution_basis": "材料门后按人物窗口逐段裁决",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 48.0,
+          "attributable_delta": 1.0,
+          "attribution_basis": "1673—1683年三藩—郑氏再统一改善由第一项消费；3至4的统一恢复不计第三项归责，4至5只消费俄境、噶尔丹与独立边疆体系改善。",
+          "attribution_category": "CROSS_ITEM_CHAIN_SPLIT",
+          "axis_points": 42.0,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 5,
@@ -160,29 +154,29 @@
           "reversal_penalty": 0,
           "score_ready": true,
           "start_grade": 3,
-          "trajectory_value": 80.0,
+          "trajectory_value": 70.0,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
           "improvement_step_credits": [
             {
               "from_grade": 3,
               "to_grade": 4,
-              "credit": 1.0,
-              "basis": "材料门后按人物窗口逐段裁决"
+              "credit": 0.0,
+              "basis": "1673—1683年三藩—郑氏再统一改善由第一项消费；3至4的统一恢复不计第三项归责，4至5只消费俄境、噶尔丹与独立边疆体系改善。"
             },
             {
               "from_grade": 4,
               "to_grade": 5,
               "credit": 1.0,
-              "basis": "材料门后按人物窗口逐段裁决"
+              "basis": "1673—1683年三藩—郑氏再统一改善由第一项消费；3至4的统一恢复不计第三项归责，4至5只消费俄境、噶尔丹与独立边疆体系改善。"
             }
           ]
         },
         "A2": {
-          "attributable_delta": 2.0,
-          "attribution_basis": "材料门后按人物窗口逐段裁决",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 48.0,
+          "attributable_delta": 1.0,
+          "attribution_basis": "1673—1683年三藩—郑氏再统一改善由第一项消费；3至4的统一恢复不计第三项归责，4至5只消费俄境、噶尔丹与独立边疆体系改善。",
+          "attribution_category": "CROSS_ITEM_CHAIN_SPLIT",
+          "axis_points": 42.0,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 5,
@@ -196,21 +190,21 @@
           "reversal_penalty": 0,
           "score_ready": true,
           "start_grade": 3,
-          "trajectory_value": 80.0,
+          "trajectory_value": 70.0,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
           "improvement_step_credits": [
             {
               "from_grade": 3,
               "to_grade": 4,
-              "credit": 1.0,
-              "basis": "材料门后按人物窗口逐段裁决"
+              "credit": 0.0,
+              "basis": "1673—1683年三藩—郑氏再统一改善由第一项消费；3至4的统一恢复不计第三项归责，4至5只消费俄境、噶尔丹与独立边疆体系改善。"
             },
             {
               "from_grade": 4,
               "to_grade": 5,
               "credit": 1.0,
-              "basis": "材料门后按人物窗口逐段裁决"
+              "basis": "1673—1683年三藩—郑氏再统一改善由第一项消费；3至4的统一恢复不计第三项归责，4至5只消费俄境、噶尔丹与独立边疆体系改善。"
             }
           ]
         }
@@ -221,14 +215,21 @@
       "ruler_name": "玄烨",
       "score_ready": true,
       "B80_adjudication": {
-        "B80_points": 58.02,
+        "B80_points": 61.53,
         "formal_B1_rate": 75.0,
         "formal_B2_rate": 89.0,
-        "formal_B4_rate": 89.0,
+        "formal_B4_rate": 82.0,
         "adjudicated_B1_rate": 75.0,
-        "adjudicated_B2_rate": 75.0,
-        "adjudicated_B4_rate": 89.0,
-        "consistency_basis": "台湾—澎湖控制收益已由第一项消费；B只保留喀尔喀等独立控制包，逐区域事实档与跨项裁决档分层保存。"
+        "adjudicated_B2_rate": 89.0,
+        "adjudicated_B4_rate": 82.0,
+        "consistency_basis": "喀尔喀盟旗、朝觐与驻防关系在交班时已长期可执行，达到常态移交的4档；仍需应对准噶尔压力，删去台湾府县成熟度后取中位，不再取高位。"
+      },
+      "cross_item_parent_routing": {
+        "reason": "1673—1683年三藩—郑氏再统一改善由第一项消费；3至4的统一恢复不计第三项归责，4至5只消费俄境、噶尔丹与独立边疆体系改善。",
+        "A_consumption": "EXCLUDE_FIRST_ITEM_CHAIN_ATTRIBUTION",
+        "B_excluded_control_package_refs": [
+          "TAIWAN_PENGHU"
+        ]
       }
     },
     {
@@ -739,14 +740,29 @@
       "ruler_name": "拓跋焘",
       "score_ready": true,
       "B80_adjudication": {
-        "B80_points": 64.56,
-        "formal_B1_rate": 74.0,
-        "formal_B2_rate": 95.0,
-        "formal_B4_rate": 89.0,
-        "adjudicated_B1_rate": 74.0,
-        "adjudicated_B2_rate": 95.0,
-        "adjudicated_B4_rate": 89.0,
-        "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+        "B80_points": 54.57,
+        "formal_B1_rate": 67.0,
+        "formal_B2_rate": 82.0,
+        "formal_B4_rate": 75.0,
+        "adjudicated_B1_rate": 67.0,
+        "adjudicated_B2_rate": 82.0,
+        "adjudicated_B4_rate": 75.0,
+        "consistency_basis": "只读鄯善赋役与焉耆—龟兹驻守网络；已具常态可移交机制，但车师失守及远端交通缺口使其仅刚满足4档，不再借北燕/辽东成熟度上调。"
+      },
+      "cross_item_parent_routing": {
+        "reason": "439年前赫连夏、北燕统一取得链由第一项消费；柔然独立防务与439年后盖吴等内部链保留。",
+        "D_excluded_chain_ids": [
+          "NC-WEI-XIA-426-430",
+          "WAR-LEAD-NC-NORTHERN-YAN-END-436-438"
+        ],
+        "C_capability_only_parent_refs": [
+          "WAR-LEAD-NC-WEI-NORTHERN-LIANG-439",
+          "NC-WEI-XIA-426-430",
+          "WAR-LEAD-NC-NORTHERN-YAN-END-436-438"
+        ],
+        "B_excluded_control_package_refs": [
+          "WAR-LEAD-NC-NORTHERN-YAN-END-436-438"
+        ]
       }
     },
     {
@@ -830,111 +846,138 @@
       }
     },
     {
-      "A120_points": 87.6,
+      "A120_points": 57.6,
       "axes": {
         "A1": {
-          "attributable_delta": 3.0,
-          "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 46.8,
+          "attributable_delta": 0.0,
+          "attribution_basis": "西魏—北周创业竞争链含东魏/北齐、553年取蜀及554年江陵，第一项已消费结果与成本。",
+          "attribution_category": "FIRST_ITEM_CONSUMED_OBJECTIVE_CONTEXT_ONLY",
+          "axis_points": 28.8,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 4,
-          "maintenance_basis": "非4→4或5→5",
+          "maintenance_basis": "同链已由第一项消费，不另计第三项守成。",
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
           "objective_delta": 3,
-          "reversal_basis": "现有材料未闭合本人造成且未被终点表达的额外恶化",
-          "reversal_grade": "NONE_RECOVERED_OR_NOT_ATTRIBUTABLE",
+          "reversal_basis": "西魏—北周创业竞争链含东魏/北齐、553年取蜀及554年江陵，第一项已消费结果与成本。",
+          "reversal_grade": "CONSUMED_BY_FIRST_ITEM",
           "reversal_penalty": 0,
           "score_ready": true,
           "start_grade": 1,
-          "trajectory_value": 78.0,
-          "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+          "trajectory_value": 48,
+          "within_band_deterioration_basis": "西魏—北周创业竞争链含东魏/北齐、553年取蜀及554年江陵，第一项已消费结果与成本。",
           "within_band_deterioration_penalty": 0,
           "improvement_step_credits": [
             {
               "from_grade": 1,
               "to_grade": 2,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+              "credit": 0.0,
+              "basis": "西魏—北周创业竞争链含东魏/北齐、553年取蜀及554年江陵，第一项已消费结果与成本。"
             },
             {
               "from_grade": 2,
               "to_grade": 3,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+              "credit": 0.0,
+              "basis": "西魏—北周创业竞争链含东魏/北齐、553年取蜀及554年江陵，第一项已消费结果与成本。"
             },
             {
               "from_grade": 3,
               "to_grade": 4,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+              "credit": 0.0,
+              "basis": "西魏—北周创业竞争链含东魏/北齐、553年取蜀及554年江陵，第一项已消费结果与成本。"
             }
           ]
         },
         "A2": {
-          "attributable_delta": 3.0,
-          "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 40.8,
+          "attributable_delta": 0.0,
+          "attribution_basis": "西魏—北周创业竞争链含东魏/北齐、553年取蜀及554年江陵，第一项已消费结果与成本。",
+          "attribution_category": "FIRST_ITEM_CONSUMED_OBJECTIVE_CONTEXT_ONLY",
+          "axis_points": 28.8,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 4,
-          "maintenance_basis": "非4→4或5→5",
+          "maintenance_basis": "同链已由第一项消费，不另计第三项守成。",
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
-          "negative_adjustment": 10,
+          "negative_adjustment": 0,
           "objective_delta": 3,
-          "reversal_basis": "现有材料未闭合本人造成且未被终点表达的额外恶化",
-          "reversal_grade": "NONE_RECOVERED_OR_NOT_ATTRIBUTABLE",
+          "reversal_basis": "西魏—北周创业竞争链含东魏/北齐、553年取蜀及554年江陵，第一项已消费结果与成本。",
+          "reversal_grade": "CONSUMED_BY_FIRST_ITEM",
           "reversal_penalty": 0,
           "score_ready": true,
           "start_grade": 1,
-          "trajectory_value": 68.0,
-          "within_band_deterioration_basis": "东魏—北齐主链多方向耐久退控，A2整数终档未表达",
-          "within_band_deterioration_penalty": 10,
+          "trajectory_value": 48,
+          "within_band_deterioration_basis": "西魏—北周创业竞争链含东魏/北齐、553年取蜀及554年江陵，第一项已消费结果与成本。",
+          "within_band_deterioration_penalty": 0,
           "improvement_step_credits": [
             {
               "from_grade": 1,
               "to_grade": 2,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+              "credit": 0.0,
+              "basis": "西魏—北周创业竞争链含东魏/北齐、553年取蜀及554年江陵，第一项已消费结果与成本。"
             },
             {
               "from_grade": 2,
               "to_grade": 3,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+              "credit": 0.0,
+              "basis": "西魏—北周创业竞争链含东魏/北齐、553年取蜀及554年江陵，第一项已消费结果与成本。"
             },
             {
               "from_grade": 3,
               "to_grade": 4,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+              "credit": 0.0,
+              "basis": "西魏—北周创业竞争链含东魏/北齐、553年取蜀及554年江陵，第一项已消费结果与成本。"
             }
           ]
         }
       },
-      "major_in_reign_reversal_refs": [
-        "WAR-LEAD-158-01",
-        "WAR-LEAD-158-02",
-        "WAR-LEAD-162-05"
-      ],
+      "major_in_reign_reversal_refs": [],
       "polity": "西魏",
       "ruler_id": "RULER-SHADOW-宇文泰",
       "ruler_name": "宇文泰",
       "score_ready": true,
       "B80_adjudication": {
-        "B80_points": 55.7,
-        "formal_B1_rate": 52.0,
-        "formal_B2_rate": 100.0,
-        "formal_B4_rate": 82.0,
-        "adjudicated_B1_rate": 52.0,
-        "adjudicated_B2_rate": 100.0,
-        "adjudicated_B4_rate": 82.0,
-        "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+        "B80_points": 0.0,
+        "formal_B1_rate": 0.0,
+        "formal_B2_rate": 0.0,
+        "formal_B4_rate": 0.0,
+        "adjudicated_B1_rate": 0.0,
+        "adjudicated_B2_rate": 0.0,
+        "adjudicated_B4_rate": 0.0,
+        "consistency_basis": "西魏—北周创业竞争链含东魏/北齐、553年取蜀及554年江陵，第一项已消费结果与成本。"
+      },
+      "cross_item_parent_routing": {
+        "reason": "西魏—北周创业竞争链含东魏/北齐、553年取蜀及554年江陵，第一项已消费结果与成本。",
+        "A_consumption": "OBJECTIVE_STATE_ONLY_NO_ATTRIBUTABLE_CHANGE",
+        "B_consumption": "EXCLUDED_FIRST_ITEM_ACQUISITION",
+        "D_excluded_chain_ids": [
+          "YWT-EAST-WEI-NORTH-QI-536-551",
+          "YWT-WEISHU-553",
+          "YWT-JIANGLING-554"
+        ],
+        "C_capability_only_parent_refs": [
+          "WAR-LEAD-155-05",
+          "WAR-LEAD-156-02",
+          "NC-V157-LEAD-157-04",
+          "WAR-LEAD-157-05",
+          "NC-V158-LEAD-158-01",
+          "NC-V158-LEAD-158-02",
+          "NC-V158-LEAD-158-03",
+          "NC-V158-LEAD-158-04",
+          "NC-V159-LEAD-159-04",
+          "NC-V162-LEAD-162-05",
+          "NC-V163-LEAD-163-09",
+          "V165-LEAD-165-WEISHU-553",
+          "WAR-LEAD-165-JIANGLING-554",
+          "NC-EAST-WEST-WEI-537"
+        ],
+        "B_excluded_control_package_refs": [
+          "WAR-LEAD-165-WEISHU-553",
+          "WAR-LEAD-165-WEIBA-554",
+          "WAR-LEAD-165-JIANGLING-554"
+        ]
       }
     },
     {
@@ -1271,13 +1314,13 @@
       }
     },
     {
-      "A120_points": 69.6,
+      "A120_points": 63.6,
       "axes": {
         "A1": {
-          "attributable_delta": 1.0,
-          "attribution_basis": "材料门后按人物窗口逐段裁决",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 34.8,
+          "attributable_delta": 0.5,
+          "attribution_basis": "对明辽西—松锦统一主链退出A归责；察哈尔、朝鲜、东北独立链仍削弱西北与东侧威胁并改善缓冲。原3至4改善由多方向共同形成，逐档仅保留独立链的共同贡献0.5。",
+          "attribution_category": "CROSS_ITEM_CHAIN_SPLIT",
+          "axis_points": 31.8,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 4,
@@ -1291,23 +1334,23 @@
           "reversal_penalty": 0,
           "score_ready": true,
           "start_grade": 3,
-          "trajectory_value": 58.0,
+          "trajectory_value": 53.0,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
           "improvement_step_credits": [
             {
               "from_grade": 3,
               "to_grade": 4,
-              "credit": 1.0,
-              "basis": "材料门后按人物窗口逐段裁决"
+              "credit": 0.5,
+              "basis": "对明辽西—松锦统一主链退出A归责；察哈尔、朝鲜、东北独立链仍削弱西北与东侧威胁并改善缓冲。原3至4改善由多方向共同形成，逐档仅保留独立链的共同贡献0.5。"
             }
           ]
         },
         "A2": {
-          "attributable_delta": 1.0,
-          "attribution_basis": "材料门后按人物窗口逐段裁决",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 34.8,
+          "attributable_delta": 0.5,
+          "attribution_basis": "对明辽西—松锦统一主链退出A归责；察哈尔、朝鲜、东北独立链仍削弱西北与东侧威胁并改善缓冲。原3至4改善由多方向共同形成，逐档仅保留独立链的共同贡献0.5。",
+          "attribution_category": "CROSS_ITEM_CHAIN_SPLIT",
+          "axis_points": 31.8,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 4,
@@ -1321,15 +1364,15 @@
           "reversal_penalty": 0,
           "score_ready": true,
           "start_grade": 3,
-          "trajectory_value": 58.0,
+          "trajectory_value": 53.0,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
           "improvement_step_credits": [
             {
               "from_grade": 3,
               "to_grade": 4,
-              "credit": 1.0,
-              "basis": "材料门后按人物窗口逐段裁决"
+              "credit": 0.5,
+              "basis": "对明辽西—松锦统一主链退出A归责；察哈尔、朝鲜、东北独立链仍削弱西北与东侧威胁并改善缓冲。原3至4改善由多方向共同形成，逐档仅保留独立链的共同贡献0.5。"
             }
           ]
         }
@@ -1348,6 +1391,17 @@
         "adjudicated_B2_rate": 74.0,
         "adjudicated_B4_rate": 67.0,
         "consistency_basis": "逐区域账是证据结构，不是人物贡献类型；按现有成果事实归一为合同贡献类型。"
+      },
+      "cross_item_parent_routing": {
+        "reason": "对明辽西—松锦统一主链退出A归责；察哈尔、朝鲜、东北独立链仍削弱西北与东侧威胁并改善缓冲。原3至4改善由多方向共同形成，逐档仅保留独立链的共同贡献0.5。",
+        "A_consumption": "EXCLUDE_FIRST_ITEM_CHAIN_ATTRIBUTION",
+        "D_excluded_chain_ids": [
+          "CHAIN-HUANGTAIJI-MING-1627-1643"
+        ],
+        "C_capability_only_parent_refs": [
+          "FIRST_ITEM_UNIFICATION::CHAIN-HUANGTAIJI-MING-1627-1643"
+        ],
+        "B_excluded_control_package_refs": []
       }
     },
     {
@@ -1675,83 +1729,83 @@
       }
     },
     {
-      "A120_points": 81.6,
+      "A120_points": 57.6,
       "axes": {
         "A1": {
-          "attributable_delta": 2.0,
-          "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 40.8,
+          "attributable_delta": 0.0,
+          "attribution_basis": "190—220年创业统一竞争主链由第一项消费，含乌桓、濡须、汉中、樊城及内部收束。",
+          "attribution_category": "FIRST_ITEM_CONSUMED_OBJECTIVE_CONTEXT_ONLY",
+          "axis_points": 28.8,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 4,
-          "maintenance_basis": "非4→4或5→5",
+          "maintenance_basis": "同链已由第一项消费，不另计第三项守成。",
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
           "objective_delta": 2,
-          "reversal_basis": "无重大逆转登记",
-          "reversal_grade": "NONE",
+          "reversal_basis": "190—220年创业统一竞争主链由第一项消费，含乌桓、濡须、汉中、樊城及内部收束。",
+          "reversal_grade": "CONSUMED_BY_FIRST_ITEM",
           "reversal_penalty": 0,
           "score_ready": true,
           "start_grade": 2,
-          "trajectory_value": 68.0,
-          "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+          "trajectory_value": 48,
+          "within_band_deterioration_basis": "190—220年创业统一竞争主链由第一项消费，含乌桓、濡须、汉中、樊城及内部收束。",
           "within_band_deterioration_penalty": 0,
           "improvement_step_credits": [
             {
               "from_grade": 2,
               "to_grade": 3,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+              "credit": 0.0,
+              "basis": "190—220年创业统一竞争主链由第一项消费，含乌桓、濡须、汉中、樊城及内部收束。"
             },
             {
               "from_grade": 3,
               "to_grade": 4,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+              "credit": 0.0,
+              "basis": "190—220年创业统一竞争主链由第一项消费，含乌桓、濡须、汉中、樊城及内部收束。"
             }
           ]
         },
         "A2": {
-          "attributable_delta": 3.0,
-          "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 40.8,
+          "attributable_delta": 0.0,
+          "attribution_basis": "190—220年创业统一竞争主链由第一项消费，含乌桓、濡须、汉中、樊城及内部收束。",
+          "attribution_category": "FIRST_ITEM_CONSUMED_OBJECTIVE_CONTEXT_ONLY",
+          "axis_points": 28.8,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 4,
-          "maintenance_basis": "非4→4或5→5",
+          "maintenance_basis": "同链已由第一项消费，不另计第三项守成。",
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
-          "negative_adjustment": 10,
+          "negative_adjustment": 0,
           "objective_delta": 3,
-          "reversal_basis": "无重大逆转登记",
-          "reversal_grade": "NONE",
+          "reversal_basis": "190—220年创业统一竞争主链由第一项消费，含乌桓、濡须、汉中、樊城及内部收束。",
+          "reversal_grade": "CONSUMED_BY_FIRST_ITEM",
           "reversal_penalty": 0,
           "score_ready": true,
           "start_grade": 1,
-          "trajectory_value": 68.0,
-          "within_band_deterioration_basis": "汉中主链EN2并形成主要方向退控",
-          "within_band_deterioration_penalty": 10,
+          "trajectory_value": 48,
+          "within_band_deterioration_basis": "190—220年创业统一竞争主链由第一项消费，含乌桓、濡须、汉中、樊城及内部收束。",
+          "within_band_deterioration_penalty": 0,
           "improvement_step_credits": [
             {
               "from_grade": 1,
               "to_grade": 2,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+              "credit": 0.0,
+              "basis": "190—220年创业统一竞争主链由第一项消费，含乌桓、濡须、汉中、樊城及内部收束。"
             },
             {
               "from_grade": 2,
               "to_grade": 3,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+              "credit": 0.0,
+              "basis": "190—220年创业统一竞争主链由第一项消费，含乌桓、濡须、汉中、樊城及内部收束。"
             },
             {
               "from_grade": 3,
               "to_grade": 4,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+              "credit": 0.0,
+              "basis": "190—220年创业统一竞争主链由第一项消费，含乌桓、濡须、汉中、樊城及内部收束。"
             }
           ]
         }
@@ -1762,14 +1816,48 @@
       "ruler_name": "曹操",
       "score_ready": true,
       "B80_adjudication": {
-        "B80_points": 49.04,
-        "formal_B1_rate": 45.0,
-        "formal_B2_rate": 89.0,
-        "formal_B4_rate": 82.0,
-        "adjudicated_B1_rate": 45.0,
-        "adjudicated_B2_rate": 89.0,
-        "adjudicated_B4_rate": 82.0,
-        "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+        "B80_points": 0.0,
+        "formal_B1_rate": 0.0,
+        "formal_B2_rate": 0.0,
+        "formal_B4_rate": 0.0,
+        "adjudicated_B1_rate": 0.0,
+        "adjudicated_B2_rate": 0.0,
+        "adjudicated_B4_rate": 0.0,
+        "consistency_basis": "190—220年创业统一竞争主链由第一项消费，含乌桓、濡须、汉中、樊城及内部收束。"
+      },
+      "cross_item_parent_routing": {
+        "reason": "190—220年创业统一竞争主链由第一项消费，含乌桓、濡须、汉中、樊城及内部收束。",
+        "A_consumption": "OBJECTIVE_STATE_ONLY_NO_ATTRIBUTABLE_CHANGE",
+        "B_consumption": "EXCLUDED_FIRST_ITEM_ACQUISITION",
+        "D_excluded_chain_ids": [
+          "CC-RUXU-217",
+          "CC-HANZHONG-217-219",
+          "CC-FANCHENG-DEFENSE-219",
+          "CC-WAN-218-219",
+          "CC-WUHUAN-XIANBEI-218"
+        ],
+        "C_capability_only_parent_refs": [
+          "PCR-HAN-CAOCAO-HUGUAN-206",
+          "PCR-HAN-CAOCAO-QINGZHOU-YELLOW-TURBAN-192",
+          "PCR-HAN-CAOCAO-WANCHENG-197-FAILURE",
+          "WAR-LEAD-HAN-CAO-ZHANGXIU-197-199",
+          "WAR-LEAD-HAN-CHANGXI-201",
+          "WAR-LEAD-HAN-GUANDU-199-200",
+          "WAR-LEAD-HAN-HANZHONG-215",
+          "WAR-LEAD-HAN-HEBEI-201-205",
+          "WAR-LEAD-HAN-JINGZHOU-REDCILIFFS-208",
+          "WAR-LEAD-HAN-RUXU-212-213",
+          "WAR-LEAD-HAN-WUHUAN-206-207",
+          "WAR-LEAD-HAN-WUHUAN-GUANGPING-205",
+          "WAR-LEAD-HAN-XUZHOU-LUBU-196-198",
+          "WAR-LEAD-HAN-YANZHOU-LUBU-194-195",
+          "WAR-LEAD-HAN-YOUZHOU-ZHAODU-HUONU-205",
+          "HAN-HEISHAN-185-205"
+        ],
+        "B_excluded_control_package_refs": [
+          "《三国志》卷一《武帝纪》建安十二年、二十一年",
+          "《晋书》卷一百一《刘元海载记》"
+        ]
       }
     },
     {
@@ -2209,13 +2297,13 @@
       }
     },
     {
-      "A120_points": 69.6,
+      "A120_points": 57.6,
       "axes": {
         "A1": {
-          "attributable_delta": 1.0,
-          "attribution_basis": "材料门后按人物窗口逐段裁决",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 34.8,
+          "attributable_delta": 0.0,
+          "attribution_basis": "1123—1127年灭辽、攻宋取得北方控制由第一项消费，闭合时已有稳定优势及总体边界。1127年后陕西、汉中扩张与长江追击各有得失，支持维持4档，不重复奖励灭辽灭宋造成的跨档改善。",
+          "attribution_category": "POST_FIRST_ITEM_STAGE_RULER_ATTRIBUTION",
+          "axis_points": 28.8,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 4,
@@ -2223,29 +2311,23 @@
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
-          "objective_delta": 1,
+          "objective_delta": 0,
           "reversal_basis": "无重大逆转登记",
           "reversal_grade": "NONE",
           "reversal_penalty": 0,
           "score_ready": true,
-          "start_grade": 3,
-          "trajectory_value": 58.0,
+          "start_grade": 4,
+          "trajectory_value": 48.0,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
-          "improvement_step_credits": [
-            {
-              "from_grade": 3,
-              "to_grade": 4,
-              "credit": 1.0,
-              "basis": "材料门后按人物窗口逐段裁决"
-            }
-          ]
+          "improvement_step_credits": [],
+          "active_window_start": 1127
         },
         "A2": {
-          "attributable_delta": 1.0,
-          "attribution_basis": "材料门后按人物窗口逐段裁决",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 34.8,
+          "attributable_delta": 0.0,
+          "attribution_basis": "1123—1127年灭辽、攻宋取得北方控制由第一项消费，闭合时已有稳定优势及总体边界。1127年后陕西、汉中扩张与长江追击各有得失，支持维持4档，不重复奖励灭辽灭宋造成的跨档改善。",
+          "attribution_category": "POST_FIRST_ITEM_STAGE_RULER_ATTRIBUTION",
+          "axis_points": 28.8,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 4,
@@ -2253,23 +2335,17 @@
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
-          "objective_delta": 1,
+          "objective_delta": 0,
           "reversal_basis": "无重大逆转登记",
           "reversal_grade": "NONE",
           "reversal_penalty": 0,
           "score_ready": true,
-          "start_grade": 3,
-          "trajectory_value": 58.0,
+          "start_grade": 4,
+          "trajectory_value": 48.0,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
-          "improvement_step_credits": [
-            {
-              "from_grade": 3,
-              "to_grade": 4,
-              "credit": 1.0,
-              "basis": "材料门后按人物窗口逐段裁决"
-            }
-          ]
+          "improvement_step_credits": [],
+          "active_window_start": 1127
         }
       },
       "major_in_reign_reversal_refs": [],
@@ -2286,6 +2362,12 @@
         "adjudicated_B2_rate": 82.0,
         "adjudicated_B4_rate": 67.0,
         "consistency_basis": "逐区域账是证据结构，不是人物贡献类型；按现有成果事实归一为合同贡献类型。"
+      },
+      "cross_item_parent_routing": {
+        "first_item_closure_year": 1127,
+        "reason": "1123—1127年灭辽、攻宋取得北方控制由第一项消费，闭合时已有稳定优势及总体边界。1127年后陕西、汉中扩张与长江追击各有得失，支持维持4档，不重复奖励灭辽灭宋造成的跨档改善。",
+        "A_consumption": "POST_ACQUISITION_STAGE_ONLY",
+        "B_excluded_control_package_refs": []
       }
     },
     {
@@ -2358,14 +2440,18 @@
       "ruler_name": "杨行密",
       "score_ready": true,
       "B80_adjudication": {
-        "B80_points": 39.29,
-        "formal_B1_rate": 29.0,
+        "B80_points": 42.38,
+        "formal_B1_rate": 37.0,
         "formal_B2_rate": 89.0,
         "formal_B4_rate": 59.0,
-        "adjudicated_B1_rate": 29.0,
+        "adjudicated_B1_rate": 37.0,
         "adjudicated_B2_rate": 89.0,
         "adjudicated_B4_rate": 59.0,
-        "consistency_basis": "逐区域账是证据结构，不是人物贡献类型；按现有成果事实归一为合同贡献类型。"
+        "consistency_basis": "第一项核心约902年前后闭合；902—905年鄂州为独立后续控制成果，撤销0.5错误跨项扣除。交班完整取得一个0.5节点，属B1-1典型小规模净增，取MID；尚不足0.75的下一档。"
+      },
+      "cross_item_parent_routing": {
+        "reason": "第一项核心约902年前后闭合；902—905年鄂州为独立后续控制成果，撤销0.5错误跨项扣除。交班完整取得一个0.5节点，属B1-1典型小规模净增，取MID；尚不足0.75的下一档。",
+        "B_excluded_control_package_refs": []
       }
     },
     {
@@ -2520,55 +2606,55 @@
       "A120_points": 36.0,
       "axes": {
         "A1": {
-          "attributable_delta": -1.0,
-          "attribution_basis": "第一项已消费386—391复代、灭刘卫辰与柔然稳定创业核心；第三项从391年闭合点3档起算，交班2档，只保留395年后主要威胁反复造成的本人窗口净恶化",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 8.4,
+          "attributable_delta": 0.0,
+          "attribution_basis": "第一项创业竞争窗口现已延至409年；391年不是跨项闭合点，395—402年后燕、高车、柴壁、柔然同链结果与成本退出第三项。",
+          "attribution_category": "FIRST_ITEM_CONSUMED_OBJECTIVE_CONTEXT_ONLY",
+          "axis_points": 14.4,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 2,
-          "maintenance_basis": "非4→4或5→5",
+          "maintenance_basis": "同链已由第一项消费，不另计第三项守成。",
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
           "objective_delta": -1,
-          "reversal_basis": "终点下降已消费参合陂后主要方向恶化，不重复处罚",
-          "reversal_grade": "CONSUMED_BY_TERMINAL_DECLINE",
+          "reversal_basis": "第一项创业竞争窗口现已延至409年；391年不是跨项闭合点，395—402年后燕、高车、柴壁、柔然同链结果与成本退出第三项。",
+          "reversal_grade": "CONSUMED_BY_FIRST_ITEM",
           "reversal_penalty": 0,
           "score_ready": true,
           "start_grade": 3,
-          "trajectory_value": 14.0,
-          "within_band_deterioration_basis": "主要方向恶化已由3→2终点下降消费",
+          "trajectory_value": 24,
+          "within_band_deterioration_basis": "第一项创业竞争窗口现已延至409年；391年不是跨项闭合点，395—402年后燕、高车、柴壁、柔然同链结果与成本退出第三项。",
           "within_band_deterioration_penalty": 0,
           "improvement_step_credits": []
         },
         "A2": {
-          "attributable_delta": 1.0,
-          "attribution_basis": "第一项闭合点已具有草原核心和局部防守节点；第三项仅消费391年后高车等方向形成主要边界协同的独立增量",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 27.6,
+          "attributable_delta": 0.0,
+          "attribution_basis": "第一项创业竞争窗口现已延至409年；391年不是跨项闭合点，395—402年后燕、高车、柴壁、柔然同链结果与成本退出第三项。",
+          "attribution_category": "FIRST_ITEM_CONSUMED_OBJECTIVE_CONTEXT_ONLY",
+          "axis_points": 21.6,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 3,
-          "maintenance_basis": "非4→4或5→5",
+          "maintenance_basis": "同链已由第一项消费，不另计第三项守成。",
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
           "objective_delta": 1,
-          "reversal_basis": "无重大逆转登记",
-          "reversal_grade": "NONE",
+          "reversal_basis": "第一项创业竞争窗口现已延至409年；391年不是跨项闭合点，395—402年后燕、高车、柴壁、柔然同链结果与成本退出第三项。",
+          "reversal_grade": "CONSUMED_BY_FIRST_ITEM",
           "reversal_penalty": 0,
           "score_ready": true,
           "start_grade": 2,
-          "trajectory_value": 46.0,
-          "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+          "trajectory_value": 36,
+          "within_band_deterioration_basis": "第一项创业竞争窗口现已延至409年；391年不是跨项闭合点，395—402年后燕、高车、柴壁、柔然同链结果与成本退出第三项。",
           "within_band_deterioration_penalty": 0,
           "improvement_step_credits": [
             {
               "from_grade": 2,
               "to_grade": 3,
-              "credit": 1.0,
-              "basis": "第一项闭合点已具有草原核心和局部防守节点；第三项仅消费391年后高车等方向形成主要边界协同的独立增量"
+              "credit": 0.0,
+              "basis": "第一项创业竞争窗口现已延至409年；391年不是跨项闭合点，395—402年后燕、高车、柴壁、柔然同链结果与成本退出第三项。"
             }
           ]
         }
@@ -2579,14 +2665,36 @@
       "ruler_name": "拓跋珪",
       "score_ready": true,
       "B80_adjudication": {
-        "B80_points": 39.18,
-        "formal_B1_rate": 44.0,
-        "formal_B2_rate": 67.0,
-        "formal_B4_rate": 67.0,
-        "adjudicated_B1_rate": 44.0,
-        "adjudicated_B2_rate": 67.0,
-        "adjudicated_B4_rate": 67.0,
-        "consistency_basis": "391年柔然稳定与北方创业核心已由第一项消费，改作B1起点而非新增；B2/B4只保留399年后高车等独立控制包，D继续承接395年后当前窗口成本"
+        "B80_points": 0.0,
+        "formal_B1_rate": 0.0,
+        "formal_B2_rate": 0.0,
+        "formal_B4_rate": 0.0,
+        "adjudicated_B1_rate": 0.0,
+        "adjudicated_B2_rate": 0.0,
+        "adjudicated_B4_rate": 0.0,
+        "consistency_basis": "第一项创业竞争窗口现已延至409年；391年不是跨项闭合点，395—402年后燕、高车、柴壁、柔然同链结果与成本退出第三项。"
+      },
+      "cross_item_parent_routing": {
+        "reason": "第一项创业竞争窗口现已延至409年；391年不是跨项闭合点，395—402年后燕、高车、柴壁、柔然同链结果与成本退出第三项。",
+        "A_consumption": "OBJECTIVE_STATE_ONLY_NO_ATTRIBUTABLE_CHANGE",
+        "B_consumption": "EXCLUDED_FIRST_ITEM_ACQUISITION",
+        "D_excluded_chain_ids": [
+          "TG-LATERYAN-395-397",
+          "TG-GAOCHE-399",
+          "TG-LATERCIN-CHAIBI-402",
+          "TG-ROURAN-402"
+        ],
+        "C_capability_only_parent_refs": [
+          "WAR-LEAD-106-WEI-385-386",
+          "WAR-LEAD-107-WEI-LIUWEICHEN-391",
+          "CAMPAIGN-WEI-YAN-396-397",
+          "CAMPAIGN-V111-111-WEI-GAOCHE-399",
+          "CAMPAIGN-V107-107-WEI-ROURAN-391"
+        ],
+        "B_excluded_control_package_refs": [
+          "WAR-LEAD-111-WEI-GAOCHE-399",
+          "WAR-LEAD-113-WEI-GAOCHE-403"
+        ]
       }
     },
     {
@@ -3184,13 +3292,13 @@
       }
     },
     {
-      "A120_points": 81.6,
+      "A120_points": 57.6,
       "axes": {
         "A1": {
-          "attributable_delta": 2.0,
-          "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 40.8,
+          "attributable_delta": 0.0,
+          "attribution_basis": "397—421年河西创业及灭西凉由第一项消费。421年已有稳定优势与总体可守边界；424—429年西秦链保留，但未证明进一步跨档改善。",
+          "attribution_category": "POST_FIRST_ITEM_STAGE_RULER_ATTRIBUTION",
+          "axis_points": 28.8,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 4,
@@ -3198,35 +3306,23 @@
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
-          "objective_delta": 2,
+          "objective_delta": 0,
           "reversal_basis": "现有材料未闭合本人造成且未被终点表达的额外恶化",
           "reversal_grade": "NONE_RECOVERED_OR_NOT_ATTRIBUTABLE",
           "reversal_penalty": 0,
           "score_ready": true,
-          "start_grade": 2,
-          "trajectory_value": 68.0,
+          "start_grade": 4,
+          "trajectory_value": 48.0,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
-          "improvement_step_credits": [
-            {
-              "from_grade": 2,
-              "to_grade": 3,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
-            },
-            {
-              "from_grade": 3,
-              "to_grade": 4,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
-            }
-          ]
+          "improvement_step_credits": [],
+          "active_window_start": 421
         },
         "A2": {
-          "attributable_delta": 2.0,
-          "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 40.8,
+          "attributable_delta": 0.0,
+          "attribution_basis": "397—421年河西创业及灭西凉由第一项消费。421年已有稳定优势与总体可守边界；424—429年西秦链保留，但未证明进一步跨档改善。",
+          "attribution_category": "POST_FIRST_ITEM_STAGE_RULER_ATTRIBUTION",
+          "axis_points": 28.8,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 4,
@@ -3234,29 +3330,17 @@
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
-          "objective_delta": 2,
+          "objective_delta": 0,
           "reversal_basis": "逆转未证明改变本轴，避免双轴重复处罚",
           "reversal_grade": "NONE_DIFFERENT_AXIS",
           "reversal_penalty": 0,
           "score_ready": true,
-          "start_grade": 2,
-          "trajectory_value": 68.0,
+          "start_grade": 4,
+          "trajectory_value": 48.0,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
-          "improvement_step_credits": [
-            {
-              "from_grade": 2,
-              "to_grade": 3,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
-            },
-            {
-              "from_grade": 3,
-              "to_grade": 4,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
-            }
-          ]
+          "improvement_step_credits": [],
+          "active_window_start": 421
         }
       },
       "major_in_reign_reversal_refs": [
@@ -3275,6 +3359,13 @@
         "adjudicated_B2_rate": 0.0,
         "adjudicated_B4_rate": 0.0,
         "consistency_basis": "灭西凉、取酒泉敦煌已由第一项消费；现有B三轴均只读取该控制包"
+      },
+      "cross_item_parent_routing": {
+        "first_item_closure_year": 421,
+        "reason": "397—421年河西创业及灭西凉由第一项消费。421年已有稳定优势与总体可守边界；424—429年西秦链保留，但未证明进一步跨档改善。",
+        "A_consumption": "POST_ACQUISITION_STAGE_ONLY",
+        "B_excluded_control_package_refs": [],
+        "B_consumption": "EXCLUDED_FIRST_ITEM_ACQUISITION"
       }
     },
     {
@@ -3672,13 +3763,13 @@
       }
     },
     {
-      "A120_points": 106.8,
+      "A120_points": 82.8,
       "axes": {
         "A1": {
-          "attributable_delta": 4.0,
-          "attribution_basis": "材料门后按人物窗口逐段裁决",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 60.0,
+          "attributable_delta": 2.0,
+          "attribution_basis": "1124—1134年建国与核心接管由第一项消费；1134年已形成可独立维持的核心与主要边界。其后苦盏、卡特万及花剌子模贡属使主要威胁从均势推进到主导秩序，A1计3至5；河中交通与宗主网络使A2从3至4，东征未成仍保留缺口。",
+          "attribution_category": "POST_FIRST_ITEM_STAGE_RULER_ATTRIBUTION",
+          "axis_points": 48.0,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 5,
@@ -3686,47 +3777,36 @@
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
-          "objective_delta": 4,
+          "objective_delta": 2,
           "reversal_basis": "无重大逆转登记",
           "reversal_grade": "NONE",
           "reversal_penalty": 0,
           "score_ready": true,
-          "start_grade": 1,
-          "trajectory_value": 100,
+          "start_grade": 3,
+          "trajectory_value": 80.0,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
           "improvement_step_credits": [
             {
-              "from_grade": 1,
-              "to_grade": 2,
-              "credit": 1.0,
-              "basis": "材料门后按人物窗口逐段裁决"
-            },
-            {
-              "from_grade": 2,
-              "to_grade": 3,
-              "credit": 1.0,
-              "basis": "材料门后按人物窗口逐段裁决"
-            },
-            {
               "from_grade": 3,
               "to_grade": 4,
               "credit": 1.0,
-              "basis": "材料门后按人物窗口逐段裁决"
+              "basis": "1124—1134年建国与核心接管由第一项消费；1134年已形成可独立维持的核心与主要边界。其后苦盏、卡特万及花剌子模贡属使主要威胁从均势推进到主导秩序，A1计3至5；河中交通与宗主网络使A2从3至4，东征未成仍保留缺口。"
             },
             {
               "from_grade": 4,
               "to_grade": 5,
               "credit": 1.0,
-              "basis": "材料门后按人物窗口逐段裁决"
+              "basis": "1124—1134年建国与核心接管由第一项消费；1134年已形成可独立维持的核心与主要边界。其后苦盏、卡特万及花剌子模贡属使主要威胁从均势推进到主导秩序，A1计3至5；河中交通与宗主网络使A2从3至4，东征未成仍保留缺口。"
             }
-          ]
+          ],
+          "active_window_start": 1134
         },
         "A2": {
-          "attributable_delta": 3.0,
-          "attribution_basis": "材料门后按人物窗口逐段裁决",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 46.8,
+          "attributable_delta": 1.0,
+          "attribution_basis": "1124—1134年建国与核心接管由第一项消费；1134年已形成可独立维持的核心与主要边界。其后苦盏、卡特万及花剌子模贡属使主要威胁从均势推进到主导秩序，A1计3至5；河中交通与宗主网络使A2从3至4，东征未成仍保留缺口。",
+          "attribution_category": "POST_FIRST_ITEM_STAGE_RULER_ATTRIBUTION",
+          "axis_points": 34.8,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 4,
@@ -3734,35 +3814,24 @@
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
-          "objective_delta": 3,
+          "objective_delta": 1,
           "reversal_basis": "无重大逆转登记",
           "reversal_grade": "NONE",
           "reversal_penalty": 0,
           "score_ready": true,
-          "start_grade": 1,
-          "trajectory_value": 78.0,
+          "start_grade": 3,
+          "trajectory_value": 58.0,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
           "improvement_step_credits": [
             {
-              "from_grade": 1,
-              "to_grade": 2,
-              "credit": 1.0,
-              "basis": "材料门后按人物窗口逐段裁决"
-            },
-            {
-              "from_grade": 2,
-              "to_grade": 3,
-              "credit": 1.0,
-              "basis": "材料门后按人物窗口逐段裁决"
-            },
-            {
               "from_grade": 3,
               "to_grade": 4,
               "credit": 1.0,
-              "basis": "材料门后按人物窗口逐段裁决"
+              "basis": "1124—1134年建国与核心接管由第一项消费；1134年已形成可独立维持的核心与主要边界。其后苦盏、卡特万及花剌子模贡属使主要威胁从均势推进到主导秩序，A1计3至5；河中交通与宗主网络使A2从3至4，东征未成仍保留缺口。"
             }
-          ]
+          ],
+          "active_window_start": 1134
         }
       },
       "major_in_reign_reversal_refs": [],
@@ -3771,14 +3840,20 @@
       "ruler_name": "耶律大石",
       "score_ready": true,
       "B80_adjudication": {
-        "B80_points": 0.0,
-        "formal_B1_rate": 0.0,
-        "formal_B2_rate": 0.0,
-        "formal_B4_rate": 0.0,
-        "adjudicated_B1_rate": 0.0,
-        "adjudicated_B2_rate": 0.0,
-        "adjudicated_B4_rate": 0.0,
-        "consistency_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+        "B80_points": 47.21,
+        "formal_B1_rate": 52.0,
+        "formal_B2_rate": 82.0,
+        "formal_B4_rate": 67.0,
+        "adjudicated_B1_rate": 52.0,
+        "adjudicated_B2_rate": 82.0,
+        "adjudicated_B4_rate": 67.0,
+        "consistency_basis": "河中地方王朝保留，宗主与岁贡关系可执行但非直接府县统治，交班距卡特万只有数年；取3档中位，不把1134年前建国核心成熟度混入。"
+      },
+      "cross_item_parent_routing": {
+        "first_item_closure_year": 1134,
+        "reason": "1124—1134年建国与核心接管由第一项消费；1134年已形成可独立维持的核心与主要边界。其后苦盏、卡特万及花剌子模贡属使主要威胁从均势推进到主导秩序，A1计3至5；河中交通与宗主网络使A2从3至4，东征未成仍保留缺口。",
+        "A_consumption": "POST_ACQUISITION_STAGE_ONLY",
+        "B_excluded_control_package_refs": []
       }
     },
     {
@@ -4256,14 +4331,28 @@
       "ruler_name": "柴荣",
       "score_ready": true,
       "B80_adjudication": {
-        "B80_points": 37.64,
+        "B80_points": 11.4,
         "formal_B1_rate": 37.0,
-        "formal_B2_rate": 74.0,
-        "formal_B4_rate": 59.0,
+        "formal_B2_rate": 0.0,
+        "formal_B4_rate": 0.0,
         "adjudicated_B1_rate": 37.0,
-        "adjudicated_B2_rate": 74.0,
-        "adjudicated_B4_rate": 59.0,
-        "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+        "adjudicated_B2_rate": 0.0,
+        "adjudicated_B4_rate": 0.0,
+        "consistency_basis": "高平、淮南、关南已由第一项明确消费；高平解除压力和随后移交不能再构成第三项B2/B4控制收益。B1既有北线存量按清单维持。"
+      },
+      "cross_item_parent_routing": {
+        "reason": "954—955年高平及同一北方防守主链已由第一项明确消费，成本随链退出第三项。",
+        "D_excluded_chain_ids": [
+          "STRATEGIC-FD-CHAI-RONG-NORTHERN-DEFENSE-0954-0955"
+        ],
+        "C_capability_only_parent_refs": [
+          "ZZTJ-291-NH-KHITAN-GAOPING-CAMPAIGN-0954",
+          "ZZTJ-292-HULUHE-DEFENSE-0955"
+        ],
+        "B_excluded_control_package_refs": [
+          "WAR-FD-7D5667690296465F359D-P01",
+          "WAR-FD-0532043F11CA3D46B87A-P02"
+        ]
       }
     },
     {
@@ -5153,13 +5242,13 @@
       }
     },
     {
-      "A120_points": 54.0,
+      "A120_points": 18.0,
       "axes": {
         "A1": {
-          "attributable_delta": 1.0,
-          "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 20.4,
+          "attributable_delta": -2.0,
+          "attribution_basis": "384—394年复国及灭翟魏、西燕已形成优势与总体边界，由第一项消费。395—396年攻魏与参合陂后压力属于独立后续链，交班主要威胁降为2档、边界仍有3档，分别计-2与-1归责变化。",
+          "attribution_category": "POST_FIRST_ITEM_STAGE_RULER_ATTRIBUTION",
+          "axis_points": 2.4,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 2,
@@ -5167,29 +5256,23 @@
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
-          "objective_delta": 1,
+          "objective_delta": -2,
           "reversal_basis": "现有材料未闭合本人造成且未被终点表达的额外恶化",
           "reversal_grade": "NONE_RECOVERED_OR_NOT_ATTRIBUTABLE",
           "reversal_penalty": 0,
           "score_ready": true,
-          "start_grade": 1,
-          "trajectory_value": 34.0,
+          "start_grade": 4,
+          "trajectory_value": 4.0,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
-          "improvement_step_credits": [
-            {
-              "from_grade": 1,
-              "to_grade": 2,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
-            }
-          ]
+          "improvement_step_credits": [],
+          "active_window_start": 394
         },
         "A2": {
-          "attributable_delta": 2.0,
-          "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 33.6,
+          "attributable_delta": -1.0,
+          "attribution_basis": "384—394年复国及灭翟魏、西燕已形成优势与总体边界，由第一项消费。395—396年攻魏与参合陂后压力属于独立后续链，交班主要威胁降为2档、边界仍有3档，分别计-2与-1归责变化。",
+          "attribution_category": "POST_FIRST_ITEM_STAGE_RULER_ATTRIBUTION",
+          "axis_points": 15.6,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 3,
@@ -5197,29 +5280,17 @@
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
-          "objective_delta": 2,
+          "objective_delta": -1,
           "reversal_basis": "逆转未证明改变本轴，避免双轴重复处罚",
           "reversal_grade": "NONE_DIFFERENT_AXIS",
           "reversal_penalty": 0,
           "score_ready": true,
-          "start_grade": 1,
-          "trajectory_value": 56.0,
+          "start_grade": 4,
+          "trajectory_value": 26.0,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
-          "improvement_step_credits": [
-            {
-              "from_grade": 1,
-              "to_grade": 2,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
-            },
-            {
-              "from_grade": 2,
-              "to_grade": 3,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
-            }
-          ]
+          "improvement_step_credits": [],
+          "active_window_start": 394
         }
       },
       "major_in_reign_reversal_refs": [
@@ -5238,6 +5309,18 @@
         "adjudicated_B2_rate": 0.0,
         "adjudicated_B4_rate": 0.0,
         "consistency_basis": "翟魏、西燕已在AB的创业排除表，却又被B计分；平城仅短期支点且D确认无耐久控制"
+      },
+      "cross_item_parent_routing": {
+        "first_item_closure_year": 394,
+        "reason": "384—394年复国及灭翟魏、西燕已形成优势与总体边界，由第一项消费。395—396年攻魏与参合陂后压力属于独立后续链，交班主要威胁降为2档、边界仍有3档，分别计-2与-1归责变化。",
+        "A_consumption": "POST_ACQUISITION_STAGE_ONLY",
+        "C_capability_only_parent_refs": [
+          "WAR-LEAD-108-DIWEI-392",
+          "WAR-LEAD-108-LATERYAN-WESTYAN-393-394",
+          "CAMPAIGN-ZHAIWEI-387-OPEN"
+        ],
+        "B_excluded_control_package_refs": [],
+        "B_consumption": "EXCLUDED_FIRST_ITEM_ACQUISITION"
       }
     },
     {
@@ -5387,13 +5470,13 @@
       }
     },
     {
-      "A120_points": 74.4,
+      "A120_points": 50.4,
       "axes": {
         "A1": {
-          "attributable_delta": 3.0,
-          "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 46.8,
+          "attributable_delta": 0.0,
+          "attribution_basis": "407—418年朔方、关中创业改善由第一项消费。第三项从既有战略优势与主要边界起算，424年继承内战成本另在D保留，不由创业所得重复增加A。",
+          "attribution_category": "POST_FIRST_ITEM_STAGE_RULER_ATTRIBUTION",
+          "axis_points": 28.8,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 4,
@@ -5401,41 +5484,23 @@
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
-          "objective_delta": 3,
+          "objective_delta": 0,
           "reversal_basis": "无重大逆转登记",
           "reversal_grade": "NONE",
           "reversal_penalty": 0,
           "score_ready": true,
-          "start_grade": 1,
-          "trajectory_value": 78.0,
+          "start_grade": 4,
+          "trajectory_value": 48.0,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
-          "improvement_step_credits": [
-            {
-              "from_grade": 1,
-              "to_grade": 2,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
-            },
-            {
-              "from_grade": 2,
-              "to_grade": 3,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
-            },
-            {
-              "from_grade": 3,
-              "to_grade": 4,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
-            }
-          ]
+          "improvement_step_credits": [],
+          "active_window_start": 418
         },
         "A2": {
-          "attributable_delta": 1.0,
-          "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 27.6,
+          "attributable_delta": 0.0,
+          "attribution_basis": "407—418年朔方、关中创业改善由第一项消费。第三项从既有战略优势与主要边界起算，424年继承内战成本另在D保留，不由创业所得重复增加A。",
+          "attribution_category": "POST_FIRST_ITEM_STAGE_RULER_ATTRIBUTION",
+          "axis_points": 21.6,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 3,
@@ -5443,23 +5508,17 @@
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
-          "objective_delta": 1,
+          "objective_delta": 0,
           "reversal_basis": "无重大逆转登记",
           "reversal_grade": "NONE",
           "reversal_penalty": 0,
           "score_ready": true,
-          "start_grade": 2,
-          "trajectory_value": 46.0,
+          "start_grade": 3,
+          "trajectory_value": 36.0,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
-          "improvement_step_credits": [
-            {
-              "from_grade": 2,
-              "to_grade": 3,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
-            }
-          ]
+          "improvement_step_credits": [],
+          "active_window_start": 418
         }
       },
       "major_in_reign_reversal_refs": [],
@@ -5476,6 +5535,18 @@
         "adjudicated_B2_rate": 0.0,
         "adjudicated_B4_rate": 0.0,
         "consistency_basis": "长安关中控制包属第一项创业统一终局；B三轴整包排除"
+      },
+      "cross_item_parent_routing": {
+        "first_item_closure_year": 418,
+        "reason": "407—418年朔方、关中创业改善由第一项消费。第三项从既有战略优势与主要边界起算，424年继承内战成本另在D保留，不由创业所得重复增加A。",
+        "A_consumption": "POST_ACQUISITION_STAGE_ONLY",
+        "C_capability_only_parent_refs": [
+          "WAR-LEAD-114-XIA-407",
+          "CAMPAIGN-XIA-GUANZHONG-417-419",
+          "DEF-LEAD-116-TONGWAN-413"
+        ],
+        "B_excluded_control_package_refs": [],
+        "B_consumption": "EXCLUDED_FIRST_ITEM_ACQUISITION"
       }
     },
     {
@@ -5657,52 +5728,16 @@
       }
     },
     {
-      "A120_points": 54.0,
+      "A120_points": 42.0,
       "axes": {
         "A1": {
-          "attributable_delta": 2.0,
-          "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 33.6,
+          "attributable_delta": 1.0,
+          "attribution_basis": "304—308年初始核心形成由第一项消费，308年已脱离无核心的1档起点，形成局部防守节点但战略仍居劣势。309—310年壶关、上党独立链暂保留，支持主要威胁由2至3，未闭合边界体系升至3。",
+          "attribution_category": "POST_FIRST_ITEM_STAGE_RULER_ATTRIBUTION",
+          "axis_points": 27.6,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 3,
-          "maintenance_basis": "非4→4或5→5",
-          "maintenance_bonus": 0,
-          "maintenance_difficulty": "NOT_APPLICABLE",
-          "negative_adjustment": 0,
-          "objective_delta": 2,
-          "reversal_basis": "无重大逆转登记",
-          "reversal_grade": "NONE",
-          "reversal_penalty": 0,
-          "score_ready": true,
-          "start_grade": 1,
-          "trajectory_value": 56.0,
-          "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
-          "within_band_deterioration_penalty": 0,
-          "improvement_step_credits": [
-            {
-              "from_grade": 1,
-              "to_grade": 2,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
-            },
-            {
-              "from_grade": 2,
-              "to_grade": 3,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
-            }
-          ]
-        },
-        "A2": {
-          "attributable_delta": 1.0,
-          "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 20.4,
-          "ceiling_progress": "NONE",
-          "ceiling_progress_bonus": 0,
-          "end_grade": 2,
           "maintenance_basis": "非4→4或5→5",
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
@@ -5712,18 +5747,43 @@
           "reversal_grade": "NONE",
           "reversal_penalty": 0,
           "score_ready": true,
-          "start_grade": 1,
-          "trajectory_value": 34.0,
+          "start_grade": 2,
+          "trajectory_value": 46.0,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
           "improvement_step_credits": [
             {
-              "from_grade": 1,
-              "to_grade": 2,
+              "from_grade": 2,
+              "to_grade": 3,
               "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+              "basis": "304—308年初始核心形成由第一项消费，308年已脱离无核心的1档起点，形成局部防守节点但战略仍居劣势。309—310年壶关、上党独立链暂保留，支持主要威胁由2至3，未闭合边界体系升至3。"
             }
-          ]
+          ],
+          "active_window_start": 308
+        },
+        "A2": {
+          "attributable_delta": 0.0,
+          "attribution_basis": "304—308年初始核心形成由第一项消费，308年已脱离无核心的1档起点，形成局部防守节点但战略仍居劣势。309—310年壶关、上党独立链暂保留，支持主要威胁由2至3，未闭合边界体系升至3。",
+          "attribution_category": "POST_FIRST_ITEM_STAGE_RULER_ATTRIBUTION",
+          "axis_points": 14.4,
+          "ceiling_progress": "NONE",
+          "ceiling_progress_bonus": 0,
+          "end_grade": 2,
+          "maintenance_basis": "非4→4或5→5",
+          "maintenance_bonus": 0,
+          "maintenance_difficulty": "NOT_APPLICABLE",
+          "negative_adjustment": 0,
+          "objective_delta": 0,
+          "reversal_basis": "无重大逆转登记",
+          "reversal_grade": "NONE",
+          "reversal_penalty": 0,
+          "score_ready": true,
+          "start_grade": 2,
+          "trajectory_value": 24.0,
+          "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+          "within_band_deterioration_penalty": 0,
+          "improvement_step_credits": [],
+          "active_window_start": 308
         }
       },
       "major_in_reign_reversal_refs": [],
@@ -5740,6 +5800,12 @@
         "adjudicated_B2_rate": 52.0,
         "adjudicated_B4_rate": 45.0,
         "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+      },
+      "cross_item_parent_routing": {
+        "first_item_closure_year": 308,
+        "reason": "304—308年初始核心形成由第一项消费，308年已脱离无核心的1档起点，形成局部防守节点但战略仍居劣势。309—310年壶关、上党独立链暂保留，支持主要威胁由2至3，未闭合边界体系升至3。",
+        "A_consumption": "POST_ACQUISITION_STAGE_ONLY",
+        "B_excluded_control_package_refs": []
       }
     },
     {
@@ -6532,72 +6598,92 @@
       }
     },
     {
-      "A120_points": 31.2,
+      "A120_points": 43.2,
       "axes": {
         "A1": {
           "attributable_delta": 0.0,
-          "attribution_basis": "客观起终档未变化，不生成变化分",
-          "attribution_category": "NO_CHANGE",
-          "axis_points": 15.6,
+          "attribution_basis": "534年仅为B1效率计时终点；东西魏竞争持续至本人退出，第一项C消费该主链，第三项不重复结算胜败或成本。",
+          "attribution_category": "FIRST_ITEM_CONSUMED_OBJECTIVE_CONTEXT_ONLY",
+          "axis_points": 21.6,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 3,
-          "maintenance_basis": "非4→4或5→5",
+          "maintenance_basis": "同链已由第一项消费，不另计第三项守成。",
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
-          "negative_adjustment": 10,
+          "negative_adjustment": 0,
           "objective_delta": 0,
-          "reversal_basis": "起终档未表达的EN2/EN3档内恶化",
-          "reversal_grade": "MATERIAL",
-          "reversal_penalty": 10,
+          "reversal_basis": "534年仅为B1效率计时终点；东西魏竞争持续至本人退出，第一项C消费该主链，第三项不重复结算胜败或成本。",
+          "reversal_grade": "CONSUMED_BY_FIRST_ITEM",
+          "reversal_penalty": 0,
           "score_ready": true,
           "start_grade": 3,
-          "trajectory_value": 26.0,
-          "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+          "trajectory_value": 36,
+          "within_band_deterioration_basis": "534年仅为B1效率计时终点；东西魏竞争持续至本人退出，第一项C消费该主链，第三项不重复结算胜败或成本。",
           "within_band_deterioration_penalty": 0,
           "improvement_step_credits": []
         },
         "A2": {
           "attributable_delta": 0.0,
-          "attribution_basis": "客观起终档未变化，不生成变化分",
-          "attribution_category": "NO_CHANGE",
-          "axis_points": 15.6,
+          "attribution_basis": "534年仅为B1效率计时终点；东西魏竞争持续至本人退出，第一项C消费该主链，第三项不重复结算胜败或成本。",
+          "attribution_category": "FIRST_ITEM_CONSUMED_OBJECTIVE_CONTEXT_ONLY",
+          "axis_points": 21.6,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 3,
-          "maintenance_basis": "非4→4或5→5",
+          "maintenance_basis": "同链已由第一项消费，不另计第三项守成。",
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
-          "negative_adjustment": 10,
+          "negative_adjustment": 0,
           "objective_delta": 0,
-          "reversal_basis": "起终档未表达的EN2/EN3档内恶化",
-          "reversal_grade": "MATERIAL",
-          "reversal_penalty": 10,
+          "reversal_basis": "534年仅为B1效率计时终点；东西魏竞争持续至本人退出，第一项C消费该主链，第三项不重复结算胜败或成本。",
+          "reversal_grade": "CONSUMED_BY_FIRST_ITEM",
+          "reversal_penalty": 0,
           "score_ready": true,
           "start_grade": 3,
-          "trajectory_value": 26.0,
-          "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+          "trajectory_value": 36,
+          "within_band_deterioration_basis": "534年仅为B1效率计时终点；东西魏竞争持续至本人退出，第一项C消费该主链，第三项不重复结算胜败或成本。",
           "within_band_deterioration_penalty": 0,
           "improvement_step_credits": []
         }
       },
-      "major_in_reign_reversal_refs": [
-        "WAR-LEAD-157-08",
-        "WAR-LEAD-158-06"
-      ],
+      "major_in_reign_reversal_refs": [],
       "polity": "东魏",
       "ruler_id": "RULER-SHADOW-高欢",
       "ruler_name": "高欢",
       "score_ready": true,
       "B80_adjudication": {
-        "B80_points": 41.5,
-        "formal_B1_rate": 52.0,
-        "formal_B2_rate": 75.0,
-        "formal_B4_rate": 44.0,
-        "adjudicated_B1_rate": 52.0,
-        "adjudicated_B2_rate": 75.0,
-        "adjudicated_B4_rate": 44.0,
-        "consistency_basis": "B2继续承认本人体系收复河南四州的关键战略价值；B4改读交班锚内侯景拒召、拥兵自固的真实余量。删除混合金墉毁弃、河南柵堡和西魏玉壁设防的WAR-LEAD-158-04，改挂四州恢复与交班前指挥失效两条直接材料。"
+        "B80_points": 0.0,
+        "formal_B1_rate": 0.0,
+        "formal_B2_rate": 0.0,
+        "formal_B4_rate": 0.0,
+        "adjudicated_B1_rate": 0.0,
+        "adjudicated_B2_rate": 0.0,
+        "adjudicated_B4_rate": 0.0,
+        "consistency_basis": "534年仅为B1效率计时终点；东西魏竞争持续至本人退出，第一项C消费该主链，第三项不重复结算胜败或成本。"
+      },
+      "cross_item_parent_routing": {
+        "reason": "534年仅为B1效率计时终点；东西魏竞争持续至本人退出，第一项C消费该主链，第三项不重复结算胜败或成本。",
+        "A_consumption": "OBJECTIVE_STATE_ONLY_NO_ATTRIBUTABLE_CHANGE",
+        "B_consumption": "EXCLUDED_FIRST_ITEM_ACQUISITION",
+        "D_excluded_chain_ids": [
+          "GH-EAST-WEST-WEI-536-546"
+        ],
+        "C_capability_only_parent_refs": [
+          "WAR-LEAD-154-05",
+          "WAR-LEAD-155-05",
+          "NC-EAST-WEST-WEI-SPLIT-534",
+          "NC-V157-LEAD-157-04",
+          "NC-V157-LEAD-157-05",
+          "NC-EAST-WEST-WEI-537",
+          "NC-V158-LEAD-158-07",
+          "NC-V159-LEAD-159-04",
+          "NC-HOUJING-EASTWEI-547-548"
+        ],
+        "B_excluded_control_package_refs": [
+          "WAR-LEAD-158-01",
+          "WAR-LEAD-159-05"
+        ]
       }
     },
     {
@@ -6733,13 +6819,13 @@
       }
     },
     {
-      "A120_points": 62.4,
+      "A120_points": 50.4,
       "axes": {
         "A1": {
-          "attributable_delta": 1.0,
-          "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 34.8,
+          "attributable_delta": 0.0,
+          "attribution_basis": "洛阳、关中取得与汉赵扩张主链由第一项消费。取得后保留优势及主要边界客观锚，317年氐羌平乱没有独立跨档安全改善证据。",
+          "attribution_category": "POST_FIRST_ITEM_STAGE_RULER_ATTRIBUTION",
+          "axis_points": 28.8,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 4,
@@ -6747,29 +6833,23 @@
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
-          "objective_delta": 1,
+          "objective_delta": 0,
           "reversal_basis": "现有材料未闭合本人造成且未被终点表达的额外恶化",
           "reversal_grade": "NONE_RECOVERED_OR_NOT_ATTRIBUTABLE",
           "reversal_penalty": 0,
           "score_ready": true,
-          "start_grade": 3,
-          "trajectory_value": 58.0,
+          "start_grade": 4,
+          "trajectory_value": 48.0,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
-          "improvement_step_credits": [
-            {
-              "from_grade": 3,
-              "to_grade": 4,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
-            }
-          ]
+          "improvement_step_credits": [],
+          "active_window_start": 316
         },
         "A2": {
-          "attributable_delta": 1.0,
-          "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 27.6,
+          "attributable_delta": 0.0,
+          "attribution_basis": "洛阳、关中取得与汉赵扩张主链由第一项消费。取得后保留优势及主要边界客观锚，317年氐羌平乱没有独立跨档安全改善证据。",
+          "attribution_category": "POST_FIRST_ITEM_STAGE_RULER_ATTRIBUTION",
+          "axis_points": 21.6,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 3,
@@ -6777,23 +6857,17 @@
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
-          "objective_delta": 1,
+          "objective_delta": 0,
           "reversal_basis": "逆转未证明改变本轴，避免双轴重复处罚",
           "reversal_grade": "NONE_DIFFERENT_AXIS",
           "reversal_penalty": 0,
           "score_ready": true,
-          "start_grade": 2,
-          "trajectory_value": 46.0,
+          "start_grade": 3,
+          "trajectory_value": 36.0,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
-          "improvement_step_credits": [
-            {
-              "from_grade": 2,
-              "to_grade": 3,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
-            }
-          ]
+          "improvement_step_credits": [],
+          "active_window_start": 316
         }
       },
       "major_in_reign_reversal_refs": [
@@ -6804,14 +6878,28 @@
       "ruler_name": "刘聪",
       "score_ready": true,
       "B80_adjudication": {
-        "B80_points": 24.25,
-        "formal_B1_rate": 30.0,
-        "formal_B2_rate": 44.0,
-        "formal_B4_rate": 45.0,
-        "adjudicated_B1_rate": 30.0,
-        "adjudicated_B2_rate": 44.0,
-        "adjudicated_B4_rate": 45.0,
-        "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+        "B80_points": 0.0,
+        "formal_B1_rate": 0.0,
+        "formal_B2_rate": 0.0,
+        "formal_B4_rate": 0.0,
+        "adjudicated_B1_rate": 0.0,
+        "adjudicated_B2_rate": 0.0,
+        "adjudicated_B4_rate": 0.0,
+        "consistency_basis": "洛阳、关中取得与汉赵扩张主链由第一项消费。取得后保留优势及主要边界客观锚，317年氐羌平乱没有独立跨档安全改善证据。同一取得或恢复控制包不再进入第三项B，现存独立后续D不自动形成边疆控制成果。"
+      },
+      "cross_item_parent_routing": {
+        "first_item_closure_year": 316,
+        "reason": "洛阳、关中取得与汉赵扩张主链由第一项消费。取得后保留优势及主要边界客观锚，317年氐羌平乱没有独立跨档安全改善证据。",
+        "A_consumption": "POST_ACQUISITION_STAGE_ONLY",
+        "C_capability_only_parent_refs": [
+          "WAR-LEAD-HANZHAO-HUGUAN-309",
+          "CAMPAIGN-JIN-EIGHT-PRINCES-YONGJIA-291-316",
+          "EVENT:WAR-LEAD-SHILE-JIANGXIA-311"
+        ],
+        "B_excluded_control_package_refs": [
+          "WAR-LEAD-SANZHU-312"
+        ],
+        "B_consumption": "EXCLUDED_FIRST_ITEM_ACQUISITION"
       }
     },
     {
@@ -7741,14 +7829,19 @@
       "ruler_name": "刘裕",
       "score_ready": true,
       "B80_adjudication": {
-        "B80_points": 13.55,
-        "formal_B1_rate": 44.0,
+        "B80_points": 0.0,
+        "formal_B1_rate": 0.0,
         "formal_B2_rate": 0.0,
         "formal_B4_rate": 0.0,
-        "adjudicated_B1_rate": 44.0,
+        "adjudicated_B1_rate": 0.0,
         "adjudicated_B2_rate": 0.0,
         "adjudicated_B4_rate": 0.0,
-        "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+        "consistency_basis": "404—420年统一取得链已由第一项消费；关中—陇右、山东—河北不得作为第三项新增或守成控制回填，B1归零。"
+      },
+      "cross_item_parent_routing": {
+        "reason": "404—420年统一取得链已由第一项消费；关中—陇右、山东—河北不得作为第三项新增或守成控制回填，B1归零。",
+        "B_excluded_control_package_refs": [],
+        "B_consumption": "EXCLUDED_FIRST_ITEM_ACQUISITION"
       }
     },
     {
@@ -8256,12 +8349,12 @@
       }
     },
     {
-      "A120_points": 1.2,
+      "A120_points": 0.0,
       "axes": {
         "A1": {
-          "attributable_delta": -2.0,
-          "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
-          "attribution_category": "PRIMARY_RULER",
+          "attributable_delta": -3.0,
+          "attribution_basis": "393—400年秦陇、河东、洛阳及西秦取得阶段由第一项消费，闭合点已形成稳定优势与总体边界。402年柴壁及408—415年胡夏独立链连续毁损北方军镇和方面军，交班主要威胁与边界均退至1档，后续下降完整保留。",
+          "attribution_category": "POST_FIRST_ITEM_STAGE_RULER_ATTRIBUTION",
           "axis_points": 0.0,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
@@ -8270,22 +8363,23 @@
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
-          "objective_delta": -2,
+          "objective_delta": -3,
           "reversal_basis": "终点下降已消费负向结果，禁止重复处罚",
           "reversal_grade": "CONSUMED_BY_TERMINAL_DECLINE",
           "reversal_penalty": 0,
           "score_ready": true,
-          "start_grade": 3,
+          "start_grade": 4,
           "trajectory_value": 0,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
-          "improvement_step_credits": []
+          "improvement_step_credits": [],
+          "active_window_start": 400
         },
         "A2": {
-          "attributable_delta": -1.0,
-          "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 1.2,
+          "attributable_delta": -3.0,
+          "attribution_basis": "393—400年秦陇、河东、洛阳及西秦取得阶段由第一项消费，闭合点已形成稳定优势与总体边界。402年柴壁及408—415年胡夏独立链连续毁损北方军镇和方面军，交班主要威胁与边界均退至1档，后续下降完整保留。",
+          "attribution_category": "POST_FIRST_ITEM_STAGE_RULER_ATTRIBUTION",
+          "axis_points": 0.0,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 1,
@@ -8293,16 +8387,17 @@
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
-          "objective_delta": -1,
+          "objective_delta": -3,
           "reversal_basis": "终点下降已消费负向结果，禁止重复处罚",
           "reversal_grade": "CONSUMED_BY_TERMINAL_DECLINE",
           "reversal_penalty": 0,
           "score_ready": true,
-          "start_grade": 2,
-          "trajectory_value": 2.0,
+          "start_grade": 4,
+          "trajectory_value": 0,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
-          "improvement_step_credits": []
+          "improvement_step_credits": [],
+          "active_window_start": 400
         }
       },
       "major_in_reign_reversal_refs": [
@@ -8320,14 +8415,35 @@
       "ruler_name": "姚兴",
       "score_ready": true,
       "B80_adjudication": {
-        "B80_points": 37.96,
-        "formal_B1_rate": 37.0,
-        "formal_B2_rate": 75.0,
-        "formal_B4_rate": 59.0,
-        "adjudicated_B1_rate": 37.0,
-        "adjudicated_B2_rate": 75.0,
-        "adjudicated_B4_rate": 59.0,
-        "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+        "B80_points": 0.0,
+        "formal_B1_rate": 0.0,
+        "formal_B2_rate": 0.0,
+        "formal_B4_rate": 0.0,
+        "adjudicated_B1_rate": 0.0,
+        "adjudicated_B2_rate": 0.0,
+        "adjudicated_B4_rate": 0.0,
+        "consistency_basis": "393—400年秦陇、河东、洛阳及西秦取得阶段由第一项消费，闭合点已形成稳定优势与总体边界。402年柴壁及408—415年胡夏独立链连续毁损北方军镇和方面军，交班主要威胁与边界均退至1档，后续下降完整保留。同一取得或恢复控制包不再进入第三项B，现存独立后续D不自动形成边疆控制成果。"
+      },
+      "cross_item_parent_routing": {
+        "first_item_closure_year": 400,
+        "reason": "393—400年秦陇、河东、洛阳及西秦取得阶段由第一项消费，闭合点已形成稳定优势与总体边界。402年柴壁及408—415年胡夏独立链连续毁损北方军镇和方面军，交班主要威胁与边界均退至1档，后续下降完整保留。",
+        "A_consumption": "POST_ACQUISITION_STAGE_ONLY",
+        "D_excluded_chain_ids": [
+          "YX-QINZHOU-HEDONG-396",
+          "YX-EASTERNJIN-LUOYANG-399",
+          "YX-WESTERNQIN-400"
+        ],
+        "C_capability_only_parent_refs": [
+          "CAMPAIGN-V108-108-LATERCIN-WEST-396",
+          "CAMPAIGN-V111-111-LATERCIN-LUOYANG-399",
+          "CAMPAIGN-V111-111-LATERCIN-WESTQIN-400"
+        ],
+        "B_excluded_control_package_refs": [
+          "WAR-LEAD-108-LATERCIN-WEST-396",
+          "WAR-LEAD-109-LATERCIN-JIN-397",
+          "WAR-LEAD-111-LATERCIN-LUOYANG-399"
+        ],
+        "B_consumption": "EXCLUDED_FIRST_ITEM_ACQUISITION"
       }
     },
     {
@@ -8828,13 +8944,13 @@
       }
     },
     {
-      "A120_points": 67.2,
+      "A120_points": 43.2,
       "axes": {
         "A1": {
-          "attributable_delta": 2.0,
-          "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 33.6,
+          "attributable_delta": 0.0,
+          "attribution_basis": "397—400年建立青齐核心由第一项消费。400年后相持格局与主要边界未发生可独立确认的跨档改善，不重复奖励建国改善。",
+          "attribution_category": "POST_FIRST_ITEM_STAGE_RULER_ATTRIBUTION",
+          "axis_points": 21.6,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 3,
@@ -8842,35 +8958,23 @@
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
-          "objective_delta": 2,
+          "objective_delta": 0,
           "reversal_basis": "现有材料未闭合本人造成且未被终点表达的额外恶化",
           "reversal_grade": "NONE_RECOVERED_OR_NOT_ATTRIBUTABLE",
           "reversal_penalty": 0,
           "score_ready": true,
-          "start_grade": 1,
-          "trajectory_value": 56.0,
+          "start_grade": 3,
+          "trajectory_value": 36.0,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
-          "improvement_step_credits": [
-            {
-              "from_grade": 1,
-              "to_grade": 2,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
-            },
-            {
-              "from_grade": 2,
-              "to_grade": 3,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
-            }
-          ]
+          "improvement_step_credits": [],
+          "active_window_start": 400
         },
         "A2": {
-          "attributable_delta": 2.0,
-          "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 33.6,
+          "attributable_delta": 0.0,
+          "attribution_basis": "397—400年建立青齐核心由第一项消费。400年后相持格局与主要边界未发生可独立确认的跨档改善，不重复奖励建国改善。",
+          "attribution_category": "POST_FIRST_ITEM_STAGE_RULER_ATTRIBUTION",
+          "axis_points": 21.6,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 3,
@@ -8878,29 +8982,17 @@
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
-          "objective_delta": 2,
+          "objective_delta": 0,
           "reversal_basis": "逆转未证明改变本轴，避免双轴重复处罚",
           "reversal_grade": "NONE_DIFFERENT_AXIS",
           "reversal_penalty": 0,
           "score_ready": true,
-          "start_grade": 1,
-          "trajectory_value": 56.0,
+          "start_grade": 3,
+          "trajectory_value": 36.0,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
-          "improvement_step_credits": [
-            {
-              "from_grade": 1,
-              "to_grade": 2,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
-            },
-            {
-              "from_grade": 2,
-              "to_grade": 3,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
-            }
-          ]
+          "improvement_step_credits": [],
+          "active_window_start": 400
         }
       },
       "major_in_reign_reversal_refs": [
@@ -8911,14 +9003,21 @@
       "ruler_name": "慕容德",
       "score_ready": true,
       "B80_adjudication": {
-        "B80_points": 8.93,
-        "formal_B1_rate": 29.0,
+        "B80_points": 0.0,
+        "formal_B1_rate": 0.0,
         "formal_B2_rate": 0.0,
         "formal_B4_rate": 0.0,
-        "adjudicated_B1_rate": 29.0,
+        "adjudicated_B1_rate": 0.0,
         "adjudicated_B2_rate": 0.0,
         "adjudicated_B4_rate": 0.0,
-        "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+        "consistency_basis": "397—400年建立青齐核心已由第一项消费；第三项无独立控制成果，B1残值归零。"
+      },
+      "cross_item_parent_routing": {
+        "first_item_closure_year": 400,
+        "reason": "397—400年建立青齐核心由第一项消费。400年后相持格局与主要边界未发生可独立确认的跨档改善，不重复奖励建国改善。",
+        "A_consumption": "POST_ACQUISITION_STAGE_ONLY",
+        "B_excluded_control_package_refs": [],
+        "B_consumption": "EXCLUDED_FIRST_ITEM_ACQUISITION"
       }
     },
     {
@@ -9068,12 +9167,12 @@
       }
     },
     {
-      "A120_points": 49.2,
+      "A120_points": 43.2,
       "axes": {
         "A1": {
           "attributable_delta": 0.0,
-          "attribution_basis": "客观起终档未变化，不生成变化分",
-          "attribution_category": "NO_CHANGE",
+          "attribution_basis": "309—330年后赵建基、兼并与扩展由第一项消费。330年后仍为对外竞争均势及可运作主要边界，删除以创业形成边界为依据的A2改善。",
+          "attribution_category": "POST_FIRST_ITEM_STAGE_RULER_ATTRIBUTION",
           "axis_points": 21.6,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
@@ -9091,13 +9190,14 @@
           "trajectory_value": 36.0,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
-          "improvement_step_credits": []
+          "improvement_step_credits": [],
+          "active_window_start": 330
         },
         "A2": {
-          "attributable_delta": 1.0,
-          "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 27.6,
+          "attributable_delta": 0.0,
+          "attribution_basis": "309—330年后赵建基、兼并与扩展由第一项消费。330年后仍为对外竞争均势及可运作主要边界，删除以创业形成边界为依据的A2改善。",
+          "attribution_category": "POST_FIRST_ITEM_STAGE_RULER_ATTRIBUTION",
+          "axis_points": 21.6,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 3,
@@ -9105,23 +9205,17 @@
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
-          "objective_delta": 1,
+          "objective_delta": 0,
           "reversal_basis": "无重大逆转登记",
           "reversal_grade": "NONE",
           "reversal_penalty": 0,
           "score_ready": true,
-          "start_grade": 2,
-          "trajectory_value": 46.0,
+          "start_grade": 3,
+          "trajectory_value": 36.0,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
-          "improvement_step_credits": [
-            {
-              "from_grade": 2,
-              "to_grade": 3,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
-            }
-          ]
+          "improvement_step_credits": [],
+          "active_window_start": 330
         }
       },
       "major_in_reign_reversal_refs": [],
@@ -9130,14 +9224,21 @@
       "ruler_name": "石勒",
       "score_ready": true,
       "B80_adjudication": {
-        "B80_points": 8.93,
-        "formal_B1_rate": 29.0,
+        "B80_points": 0.0,
+        "formal_B1_rate": 0.0,
         "formal_B2_rate": 0.0,
         "formal_B4_rate": 0.0,
-        "adjudicated_B1_rate": 29.0,
+        "adjudicated_B1_rate": 0.0,
         "adjudicated_B2_rate": 0.0,
         "adjudicated_B4_rate": 0.0,
-        "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+        "consistency_basis": "309—330年后赵建基与扩展整链由第一项消费；第三项无独立控制成果，B1不再保留0档高位残分。"
+      },
+      "cross_item_parent_routing": {
+        "first_item_closure_year": 330,
+        "reason": "309—330年后赵建基、兼并与扩展由第一项消费。330年后仍为对外竞争均势及可运作主要边界，删除以创业形成边界为依据的A2改善。",
+        "A_consumption": "POST_ACQUISITION_STAGE_ONLY",
+        "B_excluded_control_package_refs": [],
+        "B_consumption": "EXCLUDED_FIRST_ITEM_ACQUISITION"
       }
     },
     {
@@ -9361,13 +9462,13 @@
       }
     },
     {
-      "A120_points": 54.0,
+      "A120_points": 36.0,
       "axes": {
         "A1": {
-          "attributable_delta": 2.0,
-          "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 33.6,
+          "attributable_delta": 0.0,
+          "attribution_basis": "350—352年建立前秦核心由第一项消费，闭合时已为关中相持及局部防守节点。353—354年独立平乱恢复既有范围，不再将351—352年创业改善计入第三项。",
+          "attribution_category": "POST_FIRST_ITEM_STAGE_RULER_ATTRIBUTION",
+          "axis_points": 21.6,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 3,
@@ -9375,35 +9476,23 @@
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
-          "objective_delta": 2,
+          "objective_delta": 0,
           "reversal_basis": "现有材料未闭合本人造成且未被终点表达的额外恶化",
           "reversal_grade": "NONE_RECOVERED_OR_NOT_ATTRIBUTABLE",
           "reversal_penalty": 0,
           "score_ready": true,
-          "start_grade": 1,
-          "trajectory_value": 56.0,
+          "start_grade": 3,
+          "trajectory_value": 36.0,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
-          "improvement_step_credits": [
-            {
-              "from_grade": 1,
-              "to_grade": 2,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
-            },
-            {
-              "from_grade": 2,
-              "to_grade": 3,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
-            }
-          ]
+          "improvement_step_credits": [],
+          "active_window_start": 352
         },
         "A2": {
-          "attributable_delta": 1.0,
-          "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 20.4,
+          "attributable_delta": 0.0,
+          "attribution_basis": "350—352年建立前秦核心由第一项消费，闭合时已为关中相持及局部防守节点。353—354年独立平乱恢复既有范围，不再将351—352年创业改善计入第三项。",
+          "attribution_category": "POST_FIRST_ITEM_STAGE_RULER_ATTRIBUTION",
+          "axis_points": 14.4,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 2,
@@ -9411,23 +9500,17 @@
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
-          "objective_delta": 1,
+          "objective_delta": 0,
           "reversal_basis": "逆转未证明改变本轴，避免双轴重复处罚",
           "reversal_grade": "NONE_DIFFERENT_AXIS",
           "reversal_penalty": 0,
           "score_ready": true,
-          "start_grade": 1,
-          "trajectory_value": 34.0,
+          "start_grade": 2,
+          "trajectory_value": 24.0,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
-          "improvement_step_credits": [
-            {
-              "from_grade": 1,
-              "to_grade": 2,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
-            }
-          ]
+          "improvement_step_credits": [],
+          "active_window_start": 352
         }
       },
       "major_in_reign_reversal_refs": [
@@ -9438,82 +9521,104 @@
       "ruler_name": "苻健",
       "score_ready": true,
       "B80_adjudication": {
-        "B80_points": 8.93,
-        "formal_B1_rate": 29.0,
+        "B80_points": 0.0,
+        "formal_B1_rate": 0.0,
         "formal_B2_rate": 0.0,
         "formal_B4_rate": 0.0,
-        "adjudicated_B1_rate": 29.0,
+        "adjudicated_B1_rate": 0.0,
         "adjudicated_B2_rate": 0.0,
         "adjudicated_B4_rate": 0.0,
-        "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+        "consistency_basis": "350—352年建立前秦核心由第一项消费，闭合时已为关中相持及局部防守节点。353—354年独立平乱恢复既有范围，不再将351—352年创业改善计入第三项。同一取得或恢复控制包不再进入第三项B，现存独立后续D不自动形成边疆控制成果。"
+      },
+      "cross_item_parent_routing": {
+        "first_item_closure_year": 352,
+        "reason": "350—352年建立前秦核心由第一项消费，闭合时已为关中相持及局部防守节点。353—354年独立平乱恢复既有范围，不再将351—352年创业改善计入第三项。",
+        "A_consumption": "POST_ACQUISITION_STAGE_ONLY",
+        "D_excluded_chain_ids": [
+          "QIN-REBELS-YIQIU-352"
+        ],
+        "C_phase_routing": {
+          "CAMPAIGN-V099-099-QIN-REBELS-352-354": {
+            "current_member_refs": [
+              "QIN-REBELS-GUANZHONG-MULTINODE-353-354",
+              "QIN-REBELS-ZHANGYU-PALACE-353"
+            ],
+            "capability_only_member_refs": [
+              "QIN-REBELS-YIQIU-352"
+            ],
+            "reason": "同一混合父票按352建国收尾与353—354独立平乱分相；不增加独立任务票数。"
+          }
+        },
+        "B_excluded_control_package_refs": [],
+        "B_consumption": "EXCLUDED_FIRST_ITEM_ACQUISITION"
       }
     },
     {
-      "A120_points": 54.0,
+      "A120_points": 36.0,
       "axes": {
         "A1": {
-          "attributable_delta": 2.0,
-          "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 33.6,
+          "attributable_delta": 0.0,
+          "attribution_basis": "384—393年完整后秦创业窗口归第一项；390年魏揭飞等成本亦属该链。",
+          "attribution_category": "FIRST_ITEM_CONSUMED_OBJECTIVE_CONTEXT_ONLY",
+          "axis_points": 21.6,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 3,
-          "maintenance_basis": "非4→4或5→5",
+          "maintenance_basis": "同链已由第一项消费，不另计第三项守成。",
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
           "objective_delta": 2,
-          "reversal_basis": "无重大逆转登记",
-          "reversal_grade": "NONE",
+          "reversal_basis": "384—393年完整后秦创业窗口归第一项；390年魏揭飞等成本亦属该链。",
+          "reversal_grade": "CONSUMED_BY_FIRST_ITEM",
           "reversal_penalty": 0,
           "score_ready": true,
           "start_grade": 1,
-          "trajectory_value": 56.0,
-          "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+          "trajectory_value": 36,
+          "within_band_deterioration_basis": "384—393年完整后秦创业窗口归第一项；390年魏揭飞等成本亦属该链。",
           "within_band_deterioration_penalty": 0,
           "improvement_step_credits": [
             {
               "from_grade": 1,
               "to_grade": 2,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+              "credit": 0.0,
+              "basis": "384—393年完整后秦创业窗口归第一项；390年魏揭飞等成本亦属该链。"
             },
             {
               "from_grade": 2,
               "to_grade": 3,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+              "credit": 0.0,
+              "basis": "384—393年完整后秦创业窗口归第一项；390年魏揭飞等成本亦属该链。"
             }
           ]
         },
         "A2": {
-          "attributable_delta": 1.0,
-          "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 20.4,
+          "attributable_delta": 0.0,
+          "attribution_basis": "384—393年完整后秦创业窗口归第一项；390年魏揭飞等成本亦属该链。",
+          "attribution_category": "FIRST_ITEM_CONSUMED_OBJECTIVE_CONTEXT_ONLY",
+          "axis_points": 14.4,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 2,
-          "maintenance_basis": "非4→4或5→5",
+          "maintenance_basis": "同链已由第一项消费，不另计第三项守成。",
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
           "objective_delta": 1,
-          "reversal_basis": "无重大逆转登记",
-          "reversal_grade": "NONE",
+          "reversal_basis": "384—393年完整后秦创业窗口归第一项；390年魏揭飞等成本亦属该链。",
+          "reversal_grade": "CONSUMED_BY_FIRST_ITEM",
           "reversal_penalty": 0,
           "score_ready": true,
           "start_grade": 1,
-          "trajectory_value": 34.0,
-          "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+          "trajectory_value": 24,
+          "within_band_deterioration_basis": "384—393年完整后秦创业窗口归第一项；390年魏揭飞等成本亦属该链。",
           "within_band_deterioration_penalty": 0,
           "improvement_step_credits": [
             {
               "from_grade": 1,
               "to_grade": 2,
-              "credit": 1.0,
-              "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+              "credit": 0.0,
+              "basis": "384—393年完整后秦创业窗口归第一项；390年魏揭飞等成本亦属该链。"
             }
           ]
         }
@@ -9524,14 +9629,26 @@
       "ruler_name": "姚苌",
       "score_ready": true,
       "B80_adjudication": {
-        "B80_points": 8.93,
-        "formal_B1_rate": 29.0,
+        "B80_points": 0.0,
+        "formal_B1_rate": 0.0,
         "formal_B2_rate": 0.0,
         "formal_B4_rate": 0.0,
-        "adjudicated_B1_rate": 29.0,
+        "adjudicated_B1_rate": 0.0,
         "adjudicated_B2_rate": 0.0,
         "adjudicated_B4_rate": 0.0,
-        "consistency_basis": "B4与D负向链不存在同一控制对象的直接闭合冲突"
+        "consistency_basis": "384—393年完整后秦创业窗口归第一项；390年魏揭飞等成本亦属该链。"
+      },
+      "cross_item_parent_routing": {
+        "reason": "384—393年完整后秦创业窗口归第一项；390年魏揭飞等成本亦属该链。",
+        "A_consumption": "OBJECTIVE_STATE_ONLY_NO_ATTRIBUTABLE_CHANGE",
+        "B_consumption": "EXCLUDED_FIRST_ITEM_ACQUISITION",
+        "D_excluded_chain_ids": [
+          "YC-WEIJIEFEI-LEIEDI-REBELLION-390"
+        ],
+        "C_capability_only_parent_refs": [
+          "WAR-LEAD-107-LATERCIN-REBELS-390"
+        ],
+        "B_excluded_control_package_refs": []
       }
     },
     {
@@ -10018,65 +10135,65 @@
       }
     },
     {
-      "A120_points": 55.2,
+      "A120_points": 43.2,
       "axes": {
         "A1": {
-          "attributable_delta": 1.0,
-          "attribution_basis": "材料门后按人物窗口逐段裁决",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 27.6,
+          "attributable_delta": 0.0,
+          "attribution_basis": "1643—1650年入关统一与地方收束主链持续至本人退出，第一项已消费该链结果和成本。",
+          "attribution_category": "FIRST_ITEM_CONSUMED_OBJECTIVE_CONTEXT_ONLY",
+          "axis_points": 21.6,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 3,
-          "maintenance_basis": "非4→4或5→5",
+          "maintenance_basis": "同链已由第一项消费，不另计第三项守成。",
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
           "objective_delta": 1,
-          "reversal_basis": "无重大逆转登记",
-          "reversal_grade": "NONE",
+          "reversal_basis": "1643—1650年入关统一与地方收束主链持续至本人退出，第一项已消费该链结果和成本。",
+          "reversal_grade": "CONSUMED_BY_FIRST_ITEM",
           "reversal_penalty": 0,
           "score_ready": true,
           "start_grade": 2,
-          "trajectory_value": 46.0,
-          "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+          "trajectory_value": 36,
+          "within_band_deterioration_basis": "1643—1650年入关统一与地方收束主链持续至本人退出，第一项已消费该链结果和成本。",
           "within_band_deterioration_penalty": 0,
           "improvement_step_credits": [
             {
               "from_grade": 2,
               "to_grade": 3,
-              "credit": 1.0,
-              "basis": "材料门后按人物窗口逐段裁决"
+              "credit": 0.0,
+              "basis": "1643—1650年入关统一与地方收束主链持续至本人退出，第一项已消费该链结果和成本。"
             }
           ]
         },
         "A2": {
-          "attributable_delta": 1.0,
-          "attribution_basis": "材料门后按人物窗口逐段裁决",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 27.6,
+          "attributable_delta": 0.0,
+          "attribution_basis": "1643—1650年入关统一与地方收束主链持续至本人退出，第一项已消费该链结果和成本。",
+          "attribution_category": "FIRST_ITEM_CONSUMED_OBJECTIVE_CONTEXT_ONLY",
+          "axis_points": 21.6,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 3,
-          "maintenance_basis": "非4→4或5→5",
+          "maintenance_basis": "同链已由第一项消费，不另计第三项守成。",
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
           "objective_delta": 1,
-          "reversal_basis": "无重大逆转登记",
-          "reversal_grade": "NONE",
+          "reversal_basis": "1643—1650年入关统一与地方收束主链持续至本人退出，第一项已消费该链结果和成本。",
+          "reversal_grade": "CONSUMED_BY_FIRST_ITEM",
           "reversal_penalty": 0,
           "score_ready": true,
           "start_grade": 2,
-          "trajectory_value": 46.0,
-          "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
+          "trajectory_value": 36,
+          "within_band_deterioration_basis": "1643—1650年入关统一与地方收束主链持续至本人退出，第一项已消费该链结果和成本。",
           "within_band_deterioration_penalty": 0,
           "improvement_step_credits": [
             {
               "from_grade": 2,
               "to_grade": 3,
-              "credit": 1.0,
-              "basis": "材料门后按人物窗口逐段裁决"
+              "credit": 0.0,
+              "basis": "1643—1650年入关统一与地方收束主链持续至本人退出，第一项已消费该链结果和成本。"
             }
           ]
         }
@@ -10087,14 +10204,29 @@
       "ruler_name": "多尔衮",
       "score_ready": true,
       "B80_adjudication": {
-        "B80_points": 13.55,
-        "formal_B1_rate": 44.0,
+        "B80_points": 0.0,
+        "formal_B1_rate": 0.0,
         "formal_B2_rate": 0.0,
         "formal_B4_rate": 0.0,
-        "adjudicated_B1_rate": 44.0,
+        "adjudicated_B1_rate": 0.0,
         "adjudicated_B2_rate": 0.0,
         "adjudicated_B4_rate": 0.0,
-        "consistency_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+        "consistency_basis": "1643—1650年入关统一与地方收束主链持续至本人退出，第一项已消费该链结果和成本。"
+      },
+      "cross_item_parent_routing": {
+        "reason": "1643—1650年入关统一与地方收束主链持续至本人退出，第一项已消费该链结果和成本。",
+        "A_consumption": "OBJECTIVE_STATE_ONLY_NO_ATTRIBUTABLE_CHANGE",
+        "B_consumption": "EXCLUDED_FIRST_ITEM_ACQUISITION",
+        "D_excluded_chain_ids": [
+          "QSHL-SZ-DONGMING-TIANZHENG-REBELLION-1648",
+          "QSHL-SZ-TIANJIN-BANDITS-1648"
+        ],
+        "C_capability_only_parent_refs": [
+          "FIRST_ITEM_UNIFICATION::QING-SOUTHWARD-CONQUEST-1644-1650",
+          "QSHL-SZ-DONGMING-TIANZHENG-REBELLION-1648",
+          "QSHL-SZ-TIANJIN-BANDITS-1648"
+        ],
+        "B_excluded_control_package_refs": []
       }
     },
     {
@@ -10632,14 +10764,19 @@
       "ruler_name": "李元昊",
       "score_ready": true,
       "B80_adjudication": {
-        "B80_points": 11.4,
-        "formal_B1_rate": 37.0,
+        "B80_points": 0.0,
+        "formal_B1_rate": 0.0,
         "formal_B2_rate": 0.0,
         "formal_B4_rate": 0.0,
-        "adjudicated_B1_rate": 37.0,
+        "adjudicated_B1_rate": 0.0,
         "adjudicated_B2_rate": 0.0,
         "adjudicated_B4_rate": 0.0,
-        "consistency_basis": "创业统一控制收益由第一项整链消费，本项无独立控制成果包。"
+        "consistency_basis": "1032—1044年独立国家闭合及宋夏主链由第一项消费；删除客观净变化为0时人工补回的0.32加权值，B1归零。"
+      },
+      "cross_item_parent_routing": {
+        "reason": "1032—1044年独立国家闭合及宋夏主链由第一项消费；删除客观净变化为0时人工补回的0.32加权值，B1归零。",
+        "B_excluded_control_package_refs": [],
+        "B_consumption": "EXCLUDED_FIRST_ITEM_ACQUISITION"
       }
     },
     {
@@ -10711,13 +10848,13 @@
       }
     },
     {
-      "A120_points": 16.8,
+      "A120_points": 28.8,
       "axes": {
         "A1": {
-          "attributable_delta": -1.0,
-          "attribution_basis": "材料门后按人物窗口逐段裁决",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 8.4,
+          "attributable_delta": 0,
+          "attribution_basis": "高平主力崩溃及其后外围恢复已由第一项C作为复国竞争链负证消费；第三项保留2档客观终点，但不再对高平同链重复计入下降归责。",
+          "attribution_category": "CROSS_ITEM_CHAIN_SPLIT",
+          "axis_points": 14.4,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 2,
@@ -10731,16 +10868,16 @@
           "reversal_penalty": 0,
           "score_ready": true,
           "start_grade": 3,
-          "trajectory_value": 14.0,
+          "trajectory_value": 24,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
           "improvement_step_credits": []
         },
         "A2": {
-          "attributable_delta": -1.0,
-          "attribution_basis": "材料门后按人物窗口逐段裁决",
-          "attribution_category": "PRIMARY_RULER",
-          "axis_points": 8.4,
+          "attributable_delta": 0,
+          "attribution_basis": "高平主力崩溃及其后外围恢复已由第一项C作为复国竞争链负证消费；第三项保留2档客观终点，但不再对高平同链重复计入下降归责。",
+          "attribution_category": "CROSS_ITEM_CHAIN_SPLIT",
+          "axis_points": 14.4,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 2,
@@ -10754,7 +10891,7 @@
           "reversal_penalty": 0,
           "score_ready": true,
           "start_grade": 3,
-          "trajectory_value": 14.0,
+          "trajectory_value": 24,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
           "improvement_step_credits": []
@@ -10766,14 +10903,32 @@
       "ruler_name": "刘崇",
       "score_ready": true,
       "B80_adjudication": {
-        "B80_points": 26.65,
-        "formal_B1_rate": 30.0,
-        "formal_B2_rate": 52.0,
-        "formal_B4_rate": 45.0,
-        "adjudicated_B1_rate": 30.0,
-        "adjudicated_B2_rate": 52.0,
-        "adjudicated_B4_rate": 45.0,
-        "consistency_basis": "逐区域账是证据结构，不是人物贡献类型；按现有成果事实归一为合同贡献类型。"
+        "B80_points": 0.0,
+        "formal_B1_rate": 0.0,
+        "formal_B2_rate": 0.0,
+        "formal_B4_rate": 0.0,
+        "adjudicated_B1_rate": 0.0,
+        "adjudicated_B2_rate": 0.0,
+        "adjudicated_B4_rate": 0.0,
+        "consistency_basis": "高平主力崩溃及其后外围恢复已由第一项C作为复国竞争链负证消费；第三项保留2档客观终点，但不再对高平同链重复计入下降归责。同一取得或恢复控制包不再进入第三项B，现存独立后续D不自动形成边疆控制成果。"
+      },
+      "cross_item_parent_routing": {
+        "reason": "高平主力崩溃及其后外围恢复已由第一项C作为复国竞争链负证消费；第三项保留2档客观终点，但不再对高平同链重复计入下降归责。 951年连续南攻晋、隰及本人围晋州属于恢复后汉旧土的创业竞争链，第一项C已消费围晋州负证；与954高平同按第一项主链处理，第三项只保留能力佐证，不重复消费结果与成本。",
+        "A_consumption": "EXCLUDE_FIRST_ITEM_CHAIN_ATTRIBUTION",
+        "D_excluded_chain_ids": [
+          "NORTHERN-HAN-ZHOU-GAOPING-TAIYUAN-954",
+          "NORTHERN-HAN-ZHOU-SHANXI-951"
+        ],
+        "C_capability_only_parent_refs": [
+          "NORTHERN-HAN-ZHOU-GAOPING-TAIYUAN-954",
+          "NORTHERN-HAN-ZHOU-SHANXI-951"
+        ],
+        "B_excluded_control_package_refs": [
+          "NORTHERN-HAN-ZHOU-SHANXI-951",
+          "NORTHERN-HAN-ZHOU-FRONTIER-952-953",
+          "NORTHERN-HAN-ZHOU-GAOPING-TAIYUAN-954"
+        ],
+        "B_consumption": "EXCLUDED_FIRST_ITEM_ACQUISITION"
       }
     },
     {
@@ -11392,7 +11547,7 @@
       }
     },
     {
-      "A120_points": 8.4,
+      "A120_points": 18.6,
       "axes": {
         "A1": {
           "attributable_delta": -0.5,
@@ -11418,24 +11573,24 @@
           "improvement_step_credits": []
         },
         "A2": {
-          "attributable_delta": -0.5,
-          "attribution_basis": "消费现行语义标签MIXED",
-          "attribution_category": "SHARED_MATERIAL",
-          "axis_points": 4.2,
+          "attributable_delta": 0.0,
+          "attribution_basis": "凉州与灵州硖石仍能御敌，交班保留局部可守支点；A2客观起终同为2档，不再记一档下降及其混合责任。渭水危机属于李世民接班后阶段。",
+          "attribution_category": "NO_CHANGE",
+          "axis_points": 14.4,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
-          "end_grade": 1,
+          "end_grade": 2,
           "maintenance_basis": "非4→4或5→5",
           "maintenance_bonus": 0,
           "maintenance_difficulty": "NOT_APPLICABLE",
           "negative_adjustment": 0,
-          "objective_delta": -1,
+          "objective_delta": 0,
           "reversal_basis": "无重大逆转登记",
           "reversal_grade": "NONE",
           "reversal_penalty": 0,
           "score_ready": true,
           "start_grade": 2,
-          "trajectory_value": 7.0,
+          "trajectory_value": 24.0,
           "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
           "within_band_deterioration_penalty": 0,
           "improvement_step_credits": []
@@ -11458,13 +11613,13 @@
       }
     },
     {
-      "A120_points": 22.8,
+      "A120_points": 27.3,
       "axes": {
         "A1": {
           "attributable_delta": 0.0,
-          "attribution_basis": "客观起终档未变化，不生成变化分",
+          "attribution_basis": "整体起终档未变化；七国联合军事结构净改善通过独立档内门，逐档改善信用仍为0。",
           "attribution_category": "NO_CHANGE",
-          "axis_points": 8.4,
+          "axis_points": 12.9,
           "ceiling_progress": "NONE",
           "ceiling_progress_bonus": 0,
           "end_grade": 2,
@@ -11478,10 +11633,28 @@
           "reversal_penalty": 0,
           "score_ready": true,
           "start_grade": 2,
-          "trajectory_value": 14.0,
+          "trajectory_value": 21.5,
           "within_band_deterioration_basis": "三条匈奴边境EN1合并，虽无耐久失地仍构成连续档内恶化",
           "within_band_deterioration_penalty": 10,
-          "improvement_step_credits": []
+          "improvement_step_credits": [],
+          "within_band_structure_improvement": {
+            "threat_scope": "SYSTEMIC",
+            "outcome": "STRUCTURAL_DOWNGRADE",
+            "attribution_credit": 0.75,
+            "entry_structure": "吴楚等大诸侯在接班前拥有独立军队、盐铜财源及跨国联合发动战争的能力，吴王长期不朝；并非从前154年失控高峰改写接班基线。",
+            "handover_structure": "七国主力及叛王终结，吴楚齐赵封国和军事控制重新安排，原联合战争结构被拆除；仍存封国及北边匈奴威胁，不推定所有内部风险永绝。",
+            "attribution_basis": "刘启决定削藩并承担中央最高战争授权，周亚夫等对作战执行有独立主要贡献，皇帝取主要归责0.75。",
+            "net_improvement_basis": "七国联合军事结构较接班时实质削弱，故记7.5轨迹点；匈奴仍使整体A1为2至2，三条边境负链的10点档内恶化保留。",
+            "deduplication_basis": "仅消费联合军事威胁再战能力下降；不消费削藩制度政治收益，不进入A2或B2/B4，不累计各叛国及各战区。",
+            "parent_cycle_refs": [
+              "HAN-SEVEN-KINGDOMS"
+            ],
+            "source_refs": [
+              "docs/史料通读产物/唐以前编年/汉/卷016-通读总结.md#WAR-LEAD-HAN-SEVEN-KINGDOMS"
+            ],
+            "restoration_only": false,
+            "consumed_elsewhere": false
+          }
         },
         "A2": {
           "attributable_delta": 0.0,
@@ -11717,14 +11890,25 @@
       "ruler_name": "李德明",
       "score_ready": true,
       "B80_adjudication": {
-        "B80_points": 9.24,
-        "formal_B1_rate": 30.0,
+        "B80_points": 0.0,
+        "formal_B1_rate": 0.0,
         "formal_B2_rate": 0.0,
         "formal_B4_rate": 0.0,
-        "adjudicated_B1_rate": 30.0,
+        "adjudicated_B1_rate": 0.0,
         "adjudicated_B2_rate": 0.0,
         "adjudicated_B4_rate": 0.0,
-        "consistency_basis": "现有材料未闭合本人可计分的新增、恢复、救危保全或维护控制成果。"
+        "consistency_basis": "1004—1028年河西扩张主链由第一项消费；第三项客观净变化为0，删除人工补回的0.16加权值，B1归零。"
+      },
+      "cross_item_parent_routing": {
+        "reason": "1004—1028河西扩张主链由第一项消费，1007—1012甘州—六谷失败尝试的成本也随整链排除。",
+        "D_excluded_chain_ids": [
+          "CHAIN-LI-DEMING-GANZHOU-LIUGU-1007-1012"
+        ],
+        "C_capability_only_parent_refs": [
+          "CHAIN-LI-DEMING-GANZHOU-LIUGU-1007-1012"
+        ],
+        "B_excluded_control_package_refs": [],
+        "B_consumption": "EXCLUDED_FIRST_ITEM_ACQUISITION"
       }
     },
     {

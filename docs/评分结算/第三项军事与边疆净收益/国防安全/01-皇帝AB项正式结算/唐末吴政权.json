@@ -16,12 +16,12 @@
             "A1": {
               "start": "A1S3_CONTESTED_BALANCE",
               "end": "A1S4_STABLE_ADVANTAGE",
-              "base_trajectory_value": 58,
+              "base_trajectory_value": 53.0,
               "ceiling_progress": "NONE",
               "ceiling_progress_refs": [],
               "ceiling_bonus": 0,
-              "trajectory_value": 58,
-              "axis_points": 23.2,
+              "trajectory_value": 53.0,
+              "axis_points": 21.2,
               "transition": "IMPROVED",
               "reason": "主要威胁是汴军及鄂州敌对力量；鄂州对手被终结使西向压力下降，但汴军仍掌握强大主动，故A1由3档升至4档而非5档。",
               "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE"
@@ -29,23 +29,23 @@
             "A2": {
               "start": "A2S3_EFFECTIVE_MAIN_BOUNDARY",
               "end": "A2S4_OVERALL_SECURE_WITH_GAPS",
-              "base_trajectory_value": 58,
+              "base_trajectory_value": 58.0,
               "ceiling_progress": "NONE",
               "ceiling_progress_refs": [],
               "ceiling_bonus": 0,
-              "trajectory_value": 58,
+              "trajectory_value": 58.0,
               "axis_points": 23.2,
               "transition": "IMPROVED",
               "reason": "鄂州中游节点纳入后，淮南西向门户与长江交通得到加固；宿州方向失败留下明显北部缺口，故A2由3档升至4档。",
               "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM"
             },
             "B1": {
-              "grade": "B1-0",
-              "band_position": "HIGH",
-              "score_rate": 29.0,
-              "axis_points": 7.25,
-              "reason": "规模与控制强度：删除旧HUAINAN_MIDDLE_YANGTZE_EZHOU=0.5核心扩展；无净退控，B1-0取HIGH。",
-              "weighted_control_value": 0.0,
+              "grade": "B1-1",
+              "band_position": "MID",
+              "score_rate": 37.0,
+              "axis_points": 9.25,
+              "reason": "第一项核心约902年前后闭合；902—905年鄂州为独立后续控制成果，撤销0.5错误跨项扣除。交班完整取得一个0.5节点，属B1-1典型小规模净增，取MID；尚不足0.75的下一档。",
+              "weighted_control_value": 0.5,
               "raw_net_change": 0.5
             },
             "B2": {
@@ -68,7 +68,7 @@
             "start": 0.0,
             "end": 0.5,
             "net_change": 0.5,
-            "weighted_value": 0.0
+            "weighted_value": 0.5
           },
           "b1_region_control": {
             "start": {
@@ -148,8 +148,8 @@
           "A120_non_cost_anchor_points": 54.6,
           "A120_positive_result_credit_points": 12.0,
           "A120_score_points": 66.6,
-          "B80_score_points": 39.29,
-          "AB200_score_points": 105.89,
+          "B80_score_points": 42.38,
+          "AB200_score_points": 108.98,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 1.0,
@@ -213,26 +213,25 @@
             }
           },
           "B80_adjudication": {
-            "B80_points": 39.29,
-            "formal_B1_rate": 29.0,
+            "B80_points": 42.38,
+            "formal_B1_rate": 37.0,
             "formal_B2_rate": 89.0,
             "formal_B4_rate": 59.0,
-            "adjudicated_B1_rate": 29.0,
+            "adjudicated_B1_rate": 37.0,
             "adjudicated_B2_rate": 89.0,
             "adjudicated_B4_rate": 59.0,
-            "consistency_basis": "逐区域账是证据结构，不是人物贡献类型；按现有成果事实归一为合同贡献类型。"
+            "consistency_basis": "第一项核心约902年前后闭合；902—905年鄂州为独立后续控制成果，撤销0.5错误跨项扣除。交班完整取得一个0.5节点，属B1-1典型小规模净增，取MID；尚不足0.75的下一档。"
           },
           "excluded_founding_unification_refs": [],
           "defense_event_count": 4,
           "parent_cycle_merge_adjudications": [],
           "parent_cycle_reference_policy": "RAW_EVIDENCE_EVENT_REFS_PLUS_CANONICAL_PARENT_CYCLE_REFS",
           "b1_reaudit": {
-            "status": "FINAL_201_OF_201",
-            "decision_status": "REVISED",
-            "source": "docs/评分结算/第三项军事与边疆净收益/国防安全/B1重审数据/99-B1全量收口与剩余批次.json",
-            "final_B1_rate": 29.0
+            "status": "FORMAL_SETTLEMENT_PATCH_SOURCE",
+            "decision_status": "CONFIRMED_CROSS_ITEM_ROUTING",
+            "source": "config/third-item/third-item-result-credit-adjudications.json#RULER-SHADOW-杨行密",
+            "final_B1_rate": 37.0
           },
-          "b1_cross_item_excluded_weighted_value": 0.5,
           "A_axis_common_context": "902—905年鄂州围城、宿州失败及内部叛乱收束共同塑造淮南西向局势。"
         }
       ]

@@ -204,7 +204,7 @@
       "A120_maximum": 120,
       "B80_maximum": 80,
       "AB200_formula": "A120 + B80",
-      "A120_formula": "sum(0.6*clamp(0,100,12*end+10*attributable_delta+max(ceiling_bonus,maintenance_bonus)-max(reversal_penalty,within_band_deterioration_penalty)))",
+      "A120_formula": "sum(0.6*clamp(0,100,12*end+10*attributable_delta+max(ceiling_bonus,maintenance_bonus,within_band_structure_credit)-max(reversal_penalty,within_band_deterioration_penalty)))",
       "B80_formula": "80*(0.55*B1_rate+0.45*B2_rate)*(0.70+0.30*B4_rate)",
       "legacy_AB_score_points": "ATOMIC_AXIS_DIAGNOSTIC_ONLY_NOT_CURRENT_AB_TOTAL"
     }

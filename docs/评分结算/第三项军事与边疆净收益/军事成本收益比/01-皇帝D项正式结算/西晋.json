@@ -18,12 +18,12 @@
             290
           ],
           "identity_source": "PREVIOUS_D_FORMAL",
-          "D_grade": "D0",
+          "D_grade": "D1",
           "D_within_grade_position": "HIGH",
-          "D_score_points": 6.0,
+          "D_score_points": 14.0,
           "D_score_status": "DIRECT_D_SCORE_ASSIGNED",
           "signed_security_candidate_before_cost": "D1",
-          "cost_grade_delta": -1,
+          "cost_grade_delta": 0,
           "security_result_distribution": {
             "E0": 1,
             "E3_REGIONAL_TERMINAL": 1,
@@ -211,13 +211,13 @@
           "cross_item_excluded_chains": [],
           "non_military_loss_cost_exclusions": [],
           "attributable_cost_profile": {
-            "cost_band": "C5",
+            "cost_band": "C4",
             "status": "LOWER_BOUND",
-            "position": "LOW",
-            "admission_fact": "交趾争夺连续四年，晋方守备最终粮尽援绝且边州行政与军运功能终断，单一长期高承载事实满足C5准入。",
-            "basis": "不把吴军十万、敌军损失或扶余人口损失计入晋方成本，也不把交趾控制丧失与西陵五万动员拼接成F3；因本方守军规模和损失分母失载，C5为LOWER_BOUND低位。"
+            "position": "HIGH",
+            "admission_fact": "交趾四年守备与西陵五万级救援均属C4，但彼此分散且未形成晋朝全国性长期军事承载；两个C4不再自动准入C5。",
+            "basis": "交趾四年守备与西陵五万级救援均属C4，但彼此分散且未形成晋朝全国性长期军事承载；两个C4不再自动准入C5。"
           },
-          "adjudication_basis": "凉州E3区域终局被交趾、慕容两条独立EN2及西陵E0主动失败强支配，统一组合接近无净改善，成本前为D1；交趾单链长期高承载C5再降一档至D0高位。灭吴不重复计入。",
+          "adjudication_basis": "区域终局与两条EN2合看接近无净改善，仍为D1；分散的C4战争不能继续沿用C5成本修正压至D0。",
           "coverage_status": "LOWER_BOUND",
           "source_batch": "sol_a",
           "canonical_status": "FORMAL_CURRENT",
@@ -344,19 +344,14 @@
               ],
               "challenge_context": "相对于本方的开战前有效威胁事实见本链basis。",
               "acquisition_mode": "MULTI_STAGE_COMBAT",
-              "result_type": "NOT_CLOSED",
+              "result_type": "NOT_APPLICABLE",
               "within_grade_position": "MID",
-              "terminal_result_profile": {
-                "threat_change": "NOT_CLOSED",
-                "control_change": "NOT_CLOSED_IN_CURRENT_SOURCE",
-                "material_return": "NOT_CLOSED_IN_CURRENT_SOURCE",
-                "durability": "LIMITED_OR_NOT_CLOSED",
-                "terminal_member_ref": "SIMA-CHI-EIGHT-PRINCES-TAIL-307-311",
-                "aggregation_basis": "同一对手、同一战略目标和连续授权合链；终点成果只消费一次。"
-              },
-              "achievement_grade_detail": null,
+              "terminal_result_profile": "中央军分裂与宁平毁损属于汉赵外链全国崩溃的同一终局，保留过程与成本，不重复计EN3。",
+              "achievement_grade_detail": "NOT_APPLICABLE",
               "security_result_grade": "NOT_APPLICABLE",
-              "security_result_exclusion_basis": "异常成本或过程链保留，但不生成独立E/EN。"
+              "security_result_exclusion_basis": "中央军分裂与宁平毁损属于汉赵外链全国崩溃的同一终局，保留过程与成本，不重复计EN3。",
+              "achievement_grade": "NOT_APPLICABLE",
+              "security_change_basis": "中央军分裂与宁平毁损属于汉赵外链全国崩溃的同一终局，保留过程与成本，不重复计EN3。"
             }
           ],
           "ordinary_suppression_summary": {
@@ -384,34 +379,28 @@
             ],
             "ruler_major_responsibility": "继承性末期危机与司马炽在位决策的边界尚须固定docs归责审计；不得把共同体崩溃全部机械归责皇帝。",
             "coverage": "公共03当前记录数为0；必须完成两晋卷086—088固定docs回源、canonical source lineage和归责拆分后，才能进入任何正式结算。",
-            "cost_comparison_hint": null,
+            "cost_comparison_hint": "C5｜PROVISIONAL｜HIGH｜宁平十余万中央野战集团物理上已闭合灾难性覆灭，但东海王越控制军政、司马炽个人归责未闭合；归责门未过前不升C6。 具体事实：宁平事实本身已经很强：撤退集团死十余万、“无一免”，且东海王越四万精兵所代表的晋最大中央野战集团整体覆灭；物理结构已达到国家主力灾难。 但军队此前由东海王越控制并带离洛阳，司马炽对该军的实际调度权、错误决策与成本归责仍未闭合。新合同要求先判物理严重度，再判是否足以归责给该统治者。",
             "cost_summary": {
               "cost_band": "C5",
               "cost_band_status": "PROVISIONAL",
               "within_band_position": "HIGH",
-              "comparative_cost_signature": {
-                "single_chain_highest_structure": "宁平十万余中央军覆没F4_CANDIDATE；对象与继承窗口归责未闭合",
-                "full_reign_cumulative_force_loss": "候选F4×1+晋军三万级线索；平民死亡排除",
-                "full_reign_mobilization_and_repetition": "peak NOT_CLOSED；长期链2；公共03尚无canonical记录",
-                "same_or_continuous_chain_post_disaster_remobilization": "宁平与汉赵后续损失的连续性和本人归责未闭合",
-                "ruler_personal_responsibility": "继承性危机与在位决策边界NOT_CLOSED；不把共同体崩溃全归一人",
-                "evidence_coverage": "公共03当前0条；卷086—088回源、canonical lineage与归责拆分均待完成"
-              },
-              "comparative_cost_signature_line": "C5 PROVISIONAL-HIGH｜宁平十万余中央军覆没F4_CANDIDATE；对象与继承窗口归责未闭合｜候选F4×1+晋军三万级线索；平民死亡排除｜peak NOT_CLOSED；长期链2；公共03尚无canonical记录",
-              "basis": "宁平十万余中央军覆没为F4候选且另有晋军损失线索，足以高于C4；但公共03缺失、损失对象与继承危机归责未闭合，候选F4不能按闭合F4直接进入C6。",
+              "comparative_cost_signature_line": "宁平十余万中央野战集团物理上已闭合灾难性覆灭，但东海王越控制军政、司马炽个人归责未闭合；归责门未过前不升C6。 具体事实：宁平事实本身已经很强：撤退集团死十余万、“无一免”，且东海王越四万精兵所代表的晋最大中央野战集团整体覆灭；物理结构已达到国家主力灾难。 但军队此前由东海王越控制并带离洛阳，司马炽对该军的实际调度权、错误决策与成本归责仍未闭合。新合同要求先判物理严重度，再判是否足以归责给该统治者。",
+              "basis": "宁平十余万中央野战集团物理上已闭合灾难性覆灭，但东海王越控制军政、司马炽个人归责未闭合；归责门未过前不升C6。 具体事实：宁平事实本身已经很强：撤退集团死十余万、“无一免”，且东海王越四万精兵所代表的晋最大中央野战集团整体覆灭；物理结构已达到国家主力灾难。 但军队此前由东海王越控制并带离洛阳，司马炽对该军的实际调度权、错误决策与成本归责仍未闭合。新合同要求先判物理严重度，再判是否足以归责给该统治者。",
               "evidence_gaps": [
                 "宁平十万余分母/损失对象；晋军与平民分离；司马炽窗口归责；公共03写入闭合。"
               ],
               "source_refs": [
-                "docs/史料通读产物/两晋/卷087-通读总结.md#WAR-LEAD-JIN-NINGPING-311"
+                "docs/史料通读产物/两晋/卷087-通读总结.md#WAR-LEAD-JIN-NINGPING-311",
+                "docs/史料通读产物/唐以前编年/两晋/卷087-通读总结.md#WAR-LEAD-JIN-NINGPING-311"
               ],
               "descriptive_only_not_final_D": true
             },
             "cost_band": "C5",
             "status": "PROVISIONAL",
-            "position": "HIGH"
+            "position": "HIGH",
+            "basis": "宁平十余万中央野战集团物理上已闭合灾难性覆灭，但东海王越控制军政、司马炽个人归责未闭合；归责门未过前不升C6。 具体事实：宁平事实本身已经很强：撤退集团死十余万、“无一免”，且东海王越四万精兵所代表的晋最大中央野战集团整体覆灭；物理结构已达到国家主力灾难。 但军队此前由东海王越控制并带离洛阳，司马炽对该军的实际调度权、错误决策与成本归责仍未闭合。新合同要求先判物理严重度，再判是否足以归责给该统治者。"
           },
-          "adjudication_basis": "汉赵链终点EN3且无正向链，安全候选为D1；虽属继承性末期危机且归责未闭合，但C5候选重大毁损不能托高档，按强成本门降至D0中位并保留PROVISIONAL。",
+          "adjudication_basis": "汉赵链终点EN3且无正向链，安全候选为D1；虽属继承性末期危机且归责未闭合。 内部链已按同一E/EN尺度逐条复核；区域恢复、未终结及重复终局分别处理，现有组合档不因新增结果标签机械升降。 军事成本按独立合同裁为C5（HIGH，PROVISIONAL）；具体结构见成本依据。",
           "coverage_status": "CALIBRATED_SOURCE_BATCH",
           "source_batch": "frozen34_mapping",
           "canonical_status": "FORMAL_CURRENT",

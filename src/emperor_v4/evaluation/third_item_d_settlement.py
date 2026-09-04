@@ -231,7 +231,12 @@ def _cost_structure_lines(profile: Mapping[str, Any]) -> list[str]:
             or profile.get("basis")
             or "正式JSON未另列更细的成本拆分。"
         )
-        return [f"  - **成本准入**：{_reader_text(admission)}"]
+        lines = [f"  - **成本准入**：{_reader_text(admission)}"]
+        if profile.get("major_force_losses"):
+            lines.append(
+                f"  - **单链峰值与毁损**：{_reader_text(profile['major_force_losses'])}"
+            )
+        return lines
     labels = {
         "single_chain_highest_structure": "单链峰值与毁损",
         "full_reign_cumulative_force_loss": "全期累计毁损",
@@ -304,14 +309,14 @@ def render_third_item_d_markdown(payload: Mapping[str, Any]) -> str:
     lines = [
         "# 秦至清第三项D军事成本收益比正式结算",
         "",
-        "规则见[`D规则与结算合同`](../../../分项规则/第三项军事与边疆净收益/军事成本收益比/00-规则与结算合同.md)。",
+        "规则见[`D规则与结算合同`](../../../分项规则/第三项军事与边疆净收益/军事成本收益比/00-规则与结算合同.md)及[军事成本评估合同](../../../分项规则/第三项军事与边疆净收益/军事成本评估/00-规则与结算合同.md)。",
         "",
         f"本次共结算{len(records)}位评价主体。下表及逐人依据均由同名正式JSON当前值生成；第三项总分和排名见第三项正式结算。",
         "",
         "## 阅读口径",
         "",
         "- D先看统治窗口内对外战略链和异常内部战略链造成的安全态势净变化，正向E与负向EN同权。",
-        "- C只记录本方动员、军事人员与兵团毁损、军事资产、灾后再动员、长期反复投入及本人责任；敌军、叛军和平民损失不计入本方军事成本。",
+        "- 军事成本按独立合同裁决，只记录本方实际投入与毁损；归责决定消费窗口，不改变损害严重度，敌军、叛军和平民损失不计入。",
         "- 第一项创业统一链及第三项C独占任务整链退出D局部结算，并在逐人段落的“跨项排除链”中明示。",
         "",
         "## 档位分布",
@@ -475,6 +480,18 @@ def validate_third_item_d_payload(payload: Mapping[str, Any]) -> dict[str, Any]:
                 or chain.get("terminal_result_profile")
             ):
                 raise ValueError(f"D战略链证据不完整：{row.get('ruler_name')} {chain.get('chain_id')}")
+        for chain in row.get("strategic_internal_chains") or ():
+            result = chain.get("security_result_grade")
+            if result not in {"E0", "E1", "E2", "E3_MAJOR_STAGE", "E3_REGIONAL_TERMINAL", "E4_MAJOR_STRATEGIC", "E5A", "E5B", "EN1", "EN2", "EN3", "NOT_APPLICABLE", "NOT_CLOSED"}:
+                raise ValueError(f"内部链缺少合法安全终点：{chain.get('chain_id')}")
+            excluded = result in {"NOT_APPLICABLE", "NOT_CLOSED"}
+            if excluded and not chain.get("security_result_exclusion_basis"):
+                raise ValueError(f"内部链未闭合或排除须说明具体理由：{chain.get('chain_id')}")
+            if not excluded and (chain.get("main_security_evaluation") is False or chain.get("security_result_exclusion_basis")):
+                raise ValueError(f"内部链已有结果却被排除收益：{chain.get('chain_id')}")
+        results = dict(sorted(Counter(chain.get("security_result_grade", "NOT_APPLICABLE") for chain in chains).items()))
+        if row.get("security_result_distribution") != results:
+            raise ValueError(f"安全结果分布与逐链裁决不一致：{row.get('ruler_name')}")
         chain_count += len(chains)
         excluded_chain_count += len(row.get("cross_item_excluded_chains") or ())
 

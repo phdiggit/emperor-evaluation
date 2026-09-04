@@ -893,7 +893,7 @@
               "trajectory_value": 24,
               "transition": "STABLE",
               "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
-              "reason": "主要威胁匈奴仍掌握边境主动且汉朝缺少有效反击，压力同档内恶化但未达到即时国家级危机，故A1维持2档。"
+              "reason": "匈奴仍掌握边境主动，整体A1维持2档；七国战前联合军事结构被实质拆除，按主要归责记7.5轨迹点档内改善。三条匈奴负链的10点档内恶化仍保留，不以内部胜利抹去边防损害。"
             },
             "A2": {
               "axis_points": 9.6,
@@ -1004,16 +1004,16 @@
           "excluded_founding_unification_refs": [],
           "observed_parent_cycle_count": 1,
           "A120_non_cost_anchor_points": 22.8,
-          "A120_positive_result_credit_points": 0.0,
-          "A120_score_points": 22.8,
+          "A120_positive_result_credit_points": 4.5,
+          "A120_score_points": 27.3,
           "B80_score_points": 11.4,
-          "AB200_score_points": 34.2,
+          "AB200_score_points": 38.7,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 0.0,
-              "attribution_basis": "客观起终档未变化，不生成变化分",
+              "attribution_basis": "整体起终档未变化；七国联合军事结构净改善通过独立档内门，逐档改善信用仍为0。",
               "attribution_category": "NO_CHANGE",
-              "axis_points": 8.4,
+              "axis_points": 12.9,
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 2,
@@ -1027,10 +1027,28 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 2,
-              "trajectory_value": 14.0,
+              "trajectory_value": 21.5,
               "within_band_deterioration_basis": "三条匈奴边境EN1合并，虽无耐久失地仍构成连续档内恶化",
               "within_band_deterioration_penalty": 10,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "within_band_structure_improvement": {
+                "threat_scope": "SYSTEMIC",
+                "outcome": "STRUCTURAL_DOWNGRADE",
+                "attribution_credit": 0.75,
+                "entry_structure": "吴楚等大诸侯在接班前拥有独立军队、盐铜财源及跨国联合发动战争的能力，吴王长期不朝；并非从前154年失控高峰改写接班基线。",
+                "handover_structure": "七国主力及叛王终结，吴楚齐赵封国和军事控制重新安排，原联合战争结构被拆除；仍存封国及北边匈奴威胁，不推定所有内部风险永绝。",
+                "attribution_basis": "刘启决定削藩并承担中央最高战争授权，周亚夫等对作战执行有独立主要贡献，皇帝取主要归责0.75。",
+                "net_improvement_basis": "七国联合军事结构较接班时实质削弱，故记7.5轨迹点；匈奴仍使整体A1为2至2，三条边境负链的10点档内恶化保留。",
+                "deduplication_basis": "仅消费联合军事威胁再战能力下降；不消费削藩制度政治收益，不进入A2或B2/B4，不累计各叛国及各战区。",
+                "parent_cycle_refs": [
+                  "HAN-SEVEN-KINGDOMS"
+                ],
+                "source_refs": [
+                  "docs/史料通读产物/唐以前编年/汉/卷016-通读总结.md#WAR-LEAD-HAN-SEVEN-KINGDOMS"
+                ],
+                "restoration_only": false,
+                "consumed_elsewhere": false
+              }
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -1073,7 +1091,7 @@
             "final_B1_rate": 37.0
           },
           "b1_region_ledger_status": "EXPLICIT_REGION_LEDGER_FINAL_REAUDIT",
-          "A_axis_common_context": "本人承接文帝交班状态，匈奴继续多年入侵；七国之乱平定只恢复内地原控制。"
+          "A_axis_common_context": "本人承接文帝交班状态；七国战争终结吴楚等诸侯联合军事结构，北边匈奴仍连续入侵，两方向分别判断。"
         },
         {
           "AB_score_points": 122.15,

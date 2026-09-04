@@ -44,18 +44,12 @@
           "task_outcome_profile": {
             "source": "DEDUPLICATED_STRATEGIC_CHAINS_WITH_EXPLICIT_UNKNOWN_CLOSURE",
             "known_outcome_count": 0,
-            "return_class_counts": {
-              "UNKNOWN": 1
-            },
-            "status": "UNQUANTIFIED",
-            "selected_task_count": 1,
-            "return_class_refs": {
-              "UNKNOWN": [
-                "CHAIN-LI-DEMING-GANZHOU-LIUGU-1007-1012"
-              ]
-            }
+            "return_class_counts": {},
+            "status": "NOT_APPLICABLE",
+            "selected_task_count": 0,
+            "return_class_refs": {}
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期1项，已知结果0项，回报剖面={'UNKNOWN': 1}；重大体系胜绩0项、重大体系失败0项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期0项，已知结果0项，回报剖面={}；重大体系胜绩0项、重大体系失败0项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
             "1007—1012对甘州、六谷多轮用兵均未取得控制或安全净改善；整体安全与主要边界维持原状态。反复动员证明有限持续能力，但连续不兑现压低C1与C3。"
@@ -70,7 +64,9 @@
           "settled_event_refs": [
             "DINV::LI_DEMING::GANZHOU-LIUGU-WAR-1007-1012"
           ],
-          "capability_only_parent_refs": [],
+          "capability_only_parent_refs": [
+            "CHAIN-LI-DEMING-GANZHOU-LIUGU-1007-1012"
+          ],
           "non_war_evidence_refs": [],
           "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
           "unresolved_gaps": [],
@@ -81,10 +77,8 @@
             "docs/史料通读产物/西夏/西夏书事/volume-009.battle-adjudications.json#XSS-DEMING-GANZHOU-LIUGU-WAR-1007-1012",
             "docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.json"
           ],
-          "current_item_task_count": 1,
-          "current_item_task_refs": [
-            "CHAIN-LI-DEMING-GANZHOU-LIUGU-1007-1012"
-          ],
+          "current_item_task_count": 0,
+          "current_item_task_refs": [],
           "excluded_founding_unification_refs": [],
           "C_score_support_surplus": 1,
           "C_score_axis_surplus_position": 0.125,
@@ -93,7 +87,8 @@
             "lower_rate": 30,
             "upper_rate": 44
           },
-          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS"
+          "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
+          "cross_item_routing_basis": "1004—1028河西扩张主链由第一项消费，1007—1012甘州—六谷失败尝试的成本也随整链排除。跨项仅复用作战能力，不复用结果与成本。"
         },
         {
           "ruler_id": "RULER-XIXIA-LIRENXIAO",

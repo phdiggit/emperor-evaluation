@@ -40,7 +40,7 @@
           "C_score_position_method": "AXIS_SURPLUS_PLUS_EXPLICIT_WITHIN_BAND_ADJUDICATION",
           "C_score_within_band_adjudication": {
             "position": "MID",
-            "reason": "高平主力溃败后能够守都并再动员，但多次南攻、府州战均失败，体系可靠性有限。"
+            "reason": "晋州、高平仅作能力佐证，保留其败后守都与再动员事实；当前府州独立链连续失败，体系可靠性仍限C-2中位。"
           },
           "observed_parent_cycle_count": 3,
           "independent_task_count": 3,
@@ -55,25 +55,22 @@
             "source": "DEDUPLICATED_STRATEGIC_CHAINS_WITH_EXPLICIT_UNKNOWN_CLOSURE",
             "known_outcome_count": 0,
             "return_class_counts": {
-              "UNKNOWN": 3
+              "UNKNOWN": 1
             },
             "status": "UNQUANTIFIED",
-            "selected_task_count": 3,
+            "selected_task_count": 1,
             "return_class_refs": {
               "UNKNOWN": [
-                "NORTHERN-HAN-ZHOU-SHANXI-951",
-                "NORTHERN-HAN-ZHOU-FRONTIER-952-953",
-                "NORTHERN-HAN-ZHOU-GAOPING-TAIYUAN-954"
+                "NORTHERN-HAN-ZHOU-FRONTIER-952-953"
               ]
             }
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期3项，已知结果0项，回报剖面={'UNKNOWN': 3}；重大体系胜绩0项、重大体系失败2项。",
+          "current_task_basis_reason": "当前第三项独立体系压力父周期1项，已知结果0项，回报剖面={'UNKNOWN': 1}；重大体系胜绩0项、重大体系失败1项。",
           "parent_cycle_merge_adjudications": [],
           "cap_reasons": [
-            "高平主力溃败后能够守都并再动员，但多次南攻、府州战均失败，体系可靠性有限。"
+            "晋州、高平仅作能力佐证，保留其败后守都与再动员事实；当前府州独立链连续失败，体系可靠性仍限C-2中位。"
           ],
           "major_system_failure_refs": [
-            "NORTHERN-HAN-ZHOU-SHANXI-951",
             "NORTHERN-HAN-ZHOU-FRONTIER-952-953"
           ],
           "major_system_success_refs": [],
@@ -93,7 +90,10 @@
             "WAR-FD-96CDC79A15D8278D4CFB",
             "WAR-FD-C504271F839171210D3A"
           ],
-          "capability_only_parent_refs": [],
+          "capability_only_parent_refs": [
+            "NORTHERN-HAN-ZHOU-GAOPING-TAIYUAN-954",
+            "NORTHERN-HAN-ZHOU-SHANXI-951"
+          ],
           "non_war_evidence_refs": [],
           "coverage_status": "REVIEWED_MINIMUM_SUFFICIENT",
           "unresolved_gaps": [],
@@ -122,12 +122,11 @@
             "upper_rate": 59
           },
           "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
-          "current_item_task_count": 3,
+          "current_item_task_count": 1,
           "current_item_task_refs": [
-            "NORTHERN-HAN-ZHOU-SHANXI-951",
-            "NORTHERN-HAN-ZHOU-FRONTIER-952-953",
-            "NORTHERN-HAN-ZHOU-GAOPING-TAIYUAN-954"
-          ]
+            "NORTHERN-HAN-ZHOU-FRONTIER-952-953"
+          ],
+          "cross_item_routing_basis": "按第一项现行口径，高平主力崩溃及太原恢复属于第一项复国竞争链；第三项删除同链成本C6。跨项仅复用作战能力，不复用结果与成本。 951年连续南攻晋、隰及本人围晋州属于恢复后汉旧土的创业竞争链，第一项C已消费围晋州负证；与954高平同按第一项主链处理，第三项只保留能力佐证，不重复消费结果与成本。"
         },
         {
           "ruler_id": "RULER-SHADOW-刘知远",
@@ -1436,25 +1435,21 @@
           "C_score_band_position": 0.0,
           "C_score_position_method": "AXIS_SURPLUS_PLUS_OUTCOME_QUALITY",
           "parent_cycle_reference_policy": "RAW_SETTLED_EVENT_REFS_PLUS_CANONICAL_INDEPENDENT_TASK_GROUPS",
-          "current_item_task_count": 5,
+          "current_item_task_count": 3,
           "current_item_task_refs": [
-            "ZZTJ-291-NH-KHITAN-GAOPING-CAMPAIGN-0954",
-            "ZZTJ-292-HULUHE-DEFENSE-0955",
             "ZZTJ-293-KHITAN-NHAN-LUZHOU-0957",
             "ZZTJ-293-ZHANGWU-LOCAL-REBELLION-0956",
             "ZZTJ-294-KHITAN-ZHOU-RAID-EASTCITY-0958"
           ],
           "task_outcome_profile": {
             "source": "CURRENT_C_TASKS_WITH_EXPLICIT_UNKNOWN_CLOSURE",
-            "selected_task_count": 5,
+            "selected_task_count": 3,
             "known_outcome_count": 0,
             "return_class_counts": {
-              "UNKNOWN": 5
+              "UNKNOWN": 3
             },
             "return_class_refs": {
               "UNKNOWN": [
-                "ZZTJ-291-NH-KHITAN-GAOPING-CAMPAIGN-0954",
-                "ZZTJ-292-HULUHE-DEFENSE-0955",
                 "ZZTJ-293-KHITAN-NHAN-LUZHOU-0957",
                 "ZZTJ-293-ZHANGWU-LOCAL-REBELLION-0956",
                 "ZZTJ-294-KHITAN-ZHOU-RAID-EASTCITY-0958"
@@ -1462,7 +1457,12 @@
             },
             "status": "UNQUANTIFIED"
           },
-          "current_task_basis_reason": "当前第三项独立体系压力父周期5项，已知结果0项，回报剖面={'UNKNOWN': 5}；重大体系胜绩1项、重大体系失败0项。"
+          "current_task_basis_reason": "当前第三项独立体系压力父周期3项，已知结果0项，回报剖面={'UNKNOWN': 3}；重大体系胜绩1项、重大体系失败0项。",
+          "capability_only_parent_refs": [
+            "ZZTJ-291-NH-KHITAN-GAOPING-CAMPAIGN-0954",
+            "ZZTJ-292-HULUHE-DEFENSE-0955"
+          ],
+          "cross_item_routing_basis": "954—955年高平及同一北方防守主链已由第一项明确消费，成本随链退出第三项。跨项仅复用作战能力，不复用结果与成本。"
         },
         {
           "ruler_id": "RULER-FD-LI-BIAN",

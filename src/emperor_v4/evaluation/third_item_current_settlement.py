@@ -41,207 +41,6 @@ def _load(path: Path) -> dict[str, Any]:
     return load_json(path)
 
 
-def _cost_detail_text(value: object) -> str:
-    if value is None or value == "" or value == [] or value == {}:
-        return "未单列"
-    if isinstance(value, bool):
-        return "是" if value else "否"
-    if isinstance(value, Mapping):
-        visible = [
-            item
-            for key, item in value.items()
-            if key not in {"occurrence_count", "source_refs"}
-            and item not in (None, "", [], {}, 0, False)
-        ]
-        return "、".join(_cost_detail_text(item) for item in visible) or "未单列"
-    if isinstance(value, (list, tuple)):
-        return "；".join(_cost_detail_text(item) for item in value)
-    text = str(value)
-    translations = {
-        "W1_3": "1万—3万级动员",
-        "W3_10": "3万—10万级动员",
-        "W10_30": "10万—30万级动员",
-        "W30_100": "30万—100万级动员",
-        "W50_100": "50万—100万级动员",
-        "W100_PLUS": "100万以上级动员",
-        "W100_PLUS_MULTI_THEATER": "全国多方向大规模动员",
-        "W100_PLUS_MULTI_STATE": "跨多州全国级动员",
-        "W_NOT_RECORDED_EXPEDITION": "远征规模未载",
-        "W_NOT_RECORDED_MULTI_ROUND": "多轮动员规模未载",
-        "NOT_RECORDED": "未载",
-        "NONE": "未见重大损失或额外责任",
-        "SINGLE": "单轮",
-        "SHORT": "短期",
-        "CROSS_YEAR": "跨年",
-        "LONG": "长期",
-        "MULTI_ROUND": "多轮",
-        "REINFORCED": "有增援",
-        "F1_LIMITED_FORCE_LOSS": "有限兵力损失",
-        "F2_LARGE_PERSONNEL_IMPAIRMENT_FORCE_STRUCTURE_RETAINED": "重大人员损害，部队组织仍存",
-        "F3_THEATER_FORCE_SEVERE_LOSS": "主要方向兵团严重毁损",
-        "F3_MAJOR_FORMATION_DESTRUCTION": "主要兵团组织性毁损",
-        "F4_NATIONAL_FIELD_FORCE_COLLAPSE": "国家级野战主力组织崩溃",
-        "MAJOR_DRIVER": "本人负主要责任",
-        "DECISIVE_DRIVER": "本人负决定性责任",
-        "DECISIVE_PERSONAL_CAUSE": "本人构成决定性原因",
-        "CONTRIBUTED": "本人有实质责任",
-        "SETBACKS_BUT_CLOSED": "过程有挫折但已收束",
-    }
-    if "｜" in text:
-        code, detail = text.split("｜", 1)
-        short_code = code.rsplit(":", 1)[-1]
-        label = translations.get(short_code)
-        return f"{label}：{detail}" if label else detail
-    if "/" in text and all(part in translations for part in text.split("/")):
-        return "、".join(translations[part] for part in text.split("/"))
-    if text in translations:
-        return translations[text]
-    return text.replace("LOWER_BOUND", "证据下限").replace("CONFIRMED", "已确认")
-
-
-def _cost_dimension(chain: Mapping[str, Any], fields: Sequence[str]) -> str:
-    parts = [
-        _cost_detail_text(chain[field])
-        for field in fields
-        if chain.get(field) not in (None, "", [], {})
-    ]
-    return "；".join(parts) if parts else "未单列"
-
-
-def _raw_cost_text(value: object) -> str:
-    return json.dumps(value, ensure_ascii=False) if not isinstance(value, str) else value
-
-
-def _is_significant_cost_chain(chain: Mapping[str, Any]) -> bool:
-    mobilization = _raw_cost_text(chain.get("mobilization_peak") or "")
-    high_mobilization = any(
-        token in mobilization for token in ("W10_30", "W30_100", "W50_100", "W100_PLUS")
-    ) or bool(chain.get("high_mobilization_facts"))
-    force = " ".join(
-        _raw_cost_text(chain.get(field) or "")
-        for field in (
-            "force_destruction",
-            "force_destruction_or_personnel_disaster",
-            "cost",
-            "catastrophe_facts",
-            "force_destruction_events",
-            "force_loss_magnitude_events",
-            "abnormal_cost",
-        )
-    )
-    major_force = any(token in force for token in ("F2", "F3", "F4")) or bool(
-        chain.get("cost") or chain.get("abnormal_cost") or chain.get("catastrophe_facts")
-    )
-    process = " ".join(
-        _raw_cost_text(chain.get(field) or "")
-        for field in (
-            "process_burden",
-            "long_term_or_repeated_burden",
-            "process_efficiency",
-            "abnormal_process",
-        )
-    )
-    repeated = any(
-        token in process
-        for token in ("MULTI", "LONG", "CROSS_YEAR", "REPEATED", "REINFORCED")
-    )
-    responsibility = " ".join(
-        _raw_cost_text(chain.get(field) or "")
-        for field in (
-            "ruler_responsibility",
-            "responsibility_basis",
-            "command_or_policy_failure",
-            "responsibility",
-        )
-    )
-    material_responsibility = any(
-        token in responsibility
-        for token in ("MAJOR_DRIVER", "DECISIVE", "CONTRIBUTED", "FULL", "MATERIAL")
-    )
-    return high_mobilization or major_force or repeated or material_responsibility
-
-
-def _build_cost_detail(
-    d_row: Mapping[str, Any],
-    restored_c_chain_ids: Sequence[str],
-) -> list[str]:
-    profile = d_row["attributable_cost_profile"]
-    aggregate_fields = (
-        "admission_fact",
-        "admission_facts",
-        "single_admission_fact",
-        "mobilization_peak",
-        "ruler_major_responsibility",
-    )
-    aggregate_labels = {
-        "admission_fact": "准入事实",
-        "admission_facts": "准入事实",
-        "single_admission_fact": "单一准入事实",
-        "mobilization_peak": "全期动员峰值",
-        "ruler_major_responsibility": "本人重大责任",
-    }
-    details = [
-        f"总体{aggregate_labels[field]}：{_cost_detail_text(profile[field])}"
-        for field in aggregate_fields
-        if profile.get(field) not in (None, "", [], {})
-    ]
-    chain_groups = (
-        ("对外战略链", d_row.get("external_strategic_chains") or ()),
-        ("异常内部链", d_row.get("strategic_internal_chains") or ()),
-    )
-    for scope, group in chain_groups:
-        for chain in group:
-            if not _is_significant_cost_chain(chain):
-                continue
-            chain_id = str(chain["chain_id"])
-            chain_name = str(
-                chain.get("chain_name") or chain.get("name") or chain_id
-            )
-            chain_label = f"「{chain_name}」"
-            if chain_name == chain_id:
-                chain_label = f"`{chain_id}`"
-            dimensions = []
-            mobilization = _cost_dimension(chain, ("mobilization_peak", "mobilization_basis", "high_mobilization_facts"))
-            if mobilization != "未单列" and "未载" not in mobilization:
-                dimensions.append(("动员", mobilization))
-            force = _cost_dimension(chain, ("force_destruction", "force_destruction_or_personnel_disaster", "force_destruction_basis", "cost", "catastrophe_facts", "force_destruction_events", "force_loss_magnitude_events", "abnormal_cost"))
-            if force != "未单列" and not force.startswith("未见重大损失或额外责任"):
-                dimensions.append(("毁损", force))
-            process = _cost_dimension(chain, ("process_burden", "long_term_or_repeated_burden", "process_efficiency", "abnormal_process"))
-            if process != "未单列" and process not in ("单轮、短期", "SINGLE/SHORT"):
-                dimensions.append(("过程", process))
-            responsibility = _cost_dimension(chain, ("ruler_responsibility", "responsibility_basis", "command_or_policy_failure", "responsibility"))
-            raw_responsibility = " ".join(
-                _raw_cost_text(chain.get(field) or "")
-                for field in ("ruler_responsibility", "responsibility_basis", "command_or_policy_failure", "responsibility")
-            )
-            if any(token in raw_responsibility for token in ("MAJOR_DRIVER", "DECISIVE", "CONTRIBUTED", "FULL", "MATERIAL")):
-                dimensions.append(("责任", responsibility))
-            readable = "；".join(
-                f"{label}：{value}" for label, value in dimensions
-            )
-            if readable:
-                details.append(f"{scope}{chain_label}：{readable.rstrip('。')}。")
-    if restored_c_chain_ids:
-        details.append(
-            "C项恢复成本链："
-            + "、".join(f"`{chain_id}`" for chain_id in restored_c_chain_ids)
-            + "；其成本事实已恢复至全局成本视图，具体准入见上列全局成本依据。"
-        )
-    for chain in d_row.get("cross_item_excluded_chains") or ():
-        reason = str(
-            chain.get("reason")
-            or chain.get("basis")
-            or "跨项整链排除，不进入本人成本。"
-        )
-        details.append(f"跨项排除链 `{chain['chain_id']}`：{reason}")
-    details.extend(
-        f"非本方军事成本排除：{item}"
-        for item in d_row.get("non_military_loss_cost_exclusions") or ()
-    )
-    return details
-
-
 def _index(records: Sequence[Mapping[str, Any]], component: str) -> dict[str, Mapping[str, Any]]:
     indexed: dict[str, Mapping[str, Any]] = {}
     for row in records:
@@ -286,12 +85,40 @@ def _clamp(low: float, high: float, value: float) -> float:
     return max(low, min(high, value))
 
 
+def _within_band_structure_credit(axis: Mapping[str, Any]) -> float:
+    evidence = axis.get("within_band_structure_improvement")
+    if evidence is None:
+        return 0.0
+    if not isinstance(evidence, Mapping):
+        raise ValueError("A1档内结构改善必须为证据对象")
+    credit = evidence.get("attribution_credit")
+    if not isinstance(credit, (int, float)) or isinstance(credit, bool) or credit not in {0.25, 0.5, 0.75, 1.0}:
+        raise ValueError("A1档内结构改善归责信用不合法")
+    if not (int(axis["start_grade"]) == int(axis["end_grade"]) in {1, 2, 3, 4}):
+        raise ValueError("A1档内结构改善只适用于1至4档同档交班")
+    if axis.get("active_window_segments") or float(axis["objective_delta"]) != 0:
+        raise ValueError("A1档内结构改善不得重复跨窗口或跨档信用")
+    for key in ("entry_structure", "handover_structure", "attribution_basis", "net_improvement_basis", "deduplication_basis"):
+        if not isinstance(evidence.get(key), str) or not evidence[key].strip():
+            raise ValueError(f"A1档内结构改善缺少{key}")
+    for key in ("parent_cycle_refs", "source_refs"):
+        refs = evidence.get(key)
+        if not isinstance(refs, list) or not refs or any(not isinstance(ref, str) or not ref.strip() for ref in refs) or len(refs) != len(set(refs)):
+            raise ValueError(f"A1档内结构改善{key}不合法")
+    if evidence.get("threat_scope") != "SYSTEMIC" or evidence.get("outcome") not in {"STRUCTURAL_DOWNGRADE", "SYSTEM_TERMINATED"}:
+        raise ValueError("A1档内改善未闭合系统级威胁结构变化")
+    if evidence.get("restoration_only") is not False or evidence.get("consumed_elsewhere") is not False:
+        raise ValueError("A1档内结构改善不得只恢复原状或重复计分")
+    return 10.0 * float(credit)
+
+
 def _decompose_a120_axis(axis: Mapping[str, Any]) -> tuple[float, float]:
     end_grade = int(axis["end_grade"])
     attributable_delta = float(axis["attributable_delta"])
     positive_raw = 10 * max(0.0, attributable_delta) + max(
         float(axis.get("ceiling_progress_bonus") or 0),
         float(axis.get("maintenance_bonus") or 0),
+        _within_band_structure_credit(axis),
     )
     anchor_raw = (
         12 * end_grade
@@ -358,6 +185,16 @@ def _validate_result_credit_contract(
         historic_ref_sets: list[set[str]] = []
         for axis_name in ("A1", "A2"):
             axis = row["axes"][axis_name]
+            structure_credit = _within_band_structure_credit(axis)
+            if structure_credit:
+                if axis_name != "A1":
+                    raise ValueError("档内军事威胁结构改善只能进入A1")
+                if formal is not None:
+                    refs = set(axis["within_band_structure_improvement"]["parent_cycle_refs"])
+                    allowed = set(formal.get("parent_cycle_refs") or ())
+                    excluded = set(formal.get("excluded_founding_unification_refs") or ())
+                    if not refs.issubset(allowed) or refs & excluded:
+                        raise ValueError(f"{row['ruler_name']}档内结构改善父链越界或重复统一成果")
             start = int(axis["start_grade"])
             end = int(axis["end_grade"])
             objective_delta = int(axis["objective_delta"])
@@ -438,7 +275,7 @@ def _validate_result_credit_contract(
                 100.0,
                 12 * end
                 + 10 * attributable_delta
-                + max(float(axis.get("ceiling_progress_bonus") or 0), bonus)
+                + max(float(axis.get("ceiling_progress_bonus") or 0), bonus, structure_credit)
                 - float(axis.get("negative_adjustment") or 0),
             )
             if abs(float(axis["trajectory_value"]) - expected_trajectory) > 0.001:
@@ -595,26 +432,64 @@ def _render_current_weighted_markdown(records: Sequence[Mapping[str, Any]]) -> s
             "",
             f"- 成本：{human_label(profile['cost_band'])}-{human_label(profile['position'])}，固定扣{float(row['cost_debit_points']):.2f}分。{human_basis(profile['basis'])}",
         ]
-        detail_items = row["cost_detail_items"]
-        display_count = len(detail_items) if detail_items else 1
         lines += [
-            "",
-            "<details>",
-            f"<summary>成本明细（{display_count}条，点击展开）</summary>",
-            "",
-        ]
-        for item in detail_items:
-            lines.append(f"- {human_basis(item)}")
-        if not detail_items:
-            lines.append("- 当前正式D记录未另列逐链成本事实；以成本档及其依据为准。")
-        lines += [
-            "",
-            "</details>",
-            "",
             f"- ML：{row['military_net_loss_grade']}（{abs(float(row['military_net_loss_penalty'])):.2f}分）。与普通成本取高，实际扣{float(row['applied_military_debit_points']):.2f}分（{debit_source}）。{human_basis(row['military_net_loss_basis'])}",
             "",
         ]
     return "\n".join(lines).rstrip() + "\n"
+
+
+def _validate_cross_item_parent_routing(
+    credit_payload: Mapping[str, Any],
+    ab_payload: Mapping[str, Any],
+    c_payload: Mapping[str, Any],
+    d_payload: Mapping[str, Any],
+) -> None:
+    """Enforce the same adjudicated parent routing across all four axes."""
+    components = [
+        {str(row["ruler_id"]): row for row in payload["records"]}
+        for payload in (ab_payload, c_payload, d_payload)
+    ]
+    for credit in credit_payload["records"]:
+        route = credit.get("cross_item_parent_routing")
+        if not route:
+            continue
+        ruler_id = str(credit["ruler_id"])
+        ab, c, d = (component[ruler_id] for component in components)
+        name = credit["ruler_name"]
+        if not str(route.get("reason") or "").strip():
+            raise ValueError(f"{name}跨项父链路由缺少裁决依据")
+        excluded = set(route.get("D_excluded_chain_ids") or ())
+        recorded = {chain["chain_id"] for chain in d.get("cross_item_excluded_chains") or ()}
+        active = {
+            ref
+            for chain in list(d.get("external_strategic_chains") or ())
+            + list(d.get("strategic_internal_chains") or ())
+            for ref in [chain["chain_id"], *(chain.get("member_cycle_refs") or ())]
+        }
+        if not excluded.issubset(recorded) or excluded & active:
+            raise ValueError(f"{name}第一项消费父链回流D或排除登记缺失")
+        capability = set(route.get("C_capability_only_parent_refs") or ())
+        if not capability.issubset(set(c.get("capability_only_parent_refs") or ())):
+            raise ValueError(f"{name}C能力专用桥接未同步")
+        if capability & set(c.get("current_item_task_refs") or ()):
+            raise ValueError(f"{name}C能力专用父链同时进入当前结果任务")
+        if route.get("C_phase_routing") is not None:
+            if route["C_phase_routing"] != c.get("current_item_phase_routing"):
+                raise ValueError(f"{name}C父链阶段切分未同步")
+        if route.get("A_consumption") == "OBJECTIVE_STATE_ONLY_NO_ATTRIBUTABLE_CHANGE":
+            for axis in credit["axes"].values():
+                if any(float(axis.get(key) or 0) != 0 for key in (
+                    "attributable_delta", "negative_adjustment", "maintenance_bonus",
+                    "ceiling_progress_bonus",
+                )):
+                    raise ValueError(f"{name}第一项整链消费后仍保留A归责加减")
+        if route.get("B_consumption") == "EXCLUDED_FIRST_ITEM_ACQUISITION":
+            if any(float(ab["axes"][axis]["score_rate"]) != 0 for axis in ("B1", "B2", "B4")):
+                raise ValueError(f"{name}第一项取得链仍保留B控制得分")
+        excluded_control = set(route.get("B_excluded_control_package_refs") or ())
+        if excluded_control & set(ab.get("primary_control_package_refs") or ()):
+            raise ValueError(f"{name}第一项控制成果包回流第三项B")
 
 
 def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
@@ -627,6 +502,9 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
         "military_net_loss": workspace_root / MILITARY_NET_LOSS_PENALTIES_PATH,
     }
     payloads = {key: _load(path) for key, path in paths.items()}
+    _validate_cross_item_parent_routing(
+        payloads["result_credit"], payloads["AB"], payloads["C"], payloads["D"]
+    )
     _validate_cost_factor_contract(payloads["cost_credit"])
     _validate_result_credit_contract(
         payloads["result_credit"], payloads["AB"], require_synchronized=True
@@ -814,14 +692,6 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
             "C50_score_points": c50_points,
             "D_local_cost_profile": local_cost_profile,
             "global_cost_credit_profile": global_cost_profile,
-            "cost_detail_items": (
-                _build_cost_detail(
-                    d_row,
-                    global_cost_profile["restored_third_item_c_chain_ids"],
-                )
-                if d_row is not None and global_cost_profile is not None
-                else None
-            ),
             "cost_credit_factor": cost_factor,
             "cost_debit_points": cost_debit,
             "score_formula": "A120 + B80 + C50 - max(cost_debit, abs(military_net_loss_penalty))",
@@ -919,6 +789,10 @@ def verify_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]
     payload = _load(workspace_root / FORMAL_PATH)
     credit_payload = _load(workspace_root / RESULT_CREDIT_ADJUDICATIONS_PATH)
     ab_payload = _load(workspace_root / AB_PATH)
+    _validate_cross_item_parent_routing(
+        credit_payload, ab_payload, _load(workspace_root / C_PATH),
+        _load(workspace_root / FORMAL_D_PATH),
+    )
     _validate_result_credit_contract(
         credit_payload,
         ab_payload,
@@ -974,11 +848,6 @@ def verify_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]
         expected = round(a120 + b80 + c50 - applied_debit, 2)
         if float(score) != expected:
             raise ValueError(f"第三项正式分数与给定裁决不一致：{row.get('ruler_name')}")
-        cost_detail_items = row.get("cost_detail_items")
-        if not isinstance(cost_detail_items, list) or not all(
-            isinstance(item, str) and item.strip() for item in cost_detail_items
-        ):
-            raise ValueError(f"第三项成本明细结构不完整：{row.get('ruler_name')}")
         if not row.get("formal_score_write") or row.get("component_join_status") != "READY":
             raise ValueError(f"第三项正式写入状态不闭合：{row.get('ruler_name')}")
         ready.append(row)
@@ -1107,7 +976,7 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
                 "A120_maximum": 120,
                 "B80_maximum": 80,
                 "AB200_formula": "A120 + B80",
-                "A120_formula": "sum(0.6*clamp(0,100,12*end+10*attributable_delta+max(ceiling_bonus,maintenance_bonus)-max(reversal_penalty,within_band_deterioration_penalty)))",
+                "A120_formula": "sum(0.6*clamp(0,100,12*end+10*attributable_delta+max(ceiling_bonus,maintenance_bonus,within_band_structure_credit)-max(reversal_penalty,within_band_deterioration_penalty)))",
                 "B80_formula": "80*(0.55*B1_rate+0.45*B2_rate)*(0.70+0.30*B4_rate)",
                 "legacy_AB_score_points": "ATOMIC_AXIS_DIAGNOSTIC_ONLY_NOT_CURRENT_AB_TOTAL",
             },
@@ -1150,7 +1019,7 @@ def _synchronize_current_c_outcome_view(workspace_root: Path) -> None:
         current_refs = [
             str(ref)
             for ref in row.get("current_item_task_refs") or ()
-            if str(ref) not in excluded_out_of_window
+            if str(ref) not in excluded_out_of_window and str(ref) not in capability_only
         ]
         if not current_refs:
             current_refs = [

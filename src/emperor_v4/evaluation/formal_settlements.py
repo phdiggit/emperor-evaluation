@@ -12,6 +12,7 @@ from emperor_v4.evaluation.first_item_markdown_settlement import (
 )
 from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.second_item_b1_settlement import (
+    _structured_basis,
     active_groups,
     index_from_grade_position,
     position_from_residual,
@@ -395,19 +396,9 @@ def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
             for point in structured_basis
         ):
             raise ValueError(f"第二项B1缺少逐人结构化结算依据：{name}")
-        position_cn = {
-            "lower": "下位",
-            "lower-middle": "中下位",
-            "middle": "中位",
-            "middle-upper": "中上位",
-            "upper": "上位",
-        }
-        if structured_basis[0].get("role") != "裁决说明" or (
-            f"裁定{grade}-{position_cn[position]}（{float(row['direction_index']):.1f}）"
-            not in str(structured_basis[0].get("text"))
-        ):
+        if structured_basis != _structured_basis(row):
             raise ValueError(f"第二项B1统一裁决说明与正式值不一致：{name}")
-        evidence_roles = [str(point["role"]) for point in structured_basis[1:]]
+        evidence_roles = [str(point["role"]) for point in structured_basis[2:]]
         if not evidence_roles or any(
             not re.fullmatch(r"(?:正向|负向)依据（(?:M[023](?:，(?:cross|terminal))?|无可计M档)）", role)
             for role in evidence_roles

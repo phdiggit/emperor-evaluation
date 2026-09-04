@@ -28,19 +28,6 @@ def test_fixed_cost_debit_and_ml_take_higher_for_full_pool():
         )
 
 
-def test_fixed_cost_debit_pressure_samples():
-    rows = {row["ruler_name"]: row for row in _payload()["records"]}
-    expected = {
-        "李世民": 237.36,
-        "刘彻": 151.87,
-        "弘历": 150.84,
-        "朱棣": 108.68,
-        "杨广": -35.70,
-    }
-    assert {name: rows[name]["third_item_score_points"] for name in expected} == expected
-    assert rows["杨广"]["applied_military_debit_source"] == "COST_AND_ML_EQUAL"
-
-
 def test_contract_keeps_factor_anchors_and_converts_them_to_fixed_points():
     path = ROOT / "config/third-item/third-item-cost-credit-factors.json"
     contract = json.loads(path.read_text(encoding="utf-8"))

@@ -28,10 +28,6 @@ SETTLEMENT_SPECS = {
         "docs/评分结算/第四项文明与国家整合收益/01-第四项文明与国家整合收益正式结算.json",
         "fourth_item_signed_adjustment",
     ),
-    "fifth_item": (
-        "docs/评分结算/第五项统治者政治素质/04-第五项统治者政治素质正式结算.json",
-        "fifth_item_score_points",
-    ),
 }
 
 
@@ -106,11 +102,11 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
             scores[item] = float(value)
 
         first_add_on = (
-            0.10 * 757 * (scores["first_item"] / 240) ** 1.25
+            0.15 * 637 * (scores["first_item"] / 240) ** 1.25
             if scores["first_item"] > 0
             else 0.0
         )
-        common_score = scores["second_item"] + scores["third_item"] + scores["fifth_item"]
+        common_score = scores["second_item"] + scores["third_item"]
         total_score = common_score + first_add_on + scores["fourth_item"]
         records.append(
             {
@@ -128,7 +124,6 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
                 "second_item_score": round(scores["second_item"], 1),
                 "third_item_score": round(scores["third_item"], 2),
                 "fourth_item_adjustment": round(scores["fourth_item"], 1),
-                "fifth_item_score": round(scores["fifth_item"], 2),
                 "common_score": round(common_score, 2),
                 "total_score": round(total_score, 2),
             }
@@ -144,7 +139,7 @@ def build_composite_ranking(workspace_root: Path) -> dict[str, Any]:
         "schema_id": "emperor-v4-composite-ranking-v1",
         "status": "FORMAL_CURRENT",
         "ranking_population": "COMPOSITE_READY",
-        "formula": "T = S2 + S3 + S5 + 0.10 * 757 * (S1 / 240) ^ 1.25 + CIV4",
+        "formula": "T = S2 + S3 + 0.15 * 637 * (S1 / 240) ^ 1.25 + CIV4",
         "first_item_not_applicable_policy": "F=0; not treated as a zero-score failure",
         "rank_tie_policy": "competition_rank_then_ruler_id",
         "score_precision": "source scores retained; F and T rounded to 2 decimals",
@@ -168,8 +163,7 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         return (
             f"{name}第{row['rank']}（{row['total_score']:.2f}；"
             f"一项折算{row['first_item_add_on']:.2f}、二项{row['second_item_score']:.1f}、"
-            f"三项{row['third_item_score']:.2f}、四项{row['fourth_item_adjustment']:+.1f}、"
-            f"五项{row['fifth_item_score']:.2f}）"
+            f"三项{row['third_item_score']:.2f}、四项{row['fourth_item_adjustment']:+.1f}）"
         )
 
     leader = records[0]
@@ -187,8 +181,8 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         "",
         "## 口径",
         "",
-        "综合分公式：`T = 第二项 + 第三项 + 第五项 + F + 第四项调整`，其中"
-        "`F = 0.10 × 757 × (第一项原分 / 240)^1.25`。第一项不适用者是`F=0`，"
+        "综合分公式：`T = 第二项 + 第三项 + F + 第四项调整`，其中"
+        "`F = 0.15 × 637 × (第一项原分 / 240)^1.25`。第一项不适用者是`F=0`，"
         "不是把“不适用”判成第一项零分。总分保留两位小数，采用竞争排名；同分记录按"
         "规范`ruler_id`稳定排序。",
         "",
@@ -205,15 +199,14 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
             f"{leader['ruler_name']}以{leader['total_score']:.2f}分居首，领先第二名"
             f"{runner_up['ruler_name']}{lead:.2f}分。其构成为：第一项折算"
             f"{leader['first_item_add_on']:.2f}、第二项{leader['second_item_score']:.1f}、"
-            f"第三项{leader['third_item_score']:.2f}、第四项{leader['fourth_item_adjustment']:+.1f}、"
-            f"第五项{leader['fifth_item_score']:.2f}。头部差距来自五项正式快照的共同合成，"
+            f"第三项{leader['third_item_score']:.2f}、第四项{leader['fourth_item_adjustment']:+.1f}。头部差距来自前四项正式结果的共同合成，"
             "不是生成总榜时追加的主观修正。"
         ),
         "",
         "### 2. 排名解释",
         "",
         (
-            "综合名次由第二、第三、第五项共同分、第一项条件附加分和第四项有符号调整共同决定。"
+            "综合名次由第二、第三项共同分、第一项条件附加分和第四项有符号调整共同决定。"
             "因此单一项目的高分不会自动转化为总榜高位；不同对象可以通过多项稳定、创业附加或"
             "文明调整形成不同的得分结构。"
         ),
@@ -223,7 +216,7 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         (
             f"现行结果中，{summary('嬴政')}；{summary('刘彻')}；{summary('朱元璋')}；"
             f"{summary('刘邦')}；{summary('刘裕')}；{summary('拓跋焘')}。这些人的长板分散在"
-            "第一项、第二项A制度建设或第三项，综合公式却以第二、三、五项共同净收益为主体，"
+            "第一项、第二项A制度建设或第三项，综合公式却以第二、三项共同净收益为主体，"
             "因此不会自动把统一、扩张或制度名望等同于总榜高位。"
         ),
         "",
@@ -234,13 +227,14 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
         "",
         "### 4. 权重与边界",
         "",
-        "本次只消费更新后的正式分项快照，没有改变综合公式、第一项准入边界或各项权重。"
-        "如需调整权重，应另做全池敏感性检验，不能为少数对象的预期名次反向设计。",
+        "第一项按共同正向上限的15%及指数1.25折算，附加分最多95.55分；"
+        "第一项原分、准入边界及跨项成果与成本去重规则继续按正式合同执行。"
+        "该系数统一体现创业贡献，不按个别人物的去重减分补回。",
         "",
         "## 完整总榜",
         "",
-        "| 排名 | 人物 | 政权 | 第一项原分/240 | 第一项折算F | 第二项/387 | 第三项/250 | 第四项调整 | 第五项/120 | 综合分 |",
-        "|---:|---|---|---:|---:|---:|---:|---:|---:|---:|",
+        "| 排名 | 人物 | 政权 | 第一项原分/240 | 第一项折算F | 第二项/387 | 第三项/250 | 第四项调整 | 综合分 |",
+        "|---:|---|---|---:|---:|---:|---:|---:|---:|",
     ]
     for row in records:
         first_raw = (
@@ -252,7 +246,7 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
             f"| {row['rank']} | {row['ruler_name']} | {row['polity']} | "
             f"{first_raw} | {row['first_item_add_on']:.2f} | "
             f"{row['second_item_score']:.1f} | {row['third_item_score']:.2f} | "
-            f"{row['fourth_item_adjustment']:+.1f} | {row['fifth_item_score']:.2f} | "
+            f"{row['fourth_item_adjustment']:+.1f} | "
             f"**{row['total_score']:.2f}** |"
         )
 
@@ -277,7 +271,7 @@ def render_composite_ranking_markdown(payload: Mapping[str, Any]) -> str:
             "## 数据来源与再现",
             "",
             "同值数据入口为[`00-皇帝综合评价总榜.json`](00-皇帝综合评价总榜.json)。"
-            "本表由五项正式结算与规范评价池确定性生成；运行"
+            "本表由前四项正式结果与规范评价池确定性生成；运行"
             "`codex-win run -- python v4.py composite-ranking --write`可重建JSON和Markdown。",
             "",
         ]

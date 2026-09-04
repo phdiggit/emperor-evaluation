@@ -4441,6 +4441,13 @@ def _render_formal_markdown(
                         f"+{float(adjudication['maintenance_bonus']):g}轨迹点）；"
                         f"{_reader_sentence(str(adjudication['maintenance_basis']))}"
                     )
+                    structure = adjudication.get("within_band_structure_improvement")
+                    if structure:
+                        a120_reader_lines[axis_name] += (
+                            f"档内结构改善候选信用{10 * float(structure['attribution_credit']):g}轨迹点"
+                            "（与封顶推进、守成取高）；"
+                            f"{_reader_sentence(structure['net_improvement_basis'])}"
+                        )
                 lines += [
                     *(
                         [f"- A轴共同背景：{_reader_sentence(row['A_axis_common_context'])}"]

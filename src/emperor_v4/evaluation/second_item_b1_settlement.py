@@ -152,6 +152,7 @@ def _reader_text(text: str) -> str:
         "major-stage": "主要阶段",
         "mixed": "复合",
         "N3-cross": "N3（跨功能失灵）",
+        "N3-domain": "N3（单功能系统失灵）",
         "N3-terminal": "N3（广域整体失效）",
         "N3-domain": "N3（单功能系统失灵）",
         "position": "档内位置",
@@ -170,10 +171,15 @@ def _structured_basis(row: dict[str, Any]) -> list[dict[str, str]]:
         "upper": "上位",
     }
     result = [{
-        "role": "裁决说明",
+        "role": "主档依据",
+        "text": _reader_text(str(row["grade_basis"])),
+    }, {
+        "role": "档内位置依据",
         "text": (
-            f"按有效生命周期与合同门禁重裁，净余量为{float(row['position_residual']):g}，"
-            f"机械裁定{row['grade']}-{position_cn[row['position']]}（{float(row['direction_index']):.1f}）"
+            f"主档已定为{row['grade']}；有效生命周期权重合计扣除该档门槛占用"
+            f"{THRESHOLDS[str(row['grade'])]:g}后，净余量为{float(row['position_residual']):g}，"
+            f"仅据此确定档内{position_cn[row['position']]}（{float(row['direction_index']):.1f}）。"
+            "净余量不用于跨档比较"
         ),
     }]
     directions: dict[str, list[dict[str, Any]]] = {"正向": [], "负向": []}
@@ -527,7 +533,7 @@ def render_b1_markdown(payload: dict[str, Any], workspace_root: Path) -> str:
         ])
         lines.extend(
             f"  - **{point['role']}**：{str(point['text']).rstrip('。')}。"
-            for point in row["structured_grade_basis"]
+            for point in _structured_basis(row)
         )
         lines.extend([material_by_name[row["ruler_name"]], ""])
     return "\n".join(lines).rstrip() + "\n"

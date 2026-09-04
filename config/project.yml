@@ -8,9 +8,10 @@ project:
 
 scoring_contract:
   governing_document: docs/项目总纲/皇帝综合评价体系评分标准.md
-  common_positive_denominator: 757
-  first_item_add_on_formula: F = 0.10 * 757 * (S1 / 240) ^ 1.25
-  composite_formula: T = S_common + F + CIV4
+  common_positive_denominator: 637
+  first_item_add_on_formula: F = 0.15 * 637 * (S1 / 240) ^ 1.25
+  composite_formula: T = S2 + S3 + F + CIV4
+  scored_items: [first_item, second_item, third_item, fourth_item]
   database_write: false
   cross_item_ranking_write: true
   composite_ranking_json: docs/评分结算/00-皇帝综合评价总榜.json
@@ -68,6 +69,7 @@ formal_settlements:
     a_axis_narrative_authority_mode: formal_settlement_patch_source
     a_axis_narrative_json: config/third-item/third-item-a-axis-narrative-adjudications.json
     d_authority_mode: formal_settlement_patch_source
+    military_cost_contract: docs/分项规则/第三项军事与边疆净收益/军事成本评估/00-规则与结算合同.md
     d_json: docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json
     d_markdown: docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.md
   fourth_item:
@@ -77,7 +79,8 @@ formal_settlements:
     markdown: docs/评分结算/第四项文明与国家整合收益/02-第四项文明与国家整合收益正式总榜.md
   fifth_item:
     range: [-18, 120]
-    role: common_political_quality
+    role: non_scoring_political_quality
+    counts_toward_composite: false
     json: docs/评分结算/第五项统治者政治素质/04-第五项统治者政治素质正式结算.json
     markdown: docs/评分结算/第五项统治者政治素质/04-第五项统治者政治素质正式结算.md
 
