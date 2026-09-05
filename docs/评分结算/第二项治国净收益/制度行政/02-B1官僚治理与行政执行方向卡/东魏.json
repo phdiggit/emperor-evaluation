@@ -4,95 +4,83 @@
   "collections": {
     "records": {
       "positions": [
-        96
+        77
       ],
       "records": [
         {
-          "M_mixed_profile": [],
-          "M_negative_profile": [
+          "M_mixed_profile": [
             {
+              "material_id": "I2-EWEI-GAOHUAN-CENTRAL-REROUTING-001",
               "M": "M3",
-              "direction": "negative",
-              "direction_factor": -1.0,
-              "material_id": "I2-QIN95-FACT-SUPP29-GAOHUAN-CAPTURE-155-64",
-              "mechanism": "N3-cross：孙腾等多个中枢责任中心长期纳贿、越权与包庇",
+              "direction": "mixed_positive",
+              "direction_factor": 0.5,
+              "signed_weight": 1.0,
+              "mechanism": "四贵承接邺中朝政后专恣，高欢将机事与赏罚转交中书重组",
               "result_closure": "sustained_or_systemic",
-              "signed_weight": -2.0,
-              "lifecycle_key": "B1:RULER-SHADOW-高欢:V50:SEVERITY-NEGATIVE",
-              "lifecycle_group_key": "B1:RULER-SHADOW-高欢:V50:SEVERITY-NEGATIVE",
-              "severity": "N3-cross",
-              "severity_scope": "major-stage",
-              "severity_basis": "链：高欢长期居晋阳→邺中朝政委孙腾、司马子如、高岳、高隆之“四贵”→四贵权势“熏灼中外”、多专恣骄贪→高欢为削其权，令高澄领中书监，把门下机事归中书、文武赏罚改由高澄统摄，形成主动授权→责任中心俘获→重新分权/路由重组的central mixed_positive M3",
-              "profile_id": "B1-PROFILE-0944759833568D76",
-              "b1_role": "core"
+              "b1_role": "central",
+              "profile_id": "B1-PROFILE-85FECFAB3B1AEF32"
             }
           ],
-          "M_positive_profile": [
-            {
-              "M": "M3",
-              "direction": "positive",
-              "direction_factor": 1.0,
-              "material_id": "I2-EWEI-GAOHUAN-PERSONNEL-ADMIN-001",
-              "mechanism": "百官议政、官员奖惩与择才任事",
-              "result_closure": "sustained_or_systemic",
-              "signed_weight": 2.0,
-              "profile_id": "B1-PROFILE-201B190EA19CEF92",
-              "b1_role": "core"
-            }
-          ],
+          "M_negative_profile": [],
+          "M_positive_profile": [],
           "coverage_audit_ids": [],
           "database_write": false,
           "direct_material_ids": [
-            "I2-EWEI-GAOHUAN-PERSONNEL-ADMIN-001",
-            "I2-QIN95-FACT-SUPP29-GAOHUAN-CAPTURE-155-64"
+            "I2-EWEI-GAOHUAN-CENTRAL-REROUTING-001"
           ],
           "direction_card_write": true,
-          "direction_index": 56.5,
+          "direction_index": 59.5,
           "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
           "formal_evidence_maturity": "fixed_primary_plus_reused_law_and_handoff_bounded_synthesis",
           "formal_evidence_state": "FORMAL_SCORED",
           "grade": "G3",
-          "grade_basis": "《资治通鉴》卷158、《北齐书·神武纪》｜链：高欢长期居晋阳→邺中朝政委孙腾、司马子如、高岳、高隆之“四贵”→四贵权势“熏灼中外”、多专恣骄贪→高欢为削其权，令高澄领中书监，把门下机事归中书、文武赏罚改由高澄统摄，形成**主动授权→责任中心俘获→重新分权/路由重组**的central mixed_positive M3。该链证明双中心中枢真实运行，也证明主要机制本身长期受私人集团侵蚀；不能拆成纯正central M3与独立负项，故足G3但不够G4主core。",
-          "grade_gate_basis": "《资治通鉴》卷158、《北齐书·神武纪》｜链：高欢长期居晋阳→邺中朝政委孙腾、司马子如、高岳、高隆之“四贵”→四贵权势“熏灼中外”、多专恣骄贪→高欢为削其权，令高澄领中书监，把门下机事归中书、文武赏罚改由高澄统摄，形成**主动授权→责任中心俘获→重新分权/路由重组**的central mixed_positive M3。该链证明双中心中枢真实运行，也证明主要机制本身长期受私人集团侵蚀；不能拆成纯正central M3与独立负项，故足G3但不够G4主core。",
+          "grade_basis": "高欢在晋阳而委四贵以邺中朝政，四贵长期专恣骄贪；本人继而令高澄领中书监，将门下机事与文武赏罚转归中书。授权、俘获与路由重组属于同一实际中枢生命周期，合为正向主导central M3，不拆纯正链和独立cross负链。证明主要中枢真实运行与重组，但不足干净广域core，定G3。废立节闵帝材料不能支撑本链，已换为直接原文。",
+          "grade_gate_basis": "高欢在晋阳而委四贵以邺中朝政，四贵长期专恣骄贪；本人继而令高澄领中书监，将门下机事与文武赏罚转归中书。授权、俘获与路由重组属于同一实际中枢生命周期，合为正向主导central M3，不拆纯正链和独立cross负链。证明主要中枢真实运行与重组，但不足干净广域core，定G3。废立节闵帝材料不能支撑本链，已换为直接原文。",
           "grade_gate_code": "B1_G3_MAIN_STAGE_USABLE",
           "index_interval": [
             55.0,
             69.9
           ],
           "polity": "东魏",
-          "position": "lower",
-          "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=-2.5，按合同机械映射为lower。",
-          "position_q": 0.1,
-          "rank": 86,
+          "position": "lower-middle",
+          "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=-1，按合同机械映射为lower-middle。",
+          "position_q": 0.3,
+          "rank": 74,
           "reign_range": [
             534,
             547
           ],
           "ruler_id": "RULER-SHADOW-高欢",
           "ruler_name": "高欢",
-          "verification_material_ids": [],
+          "verification_material_ids": [
+            "I2-EWEI-GAOHUAN-PERSONNEL-ADMIN-001",
+            "I2-QIN95-FACT-SUPP29-GAOHUAN-CAPTURE-155-64"
+          ],
           "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
           "structured_grade_basis": [
             {
               "role": "主档依据",
-              "text": "《资治通鉴》卷158、《北齐书·神武纪》｜链：高欢长期居晋阳→邺中朝政委孙腾、司马子如、高岳、高隆之“四贵”→四贵权势“熏灼中外”、多专恣骄贪→高欢为削其权，令高澄领中书监，把门下机事归中书、文武赏罚改由高澄统摄，形成**主动授权→责任中心俘获→重新分权/路由重组**的中枢运行 复合_positive M3。该链证明双中心中枢真实运行，也证明主要机制本身长期受私人集团侵蚀；不能拆成纯正中枢运行 M3与独立负项，故足G3但不够G4主核心行政机制。"
+              "text": "高欢在晋阳而委四贵以邺中朝政，四贵长期专恣骄贪；本人继而令高澄领中书监，将门下机事与文武赏罚转归中书。授权、俘获与路由重组属于同一实际中枢生命周期，合为正向主导中枢运行 M3，不拆纯正链和独立cross负链。证明主要中枢真实运行与重组，但不足干净广域核心行政机制，定G3。废立节闵帝材料不能支撑本链，已换为直接原文。"
             },
             {
               "role": "档内位置依据",
-              "text": "主档已定为G3；有效生命周期权重合计扣除该档门槛占用2后，净余量为-2.5，仅据此确定档内下位（56.5）。净余量不用于跨档比较"
+              "text": "主档已定为G3；有效生命周期权重合计扣除该档门槛占用2后，净余量为-1，仅据此确定档内中下位（59.5）。净余量不用于跨档比较"
             },
             {
               "role": "正向依据（M3）",
-              "text": "百官议政、官员奖惩与择才任事"
+              "text": "四贵承接邺中朝政后专恣，高欢将机事与赏罚转交中书重组"
             },
             {
-              "role": "负向依据（M3，cross）",
-              "text": "N3（跨功能失灵）：孙腾等多个中枢责任中心长期纳贿、越权与包庇"
+              "role": "负向依据（无可计M档）",
+              "text": "未闭合可计的负向运行链"
             }
           ],
-          "position_residual": -2.5,
+          "position_residual": -1.0,
           "grade_threshold_consumed": 2.0,
-          "v50_source_line": 195,
+          "g3_gate_route": "CENTRAL_OR_DISTRIBUTED_M3",
+          "g3_gate_profile_ids": [
+            "B1-PROFILE-85FECFAB3B1AEF32"
+          ],
           "review_material_basis": [
             {
               "version": "v20",
@@ -112,10 +100,7 @@
             }
           ],
           "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
-          "g3_gate_route": "CORE_M3",
-          "g3_gate_profile_ids": [
-            "B1-PROFILE-201B190EA19CEF92"
-          ]
+          "v50_source_line": 195
         }
       ]
     }

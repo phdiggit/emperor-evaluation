@@ -145,7 +145,7 @@ def build_first_item_formal_settlement(
     return {
         "schema_version": "first-item-formal-settlement-v3",
         "canonical_status": "CURRENT",
-        "item": "第一项创业与政权取得能力",
+        "item": "第一项政权奠基与统一贡献及能力",
         "max_points": 240,
         "axis_weighting": {
             "raw_max_points": AXIS_RAW_MAX_POINTS,
@@ -191,7 +191,7 @@ def build_first_item_formal_settlement(
 
 def render_first_item_formal_settlement_markdown(payload: Mapping[str, Any]) -> str:
     lines = [
-        "# 第一项创业与政权取得能力正式结算",
+        "# 第一项政权奠基与统一贡献及能力正式结算",
         "",
         "> 第一项不直接加入共同分母，而按评分总则的条件附加公式进入综合分。",
         "",
@@ -267,11 +267,11 @@ def render_first_item_summary(
         return "、".join(f"{row['ruler_name']}（{row[field]:.1f}）" for row in rows)
 
     lines = [
-        "# 第一项创业与政权取得能力结算总结分析",
+        "# 第一项政权奠基与统一贡献及能力结算总结分析",
         "",
         "## 一、结算结论",
         "",
-        f"第一项已经完成秦至清全阶段结算：总名册{formal_payload['record_count']}人，其中{formal_payload['eligible_count']}名统一或独立建国主链实际贡献者进入240分正式聚合，{formal_payload['excluded_count']}名普通继承者或非奠基者不适用。完整数值见[第一项正式结算](01-第一项创业与政权取得能力正式结算.md)。A、B、C保留100/60/80原始量尺，分别折算为130/40/70计入；第一项总分不直接加入共同分母，综合榜按`F = 0.15 × M × (第一项总分/240)^1.25`计算奠基人条件附加分。",
+        f"第一项已经完成秦至清全阶段结算：总名册{formal_payload['record_count']}人，其中{formal_payload['eligible_count']}名统一或独立建国主链实际贡献者进入240分正式聚合，{formal_payload['excluded_count']}名普通继承者或非奠基者不适用。完整数值见[第一项正式结算](01-第一项政权奠基与统一贡献及能力正式结算.md)。A、B、C保留100/60/80原始量尺，分别折算为130/40/70计入；第一项总分不直接加入共同分母，综合榜按`F = 0.15 × M × (第一项总分/240)^1.25`计算奠基人条件附加分。",
         "",
         f"当前前三为{eligible[0]['ruler_name']}（{eligible[0]['first_item_score_points']:.1f}）、{eligible[1]['ruler_name']}（{eligible[1]['first_item_score_points']:.1f}）、{eligible[2]['ruler_name']}（{eligible[2]['first_item_score_points']:.1f}）。最高分{formal_payload['score_range']['maximum']:.1f}，中位数{formal_payload['score_median']:.1f}；第一项没有基础分，低分表示在严格贡献窗口和人物归责下可兑现成果较少，不是对其完整在位表现的总评价。",
         "",
@@ -327,7 +327,7 @@ def render_first_item_summary(
             "",
             "## 七、分项文档",
             "",
-            "- [第一项正式结算](01-第一项创业与政权取得能力正式结算.md)",
+            "- [第一项正式结算](01-第一项政权奠基与统一贡献及能力正式结算.md)",
             "- [A创业战略能力](战略决策能力/01-第一项A战略决策能力结算.md)",
             "- [B政治整合能力](政治整合能力/01-第一项B政治整合能力结算.md)",
             "- [C军事夺取能力](军事夺取能力/01-第一项C军事夺取能力结算.md)",

@@ -1,6 +1,6 @@
 {
   "partition": "北齐",
-  "record_count": 10,
+  "record_count": 12,
   "records": [
     {
       "attribution": "前后阶段均归高洋本人。",
@@ -50,7 +50,7 @@
         "高洋:B1"
       ],
       "usage_roles": {
-        "高洋:B1": "B1_POSITIVE_DIRECT"
+        "高洋:B1": "B1_GRADE_VERIFICATION"
       }
     },
     {
@@ -111,7 +111,7 @@
         "高洋:B1"
       ],
       "usage_roles": {
-        "高洋:B1": "B1_NEGATIVE_DIRECT"
+        "高洋:B1": "B1_GRADE_VERIFICATION"
       }
     },
     {
@@ -155,8 +155,8 @@
         "高洋:B2"
       ],
       "usage_roles": {
-        "高洋:B1": "B1_VERIFICATION",
-        "高洋:B2": "B2_NEGATIVE_DIRECT"
+        "高洋:B1": "B1_GRADE_VERIFICATION",
+        "高洋:B2": "B2_DIRECT"
       }
     },
     {
@@ -199,7 +199,7 @@
         "高洋:B2"
       ],
       "usage_roles": {
-        "高洋:B2": "B2_NEGATIVE_DIRECT"
+        "高洋:B2": "B2_DIRECT"
       }
     },
     {
@@ -242,7 +242,7 @@
         "高湛:B2"
       ],
       "usage_roles": {
-        "高湛:B2": "B2_NEGATIVE_DIRECT"
+        "高湛:B2": "B2_DIRECT"
       }
     },
     {
@@ -354,7 +354,7 @@
         "高湛:B1"
       ],
       "usage_roles": {
-        "高湛:B1": "B1_NEGATIVE_DIRECT"
+        "高湛:B1": "B1_GRADE_VERIFICATION"
       }
     },
     {
@@ -454,8 +454,8 @@
         "高纬:B2"
       ],
       "usage_roles": {
-        "高纬:B1": "B1_NEGATIVE_DIRECT",
-        "高纬:B2": "B2_NEGATIVE_DIRECT"
+        "高纬:B1": "B1_DIRECT",
+        "高纬:B2": "B2_DIRECT"
       }
     },
     {
@@ -514,6 +514,92 @@
       "usage_roles": {
         "高洋:D1": "score_evidence"
       }
+    },
+    {
+      "material_id": "I2-NQI-GAOZHAN-RELIEF-NONEXECUTION-001",
+      "primary_ruler": "高湛",
+      "title": "山东水灾赈给有诏而未执行",
+      "measure": "山东水灾赈给有诏而未执行",
+      "operation": "山东水灾赈给有诏而未执行",
+      "result": "山东水灾赈给有诏而未执行",
+      "strength": "M2",
+      "direction": "negative",
+      "result_closure": "observed_or_repeated",
+      "reception_scope": "R0",
+      "score_contribution": true,
+      "backsource_status": "BACKSOURCE_CLOSED",
+      "backsource_review_eligible": true,
+      "usage_refs": [
+        "高湛:B1"
+      ],
+      "usage_roles": {
+        "高湛:B1": "B1_DIRECT"
+      },
+      "usage_count": 1,
+      "evidence": [
+        {
+          "source_title": "北齊書/卷7",
+          "source_url": "https://zh.wikisource.org/zh-hans/%E5%8C%97%E9%BD%8A%E6%9B%B8/%E5%8D%B77",
+          "revision_ref": "2432494",
+          "exact_quote": "山东大水，饥死者不可胜计，诏发赈给，事竟不行。",
+          "exact_quote_sha256": "ac36ddc4818b354d7a0a651364c2bb6118533297cfcb0bbc123380b0309366a2",
+          "evidence_tier": "fixed_primary_exact_backsource"
+        }
+      ],
+      "dynasty": "北齐",
+      "mechanism_dimension": "官僚治理与行政执行",
+      "attribution": "归责于高湛本人责任窗口"
+    },
+    {
+      "material_id": "I2-NQI-GAOYANG-YANGYIN-CENTRAL-LIFECYCLE-001",
+      "primary_ruler": "高洋",
+      "title": "杨愔中枢维持与天保后期爵赏失序",
+      "measure": "杨愔中枢维持与天保后期爵赏失序",
+      "operation": "杨愔中枢维持与天保后期爵赏失序",
+      "result": "杨愔中枢维持与天保后期爵赏失序",
+      "strength": "M3",
+      "direction": "mixed_positive",
+      "result_closure": "sustained_or_systemic",
+      "reception_scope": "R0",
+      "score_contribution": true,
+      "backsource_status": "BACKSOURCE_CLOSED",
+      "backsource_review_eligible": true,
+      "usage_refs": [
+        "高洋:B1"
+      ],
+      "usage_roles": {
+        "高洋:B1": "B1_DIRECT"
+      },
+      "usage_count": 1,
+      "evidence": [
+        {
+          "source_title": "北齊書/卷34",
+          "source_url": "https://zh.wikisource.org/zh-hans/%E5%8C%97%E9%BD%8A%E6%9B%B8/%E5%8D%B734",
+          "revision_ref": "2432527",
+          "exact_quote": "及居端揆，权综机衡，千端万绪，神无滞用。自天保五年已后，一人丧德，维持匡救，实有赖焉。",
+          "exact_quote_sha256": "4eb17b2280fa0462272a714ef1d12d0c062897985048aa8ad6b44393b1fdd3a6",
+          "evidence_tier": "fixed_primary_exact_backsource"
+        },
+        {
+          "source_title": "北齊書/卷6",
+          "source_url": "https://zh.wikisource.org/zh-hans/%E5%8C%97%E9%BD%8A%E6%9B%B8/%E5%8D%B76",
+          "revision_ref": "2432485",
+          "exact_quote": "文宣以尚书奏事，多有异同，令帝与朝臣先论定得失，然后敷奏。帝长于政术，剖断咸尽其理，文宣叹重之。",
+          "exact_quote_sha256": "acbb3fb0b9b0f8f98b74167a2174f6aa5222913202f02c2bc7618102bbdc3709",
+          "evidence_tier": "fixed_primary_exact_backsource"
+        },
+        {
+          "source_title": "北齊書/卷34",
+          "source_url": "https://zh.wikisource.org/zh-hans/%E5%8C%97%E9%BD%8A%E6%9B%B8/%E5%8D%B734",
+          "revision_ref": "2432527",
+          "exact_quote": "又自天保八年已来，爵赏多滥，至是，愔先自表解其开府封王，诸叨窃恩荣者皆从黜免。",
+          "exact_quote_sha256": "c4a114cbbad711a714a064b4ef9c239a62525c38e5866c4104a6c46db49013e4",
+          "evidence_tier": "fixed_primary_exact_backsource"
+        }
+      ],
+      "dynasty": "北齐",
+      "mechanism_dimension": "官僚治理与行政执行",
+      "attribution": "归责于高洋本人责任窗口"
     }
   ],
   "schema_version": "institution-administration-scoring-material-shard-v1"

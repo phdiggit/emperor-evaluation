@@ -372,7 +372,7 @@ def write_first_item_b_registry(workspace_root: Path) -> dict[str, Path]:
             workspace_root / "docs/公共成果/军事/02-武将人才等级.json"
         ),
     )
-    output_dir = workspace_root / "docs/评分结算/第一项创业与政权取得能力/政治整合能力"
+    output_dir = workspace_root / "docs/评分结算/第一项政权奠基与统一贡献及能力/政治整合能力"
     output_dir.mkdir(parents=True, exist_ok=True)
     json_path = output_dir / "01-第一项B政治整合能力结算.json"
     markdown_path = output_dir / "01-第一项B政治整合能力结算.md"

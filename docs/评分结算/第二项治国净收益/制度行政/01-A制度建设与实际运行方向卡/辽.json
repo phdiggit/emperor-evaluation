@@ -123,15 +123,7 @@
               "source_kind": "NON_S_MAJOR_NODE"
             }
           ],
-          "rank": 27,
-          "v2_mechanical_shadow": {
-            "net": 3.0,
-            "p": 3.0,
-            "n": 0,
-            "shadow_grade": "G3",
-            "unfloored": "G3",
-            "floor": null
-          },
+          "rank": 28,
           "extreme_delta_reopen": false
         },
         {
@@ -281,45 +273,29 @@
               "source_kind": "NON_S_MAJOR_NODE"
             }
           ],
-          "rank": 27,
-          "v2_mechanical_shadow": {
-            "net": 4.0,
-            "p": 4.0,
-            "n": 0,
-            "shadow_grade": "G3",
-            "unfloored": "G3",
-            "floor": null
-          },
+          "rank": 28,
           "extreme_delta_reopen": false
         },
         {
           "M_mixed_profile": [],
-          "M_negative_profile": [
-            {
-              "M": "M2",
-              "direction": "negative",
-              "direction_factor": -1.0,
-              "lifecycle_key": "A:RULER-LIAO-YELU-ZONGZHEN:negative:4cc6314c9753",
-              "material_id": "I2-LIAO-MAT-6025C7F2B85427F3",
-              "mechanism": "按皇亲节庆和个人好恶任意宽免，破坏统一适用",
-              "result_closure": "observed_or_repeated",
-              "signed_weight": -1.0
-            }
-          ],
+          "M_negative_profile": [],
           "M_positive_profile": [
             {
               "M": "M2",
               "direction": "positive",
-              "direction_factor": 1.0,
+              "direction_factor": 1,
               "lifecycle_key": "A:RULER-LIAO-YELU-ZONGZHEN:positive:d18e0230c90d",
               "material_id": "I2-LIAO-MAT-B29C33BA648B5E06",
               "mechanism": "整理五百四十七条成文法并减轻部分盗罪与附加刑",
               "result_closure": "observed_or_repeated",
-              "signed_weight": 1.0,
+              "signed_weight": 1,
               "institution_node_id": "INST-LIAO-B29C33BA648B",
               "label_zh": "整理五百四十七条成文法并减轻部分盗罪与附加刑",
               "institution_domain": "法律司法",
-              "major_node_role": "MAJOR_CODIFICATION"
+              "major_node_role": "MAJOR_CODIFICATION",
+              "base_signed": 1,
+              "durability_bonus": 0,
+              "direction_reason": "547条法源整理和缩减盗罪附加刑合为同一M2法制接口；随皇亲、节庆与个人好恶宽免属于裁判执行，现材料未证明另创固定豁免制度，移出A计权。"
             }
           ],
           "coverage_audit_ids": [],
@@ -329,31 +305,26 @@
             "I2-LIAO-MAT-6025C7F2B85427F3"
           ],
           "direction_card_write": true,
-          "direction_index": 62.5,
+          "direction_index": 41.5,
           "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
           "formal_evidence_maturity": "fixed_primary_and_local_summary_backsourced",
           "formal_evidence_state": "FORMAL_SCORED",
-          "grade": "G3",
-          "grade_basis": "整理五百四十七条成文法并减轻部分盗罪与附加刑；按国家级建设、实际运行和同朝接收闭合为G3；按皇亲节庆和个人好恶任意宽免，破坏统一适用构成同尺度限制。",
+          "grade": "G2",
+          "grade_basis": "547条法源整理和缩减盗罪附加刑合为同一M2法制接口；随皇亲、节庆与个人好恶宽免属于裁判执行，现材料未证明另创固定豁免制度，移出A计权。正向1、负向0，制度净值1，依净账与独立门槛结算G2。",
           "index_interval": [
-            55,
-            69.9
+            40,
+            54.9
           ],
-          "position": "middle",
-          "position_basis": "A结构厚度=1.00（G0—G3含已消费的C_A/2），G3主档消费=1.00；排除S与已消费C_A支撑链后，独立有符号M原值=0.00、position权重=0.00；统一净余=0.00，对应middle。",
-          "position_q": 0.5,
+          "position": "lower",
+          "position_basis": "制度净值1，按G2净值锚点及独立接口质量定lower；正负规模不托底档位或内部指数。",
+          "position_q": 0.1,
           "verification_material_ids": [],
           "polity": "辽",
           "reign_range": "1031-1055",
           "ruler_id": "RULER-LIAO-YELU-ZONGZHEN",
           "ruler_name": "耶律宗真",
           "A_C_A_support_mechanism": "整理五百四十七条成文法并减轻部分盗罪与附加刑",
-          "A_grade_thickness_cost": 1.0,
-          "A_independent_M_position_weight": 0.0,
-          "A_independent_M_signed": 0.0,
           "A_position_formula_code": "A_NET_DURABILITY_V2",
-          "A_position_residual": 0.0,
-          "A_structural_thickness": 1.0,
           "C_A": 2,
           "S_depth_units": 0,
           "S_minus": 0,
@@ -368,8 +339,7 @@
               "NON_S_CONSTRUCTION"
             ],
             "I2-LIAO-MAT-6025C7F2B85427F3": [
-              "A_OPERATION",
-              "NON_S_CONSTRUCTION"
+              "A_BOUNDARY_VERIFICATION_ONLY"
             ]
           },
           "important_institutions": [
@@ -393,23 +363,34 @@
                 "I2-LIAO-MAT-B29C33BA648B5E06"
               ],
               "normative_direction": "positive",
-              "reason": "整理五百四十七条成文法并减轻部分盗罪与附加刑达到重大建构、接收、改革或定型的完成度；长期国家基线门未单独闭合，作为非S重大节点展示。",
+              "reason": "547条法源整理和缩减盗罪附加刑合为同一M2法制接口；随皇亲、节庆与个人好恶宽免属于裁判执行，现材料未证明另创固定豁免制度，移出A计权。",
               "source_artifact_refs": [
                 "docs/公共成果/制度行政/01-制度行政计分材料登记/liao.json"
               ],
               "source_kind": "NON_S_MAJOR_NODE"
             }
           ],
-          "rank": 27,
-          "v2_mechanical_shadow": {
-            "net": 0.0,
-            "p": 1.0,
-            "n": 1.0,
-            "shadow_grade": "G0",
-            "unfloored": "G0",
-            "floor": null
-          },
-          "extreme_delta_reopen": true
+          "rank": 96,
+          "extreme_delta_reopen": false,
+          "a_material_dispositions": [
+            {
+              "mechanism": "按皇亲节庆和个人好恶任意宽免，破坏统一适用",
+              "material_ids": [
+                "I2-LIAO-MAT-6025C7F2B85427F3"
+              ],
+              "disposition": "NOT_SCORED_IN_A",
+              "reason": "547条法源整理和缩减盗罪附加刑合为同一M2法制接口；随皇亲、节庆与个人好恶宽免属于裁判执行，现材料未证明另创固定豁免制度，移出A计权。"
+            }
+          ],
+          "A_net_units": 1,
+          "P_gross": 1,
+          "N_gross": 0,
+          "v2_explicit_patch": true,
+          "extreme_delta_review": "COMPLETED_CURRENT_NODE_AND_CROSS_ITEM_REVIEW",
+          "netting_boundary_basis": "547条法源整理和缩减盗罪附加刑合为同一M2法制接口；随皇亲、节庆与个人好恶宽免属于裁判执行，现材料未证明另创固定豁免制度，移出A计权。",
+          "a_grade_gate_profile_ids": [
+            "INST-LIAO-B29C33BA648B"
+          ]
         },
         {
           "M_mixed_profile": [],
@@ -523,15 +504,7 @@
               "source_kind": "NON_S_MAJOR_NODE"
             }
           ],
-          "rank": 27,
-          "v2_mechanical_shadow": {
-            "net": 4.0,
-            "p": 4.0,
-            "n": 0,
-            "shadow_grade": "G3",
-            "unfloored": "G3",
-            "floor": null
-          },
+          "rank": 28,
           "extreme_delta_reopen": false
         },
         {
@@ -693,15 +666,7 @@
               "source_kind": "NON_S_MAJOR_NODE"
             }
           ],
-          "rank": 27,
-          "v2_mechanical_shadow": {
-            "net": 2.0,
-            "p": 4.0,
-            "n": 2.0,
-            "shadow_grade": "G3",
-            "unfloored": "G3",
-            "floor": null
-          },
+          "rank": 28,
           "extreme_delta_reopen": false
         },
         {
@@ -710,7 +675,7 @@
               "M": "M3",
               "counts_toward_S": false,
               "direction": "balanced",
-              "direction_factor": 0.0,
+              "direction_factor": 0,
               "institution_domain": "中央组织",
               "institution_node_id": "REFN-706D09D32DF0",
               "label_zh": "北面官—南面官分治的双轨中央行政结构",
@@ -718,21 +683,13 @@
               "material_ids": [],
               "mechanism": "北面官—南面官分治的双轨中央行政结构",
               "result_closure": "institution_lifecycle_adjudicated",
-              "signed_weight": 0.0
+              "signed_weight": 0,
+              "base_signed": 0,
+              "durability_bonus": 0,
+              "direction_reason": "南北双轨的组织整合与身份分治同属一套接口，保留平衡M3。打草谷和括借是征服、征敛执行损害，移出A，不以未证实的制度创设责任计负。"
             }
           ],
-          "M_negative_profile": [
-            {
-              "M": "M3",
-              "direction": "negative",
-              "direction_factor": -1.0,
-              "lifecycle_key": "A:RULER-LIAO-YELU-DEGUANG:negative:9cceb54f34ee",
-              "material_id": "I2-LIAO-MAT-866441EED0DD93D4",
-              "mechanism": "进入中原后纵兵大掠与括借，反馈恶化后纠正偏迟",
-              "result_closure": "observed_or_repeated",
-              "signed_weight": -1.0
-            }
-          ],
+          "M_negative_profile": [],
           "M_positive_profile": [],
           "coverage_audit_ids": [],
           "database_write": false,
@@ -740,31 +697,26 @@
             "I2-LIAO-MAT-866441EED0DD93D4"
           ],
           "direction_card_write": true,
-          "direction_index": 59.5,
+          "direction_index": 18.0,
           "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
           "formal_evidence_maturity": "fixed_primary_and_local_summary_backsourced",
           "formal_evidence_state": "FORMAL_SCORED",
-          "grade": "G3",
-          "grade_basis": "北面官—南面官分治的双轨中央行政结构形成非S重大制度建设，但S_net=0，按合同上限结算G3。",
+          "grade": "G0",
+          "grade_basis": "南北双轨的组织整合与身份分治同属一套接口，保留平衡M3。打草谷和括借是征服、征敛执行损害，移出A，不以未证实的制度创设责任计负。正向0、负向0，制度净值0，依净账与独立门槛结算G0。",
           "index_interval": [
-            55,
-            69.9
+            0,
+            19.9
           ],
-          "position": "lower-middle",
-          "position_basis": "A结构厚度=1.00（G0—G3含已消费的C_A/2），G3主档消费=1.00；排除S与已消费C_A支撑链后，独立有符号M原值=-1.00、position权重=-0.25；统一净余=-0.25，对应lower-middle。",
-          "position_q": 0.3,
+          "position": "upper",
+          "position_basis": "制度净值0，按G0净值锚点及独立接口质量定upper；正负规模不托底档位或内部指数。",
+          "position_q": 0.9,
           "verification_material_ids": [],
           "polity": "辽",
           "reign_range": "927-947",
           "ruler_id": "RULER-LIAO-YELU-DEGUANG",
           "ruler_name": "耶律德光",
           "A_C_A_support_mechanism": "北面官—南面官分治的双轨中央行政结构",
-          "A_grade_thickness_cost": 1.0,
-          "A_independent_M_position_weight": -0.25,
-          "A_independent_M_signed": -1.0,
           "A_position_formula_code": "A_NET_DURABILITY_V2",
-          "A_position_residual": -0.25,
-          "A_structural_thickness": 1.0,
           "C_A": 2,
           "S_depth_units": 0,
           "S_minus": 0,
@@ -779,8 +731,7 @@
               "NON_S_CONSTRUCTION"
             ],
             "I2-LIAO-MAT-866441EED0DD93D4": [
-              "A_OPERATION",
-              "NON_S_CONSTRUCTION"
+              "A_BOUNDARY_VERIFICATION_ONLY"
             ]
           },
           "important_institutions": [
@@ -799,8 +750,8 @@
               "label_zh": "北面官—南面官分治的双轨中央行政结构",
               "major_node_role": "MAJOR_RESTRUCTURE",
               "material_ids": [],
-              "normative_direction": "mixed",
-              "reason": "经A结算审查解冻：已闭合为可独立审计的非S重大制度节点。",
+              "normative_direction": "balanced",
+              "reason": "南北双轨的组织整合与身份分治同属一套接口，保留平衡M3。打草谷和括借是征服、征敛执行损害，移出A，不以未证实的制度创设责任计负。",
               "source_artifact_refs": [
                 "https://zh.wikisource.org/zh-hans/%E9%81%BC%E5%8F%B2/%E5%8D%B745"
               ],
@@ -813,37 +764,35 @@
               "source_kind": "NON_S_MAJOR_NODE"
             }
           ],
-          "rank": 79,
-          "v2_mechanical_shadow": {
-            "net": -2.0,
-            "p": 0,
-            "n": 2.0,
-            "shadow_grade": "G0",
-            "unfloored": "G0",
-            "floor": null
-          },
-          "extreme_delta_reopen": true
+          "rank": 124,
+          "extreme_delta_reopen": false,
+          "a_material_dispositions": [
+            {
+              "mechanism": "进入中原后纵兵大掠与括借，反馈恶化后纠正偏迟",
+              "material_ids": [
+                "I2-LIAO-MAT-866441EED0DD93D4"
+              ],
+              "disposition": "NOT_SCORED_IN_A",
+              "reason": "南北双轨的组织整合与身份分治同属一套接口，保留平衡M3。打草谷和括借是征服、征敛执行损害，移出A，不以未证实的制度创设责任计负。"
+            }
+          ],
+          "A_net_units": 0,
+          "P_gross": 0,
+          "N_gross": 0,
+          "v2_explicit_patch": true,
+          "extreme_delta_review": "COMPLETED_CURRENT_NODE_AND_CROSS_ITEM_REVIEW",
+          "netting_boundary_basis": "南北双轨的组织整合与身份分治同属一套接口，保留平衡M3。打草谷和括借是征服、征敛执行损害，移出A，不以未证实的制度创设责任计负。",
+          "a_grade_gate_profile_ids": []
         },
         {
           "M_mixed_profile": [],
-          "M_negative_profile": [
-            {
-              "M": "M3",
-              "direction": "negative",
-              "direction_factor": -1.0,
-              "lifecycle_key": "A:RULER-LIAO-YELU-RUAN:negative:bb81e09814c9",
-              "material_id": "I2-LIAO-MAT-EA32AEC88E6FBA79",
-              "mechanism": "世宗朝延续族属异法并有同罪异罚实际运行",
-              "result_closure": "observed_or_repeated",
-              "signed_weight": -1.0
-            }
-          ],
+          "M_negative_profile": [],
           "M_positive_profile": [
             {
               "M": "M2",
               "counts_toward_S": false,
               "direction": "positive",
-              "direction_factor": 1.0,
+              "direction_factor": 1,
               "institution_domain": "选官与官僚人事",
               "institution_node_id": "INST-LIAO-YELU-RUAN-APPOINTMENT",
               "label_zh": "政事省与州县录事参军、主簿铨注接口",
@@ -853,7 +802,10 @@
               ],
               "mechanism": "政事省与州县录事参军、主簿铨注接口",
               "result_closure": "institution_lifecycle_adjudicated",
-              "signed_weight": 1.0
+              "signed_weight": 1,
+              "base_signed": 1,
+              "durability_bonus": 0,
+              "direction_reason": "政事省和州县铨注保留单项M2。天禄二年同罪异罚证明本人裁断不一，但不是新设族属异法，不能将沿袭体制全部归责本人。"
             }
           ],
           "coverage_audit_ids": [],
@@ -863,31 +815,26 @@
             "I2-LIAO-MAT-EA32AEC88E6FBA79"
           ],
           "direction_card_write": true,
-          "direction_index": 59.5,
+          "direction_index": 41.5,
           "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
           "formal_evidence_maturity": "fixed_primary_and_local_summary_backsourced",
           "formal_evidence_state": "FORMAL_SCORED",
-          "grade": "G3",
-          "grade_basis": "政事省与州县录事参军、主簿铨注接口形成非S重大制度建设，但S_net=0，按合同上限结算G3。",
+          "grade": "G2",
+          "grade_basis": "政事省和州县铨注保留单项M2。天禄二年同罪异罚证明本人裁断不一，但不是新设族属异法，不能将沿袭体制全部归责本人。正向1、负向0，制度净值1，依净账与独立门槛结算G2。",
           "index_interval": [
-            55,
-            69.9
+            40,
+            54.9
           ],
-          "position": "lower-middle",
-          "position_basis": "A结构厚度=1.00（G0—G3含已消费的C_A/2），G3主档消费=1.00；排除S与已消费C_A支撑链后，独立有符号M原值=-1.00、position权重=-0.25；统一净余=-0.25，对应lower-middle。",
-          "position_q": 0.3,
+          "position": "lower",
+          "position_basis": "制度净值1，按G2净值锚点及独立接口质量定lower；正负规模不托底档位或内部指数。",
+          "position_q": 0.1,
           "verification_material_ids": [],
           "polity": "辽",
           "reign_range": "947-951",
           "ruler_id": "RULER-LIAO-YELU-RUAN",
           "ruler_name": "耶律阮",
           "A_C_A_support_mechanism": "政事省与州县录事参军、主簿铨注接口",
-          "A_grade_thickness_cost": 1.0,
-          "A_independent_M_position_weight": -0.25,
-          "A_independent_M_signed": -1.0,
           "A_position_formula_code": "A_NET_DURABILITY_V2",
-          "A_position_residual": -0.25,
-          "A_structural_thickness": 1.0,
           "C_A": 2,
           "S_depth_units": 0,
           "S_minus": 0,
@@ -902,8 +849,7 @@
               "NON_S_CONSTRUCTION"
             ],
             "I2-LIAO-MAT-EA32AEC88E6FBA79": [
-              "A_OPERATION",
-              "NON_S_CONSTRUCTION"
+              "A_BOUNDARY_VERIFICATION_ONLY"
             ]
           },
           "important_institutions": [
@@ -927,7 +873,7 @@
                 "I2-LIAO-MAT-7BA24E736A016C26"
               ],
               "normative_direction": "positive",
-              "reason": "按A结算审查确认的单一核心制度接口补回03，并与既有材料ID闭合。",
+              "reason": "政事省和州县铨注保留单项M2。天禄二年同罪异罚证明本人裁断不一，但不是新设族属异法，不能将沿袭体制全部归责本人。",
               "source_artifact_refs": [
                 "docs/公共成果/制度行政/01-制度行政计分材料登记/five_dynasties.json"
               ],
@@ -935,16 +881,34 @@
               "source_kind": "NON_S_MAJOR_NODE"
             }
           ],
-          "rank": 79,
-          "v2_mechanical_shadow": {
-            "net": -1.0,
-            "p": 1.0,
-            "n": 2.0,
-            "shadow_grade": "G0",
-            "unfloored": "G0",
-            "floor": null
-          },
-          "extreme_delta_reopen": true
+          "rank": 96,
+          "extreme_delta_reopen": false,
+          "a_material_dispositions": [
+            {
+              "mechanism": "世宗朝延续族属异法并有同罪异罚实际运行",
+              "material_ids": [
+                "I2-LIAO-MAT-EA32AEC88E6FBA79"
+              ],
+              "disposition": "NOT_SCORED_IN_A",
+              "reason": "政事省和州县铨注保留单项M2。天禄二年同罪异罚证明本人裁断不一，但不是新设族属异法，不能将沿袭体制全部归责本人。"
+            }
+          ],
+          "A_net_units": 1,
+          "P_gross": 1,
+          "N_gross": 0,
+          "v2_explicit_patch": true,
+          "extreme_delta_review": "COMPLETED_CURRENT_NODE_AND_CROSS_ITEM_REVIEW",
+          "netting_boundary_basis": "政事省和州县铨注保留单项M2。天禄二年同罪异罚证明本人裁断不一，但不是新设族属异法，不能将沿袭体制全部归责本人。",
+          "a_grade_gate_profile_ids": [
+            "INST-LIAO-YELU-RUAN-APPOINTMENT"
+          ],
+          "netting_material_basis": [
+            {
+              "book": "《辽史·卷61》",
+              "original_text": "世宗天祿二年，天德、蕭翰、劉哥及其弟盆都等謀反，天德伏誅，杖翰，流劉哥，遣盆都使轄戞斯國。夫四人之罪均而刑異。",
+              "source_ref": "docs/公共成果/法律/回源资料/历代刑法志通读/source-texts/遼史__卷61.txt"
+            }
+          ]
         },
         {
           "M_mixed_profile": [],
@@ -1049,15 +1013,7 @@
               "source_kind": "NON_S_MAJOR_NODE"
             }
           ],
-          "rank": 101,
-          "v2_mechanical_shadow": {
-            "net": 1.0,
-            "p": 1.0,
-            "n": 0,
-            "shadow_grade": "G2",
-            "unfloored": "G2",
-            "floor": null
-          },
+          "rank": 78,
           "extreme_delta_reopen": false
         },
         {
@@ -1121,15 +1077,7 @@
             ]
           },
           "important_institutions": [],
-          "rank": 141,
-          "v2_mechanical_shadow": {
-            "net": -2.0,
-            "p": 0,
-            "n": 2.0,
-            "shadow_grade": "G0",
-            "unfloored": "G0",
-            "floor": null
-          },
+          "rank": 137,
           "extreme_delta_reopen": false
         },
         {
@@ -1275,15 +1223,7 @@
               "source_kind": "NON_S_MAJOR_NODE"
             }
           ],
-          "rank": 167,
-          "v2_mechanical_shadow": {
-            "net": -4.0,
-            "p": 0,
-            "n": 4.0,
-            "shadow_grade": "G0",
-            "unfloored": "G0",
-            "floor": null
-          },
+          "rank": 166,
           "extreme_delta_reopen": false
         }
       ]

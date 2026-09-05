@@ -4,16 +4,16 @@
   "collections": {
     "records": {
       "positions": [
+        8,
         9,
-        10,
-        11,
-        42,
-        60,
-        87,
+        14,
+        40,
+        57,
+        86,
         123,
-        134,
-        155,
-        158,
+        133,
+        154,
+        157,
         179
       ],
       "records": [
@@ -22,37 +22,33 @@
           "M_negative_profile": [],
           "M_positive_profile": [
             {
+              "material_id": "I2-EHAN-DENGSUI-KIN-ACCOUNTABILITY-001",
               "M": "M3",
               "direction": "positive",
               "direction_factor": 1.0,
-              "lifecycle_group_key": "B1:RULER-EHAN-DENGSUI:V50:CRISIS-SUPPORT",
-              "lifecycle_key": "B1:RULER-EHAN-DENGSUI:V50:CRISIS-SUPPORT",
-              "material_id": "I2-EHAN-DENGSUI-CRISIS-ADMIN-001-M2-M3-02-AUDIT",
-              "mechanism": "灾乱压力下减省、赈贷、郡国给禀与持续执行support",
-              "result_closure": "sustained_or_systemic",
               "signed_weight": 2.0,
-              "profile_id": "B1-PROFILE-DF7B89611686C77E",
-              "b1_role": "support"
+              "mechanism": "司隶校尉、河南尹、南阳太守严察宗亲宾客干法，犯罪不再容贷",
+              "result_closure": "sustained_or_systemic",
+              "b1_role": "core",
+              "profile_id": "B1-PROFILE-F38C66836DA96ABA"
             },
             {
               "material_id": "I2-EHAN-DENGSUI-CRISIS-ADMIN-001-M2-M3-02-AUDIT",
-              "evidence_slice": "V50-ELITE-RESTRAINT-CORE",
               "M": "M3",
               "direction": "positive",
               "direction_factor": 1.0,
               "signed_weight": 2.0,
-              "mechanism": "司隶河南南阳严察宗亲宾客干法并实际问责core",
-              "lifecycle_key": "B1:RULER-EHAN-DENGSUI:V50:ELITE-RESTRAINT-CORE",
-              "lifecycle_group_key": "B1:RULER-EHAN-DENGSUI:V50:ELITE-RESTRAINT-CORE",
+              "mechanism": "持续灾乱下组织减省赈贷与郡国给禀，至复平丰穰",
               "result_closure": "sustained_or_systemic",
-              "profile_id": "B1-PROFILE-2E4CE94B75BEB3E0",
-              "b1_role": "core"
+              "b1_role": "support",
+              "profile_id": "B1-PROFILE-81E56AB64EBF88FC"
             }
           ],
           "coverage_audit_ids": [],
           "database_write": false,
           "direct_material_ids": [
-            "I2-EHAN-DENGSUI-CRISIS-ADMIN-001-M2-M3-02-AUDIT"
+            "I2-EHAN-DENGSUI-CRISIS-ADMIN-001-M2-M3-02-AUDIT",
+            "I2-EHAN-DENGSUI-KIN-ACCOUNTABILITY-001"
           ],
           "direction_card_write": true,
           "direction_index": 80.4,
@@ -60,8 +56,8 @@
           "formal_evidence_maturity": "fixed_primary_exact_backsourced",
           "formal_evidence_state": "FORMAL_SCORED",
           "grade": "G4",
-          "grade_basis": "《后汉书·皇后纪上》｜链①：邓太后命司隶校尉、河南尹、南阳太守严察邓氏宗亲宾客干法→明确要求不得容护→史载“自是亲属犯罪，无所假贷”，构成特权势力干预约束`B1-core M3`。链②：临朝十年连续水旱、边患、盗贼→减省、赈贷、郡国给禀等持续执行→史载“天下复平，岁还丰穰”，为独立危机行政support M3。另有洛阳录冤、收违法县令等司法M2；足G4，不以拒还政/杜根案等B2事实加减B1。",
-          "grade_gate_basis": "《后汉书·皇后纪上》｜链①：邓太后命司隶校尉、河南尹、南阳太守严察邓氏宗亲宾客干法→明确要求不得容护→史载“自是亲属犯罪，无所假贷”，构成特权势力干预约束`B1-core M3`。链②：临朝十年连续水旱、边患、盗贼→减省、赈贷、郡国给禀等持续执行→史载“天下复平，岁还丰穰”，为独立危机行政support M3。另有洛阳录冤、收违法县令等司法M2；足G4，不以拒还政/杜根案等B2事实加减B1。",
+          "grade_basis": "命司隶校尉、河南尹、南阳太守严察邓氏宗亲宾客，不许容护，后亲属犯罪无所假贷，闭合多责任层级实际执法的核心M3；连续灾乱中减省、赈贷和郡国给禀持续交付，形成独立支撑M3。两条链材料分别绑定，满足G4主链与第二验证。疑狱反馈和惩处还政进言归B2，不在B1重计。",
+          "grade_gate_basis": "命司隶校尉、河南尹、南阳太守严察邓氏宗亲宾客，不许容护，后亲属犯罪无所假贷，闭合多责任层级实际执法的核心M3；连续灾乱中减省、赈贷和郡国给禀持续交付，形成独立支撑M3。两条链材料分别绑定，满足G4主链与第二验证。疑狱反馈和惩处还政进言归B2，不在B1重计。",
           "grade_gate_code": "B1_G4_BROAD_STABLE_DELIVERY",
           "index_interval": [
             70.0,
@@ -71,7 +67,7 @@
           "position": "middle-upper",
           "position_basis": "有效生命周期签名M权重合计扣除G4门槛占用3后，净余量=1，按合同机械映射为middle-upper。",
           "position_q": 0.7,
-          "rank": 10,
+          "rank": 9,
           "reign_range": "106—121",
           "ruler_id": "RULER-HAN-DENGSUI",
           "ruler_name": "邓绥",
@@ -80,7 +76,7 @@
           "structured_grade_basis": [
             {
               "role": "主档依据",
-              "text": "《后汉书·皇后纪上》｜链①：邓太后命司隶校尉、河南尹、南阳太守严察邓氏宗亲宾客干法→明确要求不得容护→史载“自是亲属犯罪，无所假贷”，构成特权势力干预约束`核心行政机制 M3`。链②：临朝十年连续水旱、边患、盗贼→减省、赈贷、郡国给禀等持续执行→史载“天下复平，岁还丰穰”，为独立危机行政行政交付 M3。另有洛阳录冤、收违法县令等司法M2；足G4，不以拒还政/杜根案等B2事实加减B1。"
+              "text": "命司隶校尉、河南尹、南阳太守严察邓氏宗亲宾客，不许容护，后亲属犯罪无所假贷，闭合多责任层级实际执法的核心M3；连续灾乱中减省、赈贷和郡国给禀持续交付，形成独立支撑M3。两条链材料分别绑定，满足G4主链与第二验证。疑狱反馈和惩处还政进言归B2，不在B1重计。"
             },
             {
               "role": "档内位置依据",
@@ -88,11 +84,11 @@
             },
             {
               "role": "正向依据（M3）",
-              "text": "灾乱压力下减省、赈贷、郡国给禀与持续执行行政交付"
+              "text": "司隶校尉、河南尹、南阳太守严察宗亲宾客干法，犯罪不再容贷"
             },
             {
               "role": "正向依据（M3）",
-              "text": "司隶河南南阳严察宗亲宾客干法并实际问责核心行政机制"
+              "text": "持续灾乱下组织减省赈贷与郡国给禀，至复平丰穰"
             },
             {
               "role": "负向依据（无可计M档）",
@@ -101,7 +97,8 @@
           ],
           "position_residual": 1.0,
           "grade_threshold_consumed": 3.0,
-          "v50_source_line": 136,
+          "g4_core_profile_id": "B1-PROFILE-F38C66836DA96ABA",
+          "g4_secondary_profile_id": "B1-PROFILE-81E56AB64EBF88FC",
           "review_material_basis": [
             {
               "version": "v20",
@@ -121,132 +118,7 @@
             }
           ],
           "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
-          "g4_core_profile_id": "B1-PROFILE-2E4CE94B75BEB3E0",
-          "g4_secondary_profile_id": "B1-PROFILE-DF7B89611686C77E"
-        },
-        {
-          "M_mixed_profile": [
-            {
-              "M": "M2",
-              "direction": "mixed_positive",
-              "direction_factor": 0.5,
-              "material_id": "I2-EHAN-LIUBAO-SELECTION-REFORM-001",
-              "mechanism": "史源明确记察选清平、多得其人，属于制度交付和实际运行。",
-              "result_closure": "sustained_or_systemic",
-              "signed_weight": 1.0,
-              "profile_id": "B1-PROFILE-E1FDC42836388D10",
-              "b1_role": "support"
-            }
-          ],
-          "M_negative_profile": [],
-          "M_positive_profile": [
-            {
-              "M": "M3",
-              "direction": "positive",
-              "direction_factor": 1.0,
-              "material_id": "I2-EHAN-LIUBAO-EIGHT-ENVOYS-001",
-              "mechanism": "全国巡察、外部干预、中央复核与实际免黜core",
-              "result_closure": "sustained_or_systemic",
-              "signed_weight": 2.0,
-              "lifecycle_key": "B1:RULER-HAN-LIUBAO:V50:MAIN-CORE",
-              "lifecycle_group_key": "B1:RULER-HAN-LIUBAO:V50:MAIN-CORE",
-              "profile_id": "B1-PROFILE-7916ACAD45E18EB2",
-              "b1_role": "core"
-            },
-            {
-              "M": "M2",
-              "direction": "positive",
-              "direction_factor": 1.0,
-              "material_id": "I2-EHAN-LIUBAO-EIGHT-ENVOYS-001",
-              "mechanism": "独立跨层跨区行政交付验证",
-              "result_closure": "observed_or_repeated",
-              "signed_weight": 1.0,
-              "lifecycle_key": "B1:RULER-HAN-LIUBAO:V50:G4-SECOND-VALIDATION",
-              "lifecycle_group_key": "B1:RULER-HAN-LIUBAO:V50:G4-SECOND-VALIDATION",
-              "evidence_slice": "G4-SECOND-VALIDATION",
-              "profile_id": "B1-PROFILE-9F765C174B003B61",
-              "b1_role": "distributed"
-            }
-          ],
-          "coverage_audit_ids": [],
-          "database_write": false,
-          "direct_material_ids": [
-            "I2-EHAN-LIUBAO-EIGHT-ENVOYS-001",
-            "I2-EHAN-LIUBAO-SELECTION-REFORM-001"
-          ],
-          "direction_card_write": true,
-          "direction_index": 80.4,
-          "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
-          "formal_evidence_maturity": "mixed_fixed_primary_and_accepted_summary_adjudicated",
-          "formal_evidence_state": "FORMAL_SCORED",
-          "grade": "G4",
-          "grade_basis": "链：左雄推动孝廉先诣公府考试、文吏试笺奏→徐淑不合条件被退、胡广等十余太守因谬举免黜→陈蕃、李膺、陈球等三十余人实际任用→史载“察选清平，多得其人”，形成personnel M3；八使分部巡察并实际免黜作第二验证。李固/孙程劝谏改意归B2。",
-          "grade_gate_basis": "链：左雄推动孝廉先诣公府考试、文吏试笺奏→徐淑不合条件被退、胡广等十余太守因谬举免黜→陈蕃、李膺、陈球等三十余人实际任用→史载“察选清平，多得其人”，形成personnel M3；八使分部巡察并实际免黜作第二验证。李固/孙程劝谏改意归B2。",
-          "grade_gate_code": "B1_G4_BROAD_STABLE_DELIVERY",
-          "index_interval": [
-            70.0,
-            84.9
-          ],
-          "polity": "东汉",
-          "position": "middle-upper",
-          "position_basis": "有效生命周期签名M权重合计扣除G4门槛占用3后，净余量=1，按合同机械映射为middle-upper。",
-          "position_q": 0.7,
-          "rank": 10,
-          "reign_range": "125—144",
-          "ruler_id": "RULER-HAN-LIUBAO",
-          "ruler_name": "刘保",
-          "verification_material_ids": [],
-          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
-          "structured_grade_basis": [
-            {
-              "role": "主档依据",
-              "text": "链：左雄推动孝廉先诣公府考试、文吏试笺奏→徐淑不合条件被退、胡广等十余太守因谬举免黜→陈蕃、李膺、陈球等三十余人实际任用→史载“察选清平，多得其人”，形成选任与考课 M3；八使分部巡察并实际免黜作第二验证。李固/孙程劝谏改意归B2。"
-            },
-            {
-              "role": "档内位置依据",
-              "text": "主档已定为G4；有效生命周期权重合计扣除该档门槛占用3后，净余量为1，仅据此确定档内中上位（80.4）。净余量不用于跨档比较"
-            },
-            {
-              "role": "正向依据（M3）",
-              "text": "全国巡察、外部干预、中央复核与实际免黜核心行政机制"
-            },
-            {
-              "role": "正向依据（M2）",
-              "text": "独立跨层跨区行政交付验证"
-            },
-            {
-              "role": "正向依据（M2）",
-              "text": "史源明确记察选清平、多得其人，属于制度交付和实际运行。"
-            },
-            {
-              "role": "负向依据（无可计M档）",
-              "text": "未闭合可计的负向运行链"
-            }
-          ],
-          "position_residual": 1.0,
-          "grade_threshold_consumed": 3.0,
-          "v50_source_line": 168,
-          "review_material_basis": [
-            {
-              "version": "v20",
-              "line": 428,
-              "review_grade": "G4",
-              "review_position": "lower",
-              "basis": "时代差异专项由G3上调。旧裁决把“八使受宦官阻断”作为阻G4反例，但完整生命周期实际是：周举等八使案察天下、多所劾奏，宦官亲属求情后皇帝一度令勿考；李固上疏后顺帝反向免八使所举刺史、二千石，减少特拜、责三公加强考察，又诏州郡劾奏守令不称职者并对奸秽重罪收付诏狱，形成“全国巡察→外部干预→中央复核→实际免黜”的主要阶段core M3。虞诩追查中常侍张防受赃一度反被治罪，孙程等奏争后张防徙边、虞诩复职并数日迁尚书仆射，属于独立的旁路俘获—纠错core M2；孙焉建议三公、尚书入省事亦获采纳作命令链补强。宦官干预仍重，故只定G4-lower，不上更高position。",
-              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
-            },
-            {
-              "version": "v50",
-              "line": 168,
-              "review_grade": "G4",
-              "review_position": "lower",
-              "basis": "链：左雄推动孝廉先诣公府考试、文吏试笺奏→徐淑不合条件被退、胡广等十余太守因谬举免黜→陈蕃、李膺、陈球等三十余人实际任用→史载“察选清平，多得其人”，形成personnel M3；八使分部巡察并实际免黜作第二验证。李固/孙程劝谏改意归B2。",
-              "status": "ABSORBED_ACTIVE_PRECEDENCE"
-            }
-          ],
-          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
-          "g4_core_profile_id": "B1-PROFILE-7916ACAD45E18EB2",
-          "g4_secondary_profile_id": "B1-PROFILE-9F765C174B003B61"
+          "v50_source_line": 136
         },
         {
           "M_mixed_profile": [
@@ -327,7 +199,7 @@
           "position": "middle-upper",
           "position_basis": "有效生命周期签名M权重合计扣除G4门槛占用3后，净余量=1，按合同机械映射为middle-upper。",
           "position_q": 0.7,
-          "rank": 10,
+          "rank": 9,
           "reign_range": "25—57",
           "ruler_id": "RULER-HAN-LIUXIU",
           "ruler_name": "刘秀",
@@ -386,6 +258,130 @@
           "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
           "g4_core_profile_id": "B1-PROFILE-150BCDB8A3772AAC",
           "g4_secondary_profile_id": "B1-PROFILE-B484CFC75DFE12AC"
+        },
+        {
+          "M_mixed_profile": [
+            {
+              "M": "M2",
+              "direction": "mixed_positive",
+              "direction_factor": 0.5,
+              "material_id": "I2-EHAN-LIUBAO-SELECTION-REFORM-001",
+              "mechanism": "史源明确记察选清平、多得其人，属于制度交付和实际运行。",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 0.5,
+              "profile_id": "B1-PROFILE-E1FDC42836388D10",
+              "b1_role": "support"
+            }
+          ],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
+              "M": "M3",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "I2-EHAN-LIUBAO-EIGHT-ENVOYS-001",
+              "mechanism": "全国巡察、外部干预、中央复核与实际免黜core",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 2.0,
+              "lifecycle_key": "B1:RULER-HAN-LIUBAO:V50:MAIN-CORE",
+              "lifecycle_group_key": "B1:RULER-HAN-LIUBAO:V50:MAIN-CORE",
+              "profile_id": "B1-PROFILE-7916ACAD45E18EB2",
+              "b1_role": "core"
+            },
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "material_id": "I2-EHAN-LIUBAO-EIGHT-ENVOYS-001",
+              "mechanism": "独立跨层跨区行政交付验证",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0,
+              "lifecycle_key": "B1:RULER-HAN-LIUBAO:V50:G4-SECOND-VALIDATION",
+              "lifecycle_group_key": "B1:RULER-HAN-LIUBAO:V50:G4-SECOND-VALIDATION",
+              "evidence_slice": "G4-SECOND-VALIDATION",
+              "profile_id": "B1-PROFILE-9F765C174B003B61",
+              "b1_role": "distributed"
+            }
+          ],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-EHAN-LIUBAO-EIGHT-ENVOYS-001",
+            "I2-EHAN-LIUBAO-SELECTION-REFORM-001"
+          ],
+          "direction_card_write": true,
+          "direction_index": 77.5,
+          "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
+          "formal_evidence_maturity": "mixed_fixed_primary_and_accepted_summary_adjudicated",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G4",
+          "grade_basis": "链：左雄推动孝廉先诣公府考试、文吏试笺奏→徐淑不合条件被退、胡广等十余太守因谬举免黜→陈蕃、李膺、陈球等三十余人实际任用→史载“察选清平，多得其人”，形成personnel M3；八使分部巡察并实际免黜作第二验证。李固/孙程劝谏改意归B2。",
+          "grade_gate_basis": "链：左雄推动孝廉先诣公府考试、文吏试笺奏→徐淑不合条件被退、胡广等十余太守因谬举免黜→陈蕃、李膺、陈球等三十余人实际任用→史载“察选清平，多得其人”，形成personnel M3；八使分部巡察并实际免黜作第二验证。李固/孙程劝谏改意归B2。",
+          "grade_gate_code": "B1_G4_BROAD_STABLE_DELIVERY",
+          "index_interval": [
+            70.0,
+            84.9
+          ],
+          "polity": "东汉",
+          "position": "middle",
+          "position_basis": "有效生命周期签名M权重合计扣除G4门槛占用3后，净余量=0.5，按合同机械映射为middle。",
+          "position_q": 0.5,
+          "rank": 14,
+          "reign_range": "125—144",
+          "ruler_id": "RULER-HAN-LIUBAO",
+          "ruler_name": "刘保",
+          "verification_material_ids": [],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "主档依据",
+              "text": "链：左雄推动孝廉先诣公府考试、文吏试笺奏→徐淑不合条件被退、胡广等十余太守因谬举免黜→陈蕃、李膺、陈球等三十余人实际任用→史载“察选清平，多得其人”，形成选任与考课 M3；八使分部巡察并实际免黜作第二验证。李固/孙程劝谏改意归B2。"
+            },
+            {
+              "role": "档内位置依据",
+              "text": "主档已定为G4；有效生命周期权重合计扣除该档门槛占用3后，净余量为0.5，仅据此确定档内中位（77.5）。净余量不用于跨档比较"
+            },
+            {
+              "role": "正向依据（M3）",
+              "text": "全国巡察、外部干预、中央复核与实际免黜核心行政机制"
+            },
+            {
+              "role": "正向依据（M2）",
+              "text": "独立跨层跨区行政交付验证"
+            },
+            {
+              "role": "正向依据（M2）",
+              "text": "史源明确记察选清平、多得其人，属于制度交付和实际运行。"
+            },
+            {
+              "role": "负向依据（无可计M档）",
+              "text": "未闭合可计的负向运行链"
+            }
+          ],
+          "position_residual": 0.5,
+          "grade_threshold_consumed": 3.0,
+          "v50_source_line": 168,
+          "review_material_basis": [
+            {
+              "version": "v20",
+              "line": 428,
+              "review_grade": "G4",
+              "review_position": "lower",
+              "basis": "时代差异专项由G3上调。旧裁决把“八使受宦官阻断”作为阻G4反例，但完整生命周期实际是：周举等八使案察天下、多所劾奏，宦官亲属求情后皇帝一度令勿考；李固上疏后顺帝反向免八使所举刺史、二千石，减少特拜、责三公加强考察，又诏州郡劾奏守令不称职者并对奸秽重罪收付诏狱，形成“全国巡察→外部干预→中央复核→实际免黜”的主要阶段core M3。虞诩追查中常侍张防受赃一度反被治罪，孙程等奏争后张防徙边、虞诩复职并数日迁尚书仆射，属于独立的旁路俘获—纠错core M2；孙焉建议三公、尚书入省事亦获采纳作命令链补强。宦官干预仍重，故只定G4-lower，不上更高position。",
+              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
+            },
+            {
+              "version": "v50",
+              "line": 168,
+              "review_grade": "G4",
+              "review_position": "lower",
+              "basis": "链：左雄推动孝廉先诣公府考试、文吏试笺奏→徐淑不合条件被退、胡广等十余太守因谬举免黜→陈蕃、李膺、陈球等三十余人实际任用→史载“察选清平，多得其人”，形成personnel M3；八使分部巡察并实际免黜作第二验证。李固/孙程劝谏改意归B2。",
+              "status": "ABSORBED_ACTIVE_PRECEDENCE"
+            }
+          ],
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
+          "g4_core_profile_id": "B1-PROFILE-7916ACAD45E18EB2",
+          "g4_secondary_profile_id": "B1-PROFILE-9F765C174B003B61"
         },
         {
           "M_mixed_profile": [],
@@ -465,7 +461,7 @@
           "formal_evidence_state": "WORKING_READJUDICATED_TARGET_RECORD",
           "formal_evidence_maturity": "latest_settlement_plus_targeted_expansion_review",
           "grade": "G3",
-          "grade_basis": "补入选任/二千石绩效识别M2，但尚无合格core M3，因此不能进G4；原两条support M3维持厚度，G3上位不变。",
+          "grade_basis": "补入选任/二千石绩效识别M2，但尚无合格core M3，因此不能进G4；原两条support M3维持厚度。档内位置按当前有效生命周期权重与净余量确定。",
           "grade_gate_basis": "补入选任/二千石绩效识别M2，但尚无合格core M3，因此不能进G4；原两条support M3维持厚度，G3上位不变。",
           "grade_gate_code": "B1_G3_MAIN_STAGE_USABLE",
           "index_interval": [
@@ -475,7 +471,7 @@
           "position": "upper",
           "position_q": 0.9,
           "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=3，按合同机械映射为upper。",
-          "rank": 42,
+          "rank": 41,
           "reign_range": "75—88",
           "ruler_id": "RULER-HAN-LIUDA",
           "ruler_name": "刘炟",
@@ -485,7 +481,7 @@
           "structured_grade_basis": [
             {
               "role": "主档依据",
-              "text": "补入选任/二千石绩效识别M2，但尚无合格核心行政机制 M3，因此不能进G4；原两条行政交付 M3维持厚度，G3上位不变。"
+              "text": "补入选任/二千石绩效识别M2，但尚无合格核心行政机制 M3，因此不能进G4；原两条行政交付 M3维持厚度。档内位置按当前有效生命周期权重与净余量确定。"
             },
             {
               "role": "档内位置依据",
@@ -563,7 +559,7 @@
           "position": "middle",
           "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=0，按合同机械映射为middle。",
           "position_q": 0.5,
-          "rank": 57,
+          "rank": 55,
           "reign_range": "92—105",
           "ruler_id": "RULER-HAN-LIUZHAO",
           "ruler_name": "刘肇",
@@ -619,13 +615,13 @@
             {
               "M": "M2",
               "direction": "mixed_positive",
-              "direction_factor": 1.0,
+              "direction_factor": 0.5,
               "lifecycle_group_key": "I2-EHAN-LIUZHUANG-BIAN-CANAL-OVERLAY-001-M2-M3-02-AUDIT",
               "lifecycle_key": "I2-EHAN-LIUZHUANG-BIAN-CANAL-OVERLAY-001-M2-M3-02-AUDIT",
               "material_id": "I2-EHAN-LIUZHUANG-BIAN-CANAL-OVERLAY-001-M2-M3-02-AUDIT",
               "mechanism": "汴渠千里工程的跨机构执行、巨额成本与稳定完工",
               "result_closure": "sustained_or_systemic",
-              "signed_weight": 1.0,
+              "signed_weight": 0.5,
               "profile_id": "B1-PROFILE-01DFEC3019ABA69C",
               "b1_role": "support"
             }
@@ -685,9 +681,9 @@
           ],
           "polity": "东汉",
           "position": "lower",
-          "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=-1.5，按合同机械映射为lower。",
+          "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=-2，按合同机械映射为lower。",
           "position_q": 0.1,
-          "rank": 86,
+          "rank": 85,
           "reign_range": "57—75",
           "ruler_id": "RULER-HAN-LIUZHUANG",
           "ruler_name": "刘庄",
@@ -702,7 +698,7 @@
             },
             {
               "role": "档内位置依据",
-              "text": "主档已定为G3；有效生命周期权重合计扣除该档门槛占用2后，净余量为-1.5，仅据此确定档内下位（56.5）。净余量不用于跨档比较"
+              "text": "主档已定为G3；有效生命周期权重合计扣除该档门槛占用2后，净余量为-2，仅据此确定档内下位（56.5）。净余量不用于跨档比较"
             },
             {
               "role": "正向依据（M3）",
@@ -717,7 +713,7 @@
               "text": "耳目隐发和谣言单辞导致守长频繁替换并伤害信息、人员稳定与官僚安全"
             }
           ],
-          "position_residual": -1.5,
+          "position_residual": -2.0,
           "grade_threshold_consumed": 2.0,
           "v50_source_line": 189,
           "review_material_basis": [
@@ -748,49 +744,45 @@
           "M_mixed_profile": [],
           "M_negative_profile": [
             {
-              "M": "M0",
-              "direction": "context",
-              "direction_factor": 0.0,
-              "material_id": "I2-EHAN-LIANGNA-LIANGJI-CAPTURE-001",
-              "mechanism": "法律、司法与刑罚运行",
-              "result_closure": "sustained_or_systemic",
-              "signed_weight": 0.0,
-              "profile_id": "B1-PROFILE-F1BB695C48B510E9",
-              "position_count_mode": "context_only",
-              "position_weight_override": 0.0,
-              "position_exclusion_reason": "仅描述政策价值、结果类别或泛化领域，未闭合B1责任链、传导、问责或组织交付失灵。",
-              "b1_role": "context"
+              "material_id": "I2-EHAN-LIUHU-FORGED-EDICT-CONSTRUCTION-001",
+              "M": "M2",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "signed_weight": -1.0,
+              "mechanism": "樊丰等伪造诏令营建私第，冒用正式命令通道",
+              "result_closure": "observed_or_repeated",
+              "b1_role": "central",
+              "evidence_slice": "FORGED_ADMINISTRATIVE_ORDER",
+              "profile_id": "B1-PROFILE-ABD7B97441269662"
             }
           ],
           "M_positive_profile": [
             {
-              "M": "M0",
+              "material_id": "I2-EHAN-LIUHU-PERSONAL-RULE-RECRUITMENT-001",
+              "M": "M2",
               "direction": "positive",
               "direction_factor": 1.0,
-              "material_id": "I2-EHAN-LIANGNA-YANGXU-EXECUTION-OVERLAY-001",
-              "mechanism": "梁妠朝任将并合州郡兵讨盗，只闭合一次跨区动员",
-              "position_count_mode": "context_only_no_effective_mechanism",
-              "position_exclusion_reason": "只闭合战时动员命令，未闭合行政交付结果",
-              "result_closure": "limited_observation",
-              "signed_weight": 0.0,
-              "profile_id": "B1-PROFILE-1EB6451FC52112C3",
-              "b1_role": "context"
+              "signed_weight": 1.0,
+              "mechanism": "陈忠荐士后公车实际礼聘",
+              "result_closure": "observed_or_repeated",
+              "b1_role": "central",
+              "profile_id": "B1-PROFILE-BA30EEFE6EFA1F6B"
             }
           ],
           "coverage_audit_ids": [],
           "database_write": false,
           "direct_material_ids": [
-            "I2-EHAN-LIANGNA-LIANGJI-CAPTURE-001",
-            "I2-EHAN-LIANGNA-YANGXU-EXECUTION-OVERLAY-001"
+            "I2-EHAN-LIUHU-FORGED-EDICT-CONSTRUCTION-001",
+            "I2-EHAN-LIUHU-PERSONAL-RULE-RECRUITMENT-001"
           ],
           "direction_card_write": true,
           "direction_index": 44.5,
           "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
-          "formal_evidence_maturity": "mixed_fixed_primary_and_accepted_summary_adjudicated",
+          "formal_evidence_maturity": "fixed_primary_exact_backsourced",
           "formal_evidence_state": "FORMAL_SCORED",
           "grade": "G2",
-          "grade_basis": "《后汉书·顺烈梁皇后纪》｜正链：建康元年顺帝死后正式临朝，冲帝、质帝时期“推心仗贤，委任太尉李固等，拔用忠良”→贪叨罪慝者“多见诛废”→杨、徐贼寇及西羌、鲜卑、日南等多路扰动下分兵讨伐→史料直接收束“群寇消夷，故海内肃然，宗庙以宁”，构成摄政本人窗口内**选任/问责+跨区执行**的正M3。负生命周期：兄梁冀鸩杀质帝后“专权暴滥，忌害忠良”→以邪说持续影响太后→立桓帝并实际诛李固；太后又宠信宦官，形成高层任命/中枢信息明显俘获。七年临朝前段有强系统交付、后段有严重俘获，不能判G1失能主导，也因负cross阻G3，故定G2-upper。",
-          "grade_gate_basis": "《后汉书·顺烈梁皇后纪》｜正链：建康元年顺帝死后正式临朝，冲帝、质帝时期“推心仗贤，委任太尉李固等，拔用忠良”→贪叨罪慝者“多见诛废”→杨、徐贼寇及西羌、鲜卑、日南等多路扰动下分兵讨伐→史料直接收束“群寇消夷，故海内肃然，宗庙以宁”，构成摄政本人窗口内**选任/问责+跨区执行**的正M3。负生命周期：兄梁冀鸩杀质帝后“专权暴滥，忌害忠良”→以邪说持续影响太后→立桓帝并实际诛李固；太后又宠信宦官，形成高层任命/中枢信息明显俘获。七年临朝前段有强系统交付、后段有严重俘获，不能判G1失能主导，也因负cross阻G3，故定G2-upper。",
+          "grade_basis": "邓太后死后陈忠荐冯良、周燮等，公车实际礼聘，闭合亲政选任M2。亲政出巡时樊丰等伪造诏书修第，行政命令被私人通道冒用，现引文闭合一次有限负M2，不足以证明多个功能相互强化的cross M3。陈忠二十三条施行在叙事中早于亲政，不作本人正链；杨震因调查被谮免的表达安全留B2，储位也不凑B1第二功能。正负并存定G2。",
+          "grade_gate_basis": "邓太后死后陈忠荐冯良、周燮等，公车实际礼聘，闭合亲政选任M2。亲政出巡时樊丰等伪造诏书修第，行政命令被私人通道冒用，现引文闭合一次有限负M2，不足以证明多个功能相互强化的cross M3。陈忠二十三条施行在叙事中早于亲政，不作本人正链；杨震因调查被谮免的表达安全留B2，储位也不凑B1第二功能。正负并存定G2。",
           "grade_gate_code": "B1_G2_LIMITED_OR_MIXED",
           "index_interval": [
             40.0,
@@ -801,122 +793,33 @@
           "position_basis": "有效生命周期签名M权重合计扣除G2门槛占用1后，净余量=-1，按合同机械映射为lower-middle。",
           "position_q": 0.3,
           "rank": 122,
-          "reign_range": "144—150",
-          "ruler_id": "RULER-HAN-LIANGNA",
-          "ruler_name": "梁妠",
-          "verification_material_ids": [],
+          "reign_range": "121—125",
+          "ruler_id": "RULER-HAN-LIUHU",
+          "ruler_name": "刘祜",
+          "verification_material_ids": [
+            "I2-EHAN-LIUHU-DENG-PURGE-001"
+          ],
           "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
           "structured_grade_basis": [
             {
               "role": "主档依据",
-              "text": "《后汉书·顺烈梁皇后纪》｜正链：建康元年顺帝死后正式临朝，冲帝、质帝时期“推心仗贤，委任太尉李固等，拔用忠良”→贪叨罪慝者“多见诛废”→杨、徐贼寇及西羌、鲜卑、日南等多路扰动下分兵讨伐→史料直接收束“群寇消夷，故海内肃然，宗庙以宁”，构成摄政本人窗口内**选任/问责+跨区执行**的正M3。负生命周期：兄梁冀鸩杀质帝后“专权暴滥，忌害忠良”→以邪说持续影响太后→立桓帝并实际诛李固；太后又宠信宦官，形成高层任命/中枢信息明显俘获。七年临朝前段有强系统交付、后段有严重俘获，不能判G1失能主导，也因负cross阻G3，故定G2-upper。"
+              "text": "邓太后死后陈忠荐冯良、周燮等，公车实际礼聘，闭合亲政选任M2。亲政出巡时樊丰等伪造诏书修第，行政命令被私人通道冒用，现引文闭合一次有限负M2，不足以证明多个功能相互强化的cross M3。陈忠二十三条施行在叙事中早于亲政，不作本人正链；杨震因调查被谮免的表达安全留B2，储位也不凑B1第二功能。正负并存定G2。"
             },
             {
               "role": "档内位置依据",
               "text": "主档已定为G2；有效生命周期权重合计扣除该档门槛占用1后，净余量为-1，仅据此确定档内中下位（44.5）。净余量不用于跨档比较"
             },
             {
-              "role": "正向依据（无可计M档）",
-              "text": "未闭合可计的正向运行链"
+              "role": "正向依据（M2）",
+              "text": "陈忠荐士后公车实际礼聘"
             },
             {
-              "role": "负向依据（无可计M档）",
-              "text": "未闭合可计的负向运行链"
+              "role": "负向依据（M2）",
+              "text": "樊丰等伪造诏令营建私第，冒用正式命令通道"
             }
           ],
           "position_residual": -1.0,
           "grade_threshold_consumed": 1.0,
-          "v50_source_line": 244,
-          "review_material_basis": [
-            {
-              "version": "v20",
-              "line": 597,
-              "review_grade": "G1",
-              "review_position": null,
-              "basis": "梁冀长期控制任免、司法、官僚安全和反馈，N3-cross。",
-              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
-            },
-            {
-              "version": "v50",
-              "line": 244,
-              "review_grade": "G2",
-              "review_position": "upper",
-              "basis": "《后汉书·顺烈梁皇后纪》｜正链：建康元年顺帝死后正式临朝，冲帝、质帝时期“推心仗贤，委任太尉李固等，拔用忠良”→贪叨罪慝者“多见诛废”→杨、徐贼寇及西羌、鲜卑、日南等多路扰动下分兵讨伐→史料直接收束“群寇消夷，故海内肃然，宗庙以宁”，构成摄政本人窗口内选任/问责+跨区执行的正M3。负生命周期：兄梁冀鸩杀质帝后“专权暴滥，忌害忠良”→以邪说持续影响太后→立桓帝并实际诛李固；太后又宠信宦官，形成高层任命/中枢信息明显俘获。七年临朝前段有强系统交付、后段有严重俘获，不能判G1失能主导，也因负cross阻G3，故定G2-upper。",
-              "status": "ABSORBED_ACTIVE_PRECEDENCE"
-            }
-          ],
-          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE"
-        },
-        {
-          "M_mixed_profile": [],
-          "M_negative_profile": [
-            {
-              "M": "M3",
-              "direction": "negative",
-              "direction_factor": -1.0,
-              "material_id": "I2-EHAN-LIUHU-DENG-PURGE-001",
-              "mechanism": "N3-cross：王圣、樊丰等近幸干预辟召、钱谷和储位信息",
-              "result_closure": "sustained_or_systemic",
-              "signed_weight": -2.0,
-              "lifecycle_key": "B1:RULER-HAN-LIUHU:V50:SEVERITY-NEGATIVE",
-              "lifecycle_group_key": "B1:RULER-HAN-LIUHU:V50:SEVERITY-NEGATIVE",
-              "severity": "N3-cross",
-              "severity_scope": "major-stage",
-              "severity_basis": "本人亲政窗口严格从永宁二年邓太后死后计算。正链①：陈忠居尚书三公曹→其删省请谳、除蚕室刑等二十三条“事皆施行”；亲政后又荐冯良、周燮、杜根等→公车实际礼聘，高第施延拜侍中，形成尚书法务/选任M2。正链②：延光元年诏三公、中二千石举任职1—10年的刺史、二千石、令长相，要求清白、爱利、防奸理烦；同年水灾由光禄大夫案行、减租赈给，玄菟等边事仍由度辽将军/州郡并力处理，说明正式中央—地方接口持续运转。负链：乳母王圣及女伯荣“传通奸赂”，樊丰等伪下诏修第宅；杨震查得伪诏后被樊丰等谮免、被迫自杀；皇太子保又因江京等谮而被废，实际击中中枢信息/问责+高层人事。但负俘获只占亲政四年部分核心接口，尚书、三公、州郡仍持续真实运行，故为“可用与俘获并存”G2-middle，而非G1。",
-              "profile_id": "B1-PROFILE-1662DD28BF79B3DB",
-              "b1_role": "core"
-            }
-          ],
-          "M_positive_profile": [],
-          "coverage_audit_ids": [],
-          "database_write": false,
-          "direct_material_ids": [
-            "I2-EHAN-LIUHU-DENG-PURGE-001"
-          ],
-          "direction_card_write": true,
-          "direction_index": 41.5,
-          "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
-          "formal_evidence_maturity": "fixed_primary_exact_backsourced",
-          "formal_evidence_state": "FORMAL_SCORED",
-          "grade": "G2",
-          "grade_basis": "《后汉书·安帝纪》《后汉书·陈宠传》《后汉书·杨震传》｜本人亲政窗口严格从永宁二年邓太后死后计算。正链①：陈忠居尚书三公曹→其删省请谳、除蚕室刑等二十三条“事皆施行”；亲政后又荐冯良、周燮、杜根等→公车实际礼聘，高第施延拜侍中，形成尚书法务/选任M2。正链②：延光元年诏三公、中二千石举任职1—10年的刺史、二千石、令长相，要求清白、爱利、防奸理烦；同年水灾由光禄大夫案行、减租赈给，玄菟等边事仍由度辽将军/州郡并力处理，说明正式中央—地方接口持续运转。负链：乳母王圣及女伯荣“传通奸赂”，樊丰等伪下诏修第宅；杨震查得伪诏后被樊丰等谮免、被迫自杀；皇太子保又因江京等谮而被废，实际击中**中枢信息/问责+高层人事**。但负俘获只占亲政四年部分核心接口，尚书、三公、州郡仍持续真实运行，故为“可用与俘获并存”G2-middle，而非G1。",
-          "grade_gate_basis": "《后汉书·安帝纪》《后汉书·陈宠传》《后汉书·杨震传》｜本人亲政窗口严格从永宁二年邓太后死后计算。正链①：陈忠居尚书三公曹→其删省请谳、除蚕室刑等二十三条“事皆施行”；亲政后又荐冯良、周燮、杜根等→公车实际礼聘，高第施延拜侍中，形成尚书法务/选任M2。正链②：延光元年诏三公、中二千石举任职1—10年的刺史、二千石、令长相，要求清白、爱利、防奸理烦；同年水灾由光禄大夫案行、减租赈给，玄菟等边事仍由度辽将军/州郡并力处理，说明正式中央—地方接口持续运转。负链：乳母王圣及女伯荣“传通奸赂”，樊丰等伪下诏修第宅；杨震查得伪诏后被樊丰等谮免、被迫自杀；皇太子保又因江京等谮而被废，实际击中**中枢信息/问责+高层人事**。但负俘获只占亲政四年部分核心接口，尚书、三公、州郡仍持续真实运行，故为“可用与俘获并存”G2-middle，而非G1。",
-          "grade_gate_code": "B1_G2_LIMITED_OR_MIXED",
-          "index_interval": [
-            40.0,
-            54.9
-          ],
-          "polity": "东汉",
-          "position": "lower",
-          "position_basis": "有效生命周期签名M权重合计扣除G2门槛占用1后，净余量=-3.5，按合同机械映射为lower。",
-          "position_q": 0.1,
-          "rank": 134,
-          "reign_range": "121—125",
-          "ruler_id": "RULER-HAN-LIUHU",
-          "ruler_name": "刘祜",
-          "verification_material_ids": [],
-          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
-          "structured_grade_basis": [
-            {
-              "role": "主档依据",
-              "text": "《后汉书·安帝纪》《后汉书·陈宠传》《后汉书·杨震传》｜本人亲政窗口严格从永宁二年邓太后死后计算。正链①：陈忠居尚书三公曹→其删省请谳、除蚕室刑等二十三条“事皆施行”；亲政后又荐冯良、周燮、杜根等→公车实际礼聘，高第施延拜侍中，形成尚书法务/选任M2。正链②：延光元年诏三公、中二千石举任职1—10年的刺史、二千石、令长相，要求清白、爱利、防奸理烦；同年水灾由光禄大夫案行、减租赈给，玄菟等边事仍由度辽将军/州郡并力处理，说明正式中央—地方接口持续运转。负链：乳母王圣及女伯荣“传通奸赂”，樊丰等伪下诏修第宅；杨震查得伪诏后被樊丰等谮免、被迫自杀；皇太子保又因江京等谮而被废，实际击中**中枢信息/问责+高层人事**。但负俘获只占亲政四年部分核心接口，尚书、三公、州郡仍持续真实运行，故为“可用与俘获并存”G2-middle，而非G1。"
-            },
-            {
-              "role": "档内位置依据",
-              "text": "主档已定为G2；有效生命周期权重合计扣除该档门槛占用1后，净余量为-3.5，仅据此确定档内下位（41.5）。净余量不用于跨档比较"
-            },
-            {
-              "role": "正向依据（无可计M档）",
-              "text": "未闭合可计的正向运行链"
-            },
-            {
-              "role": "负向依据（M3，cross）",
-              "text": "N3（跨功能失灵）：王圣、樊丰等近幸干预辟召、钱谷和储位信息"
-            }
-          ],
-          "position_residual": -3.5,
-          "grade_threshold_consumed": 1.0,
-          "v50_source_line": 241,
           "review_material_basis": [
             {
               "version": "v20",
@@ -935,7 +838,96 @@
               "status": "ABSORBED_ACTIVE_PRECEDENCE"
             }
           ],
-          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE"
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
+          "v50_source_line": 241
+        },
+        {
+          "M_mixed_profile": [
+            {
+              "material_id": "I2-EHAN-LIANGNA-REGENCY-ADMIN-LIFECYCLE-001",
+              "M": "M3",
+              "direction": "mixed_negative",
+              "direction_factor": -0.5,
+              "signed_weight": -1.0,
+              "mechanism": "委任李固形成选任问责，后受梁冀影响清除同一责任官",
+              "result_closure": "sustained_or_systemic",
+              "b1_role": "core",
+              "profile_id": "B1-PROFILE-1488D88E55E7B151"
+            }
+          ],
+          "M_negative_profile": [],
+          "M_positive_profile": [],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-EHAN-LIANGNA-REGENCY-ADMIN-LIFECYCLE-001"
+          ],
+          "direction_card_write": true,
+          "direction_index": 41.5,
+          "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
+          "formal_evidence_maturity": "mixed_fixed_primary_and_accepted_summary_adjudicated",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G2",
+          "grade_basis": "摄政初委任李固，拔用忠良并诛废贪叨官员，配合跨区讨治而有群寇消夷的运行收束；随后梁冀以邪说影响太后并诛李固，直接替换同一责任中枢。合为负向主导mixed M3，不将前段正链与同网俘获分拆计权；早段实际运行仍在，属于可用与俘获并存的G2。只取选任问责与执行组织，军事胜败和储位本身不单独计B1。",
+          "grade_gate_basis": "摄政初委任李固，拔用忠良并诛废贪叨官员，配合跨区讨治而有群寇消夷的运行收束；随后梁冀以邪说影响太后并诛李固，直接替换同一责任中枢。合为负向主导mixed M3，不将前段正链与同网俘获分拆计权；早段实际运行仍在，属于可用与俘获并存的G2。只取选任问责与执行组织，军事胜败和储位本身不单独计B1。",
+          "grade_gate_code": "B1_G2_LIMITED_OR_MIXED",
+          "index_interval": [
+            40.0,
+            54.9
+          ],
+          "polity": "东汉",
+          "position": "lower",
+          "position_basis": "有效生命周期签名M权重合计扣除G2门槛占用1后，净余量=-2，按合同机械映射为lower。",
+          "position_q": 0.1,
+          "rank": 133,
+          "reign_range": "144—150",
+          "ruler_id": "RULER-HAN-LIANGNA",
+          "ruler_name": "梁妠",
+          "verification_material_ids": [
+            "I2-EHAN-LIANGNA-LIANGJI-CAPTURE-001",
+            "I2-EHAN-LIANGNA-YANGXU-EXECUTION-OVERLAY-001"
+          ],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "主档依据",
+              "text": "摄政初委任李固，拔用忠良并诛废贪叨官员，配合跨区讨治而有群寇消夷的运行收束；随后梁冀以邪说影响太后并诛李固，直接替换同一责任中枢。合为负向主导复合 M3，不将前段正链与同网俘获分拆计权；早段实际运行仍在，属于可用与俘获并存的G2。只取选任问责与执行组织，军事胜败和储位本身不单独计B1。"
+            },
+            {
+              "role": "档内位置依据",
+              "text": "主档已定为G2；有效生命周期权重合计扣除该档门槛占用1后，净余量为-2，仅据此确定档内下位（41.5）。净余量不用于跨档比较"
+            },
+            {
+              "role": "正向依据（无可计M档）",
+              "text": "未闭合可计的正向运行链"
+            },
+            {
+              "role": "负向依据（M3）",
+              "text": "委任李固形成选任问责，后受梁冀影响清除同一责任官"
+            }
+          ],
+          "position_residual": -2.0,
+          "grade_threshold_consumed": 1.0,
+          "review_material_basis": [
+            {
+              "version": "v20",
+              "line": 597,
+              "review_grade": "G1",
+              "review_position": null,
+              "basis": "梁冀长期控制任免、司法、官僚安全和反馈，N3-cross。",
+              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
+            },
+            {
+              "version": "v50",
+              "line": 244,
+              "review_grade": "G2",
+              "review_position": "upper",
+              "basis": "《后汉书·顺烈梁皇后纪》｜正链：建康元年顺帝死后正式临朝，冲帝、质帝时期“推心仗贤，委任太尉李固等，拔用忠良”→贪叨罪慝者“多见诛废”→杨、徐贼寇及西羌、鲜卑、日南等多路扰动下分兵讨伐→史料直接收束“群寇消夷，故海内肃然，宗庙以宁”，构成摄政本人窗口内选任/问责+跨区执行的正M3。负生命周期：兄梁冀鸩杀质帝后“专权暴滥，忌害忠良”→以邪说持续影响太后→立桓帝并实际诛李固；太后又宠信宦官，形成高层任命/中枢信息明显俘获。七年临朝前段有强系统交付、后段有严重俘获，不能判G1失能主导，也因负cross阻G3，故定G2-upper。",
+              "status": "ABSORBED_ACTIVE_PRECEDENCE"
+            }
+          ],
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
+          "v50_source_line": 244
         },
         {
           "M_mixed_profile": [],
@@ -1008,7 +1000,7 @@
           "position": "lower",
           "position_basis": "有效生命周期签名M权重合计扣除G1门槛占用0.5后，净余量=-5，按合同机械映射为lower。",
           "position_q": 0.1,
-          "rank": 154,
+          "rank": 153,
           "reign_range": "168—189",
           "ruler_id": "RULER-HAN-LIUHONG",
           "ruler_name": "刘宏",
@@ -1128,7 +1120,7 @@
           "position": "lower",
           "position_basis": "有效生命周期签名M权重合计扣除G1门槛占用0.5后，净余量=-2，按合同机械映射为lower。",
           "position_q": 0.1,
-          "rank": 154,
+          "rank": 153,
           "reign_range": "150—168",
           "ruler_id": "RULER-HAN-LIUZHI",
           "ruler_name": "刘志",

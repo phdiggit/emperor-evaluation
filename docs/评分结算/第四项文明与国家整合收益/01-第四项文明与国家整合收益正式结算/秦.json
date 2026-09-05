@@ -4,27 +4,29 @@
   "collections": {
     "records": {
       "positions": [
-        139,
-        189
+        181,
+        188
       ],
       "records": [
         {
-          "rank": 115,
+          "rank": 179,
           "ruler_id": "RULER-QIN-YINGZHENG",
           "ruler_name": "嬴政",
           "polity": "秦",
           "source_group": "秦",
           "status": "FORMAL_ZERO_ADJUSTMENT",
-          "triggered_axis_count": 1,
+          "triggered_axis_count": 2,
           "axis_results": [
             {
               "axis": "A",
-              "disposition": "NO_ELIGIBLE_CIVILIZATION_INCREMENT",
-              "direction": null,
-              "magnitude_grade": null,
-              "band": null,
-              "signed_adjustment": 0,
-              "package_refs": []
+              "disposition": "SIGNED_CIVILIZATION_ADJUSTMENT_READY",
+              "direction": "NEGATIVE",
+              "magnitude_grade": "CIV2",
+              "band": "MID",
+              "signed_adjustment": -9.5,
+              "package_refs": [
+                "I4PKG-RULER-QIN-YINGZHENG-A-01"
+              ]
             },
             {
               "axis": "B",
@@ -48,11 +50,11 @@
               ]
             }
           ],
-          "fourth_item_signed_adjustment": 0,
+          "fourth_item_signed_adjustment": -9.5,
           "zero_scan_checked": true
         },
         {
-          "rank": 187,
+          "rank": 188,
           "ruler_id": "RULER-QIN-HUHAI",
           "ruler_name": "胡亥",
           "polity": "秦",
@@ -99,7 +101,8 @@
       "positions": [
         162,
         282,
-        283
+        283,
+        314
       ],
       "records": [
         {
@@ -174,7 +177,14 @@
           "hard_negative_gate": "ACTIVE",
           "knowledge_public_reach": "BROAD_TEXT_AND_ELITE_KNOWLEDGE_NETWORK_CONTRACTION",
           "source_coverage": "PARTIAL_BUT_SUFFICIENT",
-          "source_refs": []
+          "source_refs": [
+            "《史记·卷六·秦始皇本纪》三十四年：准李斯焚非秦史及民藏诗书百家语、禁偶语与以古非今；博士官藏及医药卜筮种树有豁免。三十五年自述已去天下不中用书并案坑诸生。",
+            "https://zh.wikisource.org/zh-hant/史記/卷006"
+          ],
+          "dissemination_era": "MANUSCRIPT_AND_EARLY_ACADEMY",
+          "era_relative_difficulty": "adjudicated against MANUSCRIPT_AND_EARLY_ACADEMY; realized content or ecology change controls, not raw output counts, surviving copies, or later fame",
+          "content_progress_relative_to_inherited_baseline": "REGRESSION_FROM_INHERITED_PLURALITY_OR_ACCESS",
+          "public_reach_ceiling": "BROAD_TEXT_AND_ELITE_KNOWLEDGE_NETWORK_CONTRACTION"
         },
         {
           "package_code": "I4PKG-WORK-YINGZHENG-C-POS",
@@ -210,7 +220,53 @@
           "hard_negative_gate": "NONE",
           "knowledge_public_reach": "BROAD_ADMINISTRATIVE_AND_ELITE_TEXT_USE_NOT_MASS_LITERACY",
           "source_coverage": "PARTIAL_BUT_SUFFICIENT",
-          "source_refs": []
+          "source_refs": [
+            "《史记·卷六·秦始皇本纪》二十六年书同文字、二十八年琅邪刻石同书文字；前者定位国家规范、后者仅为同时代自述支持，不把颂辞自动当作全域有效性证明。",
+            "https://zh.wikisource.org/zh-hant/史記/卷006"
+          ],
+          "dissemination_era": "MANUSCRIPT_AND_EARLY_ACADEMY",
+          "era_relative_difficulty": "adjudicated against MANUSCRIPT_AND_EARLY_ACADEMY; realized content or ecology change controls, not raw output counts, surviving copies, or later fame",
+          "content_progress_relative_to_inherited_baseline": "POSITIVE_RELATIVE_TO_INHERITED_KNOWLEDGE_OR_ACCESS_BASELINE",
+          "public_reach_ceiling": "BROAD_ADMINISTRATIVE_AND_ELITE_TEXT_USE_NOT_MASS_LITERACY"
+        },
+        {
+          "package_code": "I4PKG-RULER-QIN-YINGZHENG-A-01",
+          "ruler_id": "RULER-QIN-YINGZHENG",
+          "ruler_name": "嬴政",
+          "polity": "秦",
+          "axis": "A",
+          "direction": "NEGATIVE",
+          "net_tendency": "NEGATIVE_DOMINANT",
+          "episode_refs": [],
+          "same_chain_support_refs": [],
+          "same_chain_effect": "NONE",
+          "independent_reinforcement_refs": [],
+          "independent_reinforcement_effect": "NONE_UNTIL_SCENE_VALIDATION",
+          "folded_support": [],
+          "inherited_baseline": "六国豪富家庭在原有地域社区生活，不能把征服后控制需求当作他们既已失去乡土的基线。",
+          "contemporary_feasible_frontier": null,
+          "background_trend": null,
+          "attributable_change": "统一后徙天下豪富十二万户于咸阳；只计被迫离开原社区，中央集居和军事统一本身不能当作社会接纳正收益。",
+          "relative_change_level": "R2",
+          "relative_change_level_basis": "已实施的有限地域或身份群体强制处置为R2；不以绝对人数推定主要领域结构毁灭。",
+          "positive_component_level": null,
+          "negative_component_level": "R2",
+          "field_coverage": "十二万豪富户的跨区域离土；不是十二万人，也不等于全体六国人口。",
+          "access_expansion": null,
+          "durability_and_handoff": "实际离土或身份损害已经发生；未证全域、跨代延续，取MID。",
+          "cross_scene_replication": null,
+          "attribution_strength": "RULER_DIRECT",
+          "counterevidence": {
+            "count": 1,
+            "summary": "只消费普通人口、家属或身份群体的社会后果；不重复计军事战果、劳役财政或权力风格。"
+          },
+          "hard_negative_gate": "ACTIVE",
+          "knowledge_public_reach": "NOT_APPLICABLE",
+          "source_coverage": "PARTIAL_BUT_SUFFICIENT",
+          "source_refs": [
+            "《史记·卷六·秦始皇本纪》：徙天下豪富于咸阳十二万户。",
+            "https://zh.wikisource.org/wiki/史記/卷006"
+          ]
         }
       ]
     }

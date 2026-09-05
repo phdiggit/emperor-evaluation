@@ -4,16 +4,16 @@
   "collections": {
     "records": {
       "positions": [
-        8,
-        90,
-        93,
-        103,
-        104,
-        105,
+        10,
+        46,
+        49,
         106,
+        107,
         108,
-        145,
-        175
+        109,
+        113,
+        138,
+        174
       ],
       "records": [
         {
@@ -28,7 +28,7 @@
               "mechanism": "任官私谒和滥授在明确直谏后仍反复",
               "position_count_mode": "context_only_no_effective_mechanism",
               "result_closure": "context_only",
-              "signed_weight": 0.0
+              "signed_weight": -0.0
             },
             {
               "M": "M0",
@@ -39,7 +39,7 @@
               "mechanism": "按皇亲节庆和个人好恶任意宽免，破坏统一适用",
               "position_count_mode": "context_only_no_effective_mechanism",
               "result_closure": "context_only",
-              "signed_weight": 0.0
+              "signed_weight": -0.0
             }
           ],
           "M_positive_profile": [
@@ -47,28 +47,36 @@
               "M": "M3",
               "direction": "positive",
               "direction_factor": 1.0,
-              "material_ids": [],
+              "material_ids": [
+                "I2-LIAO-YELUZONGZHEN-HANJIANU-001"
+              ],
               "mechanism": "萧韩家奴长期直谏并在游猎、史实和治道等事项上获得纠正或采纳",
               "result_closure": "sustained_or_systemic",
               "review_basis_ref": "B2整改清单:耶律宗真最新裁决",
-              "signed_weight": 2.0
+              "signed_weight": 2.0,
+              "material_id": "I2-LIAO-YELUZONGZHEN-HANJIANU-001"
             },
             {
-              "M": "M3",
+              "M": "M2",
               "direction": "positive",
               "direction_factor": 1.0,
-              "material_ids": [],
+              "material_ids": [
+                "I2-LIAO-YELUZONGZHEN-ZHANGJIAN-001"
+              ],
               "mechanism": "张俭三次力请纠正错杀并使八家得到存恤",
               "result_closure": "observed_or_repeated",
               "review_basis_ref": "B2整改清单:耶律宗真最新裁决",
-              "signed_weight": 1.0
+              "signed_weight": 1.0,
+              "material_id": "I2-LIAO-YELUZONGZHEN-ZHANGJIAN-001"
             }
           ],
           "coverage_audit_ids": [],
           "database_write": false,
           "direct_material_ids": [
+            "I2-LIAO-MAT-6025C7F2B85427F3",
             "I2-LIAO-MAT-8CBE4CBE3ED0CC7F",
-            "I2-LIAO-MAT-6025C7F2B85427F3"
+            "I2-LIAO-YELUZONGZHEN-HANJIANU-001",
+            "I2-LIAO-YELUZONGZHEN-ZHANGJIAN-001"
           ],
           "direction_card_write": true,
           "direction_index": 52.3,
@@ -76,13 +84,13 @@
           "formal_evidence_maturity": "fixed_primary_and_local_summary_backsourced",
           "formal_evidence_state": "FORMAL_SCORED",
           "grade": "G3",
-          "grade_basis": "萧韩家奴长期直谏并多次获得纠正或采纳，形成正向M3；张俭三次力请纠正错杀形成独立正向M2。主要阶段反馈真实且反对者安全，但缺少第二条制度化M3和稳定跨层级入口，定G3中上。",
+          "grade_basis": "萧韩家奴长期直谏并多次获得纠正或采纳，形成正向M3；张俭三次力请纠正错杀形成独立正向M2。主要阶段反馈真实且反对者安全，但缺少第二条制度化M3和稳定跨层级入口。档内位置按当前有效生命周期权重与净余量确定。",
           "index_interval": [
-            44,
+            44.0,
             55.9
           ],
           "position": "middle-upper",
-          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
+          "position_basis": "有效生命周期权重合计扣除G3门槛占用1.5后，净余量=1.5，据此确定档内位置。",
           "position_q": 0.7,
           "verification_material_ids": [],
           "polity": "辽",
@@ -90,21 +98,21 @@
           "ruler_id": "RULER-LIAO-YELU-ZONGZHEN",
           "ruler_name": "耶律宗真",
           "settlement_basis": [
-            "正向 M3：萧韩家奴长期知无不言，每逢游猎必谏，并在史实、治道和礼制等事项上获得纠正或采纳。",
-            "正向 M2：错杀八人后，张俭三次力请，兴宗最终接受并对八家加以存恤。",
-            "负向 M0：私谒滥授和任意宽免属于任官质量与自我约束问题，只作背景核验，不作为异议压制计权。",
-            "档位结论（G3中上）：主要阶段存在持续外部纠偏且反对者安全；缺少第二条独立M3和稳定跨层级入口，止于G3。"
+            "萧韩家奴长期直谏并多次获得纠正或采纳，形成正向M3；张俭三次力请纠正错杀形成独立正向M2。主要阶段反馈真实且反对者安全，但缺少第二条制度化M3和稳定跨层级入口。档内位置按当前有效生命周期权重与净余量确定。",
+            "主档G3；去重后净余量1.5，对应中上位。"
           ],
           "grade_gate_basis": "持续正向M3代表主要阶段，独立正向M2进一步加厚；反馈安全门通过，但G4多渠道门未闭合。",
           "grade_gate_code": "B2_G3_MAIN_STAGE_FEEDBACK_SAFE",
-          "rank": 9,
+          "rank": 10,
           "material_basis": [
-            "萧韩家奴长期知无不言，每逢游猎必谏",
-            "秋山伤死数十人后，兴宗要求删去史实，萧韩家奴坚持复书，兴宗最终承认史笔应当如此",
-            "萧韩家奴所上治道长疏及追崇祖先礼制等意见得到明确采纳",
-            "错杀八人后家属申冤，张俭三次力请，兴宗最终对八家加以存恤",
-            "张俭长期在相位安全履职，没有因持续直谏遭到报复"
-          ]
+            "《19-辽代法律治理结构化登记前底账》：按皇亲节庆和个人好恶任意宽免，破坏统一适用。原文定位：`第五节N2·L3节点`。",
+            "《契丹国志·卷008》：任官私谒和滥授在明确直谏后仍反复。原文定位：`兴宗滥授与直谏段`。",
+            "《遼史·卷103》：擢翰林都林牙，兼修国史。仍诏谕之曰：“文章之职，国之光华，非才不用。以卿文学，为时大儒，是用授卿以翰林之职。朕之起居，悉以实录。”自是日见亲信，每入侍，赐坐。遇胜日，帝与饮酒赋诗，以相酬酢，君臣相得无比。韩家奴知无不言，虽谐谑不忘规讽。",
+            "《遼史·卷103》：韩家奴每见帝猎，未尝不谏。会有司奏猎秋山，熊虎伤死数十人，韩家奴书于册。帝见，命去之。韩家奴既出，复书。他日，帝见之曰：“史笔当如是。”帝问韩家奴：“我国家创业以来，孰为贤主？”韩家奴以穆宗对。帝怪之曰：“穆宗嗜酒，喜怒不常，视人犹草芥，卿何谓贤？”韩家奴对曰：“穆宗虽暴虐，省徭轻赋，人乐其生。终穆之世，无罪被戮，未有过今日秋山伤死者。臣故以穆宗为贤。”帝默然。",
+            "《遼史·卷80》：有司获盗八人，既戮之，乃获正贼。家人诉冤，俭三乞申理。上勃然曰：“卿欲朕偿命耶！”俭曰：“八家老稚无告，少加存恤，使得收葬，足慰存没矣。”乃从之。"
+          ],
+          "position_residual": 1.5,
+          "grade_threshold_consumed": 1.5
         },
         {
           "M_mixed_profile": [],
@@ -136,23 +144,23 @@
           "coverage_audit_ids": [],
           "database_write": false,
           "direct_material_ids": [
-            "I2-LIAO-MAT-8BDE529603B242E2",
-            "I2-LIAO-MAT-7DCD550072C43C99"
+            "I2-LIAO-MAT-7DCD550072C43C99",
+            "I2-LIAO-MAT-8BDE529603B242E2"
           ],
           "direction_card_write": true,
-          "direction_index": 33.2,
+          "direction_index": 38.0,
           "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
           "formal_evidence_maturity": "fixed_primary_and_local_summary_backsourced",
           "formal_evidence_state": "FORMAL_SCORED",
           "grade": "G2",
-          "grade_basis": "主档仍G2，但position降至下部。旧“同罪同法、贵戚问罪、死刑复核巡审”主要证明法律/司法运行，不能直接充作B2正M3；旧“长期使用契丹汉官共同决策并保持对谏诤复核”的登记又只绑定一条概括性摘要，回看《契丹国志》卷七，具体正文更多是读《贞观事要》、译《讽谏集》、召大臣决政等入口与治理习惯，缺少跨分离事件的意见→改策闭环。净化后仍可保留有限高层咨询/复核链，足以G2，但不应给中位，更不应恢复G3。定G2-lower。",
+          "grade_basis": "主档仍G2，旧“同罪同法、贵戚问罪、死刑复核巡审”主要证明法律/司法运行，不能直接充作B2正M3；旧“长期使用契丹汉官共同决策并保持对谏诤复核”的登记又只绑定一条概括性摘要，回看《契丹国志》卷七，具体正文更多是读《贞观事要》、译《讽谏集》、召大臣决政等入口与治理习惯，缺少跨分离事件的意见→改策闭环。净化后仍可保留有限高层咨询/复核链，足以G2，但不应给中位，更不应恢复G3。档内位置按当前有效生命周期权重与净余量确定。",
           "index_interval": [
-            32,
+            32.0,
             43.9
           ],
-          "position": "lower",
-          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
-          "position_q": 0.1,
+          "position": "middle",
+          "position_basis": "有效生命周期权重合计扣除G2门槛占用1后，净余量=0，据此确定档内位置。",
+          "position_q": 0.5,
           "verification_material_ids": [],
           "polity": "辽",
           "reign_range": "982-1031",
@@ -160,20 +168,17 @@
           "ruler_name": "耶律隆绪",
           "grade_gate_basis": "主档仍G2，但position降至下部。旧“同罪同法、贵戚问罪、死刑复核巡审”主要证明法律/司法运行，不能直接充作B2正M3；旧“长期使用契丹汉官共同决策并保持对谏诤复核”的登记又只绑定一条概括性摘要，回看《契丹国志》卷七，具体正文更多是读《贞观事要》、译《讽谏集》、召大臣决政等入口与治理习惯，缺少跨分离事件的意见→改策闭环。净化后仍可保留有限高层咨询/复核链，足以G2，但不应给中位，更不应恢复G3。定G2-lower。",
           "grade_gate_code": "B2_G2_ONE_CLOSED_OR_MIXED",
-          "rank": 86,
+          "rank": 36,
           "material_basis": [
-            "圣宗读《贞观事要》、命译《讽谏集》并召大臣议政，证明有限高层咨询入口",
-            "同罪同法、贵戚问罪、死刑复核巡审和盗罪减死主要属于法律司法运行，不单独计 B2 M3"
+            "《19-辽代法律治理结构化登记前底账》：同罪同法、贵戚问罪、死刑复核巡审和盗罪减死形成跨地区长期运行。原文定位：`第五节P3·L4节点`。",
+            "《契丹国志·卷007》：长期使用契丹汉官共同决策并保持对谏诤和财政用途的复核。原文定位：`圣宗读史纳谏与财政复核段`。"
           ],
           "settlement_basis": [
-            "正向 M2：读谏书并召契丹汉官议政，形成有限高层咨询复核",
-            "正向 M0（不重复计权）：同罪同法和死刑复核主要属于法律司法运行背景",
-            "裁决说明：主档仍G2，但position降至下部",
-            "裁决说明：旧“同罪同法、贵戚问罪、死刑复核巡审”主要证明法律/司法运行，不能直接充作B2正M3",
-            "裁决说明：旧“长期使用契丹汉官共同决策并保持对谏诤复核”的登记又只绑定一条概括性摘要，回看《契丹国志》卷七，具体正文更多是读《贞观事要》、译《讽谏集》、召大臣决政等入口与治理习惯，缺少跨分离事件的意见→改策闭环",
-            "裁决说明：净化后仍可保留有限高层咨询/复核链，足以G2，但不应给中位，更不应恢复G3",
-            "档位结论：定G2-下部"
-          ]
+            "主档仍G2，旧“同罪同法、贵戚问罪、死刑复核巡审”主要证明法律/司法运行，不能直接充作B2正M3；旧“长期使用契丹汉官共同决策并保持对谏诤复核”的登记又只绑定一条概括性摘要，回看《契丹国志》卷七，具体正文更多是读《贞观事要》、译《讽谏集》、召大臣决政等入口与治理习惯，缺少跨分离事件的意见→改策闭环。净化后仍可保留有限高层咨询/复核链，足以G2，但不应给中位，更不应恢复G3。档内位置按当前有效生命周期权重与净余量确定。",
+            "主档G2；去重后净余量0，对应中位。"
+          ],
+          "position_residual": 0.0,
+          "grade_threshold_consumed": 1.0
         },
         {
           "M_mixed_profile": [],
@@ -205,23 +210,23 @@
           "coverage_audit_ids": [],
           "database_write": false,
           "direct_material_ids": [
-            "I2-LIAO-MAT-7146342BC93FCF7F",
-            "I2-LIAO-MAT-5B20CB4093E25289"
+            "I2-LIAO-MAT-5B20CB4093E25289",
+            "I2-LIAO-MAT-7146342BC93FCF7F"
           ],
           "direction_card_write": true,
-          "direction_index": 33.2,
+          "direction_index": 38.0,
           "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
           "formal_evidence_maturity": "fixed_primary_and_local_summary_backsourced",
           "formal_evidence_state": "FORMAL_SCORED",
           "grade": "G2",
-          "grade_basis": "主档仍G2，但position降至下部。旧“皇帝取用财物须说明用途”描述的是实际最高权力萧绰对名义皇帝圣宗的约束，按实际最高权力口径不能反过来当作‘萧绰本人受到外部约束’的B2正证；“同罪同法、巡狱复核、限制主人私刑”又主要属于法律/B1运行结果。室昉、韩德让等在摄政期确有‘知无不言’和进《无逸》获嘉奖等安全咨询证据，但目前闭合到萧绰本人改变既定决策的独立结果仍少。因此只保有限咨询/反馈运行达到G2最低线，定G2-lower，不恢复G3。",
+          "grade_basis": "主档仍G2，旧“皇帝取用财物须说明用途”描述的是实际最高权力萧绰对名义皇帝圣宗的约束，按实际最高权力口径不能反过来当作‘萧绰本人受到外部约束’的B2正证；“同罪同法、巡狱复核、限制主人私刑”又主要属于法律/B1运行结果。室昉、韩德让等在摄政期确有‘知无不言’和进《无逸》获嘉奖等安全咨询证据，但目前闭合到萧绰本人改变既定决策的独立结果仍少。因此只保有限咨询/反馈运行达到G2最低线，不恢复G3。档内位置按当前有效生命周期权重与净余量确定。",
           "index_interval": [
-            32,
+            32.0,
             43.9
           ],
-          "position": "lower",
-          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
-          "position_q": 0.1,
+          "position": "middle",
+          "position_basis": "有效生命周期权重合计扣除G2门槛占用1后，净余量=0，据此确定档内位置。",
+          "position_q": 0.5,
           "verification_material_ids": [],
           "polity": "辽",
           "reign_range": "982-1009实际摄政",
@@ -229,96 +234,96 @@
           "ruler_name": "萧绰",
           "grade_gate_basis": "主档仍G2，但position降至下部。旧“皇帝取用财物须说明用途”描述的是实际最高权力萧绰对名义皇帝圣宗的约束，按实际最高权力口径不能反过来当作‘萧绰本人受到外部约束’的B2正证；“同罪同法、巡狱复核、限制主人私刑”又主要属于法律/B1运行结果。室昉、韩德让等在摄政期确有‘知无不言’和进《无逸》获嘉奖等安全咨询证据，但目前闭合到萧绰本人改变既定决策的独立结果仍少。因此只保有限咨询/反馈运行达到G2最低线，定G2-lower，不恢复G3。",
           "grade_gate_code": "B2_G2_ONE_CLOSED_OR_MIXED",
-          "rank": 86,
+          "rank": 36,
           "material_basis": [
-            "室昉、韩德让等在摄政期能够知无不言，进《无逸》后获得嘉奖，证明有限安全咨询入口",
-            "要求名义皇帝取用财物说明用途，是萧绰约束圣宗，不能倒置为萧绰本人受外部约束",
-            "同罪同法、巡狱复核和限制主人私刑主要属于法律与 B1 运行结果"
+            "《19-辽代法律治理结构化登记前底账》：共同推进同罪同法、贵戚问罪、巡狱复核与限制主人私刑。原文定位：`第五节P3·L4节点`。",
+            "《契丹国志·卷007》：皇帝取用财物须说明用途，形成宫廷财政反馈约束。原文定位：`圣宗与承天太后财政复核段`。"
           ],
           "settlement_basis": [
-            "正向 M0（不重复计权）：萧绰约束名义皇帝取用财物，不倒置为本人受约束",
-            "正向 M2：室昉、韩德让等安全进言并获嘉奖，形成有限咨询反馈",
-            "裁决说明：主档仍G2，但position降至下部",
-            "裁决说明：旧“皇帝取用财物须说明用途”描述的是实际最高权力萧绰对名义皇帝圣宗的约束，按实际最高权力口径不能反过来当作‘萧绰本人受到外部约束’的B2正证",
-            "裁决说明：“同罪同法、巡狱复核、限制主人私刑”又主要属于法律/B1运行结果",
-            "裁决说明：室昉、韩德让等在摄政期确有‘知无不言’和进《无逸》获嘉奖等安全咨询证据，但目前闭合到萧绰本人改变既定决策的独立结果仍少",
-            "档位结论：因此只保有限咨询/反馈运行达到G2最低线，定G2-下部，不恢复G3"
-          ]
+            "主档仍G2，旧“皇帝取用财物须说明用途”描述的是实际最高权力萧绰对名义皇帝圣宗的约束，按实际最高权力口径不能反过来当作‘萧绰本人受到外部约束’的B2正证；“同罪同法、巡狱复核、限制主人私刑”又主要属于法律/B1运行结果。室昉、韩德让等在摄政期确有‘知无不言’和进《无逸》获嘉奖等安全咨询证据，但目前闭合到萧绰本人改变既定决策的独立结果仍少。因此只保有限咨询/反馈运行达到G2最低线，不恢复G3。档内位置按当前有效生命周期权重与净余量确定。",
+            "主档G2；去重后净余量0，对应中位。"
+          ],
+          "position_residual": 0.0,
+          "grade_threshold_consumed": 1.0
         },
         {
           "M_mixed_profile": [],
-          "M_negative_profile": [
+          "M_negative_profile": [],
+          "M_positive_profile": [
             {
-              "M": "M2",
-              "direction": "negative",
-              "direction_factor": -1.0,
-              "lifecycle_key": "B2:RULER-LIAO-YELU-DASHI:negative:7dfa656fef9d",
               "material_id": "I2-LIAO-MAT-FFD55161165E7D07",
+              "M": "M0",
+              "direction": "context",
+              "direction_factor": 0.0,
+              "signed_weight": 0.0,
               "mechanism": "东征前明确要求量敌而进，但失败后只归因天数，未见制度性复盘",
               "result_closure": "observed_or_repeated",
-              "signed_weight": -1.0
+              "position_count_mode": "context_only",
+              "position_exclusion_reason": "东征失败归因天数没有闭合压制信息、惩处异议或阻止实际纠偏的行为链，不能把未见复盘当负证。现有材料无可计B2闭环，按形式或未闭合边界定G1。"
             }
           ],
-          "M_positive_profile": [],
           "coverage_audit_ids": [],
           "database_write": false,
           "direct_material_ids": [
             "I2-LIAO-MAT-FFD55161165E7D07"
           ],
           "direction_card_write": true,
-          "direction_index": 27.1,
+          "direction_index": 20.8,
           "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
           "formal_evidence_maturity": "fixed_primary_and_local_summary_backsourced",
           "formal_evidence_state": "FORMAL_SCORED",
           "grade": "G1",
-          "grade_basis": "“失败后归因天数”不足构成负反馈链，也无有效正闭环，保G1",
+          "grade_basis": "东征失败归因天数没有闭合压制信息、惩处异议或阻止实际纠偏的行为链，不能把未见复盘当负证。现有材料无可计B2闭环，按形式或未闭合边界定G1。",
           "index_interval": [
-            16,
+            16.0,
             31.9
           ],
-          "position": "middle-upper",
-          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
-          "position_q": 0.7,
+          "position": "lower-middle",
+          "position_basis": "有效生命周期权重合计扣除G1门槛占用0.5后，净余量=-0.5，据此确定档内位置。",
+          "position_q": 0.3,
           "verification_material_ids": [],
           "polity": "西辽",
           "reign_range": "1124-1143",
           "ruler_id": "RULER-LIAO-YELU-DASHI",
           "ruler_name": "耶律大石",
-          "grade_gate_basis": "“失败后归因天数”不足构成负反馈链，也无有效正闭环，保G1",
+          "grade_gate_basis": "东征失败归因天数没有闭合压制信息、惩处异议或阻止实际纠偏的行为链，不能把未见复盘当负证。现有材料无可计B2闭环，按形式或未闭合边界定G1。",
           "grade_gate_code": "B2_G1_FORMAL_OR_FAILURE_DOMINANT",
-          "rank": 103,
+          "rank": 107,
           "material_basis": [
-            "东征前明确要求量敌而进，但失败后只归因天数，未见制度性复盘"
+            "《遼史·卷30》：东征前明确要求量敌而进，但失败后只归因天数，未见制度性复盘。原文定位：`康国元年东征段`。"
           ],
           "settlement_basis": [
-            "负向 M2：东征前明确要求量敌而进，但失败后只归因天数，未见制度性复盘",
-            "档位结论：“失败后归因天数”不足构成负反馈链，也无有效正闭环，保G1"
-          ]
+            "东征失败归因天数没有闭合压制信息、惩处异议或阻止实际纠偏的行为链，不能把未见复盘当负证。现有材料无可计B2闭环，按形式或未闭合边界定G1。",
+            "主档G1；去重后净余量-0.5，对应中下位。"
+          ],
+          "position_residual": -0.5,
+          "grade_threshold_consumed": 0.5
         },
         {
           "M_mixed_profile": [],
-          "M_negative_profile": [
-            {
-              "M": "M3",
-              "direction": "negative",
-              "direction_factor": -1.0,
-              "lifecycle_key": "B2:RULER-LIAO-YELU-DEGUANG:negative:63851814be69",
-              "material_id": "I2-LIAO-MAT-866441EED0DD93D4",
-              "mechanism": "进入中原后纵兵大掠与括借，反馈恶化后纠正偏迟",
-              "result_closure": "observed_or_repeated",
-              "signed_weight": -1.0
-            }
-          ],
+          "M_negative_profile": [],
           "M_positive_profile": [
             {
-              "M": "M2",
-              "direction": "positive",
-              "direction_factor": 1.0,
-              "lifecycle_key": "B2:RULER-LIAO-YELU-DEGUANG:positive:901d5c10ae7c",
               "material_id": "I2-LIAO-MAT-42706E7EBFD41BA6",
+              "M": "M0",
+              "direction": "context",
+              "direction_factor": 0.0,
+              "signed_weight": 0.0,
               "mechanism": "继续任用韩延徽并释放前朝使者，旧政事接口实际运行",
               "result_closure": "observed_or_repeated",
-              "signed_weight": 1.0
+              "position_count_mode": "context_only",
+              "position_exclusion_reason": "任用韩延徽、释放旧使只证明用人和政务连续；纵兵括借是军政财政结果，当前引文没有独立反馈触发与改策过程。两组材料只作背景，无可计B2闭环，定G1。"
+            },
+            {
+              "material_id": "I2-LIAO-MAT-866441EED0DD93D4",
+              "M": "M0",
+              "direction": "context",
+              "direction_factor": 0.0,
+              "signed_weight": 0.0,
+              "mechanism": "进入中原后纵兵大掠与括借，反馈恶化后纠正偏迟",
+              "result_closure": "observed_or_repeated",
+              "position_count_mode": "context_only",
+              "position_exclusion_reason": "任用韩延徽、释放旧使只证明用人和政务连续；纵兵括借是军政财政结果，当前引文没有独立反馈触发与改策过程。两组材料只作背景，无可计B2闭环，定G1。"
             }
           ],
           "coverage_audit_ids": [],
@@ -328,100 +333,105 @@
             "I2-LIAO-MAT-866441EED0DD93D4"
           ],
           "direction_card_write": true,
-          "direction_index": 27.1,
+          "direction_index": 20.8,
           "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
           "formal_evidence_maturity": "fixed_primary_and_local_summary_backsourced",
           "formal_evidence_state": "FORMAL_SCORED",
           "grade": "G1",
-          "grade_basis": "任用韩延徽、释放使者不是B2纠错；纵兵大掠/括借属B1/财政结果",
+          "grade_basis": "任用韩延徽、释放旧使只证明用人和政务连续；纵兵括借是军政财政结果，当前引文没有独立反馈触发与改策过程。两组材料只作背景，无可计B2闭环，定G1。",
           "index_interval": [
-            16,
+            16.0,
             31.9
           ],
-          "position": "middle-upper",
-          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
-          "position_q": 0.7,
+          "position": "lower-middle",
+          "position_basis": "有效生命周期权重合计扣除G1门槛占用0.5后，净余量=-0.5，据此确定档内位置。",
+          "position_q": 0.3,
           "verification_material_ids": [],
           "polity": "辽",
           "reign_range": "927-947",
           "ruler_id": "RULER-LIAO-YELU-DEGUANG",
           "ruler_name": "耶律德光",
-          "grade_gate_basis": "任用韩延徽、释放使者不是B2纠错；纵兵大掠/括借属B1/财政结果",
+          "grade_gate_basis": "任用韩延徽、释放旧使只证明用人和政务连续；纵兵括借是军政财政结果，当前引文没有独立反馈触发与改策过程。两组材料只作背景，无可计B2闭环，定G1。",
           "grade_gate_code": "B2_G1_FORMAL_OR_FAILURE_DOMINANT",
-          "rank": 103,
+          "rank": 107,
           "material_basis": [
-            "继续任用韩延徽并释放前朝使者，旧政事接口实际运行",
-            "进入中原后纵兵大掠与括借，反馈恶化后纠正偏迟"
+            "《契丹国志·卷002》：继续任用韩延徽并释放前朝使者，旧政事接口实际运行。原文定位：`SRC-QIDANGUOZHI-002-2258703-P0001`。",
+            "《契丹国志·卷003》：进入中原后纵兵大掠与括借，反馈恶化后纠正偏迟。原文定位：`太宗入汴治理链`。"
           ],
           "settlement_basis": [
-            "正向 M2：继续任用韩延徽并释放前朝使者，旧政事接口实际运行",
-            "负向 M3：进入中原后纵兵大掠与括借，反馈恶化后纠正偏迟",
-            "档位结论：任用韩延徽、释放使者不是B2纠错；纵兵大掠/括借属B1/财政结果"
-          ]
-        },
-        {
-          "M_mixed_profile": [],
-          "M_negative_profile": [
-            {
-              "M": "M2",
-              "direction": "negative",
-              "direction_factor": -1.0,
-              "lifecycle_key": "B2:RULER-LIAO-YELU-RUAN:negative:93de02a5967e",
-              "material_id": "I2-LIAO-MAT-96BFCE46FB966CD1",
-              "mechanism": "宗室反复谋反与清洗削弱行政和反馈链",
-              "result_closure": "observed_or_repeated",
-              "signed_weight": -1.0
-            }
+            "任用韩延徽、释放旧使只证明用人和政务连续；纵兵括借是军政财政结果，当前引文没有独立反馈触发与改策过程。两组材料只作背景，无可计B2闭环，定G1。",
+            "主档G1；去重后净余量-0.5，对应中下位。"
           ],
-          "M_positive_profile": [],
-          "coverage_audit_ids": [],
-          "database_write": false,
-          "direct_material_ids": [
-            "I2-LIAO-MAT-96BFCE46FB966CD1"
-          ],
-          "direction_card_write": true,
-          "direction_index": 27.1,
-          "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
-          "formal_evidence_maturity": "fixed_primary_and_local_summary_backsourced",
-          "formal_evidence_state": "FORMAL_SCORED",
-          "grade": "G1",
-          "grade_basis": "宗室谋反/清洗主要跨D3/B1，移除后没有足够材料支持改档",
-          "index_interval": [
-            16,
-            31.9
-          ],
-          "position": "middle-upper",
-          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
-          "position_q": 0.7,
-          "verification_material_ids": [],
-          "polity": "辽",
-          "reign_range": "947-951",
-          "ruler_id": "RULER-LIAO-YELU-RUAN",
-          "ruler_name": "耶律阮",
-          "grade_gate_basis": "宗室谋反/清洗主要跨D3/B1，移除后没有足够材料支持改档",
-          "grade_gate_code": "B2_G1_FORMAL_OR_FAILURE_DOMINANT",
-          "rank": 103,
-          "material_basis": [
-            "宗室反复谋反与清洗削弱行政和反馈链"
-          ],
-          "settlement_basis": [
-            "负向 M2：宗室反复谋反与清洗削弱行政和反馈链",
-            "档位结论：宗室谋反/清洗主要跨D3/B1，移除后没有足够材料支持改档"
-          ]
+          "position_residual": -0.5,
+          "grade_threshold_consumed": 0.5
         },
         {
           "M_mixed_profile": [],
           "M_negative_profile": [],
           "M_positive_profile": [
             {
-              "M": "M2",
-              "direction": "positive",
-              "direction_factor": 1.0,
-              "lifecycle_key": "B2:RULER-LIAO-YELU-XIAN:positive:64447b4ecdb2",
+              "material_id": "I2-LIAO-MAT-96BFCE46FB966CD1",
+              "M": "M0",
+              "direction": "context",
+              "direction_factor": 0.0,
+              "signed_weight": 0.0,
+              "mechanism": "宗室反复谋反与清洗削弱行政和反馈链",
+              "result_closure": "observed_or_repeated",
+              "position_count_mode": "context_only",
+              "position_exclusion_reason": "宗室谋反和清洗用于说明权力归属与交班风险，当前材料没有分出真实进言及其处置，不能转作B2负链。无可计反馈闭环，定G1。"
+            }
+          ],
+          "coverage_audit_ids": [],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-LIAO-MAT-96BFCE46FB966CD1"
+          ],
+          "direction_card_write": true,
+          "direction_index": 20.8,
+          "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
+          "formal_evidence_maturity": "fixed_primary_and_local_summary_backsourced",
+          "formal_evidence_state": "FORMAL_SCORED",
+          "grade": "G1",
+          "grade_basis": "宗室谋反和清洗用于说明权力归属与交班风险，当前材料没有分出真实进言及其处置，不能转作B2负链。无可计反馈闭环，定G1。",
+          "index_interval": [
+            16.0,
+            31.9
+          ],
+          "position": "lower-middle",
+          "position_basis": "有效生命周期权重合计扣除G1门槛占用0.5后，净余量=-0.5，据此确定档内位置。",
+          "position_q": 0.3,
+          "verification_material_ids": [],
+          "polity": "辽",
+          "reign_range": "947-951",
+          "ruler_id": "RULER-LIAO-YELU-RUAN",
+          "ruler_name": "耶律阮",
+          "grade_gate_basis": "宗室谋反和清洗用于说明权力归属与交班风险，当前材料没有分出真实进言及其处置，不能转作B2负链。无可计反馈闭环，定G1。",
+          "grade_gate_code": "B2_G1_FORMAL_OR_FAILURE_DOMINANT",
+          "rank": 107,
+          "material_basis": [
+            "《遼史·卷5》：宗室反复谋反与清洗削弱行政和反馈链。原文定位：`天禄二年至三年`。"
+          ],
+          "settlement_basis": [
+            "宗室谋反和清洗用于说明权力归属与交班风险，当前材料没有分出真实进言及其处置，不能转作B2负链。无可计反馈闭环，定G1。",
+            "主档G1；去重后净余量-0.5，对应中下位。"
+          ],
+          "position_residual": -0.5,
+          "grade_threshold_consumed": 0.5
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
+          "M_positive_profile": [
+            {
               "material_id": "I2-LIAO-MAT-C6DF54F5718178EA",
+              "M": "M0",
+              "direction": "context",
+              "direction_factor": 0.0,
+              "signed_weight": 0.0,
               "mechanism": "设置登闻鼓院、开放封事并遣使巡问贫乏失职者",
               "result_closure": "observed_or_repeated",
-              "signed_weight": 1.0
+              "position_count_mode": "context_only",
+              "position_exclusion_reason": "登闻鼓、封事与巡问证明反馈入口设置，当前材料未记收到何种异议及其实际处置结果，置M0。无可计运行闭环，定G1。"
             }
           ],
           "coverage_audit_ids": [],
@@ -430,98 +440,102 @@
             "I2-LIAO-MAT-C6DF54F5718178EA"
           ],
           "direction_card_write": true,
-          "direction_index": 27.1,
+          "direction_index": 20.8,
           "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
           "formal_evidence_maturity": "fixed_primary_and_local_summary_backsourced",
           "formal_evidence_state": "FORMAL_SCORED",
           "grade": "G1",
-          "grade_basis": "登闻鼓、封事、巡问目前只证明设置/入口，未展示实际反馈结果",
+          "grade_basis": "登闻鼓、封事与巡问证明反馈入口设置，当前材料未记收到何种异议及其实际处置结果，置M0。无可计运行闭环，定G1。",
           "index_interval": [
-            16,
+            16.0,
             31.9
           ],
-          "position": "middle-upper",
-          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
-          "position_q": 0.7,
+          "position": "lower-middle",
+          "position_basis": "有效生命周期权重合计扣除G1门槛占用0.5后，净余量=-0.5，据此确定档内位置。",
+          "position_q": 0.3,
           "verification_material_ids": [],
           "polity": "辽",
           "reign_range": "969-982",
           "ruler_id": "RULER-LIAO-YELU-XIAN",
           "ruler_name": "耶律贤",
-          "grade_gate_basis": "登闻鼓、封事、巡问目前只证明设置/入口，未展示实际反馈结果",
+          "grade_gate_basis": "登闻鼓、封事与巡问证明反馈入口设置，当前材料未记收到何种异议及其实际处置结果，置M0。无可计运行闭环，定G1。",
           "grade_gate_code": "B2_G1_FORMAL_OR_FAILURE_DOMINANT",
-          "rank": 103,
+          "rank": 107,
           "material_basis": [
-            "设置登闻鼓院、开放封事并遣使巡问贫乏失职者"
+            "《遼史·卷8》：设置登闻鼓院、开放封事并遣使巡问贫乏失职者。原文定位：`保宁三年至八年`。"
           ],
           "settlement_basis": [
-            "正向 M2：设置登闻鼓院、开放封事并遣使巡问贫乏失职者",
-            "档位结论：登闻鼓、封事、巡问目前只证明设置/入口，未展示实际反馈结果"
-          ]
+            "登闻鼓、封事与巡问证明反馈入口设置，当前材料未记收到何种异议及其实际处置结果，置M0。无可计运行闭环，定G1。",
+            "主档G1；去重后净余量-0.5，对应中下位。"
+          ],
+          "position_residual": -0.5,
+          "grade_threshold_consumed": 0.5
         },
         {
           "M_mixed_profile": [],
-          "M_negative_profile": [
-            {
-              "M": "M3",
-              "direction": "negative",
-              "direction_factor": -1.0,
-              "lifecycle_key": "B2:RULER-ROSTER-2035C039E3532021:negative:70fbc1858cce",
-              "material_id": "I2-LIAO-MAT-69607751B211C926",
-              "mechanism": "辽初多元司法辖区同时保留族属异法与非常酷刑",
-              "result_closure": "observed_or_repeated",
-              "signed_weight": -1.0
-            }
-          ],
+          "M_negative_profile": [],
           "M_positive_profile": [
             {
-              "M": "M2",
-              "direction": "positive",
-              "direction_factor": 1.0,
-              "lifecycle_key": "B2:RULER-ROSTER-2035C039E3532021:positive:895914567770",
               "material_id": "I2-LIAO-MAT-AB06B1EA59616470",
+              "M": "M0",
+              "direction": "context",
+              "direction_factor": 0.0,
+              "signed_weight": 0.0,
               "mechanism": "设置招谏图并令长吏按季询问民间利病",
               "result_closure": "observed_or_repeated",
-              "signed_weight": 1.0
+              "position_count_mode": "context_only",
+              "position_exclusion_reason": "招谏图与定期询问只有入口设置，未见具体改策结果；族属异法与酷刑是法律结果，未单独闭合进言压制。两链置M0，按未闭合边界定G1。"
+            },
+            {
+              "material_id": "I2-LIAO-MAT-69607751B211C926",
+              "M": "M0",
+              "direction": "context",
+              "direction_factor": 0.0,
+              "signed_weight": 0.0,
+              "mechanism": "辽初多元司法辖区同时保留族属异法与非常酷刑",
+              "result_closure": "observed_or_repeated",
+              "position_count_mode": "context_only",
+              "position_exclusion_reason": "招谏图与定期询问只有入口设置，未见具体改策结果；族属异法与酷刑是法律结果，未单独闭合进言压制。两链置M0，按未闭合边界定G1。"
             }
           ],
           "coverage_audit_ids": [],
           "database_write": false,
           "direct_material_ids": [
-            "I2-LIAO-MAT-AB06B1EA59616470",
-            "I2-LIAO-MAT-69607751B211C926"
+            "I2-LIAO-MAT-69607751B211C926",
+            "I2-LIAO-MAT-AB06B1EA59616470"
           ],
           "direction_card_write": true,
-          "direction_index": 27.1,
+          "direction_index": 20.8,
           "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
           "formal_evidence_maturity": "fixed_primary_and_local_summary_backsourced",
           "formal_evidence_state": "FORMAL_SCORED",
           "grade": "G1",
-          "grade_basis": "招谏图/按季询问仍属设置，族属异法酷刑又是法律结果，净化后无G2闭环",
+          "grade_basis": "招谏图与定期询问只有入口设置，未见具体改策结果；族属异法与酷刑是法律结果，未单独闭合进言压制。两链置M0，按未闭合边界定G1。",
           "index_interval": [
-            16,
+            16.0,
             31.9
           ],
-          "position": "middle-upper",
-          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
-          "position_q": 0.7,
+          "position": "lower-middle",
+          "position_basis": "有效生命周期权重合计扣除G1门槛占用0.5后，净余量=-0.5，据此确定档内位置。",
+          "position_q": 0.3,
           "verification_material_ids": [],
           "polity": "辽（契丹）",
           "reign_range": "907-926",
           "ruler_id": "RULER-ROSTER-2035C039E3532021",
           "ruler_name": "耶律阿保机",
-          "grade_gate_basis": "招谏图/按季询问仍属设置，族属异法酷刑又是法律结果，净化后无G2闭环",
+          "grade_gate_basis": "招谏图与定期询问只有入口设置，未见具体改策结果；族属异法与酷刑是法律结果，未单独闭合进言压制。两链置M0，按未闭合边界定G1。",
           "grade_gate_code": "B2_G1_FORMAL_OR_FAILURE_DOMINANT",
-          "rank": 103,
+          "rank": 107,
           "material_basis": [
-            "设置招谏图并令长吏按季询问民间利病",
-            "辽初多元司法辖区同时保留族属异法与非常酷刑"
+            "《19-辽代法律治理结构化登记前底账》：辽初多元司法辖区同时保留族属异法与非常酷刑。原文定位：`第五节P2·L2与N3·L3节点`。",
+            "《遼史·卷2》：设置招谏图并令长吏按季询问民间利病。原文定位：`神册六年五月丙申`。"
           ],
           "settlement_basis": [
-            "正向 M2：设置招谏图并令长吏按季询问民间利病",
-            "负向 M3：辽初多元司法辖区同时保留族属异法与非常酷刑",
-            "档位结论：招谏图/按季询问仍属设置，族属异法酷刑又是法律结果，净化后无G2闭环"
-          ]
+            "招谏图与定期询问只有入口设置，未见具体改策结果；族属异法与酷刑是法律结果，未单独闭合进言压制。两链置M0，按未闭合边界定G1。",
+            "主档G1；去重后净余量-0.5，对应中下位。"
+          ],
+          "position_residual": -0.5,
+          "grade_threshold_consumed": 0.5
         },
         {
           "M_mixed_profile": [],
@@ -534,7 +548,7 @@
               "material_id": "I2-LIAO-MAT-FBD5F40848E1D631",
               "mechanism": "乙辛俘获告首和专案审讯，皇后太子诬狱跨阶段持续",
               "result_closure": "observed_or_repeated",
-              "signed_weight": -1.0
+              "signed_weight": -2.0
             }
           ],
           "M_positive_profile": [],
@@ -551,11 +565,11 @@
           "grade": "G1",
           "grade_basis": "乙辛长期俘获告首和专案审讯是强负链，但现有材料仍不足证明G0多渠道系统封闭",
           "index_interval": [
-            16,
+            16.0,
             31.9
           ],
           "position": "lower",
-          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
+          "position_basis": "有效生命周期权重合计扣除G1门槛占用0.5后，净余量=-2.5，据此确定档内位置。",
           "position_q": 0.1,
           "verification_material_ids": [],
           "polity": "辽",
@@ -564,45 +578,35 @@
           "ruler_name": "耶律洪基",
           "grade_gate_basis": "乙辛长期俘获告首和专案审讯是强负链，但现有材料仍不足证明G0多渠道系统封闭",
           "grade_gate_code": "B2_G1_FORMAL_OR_FAILURE_DOMINANT",
-          "rank": 141,
+          "rank": 126,
           "material_basis": [
-            "乙辛俘获告首和专案审讯，皇后太子诬狱跨阶段持续"
+            "《19-辽代法律治理结构化登记前底账》：乙辛俘获告首和专案审讯，皇后太子诬狱跨阶段持续。原文定位：`第五节N3·L4节点`。"
           ],
           "settlement_basis": [
-            "负向 M3：乙辛俘获告首和专案审讯，皇后太子诬狱跨阶段持续",
-            "档位结论：乙辛长期俘获告首和专案审讯是强负链，但现有材料仍不足证明G0多渠道系统封闭"
-          ]
+            "乙辛长期俘获告首和专案审讯是强负链，但现有材料仍不足证明G0多渠道系统封闭",
+            "主档G1；去重后净余量-2.5，对应下位。"
+          ],
+          "position_residual": -2.5,
+          "grade_threshold_consumed": 0.5
         },
         {
           "M_mixed_profile": [],
           "M_negative_profile": [
             {
-              "M": "M3",
-              "direction": "negative",
-              "direction_factor": -1.0,
-              "lifecycle_key": "B2:RULER-LIAO-YELU-YANXI:negative:6bfbf9781444",
               "material_id": "I2-LIAO-MAT-2A04572675FC5098",
-              "mechanism": "萧奉先李俨长期朋党用事、隐瞒军情并构陷继承人",
-              "result_closure": "observed_or_repeated",
-              "signed_weight": -1.0
-            },
-            {
               "M": "M3",
               "direction": "negative",
               "direction_factor": -1.0,
-              "lifecycle_key": "B2:RULER-LIAO-YELU-YANXI:negative:e8f80649c7fe",
-              "material_id": "I2-LIAO-MAT-2A6F57D2976EFC34",
-              "mechanism": "军令反复撤复、溃兵免罪和朋党保护使行政执行与军纪持续失灵",
-              "result_closure": "observed_or_repeated",
-              "signed_weight": -1.0
+              "signed_weight": -2.0,
+              "mechanism": "朋党长期隐匿军情、构陷异己，阻断最高权力获得真实信息",
+              "result_closure": "sustained_or_systemic"
             }
           ],
           "M_positive_profile": [],
           "coverage_audit_ids": [],
           "database_write": false,
           "direct_material_ids": [
-            "I2-LIAO-MAT-2A04572675FC5098",
-            "I2-LIAO-MAT-2A6F57D2976EFC34"
+            "I2-LIAO-MAT-2A04572675FC5098"
           ],
           "direction_card_write": true,
           "direction_index": 1.6,
@@ -610,31 +614,33 @@
           "formal_evidence_maturity": "fixed_primary_and_local_summary_backsourced",
           "formal_evidence_state": "FORMAL_SCORED",
           "grade": "G0",
-          "grade_basis": "长期朋党隐瞒军情、构陷继承人已形成持续信息俘获；删去B1材料后仍足以保G0",
+          "grade_basis": "萧奉先、李俨长期隐匿军情并构陷异己，最高权力受持续的信息俘获，形成系统负M3，定G0。军令反复、军纪与行政执行结果由B1或军事项审定，不再单列另一B2负M3。",
           "index_interval": [
-            0,
+            0.0,
             15.9
           ],
           "position": "lower",
-          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
+          "position_basis": "有效生命周期权重合计扣除G0门槛占用0后，净余量=-2，据此确定档内位置。",
           "position_q": 0.1,
-          "verification_material_ids": [],
+          "verification_material_ids": [
+            "I2-LIAO-MAT-2A6F57D2976EFC34"
+          ],
           "polity": "辽",
           "reign_range": "1101-1125",
           "ruler_id": "RULER-LIAO-YELU-YANXI",
           "ruler_name": "耶律延禧",
-          "grade_gate_basis": "长期朋党隐瞒军情、构陷继承人已形成持续信息俘获；删去B1材料后仍足以保G0",
+          "grade_gate_basis": "萧奉先、李俨长期隐匿军情并构陷异己，最高权力受持续的信息俘获，形成系统负M3，定G0。军令反复、军纪与行政执行结果由B1或军事项审定，不再单列另一B2负M3。",
           "grade_gate_code": "B2_G0_SYSTEM_CLOSURE",
-          "rank": 173,
+          "rank": 172,
           "material_basis": [
-            "萧奉先李俨长期朋党用事、隐瞒军情并构陷继承人",
-            "军令反复撤复、溃兵免罪和朋党保护使行政执行与军纪持续失灵"
+            "《契丹国志·卷019》：萧奉先李俨长期朋党用事、隐瞒军情并构陷继承人。原文定位：`P0013-P0020`。"
           ],
           "settlement_basis": [
-            "负向 M3：萧奉先李俨长期朋党用事、隐瞒军情并构陷继承人",
-            "负向 M3：军令反复撤复、溃兵免罪和朋党保护使行政执行与军纪持续失灵",
-            "档位结论：长期朋党隐瞒军情、构陷继承人已形成持续信息俘获；删去B1材料后仍足以保G0"
-          ]
+            "萧奉先、李俨长期隐匿军情并构陷异己，最高权力受持续的信息俘获，形成系统负M3，定G0。军令反复、军纪与行政执行结果由B1或军事项审定，不再单列另一B2负M3。",
+            "主档G0；去重后净余量-2，对应下位。"
+          ],
+          "position_residual": -2.0,
+          "grade_threshold_consumed": 0.0
         }
       ]
     }

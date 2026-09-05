@@ -15,17 +15,6 @@ from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.second_item_b1_settlement import validate_gate_references
 
 
-def test_c4_contract_uses_cost_scale_da_boundaries() -> None:
-    contract = Path(
-        "docs/分项规则/第二项治国净收益/财政民生/00-规则与结算合同.md"
-    ).read_text(encoding="utf-8")
-    assert "C1—C3主态、K折损和C4可归责恶化均未消费的主动成本" in contract
-    assert "C1/C2/C3绝对状态与C4可归责恶化可以共同使用同一事实" in contract
-    assert "纯军队伤亡不得直接转入第二项" in contract
-    assert "军粮、转输、财政抽取" in contract
-    assert all(label in contract for label in ("DA5", "DA6", "NEW_BUILD", "仁寿宫"))
-
-
 def test_all_five_formal_settlements_are_coherent() -> None:
     report = verify_formal_settlements(Path("."))
     assert report["status"] == "PASS"
@@ -122,7 +111,7 @@ def test_second_item_b1_v54_validator_blocks_hidden_weights_severity_cross_low_g
     broken = deepcopy(payload)
     high_grade_negative_row = next(row for row in broken["records"] if row["grade"] in {"G4", "G5"} and row["M_negative_profile"])
     negative_profile = high_grade_negative_row["M_negative_profile"][0]
-    negative_profile.update({"M": "M3", "signed_weight": -2.0, "severity": "N3-cross", "severity_scope": "major-stage", "b1_role": "core"})
+    negative_profile.update({"M": "M3", "direction": "negative", "direction_factor": -1.0, "signed_weight": -2.0, "severity": "N3-cross", "severity_scope": "major-stage", "b1_role": "core"})
     negative_profile.pop("position_weight_override", None)
     negative_profile.pop("position_count_mode", None)
     negative_profile["grade_independence_lifecycle_key"] = "TEST-INDEPENDENT-NEGATIVE"

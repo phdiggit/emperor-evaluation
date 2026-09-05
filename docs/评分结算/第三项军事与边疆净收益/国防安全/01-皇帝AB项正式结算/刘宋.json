@@ -146,9 +146,9 @@
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 3,
-              "maintenance_basis": "非4→4或5→5",
+              "maintenance_basis": "低位同档可进入抗压保全门，但当前没有闭合O4以上现实压力、非自致压力、具名保全对象和本人主要保全归责的完整记录，故难度为NONE且不加分。",
               "maintenance_bonus": 0,
-              "maintenance_difficulty": "NOT_APPLICABLE",
+              "maintenance_difficulty": "NONE",
               "negative_adjustment": 0,
               "objective_delta": 0,
               "reversal_basis": "无重大逆转登记",
@@ -159,7 +159,14 @@
               "trajectory_value": 36.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "LOW_POSITION_STABLE_HANDOVER",
+              "settlement_type_label": "低位平稳交付型",
+              "settlement_type_basis": "客观起终档同为3档，当前没有闭合O4以上现实压力、非自致压力和本人主要保全归责的完整门记录，故不冒认抗压，归为低位平稳交付型。",
+              "positive_credit_review": {
+                "decision": "CONSUMED_BY_OTHER_PATH",
+                "basis": "核心创业统一成果已消费；林邑等余下行动不足以独立证明国家级威胁改变或新防线体系。"
+              }
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -169,9 +176,9 @@
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 3,
-              "maintenance_basis": "非4→4或5→5",
+              "maintenance_basis": "低位同档可进入抗压保全门，但当前没有闭合O4以上现实压力、非自致压力、具名保全对象和本人主要保全归责的完整记录，故难度为NONE且不加分。",
               "maintenance_bonus": 0,
-              "maintenance_difficulty": "NOT_APPLICABLE",
+              "maintenance_difficulty": "NONE",
               "negative_adjustment": 0,
               "objective_delta": 0,
               "reversal_basis": "无重大逆转登记",
@@ -182,7 +189,14 @@
               "trajectory_value": 36.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "LOW_POSITION_STABLE_HANDOVER",
+              "settlement_type_label": "低位平稳交付型",
+              "settlement_type_basis": "客观起终档同为3档，当前没有闭合O4以上现实压力、非自致压力和本人主要保全归责的完整门记录，故不冒认抗压，归为低位平稳交付型。",
+              "positive_credit_review": {
+                "decision": "CONSUMED_BY_OTHER_PATH",
+                "basis": "核心创业统一成果已消费；林邑等余下行动不足以独立证明国家级威胁改变或新防线体系。"
+              }
             }
           },
           "B80_adjudication": {
@@ -470,10 +484,13 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 3,
-              "trajectory_value": 14.0,
+              "trajectory_value": 14,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为3→2，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-1档，负向责任仍由独立字段保留。"
             },
             "A2": {
               "attributable_delta": -1.0,
@@ -493,10 +510,13 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 3,
-              "trajectory_value": 14.0,
+              "trajectory_value": 14,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为3→2，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-1档，负向责任仍由独立字段保留。"
             }
           },
           "B80_adjudication": {
@@ -740,7 +760,7 @@
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 3.0,
-              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_basis": "刘骏 A1（主要威胁能力与战略主动）逐人裁决：即位时已形成跨州镇武装对抗，中央与外线军队分裂，新亭万人级会战直接威胁核心军事控制，起点0档依据是现实国家级内战。平刘劭、刘义宣臧质及襄阳兵变后，内部主要军事威胁收束，对魏仍相互争衡，终点3档；不以弑君或谁占宫城单独定档。 刘骏是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+3档按3档归责。依据链：NC-V128-LEAD-NC-YIXUAN-ZANGZHI-454、NC-GUANGLING-CIVIL-WAR-459、WAR-LEAD-NC-QINGZHOU-458、NC-GAOPING-459等7条父链。",
               "attribution_category": "PRIMARY_RULER",
               "axis_points": 39.6,
               "ceiling_progress": "NONE",
@@ -756,7 +776,7 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 0,
-              "trajectory_value": 66.0,
+              "trajectory_value": 66,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
               "improvement_step_credits": [
@@ -764,25 +784,64 @@
                   "from_grade": 0,
                   "to_grade": 1,
                   "credit": 1.0,
-                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                  "basis": "刘骏 A1（主要威胁能力与战略主动）逐人裁决：即位时已形成跨州镇武装对抗，中央与外线军队分裂，新亭万人级会战直接威胁核心军事控制，起点0档依据是现实国家级内战。平刘劭、刘义宣臧质及襄阳兵变后，内部主要军事威胁收束，对魏仍相互争衡，终点3档；不以弑君或谁占宫城单独定档。 刘骏是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+3档按3档归责。依据链：NC-V128-LEAD-NC-YIXUAN-ZANGZHI-454、NC-GUANGLING-CIVIL-WAR-459、WAR-LEAD-NC-QINGZHOU-458、NC-GAOPING-459等7条父链。",
+                  "source_refs": [
+                    "NC-V128-LEAD-NC-YIXUAN-ZANGZHI-454",
+                    "NC-GUANGLING-CIVIL-WAR-459",
+                    "WAR-LEAD-NC-QINGZHOU-458",
+                    "NC-GAOPING-459",
+                    "NC-SONG-CIVIL-WAR-453",
+                    "NC-XIANGYANG-COUP-461",
+                    "NC-V128-LEAD-NC-YANZHOU-457"
+                  ]
                 },
                 {
                   "from_grade": 1,
                   "to_grade": 2,
                   "credit": 1.0,
-                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                  "basis": "刘骏 A1（主要威胁能力与战略主动）逐人裁决：即位时已形成跨州镇武装对抗，中央与外线军队分裂，新亭万人级会战直接威胁核心军事控制，起点0档依据是现实国家级内战。平刘劭、刘义宣臧质及襄阳兵变后，内部主要军事威胁收束，对魏仍相互争衡，终点3档；不以弑君或谁占宫城单独定档。 刘骏是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+3档按3档归责。依据链：NC-V128-LEAD-NC-YIXUAN-ZANGZHI-454、NC-GUANGLING-CIVIL-WAR-459、WAR-LEAD-NC-QINGZHOU-458、NC-GAOPING-459等7条父链。",
+                  "source_refs": [
+                    "NC-V128-LEAD-NC-YIXUAN-ZANGZHI-454",
+                    "NC-GUANGLING-CIVIL-WAR-459",
+                    "WAR-LEAD-NC-QINGZHOU-458",
+                    "NC-GAOPING-459",
+                    "NC-SONG-CIVIL-WAR-453",
+                    "NC-XIANGYANG-COUP-461",
+                    "NC-V128-LEAD-NC-YANZHOU-457"
+                  ]
                 },
                 {
                   "from_grade": 2,
                   "to_grade": 3,
                   "credit": 1.0,
-                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                  "basis": "刘骏 A1（主要威胁能力与战略主动）逐人裁决：即位时已形成跨州镇武装对抗，中央与外线军队分裂，新亭万人级会战直接威胁核心军事控制，起点0档依据是现实国家级内战。平刘劭、刘义宣臧质及襄阳兵变后，内部主要军事威胁收束，对魏仍相互争衡，终点3档；不以弑君或谁占宫城单独定档。 刘骏是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+3档按3档归责。依据链：NC-V128-LEAD-NC-YIXUAN-ZANGZHI-454、NC-GUANGLING-CIVIL-WAR-459、WAR-LEAD-NC-QINGZHOU-458、NC-GAOPING-459等7条父链。",
+                  "source_refs": [
+                    "NC-V128-LEAD-NC-YIXUAN-ZANGZHI-454",
+                    "NC-GUANGLING-CIVIL-WAR-459",
+                    "WAR-LEAD-NC-QINGZHOU-458",
+                    "NC-GAOPING-459",
+                    "NC-SONG-CIVIL-WAR-453",
+                    "NC-XIANGYANG-COUP-461",
+                    "NC-V128-LEAD-NC-YANZHOU-457"
+                  ]
                 }
-              ]
+              ],
+              "attribution_source_refs": [
+                "NC-V128-LEAD-NC-YIXUAN-ZANGZHI-454",
+                "NC-GUANGLING-CIVIL-WAR-459",
+                "WAR-LEAD-NC-QINGZHOU-458",
+                "NC-GAOPING-459",
+                "NC-SONG-CIVIL-WAR-453",
+                "NC-XIANGYANG-COUP-461",
+                "NC-V128-LEAD-NC-YANZHOU-457"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为0→3，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为3档，伴随专项加减仍由独立字段保留。"
             },
             "A2": {
               "attributable_delta": 2.0,
-              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_basis": "刘骏 A2（边界、门户、纵深与缓冲体系）逐人裁决：即位前后刘劭已弃淮南岸、焚毁屋船并迁民，内战切断建康与外线协同，新亭水陆攻防表明防御依赖核心区附近应急部署，起点1档。内战收束并保持淮河、青州支点后，主要方向恢复可运作边界，终点3档；不把夺回宫城本身当作防线重建。 刘骏是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+2档按2档归责。依据链：NC-V128-LEAD-NC-YIXUAN-ZANGZHI-454、NC-GUANGLING-CIVIL-WAR-459、WAR-LEAD-NC-QINGZHOU-458、NC-GAOPING-459等7条父链。",
               "attribution_category": "PRIMARY_RULER",
               "axis_points": 33.6,
               "ceiling_progress": "NONE",
@@ -798,7 +857,7 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 1,
-              "trajectory_value": 56.0,
+              "trajectory_value": 56,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
               "improvement_step_credits": [
@@ -806,15 +865,45 @@
                   "from_grade": 1,
                   "to_grade": 2,
                   "credit": 1.0,
-                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                  "basis": "刘骏 A2（边界、门户、纵深与缓冲体系）逐人裁决：即位前后刘劭已弃淮南岸、焚毁屋船并迁民，内战切断建康与外线协同，新亭水陆攻防表明防御依赖核心区附近应急部署，起点1档。内战收束并保持淮河、青州支点后，主要方向恢复可运作边界，终点3档；不把夺回宫城本身当作防线重建。 刘骏是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+2档按2档归责。依据链：NC-V128-LEAD-NC-YIXUAN-ZANGZHI-454、NC-GUANGLING-CIVIL-WAR-459、WAR-LEAD-NC-QINGZHOU-458、NC-GAOPING-459等7条父链。",
+                  "source_refs": [
+                    "NC-V128-LEAD-NC-YIXUAN-ZANGZHI-454",
+                    "NC-GUANGLING-CIVIL-WAR-459",
+                    "WAR-LEAD-NC-QINGZHOU-458",
+                    "NC-GAOPING-459",
+                    "NC-SONG-CIVIL-WAR-453",
+                    "NC-XIANGYANG-COUP-461",
+                    "NC-V128-LEAD-NC-YANZHOU-457"
+                  ]
                 },
                 {
                   "from_grade": 2,
                   "to_grade": 3,
                   "credit": 1.0,
-                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                  "basis": "刘骏 A2（边界、门户、纵深与缓冲体系）逐人裁决：即位前后刘劭已弃淮南岸、焚毁屋船并迁民，内战切断建康与外线协同，新亭水陆攻防表明防御依赖核心区附近应急部署，起点1档。内战收束并保持淮河、青州支点后，主要方向恢复可运作边界，终点3档；不把夺回宫城本身当作防线重建。 刘骏是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+2档按2档归责。依据链：NC-V128-LEAD-NC-YIXUAN-ZANGZHI-454、NC-GUANGLING-CIVIL-WAR-459、WAR-LEAD-NC-QINGZHOU-458、NC-GAOPING-459等7条父链。",
+                  "source_refs": [
+                    "NC-V128-LEAD-NC-YIXUAN-ZANGZHI-454",
+                    "NC-GUANGLING-CIVIL-WAR-459",
+                    "WAR-LEAD-NC-QINGZHOU-458",
+                    "NC-GAOPING-459",
+                    "NC-SONG-CIVIL-WAR-453",
+                    "NC-XIANGYANG-COUP-461",
+                    "NC-V128-LEAD-NC-YANZHOU-457"
+                  ]
                 }
-              ]
+              ],
+              "attribution_source_refs": [
+                "NC-V128-LEAD-NC-YIXUAN-ZANGZHI-454",
+                "NC-GUANGLING-CIVIL-WAR-459",
+                "WAR-LEAD-NC-QINGZHOU-458",
+                "NC-GAOPING-459",
+                "NC-SONG-CIVIL-WAR-453",
+                "NC-XIANGYANG-COUP-461",
+                "NC-V128-LEAD-NC-YANZHOU-457"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为1→3，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为2档，伴随专项加减仍由独立字段保留。"
             }
           },
           "B80_adjudication": {
@@ -1052,9 +1141,9 @@
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 1,
-              "maintenance_basis": "非4→4或5→5",
+              "maintenance_basis": "低位同档可进入抗压保全门，但当前没有闭合O4以上现实压力、非自致压力、具名保全对象和本人主要保全归责的完整记录，故难度为NONE且不加分。",
               "maintenance_bonus": 0,
-              "maintenance_difficulty": "NOT_APPLICABLE",
+              "maintenance_difficulty": "NONE",
               "negative_adjustment": 20,
               "objective_delta": 0,
               "reversal_basis": "起终档未表达的多次负链并伴随净退控",
@@ -1065,11 +1154,18 @@
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "WITHIN_BAND_MAJOR_REVERSAL",
+              "settlement_type_label": "档内重大逆转型",
+              "settlement_type_basis": "客观起终档同为1档，重大逆转扣减20轨迹点且优先于普通同档交付，故归为档内重大逆转型；起终档未表达的多次负链并伴随净退控",
+              "positive_credit_review": {
+                "decision": "NO_NET_STRUCTURAL_GAIN",
+                "basis": "平定已存在的刘子勋集团须合看淮北崩退与沈攸之风险，不能把战争中高峰消退当相对接班的净威胁改善，负向调整保留。"
+              }
             },
             "A2": {
               "attributable_delta": -1.0,
-              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_basis": "刘彧 A2（边界、门户、纵深与缓冲体系）逐人裁决：起点虽内部破碎，淮北尚有彭城及多州节点，为2档。强令进军与守将叛降使彭城、淮北防线和粮运体系成体系崩溃，终点降为1档。 刘彧是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动-1档按-1档归责。依据链：NC-V131-LEAD-131-05、NC-WEI-SONG-QINGXU-466-469、NC-V133-LEAD-133-03、NC-V133-LEAD-133-02。",
               "attribution_category": "PRIMARY_RULER",
               "axis_points": 1.2,
               "ceiling_progress": "NONE",
@@ -1088,7 +1184,16 @@
               "trajectory_value": 2.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "attribution_source_refs": [
+                "NC-V131-LEAD-131-05",
+                "NC-WEI-SONG-QINGXU-466-469",
+                "NC-V133-LEAD-133-03",
+                "NC-V133-LEAD-133-02"
+              ],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为2→1，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-1档，负向责任仍由独立字段保留。"
             }
           },
           "B80_adjudication": {

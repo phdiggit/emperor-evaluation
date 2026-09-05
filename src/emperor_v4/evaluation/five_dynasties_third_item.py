@@ -14,6 +14,11 @@ from emperor_v4.evaluation.battle_registry_store import (
     write_battle_registry,
 )
 from emperor_v4.evaluation.formal_json_store import load_json, load_ruler_polities, write_json
+from emperor_v4.evaluation.opponent_system_contract import (
+    build_opponent_system_index,
+    load_opponent_system_contract,
+    opponent_system_grades_at_least,
+)
 from emperor_v4.evaluation.talent_registry_store import load_talent_registry
 from emperor_v4.evaluation.post_tang_third_item_consumption import (
     iter_post_tang_bound_cycles,
@@ -35,10 +40,7 @@ QIN_TANG_BATTLE_INDEX_PATH = Path("docs/史料通读产物/唐以前编年/00-�
 QIN_TANG_D_DIRECTION_PATH = Path("config/third-item/qin-tang-d-cycle-direction-adjudications.json")
 FIRST_ITEM_C_WINDOWS_PATH = Path("config/first-item/first-item-c-acquisition-windows.json")
 FIRST_ITEM_C_SETTLEMENT_PATH = Path(
-    "docs/评分结算/第一项创业与政权取得能力/军事夺取能力/01-第一项C军事夺取能力结算.json"
-)
-FIRST_ITEM_A_COMPETITIVE_LANDSCAPES_PATH = Path(
-    "config/first-item/first-item-a-competitive-landscapes.json"
+    "docs/评分结算/第一项政权奠基与统一贡献及能力/军事夺取能力/01-第一项C军事夺取能力结算.json"
 )
 AB_HANDOFF_ADJUDICATION_PATH = Path("config/third-item/third-item-ab-handoff-adjudications.json")
 C_OUTCOME_ADJUDICATION_PATH = Path("config/third-item/third-item-c-outcome-adjudications.json")
@@ -1370,6 +1372,7 @@ def _apply_c5_axis_gate(
     stress_refs: Sequence[str],
     talent_profiles_by_ref: Mapping[str, Mapping[str, Any]],
     opponent_systems_by_ref: Mapping[str, Mapping[str, Any]],
+    high_difficulty_grades: set[str],
 ) -> None:
     """Require independent top-level evidence for every C5 axis."""
     requested_axes = {
@@ -1401,7 +1404,7 @@ def _apply_c5_axis_gate(
             if (
                 not system_ref
                 or system is None
-                or grade not in {"O4", "O5", "O6"}
+                or grade not in high_difficulty_grades
                 or not refs
                 or not refs.issubset(stress_ref_set)
                 or not refs.issubset(accepted_refs)
@@ -1436,7 +1439,7 @@ def _apply_c5_axis_gate(
                 or any(system is None for system in systems)
                 or any(
                     str((system or {}).get("organization_grade") or "")
-                    not in {"O4", "O5", "O6"}
+                    not in high_difficulty_grades
                     for system in systems
                 )
                 or not all(
@@ -1589,35 +1592,13 @@ def _apply_c_task_evidence_ceiling(row: dict[str, Any]) -> None:
 def _opponent_systems_by_ref(
     workspace_root: Path,
     registry: Mapping[str, Any],
+    opponent_system_contract: Mapping[str, Any],
 ) -> dict[str, dict[str, Any]]:
     """Load the shared O1-O6 system facts and their public task aliases."""
-    landscapes = json.loads(
-        (workspace_root / FIRST_ITEM_A_COMPETITIVE_LANDSCAPES_PATH).read_text(
-            encoding="utf-8"
-        )
+    systems = build_opponent_system_index(
+        registry=registry,
+        contract=opponent_system_contract,
     )
-    if (
-        landscapes.get("schema_version") != "first-item-a-competitive-landscapes-v9"
-        or landscapes.get("status") != "CURRENT"
-    ):
-        raise ValueError("第一项A对手战争机器O档合同非法")
-    systems: dict[str, dict[str, Any]] = {}
-    for portfolio in registry.get("unification_campaign_portfolios") or ():
-        for raw in portfolio.get("opponent_systems") or ():
-            system_ref = str(raw.get("system_id") or "")
-            if not system_ref or system_ref in systems:
-                raise ValueError(f"公共统一链O体系标识缺失或重复: {system_ref}")
-            systems[system_ref] = dict(raw)
-    supplemental = {
-        str(ref): dict(row)
-        for ref, row in dict(
-            landscapes.get("supplemental_opponent_systems") or {}
-        ).items()
-    }
-    overlap = set(systems) & set(supplemental)
-    if overlap:
-        raise ValueError(f"公共统一链与补充O体系重复: {sorted(overlap)}")
-    systems.update(supplemental)
 
     public_aliases: dict[str, set[str]] = defaultdict(set)
     for record in registry.get("records") or ():
@@ -3043,7 +3024,24 @@ def _align_bc_to_system_stress_parent_cycles(
             task_ref = str(record.get(field) or "")
             if task_ref:
                 registry_source_refs_by_task[task_ref].update(source_refs)
-    opponent_systems_by_ref = _opponent_systems_by_ref(workspace_root, registry)
+    opponent_system_contract = load_opponent_system_contract(workspace_root)
+    opponent_systems_by_ref = _opponent_systems_by_ref(
+        workspace_root,
+        registry,
+        opponent_system_contract,
+    )
+    c_high_difficulty_minimum = str(
+        (
+            dict(opponent_system_contract.get("consumer_contracts") or {})
+            .get("third_item_c_high_difficulty")
+            or {}
+        ).get("minimum_grade")
+        or ""
+    )
+    c_high_difficulty_grades = opponent_system_grades_at_least(
+        opponent_system_contract,
+        c_high_difficulty_minimum,
+    )
     public_unification_portfolio_by_ref = {
         str(row["war_event_id"]): str(row.get("unification_portfolio_ref") or "")
         for row in registry.get("records") or ()
@@ -3499,6 +3497,7 @@ def _align_bc_to_system_stress_parent_cycles(
             stress_refs,
             talent_profiles_by_ref,
             opponent_systems_by_ref,
+            c_high_difficulty_grades,
         )
         selection_policy = "CLOSED_MATERIAL_PARENT_CYCLES_PLUS_MAJOR_SYSTEM_OUTCOMES"
         if not stress_refs:
@@ -4433,21 +4432,48 @@ def _render_formal_markdown(
                         if steps
                         else "无正向跨档"
                     )
+                    maintenance_human = (
+                        {
+                            "NONE": "无额外抗压难度",
+                            "TESTED": "经受压力检验",
+                            "SEVERE": "严重抗压",
+                            "HISTORIC": "历史级抗压",
+                        }.get(
+                            str(adjudication["maintenance_difficulty"]),
+                            human_label(adjudication["maintenance_difficulty"]),
+                        )
+                        if adjudication.get("settlement_type") == "LOW_POSITION_RESILIENCE"
+                        else human_label(adjudication["maintenance_difficulty"])
+                    )
                     a120_reader_lines[axis_name] = (
-                        f"- {axis_name}归责与守成：逐档改善{step_text}；"
+                        f"- {axis_name}主类型：{adjudication['settlement_type_label']}"
+                        f"（`{adjudication['settlement_type']}`）；"
+                        f"{_reader_sentence(str(adjudication['settlement_type_basis']))}"
+                        f"逐档改善{step_text}；"
                         f"本人可归责变化{float(adjudication['attributable_delta']):g}；"
-                        f"守成档位{adjudication['maintenance_difficulty']}"
-                        f"（{human_label(adjudication['maintenance_difficulty'])}，"
+                        f"保全难度{adjudication['maintenance_difficulty']}"
+                        f"（{maintenance_human}，"
                         f"+{float(adjudication['maintenance_bonus']):g}轨迹点）；"
                         f"{_reader_sentence(str(adjudication['maintenance_basis']))}"
                     )
                     structure = adjudication.get("within_band_structure_improvement")
                     if structure:
+                        from emperor_v4.evaluation.third_item_current_settlement import _within_band_structure_credit
                         a120_reader_lines[axis_name] += (
-                            f"档内结构改善候选信用{10 * float(structure['attribution_credit']):g}轨迹点"
+                            f"档内结构改善信用{_within_band_structure_credit(adjudication):g}轨迹点"
                             "（与封顶推进、守成取高）；"
                             f"{_reader_sentence(structure['net_improvement_basis'])}"
                         )
+                    a120_reader_lines[axis_name] += (
+                        f"封顶推进+{float(adjudication.get('ceiling_progress_bonus') or 0):g}轨迹点；"
+                        f"负向调整−{float(adjudication.get('negative_adjustment') or 0):g}轨迹点；"
+                        f"本轴{float(adjudication['axis_points']):g}分。"
+                    )
+                    review = adjudication.get("positive_credit_review")
+                    if review:
+                        a120_reader_lines[axis_name] += f"专项裁决：{_reader_sentence(review['basis'])}"
+                    elif int(adjudication["end_grade"]) == 5:
+                        a120_reader_lines[axis_name] += f"封顶路径裁决：{_reader_sentence(adjudication['ceiling_progress_basis'])}"
                 lines += [
                     *(
                         [f"- A轴共同背景：{_reader_sentence(row['A_axis_common_context'])}"]

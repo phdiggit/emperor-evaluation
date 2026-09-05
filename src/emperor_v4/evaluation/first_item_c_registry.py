@@ -1723,7 +1723,7 @@ def render_first_item_summary(
     totals.sort(key=lambda row: (-row["total"], row["ruler_name"]))
     ac_rows.sort(key=lambda row: (-row["AC"], row["ruler_name"]))
     lines = [
-        "# 第一大项创业与政权取得能力结算总结分析",
+        "# 第一大项政权奠基与统一贡献及能力结算总结分析",
         "",
         "## 一、当前结构与去重",
         "",
@@ -1820,7 +1820,7 @@ def write_first_item_c_registry(workspace_root: Path) -> dict[str, Path]:
     )
     output_dir = (
         workspace_root
-        / "docs/评分结算/第一项创业与政权取得能力/军事夺取能力"
+        / "docs/评分结算/第一项政权奠基与统一贡献及能力/军事夺取能力"
     )
     output_dir.mkdir(parents=True, exist_ok=True)
     json_path = output_dir / "01-第一项C军事夺取能力结算.json"
@@ -1831,11 +1831,11 @@ def write_first_item_c_registry(workspace_root: Path) -> dict[str, Path]:
     )
     a_payload = load(
         workspace_root
-        / "docs/评分结算/第一项创业与政权取得能力/战略决策能力/01-第一项A战略决策能力结算.json"
+        / "docs/评分结算/第一项政权奠基与统一贡献及能力/战略决策能力/01-第一项A战略决策能力结算.json"
     )
     b_payload = load(
         workspace_root
-        / "docs/评分结算/第一项创业与政权取得能力/政治整合能力/01-第一项B政治整合能力结算.json"
+        / "docs/评分结算/第一项政权奠基与统一贡献及能力/政治整合能力/01-第一项B政治整合能力结算.json"
     )
     a_ids = {str(row["ruler_id"]) for row in a_payload.get("records") or ()}
     b_ids = {str(row["ruler_id"]) for row in b_payload.get("records") or ()}
@@ -1853,10 +1853,10 @@ def write_first_item_c_registry(workspace_root: Path) -> dict[str, Path]:
     )
     settlement_dir = (
         workspace_root
-        / "docs/评分结算/第一项创业与政权取得能力"
+        / "docs/评分结算/第一项政权奠基与统一贡献及能力"
     )
-    formal_json_path = settlement_dir / "01-第一项创业与政权取得能力正式结算.json"
-    formal_markdown_path = settlement_dir / "01-第一项创业与政权取得能力正式结算.md"
+    formal_json_path = settlement_dir / "01-第一项政权奠基与统一贡献及能力正式结算.json"
+    formal_markdown_path = settlement_dir / "01-第一项政权奠基与统一贡献及能力正式结算.md"
     formal_json_path.write_text(
         json.dumps(formal_payload, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",

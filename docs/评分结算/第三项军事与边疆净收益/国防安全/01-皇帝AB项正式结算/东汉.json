@@ -151,7 +151,7 @@
               "attributable_delta": 0.0,
               "attribution_basis": "赤眉入长安后刘玄投降并被杀，更始政权没有形成有效继承。客观终点必须归零；败亡责任仍沿用人物裁决，不从胜方第一项信用机械反推。",
               "attribution_category": "NO_CHANGE",
-              "axis_points": 0.0,
+              "axis_points": 0,
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 0,
@@ -165,16 +165,19 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 2,
-              "trajectory_value": 0.0,
+              "trajectory_value": 0,
               "within_band_deterioration_basis": "终局归零后不再追加档内恶化",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为2→0，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为0档，负向责任仍由独立字段保留。"
             },
             "A2": {
               "attributable_delta": 0.0,
               "attribution_basis": "赤眉入长安后刘玄投降并被杀，更始政权没有形成有效继承。客观终点必须归零；败亡责任仍沿用人物裁决，不从胜方第一项信用机械反推。",
               "attribution_category": "NO_CHANGE",
-              "axis_points": 0.0,
+              "axis_points": 0,
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 0,
@@ -188,10 +191,13 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 1,
-              "trajectory_value": 0.0,
+              "trajectory_value": 0,
               "within_band_deterioration_basis": "终局归零后不再追加档内恶化",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为1→0，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为0档，负向责任仍由独立字段保留。"
             }
           },
           "B80_adjudication": {
@@ -428,7 +434,7 @@
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 0.5,
-              "attribution_basis": "消费现行语义标签MIXED",
+              "attribution_basis": "刘秀 A1（主要威胁能力与战略主动）逐人裁决：统一对象不计；起点另有匈奴扶立卢芳并占北边五郡的外部战略压力。任内恢复交趾、羌与武陵方向，但北方改善部分来自匈奴灾疫和乌桓攻击，终点仅升至攻守相持3档。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给刘秀；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动+1档中取0.5档。依据链：HAN-QIANG-30-35、WAR-LEAD-HAN-NORTH-36-46、HAN-JIAOZHI-40-43、HAN-SICHUAN-REBELLION-42等14条父链。",
               "attribution_category": "SHARED_MATERIAL",
               "axis_points": 21.6,
               "ceiling_progress": "NONE",
@@ -444,7 +450,7 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 2,
-              "trajectory_value": 36.0,
+              "trajectory_value": 36,
               "within_band_deterioration_basis": "卢芳—匈奴方向EN1",
               "within_band_deterioration_penalty": 5,
               "improvement_step_credits": [
@@ -452,13 +458,48 @@
                   "from_grade": 2,
                   "to_grade": 3,
                   "credit": 0.5,
-                  "basis": "消费现行语义标签MIXED"
+                  "basis": "刘秀 A1（主要威胁能力与战略主动）逐人裁决：统一对象不计；起点另有匈奴扶立卢芳并占北边五郡的外部战略压力。任内恢复交趾、羌与武陵方向，但北方改善部分来自匈奴灾疫和乌桓攻击，终点仅升至攻守相持3档。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给刘秀；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动+1档中取0.5档。依据链：HAN-QIANG-30-35、WAR-LEAD-HAN-NORTH-36-46、HAN-JIAOZHI-40-43、HAN-SICHUAN-REBELLION-42等14条父链。",
+                  "source_refs": [
+                    "HAN-QIANG-30-35",
+                    "WAR-LEAD-HAN-NORTH-36-46",
+                    "HAN-JIAOZHI-40-43",
+                    "HAN-SICHUAN-REBELLION-42",
+                    "HAN-SOUTHWEST-43-45",
+                    "HAN-WULING-47-49",
+                    "WAR-LEAD-XIN-COLLAPSE-23",
+                    "HAN-STARTUP-HEBEI-23-24",
+                    "HAN-STARTUP-GUANZHONG-24-27",
+                    "HAN-STARTUP-CENTRAL-25-26",
+                    "HAN-STARTUP-DENGFENG-NANYANG-26-27",
+                    "HAN-STARTUP-EAST-26-30",
+                    "HAN-STARTUP-LONGYOU-30-34",
+                    "HAN-STARTUP-SHU-33-36"
+                  ]
                 }
-              ]
+              ],
+              "attribution_source_refs": [
+                "HAN-QIANG-30-35",
+                "WAR-LEAD-HAN-NORTH-36-46",
+                "HAN-JIAOZHI-40-43",
+                "HAN-SICHUAN-REBELLION-42",
+                "HAN-SOUTHWEST-43-45",
+                "HAN-WULING-47-49",
+                "WAR-LEAD-XIN-COLLAPSE-23",
+                "HAN-STARTUP-HEBEI-23-24",
+                "HAN-STARTUP-GUANZHONG-24-27",
+                "HAN-STARTUP-CENTRAL-25-26",
+                "HAN-STARTUP-DENGFENG-NANYANG-26-27",
+                "HAN-STARTUP-EAST-26-30",
+                "HAN-STARTUP-LONGYOU-30-34",
+                "HAN-STARTUP-SHU-33-36"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为2→3，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为0.5档，伴随专项加减仍由独立字段保留。"
             },
             "A2": {
               "attributable_delta": 0.5,
-              "attribution_basis": "消费现行语义标签MIXED",
+              "attribution_basis": "刘秀 A2（边界、门户、纵深与缓冲体系）逐人裁决：25年卢芳仅获匈奴数千骑迎送并武装入境，尚未占据五郡；边防存在权力真空但未证主要防线已经整体破裂，起点为2档。29年以后五郡失控属任内低谷；至交班，羌、交趾与主要北边方向恢复可运作体系，但北疆仍有明显缺口，终点为3档。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给刘秀；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动+1档中取0.5档。依据链：HAN-QIANG-30-35、WAR-LEAD-HAN-NORTH-36-46、HAN-JIAOZHI-40-43、HAN-SICHUAN-REBELLION-42等14条父链。",
               "attribution_category": "SHARED_MATERIAL",
               "axis_points": 21.6,
               "ceiling_progress": "NONE",
@@ -474,7 +515,7 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 2,
-              "trajectory_value": 36.0,
+              "trajectory_value": 36,
               "within_band_deterioration_basis": "乌桓方向含有限边界退控EN1",
               "within_band_deterioration_penalty": 5,
               "improvement_step_credits": [
@@ -482,9 +523,44 @@
                   "from_grade": 2,
                   "to_grade": 3,
                   "credit": 0.5,
-                  "basis": "消费现行语义标签MIXED"
+                  "basis": "刘秀 A2（边界、门户、纵深与缓冲体系）逐人裁决：25年卢芳仅获匈奴数千骑迎送并武装入境，尚未占据五郡；边防存在权力真空但未证主要防线已经整体破裂，起点为2档。29年以后五郡失控属任内低谷；至交班，羌、交趾与主要北边方向恢复可运作体系，但北疆仍有明显缺口，终点为3档。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给刘秀；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动+1档中取0.5档。依据链：HAN-QIANG-30-35、WAR-LEAD-HAN-NORTH-36-46、HAN-JIAOZHI-40-43、HAN-SICHUAN-REBELLION-42等14条父链。",
+                  "source_refs": [
+                    "HAN-QIANG-30-35",
+                    "WAR-LEAD-HAN-NORTH-36-46",
+                    "HAN-JIAOZHI-40-43",
+                    "HAN-SICHUAN-REBELLION-42",
+                    "HAN-SOUTHWEST-43-45",
+                    "HAN-WULING-47-49",
+                    "WAR-LEAD-XIN-COLLAPSE-23",
+                    "HAN-STARTUP-HEBEI-23-24",
+                    "HAN-STARTUP-GUANZHONG-24-27",
+                    "HAN-STARTUP-CENTRAL-25-26",
+                    "HAN-STARTUP-DENGFENG-NANYANG-26-27",
+                    "HAN-STARTUP-EAST-26-30",
+                    "HAN-STARTUP-LONGYOU-30-34",
+                    "HAN-STARTUP-SHU-33-36"
+                  ]
                 }
-              ]
+              ],
+              "attribution_source_refs": [
+                "HAN-QIANG-30-35",
+                "WAR-LEAD-HAN-NORTH-36-46",
+                "HAN-JIAOZHI-40-43",
+                "HAN-SICHUAN-REBELLION-42",
+                "HAN-SOUTHWEST-43-45",
+                "HAN-WULING-47-49",
+                "WAR-LEAD-XIN-COLLAPSE-23",
+                "HAN-STARTUP-HEBEI-23-24",
+                "HAN-STARTUP-GUANZHONG-24-27",
+                "HAN-STARTUP-CENTRAL-25-26",
+                "HAN-STARTUP-DENGFENG-NANYANG-26-27",
+                "HAN-STARTUP-EAST-26-30",
+                "HAN-STARTUP-LONGYOU-30-34",
+                "HAN-STARTUP-SHU-33-36"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为2→3，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为0.5档，伴随专项加减仍由独立字段保留。"
             }
           },
           "B80_adjudication": {
@@ -746,7 +822,7 @@
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 1.0,
-              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_basis": "刘庄 A1（主要威胁能力与战略主动）逐人裁决：起点承接刘秀A1S3。任内对北匈奴由防御转为主动进击，取得伊吾并建立屯田支点；北匈奴主体未灭，终点为仍有一个明显强敌的4档。 刘庄是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：HAN-QIANG-57-58、HAN-NORTH-XIONGNU-62-73、WAR-LEAD-HAN-XIYU-73-94。",
               "attribution_category": "PRIMARY_RULER",
               "axis_points": 34.8,
               "ceiling_progress": "NONE",
@@ -762,7 +838,7 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 3,
-              "trajectory_value": 58.0,
+              "trajectory_value": 58,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
               "improvement_step_credits": [
@@ -770,13 +846,26 @@
                   "from_grade": 3,
                   "to_grade": 4,
                   "credit": 1.0,
-                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                  "basis": "刘庄 A1（主要威胁能力与战略主动）逐人裁决：起点承接刘秀A1S3。任内对北匈奴由防御转为主动进击，取得伊吾并建立屯田支点；北匈奴主体未灭，终点为仍有一个明显强敌的4档。 刘庄是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：HAN-QIANG-57-58、HAN-NORTH-XIONGNU-62-73、WAR-LEAD-HAN-XIYU-73-94。",
+                  "source_refs": [
+                    "HAN-QIANG-57-58",
+                    "HAN-NORTH-XIONGNU-62-73",
+                    "WAR-LEAD-HAN-XIYU-73-94"
+                  ]
                 }
-              ]
+              ],
+              "attribution_source_refs": [
+                "HAN-QIANG-57-58",
+                "HAN-NORTH-XIONGNU-62-73",
+                "WAR-LEAD-HAN-XIYU-73-94"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为3→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。"
             },
             "A2": {
               "attributable_delta": 1.0,
-              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_basis": "刘庄 A2（边界、门户、纵深与缓冲体系）逐人裁决：起点承接刘秀A2S3。至明帝去世时，伊吾屯田、车师归附、都护及金蒲柳中屯戍已形成多节点协同；焉耆龟兹等仍构成缺口，定4档。明帝崩后都护覆没归刘炟任内。 刘庄是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：HAN-QIANG-57-58、HAN-NORTH-XIONGNU-62-73、WAR-LEAD-HAN-XIYU-73-94。",
               "attribution_category": "PRIMARY_RULER",
               "axis_points": 31.8,
               "ceiling_progress": "NONE",
@@ -792,7 +881,7 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 3,
-              "trajectory_value": 53.0,
+              "trajectory_value": 53,
               "within_band_deterioration_basis": "西域前推节点与道路形成EN1有限退控",
               "within_band_deterioration_penalty": 5,
               "improvement_step_credits": [
@@ -800,9 +889,22 @@
                   "from_grade": 3,
                   "to_grade": 4,
                   "credit": 1.0,
-                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                  "basis": "刘庄 A2（边界、门户、纵深与缓冲体系）逐人裁决：起点承接刘秀A2S3。至明帝去世时，伊吾屯田、车师归附、都护及金蒲柳中屯戍已形成多节点协同；焉耆龟兹等仍构成缺口，定4档。明帝崩后都护覆没归刘炟任内。 刘庄是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：HAN-QIANG-57-58、HAN-NORTH-XIONGNU-62-73、WAR-LEAD-HAN-XIYU-73-94。",
+                  "source_refs": [
+                    "HAN-QIANG-57-58",
+                    "HAN-NORTH-XIONGNU-62-73",
+                    "WAR-LEAD-HAN-XIYU-73-94"
+                  ]
                 }
-              ]
+              ],
+              "attribution_source_refs": [
+                "HAN-QIANG-57-58",
+                "HAN-NORTH-XIONGNU-62-73",
+                "WAR-LEAD-HAN-XIYU-73-94"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为3→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。"
             }
           },
           "B80_adjudication": {
@@ -1105,7 +1207,7 @@
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 4,
-              "maintenance_basis": "没有闭合到本轴的成功现实高压守成",
+              "maintenance_basis": "高位同档可进入守成门，但当前没有闭合现实强压、非自致压力、持续有效性和本人主要保全归责的完整记录，故难度为NONE且不加分。",
               "maintenance_bonus": 0,
               "maintenance_difficulty": "NONE",
               "negative_adjustment": 0,
@@ -1118,11 +1220,18 @@
               "trajectory_value": 48.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "HIGH_POSITION_STABLE_HANDOVER",
+              "settlement_type_label": "高位平稳交付型",
+              "settlement_type_basis": "客观起终档同为4档，当前没有闭合高位守成压力门或其他专项加减，故归为高位平稳交付型，只保留高位终点结果锚。",
+              "positive_credit_review": {
+                "decision": "NO_NET_STRUCTURAL_GAIN",
+                "basis": "都护覆没与羌乱后的恢复不超过接班结构；匈奴外部变化不能全部归皇帝建设，未另证主要威胁能力的本人净削弱。"
+              }
             },
             "A2": {
               "attributable_delta": -0.5,
-              "attribution_basis": "消费现行语义标签MIXED",
+              "attribution_basis": "刘炟 A2（边界、门户、纵深与缓冲体系）逐人裁决：起点共享刘庄A2S4；即位后都护、戊己与伊吾屯兵撤销，北匈奴复守伊吾。班超虽恢复南道多国，至88年尚未复置都护且北道仍缺，终点为3档。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给刘炟；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动-1档中取-0.5档。依据链：HAN-QIANG-77-78、HAN-LOUZHONG-78-80、WAR-LEAD-HAN-XIYU-73-94。",
               "attribution_category": "SHARED_MATERIAL",
               "axis_points": 18.6,
               "ceiling_progress": "NONE",
@@ -1141,7 +1250,15 @@
               "trajectory_value": 31.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "attribution_source_refs": [
+                "HAN-QIANG-77-78",
+                "HAN-LOUZHONG-78-80",
+                "WAR-LEAD-HAN-XIYU-73-94"
+              ],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为4→3，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-0.5档，负向责任仍由独立字段保留。"
             }
           },
           "B80_adjudication": {
@@ -1419,7 +1536,7 @@
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 0.5,
-              "attribution_basis": "消费现行语义标签MIXED_EXTERNAL_ACTOR_REGENCY_AND_RULER_WINDOW",
+              "attribution_basis": "刘肇 A1（主要威胁能力与战略主动）逐人裁决：起点共享刘炟A1S4。89—93年北匈奴首要强权被结构性瓦解，西域主要对手亦被压低；鲜卑继起属于新威胁且未恢复同等支配力，满足5档。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给刘肇；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动+1档中取0.5档。依据链：HAN-XIYU-73-94、HAN-SOUTH-XIONGNU-94-96、HAN-QIANG-92-102、HAN-WUMAN-101-102。",
               "attribution_category": "SHARED_MATERIAL",
               "axis_points": 39.0,
               "ceiling_progress": "NONE",
@@ -1435,7 +1552,7 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 4,
-              "trajectory_value": 65.0,
+              "trajectory_value": 65,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
               "improvement_step_credits": [
@@ -1443,13 +1560,29 @@
                   "from_grade": 4,
                   "to_grade": 5,
                   "credit": 0.5,
-                  "basis": "消费现行语义标签MIXED_EXTERNAL_ACTOR_REGENCY_AND_RULER_WINDOW"
+                  "basis": "刘肇 A1（主要威胁能力与战略主动）逐人裁决：起点共享刘炟A1S4。89—93年北匈奴首要强权被结构性瓦解，西域主要对手亦被压低；鲜卑继起属于新威胁且未恢复同等支配力，满足5档。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给刘肇；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动+1档中取0.5档。依据链：HAN-XIYU-73-94、HAN-SOUTH-XIONGNU-94-96、HAN-QIANG-92-102、HAN-WUMAN-101-102。",
+                  "source_refs": [
+                    "HAN-XIYU-73-94",
+                    "HAN-SOUTH-XIONGNU-94-96",
+                    "HAN-QIANG-92-102",
+                    "HAN-WUMAN-101-102"
+                  ]
                 }
-              ]
+              ],
+              "attribution_source_refs": [
+                "HAN-XIYU-73-94",
+                "HAN-SOUTH-XIONGNU-94-96",
+                "HAN-QIANG-92-102",
+                "HAN-WUMAN-101-102"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为4→5，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为0.5档，伴随专项加减仍由独立字段保留。",
+              "ceiling_progress_basis": "北匈奴瓦解与都护、戊己校尉及西域门户闭合已由各轴跨档信用消费，不按同一成果的子事件再次加点。"
             },
             "A2": {
               "attributable_delta": 1.0,
-              "attribution_basis": "消费现行语义标签MIXED_EXTERNAL_ACTOR_REGENCY_AND_RULER_WINDOW",
+              "attribution_basis": "刘肇 A2（边界、门户、纵深与缓冲体系）逐人裁决：起点共享刘炟A2S3。91年复置都护、戊己校尉并闭合龟兹温宿姑墨，94年进一步处理焉耆等缺口；与北匈奴结构性败亡共同形成全国主要方向相称的边界体系。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给刘肇；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动+2档中取1档。依据链：HAN-XIYU-73-94、HAN-SOUTH-XIONGNU-94-96、HAN-QIANG-92-102、HAN-WUMAN-101-102。",
               "attribution_category": "SHARED_MATERIAL",
               "axis_points": 42.0,
               "ceiling_progress": "NONE",
@@ -1465,7 +1598,7 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 3,
-              "trajectory_value": 70.0,
+              "trajectory_value": 70,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
               "improvement_step_credits": [
@@ -1473,15 +1606,37 @@
                   "from_grade": 3,
                   "to_grade": 4,
                   "credit": 0.5,
-                  "basis": "3→4发生于窦氏摄政并由班超执行，按共同贡献归责。"
+                  "basis": "刘肇 A2（边界、门户、纵深与缓冲体系）逐人裁决：起点共享刘炟A2S3。91年复置都护、戊己校尉并闭合龟兹温宿姑墨，94年进一步处理焉耆等缺口；与北匈奴结构性败亡共同形成全国主要方向相称的边界体系。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给刘肇；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动+2档中取1档。依据链：HAN-XIYU-73-94、HAN-SOUTH-XIONGNU-94-96、HAN-QIANG-92-102、HAN-WUMAN-101-102。",
+                  "source_refs": [
+                    "HAN-XIYU-73-94",
+                    "HAN-SOUTH-XIONGNU-94-96",
+                    "HAN-QIANG-92-102",
+                    "HAN-WUMAN-101-102"
+                  ]
                 },
                 {
                   "from_grade": 4,
                   "to_grade": 5,
                   "credit": 0.5,
-                  "basis": "4→5主要由班超完成终局，本人亲政窗口的维持与交班只取共同贡献。"
+                  "basis": "刘肇 A2（边界、门户、纵深与缓冲体系）逐人裁决：起点共享刘炟A2S3。91年复置都护、戊己校尉并闭合龟兹温宿姑墨，94年进一步处理焉耆等缺口；与北匈奴结构性败亡共同形成全国主要方向相称的边界体系。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给刘肇；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动+2档中取1档。依据链：HAN-XIYU-73-94、HAN-SOUTH-XIONGNU-94-96、HAN-QIANG-92-102、HAN-WUMAN-101-102。",
+                  "source_refs": [
+                    "HAN-XIYU-73-94",
+                    "HAN-SOUTH-XIONGNU-94-96",
+                    "HAN-QIANG-92-102",
+                    "HAN-WUMAN-101-102"
+                  ]
                 }
-              ]
+              ],
+              "attribution_source_refs": [
+                "HAN-XIYU-73-94",
+                "HAN-SOUTH-XIONGNU-94-96",
+                "HAN-QIANG-92-102",
+                "HAN-WUMAN-101-102"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为3→5，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。",
+              "ceiling_progress_basis": "北匈奴瓦解与都护、戊己校尉及西域门户闭合已由各轴跨档信用消费，不按同一成果的子事件再次加点。"
             }
           },
           "B80_adjudication": {
@@ -1789,7 +1944,7 @@
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": -2.0,
-              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION_WITH_SELF_INDUCED_CRISIS",
+              "attribution_basis": "邓绥 A1（主要威胁能力与战略主动）逐人裁决：106年起点承接和帝末A1S5。撤西域外溢诱发十年羌乱，鲜卑、南匈奴与东北边患并发；羌乱至118年恢复、东北开始改善，但121年鲜卑仍有国家级持续进攻能力，交班为3档。 邓绥任内的主动战略选择或处置失当直接放大本轴风险，结果并非单由不可控外力造成；故客观变动-2档按-2档归责。依据链：HAN-XIYU-106-107-DENGSUI-WINDOW、HAN-XIYU-119-121-DENGSUI-WINDOW、HAN-GAOGULI-109-121-DENGSUI-WINDOW、HAN-XIANBEI-117-121-DENGSUI-WINDOW等5条父链。",
               "attribution_category": "SELF_INDUCED",
               "axis_points": 9.6,
               "ceiling_progress": "NONE",
@@ -1805,14 +1960,24 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 5,
-              "trajectory_value": 16.0,
+              "trajectory_value": 16,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "attribution_source_refs": [
+                "HAN-XIYU-106-107-DENGSUI-WINDOW",
+                "HAN-XIYU-119-121-DENGSUI-WINDOW",
+                "HAN-GAOGULI-109-121-DENGSUI-WINDOW",
+                "HAN-XIANBEI-117-121-DENGSUI-WINDOW",
+                "HAN-QIANG-107-121-DENGSUI-WINDOW"
+              ],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为5→3，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-2档，负向责任仍由独立字段保留。"
             },
             "A2": {
               "attributable_delta": -2.0,
-              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION_WITH_SELF_INDUCED_CRISIS",
+              "attribution_basis": "邓绥 A2（边界、门户、纵深与缓冲体系）逐人裁决：起点承接和帝末A2S5；106—107年都护、屯兵和主要西域节点全撤，凉州三辅又长期失控。至121年羌乱虽恢复，但班勇尚未出屯、西域体系未复，只有主要方向防线可运作，终点3档。 邓绥任内的主动战略选择或处置失当直接放大本轴风险，结果并非单由不可控外力造成；故客观变动-2档按-2档归责。依据链：HAN-XIYU-106-107-DENGSUI-WINDOW、HAN-XIYU-119-121-DENGSUI-WINDOW、HAN-GAOGULI-109-121-DENGSUI-WINDOW、HAN-XIANBEI-117-121-DENGSUI-WINDOW等5条父链。",
               "attribution_category": "SELF_INDUCED",
               "axis_points": 9.6,
               "ceiling_progress": "NONE",
@@ -1828,10 +1993,20 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 5,
-              "trajectory_value": 16.0,
+              "trajectory_value": 16,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "attribution_source_refs": [
+                "HAN-XIYU-106-107-DENGSUI-WINDOW",
+                "HAN-XIYU-119-121-DENGSUI-WINDOW",
+                "HAN-GAOGULI-109-121-DENGSUI-WINDOW",
+                "HAN-XIANBEI-117-121-DENGSUI-WINDOW",
+                "HAN-QIANG-107-121-DENGSUI-WINDOW"
+              ],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为5→3，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-2档，负向责任仍由独立字段保留。"
             }
           },
           "B80_adjudication": {
@@ -2137,9 +2312,9 @@
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 3,
-              "maintenance_basis": "非4→4或5→5",
+              "maintenance_basis": "低位同档可进入抗压保全门，但当前没有闭合O4以上现实压力、非自致压力、具名保全对象和本人主要保全归责的完整记录，故难度为NONE且不加分。",
               "maintenance_bonus": 0,
-              "maintenance_difficulty": "NOT_APPLICABLE",
+              "maintenance_difficulty": "NONE",
               "negative_adjustment": 0,
               "objective_delta": 0,
               "reversal_basis": "无重大逆转登记",
@@ -2150,11 +2325,18 @@
               "trajectory_value": 36.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "LOW_POSITION_STABLE_HANDOVER",
+              "settlement_type_label": "低位平稳交付型",
+              "settlement_type_basis": "客观起终档同为3档。鲜卑多轮入寇虽形成现实压力，但东北恢复与西域复通已经由A2的3→4跨档改善消费；现无另一条独立A1保全链可在不跨轴重复的前提下闭合，故归为低位平稳交付型。",
+              "positive_credit_review": {
+                "decision": "NO_NET_STRUCTURAL_GAIN",
+                "basis": "车师复通没有消除鲜卑等主要威胁持续活动能力；局部通路恢复不足以代替全国主要威胁结构改善。"
+              }
             },
             "A2": {
               "attributable_delta": 1.0,
-              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_basis": "刘祜 A2（边界、门户、纵深与缓冲体系）逐人裁决：起点西域全撤但内线尚存。123—124年班勇出柳中并复通车师前道，东北亦形成持续改善；鲜卑北边仍是显著缺口，终点为4档。 刘祜是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：HAN-GAOGULI-121-122-LIUHU-PERSONAL-WINDOW、HAN-XIANBEI-121-124-LIUHU-PERSONAL-WINDOW、HAN-XIYU-121-124-LIUHU-PERSONAL-WINDOW、HAN-QIANG-121-122-LIUHU-PERSONAL-WINDOW。",
               "attribution_category": "PRIMARY_RULER",
               "axis_points": 34.8,
               "ceiling_progress": "NONE",
@@ -2178,9 +2360,24 @@
                   "from_grade": 3,
                   "to_grade": 4,
                   "credit": 1.0,
-                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                  "basis": "刘祜 A2（边界、门户、纵深与缓冲体系）逐人裁决：起点西域全撤但内线尚存。123—124年班勇出柳中并复通车师前道，东北亦形成持续改善；鲜卑北边仍是显著缺口，终点为4档。 刘祜是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：HAN-GAOGULI-121-122-LIUHU-PERSONAL-WINDOW、HAN-XIANBEI-121-124-LIUHU-PERSONAL-WINDOW、HAN-XIYU-121-124-LIUHU-PERSONAL-WINDOW、HAN-QIANG-121-122-LIUHU-PERSONAL-WINDOW。",
+                  "source_refs": [
+                    "HAN-GAOGULI-121-122-LIUHU-PERSONAL-WINDOW",
+                    "HAN-XIANBEI-121-124-LIUHU-PERSONAL-WINDOW",
+                    "HAN-XIYU-121-124-LIUHU-PERSONAL-WINDOW",
+                    "HAN-QIANG-121-122-LIUHU-PERSONAL-WINDOW"
+                  ]
                 }
-              ]
+              ],
+              "attribution_source_refs": [
+                "HAN-GAOGULI-121-122-LIUHU-PERSONAL-WINDOW",
+                "HAN-XIANBEI-121-124-LIUHU-PERSONAL-WINDOW",
+                "HAN-XIYU-121-124-LIUHU-PERSONAL-WINDOW",
+                "HAN-QIANG-121-122-LIUHU-PERSONAL-WINDOW"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为3→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。"
             }
           },
           "B80_adjudication": {
@@ -2486,9 +2683,9 @@
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 3,
-              "maintenance_basis": "非4→4或5→5",
+              "maintenance_basis": "低位同档可进入抗压保全门，但当前没有闭合O4以上现实压力、非自致压力、具名保全对象和本人主要保全归责的完整记录，故难度为NONE且不加分。",
               "maintenance_bonus": 0,
-              "maintenance_difficulty": "NOT_APPLICABLE",
+              "maintenance_difficulty": "NONE",
               "negative_adjustment": 10,
               "objective_delta": 0,
               "reversal_basis": "起终档未表达的EN2/EN3档内恶化",
@@ -2499,11 +2696,18 @@
               "trajectory_value": 26.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "WITHIN_BAND_MAJOR_REVERSAL",
+              "settlement_type_label": "档内重大逆转型",
+              "settlement_type_basis": "客观起终档同为3档，重大逆转扣减10轨迹点且优先于普通同档交付，故归为档内重大逆转型；起终档未表达的EN2/EN3档内恶化",
+              "positive_credit_review": {
+                "decision": "NO_NET_STRUCTURAL_GAIN",
+                "basis": "西域改善与羌、南匈奴、东南危机并存，未证主要威胁结构整体下降，既有档内恶化仍成立。"
+              }
             },
             "A2": {
               "attributable_delta": -1.0,
-              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION_WITH_SELF_INDUCED_CRISIS",
+              "attribution_basis": "刘保 A2（边界、门户、纵深与缓冲体系）逐人裁决：起点承接刘祜A2S4。西域方向闭合并延续，但交班时陇右羌乱尚未终结，南庭叛乱刚恢复且东南战争仍开放，整体退为一个主要方向有效、其余显著有缺的3档。 刘保任内的主动战略选择或处置失当直接放大本轴风险，结果并非单由不可控外力造成；故客观变动-1档按-1档归责。依据链：WAR-LEAD-HAN-JIAOZHI-136-138、HAN-SOUTH-XIONGNU-140-144、HAN-QIANG-140-145、HAN-XIYU-119-127。",
               "attribution_category": "SELF_INDUCED",
               "axis_points": 15.6,
               "ceiling_progress": "NONE",
@@ -2522,7 +2726,16 @@
               "trajectory_value": 26.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "attribution_source_refs": [
+                "WAR-LEAD-HAN-JIAOZHI-136-138",
+                "HAN-SOUTH-XIONGNU-140-144",
+                "HAN-QIANG-140-145",
+                "HAN-XIYU-119-127"
+              ],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为4→3，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-1档，负向责任仍由独立字段保留。"
             }
           },
           "B80_adjudication": {
@@ -2799,7 +3012,7 @@
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 0.75,
-              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION_COMPLETING_INHERITED_WARS",
+              "attribution_basis": "梁妠 A1（主要威胁能力与战略主动）逐人裁决：起点承接刘保交班A1S3；145年在明确授权、数万兵与赏募后东南悉平，148年白马羌亦被击退；交班时未见足以维持国家级危机能力的主威胁，升至4档，但北方风险仍在。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给梁妠；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动+1档中取0.75档。依据链：HAN-YANGXU-132-145。",
               "attribution_category": "SHARED_MATERIAL",
               "axis_points": 33.3,
               "ceiling_progress": "NONE",
@@ -2823,13 +3036,22 @@
                   "from_grade": 3,
                   "to_grade": 4,
                   "credit": 0.75,
-                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION_COMPLETING_INHERITED_WARS"
+                  "basis": "梁妠 A1（主要威胁能力与战略主动）逐人裁决：起点承接刘保交班A1S3；145年在明确授权、数万兵与赏募后东南悉平，148年白马羌亦被击退；交班时未见足以维持国家级危机能力的主威胁，升至4档，但北方风险仍在。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给梁妠；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动+1档中取0.75档。依据链：HAN-YANGXU-132-145。",
+                  "source_refs": [
+                    "HAN-YANGXU-132-145"
+                  ]
                 }
-              ]
+              ],
+              "attribution_source_refs": [
+                "HAN-YANGXU-132-145"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为3→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为0.75档，伴随专项加减仍由独立字段保留。"
             },
             "A2": {
               "attributable_delta": 0.75,
-              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION_COMPLETING_INHERITED_WARS",
+              "attribution_basis": "梁妠 A2（边界、门户、纵深与缓冲体系）逐人裁决：起点承接刘保A2S3。145年东南悉平，白马方向又有止损；既有西域和边郡体系可继续运行，仅存明显次级缺口，交班为4档。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给梁妠；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动+1档中取0.75档。依据链：HAN-YANGXU-132-145。",
               "attribution_category": "SHARED_MATERIAL",
               "axis_points": 33.3,
               "ceiling_progress": "NONE",
@@ -2853,9 +3075,18 @@
                   "from_grade": 3,
                   "to_grade": 4,
                   "credit": 0.75,
-                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION_COMPLETING_INHERITED_WARS"
+                  "basis": "梁妠 A2（边界、门户、纵深与缓冲体系）逐人裁决：起点承接刘保A2S3。145年东南悉平，白马方向又有止损；既有西域和边郡体系可继续运行，仅存明显次级缺口，交班为4档。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给梁妠；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动+1档中取0.75档。依据链：HAN-YANGXU-132-145。",
+                  "source_refs": [
+                    "HAN-YANGXU-132-145"
+                  ]
                 }
-              ]
+              ],
+              "attribution_source_refs": [
+                "HAN-YANGXU-132-145"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为3→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为0.75档，伴随专项加减仍由独立字段保留。"
             }
           },
           "B80_adjudication": {
@@ -3163,7 +3394,7 @@
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": -1.0,
-              "attribution_basis": "消费现行语义标签MIXED_WITH_INADEQUATE_RESPONSE",
+              "attribution_basis": "刘志 A1（主要威胁能力与战略主动）逐人裁决：亲政起点人工承接梁妠交班A1S4。羌与南方多次恢复不能抵消檀石槐统一鲜卑、据匈奴故地、166年多族入塞九郡且拒绝和亲后寇抄滋甚；国家在主要北方方向明显被动，终点降至2档。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给刘志；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动-2档中取-1档。依据链：HAN-QINGYANXU-154-156、HAN-NORTH-158-159、HAN-TAISHAN-159-160、HAN-SOUTH-157-165等6条父链。",
               "attribution_category": "SHARED_MATERIAL",
               "axis_points": 8.4,
               "ceiling_progress": "NONE",
@@ -3179,14 +3410,25 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 4,
-              "trajectory_value": 14.0,
+              "trajectory_value": 14,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "attribution_source_refs": [
+                "HAN-QINGYANXU-154-156",
+                "HAN-NORTH-158-159",
+                "HAN-TAISHAN-159-160",
+                "HAN-SOUTH-157-165",
+                "HAN-QIANG-159-169",
+                "HAN-XIANBEI-TANSHIHUAI-156-181"
+              ],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为4→2，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-1档，负向责任仍由独立字段保留。"
             },
             "A2": {
               "attributable_delta": -0.5,
-              "attribution_basis": "消费现行语义标签MIXED_WITH_INADEQUATE_RESPONSE",
+              "attribution_basis": "刘志 A2（边界、门户、纵深与缓冲体系）逐人裁决：西羌和南方防线经重兵恢复，西域屯田仍运作；但鲜卑可多道侵入九郡、封王和亲被拒后仍无结构性解决，北方形成显著主缺口，交班为3档。减少主动出击不改变被持续侵压的客观状态。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给刘志；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动-1档中取-0.5档。依据链：HAN-QINGYANXU-154-156、HAN-NORTH-158-159、HAN-TAISHAN-159-160、HAN-SOUTH-157-165等6条父链。",
               "attribution_category": "SHARED_MATERIAL",
               "axis_points": 18.6,
               "ceiling_progress": "NONE",
@@ -3202,10 +3444,21 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 4,
-              "trajectory_value": 31.0,
+              "trajectory_value": 31,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "attribution_source_refs": [
+                "HAN-QINGYANXU-154-156",
+                "HAN-NORTH-158-159",
+                "HAN-TAISHAN-159-160",
+                "HAN-SOUTH-157-165",
+                "HAN-QIANG-159-169",
+                "HAN-XIANBEI-TANSHIHUAI-156-181"
+              ],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为4→3，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-0.5档，负向责任仍由独立字段保留。"
             }
           },
           "B80_adjudication": {
@@ -3512,7 +3765,7 @@
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": -0.75,
-              "attribution_basis": "消费现行语义标签MIXED_WITH_SELF_INDUCED_AND_INADEQUATE_RESPONSE",
+              "attribution_basis": "刘宏 A1（主要威胁能力与战略主动）逐人裁决：起点共享刘志A1S2。177年拒绝守塞意见、三路深入导致死什七八后鲜卑继续入寇；黄巾虽平，但凉州、河北百万级武装与幽州叛乱长期化，交班时多个主要威胁仍具国家级危机能力，降至1档。 刘宏任内的主动战略选择或处置失当直接放大本轴风险，结果并非单由不可控外力造成；故客观变动-1档按-0.75档归责。依据链：HAN-QIANG-159-169、HAN-XUSHENG-172-174、WAR-LEAD-HAN-JIAOZHI-178-181、HAN-XIANBEI-TANSHIHUAI-156-181等11条父链。",
               "attribution_category": "SELF_INDUCED",
               "axis_points": 2.7,
               "ceiling_progress": "NONE",
@@ -3531,11 +3784,27 @@
               "trajectory_value": 4.5,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "attribution_source_refs": [
+                "HAN-QIANG-159-169",
+                "HAN-XUSHENG-172-174",
+                "WAR-LEAD-HAN-JIAOZHI-178-181",
+                "HAN-XIANBEI-TANSHIHUAI-156-181",
+                "HAN-YELLOW-TURBAN-184",
+                "HAN-BAIBO-XIONGNU-188-195",
+                "HAN-YIZHOU-MAXIANG-188",
+                "WAR-LEAD-HAN-ZHANGCHUN-WUHUAN-187-189",
+                "HAN-LIANGZHOU-CHENCANG-188-189",
+                "HAN-HEISHAN-185-205",
+                "HAN-LIANGZHOU-184-192"
+              ],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为2→1，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-0.75档，负向责任仍由独立字段保留。"
             },
             "A2": {
               "attributable_delta": -0.75,
-              "attribution_basis": "消费现行语义标签MIXED_WITH_SELF_INDUCED_AND_INADEQUATE_RESPONSE",
+              "attribution_basis": "刘宏 A2（边界、门户、纵深与缓冲体系）逐人裁决：起点共享刘志A2S3。北边、凉州、河北和交趾多方向反复失控，朝廷仍能依靠局部郡兵与将领恢复部分节点，但彼此孤立且主要缺口长期开放，交班为2档。被动防御或不接战不构成边界改善。 刘宏任内的主动战略选择或处置失当直接放大本轴风险，结果并非单由不可控外力造成；故客观变动-1档按-0.75档归责。依据链：HAN-QIANG-159-169、HAN-XUSHENG-172-174、WAR-LEAD-HAN-JIAOZHI-178-181、HAN-XIANBEI-TANSHIHUAI-156-181等11条父链。",
               "attribution_category": "SELF_INDUCED",
               "axis_points": 9.9,
               "ceiling_progress": "NONE",
@@ -3554,7 +3823,23 @@
               "trajectory_value": 16.5,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "attribution_source_refs": [
+                "HAN-QIANG-159-169",
+                "HAN-XUSHENG-172-174",
+                "WAR-LEAD-HAN-JIAOZHI-178-181",
+                "HAN-XIANBEI-TANSHIHUAI-156-181",
+                "HAN-YELLOW-TURBAN-184",
+                "HAN-BAIBO-XIONGNU-188-195",
+                "HAN-YIZHOU-MAXIANG-188",
+                "WAR-LEAD-HAN-ZHANGCHUN-WUHUAN-187-189",
+                "HAN-LIANGZHOU-CHENCANG-188-189",
+                "HAN-HEISHAN-185-205",
+                "HAN-LIANGZHOU-184-192"
+              ],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为3→2，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-0.75档，负向责任仍由独立字段保留。"
             }
           },
           "B80_adjudication": {

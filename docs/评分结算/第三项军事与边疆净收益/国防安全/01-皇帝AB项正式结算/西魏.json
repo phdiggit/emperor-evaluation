@@ -30,7 +30,7 @@
               "transition": "IMPROVED",
               "transition_attribution": "FIRST_ITEM_CONSUMED_OBJECTIVE_CONTEXT_ONLY",
               "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
-              "reason": "西魏—北周创业竞争链含东魏/北齐、553年取蜀及554年江陵，第一项已消费结果与成本。本轴仅保留主要威胁与战略主动状态的客观锚点，同链改善与恶化不再归责计分。"
+              "reason": "西魏—北周创业竞争链含东魏/北齐、553年取蜀及554年江陵，第一项已消费结果与成本。 就主要威胁能力单独判断：上述阶段结束时，对手是否还能制造国家级危机以及本方是否保持战略主动，决定宇文泰从1档交班为4档；边界节点数量本身不替代这一威胁判断。"
             },
             "A2": {
               "axis_points": 19.2,
@@ -45,7 +45,7 @@
               "transition": "IMPROVED",
               "transition_attribution": "FIRST_ITEM_CONSUMED_OBJECTIVE_CONTEXT_ONLY",
               "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
-              "reason": "西魏—北周创业竞争链含东魏/北齐、553年取蜀及554年江陵，第一项已消费结果与成本。本轴仅保留边界、门户与纵深体系状态的客观锚点，同链改善与恶化不再归责计分。"
+              "reason": "西魏—北周创业竞争链含东魏/北齐、553年取蜀及554年江陵，第一项已消费结果与成本。 就安全边界单独判断：上述阶段结束时，门户、军镇、交通纵深和缓冲区能否相互支援，决定宇文泰从1档交班为4档；对手一时败退本身不替代这一体系判断。"
             },
             "B1": {
               "axis_points": 0.0,
@@ -284,7 +284,10 @@
                   "credit": 0.0,
                   "basis": "西魏—北周创业竞争链含东魏/北齐、553年取蜀及554年江陵，第一项已消费结果与成本。"
                 }
-              ]
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为1→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为0档，伴随专项加减仍由独立字段保留。"
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -326,7 +329,10 @@
                   "credit": 0.0,
                   "basis": "西魏—北周创业竞争链含东魏/北齐、553年取蜀及554年江陵，第一项已消费结果与成本。"
                 }
-              ]
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为1→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为0档，伴随专项加减仍由独立字段保留。"
             }
           },
           "B80_adjudication": {
@@ -345,7 +351,8 @@
             "source": "config/third-item/third-item-result-credit-adjudications.json#RULER-SHADOW-宇文泰",
             "final_B1_rate": 0.0
           },
-          "b1_cross_item_excluded_weighted_value": 1.12
+          "b1_cross_item_excluded_weighted_value": 1.12,
+          "A_axis_common_context": "西魏—北周创业竞争链含东魏/北齐、553年取蜀及554年江陵，第一项已消费结果与成本。"
         }
       ]
     }

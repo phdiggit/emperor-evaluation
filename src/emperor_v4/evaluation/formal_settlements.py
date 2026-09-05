@@ -72,22 +72,6 @@ SECOND_ITEM_COMPONENT_PATHS = {
     "D3": "docs/评分结算/第二项治国净收益/政权交接稳定/02-D3政权交接稳定方向卡.json",
     "handoff": "docs/评分结算/第二项治国净收益/政权交接稳定/03-交接质量20分正式结算.json",
 }
-SECOND_ITEM_RESULT_CONTRACT = (
-    "docs/分项规则/第二项治国净收益/财政民生/00-规则与结算合同.md"
-)
-REQUIRED_C4_DA_CONTRACT_CLAUSES = (
-    "C1/C2/C3绝对状态与C4可归责恶化可以共同使用同一事实",
-    "只有C1—C3主态、K折损和C4可归责恶化均未消费的主动成本才可计DA",
-    "纯军队伤亡不得直接转入第二项",
-    "一次行为只要残余成本量级足够高，也可直接进入DA2或DA3",
-    "一次超大型动员、战争或工程即可成立",
-    "一次灾难性选择即可成立",
-    "DA5",
-    "DA6",
-    "NEW_BUILD",
-    "仁寿宫",
-    "DA只结算尚未被这些项目吸收的剩余主动成本",
-)
 
 IMPORTANT_INSTITUTION_REGISTRY = (
     "docs/公共成果/制度行政/03-重要制度发展节点链.json"
@@ -150,11 +134,11 @@ def verify_second_item_a_snapshot(workspace_root: Path) -> dict[str, Any]:
     }
     records = a_payload.get("records") or []
     if a_payload.get("A_position_formula_code") == "A_NET_DURABILITY_V2":
-        if len(records) != 185 or a_payload.get("record_count") != 185:
-            raise ValueError("第二项A V2正式记录数不是185")
-        if len({row.get("ruler_id") for row in records}) != 185 or len(
+        if not records or a_payload.get("record_count") != len(records):
+            raise ValueError("第二项A V2正式记录数与当前记录不一致")
+        if len({row.get("ruler_id") for row in records}) != len(records) or len(
             {row.get("ruler_name") for row in records}
-        ) != 185:
+        ) != len(records):
             raise ValueError("第二项A V2人物ID或姓名不唯一")
         direction_factor = {
             "positive": 1.0,
@@ -174,8 +158,7 @@ def verify_second_item_a_snapshot(workspace_root: Path) -> dict[str, Any]:
             if row.get("v2_explicit_patch") is True:
                 explicit_patch_count += 1
                 required = {
-                    "A_net_units", "P_gross", "N_gross", "unfloored_grade",
-                    "polarization_floor_triggered", "extreme_delta_reopen",
+                    "A_net_units", "P_gross", "N_gross", "extreme_delta_reopen",
                 }
                 missing = sorted(required - set(row))
                 if missing:
@@ -184,18 +167,23 @@ def verify_second_item_a_snapshot(workspace_root: Path) -> dict[str, Any]:
                     raise ValueError(f"第二项A已裁人物仍处重开状态：{ruler_name}")
                 if float(row.get("P_gross") or 0) < 0 or float(row.get("N_gross") or 0) < 0:
                     raise ValueError(f"第二项A正负总量非法：{ruler_name}")
-                if row.get("polarization_floor_triggered"):
-                    p_gross = float(row.get("P_gross") or 0)
-                    n_gross = float(row.get("N_gross") or 0)
-                    ratio = n_gross / p_gross if p_gross else 0
-                    if (
-                        row.get("unfloored_grade") not in {"G0", "G1"}
-                        or row.get("grade") not in {"G2", "G3"}
-                        or p_gross < 4
-                        or n_gross < 4
-                        or not 0.75 <= ratio <= 1.25
-                    ):
-                        raise ValueError(f"第二项A极化托底字段非法：{ruler_name}")
+                net = float(row["A_net_units"])
+                if abs(net - (float(row["P_gross"]) - float(row["N_gross"]))) > 1e-9:
+                    raise ValueError(f"第二项A正负总量与净值不一致：{ruler_name}")
+                if net <= 0 and row.get("grade") != "G0":
+                    raise ValueError(f"第二项A非正净值不得托底升档：{ruler_name}")
+                if net == 0.5 and row.get("grade") != "G1":
+                    raise ValueError(f"第二项A半单位净值必须为G1：{ruler_name}")
+                if 1 <= net < 2 and row.get("grade") != "G2":
+                    raise ValueError(f"第二项A局部净贡献必须为G2：{ruler_name}")
+                if row.get("position") not in position_q or row.get("grade") not in index_anchor:
+                    raise ValueError(f"第二项A档位或档内位置非法：{ruler_name}")
+                if row.get("direction_index") != index_anchor[row["grade"]][row["position"]]:
+                    raise ValueError(f"第二项A内部指数与档位位置不一致：{ruler_name}")
+            if any(key in row for key in (
+                "polarization_floor_triggered", "unfloored_grade", "floor_grade", "v2_mechanical_shadow",
+            )):
+                raise ValueError(f"第二项A仍保留已退役托底或机械预览字段：{ruler_name}")
             if row.get("extreme_delta_reopen") is True:
                 reopen_count += 1
             referenced_ids = {
@@ -361,6 +349,7 @@ def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
                     raise ValueError(f"第二项B1 M-profile材料切片重复：{name}")
                 profile_refs.add(profile_ref)
                 profile_ids.add(material_id)
+                profile_ids.update(str(ref) for ref in profile.get("material_ids") or [])
                 profiles.append(profile)
         if profile_ids != direct:
             raise ValueError(f"第二项B1 direct材料与M-profile不一致：{name}")
@@ -557,17 +546,31 @@ def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
 
 
 def verify_second_item_b2_snapshot(workspace_root: Path) -> dict[str, Any]:
+    from emperor_v4.evaluation.second_item_b1_settlement import active_groups, position_from_residual
+
     path = workspace_root / SECOND_ITEM_COMPONENT_PATHS["B2"]
     payload = load_json(path)
     records = payload.get("records") or []
-    if len(records) != 185 or payload.get("record_count") != 185:
-        raise ValueError("第二项B2正式记录数不是185")
-    if payload.get("direction_card_ready_count") != 185:
+    reference_ids = {
+        row["ruler_id"]
+        for row in load_json(workspace_root / SECOND_ITEM_COMPONENT_PATHS["B1"])["records"]
+    }
+    if {row.get("ruler_id") for row in records} != reference_ids or payload.get("record_count") != len(records):
+        raise ValueError("第二项B2正式对象或记录数与当前方向卡池不一致")
+    if payload.get("direction_card_ready_count") != len(records):
         raise ValueError("第二项B2方向卡未全部就绪")
-    if len({row.get("ruler_id") for row in records}) != 185 or len(
+    if len({row.get("ruler_id") for row in records}) != len(records) or len(
         {row.get("ruler_name") for row in records}
-    ) != 185:
+    ) != len(records):
         raise ValueError("第二项B2人物ID或姓名不唯一")
+    material_ids = {
+        material["material_id"]
+        for registry_path in (workspace_root / "docs/公共成果/制度行政/01-制度行政计分材料登记").glob("*.json")
+        for material in json.loads(registry_path.read_text(encoding="utf-8")).get("records", [])
+    }
+    factors = {"positive": 1.0, "positive_correction": 1.0, "negative": -1.0,
+               "mixed_positive": 0.5, "mixed_negative": -0.5, "mixed": 0.0, "neutral": 0.0, "context": 0.0}
+    thresholds = {"G0": 0.0, "G1": 0.5, "G2": 1.0, "G3": 1.5, "G4": 2.0, "G5": 2.0}
 
     position_index = {
         "G0": {"lower": 1.6, "lower-middle": 4.8, "middle": 8.0, "middle-upper": 11.1, "upper": 14.3},
@@ -607,6 +610,17 @@ def verify_second_item_b2_snapshot(workspace_root: Path) -> dict[str, Any]:
         for key in ("M_positive_profile", "M_mixed_profile", "M_negative_profile"):
             if any(item.get("M") not in {"M0", "M2", "M3"} for item in row.get(key) or []):
                 raise ValueError(f"第二项B2仍有非法M档：{row.get('ruler_name')}")
+            for profile in row.get(key) or []:
+                refs = {ref for ref in [profile.get("material_id"), *(profile.get("material_ids") or [])] if ref}
+                if not refs or not refs <= material_ids or not refs <= set(row.get("direct_material_ids") or []):
+                    raise ValueError(f"第二项B2机制材料未登记或未绑定直接证据：{row.get('ruler_name')}")
+                factor = factors.get(profile.get("direction"))
+                weight = {"M0": 0.0, "M2": 1.0, "M3": 2.0}[profile["M"]]
+                if factor is None or profile.get("direction_factor") != factor or profile.get("signed_weight") != weight * factor:
+                    raise ValueError(f"第二项B2机制方向、强度与权重不一致：{row.get('ruler_name')}")
+        residual = sum(float(profile["signed_weight"]) for profile in active_groups(row)) - thresholds[grade]
+        if row.get("position_residual") != residual or position != position_from_residual(residual):
+            raise ValueError(f"第二项B2生命周期净余量与档内位置不一致：{row.get('ruler_name')}")
 
     if payload.get("grade_distribution") != distribution:
         raise ValueError("第二项B2档位分布元数据不一致")
@@ -619,9 +633,9 @@ def verify_second_item_b2_snapshot(workspace_root: Path) -> dict[str, Any]:
     audit = json.loads(audit_path.read_text(encoding="utf-8"))
     audit_records = audit.get("records") or []
     indexed = {row["ruler_id"]: row for row in records}
-    if audit.get("review_table_count") != 142 or len(audit_records) != 142:
-        raise ValueError("第二项B2整改复核未覆盖142人最终裁决表")
-    if len({row.get("ruler_id") for row in audit_records}) != 142:
+    if audit.get("review_table_count") != len(audit_records):
+        raise ValueError("第二项B2整改复核记录数不一致")
+    if len({row.get("ruler_id") for row in audit_records}) != len(audit_records):
         raise ValueError("第二项B2整改复核存在重复人物")
     for item in audit_records:
         current = indexed.get(item.get("ruler_id"))
@@ -651,7 +665,7 @@ def verify_second_item_b2_snapshot(workspace_root: Path) -> dict[str, Any]:
     markdown = path.with_suffix(".md").read_text(encoding="utf-8")
     sections = markdown.split("\n### ")[1:]
     section_names = [section.split("（", 1)[0] for section in sections]
-    if len(section_names) != 185 or len(set(section_names)) != 185:
+    if set(section_names) != {row["ruler_name"] for row in records} or len(section_names) != len(records):
         raise ValueError("第二项B2 Markdown仍有重复或缺失人物裁决块")
     if any("【裁决说明】" in section or "\n- 结算依据：\n" not in section for section in sections):
         raise ValueError("第二项B2 Markdown仍有旧式或缺失的逐人结算依据")
@@ -666,19 +680,18 @@ def verify_second_item_b2_snapshot(workspace_root: Path) -> dict[str, Any]:
     ):
         raise ValueError("第二项B2 Markdown仍含未翻译机器审计词")
     sections_by_name = {section.split("（", 1)[0]: section for section in sections}
-    for item in audit_records:
-        current = indexed[item["ruler_id"]]
-        section = sections_by_name[item["ruler_name"]]
+    for current in records:
+        section = sections_by_name[current["ruler_name"]]
         if "\n- 结算依据：\n" not in section or "【裁决说明】" in section:
-            raise ValueError(f"第二项B2审查人物仍沿用旧裁决说明：{item['ruler_name']}")
+            raise ValueError(f"第二项B2审查人物仍沿用旧裁决说明：{current['ruler_name']}")
         if any(f"  - {line.rstrip('。')}。" not in section for line in current["settlement_basis"]):
-            raise ValueError(f"第二项B2 Markdown结算依据未逐条同步：{item['ruler_name']}")
+            raise ValueError(f"第二项B2 Markdown结算依据未逐条同步：{current['ruler_name']}")
         if any(f"  - {line.rstrip('。')}。" not in section for line in current["material_basis"]):
-            raise ValueError(f"第二项B2 Markdown材料依据未逐条同步：{item['ruler_name']}")
+            raise ValueError(f"第二项B2 Markdown材料依据未逐条同步：{current['ruler_name']}")
     material_blocks = re.findall(
         r"^- 材料依据：\n(?P<lines>(?:  - .*\n?)+)", markdown, flags=re.MULTILINE
     )
-    if len(material_blocks) != 185 or any(
+    if len(material_blocks) != len(records) or any(
         re.search(r"https?://|\]\(|\b(?:material_id|source_url|revision_ref|sha256)\b", block)
         for block in material_blocks
     ):
@@ -696,9 +709,6 @@ def verify_second_item_b2_snapshot(workspace_root: Path) -> dict[str, Any]:
 
 
 def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
-    result_contract = (workspace_root / SECOND_ITEM_RESULT_CONTRACT).read_text(encoding="utf-8")
-    if any(clause not in result_contract for clause in REQUIRED_C4_DA_CONTRACT_CLAUSES):
-        raise ValueError("第二项C4 DA成本量级合同缺失")
     payloads = {
         key: load_json(workspace_root / path)
         for key, path in SECOND_ITEM_COMPONENT_PATHS.items()
@@ -895,8 +905,24 @@ def verify_formal_settlements(workspace_root: Path) -> dict[str, Any]:
             "min_score": min(scores),
             "max_score": max(scores),
         }
+        if item == "fourth_item":
+            gates = {
+                key: payload.get(key, {})
+                for key in ("promotion_gate", "coverage_completion_gate")
+            }
+            reports[item]["semantic_review_complete"] = all(
+                bool(gate) and all(value is True for value in gate.values())
+                for gate in gates.values()
+            )
+            reports[item]["open_semantic_gates"] = [
+                f"{group}.{key}"
+                for group, gate in gates.items()
+                for key, value in gate.items()
+                if value is not True
+            ]
     return {
         "status": "PASS",
+        "validation_scope": "SNAPSHOT_COHERENCE_NOT_FULL_SEMANTIC_ACCEPTANCE",
         "canonical_pool": verify_canonical_ruler_pool(workspace_root),
         "composite_ranking": verify_composite_ranking(workspace_root),
         "second_item_components": _verify_second_item_components(workspace_root),

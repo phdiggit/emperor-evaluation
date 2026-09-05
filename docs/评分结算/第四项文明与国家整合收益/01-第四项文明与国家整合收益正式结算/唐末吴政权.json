@@ -4,26 +4,28 @@
   "collections": {
     "records": {
       "positions": [
-        149
+        183
       ],
       "records": [
         {
-          "rank": 115,
+          "rank": 179,
           "ruler_id": "RULER-SHADOW-杨行密",
           "ruler_name": "杨行密",
           "polity": "吴",
           "source_group": "唐末吴政权",
           "status": "FORMAL_ZERO_ADJUSTMENT",
-          "triggered_axis_count": 0,
+          "triggered_axis_count": 1,
           "axis_results": [
             {
               "axis": "A",
-              "disposition": "NO_ELIGIBLE_CIVILIZATION_INCREMENT",
-              "direction": null,
-              "magnitude_grade": null,
-              "band": null,
-              "signed_adjustment": 0,
-              "package_refs": []
+              "disposition": "SIGNED_CIVILIZATION_ADJUSTMENT_READY",
+              "direction": "NEGATIVE",
+              "magnitude_grade": "CIV2",
+              "band": "MID",
+              "signed_adjustment": -9.5,
+              "package_refs": [
+                "I4PKG-RULER-SHADOW-杨行密-A-01"
+              ]
             },
             {
               "axis": "B",
@@ -44,8 +46,54 @@
               "package_refs": []
             }
           ],
-          "fourth_item_signed_adjustment": 0,
+          "fourth_item_signed_adjustment": -9.5,
           "zero_scan_checked": true
+        }
+      ]
+    },
+    "accepted_packages": {
+      "positions": [
+        310
+      ],
+      "records": [
+        {
+          "package_code": "I4PKG-RULER-SHADOW-杨行密-A-01",
+          "ruler_id": "RULER-SHADOW-杨行密",
+          "ruler_name": "杨行密",
+          "polity": "吴",
+          "axis": "A",
+          "direction": "NEGATIVE",
+          "net_tendency": "NEGATIVE_DOMINANT",
+          "episode_refs": [],
+          "same_chain_support_refs": [],
+          "same_chain_effect": "NONE",
+          "independent_reinforcement_refs": [],
+          "independent_reinforcement_effect": "NONE_UNTIL_SCENE_VALIDATION",
+          "folded_support": [],
+          "inherited_baseline": "海陵居民虽面临战乱风险，尚未失去全部居所；撤离危机不能抹去强制方式和已发生损害。",
+          "contemporary_feasible_frontier": null,
+          "background_trend": null,
+          "attributable_change": "孙儒屠高邮、威胁海陵时，命高霸率兵民入广陵，以违命族诛相威胁；数万家弃资焚舍携老幼迁徙，形成地域社区强制离散。",
+          "relative_change_level": "R2",
+          "relative_change_level_basis": "已实施的有限地域或身份群体强制处置为R2；不以绝对人数推定主要领域结构毁灭。",
+          "positive_component_level": null,
+          "negative_component_level": "R2",
+          "field_coverage": "海陵兵民家庭；不把战斗死伤或高邮残兵案追加为同一人口数。",
+          "access_expansion": null,
+          "durability_and_handoff": "实际离土或身份损害已经发生；未证全域、跨代延续，取MID。",
+          "cross_scene_replication": null,
+          "attribution_strength": "RULER_DIRECT",
+          "counterevidence": {
+            "count": 2,
+            "summary": "敌军已屠高邮，撤离有迫切保护动机；后期招抚恢复说明没有持续复制强迁。但不能把一般经济恢复冒充海陵同一家庭补偿，N2取MID，不升R3。"
+          },
+          "hard_negative_gate": "ACTIVE",
+          "knowledge_public_reach": "NOT_APPLICABLE",
+          "source_coverage": "PARTIAL_BUT_SUFFICIENT",
+          "source_refs": [
+            "《资治通鉴·卷二百五十七》四部丛刊本：命高霸帅其兵民悉归府城，有违命者族之；数万家弃资焚舍携老幼迁广陵。",
+            "https://zh.wikisource.org/zh-hans/資治通鑑_(四部叢刊本)/卷第二百五十七"
+          ]
         }
       ]
     }

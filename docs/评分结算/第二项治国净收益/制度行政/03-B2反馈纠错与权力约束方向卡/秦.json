@@ -4,83 +4,78 @@
   "collections": {
     "records": {
       "positions": [
-        133,
-        179
+        148,
+        178
       ],
       "records": [
         {
           "M_mixed_profile": [],
           "M_negative_profile": [
             {
-              "M": "M3",
-              "direction": "negative",
-              "direction_factor": -1.0,
               "material_id": "I2-QIN-YZ-FEEDBACK-SUPPRESSION-001",
-              "mechanism": "把政治表达和知识活动纳入全国刑罚，形成告引、恐惧与反馈收缩",
-              "result_closure": "sustained_or_systemic",
-              "signed_weight": -2.0
-            },
-            {
               "M": "M3",
               "direction": "negative",
               "direction_factor": -1.0,
-              "material_id": "I2-QIN-YZ-PERSONAL-DECISION-BOTTLENECK-001",
-              "mechanism": "重大事务高度集中于皇帝个人裁断，形成中央决策瓶颈与低质量反馈环境",
-              "result_closure": "sustained_or_systemic",
-              "signed_weight": -2.0
+              "signed_weight": -2.0,
+              "mechanism": "全国议政与知识表达受刑罚和告引机制压制",
+              "result_closure": "sustained_or_systemic"
             }
           ],
           "M_positive_profile": [
             {
-              "M": "M2",
-              "direction": "positive_correction",
-              "direction_factor": 1.0,
               "material_id": "I2-QIN-YZ-EXPULSION-CORRECTION-001",
-              "mechanism": "李斯谏逐客促成撤销逐客令并继续任用客卿",
-              "result_closure": "observed",
-              "signed_weight": 1.0
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "signed_weight": 1.0,
+              "mechanism": "李斯上书促成撤销逐客令",
+              "result_closure": "observed_or_repeated",
+              "mechanism_role": "external_constraint"
             }
           ],
           "coverage_audit_ids": [],
           "database_write": false,
           "direct_material_ids": [
             "I2-QIN-YZ-EXPULSION-CORRECTION-001",
-            "I2-QIN-YZ-FEEDBACK-SUPPRESSION-001",
-            "I2-QIN-YZ-PERSONAL-DECISION-BOTTLENECK-001"
+            "I2-QIN-YZ-FEEDBACK-SUPPRESSION-001"
           ],
           "direction_card_write": true,
-          "direction_index": 20.8,
+          "direction_index": 17.6,
           "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
           "formal_evidence_maturity": "fixed_primary_adjudicated",
           "formal_evidence_state": "FORMAL_SCORED",
           "grade": "G1",
-          "grade_basis": "将正链改码为逐客令纠偏M2，但全国性表达压制为主要负态，仍G1",
-          "grade_gate_basis": "将正链改码为逐客令纠偏M2，但全国性表达压制为主要负态，仍G1",
+          "grade_basis": "李斯反对逐客使诏令撤回，保留正M2。以刑罚约束议政知识活动、告引与恐惧造成全国性表达压制，仍构成主要阶段负M3，定G1。大小事务个人裁断的分工瓶颈归B1，不另记第二条B2负M3；仅可观察到权力集中不能替代独立的信息压制过程。",
+          "grade_gate_basis": "李斯反对逐客使诏令撤回，保留正M2。以刑罚约束议政知识活动、告引与恐惧造成全国性表达压制，仍构成主要阶段负M3，定G1。大小事务个人裁断的分工瓶颈归B1，不另记第二条B2负M3；仅可观察到权力集中不能替代独立的信息压制过程。",
           "grade_gate_code": "B2_G1_FORMAL_OR_FAILURE_DOMINANT",
           "index_interval": [
-            16,
+            16.0,
             31.9
           ],
           "polity": "秦",
-          "position": "lower-middle",
-          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
-          "position_q": 0.3,
+          "position": "lower",
+          "position_basis": "有效生命周期权重合计扣除G1门槛占用0.5后，净余量=-1.5，据此确定档内位置。",
+          "position_q": 0.1,
           "rank": 126,
           "reign_range": "前238—前210",
           "ruler_id": "RULER-QIN-YINGZHENG",
           "ruler_name": "嬴政",
-          "verification_material_ids": [],
+          "verification_material_ids": [
+            "I2-QIN-YZ-PERSONAL-DECISION-BOTTLENECK-001"
+          ],
           "material_basis": [
-            "李斯上谏逐客后秦王撤销逐客令，并继续任用客卿",
-            "政治表达和知识活动被纳入全国刑罚，形成告引、恐惧和反馈收缩",
-            "重大事务高度集中于皇帝个人裁断，中央决策形成持续瓶颈"
+            "《史記·卷006》：大索，逐客，李斯上書說，乃止逐客令。",
+            "《史記·卷006》：秦王覺，固止，以為秦國尉，卒用其計策。而李斯用事。",
+            "《史記·卷006》：有敢偶語詩書者棄市。以古非今者族。吏見知不舉者與同罪。",
+            "《史記·卷006》：於是使御史悉案問諸生，諸生傳相告引，乃自除犯禁者四百六十餘人，皆阬之咸陽，使天下知之，以懲後。",
+            "《史記·卷006》：始皇怒，使扶蘇北監蒙恬於上郡。"
           ],
           "settlement_basis": [
-            "正向 M2：李斯谏逐客促成撤销逐客令，客卿继续任用，闭合一次重要人才政策纠偏",
-            "负向 M3：把政治表达和知识活动纳入全国刑罚，实际形成告引、恐惧与全国性反馈收缩",
-            "负向 M3：重大事务高度集中于皇帝个人裁断，形成持续中央决策瓶颈和低质量反馈环境",
-            "档位结论：单次重要纠偏不能抵消全国性表达压制与个人决策瓶颈，定 G1"
-          ]
+            "李斯反对逐客使诏令撤回，保留正M2。以刑罚约束议政知识活动、告引与恐惧造成全国性表达压制，仍构成主要阶段负M3，定G1。大小事务个人裁断的分工瓶颈归B1，不另记第二条B2负M3；仅可观察到权力集中不能替代独立的信息压制过程。",
+            "主档G1；去重后净余量-1.5，对应下位。"
+          ],
+          "position_residual": -1.5,
+          "grade_threshold_consumed": 0.5
         },
         {
           "M_mixed_profile": [],
@@ -131,29 +126,32 @@
           "grade_gate_basis": "实证链为未闭合正向运行链；同尺度反例为监察、问责与信息反馈、权力俘获、强制与反馈压制、法律、司法与刑罚运行；反馈和外部约束在主要阶段系统失灵或遭压制",
           "grade_gate_code": "B2_G0_SYSTEM_CLOSURE",
           "index_interval": [
-            0,
+            0.0,
             15.9
           ],
           "polity": "秦",
           "position": "lower",
-          "position_basis": "仅限G0同档比较：去重后有效M2/M3有符号合计=-6.00，主档门槛占用=0.00（G1的0.5是完成度占用，不是M1材料），净余=-6.00，负向绝对量=6.00，对应lower。M0上下文与吸收链展示但不计position。",
+          "position_basis": "有效生命周期权重合计扣除G0门槛占用0后，净余量=-6，据此确定档内位置。",
           "position_q": 0.1,
-          "rank": 173,
+          "rank": 172,
           "reign_range": "前210—前207",
           "ruler_id": "RULER-QIN-HUHAI",
           "ruler_name": "胡亥",
           "verification_material_ids": [],
           "material_basis": [
-            "组织激励和信任直接反噬为国家主要执行集团退出，中央—前线交付崩解",
-            "正式中枢被私人近侍网络俘获，组织可靠性、专业分工和监督入口持续恶化",
-            "明确替代方案被压回，反馈机制不仅未被采纳而且惩罚提出者"
+            "《史記·卷006》：趙高弗見，又弗信。欣恐，亡去，高使人捕追不及。",
+            "《史記·卷006》：欣見邯曰：「趙高用事於中，將軍有功亦誅，無功亦誅。」",
+            "《史記·卷006》：於是二世常居禁中，與高決諸事。其後公卿希得朝見",
+            "《史記·卷006》：三年，章邯等將其卒圍鉅鹿，楚上將軍項羽將楚卒往救鉅鹿。冬，趙高為丞相，竟案李斯殺之。",
+            "《史記·卷006》：請且止阿房宮作者，減省四邊戍轉。",
+            "《史記·卷006》：下去疾、斯、劫吏，案責他罪。去疾、劫曰：「將相不辱。」自殺。斯卒囚，就五刑。"
           ],
           "settlement_basis": [
-            "负向 M3：监察、问责与信息反馈",
-            "负向 M3：权力俘获、强制与反馈压制",
-            "负向 M3：法律、司法与刑罚运行",
-            "档位结论：实证链为未闭合正向运行链；同尺度反例为监察、问责与信息反馈、权力俘获、强制与反馈压制、法律、司法与刑罚运行；反馈和外部约束在主要阶段系统失灵或遭压制"
-          ]
+            "实证链为未闭合正向运行链；同尺度反例为监察、问责与信息反馈、权力俘获、强制与反馈压制、法律、司法与刑罚运行；反馈和外部约束在主要阶段系统失灵或遭压制",
+            "主档G0；去重后净余量-6，对应下位。"
+          ],
+          "position_residual": -6.0,
+          "grade_threshold_consumed": 0.0
         }
       ]
     }

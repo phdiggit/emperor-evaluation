@@ -14,12 +14,13 @@
     "promotion_gate",
     "coverage_completion_gate",
     "macro_cultural_curve_checks",
+    "semantic_closure_audit",
     "records",
     "accepted_packages"
   ],
   "payload_metadata": {
     "schema_version": "fourth-item-signed-addon-formal-settlement-v1",
-    "status": "LOCAL_CURRENT_REAUDIT_PENDING_SEMANTIC_CLOSURE",
+    "status": "FORMAL_SEMANTIC_REVIEW_PENDING",
     "formal_score_write": false,
     "item_ranking_write": false,
     "database_write": false,
@@ -28,7 +29,7 @@
       "item": "第四项文明与国家整合收益",
       "role": "SIGNED_ADDON_OUTSIDE_COMMON_POSITIVE_DENOMINATOR",
       "formula": "T = S_common + F + CIV4",
-      "common_positive_denominator": 757,
+      "common_positive_denominator": 637,
       "range": [
         -67.5,
         67.5
@@ -49,17 +50,21 @@
     },
     "statistics": {
       "ruler_count": 201,
-      "positive_count": 114,
-      "negative_count": 36,
-      "zero_count": 51,
+      "positive_count": 107,
+      "negative_count": 39,
+      "zero_count": 55,
       "revised_ruler_count": 40,
       "revised_package_count": 54,
       "source_coverage": {
-        "ADEQUATE": 139,
-        "PARTIAL_BUT_SUFFICIENT": 162
+        "ADEQUATE": 148,
+        "INSUFFICIENT": 13,
+        "PARTIAL_BUT_SUFFICIENT": 157
       },
-      "active_package_count": 301,
-      "unresolved_source_backfill_package_count": 0
+      "active_package_count": 318,
+      "unresolved_source_backfill_package_count": 0,
+      "unresolved_evidence_gap_count": 0,
+      "revoked_scoring_package_count": 13,
+      "eligible_scoring_package_count": 305
     },
     "promotion_gate": {
       "all_201_rulers_unique": true,
@@ -68,15 +73,15 @@
       "all_packages_semantically_closed": false,
       "mixed_components_separated": true,
       "cross_axis_consumption_distinct": true,
-      "boundary_anchors_stable": true
+      "boundary_anchors_stable": false
     },
     "coverage_completion_gate": {
       "builder_validation_pass": true,
       "no_unselected_personal_candidates": false,
-      "mandatory_recoveries_present": false,
+      "mandatory_recoveries_present": true,
       "strong_empty_axis_collisions_closed": false,
       "macro_literary_curves_complete": true,
-      "cultural_dissemination_era_and_content_progress_complete": false
+      "cultural_dissemination_era_and_content_progress_complete": true
     },
     "macro_cultural_curve_checks": [
       {
@@ -126,14 +131,22 @@
           "https://xuebao.nankai.edu.cn/jss/CN/abstract/abstract118.shtml"
         ]
       }
-    ]
+    ],
+    "semantic_closure_audit": {
+      "path": "03-第四项共享曲线交班锚与去重审计.json",
+      "status": "FORMAL_SEMANTIC_REVIEW_PENDING",
+      "source_group_count": 27,
+      "shared_axis_curve_count": 81,
+      "adjacent_handoff_pair_count": 174,
+      "cross_axis_collision_count": 13
+    }
   },
   "collections": {
     "records": {
       "record_count": 201
     },
     "accepted_packages": {
-      "record_count": 301
+      "record_count": 318
     }
   },
   "routes": [
@@ -142,7 +155,7 @@
       "path": "01-第四项文明与国家整合收益正式结算/三国.json",
       "collection_counts": {
         "records": 11,
-        "accepted_packages": 15
+        "accepted_packages": 17
       }
     },
     {
@@ -174,7 +187,7 @@
       "path": "01-第四项文明与国家整合收益正式结算/五代十国.json",
       "collection_counts": {
         "records": 19,
-        "accepted_packages": 19
+        "accepted_packages": 22
       }
     },
     {
@@ -222,7 +235,7 @@
       "path": "01-第四项文明与国家整合收益正式结算/十六国.json",
       "collection_counts": {
         "records": 17,
-        "accepted_packages": 20
+        "accepted_packages": 22
       }
     },
     {
@@ -238,14 +251,15 @@
       "path": "01-第四项文明与国家整合收益正式结算/唐.json",
       "collection_counts": {
         "records": 13,
-        "accepted_packages": 16
+        "accepted_packages": 17
       }
     },
     {
       "polity": "唐末吴政权",
       "path": "01-第四项文明与国家整合收益正式结算/唐末吴政权.json",
       "collection_counts": {
-        "records": 1
+        "records": 1,
+        "accepted_packages": 1
       }
     },
     {
@@ -253,7 +267,7 @@
       "path": "01-第四项文明与国家整合收益正式结算/宋.json",
       "collection_counts": {
         "records": 16,
-        "accepted_packages": 24
+        "accepted_packages": 25
       }
     },
     {
@@ -261,7 +275,7 @@
       "path": "01-第四项文明与国家整合收益正式结算/明.json",
       "collection_counts": {
         "records": 17,
-        "accepted_packages": 20
+        "accepted_packages": 22
       }
     },
     {
@@ -277,7 +291,7 @@
       "path": "01-第四项文明与国家整合收益正式结算/清.json",
       "collection_counts": {
         "records": 14,
-        "accepted_packages": 24
+        "accepted_packages": 25
       }
     },
     {
@@ -285,7 +299,7 @@
       "path": "01-第四项文明与国家整合收益正式结算/秦.json",
       "collection_counts": {
         "records": 2,
-        "accepted_packages": 3
+        "accepted_packages": 4
       }
     },
     {
@@ -309,7 +323,7 @@
       "path": "01-第四项文明与国家整合收益正式结算/西汉.json",
       "collection_counts": {
         "records": 11,
-        "accepted_packages": 17
+        "accepted_packages": 18
       }
     },
     {
@@ -325,7 +339,7 @@
       "path": "01-第四项文明与国家整合收益正式结算/辽.json",
       "collection_counts": {
         "records": 11,
-        "accepted_packages": 16
+        "accepted_packages": 17
       }
     },
     {
@@ -333,7 +347,7 @@
       "path": "01-第四项文明与国家整合收益正式结算/金.json",
       "collection_counts": {
         "records": 9,
-        "accepted_packages": 17
+        "accepted_packages": 18
       }
     },
     {

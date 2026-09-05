@@ -78,8 +78,11 @@ def test_c2_candidate_b2_materials_are_individually_bound_and_suppression_is_asy
     assert_rejected(empty_background_binding)
 
     def erase_suppression_strength(settlement, audit, high):
-        row = next(row for row in settlement["records"] if any(p.get("feedback_suppression_review", {}).get("recurrence_scope") not in {None, "SINGLE_CASE"} for p in row["parents"]))
-        parent = next(p for p in row["parents"] if p.get("feedback_suppression_review", {}).get("recurrence_scope") not in {None, "SINGLE_CASE"})
+        parent = next(
+            p for row in settlement["records"] for p in row["parents"]
+            if p["intensity"] in {"MI3_SUSTAINED_SYSTEMIC", "MI4_CROSS_PHASE_SYSTEMIC"}
+            and p.get("feedback_suppression_review", {}).get("review_status") == "REVIEWED"
+        )
         parent["feedback_suppression_review"]["recurrence_scope"] = "SINGLE_CASE"
     assert_rejected(erase_suppression_strength)
 

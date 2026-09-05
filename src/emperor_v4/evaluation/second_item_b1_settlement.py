@@ -138,6 +138,8 @@ def _competition_ranks(records: list[dict[str, Any]], score_key: str) -> None:
 
 def _reader_text(text: str) -> str:
     replacements = {
+        "mixed_positive": "正向主导复合链",
+        "mixed_negative": "负向主导复合链",
         "distributed→core": "多责任官样本转为核心行政机制",
         "B1-distributed": "多责任官样本",
         "B1-central": "中枢运行",
@@ -382,16 +384,16 @@ def validate_profile_contract(payload: dict[str, Any]) -> None:
                 level = profile.get("M")
                 weight = float(profile.get("signed_weight") or 0.0)
                 if level in {"M2", "M3"}:
-                    expected = 1.0 if (
-                        level == "M2"
-                        or (
-                            level == "M3"
-                            and profile.get("direction") == "mixed_negative"
-                            and profile.get("mixed_weight_mode") == "directional_half"
-                            and float(profile.get("direction_factor") or 0.0) == -0.5
-                        )
-                    ) else 2.0
-                    if abs(weight) != expected:
+                    factors = {
+                        "positive": 1.0, "positive_correction": 1.0,
+                        "mixed_positive": 0.5, "mixed": 0.0, "neutral": 0.0,
+                        "mixed_negative": -0.5, "negative": -1.0,
+                    }
+                    factor = factors.get(str(profile.get("direction")))
+                    if factor is None or profile.get("direction_factor") != factor:
+                        raise ValueError(f"B1方向与direction_factor不一致：{row['ruler_name']} / {profile.get('material_id')}")
+                    expected = (1.0 if level == "M2" else 2.0) * factor
+                    if abs(weight - expected) > 1e-9:
                         raise ValueError(
                             f"B1 M档与signed_weight不一致：{row['ruler_name']} / {profile.get('material_id')} / {level} / {weight:g}"
                         )
@@ -547,9 +549,20 @@ def rebuild_derived(workspace_root: Path, *, write: bool = False) -> dict[str, A
 
     method_path = workspace_root / METHOD_PATH
     method = json.loads(method_path.read_text(encoding="utf-8"))
+    a_by_id = {
+        row["ruler_id"]: row
+        for row in load_json(b1_path.with_name("01-A制度建设与实际运行方向卡.json"))["records"]
+    }
     b1_by_id = {row["ruler_id"]: row for row in b1["records"]}
+    b2_by_id = {
+        row["ruler_id"]: row
+        for row in load_json(b1_path.with_name("03-B2反馈纠错与权力约束方向卡.json"))["records"]
+    }
     for row in method["records"]:
+        row["A_direction_index"] = a_by_id[row["ruler_id"]]["direction_index"]
         row["B1_direction_index"] = b1_by_id[row["ruler_id"]]["direction_index"]
+        row["B2_direction_index"] = b2_by_id[row["ruler_id"]]["direction_index"]
+        row["B2_45"] = round(float(row["B2_direction_index"]) * 45 / 80 + 1e-9, 1)
         a, b = float(row["A_direction_index"]), float(row["B1_direction_index"])
         row["AB_block_120"] = round(0.8 * (max(a, b) + 0.5 * min(a, b)) + 1e-9, 1)
         row["score"] = round(float(row["AB_block_120"]) + float(row["B2_45"]), 1)

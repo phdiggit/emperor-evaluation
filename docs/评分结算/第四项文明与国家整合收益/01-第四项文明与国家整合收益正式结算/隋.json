@@ -4,12 +4,12 @@
   "collections": {
     "records": {
       "positions": [
-        31,
-        179
+        69,
+        143
       ],
       "records": [
         {
-          "rank": 31,
+          "rank": 70,
           "ruler_id": "RULER-SHADOW-杨坚",
           "ruler_name": "杨坚",
           "polity": "隋",
@@ -21,9 +21,9 @@
               "axis": "A",
               "disposition": "SIGNED_CIVILIZATION_ADJUSTMENT_READY",
               "direction": "POSITIVE",
-              "magnitude_grade": "CIV2",
-              "band": "HIGH",
-              "signed_adjustment": 11.5,
+              "magnitude_grade": "CIV1",
+              "band": "MID",
+              "signed_adjustment": 4.5,
               "package_refs": [
                 "I4PKG-RULER-SHADOW-杨坚-A-01"
               ]
@@ -53,10 +53,10 @@
               ]
             }
           ],
-          "fourth_item_signed_adjustment": 16.0
+          "fourth_item_signed_adjustment": 9.0
         },
         {
-          "rank": 180,
+          "rank": 108,
           "ruler_id": "RULER-SHADOW-杨广",
           "ruler_name": "杨广",
           "polity": "隋",
@@ -68,9 +68,9 @@
               "axis": "A",
               "disposition": "SIGNED_CIVILIZATION_ADJUSTMENT_READY",
               "direction": "NEGATIVE",
-              "magnitude_grade": "CIV3",
-              "band": "HIGH",
-              "signed_adjustment": -18.0,
+              "magnitude_grade": "CIV2",
+              "band": "MID",
+              "signed_adjustment": -9.5,
               "package_refs": [
                 "I4PKG-RULER-SHADOW-杨广-A-01",
                 "I4PKG-RULER-SHADOW-杨广-A-02"
@@ -81,8 +81,8 @@
               "disposition": "SIGNED_CIVILIZATION_ADJUSTMENT_READY",
               "direction": "POSITIVE",
               "magnitude_grade": "CIV2",
-              "band": "HIGH",
-              "signed_adjustment": 11.5,
+              "band": "MID",
+              "signed_adjustment": 9.5,
               "package_refs": [
                 "I4PKG-RULER-SHADOW-杨广-B-01"
               ]
@@ -100,7 +100,7 @@
               ]
             }
           ],
-          "fourth_item_signed_adjustment": -6.5
+          "fourth_item_signed_adjustment": 0.0
         }
       ]
     },
@@ -157,7 +157,11 @@
           "source_refs": [
             "https://ctext.org/wiki.pl?chapter=282487&if=en&remap=gb",
             "https://ctext.org/wiki.pl?chapter=636799&if=gb&remap=gb"
-          ]
+          ],
+          "dissemination_era": "EARLY_WOODBLOCK_AND_MANUSCRIPT_TRANSITION",
+          "era_relative_difficulty": "adjudicated against EARLY_WOODBLOCK_AND_MANUSCRIPT_TRANSITION; realized content or ecology change controls, not raw output counts, surviving copies, or later fame",
+          "content_progress_relative_to_inherited_baseline": "POSITIVE_RELATIVE_TO_INHERITED_KNOWLEDGE_OR_ACCESS_BASELINE",
+          "public_reach_ceiling": "STATE_AND_SCHOLARLY_INSTITUTIONAL_ACCESS_WITH_NO_BROAD_PUBLIC_DIFFUSION"
         },
         {
           "package_code": "I4PKG-LOCAL-REAUDIT-YANGJIAN-B-NEG",
@@ -271,23 +275,35 @@
           "inherited_baseline": "north-south division and separate elite-population orders preceded the post-conquest settlement window",
           "contemporary_feasible_frontier": null,
           "background_trend": null,
-          "attributable_change": "释放陈俘并恢复自由身份；陈宗室官员和子弟获住房、官职或田衣安置；岭南地方首领授官还治；突厥九万口归附并返还被掠人口",
+          "attributable_change": "灭陈后释放部分俘口、安置陈宗室官员及子弟，岭南首领在归附后获授官还治，突厥启民部众入塞后获安置并返还部分被掠人口，形成多个群体接纳P3；陈后主与王公百司被俘后入长安的离土为具体N2，不再以泛称差序控制扣N1。",
           "relative_change_level": "R3",
-          "relative_change_level_basis": "MULTI_GROUP_POSTWAR_INCORPORATION_WITH_FORCED_RELOCATION_COST",
+          "relative_change_level_basis": "多个群体接纳P3；被俘陈君臣离开建康入长安N2，与司马昭对降服君臣的迁徙采用同一门槛。",
           "positive_component_level": "R3",
-          "negative_component_level": "R1",
-          "field_coverage": "Chen captives and elites, Lingnan leaders, and submitted Turkic populations across several incorporation scenes",
+          "negative_component_level": "R2",
+          "field_coverage": "陈俘与宗室、岭南首领、启民所部等不同有限群体。",
           "access_expansion": null,
-          "durability_and_handoff": "several status restorations and appointments operated in the window; Jiangnan resistance limits the durability claim",
+          "durability_and_handoff": "多群体安置实际发生并部分延续至炀帝；不同群体待遇有差，不泛称普遍平等。",
           "cross_scene_replication": "independent Chen, Lingnan, and Turkic settlement-status scenes",
           "attribution_strength": "SEMANTIC_NODE_RULER_WINDOW",
           "counterevidence": {
-            "count": 2
+            "count": 2,
+            "summary": "降君臣得到待遇不等于可以保留原居社会网络；P3-N2净CIV1，HIGH受硬门限制。五教强制课读不在A重复消费，民间恐迁谣言不当作真实全面强迁。"
           },
-          "hard_negative_gate": "NONE",
+          "hard_negative_gate": "ACTIVE",
           "knowledge_public_reach": "NOT_APPLICABLE",
           "source_coverage": "ADEQUATE",
-          "source_refs": []
+          "source_refs": [
+            "《隋书·卷二·高祖纪下》平陈后的释放、安置与相关诏令。",
+            "《隋书·卷八十二·南蛮传》岭南首领归附、授官及还治。",
+            "《隋书·卷八十四·北狄传》启民可汗部众入塞、安置及返还人口。",
+            "https://zh.wikisource.org/wiki/隋書/卷02",
+            "https://zh.wikisource.org/wiki/隋書/卷82",
+            "https://zh.wikisource.org/wiki/隋書/卷84",
+            "《陈书·卷六》祯明三年三月：后主与王公百司发自建邺，入于长安。",
+            "https://zh.wikisource.org/wiki/陳書/卷6",
+            "《资治通鉴·卷一百七十七》：五教与民间讹言欲徙入关引发惊骇；不把谣言写成已实施迁民。",
+            "https://zh.wikisource.org/wiki/資治通鑑/卷177"
+          ]
         },
         {
           "package_code": "I4PKG-RULER-SHADOW-杨坚-C-01",
@@ -325,10 +341,12 @@
           },
           "hard_negative_gate": "NONE",
           "knowledge_public_reach": "STATE_MONASTIC_AND_WIDER_RELIGIOUS_TEXT_NETWORK",
-          "source_coverage": "PARTIAL_BUT_SUFFICIENT",
+          "source_coverage": "ADEQUATE",
           "source_refs": [
-            "隋代大兴善寺译场相关佛教史料",
-            "《隋书》经籍与本纪相关材料"
+            "《续高僧传·卷二》载那连提黎耶舍、阇那崛多等入隋译经及国家组织节点。",
+            "https://zh.wikisource.org/wiki/續高僧傳/卷02",
+            "《开元释教录·卷七》逐部定位开皇年间大兴善寺译经成果。",
+            "https://zh.wikisource.org/wiki/開元釋教録_(四庫全書本)/卷07"
           ],
           "dissemination_era": "EARLY_WOODBLOCK_AND_MANUSCRIPT_TRANSITION",
           "era_relative_difficulty": "major multilingual translation and collation in a manuscript-dominant environment",
@@ -370,9 +388,10 @@
           },
           "hard_negative_gate": "ACTIVE",
           "knowledge_public_reach": "BROAD_PUBLIC_AND_ELITE_EXPRESSION_CONTRACTION",
-          "source_coverage": "PARTIAL_BUT_SUFFICIENT",
+          "source_coverage": "ADEQUATE",
           "source_refs": [
-            "《隋书·高祖纪》开皇十三年相关禁令"
+            "《隋书·卷二·高祖纪下》载平陈后颁《五教》及开皇年间禁纬候图谶、私撰国史臧否人物。",
+            "https://zh.wikisource.org/wiki/隋書/卷02"
           ],
           "dissemination_era": "EARLY_WOODBLOCK_AND_MANUSCRIPT_TRANSITION",
           "era_relative_difficulty": "adjudicated against manuscript-era private writing and scholarly circulation",
@@ -394,32 +413,33 @@
           "same_chain_effect": "NONE",
           "independent_reinforcement_refs": [],
           "independent_reinforcement_effect": "NONE_UNTIL_SCENE_VALIDATION",
-          "folded_support": [
-            {
-              "episode_code": "I4-SUI-TUYUHUN-A-015",
-              "effect": "INDEPENDENT_LARGE_GROUP_DISPERSAL_SUPPORT"
-            }
-          ],
+          "folded_support": [],
           "inherited_baseline": "Liuqiu captives and Tuyuhun surrendering populations remained within their home or group communities before state removal and distribution",
           "contemporary_feasible_frontier": null,
           "background_trend": null,
-          "attributable_change": "流求战争俘获万余人口并迁离原地；吐谷浑十余万降众及西域羸弱人口又被分置，形成重复的大群体离散",
-          "relative_change_level": "R3",
-          "relative_change_level_basis": "REPEATED_LARGE_GROUP_DEPORTATION_AND_DISPERSAL",
+          "attributable_change": "大业六年帝遣陈棱、张镇周击流求，虏民万余还，献俘后颁赐百官；计已发生的群体离散与依附身份处置。吐谷浑十万余口来降在《隋书》可证，但不能由此推出这些人均被强迁分置，撤去这一未闭合的负向补强。",
+          "relative_change_level": "R2",
+          "relative_change_level_basis": "流求万余人口被俘迁与分赐的单链N2；缺少其占当地社会比例及跨场景处置实证，不单凭人数保R3。",
           "positive_component_level": null,
           "negative_component_level": null,
-          "field_coverage": "more than ten thousand Liuqiu captives plus a much larger Tuyuhun surrendering population subjected to relocation or dispersal",
+          "field_coverage": "流求被俘万余人口，不包含未证强迁分置的吐谷浑降众。",
           "access_expansion": null,
           "durability_and_handoff": "mass community removal and household dispersal were implemented and difficult to reverse",
           "cross_scene_replication": null,
           "attribution_strength": "RULER_AUTHORIZED_COMMANDERS",
           "counterevidence": {
-            "count": 0
+            "count": 1,
+            "summary": "不得将来降等同被强迁；与东都强迁N2另包补强后N2.5，净CIV2，覆盖与长期具体状态有限取MID。"
           },
           "hard_negative_gate": "ACTIVE",
           "knowledge_public_reach": "NOT_APPLICABLE",
           "source_coverage": "PARTIAL_BUT_SUFFICIENT",
-          "source_refs": []
+          "source_refs": [
+            "《资治通鉴·卷一百八十一》大业六年：帝遣陈棱、张镇周击流求，虏民万余还，献俘后颁赐百官；闭合国家授权、强迁及依附处置，不与攻战胜败重复。吐谷浑降众分置的另一叙述仍须另证。",
+            "https://zh.wikisource.org/zh-hant/資治通鑑/卷181",
+            "《隋书·卷八十三·吐谷浑传》：部落来降者十万余口；并未闭合原包所称这十余万降众分置。",
+            "https://zh.wikisource.org/wiki/隋書/卷83"
+          ]
         },
         {
           "package_code": "I4PKG-RULER-SHADOW-杨广-A-02",
@@ -443,7 +463,7 @@
           "attributable_change": "强迁各州富商大贾数万户与一艺户三千余家充实东都",
           "relative_change_level": "R2",
           "relative_change_level_basis": "LARGE_FORCED_URBAN_RELOCATION_WITH_MIXED_INTEGRATION_EFFECT",
-          "positive_component_level": "R1",
+          "positive_component_level": null,
           "negative_component_level": "R2",
           "field_coverage": "tens of thousands of merchant households and more than three thousand specialist households moved to the eastern capital",
           "access_expansion": null,
@@ -451,12 +471,16 @@
           "cross_scene_replication": null,
           "attribution_strength": "RULER_DIRECT",
           "counterevidence": {
-            "count": 0
+            "count": 1,
+            "summary": "强迁富商及一艺户的共同体离散保留N2。人口汇聚东都本身不是独立的接纳、参与或身份改善结果，现有包没有闭合P1，不以城市建设收益抵消强迁。与同轴R3群体离散包净算后仍为CIV3负向；不重复消费第二项城市建设。"
           },
-          "hard_negative_gate": "NONE",
+          "hard_negative_gate": "ACTIVE",
           "knowledge_public_reach": "NOT_APPLICABLE",
           "source_coverage": "PARTIAL_BUT_SUFFICIENT",
-          "source_refs": []
+          "source_refs": [
+            "《资治通鉴·卷一百八十》大业元年徙洛州郭内居民及各州富商大贾数万户实东京；大业三年十月敕河北诸郡送一艺户三千余家，置十二坊安置。只消费强制离土，不重复计营都财政与劳役成本。",
+            "https://zh.wikisource.org/zh-hant/資治通鑑/卷180"
+          ]
         },
         {
           "package_code": "I4PKG-RULER-SHADOW-杨广-B-01",
@@ -489,13 +513,16 @@
           "attribution_strength": "RULER_DIRECT_AND_STATE_IMPLEMENTATION",
           "counterevidence": {
             "count": 1,
-            "summary": "late-reign warfare and state collapse sharply weakened durability and handoff"
+            "summary": "相对文帝晚年的学校裁撤，恢复供给仍是清晰R2正向；晚年战乱和国家崩溃导致师生离散，既阻断R3稳定结果，也不支持HIGH。取CIV2-MID，不将同一持续性限制另记整数负向组件。"
           },
           "hard_negative_gate": "NONE",
           "knowledge_public_reach": "NOT_APPLICABLE",
-          "source_coverage": "PARTIAL_BUT_SUFFICIENT",
+          "source_coverage": "ADEQUATE",
           "source_refs": [
-            "《隋书》学校与选举相关材料"
+            "《隋书·卷二十八·百官志下》载炀帝改国子学为国子监及国子、太学、四门等学校员额。",
+            "https://zh.wikisource.org/wiki/隋書/卷28",
+            "《隋书·卷七十五·刘炫传》载文帝末废国子、四门及州县学的交班低基线。",
+            "https://zh.wikisource.org/wiki/隋書/卷75"
           ]
         },
         {
@@ -533,7 +560,10 @@
           "hard_negative_gate": "ACTIVE",
           "knowledge_public_reach": "RELIGIOUS_EXPRESSION_AND_ASSOCIATIONAL_ECOLOGY_CONTRACTION",
           "source_coverage": "PARTIAL_BUT_SUFFICIENT",
-          "source_refs": [],
+          "source_refs": [
+            "《资治通鉴·卷一百八十一》大业六年正月：数十人自称弥勒、夺仗，被齐王暕斩；都下大索、连坐千余家。原文能定位扩张连坐，不能仅因弥勒名号就证明被连坐者全部为无辜宗教群体。",
+            "https://zh.wikisource.org/zh-hant/資治通鑑/卷181"
+          ],
           "dissemination_era": "EARLY_WOODBLOCK_AND_MANUSCRIPT_TRANSITION",
           "era_relative_difficulty": "adjudicated against EARLY_WOODBLOCK_AND_MANUSCRIPT_TRANSITION, not raw copies or reader counts",
           "content_progress_relative_to_inherited_baseline": "REGRESSION_FROM_INHERITED_PLURALITY_OR_ACCESS",

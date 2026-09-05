@@ -1,6 +1,6 @@
 {
   "partition": "东魏",
-  "record_count": 3,
+  "record_count": 4,
   "records": [
     {
       "attribution": "高欢是东魏最高规则者，月度政事要求与用人结果归其执政期。",
@@ -50,7 +50,7 @@
         "高欢:B1"
       ],
       "usage_roles": {
-        "高欢:B1": "B1_POSITIVE_DIRECT"
+        "高欢:B1": "B1_GRADE_VERIFICATION"
       }
     },
     {
@@ -94,8 +94,8 @@
         "高欢:B2"
       ],
       "usage_roles": {
-        "高欢:B1": "B1_NEGATIVE_DIRECT",
-        "高欢:B2": "B2_NEGATIVE_DIRECT"
+        "高欢:B1": "B1_GRADE_VERIFICATION",
+        "高欢:B2": "B2_DIRECT"
       }
     },
     {
@@ -141,6 +141,41 @@
       "usage_roles": {
         "高欢:D1": "score_evidence"
       }
+    },
+    {
+      "material_id": "I2-EWEI-GAOHUAN-CENTRAL-REROUTING-001",
+      "primary_ruler": "高欢",
+      "title": "四贵受托、专恣与中书重组的同一中枢生命周期",
+      "measure": "四贵受托、专恣与中书重组的同一中枢生命周期",
+      "operation": "四贵受托、专恣与中书重组的同一中枢生命周期",
+      "result": "四贵受托、专恣与中书重组的同一中枢生命周期",
+      "strength": "M3",
+      "direction": "mixed_positive",
+      "result_closure": "sustained_or_systemic",
+      "reception_scope": "R0",
+      "score_contribution": true,
+      "backsource_status": "BACKSOURCE_CLOSED",
+      "backsource_review_eligible": true,
+      "usage_refs": [
+        "高欢:B1"
+      ],
+      "usage_roles": {
+        "高欢:B1": "B1_DIRECT"
+      },
+      "usage_count": 1,
+      "evidence": [
+        {
+          "source_title": "資治通鑑/卷158",
+          "source_url": "https://zh.wikisource.org/zh-hans/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7158",
+          "revision_ref": "2313544",
+          "exact_quote": "丞相欢多在晋阳，孙腾、司马子如、高岳、高隆之，皆欢之亲旧，委以朝政，邺中谓之四贵，其权势熏灼中外，率多专恣骄贪。欢欲损夺其权，故以澄为大将军、领中书监，移门下机事总归中书，文武赏罚皆禀于澄。",
+          "exact_quote_sha256": "03b9d34ef1abba2f4a63f992f643ad97e1d0a6985b6094c51ed391a61e83998a",
+          "evidence_tier": "fixed_primary_exact_backsource"
+        }
+      ],
+      "dynasty": "东魏",
+      "mechanism_dimension": "官僚治理与行政执行",
+      "attribution": "归责于高欢本人责任窗口"
     }
   ],
   "schema_version": "institution-administration-scoring-material-shard-v1"

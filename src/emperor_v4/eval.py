@@ -8,6 +8,8 @@ from typing import Sequence
 from emperor_v4.evaluation.first_item_a_registry import write_first_item_a_registry
 from emperor_v4.evaluation.first_item_b_registry import write_first_item_b_registry
 from emperor_v4.evaluation.first_item_c_registry import write_first_item_c_registry
+from emperor_v4.evaluation.first_item_cost import build_first_item_cost_report
+from emperor_v4.evaluation.fourth_item_a import verify as verify_fourth_item_a, write_views as write_fourth_item_a_views
 from emperor_v4.evaluation.canonical_ruler_pool import (
     build_canonical_ruler_pool,
     write_canonical_ruler_pool,
@@ -48,7 +50,14 @@ from emperor_v4.evaluation.third_item_d_settlement import (
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="皇帝综合评价体系 V4 评分命令")
     commands = parser.add_subparsers(dest="command", required=True)
+    first_cost = commands.add_parser("first-item-cost-verify")
+    first_cost.add_argument("--workspace-root", type=Path, default=Path("."))
     commands.add_parser("formal-settlements-verify")
+    fourth_a = commands.add_parser("fourth-item-a-verify")
+    fourth_a.add_argument("--workspace-root", type=Path, default=Path("."))
+    fourth_a_views = commands.add_parser("fourth-item-a-views")
+    fourth_a_views.add_argument("--workspace-root", type=Path, default=Path("."))
+    fourth_a_views.add_argument("--write", action="store_true")
     second_item_a = commands.add_parser("second-item-a-verify")
     second_item_a.add_argument("--workspace-root", type=Path, default=Path("."))
     second_item_b2 = commands.add_parser("second-item-b2-verify")
@@ -110,6 +119,13 @@ def _print_written(written: dict[str, Path]) -> int:
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = _parser().parse_args(argv)
+    if args.command in ("fourth-item-a-verify", "fourth-item-a-views"):
+        if args.command == "fourth-item-a-views" and args.write:
+            report = write_fourth_item_a_views(args.workspace_root.resolve())
+        else:
+            report = verify_fourth_item_a(args.workspace_root.resolve())
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0
     if args.command == "formal-settlements-verify":
         report = verify_formal_settlements(Path(".").resolve())
         print(json.dumps(report, ensure_ascii=False, indent=2))
@@ -221,6 +237,10 @@ def main(argv: Sequence[str] | None = None) -> int:
             )
         )
         return 0
+    if args.command == "first-item-cost-verify":
+        report = build_first_item_cost_report(workspace_root)
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0 if report['status'] == 'READY' else 1
     if args.command == "first-item-a-registry":
         return _print_written(write_first_item_a_registry(workspace_root))
     if args.command == "first-item-b-registry":

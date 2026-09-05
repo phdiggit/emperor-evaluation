@@ -4,7 +4,7 @@
   "collections": {
     "records": {
       "positions": [
-        65
+        63
       ],
       "records": [
         {
@@ -12,23 +12,33 @@
           "M_negative_profile": [],
           "M_positive_profile": [
             {
-              "M": "M3",
+              "material_id": "I2-NZHOU-YUWENYONG-PERSONNEL-ACCOUNTABILITY-001",
+              "M": "M2",
               "direction": "positive",
               "direction_factor": 1.0,
-              "material_id": "I2-NZHOU-YUWENYONG-AGRICULTURE-RELIEF-M2-AUDIT",
-              "mechanism": "亲政期选任、任职结果与中央奖惩core",
-              "result_closure": "sustained_or_systemic",
-              "signed_weight": 2.0,
-              "lifecycle_key": "B1:RULER-SHADOW-宇文邕:V50:MAIN-CORE",
-              "lifecycle_group_key": "B1:RULER-SHADOW-宇文邕:V50:MAIN-CORE",
-              "profile_id": "B1-PROFILE-6393BE3167A8ED9C",
-              "b1_role": "core"
+              "signed_weight": 1.0,
+              "mechanism": "亲政期六府举贤与具名官员有罪免职",
+              "result_closure": "observed_or_repeated",
+              "b1_role": "central",
+              "profile_id": "B1-PROFILE-DA1C8019E3650790"
+            },
+            {
+              "material_id": "I2-NZHOU-YUWENYONG-BINGZHOU-DELIVERY-001",
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "signed_weight": 1.0,
+              "mechanism": "宇文神举任并州后实现区域秩序并处理当地聚众",
+              "result_closure": "observed_or_repeated",
+              "b1_role": "distributed",
+              "profile_id": "B1-PROFILE-D4CB72DD32EBFBFB"
             }
           ],
           "coverage_audit_ids": [],
           "database_write": false,
           "direct_material_ids": [
-            "I2-NZHOU-YUWENYONG-AGRICULTURE-RELIEF-M2-AUDIT"
+            "I2-NZHOU-YUWENYONG-BINGZHOU-DELIVERY-001",
+            "I2-NZHOU-YUWENYONG-PERSONNEL-ACCOUNTABILITY-001"
           ],
           "direction_card_write": true,
           "direction_index": 62.5,
@@ -36,8 +46,8 @@
           "formal_evidence_maturity": "fixed_primary_plus_reused_law_and_handoff_bounded_synthesis",
           "formal_evidence_state": "FORMAL_SCORED",
           "grade": "G3",
-          "grade_basis": "《周书·武帝纪》《周书·宇文神举传》｜归责只从建德元年诛宇文护后亲政计算。链①：建德三年令六府举贤良清正；建德四年要求刺史守令亲劝农、百司分番，并对李意、于寔等“有罪免”，形成选任/地方责任/问责M2。链②：灭北齐后重新配置新占区责任官，其中宇文神举任并州刺史→旬月间“远迩悦服”→其后地方五千人聚众又以州兵平定，闭合中央任命—区域治理—地方治安结果的强M2/M3样本。限制：亲政仅六年，新占区虽有多个任命，但现证还不足串成跨多年、多个地区反复运行的distributed→core M3；宇文护摄政期运行不得倒投。多接口和强区域样本足G3，维持middle。",
-          "grade_gate_basis": "《周书·武帝纪》《周书·宇文神举传》｜归责只从建德元年诛宇文护后亲政计算。链①：建德三年令六府举贤良清正；建德四年要求刺史守令亲劝农、百司分番，并对李意、于寔等“有罪免”，形成选任/地方责任/问责M2。链②：灭北齐后重新配置新占区责任官，其中宇文神举任并州刺史→旬月间“远迩悦服”→其后地方五千人聚众又以州兵平定，闭合中央任命—区域治理—地方治安结果的强M2/M3样本。限制：亲政仅六年，新占区虽有多个任命，但现证还不足串成跨多年、多个地区反复运行的distributed→core M3；宇文护摄政期运行不得倒投。多接口和强区域样本足G3，维持middle。",
+          "grade_basis": "亲政后六府举贤及宇文善、李意、于寔具名有罪免职形成有限选任问责M2；另在新占并州任宇文神举，旬月间远迩悦服，其后地方聚众又被州兵平定，闭合中央任命与区域治理结果的独立M2。两条机制共同复验，走G3多链路线；区域样本不外推为跨年广域core M3，宇文护摄政期不归本人。",
+          "grade_gate_basis": "亲政后六府举贤及宇文善、李意、于寔具名有罪免职形成有限选任问责M2；另在新占并州任宇文神举，旬月间远迩悦服，其后地方聚众又被州兵平定，闭合中央任命与区域治理结果的独立M2。两条机制共同复验，走G3多链路线；区域样本不外推为跨年广域core M3，宇文护摄政期不归本人。",
           "grade_gate_code": "B1_G3_MAIN_STAGE_USABLE",
           "index_interval": [
             55.0,
@@ -47,27 +57,33 @@
           "position": "middle",
           "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=0，按合同机械映射为middle。",
           "position_q": 0.5,
-          "rank": 57,
+          "rank": 55,
           "reign_range": [
             572,
             578
           ],
           "ruler_id": "RULER-SHADOW-宇文邕",
           "ruler_name": "宇文邕",
-          "verification_material_ids": [],
+          "verification_material_ids": [
+            "I2-NZHOU-YUWENYONG-AGRICULTURE-RELIEF-M2-AUDIT"
+          ],
           "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
           "structured_grade_basis": [
             {
               "role": "主档依据",
-              "text": "《周书·武帝纪》《周书·宇文神举传》｜归责只从建德元年诛宇文护后亲政计算。链①：建德三年令六府举贤良清正；建德四年要求刺史守令亲劝农、百司分番，并对李意、于寔等“有罪免”，形成选任/地方责任/问责M2。链②：灭北齐后重新配置新占区责任官，其中宇文神举任并州刺史→旬月间“远迩悦服”→其后地方五千人聚众又以州兵平定，闭合中央任命—区域治理—地方治安结果的强M2/M3样本。限制：亲政仅六年，新占区虽有多个任命，但现证还不足串成跨多年、多个地区反复运行的多责任官样本转为核心行政机制 M3；宇文护摄政期运行不得倒投。多接口和强区域样本足G3，维持middle。"
+              "text": "亲政后六府举贤及宇文善、李意、于寔具名有罪免职形成有限选任问责M2；另在新占并州任宇文神举，旬月间远迩悦服，其后地方聚众又被州兵平定，闭合中央任命与区域治理结果的独立M2。两条机制共同复验，走G3多链路线；区域样本不外推为跨年广域核心行政机制 M3，宇文护摄政期不归本人。"
             },
             {
               "role": "档内位置依据",
               "text": "主档已定为G3；有效生命周期权重合计扣除该档门槛占用2后，净余量为0，仅据此确定档内中位（62.5）。净余量不用于跨档比较"
             },
             {
-              "role": "正向依据（M3）",
-              "text": "亲政期选任、任职结果与中央奖惩核心行政机制"
+              "role": "正向依据（M2）",
+              "text": "亲政期六府举贤与具名官员有罪免职"
+            },
+            {
+              "role": "正向依据（M2）",
+              "text": "宇文神举任并州后实现区域秩序并处理当地聚众"
             },
             {
               "role": "负向依据（无可计M档）",
@@ -76,7 +92,11 @@
           ],
           "position_residual": 0.0,
           "grade_threshold_consumed": 2.0,
-          "v50_source_line": 203,
+          "g3_gate_route": "MULTI_CHAIN",
+          "g3_gate_profile_ids": [
+            "B1-PROFILE-DA1C8019E3650790",
+            "B1-PROFILE-D4CB72DD32EBFBFB"
+          ],
           "review_material_basis": [
             {
               "version": "v20",
@@ -96,10 +116,7 @@
             }
           ],
           "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
-          "g3_gate_route": "CORE_M3",
-          "g3_gate_profile_ids": [
-            "B1-PROFILE-6393BE3167A8ED9C"
-          ]
+          "v50_source_line": 203
         }
       ]
     }

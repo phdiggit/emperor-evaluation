@@ -75,7 +75,11 @@ def test_second_item_direction_views_keep_institution_and_m_chain_combinations()
     assert "| 重大制度组合（按S角色） | 有效M链组合（正/混/负） |" in a
     assert "| 运行摘要 | 内部指数/100 |" in b1
     assert "## 五、逐人裁决与材料依据" in b1
-    assert "- 结算依据：\n  - **裁决说明**：" in b1
+    sections = b1.split("\n### ")[1:]
+    assert sections
+    for section in sections:
+        basis = section.split("- 结算依据：", 1)[1].split("- 材料依据：", 1)[0]
+        assert basis.strip(), "B1 ruler section lacks settlement rationale"
     assert not re.search(
         r"(?<![A-Za-z])(?:distributed|central|support|core|personnel|capture|major-stage|mixed|N3-)",
         b1,

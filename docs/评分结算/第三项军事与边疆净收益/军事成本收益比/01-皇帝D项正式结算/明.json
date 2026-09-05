@@ -79,7 +79,7 @@
             "excluded_nonconsumable_count": 0,
             "notes": "完整任期内战链；燕王取得政权属于第一项/政权取得对象，不在朱允炆方重复计正向成果。",
             "source_refs": [
-              "docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.json",
+              "docs/评分结算/第一项政权奠基与统一贡献及能力/01-第一项政权奠基与统一贡献及能力正式结算.json",
               "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json"
             ]
           },
@@ -1152,7 +1152,7 @@
             "excluded_nonconsumable_count": 0,
             "notes": "只消费弘光本人1644—1645国家防御链；清方取得政权与统一成果属于第一项或第三项C对象，整链不在本人物重复计正向成果。",
             "source_refs": [
-              "docs/评分结算/第一项创业与政权取得能力/01-第一项创业与政权取得能力正式结算.json",
+              "docs/评分结算/第一项政权奠基与统一贡献及能力/01-第一项政权奠基与统一贡献及能力正式结算.json",
               "docs/公共成果/军事/03-军事行动成本和收益登记/song_ming.json"
             ]
           },
@@ -2883,16 +2883,28 @@
           "polity": "明",
           "reign_range": "1645-1646",
           "identity_source": "PREVIOUS_D_FORMAL",
-          "D_grade": "D0",
-          "D_within_grade_position": "LOW",
+          "D_grade": "D-N",
+          "D_within_grade_position": "NOT_APPLICABLE",
           "D_score_points": 0.0,
           "D_score_status": "DIRECT_D_SCORE_ASSIGNED",
-          "signed_security_candidate_before_cost": "D0",
+          "signed_security_candidate_before_cost": "D-N",
           "cost_grade_delta": 0,
-          "security_result_distribution": {
-            "EN3": 1
+          "security_result_distribution": {},
+          "external_strategic_chains": [],
+          "strategic_internal_chains": [],
+          "ordinary_suppression_summary": {
+            "count": 0,
+            "cycle_refs": [],
+            "presumed_or_explicit_success_count": 0,
+            "explicit_failure_or_unresolved_count": 0,
+            "abnormal_cost_chain_count": 0,
+            "abnormal_process_chain_count": 0,
+            "notes": "1645—1646年隆武恢复建基及其直接终结整链归第一项；只计本人实际授权的福建及出师部队，浙江鲁监国另属其主，不并入本人成本。",
+            "source_refs": [
+              "config/third-item/third-item-c-outcome-adjudications.json#朱聿键"
+            ]
           },
-          "external_strategic_chains": [
+          "cross_item_excluded_chains": [
             {
               "chain_id": "ZYJ-QING-ZHEMIN-DEFENSE-COLLAPSE-1645-1646",
               "member_cycle_refs": [
@@ -2926,34 +2938,22 @@
                 "docs/史料通读产物/明/明通鉴/volume-089.source-summary.md"
               ],
               "achievement_grade_detail": "EN3_NATIONAL_SYSTEM_COLLAPSE",
-              "security_result_grade": "EN3"
+              "security_result_grade": "EN3",
+              "exclusion_reason": "1645—1646年隆武恢复建基及其直接终结整链归第一项；只计本人实际授权的福建及出师部队，浙江鲁监国另属其主，不并入本人成本。",
+              "consumption_scope": "FIRST_ITEM_ONLY_RESULT_AND_COST",
+              "excluded_from_D": true
             }
           ],
-          "strategic_internal_chains": [],
-          "ordinary_suppression_summary": {
-            "count": 0,
-            "cycle_refs": [],
-            "presumed_or_explicit_success_count": 0,
-            "explicit_failure_or_unresolved_count": 0,
-            "abnormal_cost_chain_count": 0,
-            "abnormal_process_chain_count": 0,
-            "notes": "唯一固定票为清军外部防御—崩溃链；第三项C为HOLD无消费者，不能只去重建立而留下败链或反向操作。",
-            "source_refs": [
-              "config/third-item/third-item-c-outcome-adjudications.json#朱聿键"
-            ]
-          },
-          "cross_item_excluded_chains": [],
           "non_military_loss_cost_exclusions": [
             "浙闽平民灾害、军民混合万人级损害中不可拆非军事部分及清军损失均不进入隆武军事P/F/C。"
           ],
           "attributable_cost_profile": {
-            "cost_band": "C4",
-            "status": "CONFIRMED",
-            "position": "HIGH",
-            "basis": "1645—1646浙闽跨省防御确在本国核心生存区，关隘、府城和转输负担很重；但实际只有约一年，且军权受郑芝龙体系制约，本方兵团毁损分母未闭合。境内核心区只强化到C4上沿，不机械推C5。 具体事实：1645—1646浙闽防御确实发生在隆武政权自身的核心生存区域，涉及浙江、福建多军、关隘、府城及转输，境内核心区因素应当计入军事承载。 但这一链实际持续只有约一年，更多表现为急性多省防御—崩溃，而不是多年持续驻防、轮换、补充和预备兵力体系。 本方军队虽多次溃散，现有高伤亡材料又大量混合军民，无法闭合主要兵团组织性重大毁损；且实际军权受郑芝龙体系明显制约。",
-            "source_refs": []
+            "cost_band": "NOT_APPLICABLE",
+            "position": "NOT_APPLICABLE",
+            "status": "NOT_APPLICABLE",
+            "basis": "1645—1646年隆武恢复建基及其直接终结整链归第一项；只计本人实际授权的福建及出师部队，浙江鲁监国另属其主，不并入本人成本。"
           },
-          "adjudication_basis": "唯一外链终点EN3，安全候选D0；亡国只在EN3档内最高位表达。 军事成本按独立合同裁为C4（HIGH，CONFIRMED）；具体结构见成本依据。",
+          "adjudication_basis": "1645—1646年隆武恢复建基及其直接终结整链归第一项；只计本人实际授权的福建及出师部队，浙江鲁监国另属其主，不并入本人成本。",
           "coverage_status": "CONFIRMED",
           "source_batch": "sol_b",
           "canonical_status": "FORMAL_CURRENT",

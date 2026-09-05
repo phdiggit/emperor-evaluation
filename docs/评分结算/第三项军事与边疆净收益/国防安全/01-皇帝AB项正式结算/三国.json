@@ -35,7 +35,7 @@
               "transition": "IMPROVED",
               "transition_attribution": "FIRST_ITEM_CONSUMED_OBJECTIVE_CONTEXT_ONLY",
               "assessment_scope": "STRATEGIC_THREAT_CONTROL_STATE",
-              "reason": "190—220年创业统一竞争主链由第一项消费，含乌桓、濡须、汉中、樊城及内部收束。本轴仅保留主要威胁与战略主动状态的客观锚点，同链改善与恶化不再归责计分。"
+              "reason": "190—220年创业统一竞争主链由第一项消费，含乌桓、濡须、汉中、樊城及内部收束。 就主要威胁能力单独判断：上述阶段结束时，对手是否还能制造国家级危机以及本方是否保持战略主动，决定曹操从2档交班为4档；边界节点数量本身不替代这一威胁判断。"
             },
             "A2": {
               "axis_points": 19.2,
@@ -50,7 +50,7 @@
               "transition": "IMPROVED",
               "transition_attribution": "FIRST_ITEM_CONSUMED_OBJECTIVE_CONTEXT_ONLY",
               "assessment_scope": "STRATEGIC_BOUNDARY_SECURITY_SYSTEM",
-              "reason": "190—220年创业统一竞争主链由第一项消费，含乌桓、濡须、汉中、樊城及内部收束。本轴仅保留边界、门户与纵深体系状态的客观锚点，同链改善与恶化不再归责计分。"
+              "reason": "190—220年创业统一竞争主链由第一项消费，含乌桓、濡须、汉中、樊城及内部收束。 就安全边界单独判断：上述阶段结束时，门户、军镇、交通纵深和缓冲区能否相互支援，决定曹操从1档交班为4档；对手一时败退本身不替代这一体系判断。"
             },
             "B1": {
               "axis_points": 0.0,
@@ -260,7 +260,10 @@
                   "credit": 0.0,
                   "basis": "190—220年创业统一竞争主链由第一项消费，含乌桓、濡须、汉中、樊城及内部收束。"
                 }
-              ]
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为2→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为0档，伴随专项加减仍由独立字段保留。"
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -302,7 +305,10 @@
                   "credit": 0.0,
                   "basis": "190—220年创业统一竞争主链由第一项消费，含乌桓、濡须、汉中、樊城及内部收束。"
                 }
-              ]
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为1→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为0档，伴随专项加减仍由独立字段保留。"
             }
           },
           "B80_adjudication": {
@@ -321,7 +327,8 @@
             "source": "config/third-item/third-item-result-credit-adjudications.json#RULER-WEI-CAOCAO",
             "final_B1_rate": 0.0
           },
-          "b1_cross_item_excluded_weighted_value": 0.8
+          "b1_cross_item_excluded_weighted_value": 0.8,
+          "A_axis_common_context": "190—220年创业统一竞争主链由第一项消费，含乌桓、濡须、汉中、樊城及内部收束。"
         },
         {
           "AB_score_points": 82.75,
@@ -531,9 +538,9 @@
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 3,
-              "maintenance_basis": "非4→4或5→5",
+              "maintenance_basis": "低位同档可进入抗压保全门，但当前没有闭合O4以上现实压力、非自致压力、具名保全对象和本人主要保全归责的完整记录，故难度为NONE且不加分。",
               "maintenance_bonus": 0,
-              "maintenance_difficulty": "NOT_APPLICABLE",
+              "maintenance_difficulty": "NONE",
               "negative_adjustment": 0,
               "objective_delta": 0,
               "reversal_basis": "无重大逆转登记",
@@ -544,7 +551,14 @@
               "trajectory_value": 36.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "LOW_POSITION_STABLE_HANDOVER",
+              "settlement_type_label": "低位平稳交付型",
+              "settlement_type_basis": "客观起终档同为3档。主要对吴事实是本人连续主动南征且未突破长江，北方鲜卑链只形成局部压制；没有独立的O4外来压力—本人保全链，故归为低位平稳交付型。",
+              "positive_credit_review": {
+                "decision": "NO_NET_STRUCTURAL_GAIN",
+                "basis": "三次攻吴未打破长江对抗，西域联系恢复亦未证成新的主体防御网络；未超出接班威胁与防线结构。"
+              }
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -554,9 +568,9 @@
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 3,
-              "maintenance_basis": "非4→4或5→5",
+              "maintenance_basis": "低位同档可进入抗压保全门，但当前没有闭合O4以上现实压力、非自致压力、具名保全对象和本人主要保全归责的完整记录，故难度为NONE且不加分。",
               "maintenance_bonus": 0,
-              "maintenance_difficulty": "NOT_APPLICABLE",
+              "maintenance_difficulty": "NONE",
               "negative_adjustment": 0,
               "objective_delta": 0,
               "reversal_basis": "无重大逆转登记",
@@ -567,7 +581,14 @@
               "trajectory_value": 36.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "LOW_POSITION_STABLE_HANDOVER",
+              "settlement_type_label": "低位平稳交付型",
+              "settlement_type_basis": "客观起终档同为3档。江陵、濡须、广陵事实主要来自本人主动南征，西北恢复又不是外来O4压力下的同档保全，故归为低位平稳交付型。",
+              "positive_credit_review": {
+                "decision": "NO_NET_STRUCTURAL_GAIN",
+                "basis": "三次攻吴未打破长江对抗，西域联系恢复亦未证成新的主体防御网络；未超出接班威胁与防线结构。"
+              }
             }
           },
           "B80_adjudication": {
@@ -848,7 +869,7 @@
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 1.0,
-              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_basis": "曹叡 A1（主要威胁能力与战略主动）逐人裁决：起点共享曹丕A1S3。任内挡住蜀、吴多轮主攻，平孟达并灭辽东燕；虽有石亭败绩、武都阴平丧失和伐汉中失败，吴蜀仍在，综合为掌握主动但仍有明显强敌的4档。 曹叡是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：CAMPAIGN-SHU-FIRST-NORTH-227-228、CAMPAIGN-V071-SG-WEI-WU-SHITING-228、CAMPAIGN-V071-SG-WEI-HANZHONG-230、CAMPAIGN-WEI-LIAODONG-232-238。",
               "attribution_category": "PRIMARY_RULER",
               "axis_points": 28.8,
               "ceiling_progress": "NONE",
@@ -864,7 +885,7 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 3,
-              "trajectory_value": 48.0,
+              "trajectory_value": 48,
               "within_band_deterioration_basis": "石亭主动多路进攻形成EN2，未形成耐久控制损失",
               "within_band_deterioration_penalty": 10,
               "improvement_step_credits": [
@@ -872,13 +893,28 @@
                   "from_grade": 3,
                   "to_grade": 4,
                   "credit": 1.0,
-                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                  "basis": "曹叡 A1（主要威胁能力与战略主动）逐人裁决：起点共享曹丕A1S3。任内挡住蜀、吴多轮主攻，平孟达并灭辽东燕；虽有石亭败绩、武都阴平丧失和伐汉中失败，吴蜀仍在，综合为掌握主动但仍有明显强敌的4档。 曹叡是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：CAMPAIGN-SHU-FIRST-NORTH-227-228、CAMPAIGN-V071-SG-WEI-WU-SHITING-228、CAMPAIGN-V071-SG-WEI-HANZHONG-230、CAMPAIGN-WEI-LIAODONG-232-238。",
+                  "source_refs": [
+                    "CAMPAIGN-SHU-FIRST-NORTH-227-228",
+                    "CAMPAIGN-V071-SG-WEI-WU-SHITING-228",
+                    "CAMPAIGN-V071-SG-WEI-HANZHONG-230",
+                    "CAMPAIGN-WEI-LIAODONG-232-238"
+                  ]
                 }
-              ]
+              ],
+              "attribution_source_refs": [
+                "CAMPAIGN-SHU-FIRST-NORTH-227-228",
+                "CAMPAIGN-V071-SG-WEI-WU-SHITING-228",
+                "CAMPAIGN-V071-SG-WEI-HANZHONG-230",
+                "CAMPAIGN-WEI-LIAODONG-232-238"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为3→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。"
             },
             "A2": {
               "attributable_delta": 1.0,
-              "attribution_basis": "消费现行语义标签PRIMARY_RULER_ACTION",
+              "attribution_basis": "曹叡 A2（边界、门户、纵深与缓冲体系）逐人裁决：陈仓预修、合肥新城及各方向救援构成可验证的多节点防御，辽东四郡纳入后东北缺口闭合；西北丢失武都阴平且鲜卑仍反复，故终点为4档。 曹叡是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：CAMPAIGN-SHU-FIRST-NORTH-227-228、CAMPAIGN-V071-SG-WEI-WU-SHITING-228、CAMPAIGN-V071-SG-WEI-HANZHONG-230、CAMPAIGN-WEI-LIAODONG-232-238。",
               "attribution_category": "PRIMARY_RULER",
               "axis_points": 34.8,
               "ceiling_progress": "NONE",
@@ -894,7 +930,7 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 3,
-              "trajectory_value": 58.0,
+              "trajectory_value": 58,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
               "improvement_step_credits": [
@@ -902,9 +938,24 @@
                   "from_grade": 3,
                   "to_grade": 4,
                   "credit": 1.0,
-                  "basis": "消费现行语义标签PRIMARY_RULER_ACTION"
+                  "basis": "曹叡 A2（边界、门户、纵深与缓冲体系）逐人裁决：陈仓预修、合肥新城及各方向救援构成可验证的多节点防御，辽东四郡纳入后东北缺口闭合；西北丢失武都阴平且鲜卑仍反复，故终点为4档。 曹叡是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：CAMPAIGN-SHU-FIRST-NORTH-227-228、CAMPAIGN-V071-SG-WEI-WU-SHITING-228、CAMPAIGN-V071-SG-WEI-HANZHONG-230、CAMPAIGN-WEI-LIAODONG-232-238。",
+                  "source_refs": [
+                    "CAMPAIGN-SHU-FIRST-NORTH-227-228",
+                    "CAMPAIGN-V071-SG-WEI-WU-SHITING-228",
+                    "CAMPAIGN-V071-SG-WEI-HANZHONG-230",
+                    "CAMPAIGN-WEI-LIAODONG-232-238"
+                  ]
                 }
-              ]
+              ],
+              "attribution_source_refs": [
+                "CAMPAIGN-SHU-FIRST-NORTH-227-228",
+                "CAMPAIGN-V071-SG-WEI-WU-SHITING-228",
+                "CAMPAIGN-V071-SG-WEI-HANZHONG-230",
+                "CAMPAIGN-WEI-LIAODONG-232-238"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为3→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。"
             }
           },
           "B80_adjudication": {
@@ -1149,7 +1200,7 @@
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 4,
-              "maintenance_basis": "没有闭合到本轴的成功现实高压守成",
+              "maintenance_basis": "高位同档可进入守成门，但当前没有闭合现实强压、非自致压力、持续有效性和本人主要保全归责的完整记录，故难度为NONE且不加分。",
               "maintenance_bonus": 0,
               "maintenance_difficulty": "NONE",
               "negative_adjustment": 0,
@@ -1162,7 +1213,14 @@
               "trajectory_value": 48.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "HIGH_POSITION_STABLE_HANDOVER",
+              "settlement_type_label": "高位平稳交付型",
+              "settlement_type_basis": "客观起终档同为4档，当前没有闭合高位守成压力门或其他专项加减，故归为高位平稳交付型，只保留高位终点结果锚。",
+              "positive_credit_review": {
+                "decision": "EVIDENCE_LIMITED",
+                "basis": "249—251年窗口只见麴城、洮城等有限事项，尚无主要威胁再战能力变化或新的成套防御衔接证据；不把早年非本窗口功绩移入。"
+              }
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -1172,7 +1230,7 @@
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 4,
-              "maintenance_basis": "没有闭合到本轴的成功现实高压守成",
+              "maintenance_basis": "高位同档可进入守成门，但当前没有闭合现实强压、非自致压力、持续有效性和本人主要保全归责的完整记录，故难度为NONE且不加分。",
               "maintenance_bonus": 0,
               "maintenance_difficulty": "NONE",
               "negative_adjustment": 0,
@@ -1185,7 +1243,14 @@
               "trajectory_value": 48.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "HIGH_POSITION_STABLE_HANDOVER",
+              "settlement_type_label": "高位平稳交付型",
+              "settlement_type_basis": "客观起终档同为4档，当前没有闭合高位守成压力门或其他专项加减，故归为高位平稳交付型，只保留高位终点结果锚。",
+              "positive_credit_review": {
+                "decision": "EVIDENCE_LIMITED",
+                "basis": "249—251年窗口只见麴城、洮城等有限事项，尚无主要威胁再战能力变化或新的成套防御衔接证据；不把早年非本窗口功绩移入。"
+              }
             }
           },
           "B80_adjudication": {
@@ -1439,7 +1504,7 @@
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 4,
-              "maintenance_basis": "没有闭合到本轴的成功现实高压守成",
+              "maintenance_basis": "高位同档可进入守成门，但当前没有闭合现实强压、非自致压力、持续有效性和本人主要保全归责的完整记录，故难度为NONE且不加分。",
               "maintenance_bonus": 0,
               "maintenance_difficulty": "NONE",
               "negative_adjustment": 20,
@@ -1452,7 +1517,14 @@
               "trajectory_value": 28.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "WITHIN_BAND_MAJOR_REVERSAL",
+              "settlement_type_label": "档内重大逆转型",
+              "settlement_type_basis": "客观起终档同为4档，重大逆转扣减20轨迹点且优先于普通同档交付，故归为档内重大逆转型；现行归责明示本人制造或放大，且达到多次或结构性影响",
+              "positive_credit_review": {
+                "decision": "NO_NET_STRUCTURAL_GAIN",
+                "basis": "合肥新城保卫、淮南平乱主要恢复既有秩序；自致或放大的危机责任不能由平乱抵消为净建设，既有负向调整保留。"
+              }
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -1462,7 +1534,7 @@
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 4,
-              "maintenance_basis": "没有闭合到本轴的成功现实高压守成",
+              "maintenance_basis": "高位同档可进入守成门，但当前没有闭合现实强压、非自致压力、持续有效性和本人主要保全归责的完整记录，故难度为NONE且不加分。",
               "maintenance_bonus": 0,
               "maintenance_difficulty": "NONE",
               "negative_adjustment": 0,
@@ -1475,7 +1547,14 @@
               "trajectory_value": 48.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "HIGH_POSITION_STABLE_HANDOVER",
+              "settlement_type_label": "高位平稳交付型",
+              "settlement_type_basis": "客观起终档同为4档，当前没有闭合高位守成压力门或其他专项加减，故归为高位平稳交付型，只保留高位终点结果锚。",
+              "positive_credit_review": {
+                "decision": "NO_NET_STRUCTURAL_GAIN",
+                "basis": "合肥新城保卫、淮南平乱主要恢复既有秩序；自致或放大的危机责任不能由平乱抵消为净建设，既有负向调整保留。"
+              }
             }
           },
           "B80_adjudication": {
@@ -1771,7 +1850,7 @@
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 4,
-              "maintenance_basis": "没有闭合到本轴的成功现实高压守成",
+              "maintenance_basis": "高位同档可进入守成门，但当前没有闭合现实强压、非自致压力、持续有效性和本人主要保全归责的完整记录，故难度为NONE且不加分。",
               "maintenance_bonus": 0,
               "maintenance_difficulty": "NONE",
               "negative_adjustment": 20,
@@ -1784,7 +1863,14 @@
               "trajectory_value": 28.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "WITHIN_BAND_MAJOR_REVERSAL",
+              "settlement_type_label": "档内重大逆转型",
+              "settlement_type_basis": "客观起终档同为4档，重大逆转扣减20轨迹点且优先于普通同档交付，故归为档内重大逆转型；现行归责明示本人制造或放大，且达到多次或结构性影响",
+              "positive_credit_review": {
+                "decision": "NO_NET_STRUCTURAL_GAIN",
+                "basis": "洮西、寿春、钟会等危机结束含本任自致或放大因素，恢复秩序不等于超过接班结构；灭蜀按统一排除，负向责任保留。"
+              }
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -1794,7 +1880,7 @@
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 4,
-              "maintenance_basis": "没有闭合到本轴的成功现实高压守成",
+              "maintenance_basis": "高位同档可进入守成门，但当前没有闭合现实强压、非自致压力、持续有效性和本人主要保全归责的完整记录，故难度为NONE且不加分。",
               "maintenance_bonus": 0,
               "maintenance_difficulty": "NONE",
               "negative_adjustment": 0,
@@ -1807,7 +1893,14 @@
               "trajectory_value": 48.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "HIGH_POSITION_STABLE_HANDOVER",
+              "settlement_type_label": "高位平稳交付型",
+              "settlement_type_basis": "客观起终档同为4档，当前没有闭合高位守成压力门或其他专项加减，故归为高位平稳交付型，只保留高位终点结果锚。",
+              "positive_credit_review": {
+                "decision": "NO_NET_STRUCTURAL_GAIN",
+                "basis": "洮西、寿春、钟会等危机结束含本任自致或放大因素，恢复秩序不等于超过接班结构；灭蜀按统一排除，负向责任保留。"
+              }
             }
           },
           "B80_adjudication": {
@@ -2015,9 +2108,9 @@
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 2,
-              "maintenance_basis": "非4→4或5→5",
+              "maintenance_basis": "低位同档可进入抗压保全门，但当前没有闭合O4以上现实压力、非自致压力、具名保全对象和本人主要保全归责的完整记录，故难度为NONE且不加分。",
               "maintenance_bonus": 0,
-              "maintenance_difficulty": "NOT_APPLICABLE",
+              "maintenance_difficulty": "NONE",
               "negative_adjustment": 10,
               "objective_delta": 0,
               "reversal_basis": "现行归责明示本人制造或放大的档内逆转",
@@ -2028,7 +2121,14 @@
               "trajectory_value": 14.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "WITHIN_BAND_MAJOR_REVERSAL",
+              "settlement_type_label": "档内重大逆转型",
+              "settlement_type_basis": "客观起终档同为2档，重大逆转扣减10轨迹点且优先于普通同档交付，故归为档内重大逆转型；现行归责明示本人制造或放大的档内逆转",
+              "positive_credit_review": {
+                "decision": "NO_NET_STRUCTURAL_GAIN",
+                "basis": "夷陵后守住永安须与接班相比，不能把本任大败后的恢复当净结构改善，原负向责任保留。"
+              }
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -2038,9 +2138,9 @@
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 3,
-              "maintenance_basis": "非4→4或5→5",
+              "maintenance_basis": "低位同档可进入抗压保全门，但当前没有闭合O4以上现实压力、非自致压力、具名保全对象和本人主要保全归责的完整记录，故难度为NONE且不加分。",
               "maintenance_bonus": 0,
-              "maintenance_difficulty": "NOT_APPLICABLE",
+              "maintenance_difficulty": "NONE",
               "negative_adjustment": 0,
               "objective_delta": 0,
               "reversal_basis": "逆转未证明改变本轴，避免双轴重复处罚",
@@ -2051,7 +2151,14 @@
               "trajectory_value": 36.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "LOW_POSITION_STABLE_HANDOVER",
+              "settlement_type_label": "低位平稳交付型",
+              "settlement_type_basis": "客观起终档同为3档。机械命中的刘璋O4链属于取得益州的第一项兼并对象；夷陵压力来自本人主动伐吴并以大败收束，不能转写为A2低位抗压，故归为低位平稳交付型。",
+              "positive_credit_review": {
+                "decision": "NO_NET_STRUCTURAL_GAIN",
+                "basis": "夷陵后守住永安须与接班相比，不能把本任大败后的恢复当净结构改善，原负向责任保留。"
+              }
             }
           },
           "B80_adjudication": {
@@ -2298,7 +2405,7 @@
               "attributable_delta": -0.75,
               "attribution_basis": "刘禅奉玺绶降魏并令姜维、诸郡罢兵，蜀汉没有可移交的国防中央。客观终点必须归零；败亡责任仍沿用人物裁决，不从胜方第一项信用机械反推。",
               "attribution_category": "SHARED_MATERIAL",
-              "axis_points": 0.0,
+              "axis_points": 0,
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 0,
@@ -2312,16 +2419,19 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 2,
-              "trajectory_value": 0.0,
+              "trajectory_value": 0,
               "within_band_deterioration_basis": "终局归零后不再追加档内恶化",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为2→0，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-0.75档，负向责任仍由独立字段保留。"
             },
             "A2": {
               "attributable_delta": -0.75,
               "attribution_basis": "刘禅奉玺绶降魏并令姜维、诸郡罢兵，蜀汉没有可移交的国防中央。客观终点必须归零；败亡责任仍沿用人物裁决，不从胜方第一项信用机械反推。",
               "attribution_category": "SHARED_MATERIAL",
-              "axis_points": 0.0,
+              "axis_points": 0,
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 0,
@@ -2335,10 +2445,13 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 3,
-              "trajectory_value": 0.0,
+              "trajectory_value": 0,
               "within_band_deterioration_basis": "终局归零后不再追加档内恶化",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为3→0，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-0.75档，负向责任仍由独立字段保留。"
             }
           },
           "B80_adjudication": {
@@ -2644,7 +2757,7 @@
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 1.0,
-              "attribution_basis": "消费现行语义标签PRIMARILY_RULER_AND_COMMAND_SYSTEM_ACTION",
+              "attribution_basis": "孙权 A1（主要威胁能力与战略主动）逐人裁决：222年接班时吴虽有夷陵胜势，却同时面对国力更强的魏三路进攻，江陵、濡须均承压，整体仍明显被动。其后吴在石亭等战取得主动，并连续守住江陵、濡须及合肥方向，使魏吴形成双方均有进攻能力而无稳定压倒主动的格局；交班升至3档，不因若干远征失败降回2档。 孙权是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：CAMPAIGN-V070-SG-WU-POYANG-225-227、CAMPAIGN-V070-SG-WU-JIAOZHOU-226、CAMPAIGN-V072-SG-WU-WUXI-231-234、CAMPAIGN-V072-SG-WU-LIAODONG-233等11条父链。",
               "attribution_category": "RULER_COMMAND_SYSTEM",
               "axis_points": 27.6,
               "ceiling_progress": "NONE",
@@ -2660,7 +2773,7 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 2,
-              "trajectory_value": 46.0,
+              "trajectory_value": 46,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
               "improvement_step_credits": [
@@ -2668,13 +2781,42 @@
                   "from_grade": 2,
                   "to_grade": 3,
                   "credit": 1.0,
-                  "basis": "消费现行语义标签PRIMARILY_RULER_AND_COMMAND_SYSTEM_ACTION"
+                  "basis": "孙权 A1（主要威胁能力与战略主动）逐人裁决：222年接班时吴虽有夷陵胜势，却同时面对国力更强的魏三路进攻，江陵、濡须均承压，整体仍明显被动。其后吴在石亭等战取得主动，并连续守住江陵、濡须及合肥方向，使魏吴形成双方均有进攻能力而无稳定压倒主动的格局；交班升至3档，不因若干远征失败降回2档。 孙权是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：CAMPAIGN-V070-SG-WU-POYANG-225-227、CAMPAIGN-V070-SG-WU-JIAOZHOU-226、CAMPAIGN-V072-SG-WU-WUXI-231-234、CAMPAIGN-V072-SG-WU-LIAODONG-233等11条父链。",
+                  "source_refs": [
+                    "CAMPAIGN-V070-SG-WU-POYANG-225-227",
+                    "CAMPAIGN-V070-SG-WU-JIAOZHOU-226",
+                    "CAMPAIGN-V072-SG-WU-WUXI-231-234",
+                    "CAMPAIGN-V072-SG-WU-LIAODONG-233",
+                    "CAMPAIGN-V072-SG-WEI-WU-234",
+                    "CAMPAIGN-V073-SG-WU-DANYANG-234-237",
+                    "CAMPAIGN-V074-SG-WU-LIAOSHI-239-240",
+                    "CAMPAIGN-V075-SG-WU-JIAOZHOU-248",
+                    "CAMPAIGN-V075-SG-WU-TUTANG-250",
+                    "WAR-LEAD-HAN-SUNQUAN-HUANGZU-203",
+                    "WAR-LEAD-HAN-WU-HUANGZU-208"
+                  ]
                 }
-              ]
+              ],
+              "attribution_source_refs": [
+                "CAMPAIGN-V070-SG-WU-POYANG-225-227",
+                "CAMPAIGN-V070-SG-WU-JIAOZHOU-226",
+                "CAMPAIGN-V072-SG-WU-WUXI-231-234",
+                "CAMPAIGN-V072-SG-WU-LIAODONG-233",
+                "CAMPAIGN-V072-SG-WEI-WU-234",
+                "CAMPAIGN-V073-SG-WU-DANYANG-234-237",
+                "CAMPAIGN-V074-SG-WU-LIAOSHI-239-240",
+                "CAMPAIGN-V075-SG-WU-JIAOZHOU-248",
+                "CAMPAIGN-V075-SG-WU-TUTANG-250",
+                "WAR-LEAD-HAN-SUNQUAN-HUANGZU-203",
+                "WAR-LEAD-HAN-WU-HUANGZU-208"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为2→3，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。"
             },
             "A2": {
               "attributable_delta": 1.0,
-              "attribution_basis": "消费现行语义标签PRIMARILY_RULER_AND_COMMAND_SYSTEM_ACTION",
+              "attribution_basis": "孙权 A2（边界、门户、纵深与缓冲体系）逐人裁决：起点已有长江主线和江陵、濡须等可运作支点，但多方向仍在现实强攻下检验。任内形成并反复运用上游江陵、西线武陵、中游濡须—巢湖诸水道及东线水军协同，主要门户总体有效；仍不能把未夺合肥和上游强敌压力说成无缺口，终点为4档。 孙权是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：CAMPAIGN-V070-SG-WU-POYANG-225-227、CAMPAIGN-V070-SG-WU-JIAOZHOU-226、CAMPAIGN-V072-SG-WU-WUXI-231-234、CAMPAIGN-V072-SG-WU-LIAODONG-233等11条父链。",
               "attribution_category": "RULER_COMMAND_SYSTEM",
               "axis_points": 34.8,
               "ceiling_progress": "NONE",
@@ -2690,7 +2832,7 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 3,
-              "trajectory_value": 58.0,
+              "trajectory_value": 58,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
               "improvement_step_credits": [
@@ -2698,9 +2840,38 @@
                   "from_grade": 3,
                   "to_grade": 4,
                   "credit": 1.0,
-                  "basis": "消费现行语义标签PRIMARILY_RULER_AND_COMMAND_SYSTEM_ACTION"
+                  "basis": "孙权 A2（边界、门户、纵深与缓冲体系）逐人裁决：起点已有长江主线和江陵、濡须等可运作支点，但多方向仍在现实强攻下检验。任内形成并反复运用上游江陵、西线武陵、中游濡须—巢湖诸水道及东线水军协同，主要门户总体有效；仍不能把未夺合肥和上游强敌压力说成无缺口，终点为4档。 孙权是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：CAMPAIGN-V070-SG-WU-POYANG-225-227、CAMPAIGN-V070-SG-WU-JIAOZHOU-226、CAMPAIGN-V072-SG-WU-WUXI-231-234、CAMPAIGN-V072-SG-WU-LIAODONG-233等11条父链。",
+                  "source_refs": [
+                    "CAMPAIGN-V070-SG-WU-POYANG-225-227",
+                    "CAMPAIGN-V070-SG-WU-JIAOZHOU-226",
+                    "CAMPAIGN-V072-SG-WU-WUXI-231-234",
+                    "CAMPAIGN-V072-SG-WU-LIAODONG-233",
+                    "CAMPAIGN-V072-SG-WEI-WU-234",
+                    "CAMPAIGN-V073-SG-WU-DANYANG-234-237",
+                    "CAMPAIGN-V074-SG-WU-LIAOSHI-239-240",
+                    "CAMPAIGN-V075-SG-WU-JIAOZHOU-248",
+                    "CAMPAIGN-V075-SG-WU-TUTANG-250",
+                    "WAR-LEAD-HAN-SUNQUAN-HUANGZU-203",
+                    "WAR-LEAD-HAN-WU-HUANGZU-208"
+                  ]
                 }
-              ]
+              ],
+              "attribution_source_refs": [
+                "CAMPAIGN-V070-SG-WU-POYANG-225-227",
+                "CAMPAIGN-V070-SG-WU-JIAOZHOU-226",
+                "CAMPAIGN-V072-SG-WU-WUXI-231-234",
+                "CAMPAIGN-V072-SG-WU-LIAODONG-233",
+                "CAMPAIGN-V072-SG-WEI-WU-234",
+                "CAMPAIGN-V073-SG-WU-DANYANG-234-237",
+                "CAMPAIGN-V074-SG-WU-LIAOSHI-239-240",
+                "CAMPAIGN-V075-SG-WU-JIAOZHOU-248",
+                "CAMPAIGN-V075-SG-WU-TUTANG-250",
+                "WAR-LEAD-HAN-SUNQUAN-HUANGZU-203",
+                "WAR-LEAD-HAN-WU-HUANGZU-208"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为3→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。"
             }
           },
           "B80_adjudication": {
@@ -2935,7 +3106,7 @@
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": -0.75,
-              "attribution_basis": "消费现行语义标签MIXED_WITH_SELF_INDUCED_SOUTHERN_LOSS_AND_EXTERNAL_SHU_COLLAPSE",
+              "attribution_basis": "孙休 A1（主要威胁能力与战略主动）逐人裁决：起点由孙亮空档桥承接魏吴制衡3档。263年蜀亡后，魏晋取得长江上游并可从蜀地南下；同年交趾因吴官贪暴、远役征调而反，264年孙休增兵三万攻永安仍被罗宪与魏援逼退。吴在西、南两向同时转为被动，但建业尚无即时存亡危机，终点为2档而非1档。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给孙休；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动-1档中取-0.75档。依据链：CAMPAIGN-V078-SG-JIAOZHI-263。",
               "attribution_category": "SHARED_MATERIAL",
               "axis_points": 9.9,
               "ceiling_progress": "NONE",
@@ -2954,11 +3125,17 @@
               "trajectory_value": 16.5,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "attribution_source_refs": [
+                "CAMPAIGN-V078-SG-JIAOZHI-263"
+              ],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为3→2，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-0.75档，负向责任仍由独立字段保留。"
             },
             "A2": {
               "attributable_delta": -0.75,
-              "attribution_basis": "消费现行语义标签MIXED_WITH_SELF_INDUCED_SOUTHERN_LOSS_AND_EXTERNAL_SHU_COLLAPSE",
+              "attribution_basis": "孙休 A2（边界、门户、纵深与缓冲体系）逐人裁决：起点总体长江边界仍有效。交班时武陵五溪虽由钟离牧恢复，但交趾失控，巴东—永安又落入魏晋体系并挡住吴军，南方与上游形成两个显著缺口；中下游长江主线仍能运作，故降至3档，不降为孤立据点型2档。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给孙休；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动-1档中取-0.75档。依据链：CAMPAIGN-V078-SG-JIAOZHI-263。",
               "attribution_category": "SHARED_MATERIAL",
               "axis_points": 17.1,
               "ceiling_progress": "NONE",
@@ -2977,7 +3154,13 @@
               "trajectory_value": 28.5,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "attribution_source_refs": [
+                "CAMPAIGN-V078-SG-JIAOZHI-263"
+              ],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为4→3，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-0.75档，负向责任仍由独立字段保留。"
             }
           },
           "B80_adjudication": {
@@ -3237,7 +3420,7 @@
               "attributable_delta": -0.75,
               "attribution_basis": "孙皓向晋军投降，吴中央及州郡转入晋制，没有本政权国防成果可交班。客观终点必须归零；败亡责任仍沿用人物裁决，不从胜方第一项信用机械反推。",
               "attribution_category": "SHARED_MATERIAL",
-              "axis_points": 0.0,
+              "axis_points": 0,
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 0,
@@ -3251,16 +3434,19 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 2,
-              "trajectory_value": 0.0,
+              "trajectory_value": 0,
               "within_band_deterioration_basis": "终局归零后不再追加档内恶化",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为2→0，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-0.75档，负向责任仍由独立字段保留。"
             },
             "A2": {
               "attributable_delta": 0.0,
               "attribution_basis": "孙皓向晋军投降，吴中央及州郡转入晋制，没有本政权国防成果可交班。客观终点必须归零；败亡责任仍沿用人物裁决，不从胜方第一项信用机械反推。",
               "attribution_category": "NO_CHANGE",
-              "axis_points": 0.0,
+              "axis_points": 0,
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 0,
@@ -3274,10 +3460,13 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 3,
-              "trajectory_value": 0.0,
+              "trajectory_value": 0,
               "within_band_deterioration_basis": "终局归零后不再追加档内恶化",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为3→0，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为0档，负向责任仍由独立字段保留。"
             }
           },
           "B80_adjudication": {

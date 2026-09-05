@@ -6,18 +6,18 @@
       "positions": [
         3,
         4,
-        27,
+        18,
         28,
-        47,
-        48,
-        55,
+        46,
+        53,
+        59,
+        96,
         99,
         101,
-        103,
         129,
-        149,
+        131,
+        163,
         164,
-        165,
         172,
         173
       ],
@@ -315,51 +315,30 @@
           "g4_secondary_profile_id": "B1-PROFILE-DC183D2F7B184D27"
         },
         {
-          "M_mixed_profile": [
-            {
-              "M": "M3",
-              "direction": "positive",
-              "direction_factor": 1.0,
-              "lifecycle_key": "B1:RULER-SS-ZHAO-XU:V50:BAOJIA-SUPPORT",
-              "material_id": "NS-ZX-V067-NATIONAL-GREEN-SPROUT-DELIVERY",
-              "mechanism": "保甲由中央部署、各路提举、地方都保正长执行并按阅复核support",
-              "result_closure": "sustained_or_systemic",
-              "signed_weight": 2.0,
-              "lifecycle_group_key": "B1:RULER-SS-ZHAO-XU:V50:BAOJIA-SUPPORT",
-              "profile_id": "B1-PROFILE-7D7A0714A80690CF",
-              "b1_role": "support"
-            }
-          ],
-          "M_negative_profile": [
-            {
-              "M": "M3",
-              "direction": "negative",
-              "direction_factor": -1.0,
-              "lifecycle_key": "B1:RULER-NS-ZHAO-XU:V50:SEVERITY-NEGATIVE",
-              "material_id": "NS-ZX-V077-PERSISTENT-IMPLEMENTATION-HARM",
-              "mechanism": "N3-domain：新法异议官大批罢逐造成中枢反馈与官僚安全失灵",
-              "result_closure": "sustained_or_systemic",
-              "signed_weight": -2.0,
-              "lifecycle_group_key": "B1:RULER-NS-ZHAO-XU:V50:SEVERITY-NEGATIVE",
-              "profile_id": "B1-PROFILE-F7771D450E24DCD3",
-              "b1_role": "central",
-              "severity": "N3-domain",
-              "severity_scope": "major-stage",
-              "severity_basis": "按该负生命周期实际击中的B1组织功能面与责任窗口裁为N3-domain / major-stage。"
-            }
-          ],
+          "M_mixed_profile": [],
+          "M_negative_profile": [],
           "M_positive_profile": [
             {
+              "material_id": "I2-SONG-ZHAOXU-ASSESSMENT-001",
               "M": "M3",
               "direction": "positive",
               "direction_factor": 1.0,
-              "lifecycle_key": "B1:RULER-NS-ZHAO-XU:中央—地方考课",
-              "material_id": "NS-ZX-V065-OFFICIAL-ASSESSMENT",
-              "mechanism": "中央—地方考课",
-              "result_closure": "observed_or_repeated",
               "signed_weight": 2.0,
-              "profile_id": "B1-PROFILE-03956DBC3F7BF287",
-              "b1_role": "core"
+              "mechanism": "监司上报守臣治状并实际升黜，上级考校监司",
+              "result_closure": "sustained_or_systemic",
+              "b1_role": "core",
+              "profile_id": "B1-PROFILE-6310F915DC878F38"
+            },
+            {
+              "material_id": "I2-SONG-ZHAOXU-CIRCUIT-DELIVERY-001",
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "signed_weight": 1.0,
+              "mechanism": "中央分遣四十一提举管句官承接诸路常平广惠农田事务",
+              "result_closure": "observed_or_repeated",
+              "b1_role": "support",
+              "profile_id": "B1-PROFILE-EEB66416DFC6B7A9"
             }
           ],
           "coverage_audit_ids": [
@@ -368,60 +347,63 @@
           ],
           "database_write": false,
           "direct_material_ids": [
-            "NS-ZX-V065-OFFICIAL-ASSESSMENT",
-            "NS-ZX-V067-NATIONAL-GREEN-SPROUT-DELIVERY",
-            "NS-ZX-V077-PERSISTENT-IMPLEMENTATION-HARM"
+            "I2-SONG-ZHAOXU-ASSESSMENT-001",
+            "I2-SONG-ZHAOXU-CIRCUIT-DELIVERY-001"
           ],
           "direction_card_write": true,
-          "direction_index": 74.5,
+          "direction_index": 77.5,
           "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
           "formal_evidence_maturity": "chronicle_plus_official_history_or_treatise",
           "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
           "grade": "G4",
-          "grade_basis": "链①：州县治状→监司/察访→中央注籍与升黜，跨熙宁—元丰持续运行，构成core M3。链②：中央部署保甲→各路提举责任官→地方都保/正长组织→按阅复核→补官、差使、赐帛及责任官迁官，构成独立support M3。异议官员退出剥离B2后仅余高层人事N3-domain，不再构成cross。",
-          "grade_gate_basis": "链①：州县治状→监司/察访→中央注籍与升黜，跨熙宁—元丰持续运行，构成core M3。链②：中央部署保甲→各路提举责任官→地方都保/正长组织→按阅复核→补官、差使、赐帛及责任官迁官，构成独立support M3。异议官员退出剥离B2后仅余高层人事N3-domain，不再构成cross。",
+          "grade_basis": "神宗任内考课责实，监司所上守臣课影响展年降资或增秩赐物，并由御史考校监司，闭合多层任用考核core M3。另实际配置诸路四十一名提举管句官，形成独立行政支撑M2；原所绑材料是青苗常平而非保甲，修正机制名称且不虚称持续成果M3。异议官罢逐归B2，所绑争讼摘要不能支持另立B1人员安全负链。core M3加独立第二验证满足G4。",
+          "grade_gate_basis": "神宗任内考课责实，监司所上守臣课影响展年降资或增秩赐物，并由御史考校监司，闭合多层任用考核core M3。另实际配置诸路四十一名提举管句官，形成独立行政支撑M2；原所绑材料是青苗常平而非保甲，修正机制名称且不虚称持续成果M3。异议官罢逐归B2，所绑争讼摘要不能支持另立B1人员安全负链。core M3加独立第二验证满足G4。",
           "grade_gate_code": "B1_G4_BROAD_STABLE_DELIVERY",
           "index_interval": [
             70.0,
             84.9
           ],
           "polity": "北宋",
-          "position": "lower-middle",
-          "position_basis": "有效生命周期签名M权重合计扣除G4门槛占用3后，净余量=-1，按合同机械映射为lower-middle。",
-          "position_q": 0.3,
-          "rank": 27,
+          "position": "middle",
+          "position_basis": "有效生命周期签名M权重合计扣除G4门槛占用3后，净余量=0，按合同机械映射为middle。",
+          "position_q": 0.5,
+          "rank": 14,
           "reign_range": "1067-1085",
           "ruler_id": "RULER-NS-ZHAO-XU",
           "ruler_name": "赵顼",
           "verification_material_ids": [
-            "NS-VERIFY-RULER-NS-ZHAO-XU"
+            "NS-VERIFY-RULER-NS-ZHAO-XU",
+            "NS-ZX-V065-OFFICIAL-ASSESSMENT",
+            "NS-ZX-V067-NATIONAL-GREEN-SPROUT-DELIVERY",
+            "NS-ZX-V077-PERSISTENT-IMPLEMENTATION-HARM"
           ],
           "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
           "structured_grade_basis": [
             {
               "role": "主档依据",
-              "text": "链①：州县治状→监司/察访→中央注籍与升黜，跨熙宁—元丰持续运行，构成核心行政机制 M3。链②：中央部署保甲→各路提举责任官→地方都保/正长组织→按阅复核→补官、差使、赐帛及责任官迁官，构成独立行政交付 M3。异议官员退出剥离B2后仅余高层人事N3（单功能系统失灵），不再构成cross。"
+              "text": "神宗任内考课责实，监司所上守臣课影响展年降资或增秩赐物，并由御史考校监司，闭合多层任用考核核心行政机制 M3。另实际配置诸路四十一名提举管句官，形成独立行政支撑M2；原所绑材料是青苗常平而非保甲，修正机制名称且不虚称持续成果M3。异议官罢逐归B2，所绑争讼摘要不能支持另立B1人员安全负链。核心行政机制 M3加独立第二验证满足G4。"
             },
             {
               "role": "档内位置依据",
-              "text": "主档已定为G4；有效生命周期权重合计扣除该档门槛占用3后，净余量为-1，仅据此确定档内中下位（74.5）。净余量不用于跨档比较"
+              "text": "主档已定为G4；有效生命周期权重合计扣除该档门槛占用3后，净余量为0，仅据此确定档内中位（77.5）。净余量不用于跨档比较"
             },
             {
               "role": "正向依据（M3）",
-              "text": "中央—地方考课"
+              "text": "监司上报守臣治状并实际升黜，上级考校监司"
             },
             {
-              "role": "正向依据（M3）",
-              "text": "保甲由中央部署、各路提举、地方都保正长执行并按阅复核行政交付"
+              "role": "正向依据（M2）",
+              "text": "中央分遣四十一提举管句官承接诸路常平广惠农田事务"
             },
             {
-              "role": "负向依据（M3）",
-              "text": "N3（单功能系统失灵）：新法异议官大批罢逐造成中枢反馈与官僚安全失灵"
+              "role": "负向依据（无可计M档）",
+              "text": "未闭合可计的负向运行链"
             }
           ],
-          "position_residual": -1.0,
+          "position_residual": 0.0,
           "grade_threshold_consumed": 3.0,
-          "v50_source_line": 165,
+          "g4_core_profile_id": "B1-PROFILE-6310F915DC878F38",
+          "g4_secondary_profile_id": "B1-PROFILE-EEB66416DFC6B7A9",
           "review_material_basis": [
             {
               "version": "v20",
@@ -441,8 +423,7 @@
             }
           ],
           "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
-          "g4_core_profile_id": "B1-PROFILE-03956DBC3F7BF287",
-          "g4_secondary_profile_id": "B1-PROFILE-7D7A0714A80690CF"
+          "v50_source_line": 165
         },
         {
           "M_mixed_profile": [],
@@ -544,7 +525,7 @@
           "position": "lower-middle",
           "position_basis": "有效生命周期签名M权重合计扣除G4门槛占用3后，净余量=-1，按合同机械映射为lower-middle。",
           "position_q": 0.3,
-          "rank": 27,
+          "rank": 29,
           "reign_range": "1033-1063（亲政）",
           "ruler_id": "RULER-NS-ZHAO-ZHEN",
           "ruler_name": "赵祯",
@@ -670,7 +651,7 @@
           "position": "middle-upper",
           "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=1，按合同机械映射为middle-upper。",
           "position_q": 0.7,
-          "rank": 45,
+          "rank": 43,
           "reign_range": "1085-1093（实际主政）",
           "ruler_id": "RULER-NS-GAO-TAOTAO",
           "ruler_name": "高滔滔",
@@ -731,140 +712,6 @@
             "B1-PROFILE-68B1558A17476996",
             "B1-PROFILE-9BA37821563D70D4",
             "B1-PROFILE-2D8FC0AD37EBB1A4"
-          ]
-        },
-        {
-          "M_mixed_profile": [],
-          "M_negative_profile": [],
-          "M_positive_profile": [
-            {
-              "M": "M2",
-              "direction": "positive",
-              "direction_factor": 1.0,
-              "lifecycle_group_key": "NS-LE-V035-DINGWEI-ACCOUNTABILITY",
-              "lifecycle_key": "NS-LE-V035-DINGWEI-ACCOUNTABILITY",
-              "material_id": "NS-LE-V035-DINGWEI-ACCOUNTABILITY",
-              "mechanism": "丁谓集团案后实际罢相、贬逐并终止单线传政",
-              "result_closure": "sustained_or_systemic",
-              "signed_weight": 1.0,
-              "profile_id": "B1-PROFILE-6F1A0B50CDC6E013",
-              "b1_role": "support"
-            },
-            {
-              "M": "M2",
-              "direction": "positive",
-              "direction_factor": 1.0,
-              "lifecycle_group_key": "NS-LE-V036-LOCAL-OFFICIAL-INTERVIEW",
-              "lifecycle_key": "NS-LE-V036-LOCAL-OFFICIAL-INTERVIEW",
-              "material_id": "NS-LE-V036-LOCAL-OFFICIAL-INTERVIEW",
-              "mechanism": "均在便殿引对",
-              "result_closure": "observed_or_repeated",
-              "signed_weight": 1.0,
-              "profile_id": "B1-PROFILE-DF133C667B8E9395",
-              "b1_role": "support"
-            },
-            {
-              "M": "M2",
-              "direction": "positive",
-              "direction_factor": 1.0,
-              "lifecycle_group_key": "NS-LE-V036-NEPOTISM-CORRECTION",
-              "lifecycle_key": "NS-LE-V036-NEPOTISM-CORRECTION",
-              "material_id": "NS-LE-V036-NEPOTISM-CORRECTION",
-              "mechanism": "改用寒门登第且考绩无过者，获准",
-              "result_closure": "sustained_or_systemic",
-              "signed_weight": 1.0,
-              "profile_id": "B1-PROFILE-CA65744B6CF6C335",
-              "b1_role": "support"
-            }
-          ],
-          "coverage_audit_ids": [
-            "NS11-TWO-SOURCE-FAMILY-GATE",
-            "NS11-TEN-DOMAIN-FAIRNESS-AUDIT"
-          ],
-          "database_write": false,
-          "direct_material_ids": [
-            "NS-LE-V035-DINGWEI-ACCOUNTABILITY",
-            "NS-LE-V036-LOCAL-OFFICIAL-INTERVIEW",
-            "NS-LE-V036-NEPOTISM-CORRECTION"
-          ],
-          "direction_card_write": true,
-          "direction_index": 65.4,
-          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
-          "formal_evidence_maturity": "chronicle_plus_official_history_or_treatise",
-          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
-          "grade": "G3",
-          "grade_basis": "《宋史·章献明肃刘皇后传》《宋史·职官志》《宋史·李谘传》《宋史纪事本末》卷23｜链①：真宗崩后军国重事归太后处分；丁谓曾试图把章奏只送禁中→丁谓贬崖州后，冯拯等恢复“帝与太后同御承明殿、辅臣按正式路由奏事”，形成中枢传政恢复M2。链②：李谘奏裁冗费→太后命吕夷简、鲁宗道、张士逊与李谘经度→以景德较天禧实际减冗费约十分之二，形成独立财政行政M2。另有亲民官便殿引对、京府基层岗位清理等M2。曹利用受内侍逼迫而死保留实际人员稳定负M2；多接口总体可用，但无一条跨多年、多责任层级、带持续结果的干净core M3，维持G3。",
-          "grade_gate_basis": "《宋史·章献明肃刘皇后传》《宋史·职官志》《宋史·李谘传》《宋史纪事本末》卷23｜链①：真宗崩后军国重事归太后处分；丁谓曾试图把章奏只送禁中→丁谓贬崖州后，冯拯等恢复“帝与太后同御承明殿、辅臣按正式路由奏事”，形成中枢传政恢复M2。链②：李谘奏裁冗费→太后命吕夷简、鲁宗道、张士逊与李谘经度→以景德较天禧实际减冗费约十分之二，形成独立财政行政M2。另有亲民官便殿引对、京府基层岗位清理等M2。曹利用受内侍逼迫而死保留实际人员稳定负M2；多接口总体可用，但无一条跨多年、多责任层级、带持续结果的干净core M3，维持G3。",
-          "grade_gate_code": "B1_G3_MAIN_STAGE_USABLE",
-          "index_interval": [
-            55.0,
-            69.9
-          ],
-          "polity": "北宋",
-          "position": "middle-upper",
-          "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=1，按合同机械映射为middle-upper。",
-          "position_q": 0.7,
-          "rank": 45,
-          "reign_range": "1022-1033（实际主政）",
-          "ruler_id": "RULER-NS-LIU-E",
-          "ruler_name": "刘娥",
-          "verification_material_ids": [
-            "NS-VERIFY-RULER-NS-LIU-E"
-          ],
-          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
-          "structured_grade_basis": [
-            {
-              "role": "主档依据",
-              "text": "《宋史·章献明肃刘皇后传》《宋史·职官志》《宋史·李谘传》《宋史纪事本末》卷23｜链①：真宗崩后军国重事归太后处分；丁谓曾试图把章奏只送禁中→丁谓贬崖州后，冯拯等恢复“帝与太后同御承明殿、辅臣按正式路由奏事”，形成中枢传政恢复M2。链②：李谘奏裁冗费→太后命吕夷简、鲁宗道、张士逊与李谘经度→以景德较天禧实际减冗费约十分之二，形成独立财政行政M2。另有亲民官便殿引对、京府基层岗位清理等M2。曹利用受内侍逼迫而死保留实际人员稳定负M2；多接口总体可用，但无一条跨多年、多责任层级、带持续结果的干净核心行政机制 M3，维持G3。"
-            },
-            {
-              "role": "档内位置依据",
-              "text": "主档已定为G3；有效生命周期权重合计扣除该档门槛占用2后，净余量为1，仅据此确定档内中上位（65.4）。净余量不用于跨档比较"
-            },
-            {
-              "role": "正向依据（M2）",
-              "text": "丁谓集团案后实际罢相、贬逐并终止单线传政"
-            },
-            {
-              "role": "正向依据（M2）",
-              "text": "均在便殿引对"
-            },
-            {
-              "role": "正向依据（M2）",
-              "text": "改用寒门登第且考绩无过者，获准"
-            },
-            {
-              "role": "负向依据（无可计M档）",
-              "text": "未闭合可计的负向运行链"
-            }
-          ],
-          "position_residual": 1.0,
-          "grade_threshold_consumed": 2.0,
-          "v50_source_line": 186,
-          "review_material_basis": [
-            {
-              "version": "v20",
-              "line": 470,
-              "review_grade": "G3",
-              "review_position": null,
-              "basis": "丁谓集团退出、亲民官引对、基层岗位清理；曹利用案反例。",
-              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
-            },
-            {
-              "version": "v50",
-              "line": 186,
-              "review_grade": "G3",
-              "review_position": "middle",
-              "basis": "《宋史·章献明肃刘皇后传》《宋史·职官志》《宋史·李谘传》《宋史纪事本末》卷23｜链①：真宗崩后军国重事归太后处分；丁谓曾试图把章奏只送禁中→丁谓贬崖州后，冯拯等恢复“帝与太后同御承明殿、辅臣按正式路由奏事”，形成中枢传政恢复M2。链②：李谘奏裁冗费→太后命吕夷简、鲁宗道、张士逊与李谘经度→以景德较天禧实际减冗费约十分之二，形成独立财政行政M2。另有亲民官便殿引对、京府基层岗位清理等M2。曹利用受内侍逼迫而死保留实际人员稳定负M2；多接口总体可用，但无一条跨多年、多责任层级、带持续结果的干净core M3，维持G3。",
-              "status": "ABSORBED_ACTIVE_PRECEDENCE"
-            }
-          ],
-          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
-          "g3_gate_route": "MULTI_CHAIN",
-          "g3_gate_profile_ids": [
-            "B1-PROFILE-6F1A0B50CDC6E013",
-            "B1-PROFILE-DF133C667B8E9395",
-            "B1-PROFILE-CA65744B6CF6C335"
           ]
         },
         {
@@ -974,7 +821,7 @@
           "position": "middle-upper",
           "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=1.5，按合同机械映射为middle-upper。",
           "position_q": 0.7,
-          "rank": 45,
+          "rank": 43,
           "reign_range": "1162—1189",
           "ruler_id": "RULER-SS-ZHAO-SHEN",
           "ruler_name": "赵昚",
@@ -1037,6 +884,153 @@
           "M_mixed_profile": [],
           "M_negative_profile": [
             {
+              "material_id": "I2-SONG-LIUE-CAOLIYONG-LOSS-001",
+              "M": "M2",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "signed_weight": -1.0,
+              "mechanism": "曹利用被逐后受内侍逼迫而死，责任官人员安全受损",
+              "result_closure": "observed_or_repeated",
+              "b1_role": "central",
+              "profile_id": "B1-PROFILE-72A04E60A03DA383"
+            }
+          ],
+          "M_positive_profile": [
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_group_key": "NS-LE-V035-DINGWEI-ACCOUNTABILITY",
+              "lifecycle_key": "NS-LE-V035-DINGWEI-ACCOUNTABILITY",
+              "material_id": "NS-LE-V035-DINGWEI-ACCOUNTABILITY",
+              "mechanism": "丁谓集团案后实际罢相、贬逐并终止单线传政",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 1.0,
+              "profile_id": "B1-PROFILE-6F1A0B50CDC6E013",
+              "b1_role": "support"
+            },
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_group_key": "NS-LE-V036-LOCAL-OFFICIAL-INTERVIEW",
+              "lifecycle_key": "NS-LE-V036-LOCAL-OFFICIAL-INTERVIEW",
+              "material_id": "NS-LE-V036-LOCAL-OFFICIAL-INTERVIEW",
+              "mechanism": "均在便殿引对",
+              "result_closure": "observed_or_repeated",
+              "signed_weight": 1.0,
+              "profile_id": "B1-PROFILE-DF133C667B8E9395",
+              "b1_role": "support"
+            },
+            {
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "lifecycle_group_key": "NS-LE-V036-NEPOTISM-CORRECTION",
+              "lifecycle_key": "NS-LE-V036-NEPOTISM-CORRECTION",
+              "material_id": "NS-LE-V036-NEPOTISM-CORRECTION",
+              "mechanism": "改用寒门登第且考绩无过者，获准",
+              "result_closure": "sustained_or_systemic",
+              "signed_weight": 1.0,
+              "profile_id": "B1-PROFILE-CA65744B6CF6C335",
+              "b1_role": "support"
+            }
+          ],
+          "coverage_audit_ids": [
+            "NS11-TWO-SOURCE-FAMILY-GATE",
+            "NS11-TEN-DOMAIN-FAIRNESS-AUDIT"
+          ],
+          "database_write": false,
+          "direct_material_ids": [
+            "I2-SONG-LIUE-CAOLIYONG-LOSS-001",
+            "NS-LE-V035-DINGWEI-ACCOUNTABILITY",
+            "NS-LE-V036-LOCAL-OFFICIAL-INTERVIEW",
+            "NS-LE-V036-NEPOTISM-CORRECTION"
+          ],
+          "direction_card_write": true,
+          "direction_index": 62.5,
+          "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
+          "formal_evidence_maturity": "chronicle_plus_official_history_or_treatise",
+          "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
+          "grade": "G3",
+          "grade_basis": "丁谓案后正式传政恢复、亲民官便殿引对及京府基层任职清理，保留三条有限行政M2，满足多链G3。曹利用被逐后受内侍逼迫而死，实际损失责任官，补入人员安全负M2；这里不另计言论受罚。原正文李谘减费未绑定独立profile，现不据此增权；无持续core M3，不进G4。",
+          "grade_gate_basis": "丁谓案后正式传政恢复、亲民官便殿引对及京府基层任职清理，保留三条有限行政M2，满足多链G3。曹利用被逐后受内侍逼迫而死，实际损失责任官，补入人员安全负M2；这里不另计言论受罚。原正文李谘减费未绑定独立profile，现不据此增权；无持续core M3，不进G4。",
+          "grade_gate_code": "B1_G3_MAIN_STAGE_USABLE",
+          "index_interval": [
+            55.0,
+            69.9
+          ],
+          "polity": "北宋",
+          "position": "middle",
+          "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=0，按合同机械映射为middle。",
+          "position_q": 0.5,
+          "rank": 55,
+          "reign_range": "1022-1033（实际主政）",
+          "ruler_id": "RULER-NS-LIU-E",
+          "ruler_name": "刘娥",
+          "verification_material_ids": [
+            "NS-VERIFY-RULER-NS-LIU-E"
+          ],
+          "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
+          "structured_grade_basis": [
+            {
+              "role": "主档依据",
+              "text": "丁谓案后正式传政恢复、亲民官便殿引对及京府基层任职清理，保留三条有限行政M2，满足多链G3。曹利用被逐后受内侍逼迫而死，实际损失责任官，补入人员安全负M2；这里不另计言论受罚。原正文李谘减费未绑定独立profile，现不据此增权；无持续核心行政机制 M3，不进G4。"
+            },
+            {
+              "role": "档内位置依据",
+              "text": "主档已定为G3；有效生命周期权重合计扣除该档门槛占用2后，净余量为0，仅据此确定档内中位（62.5）。净余量不用于跨档比较"
+            },
+            {
+              "role": "正向依据（M2）",
+              "text": "丁谓集团案后实际罢相、贬逐并终止单线传政"
+            },
+            {
+              "role": "正向依据（M2）",
+              "text": "均在便殿引对"
+            },
+            {
+              "role": "正向依据（M2）",
+              "text": "改用寒门登第且考绩无过者，获准"
+            },
+            {
+              "role": "负向依据（M2）",
+              "text": "曹利用被逐后受内侍逼迫而死，责任官人员安全受损"
+            }
+          ],
+          "position_residual": 0.0,
+          "grade_threshold_consumed": 2.0,
+          "g3_gate_route": "MULTI_CHAIN",
+          "g3_gate_profile_ids": [
+            "B1-PROFILE-6F1A0B50CDC6E013",
+            "B1-PROFILE-DF133C667B8E9395",
+            "B1-PROFILE-CA65744B6CF6C335"
+          ],
+          "review_material_basis": [
+            {
+              "version": "v20",
+              "line": 470,
+              "review_grade": "G3",
+              "review_position": null,
+              "basis": "丁谓集团退出、亲民官引对、基层岗位清理；曹利用案反例。",
+              "status": "ABSORBED_INPUT_V50_PRECEDENCE"
+            },
+            {
+              "version": "v50",
+              "line": 186,
+              "review_grade": "G3",
+              "review_position": "middle",
+              "basis": "《宋史·章献明肃刘皇后传》《宋史·职官志》《宋史·李谘传》《宋史纪事本末》卷23｜链①：真宗崩后军国重事归太后处分；丁谓曾试图把章奏只送禁中→丁谓贬崖州后，冯拯等恢复“帝与太后同御承明殿、辅臣按正式路由奏事”，形成中枢传政恢复M2。链②：李谘奏裁冗费→太后命吕夷简、鲁宗道、张士逊与李谘经度→以景德较天禧实际减冗费约十分之二，形成独立财政行政M2。另有亲民官便殿引对、京府基层岗位清理等M2。曹利用受内侍逼迫而死保留实际人员稳定负M2；多接口总体可用，但无一条跨多年、多责任层级、带持续结果的干净core M3，维持G3。",
+              "status": "ABSORBED_ACTIVE_PRECEDENCE"
+            }
+          ],
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
+          "v50_source_line": 186
+        },
+        {
+          "M_mixed_profile": [],
+          "M_negative_profile": [
+            {
               "M": "M3",
               "direction": "negative",
               "direction_factor": -1.0,
@@ -1086,7 +1080,7 @@
               "material_id": "SS-ZG-SHAOXING-CODE",
               "mechanism": "人事法典与行政基准运行",
               "result_closure": "sustained_or_systemic",
-              "signed_weight": 0.0,
+              "signed_weight": 2.0,
               "profile_id": "B1-PROFILE-05BC4BC533FD85B1",
               "position_count_mode": "balanced_mixed_lifecycle",
               "position_weight_override": 0.0,
@@ -1122,7 +1116,7 @@
           "position": "lower",
           "position_basis": "有效生命周期签名M权重合计扣除G3门槛占用2后，净余量=-1.5，按合同机械映射为lower。",
           "position_q": 0.1,
-          "rank": 86,
+          "rank": 85,
           "reign_range": "1127—1162",
           "ruler_id": "RULER-SS-ZHAO-GOU",
           "ruler_name": "赵构",
@@ -1248,7 +1242,7 @@
           "position": "upper",
           "position_basis": "有效生命周期签名M权重合计扣除G2门槛占用1后，净余量=2，按合同机械映射为upper。",
           "position_q": 0.9,
-          "rank": 102,
+          "rank": 100,
           "reign_range": "997-1022",
           "ruler_id": "RULER-NS-ZHAO-HENG",
           "ruler_name": "赵恒",
@@ -1342,7 +1336,7 @@
           "position": "middle-upper",
           "position_basis": "有效生命周期签名M权重合计扣除G2门槛占用1后，净余量=1，按合同机械映射为middle-upper。",
           "position_q": 0.7,
-          "rank": 104,
+          "rank": 102,
           "reign_range": "1063-1067",
           "ruler_id": "RULER-NS-ZHAO-SHU",
           "ruler_name": "赵曙",
@@ -1544,7 +1538,7 @@
               "material_id": "SS-ZY-LATE-JUSTICE-COLLAPSE",
               "mechanism": "虑囚复核与后期司法崩坏",
               "result_closure": "sustained_or_systemic",
-              "signed_weight": 0.0,
+              "signed_weight": -1.0,
               "profile_id": "B1-PROFILE-78BFD61FC714B8CA",
               "position_count_mode": "balanced_mixed_lifecycle",
               "position_weight_override": 0.0,
@@ -1559,7 +1553,7 @@
               "material_id": "SS-ZY-MONETARY-AUDIT",
               "mechanism": "货币监察与后续逆转",
               "result_closure": "observed_or_repeated",
-              "signed_weight": -1.0,
+              "signed_weight": -0.5,
               "profile_id": "B1-PROFILE-AEE5194A9A0C36A1",
               "b1_role": "support"
             },
@@ -1572,7 +1566,7 @@
               "material_id": "SS-ZY-MONEY-REVERSAL",
               "mechanism": "货币监察与后续逆转",
               "result_closure": "observed_or_repeated",
-              "signed_weight": 0.0,
+              "signed_weight": -0.5,
               "profile_id": "B1-PROFILE-EB2140547D6A0102",
               "position_count_mode": "balanced_mixed_lifecycle",
               "position_weight_override": 0.0,
@@ -1587,7 +1581,7 @@
               "material_id": "SS-ZY-PRISON-REVIEW",
               "mechanism": "虑囚复核与后期司法崩坏",
               "result_closure": "sustained_or_systemic",
-              "signed_weight": -1.0,
+              "signed_weight": -0.5,
               "profile_id": "B1-PROFILE-7B7768056BB0841C",
               "b1_role": "support"
             }
@@ -1665,7 +1659,7 @@
             "SS-ZY-SALT-CORRECTION"
           ],
           "direction_card_write": true,
-          "direction_index": 41.5,
+          "direction_index": 44.5,
           "evidence_sufficiency_gate": "PASS_TWO_SOURCE_FAMILIES_FIXED",
           "formal_evidence_maturity": "fixed_primary_and_independent_treatise_backsourced",
           "formal_evidence_state": "FORMAL_SCORED_CURRENT_CONTRACT",
@@ -1678,10 +1672,10 @@
             54.9
           ],
           "polity": "南宋",
-          "position": "lower",
-          "position_basis": "有效生命周期签名M权重合计扣除G2门槛占用1后，净余量=-2，按合同机械映射为lower。",
-          "position_q": 0.1,
-          "rank": 134,
+          "position": "lower-middle",
+          "position_basis": "有效生命周期签名M权重合计扣除G2门槛占用1后，净余量=-1，按合同机械映射为lower-middle。",
+          "position_q": 0.3,
+          "rank": 122,
           "reign_range": "1224—1264",
           "ruler_id": "RULER-SS-ZHAO-YUN",
           "ruler_name": "赵昀",
@@ -1694,7 +1688,7 @@
             },
             {
               "role": "档内位置依据",
-              "text": "主档已定为G2；有效生命周期权重合计扣除该档门槛占用1后，净余量为-2，仅据此确定档内下位（41.5）。净余量不用于跨档比较"
+              "text": "主档已定为G2；有效生命周期权重合计扣除该档门槛占用1后，净余量为-1，仅据此确定档内中下位（44.5）。净余量不用于跨档比较"
             },
             {
               "role": "正向依据（M2）",
@@ -1721,7 +1715,7 @@
               "text": "吴潜因迁幸建议、立储意见及与贾似道矛盾被罢，后不断远谪"
             }
           ],
-          "position_residual": -2.0,
+          "position_residual": -1.0,
           "grade_threshold_consumed": 1.0,
           "review_material_basis": [],
           "review_material_absorption_status": "NOT_LISTED_PRESERVE_FORMAL_MATERIALS"
@@ -1799,7 +1793,7 @@
           "position": "lower",
           "position_basis": "有效生命周期签名M权重合计扣除G1门槛占用0.5后，净余量=-3，按合同机械映射为lower。",
           "position_q": 0.1,
-          "rank": 154,
+          "rank": 153,
           "reign_range": "1126-1127",
           "ruler_id": "RULER-NS-ZHAO-HUAN",
           "ruler_name": "赵桓",
@@ -1929,7 +1923,7 @@
           "position": "lower",
           "position_basis": "有效生命周期签名M权重合计扣除G1门槛占用0.5后，净余量=-3，按合同机械映射为lower。",
           "position_q": 0.1,
-          "rank": 154,
+          "rank": 153,
           "reign_range": "1100-1125",
           "ruler_id": "RULER-NS-ZHAO-JI",
           "ruler_name": "赵佶",
@@ -2005,7 +1999,7 @@
               "material_id": "SS-ZD-PERSISTENT-REFUSAL",
               "mechanism": "宫廷信息俘获与持续拒谏",
               "result_closure": "observed_or_repeated",
-              "signed_weight": 0.0,
+              "signed_weight": -2.0,
               "profile_id": "B1-PROFILE-CA034B9F61D6829D",
               "position_count_mode": "balanced_mixed_lifecycle",
               "position_weight_override": 0.0,
@@ -2054,7 +2048,7 @@
           "position": "lower",
           "position_basis": "有效生命周期签名M权重合计扣除G1门槛占用0.5后，净余量=-2，按合同机械映射为lower。",
           "position_q": 0.1,
-          "rank": 154,
+          "rank": 153,
           "reign_range": "1189—1194",
           "ruler_id": "RULER-SS-ZHAO-DUN",
           "ruler_name": "赵惇",
@@ -2180,7 +2174,7 @@
           "position": "lower",
           "position_basis": "有效生命周期签名M权重合计扣除G1门槛占用0.5后，净余量=-5，按合同机械映射为lower。",
           "position_q": 0.1,
-          "rank": 154,
+          "rank": 153,
           "reign_range": "1194—1224",
           "ruler_id": "RULER-SS-ZHAO-KUO",
           "ruler_name": "赵扩",

@@ -4,121 +4,98 @@
   "collections": {
     "records": {
       "positions": [
-        104,
+        140,
         181
       ],
       "records": [
         {
-          "M_mixed_profile": [
-            {
-              "M": "M2",
-              "direction": "mixed_positive",
-              "direction_factor": 0.5,
-              "material_id": "I2-QIN-YZ-ADMIN-STANDARDS-001",
-              "mechanism": "统一法度、文字和行政接口已经实施，净运行结果未单独闭合",
-              "result_closure": "observed",
-              "signed_weight": 1.0,
-              "profile_id": "B1-PROFILE-EC10A8528678B5DD",
-              "b1_role": "support"
-            },
-            {
-              "M": "M2",
-              "direction": "mixed_positive",
-              "direction_factor": 0.5,
-              "material_id": "I2-QIN-YZ-COMMANDERY-ADMIN-001",
-              "mechanism": "三十六郡及守尉监形成全国组织骨架，实际治理质量未闭合",
-              "result_closure": "observed",
-              "signed_weight": 1.0,
-              "profile_id": "B1-PROFILE-FEDAA3159E4A9A02",
-              "b1_role": "support"
-            },
-            {
-              "M": "M0",
-              "direction": "positive_correction",
-              "direction_factor": 1.0,
-              "material_id": "I2-QIN-YZ-EXPULSION-CORRECTION-001",
-              "mechanism": "闭合一次重要人才政策纠偏及其后续任用，不外推为整个任期选官公平。",
-              "position_count_mode": "context_only_no_effective_mechanism",
-              "position_exclusion_reason": "闭合的是反馈纠偏，B1官僚运行质量未独立闭合",
-              "result_closure": "observed",
-              "signed_weight": 0.0,
-              "profile_id": "B1-PROFILE-5E0037CBC2E30021",
-              "b1_role": "context"
-            }
-          ],
+          "M_mixed_profile": [],
           "M_negative_profile": [
             {
-              "M": "M0",
-              "direction": "context",
-              "direction_factor": 0.0,
               "material_id": "I2-QIN-YZ-PERSONAL-DECISION-BOTTLENECK-001",
-              "mechanism": "法律、司法与刑罚运行",
+              "M": "M3",
+              "direction": "negative",
+              "direction_factor": -1.0,
+              "signed_weight": -2.0,
+              "mechanism": "大臣受成事，大小政务皆取决皇帝，百司处理权长期集中",
               "result_closure": "sustained_or_systemic",
-              "signed_weight": 0.0,
-              "profile_id": "B1-PROFILE-1261C4D7DB96C6C4",
-              "position_count_mode": "context_only",
-              "position_weight_override": 0.0,
-              "position_exclusion_reason": "仅描述政策价值、结果类别或泛化领域，未闭合B1责任链、传导、问责或组织交付失灵。",
-              "b1_role": "context"
+              "b1_role": "central",
+              "severity": "N3-domain",
+              "severity_scope": "major-stage",
+              "severity_basis": "长期百司处理权被收归个人，形成中枢分工单功能瓶颈；不把B2表达寒蝉再算独立功能。",
+              "evidence_slice": "RESPONSIBILITY_CONCENTRATION",
+              "profile_id": "B1-PROFILE-C4BB0E0F408F0EC8"
             }
           ],
-          "M_positive_profile": [],
+          "M_positive_profile": [
+            {
+              "material_id": "I2-QIN-YZ-COMMANDERY-ADMIN-001",
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "signed_weight": 1.0,
+              "mechanism": "统一后郡守尉监骨架与法度接口实际推行",
+              "result_closure": "observed_or_repeated",
+              "b1_role": "support",
+              "material_ids": [
+                "I2-QIN-YZ-COMMANDERY-ADMIN-001",
+                "I2-QIN-YZ-ADMIN-STANDARDS-001"
+              ],
+              "profile_id": "B1-PROFILE-FEDAA3159E4A9A02"
+            }
+          ],
           "coverage_audit_ids": [],
           "database_write": false,
           "direct_material_ids": [
             "I2-QIN-YZ-ADMIN-STANDARDS-001",
             "I2-QIN-YZ-COMMANDERY-ADMIN-001",
-            "I2-QIN-YZ-EXPULSION-CORRECTION-001",
             "I2-QIN-YZ-PERSONAL-DECISION-BOTTLENECK-001"
           ],
           "direction_card_write": true,
-          "direction_index": 50.4,
+          "direction_index": 41.5,
           "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
           "formal_evidence_maturity": "fixed_primary_adjudicated",
           "formal_evidence_state": "FORMAL_SCORED",
           "grade": "G2",
-          "grade_basis": "《史记·秦始皇本纪》｜正向只消费“实际运行”，不消费A项创制：统一后36郡确实配置守、尉、监，随后岭南、九原等新占区域继续设置郡县，法度、衡石、文字、车轨等由全国行政接口实际推行，证明中央—地方骨架不是纸面，最高可作广域support/行政M2；“逐客”是否听李斯主要归B2，不另加B1。负主链却直接在中枢运行：史记明言“丞相诸大臣皆受成事，倚辨于上”“天下之事无小大皆决于上”，并进一步记“天下畏罪持禄，莫敢尽忠；上不闻过，下慑伏谩欺以取容”，说明**责任分工被皇帝个人吞并 + 信息真实性系统恶化**，构成central negative M3。真实全国执行能力与严重最高层瓶颈并存，符合G2-lower；郡县制本身不能把他抬到G3。",
-          "grade_gate_basis": "《史记·秦始皇本纪》｜正向只消费“实际运行”，不消费A项创制：统一后36郡确实配置守、尉、监，随后岭南、九原等新占区域继续设置郡县，法度、衡石、文字、车轨等由全国行政接口实际推行，证明中央—地方骨架不是纸面，最高可作广域support/行政M2；“逐客”是否听李斯主要归B2，不另加B1。负主链却直接在中枢运行：史记明言“丞相诸大臣皆受成事，倚辨于上”“天下之事无小大皆决于上”，并进一步记“天下畏罪持禄，莫敢尽忠；上不闻过，下慑伏谩欺以取容”，说明**责任分工被皇帝个人吞并 + 信息真实性系统恶化**，构成central negative M3。真实全国执行能力与严重最高层瓶颈并存，符合G2-lower；郡县制本身不能把他抬到G3。",
+          "grade_basis": "统一法度及郡守尉监骨架确有全国推行，合并为有限行政support M2，不把同一行政标准化拆两条。丞相诸大臣只受成事，大小事务皆决于上，形成常态性的中枢分工瓶颈，闭合单功能N3-domain；这里只消费百司处理权与责任路由，言论刑罚和信息寒蝉留B2。有限全国执行与中枢瓶颈并存定G2。",
+          "grade_gate_basis": "统一法度及郡守尉监骨架确有全国推行，合并为有限行政support M2，不把同一行政标准化拆两条。丞相诸大臣只受成事，大小事务皆决于上，形成常态性的中枢分工瓶颈，闭合单功能N3-domain；这里只消费百司处理权与责任路由，言论刑罚和信息寒蝉留B2。有限全国执行与中枢瓶颈并存定G2。",
           "grade_gate_code": "B1_G2_LIMITED_OR_MIXED",
           "index_interval": [
             40.0,
             54.9
           ],
           "polity": "秦",
-          "position": "middle-upper",
-          "position_basis": "有效生命周期签名M权重合计扣除G2门槛占用1后，净余量=1，按合同机械映射为middle-upper。",
-          "position_q": 0.7,
-          "rank": 104,
+          "position": "lower",
+          "position_basis": "有效生命周期签名M权重合计扣除G2门槛占用1后，净余量=-2，按合同机械映射为lower。",
+          "position_q": 0.1,
+          "rank": 133,
           "reign_range": "前238—前210",
           "ruler_id": "RULER-QIN-YINGZHENG",
           "ruler_name": "嬴政",
-          "verification_material_ids": [],
+          "verification_material_ids": [
+            "I2-QIN-YZ-EXPULSION-CORRECTION-001"
+          ],
           "profile_semantic_review_status": "B1_CONTRACT_V54_LOW_GATE_NEGATIVE_PURITY_REVIEWED",
           "structured_grade_basis": [
             {
               "role": "主档依据",
-              "text": "《史记·秦始皇本纪》｜正向只消费“实际运行”，不消费A项创制：统一后36郡确实配置守、尉、监，随后岭南、九原等新占区域继续设置郡县，法度、衡石、文字、车轨等由全国行政接口实际推行，证明中央—地方骨架不是纸面，最高可作广域行政交付/行政M2；“逐客”是否听李斯主要归B2，不另加B1。负主链却直接在中枢运行：史记明言“丞相诸大臣皆受成事，倚辨于上”“天下之事无小大皆决于上”，并进一步记“天下畏罪持禄，莫敢尽忠；上不闻过，下慑伏谩欺以取容”，说明**责任分工被皇帝个人吞并 + 信息真实性系统恶化**，构成中枢运行 negative M3。真实全国执行能力与严重最高层瓶颈并存，符合G2-lower；郡县制本身不能把他抬到G3。"
+              "text": "统一法度及郡守尉监骨架确有全国推行，合并为有限行政行政交付 M2，不把同一行政标准化拆两条。丞相诸大臣只受成事，大小事务皆决于上，形成常态性的中枢分工瓶颈，闭合单功能N3（单功能系统失灵）；这里只消费百司处理权与责任路由，言论刑罚和信息寒蝉留B2。有限全国执行与中枢瓶颈并存定G2。"
             },
             {
               "role": "档内位置依据",
-              "text": "主档已定为G2；有效生命周期权重合计扣除该档门槛占用1后，净余量为1，仅据此确定档内中上位（50.4）。净余量不用于跨档比较"
+              "text": "主档已定为G2；有效生命周期权重合计扣除该档门槛占用1后，净余量为-2，仅据此确定档内下位（41.5）。净余量不用于跨档比较"
             },
             {
               "role": "正向依据（M2）",
-              "text": "统一法度、文字和行政接口已经实施，净运行结果未单独闭合"
+              "text": "统一后郡守尉监骨架与法度接口实际推行"
             },
             {
-              "role": "正向依据（M2）",
-              "text": "三十六郡及守尉监形成全国组织骨架，实际治理质量未闭合"
-            },
-            {
-              "role": "负向依据（无可计M档）",
-              "text": "未闭合可计的负向运行链"
+              "role": "负向依据（M3）",
+              "text": "大臣受成事，大小政务皆取决皇帝，百司处理权长期集中"
             }
           ],
-          "position_residual": 1.0,
+          "position_residual": -2.0,
           "grade_threshold_consumed": 1.0,
-          "v50_source_line": 253,
           "review_material_basis": [
             {
               "version": "v20",
@@ -137,7 +114,8 @@
               "status": "ABSORBED_ACTIVE_PRECEDENCE"
             }
           ],
-          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE"
+          "review_material_absorption_status": "V20_V50_UNION_V50_PRECEDENCE",
+          "v50_source_line": 253
         },
         {
           "M_mixed_profile": [],

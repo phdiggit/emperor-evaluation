@@ -12,6 +12,11 @@ import yaml
 
 from emperor_v4.evaluation.battle_registry_store import load_battle_registry
 from emperor_v4.evaluation.formal_json_store import load_json, load_ruler_polities, write_json
+from emperor_v4.evaluation.opponent_system_contract import (
+    build_opponent_system_index,
+    load_opponent_system_contract,
+    opponent_system_grade_rates,
+)
 
 
 ELIGIBLE_STATUS = "ELIGIBLE_DYNASTY_FOUNDER"
@@ -251,13 +256,14 @@ def _a2_axis(row: Mapping[str, Any]) -> dict[str, Any]:
 def build_first_item_a_registry(
     *, efficiency_inputs: Mapping[str, Any], competitive_landscapes: Mapping[str, Any],
     battle_registry: Mapping[str, Any], territorial_inputs: Mapping[str, Any],
-    acquisition_windows: Mapping[str, Any], roster: Mapping[str, Any]
+    acquisition_windows: Mapping[str, Any], roster: Mapping[str, Any],
+    opponent_system_contract: Mapping[str, Any]
 ) -> dict[str, Any]:
     if efficiency_inputs.get("schema_version") != "first-item-a-strategic-efficiency-inputs-v18":
         raise ValueError("第一项A量化输入schema_version不正确")
     if efficiency_inputs.get("status") != "CURRENT":
         raise ValueError("第一项A量化输入状态不正确")
-    if competitive_landscapes.get("schema_version") != "first-item-a-competitive-landscapes-v9":
+    if competitive_landscapes.get("schema_version") != "first-item-a-competitive-landscapes-v10":
         raise ValueError("第一项A竞争格局输入schema_version不正确")
     if competitive_landscapes.get("status") != "CURRENT":
         raise ValueError("第一项A竞争格局输入状态不正确")
@@ -266,43 +272,19 @@ def build_first_item_a_registry(
 
     battle_records = list(battle_registry.get("records") or ())
     battle_by_ref = {str(row["war_event_id"]): row for row in battle_records}
-    current_portfolios = list(
-        battle_registry.get("unification_campaign_portfolios") or ()
-    )
     if len(battle_by_ref) != len(battle_records):
         raise ValueError("公共战役登记存在重复标识")
     opponent_system_windows = dict(
         competitive_landscapes.get("opponent_system_windows") or {}
     )
-    supplemental_systems = dict(
-        competitive_landscapes.get("supplemental_opponent_systems") or {}
-    )
     relative_only_justifications = dict(
         competitive_landscapes.get("relative_only_threat_justifications") or {}
     )
-    canonical_systems: dict[str, dict[str, Any]] = {}
-    for portfolio in current_portfolios:
-        for raw_system in portfolio.get("opponent_systems") or ():
-            system_id = str(raw_system.get("system_id") or "")
-            system = dict(raw_system)
-            system.pop("system_id", None)
-            if not system_id or (
-                system_id in canonical_systems and canonical_systems[system_id] != system
-            ):
-                raise ValueError(f"统一链对手体系标识无效或漂移: {system_id}")
-            canonical_systems[system_id] = system
-    overlap = set(canonical_systems) & set(supplemental_systems)
-    if overlap:
-        raise ValueError(f"第一项A补充O体系与公共统一链重复: {sorted(overlap)}")
-    opponent_systems = {**canonical_systems, **supplemental_systems}
-    grade_rates = {
-        "O1": 0.15,
-        "O2": 0.30,
-        "O3": 0.50,
-        "O4": 0.70,
-        "O5": 0.85,
-        "O6": 1.00,
-    }
+    opponent_systems = build_opponent_system_index(
+        registry=battle_registry,
+        contract=opponent_system_contract,
+    )
+    grade_rates = opponent_system_grade_rates(opponent_system_contract)
     position_weights = (0.55, 0.20, 0.10, 0.07, 0.04)
 
     def compile_opponent_system_pressure(
@@ -930,6 +912,7 @@ def build_first_item_a_registry(
             "roster": "config/common/所有君主.yml + config/first-item/first-item-a-strategic-efficiency-inputs.json#founder_roster",
             "strategic_inputs": "config/first-item/first-item-a-strategic-efficiency-inputs.json",
             "competitive_landscapes": "config/first-item/first-item-a-competitive-landscapes.json",
+            "opponent_system_contract": "config/military/opponent-system-contract.json",
             "battle_registry": "docs/公共成果/军事/01-战役登记.json",
             "acquisition_windows": "config/first-item/first-item-c-acquisition-windows.json",
             "region_context": "config/first-item/first-item-c-territorial-control-adjudications.json",
@@ -1097,13 +1080,14 @@ def write_first_item_a_registry(workspace_root: Path) -> dict[str, Path]:
         ),
         territorial_inputs=load(workspace_root / "config/first-item/first-item-c-territorial-control-adjudications.json"),
         acquisition_windows=load(workspace_root / "config/first-item/first-item-c-acquisition-windows.json"),
+        opponent_system_contract=load_opponent_system_contract(workspace_root),
         roster=load_qin_qing_first_item_roster(
             workspace_root,
             efficiency_inputs,
             include_current_pending_founders=True,
         ),
     )
-    output_dir = workspace_root / "docs/评分结算/第一项创业与政权取得能力/战略决策能力"
+    output_dir = workspace_root / "docs/评分结算/第一项政权奠基与统一贡献及能力/战略决策能力"
     output_dir.mkdir(parents=True, exist_ok=True)
     json_path = output_dir / "01-第一项A战略决策能力结算.json"
     markdown_path = output_dir / "01-第一项A战略决策能力结算.md"

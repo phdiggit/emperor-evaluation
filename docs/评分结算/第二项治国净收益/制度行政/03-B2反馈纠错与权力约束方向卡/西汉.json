@@ -4,96 +4,104 @@
   "collections": {
     "records": {
       "positions": [
-        6,
-        13,
-        19,
-        51,
-        127,
+        2,
+        17,
+        7,
+        40,
         128,
         129,
-        130,
-        142,
-        144,
-        170
+        132,
+        41,
+        131,
+        67,
+        169
       ],
       "records": [
         {
-          "M_mixed_profile": [],
-          "M_negative_profile": [],
-          "M_positive_profile": [
+          "M_mixed_profile": [
             {
+              "material_id": "I2-WHAN-WEN-YUANANG-REMONSTRANCE-LIFECYCLE-001",
               "M": "M3",
               "direction": "mixed_positive",
               "direction_factor": 0.5,
-              "material_id": "I2-WHAN-WEN-CHANCELLOR-AUTONOMY-001",
-              "mechanism": "张释之在分离案件中反复以廷尉程序约束皇帝",
-              "result_closure": "observed_or_repeated",
-              "signed_weight": 0.5
-            },
+              "signed_weight": 1.0,
+              "mechanism": "袁盎跨事件进言获采与因数直谏外调合为一链",
+              "result_closure": "sustained_or_systemic",
+              "mechanism_role": "external_constraint"
+            }
+          ],
+          "M_negative_profile": [],
+          "M_positive_profile": [
             {
-              "M": "M3",
-              "direction": "positive",
-              "direction_factor": 1.0,
               "material_id": "I2-WHAN-WEN-SHIZHI-PROCESS-001",
-              "mechanism": "袁盎在参乘、驰阪和慎夫人同席等事件中反复使皇帝退让",
-              "result_closure": "observed_or_repeated",
-              "review_basis_ref": "B2整改清单:刘恒最新裁决:袁盎链",
-              "signed_weight": 2.0
-            },
-            {
               "M": "M3",
               "direction": "positive",
               "direction_factor": 1.0,
+              "signed_weight": 2.0,
+              "mechanism": "张释之反复以程序与法度改变皇帝处置",
+              "result_closure": "sustained_or_systemic",
+              "mechanism_role": "external_constraint"
+            },
+            {
               "material_id": "I2-WHAN-WEN-TIYING-UPWARD-FEEDBACK-001",
-              "mechanism": "缇萦以低位上书促成废除肉刑",
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "signed_weight": 1.0,
+              "mechanism": "缇萦低位上书促成废肉刑决定",
               "result_closure": "observed_or_repeated",
-              "signed_weight": 1.0
+              "mechanism_role": "external_constraint"
             }
           ],
           "coverage_audit_ids": [],
           "database_write": false,
           "direct_material_ids": [
-            "I2-WHAN-WEN-CHANCELLOR-AUTONOMY-001",
             "I2-WHAN-WEN-SHIZHI-PROCESS-001",
-            "I2-WHAN-WEN-TIYING-UPWARD-FEEDBACK-001"
+            "I2-WHAN-WEN-TIYING-UPWARD-FEEDBACK-001",
+            "I2-WHAN-WEN-YUANANG-REMONSTRANCE-LIFECYCLE-001"
           ],
           "direction_card_write": true,
-          "direction_index": 57.2,
+          "direction_index": 66.7,
           "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
           "formal_evidence_maturity": "mixed_fixed_primary_and_accepted_summary_adjudicated",
           "formal_evidence_state": "FORMAL_SCORED",
           "grade": "G4",
-          "grade_basis": "张释之和袁盎分别形成两条独立正向M3，缇萦低位上书促成废肉刑并满足跨层级信息上达；袁盎因直谏外调压低档内位置，定G4中下。",
-          "grade_gate_basis": "两条独立正向M3闭合外部约束，缇萦链闭合跨层级入口；负面未击穿G4主档。",
+          "grade_basis": "张释之在啬夫、宗室入殿与廷尉断狱等分离事件反复约束最高决定，构成正M3；袁盎在参乘、驰坂、慎夫人席次等事件改变文帝意向，但后因数直谏外调，合为正向主导mixed M3。缇萦低位上书促成废肉刑，是独立跨层进入的有限正M2，制度结果由法律轴另裁。两类外部约束反复运行并有低位信息上达，定G4；修正张释之与袁盎错绑，不将袁盎负段错加张释之，也不把缇萦单次链抬M3。",
+          "grade_gate_basis": "张释之在啬夫、宗室入殿与廷尉断狱等分离事件反复约束最高决定，构成正M3；袁盎在参乘、驰坂、慎夫人席次等事件改变文帝意向，但后因数直谏外调，合为正向主导mixed M3。缇萦低位上书促成废肉刑，是独立跨层进入的有限正M2，制度结果由法律轴另裁。两类外部约束反复运行并有低位信息上达，定G4；修正张释之与袁盎错绑，不将袁盎负段错加张释之，也不把缇萦单次链抬M3。",
           "grade_gate_code": "B2_G4_MULTICHANNEL_CROSSLEVEL_SUPREME",
           "index_interval": [
-            56,
+            56.0,
             67.9
           ],
           "polity": "西汉",
-          "position": "lower",
-          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
-          "position_q": 0.1,
-          "rank": 7,
+          "position": "upper",
+          "position_basis": "有效生命周期权重合计扣除G4门槛占用2后，净余量=2，据此确定档内位置。",
+          "position_q": 0.9,
+          "rank": 3,
           "reign_range": "前180—前157",
           "ruler_id": "RULER-HAN-LIUHENG",
           "ruler_name": "刘恒",
           "settlement_basis": [
-            "正向 M3：张释之在任官、司马门、犯跸和盗宗庙器等分离案件中反复以廷尉程序约束皇帝。",
-            "正向 M3：袁盎在赵同参乘、霸陵驰阪和慎夫人同席等事件中反复使皇帝实际退让。",
-            "正向 M2：缇萦以低位身份上书并促成废除肉刑，闭合跨层级信息上达。",
-            "负向影响：袁盎因多次直谏被外调，降低反馈安全评价但未形成系统压制。",
-            "档位结论（G4中下）：两条独立M3和跨层级入口均成立，负面不足击穿主档。"
+            "张释之在啬夫、宗室入殿与廷尉断狱等分离事件反复约束最高决定，构成正M3；袁盎在参乘、驰坂、慎夫人席次等事件改变文帝意向，但后因数直谏外调，合为正向主导复合 M3。缇萦低位上书促成废肉刑，是独立跨层进入的有限正M2，制度结果由法律轴另裁。两类外部约束反复运行并有低位信息上达，定G4；修正张释之与袁盎错绑，不将袁盎负段错加张释之，也不把缇萦单次链抬M3。",
+            "主档G4；去重后净余量2，对应上位。"
           ],
-          "verification_material_ids": [],
+          "verification_material_ids": [
+            "I2-WHAN-WEN-CHANCELLOR-AUTONOMY-001"
+          ],
           "material_basis": [
-            "张释之在司马门案中坚持太子、梁王违法应受弹劾，文帝接受",
-            "有人犯跸时文帝欲加重处罚，张释之坚持依法量刑，文帝接受",
-            "盗宗庙器案中张释之拒绝按皇帝意愿灭族，坚持廷尉程序",
-            "袁盎反对赵同参乘、制止霸陵驰阪并纠正慎夫人同席，文帝多次退让",
-            "缇萦以低位身份上书救父，文帝随后废除肉刑",
-            "袁盎因多次直谏被外调，但未遭拘禁或死亡级惩罚"
-          ]
+            "《資治通鑑·卷014》：帝曰：「善！」乃不拜啬夫。",
+            "《資治通鑑·卷014》：于是释之追止太子、梁王，无得入殿门，遂劾「不下公门，不敬」，奏之。",
+            "《資治通鑑·卷014》：上良久曰：「廷尉当是也。」",
+            "《資治通鑑·卷014》：帝乃白太后许之。",
+            "《漢書·卷023》：其少女緹縈，自傷悲泣，乃隨其父至長安，上書曰",
+            "《漢書·卷023》：書奏天子，天子憐悲其意，遂下令曰",
+            "《史記·卷101》：袁盎常引大体慨。宦者赵同以数幸，常害袁盎，袁盎患之。盎兄子种为常侍骑，持节夹乘，说盎曰：“君与斗，廷辱之，使其毁不用。”孝文帝出，赵同参乘，袁盎伏车前曰：“臣闻天子所与共六尺舆者，皆天下豪英。今汉虽乏人，陛下独奈何与刀锯馀人载！”于是上笑，下赵同。赵同泣下车。",
+            "《史記·卷101》：文帝从霸陵上，欲西驰下峻阪。袁盎骑，并车㧛辔。上曰：“将军怯邪？”盎曰：“臣闻千金之子坐不垂堂，百金之子不骑衡，圣主不乘危而徼幸。今陛下骋六𬴂，驰下峻山，如有马惊车败，陛下纵自轻，奈高庙、太后何？”上乃止。",
+            "《史記·卷101》：上幸上林，皇后、慎夫人从。其在禁中，常同席坐。及坐，郎署长布席，袁盎引却慎夫人坐。慎夫人怒，不肯坐。上亦怒，起，入禁中。盎因前说曰：“臣闻尊卑有序则上下和。今陛下既已立后，慎夫人乃妾，妾主岂可与同坐哉！适所以失尊卑矣。且陛下幸之，即厚赐之。陛下所以为慎夫人，适所以祸之。陛下独不见‘人彘’乎？”于是上乃说，召语慎夫人。慎夫人赐盎金五十斤。",
+            "《史記·卷101》：然袁盎亦以数直谏，不得久居中，调为陇西都尉。"
+          ],
+          "position_residual": 2.0,
+          "grade_threshold_consumed": 2.0
         },
         {
           "M_mixed_profile": [
@@ -117,7 +125,7 @@
               "mechanism": "其他制度行政机制",
               "result_closure": "observed_or_repeated",
               "position_count_mode": "absorbed_same_lifecycle",
-              "signed_weight": 0.0
+              "signed_weight": -1.0
             }
           ],
           "M_positive_profile": [
@@ -165,37 +173,41 @@
           "formal_evidence_maturity": "mixed_fixed_primary_and_accepted_summary_adjudicated",
           "formal_evidence_state": "FORMAL_SCORED",
           "grade": "G3",
-          "grade_basis": "萧何、樊哙两案重审后确认G3。迁都关中与易储纠偏为两条独立正M2；萧何为民请开放上林空地遭械系后，王卫尉当面指出其无罪，刘邦当日赦出并继续重用，该链本身闭合为第三方纠正最高权力的mixed-positive M2，构成第三条独立事件类型；樊哙即斩令源于谋反/吕氏党附疑忌，并非因进谏、报忧或监督触发，不作为B2异议安全核心负证。现无主要阶段负M3，满足G3多M2路径；但萧何短期拘系、易储争议中纠偏反复说明程序稳定性一般，定G3-middle。",
+          "grade_basis": "萧何、樊哙两案重审后确认G3。迁都关中与易储纠偏为两条独立正M2；萧何为民请开放上林空地遭械系后，王卫尉当面指出其无罪，刘邦当日赦出并继续重用，该链本身闭合为第三方纠正最高权力的mixed-positive M2，构成第三条独立事件类型；樊哙即斩令源于谋反/吕氏党附疑忌，并非因进谏、报忧或监督触发，不作为B2异议安全核心负证。现无主要阶段负M3，满足G3多M2路径；但萧何短期拘系、易储争议中纠偏反复说明程序稳定性一般。档内位置按当前有效生命周期权重与净余量确定。",
           "grade_gate_basis": "萧何、樊哙两案重审后确认G3。迁都关中与易储纠偏为两条独立正M2；萧何为民请开放上林空地遭械系后，王卫尉当面指出其无罪，刘邦当日赦出并继续重用，该链本身闭合为第三方纠正最高权力的mixed-positive M2，构成第三条独立事件类型；樊哙即斩令源于谋反/吕氏党附疑忌，并非因进谏、报忧或监督触发，不作为B2异议安全核心负证。现无主要阶段负M3，满足G3多M2路径；但萧何短期拘系、易储争议中纠偏反复说明程序稳定性一般，定G3-middle。",
           "grade_gate_code": "B2_G3_MAIN_STAGE_FEEDBACK_SAFE",
           "index_interval": [
-            44,
+            44.0,
             55.9
           ],
           "polity": "西汉",
           "position": "middle",
-          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
+          "position_basis": "有效生命周期权重合计扣除G3门槛占用1.5后，净余量=0.5，据此确定档内位置。",
           "position_q": 0.5,
-          "rank": 14,
+          "rank": 15,
           "reign_range": "前202—前195",
           "ruler_id": "RULER-HAN-LIUBANG",
           "ruler_name": "刘邦",
           "settlement_basis": [
-            "正向 M2：娄敬、张良关于迁都关中的意见获采纳，当日改变既定都城安排。",
-            "正向为主 M2：易储争议经多方反对后保留既定太子。",
-            "正向为主 M2：萧何为民请开放上林遭械系后，经王卫尉当面纠正而当日获释。",
-            "档位结论（G3中部）：三条独立M2跨政策、继承和第三方纠错，且无主导负M3；程序稳定性一般，定G3中部。"
+            "萧何、樊哙两案重审后确认G3。迁都关中与易储纠偏为两条独立正M2；萧何为民请开放上林空地遭械系后，王卫尉当面指出其无罪，刘邦当日赦出并继续重用，该链本身闭合为第三方纠正最高权力的复合-positive M2，构成第三条独立事件类型；樊哙即斩令源于谋反/吕氏党附疑忌，并非因进谏、报忧或监督触发，不作为B2异议安全核心负证。现无主要阶段负M3，满足G3多M2路径；但萧何短期拘系、易储争议中纠偏反复说明程序稳定性一般。档内位置按当前有效生命周期权重与净余量确定。",
+            "主档G3；去重后净余量0.5，对应中位。"
           ],
           "verification_material_ids": [
             "I2-WHAN-LB-LEGAL-REVIEW-001",
             "I2-WHAN-LB-ZHOUCHANG-DISSENT-SAFETY-001"
           ],
           "material_basis": [
-            "采纳娄敬张良意见当日改定关中为都",
-            "既定太子得到保留，避免立即改变继承安排",
-            "受陆贾马上治天下之谏并命总结秦汉成败",
-            "两次不可逆处置都被外部阻滞，但皇帝本人未形成稳定复核程序"
-          ]
+            "《史記·卷099》：高帝問群臣，群臣皆山東人，爭言周王數百年，秦二世即亡，不如都周。上疑未能決。",
+            "《史記·卷099》：及留侯明言入關便，即日車駕西都關中。",
+            "《資治通鑑·卷012》：张良谏不听，因疾不视事。",
+            "《資治通鑑·卷012》：时大臣固争者多；上知群臣心皆不附赵王，乃止不立。",
+            "《史記·卷097》：高帝不懌而有慚色，乃謂陸生曰：「試為我著秦所以失天下，吾所以得之者何，及古成敗之國。」",
+            "《資治通鑑·卷012》：上大怒曰：“相国多受贾人财物，乃为请吾苑！”下相国廷尉，械系之。",
+            "《資治通鑑·卷012》：是日，使使持节赦出相国。",
+            "《資治通鑑·卷012》：帝以仇怒故欲斩之，则恐后悔；宁囚而致上，上自诛之。"
+          ],
+          "position_residual": 0.5,
+          "grade_threshold_consumed": 1.5
         },
         {
           "M_mixed_profile": [
@@ -219,7 +231,7 @@
               "mechanism": "晁错被杀属于叛乱止乱决策而非进谏报复",
               "position_count_mode": "context_only_no_effective_mechanism",
               "result_closure": "context_only",
-              "signed_weight": 0.0
+              "signed_weight": -1.0
             },
             {
               "M": "M2",
@@ -229,7 +241,7 @@
               "mechanism": "周亚夫异议与终局安全风险",
               "position_count_mode": "absorbed_same_lifecycle",
               "result_closure": "observed_or_repeated",
-              "signed_weight": 0.0
+              "signed_weight": -1.0
             }
           ],
           "M_positive_profile": [
@@ -237,31 +249,40 @@
               "M": "M2",
               "direction": "positive",
               "direction_factor": 1.0,
-              "material_ids": [],
+              "material_ids": [
+                "I2-HAN-LIUQI-YUANANG-SUCCESSION-001"
+              ],
               "mechanism": "袁盎等反对梁王继承并使景帝改变安排",
               "result_closure": "observed_or_repeated",
               "review_basis_ref": "B2整改清单:刘启最新裁决",
-              "signed_weight": 1.0
+              "signed_weight": 1.0,
+              "material_id": "I2-HAN-LIUQI-YUANANG-SUCCESSION-001"
             },
             {
               "M": "M2",
               "direction": "positive",
               "direction_factor": 1.0,
-              "material_ids": [],
+              "material_ids": [
+                "I2-HAN-LIUQI-ZHIDU-BOAR-001"
+              ],
               "mechanism": "郅都阻止皇帝冒险救姬并使其停止行动",
               "result_closure": "observed_or_repeated",
               "review_basis_ref": "B2整改清单:刘启最新裁决",
-              "signed_weight": 1.0
+              "signed_weight": 1.0,
+              "material_id": "I2-HAN-LIUQI-ZHIDU-BOAR-001"
             },
             {
               "M": "M2",
               "direction": "positive",
               "direction_factor": 1.0,
-              "material_ids": [],
+              "material_ids": [
+                "I2-HAN-LIUQI-TIANSHU-001"
+              ],
               "mechanism": "田叔就梁王刺客案提出处置方案并获采纳",
               "result_closure": "observed_or_repeated",
               "review_basis_ref": "B2整改清单:刘启最新裁决",
-              "signed_weight": 1.0
+              "signed_weight": 1.0,
+              "material_id": "I2-HAN-LIUQI-TIANSHU-001"
             },
             {
               "M": "M2",
@@ -277,48 +298,56 @@
           "coverage_audit_ids": [],
           "database_write": false,
           "direct_material_ids": [
+            "I2-HAN-LIUQI-TIANSHU-001",
+            "I2-HAN-LIUQI-YUANANG-SUCCESSION-001",
+            "I2-HAN-LIUQI-ZHIDU-BOAR-001",
             "I2-WHAN-JING-CHAO-CUO-FAILURE-001",
             "I2-WHAN-JING-YAFU-TERMINAL-001"
           ],
           "direction_card_write": true,
-          "direction_index": 47.6,
+          "direction_index": 54.7,
           "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
           "formal_evidence_maturity": "mixed_fixed_primary_and_accepted_summary_adjudicated",
           "formal_evidence_state": "FORMAL_SCORED",
           "grade": "G3",
-          "grade_basis": "处罚触发原因重审后升G3。袁盎等反对梁王继承、郅都阻止皇帝冒险救姬、田叔就梁王刺客案提出处置方案，均形成彼此独立的意见进入→最高权力改策闭环；邓公在晁错被杀后又当面指出此举将“塞忠臣之口”，景帝明确承认后悔，再形成一次事后反馈修复。晁错被杀的触发是七国叛乱中的政治止乱方案，晁错本人并非因进谏景帝而被杀，不能作为异议安全核心负证。周亚夫则不同：其反对外戚封侯等意见曾被采纳，但长期政策冲突后失势，最终又在另一起葬器案件中遭明显扩大化审讯而死，可保一个高烈度mixed-negative M2，却不足形成主要阶段系统负M3。多条独立正M2、多个反馈角色且无主导负M3，满足G3多M2路径；因周亚夫链仍显示敏感高层异议的安全风险，定G3-lower-middle。",
+          "grade_basis": "处罚触发原因重审后升G3。袁盎等反对梁王继承、郅都阻止皇帝冒险救姬、田叔就梁王刺客案提出处置方案，均形成彼此独立的意见进入→最高权力改策闭环；邓公在晁错被杀后又当面指出此举将“塞忠臣之口”，景帝明确承认后悔，再形成一次事后反馈修复。晁错被杀的触发是七国叛乱中的政治止乱方案，晁错本人并非因进谏景帝而被杀，不能作为异议安全核心负证。周亚夫则不同：其反对外戚封侯等意见曾被采纳，但长期政策冲突后失势，最终又在另一起葬器案件中遭明显扩大化审讯而死，可保一个高烈度mixed-negative M2，却不足形成主要阶段系统负M3。多条独立正M2、多个反馈角色且无主导负M3，满足G3多M2路径；因周亚夫链仍显示敏感高层异议的安全风险。档内位置按当前有效生命周期权重与净余量确定。",
           "grade_gate_basis": "处罚触发原因重审后升G3。袁盎等反对梁王继承、郅都阻止皇帝冒险救姬、田叔就梁王刺客案提出处置方案，均形成彼此独立的意见进入→最高权力改策闭环；邓公在晁错被杀后又当面指出此举将“塞忠臣之口”，景帝明确承认后悔，再形成一次事后反馈修复。晁错被杀的触发是七国叛乱中的政治止乱方案，晁错本人并非因进谏景帝而被杀，不能作为异议安全核心负证。周亚夫则不同：其反对外戚封侯等意见曾被采纳，但长期政策冲突后失势，最终又在另一起葬器案件中遭明显扩大化审讯而死，可保一个高烈度mixed-negative M2，却不足形成主要阶段系统负M3。多条独立正M2、多个反馈角色且无主导负M3，满足G3多M2路径；因周亚夫链仍显示敏感高层异议的安全风险，定G3-lower-middle。",
           "grade_gate_code": "B2_G3_MAIN_STAGE_FEEDBACK_SAFE",
           "index_interval": [
-            44,
+            44.0,
             55.9
           ],
           "polity": "西汉",
-          "position": "lower-middle",
-          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
-          "position_q": 0.3,
-          "rank": 18,
+          "position": "upper",
+          "position_basis": "有效生命周期权重合计扣除G3门槛占用1.5后，净余量=2，据此确定档内位置。",
+          "position_q": 0.9,
+          "rank": 8,
           "reign_range": "前157—前141",
           "ruler_id": "RULER-HAN-LIUQI",
           "ruler_name": "刘启",
           "settlement_basis": [
-            "正向 M2：袁盎等反对梁王继承并使景帝改变安排。",
-            "正向 M2：郅都阻止皇帝冒险救姬，田叔就梁王刺客案提出方案并获采纳。",
-            "正向 M2：邓公指出杀晁错将堵塞忠臣进言，景帝明确承认后悔。",
-            "负向为主 M2：周亚夫曾以异议改变决策，后在葬器案中遭扩大化审讯并死于羁押。",
-            "档位结论（G3中下）：多条独立正M2满足G3路径；周亚夫链显示敏感高层异议的安全风险。"
+            "处罚触发原因重审后升G3。袁盎等反对梁王继承、郅都阻止皇帝冒险救姬、田叔就梁王刺客案提出处置方案，均形成彼此独立的意见进入→最高权力改策闭环；邓公在晁错被杀后又当面指出此举将“塞忠臣之口”，景帝明确承认后悔，再形成一次事后反馈修复。晁错被杀的触发是七国叛乱中的政治止乱方案，晁错本人并非因进谏景帝而被杀，不能作为异议安全核心负证。周亚夫则不同：其反对外戚封侯等意见曾被采纳，但长期政策冲突后失势，最终又在另一起葬器案件中遭明显扩大化审讯而死，可保一个高烈度复合-negative M2，却不足形成主要阶段系统负M3。多条独立正M2、多个反馈角色且无主导负M3，满足G3多M2路径；因周亚夫链仍显示敏感高层异议的安全风险。档内位置按当前有效生命周期权重与净余量确定。",
+            "主档G3；去重后净余量2，对应上位。"
           ],
           "verification_material_ids": [
             "I2-WHAN-JING-CHANCELLOR-CONSTRAINT-001"
           ],
           "material_basis": [
-            "袁盎等反对梁王继承，景帝改变安排",
-            "郅都阻止景帝冒险救姬，景帝停止行动",
-            "田叔就梁王刺客案提出处置方案并获采纳",
-            "邓公指出杀晁错将堵塞忠臣进言，景帝明确承认后悔",
-            "周亚夫反对外戚封侯等意见曾被采纳，后因长期政策冲突失势",
-            "周亚夫在葬器案中遭扩大化审讯，并在廷尉羁押中绝食呕血而死"
-          ]
+            "《史記·卷104》：后数岁，叔坐法失官。梁孝王使人杀故吴相袁盎，景帝召田叔案梁，具得其事，还报。景帝曰：“梁有之乎？”叔对曰：“死罪！有之。”上曰：“其事安在？”田叔曰：“上毋以梁事为也。”上曰：“何也？”曰：“今梁王不伏诛，是汉法不行也；如其伏法，而太后食不甘味，卧不安席，此忧在陛下也。”景帝大贤之，以为鲁相。",
+            "《史記·卷101》：袁盎虽家居，景帝时时使人问筹策。梁王欲求为嗣，袁盎进说，其后语塞。梁王以此怨盎，曾使人刺盎。刺者至关中，问袁盎，诸君誉之皆不容口。乃见袁盎曰：“臣受梁王金来刺君，君长者，不忍刺君。然后刺君者十馀曹，备之！”袁盎心不乐，家又多怪，乃之棓生所问占。还，梁刺客后曹辈果遮刺杀盎安陵郭门外。",
+            "《史記·卷122》：郅都者，杨人也。以郎事孝文帝。孝景时，都为中郎将，敢直谏，面折大臣于朝。尝从入上林，贾姬如厕，野彘卒入厕。上目都，都不行。上欲自持兵救贾姬，都伏上前曰：“亡一姬复一姬进，天下所少宁贾姬等乎？陛下纵自轻，奈宗庙太后何！”上还，彘亦去。太后闻之，赐都金百斤，由此重郅都。",
+            "《資治通鑑·卷016》：吾不爱一人以谢天下。",
+            "《資治通鑑·卷016》：错殊不知。壬子，上使中尉召错，绐载行市，错衣朝衣斩东市。",
+            "《資治通鑑·卷016》：内杜忠臣之口，外为诸侯报仇，臣窃为陛下不取也。",
+            "《資治通鑑·卷016》：公言善，吾亦恨之！",
+            "《資治通鑑·卷016》：上废栗太子，周亚夫固争之，不得；上由此疏之。",
+            "《資治通鑑·卷016》：丞相议不可用。",
+            "《資治通鑑·卷016》：此鞅鞅，非少主臣也。",
+            "《資治通鑑·卷016》：君纵不欲反地上，即欲反地下耳！",
+            "《資治通鑑·卷016》：遂入廷尉，因不食五日，欧血而死。"
+          ],
+          "position_residual": 2.0,
+          "grade_threshold_consumed": 1.5
         },
         {
           "M_mixed_profile": [],
@@ -361,39 +390,41 @@
             "I2-WHAN-XUAN-LEGALIST-COST-001"
           ],
           "direction_card_write": true,
-          "direction_index": 35.6,
+          "direction_index": 38.0,
           "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
           "formal_evidence_maturity": "fixed_primary_exact_backsourced",
           "formal_evidence_state": "FORMAL_SCORED",
           "grade": "G2",
-          "grade_basis": "主档仍G2，position降至中下。魏相通过防壅蔽、削霍氏权、谏止出兵及长期便宜奏章形成强external_constraint M3，路温舒又闭合独立司法反馈M2；但盖宽饶在监察与反复切谏后被下吏而自杀，杨恽因批评性私人文字最终腰斩，两条都与表达/监督内容存在直接关系，且结果不可逆。正向厚度很强，但表达安全反例的烈度也很高，应与武则天、李治等强正强负型拉近，而不是留在G2中部。定G2-lower-middle。",
+          "grade_basis": "主档仍G2，魏相通过防壅蔽、削霍氏权、谏止出兵及长期便宜奏章形成强external_constraint M3，路温舒又闭合独立司法反馈M2；但盖宽饶在监察与反复切谏后被下吏而自杀，杨恽因批评性私人文字最终腰斩，两条都与表达/监督内容存在直接关系，且结果不可逆。正向厚度很强，但表达安全反例的烈度也很高，应与武则天、李治等强正强负型拉近。档内位置按当前有效生命周期权重与净余量确定。",
           "grade_gate_basis": "主档仍G2，position降至中下。魏相通过防壅蔽、削霍氏权、谏止出兵及长期便宜奏章形成强external_constraint M3，路温舒又闭合独立司法反馈M2；但盖宽饶在监察与反复切谏后被下吏而自杀，杨恽因批评性私人文字最终腰斩，两条都与表达/监督内容存在直接关系，且结果不可逆。正向厚度很强，但表达安全反例的烈度也很高，应与武则天、李治等强正强负型拉近，而不是留在G2中部。定G2-lower-middle。",
           "grade_gate_code": "B2_G2_ONE_CLOSED_OR_MIXED",
           "index_interval": [
-            32,
+            32.0,
             43.9
           ],
           "polity": "西汉",
-          "position": "lower-middle",
-          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
-          "position_q": 0.3,
-          "rank": 49,
+          "position": "middle",
+          "position_basis": "有效生命周期权重合计扣除G2门槛占用1后，净余量=0，据此确定档内位置。",
+          "position_q": 0.5,
+          "rank": 36,
           "reign_range": "前74—前48",
           "ruler_id": "RULER-HAN-LIUXUN",
           "ruler_name": "刘询",
           "verification_material_ids": [],
           "material_basis": [
-            "魏相主张防止尚书壅蔽，参与削除霍氏军政控制，谏止出兵并长期上便宜奏章",
-            "路温舒批评治狱后设置廷尉平、实行季秋复核，司法运行出现宽平结果",
-            "盖宽饶在监察和反复切谏后被下吏而自杀",
-            "杨恽因批评性私人文字最终被腰斩"
+            "《資治通鑑·卷025》：上令吏民得奏封事，不关尚书，群臣进见独往来",
+            "《資治通鑑·卷025》：诸领胡、越骑、羽林及两宫卫将屯兵，悉易以所亲信许、史子弟代之。",
+            "《西漢會要·卷61》：自今子首匿父母，妻匿夫，孫匿大父母，皆勿坐，其父母匿子，夫匿婦，大父母匿孫，罪殊死，皆上請廷尉以聞。",
+            "《資治通鑑·卷025》：于是每季秋后请谳时，上常幸宣室，斋居而决事，狱刑号为平矣。",
+            "《資治通鑑·卷025》：其为置廷尉平，秩六百石，员四人。其务平之，以称朕意！",
+            "《資治通鑑·卷026》：上不听。九月，下宽饶吏。宽饶引佩刀自刭北阙下，众莫不怜之。"
           ],
           "settlement_basis": [
-            "正向混合 M3：魏相持续防壅蔽、削霍氏权、谏止出兵并上便宜奏章，对最高决策形成跨事件外部约束",
-            "正向 M2：路温舒的治狱批评转成廷尉平与季秋复核，并出现宽平结果",
-            "负向 M2：盖宽饶因监察切谏下吏自杀，杨恽因批评性私人文字腰斩，表达安全反例结果不可逆",
-            "档位结论：强正向 M3 与司法 M2 支撑 G2，但严重安全反例将位置压至 G2 中下"
-          ]
+            "主档仍G2，魏相通过防壅蔽、削霍氏权、谏止出兵及长期便宜奏章形成强外部约束 M3，路温舒又闭合独立司法反馈M2；但盖宽饶在监察与反复切谏后被下吏而自杀，杨恽因批评性私人文字最终腰斩，两条都与表达/监督内容存在直接关系，且结果不可逆。正向厚度很强，但表达安全反例的烈度也很高，应与武则天、李治等强正强负型拉近。档内位置按当前有效生命周期权重与净余量确定。",
+            "主档G2；去重后净余量0，对应中位。"
+          ],
+          "position_residual": 0.0,
+          "grade_threshold_consumed": 1.0
         },
         {
           "M_mixed_profile": [],
@@ -425,7 +456,7 @@
             "I2-WHAN-CHENG-WANG-CAPTURE-001-M2-M3-02-AUDIT"
           ],
           "direction_card_write": true,
-          "direction_index": 20.8,
+          "direction_index": 17.6,
           "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
           "formal_evidence_maturity": "fixed_primary_exact_backsourced",
           "formal_evidence_state": "FORMAL_SCORED",
@@ -434,63 +465,67 @@
           "grade_gate_basis": "最后一轮异常扫描后仍G1。成帝确有成陵耗费失败后承认错误停工等事后纠正，但更多属于自我复盘，缺独立稳定正链。王凤长期控制大小政务，王章直接反对王凤后被下狱死，形成高烈度政治反馈压制；后续王氏外戚继续占据中枢，说明不是孤立单案。正向不足以抵消主要阶段外戚俘获，保G1",
           "grade_gate_code": "B2_G1_FORMAL_OR_FAILURE_DOMINANT",
           "index_interval": [
-            16,
+            16.0,
             31.9
           ],
           "polity": "西汉",
-          "position": "lower-middle",
-          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
-          "position_q": 0.3,
+          "position": "lower",
+          "position_basis": "有效生命周期权重合计扣除G1门槛占用0.5后，净余量=-2.5，据此确定档内位置。",
+          "position_q": 0.1,
           "rank": 126,
           "reign_range": "前33—前7",
           "ruler_id": "RULER-HAN-LIUAO",
           "ruler_name": "刘骜",
           "verification_material_ids": [],
           "material_basis": [
-            "成帝轻信三年成陵方案造成五年耗费后承认错误停工",
-            "成帝让王凤控制大小政务并以王章之死封闭反对意见"
+            "《資治通鑑·卷031》：其罢昌陵，及故陵勿徙吏民，令天下毋有动摇之心。",
+            "《資治通鑑·卷031》：天下虚耗，百姓罢劳，客土疏恶，终不可成",
+            "《資治通鑑·卷031》：过听将作大匠万年言‘昌陵三年可成’，作治五年，中陵、司马殿门内尚未加功。",
+            "《資治通鑑·卷030》：时大将军凤用事，上谦让无所颛。",
+            "《資治通鑑·卷030》：王氏子弟皆卿、大夫、侍中、诸曹，分据势官，满朝廷。",
+            "《資治通鑑·卷030》：章竟死狱中，妻子徙合浦。自是公卿见凤，侧目而视。"
           ],
           "settlement_basis": [
-            "负向 M2：其他制度行政机制",
-            "负向 M2：权力俘获、强制与反馈压制",
-            "裁决说明：最后一轮异常扫描后仍G1",
-            "裁决说明：成帝确有成陵耗费失败后承认错误停工等事后纠正，但更多属于自我复盘，缺独立稳定正链",
-            "裁决说明：王凤长期控制大小政务，王章直接反对王凤后被下狱死，形成高烈度政治反馈压制",
-            "裁决说明：后续王氏外戚继续占据中枢，说明不是孤立单案",
-            "档位结论：正向不足以抵消主要阶段外戚俘获，保G1"
-          ]
+            "最后一轮异常扫描后仍G1。成帝确有成陵耗费失败后承认错误停工等事后纠正，但更多属于自我复盘，缺独立稳定正链。王凤长期控制大小政务，王章直接反对王凤后被下狱死，形成高烈度政治反馈压制；后续王氏外戚继续占据中枢，说明不是孤立单案。正向不足以抵消主要阶段外戚俘获，保G1",
+            "主档G1；去重后净余量-2.5，对应下位。"
+          ],
+          "position_residual": -2.5,
+          "grade_threshold_consumed": 0.5
         },
         {
-          "M_mixed_profile": [],
+          "M_mixed_profile": [
+            {
+              "material_id": "I2-WHAN-WUDI-WITCHCRAFT-FEEDBACK-COLLAPSE-001",
+              "M": "M3",
+              "direction": "mixed_negative",
+              "direction_factor": -0.5,
+              "signed_weight": -1.0,
+              "mechanism": "巫蛊高压使智者不敢言，后有进言获悟而纠偏不及已成损害",
+              "result_closure": "sustained_or_systemic"
+            }
+          ],
           "M_negative_profile": [
             {
-              "M": "M3",
-              "direction": "negative",
-              "direction_factor": -1.0,
               "material_id": "I2-WHAN-WUDI-COERCIVE-ADMIN-FAILURE-001",
-              "mechanism": "法律、司法与刑罚运行",
-              "result_closure": "sustained_or_systemic",
-              "signed_weight": -2.0
-            },
-            {
               "M": "M3",
               "direction": "negative",
               "direction_factor": -1.0,
-              "material_id": "I2-WHAN-WUDI-WITCHCRAFT-FEEDBACK-COLLAPSE-001",
-              "mechanism": "监察、问责与信息反馈",
+              "signed_weight": -2.0,
+              "mechanism": "沈命法问责使郡府小吏相互隐匿盗情，只取真实信息失效切片",
               "result_closure": "sustained_or_systemic",
-              "signed_weight": -2.0
+              "evidence_slice": "CONCEALED_BANDIT_REPORTS"
             }
           ],
           "M_positive_profile": [
             {
-              "M": "M2",
-              "direction": "mixed_positive",
-              "direction_factor": 0.5,
               "material_id": "I2-WHAN-WUDI-LATE-CORRECTION-001",
-              "mechanism": "选官、人事与官僚专业化",
-              "result_closure": "limited_observation",
-              "signed_weight": 0.5
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "signed_weight": 1.0,
+              "mechanism": "拒轮台远屯与加赋后停止出军，晚期自我纠偏实际落地",
+              "result_closure": "observed_or_repeated",
+              "mechanism_role": "sovereign_self_correction"
             }
           ],
           "coverage_audit_ids": [],
@@ -501,38 +536,50 @@
             "I2-WHAN-WUDI-WITCHCRAFT-FEEDBACK-COLLAPSE-001"
           ],
           "direction_card_write": true,
-          "direction_index": 20.8,
+          "direction_index": 17.6,
           "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
           "formal_evidence_maturity": "mixed_fixed_primary_and_accepted_summary_adjudicated",
           "formal_evidence_state": "FORMAL_SCORED",
           "grade": "G1",
-          "grade_basis": "移除“选官专业化”跨项正链后，系统负向仍主导；轮台止损不足翻档",
-          "grade_gate_basis": "移除“选官专业化”跨项正链后，系统负向仍主导；轮台止损不足翻档",
+          "grade_basis": "轮台诏拒绝远屯与加赋，且此后不复出军，闭合晚期自我纠偏正M2，不能因旧标题误写选官而删除。沈命法使小吏与府相互隐匿盗情，构成独立系统负M3；巫蛊中信息隔绝与高压虽后有田千秋进言获悟，仍以负向主导生命周期M3计。主要阶段负态仍主导，定G1，晚期止损不足据以覆盖全期。",
+          "grade_gate_basis": "轮台诏拒绝远屯与加赋，且此后不复出军，闭合晚期自我纠偏正M2，不能因旧标题误写选官而删除。沈命法使小吏与府相互隐匿盗情，构成独立系统负M3；巫蛊中信息隔绝与高压虽后有田千秋进言获悟，仍以负向主导生命周期M3计。主要阶段负态仍主导，定G1，晚期止损不足据以覆盖全期。",
           "grade_gate_code": "B2_G1_FORMAL_OR_FAILURE_DOMINANT",
           "index_interval": [
-            16,
+            16.0,
             31.9
           ],
           "polity": "西汉",
-          "position": "lower-middle",
-          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
-          "position_q": 0.3,
+          "position": "lower",
+          "position_basis": "有效生命周期权重合计扣除G1门槛占用0.5后，净余量=-2.5，据此确定档内位置。",
+          "position_q": 0.1,
           "rank": 126,
           "reign_range": "前141—前87",
           "ruler_id": "RULER-HAN-LIUCHE",
           "ruler_name": "刘彻",
           "verification_material_ids": [],
           "material_basis": [
-            "盗贼继续聚集，文书合规取代真实信息，问责机制反向破坏行政执行",
-            "停止了轮台屯田、额外加赋和继续出军，赵过代田取得局部农业结果；但未证明沈命法、繁重法网、巫蛊破坏和既成社会损失得到制度性修复",
-            "长安发生大规模交战，太子、皇后和大量相关人员死亡，继承秩序遭到重创"
+            "《資治通鑑·卷021》：上始使御史中丞、丞相长史督之，弗能禁；",
+            "《資治通鑑·卷021》：其后小吏畏诛，虽有盗不敢发，恐不能得，坐课累府，府亦使其不言。",
+            "《資治通鑑·卷021》：故盗贼多，上下相为匿，以文辞避法焉。",
+            "《漢書·卷023》：文書盈於几閣，典者不能遍睹。",
+            "《漢書·卷023》：是以郡國承用者駮，或罪同而論異。",
+            "《漢書·卷023》：姦吏因緣為市，所欲活則傅生議，所欲陷則予死比，議者咸冤傷之。",
+            "《西漢會要·卷61》：武帝作沈命法",
+            "《資治通鑑·卷022》：朕即位以来，所为狂悖，使天下愁苦，不可追悔。自今事有伤害百姓，糜费天下者，悉罢之。",
+            "《資治通鑑·卷022》：于是悉罢诸方士候神人者。",
+            "《資治通鑑·卷022》：今又请远田轮台，欲起亭隧，是扰劳天下，非所以优民也，朕不忍闻！",
+            "《資治通鑑·卷022》：由是不复出军，而封田千秋为富民侯，以明休息，思富养民也。",
+            "《資治通鑑·卷022》：司直，吏二千石，当先请，奈何擅斩之！",
+            "《資治通鑑·卷022》：胜之惶恐，自杀。",
+            "《資治通鑑·卷022》：智者不敢言，辩士不敢说，臣窃痛之！",
+            "《資治通鑑·卷022》：书奏，天子感寤，然尚未显言赦之也。"
           ],
           "settlement_basis": [
-            "混合正向 M2：选官、人事与官僚专业化",
-            "负向 M3：法律、司法与刑罚运行",
-            "负向 M3：监察、问责与信息反馈",
-            "档位结论：移除“选官专业化”跨项正链后，系统负向仍主导；轮台止损不足翻档"
-          ]
+            "轮台诏拒绝远屯与加赋，且此后不复出军，闭合晚期自我纠偏正M2，不能因旧标题误写选官而删除。沈命法使小吏与府相互隐匿盗情，构成独立系统负M3；巫蛊中信息隔绝与高压虽后有田千秋进言获悟，仍以负向主导生命周期M3计。主要阶段负态仍主导，定G1，晚期止损不足据以覆盖全期。",
+            "主档G1；去重后净余量-2.5，对应下位。"
+          ],
+          "position_residual": -2.5,
+          "grade_threshold_consumed": 0.5
         },
         {
           "M_mixed_profile": [],
@@ -567,7 +614,7 @@
             "I2-WHAN-AI-REMONSTRANCE-TERMINAL-001"
           ],
           "direction_card_write": true,
-          "direction_index": 20.8,
+          "direction_index": 17.6,
           "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
           "formal_evidence_maturity": "fixed_primary_exact_backsourced",
           "formal_evidence_state": "FORMAL_SCORED",
@@ -576,13 +623,13 @@
           "grade_gate_basis": "最后一轮异常扫描后仍G1。哀帝后期把尚书、三公与禁兵权力高度集中于董贤，形成明显权力俘获；丞相王嘉因封还董贤封爵诏、反对宠幸扩张而被下诏狱，杂治定罪，系狱二十余日绝食呕血而死。其后虽又恢复孔光、何武等，说明处置有反复，但并未形成可代表主要阶段的稳定正向反馈链。王嘉案烈度高且直指最高权力宠幸，董贤俘获又覆盖中枢，故G1不变",
           "grade_gate_code": "B2_G1_FORMAL_OR_FAILURE_DOMINANT",
           "index_interval": [
-            16,
+            16.0,
             31.9
           ],
           "polity": "西汉",
-          "position": "lower-middle",
-          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
-          "position_q": 0.3,
+          "position": "lower",
+          "position_basis": "有效生命周期权重合计扣除G1门槛占用0.5后，净余量=-2.5，据此确定档内位置。",
+          "position_q": 0.1,
           "rank": 126,
           "reign_range": "前7—前1",
           "ruler_id": "RULER-HAN-LIUXIN",
@@ -591,68 +638,71 @@
             "I2-WHAN-AI-DONG-XIAN-001-M2-M3-02-AUDIT"
           ],
           "material_basis": [
-            "哀帝删改部分法源，但实际言路保护没有随之成立",
-            "哀帝后期把尚书、三公和禁兵权力集中于董贤",
-            "王嘉封还董贤封爵诏并反对扩张宠幸后被下诏狱，系狱二十余日绝食呕血而死",
-            "王嘉死后哀帝又恢复孔光、何武，显示处置有反复但没有稳定纠偏"
+            "《資治通鑑·卷033》：除任子令及诽谤诋欺法。",
+            "《資治通鑑·卷034》：上不得已，且为之止。",
+            "《資治通鑑·卷035》：嘉系狱二十余日，不食，欧血而死。",
+            "《資治通鑑·卷035》：上乃知孔光前免非其罪"
           ],
           "settlement_basis": [
-            "正向 M0：法源层存在真实删改，但未形成实际言路保护，不计 B2 有效机制",
-            "负向 M3：王嘉因封还董贤封爵诏、反对宠幸扩张而被下狱，系狱二十余日后绝食呕血而死",
-            "主态：尚书、三公与禁兵权力集中于董贤，王嘉案直接显示宠幸俘获对中枢反馈的高烈度压制",
-            "档位结论：后续恢复孔光、何武只是处置反复，未形成稳定正向链，定 G1"
-          ]
+            "最后一轮异常扫描后仍G1。哀帝后期把尚书、三公与禁兵权力高度集中于董贤，形成明显权力俘获；丞相王嘉因封还董贤封爵诏、反对宠幸扩张而被下诏狱，杂治定罪，系狱二十余日绝食呕血而死。其后虽又恢复孔光、何武等，说明处置有反复，但并未形成可代表主要阶段的稳定正向反馈链。王嘉案烈度高且直指最高权力宠幸，董贤俘获又覆盖中枢，故G1不变",
+            "主档G1；去重后净余量-2.5，对应下位。"
+          ],
+          "position_residual": -2.5,
+          "grade_threshold_consumed": 0.5
         },
         {
           "M_mixed_profile": [],
           "M_negative_profile": [],
           "M_positive_profile": [
             {
-              "M": "M0",
+              "material_id": "I2-WHAN-LIUYING-CAOCAN-RESPONSE-001",
+              "M": "M2",
               "direction": "positive",
               "direction_factor": 1.0,
-              "material_id": "I2-PERSON-LY-B2-CAOSHEN-RESPONSE-001",
-              "mechanism": "其他制度行政机制",
-              "position_count_mode": "context_only_no_effective_mechanism",
-              "position_exclusion_reason": "只有命令、方案、单点接触或未闭合结果；保留为定档/复验上下文但不计position",
+              "signed_weight": 1.0,
+              "mechanism": "曹参解释后惠帝接受维持守职安排并停止督责",
               "result_closure": "observed_or_repeated",
-              "signed_weight": 0.0
+              "mechanism_role": "external_constraint"
             }
           ],
           "coverage_audit_ids": [],
           "database_write": false,
           "direct_material_ids": [
-            "I2-PERSON-LY-B2-CAOSHEN-RESPONSE-001"
+            "I2-WHAN-LIUYING-CAOCAN-RESPONSE-001"
           ],
           "direction_card_write": true,
-          "direction_index": 20.8,
+          "direction_index": 38.0,
           "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
           "formal_evidence_maturity": "mixed_fixed_primary_and_accepted_summary_adjudicated",
           "formal_evidence_state": "FORMAL_SCORED",
-          "grade": "G1",
-          "grade_basis": "实证链为未闭合正向运行链；反馈主要停留在单点进入、事后自纠或不安全表达，未形成稳定纠错",
-          "grade_gate_basis": "实证链为未闭合正向运行链；反馈主要停留在单点进入、事后自纠或不安全表达，未形成稳定纠错",
-          "grade_gate_code": "B2_G1_FORMAL_OR_FAILURE_DOMINANT",
+          "grade": "G2",
+          "grade_basis": "惠帝因曹参少事使人进谏并当面责问，曹参解释既定法令与守职分工后，惠帝明确答善君休矣，终止此次督责改变，闭合有限外部劝说M2。该结论只涵盖最高权力接受反向说明，不外推反复纠偏或整个行政体系；一次闭环定G2，原M0不足以表达已发生的态度与处置变化。",
+          "grade_gate_basis": "惠帝因曹参少事使人进谏并当面责问，曹参解释既定法令与守职分工后，惠帝明确答善君休矣，终止此次督责改变，闭合有限外部劝说M2。该结论只涵盖最高权力接受反向说明，不外推反复纠偏或整个行政体系；一次闭环定G2，原M0不足以表达已发生的态度与处置变化。",
+          "grade_gate_code": "B2_G2_ONE_CLOSED_OR_MIXED",
           "index_interval": [
-            16,
-            31.9
+            32.0,
+            43.9
           ],
           "polity": "西汉",
-          "position": "lower-middle",
-          "position_basis": "仅限G1同档比较：去重后有效M2/M3有符号合计=0.00，主档门槛占用=0.50（G1的0.5是完成度占用，不是M1材料），净余=-0.50，负向绝对量=0.00，对应lower-middle。M0上下文与吸收链展示但不计position。",
-          "position_q": 0.3,
-          "rank": 126,
+          "position": "middle",
+          "position_basis": "有效生命周期权重合计扣除G2门槛占用1后，净余量=0，据此确定档内位置。",
+          "position_q": 0.5,
+          "rank": 36,
           "reign_range": "前195—前188",
           "ruler_id": "RULER-HAN-LIUYING",
           "ruler_name": "刘盈",
-          "verification_material_ids": [],
+          "verification_material_ids": [
+            "I2-PERSON-LY-B2-CAOSHEN-RESPONSE-001"
+          ],
           "material_basis": [
-            "惠帝质疑曹参少事后听取守成解释并明确接受"
+            "《史記·卷054》：参子窋为中大夫。惠帝怪相国不治事，以为“岂少朕与”？乃谓窋曰：“若归，试私从容问而父曰：‘高帝新弃群臣，帝富于春秋，君为相，日饮，无所请事，何以忧天下乎？’然无言吾告若也。”窋既洗沐归，窋侍，自从其所谏参。参怒，而笞窋二百，曰：“趣入侍，天下事非若所当言也。”至朝时，惠帝让参曰：“与窋胡治乎？乃者我使谏君也。”参免冠谢曰：“陛下自察圣武孰与高帝？”上曰：“朕乃安敢望先帝乎！”曰：“陛下观臣能孰与萧何贤？”上曰：“君似不及也。”参曰：“陛下言之是也。且高帝与萧何定天下，法令既明，今陛下垂拱，参等守职，遵而勿失，不亦可乎？”惠帝曰：“善。君休矣！”"
           ],
           "settlement_basis": [
-            "正向 M0（不重复计权）：其他制度行政机制",
-            "档位结论：实证链为未闭合正向运行链；反馈主要停留在单点进入、事后自纠或不安全表达，未形成稳定纠错"
-          ]
+            "惠帝因曹参少事使人进谏并当面责问，曹参解释既定法令与守职分工后，惠帝明确答善君休矣，终止此次督责改变，闭合有限外部劝说M2。该结论只涵盖最高权力接受反向说明，不外推反复纠偏或整个行政体系；一次闭环定G2，原M0不足以表达已发生的态度与处置变化。",
+            "主档G2；去重后净余量0，对应中位。"
+          ],
+          "position_residual": 0.0,
+          "grade_threshold_consumed": 1.0
         },
         {
           "M_mixed_profile": [],
@@ -696,100 +746,129 @@
           "grade_gate_basis": "负M3严重度重审后仍G1，而且属于高覆盖高烈度。元帝初年确实主动起用萧望之、周堪、刘更生，并数虚己问贡禹、匡衡等政事，存在正向入口；但石显长期控制中书后，对反对其专权者形成连续清除：萧望之被逼自杀，周堪、刘更生下狱废锢，京房、贾捐之弃市，张猛自杀，陈咸髡为城旦，苏建亦论死，史书直接记“自是公卿以下畏显，重足一迹”。元帝曾因萧望之死悔恨，却仍继续任石显；京房又当面指明石显，元帝已知而不能改。该链跨多年、多角色、含多起死亡并造成全朝寒蝉，足以主导B2，保G1",
           "grade_gate_code": "B2_G1_FORMAL_OR_FAILURE_DOMINANT",
           "index_interval": [
-            16,
+            16.0,
             31.9
           ],
           "polity": "西汉",
           "position": "lower",
-          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
+          "position_basis": "有效生命周期权重合计扣除G1门槛占用0.5后，净余量=-2.5，据此确定档内位置。",
           "position_q": 0.1,
-          "rank": 141,
+          "rank": 126,
           "reign_range": "前48—前33",
           "ruler_id": "RULER-HAN-LIUSHI",
           "ruler_name": "刘奭",
           "verification_material_ids": [],
           "material_basis": [
-            "形成跨任期的法律简化结果，但缺少各条执行反馈",
-            "萧望之被逼饮鸩自杀，周堪、刘向退出，依附石显者累获官位"
+            "《西漢會要·卷61》：元帝初元五年，省刑法七十餘事，除光祿大夫以下至郎中保父母同產之令。",
+            "《資治通鑑·卷028》：遂委以政，事无小大，因显白决，贵幸倾朝，百僚皆敬事显。",
+            "《資治通鑑·卷028》：忤恨睚眦，辄被以危法",
+            "《資治通鑑·卷028》：竟饮鸠自杀。"
           ],
           "settlement_basis": [
-            "正向 M0（不重复计权）：法律、司法与刑罚运行",
-            "负向 M3：权力俘获、强制与反馈压制",
-            "裁决说明：负M3严重度重审后仍G1，而且属于高覆盖高烈度",
-            "裁决说明：元帝初年确实主动起用萧望之、周堪、刘更生，并数虚己问贡禹、匡衡等政事，存在正向入口",
-            "裁决说明：但石显长期控制中书后，对反对其专权者形成连续清除：萧望之被逼自杀，周堪、刘更生下狱废锢，京房、贾捐之弃市，张猛自杀，陈咸髡为城旦，苏建亦论死，史书直接记“自是公卿以下畏显，重足一迹”",
-            "裁决说明：元帝曾因萧望之死悔恨，却仍继续任石显",
-            "裁决说明：京房又当面指明石显，元帝已知而不能改",
-            "档位结论：该链跨多年、多角色、含多起死亡并造成全朝寒蝉，足以主导B2，保G1"
-          ]
+            "负M3严重度重审后仍G1，而且属于高覆盖高烈度。元帝初年确实主动起用萧望之、周堪、刘更生，并数虚己问贡禹、匡衡等政事，存在正向入口；但石显长期控制中书后，对反对其专权者形成连续清除：萧望之被逼自杀，周堪、刘更生下狱废锢，京房、贾捐之弃市，张猛自杀，陈咸髡为城旦，苏建亦论死，史书直接记“自是公卿以下畏显，重足一迹”。元帝曾因萧望之死悔恨，却仍继续任石显；京房又当面指明石显，元帝已知而不能改。该链跨多年、多角色、含多起死亡并造成全朝寒蝉，足以主导B2，保G1",
+            "主档G1；去重后净余量-2.5，对应下位。"
+          ],
+          "position_residual": -2.5,
+          "grade_threshold_consumed": 0.5
         },
         {
           "M_mixed_profile": [],
           "M_negative_profile": [
             {
-              "M": "M3",
+              "material_id": "I2-WHAN-LVZHI-CHANCELLERY-CAPTURE-001",
+              "M": "M2",
               "direction": "negative",
               "direction_factor": -1.0,
-              "material_id": "I2-WHAN-LVZHI-CHANCELLERY-CAPTURE-001",
-              "mechanism": "选官、人事与官僚专业化",
-              "result_closure": "sustained_or_systemic",
-              "signed_weight": -2.0
+              "signed_weight": -1.0,
+              "mechanism": "王陵反对封诸吕后被转太傅并夺相权",
+              "result_closure": "observed_or_repeated",
+              "evidence_slice": "DISSENT_RETALIATION"
             }
           ],
-          "M_positive_profile": [],
+          "M_positive_profile": [
+            {
+              "material_id": "I2-WHAN-LVZHI-JIBU-WAR-REMONSTRANCE-001",
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "signed_weight": 1.0,
+              "mechanism": "季布当廷反对伐匈奴，吕后罢朝后不再议战",
+              "result_closure": "observed_or_repeated",
+              "mechanism_role": "external_constraint"
+            }
+          ],
           "coverage_audit_ids": [],
           "database_write": false,
           "direct_material_ids": [
-            "I2-WHAN-LVZHI-CHANCELLERY-CAPTURE-001"
+            "I2-WHAN-LVZHI-CHANCELLERY-CAPTURE-001",
+            "I2-WHAN-LVZHI-JIBU-WAR-REMONSTRANCE-001"
           ],
           "direction_card_write": true,
-          "direction_index": 17.6,
+          "direction_index": 35.6,
           "evidence_sufficiency_gate": "PASS_NO_FORMALIZATION_BLOCKER",
           "formal_evidence_maturity": "mixed_fixed_primary_and_accepted_summary_adjudicated",
           "formal_evidence_state": "FORMAL_SCORED",
-          "grade": "G1",
-          "grade_basis": "实证链为未闭合正向运行链；同尺度反例为选官、人事与官僚专业化；反馈主要停留在单点进入、事后自纠或不安全表达，未形成稳定纠错",
-          "grade_gate_basis": "实证链为未闭合正向运行链；同尺度反例为选官、人事与官僚专业化；反馈主要停留在单点进入、事后自纠或不安全表达，未形成稳定纠错",
-          "grade_gate_code": "B2_G1_FORMAL_OR_FAILURE_DOMINANT",
+          "grade": "G2",
+          "grade_basis": "孝惠时吕雉召诸将议伐匈奴，季布当廷反驳樊哙并指出战争代价，吕后遂不复议，闭合外部异议改变最高权力意向的正M2；此事在正式对象入口前195—前180年实际主政窗口内。王陵反对封诸吕后被夺相权，闭合独立负M2。正负重要阶段并存，定G2；单次纳谏不足G3，不能继续以无正链定G1。",
+          "grade_gate_basis": "孝惠时吕雉召诸将议伐匈奴，季布当廷反驳樊哙并指出战争代价，吕后遂不复议，闭合外部异议改变最高权力意向的正M2；此事在正式对象入口前195—前180年实际主政窗口内。王陵反对封诸吕后被夺相权，闭合独立负M2。正负重要阶段并存，定G2；单次纳谏不足G3，不能继续以无正链定G1。",
+          "grade_gate_code": "B2_G2_ONE_CLOSED_OR_MIXED",
           "index_interval": [
-            16,
-            31.9
+            32.0,
+            43.9
           ],
           "polity": "西汉",
-          "position": "lower",
-          "position_basis": "仅限G1同档比较：去重后有效M2/M3有符号合计=-2.00，主档门槛占用=0.50（G1的0.5是完成度占用，不是M1材料），净余=-2.50，负向绝对量=2.00，对应lower。M0上下文与吸收链展示但不计position。",
-          "position_q": 0.1,
-          "rank": 141,
+          "position": "lower-middle",
+          "position_basis": "有效生命周期权重合计扣除G2门槛占用1后，净余量=-1，据此确定档内位置。",
+          "position_q": 0.3,
+          "rank": 65,
           "reign_range": "前195—前180",
           "ruler_id": "RULER-HAN-LUYU",
           "ruler_name": "吕雉",
           "verification_material_ids": [],
           "material_basis": [
-            "常设丞相制度仍有名位，但实际议政和任用通道被私人化，公开异议受到职位惩罚"
+            "《資治通鑑·卷013》：太后以王陵为帝太傅，实夺之相权。",
+            "《資治通鑑·卷013》：乃以左丞相平为右丞相，以辟阳侯审食其为左丞相，不治事，令监宫中，如郎中令。",
+            "《資治通鑑·卷013》：食其故得幸于太后，公卿皆因而决事。",
+            "《資治通鑑·卷013》：遂废帝，幽杀之。",
+            "《史記·卷100》：孝惠时，为中郎将。单于尝为书嫚吕后，不逊，吕后大怒，召诸将议之。上将军樊哙曰：“臣願得十万众，横行匈奴中。”诸将皆阿吕后意，曰“然”。季布曰：“樊哙可斩也！夫高帝将兵四十餘万众，困於平城，今哙奈何以十万众横行匈奴中，面欺！且秦以事於胡，陈胜等起。于今创痍未瘳，哙又面谀，欲摇动天下。”是时殿上皆恐，太后罢朝，遂不復议撃匈奴事。"
           ],
           "settlement_basis": [
-            "负向 M3：选官、人事与官僚专业化",
-            "档位结论：实证链为未闭合正向运行链；同尺度反例为选官、人事与官僚专业化；反馈主要停留在单点进入、事后自纠或不安全表达，未形成稳定纠错"
-          ]
+            "孝惠时吕雉召诸将议伐匈奴，季布当廷反驳樊哙并指出战争代价，吕后遂不复议，闭合外部异议改变最高权力意向的正M2；此事在正式对象入口前195—前180年实际主政窗口内。王陵反对封诸吕后被夺相权，闭合独立负M2。正负重要阶段并存，定G2；单次纳谏不足G3，不能继续以无正链定G1。",
+            "主档G2；去重后净余量-1，对应中下位。"
+          ],
+          "position_residual": -1.0,
+          "grade_threshold_consumed": 1.0
         },
         {
           "M_mixed_profile": [],
           "M_negative_profile": [
             {
-              "M": "M2",
+              "material_id": "I2-XIN-WANGMANG-SPEECH-PURGES-001",
+              "M": "M3",
               "direction": "negative",
               "direction_factor": -1.0,
-              "material_id": "I2-QIN95-FACT-SUPP29-WANGMANG-CAPTURE-FEEDBACK-36-04",
-              "mechanism": "反馈压制与权力俘获",
-              "result_closure": "observed_or_repeated",
-              "signed_weight": -1.0
+              "signed_weight": -2.0,
+              "mechanism": "借吕宽、甄寻案反复扩大追治非议者，以震慑维护最高权力",
+              "result_closure": "sustained_or_systemic"
             }
           ],
-          "M_positive_profile": [],
+          "M_positive_profile": [
+            {
+              "material_id": "I2-XIN-WANGMANG-FALSE-PORTENTS-CORRECTION-001",
+              "M": "M2",
+              "direction": "positive",
+              "direction_factor": 1.0,
+              "signed_weight": 1.0,
+              "mechanism": "陈崇指出伪符命乱源，最高权力随即命官验治",
+              "result_closure": "observed_or_repeated",
+              "mechanism_role": "external_constraint"
+            }
+          ],
           "coverage_audit_ids": [],
           "database_write": false,
           "direct_material_ids": [
-            "I2-QIN95-FACT-SUPP29-WANGMANG-CAPTURE-FEEDBACK-36-04"
+            "I2-XIN-WANGMANG-FALSE-PORTENTS-CORRECTION-001",
+            "I2-XIN-WANGMANG-SPEECH-PURGES-001"
           ],
           "direction_card_write": true,
           "direction_index": 17.6,
@@ -797,34 +876,35 @@
           "formal_evidence_maturity": "fixed_primary_plus_reused_law_and_handoff_bounded_synthesis",
           "formal_evidence_state": "FORMAL_SCORED",
           "grade": "G1",
-          "grade_basis": "专项扩搜后仍G1，且负链应升级为高烈度系统M3。王宇、吴章因认为王莽“不可谏”而试图以灾异迫其归政，事发后王宇被迫饮药死，孕妻产后被杀，卫氏支属几乎尽灭，吴章腰斩/磔尸，其千余门生被集体禁锢不得仕；此后甄丰、甄寻等旧腹心稍露不满或借符命触怒，又出现自杀、诛杀和扩大追治，形成跨亲属、儒生、旧腹心的高烈度寒蝉。虽然陈崇曾劝禁伪符命并获采纳，证明非所有反馈都绝对封死，但不足形成可代表主要阶段的正向闭环。故保G1低位；暂不进G0，因为尚未证明整个统治期所有独立渠道都系统归零",
-          "grade_gate_basis": "专项扩搜后仍G1，且负链应升级为高烈度系统M3。王宇、吴章因认为王莽“不可谏”而试图以灾异迫其归政，事发后王宇被迫饮药死，孕妻产后被杀，卫氏支属几乎尽灭，吴章腰斩/磔尸，其千余门生被集体禁锢不得仕；此后甄丰、甄寻等旧腹心稍露不满或借符命触怒，又出现自杀、诛杀和扩大追治，形成跨亲属、儒生、旧腹心的高烈度寒蝉。虽然陈崇曾劝禁伪符命并获采纳，证明非所有反馈都绝对封死，但不足形成可代表主要阶段的正向闭环。故保G1低位；暂不进G0，因为尚未证明整个统治期所有独立渠道都系统归零",
+          "grade_basis": "吕宽事件借案追治郡国素非议者，后甄寻符命案又扩大追治并震慑群下，形成跨阶段负M3；不能仍按单一M2记录。陈崇指出伪符命滥赏后莽命赵并验治，确有有限反馈结果，补正M2；该纠偏发生在既有符命体系内，不能抵销主要阶段压制异议的主态，定G1。",
+          "grade_gate_basis": "吕宽事件借案追治郡国素非议者，后甄寻符命案又扩大追治并震慑群下，形成跨阶段负M3；不能仍按单一M2记录。陈崇指出伪符命滥赏后莽命赵并验治，确有有限反馈结果，补正M2；该纠偏发生在既有符命体系内，不能抵销主要阶段压制异议的主态，定G1。",
           "grade_gate_code": "B2_G1_FORMAL_OR_FAILURE_DOMINANT",
           "index_interval": [
-            16,
+            16.0,
             31.9
           ],
           "polity": "新",
           "position": "lower",
-          "position_basis": "审查最终裁决：按正向运行厚度、负向覆盖与烈度、反馈安全、纠偏稳定性、渠道独立性及跨层上达进行同档横校；不以材料数量或人物名望反推。",
+          "position_basis": "有效生命周期权重合计扣除G1门槛占用0.5后，净余量=-1.5，据此确定档内位置。",
           "position_q": 0.1,
-          "rank": 141,
+          "rank": 126,
           "reign_range": "6—23",
           "ruler_id": "RULER-XIN-WANGMANG",
           "ruler_name": "王莽",
-          "verification_material_ids": [],
+          "verification_material_ids": [
+            "I2-QIN95-FACT-SUPP29-WANGMANG-CAPTURE-FEEDBACK-36-04"
+          ],
           "material_basis": [
-            "反馈压制与权力俘获"
+            "《漢書·卷099中》：是时争为符命封侯，其不为者相戏曰：“独无天帝除书乎？”司令陈崇白莽曰：“此开奸臣作福之路而乱天命，宜绝其原。”莽亦厌之，遂使尚书大夫赵并验治，非五威将率所班，皆下狱。",
+            "《漢書·卷099上》：初，莽欲擅权，白太后：“前哀帝立，背恩义，自贵外家丁、傅，挠乱国家，几危社稷。今帝以幼年复奉大宗，为成帝后，宜明一统之义，以戒前事，为后代法。”于是遣甄丰奉玺绶，即拜帝母卫姬为中山孝王后，赐帝舅卫宝、宝弟玄爵关内侯，皆留中山，不得至京师。莽子宇，非莽隔绝卫氏，恐帝长大后见怨。宇即私遣人与宝等通书，教令帝母上书求入。语在《卫后传》。莽不听。宇与师吴章及妇兄吕宽议其故，章以为莽不可谏，而好鬼神，可为变怪以惊惧之，章因推类说令归政于卫氏。宇即使宽夜持血洒莽第，门吏发觉之，莽执宇送狱，饮药死。宇妻焉怀子，系狱，须产子已，杀之。莽奏言：“宇为吕宽等所诖误，流言惑众，恶与管蔡同罪，臣不敢隐，其诛。”甄邯等白太后下诏曰：“夫唐尧有丹朱，周文王有管蔡，此皆上圣亡奈下愚子何，以其性不可移也。公居周公之位，辅成王之主，而行管蔡之诛，不以亲亲害尊尊，朕甚嘉之。昔周公诛四国之后，大化乃成，至于刑错。公其专意翼国，期于致平。”莽因是诛灭卫氏，穷治吕宽之狱，连引郡国豪桀素非议己者，内及敬武公主、梁王立、红阳侯立、平阿侯仁，使者迫守，皆自杀。死者以百数，海内震焉。大司马护军褒奏言：“安汉公遭子宇陷于管蔡之辜，子爱至深，为帝室故不敢顾私。惟宇遭罪，喟然愤发作书八篇，以戒子孙。宜班郡国，令学官以教授。”事下群公，请令天下吏能诵公戒者，以著官簿，比孝经。",
+            "《漢書·卷099中》：初，甄丰、刘歆、王舜为莽腹心，倡导在位，褒扬功德；“安汉”、“宰衡”之号及封莽母、两子、兄子，皆丰等所共谋，而丰、舜、歆亦受其赐，并富贵矣，非复欲令莽居摄也。居摄之萌，出于泉陵侯刘庆、前煇光谢嚣、长安令田终术。莽羽翼已成，意欲称摄。丰等承顺其意，莽辄复封舜、歆两子及丰孙。丰等爵位已盛，心意既满，又实畏汉宗室、天下豪桀。而疏远欲进者，并作符命，莽遂据以即真，舜、歆内惧而已。丰素刚强，莽觉其不说，故徙大阿、右拂、大司空丰，托符命文，为更始将军，与卖饼儿王盛同列。丰父子默默。时子寻为侍中京兆大尹茂德侯，即作符命，言新室当分陕，立二伯，以丰为右伯，太傅平晏为左伯，如周召故事。莽即从之，拜丰为右伯。当述职西出，未行，寻复作符命，言故汉氏平帝后黄皇室主为寻之妻。莽以诈立，心疑大臣怨谤，欲震威以惧下，因是发怒曰：“黄皇室主天下母，此何谓也！”收捕寻。寻亡，丰自杀。寻随方士入华山，岁馀捕得，辞连国师公歆子侍中东通灵将、五司大夫隆威侯棻，棻弟右曹长水校尉伐虏侯泳，大司空邑弟左"
           ],
           "settlement_basis": [
-            "负向 M2：反馈压制与权力俘获",
-            "裁决说明：专项扩搜后仍G1，且负链应升级为高烈度系统M3",
-            "裁决说明：王宇、吴章因认为王莽“不可谏”而试图以灾异迫其归政，事发后王宇被迫饮药死，孕妻产后被杀，卫氏支属几乎尽灭，吴章腰斩/磔尸，其千余门生被集体禁锢不得仕",
-            "裁决说明：此后甄丰、甄寻等旧腹心稍露不满或借符命触怒，又出现自杀、诛杀和扩大追治，形成跨亲属、儒生、旧腹心的高烈度寒蝉",
-            "裁决说明：虽然陈崇曾劝禁伪符命并获采纳，证明非所有反馈都绝对封死，但不足形成可代表主要阶段的正向闭环",
-            "裁决说明：故保G1低位",
-            "档位结论：暂不进G0，因为尚未证明整个统治期所有独立渠道都系统归零"
-          ]
+            "吕宽事件借案追治郡国素非议者，后甄寻符命案又扩大追治并震慑群下，形成跨阶段负M3；不能仍按单一M2记录。陈崇指出伪符命滥赏后莽命赵并验治，确有有限反馈结果，补正M2；该纠偏发生在既有符命体系内，不能抵销主要阶段压制异议的主态，定G1。",
+            "主档G1；去重后净余量-1.5，对应下位。"
+          ],
+          "position_residual": -1.5,
+          "grade_threshold_consumed": 0.5
         }
       ]
     }

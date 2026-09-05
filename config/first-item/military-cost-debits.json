@@ -1,0 +1,18 @@
+{
+  "schema_id": "first-item-military-cost-debits-v1",
+  "status": "CONFIRMED",
+  "formula": "max(0, A + B1 + B2 + C1 + C2 - cost_debit)",
+  "max_debit_points": 40,
+  "rounding": "ROUND_HALF_UP to 1 decimal after deduction",
+  "basis": "第一项独立固定扣分；最高40原始分占240量尺六分之一。常规投入低扣，国家级持续承载及核心军力断裂递增；不读取第三项factor、ML或E/EN。只消费已确认的逐人成本裁决，不从战果、旧WC或史料缺失推定成本。",
+  "debit_by_band_and_position": {
+    "C0": {"LOW": 0, "MID": 0, "HIGH": 0},
+    "C1": {"LOW": 0.5, "MID": 1, "HIGH": 1.5},
+    "C2": {"LOW": 2, "MID": 2.5, "HIGH": 3},
+    "C3": {"LOW": 4, "MID": 5, "HIGH": 6},
+    "C4": {"LOW": 7, "MID": 8, "HIGH": 10},
+    "C5": {"LOW": 12, "MID": 15, "HIGH": 18},
+    "C6": {"LOW": 20, "MID": 24, "HIGH": 28},
+    "C7": {"LOW": 30, "MID": 34, "HIGH": 38, "HIGHEST": 40}
+  }
+}

@@ -167,14 +167,14 @@
           "excluded_founding_unification_refs": [],
           "observed_parent_cycle_count": 2,
           "A120_non_cost_anchor_points": 18.6,
-          "A120_positive_result_credit_points": 0.0,
-          "A120_score_points": 18.6,
+          "A120_positive_result_credit_points": 6.0,
+          "A120_score_points": 24.6,
           "B80_score_points": 11.4,
-          "AB200_score_points": 30.0,
+          "AB200_score_points": 36.0,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": -0.5,
-              "attribution_basis": "消费现行语义标签MIXED",
+              "attribution_basis": "李渊 A1（主要威胁能力与战略主动）逐人裁决：618年唐在北方主要方向受突厥强烈制约但尚未面对核心区现实进逼，起点为2档。626年连续入寇、玄武门前多线边患与渭水前夜已使核心区承受严重现实威胁，但唐政权和整体安全秩序仍在运行，故交班为1档而非0档；渭水危机作为李世民接班初段事实另行归入后者窗口。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给李渊；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动-1档中取-0.5档。依据链：CAMPAIGN-TANG-TURK-RAIDS-624-625、WAR-LEAD-SUI-LIYUAN-GUANZHONG-617、WAR-LEAD-TANG-XUE-618、WAR-LEAD-TANG-HEDONG-RECOVERY等11条父链。",
               "attribution_category": "SHARED_MATERIAL",
               "axis_points": 4.2,
               "ceiling_progress": "NONE",
@@ -193,19 +193,35 @@
               "trajectory_value": 7.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "attribution_source_refs": [
+                "CAMPAIGN-TANG-TURK-RAIDS-624-625",
+                "WAR-LEAD-SUI-LIYUAN-GUANZHONG-617",
+                "WAR-LEAD-TANG-XUE-618",
+                "WAR-LEAD-TANG-HEDONG-RECOVERY",
+                "WAR-LEAD-TANG-LUOYANG-END",
+                "WAR-LEAD-TANG-XIAOXIAN-621",
+                "WAR-LEAD-TANG-WANGXIONGDAN-621",
+                "WAR-LEAD-TANG-XUYUANLANG-621",
+                "WAR-LEAD-TANG-LIUHEITA-622",
+                "WAR-LEAD-TANG-FUGONGSHI",
+                "WAR-LEAD-TANG-LIANGSHIDU-628"
+              ],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为2→1，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-0.5档，负向责任仍由独立字段保留。"
             },
             "A2": {
               "attributable_delta": 0.0,
               "attribution_basis": "凉州与灵州硖石仍能御敌，交班保留局部可守支点；A2客观起终同为2档，不再记一档下降及其混合责任。渭水危机属于李世民接班后阶段。",
               "attribution_category": "NO_CHANGE",
-              "axis_points": 14.4,
+              "axis_points": 20.4,
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 2,
-              "maintenance_basis": "非4→4或5→5",
-              "maintenance_bonus": 0,
-              "maintenance_difficulty": "NOT_APPLICABLE",
+              "maintenance_basis": "东突厥战争机器按公共O档合同为O6；624—625年多轮入寇并持续检验唐初北方边防，626年凉州守军击退来寇、李靖在灵州硖石相持迫敌退却，具名保住凉州—灵州门户与局部支点。压力来自外部且非本人主动制造，李渊仍为本窗口最高军政责任主体，保全归责取0.75；A2完成2→2交付，同链未在A1取得正向信用。",
+              "maintenance_bonus": 10,
+              "maintenance_difficulty": "HISTORIC",
               "negative_adjustment": 0,
               "objective_delta": 0,
               "reversal_basis": "无重大逆转登记",
@@ -213,10 +229,34 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 2,
-              "trajectory_value": 24.0,
+              "trajectory_value": 34.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "low_position_resilience_gate": {
+                "pressure_level": "O6_REALIZED",
+                "pressure_system_refs": [
+                  "OPP-TANG-EASTERN-TURKS"
+                ],
+                "pressure_refs": [
+                  "WAR-LEAD-TANG-TURK-624/625"
+                ],
+                "preserved_object": "凉州—灵州硖石门户与局部边防支点",
+                "preservation_refs": [
+                  "WAR-LEAD-TANG-FRONTIER-626"
+                ],
+                "pressure_origin": "EXTERNAL_NOT_SELF_INDUCED",
+                "maintenance_attribution_credit": 0.75,
+                "terminal_grade_held": true,
+                "cross_axis_consumption_check": "PASS"
+              },
+              "settlement_type": "LOW_POSITION_RESILIENCE",
+              "settlement_type_label": "低位抗压型",
+              "settlement_type_basis": "客观起终档同为2档，保全难度为HISTORIC并取得10轨迹点，故归为低位抗压型；压力、保全对象与本人归责详见本行保全依据。",
+              "positive_credit_review": {
+                "decision": "CREDITED",
+                "basis": "东突厥战争机器按公共O档合同为O6；624—625年多轮入寇并持续检验唐初北方边防，626年凉州守军击退来寇、李靖在灵州硖石相持迫敌退却，具名保住凉州—灵州门户与局部支点。压力来自外部且非本人主动制造，李渊仍为本窗口最高军政责任主体，保全归责取0.75；A2完成2→2交付，同链未在A1取得正向信用。 本轴准入的是既有压力下的保全；已绑定材料未另证超越接班的独立结构增量，不因守住高档再授建设信用。"
+              }
             }
           },
           "B80_adjudication": {
@@ -537,7 +577,7 @@
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 4.0,
-              "attribution_basis": "材料门后按人物窗口逐段裁决",
+              "attribution_basis": "李世民 A1（主要威胁能力与战略主动）逐人裁决：主要威胁东突厥在接手时可直逼核心，任内其生存性威胁被消除并形成天可汗秩序，故A1由1档升至5档。 李世民是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+4档按4档归责。依据链：CAMPAIGN-TANG-EASTERN-TURKS-629-630、CAMPAIGN-TANG-TUYUHUN-634-635、CAMPAIGN-TANG-QIANG-BETRAYAL-635、WAR-LEAD-TANG-TIBET-638等15条父链。",
               "attribution_category": "PRIMARY_RULER",
               "axis_points": 60.0,
               "ceiling_progress": "NONE",
@@ -561,27 +601,116 @@
                   "from_grade": 1,
                   "to_grade": 2,
                   "credit": 1.0,
-                  "basis": "材料门后按人物窗口逐段裁决"
+                  "basis": "李世民 A1（主要威胁能力与战略主动）逐人裁决：主要威胁东突厥在接手时可直逼核心，任内其生存性威胁被消除并形成天可汗秩序，故A1由1档升至5档。 李世民是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+4档按4档归责。依据链：CAMPAIGN-TANG-EASTERN-TURKS-629-630、CAMPAIGN-TANG-TUYUHUN-634-635、CAMPAIGN-TANG-QIANG-BETRAYAL-635、WAR-LEAD-TANG-TIBET-638等15条父链。",
+                  "source_refs": [
+                    "CAMPAIGN-TANG-EASTERN-TURKS-629-630",
+                    "CAMPAIGN-TANG-TUYUHUN-634-635",
+                    "CAMPAIGN-TANG-QIANG-BETRAYAL-635",
+                    "WAR-LEAD-TANG-TIBET-638",
+                    "CAMPAIGN-TANG-GAOCHANG-632-640",
+                    "CAMPAIGN-TANG-GOGURYEO-644-645",
+                    "CAMPAIGN-TANG-XUEYANTUO-641-647",
+                    "CAMPAIGN-TANG-KUCHA-648",
+                    "CAMPAIGN-TANG-SHIP-LABOR-648",
+                    "WAR-LEAD-SUI-LIYUAN-GUANZHONG-617",
+                    "WAR-LEAD-TANG-HEDONG-RECOVERY",
+                    "WAR-LEAD-TANG-LIUHEITA-622",
+                    "WAR-LEAD-TANG-LUOYANG-END",
+                    "WAR-LEAD-TANG-XUE-618",
+                    "WAR-LEAD-TANG-XUYUANLANG-621"
+                  ]
                 },
                 {
                   "from_grade": 2,
                   "to_grade": 3,
                   "credit": 1.0,
-                  "basis": "材料门后按人物窗口逐段裁决"
+                  "basis": "李世民 A1（主要威胁能力与战略主动）逐人裁决：主要威胁东突厥在接手时可直逼核心，任内其生存性威胁被消除并形成天可汗秩序，故A1由1档升至5档。 李世民是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+4档按4档归责。依据链：CAMPAIGN-TANG-EASTERN-TURKS-629-630、CAMPAIGN-TANG-TUYUHUN-634-635、CAMPAIGN-TANG-QIANG-BETRAYAL-635、WAR-LEAD-TANG-TIBET-638等15条父链。",
+                  "source_refs": [
+                    "CAMPAIGN-TANG-EASTERN-TURKS-629-630",
+                    "CAMPAIGN-TANG-TUYUHUN-634-635",
+                    "CAMPAIGN-TANG-QIANG-BETRAYAL-635",
+                    "WAR-LEAD-TANG-TIBET-638",
+                    "CAMPAIGN-TANG-GAOCHANG-632-640",
+                    "CAMPAIGN-TANG-GOGURYEO-644-645",
+                    "CAMPAIGN-TANG-XUEYANTUO-641-647",
+                    "CAMPAIGN-TANG-KUCHA-648",
+                    "CAMPAIGN-TANG-SHIP-LABOR-648",
+                    "WAR-LEAD-SUI-LIYUAN-GUANZHONG-617",
+                    "WAR-LEAD-TANG-HEDONG-RECOVERY",
+                    "WAR-LEAD-TANG-LIUHEITA-622",
+                    "WAR-LEAD-TANG-LUOYANG-END",
+                    "WAR-LEAD-TANG-XUE-618",
+                    "WAR-LEAD-TANG-XUYUANLANG-621"
+                  ]
                 },
                 {
                   "from_grade": 3,
                   "to_grade": 4,
                   "credit": 1.0,
-                  "basis": "材料门后按人物窗口逐段裁决"
+                  "basis": "李世民 A1（主要威胁能力与战略主动）逐人裁决：主要威胁东突厥在接手时可直逼核心，任内其生存性威胁被消除并形成天可汗秩序，故A1由1档升至5档。 李世民是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+4档按4档归责。依据链：CAMPAIGN-TANG-EASTERN-TURKS-629-630、CAMPAIGN-TANG-TUYUHUN-634-635、CAMPAIGN-TANG-QIANG-BETRAYAL-635、WAR-LEAD-TANG-TIBET-638等15条父链。",
+                  "source_refs": [
+                    "CAMPAIGN-TANG-EASTERN-TURKS-629-630",
+                    "CAMPAIGN-TANG-TUYUHUN-634-635",
+                    "CAMPAIGN-TANG-QIANG-BETRAYAL-635",
+                    "WAR-LEAD-TANG-TIBET-638",
+                    "CAMPAIGN-TANG-GAOCHANG-632-640",
+                    "CAMPAIGN-TANG-GOGURYEO-644-645",
+                    "CAMPAIGN-TANG-XUEYANTUO-641-647",
+                    "CAMPAIGN-TANG-KUCHA-648",
+                    "CAMPAIGN-TANG-SHIP-LABOR-648",
+                    "WAR-LEAD-SUI-LIYUAN-GUANZHONG-617",
+                    "WAR-LEAD-TANG-HEDONG-RECOVERY",
+                    "WAR-LEAD-TANG-LIUHEITA-622",
+                    "WAR-LEAD-TANG-LUOYANG-END",
+                    "WAR-LEAD-TANG-XUE-618",
+                    "WAR-LEAD-TANG-XUYUANLANG-621"
+                  ]
                 },
                 {
                   "from_grade": 4,
                   "to_grade": 5,
                   "credit": 1.0,
-                  "basis": "材料门后按人物窗口逐段裁决"
+                  "basis": "李世民 A1（主要威胁能力与战略主动）逐人裁决：主要威胁东突厥在接手时可直逼核心，任内其生存性威胁被消除并形成天可汗秩序，故A1由1档升至5档。 李世民是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+4档按4档归责。依据链：CAMPAIGN-TANG-EASTERN-TURKS-629-630、CAMPAIGN-TANG-TUYUHUN-634-635、CAMPAIGN-TANG-QIANG-BETRAYAL-635、WAR-LEAD-TANG-TIBET-638等15条父链。",
+                  "source_refs": [
+                    "CAMPAIGN-TANG-EASTERN-TURKS-629-630",
+                    "CAMPAIGN-TANG-TUYUHUN-634-635",
+                    "CAMPAIGN-TANG-QIANG-BETRAYAL-635",
+                    "WAR-LEAD-TANG-TIBET-638",
+                    "CAMPAIGN-TANG-GAOCHANG-632-640",
+                    "CAMPAIGN-TANG-GOGURYEO-644-645",
+                    "CAMPAIGN-TANG-XUEYANTUO-641-647",
+                    "CAMPAIGN-TANG-KUCHA-648",
+                    "CAMPAIGN-TANG-SHIP-LABOR-648",
+                    "WAR-LEAD-SUI-LIYUAN-GUANZHONG-617",
+                    "WAR-LEAD-TANG-HEDONG-RECOVERY",
+                    "WAR-LEAD-TANG-LIUHEITA-622",
+                    "WAR-LEAD-TANG-LUOYANG-END",
+                    "WAR-LEAD-TANG-XUE-618",
+                    "WAR-LEAD-TANG-XUYUANLANG-621"
+                  ]
                 }
-              ]
+              ],
+              "attribution_source_refs": [
+                "CAMPAIGN-TANG-EASTERN-TURKS-629-630",
+                "CAMPAIGN-TANG-TUYUHUN-634-635",
+                "CAMPAIGN-TANG-QIANG-BETRAYAL-635",
+                "WAR-LEAD-TANG-TIBET-638",
+                "CAMPAIGN-TANG-GAOCHANG-632-640",
+                "CAMPAIGN-TANG-GOGURYEO-644-645",
+                "CAMPAIGN-TANG-XUEYANTUO-641-647",
+                "CAMPAIGN-TANG-KUCHA-648",
+                "CAMPAIGN-TANG-SHIP-LABOR-648",
+                "WAR-LEAD-SUI-LIYUAN-GUANZHONG-617",
+                "WAR-LEAD-TANG-HEDONG-RECOVERY",
+                "WAR-LEAD-TANG-LIUHEITA-622",
+                "WAR-LEAD-TANG-LUOYANG-END",
+                "WAR-LEAD-TANG-XUE-618",
+                "WAR-LEAD-TANG-XUYUANLANG-621"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为1→5，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为4档，伴随专项加减仍由独立字段保留。",
+              "ceiling_progress_basis": "东突厥威胁消除及漠南、河西—安西防御纵深已由本轴跨档归责消费；未另拆出超越该交班体系、尚未消费的建设增量。"
             },
             "A2": {
               "attributable_delta": 3.0,
@@ -601,7 +730,7 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 2,
-              "trajectory_value": 90.0,
+              "trajectory_value": 90,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
               "improvement_step_credits": [
@@ -623,7 +752,11 @@
                   "credit": 1.0,
                   "basis": "共享李渊交班A2-2，仅结算2→3、3→4、4→5三档本人改善；任初渭水危机不改写接班锚，也不另加1→2恢复信用。"
                 }
-              ]
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为2→5，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为3档，伴随专项加减仍由独立字段保留。",
+              "ceiling_progress_basis": "东突厥威胁消除及漠南、河西—安西防御纵深已由本轴跨档归责消费；未另拆出超越该交班体系、尚未消费的建设增量。"
             }
           },
           "B80_adjudication": {
@@ -966,7 +1099,7 @@
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": -1.5,
-              "attribution_basis": "材料门后按人物窗口逐段裁决",
+              "attribution_basis": "李治 A1（主要威胁能力与战略主动）逐人裁决：主要威胁一度被决定性压低，但吐蕃等对手在后期重新取得现实制衡能力，唐朝不再维持主导安全秩序，故A1由5档降至3档。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给李治；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动-2档中取-1.5档。依据链：CAMPAIGN-TANG-CHEBI-649-650、CAMPAIGN-TANG-CHEN-SHUOZHEN-653、CAMPAIGN-TANG-WESTERN-TURKS-651-658、CAMPAIGN-TANG-GOGURYEO-647-662等10条父链。",
               "attribution_category": "SHARED_MATERIAL",
               "axis_points": 12.6,
               "ceiling_progress": "NONE",
@@ -982,14 +1115,29 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 5,
-              "trajectory_value": 21.0,
+              "trajectory_value": 21,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "attribution_source_refs": [
+                "CAMPAIGN-TANG-CHEBI-649-650",
+                "CAMPAIGN-TANG-CHEN-SHUOZHEN-653",
+                "CAMPAIGN-TANG-WESTERN-TURKS-651-658",
+                "CAMPAIGN-TANG-GOGURYEO-647-662",
+                "CAMPAIGN-TANG-TIELE-661-662",
+                "CAMPAIGN-TANG-BAEKJE-660-663",
+                "CAMPAIGN-TANG-GOGURYEO-666-669",
+                "CAMPAIGN-TANG-KOREA-SILLA-671-677",
+                "CAMPAIGN-TANG-TIBET-QINGHAI-663-681",
+                "CAMPAIGN-TANG-TURK-REVOLT-679-689"
+              ],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为5→3，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-1.5档，负向责任仍由独立字段保留。"
             },
             "A2": {
               "attributable_delta": -1.5,
-              "attribution_basis": "材料门后按人物窗口逐段裁决",
+              "attribution_basis": "李治 A2（边界、门户、纵深与缓冲体系）逐人裁决：辽东、朝鲜半岛与西域远端控制在后期退出或脆化，完整多层边界退回只有主要方向可运作且缺口显著，故A2由5档降至3档。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给李治；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动-2档中取-1.5档。依据链：CAMPAIGN-TANG-CHEBI-649-650、CAMPAIGN-TANG-CHEN-SHUOZHEN-653、CAMPAIGN-TANG-WESTERN-TURKS-651-658、CAMPAIGN-TANG-GOGURYEO-647-662等10条父链。",
               "attribution_category": "SHARED_MATERIAL",
               "axis_points": 12.6,
               "ceiling_progress": "NONE",
@@ -1005,10 +1153,25 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 5,
-              "trajectory_value": 21.0,
+              "trajectory_value": 21,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "attribution_source_refs": [
+                "CAMPAIGN-TANG-CHEBI-649-650",
+                "CAMPAIGN-TANG-CHEN-SHUOZHEN-653",
+                "CAMPAIGN-TANG-WESTERN-TURKS-651-658",
+                "CAMPAIGN-TANG-GOGURYEO-647-662",
+                "CAMPAIGN-TANG-TIELE-661-662",
+                "CAMPAIGN-TANG-BAEKJE-660-663",
+                "CAMPAIGN-TANG-GOGURYEO-666-669",
+                "CAMPAIGN-TANG-KOREA-SILLA-671-677",
+                "CAMPAIGN-TANG-TIBET-QINGHAI-663-681",
+                "CAMPAIGN-TANG-TURK-REVOLT-679-689"
+              ],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为5→3，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-1.5档，负向责任仍由独立字段保留。"
             }
           },
           "B80_adjudication": {
@@ -1294,7 +1457,7 @@
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": -0.75,
-              "attribution_basis": "材料门后按人物窗口逐段裁决",
+              "attribution_basis": "武则天 A1（主要威胁能力与战略主动）逐人裁决：主要威胁后突厥与契丹在后期具备持续压迫北方的能力，恢复西域不能抵消北方战略被动，故A1由3档降至2档。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给武则天；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动-1档中取-0.75档。依据链：CAMPAIGN-TANG-LI-JINGYE-684、CAMPAIGN-TANG-ANNAN-687、CAMPAIGN-TANG-PRINCES-688、CAMPAIGN-TANG-TIBET-689等8条父链。",
               "attribution_category": "SHARED_MATERIAL",
               "axis_points": 9.9,
               "ceiling_progress": "NONE",
@@ -1313,7 +1476,20 @@
               "trajectory_value": 16.5,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "attribution_source_refs": [
+                "CAMPAIGN-TANG-LI-JINGYE-684",
+                "CAMPAIGN-TANG-ANNAN-687",
+                "CAMPAIGN-TANG-PRINCES-688",
+                "CAMPAIGN-TANG-TIBET-689",
+                "CAMPAIGN-TANG-TIBET-FOUR-GARRISONS-692-696",
+                "CAMPAIGN-TANG-KHITAN-696-700",
+                "CAMPAIGN-TANG-LIANGZHOU-DEFENSE-701-705",
+                "CAMPAIGN-TANG-SHIAN-LIAO-703"
+              ],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为3→2，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-0.75档，负向责任仍由独立字段保留。"
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -1323,9 +1499,9 @@
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 3,
-              "maintenance_basis": "非4→4或5→5",
+              "maintenance_basis": "低位同档可进入抗压保全门，但当前没有闭合O4以上现实压力、非自致压力、具名保全对象和本人主要保全归责的完整记录，故难度为NONE且不加分。",
               "maintenance_bonus": 0,
-              "maintenance_difficulty": "NOT_APPLICABLE",
+              "maintenance_difficulty": "NONE",
               "negative_adjustment": 20,
               "objective_delta": 0,
               "reversal_basis": "起终档未表达的多次负链并伴随净退控",
@@ -1336,7 +1512,14 @@
               "trajectory_value": 16.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "WITHIN_BAND_MAJOR_REVERSAL",
+              "settlement_type_label": "档内重大逆转型",
+              "settlement_type_basis": "客观起终档同为3档，重大逆转扣减20轨迹点且优先于普通同档交付，故归为档内重大逆转型；起终档未表达的多次负链并伴随净退控",
+              "positive_credit_review": {
+                "decision": "NO_NET_STRUCTURAL_GAIN",
+                "basis": "四镇恢复须相对接班而非本任失守低谷比较，且北边损失并存；不把同任恢复原状转为净建设，负向责任保留。"
+              }
             }
           },
           "B80_adjudication": {
@@ -1579,7 +1762,7 @@
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 0.75,
-              "attribution_basis": "消费现行语义标签MIXED_PRIMARILY_RULER_ACTION",
+              "attribution_basis": "李显 A1（主要威胁能力与战略主动）逐人裁决：接班严格承接武则天交班的战略劣势2档。鸣沙败绩与安西道路断绝仍构成主要约束，但三受降城、烽候和游弈体系切断突厥传统南寇准备区，使北方攻防条件实质改善；吐蕃和亲不预支收益。交班达到有攻有守、胜负未定的3档，不升稳定优势。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给李显；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动+1档中取0.75档。依据链：CAMPAIGN-TANG-TURK-MOCHUO-698-707、CAMPAIGN-TANG-THREE-SURRENDER-CITIES-708、CAMPAIGN-TANG-ANXI-TURGESH-703-709。",
               "attribution_category": "SHARED_MATERIAL",
               "axis_points": 26.1,
               "ceiling_progress": "NONE",
@@ -1603,13 +1786,26 @@
                   "from_grade": 2,
                   "to_grade": 3,
                   "credit": 0.75,
-                  "basis": "消费现行语义标签MIXED_PRIMARILY_RULER_ACTION"
+                  "basis": "李显 A1（主要威胁能力与战略主动）逐人裁决：接班严格承接武则天交班的战略劣势2档。鸣沙败绩与安西道路断绝仍构成主要约束，但三受降城、烽候和游弈体系切断突厥传统南寇准备区，使北方攻防条件实质改善；吐蕃和亲不预支收益。交班达到有攻有守、胜负未定的3档，不升稳定优势。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给李显；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动+1档中取0.75档。依据链：CAMPAIGN-TANG-TURK-MOCHUO-698-707、CAMPAIGN-TANG-THREE-SURRENDER-CITIES-708、CAMPAIGN-TANG-ANXI-TURGESH-703-709。",
+                  "source_refs": [
+                    "CAMPAIGN-TANG-TURK-MOCHUO-698-707",
+                    "CAMPAIGN-TANG-THREE-SURRENDER-CITIES-708",
+                    "CAMPAIGN-TANG-ANXI-TURGESH-703-709"
+                  ]
                 }
-              ]
+              ],
+              "attribution_source_refs": [
+                "CAMPAIGN-TANG-TURK-MOCHUO-698-707",
+                "CAMPAIGN-TANG-THREE-SURRENDER-CITIES-708",
+                "CAMPAIGN-TANG-ANXI-TURGESH-703-709"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为2→3，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为0.75档，伴随专项加减仍由独立字段保留。"
             },
             "A2": {
               "attributable_delta": 1.0,
-              "attribution_basis": "消费现行语义标签PRIMARILY_RULER_ACTION",
+              "attribution_basis": "李显 A2（边界、门户、纵深与缓冲体系）逐人裁决：三受降城连同一千八百烽候、游弈巡逻形成可运行的完整北方区域防线，使总体防御由一条主线可用提升到整体稳固；安西道路断绝仍是明显缺口，故为4档而非5档。 李显是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：CAMPAIGN-TANG-TURK-MOCHUO-698-707、CAMPAIGN-TANG-THREE-SURRENDER-CITIES-708、CAMPAIGN-TANG-ANXI-TURGESH-703-709。",
               "attribution_category": "PRIMARY_RULER",
               "axis_points": 28.8,
               "ceiling_progress": "NONE",
@@ -1625,7 +1821,7 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 3,
-              "trajectory_value": 48.0,
+              "trajectory_value": 48,
               "within_band_deterioration_basis": "安西枢纽与四镇道路退控形成EN2",
               "within_band_deterioration_penalty": 10,
               "improvement_step_credits": [
@@ -1633,9 +1829,22 @@
                   "from_grade": 3,
                   "to_grade": 4,
                   "credit": 1.0,
-                  "basis": "消费现行语义标签PRIMARILY_RULER_ACTION"
+                  "basis": "李显 A2（边界、门户、纵深与缓冲体系）逐人裁决：三受降城连同一千八百烽候、游弈巡逻形成可运行的完整北方区域防线，使总体防御由一条主线可用提升到整体稳固；安西道路断绝仍是明显缺口，故为4档而非5档。 李显是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：CAMPAIGN-TANG-TURK-MOCHUO-698-707、CAMPAIGN-TANG-THREE-SURRENDER-CITIES-708、CAMPAIGN-TANG-ANXI-TURGESH-703-709。",
+                  "source_refs": [
+                    "CAMPAIGN-TANG-TURK-MOCHUO-698-707",
+                    "CAMPAIGN-TANG-THREE-SURRENDER-CITIES-708",
+                    "CAMPAIGN-TANG-ANXI-TURGESH-703-709"
+                  ]
                 }
-              ]
+              ],
+              "attribution_source_refs": [
+                "CAMPAIGN-TANG-TURK-MOCHUO-698-707",
+                "CAMPAIGN-TANG-THREE-SURRENDER-CITIES-708",
+                "CAMPAIGN-TANG-ANXI-TURGESH-703-709"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为3→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。"
             }
           },
           "B80_adjudication": {
@@ -1876,9 +2085,9 @@
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 3,
-              "maintenance_basis": "非4→4或5→5",
+              "maintenance_basis": "低位同档可进入抗压保全门，但当前没有闭合O4以上现实压力、非自致压力、具名保全对象和本人主要保全归责的完整记录，故难度为NONE且不加分。",
               "maintenance_bonus": 0,
-              "maintenance_difficulty": "NOT_APPLICABLE",
+              "maintenance_difficulty": "NONE",
               "negative_adjustment": 10,
               "objective_delta": 0,
               "reversal_basis": "无重大逆转登记",
@@ -1889,7 +2098,14 @@
               "trajectory_value": 26.0,
               "within_band_deterioration_basis": "冷陉远征军覆没形成EN2，虽无领土损失仍属安全恶化",
               "within_band_deterioration_penalty": 10,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "WITHIN_BAND_DETERIORATION",
+              "settlement_type_label": "档内恶化型",
+              "settlement_type_basis": "客观起终档同为3档，档内恶化扣减10轨迹点且优先于普通同档交付，故归为档内恶化型；冷陉远征军覆没形成EN2，虽无领土损失仍属安全恶化",
+              "positive_credit_review": {
+                "decision": "NO_NET_STRUCTURAL_GAIN",
+                "basis": "冷陉、姚州与三军修复置于本人两次在位窗口审查，未证超越窗口接班的独立结构增量，不以任内低谷为新起点。"
+              }
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -1899,7 +2115,7 @@
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 4,
-              "maintenance_basis": "没有闭合到本轴的成功现实高压守成",
+              "maintenance_basis": "高位同档可进入守成门，但当前没有闭合现实强压、非自致压力、持续有效性和本人主要保全归责的完整记录，故难度为NONE且不加分。",
               "maintenance_bonus": 0,
               "maintenance_difficulty": "NONE",
               "negative_adjustment": 0,
@@ -1912,7 +2128,14 @@
               "trajectory_value": 48.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "HIGH_POSITION_STABLE_HANDOVER",
+              "settlement_type_label": "高位平稳交付型",
+              "settlement_type_basis": "客观起终档同为4档，当前没有闭合高位守成压力门或其他专项加减，故归为高位平稳交付型，只保留高位终点结果锚。",
+              "positive_credit_review": {
+                "decision": "NO_NET_STRUCTURAL_GAIN",
+                "basis": "冷陉、姚州与三军修复置于本人两次在位窗口审查，未证超越窗口接班的独立结构增量，不以任内低谷为新起点。"
+              }
             }
           },
           "B80_adjudication": {
@@ -2239,9 +2462,9 @@
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": -3.0,
-              "attribution_basis": "材料门后按人物窗口逐段裁决",
+              "attribution_basis": "李隆基 A1（主要威胁能力与战略主动）逐人裁决：主要威胁由边疆对手转为安史叛军，后者攻陷两京并直接危及唐朝存续，前期压低外敌不能抵消终点危机，故A1由3档降至0档。 李隆基任内的主动战略选择或处置失当直接放大本轴风险，结果并非单由不可控外力造成；故客观变动-3档按-3档归责。依据链：CAMPAIGN-TANG-LUANSHUI-714、CAMPAIGN-TANG-NINE-BENDS-710-717、CAMPAIGN-TANG-LIANCHENG-715、CAMPAIGN-TANG-HEQU-INTEGRATION-716-720等23条父链。",
               "attribution_category": "SELF_INDUCED",
-              "axis_points": 0.0,
+              "axis_points": 0,
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 0,
@@ -2258,13 +2481,41 @@
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "attribution_source_refs": [
+                "CAMPAIGN-TANG-LUANSHUI-714",
+                "CAMPAIGN-TANG-NINE-BENDS-710-717",
+                "CAMPAIGN-TANG-LIANCHENG-715",
+                "CAMPAIGN-TANG-HEQU-INTEGRATION-716-720",
+                "CAMPAIGN-TANG-TURK-CAMPAIGN-720",
+                "CAMPAIGN-TANG-SIX-HU-721-722",
+                "CAMPAIGN-TANG-ANNAN-722",
+                "CAMPAIGN-TANG-XIZHOU-724",
+                "CAMPAIGN-TANG-TURGESH-726",
+                "CAMPAIGN-TANG-GUAZHOU-727-729",
+                "CAMPAIGN-TANG-LINGNAN-726-728",
+                "CAMPAIGN-TANG-TURGESH-735-740",
+                "CAMPAIGN-TANG-ANRONG-738-740",
+                "CAMPAIGN-TANG-TEN-COMMANDS-742",
+                "CAMPAIGN-TANG-TURK-END-742-745",
+                "WAR-LEAD-TANG-WANG-ZHONGSI-745-747",
+                "CAMPAIGN-TANG-BORDER-COMMAND-CONCENTRATION",
+                "CAMPAIGN-TANG-QINGHAI-FORTS-748-749",
+                "WAR-LEAD-TANG-SHIPU-749",
+                "CAMPAIGN-TANG-WESTERN-REGIONS-749-751",
+                "CAMPAIGN-TANG-ANLUSHAN-KHITAN-751",
+                "CAMPAIGN-TANG-NANZHAO-750-754",
+                "CAMPAIGN-TANG-AN-LUSHAN-FRONTIER"
+              ],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为3→0，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-3档，负向责任仍由独立字段保留。"
             },
             "A2": {
               "attributable_delta": -3.0,
-              "attribution_basis": "材料门后按人物窗口逐段裁决",
+              "attribution_basis": "李隆基 A2（边界、门户、纵深与缓冲体系）逐人裁决：边军内调后，东北、西北防线和内地增援纵深被抽空，两京门户相继失守；政权尚未在本人窗口终止但主要防线已破，故A2由4档降至1档。 李隆基任内的主动战略选择或处置失当直接放大本轴风险，结果并非单由不可控外力造成；故客观变动-3档按-3档归责。依据链：CAMPAIGN-TANG-LUANSHUI-714、CAMPAIGN-TANG-NINE-BENDS-710-717、CAMPAIGN-TANG-LIANCHENG-715、CAMPAIGN-TANG-HEQU-INTEGRATION-716-720等23条父链。",
               "attribution_category": "SELF_INDUCED",
-              "axis_points": 0.0,
+              "axis_points": 0,
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 1,
@@ -2281,7 +2532,35 @@
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "attribution_source_refs": [
+                "CAMPAIGN-TANG-LUANSHUI-714",
+                "CAMPAIGN-TANG-NINE-BENDS-710-717",
+                "CAMPAIGN-TANG-LIANCHENG-715",
+                "CAMPAIGN-TANG-HEQU-INTEGRATION-716-720",
+                "CAMPAIGN-TANG-TURK-CAMPAIGN-720",
+                "CAMPAIGN-TANG-SIX-HU-721-722",
+                "CAMPAIGN-TANG-ANNAN-722",
+                "CAMPAIGN-TANG-XIZHOU-724",
+                "CAMPAIGN-TANG-TURGESH-726",
+                "CAMPAIGN-TANG-GUAZHOU-727-729",
+                "CAMPAIGN-TANG-LINGNAN-726-728",
+                "CAMPAIGN-TANG-TURGESH-735-740",
+                "CAMPAIGN-TANG-ANRONG-738-740",
+                "CAMPAIGN-TANG-TEN-COMMANDS-742",
+                "CAMPAIGN-TANG-TURK-END-742-745",
+                "WAR-LEAD-TANG-WANG-ZHONGSI-745-747",
+                "CAMPAIGN-TANG-BORDER-COMMAND-CONCENTRATION",
+                "CAMPAIGN-TANG-QINGHAI-FORTS-748-749",
+                "WAR-LEAD-TANG-SHIPU-749",
+                "CAMPAIGN-TANG-WESTERN-REGIONS-749-751",
+                "CAMPAIGN-TANG-ANLUSHAN-KHITAN-751",
+                "CAMPAIGN-TANG-NANZHAO-750-754",
+                "CAMPAIGN-TANG-AN-LUSHAN-FRONTIER"
+              ],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为4→1，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-3档，负向责任仍由独立字段保留。"
             }
           },
           "B80_adjudication": {
@@ -2573,7 +2852,7 @@
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 2.0,
-              "attribution_basis": "消费现行语义标签RULER_RECOVERY_OF_INHERITED_CRISIS",
+              "attribution_basis": "李亨 A1（主要威胁能力与战略主动）逐人裁决：接班严格承接李隆基交班时长安失守、核心区与政权存续受现实威胁的0档。任内两京控制被恢复，中央未再处于即时覆亡边缘；但安史主力仍存、江淮与西南另有失控，交班只能到战略劣势2档，不能提前写成叛乱终结。 李亨是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+2档按2档归责。依据链：WAR-LEAD-TANG-NANZHAO-EXPANSION-756、CAMPAIGN-TANG-YONGBWANG-LIN-756-757、CAMPAIGN-TANG-TIBET-WESTERN-LOSS-757-763、CAMPAIGN-TANG-GUANGZHOU-758等8条父链。",
               "attribution_category": "PRIMARY_RULER",
               "axis_points": 26.4,
               "ceiling_progress": "NONE",
@@ -2589,7 +2868,7 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 0,
-              "trajectory_value": 44.0,
+              "trajectory_value": 44,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
               "improvement_step_credits": [
@@ -2597,19 +2876,52 @@
                   "from_grade": 0,
                   "to_grade": 1,
                   "credit": 1.0,
-                  "basis": "消费现行语义标签RULER_RECOVERY_OF_INHERITED_CRISIS"
+                  "basis": "李亨 A1（主要威胁能力与战略主动）逐人裁决：接班严格承接李隆基交班时长安失守、核心区与政权存续受现实威胁的0档。任内两京控制被恢复，中央未再处于即时覆亡边缘；但安史主力仍存、江淮与西南另有失控，交班只能到战略劣势2档，不能提前写成叛乱终结。 李亨是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+2档按2档归责。依据链：WAR-LEAD-TANG-NANZHAO-EXPANSION-756、CAMPAIGN-TANG-YONGBWANG-LIN-756-757、CAMPAIGN-TANG-TIBET-WESTERN-LOSS-757-763、CAMPAIGN-TANG-GUANGZHOU-758等8条父链。",
+                  "source_refs": [
+                    "WAR-LEAD-TANG-NANZHAO-EXPANSION-756",
+                    "CAMPAIGN-TANG-YONGBWANG-LIN-756-757",
+                    "CAMPAIGN-TANG-TIBET-WESTERN-LOSS-757-763",
+                    "CAMPAIGN-TANG-GUANGZHOU-758",
+                    "CAMPAIGN-TANG-JINGXIANG-759",
+                    "CAMPAIGN-TANG-LIUZHAN-760-761",
+                    "CAMPAIGN-TANG-ANSHI-755-763",
+                    "CAMPAIGN-TANG-LOCAL-REBELLIONS-761-763"
+                  ]
                 },
                 {
                   "from_grade": 1,
                   "to_grade": 2,
                   "credit": 1.0,
-                  "basis": "消费现行语义标签RULER_RECOVERY_OF_INHERITED_CRISIS"
+                  "basis": "李亨 A1（主要威胁能力与战略主动）逐人裁决：接班严格承接李隆基交班时长安失守、核心区与政权存续受现实威胁的0档。任内两京控制被恢复，中央未再处于即时覆亡边缘；但安史主力仍存、江淮与西南另有失控，交班只能到战略劣势2档，不能提前写成叛乱终结。 李亨是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+2档按2档归责。依据链：WAR-LEAD-TANG-NANZHAO-EXPANSION-756、CAMPAIGN-TANG-YONGBWANG-LIN-756-757、CAMPAIGN-TANG-TIBET-WESTERN-LOSS-757-763、CAMPAIGN-TANG-GUANGZHOU-758等8条父链。",
+                  "source_refs": [
+                    "WAR-LEAD-TANG-NANZHAO-EXPANSION-756",
+                    "CAMPAIGN-TANG-YONGBWANG-LIN-756-757",
+                    "CAMPAIGN-TANG-TIBET-WESTERN-LOSS-757-763",
+                    "CAMPAIGN-TANG-GUANGZHOU-758",
+                    "CAMPAIGN-TANG-JINGXIANG-759",
+                    "CAMPAIGN-TANG-LIUZHAN-760-761",
+                    "CAMPAIGN-TANG-ANSHI-755-763",
+                    "CAMPAIGN-TANG-LOCAL-REBELLIONS-761-763"
+                  ]
                 }
-              ]
+              ],
+              "attribution_source_refs": [
+                "WAR-LEAD-TANG-NANZHAO-EXPANSION-756",
+                "CAMPAIGN-TANG-YONGBWANG-LIN-756-757",
+                "CAMPAIGN-TANG-TIBET-WESTERN-LOSS-757-763",
+                "CAMPAIGN-TANG-GUANGZHOU-758",
+                "CAMPAIGN-TANG-JINGXIANG-759",
+                "CAMPAIGN-TANG-LIUZHAN-760-761",
+                "CAMPAIGN-TANG-ANSHI-755-763",
+                "CAMPAIGN-TANG-LOCAL-REBELLIONS-761-763"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为0→2，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为2档，伴随专项加减仍由独立字段保留。"
             },
             "A2": {
               "attributable_delta": 1.0,
-              "attribution_basis": "消费现行语义标签RULER_RECOVERY_OF_INHERITED_CRISIS",
+              "attribution_basis": "李亨 A2（边界、门户、纵深与缓冲体系）逐人裁决：接班时首都防线破裂，只能依靠零散守城与勤王力量。交班时两京—关中核心防御已恢复若干可守节点，但叛军仍据河北、边军大量内调且南诏方向受损，尚未形成一条闭合的主要防线。 李亨是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：WAR-LEAD-TANG-NANZHAO-EXPANSION-756、CAMPAIGN-TANG-YONGBWANG-LIN-756-757、CAMPAIGN-TANG-TIBET-WESTERN-LOSS-757-763、CAMPAIGN-TANG-GUANGZHOU-758等8条父链。",
               "attribution_category": "PRIMARY_RULER",
               "axis_points": 14.4,
               "ceiling_progress": "NONE",
@@ -2625,7 +2937,7 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 1,
-              "trajectory_value": 24.0,
+              "trajectory_value": 24,
               "within_band_deterioration_basis": "河陇七军三城与西南方向退控，最重EN2",
               "within_band_deterioration_penalty": 10,
               "improvement_step_credits": [
@@ -2633,9 +2945,32 @@
                   "from_grade": 1,
                   "to_grade": 2,
                   "credit": 1.0,
-                  "basis": "消费现行语义标签RULER_RECOVERY_OF_INHERITED_CRISIS"
+                  "basis": "李亨 A2（边界、门户、纵深与缓冲体系）逐人裁决：接班时首都防线破裂，只能依靠零散守城与勤王力量。交班时两京—关中核心防御已恢复若干可守节点，但叛军仍据河北、边军大量内调且南诏方向受损，尚未形成一条闭合的主要防线。 李亨是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+1档按1档归责。依据链：WAR-LEAD-TANG-NANZHAO-EXPANSION-756、CAMPAIGN-TANG-YONGBWANG-LIN-756-757、CAMPAIGN-TANG-TIBET-WESTERN-LOSS-757-763、CAMPAIGN-TANG-GUANGZHOU-758等8条父链。",
+                  "source_refs": [
+                    "WAR-LEAD-TANG-NANZHAO-EXPANSION-756",
+                    "CAMPAIGN-TANG-YONGBWANG-LIN-756-757",
+                    "CAMPAIGN-TANG-TIBET-WESTERN-LOSS-757-763",
+                    "CAMPAIGN-TANG-GUANGZHOU-758",
+                    "CAMPAIGN-TANG-JINGXIANG-759",
+                    "CAMPAIGN-TANG-LIUZHAN-760-761",
+                    "CAMPAIGN-TANG-ANSHI-755-763",
+                    "CAMPAIGN-TANG-LOCAL-REBELLIONS-761-763"
+                  ]
                 }
-              ]
+              ],
+              "attribution_source_refs": [
+                "WAR-LEAD-TANG-NANZHAO-EXPANSION-756",
+                "CAMPAIGN-TANG-YONGBWANG-LIN-756-757",
+                "CAMPAIGN-TANG-TIBET-WESTERN-LOSS-757-763",
+                "CAMPAIGN-TANG-GUANGZHOU-758",
+                "CAMPAIGN-TANG-JINGXIANG-759",
+                "CAMPAIGN-TANG-LIUZHAN-760-761",
+                "CAMPAIGN-TANG-ANSHI-755-763",
+                "CAMPAIGN-TANG-LOCAL-REBELLIONS-761-763"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为1→2，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。"
             }
           },
           "B80_adjudication": {
@@ -2893,9 +3228,9 @@
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 2,
-              "maintenance_basis": "非4→4或5→5",
+              "maintenance_basis": "低位同档可进入抗压保全门，但当前没有闭合O4以上现实压力、非自致压力、具名保全对象和本人主要保全归责的完整记录，故难度为NONE且不加分。",
               "maintenance_bonus": 0,
-              "maintenance_difficulty": "NOT_APPLICABLE",
+              "maintenance_difficulty": "NONE",
               "negative_adjustment": 20,
               "objective_delta": 0,
               "reversal_basis": "起终档未表达的多次负链并伴随净退控",
@@ -2906,7 +3241,14 @@
               "trajectory_value": 4.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "WITHIN_BAND_MAJOR_REVERSAL",
+              "settlement_type_label": "档内重大逆转型",
+              "settlement_type_basis": "客观起终档同为2档，重大逆转扣减20轨迹点且优先于普通同档交付，故归为档内重大逆转型；起终档未表达的多次负链并伴随净退控",
+              "positive_credit_review": {
+                "decision": "NO_NET_STRUCTURAL_GAIN",
+                "basis": "安史结束未拆除藩镇独立军事结构，陇右等损失未恢复；恢复朝廷存续不能等同超过接班的净安全建设。"
+              }
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -2916,9 +3258,9 @@
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 2,
-              "maintenance_basis": "非4→4或5→5",
+              "maintenance_basis": "低位同档可进入抗压保全门，但当前没有闭合O4以上现实压力、非自致压力、具名保全对象和本人主要保全归责的完整记录，故难度为NONE且不加分。",
               "maintenance_bonus": 0,
-              "maintenance_difficulty": "NOT_APPLICABLE",
+              "maintenance_difficulty": "NONE",
               "negative_adjustment": 20,
               "objective_delta": 0,
               "reversal_basis": "起终档未表达的多次负链并伴随净退控",
@@ -2929,7 +3271,14 @@
               "trajectory_value": 4.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "WITHIN_BAND_MAJOR_REVERSAL",
+              "settlement_type_label": "档内重大逆转型",
+              "settlement_type_basis": "客观起终档同为2档，重大逆转扣减20轨迹点且优先于普通同档交付，故归为档内重大逆转型；起终档未表达的多次负链并伴随净退控",
+              "positive_credit_review": {
+                "decision": "NO_NET_STRUCTURAL_GAIN",
+                "basis": "安史结束未拆除藩镇独立军事结构，陇右等损失未恢复；恢复朝廷存续不能等同超过接班的净安全建设。"
+              }
             }
           },
           "B80_adjudication": {
@@ -3171,22 +3520,22 @@
           "excluded_founding_unification_refs": [],
           "observed_parent_cycle_count": 25,
           "A120_non_cost_anchor_points": 4.8,
-          "A120_positive_result_credit_points": 0.0,
-          "A120_score_points": 4.8,
+          "A120_positive_result_credit_points": 6.0,
+          "A120_score_points": 10.8,
           "B80_score_points": 34.0,
-          "AB200_score_points": 38.8,
+          "AB200_score_points": 44.8,
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 0.0,
               "attribution_basis": "客观起终档未变化，不生成变化分",
               "attribution_category": "NO_CHANGE",
-              "axis_points": 2.4,
+              "axis_points": 8.4,
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 2,
-              "maintenance_basis": "非4→4或5→5",
+              "maintenance_basis": "低位同档可进入抗压保全门，但当前没有闭合O4以上现实压力、非自致压力、具名保全对象和本人主要保全归责的完整记录，故难度为NONE且不加分。",
               "maintenance_bonus": 0,
-              "maintenance_difficulty": "NOT_APPLICABLE",
+              "maintenance_difficulty": "NONE",
               "negative_adjustment": 20,
               "objective_delta": 0,
               "reversal_basis": "现行归责明示本人制造或放大，且达到多次或结构性影响",
@@ -3194,10 +3543,38 @@
               "reversal_penalty": 20,
               "score_ready": true,
               "start_grade": 2,
-              "trajectory_value": 4.0,
+              "trajectory_value": 14.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "WITHIN_BAND_STRUCTURAL_IMPROVEMENT",
+              "settlement_type_label": "档内结构改善型",
+              "settlement_type_basis": "客观起终档2→2；本人可归责档差0；保全0、结构改善10、封顶推进0轨迹点取高，负向调整20点保留，主类型为档内结构改善型。",
+              "within_band_structure_improvement": {
+                "axis_scope": "A1",
+                "improvement_level": "DECISIVE",
+                "level_basis": "原来能够联合入蜀的军事联盟结构改变，非一次击退；不读取829年等后继事实，也不计神川十六城为唐领土。",
+                "threat_scope": "SYSTEMIC",
+                "outcome": "STRUCTURAL_DOWNGRADE",
+                "attribution_credit": 0.5,
+                "entry_structure": "接班时吐蕃可联合南诏向西川施压",
+                "handover_structure": "南诏脱离吐蕃并与唐结盟，原联合入侵结构在本人交班前被拆解",
+                "attribution_basis": "韦皋经营、崔佐时奉命盟誓与异牟寻自主选择共同形成结果；李适承担朝廷接纳与支持，取共同归责0.5，不因最高权力身份给主要或主导信用。",
+                "net_improvement_basis": "接班时吐蕃可联合南诏向西川施压；交班时南诏脱离吐蕃并与唐结盟，原联合入侵结构在本人交班前被拆解；本轴起终仍为2档，按20×0.5记结构改善信用，保留其他方向既有负向调整。",
+                "deduplication_basis": "只消费A1的主要威胁再战能力变化；不把领土控制量、行政整合或战利资产转为本轴信用，不在另一A轴再次记同一成果；同轴保全与结构改善取高。",
+                "parent_cycle_refs": [
+                  "PARENT-NANZHAO-RETURN-787-794"
+                ],
+                "source_refs": [
+                  "docs/史料通读产物/唐以前编年/唐/卷234-通读总结.md"
+                ],
+                "restoration_only": false,
+                "consumed_elsewhere": false
+              },
+              "positive_credit_review": {
+                "decision": "CREDITED",
+                "basis": "接班时吐蕃可联合南诏向西川施压；交班时南诏脱离吐蕃并与唐结盟，原联合入侵结构在本人交班前被拆解；本轴起终仍为2档，按20×0.5记结构改善信用，保留其他方向既有负向调整。"
+              }
             },
             "A2": {
               "attributable_delta": 0.0,
@@ -3207,9 +3584,9 @@
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 2,
-              "maintenance_basis": "非4→4或5→5",
+              "maintenance_basis": "低位同档可进入抗压保全门，但当前没有闭合O4以上现实压力、非自致压力、具名保全对象和本人主要保全归责的完整记录，故难度为NONE且不加分。",
               "maintenance_bonus": 0,
-              "maintenance_difficulty": "NOT_APPLICABLE",
+              "maintenance_difficulty": "NONE",
               "negative_adjustment": 20,
               "objective_delta": 0,
               "reversal_basis": "起终档未表达的多次负链并伴随净退控",
@@ -3220,7 +3597,14 @@
               "trajectory_value": 4.0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "settlement_type": "WITHIN_BAND_MAJOR_REVERSAL",
+              "settlement_type_label": "档内重大逆转型",
+              "settlement_type_basis": "客观起终档同为2档，重大逆转扣减20轨迹点且优先于普通同档交付，故归为档内重大逆转型；起终档未表达的多次负链并伴随净退控",
+              "positive_credit_review": {
+                "decision": "CONSUMED_BY_OTHER_PATH",
+                "basis": "南诏脱离吐蕃已在A1消费联盟结构改变；神川等并非唐直接防御资产，未另证唐军防线与补给网络增量，负向调整保留。"
+              }
             }
           },
           "B80_adjudication": {
@@ -3408,7 +3792,7 @@
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 2.0,
-              "attribution_basis": "消费现行语义标签PRIMARILY_RULER_ACTION",
+              "attribution_basis": "李纯 A1（主要威胁能力与战略主动）逐人裁决：接班时淮西、淄青等长期割据与吐蕃边压仍主导总体安全。任内连续拆除西川、浙西、淮西和淄青军政结构，尤其淮西三州复治、淄青十二州分道接管，使主要内患不再支配整体格局；吐蕃压力和河朔余患仍存，交班为稳定优势4档而非支配秩序5档。 李纯是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+2档按2档归责。依据链：CAMPAIGN-TANG-237-01、CAMPAIGN-TANG-238-01、CAMPAIGN-TANG-238-04、CAMPAIGN-TANG-239-02等10条父链。",
               "attribution_category": "PRIMARY_RULER",
               "axis_points": 40.8,
               "ceiling_progress": "NONE",
@@ -3424,7 +3808,7 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 2,
-              "trajectory_value": 68.0,
+              "trajectory_value": 68,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
               "improvement_step_credits": [
@@ -3432,19 +3816,58 @@
                   "from_grade": 2,
                   "to_grade": 3,
                   "credit": 1.0,
-                  "basis": "消费现行语义标签PRIMARILY_RULER_ACTION"
+                  "basis": "李纯 A1（主要威胁能力与战略主动）逐人裁决：接班时淮西、淄青等长期割据与吐蕃边压仍主导总体安全。任内连续拆除西川、浙西、淮西和淄青军政结构，尤其淮西三州复治、淄青十二州分道接管，使主要内患不再支配整体格局；吐蕃压力和河朔余患仍存，交班为稳定优势4档而非支配秩序5档。 李纯是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+2档按2档归责。依据链：CAMPAIGN-TANG-237-01、CAMPAIGN-TANG-238-01、CAMPAIGN-TANG-238-04、CAMPAIGN-TANG-239-02等10条父链。",
+                  "source_refs": [
+                    "CAMPAIGN-TANG-237-01",
+                    "CAMPAIGN-TANG-238-01",
+                    "CAMPAIGN-TANG-238-04",
+                    "CAMPAIGN-TANG-239-02",
+                    "PARENT-CHENXU-MUTINY-806-813",
+                    "PARENT-HUAIXI-WUYUANJI-814-817",
+                    "PARENT-CHENGDE-WAR-815-817",
+                    "PARENT-ZIQING-LISHIDAO-815-819",
+                    "CAMPAIGN-TANG-241-02",
+                    "CAMPAIGN-TANG-241-04"
+                  ]
                 },
                 {
                   "from_grade": 3,
                   "to_grade": 4,
                   "credit": 1.0,
-                  "basis": "消费现行语义标签PRIMARILY_RULER_ACTION"
+                  "basis": "李纯 A1（主要威胁能力与战略主动）逐人裁决：接班时淮西、淄青等长期割据与吐蕃边压仍主导总体安全。任内连续拆除西川、浙西、淮西和淄青军政结构，尤其淮西三州复治、淄青十二州分道接管，使主要内患不再支配整体格局；吐蕃压力和河朔余患仍存，交班为稳定优势4档而非支配秩序5档。 李纯是本窗口国家战略、兵力与边防资源配置的最终责任主体；本轴变化由其任内连续军令体系形成，现有父链未显示摄政或外部主体替代其作出终局选择，故客观变动+2档按2档归责。依据链：CAMPAIGN-TANG-237-01、CAMPAIGN-TANG-238-01、CAMPAIGN-TANG-238-04、CAMPAIGN-TANG-239-02等10条父链。",
+                  "source_refs": [
+                    "CAMPAIGN-TANG-237-01",
+                    "CAMPAIGN-TANG-238-01",
+                    "CAMPAIGN-TANG-238-04",
+                    "CAMPAIGN-TANG-239-02",
+                    "PARENT-CHENXU-MUTINY-806-813",
+                    "PARENT-HUAIXI-WUYUANJI-814-817",
+                    "PARENT-CHENGDE-WAR-815-817",
+                    "PARENT-ZIQING-LISHIDAO-815-819",
+                    "CAMPAIGN-TANG-241-02",
+                    "CAMPAIGN-TANG-241-04"
+                  ]
                 }
-              ]
+              ],
+              "attribution_source_refs": [
+                "CAMPAIGN-TANG-237-01",
+                "CAMPAIGN-TANG-238-01",
+                "CAMPAIGN-TANG-238-04",
+                "CAMPAIGN-TANG-239-02",
+                "PARENT-CHENXU-MUTINY-806-813",
+                "PARENT-HUAIXI-WUYUANJI-814-817",
+                "PARENT-CHENGDE-WAR-815-817",
+                "PARENT-ZIQING-LISHIDAO-815-819",
+                "CAMPAIGN-TANG-241-02",
+                "CAMPAIGN-TANG-241-04"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为2→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为2档，伴随专项加减仍由独立字段保留。"
             },
             "A2": {
               "attributable_delta": 0.75,
-              "attribution_basis": "消费现行语义标签MIXED_PRIMARILY_RULER_ACTION",
+              "attribution_basis": "李纯 A2（边界、门户、纵深与缓冲体系）逐人裁决：中央在核心财赋与交通方向恢复连续控制，形成至少一条可有效运行的内线；但东受降城撤并、乌兰桥成及泾陇吐蕃压力证明外部边界仍有显著缺口，只到3档。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给李纯；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动+1档中取0.75档。依据链：CAMPAIGN-TANG-237-01、CAMPAIGN-TANG-238-01、CAMPAIGN-TANG-238-04、CAMPAIGN-TANG-239-02等10条父链。",
               "attribution_category": "SHARED_MATERIAL",
               "axis_points": 26.1,
               "ceiling_progress": "NONE",
@@ -3468,9 +3891,36 @@
                   "from_grade": 2,
                   "to_grade": 3,
                   "credit": 0.75,
-                  "basis": "消费现行语义标签MIXED_PRIMARILY_RULER_ACTION"
+                  "basis": "李纯 A2（边界、门户、纵深与缓冲体系）逐人裁决：中央在核心财赋与交通方向恢复连续控制，形成至少一条可有效运行的内线；但东受降城撤并、乌兰桥成及泾陇吐蕃压力证明外部边界仍有显著缺口，只到3档。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给李纯；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动+1档中取0.75档。依据链：CAMPAIGN-TANG-237-01、CAMPAIGN-TANG-238-01、CAMPAIGN-TANG-238-04、CAMPAIGN-TANG-239-02等10条父链。",
+                  "source_refs": [
+                    "CAMPAIGN-TANG-237-01",
+                    "CAMPAIGN-TANG-238-01",
+                    "CAMPAIGN-TANG-238-04",
+                    "CAMPAIGN-TANG-239-02",
+                    "PARENT-CHENXU-MUTINY-806-813",
+                    "PARENT-HUAIXI-WUYUANJI-814-817",
+                    "PARENT-CHENGDE-WAR-815-817",
+                    "PARENT-ZIQING-LISHIDAO-815-819",
+                    "CAMPAIGN-TANG-241-02",
+                    "CAMPAIGN-TANG-241-04"
+                  ]
                 }
-              ]
+              ],
+              "attribution_source_refs": [
+                "CAMPAIGN-TANG-237-01",
+                "CAMPAIGN-TANG-238-01",
+                "CAMPAIGN-TANG-238-04",
+                "CAMPAIGN-TANG-239-02",
+                "PARENT-CHENXU-MUTINY-806-813",
+                "PARENT-HUAIXI-WUYUANJI-814-817",
+                "PARENT-CHENGDE-WAR-815-817",
+                "PARENT-ZIQING-LISHIDAO-815-819",
+                "CAMPAIGN-TANG-241-02",
+                "CAMPAIGN-TANG-241-04"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为2→3，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为0.75档，伴随专项加减仍由独立字段保留。"
             }
           },
           "B80_adjudication": {
@@ -3684,7 +4134,7 @@
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": 1.0,
-              "attribution_basis": "消费现行语义标签MIXED_EXTERNAL_OPPORTUNITY_AND_RULER_ACTION",
+              "attribution_basis": "李忱 A1（主要威胁能力与战略主动）逐人裁决：接班时党项已连年入寇并攻陷界堡，安南处于长期饥乱和南诏渗透，仍为战略劣势。任内通过击破与改策镇抚党项、接收河湟河西十一州、稳定安南，使主要方向总体转入唐方优势；吐蕃内乱和地方响应是外生机会，南诏主体仍存，故为4档。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给李忱；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动+2档中取1档。依据链：PARENT-DANGXIANG-NORTHWEST-843-855、PARENT-HEHUANG-RECOVERY-848-851、PARENT-ANNAN-CRISIS-852-858。",
               "attribution_category": "SHARED_MATERIAL",
               "axis_points": 34.8,
               "ceiling_progress": "NONE",
@@ -3700,7 +4150,7 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 2,
-              "trajectory_value": 58.0,
+              "trajectory_value": 58,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
               "improvement_step_credits": [
@@ -3708,19 +4158,37 @@
                   "from_grade": 2,
                   "to_grade": 3,
                   "credit": 0.75,
-                  "basis": "2→3主要由换帅、镇抚党项和修复安南等本人改策形成。"
+                  "basis": "李忱 A1（主要威胁能力与战略主动）逐人裁决：接班时党项已连年入寇并攻陷界堡，安南处于长期饥乱和南诏渗透，仍为战略劣势。任内通过击破与改策镇抚党项、接收河湟河西十一州、稳定安南，使主要方向总体转入唐方优势；吐蕃内乱和地方响应是外生机会，南诏主体仍存，故为4档。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给李忱；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动+2档中取1档。依据链：PARENT-DANGXIANG-NORTHWEST-843-855、PARENT-HEHUANG-RECOVERY-848-851、PARENT-ANNAN-CRISIS-852-858。",
+                  "source_refs": [
+                    "PARENT-DANGXIANG-NORTHWEST-843-855",
+                    "PARENT-HEHUANG-RECOVERY-848-851",
+                    "PARENT-ANNAN-CRISIS-852-858"
+                  ]
                 },
                 {
                   "from_grade": 3,
                   "to_grade": 4,
                   "credit": 0.25,
-                  "basis": "3→4主要依赖吐蕃内乱与张议潮地方行动，本人只取得有限收束信用。"
+                  "basis": "李忱 A1（主要威胁能力与战略主动）逐人裁决：接班时党项已连年入寇并攻陷界堡，安南处于长期饥乱和南诏渗透，仍为战略劣势。任内通过击破与改策镇抚党项、接收河湟河西十一州、稳定安南，使主要方向总体转入唐方优势；吐蕃内乱和地方响应是外生机会，南诏主体仍存，故为4档。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给李忱；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动+2档中取1档。依据链：PARENT-DANGXIANG-NORTHWEST-843-855、PARENT-HEHUANG-RECOVERY-848-851、PARENT-ANNAN-CRISIS-852-858。",
+                  "source_refs": [
+                    "PARENT-DANGXIANG-NORTHWEST-843-855",
+                    "PARENT-HEHUANG-RECOVERY-848-851",
+                    "PARENT-ANNAN-CRISIS-852-858"
+                  ]
                 }
-              ]
+              ],
+              "attribution_source_refs": [
+                "PARENT-DANGXIANG-NORTHWEST-843-855",
+                "PARENT-HEHUANG-RECOVERY-848-851",
+                "PARENT-ANNAN-CRISIS-852-858"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为2→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。"
             },
             "A2": {
               "attributable_delta": 1.0,
-              "attribution_basis": "消费现行语义标签MIXED_EXTERNAL_OPPORTUNITY_AND_RULER_ACTION",
+              "attribution_basis": "李忱 A2（边界、门户、纵深与缓冲体系）逐人裁决：接班时西北界堡和安南边府只能依靠局部节点维持。交班时归义军、河湟州关、党项镇抚与安南筑防形成多方向可运行体系；南诏主体能力和远隔控制脆弱性仍是明显缺口，取4档。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给李忱；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动+2档中取1档。依据链：PARENT-DANGXIANG-NORTHWEST-843-855、PARENT-HEHUANG-RECOVERY-848-851、PARENT-ANNAN-CRISIS-852-858。",
               "attribution_category": "SHARED_MATERIAL",
               "axis_points": 34.8,
               "ceiling_progress": "NONE",
@@ -3736,7 +4204,7 @@
               "reversal_penalty": 0,
               "score_ready": true,
               "start_grade": 2,
-              "trajectory_value": 58.0,
+              "trajectory_value": 58,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
               "improvement_step_credits": [
@@ -3744,15 +4212,33 @@
                   "from_grade": 2,
                   "to_grade": 3,
                   "credit": 0.75,
-                  "basis": "2→3由任命、筑防、整军和边帅约束形成可运行主要边界。"
+                  "basis": "李忱 A2（边界、门户、纵深与缓冲体系）逐人裁决：接班时西北界堡和安南边府只能依靠局部节点维持。交班时归义军、河湟州关、党项镇抚与安南筑防形成多方向可运行体系；南诏主体能力和远隔控制脆弱性仍是明显缺口，取4档。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给李忱；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动+2档中取1档。依据链：PARENT-DANGXIANG-NORTHWEST-843-855、PARENT-HEHUANG-RECOVERY-848-851、PARENT-ANNAN-CRISIS-852-858。",
+                  "source_refs": [
+                    "PARENT-DANGXIANG-NORTHWEST-843-855",
+                    "PARENT-HEHUANG-RECOVERY-848-851",
+                    "PARENT-ANNAN-CRISIS-852-858"
+                  ]
                 },
                 {
                   "from_grade": 3,
                   "to_grade": 4,
                   "credit": 0.25,
-                  "basis": "3→4依赖河湟归义等外生机会，本人只取得有限制度收束信用。"
+                  "basis": "李忱 A2（边界、门户、纵深与缓冲体系）逐人裁决：接班时西北界堡和安南边府只能依靠局部节点维持。交班时归义军、河湟州关、党项镇抚与安南筑防形成多方向可运行体系；南诏主体能力和远隔控制脆弱性仍是明显缺口，取4档。 该变化同时受继承态势、对手行动及将领执行影响，不能把国家结果全部归给李忱；但其任内中枢选择与持续处置仍构成可识别责任，故客观变动+2档中取1档。依据链：PARENT-DANGXIANG-NORTHWEST-843-855、PARENT-HEHUANG-RECOVERY-848-851、PARENT-ANNAN-CRISIS-852-858。",
+                  "source_refs": [
+                    "PARENT-DANGXIANG-NORTHWEST-843-855",
+                    "PARENT-HEHUANG-RECOVERY-848-851",
+                    "PARENT-ANNAN-CRISIS-852-858"
+                  ]
                 }
-              ]
+              ],
+              "attribution_source_refs": [
+                "PARENT-DANGXIANG-NORTHWEST-843-855",
+                "PARENT-HEHUANG-RECOVERY-848-851",
+                "PARENT-ANNAN-CRISIS-852-858"
+              ],
+              "settlement_type": "CROSS_GRADE_IMPROVEMENT",
+              "settlement_type_label": "跨档改善型",
+              "settlement_type_basis": "客观起终档为2→4，依主类型优先级先按客观升档归为跨档改善型；本人可归责改善为1档，伴随专项加减仍由独立字段保留。"
             }
           },
           "B80_adjudication": {
@@ -4021,9 +4507,9 @@
           "A120_axis_adjudications": {
             "A1": {
               "attributable_delta": -2.0,
-              "attribution_basis": "消费现行语义标签MIXED_PRIMARILY_SELF_INDUCED_SYSTEM_FAILURE",
+              "attribution_basis": "李儇 A1（主要威胁能力与战略主动）逐人裁决：873年接班时南诏正再侵西川、庞勋战后内控脆弱，但首都和政权存续尚未处即时覆亡状态，定战略劣势2档。任内虽解决南诏方向，黄巢战争使两京、核心财赋区和中央体系长期瘫痪；第二次出奔又由田令孜扩军供给与藩镇冲突直接诱发。888年虽已回长安，核心区仍直接暴露、中央有效控制接近崩塌，交班为0档。 李儇任内的主动战略选择或处置失当直接放大本轴风险，结果并非单由不可控外力造成；故客观变动-2档按-2档归责。依据链：PARENT-NANZHAO-XICHUAN-WAR-868-875、PARENT-WANGYING-MARITIME-875-877、PARENT-LIUYANZHANG-JIANGZHOU-877、PARENT-LIKEYONG-DAIBEI-878-880等14条父链。",
               "attribution_category": "SELF_INDUCED",
-              "axis_points": 0.0,
+              "axis_points": 0,
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 0,
@@ -4040,13 +4526,32 @@
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "attribution_source_refs": [
+                "PARENT-NANZHAO-XICHUAN-WAR-868-875",
+                "PARENT-WANGYING-MARITIME-875-877",
+                "PARENT-LIUYANZHANG-JIANGZHOU-877",
+                "PARENT-LIKEYONG-DAIBEI-878-880",
+                "PARENT-HEDONG-MUTINIES-878-880",
+                "PARENT-HEZHONG-WANGCHONGRONG-880-882",
+                "PARENT-CHENGDU-GUOQI-881",
+                "PARENT-QIANNENG-XICHUAN-882-883",
+                "PARENT-GORGE-REBELLION-882-883",
+                "PARENT-HUANGCHAO-WAR-874-884",
+                "WAR-LEAD-256-YANGSHILI-END",
+                "PARENT-SECOND-FLIGHT-ZHUMEI-885-886",
+                "PARENT-QINZONGQUAN-WAR-884-888",
+                "PARENT-WEIBO-MUTINY-888"
+              ],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为2→0，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-2档，负向责任仍由独立字段保留。"
             },
             "A2": {
               "attributable_delta": -2.0,
-              "attribution_basis": "消费现行语义标签MIXED_PRIMARILY_SELF_INDUCED_SYSTEM_FAILURE",
+              "attribution_basis": "李儇 A2（边界、门户、纵深与缓冲体系）逐人裁决：接班时西南仍有成都、大渡河等局部防御节点，安南和归义军亦有边府存量。交班前长安先后陷落、收复、再度被逼出奔，内地军镇与贡赋交通体系分裂，已经不存在可覆盖核心区的有效国家级防线，定0档。 李儇任内的主动战略选择或处置失当直接放大本轴风险，结果并非单由不可控外力造成；故客观变动-2档按-2档归责。依据链：PARENT-NANZHAO-XICHUAN-WAR-868-875、PARENT-WANGYING-MARITIME-875-877、PARENT-LIUYANZHANG-JIANGZHOU-877、PARENT-LIKEYONG-DAIBEI-878-880等14条父链。",
               "attribution_category": "SELF_INDUCED",
-              "axis_points": 0.0,
+              "axis_points": 0,
               "ceiling_progress": "NONE",
               "ceiling_progress_bonus": 0,
               "end_grade": 0,
@@ -4063,7 +4568,26 @@
               "trajectory_value": 0,
               "within_band_deterioration_basis": "没有需要在本轴额外保留的D负向链",
               "within_band_deterioration_penalty": 0,
-              "improvement_step_credits": []
+              "improvement_step_credits": [],
+              "attribution_source_refs": [
+                "PARENT-NANZHAO-XICHUAN-WAR-868-875",
+                "PARENT-WANGYING-MARITIME-875-877",
+                "PARENT-LIUYANZHANG-JIANGZHOU-877",
+                "PARENT-LIKEYONG-DAIBEI-878-880",
+                "PARENT-HEDONG-MUTINIES-878-880",
+                "PARENT-HEZHONG-WANGCHONGRONG-880-882",
+                "PARENT-CHENGDU-GUOQI-881",
+                "PARENT-QIANNENG-XICHUAN-882-883",
+                "PARENT-GORGE-REBELLION-882-883",
+                "PARENT-HUANGCHAO-WAR-874-884",
+                "WAR-LEAD-256-YANGSHILI-END",
+                "PARENT-SECOND-FLIGHT-ZHUMEI-885-886",
+                "PARENT-QINZONGQUAN-WAR-884-888",
+                "PARENT-WEIBO-MUTINY-888"
+              ],
+              "settlement_type": "CROSS_GRADE_DETERIORATION",
+              "settlement_type_label": "跨档恶化型",
+              "settlement_type_basis": "客观起终档为2→0，依主类型优先级先按客观降档归为跨档恶化型；本人可归责变化为-2档，负向责任仍由独立字段保留。"
             }
           },
           "B80_adjudication": {
