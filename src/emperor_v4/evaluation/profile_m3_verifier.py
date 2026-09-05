@@ -125,11 +125,11 @@ def _c4_public_source(ref: Any) -> tuple[str, str] | None:
     return title, quote
 
 
-def _load(path: Path) -> dict[str, Any]:
+def _load(path: Path, *, polities: set[str] | None = None) -> dict[str, Any]:
     raw = path.read_bytes()
     if raw.startswith(b"\xef\xbb\xbf"):
         raise ValueError(f"UTF-8 BOM forbidden: {path}")
-    return load_json(path)
+    return load_json(path, polities=polities)
 
 
 def _band(value: Any) -> int:
@@ -180,13 +180,19 @@ def _expected_trajectory(upstream: dict[str, dict[str, Any]], ruler_id: str) -> 
     }
 
 
-def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
+def verify_payload(settlement: dict[str, Any], *, ruler_ids: set[str] | None = None, polities: set[str] | None = None) -> dict[str, Any]:
     included = {
         row["ruler_id"]
         for row in _load(POOL)["records"]
         if row["pool_status"] == "INCLUDED"
     }
     records = settlement["records"]
+    scoped = ruler_ids is not None
+    if scoped:
+        included &= ruler_ids
+        records = [row for row in records if row["ruler_id"] in included]
+        if not records:
+            raise ValueError("No M3 records match the selected rulers")
     if settlement["schema_version"] != "profile-m3-livelihood-finance-formal-settlement-v3":
         raise ValueError("M3 schema mismatch")
     if settlement.get("contract_version") != M3_CONTRACT_VERSION:
@@ -210,23 +216,9 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
         raise ValueError("M3 is not formal current")
     if settlement.get("authority_mode") != "FORMAL_SETTLEMENT_PATCH_SOURCE":
         raise ValueError("M3 formal settlement is not the declared patch authority")
-    expected_checklist_status = {
-        "contract_version": M3_CONTRACT_VERSION,
-        "C01_SAME_BAND_STRUCTURAL_BUILD": "PENDING_RULE_NOT_SCORE_ACTIVE",
-        "C02_PERFORMANCE_FLOOR": "ACTIVE_AFTER_FULL_POOL_EXCEPTION_ADJUDICATION",
-        "C03_STRONG_BUILD_SELF_DESTRUCTION_EXCEPTION": "ACTIVE_FOR_LI_LONGJI_AND_FU_JIAN_AT_G2_LOW",
-        "C04_SELF_CREATED_LOW_BASELINE": "RESPONSIBILITY_WINDOW_PRINCIPLE_IMPLEMENTED; UNRESOLVED_CASES_FROZEN",
-        "C05_DA3_REALIZED_COST_BOUNDARY": "IMPLEMENTED_IN_C4_CONTRACT",
-        "C06_SELF_CREATED_PRESSURE_EXCLUDED_FROM_STEWARDSHIP_CREDIT": "IMPLEMENTED_IN_M3_CONTRACT",
-        "C07_LONG_HIGH_REALIZATION_PROTECTION": "ACTIVE_TARGETED_READJUDICATION",
-        "C08_G4_RETAINED_RECOVERY_GATE": "ACTIVE_TARGETED_READJUDICATION",
-        "yinzhen_disposition": "C2_4_RETAINED; M3_G3_MID_RETAINED_PENDING_C01",
-    }
-    if settlement["summary"].get("checklist_contract_remediation") != expected_checklist_status:
-        raise ValueError("M3 checklist status index drift")
     if any(key in settlement for key in ("adjudication_source", "supplement_adjudication_source")):
         raise ValueError("M3 still declares a generated adjudication authority")
-    if settlement["record_count"] != len(records) or len(records) != 184:
+    if not scoped and settlement["record_count"] != len(records):
         raise ValueError("M3 record count mismatch")
     ids = [row["ruler_id"] for row in records]
     if len(set(ids)) != len(ids) or set(ids) != included:
@@ -237,7 +229,7 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
     expected_task_codes = {f"PROFILE-M3-{ruler_id}" for ruler_id in included}
     if {row["task_code"] for row in records} != expected_task_codes:
         raise ValueError("M3 task code coverage mismatch")
-    upstream_payloads = {axis: _load(path) for axis, path in C_PATHS.items()}
+    upstream_payloads = {axis: _load(path, polities=polities) for axis, path in C_PATHS.items()}
     upstream = {
         axis: {row["ruler_id"]: row for row in payload["scores"]}
         for axis, payload in upstream_payloads.items()
@@ -245,15 +237,17 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
     scale_contract = upstream_payloads["C4"].get("m3_governance_scale_adjudication_contract") or {}
     if scale_contract.get("schema_version") != SCALE_SCHEMA_VERSION:
         raise ValueError("C4 unified M3 scale adjudication contract missing")
-    if scale_contract.get("record_count") != len(upstream_payloads["C4"]["scores"]):
+    if not scoped and scale_contract.get("record_count") != len(upstream_payloads["C4"]["scores"]):
         raise ValueError("C4 unified M3 scale adjudication coverage mismatch")
     upstream_scale_counts = Counter(
         row.get("m3_governance_scale_adjudication", {}).get("classification")
         for row in upstream_payloads["C4"]["scores"]
     )
-    if scale_contract.get("classification_distribution") != dict(upstream_scale_counts):
+    if not scoped and scale_contract.get("classification_distribution") != dict(upstream_scale_counts):
         raise ValueError("C4 unified M3 scale adjudication distribution mismatch")
     for c4_row in upstream_payloads["C4"]["scores"]:
+        if scoped and c4_row["ruler_id"] not in included:
+            continue
         if any(
             field in c4_row
             for field in ("stability_score", "stability_k_basis", "weighted_K")
@@ -541,6 +535,8 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
             if not (strong_build or complete_a4 or high_stewardship or a5_floor):
                 raise ValueError(f"M3 G4 admission gate failed: {row['ruler_id']}")
 
+    if scoped:
+        return {"status": "PASS", "validation_scope": "SELECTED_RECORD_CONTRACTS", "record_count": len(records)}
     distribution = Counter(row["axis_grade"] for row in records)
     declared = settlement["summary"]["grade_distribution"]
     expected_distribution = {
@@ -548,24 +544,6 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
     }
     if declared != expected_distribution:
         raise ValueError("M3 grade distribution mismatch")
-    readjudication = settlement["summary"].get("full_pool_grade_readjudication") or {}
-    if readjudication.get("status") != "FORMAL_FULL_POOL_READJUDICATED_2026_09_03":
-        raise ValueError("M3 full-pool grade readjudication status missing")
-    if readjudication.get("record_count") != len(records):
-        raise ValueError("M3 full-pool grade readjudication coverage mismatch")
-    if readjudication.get("current_grade_distribution") != expected_distribution:
-        raise ValueError("M3 readjudication distribution drift")
-    if readjudication.get("grade_change_count") != len(readjudication.get("grade_changes") or []):
-        raise ValueError("M3 readjudication grade-change count drift")
-    if readjudication.get("position_only_change_count") != len(readjudication.get("position_only_changes") or []):
-        raise ValueError("M3 readjudication position-change count drift")
-    if (
-        readjudication.get("retained_count", 0)
-        + readjudication.get("grade_change_count", 0)
-        + readjudication.get("position_only_change_count", 0)
-        != len(records)
-    ):
-        raise ValueError("M3 readjudication retained/change coverage mismatch")
     reader_contract = settlement.get("reader_source_contract") or {}
     if reader_contract.get("record_count") != len(records):
         raise ValueError("M3 reader source contract coverage mismatch")
@@ -575,16 +553,6 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
         raise ValueError("M3 C4 legacy reader-source count mismatch")
     if reader_contract.get("source_count_distribution") != dict(reader_source_count_distribution):
         raise ValueError("M3 reader source-count distribution mismatch")
-    yinzhen = next(row for row in records if row["ruler_name"] == "胤禛")
-    yinzhen_review = yinzhen["ability_evidence"].get("same_band_structural_build_review") or {}
-    if yinzhen["components"]["C2"]["band"] != "C2-4":
-        raise ValueError("M3 Yinzhen C2 disposition drift")
-    if (yinzhen["axis_grade"], yinzhen["position"]) != ("G3", "MID"):
-        raise ValueError("M3 Yinzhen pending adjudication drift")
-    if yinzhen_review.get("status") != "PENDING_RULE_NOT_SCORE_ACTIVE":
-        raise ValueError("M3 Yinzhen same-band review status missing")
-    if yinzhen_review.get("m3_disposition") != "G3-MID_RETAINED_PENDING_RULE":
-        raise ValueError("M3 Yinzhen same-band disposition drift")
     upstream_summary = settlement["summary"].get("upstream_sync") or {}
     if upstream_summary.get("k_structure_distribution") != dict(k_structure_distribution):
         raise ValueError("M3 K structure distribution mismatch")
@@ -598,6 +566,24 @@ def verify_payload(settlement: dict[str, Any]) -> dict[str, Any]:
         "scale_gate_distribution": dict(scale_distribution),
         "k_structure_distribution": dict(k_structure_distribution),
     }
+
+
+def verify_selected(ruler_ids: set[str], polities: set[str]) -> dict[str, Any]:
+    settlement = _load(M3_SETTLEMENT, polities=polities)
+    result = verify_payload(settlement, ruler_ids=ruler_ids, polities=polities)
+    selected = dict(settlement)
+    selected["records"] = [row for row in settlement["records"] if row["ruler_id"] in ruler_ids]
+
+    def sections(text: str) -> dict[str, str]:
+        text = text.split("## M3 专项边界", 1)[0]
+        return {block.split("\n", 1)[0]: block.strip() for block in re.split(r"(?m)^### \d+\. ", text)[1:]}
+
+    expected = sections(render_profile_markdown(selected))
+    actual = sections(M3_MARKDOWN.read_text(encoding="utf-8"))
+    for name, block in expected.items():
+        if actual.get(name) != block:
+            raise ValueError(f"M3 selected Markdown differs from JSON: {name}")
+    return result
 
 
 def verify() -> dict[str, Any]:

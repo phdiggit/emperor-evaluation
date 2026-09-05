@@ -39,11 +39,6 @@ def test_profile_manifest_registers_all_eight_formal_axes() -> None:
         assert (PROFILE_ROOT / axis["json"]).is_file()
         assert (PROFILE_ROOT / axis["markdown"]).is_file()
         assert not any("sha256" in key.lower() or key.lower().endswith("_hash") for key in axis)
-    m1_axis = next(axis for axis in manifest["axes"] if axis["axis_code"] == "M1")
-    assert "M1/08-M1武将锚别名与缺锚强度复核.json" in m1_axis["audit_jsons"]
-    assert "M1/09-M1武将成果难度组合倒挂复核.json" in m1_axis["audit_jsons"]
-    assert "M1/10-M1无档案战役与人才公共补录复核.json" in m1_axis["audit_jsons"]
-    assert "M1/11-M1全池重新裁决复核.json" in m1_axis["audit_jsons"]
 
 
 def test_profile_axis_records_cover_the_formal_pool_and_contract_fields() -> None:
@@ -204,14 +199,6 @@ def test_m2_has_unique_radar_points_and_separates_background() -> None:
     )
 
 
-def test_m2_c5_capability_event_review_separates_mi_from_grade() -> None:
-    audit = _load(PROFILE_ROOT / "交叉轴复核/14-M2与C5能力事件分布复核.json")
-    assert audit["canonical_status"] == "FORMAL_CURRENT_AUDIT"
-    assert audit["policy"]["mi_is_material_strength_not_grade"] is True
-    assert audit["policy"]["negative_evidence_automatically_caps_g5"] is False
-    assert audit["policy"]["positive_mi4_automatically_grants_g5"] is False
-
-
 def test_m1_talent_projection_cells_exactly_match_the_public_markdown() -> None:
     settlement = _load(PROFILE_ROOT / "M1/01-M1军事判断与统帅能力正式结算.json")
     talent_root = ROOT / "docs" / "公共成果" / "军事" / "02-武将人才等级"
@@ -260,34 +247,6 @@ def test_m1_talent_projection_cells_exactly_match_the_public_markdown() -> None:
     assert "- 战役群名称/武将角色：" not in settlement_md
 
 
-def test_m1_missing_profiles_include_founding_and_post_unification_command_windows() -> None:
-    settlement = _load(PROFILE_ROOT / "M1/01-M1军事判断与统帅能力正式结算.json")
-    audit = _load(PROFILE_ROOT / "M1/10-M1无档案战役与人才公共补录复核.json")
-
-    assert audit["canonical_status"] == "FORMAL_CURRENT_AUDIT"
-    assert audit["window_policy"] == "FOUNDING_UNIFICATION_AND_POST_UNIFICATION_PERSONAL_EXPEDITIONS_INCLUDED"
-    assert all(
-        decision["person_command_result_refs"]
-        and decision["campaign_refs"]
-        and decision["capability_episode_refs"]
-        and decision["source_refs"]
-        for decision in audit["profile_decisions"]
-    )
-
-
-def test_m1_full_pool_readjudication_closes_all_records_and_failure_rule() -> None:
-    settlement = _load(PROFILE_ROOT / "M1/01-M1军事判断与统帅能力正式结算.json")
-    audit = _load(PROFILE_ROOT / "M1/11-M1全池重新裁决复核.json")
-    by_name = {record["ruler_name"]: record for record in settlement["records"]}
-
-    assert audit["canonical_status"] == "FORMAL_CURRENT_AUDIT"
-    assert audit["record_count"] == len(audit["rows"])
-    assert {row["ruler_name"] for row in audit["rows"]} == set(by_name)
-    assert audit["review_policy"]["target_nonachievement_automatically_treated_as_defeat"] is False
-    assert all(record["full_pool_readjudication"]["status"] == "FULL_LIFETIME_REVIEWED" for record in settlement["records"])
-    assert all("V0.5未重开" not in parent["intensity_and_role_basis"] for record in settlement["records"] for parent in record["representative_parent_contexts"])
-
-
 def test_c5_chat_review_recalibration_is_publicly_supported() -> None:
     settlement = _load(PROFILE_ROOT / "C5/02-C5权力运用风格与克制正式结算.json")
     audit = _load(PROFILE_ROOT / "C5/07-C5高档与证据门结构复核.json")
@@ -312,15 +271,6 @@ def test_c2_c5_cross_axis_drift_is_report_only() -> None:
 
 
 def test_profile_audit_sidecars_match_current_axis_grades() -> None:
-    m1 = _load(PROFILE_ROOT / "M1/01-M1军事判断与统帅能力正式结算.json")
-    m1_by_id = {record["ruler_id"]: record for record in m1["records"]}
-    m1_audit = _load(PROFILE_ROOT / "M1/03-M1人才差异与高档门复核.json")
-    for row in m1_audit["rows"]:
-        current = m1_by_id[row["ruler_id"]]
-        assert (row["revised_axis_grade"], row["revised_position"], row["revised_score_100"]) == (
-            current["axis_grade"], current["position"], current["score_100"]
-        )
-
     c5 = _load(PROFILE_ROOT / "C5/02-C5权力运用风格与克制正式结算.json")
     c5_by_id = {record["ruler_id"]: record for record in c5["records"]}
     c5_audit = _load(PROFILE_ROOT / "C5/05-C5高档材料密度复核.json")

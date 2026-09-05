@@ -2,6 +2,10 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
+
+pytestmark = pytest.mark.presentation
+
 from emperor_v4.evaluation.profile_radar import AXIS_ORDER, load_profiles, write_samples
 
 

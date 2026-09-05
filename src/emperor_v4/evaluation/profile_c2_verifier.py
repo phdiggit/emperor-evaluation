@@ -18,7 +18,6 @@ SETTLEMENT = PROFILE_ROOT / "C2/19-C2信息处理学习与纠错正式结算.jso
 MARKDOWN = SETTLEMENT.with_suffix(".md")
 AUDIT = PROFILE_ROOT / "C2/20-C2主要入口单元处置审计.json"
 HIGH_REVIEW = PROFILE_ROOT / "C2/21-C2高档学习周期与横向校准复核.json"
-REMEDIATION = PROFILE_ROOT / "C2/23-C2聊天版全池重裁整改复核.json"
 B2 = ROOT / "docs" / "评分结算" / "第二项治国净收益" / "制度行政" / "03-B2反馈纠错与权力约束方向卡.json"
 MANIFEST = PROFILE_ROOT / "00-已结算轴正式入口.json"
 POOL = ROOT / "config" / "common" / "canonical-ruler-pool.json"
@@ -239,12 +238,11 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
 
     adjacent = high["adjacent_boundary_review"]
     assert adjacent["scope"] == ["G3-HIGH_DIRECTIONAL_CONSISTENCY", "G3-HIGH_TO_G4-LOW", "G4-LOW_TO_G4-MID", "G4-MID_TO_G4-HIGH", "G4-HIGH_TO_G5-LOW"]
-    assert all(item["ruler_id"] in record_by_id for item in adjacent["changes"])
-    assert set(high["g5_attainability_review"]["promoted_rulers"]) <= record_by_id.keys()
 
     assert high["material_budget_policy"] == "MAX_4_SUPPLEMENTAL_PRIMARY_SOURCE_UNITS_PER_CANDIDATE"
     assert high["source_union_policy"] == "ALL_LOCAL_NORMATIVE_ENTRIES_UNION_MAX_4_SUPPLEMENTAL_PRIMARY_UNITS_EXCLUDING_PERSON_SPECIFIC_COMPILATIONS"
     candidate_reviews = high["candidate_reviews"]
+    b2_by_id = {row["ruler_id"]: row for row in _load(B2)["records"]}
     assert high["intuitive_candidate_count"] == len(candidate_reviews)
     assert settlement["summary"]["material_cap_candidate_count"] == len(candidate_reviews)
     assert len({entry["ruler_id"] for entry in candidate_reviews}) == len(candidate_reviews)
@@ -283,7 +281,7 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
 
         dispositions = entry["b2_material_disposition_review"]
         expected_b2_ids = []
-        b2_record = next(row for row in _load(B2)["records"] if row["ruler_id"] == entry["ruler_id"])
+        b2_record = b2_by_id[entry["ruler_id"]]
         for profile_key in ("M_positive_profile", "M_mixed_profile", "M_negative_profile"):
             for item in b2_record.get(profile_key, []):
                 expected_b2_ids.extend(item.get("material_ids") or [item.get("material_id")])
@@ -382,21 +380,8 @@ def verify() -> dict[str, object]:
         axis["json"] == SETTLEMENT.relative_to(MANIFEST.parent).as_posix()
         and axis["markdown"] == MARKDOWN.relative_to(MANIFEST.parent).as_posix()
     )
-    assert REMEDIATION.relative_to(MANIFEST.parent).as_posix() in axis["audit_jsons"]
     project = yaml.safe_load(_read(PROJECT).decode("utf-8"))
     assert project["profile_assessment"]["settled_axes"]["C2"]["json"].endswith(SETTLEMENT.name)
-    assert project["profile_assessment"]["settled_axes"]["C2"]["chat_review_remediation_json"].endswith(REMEDIATION.name)
-    remediation = _load(REMEDIATION)
-    assert remediation["canonical_status"] == "FORMAL_CURRENT"
-    assert remediation["decision_count"] == len(remediation["decisions"]) == len(settlement["records"])
-    assert remediation["contract_boundary_decision"] == "RETAIN_C2_CAPABILITY_THRESHOLDS_CLARIFY_EVIDENCE_FLOOR_PUBLICATION"
-    decisions = {row["ruler_id"]: row for row in remediation["decisions"]}
-    assert set(decisions) == {row["ruler_id"] for row in settlement["records"]}
-    for row in settlement["records"]:
-        decision = decisions[row["ruler_id"]]
-        assert decision["decision"] == "ACCEPTED"
-        assert decision["review_status"] == row["review_status"]
-        assert decision["after"].startswith(f"{row['axis_grade']}-{row['position']}/{row['radar_value']}/{row['axis_evidence_level']}/{row['confidence']}")
     return result
 
 

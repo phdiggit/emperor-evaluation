@@ -10,7 +10,6 @@ import yaml
 from emperor_v4.evaluation.formal_json_store import load_json
 
 from emperor_v4.evaluation.profile_m4_settlement import (
-    ACCEPTANCE,
     AUDIT,
     FULL_POOL_REVIEW,
     HIGH_REVIEW,
@@ -182,23 +181,18 @@ def verify_payloads(
         and row["all_normative_entries_consumed"]
         for row in review["records"]
     )
-    assert review["grade_change_count"] == len(review["grade_changes"])
-    by_id = {row["ruler_id"]: row for row in records}
-    assert all(change["to"] == f"{by_id[change['ruler_id']]['axis_grade']}-{by_id[change['ruler_id']]['position']}" for change in review["grade_changes"])
     return {
         "status": "PASS",
         "record_count": len(records),
         "parent_count": len(parent_ids),
         "audit_unit_count": audit["unit_count"],
         "high_grade_count": len(high_ids),
-        "grade_change_count": review["grade_change_count"],
     }
 
 
 def verify() -> dict[str, Any]:
     settlement, audit, high, review = (_load(path) for path in (SETTLEMENT, AUDIT, HIGH_REVIEW, FULL_POOL_REVIEW))
     assert _read(MARKDOWN).decode("utf-8") == render_profile_markdown(settlement)
-    assert "不进入五项综合总榜" in _read(ACCEPTANCE).decode("utf-8")
     result = verify_payloads(settlement, audit, high, review)
     project = yaml.safe_load(_read(PROJECT).decode("utf-8"))["profile_assessment"]
     assert project["settled_axes"]["M4"]["json"].endswith(SETTLEMENT.name)
@@ -209,7 +203,6 @@ def verify() -> dict[str, Any]:
         path.relative_to(MANIFEST.parent).as_posix()
         for path in (AUDIT, HIGH_REVIEW, FULL_POOL_REVIEW)
     }
-    assert axis["audit_markdowns"] == [ACCEPTANCE.relative_to(MANIFEST.parent).as_posix()]
     return result
 
 

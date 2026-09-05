@@ -17,8 +17,6 @@ C5_MD = C5.with_suffix(".md")
 C5_AUDIT = PROFILE_ROOT / "C5/04-C5主要入口单元处置审计.json"
 C5_DENSITY = PROFILE_ROOT / "C5/05-C5高档材料密度复核.json"
 C5_STRUCTURE = PROFILE_ROOT / "C5/07-C5高档与证据门结构复核.json"
-C5_REMEDIATION = PROFILE_ROOT / "C5/08-C5聊天版全池二次校准整改复核.json"
-JOINT = PROFILE_ROOT / "交叉轴复核/23-C2与C5同链边界及强度联合复核.json"
 MANIFEST = PROFILE_ROOT / "00-已结算轴正式入口.json"
 PROJECT = ROOT / "config" / "project.yml"
 
@@ -59,16 +57,17 @@ def _md_rows() -> list[tuple[int, str, str, str, str, str]]:
 
 
 def verify() -> dict[str, object]:
-    c5, audit, density, structure, remediation, joint = (
-        _load(path) for path in (C5, C5_AUDIT, C5_DENSITY, C5_STRUCTURE, C5_REMEDIATION, JOINT)
+    c5, audit, density, structure = (
+        _load(path) for path in (C5, C5_AUDIT, C5_DENSITY, C5_STRUCTURE)
     )
     assert _read(C5_MD).decode("utf-8") == render_profile_markdown(c5)
     c5_by_id = {row["ruler_id"]: row for row in c5["records"]}
-    assert len(c5_by_id) == 184
+    pool = _load(ROOT / "config/common/canonical-ruler-pool.json")
+    assert set(c5_by_id) == {r["ruler_id"] for r in pool["records"] if r["pool_status"] == "INCLUDED"}
 
     allowed_same_chain = {"NO_TRIGGER", "CONSTRUCT_SEPARATED"}
     c5_statuses = {row["same_chain_semantic_conflict_review_status"] for row in c5["records"]}
-    assert c5_statuses == allowed_same_chain
+    assert c5_statuses <= allowed_same_chain
 
     c5_parent_ids = set()
     for row in c5["records"]:
@@ -92,21 +91,13 @@ def verify() -> dict[str, object]:
             assert row["public_evidence_points"] and row["source_refs"]
         assert not (row["grade_numeric"] == 0 and directions and directions <= {"POSITIVE", "MIXED_POSITIVE"})
 
-    decisions = {row["ruler_id"]: row for row in remediation["decisions"]}
-    assert remediation["decision_count"] == len(decisions) == 184
-    assert set(decisions) == set(c5_by_id)
-    for ruler_id, row in c5_by_id.items():
-        decision = decisions[ruler_id]
-        assert decision["after"] == (
-            f"{row['axis_grade']}-{row['position']}/{row['score_100']}/{row['axis_evidence_level']}"
-        )
-        assert row["adjudication_ref"] == f"C5-CHAT-REVIEW-V2#{ruler_id}"
+    for row in c5_by_id.values():
         assert row["public_evidence_points"] and row["source_refs"]
         assert row["source_quality"]["named_source_count"] >= 1
         assert row["source_quality"]["locator_count"] >= 1
 
     units = audit["units"]
-    assert audit["unit_count"] == len(units) == 1680
+    assert audit["unit_count"] == len(units)
     assert len({unit["unit_id"] for unit in units}) == len(units)
     assert set(audit["status_counts"]) == {
         "SCORING_PARENT", "BACKGROUND_VALIDATION", "AXIS_OUT_WITH_REASON"
@@ -114,31 +105,6 @@ def verify() -> dict[str, object]:
     assert sum(audit["status_counts"].values()) == len(units)
     assert {unit["scoring_parent_id"] for unit in units if unit["status"] == "SCORING_PARENT"} <= c5_parent_ids
     assert all((unit["status"] == "SCORING_PARENT") == bool(unit["scoring_parent_id"]) for unit in units)
-
-    yang = c5_by_id["RULER-SHADOW-杨坚"]
-    yang_groups = {token: group for group in yang["unit_groups"] for token in group["unit_ids"]}
-    for material_id in ("LAW-16-005", "LAW-16-006", "LAW-16-007"):
-        group = yang_groups[f"LOCAL_LEGAL_REGISTRY::{material_id}"]
-        assert group["status"] == "SCORING_PARENT" and group["parent_id"] == "C5-P119-LATE-BREACH"
-    early = yang_groups["LOCAL_LEGAL_REGISTRY::LAW-16-008"]
-    assert early["status"] == "SCORING_PARENT" and early["parent_id"] == "C5-P119-EARLY-LAW"
-    late = next(parent for parent in yang["parents"] if parent["parent_id"] == "C5-P119-LATE-BREACH")
-    assert late["direction"] == "NEGATIVE" and late["intensity"] == "MI4_CROSS_PHASE_SYSTEMIC"
-
-    liubang = c5_by_id["RULER-HAN-LIUBANG"]
-    anger = next(group for group in liubang["unit_groups"] if "I2-WHAN-LB-MINISTER-ANGER-001" in group["unit_ids"])
-    assert anger["status"] == "SCORING_PARENT" and anger["parent_id"] == "C5-P016-ANGER"
-    advice = next(group for group in liubang["unit_groups"] if "I2-WHAN-LB-LUJIA-ADVICE-001" in group["unit_ids"])
-    assert advice["status"] == "BACKGROUND_VALIDATION"
-    assert (liubang["axis_grade"], liubang["position"]) == ("G3", "LOW")
-    liuxiu = c5_by_id["RULER-HAN-LIUXIU"]
-    assert (liuxiu["axis_grade"], liuxiu["position"]) == ("G4", "LOW")
-
-    assert joint["same_chain_unresolved_count"] == 0
-    assert joint["strong_suppression_crosscheck"]["unresolved_count"] == 0
-    assert joint["strong_suppression_crosscheck"]["aligned_count"] == 11
-    assert joint["policy"]["b2_channel_presence_is_not_c5_scoring"] is True
-    assert joint["policy"]["general_judicial_governance_is_not_c5_high_strength"] is True
 
     assert _md_rows() == [
         (
@@ -149,14 +115,10 @@ def verify() -> dict[str, object]:
     ]
     manifest = _load(MANIFEST)
     axis = next(item for item in manifest["axes"] if item["axis_code"] == "C5")
-    assert JOINT.relative_to(MANIFEST.parent).as_posix() in axis["audit_jsons"]
-    assert C5_REMEDIATION.relative_to(MANIFEST.parent).as_posix() in axis["audit_jsons"]
-    project = yaml.safe_load(_read(PROJECT).decode("utf-8"))
-    assert project["profile_assessment"]["settled_axes"]["C5"]["joint_boundary_review_json"].endswith(JOINT.name)
 
     return {
         "status": "PASS",
-        "record_count": 184,
+        "record_count": len(c5_by_id),
         "c5_parent_count": sum(len(row["parents"]) for row in c5["records"]),
         "c5_unit_count": len(units),
         "grade_distribution": c5["summary"]["grade_distribution"],

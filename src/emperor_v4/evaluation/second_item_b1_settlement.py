@@ -541,9 +541,11 @@ def render_b1_markdown(payload: dict[str, Any], workspace_root: Path) -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
-def rebuild_derived(workspace_root: Path, *, write: bool = False) -> dict[str, Any]:
+def rebuild_derived(workspace_root: Path, *, write: bool = False, refresh_source: bool = True) -> dict[str, Any]:
     b1_path = workspace_root / B1_PATH
-    b1 = refresh_b1_payload(load_json(b1_path))
+    b1 = load_json(b1_path)
+    if refresh_source:
+        b1 = refresh_b1_payload(b1)
     validate_gate_references(b1)
     b1_md = render_b1_markdown(b1, workspace_root)
 
@@ -589,8 +591,44 @@ def rebuild_derived(workspace_root: Path, *, write: bool = False) -> dict[str, A
         }
         for axis, path in FINANCE_PATHS.items()
     }
+    result_path = workspace_root / FINANCE_PATHS["C1"].with_name("05-治理结果正式结算.json")
+    result = load_json(result_path)
+    for row in result["scores"]:
+        for axis, finance_rows in finance_by_axis.items():
+            source = finance_rows[row["ruler_id"]]
+            row[f"{axis}_score"] = float(source["score"])
+            row[f"{axis}_band"] = source["main_band"]
+        row["score"] = round(sum(row[f"{axis}_score"] for axis in FINANCE_PATHS), 1)
+    scores = sorted((row["score"] for row in result["scores"]), reverse=True)
+    for row in result["scores"]:
+        row["rank"] = scores.index(row["score"]) + 1
+    result_md = ["# C1—C4财政民生治理结果正式结算", "", "| 排名 | 人物 | 政权 | C1 | C2 | C3 | C4 | 治理结果分 |", "|---:|---|---|---|---|---|---|---:|"]
+    for row in sorted(result["scores"], key=lambda r: (r["rank"], r["ruler_id"])):
+        cells = " | ".join(f"{row[f'{axis}_band']}/{row[f'{axis}_score']:.1f}" for axis in FINANCE_PATHS)
+        result_md.append(f"| {row['rank']} | {row['ruler_name']} | {row['polity']} | {cells} | **{row['score']:.1f}** |")
+
+    handoff_root = total_path.parent / "政权交接稳定"
+    handoff_path = handoff_root / "03-交接质量20分正式结算.json"
+    handoff = load_json(handoff_path)
+    d1 = {r["ruler_id"]: r for r in load_json(handoff_root / "01-D1继任行政连续性方向卡.json")["records"]}
+    d3 = {r["ruler_id"]: r for r in load_json(handoff_root / "02-D3政权交接稳定方向卡.json")["records"]}
+    caps = {0: 4.0, 1: 8.0, 2: 12.0, 3: 16.0, 4: 20.0, 5: 20.0}
+    for row in handoff["records"]:
+        row["D1_level"] = int(d1[row["ruler_id"]]["grade"][-1])
+        row["D3_level"] = int(d3[row["ruler_id"]]["D3_grade"][-1])
+        row["low_side_cap"] = caps[min(row["D1_level"], row["D3_level"])]
+        row["score"] = min(2.0 * (row["D1_level"] + row["D3_level"]), row["low_side_cap"])
+    _competition_ranks(handoff["records"], "score")
+    handoff_by_id = {r["ruler_id"]: r for r in handoff["records"]}
+    handoff_md = ["# 交接质量正式结算", "", "> D1行政连续性与D3权力交接等权合成；低侧封顶只在实际触发时附注在档位组合中。", "", "| 排名 | 人物 | 政权 | D1↔D3档位组合 | 合计/20 |", "|---:|---|---|---|---:|"]
+    for row in handoff["records"]:
+        combination = f"H{row['D1_level']}↔D3-{row['D3_level']}"
+        if row["score"] < 2.0 * (row["D1_level"] + row["D3_level"]):
+            combination += f"（低侧封顶{row['low_side_cap']:.1f}）"
+        handoff_md.append(f"| {row['rank']} | {row['ruler_name']} | {row['polity']} | {combination} | **{row['score']:.1f}** |")
     method_by_id = {row["ruler_id"]: row for row in method["records"]}
     for row in total["records"]:
+        row["handoff_score"] = handoff_by_id[row["ruler_id"]]["score"]
         row["governance_method_score"] = method_by_id[row["ruler_id"]]["score"]
         for axis, finance_rows in finance_by_axis.items():
             row[f"{axis}_score"] = float(finance_rows[row["ruler_id"]]["score"])
@@ -605,8 +643,8 @@ def rebuild_derived(workspace_root: Path, *, write: bool = False) -> dict[str, A
         )
     _competition_ranks(total["records"], "second_item_score")
     total_md = [
-        "# 第二项治国净收益387分正式结算", "",
-        "| 排名 | 人物 | 政权 | 治理手段/165 | C1/80 | C2/35 | C3/60 | C4/-31—27 | 治理结果/202 | 交接/20 | 总分/387 |",
+        "# 第二项治国净收益正式结算", "",
+        "| 排名 | 人物 | 政权 | 治理手段/165 | C1/80 | C2/35 | C3/60 | C4 | 治理结果/202 | 交接/20 | 总分/387 |",
         "|---:|---|---|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for row in total["records"]:
@@ -618,8 +656,13 @@ def rebuild_derived(workspace_root: Path, *, write: bool = False) -> dict[str, A
         )
     total_md_text = "\n".join(total_md) + "\n"
     if write:
-        write_json(b1_path, b1, ruler_polities=load_ruler_polities(workspace_root))
-        b1_path.with_suffix(".md").write_text(b1_md, encoding="utf-8", newline="\n")
+        if refresh_source:
+            write_json(b1_path, b1, ruler_polities=load_ruler_polities(workspace_root))
+            b1_path.with_suffix(".md").write_text(b1_md, encoding="utf-8", newline="\n")
+        write_json(result_path, result)
+        result_path.with_suffix(".md").write_text("\n".join(result_md) + "\n", encoding="utf-8", newline="\n")
+        write_json(handoff_path, handoff)
+        handoff_path.with_suffix(".md").write_text("\n".join(handoff_md) + "\n", encoding="utf-8", newline="\n")
         method_path.write_text(json.dumps(method, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
         method_path.with_suffix(".md").write_text(method_md_text, encoding="utf-8", newline="\n")
         total_path.write_text(json.dumps(total, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")

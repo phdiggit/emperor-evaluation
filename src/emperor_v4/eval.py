@@ -5,54 +5,28 @@ import json
 from pathlib import Path
 from typing import Sequence
 
-from emperor_v4.evaluation.first_item_a_registry import write_first_item_a_registry
-from emperor_v4.evaluation.first_item_b_registry import write_first_item_b_registry
-from emperor_v4.evaluation.first_item_c_registry import write_first_item_c_registry
-from emperor_v4.evaluation.first_item_cost import build_first_item_cost_report
-from emperor_v4.evaluation.fourth_item_a import verify as verify_fourth_item_a, write_views as write_fourth_item_a_views
-from emperor_v4.evaluation.canonical_ruler_pool import (
-    build_canonical_ruler_pool,
-    write_canonical_ruler_pool,
-)
-from emperor_v4.evaluation.composite_ranking import (
-    build_composite_ranking,
-    write_composite_ranking,
-)
-from emperor_v4.evaluation.formal_settlements import (
-    verify_formal_settlements,
-    verify_second_item_a_snapshot,
-    verify_second_item_b2_snapshot,
-)
-from emperor_v4.evaluation.profile_c2_c5_cross_axis_audit import (
-    inspect_cross_axis_drift as inspect_profile_c2_c5_cross_axis_drift,
-)
-from emperor_v4.evaluation.profile_c3_settlement import build as build_profile_c3_settlement
-from emperor_v4.evaluation.profile_c3_verifier import verify as verify_profile_c3_settlement
-from emperor_v4.evaluation.profile_m3_settlement import build as build_profile_m3_settlement
-from emperor_v4.evaluation.profile_m3_verifier import verify as verify_profile_m3_settlement
-from emperor_v4.evaluation.profile_m4_settlement import build as build_profile_m4_settlement
-from emperor_v4.evaluation.profile_m4_verifier import verify as verify_profile_m4_settlement
-from emperor_v4.evaluation.profile_markdown import AXIS_FILES, write_axes as write_profile_markdown_axes
-from emperor_v4.evaluation.profile_radar import write_samples as write_profile_radar_samples
-from emperor_v4.evaluation.profile_video_card import write_samples as write_profile_video_card_samples
-from emperor_v4.evaluation.profile_video_copy import write_samples as write_profile_video_copy_samples
-from emperor_v4.evaluation.second_item_b1_settlement import rebuild_derived as rebuild_second_item_b1
-from emperor_v4.evaluation.third_item_current_settlement import (
-    verify_current_third_item_settlement,
-    write_current_third_item_settlement,
-)
-from emperor_v4.evaluation.third_item_b1_settlement import rebuild_third_item_b1
-from emperor_v4.evaluation.third_item_d_settlement import (
-    verify_third_item_d_formal_settlement,
-)
 
 
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="皇帝综合评价体系 V4 评分命令")
     commands = parser.add_subparsers(dest="command", required=True)
+    maintenance = commands.add_parser("maintenance", help="定位当前裁决、下游影响与必要校验")
+    maintenance.add_argument("--component", action="append", required=True)
+    maintenance.add_argument("--ruler-id", action="append", default=[])
+    maintenance.add_argument("--polity", action="append", default=[])
+    maintenance.add_argument("--verify", action="store_true")
+    maintenance.add_argument("--related", action="store_true", help="同时执行关联轴的组件校验")
+    maintenance.add_argument("--sync", action="store_true", help="校验源后刷新报告列出的确定性下游")
+    for name in ("project-entries-verify", "canonical-ruler-pool-verify", "composite-ranking-verify", "second-item-b1-verify", "profile-m1-verify", "profile-c1-verify", "profile-c2-verify", "profile-c5-verify"):
+        commands.add_parser(name)
     first_cost = commands.add_parser("first-item-cost-verify")
     first_cost.add_argument("--workspace-root", type=Path, default=Path("."))
-    commands.add_parser("formal-settlements-verify")
+    formal = commands.add_parser("formal-settlements-verify")
+    formal.add_argument("--item", action="append", choices=["first_item", "second_item", "third_item", "fourth_item", "fifth_item"])
+    totals = commands.add_parser("second-item-totals")
+    totals.add_argument("--write", action="store_true")
+    profile_current = commands.add_parser("profile-current-verify")
+    profile_current.add_argument("--axis", required=True, choices=["M1", "M2", "M3", "M4", "C1", "C2", "C3", "C5"])
     fourth_a = commands.add_parser("fourth-item-a-verify")
     fourth_a.add_argument("--workspace-root", type=Path, default=Path("."))
     fourth_a_views = commands.add_parser("fourth-item-a-views")
@@ -77,7 +51,7 @@ def _parser() -> argparse.ArgumentParser:
     commands.add_parser("profile-m4-verify")
     profile_markdown = commands.add_parser("profile-markdown")
     profile_markdown.add_argument("--write", action="store_true")
-    profile_markdown.add_argument("--axis", action="append", choices=sorted(AXIS_FILES))
+    profile_markdown.add_argument("--axis", action="append", choices=["C1", "C2", "C3", "C5", "M1", "M2", "M3", "M4"])
     profile_radar = commands.add_parser("profile-radar-samples")
     profile_radar.add_argument("--write", action="store_true")
     profile_radar.add_argument("--output-dir", type=Path)
@@ -119,6 +93,138 @@ def _print_written(written: dict[str, Path]) -> int:
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = _parser().parse_args(argv)
+    from emperor_v4.evaluation.formal_json_store import json_read_session
+    with json_read_session():
+        return _dispatch(args)
+
+
+def _dispatch(args: argparse.Namespace) -> int:
+    from emperor_v4.evaluation.first_item_a_registry import write_first_item_a_registry
+    from emperor_v4.evaluation.first_item_b_registry import write_first_item_b_registry
+    from emperor_v4.evaluation.first_item_c_registry import write_first_item_c_registry
+    from emperor_v4.evaluation.first_item_cost import build_first_item_cost_report
+    from emperor_v4.evaluation.fourth_item_a import verify as verify_fourth_item_a, write_views as write_fourth_item_a_views
+    from emperor_v4.evaluation.canonical_ruler_pool import (
+        build_canonical_ruler_pool,
+        write_canonical_ruler_pool,
+    )
+    from emperor_v4.evaluation.composite_ranking import (
+        build_composite_ranking,
+        write_composite_ranking,
+    )
+    from emperor_v4.evaluation.formal_settlements import (
+        verify_formal_settlements,
+        verify_second_item_a_snapshot,
+        verify_second_item_b2_snapshot,
+    )
+    from emperor_v4.evaluation.profile_c2_c5_cross_axis_audit import (
+        inspect_cross_axis_drift as inspect_profile_c2_c5_cross_axis_drift,
+    )
+    from emperor_v4.evaluation.profile_c3_settlement import build as build_profile_c3_settlement
+    from emperor_v4.evaluation.profile_c3_verifier import verify as verify_profile_c3_settlement
+    from emperor_v4.evaluation.profile_m3_settlement import build as build_profile_m3_settlement
+    from emperor_v4.evaluation.profile_m3_verifier import verify as verify_profile_m3_settlement
+    from emperor_v4.evaluation.profile_m4_settlement import build as build_profile_m4_settlement
+    from emperor_v4.evaluation.profile_m4_verifier import verify as verify_profile_m4_settlement
+    from emperor_v4.evaluation.profile_markdown import AXIS_FILES, write_axes as write_profile_markdown_axes
+    from emperor_v4.evaluation.profile_radar import write_samples as write_profile_radar_samples
+    from emperor_v4.evaluation.profile_video_card import write_samples as write_profile_video_card_samples
+    from emperor_v4.evaluation.profile_video_copy import write_samples as write_profile_video_copy_samples
+    from emperor_v4.evaluation.second_item_b1_settlement import rebuild_derived as rebuild_second_item_b1
+    from emperor_v4.evaluation.third_item_current_settlement import (
+        verify_current_third_item_settlement,
+        write_current_third_item_settlement,
+    )
+    from emperor_v4.evaluation.third_item_b1_settlement import rebuild_third_item_b1
+    from emperor_v4.evaluation.third_item_d_settlement import (
+        verify_third_item_d_formal_settlement,
+    )
+
+    if args.command == "maintenance":
+        import contextlib
+        import io
+        from emperor_v4.evaluation.maintenance import inspect
+        report = inspect(Path(".").resolve(), args.component, args.ruler_id, args.polity)
+        failures = []
+        if args.verify or args.sync:
+            report["checks"] = []
+            commands = report["validation_commands"] + (report["related_validation_commands"] if args.related else [])
+            for command in dict.fromkeys(commands):
+                output = io.StringIO()
+                try:
+                    with contextlib.redirect_stdout(output):
+                        if command in {"profile-m3-verify", "second-item-b2-verify"} and (args.ruler_id or args.polity):
+                            from emperor_v4.evaluation.maintenance import selected_rulers
+                            from emperor_v4.evaluation.profile_m3_verifier import verify_selected, verify_payload, M3_SETTLEMENT
+                            ids, polities = selected_rulers(Path(".").resolve(), args.ruler_id, args.polity)
+                            if command == "profile-m3-verify":
+                                if args.sync:
+                                    from emperor_v4.evaluation.formal_json_store import load_json
+                                    result = verify_payload(load_json(M3_SETTLEMENT, polities=polities), ruler_ids=ids, polities=polities)
+                                else:
+                                    result = verify_selected(ids, polities)
+                            else:
+                                result = verify_second_item_b2_snapshot(Path(".").resolve(), ruler_ids=ids, polities=polities)
+                            print(json.dumps(result, ensure_ascii=False))
+                            code = 0
+                        else:
+                            code = main(command.split())
+                    if code:
+                        raise ValueError(f"exit={code}")
+                    report["checks"].append({"command": command, "status": "PASS", "result": json.loads(output.getvalue())})
+                except (AssertionError, ValueError, KeyError) as exc:
+                    failures.append({"command": command, "error": str(exc) or type(exc).__name__})
+            report["failed_checks"] = failures
+        if args.sync and not failures and not report["current_link_gaps"]:
+            report["refreshed"] = []
+            for command in report["refresh_commands"]:
+                output = io.StringIO()
+                with contextlib.redirect_stdout(output):
+                    code = main(command.split())
+                if code:
+                    failures.append({"command": command, "error": f"exit={code}"})
+                    break
+                report["refreshed"].append(command)
+            for command in dict.fromkeys(report["downstream_validation_commands"] + report["validation_commands"]):
+                try:
+                    with contextlib.redirect_stdout(io.StringIO()):
+                        code = main(command.split())
+                    if code:
+                        raise ValueError(f"exit={code}")
+                except (AssertionError, ValueError, KeyError) as exc:
+                    failures.append({"command": command, "error": str(exc) or type(exc).__name__})
+            report["failed_checks"] = failures
+        if failures:
+            report["status"] = "FAILED"
+        elif args.sync:
+            report["status"] = "SYNCED" if not report["current_link_gaps"] else "REVIEW_REQUIRED"
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 1 if failures or report["current_link_gaps"] else 0
+    if args.command == "second-item-totals":
+        report = rebuild_second_item_b1(Path(".").resolve(), write=args.write, refresh_source=False)
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "profile-current-verify":
+        from emperor_v4.evaluation.maintenance import verify_profile_current
+        print(json.dumps(verify_profile_current(Path(".").resolve(), args.axis), ensure_ascii=False, indent=2))
+        return 0
+    standalone = {
+        "canonical-ruler-pool-verify": ("canonical_ruler_pool", "verify_canonical_ruler_pool", True),
+        "composite-ranking-verify": ("composite_ranking", "verify_composite_ranking", True),
+        "project-entries-verify": ("project_entries", "verify", True),
+        "second-item-b1-verify": ("formal_settlements", "verify_second_item_b1_snapshot", True),
+        "profile-m1-verify": ("profile_m1_verifier", "verify", False),
+        "profile-c1-verify": ("profile_c1_verifier", "verify", True),
+        "profile-c2-verify": ("profile_c2_verifier", "verify", False),
+        "profile-c5-verify": ("profile_c2_c5_verifier", "verify", False),
+    }
+    if args.command in standalone:
+        from importlib import import_module
+        module, function, needs_root = standalone[args.command]
+        verify = getattr(import_module(f"emperor_v4.evaluation.{module}"), function)
+        result = verify(Path(".").resolve()) if needs_root else verify()
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+        return 0
     if args.command in ("fourth-item-a-verify", "fourth-item-a-views"):
         if args.command == "fourth-item-a-views" and args.write:
             report = write_fourth_item_a_views(args.workspace_root.resolve())
@@ -127,7 +233,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0
     if args.command == "formal-settlements-verify":
-        report = verify_formal_settlements(Path(".").resolve())
+        report = verify_formal_settlements(Path(".").resolve(), items=set(args.item) if args.item else None)
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0
     if args.command == "second-item-a-verify":

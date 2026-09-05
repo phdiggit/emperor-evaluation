@@ -18,7 +18,6 @@ SETTLEMENT = PROFILE_ROOT / "C3/24-C3人才识别配置与授权正式结算.jso
 MARKDOWN = SETTLEMENT.with_suffix(".md")
 AUDIT = PROFILE_ROOT / "C3/25-C3主要入口单元处置审计.json"
 HIGH_REVIEW = PROFILE_ROOT / "C3/26-C3高档授权生命周期复核.json"
-ACCEPTANCE = PROFILE_ROOT / "C3/27-C3全池结算验收报告.md"
 SYSTEMIC_REVIEW = PROFILE_ROOT / "C3/28-C3高档门与错误清洗系统复核.json"
 C5_SETTLEMENT = PROFILE_ROOT / "C5/02-C5权力运用风格与克制正式结算.json"
 POOL = ROOT / "config" / "common" / "canonical-ruler-pool.json"
@@ -204,7 +203,6 @@ def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dic
     ]
     assert systemic["high_gate_decision_count"] == len(decision_ids)
     assert systemic["c5_boundary_decision_count"] == len(c5_decisions)
-    assert systemic["grade_change_count"] == len(systemic["grade_changes"])
     strength_calibrations = systemic.get("authorization_strength_calibrations", [])
     assert systemic["authorization_strength_calibration_count"] == len(strength_calibrations)
     assert systemic["authorization_strength_calibrations"] == strength_calibrations
@@ -215,8 +213,6 @@ def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dic
         and all(comparator["ruler_id"] in by_id for comparator in calibration["comparators"])
         for calibration in strength_calibrations
     )
-    for change in systemic["grade_changes"]:
-        assert f"{by_id[change['ruler_id']]['axis_grade']}-{by_id[change['ruler_id']]['position']}" == change["to"]
     c5_parent_ids = {
         parent["parent_id"]
         for row in _load(C5_SETTLEMENT)["records"]

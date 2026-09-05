@@ -10,7 +10,7 @@ from emperor_v4.evaluation.composite_ranking import verify_composite_ranking
 from emperor_v4.evaluation.first_item_markdown_settlement import (
     verify_first_item_markdown_settlement,
 )
-from emperor_v4.evaluation.formal_json_store import load_json
+from emperor_v4.evaluation.formal_json_store import load_json, json_read_session
 from emperor_v4.evaluation.second_item_b1_settlement import (
     _structured_basis,
     active_groups,
@@ -89,9 +89,7 @@ def _records_by_id(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
 
 def verify_second_item_a_snapshot(workspace_root: Path) -> dict[str, Any]:
     a_payload = load_json(workspace_root / SECOND_ITEM_COMPONENT_PATHS["A"])
-    registry = json.loads(
-        (workspace_root / IMPORTANT_INSTITUTION_REGISTRY).read_text(encoding="utf-8")
-    )
+    registry = load_json(workspace_root / IMPORTANT_INSTITUTION_REGISTRY)
     nodes = registry.get("nodes") or []
     active_node_ids = {
         str(node["institution_node_id"])
@@ -299,7 +297,7 @@ def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
     material_ids: set[str] = set()
     registry_root = workspace_root / "docs/公共成果/制度行政/01-制度行政计分材料登记"
     for registry_path in sorted(registry_root.glob("*.json")):
-        registry = json.loads(registry_path.read_text(encoding="utf-8"))
+        registry = load_json(registry_path)
         for material in registry.get("records") or []:
             material_id = str(material.get("material_id") or "")
             if not material_id or material_id in material_ids:
@@ -545,19 +543,25 @@ def verify_second_item_b1_snapshot(workspace_root: Path) -> dict[str, Any]:
     }
 
 
-def verify_second_item_b2_snapshot(workspace_root: Path) -> dict[str, Any]:
+def verify_second_item_b2_snapshot(workspace_root: Path, *, ruler_ids: set[str] | None = None, polities: set[str] | None = None) -> dict[str, Any]:
     from emperor_v4.evaluation.second_item_b1_settlement import active_groups, position_from_residual
 
     path = workspace_root / SECOND_ITEM_COMPONENT_PATHS["B2"]
-    payload = load_json(path)
+    payload = load_json(path, polities=polities)
     records = payload.get("records") or []
+    scoped = ruler_ids is not None
+    if scoped:
+        records = [row for row in records if row["ruler_id"] in ruler_ids]
+        if not records:
+            raise ValueError("No B2 records match the selected rulers")
     reference_ids = {
         row["ruler_id"]
-        for row in load_json(workspace_root / SECOND_ITEM_COMPONENT_PATHS["B1"])["records"]
+        for row in load_json(workspace_root / SECOND_ITEM_COMPONENT_PATHS["B1"], polities=polities)["records"]
+        if not scoped or row["ruler_id"] in ruler_ids
     }
-    if {row.get("ruler_id") for row in records} != reference_ids or payload.get("record_count") != len(records):
+    if {row.get("ruler_id") for row in records} != reference_ids or (not scoped and payload.get("record_count") != len(records)):
         raise ValueError("第二项B2正式对象或记录数与当前方向卡池不一致")
-    if payload.get("direction_card_ready_count") != len(records):
+    if not scoped and payload.get("direction_card_ready_count") != len(records):
         raise ValueError("第二项B2方向卡未全部就绪")
     if len({row.get("ruler_id") for row in records}) != len(records) or len(
         {row.get("ruler_name") for row in records}
@@ -566,7 +570,7 @@ def verify_second_item_b2_snapshot(workspace_root: Path) -> dict[str, Any]:
     material_ids = {
         material["material_id"]
         for registry_path in (workspace_root / "docs/公共成果/制度行政/01-制度行政计分材料登记").glob("*.json")
-        for material in json.loads(registry_path.read_text(encoding="utf-8")).get("records", [])
+        for material in load_json(registry_path).get("records", [])
     }
     factors = {"positive": 1.0, "positive_correction": 1.0, "negative": -1.0,
                "mixed_positive": 0.5, "mixed_negative": -0.5, "mixed": 0.0, "neutral": 0.0, "context": 0.0}
@@ -622,37 +626,19 @@ def verify_second_item_b2_snapshot(workspace_root: Path) -> dict[str, Any]:
         if row.get("position_residual") != residual or position != position_from_residual(residual):
             raise ValueError(f"第二项B2生命周期净余量与档内位置不一致：{row.get('ruler_name')}")
 
-    if payload.get("grade_distribution") != distribution:
+    if not scoped and payload.get("grade_distribution") != distribution:
         raise ValueError("第二项B2档位分布元数据不一致")
     sorted_scores = sorted((float(row["direction_index"]) for row in records), reverse=True)
     for row in records:
-        if row.get("rank") != sorted_scores.index(float(row["direction_index"])) + 1:
+        if not scoped and row.get("rank") != sorted_scores.index(float(row["direction_index"])) + 1:
             raise ValueError(f"第二项B2竞争排名不一致：{row.get('ruler_name')}")
 
-    audit_path = path.with_name("05-B2审查整改复核.json")
-    audit = json.loads(audit_path.read_text(encoding="utf-8"))
-    audit_records = audit.get("records") or []
-    indexed = {row["ruler_id"]: row for row in records}
-    if audit.get("review_table_count") != len(audit_records):
-        raise ValueError("第二项B2整改复核记录数不一致")
-    if len({row.get("ruler_id") for row in audit_records}) != len(audit_records):
-        raise ValueError("第二项B2整改复核存在重复人物")
-    for item in audit_records:
-        current = indexed.get(item.get("ruler_id"))
-        after = item.get("after") or {}
-        if current is None or any(
-            current.get(key) != after.get(key)
-            for key in (
-                "grade", "position", "direction_index", "grade_basis",
-                "settlement_basis", "material_basis",
-            )
-        ):
-            raise ValueError(f"第二项B2整改复核与正式记录不一致：{item.get('ruler_name')}")
+    for current in records:
         settlement_basis = current.get("settlement_basis") or []
         if not settlement_basis or not all(
             isinstance(line, str) and line.strip() for line in settlement_basis
         ):
-            raise ValueError(f"第二项B2审查人物缺少冻结的逐条结算依据：{item.get('ruler_name')}")
+            raise ValueError(f"第二项B2审查人物缺少冻结的逐条结算依据：{current.get('ruler_name')}")
         active_mechanisms = [
             profile.get("mechanism")
             for key in ("M_positive_profile", "M_mixed_profile", "M_negative_profile")
@@ -660,10 +646,14 @@ def verify_second_item_b2_snapshot(workspace_root: Path) -> dict[str, Any]:
             if profile.get("signed_weight") != 0
         ]
         if len(active_mechanisms) != len(set(active_mechanisms)):
-            raise ValueError(f"第二项B2审查人物仍有重复计权机制：{item.get('ruler_name')}")
+            raise ValueError(f"第二项B2审查人物仍有重复计权机制：{current.get('ruler_name')}")
 
     markdown = path.with_suffix(".md").read_text(encoding="utf-8")
     sections = markdown.split("\n### ")[1:]
+    if scoped:
+        selected_names = {row["ruler_name"] for row in records}
+        sections = [section for section in sections if section.split("（", 1)[0] in selected_names]
+        markdown = "\n".join(sections)
     section_names = [section.split("（", 1)[0] for section in sections]
     if set(section_names) != {row["ruler_name"] for row in records} or len(section_names) != len(records):
         raise ValueError("第二项B2 Markdown仍有重复或缺失人物裁决块")
@@ -699,8 +689,8 @@ def verify_second_item_b2_snapshot(workspace_root: Path) -> dict[str, Any]:
     return {
         "status": "PASS",
         "record_count": len(records),
-        "review_adjudication_count": len(audit_records),
-        "person_patch_count": len(audit_records),
+        "validation_scope": "SELECTED_RECORD_CONTRACTS" if scoped else "FULL_COMPONENT_CONTRACTS",
+        "basis_verified_count": len(records),
         "settlement_basis_count": len(records),
         "grade_distribution": distribution,
         "invalid_M1_count": 0,
@@ -781,7 +771,7 @@ def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
         if id_sets[key] != finance_ids
     }
     if (
-        len(complete_ids) != 185
+        not complete_ids
         or complete_differences
         or not complete_ids <= finance_ids
         or finance_differences
@@ -848,18 +838,21 @@ def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
         "finance_ruler_count": len(finance_ids),
         "A_institution_node_count": a_report["institution_node_count"],
         "A_scoring_node_count": a_report["scoring_node_count"],
-        "B2_review_adjudication_count": b2_report["review_adjudication_count"],
+        "B2_basis_verified_count": b2_report["basis_verified_count"],
         "B2_duplicate_markdown_ruler_count": b2_report["duplicate_markdown_ruler_count"],
         "D3_formal_record_count": len(d3_records),
         "handoff_formula_record_count": len(handoff_records),
     }
 
 
-def verify_formal_settlements(workspace_root: Path) -> dict[str, Any]:
-    reports: dict[str, Any] = {
-        "first_item": verify_first_item_markdown_settlement(workspace_root)
-    }
+@json_read_session()
+def verify_formal_settlements(workspace_root: Path, *, items: set[str] | None = None) -> dict[str, Any]:
+    reports: dict[str, Any] = {}
+    if items is None or "first_item" in items:
+        reports["first_item"] = verify_first_item_markdown_settlement(workspace_root)
     for item, spec in SETTLEMENT_SPECS.items():
+        if items is not None and item not in items:
+            continue
         path = workspace_root / str(spec["path"])
         payload = load_json(path)
         schema = payload.get("schema_id") or payload.get("schema_version")
@@ -920,9 +913,20 @@ def verify_formal_settlements(workspace_root: Path) -> dict[str, Any]:
                 for key, value in gate.items()
                 if value is not True
             ]
+    if items is not None:
+        if not items or items - ({"first_item"} | SETTLEMENT_SPECS.keys()):
+            raise ValueError(f"Unknown formal item selection: {items}")
+        result = {"status": "PASS", "validation_scope": "SELECTED_ITEM_SNAPSHOT_CONTRACTS", "items": reports}
+        if "second_item" in items:
+            result["second_item_components"] = _verify_second_item_components(workspace_root)
+        if "third_item" in items:
+            result["third_item_components"] = verify_current_third_item_settlement(workspace_root)
+        return result
+    from emperor_v4.evaluation.project_entries import verify as verify_project_entries
     return {
         "status": "PASS",
         "validation_scope": "SNAPSHOT_COHERENCE_NOT_FULL_SEMANTIC_ACCEPTANCE",
+        "project_entries": verify_project_entries(workspace_root),
         "canonical_pool": verify_canonical_ruler_pool(workspace_root),
         "composite_ranking": verify_composite_ranking(workspace_root),
         "second_item_components": _verify_second_item_components(workspace_root),

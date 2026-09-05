@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from emperor_v4.evaluation.formal_json_store import load_json
 from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
 from typing import Any
@@ -44,8 +45,8 @@ def calculate_cost_debit(gross: float, band: str, position: str, mapping: dict[s
 
 def build_first_item_cost_report(root: Path, *, formal_rows: list[dict[str, Any]] | None = None) -> dict[str, Any]:
     """Read-only review. Unclosed evidence has no deterministic net score."""
-    source = json.loads((root / COST_PATH).read_text(encoding='utf-8'))
-    mapping = json.loads((root / MAPPING_PATH).read_text(encoding='utf-8'))
+    source = load_json(root / COST_PATH)
+    mapping = load_json(root / MAPPING_PATH)
     if mapping['status'] not in {'CONFIRMED', 'PENDING_CONFIRMATION'}:
         raise ValueError('第一项成本扣分映射状态非法')
     expected_bands = {f'C{i}' for i in range(8)}

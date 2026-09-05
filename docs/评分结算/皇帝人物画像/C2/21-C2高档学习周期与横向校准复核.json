@@ -121,7 +121,10 @@
         "docs/公共成果/制度行政/01-制度行政计分材料登记/western_han.json#I2-WHAN-WEN-SHIZHI-PROCESS-001",
         "docs/公共成果/制度行政/01-制度行政计分材料登记/western_han.json#I2-WHAN-WEN-TIYING-UPWARD-FEEDBACK-001",
         "https://zh.wikisource.org/w/index.php?title=漢書/卷023&oldid=7908643",
-        "https://zh.wikisource.org/w/index.php?title=資治通鑑/卷014&oldid=1554008"
+        "https://zh.wikisource.org/w/index.php?title=資治通鑑/卷014&oldid=1554008",
+        "I2-WHAN-WEN-YUANANG-REMONSTRANCE-LIFECYCLE-001",
+        "docs/公共成果/制度行政/01-制度行政计分材料登记/western_han.json#I2-WHAN-WEN-YUANANG-REMONSTRANCE-LIFECYCLE-001",
+        "https://zh.wikisource.org/zh-hans/%E5%8F%B2%E8%A8%98/%E5%8D%B7101"
       ],
       "supplemental_primary_units": [
         "https://zh.wikisource.org/zh-hant/資治通鑑/卷013",
@@ -140,6 +143,9 @@
         "docs/公共成果/制度行政/01-制度行政计分材料登记/western_han.json#I2-WHAN-WEN-TIYING-UPWARD-FEEDBACK-001",
         "https://zh.wikisource.org/w/index.php?title=漢書/卷023&oldid=7908643",
         "https://zh.wikisource.org/w/index.php?title=資治通鑑/卷014&oldid=1554008",
+        "I2-WHAN-WEN-YUANANG-REMONSTRANCE-LIFECYCLE-001",
+        "docs/公共成果/制度行政/01-制度行政计分材料登记/western_han.json#I2-WHAN-WEN-YUANANG-REMONSTRANCE-LIFECYCLE-001",
+        "https://zh.wikisource.org/zh-hans/%E5%8F%B2%E8%A8%98/%E5%8D%B7101",
         "https://zh.wikisource.org/zh-hant/資治通鑑/卷013",
         "https://zh.wikisource.org/zh-hant/資治通鑑/卷014",
         "https://zh.wikisource.org/zh-hant/資治通鑑/卷015",
@@ -156,14 +162,14 @@
       "post_review_position": "MID",
       "directional_material_strength": {
         "POSITIVE_OR_MIXED_POSITIVE": {
-          "MI2_LIFECYCLE": 2,
+          "MI2_LIFECYCLE": 3,
           "MI3_SUSTAINED_SYSTEMIC": 1
         },
         "NEGATIVE_OR_MIXED_NEGATIVE": {
           "MI2_LIFECYCLE": 1
         }
       },
-      "review_outcome": "刘恒聊天版V2重裁：四卷连续覆盖全任：司法专业核验、肉刑反馈、贾谊信源重估与周勃冤案纠正跨法律、用人和诸侯领域反复出现；强项是能理解规则性反证，短处是若干纠正发生在伤害之后。",
+      "review_outcome": "袁盎以驰坂车败之险及慎夫人与皇后同席的后果进谏，刘恒分别停止驰坂、由怒转悦并转告慎夫人，显示能理解反证并立即改动处置；但袁盎又因数直谏外调，持续接纳同一反馈者的能力受限。两类采纳与外调合为有反向尾段的有限纠错链，不推定其后持续学习或全朝反馈渠道被毁。 结合既有司法、刑罚及信源重估周期，当前G4-MID、E2判断保持。",
       "remaining_limit": "证据完成度为E2，当前仍是有界画像；新增跨阶段或同构复验可能改变档内位置。",
       "b2_material_disposition_review": [
         {
@@ -190,13 +196,24 @@
             "C2-P020-TIYING"
           ],
           "reason": "刘恒：经逐条语义回读，低位上书改变刑罚政策并有替代刑反馈，直接承载既有父链。"
+        },
+        {
+          "material_id": "I2-WHAN-WEN-YUANANG-REMONSTRANCE-LIFECYCLE-001",
+          "status": "SCORING_PARENT",
+          "scoring_parent_id": "C2-P020-YUANANG-REMONSTRANCE",
+          "supports_parent_ids": [
+            "C2-P020-YUANANG-REMONSTRANCE"
+          ],
+          "reason": "刘恒：袁盎进谏的风险与后果解释实际改变本人处置，数直谏后外调同时限定持续学习；正反两段合并为一条有限纠错父链，维持现有G4-MID有界裁决。"
         }
       ],
       "feedback_suppression_strength_review": {
         "review_status": "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED",
         "positive_pattern_strength": "按独立生命周期、本人理解份额、落实和复验裁强度，不按正例条数相加。",
         "negative_pattern_strength": "按反馈到达、拒绝更新、复发范围和渠道影响裁决，不由坏结果倒推。",
-        "suppression_parent_ids": [],
+        "suppression_parent_ids": [
+          "C2-P020-YUANANG-REMONSTRANCE"
+        ],
         "isolated_positive_parent_ids": [],
         "asymmetry_decision": "MI3/MI4系统性反馈压制不能由孤立MI1正例抵消；本轮不按父链数量换档。",
         "grade_effect": "档位依据全生涯绝对表现人工重裁，不使用父链数量、MI计数或目标分布换算。"
@@ -2126,13 +2143,10 @@
     "c2_requires_feedback_arrival_and_update_or_refusal": true,
     "c5_retains_safety_punishment_proportion_and_power_procedure": true
   },
-  "candidate_b2_material_count": 58,
+  "candidate_b2_material_count": 59,
   "g5_attainability_review": {
     "trigger": "FULL_POOL_G5_ZERO",
     "decision": "G5_IS_RARE_NOT_UNATTAINABLE",
-    "promoted_rulers": [
-      "RULER-TANG-LISHIMIN"
-    ],
     "retained_g4_rulers": [
       "RULER-FD-CHAI-RONG",
       "RULER-HAN-LIUHENG",
@@ -2155,32 +2169,6 @@
       "G4-HIGH_TO_G5-LOW"
     ],
     "anti_quota_rule": "相邻边界逐人按整体语义审查，不按父链数量或目标分布抬档。",
-    "changes": [
-      {
-        "ruler_id": "RULER-HAN-LIUXUN",
-        "from": "G3-HIGH",
-        "to": "G4-LOW",
-        "basis": "刘询：两个高诊断系统周期与另一领域的独立核验足以越过G3上沿；晚期反馈收窄改变全生涯下沿，且跨阶段复验仍有限，因此定为G4-LOW。"
-      },
-      {
-        "ruler_id": "RULER-NS-ZHAO-KUANGYIN",
-        "from": "G4-LOW",
-        "to": "G4-MID",
-        "basis": "赵匡胤：异地检田、死刑覆案、广州盗罪重诊断、任命撤回和信源修复跨制度、司法与人事领域反复成立，强长板的迁移与复验已超过G4下沿；酒坊案迟改及阶段覆盖限制其上探HIGH，因此定为G4-MID。"
-      },
-      {
-        "ruler_id": "RULER-TANG-LISHIMIN",
-        "from": "G4-HIGH",
-        "to": "G5-LOW",
-        "basis": "李世民：跨阶段、跨领域的主动求真、决定重开与纠错制度化已达到历史罕见；营造同构复发和晚年高丽拒绝更新阻止上探G5-MID，因此定为G5-LOW。"
-      },
-      {
-        "ruler_id": "RULER-TANG-WUZETIAN",
-        "from": "G3-HIGH",
-        "to": "G2-HIGH",
-        "basis": "武则天：重大事项改判与晚期有限纠偏使其仍保留可用机制，不降入G1；长期系统性信源污染又明显重于刘秀的若干独立拒绝反馈周期，因此定为G2-HIGH。"
-      }
-    ],
     "retained_boundaries": {
       "G3-HIGH": [
         "其余候选缺少跨阶段、跨领域或高诊断复验，或反向模式仍改变整体典型表现。"

@@ -15,7 +15,6 @@ SETTLEMENT = PROFILE_ROOT / "C3/24-C3人才识别配置与授权正式结算.jso
 MARKDOWN = SETTLEMENT.with_suffix(".md")
 AUDIT = PROFILE_ROOT / "C3/25-C3主要入口单元处置审计.json"
 HIGH_REVIEW = PROFILE_ROOT / "C3/26-C3高档授权生命周期复核.json"
-ACCEPTANCE = PROFILE_ROOT / "C3/27-C3全池结算验收报告.md"
 SYSTEMIC_REVIEW = PROFILE_ROOT / "C3/28-C3高档门与错误清洗系统复核.json"
 
 

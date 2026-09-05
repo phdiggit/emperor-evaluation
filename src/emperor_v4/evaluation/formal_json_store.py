@@ -1,22 +1,58 @@
 from __future__ import annotations
 
 import json
+from contextlib import contextmanager
+from contextvars import ContextVar
 from pathlib import Path
 from typing import Any, Iterable, Mapping
 
 
 ROUTER_SCHEMA = "formal-json-polity-router-v1"
 SHARD_SCHEMA = "formal-json-polity-shard-v1"
+_READ_SESSION: ContextVar[dict | None] = ContextVar("formal_json_read_session", default=None)
+
+
+@contextmanager
+def json_read_session():
+    """Share file text within one operation, never across operations.
+
+    Each parse returns private values. File signatures invalidate entries after a
+    patch, including edits made outside write_json. Nested verifiers share the
+    outer session; nothing is persisted on disk.
+    """
+    if _READ_SESSION.get() is not None:
+        yield
+        return
+    token = _READ_SESSION.set({})
+    try:
+        yield
+    finally:
+        _READ_SESSION.reset(token)
+
+
+def _read_json(path: Path) -> Any:
+    session = _READ_SESSION.get()
+    if session is None:
+        return json.loads(path.read_text(encoding="utf-8"))
+    key = path.resolve()
+    stat = key.stat()
+    signature = (stat.st_mtime_ns, stat.st_ctime_ns, stat.st_size)
+    cached = session.get(key)
+    if cached is None or cached[0] != signature:
+        cached = (signature, key.read_text(encoding="utf-8"))
+        session[key] = cached
+    # The C JSON decoder is faster than deepcopy for these nested evidence
+    # payloads and still prevents a builder mutating another caller's snapshot.
+    return json.loads(cached[1])
 
 
 def _atomic_write(path: Path, payload: Mapping[str, Any]) -> None:
+    content = (json.dumps(payload, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    if path.exists() and path.read_bytes() == content:
+        return
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_name(f".{path.name}.write-tmp")
-    temporary.write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-        newline="\n",
-    )
+    temporary.write_bytes(content)
     temporary.replace(path)
 
 
@@ -131,7 +167,7 @@ def write_polity_routed_json(
 def load_json(path: Path, *, polities: Iterable[str] | None = None) -> Any:
     """Load a normal JSON file or reconstruct a polity-routed formal JSON."""
 
-    raw = json.loads(path.read_text(encoding="utf-8"))
+    raw = _read_json(path)
     if not isinstance(raw, dict) or raw.get("schema_version") != ROUTER_SCHEMA:
         return raw
     return _load_router(path, raw, polities=polities)
@@ -139,7 +175,7 @@ def load_json(path: Path, *, polities: Iterable[str] | None = None) -> Any:
 
 def load_ruler_polities(workspace_root: Path) -> dict[str, str]:
     pool_path = workspace_root / "config/common/canonical-ruler-pool.json"
-    pool = json.loads(pool_path.read_text(encoding="utf-8"))
+    pool = _read_json(pool_path)
     result: dict[str, str] = {}
     for row in pool.get("records") or ():
         polity = str(row.get("polity") or "").strip()
@@ -213,7 +249,7 @@ def _load_router(
         relative = Path(str(route.get("path") or ""))
         if relative.is_absolute() or ".." in relative.parts:
             raise ValueError("正式结算分片路径越界")
-        shard = json.loads((manifest_path.parent / relative).read_text(encoding="utf-8"))
+        shard = _read_json(manifest_path.parent / relative)
         if shard.get("schema_version") != SHARD_SCHEMA:
             raise ValueError(f"正式结算分片schema错误: {relative.as_posix()}")
         if shard.get("polity") != polity:

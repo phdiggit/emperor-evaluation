@@ -9,10 +9,11 @@ requires-python = ">=3.11"
 dependencies = ["PyYAML>=6.0", "matplotlib>=3.8"]
 
 [tool.pytest.ini_options]
-addopts = "--strict-markers -m 'not acceptance'"
+addopts = "--strict-markers -m 'not acceptance and not presentation'"
 pythonpath = ["src"]
 testpaths = ["tests"]
 markers = [
+  "presentation: rendered radar, video card and copy artifacts; run explicitly when presentation changes",
   "acceptance: slower vertical tests over checked-in canonical data or release publication",
   "db: deterministic database contract tests",
 ]

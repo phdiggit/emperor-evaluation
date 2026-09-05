@@ -6,14 +6,14 @@
 
 - [皇帝功业与治理净收益榜](docs/评分结算/00-皇帝功业与治理净收益榜.md)
 - [第一项：政权奠基与统一贡献及能力](docs/评分结算/第一项政权奠基与统一贡献及能力/01-第一项政权奠基与统一贡献及能力正式结算.md)
-- [第二项：治国净收益](docs/评分结算/第二项治国净收益/01-第二项治国净收益405分正式结算.md)
+- [第二项：治国净收益](docs/评分结算/第二项治国净收益/01-第二项治国净收益正式结算.md)
 - [第三项：军事与边疆净收益](docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.md)
-- [第四项：文明与国家整合收益](docs/评分结算/第四项文明与国家整合收益/02-第四项正式结算汇总.md)
+- [第四项：文明与国家整合收益](docs/评分结算/第四项文明与国家整合收益/02-第四项文明与国家整合收益正式总榜.md)
 - [第五项：统治者政治素质](docs/评分结算/第五项统治者政治素质/04-第五项统治者政治素质正式结算.md)
 
 机器读取入口与范围统一记录在 [`config/project.yml`](config/project.yml)。最高业务规则是 [`docs/项目总纲/皇帝综合评价体系评分标准.md`](docs/项目总纲/皇帝综合评价体系评分标准.md)。
 
-当前正式评价池为184人，由201人候选全集按实际独立最高权力至少3年和证据可行性筛定。其中174人当前综合计算就绪并进入总榜，10人因第二项尚无正式分留在池内待结算；第一项适用范围已经闭合，不适用者在综合公式中取F=0。第二项缺口补齐前不得进入综合分和总排名。逐人状态及分项别名映射见[`正式评价对象范围`](docs/项目总纲/正式评价对象范围.md)；机器入口为`config/common/canonical-ruler-pool.json`。
+正式评价池按实际独立最高权力至少3年和证据可行性筛定。当前人数、待补对象及分项别名统一见[`正式评价对象范围`](docs/项目总纲/正式评价对象范围.md)及其机器入口`config/common/canonical-ruler-pool.json`，本页不另存人数副本。综合计算只读取`COMPOSITE_READY`对象；第一项不适用者取F=0。
 
 ## 保留范围
 
@@ -25,6 +25,26 @@
 - `src/emperor_v4/evaluation/`：公共军事登记、第一项 Markdown 正式结算读取和第三项确定性结算逻辑。
 
 ## 验证
+
+局部维护先按分项及稳定人物ID定位当前记录、下游同步和复核范围。分项代码为`I1`—`I5`、`I2.A`、`I2.B1`、`I2.B2`、`I2.C1`—`I2.C4`、`I3.D`及`profile.M1`等八个画像轴；也支持`pool`和`composite`。
+
+```powershell
+codex-win run -- python v4.py maintenance --component I2.B2 --ruler-id RULER-HAN-LIUHENG
+codex-win run -- python v4.py maintenance --component profile.M3 --polity 西汉 --verify
+```
+
+默认只读，按朝代分片定位人物；`--verify`检查当前分项，B2与M3支持选定人物的合同约束及阅读视图同值。`--related`额外执行关联轴校验。报告分别列出确定性下游、语义复核对象和刷新命令；`--sync`先校验当前源，再依次刷新列出的下游并回验，不自动重裁关联人物。源裁决和没有阅读视图生成器的源文档仍按局部patch维护。整池排名及覆盖检查读取对应完整组件，局部报告不代表全池语义验收。
+
+```powershell
+codex-win run -- python v4.py maintenance --component I2.B2 --ruler-id RULER-HAN-LIUHENG --sync
+codex-win run -- python v4.py formal-settlements-verify --item second_item
+```
+
+入口路径和当前登记一致性检查：
+
+```powershell
+codex-win run -- python v4.py project-entries-verify
+```
 
 首次安装：
 
@@ -50,11 +70,13 @@ codex-win run -- python v4.py canonical-ruler-pool
 codex-win run -- python v4.py composite-ranking --write
 ```
 
-运行离线测试：
+运行日常评分测试（不生成展示小样）：
 
 ```powershell
 codex-win run -- python -m pytest -q
 ```
+
+展示改动运行`python -m pytest -q -m presentation`；完整验收运行`python -m pytest -q -m ""`。局部裁决优先使用维护报告中的组件校验，不默认重复运行全套测试。
 
 第三项与综合总榜保留可重建命令；综合总榜直接读取第一项 Markdown 正式结算，第一项不再由 JSON 生成 Markdown。命令只读取 Git 中的当前公共登记、裁决配置和正式分项结果，不访问网络、模型或数据库。使用 `python v4.py --help` 查看入口。
 

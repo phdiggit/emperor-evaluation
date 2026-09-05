@@ -3,6 +3,10 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
+pytestmark = pytest.mark.presentation
+
 from PIL import Image
 
 from emperor_v4.evaluation.profile_radar import AXIS_ORDER, load_profiles
