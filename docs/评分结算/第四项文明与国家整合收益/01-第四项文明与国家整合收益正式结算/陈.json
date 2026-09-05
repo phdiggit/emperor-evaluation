@@ -4,14 +4,14 @@
   "collections": {
     "records": {
       "positions": [
-        26,
-        67,
-        145,
-        146
+        22,
+        64,
+        140,
+        160
       ],
       "records": [
         {
-          "rank": 25,
+          "rank": 21,
           "ruler_id": "RULER-SHADOW-陈蒨",
           "ruler_name": "陈蒨",
           "polity": "陈",
@@ -57,7 +57,7 @@
           "zero_scan_checked": true
         },
         {
-          "rank": 57,
+          "rank": 54,
           "ruler_id": "RULER-SHADOW-陈叔宝",
           "ruler_name": "陈叔宝",
           "polity": "陈",
@@ -99,7 +99,7 @@
           "zero_scan_checked": true
         },
         {
-          "rank": 108,
+          "rank": 106,
           "ruler_id": "RULER-SHADOW-陈霸先",
           "ruler_name": "陈霸先",
           "polity": "陈",
@@ -139,22 +139,24 @@
           "zero_scan_checked": true
         },
         {
-          "rank": 108,
+          "rank": 158,
           "ruler_id": "RULER-SHADOW-陈顼",
           "ruler_name": "陈顼",
           "polity": "陈",
           "source_group": "陈",
-          "status": "FORMAL_ZERO_ADJUSTMENT",
-          "triggered_axis_count": 0,
+          "status": "FORMAL_SIGNED_ADJUSTMENT",
+          "triggered_axis_count": 1,
           "axis_results": [
             {
               "axis": "A",
-              "disposition": "NO_ELIGIBLE_CIVILIZATION_INCREMENT",
-              "direction": null,
-              "magnitude_grade": null,
-              "band": null,
-              "signed_adjustment": 0,
-              "package_refs": []
+              "disposition": "SIGNED_CIVILIZATION_ADJUSTMENT_READY",
+              "direction": "NEGATIVE",
+              "magnitude_grade": "CIV1",
+              "band": "LOW",
+              "signed_adjustment": -3,
+              "package_refs": [
+                "I4PKG-CHENXU-A-OUYANG-FAMILY"
+              ]
             },
             {
               "axis": "B",
@@ -175,7 +177,7 @@
               "package_refs": []
             }
           ],
-          "fourth_item_signed_adjustment": 0,
+          "fourth_item_signed_adjustment": -3,
           "zero_scan_checked": true
         }
       ]
@@ -185,7 +187,8 @@
         139,
         141,
         142,
-        143
+        143,
+        322
       ],
       "records": [
         {
@@ -351,6 +354,45 @@
           "era_relative_difficulty": "adjudicated against MANUSCRIPT_AND_EARLY_ACADEMY; realized content or ecology change controls, not raw output counts, surviving copies, or later fame",
           "content_progress_relative_to_inherited_baseline": "POSITIVE_RELATIVE_TO_INHERITED_KNOWLEDGE_OR_ACCESS_BASELINE",
           "public_reach_ceiling": "STATE_RITUAL_MUSIC_AND_ELITE_EDUCATION_NETWORK"
+        },
+        {
+          "package_code": "I4PKG-CHENXU-A-OUYANG-FAMILY",
+          "ruler_id": "RULER-SHADOW-陈顼",
+          "ruler_name": "陈顼",
+          "polity": "陈",
+          "axis": "A",
+          "direction": "NEGATIVE",
+          "net_tendency": "NEGATIVE_DOMINANT",
+          "episode_refs": [],
+          "same_chain_support_refs": [],
+          "same_chain_effect": "NONE",
+          "independent_reinforcement_refs": [],
+          "independent_reinforcement_effect": "NONE",
+          "folded_support": [],
+          "inherited_baseline": "欧阳纥家属不能仅凭亲属身份视为其举兵的共同参加者。",
+          "contemporary_feasible_frontier": "以本窗口实际可行的保留原居、家庭与原有身份为比较，不设现代制度前提。",
+          "background_trend": "军事或宫廷局势只是背景；只计明确由本人命令、授权或追认的已实现群体结果。",
+          "attributable_change": "太建元年征讨欧阳纥后，纥被诛而家口籍没，欧阳询因年幼获免；只计首犯之外家口身份损害。",
+          "relative_change_level": "R1",
+          "relative_change_level_basis": "对象单一且受害人数未明、存在明确豁免，取R1-LOW，不凭籍没字样机械定R2。",
+          "positive_component_level": null,
+          "negative_component_level": null,
+          "field_coverage": "一个家族的家口；人数、年龄结构不明，已知幼子例外保留。",
+          "access_expansion": null,
+          "durability_and_handoff": "籍没已实施，幼子免除是同链范围限制；没有后继稳定身份材料，不作长久大规模判断。",
+          "cross_scene_replication": null,
+          "attribution_strength": "RULER_DIRECT_OR_AUTHORIZED_IMPLEMENTATION",
+          "counterevidence": {
+            "count": 1,
+            "summary": "欧阳纥确已举兵，其本人战败伏诛不计A；岭南政权归属与收兵不另计正向。"
+          },
+          "hard_negative_gate": "NONE",
+          "knowledge_public_reach": "NOT_APPLICABLE",
+          "source_coverage": "PARTIAL_BUT_SUFFICIENT",
+          "source_refs": [
+            "《陈书·卷九·欧阳頠附纥传》：家口籍没，子询以年幼免。",
+            "https://zh.wikisource.org/wiki/陳書/卷9"
+          ]
         }
       ]
     }

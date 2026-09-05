@@ -899,6 +899,8 @@ def verify_formal_settlements(workspace_root: Path, *, items: set[str] | None = 
             "max_score": max(scores),
         }
         if item == "fourth_item":
+            from emperor_v4.evaluation.fourth_item_a import verify as verify_fourth_axes
+            reports[item]["axis_contracts"] = verify_fourth_axes(workspace_root)
             gates = {
                 key: payload.get(key, {})
                 for key in ("promotion_gate", "coverage_completion_gate")

@@ -4,23 +4,23 @@
   "collections": {
     "records": {
       "positions": [
-        19,
-        9,
-        10,
+        16,
         7,
-        53,
-        87,
-        86,
-        161
+        8,
+        28,
+        94,
+        83,
+        82,
+        154
       ],
       "records": [
         {
-          "rank": 19,
+          "rank": 15,
           "ruler_id": "RULER-YUAN-OGEDEI",
           "ruler_name": "窝阔台",
           "polity": "大蒙古国",
           "source_group": "元",
-          "status": "SIGNED_CIVILIZATION_ADJUSTMENT_READY",
+          "status": "FORMAL_SIGNED_ADJUSTMENT",
           "triggered_axis_count": 3,
           "axis_results": [
             {
@@ -63,7 +63,7 @@
           "zero_scan_checked": true
         },
         {
-          "rank": 9,
+          "rank": 7,
           "ruler_id": "RULER-YUAN-TOGHON-TEMUR",
           "ruler_name": "妥懽帖睦尔",
           "polity": "元",
@@ -107,7 +107,7 @@
           "zero_scan_checked": true
         },
         {
-          "rank": 11,
+          "rank": 9,
           "ruler_id": "RULER-YUAN-AYURBARWADA",
           "ruler_name": "爱育黎拔力八达",
           "polity": "元",
@@ -151,7 +151,7 @@
           "zero_scan_checked": true
         },
         {
-          "rank": 8,
+          "rank": 26,
           "ruler_id": "RULER-YUAN-KUBLAI",
           "ruler_name": "忽必烈",
           "polity": "元",
@@ -161,13 +161,14 @@
           "axis_results": [
             {
               "axis": "A",
-              "disposition": "NO_ELIGIBLE_INCREMENT_AFTER_EVIDENCE_REVIEW",
-              "direction": null,
-              "magnitude_grade": null,
-              "band": null,
-              "signed_adjustment": 0,
+              "disposition": "SIGNED_CIVILIZATION_ADJUSTMENT_READY",
+              "direction": "POSITIVE",
+              "magnitude_grade": "CIV1",
+              "band": "LOW",
+              "signed_adjustment": 3,
               "package_refs": [
-                "I4PKG-WORK-KUBLAI-A-01"
+                "I4PKG-WORK-KUBLAI-A-01",
+                "I4PKG-KUBLAI-A-RELEASE-AHMAD-SLAVES"
               ],
               "source_coverage": "INSUFFICIENT",
               "eligibility_basis": "REFERENCED_MATERIAL_REVOKED_NOT_HISTORICAL_NO_EFFECT"
@@ -185,36 +186,39 @@
             },
             {
               "axis": "C",
-              "disposition": "SIGNED_CIVILIZATION_ADJUSTMENT_READY",
-              "direction": "POSITIVE",
-              "magnitude_grade": "CIV3",
-              "band": "HIGH",
-              "signed_adjustment": 18.0,
+              "disposition": "OBSERVED_OFFSETTING_OR_BALANCED_EFFECTS",
+              "direction": "BALANCED",
+              "magnitude_grade": "CIV0",
+              "band": null,
+              "signed_adjustment": 0,
               "package_refs": [
-                "I4PKG-WORK-KUBLAI-C-01"
+                "I4PKG-WORK-KUBLAI-C-01",
+                "I4PKG-KUBLAI-C-DAOIST-CANON-DESTRUCTION"
               ]
             }
           ],
-          "fourth_item_signed_adjustment": 29.5,
+          "fourth_item_signed_adjustment": 14.5,
           "zero_scan_checked": true
         },
         {
-          "rank": 46,
+          "rank": 95,
           "ruler_id": "RULER-YUAN-TEMUR",
           "ruler_name": "铁穆耳",
           "polity": "元",
           "source_group": "元",
           "status": "FORMAL_SIGNED_ADJUSTMENT",
-          "triggered_axis_count": 1,
+          "triggered_axis_count": 2,
           "axis_results": [
             {
               "axis": "A",
-              "disposition": "NO_ELIGIBLE_CIVILIZATION_INCREMENT",
-              "direction": null,
-              "magnitude_grade": null,
-              "band": null,
-              "signed_adjustment": 0,
-              "package_refs": []
+              "disposition": "SIGNED_CIVILIZATION_ADJUSTMENT_READY",
+              "direction": "NEGATIVE",
+              "magnitude_grade": "CIV2",
+              "band": "LOW",
+              "signed_adjustment": -7.5,
+              "package_refs": [
+                "I4PKG-TEMUR-A-ZHUZHANG-FAMILIES"
+              ]
             },
             {
               "axis": "B",
@@ -237,11 +241,11 @@
               "package_refs": []
             }
           ],
-          "fourth_item_signed_adjustment": 11.5,
+          "fourth_item_signed_adjustment": 4.0,
           "zero_scan_checked": true
         },
         {
-          "rank": 85,
+          "rank": 82,
           "ruler_id": "RULER-YUAN-TEMUJI",
           "ruler_name": "铁木真",
           "polity": "元",
@@ -287,7 +291,7 @@
           "zero_scan_checked": true
         },
         {
-          "rank": 85,
+          "rank": 82,
           "ruler_id": "RULER-YUAN-KULUG",
           "ruler_name": "海山",
           "polity": "元",
@@ -329,7 +333,7 @@
           "zero_scan_checked": true
         },
         {
-          "rank": 108,
+          "rank": 106,
           "ruler_id": "RULER-YUAN-MONGKE",
           "ruler_name": "蒙哥",
           "polity": "大蒙古国",
@@ -391,7 +395,10 @@
         233,
         234,
         284,
-        285
+        285,
+        321,
+        338,
+        339
       ],
       "records": [
         {
@@ -1119,6 +1126,131 @@
             "《元史·学校志》",
             "《钦定古今图书集成·选举典》"
           ]
+        },
+        {
+          "package_code": "I4PKG-TEMUR-A-ZHUZHANG-FAMILIES",
+          "ruler_id": "RULER-YUAN-TEMUR",
+          "ruler_name": "铁穆耳",
+          "polity": "元",
+          "axis": "A",
+          "direction": "NEGATIVE",
+          "net_tendency": "NEGATIVE_DOMINANT",
+          "episode_refs": [],
+          "same_chain_support_refs": [],
+          "same_chain_effect": "NONE",
+          "independent_reinforcement_refs": [],
+          "independent_reinforcement_effect": "NONE",
+          "folded_support": [],
+          "inherited_baseline": "朱清、张瑄家属及子孙原有居所与自由身份；二人实罪不自动扩大为全体家属责任。",
+          "contemporary_feasible_frontier": "以本窗口实际可行的保留原居、家庭与原有身份为比较，不设现代制度前提。",
+          "background_trend": "军事或宫廷局势只是背景；只计明确由本人命令、授权或追认的已实现群体结果。",
+          "attributable_change": "大德七年命遣发两家妻子，三月收到执行报告并奖执行者，四月流子孙远方；次年禁锢族属。只计已实现的家属强迁和身份限制。",
+          "relative_change_level": "R2",
+          "relative_change_level_basis": "两家跨年迁置、族属禁锢构成清晰R2；范围限政治家庭，取LOW。",
+          "positive_component_level": null,
+          "negative_component_level": null,
+          "field_coverage": "朱清、张瑄两家妻子、子孙及族属，人数未明，不外推匿名书法令的全国实际受害总数。",
+          "access_expansion": null,
+          "durability_and_handoff": "1303至1304年迁置与禁锢有连续节点；供给行费是同链减轻，不是返回或解除。后继未证不取HIGH。",
+          "cross_scene_replication": null,
+          "attribution_strength": "RULER_DIRECT_OR_AUTHORIZED_IMPLEMENTATION",
+          "counterevidence": {
+            "count": 1,
+            "summary": "匿名书法令只证规范，不据它虚构已执行的全部妻子没入案；查贪本身、家资及海舶收缴归其他项目。"
+          },
+          "hard_negative_gate": "ACTIVE",
+          "knowledge_public_reach": "NOT_APPLICABLE",
+          "source_coverage": "PARTIAL_BUT_SUFFICIENT",
+          "source_refs": [
+            "《元史·卷二十一》大德七年正月命遣发妻子，三月脱脱报执行获赏，四月流子孙远方给行费；八年正月禁锢族属。",
+            "https://zh.wikisource.org/wiki/元史/卷021"
+          ]
+        },
+        {
+          "package_code": "I4PKG-KUBLAI-A-RELEASE-AHMAD-SLAVES",
+          "ruler_id": "RULER-YUAN-KUBLAI",
+          "ruler_name": "忽必烈",
+          "polity": "元",
+          "axis": "A",
+          "direction": "POSITIVE",
+          "net_tendency": "POSITIVE_DOMINANT",
+          "episode_refs": [],
+          "same_chain_support_refs": [],
+          "same_chain_effect": "NONE",
+          "independent_reinforcement_refs": [],
+          "independent_reinforcement_effect": "NONE",
+          "folded_support": [],
+          "inherited_baseline": "阿合马妻子亲属拥有的奴婢处于私人依附，财政查抄本身不等于身份解放。",
+          "contemporary_feasible_frontier": "以同阶段既有真实替代做法校准，不把后世规模或技术当作本人起点。",
+          "background_trend": "前代积累与具体执行者的专业创造分开；只消费本人窗口的采用、保护、损害或完成。",
+          "attributable_change": "至元十九年籍阿合马妻子亲属资产时，明确将其奴婢纵为民；只计这一有对象的自由身份恢复，不将行政族群分类重判为全体整合。",
+          "relative_change_level": "R1",
+          "relative_change_level_basis": "局部释放R1-LOW；其子侄各有另行勘罪记录，现有同卷不能将每人均作无辜亲属另造N2。",
+          "positive_component_level": null,
+          "negative_component_level": null,
+          "field_coverage": "一个权贵家产系统的奴婢，人数未知。",
+          "access_expansion": null,
+          "durability_and_handoff": "当时放为民已发生，未证全部元代驱口放良；1280年泸州军民赎还请求仅作同方向支持。",
+          "cross_scene_replication": null,
+          "attribution_strength": "RULER_DIRECT_OR_AUTHORIZED_IMPLEMENTATION",
+          "counterevidence": {
+            "count": 1,
+            "summary": "局部释放R1-LOW；其子侄各有另行勘罪记录，现有同卷不能将每人均作无辜亲属另造N2。"
+          },
+          "hard_negative_gate": "NONE",
+          "knowledge_public_reach": "NOT_APPLICABLE",
+          "source_coverage": "PARTIAL_BUT_SUFFICIENT",
+          "source_refs": [
+            "《元史·卷十二》至元十九年五月籍阿合马妻子亲属所营资产，其奴婢纵为民。",
+            "https://zh.wikisource.org/wiki/元史_(四庫全書本)/卷012"
+          ]
+        },
+        {
+          "package_code": "I4PKG-KUBLAI-C-DAOIST-CANON-DESTRUCTION",
+          "ruler_id": "RULER-YUAN-KUBLAI",
+          "ruler_name": "忽必烈",
+          "polity": "元",
+          "axis": "C",
+          "direction": "NEGATIVE",
+          "net_tendency": "NEGATIVE_DOMINANT",
+          "episode_refs": [],
+          "same_chain_support_refs": [],
+          "same_chain_effect": "NONE",
+          "independent_reinforcement_refs": [],
+          "independent_reinforcement_effect": "NONE",
+          "folded_support": [],
+          "inherited_baseline": "1258年蒙哥时处置针对化胡等争议经文，华北道藏文本和版片仍有存留，不能把1281扩大归前汗。",
+          "contemporary_feasible_frontier": "以同阶段既有真实替代做法校准，不把后世规模或技术当作本人起点。",
+          "background_trend": "前代积累与具体执行者的专业创造分开；只消费本人窗口的采用、保护、损害或完成。",
+          "attributable_change": "1280年再令焚道藏伪妄经文及版；1281年接受除道德经外其余焚毁的扩大建议并诏天下，碑记又载集百官焚经、遣使诸路执行。",
+          "relative_change_level": "R3",
+          "relative_change_level_basis": "实际禁毁N3/H3，与授时历及新字P3净相抵CIV0；不以科学生产消去硬负记录。",
+          "positive_component_level": null,
+          "negative_component_level": null,
+          "field_coverage": "道藏经文与可重复印制的版片网络；不是只处置一部化胡经，也不等于全元宗教灭绝。",
+          "access_expansion": null,
+          "durability_and_handoff": "版片及文本损失支持主要宗教知识领域R3；同时继续礼遇张宗演、全真网络仍有活动，不升R4。",
+          "cross_scene_replication": null,
+          "attribution_strength": "RULER_DIRECT_OR_AUTHORIZED_IMPLEMENTATION",
+          "counterevidence": {
+            "count": 1,
+            "summary": "实际禁毁N3/H3，与授时历及新字P3净相抵CIV0；不以科学生产消去硬负记录。"
+          },
+          "hard_negative_gate": "ACTIVE",
+          "knowledge_public_reach": "STATE_AND_SPECIALIST_USE",
+          "source_coverage": "PARTIAL_BUT_SUFFICIENT",
+          "source_refs": [
+            "《元史·卷十一》至元十七年二月及十八年十月焚经诏。",
+            "https://zh.wikisource.org/wiki/元史/卷011",
+            "《圣旨禁毁诸路伪道藏经之碑》记1281年集百官焚经并遣使诸路；宋学立《金元全真教政治认同的历史考察》引录，四川大学学报2023年第2期。",
+            "https://wkxb.scu.edu.cn/rc-pub/front/front-article/download/58934066/lowqualitypdf/金元全真教政治认同的历史考察.pdf",
+            "《元史·卷二百二》张宗演受礼及江南道教传续，限制全面灭道判断。",
+            "https://zh.wikisource.org/wiki/元史/卷202"
+          ],
+          "dissemination_era": "BLOCK_PRINT_AND_MANUSCRIPT",
+          "era_relative_difficulty": "在本时代文本制作与国家采用成本下判断已实现结果，不以现代传播量校准。",
+          "content_progress_relative_to_inherited_baseline": "既存道藏文本及复制版片损失；未等同全部宗教网络消失",
+          "public_reach_ceiling": "DAOIST_TEXT_AND_PRINTING_NETWORK"
         }
       ]
     }

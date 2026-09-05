@@ -20,7 +20,7 @@
   ],
   "payload_metadata": {
     "schema_version": "fourth-item-signed-addon-formal-settlement-v1",
-    "status": "FORMAL_SEMANTIC_REVIEW_PENDING",
+    "status": "FORMAL_SEMANTIC_CLOSURE_COMPLETE",
     "formal_score_write": false,
     "item_ranking_write": false,
     "database_write": false,
@@ -50,36 +50,34 @@
     },
     "statistics": {
       "ruler_count": 201,
-      "positive_count": 107,
-      "negative_count": 39,
-      "zero_count": 55,
-      "revised_ruler_count": 40,
-      "revised_package_count": 54,
+      "positive_count": 105,
+      "negative_count": 46,
+      "zero_count": 50,
       "source_coverage": {
         "ADEQUATE": 148,
-        "INSUFFICIENT": 13,
-        "PARTIAL_BUT_SUFFICIENT": 157
+        "INSUFFICIENT": 14,
+        "PARTIAL_BUT_SUFFICIENT": 195
       },
-      "active_package_count": 318,
+      "active_package_count": 357,
       "unresolved_source_backfill_package_count": 0,
       "unresolved_evidence_gap_count": 0,
-      "revoked_scoring_package_count": 13,
-      "eligible_scoring_package_count": 305
+      "revoked_scoring_package_count": 15,
+      "eligible_scoring_package_count": 342
     },
     "promotion_gate": {
       "all_201_rulers_unique": true,
       "all_603_axis_cells_unique": true,
       "no_unresolved_adjustment": true,
-      "all_packages_semantically_closed": false,
+      "all_packages_semantically_closed": true,
       "mixed_components_separated": true,
       "cross_axis_consumption_distinct": true,
-      "boundary_anchors_stable": false
+      "boundary_anchors_stable": true
     },
     "coverage_completion_gate": {
       "builder_validation_pass": true,
-      "no_unselected_personal_candidates": false,
+      "no_unselected_personal_candidates": true,
       "mandatory_recoveries_present": true,
-      "strong_empty_axis_collisions_closed": false,
+      "strong_empty_axis_collisions_closed": true,
       "macro_literary_curves_complete": true,
       "cultural_dissemination_era_and_content_progress_complete": true
     },
@@ -134,11 +132,11 @@
     ],
     "semantic_closure_audit": {
       "path": "03-第四项共享曲线交班锚与去重审计.json",
-      "status": "FORMAL_SEMANTIC_REVIEW_PENDING",
+      "status": "FORMAL_SEMANTIC_CLOSURE_COMPLETE",
       "source_group_count": 27,
       "shared_axis_curve_count": 81,
-      "adjacent_handoff_pair_count": 174,
-      "cross_axis_collision_count": 13
+      "adjacent_handoff_pair_count": 107,
+      "cross_axis_collision_count": 18
     }
   },
   "collections": {
@@ -146,7 +144,7 @@
       "record_count": 201
     },
     "accepted_packages": {
-      "record_count": 318
+      "record_count": 357
     }
   },
   "routes": [
@@ -155,7 +153,7 @@
       "path": "01-第四项文明与国家整合收益正式结算/三国.json",
       "collection_counts": {
         "records": 11,
-        "accepted_packages": 17
+        "accepted_packages": 20
       }
     },
     {
@@ -171,7 +169,7 @@
       "path": "01-第四项文明与国家整合收益正式结算/东汉.json",
       "collection_counts": {
         "records": 11,
-        "accepted_packages": 21
+        "accepted_packages": 25
       }
     },
     {
@@ -187,7 +185,7 @@
       "path": "01-第四项文明与国家整合收益正式结算/五代十国.json",
       "collection_counts": {
         "records": 19,
-        "accepted_packages": 22
+        "accepted_packages": 23
       }
     },
     {
@@ -195,7 +193,7 @@
       "path": "01-第四项文明与国家整合收益正式结算/元.json",
       "collection_counts": {
         "records": 8,
-        "accepted_packages": 17
+        "accepted_packages": 20
       }
     },
     {
@@ -227,7 +225,7 @@
       "path": "01-第四项文明与国家整合收益正式结算/北齐.json",
       "collection_counts": {
         "records": 3,
-        "accepted_packages": 4
+        "accepted_packages": 5
       }
     },
     {
@@ -235,7 +233,7 @@
       "path": "01-第四项文明与国家整合收益正式结算/十六国.json",
       "collection_counts": {
         "records": 17,
-        "accepted_packages": 22
+        "accepted_packages": 28
       }
     },
     {
@@ -251,7 +249,7 @@
       "path": "01-第四项文明与国家整合收益正式结算/唐.json",
       "collection_counts": {
         "records": 13,
-        "accepted_packages": 17
+        "accepted_packages": 21
       }
     },
     {
@@ -267,7 +265,7 @@
       "path": "01-第四项文明与国家整合收益正式结算/宋.json",
       "collection_counts": {
         "records": 16,
-        "accepted_packages": 25
+        "accepted_packages": 28
       }
     },
     {
@@ -275,7 +273,7 @@
       "path": "01-第四项文明与国家整合收益正式结算/明.json",
       "collection_counts": {
         "records": 17,
-        "accepted_packages": 22
+        "accepted_packages": 25
       }
     },
     {
@@ -307,7 +305,7 @@
       "path": "01-第四项文明与国家整合收益正式结算/西夏.json",
       "collection_counts": {
         "records": 9,
-        "accepted_packages": 10
+        "accepted_packages": 13
       }
     },
     {
@@ -323,7 +321,7 @@
       "path": "01-第四项文明与国家整合收益正式结算/西汉.json",
       "collection_counts": {
         "records": 11,
-        "accepted_packages": 18
+        "accepted_packages": 19
       }
     },
     {
@@ -339,7 +337,7 @@
       "path": "01-第四项文明与国家整合收益正式结算/辽.json",
       "collection_counts": {
         "records": 11,
-        "accepted_packages": 17
+        "accepted_packages": 19
       }
     },
     {
@@ -347,7 +345,7 @@
       "path": "01-第四项文明与国家整合收益正式结算/金.json",
       "collection_counts": {
         "records": 9,
-        "accepted_packages": 18
+        "accepted_packages": 22
       }
     },
     {
@@ -355,7 +353,7 @@
       "path": "01-第四项文明与国家整合收益正式结算/陈.json",
       "collection_counts": {
         "records": 4,
-        "accepted_packages": 4
+        "accepted_packages": 5
       }
     },
     {

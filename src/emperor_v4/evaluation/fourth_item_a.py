@@ -1,4 +1,4 @@
-"""Read-only A-axis contract checks and deterministic reading views.
+"""Read-only three-axis contract checks and deterministic reading views.
 
 Person-level adjudications live exclusively in the formal JSON. This module
 never chooses a package, changes a grade, or writes a formal score.
@@ -16,6 +16,8 @@ BASE = Path('docs/评分结算/第四项文明与国家整合收益')
 JSON_PATH = BASE / '01-第四项文明与国家整合收益正式结算.json'
 A_PATH = BASE / '国家共同体与社会整合/01-皇帝A项正式结算.md'
 TOTAL_PATH = BASE / '02-第四项文明与国家整合收益正式总榜.md'
+AXIS_NAMES = {'A': '国家共同体与社会整合', 'B': '教育可及与人才流动', 'C': '文化知识生产传播与生态'}
+AXIS_PATHS = {axis: BASE / name / f'01-皇帝{axis}项正式结算.md' for axis, name in AXIS_NAMES.items()}
 POINTS = {0: (0, 0, 0), 1: (3, 4.5, 6), 2: (7.5, 9.5, 11.5),
           3: (13.5, 16, 18), 4: (19, 21, 22.5)}
 BANDS = ('LOW', 'MID', 'HIGH')
@@ -50,7 +52,7 @@ def components(package):
 def net_result(packages):
     eligible = [p for p in packages if p.get('scoring_eligibility') != 'REVOKED']
     if len(eligible) > 2:
-        raise ValueError('A轴接受计分包超过两个')
+        raise ValueError('单轴接受计分包超过两个')
     positives, negatives, hard = [], [], []
     for package in eligible:
         p, n = components(package)
@@ -98,49 +100,49 @@ def verify(root: Path, *, check_views=True):
         if Counter(a['axis'] for a in axes) != Counter('ABC'):
             errors.append(f"{row['ruler_name']}: 三轴缺失或重复")
             continue
-        a = next(a for a in axes if a['axis'] == 'A')
-        refs = a['package_refs']
-        if len(refs) != len(set(refs)) or any(c not in by_code for c in refs):
-            errors.append(f"{row['ruler_name']}: 引用缺失或重复")
-            continue
-        selected = [by_code[c] for c in refs]
-        for package in selected:
-            used[package['package_code']] += 1
-            if package['axis'] != 'A' or package['ruler_id'] != row['ruler_id']:
-                errors.append(f"{row['ruler_name']}: 跨人或跨轴引用")
-            if package.get('scoring_eligibility') != 'REVOKED':
-                if package.get('source_coverage') == 'INSUFFICIENT' or not package.get('source_refs'):
-                    errors.append(f"{row['ruler_name']}: 计分包证据门未闭合")
-                if package.get('attribution_strength') in (None, '', 'POLITY_OR_RULER_PENDING'):
-                    errors.append(f"{row['ruler_name']}: 归责未闭合")
-        try:
-            result = net_result(selected)
-        except ValueError as exc:
-            errors.append(f"{row['ruler_name']}: {exc}")
-            continue
-        eligible = [p for p in selected if p.get('scoring_eligibility') != 'REVOKED']
-        if eligible:
-            if a['magnitude_grade'] != result['grade'] or a['direction'] != result['direction']:
-                errors.append(f"{row['ruler_name']}: 正负组件与轴级方向/幅度不一致")
-            grade = int(result['grade'][3:])
-            if grade:
-                if a['band'] not in BANDS:
-                    errors.append(f"{row['ruler_name']}: 带位非法")
-                    continue
-                expected = POINTS[grade][BANDS.index(a['band'])] * (1 if result['P'] > result['N'] else -1)
-                if result['high_forbidden'] and a['band'] == 'HIGH':
-                    errors.append(f"{row['ruler_name']}: 违反HIGH上限")
-            else:
-                expected = 0
-            if a['signed_adjustment'] != expected:
-                errors.append(f"{row['ruler_name']}: 档位与分值不一致")
-        elif a['signed_adjustment'] != 0:
-            errors.append(f"{row['ruler_name']}: 无接受包却有非零分")
+        for a in axes:
+            refs = a['package_refs']
+            if len(refs) != len(set(refs)) or any(c not in by_code for c in refs):
+                errors.append(f"{row['ruler_name']}: 引用缺失或重复")
+                continue
+            selected = [by_code[c] for c in refs]
+            for package in selected:
+                used[package['package_code']] += 1
+                if package['axis'] != a['axis'] or package['ruler_id'] != row['ruler_id']:
+                    errors.append(f"{row['ruler_name']}: 跨人或跨轴引用")
+                if package.get('scoring_eligibility') != 'REVOKED':
+                    if package.get('source_coverage') == 'INSUFFICIENT' or not package.get('source_refs'):
+                        errors.append(f"{row['ruler_name']}: 计分包证据门未闭合")
+                    if package.get('attribution_strength') in (None, '', 'POLITY_OR_RULER_PENDING'):
+                        errors.append(f"{row['ruler_name']}: 归责未闭合")
+            try:
+                result = net_result(selected)
+            except ValueError as exc:
+                errors.append(f"{row['ruler_name']}: {exc}")
+                continue
+            eligible = [p for p in selected if p.get('scoring_eligibility') != 'REVOKED']
+            if eligible:
+                if a['magnitude_grade'] != result['grade'] or a['direction'] != result['direction']:
+                    errors.append(f"{row['ruler_name']}: 正负组件与轴级方向/幅度不一致")
+                grade = int(result['grade'][3:])
+                if grade:
+                    if a['band'] not in BANDS:
+                        errors.append(f"{row['ruler_name']}: 带位非法")
+                        continue
+                    expected = POINTS[grade][BANDS.index(a['band'])] * (1 if result['P'] > result['N'] else -1)
+                    if result['high_forbidden'] and a['band'] == 'HIGH':
+                        errors.append(f"{row['ruler_name']}: 违反HIGH上限")
+                else:
+                    expected = 0
+                if a['signed_adjustment'] != expected:
+                    errors.append(f"{row['ruler_name']}: 档位与分值不一致")
+            elif a['signed_adjustment'] != 0:
+                errors.append(f"{row['ruler_name']}: 无接受包却有非零分")
         if row['fourth_item_signed_adjustment'] != sum(x['signed_adjustment'] for x in axes):
             errors.append(f"{row['ruler_name']}: 第四项合计不一致")
     for package in packages:
-        if package['axis'] == 'A' and used[package['package_code']] != 1:
-            errors.append(f"A包未被唯一引用: {package['package_code']}")
+        if used[package['package_code']] != 1:
+            errors.append(f"影响包未被唯一引用: {package['package_code']}")
     ranked = sorted(payload['records'], key=lambda r: (-r['fourth_item_signed_adjustment'], r['ruler_id']))
     for row in ranked:
         expected = 1 + sum(r['fourth_item_signed_adjustment'] > row['fourth_item_signed_adjustment'] for r in ranked)
@@ -167,15 +169,45 @@ def verify(root: Path, *, check_views=True):
                               for segment in audit['dynasty_curve_segments']
                               for pair in segment['adjacent_handoff_pairs']):
                 errors.append('仍有待审或未经验证的交班，却宣称全池语义完成')
+            if review.get('reviewed_axes') != list('ABC'):
+                errors.append('语义收口缺少三轴复核')
+            rows_by_id = {row['ruler_id']: row for row in payload['records']}
+            for reviewed in review.get('rulers', []):
+                actual = rows_by_id.get(reviewed['ruler_id'])
+                entries = reviewed.get('axis_reviews', [])
+                if actual and ({a['axis']: a['package_refs'] for a in entries}
+                               != {a['axis']: a['package_refs'] for a in actual['axis_results']}):
+                    errors.append(f"{reviewed['ruler_id']}: 三轴复核引用已过期")
+            for segment in audit['dynasty_curve_segments']:
+                if not segment.get('succession_paths') or segment.get('status') != 'SEMANTICALLY_REVIEWED':
+                    errors.append(f"{segment['source_group']}: 缺少实际主政路径复核")
+                for axis in 'ABC':
+                    curve = segment['axes'][axis]
+                    observation = curve.get('long_term_observation', {})
+                    if (curve.get('status') != 'SEMANTICALLY_REVIEWED'
+                            or observation.get('horizon_years_after_window') != 30
+                            or observation.get('direct_successor_anchors') != 2):
+                        errors.append(f"{segment['source_group']}/{axis}: 交班观察合同未闭合")
+                for pair in segment['adjacent_handoff_pairs']:
+                    for axis in 'ABC':
+                        anchor = pair.get('axis_anchors', {}).get(axis, {})
+                        for side, key in [('from', 'outgoing_result_refs'), ('to', 'incoming_baseline_refs')]:
+                            ruler = rows_by_id.get(pair[f'{side}_ruler_id'])
+                            expected = next((a['package_refs'] for a in ruler['axis_results'] if a['axis'] == axis), None) if ruler else None
+                            if expected is None or anchor.get(key) != expected:
+                                errors.append(f"{segment['source_group']}/{axis}: 交班两端引用不一致")
+            for group in ('promotion_gate', 'coverage_completion_gate'):
+                if not payload.get(group) or any(value is not True for value in payload[group].values()):
+                    errors.append(f'语义完成状态与{group}分叉')
     if errors:
         raise ValueError('\n'.join(errors))
     gates = [payload.get(key, {}) for key in ('promotion_gate', 'coverage_completion_gate')]
-    return {'status': 'PASS', 'scope': 'A_AXIS_CONTRACT_AND_READING_VIEW_COHERENCE',
+    return {'status': 'PASS', 'scope': 'ABC_AXIS_CONTRACT_AND_READING_VIEW_COHERENCE',
             'ruler_count': len(ids), 'a_package_count': sum(p['axis'] == 'A' for p in packages),
             'semantic_review_complete': all(g and all(v is True for v in g.values()) for g in gates)}
 
 
-def render(payload):
+def _render_axis(payload, axis):
     def fmt(value):
         return f'{value:+g}' if value else '0'
     def clean(value):
@@ -187,12 +219,12 @@ def render(payload):
     gates = [payload.get(k, {}) for k in ('promotion_gate', 'coverage_completion_gate')]
     complete = all(g and all(v is True for v in g.values()) for g in gates)
     state = ('全池语义门已关闭。' if complete else '当前仍有语义复核事项；结构、公式和阅读视图同值不代表全池语义验收完成。')
-    arows = [(r, next(a for a in r['axis_results'] if a['axis'] == 'A')) for r in rows]
+    arows = [(r, next(a for a in r['axis_results'] if a['axis'] == axis)) for r in rows]
     arows.sort(key=lambda item: (-item[1]['signed_adjustment'], item[0]['ruler_id']))
-    lines = ['# 秦至清第四项A轴国家共同体与社会整合正式结算', '',
+    lines = [f'# 秦至清第四项{axis}轴{AXIS_NAMES[axis]}正式结算', '',
              '规则见[第四项规则与计分合同](../../../分项规则/第四项文明与国家整合收益/00-规则与计分合同.md)。', '',
              '本阅读版只读取正式 JSON；不以阅读视图反推人物裁决。', '', state, '',
-             '本轴结算可归责的社会整合净收益；正向结构贡献与独立负向损害分别进入P、N，不是整合能力或历史声望排名。', '',
+             f'本轴结算可归责的{AXIS_NAMES[axis]}净变化；正向结果与独立负向损害分别进入P、N。', '',
              f'共{len(rows)}人；正向{sum(a["signed_adjustment"]>0 for _,a in arows)}人，负向{sum(a["signed_adjustment"]<0 for _,a in arows)}人，零值{sum(a["signed_adjustment"]==0 for _,a in arows)}人。', '',
              '## 全榜', '', '| 排名 | 皇帝 | 政权 | 处置 | 相对档 | 带位 | 调整 |',
              '| ---: | --- | --- | --- | --- | --- | ---: |']
@@ -225,7 +257,14 @@ def render(payload):
     for r in sorted(rows, key=lambda r: (-r['fourth_item_signed_adjustment'], r['ruler_id'])):
         scores = {a['axis']: a['signed_adjustment'] for a in r['axis_results']}
         total.append(f'| {r["rank"]} | {r["ruler_name"]} | {r["polity"]} | {fmt(scores["A"])} | {fmt(scores["B"])} | {fmt(scores["C"])} | **{fmt(r["fourth_item_signed_adjustment"])}** | {r["triggered_axis_count"]} |')
-    return {A_PATH: '\n'.join(lines).rstrip()+'\n', TOTAL_PATH: '\n'.join(total)+'\n'}
+    return {AXIS_PATHS[axis]: '\n'.join(lines).rstrip()+'\n', TOTAL_PATH: '\n'.join(total)+'\n'}
+
+
+def render(payload):
+    views = {}
+    for axis in AXIS_NAMES:
+        views.update(_render_axis(payload, axis))
+    return views
 
 
 def write_views(root: Path):

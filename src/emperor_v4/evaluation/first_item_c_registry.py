@@ -14,7 +14,6 @@ from emperor_v4.evaluation.formal_json_store import load_json, load_ruler_politi
 from emperor_v4.evaluation.first_item_settlement import (
     build_first_item_formal_settlement,
     render_first_item_formal_settlement_markdown,
-    render_first_item_summary as render_first_item_summary_analysis,
 )
 from emperor_v4.evaluation.battle_registry_store import load_battle_registry
 from emperor_v4.evaluation.talent_registry_store import load_talent_registry
@@ -1673,121 +1672,6 @@ def render_first_item_c_registry_markdown(payload: Mapping[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def render_first_item_summary(
-    *,
-    a_payload: Mapping[str, Any],
-    b_payload: Mapping[str, Any],
-    c_payload: Mapping[str, Any],
-) -> str:
-    by_b = {str(row["ruler_name"]): row for row in b_payload.get("records") or ()}
-    by_c = {str(row["ruler_name"]): row for row in c_payload.get("records") or ()}
-    ac_rows = []
-    totals = []
-    for a_row in a_payload.get("records") or ():
-        if not a_row.get("score_applicable"):
-            continue
-        name = str(a_row["ruler_name"])
-        c_row = by_c[name]
-        ac_rows.append(
-            {
-                "ruler_name": name,
-                "polity": a_row.get("polity") or "—",
-                "A": float(a_row["A_score_points"]),
-                "C": float(c_row["C_score_points"]),
-                "AC": round(
-                    float(a_row["A_score_points"])
-                    + float(c_row["C_score_points"]),
-                    1,
-                ),
-            }
-        )
-        b_row = by_b.get(name)
-        if not b_row or not b_row.get("score_applicable"):
-            continue
-        total = round(
-            float(a_row["A_score_points"])
-            + float(b_row["B_score_points"])
-            + float(c_row["C_score_points"]),
-            1,
-        )
-        totals.append(
-            {
-                "ruler_name": name,
-                "polity": a_row.get("polity") or "—",
-                "A": float(a_row["A_score_points"]),
-                "B": float(b_row["B_score_points"]),
-                "C": float(c_row["C_score_points"]),
-                "total": total,
-            }
-        )
-    totals.sort(key=lambda row: (-row["total"], row["ruler_name"]))
-    ac_rows.sort(key=lambda row: (-row["AC"], row["ruler_name"]))
-    lines = [
-        "# 第一大项政权奠基与统一贡献及能力结算总结分析",
-        "",
-        "## 一、当前结构与去重",
-        "",
-        f"秦至清名册共{a_payload['record_count']}人；{len(ac_rows)}名统一或建国主链实际贡献者进入A/B/C结算。",
-        "",
-        "- A1以个人起点30%和项目起点70%合成起点难度，再按对手压力70%、起点难度30%形成纯难度，以85%为历史极高难度锚；60分上限依次乘项目终点完成率、本人战略责任强度和校准难度，不设基础分。A2将战争新增控制按100%、既有控制恢复按50%形成计分控制量，以1000为固定前沿并开平方计算规模得分，客观结果最多36分，再直接加减具名正向决策和误判；",
-        "- B结算非本人团队实际完成的开国成果与创业窗口贡献者质量；",
-        "- C1为50分、C2为30分，分别结算本人不重复的创业战役成果与前线指挥能力；",
-        "- 王朝级净控制量只在A2作为土地控制兑现量换分，A1不读取；它不能单独解释为国家机器创建或综合创业贡献。C中的窗口净控制表仅用于边界审计；全生涯军事人才档只作B/C越界复核，不直接换分。",
-        "",
-        "## 二、秦至清A/C结算表",
-        "",
-        "| A/C序 | 对象 | 政权 | A/100 | C/80 | A+C/180 |",
-        "|---:|---|---|---:|---:|---:|",
-    ]
-    for rank, row in enumerate(ac_rows, start=1):
-        lines.append(
-            f"| {rank} | {row['ruler_name']} | {row['polity']} | "
-            f"{row['A']:.1f} | {row['C']:.1f} | {row['AC']:.1f} |"
-        )
-    qing_a = {
-        str(row["ruler_name"]): row
-        for row in a_payload.get("records") or ()
-        if row.get("score_applicable")
-        and str(row["ruler_name"]) in {"努尔哈赤", "皇太极", "多尔衮"}
-    }
-    if set(qing_a) == {"努尔哈赤", "皇太极", "多尔衮"}:
-        lines.extend(
-            [
-                "",
-                "### 清朝跨代结果解释",
-                "",
-                "多尔衮的"
-                f"{qing_a['多尔衮']['A2']['created_net_control_value']:.0f}是入关后内地土地控制兑现，"
-                f"努尔哈赤的{qing_a['努尔哈赤']['A2']['created_net_control_value']:.0f}和"
-                f"皇太极的{qing_a['皇太极']['A2']['created_net_control_value']:.0f}主要受14宏区目录边界约束。"
-                "三项控制不得跨代回拨，但也不得据此断言多尔衮是清朝综合创业贡献最大者："
-                "努尔哈赤主要创建女真—后金军政机器，皇太极主要完成复合国家机器转型，"
-                "多尔衮主要把既成机器转换为全国性土地控制。当前表稳定支持的是三种不同贡献，而不是单轴总贡献排序。",
-            ]
-        )
-    leaders = "、".join(
-        f"{row['ruler_name']}（{row['total']:.1f}）" for row in totals[:5]
-    )
-    lines.extend(
-        [
-            "",
-            "## 三、秦至清完整第一项（含B）",
-            "",
-            f"当前A/B/C共同范围前五为{leaders}。",
-            "",
-            "B1取非本人团队最强的两个不重叠成果群并按绝对成果质量结算，不以团队份额反向扣减本人C；B2按并行执行、连续替补与异质整合三个组织轴结算。贡献者名单长度、全生涯名将档和成果证据条数均没有直接计分入口。",
-            "",
-            "## 四、当前状态",
-            "",
-            f"- A/B/C均覆盖秦至清{a_payload['record_count']}名册对象，适用统一主链贡献者{len(totals)}人；",
-            f"- C创业主链证据缺口保守默认{c_payload['default_count']}人；",
-            "- 当前结果不写正式数据库、不形成跨项总排名。",
-            "",
-            "机器明细分别见[A结算JSON](战略决策能力/01-第一项A战略决策能力结算.json)、[B结算JSON](政治整合能力/01-第一项B政治整合能力结算.json)和[C结算JSON](军事夺取能力/01-第一项C军事夺取能力结算.json)。",
-            "",
-        ]
-    )
-    return "\n".join(lines)
 
 
 def write_first_item_c_registry(workspace_root: Path) -> dict[str, Path]:
@@ -1865,20 +1749,9 @@ def write_first_item_c_registry(workspace_root: Path) -> dict[str, Path]:
         render_first_item_formal_settlement_markdown(formal_payload),
         encoding="utf-8",
     )
-    summary_path = settlement_dir / "02-第一项结算总结分析.md"
-    summary_path.write_text(
-        render_first_item_summary_analysis(
-            formal_payload=formal_payload,
-            a_payload=a_payload,
-            b_payload=b_payload,
-            c_payload=payload,
-        ),
-        encoding="utf-8",
-    )
     return {
         "json": json_path,
         "markdown": markdown_path,
         "formal_json": formal_json_path,
         "formal_markdown": formal_markdown_path,
-        "summary": summary_path,
     }

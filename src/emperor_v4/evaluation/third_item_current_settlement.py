@@ -470,6 +470,13 @@ def _validate_result_credit_contract(
                         raise ValueError(f"{row['ruler_name']}档内结构改善父链越界或重复统一成果")
             start = int(axis["start_grade"])
             end = int(axis["end_grade"])
+            if require_synchronized and formal is not None:
+                expected_state = _a_axis_state_fields(axis_name, axis)
+                if any(
+                    formal["axes"][axis_name].get(key) != value
+                    for key, value in expected_state.items()
+                ):
+                    raise ValueError(f"{row['ruler_name']} {axis_name}正式起终状态或转变未同步")
             objective_delta = int(axis["objective_delta"])
             attributable_delta = float(axis["attributable_delta"])
             active_segments = list(axis.get("active_window_segments") or ())
@@ -1144,7 +1151,9 @@ def _write_text_atomic(path: Path, content: str) -> None:
 
 def verify_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
     """Validate the formal combined snapshot without rebuilding its components."""
-    from emperor_v4.evaluation.five_dynasties_third_item import _render_formal_markdown
+    from emperor_v4.evaluation.five_dynasties_third_item import (
+        _render_formal_markdown, validate_ab_shared_handoffs,
+    )
 
     payload = _load(workspace_root / FORMAL_PATH)
     credit_payload = _load(workspace_root / RESULT_CREDIT_ADJUDICATIONS_PATH)
@@ -1162,6 +1171,7 @@ def verify_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]
     )
     _validate_ab_axis_narratives(ab_payload)
     _validate_a_axis_closure(credit_payload, ab_payload)
+    validate_ab_shared_handoffs(workspace_root, ab_payload["records"], check_b1=False)
     expected_ab_markdown = _render_formal_markdown("AB", ab_payload["records"])
     actual_ab_markdown = (workspace_root / AB_PATH).with_suffix(".md").read_text(encoding="utf-8")
     if actual_ab_markdown != expected_ab_markdown:
@@ -1259,6 +1269,20 @@ def verify_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]
         "status": "PASS", "record_count": len(records),
         "score_ready_count": len(ready), "pending_count": len(records) - len(ready),
         "score_range": payload["score_range"],
+    }
+
+
+def _a_axis_state_fields(axis_name: str, adjudication: Mapping[str, Any]) -> dict[str, str]:
+    """Project the adjudicated endpoints without inferring a historical grade."""
+    from emperor_v4.evaluation.five_dynasties_third_item import A_STATE_NAMES
+
+    start, end = int(adjudication["start_grade"]), int(adjudication["end_grade"])
+    if not 0 <= start <= 5 or not 0 <= end <= 5:
+        raise ValueError(f"{axis_name}起终档必须在0至5之间")
+    return {
+        "start": A_STATE_NAMES[axis_name][start],
+        "end": A_STATE_NAMES[axis_name][end],
+        "transition": "IMPROVED" if end > start else "WORSENED" if end < start else "STABLE",
     }
 
 
@@ -1370,6 +1394,16 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
         )
         for axis_name, scope in A_AXIS_SCOPES.items():
             axis = row["axes"][axis_name]
+            state_fields = _a_axis_state_fields(axis_name, credit["axes"][axis_name])
+            if any(axis.get(key) != value for key, value in state_fields.items()):
+                # Keep the atomic diagnostic coherent with its corrected endpoints.
+                decision = credit["axes"][axis_name]
+                base = _clamp(0, 100, 12 * int(decision["end_grade"]) + 10 * int(decision["objective_delta"]))
+                axis["observed_trajectory_value"] = base
+                axis["base_trajectory_value"] = base
+                axis["trajectory_value"] = _clamp(0, 100, base + float(axis.get("ceiling_bonus") or 0))
+                axis["axis_points"] = round(0.4 * axis["trajectory_value"], 2)
+            axis.update(state_fields)
             axis["assessment_scope"] = scope
             if not str(axis.get("reason") or "").strip():
                 axis["reason"] = str(axis.get("rationale") or "").strip()
@@ -1378,8 +1412,12 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
             if str(narrative["ruler_name"]) != name:
                 raise ValueError(f"{name}的A轴叙事裁决人物名不一致")
             row["A_axis_common_context"] = str(narrative["shared_context"])
-            row["axes"]["A1"]["reason"] = str(narrative["A1_basis"])
-            row["axes"]["A2"]["reason"] = str(narrative["A2_basis"])
+            for axis_name in A_AXIS_SCOPES:
+                axis = row["axes"][axis_name]
+                reason = str(narrative[f"{axis_name}_basis"])
+                if axis.get("reason") != reason and "rationale" in axis:
+                    axis["rationale"] = reason
+                axis["reason"] = reason
         threat_supplement = threat_supplements.get(str(row["ruler_id"]))
         if threat_supplement:
             refs = list(dict.fromkeys(
@@ -1397,6 +1435,9 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
                 raise ValueError(f"{name}的AB主压力补充缺少理由")
             row["primary_threat_refs"] = refs
             row["primary_threat_basis"] = str(threat_supplement["reason"])
+        row["AB_score_points"] = round(
+            sum(float(axis["axis_points"]) for axis in row["axes"].values()), 2
+        )
     unknown_narrative_ids = set(narrative_adjudications) - {
         str(row["ruler_id"]) for row in ab_payload["records"]
     }
@@ -1638,17 +1679,25 @@ def _synchronize_current_c_outcome_view(workspace_root: Path) -> None:
 
 
 def write_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
+    from emperor_v4.evaluation.five_dynasties_third_item import validate_ab_shared_handoffs
+
     # Reject unresolved evidence before the first component write. This avoids
     # updating AB/C and then failing after partially publishing a new snapshot.
     credit = _load(workspace_root / RESULT_CREDIT_ADJUDICATIONS_PATH)
     ab = _load(workspace_root / AB_PATH)
     narratives = _load_a_axis_narrative_adjudications(workspace_root)
+    credits_by_id = {row["ruler_id"]: row for row in credit["records"]}
     for row in ab["records"]:
+        for axis in A_AXIS_SCOPES:
+            row["axes"][axis].update(
+                _a_axis_state_fields(axis, credits_by_id[row["ruler_id"]]["axes"][axis])
+            )
         narrative = narratives.get(str(row["ruler_id"]))
         if narrative:
             for axis in A_AXIS_SCOPES:
                 row["axes"][axis]["reason"] = narrative[f"{axis}_basis"]
     _validate_a_axis_closure(credit, ab)
+    validate_ab_shared_handoffs(workspace_root, ab["records"], check_b1=False)
     _synchronize_current_ab_view(workspace_root)
     _synchronize_current_c_outcome_view(workspace_root)
     payload = build_current_third_item_settlement(workspace_root)

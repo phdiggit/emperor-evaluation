@@ -2493,7 +2493,7 @@ def _aggregate_parent_cycle_audit(cycle: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def validate_ab_shared_handoffs(
-    workspace_root: Path, records: Sequence[Mapping[str, Any]]
+    workspace_root: Path, records: Sequence[Mapping[str, Any]], *, check_b1: bool = True
 ) -> None:
     payload = json.loads(
         (workspace_root / AB_HANDOFF_ADJUDICATION_PATH).read_text(encoding="utf-8")
@@ -2530,10 +2530,11 @@ def validate_ab_shared_handoffs(
                 right_start = str(right["axes"][axis]["start"])
                 if left_end != right_start:
                     mismatches.append(f"{axis}:{left_end}->{right_start}")
-            left_control = float(left["b1_control_equivalents"]["end"])
-            right_control = float(right["b1_control_equivalents"]["start"])
-            if abs(left_control - right_control) > 1e-9:
-                mismatches.append(f"B1:{left_control}->{right_control}")
+            if check_b1:
+                left_control = float(left["b1_control_equivalents"]["end"])
+                right_control = float(right["b1_control_equivalents"]["start"])
+                if abs(left_control - right_control) > 1e-9:
+                    mismatches.append(f"B1:{left_control}->{right_control}")
             if mismatches:
                 raise ValueError(
                     f"AB直接交班快照不一致：{left_name}->{right_name}；"
