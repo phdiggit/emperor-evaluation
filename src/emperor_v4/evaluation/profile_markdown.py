@@ -21,6 +21,7 @@ AXIS_FILES = {
     "M3": "M3/29-M3民生财政建设正式结算.json",
     "M4": "M4/34-M4政治联盟与内部联盟管理正式结算.json",
 }
+C1_DISPLAY_REF_LIMIT = 4
 
 
 def _escape(value: Any) -> str:
@@ -61,7 +62,11 @@ def _parent_basis(parent: dict[str, Any]) -> str:
     return "该父链的结构化字段见正式JSON。"
 
 
-def _parent_refs(parent: dict[str, Any]) -> list[str]:
+def _parent_refs(parent: dict[str, Any], *, compact_sources: bool = False) -> list[str]:
+    if compact_sources:
+        refs = parent.get("direct_process_refs") or parent.get("source_refs") or []
+        return list(dict.fromkeys(str(ref) for ref in refs))
+
     refs: list[str] = []
     for key in ("source_refs", "direct_process_refs", "cycle_anchor_refs", "source_parent_refs"):
         for ref in parent.get(key, []) or []:
@@ -71,7 +76,7 @@ def _parent_refs(parent: dict[str, Any]) -> list[str]:
     return refs
 
 
-def _parent_lines(parent: dict[str, Any]) -> Iterable[str]:
+def _parent_lines(parent: dict[str, Any], *, compact_sources: bool = False) -> Iterable[str]:
     direction = parent.get("direction", "—")
     strength = parent.get("intensity") or parent.get("material_strength") or parent.get("material_intensity") or "—"
     mode = str(parent.get("capability_mode") or parent.get("result_responsibility") or "")
@@ -80,9 +85,16 @@ def _parent_lines(parent: dict[str, Any]) -> Iterable[str]:
         yield f"- `{parent.get('parent_id', 'NO-ID')}`（{direction_label} / {strength}）：{_parent_basis(parent)}"
     else:
         yield f"- `{parent.get('parent_id', 'NO-ID')}`（{direction} / {strength}）：{_parent_basis(parent)}"
-    refs = _parent_refs(parent)
+    refs = _parent_refs(parent, compact_sources=compact_sources)
     if refs:
-        yield "  - 来源：" + "；".join(refs)
+        if compact_sources and len(refs) > C1_DISPLAY_REF_LIMIT:
+            display_refs = refs[:C1_DISPLAY_REF_LIMIT]
+            suffix = f"；其余{len(refs) - C1_DISPLAY_REF_LIMIT}条直接定位见正式JSON"
+            yield "  - 直接定位（节选）：" + "；".join(display_refs) + suffix
+        elif compact_sources:
+            yield "  - 直接定位：" + "；".join(refs)
+        else:
+            yield "  - 来源：" + "；".join(refs)
 
 
 def _m3_source_lines(record: dict[str, Any]) -> list[str]:
@@ -258,11 +270,12 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
         if axis == "M3"
         else "> 独立人物画像轴；不进入五项综合总榜，不生成画像总分或轴内排名。JSON是唯一机器入口；本文是同值阅读视图。"
     )
-    reading_source_note = (
-        "- 逐人条目分别说明局面、行为、后果与裁档理由；来源按书名与原文逐行列出。"
-        if axis == "M3"
-        else "- 逐人条目只展开主模式、裁档理由、限制和代表父链；来源紧随父链，避免重复整段口径。"
-    )
+    if axis == "M3":
+        reading_source_note = "- 逐人条目分别说明局面、行为、后果与裁档理由；来源按书名与原文逐行列出。"
+    elif axis == "C1":
+        reading_source_note = f"- 逐人条目只展开主模式、裁档理由、限制和代表父链；每条父链最多列{C1_DISPLAY_REF_LIMIT}条直接过程定位，完整来源集合保留在正式JSON。"
+    else:
+        reading_source_note = "- 逐人条目只展开主模式、裁档理由、限制和代表父链；来源紧随父链，避免重复整段口径。"
     lines = [
         f"# {axis} {settlement['axis_name']}正式结算",
         "",
@@ -350,6 +363,8 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
             lines.append("- 武将登记逐项（成果等级/难度｜战役群名称/武将角色）：")
             lines.append(f"  {paired or '—'}")
         parents = row.get("parents", [])
+        if axis == "C1":
+            parents = row.get("representative_parent_contexts") or parents
         if parents:
             lines.append("- **代表父链**：")
             for parent in parents:
@@ -361,7 +376,7 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
                     if refs:
                         lines.append("  - 来源：" + "；".join(refs))
                 else:
-                    lines.extend(_parent_lines(parent))
+                    lines.extend(_parent_lines(parent, compact_sources=axis == "C1"))
         else:
             lines.append("- **代表父链**：当前无闭合父链；不得把缺材料当作负证。")
         if axis == "C5" and row.get("source_refs"):
