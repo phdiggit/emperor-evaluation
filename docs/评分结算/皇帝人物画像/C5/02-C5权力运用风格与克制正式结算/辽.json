@@ -29,7 +29,7 @@
           "grade_basis": "大延琳叛乱中“杀渤海兵八百”出现在前线将领处置链，现有材料不足以闭合为圣宗本人直接命令；且事件发生于真实武装叛乱中，必须适用政治斗争边界；不能继续作为圣宗个人C5深负链；圣宗时期持续推进契丹、汉人杀人同法、贵戚犯法入刑、主人不得任意杀奴、死刑及重大案件进入复核；这些规则不是纯文本，确实有地方官、权势者被实际追责和复审实例，能达到 MI4_CROSS_PHASE_SYSTEMIC。",
           "position_basis": "撤销“本人杀渤海兵八百”归责。",
           "limitations": [],
-          "parents": [
+          "parent_chains": [
             {
               "parent_id": "C5-P043-EQUAL-LAW",
               "direction": "POSITIVE",
@@ -99,25 +99,10 @@
           "formal_status": "FORMAL_CURRENT",
           "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-LIAO-YELU-LONGXU",
           "actual_power_window": "[[982, 1009], [1009, 1031]]",
-          "representative_parent_contexts": [
-            {
-              "parent_id": "C5-P043-EQUAL-LAW",
-              "direction": "POSITIVE",
-              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
-              "basis": "同罪同法、贵戚问罪、巡审复核跨地区长期运行。"
-            },
-            {
-              "parent_id": "C5-P043-TOKYO",
-              "direction": "MIXED_NEGATIVE",
-              "intensity": "MI3_SUSTAINED_SYSTEMIC",
-              "basis": "东京扩税严刑推动叛乱，事后免租止损。"
-            },
-            {
-              "parent_id": "C5-P043-BOHAI",
-              "direction": "NEGATIVE",
-              "intensity": "MI2_LIFECYCLE",
-              "basis": "保州方向杀渤海兵八百。"
-            }
+          "representative_parent_ids": [
+            "C5-P043-EQUAL-LAW",
+            "C5-P043-TOKYO",
+            "C5-P043-BOHAI"
           ],
           "counterpattern": {
             "positive_parent_refs": [
@@ -193,7 +178,7 @@
           "limitations": [
             "SOURCE_DENSITY_ASYMMETRY_REVIEW=COUNTEREVIDENCE_FOUND；现有官修史已暴露本人怒杀臣属个案。"
           ],
-          "parents": [
+          "parent_chains": [
             {
               "parent_id": "C5-P085-EQUAL-LAW",
               "direction": "POSITIVE",
@@ -244,22 +229,9 @@
           "formal_status": "FORMAL_CURRENT",
           "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-ROSTER-0F3BA2C535371D66",
           "actual_power_window": "982—1009年",
-          "representative_parent_contexts": [
-            {
-              "parent_id": "C5-P085-EQUAL-LAW",
-              "direction": "POSITIVE",
-              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
-              "basis": "同罪同法、贵戚问罪、巡狱复核和宫廷财政约束长期运行。"
-            },
-            {
-              "parent_id": "C5-P085-HORSEMAN-KILLING",
-              "direction": "NEGATIVE",
-              "intensity": "MI1_CASE",
-              "basis": "韩德让击鞠坠马后，太后迁怒并杀当事侍从；本人归责且不可逆使其成为单案深下沿，但不是持续模式。",
-              "source_refs": [
-                "https://zh.wikisource.org/zh-hant/遼史/卷12"
-              ]
-            }
+          "representative_parent_ids": [
+            "C5-P085-EQUAL-LAW",
+            "C5-P085-HORSEMAN-KILLING"
           ],
           "counterpattern": {
             "positive_parent_refs": [
@@ -339,7 +311,7 @@
           "limitations": [
             "早晚两个权力窗口材料不对称。"
           ],
-          "parents": [
+          "parent_chains": [
             {
               "parent_id": "C5-P040-SURRENDER",
               "direction": "POSITIVE",
@@ -401,19 +373,9 @@
           "formal_status": "FORMAL_CURRENT",
           "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-LIAO-YELU-DASHI",
           "actual_power_window": "1124—1143年",
-          "representative_parent_contexts": [
-            {
-              "parent_id": "C5-P040-SURRENDER",
-              "direction": "POSITIVE",
-              "intensity": "MI2_LIFECYCLE",
-              "basis": "归附者安置与军令边界。"
-            },
-            {
-              "parent_id": "C5-P040-KILLINGS",
-              "direction": "NEGATIVE",
-              "intensity": "MI2_LIFECYCLE",
-              "basis": "亲杀萧乙薛、坡里括。"
-            }
+          "representative_parent_ids": [
+            "C5-P040-SURRENDER",
+            "C5-P040-KILLINGS"
           ],
           "counterpattern": {
             "positive_parent_refs": [
@@ -497,7 +459,7 @@
           "limitations": [
             "主要入口缺逆风个案与反例暴露，制度结构不得自动顶格。"
           ],
-          "parents": [
+          "parent_chains": [
             {
               "parent_id": "C5-P045-FEEDBACK",
               "direction": "POSITIVE",
@@ -539,13 +501,8 @@
           "formal_status": "FORMAL_CURRENT",
           "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-LIAO-YELU-XIAN",
           "actual_power_window": "969—982年",
-          "representative_parent_contexts": [
-            {
-              "parent_id": "C5-P045-FEEDBACK",
-              "direction": "POSITIVE",
-              "intensity": "MI2_LIFECYCLE",
-              "basis": "登闻鼓、封事与巡问形成开放反馈接口。"
-            }
+          "representative_parent_ids": [
+            "C5-P045-FEEDBACK"
           ],
           "counterpattern": {
             "positive_parent_refs": [
@@ -605,7 +562,7 @@
           "limitations": [
             "短窗口且宫廷暴烈行为跨场景覆盖不足。"
           ],
-          "parents": [
+          "parent_chains": [
             {
               "parent_id": "C5-P044-UNEQUAL-PURGE",
               "direction": "NEGATIVE",
@@ -660,19 +617,9 @@
           "formal_status": "FORMAL_CURRENT",
           "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-LIAO-YELU-RUAN",
           "actual_power_window": "947—951年",
-          "representative_parent_contexts": [
-            {
-              "parent_id": "C5-P044-UNEQUAL-PURGE",
-              "direction": "NEGATIVE",
-              "intensity": "MI3_SUSTAINED_SYSTEMIC",
-              "basis": "族属异法、同罪异罚与宗室清洗。"
-            },
-            {
-              "parent_id": "C5-P044-LIMITED",
-              "direction": "POSITIVE",
-              "intensity": "MI1_CASE",
-              "basis": "部分反对者获得有限处置。"
-            }
+          "representative_parent_ids": [
+            "C5-P044-UNEQUAL-PURGE",
+            "C5-P044-LIMITED"
           ],
           "counterpattern": {
             "positive_parent_refs": [
@@ -749,7 +696,7 @@
           "grade_basis": "一边是持续的私人请托、宗教宠信与官爵滥授；一边是极高质量的史官/谏臣安全和部分特权同法；正负都达到持续性，G2-MID / E3维持。",
           "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-MID。",
           "limitations": [],
-          "parents": [
+          "parent_chains": [
             {
               "parent_id": "C5-P047-LAW",
               "direction": "POSITIVE",
@@ -806,19 +753,9 @@
           "formal_status": "FORMAL_CURRENT",
           "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-LIAO-YELU-ZONGZHEN",
           "actual_power_window": "1031—1055年",
-          "representative_parent_contexts": [
-            {
-              "parent_id": "C5-P047-LAW",
-              "direction": "POSITIVE",
-              "intensity": "MI2_LIFECYCLE",
-              "basis": "整理成文法并减轻刑罚。"
-            },
-            {
-              "parent_id": "C5-P047-FAVORITISM",
-              "direction": "NEGATIVE",
-              "intensity": "MI3_SUSTAINED_SYSTEMIC",
-              "basis": "个人好恶宽免与私谒滥授在直谏后反复。"
-            }
+          "representative_parent_ids": [
+            "C5-P047-LAW",
+            "C5-P047-FAVORITISM"
           ],
           "counterpattern": {
             "positive_parent_refs": [
@@ -912,7 +849,7 @@
           "limitations": [
             "国家创建与个人强制权力边界的具体案件有限。"
           ],
-          "parents": [
+          "parent_chains": [
             {
               "parent_id": "C5-P086-UNEQUAL-LAW",
               "direction": "NEGATIVE",
@@ -968,19 +905,9 @@
           "formal_status": "FORMAL_CURRENT",
           "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-ROSTER-2035C039E3532021",
           "actual_power_window": "907—926年",
-          "representative_parent_contexts": [
-            {
-              "parent_id": "C5-P086-UNEQUAL-LAW",
-              "direction": "NEGATIVE",
-              "intensity": "MI3_SUSTAINED_SYSTEMIC",
-              "basis": "族属异法与非常酷刑长期并存。"
-            },
-            {
-              "parent_id": "C5-P086-REMONSTRANCE",
-              "direction": "POSITIVE",
-              "intensity": "MI2_LIFECYCLE",
-              "basis": "招谏图与季度询问利病。"
-            }
+          "representative_parent_ids": [
+            "C5-P086-UNEQUAL-LAW",
+            "C5-P086-REMONSTRANCE"
           ],
           "counterpattern": {
             "positive_parent_refs": [
@@ -1068,7 +995,7 @@
           "grade_basis": "纯C5剩下的是一条极深的继承猜忌持续链，以及晚期权臣俘获造成的处刑错误；严重，但远未达到党锢、文字狱、全国酷刑体系；重调为 G2-LOW / E3。",
           "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-LOW。",
           "limitations": [],
-          "parents": [
+          "parent_chains": [
             {
               "parent_id": "C5-P046-CAPTURE",
               "direction": "NEGATIVE",
@@ -1110,13 +1037,8 @@
           "formal_status": "FORMAL_CURRENT",
           "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-LIAO-YELU-YANXI",
           "actual_power_window": "1101—1125年",
-          "representative_parent_contexts": [
-            {
-              "parent_id": "C5-P046-CAPTURE",
-              "direction": "NEGATIVE",
-              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
-              "basis": "朋党隐瞒军情、构陷继承人与酷刑军纪失序。"
-            }
+          "representative_parent_ids": [
+            "C5-P046-CAPTURE"
           ],
           "counterpattern": {
             "positive_parent_refs": [],
@@ -1196,7 +1118,7 @@
           "limitations": [
             "占领期具体侵害的逐项本人命令密度有限。"
           ],
-          "parents": [
+          "parent_chains": [
             {
               "parent_id": "C5-P041-OCCUPATION",
               "direction": "MIXED_NEGATIVE",
@@ -1251,19 +1173,9 @@
           "formal_status": "FORMAL_CURRENT",
           "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-LIAO-YELU-DEGUANG",
           "actual_power_window": "927—947年",
-          "representative_parent_contexts": [
-            {
-              "parent_id": "C5-P041-OCCUPATION",
-              "direction": "MIXED_NEGATIVE",
-              "intensity": "MI3_SUSTAINED_SYSTEMIC",
-              "basis": "纵兵括借后迟来纠正。"
-            },
-            {
-              "parent_id": "C5-P041-OLD-OFFICIALS",
-              "direction": "POSITIVE",
-              "intensity": "MI2_LIFECYCLE",
-              "basis": "释放前朝使者并继续使用政务接口。"
-            }
+          "representative_parent_ids": [
+            "C5-P041-OCCUPATION",
+            "C5-P041-OLD-OFFICIALS"
           ],
           "counterpattern": {
             "positive_parent_refs": [
@@ -1353,7 +1265,7 @@
           "grade_basis": "宫婢等诬告皇后与伶官赵惟一私通；道宗直接命乙辛、张孝杰审理；案件被“因而实之”；乙辛等第一次告太子党谋废立，朝廷“案无迹，不治”；乙辛随后又制造新证词。",
           "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G1-HIGH。",
           "limitations": [],
-          "parents": [
+          "parent_chains": [
             {
               "parent_id": "C5-P042-YIXIN",
               "direction": "MIXED_NEGATIVE",
@@ -1397,13 +1309,8 @@
           "formal_status": "FORMAL_CURRENT",
           "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-LIAO-YELU-HONGJI",
           "actual_power_window": "1055—1101年",
-          "representative_parent_contexts": [
-            {
-              "parent_id": "C5-P042-YIXIN",
-              "direction": "MIXED_NEGATIVE",
-              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
-              "basis": "乙辛俘获、皇后太子诬狱与晚期纠正为一完整生命周期。"
-            }
+          "representative_parent_ids": [
+            "C5-P042-YIXIN"
           ],
           "counterpattern": {
             "positive_parent_refs": [],

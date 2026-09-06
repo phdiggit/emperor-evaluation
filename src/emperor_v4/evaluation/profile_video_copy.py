@@ -13,6 +13,7 @@ from emperor_v4.evaluation.profile_radar import (
     _read_json,
     load_profiles,
 )
+from emperor_v4.evaluation.profile_parent_schema import representative_parent_chains
 
 
 SAMPLE_RULER_IDS = (
@@ -50,9 +51,10 @@ def _copy_card(axis_code: str, row: dict[str, Any], source_json: str) -> dict[st
     counterpattern = row["counterpattern"]
     counter_source = "counterpattern"
     if not isinstance(counterpattern, str):
+        representative_parents = representative_parent_chains(row)
         negative_contexts = [
             parent["cycle_basis"]
-            for parent in row.get("representative_parent_contexts", [])
+            for parent in representative_parents
             if parent.get("direction") in {"NEGATIVE", "MIXED", "MIXED_NEGATIVE"}
             and parent.get("cycle_basis")
         ]
@@ -61,7 +63,7 @@ def _copy_card(axis_code: str, row: dict[str, Any], source_json: str) -> dict[st
             counter_source = "grade_basis_fallback"
         else:
             counterpattern = "；".join(negative_contexts)
-            counter_source = "representative_parent_contexts.cycle_basis"
+            counter_source = "parent_chains.cycle_basis"
     return {
         "axis_code": axis_code,
         "axis_label": AXIS_LABELS[axis_code],

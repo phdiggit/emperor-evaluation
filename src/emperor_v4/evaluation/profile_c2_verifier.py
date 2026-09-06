@@ -8,6 +8,7 @@ from pathlib import Path
 import yaml
 
 from emperor_v4.evaluation.formal_json_store import load_json
+from emperor_v4.evaluation.profile_parent_schema import parent_chains
 
 from emperor_v4.evaluation.profile_markdown import render_profile_markdown
 
@@ -71,7 +72,7 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
     assert settlement["profile_total_enabled"] is False
     assert settlement["database_write"] is False
     assert settlement["record_count"] == len(records) == len(_included_ids())
-    assert settlement["schema_version"] == "profile-c2-settlement-v5"
+    assert settlement["schema_version"] == "profile-c2-settlement-v6"
     assert settlement["method"] == "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION_MANUAL_ADJUDICATION"
     assert {row["ruler_id"] for row in records} == _included_ids()
     assert len({row["task_code"] for row in records}) == len(records)
@@ -83,10 +84,17 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
     required = {
         "task_code", "ruler_id", "ruler_name", "axis_grade", "position", "radar_value",
         "axis_evidence_level", "output_mode", "confidence", "score_status", "grade_basis",
-        "position_basis", "axis_relevance_check", "limitations", "formal_status", "parents",
+        "position_basis", "axis_relevance_check", "limitations", "formal_status",
+        "parent_chains", "representative_parent_ids",
         "coverage_review",
     }
     assert all(required <= row.keys() for row in records)
+    assert all("parents" not in row and "representative_parent_contexts" not in row for row in records)
+    assert all(
+        len(row["representative_parent_ids"]) == len(set(row["representative_parent_ids"]))
+        and set(row["representative_parent_ids"]) <= {parent["parent_id"] for parent in row["parent_chains"]}
+        for row in records
+    )
     assert all(row["axis_evidence_level"] in {"E1", "E2", "E3"} for row in records)
     assert all(row["axis_grade"] in {f"G{i}" for i in range(6)} for row in records)
     assert all(row["position"] in {"LOW", "MID", "HIGH"} for row in records)
@@ -113,10 +121,10 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
     }
     assert all(not any(text in row["grade_basis"] for text in forbidden_templates) for row in records)
 
-    parent_ids = [parent["parent_id"] for row in records for parent in row["parents"]]
+    parent_ids = [parent["parent_id"] for row in records for parent in parent_chains(row)]
     assert len(parent_ids) == len(set(parent_ids))
-    parent_by_id = {parent["parent_id"]: (row["ruler_id"], parent) for row in records for parent in row["parents"]}
-    no_parent = [row for row in records if not row["parents"]]
+    parent_by_id = {parent["parent_id"]: (row["ruler_id"], parent) for row in records for parent in parent_chains(row)}
+    no_parent = [row for row in records if not parent_chains(row)]
     for row in records:
         coverage = row["coverage_review"]
         assert coverage["method"] == "CHRONOLOGICAL_OPPORTUNITY_STATE_TRANSITION"
@@ -133,15 +141,16 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
             assert row["axis_evidence_level"] != "E3", f"targeted/local-only scope cannot publish E3: {row['ruler_name']}"
             assert row["score_status"] == "EVIDENCE_LIMITED"
             assert row["output_mode"] == "BOUNDED_PROFILE"
-        if not row["parents"]:
+        parents = parent_chains(row)
+        if not parents:
             assert row["axis_evidence_level"] == "E1"
             assert row["score_status"] == "EVIDENCE_LIMITED"
             assert row["axis_grade"] in {"G0", "G1", "G2"}
             assert row["limitations"] and len(row["position_basis"]) >= 40
 
-        scoring = {parent["parent_id"] for parent in row["parents"]}
+        scoring = {parent["parent_id"] for parent in parents}
         assert set(row["axis_relevance_check"]["scoring_parent_refs"]) == scoring
-        for parent in row["parents"]:
+        for parent in parents:
             assert parent["cycle_type"] in {"TRUTH_ACQUISITION", "ERROR_CORRECTION", "REFUSAL_OR_RECURRENCE"}
             assert parent["direction"] in {"POSITIVE", "MIXED_POSITIVE", "MIXED", "MIXED_NEGATIVE", "NEGATIVE"}
             assert parent["intensity"] in {
@@ -157,13 +166,13 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
             assert not re.search(r"(?:裁|构成)(?:DW|PS)[0-9]", parent["basis"])
             assert "战败后改变策略，因此证明认知更新" not in parent["basis"]
             assert len(parent["basis"]) <= 500
-        directions = {parent["direction"] for parent in row["parents"]}
+        directions = {parent["direction"] for parent in parents}
         assert not (row["grade_numeric"] >= 3 and directions and directions <= {"NEGATIVE", "MIXED_NEGATIVE"}), f"grade contradicts all-negative parents: {row['ruler_name']}"
         assert not (row["grade_numeric"] == 0 and directions and directions <= {"POSITIVE", "MIXED_POSITIVE"}), f"grade contradicts all-positive parents: {row['ruler_name']}"
         if row["axis_grade"] in {"G4", "G5"}:
-            assert len(row["parents"]) >= 3, f"high grade uses giant/single parent: {row['ruler_name']}"
-            assert sum(p["direction"] in {"POSITIVE", "MIXED_POSITIVE"} for p in row["parents"]) >= 2
-            assert any(p["cycle_type"] == "TRUTH_ACQUISITION" for p in row["parents"])
+            assert len(parents) >= 3, f"high grade uses giant/single parent: {row['ruler_name']}"
+            assert sum(p["direction"] in {"POSITIVE", "MIXED_POSITIVE"} for p in parents) >= 2
+            assert any(p["cycle_type"] == "TRUTH_ACQUISITION" for p in parents)
             assert coverage["positive_window_status"] == "CLOSED_PARENT_PRESENT"
             if coverage["negative_window_status"] != "CLOSED_PARENT_PRESENT":
                 assert row["position"] == "LOW"
@@ -211,7 +220,7 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
     for entry in ledger:
         record = record_by_id[entry["ruler_id"]]
         assert entry["actual_power_window"] == record["actual_power_window"]
-        assert set(entry["observed_parent_ids"]) == {p["parent_id"] for p in record["parents"]}
+        assert set(entry["observed_parent_ids"]) == {p["parent_id"] for p in parent_chains(record)}
         assert entry["phase_domain_coverage_status"] == record["coverage_review"]["phase_domain_coverage_status"]
         assert entry["publication_mode"] == record["coverage_review"]["publication_mode"]
 
@@ -263,7 +272,7 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
         assert entry["post_review_position"] == record["position"]
         expected_strength = {
             direction: dict(sorted(collections.Counter(
-                parent["intensity"] for parent in record["parents"] if parent["direction"] in directions
+                parent["intensity"] for parent in parent_chains(record) if parent["direction"] in directions
             ).items()))
             for direction, directions in {
                 "POSITIVE_OR_MIXED_POSITIVE": {"POSITIVE", "MIXED_POSITIVE"},
@@ -274,8 +283,8 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
         balance = record["directional_strength_balance_review"]
         assert entry["feedback_suppression_strength_review"] == balance
         assert balance["review_status"] == "MANUAL_ABSOLUTE_PERFORMANCE_REVIEWED"
-        assert set(balance["suppression_parent_ids"]) <= {p["parent_id"] for p in record["parents"]}
-        assert set(balance["isolated_positive_parent_ids"]) <= {p["parent_id"] for p in record["parents"]}
+        assert set(balance["suppression_parent_ids"]) <= {p["parent_id"] for p in parent_chains(record)}
+        assert set(balance["isolated_positive_parent_ids"]) <= {p["parent_id"] for p in parent_chains(record)}
         assert "MI3/MI4" in balance["asymmetry_decision"]
         assert "父链数量" in balance["grade_effect"]
 
@@ -314,7 +323,7 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
             elif disposition["status"] == "BACKGROUND_VALIDATION":
                 assert disposition["supports_parent_ids"] or "旧组合链退出计分" in disposition["reason"], f"candidate background must name its parent or be explicitly retired: {material_id}"
 
-        for parent in record["parents"]:
+        for parent in parent_chains(record):
             suppression = parent["feedback_suppression_review"]
             assert suppression["review_status"] in {"REVIEWED", "NOT_APPLICABLE_NO_FEEDBACK_SUPPRESSION"}
             if suppression["review_status"] == "REVIEWED":
@@ -344,7 +353,7 @@ def verify_payloads(settlement: dict, audit: dict, high: dict) -> dict[str, obje
     ] + [
         ref
         for entry in candidate_reviews
-        for parent in record_by_id[entry["ruler_id"]]["parents"]
+        for parent in parent_chains(record_by_id[entry["ruler_id"]])
         for ref in parent["cycle_anchor_refs"]
     ]
     serialized_sources = json.dumps(candidate_source_refs, ensure_ascii=False)

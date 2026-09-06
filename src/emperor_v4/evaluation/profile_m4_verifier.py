@@ -8,6 +8,7 @@ from urllib.parse import urlparse
 import yaml
 
 from emperor_v4.evaluation.formal_json_store import load_json
+from emperor_v4.evaluation.profile_parent_schema import parent_chains
 
 from emperor_v4.evaluation.profile_m4_settlement import (
     AUDIT,
@@ -57,7 +58,7 @@ def verify_payloads(
     records = settlement["records"]
     pool = _load(POOL)
     included = {row["ruler_id"] for row in pool["records"] if row["pool_status"] == "INCLUDED"}
-    assert settlement["schema_version"] == "profile-m4-formal-settlement-v1"
+    assert settlement["schema_version"] == "profile-m4-formal-settlement-v2"
     assert settlement["canonical_status"] == "FORMAL_CURRENT"
     assert settlement["axis_code"] == "M4"
     assert settlement["authority_mode"] == "FORMAL_SETTLEMENT_PATCH_SOURCE"
@@ -84,13 +85,14 @@ def verify_payloads(
     assert not any(isinstance(value, str) and value in forbidden for value in _walk(settlement))
     parent_ids = []
     for row in records:
+        parents = parent_chains(row)
         assert "adjudication_ref" not in row
         assert row["radar_value"] == row["score_100"] == SCORES[row["axis_grade"]][row["position"]]
         assert row["axis_evidence_level"] in {"E1", "E2", "E3"}
         assert row["output_mode"] in {"EPISODE_TAG", "BOUNDED_PROFILE", "FULL_GRADE"}
         assert row["score_status"] in {"FINAL", "EVIDENCE_LIMITED"}
         assert row["formal_status"] == "FORMAL_CURRENT"
-        if not row["parents"]:
+        if not parents:
             assert row["axis_evidence_level"] == "E1"
             assert row["output_mode"] == "EPISODE_TAG"
             assert row["score_status"] == "EVIDENCE_LIMITED"
@@ -109,7 +111,7 @@ def verify_payloads(
             "group_count_used": False,
             "material_count_used": False,
         }
-        for parent in row["parents"]:
+        for parent in parents:
             parent_ids.append(parent["parent_id"])
             assert parent["closure_status"] == "CLOSED"
             assert parent["direction"] in {"POSITIVE", "NEGATIVE", "MIXED", "MIXED_POSITIVE", "MIXED_NEGATIVE"}
@@ -199,9 +201,14 @@ def verify() -> dict[str, Any]:
     manifest = _load(MANIFEST)
     axis = next(row for row in manifest["axes"] if row["axis_code"] == "M4")
     assert axis["json"] == SETTLEMENT.relative_to(MANIFEST.parent).as_posix()
-    assert set(axis["audit_jsons"]) == {
+    assert {item["path"] for item in axis["audit_jsons"]} == {
         path.relative_to(MANIFEST.parent).as_posix()
         for path in (AUDIT, HIGH_REVIEW, FULL_POOL_REVIEW)
+    }
+    assert {item["audit_kind"] for item in axis["audit_jsons"]} == {
+        "UNIT_DISPOSITION",
+        "HIGH_GRADE_LIFECYCLE",
+        "FULL_POOL_REVIEW",
     }
     return result
 

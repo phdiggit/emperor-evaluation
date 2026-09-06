@@ -5,8 +5,8 @@
     "records": {
       "positions": [
         127,
-        166,
-        165
+        165,
+        166
       ],
       "records": [
         {
@@ -175,7 +175,8 @@
             "name_override_used": false,
             "old_process_material_role": "BEHAVIOR_CHAIN_AND_ATTRIBUTION_REVIEW_ONLY"
           },
-          "parents": [],
+          "parent_chains": [],
+          "representative_parent_ids": [],
           "limitations": [
             "现有正式结果材料没有闭合到独立的本人过程父链，行为归责仅使用C4已审定部分，不能外推为完整政策能力画像。",
             "受灾和战区有地域边界",
@@ -216,214 +217,6 @@
             }
           ],
           "contract_version": "FORMAL-V3.6"
-        },
-        {
-          "task_code": "PROFILE-M3-RULER-SHADOW-高纬",
-          "ruler_id": "RULER-SHADOW-高纬",
-          "ruler_name": "高纬",
-          "polity": "北齐",
-          "actual_power_window": "569—577年亲政至亡国",
-          "axis_code": "M3",
-          "axis_name": "民生财政建设",
-          "axis_grade": "G1",
-          "position": "LOW",
-          "score_100": 18,
-          "radar_value": 18,
-          "components": {
-            "C1": {
-              "band": "C1-2",
-              "score": 17.1
-            },
-            "C2": {
-              "band": "C2-1",
-              "score": 1.8
-            },
-            "C3": {
-              "band": "C3-2",
-              "score": 14.7
-            },
-            "C4": {
-              "band": "C4",
-              "score": 0.0
-            }
-          },
-          "absolute_state_tier": 1,
-          "absolute_state_meanings": {
-            "C1": "民生低位且脆弱",
-            "C2": "经济财政接近失序",
-            "C3": "社会安全严重失守"
-          },
-          "ability_evidence": {
-            "route": "STAGNATION_OR_FAILURE",
-            "trajectory": {
-              "start_vector": [
-                2,
-                2,
-                3
-              ],
-              "main_vector": [
-                2,
-                1,
-                2
-              ],
-              "peak_vector": [
-                2,
-                1,
-                2
-              ],
-              "end_vector": [
-                2,
-                1,
-                1
-              ],
-              "peak_improvement_vector": [
-                0,
-                0,
-                0
-              ],
-              "retained_change_vector": [
-                0,
-                -1,
-                -2
-              ],
-              "rollback_vector": [
-                0,
-                0,
-                1
-              ],
-              "improved_axis_count": 0,
-              "deep_improvement_axis_count": 0,
-              "retained_improvement_axis_count": 0,
-              "rollback_axis_count": 1,
-              "recovery_score_27": 0.0,
-              "stability_score_18": 6.4,
-              "start_tier": 2,
-              "peak_tier": 2,
-              "end_tier": 1
-            },
-            "governance_scale_class": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
-            "governance_scale_basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
-            "governance_scale_gate": {
-              "status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
-              "classification": "UNRESOLVED",
-              "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
-              "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
-              "formal_subitem_sources": [
-                {
-                  "axis": "C4",
-                  "field_path": "m3_governance_scale_adjudication",
-                  "ref": "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-高纬"
-                }
-              ],
-              "supporting_formal_fields": []
-            },
-            "six_band_main_state": false,
-            "deterioration_penalty": 0.0,
-            "destructive_amplification_penalty": 0.0,
-            "upstream_sync": {
-              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_03",
-              "source_refs": [
-                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-高纬",
-                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-高纬",
-                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-高纬",
-                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-高纬"
-              ],
-              "k_source": "DIRECT_FORMAL_C1_C2_C3_DIAGNOSTIC",
-              "c4_source_scope": "RECOVERY_DETERIORATION_DA_ONLY"
-            },
-            "destructive_amplification_grade": "DA0",
-            "stability_k_basis": {
-              "C1": {
-                "K_grade": "K4",
-                "source_axis": "C1",
-                "source_field": "stability_class_diagnostic_only"
-              },
-              "C2": {
-                "K_grade": "K4",
-                "source_axis": "C2",
-                "source_field": "stability_class_diagnostic_only"
-              },
-              "C3": {
-                "K_grade": "K0",
-                "source_axis": "C3",
-                "source_field": "stability_class_diagnostic_only"
-              }
-            },
-            "stability_k_structure_status": "DIRECT_FORMAL_C1_C3",
-            "stability_k_public_basis": "当前C1—C3正式K为C1=K4、C2=K4、C3=K0；K不进入C4分。M3稳定兑现分6.4/18为本轴逐人裁决值。",
-            "civilian_cost_review_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-SHADOW-高纬"
-          },
-          "dynamic_class": "ATTRIBUTABLE_OR_MIXED_DECLINE",
-          "dynamic_label": "出现可归责或混合性退步",
-          "value_mode": "SEMANTIC_HOLISTIC_ADJUDICATION_WITH_FIXED_GRADE_PROJECTION",
-          "axis_evidence_level": "E2",
-          "confidence": "MEDIUM",
-          "output_mode": "BOUNDED_PROFILE",
-          "score_status": "FINAL",
-          "formal_status": "FORMAL_CURRENT",
-          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[2, 2, 3]、[2, 1, 2]、[2, 1, 2]、[2, 1, 1]；恢复0.0/27，稳定6.4/18；恶化扣减0.0，主动成本DA0/0.0。正式逐人裁决为G1-LOW。",
-          "counterpattern": "持续奢建、卖官、赋繁役重、民不聊生已经形成C1/C2低态及C3后果，不能同链再保留工程高档。",
-          "starting_context": "当前C1—C3正式曲线：接手[2, 2, 3]、主态[2, 1, 2]、最高实现[2, 1, 2]、交班[2, 1, 1]。",
-          "construction_and_maintenance": "按正式档界公式重算恢复分0.0/27；直接读取C1—C3正式K（C1=K4、C2=K4、C3=K0）复核稳定兑现，M3逐人裁决稳定分为6.4/18；K与该稳定判断均不回写C4分。",
-          "costs_and_consequences": "交班局面为[2, 1, 1]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA0，扣减0.0。",
-          "behavior_chain": "三轴恢复与交班仍按既有本人建设链复核。本次未证独立于现有状态链的新增民役对象。",
-          "handoff_state": "按交班向量[2, 1, 1]推导C4终局标签为C4T-2；M3单独读取交班保留，不把稳定分回写C4。",
-          "public_adjudication": "当前恢复0.0/27、稳定6.4/18，交班向量[2, 1, 1]；成本只读已去重的DA0，不把军事客观成本再次作为能力惩罚。既有建设、保留与归责事实继续支持G1。 档内位置LOW依据实现、保留、回落与当前剩余成本复核；成本去重本身不制造新的历史建设。",
-          "grade_basis": "当前恢复0.0/27、稳定6.4/18，交班向量[2, 1, 1]；成本只读已去重的DA0，不把军事客观成本再次作为能力惩罚。既有建设、保留与归责事实继续支持G1。",
-          "position_basis": "档内位置LOW依据实现、保留、回落与当前剩余成本复核；成本去重本身不制造新的历史建设。",
-          "axis_relevance_check": {
-            "status": "HOLISTIC_C1_C4_SEMANTIC_ADJUDICATION",
-            "component_codes": [
-              "C1",
-              "C2",
-              "C3",
-              "C4"
-            ],
-            "component_sum_used": false,
-            "quantile_or_normalization_used": false,
-            "name_override_used": false,
-            "old_process_material_role": "BEHAVIOR_CHAIN_AND_ATTRIBUTION_REVIEW_ONLY"
-          },
-          "parents": [],
-          "limitations": [
-            "现有正式结果材料没有闭合到独立的本人过程父链，行为归责仅使用C4已审定部分，不能外推为完整政策能力画像。",
-            "568年放宫口、准流人还乡等正面止损保留",
-            "亡国标签本身不扣档",
-            "直接锚只按其明示时段、地域与证据类型消费，不外推为全任全境。"
-          ],
-          "supplement_review": {
-            "old_m3_parent_chain_count": 0,
-            "old_m3_candidate_count": 0,
-            "axis_dispositions": {
-              "C1": "SEARCHED_NO_OLD_M3_CANDIDATE",
-              "C2": "SEARCHED_NO_OLD_M3_CANDIDATE",
-              "C3": "SEARCHED_NO_OLD_M3_CANDIDATE",
-              "C4": "REVIEWED_C4_ATTRIBUTION_RETAINED"
-            }
-          },
-          "source_refs": [
-            "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-高纬",
-            "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-高纬",
-            "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-高纬",
-            "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-高纬"
-          ],
-          "source_evidence": [
-            {
-              "source_title": "《资治通鉴》",
-              "quote": "罷各地百工細作，釋老病宮人官口，坐流徙者聽還鄉。",
-              "source_origin": "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION"
-            },
-            {
-              "source_title": "《资治通鉴》",
-              "quote": "府藏空竭，賣官取直；賦繁役重，民不聊生。",
-              "source_origin": "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION"
-            }
-          ],
-          "contract_version": "FORMAL-V3.6",
-          "full_pool_grade_readjudication": {
-            "grade_basis": "当前恢复0.0/27、稳定6.4/18，交班向量[2, 1, 1]；成本只读已去重的DA0，不把军事客观成本再次作为能力惩罚。既有建设、保留与归责事实继续支持G1。",
-            "position_basis": "档内位置LOW依据实现、保留、回落与当前剩余成本复核；成本去重本身不制造新的历史建设。"
-          }
         },
         {
           "task_code": "PROFILE-M3-RULER-SHADOW-高洋",
@@ -592,7 +385,7 @@
             "name_override_used": false,
             "old_process_material_role": "BEHAVIOR_CHAIN_AND_ATTRIBUTION_REVIEW_ONLY"
           },
-          "parents": [
+          "parent_chains": [
             {
               "parent_id": "M3P-SEM-5E24AD811D82",
               "direction": "NEGATIVE",
@@ -607,6 +400,7 @@
               "use_boundary": "BEHAVIOR_FEEDBACK_ATTRIBUTION_REVIEW_NOT_INDEPENDENT_GRADE_CONVERSION"
             }
           ],
+          "representative_parent_ids": [],
           "limitations": [
             "财政接近失灵但未证全国社会运行全面崩溃",
             "国家府藏不足不单独等同民穷",
@@ -654,6 +448,215 @@
             "grade_basis": "三轴由较高接手下降到二档、建设为零，维持严重负面判断；客观交班尚非全面一档，去除已吸收的DA后不再列极端沉底。",
             "position_basis": "当前G1-LOW按建设保留、真实回落及去重后的成本共同裁定。",
             "status": "FORMAL_CURRENT_CIVILIAN_COST_REVIEW"
+          }
+        },
+        {
+          "task_code": "PROFILE-M3-RULER-SHADOW-高纬",
+          "ruler_id": "RULER-SHADOW-高纬",
+          "ruler_name": "高纬",
+          "polity": "北齐",
+          "actual_power_window": "569—577年亲政至亡国",
+          "axis_code": "M3",
+          "axis_name": "民生财政建设",
+          "axis_grade": "G1",
+          "position": "LOW",
+          "score_100": 18,
+          "radar_value": 18,
+          "components": {
+            "C1": {
+              "band": "C1-2",
+              "score": 17.1
+            },
+            "C2": {
+              "band": "C2-1",
+              "score": 1.8
+            },
+            "C3": {
+              "band": "C3-2",
+              "score": 14.7
+            },
+            "C4": {
+              "band": "C4",
+              "score": 0.0
+            }
+          },
+          "absolute_state_tier": 1,
+          "absolute_state_meanings": {
+            "C1": "民生低位且脆弱",
+            "C2": "经济财政接近失序",
+            "C3": "社会安全严重失守"
+          },
+          "ability_evidence": {
+            "route": "STAGNATION_OR_FAILURE",
+            "trajectory": {
+              "start_vector": [
+                2,
+                2,
+                3
+              ],
+              "main_vector": [
+                2,
+                1,
+                2
+              ],
+              "peak_vector": [
+                2,
+                1,
+                2
+              ],
+              "end_vector": [
+                2,
+                1,
+                1
+              ],
+              "peak_improvement_vector": [
+                0,
+                0,
+                0
+              ],
+              "retained_change_vector": [
+                0,
+                -1,
+                -2
+              ],
+              "rollback_vector": [
+                0,
+                0,
+                1
+              ],
+              "improved_axis_count": 0,
+              "deep_improvement_axis_count": 0,
+              "retained_improvement_axis_count": 0,
+              "rollback_axis_count": 1,
+              "recovery_score_27": 0.0,
+              "stability_score_18": 6.4,
+              "start_tier": 2,
+              "peak_tier": 2,
+              "end_tier": 1
+            },
+            "governance_scale_class": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+            "governance_scale_basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+            "governance_scale_gate": {
+              "status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+              "classification": "UNRESOLVED",
+              "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+              "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+              "formal_subitem_sources": [
+                {
+                  "axis": "C4",
+                  "field_path": "m3_governance_scale_adjudication",
+                  "ref": "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-高纬"
+                }
+              ],
+              "supporting_formal_fields": []
+            },
+            "six_band_main_state": false,
+            "deterioration_penalty": 0.0,
+            "destructive_amplification_penalty": 0.0,
+            "upstream_sync": {
+              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_03",
+              "source_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-高纬",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-高纬",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-高纬",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-高纬"
+              ],
+              "k_source": "DIRECT_FORMAL_C1_C2_C3_DIAGNOSTIC",
+              "c4_source_scope": "RECOVERY_DETERIORATION_DA_ONLY"
+            },
+            "destructive_amplification_grade": "DA0",
+            "stability_k_basis": {
+              "C1": {
+                "K_grade": "K4",
+                "source_axis": "C1",
+                "source_field": "stability_class_diagnostic_only"
+              },
+              "C2": {
+                "K_grade": "K4",
+                "source_axis": "C2",
+                "source_field": "stability_class_diagnostic_only"
+              },
+              "C3": {
+                "K_grade": "K0",
+                "source_axis": "C3",
+                "source_field": "stability_class_diagnostic_only"
+              }
+            },
+            "stability_k_structure_status": "DIRECT_FORMAL_C1_C3",
+            "stability_k_public_basis": "当前C1—C3正式K为C1=K4、C2=K4、C3=K0；K不进入C4分。M3稳定兑现分6.4/18为本轴逐人裁决值。",
+            "civilian_cost_review_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-SHADOW-高纬"
+          },
+          "dynamic_class": "ATTRIBUTABLE_OR_MIXED_DECLINE",
+          "dynamic_label": "出现可归责或混合性退步",
+          "value_mode": "SEMANTIC_HOLISTIC_ADJUDICATION_WITH_FIXED_GRADE_PROJECTION",
+          "axis_evidence_level": "E2",
+          "confidence": "MEDIUM",
+          "output_mode": "BOUNDED_PROFILE",
+          "score_status": "FINAL",
+          "formal_status": "FORMAL_CURRENT",
+          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[2, 2, 3]、[2, 1, 2]、[2, 1, 2]、[2, 1, 1]；恢复0.0/27，稳定6.4/18；恶化扣减0.0，主动成本DA0/0.0。正式逐人裁决为G1-LOW。",
+          "counterpattern": "持续奢建、卖官、赋繁役重、民不聊生已经形成C1/C2低态及C3后果，不能同链再保留工程高档。",
+          "starting_context": "当前C1—C3正式曲线：接手[2, 2, 3]、主态[2, 1, 2]、最高实现[2, 1, 2]、交班[2, 1, 1]。",
+          "construction_and_maintenance": "按正式档界公式重算恢复分0.0/27；直接读取C1—C3正式K（C1=K4、C2=K4、C3=K0）复核稳定兑现，M3逐人裁决稳定分为6.4/18；K与该稳定判断均不回写C4分。",
+          "costs_and_consequences": "交班局面为[2, 1, 1]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA0，扣减0.0。",
+          "behavior_chain": "三轴恢复与交班仍按既有本人建设链复核。本次未证独立于现有状态链的新增民役对象。",
+          "handoff_state": "按交班向量[2, 1, 1]推导C4终局标签为C4T-2；M3单独读取交班保留，不把稳定分回写C4。",
+          "public_adjudication": "当前恢复0.0/27、稳定6.4/18，交班向量[2, 1, 1]；成本只读已去重的DA0，不把军事客观成本再次作为能力惩罚。既有建设、保留与归责事实继续支持G1。 档内位置LOW依据实现、保留、回落与当前剩余成本复核；成本去重本身不制造新的历史建设。",
+          "grade_basis": "当前恢复0.0/27、稳定6.4/18，交班向量[2, 1, 1]；成本只读已去重的DA0，不把军事客观成本再次作为能力惩罚。既有建设、保留与归责事实继续支持G1。",
+          "position_basis": "档内位置LOW依据实现、保留、回落与当前剩余成本复核；成本去重本身不制造新的历史建设。",
+          "axis_relevance_check": {
+            "status": "HOLISTIC_C1_C4_SEMANTIC_ADJUDICATION",
+            "component_codes": [
+              "C1",
+              "C2",
+              "C3",
+              "C4"
+            ],
+            "component_sum_used": false,
+            "quantile_or_normalization_used": false,
+            "name_override_used": false,
+            "old_process_material_role": "BEHAVIOR_CHAIN_AND_ATTRIBUTION_REVIEW_ONLY"
+          },
+          "parent_chains": [],
+          "representative_parent_ids": [],
+          "limitations": [
+            "现有正式结果材料没有闭合到独立的本人过程父链，行为归责仅使用C4已审定部分，不能外推为完整政策能力画像。",
+            "568年放宫口、准流人还乡等正面止损保留",
+            "亡国标签本身不扣档",
+            "直接锚只按其明示时段、地域与证据类型消费，不外推为全任全境。"
+          ],
+          "supplement_review": {
+            "old_m3_parent_chain_count": 0,
+            "old_m3_candidate_count": 0,
+            "axis_dispositions": {
+              "C1": "SEARCHED_NO_OLD_M3_CANDIDATE",
+              "C2": "SEARCHED_NO_OLD_M3_CANDIDATE",
+              "C3": "SEARCHED_NO_OLD_M3_CANDIDATE",
+              "C4": "REVIEWED_C4_ATTRIBUTION_RETAINED"
+            }
+          },
+          "source_refs": [
+            "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-高纬",
+            "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-高纬",
+            "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-高纬",
+            "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-高纬"
+          ],
+          "source_evidence": [
+            {
+              "source_title": "《资治通鉴》",
+              "quote": "罷各地百工細作，釋老病宮人官口，坐流徙者聽還鄉。",
+              "source_origin": "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION"
+            },
+            {
+              "source_title": "《资治通鉴》",
+              "quote": "府藏空竭，賣官取直；賦繁役重，民不聊生。",
+              "source_origin": "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION"
+            }
+          ],
+          "contract_version": "FORMAL-V3.6",
+          "full_pool_grade_readjudication": {
+            "grade_basis": "当前恢复0.0/27、稳定6.4/18，交班向量[2, 1, 1]；成本只读已去重的DA0，不把军事客观成本再次作为能力惩罚。既有建设、保留与归责事实继续支持G1。",
+            "position_basis": "档内位置LOW依据实现、保留、回落与当前剩余成本复核；成本去重本身不制造新的历史建设。"
           }
         }
       ]

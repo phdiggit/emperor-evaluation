@@ -15,6 +15,7 @@ from emperor_v4.evaluation.profile_c3_verifier import (
     verify,
     verify_payloads,
 )
+from emperor_v4.evaluation.profile_parent_schema import parent_chains
 
 
 def _load(path: Path):
@@ -40,7 +41,7 @@ def test_profile_c3_rejects_keyword_or_count_adjudicators(payloads) -> None:
 
 def test_profile_c3_rejects_parentless_full_or_high_publication(payloads) -> None:
     settlement, audit, high, systemic = copy.deepcopy(payloads)
-    record = next(row for row in settlement["records"] if not row["parents"])
+    record = next(row for row in settlement["records"] if not parent_chains(row))
     record.update({"score_status": "FINAL", "axis_evidence_level": "E3", "output_mode": "FULL_GRADE"})
     with pytest.raises(AssertionError):
         verify_payloads(settlement, audit, high, systemic)
@@ -65,7 +66,7 @@ def test_profile_c3_rejects_duplicate_typical_pattern_clause(payloads) -> None:
 def test_profile_c3_rejects_high_grade_template_lifecycle(payloads) -> None:
     settlement, audit, high, systemic = copy.deepcopy(payloads)
     record = next(row for row in settlement["records"] if row["axis_grade"] in {"G4", "G5"})
-    for parent in record["parents"]:
+    for parent in parent_chains(record):
         for field in (
             "task_requirement", "candidate_identification", "position_configuration", "actual_authority",
             "delivery", "feedback", "authorization_response",
@@ -86,7 +87,7 @@ def test_profile_c3_rejects_uniform_entry_disposition(payloads) -> None:
 def test_profile_c3_rejects_single_giant_chain_as_high_grade(payloads) -> None:
     settlement, audit, high, systemic = copy.deepcopy(payloads)
     record = next(row for row in settlement["records"] if row["axis_grade"] == "G4")
-    record["parents"] = record["parents"][:1]
+    record["parent_chains"] = record["parent_chains"][:1]
     record["major_task_domains_observed"] = record["major_task_domains_observed"][:1]
     with pytest.raises(AssertionError, match="single giant chain"):
         verify_payloads(settlement, audit, high, systemic)
@@ -94,8 +95,8 @@ def test_profile_c3_rejects_single_giant_chain_as_high_grade(payloads) -> None:
 
 def test_profile_c3_rejects_grade_direction_contradiction(payloads) -> None:
     settlement, audit, high, systemic = copy.deepcopy(payloads)
-    record = next(row for row in settlement["records"] if row["axis_grade"] == "G0" and row["parents"])
-    for parent in record["parents"]:
+    record = next(row for row in settlement["records"] if row["axis_grade"] == "G0" and parent_chains(row))
+    for parent in parent_chains(record):
         parent["direction"] = "POSITIVE"
     with pytest.raises(AssertionError):
         verify_payloads(settlement, audit, high, systemic)

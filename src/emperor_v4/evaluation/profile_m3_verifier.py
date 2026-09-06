@@ -193,7 +193,7 @@ def verify_payload(settlement: dict[str, Any], *, ruler_ids: set[str] | None = N
         records = [row for row in records if row["ruler_id"] in included]
         if not records:
             raise ValueError("No M3 records match the selected rulers")
-    if settlement["schema_version"] != "profile-m3-livelihood-finance-formal-settlement-v3":
+    if settlement["schema_version"] != "profile-m3-livelihood-finance-formal-settlement-v4":
         raise ValueError("M3 schema mismatch")
     if settlement.get("contract_version") != M3_CONTRACT_VERSION:
         raise ValueError("M3 contract version mismatch")
@@ -290,7 +290,11 @@ def verify_payload(settlement: dict[str, Any], *, ruler_ids: set[str] | None = N
             raise ValueError(f"illegal M3 output mode: {row['ruler_id']}")
         if not row["limitations"] or not row["public_adjudication"].strip():
             raise ValueError(f"incomplete M3 adjudication: {row['ruler_id']}")
-        if not isinstance(row["parents"], list) or not isinstance(row["source_refs"], list):
+        if (
+            not isinstance(row.get("parent_chains"), list)
+            or not isinstance(row.get("representative_parent_ids"), list)
+            or not isinstance(row["source_refs"], list)
+        ):
             raise ValueError(f"invalid M3 lineage shape: {row['ruler_id']}")
         reader_sources = row.get("source_evidence") or []
         if not reader_sources:

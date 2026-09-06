@@ -25,7 +25,7 @@
           "output_mode": "EPISODE_TAG",
           "confidence": "MEDIUM",
           "adjudication_ref": "M2-FULL-POOL-ADJ-RULER-SHADOW-高欢",
-          "parents": [
+          "parent_chains": [
             {
               "parent_id": "M2-P137-POSITIVE",
               "direction": "MIXED_POSITIVE",
@@ -66,46 +66,9 @@
               "cycle_basis": "对宇文泰多次军事失败、联盟突破有限以及对柔然让步，只能验证成果边界；没有闭合对手条件、谈判授权、承诺执行或反馈后的退出周期，不得据败绩或让步本身生成MI3负证。"
             }
           ],
-          "representative_parent_contexts": [
-            {
-              "parent_id": "M2-P137-POSITIVE",
-              "direction": "MIXED_POSITIVE",
-              "intensity": "MI2",
-              "consumption_status": "SCORING_PARENT",
-              "source_support": "BOUNDED_LOCAL_SUPPORT",
-              "source_refs": [
-                "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/131",
-                "docs/评分结算/第一项政权奠基与统一贡献及能力/政治整合能力/01-第一项B政治整合能力结算.json#records/37",
-                "docs/史料通读产物/唐以前编年/00-战争卡审计索引.md#L739"
-              ],
-              "cycle_basis": "起手北魏崩解；以婚盟、鲜卑汉人联盟和对柔然交换孤立关中，本人跨阶段维持东魏体系。",
-              "marriage_policy_review": {
-                "scan_hit": true,
-                "disposition": "SCORING_EFFECT_VERIFIED",
-                "result_gate": "PASS",
-                "causal_gate": "PASS",
-                "basis": "婚盟与对柔然交换共同改变联盟结构并孤立关中对手，后效由东魏体系维持验证。"
-              },
-              "intensity_grade_review": {
-                "scope": "M2_INTENSITY_ATTRIBUTION_EFFECT_SEPARATION",
-                "before_intensity": "MI3",
-                "after_intensity": "MI2",
-                "source_support": "BOUNDED_LOCAL_SUPPORT",
-                "disposition": "DOWNGRADE_HIGH_MI_WEAK_SOURCE",
-                "basis": "有界材料可保留单一生命周期方向，但不足以证明跨期复现或系统性MI3。"
-              }
-            },
-            {
-              "parent_id": "M2-P137-COUNTER",
-              "direction": "LIMITATION",
-              "intensity": "MI1",
-              "consumption_status": "BACKGROUND_VALIDATION",
-              "source_support": "THIRD_ITEM_RESULT_ONLY_NO_DIPLOMATIC_PROCESS",
-              "source_refs": [
-                "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/131"
-              ],
-              "cycle_basis": "对宇文泰多次军事失败、联盟突破有限以及对柔然让步，只能验证成果边界；没有闭合对手条件、谈判授权、承诺执行或反馈后的退出周期，不得据败绩或让步本身生成MI3负证。"
-            }
+          "representative_parent_ids": [
+            "M2-P137-POSITIVE",
+            "M2-P137-COUNTER"
           ],
           "typical_pattern": "能以婚盟、封授和交换安排调整柔然关系，但现有材料只闭合一个有界对象周期，具体设计与持续后效多由臣僚和东魏体系承接。",
           "counterpattern": {

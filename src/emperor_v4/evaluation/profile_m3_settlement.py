@@ -8,6 +8,7 @@ from typing import Any
 
 from emperor_v4.evaluation.formal_json_store import load_json, load_ruler_polities, write_json
 from emperor_v4.evaluation.profile_markdown import render_profile_markdown
+from emperor_v4.evaluation.profile_registry import write_profile_manifest
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -130,25 +131,8 @@ def _refresh_redundant_record_text(record: dict[str, Any]) -> None:
 
 
 def update_manifest() -> None:
-    """Update only the M3 manifest entry; other axes are independent snapshots."""
-    manifest = _load(MANIFEST)
-    current = next(row for row in manifest["axes"] if row["axis_code"] == "M3")
-    current.clear()
-    current.update(
-        {
-            "axis_code": "M3",
-            "axis_name": "民生财政建设",
-            "status": "FORMAL_CURRENT",
-            "contract_version": M3_CONTRACT_VERSION,
-            "contract": M3_CONTRACT.relative_to(ROOT).as_posix(),
-            "record_count": 184,
-            "json": M3_SETTLEMENT.relative_to(PROFILE_ROOT).as_posix(),
-            "markdown": M3_MARKDOWN.relative_to(PROFILE_ROOT).as_posix(),
-            "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC",
-            "formalization_note": "M3正式JSON为逐人裁决唯一真源；日常修改采用局部patch。程序校验C1—C4事实同步、规模门来源和G4必要条件，只投影固定雷达值并生成阅读视图，不自动重裁。",
-        }
-    )
-    _write_json(MANIFEST, manifest)
+    """Refresh only the M3 manifest entry from the project registry."""
+    write_profile_manifest(("M3",))
 
 
 def build(*, write: bool = False) -> dict[str, Any]:

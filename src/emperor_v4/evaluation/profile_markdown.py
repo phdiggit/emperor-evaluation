@@ -8,19 +8,18 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from emperor_v4.evaluation.formal_json_store import load_json
+from emperor_v4.evaluation.profile_registry import (
+    PROFILE_ROOT,
+    ROOT,
+    profile_axis_entry,
+    profile_axis_files,
+)
+from emperor_v4.evaluation.profile_parent_schema import (
+    parent_chains,
+    representative_parent_chains,
+)
 
-ROOT = Path(__file__).resolve().parents[3]
-PROFILE_ROOT = ROOT / "docs" / "评分结算" / "皇帝人物画像"
-AXIS_FILES = {
-    "M1": "M1/01-M1军事判断与统帅能力正式结算.json",
-    "M2": "M2/12-M2外交博弈与对外联盟能力正式结算.json",
-    "C1": "C1/15-C1战略判断与风险控制正式结算.json",
-    "C2": "C2/19-C2信息处理学习与纠错正式结算.json",
-    "C3": "C3/24-C3人才识别配置与授权正式结算.json",
-    "C5": "C5/02-C5权力运用风格与克制正式结算.json",
-    "M3": "M3/29-M3民生财政建设正式结算.json",
-    "M4": "M4/34-M4政治联盟与内部联盟管理正式结算.json",
-}
+AXIS_FILES = profile_axis_files()
 C1_DISPLAY_REF_LIMIT = 4
 
 
@@ -60,6 +59,14 @@ def _parent_basis(parent: dict[str, Any]) -> str:
         if parent.get(key):
             return str(parent[key])
     return "该父链的结构化字段见正式JSON。"
+
+
+def _parent_chains(row: dict[str, Any]) -> list[dict[str, Any]]:
+    return parent_chains(row)
+
+
+def _representative_parent_chains(row: dict[str, Any]) -> list[dict[str, Any]]:
+    return representative_parent_chains(row)
 
 
 def _parent_refs(parent: dict[str, Any], *, compact_sources: bool = False) -> list[str]:
@@ -218,7 +225,7 @@ def _overview_table(axis: str, records: list[dict[str, Any]], labels: dict[str, 
             "|---:|---|---|---|---|---|---:|---|---|---|---:|---|",
         ]
         for row in records:
-            cells = [row["sequence"], row["ruler_name"], row["polity"], row["actual_power_window"], row["axis_grade"], row["position"], row["radar_value"], row["axis_evidence_level"], row["output_mode"], row["score_status"], len(row["parents"]), row["typical_pattern"]]
+            cells = [row["sequence"], row["ruler_name"], row["polity"], row["actual_power_window"], row["axis_grade"], row["position"], row["radar_value"], row["axis_evidence_level"], row["output_mode"], row["score_status"], len(_parent_chains(row)), row["typical_pattern"]]
             lines.append("| " + " | ".join(_escape(cell) for cell in cells) + " |")
         return lines
     if axis == "M3":
@@ -243,7 +250,7 @@ def _overview_table(axis: str, records: list[dict[str, Any]], labels: dict[str, 
             "|---:|---|---|---|---|---|---:|---|---|---|---:|---|---|",
         ]
         for row in records:
-            cells = [row["sequence"], row["ruler_name"], row["polity"], row["actual_power_window"], row["axis_grade"], row["position"], row["radar_value"], row["axis_evidence_level"], row["output_mode"], row["score_status"], len(row["parents"]), row["typical_pattern"], _limitations(row, labels)]
+            cells = [row["sequence"], row["ruler_name"], row["polity"], row["actual_power_window"], row["axis_grade"], row["position"], row["radar_value"], row["axis_evidence_level"], row["output_mode"], row["score_status"], len(_parent_chains(row)), row["typical_pattern"], _limitations(row, labels)]
             lines.append("| " + " | ".join(_escape(cell) for cell in cells) + " |")
         return lines
     lines = [
@@ -362,9 +369,9 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
             paired = projection.get("paired_result_difficulty_campaign_roles_display")
             lines.append("- 武将登记逐项（成果等级/难度｜战役群名称/武将角色）：")
             lines.append(f"  {paired or '—'}")
-        parents = row.get("parents", [])
+        parents = _parent_chains(row)
         if axis == "C1":
-            parents = row.get("representative_parent_contexts") or parents
+            parents = _representative_parent_chains(row)
         if parents:
             lines.append("- **代表父链**：")
             for parent in parents:
@@ -407,9 +414,10 @@ def write_axes(axis_codes: Iterable[str]) -> list[Path]:
     written = []
     axes = list(axis_codes)
     for axis in axes:
-        json_path = PROFILE_ROOT / AXIS_FILES[axis]
+        entry = profile_axis_entry(axis)
+        json_path = ROOT / entry["json"]
         payload = load_json(json_path)
-        markdown_path = json_path.with_suffix(".md")
+        markdown_path = ROOT / entry["markdown"]
         markdown_path.write_text(render_profile_markdown(payload), encoding="utf-8", newline="\n")
         written.append(markdown_path)
     return written

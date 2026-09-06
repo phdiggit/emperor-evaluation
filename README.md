@@ -66,6 +66,12 @@ python v4.py formal-settlements-verify
 python v4.py canonical-ruler-pool
 ```
 
+单轴入口登记或结算视图变化后，只刷新该轴的正式入口清单（省略`--axis`才做全量注册表生成）：
+
+```powershell
+python v4.py profile-manifest --axis C1 --write
+```
+
 综合计分输入变化时重建综合总榜：
 
 ```powershell

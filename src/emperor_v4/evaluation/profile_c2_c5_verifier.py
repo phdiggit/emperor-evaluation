@@ -6,6 +6,7 @@ from pathlib import Path
 import yaml
 
 from emperor_v4.evaluation.formal_json_store import load_json
+from emperor_v4.evaluation.profile_parent_schema import parent_chains
 
 from emperor_v4.evaluation.profile_markdown import render_profile_markdown
 
@@ -71,13 +72,14 @@ def verify() -> dict[str, object]:
 
     c5_parent_ids = set()
     for row in c5["records"]:
+        parent_rows = parent_chains(row)
         assert row["grade_numeric"] == int(row["axis_grade"][1])
         assert row["radar_value"] == row["score_100"] == GRADE_POINTS[row["axis_grade"]][row["position"]]
         assert (row["output_mode"], row["confidence"], row["score_status"]) == OUTPUT_BY_EVIDENCE[
             row["axis_evidence_level"]
         ]
-        parents = {parent["parent_id"]: parent for parent in row["parents"]}
-        assert len(parents) == len(row["parents"])
+        parents = {parent["parent_id"]: parent for parent in parent_rows}
+        assert len(parents) == len(parent_rows)
         c5_parent_ids.update(parents)
         assert set(row["axis_relevance_check"]["scoring_parent_refs"]) == set(parents)
         for group in row["unit_groups"]:
@@ -85,7 +87,7 @@ def verify() -> dict[str, object]:
                 assert group["parent_id"] in parents
             else:
                 assert "parent_id" not in group or group["parent_id"] is None
-        directions = {parent["direction"] for parent in row["parents"]}
+        directions = {parent["direction"] for parent in parent_rows}
         if row["grade_numeric"] >= 3 and directions and directions <= {"NEGATIVE", "MIXED_NEGATIVE"}:
             assert row["review_status"] in {"RECALIBRATED", "VALIDATED"}
             assert row["public_evidence_points"] and row["source_refs"]
@@ -119,7 +121,7 @@ def verify() -> dict[str, object]:
     return {
         "status": "PASS",
         "record_count": len(c5_by_id),
-        "c5_parent_count": sum(len(row["parents"]) for row in c5["records"]),
+        "c5_parent_count": sum(len(parent_chains(row)) for row in c5["records"]),
         "c5_unit_count": len(units),
         "grade_distribution": c5["summary"]["grade_distribution"],
         "evidence_distribution": c5["summary"]["axis_evidence_distribution"],

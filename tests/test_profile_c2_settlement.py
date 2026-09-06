@@ -7,6 +7,7 @@ import pytest
 
 from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.profile_c2_verifier import verify, verify_payloads
+from emperor_v4.evaluation.profile_parent_schema import parent_chains
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -79,7 +80,7 @@ def test_c2_candidate_b2_materials_are_individually_bound_and_suppression_is_asy
 
     def erase_suppression_strength(settlement, audit, high):
         parent = next(
-            p for row in settlement["records"] for p in row["parents"]
+            p for row in settlement["records"] for p in parent_chains(row)
             if p["intensity"] in {"MI3_SUSTAINED_SYSTEMIC", "MI4_CROSS_PHASE_SYSTEMIC"}
             and p.get("feedback_suppression_review", {}).get("review_status") == "REVIEWED"
         )
@@ -102,7 +103,7 @@ def test_c2_rejects_targeted_summary_as_full_lifetime_e3() -> None:
 
 def test_c2_rejects_no_parent_neutral_default_and_template_basis() -> None:
     def neutral(settlement, audit, high):
-        row = next(row for row in settlement["records"] if not row["parents"])
+        row = next(row for row in settlement["records"] if not parent_chains(row))
         row["score_status"] = "FINAL"
     assert_rejected(neutral)
 
@@ -120,24 +121,25 @@ def test_c2_rejects_uniform_entry_disposition_and_giant_high_parent() -> None:
 
     def giant(settlement, audit, high):
         row = next(row for row in settlement["records"] if row["axis_grade"] == "G4")
-        row["parents"] = row["parents"][:1]
-        row["axis_relevance_check"]["scoring_parent_refs"] = [row["parents"][0]["parent_id"]]
+        shortened = parent_chains(row)[:1]
+        row["parent_chains" if "parent_chains" in row else "parents"] = shortened
+        row["axis_relevance_check"]["scoring_parent_refs"] = [shortened[0]["parent_id"]]
     assert_rejected(giant)
 
 
 def test_c2_rejects_text_grade_contradiction_behavior_inference_and_c5_backflow() -> None:
     def contradiction(settlement, audit, high):
         row = next(row for row in settlement["records"] if row["axis_grade"] == "G4")
-        for parent in row["parents"]:
+        for parent in parent_chains(row):
             parent["direction"] = "NEGATIVE"
     assert_rejected(contradiction)
 
     def behavior_only(settlement, audit, high):
-        row = next(row for row in settlement["records"] if row["parents"])
-        row["parents"][0]["basis"] = "战败后改变策略，因此证明认知更新。"
+        row = next(row for row in settlement["records"] if parent_chains(row))
+        parent_chains(row)[0]["basis"] = "战败后改变策略，因此证明认知更新。"
     assert_rejected(behavior_only)
 
     def c5_backflow(settlement, audit, high):
-        row = next(row for row in settlement["records"] if row["parents"])
-        row["parents"][0]["secondary_projection_reason"] = "C5异议者安全与处罚比例直接支持C2。"
+        row = next(row for row in settlement["records"] if parent_chains(row))
+        parent_chains(row)[0]["secondary_projection_reason"] = "C5异议者安全与处罚比例直接支持C2。"
     assert_rejected(c5_backflow)

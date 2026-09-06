@@ -9,6 +9,7 @@ from typing import Any
 import yaml
 
 from emperor_v4.evaluation.formal_json_store import load_json
+from emperor_v4.evaluation.profile_parent_schema import parent_chains
 
 from emperor_v4.evaluation.profile_markdown import render_profile_markdown
 
@@ -84,7 +85,7 @@ def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dic
     records = settlement["records"]
     pool = _load(POOL)
     included = {r["ruler_id"] for r in pool["records"] if r["pool_status"] == "INCLUDED"}
-    assert settlement["schema_version"] == "profile-c3-formal-settlement-v1"
+    assert settlement["schema_version"] == "profile-c3-formal-settlement-v2"
     assert settlement["canonical_status"] == "FORMAL_CURRENT"
     assert settlement["axis_code"] == "C3"
     assert settlement["contract_version"]
@@ -100,7 +101,7 @@ def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dic
 
     required = {
         "task_code", "ruler_id", "axis_grade", "position", "radar_value", "axis_evidence_level",
-        "output_mode", "confidence", "score_status", "parents", "typical_pattern", "grade_basis",
+        "output_mode", "confidence", "score_status", "parent_chains", "representative_parent_ids", "typical_pattern", "grade_basis",
         "position_basis", "axis_relevance_check", "limitations",
     }
     assert all(required <= row.keys() for row in records)
@@ -113,13 +114,14 @@ def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dic
     parent_ids = []
     narratives = []
     for row in records:
+        parents = parent_chains(row)
         check = row["axis_relevance_check"]
         assert check == {
             "famous_minister_count_used": False, "office_count_used": False,
             "final_outcome_backsolve_used": False, "c5_ethics_leakage": False,
             "m4_group_outcome_leakage": False,
         }
-        if not row["parents"]:
+        if not parents:
             assert row["score_status"] == "EVIDENCE_LIMITED"
             assert row["axis_evidence_level"] == "E1" and row["output_mode"] == "EPISODE_TAG"
             assert row["limitations"] and len(row["typical_pattern"]) >= 20
@@ -128,7 +130,7 @@ def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dic
             assert row["axis_grade"] not in {"G4", "G5"}
         pattern_clauses = _clauses(row["typical_pattern"])
         assert len(pattern_clauses) == len(set(pattern_clauses)), f"duplicate typical-pattern clause: {row['ruler_name']}"
-        for parent in row["parents"]:
+        for parent in parents:
             parent_ids.append(parent["parent_id"])
             narratives.append(parent["lifecycle_narrative"])
             assert parent["closure_status"] == "CLOSED"
@@ -147,9 +149,9 @@ def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dic
                 assert len(set(states)) >= 5, f"high-grade template lifecycle: {parent['parent_id']}"
             boundary = parent["boundary_review"]
             assert set(boundary) == {"c5_excluded", "m4_excluded", "result_only_excluded"}
-        directions = {p["direction"] for p in row["parents"]}
+        directions = {p["direction"] for p in parents}
         if row["axis_grade"] in {"G4", "G5"}:
-            assert len(row["parents"]) >= 2, "single giant chain cannot support G4/G5"
+            assert len(parents) >= 2, "single giant chain cannot support G4/G5"
             assert len(row["major_task_domains_observed"]) >= 2, "high grade requires cross-task retest"
             assert directions != {"NEGATIVE"}
             assert not re.match(r"^按\d+条", row["grade_basis"]), "high grade requires person-specific gate basis"
@@ -208,7 +210,7 @@ def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dic
     assert systemic["authorization_strength_calibrations"] == strength_calibrations
     by_id = {row["ruler_id"]: row for row in records}
     assert all(
-        calibration["parent_id"] in {parent["parent_id"] for parent in by_id[calibration["ruler_id"]]["parents"]}
+        calibration["parent_id"] in {parent["parent_id"] for parent in parent_chains(by_id[calibration["ruler_id"]])}
         and len(calibration["comparators"]) >= 2
         and all(comparator["ruler_id"] in by_id for comparator in calibration["comparators"])
         for calibration in strength_calibrations
@@ -216,7 +218,7 @@ def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dic
     c5_parent_ids = {
         parent["parent_id"]
         for row in _load(C5_SETTLEMENT)["records"]
-        for parent in row.get("parents", [])
+        for parent in parent_chains(row)
     }
     assert all(row["c5_parent_id"] in c5_parent_ids for row in c5_decisions)
     assert all(row["outcome"] in {"PROJECTED_TO_C3", "ALREADY_CAPTURED_IN_C3", "C3_BACKGROUND_INSUFFICIENT", "C5_ONLY", "ATTRIBUTION_INSUFFICIENT"} for row in c5_decisions)
@@ -226,7 +228,7 @@ def verify_payloads(settlement: dict[str, Any], audit: dict[str, Any], high: dic
     for md, record in zip(rows, records):
         assert md[1] == record["ruler_name"]
         assert md[4:10] == [record["axis_grade"], record["position"], str(record["radar_value"]), record["axis_evidence_level"], record["output_mode"], record["score_status"]]
-        assert md[10] == str(len(record["parents"]))
+        assert md[10] == str(len(parent_chains(record)))
     return {"status": "PASS", "record_count": 184, "parent_count": len(parent_ids), "audit_unit_count": audit["unit_count"]}
 
 
@@ -240,7 +242,11 @@ def verify() -> dict[str, Any]:
     manifest = _load(MANIFEST)
     c3 = next(axis for axis in manifest["axes"] if axis["axis_code"] == "C3")
     assert c3["json"] == SETTLEMENT.relative_to(MANIFEST.parent).as_posix()
-    assert SYSTEMIC_REVIEW.name in c3["audit_jsons"]
+    assert any(
+        item["path"] == SYSTEMIC_REVIEW.relative_to(MANIFEST.parent).as_posix()
+        and item["audit_kind"] == "SYSTEMIC_REVIEW"
+        for item in c3["audit_jsons"]
+    )
     assert c3["record_count"] == 184
     return result
 

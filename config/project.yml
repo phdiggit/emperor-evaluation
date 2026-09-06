@@ -106,6 +106,8 @@ profile_assessment:
   role: independent_non_composite_profile
   contract_version: FORMAL-V2.0
   contract: docs/项目总纲/皇帝人物画像评估体系合同.md
+  data_contract: docs/分项规则/人物画像轴/00-共同数据与发布合同.md
+  axis_order: [M1, M2, M3, M4, C1, C2, C3, C5]
   population_count: 184
   profile_total_enabled: false
   profile_ranking_enabled: false
@@ -145,54 +147,131 @@ profile_assessment:
   settled_axes:
     M1:
       name: 军事判断与统帅能力
+      contract: docs/分项规则/人物画像轴/M1-军事判断与统帅能力.md
+      axis_contract_version: FORMAL-V1.0
+      payload_schema_version: emperor-profile-m1-formal-settlement-v1
+      axis_kind: DIRECT_PROFILE_AXIS
+      authority_mode: FORMAL_JSON_SOURCE
+      reader_view_mode: DETERMINISTIC_GENERATED
+      verify_command: profile-m1-verify
       json: docs/评分结算/皇帝人物画像/M1/01-M1军事判断与统帅能力正式结算.json
       markdown: docs/评分结算/皇帝人物画像/M1/01-M1军事判断与统帅能力正式结算.md
+      audit_jsons: []
     M2:
       name: 外交博弈与对外联盟能力
+      contract: docs/分项规则/人物画像轴/M2-外交博弈与对外联盟能力.md
+      axis_contract_version: FORMAL-V1.0
+      payload_schema_version: profile-axis-formal-settlement-v3
+      axis_kind: DIRECT_PROFILE_AXIS
+      authority_mode: FORMAL_JSON_SOURCE
+      reader_view_mode: DETERMINISTIC_GENERATED
+      verify_command: profile-current-verify --axis M2
       json: docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json
       markdown: docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.md
+      audit_jsons: []
     M3:
       name: 民生财政建设
-      contract_version: FORMAL-V3.6
-      authority_mode: formal_settlement_patch_source
+      axis_contract_version: FORMAL-V3.6
+      payload_schema_version: profile-m3-livelihood-finance-formal-settlement-v4
+      axis_kind: INTEGRATED_PROFILE_AXIS
+      authority_mode: FORMAL_JSON_SOURCE
+      reader_view_mode: DETERMINISTIC_GENERATED
+      verify_command: profile-m3-verify
+      input_scope: [I2.C1, I2.C2, I2.C3, I2.C4]
       contract: docs/分项规则/人物画像轴/M3-民生财政建设.md
       json: docs/评分结算/皇帝人物画像/M3/29-M3民生财政建设正式结算.json
       markdown: docs/评分结算/皇帝人物画像/M3/29-M3民生财政建设正式结算.md
+      audit_jsons: []
+      formalization_note: M3正式JSON为逐人裁决唯一真源；日常修改采用局部patch。程序校验I2.C1—I2.C4事实同步、规模门来源和G4必要条件，只投影固定雷达值并生成阅读视图，不自动重裁。
     M4:
       name: 政治联盟与内部联盟管理
-      authority_mode: formal_settlement_patch_source
+      contract: docs/分项规则/人物画像轴/M4-内部政治联盟与集团整合.md
+      axis_contract_version: FORMAL-V1.0
+      payload_schema_version: profile-m4-formal-settlement-v2
+      axis_kind: DIRECT_PROFILE_AXIS
+      authority_mode: FORMAL_JSON_SOURCE
+      reader_view_mode: DETERMINISTIC_GENERATED
+      verify_command: profile-m4-verify
       json: docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json
       markdown: docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.md
-      unit_disposition_audit_json: docs/评分结算/皇帝人物画像/M4/35-M4主要入口单元处置审计.json
-      high_grade_lifecycle_review_json: docs/评分结算/皇帝人物画像/M4/36-M4高档联盟生命周期复核.json
-      full_pool_review_json: docs/评分结算/皇帝人物画像/M4/37-M4全池两轮复审.json
+      audit_jsons:
+        - audit_kind: UNIT_DISPOSITION
+          path: M4/35-M4主要入口单元处置审计.json
+        - audit_kind: HIGH_GRADE_LIFECYCLE
+          path: M4/36-M4高档联盟生命周期复核.json
+        - audit_kind: FULL_POOL_REVIEW
+          path: M4/37-M4全池两轮复审.json
+      formalization_note: M4正式JSON为逐人裁决唯一真源；程序只生成阅读视图，人物裁决变化只通过局部patch进入正式JSON，不由程序自动改档。
     C1:
       name: 战略判断与风险控制
+      contract: docs/分项规则/人物画像轴/C1-战略判断与风险控制.md
+      axis_contract_version: FORMAL-V1.0
+      payload_schema_version: profile-c1-formal-v2
+      axis_kind: DIRECT_PROFILE_AXIS
+      authority_mode: FORMAL_JSON_SOURCE
+      reader_view_mode: DETERMINISTIC_GENERATED
+      verify_command: profile-c1-verify
       json: docs/评分结算/皇帝人物画像/C1/15-C1战略判断与风险控制正式结算.json
       markdown: docs/评分结算/皇帝人物画像/C1/15-C1战略判断与风险控制正式结算.md
-      unit_disposition_audit_json: docs/评分结算/皇帝人物画像/C1/16-C1主要入口单元处置审计.json
-      high_grade_capability_review_json: docs/评分结算/皇帝人物画像/C1/17-C1高档能力剖面复核.json
+      audit_jsons:
+        - audit_kind: UNIT_DISPOSITION
+          path: C1/16-C1主要入口单元处置审计.json
+        - audit_kind: HIGH_GRADE_CAPABILITY
+          path: C1/17-C1高档能力剖面复核.json
     C2:
       name: 信息处理、学习与纠错
+      contract: docs/分项规则/人物画像轴/C2-信息处理、学习与纠错.md
+      axis_contract_version: FORMAL-V1.0
+      payload_schema_version: profile-c2-settlement-v6
+      axis_kind: DIRECT_PROFILE_AXIS
+      authority_mode: FORMAL_JSON_SOURCE
+      reader_view_mode: DETERMINISTIC_GENERATED
+      verify_command: profile-c2-verify
       json: docs/评分结算/皇帝人物画像/C2/19-C2信息处理学习与纠错正式结算.json
       markdown: docs/评分结算/皇帝人物画像/C2/19-C2信息处理学习与纠错正式结算.md
-      unit_disposition_audit_json: docs/评分结算/皇帝人物画像/C2/20-C2主要入口单元处置审计.json
-      high_grade_calibration_review_json: docs/评分结算/皇帝人物画像/C2/21-C2高档学习周期与横向校准复核.json
+      audit_jsons:
+        - audit_kind: UNIT_DISPOSITION
+          path: C2/20-C2主要入口单元处置审计.json
+        - audit_kind: HIGH_GRADE_CALIBRATION
+          path: C2/21-C2高档学习周期与横向校准复核.json
+      formalization_note: 184人聊天版V2重裁已正式吸纳；EVIDENCE_FLOOR显式标记为有界证据下限，不按分布放宽能力门槛。
     C3:
       name: 人才识别、配置与授权
-      authority_mode: formal_settlement_patch_source
+      contract: docs/分项规则/人物画像轴/C3-人才识别、配置与授权.md
+      axis_contract_version: FORMAL-V1.0
+      payload_schema_version: profile-c3-formal-settlement-v2
+      axis_kind: DIRECT_PROFILE_AXIS
+      authority_mode: FORMAL_JSON_SOURCE
+      reader_view_mode: DETERMINISTIC_GENERATED
+      verify_command: profile-c3-verify
       json: docs/评分结算/皇帝人物画像/C3/24-C3人才识别配置与授权正式结算.json
       markdown: docs/评分结算/皇帝人物画像/C3/24-C3人才识别配置与授权正式结算.md
-      unit_disposition_audit_json: docs/评分结算/皇帝人物画像/C3/25-C3主要入口单元处置审计.json
-      high_grade_lifecycle_review_json: docs/评分结算/皇帝人物画像/C3/26-C3高档授权生命周期复核.json
-      systemic_review_json: docs/评分结算/皇帝人物画像/C3/28-C3高档门与错误清洗系统复核.json
+      audit_jsons:
+        - audit_kind: UNIT_DISPOSITION
+          path: C3/25-C3主要入口单元处置审计.json
+        - audit_kind: HIGH_GRADE_LIFECYCLE
+          path: C3/26-C3高档授权生命周期复核.json
+        - audit_kind: SYSTEMIC_REVIEW
+          path: C3/28-C3高档门与错误清洗系统复核.json
+      formalization_note: C3正式JSON为逐人裁决唯一真源；程序只生成阅读视图，高档门、生命周期、模板与跨轴边界由轻量语义校验器守护。
     C5:
       name: 权力运用风格与克制
+      contract: docs/分项规则/人物画像轴/C5-权力运用风格与克制.md
+      axis_contract_version: FORMAL-V1.0
+      payload_schema_version: emperor-profile-c5-formal-settlement-v4
+      axis_kind: DIRECT_PROFILE_AXIS
+      authority_mode: FORMAL_JSON_SOURCE
+      reader_view_mode: DETERMINISTIC_GENERATED
+      verify_command: profile-c5-verify
       json: docs/评分结算/皇帝人物画像/C5/02-C5权力运用风格与克制正式结算.json
       markdown: docs/评分结算/皇帝人物画像/C5/02-C5权力运用风格与克制正式结算.md
-      unit_disposition_audit_json: docs/评分结算/皇帝人物画像/C5/04-C5主要入口单元处置审计.json
-      density_review_json: docs/评分结算/皇帝人物画像/C5/05-C5高档材料密度复核.json
-      structural_review_json: docs/评分结算/皇帝人物画像/C5/07-C5高档与证据门结构复核.json
+      audit_jsons:
+        - audit_kind: UNIT_DISPOSITION
+          path: C5/04-C5主要入口单元处置审计.json
+        - audit_kind: DENSITY_REVIEW
+          path: C5/05-C5高档材料密度复核.json
+        - audit_kind: STRUCTURAL_REVIEW
+          path: C5/07-C5高档与证据门结构复核.json
 
 retained_build_chain:
   input_roots:
