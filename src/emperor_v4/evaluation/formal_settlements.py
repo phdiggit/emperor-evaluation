@@ -18,6 +18,7 @@ from emperor_v4.evaluation.second_item_b1_settlement import (
     position_from_residual,
     position_residual,
     validate_gate_references,
+    verify_derived_views,
 )
 from emperor_v4.evaluation.third_item_current_settlement import (
     verify_current_third_item_settlement,
@@ -810,6 +811,12 @@ def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
         )
         if abs(float(method["score"]) - expected_method) > 1e-9:
             raise ValueError(f"第二项治理手段公式错误：{method['ruler_name']}")
+        if (
+            tuple(float(method[f"{key}_direction_index"]) for key in ("A", "B1", "B2")) != (a, b1, b2)
+            or abs(float(method["AB_block_120"]) - round(0.8 * (max(a, b1) + 0.5 * min(a, b1)) + 1e-9, 1)) > 1e-9
+            or abs(float(method["B2_45"]) - round(45 / 80 * b2 + 1e-9, 1)) > 1e-9
+        ):
+            raise ValueError(f"第二项治理手段组件抄录错误：{method['ruler_name']}")
 
         result = indexed["result"][ruler_id]
 
@@ -837,8 +844,10 @@ def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
                 raise ValueError(f"第二项总表{key}抄录错误：{total['ruler_name']}")
             if total[f"{key}_band"] != indexed[key][ruler_id]["main_band"]:
                 raise ValueError(f"第二项总表{key}档位抄录错误：{total['ruler_name']}")
+    views_report = verify_derived_views(workspace_root)
     return {
         "component_file_count": len(payloads),
+        **views_report,
         "complete_ruler_count": len(complete_ids),
         "finance_ruler_count": len(finance_ids),
         "C4_civilian_cost_review_count": c4_cost_report["record_count"],

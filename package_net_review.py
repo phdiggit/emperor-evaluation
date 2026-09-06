@@ -38,8 +38,8 @@ CONTRACT_FIXED = (
     "config/project.yml",
 )
 SETTLEMENT_FIXED = (
-    "docs/评分结算/00-皇帝功业与治理净收益榜.json",
-    "docs/评分结算/00-皇帝功业与治理净收益榜.md",
+    "docs/评分结算/00-皇帝统治成效综合评分榜.json",
+    "docs/评分结算/00-皇帝统治成效综合评分榜.md",
     "config/common/canonical-ruler-pool.json",
     "config/common/canonical-ruler-admission-adjudications.yml",
 )
@@ -156,7 +156,7 @@ def review_note(package: str) -> bytes:
             "# 净收益体系结算审查包\n\n"
             "## 范围与读取顺序\n\n"
             "1. 先读 `config/common/canonical-ruler-pool.json`，确认正式评价对象及 `COMPOSITE_READY` 状态。\n"
-            "2. 阅读 `docs/评分结算/00-皇帝功业与治理净收益榜.json` 及其Markdown阅读视图。\n"
+            "2. 阅读 `docs/评分结算/00-皇帝统治成效综合评分榜.json` 及其Markdown阅读视图。\n"
             "3. 再按前四项结算目录检查正式 JSON、Markdown、路由分片和对应裁决输入。\n"
             "4. 合同正文见配套合同包；本包不把结算快照反向当作规则。\n\n"
             "## 数据含义\n\n"

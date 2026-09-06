@@ -1,4 +1,5 @@
 import json
+from copy import deepcopy
 from pathlib import Path
 
 import yaml
@@ -32,6 +33,20 @@ def test_canonical_pool_is_rebuildable_and_feasible() -> None:
 
 def test_checked_in_pool_matches_current_settlements() -> None:
     verify_canonical_ruler_pool(ROOT)
+
+
+def test_outside_pool_identity_does_not_change_with_first_item_rank(monkeypatch) -> None:
+    from emperor_v4.evaluation import canonical_ruler_pool as pool_module
+
+    before = build_canonical_ruler_pool(ROOT)
+    outside_names = {r["ruler_name"] for r in before["first_item_outside_candidate_pool"]}
+    records = deepcopy(pool_module.load_first_item_markdown_settlement(ROOT))
+    for row in records:
+        if row["name"] in outside_names:
+            row["rank"] += len(records)
+    monkeypatch.setattr(pool_module, "load_first_item_markdown_settlement", lambda _: records)
+    after = build_canonical_ruler_pool(ROOT)
+    assert after == before
 
 
 def test_jin_taizong_identity_registry_has_one_canonical_id() -> None:

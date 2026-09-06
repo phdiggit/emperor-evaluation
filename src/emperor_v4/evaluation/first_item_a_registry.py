@@ -903,7 +903,7 @@ def build_first_item_a_registry(
             "A1": "不读取净控制量；个人原始起点、项目起点和主要对手压力分别占综合难度15%、35%、50%，并用85%历史前沿锚归一化；A1=60×项目完成率×A1战略责任强度×归一化难度。责任强度不是零和份额，不要求同项目人物合计100%，且不得由C项个人战功倒推",
             "A2": "只读取人物窗口已分账的净控制量，不再重复乘A1责任强度；原始规模率=计分控制量/1000，规模计分率取平方根；取得速度与闭合速度按60%/40%合成，耐久按控制留存60%和早期稳固40%合成。客观结果最高36分，具名非战役正确决策按1/3/5/8分奖励，误判按1/2/5/10分扣除，最终A2限0至40分",
             "error_boundary": f"{len(eligible)}名适用对象均须完成同强度负向复核；只登记本人最高决定造成统一链实质倒退的具名误判，普通败仗留在C；空数组只表示REVIEWED_NO_THRESHOLD_ERROR，不能表示未检索；贡献闭合后5至10年内由同一路线造成的迅速崩解仍进入稳定审计；玄武门之变不进入第一项",
-            "decision_boundary": "正向锚点只评价根据地、政治时机、合法性、总体夺权路径和重大纠偏；战役路线、战区统筹、主力歼灭和前线指挥只归C1/C2",
+            "decision_boundary": "正向锚点只评价根据地、政治时机、合法性、总体夺权路径和重大纠偏；战役路线、战区统筹、主力歼灭和前线指挥只归C",
             "inheritance_boundary": "继承、辅政、摄政、政变或禅代时已经有效控制的国家机器是起点资源，不是本人新增战略成果",
             "D_merge": "原D的起点、对手和环境已进入A1，不再单列D；净控制量只进入A2",
             "formula_contract": efficiency_inputs["formula_contract"],
@@ -957,7 +957,7 @@ def render_first_item_a_registry_markdown(payload: Mapping[str, Any]) -> str:
         "# 第一项A创业战略能力结算",
         "",
         "> 原D创业难度已经进入A1；净控制量只进入A2，既有国家机器一律算起点，不算新增成果。",
-        "> A1战略责任强度不是零和份额，只约束本人对项目难度与完成度的兑现；A2直接读取人物窗口已分账的净控制结果，不重复乘责任强度。战役路线与军事统筹只归C1/C2。",
+        "> A1战略责任强度不是零和份额，只约束本人对项目难度与完成度的兑现；A2直接读取人物窗口已分账的净控制结果，不重复乘责任强度。战役路线与军事统筹只归C。",
         "",
         f"共{payload['record_count']}人，其中{payload['eligible_count']}名奠基者进入结算，"
         f"{payload['excluded_count']}名非奠基者不适用。",
@@ -1001,7 +1001,7 @@ def render_first_item_a_registry_markdown(payload: Mapping[str, Any]) -> str:
             f"- 个人起点裁决：{row['initial_resource_share_basis']}",
             f"- 贡献窗口：{row['start_boundary']} → {row['end_boundary']}；窗口位置：{row['starting_position']}。",
             f"- 双起点资源份额：个人原始{row['A1']['starting_resource_share']:.2f}%，可归责贡献项目{row['A1']['project_start_resource_share']:.2f}%；综合难度按个人原始起点15%、项目起点35%、对手压力50%合成。",
-            f"- A1战略责任强度：{row['A1']['a1_strategic_responsibility_factor']:.2f}%；{row['A1']['a1_strategic_responsibility_basis']}。项目完成{row['A1']['terminal_completion_rate']:.2f}%，归责后完成{row['A1']['attributed_completion_rate']:.2f}%；个人战役路线与军事统筹只由C1/C2结算。",
+            f"- A1战略责任强度：{row['A1']['a1_strategic_responsibility_factor']:.2f}%；{row['A1']['a1_strategic_responsibility_basis']}。项目完成{row['A1']['terminal_completion_rate']:.2f}%，归责后完成{row['A1']['attributed_completion_rate']:.2f}%；个人战役路线与军事统筹只由C结算。",
             f"- A2统一控制兑现：新增{row['A2']['created_net_control_value']:.2f}，恢复{row['A2']['recovered_net_control_value']:.2f}，原始合计{row['A2']['gross_unification_control_value']:.2f}；恢复按50%折算后计分控制量{row['A2']['effective_unification_control_value']:.2f}。原始规模率{row['A2']['raw_control_scale_rate']:.2f}%，规模计分率{row['A2']['control_scale_score_rate']:.2f}%。",
             (
                 "- 正向战略决策：" + "；".join(

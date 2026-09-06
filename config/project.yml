@@ -14,8 +14,8 @@ scoring_contract:
   scored_items: [first_item, second_item, third_item, fourth_item]
   database_write: false
   cross_item_ranking_write: true
-  composite_ranking_json: docs/评分结算/00-皇帝功业与治理净收益榜.json
-  composite_ranking_markdown: docs/评分结算/00-皇帝功业与治理净收益榜.md
+  composite_ranking_json: docs/评分结算/00-皇帝统治成效综合评分榜.json
+  composite_ranking_markdown: docs/评分结算/00-皇帝统治成效综合评分榜.md
 
 canonical_ruler_pool:
   status: current
@@ -48,7 +48,7 @@ formal_settlements:
     role: conditional_founder_add_on
     authority_mode: markdown_settlement_source
     military_cost_status: fully_adjudicated_net_score_active
-    score_formula: max(0, A + B1 + B2 + C1 + C2 - military_cost_debit)
+    score_formula: max(0, A + B1 + B2 + C - military_cost_debit)
     contract: docs/分项规则/第一项政权奠基与统一贡献及能力/00-规则与计分合同.md
     military_cost_contract: docs/证据规则/军事成本评估合同.md
     military_cost_adjudications: docs/评分结算/第一项政权奠基与统一贡献及能力/06-军事成本正式裁决.json
@@ -59,8 +59,7 @@ formal_settlements:
       - docs/评分结算/第一项政权奠基与统一贡献及能力/01-第一项A统一主链客观贡献正式结算.md
       - docs/评分结算/第一项政权奠基与统一贡献及能力/02-第一项B1创业难度与战略效率正式结算.md
       - docs/评分结算/第一项政权奠基与统一贡献及能力/03-第一项B2创业组织与政治整合正式结算.md
-      - docs/评分结算/第一项政权奠基与统一贡献及能力/04-第一项C1本人军事统帅能力正式结算.md
-      - docs/评分结算/第一项政权奠基与统一贡献及能力/05-第一项C2本人前线指挥能力正式结算.md
+      - docs/评分结算/第一项政权奠基与统一贡献及能力/04-第一项C本人军事统帅与战争解题能力正式结算.md
   second_item:
     range: [-27.5, 387]
     role: common_governance
@@ -93,6 +92,14 @@ formal_settlements:
     counts_toward_composite: false
     json: docs/评分结算/第五项统治者政治素质/04-第五项统治者政治素质正式结算.json
     markdown: docs/评分结算/第五项统治者政治素质/04-第五项统治者政治素质正式结算.md
+
+adjudication_sensitivity:
+  role: non_scoring_evidence_interpretation_analysis
+  cases: config/third-item/cost-sensitivity-cases.json
+  json: docs/评分结算/综合分析/01-军事成本裁决敏感性.json
+  markdown: docs/评分结算/综合分析/01-军事成本裁决敏感性.md
+  command: cost-sensitivity
+  confidence_interval: false
 
 profile_assessment:
   status: eight_axes_formally_settled

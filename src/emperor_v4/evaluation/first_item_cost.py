@@ -15,7 +15,7 @@ MAPPING_PATH = 'config/first-item/military-cost-debits.json'
 
 def render_cost_adjudications(source: dict[str, Any]) -> str:
     lines = ['# 第一项军事成本裁决', '',
-             '本表记录逐人成本裁决。全部适用对象及跨项去重闭合后，按已确认映射从五轴合计扣除军事成本，净分进入第一项正式结算及综合榜；待裁决不等于零成本。', '',
+             '本表记录逐人成本裁决。全部适用对象及跨项去重闭合后，按已确认映射从四轴合计扣除军事成本，净分进入第一项正式结算及综合榜；待裁决不等于零成本。', '',
              '| 人物 | 成本档 | 位置 | 状态 | 责任窗口 |', '|---|---|---|---|---|']
     for row in source['records']:
         lines.append('| ' + ' | '.join(str(row.get(key) or '待裁决') for key in
@@ -31,7 +31,7 @@ def calculate_cost_debit(gross: float, band: str, position: str, mapping: dict[s
     """Convert an adjudicated band; never infer a band from battle results."""
     value = Decimal(str(gross))
     if not value.is_finite() or not 0 <= value <= 240:
-        raise ValueError('第一项五轴合计须在0—240内')
+        raise ValueError('第一项四轴合计须在0—240内')
     try:
         debit = Decimal(str(mapping['debit_by_band_and_position'][band][position]))
     except KeyError as error:
@@ -70,7 +70,7 @@ def build_first_item_cost_report(root: Path, *, formal_rows: list[dict[str, Any]
     names = [row['ruler_name'] for row in records]
     ids = [row['ruler_id'] for row in records]
     if set(names) != set(formal) or len(names) != len(set(names)) or len(ids) != len(set(ids)):
-        raise ValueError('第一项成本对象与当前五轴适用对象不一致或ID重复')
+        raise ValueError('第一项成本对象与当前四轴适用对象不一致或ID重复')
     mapping_ready = mapping['status'] == 'CONFIRMED'
     consumed: set[str] = set()
     output = []
@@ -96,7 +96,7 @@ def build_first_item_cost_report(root: Path, *, formal_rows: list[dict[str, Any]
             raise ValueError(f'{name}待裁决成本必须说明缺口')
         item = {'ruler_id': row['ruler_id'], 'ruler_name': name, 'evidence_status': status,
                 'cost_band': row['cost_band'], 'cost_position': row['cost_position'],
-                'gross_points': sum(formal[name][k] for k in ('a', 'b1', 'b2', 'c1', 'c2')),
+                'gross_points': sum(formal[name][k] for k in ('a', 'b1', 'b2', 'c')),
                 'cost_debit_points': None, 'net_points': None,
                 'unresolved_gaps': row['unresolved_gaps']}
         if status == 'CONFIRMED' and row['unresolved_gaps']:

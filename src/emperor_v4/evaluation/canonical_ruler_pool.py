@@ -218,6 +218,12 @@ def build_canonical_ruler_pool(workspace_root: Path) -> dict[str, Any]:
         str(row["ruler_name"]): str((row.get("source_item_ids") or {}).get("first_item") or "")
         for row in prior_pool.get("records") or ()
     }
+    # Outside-pool subjects also have persistent lineage IDs. Their current
+    # First Item rank must not rename an already registered person.
+    prior_first_ids.update({
+        str(row["ruler_name"]): str(row["ruler_id"])
+        for row in prior_pool.get("first_item_outside_candidate_pool") or ()
+    })
     first_records = []
     for row in load_first_item_markdown_settlement(workspace_root):
         canonical_name = ITEM_NAME_ALIASES["first_item"].get(row["name"], row["name"])

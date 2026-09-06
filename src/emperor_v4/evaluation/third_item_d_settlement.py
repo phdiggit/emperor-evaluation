@@ -425,6 +425,26 @@ def _validate_markdown(payload: Mapping[str, Any], markdown: str) -> None:
             raise ValueError(f"D Markdown与JSON不一致：{record['ruler_name']}")
 
 
+def validate_quantity_inference_review(review: Mapping[str, Any]) -> None:
+    """Validate declared quantity provenance, never infer casualties from troop strength."""
+    for field in ("quantity_role", "affected_group", "loss_type", "basis", "source_refs"):
+        if not review.get(field):
+            raise ValueError(f"军损数量审计缺少{field}")
+    if review.get("denominator_status") not in {"CONFIRMED", "UNRESOLVED"}:
+        raise ValueError("军损数量审计分母状态不合法")
+    lower = review.get("reliable_death_lower_bound")
+    if lower is not None and (isinstance(lower, bool) or not isinstance(lower, (int, float)) or lower < 0):
+        raise ValueError("军损死亡下界必须为非负数或未知")
+    if review["denominator_status"] == "UNRESOLVED" and lower is not None:
+        raise ValueError("受损分母未闭合不能声明可靠死亡下界")
+    if "assumed_death_fraction" in review:
+        raise ValueError("不得用任意死亡比例填充军损下界")
+    if not isinstance(review.get("threshold_path_admitted"), bool):
+        raise ValueError("军损人员路径准入必须明确声明")
+    if review["threshold_path_admitted"] and (lower is None or lower < 100000):
+        raise ValueError("C6人员路径缺少十万可靠下界")
+
+
 def validate_third_item_d_payload(payload: Mapping[str, Any]) -> dict[str, Any]:
     if payload.get("schema_id") != "emperor-v4-d-strategy-chain-formal-settlement-batch-v2":
         raise ValueError("第三项D正式schema不合法")
@@ -465,6 +485,8 @@ def validate_third_item_d_payload(payload: Mapping[str, Any]) -> dict[str, Any]:
         profile = row.get("attributable_cost_profile") or {}
         if not profile.get("cost_band") or not profile.get("position") or not profile.get("status"):
             raise ValueError(f"D成本画像不完整：{row.get('ruler_name')}")
+        if "quantity_inference_review" in profile:
+            validate_quantity_inference_review(profile["quantity_inference_review"])
 
         chains = [
             *(row.get("external_strategic_chains") or ()),

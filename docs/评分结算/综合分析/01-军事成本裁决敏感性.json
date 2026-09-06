@@ -1,0 +1,158 @@
+{
+  "schema_id": "military-cost-sensitivity-analysis-v1",
+  "non_scoring": true,
+  "scope": "INDEPENDENT_COST_CASES_OTHER_ADJUDICATIONS_FIXED",
+  "confidence_interval": false,
+  "case_count": 1,
+  "cases": [
+    {
+      "case_id": "WZT-KHITAN-DENOMINATOR",
+      "ruler_id": "RULER-TANG-WUZETIAN",
+      "ruler_name": "武则天",
+      "source_refs": [
+        "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/02-武则天契丹军损数量证据审计.md"
+      ],
+      "baseline": {
+        "rank": 103,
+        "total_score": 238.8,
+        "third_item_score": 47.1,
+        "cost_band": "C5",
+        "cost_position": "HIGH"
+      },
+      "supported_rank_range": [
+        103,
+        103
+      ],
+      "supported_total_range": [
+        238.8,
+        238.8
+      ],
+      "scenarios": [
+        {
+          "scenario_id": "VANGUARD_SCOPE",
+          "status": "SUPPORTED_INTERPRETATION",
+          "label": "受损措辞主要指前锋",
+          "cost_band": "C5",
+          "cost_position": "HIGH",
+          "basis": "前锋重损、后军退出；前锋人数未载，十万死亡下界未证。连续兵团毁损、再投入和军资弃置仍支持C5高位。",
+          "cost_debit": 24.6,
+          "applied_debit": 24.6,
+          "third_item_score": 47.1,
+          "total_score": 238.8,
+          "total_delta": 0.0,
+          "rank": 103,
+          "rank_changes": []
+        },
+        {
+          "scenario_id": "BROADER_UNRESOLVED_SCOPE",
+          "status": "SUPPORTED_INTERPRETATION",
+          "label": "可能包括更广的参战部队",
+          "cost_band": "C5",
+          "cost_position": "HIGH",
+          "basis": "不限定死亡仅发生于前锋，但各部死亡与撤退比例仍未知，不能把总军额当死亡分母。C5其他准入事实不变。",
+          "cost_debit": 24.6,
+          "applied_debit": 24.6,
+          "third_item_score": 47.1,
+          "total_score": 238.8,
+          "total_delta": 0.0,
+          "rank": 103,
+          "rank_changes": []
+        },
+        {
+          "scenario_id": "WHOLE_FORCE_DENOMINATOR",
+          "status": "REJECTED_DIAGNOSTIC",
+          "label": "把总军额直接套为死亡分母",
+          "cost_band": "C6",
+          "cost_position": "HIGH",
+          "basis": "仅诊断被排除的分母推断对结果的影响。前锋与后军范围未闭合，不能据此保留C6；不属于合法替代裁决，不进入允许范围。",
+          "cost_debit": 44.1,
+          "applied_debit": 44.1,
+          "third_item_score": 27.6,
+          "total_score": 219.3,
+          "total_delta": -19.5,
+          "rank": 115,
+          "rank_changes": [
+            {
+              "ruler_id": "RULER-TANG-WUZETIAN",
+              "ruler_name": "武则天",
+              "baseline_rank": 103,
+              "scenario_rank": 115
+            },
+            {
+              "ruler_id": "RULER-SHU-LIUBEI",
+              "ruler_name": "刘备",
+              "baseline_rank": 104,
+              "scenario_rank": 103
+            },
+            {
+              "ruler_id": "RULER-SHADOW-刘渊",
+              "ruler_name": "刘渊",
+              "baseline_rank": 105,
+              "scenario_rank": 104
+            },
+            {
+              "ruler_id": "RULER-LIAO-YELU-DEGUANG",
+              "ruler_name": "耶律德光",
+              "baseline_rank": 106,
+              "scenario_rank": 105
+            },
+            {
+              "ruler_id": "RULER-TANG-LIXIAN",
+              "ruler_name": "李显",
+              "baseline_rank": 107,
+              "scenario_rank": 106
+            },
+            {
+              "ruler_id": "RULER-HAN-LIUAO",
+              "ruler_name": "刘骜",
+              "baseline_rank": 108,
+              "scenario_rank": 107
+            },
+            {
+              "ruler_id": "RULER-SHADOW-姚苌",
+              "ruler_name": "姚苌",
+              "baseline_rank": 109,
+              "scenario_rank": 108
+            },
+            {
+              "ruler_id": "RULER-SHADOW-高洋",
+              "ruler_name": "高洋",
+              "baseline_rank": 110,
+              "scenario_rank": 109
+            },
+            {
+              "ruler_id": "RULER-FD-LIU-YAN",
+              "ruler_name": "刘龑",
+              "baseline_rank": 111,
+              "scenario_rank": 110
+            },
+            {
+              "ruler_id": "RULER-YUAN-KULUG",
+              "ruler_name": "海山",
+              "baseline_rank": 112,
+              "scenario_rank": 111
+            },
+            {
+              "ruler_id": "RULER-FD-ZHU-WEN",
+              "ruler_name": "朱温",
+              "baseline_rank": 113,
+              "scenario_rank": 112
+            },
+            {
+              "ruler_id": "RULER-HAN-LIUHU",
+              "ruler_name": "刘祜",
+              "baseline_rank": 114,
+              "scenario_rank": 113
+            },
+            {
+              "ruler_id": "RULER-WU-SUNXIU",
+              "ruler_name": "孙休",
+              "baseline_rank": 115,
+              "scenario_rank": 114
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -144,6 +144,8 @@ def verify(root: Path, *, check_views=True):
         if used[package['package_code']] != 1:
             errors.append(f"影响包未被唯一引用: {package['package_code']}")
     ranked = sorted(payload['records'], key=lambda r: (-r['fourth_item_signed_adjustment'], r['ruler_id']))
+    if [r['fourth_item_signed_adjustment'] for r in payload['records']] != [r['fourth_item_signed_adjustment'] for r in ranked]:
+        errors.append('第四项机器记录未按分值降序排列')
     for row in ranked:
         expected = 1 + sum(r['fourth_item_signed_adjustment'] > row['fourth_item_signed_adjustment'] for r in ranked)
         if row['rank'] != expected:

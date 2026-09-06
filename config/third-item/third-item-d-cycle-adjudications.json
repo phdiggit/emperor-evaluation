@@ -92,18 +92,23 @@
       "confidence": "HIGH"
     },
     {
-      "status": "CLOSED",
+      "status": "UNRESOLVED_DENOMINATOR_NOT_SCORE_ACTIVE",
       "ruler_name": "武则天",
       "source_parent_cycle_ref": "CAMPAIGN-TANG-KHITAN-696-700",
-      "P_observed": "697年十七万军将士死亡殆尽；696年两次覆军基数不明，不在同父链重复叠加。",
-      "equivalent_range": [100000, 169999],
-      "center": 130384,
-      "P_scoring": 5,
-      "scoring_policy": "DIRECT_IDENTIFIED_FORCE_WITH_DEATH_QUALIFIER",
-      "lower_bound_reason": "十七万军且死亡殆尽支持至少十万死亡当量。",
-      "upper_bound_reason": "死亡殆尽不等于十七万全部精确死亡，早期覆军基数不明。",
-      "source_refs": ["docs/史料通读产物/唐以前编年/唐/卷205-通读总结.md#L67-L87", "docs/史料通读产物/唐以前编年/唐/卷206-通读总结.md#L39-L58", "config/third-item/third-item-d-cycle-adjudications.json#COST-WZ-KHITAN-P"],
-      "confidence": "HIGH"
+      "P_observed": "十七万为总出征军额；前锋败损与后军撤退的数量范围未闭合。",
+      "equivalent_range": null,
+      "center": null,
+      "P_scoring": null,
+      "scoring_policy": "NO_DEATH_EQUIVALENT_WITH_UNRESOLVED_DENOMINATOR",
+      "lower_bound_reason": "死亡下界未证；不以总军额填充受损分母。",
+      "upper_bound_reason": "未给可靠死亡区间，不把未知视为零。",
+      "source_refs": [
+        "docs/史料通读产物/唐以前编年/唐/卷205-通读总结.md#L67-L87",
+        "docs/史料通读产物/唐以前编年/唐/卷206-通读总结.md#L39-L58",
+        "config/third-item/third-item-d-cycle-adjudications.json#COST-WZ-KHITAN-P",
+        "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/02-武则天契丹军损数量证据审计.md"
+      ],
+      "confidence": "MEDIUM"
     },
     {
       "status": "CLOSED",
@@ -1976,7 +1981,7 @@
       "boundary_decision": {"mode": "FIRST_CYCLE_IN_CHAIN", "reason": "696年营州叛乱至700年余党平定共享连续东北应对、补充动员与终局。", "source_refs": ["WAR-LEAD-TANG-KHITAN-697"]},
       "cost_axis_adjudications": {
         "S": {"grade": 5, "lower_grade": 4, "upper_grade": 5, "gross_damage_grade": 4, "flow_disruption_grade": 4, "terminal_residual_grade": 2, "supporting_fact_refs": ["COST-WZ-KHITAN-S"], "source_refs": ["WAR-LEAD-TANG-KHITAN-697"], "basis": "营冀幽赵失城屠掠与河北连续危机直接支持区域系统损害S4；跨年扩展与持续性开放S5，selected保留5但不伪装为单点冻结。", "gate_evidence": {"scope_union_refs": ["TANG-YOUZHAO-HEBEI-CORE-SYSTEM"], "duration_or_repeat": "696—700"}},
-        "M": {"grade": 5, "supporting_fact_refs": ["COST-WZ-KHITAN-M"], "source_refs": ["WAR-LEAD-TANG-KHITAN-697"], "basis": "十七万覆没后再发二十万并继续多路平余党，超过一次国家级动员。", "gate_evidence": {"mobilization_scope": "十七万加二十万及后续多路", "duration": "696—700"}}
+        "M": {"grade": 5, "supporting_fact_refs": ["COST-WZ-KHITAN-M"], "source_refs": ["WAR-LEAD-TANG-KHITAN-697"], "basis": "697年兵团败损后再发二十万并继续多路平余党，超过一次国家级动员。", "gate_evidence": {"mobilization_scope": "十七万加二十万及后续多路", "duration": "696—700"}}
       },
       "asset_scoring_adjudication": {"parent_components": {"gross_commitment_grade": 5, "reusable_input_grade": 1, "consumed_asset_grade": 3, "lost_or_destroyed_asset_grade": 4}, "selected_grade": 4, "lower_grade": 4, "upper_grade": 5, "confidence": "MEDIUM", "supporting_fact_refs": ["COST-WZ-KHITAN-LOST-GEAR", "COST-WZ-KHITAN-REMOBILIZATION"], "source_refs": ["WAR-LEAD-TANG-KHITAN-697"], "basis": "大量弃置军资与第二轮国家级实物投入分别裁决，净负担A4—5。", "multi_object_component_gate": {"asset_object_refs": ["TANG-KHITAN-ABANDONED-GEAR", "TANG-KHITAN-SECOND-MOBILIZATION-ASSETS"], "aggregation_basis": "永久弃置与新增征用分对象汇总", "regrade_status": "REGRADED_TO_PARENT_A4_RANGE"}},
       "benefit_axis_gates": {
@@ -1984,7 +1989,7 @@
         "BCP": {"grade": 3, "supporting_fact_refs": ["BENEFIT-WZ-KHITAN-END"], "source_refs": ["WAR-LEAD-TANG-KHITAN-697"], "basis": "幽赵重要区域控制恢复；不把降将人口或名义归附算资源。", "gate_evidence": {"control_scope": "幽赵重要区域", "actual_control": "失城后恢复"}}
       },
       "ordered_phases": [{"phase_ref": "PHASE-TANG-KHITAN-696-700", "start": "0696-01-01", "end": "0700-12-31", "source_refs": ["WAR-LEAD-TANG-KHITAN-697"], "cost_facts": [
-        {"fact_ref": "COST-WZ-KHITAN-P", "fact_type": "PERSONNEL_LOSS", "casualty_group_ref": "TANG-KHITAN-SEVENTEEN-WAN", "equivalent_min": 100000, "equivalent_max": 169999, "source_refs": ["WAR-LEAD-TANG-KHITAN-697"], "basis": "十七万军死亡殆尽，锁定十万级P5。"},
+        {"fact_ref": "COST-WZ-KHITAN-P", "fact_type": "PERSONNEL_LOSS", "casualty_group_ref": "TANG-KHITAN-SEVENTEEN-WAN", "equivalent_min": null, "equivalent_max": null, "source_refs": ["WAR-LEAD-TANG-KHITAN-697", "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/02-武则天契丹军损数量证据审计.md"], "basis": "总军额不能作为前锋死亡分母；死亡下界未证，不用于当前成本换分。", "quantity_status": "UNRESOLVED_DENOMINATOR"},
         {"fact_ref": "COST-WZ-KHITAN-S", "fact_type": "SYSTEM_DAMAGE", "affected_system_ref": "TANG-YOUZHAO-HEBEI-CORE-SYSTEM", "gross_damage_grade": 4, "flow_disruption_grade": 4, "terminal_residual_grade": 2, "source_refs": ["WAR-LEAD-TANG-KHITAN-697"], "basis": "营冀幽赵失城屠掠及河北危机证明实际区域功能受扰；S5上沿由父级持续性裁决承载。"},
         {"fact_ref": "COST-WZ-KHITAN-M", "fact_type": "MOBILIZATION", "mobilization_input_ref": "TANG-KHITAN-REPEATED-NATIONAL-ARMIES", "grade": 5, "source_refs": ["WAR-LEAD-TANG-KHITAN-697"]},
         {"fact_ref": "COST-WZ-KHITAN-LOST-GEAR", "fact_type": "ASSET_BURDEN", "asset_object_ref": "TANG-KHITAN-ABANDONED-GEAR", "gross_grade": 4, "reusable_grade": 0, "consumed_grade": 1, "lost_grade": 4, "source_refs": ["WAR-LEAD-TANG-KHITAN-697"]},

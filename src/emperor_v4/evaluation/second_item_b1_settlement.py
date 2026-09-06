@@ -541,6 +541,75 @@ def render_b1_markdown(payload: dict[str, Any], workspace_root: Path) -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
+def render_method_markdown(method: dict[str, Any]) -> str:
+    method_md = [
+        "# 治理手段165分正式结算", "",
+        "| 排名 | 人物 | 政权 | A/B1方向指数 | AB互补块/120 | B2方向指数→/45 | 正式得分/165 |",
+        "|---:|---|---|---|---:|---|---:|",
+    ]
+    for row in method["records"]:
+        method_md.append(
+            f"| {row['rank']} | {row['ruler_name']} | {row['polity']} | A={float(row['A_direction_index']):.1f} / "
+            f"B1={float(row['B1_direction_index']):.1f} | {float(row['AB_block_120']):.1f} | "
+            f"{float(row['B2_direction_index']):.1f} → {float(row['B2_45']):.1f} | **{float(row['score']):.1f}** |"
+        )
+    return "\n".join(method_md) + "\n"
+
+
+def render_result_markdown(result: dict[str, Any]) -> str:
+    result_md = ["# C1—C4财政民生治理结果正式结算", "", "| 排名 | 人物 | 政权 | C1 | C2 | C3 | C4 | 治理结果分 |", "|---:|---|---|---|---|---|---|---:|"]
+    for row in sorted(result["scores"], key=lambda r: (r["rank"], r["ruler_id"])):
+        cells = " | ".join(f"{row[f'{axis}_band']}/{row[f'{axis}_score']:.1f}" for axis in FINANCE_PATHS)
+        result_md.append(f"| {row['rank']} | {row['ruler_name']} | {row['polity']} | {cells} | **{row['score']:.1f}** |")
+    return "\n".join(result_md) + "\n"
+
+
+def render_handoff_markdown(handoff: dict[str, Any]) -> str:
+    handoff_md = ["# 交接质量正式结算", "", "> D1行政连续性与D3权力交接等权合成；低侧封顶只在实际触发时附注在档位组合中。", "", "| 排名 | 人物 | 政权 | D1↔D3档位组合 | 合计/20 |", "|---:|---|---|---|---:|"]
+    for row in handoff["records"]:
+        combination = f"H{row['D1_level']}↔D3-{row['D3_level']}"
+        if row["score"] < 2.0 * (row["D1_level"] + row["D3_level"]):
+            combination += f"（低侧封顶{row['low_side_cap']:.1f}）"
+        handoff_md.append(f"| {row['rank']} | {row['ruler_name']} | {row['polity']} | {combination} | **{row['score']:.1f}** |")
+    return "\n".join(handoff_md) + "\n"
+
+
+def render_total_markdown(total: dict[str, Any]) -> str:
+    total_md = [
+        "# 第二项治国净收益正式结算", "",
+        "| 排名 | 人物 | 政权 | 治理手段/165 | C1/80 | C2/35 | C3/60 | C4 | 治理结果/202 | 交接/20 | 总分/387 |",
+        "|---:|---|---|---:|---:|---:|---:|---:|---:|---:|---:|",
+    ]
+    for row in total["records"]:
+        total_md.append(
+            f"| {row['rank']} | {row['ruler_name']} | {row['polity']} | {float(row['governance_method_score']):.1f} | "
+            f"{float(row['C1_score']):.1f} | {float(row['C2_score']):.1f} | {float(row['C3_score']):.1f} | "
+            f"{float(row['C4_score']):.1f} | {float(row['governance_result_score']):.1f} | "
+            f"{float(row['handoff_score']):.1f} | **{float(row['second_item_score']):.1f}** |"
+        )
+    return "\n".join(total_md) + "\n"
+
+
+def verify_derived_views(workspace_root: Path) -> dict[str, Any]:
+    specs = {
+        METHOD_PATH: (render_method_markdown, "score"),
+        TOTAL_PATH: (render_total_markdown, "second_item_score"),
+        FINANCE_PATHS["C1"].with_name("05-治理结果正式结算.json"): (render_result_markdown, "score"),
+        TOTAL_PATH.parent / "政权交接稳定/03-交接质量20分正式结算.json": (render_handoff_markdown, "score"),
+    }
+    for relative, (renderer, score_key) in specs.items():
+        path = workspace_root / relative
+        payload = load_json(path)
+        rows = payload.get("records", payload.get("scores", []))
+        scores = sorted((float(row[score_key]) for row in rows), reverse=True)
+        for row in rows:
+            if row["rank"] != scores.index(float(row[score_key])) + 1:
+                raise ValueError(f"第二项汇总竞争排名错误：{relative.name} {row['ruler_name']}")
+        if path.with_suffix(".md").read_text(encoding="utf-8") != renderer(payload):
+            raise ValueError(f"第二项汇总Markdown与正式JSON不一致：{relative.name}")
+    return {"reading_view_count": len(specs)}
+
+
 def rebuild_derived(workspace_root: Path, *, write: bool = False, refresh_source: bool = True) -> dict[str, Any]:
     b1_path = workspace_root / B1_PATH
     b1 = load_json(b1_path)
@@ -569,18 +638,7 @@ def rebuild_derived(workspace_root: Path, *, write: bool = False, refresh_source
         row["AB_block_120"] = round(0.8 * (max(a, b) + 0.5 * min(a, b)) + 1e-9, 1)
         row["score"] = round(float(row["AB_block_120"]) + float(row["B2_45"]), 1)
     _competition_ranks(method["records"], "score")
-    method_md = [
-        "# 治理手段165分正式结算", "",
-        "| 排名 | 人物 | 政权 | A/B1方向指数 | AB互补块/120 | B2方向指数→/45 | 正式得分/165 |",
-        "|---:|---|---|---|---:|---|---:|",
-    ]
-    for row in method["records"]:
-        method_md.append(
-            f"| {row['rank']} | {row['ruler_name']} | {row['polity']} | A={float(row['A_direction_index']):.1f} / "
-            f"B1={float(row['B1_direction_index']):.1f} | {float(row['AB_block_120']):.1f} | "
-            f"{float(row['B2_direction_index']):.1f} → {float(row['B2_45']):.1f} | **{float(row['score']):.1f}** |"
-        )
-    method_md_text = "\n".join(method_md) + "\n"
+    method_md_text = render_method_markdown(method)
 
     total_path = workspace_root / TOTAL_PATH
     total = json.loads(total_path.read_text(encoding="utf-8"))
@@ -602,10 +660,7 @@ def rebuild_derived(workspace_root: Path, *, write: bool = False, refresh_source
     scores = sorted((row["score"] for row in result["scores"]), reverse=True)
     for row in result["scores"]:
         row["rank"] = scores.index(row["score"]) + 1
-    result_md = ["# C1—C4财政民生治理结果正式结算", "", "| 排名 | 人物 | 政权 | C1 | C2 | C3 | C4 | 治理结果分 |", "|---:|---|---|---|---|---|---|---:|"]
-    for row in sorted(result["scores"], key=lambda r: (r["rank"], r["ruler_id"])):
-        cells = " | ".join(f"{row[f'{axis}_band']}/{row[f'{axis}_score']:.1f}" for axis in FINANCE_PATHS)
-        result_md.append(f"| {row['rank']} | {row['ruler_name']} | {row['polity']} | {cells} | **{row['score']:.1f}** |")
+    result_md_text = render_result_markdown(result)
 
     handoff_root = total_path.parent / "政权交接稳定"
     handoff_path = handoff_root / "03-交接质量20分正式结算.json"
@@ -620,12 +675,7 @@ def rebuild_derived(workspace_root: Path, *, write: bool = False, refresh_source
         row["score"] = min(2.0 * (row["D1_level"] + row["D3_level"]), row["low_side_cap"])
     _competition_ranks(handoff["records"], "score")
     handoff_by_id = {r["ruler_id"]: r for r in handoff["records"]}
-    handoff_md = ["# 交接质量正式结算", "", "> D1行政连续性与D3权力交接等权合成；低侧封顶只在实际触发时附注在档位组合中。", "", "| 排名 | 人物 | 政权 | D1↔D3档位组合 | 合计/20 |", "|---:|---|---|---|---:|"]
-    for row in handoff["records"]:
-        combination = f"H{row['D1_level']}↔D3-{row['D3_level']}"
-        if row["score"] < 2.0 * (row["D1_level"] + row["D3_level"]):
-            combination += f"（低侧封顶{row['low_side_cap']:.1f}）"
-        handoff_md.append(f"| {row['rank']} | {row['ruler_name']} | {row['polity']} | {combination} | **{row['score']:.1f}** |")
+    handoff_md_text = render_handoff_markdown(handoff)
     method_by_id = {row["ruler_id"]: row for row in method["records"]}
     for row in total["records"]:
         row["handoff_score"] = handoff_by_id[row["ruler_id"]]["score"]
@@ -643,27 +693,15 @@ def rebuild_derived(workspace_root: Path, *, write: bool = False, refresh_source
             1,
         )
     _competition_ranks(total["records"], "second_item_score")
-    total_md = [
-        "# 第二项治国净收益正式结算", "",
-        "| 排名 | 人物 | 政权 | 治理手段/165 | C1/80 | C2/35 | C3/60 | C4 | 治理结果/202 | 交接/20 | 总分/387 |",
-        "|---:|---|---|---:|---:|---:|---:|---:|---:|---:|---:|",
-    ]
-    for row in total["records"]:
-        total_md.append(
-            f"| {row['rank']} | {row['ruler_name']} | {row['polity']} | {float(row['governance_method_score']):.1f} | "
-            f"{float(row['C1_score']):.1f} | {float(row['C2_score']):.1f} | {float(row['C3_score']):.1f} | "
-            f"{float(row['C4_score']):.1f} | {float(row['governance_result_score']):.1f} | "
-            f"{float(row['handoff_score']):.1f} | **{float(row['second_item_score']):.1f}** |"
-        )
-    total_md_text = "\n".join(total_md) + "\n"
+    total_md_text = render_total_markdown(total)
     if write:
         if refresh_source:
             write_json(b1_path, b1, ruler_polities=load_ruler_polities(workspace_root))
             b1_path.with_suffix(".md").write_text(b1_md, encoding="utf-8", newline="\n")
         write_json(result_path, result)
-        result_path.with_suffix(".md").write_text("\n".join(result_md) + "\n", encoding="utf-8", newline="\n")
+        result_path.with_suffix(".md").write_text(result_md_text, encoding="utf-8", newline="\n")
         write_json(handoff_path, handoff)
-        handoff_path.with_suffix(".md").write_text("\n".join(handoff_md) + "\n", encoding="utf-8", newline="\n")
+        handoff_path.with_suffix(".md").write_text(handoff_md_text, encoding="utf-8", newline="\n")
         method_path.write_text(json.dumps(method, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
         method_path.with_suffix(".md").write_text(method_md_text, encoding="utf-8", newline="\n")
         total_path.write_text(json.dumps(total, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")

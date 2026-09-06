@@ -25,6 +25,8 @@ def _parser() -> argparse.ArgumentParser:
     formal.add_argument("--item", action="append", choices=["first_item", "second_item", "third_item", "fourth_item", "fifth_item"])
     totals = commands.add_parser("second-item-totals")
     totals.add_argument("--write", action="store_true")
+    sensitivity = commands.add_parser("cost-sensitivity", help="核对或生成不计分的军事成本裁决敏感性分析")
+    sensitivity.add_argument("--write", action="store_true")
     profile_current = commands.add_parser("profile-current-verify")
     profile_current.add_argument("--axis", required=True, choices=["M1", "M2", "M3", "M4", "C1", "C2", "C3", "C5"])
     fourth_a = commands.add_parser("fourth-item-a-verify")
@@ -70,7 +72,6 @@ def _parser() -> argparse.ArgumentParser:
     for name in (
         "first-item-a-registry",
         "first-item-b-registry",
-        "first-item-c-registry",
     ):
         command = commands.add_parser(name)
         command.add_argument("--workspace-root", type=Path, default=Path("."))
@@ -101,7 +102,6 @@ def main(argv: Sequence[str] | None = None) -> int:
 def _dispatch(args: argparse.Namespace) -> int:
     from emperor_v4.evaluation.first_item_a_registry import write_first_item_a_registry
     from emperor_v4.evaluation.first_item_b_registry import write_first_item_b_registry
-    from emperor_v4.evaluation.first_item_c_registry import write_first_item_c_registry
     from emperor_v4.evaluation.first_item_cost import build_first_item_cost_report
     from emperor_v4.evaluation.fourth_item_a import verify as verify_fourth_item_a, write_views as write_fourth_item_a_views
     from emperor_v4.evaluation.canonical_ruler_pool import (
@@ -203,6 +203,10 @@ def _dispatch(args: argparse.Namespace) -> int:
     if args.command == "second-item-totals":
         report = rebuild_second_item_b1(Path(".").resolve(), write=args.write, refresh_source=False)
         print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "cost-sensitivity":
+        from emperor_v4.evaluation.cost_sensitivity import run
+        print(json.dumps(run(Path('.').resolve(), write=args.write), ensure_ascii=False, indent=2))
         return 0
     if args.command == "profile-current-verify":
         from emperor_v4.evaluation.maintenance import verify_profile_current
@@ -351,8 +355,6 @@ def _dispatch(args: argparse.Namespace) -> int:
         return _print_written(write_first_item_a_registry(workspace_root))
     if args.command == "first-item-b-registry":
         return _print_written(write_first_item_b_registry(workspace_root))
-    if args.command == "first-item-c-registry":
-        return _print_written(write_first_item_c_registry(workspace_root))
     if args.command == "third-item-d-verify":
         result = verify_third_item_d_formal_settlement(workspace_root)
         print(json.dumps(result, ensure_ascii=False, indent=2))

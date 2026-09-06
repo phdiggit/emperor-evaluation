@@ -11,18 +11,34 @@ COMPONENT_SETTLEMENTS = (
     f"{SETTLEMENT_DIRECTORY}/01-第一项A统一主链客观贡献正式结算.md",
     f"{SETTLEMENT_DIRECTORY}/02-第一项B1创业难度与战略效率正式结算.md",
     f"{SETTLEMENT_DIRECTORY}/03-第一项B2创业组织与政治整合正式结算.md",
-    f"{SETTLEMENT_DIRECTORY}/04-第一项C1本人军事统帅能力正式结算.md",
-    f"{SETTLEMENT_DIRECTORY}/05-第一项C2本人前线指挥能力正式结算.md",
+    f"{SETTLEMENT_DIRECTORY}/04-第一项C本人军事统帅与战争解题能力正式结算.md",
 )
 
 _TOTAL_ROW = re.compile(
     r"^\|\s*(?P<rank>\d+)\s*\|\s*(?P<name>[^|]+?)\s*\|\s*"
     r"(?P<a>[0-9.]+)\s*\|\s*(?P<b1>[0-9.]+)\s*\|\s*"
-    r"(?P<b2>[0-9.]+)\s*\|\s*(?P<c1>[0-9.]+)\s*\|\s*"
-    r"(?P<c2>[0-9.]+)\s*\|\s*(?P<gross>[0-9.]+)\s*\|\s*"
+    r"(?P<b2>[0-9.]+)\s*\|\s*(?P<c>[0-9.]+)\s*\|\s*"
+    r"(?P<gross>[0-9.]+)\s*\|\s*"
     r"(?P<cost_debit>[0-9.]+)\s*\|\s*\*\*(?P<total>[0-9.]+)\*\*\s*\|$",
     re.MULTILINE,
 )
+
+_C_ROW = re.compile(
+    r"^\|\s*\d+\s*\|\s*(?P<name>[^|]+?)\s*\|\s*"
+    r"(?P<route>STRATEGIC_COMMAND|HYBRID|NONE)\s*\|\s*"
+    r"(?P<grade>C-[0-5](?:-(?:LOW|MID|HIGH))?)\s*\|\s*"
+    r"\*\*(?P<points>[0-9.]+)\*\*\s*\|$",
+    re.MULTILINE,
+)
+
+_C_POINTS = {
+    "C-0": 0.0,
+    "C-1-LOW": 6.0, "C-1-MID": 10.5, "C-1-HIGH": 15.0,
+    "C-2-LOW": 18.0, "C-2-MID": 22.5, "C-2-HIGH": 27.0,
+    "C-3-LOW": 30.0, "C-3-MID": 34.5, "C-3-HIGH": 39.0,
+    "C-4-LOW": 42.0, "C-4-MID": 46.5, "C-4-HIGH": 51.0,
+    "C-5-LOW": 54.0, "C-5-MID": 57.0, "C-5-HIGH": 60.0,
+}
 
 
 def load_first_item_markdown_settlement(workspace_root: Path, *, validate_cost: bool = True) -> list[dict[str, Any]]:
@@ -32,7 +48,7 @@ def load_first_item_markdown_settlement(workspace_root: Path, *, validate_cost: 
     for match in _TOTAL_ROW.finditer(text):
         row = {key: value.strip() for key, value in match.groupdict().items()}
         row["rank"] = int(row["rank"])
-        for key in ("a", "b1", "b2", "c1", "c2", "gross", "cost_debit", "total"):
+        for key in ("a", "b1", "b2", "c", "gross", "cost_debit", "total"):
             row[key] = float(row[key])
         rows.append(row)
     if not rows or len({row["name"] for row in rows}) != len(rows):
@@ -40,8 +56,8 @@ def load_first_item_markdown_settlement(workspace_root: Path, *, validate_cost: 
     for index, row in enumerate(rows):
         if row["rank"] != index + 1:
             raise ValueError(f"第一项Markdown排名不连续：{row['name']}")
-        if abs(sum(row[key] for key in ("a", "b1", "b2", "c1", "c2")) - row["gross"]) > 1e-9:
-            raise ValueError(f"第一项Markdown分项和不等于五轴合计：{row['name']}")
+        if abs(sum(row[key] for key in ("a", "b1", "b2", "c")) - row["gross"]) > 1e-9:
+            raise ValueError(f"第一项Markdown分项和不等于四轴合计：{row['name']}")
         if abs(max(0, row["gross"] - row["cost_debit"]) - row["total"]) > 1e-8:
             raise ValueError(f"第一项Markdown成本扣除与净分不一致：{row['name']}")
         if not 0 <= row["total"] <= 240:
@@ -65,6 +81,22 @@ def verify_first_item_markdown_settlement(workspace_root: Path) -> dict[str, Any
     ]
     if missing:
         raise ValueError(f"第一项Markdown分项正式结算缺失：{', '.join(missing)}")
+    c_text = (workspace_root / COMPONENT_SETTLEMENTS[-1]).read_text(encoding="utf-8-sig")
+    c_rows = [match.groupdict() for match in _C_ROW.finditer(c_text)]
+    c_by_name = {row["name"].strip(): row for row in c_rows}
+    if len(c_rows) != len(rows) or len(c_by_name) != len(c_rows):
+        raise ValueError("第一项C正式结算人数为空、缺失或重复")
+    totals_by_name = {row["name"]: row for row in rows}
+    if set(c_by_name) != set(totals_by_name):
+        raise ValueError("第一项C与总表人物集合不一致")
+    for name, c_row in c_by_name.items():
+        points = float(c_row["points"])
+        if points != _C_POINTS[c_row["grade"]]:
+            raise ValueError(f"第一项C档位与分值不一致：{name}")
+        if points != totals_by_name[name]["c"]:
+            raise ValueError(f"第一项C与总表分值不一致：{name}")
+        if (points == 0) != (c_row["route"] == "NONE"):
+            raise ValueError(f"第一项C责任路线与分值不一致：{name}")
     return {
         "path": TOTAL_SETTLEMENT,
         "record_count": len(rows),

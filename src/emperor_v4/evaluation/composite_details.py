@@ -29,7 +29,7 @@ SOURCES = {
 }
 
 SECTIONS = (
-    ("first", "第一项：政权奠基与统一贡献及能力", "五轴合计减去军事成本扣分得到第一项净分，最低为0，再按总榜公式折算F。成本栏列正式成本档、档内位置和扣分；不适用保留为不适用。B1、B2在单元格中继续拆出内部等级及分数。"),
+    ("first", "第一项：政权奠基与统一贡献及能力", "四轴合计减去军事成本扣分得到第一项净分，最低为0，再按总榜公式折算F。成本栏列正式成本档、档内位置和扣分；不适用保留为不适用。B1、B2在单元格中继续拆出内部等级及分数。"),
     ("method", "第二项：制度行政", "A、B1、B2列方向指数及正式档位、档内位置。A与B1不能直接相加：AB=round1(0.8×[max(A,B1)+0.5×min(A,B1)])；B2折算=round1(45/80×B2指数)。治理手段=AB+B2折算。"),
     ("finance", "第二项：财政民生", "C1—C3列主档、K诊断标签和最终分；K标签不是额外扣分。C4列正式档、DA档及正向保留−恶化−DA扣分。治理结果为C1至C4之和。"),
     ("handoff", "第二项：交接质量与合计", "D1、D3为0—5级输入，没有独立可加分；交接得分=min[2×(D1+D3),低侧封顶]。第二项=治理手段+治理结果+交接得分。"),
@@ -80,8 +80,8 @@ def component_details(sources: dict[str, Any], pool: dict[str, Any], row: dict[s
     details: dict[str, Any] = {}
     first = sources["first"].get(name)
     first_cells = []
-    labels = ("A统一贡献", "B1创业难度与效率", "B2组织与整合", "C1军事统帅", "C2前线指挥")
-    for i, (key, label) in enumerate(zip(("a", "b1", "b2", "c1", "c2"), labels)):
+    labels = ("A统一贡献", "B1创业难度与效率", "B2组织与整合", "C军事统帅与战争解题")
+    for i, (key, label) in enumerate(zip(("a", "b1", "b2", "c"), labels)):
         if first is None:
             first_cells.append(cell(label, None, "不适用", COMPONENT_SETTLEMENTS[i]))
             continue
@@ -98,13 +98,9 @@ def component_details(sources: dict[str, Any], pool: dict[str, Any], row: dict[s
             grade = f"并行{values[2]}；覆盖{values[4]}；整合{values[6]}"
             note = f"并行{values[3]}＋覆盖{values[5]}＋整合{values[7]}"
             equal(sum(float(values[j]) for j in (3, 5, 7)), first[key], "B2内部合计")
-        elif key == "c1":
-            grade = values[2]
         else:
-            grade = values[5]
-            note = f"P={values[2]}；R={values[3]}；N={values[4]}"
-            equal(max(0, min(20, sum(float(values[j]) for j in (2, 3, 4)))), first[key], "C2内部合计")
-            note += "；合计限0—20"
+            grade = values[3]
+            note = f"责任路线={values[2]}"
         first_cells.append(cell(label, first[key], grade, COMPONENT_SETTLEMENTS[i], note=note))
     cost_grade = "不适用"
     if first is not None:
@@ -112,7 +108,7 @@ def component_details(sources: dict[str, Any], pool: dict[str, Any], row: dict[s
         cost_grade = f"{cost['cost_band']} / {cost['cost_position']}"
         equal(max(0, first["gross"] - first["cost_debit"]), row["first_item_raw_score"], "第一项净分")
     first_cells += [
-        cell("五轴合计", first["gross"] if first else None, "合计" if first else "不适用", TOTAL_SETTLEMENT),
+        cell("四轴合计", first["gross"] if first else None, "合计" if first else "不适用", TOTAL_SETTLEMENT),
         cell("军事成本扣分", first["cost_debit"] if first else None, cost_grade, COST_PATH),
         cell("第一项净分", row["first_item_raw_score"], "扣后净分" if first else "不适用", TOTAL_SETTLEMENT),
         cell("附加F", row["first_item_add_on"], "折算", TOTAL_SETTLEMENT),
