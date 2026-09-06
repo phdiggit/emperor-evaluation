@@ -1,35 +1,25 @@
 {
   "schema_version": "emperor-profile-formal-axis-manifest-v1",
-  "contract_version": "FORMAL-V1.0",
+  "contract_version": "FORMAL-V2.0",
   "contract": "docs/项目总纲/皇帝人物画像评估体系合同.md",
-  "contract_sha256": "11a0b60464214c125a6805b68dc83b95ecb75135500bcea8cbe11cc6d2af76aa",
   "canonical_status": "FORMAL_CURRENT",
   "population_count": 184,
-  "settled_axis_count": 5,
-  "unsettled_axis_count": 3,
+  "settled_axis_count": 8,
+  "unsettled_axis_count": 0,
   "profile_total_enabled": false,
   "profile_ranking_enabled": false,
   "composite_ranking_write": false,
   "database_write": false,
   "canonical_pool": "config/common/canonical-ruler-pool.json",
-  "canonical_pool_sha256": "4d2d11cbebc966592ba823de05a281f75f51e11456c73b5cee0cc34337ab65d9",
   "axes": [
     {
       "axis_code": "M1",
       "axis_name": "军事判断与统帅能力",
       "status": "FORMAL_CURRENT",
       "record_count": 184,
-      "json": "01-M1军事判断与统帅能力正式结算.json",
-      "markdown": "01-M1军事判断与统帅能力正式结算.md",
-      "json_sha256": "ec51c0a25b5d695b983cda24f4f412540338954bdce4afa8f5805600ea4c2326",
-      "audit_jsons": [
-        "03-M1人才差异与高档门复核.json",
-        "06-M1高档结构复核.json",
-        "08-M1武将锚别名与缺锚强度复核.json",
-        "09-M1武将成果难度组合倒挂复核.json",
-        "10-M1无档案战役与人才公共补录复核.json",
-        "11-M1全池重新裁决复核.json"
-      ],
+      "json": "M1/01-M1军事判断与统帅能力正式结算.json",
+      "markdown": "M1/01-M1军事判断与统帅能力正式结算.md",
+      "audit_jsons": [],
       "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC"
     },
     {
@@ -37,31 +27,51 @@
       "axis_name": "外交博弈与对外联盟能力",
       "status": "FORMAL_CURRENT",
       "record_count": 184,
-      "json": "12-M2外交博弈与对外联盟能力正式结算.json",
-      "markdown": "12-M2外交博弈与对外联盟能力正式结算.md",
-      "json_sha256": "2583cf13bdb5645dfd5c52871835890fd7da11867895d1281ce42e6e94cfd224",
-      "audit_markdowns": [
-        "13-M2全池结算验收报告.md"
-      ],
-      "audit_jsons": [
-        "14-M2与C5能力事件分布复核.json"
-      ],
+      "json": "M2/12-M2外交博弈与对外联盟能力正式结算.json",
+      "markdown": "M2/12-M2外交博弈与对外联盟能力正式结算.md",
+      "audit_markdowns": [],
+      "audit_jsons": [],
       "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC"
+    },
+    {
+      "axis_code": "M3",
+      "axis_name": "民生财政建设",
+      "status": "FORMAL_CURRENT",
+      "contract_version": "FORMAL-V3.6",
+      "contract": "docs/分项规则/人物画像轴/M3-民生财政建设.md",
+      "record_count": 184,
+      "json": "M3/29-M3民生财政建设正式结算.json",
+      "markdown": "M3/29-M3民生财政建设正式结算.md",
+      "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC",
+      "formalization_note": "M3正式JSON为逐人裁决唯一真源；日常修改采用局部patch。程序校验C1—C4事实同步、规模门来源和G4必要条件，只投影固定雷达值并生成阅读视图，不自动重裁。"
+    },
+    {
+      "axis_code": "M4",
+      "axis_name": "政治联盟与内部联盟管理",
+      "status": "FORMAL_CURRENT",
+      "record_count": 184,
+      "json": "M4/34-M4政治联盟与内部联盟管理正式结算.json",
+      "markdown": "M4/34-M4政治联盟与内部联盟管理正式结算.md",
+      "audit_jsons": [
+        "M4/35-M4主要入口单元处置审计.json",
+        "M4/36-M4高档联盟生命周期复核.json",
+        "M4/37-M4全池两轮复审.json"
+      ],
+      "audit_markdowns": [],
+      "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC",
+      "formalization_note": "M4正式JSON为逐人裁决唯一真源；程序只生成阅读视图，人物裁决变化只通过局部patch进入正式JSON，不由程序自动改档。"
     },
     {
       "axis_code": "C1",
       "axis_name": "战略判断与风险控制",
       "status": "FORMAL_CURRENT",
       "record_count": 184,
-      "json": "15-C1战略判断与风险控制正式结算.json",
-      "markdown": "15-C1战略判断与风险控制正式结算.md",
-      "json_sha256": "d3fa58d61cb8dc37bab67a86b9b805ab9a4098aaa9db137b37433da5286d45d9",
-      "audit_markdowns": [
-        "18-C1全池结算验收报告.md"
-      ],
+      "json": "C1/15-C1战略判断与风险控制正式结算.json",
+      "markdown": "C1/15-C1战略判断与风险控制正式结算.md",
+      "audit_markdowns": [],
       "audit_jsons": [
-        "16-C1主要入口单元处置审计.json",
-        "17-C1高档能力剖面复核.json"
+        "C1/16-C1主要入口单元处置审计.json",
+        "C1/17-C1高档能力剖面复核.json"
       ],
       "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC"
     },
@@ -70,31 +80,44 @@
       "axis_name": "信息处理、学习与纠错",
       "status": "FORMAL_CURRENT",
       "record_count": 184,
-      "json": "19-C2信息处理学习与纠错正式结算.json",
-      "markdown": "19-C2信息处理学习与纠错正式结算.md",
-      "json_sha256": "ae8d6b67cd8985a838dca6355fe836b0629b6118b9920622f65e2831c2a50741",
-      "audit_markdowns": [
-        "22-C2全池结算验收报告.md"
-      ],
+      "json": "C2/19-C2信息处理学习与纠错正式结算.json",
+      "markdown": "C2/19-C2信息处理学习与纠错正式结算.md",
+      "audit_markdowns": [],
       "audit_jsons": [
-        "20-C2主要入口单元处置审计.json",
-        "21-C2高档学习周期与横向校准复核.json"
+        "C2/20-C2主要入口单元处置审计.json",
+        "C2/21-C2高档学习周期与横向校准复核.json"
       ],
-      "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC"
+      "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC",
+      "formalization_note": "184人聊天版V2重裁已正式吸纳；EVIDENCE_FLOOR显式标记为有界证据下限，不按分布放宽能力门槛。"
+    },
+    {
+      "axis_code": "C3",
+      "axis_name": "人才识别、配置与授权",
+      "status": "FORMAL_CURRENT",
+      "record_count": 184,
+      "json": "C3/24-C3人才识别配置与授权正式结算.json",
+      "markdown": "C3/24-C3人才识别配置与授权正式结算.md",
+      "audit_jsons": [
+        "C3/25-C3主要入口单元处置审计.json",
+        "C3/26-C3高档授权生命周期复核.json",
+        "C3/28-C3高档门与错误清洗系统复核.json",
+        "28-C3高档门与错误清洗系统复核.json"
+      ],
+      "audit_markdowns": [],
+      "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC",
+      "formalization_note": "C3正式JSON为逐人裁决唯一真源；程序只生成阅读视图，高档门、生命周期、模板与跨轴边界由轻量语义校验器守护。"
     },
     {
       "axis_code": "C5",
       "axis_name": "权力运用风格与克制",
       "status": "FORMAL_CURRENT",
       "record_count": 184,
-      "json": "02-C5权力运用风格与克制正式结算.json",
-      "markdown": "02-C5权力运用风格与克制正式结算.md",
-      "json_sha256": "ad5622ec4ece185a1f9a2305760deca1d5b68fb2e716ac9c04644c44c10a4dbf",
+      "json": "C5/02-C5权力运用风格与克制正式结算.json",
+      "markdown": "C5/02-C5权力运用风格与克制正式结算.md",
       "audit_jsons": [
-        "04-C5主要入口单元处置审计.json",
-        "05-C5高档材料密度复核.json",
-        "07-C5高档与证据门结构复核.json",
-        "14-M2与C5能力事件分布复核.json"
+        "C5/04-C5主要入口单元处置审计.json",
+        "C5/05-C5高档材料密度复核.json",
+        "C5/07-C5高档与证据门结构复核.json"
       ],
       "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC"
     }

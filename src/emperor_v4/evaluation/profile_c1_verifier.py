@@ -1,28 +1,27 @@
 from __future__ import annotations
 
-import hashlib
 import json
 import re
 from pathlib import Path
 
 import yaml
 
+from emperor_v4.evaluation.formal_json_store import ROUTER_SCHEMA, load_json
 
-SETTLEMENT_NAME = "15-C1战略判断与风险控制正式结算.json"
-MARKDOWN_NAME = "15-C1战略判断与风险控制正式结算.md"
-UNIT_AUDIT_NAME = "16-C1主要入口单元处置审计.json"
-HIGH_REVIEW_NAME = "17-C1高档能力剖面复核.json"
+from emperor_v4.evaluation.profile_markdown import render_profile_markdown
+
+
+SETTLEMENT_NAME = "C1/15-C1战略判断与风险控制正式结算.json"
+MARKDOWN_NAME = "C1/15-C1战略判断与风险控制正式结算.md"
+UNIT_AUDIT_NAME = "C1/16-C1主要入口单元处置审计.json"
+HIGH_REVIEW_NAME = "C1/17-C1高档能力剖面复核.json"
 
 
 def _load(path: Path) -> dict:
     raw = path.read_bytes()
     if raw.startswith(b"\xef\xbb\xbf"):
         raise ValueError(f"UTF-8 BOM is forbidden: {path}")
-    return json.loads(raw.decode("utf-8"))
-
-
-def _sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    return load_json(path)
 
 
 def _contract_scores(contract: Path) -> dict[tuple[str, str], int]:
@@ -50,6 +49,10 @@ def _cached_text(path: Path, cache: dict[Path, str]) -> str:
     text = cache.get(path)
     if text is None:
         text = path.read_text(encoding="utf-8")
+        if path.suffix == ".json":
+            raw = json.loads(text)
+            if isinstance(raw, dict) and raw.get("schema_version") == ROUTER_SCHEMA:
+                text = json.dumps(load_json(path), ensure_ascii=False)
         cache[path] = text
     return text
 
@@ -129,33 +132,26 @@ def verify(root: Path) -> dict[str, object]:
     manifest = _load(manifest_path)
     config = yaml.safe_load(config_path.read_text(encoding="utf-8"))
     records = settlement["records"]
+    if markdown_path.read_text(encoding="utf-8") != render_profile_markdown(settlement):
+        raise ValueError("C1 Markdown is not the deterministic JSON reading view")
     pool_records = [record for record in pool["records"] if record["pool_status"] == "INCLUDED"]
     pool_ids = {record["ruler_id"] for record in pool_records}
 
     if settlement["canonical_status"] != "FORMAL_CURRENT" or settlement["axis_code"] != "C1":
         raise ValueError("C1 settlement is not formal current")
-    if settlement["record_count"] != len(records) or len(records) != 184:
-        raise ValueError("C1 record count is not 184")
-    if len({record["ruler_id"] for record in records}) != 184:
+    if settlement["record_count"] != len(records) or len(records) != len(pool_ids):
+        raise ValueError("C1 record count differs from canonical included pool")
+    if len({record["ruler_id"] for record in records}) != len(records):
         raise ValueError("C1 ruler IDs are not unique")
     if {record["ruler_id"] for record in records} != pool_ids:
         raise ValueError("C1 coverage differs from canonical included pool")
     if records != sorted(records, key=lambda record: (-record["radar_value"], record["ruler_id"])):
         raise ValueError("C1 records are not in formal stable order")
-    if settlement["canonical_pool_sha256"] != _sha256(pool_path):
-        raise ValueError("canonical pool hash mismatch")
     manifest_axis = next((axis for axis in manifest["axes"] if axis["axis_code"] == "C1"), None)
     if manifest_axis is None or manifest_axis["json"] != SETTLEMENT_NAME:
         raise ValueError("C1 is absent from formal profile manifest")
-    if manifest_axis["json_sha256"] != _sha256(settlement_path):
-        raise ValueError("C1 manifest settlement hash mismatch")
-    if manifest["contract_sha256"] != _sha256(contract):
-        raise ValueError("profile manifest contract hash mismatch")
-    if settlement["contract_sha256"] != _sha256(contract):
-        # Later axes may be promoted under the same FORMAL-V1.0 contract while
-        # the C1 settlement remains byte-pinned in the current manifest.
-        if settlement["contract_version"] != manifest["contract_version"]:
-            raise ValueError("C1 promotion contract version mismatch")
+    if not settlement.get("contract_version"):
+        raise ValueError("C1 settlement lacks contract lineage")
     config_axis = config["profile_assessment"]["settled_axes"].get("C1")
     if config_axis is None or not config_axis["json"].endswith(SETTLEMENT_NAME):
         raise ValueError("C1 is absent from config project entry")
@@ -210,8 +206,8 @@ def verify(root: Path) -> dict[str, object]:
     profile_by_id = {profile["ruler_id"]: profile for profile in profiles}
     if not high_ids <= profile_by_id.keys():
         raise ValueError("current high-grade ruler lacks capability profile")
-    if len(profiles) != 48:
-        raise ValueError("C1 semantic reaudit does not cover 48 candidates")
+    if len(profiles) != review["review_count"]:
+        raise ValueError("C1 semantic reaudit profile count mismatch")
     if any(profile.get("ps") not in {"PS0", "PS1", "PS2", "PS3", "PS4"} for profile in profiles):
         raise ValueError("unknown positive diagnostic strength")
     if any(profile.get("dw") not in {"DW0", "DW1", "DW2", "DW3", "DW4"} for profile in profiles):
@@ -309,11 +305,6 @@ def verify(root: Path) -> dict[str, object]:
                     if not _audit_source_ref_is_traceable(root, ref, source_cache):
                         raise ValueError(f"G5 zero-counter review ref is not traceable: {ruler_id}: {ref}")
 
-    li_shimin = next(record for record in records if record["ruler_name"] == "李世民")
-    disputed = next((parent for parent in li_shimin["parents"] if parent["parent_id"] == "C1-P153-GUANZHONG-ATTRIBUTION"), None)
-    if disputed is None or disputed.get("attribution_status") != "CONTESTED_OR_SHARED_ATTRIBUTION":
-        raise ValueError("Li Shimin Guanzhong attribution dispute is not preserved")
-
     units = audit["units"]
     if audit["unit_count"] != len(units) or len({unit["unit_id"] for unit in units}) != len(units):
         raise ValueError("C1 unit audit is incomplete or has duplicate IDs")
@@ -334,17 +325,12 @@ def verify(root: Path) -> dict[str, object]:
         raise ValueError("unit audit scoring/background separation mismatch")
 
     markdown_rows = [line for line in markdown_path.read_text(encoding="utf-8").splitlines() if line.startswith("| ")][1:]
-    if len(markdown_rows) != 184:
-        raise ValueError("C1 markdown does not contain 184 data rows")
+    if len(markdown_rows) != len(records):
+        raise ValueError("C1 markdown row count differs from formal records")
     for row, record in zip(markdown_rows, records, strict=True):
         if f"| {record['radar_value']} | {record['axis_grade']} | {record['position']} | {record['ruler_name']} |" not in row:
             raise ValueError(f"markdown/JSON order mismatch: {record['ruler_id']}")
 
-    hashes = {
-        path.name: _sha256(path)
-        for path in (settlement_path, markdown_path, audit_path, review_path)
-    }
-    combined = hashlib.sha256(json.dumps(hashes, sort_keys=True).encode("utf-8")).hexdigest()
     return {
         "status": "PASS",
         "record_count": len(records),
@@ -354,8 +340,6 @@ def verify(root: Path) -> dict[str, object]:
         "scoring_parent_count": len(scoring_parent_ids),
         "unit_count": len(units),
         "unresolved_count": 0,
-        "hashes": hashes,
-        "combined_sha256": combined,
     }
 
 

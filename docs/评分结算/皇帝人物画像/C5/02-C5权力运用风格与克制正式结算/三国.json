@@ -1,0 +1,1550 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "三国",
+  "collections": {
+    "records": {
+      "positions": [
+        53,
+        70,
+        72,
+        94,
+        95,
+        96,
+        97,
+        125,
+        126,
+        176
+      ],
+      "records": [
+        {
+          "sequence": 142,
+          "ruler_id": "RULER-SHU-LIUSHAN",
+          "ruler_name": "刘禅",
+          "axis_grade": "G3",
+          "position": "MID",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "刘禅成年后希望增选后宫；刘禅已经喜欢黄皓，但董允“上则正色匡主，下则数责于皓”，黄皓畏董允，“终允之世，位不过黄门丞”。",
+          "grade_basis": "前期最高私人欲望可以被董允直接压住，且长期有效；后期黄皓特权扩张、皇帝怨董允，说明这种自缚并不稳定；但没有闭合刘禅本人跨对象杀谏、酷刑、株连或直接报复监督者；定位为 G3-MID / E3。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G3-MID。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P142-LIYAN",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "以书信对证完成高级官员问责。"
+            },
+            {
+              "parent_id": "C5-P142-HUANGHAO",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "后期近幸持续俘获且危机中不纠正。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-TK-LC-REGENCY-OPERATION-001",
+                "FACT-3C905E74CF6EFBC4"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "摄政行政和军事授权只作背景。"
+            },
+            {
+              "unit_ids": [
+                "SECOND_B1::I2-TK-LC-LIYAN-ACCOUNTABILITY-001",
+                "SECOND_B2::I2-TK-LC-LIYAN-ACCOUNTABILITY-001",
+                "FACT-3F15249062FD3D6D"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P142-LIYAN",
+              "reason": "李严案跨入口合并。"
+            },
+            {
+              "unit_ids": [
+                "SECOND_B1::I2-TK-LC-HUANGHAO-CAPTURE-001",
+                "SECOND_B2::I2-TK-LC-HUANGHAO-CAPTURE-001",
+                "FACT-B8FE013D3D691AF0"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P142-HUANGHAO",
+              "reason": "黄皓俘获与后期不纠正按系统父链消费。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-SHU-LIUSHAN",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 65,
+          "score_100": 65,
+          "current_entry_unit_count": 8,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 2,
+            "SCORING_PARENT": 6
+          },
+          "axis_evidence_level": "E3",
+          "promotion_normalization": {
+            "working_evidence_level": "E4",
+            "formal_evidence_level": "E3",
+            "reason": "FORMAL_CONTRACT_USES_E1_E2_E3; E4_COLLAPSED_TO_SUFFICIENT_HIGH_DENSITY_E3_WITHOUT_GRADE_CHANGE"
+          },
+          "grade_numeric": 3,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-SHU-LIUSHAN",
+          "actual_power_window": "223—263年；234年前与诸葛亮辅政结构并存",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P142-LIYAN",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "以书信对证完成高级官员问责。"
+            },
+            {
+              "parent_id": "C5-P142-HUANGHAO",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "后期近幸持续俘获且危机中不纠正。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P142-LIYAN"
+            ],
+            "negative_parent_refs": [
+              "C5-P142-HUANGHAO"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P142-LIYAN",
+              "C5-P142-HUANGHAO"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《三国志》卷三十九《董允传》：限制后宫增选、刘禅严惮、黄皓不得升位。",
+            "https://zh.wikisource.org/zh-hans/三國志/卷39",
+            "《资治通鉴》卷七十八：姜维请杀黄皓、刘禅拒绝并令皓谢维。",
+            "https://zh.wikisource.org/zh-hans/資治通鑑/卷078"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 董允能直接限制皇帝后宫扩张：高质量正证",
+              "details": [
+                "刘禅成年后希望增选后宫。",
+                "董允以古制为据，明确拒绝；史书写“终执不听”，刘禅因此“益严惮之”。",
+                "这是非常纯的C5：皇帝最直接的私人享用欲望 → 侍臣明确阻止 → 皇帝接受实际限制 → 反而长期敬畏履职者。",
+                "可定 POSITIVE / MI3_SUSTAINED_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "B. 黄皓在董允时期始终被压在低位",
+              "details": [
+                "刘禅已经喜欢黄皓，但董允“上则正色匡主，下则数责于皓”，黄皓畏董允，“终允之世，位不过黄门丞”。",
+                "这证明早中期并非皇帝宠爱一出现，制度就立即失效。",
+                "董允的个人制约真实有效。"
+              ]
+            },
+            {
+              "title": "C. 董允死后，刘禅对宠宦边界明显失守",
+              "details": [
+                "陈祗代董允后，与黄皓相表里，黄皓始预政。",
+                "陈祗受宠后，刘禅对已故董允追怨日深，史书直接说明这来自陈祗谄媚、黄皓构间。",
+                "黄皓最终“操弄威柄”。",
+                "这说明近幸集团逐渐改变皇帝对原有制衡者的判断，属于 MIXED_NEGATIVE / MI3_SUSTAINED_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "D. 姜维请求杀黄皓：皇帝拒绝，但也没有反杀姜维",
+              "details": [
+                "姜维直接说黄皓“奸巧专恣，将败国家，请杀之”。",
+                "刘禅没有接受，轻描淡写称黄皓只是小臣，并让黄皓向姜维道歉。",
+                "姜维因黄皓“枝附叶连”而恐惧，不敢再回成都，说明皇帝未能拆除近幸网络。",
+                "但姜维本人并未因要求杀宠宦而被刘禅处死、下狱；黄皓也被要求致歉。",
+                "因此这更像宠宦边界失守和控制失败，而非G2/G1式直接报复异议者。"
+              ]
+            },
+            {
+              "title": "E. 灭亡前压下姜维军情主要移B2/C2",
+              "details": [
+                "黄皓信巫鬼、刘禅寝姜维防魏表、群臣不知，是非常严重的信息处理失败。",
+                "但它首先属于B2/C2，不能再次拿来给C5重复降档。",
+                "C5只保留“为何近幸有能力让信息被压下”的边界背景。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 4,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 141,
+          "ruler_id": "RULER-SHU-LIUBEI",
+          "ruler_name": "刘备",
+          "axis_grade": "G3",
+          "position": "LOW",
+          "confidence": "MEDIUM",
+          "output_mode": "BOUNDED_PROFILE",
+          "score_status": "EVIDENCE_LIMITED",
+          "typical_pattern": "张裕早年曾当面讥讽刘备，刘备“常衔其不逊”；后来张裕私下预言汉祚将尽、刘备得益州九年后将失，又被密告；秦宓反对东征孙吴，“坐下狱幽闭，然后贷出”。",
+          "grade_basis": "张裕早年曾当面讥讽刘备，刘备“常衔其不逊”；后来张裕私下预言汉祚将尽、刘备得益州九年后将失，又被密告；刘备借其汉中意见“不验”下狱，诸葛亮求免仍不许，以“芳兰生门，不得不鉏”回应，最终弃市；秦宓反对东征孙吴，“坐下狱幽闭，然后贷出”；因正常进言被剥夺自由属于C5负证；但最终获释、没有继续追究，属于 MIXED_NEGATIVE / MI2_LIFECYCLE，不可与张裕死刑等权。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G3-LOW。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P141-YILING",
+              "direction": "MIXED_BALANCED",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "拒谏、下狱、失败后自认责任并保护黄权家属。"
+            },
+            {
+              "parent_id": "C5-P141-LONGZHONG",
+              "direction": "POSITIVE",
+              "intensity": "MI1_CASE",
+              "basis": "接受完整战略并维持咨议关系。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-TK-LB-SHU-ADMIN-FOUNDATION-001",
+                "FACT-60AB1B6FE2003031"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "行政基础与军事授权只作背景。"
+            },
+            {
+              "unit_ids": [
+                "I2-TK-LB-YILING-FEEDBACK-001",
+                "I2-TK-LIUBEI-HUANGQUAN-SAFETY-001",
+                "FACT-BE735F629C714CEC",
+                "FACT-073A416393B8A117"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P141-YILING",
+              "reason": "拒谏、秦宓安全、黄权责任归属按同一决策生命周期合并。"
+            },
+            {
+              "unit_ids": [
+                "I2-TK-LIUBEI-LONGZHONG-ADVICE-001"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P141-LONGZHONG",
+              "reason": "一次闭合咨议正链，不外推制度化监督。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-SHU-LIUBEI",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 58,
+          "score_100": 58,
+          "current_entry_unit_count": 7,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 2,
+            "SCORING_PARENT": 5
+          },
+          "axis_evidence_level": "E2",
+          "grade_numeric": 3,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-SHU-LIUBEI",
+          "actual_power_window": "214—223年益州主政至称帝",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P141-YILING",
+              "direction": "MIXED_BALANCED",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "拒谏、下狱、失败后自认责任并保护黄权家属。"
+            },
+            {
+              "parent_id": "C5-P141-LONGZHONG",
+              "direction": "POSITIVE",
+              "intensity": "MI1_CASE",
+              "basis": "接受完整战略并维持咨议关系。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P141-LONGZHONG"
+            ],
+            "negative_parent_refs": [],
+            "mixed_parent_refs": [
+              "C5-P141-YILING"
+            ]
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P141-YILING",
+              "C5-P141-LONGZHONG"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《三国志》卷四十二相关张裕材料。",
+            "《三国志》卷三十八《秦宓传》：https://zh.wikisource.org/zh-hans/三国志/卷38",
+            "《三国志》卷四十三《黄权传》：https://zh.wikisource.org/zh-hans/三国志/卷43"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 张裕：极深个案",
+              "details": [
+                "张裕早年曾当面讥讽刘备，刘备“常衔其不逊”；后来张裕私下预言汉祚将尽、刘备得益州九年后将失，又被密告。",
+                "刘备借其汉中意见“不验”下狱，诸葛亮求免仍不许，以“芳兰生门，不得不鉏”回应，最终弃市。",
+                "私人旧怨、政治表达、专业异议混合后导致死刑，定 NEGATIVE / MI2_LIFECYCLE / EXTREME_DEEP_FLOOR。"
+              ]
+            },
+            {
+              "title": "B. 秦宓：真实负证，但烈度明显低一档",
+              "details": [
+                "秦宓反对东征孙吴，“坐下狱幽闭，然后贷出”。",
+                "因正常进言被剥夺自由属于C5负证；但最终获释、没有继续追究，属于 MIXED_NEGATIVE / MI2_LIFECYCLE，不可与张裕死刑等权。"
+              ]
+            },
+            {
+              "title": "C. 黄权家属保护是高质量反证",
+              "details": [
+                "夷陵败后黄权归路被断，只能降魏；有司请收其妻子，刘备明确表示“孤负黄权，权不负孤也”，拒绝株连，待遇如初。",
+                "在严重军事失败和将领降敌场景下主动承担责任、保护家属，是高质量 POSITIVE / MI2_LIFECYCLE。"
+              ]
+            },
+            {
+              "title": "D. 为什么回到G3低位",
+              "details": [
+                "两条异议处分足以形成明显下沿，但其中只有张裕达到不可逆极深级，秦宓很快恢复；赵云、黄权等其他逆耳意见者也未出现普遍清洗。",
+                "没有闭合跨多人生命刑、制度化言论恐怖或一般性反馈封闭。",
+                "因此画像应是“常模略偏低、存在一条极深异常案”，而不是稳定G2短板。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 3,
+            "locator_count": 3,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 164,
+          "ruler_id": "RULER-WEI-SIMAZHAO",
+          "ruler_name": "司马昭",
+          "axis_grade": "G3",
+          "position": "LOW",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "曹髦亲自率宫中力量攻击司马昭集团，是明确的生死最高权力冲突；嵇康并未发动现实武装夺权。",
+          "grade_basis": "曹髦亲自率宫中力量攻击司马昭集团，是明确的生死最高权力冲突；诸葛诞、毌丘俭等亦是实际军事叛乱；嵇康并未发动现实武装夺权；钟会因私人受辱深恨嵇康，随后构陷。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G3-LOW。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P164-CAPTURE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "中枢权力俘获和反馈压制持续。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-JIN-SMZ-RITUAL-LAW-OFFICIAL-FIVE-RANK-001"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "礼法官制结构不证明本人受约束。"
+            },
+            {
+              "unit_ids": [
+                "SECOND_B1::I2-QIN95-FACT-SUPP29-SIMAZHAO-CAPTURE-FEEDBACK-77-50",
+                "SECOND_B2::I2-QIN95-FACT-SUPP29-SIMAZHAO-CAPTURE-FEEDBACK-77-50"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P164-CAPTURE",
+              "reason": "同一中枢俘获跨入口合并。"
+            },
+            {
+              "unit_ids": [
+                "FACT-31B7C52B23A7CA8B"
+              ],
+              "status": "AXIS_OUT_WITH_REASON",
+              "reason": "军事授权属C3/M1。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-WEI-SIMAZHAO",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 58,
+          "score_100": 58,
+          "current_entry_unit_count": 4,
+          "current_entry_disposition_counts": {
+            "AXIS_OUT_WITH_REASON": 1,
+            "BACKGROUND_VALIDATION": 1,
+            "SCORING_PARENT": 2
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 3,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-WEI-SIMAZHAO",
+          "actual_power_window": "255—265年实际掌权",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P164-CAPTURE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "中枢权力俘获和反馈压制持续。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [
+              "C5-P164-CAPTURE"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P164-CAPTURE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "pre_evidence_gate": {
+            "axis_evidence_level": "E3",
+            "confidence": "HIGH",
+            "output_mode": "FULL_GRADE"
+          },
+          "evidence_gate_review": {
+            "status": "REVISED_TO_E2",
+            "basis": "只有一条MI3负向父链，未完成E3所需跨机制复验。"
+          },
+          "source_refs": [
+            "《资治通鉴》卷七十八：https://zh.wikisource.org/zh-hans/資治通鑑/卷078",
+            "《晋书·阮籍传》相关材料。"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 曹髦、诸葛诞等直接政治斗争退出C5",
+              "details": [
+                "曹髦亲自率宫中力量攻击司马昭集团，是明确的生死最高权力冲突。",
+                "诸葛诞、毌丘俭等亦是实际军事叛乱。",
+                "这些人的直接败亡本身不用于评价司马昭“克制低”。",
+                "若有战后家属扩大，另案再审，不能把整个司马氏夺权过程一锅端进C5。"
+              ]
+            },
+            {
+              "title": "B. 嵇康、吕安案：极纯的表达/名士安全负证",
+              "details": [
+                "嵇康并未发动现实武装夺权。",
+                "钟会因私人受辱深恨嵇康，随后构陷。",
+                "嵇康曾欲助毌丘俭：嵇康、吕安名望大、言论放荡、“害时乱教”，应趁机除掉。",
+                "《资治通鉴》明确记司马昭因嵇康非薄汤武而怒，最终听钟会之谮，杀吕安、嵇康。",
+                "吕安原本只是遭兄长诬为不孝，嵇康为其作证。",
+                "这是一条典型：应定 NEGATIVE / MI2_LIFECYCLE 深下沿。"
+              ]
+            },
+            {
+              "title": "C. 阮籍：长期反常规而获持续保护",
+              "details": [
+                "阮籍居丧饮酒、违背当时礼法，引起何曾等礼法官僚强烈攻击。",
+                "何曾甚至当着司马昭的面要求将阮籍“摈四裔”。",
+                "司马昭明确拒绝，并长期保护阮籍。",
+                "《晋书》与《资治通鉴》均记其“每保护/常拥护之”。",
+                "这不是一次宽免，而是对一个长期挑战礼法、又与嵇康同属名士圈的人持续提供安全空间。",
+                "可定 POSITIVE / MI3_SUSTAINED_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "D. 刺杀姜维提议：主动拒绝秘密暗杀便利",
+              "details": [
+                "司马昭一度考虑派刺客入蜀杀姜维。",
+                "荀勖指出，以天下宰相身份应以正义公开征讨，不应使用刺客。",
+                "司马昭接受，没有实施。",
+                "姜维当然是战争对手；对其公开作战本不扣C5。",
+                "但这里的C5价值是主动放弃秘密暗杀这一更无程序的权力便利，可作为 POSITIVE / MI2_LIFECYCLE。"
+              ]
+            },
+            {
+              "title": "E. 为什么仍压到G3-LOW",
+              "details": [
+                "嵇康、吕安案说明，一旦独立名士的表达与司马氏政治合法性发生尖锐冲突，保护会突然崩塌，且直接到生命刑。",
+                "阮籍获得保护说明这不是全局性恐怖。",
+                "因而不是G1式稳定反馈压制，也不够G3-MID的常模平衡。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 2,
+            "linked_source_count": 1,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 160,
+          "ruler_id": "RULER-WEI-CAOCAO",
+          "ruler_name": "曹操",
+          "axis_grade": "G2",
+          "position": "HIGH",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "孔融长期讥讽、批评曹操扩权，最终被构成“大逆不道”等罪弃市，二子亦被杀；崔琰书信中的“时乎时乎，会当有变时”被解释为不逊，先受刑输徒；后来又因受刑后神色“不挠”被认为心中不服，最终被逼自杀。",
+          "grade_basis": "曹操确实存在比普通“双个案”更稳定的生命处分短板，所以不能回到G3；但强度属于持续多人模式而非制度化强制体系；定为 G2-HIGH / E3。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-HIGH。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P160-REWARD",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "多阶段采纳且险胜后奖励反对者。"
+            },
+            {
+              "parent_id": "C5-P160-PURGE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "跨对象不可逆非战争政治处置并侵蚀专业链。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "SECOND_A::I2-HAN-CAOCAO-TUNTIAN-OPERATION-M3-AUDIT",
+                "SECOND_B1::I2-HAN-CAOCAO-TUNTIAN-OPERATION-M3-AUDIT",
+                "I2-HAN-CAOCAO-TUNTIAN-RECEPTION-R3",
+                "I2-HAN-CAOCAO-HEFEI-DELIVERY-M3-AUDIT",
+                "I2-HAN-CAOCAO-SELECTION-ADMIN-001",
+                "FACT-E764405877287A4F",
+                "FACT-AA44B8832F82E137"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "屯田、合肥、选任和授权主要为组织运行背景。"
+            },
+            {
+              "unit_ids": [
+                "I2-LHAN-CAOCAO-REMONSTRANT-REWARD-001",
+                "FACT-90A5D5B8BBFE0CE8"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P160-REWARD",
+              "reason": "乌桓反对者奖励与多阶段采纳合并为反馈安全正链。"
+            },
+            {
+              "unit_ids": [
+                "I2-HAN-CAOCAO-SELECTION-PURGE-001",
+                "I2-QIN95-FACT-SUPP29-CAOCAO-CAPTURE-65-29",
+                "FACT-65056BD8B8BA16A1"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P160-PURGE",
+              "reason": "专业官僚侵蚀、谏议压制和具名不可逆处置按系统父链消费。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-WEI-CAOCAO",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 51,
+          "score_100": 51,
+          "current_entry_unit_count": 12,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 7,
+            "SCORING_PARENT": 5
+          },
+          "axis_evidence_level": "E3",
+          "promotion_normalization": {
+            "working_evidence_level": "E4",
+            "formal_evidence_level": "E3",
+            "reason": "FORMAL_CONTRACT_USES_E1_E2_E3; E4_COLLAPSED_TO_SUFFICIENT_HIGH_DENSITY_E3_WITHOUT_GRADE_CHANGE"
+          },
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-WEI-CAOCAO",
+          "actual_power_window": "196—220年实际控制汉廷",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P160-REWARD",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "多阶段采纳且险胜后奖励反对者。"
+            },
+            {
+              "parent_id": "C5-P160-PURGE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "跨对象不可逆非战争政治处置并侵蚀专业链。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P160-REWARD"
+            ],
+            "negative_parent_refs": [
+              "C5-P160-PURGE"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P160-REWARD",
+              "C5-P160-PURGE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED",
+          "source_refs": [
+            "《三国志》卷十二及裴注：崔琰、孔融、许攸、娄圭、毛玠。",
+            "https://zh.wikisource.org/zh-hans/三國志_(四庫全書本)/魏志/卷12",
+            "《资治通鉴》卷六十五相关孔融案。"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 孔融：个案极深且有家属扩大",
+              "details": [
+                "孔融长期讥讽、批评曹操扩权，最终被构成“大逆不道”等罪弃市，二子亦被杀。",
+                "这是 NEGATIVE / MI2_LIFECYCLE / EXTREME_DEEP_FLOOR，并有明确家属扩大。"
+              ]
+            },
+            {
+              "title": "B. 崔琰：模糊文字与“腹诽”被推到死刑",
+              "details": [
+                "崔琰书信中的“时乎时乎，会当有变时”被解释为不逊，先受刑输徒；后来又因受刑后神色“不挠”被认为心中不服，最终被逼自杀。",
+                "定 NEGATIVE / MI2_LIFECYCLE / VERY_DEEP_EXPRESSION_FLOOR。"
+              ]
+            },
+            {
+              "title": "C. 许攸、娄圭使“私人不敬—生命处分”跨对象复发",
+              "details": [
+                "许攸因恃功、直呼小字并夸耀功劳遭收杀；娄圭因一句“大丈夫当自为之”式评论被举报后处死。",
+                "单看任何一案都只是MI2；但连同孔融、崔琰，已形成跨对象、跨阶段的稳定表达/尊严安全短板。",
+                "因此可以建立人物级 NEGATIVE / MI3_SUSTAINED_SYSTEMIC，但不能升MI4：没有形成全国性言论制度、告密制狱或成批持续清洗网络。"
+              ]
+            },
+            {
+              "title": "D. 强反例阻止继续下压",
+              "details": [
+                "毛玠因“谤讪”指控下狱后，经桓阶、和洽等救解最终免死。",
+                "乌桓远征险胜后，曹操反而厚赏事前反对者，并明确要求以后不要因这次成功而不敢再言。",
+                "这些说明反馈空间并未全局关闭。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 3,
+            "linked_source_count": 1,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "VALIDATED"
+        },
+        {
+          "sequence": 162,
+          "ruler_id": "RULER-WEI-CAORUI",
+          "ruler_name": "曹叡",
+          "axis_grade": "G2",
+          "position": "HIGH",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "曹叡大兴宫殿、台观，发美女充后庭，频繁游猎；辛毗批评修宫：“宫室大兴，加连年谷麦不收”，曹叡并未处罚。",
+          "grade_basis": "曹叡大兴宫殿、台观，发美女充后庭，频繁游猎；辛毗、杨阜、高堂隆都直接指出；辛毗批评修宫：“宫室大兴，加连年谷麦不收”，曹叡并未处罚；辛毗又反对平北芒建台观，皇帝最终停止。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-HIGH。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P162-HANZHONG",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "接受意见下诏班师并止损。"
+            },
+            {
+              "parent_id": "C5-P162-PALACE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "宫室工程在重复反馈后继续并伴即时处死。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "SECOND_A::I2-TK-CR-WEI-CODE-001",
+                "I2-TK-CR-WEI-CODE-CONSTRUCTION-001",
+                "I2-TK-CR-WEI-CODE-RECEPTION-R3",
+                "SECOND_B1::I2-TK-CR-WEI-CODE-001",
+                "FACT-27FCFA50F859971E"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "魏律结构和军事授权只作背景。"
+            },
+            {
+              "unit_ids": [
+                "I2-TK-CR-HANZHONG-CORRECTION-001"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P162-HANZHONG",
+              "reason": "反馈实际改变军事决定。"
+            },
+            {
+              "unit_ids": [
+                "SECOND_B1::I2-TK-CR-PALACE-FEEDBACK-FAILURE-001",
+                "SECOND_B2::I2-TK-CR-PALACE-FEEDBACK-FAILURE-001",
+                "FACT-1B6273469CD7F2CE",
+                "FACT-75410CE8A6671EF5"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P162-PALACE",
+              "reason": "工程、役工、反馈失败和资源特权合并为跨年父链。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-WEI-CAORUI",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 51,
+          "score_100": 51,
+          "current_entry_unit_count": 10,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 5,
+            "SCORING_PARENT": 5
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-WEI-CAORUI",
+          "actual_power_window": "226—239年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P162-HANZHONG",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "接受意见下诏班师并止损。"
+            },
+            {
+              "parent_id": "C5-P162-PALACE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "宫室工程在重复反馈后继续并伴即时处死。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P162-HANZHONG"
+            ],
+            "negative_parent_refs": [
+              "C5-P162-PALACE"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P162-HANZHONG",
+              "C5-P162-PALACE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《三国志》卷二十五《辛毗、杨阜、高堂隆传》：反复极谏宫室、部分工程撤销、皇帝长期不罪。",
+            "https://zh.wikisource.org/zh-hans/三国志/卷25"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 宫室工程：伤害反馈到达后仍持续，核心负证成立",
+              "details": [
+                "曹叡大兴宫殿、台观，发美女充后庭，频繁游猎。",
+                "辛毗、杨阜、高堂隆都直接指出。",
+                "百姓穷于役：农业废弃。",
+                "宫室与军费几乎等量。",
+                "民不堪命、怨怒。：曹叡仍继续修崇华殿、九龙殿、陵霄阙、景阳山、昭阳殿等。",
+                "公卿以下至学生参与役作，作者万数。",
+                "这完全命中：公共资源/民力用于最高权力宫室享用 → 多轮伤害反馈充分到达 → 跨年继续扩大。",
+                "应保留 NEGATIVE / MI4_CROSS_PHASE_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "B. 但极端批评者长期安全，且部分私人项目真能被阻止",
+              "details": [
+                "辛毗批评修宫：“宫室大兴，加连年谷麦不收”，曹叡并未处罚。",
+                "辛毗又反对平北芒建台观，皇帝最终停止。",
+                "杨阜对皇帝服饰直接质问“此于礼何法服”，曹叡默然，此后不再穿不合法服见杨阜。",
+                "杨阜又多次把曹叡宫室比桀纣、秦始皇，甚至说若不听“恐祖考之祚将坠于地”，仍未被治罪。",
+                "高堂隆反复用亡国例子极谏，皇帝多次称善、改容动色。",
+                "这些不是普通战略纳谏，而是最私人享用和君主尊严场景中持续保护履职者。",
+                "可定 POSITIVE / MI3_SUSTAINED_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "C. 汉中、曹真班师主要移C2/M1",
+              "details": [
+                "接受杨阜等意见召回军队是真实止损，但首先是军事判断。",
+                "不再用它作为C5主正证，避免跨轴重复。"
+              ]
+            },
+            {
+              "title": "D. 为什么从G2-MID上调到G2-HIGH",
+              "details": [
+                "资源强制确实非常严重，无法回到G3。",
+                "但异议者的人身安全和实际阻断能力明显比典型G2中位人物强。",
+                "批评极尖锐：长期反复。",
+                "部分具体私人项目确实被撤回。",
+                "皇帝没有形成报复谏臣的模式。",
+                "因而更适合G2上沿。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 1,
+            "locator_count": 2,
+            "linked_source_count": 1,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 163,
+          "ruler_id": "RULER-WEI-SIMASHI",
+          "ruler_name": "司马师",
+          "axis_grade": "G2",
+          "position": "HIGH",
+          "confidence": "MEDIUM",
+          "output_mode": "BOUNDED_PROFILE",
+          "score_status": "EVIDENCE_LIMITED",
+          "typical_pattern": "《晋书·景帝纪》明确记：魏帝曹芳与中书令李丰、皇后父张缉、苏铄、乐敦等谋划以夏侯玄取代司马师辅政；同一条史料紧接着记“玄、缉等，皆夷三族”。",
+          "grade_basis": "撤去现实夺权者本人后，核心强负链只剩一次“夷三族”的扩大清算；这很严重，但仍是一条政治危机生命周期，不能机械维持G1-LOW和E3；目前也没有足够直接的高质量自缚正证回到G3；定 G2-HIGH / E2。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-HIGH。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P163-PURGE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "政治疑忌杀戮并扩大夷三族。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "SECOND_B1::I2-QIN95-FACT-SUPP29-SIMASHI-CAPTURE-FEEDBACK-76-26",
+                "SECOND_B2::I2-QIN95-FACT-SUPP29-SIMASHI-CAPTURE-FEEDBACK-76-26",
+                "FACT-8C704E63CBE98FC9"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P163-PURGE",
+              "reason": "中枢俘获、反馈压制和扩大株连按一个政治清洗父链消费。"
+            },
+            {
+              "unit_ids": [
+                "FACT-4F9862F2EC6AA7E1"
+              ],
+              "status": "AXIS_OUT_WITH_REASON",
+              "reason": "军事授权属C3/M1。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-WEI-SIMASHI",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 51,
+          "score_100": 51,
+          "current_entry_unit_count": 4,
+          "current_entry_disposition_counts": {
+            "AXIS_OUT_WITH_REASON": 1,
+            "SCORING_PARENT": 3
+          },
+          "axis_evidence_level": "E2",
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-WEI-SIMASHI",
+          "actual_power_window": "251—255年实际掌权",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P163-PURGE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "政治疑忌杀戮并扩大夷三族。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [
+              "C5-P163-PURGE"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P163-PURGE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《晋书》卷二《景帝纪》：李丰等谋以夏侯玄代辅政，随后“玄、缉等，皆夷三族”",
+            "https://zh.wikisource.org/zh-hans/晉書/卷002"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 李丰等本人：现实夺权集团，退出C5",
+              "details": [
+                "《晋书·景帝纪》明确记：魏帝曹芳与中书令李丰、皇后父张缉、苏铄、乐敦等谋划以夏侯玄取代司马师辅政。",
+                "司马师已经秘密得知此谋。",
+                "李丰被召后与司马师激烈冲突，最终被击杀。",
+                "夏侯玄、张缉等随即被捕。",
+                "这不是胜利方事后虚构“政敌”身份，而是正史明确记载的现实夺权计划。",
+                "因此李丰、张缉、夏侯玄等首谋本人的死刑退出C5主评分。"
+              ]
+            },
+            {
+              "title": "B. “皆夷三族”：威胁解除后的家属扩大继续计",
+              "details": [
+                "同一条史料紧接着记“玄、缉等，皆夷三族”。",
+                "首谋已被捕后，处罚扩大到亲族，显然超出只处置现实夺权者本人。",
+                "家属不能只因亲缘自动视为共同政敌。",
+                "这是标准的政治斗争结束后的株连扩大，应保留 NEGATIVE / MI2_LIFECYCLE 深下沿。"
+              ]
+            },
+            {
+              "title": "C. 废曹芳不作为C5负证",
+              "details": [
+                "司马师随后推动废帝曹芳，属于其与魏帝之间已公开化的最高权力争夺。",
+                "废立本身不能因为“权臣废帝”就继续扣C5。",
+                "除非另有废后对无关人员继续扩大清洗，当前不重复计分。"
+              ]
+            },
+            {
+              "title": "D. 毌丘俭、文钦同样属于现实叛乱",
+              "details": [
+                "正元二年二人公开举兵六万反司马师。",
+                "对其军事镇压不进入C5。",
+                "不能以“镇压很多政治敌手”凑成MI4。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 1,
+            "locator_count": 2,
+            "linked_source_count": 1,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 167,
+          "ruler_id": "RULER-WU-SUNXIU",
+          "ruler_name": "孙休",
+          "axis_grade": "G2",
+          "position": "HIGH",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "孙休为琅邪王时，丹杨太守李衡多次依法绳束、冒犯他；永安三年，都尉严密提出丹杨湖田、浦里塘工程。",
+          "grade_basis": "孙休为琅邪王时，丹杨太守李衡多次依法绳束、冒犯他；孙休即位后，李衡因过去得罪新帝，甚至准备逃魏；孙休不仅没有报复，反而明诏强调各为其职，“遣衡还郡，勿令自疑”，后来还加官；这是直接的旧怨 + 掌握最高强制权后主动不报复，应定 POSITIVE / MI2_LIFECYCLE。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-HIGH。",
+          "limitations": [
+            "实际权力窗口短；反例暴露与跨阶段复验不足。"
+          ],
+          "parents": [
+            {
+              "parent_id": "C5-P167-CORRECT",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "清除孙綝后恢复政务和反馈。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-TK-SUNXIU-EDUCATION-INTERFACE-001"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "教育接口只作制度背景。"
+            },
+            {
+              "unit_ids": [
+                "SECOND_B1::I2-TK-SX-SUNLIN-CORRECTION-M2-AUDIT",
+                "SECOND_B2::I2-TK-SX-SUNLIN-CORRECTION-M2-AUDIT",
+                "FACT-9D46F5D4BBE1DEEA"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P167-CORRECT",
+              "reason": "孙綝纠正与亲政恢复按同一生命周期消费。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-WU-SUNXIU",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 51,
+          "score_100": 51,
+          "current_entry_unit_count": 4,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 1,
+            "SCORING_PARENT": 3
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-WU-SUNXIU",
+          "actual_power_window": "258—264年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P167-CORRECT",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "清除孙綝后恢复政务和反馈。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P167-CORRECT"
+            ],
+            "negative_parent_refs": [],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P167-CORRECT"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《三国志》卷四十八《孙休传》",
+            "https://zh.wikisource.org/zh-hans/三國志/卷48",
+            "《三国志》卷六十四《濮阳兴传》",
+            "https://zh.wikisource.org/zh-hans/三國志/卷64"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 李衡案：高质量私人旧怨克制",
+              "details": [
+                "孙休为琅邪王时，丹杨太守李衡多次依法绳束、冒犯他。",
+                "孙休即位后，李衡因过去得罪新帝，甚至准备逃魏。",
+                "孙休不仅没有报复，反而明诏强调各为其职，“遣衡还郡，勿令自疑”，后来还加官。",
+                "这是直接的旧怨 + 掌握最高强制权后主动不报复，应定 POSITIVE / MI2_LIFECYCLE。"
+              ]
+            },
+            {
+              "title": "B. 浦里塘：多数反对下的强制工程",
+              "details": [
+                "永安三年，都尉严密提出丹杨湖田、浦里塘工程。",
+                "百官会议“咸以为用功多而田不保成”，只有濮阳兴认为可行。",
+                "孙休仍让大量兵民投入施工，史载功佣之费不可胜数，士卒死亡、甚至有人自杀，百姓大怨。",
+                "随后濮阳兴反而升为丞相。",
+                "这是明确负面反馈已经到达 + 巨量公共强制和人员死亡 + 仍继续工程的直接C5强负证，至少 MI3_SUSTAINED_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "C. 张布、濮阳兴逐步侵蚀反馈入口",
+              "details": [
+                "孙休因旧恩重用张布、濮阳兴。",
+                "张布害怕韦曜、盛冲等切直之士入侍会暴露自己的过失，阻止孙休召他们讲论。",
+                "孙休其实完全识破张布动机，明确指出他就是怕这些人揭发臣下奸变。",
+                "但最后孙休为了避免张布疑惧，竟仍“如布意”，放弃召韦曜、盛冲入侍。",
+                "这不是没看懂问题，而是明知近臣在封闭专业反馈，仍主动让步。",
+                "与濮阳兴推动浦里塘、二人“相表里，邦内失望”合并，可形成 MI3_SUSTAINED_SYSTEMIC 的近臣俘获负链。"
+              ]
+            },
+            {
+              "title": "D. 孙亮处置：保留疑点，不硬计极端负证",
+              "details": [
+                "孙休因巫祷告发将废帝孙亮降为候官侯，孙亮途中自杀。",
+                "《吴录》另有“或云休鸩杀之”，但只是异说，不能据此硬定本人毒杀。",
+                "该案可做政治处分下沿，但不作为决定档位的核心。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 4,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 161,
+          "ruler_id": "RULER-WEI-CAOPI",
+          "ruler_name": "曹丕",
+          "axis_grade": "G2",
+          "position": "MID",
+          "confidence": "MEDIUM",
+          "output_mode": "BOUNDED_PROFILE",
+          "score_status": "EVIDENCE_LIMITED",
+          "typical_pattern": "太子时期，郭夫人之弟盗官布依法当死，曹丕多次替近亲请免；鲍勋坚持依法上报，曹丕因此“恚望滋甚”，后借别事免其官；杨俊曾在继承讨论中较称曹植，曹丕“常以恨之”。",
+          "grade_basis": "太子时期，郭夫人之弟盗官布依法当死，曹丕多次替近亲请免；鲍勋坚持依法上报，曹丕因此“恚望滋甚”，后借别事免其官；称帝后，鲍勋又因反对游猎、征吴等多次触怒曹丕，遭外放、左迁；杨俊曾在继承讨论中较称曹植，曹丕“常以恨之”；曹丕至宛后因市场不繁盛发怒收捕杨俊；司马懿、王象、荀纬叩头流血求免仍不许，杨俊最终自杀，时人以为冤。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-MID。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P161-EXPEDITION",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "连续远征拒谏、贬斥和败后不改。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-TK-CP-DEATH-COMMUTATION-001",
+                "SECOND_A::I2-TK-CP-NINE-RANK-001",
+                "SECOND_B1::I2-TK-CP-NINE-RANK-001",
+                "FACT-F7471ABCFEBF5760"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "减死、九品与军事授权不独立证明最高权力克制。"
+            },
+            {
+              "unit_ids": [
+                "I2-TK-CP-REPEATED-REMONSTRANCE-FAILURE-001",
+                "FACT-74FA2A4DCFE87CC0"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P161-EXPEDITION",
+              "reason": "三次南征拒谏按跨年重复父链消费。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-WEI-CAOPI",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 45,
+          "score_100": 45,
+          "current_entry_unit_count": 6,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 4,
+            "SCORING_PARENT": 2
+          },
+          "axis_evidence_level": "E2",
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-WEI-CAOPI",
+          "actual_power_window": "220—226年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P161-EXPEDITION",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "连续远征拒谏、贬斥和败后不改。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [
+              "C5-P161-EXPEDITION"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P161-EXPEDITION"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "pre_evidence_gate": {
+            "axis_evidence_level": "E3",
+            "confidence": "HIGH",
+            "output_mode": "FULL_GRADE"
+          },
+          "evidence_gate_review": {
+            "status": "REVISED_TO_E2",
+            "basis": "只有一条MI3负向父链，未完成E3所需跨机制复验。"
+          },
+          "source_refs": [
+            "《三国志》卷十二《鲍勋传》：https://zh.wikisource.org/zh-hans/三國志_(四庫全書本)/魏志/卷12",
+            "《三国志》卷二十三《杨俊传》：https://zh.wikisource.org/zh-hans/三國志/卷23"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 鲍勋案应合并为一条跨期生命周期",
+              "details": [
+                "太子时期，郭夫人之弟盗官布依法当死，曹丕多次替近亲请免；鲍勋坚持依法上报，曹丕因此“恚望滋甚”，后借别事免其官。",
+                "称帝后，鲍勋又因反对游猎、征吴等多次触怒曹丕，遭外放、左迁。",
+                "最终刘曜告发鲍勋曾从轻处理孙邕军营违规；廷尉拟五年刑，三官又驳为罚金。曹丕直接称“勋无活分”，并把量刑官员一并收付。钟繇、华歆、陈群、辛毗、高柔等联名求免仍不许，鲍勋被诛。",
+                "这条链的个案烈度极深：近亲特权请求、对依法履职者的积怨、持续报复、最后突破正常量刑并在多重反馈后坚持死刑。",
+                "但从MI形态看，它仍围绕鲍勋一个对象连续展开，应合并为 NEGATIVE / MI2_LIFECYCLE，标记 VERY_DEEP_FLOOR；不能拆成“郭氏案MI2 + 处死案MI3”重复增权。"
+              ]
+            },
+            {
+              "title": "B. 杨俊案是第二条独立深负证",
+              "details": [
+                "杨俊曾在继承讨论中较称曹植，曹丕“常以恨之”。",
+                "曹丕至宛后因市场不繁盛发怒收捕杨俊；司马懿、王象、荀纬叩头流血求免仍不许，杨俊最终自杀，时人以为冤。",
+                "这是私人旧怨、盛怒与重臣救谏均未形成比例收束的独立 MI2_LIFECYCLE，烈度高，但覆盖仍限于单案。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 2,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 166,
+          "ruler_id": "RULER-WU-SUNQUAN",
+          "ruler_name": "孙权",
+          "axis_grade": "G2",
+          "position": "MID",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "孙权信任校事吕壹；吾粲作为太子太傅，主张鲁王孙霸应出驻夏口、不能与太子同处京师，又把相关消息告知陆逊。",
+          "grade_basis": "剔除战略拒谏后，吕壹案与二宫反馈压制仍是两条独立、持续的核心负链；正向自缚真实但不能覆盖晚年组织性伤害；由 G2-HIGH 下调到 G2-MID / E3。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-MID。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P166-BOUNDED",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "酒后杀令禁执行与无效边袭限制。"
+            },
+            {
+              "parent_id": "C5-P166-LATE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "吕壹、海外拒谏和二宫党争压制反馈。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "SECOND_A::I2-TK-SQ-REGIONAL-DELEGATION-001",
+                "SECOND_B1::I2-TK-SQ-REGIONAL-DELEGATION-001",
+                "FACT-6EAE94F0488A2E46"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "区域组织与军事授权只作背景。"
+            },
+            {
+              "unit_ids": [
+                "I2-TK-SQ-BOUNDED-CORRECTION-001"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P166-BOUNDED",
+              "reason": "两项可执行自我约束直接命中C5。"
+            },
+            {
+              "unit_ids": [
+                "SECOND_B1::I2-TK-SQ-TWO-PALACES-001",
+                "SECOND_B2::I2-TK-SQ-TWO-PALACES-001",
+                "I2-TK-SQ-OVERSEAS-REMONSTRANCE-FAILURE-001",
+                "FACT-3CE87B576B5C6136"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P166-LATE",
+              "reason": "吕壹、海外与二宫反馈失灵按晚期系统父链消费。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-WU-SUNQUAN",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 45,
+          "score_100": 45,
+          "current_entry_unit_count": 8,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 3,
+            "SCORING_PARENT": 5
+          },
+          "axis_evidence_level": "E3",
+          "promotion_normalization": {
+            "working_evidence_level": "E4",
+            "formal_evidence_level": "E3",
+            "reason": "FORMAL_CONTRACT_USES_E1_E2_E3; E4_COLLAPSED_TO_SUFFICIENT_HIGH_DENSITY_E3_WITHOUT_GRADE_CHANGE"
+          },
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-WU-SUNQUAN",
+          "actual_power_window": "200—252年江东实际主政",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P166-BOUNDED",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "酒后杀令禁执行与无效边袭限制。"
+            },
+            {
+              "parent_id": "C5-P166-LATE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "吕壹、海外拒谏和二宫党争压制反馈。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P166-BOUNDED"
+            ],
+            "negative_parent_refs": [
+              "C5-P166-LATE"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P166-BOUNDED",
+              "C5-P166-LATE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《三国志》孙权本纪：吕壹受信、太子以下数谏不纳、事发后引咎。",
+            "《三国志》卷五十八《陆逊传》：吕壹案、二宫之争、陆逊被累遣使责让而愤卒。",
+            "https://zh.wikisource.org/zh-hans/陸遜傳",
+            "《三国志》吴志卷十二：吾粲因二宫之争下狱死，朱据等处分。",
+            "https://zh.wikisource.org/zh-hans/三國志_(四庫全書本)/吳志/卷12"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 吕壹：明知多次谏诤仍长期不纳，导致系统性诬陷",
+              "details": [
+                "孙权信任校事吕壹。",
+                "正史明确记“壹性苛惨，用法深刻，自太子登而下数谏权，皆不纳，大臣由是不敢言”。",
+                "吕壹借校事权构陷官员、深文用法；朱据部曲钱款案中，相关主者甚至因拷问死于杖下。",
+                "直到吕壹奸罪彻底暴露，孙权才诛壹，并“引咎自责”、派袁礼向诸将谢过。",
+                "这是完整 MIXED_NEGATIVE / MI3_SUSTAINED_SYSTEMIC。",
+                "近幸侦察授权 → 多次警告不纳 → 官僚寒蝉、无辜受害 → 迟来承认并清除。"
+              ]
+            },
+            {
+              "title": "B. 二宫之争：正常履职者因支持嫡庶秩序遭跨对象处分",
+              "details": [
+                "吾粲作为太子太傅，主张鲁王孙霸应出驻夏口、不能与太子同处京师，又把相关消息告知陆逊。",
+                "因此被孙霸等谗害，下狱而死。",
+                "陆逊反复上疏维护嫡庶秩序，孙权“不听”，又连遣使责让；陆逊愤恚而死。",
+                "顾谭、顾承、姚信等因与太子关系被枉流。",
+                "朱据维护太子被左迁；其终局赐死由孙弘在孙权病中矫诏完成，不能全额归责孙权。",
+                "整体仍形成跨对象、跨阶段的 NEGATIVE / MI4_CROSS_PHASE_SYSTEMIC 继承利益下反馈压制。"
+              ]
+            },
+            {
+              "title": "C. 这不是“现实政敌处置”",
+              "details": [
+                "吾粲、陆逊、顾谭等并未发动夺权，他们只是对储位制度提出正常政治意见。",
+                "因而不能用新增政治斗争规则豁免。"
+              ]
+            },
+            {
+              "title": "D. 海外夷洲、公孙渊等拒谏移出C5",
+              "details": [
+                "是否远征夷洲、是否相信公孙渊，主要属于战略、信息处理。",
+                "陆逊反对海外远征而孙权不听，本身不扣C5；只有若因反对而处罚陆逊才进入本轴。",
+                "这部分从原 LATE 父链剔除，防止跨轴重复。"
+              ]
+            },
+            {
+              "title": "E. 可执行自缚和迟来纠正是真实正证",
+              "details": [
+                "孙权设置过“酒后杀令不得立即执行”式的自我约束，防止本人酒怒造成不可逆后果。",
+                "吕壹案暴露后，能够公开引咎、自责并清除近幸。",
+                "这些使他高于G1强短板人物。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 3,
+            "locator_count": 4,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 165,
+          "ruler_id": "RULER-WU-SUNHAO",
+          "ruler_name": "孙皓",
+          "axis_grade": "G0",
+          "position": "MID",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "王蕃因忤意在殿下被斩，多名大臣求救无效；宫室营建在陆凯等频繁上表反对后仍继续；后宫长期“采择无已”，二千石大臣女儿也须逐年报送等待简阅。",
+          "grade_basis": "王蕃因忤意在殿下被斩，多名大臣求救无效；楼玄因被诬“谤讪政事”而流徙，孙皓又秘密命地方将领杀之；张尚也因言辞触怒被下狱，百余官员叩头才减死，后来仍遭处死；宫室营建在陆凯等频繁上表反对后仍继续；后宫长期“采择无已”，二千石大臣女儿也须逐年报送等待简阅；这是第二套持续负机制，但烈度以资源和身份强制为主，低于大规模杀戮型MI4。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G0-MID。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P165-TERROR",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "多名谏臣史官遭不可逆处置，言路系统坍缩。"
+            },
+            {
+              "parent_id": "C5-P165-RESOURCE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "宫殿苑囿后宫巡行跨年扩大且反馈后不改。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "SECOND_B1::I2-TK-SH-COURT-TERROR-001",
+                "SECOND_B2::I2-TK-SH-COURT-TERROR-001",
+                "FACT-4A6688A47A2D7F97",
+                "FACT-9657A385CA0BFC7E",
+                "FACT-5433D4F467DC92F6"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P165-TERROR",
+              "reason": "宫廷恐怖、反馈者处置和履职者保护崩溃按系统父链合并。"
+            },
+            {
+              "unit_ids": [
+                "FACT-25AE8C0D2D7FA68D"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P165-RESOURCE",
+              "reason": "跨年公共资源特权链独立计负。"
+            },
+            {
+              "unit_ids": [
+                "FACT-BE286387F673474F"
+              ],
+              "status": "AXIS_OUT_WITH_REASON",
+              "reason": "军事授权属C3/M1。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-WU-SUNHAO",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 7,
+          "score_100": 7,
+          "current_entry_unit_count": 7,
+          "current_entry_disposition_counts": {
+            "AXIS_OUT_WITH_REASON": 1,
+            "SCORING_PARENT": 6
+          },
+          "axis_evidence_level": "E3",
+          "promotion_normalization": {
+            "working_evidence_level": "E4",
+            "formal_evidence_level": "E3",
+            "reason": "FORMAL_CONTRACT_USES_E1_E2_E3; E4_COLLAPSED_TO_SUFFICIENT_HIGH_DENSITY_E3_WITHOUT_GRADE_CHANGE"
+          },
+          "grade_numeric": 0,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-WU-SUNHAO",
+          "actual_power_window": "264—280年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P165-TERROR",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "多名谏臣史官遭不可逆处置，言路系统坍缩。"
+            },
+            {
+              "parent_id": "C5-P165-RESOURCE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "宫殿苑囿后宫巡行跨年扩大且反馈后不改。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [
+              "C5-P165-TERROR",
+              "C5-P165-RESOURCE"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P165-TERROR",
+              "C5-P165-RESOURCE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《三国志》卷六十五《王楼贺韦华传》：王蕃、楼玄等案件。",
+            "https://zh.wikisource.org/zh-hans/三国志/卷65",
+            "《三国志》卷四十八《孙皓传》：在位期主线。",
+            "https://zh.wikisource.org/zh-hans/三国志/卷48",
+            "《三国志》卷六十一陆凯传：宫室营建在多次上表后仍不停止。",
+            "https://zh.wikisource.org/zh-hans/三国志/卷61",
+            "《三国志》卷五十：后宫“采择无已”。",
+            "https://zh.wikisource.org/zh-hans/三国志/卷50"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 多名正常履职者跨年受不可逆处分，MI4成立",
+              "details": [
+                "王蕃因忤意在殿下被斩，多名大臣求救无效。",
+                "楼玄因被诬“谤讪政事”而流徙，孙皓又秘密命地方将领杀之；张尚也因言辞触怒被下狱，百余官员叩头才减死，后来仍遭处死。",
+                "韦曜、贺邵等另有相似处置，已经形成跨对象、跨年的异议/履职安全崩坏，不能降成几个MI2。"
+              ]
+            },
+            {
+              "title": "B. 宫室、采女和私人消费形成持续资源强制",
+              "details": [
+                "宫室营建在陆凯等频繁上表反对后仍继续；后宫长期“采择无已”，二千石大臣女儿也须逐年报送等待简阅。",
+                "这是第二套持续负机制，但烈度以资源和身份强制为主，低于大规模杀戮型MI4。"
+              ]
+            },
+            {
+              "title": "C. 为什么只回到G0-MID",
+              "details": [
+                "孙皓的问题持续十余年，且多个正常官员被杀、暗杀、流放，不具备回到G1的条件。",
+                "但其恐怖主要集中中枢官僚、宫廷和资源征用，没有闭合万人级清洗或全国性法外酷刑规则，因此退出G0-LOW。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 4,
+            "locator_count": 8,
+            "linked_source_count": 4,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        }
+      ]
+    }
+  }
+}

@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from collections import Counter
-from hashlib import sha256
 import json
 from pathlib import Path
 from typing import Any, Mapping
@@ -24,19 +23,8 @@ def _canonical_polity(value: object) -> str:
     return POLITY_IDENTITIES.get(text, text)
 
 
-def _digest(value: Any) -> str:
-    return sha256(
-        json.dumps(
-            value,
-            ensure_ascii=False,
-            sort_keys=True,
-            separators=(",", ":"),
-        ).encode("utf-8")
-    ).hexdigest()
-
-
-def _phase_semantic_fingerprint(phase: Mapping[str, Any]) -> str:
-    return _digest({
+def _phase_semantic_key(phase: Mapping[str, Any]) -> str:
+    return json.dumps({
         key: phase.get(key)
         for key in (
             "evaluation_subject_phase",
@@ -51,7 +39,7 @@ def _phase_semantic_fingerprint(phase: Mapping[str, Any]) -> str:
             "phase_return_class",
             "founding_startup_ledger",
         )
-    })
+    }, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
 
 
 def _has_required_raw_axes(phase: Mapping[str, Any]) -> bool:
@@ -116,7 +104,7 @@ def _post_tang_bound_phase_index(
             prior = phase_identity_by_id.setdefault(phase_id, identity)
             if prior != identity:
                 raise ValueError(f"公共战役登记phase_id跨事件或主体重复：{phase_id}")
-            semantic_key = (group, _phase_semantic_fingerprint(phase))
+            semantic_key = (group, _phase_semantic_key(phase))
             owners = semantic_owners.setdefault(semantic_key, set())
             owners.add(ruler_id)
             if len(owners) > 1:
@@ -158,7 +146,7 @@ def iter_post_tang_bound_cycles(
                 f"公共战役登记主体/政权/统治窗口与正式对象不一致："
                 f"{phase.get('phase_id')}->{binding}"
             )
-        semantic = _phase_semantic_fingerprint(phase)
+        semantic = _phase_semantic_key(phase)
         duplicate_key = (group, semantic)
         if duplicate_key in seen:
             continue
@@ -277,5 +265,4 @@ def build_post_tang_third_item_consumption_audit(
             row["founding_flagged_phase_count"] for row in ruler_rows
         ),
         "rulers": ruler_rows,
-        "semantic_fingerprint": _digest(ruler_rows),
     }

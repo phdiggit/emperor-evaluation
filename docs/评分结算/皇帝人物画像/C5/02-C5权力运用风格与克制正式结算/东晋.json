@@ -1,0 +1,350 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "东晋",
+  "collections": {
+    "records": {
+      "positions": [
+        25,
+        84
+      ],
+      "records": [
+        {
+          "sequence": 102,
+          "ruler_id": "RULER-SHADOW-司马睿",
+          "ruler_name": "司马睿",
+          "axis_grade": "G3",
+          "position": "HIGH",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "元帝为丞相时，军兴以后律令失序，各部门“人立异议”，临事更改；卫展指出当时诏书中存在。",
+          "grade_basis": "直接C5行为反而包括；清理酷重连坐诏书；重大刑制接受廷议后停止；王敦叛乱时拒绝株连王导及其宗族；大幅定位为 G3-HIGH / E3。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G3-HIGH。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P102-ARBITRARY-LAW",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "不用律令、临事改制和亲属连带。"
+            },
+            {
+              "parent_id": "C5-P102-WANGDUN",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "王敦俘获与冲突报复。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-JIN-SMR-EDUCATION-SELECTION-001",
+                "I2-JIN-SMR-STATE-REBUILD-001",
+                "FACT-CFC20DBEB874CAA1"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "选官、国家重建和军事授权属于制度/C3背景。"
+            },
+            {
+              "unit_ids": [
+                "I2-JIN-SMR-LEGAL-ARBITRARINESS-001",
+                "FACT-EE32C07F8362412B"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P102-ARBITRARY-LAW",
+              "reason": "法源与反馈失序、临时诏令连带形成系统强制父链。"
+            },
+            {
+              "unit_ids": [
+                "I2-JIN-SMR-WANGDUN-CAPTURE-001",
+                "FACT-00F92C0304A24AD4"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P102-WANGDUN",
+              "reason": "权力俘获、阶段容纳与报复程序失衡共同闭合混合父链。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-SHADOW-司马睿",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 71,
+          "score_100": 71,
+          "current_entry_unit_count": 7,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 3,
+            "SCORING_PARENT": 4
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 3,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-SHADOW-司马睿",
+          "actual_power_window": "317—323年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P102-ARBITRARY-LAW",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "不用律令、临事改制和亲属连带。"
+            },
+            {
+              "parent_id": "C5-P102-WANGDUN",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "王敦俘获与冲突报复。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [
+              "C5-P102-ARBITRARY-LAW"
+            ],
+            "mixed_parent_refs": [
+              "C5-P102-WANGDUN"
+            ]
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P102-ARBITRARY-LAW",
+              "C5-P102-WANGDUN"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《晋书》卷三十《刑法志》元帝条：https://zh.wikisource.org/zh/晉書/卷030",
+            "《晋书》卷六十五《王导传》：https://zh.wikisource.org/zh/晉書/卷065"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. “法出多门、临事改制”是政权草创问题，不等同本人任意司法",
+              "details": [
+                "元帝为丞相时，军兴以后律令失序，各部门“人立异议”，临事更改。",
+                "熊远上书要求恢复法令画一。",
+                "司马睿因“时方多事”一开始未能全部采纳。",
+                "这说明制度建设不足，但不能直接推导“司马睿稳定以私人意志突破法律”，更不应仅凭这一条压入G1。"
+              ]
+            },
+            {
+              "title": "B. 卫展指出连坐酷法后，司马睿明确同意集中审查废除",
+              "details": [
+                "卫展指出当时诏书中存在。",
+                "为追子而鞭打父母：一家逃亡即斩家长等严重连坐规定。",
+                "司马睿回应，这类法禁确应“朝堂会议”，把不可用诏书清理出去，并称这是自己愿意虚心处理的事项。",
+                "这里出现了：可定 MIXED_POSITIVE / MI3_SUSTAINED_SYSTEMIC 的法制收束链。"
+              ]
+            },
+            {
+              "title": "D. 王敦叛乱时拒绝株连王导宗族：非常强的直接C5正证",
+              "details": [
+                "王敦公开举兵反元帝。",
+                "刘隗建议把王导及王氏宗族全部诛杀，以防内应。",
+                "王导率宗族子弟二十余人每日到台前待罪。",
+                "元帝明确知道王导忠节，不因王敦叛乱而株连其弟和整个王氏，亲自恢复王导朝服并继续信任。",
+                "这是本项目新规则最标准的正证。",
+                "现实叛乱首领 → 近亲家族处于极高风险 → 最高权力主动拒绝连坐、保护未参与者。",
+                "可定 POSITIVE / MI2_LIFECYCLE，与法制收束跨机制复验。"
+              ]
+            },
+            {
+              "title": "E. 王敦所杀周顗、戴渊等不能倒灌元帝",
+              "details": [
+                "王敦攻入建康后杀周顗、戴若思，控制中枢。",
+                "元帝甚至被迫表示若王敦愿意停兵，自己可以退回琅邪。",
+                "这些行为首先反映皇帝已失去实际强制控制，不应继续写成“司马睿的异议冲突报复化”。"
+              ]
+            },
+            {
+              "title": "F. 仍有限制上沿的反证",
+              "details": [
+                "草创阶段法制确长期不稳定。",
+                "司马睿重用刘隗、刁协，造成与王敦集团严重冲突。",
+                "熊远的画一法制建议并未立即完整落实。",
+                "因而不直接升G4。",
+                "但这些更多是治理、权力结构和制度成熟度问题，不足把人物压回G2/G1。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 2,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 100,
+          "ruler_id": "RULER-SHADOW-司马曜",
+          "ruler_name": "司马曜",
+          "axis_grade": "G2",
+          "position": "HIGH",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "中书郎范甯是孝武帝原本信任的正直大臣；王国宝让袁悦之通过尼僧向太子母陈淑媛递信，为自己说好话、求亲信。",
+          "grade_basis": "孝武帝并非原结算所暗示的“因司马道子俘获而稳定低克制”；但王国宝相关链中已经闭合；直臣遭谗外放；中间人被托罪处死；近幸违法反复获宽；足以形成明显但非强烈系统短板；定位为 G2-HIGH / E3。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-HIGH。",
+          "limitations": [
+            "道子俘获的具体惩罚对象和本人收权机会仍有限。"
+          ],
+          "parents": [
+            {
+              "parent_id": "C5-P100-DAOZI",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "道子俘获法律司法接口。"
+            },
+            {
+              "parent_id": "C5-P100-FANNING",
+              "direction": "POSITIVE",
+              "intensity": "MI1_CASE",
+              "basis": "采纳范宁部分调整。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-JIN-SMYAO-XIEAN-DELEGATION-001",
+                "FACT-143D2D51E7D743C7"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "谢安交班与军事授权属于C3背景。"
+            },
+            {
+              "unit_ids": [
+                "I2-JIN-SMYAO-DAOZI-CAPTURE-001"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P100-DAOZI",
+              "reason": "权力俘获直接削弱司法与反馈。"
+            },
+            {
+              "unit_ids": [
+                "I2-JIN-SMYAO-FANNING-REFORM-001",
+                "FACT-79B79DD2D6A88158"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P100-FANNING",
+              "reason": "部分制度建议获采纳但运行强度有限。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-SHADOW-司马曜",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 51,
+          "score_100": 51,
+          "current_entry_unit_count": 8,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 2,
+            "SCORING_PARENT": 6
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-SHADOW-司马曜",
+          "actual_power_window": "376—396年亲政",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P100-DAOZI",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "道子俘获法律司法接口。"
+            },
+            {
+              "parent_id": "C5-P100-FANNING",
+              "direction": "POSITIVE",
+              "intensity": "MI1_CASE",
+              "basis": "采纳范宁部分调整。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P100-FANNING"
+            ],
+            "negative_parent_refs": [
+              "C5-P100-DAOZI"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P100-DAOZI",
+              "C5-P100-FANNING"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《晋书》卷七十五《王国宝传》",
+            "https://zh.wikisource.org/zh-hans/晉書_(四庫全書本)/卷075",
+            "《晋书》卷九十一相关范甯、徐邈材料",
+            "https://zh.wikisource.org/zh-hant/晉書/卷091"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 范甯因揭王国宝而遭谗外放",
+              "details": [
+                "中书郎范甯是孝武帝原本信任的正直大臣。",
+                "他直接建议皇帝黜退阿谀的王国宝。",
+                "王国宝通过司马道子反过来谗毁范甯，最终范甯被出为豫章太守。",
+                "这不是重刑，但说明当正常履职触及皇帝兄弟/近臣网络时，保护并不稳定。"
+              ]
+            },
+            {
+              "title": "B. 袁悦之：皇帝明知其为王国宝游说，竟“托以他罪杀之”",
+              "details": [
+                "王国宝让袁悦之通过尼僧向太子母陈淑媛递信，为自己说好话、求亲信。",
+                "孝武帝得知此事后，没有按公开可核罪名处理，而是“托以他罪杀悦之”。",
+                "这是史料直接使用“托以他罪”的法外/借罪处死。",
+                "袁悦之不是现实政敌。",
+                "其主要行为是私下为权臣游说。",
+                "皇帝借其他罪名完成不可逆处死。",
+                "属 NEGATIVE / MI2_LIFECYCLE 深负证。"
+              ]
+            },
+            {
+              "title": "C. 王国宝违法屡有弹劾，皇帝处置反复而不稳定",
+              "details": [
+                "王国宝后来因服丧拖延被御史弹劾，靠司马道子说情得原。",
+                "酒宴中公然用器物攻击尚书左丞祖台之，又遭弹劾；皇帝一度令双方免官，旋即复职。",
+                "王国宝建宅僭拟宫殿，皇帝又只“恶其僭侈”，没有形成持续追责。",
+                "这不是单纯“权臣无法控制”，而是多次具体违法反馈已经到达，最高权力仍反复放宽近幸/宗王网络。",
+                "可与范甯、袁悦之形成 MI3_SUSTAINED_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "D. 皇帝也确实会接受对司马道子的缓和意见",
+              "details": [
+                "徐邈指出皇帝兄弟不应相互猜忌，孝武帝接受，重新委任道子。",
+                "这说明其并非只会压制意见。",
+                "但这更偏政治关系调整，不能抵销上述对近幸违法和正常履职者保护失灵。"
+              ]
+            },
+            {
+              "title": "E. 不把道子后期所有乱政全算孝武帝",
+              "details": [
+                "道子、王国宝集团真正全面控制中枢、引发王恭起兵等高潮多在孝武帝末期乃至其死后。",
+                "后续卖官、地方起兵、王国宝被道子处死等，不继续倒灌司马曜个人C5。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 4,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        }
+      ]
+    }
+  }
+}

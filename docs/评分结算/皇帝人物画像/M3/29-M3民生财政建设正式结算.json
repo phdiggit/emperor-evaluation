@@ -1,0 +1,329 @@
+{
+  "schema_version": "formal-json-polity-router-v1",
+  "route_key": "polity",
+  "content_schema_version": "profile-m3-livelihood-finance-formal-settlement-v3",
+  "payload_key_order": [
+    "schema_version",
+    "canonical_status",
+    "contract_version",
+    "axis_code",
+    "axis_name",
+    "adjudication_mode",
+    "score_projection",
+    "record_count",
+    "formal_profile_write",
+    "formal_rank_write",
+    "profile_total_enabled",
+    "profile_ranking_enabled",
+    "composite_ranking_write",
+    "database_write",
+    "record_order_policy",
+    "grade_boundaries",
+    "summary",
+    "records",
+    "authority_mode",
+    "reader_source_contract",
+    "status"
+  ],
+  "payload_metadata": {
+    "schema_version": "profile-m3-livelihood-finance-formal-settlement-v3",
+    "canonical_status": "FORMAL_CURRENT",
+    "contract_version": "FORMAL-V3.6",
+    "axis_code": "M3",
+    "axis_name": "民生财政建设",
+    "adjudication_mode": "ABILITY_ROUTE_X_PEAK_HEIGHT_X_RETAINED_HANDOFF_X_GOVERNANCE_SCALE_X_ATTRIBUTABLE_COST",
+    "score_projection": "SEMANTIC_GRADE_AND_POSITION_TO_FIXED_RADAR_VALUE",
+    "record_count": 184,
+    "formal_profile_write": true,
+    "formal_rank_write": false,
+    "profile_total_enabled": false,
+    "profile_ranking_enabled": false,
+    "composite_ranking_write": false,
+    "database_write": false,
+    "record_order_policy": "RADAR_VALUE_DESC_THEN_RULER_ID_ASC",
+    "grade_boundaries": {
+      "G5_G4": "G5要求低谷三轴深度重建并保留，或建设达到且以A5交班；建设较浅、回落明显或有限区域规模者止于G4。",
+      "G4_G3": "G4须命中恢复分至少15的强建设、完整A4建设、高位守成或A5实现下限之一；12至不足15分的低起点恢复若未命中其他路线，最高G3。",
+      "G3_G2": "G3要求可辨认的多轴实质建设，或在中高位形成有压力含量的稳定兑现。",
+      "G2_G1": "G2仍保留有限但实际实现的建设、纠错或可用阶段；没有可保留建设者为G1。",
+      "G1_G0": "G0要求本人选择造成或放大的罕见、稳定且难恢复的失能或崩坏。"
+    },
+    "summary": {
+      "grade_distribution": {
+        "G0": 9,
+        "G1": 42,
+        "G2": 47,
+        "G3": 70,
+        "G4": 12,
+        "G5": 4
+      },
+      "minimum_score_100": 2,
+      "maximum_score_100": 94,
+      "supplemented_old_parent_chain_count": 204,
+      "candidate_trace_count": 316,
+      "upstream_sync": {
+        "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_03",
+        "changed_person_count": 184,
+        "source_sha256": {
+          "C1": "1e0626f42b066fc1db805fe0a183d76dc1045044e03f2f7881c7a658c4c4247d",
+          "C2": "c6aec06fd4fef269a445ecddbe85c8b5a610e29c04078ce7edebb9006445e490",
+          "C3": "0b3ba6ffac38eafd2a58c9e05c23a20db1ff38c91250fc449e84012e56021015",
+          "C4": "8255dfcdcce799132f7ddc4befce02dad716ea6fa75338f9f17916467fefc643"
+        },
+        "trajectory_source": "C1_C2_C3_STATE_ANCHORS_AND_EXPLICIT_PEAK",
+        "stability_k_source": "DIRECT_FORMAL_C1_C2_C3_DIAGNOSTIC",
+        "stability_score_authority": "M3_FORMAL_PERSON_LEVEL_ADJUDICATION",
+        "c4_numeric_source": "C4_FORMAL_RECOVERY_DETERIORATION_DA_ONLY",
+        "k_structure_distribution": {
+          "DIRECT_FORMAL_C1_C3": 184
+        },
+        "grade_and_position_policy": "FULL_POOL_SEMANTIC_READJUDICATION_AFTER_C4_DA_FINALIZATION"
+      },
+      "governance_scale_gate_distribution": {
+        "FULL_OR_MAJOR_REGIONAL": 19,
+        "LIMITED_REGIONAL": 6,
+        "UNRESOLVED_NOT_HIGH_GRADE_GATE": 159
+      },
+      "checklist_confirmed_patch": {
+        "source": "USER_PROVIDED_M3_CHECKLIST_2026_09_01",
+        "grade_change_count": 24,
+        "da_sync_count": 23,
+        "highest_vector_invariant": "PASS_ALL_184",
+        "unconfirmed_items_unchanged": true
+      },
+      "dynamic_class_distribution": {
+        "RARE_RECOVERY_OR_STEADY_BUILD": 6,
+        "SUBSTANTIAL_BUILD": 21,
+        "POSITIVE_MAINTENANCE": 34,
+        "LIMITED_OR_MIXED_MAINTENANCE": 36,
+        "ATTRIBUTABLE_OR_MIXED_DECLINE": 58,
+        "SEVERE_DECLINE": 19,
+        "COLLAPSE_OR_EXTREME_DECLINE": 10
+      }
+    },
+    "authority_mode": "FORMAL_SETTLEMENT_PATCH_SOURCE",
+    "reader_source_contract": {
+      "format": "BOOK_TITLE_PLUS_VERBATIM_EXCERPT_ONE_PER_LINE",
+      "c4_policy": "INCLUDE_ALL_C4_PUBLIC_QUOTATIONS_OR_EXPAND_LEGACY_C4_LINEAGE",
+      "c4_direct_public_source_records": 89,
+      "c4_legacy_lineage_expanded_records": 95,
+      "record_count": 184,
+      "source_count_distribution": {
+        "9": 6,
+        "7": 18,
+        "6": 19,
+        "10": 2,
+        "8": 16,
+        "5": 12,
+        "4": 10,
+        "3": 80,
+        "1": 3,
+        "11": 2,
+        "2": 16
+      },
+      "reader_exclusions": [
+        "PATH",
+        "URL",
+        "MATERIAL_ID",
+        "INTERNAL_STATUS_CODE"
+      ]
+    },
+    "status": "FORMAL_CURRENT_M3_CHECKLIST_REMEDIATED_2026_09_02"
+  },
+  "collections": {
+    "records": {
+      "record_count": 184
+    }
+  },
+  "routes": [
+    {
+      "polity": "三国",
+      "path": "29-M3民生财政建设正式结算/三国.json",
+      "collection_counts": {
+        "records": 10
+      }
+    },
+    {
+      "polity": "东晋",
+      "path": "29-M3民生财政建设正式结算/东晋.json",
+      "collection_counts": {
+        "records": 2
+      }
+    },
+    {
+      "polity": "东汉",
+      "path": "29-M3民生财政建设正式结算/东汉.json",
+      "collection_counts": {
+        "records": 10
+      }
+    },
+    {
+      "polity": "东魏",
+      "path": "29-M3民生财政建设正式结算/东魏.json",
+      "collection_counts": {
+        "records": 1
+      }
+    },
+    {
+      "polity": "五代十国",
+      "path": "29-M3民生财政建设正式结算/五代十国.json",
+      "collection_counts": {
+        "records": 18
+      }
+    },
+    {
+      "polity": "元",
+      "path": "29-M3民生财政建设正式结算/元.json",
+      "collection_counts": {
+        "records": 8
+      }
+    },
+    {
+      "polity": "刘宋",
+      "path": "29-M3民生财政建设正式结算/刘宋.json",
+      "collection_counts": {
+        "records": 4
+      }
+    },
+    {
+      "polity": "北周",
+      "path": "29-M3民生财政建设正式结算/北周.json",
+      "collection_counts": {
+        "records": 1
+      }
+    },
+    {
+      "polity": "北魏",
+      "path": "29-M3民生财政建设正式结算/北魏.json",
+      "collection_counts": {
+        "records": 7
+      }
+    },
+    {
+      "polity": "北齐",
+      "path": "29-M3民生财政建设正式结算/北齐.json",
+      "collection_counts": {
+        "records": 3
+      }
+    },
+    {
+      "polity": "十六国",
+      "path": "29-M3民生财政建设正式结算/十六国.json",
+      "collection_counts": {
+        "records": 16
+      }
+    },
+    {
+      "polity": "南齐",
+      "path": "29-M3民生财政建设正式结算/南齐.json",
+      "collection_counts": {
+        "records": 2
+      }
+    },
+    {
+      "polity": "唐",
+      "path": "29-M3民生财政建设正式结算/唐.json",
+      "collection_counts": {
+        "records": 12
+      }
+    },
+    {
+      "polity": "唐末吴政权",
+      "path": "29-M3民生财政建设正式结算/唐末吴政权.json",
+      "collection_counts": {
+        "records": 1
+      }
+    },
+    {
+      "polity": "宋",
+      "path": "29-M3民生财政建设正式结算/宋.json",
+      "collection_counts": {
+        "records": 15
+      }
+    },
+    {
+      "polity": "明",
+      "path": "29-M3民生财政建设正式结算/明.json",
+      "collection_counts": {
+        "records": 15
+      }
+    },
+    {
+      "polity": "梁",
+      "path": "29-M3民生财政建设正式结算/梁.json",
+      "collection_counts": {
+        "records": 1
+      }
+    },
+    {
+      "polity": "清",
+      "path": "29-M3民生财政建设正式结算/清.json",
+      "collection_counts": {
+        "records": 12
+      }
+    },
+    {
+      "polity": "秦",
+      "path": "29-M3民生财政建设正式结算/秦.json",
+      "collection_counts": {
+        "records": 2
+      }
+    },
+    {
+      "polity": "西夏",
+      "path": "29-M3民生财政建设正式结算/西夏.json",
+      "collection_counts": {
+        "records": 8
+      }
+    },
+    {
+      "polity": "西晋",
+      "path": "29-M3民生财政建设正式结算/西晋.json",
+      "collection_counts": {
+        "records": 1
+      }
+    },
+    {
+      "polity": "西汉",
+      "path": "29-M3民生财政建设正式结算/西汉.json",
+      "collection_counts": {
+        "records": 10
+      }
+    },
+    {
+      "polity": "西魏",
+      "path": "29-M3民生财政建设正式结算/西魏.json",
+      "collection_counts": {
+        "records": 1
+      }
+    },
+    {
+      "polity": "辽",
+      "path": "29-M3民生财政建设正式结算/辽.json",
+      "collection_counts": {
+        "records": 10
+      }
+    },
+    {
+      "polity": "金",
+      "path": "29-M3民生财政建设正式结算/金.json",
+      "collection_counts": {
+        "records": 9
+      }
+    },
+    {
+      "polity": "陈",
+      "path": "29-M3民生财政建设正式结算/陈.json",
+      "collection_counts": {
+        "records": 3
+      }
+    },
+    {
+      "polity": "隋",
+      "path": "29-M3民生财政建设正式结算/隋.json",
+      "collection_counts": {
+        "records": 2
+      }
+    }
+  ]
+}

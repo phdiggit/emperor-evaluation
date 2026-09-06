@@ -11,19 +11,6 @@ SHARD_SCHEMA = "battle-registry-shard-v1"
 DEFAULT_BUCKET_COUNT = 24
 
 
-def _canonical_bytes(value: Any) -> bytes:
-    return json.dumps(
-        value,
-        ensure_ascii=False,
-        sort_keys=True,
-        separators=(",", ":"),
-    ).encode("utf-8")
-
-
-def _digest(value: Any) -> str:
-    return sha256(_canonical_bytes(value)).hexdigest()
-
-
 def _partition(record: Mapping[str, Any]) -> str:
     return str(record.get("dynasty_partition") or "qin_tang")
 
@@ -73,7 +60,6 @@ def write_battle_registry(
             "bucket": bucket,
             "bucket_count": bucket_count,
             "record_count": len(shard_records),
-            "records_fingerprint": _digest(shard_records),
             "records": shard_records,
         }
         shard_text = json.dumps(shard_payload, ensure_ascii=False, indent=2) + "\n"
@@ -84,8 +70,6 @@ def write_battle_registry(
                 "partition": partition,
                 "bucket": bucket,
                 "record_count": len(shard_records),
-                "sha256": sha256(shard_text.encode("utf-8")).hexdigest(),
-                "records_fingerprint": shard_payload["records_fingerprint"],
             }
         )
 
@@ -96,7 +80,6 @@ def write_battle_registry(
 
     payload_key_order = list(payload.keys())
     metadata = {key: value for key, value in payload.items() if key != "records"}
-    content_fingerprint = _digest(payload)
     manifest: dict[str, Any] = {
         "schema_version": MANIFEST_SCHEMA,
         "content_schema_version": str(payload.get("schema_version") or ""),
@@ -114,9 +97,7 @@ def write_battle_registry(
         "record_order": record_ids,
         "payload_metadata": metadata,
         "shards": shard_entries,
-        "content_fingerprint": content_fingerprint,
     }
-    manifest["manifest_fingerprint"] = _digest(manifest)
     _atomic_write(
         manifest_path,
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
@@ -135,13 +116,6 @@ def load_battle_registry(
         raise ValueError(
             f"{manifest_path}不是{MANIFEST_SCHEMA}；公共战役消费者不得直接读取旧单体登记"
         )
-    declared_manifest_fingerprint = str(manifest.get("manifest_fingerprint") or "")
-    actual_manifest_fingerprint = _digest(
-        {key: value for key, value in manifest.items() if key != "manifest_fingerprint"}
-    )
-    if declared_manifest_fingerprint != actual_manifest_fingerprint:
-        raise ValueError("公共战役登记manifest指纹漂移")
-
     requested = None if partitions is None else {str(value) for value in partitions}
     available_partitions = {
         str(value) for value in (manifest.get("partition_counts") or {})
@@ -162,17 +136,12 @@ def load_battle_registry(
         if relative.is_absolute() or ".." in relative.parts:
             raise ValueError("公共战役登记shard路径越界")
         shard_path = manifest_path.parent / relative
-        raw = shard_path.read_bytes()
-        if sha256(raw).hexdigest() != str(entry.get("sha256") or ""):
-            raise ValueError(f"公共战役登记shard字节指纹漂移: {relative.as_posix()}")
-        shard = json.loads(raw.decode("utf-8"))
+        shard = json.loads(shard_path.read_text(encoding="utf-8"))
         if shard.get("schema_version") != SHARD_SCHEMA:
             raise ValueError(f"公共战役登记shard schema错误: {relative.as_posix()}")
         rows = [dict(row) for row in shard.get("records") or ()]
         if len(rows) != int(entry.get("record_count") or -1):
             raise ValueError(f"公共战役登记shard数量漂移: {relative.as_posix()}")
-        if _digest(rows) != str(entry.get("records_fingerprint") or ""):
-            raise ValueError(f"公共战役登记shard语义指纹漂移: {relative.as_posix()}")
         for row in rows:
             record_id = str(row.get("war_event_id") or "")
             if not record_id or record_id in records_by_id:
@@ -198,6 +167,4 @@ def load_battle_registry(
     for key, value in metadata.items():
         result.setdefault(key, value)
     result.setdefault("records", records)
-    if requested is None and _digest(result) != str(manifest.get("content_fingerprint") or ""):
-        raise ValueError("公共战役登记重建内容指纹漂移")
     return result

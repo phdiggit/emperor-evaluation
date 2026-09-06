@@ -1,0 +1,270 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "南齐",
+  "collections": {
+    "records": {
+      "positions": [
+        29,
+        159
+      ],
+      "records": [
+        {
+          "sequence": 128,
+          "ruler_id": "RULER-SHADOW-萧道成",
+          "ruler_name": "萧道成",
+          "axis_grade": "G3",
+          "position": "HIGH",
+          "confidence": "MEDIUM",
+          "output_mode": "BOUNDED_PROFILE",
+          "score_status": "EVIDENCE_LIMITED",
+          "typical_pattern": "原“政策止损”父链不足，但扩检后直接 C5 材料更强。",
+          "grade_basis": "裁决：维持 G3-HIGH / E2；原“政策止损”父链不足，但扩检后直接 C5 材料更强；刘休范叛乱后，数千士民因恐惧向叛军投名。萧道成取得名单后随得随烧，并公开告知姓名已毁，主动放弃大规模追查报复。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G3-HIGH。",
+          "limitations": [
+            "反例暴露和跨阶段复验不足。"
+          ],
+          "parents": [
+            {
+              "parent_id": "C5-P128-STOPLOSS",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "谏议采纳并产生政策止损。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "SECOND_A::I2-QIN95-XIAODAOCHENG-AB1",
+                "SECOND_B1::I2-QIN95-XIAODAOCHENG-AB1",
+                "FACT-3951377E85C01E9E"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "行政执行和军事授权只作背景。"
+            },
+            {
+              "unit_ids": [
+                "I2-QIN95-XIAODAOCHENG-B2",
+                "FACT-C6B990ED1DDE30A0"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P128-STOPLOSS",
+              "reason": "同一谏议止损事实跨入口合并。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-SHADOW-萧道成",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 71,
+          "score_100": 71,
+          "current_entry_unit_count": 5,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 3,
+            "SCORING_PARENT": 2
+          },
+          "axis_evidence_level": "E2",
+          "grade_numeric": 3,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-SHADOW-萧道成",
+          "actual_power_window": "477—482年实际掌权至齐帝",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P128-STOPLOSS",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "谏议采纳并产生政策止损。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P128-STOPLOSS"
+            ],
+            "negative_parent_refs": [],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P128-STOPLOSS"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《南齐书》卷一《高帝纪上》。",
+            "维基文库：https://zh.wikisource.org/zh-hans/南齊書/卷1"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "补充事实与边界",
+              "details": [
+                "原“政策止损”父链不足，但扩检后直接 C5 材料更强。",
+                "刘休范叛乱后，数千士民因恐惧向叛军投名。萧道成取得名单后随得随烧，并公开告知姓名已毁，主动放弃大规模追查报复。",
+                "袁粲等谋反失败后，莫嗣祖知谋而不告、张承伯藏匿王蕴，萧道成审问后均赦免并任用，体现政治高压场景下区分责任。",
+                "反证包括废立过程中对袁粲、刘秉等施压，以及黄回最终被诛。",
+                "以“焚投名册”“谋反从属人员区分责任”作为主要正向父链。",
+                "原普通政策止损降为背景或移出。",
+                "《南齐书》卷一《高帝纪上》。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 1,
+            "locator_count": 2,
+            "linked_source_count": 1,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "VALIDATED"
+        },
+        {
+          "sequence": 129,
+          "ruler_id": "RULER-SHADOW-萧鸾",
+          "ruler_name": "萧鸾",
+          "axis_grade": "G1",
+          "position": "MID",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "晋安王萧子懋确曾起兵反萧鸾；《南齐书》及相关材料显示。",
+          "grade_basis": "G1-MID / E3维持；需修改父链表述：实际举兵的子懋、王敬则本人不计；评分核心只保留未实际叛乱宗室的预防性群体清除及向制衡者扩展。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G1-MID。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P129-PURGE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "跨宗室反复秘密捕杀并延伸至书面责谏者。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "SECOND_A::I2-QIN95-F---139-058-clerk-reform",
+                "SECOND_B1::I2-QIN95-F---139-058-clerk-reform",
+                "FACT-22795FBEC200275A",
+                "FACT-815CEB43AF14EA38"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "地方制度、节俭履职和军事授权不抵销保护机制。"
+            },
+            {
+              "unit_ids": [
+                "I2-QIN95-F---139-052-prince-purge",
+                "FACT-07C4860A7CF6F580"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P129-PURGE",
+              "reason": "宗室清洗和书面责谏者捕杀按系统父链消费。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-SHADOW-萧鸾",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 25,
+          "score_100": 25,
+          "current_entry_unit_count": 6,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 4,
+            "SCORING_PARENT": 2
+          },
+          "axis_evidence_level": "E3",
+          "promotion_normalization": {
+            "working_evidence_level": "E4",
+            "formal_evidence_level": "E3",
+            "reason": "FORMAL_CONTRACT_USES_E1_E2_E3; E4_COLLAPSED_TO_SUFFICIENT_HIGH_DENSITY_E3_WITHOUT_GRADE_CHANGE"
+          },
+          "grade_numeric": 1,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-SHADOW-萧鸾",
+          "actual_power_window": "493—498年实际掌权",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P129-PURGE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "跨宗室反复秘密捕杀并延伸至书面责谏者。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [
+              "C5-P129-PURGE"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P129-PURGE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《南齐书》卷六《明帝纪》",
+            "https://zh.wikisource.org/zh-hans/南齊書/卷6",
+            "《南齐书》高祖、世祖诸王列传。"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 实际叛乱者本人退出，但无法解释绝大多数宗室死亡",
+              "details": [
+                "晋安王萧子懋确曾起兵反萧鸾。",
+                "王敬则后来亦实际举兵。",
+                "对这些正在发动现实军事政治斗争者本人的处置，不再作为C5扣分。",
+                "但萧鸾所杀的高、武两系宗室数量远超这些实际叛乱者。"
+              ]
+            },
+            {
+              "title": "B. 预防性杀宗室是核心",
+              "details": [
+                "《南齐书》及相关材料显示。",
+                "萧鸾从辅政期开始系统压低宗室军政能力。",
+                "大量高帝、武帝诸子先后被杀。",
+                "很多人并未发动现实叛乱，只因具有宗室身份和潜在继承资格而成为预防性清除对象。",
+                "“可能未来成为政治威胁”不能无限扩张为“现实政敌”。"
+              ]
+            },
+            {
+              "title": "C. 临终前计划一次杀尽数十名高武后裔",
+              "details": [
+                "王敬则起兵时，萧鸾担心高、武二帝后人被拥立。",
+                "材料记其将幸存宗室集中控制，甚至准备棺木、药物，拟一次处死高武诸孙数十人。",
+                "这些人中大量未实际参与王敬则叛乱。",
+                "即使最终因病等原因未全部执行，这种以血缘潜在威胁为标准的群体预防清除仍是非常强的C5负证。"
+              ]
+            },
+            {
+              "title": "D. 书面进谏与非宗室制衡对象亦受波及",
+              "details": [
+                "其统治后期对书面责谏、独立制衡者亦有处分。",
+                "因此不能把整个模式还原成“南齐宗室争位”。"
+              ]
+            },
+            {
+              "title": "E. 资源节制是真实反证",
+              "details": [
+                "萧鸾本人节俭，停贡、停工、削减宫廷消费。",
+                "这属于公共资源边界上的真实正证，也正是其不应落入G0的原因。",
+                "但无法覆盖宗室生命安全方面的MI4主负链。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 3,
+            "linked_source_count": 1,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "VALIDATED"
+        }
+      ]
+    }
+  }
+}

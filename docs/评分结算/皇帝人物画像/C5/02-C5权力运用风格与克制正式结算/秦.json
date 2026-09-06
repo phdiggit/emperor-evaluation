@@ -1,0 +1,336 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "秦",
+  "collections": {
+    "records": {
+      "positions": [
+        163,
+        180
+      ],
+      "records": [
+        {
+          "sequence": 84,
+          "ruler_id": "RULER-QIN-YINGZHENG",
+          "ruler_name": "嬴政",
+          "axis_grade": "G1",
+          "position": "LOW",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "李斯建议并经始皇批准：偶语《诗》《书》者弃市，以古非今者族，不焚书者黥为城旦；侯生、卢生逃亡后，始皇怒而案问诸生，四百六十余人被坑杀；扶苏劝止后被外放监军。",
+          "grade_basis": "全国表达刑事化 + 极端群体处置 + 巨型刑役足以形成强短板；但与胡亥、天启、朱元璋那种跨多个机制持续大规模清洗仍有断层；定 G1-LOW / E3。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G1-LOW。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P084-SUPPRESSION",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "禁议、告引、连坐重刑和个人决策瓶颈。"
+            },
+            {
+              "parent_id": "C5-P084-EXPULSION",
+              "direction": "POSITIVE",
+              "intensity": "MI1_CASE",
+              "basis": "李斯上书后撤回逐客令。"
+            },
+            {
+              "parent_id": "C5-P084-PALACE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "阿房骊山宫观大规模持续征发。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-QIN-YZ-ADMIN-STANDARDS-001",
+                "I2-QIN-YZ-CENTRAL-OFFICES-CONSTRUCTION-001",
+                "I2-QIN-YZ-CENTRAL-OFFICES-RECEPTION-R4",
+                "I2-QIN-YZ-CENTRAL-SOVEREIGN-OFFICES-001",
+                "I2-QIN-YZ-COMMANDERY-ADMIN-001",
+                "I2-QIN-YZ-COMMANDERY-CONSTRUCTION-POSITIVE-001",
+                "I2-QIN-YZ-INSTITUTION-RECEPTION-001",
+                "I2-QIN-YZ-STANDARDS-CONSTRUCTION-POSITIVE-001",
+                "FACT-1B469FFDA4F8E63A"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "中央郡县、法度标准和军事授权属于制度/C3背景。"
+            },
+            {
+              "unit_ids": [
+                "I2-QIN-YZ-PERSONAL-DECISION-BOTTLENECK-001",
+                "I2-QIN-YZ-FEEDBACK-SUPPRESSION-001",
+                "FACT-0B9DE503B112CBEB",
+                "FACT-0F7A4A44DED2C1E1"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P084-SUPPRESSION",
+              "reason": "个人决策瓶颈、禁议告引和长期连坐重刑形成系统父链。"
+            },
+            {
+              "unit_ids": [
+                "I2-QIN-YZ-EXPULSION-CORRECTION-001"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P084-EXPULSION",
+              "reason": "逐客令在李斯反证到达后撤回。"
+            },
+            {
+              "unit_ids": [
+                "FACT-C47294912404D505"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P084-PALACE",
+              "reason": "非战争宫殿陵寝网络动员七十余万刑徒并持续。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-QIN-YINGZHENG",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 18,
+          "score_100": 18,
+          "current_entry_unit_count": 19,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 11,
+            "SCORING_PARENT": 8
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 1,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-QIN-YINGZHENG",
+          "actual_power_window": "前238—前210年亲政",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P084-SUPPRESSION",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "禁议、告引、连坐重刑和个人决策瓶颈。"
+            },
+            {
+              "parent_id": "C5-P084-EXPULSION",
+              "direction": "POSITIVE",
+              "intensity": "MI1_CASE",
+              "basis": "李斯上书后撤回逐客令。"
+            },
+            {
+              "parent_id": "C5-P084-PALACE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "阿房骊山宫观大规模持续征发。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P084-EXPULSION"
+            ],
+            "negative_parent_refs": [
+              "C5-P084-SUPPRESSION",
+              "C5-P084-PALACE"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P084-SUPPRESSION",
+              "C5-P084-EXPULSION",
+              "C5-P084-PALACE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED",
+          "source_refs": [
+            "《史记》卷八十七《李斯列传》：焚书、禁议相关。",
+            "https://zh.wikisource.org/zh-hans/史记/卷087",
+            "《太平御览》卷八十六引秦始皇事：七十余万人营阿房骊山、坑诸生四百六十余人。",
+            "https://zh.wikisource.org/zh-hans/太平御览/0086"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 焚书诏后的表达刑事化是真正系统负证",
+              "details": [
+                "李斯建议并经始皇批准：偶语《诗》《书》者弃市，以古非今者族，不焚书者黥为城旦。",
+                "这是覆盖全国的政治/思想表达刑事化，属于 NEGATIVE / MI4_CROSS_PHASE_SYSTEMIC；但目前史料不能证明每一条法令都以同等高密度长期执行，烈度应和党锢、厂卫大狱区分。"
+              ]
+            },
+            {
+              "title": "B. 四百六十余人坑杀：极端高覆盖单次事件",
+              "details": [
+                "侯生、卢生逃亡后，始皇怒而案问诸生，四百六十余人被坑杀；扶苏劝止后被外放监军。",
+                "这是 MI2_LIFECYCLE + EXTREME_BREADTH，不可机械再升成第二条MI4。"
+              ]
+            },
+            {
+              "title": "C. 阿房—骊山：超大规模公共资源强制",
+              "details": [
+                "三十五年役刑徒七十余万人营阿房、穿骊山，并伴随大规模迁户。",
+                "可作为高覆盖资源强制；但“七十余万刑徒”首先是国家刑役人口，不宜把人数直接等同无差别征发七十万自由民。"
+              ]
+            },
+            {
+              "title": "D. 仍有真实反向材料",
+              "details": [
+                "李斯《谏逐客书》使已启动的逐客令被撤回；扶苏对坑杀提出反对虽被外放但未因谏处死。",
+                "这些不足以翻转低档，却说明反馈安全并非全面归零。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 3,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 83,
+          "ruler_id": "RULER-QIN-HUHAI",
+          "ruler_name": "胡亥",
+          "axis_grade": "G0",
+          "position": "LOW",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "公子十二人戮死咸阳市、十公主磔死于杜，关联连坐不可胜数；将闾兄弟等亦被迫自杀，宗室震恐；胡亥认可赵高建议后“更为法律”，法令诛罚日益刻深；谏者被解释为诽谤，群臣人人自危。",
+          "grade_basis": "公子十二人戮死咸阳市、十公主磔死于杜，关联连坐不可胜数；将闾兄弟等亦被迫自杀，宗室震恐；这不仅是继位政治斗争：大量兄弟姐妹和家属并无已闭合的现实夺权行为，属于主动预防性群体清除；胡亥认可赵高建议后“更为法律”，法令诛罚日益刻深；谏者被解释为诽谤，群臣人人自危；因而代理人赵高不能消除最高权力归责：皇帝本人接受并授权整套机制。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G0-LOW。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P083-CAPTURE-PURGE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "赵高俘获、宗室群臣清洗与反馈惩罚。"
+            },
+            {
+              "parent_id": "C5-P083-PALACE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "危机中重启阿房并追加大规模征发。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-QIN-HUHAI-TRANSFER-LAW-DESTRUCTION-001",
+                "I2-QIN-HH-COMMAND-TRUST-COLLAPSE-001",
+                "I2-QIN-HH-COURT-CAPTURE-PURGE-001",
+                "I2-QIN-HH-FEEDBACK-CLOSURE-001",
+                "FACT-4208290E8A0C2BE8",
+                "FACT-B71091C1E73FCA2A"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P083-CAPTURE-PURGE",
+              "reason": "法制破坏、近侍俘获、重法清洗与惩罚反馈者按系统父链消费。"
+            },
+            {
+              "unit_ids": [
+                "FACT-B7797429C6FC7E30"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P083-PALACE",
+              "reason": "本人重启工程并在明确危机反馈下继续征发。"
+            },
+            {
+              "unit_ids": [
+                "FACT-ECDD92A87D29214E"
+              ],
+              "status": "AXIS_OUT_WITH_REASON",
+              "reason": "军事授权失败属于C3/M1。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-QIN-HUHAI",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 2,
+          "score_100": 2,
+          "current_entry_unit_count": 10,
+          "current_entry_disposition_counts": {
+            "AXIS_OUT_WITH_REASON": 1,
+            "SCORING_PARENT": 9
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 0,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-QIN-HUHAI",
+          "actual_power_window": "前210—前207年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P083-CAPTURE-PURGE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "赵高俘获、宗室群臣清洗与反馈惩罚。"
+            },
+            {
+              "parent_id": "C5-P083-PALACE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "危机中重启阿房并追加大规模征发。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [
+              "C5-P083-CAPTURE-PURGE",
+              "C5-P083-PALACE"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P083-CAPTURE-PURGE",
+              "C5-P083-PALACE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《史记》卷八十七《李斯列传》相关胡亥—赵高谋议。",
+            "https://zh.wikisource.org/zh-hans/史记/卷087",
+            "《群书治要》卷十二保存《史记》相关“公子十二人、十公主、相连坐者不可胜数”材料。",
+            "https://zh.wikisource.org/zh-hans/群书治要/卷十二"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 宗室与大臣清洗规模极大",
+              "details": [
+                "公子十二人戮死咸阳市、十公主磔死于杜，关联连坐不可胜数；将闾兄弟等亦被迫自杀，宗室震恐。",
+                "这不仅是继位政治斗争：大量兄弟姐妹和家属并无已闭合的现实夺权行为，属于主动预防性群体清除。"
+              ]
+            },
+            {
+              "title": "B. 严法刻刑被明确制度化",
+              "details": [
+                "胡亥认可赵高建议后“更为法律”，法令诛罚日益刻深；谏者被解释为诽谤，群臣人人自危。",
+                "因而代理人赵高不能消除最高权力归责：皇帝本人接受并授权整套机制。"
+              ]
+            },
+            {
+              "title": "补充事实与边界",
+              "details": [
+                "胡亥不是单纯“被赵高骗”。《李斯列传》明确闭合其本人接受“严法刻刑、相坐收族、灭大臣远骨肉”的方案，并重新制法执行。",
+                "皇族群体清洗、法律制度化收族、反馈惩罚和赵高网络同时运行，任内无实质恢复，仍属G0最低档。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 4,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "VALIDATED"
+        }
+      ]
+    }
+  }
+}

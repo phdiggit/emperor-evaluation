@@ -1,0 +1,483 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "东晋",
+  "collections": {
+    "records": {
+      "positions": [
+        90,
+        108
+      ],
+      "records": [
+        {
+          "task_code": "PROFILE-M3-RULER-SHADOW-司马睿",
+          "ruler_id": "RULER-SHADOW-司马睿",
+          "ruler_name": "司马睿",
+          "polity": "东晋",
+          "actual_power_window": "317—323年",
+          "axis_code": "M3",
+          "axis_name": "民生财政建设",
+          "axis_grade": "G2",
+          "position": "HIGH",
+          "score_100": 51,
+          "radar_value": 51,
+          "components": {
+            "C1": {
+              "band": "C1-2",
+              "score": 16.4
+            },
+            "C2": {
+              "band": "C2-3",
+              "score": 14.9
+            },
+            "C3": {
+              "band": "C3-3",
+              "score": 25.8
+            },
+            "C4": {
+              "band": "C4",
+              "score": -0.5
+            }
+          },
+          "absolute_state_tier": 3,
+          "absolute_state_meanings": {
+            "C1": "民生低位且脆弱",
+            "C2": "经济财政尚可运行",
+            "C3": "社会安全基本可用"
+          },
+          "ability_evidence": {
+            "route": "SUBSTANTIAL_CONSTRUCTION",
+            "trajectory": {
+              "start_vector": [
+                2,
+                2,
+                2
+              ],
+              "main_vector": [
+                2,
+                3,
+                3
+              ],
+              "peak_vector": [
+                2,
+                3,
+                3
+              ],
+              "end_vector": [
+                2,
+                3,
+                2
+              ],
+              "peak_improvement_vector": [
+                0,
+                1,
+                1
+              ],
+              "retained_change_vector": [
+                0,
+                1,
+                0
+              ],
+              "rollback_vector": [
+                0,
+                0,
+                1
+              ],
+              "improved_axis_count": 2,
+              "deep_improvement_axis_count": 0,
+              "retained_improvement_axis_count": 1,
+              "rollback_axis_count": 1,
+              "recovery_score_27": 4.0,
+              "stability_score_18": 6.4,
+              "start_tier": 2,
+              "peak_tier": 3,
+              "end_tier": 2
+            },
+            "governance_scale_class": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+            "governance_scale_basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+            "governance_scale_gate": {
+              "status": "UNRESOLVED_NOT_HIGH_GRADE_GATE",
+              "classification": "UNRESOLVED",
+              "dimension": "NO_INDEPENDENT_SCALE_ADJUDICATION",
+              "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
+              "formal_subitem_sources": [
+                {
+                  "axis": "C4",
+                  "field_path": "m3_governance_scale_adjudication",
+                  "ref": "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-司马睿"
+                }
+              ],
+              "supporting_formal_fields": []
+            },
+            "six_band_main_state": false,
+            "deterioration_penalty": 0.0,
+            "destructive_amplification_penalty": 4.5,
+            "upstream_sync": {
+              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_03",
+              "source_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-司马睿",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-司马睿",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-司马睿",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-司马睿"
+              ],
+              "k_source": "DIRECT_FORMAL_C1_C2_C3_DIAGNOSTIC",
+              "c4_source_scope": "RECOVERY_DETERIORATION_DA_ONLY"
+            },
+            "destructive_amplification_grade": "DA1",
+            "stability_k_basis": {
+              "C1": {
+                "K_grade": "K2",
+                "source_axis": "C1",
+                "source_field": "stability_class_diagnostic_only"
+              },
+              "C2": {
+                "K_grade": "K4",
+                "source_axis": "C2",
+                "source_field": "stability_class_diagnostic_only"
+              },
+              "C3": {
+                "K_grade": "K0",
+                "source_axis": "C3",
+                "source_field": "stability_class_diagnostic_only"
+              }
+            },
+            "stability_k_structure_status": "DIRECT_FORMAL_C1_C3",
+            "stability_k_public_basis": "当前C1—C3正式K为C1=K2、C2=K4、C3=K0；K不进入C4分。M3稳定兑现分6.4/18为本轴逐人裁决值。"
+          },
+          "dynamic_class": "LIMITED_OR_MIXED_MAINTENANCE",
+          "dynamic_label": "维持有限且正负并存",
+          "value_mode": "SEMANTIC_HOLISTIC_ADJUDICATION_WITH_FIXED_GRADE_PROJECTION",
+          "axis_evidence_level": "E2",
+          "confidence": "MEDIUM",
+          "output_mode": "BOUNDED_PROFILE",
+          "score_status": "FINAL",
+          "formal_status": "FORMAL_CURRENT",
+          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[2, 2, 2]、[2, 3, 3]、[2, 3, 3]、[2, 3, 2]；恢复4.0/27，稳定6.4/18；恶化扣减0.0，主动成本DA1/4.5。正式逐人裁决为G2-HIGH。",
+          "counterpattern": "C4残余主动成本已正式裁为DA1；M3不重裁该档，仅在逐人能力裁决中消费其限制。",
+          "starting_context": "当前C1—C3正式曲线：接手[2, 2, 2]、主态[2, 3, 3]、最高实现[2, 3, 3]、交班[2, 3, 2]。",
+          "construction_and_maintenance": "按正式档界公式重算恢复分4.0/27；直接读取C1—C3正式K（C1=K2、C2=K4、C3=K0）复核稳定兑现，M3逐人裁决稳定分为6.4/18；K与该稳定判断均不回写C4分。",
+          "costs_and_consequences": "交班局面为[2, 3, 2]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA1，扣减4.5。",
+          "behavior_chain": "按接手到交班的净遗产口径，三轴均未低于接手锚点；任内峰值回落只进入稳定、回落和保留度，不再重复计入C4恶化。 现成军事成本登记为C4中位。北方链中救援/安全基线先剔除；剩余可选择恢复增量规模有限，取DA1，不消费战败本身。 未发现明显达到“大工程+显著财政/役工成本”门槛的独立营造链。 可归责恶化扣0.0，DA1扣4.5分。",
+          "handoff_state": "按交班向量[2, 3, 2]推导C4终局标签为C4T-2；M3单独读取交班保留，不把稳定分回写C4。",
+          "public_adjudication": "当前C1—C3正式曲线：接手[2, 2, 2]、主态[2, 3, 3]、最高实现[2, 3, 3]、交班[2, 3, 2]。 按正式档界公式重算恢复分4.0/27；直接读取C1—C3正式K（C1=K2、C2=K4、C3=K0）复核稳定兑现，M3逐人裁决稳定分为6.4/18；K与该稳定判断均不回写C4分。 按接手到交班的净遗产口径，三轴均未低于接手锚点；任内峰值回落只进入稳定、回落和保留度，不再重复计入C4恶化。 现成军事成本登记为C4中位。北方链中救援/安全基线先剔除；剩余可选择恢复增量规模有限，取DA1，不消费战败本身。 未发现明显达到“大工程+显著财政/役工成本”门槛的独立营造链。 可归责恶化扣0.0，DA1扣4.5分。 交班局面为[2, 3, 2]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA1，扣减4.5。 按交班向量[2, 3, 2]推导C4终局标签为C4T-2；M3单独读取交班保留，不把稳定分回写C4。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G2。 当前档内位置为HIGH；不以结构字段自动替代逐人语义裁决。",
+          "grade_basis": "依据当前C1—C4结构字段与逐人语义裁决，正式档位为G2。",
+          "position_basis": "当前档内位置为HIGH；不以结构字段自动替代逐人语义裁决。",
+          "axis_relevance_check": {
+            "status": "HOLISTIC_C1_C4_SEMANTIC_ADJUDICATION",
+            "component_codes": [
+              "C1",
+              "C2",
+              "C3",
+              "C4"
+            ],
+            "component_sum_used": false,
+            "quantile_or_normalization_used": false,
+            "name_override_used": false,
+            "old_process_material_role": "BEHAVIOR_CHAIN_AND_ATTRIBUTION_REVIEW_ONLY"
+          },
+          "parents": [
+            {
+              "parent_id": "M3P-SEM-4468BF4F688D",
+              "direction": "POSITIVE",
+              "material_intensity": "MI2_LIFECYCLE",
+              "constraint_and_task": "- 司马睿初到建业声望轻，江东士族不附；王导通过禊礼威仪并亲访顾荣、贺循，建立本地合作",
+              "personal_choice": "",
+              "feedback_and_response": "",
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/两晋/卷086-通读总结.md#L225"
+              ],
+              "use_boundary": "BEHAVIOR_FEEDBACK_ATTRIBUTION_REVIEW_NOT_INDEPENDENT_GRADE_CONVERSION"
+            }
+          ],
+          "limitations": [
+            "证据主要集中于徐扬种麦及其结果。",
+            "缺人口、民间生活和全政权市场状态。",
+            "国防态势只限制恢复推断上界，不作为民生损害重复扣档。",
+            "DIRECTLY STATED ALTERNATIVES",
+            "PHASE EXACTNESS"
+          ],
+          "supplement_review": {
+            "old_m3_parent_chain_count": 1,
+            "old_m3_candidate_count": 1,
+            "axis_dispositions": {
+              "C1": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+              "C2": "APPLIED_EVIDENCE_SUPPLEMENT_NO_SCORE_CHANGE",
+              "C3": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
+              "C4": "REVIEWED_C4_ATTRIBUTION_RETAINED"
+            }
+          },
+          "source_refs": [
+            "docs/史料通读产物/唐以前编年/两晋/卷086-通读总结.md#L225",
+            "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-司马睿",
+            "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-司马睿",
+            "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-司马睿",
+            "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-司马睿"
+          ],
+          "source_evidence": [
+            {
+              "source_title": "《晋书·食货志》",
+              "quote": "其后频年麦虽有旱蝗，而为益犹多。",
+              "source_origin": "C4_FORMAL_PUBLIC_SOURCE"
+            },
+            {
+              "source_title": "《晋书》",
+              "quote": "太兴二年，三吴大饥。",
+              "source_origin": "C4_FORMAL_PUBLIC_SOURCE"
+            },
+            {
+              "source_title": "《晋书》",
+              "quote": "永昌元年大旱、大疫，死者众。",
+              "source_origin": "C4_FORMAL_PUBLIC_SOURCE"
+            },
+            {
+              "source_title": "《晋书·食货志》",
+              "quote": "元帝为晋王，课督农功，诏二千石长吏以入谷多少为殿最。其非宿卫要任，皆宜赴农，使军各自佃作，即以为廪。",
+              "source_origin": "C4_FORMAL_PUBLIC_SOURCE"
+            },
+            {
+              "source_title": "《晋书·食货志》",
+              "quote": "军兴以来，征战运漕，朝廷宗庙，百官用度，既已殷广，下及工商流寓僮仆不亲农桑而游食者，以十万计。",
+              "source_origin": "C4_FORMAL_PUBLIC_SOURCE"
+            },
+            {
+              "source_title": "《通鉴纪事本末·王敦之乱》",
+              "quote": "帝畏而恶之，乃引刘隗、刁协等以为腹心，稍抑损王氏之权……而敦益怀不平，遂构嫌隙。",
+              "source_origin": "C4_FORMAL_PUBLIC_SOURCE"
+            },
+            {
+              "source_title": "《资治通鉴》卷九十二",
+              "quote": "王敦据石头后，放士卒劫掠，宫省奔散。",
+              "source_origin": "C4_FORMAL_PUBLIC_SOURCE"
+            },
+            {
+              "source_title": "《晋书·食货志》",
+              "quote": "二年，三吴大饥，死者以百数……元帝时使黄门侍郎虞𩦎、桓彝开仓廪振给，并省众役。",
+              "source_origin": "M3_SUPPLEMENT"
+            }
+          ],
+          "contract_version": "FORMAL-V3.6"
+        },
+        {
+          "task_code": "PROFILE-M3-RULER-SHADOW-司马曜",
+          "ruler_id": "RULER-SHADOW-司马曜",
+          "ruler_name": "司马曜",
+          "polity": "东晋",
+          "actual_power_window": "376—396年亲政",
+          "axis_code": "M3",
+          "axis_name": "民生财政建设",
+          "axis_grade": "G2",
+          "position": "MID",
+          "score_100": 45,
+          "radar_value": 45,
+          "components": {
+            "C1": {
+              "band": "C1-4",
+              "score": 52.7
+            },
+            "C2": {
+              "band": "C2-3",
+              "score": 13.7
+            },
+            "C3": {
+              "band": "C3-3",
+              "score": 28.0
+            },
+            "C4": {
+              "band": "C4",
+              "score": 0.5
+            }
+          },
+          "absolute_state_tier": 3,
+          "absolute_state_meanings": {
+            "C1": "民生多数阶段稳定",
+            "C2": "经济财政尚可运行",
+            "C3": "社会安全基本可用"
+          },
+          "ability_evidence": {
+            "route": "LIMITED_IMPROVEMENT",
+            "trajectory": {
+              "start_vector": [
+                3,
+                3,
+                3
+              ],
+              "main_vector": [
+                4,
+                3,
+                3
+              ],
+              "peak_vector": [
+                4,
+                3,
+                3
+              ],
+              "end_vector": [
+                4,
+                2,
+                3
+              ],
+              "peak_improvement_vector": [
+                1,
+                0,
+                0
+              ],
+              "retained_change_vector": [
+                1,
+                -1,
+                0
+              ],
+              "rollback_vector": [
+                0,
+                1,
+                0
+              ],
+              "improved_axis_count": 1,
+              "deep_improvement_axis_count": 0,
+              "retained_improvement_axis_count": 1,
+              "rollback_axis_count": 1,
+              "recovery_score_27": 5.0,
+              "stability_score_18": 10.0,
+              "start_tier": 3,
+              "peak_tier": 3,
+              "end_tier": 3
+            },
+            "governance_scale_class": "FULL_OR_MAJOR_REGIONAL",
+            "governance_scale_basis": "C1正式复杂度裁决为MEDIUM，实际治理人口、地域、多核心与行政链达到完整或主要区域门槛；MEDIUM不解释为小政权。",
+            "governance_scale_gate": {
+              "status": "FULL_OR_MAJOR_REGIONAL",
+              "classification": "FULL_OR_MAJOR_ACTUAL_SCALE",
+              "dimension": "ACTUAL_GOVERNANCE_SCALE",
+              "basis": "C1正式复杂度裁决为MEDIUM，实际治理人口、地域、多核心与行政链达到完整或主要区域门槛；MEDIUM不解释为小政权。",
+              "formal_subitem_sources": [
+                {
+                  "axis": "C4",
+                  "field_path": "m3_governance_scale_adjudication",
+                  "ref": "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-司马曜"
+                }
+              ],
+              "supporting_formal_fields": [
+                {
+                  "axis": "C1",
+                  "field_path": "complexity_class"
+                },
+                {
+                  "axis": "C1",
+                  "field_path": "complexity_basis"
+                }
+              ]
+            },
+            "six_band_main_state": false,
+            "deterioration_penalty": 0.0,
+            "destructive_amplification_penalty": 4.5,
+            "upstream_sync": {
+              "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_03",
+              "source_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-司马曜",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-司马曜",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-司马曜",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-司马曜"
+              ],
+              "k_source": "DIRECT_FORMAL_C1_C2_C3_DIAGNOSTIC",
+              "c4_source_scope": "RECOVERY_DETERIORATION_DA_ONLY"
+            },
+            "destructive_amplification_grade": "DA1",
+            "stability_k_basis": {
+              "C1": {
+                "K_grade": "K2",
+                "source_axis": "C1",
+                "source_field": "stability_class_diagnostic_only"
+              },
+              "C2": {
+                "K_grade": "K0",
+                "source_axis": "C2",
+                "source_field": "stability_class_diagnostic_only"
+              },
+              "C3": {
+                "K_grade": "K4",
+                "source_axis": "C3",
+                "source_field": "stability_class_diagnostic_only"
+              }
+            },
+            "stability_k_structure_status": "DIRECT_FORMAL_C1_C3",
+            "stability_k_public_basis": "当前C1—C3正式K为C1=K2、C2=K0、C3=K4；K不进入C4分。M3稳定兑现分10.0/18为本轴逐人裁决值。",
+            "civilian_cost_review_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-SHADOW-司马曜"
+          },
+          "dynamic_class": "LIMITED_OR_MIXED_MAINTENANCE",
+          "dynamic_label": "维持有限且正负并存",
+          "value_mode": "SEMANTIC_HOLISTIC_ADJUDICATION_WITH_FIXED_GRADE_PROJECTION",
+          "axis_evidence_level": "E2",
+          "confidence": "MEDIUM",
+          "output_mode": "BOUNDED_PROFILE",
+          "score_status": "FINAL",
+          "formal_status": "FORMAL_CURRENT",
+          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[3, 3, 3]、[4, 3, 3]、[4, 3, 3]、[4, 2, 3]；恢复5.0/27，稳定10.0/18；恶化扣减0.0，主动成本DA1/4.5。正式逐人裁决为G2-MID。",
+          "counterpattern": "后期边烽不举时的重役与弃婴已入C1-K2及C2终点，不能挪到早期北伐升级。",
+          "starting_context": "当前C1—C3正式曲线：接手[3, 3, 3]、主态[4, 3, 3]、最高实现[4, 3, 3]、交班[4, 2, 3]。",
+          "construction_and_maintenance": "按正式档界公式重算恢复分5.0/27；直接读取C1—C3正式K（C1=K2、C2=K0、C3=K4）复核稳定兑现，M3逐人裁决稳定分为10.0/18；K与该稳定判断均不回写C4分。",
+          "costs_and_consequences": "交班局面为[4, 2, 3]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA1，扣减4.5。",
+          "behavior_chain": "三轴恢复与交班仍按既有本人建设链复核。太元八年主动北伐支持家庭供役下限，淝水必要防御不计。",
+          "handoff_state": "按交班向量[4, 2, 3]推导C4终局标签为C4T-3；M3单独读取交班保留，不把稳定分回写C4。",
+          "public_adjudication": "当前恢复5.0/27、稳定10.0/18，交班向量[4, 2, 3]；成本只读已去重的DA1，不把军事客观成本再次作为能力惩罚。既有建设、保留与归责事实继续支持G2。 档内位置MID依据实现、保留、回落与当前剩余成本复核；成本去重本身不制造新的历史建设。",
+          "grade_basis": "当前恢复5.0/27、稳定10.0/18，交班向量[4, 2, 3]；成本只读已去重的DA1，不把军事客观成本再次作为能力惩罚。既有建设、保留与归责事实继续支持G2。",
+          "position_basis": "档内位置MID依据实现、保留、回落与当前剩余成本复核；成本去重本身不制造新的历史建设。",
+          "axis_relevance_check": {
+            "status": "HOLISTIC_C1_C4_SEMANTIC_ADJUDICATION",
+            "component_codes": [
+              "C1",
+              "C2",
+              "C3",
+              "C4"
+            ],
+            "component_sum_used": false,
+            "quantile_or_normalization_used": false,
+            "name_override_used": false,
+            "old_process_material_role": "BEHAVIOR_CHAIN_AND_ATTRIBUTION_REVIEW_ONLY"
+          },
+          "parents": [],
+          "limitations": [
+            "现有正式结果材料没有闭合到独立的本人过程父链，行为归责仅使用C4已审定部分，不能外推为完整政策能力画像。",
+            "高位总叙与范宁奏报证据类型不同，后者按奏议降权但不能忽略。",
+            "任末缺同口径全国统计，因此交班局面止于民生三档而不判困顿。"
+          ],
+          "supplement_review": {
+            "old_m3_parent_chain_count": 0,
+            "old_m3_candidate_count": 0,
+            "axis_dispositions": {
+              "C1": "SEARCHED_NO_OLD_M3_CANDIDATE",
+              "C2": "SEARCHED_NO_OLD_M3_CANDIDATE",
+              "C3": "SEARCHED_NO_OLD_M3_CANDIDATE",
+              "C4": "REVIEWED_C4_ATTRIBUTION_RETAINED"
+            }
+          },
+          "source_refs": [
+            "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-司马曜",
+            "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-司马曜",
+            "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-司马曜",
+            "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-司马曜"
+          ],
+          "source_evidence": [
+            {
+              "source_title": "《晋书·食货志》",
+              "quote": "天下无事，时和年丰，百姓乐业，谷帛殷阜，几乎家给人足矣。",
+              "source_origin": "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION"
+            },
+            {
+              "source_title": "《资治通鉴·卷一百七》",
+              "quote": "今边烽不举而仓库空匮。",
+              "source_origin": "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION"
+            },
+            {
+              "source_title": "《资治通鉴·卷一百七》",
+              "quote": "古者使民岁不过三日，今之劳扰，殆无三日之休。",
+              "source_origin": "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION"
+            }
+          ],
+          "contract_version": "FORMAL-V3.6",
+          "full_pool_grade_readjudication": {
+            "grade_basis": "当前恢复5.0/27、稳定10.0/18，交班向量[4, 2, 3]；成本只读已去重的DA1，不把军事客观成本再次作为能力惩罚。既有建设、保留与归责事实继续支持G2。",
+            "position_basis": "档内位置MID依据实现、保留、回落与当前剩余成本复核；成本去重本身不制造新的历史建设。"
+          }
+        }
+      ]
+    }
+  }
+}

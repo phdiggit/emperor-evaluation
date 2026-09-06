@@ -1,0 +1,118 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "梁",
+  "collections": {
+    "records": {
+      "positions": [
+        150
+      ],
+      "records": [
+        {
+          "sequence": 127,
+          "ruler_id": "RULER-SHADOW-萧衍",
+          "task_code": "PROFILE-C1-RULER-SHADOW-萧衍",
+          "ruler_name": "萧衍",
+          "polity": "梁",
+          "actual_power_window": "502—549年",
+          "axis_code": "C1",
+          "axis_name": "战略判断与风险控制",
+          "score_status": "FINAL",
+          "axis_grade": "G1",
+          "position": "HIGH",
+          "score_100": 31,
+          "radar_value": 31,
+          "axis_evidence_level": "E3",
+          "output_mode": "FULL_GRADE",
+          "confidence": "HIGH",
+          "adjudication_ref": "C1-FULL-POOL-ADJ-RULER-SHADOW-萧衍",
+          "parents": [
+            {
+              "parent_id": "C1-P127-HOUJING-RISK",
+              "direction": "NEGATIVE",
+              "intensity": "MI4",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P127-HOUJING",
+                "docs/评分结算/皇帝人物画像/M1/01-M1军事判断与统帅能力正式结算.json#ruler_id=RULER-SHADOW-萧衍"
+              ],
+              "direct_process_refs": [
+                "CAMPAIGN-NC-HANSHAN-PENGCHENG-547",
+                "CAMPAIGN-NC-HOUJING-JIANKANG-548-549",
+                "WAR-LEAD-144-07",
+                "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/163",
+                "docs/史料通读产物/唐以前编年/00-战争卡审计索引.md#L655"
+              ],
+              "cycle_basis": "侯景拥兵来投时可拒纳、分散安置或附条件接纳；风险已被指出，本人仍处理条件失当。侯景反复与台城威胁到达后，外围援军统合和退出均失败。长任晚期退化压过创业正链。"
+            }
+          ],
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C1-P127-HOUJING-RISK",
+              "direction": "NEGATIVE",
+              "intensity": "MI4",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P127-HOUJING",
+                "docs/评分结算/皇帝人物画像/M1/01-M1军事判断与统帅能力正式结算.json#ruler_id=RULER-SHADOW-萧衍"
+              ],
+              "direct_process_refs": [
+                "CAMPAIGN-NC-HANSHAN-PENGCHENG-547",
+                "CAMPAIGN-NC-HOUJING-JIANKANG-548-549",
+                "WAR-LEAD-144-07",
+                "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/163",
+                "docs/史料通读产物/唐以前编年/00-战争卡审计索引.md#L655"
+              ],
+              "cycle_basis": "侯景拥兵来投时可拒纳、分散安置或附条件接纳；风险已被指出，本人仍处理条件失当。侯景反复与台城威胁到达后，外围援军统合和退出均失败。长任晚期退化压过创业正链。"
+            }
+          ],
+          "typical_pattern": "创业和长期治理前段可用，晚期在侯景风险明确时接纳失当、缺隔离退出，台城危机中仍迟缓。",
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "counter_parent_refs": [
+              "C1-P127-HOUJING-RISK"
+            ]
+          },
+          "grade_basis": "创业和长期治理前段可用，晚期在侯景风险明确时接纳失当、缺隔离退出，台城危机中仍迟缓。",
+          "position_basis": "侯景有独立行动，不能全归本人；早中期治理与创业阻止降G0。",
+          "axis_relevance_check": {
+            "status": "CLOSED",
+            "scoring_parent_refs": [
+              "C1-P127-HOUJING-RISK"
+            ],
+            "result_nonconversion": true
+          },
+          "reviews": {
+            "window": "COVERAGE_CLOSED",
+            "relevance": "CLOSED",
+            "attribution": "CLOSED",
+            "dedup": "CLOSED",
+            "bidirectional": "CLOSED",
+            "density": "COUNTEREVIDENCE_FOUND",
+            "capability_profile": "NOT_HIGH_GRADE_REQUIRED",
+            "low_grade_gate": {
+              "status": "CLOSED",
+              "inherited_bad_hand": "REVIEWED",
+              "feasible_alternative": "REVIEWED_IN_PARENT_CHAIN",
+              "feedback_reachability": "REVIEWED_IN_PARENT_CHAIN",
+              "stop_loss": "REVIEWED_IN_PARENT_CHAIN"
+            }
+          },
+          "limitations": [
+            "侯景有独立行动，不能全归本人；早中期治理与创业阻止降G0。"
+          ],
+          "formal_status": "FORMAL_CURRENT",
+          "grade_numeric": 1,
+          "formal_order": 151
+        }
+      ]
+    }
+  }
+}

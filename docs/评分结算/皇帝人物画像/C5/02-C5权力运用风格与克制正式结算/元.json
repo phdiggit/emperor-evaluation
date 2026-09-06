@@ -1,0 +1,1487 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "元",
+  "collections": {
+    "records": {
+      "positions": [
+        12,
+        59,
+        60,
+        73,
+        100,
+        128,
+        129,
+        151
+      ],
+      "records": [
+        {
+          "sequence": 181,
+          "ruler_id": "RULER-YUAN-OGEDEI",
+          "ruler_name": "窝阔台",
+          "axis_grade": "G4",
+          "position": "LOW",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "即位后，窝阔台接受耶律楚材提出的成套约束；汴梁将下，速不台因金人长期抵抗、蒙古军伤亡重，请求城破后屠城。",
+          "grade_basis": "跨死刑、屠城、连坐、选女、人口迁徙、宗王科征、债役等多个最难克制的场景，窝阔台确实反复接受外部否决；后期税包扩张是重大真实反证，但没有抹掉跨场景主模式；由 G3-HIGH 定位为 G4-LOW / E3。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G4-LOW。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P181-DEBT",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "官代偿羊羔息、限本息并把俘口编民。"
+            },
+            {
+              "parent_id": "C5-P181-EXTRACTION",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "站户强制供给与税课扑买加倍。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "SECOND_A::EM-O-003",
+                "SECOND_B1::EM-O-003"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "十路税务交付只作行政背景。"
+            },
+            {
+              "unit_ids": [
+                "SECOND_A::EM-O-001",
+                "SECOND_A::EM-O-002",
+                "YUAN-R3-OGEDEI-RELAY-LATER-USE",
+                "EM-O-005"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P181-EXTRACTION",
+              "reason": "站赤强制供给与税课加倍作为资源强制反证。"
+            },
+            {
+              "unit_ids": [
+                "SECOND_A::EM-O-004",
+                "SECOND_B1::EM-O-004",
+                "SECOND_B2::EM-O-004",
+                "SECOND_B1::EM-O-006",
+                "SECOND_B2::EM-O-006"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P181-DEBT",
+              "reason": "羊羔息限制、官代偿和俘口编民跨入口合并。"
+            },
+            {
+              "unit_ids": [
+                "FACT-B4FA21751A0F8B7F"
+              ],
+              "status": "AXIS_OUT_WITH_REASON",
+              "reason": "军事授权属于C3/M1。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-YUAN-OGEDEI",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 77,
+          "score_100": 77,
+          "current_entry_unit_count": 12,
+          "current_entry_disposition_counts": {
+            "AXIS_OUT_WITH_REASON": 1,
+            "BACKGROUND_VALIDATION": 2,
+            "SCORING_PARENT": 9
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 4,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-YUAN-OGEDEI",
+          "actual_power_window": "1229—1241年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P181-DEBT",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "官代偿羊羔息、限本息并把俘口编民。"
+            },
+            {
+              "parent_id": "C5-P181-EXTRACTION",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "站户强制供给与税课扑买加倍。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P181-DEBT"
+            ],
+            "negative_parent_refs": [
+              "C5-P181-EXTRACTION"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P181-DEBT",
+              "C5-P181-EXTRACTION"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《元史》卷一百四十六《耶律楚材传》",
+            "https://zh.wikisource.org/zh-hans/元史/卷146",
+            "《宋史纪事本末》卷九十九",
+            "https://zh.wikisource.org/zh-hans/宋史紀事本末/卷99",
+            "《续资治通鉴》相关窝阔台时期条目。"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 生杀与科征进入程序",
+              "details": [
+                "即位后，窝阔台接受耶律楚材提出的成套约束。",
+                "州县不得擅自科差：死罪须申奏待报。",
+                "蒙古、回鹘、河西等特权人群违法亦纳入规则。",
+                "贡献扰民应限制。：“贡献”一项窝阔台曾坚持保留，是反证；但其他主要程序确实颁行。",
+                "这是最高权力主动把军政特权、死刑和地方科征纳入外部程序。"
+              ]
+            },
+            {
+              "title": "B. 汴京屠城：高压军事场景下接受否决",
+              "details": [
+                "汴梁将下，速不台因金人长期抵抗、蒙古军伤亡重，请求城破后屠城。",
+                "窝阔台最初犹豫。：耶律楚材以“得地无民何用”力争，最终窝阔台接受，只追究完颜氏，其余不问。",
+                "史载当时汴京避兵人口达一百四十七万。",
+                "这是极高强度的C5正证：巨大战损、报复诱因、统帅请求屠城均已存在，但最高权力最终接受外部约束，放弃大规模杀戮。"
+              ]
+            },
+            {
+              "title": "C. 连坐、逃民与俘口：反复收束",
+              "details": [
+                "河南初破后，原有“窝藏逃民及资给者灭其家、乡社连坐”命令，造成逃民无人敢救、道路多死。",
+                "耶律楚材指出既已成为皇帝赤子，不应因一个逃人连死数十百人，窝阔台接受并撤销禁令。",
+                "中原俘民又经整理编为民，减少军政集团私占。",
+                "这是伤害反馈后直接撤销连坐的标准C5正链。"
+              ]
+            },
+            {
+              "title": "D. 民力和私人欲望受到多次直接约束",
+              "details": [
+                "中贵请求从西京、宣德迁万余户供采金、种葡萄，耶律楚材反对“残民”，窝阔台撤回。",
+                "侍臣请求再次大规模选天下室女，耶律楚材阻止，窝阔台虽一度发怒，最终取消。",
+                "又欲征收民间牝马，经反对后停止。",
+                "诸王要求分裂州县作为封地，最终接受只由朝廷置吏收税、再分给诸王，不许诸王直接擅自科征。",
+                "这些横跨宫廷欲望、资源动员、宗王利益、人口迁徙，均为本人接受不利约束。"
+              ]
+            },
+            {
+              "title": "E. 羊羔息与债务奴役",
+              "details": [
+                "高息债务导致本利倍增，甚至以妻子儿女为奴仍不足偿。",
+                "窝阔台接受本息封顶、官府代偿等措施。",
+                "这条原结算正证成立，但只是其整个自限模式的一部分。"
+              ]
+            },
+            {
+              "title": "F. 真实反证：后期税包扩张",
+              "details": [
+                "温都尔哈玛尔等提出扑买天下课税，将税额从一百一十万两进一步抬到二百二十万两。",
+                "耶律楚材极力反对，甚至声泪俱下，窝阔台仍坚持试行。",
+                "这是清晰的重大伤害预警到达后仍优先财政汲取，构成强负证。",
+                "另外，“贡献自愿者许之”也是制度边界上的反证。",
+                "因而不进入G4中高位。",
+                "SOURCE_DENSITY_ASYMMETRY_REVIEW：COUNTEREVIDENCE_FOUND。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 3,
+            "locator_count": 5,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 179,
+          "ruler_id": "RULER-YUAN-KULUG",
+          "ruler_name": "海山",
+          "axis_grade": "G3",
+          "position": "MID",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "至大二年，中书奏报；中书再次指出：钱粮制度崩坏。",
+          "grade_basis": "武宗并非原表所描绘的“内降持续绕程序、监察受压”为主；实际上最高权力对内降、近臣赏赐和私人生活都有很高质量的自我授权约束；但滥赏、宫寺和贵人私第持续造成财政、民力压力，仍有明显下沿；正负基本相抵，定位为 G3-MID / E3。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G3-MID。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P179-RETURN",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "行省指出侵夺后实际返还。"
+            },
+            {
+              "parent_id": "C5-P179-BYPASS",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "近侍内降绕过中书且监察受压。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "AUDIT-KULUG-A-REFORM-RAW",
+                "AUDIT-KULUG-B1-CORRECTION-RAW",
+                "FACT-E21A6F38B6EE334A"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "改制、裁冗和军事授权只作背景。"
+            },
+            {
+              "unit_ids": [
+                "AUDIT-KULUG-B2-RETURN-RAW"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P179-RETURN",
+              "reason": "反馈改变近侍侵夺结果。"
+            },
+            {
+              "unit_ids": [
+                "YUAN-KULUG-B1-DIRECT-CHARTERS-01",
+                "AUDIT-KULUG-B2-SUPPRESSION-RAW",
+                "FACT-98E75905AD4409F3"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P179-BYPASS",
+              "reason": "内降旁路、监察压制和压力下政策反复合并。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-YUAN-KULUG",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 65,
+          "score_100": 65,
+          "current_entry_unit_count": 7,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 3,
+            "SCORING_PARENT": 4
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 3,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-YUAN-KULUG",
+          "actual_power_window": "1307—1311年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P179-RETURN",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "行省指出侵夺后实际返还。"
+            },
+            {
+              "parent_id": "C5-P179-BYPASS",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "近侍内降绕过中书且监察受压。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P179-RETURN"
+            ],
+            "negative_parent_refs": [
+              "C5-P179-BYPASS"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P179-RETURN",
+              "C5-P179-BYPASS"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《元史》卷二十三《武宗本纪》：六千三百余道旁路玺书全部追夺、以后内降不得绕中书。",
+            "https://zh.wikisource.org/wiki/元史/卷023",
+            "《元史续编》卷七：中书指出财用、营造与私第问题，武宗授权扣押持内降者。",
+            "https://zh.wikisource.org/zh-hans/元史續編_(四庫全書本)/卷07",
+            "《元史》卷一百三十六《阿沙不花传》：拒绝蹴踘赏赐、批评酒色、释放安西王党连坐者。",
+            "https://zh.wikisource.org/zh-hans/元史/卷136"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 六千三百余道旁路玺书被整体追夺，未来内降明确不得绕中书",
+              "details": [
+                "至大二年，中书奏报。",
+                "自大德六年至至大元年，不经中书直接从翰林发出的玺书达六千三百余道。",
+                "涉及田土、户口、矿冶、进贡、选法、词讼、营造等，已经“害及于民”。",
+                "武宗批准全部追夺，并定以后不经中书者不得执行。",
+                "其中旧玺书大量来自成宗时期，不能全部算武宗纠正自己。",
+                "但未来规则明确约束武宗本人，属于直接制度自缚。"
+              ]
+            },
+            {
+              "title": "B. “朕若忘记又发内降，把人执来见我”：极强本人自缚",
+              "details": [
+                "中书再次指出：钱粮制度崩坏。",
+                "中都建城、大都建寺、为贵人营私第，军民不得休息。",
+                "每赐一人动辄万锭。",
+                "武宗回应：已命诸人不得干中书政。",
+                "以后若有人趁自己“忽忘”拿内降、传旨来中书，中书可直接把这个人扣住带来见皇帝，自己要治罪。",
+                "这是C5非常稀缺的：皇帝承认自己可能再次突破规则 → 事先授权官僚拒绝执行并拦截自己的命令。",
+                "可定 POSITIVE / MI4_CROSS_PHASE_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "C. 阿沙不花：可以拒绝皇帝赏赐和批评私人生活",
+              "details": [
+                "武宗一次要把蹴踘近臣赏钞十五万贯。",
+                "阿沙不花当面拒绝执行，批评这样会使奇技淫巧者进、贤者退；武宗最终停止。",
+                "阿沙不花又直接批评皇帝沉酒、好姬嫔，甚至拒绝皇帝随后递来的酒。",
+                "武宗不但没有报复，反而赞其直言，进为右丞相、御史大夫。",
+                "这是第二条跨私人赏赐、生活享用的强自缚复验。"
+              ]
+            },
+            {
+              "title": "D. 安西王党：政治斗争结束后主动释放三十余连坐者",
+              "details": [
+                "武宗即位后处理安西王谋变余党，阿沙不花等审理，三十余名因连坐受牵者“皆释之”。",
+                "首谋政治斗争本身不评分。",
+                "但胜负已定后限制连坐范围、释放牵连者可以作为C5正向反证。"
+              ]
+            },
+            {
+              "title": "E. 公共资源滥赏和宫寺营造仍是强负证",
+              "details": [
+                "武宗即位后大幅提高诸王、近侍赏赐。",
+                "财政很快出现：帑藏空竭。",
+                "预卖盐引：岁入不足。",
+                "尚有百余万锭应支未给。",
+                "中书反复指出中都筑城、大都建寺、贵人私第和巨额泛赐使军民不得休息。",
+                "武宗虽多次口头/制度收束，但整体“滥恩幸赏”在四年在位期仍是显著模式。",
+                "应保留 NEGATIVE / MI3_SUSTAINED_SYSTEMIC，不能因为内降自缚把资源负证抹掉。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 3,
+            "locator_count": 6,
+            "linked_source_count": 3,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 180,
+          "ruler_id": "RULER-YUAN-MONGKE",
+          "ruler_name": "蒙哥",
+          "axis_grade": "G3",
+          "position": "MID",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "定宗死后，失烈门一系与拖雷系存在真实皇位竞争；蒙哥即位后，不只是处理主谋。",
+          "grade_basis": "定宗死后，失烈门一系与拖雷系存在真实皇位竞争；《元史》记按只台等“坐诱诸王为乱，并伏诛”；蒙哥即位后，不只是处理主谋；《元史》明确记“以太宗诸后妃家赀分赐亲王”。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G3-MID。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P180-PRINCES",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "收牌印、限驿招户敛财并停工役。"
+            },
+            {
+              "parent_id": "C5-P180-PURGE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "即位政治清洗跨多人且无纠正。"
+            },
+            {
+              "parent_id": "C5-P180-RESOURCE",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "见民疲后高价贡物并禁复献。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "SECOND_A::EM-M-001",
+                "SECOND_B1::EM-M-001",
+                "SECOND_B2::EM-M-001",
+                "SECOND_A::EM-M-003",
+                "SECOND_B1::EM-M-003",
+                "SECOND_A::EM-M-004",
+                "SECOND_B1::EM-M-004",
+                "SECOND_B2::EM-M-004",
+                "EM-M-005"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P180-PRINCES",
+              "reason": "收牌印、限诸王特权和停工役按同一制度运行父链消费；无画像上下文单元仅作同链覆盖。"
+            },
+            {
+              "unit_ids": [
+                "EM-M-002",
+                "FACT-14208E774D841709"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "百余日不视朝与履职正反用于能力边界，不独立评价C5。"
+            },
+            {
+              "unit_ids": [
+                "FACT-1725ACBFE125F7CC"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P180-PURGE",
+              "reason": "即位清洗与有限差等处置按完整父链裁决。"
+            },
+            {
+              "unit_ids": [
+                "FACT-23F66E579A00B30A"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P180-RESOURCE",
+              "reason": "资源反馈后立即克制形成正链。"
+            },
+            {
+              "unit_ids": [
+                "FACT-FDA2CC912900466D"
+              ],
+              "status": "AXIS_OUT_WITH_REASON",
+              "reason": "军事授权属于C3/M1。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-YUAN-MONGKE",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 65,
+          "score_100": 65,
+          "current_entry_unit_count": 14,
+          "current_entry_disposition_counts": {
+            "AXIS_OUT_WITH_REASON": 1,
+            "BACKGROUND_VALIDATION": 2,
+            "SCORING_PARENT": 11
+          },
+          "axis_evidence_level": "E3",
+          "promotion_normalization": {
+            "working_evidence_level": "E4",
+            "formal_evidence_level": "E3",
+            "reason": "FORMAL_CONTRACT_USES_E1_E2_E3; E4_COLLAPSED_TO_SUFFICIENT_HIGH_DENSITY_E3_WITHOUT_GRADE_CHANGE"
+          },
+          "grade_numeric": 3,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-YUAN-MONGKE",
+          "actual_power_window": "1251—1259年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P180-PRINCES",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "收牌印、限驿招户敛财并停工役。"
+            },
+            {
+              "parent_id": "C5-P180-PURGE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "即位政治清洗跨多人且无纠正。"
+            },
+            {
+              "parent_id": "C5-P180-RESOURCE",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "见民疲后高价贡物并禁复献。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P180-PRINCES",
+              "C5-P180-RESOURCE"
+            ],
+            "negative_parent_refs": [
+              "C5-P180-PURGE"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P180-PRINCES",
+              "C5-P180-PURGE",
+              "C5-P180-RESOURCE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《元史》卷三《宪宗本纪》",
+            "https://zh.wikisource.org/wiki/元史/卷003",
+            "《新元史》卷一百一十一：失烈门谋乱、降罪及后续投水",
+            "https://zh.wikisource.org/zh-hans/新元史/卷111"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 继位初的主谋处置：现实政治斗争部分退出",
+              "details": [
+                "定宗死后，失烈门一系与拖雷系存在真实皇位竞争。",
+                "《元史》记按只台等“坐诱诸王为乱，并伏诛”。",
+                "失烈门、忽察、脑忽等亦有谋乱讯鞫材料。",
+                "对这些直接参与者本人的处死、流放，不因政治胜利结果严厉就自动计C5。"
+              ]
+            },
+            {
+              "title": "B. 太宗诸后妃家资被整体分赐：战后支系扩大仍计",
+              "details": [
+                "蒙哥即位后，不只是处理主谋。",
+                "《元史》明确记“以太宗诸后妃家赀分赐亲王”。",
+                "这里涉及整个前一支系后妃财产，而不是逐一证明所有后妃均参与谋乱。",
+                "属于胜负已定后的支系财产扩大，可定 NEGATIVE / MI2/MI3。"
+              ]
+            },
+            {
+              "title": "C. 失烈门后续死亡：已经降罪后仍追加终局处分",
+              "details": [
+                "失烈门此前被谪为探马赤，后来忽必烈征大理时还曾请求让他随军赎罪。",
+                "《新元史》又记蒙哥亲征南宋时，最终仍将失烈门投水处死。",
+                "这已经不是继位当天的紧急政变镇压，而是对一个已经降职、长期受控的旧竞争者追加生命处分。",
+                "可作为 NEGATIVE / MI2_LIFECYCLE 深下沿。"
+              ]
+            },
+            {
+              "title": "D. 对诸王特权的系统约束是真实强正证",
+              "details": [
+                "即位后连续颁令：收回朝廷与诸王滥发牌印、诏旨、宣命。",
+                "限诸王使用驿马：禁诸王擅招民户。",
+                "禁官属借朝觐名义向民众征敛。",
+                "允许远输粮就近入仓。",
+                "停止和林不急工程。",
+                "这不是一般行政改革，而是直接收缩蒙古诸王原有的私人征发、人口占有与交通特权。",
+                "可定 POSITIVE / MI3_SUSTAINED_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "E. 正负相抵后不应留在G2",
+              "details": [
+                "将现实夺权参与者本人剔除后，剩余负证仍重，但已经不能定义稳定明显短板。",
+                "同时对诸王特权的系统收束又是很直接的C5正证。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 4,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 178,
+          "ruler_id": "RULER-YUAN-KUBLAI",
+          "ruler_name": "忽必烈",
+          "axis_grade": "G3",
+          "position": "LOW",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "中统三年，忽必烈明确告诉宰臣；忽必烈长期信任阿合马，使其绕过中书、专理财赋，监督责任很重。",
+          "grade_basis": "忽必烈并非高克制型：连续重用阿合马、桑哥，尤其批准桑哥压制御史，负证很重；但同时存在极强的“怒杀延迟覆奏”制度、自身承认错误、恢复监察、拒绝在桑哥案后扩大为普通党附清算；定位为 G3-LOW / E3。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G3-LOW。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P178-REVIEW",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "杀罚覆奏、震怒延迟和灾情越级反馈运行。"
+            },
+            {
+              "parent_id": "C5-P178-SUPPRESS",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "阿合马桑哥酷讯与御史台压制持续。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "YUAN-KUBLAI-A-LEGAL-CANON-01",
+                "YUAN-KUBLAI-A-MULTI-JURISDICTION-02",
+                "YUAN-KUBLAI-A-PROVINCIAL-STATE-04",
+                "YUAN-R3-KUBLAI-PROVINCIAL-STATE-LATER",
+                "YUAN-KUBLAI-B1-LOCAL-AUDIT-POS-03",
+                "YUAN-KUBLAI-B1-STAFFING-REPAIR-POS-02",
+                "FACT-314E0EEFBC2BE32C"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "法源、行省、地方审计、宰辅更换与军事授权只作背景。"
+            },
+            {
+              "unit_ids": [
+                "YUAN-KUBLAI-A-HUMANE-PROCEDURE-03",
+                "YUAN-KUBLAI-B2-ANGER-REVIEW-POS-02",
+                "YUAN-KUBLAI-B2-CENSOR-DISASTER-POS-03",
+                "YUAN-KUBLAI-B2-CENSOR-PROTECTION-POS-04"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P178-REVIEW",
+              "reason": "覆奏与越级灾情反馈实际约束最高决定。"
+            },
+            {
+              "unit_ids": [
+                "AUDIT-LAW-22-004-LEDGER",
+                "AUDIT-LAW-22-006-LEDGER",
+                "AUDIT-LAW-22-008-LEDGER",
+                "YUAN-KUBLAI-B1-FISCAL-CAPTURE-01",
+                "YUAN-KUBLAI-B2-CENSOR-SUPPRESSION-01",
+                "FACT-5CC15FA9F3FBB4FA"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P178-SUPPRESS",
+              "reason": "法外酷讯、财政俘获和御史压制按系统父链消费。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-YUAN-KUBLAI",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 58,
+          "score_100": 58,
+          "current_entry_unit_count": 17,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 7,
+            "SCORING_PARENT": 10
+          },
+          "axis_evidence_level": "E3",
+          "promotion_normalization": {
+            "working_evidence_level": "E4",
+            "formal_evidence_level": "E3",
+            "reason": "FORMAL_CONTRACT_USES_E1_E2_E3; E4_COLLAPSED_TO_SUFFICIENT_HIGH_DENSITY_E3_WITHOUT_GRADE_CHANGE"
+          },
+          "grade_numeric": 3,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-YUAN-KUBLAI",
+          "actual_power_window": "1260—1294年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P178-REVIEW",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "杀罚覆奏、震怒延迟和灾情越级反馈运行。"
+            },
+            {
+              "parent_id": "C5-P178-SUPPRESS",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "阿合马桑哥酷讯与御史台压制持续。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P178-REVIEW"
+            ],
+            "negative_parent_refs": [
+              "C5-P178-SUPPRESS"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P178-REVIEW",
+              "C5-P178-SUPPRESS"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《元史》卷一百零二《刑法志》：盛怒杀令延迟覆奏、死罪复核制度。",
+            "https://zh.wikisource.org/wiki/元史/卷102",
+            "《元史》卷二百零五《奸臣·阿合马》：阿合马权力、秦长卿之死、世祖事后查明并追究。",
+            "https://zh.wikisource.org/zh-hans/元史/卷205",
+            "《元史》及《元史纪事本末》桑哥案：御史受压、世祖认错、罢尚书省、恢复监察。",
+            "https://www.shidianguji.com/book/JINANLIB00259/chapter/1lx2d4nf7ayib",
+            "《新元史》卷一百九十八：桑哥败后改革、拒绝扩大词臣责任。",
+            "https://zh.wikisource.org/zh-hans/新元史/卷198"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. “朕怒令杀，宰臣应延迟覆奏”是最高质量自缚",
+              "details": [
+                "中统三年，忽必烈明确告诉宰臣。",
+                "自己若在盛怒中命令杀人，不要立即执行，应延迟一两天再覆奏。",
+                "后续又规定：重罪鞫实后必须奏闻。",
+                "军中犯法轻者可断，重者上报。",
+                "各道死罪须按察司审覆无冤、类奏待命。",
+                "这不是一般司法治理，而是直接针对皇帝本人怒杀便利设置制动器，且进入长期司法程序。",
+                "可定 POSITIVE / MI4_CROSS_PHASE_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "B. 阿合马：前期授权责任真实，但后期大量具体恶行并非皇帝明知指令",
+              "details": [
+                "忽必烈长期信任阿合马，使其绕过中书、专理财赋，监督责任很重。",
+                "阿合马又利用权势侵田、受贿、构陷，宿卫秦长卿上书发奸竟被害死狱中。",
+                "但阿合马被王著杀后，忽必烈起初仍不知道其全部奸恶；经孛罗等陈奏后才尽知，并承认王著杀阿合马“诚是”，随后追究其集团。",
+                "因而阿合马的全部具体酷虐不能全额按“皇帝明知仍坚持”计算。",
+                "更适合 MIXED_NEGATIVE / MI3_SUSTAINED_SYSTEMIC 的长期授权失察。"
+              ]
+            },
+            {
+              "title": "C. 桑哥：重复用错人构成更强监督责任",
+              "details": [
+                "阿合马之后，忽必烈又重用桑哥，允许其掌尚书省、财政和人事。",
+                "桑哥压制御史，甚至建议把监察御史纳入省部稽核、连坐，忽必烈曾采纳，导致御史受笞、台纲废弛。",
+                "这一步是皇帝本人直接批准，属于明确C5负证。",
+                "不忽木、彻里等后来不断揭发，忽必烈最终查明后。",
+                "罢尚书省：诛桑哥：恢复被贬旧臣。",
+                "明确承认“朕过听桑哥，致天下不安，今虽悔之，已无及矣”。",
+                "是一条完整 MIXED_NEGATIVE / MI3_SUSTAINED_SYSTEMIC 生命周期。"
+              ]
+            },
+            {
+              "title": "D. 纠正之后没有把“党人”一网打尽",
+              "details": [
+                "桑哥败后，有人建议因曾作诗称颂桑哥而处罚词臣。",
+                "忽必烈明确拒绝，指出若以称颂桑哥为罪，在廷诸臣乃至自己都曾称誉，不能借此扩大。",
+                "又为被桑哥枉杀的杨居宽、郭祐恢复财产。",
+                "这符合新增规则中很重要的胜负已定后主动拒绝扩大党附清算。"
+              ]
+            },
+            {
+              "title": "E. 阿合马死后也出现过过度报复下沿",
+              "details": [
+                "忽必烈查明阿合马奸恶后，曾发墓戮尸、诛其子侄、籍没家产，并对相关图谶人员施以酷刑。",
+                "这说明其纠正权臣时并非始终克制。",
+                "但主要属于一次权臣集团清算，且不能覆盖其长期司法自缚。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 4,
+            "locator_count": 7,
+            "linked_source_count": 4,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 177,
+          "ruler_id": "RULER-YUAN-AYURBARWADA",
+          "ruler_name": "爱育黎拔力八达",
+          "axis_grade": "G2",
+          "position": "HIGH",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "仁宗即位前后，特们德尔即因太后支持重新进入中书；御史中丞杨多尔济、平章萧拜珠、上都留守贺胜等掌握特们德尔收受巨贿的事实。",
+          "grade_basis": "制度反馈存在，伤害后也能撤回政策；但特们德尔案是跨阶段、四十余监察官反复明确反馈仍无法完成权臣退出的核心负链；定 G2-HIGH / E3。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-HIGH。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P177-CENSOR",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "御史纠正内旨、言官经力救获赦。"
+            },
+            {
+              "parent_id": "C5-P177-TEMUDER",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "特们德尔案受太后干预，仅罢相且主劾者调离，闭合一条权臣处置失败生命周期。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "SECOND_A::YUAN-AR-CENTRAL-CHANNEL",
+                "SECOND_B1::YUAN-AR-CENTRAL-CHANNEL",
+                "YUAN-AR-EXAM-INSTITUTION",
+                "YUAN-AR-LAW-COMPILATION",
+                "YUAN-AR-FISCAL-CORRECTION",
+                "YUAN-AR-LAND-SURVEY-HARM",
+                "FACT-1B1040C213F568BE"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "中书、科举、法源、财政田粮和军事授权主要作制度背景。"
+            },
+            {
+              "unit_ids": [
+                "SECOND_B1::YUAN-AR-CENSOR-APPROVAL",
+                "SECOND_B2::YUAN-AR-CENSOR-APPROVAL",
+                "FACT-7941014B29C1DD62"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P177-CENSOR",
+              "reason": "御史纠正和言官保护按实际运行父链消费。"
+            },
+            {
+              "unit_ids": [
+                "SECOND_B1::YUAN-AR-TEMUDER-CAPTURE",
+                "SECOND_B2::YUAN-AR-TEMUDER-CAPTURE",
+                "FACT-FC913EC87A99D936"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P177-TEMUDER",
+              "reason": "特们德尔俘获和不彻底纠正跨入口合并。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-YUAN-AYURBARWADA",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 51,
+          "score_100": 51,
+          "current_entry_unit_count": 14,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 8,
+            "SCORING_PARENT": 6
+          },
+          "axis_evidence_level": "E3",
+          "promotion_normalization": {
+            "working_evidence_level": "E4",
+            "formal_evidence_level": "E3",
+            "reason": "FORMAL_CONTRACT_USES_E1_E2_E3; E4_COLLAPSED_TO_SUFFICIENT_HIGH_DENSITY_E3_WITHOUT_GRADE_CHANGE"
+          },
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-YUAN-AYURBARWADA",
+          "actual_power_window": "1311—1320年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P177-CENSOR",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "御史纠正内旨、言官经力救获赦。"
+            },
+            {
+              "parent_id": "C5-P177-TEMUDER",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "特们德尔案受太后干预，仅罢相且主劾者调离，闭合一条权臣处置失败生命周期。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P177-CENSOR"
+            ],
+            "negative_parent_refs": [
+              "C5-P177-TEMUDER"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P177-CENSOR",
+              "C5-P177-TEMUDER"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《元史纪事本末》第20则《特们德尔之奸》：https://zh.wikisource.org/zh-hans/元史紀事本末/第20則",
+            "《元史》卷一百七十九《贺胜传》：https://zh.wikisource.org/zh-hans/元史_(四庫全書本)/卷179",
+            "《元史》卷二十四《仁宗本纪一》：https://zh.wikisource.org/zh-hans/元史/卷024"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 特们德尔不是一次处置失败，而是跨年复发",
+              "details": [
+                "仁宗即位前后，特们德尔即因太后支持重新进入中书。",
+                "皇庆、延祐间多次任右丞相，并推动括田增税等政策。",
+                "其贪墨、受贿、侵占问题逐步公开化。"
+              ]
+            },
+            {
+              "title": "B. 监察系统已经给出极强反馈",
+              "details": [
+                "御史中丞杨多尔济、平章萧拜珠、上都留守贺胜等掌握特们德尔收受巨贿的事实。",
+                "内外御史四十余人共同弹劾，列其奸贪、欺上、侵占诸王及卫兵牧地、收受珍玉等多项罪状。",
+                "仁宗本人“震怒”，说明事实已经进入最高决策层。"
+              ]
+            },
+            {
+              "title": "C. 但触及太后利益后，规则被压住",
+              "details": [
+                "特们德尔逃入太后宫。",
+                "太后召杨多尔济责问。",
+                "仁宗因“不忍伤太后意”，最终仅罢特们德尔相位，并把主要弹劾者杨多尔济调离御史台。",
+                "这已经不是“信息没到达”，而是信息完全到达、事实基本确认，但因私人亲属权力关系而不能依法完成处分。"
+              ]
+            },
+            {
+              "title": "D. 后续甚至发生再次起用",
+              "details": [
+                "延祐六年特们德尔又被任为太子太师。",
+                "赵世延论其不法数十事，内外台官又有四十余人反对其辅导东宫。",
+                "仁宗再次因为太后原因“皆不听”。",
+                "因此整条父链应由 MI2 提升为 MI4_CROSS_PHASE_SYSTEMIC：同一特权集团跨阶段复起，监察重复失败，且主要原因明确是太后私人权力。"
+              ]
+            },
+            {
+              "title": "E. 伤害反馈后的政策纠正是真实正证",
+              "details": [
+                "特们德尔推动江南括田增税后，执行苛急，最终引发蔡五九起事及南方骚动。",
+                "仁宗随后下诏停止括田。",
+                "这是真实“伤害反馈 → 政策撤回”，可作为 MI2/MI3 正向父链。",
+                "但它不能抵消对特们德尔本人长期无法依法处置。"
+              ]
+            },
+            {
+              "title": "F. 潜邸时期的宽容只能作为弱旁证",
+              "details": [
+                "爱育黎拔力八达为皇太子时，曾有人劝武宗改立皇子、动摇其继承地位；他后来掌权后没有因此杀害相关宦官，反而加官。",
+                "这说明私人仇恨克制并非完全不存在。",
+                "但当太后—权臣利益真正进入冲突时，其边界明显失效，所以不能据此保住G3高位。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 3,
+            "locator_count": 3,
+            "linked_source_count": 3,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 183,
+          "ruler_id": "RULER-YUAN-TEMUR",
+          "ruler_name": "铁穆耳",
+          "axis_grade": "G2",
+          "position": "MID",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "大德七年诏：匿名书“辞语重者诛之，轻者流配”，告发者给赏，且“皆籍没其妻子充赏”；朱清、张瑄被诛后，妻子被发遣入京、封籍家资，子孙继续流远方。",
+          "grade_basis": "大德七年诏：匿名书“辞语重者诛之，轻者流配”，告发者给赏，且“皆籍没其妻子充赏”；这是将匿名政治/社会表达直接刑事化，并把妻子财产纳入连带处罚，属于制度性表达安全与株连边界失守；朱清、张瑄被诛后，妻子被发遣入京、封籍家资，子孙继续流远方；《新元史》所据材料还记：完泽援世祖遗诏请求保护二人，成宗“不从”，二人俱死。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-MID。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P183-NONRESPONSE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "连续御史上章未改复用贪腐权臣。"
+            },
+            {
+              "parent_id": "C5-P183-PUNISH",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "程序赦释与朱清张瑄广泛追籍并存。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "AUDIT-TEMUR-A-REORG-RAW",
+                "AUDIT-TEMUR-B1-LATE-RAW",
+                "FACT-E6730B58B9AFD149",
+                "FACT-05CAF52FECAFFFBF"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "中枢重组、健康履职与军事授权只作背景。"
+            },
+            {
+              "unit_ids": [
+                "AUDIT-TEMUR-B1-AUDIT-RAW",
+                "AUDIT-TEMUR-B2-TAX-CORRECTION-RAW"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "跨区监察与税负纠正属于一般行政治理，不独立证明最高权力自缚。"
+            },
+            {
+              "unit_ids": [
+                "AUDIT-TEMUR-B2-NONRESPONSE-RAW"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P183-NONRESPONSE",
+              "reason": "御史连续反馈未改变复用决定。"
+            },
+            {
+              "unit_ids": [
+                "FACT-FCADFB64B48ACC52"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P183-PUNISH",
+              "reason": "程序底线与政治追籍反证合并评价。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-YUAN-TEMUR",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 45,
+          "score_100": 45,
+          "current_entry_unit_count": 8,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 6,
+            "SCORING_PARENT": 2
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-YUAN-TEMUR",
+          "actual_power_window": "1294—1307年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P183-NONRESPONSE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "连续御史上章未改复用贪腐权臣。"
+            },
+            {
+              "parent_id": "C5-P183-PUNISH",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "程序赦释与朱清张瑄广泛追籍并存。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [
+              "C5-P183-NONRESPONSE"
+            ],
+            "mixed_parent_refs": [
+              "C5-P183-PUNISH"
+            ]
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P183-NONRESPONSE",
+              "C5-P183-PUNISH"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《元史》卷二十一《成宗本纪四》。",
+            "https://zh.wikisource.org/zh-hans/元史/卷021",
+            "《元史》卷一百三十六《阿沙不花传》：朱清、张瑄籍没与执行。",
+            "https://zh.wikisource.org/zh-hans/元史/卷136",
+            "《元史》卷一百七十五：监察官劾大官、近侍而“不报”。",
+            "https://zh.wikisource.org/zh-hans/元史/卷175"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 匿名书法令",
+              "details": [
+                "大德七年诏：匿名书“辞语重者诛之，轻者流配”，告发者给赏，且“皆籍没其妻子充赏”。",
+                "这是将匿名政治/社会表达直接刑事化，并把妻子财产纳入连带处罚，属于制度性表达安全与株连边界失守。",
+                "法令本身已经是全国性规则，不需要靠多个著名案件才能证明持续性，至少可定 MI3_SUSTAINED_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "B. 朱清、张瑄案",
+              "details": [
+                "朱清、张瑄被诛后，妻子被发遣入京、封籍家资，子孙继续流远方。",
+                "《新元史》所据材料还记：完泽援世祖遗诏请求保护二人，成宗“不从”，二人俱死。",
+                "这一链说明对本人已有巨大功劳、且存在上代保护命令的对象，处罚仍扩大到家属与财产。"
+              ]
+            },
+            {
+              "title": "C. 监督和特权约束的正向反证",
+              "details": [
+                "同一年，成宗明确禁止以“岁课增羡”邀功，指出这只能来自对民众的掊克；禁止无旨进献、限制诸王鹰师扰民、清理诸王驸马妃主部属滥请钱粮。",
+                "又规定枢密院、宗正府等事务须与中书共议，特用而不合例者允许覆奏。",
+                "这些是真正触及权贵与皇帝特殊用人的程序性约束，可构成 MI3 正向父链。",
+                "但监察御史弹劾右丞相完泽受朱清、张瑄贿赂“不报”，其他御史劾大官近侍亦有不报，说明监督在高权力对象前并不稳定。",
+                "综合：正向自缚真实，但匿名书重法、株连家属和监督失效都直接命中 C5，负向略占，置 G2-MID。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 3,
+            "locator_count": 6,
+            "linked_source_count": 3,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 184,
+          "ruler_id": "RULER-YUAN-TOGHON-TEMUR",
+          "ruler_name": "妥懽帖睦尔",
+          "axis_grade": "G2",
+          "position": "MID",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "顺帝确实批准罢脱脱并放逐，但脱脱最终被哈麻矫诏鸩杀；死亡不能全额写成顺帝主动处死；哈麻被揭发后，顺帝起初因旧恩希望从轻出征；中书、御史继续执奏后才流放，最终途中杖死。",
+          "grade_basis": "顺帝确实批准罢脱脱并放逐，但脱脱最终被哈麻矫诏鸩杀；死亡不能全额写成顺帝主动处死；二十二年后御史为脱脱申冤，朝廷又恢复其官爵、家产，说明终局还存在后续正式纠正；哈麻被揭发后，顺帝起初因旧恩希望从轻出征；中书、御史继续执奏后才流放，最终途中杖死；这既有私人宠幸拖延问责的负证，也有持续外部纠弹能改变决定的正向。",
+          "position_basis": "新钞、亡国决策等剥离，保留肉刑恢复及若干私人/近幸处分链。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P184-BAYAN",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "与脱脱解除伯颜专权并收回诸卫。"
+            },
+            {
+              "parent_id": "C5-P184-COLLAPSE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "哈麻俘获、新交钞拒谏、脱脱构陷和首都放弃。"
+            },
+            {
+              "parent_id": "C5-P184-MUTILATION",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "恢复劓黥肉刑构成强制边界倒退。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "SECOND_A::YUAN-TT-EXAM-RESTORATION",
+                "SECOND_B1::YUAN-TT-EXAM-RESTORATION",
+                "YUAN-TT-ZHIZHENG-CODE"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "科举和法典无画像上下文，仅作结构背景。"
+            },
+            {
+              "unit_ids": [
+                "YUAN-TT-MUTILATION-LAW"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P184-MUTILATION",
+              "reason": "恢复肉刑直接命中强制权力边界。"
+            },
+            {
+              "unit_ids": [
+                "SECOND_B1::YUAN-TT-BAYAN-REMOVAL",
+                "SECOND_B2::YUAN-TT-BAYAN-REMOVAL"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P184-BAYAN",
+              "reason": "解除伯颜专权同案跨入口合并。"
+            },
+            {
+              "unit_ids": [
+                "SECOND_B1::YUAN-TT-ADMIN-COLLAPSE",
+                "SECOND_B2::YUAN-TT-ADMIN-COLLAPSE",
+                "SECOND_B1::YUAN-TT-CAPITAL-ABANDONMENT",
+                "SECOND_B2::YUAN-TT-CAPITAL-ABANDONMENT",
+                "SECOND_B1::YUAN-TT-CURRENCY-COLLAPSE",
+                "SECOND_B2::YUAN-TT-CURRENCY-COLLAPSE",
+                "SECOND_B1::YUAN-TT-HAMA-CAPTURE",
+                "SECOND_B2::YUAN-TT-HAMA-CAPTURE",
+                "SECOND_B1::YUAN-TT-TOGHTO-CAPTURE",
+                "SECOND_B2::YUAN-TT-TOGHTO-CAPTURE",
+                "YUAN-TT-IGNORED-CAPITAL-ADVICE",
+                "FACT-5D0DFB264F995A1B"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P184-COLLAPSE",
+              "reason": "新交钞、首都、哈麻与脱脱反馈链按后期系统崩坏合并。"
+            },
+            {
+              "unit_ids": [
+                "FACT-1932875CAF335BD9"
+              ],
+              "status": "AXIS_OUT_WITH_REASON",
+              "reason": "军事授权属于C3/M1。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-YUAN-TOGHON-TEMUR",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 45,
+          "score_100": 45,
+          "current_entry_unit_count": 19,
+          "current_entry_disposition_counts": {
+            "AXIS_OUT_WITH_REASON": 1,
+            "BACKGROUND_VALIDATION": 3,
+            "SCORING_PARENT": 15
+          },
+          "axis_evidence_level": "E3",
+          "promotion_normalization": {
+            "working_evidence_level": "E4",
+            "formal_evidence_level": "E3",
+            "reason": "FORMAL_CONTRACT_USES_E1_E2_E3; E4_COLLAPSED_TO_SUFFICIENT_HIGH_DENSITY_E3_WITHOUT_GRADE_CHANGE"
+          },
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-YUAN-TOGHON-TEMUR",
+          "actual_power_window": "1333—1370年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P184-BAYAN",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "与脱脱解除伯颜专权并收回诸卫。"
+            },
+            {
+              "parent_id": "C5-P184-COLLAPSE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "哈麻俘获、新交钞拒谏、脱脱构陷和首都放弃。"
+            },
+            {
+              "parent_id": "C5-P184-MUTILATION",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "恢复劓黥肉刑构成强制边界倒退。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P184-BAYAN"
+            ],
+            "negative_parent_refs": [
+              "C5-P184-COLLAPSE",
+              "C5-P184-MUTILATION"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P184-BAYAN",
+              "C5-P184-COLLAPSE",
+              "C5-P184-MUTILATION"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《元史·顺帝本纪》。",
+            "《元史》卷一百三十八《脱脱传》。",
+            "https://zh.wikisource.org/zh-hans/元史/卷138",
+            "《元史》卷二百五及相关哈麻记载。",
+            "https://zh.wikisource.org/zh-hans/元史/卷205"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 脱脱终局必须降低本人直接归责",
+              "details": [
+                "顺帝确实批准罢脱脱并放逐，但脱脱最终被哈麻矫诏鸩杀；死亡不能全额写成顺帝主动处死。",
+                "二十二年后御史为脱脱申冤，朝廷又恢复其官爵、家产，说明终局还存在后续正式纠正。"
+              ]
+            },
+            {
+              "title": "B. 哈麻兄弟处置反而显示部分程序空间",
+              "details": [
+                "哈麻被揭发后，顺帝起初因旧恩希望从轻出征；中书、御史继续执奏后才流放，最终途中杖死。",
+                "这既有私人宠幸拖延问责的负证，也有持续外部纠弹能改变决定的正向。"
+              ]
+            },
+            {
+              "title": "C. 恢复肉刑仍是真正系统负证",
+              "details": [
+                "元末恢复劓、黥等肉刑，属于全国性惩罚边界倒退，可保留 NEGATIVE / MI3_SUSTAINED_SYSTEMIC。",
+                "但单独一条制度性严刑不足支撑G1低位。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 3,
+            "locator_count": 5,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 182,
+          "ruler_id": "RULER-YUAN-TEMUJI",
+          "ruler_name": "铁木真",
+          "axis_grade": "G1",
+          "position": "HIGH",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "太祖时期中原新定，州郡长吏生杀任情、擅征财物；忒耳迷等城破后出现“大杀掠”。",
+          "grade_basis": "正向制度限制州郡生杀是真实而重要的，阻止直接落入G0；但跨地区屠杀、降后群体处罚与西夏终局灭族，构成跨阶段极强负链；定 G1-HIGH / E3。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G1-HIGH。",
+          "limitations": [
+            "限制军政专杀的后续实际采用证据不足；帝国期反例暴露有限。"
+          ],
+          "parents": [
+            {
+              "parent_id": "C5-P182-KILLING",
+              "direction": "MIXED_POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "收回擅杀权与死刑上报，前置擅杀和后续采用不足保留。"
+            },
+            {
+              "parent_id": "C5-P182-ADVICE",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "郭宝玉建议获采并颁行。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "GAP-T-DOC-001",
+                "GAP-T-DOC-002",
+                "GAP-T-DOC-003",
+                "GAP-T-DOC-004",
+                "GAP-T-KH-001",
+                "EM-T-001",
+                "FACT-97CD7AC5E8AE2674"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "文书、千户万户和军事授权只作制度背景；无画像上下文单元不强行计分。"
+            },
+            {
+              "unit_ids": [
+                "SECOND_A::EM-T-003",
+                "SECOND_B1::EM-T-003",
+                "SECOND_B2::EM-T-003"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P182-KILLING",
+              "reason": "收权生命周期跨入口合并，后续实际采用不足写入限制。"
+            },
+            {
+              "unit_ids": [
+                "EM-T-002"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P182-ADVICE",
+              "reason": "建议到达并转为五章。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-YUAN-TEMUJI",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 31,
+          "score_100": 31,
+          "current_entry_unit_count": 11,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 7,
+            "SCORING_PARENT": 4
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 1,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-YUAN-TEMUJI",
+          "actual_power_window": "1206—1227年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P182-KILLING",
+              "direction": "MIXED_POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "收回擅杀权与死刑上报，前置擅杀和后续采用不足保留。"
+            },
+            {
+              "parent_id": "C5-P182-ADVICE",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "郭宝玉建议获采并颁行。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P182-ADVICE"
+            ],
+            "negative_parent_refs": [],
+            "mixed_parent_refs": [
+              "C5-P182-KILLING"
+            ]
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P182-KILLING",
+              "C5-P182-ADVICE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《元史》卷一百四十六《耶律楚材传》",
+            "https://zh.wikisource.org/zh-hans/元史/卷146",
+            "《元史》卷一百二十《察罕传》",
+            "https://zh.wikisource.org/zh-hans/元史_(四庫全書本)/卷120",
+            "《新元史》卷二百五十四：西征诸城处置",
+            "https://zh.wikisource.org/zh-hans/新元史/卷254",
+            "《新元史》卷一百二十五：西夏终局遗命",
+            "https://zh.wikisource.org/zh-hans/新元史/卷125"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 限制州郡擅杀：正向父链成立",
+              "details": [
+                "太祖时期中原新定，州郡长吏生杀任情、擅征财物。",
+                "耶律楚材奏请：州郡非奉玺书不得擅征发；死刑必须上报待裁，违者论死。",
+                "铁木真接受，史载“贪暴之风稍戢”。",
+                "这不是纸面制度，而是实际削减地方官生杀权，可定 POSITIVE / MI3_SUSTAINED_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "B. 西征中的降后杀戮：跨地区反复",
+              "details": [
+                "忒耳迷等城破后出现“大杀掠”。",
+                "巴而黑城主动迎降，铁木真因担心后路，仍令全体居民出城、焚毁城邑。",
+                "乌尔鞬赤长期抵抗后城民最终投降，城破后大规模屠杀，仅工匠、妇女、幼童得免，并决水毁城。",
+                "这些并非单纯“战场杀伤”，而是抵抗终止或已经迎降以后，最高统帅仍以群体为单位实施惩罚与强制迁离。",
+                "跨多城、跨阶段同构，足以构成 NEGATIVE / MI4_CROSS_PHASE_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "C. 西夏终局：私人报复与投降后灭族",
+              "details": [
+                "西夏拒绝出兵援助后，其臣阿沙敢不对蒙古使者出言挑衅。",
+                "铁木真跌马受伤，群臣建议暂退，他明确因对方言语羞辱而坚持“虽死必往证其言”。",
+                "西夏末主最终遣使乞降；铁木真临终秘不发丧，留下遗命，等待夏主来朝后杀之，并灭其族。",
+                "这是非常直接的私人/政治报复 + 对已经投降的最高政治对象取消程序和生存空间 + 家族扩大。",
+                "应作为独立强负链。"
+              ]
+            },
+            {
+              "title": "D. 反向限制也真实存在",
+              "details": [
+                "甘州攻克时，太祖一度欲尽坑全城，察罕指出百姓无辜，铁木真最终只追究直接杀其父和使者的三十六人。",
+                "说明他并非从不接受比例纠正。",
+                "但该类正证不足以覆盖跨地区的投降后集体处罚主模式。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 4,
+            "locator_count": 8,
+            "linked_source_count": 4,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        }
+      ]
+    }
+  }
+}

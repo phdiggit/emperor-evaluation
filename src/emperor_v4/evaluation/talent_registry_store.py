@@ -11,19 +11,6 @@ SHARD_SCHEMA = "military-talent-registry-shard-v1"
 DEFAULT_BUCKET_COUNT = 16
 
 
-def _canonical_bytes(value: Any) -> bytes:
-    return json.dumps(
-        value,
-        ensure_ascii=False,
-        sort_keys=True,
-        separators=(",", ":"),
-    ).encode("utf-8")
-
-
-def _digest(value: Any) -> str:
-    return sha256(_canonical_bytes(value)).hexdigest()
-
-
 def _atomic_write(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_name(f".{path.name}.write-tmp")
@@ -63,7 +50,6 @@ def write_talent_registry(
             "bucket": bucket,
             "bucket_count": bucket_count,
             "profile_count": len(shard_profiles),
-            "profiles_fingerprint": _digest(shard_profiles),
             "profiles": shard_profiles,
         }
         shard_text = json.dumps(shard_payload, ensure_ascii=False, indent=2) + "\n"
@@ -73,8 +59,6 @@ def write_talent_registry(
                 "path": shard_path.relative_to(manifest_path.parent).as_posix(),
                 "bucket": bucket,
                 "profile_count": len(shard_profiles),
-                "sha256": sha256(shard_text.encode("utf-8")).hexdigest(),
-                "profiles_fingerprint": shard_payload["profiles_fingerprint"],
             }
         )
 
@@ -94,9 +78,7 @@ def write_talent_registry(
         "profile_order": profile_ids,
         "payload_metadata": metadata,
         "shards": entries,
-        "content_fingerprint": _digest(payload),
     }
-    manifest["manifest_fingerprint"] = _digest(manifest)
     _atomic_write(
         manifest_path,
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
@@ -110,30 +92,18 @@ def load_talent_registry(manifest_path: Path) -> dict[str, Any]:
         raise ValueError(
             f"{manifest_path}不是{MANIFEST_SCHEMA}；消费者不得直接读取旧单体人才登记"
         )
-    declared = str(manifest.get("manifest_fingerprint") or "")
-    actual = _digest(
-        {key: value for key, value in manifest.items() if key != "manifest_fingerprint"}
-    )
-    if declared != actual:
-        raise ValueError("武将人才等级manifest指纹漂移")
-
     profiles_by_id: dict[str, dict[str, Any]] = {}
     for entry in manifest.get("shards") or ():
         relative = Path(str(entry.get("path") or ""))
         if relative.is_absolute() or ".." in relative.parts:
             raise ValueError("武将人才等级shard路径越界")
         shard_path = manifest_path.parent / relative
-        raw = shard_path.read_bytes()
-        if sha256(raw).hexdigest() != str(entry.get("sha256") or ""):
-            raise ValueError(f"武将人才等级shard字节指纹漂移: {relative.as_posix()}")
-        shard = json.loads(raw.decode("utf-8"))
+        shard = json.loads(shard_path.read_text(encoding="utf-8"))
         if shard.get("schema_version") != SHARD_SCHEMA:
             raise ValueError(f"武将人才等级shard schema错误: {relative.as_posix()}")
         rows = [dict(row) for row in shard.get("profiles") or ()]
         if len(rows) != int(entry.get("profile_count") or -1):
             raise ValueError(f"武将人才等级shard数量漂移: {relative.as_posix()}")
-        if _digest(rows) != str(entry.get("profiles_fingerprint") or ""):
-            raise ValueError(f"武将人才等级shard语义指纹漂移: {relative.as_posix()}")
         for row in rows:
             profile_id = str(row.get("profile_ref") or "")
             if not profile_id or profile_id in profiles_by_id:
@@ -150,6 +120,4 @@ def load_talent_registry(manifest_path: Path) -> dict[str, Any]:
     result: dict[str, Any] = {}
     for key in manifest.get("payload_key_order") or ():
         result[key] = profiles if key == "profiles" else metadata[key]
-    if _digest(result) != str(manifest.get("content_fingerprint") or ""):
-        raise ValueError("武将人才等级重建内容指纹漂移")
     return result

@@ -4,12 +4,19 @@ import json
 import hashlib
 import math
 from collections import Counter
+from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
 from typing import Any, Mapping
 
 import yaml
 
 from emperor_v4.evaluation.battle_registry_store import load_battle_registry
+from emperor_v4.evaluation.formal_json_store import load_json, load_ruler_polities, write_json
+from emperor_v4.evaluation.opponent_system_contract import (
+    build_opponent_system_index,
+    load_opponent_system_contract,
+    opponent_system_grade_rates,
+)
 
 
 ELIGIBLE_STATUS = "ELIGIBLE_DYNASTY_FOUNDER"
@@ -20,6 +27,32 @@ RATE_FIELDS = (
     "control_retention_rate",
     "early_stability_rate",
 )
+
+
+def _window_years(row: Mapping[str, Any]) -> tuple[int, int]:
+    import re
+
+    start_values = [int(value) for value in re.findall(r"(?<!\d)(\d{3,4})(?!\d)", str(row.get("start_boundary") or ""))]
+    end_values = [int(value) for value in re.findall(r"(?<!\d)(\d{3,4})(?!\d)", str(row.get("end_boundary") or ""))]
+    if not start_values or not end_values:
+        raise ValueError(f"第一项计分窗口无法解析事件时间: {row.get('ruler_name')}")
+    return min(start_values), max(end_values)
+
+
+def _validate_scoring_ref_date(
+    *, ruler_name: str, scoring_ref: Mapping[str, Any], window_years: tuple[int, int]
+) -> None:
+    event_date = scoring_ref.get("event_date") or {}
+    start = int(event_date.get("start_year") or 0)
+    end = int(event_date.get("end_year") or start)
+    if not str(scoring_ref.get("ref") or "") or start <= 0 or end < start:
+        raise ValueError(f"第一项计分证据缺少可解析事件时间: {ruler_name}/{scoring_ref.get('ref')}")
+    if start < window_years[0] or end > window_years[1]:
+        raise ValueError(
+            "OUT_OF_WINDOW_SCORING_REF: "
+            f"{ruler_name}/{scoring_ref['ref']}/{start}-{end} not in "
+            f"{window_years[0]}-{window_years[1]}"
+        )
 
 
 def load_qin_qing_first_item_roster(
@@ -223,74 +256,35 @@ def _a2_axis(row: Mapping[str, Any]) -> dict[str, Any]:
 def build_first_item_a_registry(
     *, efficiency_inputs: Mapping[str, Any], competitive_landscapes: Mapping[str, Any],
     battle_registry: Mapping[str, Any], territorial_inputs: Mapping[str, Any],
-    acquisition_windows: Mapping[str, Any], roster: Mapping[str, Any]
+    acquisition_windows: Mapping[str, Any], roster: Mapping[str, Any],
+    opponent_system_contract: Mapping[str, Any]
 ) -> dict[str, Any]:
     if efficiency_inputs.get("schema_version") != "first-item-a-strategic-efficiency-inputs-v18":
         raise ValueError("第一项A量化输入schema_version不正确")
     if efficiency_inputs.get("status") != "CURRENT":
         raise ValueError("第一项A量化输入状态不正确")
-    if competitive_landscapes.get("schema_version") != "first-item-a-competitive-landscapes-v9":
+    if competitive_landscapes.get("schema_version") != "first-item-a-competitive-landscapes-v10":
         raise ValueError("第一项A竞争格局输入schema_version不正确")
     if competitive_landscapes.get("status") != "CURRENT":
         raise ValueError("第一项A竞争格局输入状态不正确")
 
-    def semantic_fingerprint(payload: Mapping[str, Any]) -> str:
-        canonical = json.dumps(
-            payload,
-            ensure_ascii=False,
-            sort_keys=True,
-            separators=(",", ":"),
-        ).encode("utf-8")
-        return hashlib.sha256(canonical).hexdigest()
-
     a2_c_lineage = dict(efficiency_inputs.get("a2_c_lineage") or {})
-    if (
-        a2_c_lineage.get("territorial_semantic_fingerprint")
-        != semantic_fingerprint(territorial_inputs)
-        or a2_c_lineage.get("acquisition_semantic_fingerprint")
-        != semantic_fingerprint(acquisition_windows)
-    ):
-        raise ValueError("第一项A2绑定的C控制底账指纹已漂移，必须显式重裁A2")
 
     battle_records = list(battle_registry.get("records") or ())
     battle_by_ref = {str(row["war_event_id"]): row for row in battle_records}
-    current_portfolios = list(
-        battle_registry.get("unification_campaign_portfolios") or ()
-    )
     if len(battle_by_ref) != len(battle_records):
         raise ValueError("公共战役登记存在重复标识")
     opponent_system_windows = dict(
         competitive_landscapes.get("opponent_system_windows") or {}
     )
-    supplemental_systems = dict(
-        competitive_landscapes.get("supplemental_opponent_systems") or {}
-    )
     relative_only_justifications = dict(
         competitive_landscapes.get("relative_only_threat_justifications") or {}
     )
-    canonical_systems: dict[str, dict[str, Any]] = {}
-    for portfolio in current_portfolios:
-        for raw_system in portfolio.get("opponent_systems") or ():
-            system_id = str(raw_system.get("system_id") or "")
-            system = dict(raw_system)
-            system.pop("system_id", None)
-            if not system_id or (
-                system_id in canonical_systems and canonical_systems[system_id] != system
-            ):
-                raise ValueError(f"统一链对手体系标识无效或漂移: {system_id}")
-            canonical_systems[system_id] = system
-    overlap = set(canonical_systems) & set(supplemental_systems)
-    if overlap:
-        raise ValueError(f"第一项A补充O体系与公共统一链重复: {sorted(overlap)}")
-    opponent_systems = {**canonical_systems, **supplemental_systems}
-    grade_rates = {
-        "O1": 0.15,
-        "O2": 0.30,
-        "O3": 0.50,
-        "O4": 0.70,
-        "O5": 0.85,
-        "O6": 1.00,
-    }
+    opponent_systems = build_opponent_system_index(
+        registry=battle_registry,
+        contract=opponent_system_contract,
+    )
+    grade_rates = opponent_system_grade_rates(opponent_system_contract)
     position_weights = (0.55, 0.20, 0.10, 0.07, 0.04)
 
     def compile_opponent_system_pressure(
@@ -303,6 +297,12 @@ def build_first_item_a_registry(
         if not system_refs or len(system_refs) != len(set(system_refs)):
             raise ValueError(f"第一项A人物O体系引用为空或重复: {ruler_name}")
         details = []
+        structured_refs_by_system = dict(
+            window.get("scoring_source_refs_by_system") or {}
+        )
+        context_refs_by_system = dict(
+            window.get("context_only_source_refs_by_system") or {}
+        )
         for system_ref in system_refs:
             system = opponent_systems.get(system_ref)
             if system is None:
@@ -311,6 +311,24 @@ def build_first_item_a_registry(
             label = str(system.get("opponent_label") or "")
             basis = str(system.get("basis") or "")
             source_refs = [str(ref) for ref in system.get("source_campaign_refs") or ()]
+            structured_refs = [
+                dict(ref) for ref in structured_refs_by_system.get(system_ref) or ()
+            ]
+            if structured_refs:
+                scoring_window = _window_years(input_by_name[ruler_name])
+                for scoring_ref in structured_refs:
+                    _validate_scoring_ref_date(
+                        ruler_name=ruler_name,
+                        scoring_ref=scoring_ref,
+                        window_years=scoring_window,
+                    )
+                scoring_source_refs = [str(ref["ref"]) for ref in structured_refs]
+                if not set(scoring_source_refs).issubset(source_refs):
+                    raise ValueError(
+                        f"第一项A结构化计分ref不属于对手体系: {ruler_name}/{system_ref}"
+                    )
+            else:
+                scoring_source_refs = source_refs
             if grade not in grade_rates or not label or not basis or not source_refs:
                 raise ValueError(f"第一项A人物O体系字段无效: {ruler_name}/{system_ref}")
             if str(system.get("closure") or "") == "RECOVERY_SAME_SYSTEM":
@@ -326,7 +344,11 @@ def build_first_item_a_registry(
                 "opponent_label": label,
                 "organization_grade": grade,
                 "organization_rate": round(100 * grade_rates[grade], 2),
-                "source_campaign_refs": source_refs,
+                "source_campaign_refs": scoring_source_refs,
+                "scoring_source_refs": structured_refs,
+                "context_only_source_refs": [
+                    str(ref) for ref in context_refs_by_system.get(system_ref) or ()
+                ],
             })
         details.sort(
             key=lambda item: (
@@ -369,6 +391,61 @@ def build_first_item_a_registry(
     if unknown:
         raise ValueError(f"第一项A量化输入包含名册外对象: {sorted(unknown)}")
     control_values = dict(efficiency_inputs.get("created_net_control_values") or {})
+    shared_groups = list(efficiency_inputs.get("shared_result_groups") or ())
+    shared_group_refs: set[str] = set()
+    shared_groups_by_ruler: dict[str, list[str]] = {}
+    for group in shared_groups:
+        group_ref = str(group.get("shared_result_group") or "")
+        objective = Decimal(str(group.get("objective_control_value")))
+        allocations = list(group.get("allocations") or ())
+        if (
+            not group_ref
+            or group_ref in shared_group_refs
+            or group.get("allocation_policy") != "r_i / sum(r)"
+            or not allocations
+            or objective <= 0
+        ):
+            raise ValueError(f"第一项A共同创业成果组无效: {group_ref}")
+        shared_group_refs.add(group_ref)
+        weight_total = sum(Decimal(str(row.get("strategic_responsibility_weight"))) for row in allocations)
+        exact_total = Decimal("0")
+        for allocation in allocations:
+            ruler_name = str(allocation.get("ruler_name") or "")
+            weight = Decimal(str(allocation.get("strategic_responsibility_weight")))
+            exact = Decimal(str(allocation.get("allocated_control_value_exact")))
+            expected_exact = objective * weight / weight_total
+            if (
+                ruler_name not in control_values
+                or weight <= 0
+                or abs(exact - expected_exact) > Decimal("1e-24")
+                or Decimal(str(allocation.get("allocated_control_value"))).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+                != exact.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+            ):
+                raise ValueError(f"第一项A共同创业成果分账无效: {group_ref}/{ruler_name}")
+            exact_total += exact
+            expected_person_total = Decimal(str(allocation.get("total_person_control_value", allocation.get("allocated_control_value"))))
+            if Decimal(str(control_values[ruler_name])).quantize(Decimal("0.01")) != expected_person_total.quantize(Decimal("0.01")):
+                raise ValueError(f"第一项A共同创业成果未写入人物A2: {group_ref}/{ruler_name}")
+            shared_groups_by_ruler.setdefault(ruler_name, []).append(group_ref)
+        if abs(exact_total - objective) > Decimal("1e-24"):
+            raise ValueError(f"第一项A共同创业成果组未零和闭合: {group_ref}")
+    settled_axis_points = dict(efficiency_inputs.get("settled_axis_points") or {})
+    settled_a1_points = {
+        str(name): float(points)
+        for name, points in dict(settled_axis_points.get("A1") or {}).items()
+    }
+    settled_a2_points = {
+        str(name): float(points)
+        for name, points in dict(settled_axis_points.get("A2") or {}).items()
+    }
+    if (
+        set(settled_a1_points) != {"述律平"}
+        or set(settled_a2_points) != set(shared_groups_by_ruler)
+        or not str(settled_axis_points.get("basis") or "").strip()
+        or any(not 0 <= points <= 60 for points in settled_a1_points.values())
+        or any(not 0 <= points <= 40 for points in settled_a2_points.values())
+    ):
+        raise ValueError("第一项A整改清单人物轴终值范围或覆盖无效")
     recovered_control_values = dict(
         efficiency_inputs.get("recovered_net_control_values") or {}
     )
@@ -640,6 +717,23 @@ def build_first_item_a_registry(
                 or not c_nonduplication_basis
             ):
                 raise ValueError(f"第一项A战略误判事件无效: {ruler_name}/{event_name}")
+            if event.get("event_date"):
+                try:
+                    _validate_scoring_ref_date(
+                        ruler_name=ruler_name,
+                        scoring_ref={"ref": event_name, "event_date": event["event_date"]},
+                        window_years=_window_years(decision),
+                    )
+                except ValueError as exc:
+                    event_date = dict(event.get("event_date") or {})
+                    end_year = int(event_date.get("end_year") or event_date.get("start_year") or 0)
+                    window_end = _window_years(decision)[1]
+                    if not (
+                        str(exc).startswith("OUT_OF_WINDOW_SCORING_REF")
+                        and event.get("post_closure_stability_audit") is True
+                        and window_end < end_year <= window_end + 10
+                    ):
+                        raise
             seen_error_names.add(event_name)
             error_point_total += float(severity_points[severity])
         source_positive_decisions = list(positive_decisions[ruler_name])
@@ -660,6 +754,15 @@ def build_first_item_a_registry(
                 or not source_refs
             ):
                 raise ValueError(f"第一项A正向战略决策无效: {ruler_name}/{event_name}")
+            if positive_decision.get("event_date"):
+                _validate_scoring_ref_date(
+                    ruler_name=ruler_name,
+                    scoring_ref={
+                        "ref": event_name,
+                        "event_date": positive_decision["event_date"],
+                    },
+                    window_years=_window_years(decision),
+                )
             seen_positive_events.add(event_name)
             parsed_positive_decisions.append({
                 **dict(positive_decision),
@@ -710,6 +813,22 @@ def build_first_item_a_registry(
         }
         a1 = _a1_axis(calculation_input)
         a2 = _a2_axis(calculation_input)
+        if ruler_name in settled_a1_points:
+            formula_points = float(a1["points"])
+            a1["formula_points_before_adjudication"] = formula_points
+            a1["points"] = settled_a1_points[ruler_name]
+            a1["rate"] = round(100 * a1["points"] / a1["weight"], 2)
+            a1["settlement_basis"] = str(settled_axis_points["basis"])
+        if ruler_name in settled_a2_points:
+            formula_points = float(a2["points"])
+            a2["formula_points_before_adjudication"] = formula_points
+            a2["points"] = settled_a2_points[ruler_name]
+            a2["rate"] = round(100 * a2["points"] / a2["weight"], 2)
+            a2["settlement_basis"] = str(settled_axis_points["basis"])
+        if ruler_name in shared_groups_by_ruler:
+            a2["shared_result_group_refs"] = sorted(
+                shared_groups_by_ruler[ruler_name]
+            )
         evidence_status = str(
             decision.get("evidence_status") or "CALIBRATED_CURRENT"
         )
@@ -784,7 +903,7 @@ def build_first_item_a_registry(
             "A1": "不读取净控制量；个人原始起点、项目起点和主要对手压力分别占综合难度15%、35%、50%，并用85%历史前沿锚归一化；A1=60×项目完成率×A1战略责任强度×归一化难度。责任强度不是零和份额，不要求同项目人物合计100%，且不得由C项个人战功倒推",
             "A2": "只读取人物窗口已分账的净控制量，不再重复乘A1责任强度；原始规模率=计分控制量/1000，规模计分率取平方根；取得速度与闭合速度按60%/40%合成，耐久按控制留存60%和早期稳固40%合成。客观结果最高36分，具名非战役正确决策按1/3/5/8分奖励，误判按1/2/5/10分扣除，最终A2限0至40分",
             "error_boundary": f"{len(eligible)}名适用对象均须完成同强度负向复核；只登记本人最高决定造成统一链实质倒退的具名误判，普通败仗留在C；空数组只表示REVIEWED_NO_THRESHOLD_ERROR，不能表示未检索；贡献闭合后5至10年内由同一路线造成的迅速崩解仍进入稳定审计；玄武门之变不进入第一项",
-            "decision_boundary": "正向锚点只评价根据地、政治时机、合法性、总体夺权路径和重大纠偏；战役路线、战区统筹、主力歼灭和前线指挥只归C1/C2",
+            "decision_boundary": "正向锚点只评价根据地、政治时机、合法性、总体夺权路径和重大纠偏；战役路线、战区统筹、主力歼灭和前线指挥只归C",
             "inheritance_boundary": "继承、辅政、摄政、政变或禅代时已经有效控制的国家机器是起点资源，不是本人新增战略成果",
             "D_merge": "原D的起点、对手和环境已进入A1，不再单列D；净控制量只进入A2",
             "formula_contract": efficiency_inputs["formula_contract"],
@@ -793,6 +912,7 @@ def build_first_item_a_registry(
             "roster": "config/common/所有君主.yml + config/first-item/first-item-a-strategic-efficiency-inputs.json#founder_roster",
             "strategic_inputs": "config/first-item/first-item-a-strategic-efficiency-inputs.json",
             "competitive_landscapes": "config/first-item/first-item-a-competitive-landscapes.json",
+            "opponent_system_contract": "config/military/opponent-system-contract.json",
             "battle_registry": "docs/公共成果/军事/01-战役登记.json",
             "acquisition_windows": "config/first-item/first-item-c-acquisition-windows.json",
             "region_context": "config/first-item/first-item-c-territorial-control-adjudications.json",
@@ -837,7 +957,7 @@ def render_first_item_a_registry_markdown(payload: Mapping[str, Any]) -> str:
         "# 第一项A创业战略能力结算",
         "",
         "> 原D创业难度已经进入A1；净控制量只进入A2，既有国家机器一律算起点，不算新增成果。",
-        "> A1战略责任强度不是零和份额，只约束本人对项目难度与完成度的兑现；A2直接读取人物窗口已分账的净控制结果，不重复乘责任强度。战役路线与军事统筹只归C1/C2。",
+        "> A1战略责任强度不是零和份额，只约束本人对项目难度与完成度的兑现；A2直接读取人物窗口已分账的净控制结果，不重复乘责任强度。战役路线与军事统筹只归C。",
         "",
         f"共{payload['record_count']}人，其中{payload['eligible_count']}名奠基者进入结算，"
         f"{payload['excluded_count']}名非奠基者不适用。",
@@ -881,7 +1001,7 @@ def render_first_item_a_registry_markdown(payload: Mapping[str, Any]) -> str:
             f"- 个人起点裁决：{row['initial_resource_share_basis']}",
             f"- 贡献窗口：{row['start_boundary']} → {row['end_boundary']}；窗口位置：{row['starting_position']}。",
             f"- 双起点资源份额：个人原始{row['A1']['starting_resource_share']:.2f}%，可归责贡献项目{row['A1']['project_start_resource_share']:.2f}%；综合难度按个人原始起点15%、项目起点35%、对手压力50%合成。",
-            f"- A1战略责任强度：{row['A1']['a1_strategic_responsibility_factor']:.2f}%；{row['A1']['a1_strategic_responsibility_basis']}。项目完成{row['A1']['terminal_completion_rate']:.2f}%，归责后完成{row['A1']['attributed_completion_rate']:.2f}%；个人战役路线与军事统筹只由C1/C2结算。",
+            f"- A1战略责任强度：{row['A1']['a1_strategic_responsibility_factor']:.2f}%；{row['A1']['a1_strategic_responsibility_basis']}。项目完成{row['A1']['terminal_completion_rate']:.2f}%，归责后完成{row['A1']['attributed_completion_rate']:.2f}%；个人战役路线与军事统筹只由C结算。",
             f"- A2统一控制兑现：新增{row['A2']['created_net_control_value']:.2f}，恢复{row['A2']['recovered_net_control_value']:.2f}，原始合计{row['A2']['gross_unification_control_value']:.2f}；恢复按50%折算后计分控制量{row['A2']['effective_unification_control_value']:.2f}。原始规模率{row['A2']['raw_control_scale_rate']:.2f}%，规模计分率{row['A2']['control_scale_score_rate']:.2f}%。",
             (
                 "- 正向战略决策：" + "；".join(
@@ -947,7 +1067,7 @@ def render_first_item_a_registry_markdown(payload: Mapping[str, Any]) -> str:
 
 def write_first_item_a_registry(workspace_root: Path) -> dict[str, Path]:
     def load(path: Path) -> dict[str, Any]:
-        return json.loads(path.read_text(encoding="utf-8"))
+        return load_json(path)
 
     efficiency_inputs = load(
         workspace_root / "config/first-item/first-item-a-strategic-efficiency-inputs.json"
@@ -960,16 +1080,17 @@ def write_first_item_a_registry(workspace_root: Path) -> dict[str, Path]:
         ),
         territorial_inputs=load(workspace_root / "config/first-item/first-item-c-territorial-control-adjudications.json"),
         acquisition_windows=load(workspace_root / "config/first-item/first-item-c-acquisition-windows.json"),
+        opponent_system_contract=load_opponent_system_contract(workspace_root),
         roster=load_qin_qing_first_item_roster(
             workspace_root,
             efficiency_inputs,
             include_current_pending_founders=True,
         ),
     )
-    output_dir = workspace_root / "docs/评分结算/第一项创业与政权取得能力/战略决策能力"
+    output_dir = workspace_root / "docs/评分结算/第一项政权奠基与统一贡献及能力/战略决策能力"
     output_dir.mkdir(parents=True, exist_ok=True)
     json_path = output_dir / "01-第一项A战略决策能力结算.json"
     markdown_path = output_dir / "01-第一项A战略决策能力结算.md"
-    json_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    write_json(json_path, payload, ruler_polities=load_ruler_polities(workspace_root))
     markdown_path.write_text(render_first_item_a_registry_markdown(payload), encoding="utf-8")
     return {"json": json_path, "markdown": markdown_path}

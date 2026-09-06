@@ -1,0 +1,40 @@
+{
+  "schema_id": "military-cost-sensitivity-cases-v1",
+  "cases": [
+    {
+      "case_id": "WZT-KHITAN-DENOMINATOR",
+      "ruler_id": "RULER-TANG-WUZETIAN",
+      "baseline_cost_band": "C5",
+      "baseline_cost_position": "HIGH",
+      "source_refs": [
+        "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/02-武则天契丹军损数量证据审计.md"
+      ],
+      "scenarios": [
+        {
+          "scenario_id": "VANGUARD_SCOPE",
+          "status": "SUPPORTED_INTERPRETATION",
+          "label": "受损措辞主要指前锋",
+          "cost_band": "C5",
+          "cost_position": "HIGH",
+          "basis": "前锋重损、后军退出；前锋人数未载，十万死亡下界未证。连续兵团毁损、再投入和军资弃置仍支持C5高位。"
+        },
+        {
+          "scenario_id": "BROADER_UNRESOLVED_SCOPE",
+          "status": "SUPPORTED_INTERPRETATION",
+          "label": "可能包括更广的参战部队",
+          "cost_band": "C5",
+          "cost_position": "HIGH",
+          "basis": "不限定死亡仅发生于前锋，但各部死亡与撤退比例仍未知，不能把总军额当死亡分母。C5其他准入事实不变。"
+        },
+        {
+          "scenario_id": "WHOLE_FORCE_DENOMINATOR",
+          "status": "REJECTED_DIAGNOSTIC",
+          "label": "把总军额直接套为死亡分母",
+          "cost_band": "C6",
+          "cost_position": "HIGH",
+          "basis": "仅诊断被排除的分母推断对结果的影响。前锋与后军范围未闭合，不能据此保留C6；不属于合法替代裁决，不进入允许范围。"
+        }
+      ]
+    }
+  ]
+}

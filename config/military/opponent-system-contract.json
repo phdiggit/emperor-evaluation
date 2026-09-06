@@ -1,0 +1,1279 @@
+{
+  "schema_version": "opponent-system-contract-v1",
+  "status": "CURRENT",
+  "purpose": "跨第一项与第三项统一裁决实际对手战争机器强度；只定义O档和公共补充体系，不保存人物分数。",
+  "contract_document": "docs/证据规则/军事对手战争机器O档合同.md",
+  "grade_order": [
+    "O1",
+    "O2",
+    "O3",
+    "O4",
+    "O5",
+    "O6"
+  ],
+  "grades": {
+    "O1": {
+      "rank": 1,
+      "label": "地方部众或残余据点",
+      "definition": "零散地方力量、残余据点或低于主要方向的短时武装。"
+    },
+    "O2": {
+      "rank": 2,
+      "label": "局部武装或松散战争集团",
+      "definition": "大型流动军、松散联盟或短期割据，可形成局部大会战，但缺乏稳定国家机器。"
+    },
+    "O3": {
+      "rank": 3,
+      "label": "成建制方面军或区域对手",
+      "definition": "具有统一指挥并能持续负责主要方向，但国家纵深、财政兵员或再生能力不完整。"
+    },
+    "O4": {
+      "rank": 4,
+      "label": "成熟区域战争机器",
+      "definition": "具有稳定区域、行政征补、财政兵员和持续独立作战能力，但相对评价主体仍有明显层级差或不足以争夺时代主导权。"
+    },
+    "O5": {
+      "rank": 5,
+      "label": "同级竞争极",
+      "definition": "双方处于大体同一竞争层级，对手具有成熟中枢、跨区域主力和持续再动员能力，真实具备赢下主要战略竞争的机会。"
+    },
+    "O6": {
+      "rank": 6,
+      "label": "压制级竞争极",
+      "definition": "对手在实际竞争窗口明显占据战略优势，能持续逼迫评价主体的生存、核心根据地或主要战略目标发生重大现实危机。"
+    }
+  },
+  "consumer_contracts": {
+    "first_item_opponent_pressure": {
+      "rate_by_grade": {
+        "O1": 0.15,
+        "O2": 0.3,
+        "O3": 0.5,
+        "O4": 0.7,
+        "O5": 0.85,
+        "O6": 1.0
+      }
+    },
+    "third_item_c_high_difficulty": {
+      "minimum_grade": "O4"
+    },
+    "third_item_ab_maintenance_pressure": {
+      "tested_minimum_grade": "O4",
+      "severe_minimum_grade": "O5",
+      "historic_minimum_grade": "O6"
+    }
+  },
+  "supplemental_opponent_systems": {
+    "OPP-BUFAN-SIXTOWNS": {
+      "opponent_label": "步蕃及六镇动乱武装",
+      "organization_grade": "O2",
+      "basis": "属大股流动武装与降户危机，缺乏稳定国家中枢、财政和纵深。",
+      "source_campaign_refs": [
+        "WAR-LEAD-154-05"
+      ]
+    },
+    "OPP-CAO-LUBU": {
+      "opponent_label": "吕布徐州军政集团",
+      "organization_grade": "O3",
+      "basis": "具有徐州据点、成建制主力和外援，但未形成成熟区域国家财政与持续再生体系。",
+      "source_campaign_refs": [
+        "WAR-LEAD-HAN-XUZHOU-LUBU-196-198"
+      ]
+    },
+    "OPP-CAO-YUANSHAO": {
+      "opponent_label": "袁绍河北国家与主力体系",
+      "organization_grade": "O5",
+      "basis": "据四州、人户百万并能动员十万步兵万骑，是曹操创业期同级全国竞争极；官渡和河北收束属于同一体系不同阶段。",
+      "source_campaign_refs": [
+        "WAR-LEAD-HAN-GUANDU-199-200",
+        "WAR-LEAD-HAN-HEBEI-201-205"
+      ]
+    },
+    "OPP-CAO-ZHANGLU": {
+      "opponent_label": "张鲁汉中国家体系",
+      "organization_grade": "O4",
+      "basis": "长期控制汉中、具独立政教中枢、山险纵深和数万守军，达到成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-HAN-HANZHONG-215"
+      ]
+    },
+    "OPP-CAO-ZHANGXIU": {
+      "opponent_label": "张绣南阳军政集团",
+      "organization_grade": "O3",
+      "basis": "拥有独立主力、南阳据点和刘表支援，但缺乏成熟国家中枢与财政纵深。",
+      "source_campaign_refs": [
+        "WAR-LEAD-HAN-CAO-ZHANGXIU-197-199"
+      ]
+    },
+    "OPP-CAOWEI-EASTERN-WU": {
+      "opponent_label": "孙吴东兴方向国家主力",
+      "organization_grade": "O3",
+      "basis": "孙吴实体可达O5，但司马师窗口只实际承受东兴单一方向投入，未承受全国机器的持续投送与再动员；按成建制方面军O3，不传播母体国家档。",
+      "source_campaign_refs": [
+        "WAR-LEAD-SG-WEI-WU-DONGXING-252"
+      ]
+    },
+    "OPP-CAOWEI-HUAINAN-REBELS": {
+      "opponent_label": "毌丘俭文钦淮南叛军",
+      "organization_grade": "O3",
+      "basis": "五六万成建制州镇军构成独立区域内战方向，但没有成熟国家中枢和纵深。",
+      "source_campaign_refs": [
+        "WAR-LEAD-SG-WEI-HUAINAN-255"
+      ]
+    },
+    "OPP-CHEN-SANWU-CLANS": {
+      "opponent_label": "三吴王氏旧部军政集团",
+      "organization_grade": "O3",
+      "basis": "拥有多郡据点和成建制抵抗力量，但未形成成熟区域国家中枢。",
+      "source_campaign_refs": [
+        "WAR-LEAD-166-SANWU-555-556"
+      ]
+    },
+    "OPP-CHEN-XUSIHUI-RENYUE": {
+      "opponent_label": "徐嗣徽任约叛军",
+      "organization_grade": "O3",
+      "basis": "拥有五千精兵、石头城据点并可配合外援，属于成建制区域内战方向。",
+      "source_campaign_refs": [
+        "WAR-LEAD-166-XUSIHUI-555",
+        "WAR-LEAD-166-QI-JIANKANG-556"
+      ]
+    },
+    "OPP-DAI-STATE": {
+      "opponent_label": "代国军政体系",
+      "organization_grade": "O4",
+      "basis": "具独立区域中枢、北方据地和成建制骑兵力量，属于成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-104-DAI-376"
+      ]
+    },
+    "OPP-DIWEI-STATE": {
+      "opponent_label": "翟魏军政体系",
+      "organization_grade": "O3",
+      "basis": "拥有七郡、据点和成建制军队，但稳定财政、疆域纵深与多线能力不足。",
+      "source_campaign_refs": [
+        "WAR-LEAD-108-DIWEI-392"
+      ]
+    },
+    "OPP-EARLY-QIN-ZHANGPING": {
+      "opponent_label": "张平并州军政集团",
+      "organization_grade": "O3",
+      "basis": "拥有区域据点、部民和可独立作战主力，达到成建制区域军政体系。",
+      "source_campaign_refs": [
+        "WAR-LEAD-100-ZHANGPING-358"
+      ]
+    },
+    "OPP-EASTERN-JIN-DUZENG": {
+      "opponent_label": "杜曾汉沔军政集团",
+      "organization_grade": "O3",
+      "basis": "具有区域根据地、成建制主力和持续抵抗能力。",
+      "source_campaign_refs": [
+        "WAR-LEAD-HANMIAN-317"
+      ]
+    },
+    "OPP-EASTERN-JIN-QINGYAN": {
+      "opponent_label": "东晋青兖地方防务体系",
+      "organization_grade": "O3",
+      "basis": "实际面对的是青兖地方成建制守军，未证明东晋全国机器在该窗口完整投入。",
+      "source_campaign_refs": [
+        "WAR-LEAD-108-LATERYAN-SHANDONG-394"
+      ]
+    },
+    "OPP-ERZHU-STATE": {
+      "opponent_label": "尔朱氏军政体系",
+      "organization_grade": "O4",
+      "basis": "尔朱氏一度控制北魏中央并拥有跨区域主力，但军政联盟迅速分裂，缺乏稳定财政中枢与败后制度化再动员，不足以作为同级时代竞争极。",
+      "source_campaign_refs": [
+        "WAR-LEAD-155-05",
+        "WAR-LEAD-156-01"
+      ]
+    },
+    "OPP-FIVEDYNASTIES-DONGCHUAN": {
+      "opponent_label": "东川军政体系",
+      "organization_grade": "O4",
+      "basis": "拥有五千里区域、七万守军、外援和三年五十余战的持续再生能力。",
+      "source_campaign_refs": [
+        "WAR-LEAD-261-TWOSICHUAN-END"
+      ]
+    },
+    "OPP-FIVEDYNASTIES-FENGXIANG": {
+      "opponent_label": "李茂贞凤翔战争机器",
+      "organization_grade": "O4",
+      "basis": "长期控制凤翔与关中节点，拥有独立军镇财政、主力和挟持中央的持续能力。",
+      "source_campaign_refs": [
+        "WAR-LEAD-263-FENGXIANG-END"
+      ]
+    },
+    "OPP-FIVEDYNASTIES-HEBEI-TOWNS": {
+      "opponent_label": "成德义武等河北军镇体系",
+      "organization_grade": "O3",
+      "basis": "多个成建制军镇能独立出兵，但未形成单一成熟区域国家机器，作为复合区域方向合并到一项O3。",
+      "source_campaign_refs": [
+        "WAR-LEAD-262-HEBEI-END"
+      ]
+    },
+    "OPP-FIVEDYNASTIES-HEDONG": {
+      "opponent_label": "河东李克用战争机器",
+      "organization_grade": "O4",
+      "basis": "具有成熟军镇财政、稳定根据地、跨区骑兵主力和持续战争能力。",
+      "source_campaign_refs": [
+        "WAR-LEAD-262-HEBEI-END"
+      ]
+    },
+    "OPP-FIVEDYNASTIES-JINGNAN": {
+      "opponent_label": "荆南军政体系",
+      "organization_grade": "O3",
+      "basis": "具有江陵核心、独立军镇和区域守军，但未证明成熟国家级再生体系。",
+      "source_campaign_refs": [
+        "WAR-LEAD-265-XIANGJING-END"
+      ]
+    },
+    "OPP-FIVEDYNASTIES-PINGLU": {
+      "opponent_label": "王师范淄青战争机器",
+      "organization_grade": "O4",
+      "basis": "控制青齐兖登莱密等连续州域并维持独立主力，达到成熟区域战争机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-264-PINGLU-END"
+      ]
+    },
+    "OPP-FIVEDYNASTIES-SHANNAN-EAST": {
+      "opponent_label": "赵匡凝山南东道体系",
+      "organization_grade": "O3",
+      "basis": "具有独立军镇、区域据点和成建制兵力，但未证明成熟国家级再生体系。",
+      "source_campaign_refs": [
+        "WAR-LEAD-265-XIANGJING-END"
+      ]
+    },
+    "OPP-FIVEDYNASTIES-WEIBO": {
+      "opponent_label": "魏博军镇战争机器",
+      "organization_grade": "O4",
+      "basis": "拥有成熟军镇财政、三万级核心牙军、区域纵深和持续再动员能力；兵变与对外战争均属同一体系。",
+      "source_campaign_refs": [
+        "WAR-LEAD-257-WEIBO-END",
+        "WAR-LEAD-258-BIANWEI-END"
+      ]
+    },
+    "OPP-FIVEDYNASTIES-XICHUAN": {
+      "opponent_label": "西川军政体系",
+      "organization_grade": "O4",
+      "basis": "依托成都平原和成熟军镇财政维持多年战争，是独立成熟区域战争机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-258-XICHUAN-END"
+      ]
+    },
+    "OPP-FIVEDYNASTIES-XUZHOU": {
+      "opponent_label": "徐州时溥军政体系",
+      "organization_grade": "O3",
+      "basis": "具有独立军镇和区域兵力，但选定记录仅证明徐州方向的阶段闭合，未闭合成熟国家级再生能力。",
+      "source_campaign_refs": [
+        "WAR-LEAD-259-XUBIAN-END"
+      ]
+    },
+    "OPP-FIVEDYNASTIES-YANGFUGONG": {
+      "opponent_label": "杨复恭山南宿卫方镇集团",
+      "organization_grade": "O3",
+      "basis": "宿卫与方镇结合形成独立区域军事集团，但没有成熟国家财政与长期区域统治闭合。",
+      "source_campaign_refs": [
+        "WAR-LEAD-259-YANGFUGONG-END"
+      ]
+    },
+    "OPP-FIVEDYNASTIES-YOUZHOU": {
+      "opponent_label": "幽州刘仁恭战争机器",
+      "organization_grade": "O4",
+      "basis": "具有成熟军镇财政、幽燕纵深和数万级持续动员能力。",
+      "source_campaign_refs": [
+        "WAR-LEAD-262-HEBEI-END"
+      ]
+    },
+    "OPP-FIVEDYNASTIES-YUNZHOU": {
+      "opponent_label": "朱瑄朱瑾兖郓联合作战体系",
+      "organization_grade": "O3",
+      "basis": "兖州、郓州两镇长期协作并各有主力与军镇财政，但未闭合单一军政中枢和共同征补；按持续联合作战方向O3，不合并传播为一个O4。",
+      "source_campaign_refs": [
+        "WAR-LEAD-261-BIANYUN-END"
+      ]
+    },
+    "OPP-FORMER-QIN-GUANZHONG-RIVALS": {
+      "opponent_label": "关中杜洪等割据体系",
+      "organization_grade": "O3",
+      "basis": "依托关中州郡和区域兵力阻碍苻健入关，但未形成成熟统一国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-098-FUJIAN-350"
+      ]
+    },
+    "OPP-FORMER-YAN-STATE": {
+      "opponent_label": "前燕国家机器",
+      "organization_grade": "O4",
+      "basis": "具独立中枢、河北辽西纵深和成建制主力，属于成熟区域国家机器。",
+      "source_campaign_refs": [
+        "CAMPAIGN-JIN-YAN-RANWEI-END-352"
+      ]
+    },
+    "OPP-FORMER-ZHAO-JINZHUN": {
+      "opponent_label": "靳准平阳政变集团",
+      "organization_grade": "O3",
+      "basis": "控制平阳中央节点和禁军残部，能形成区域危机，但缺乏独立成熟国家纵深。",
+      "source_campaign_refs": [
+        "WAR-LEAD-PINGYANG-318"
+      ]
+    },
+    "OPP-HANZHAO-PINGYANG-GARRISONS": {
+      "opponent_label": "西晋平阳区域守军",
+      "organization_grade": "O2",
+      "basis": "创业节点只证明地方守军和分散抵抗，未闭合成建制独立方面军或国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-HANZHAO-308"
+      ]
+    },
+    "OPP-HANZHAO-STATE": {
+      "opponent_label": "汉赵国家机器",
+      "organization_grade": "O5",
+      "basis": "拥有独立中央、核心疆域、全国级动员和摧毁西晋中央的国家主力，是当时第一梯队竞争极。",
+      "source_campaign_refs": [
+        "WAR-LEAD-HEDONG-317"
+      ]
+    },
+    "OPP-HELAN-TRIBE": {
+      "opponent_label": "贺兰部武装",
+      "organization_grade": "O2",
+      "basis": "属于可独立机动作战的部族联盟，但缺乏稳定国家财政和跨区再生体系。",
+      "source_campaign_refs": [
+        "WAR-LEAD-107-YAN-HELAN-389-391"
+      ]
+    },
+    "OPP-HAN-XIONGNU-GAOZU": {
+      "opponent_label": "汉高帝白登窗口匈奴战争机器",
+      "organization_grade": "O6",
+      "basis": "冒顿匈奴具成熟汗国中枢、跨区域优势骑兵与持续再动员能力，能够联合韩王信压迫汉朝北方核心，并在白登围困亲征皇帝及国家主力七日，迫使汉廷此后以和亲和长期边塞防御重排安全秩序，属于实际形成国家存续危机的O6战争机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-HAN-XIONGNU-BAIDENG"
+      ]
+    },
+    "OPP-HAN-XIONGNU-JINGDI": {
+      "opponent_label": "汉景帝窗口匈奴战争机器",
+      "organization_grade": "O6",
+      "basis": "匈奴在景帝窗口仍保持成熟汗国中枢、跨区域骑兵主力和持续再动员能力；前152至前142年多次跨不同边郡入侵，和亲不能阻止其持续取得边境主动，汉方只能逐次增补守备而未形成长期反制，属于在实际窗口持续压制主要北方方向的O6战争机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-HAN-XIONGNU-152-142"
+      ]
+    },
+    "OPP-HAN-XIONGNU-WENDI": {
+      "opponent_label": "汉文帝窗口匈奴战争机器",
+      "organization_grade": "O6",
+      "basis": "匈奴在文帝窗口保持成熟汗国中枢、跨区域骑兵主力和持续再动员能力；右贤王入上郡后汉动员八万五千车骑，老上单于又以十四万骑深入塞内并迫近关中，此后仍有六万骑入边与连年侵扰，足以持续压制汉朝北方战略并现实检验核心区和边防支点，属于O6。",
+      "source_campaign_refs": [
+        "WAR-LEAD-HAN-XIONGNU-177",
+        "WAR-LEAD-HAN-XIONGNU-166",
+        "WAR-LEAD-HAN-XIONGNU-162",
+        "WAR-LEAD-HAN-XIONGNU-158"
+      ]
+    },
+    "OPP-HELIAN-MOYIGAN": {
+      "opponent_label": "没弈干部众",
+      "organization_grade": "O2",
+      "basis": "具有可被吞并的部众和机动兵力，但缺乏成熟区域军政中枢。",
+      "source_campaign_refs": [
+        "WAR-LEAD-114-XIA-407"
+      ]
+    },
+    "OPP-HELIAN-SOUTHERN-LIANG": {
+      "opponent_label": "南凉国家机器",
+      "organization_grade": "O4",
+      "basis": "具有独立政权、河陇根据地和二三万级持续主力，是成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-114-XIA-407"
+      ]
+    },
+    "OPP-HOUJING-STATE": {
+      "opponent_label": "侯景政权战争机器",
+      "organization_grade": "O4",
+      "basis": "控制建康及江东核心并维持独立军政体系，属于成熟区域国家机器。",
+      "source_campaign_refs": [
+        "CAMPAIGN-NC-HOUJING-JIANKANG-END-552"
+      ]
+    },
+    "OPP-HOUMOCHEN-YUE": {
+      "opponent_label": "侯莫陈悦关陇军政集团",
+      "organization_grade": "O3",
+      "basis": "拥有成建制部曲和区域据点，但没有成熟独立国家中枢。",
+      "source_campaign_refs": [
+        "WAR-LEAD-156-02"
+      ]
+    },
+    "OPP-JIN-HUANCHU": {
+      "opponent_label": "桓楚及其残余体系",
+      "organization_grade": "O4",
+      "basis": "曾建立区域政权并保有荆江主力与再起能力，按同一成熟区域体系去重。",
+      "source_campaign_refs": [
+        "WAR-LEAD-115-HUAN-REMNANTS-410"
+      ]
+    },
+    "OPP-JIN-LIUYI": {
+      "opponent_label": "刘毅荆州军政集团",
+      "organization_grade": "O4",
+      "basis": "控制荆州上游、拥有独立军政中枢和成建制主力，达到成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-116-LIUYI-412"
+      ]
+    },
+    "OPP-JIN-SIMAXIUZHI": {
+      "opponent_label": "司马休之荆州军政集团",
+      "organization_grade": "O4",
+      "basis": "据荆州并能组织独立主力持续抵抗，达到成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-117-JINGZHOU-415"
+      ]
+    },
+    "OPP-LATER-QIN-STATE": {
+      "opponent_label": "后秦国家机器",
+      "organization_grade": "O4",
+      "basis": "具独立国家中枢、关中纵深和成建制军队；战役窗口面对的是其末期但仍可持续抵抗的区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-118-LIUYU-QIN-417"
+      ]
+    },
+    "OPP-LATER-QIN-WESTERN-QIN": {
+      "opponent_label": "西秦国家机器",
+      "organization_grade": "O4",
+      "basis": "西秦具有独立政权、区域根据地、数万级主力和复国能力，是成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-111-LATERCIN-WESTQIN-400"
+      ]
+    },
+    "OPP-LATER-TANG-KHITAN": {
+      "opponent_label": "契丹国家战争机器",
+      "organization_grade": "O5",
+      "basis": "能投入七万级远征军、持续跨境用兵并争夺幽燕，是当时第一梯队草原国家机器。",
+      "source_campaign_refs": [
+        "WAR-POST-9998E9516534C06A40FD"
+      ]
+    },
+    "OPP-LATER-TANG-LATER-LIANG": {
+      "opponent_label": "后梁国家机器",
+      "organization_grade": "O5",
+      "basis": "拥有独立中央、中原财政纵深和十万级持续主力，是后唐创业期同级国家竞争极。",
+      "source_campaign_refs": [
+        "WAR-POST-34D672B441AE8F7F3B36",
+        "WAR-POST-3EFB2F527C054754DE83",
+        "WAR-POST-DFA12355430CB93EFDDB"
+      ]
+    },
+    "OPP-LATER-TANG-YAN": {
+      "opponent_label": "刘守光燕国战争机器",
+      "organization_grade": "O4",
+      "basis": "具有幽燕区域政权、军镇财政和持续主力，但未达到全国第一梯队。",
+      "source_campaign_refs": [
+        "WAR-POST-8CF29FEF82461C4CCF78"
+      ]
+    },
+    "OPP-LATER-ZHAO-CAOYI": {
+      "opponent_label": "曹嶷青州军政集团",
+      "organization_grade": "O3",
+      "basis": "具有青州据点、成建制军队和区域守御能力，但材料不足以证明成熟国家财政与跨区再生体系。",
+      "source_campaign_refs": [
+        "JIN-LATER-ZHAO-GUANGGU-323"
+      ]
+    },
+    "OPP-LATER-ZHAO-DUAN-SHAOXU": {
+      "opponent_label": "段匹磾邵续幽冀体系",
+      "organization_grade": "O3",
+      "basis": "具有区域据点和成建制主力，但属于残余区域军事联合体。",
+      "source_campaign_refs": [
+        "JIN-LATER-ZHAO-YANCI-319-321"
+      ]
+    },
+    "OPP-LATER-ZHAO-FORMER-ZHAO": {
+      "opponent_label": "前赵国家机器",
+      "organization_grade": "O5",
+      "basis": "前赵仍拥有独立中央、关陇纵深、十余万级持续动员和多路主力，是后赵形成期的同级国家竞争极。",
+      "source_campaign_refs": [
+        "JIN-LATER-ZHAO-FRONT-ZHAO-END-328-329",
+        "JIN-LATER-ZHAO-HENAN-325"
+      ]
+    },
+    "OPP-LATER-ZHAO-INTERNAL-REBELS": {
+      "opponent_label": "石生石朗关中洛阳叛军",
+      "organization_grade": "O3",
+      "basis": "控制两都节点并形成区域内战主力，但属于短期政权内部分裂体系。",
+      "source_campaign_refs": [
+        "WAR-LEAD-GUANZHONG-333"
+      ]
+    },
+    "OPP-LATER-ZHAO-XIANGYANG": {
+      "opponent_label": "襄阳晋军区域体系",
+      "organization_grade": "O3",
+      "basis": "依托门户城防和区域守军作战，未证明独立成熟国家机器。",
+      "source_campaign_refs": [
+        "JIN-LATER-ZHAO-XIANGYANG-330"
+      ]
+    },
+    "OPP-LATER-ZHAO-XUGONG": {
+      "opponent_label": "徐龛徐兖坞垒集团",
+      "organization_grade": "O3",
+      "basis": "控制徐兖坞垒并能独立抵抗，属于成建制区域军政体系，不是成熟区域国家。",
+      "source_campaign_refs": [
+        "JIN-LATER-ZHAO-XUGONG-322"
+      ]
+    },
+    "OPP-LIGAO-SUOSI": {
+      "opponent_label": "索嗣接管军",
+      "organization_grade": "O1",
+      "basis": "仅五百骑执行地方接管，属于地方部众规模，缺乏独立再生和纵深。",
+      "source_campaign_refs": [
+        "WAR-LEAD-111-LIHAO-400"
+      ]
+    },
+    "OPP-LIUBEI-LIUZHANG": {
+      "opponent_label": "刘璋益州国家机器",
+      "organization_grade": "O4",
+      "basis": "拥有益州行政、财政、山川纵深和持续州军，是成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-HAN-LIUBEI-YIZHOU-211-214-END"
+      ]
+    },
+    "OPP-LIUXIUFAN-REBELS": {
+      "opponent_label": "刘休范叛军",
+      "organization_grade": "O3",
+      "basis": "两万成建制叛军能突入首都外层，但没有成熟国家中枢与持续纵深。",
+      "source_campaign_refs": [
+        "WAR-LEAD-133-03"
+      ]
+    },
+    "OPP-LUXUN-REBELS": {
+      "opponent_label": "卢循起义军政体系",
+      "organization_grade": "O4",
+      "basis": "拥有大规模水陆军、岭南后方和跨区域持续作战能力，达到成熟区域战争机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-116-LUXUN-END-411"
+      ]
+    },
+    "OPP-LVGUANG-LIANGZHOU-RIVALS": {
+      "opponent_label": "凉州区域割据武装",
+      "organization_grade": "O3",
+      "basis": "具有多处城镇、区域主力和持续抵抗，但材料未闭合单一成熟国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-106-LVGUANG-385"
+      ]
+    },
+    "OPP-LY-VAN-STATE": {
+      "opponent_label": "李贲交趾政权",
+      "organization_grade": "O3",
+      "basis": "具区域据点和成建制武装，但现有卡未证明成熟区域国家财政与持续跨区投射。",
+      "source_campaign_refs": [
+        "WAR-LEAD-161-04"
+      ]
+    },
+    "OPP-MING-YUAN-HEZHOU-GARRISON": {
+      "opponent_label": "元朝和州区域守军体系",
+      "organization_grade": "O3",
+      "basis": "本役材料仅闭合和州方向的地方守军与封锁，不能把元朝全国O5直接传播给区域切片。",
+      "source_campaign_refs": [
+        "WAR-POST-B77F4593C82B83B63EFA"
+      ]
+    },
+    "OPP-MING-YUAN-JIANGNAN-GARRISONS": {
+      "opponent_label": "元朝江南区域守军体系",
+      "organization_grade": "O3",
+      "basis": "选定阶段面对的是分散州城与区域守军，未证明元中央第一梯队主力在本阶段完整投入。",
+      "source_campaign_refs": [
+        "WAR-POST-8E237CF09CE7CA2EBB78"
+      ]
+    },
+    "OPP-MONGOL-ARIQ-BOKE": {
+      "opponent_label": "阿里不哥草原继承战争体系",
+      "organization_grade": "O4",
+      "basis": "阿里不哥拥有蒙古本土与部分诸王支持，但属于强大继承联盟，稳定财政、跨区补给和失败后再动员均未达到O5同级国家机器门槛。",
+      "source_campaign_refs": [
+        "WAR-POST-BA3FB02E30A244166851"
+      ]
+    },
+    "OPP-MONGOL-KERAIT": {
+      "opponent_label": "克烈部草原霸权体系",
+      "organization_grade": "O4",
+      "basis": "具有统一汗权、广域部众、稳定草原根据地和多部联盟动员能力，但未证明具备O5要求的国家财政、多战区常备体系与重大失败后的制度化再动员，按成熟区域草原战争机器O4。",
+      "source_campaign_refs": [
+        "WAR-POST-10D1A36A5BEB714C46C7"
+      ]
+    },
+    "OPP-MONGOL-KHWARAZM": {
+      "opponent_label": "花剌子模国家机器",
+      "organization_grade": "O5",
+      "basis": "花剌子模拥有跨区域帝国财政、城防群和多支大军，规模足以成为蒙古同级征服对象；但指挥分散且未形成持续战略压制，因此保留O5下沿、不升O6。",
+      "source_campaign_refs": [
+        "WAR-POST-D93BB824455764B93E15"
+      ]
+    },
+    "OPP-MONGOL-NAIMAN": {
+      "opponent_label": "乃蛮草原霸权体系",
+      "organization_grade": "O4",
+      "basis": "具统一汗权、广域部众、联盟动员和争夺草原主导权的能力，但未证明具备O5要求的稳定国家财政、多战区常备体系与制度化再动员，按成熟区域草原战争机器O4。",
+      "source_campaign_refs": [
+        "WAR-POST-23B4249A3D4961258484"
+      ]
+    },
+    "OPP-MURONGDE-QINGZHOU": {
+      "opponent_label": "青州晋军与地方守御体系",
+      "organization_grade": "O3",
+      "basis": "具有区域城防和州郡兵力，但南燕创业材料未证明消灭成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-111-SOUTHYAN-QINGZHOU-399"
+      ]
+    },
+    "OPP-NORTHERN-QI-STATE": {
+      "opponent_label": "北齐国家机器",
+      "organization_grade": "O5",
+      "basis": "具独立中央、北方纵深、国家财政和十万级跨区投射能力，是第一梯队国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-164-08",
+        "WAR-LEAD-166-QI-JIANKANG-556",
+        "WAR-LEAD-166-XUSIHUI-555"
+      ]
+    },
+    "OPP-NORTHERN-WEI-GAIWU": {
+      "opponent_label": "盖吴关中起事体系",
+      "organization_grade": "O3",
+      "basis": "聚众十余万、设置百官并能击杀魏将，达到成建制区域战争体系，但未形成长期成熟国家。",
+      "source_campaign_refs": [
+        "WAR-LEAD-NC-GAIWU-445-446"
+      ]
+    },
+    "OPP-NORTHERN-WEI-NORTHERN-LIANG": {
+      "opponent_label": "北凉河西国家机器",
+      "organization_grade": "O4",
+      "basis": "拥有独立中央、河西纵深、二十余万户和万余级持续动员，属于成熟区域国家。",
+      "source_campaign_refs": [
+        "WAR-LEAD-NC-WEI-NORTHERN-LIANG-439"
+      ]
+    },
+    "OPP-NORTHERN-WEI-STATE": {
+      "opponent_label": "北魏黄河阻击军团",
+      "organization_grade": "O3",
+      "basis": "北魏实体可达O5，但刘裕窗口只实际面对沿河阻击方向，未承受全国机器的完整投送与再动员；按成建制方面军O3，不传播母体国家档。",
+      "source_campaign_refs": [
+        "WAR-LEAD-118-WEI-JIN-RIVER-417"
+      ]
+    },
+    "OPP-NORTHERN-ZHOU-NORTHERN-QI": {
+      "opponent_label": "北齐国家机器",
+      "organization_grade": "O5",
+      "basis": "拥有独立中央、北方核心疆域和国家级主力，是北周同时代第一梯队竞争极。",
+      "source_campaign_refs": [
+        "WAR-LEAD-NC-ZHOU-DESTROY-QI-577"
+      ]
+    },
+    "OPP-QIAOSHU-STATE": {
+      "opponent_label": "谯蜀区域政权",
+      "organization_grade": "O4",
+      "basis": "具独立政权中枢、巴蜀据地和成建制守军，属于成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-116-LIUYU-SHU-413"
+      ]
+    },
+    "OPP-QING-JOSEON": {
+      "opponent_label": "朝鲜国家机器",
+      "organization_grade": "O4",
+      "basis": "拥有独立朝廷、全国动员、山城与江华岛纵深及多道援军，是成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-POST-2268AF15657B1B393C93"
+      ]
+    },
+    "OPP-RANWEI-FORMERZHAO": {
+      "opponent_label": "后赵残存国家体系",
+      "organization_grade": "O4",
+      "basis": "仍具区域中枢、成建制主力和持续动员能力，属于成熟区域国家机器。",
+      "source_campaign_refs": [
+        "CAMPAIGN-JIN-RANMIN-XIANGGUO-351-352"
+      ]
+    },
+    "OPP-SHILE-DUAN": {
+      "opponent_label": "段氏鲜卑区域军团",
+      "organization_grade": "O3",
+      "basis": "能投入五万级围攻军并持续影响幽冀，但未闭合独立成熟国家财政中枢。",
+      "source_campaign_refs": [
+        "JIN-SHILE-XIANGGUO-DEFENSE-312"
+      ]
+    },
+    "OPP-SHILE-JIN-LOCAL": {
+      "opponent_label": "西晋北方区域军政体系",
+      "organization_grade": "O3",
+      "basis": "多州守军和地方军政力量能够形成成建制区域抵抗，但未在这些创业节点以单一国家主力出现。",
+      "source_campaign_refs": [
+        "JIN-SHILE-CROSS-STATE-309-310",
+        "JIN-SHILE-JIANGXIA-COLLAPSE-311",
+        "JIN-SHILE-XIANGGUO-BASE-312",
+        "JIN-SHILE-GEPI-WITHDRAWAL-312"
+      ]
+    },
+    "OPP-SHILE-WANGJUN": {
+      "opponent_label": "王浚幽州军政体系",
+      "organization_grade": "O4",
+      "basis": "长期控制幽州、可借段氏兵力并拥有直属精兵和区域行政，达到成熟区域战争机器。",
+      "source_campaign_refs": [
+        "JIN-SHILE-YOUZHOU-313-314"
+      ]
+    },
+    "OPP-SOUTHERN-LIANG-STATE": {
+      "opponent_label": "南凉国家机器",
+      "organization_grade": "O4",
+      "basis": "具独立中枢、河西据地和持续作战能力，属于成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-110-NORTHLIANG-398"
+      ]
+    },
+    "OPP-SOUTHERN-YAN-STATE": {
+      "opponent_label": "南燕国家机器",
+      "organization_grade": "O4",
+      "basis": "具独立中枢、山东根据地和成建制主力，属于成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-115-LIUYU-SOUTHYAN-409"
+      ]
+    },
+    "OPP-SUI-YUCHIJIONG": {
+      "opponent_label": "尉迟迥关东叛乱体系",
+      "organization_grade": "O4",
+      "basis": "依托北周关东州郡、旧军政网络和跨州主力形成国家规模内战压力，虽存续短仍达到成熟区域体系。",
+      "source_campaign_refs": [
+        "WAR-LEAD-NC-YUCHIJIONG-580"
+      ]
+    },
+    "OPP-SUNQUAN-HUANGZU": {
+      "opponent_label": "黄祖江夏舟军体系",
+      "organization_grade": "O3",
+      "basis": "依托江夏据点、成建制舟军和刘表州级支持形成区域方面军体系。",
+      "source_campaign_refs": [
+        "WAR-LEAD-HAN-SUNQUAN-HUANGZU-203",
+        "WAR-LEAD-HAN-WU-HUANGZU-208"
+      ]
+    },
+    "OPP-TANG-EASTERN-TURKS": {
+      "opponent_label": "东突厥汗国战争机器",
+      "organization_grade": "O6",
+      "basis": "隋末至唐初持续支配北方政治军事格局；李唐早期对其妥协、纳贡并借其外部力量约束北方局势，东突厥多次南下，626年直接威胁长安，符合持续压制奠基政权的O6。629至630年灭东突厥属于创业窗口之后的军事成果，不用于本项定档。",
+      "source_campaign_refs": [
+        "WAR-LEAD-TANG-TURK-624/625"
+      ]
+    },
+    "OPP-TANG-TUYUHUN": {
+      "opponent_label": "吐谷浑汗国战争机器",
+      "organization_grade": "O4",
+      "basis": "具独立汗国中枢、高原根据地和持续成建制主力，能跨年抵抗唐军远征，属于成熟区域国家战争机器。",
+      "source_campaign_refs": [
+        "CAMPAIGN-TANG-TUYUHUN-634-635"
+      ]
+    },
+    "OPP-TANG-XUEYANTUO": {
+      "opponent_label": "薛延陀汗国战争机器",
+      "organization_grade": "O4",
+      "basis": "具独立汗庭、漠北动员体系和十万级跨年作战能力，曾持续威胁铁勒与唐北边，属于成熟区域国家战争机器。",
+      "source_campaign_refs": [
+        "CAMPAIGN-TANG-XUEYANTUO-641-647"
+      ]
+    },
+    "OPP-TANG-HUANGCHAO": {
+      "opponent_label": "黄巢齐政权及主力体系",
+      "organization_grade": "O4",
+      "basis": "曾长期占据首都与核心区，具政权中枢、跨区主力和持续再战能力，但未与唐形成长期对等全国竞争极。",
+      "source_campaign_refs": [
+        "WAR-LEAD-256-HUANGCHAO-END"
+      ]
+    },
+    "OPP-TANG-QINZONGQUAN": {
+      "opponent_label": "秦宗权蔡州政权及主力体系",
+      "organization_grade": "O4",
+      "basis": "控制跨州区域、建立政权并能长期多向用兵，达到成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-257-QINZONGQUAN-END"
+      ]
+    },
+    "OPP-TUOBA-KUHUN": {
+      "opponent_label": "窟咄代北竞争部众",
+      "organization_grade": "O3",
+      "basis": "能争夺代北核心并组织成建制部众，但尚未形成成熟区域国家。",
+      "source_campaign_refs": [
+        "WAR-LEAD-106-WEI-385-386"
+      ]
+    },
+    "OPP-TUOBA-LIUWEICHEN": {
+      "opponent_label": "刘卫辰朔方政权",
+      "organization_grade": "O4",
+      "basis": "具有稳定朔方根据地、独立政权和数万级持续主力，是成熟区域战争机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-107-WEI-LIUWEICHEN-391"
+      ]
+    },
+    "OPP-WEI-SHUHAN": {
+      "opponent_label": "蜀汉国家机器",
+      "organization_grade": "O4",
+      "basis": "具有独立中央、巴蜀财政纵深和国家军队，但263年动员和战略状态已弱于全国第一梯队。",
+      "source_campaign_refs": [
+        "WAR-LEAD-SG-WEISHU-263"
+      ]
+    },
+    "OPP-WEIJIEFEI-REBELS": {
+      "opponent_label": "魏揭飞等叛军",
+      "organization_grade": "O2",
+      "basis": "万余叛军具机动作战能力，但缺乏稳定中枢、财政与持久纵深。",
+      "source_campaign_refs": [
+        "WAR-LEAD-107-LATERCIN-REBELS-390"
+      ]
+    },
+    "OPP-WESTERN-JIN-HUGUAN": {
+      "opponent_label": "西晋壶关防务体系",
+      "organization_grade": "O3",
+      "basis": "实际交战对象是区域城防与援军体系，未证明西晋全国战争机器完整投入。",
+      "source_campaign_refs": [
+        "WAR-LEAD-HANZHAO-HUGUAN-309"
+      ]
+    },
+    "OPP-WESTERN-LIANG-STATE": {
+      "opponent_label": "西凉国家机器",
+      "organization_grade": "O4",
+      "basis": "具独立中枢、河西据地和成建制守军，属于成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-NC-NORTHERN-LIANG-WESTERN-LIANG"
+      ]
+    },
+    "OPP-WESTERN-YAN-STATE": {
+      "opponent_label": "西燕国家机器",
+      "organization_grade": "O4",
+      "basis": "具独立中枢、并州据地和成建制主力，属于成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-108-LATERYAN-WESTYAN-393-394"
+      ]
+    },
+    "OPP-XIN-XIHAI-QIANG": {
+      "opponent_label": "西海羌众战争体系",
+      "organization_grade": "O3",
+      "basis": "十余万羌众背景下形成可迫使太守弃郡的区域武装，但未闭合成熟国家财政与统一中央。",
+      "source_campaign_refs": [
+        "WAR-LEAD-XIN-XIHAI-4-7"
+      ]
+    },
+    "OPP-XIN-ZHAIYI-REBELS": {
+      "opponent_label": "翟义赵明霍鸿起事体系",
+      "organization_grade": "O3",
+      "basis": "两线十余万级起事能逼近长安并威胁核心区，属于成建制区域内战体系。",
+      "source_campaign_refs": [
+        "WAR-LEAD-XIN-ZHAIYI-7-8"
+      ]
+    },
+    "OPP-XIXIA-SONG-NORTHWEST": {
+      "opponent_label": "北宋西北方面军体系",
+      "organization_grade": "O4",
+      "basis": "依托全国国家机器形成成建制方面军、堡寨补给和持续增援能力；本役只接触西北战区而非完整全国主力。",
+      "source_campaign_refs": [
+        "WAR-POST-E47E9BD06319D9B035DC"
+      ]
+    },
+    "OPP-SOUTHERN-QI-STATE": {
+      "opponent_label": "南齐末期国家机器",
+      "organization_grade": "O4",
+      "basis": "南齐仍有建康中枢、州郡征补和成建制守军，但内乱后无法与萧衍集团形成持续同级竞争，按成熟区域国家机器O4。",
+      "source_campaign_refs": [
+        "WAR-LEAD-144-07"
+      ]
+    },
+    "OPP-A-FENGBA-LATEYAN": {
+      "opponent_label": "后燕慕容氏残余军政集团",
+      "organization_grade": "O3",
+      "basis": "仍有宗室号召、成建制兵力与地方据点，但未恢复成熟国家中枢。",
+      "source_campaign_refs": [
+        "WAR-LEAD-114-NORTHYAN-407",
+        "晋书/卷125#冯跋"
+      ]
+    },
+    "OPP-A-LIUXUAN-XIN": {
+      "opponent_label": "新朝中央国家机器",
+      "organization_grade": "O5",
+      "basis": "保有全国名义中枢、郡县财政与成建制军队，但末期再生和地方控制已经显著瓦解。",
+      "source_campaign_refs": [
+        "資治通鑑/卷039#更始元年二月"
+      ]
+    },
+    "OPP-A-LIUXUAN-CHIMEI": {
+      "opponent_label": "赤眉流动战争机器",
+      "organization_grade": "O4",
+      "basis": "拥有大规模持续动员、独立首领体系和跨区作战能力，达到成熟区域战争机器。",
+      "source_campaign_refs": [
+        "docs/史料通读产物/唐以前编年/汉/卷040-通读总结.md#L33"
+      ]
+    },
+    "OPP-A-LIUYAN-LINGNAN": {
+      "opponent_label": "岭南内部反对军政力量",
+      "organization_grade": "O2",
+      "basis": "存在地方军政反对和有限成建制力量，但没有独立成熟国家机器。",
+      "source_campaign_refs": [
+        "CHF-ZZTJ-270-SOUTHERN-HAN-FOUNDATION-917"
+      ]
+    },
+    "OPP-A-SIMAYI-CAOSHUANG": {
+      "opponent_label": "曹爽中枢与禁军集团",
+      "organization_grade": "O4",
+      "basis": "掌握曹魏中央名义、禁军和官僚中枢，但实际动员与持续抵抗能力未达到全国竞争极。",
+      "source_campaign_refs": [
+        "SEC-LEAD-SG-GAOPING-249",
+        "資治通鑑/卷075#嘉平元年春正月"
+      ]
+    },
+    "OPP-A-CAOPI-SUCCESSION": {
+      "opponent_label": "曹魏储位反对与汉廷残余力量",
+      "organization_grade": "O2",
+      "basis": "具宫廷、官僚和有限卫队资源，但缺乏可持续独立战争机器。",
+      "source_campaign_refs": [
+        "https://zh.wikisource.org/zh-hans/資治通鑑/卷069"
+      ]
+    },
+    "OPP-A-YONGLI-QING": {
+      "opponent_label": "清国家战争机器",
+      "organization_grade": "O6",
+      "basis": "具有全国财政、持续兵员再生、多个独立战区和对南明长期压倒性投送能力。",
+      "source_campaign_refs": [
+        "https://zh.wikisource.org/zh-hans/永曆實錄",
+        "https://zh.wikisource.org/zh-hans/明史/卷120"
+      ]
+    },
+    "OPP-A-YONGLI-SUNKEWANG": {
+      "opponent_label": "孙可望等西南军政集团",
+      "organization_grade": "O3",
+      "basis": "拥有成建制军队和西南据点，但组织整合与国家中枢不稳定。",
+      "source_campaign_refs": [
+        "https://zh.wikisource.org/zh-hans/永曆實錄"
+      ]
+    },
+    "OPP-A-LONGWU-QING": {
+      "opponent_label": "清东南征服战争机器",
+      "organization_grade": "O6",
+      "basis": "依托全国中枢和多路主力持续推进，显著高于隆武政权的动员与再生能力。",
+      "source_campaign_refs": [
+        "https://zh.wikisource.org/zh-hans/明史/卷118"
+      ]
+    },
+    "OPP-A-LONGWU-INTERNAL": {
+      "opponent_label": "南明东南内部军政集团",
+      "organization_grade": "O2",
+      "basis": "拥有地方兵权与政治否决能力，但缺少统一独立战争中枢。",
+      "source_campaign_refs": [
+        "https://www.dpm.org.cn/court/event/159831.html"
+      ]
+    },
+    "OPP-A-LIBIAN-YANGWU": {
+      "opponent_label": "杨吴宗室与中枢反对集团",
+      "organization_grade": "O2",
+      "basis": "保有名义皇权、宫廷与部分军政网络，但实际独立动员能力有限。",
+      "source_campaign_refs": [
+        "CHF-ZZTJ-281-WU-ABDICATES-TO-QI-937",
+        "資治通鑑/卷281@1769092#詔，禪位於齊"
+      ]
+    },
+    "OPP-A-LIXIONG-WESTERNJIN": {
+      "opponent_label": "西晋益州军政体系",
+      "organization_grade": "O4",
+      "basis": "拥有州郡中枢、财政、驻军与区域纵深，是成熟区域国家机器。",
+      "source_campaign_refs": [
+        "WAR-LEAD-JIN-CHENGDU-303"
+      ]
+    },
+    "OPP-A-LIXIONG-REFUGEES": {
+      "opponent_label": "巴蜀流民与地方武装",
+      "organization_grade": "O3",
+      "basis": "具有大股武装、首领网络和区域据点，但没有成熟统一国家中枢。",
+      "source_campaign_refs": [
+        "SEC-LEAD-CHENG-HAN-304"
+      ]
+    },
+    "OPP-A-CHAIRONG-SOUTHERNTANG": {
+      "opponent_label": "南唐淮南国家战争机器",
+      "organization_grade": "O4",
+      "basis": "具有成熟区域国家财政、守军和纵深，但未能形成同级全国竞争极。",
+      "source_campaign_refs": [
+        "WAR-POST-B2677B7A88498194EECF",
+        "資治通鑑/卷293@1502955"
+      ]
+    },
+    "OPP-A-CHAIRONG-NORTHHAN-LIAO": {
+      "opponent_label": "北汉与辽援联合方向",
+      "organization_grade": "O4",
+      "basis": "北汉区域国家结合辽军援助形成成熟方面战争机器，但不是辽全国机器持续投入。",
+      "source_campaign_refs": [
+        "WAR-POST-5A5D665F238AA67FC926"
+      ]
+    },
+    "OPP-A-CHAIRONG-LATERSHU": {
+      "opponent_label": "后蜀秦凤方向国家军",
+      "organization_grade": "O3",
+      "basis": "有区域国家后勤与成建制守军，但只在有限方向投入。",
+      "source_campaign_refs": [
+        "WAR-POST-ADAC273C23AB160D2C24"
+      ]
+    },
+    "OPP-A-HONGXIUQUAN-QING": {
+      "opponent_label": "清朝中央与地方再生战争机器",
+      "organization_grade": "O6",
+      "basis": "拥有全国财政、绿营与后续地方军再生能力，对太平天国形成长期压倒性国家压力。",
+      "source_campaign_refs": [
+        "WAR-POST-E2819DBE16E4EC3E9995",
+        "https://zh.wikisource.org/zh-hans/清史稿/卷475"
+      ]
+    },
+    "OPP-A-SHIJINGTANG-LATERTANG": {
+      "opponent_label": "后唐中央国家机器",
+      "organization_grade": "O5",
+      "basis": "拥有中原国家中枢、成建制主力和多镇动员能力，是后晋建国窗口的全国竞争极。",
+      "source_campaign_refs": [
+        "資治通鑑/卷280@1769088#敬瑭意遂決"
+      ]
+    },
+    "OPP-A-FULIN-SOUTHERNMING": {
+      "opponent_label": "南明永历与西南战争体系",
+      "organization_grade": "O4",
+      "basis": "具有区域政权中枢、成建制军队和西南纵深，但持续再生弱于清国家机器。",
+      "source_campaign_refs": [
+        "WAR-POST-74CF89D609776ADAB1C7",
+        "https://zh.wikisource.org/zh-hans/清史稿/卷237"
+      ]
+    },
+    "OPP-A-FULIN-ZHENG": {
+      "opponent_label": "沿海郑氏军政体系",
+      "organization_grade": "O4",
+      "basis": "具有稳定海上基地、财政与持续作战能力，达到成熟区域国家机器。",
+      "source_campaign_refs": [
+        "https://zh.wikisource.org/zh-hans/清史稿/卷5"
+      ]
+    },
+    "OPP-A-YELUDASHI-JIN": {
+      "opponent_label": "金朝追击与东部国家压力",
+      "organization_grade": "O5",
+      "basis": "金朝具有全国级中枢和持续投送能力，但在西辽建基窗口的实际投入未达到全体系压倒性展开。",
+      "source_campaign_refs": [
+        "遼史/卷30@2259598#自立為王，率鐵騎三百宵遁"
+      ]
+    },
+    "OPP-A-YELUDASHI-WEST": {
+      "opponent_label": "西域诸国与塞尔柱联军体系",
+      "organization_grade": "O5",
+      "basis": "具有多国联合、规模主力与区域财政支撑，构成西辽取得主导权的同级竞争极。",
+      "source_campaign_refs": [
+        "WAR-POST-BAA4407CF5F77AC44673",
+        "續資治通鑑/卷095@2299598#呼拉沙大敗"
+      ]
+    },
+    "OPP-A-ZHAOGOU-JIN": {
+      "opponent_label": "金朝南侵国家战争机器",
+      "organization_grade": "O6",
+      "basis": "具有高于南宋初建政权的统一指挥、骑兵主力、兵员再生和持续南下能力。",
+      "source_campaign_refs": [
+        "CHF-XZZTJ-098-GAOZONG-ACCESSION-AMNESTY-1127",
+        "續資治通鑑/卷098@2309868#兵馬大元帥康王即皇帝位於南京"
+      ]
+    },
+    "OPP-A-ZHAOGOU-ROVING": {
+      "opponent_label": "南宋初地方溃兵与流动作战集团",
+      "organization_grade": "O2",
+      "basis": "存在大股流动武装和地方割据风险，但缺少稳定国家中枢与财政纵深。",
+      "source_campaign_refs": [
+        "續資治通鑑/卷098@2309868#潰兵、群盜，咸許自新；系欠官負，不以名色皆免"
+      ]
+    },
+    "OPP-A-SHULUPING-KHITAN": {
+      "opponent_label": "契丹反对部族联盟",
+      "organization_grade": "O3",
+      "basis": "具有部族首领网络、成建制骑兵与反复动员能力，但没有成熟统一国家中枢。",
+      "source_campaign_refs": [
+        "CHF-ZZTJ-269-KHITAN-STATE-BUILDING-916",
+        "辽史/卷71#太祖淳钦皇后述律氏"
+      ]
+    },
+    "OPP-A-SHULUPING-BOHAI": {
+      "opponent_label": "渤海区域国家机器",
+      "organization_grade": "O4",
+      "basis": "拥有成熟区域国家中枢、城邑财政和纵深防御能力。",
+      "source_campaign_refs": [
+        "CHF-ZZTJ-275-DEGUANG-KHITAN-SUCCESSION-926"
+      ]
+    },
+    "OPP-A-GUOWEI-LATERHAN": {
+      "opponent_label": "后汉中央国家机器",
+      "organization_grade": "O4",
+      "basis": "拥有中央名义与禁军体系，但因中枢清洗和主力倒戈而未保持全国竞争极强度。",
+      "source_campaign_refs": [
+        "WAR-POST-9880769008ECF965EF6A",
+        "資治通鑑/卷289@1769444#南、北軍遇於劉子陂"
+      ]
+    },
+    "OPP-A-GUOWEI-HEDONG": {
+      "opponent_label": "河东及其他军镇",
+      "organization_grade": "O3",
+      "basis": "具有独立军镇、成建制兵力和区域据点，但未在郭威建国窗口形成成熟国家中枢。",
+      "source_campaign_refs": [
+        "WAR-POST-5007EA85DC7E70C5570A"
+      ]
+    },
+    "OPP-A-GAOYANG-EASTWEI": {
+      "opponent_label": "东魏皇权与宫廷反对力量",
+      "organization_grade": "O1",
+      "basis": "仅保有名义皇权、宫廷仪卫和有限官僚抵抗，缺乏独立战争机器。",
+      "source_campaign_refs": [
+        "資治通鑑/卷163#東魏孝靜帝—自魏敬宗以來百官絕祿"
+      ]
+    },
+    "OPP-A-LIUCHONG-LATERZHOU": {
+      "opponent_label": "后周中央国家战争机器",
+      "organization_grade": "O5",
+      "basis": "拥有中原国家中枢、成建制主力与持续北进能力，是北汉建国和早期稳定的全国竞争极。",
+      "source_campaign_refs": [
+        "https://zh.wikisource.org/wiki/新五代史/卷70"
+      ]
+    },
+    "OPP-A-MENGZHIXIANG-LATERTANG": {
+      "opponent_label": "后唐中央与入蜀军体系",
+      "organization_grade": "O5",
+      "basis": "具有全国中枢、远征军与再动员能力，能够持续干预两川。",
+      "source_campaign_refs": [
+        "https://zh.wikisource.org/wiki/新五代史/卷64"
+      ]
+    },
+    "OPP-A-MENGZHIXIANG-DONGCHUAN": {
+      "opponent_label": "董璋东川军政集团",
+      "organization_grade": "O4",
+      "basis": "具有东川区域中枢、财政与成建制军队，达到成熟区域战争机器。",
+      "source_campaign_refs": [
+        "https://zh.wikisource.org/wiki/新五代史/卷24"
+      ]
+    },
+    "OPP-A-LIKEYONG-ZHUWEN": {
+      "opponent_label": "朱温汴州—后梁战争机器",
+      "organization_grade": "O5",
+      "basis": "拥有中原核心、持续财政和多镇兵力，是河东晋国长期争夺时代主导权的同级竞争极。",
+      "source_campaign_refs": [
+        "https://zh.wikisource.org/zh-hans/新五代史/卷04"
+      ]
+    },
+    "OPP-A-LIKEYONG-TANGCENTRAL": {
+      "opponent_label": "唐末关中中央与邻近军镇",
+      "organization_grade": "O4",
+      "basis": "仍保有中央名义、关中资源和多个成建制军镇，但缺乏稳定全国再生能力。",
+      "source_campaign_refs": [
+        "https://zh.wikisource.org/zh-hans/新五代史/卷04"
+      ]
+    },
+    "OPP-A-YANGXINGMI-SUNRU": {
+      "opponent_label": "孙儒淮南战争机器",
+      "organization_grade": "O4",
+      "basis": "拥有大规模流动主力、持续征发和争夺淮南中枢的能力，达到成熟区域战争机器。",
+      "source_campaign_refs": [
+        "https://zh.wikisource.org/wiki/新五代史/卷61"
+      ]
+    },
+    "OPP-A-YANGXINGMI-QINBI": {
+      "opponent_label": "秦彦毕师铎扬州集团",
+      "organization_grade": "O3",
+      "basis": "掌握扬州据点与成建制军队，但政治整合和持续再生不足。",
+      "source_campaign_refs": [
+        "https://zh.wikisource.org/wiki/新五代史/卷61"
+      ]
+    },
+    "OPP-A-YANGXINGMI-ZHUWEN": {
+      "opponent_label": "朱温中原战争机器",
+      "organization_grade": "O5",
+      "basis": "拥有中原多镇、财政与持续投送能力，是吴政权形成期的外部同级竞争极。",
+      "source_campaign_refs": [
+        "https://zh.wikisource.org/wiki/新五代史/卷61"
+      ]
+    },
+    "OPP-A-QIANLIU-DONGCHANG": {
+      "opponent_label": "董昌越州区域政权",
+      "organization_grade": "O4",
+      "basis": "拥有越州中枢、区域财政和成建制军队，达到成熟区域国家机器。",
+      "source_campaign_refs": [
+        "https://zh.wikisource.org/wiki/新五代史/卷67"
+      ]
+    },
+    "OPP-A-QIANLIU-YANGXINGMI": {
+      "opponent_label": "杨行密淮南国家战争机器",
+      "organization_grade": "O5",
+      "basis": "具有成熟区域国家中枢、持续兵员再生和干预两浙的能力。",
+      "source_campaign_refs": [
+        "https://zh.wikisource.org/wiki/新五代史/卷67"
+      ]
+    },
+    "OPP-A-QIANLIU-XUWAN": {
+      "opponent_label": "徐绾田頵叛军集团",
+      "organization_grade": "O3",
+      "basis": "拥有成建制部队、杭州内应与外援，但没有稳定国家中枢。",
+      "source_campaign_refs": [
+        "https://zh.wikisource.org/wiki/新五代史/卷67"
+      ]
+    },
+    "OPP-A-MAYIN-HUNAN": {
+      "opponent_label": "湖南地方军政竞争集团",
+      "organization_grade": "O3",
+      "basis": "具有州镇据点和成建制地方兵力，但没有成熟统一国家中枢。",
+      "source_campaign_refs": [
+        "https://zh.wikisource.org/wiki/新五代史/卷66"
+      ]
+    },
+    "OPP-A-MAYIN-YANGWU": {
+      "opponent_label": "杨吴及江西区域战争机器",
+      "organization_grade": "O4",
+      "basis": "具有成熟区域国家财政、主力与跨境投送能力。",
+      "source_campaign_refs": [
+        "https://zh.wikisource.org/wiki/新五代史/卷66"
+      ]
+    },
+    "OPP-A-MAYIN-NEIGHBORS": {
+      "opponent_label": "荆南岭南邻接军政力量",
+      "organization_grade": "O3",
+      "basis": "具有区域据点和成建制兵力，但未形成对楚的同级国家竞争极。",
+      "source_campaign_refs": [
+        "https://zh.wikisource.org/wiki/新五代史/卷66"
+      ]
+    },
+    "OPP-A-GAOJIXING-LATERTANG": {
+      "opponent_label": "后唐中央国家战争机器",
+      "organization_grade": "O5",
+      "basis": "拥有中原国家中枢、灭蜀远征能力与持续征讨资源，是荆南独立窗口的全国竞争极。",
+      "source_campaign_refs": [
+        "https://zh.wikisource.org/wiki/新五代史/卷69"
+      ]
+    },
+    "OPP-A-GAOJIXING-FORMERSHU": {
+      "opponent_label": "前蜀峡路区域国家力量",
+      "organization_grade": "O4",
+      "basis": "拥有成熟区域国家中枢、峡路守军与财政纵深。",
+      "source_campaign_refs": [
+        "https://zh.wikisource.org/wiki/新五代史/卷69"
+      ]
+    },
+    "OPP-A-GAOJIXING-CHU": {
+      "opponent_label": "楚国及邻接军政力量",
+      "organization_grade": "O4",
+      "basis": "楚具有成熟区域政权、财政和持续投送能力。",
+      "source_campaign_refs": [
+        "https://zh.wikisource.org/wiki/新五代史/卷69"
+      ]
+    },
+    "OPP-A-LIDEMING-SONG": {
+      "opponent_label": "北宋西北国家战争机器",
+      "organization_grade": "O5",
+      "basis": "依托全国财政、中枢和持续西北投送能力，整体能量高于党项建国前政权；但和议后未持续支配其国家形成全窗口，不升O6。",
+      "source_campaign_refs": [
+        "https://zh.wikisource.org/wiki/宋史纪事本末/卷14"
+      ]
+    },
+    "OPP-A-LIDEMING-HEXI": {
+      "opponent_label": "河西吐蕃回鹘诸部",
+      "organization_grade": "O3",
+      "basis": "具有部族联盟、区域据点和成建制骑兵，但缺乏统一成熟国家中枢。",
+      "source_campaign_refs": [
+        "https://zh.wikisource.org/wiki/西夏书事/10"
+      ]
+    },
+    "OPP-SHILE-WANGMI": {
+      "opponent_label": "王弥流动作战集团",
+      "organization_grade": "O2",
+      "basis": "王弥拥有独立部众和流动作战能力，但缺稳定财政、根据地与持续国家化组织；按松散军事集团记O2，兼并终局只消费一次。",
+      "source_campaign_refs": [
+        "NONBATTLE-SHILE-WANGMI-311"
+      ]
+    }
+  }
+}

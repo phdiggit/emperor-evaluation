@@ -1,0 +1,562 @@
+{
+  "schema_version": "emperor-profile-video-copy-samples-v1",
+  "source": "config/project.yml:profile_assessment.settled_axes",
+  "editorial_policy": "DRAFT_SUMMARIES_BOUND_TO_FORMAL_TASK_CODES_REQUIRES_HUMAN_APPROVAL",
+  "axis_order": [
+    "M1",
+    "M2",
+    "M3",
+    "M4",
+    "C1",
+    "C2",
+    "C3",
+    "C5"
+  ],
+  "profile_total_enabled": false,
+  "profile_ranking_enabled": false,
+  "composite_ranking_write": false,
+  "people": [
+    {
+      "ruler_id": "RULER-TANG-LISHIMIN",
+      "ruler_name": "李世民",
+      "polity": "唐",
+      "actual_power_window": "626—649年",
+      "overview": "八轴独立画像，正式结算展示；不设画像总分或轴内排名。",
+      "axis_cards": {
+        "M1": {
+          "axis_code": "M1",
+          "axis_label": "军事统帅",
+          "radar_value": 97,
+          "source_task_code": "PROFILE-M1-RULER-TANG-LISHIMIN",
+          "source_json": "docs/评分结算/皇帝人物画像/M1/01-M1军事判断与统帅能力正式结算.json",
+          "main_basis": "从创业前线到在位亲征，持续展现战略选择、多军统合和临阵解题，且高难情境占主导。",
+          "counterevidence": "安市久攻失败后识别早寒、草枯水冻和粮尽，下令班师并组织辽泽撤退；战后自悔未成，M1.4反馈链闭合。",
+          "counterevidence_source": "counterpattern",
+          "limitations": [],
+          "editorial_status": "DRAFT_REQUIRES_HUMAN_APPROVAL",
+          "display_summary": "统筹河东恢复、洛阳—虎牢决胜与薛延陀战争，亲征辽东拔十城、重创高丽主力；安市未克后撤军止损。",
+          "score_alignment": {
+            "range": [
+              90,
+              100
+            ],
+            "requirement": "呈现跨阶段多对象的高强度交付；可保留具体边界但不写成总评"
+          }
+        },
+        "M2": {
+          "axis_code": "M2",
+          "axis_label": "外交博弈",
+          "radar_value": 91,
+          "source_task_code": "PROFILE-M2-RULER-TANG-LISHIMIN",
+          "source_json": "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json",
+          "main_basis": "跨突厥、吐谷浑、高昌与高句丽多种约束反复完成联盟、分化和战谈转换；高句丽调停失败是高难度反例，但未改变全期顶级分布。",
+          "counterevidence": "高句丽拒绝返还侵占的新罗土地后，唐遣使调停并以出兵为条件施压，未能改变对方选择，随后转入战争。该链只证明一次调停—威慑—升级未闭合，故为MI2；攻城不克、撤军与战争成本只作后果验证，不直接构成M2负证。",
+          "counterevidence_source": "representative_parent_contexts.cycle_basis",
+          "limitations": [],
+          "editorial_status": "DRAFT_REQUIRES_HUMAN_APPROVAL",
+          "display_summary": "渭水止损、突厥分化安置、吐谷浑与吐蕃战谈转盟；高句丽调停受挫。",
+          "score_alignment": {
+            "range": [
+              90,
+              100
+            ],
+            "requirement": "呈现跨阶段多对象的高强度交付；可保留具体边界但不写成总评"
+          }
+        },
+        "M3": {
+          "axis_code": "M3",
+          "axis_label": "民生财政",
+          "radar_value": 77,
+          "source_task_code": "PROFILE-M3-RULER-TANG-LISHIMIN",
+          "source_json": "docs/评分结算/皇帝人物画像/M3/29-M3财政经济约束理解与工具适配正式结算.json",
+          "main_basis": "李世民：过程通道P3（MIXED），结果通道R3；按统一双通道阈值结算为G4-LOW，结果只约束过程裁决，不生成过程父链。",
+          "counterevidence": "候选命中、第二项结果、政策数量和材料密度均不直接换算M3；未完成过程语义复核的部分保持显式缺口。",
+          "counterevidence_source": "counterpattern",
+          "limitations": [
+            "自然恢复包络与跨朝可比参照组仍待正式校准。",
+            "缺乏直接备选、精确阶段或反馈的材料保持显式字段缺口，未由程序补写。",
+            "SOURCE_UNAVAILABLE只降低结果通道可观测性，不作为负证。"
+          ],
+          "editorial_status": "DRAFT_REQUIRES_HUMAN_APPROVAL",
+          "display_summary": "从饥馑低态恢复至连续丰稔、低粮价与高治安；晚年军旅营造使民力回落。",
+          "score_alignment": {
+            "range": [
+              75,
+              89
+            ],
+            "requirement": "呈现跨场景强项，并给出一个真实边界、代价或反复"
+          }
+        },
+        "M4": {
+          "axis_code": "M4",
+          "axis_label": "联盟整合",
+          "radar_value": 91,
+          "source_task_code": "PROFILE-M4-RULER-TANG-LISHIMIN",
+          "source_json": "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json",
+          "main_basis": "能把刚处敌对阵营的核心精英、功臣宗室与归附族群首领转成长期可反馈的政治参与集团；晚年储位双中心形成严重未遂危机，但在实际武装夺权前截断并完成稳定继承重组。",
+          "counterevidence": "并非所有对手都无条件宽容；后期储位集团另有失败。；功臣仍可能积累大资源，侯君集后进入储位冲突。；皇帝本人对李泰的特殊优待参与制造双储位安全预期，归责高；但没有发生两支皇子军事集团实战、宫禁被夺或皇帝命令失效。",
+          "counterevidence_source": "counterpattern",
+          "limitations": [
+            "边疆政治参与具有羁縻、首领等级和安全控制，不可从‘天可汗’或征服规模反推M4；结社率后对突厥整体北迁是强反证。"
+          ],
+          "editorial_status": "DRAFT_REQUIRES_HUMAN_APPROVAL",
+          "display_summary": "吸纳旧敌、功臣宗室与东突厥铁勒首领；承乾—李泰夺权网络败露后截断双中心，李泰优待曾放大风险。",
+          "score_alignment": {
+            "range": [
+              90,
+              100
+            ],
+            "requirement": "呈现跨阶段多对象的高强度交付；可保留具体边界但不写成总评"
+          }
+        },
+        "C1": {
+          "axis_code": "C1",
+          "axis_label": "战略风控",
+          "radar_value": 97,
+          "source_task_code": "PROFILE-C1-RULER-TANG-LISHIMIN",
+          "source_json": "docs/评分结算/皇帝人物画像/C1/15-C1战略判断与风险控制正式结算.json",
+          "main_basis": "霍邑止撤、618年洛阳止进、反对焚长安迁樊邓、突厥危机退出与分化、守成资源边界跨创业统一守成反复兑现；先取关中为争议共享归责辅助证。",
+          "counterevidence": "高句丽方向在调停未成后转入亲征，安市未克且军旅营造成本上升；本人最终撤军，没有在失败反馈后继续同规模加码。该链为可归责的目标—资源下沿，但未造成国家主力崩溃或政权危机，严重度低于彭城、白登，裁DW2。",
+          "counterevidence_source": "representative_parent_contexts.cycle_basis",
+          "limitations": [
+            "先取关中标记CONTESTED_OR_SHARED_ATTRIBUTION，不作为升降关键；具体战役统帅留在M1；高句丽为DW2但撤军止损且未造成彭城、白登级政权危机。"
+          ],
+          "editorial_status": "DRAFT_REQUIRES_HUMAN_APPROVAL",
+          "display_summary": "霍邑止撤、洛阳止进；突厥入寇时避战止损、继而分化对手，高句丽亲征后撤军。",
+          "score_alignment": {
+            "range": [
+              90,
+              100
+            ],
+            "requirement": "呈现跨阶段多对象的高强度交付；可保留具体边界但不写成总评"
+          }
+        },
+        "C2": {
+          "axis_code": "C2",
+          "axis_label": "学习纠错",
+          "radar_value": 87,
+          "source_task_code": "PROFILE-C2-RULER-TANG-LISHIMIN",
+          "source_json": "docs/评分结算/皇帝人物画像/C2/19-C2信息处理学习与纠错正式结算.json",
+          "main_basis": "官修史与编年材料显示，李世民除多个具体纠错周期外，还有死刑复奏和诏敕执奏两条系统性复核机制；晚期受谏收缩与营造复发构成同强反向暴露，故为强G4而非G5。",
+          "counterevidence": "李世民在本地规范入口与限定补读材料并集内重裁：官修史与编年材料显示，李世民除多个具体纠错周期外，还有死刑复奏和诏敕执奏两条系统性复核机制；晚期受谏收缩与营造复发构成同强反向暴露，故为强G4而非G5。",
+          "counterevidence_source": "grade_basis_fallback",
+          "limitations": [
+            "四卷上界未覆盖626—649全部年份；卷192、194、196、199以及未入选四卷的司法、宫廷与战争反馈不据此推断。",
+            "达到四个新增一手材料单元硬上界后停止；本地规范入口不计入新增配额且不得丢弃，新增跨阶段反证或同构复验可能改变档位。"
+          ],
+          "editorial_status": "DRAFT_REQUIRES_HUMAN_APPROVAL",
+          "display_summary": "卢祖尚案承认仓杀过暴并恢复官荫，河西招慰因民困停办；死刑复奏、诏敕执奏制度化复核，晚年受谏收缩、营造复发。",
+          "score_alignment": {
+            "range": [
+              75,
+              89
+            ],
+            "requirement": "呈现跨场景强项，并给出一个真实边界、代价或反复"
+          }
+        },
+        "C3": {
+          "axis_code": "C3",
+          "axis_label": "识才授权",
+          "radar_value": 94,
+          "source_task_code": "PROFILE-C3-RULER-TANG-LISHIMIN",
+          "source_json": "docs/评分结算/皇帝人物画像/C3/24-C3人才识别配置与授权正式结算.json",
+          "main_basis": "房玄龄、杜如晦承担贞观中枢，李靖、李勣等获方面军权限，戴胄等专业监督接口能够逆耳履职；任末又以长孙无忌、褚遂良、李勣组成多专业交班团队。张仲文案的短期噤声和部分军事失败限制为G5中位，而非按名臣数量推至最高位。",
+          "counterevidence": "已在同一父链内联合裁决正反反馈；未把撤职、处死或收权本身自动视为负证。",
+          "counterevidence_source": "counterpattern",
+          "limitations": [],
+          "editorial_status": "DRAFT_REQUIRES_HUMAN_APPROVAL",
+          "display_summary": "房杜主中枢、李靖李勣领方面军、戴胄能逆耳监督；张仲文案使监督接口一度噤声。",
+          "score_alignment": {
+            "range": [
+              90,
+              100
+            ],
+            "requirement": "呈现跨阶段多对象的高强度交付；可保留具体边界但不写成总评"
+          }
+        },
+        "C5": {
+          "axis_code": "C5",
+          "axis_label": "权力克制",
+          "radar_value": 91,
+          "source_task_code": "PROFILE-C5-RULER-TANG-LISHIMIN",
+          "source_json": "docs/评分结算/皇帝人物画像/C5/02-C5权力运用风格与克制正式结算.json",
+          "main_basis": "谏官入阁、魏征二百余谏、戴胄抗令、法律复核与权贵约束跨主要阶段真实约束最高决定；晚期纳谏减弱是阶段性反证，张蕴古、卢祖尚处死只作为程序与比例失当的个案生命周期。",
+          "counterevidence": "MI4长期主动维护逆耳反馈和专业复核达到历史级正向；晚期反馈退化限制G5位置，两个有罪名基础但复核或比例不足的处死案仅为MI2，不再与系统失控等强。",
+          "counterevidence_source": "grade_basis_fallback",
+          "limitations": [],
+          "editorial_status": "DRAFT_REQUIRES_HUMAN_APPROVAL",
+          "display_summary": "魏征二百余谏、戴胄抗令与法律复核约束决策；晚年纳谏减弱。",
+          "score_alignment": {
+            "range": [
+              90,
+              100
+            ],
+            "requirement": "呈现跨阶段多对象的高强度交付；可保留具体边界但不写成总评"
+          }
+        }
+      }
+    },
+    {
+      "ruler_id": "RULER-MING-ZHU-YUANZHANG",
+      "ruler_name": "朱元璋",
+      "polity": "明",
+      "actual_power_window": "1368—1398年",
+      "overview": "八轴独立画像，正式结算展示；不设画像总分或轴内排名。",
+      "axis_cards": {
+        "M1": {
+          "axis_code": "M1",
+          "axis_label": "军事统帅",
+          "radar_value": 91,
+          "source_task_code": "PROFILE-M1-RULER-MING-ZHU-YUANZHANG",
+          "source_json": "docs/评分结算/皇帝人物画像/M1/01-M1军事判断与统帅能力正式结算.json",
+          "main_basis": "创业战争中反复完成兵力组织、诱敌合击、跨水域推进和区域终局，称帝后又能形成北伐全局路线。",
+          "counterevidence": "可直接归责的历史级前线高难样本目前以鄱阳湖—武昌陈汉终局的S/D3为主；北伐为S级战略统筹，不能替代第二组本人前线高难锚。",
+          "counterevidence_source": "counterpattern",
+          "limitations": [],
+          "editorial_status": "DRAFT_REQUIRES_HUMAN_APPROVAL",
+          "display_summary": "统筹渡江、诱敌合击与区域终局，称帝后形成北伐路线；兵力组织、跨水域推进与全局筹划反复兑现。",
+          "score_alignment": {
+            "range": [
+              90,
+              100
+            ],
+            "requirement": "呈现跨阶段多对象的高强度交付；可保留具体边界但不写成总评"
+          }
+        },
+        "M2": {
+          "axis_code": "M2",
+          "axis_label": "外交博弈",
+          "radar_value": 77,
+          "source_task_code": "PROFILE-M2-RULER-MING-ZHU-YUANZHANG",
+          "source_json": "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json",
+          "main_basis": "创业期能利用摇摆对象并安排优先次序，建国后对朝鲜、安南能克制升级；对日交换工具反复且创业条件兑现证据没有原稿所称范围。",
+          "counterevidence": "日本势力可选择贡市或拒绝约束。朱元璋一度恢复市舶并准贡船附载贸易，又因日本叛服不常限制通市周期、人数和船数，继而因担忧沿海私通取赂撤罢市舶；工具在开放交换与封禁之间收缩，定位能支持政策反复，但不能外推为整个对日关系终局。",
+          "counterevidence_source": "representative_parent_contexts.cycle_basis",
+          "limitations": [
+            "创业链现有定位只直接支持方国珍往复与先陈后张次序，不再外推全部归降条款。"
+          ],
+          "editorial_status": "DRAFT_REQUIRES_HUMAN_APPROVAL",
+          "display_summary": "以方国珍往复、先陈后张安排优先，对朝鲜安南克制升级；对日市舶时开时罢。",
+          "score_alignment": {
+            "range": [
+              75,
+              89
+            ],
+            "requirement": "呈现跨场景强项，并给出一个真实边界、代价或反复"
+          }
+        },
+        "M3": {
+          "axis_code": "M3",
+          "axis_label": "民生财政",
+          "radar_value": 71,
+          "source_task_code": "PROFILE-M3-RULER-MING-ZHU-YUANZHANG",
+          "source_json": "docs/评分结算/皇帝人物画像/M3/29-M3财政经济约束理解与工具适配正式结算.json",
+          "main_basis": "朱元璋：过程通道P2（MIXED），结果通道R3；按统一双通道阈值结算为G3-HIGH，结果只约束过程裁决，不生成过程父链。",
+          "counterevidence": "候选命中、第二项结果、政策数量和材料密度均不直接换算M3；未完成过程语义复核的部分保持显式缺口。",
+          "counterevidence_source": "counterpattern",
+          "limitations": [
+            "自然恢复包络与跨朝可比参照组仍待正式校准。",
+            "缺乏直接备选、精确阶段或反馈的材料保持显式字段缺口，未由程序补写。",
+            "SOURCE_UNAVAILABLE只降低结果通道可观测性，不作为负证。"
+          ],
+          "editorial_status": "DRAFT_REQUIRES_HUMAN_APPROVAL",
+          "display_summary": "水利、屯田、黄册与仓储助战后恢复；世禄与军匠户籍显示民间承载压力。",
+          "score_alignment": {
+            "range": [
+              50,
+              74
+            ],
+            "requirement": "正向交付与关键失配或持续限制必须同时出现"
+          }
+        },
+        "M4": {
+          "axis_code": "M4",
+          "axis_label": "联盟整合",
+          "radar_value": 77,
+          "source_task_code": "PROFILE-M4-RULER-MING-ZHU-YUANZHANG",
+          "source_json": "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json",
+          "main_basis": "极强地把战争联盟制度化为文武官僚并能主动重构中枢、长期经营太子/宗室关系；但晚期为控制和继承安全大规模破坏开国功臣的可信承诺，整合从‘合作—配置’明显转向‘预防性退出/清洗’。",
+          "counterevidence": "后期大案是本父链最强反证，意味着初期强承诺并未完整延续到退出阶段。；胡惟庸确有中枢权力集中风险，废相也确实打开六部直达渠道，因此不能把重构写成纯负链。；谋反风险未必全属虚构，且皇帝面对朱标早逝后的继承安全压力；刑罚真实性与比例不在M4裁，只裁集团信用后果。",
+          "counterevidence_source": "counterpattern",
+          "limitations": [
+            "《明史》对胡蓝党案带有后出政治叙事，真实结党边界需《太祖实录》与案牍再核；地方士绅/降附精英的吸收厚度也尚未系统量化。"
+          ],
+          "editorial_status": "DRAFT_REQUIRES_HUMAN_APPROVAL",
+          "display_summary": "战争联盟转为文武官僚并经营太子宗室；胡惟庸后李善长、蓝玉等案使功臣安全承诺崩塌。",
+          "score_alignment": {
+            "range": [
+              75,
+              89
+            ],
+            "requirement": "呈现跨场景强项，并给出一个真实边界、代价或反复"
+          }
+        },
+        "C1": {
+          "axis_code": "C1",
+          "axis_label": "战略风控",
+          "radar_value": 94,
+          "source_task_code": "PROFILE-C1-RULER-MING-ZHU-YUANZHANG",
+          "source_json": "docs/评分结算/皇帝人物画像/C1/15-C1战略判断与风险控制正式结算.json",
+          "main_basis": "创业期先陈后张与北伐分段、守成期对朝鲜安南保持有限目标，跨领域不同约束下反复兑现；大狱与报忧成本不倒灌C1。",
+          "counterevidence": "先陈后张、北伐分段与守成对外克制构成PS4；大狱、重典和报忧成本退出C1，不再含混压至LOW。",
+          "counterevidence_source": "grade_basis_fallback",
+          "limitations": [
+            "徐达、常遇春等执行不归本人；先陈后张只有事后自述与行动次序互证，独占归责不作满额；反例复核已消费创业、统一、守成全窗口及明通鉴卷007、卷015。"
+          ],
+          "editorial_status": "DRAFT_REQUIRES_HUMAN_APPROVAL",
+          "display_summary": "先平陈友谅、再取张士诚，北伐分段推进；对朝鲜、安南保持有限目标，转入守成边界管理。",
+          "score_alignment": {
+            "range": [
+              90,
+              100
+            ],
+            "requirement": "呈现跨阶段多对象的高强度交付；可保留具体边界但不写成总评"
+          }
+        },
+        "C2": {
+          "axis_code": "C2",
+          "axis_label": "学习纠错",
+          "radar_value": 51,
+          "source_task_code": "PROFILE-C2-RULER-MING-ZHU-YUANZHANG",
+          "source_json": "docs/评分结算/皇帝人物画像/C2/19-C2信息处理学习与纠错正式结算.json",
+          "main_basis": "滞狱、灾役、贡品扰民和关中转输等后果分别上达后，朱元璋多次释放滞狱、停止不急工程、减贡并蠲免，显示跨事项的实际政策收缩。律条与后续条例冲突的制度反馈到达后，朱元璋以定律不可改拒绝系统更定；重典和法外处置继续扩张，局部收缩未转成对主机制的更新。朱元璋按保留的闭合周期与反向暴露，有界裁为G2；未把MI、战果、纳谏名声或C5处置换算进来。",
+          "counterevidence": "滞狱、灾役、贡品扰民和关中转输等后果分别上达后，朱元璋多次释放滞狱、停止不急工程、减贡并蠲免，显示跨事项的实际政策收缩。律条与后续条例冲突的制度反馈到达后，朱元璋以定律不可改拒绝系统更定；重典和法外处置继续扩张，局部收缩未转成对主机制的更新。朱元璋按保留的闭合周期与反向暴露，有界裁为G2；未把MI、战果、纳谏名声或C5处置换算进来。",
+          "counterevidence_source": "grade_basis_fallback",
+          "limitations": [
+            "1368—1398年尚未由连续君主中心正文闭合用人、司法、继承宗室、宫廷信源与调查核验的正反观察窗；当前只发布已观察模式。"
+          ],
+          "editorial_status": "DRAFT_REQUIRES_HUMAN_APPROVAL",
+          "display_summary": "对滞狱、灾役、贡品和转输问题多次收缩；拒绝更定律条，重典继续扩张。",
+          "score_alignment": {
+            "range": [
+              50,
+              74
+            ],
+            "requirement": "正向交付与关键失配或持续限制必须同时出现"
+          }
+        },
+        "C3": {
+          "axis_code": "C3",
+          "axis_label": "识才授权",
+          "radar_value": 71,
+          "source_task_code": "PROFILE-C3-RULER-MING-ZHU-YUANZHANG",
+          "source_json": "docs/评分结算/皇帝人物画像/C3/24-C3人才识别配置与授权正式结算.json",
+          "main_basis": "正向反证或纠偏：朱元璋先令奏事不再先经中书并公开转入怀疑，胡案后废中书省、罢丞相、政归六部；人员失控被纠正，但协调与复核权直接集中于皇帝，所引史料链中未见等价的合议复核替代；主导负向：在刘基已警告胡惟庸可能败事后，仍使其与汪广洋并相并拜右丞相；胡惟庸随后专决省事、形成用人集团；反馈/后果：韩宜可弹劾、胡惟庸擅生杀黜陟和截留封事、馈赠网络及占城贡使被中书隐匿，连续暴露中书授权被个人化；徐达常遇春平吴北伐、汤和傅友德伐蜀、傅友德沐英蓝玉处理云南北元，形成多组方面军授权；1372年三路北征有重大失败，本地其他登记仍显示多项国家级交付，定混合正向强档；相反阶段或上限反证：徐达克平江、吴地平并完成北取中原；傅友德由秦陇入蜀克阶州等地；蓝玉、沐英克大理，蓝玉又袭破北元于捕鱼儿海，结果分别检验多组人选—任务匹配；平吴、北伐、伐蜀、云南和北元是彼此独立的后续授权单元；论功封赏和沐英留镇只确认本人认可，不作为前一单元闭合条件或额外正向加分。",
+          "counterevidence": "已在同一父链内联合裁决正反反馈；未把撤职、处死或收权本身自动视为负证。",
+          "counterevidence_source": "counterpattern",
+          "limitations": [],
+          "editorial_status": "DRAFT_REQUIRES_HUMAN_APPROVAL",
+          "display_summary": "徐达、常遇春平吴北伐，傅友德、沐英、蓝玉分领蜀滇北元；胡惟庸获刘基警示后仍专权，案后废相、六部直达皇帝，中枢复核收窄。",
+          "score_alignment": {
+            "range": [
+              50,
+              74
+            ],
+            "requirement": "正向交付与关键失配或持续限制必须同时出现"
+          }
+        },
+        "C5": {
+          "axis_code": "C5",
+          "axis_label": "权力克制",
+          "radar_value": 2,
+          "source_task_code": "PROFILE-C5-RULER-MING-ZHU-YUANZHANG",
+          "source_json": "docs/评分结算/皇帝人物画像/C5/02-C5权力运用风格与克制正式结算.json",
+          "main_basis": "重典、法外惩治、大狱、株连与职业世籍长期制度化；蓝玉案夷灭万余、宫妃殉葬延续，局部停工减贡无法改变强制权力主模式。",
+          "counterevidence": "MI4跨阶段重典、MI4大规模株连与MI4制度性殉葬跨机制达到历史极值。",
+          "counterevidence_source": "grade_basis_fallback",
+          "limitations": [],
+          "editorial_status": "DRAFT_REQUIRES_HUMAN_APPROVAL",
+          "display_summary": "重典、株连、大狱与职业世籍长期制度化；蓝玉案与殉葬凸显强制统治。",
+          "score_alignment": {
+            "range": [
+              0,
+              24
+            ],
+            "requirement": "呈现主导失败链、连续后果与未能及时纠偏"
+          }
+        }
+      }
+    },
+    {
+      "ruler_id": "RULER-NS-ZHAO-JI",
+      "ruler_name": "赵佶",
+      "polity": "宋",
+      "actual_power_window": "1100-1126",
+      "overview": "八轴独立画像，正式结算展示；不设画像总分或轴内排名。",
+      "axis_cards": {
+        "M1": {
+          "axis_code": "M1",
+          "axis_label": "军事统帅",
+          "radar_value": 18,
+          "source_task_code": "PROFILE-M1-RULER-NS-ZHAO-JI",
+          "source_json": "docs/评分结算/皇帝人物画像/M1/01-M1军事判断与统帅能力正式结算.json",
+          "main_basis": "目标误判、联盟战争衔接和首都防务连续失效，失败反馈后仍缺有效重组。",
+          "counterevidence": "只在现行父链明确记录失败到达和后续调整时解释；缺漏保留为置信度限制。",
+          "counterevidence_source": "counterpattern",
+          "limitations": [
+            "现场作战由将领承担。"
+          ],
+          "editorial_status": "DRAFT_REQUIRES_HUMAN_APPROVAL",
+          "display_summary": "联金取燕、攻燕受挫后，北方与汴京防务连续失效；多次反馈后仍无有效重组。",
+          "score_alignment": {
+            "range": [
+              0,
+              24
+            ],
+            "requirement": "呈现主导失败链、连续后果与未能及时纠偏"
+          }
+        },
+        "M2": {
+          "axis_code": "M2",
+          "axis_label": "外交博弈",
+          "radar_value": 25,
+          "source_task_code": "PROFILE-M2-RULER-NS-ZHAO-JI",
+          "source_json": "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json",
+          "main_basis": "短期联盟机会识别尚可，长期条件、履约和结构判断严重失能。",
+          "counterevidence": "金可维持灭辽合作或转攻宋。赵佶采纳联金取燕计划，正式约定夹攻路线、燕京归属并把原给辽岁币转给金；宋方两次攻燕失败后，金以军事实力不断削减给地、追加代税和人口条件，宋仍在派系摇摆中推进。燕京交割后，赵佶又接受张觉、授节度使世袭，金攻平州后宋被迫杀张觉送首，常胜军信用受损；另有赵良嗣所许粮二十万石被宋方否认，成为金举兵口实。短期共同利益真实存在，但目标、承诺与风险核验连续失真，反馈后仍无联防或退出。",
+          "counterevidence_source": "representative_parent_contexts.cycle_basis",
+          "limitations": [],
+          "editorial_status": "DRAFT_REQUIRES_HUMAN_APPROVAL",
+          "display_summary": "联金取燕设夹攻与燕京条件，攻燕失败后仍加码；张觉与粮约使危机扩张。",
+          "score_alignment": {
+            "range": [
+              25,
+              49
+            ],
+            "requirement": "呈现显著失衡、有限动作及其未能止损的原因"
+          }
+        },
+        "M3": {
+          "axis_code": "M3",
+          "axis_label": "民生财政",
+          "radar_value": 18,
+          "source_task_code": "PROFILE-M3-RULER-NS-ZHAO-JI",
+          "source_json": "docs/评分结算/皇帝人物画像/M3/29-M3财政经济约束理解与工具适配正式结算.json",
+          "main_basis": "赵佶：过程通道P0（NONE），结果通道R0；按统一双通道阈值结算为G1-LOW，结果只约束过程裁决，不生成过程父链。",
+          "counterevidence": "候选命中、第二项结果、政策数量和材料密度均不直接换算M3；未完成过程语义复核的部分保持显式缺口。",
+          "counterevidence_source": "counterpattern",
+          "limitations": [
+            "自然恢复包络与跨朝可比参照组仍待正式校准。",
+            "缺乏直接备选、精确阶段或反馈的材料保持显式字段缺口，未由程序补写。",
+            "SOURCE_UNAVAILABLE只降低结果通道可观测性，不作为负证。"
+          ],
+          "editorial_status": "DRAFT_REQUIRES_HUMAN_APPROVAL",
+          "display_summary": "改币、应奉、公田、经制钱与转运多面失灵；叛乱、饥荒与战争叠加。",
+          "score_alignment": {
+            "range": [
+              0,
+              24
+            ],
+            "requirement": "呈现主导失败链、连续后果与未能及时纠偏"
+          }
+        },
+        "M4": {
+          "axis_code": "M4",
+          "axis_label": "联盟整合",
+          "radar_value": 25,
+          "source_task_code": "PROFILE-M4-RULER-NS-ZHAO-JI",
+          "source_json": "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json",
+          "main_basis": "短暂尝试跨派调和后，长期把政治准入交给蔡京—近侍—门生网络，异议身份制度化为党籍，地方和宫廷接口又形成自有权力中心；直到生存危机才大规模承认并拆解。",
+          "counterevidence": "1100—1101的求言和恢复旧臣是真实正向机制，故不能把全朝概括为从第一天起完全封闭。；蔡京并非从未被罢；赵佶有过阶段性纠偏，但每次都未形成可持续的新均衡。；最终内禅本身完成且正式继承未被郓王替代；但修复发生在生存危机最后阶段，不能抵消此前多年失衡。",
+          "counterevidence_source": "counterpattern",
+          "limitations": [
+            "不能用靖康亡国本身给M4扣分；1126后钦宗清洗旧集团属于后继者选择，只用作此前联盟可转移性的结果复验。"
+          ],
+          "editorial_status": "DRAFT_REQUIRES_HUMAN_APPROVAL",
+          "display_summary": "求言复旧臣后仍让蔡京—近侍—门生主导准入、党籍固化异议；末期拆解已过迟。",
+          "score_alignment": {
+            "range": [
+              25,
+              49
+            ],
+            "requirement": "呈现显著失衡、有限动作及其未能止损的原因"
+          }
+        },
+        "C1": {
+          "axis_code": "C1",
+          "axis_label": "战略风控",
+          "radar_value": 7,
+          "source_task_code": "PROFILE-C1-RULER-NS-ZHAO-JI",
+          "source_json": "docs/评分结算/皇帝人物画像/C1/15-C1战略判断与风险控制正式结算.json",
+          "main_basis": "强资源和多次预警下仍以联金取燕叠加财政汲取，盟约条件、人口承诺和北部防务连续失控；危机后纠偏短暂且过迟。",
+          "counterevidence": "维持辽宋均势、条件合作或联金灭辽均可选；反对意见、宋军两次攻燕失败和金方逐步削地加价均已到达，本人仍推进并接纳张觉、否认粮约，既无盟约隔离也无北防退出。金军压境后罪己与撤苛政不能修复。",
+          "counterevidence_source": "representative_parent_contexts.cycle_basis",
+          "limitations": [
+            "亡国只作结果验证；G0来自好牌、明确替代与跨阶段加码均闭合。"
+          ],
+          "editorial_status": "DRAFT_REQUIRES_HUMAN_APPROVAL",
+          "display_summary": "多次预警、攻燕失败和金方加价后仍推进联金取燕；北部防务未能及时收缩重组。",
+          "score_alignment": {
+            "range": [
+              0,
+              24
+            ],
+            "requirement": "呈现主导失败链、连续后果与未能及时纠偏"
+          }
+        },
+        "C2": {
+          "axis_code": "C2",
+          "axis_label": "学习纠错",
+          "radar_value": 0,
+          "source_task_code": "PROFILE-C2-RULER-NS-ZHAO-JI",
+          "source_json": "docs/评分结算/皇帝人物画像/C2/19-C2信息处理学习与纠错正式结算.json",
+          "main_basis": "维持辽宋均势、条件合作或联金灭辽均可选；反对意见、宋军两次攻燕失败和金方逐步削地加价均已到达，本人仍推进并接纳张觉、否认粮约，既无盟约隔离也无北防退出。金军压境后罪己与撤苛政不能修复。赵佶按保留的闭合周期与反向暴露，有界裁为G0；未把MI、战果、纳谏名声或C5处置换算进来。",
+          "counterevidence": "维持辽宋均势、条件合作或联金灭辽均可选；反对意见、宋军两次攻燕失败和金方逐步削地加价均已到达，本人仍推进并接纳张觉、否认粮约，既无盟约隔离也无北防退出。金军压境后罪己与撤苛政不能修复。赵佶按保留的闭合周期与反向暴露，有界裁为G0；未把MI、战果、纳谏名声或C5处置换算进来。",
+          "counterevidence_source": "grade_basis_fallback",
+          "limitations": [
+            "1100-1126尚未由连续君主中心正文闭合用人、司法、继承宗室、宫廷信源与调查核验的正反观察窗；当前只发布已观察模式。"
+          ],
+          "editorial_status": "DRAFT_REQUIRES_HUMAN_APPROVAL",
+          "display_summary": "反对意见、攻燕失败、金方加价均到达，仍接纳张觉、否认粮约；罪己太迟。",
+          "score_alignment": {
+            "range": [
+              0,
+              24
+            ],
+            "requirement": "呈现主导失败链、连续后果与未能及时纠偏"
+          }
+        },
+        "C3": {
+          "axis_code": "C3",
+          "axis_label": "识才授权",
+          "radar_value": 2,
+          "source_task_code": "PROFILE-C3-RULER-NS-ZHAO-JI",
+          "source_json": "docs/评分结算/皇帝人物画像/C3/24-C3人才识别配置与授权正式结算.json",
+          "main_basis": "赵佶反复恢复蔡京权位，放任王黼以应奉局擅用中外名钱、梁师成代出御书号令并控制升迁、童贯统军边事、朱勔借花石纲侵扰州县；弹劾者遭贬，地方变乱又被匿报；多名权臣跨财政、信息、任官和军事形成持续捕获，并以财政空竭、方腊与靖康危机闭合终局后果；正向反证或纠偏：提出过犬牙制衡设想但未落实；风险反馈后继续以郭药师为核心防务责任中心，直到金军南下才迟令究实，郭药师旋率军迎降；主导负向：在郭药师初期有地方交付后持续升赏、扩大其军力并以其守燕；对其拒绝入朝、军械外卖、军士横暴、通金告变等反馈未落实分权或撤换；反馈/后果：朝论已疑其异志，召入朝而拒不至；詹度报告其趋向怀异，又有屡次告变及通金国书，朝廷仍不省，童贯察看后反称其可倚。",
+          "counterevidence": "已在同一父链内联合裁决正反反馈；未把撤职、处死或收权本身自动视为负证。",
+          "counterevidence_source": "counterpattern",
+          "limitations": [],
+          "editorial_status": "DRAFT_REQUIRES_HUMAN_APPROVAL",
+          "display_summary": "蔡京、王黼、梁师成、童贯、朱勔跨领域捕获；告变与弹劾未获有效处置。",
+          "score_alignment": {
+            "range": [
+              0,
+              24
+            ],
+            "requirement": "呈现主导失败链、连续后果与未能及时纠偏"
+          }
+        },
+        "C5": {
+          "axis_code": "C5",
+          "axis_label": "权力克制",
+          "radar_value": 2,
+          "source_task_code": "PROFILE-C5-RULER-NS-ZHAO-JI",
+          "source_json": "docs/评分结算/皇帝人物画像/C5/02-C5权力运用风格与克制正式结算.json",
+          "main_basis": "御笔手诏绕过封驳，蔡京王黼梁师成童贯朱勔跨财政信息任官军事俘获权力，异议者受惩，花石纲长期汲取公共资源。",
+          "counterevidence": "MI4多集团俘获、MI4异议封闭与MI4公共特权跨主要阶段稳定并终局失败。",
+          "counterevidence_source": "grade_basis_fallback",
+          "limitations": [],
+          "editorial_status": "DRAFT_REQUIRES_HUMAN_APPROVAL",
+          "display_summary": "御笔绕开封驳；权臣跨财政、信息与军政俘获权力，异议受惩、花石纲长期汲取。",
+          "score_alignment": {
+            "range": [
+              0,
+              24
+            ],
+            "requirement": "呈现主导失败链、连续后果与未能及时纠偏"
+          }
+        }
+      }
+    }
+  ]
+}

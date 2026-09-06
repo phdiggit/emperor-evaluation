@@ -1,0 +1,411 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "北齐",
+  "collections": {
+    "records": {
+      "positions": [
+        160,
+        166,
+        175
+      ],
+      "records": [
+        {
+          "sequence": 140,
+          "ruler_id": "RULER-SHADOW-高纬",
+          "ruler_name": "高纬",
+          "axis_grade": "G1",
+          "position": "MID",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "《北齐书》记陆令萱、穆提婆势倾内外，宠遇与官爵无纪，甚至概括其“杀生予夺不可尽言”；斛律光因祖珽等构陷被杀，家族与姻亲受到严重政治冲击；高长恭亦因猜忌被赐死。",
+          "grade_basis": "近幸网络长期擅生杀使其稳定落入G1；但缺少党锢、万人级清洗、全国身份强制等G0级独立机制，故定为 G1-MID / E3。",
+          "position_basis": "近幸网络长期擅生杀成立，但本人层面的群体杀戮厚度不足G0。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P140-FAVORITE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "近幸俘获、谏议压制与核心人员清洗。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "SECOND_B1::I2-QIN95-FACT-SUPP29-NORTH-GAP-GAOWEI-B2-CAPTURE-171-080",
+                "SECOND_B2::I2-QIN95-FACT-SUPP29-NORTH-GAP-GAOWEI-B2-CAPTURE-171-080",
+                "FACT-C6A4941FAA70C106",
+                "FACT-E60AA70C0971BD3B",
+                "FACT-A8062AD4224226F1"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P140-FAVORITE",
+              "reason": "近幸俘获、怠政与诱杀核心统帅按系统父链合并。"
+            },
+            {
+              "unit_ids": [
+                "FACT-9DCFA0AE98A76092"
+              ],
+              "status": "AXIS_OUT_WITH_REASON",
+              "reason": "军事授权和失守属于C3/M1。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-SHADOW-高纬",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 25,
+          "score_100": 25,
+          "current_entry_unit_count": 6,
+          "current_entry_disposition_counts": {
+            "AXIS_OUT_WITH_REASON": 1,
+            "SCORING_PARENT": 5
+          },
+          "axis_evidence_level": "E3",
+          "promotion_normalization": {
+            "working_evidence_level": "E4",
+            "formal_evidence_level": "E3",
+            "reason": "FORMAL_CONTRACT_USES_E1_E2_E3; E4_COLLAPSED_TO_SUFFICIENT_HIGH_DENSITY_E3_WITHOUT_GRADE_CHANGE"
+          },
+          "grade_numeric": 1,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-SHADOW-高纬",
+          "actual_power_window": "569—577年亲政至亡国",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P140-FAVORITE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "近幸俘获、谏议压制与核心人员清洗。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [
+              "C5-P140-FAVORITE"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P140-FAVORITE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《北齐书·后主纪》。",
+            "《北齐书》卷五十《恩幸传·穆提婆》等。",
+            "https://zh.wikisource.org/zh-hans/北齊書/卷50",
+            "《北齐书·斛律光传》《兰陵王高长恭传》。"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 陆令萱、穆提婆网络是真正持续私人特权",
+              "details": [
+                "《北齐书》记陆令萱、穆提婆势倾内外，宠遇与官爵无纪，甚至概括其“杀生予夺不可尽言”。",
+                "这已经不是一般“不会用人”，而是最高权力长期允许私人近幸网络穿透正式生杀与人事边界，属于 NEGATIVE / MI4_CROSS_PHASE_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "B. 斛律光、高长恭是深处分，但不能各自再造MI4",
+              "details": [
+                "斛律光因祖珽等构陷被杀，家族与姻亲受到严重政治冲击；高长恭亦因猜忌被赐死。",
+                "两案烈度都很深，可共同复验“正常高层安全不足”，但仍属于少数核心人物生命周期。"
+              ]
+            },
+            {
+              "title": "C. 剥离亡国与军事错误",
+              "details": [
+                "高阿那肱误军、晋州失败、宠臣导致北齐军事崩溃等主要属于用人授权、控制力和战略执行，不能再重复压C5。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 3,
+            "locator_count": 4,
+            "linked_source_count": 1,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 139,
+          "ruler_id": "RULER-SHADOW-高湛",
+          "ruler_name": "高湛",
+          "axis_grade": "G1",
+          "position": "LOW",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "高孝瑜与高湛关系原本极亲密；孝瑜死后，其母宋太妃又因儿媳卢妃谗诉，被高湛杀死。",
+          "grade_basis": "多次因近幸谗言、私人猜忌、潜在继承威胁杀害未发动现实叛乱者，且存在亲属扩大；尚未形成孙皓、石虎式全社会系统恐怖，故不进入G0；G1-LOW / E3维持。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G1-LOW。",
+          "limitations": [
+            "现有轴内材料仅两条，具体对象与跨阶段范围仍有限。"
+          ],
+          "parents": [
+            {
+              "parent_id": "C5-P139-CAPTURE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "法律失范和中枢清洗压制反馈。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-QIN95-FACT-SUPP29-GAOZHAN-LAW-CAPTURE-168-124",
+                "I2-QIN95-FACT-SUPP29-GAOZHAN-CAPTURE-FEEDBACK-168-21"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P139-CAPTURE",
+              "reason": "法律失范与反馈清洗同属权力俘获父链。"
+            },
+            {
+              "unit_ids": [
+                "FACT-3A341C628A8A21C6"
+              ],
+              "status": "AXIS_OUT_WITH_REASON",
+              "reason": "军事授权属于C3/M1。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-SHADOW-高湛",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 18,
+          "score_100": 18,
+          "current_entry_unit_count": 3,
+          "current_entry_disposition_counts": {
+            "AXIS_OUT_WITH_REASON": 1,
+            "SCORING_PARENT": 2
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 1,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-SHADOW-高湛",
+          "actual_power_window": "561—569年含太上皇实际掌权期",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P139-CAPTURE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "法律失范和中枢清洗压制反馈。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [
+              "C5-P139-CAPTURE"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P139-CAPTURE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《北齐书》卷十一《河南王孝瑜传》：https://zh.wikisource.org/zh-hans/北齊書/卷11",
+            "《北齐书》关于乐陵王高百年：https://daizhige.org/史藏/正史/北齐书.html"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 高孝瑜：先纳谏，后因近幸构陷与私人猜忌鸩杀",
+              "details": [
+                "高孝瑜与高湛关系原本极亲密。",
+                "他曾直接谏止和士开与胡皇后握槊，高湛当时“深纳之”。",
+                "后来孝瑜又提醒不要亲近赵郡王高叡，导致高叡、和士开共同侧目并构陷。",
+                "高湛逐渐猜忌；最终仅因孝瑜与昔日宫女私下交谈而暴怒，强令其饮酒三十七杯，随后在车中下毒，孝瑜死亡。",
+                "史料没有闭合孝瑜正在发动夺权。",
+                "因而这是非常纯的：正常直谏者 → 近幸构陷 → 皇帝私人猜忌 → 不可逆秘密杀害。"
+              ]
+            },
+            {
+              "title": "B. 高孝瑜母亲：死亡再向无辜亲属延伸",
+              "details": [
+                "孝瑜死后，其母宋太妃又因儿媳卢妃谗诉，被高湛杀死。",
+                "她显然不是现实政治竞争者。",
+                "与孝瑜案构成亲属扩大与谗言杀人的第二次复验。"
+              ]
+            },
+            {
+              "title": "C. 高百年：明知“无罪”的前太子仍因祥异、猜疑被酷杀",
+              "details": [
+                "孝昭帝临死亲自给高湛留信。",
+                "“百年无罪，汝可以乐处置之，勿学前人。”。",
+                "高湛继位后先降高百年为乐陵王。",
+                "河清三年因白虹、赤星等祥异，“欲以百年厌之”。",
+                "又恰逢有人把百年练习写的几个“敕”字上奏，高湛据此大怒。",
+                "他亲自验字后命左右乱捶、拖行殴打，百年已奄奄一息仍求“愿与阿叔作奴”，最终仍被斩杀、弃尸池中。",
+                "这不是现实叛乱，更接近对潜在继承威胁的预防性、迷信式酷杀。",
+                "可单独定深负链。"
+              ]
+            },
+            {
+              "title": "D. 正向反证无法翻转",
+              "details": [
+                "高孝瑜早期谏皇后与和士开失礼，高湛曾“深纳之”。",
+                "武成朝也有“罚疑从轻”类法令。",
+                "但这些规则在真正触及近幸、亲属猜疑和继承威胁时无法稳定约束最高权力。",
+                "因此只能作为反向背景，不能抬档。"
+              ]
+            },
+            {
+              "title": "E. 政治斗争材料剔除后仍然足够",
+              "details": [
+                "杨愔等政变集团、部分宗室夺权冲突可按新规则退出。",
+                "即便全部剔除，仍有。",
+                "孝瑜鸩杀：宋太妃谗杀。",
+                "高百年酷杀：足以达到E3，并维持强短板。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 1,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        },
+        {
+          "sequence": 138,
+          "ruler_id": "RULER-SHADOW-高洋",
+          "ruler_name": "高洋",
+          "axis_grade": "G0",
+          "position": "MID",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "高洋后期跨多年反复在醉怒、猜忌、娱乐和私人情绪下杀虐官员、宗室、近侍及普通人员；史料对其后期行为有连续记录，臣下以不可预测的生命风险面对最高权力；短暂自责、受劝后又迅速复发。",
+          "grade_basis": "高洋后期跨多年反复在醉怒、猜忌、娱乐和私人情绪下杀虐官员、宗室、近侍及普通人员；对象与触发原因不断变化，已经达到高频跨对象模式，而非一两条深MI2；史料对其后期行为有连续记录，臣下以不可预测的生命风险面对最高权力；短暂自责、受劝后又迅速复发；这正是“反馈到达—短期收束—同构复发”的 MI4_CROSS_PHASE_SYSTEMIC。",
+          "position_basis": "多年跨对象任意杀虐和反馈恐怖化并非少数个案。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P138-COLLAPSE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "长期酗酒失控、杀虐与反馈压制，短期纠正后复发。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-NQI-GAOYANG-EARLY-LATE-ADMIN-001",
+                "FACT-6560A7C4903004A9"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "早期行政与军事授权只作阶段背景。"
+            },
+            {
+              "unit_ids": [
+                "I2-NQI-GAOYANG-LATE-ADMIN-COLLAPSE-001",
+                "I2-QIN95-FACT-SUPP29-GAOYANG-CAPTURE-165-53",
+                "I2-QIN95-FACT-SUPP29-GAOYANG-FEEDBACK-165-42",
+                "FACT-9AC2787F73088A3E",
+                "FACT-2CCCBE5FA03132C5"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P138-COLLAPSE",
+              "reason": "晚期行政崩坏、反馈压制、纠正复发和反复杀虐合并为系统父链。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-SHADOW-高洋",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 7,
+          "score_100": 7,
+          "current_entry_unit_count": 7,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 2,
+            "SCORING_PARENT": 5
+          },
+          "axis_evidence_level": "E3",
+          "promotion_normalization": {
+            "working_evidence_level": "E4",
+            "formal_evidence_level": "E3",
+            "reason": "FORMAL_CONTRACT_USES_E1_E2_E3; E4_COLLAPSED_TO_SUFFICIENT_HIGH_DENSITY_E3_WITHOUT_GRADE_CHANGE"
+          },
+          "grade_numeric": 0,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-SHADOW-高洋",
+          "actual_power_window": "550—559年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P138-COLLAPSE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "长期酗酒失控、杀虐与反馈压制，短期纠正后复发。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [
+              "C5-P138-COLLAPSE"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P138-COLLAPSE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《北齐书》卷四《文宣帝纪》。",
+            "https://zh.wikisource.org/zh-hans/北齊書/卷4",
+            "《北史·齐本纪》。"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 不是“酗酒后杀过几个人”",
+              "details": [
+                "高洋后期跨多年反复在醉怒、猜忌、娱乐和私人情绪下杀虐官员、宗室、近侍及普通人员。",
+                "对象与触发原因不断变化，已经达到高频跨对象模式，而非一两条深MI2。"
+              ]
+            },
+            {
+              "title": "B. 恐惧环境本身成为稳定结果",
+              "details": [
+                "史料对其后期行为有连续记录，臣下以不可预测的生命风险面对最高权力；短暂自责、受劝后又迅速复发。",
+                "这正是“反馈到达—短期收束—同构复发”的 MI4_CROSS_PHASE_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "补充事实与边界",
+              "details": [
+                "其负面高度集中在晚期个人失控和宫廷政治，并未像石虎、赫连勃勃、朱元璋那样同时形成更广泛的制度性群体强制极值。",
+                "因而维持G0中位。",
+                "《北齐书》卷四《文宣帝纪》。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 3,
+            "linked_source_count": 1,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "VALIDATED"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,411 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "隋",
+  "collections": {
+    "records": {
+      "positions": [
+        146,
+        181
+      ],
+      "records": [
+        {
+          "sequence": 119,
+          "ruler_id": "RULER-SHADOW-杨坚",
+          "ruler_name": "杨坚",
+          "axis_grade": "G1",
+          "position": "HIGH",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "赵绰任大理少卿，多次直接阻止杨坚法外杀人；《隋书·刑法志》直接概括。",
+          "grade_basis": "杨坚不是“没有制度克制”的人物，赵绰长期抗命且安全恰恰是强正证；但本人同样反复以盛怒、猜忌、诱捕和法外肉刑突破自己建立的法律，并在纠正后复发致死；G1-HIGH / E3维持。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G1-HIGH。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P119-EARLY-LAW",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "简律、覆核、三奏和多次劝止实际运行。"
+            },
+            {
+              "parent_id": "C5-P119-LATE-BREACH",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "本人反复律外用刑并在劝止后复发。"
+            },
+            {
+              "parent_id": "C5-P119-CAPTURE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "杨素贵幸与继承案使反馈和奖惩被俘获。"
+            },
+            {
+              "parent_id": "C5-P119-RESOURCE",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "长期节用与仁寿宫大规模役死未纠正并存。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-SUI-TANG-CENTRAL-ORG-RECEPTION-001",
+                "I2-SUI-TANG-SELECTION-RECEPTION-001",
+                "I2-SUI-YJ-CENTRAL-ORG-CONSOLIDATION-001-M2-M3-02-AUDIT",
+                "I2-SUI-YJ-EDUCATION-SELECTION-REVERSAL-001",
+                "I2-SUI-YJ-LOCAL-TWO-TIER-RECEPTION-001",
+                "I2-SUI-YJ-SELECTION-QUALITY-001",
+                "I2-SUI-YJ-TWO-TIER-LOCAL-RECEPTION-R3",
+                "I2-SUI-YJ-YICANG-OPERATION-001-M2-M3-02-AUDIT",
+                "I2-SUI-YJ-CABINET-LIFECYCLE-002-M2-M3-02-AUDIT",
+                "I2-SUI-YJ-OFFICIAL-ASSESSMENT-001",
+                "FACT-E8CBB7E4EB7855BA",
+                "FACT-E62C0BBB4B90C6E5"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "中央地方制度、选官、考课、勤政和军事授权不直接换算C5。"
+            },
+            {
+              "unit_ids": [
+                "I2-LAW-CHAIN-KAIHUANG-001",
+                "LAW-16-001-M2-M3-02-AUDIT",
+                "I2-SUI-YJ-REMONSTRANCE-OPERATION-002",
+                "I2-SUI-YJ-LOCAL-CORRUPTION-CORRECTION-001",
+                "LOCAL_LEGAL_REGISTRY::LAW-16-008"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P119-EARLY-LAW",
+              "reason": "简律复核、劝止运行及赵绰抗辩使来旷由死改流共同闭合有限正向约束。"
+            },
+            {
+              "unit_ids": [
+                "LAW-16-005-M2-M3-02-AUDIT",
+                "FACT-A9EAB70D340FF1B5",
+                "FACT-06624C09CFDE42C5",
+                "LOCAL_LEGAL_REGISTRY::LAW-16-005",
+                "LOCAL_LEGAL_REGISTRY::LAW-16-006",
+                "LOCAL_LEGAL_REGISTRY::LAW-16-007"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P119-LATE-BREACH",
+              "reason": "B2与本地法律主入口共同闭合宫廷杖杀、告密诱捕、微罪极刑和深文酷吏跨年复发。"
+            },
+            {
+              "unit_ids": [
+                "SECOND_B1::I2-SUI-YJ-PERSONNEL-PURGE-001-M2-M3-02-AUDIT",
+                "SECOND_B2::I2-SUI-YJ-PERSONNEL-PURGE-001-M2-M3-02-AUDIT",
+                "SECOND_B1::I2-SUI-YJ-YANGSU-CAPTURE-002-M2-M3-02-AUDIT",
+                "SECOND_B2::I2-SUI-YJ-YANGSU-CAPTURE-002-M2-M3-02-AUDIT",
+                "I2-SUI-YJ-SUCCESSION-CAPTURE-001-M2-M3-02-AUDIT"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P119-CAPTURE",
+              "reason": "人事清洗、杨素俘获和继承案合并为反馈失灵系统父链。"
+            },
+            {
+              "unit_ids": [
+                "FACT-BFFDAF4C9F3DE652"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P119-RESOURCE",
+              "reason": "节俭正链与仁寿宫役死反证同父案评价。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-SHADOW-杨坚",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 31,
+          "score_100": 31,
+          "current_entry_unit_count": 30,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 13,
+            "SCORING_PARENT": 17
+          },
+          "axis_evidence_level": "E3",
+          "promotion_normalization": {
+            "working_evidence_level": "E4",
+            "formal_evidence_level": "E3",
+            "reason": "FORMAL_CONTRACT_USES_E1_E2_E3; E4_COLLAPSED_TO_SUFFICIENT_HIGH_DENSITY_E3_WITHOUT_GRADE_CHANGE"
+          },
+          "grade_numeric": 1,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-SHADOW-杨坚",
+          "actual_power_window": "580—604年实际掌权",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P119-EARLY-LAW",
+              "direction": "POSITIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "简律、覆核、三奏和多次劝止实际运行。"
+            },
+            {
+              "parent_id": "C5-P119-LATE-BREACH",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "本人反复律外用刑并在劝止后复发。"
+            },
+            {
+              "parent_id": "C5-P119-CAPTURE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "杨素贵幸与继承案使反馈和奖惩被俘获。"
+            },
+            {
+              "parent_id": "C5-P119-RESOURCE",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "长期节用与仁寿宫大规模役死未纠正并存。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P119-EARLY-LAW"
+            ],
+            "negative_parent_refs": [
+              "C5-P119-LATE-BREACH",
+              "C5-P119-CAPTURE"
+            ],
+            "mixed_parent_refs": [
+              "C5-P119-RESOURCE"
+            ]
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P119-EARLY-LAW",
+              "C5-P119-LATE-BREACH",
+              "C5-P119-CAPTURE",
+              "C5-P119-RESOURCE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED",
+          "source_refs": [
+            "《隋书》卷六十二《赵绰传》。",
+            "https://zh.wikisource.org/zh-hant/隋書/卷62",
+            "《隋书·刑法志》所载殿廷决杖、李君才被鞭死、复置杖。",
+            "可参：https://zh.wikisource.org/zh-hans/欽定古今圖書集成/經濟彙編/祥刑典/第147卷"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 赵绰案群：强正证必须保留",
+              "details": [
+                "赵绰任大理少卿，多次直接阻止杨坚法外杀人。",
+                "辛亶仅因穿红色裤被疑“厌蛊”，杨坚欲斩；赵绰据法抗命，甚至宁愿自己被杀，杨坚最终放弃并次日向赵绰道歉、重赏。",
+                "两名使用恶钱者依法只当杖刑，杨坚欲斩；赵绰、柳彧力争，最终停止。",
+                "这说明其司法系统曾真实约束最高决定，不是纸面法治。",
+                "可定 POSITIVE / MI3_SUSTAINED_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "B. 但本人法外决罚跨阶段复发",
+              "details": [
+                "《隋书·刑法志》直接概括。",
+                "杨坚“性猜忌”：常令左右侦视内外。",
+                "小过失即加重罪：私使人以钱帛试探令史，受者即立斩。",
+                "常在殿廷直接杖人，一日数次。",
+                "高颎、柳彧等集体劝其撤掉殿内杖具后，他一度同意。"
+              ]
+            },
+            {
+              "title": "C. 撤杖后的明确复发证明不是单一早年问题",
+              "details": [
+                "撤杖后，李君才只因上言“帝宠高颎过甚”，杨坚大怒。",
+                "因殿内已无杖，竟改用马鞭将其笞死，随后恢复殿内杖具。",
+                "不久又在殿庭杀人；冯基固谏也未能阻止，只在事后得到皇帝悔悟慰问。",
+                "这正是合同意义上的：足以维持 NEGATIVE / MI4_CROSS_PHASE_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "D. 继承与杨素父链可以撤弱，不影响主档",
+              "details": [
+                "杨素贵幸、废立太子等首先涉及用人、继承政治和控制问题。",
+                "按新口径，不再需要靠这些材料增强C5。",
+                "杨坚的档位完全可以由“强司法自缚 + 本人反复突破司法边界”这一对更纯父链决定。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 4,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "VALIDATED"
+        },
+        {
+          "sequence": 120,
+          "ruler_id": "RULER-SHADOW-杨广",
+          "ruler_name": "杨广",
+          "axis_grade": "G0",
+          "position": "LOW",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "首征因“降者须奏报”造成指挥僵化、粮尽师老和巨大败绩；次年仍再次亲征；高颎、贺若弼等案件不再与百万级征发等权；是否属于现实政治安全事件逐案拆分。",
+          "grade_basis": "首征因“降者须奏报”造成指挥僵化、粮尽师老和巨大败绩；次年仍再次亲征；杨玄感起兵、劳役不息、百姓思乱等反馈已充分进入最高层后，第三年仍再发天下兵；其时“盗贼蜂起、人多流亡、军多失期”；原结算相关父链继续保留；不能把工程本身当“奢侈道德评价”，而要消费死亡、逃亡、叛乱反馈后仍继续征役的部分。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G0-LOW。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P120-FEEDBACK",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "事前警告与连续惨败均未改变目标或接口。"
+            },
+            {
+              "parent_id": "C5-P120-LAW",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "法律与纪律机制持续反转失真。"
+            },
+            {
+              "parent_id": "C5-P120-RESOURCE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "巨型工程和巡游在死亡、逃亡与叛乱反馈后继续。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-SUI-YG-CENTRAL-ORG-REFINEMENT-001",
+                "I2-SUI-YG-MINGJING-OPERATION-001",
+                "LAW-16-009"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "组织、明经与初期法律结构只作背景。"
+            },
+            {
+              "unit_ids": [
+                "I2-SUI-YG-LOCAL-ADMIN-REVERSAL-001-M2-M3-02-AUDIT",
+                "LAW-16-010-M2-M3-02-AUDIT",
+                "I2-SUI-YG-DISCIPLINE-DISTORTION-001-M2-M3-02-AUDIT",
+                "I2-SUI-YG-PAPERWORK-OVERLOAD-001-M2-M3-02-AUDIT"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P120-LAW",
+              "reason": "行政、法律与纪律反转共同证明程序失真。"
+            },
+            {
+              "unit_ids": [
+                "I2-SUI-YG-FEEDBACK-COLLAPSE-002-M2-M3-02-AUDIT",
+                "I2-SUI-YG-SUWEI-LIFECYCLE-002-M2-M3-02-AUDIT",
+                "FACT-93CFFDB1D39CB11A",
+                "FACT-5D0127B4D1543135",
+                "FACT-6767838A582B280B"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P120-FEEDBACK",
+              "reason": "拒谏、败后不改、政务逃避与前线微操合并为跨阶段反馈崩溃父链。"
+            },
+            {
+              "unit_ids": [
+                "FACT-9CF1FD9B924A9887"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P120-RESOURCE",
+              "reason": "工程死亡与民变反馈后仍扩大营建，直接评价最高权力克制。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-SHADOW-杨广",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 2,
+          "score_100": 2,
+          "current_entry_unit_count": 14,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 3,
+            "SCORING_PARENT": 11
+          },
+          "axis_evidence_level": "E3",
+          "promotion_normalization": {
+            "working_evidence_level": "E4",
+            "formal_evidence_level": "E3",
+            "reason": "FORMAL_CONTRACT_USES_E1_E2_E3; E4_COLLAPSED_TO_SUFFICIENT_HIGH_DENSITY_E3_WITHOUT_GRADE_CHANGE"
+          },
+          "grade_numeric": 0,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-SHADOW-杨广",
+          "actual_power_window": "604—618年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P120-FEEDBACK",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "事前警告与连续惨败均未改变目标或接口。"
+            },
+            {
+              "parent_id": "C5-P120-LAW",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "法律与纪律机制持续反转失真。"
+            },
+            {
+              "parent_id": "C5-P120-RESOURCE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "巨型工程和巡游在死亡、逃亡与叛乱反馈后继续。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [],
+            "negative_parent_refs": [
+              "C5-P120-FEEDBACK",
+              "C5-P120-LAW",
+              "C5-P120-RESOURCE"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P120-FEEDBACK",
+              "C5-P120-LAW",
+              "C5-P120-RESOURCE"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《隋书》卷八十一《高丽传》：三次征伐、粮尽师老、杨玄感反、盗贼蜂起、人多流亡仍再征。",
+            "https://zh.wikisource.org/zh-hans/隋书_(四库全书本)/卷81",
+            "《隋书》卷四十一《苏威传》：劳役不息、百姓思乱等反馈进入最高层而“不寤”。",
+            "https://zh.wikisource.org/zh-hans/隋书/卷41"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 三征高句丽：强度来自反馈后的重复强制，不来自战争输赢",
+              "details": [
+                "首征因“降者须奏报”造成指挥僵化、粮尽师老和巨大败绩；次年仍再次亲征。",
+                "杨玄感起兵、劳役不息、百姓思乱等反馈已充分进入最高层后，第三年仍再发天下兵；其时“盗贼蜂起、人多流亡、军多失期”。",
+                "这满足C5最强负向条件：巨大伤害已经显性化且直接到达，仍继续扩大同类型国家强制。"
+              ]
+            },
+            {
+              "title": "C. 个别杀臣只作下沿，不用来凑G0",
+              "details": [
+                "高颎、贺若弼等案件不再与百万级征发等权；是否属于现实政治安全事件逐案拆分。",
+                "即使移除这些个案，跨年度全国强征的覆盖仍足够独立钉住G0-LOW。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 2,
+            "locator_count": 4,
+            "linked_source_count": 2,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "VALIDATED"
+        }
+      ]
+    }
+  }
+}

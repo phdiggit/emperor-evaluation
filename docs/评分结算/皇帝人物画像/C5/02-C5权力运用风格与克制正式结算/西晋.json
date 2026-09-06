@@ -1,0 +1,206 @@
+{
+  "schema_version": "formal-json-polity-shard-v1",
+  "polity": "西晋",
+  "collections": {
+    "records": {
+      "positions": [
+        85
+      ],
+      "records": [
+        {
+          "sequence": 101,
+          "ruler_id": "RULER-SHADOW-司马炎",
+          "ruler_name": "司马炎",
+          "axis_grade": "G2",
+          "position": "HIGH",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "武帝下诏从公卿以下家庭选女充六宫；《通鉴纲目》及后妃材料记第二年又取良家及小将吏女五千余人入宫，母女号哭之声闻于宫外。",
+          "grade_basis": "后宫征选是很强的大规模私人强制，足以压入G2；但刘毅等直臣可当面猛烈攻击其私人利益且持续任用，说明反馈安全和权贵监督远非G1水平；定位为 G2-HIGH / E3。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-HIGH。",
+          "limitations": [],
+          "parents": [
+            {
+              "parent_id": "C5-P101-ELITE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "九品俘获和宗王武装化。"
+            },
+            {
+              "parent_id": "C5-P101-CONSORT",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "两轮万人级后宫征选。"
+            },
+            {
+              "parent_id": "C5-P101-EARLY-DISSENT",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "前期容直言并采纳部分纠正。"
+            }
+          ],
+          "unit_groups": [
+            {
+              "unit_ids": [
+                "I2-JIN-SMY-LOCAL-DISARMAMENT-001",
+                "I2-JIN-SMY-PRINCELY-MILITARY-STRUCTURE-001",
+                "I2-JIN-SMY-NINE-RANK-ELITE-CAPTURE-001",
+                "FACT-95FA360AE14CBDBC"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P101-ELITE",
+              "reason": "地方去武装、宗王武装和权贵俘获共同评价权力特权结构。"
+            },
+            {
+              "unit_ids": [
+                "FACT-04C5037FB3F04505"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P101-CONSORT",
+              "reason": "万人级后宫征选直接命中私人特权外部化。"
+            },
+            {
+              "unit_ids": [
+                "FACT-B0EC8E2580EFAD0A"
+              ],
+              "status": "SCORING_PARENT",
+              "parent_id": "C5-P101-EARLY-DISSENT",
+              "reason": "前期容纳直言作为跨阶段相反情境。"
+            },
+            {
+              "unit_ids": [
+                "I2-JIN-SMY-TAISHI-CODE-001",
+                "I2-JIN-SMY-TAISHI-CODE-CONSTRUCTION-001",
+                "I2-JIN-SMY-TAISHI-CODE-RECEPTION-R4",
+                "I2-JIN-SMY-MINISTERIAL-DELIVERY-001",
+                "FACT-3D7F06DEDAABD80B"
+              ],
+              "status": "BACKGROUND_VALIDATION",
+              "reason": "法典、行政交付和军事授权属于制度/C3背景。"
+            }
+          ],
+          "task_code": "PROFILE-C5-RULER-SHADOW-司马炎",
+          "axis_code": "C5",
+          "axis_name": "权力运用风格与克制",
+          "radar_value": 51,
+          "score_100": 51,
+          "current_entry_unit_count": 12,
+          "current_entry_disposition_counts": {
+            "BACKGROUND_VALIDATION": 5,
+            "SCORING_PARENT": 7
+          },
+          "axis_evidence_level": "E3",
+          "grade_numeric": 2,
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-SHADOW-司马炎",
+          "actual_power_window": "265—290年",
+          "representative_parent_contexts": [
+            {
+              "parent_id": "C5-P101-ELITE",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "九品俘获和宗王武装化。"
+            },
+            {
+              "parent_id": "C5-P101-CONSORT",
+              "direction": "NEGATIVE",
+              "intensity": "MI4_CROSS_PHASE_SYSTEMIC",
+              "basis": "两轮万人级后宫征选。"
+            },
+            {
+              "parent_id": "C5-P101-EARLY-DISSENT",
+              "direction": "POSITIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "前期容直言并采纳部分纠正。"
+            }
+          ],
+          "counterpattern": {
+            "positive_parent_refs": [
+              "C5-P101-EARLY-DISSENT"
+            ],
+            "negative_parent_refs": [
+              "C5-P101-ELITE",
+              "C5-P101-CONSORT"
+            ],
+            "mixed_parent_refs": []
+          },
+          "phase_profile": {
+            "status": "INTEGRATED_IN_TYPICAL_PATTERN_AND_PARENT_CONTEXTS",
+            "separate_phase_grade_published": false
+          },
+          "axis_relevance_check": {
+            "status": "C5_RELEVANT",
+            "scoring_parent_refs": [
+              "C5-P101-ELITE",
+              "C5-P101-CONSORT",
+              "C5-P101-EARLY-DISSENT"
+            ]
+          },
+          "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
+          "source_refs": [
+            "《晋书》卷三十一《武元杨皇后传》：禁天下嫁娶、博选良家",
+            "https://zh.wikisource.org/zh-hans/晉書_(四庫全書本)/卷031",
+            "《资治通鉴》卷八十：泰始九年禁嫁娶选六宫",
+            "https://zh.wikisource.org/zh-hans/資治通鑑_(四庫全書本)/卷080",
+            "《晋书》卷四十五《刘毅传》",
+            "https://zh.wikisource.org/zh-hans/晉書/卷045",
+            "《晋书》卷三史论：容纳谠正、许奇虽仇雠不弃",
+            "https://zh.wikisource.org/zh-hans/晉書/卷003"
+          ],
+          "public_evidence_points": [
+            {
+              "title": "A. 泰始九年：为后宫采择直接禁天下嫁娶",
+              "details": [
+                "武帝下诏从公卿以下家庭选女充六宫。",
+                "为保证采择，直接“权禁天下嫁娶”，隐匿不报者以“不敬”论。",
+                "州郡以国家驿传、宦官执行征选，名门子女普遍无法自由婚嫁。",
+                "这已经是最高权力将全国行政强制用于本人后宫需要，属于典型公共权力私人化。"
+              ]
+            },
+            {
+              "title": "B. 次年又选五千余人：跨年、大规模复发",
+              "details": [
+                "《通鉴纲目》及后妃材料记第二年又取良家及小将吏女五千余人入宫，母女号哭之声闻于宫外。",
+                "两次跨年、规模达数千，并非一次宫廷选妃。",
+                "应定 NEGATIVE / MI3_SUSTAINED_SYSTEMIC，并标记大规模私人身份强制。"
+              ]
+            },
+            {
+              "title": "C. 刘毅：极端直谏仍获得安全空间",
+              "details": [
+                "刘毅当面把武帝比作桓、灵，甚至说桓灵卖官的钱入官库，而武帝卖官的钱“入私门”，所以还不如桓灵。",
+                "在君臣等级极强的环境下，武帝不仅没有处罚，反而大笑并承认“今有直臣，故不同”。",
+                "刘毅后来继续任司隶校尉，纠察豪右，使权贵震恐。",
+                "这不是普通“听劝”，而是：可定 POSITIVE / MI3_SUSTAINED_SYSTEMIC。"
+              ]
+            },
+            {
+              "title": "D. 仇家后代仍可任用：私人报复克制",
+              "details": [
+                "许允为司马昭所杀，许允之子许奇后来仍被武帝任用。",
+                "朝臣曾因其父被杀而认为不宜让其接近太庙，武帝反而追念许允名望并擢升许奇。",
+                "说明司马氏前代政治冲突没有机械转化为子孙连带报复。",
+                "属 POSITIVE / MI2_LIFECYCLE。"
+              ]
+            },
+            {
+              "title": "E. 九品与宗王武装退出C5主评分",
+              "details": [
+                "九品中正造成权贵垄断、宗王出镇并掌兵最终酿成八王之乱，主要属于制度、人事和长期风险判断。",
+                "如果没有闭合“最高权力将其作为私人特权并在反馈后继续扩大”，不能仅因后果严重就直接作为C5 MI4。"
+              ]
+            }
+          ],
+          "source_quality": {
+            "named_source_count": 4,
+            "locator_count": 8,
+            "linked_source_count": 4,
+            "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
+          },
+          "review_status": "RECALIBRATED"
+        }
+      ]
+    }
+  }
+}
