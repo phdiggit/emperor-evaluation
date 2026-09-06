@@ -15,7 +15,7 @@
       ],
       "records": [
         {
-          "adjudication_reason": "按C4现行合同重裁：正向保留3.0分；可归责恶化0.0分；DA0残余主动成本0.0分；C4=3.0分。重裁依据：对外仅局部边寇处置，主要高成本来自内部区域危机；无大型主动额外成本。",
+          "adjudication_reason": "正向保留3.0分；对外仅局部边寇处置，主要高成本来自内部区域危机；无大型主动额外成本。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。 C4净分3.0。",
           "attribution_factor": 0.0,
           "closed_recovery_axes": [
             "C1"
@@ -23,18 +23,15 @@
           "destructive_amplification_grade": "DA0",
           "destructive_amplification_penalty": 0.0,
           "deterioration_attribution": "NONE",
-          "deterioration_curve_summary": "对外仅局部边寇处置，主要高成本来自内部区域危机；无大型主动额外成本。 可归责恶化扣0.0分，DA0扣0.0分。",
+          "deterioration_curve_summary": "对外仅局部边寇处置，主要高成本来自内部区域危机；无大型主动额外成本。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。",
           "deterioration_penalty": 0.0,
-          "main_band": "C4-2",
-          "negative_tail_adjudication_reason": "对外仅局部边寇处置，主要高成本来自内部区域危机；无大型主动额外成本。 可归责恶化扣0.0分，DA0扣0.0分。",
+          "main_band": "C4",
+          "negative_tail_adjudication_reason": "对外仅局部边寇处置，主要高成本来自内部区域危机；无大型主动额外成本。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。",
           "period": "post_tang",
           "polity": "元",
           "positive_score_retained": 3.0,
-          "pre_negative_tail_band": "C4-2",
-          "pre_negative_tail_raw_score": 9.4,
-          "pre_negative_tail_score": 9.4,
-          "rank": 35,
-          "raw_score": 9.4,
+          "rank": 53,
+          "raw_score": 3.0,
           "recovery_score": 3.0,
           "reign_range": "1311-1320",
           "ruler_id": "RULER-YUAN-AYURBARWADA",
@@ -92,26 +89,25 @@
             "applied_orphan_candidate_supplements": [],
             "c4_attribution_review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-YUAN-AYURBARWADA"
           },
-          "attribution_readjudication_reason": "对外仅局部边寇处置，主要高成本来自内部区域危机；无大型主动额外成本。 可归责恶化扣0.0分，DA0扣0.0分。",
+          "attribution_readjudication_reason": "对外仅局部边寇处置，主要高成本来自内部区域危机；无大型主动额外成本。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。",
           "c4_attribution_readjudication": {
             "review_status": "FULLY_ADJUDICATED",
-            "basis_version": "C4-DA-RESIDUAL-COST-V5",
+            "basis_version": "C4-CIVILIAN-COST-V1",
             "final_grade": "DA0",
             "final_penalty": 0.0,
-            "change_type": "CURRENT_C4_CONTRACT_SYNC",
+            "change_type": "CIVILIAN_OBJECT_DEDUPLICATION",
             "behavior_chain_basis": "对外仅局部边寇处置，主要高成本来自内部区域危机；无大型主动额外成本。",
-            "grade_boundary_basis": "当前正式逐人裁决为DA0，扣0.0分。",
+            "grade_boundary_basis": "对外仅局部边寇处置，主要高成本来自内部区域危机；无大型主动额外成本。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。",
             "duplicate_control": {
-              "C1_C2_C3_absorption": "C1/C2/C3结算客观状态；同一事实在已闭合S0→S_end下降及本人归责时可同时支撑C4恶化，DA不得重复扣减已吸收的主动成本。",
-              "K_absorption": "K只折损C1/C2/C3主态完整度；已由K表达的终局跌幅不得再次进入DA。",
-              "DA_residual_scope": "只计未被主态、K与可归责恶化消费的本人主动家庭、劳役、军粮转输、财政抽取或平民伤害成本；纯军队人员损失不单列。"
+              "civilian_objects": "按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
+              "military_inputs": "军资、军粮、军事运输及军队毁损只留军事项"
             },
-            "review_ref": "BATCH8_INLINE_2026-08-31"
+            "review_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-YUAN-AYURBARWADA"
           },
-          "public_basis_version": "C4-CONTRACT-2026-08-31-BATCH8",
+          "public_basis_version": "C4-CIVILIAN-COST-V1",
           "starting_context": "接手三轴为C1-1/C2-2/C3-3；交班三轴为C1-2/C2-2/C3-3。",
           "recovery_and_absorption": "恢复原值3.0；归责FULL（100%）；可归责恢复3.0/27；交班上限15.9；正向保留3.0。",
-          "behavior_and_attribution": "对外仅局部边寇处置，主要高成本来自内部区域危机；无大型主动额外成本。 可归责恶化扣0.0分，DA0扣0.0分。",
+          "behavior_and_attribution": "对外仅局部边寇处置，主要高成本来自内部区域危机；无大型主动额外成本。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。",
           "handoff_state": "交班raw锚点为民生2档、经济财政2档、社会安全3档；终局层级C4T-2，正向上限15.9。",
           "public_source_refs": [
             "《元史·仁宗本纪》：真定、保定、河间民饥，给粮两月。",
@@ -120,7 +116,7 @@
             "《元史·仁宗本纪》：帝纳其言，凡营缮悉罢之。",
             "《元史·刑法志》：凡郡国有疑狱，必遣官覆谳而从轻。"
           ],
-          "public_adjudication": "按C4现行合同重裁：正向保留3.0分；可归责恶化0.0分；DA0残余主动成本0.0分；C4=3.0分。重裁依据：对外仅局部边寇处置，主要高成本来自内部区域危机；无大型主动额外成本。",
+          "public_adjudication": "正向保留3.0分；对外仅局部边寇处置，主要高成本来自内部区域危机；无大型主动额外成本。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。 C4净分3.0。",
           "recovery_formula_version": "C4-CONTRACT-2026-08-31-C1_FORMAL_RECOVERY-DA_COST_MAGNITUDE-NECESSARY_WAR_ERROR_EXCLUDED-HIGHEST_EFFECTIVE_STATE",
           "recovery_boundary_difficulty": {
             "1_TO_2": 0.6,
@@ -191,13 +187,14 @@
             }
           },
           "military_cost_review": {
-            "status": "FORMAL_SYNCED_CURRENT_C4_CONTRACT",
+            "status": "REVIEWED",
             "final_grade": "DA0",
-            "basis": "对外仅局部边寇处置，主要高成本来自内部区域危机；无大型主动额外成本。"
+            "basis": "对外仅局部边寇处置，主要高成本来自内部区域危机；无大型主动额外成本。 按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
+            "cost_consumption": "MILITARY_INPUTS_CONTEXT_ONLY_CIVILIAN_RESIDUAL_SEPARATE"
           },
           "large_construction_review": {
             "status": "FORMAL_SYNCED",
-            "basis": "本人窗口有“凡营缮悉罢之”的直接停止营缮材料，未识别大型可选择工程。",
+            "basis": "营造事实仅为入口；当前是否有独立剩余对象见主动民力成本复核。对外仅局部边寇处置，主要高成本来自内部区域危机；无大型主动额外成本。 按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
             "construction_types": [
               "UNCLEAR"
             ],
@@ -225,8 +222,8 @@
               "original_text": "凡郡国有疑狱，必遣官覆谳而从轻。"
             }
           ],
-          "military_cost_public_basis": "蔡五九等链为既成区域叛乱后的必要平定；重复动员不等于可选择战争，DA0。",
-          "large_construction_public_basis": "本人窗口有“凡营缮悉罢之”的直接停止营缮材料，未识别大型可选择工程。",
+          "military_cost_public_basis": "对外仅局部边寇处置，主要高成本来自内部区域危机；无大型主动额外成本。 按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
+          "large_construction_public_basis": "营造按当前民力对象去重；对外仅局部边寇处置，主要高成本来自内部区域危机；无大型主动额外成本。 按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
           "typical_pattern": {
             "status": "STRUCTURED_C4_FORMAL",
             "recovery_score": 3.0,
@@ -249,32 +246,50 @@
             "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
             "supporting_formal_fields": [],
             "name_or_polity_inference_used": false
+          },
+          "active_civilian_cost_review": {
+            "version": "C4-CIVILIAN-COST-V1",
+            "status": "REVIEWED",
+            "evidence_mode": "NONE",
+            "choice_and_civilian_basis": "对外仅局部边寇处置，主要高成本来自内部区域危机；无大型主动额外成本。",
+            "absorbed_and_excluded_basis": "按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
+            "inference_limit": "直接成本仍须剔除已计对象；有记载不构成额外加权。",
+            "military_input_double_charge": false,
+            "source_refs": [
+              "《元史·仁宗本纪》：真定、保定、河间民饥，给粮两月。",
+              "《元史·仁宗本纪》：河南流民群聚渡江，所过扰害……赈之。",
+              "《元史·铁木迭儿传》：括田增税，苛急烦扰，江右为甚……乃罢其事。",
+              "《元史·仁宗本纪》：帝纳其言，凡营缮悉罢之。",
+              "《元史·刑法志》：凡郡国有疑狱，必遣官覆谳而从轻。",
+              "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-YUAN-AYURBARWADA",
+              "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-YUAN-AYURBARWADA",
+              "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-YUAN-AYURBARWADA"
+            ],
+            "military_context_ref": "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json#ruler_id=RULER-YUAN-AYURBARWADA",
+            "audit_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-YUAN-AYURBARWADA"
           }
         },
         {
-          "adjudication_reason": "按C4现行合同重裁：正向保留0.0分；可归责恶化0.0分；DA2残余主动成本9.0分；C4=-9.0分。重裁依据：即汗位后组织多路征宋，亲征四川主军‘军四万，号十万’；现证主要闭合规模/多方向，按合同只足DA2。",
+          "adjudication_reason": "正向保留0.0分；南征的军事投入继续由相应军事父链消费。 去重：百姓疲弊、远输与役作及浮费压力已由C1/C2主态消费，现证未分离新的民力窗口。 最终DA0扣0.0分；可归责恶化另扣0.0分。 C4净分0.0。",
           "attribution_factor": 0.0,
           "closed_recovery_axes": [],
-          "destructive_amplification_grade": "DA2",
-          "destructive_amplification_penalty": 9.0,
+          "destructive_amplification_grade": "DA0",
+          "destructive_amplification_penalty": 0.0,
           "deterioration_attribution": "NONE",
-          "deterioration_curve_summary": "即汗位后组织多路征宋，亲征四川主军‘军四万，号十万’；现证主要闭合规模/多方向，按合同只足DA2。 可归责恶化扣0.0分，DA2扣9.0分。",
+          "deterioration_curve_summary": "南征的军事投入继续由相应军事父链消费。 去重：百姓疲弊、远输与役作及浮费压力已由C1/C2主态消费，现证未分离新的民力窗口。 最终DA0扣0.0分；可归责恶化另扣0.0分。",
           "deterioration_penalty": 0.0,
-          "main_band": "C4N-1",
-          "negative_tail_adjudication_reason": "即汗位后组织多路征宋，亲征四川主军‘军四万，号十万’；现证主要闭合规模/多方向，按合同只足DA2。 可归责恶化扣0.0分，DA2扣9.0分。",
+          "main_band": "C4",
+          "negative_tail_adjudication_reason": "南征的军事投入继续由相应军事父链消费。 去重：百姓疲弊、远输与役作及浮费压力已由C1/C2主态消费，现证未分离新的民力窗口。 最终DA0扣0.0分；可归责恶化另扣0.0分。",
           "period": "post_tang",
           "polity": "元",
           "positive_score_retained": 0.0,
-          "pre_negative_tail_band": "C4N-1",
-          "pre_negative_tail_raw_score": 6.4,
-          "pre_negative_tail_score": 6.4,
-          "rank": 130,
-          "raw_score": -9.0,
+          "rank": 85,
+          "raw_score": 0.0,
           "recovery_score": 0.0,
           "reign_range": "1251-1259",
           "ruler_id": "RULER-YUAN-MONGKE",
           "ruler_name": "蒙哥",
-          "score": -9.0,
+          "score": 0.0,
           "terminal_band": "C4T-2",
           "terminal_cap": 15.9,
           "terminal_cap_applied": false,
@@ -310,26 +325,25 @@
             "applied_orphan_candidate_supplements": [],
             "c4_attribution_review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-YUAN-MONGKE"
           },
-          "attribution_readjudication_reason": "即汗位后组织多路征宋，亲征四川主军‘军四万，号十万’；现证主要闭合规模/多方向，按合同只足DA2。 可归责恶化扣0.0分，DA2扣9.0分。",
+          "attribution_readjudication_reason": "南征的军事投入继续由相应军事父链消费。 去重：百姓疲弊、远输与役作及浮费压力已由C1/C2主态消费，现证未分离新的民力窗口。 最终DA0扣0.0分；可归责恶化另扣0.0分。",
           "c4_attribution_readjudication": {
             "review_status": "FULLY_ADJUDICATED",
-            "basis_version": "C4-DA-FULL-POOL-READJUDICATION-2026-09-03",
-            "final_grade": "DA2",
-            "final_penalty": 9.0,
-            "change_type": "FINAL_CHECKLIST_READJUDICATION",
-            "behavior_chain_basis": "即汗位后组织多路征宋，亲征四川主军‘军四万，号十万’；现证主要闭合规模/多方向，按合同只足DA2。",
-            "grade_boundary_basis": "当前正式逐人裁决为DA2，扣9.0分。",
+            "basis_version": "C4-CIVILIAN-COST-V1",
+            "final_grade": "DA0",
+            "final_penalty": 0.0,
+            "change_type": "CIVILIAN_OBJECT_DEDUPLICATION",
+            "behavior_chain_basis": "南征的军事投入继续由相应军事父链消费。",
+            "grade_boundary_basis": "南征的军事投入继续由相应军事父链消费。 去重：百姓疲弊、远输与役作及浮费压力已由C1/C2主态消费，现证未分离新的民力窗口。 最终DA0扣0.0分；可归责恶化另扣0.0分。",
             "duplicate_control": {
-              "C1_C2_C3_absorption": "C1/C2/C3结算客观状态；同一事实在已闭合S0→S_end下降及本人归责时可同时支撑C4恶化，DA不得重复扣减已吸收的主动成本。",
-              "K_absorption": "K只折损C1/C2/C3主态完整度；已由K表达的终局跌幅不得再次进入DA。",
-              "DA_residual_scope": "只计未被主态、K与可归责恶化消费的本人主动家庭、劳役、军粮转输、财政抽取或平民伤害成本；纯军队人员损失不单列。"
+              "civilian_objects": "百姓疲弊、远输与役作及浮费压力已由C1/C2主态消费，现证未分离新的民力窗口。",
+              "military_inputs": "军资、军粮、军事运输及军队毁损只留军事项"
             },
-            "review_ref": "C4_DA重裁_档位变动清单.md#line=54"
+            "review_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-YUAN-MONGKE"
           },
-          "public_basis_version": "C4-PUBLIC-BASIS-V3",
+          "public_basis_version": "C4-CIVILIAN-COST-V1",
           "starting_context": "接手三轴为C1-2/C2-2/C3-2；交班三轴为C1-2/C2-2/C3-2。",
           "recovery_and_absorption": "恢复原值0.0；归责NONE（0%）；可归责恢复0.0/27；交班上限15.9；正向保留0.0。",
-          "behavior_and_attribution": "即汗位后组织多路征宋，亲征四川主军‘军四万，号十万’；现证主要闭合规模/多方向，按合同只足DA2。 可归责恶化扣0.0分，DA2扣9.0分。",
+          "behavior_and_attribution": "南征的军事投入继续由相应军事父链消费。 去重：百姓疲弊、远输与役作及浮费压力已由C1/C2主态消费，现证未分离新的民力窗口。 最终DA0扣0.0分；可归责恶化另扣0.0分。",
           "handoff_state": "交班raw为C1-2/C2-2/C3-2；终局C4T-2，正向上限15.9。",
           "public_source_refs": [
             "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.md:150",
@@ -341,7 +355,7 @@
             "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-YUAN-MONGKE",
             "元史/卷003"
           ],
-          "public_adjudication": "按C4现行合同重裁：正向保留0.0分；可归责恶化0.0分；DA2残余主动成本9.0分；C4=-9.0分。重裁依据：即汗位后组织多路征宋，亲征四川主军‘军四万，号十万’；现证主要闭合规模/多方向，按合同只足DA2。",
+          "public_adjudication": "正向保留0.0分；南征的军事投入继续由相应军事父链消费。 去重：百姓疲弊、远输与役作及浮费压力已由C1/C2主态消费，现证未分离新的民力窗口。 最终DA0扣0.0分；可归责恶化另扣0.0分。 C4净分0.0。",
           "recovery_formula_version": "C4-DIFFICULTY-WEIGHTED-BOUNDARIES-V1",
           "recovery_boundary_difficulty": {
             "1_TO_2": 0.6,
@@ -379,13 +393,14 @@
           "difficulty_weighted_recovery_credit": 0.0,
           "uncapped_positive_score": 0.0,
           "military_cost_review": {
-            "status": "FORMAL_SYNCED_CURRENT_C4_CONTRACT",
-            "final_grade": "DA2",
-            "basis": "即汗位后组织多路征宋，亲征四川主军‘军四万，号十万’；现证主要闭合规模/多方向，按合同只足DA2。"
+            "status": "REVIEWED",
+            "final_grade": "DA0",
+            "basis": "南征的军事投入继续由相应军事父链消费。 百姓疲弊、远输与役作及浮费压力已由C1/C2主态消费，现证未分离新的民力窗口。",
+            "cost_consumption": "MILITARY_INPUTS_CONTEXT_ONLY_CIVILIAN_RESIDUAL_SEPARATE"
           },
           "large_construction_review": {
             "status": "FORMAL_SYNCED",
-            "basis": "蒙哥曾主动罢和林城役千五百人，未发现需要反向计入的大型可选择营造。",
+            "basis": "营造事实仅为入口；当前是否有独立剩余对象见主动民力成本复核。南征的军事投入继续由相应军事父链消费。 百姓疲弊、远输与役作及浮费压力已由C1/C2主态消费，现证未分离新的民力窗口。",
             "construction_types": [],
             "classification_status": "NO_CONSTRUCTION_CHAIN_USED_FOR_DA"
           },
@@ -417,8 +432,8 @@
           ],
           "batch_review_status": "FORMAL_C4_DA_READJUDICATED_2026-09-03",
           "input_sync_status": "CURRENT_C1_C2_C3_AND_FINAL_DA_CHECKLIST",
-          "military_cost_public_basis": "第三项去重链不等于C4零成本；高丽、安南及南征均为主动扩张，按累计国家级已实现成本裁DA2。",
-          "large_construction_public_basis": "蒙哥曾主动罢和林城役千五百人，未发现需要反向计入的大型可选择营造。",
+          "military_cost_public_basis": "南征的军事投入继续由相应军事父链消费。 百姓疲弊、远输与役作及浮费压力已由C1/C2主态消费，现证未分离新的民力窗口。",
+          "large_construction_public_basis": "营造按当前民力对象去重；南征的军事投入继续由相应军事父链消费。 百姓疲弊、远输与役作及浮费压力已由C1/C2主态消费，现证未分离新的民力窗口。",
           "typical_pattern": {
             "status": "STRUCTURED_C4_FORMAL",
             "recovery_score": 0.0,
@@ -439,32 +454,50 @@
             "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
             "supporting_formal_fields": [],
             "name_or_polity_inference_used": false
+          },
+          "active_civilian_cost_review": {
+            "version": "C4-CIVILIAN-COST-V1",
+            "status": "REVIEWED",
+            "evidence_mode": "NONE",
+            "choice_and_civilian_basis": "南征的军事投入继续由相应军事父链消费。",
+            "absorbed_and_excluded_basis": "百姓疲弊、远输与役作及浮费压力已由C1/C2主态消费，现证未分离新的民力窗口。",
+            "inference_limit": "直接成本仍须剔除已计对象；有记载不构成额外加权。",
+            "military_input_double_charge": false,
+            "source_refs": [
+              "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.md:150",
+              "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.md:153",
+              "C3-REMAINING-元-蒙哥",
+              "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-YUAN-MONGKE",
+              "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-YUAN-MONGKE",
+              "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-YUAN-MONGKE",
+              "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-YUAN-MONGKE",
+              "元史/卷003"
+            ],
+            "military_context_ref": "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json#ruler_id=RULER-YUAN-MONGKE",
+            "audit_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-YUAN-MONGKE"
           }
         },
         {
-          "adjudication_reason": "按C4现行合同重裁：正向保留0.0分；可归责恶化0.0分；DA2残余主动成本9.0分；C4=-9.0分。重裁依据：1206 S0后持续西夏、金、花剌子模等大规模主动扩张；第三项D为C5高位但明确未闭合F3/F4等DA3额外门。",
+          "adjudication_reason": "正向保留0.0分；本人持续主动远征支持本部家庭供役下限。 去重：中原长吏侵夺、任意征发及杀戮已入C1/C2/C3；本条不重复占领区侵害，只保留出征共同体的推断下限。 最终DA1扣4.5分；可归责恶化另扣0.0分。 C4净分-4.5。",
           "attribution_factor": 0.0,
           "closed_recovery_axes": [],
-          "destructive_amplification_grade": "DA2",
-          "destructive_amplification_penalty": 9.0,
+          "destructive_amplification_grade": "DA1",
+          "destructive_amplification_penalty": 4.5,
           "deterioration_attribution": "NONE",
-          "deterioration_curve_summary": "1206 S0后持续西夏、金、花剌子模等大规模主动扩张；第三项D为C5高位但明确未闭合F3/F4等DA3额外门。 可归责恶化扣0.0分，DA2扣9.0分。",
+          "deterioration_curve_summary": "本人持续主动远征支持本部家庭供役下限。 去重：中原长吏侵夺、任意征发及杀戮已入C1/C2/C3；本条不重复占领区侵害，只保留出征共同体的推断下限。 最终DA1扣4.5分；可归责恶化另扣0.0分。",
           "deterioration_penalty": 0.0,
-          "main_band": "C4N-1",
-          "negative_tail_adjudication_reason": "1206 S0后持续西夏、金、花剌子模等大规模主动扩张；第三项D为C5高位但明确未闭合F3/F4等DA3额外门。 可归责恶化扣0.0分，DA2扣9.0分。",
+          "main_band": "C4",
+          "negative_tail_adjudication_reason": "本人持续主动远征支持本部家庭供役下限。 去重：中原长吏侵夺、任意征发及杀戮已入C1/C2/C3；本条不重复占领区侵害，只保留出征共同体的推断下限。 最终DA1扣4.5分；可归责恶化另扣0.0分。",
           "period": "post_tang",
           "polity": "元",
           "positive_score_retained": 0.0,
-          "pre_negative_tail_band": "C4N-1",
-          "pre_negative_tail_raw_score": 6.4,
-          "pre_negative_tail_score": 6.4,
-          "rank": 130,
-          "raw_score": -9.0,
+          "rank": 144,
+          "raw_score": -4.5,
           "recovery_score": 0.0,
           "reign_range": "1206-1227",
           "ruler_id": "RULER-YUAN-TEMUJI",
           "ruler_name": "铁木真",
-          "score": -9.0,
+          "score": -4.5,
           "terminal_band": "C4T-2",
           "terminal_cap": 15.9,
           "terminal_cap_applied": false,
@@ -481,26 +514,25 @@
             "applied_orphan_candidate_supplements": [],
             "c4_attribution_review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-YUAN-TEMUJI"
           },
-          "attribution_readjudication_reason": "1206 S0后持续西夏、金、花剌子模等大规模主动扩张；第三项D为C5高位但明确未闭合F3/F4等DA3额外门。 可归责恶化扣0.0分，DA2扣9.0分。",
+          "attribution_readjudication_reason": "本人持续主动远征支持本部家庭供役下限。 去重：中原长吏侵夺、任意征发及杀戮已入C1/C2/C3；本条不重复占领区侵害，只保留出征共同体的推断下限。 最终DA1扣4.5分；可归责恶化另扣0.0分。",
           "c4_attribution_readjudication": {
             "review_status": "FULLY_ADJUDICATED",
-            "basis_version": "C4-DA-FULL-POOL-READJUDICATION-2026-09-03",
-            "final_grade": "DA2",
-            "final_penalty": 9.0,
-            "change_type": "FINAL_CHECKLIST_READJUDICATION",
-            "behavior_chain_basis": "1206 S0后持续西夏、金、花剌子模等大规模主动扩张；第三项D为C5高位但明确未闭合F3/F4等DA3额外门。",
-            "grade_boundary_basis": "当前正式逐人裁决为DA2，扣9.0分。",
+            "basis_version": "C4-CIVILIAN-COST-V1",
+            "final_grade": "DA1",
+            "final_penalty": 4.5,
+            "change_type": "CIVILIAN_OBJECT_DEDUPLICATION",
+            "behavior_chain_basis": "本人持续主动远征支持本部家庭供役下限。",
+            "grade_boundary_basis": "本人持续主动远征支持本部家庭供役下限。 去重：中原长吏侵夺、任意征发及杀戮已入C1/C2/C3；本条不重复占领区侵害，只保留出征共同体的推断下限。 最终DA1扣4.5分；可归责恶化另扣0.0分。",
             "duplicate_control": {
-              "C1_C2_C3_absorption": "C1/C2/C3结算客观状态；同一事实在已闭合S0→S_end下降及本人归责时可同时支撑C4恶化，DA不得重复扣减已吸收的主动成本。",
-              "K_absorption": "K只折损C1/C2/C3主态完整度；已由K表达的终局跌幅不得再次进入DA。",
-              "DA_residual_scope": "只计未被主态、K与可归责恶化消费的本人主动家庭、劳役、军粮转输、财政抽取或平民伤害成本；纯军队人员损失不单列。"
+              "civilian_objects": "中原长吏侵夺、任意征发及杀戮已入C1/C2/C3；本条不重复占领区侵害，只保留出征共同体的推断下限。",
+              "military_inputs": "军资、军粮、军事运输及军队毁损只留军事项"
             },
-            "review_ref": "C4_DA重裁_档位变动清单.md#line=55"
+            "review_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-YUAN-TEMUJI"
           },
-          "public_basis_version": "C4-PUBLIC-BASIS-V3",
+          "public_basis_version": "C4-CIVILIAN-COST-V1",
           "starting_context": "接手三轴为C1-2/C2-2/C3-1；交班三轴为C1-2/C2-2/C3-1。",
           "recovery_and_absorption": "恢复原值0.0；归责NONE（0%）；可归责恢复0.0/27；交班上限15.9；正向保留0.0。",
-          "behavior_and_attribution": "1206 S0后持续西夏、金、花剌子模等大规模主动扩张；第三项D为C5高位但明确未闭合F3/F4等DA3额外门。 可归责恶化扣0.0分，DA2扣9.0分。",
+          "behavior_and_attribution": "本人持续主动远征支持本部家庭供役下限。 去重：中原长吏侵夺、任意征发及杀戮已入C1/C2/C3；本条不重复占领区侵害，只保留出征共同体的推断下限。 最终DA1扣4.5分；可归责恶化另扣0.0分。",
           "handoff_state": "交班raw为C1-2/C2-2/C3-1；终局C4T-2，正向上限15.9分。",
           "public_source_refs": [
             "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.md:809",
@@ -512,7 +544,7 @@
             "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-YUAN-TEMUJI",
             "元史/卷146"
           ],
-          "public_adjudication": "按C4现行合同重裁：正向保留0.0分；可归责恶化0.0分；DA2残余主动成本9.0分；C4=-9.0分。重裁依据：1206 S0后持续西夏、金、花剌子模等大规模主动扩张；第三项D为C5高位但明确未闭合F3/F4等DA3额外门。",
+          "public_adjudication": "正向保留0.0分；本人持续主动远征支持本部家庭供役下限。 去重：中原长吏侵夺、任意征发及杀戮已入C1/C2/C3；本条不重复占领区侵害，只保留出征共同体的推断下限。 最终DA1扣4.5分；可归责恶化另扣0.0分。 C4净分-4.5。",
           "recovery_formula_version": "C4-DIFFICULTY-WEIGHTED-BOUNDARIES-V1",
           "recovery_boundary_difficulty": {
             "1_TO_2": 0.6,
@@ -550,13 +582,14 @@
           "difficulty_weighted_recovery_credit": 0.0,
           "uncapped_positive_score": 0.0,
           "military_cost_review": {
-            "status": "FORMAL_SYNCED_CURRENT_C4_CONTRACT",
-            "final_grade": "DA2",
-            "basis": "1206 S0后持续西夏、金、花剌子模等大规模主动扩张；第三项D为C5高位但明确未闭合F3/F4等DA3额外门。"
+            "status": "REVIEWED",
+            "final_grade": "DA1",
+            "basis": "本人持续主动远征支持本部家庭供役下限。 中原长吏侵夺、任意征发及杀戮已入C1/C2/C3；本条不重复占领区侵害，只保留出征共同体的推断下限。",
+            "cost_consumption": "MILITARY_INPUTS_CONTEXT_ONLY_CIVILIAN_RESIDUAL_SEPARATE"
           },
           "large_construction_review": {
             "status": "FORMAL_SYNCED",
-            "basis": "未发现需要单独进入C4的大型可选择营造；普通修缮与小工程跳过。",
+            "basis": "营造事实仅为入口；当前是否有独立剩余对象见主动民力成本复核。本人持续主动远征支持本部家庭供役下限。 中原长吏侵夺、任意征发及杀戮已入C1/C2/C3；本条不重复占领区侵害，只保留出征共同体的推断下限。",
             "construction_types": [],
             "classification_status": "NO_CONSTRUCTION_CHAIN_USED_FOR_DA"
           },
@@ -588,8 +621,8 @@
           ],
           "batch_review_status": "FORMAL_C4_DA_READJUDICATED_2026-09-03",
           "input_sync_status": "CURRENT_C1_C2_C3_AND_FINAL_DA_CHECKLIST",
-          "military_cost_public_basis": "1207—1227连续攻夏、攻金、花剌子模等均为主动扩张，尤其花剌子模链为跨洲、多军团、长期远程动员。虽未闭合本方F3/F4组织性毁损，但国家级跨区域成本长期累积，裁DA2。",
-          "large_construction_public_basis": "未发现需要单独进入C4的大型可选择营造；普通修缮与小工程跳过。",
+          "military_cost_public_basis": "本人持续主动远征支持本部家庭供役下限。 中原长吏侵夺、任意征发及杀戮已入C1/C2/C3；本条不重复占领区侵害，只保留出征共同体的推断下限。",
+          "large_construction_public_basis": "营造按当前民力对象去重；本人持续主动远征支持本部家庭供役下限。 中原长吏侵夺、任意征发及杀戮已入C1/C2/C3；本条不重复占领区侵害，只保留出征共同体的推断下限。",
           "typical_pattern": {
             "status": "STRUCTURED_C4_FORMAL",
             "recovery_score": 0.0,
@@ -610,27 +643,45 @@
             "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
             "supporting_formal_fields": [],
             "name_or_polity_inference_used": false
+          },
+          "active_civilian_cost_review": {
+            "version": "C4-CIVILIAN-COST-V1",
+            "status": "REVIEWED",
+            "evidence_mode": "INFERRED",
+            "choice_and_civilian_basis": "本人持续主动远征支持本部家庭供役下限。",
+            "absorbed_and_excluded_basis": "中原长吏侵夺、任意征发及杀戮已入C1/C2/C3；本条不重复占领区侵害，只保留出征共同体的推断下限。",
+            "inference_limit": "仅用于额外家庭离业、生产机会与民间供役，不估造人数或损害事实；纯军事规模推断最高为保守下限。",
+            "military_input_double_charge": false,
+            "source_refs": [
+              "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.md:809",
+              "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.md:910",
+              "C3-REMAINING-元-铁木真",
+              "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-YUAN-TEMUJI",
+              "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-YUAN-TEMUJI",
+              "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-YUAN-TEMUJI",
+              "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-YUAN-TEMUJI",
+              "元史/卷146"
+            ],
+            "military_context_ref": "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json#ruler_id=RULER-YUAN-TEMUJI",
+            "audit_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-YUAN-TEMUJI"
           }
         },
         {
-          "adjudication_reason": "按C4现行合同重裁：正向保留0.0分；可归责恶化0.0分；DA0残余主动成本0.0分；C4=0.0分。重裁依据：高成本主要来自蛇节等西南三年多路平乱与远程转输，属于必要平乱。",
+          "adjudication_reason": "正向保留0.0分；高成本主要来自蛇节等西南三年多路平乱与远程转输，属于必要平乱。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。 C4净分0.0。",
           "attribution_factor": 0.0,
           "closed_recovery_axes": [],
           "destructive_amplification_grade": "DA0",
           "destructive_amplification_penalty": 0.0,
           "deterioration_attribution": "NONE",
-          "deterioration_curve_summary": "高成本主要来自蛇节等西南三年多路平乱与远程转输，属于必要平乱。 可归责恶化扣0.0分，DA0扣0.0分。",
+          "deterioration_curve_summary": "高成本主要来自蛇节等西南三年多路平乱与远程转输，属于必要平乱。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。",
           "deterioration_penalty": 0.0,
-          "main_band": "C4-2",
-          "negative_tail_adjudication_reason": "高成本主要来自蛇节等西南三年多路平乱与远程转输，属于必要平乱。 可归责恶化扣0.0分，DA0扣0.0分。",
+          "main_band": "C4",
+          "negative_tail_adjudication_reason": "高成本主要来自蛇节等西南三年多路平乱与远程转输，属于必要平乱。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。",
           "period": "post_tang",
           "polity": "元",
           "positive_score_retained": 0.0,
-          "pre_negative_tail_band": "C4-2",
-          "pre_negative_tail_raw_score": 10.0,
-          "pre_negative_tail_score": 10.0,
-          "rank": 56,
-          "raw_score": 10.0,
+          "rank": 85,
+          "raw_score": 0.0,
           "recovery_score": 0.0,
           "reign_range": "1294-1307",
           "ruler_id": "RULER-YUAN-TEMUR",
@@ -673,26 +724,25 @@
             "applied_orphan_candidate_supplements": [],
             "c4_attribution_review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-YUAN-TEMUR"
           },
-          "attribution_readjudication_reason": "高成本主要来自蛇节等西南三年多路平乱与远程转输，属于必要平乱。 可归责恶化扣0.0分，DA0扣0.0分。",
+          "attribution_readjudication_reason": "高成本主要来自蛇节等西南三年多路平乱与远程转输，属于必要平乱。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。",
           "c4_attribution_readjudication": {
             "review_status": "FULLY_ADJUDICATED",
-            "basis_version": "C4-DA-RESIDUAL-COST-V5",
+            "basis_version": "C4-CIVILIAN-COST-V1",
             "final_grade": "DA0",
             "final_penalty": 0.0,
-            "change_type": "CURRENT_C4_CONTRACT_SYNC",
+            "change_type": "CIVILIAN_OBJECT_DEDUPLICATION",
             "behavior_chain_basis": "高成本主要来自蛇节等西南三年多路平乱与远程转输，属于必要平乱。",
-            "grade_boundary_basis": "当前正式逐人裁决为DA0，扣0.0分。",
+            "grade_boundary_basis": "高成本主要来自蛇节等西南三年多路平乱与远程转输，属于必要平乱。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。",
             "duplicate_control": {
-              "C1_C2_C3_absorption": "C1/C2/C3结算客观状态；同一事实在已闭合S0→S_end下降及本人归责时可同时支撑C4恶化，DA不得重复扣减已吸收的主动成本。",
-              "K_absorption": "K只折损C1/C2/C3主态完整度；已由K表达的终局跌幅不得再次进入DA。",
-              "DA_residual_scope": "只计未被主态、K与可归责恶化消费的本人主动家庭、劳役、军粮转输、财政抽取或平民伤害成本；纯军队人员损失不单列。"
+              "civilian_objects": "按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
+              "military_inputs": "军资、军粮、军事运输及军队毁损只留军事项"
             },
-            "review_ref": "BATCH7_INLINE_2026-08-31"
+            "review_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-YUAN-TEMUR"
           },
-          "public_basis_version": "C4-CONTRACT-2026-08-31-BATCH7",
+          "public_basis_version": "C4-CIVILIAN-COST-V1",
           "starting_context": "接手三轴为C1-3/C2-2/C3-3；交班三轴为C1-3/C2-2/C3-3。",
           "recovery_and_absorption": "恢复原值0.0；归责NONE（0%）；可归责恢复0.0/27；交班上限24.9；正向保留0.0。",
-          "behavior_and_attribution": "高成本主要来自蛇节等西南三年多路平乱与远程转输，属于必要平乱。 可归责恶化扣0.0分，DA0扣0.0分。",
+          "behavior_and_attribution": "高成本主要来自蛇节等西南三年多路平乱与远程转输，属于必要平乱。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。",
           "handoff_state": "交班raw锚点为民生3档、经济财政2档、社会安全3档；终局层级C4T-3，正向上限24.9。",
           "public_source_refs": [
             "《续资治通鉴》卷一百九十五：出衣幣於內府，身往給之，全活數萬人。",
@@ -700,7 +750,7 @@
             "《元史·成宗本纪》：岁入之数，不支半岁，自余皆借及别支，臣恐理财失宜，钞法亦坏。",
             "《元史》卷一百二：大德间疑狱必遣官覆谳而从轻，死罪审录无冤亦必待报，然后加刑。"
           ],
-          "public_adjudication": "按C4现行合同重裁：正向保留0.0分；可归责恶化0.0分；DA0残余主动成本0.0分；C4=0.0分。重裁依据：高成本主要来自蛇节等西南三年多路平乱与远程转输，属于必要平乱。",
+          "public_adjudication": "正向保留0.0分；高成本主要来自蛇节等西南三年多路平乱与远程转输，属于必要平乱。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。 C4净分0.0。",
           "recovery_formula_version": "C4-CONTRACT-2026-08-31-C1_FORMAL_RECOVERY-DA_COST_MAGNITUDE-NECESSARY_WAR_ERROR_EXCLUDED",
           "recovery_boundary_difficulty": {
             "1_TO_2": 0.6,
@@ -771,13 +821,14 @@
             }
           },
           "military_cost_review": {
-            "status": "FORMAL_SYNCED_CURRENT_C4_CONTRACT",
+            "status": "REVIEWED",
             "final_grade": "DA0",
-            "basis": "高成本主要来自蛇节等西南三年多路平乱与远程转输，属于必要平乱。"
+            "basis": "高成本主要来自蛇节等西南三年多路平乱与远程转输，属于必要平乱。 按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
+            "cost_consumption": "MILITARY_INPUTS_CONTEXT_ONLY_CIVILIAN_RESIDUAL_SEPARATE"
           },
           "large_construction_review": {
             "status": "FORMAL_SYNCED",
-            "basis": "未发现本人窗口达到C4大型可选择营造门槛的工程；后继武宗、仁宗营造不得倒算。",
+            "basis": "营造事实仅为入口；当前是否有独立剩余对象见主动民力成本复核。高成本主要来自蛇节等西南三年多路平乱与远程转输，属于必要平乱。 按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
             "construction_types": [],
             "classification_status": "NO_CONSTRUCTION_CHAIN_USED_FOR_DA"
           },
@@ -799,8 +850,8 @@
               "original_text": "大德间疑狱必遣官覆谳而从轻，死罪审录无冤亦必待报，然后加刑。"
             }
           ],
-          "military_cost_public_basis": "蛇节战争承载很重，但主体是已成多区域叛乱后的必要平乱；不把必要安全成本机械转DA。",
-          "large_construction_public_basis": "未发现本人窗口达到C4大型可选择营造门槛的工程；后继武宗、仁宗营造不得倒算。",
+          "military_cost_public_basis": "高成本主要来自蛇节等西南三年多路平乱与远程转输，属于必要平乱。 按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
+          "large_construction_public_basis": "营造按当前民力对象去重；高成本主要来自蛇节等西南三年多路平乱与远程转输，属于必要平乱。 按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
           "typical_pattern": {
             "status": "STRUCTURED_C4_FORMAL",
             "recovery_score": 0.0,
@@ -821,27 +872,44 @@
             "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
             "supporting_formal_fields": [],
             "name_or_polity_inference_used": false
+          },
+          "active_civilian_cost_review": {
+            "version": "C4-CIVILIAN-COST-V1",
+            "status": "REVIEWED",
+            "evidence_mode": "NONE",
+            "choice_and_civilian_basis": "高成本主要来自蛇节等西南三年多路平乱与远程转输，属于必要平乱。",
+            "absorbed_and_excluded_basis": "按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
+            "inference_limit": "直接成本仍须剔除已计对象；有记载不构成额外加权。",
+            "military_input_double_charge": false,
+            "source_refs": [
+              "《续资治通鉴》卷一百九十五：出衣幣於內府，身往給之，全活數萬人。",
+              "《续资治通鉴》卷一百九十五：國用浩穰，民貧歲歉。",
+              "《元史·成宗本纪》：岁入之数，不支半岁，自余皆借及别支，臣恐理财失宜，钞法亦坏。",
+              "《元史》卷一百二：大德间疑狱必遣官覆谳而从轻，死罪审录无冤亦必待报，然后加刑。",
+              "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-YUAN-TEMUR",
+              "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-YUAN-TEMUR",
+              "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-YUAN-TEMUR"
+            ],
+            "military_context_ref": "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json#ruler_id=RULER-YUAN-TEMUR",
+            "audit_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-YUAN-TEMUR"
           }
         },
         {
-          "adjudication_reason": "按C4现行合同重裁：正向保留0.0分；可归责恶化1.9分；DA0残余主动成本0.0分；C4=-1.9分。重裁依据：主要高成本来自元末内部平乱和系统危机；高丽等外部干预未闭合到足以越DA0的本人可选择成本。",
+          "adjudication_reason": "正向保留0.0分；主要高成本来自元末内部平乱和系统危机；高丽等外部干预未闭合到足以越主动民力成本的本人可选择成本。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣1.9分。 C4净分-1.9。",
           "attribution_factor": 0.5,
           "closed_recovery_axes": [],
           "destructive_amplification_grade": "DA0",
           "destructive_amplification_penalty": 0.0,
           "deterioration_attribution": "MATERIAL",
-          "deterioration_curve_summary": "主要高成本来自元末内部平乱和系统危机；高丽等外部干预未闭合到足以越DA0的本人可选择成本。 可归责恶化扣1.9分，DA0扣0.0分。",
+          "deterioration_curve_summary": "主要高成本来自元末内部平乱和系统危机；高丽等外部干预未闭合到足以越主动民力成本的本人可选择成本。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣1.9分。",
           "deterioration_penalty": 1.9,
-          "main_band": "C4N-1",
-          "negative_tail_adjudication_reason": "主要高成本来自元末内部平乱和系统危机；高丽等外部干预未闭合到足以越DA0的本人可选择成本。 可归责恶化扣1.9分，DA0扣0.0分。",
+          "main_band": "C4",
+          "negative_tail_adjudication_reason": "主要高成本来自元末内部平乱和系统危机；高丽等外部干预未闭合到足以越主动民力成本的本人可选择成本。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣1.9分。",
           "period": "post_tang",
           "polity": "元",
           "positive_score_retained": 0.0,
-          "pre_negative_tail_band": "C4N-1",
-          "pre_negative_tail_raw_score": 3.2,
-          "pre_negative_tail_score": 3.2,
-          "rank": 82,
-          "raw_score": -0.8,
+          "rank": 123,
+          "raw_score": -1.9,
           "recovery_score": 0.0,
           "reign_range": "1333-1370",
           "ruler_id": "RULER-YUAN-TOGHON-TEMUR",
@@ -884,26 +952,25 @@
             "applied_orphan_candidate_supplements": [],
             "c4_attribution_review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-YUAN-TOGHON-TEMUR"
           },
-          "attribution_readjudication_reason": "主要高成本来自元末内部平乱和系统危机；高丽等外部干预未闭合到足以越DA0的本人可选择成本。 可归责恶化扣1.9分，DA0扣0.0分。",
+          "attribution_readjudication_reason": "主要高成本来自元末内部平乱和系统危机；高丽等外部干预未闭合到足以越主动民力成本的本人可选择成本。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣1.9分。",
           "c4_attribution_readjudication": {
             "review_status": "FULLY_ADJUDICATED",
-            "basis_version": "C4-DA-RESIDUAL-COST-V5",
+            "basis_version": "C4-CIVILIAN-COST-V1",
             "final_grade": "DA0",
             "final_penalty": 0.0,
-            "change_type": "CURRENT_C4_CONTRACT_SYNC",
-            "behavior_chain_basis": "主要高成本来自元末内部平乱和系统危机；高丽等外部干预未闭合到足以越DA0的本人可选择成本。",
-            "grade_boundary_basis": "当前正式逐人裁决为DA0，扣0.0分。",
+            "change_type": "CIVILIAN_OBJECT_DEDUPLICATION",
+            "behavior_chain_basis": "主要高成本来自元末内部平乱和系统危机；高丽等外部干预未闭合到足以越主动民力成本的本人可选择成本。",
+            "grade_boundary_basis": "主要高成本来自元末内部平乱和系统危机；高丽等外部干预未闭合到足以越主动民力成本的本人可选择成本。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣1.9分。",
             "duplicate_control": {
-              "C1_C2_C3_absorption": "C1/C2/C3结算客观状态；同一事实在已闭合S0→S_end下降及本人归责时可同时支撑C4恶化，DA不得重复扣减已吸收的主动成本。",
-              "K_absorption": "K只折损C1/C2/C3主态完整度；已由K表达的终局跌幅不得再次进入DA。",
-              "DA_residual_scope": "只计未被主态、K与可归责恶化消费的本人主动家庭、劳役、军粮转输、财政抽取或平民伤害成本；纯军队人员损失不单列。"
+              "civilian_objects": "按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
+              "military_inputs": "军资、军粮、军事运输及军队毁损只留军事项"
             },
-            "review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-YUAN-TOGHON-TEMUR"
+            "review_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-YUAN-TOGHON-TEMUR"
           },
-          "public_basis_version": "C4-PUBLIC-BASIS-V3",
+          "public_basis_version": "C4-CIVILIAN-COST-V1",
           "starting_context": "接手三轴为C1-1/C2-1/C3-3；交班三轴为C1-1/C2-1/C3-1。",
           "recovery_and_absorption": "恢复原值0.0；归责NONE（0%）；可归责恢复0.0/27；交班上限7.9；正向保留0.0。",
-          "behavior_and_attribution": "主要高成本来自元末内部平乱和系统危机；高丽等外部干预未闭合到足以越DA0的本人可选择成本。 可归责恶化扣1.9分，DA0扣0.0分。",
+          "behavior_and_attribution": "主要高成本来自元末内部平乱和系统危机；高丽等外部干预未闭合到足以越主动民力成本的本人可选择成本。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣1.9分。",
           "handoff_state": "交班raw为C1-1/C2-1/C3-1；终局C4T-1，正向上限7.9分。",
           "public_source_refs": [
             "docs/史料通读产物/元/续资治通鉴&元史/volume-217.source-summary.md:76",
@@ -915,7 +982,7 @@
             "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-YUAN-TOGHON-TEMUR",
             "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-YUAN-TOGHON-TEMUR"
           ],
-          "public_adjudication": "按C4现行合同重裁：正向保留0.0分；可归责恶化1.9分；DA0残余主动成本0.0分；C4=-1.9分。重裁依据：主要高成本来自元末内部平乱和系统危机；高丽等外部干预未闭合到足以越DA0的本人可选择成本。",
+          "public_adjudication": "正向保留0.0分；主要高成本来自元末内部平乱和系统危机；高丽等外部干预未闭合到足以越主动民力成本的本人可选择成本。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣1.9分。 C4净分-1.9。",
           "recovery_formula_version": "C4-DIFFICULTY-WEIGHTED-BOUNDARIES-V1",
           "recovery_boundary_difficulty": {
             "1_TO_2": 0.6,
@@ -953,13 +1020,14 @@
           "difficulty_weighted_recovery_credit": 0.0,
           "uncapped_positive_score": 0.0,
           "military_cost_review": {
-            "status": "FORMAL_SYNCED_CURRENT_C4_CONTRACT",
+            "status": "REVIEWED",
             "final_grade": "DA0",
-            "basis": "主要高成本来自元末内部平乱和系统危机；高丽等外部干预未闭合到足以越DA0的本人可选择成本。"
+            "basis": "主要高成本来自元末内部平乱和系统危机；高丽等外部干预未闭合到足以越主动民力成本的本人可选择成本。 按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
+            "cost_consumption": "MILITARY_INPUTS_CONTEXT_ONLY_CIVILIAN_RESIDUAL_SEPARATE"
           },
           "large_construction_review": {
             "status": "FORMAL_SYNCED",
-            "basis": "未发现需要单独进入C4的大型可选择营造；普通修缮与小工程跳过。",
+            "basis": "营造事实仅为入口；当前是否有独立剩余对象见主动民力成本复核。主要高成本来自元末内部平乱和系统危机；高丽等外部干预未闭合到足以越主动民力成本的本人可选择成本。 按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
             "construction_types": [],
             "classification_status": "NO_CONSTRUCTION_CHAIN_USED_FOR_DA"
           },
@@ -991,8 +1059,8 @@
           ],
           "batch_review_status": "REVIEWED_BATCH_16_2026-08-31",
           "input_sync_status": "SYNCED_TO_LATEST_C1_C2_C3_BATCH16。",
-          "military_cost_public_basis": "现成军事成本中倭寇守御、高丽干预等本人可选择责任未闭合；末世财政与社会崩坏主要走三轴状态和逐轴归责，未识别独立大型可选择工程，DA0。",
-          "large_construction_public_basis": "未发现需要单独进入C4的大型可选择营造；普通修缮与小工程跳过。",
+          "military_cost_public_basis": "主要高成本来自元末内部平乱和系统危机；高丽等外部干预未闭合到足以越主动民力成本的本人可选择成本。 按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
+          "large_construction_public_basis": "营造按当前民力对象去重；主要高成本来自元末内部平乱和系统危机；高丽等外部干预未闭合到足以越主动民力成本的本人可选择成本。 按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
           "typical_pattern": {
             "status": "STRUCTURED_C4_FORMAL",
             "recovery_score": 0.0,
@@ -1013,36 +1081,54 @@
             "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
             "supporting_formal_fields": [],
             "name_or_polity_inference_used": false
+          },
+          "active_civilian_cost_review": {
+            "version": "C4-CIVILIAN-COST-V1",
+            "status": "REVIEWED",
+            "evidence_mode": "NONE",
+            "choice_and_civilian_basis": "主要高成本来自元末内部平乱和系统危机；高丽等外部干预未闭合到足以越主动民力成本的本人可选择成本。",
+            "absorbed_and_excluded_basis": "按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
+            "inference_limit": "直接成本仍须剔除已计对象；有记载不构成额外加权。",
+            "military_input_double_charge": false,
+            "source_refs": [
+              "docs/史料通读产物/元/续资治通鉴&元史/volume-217.source-summary.md:76",
+              "docs/史料通读产物/元/续资治通鉴&元史/volume-208.source-summary.md:78",
+              "docs/史料通读产物/元/续资治通鉴&元史/volume-220.source-summary.md:135",
+              "docs/史料通读产物/元/续资治通鉴&元史/volume-218.source-summary.md:62",
+              "C3-REMAINING-元-妥懽帖睦尔",
+              "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-YUAN-TOGHON-TEMUR",
+              "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-YUAN-TOGHON-TEMUR",
+              "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-YUAN-TOGHON-TEMUR"
+            ],
+            "military_context_ref": "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json#ruler_id=RULER-YUAN-TOGHON-TEMUR",
+            "audit_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-YUAN-TOGHON-TEMUR"
           }
         },
         {
-          "adjudication_reason": "按C4七档DA合同：正向保留9.4；可归责恶化0.0；DA3残余主动成本13.5；C4=-4.1。已执行必要行为剔除、客观成本下限与跨项去重门。",
+          "adjudication_reason": "正向保留9.4分；和林及万安宫连续新建的民役占用保留显著成本，扣除最低建都基线。 去重：金宋西征军费排除；税包加码与重债已入C1/C2，不再支撑极重档。 最终DA2扣9.0分；可归责恶化另扣0.0分。 C4净分0.4。",
           "attribution_factor": 0.0,
           "closed_recovery_axes": [
             "C1",
             "C2",
             "C3"
           ],
-          "destructive_amplification_grade": "DA3",
-          "destructive_amplification_penalty": 13.5,
+          "destructive_amplification_grade": "DA2",
+          "destructive_amplification_penalty": 9.0,
           "deterioration_attribution": "NONE",
-          "deterioration_curve_summary": "行为链：金、宋、西征长期多战区动员 + 和林/万安宫等连续新建。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣0.0分，最终DA3扣13.5分。",
+          "deterioration_curve_summary": "和林及万安宫连续新建的民役占用保留显著成本，扣除最低建都基线。 去重：金宋西征军费排除；税包加码与重债已入C1/C2，不再支撑极重档。 最终DA2扣9.0分；可归责恶化另扣0.0分。",
           "deterioration_penalty": 0.0,
-          "main_band": "C4-2",
-          "negative_tail_adjudication_reason": "行为链：金、宋、西征长期多战区动员 + 和林/万安宫等连续新建。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣0.0分，最终DA3扣13.5分。",
+          "main_band": "C4",
+          "negative_tail_adjudication_reason": "和林及万安宫连续新建的民役占用保留显著成本，扣除最低建都基线。 去重：金宋西征军费排除；税包加码与重债已入C1/C2，不再支撑极重档。 最终DA2扣9.0分；可归责恶化另扣0.0分。",
           "period": "post_tang",
           "polity": "元",
           "positive_score_retained": 9.4,
-          "pre_negative_tail_band": "C4-2",
-          "pre_negative_tail_raw_score": 19.4,
-          "pre_negative_tail_score": 19.4,
-          "rank": 101,
-          "raw_score": -4.1,
+          "rank": 82,
+          "raw_score": 0.4,
           "recovery_score": 9.4,
           "reign_range": "1229-1241",
           "ruler_id": "RULER-YUAN-OGEDEI",
           "ruler_name": "窝阔台",
-          "score": -4.1,
+          "score": 0.4,
           "terminal_band": "C4T-3",
           "terminal_cap": 24.9,
           "terminal_cap_applied": false,
@@ -1096,26 +1182,25 @@
             "applied_orphan_candidate_supplements": [],
             "c4_attribution_review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-YUAN-OGEDEI"
           },
-          "attribution_readjudication_reason": "行为链：金、宋、西征长期多战区动员 + 和林/万安宫等连续新建。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣0.0分，最终DA3扣13.5分。",
+          "attribution_readjudication_reason": "和林及万安宫连续新建的民役占用保留显著成本，扣除最低建都基线。 去重：金宋西征军费排除；税包加码与重债已入C1/C2，不再支撑极重档。 最终DA2扣9.0分；可归责恶化另扣0.0分。",
           "c4_attribution_readjudication": {
             "review_status": "FULLY_ADJUDICATED",
-            "basis_version": "C4-DA0-DA6-CALIBRATION-2026-09-02",
-            "final_grade": "DA3",
-            "final_penalty": 13.5,
-            "change_type": "FORMAL_CHECKLIST_PATCH",
-            "behavior_chain_basis": "行为链：金、宋、西征长期多战区动员 + 和林/万安宫等连续新建。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣0.0分，最终DA3扣13.5分。",
-            "grade_boundary_basis": "当前正式逐人裁决为DA3，扣13.5分。",
+            "basis_version": "C4-CIVILIAN-COST-V1",
+            "final_grade": "DA2",
+            "final_penalty": 9.0,
+            "change_type": "CIVILIAN_OBJECT_DEDUPLICATION",
+            "behavior_chain_basis": "和林及万安宫连续新建的民役占用保留显著成本，扣除最低建都基线。",
+            "grade_boundary_basis": "和林及万安宫连续新建的民役占用保留显著成本，扣除最低建都基线。 去重：金宋西征军费排除；税包加码与重债已入C1/C2，不再支撑极重档。 最终DA2扣9.0分；可归责恶化另扣0.0分。",
             "duplicate_control": {
-              "C1_C2_C3_absorption": "C1/C2/C3结算客观状态；同一事实在已闭合S0→S_end下降及本人归责时可同时支撑C4恶化，DA不得重复扣减已吸收的主动成本。",
-              "K_absorption": "K只折损C1/C2/C3主态完整度；已由K表达的终局跌幅不得再次进入DA。",
-              "DA_residual_scope": "只计未被主态、K与可归责恶化消费的本人主动家庭、劳役、军粮转输、财政抽取或平民伤害成本；纯军队人员损失不单列。"
+              "civilian_objects": "金宋西征军费排除；税包加码与重债已入C1/C2，不再支撑极重档。",
+              "military_inputs": "军资、军粮、军事运输及军队毁损只留军事项"
             },
-            "review_ref": "BATCH8_INLINE_2026-08-31"
+            "review_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-YUAN-OGEDEI"
           },
-          "public_basis_version": "C4-CONTRACT-2026-09-02-NET-LEGACY-V5",
+          "public_basis_version": "C4-CIVILIAN-COST-V1",
           "starting_context": "接手三轴为C1-2/C2-2/C3-1；交班三轴为C1-3/C2-3/C3-2。",
           "recovery_and_absorption": "恢复原值9.4；归责FULL（100%）；可归责恢复9.4/27；交班上限24.9；正向保留9.4。",
-          "behavior_and_attribution": "行为链：金、宋、西征长期多战区动员 + 和林/万安宫等连续新建。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣0.0分，最终DA3扣13.5分。",
+          "behavior_and_attribution": "和林及万安宫连续新建的民役占用保留显著成本，扣除最低建都基线。 去重：金宋西征军费排除；税包加码与重债已入C1/C2，不再支撑极重档。 最终DA2扣9.0分；可归责恶化另扣0.0分。",
           "handoff_state": "交班raw锚点为民生3档、经济财政3档、社会安全2档；终局层级C4T-3，正向上限24.9。",
           "public_source_refs": [
             "《元史·耶律楚材传》：民间所负者，官为代偿之……庶政略备，民稍苏息焉。",
@@ -1125,7 +1210,7 @@
             "《元史·太宗本纪》：命张柔等八万户伐宋。",
             "《元史·刑法志》：元兴初未有法守……循用金律，颇伤严刻。"
           ],
-          "public_adjudication": "按C4七档DA合同：正向保留9.4；可归责恶化0.0；DA3残余主动成本13.5；C4=-4.1。已执行必要行为剔除、客观成本下限与跨项去重门。",
+          "public_adjudication": "正向保留9.4分；和林及万安宫连续新建的民役占用保留显著成本，扣除最低建都基线。 去重：金宋西征军费排除；税包加码与重债已入C1/C2，不再支撑极重档。 最终DA2扣9.0分；可归责恶化另扣0.0分。 C4净分0.4。",
           "recovery_formula_version": "C4-CONTRACT-2026-08-31-C1_FORMAL_RECOVERY-DA_COST_MAGNITUDE-NECESSARY_WAR_ERROR_EXCLUDED-HIGHEST_EFFECTIVE_STATE",
           "recovery_boundary_difficulty": {
             "1_TO_2": 0.6,
@@ -1196,13 +1281,14 @@
             }
           },
           "military_cost_review": {
-            "status": "FORMAL_SYNCED_CURRENT_C4_CONTRACT",
-            "final_grade": "DA3",
-            "basis": "军事动员只消费可选择增量的兵役、军粮、运输与财政资源占用；军队伤亡本身不直接转入第二项。"
+            "status": "REVIEWED",
+            "final_grade": "DA2",
+            "basis": "和林及万安宫连续新建的民役占用保留显著成本，扣除最低建都基线。 金宋西征军费排除；税包加码与重债已入C1/C2，不再支撑极重档。",
+            "cost_consumption": "MILITARY_INPUTS_CONTEXT_ONLY_CIVILIAN_RESIDUAL_SEPARATE"
           },
           "large_construction_review": {
             "status": "FORMAL_SYNCED",
-            "basis": "营造分类=NEW_BUILD；按仁寿宫单项强锚及更高档硬维度门复核。金、宋、西征长期多战区动员 + 和林/万安宫等连续新建。",
+            "basis": "营造事实仅为入口；当前是否有独立剩余对象见主动民力成本复核。和林及万安宫连续新建的民役占用保留显著成本，扣除最低建都基线。 金宋西征军费排除；税包加码与重债已入C1/C2，不再支撑极重档。",
             "construction_types": [
               "NEW_BUILD"
             ],
@@ -1234,8 +1320,8 @@
               "original_text": "元兴初未有法守……循用金律，颇伤严刻。"
             }
           ],
-          "military_cost_public_basis": "金、宋、西征长期多战区动员 + 和林/万安宫等连续新建。",
-          "large_construction_public_basis": "营造分类=NEW_BUILD；按仁寿宫单项强锚及更高档硬维度门复核。金、宋、西征长期多战区动员 + 和林/万安宫等连续新建。",
+          "military_cost_public_basis": "和林及万安宫连续新建的民役占用保留显著成本，扣除最低建都基线。 金宋西征军费排除；税包加码与重债已入C1/C2，不再支撑极重档。",
+          "large_construction_public_basis": "营造按当前民力对象去重；和林及万安宫连续新建的民役占用保留显著成本，扣除最低建都基线。 金宋西征军费排除；税包加码与重债已入C1/C2，不再支撑极重档。",
           "typical_pattern": {
             "status": "STRUCTURED_C4_FORMAL",
             "recovery_score": 9.4,
@@ -1260,34 +1346,53 @@
             "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
             "supporting_formal_fields": [],
             "name_or_polity_inference_used": false
+          },
+          "active_civilian_cost_review": {
+            "version": "C4-CIVILIAN-COST-V1",
+            "status": "REVIEWED",
+            "evidence_mode": "DIRECT",
+            "choice_and_civilian_basis": "和林及万安宫连续新建的民役占用保留显著成本，扣除最低建都基线。",
+            "absorbed_and_excluded_basis": "金宋西征军费排除；税包加码与重债已入C1/C2，不再支撑极重档。",
+            "inference_limit": "直接成本仍须剔除已计对象；有记载不构成额外加权。",
+            "military_input_double_charge": false,
+            "source_refs": [
+              "《元史·耶律楚材传》：民间所负者，官为代偿之……庶政略备，民稍苏息焉。",
+              "《元史·太宗本纪》：华夏富庶，羊马成群，旅不赍粮，时称治平。",
+              "《元史·耶律楚材传》：课银增至一百一十万两……又增至二百二十万两。",
+              "《元史·耶律楚材传》：尔欲为百姓哭耶？姑令试行之。",
+              "《元史·太宗本纪》：命张柔等八万户伐宋。",
+              "《元史·刑法志》：元兴初未有法守……循用金律，颇伤严刻。",
+              "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-YUAN-OGEDEI",
+              "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-YUAN-OGEDEI",
+              "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-YUAN-OGEDEI"
+            ],
+            "military_context_ref": "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json#ruler_id=RULER-YUAN-OGEDEI",
+            "audit_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-YUAN-OGEDEI"
           }
         },
         {
-          "adjudication_reason": "按C4七档DA合同：正向保留2.4；可归责恶化0.0；DA3残余主动成本13.5；C4=-11.1。已执行必要行为剔除、客观成本下限与跨项去重门。",
+          "adjudication_reason": "正向保留2.4分；元大都新增工程保留超出最低国家建设部分的显著民役占用。 去重：日本安南缅甸爪哇军费与军资不再叠为极重档；全任财政回落已有C2归属。 最终DA2扣9.0分；可归责恶化另扣0.0分。 C4净分-6.6。",
           "attribution_factor": 0.0,
           "closed_recovery_axes": [
             "C3"
           ],
-          "destructive_amplification_grade": "DA3",
-          "destructive_amplification_penalty": 13.5,
+          "destructive_amplification_grade": "DA2",
+          "destructive_amplification_penalty": 9.0,
           "deterioration_attribution": "NONE",
-          "deterioration_curve_summary": "行为链：日本、安南、缅甸、爪哇等长期多方向远征 + 新建元大都多年工程。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣0.0分，最终DA3扣13.5分。",
+          "deterioration_curve_summary": "元大都新增工程保留超出最低国家建设部分的显著民役占用。 去重：日本安南缅甸爪哇军费与军资不再叠为极重档；全任财政回落已有C2归属。 最终DA2扣9.0分；可归责恶化另扣0.0分。",
           "deterioration_penalty": 0.0,
-          "main_band": "C4N-1",
-          "negative_tail_adjudication_reason": "行为链：日本、安南、缅甸、爪哇等长期多方向远征 + 新建元大都多年工程。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣0.0分，最终DA3扣13.5分。",
+          "main_band": "C4",
+          "negative_tail_adjudication_reason": "元大都新增工程保留超出最低国家建设部分的显著民役占用。 去重：日本安南缅甸爪哇军费与军资不再叠为极重档；全任财政回落已有C2归属。 最终DA2扣9.0分；可归责恶化另扣0.0分。",
           "period": "post_tang",
           "polity": "元",
           "positive_score_retained": 2.4,
-          "pre_negative_tail_band": "C4N-1",
-          "pre_negative_tail_raw_score": 10.5,
-          "pre_negative_tail_score": 10.5,
-          "rank": 152,
-          "raw_score": -11.1,
+          "rank": 169,
+          "raw_score": -6.6,
           "recovery_score": 2.4,
           "reign_range": "1260-1294",
           "ruler_id": "RULER-YUAN-KUBLAI",
           "ruler_name": "忽必烈",
-          "score": -11.1,
+          "score": -6.6,
           "terminal_band": "C4T-3",
           "terminal_cap": 24.9,
           "terminal_cap_applied": false,
@@ -1306,26 +1411,25 @@
             "applied_orphan_candidate_supplements": [],
             "c4_attribution_review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-YUAN-KUBLAI"
           },
-          "attribution_readjudication_reason": "行为链：日本、安南、缅甸、爪哇等长期多方向远征 + 新建元大都多年工程。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣0.0分，最终DA3扣13.5分。",
+          "attribution_readjudication_reason": "元大都新增工程保留超出最低国家建设部分的显著民役占用。 去重：日本安南缅甸爪哇军费与军资不再叠为极重档；全任财政回落已有C2归属。 最终DA2扣9.0分；可归责恶化另扣0.0分。",
           "c4_attribution_readjudication": {
             "review_status": "FULLY_ADJUDICATED",
-            "basis_version": "C4-DA0-DA6-CALIBRATION-2026-09-02",
-            "final_grade": "DA3",
-            "final_penalty": 13.5,
-            "change_type": "FORMAL_CHECKLIST_PATCH",
-            "behavior_chain_basis": "行为链：日本、安南、缅甸、爪哇等长期多方向远征 + 新建元大都多年工程。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣0.0分，最终DA3扣13.5分。",
-            "grade_boundary_basis": "当前正式逐人裁决为DA3，扣13.5分。",
+            "basis_version": "C4-CIVILIAN-COST-V1",
+            "final_grade": "DA2",
+            "final_penalty": 9.0,
+            "change_type": "CIVILIAN_OBJECT_DEDUPLICATION",
+            "behavior_chain_basis": "元大都新增工程保留超出最低国家建设部分的显著民役占用。",
+            "grade_boundary_basis": "元大都新增工程保留超出最低国家建设部分的显著民役占用。 去重：日本安南缅甸爪哇军费与军资不再叠为极重档；全任财政回落已有C2归属。 最终DA2扣9.0分；可归责恶化另扣0.0分。",
             "duplicate_control": {
-              "C1_C2_C3_absorption": "C1/C2/C3结算客观状态；同一事实在已闭合S0→S_end下降及本人归责时可同时支撑C4恶化，DA不得重复扣减已吸收的主动成本。",
-              "K_absorption": "K只折损C1/C2/C3主态完整度；已由K表达的终局跌幅不得再次进入DA。",
-              "DA_residual_scope": "只计未被主态、K与可归责恶化消费的本人主动家庭、劳役、军粮转输、财政抽取或平民伤害成本；纯军队人员损失不单列。"
+              "civilian_objects": "日本安南缅甸爪哇军费与军资不再叠为极重档；全任财政回落已有C2归属。",
+              "military_inputs": "军资、军粮、军事运输及军队毁损只留军事项"
             },
-            "review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-YUAN-KUBLAI"
+            "review_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-YUAN-KUBLAI"
           },
-          "public_basis_version": "C4-PUBLIC-BASIS-V3",
+          "public_basis_version": "C4-CIVILIAN-COST-V1",
           "starting_context": "接手三轴为C1-3/C2-3/C3-2；交班三轴为C1-3/C2-2/C3-3。",
           "recovery_and_absorption": "恢复原值2.4；归责FULL（100%）；可归责恢复2.4/27；交班上限24.9；正向保留2.4。",
-          "behavior_and_attribution": "行为链：日本、安南、缅甸、爪哇等长期多方向远征 + 新建元大都多年工程。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣0.0分，最终DA3扣13.5分。",
+          "behavior_and_attribution": "元大都新增工程保留超出最低国家建设部分的显著民役占用。 去重：日本安南缅甸爪哇军费与军资不再叠为极重档；全任财政回落已有C2归属。 最终DA2扣9.0分；可归责恶化另扣0.0分。",
           "handoff_state": "交班raw为C1-3/C2-2/C3-3；终局C4T-3，正向上限24.9。",
           "public_source_refs": [
             "docs/史料通读产物/元/续资治通鉴&元史/volume-185.source-summary.md:72",
@@ -1337,7 +1441,7 @@
             "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-YUAN-KUBLAI",
             "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-YUAN-KUBLAI"
           ],
-          "public_adjudication": "按C4七档DA合同：正向保留2.4；可归责恶化0.0；DA3残余主动成本13.5；C4=-11.1。已执行必要行为剔除、客观成本下限与跨项去重门。",
+          "public_adjudication": "正向保留2.4分；元大都新增工程保留超出最低国家建设部分的显著民役占用。 去重：日本安南缅甸爪哇军费与军资不再叠为极重档；全任财政回落已有C2归属。 最终DA2扣9.0分；可归责恶化另扣0.0分。 C4净分-6.6。",
           "recovery_formula_version": "C4-DIFFICULTY-WEIGHTED-BOUNDARIES-V1",
           "recovery_boundary_difficulty": {
             "1_TO_2": 0.6,
@@ -1375,13 +1479,14 @@
           "difficulty_weighted_recovery_credit": 0.24,
           "uncapped_positive_score": 2.4,
           "military_cost_review": {
-            "status": "FORMAL_SYNCED_CURRENT_C4_CONTRACT",
-            "final_grade": "DA3",
-            "basis": "军事动员只消费可选择增量的兵役、军粮、运输与财政资源占用；军队伤亡本身不直接转入第二项。"
+            "status": "REVIEWED",
+            "final_grade": "DA2",
+            "basis": "元大都新增工程保留超出最低国家建设部分的显著民役占用。 日本安南缅甸爪哇军费与军资不再叠为极重档；全任财政回落已有C2归属。",
+            "cost_consumption": "MILITARY_INPUTS_CONTEXT_ONLY_CIVILIAN_RESIDUAL_SEPARATE"
           },
           "large_construction_review": {
             "status": "FORMAL_SYNCED",
-            "basis": "营造分类=NEW_BUILD；按仁寿宫单项强锚及更高档硬维度门复核。日本、安南、缅甸、爪哇等长期多方向远征 + 新建元大都多年工程。",
+            "basis": "营造事实仅为入口；当前是否有独立剩余对象见主动民力成本复核。元大都新增工程保留超出最低国家建设部分的显著民役占用。 日本安南缅甸爪哇军费与军资不再叠为极重档；全任财政回落已有C2归属。",
             "construction_types": [
               "NEW_BUILD"
             ],
@@ -1419,8 +1524,8 @@
           ],
           "batch_review_status": "REVIEWED_BATCH_13_2026-08-31",
           "input_sync_status": "SYNCED_TO_LATEST_C1_C2_C3_BATCH13。",
-          "military_cost_public_basis": "日本、安南、缅甸、爪哇等长期多方向远征 + 新建元大都多年工程。",
-          "large_construction_public_basis": "营造分类=NEW_BUILD；按仁寿宫单项强锚及更高档硬维度门复核。日本、安南、缅甸、爪哇等长期多方向远征 + 新建元大都多年工程。",
+          "military_cost_public_basis": "元大都新增工程保留超出最低国家建设部分的显著民役占用。 日本安南缅甸爪哇军费与军资不再叠为极重档；全任财政回落已有C2归属。",
+          "large_construction_public_basis": "营造按当前民力对象去重；元大都新增工程保留超出最低国家建设部分的显著民役占用。 日本安南缅甸爪哇军费与军资不再叠为极重档；全任财政回落已有C2归属。",
           "typical_pattern": {
             "status": "STRUCTURED_C4_FORMAL",
             "recovery_score": 2.4,
@@ -1443,32 +1548,50 @@
             "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
             "supporting_formal_fields": [],
             "name_or_polity_inference_used": false
+          },
+          "active_civilian_cost_review": {
+            "version": "C4-CIVILIAN-COST-V1",
+            "status": "REVIEWED",
+            "evidence_mode": "DIRECT",
+            "choice_and_civilian_basis": "元大都新增工程保留超出最低国家建设部分的显著民役占用。",
+            "absorbed_and_excluded_basis": "日本安南缅甸爪哇军费与军资不再叠为极重档；全任财政回落已有C2归属。",
+            "inference_limit": "直接成本仍须剔除已计对象；有记载不构成额外加权。",
+            "military_input_double_charge": false,
+            "source_refs": [
+              "docs/史料通读产物/元/续资治通鉴&元史/volume-185.source-summary.md:72",
+              "docs/史料通读产物/元/续资治通鉴&元史/volume-189.source-summary.md:55",
+              "docs/史料通读产物/元/续资治通鉴&元史/volume-203.source-summary.md:38",
+              "docs/史料通读产物/元/续资治通鉴&元史/volume-188.source-summary.md:15",
+              "C3-REMAINING-元-忽必烈",
+              "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-YUAN-KUBLAI",
+              "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-YUAN-KUBLAI",
+              "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-YUAN-KUBLAI"
+            ],
+            "military_context_ref": "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json#ruler_id=RULER-YUAN-KUBLAI",
+            "audit_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-YUAN-KUBLAI"
           }
         },
         {
-          "adjudication_reason": "按C4七档DA合同：正向保留0.0；可归责恶化2.9；DA2残余主动成本9.0；C4=-11.9。已执行必要行为剔除、客观成本下限与跨项去重门。",
+          "adjudication_reason": "正向保留0.0分；农忙灾蝗期优先完成角楼及寺役保留有限失农机会成本。 去重：兴圣宫银钞等支出与帑藏空竭已由C2消费，不能再据金额升档。 最终DA1扣4.5分；可归责恶化另扣2.9分。 C4净分-7.4。",
           "attribution_factor": 0.65,
           "closed_recovery_axes": [],
-          "destructive_amplification_grade": "DA2",
-          "destructive_amplification_penalty": 9.0,
+          "destructive_amplification_grade": "DA1",
+          "destructive_amplification_penalty": 4.5,
           "deterioration_attribution": "MATERIAL",
-          "deterioration_curve_summary": "行为链：兴圣宫给钞5万锭、丝2万斤；灾蝗农忙期仍优先完皇城角楼，另有大型寺役。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣2.9分，最终DA2扣9.0分。",
+          "deterioration_curve_summary": "农忙灾蝗期优先完成角楼及寺役保留有限失农机会成本。 去重：兴圣宫银钞等支出与帑藏空竭已由C2消费，不能再据金额升档。 最终DA1扣4.5分；可归责恶化另扣2.9分。",
           "deterioration_penalty": 2.9,
-          "main_band": "C4-1",
-          "negative_tail_adjudication_reason": "行为链：兴圣宫给钞5万锭、丝2万斤；灾蝗农忙期仍优先完皇城角楼，另有大型寺役。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣2.9分，最终DA2扣9.0分。",
+          "main_band": "C4",
+          "negative_tail_adjudication_reason": "农忙灾蝗期优先完成角楼及寺役保留有限失农机会成本。 去重：兴圣宫银钞等支出与帑藏空竭已由C2消费，不能再据金额升档。 最终DA1扣4.5分；可归责恶化另扣2.9分。",
           "period": "post_tang",
           "polity": "元",
           "positive_score_retained": 0.0,
-          "pre_negative_tail_band": "C4-1",
-          "pre_negative_tail_raw_score": 6.4,
-          "pre_negative_tail_score": 6.4,
-          "rank": 154,
-          "raw_score": -11.9,
+          "rank": 170,
+          "raw_score": -7.4,
           "recovery_score": 0.0,
           "reign_range": "1307-1311",
           "ruler_id": "RULER-YUAN-KULUG",
           "ruler_name": "海山",
-          "score": -11.9,
+          "score": -7.4,
           "terminal_band": "C4T-2",
           "terminal_cap": 15.9,
           "terminal_cap_applied": false,
@@ -1505,26 +1628,25 @@
             "applied_orphan_candidate_supplements": [],
             "c4_attribution_review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-YUAN-KULUG"
           },
-          "attribution_readjudication_reason": "行为链：兴圣宫给钞5万锭、丝2万斤；灾蝗农忙期仍优先完皇城角楼，另有大型寺役。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣2.9分，最终DA2扣9.0分。",
+          "attribution_readjudication_reason": "农忙灾蝗期优先完成角楼及寺役保留有限失农机会成本。 去重：兴圣宫银钞等支出与帑藏空竭已由C2消费，不能再据金额升档。 最终DA1扣4.5分；可归责恶化另扣2.9分。",
           "c4_attribution_readjudication": {
             "review_status": "FULLY_ADJUDICATED",
-            "basis_version": "C4-DA0-DA6-CALIBRATION-2026-09-02",
-            "final_grade": "DA2",
-            "final_penalty": 9.0,
-            "change_type": "FORMAL_CHECKLIST_PATCH",
-            "behavior_chain_basis": "行为链：兴圣宫给钞5万锭、丝2万斤；灾蝗农忙期仍优先完皇城角楼，另有大型寺役。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣2.9分，最终DA2扣9.0分。",
-            "grade_boundary_basis": "当前正式逐人裁决为DA2，扣9.0分。",
+            "basis_version": "C4-CIVILIAN-COST-V1",
+            "final_grade": "DA1",
+            "final_penalty": 4.5,
+            "change_type": "CIVILIAN_OBJECT_DEDUPLICATION",
+            "behavior_chain_basis": "农忙灾蝗期优先完成角楼及寺役保留有限失农机会成本。",
+            "grade_boundary_basis": "农忙灾蝗期优先完成角楼及寺役保留有限失农机会成本。 去重：兴圣宫银钞等支出与帑藏空竭已由C2消费，不能再据金额升档。 最终DA1扣4.5分；可归责恶化另扣2.9分。",
             "duplicate_control": {
-              "C1_C2_C3_absorption": "C1/C2/C3结算客观状态；同一事实在已闭合S0→S_end下降及本人归责时可同时支撑C4恶化，DA不得重复扣减已吸收的主动成本。",
-              "K_absorption": "K只折损C1/C2/C3主态完整度；已由K表达的终局跌幅不得再次进入DA。",
-              "DA_residual_scope": "只计未被主态、K与可归责恶化消费的本人主动家庭、劳役、军粮转输、财政抽取或平民伤害成本；纯军队人员损失不单列。"
+              "civilian_objects": "兴圣宫银钞等支出与帑藏空竭已由C2消费，不能再据金额升档。",
+              "military_inputs": "军资、军粮、军事运输及军队毁损只留军事项"
             },
-            "review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-YUAN-KULUG"
+            "review_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-YUAN-KULUG"
           },
-          "public_basis_version": "C4-PUBLIC-BASIS-V3",
+          "public_basis_version": "C4-CIVILIAN-COST-V1",
           "starting_context": "接手三轴为C1-3/C2-2/C3-3；交班三轴为C1-1/C2-2/C3-3。",
           "recovery_and_absorption": "恢复原值0.0；归责NONE（0%）；可归责恢复0.0/27；交班上限15.9；正向保留0.0。",
-          "behavior_and_attribution": "行为链：兴圣宫给钞5万锭、丝2万斤；灾蝗农忙期仍优先完皇城角楼，另有大型寺役。归责：可选择战争、动员、营造或持续征取均按本人实际权力窗口及决策、授权或持续维持责任归责。必要防御、必要平乱、普通维护、正常陵寝、灾后修复及最低限度重建已先剔除；同一后果经C1/C2/C3主态、K折损与C4恶化去重后，只结算主动残余成本。结构化可归责恶化扣2.9分，最终DA2扣9.0分。",
+          "behavior_and_attribution": "农忙灾蝗期优先完成角楼及寺役保留有限失农机会成本。 去重：兴圣宫银钞等支出与帑藏空竭已由C2消费，不能再据金额升档。 最终DA1扣4.5分；可归责恶化另扣2.9分。",
           "handoff_state": "交班raw为C1-1/C2-2/C3-3；终局C4T-2，正向上限15.9分。",
           "public_source_refs": [
             "docs/史料通读产物/元/续资治通鉴&元史/volume-198.source-summary.md:17",
@@ -1536,7 +1658,7 @@
             "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-YUAN-KULUG",
             "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-YUAN-KULUG"
           ],
-          "public_adjudication": "按C4七档DA合同：正向保留0.0；可归责恶化2.9；DA2残余主动成本9.0；C4=-11.9。已执行必要行为剔除、客观成本下限与跨项去重门。",
+          "public_adjudication": "正向保留0.0分；农忙灾蝗期优先完成角楼及寺役保留有限失农机会成本。 去重：兴圣宫银钞等支出与帑藏空竭已由C2消费，不能再据金额升档。 最终DA1扣4.5分；可归责恶化另扣2.9分。 C4净分-7.4。",
           "recovery_formula_version": "C4-DIFFICULTY-WEIGHTED-BOUNDARIES-V1",
           "recovery_boundary_difficulty": {
             "1_TO_2": 0.6,
@@ -1574,13 +1696,14 @@
           "difficulty_weighted_recovery_credit": 0.0,
           "uncapped_positive_score": 0.0,
           "military_cost_review": {
-            "status": "FORMAL_SYNCED_CURRENT_C4_CONTRACT",
-            "final_grade": "DA2",
-            "basis": "军事动员只消费可选择增量的兵役、军粮、运输与财政资源占用；军队伤亡本身不直接转入第二项。"
+            "status": "REVIEWED",
+            "final_grade": "DA1",
+            "basis": "农忙灾蝗期优先完成角楼及寺役保留有限失农机会成本。 兴圣宫银钞等支出与帑藏空竭已由C2消费，不能再据金额升档。",
+            "cost_consumption": "MILITARY_INPUTS_CONTEXT_ONLY_CIVILIAN_RESIDUAL_SEPARATE"
           },
           "large_construction_review": {
             "status": "FORMAL_SYNCED",
-            "basis": "营造分类=NEW_BUILD/REPAIR；按仁寿宫单项强锚及更高档硬维度门复核。兴圣宫给钞5万锭、丝2万斤；灾蝗农忙期仍优先完皇城角楼，另有大型寺役。",
+            "basis": "营造事实仅为入口；当前是否有独立剩余对象见主动民力成本复核。农忙灾蝗期优先完成角楼及寺役保留有限失农机会成本。 兴圣宫银钞等支出与帑藏空竭已由C2消费，不能再据金额升档。",
             "construction_types": [
               "NEW_BUILD",
               "REPAIR"
@@ -1619,8 +1742,8 @@
           ],
           "batch_review_status": "REVIEWED_BATCH_16_2026-08-31",
           "input_sync_status": "SYNCED_TO_LATEST_C1_C2_C3_BATCH16。",
-          "military_cost_public_basis": "兴圣宫给钞5万锭、丝2万斤；灾蝗农忙期仍优先完皇城角楼，另有大型寺役。",
-          "large_construction_public_basis": "营造分类=NEW_BUILD/REPAIR；按仁寿宫单项强锚及更高档硬维度门复核。兴圣宫给钞5万锭、丝2万斤；灾蝗农忙期仍优先完皇城角楼，另有大型寺役。",
+          "military_cost_public_basis": "农忙灾蝗期优先完成角楼及寺役保留有限失农机会成本。 兴圣宫银钞等支出与帑藏空竭已由C2消费，不能再据金额升档。",
+          "large_construction_public_basis": "营造按当前民力对象去重；农忙灾蝗期优先完成角楼及寺役保留有限失农机会成本。 兴圣宫银钞等支出与帑藏空竭已由C2消费，不能再据金额升档。",
           "typical_pattern": {
             "status": "STRUCTURED_C4_FORMAL",
             "recovery_score": 0.0,
@@ -1641,6 +1764,27 @@
             "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
             "supporting_formal_fields": [],
             "name_or_polity_inference_used": false
+          },
+          "active_civilian_cost_review": {
+            "version": "C4-CIVILIAN-COST-V1",
+            "status": "REVIEWED",
+            "evidence_mode": "DIRECT",
+            "choice_and_civilian_basis": "农忙灾蝗期优先完成角楼及寺役保留有限失农机会成本。",
+            "absorbed_and_excluded_basis": "兴圣宫银钞等支出与帑藏空竭已由C2消费，不能再据金额升档。",
+            "inference_limit": "直接成本仍须剔除已计对象；有记载不构成额外加权。",
+            "military_input_double_charge": false,
+            "source_refs": [
+              "docs/史料通读产物/元/续资治通鉴&元史/volume-198.source-summary.md:17",
+              "docs/史料通读产物/元/续资治通鉴&元史/volume-197.source-summary.md:61",
+              "docs/史料通读产物/元/续资治通鉴&元史/volume-203.source-summary.md:38",
+              "docs/史料通读产物/元/续资治通鉴&元史/volume-196.source-summary.md:67",
+              "C3-REMAINING-元-海山",
+              "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-YUAN-KULUG",
+              "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-YUAN-KULUG",
+              "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-YUAN-KULUG"
+            ],
+            "military_context_ref": "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json#ruler_id=RULER-YUAN-KULUG",
+            "audit_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-YUAN-KULUG"
           }
         }
       ]

@@ -4,8 +4,8 @@
   "collections": {
     "records": {
       "positions": [
-        88,
-        106
+        90,
+        108
       ],
       "records": [
         {
@@ -34,7 +34,7 @@
               "score": 25.8
             },
             "C4": {
-              "band": "C4-1",
+              "band": "C4",
               "score": -0.5
             }
           },
@@ -282,8 +282,8 @@
               "score": 28.0
             },
             "C4": {
-              "band": "C4-1",
-              "score": -4.0
+              "band": "C4",
+              "score": 0.5
             }
           },
           "absolute_state_tier": 3,
@@ -367,7 +367,7 @@
             },
             "six_band_main_state": false,
             "deterioration_penalty": 0.0,
-            "destructive_amplification_penalty": 9.0,
+            "destructive_amplification_penalty": 4.5,
             "upstream_sync": {
               "status": "SYNCED_TO_FORMAL_C1_C4_2026_09_03",
               "source_refs": [
@@ -379,7 +379,7 @@
               "k_source": "DIRECT_FORMAL_C1_C2_C3_DIAGNOSTIC",
               "c4_source_scope": "RECOVERY_DETERIORATION_DA_ONLY"
             },
-            "destructive_amplification_grade": "DA2",
+            "destructive_amplification_grade": "DA1",
             "stability_k_basis": {
               "C1": {
                 "K_grade": "K2",
@@ -398,7 +398,8 @@
               }
             },
             "stability_k_structure_status": "DIRECT_FORMAL_C1_C3",
-            "stability_k_public_basis": "当前C1—C3正式K为C1=K2、C2=K0、C3=K4；K不进入C4分。M3稳定兑现分10.0/18为本轴逐人裁决值。"
+            "stability_k_public_basis": "当前C1—C3正式K为C1=K2、C2=K0、C3=K4；K不进入C4分。M3稳定兑现分10.0/18为本轴逐人裁决值。",
+            "civilian_cost_review_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-SHADOW-司马曜"
           },
           "dynamic_class": "LIMITED_OR_MIXED_MAINTENANCE",
           "dynamic_label": "维持有限且正负并存",
@@ -408,16 +409,16 @@
           "output_mode": "BOUNDED_PROFILE",
           "score_status": "FINAL",
           "formal_status": "FORMAL_CURRENT",
-          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[3, 3, 3]、[4, 3, 3]、[4, 3, 3]、[4, 2, 3]；恢复5.0/27，稳定10.0/18；恶化扣减0.0，主动成本DA2/9.0。正式逐人裁决为G2-MID。",
-          "counterpattern": "C4残余主动成本已正式裁为DA2；M3不重裁该档，仅在逐人能力裁决中消费其限制。",
+          "typical_pattern": "三轴起点、主态、最高实现、交班分别为[3, 3, 3]、[4, 3, 3]、[4, 3, 3]、[4, 2, 3]；恢复5.0/27，稳定10.0/18；恶化扣减0.0，主动成本DA1/4.5。正式逐人裁决为G2-MID。",
+          "counterpattern": "后期边烽不举时的重役与弃婴已入C1-K2及C2终点，不能挪到早期北伐升级。",
           "starting_context": "当前C1—C3正式曲线：接手[3, 3, 3]、主态[4, 3, 3]、最高实现[4, 3, 3]、交班[4, 2, 3]。",
           "construction_and_maintenance": "按正式档界公式重算恢复分5.0/27；直接读取C1—C3正式K（C1=K2、C2=K0、C3=K4）复核稳定兑现，M3逐人裁决稳定分为10.0/18；K与该稳定判断均不回写C4分。",
-          "costs_and_consequences": "交班局面为[4, 2, 3]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA2，扣减9.0。",
-          "behavior_chain": "太元八年桓冲率众十万，多路主动伐秦，属于大规模可选择外征，裁DA2；同年稍后的淝水防御是必要国家防御，不进入DA。C2末期“仓库空匮”“劳扰殆无三日之休”并非同一笔前线战损，且发生在后期财政役政窗口，按本人最高治理责任对C2一档下滑取FULL，另扣2.7分。 可归责恶化扣2.7分，DA2扣9.0分。",
+          "costs_and_consequences": "交班局面为[4, 2, 3]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA1，扣减4.5。",
+          "behavior_chain": "三轴恢复与交班仍按既有本人建设链复核。太元八年主动北伐支持家庭供役下限，淝水必要防御不计。",
           "handoff_state": "按交班向量[4, 2, 3]推导C4终局标签为C4T-3；M3单独读取交班保留，不把稳定分回写C4。",
-          "public_adjudication": "当前C1—C3正式曲线：接手[3, 3, 3]、主态[4, 3, 3]、最高实现[4, 3, 3]、交班[4, 2, 3]。 按正式档界公式重算恢复分5.0/27；直接读取C1—C3正式K（C1=K2、C2=K0、C3=K4）复核稳定兑现，M3逐人裁决稳定分为10.0/18；K与该稳定判断均不回写C4分。 太元八年桓冲率众十万，多路主动伐秦，属于大规模可选择外征，裁DA2；同年稍后的淝水防御是必要国家防御，不进入DA。C2末期“仓库空匮”“劳扰殆无三日之休”并非同一笔前线战损，且发生在后期财政役政窗口，按本人最高治理责任对C2一档下滑取FULL，另扣2.7分。 可归责恶化扣2.7分，DA2扣9.0分。 交班局面为[4, 2, 3]；可归责恶化扣减0.0；本人可选择行为的残余额外成本为DA2，扣减9.0。 按交班向量[4, 2, 3]推导C4终局标签为C4T-3；M3单独读取交班保留，不把稳定分回写C4。 依据当前C1—C4结构字段与逐人语义裁决，正式档位为G2。 当前档内位置为MID；不以结构字段自动替代逐人语义裁决。",
-          "grade_basis": "依据当前C1—C4结构字段与逐人语义裁决，正式档位为G2。",
-          "position_basis": "当前档内位置为MID；不以结构字段自动替代逐人语义裁决。",
+          "public_adjudication": "当前恢复5.0/27、稳定10.0/18，交班向量[4, 2, 3]；成本只读已去重的DA1，不把军事客观成本再次作为能力惩罚。既有建设、保留与归责事实继续支持G2。 档内位置MID依据实现、保留、回落与当前剩余成本复核；成本去重本身不制造新的历史建设。",
+          "grade_basis": "当前恢复5.0/27、稳定10.0/18，交班向量[4, 2, 3]；成本只读已去重的DA1，不把军事客观成本再次作为能力惩罚。既有建设、保留与归责事实继续支持G2。",
+          "position_basis": "档内位置MID依据实现、保留、回落与当前剩余成本复核；成本去重本身不制造新的历史建设。",
           "axis_relevance_check": {
             "status": "HOLISTIC_C1_C4_SEMANTIC_ADJUDICATION",
             "component_codes": [
@@ -470,7 +471,11 @@
               "source_origin": "C4_FORMAL_LINEAGE_EXPANDED_QUOTATION"
             }
           ],
-          "contract_version": "FORMAL-V3.6"
+          "contract_version": "FORMAL-V3.6",
+          "full_pool_grade_readjudication": {
+            "grade_basis": "当前恢复5.0/27、稳定10.0/18，交班向量[4, 2, 3]；成本只读已去重的DA1，不把军事客观成本再次作为能力惩罚。既有建设、保留与归责事实继续支持G2。",
+            "position_basis": "档内位置MID依据实现、保留、回落与当前剩余成本复核；成本去重本身不制造新的历史建设。"
+          }
         }
       ]
     }

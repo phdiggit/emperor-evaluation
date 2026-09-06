@@ -764,7 +764,7 @@ def _render_current_weighted_markdown(records: Sequence[Mapping[str, Any]]) -> s
     lines = [
         "# 秦至清第三项军事与边疆正式结算",
         "",
-        "本表按A120战略安全结果、B80边疆控制结果、C50军事体系能力合并。普通成本按既有档位固定扣分；军事净毁损（ML）与普通成本取高，不叠加。",
+        "本表按A120战略安全结果、B80边疆控制结果、C50军事体系能力合并。普通成本按当前C档映射固定扣分；军事净毁损（ML）与普通成本取高，不叠加。",
         "",
         "公式：第三项 = A120 + B80 + C50 - max（固定成本扣分，|ML|）。",
         "",
@@ -883,7 +883,7 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
         payloads["cost_credit"]["global_cost_overrides"], "global_cost_overrides"
     )
     military_net_loss_policy = payloads["military_net_loss"]["policy"]
-    expected_penalties = {"ML0": 0, "ML1": -10, "ML2": -20, "ML3": -30, "ML4": -40}
+    expected_penalties = {"ML0": 0, "ML1": -20, "ML2": -40, "ML3": -60, "ML4": -80}
     if military_net_loss_policy != expected_penalties:
         raise ValueError("军事净毁损档位映射与合同不一致")
     military_net_loss_by_name = _index(
@@ -1115,14 +1115,14 @@ def build_current_third_item_settlement(workspace_root: Path) -> dict[str, Any]:
         "scope": "当前AB/C/D组件与A120/B80裁决并集；A120、B80、C50相加后，扣除普通成本与军事净毁损绝对值中的较高者",
         "score_contract": {
             "maximum_points": 250,
-            "minimum_points": -40,
+            "minimum_points": -80,
             "A120_maximum": 120,
             "B80_maximum": 80,
             "C50_maximum": 50,
             "D_cost_role": "GLOBAL_FIXED_COST_DEBIT_SOURCE",
             "cost_debit_base_points": 80,
-            "cost_debit_range": [0, 40],
-            "military_net_loss_penalty_range": [-40, 0],
+            "cost_debit_range": [0, 80],
+            "military_net_loss_penalty_range": [-80, 0],
             "cost_and_ml_combination": "MAX_NOT_ADDITIVE",
             "formula": "A120 + B80 + C50 - max(cost_debit, abs(military_net_loss_penalty))",
             "rounding": "ROUND_FINAL_SCORE_TO_2_DECIMALS",

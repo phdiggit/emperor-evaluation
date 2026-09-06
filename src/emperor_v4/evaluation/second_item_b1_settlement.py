@@ -632,6 +632,7 @@ def rebuild_derived(workspace_root: Path, *, write: bool = False, refresh_source
         row["governance_method_score"] = method_by_id[row["ruler_id"]]["score"]
         for axis, finance_rows in finance_by_axis.items():
             row[f"{axis}_score"] = float(finance_rows[row["ruler_id"]]["score"])
+            row[f"{axis}_band"] = finance_rows[row["ruler_id"]]["main_band"]
         row["governance_result_score"] = round(
             sum(float(row[f"{axis}_score"]) for axis in FINANCE_PATHS), 1
         )

@@ -9,7 +9,7 @@
       ],
       "records": [
         {
-          "adjudication_reason": "按C4现行合同重裁：正向保留4.0分；可归责恶化0.0分；DA0残余主动成本0.0分；C4=4.0分。重裁依据：评价窗口短，主要军事链属于建国/政权建立及内部控制；未闭合S0后的独立大型主动成本。",
+          "adjudication_reason": "正向保留4.0分；评价窗口短，主要军事链属于建国/政权建立及内部控制；未闭合S0后的独立大型主动成本。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。 C4净分4.0。",
           "attribution_factor": 0.0,
           "closed_recovery_axes": [
             "C1"
@@ -17,18 +17,15 @@
           "destructive_amplification_grade": "DA0",
           "destructive_amplification_penalty": 0.0,
           "deterioration_attribution": "NONE",
-          "deterioration_curve_summary": "评价窗口短，主要军事链属于建国/政权建立及内部控制；未闭合S0后的独立大型主动成本。 可归责恶化扣0.0分，DA0扣0.0分。",
+          "deterioration_curve_summary": "评价窗口短，主要军事链属于建国/政权建立及内部控制；未闭合S0后的独立大型主动成本。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。",
           "deterioration_penalty": 0.0,
-          "main_band": "C4-2",
-          "negative_tail_adjudication_reason": "评价窗口短，主要军事链属于建国/政权建立及内部控制；未闭合S0后的独立大型主动成本。 可归责恶化扣0.0分，DA0扣0.0分。",
+          "main_band": "C4",
+          "negative_tail_adjudication_reason": "评价窗口短，主要军事链属于建国/政权建立及内部控制；未闭合S0后的独立大型主动成本。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。",
           "period": "qin_through_tang",
           "polity": "南齐",
           "positive_score_retained": 4.0,
-          "pre_negative_tail_band": "C4-2",
-          "pre_negative_tail_raw_score": 14.0,
-          "pre_negative_tail_score": 14.0,
-          "rank": 29,
-          "raw_score": 14.0,
+          "rank": 44,
+          "raw_score": 4.0,
           "recovery_score": 4.0,
           "reign_range": [
             479,
@@ -72,26 +69,25 @@
             "applied_orphan_candidate_supplements": [],
             "c4_attribution_review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-SHADOW-萧道成"
           },
-          "attribution_readjudication_reason": "评价窗口短，主要军事链属于建国/政权建立及内部控制；未闭合S0后的独立大型主动成本。 可归责恶化扣0.0分，DA0扣0.0分。",
+          "attribution_readjudication_reason": "评价窗口短，主要军事链属于建国/政权建立及内部控制；未闭合S0后的独立大型主动成本。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。",
           "c4_attribution_readjudication": {
             "review_status": "FULLY_ADJUDICATED",
-            "basis_version": "C4-DA-RESIDUAL-COST-V5",
+            "basis_version": "C4-CIVILIAN-COST-V1",
             "final_grade": "DA0",
             "final_penalty": 0.0,
-            "change_type": "CURRENT_C4_CONTRACT_SYNC",
+            "change_type": "CIVILIAN_OBJECT_DEDUPLICATION",
             "behavior_chain_basis": "评价窗口短，主要军事链属于建国/政权建立及内部控制；未闭合S0后的独立大型主动成本。",
-            "grade_boundary_basis": "当前正式逐人裁决为DA0，扣0.0分。",
+            "grade_boundary_basis": "评价窗口短，主要军事链属于建国/政权建立及内部控制；未闭合S0后的独立大型主动成本。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。",
             "duplicate_control": {
-              "C1_C2_C3_absorption": "C1/C2/C3结算客观状态；同一事实在已闭合S0→S_end下降及本人归责时可同时支撑C4恶化，DA不得重复扣减已吸收的主动成本。",
-              "K_absorption": "K只折损C1/C2/C3主态完整度；已由K表达的终局跌幅不得再次进入DA。",
-              "DA_residual_scope": "只计未被主态、K与可归责恶化消费的本人主动家庭、劳役、军粮转输、财政抽取或平民伤害成本；纯军队人员损失不单列。"
+              "civilian_objects": "按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
+              "military_inputs": "军资、军粮、军事运输及军队毁损只留军事项"
             },
-            "review_ref": "BATCH5_INLINE_2026-08-31"
+            "review_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-SHADOW-萧道成"
           },
-          "public_basis_version": "C4-CONTRACT-2026-08-31-BATCH5",
+          "public_basis_version": "C4-CIVILIAN-COST-V1",
           "starting_context": "接手三轴为C1-2/C2-3/C3-3；交班三轴为C1-3/C2-3/C3-3。",
           "recovery_and_absorption": "恢复原值4.0；归责FULL（100%）；可归责恢复4.0/27；交班上限24.9；正向保留4.0。",
-          "behavior_and_attribution": "评价窗口短，主要军事链属于建国/政权建立及内部控制；未闭合S0后的独立大型主动成本。 可归责恶化扣0.0分，DA0扣0.0分。",
+          "behavior_and_attribution": "评价窗口短，主要军事链属于建国/政权建立及内部控制；未闭合S0后的独立大型主动成本。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。",
           "handoff_state": "交班raw锚点为民生3档、经济财政3档、社会安全3档；终局层级C4T-3，正向上限24.9。",
           "public_source_refs": [
             "《资治通鉴》卷一百三十五：罢候官千数，停繁密台使，断众募，自是吏民始得安业。",
@@ -99,7 +95,7 @@
             "《南齐书·崔祖思等传》：三吴国之关阃，比岁被水潦而籴不贵，是天下钱少，非谷穰贱。",
             "《资治通鉴》卷一百三十四：收攸之诸子及宗族，皆杀之。"
           ],
-          "public_adjudication": "按C4现行合同重裁：正向保留4.0分；可归责恶化0.0分；DA0残余主动成本0.0分；C4=4.0分。重裁依据：评价窗口短，主要军事链属于建国/政权建立及内部控制；未闭合S0后的独立大型主动成本。",
+          "public_adjudication": "正向保留4.0分；评价窗口短，主要军事链属于建国/政权建立及内部控制；未闭合S0后的独立大型主动成本。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。 C4净分4.0。",
           "recovery_formula_version": "C4-CONTRACT-2026-08-31-C1_FORMAL_RECOVERY-DA_COST_MAGNITUDE",
           "recovery_boundary_difficulty": {
             "1_TO_2": 0.6,
@@ -170,13 +166,14 @@
             }
           },
           "military_cost_review": {
-            "status": "FORMAL_SYNCED_CURRENT_C4_CONTRACT",
+            "status": "REVIEWED",
             "final_grade": "DA0",
-            "basis": "评价窗口短，主要军事链属于建国/政权建立及内部控制；未闭合S0后的独立大型主动成本。"
+            "basis": "评价窗口短，主要军事链属于建国/政权建立及内部控制；未闭合S0后的独立大型主动成本。 按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
+            "cost_consumption": "MILITARY_INPUTS_CONTEXT_ONLY_CIVILIAN_RESIDUAL_SEPARATE"
           },
           "large_construction_review": {
             "status": "FORMAL_SYNCED",
-            "basis": "现有材料更多是罢御府、省雕饰、断众募等减役止扰；未发现本人新起的显著大型可选择工程。",
+            "basis": "营造事实仅为入口；当前是否有独立剩余对象见主动民力成本复核。评价窗口短，主要军事链属于建国/政权建立及内部控制；未闭合S0后的独立大型主动成本。 按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
             "construction_types": [],
             "classification_status": "NO_CONSTRUCTION_CHAIN_USED_FOR_DA"
           },
@@ -198,8 +195,8 @@
               "original_text": "收攸之诸子及宗族，皆杀之。"
             }
           ],
-          "military_cost_public_basis": "两条成本链均以既成边境威胁或入侵为触发，主要是必要反击与恢复，不转DA。",
-          "large_construction_public_basis": "现有材料更多是罢御府、省雕饰、断众募等减役止扰；未发现本人新起的显著大型可选择工程。",
+          "military_cost_public_basis": "评价窗口短，主要军事链属于建国/政权建立及内部控制；未闭合S0后的独立大型主动成本。 按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
+          "large_construction_public_basis": "营造按当前民力对象去重；评价窗口短，主要军事链属于建国/政权建立及内部控制；未闭合S0后的独立大型主动成本。 按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
           "typical_pattern": {
             "status": "STRUCTURED_C4_FORMAL",
             "recovery_score": 4.0,
@@ -222,27 +219,44 @@
             "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
             "supporting_formal_fields": [],
             "name_or_polity_inference_used": false
+          },
+          "active_civilian_cost_review": {
+            "version": "C4-CIVILIAN-COST-V1",
+            "status": "REVIEWED",
+            "evidence_mode": "NONE",
+            "choice_and_civilian_basis": "评价窗口短，主要军事链属于建国/政权建立及内部控制；未闭合S0后的独立大型主动成本。",
+            "absorbed_and_excluded_basis": "按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
+            "inference_limit": "直接成本仍须剔除已计对象；有记载不构成额外加权。",
+            "military_input_double_charge": false,
+            "source_refs": [
+              "《资治通鉴》卷一百三十五：罢候官千数，停繁密台使，断众募，自是吏民始得安业。",
+              "《南齐书》：建元初，检定黄籍。",
+              "《南齐书·崔祖思等传》：三吴国之关阃，比岁被水潦而籴不贵，是天下钱少，非谷穰贱。",
+              "《资治通鉴》卷一百三十四：收攸之诸子及宗族，皆杀之。",
+              "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-萧道成",
+              "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-萧道成",
+              "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-萧道成"
+            ],
+            "military_context_ref": "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json#ruler_id=RULER-SHADOW-萧道成",
+            "audit_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-SHADOW-萧道成"
           }
         },
         {
-          "adjudication_reason": "按C4现行合同重裁：正向保留0.0分；可归责恶化0.0分；DA0残余主动成本0.0分；C4=0.0分。重裁依据：498涡阳五万军虽溃散，但该攻势明确以救援义阳为目的，属于必要战略救援；无皇帝另行制造的超额错误增量。",
+          "adjudication_reason": "正向保留0.0分；498涡阳五万军虽溃散，但该攻势明确以救援义阳为目的，属于必要战略救援；无皇帝另行制造的超额错误增量。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。 C4净分0.0。",
           "attribution_factor": 0.0,
           "closed_recovery_axes": [],
           "destructive_amplification_grade": "DA0",
           "destructive_amplification_penalty": 0.0,
           "deterioration_attribution": "NONE",
-          "deterioration_curve_summary": "498涡阳五万军虽溃散，但该攻势明确以救援义阳为目的，属于必要战略救援；无皇帝另行制造的超额错误增量。 可归责恶化扣0.0分，DA0扣0.0分。",
+          "deterioration_curve_summary": "498涡阳五万军虽溃散，但该攻势明确以救援义阳为目的，属于必要战略救援；无皇帝另行制造的超额错误增量。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。",
           "deterioration_penalty": 0.0,
-          "main_band": "C4N-1",
-          "negative_tail_adjudication_reason": "498涡阳五万军虽溃散，但该攻势明确以救援义阳为目的，属于必要战略救援；无皇帝另行制造的超额错误增量。 可归责恶化扣0.0分，DA0扣0.0分。",
+          "main_band": "C4",
+          "negative_tail_adjudication_reason": "498涡阳五万军虽溃散，但该攻势明确以救援义阳为目的，属于必要战略救援；无皇帝另行制造的超额错误增量。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。",
           "period": "qin_through_tang",
           "polity": "南齐",
           "positive_score_retained": 0.0,
-          "pre_negative_tail_band": "C4N-1",
-          "pre_negative_tail_raw_score": 10.0,
-          "pre_negative_tail_score": 10.0,
-          "rank": 56,
-          "raw_score": -3.5,
+          "rank": 85,
+          "raw_score": 0.0,
           "recovery_score": 0.0,
           "reign_range": [
             494,
@@ -267,26 +281,25 @@
             "applied_orphan_candidate_supplements": [],
             "c4_attribution_review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-SHADOW-萧鸾"
           },
-          "attribution_readjudication_reason": "498涡阳五万军虽溃散，但该攻势明确以救援义阳为目的，属于必要战略救援；无皇帝另行制造的超额错误增量。 可归责恶化扣0.0分，DA0扣0.0分。",
+          "attribution_readjudication_reason": "498涡阳五万军虽溃散，但该攻势明确以救援义阳为目的，属于必要战略救援；无皇帝另行制造的超额错误增量。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。",
           "c4_attribution_readjudication": {
             "review_status": "FULLY_ADJUDICATED",
-            "basis_version": "C4-DA-RESIDUAL-COST-V5",
+            "basis_version": "C4-CIVILIAN-COST-V1",
             "final_grade": "DA0",
             "final_penalty": 0.0,
-            "change_type": "CURRENT_C4_CONTRACT_SYNC",
+            "change_type": "CIVILIAN_OBJECT_DEDUPLICATION",
             "behavior_chain_basis": "498涡阳五万军虽溃散，但该攻势明确以救援义阳为目的，属于必要战略救援；无皇帝另行制造的超额错误增量。",
-            "grade_boundary_basis": "当前正式逐人裁决为DA0，扣0.0分。",
+            "grade_boundary_basis": "498涡阳五万军虽溃散，但该攻势明确以救援义阳为目的，属于必要战略救援；无皇帝另行制造的超额错误增量。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。",
             "duplicate_control": {
-              "C1_C2_C3_absorption": "C1/C2/C3结算客观状态；同一事实在已闭合S0→S_end下降及本人归责时可同时支撑C4恶化，DA不得重复扣减已吸收的主动成本。",
-              "K_absorption": "K只折损C1/C2/C3主态完整度；已由K表达的终局跌幅不得再次进入DA。",
-              "DA_residual_scope": "只计未被主态、K与可归责恶化消费的本人主动家庭、劳役、军粮转输、财政抽取或平民伤害成本；纯军队人员损失不单列。"
+              "civilian_objects": "按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
+              "military_inputs": "军资、军粮、军事运输及军队毁损只留军事项"
             },
-            "review_ref": "config/second-item/c4-attribution-readjudications.json#task_code=I2-C4-ATTR-RULER-SHADOW-萧鸾"
+            "review_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-SHADOW-萧鸾"
           },
-          "public_basis_version": "C4-PUBLIC-BASIS-V3",
+          "public_basis_version": "C4-CIVILIAN-COST-V1",
           "starting_context": "接手三轴为C1-2/C2-4/C3-3；交班三轴为C1-2/C2-3/C3-3。",
           "recovery_and_absorption": "恢复原值0.0；归责NONE（0%）；可归责恢复0.0/27；交班上限24.9；正向保留0.0。",
-          "behavior_and_attribution": "498涡阳五万军虽溃散，但该攻势明确以救援义阳为目的，属于必要战略救援；无皇帝另行制造的超额错误增量。 可归责恶化扣0.0分，DA0扣0.0分。",
+          "behavior_and_attribution": "498涡阳五万军虽溃散，但该攻势明确以救援义阳为目的，属于必要战略救援；无皇帝另行制造的超额错误增量。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。",
           "handoff_state": "交班raw为C1-2/C2-3/C3-3；终局C4T-3，正向上限24.9。",
           "public_source_refs": [
             "docs/史料通读产物/唐以前编年/南北朝/卷139-通读总结.md:18",
@@ -298,7 +311,7 @@
             "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-萧鸾",
             "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-萧鸾"
           ],
-          "public_adjudication": "按C4现行合同重裁：正向保留0.0分；可归责恶化0.0分；DA0残余主动成本0.0分；C4=0.0分。重裁依据：498涡阳五万军虽溃散，但该攻势明确以救援义阳为目的，属于必要战略救援；无皇帝另行制造的超额错误增量。",
+          "public_adjudication": "正向保留0.0分；498涡阳五万军虽溃散，但该攻势明确以救援义阳为目的，属于必要战略救援；无皇帝另行制造的超额错误增量。 去重：按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。 最终DA0扣0.0分；可归责恶化另扣0.0分。 C4净分0.0。",
           "recovery_formula_version": "C4-DIFFICULTY-WEIGHTED-BOUNDARIES-V1",
           "recovery_boundary_difficulty": {
             "1_TO_2": 0.6,
@@ -336,13 +349,14 @@
           "difficulty_weighted_recovery_credit": 0.0,
           "uncapped_positive_score": 0.0,
           "military_cost_review": {
-            "status": "FORMAL_SYNCED_CURRENT_C4_CONTRACT",
+            "status": "REVIEWED",
             "final_grade": "DA0",
-            "basis": "498涡阳五万军虽溃散，但该攻势明确以救援义阳为目的，属于必要战略救援；无皇帝另行制造的超额错误增量。"
+            "basis": "498涡阳五万军虽溃散，但该攻势明确以救援义阳为目的，属于必要战略救援；无皇帝另行制造的超额错误增量。 按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
+            "cost_consumption": "MILITARY_INPUTS_CONTEXT_ONLY_CIVILIAN_RESIDUAL_SEPARATE"
           },
           "large_construction_review": {
             "status": "FORMAL_SYNCED",
-            "basis": "未发现需独立进入C4的明显超大型营造。",
+            "basis": "营造事实仅为入口；当前是否有独立剩余对象见主动民力成本复核。498涡阳五万军虽溃散，但该攻势明确以救援义阳为目的，属于必要战略救援；无皇帝另行制造的超额错误增量。 按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
             "construction_types": [],
             "classification_status": "NO_CONSTRUCTION_CHAIN_USED_FOR_DA"
           },
@@ -374,8 +388,8 @@
           ],
           "batch_review_status": "REVIEWED_BATCH_14_2026-08-31",
           "input_sync_status": "SYNCED_TO_LATEST_C1_C2_C3_BATCH14。",
-          "military_cost_public_basis": "现成军事成本C6高位。494—495北魏四路南侵属于必要防御，剔除；498年另行授权五万跨境围涡阳，夜退后士众奔溃、杀伤不可胜数，独立裁DA3。",
-          "large_construction_public_basis": "未发现需独立进入C4的明显超大型营造。",
+          "military_cost_public_basis": "498涡阳五万军虽溃散，但该攻势明确以救援义阳为目的，属于必要战略救援；无皇帝另行制造的超额错误增量。 按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
+          "large_construction_public_basis": "营造按当前民力对象去重；498涡阳五万军虽溃散，但该攻势明确以救援义阳为目的，属于必要战略救援；无皇帝另行制造的超额错误增量。 按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
           "typical_pattern": {
             "status": "STRUCTURED_C4_FORMAL",
             "recovery_score": 0.0,
@@ -396,6 +410,27 @@
             "basis": "C1—C4正式裁决尚未独立判断实际治理尺度；低于高档、局部材料或未提规模均不推定为完整或有限尺度。",
             "supporting_formal_fields": [],
             "name_or_polity_inference_used": false
+          },
+          "active_civilian_cost_review": {
+            "version": "C4-CIVILIAN-COST-V1",
+            "status": "REVIEWED",
+            "evidence_mode": "NONE",
+            "choice_and_civilian_basis": "498涡阳五万军虽溃散，但该攻势明确以救援义阳为目的，属于必要战略救援；无皇帝另行制造的超额错误增量。",
+            "absorbed_and_excluded_basis": "按当前已证责任窗口保留必要安全/治理基线排除；现有正式证据未闭合另一个可选择民力增量。失载不等于客观军事成本为零。",
+            "inference_limit": "直接成本仍须剔除已计对象；有记载不构成额外加权。",
+            "military_input_double_charge": false,
+            "source_refs": [
+              "docs/史料通读产物/唐以前编年/南北朝/卷139-通读总结.md:18",
+              "docs/史料通读产物/唐以前编年/南北朝/卷139-通读总结.md:49",
+              "docs/史料通读产物/唐以前编年/南北朝/卷138-通读总结.md:93",
+              "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.md:130",
+              "C3-REMAINING-南齐-萧鸾",
+              "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-萧鸾",
+              "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-萧鸾",
+              "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-萧鸾"
+            ],
+            "military_context_ref": "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json#ruler_id=RULER-SHADOW-萧鸾",
+            "audit_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-SHADOW-萧鸾"
           }
         }
       ]

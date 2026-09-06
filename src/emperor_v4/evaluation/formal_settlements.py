@@ -40,7 +40,7 @@ SETTLEMENT_SPECS = {
         "schema": "emperor-v4-third-item-formal-settlement-v7-fixed-cost-debit",
         "score": "third_item_score_points",
         "rank": "rank",
-        "range": (-40, 250),
+        "range": (-80, 250),
     },
     "fourth_item": {
         "path": "docs/评分结算/第四项文明与国家整合收益/01-第四项文明与国家整合收益正式结算.json",
@@ -752,6 +752,9 @@ def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
         ):
             raise ValueError(f"第二项20分交接结算与D1/D3公式不一致：{row.get('ruler_name')}")
 
+    from emperor_v4.evaluation.c4_civilian_cost import verify_snapshot as verify_c4_civilian_cost
+
+    c4_cost_report = verify_c4_civilian_cost(workspace_root)
     a_report = verify_second_item_a_snapshot(workspace_root)
     verify_second_item_b1_snapshot(workspace_root)
     b2_report = verify_second_item_b2_snapshot(workspace_root)
@@ -832,10 +835,13 @@ def _verify_second_item_components(workspace_root: Path) -> dict[str, Any]:
         for key in ("C1", "C2", "C3", "C4"):
             if float(total[f"{key}_score"]) != float(indexed[key][ruler_id]["score"]):
                 raise ValueError(f"第二项总表{key}抄录错误：{total['ruler_name']}")
+            if total[f"{key}_band"] != indexed[key][ruler_id]["main_band"]:
+                raise ValueError(f"第二项总表{key}档位抄录错误：{total['ruler_name']}")
     return {
         "component_file_count": len(payloads),
         "complete_ruler_count": len(complete_ids),
         "finance_ruler_count": len(finance_ids),
+        "C4_civilian_cost_review_count": c4_cost_report["record_count"],
         "A_institution_node_count": a_report["institution_node_count"],
         "A_scoring_node_count": a_report["scoring_node_count"],
         "B2_basis_verified_count": b2_report["basis_verified_count"],
