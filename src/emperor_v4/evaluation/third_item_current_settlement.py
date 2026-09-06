@@ -269,7 +269,8 @@ def _clamp(low: float, high: float, value: float) -> float:
     return max(low, min(high, value))
 
 
-CONSTRUCTION_BASE_POINTS = {"SIGNIFICANT": 10.0, "DECISIVE": 20.0}
+CONSTRUCTION_BASE_POINTS = {"SIGNIFICANT": 14.0, "DECISIVE": 28.0}
+MAINTENANCE_BONUS = {"NONE": 0.0, "TESTED": 4.0, "SEVERE": 8.0, "HISTORIC": 12.0}
 
 
 def _ceiling_progress_credit(axis: Mapping[str, Any]) -> float:
@@ -335,14 +336,14 @@ def _within_band_structure_credit(axis: Mapping[str, Any]) -> float:
 def _decompose_a120_axis(axis: Mapping[str, Any]) -> tuple[float, float]:
     end_grade = int(axis["end_grade"])
     attributable_delta = float(axis["attributable_delta"])
-    positive_raw = 10 * max(0.0, attributable_delta) + max(
+    positive_raw = 14 * max(0.0, attributable_delta) + max(
         float(axis.get("ceiling_progress_bonus") or 0),
         float(axis.get("maintenance_bonus") or 0),
         _within_band_structure_credit(axis),
     )
     anchor_raw = (
-        12 * end_grade
-        + 10 * min(0.0, attributable_delta)
+        10 * end_grade
+        + 14 * min(0.0, attributable_delta)
         - float(axis.get("negative_adjustment") or 0)
     )
     anchor = _clamp(0.0, 100.0, anchor_raw)
@@ -357,11 +358,11 @@ def _validate_result_credit_contract(
     require_synchronized: bool = False,
     workspace_root: Path | None = None,
 ) -> None:
-    if payload.get("schema_id") != "emperor-v4-third-item-result-credit-adjudications-v4":
+    if payload.get("schema_id") != "emperor-v4-third-item-result-credit-adjudications-v5":
         raise ValueError("A120结果信用合同schema不合法")
     contract = payload.get("contract") or {}
     if contract.get("construction_base_points") != CONSTRUCTION_BASE_POINTS:
-        raise ValueError("A轴建设基础点须统一为显著10、重大20")
+        raise ValueError("A轴建设基础点须统一为显著14、重大28")
     if contract.get("improvement_attribution_scale") != {
         "NONE": 0,
         "LIMITED": 0.25,
@@ -375,10 +376,7 @@ def _validate_result_credit_contract(
     ):
         raise ValueError("A120逐档改善归责公式不合法")
     maintenance_bonus = contract.get("maintenance_bonus") or {}
-    if maintenance_bonus != {
-        "high_position": {"NONE": 0, "TESTED": 10, "SEVERE": 15, "HISTORIC": 25},
-        "low_position": {"NONE": 0, "TESTED": 3, "SEVERE": 6, "HISTORIC": 10},
-    }:
+    if maintenance_bonus != MAINTENANCE_BONUS:
         raise ValueError("A120守成加点映射不合法")
     if contract.get("settlement_types") != A_AXIS_SETTLEMENT_TYPE_LABELS:
         raise ValueError("A120主类型合同不合法")
@@ -434,6 +432,7 @@ def _validate_result_credit_contract(
             raise ValueError(f"{row['ruler_name']}A轴与人物就绪状态不一致")
         axis_points = 0.0
         historic_ref_sets: list[set[str]] = []
+        positive_axis_ref_sets: list[tuple[str, set[str]]] = []
         for axis_name in ("A1", "A2"):
             axis = row["axes"][axis_name]
             structure_credit = _within_band_structure_credit(axis)
@@ -504,6 +503,15 @@ def _validate_result_credit_contract(
                     or not str(step.get("basis") or "").strip()
                 ):
                     raise ValueError(f"{row['ruler_name']} {axis_name}逐档改善归责不合法")
+            excluded_cross_item_refs = axis.get("excluded_cross_item_refs")
+            if excluded_cross_item_refs is not None:
+                if not isinstance(excluded_cross_item_refs, list) or not excluded_cross_item_refs:
+                    raise ValueError(f"{row['ruler_name']} {axis_name}跨项排除链声明不合法")
+                consumed_refs = set(map(str, axis.get("attribution_source_refs") or ()))
+                for step in steps:
+                    consumed_refs.update(map(str, step.get("source_refs") or ()))
+                if consumed_refs & set(map(str, excluded_cross_item_refs)):
+                    raise ValueError(f"{row['ruler_name']} {axis_name}混入已由他项消费的成果链")
             if objective_delta > 0 and abs(sum(float(step["credit"]) for step in steps) - attributable_delta) > 0.001:
                 raise ValueError(f"{row['ruler_name']} {axis_name}逐档改善归责汇总不一致")
             if objective_delta <= 0 and attributable_delta > 0:
@@ -511,16 +519,8 @@ def _validate_result_credit_contract(
 
             difficulty = str(axis["maintenance_difficulty"])
             bonus = float(axis["maintenance_bonus"])
-            if start == end and start in {4, 5}:
-                allowed_maintenance = {
-                    "NOT_APPLICABLE": 0,
-                    **maintenance_bonus["high_position"],
-                }
-            elif start == end and start in {1, 2, 3}:
-                allowed_maintenance = {
-                    "NOT_APPLICABLE": 0,
-                    **maintenance_bonus["low_position"],
-                }
+            if start == end and start in {1, 2, 3, 4, 5}:
+                allowed_maintenance = {"NOT_APPLICABLE": 0, **maintenance_bonus}
             else:
                 allowed_maintenance = {"NOT_APPLICABLE": 0, "NONE": 0}
             if difficulty not in allowed_maintenance or bonus != allowed_maintenance[difficulty]:
@@ -549,21 +549,21 @@ def _validate_result_credit_contract(
                     or not preservation_refs
                     or float(axis.get("negative_adjustment") or 0) != 0
                 ):
-                    raise ValueError(f"{row['ruler_name']} {axis_name}低位抗压保全门未闭合")
+                    raise ValueError(f"{row['ruler_name']} {axis_name}保全门未闭合")
                 minimum_rank = {"TESTED": 4, "SEVERE": 5, "HISTORIC": 6}[difficulty]
                 pressure_rank = {
                     "O4_REALIZED": 4, "O5_REALIZED": 5, "O6_REALIZED": 6
                 }[str(gate["pressure_level"])]
                 if pressure_rank < minimum_rank:
-                    raise ValueError(f"{row['ruler_name']} {axis_name}低位抗压声明压力不足")
+                    raise ValueError(f"{row['ruler_name']} {axis_name}保全声明压力不足")
                 if workspace_root is None:
-                    raise ValueError("校验低位抗压必须提供工作区以读取公共O档")
+                    raise ValueError("校验保全必须提供工作区以读取公共O档")
                 for system_ref in system_refs:
                     system = opponent_systems.get(str(system_ref))
                     if system is None or opponent_grade_rank[str(system["organization_grade"])] < minimum_rank:
-                        raise ValueError(f"{row['ruler_name']} {axis_name}低位抗压压力O档不足")
+                        raise ValueError(f"{row['ruler_name']} {axis_name}保全压力O档不足")
                     if not set(map(str, pressure_refs)) & set(map(str, system["source_campaign_refs"])):
-                        raise ValueError(f"{row['ruler_name']} {axis_name}低位抗压压力引用未绑定O体系")
+                        raise ValueError(f"{row['ruler_name']} {axis_name}保全压力引用未绑定O体系")
                 if formal is not None:
                     allowed_refs = {
                         str(ref) for ref in formal.get("parent_cycle_refs") or ()
@@ -571,9 +571,28 @@ def _validate_result_credit_contract(
                         str(ref) for ref in formal.get("evidence_event_refs") or ()
                     }
                     if not set(map(str, pressure_refs + preservation_refs)).issubset(allowed_refs):
-                        raise ValueError(f"{row['ruler_name']} {axis_name}低位抗压引用越界")
+                        raise ValueError(f"{row['ruler_name']} {axis_name}保全引用越界")
             elif axis.get("low_position_resilience_gate") is not None:
-                raise ValueError(f"{row['ruler_name']} {axis_name}非低位抗压不得保留低位抗压门")
+                raise ValueError(f"{row['ruler_name']} {axis_name}无保全不得保留保全门")
+
+            if difficulty in {"TESTED", "SEVERE"} and start in {4, 5}:
+                gate = axis.get("maintenance_evidence_gate") or {}
+                refs = list(gate.get("pressure_refs") or ()) + list(
+                    gate.get("preservation_refs") or ()
+                )
+                if (
+                    gate.get("pressure_level") not in {"O4_REALIZED", "O5_REALIZED", "O6_REALIZED"}
+                    or gate.get("pressure_origin") != "EXTERNAL_NOT_SELF_INDUCED"
+                    or float(gate.get("maintenance_attribution_credit") or 0) not in {0.75, 1.0}
+                    or gate.get("terminal_grade_held") is not True
+                    or gate.get("cross_axis_consumption_check") != "PASS"
+                    or not str(gate.get("preserved_object") or "").strip()
+                    or not refs
+                ):
+                    raise ValueError(f"{row['ruler_name']} {axis_name}高位保全门未闭合")
+                required_rank = {"TESTED": 4, "SEVERE": 5}[difficulty]
+                if {"O4_REALIZED": 4, "O5_REALIZED": 5, "O6_REALIZED": 6}[str(gate["pressure_level"])] < required_rank:
+                    raise ValueError(f"{row['ruler_name']} {axis_name}高位保全压力不足")
 
             if difficulty == "HISTORIC" and start in {4, 5}:
                 if any(
@@ -608,6 +627,27 @@ def _validate_result_credit_contract(
             elif axis.get("historic_maintenance_gate") is not None:
                 raise ValueError(f"{row['ruler_name']} {axis_name}非历史级守成不得保留历史门")
 
+            positive_refs: set[str] = set()
+            if structure_credit:
+                positive_refs.update(
+                    map(str, axis["within_band_structure_improvement"]["parent_cycle_refs"])
+                )
+            if ceiling_bonus:
+                positive_refs.update(map(str, axis["ceiling_progress_parent_cycle_refs"]))
+            if bonus:
+                gate = (
+                    axis.get("low_position_resilience_gate")
+                    or axis.get("historic_maintenance_gate")
+                    or axis.get("maintenance_evidence_gate")
+                    or {}
+                )
+                for field in (
+                    "pressure_refs", "preservation_refs", "continued_effectiveness_refs",
+                ):
+                    positive_refs.update(map(str, gate.get(field) or ()))
+            if positive_refs:
+                positive_axis_ref_sets.append((axis_name, positive_refs))
+
             expected_type = _expected_a_axis_settlement_type(axis)
             if axis.get("settlement_type") != expected_type:
                 raise ValueError(
@@ -622,8 +662,8 @@ def _validate_result_credit_contract(
             expected_trajectory = _clamp(
                 0.0,
                 100.0,
-                12 * end
-                + 10 * attributable_delta
+                10 * end
+                + 14 * attributable_delta
                 + max(float(axis.get("ceiling_progress_bonus") or 0), bonus, structure_credit)
                 - float(axis.get("negative_adjustment") or 0),
             )
@@ -636,6 +676,11 @@ def _validate_result_credit_contract(
 
         if len(historic_ref_sets) > 1 and historic_ref_sets[0] & historic_ref_sets[1]:
             raise ValueError(f"{row['ruler_name']}同一防守链不得在A1、A2重复记历史级守成")
+        if len(positive_axis_ref_sets) > 1:
+            _, first_refs = positive_axis_ref_sets[0]
+            _, second_refs = positive_axis_ref_sets[1]
+            if first_refs & second_refs:
+                raise ValueError(f"{row['ruler_name']}同一父链不得在A1、A2重复记正向专项")
 
         if abs(float(row["A120_points"]) - round(axis_points, 2)) > 0.001:
             raise ValueError(f"{row['ruler_name']} A120汇总不一致")
@@ -1461,7 +1506,7 @@ def _synchronize_current_ab_view(workspace_root: Path) -> None:
                 "A120_maximum": 120,
                 "B80_maximum": 80,
                 "AB200_formula": "A120 + B80",
-                "A120_formula": "sum(0.6*clamp(0,100,12*end+10*attributable_delta+max(ceiling_bonus,maintenance_bonus,within_band_structure_credit)-max(reversal_penalty,within_band_deterioration_penalty)))",
+                "A120_formula": "sum(0.6*clamp(0,100,10*end+14*attributable_delta+max(ceiling_bonus,maintenance_bonus,within_band_structure_credit)-max(reversal_penalty,within_band_deterioration_penalty)))",
                 "B80_formula": "80*(0.55*B1_rate+0.45*B2_rate)*(0.70+0.30*B4_rate)",
                 "legacy_AB_score_points": "ATOMIC_AXIS_DIAGNOSTIC_ONLY_NOT_CURRENT_AB_TOTAL",
             },

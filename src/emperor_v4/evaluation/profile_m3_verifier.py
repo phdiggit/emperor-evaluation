@@ -200,7 +200,6 @@ def verify_payload(settlement: dict[str, Any], *, ruler_ids: set[str] | None = N
     contract_text = M3_CONTRACT.read_text(encoding="utf-8")
     required_contract_clauses = (
         "同档结构建设的待建边界",
-        "C2绝对状态保留四档",
         "实现表现下限硬门",
         "强建设事实保留例外",
         "高压守成不得消费本人自造压力",

@@ -93,7 +93,18 @@
           "grade_threshold_consumed": 1.0
         },
         {
-          "M_mixed_profile": [],
+          "M_mixed_profile": [
+            {
+              "material_id": "I2-CHENG-LIXIONG-QIUCHI-FEEDBACK-NEGATIVE-001",
+              "M": "M2",
+              "direction": "mixed_negative",
+              "direction_factor": -0.5,
+              "signed_weight": -0.5,
+              "mechanism": "群臣谏止两路深入仇池未获采纳，阴平受阻后白水孤军继续深入并覆败",
+              "result_closure": "observed_or_repeated",
+              "mechanism_role": "ignored_high_stakes_feedback"
+            }
+          ],
           "M_negative_profile": [],
           "M_positive_profile": [
             {
@@ -119,10 +130,10 @@
             {
               "material_id": "I2-CHENG-LIXIONG-YANGBAO-REMONSTRANCE-001",
               "M": "M2",
-              "direction": "positive",
-              "direction_factor": 1.0,
-              "signed_weight": 1.0,
-              "mechanism": "杨褒劝止酗酒出游并谏卖官，李雄谢过止行",
+              "direction": "mixed_positive",
+              "direction_factor": 0.5,
+              "signed_weight": 0.5,
+              "mechanism": "杨褒劝止酗酒出游获即时止行；买官仅见受谏致歉",
               "result_closure": "observed_or_repeated",
               "mechanism_role": "external_constraint"
             }
@@ -132,26 +143,29 @@
           "direct_material_ids": [
             "I2-CHENG-LIXIONG-RENHUI-MOURNING-001",
             "I2-CHENG-LIXIONG-YANGBAO-REMONSTRANCE-001",
-            "I2-CHENG-LIXIONG-YANSHI-RANKS-001"
+            "I2-CHENG-LIXIONG-YANSHI-RANKS-001",
+            "I2-CHENG-LIXIONG-QIUCHI-FEEDBACK-NEGATIVE-001",
+            "I2-CHENG-LIXIONG-QIUCHI-FEEDBACK-NEGATIVE-001",
+            "I2-CHENG-LIXIONG-QIUCHI-FEEDBACK-NEGATIVE-001"
           ],
           "direction_card_write": true,
-          "direction_index": 52.3,
+          "direction_index": 50.0,
           "evidence_sufficiency_gate": "G3_BLOCKED_REQUIRES_M3_PLUS_INDEPENDENT_M2_CORRECTION",
           "formal_evidence_maturity": "fixed_primary_with_four_constrained_b2_adjudications",
           "formal_evidence_state": "FORMAL_SCORED",
           "grade": "G3",
-          "grade_basis": "阎式规范班位、任回李骧劝释服亲政、杨褒谏买官酗酒出游分别有纳用或止行结果，形成三个不同事件机制的M2组合，定G3。修正旧profile把人名与事项错配、丧制重复绑入两组的问题；继承争议仅未见受罚不足单造有效正M2，留作表达安全核验，不再增权。",
-          "grade_gate_basis": "阎式规范班位、任回李骧劝释服亲政、杨褒谏买官酗酒出游分别有纳用或止行结果，形成三个不同事件机制的M2组合，定G3。修正旧profile把人名与事项错配、丧制重复绑入两组的问题；继承争议仅未见受罚不足单造有效正M2，留作表达安全核验，不再增权。",
+          "grade_basis": "阎式规范班位、任回李骧劝释服亲政及杨褒劝止酗酒出游均有可见纠正，仍满足G3的去重M2门；但买官只见受谏致歉，未证持续终止，不能作为已闭合机制纠正。群臣反对两路深入仇池未获采纳，随后孤军覆败，构成一条已到达但未吸收的M2混合负链。",
+          "grade_gate_basis": "阎式规范班位、任回李骧劝释服亲政及杨褒劝止酗酒出游均有可见纠正，仍满足G3的去重M2门；但买官只见受谏致歉，未证持续终止，不能作为已闭合机制纠正。群臣反对两路深入仇池未获采纳，随后孤军覆败，构成一条已到达但未吸收的M2混合负链。",
           "grade_gate_code": "B2_G3_MAIN_STAGE_FEEDBACK_SAFE",
           "index_interval": [
             44.0,
             55.9
           ],
           "polity": "成汉",
-          "position": "middle-upper",
-          "position_basis": "有效生命周期权重合计扣除G3门槛占用1.5后，净余量=1.5，据此确定档内位置。",
-          "position_q": 0.7,
-          "rank": 10,
+          "position": "middle",
+          "position_basis": "三条正向M2中，杨褒链仅对酗酒出游闭合即时纠正，买官未证持续停止；仇池拒谏—覆败为一条M2混合负链。扣除G3门槛占用后净余量=0.5，取中位。",
+          "position_q": 0.5,
+          "rank": 14,
           "reign_range": [
             304,
             334
@@ -159,8 +173,8 @@
           "ruler_id": "RULER-SHADOW-李雄",
           "ruler_name": "李雄",
           "settlement_basis": [
-            "阎式规范班位、任回李骧劝释服亲政、杨褒谏买官酗酒出游分别有纳用或止行结果，形成三个不同事件机制的M2组合，定G3。修正旧profile把人名与事项错配、丧制重复绑入两组的问题；继承争议仅未见受罚不足单造有效正M2，留作表达安全核验，不再增权。",
-            "主档G3；去重后净余量1.5，对应中上位。"
+            "阎式规范班位、任回李骧劝释服亲政及杨褒劝止酗酒出游均有可见纠正，仍满足G3的去重M2门；但买官只见受谏致歉，未证持续终止，不能作为已闭合机制纠正。群臣反对两路深入仇池未获采纳，随后孤军覆败，构成一条已到达但未吸收的M2混合负链。",
+            "三条正向M2中，杨褒链仅对酗酒出游闭合即时纠正，买官未证持续停止；仇池拒谏—覆败为一条M2混合负链。扣除G3门槛占用后净余量=0.5，取中位。"
           ],
           "verification_material_ids": [
             "I2-SK-LIXIONG-CORRECTION-001"
@@ -170,7 +184,7 @@
             "《晉書·卷121》：雄性宽厚，简刑约法，甚有名称。氐苻成、隗文既降复叛，手伤雄母，及其来也，咸释其罪，厚加待纳。由是夷夏安之，威震四土。时海内大乱，而蜀独无事，故归之者相寻。雄乃兴学校，置史官，听览之暇，手不释卷。其赋男丁岁谷三斛，女丁半之，户调绢不过数丈，绵数两。事少役稀，百姓富贵，闾门不闭，无相侵盗。然雄意在招致远方，国用不足，故诸将每进金银珍宝，多有以得官者。丞相杨褒谏曰：“陛下为天下主，当网罗四海，何有以官买金邪！”雄逊辞谢之。后雄尝酒醉而推中书令，杖太官令，褒进曰：“天子穆穆，诸侯皇皇，安有天子而为酗也！”雄即舍之。雄无事小出，褒于后持矛驰马过雄。雄怪问之，对曰：“夫统天下之重，如臣乘恶马而持矛也，急之则虑自伤，缓之则惧其失，是以马驰而不制也。”雄寤，即还。雄为国无威仪，官无禄秩，班序不别，君子小人服章不殊；行军无号令，用兵无部队，战胜不相让，败不相救，攻城破邑动以虏获为先。此其所以失也。",
             "《晉書·卷121》：诸将固请雄即尊位，以永兴元年僭称成都王，赦其境内，建元为建兴，除晋法，约法七章。以其叔父骧为太傅，兄始为太保，折冲李离为太尉，建威李云为司徙，翊军李璜为司空，材官李国为太宰，其馀拜授各有差。追尊其曾祖武曰巴郡桓公，祖慕陇西襄王，父特成都景王，母罗氏曰王太后。范长生自西山乘素舆诣成都，雄迎之于门，执版延坐，拜丞相，尊曰范贤。长生劝雄称尊号，雄于是僭即帝位，赦其境内，改年曰太武。追尊父特曰景帝，庙号始祖，母罗氏为太后。加范长生为天地太师，封西山侯，复其部曲不豫军征，租税一入其家。雄时建国草创，素无法式，诸将恃恩，各争班位。其尚书令阎式上疏曰：“夫为国制法，勋尚仍旧。汉、晋故事，惟太尉、大司马执兵，太傅、太保父兄之官，论道之职，司徙、司空掌五教九土之差。秦置丞相，总领万机。汉武之末，越以大将军统政。今国业初建，凡百末备，诸公大将班位有差，降而兢请施置，不与典故相应，宜立制度以为楷式。”雄从之。"
           ],
-          "position_residual": 1.5,
+          "position_residual": 0.5,
           "grade_threshold_consumed": 1.5
         },
         {
@@ -230,7 +244,7 @@
           "position": "middle",
           "position_basis": "有效生命周期权重合计扣除G3门槛占用1.5后，净余量=0.5，据此确定档内位置。",
           "position_q": 0.5,
-          "rank": 15,
+          "rank": 14,
           "reign_range": [
             319,
             333
