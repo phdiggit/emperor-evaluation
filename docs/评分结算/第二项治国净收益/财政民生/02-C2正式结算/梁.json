@@ -76,17 +76,18 @@
           ],
           "peak_band": null,
           "polity": "梁",
-          "rank": 12,
+          "rank": 49,
           "reign_range": [
             502,
             549
           ],
           "ruler_id": "RULER-SHADOW-萧衍",
           "ruler_name": "萧衍",
-          "score": 19.8,
+          "score": 19.4,
           "stability_class_diagnostic_only": "K0",
           "state_anchors": {
             "S0": "C2-2",
+            "S_main": "C2-4",
             "S_avg": "C2-4",
             "S_end": "C2-1"
           },
@@ -106,14 +107,32 @@
             "cost_position": "HIGH",
             "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
           },
-          "old_settlement": {
-            "main_band": "C2-4",
-            "score": 23.6,
-            "state_anchors": {
-              "S0": "C2-4",
-              "S_avg": "C2-4",
-              "S_end": "C2-1"
-            }
+          "loss_grade": "L3",
+          "stability_basis": "后段币制物价与国用持续恶化，持续及严重度强；中段健康另证。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-萧衍",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "后段币制物价与国用持续恶化，持续及严重度强；中段健康另证。",
+              "strong_dimensions": [
+                "duration",
+                "severity"
+              ],
+              "main_representativeness": "即位初中央府藏、三仓明显低位，随后长期中段恢复到可维持广泛货币区、商业税基和农业生产的健康状态；但普通以后币制持续恶化，大同后出现铁钱如丘山、物价腾贵，末年又见国用常褊。由于严重货币—财政恶化主要集中在后段，不能反推抹掉更长的中段健康主态，故主档仍四、终点一。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-萧衍",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-萧衍",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-萧衍",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-萧衍",
+                "《资治通鉴》共享通读卡正文"
+              ]
+            },
+            "score": 19.4
           }
         },
         {
@@ -155,7 +174,7 @@
           ],
           "peak_band": null,
           "polity": "梁",
-          "rank": 56,
+          "rank": 124,
           "reign_range": [
             552,
             555
@@ -163,7 +182,6 @@
           "ruler_id": "RULER-SHADOW-萧绎",
           "ruler_name": "萧绎",
           "score": 13.1,
-          "stability_class_diagnostic_only": "K0",
           "state_anchors": {
             "S0": "C2-3",
             "S_avg": "C2-3",
@@ -176,17 +194,7 @@
             "cost_status": "CONFIRMED",
             "cost_position": "HIGH",
             "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
-          },
-          "old_settlement": {
-            "main_band": "C2-2",
-            "score": 7.0,
-            "state_anchors": {
-              "S0": "C2-2",
-              "S_avg": "C2-2",
-              "S_end": "C2-1"
-            }
-          },
-          "old_settlement_review": "UPGRADE_FROM_C2_2_REPLACE_MISAPPLIED_EVIDENCE；保留：原结算关于侯景乱后低基线和江陵终局崩溃的方向保留。；推翻/修正：删除误用三吴材料，并把终局与全任主态分离，主档升3。。"
+          }
         }
       ]
     }

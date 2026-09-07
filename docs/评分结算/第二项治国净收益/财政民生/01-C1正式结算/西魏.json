@@ -43,17 +43,18 @@
           ],
           "peak_band": null,
           "polity": "西魏",
-          "rank": 36,
+          "rank": 52,
           "reign_range": [
             535,
             556
           ],
           "ruler_id": "RULER-SHADOW-宇文泰",
           "ruler_name": "宇文泰",
-          "score": 32.0,
+          "score": 29.6,
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C1-2",
+            "S_main": "C1-3",
             "S_avg": "C1-3",
             "S_end": "C1-3"
           },
@@ -71,35 +72,36 @@
           "raw_peak_band": null,
           "formal_peak_band": null,
           "lane_axis_coverage": [],
-          "stability_stage_review": {
-            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
-            "stages": []
-          },
-          "persistence_review": {
-            "status": "PRESERVED_PENDING_DEDICATED_REVIEW",
-            "persistence_class": "SINGLE_PHASE_CONFIRMED",
-            "from_band": "C1-2",
-            "to_band": "C1-3",
-            "basis": "沿用当前正式证据；本补丁未新增人物裁决。"
-          },
-          "dynasty_curve_review": {
-            "status": "PRESERVED",
-            "handoff_continuity_checked": false,
-            "basis": "当前附件未要求改变本人物交班锚。"
-          },
-          "inference_review": {
-            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
-            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
-            "inference_hops": 1,
-            "inference_basis": "西魏草创低位后，六条和新制实施数年形成‘百姓便利’的直接运行结果，长期主态达到基本维持；晚期江陵等新占区损害保留为区域和战争压力，但不足以把西魏核心区交班状态降回困顿。"
-          },
           "material_basis": [
             {
               "book": "《周书·文帝纪下》",
               "original_text": "于是搜简贤才，以为牧守令长，皆依新制而遣焉。数年之间，百姓便之。"
             }
           ],
-          "stability_basis": "S0=C1-2后的草创恢复不计K；新制运行后，现有材料未确认西魏核心区另有独立跌破C1-3的家庭低谷。江陵等主动战争成本须有核心家庭端闭合才能进入K，故K4。"
+          "stability_basis": "贫弱重徭远戍是已证家庭负担，最低已证档；不限定必须旧核心区，江陵战名本身不入谷。",
+          "loss_grade": "L1",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-宇文泰",
+            "loss_review": {
+              "grade": "L1",
+              "basis": "贫弱重徭远戍是已证家庭负担，最低已证档；不限定必须旧核心区，江陵战名本身不入谷。",
+              "strong_dimensions": [],
+              "main_representativeness": "西魏草创后新制连续运行，史书明确“数年之间，百姓便之”，足以受约束确认基本运行改善；但不足闭合普通家庭普遍温饱，主态仍C1-3。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-宇文泰",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-宇文泰",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-宇文泰",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-宇文泰",
+                "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+              ]
+            },
+            "score": 29.6
+          }
         }
       ]
     }

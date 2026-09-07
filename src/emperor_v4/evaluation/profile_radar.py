@@ -8,6 +8,7 @@ from typing import Any
 import yaml
 
 from emperor_v4.evaluation.formal_json_store import load_json
+from emperor_v4.evaluation.profile_registry import profile_axis_order
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -15,7 +16,7 @@ PROJECT = ROOT / "config" / "project.yml"
 PROFILE_ROOT = ROOT / "docs" / "评分结算" / "皇帝人物画像"
 POOL = ROOT / "config" / "common" / "canonical-ruler-pool.json"
 
-AXIS_ORDER = ("M1", "M2", "M3", "M4", "C1", "C2", "C3", "C5")
+AXIS_ORDER = profile_axis_order()
 AXIS_LABELS = {
     "M1": "军事统帅",
     "M2": "外交博弈",
@@ -67,7 +68,7 @@ def load_profiles() -> dict[str, Profile]:
         raise ValueError("八轴人物画像尚未正式结算")
     if any(config[key] for key in ("profile_total_enabled", "profile_ranking_enabled", "composite_ranking_write")):
         raise ValueError("人物画像雷达图不得启用总分、排名或综合榜写入")
-    if tuple(config["settled_axes"]) != AXIS_ORDER:
+    if profile_axis_order(config) != AXIS_ORDER:
         raise ValueError("八轴顺序必须为固定正式顺序")
 
     project = yaml.safe_load(PROJECT.read_text(encoding="utf-8"))

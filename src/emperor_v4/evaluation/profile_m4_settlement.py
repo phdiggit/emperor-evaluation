@@ -6,6 +6,7 @@ from typing import Any
 
 from emperor_v4.evaluation.formal_json_store import load_json, load_ruler_polities, write_json
 from emperor_v4.evaluation.profile_markdown import render_profile_markdown
+from emperor_v4.evaluation.profile_registry import write_profile_manifest
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -45,13 +46,7 @@ def _write_json(path: Path, payload: dict[str, Any]) -> None:
 
 
 def _update_manifest() -> None:
-    manifest = _load(MANIFEST)
-    axis = next(row for row in manifest["axes"] if row["axis_code"] == "M4")
-    axis["formalization_note"] = (
-        "M4正式JSON为逐人裁决唯一真源；程序只生成阅读视图，"
-        "人物裁决变化只通过局部patch进入正式JSON，不由程序自动改档。"
-    )
-    _write_json(MANIFEST, manifest)
+    write_profile_manifest(("M4",))
 
 
 def build(*, write: bool = False) -> dict[str, Any]:

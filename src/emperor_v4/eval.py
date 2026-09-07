@@ -8,8 +8,11 @@ from typing import Sequence
 
 
 def _parser() -> argparse.ArgumentParser:
+    from emperor_v4.evaluation.profile_registry import profile_axis_order
+
     parser = argparse.ArgumentParser(description="皇帝综合评价体系 V4 评分命令")
     commands = parser.add_subparsers(dest="command", required=True)
+    profile_axes = list(profile_axis_order())
     maintenance = commands.add_parser("maintenance", help="定位当前裁决、下游影响与必要校验")
     maintenance.add_argument("--component", action="append", required=True)
     maintenance.add_argument("--ruler-id", action="append", default=[])
@@ -23,12 +26,17 @@ def _parser() -> argparse.ArgumentParser:
     first_cost.add_argument("--workspace-root", type=Path, default=Path("."))
     formal = commands.add_parser("formal-settlements-verify")
     formal.add_argument("--item", action="append", choices=["first_item", "second_item", "third_item", "fourth_item", "fifth_item"])
+    commands.add_parser("governance-state-recovery-verify")
+    recovery_report = commands.add_parser("governance-state-recovery-report")
+    recovery_report.add_argument("--write", action="store_true")
+    recovery_activate = commands.add_parser("governance-state-recovery-activate")
+    recovery_activate.add_argument("--write", action="store_true")
     totals = commands.add_parser("second-item-totals")
     totals.add_argument("--write", action="store_true")
     sensitivity = commands.add_parser("cost-sensitivity", help="核对或生成不计分的军事成本裁决敏感性分析")
     sensitivity.add_argument("--write", action="store_true")
     profile_current = commands.add_parser("profile-current-verify")
-    profile_current.add_argument("--axis", required=True, choices=["M1", "M2", "M3", "M4", "C1", "C2", "C3", "C5"])
+    profile_current.add_argument("--axis", required=True, choices=profile_axes)
     fourth_a = commands.add_parser("fourth-item-a-verify")
     fourth_a.add_argument("--workspace-root", type=Path, default=Path("."))
     fourth_a_views = commands.add_parser("fourth-item-a-views")
@@ -53,7 +61,7 @@ def _parser() -> argparse.ArgumentParser:
     commands.add_parser("profile-m4-verify")
     profile_markdown = commands.add_parser("profile-markdown")
     profile_markdown.add_argument("--write", action="store_true")
-    profile_markdown.add_argument("--axis", action="append", choices=["C1", "C2", "C3", "C5", "M1", "M2", "M3", "M4"])
+    profile_markdown.add_argument("--axis", action="append", choices=profile_axes)
     profile_radar = commands.add_parser("profile-radar-samples")
     profile_radar.add_argument("--write", action="store_true")
     profile_radar.add_argument("--output-dir", type=Path)
@@ -63,6 +71,9 @@ def _parser() -> argparse.ArgumentParser:
     video_copy = commands.add_parser("profile-video-copy-samples")
     video_copy.add_argument("--write", action="store_true")
     video_copy.add_argument("--output-dir", type=Path)
+    profile_manifest = commands.add_parser("profile-manifest", help="从项目配置生成画像正式入口清单")
+    profile_manifest.add_argument("--write", action="store_true")
+    profile_manifest.add_argument("--axis", action="append", choices=profile_axes)
     composite = commands.add_parser("composite-ranking")
     composite.add_argument("--workspace-root", type=Path, default=Path("."))
     composite.add_argument("--write", action="store_true")
@@ -127,6 +138,7 @@ def _dispatch(args: argparse.Namespace) -> int:
     from emperor_v4.evaluation.profile_m4_settlement import build as build_profile_m4_settlement
     from emperor_v4.evaluation.profile_m4_verifier import verify as verify_profile_m4_settlement
     from emperor_v4.evaluation.profile_markdown import AXIS_FILES, write_axes as write_profile_markdown_axes
+    from emperor_v4.evaluation.profile_registry import write_profile_manifest
     from emperor_v4.evaluation.profile_radar import write_samples as write_profile_radar_samples
     from emperor_v4.evaluation.profile_video_card import write_samples as write_profile_video_card_samples
     from emperor_v4.evaluation.profile_video_copy import write_samples as write_profile_video_copy_samples
@@ -138,6 +150,11 @@ def _dispatch(args: argparse.Namespace) -> int:
     from emperor_v4.evaluation.third_item_b1_settlement import rebuild_third_item_b1
     from emperor_v4.evaluation.third_item_d_settlement import (
         verify_third_item_d_formal_settlement,
+    )
+    from emperor_v4.evaluation.governance_state_recovery import (
+        activate_governance_state_recovery,
+        verify_governance_state_recovery_review,
+        write_governance_state_recovery_markdown,
     )
 
     if args.command == "maintenance":
@@ -240,6 +257,22 @@ def _dispatch(args: argparse.Namespace) -> int:
         report = verify_formal_settlements(Path(".").resolve(), items=set(args.item) if args.item else None)
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0
+    if args.command == "governance-state-recovery-verify":
+        report = verify_governance_state_recovery_review(Path(".").resolve())
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "governance-state-recovery-report":
+        if not args.write:
+            raise SystemExit("governance-state-recovery-report 必须显式传入 --write")
+        path = write_governance_state_recovery_markdown(Path(".").resolve())
+        print(path.relative_to(Path(".").resolve()).as_posix())
+        return 0
+    if args.command == "governance-state-recovery-activate":
+        if not args.write:
+            raise SystemExit("governance-state-recovery-activate 必须显式传入 --write")
+        report = activate_governance_state_recovery(Path(".").resolve())
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0
     if args.command == "second-item-a-verify":
         report = verify_second_item_a_snapshot(args.workspace_root.resolve())
         print(json.dumps(report, ensure_ascii=False, indent=2))
@@ -281,6 +314,11 @@ def _dispatch(args: argparse.Namespace) -> int:
             raise SystemExit("profile-markdown 必须显式传入 --write")
         for path in write_profile_markdown_axes(args.axis or AXIS_FILES):
             print(path.relative_to(Path(".").resolve()).as_posix())
+        return 0
+    if args.command == "profile-manifest":
+        if not args.write:
+            raise SystemExit("profile-manifest 必须显式传入 --write")
+        print(write_profile_manifest(args.axis).relative_to(Path(".").resolve()).as_posix())
         return 0
     if args.command == "profile-radar-samples":
         if not args.write:

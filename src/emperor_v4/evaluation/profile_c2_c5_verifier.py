@@ -6,6 +6,7 @@ from pathlib import Path
 import yaml
 
 from emperor_v4.evaluation.formal_json_store import load_json
+from emperor_v4.evaluation.profile_parent_schema import parent_chains
 
 from emperor_v4.evaluation.profile_markdown import render_profile_markdown
 
@@ -52,7 +53,7 @@ def _md_rows() -> list[tuple[int, str, str, str, str, str]]:
     for line in _read(C5_MD).decode("utf-8").splitlines():
         if line.startswith("| ") and not line.startswith("|---") and "展示序" not in line:
             cells = [cell.strip().replace("\\|", "|") for cell in line[1:-1].split("|")]
-            rows.append((int(cells[5]), cells[3], cells[2], cells[6], cells[7], cells[8]))
+            rows.append((int(cells[4]), cells[3], cells[2], cells[5], cells[6], cells[7]))
     return rows
 
 
@@ -69,15 +70,30 @@ def verify() -> dict[str, object]:
     c5_statuses = {row["same_chain_semantic_conflict_review_status"] for row in c5["records"]}
     assert c5_statuses <= allowed_same_chain
 
+    scope_counts: dict[str, int] = {}
     c5_parent_ids = set()
     for row in c5["records"]:
+        scope_status = str(row.get("political_conflict_scope_status") or "")
+        assert scope_status in {"CONFLICTS_REVIEWED", "NO_MAJOR_CONFLICT"}
+        scope_counts[scope_status] = scope_counts.get(scope_status, 0) + 1
+        assert str(row.get("person_type") or "").strip()
+        political_review = row.get("political_conflict_review") or {}
+        assert political_review.get("audit_review_status")
+        assert political_review.get("semantic_adjudication")
+        if scope_status == "CONFLICTS_REVIEWED":
+            assert isinstance(political_review.get("audit_sequence"), int)
+            assert political_review.get("current_c5_before_audit")
+            assert political_review.get("final_c5_after_audit")
+        else:
+            assert political_review["audit_review_status"] == "NONSEED_SCREENED_NO_TRIGGER"
+        parent_rows = parent_chains(row)
         assert row["grade_numeric"] == int(row["axis_grade"][1])
         assert row["radar_value"] == row["score_100"] == GRADE_POINTS[row["axis_grade"]][row["position"]]
         assert (row["output_mode"], row["confidence"], row["score_status"]) == OUTPUT_BY_EVIDENCE[
             row["axis_evidence_level"]
         ]
-        parents = {parent["parent_id"]: parent for parent in row["parents"]}
-        assert len(parents) == len(row["parents"])
+        parents = {parent["parent_id"]: parent for parent in parent_rows}
+        assert len(parents) == len(parent_rows)
         c5_parent_ids.update(parents)
         assert set(row["axis_relevance_check"]["scoring_parent_refs"]) == set(parents)
         for group in row["unit_groups"]:
@@ -85,7 +101,7 @@ def verify() -> dict[str, object]:
                 assert group["parent_id"] in parents
             else:
                 assert "parent_id" not in group or group["parent_id"] is None
-        directions = {parent["direction"] for parent in row["parents"]}
+        directions = {parent["direction"] for parent in parent_rows}
         if row["grade_numeric"] >= 3 and directions and directions <= {"NEGATIVE", "MIXED_NEGATIVE"}:
             assert row["review_status"] in {"RECALIBRATED", "VALIDATED"}
             assert row["public_evidence_points"] and row["source_refs"]
@@ -113,16 +129,21 @@ def verify() -> dict[str, object]:
         )
         for row in c5["records"]
     ]
+    assert c5["summary"]["political_conflict_scope_distribution"] == {
+        key: scope_counts.get(key, 0)
+        for key in ("CONFLICTS_REVIEWED", "NO_MAJOR_CONFLICT")
+    }
     manifest = _load(MANIFEST)
     axis = next(item for item in manifest["axes"] if item["axis_code"] == "C5")
 
     return {
         "status": "PASS",
         "record_count": len(c5_by_id),
-        "c5_parent_count": sum(len(row["parents"]) for row in c5["records"]),
+        "c5_parent_count": sum(len(parent_chains(row)) for row in c5["records"]),
         "c5_unit_count": len(units),
         "grade_distribution": c5["summary"]["grade_distribution"],
         "evidence_distribution": c5["summary"]["axis_evidence_distribution"],
+        "political_conflict_scope_distribution": c5["summary"]["political_conflict_scope_distribution"],
     }
 
 

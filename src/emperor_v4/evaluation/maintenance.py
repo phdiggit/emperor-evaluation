@@ -12,6 +12,7 @@ import yaml
 
 from emperor_v4.evaluation.formal_json_store import load_json, json_read_session, ROUTER_SCHEMA
 from emperor_v4.evaluation.formal_settlements import SECOND_ITEM_COMPONENT_PATHS
+from emperor_v4.evaluation.profile_registry import load_profile_config
 
 
 # Deterministic consumers and semantic projections have different write rules.
@@ -38,7 +39,6 @@ CHECKS = {
     "I2.B1": "second-item-b1-verify", "I2.B2": "second-item-b2-verify",
     "I3.D": "third-item-d-verify", "I3": "third-item-current-settlement",
     "I4": "fourth-item-a-verify",
-    **{f"profile.{axis}": f"profile-{axis.lower()}-verify" for axis in ("M1", "M3", "M4", "C1", "C2", "C3", "C5")},
 }
 CHECKS.update({
     "I1": "formal-settlements-verify --item first_item",
@@ -46,10 +46,12 @@ CHECKS.update({
     "I4": "formal-settlements-verify --item fourth_item",
     "I5": "formal-settlements-verify --item fifth_item",
     "pool": "canonical-ruler-pool-verify", "composite": "composite-ranking-verify",
-    "profile.M2": "profile-current-verify --axis M2",
 })
 for _axis in SECOND_ITEM_COMPONENT_PATHS:
     CHECKS.setdefault(f"I2.{_axis}", "formal-settlements-verify --item second_item")
+for _axis, _entry in load_profile_config()["settled_axes"].items():
+    if _entry.get("verify_command"):
+        CHECKS[f"profile.{_axis}"] = _entry["verify_command"]
 
 
 def current_entries(root: Path) -> dict[str, Path]:

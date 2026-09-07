@@ -66,6 +66,12 @@ python v4.py formal-settlements-verify
 python v4.py canonical-ruler-pool
 ```
 
+单轴入口登记或结算视图变化后，只刷新该轴的正式入口清单（省略`--axis`才做全量注册表生成）：
+
+```powershell
+python v4.py profile-manifest --axis C1 --write
+```
+
 综合计分输入变化时重建综合总榜：
 
 ```powershell
@@ -73,6 +79,8 @@ python v4.py composite-ranking --write
 ```
 
 第二项组件变动后，`python v4.py second-item-totals --write`同步汇总与四张阅读页；第二项正式校验同时核对组件抄录、竞争排名及阅读同值。
+
+主态低谷与净恢复 V3 已统一启用（L有限修正，历史K不计分）；可用 `python v4.py governance-state-recovery-verify` 校验，或用 `python v4.py governance-state-recovery-report --write` 刷新逐人阅读页。启用与刷新不做跨项文件哈希同步。
 
 军损数量解释试点见[军事成本裁决敏感性](docs/评分结算/综合分析/01-军事成本裁决敏感性.md)。相关正式输入变动后运行`python v4.py cost-sensitivity --write`，只读核对省略`--write`；案例基准档位变化须先复核案例。分析不改正式评分，且不把被排除假设纳入证据允许范围。
 

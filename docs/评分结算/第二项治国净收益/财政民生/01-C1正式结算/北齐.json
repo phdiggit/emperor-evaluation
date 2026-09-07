@@ -45,7 +45,7 @@
           ],
           "peak_band": null,
           "polity": "北齐",
-          "rank": 121,
+          "rank": 122,
           "reign_range": [
             550,
             559
@@ -56,6 +56,7 @@
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C1-3",
+            "S_main": "C1-2",
             "S_avg": "C1-2",
             "S_end": "C1-2"
           },
@@ -94,24 +95,6 @@
           "lane_axis_coverage": [
             "HOUSEHOLD_SUBSISTENCE_SURPLUS"
           ],
-          "stability_stage_review": {
-            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
-            "stages": []
-          },
-          "persistence_review": {
-            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
-          },
-          "dynasty_curve_review": {
-            "status": "PRESERVED",
-            "handoff_continuity_checked": false,
-            "basis": "当前附件未要求改变本人物交班锚。"
-          },
-          "inference_review": {
-            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
-            "inference_source_anchor": null,
-            "inference_hops": 0,
-            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
-          },
           "material_basis": [
             {
               "book": "《资治通鉴》",
@@ -122,7 +105,32 @@
               "original_text": "天保六年，发夫一百八十万人筑长城，自幽州北夏口至恒州九百馀里。"
             }
           ],
-          "stability_basis": "大规模役夫征发、长期营造与军役已用于解释为何主态只能C1-2；没有独立于主态判定之外的C1-1宏观阶段，故K4。"
+          "stability_basis": "长期役负已构成二档，未证更深独立阶段。",
+          "loss_grade": "L0",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-高洋",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "长期役负已构成二档，未证更深独立阶段。",
+              "strong_dimensions": [],
+              "main_representativeness": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。战争、长城、台殿和无节赏赐叠加后，财政不足已传导为削俸撤粮和裁撤职位。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-高洋",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-高洋",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-高洋",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-高洋",
+                "《资治通鉴》共享通读卡正文",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/northern_qi.json#material_id=I2-NQI-GAOYANG-LATE-ADMIN-COLLAPSE-001",
+                "https://zh.wikisource.org/w/index.php?title=%E5%8C%97%E9%BD%8A%E6%9B%B8%2F%E5%8D%B74&oldid=2576166"
+              ]
+            },
+            "score": 17.1
+          }
         },
         {
           "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。武成帝时期税役压力和奢费已形成广泛困苦。",
@@ -164,7 +172,7 @@
           ],
           "peak_band": null,
           "polity": "北齐",
-          "rank": 121,
+          "rank": 122,
           "reign_range": [
             561,
             565
@@ -175,6 +183,7 @@
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C1-2",
+            "S_main": "C1-2",
             "S_avg": "C1-2",
             "S_end": "C1-2"
           },
@@ -195,31 +204,36 @@
             "HOUSEHOLD_SUBSISTENCE_SURPLUS",
             "NET_TAX_LABOR_BURDEN"
           ],
-          "stability_stage_review": {
-            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
-            "stages": []
-          },
-          "persistence_review": {
-            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
-          },
-          "dynasty_curve_review": {
-            "status": "PRESERVED",
-            "handoff_continuity_checked": false,
-            "basis": "当前附件未要求改变本人物交班锚。"
-          },
-          "inference_review": {
-            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
-            "inference_source_anchor": null,
-            "inference_hops": 0,
-            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
-          },
           "material_basis": [
             {
               "book": "《资治通鉴》",
               "original_text": "骄奢淫泆，役繁赋重，官吏百姓困苦。"
             }
           ],
-          "stability_basis": "“役繁赋重、官吏百姓困苦”承担主态C1-2，不再整体重复进入K；未见独立严重失保阶段，故K4。"
+          "stability_basis": "役繁赋重已构成二档，不重复。",
+          "loss_grade": "L0",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-高湛",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "役繁赋重已构成二档，不重复。",
+              "strong_dimensions": [],
+              "main_representativeness": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。武成帝时期税役压力和奢费已形成广泛困苦。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-高湛",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-高湛",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-高湛",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-高湛",
+                "《资治通鉴》共享通读卡正文"
+              ]
+            },
+            "score": 17.1
+          }
         },
         {
           "adjudication_reason": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。高纬即位初实施停役、释人和返乡，构成对高湛末期压力的直接止损。持续奢建和赏赐使府库空竭，卖官后地方贪纵，税役最终传导为民不聊生。",
@@ -282,7 +296,7 @@
           ],
           "peak_band": null,
           "polity": "北齐",
-          "rank": 121,
+          "rank": 122,
           "reign_range": [
             569,
             577
@@ -293,6 +307,7 @@
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C1-2",
+            "S_main": "C1-2",
             "S_avg": "C1-2",
             "S_end": "C1-2"
           },
@@ -312,24 +327,6 @@
           "lane_axis_coverage": [
             "NET_TAX_LABOR_BURDEN"
           ],
-          "stability_stage_review": {
-            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
-            "stages": []
-          },
-          "persistence_review": {
-            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
-          },
-          "dynasty_curve_review": {
-            "status": "PRESERVED",
-            "handoff_continuity_checked": false,
-            "basis": "当前附件未要求改变本人物交班锚。"
-          },
-          "inference_review": {
-            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
-            "inference_source_anchor": null,
-            "inference_hops": 0,
-            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
-          },
           "material_basis": [
             {
               "book": "《资治通鉴》",
@@ -340,7 +337,30 @@
               "original_text": "府藏空竭，卖官取直；赋繁役重，民不聊生。"
             }
           ],
-          "stability_basis": "后期“赋繁役重，民不聊生”仍属于C1-2困顿主态；亡国及征服本身不证明C1-1。未确认低于主态的独立家庭崩溃阶段，故K4。"
+          "stability_basis": "长期民不聊生已构成二档，亡国不另证一档。",
+          "loss_grade": "L0",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-高纬",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "长期民不聊生已构成二档，亡国不另证一档。",
+              "strong_dimensions": [],
+              "main_representativeness": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。高纬即位初实施停役、释人和返乡，构成对高湛末期压力的直接止损。持续奢建和赏赐使府库空竭，卖官后地方贪纵，税役最终传导为民不聊生。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-高纬",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-高纬",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-高纬",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-高纬",
+                "《资治通鉴》共享通读卡正文"
+              ]
+            },
+            "score": 17.1
+          }
         }
       ]
     }

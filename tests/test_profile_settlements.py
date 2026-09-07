@@ -3,11 +3,14 @@ from __future__ import annotations
 from pathlib import Path
 
 from emperor_v4.evaluation.formal_json_store import load_json
+from emperor_v4.evaluation.profile_registry import profile_axis_order
 
 
 ROOT = Path(__file__).resolve().parents[1]
 PROFILE_ROOT = ROOT / "docs" / "评分结算" / "皇帝人物画像"
 CONTRACT = ROOT / "docs" / "项目总纲" / "皇帝人物画像评估体系合同.md"
+ACCEPTANCE_CONTRACT = ROOT / "docs" / "分项规则" / "人物画像轴" / "05-画像轴级正式验收合同.md"
+AXIS_CONTRACT_ROOT = ROOT / "docs" / "分项规则" / "人物画像轴"
 POOL = ROOT / "config" / "common" / "canonical-ruler-pool.json"
 
 
@@ -22,6 +25,10 @@ def _included_ids() -> set[str]:
     return {record["ruler_id"] for record in pool["records"] if record["pool_status"] == "INCLUDED"}
 
 
+def _parent_list(record: dict) -> list[dict]:
+    return record.get("parent_chains") or record.get("parents") or []
+
+
 def test_profile_manifest_registers_all_eight_formal_axes() -> None:
     manifest = _load(PROFILE_ROOT / "00-已结算轴正式入口.json")
     assert manifest["canonical_status"] == "FORMAL_CURRENT"
@@ -31,7 +38,7 @@ def test_profile_manifest_registers_all_eight_formal_axes() -> None:
     assert manifest["profile_total_enabled"] is False
     assert manifest["profile_ranking_enabled"] is False
     assert manifest["composite_ranking_write"] is False
-    assert [axis["axis_code"] for axis in manifest["axes"]] == ["M1", "M2", "M3", "M4", "C1", "C2", "C3", "C5"]
+    assert [axis["axis_code"] for axis in manifest["axes"]] == list(profile_axis_order())
     assert not any("sha256" in key.lower() or key.lower().endswith("_hash") for key in manifest)
     assert next(axis for axis in manifest["axes"] if axis["axis_code"] == "M3")["status"] == "FORMAL_CURRENT"
     for axis in manifest["axes"]:
@@ -39,6 +46,14 @@ def test_profile_manifest_registers_all_eight_formal_axes() -> None:
         assert (PROFILE_ROOT / axis["json"]).is_file()
         assert (PROFILE_ROOT / axis["markdown"]).is_file()
         assert not any("sha256" in key.lower() or key.lower().endswith("_hash") for key in axis)
+        audit_paths = set()
+        for audit in axis.get("audit_jsons", []):
+            assert set(audit) == {"audit_kind", "path"}
+            assert audit["audit_kind"]
+            assert audit["path"].startswith(f"{axis['axis_code']}/")
+            assert (PROFILE_ROOT / audit["path"]).is_file()
+            assert audit["path"] not in audit_paths
+            audit_paths.add(audit["path"])
 
 
 def test_profile_axis_records_cover_the_formal_pool_and_contract_fields() -> None:
@@ -53,7 +68,6 @@ def test_profile_axis_records_cover_the_formal_pool_and_contract_fields() -> Non
         "axis_evidence_level",
         "output_mode",
         "confidence",
-        "representative_parent_contexts",
         "typical_pattern",
         "counterpattern",
         "grade_basis",
@@ -85,6 +99,12 @@ def test_profile_axis_records_cover_the_formal_pool_and_contract_fields() -> Non
         assert len({record["task_code"] for record in records}) == len(records)
         assert all(required <= record.keys() for record in records)
         assert all(record["formal_status"] == "FORMAL_CURRENT" for record in records)
+        if name.startswith(("C1/", "M2/", "M3/", "M4/", "C2/", "C3/", "C5/")):
+            assert all("parent_chains" in record for record in records)
+            assert all("representative_parent_ids" in record for record in records)
+            assert all("parents" not in record and "representative_parent_contexts" not in record for record in records)
+        else:
+            assert all("representative_parent_contexts" in record for record in records)
         assert all(record["score_status"] in {"FINAL", "EVIDENCE_LIMITED"} for record in records)
         assert all(record["axis_evidence_level"] in {"E1", "E2", "E3"} for record in records)
         assert all(record["axis_grade"] in {f"G{i}" for i in range(6)} for record in records)
@@ -112,7 +132,7 @@ def test_c5_unit_dispositions_are_complete_and_do_not_score_background() -> None
         for unit in units
     )
     settlement_parent_ids = {
-        parent["parent_id"] for record in settlement["records"] for parent in record["parents"]
+        parent["parent_id"] for record in settlement["records"] for parent in _parent_list(record)
     }
     assert {
         unit["scoring_parent_id"] for unit in units if unit["status"] == "SCORING_PARENT"
@@ -136,16 +156,39 @@ def test_c5_high_grade_density_review_is_closed() -> None:
 
 def test_formal_contract_declares_eight_settled_axes_without_profile_total() -> None:
     text = CONTRACT.read_text(encoding="utf-8")
+    acceptance_text = ACCEPTANCE_CONTRACT.read_text(encoding="utf-8")
     assert "DRAFT-V0.5" not in text
     assert "FORMAL-V2.0" in text
     assert "FORMAL-V2.0 / EIGHT-AXES-FORMALLY-SETTLED" in text
-    assert "C1、C2、C3、C5、M1、M2、M3与M4均满足上述轴级门禁" in text
-    assert "仍不得生成画像总分、轴内排名或写入五项综合榜" in text
+    assert "M1、M2、M3、M4、C1、C2、C3与C5均满足上述轴级门禁" in acceptance_text
+    assert "仍不得生成画像总分、轴内排名或写入五项综合榜" in acceptance_text
     assert "人物画像代码C4自本版撤销" in text
     assert "| C4 | 组织推动与执行韧性 |" not in text
     assert "跨轴落实深度与受阻重组证据门" in text
     assert "| M3 | 民生财政建设 |" in text
     assert "| M4 | 内部政治联盟与集团整合 |" in text
+
+
+def test_profile_execution_contracts_are_physically_split_from_the_core_contract() -> None:
+    text = CONTRACT.read_text(encoding="utf-8")
+    split_contracts = {
+        "01-画像全池工作流合同.md": "# 画像全池工作流合同",
+        "02-画像校准与首轮校准合同.md": "# 画像校准与首轮校准合同",
+        "03-画像外部印象对照合同.md": "# 画像外部印象对照合同",
+        "04-画像机器与阅读输出合同.md": "# 画像机器与阅读输出合同",
+        "05-画像轴级正式验收合同.md": "# 画像轴级正式验收合同",
+    }
+    assert "## 5. 全池工作顺序" not in text
+    assert "## 6. 首轮校准组与必须回答的问题" not in text
+    assert "## 7. 外部印象对照合同" not in text
+    assert "## 8. 机器与阅读输出" not in text
+    assert "## 9. 轴级正式启用门禁" not in text
+    for filename, marker in split_contracts.items():
+        split = AXIS_CONTRACT_ROOT / filename
+        split_text = split.read_text(encoding="utf-8")
+        assert marker in split_text
+        assert "共同数据与发布合同" in split_text
+        assert f"{filename}" in text
 
 
 def test_m2_has_unique_radar_points_and_separates_background() -> None:
@@ -154,17 +197,17 @@ def test_m2_has_unique_radar_points_and_separates_background() -> None:
     scoring_parents = [
         parent
         for record in records
-        for parent in record["parents"]
+        for parent in _parent_list(record)
         if parent["consumption_status"] == "SCORING_PARENT"
     ]
     assert settlement["summary"]["unresolved_count"] == 0
     assert all(record["axis_grade"] and record["position"] for record in records)
     assert all(record["radar_value"] is not None for record in records)
-    assert all(record["parents"] for record in records)
+    assert all(_parent_list(record) for record in records)
     for record in records:
         scoring = {
             parent["parent_id"]
-            for parent in record["parents"]
+            for parent in _parent_list(record)
             if parent["consumption_status"] == "SCORING_PARENT"
         }
         assert set(record["axis_relevance_check"]["scoring_parent_refs"]) == scoring
@@ -172,7 +215,7 @@ def test_m2_has_unique_radar_points_and_separates_background() -> None:
             assert scoring
         if record["axis_evidence_level"] == "E2" and not scoring:
             assert record["score_status"] == "EVIDENCE_LIMITED"
-        for parent in record["parents"]:
+        for parent in _parent_list(record):
             assert parent["source_refs"]
             if parent["direction"] == "LIMITATION":
                 assert parent["consumption_status"] == "BACKGROUND_VALIDATION"

@@ -25,7 +25,7 @@
       ],
       "records": [
         {
-          "adjudication_reason": "重裁后只保留直接社会秩序材料。《新五代史》记其早期“以宽仁为政，民稍誉之”，执政后“吴人颇已归昪”，正式建国后又因长期不妄用兵而“吴人亦赖以休息”。这组材料能够证明主要控制区从基本秩序进入普遍安全，但直接司法救济、人身财产保护的多轴长期强结果仍不足，故C3-4而非五档。原S0=C3-2主要受战乱/政权更替叙事牵引，按其实际最高治理权起点已有基本可运行秩序，改为C3-3；起点恢复不降K，故K4。",
+          "adjudication_reason": "重裁后只保留直接社会秩序材料。《新五代史》记其早期“以宽仁为政，民稍誉之”，执政后“吴人颇已归昪”，正式建国后又因长期不妄用兵而“吴人亦赖以休息”。这组材料能够证明主要控制区从基本秩序进入普遍安全，但直接司法救济、人身财产保护的多轴长期强结果仍不足，故C3-4而非五档。原S0=C3-2主要受战乱/政权更替叙事牵引，按其实际最高治理权起点已有基本可运行秩序，改为C3-3；",
           "authority_attribution": "按约927—943年实际最高治理权窗口结算（937年正式称帝不作为治理窗口唯一起点）；S0改为C3-3，不再以政权更替或战争背景机械判二档。",
           "confidence": "MEDIUM",
           "evidence": [
@@ -51,6 +51,7 @@
           "state_anchors": {
             "S0": "C3-3",
             "S_main": "C3-4",
+            "S_avg": "C3-4",
             "S_end": "C3-4"
           },
           "m3_supplement_review": {
@@ -76,10 +77,42 @@
               "book": "《新五代史》卷六十二",
               "original_text": "“昪见天下乱久，常厌用兵……遂通好不绝……然吴人亦赖以休息。”"
             }
-          ]
+          ],
+          "loss_grade": "L0",
+          "stability_basis": "宽政与归附支持秩序改善；起点三档本身不证明有效低谷持续。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-FD-LI-BIAN",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "宽政与归附支持秩序改善；起点三档本身不证明有效低谷持续。",
+              "strong_dimensions": [],
+              "main_representativeness": "重裁后只保留直接社会秩序材料。《新五代史》记其早期“以宽仁为政，民稍誉之”，执政后“吴人颇已归昪”，正式建国后又因长期不妄用兵而“吴人亦赖以休息”。这组材料能够证明主要控制区从基本秩序进入普遍安全，但直接司法救济、人身财产保护的多轴长期强结果仍不足，故C3-4而非五档。原S0=C3-2主要受战乱/政权更替叙事牵引，按其实际最高治理权起点已有基本可运行秩序，改为C3-3；",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-FD-LI-BIAN",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-FD-LI-BIAN",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-FD-LI-BIAN",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-FD-LI-BIAN",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-283.source-summary.md",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/five_dynasties.json#material_id=I2-FD-MAT-537F86DD3704B612",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-282.source-summary.md",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/five_dynasties.json#material_id=I2-FD-MAT-68608CBF5ECF3A5E",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-282.source-summary.md#L23",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-282.source-summary.md#L26",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-282.source-summary.md#L29",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-283.source-summary.md#L20",
+                "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+              ]
+            },
+            "score": 40.0
+          }
         },
         {
-          "adjudication_reason": "铁钱、物价、僧众供养等财政材料退出C3。李煜前中期承接南唐既有四档秩序，现有纯C3反证主要是宗教司法特权，尚不足证明主要统治区长期跌至三档；结合一跳连续性与长期未见广域治安失灵，主态维持C3-4。974—975金陵长期被围，居民樵采路绝，破城发生巷战与乱兵侵害，交班降至C3-2，构成明确末期逆转，K0。",
+          "adjudication_reason": "铁钱、物价、僧众供养等财政材料退出C3。李煜前中期承接南唐既有四档秩序，现有纯C3反证主要是宗教司法特权，尚不足证明主要统治区长期跌至三档；结合一跳连续性与长期未见广域治安失灵，主态维持C3-4。",
           "authority_attribution": "只按本人实际最高治理权窗口和主要控制区结算；战争胜负不重复计分。",
           "confidence": "MEDIUM",
           "evidence": [
@@ -98,15 +131,16 @@
           ],
           "main_band": "C3-4",
           "polity": "南唐",
-          "rank": 40,
+          "rank": 38,
           "reign_range": "961-975",
           "ruler_id": "RULER-FD-LI-YU",
           "ruler_name": "李煜",
-          "score": 35.2,
+          "score": 32.8,
           "stability_class_diagnostic_only": "K0",
           "state_anchors": {
             "S0": "C3-4",
             "S_main": "C3-4",
+            "S_avg": "C3-4",
             "S_end": "C3-2"
           },
           "m3_supplement_review": {
@@ -130,10 +164,40 @@
               "book": "《续资治通鉴》卷八",
               "original_text": "金陵城破……壮士巷战死。"
             }
-          ]
+          ],
+          "loss_grade": "L3",
+          "stability_basis": "金陵长围、樵采断绝及巷战乱兵侵害为独立居民伤害，持续与严重度强。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-FD-LI-YU",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "金陵长围、樵采断绝及巷战乱兵侵害为独立居民伤害，持续与严重度强。",
+              "strong_dimensions": [
+                "duration",
+                "severity"
+              ],
+              "main_representativeness": "铁钱、物价、僧众供养等财政材料退出C3。李煜前中期承接南唐既有四档秩序，现有纯C3反证主要是宗教司法特权，尚不足证明主要统治区长期跌至三档；结合一跳连续性与长期未见广域治安失灵，主态维持C3-4。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-FD-LI-YU",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-FD-LI-YU",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-FD-LI-YU",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-FD-LI-YU",
+                "《续资治通鉴》卷二通读总结",
+                "《续资治通鉴》卷三至卷五通读总结",
+                "《续资治通鉴》卷八与南唐终局父周期",
+                "《续资治通鉴》卷四至卷七通读总结"
+              ]
+            },
+            "score": 32.8
+          }
         },
         {
-          "adjudication_reason": "《蜀檮杌》直接记孟昶长期“边境不耸，国内阜安”，并评“虽刑罚稍峻，而不至酷虐，人颇安之”，足以闭合C3-4；“刑罚稍峻”及缺少多轴强司法结果阻断五档。原S_end=C3-2主要由“宋军入境/亡国”倒推，不合C3边界。末年虽有夔州、剑门失守和“山河郡县半入”这一重大入侵与控制范围重构，但孟昶投降表同时明确“保全库府，巡遏军城，不使毁伤”，未见普通社会两轴持续脆弱到二档；故终点收回C3-3。S_end仍低于主态并构成真实末期逆转，K0保留。",
+          "adjudication_reason": "末年失守和控制范围重构不能直接证明普通社会跌档；投降表保全库府、巡遏军城是止损声明，非独立全国高态正证。现有本人窗口长期国内阜安、人颇安之仍支持主态四档，未闭合交班普通居民独立恶化，以受约束延续保四档。",
           "authority_attribution": "934—965年本人最高治理权；战争胜负和亡国本身不直接扣C3，只消费重大入侵造成的控制范围重构与交班时实际秩序状态。",
           "confidence": "MEDIUM",
           "evidence": [
@@ -147,7 +211,7 @@
               "source_refs": [
                 "https://zh.wikisource.org/wiki/蜀檮杌/卷下"
               ],
-              "summary": "末年王师陷夔州、剑门不守，后蜀迅速进入亡国军事危机，已与中前期阜安主态形成真实终局逆转，支持S_end=C3-2与K0。"
+              "summary": "末年王师陷夔州、剑门不守，后蜀迅速进入亡国军事危机，已与中前期阜安主态形成真实终局逆转，支持S_end=C3-2与低谷修正0。"
             }
           ],
           "evidence_refs": [
@@ -156,16 +220,17 @@
           ],
           "main_band": "C3-4",
           "polity": "后蜀",
-          "rank": 37,
+          "rank": 10,
           "reign_range": "934-965",
           "ruler_id": "RULER-FD-MENG-CHANG",
           "ruler_name": "孟昶",
-          "score": 36.8,
+          "score": 40.0,
           "stability_class_diagnostic_only": "K0",
           "state_anchors": {
             "S0": "C3-3",
             "S_main": "C3-4",
-            "S_end": "C3-3"
+            "S_avg": "C3-4",
+            "S_end": "C3-4"
           },
           "m3_supplement_review": {
             "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
@@ -194,10 +259,35 @@
               "book": "《蜀檮杌》卷下",
               "original_text": "末年“山河郡县，半入于提封”；但降表又称“见今保全库府，巡遏军城，不使毁伤”。"
             }
-          ]
+          ],
+          "loss_grade": "L0",
+          "stability_basis": "现有战败与降表未闭合普通居民独立低谷，按受约束交班延续处理；未用“无反证”新造更高主态。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-FD-MENG-CHANG",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "现有战败与降表未闭合普通居民独立低谷，按受约束交班延续处理；未用“无反证”新造更高主态。",
+              "strong_dimensions": [],
+              "main_representativeness": "末年失守和控制范围重构不能直接证明普通社会跌档；投降表保全库府、巡遏军城是止损声明，非独立全国高态正证。现有本人窗口长期国内阜安、人颇安之仍支持主态四档，未闭合交班普通居民独立恶化，以受约束延续保四档。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-FD-MENG-CHANG",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-FD-MENG-CHANG",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-FD-MENG-CHANG",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-FD-MENG-CHANG",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-288.source-summary.md",
+                "https://zh.wikisource.org/wiki/新五代史/卷64"
+              ]
+            },
+            "score": 40.0
+          }
         },
         {
-          "adjudication_reason": "原材料中的河患、饥荒与C1结论全部退出C3。世宗任内国家秩序可运行，史料同时记其明察有惠与用法过严、臣下小失亦可能置极刑，说明司法可预期性存在明显上限，足以支持C3-3而不足四档。未识别实际低于三档主态的独立阶段，故K4。",
+          "adjudication_reason": "原材料中的河患、饥荒与C1结论全部退出C3。世宗任内国家秩序可运行，史料同时记其明察有惠与用法过严、臣下小失亦可能置极刑，说明司法可预期性存在明显上限，足以支持C3-3而不足四档。",
           "authority_attribution": "只按本人实际最高治理权窗口和主要控制区结算；战争胜负不重复计分。",
           "confidence": "MEDIUM",
           "evidence": [
@@ -207,7 +297,7 @@
                 "docs/史料通读产物/五代十国/资治通鉴/volume-294.source-summary.md:49",
                 "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.md:11"
               ],
-              "summary": "但这些仍不是主要统治区多数家庭稳定温饱总评，故本人期与退出点均为C1-3。区域战争、河患与淮南饥荒进入K3，不改全任主档。；司马光在本卷论赞中专门比较后唐庄宗与后周世宗，认为庄宗仅“善战”，而世宗更能以信义、法度和抚弱责强治理天下"
+              "summary": "但这些仍不是主要统治区多数家庭稳定温饱总评，故本人期与退出点均为C1-3。区域战争、河患与淮南饥荒进入低谷修正3，不改全任主档。；司马光在本卷论赞中专门比较后唐庄宗与后周世宗，认为庄宗仅“善战”，而世宗更能以信义、法度和抚弱责强治理天下"
             }
           ],
           "evidence_refs": [
@@ -224,6 +314,7 @@
           "state_anchors": {
             "S0": "C3-3",
             "S_main": "C3-3",
+            "S_avg": "C3-3",
             "S_end": "C3-3"
           },
           "m3_supplement_review": {
@@ -247,10 +338,37 @@
               "book": "《资治通鉴》卷二百九十四",
               "original_text": "然用法太严……往往置之极刑……末年浸宽。"
             }
-          ]
+          ],
+          "loss_grade": "L0",
+          "stability_basis": "用法过严已进入三档主态；未另证独立更差阶段。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-FD-CHAI-RONG",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "用法过严已进入三档主态；未另证独立更差阶段。",
+              "strong_dimensions": [],
+              "main_representativeness": "原材料中的河患、饥荒与C1结论全部退出C3。世宗任内国家秩序可运行，史料同时记其明察有惠与用法过严、臣下小失亦可能置极刑，说明司法可预期性存在明显上限，足以支持C3-3而不足四档。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-FD-CHAI-RONG",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-FD-CHAI-RONG",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-FD-CHAI-RONG",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-FD-CHAI-RONG",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-292.source-summary.md",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/five_dynasties.json#material_id=I2-FD-MAT-0EF377A16B67B9D1",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-294.source-summary.md",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/five_dynasties.json#material_id=I2-FD-MAT-921AD902726FD41B"
+              ]
+            },
+            "score": 28.0
+          }
         },
         {
-          "adjudication_reason": "仓耗、营田、赈济等C1/C2材料退出C3。郭威承接后汉严刑、族诛与军政失序的低位，继位后首先恢复刑罚边界，普通社会至少回到基本可预期；现有直接结果仍不足闭合四档。慕容彦超等冲突位于起点低位的恢复阶段，不另消费K，故2→3→3、K4。",
+          "adjudication_reason": "仓耗、营田、赈济等C1/C2材料退出C3。郭威承接后汉严刑、族诛与军政失序的低位，继位后首先恢复刑罚边界，普通社会至少回到基本可预期；现有直接结果仍不足闭合四档。",
           "authority_attribution": "只按本人实际最高治理权窗口和主要控制区结算；战争胜负不重复计分。",
           "confidence": "MEDIUM",
           "evidence": [
@@ -261,7 +379,7 @@
                 "docs/史料通读产物/五代十国/资治通鉴/volume-290.source-summary.md:60",
                 "docs/史料通读产物/五代十国/资治通鉴/volume-289.source-summary.md:43"
               ],
-              "summary": "即位后仓耗减免、灾民安置、营田户恒产与退征证明多路恢复至基本维持。该锚仅覆盖河北且起于即位前，窗口内也没有主要统治区多数家庭稳定温饱总评，故C1-4门禁不通过，唯一主档为C1-3。兖州战乱等局部波动进入K3。；南唐大旱，井泉干涸，淮水浅至可徒涉，大批饥民向北流动。郭威认为“彼我之民一也”，允许其过淮买米"
+              "summary": "即位后仓耗减免、灾民安置、营田户恒产与退征证明多路恢复至基本维持。该锚仅覆盖河北且起于即位前，窗口内也没有主要统治区多数家庭稳定温饱总评，故C1-4门禁不通过，唯一主档为C1-3。兖州战乱等局部波动进入低谷修正3。；南唐大旱，井泉干涸，淮水浅至可徒涉，大批饥民向北流动。郭威认为“彼我之民一也”，允许其过淮买米"
             }
           ],
           "evidence_refs": [
@@ -278,6 +396,7 @@
           "state_anchors": {
             "S0": "C3-2",
             "S_main": "C3-3",
+            "S_avg": "C3-3",
             "S_end": "C3-3"
           },
           "m3_supplement_review": {
@@ -355,10 +474,39 @@
               "book": "《资治通鉴》卷二百九十",
               "original_text": "罪人非反逆，无得诛及亲族籍没家赀。"
             }
-          ]
+          ],
+          "loss_grade": "L0",
+          "stability_basis": "早期纠正刑罚边界可证；慕容彦超冲突未闭合普通居民受害，不用战名扣分。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-FD-GUO-WEI",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "早期纠正刑罚边界可证；慕容彦超冲突未闭合普通居民受害，不用战名扣分。",
+              "strong_dimensions": [],
+              "main_representativeness": "仓耗、营田、赈济等C1/C2材料退出C3。郭威承接后汉严刑、族诛与军政失序的低位，继位后首先恢复刑罚边界，普通社会至少回到基本可预期；现有直接结果仍不足闭合四档。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-FD-GUO-WEI",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-FD-GUO-WEI",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-FD-GUO-WEI",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-FD-GUO-WEI",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-289.source-summary.md",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/five_dynasties.json#material_id=I2-FD-MAT-7252CAE6EF9C6248",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-290.source-summary.md",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-290.source-summary.md#L11",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-290.source-summary.md#L13",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-290.source-summary.md#L14"
+              ]
+            },
+            "score": 28.0
+          }
         },
         {
-          "adjudication_reason": "李嗣源接手庄宗末兵变崩解一档，随后普通社会恢复到基本可运行秩序。纯C3材料包括对被诬谋反者“按之无状，释之”的实际司法纠正，以及其统治中期“数年间天下幸无事”的总体秩序描述；这些足以支持三档，但尚缺广域人身财产安全、基层秩序与司法救济同时稳定的四档闭合结果。S0低位及恢复过程不降低K，恢复后未识别跌破三档的独立有效阶段，故K4。",
+          "adjudication_reason": "李嗣源接手庄宗末兵变崩解一档，随后普通社会恢复到基本可运行秩序。纯C3材料包括对被诬谋反者“按之无状，释之”的实际司法纠正，以及其统治中期“数年间天下幸无事”的总体秩序描述；这些足以支持三档，但尚缺广域人身财产安全、基层秩序与司法救济同时稳定的四档闭合结果。",
           "authority_attribution": "只按本人实际最高治理权窗口和主要控制区结算；战争胜负不重复计分。",
           "confidence": "MEDIUM",
           "evidence": [
@@ -386,6 +534,7 @@
           "state_anchors": {
             "S0": "C3-1",
             "S_main": "C3-3",
+            "S_avg": "C3-3",
             "S_end": "C3-3"
           },
           "m3_supplement_review": {
@@ -435,10 +584,35 @@
               "book": "《资治通鉴》卷二百七十六",
               "original_text": "明宗自述“数年间天下幸无事”，可作基本社会秩序已经恢复的总体状态锚。"
             }
-          ]
+          ],
+          "loss_grade": "L0",
+          "stability_basis": "纠正诬反与中期无事可证；承接兵变一档不单独证明本人窗口低态持续。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-FD-LI-SIYUAN",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "纠正诬反与中期无事可证；承接兵变一档不单独证明本人窗口低态持续。",
+              "strong_dimensions": [],
+              "main_representativeness": "李嗣源接手庄宗末兵变崩解一档，随后普通社会恢复到基本可运行秩序。纯C3材料包括对被诬谋反者“按之无状，释之”的实际司法纠正，以及其统治中期“数年间天下幸无事”的总体秩序描述；这些足以支持三档，但尚缺广域人身财产安全、基层秩序与司法救济同时稳定的四档闭合结果。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-FD-LI-SIYUAN",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-FD-LI-SIYUAN",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-FD-LI-SIYUAN",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-FD-LI-SIYUAN",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-275.source-summary.md#L13",
+                "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+              ]
+            },
+            "score": 28.0
+          }
         },
         {
-          "adjudication_reason": "财政困穷、契丹岁输等非C3结果退出核心。石敬瑭初政确处在藩镇不服、兵火余波的广泛不安中，随后史料直接概括“数年之间，中国稍安”，足以闭合由二档恢复到基本秩序三档；没有证明恢复完成后再次跌破三档的独立阶段，故K4。",
+          "adjudication_reason": "财政困穷、契丹岁输等非C3结果退出核心。石敬瑭初政确处在藩镇不服、兵火余波的广泛不安中，随后史料直接概括“数年之间，中国稍安”，足以闭合由二档恢复到基本秩序三档；",
           "authority_attribution": "只按本人实际最高治理权窗口和主要控制区结算；战争胜负不重复计分。",
           "confidence": "MEDIUM",
           "evidence": [
@@ -457,15 +631,16 @@
           ],
           "main_band": "C3-3",
           "polity": "后晋",
-          "rank": 46,
+          "rank": 86,
           "reign_range": "936-942",
           "ruler_id": "RULER-FD-SHI-JINGTANG",
           "ruler_name": "石敬瑭",
-          "score": 28.0,
+          "score": 23.8,
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C3-2",
             "S_main": "C3-3",
+            "S_avg": "C3-3",
             "S_end": "C3-3"
           },
           "m3_supplement_review": {
@@ -510,10 +685,39 @@
               "book": "《资治通鉴》卷二百八十一",
               "original_text": "数年之间，中国稍安。"
             }
-          ]
+          ],
+          "loss_grade": "L2",
+          "stability_basis": "初政广泛兵火不安经数年方稍安，属本人窗口实质恢复阶段。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-FD-SHI-JINGTANG",
+            "loss_review": {
+              "grade": "L2",
+              "basis": "初政广泛兵火不安经数年方稍安，属本人窗口实质恢复阶段。",
+              "strong_dimensions": [],
+              "main_representativeness": "财政困穷、契丹岁输等非C3结果退出核心。石敬瑭初政确处在藩镇不服、兵火余波的广泛不安中，随后史料直接概括“数年之间，中国稍安”，足以闭合由二档恢复到基本秩序三档；",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-FD-SHI-JINGTANG",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-FD-SHI-JINGTANG",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-FD-SHI-JINGTANG",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-FD-SHI-JINGTANG",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-281.source-summary.md",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/five_dynasties.json#material_id=I2-FD-MAT-47106065C5B6571E",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/five_dynasties.json#material_id=I2-FD-MAT-6814A9F4AD4BD616",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-282.source-summary.md",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-281.source-summary.md#L16",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-281.source-summary.md#L19"
+              ]
+            },
+            "score": 23.8
+          }
         },
         {
-          "adjudication_reason": "重赋属于C1/C2，不再用来直接阻断C3四档；“人莫敢言”仅作为社会可预期性的裂缝。王建从西川长期战争和掠夺低位起步，建立政权后核心区恢复基本秩序，但缺少司法救济、人身财产安全的广域四档总锚。未识别恢复后独立跌破三档的阶段，故K4。",
+          "adjudication_reason": "重赋属于C1/C2，不再用来直接阻断C3四档；“人莫敢言”仅作为社会可预期性的裂缝。王建从西川长期战争和掠夺低位起步，建立政权后核心区恢复基本秩序，但缺少司法救济、人身财产安全的广域四档总锚。",
           "authority_attribution": "只按本人实际最高治理权窗口和主要控制区结算；战争胜负不重复计分。",
           "confidence": "MEDIUM",
           "evidence": [
@@ -532,15 +736,16 @@
           ],
           "main_band": "C3-3",
           "polity": "前蜀",
-          "rank": 46,
+          "rank": 86,
           "reign_range": "907-918",
           "ruler_id": "RULER-FD-WANG-JIAN",
           "ruler_name": "王建",
-          "score": 28.0,
+          "score": 23.8,
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C3-1",
             "S_main": "C3-3",
+            "S_avg": "C3-3",
             "S_end": "C3-3"
           },
           "m3_supplement_review": {
@@ -564,10 +769,34 @@
               "book": "《资治通鉴》卷二百六十五",
               "original_text": "王建赋敛重，人莫敢言。"
             }
-          ]
+          ],
+          "loss_grade": "L2",
+          "stability_basis": "西川持续战争掠夺后恢复基本秩序，实际人身财产低态纳入，不能以恢复过程豁免。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-FD-WANG-JIAN",
+            "loss_review": {
+              "grade": "L2",
+              "basis": "西川持续战争掠夺后恢复基本秩序，实际人身财产低态纳入，不能以恢复过程豁免。",
+              "strong_dimensions": [],
+              "main_representativeness": "重赋属于C1/C2，不再用来直接阻断C3四档；“人莫敢言”仅作为社会可预期性的裂缝。王建从西川长期战争和掠夺低位起步，建立政权后核心区恢复基本秩序，但缺少司法救济、人身财产安全的广域四档总锚。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-FD-WANG-JIAN",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-FD-WANG-JIAN",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-FD-WANG-JIAN",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-FD-WANG-JIAN",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-267.source-summary.md"
+              ]
+            },
+            "score": 23.8
+          }
         },
         {
-          "adjudication_reason": "北汉开国三年窗口的纯C3直接材料仍稀疏；现有材料不足证明普通社会进入四档，也不足证明任内存在独立跌破三档的有效低谷。交班后刘钧即位即见“勤于为政，爱民礼士，境内粗安”，可作一跳连续性辅助，故保守维持三档、K4。",
+          "adjudication_reason": "北汉开国三年窗口的纯C3直接材料仍稀疏；现有材料不足证明普通社会进入四档，也不足证明任内存在独立跌破三档的有效低谷。",
           "authority_attribution": "只按951—954本人最高权力窗口；重赋、军费和战败不直接作为C3证据，继任初期材料只作交班连续性辅助。",
           "confidence": "MEDIUM_LOW",
           "evidence": [
@@ -593,6 +822,7 @@
           "state_anchors": {
             "S0": "C3-3",
             "S_main": "C3-3",
+            "S_avg": "C3-3",
             "S_end": "C3-3"
           },
           "m3_supplement_review": {
@@ -612,10 +842,35 @@
               "book": "《资治通鉴》卷292",
               "original_text": "刘钧继位后“勤于为政，爱民礼士，境内粗安”；仅作刘崇交班状态的一跳连续性辅助。"
             }
-          ]
+          ],
+          "loss_grade": "L0",
+          "stability_basis": "本人短窗无有效居民低谷证据，不因材料少自动扣。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-刘崇",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "本人短窗无有效居民低谷证据，不因材料少自动扣。",
+              "strong_dimensions": [],
+              "main_representativeness": "北汉开国三年窗口的纯C3直接材料仍稀疏；现有材料不足证明普通社会进入四档，也不足证明任内存在独立跌破三档的有效低谷。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-刘崇",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-刘崇",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-刘崇",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-刘崇",
+                "volume-288.source-summary.md",
+                "《新五代史》卷七十"
+              ]
+            },
+            "score": 28.0
+          }
         },
         {
-          "adjudication_reason": "入蜀时“群盗犹未息”，随后选择廉吏、安集流散并分兵讨群盗，普通社会由低位恢复到基本秩序。现有后续材料虽有两川战争和高动员，但未闭合普通社会另一次跌破三档的独立C3低谷；起点群盗及平定属于恢复过程，不降低K，故改K4。",
+          "adjudication_reason": "入蜀时“群盗犹未息”，随后选择廉吏、安集流散并分兵讨群盗，普通社会由低位恢复到基本秩序。现有后续材料虽有两川战争和高动员，但未闭合普通社会另一次跌破三档的独立C3低谷；",
           "authority_attribution": "925—934实际控制窗口；横赋、徭役本身归C1/C2，群盗是否控制和普通社会秩序才进入C3。",
           "confidence": "HIGH",
           "evidence": [
@@ -633,15 +888,16 @@
           ],
           "main_band": "C3-3",
           "polity": "五代十国",
-          "rank": 46,
+          "rank": 86,
           "reign_range": "925-934实际割据",
           "ruler_id": "RULER-SHADOW-孟知祥",
           "ruler_name": "孟知祥",
-          "score": 28.0,
+          "score": 23.8,
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C3-2",
             "S_main": "C3-3",
+            "S_avg": "C3-3",
             "S_end": "C3-3"
           },
           "m3_supplement_review": {
@@ -699,10 +955,40 @@
               "book": "《资治通鉴》卷274",
               "original_text": "“蜀中群盗犹未息”，其后择廉吏、安集流散并“分讨群盗，悉诛之”。"
             }
-          ]
+          ],
+          "loss_grade": "L2",
+          "stability_basis": "入蜀群盗未息到讨平为本人窗口实质安全恢复阶段，旧恢复豁免撤销。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-孟知祥",
+            "loss_review": {
+              "grade": "L2",
+              "basis": "入蜀群盗未息到讨平为本人窗口实质安全恢复阶段，旧恢复豁免撤销。",
+              "strong_dimensions": [],
+              "main_representativeness": "入蜀时“群盗犹未息”，随后选择廉吏、安集流散并分兵讨群盗，普通社会由低位恢复到基本秩序。现有后续材料虽有两川战争和高动员，但未闭合普通社会另一次跌破三档的独立C3低谷；",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-孟知祥",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-孟知祥",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-孟知祥",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-孟知祥",
+                "volume-274.source-summary.md",
+                "volume-276.source-summary.md",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-274.source-summary.md#L35",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-276.source-summary.md#L12",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-276.source-summary.md#L14",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-276.source-summary.md#L15",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-276.source-summary.md#L21"
+              ]
+            },
+            "score": 23.8
+          }
         },
         {
-          "adjudication_reason": "湖南由唐末军乱低位恢复后，长期社会生产与交易持续运行至少要求基层秩序处于可运行状态，可支持C3-3；但现有材料缺少司法救济与人身财产安全多轴强锚，不能升四档。晚年高郁被杀属于中枢政治个案，不能据此把普通社会交班压到二档，故S_end回三档、K4。 证据链：长期控制下湖南社会运行恢复；高郁案属于中枢权力清洗，不能单独外推为普通社会广泛不安全。",
+          "adjudication_reason": "湖南由唐末军乱低位恢复后，长期社会生产与交易持续运行至少要求基层秩序处于可运行状态，可支持C3-3；但现有材料缺少司法救济与人身财产安全多轴强锚，不能升四档。 证据链：长期控制下湖南社会运行恢复；高郁案属于中枢权力清洗，不能单独外推为普通社会广泛不安全。",
           "authority_attribution": "早期创业暴力只作起点和状态锚，不与第一项重复计分。",
           "confidence": "MEDIUM_HIGH",
           "evidence": [
@@ -729,6 +1015,7 @@
           "state_anchors": {
             "S0": "C3-1",
             "S_main": "C3-3",
+            "S_avg": "C3-3",
             "S_end": "C3-3"
           },
           "m3_supplement_review": {
@@ -752,10 +1039,36 @@
               "book": "《十国春秋》卷67",
               "original_text": "长兴元年冬十月，王寝疾……十一月己巳，王薨。"
             }
-          ]
+          ],
+          "loss_grade": "L0",
+          "stability_basis": "唐末战争背景与政治个案不足另证本人窗口有效更深阶段。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-马殷",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "唐末战争背景与政治个案不足另证本人窗口有效更深阶段。",
+              "strong_dimensions": [],
+              "main_representativeness": "湖南由唐末军乱低位恢复后，长期社会生产与交易持续运行至少要求基层秩序处于可运行状态，可支持C3-3；但现有材料缺少司法救济与人身财产安全多轴强锚，不能升四档。 证据链：长期控制下湖南社会运行恢复；高郁案属于中枢权力清洗，不能单独外推为普通社会广泛不安全。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-马殷",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-马殷",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-马殷",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-马殷",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-266.source-summary.md#L21",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-274.source-summary.md#L16",
+                "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+              ]
+            },
+            "score": 28.0
+          }
         },
         {
-          "adjudication_reason": "荆南接手时“城邑残毁，户口凋耗”，随后安集流散并使“民皆复业”，足以闭合从崩解到基本秩序的恢复；现有反证主要属于战争环境和政权尺度，不能证明恢复后另有低于三档的有效阶段，故K4。 证据链：“城邑残毁，户口凋耗；安集流散，民皆复业”直接说明基层社会由崩解恢复到可运行状态。",
+          "adjudication_reason": "荆南接手时“城邑残毁，户口凋耗”，随后安集流散并使“民皆复业”，足以闭合从崩解到基本秩序的恢复； 证据链：“城邑残毁，户口凋耗；安集流散，民皆复业”直接说明基层社会由崩解恢复到可运行状态。",
           "authority_attribution": "战争胜负不在C3重复，消费的是人口回流与社会运行结果。",
           "confidence": "HIGH",
           "evidence": [
@@ -772,15 +1085,16 @@
           ],
           "main_band": "C3-3",
           "polity": "五代十国",
-          "rank": 46,
+          "rank": 86,
           "reign_range": "907-929实际割据",
           "ruler_id": "RULER-SHADOW-高季兴",
           "ruler_name": "高季兴",
-          "score": 28.0,
+          "score": 23.8,
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C3-1",
             "S_main": "C3-3",
+            "S_avg": "C3-3",
             "S_end": "C3-3"
           },
           "m3_supplement_review": {
@@ -800,10 +1114,34 @@
               "book": "《资治通鉴》卷266",
               "original_text": "城邑残毁，户口凋耗；安集流散，民皆复业。"
             }
-          ]
+          ],
+          "loss_grade": "L2",
+          "stability_basis": "基层残毁流散到复业是实质人身财产恢复阶段，主态基本秩序另证。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-高季兴",
+            "loss_review": {
+              "grade": "L2",
+              "basis": "基层残毁流散到复业是实质人身财产恢复阶段，主态基本秩序另证。",
+              "strong_dimensions": [],
+              "main_representativeness": "荆南接手时“城邑残毁，户口凋耗”，随后安集流散并使“民皆复业”，足以闭合从崩解到基本秩序的恢复； 证据链：“城邑残毁，户口凋耗；安集流散，民皆复业”直接说明基层社会由崩解恢复到可运行状态。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-高季兴",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-高季兴",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-高季兴",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-高季兴",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-272.source-summary.md#L81"
+              ]
+            },
+            "score": 23.8
+          }
         },
         {
-          "adjudication_reason": "同光期诏令信用、司法与军政秩序均持续脆弱：孔谦使赦令所蠲复征，史载“每有诏令人皆不信，百姓愁怨”；罗贯案又显示权幸请托可以越法致死。末年魏博兵变、诸军离叛直至洛阳中枢崩解，交班降至C3-1，故K0。",
+          "adjudication_reason": "同光期诏令信用、司法与军政秩序均持续脆弱：孔谦使赦令所蠲复征，史载“每有诏令人皆不信，百姓愁怨”；罗贯案又显示权幸请托可以越法致死。",
           "authority_attribution": "923—926年本人最高权力；财政匮乏本身不作C3证据，只消费诏令失信、司法任意、军政侵民和末期社会保护崩解。",
           "confidence": "MEDIUM",
           "evidence": [
@@ -826,11 +1164,12 @@
           "reign_range": "923-926",
           "ruler_id": "RULER-FD-LI-CUNXU",
           "ruler_name": "李存勖",
-          "score": 14.7,
+          "score": 8.8,
           "stability_class_diagnostic_only": "K0",
           "state_anchors": {
             "S0": "C3-2",
             "S_main": "C3-2",
+            "S_avg": "C3-2",
             "S_end": "C3-1"
           },
           "m3_supplement_review": {
@@ -860,10 +1199,38 @@
               "book": "《资治通鉴》卷274",
               "original_text": "同光末魏博兵变、诸军离叛，洛阳中枢最终崩解。"
             }
-          ]
+          ],
+          "loss_grade": "L3",
+          "stability_basis": "末年广泛兵变及中枢秩序失效叠加已证司法毁损，严重度与覆盖强。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-FD-LI-CUNXU",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "末年广泛兵变及中枢秩序失效叠加已证司法毁损，严重度与覆盖强。",
+              "strong_dimensions": [
+                "scope",
+                "severity"
+              ],
+              "main_representativeness": "同光期诏令信用、司法与军政秩序均持续脆弱：孔谦使赦令所蠲复征，史载“每有诏令人皆不信，百姓愁怨”；罗贯案又显示权幸请托可以越法致死。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-FD-LI-CUNXU",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-FD-LI-CUNXU",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-FD-LI-CUNXU",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-FD-LI-CUNXU",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-272.source-summary.md",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-273.source-summary.md"
+              ]
+            },
+            "score": 8.8
+          }
         },
         {
-          "adjudication_reason": "南汉政权日常行政尚能维持，但刘龑长期“用刑惨酷”，设置灌鼻、割舌、支解、炮炙、烹蒸、水狱等非常刑罚，并亲视杀人；末年又猜忌士人、专任宦官。国家司法本身成为持续人身风险，故主态只能C3-2；未见独立跌破二档的有效阶段，K4。",
+          "adjudication_reason": "南汉政权日常行政尚能维持，但刘龑长期“用刑惨酷”，设置灌鼻、割舌、支解、炮炙、烹蒸、水狱等非常刑罚，并亲视杀人；末年又猜忌士人、专任宦官。国家司法本身成为持续人身风险，故主态只能C3-2；",
           "authority_attribution": "917—942年本人最高权力；奢侈与财政耗用退出C3核心，只保留长期司法暴力和由此形成的安全预期。",
           "confidence": "MEDIUM",
           "evidence": [
@@ -891,6 +1258,7 @@
           "state_anchors": {
             "S0": "C3-2",
             "S_main": "C3-2",
+            "S_avg": "C3-2",
             "S_end": "C3-2"
           },
           "m3_supplement_review": {
@@ -914,10 +1282,34 @@
               "book": "《十国春秋》卷58",
               "original_text": "寃痛之声充沸庭庑；后尤猜忌，专任阉人。"
             }
-          ]
+          ],
+          "loss_grade": "L0",
+          "stability_basis": "长期非常刑罚已进入二档主态，未另证独立更差阶段。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-FD-LIU-YAN",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "长期非常刑罚已进入二档主态，未另证独立更差阶段。",
+              "strong_dimensions": [],
+              "main_representativeness": "南汉政权日常行政尚能维持，但刘龑长期“用刑惨酷”，设置灌鼻、割舌、支解、炮炙、烹蒸、水狱等非常刑罚，并亲视杀人；末年又猜忌士人、专任宦官。国家司法本身成为持续人身风险，故主态只能C3-2；",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-FD-LIU-YAN",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-FD-LIU-YAN",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-FD-LIU-YAN",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-FD-LIU-YAN",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-283.source-summary.md"
+              ]
+            },
+            "score": 16.0
+          }
         },
         {
-          "adjudication_reason": "从唐末战争与军阀暴力的一档低位起步。后梁建立后部分地区治盗出现“盗减什七八”等恢复，足以回到广泛不安全而非全面崩解；但军人侵扰、政治杀戮与地方保护仍长期脆弱，不能闭合三档。起点及恢复过程不降低K，恢复后未证更低有效阶段，故K4。",
+          "adjudication_reason": "从唐末战争与军阀暴力的一档低位起步。后梁建立后部分地区治盗出现“盗减什七八”等恢复，足以回到广泛不安全而非全面崩解；但军人侵扰、政治杀戮与地方保护仍长期脆弱，不能闭合三档。",
           "authority_attribution": "907—912年称帝窗口；创业战争只用于锚定起点，C3核心只消费控制区内盗治、军人侵害和司法人身安全结果。",
           "confidence": "MEDIUM",
           "evidence": [
@@ -936,15 +1328,16 @@
           ],
           "main_band": "C3-2",
           "polity": "后梁",
-          "rank": 131,
+          "rank": 156,
           "reign_range": "907-912",
           "ruler_id": "RULER-FD-ZHU-WEN",
           "ruler_name": "朱温",
-          "score": 16.0,
+          "score": 11.8,
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C3-1",
             "S_main": "C3-2",
+            "S_avg": "C3-2",
             "S_end": "C3-2"
           },
           "m3_supplement_review": {
@@ -970,10 +1363,35 @@
               "book": "《资治通鉴》",
               "original_text": "后梁控制区仍反复出现军人侵扰与政治性杀戮，普通社会保护不足三档。"
             }
-          ]
+          ],
+          "loss_grade": "L2",
+          "stability_basis": "本人窗口治盗使盗减什七八，说明此前实际盗害形成恢复阶段；与二档长期脆弱分开。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-FD-ZHU-WEN",
+            "loss_review": {
+              "grade": "L2",
+              "basis": "本人窗口治盗使盗减什七八，说明此前实际盗害形成恢复阶段；与二档长期脆弱分开。",
+              "strong_dimensions": [],
+              "main_representativeness": "从唐末战争与军阀暴力的一档低位起步。后梁建立后部分地区治盗出现“盗减什七八”等恢复，足以回到广泛不安全而非全面崩解；但军人侵扰、政治杀戮与地方保护仍长期脆弱，不能闭合三档。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-FD-ZHU-WEN",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-FD-ZHU-WEN",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-FD-ZHU-WEN",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-FD-ZHU-WEN",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-266.source-summary.md",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-266.source-summary.md#L13"
+              ]
+            },
+            "score": 11.8
+          }
         },
         {
-          "adjudication_reason": "在持续梁晋战争环境下主要统治区长期处于广泛不安全二档；末年唐军突破后梁防线，军政体系迅速解体，京师失去稳定保护，宗室清洗与君主被杀只是中枢崩解的伴随表现。S_end实际跌至C3-1，按合同应判K0。",
+          "adjudication_reason": "在持续梁晋战争环境下主要统治区长期处于广泛不安全二档；末年唐军突破后梁防线，军政体系迅速解体，京师失去稳定保护，宗室清洗与君主被杀只是中枢崩解的伴随表现。",
           "authority_attribution": "913—923年本人最高权力；亡国标签本身不扣档，终点一档只依据军政与城市保护体系实际失效。",
           "confidence": "MEDIUM",
           "evidence": [
@@ -992,15 +1410,16 @@
           ],
           "main_band": "C3-2",
           "polity": "后梁",
-          "rank": 163,
+          "rank": 156,
           "reign_range": "913-923",
           "ruler_id": "RULER-FD-ZHU-YOUZHEN",
           "ruler_name": "朱友贞",
-          "score": 14.7,
+          "score": 11.8,
           "stability_class_diagnostic_only": "K0",
           "state_anchors": {
             "S0": "C3-2",
             "S_main": "C3-2",
+            "S_avg": "C3-2",
             "S_end": "C3-1"
           },
           "m3_supplement_review": {
@@ -1024,10 +1443,34 @@
               "book": "《资治通鉴》卷272",
               "original_text": "朱友贞末日先杀宗室，随后命皇甫麟杀己，京师中枢保护体系终止。"
             }
-          ]
+          ],
+          "loss_grade": "L2",
+          "stability_basis": "末段京师保护失效及秩序解体为实质低谷；不以君主被杀单独证明居民全面崩解。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-FD-ZHU-YOUZHEN",
+            "loss_review": {
+              "grade": "L2",
+              "basis": "末段京师保护失效及秩序解体为实质低谷；不以君主被杀单独证明居民全面崩解。",
+              "strong_dimensions": [],
+              "main_representativeness": "在持续梁晋战争环境下主要统治区长期处于广泛不安全二档；末年唐军突破后梁防线，军政体系迅速解体，京师失去稳定保护，宗室清洗与君主被杀只是中枢崩解的伴随表现。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-FD-ZHU-YOUZHEN",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-FD-ZHU-YOUZHEN",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-FD-ZHU-YOUZHEN",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-FD-ZHU-YOUZHEN",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-270.source-summary.md"
+              ]
+            },
+            "score": 11.8
+          }
         },
         {
-          "adjudication_reason": "沙陀亲军长期侵暴良民并使河东甚苦，统治者明知而因担忧军士离散未能整治，直接闭合长期人身财产安全低位，故主态与终点均C3-2。现有纯C3材料未识别恢复完成后另一个低于二档的有效阶段，故K4。",
+          "adjudication_reason": "沙陀亲军长期侵暴良民并使河东甚苦，统治者明知而因担忧军士离散未能整治，直接闭合长期人身财产安全低位，故主态与终点均C3-2。",
           "authority_attribution": "军需匮乏仅作机制背景；C3只消费亲军侵民及纠偏失效。",
           "confidence": "HIGH",
           "evidence": [
@@ -1052,6 +1495,7 @@
           "state_anchors": {
             "S0": "C3-2",
             "S_main": "C3-2",
+            "S_avg": "C3-2",
             "S_end": "C3-2"
           },
           "m3_supplement_review": {
@@ -1095,10 +1539,36 @@
               "book": "《资治通鉴》卷263",
               "original_text": "沙陀亲军侵暴良民，河东甚苦之。"
             }
-          ]
+          ],
+          "loss_grade": "L0",
+          "stability_basis": "亲军侵暴良民已构成二档主态，不重复扣。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-李克用",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "亲军侵暴良民已构成二档主态，不重复扣。",
+              "strong_dimensions": [],
+              "main_representativeness": "沙陀亲军长期侵暴良民并使河东甚苦，统治者明知而因担忧军士离散未能整治，直接闭合长期人身财产安全低位，故主态与终点均C3-2。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-李克用",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-李克用",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-李克用",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-李克用",
+                "volume-263.source-summary.md",
+                "volume-265.source-summary.md",
+                "docs/史料通读产物/五代十国/资治通鉴/volume-263.source-summary.md#L11"
+              ]
+            },
+            "score": 16.0
+          }
         },
         {
-          "adjudication_reason": "吴越长期政权秩序可维持，但钱镠时存在以簿责欠赋、反复笞击百姓的系统性财产与人身强制，“少者数十、多者百余，人尤不胜其苦”，足以使C3-3不能成立。现证未识别低于二档的独立阶段，故K4。",
+          "adjudication_reason": "吴越长期政权秩序可维持，但钱镠时存在以簿责欠赋、反复笞击百姓的系统性财产与人身强制，“少者数十、多者百余，人尤不胜其苦”，足以使C3-3不能成立。",
           "authority_attribution": "吴越后继统治者行为不得倒填钱镠窗口；赋税数量本身不计C3，只消费催征过程中已经实现的人身侵害。",
           "confidence": "HIGH",
           "evidence": [
@@ -1124,6 +1594,7 @@
           "state_anchors": {
             "S0": "C3-2",
             "S_main": "C3-2",
+            "S_avg": "C3-2",
             "S_end": "C3-2"
           },
           "m3_supplement_review": {
@@ -1145,7 +1616,33 @@
               "book": "《资治通鉴》卷267",
               "original_text": "自钱镠世常重敛其民，欠赋者少则笞数十，多至百余，“人尤不胜其苦”。"
             }
-          ]
+          ],
+          "loss_grade": "L0",
+          "stability_basis": "催欠体罚已构成二档，不重复消费。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-钱镠",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "催欠体罚已构成二档，不重复消费。",
+              "strong_dimensions": [],
+              "main_representativeness": "吴越长期政权秩序可维持，但钱镠时存在以簿责欠赋、反复笞击百姓的系统性财产与人身强制，“少者数十、多者百余，人尤不胜其苦”，足以使C3-3不能成立。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-钱镠",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-钱镠",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-钱镠",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-钱镠",
+                "volume-267.source-summary.md",
+                "《新五代史》卷六十七",
+                "volume-269.source-summary.md"
+              ]
+            },
+            "score": 16.0
+          }
         }
       ]
     }

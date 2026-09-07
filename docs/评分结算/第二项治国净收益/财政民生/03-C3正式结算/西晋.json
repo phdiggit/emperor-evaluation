@@ -8,7 +8,7 @@
       ],
       "records": [
         {
-          "adjudication_reason": "太康长期统一盘面下常规社会秩序稳定，现有材料与刑法运行可受约束闭合四档；原先用后期奢政、权贵依附和继承失序把交班降至三档，混入了C1/C2及中枢政治语义。司马炎去世前未见普通社会已经形成有效的广域安全下坠，故S_end恢复为四档，达到主态后无有效跌破，K改K4。该四档含受约束系统推断，直接纯C3宏观锚仍偏薄。",
+          "adjudication_reason": "太康长期统一盘面下常规社会秩序稳定，现有材料与刑法运行可受约束闭合四档；原先用后期奢政、权贵依附和继承失序把交班降至三档，混入了C1/C2及中枢政治语义。该四档含受约束系统推断，直接纯C3宏观锚仍偏薄。",
           "authority_attribution": "265—290年本人最高权力；后宫奢靡、财富分配和继承安排不直接改写C3，除非闭合到普通社会安全结果。",
           "confidence": "MEDIUM",
           "evidence": [
@@ -39,6 +39,7 @@
           "state_anchors": {
             "S0": "C3-3",
             "S_main": "C3-4",
+            "S_avg": "C3-4",
             "S_end": "C3-4"
           },
           "m3_supplement_review": {
@@ -62,7 +63,31 @@
               "book": "《隋书·刑法志》",
               "original_text": "晋氏平吴，九州宁一……大明刑宪……实曰轻平，称为简易。"
             }
-          ]
+          ],
+          "loss_grade": "L0",
+          "stability_basis": "奢政和继承风险不是C3实际下坠，未另证独立低谷。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-司马炎",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "奢政和继承风险不是C3实际下坠，未另证独立低谷。",
+              "strong_dimensions": [],
+              "main_representativeness": "太康长期统一盘面下常规社会秩序稳定，现有材料与刑法运行可受约束闭合四档；原先用后期奢政、权贵依附和继承失序把交班降至三档，混入了C1/C2及中枢政治语义。该四档含受约束系统推断，直接纯C3宏观锚仍偏薄。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-司马炎",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-司马炎",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-司马炎",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-司马炎",
+                "https://zh.wikisource.org/wiki/資治通鑑/卷081"
+              ]
+            },
+            "score": 40.0
+          }
         }
       ]
     }

@@ -4,38 +4,25 @@ import json
 from pathlib import Path
 from typing import Any
 
-from emperor_v4.evaluation.formal_json_store import load_json, load_ruler_polities, write_json
+from emperor_v4.evaluation.formal_json_store import load_json
 from emperor_v4.evaluation.profile_markdown import render_profile_markdown
+from emperor_v4.evaluation.profile_registry import write_profile_manifest
 
 
 ROOT = Path(__file__).resolve().parents[3]
 PROFILE_ROOT = ROOT / "docs/评分结算/皇帝人物画像"
-MANIFEST = PROFILE_ROOT / "00-已结算轴正式入口.json"
 SETTLEMENT = PROFILE_ROOT / "C3/24-C3人才识别配置与授权正式结算.json"
 MARKDOWN = SETTLEMENT.with_suffix(".md")
 AUDIT = PROFILE_ROOT / "C3/25-C3主要入口单元处置审计.json"
 HIGH_REVIEW = PROFILE_ROOT / "C3/26-C3高档授权生命周期复核.json"
-SYSTEMIC_REVIEW = PROFILE_ROOT / "C3/28-C3高档门与错误清洗系统复核.json"
 
 
 def _load(path: Path) -> dict[str, Any]:
     return load_json(path)
 
 
-def _write_json(path: Path, payload: dict[str, Any]) -> None:
-    write_json(path, payload, ruler_polities=load_ruler_polities(ROOT))
-
-
 def _update_manifest() -> None:
-    manifest = _load(MANIFEST)
-    axis = next(row for row in manifest["axes"] if row["axis_code"] == "C3")
-    if SYSTEMIC_REVIEW.name not in axis["audit_jsons"]:
-        axis["audit_jsons"].append(SYSTEMIC_REVIEW.name)
-    axis["formalization_note"] = (
-        "C3正式JSON为逐人裁决唯一真源；程序只生成阅读视图，"
-        "高档门、生命周期、模板与跨轴边界由轻量语义校验器守护。"
-    )
-    _write_json(MANIFEST, manifest)
+    write_profile_manifest(("C3",))
 
 
 def build(*, write: bool = False) -> dict[str, Any]:

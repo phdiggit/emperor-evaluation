@@ -4,8 +4,8 @@
   "axis_code": "C3",
   "record_count": 184,
   "mechanical_screen_count": 184,
-  "semantic_hit_count": 55,
-  "high_gate_decision_count": 22,
+  "semantic_hit_count": 83,
+  "high_gate_decision_count": 39,
   "c5_boundary_decision_count": 39,
   "open_latent_high_count": 0,
   "authorization_strength_calibration_count": 1,
@@ -13,7 +13,7 @@
     {
       "ruler_id": "RULER-MING-ZHU-YUANZHANG",
       "ruler_name": "朱元璋",
-      "parent_id": "C3P-7D38B40D9B7A",
+      "parent_id": "C3P-S059-01",
       "classification": "EXCEPTIONAL_AUTHORIZATION_CHAIN",
       "comparators": [
         {
@@ -39,32 +39,39 @@
       "published_position": "LOW",
       "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
         "ADMINISTRATION",
-        "MILITARY"
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
         "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": null,
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-FD-CHAI-RONG",
+        "ruler_name": "柴荣",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-LOW：G4门槛复核：王朴职责扩展与高平同场分责重排彼此异质，高平链本身闭合“错误配置—强反馈—即时重组—后续再授权”，具备独立稳定性验证器。"
+      },
       "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
+      "review_status": "SEMANTIC_HIT_REVIEWED"
     },
     {
       "ruler_id": "RULER-FD-GUO-WEI",
       "ruler_name": "郭威",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-FEF43DAA9CAD"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -81,17 +88,18 @@
     {
       "ruler_id": "RULER-FD-LI-BIAN",
       "ruler_name": "李昪",
-      "published_grade": "G1",
-      "published_position": "MID",
-      "parent_count": 1,
+      "published_grade": "G3",
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-0B2F0D262CFE"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -102,14 +110,17 @@
       "ruler_id": "RULER-FD-LI-CUNXU",
       "ruler_name": "李存勖",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "MID",
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
         "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -127,14 +138,17 @@
       "ruler_id": "RULER-FD-LI-SIYUAN",
       "ruler_name": "李嗣源",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "MID",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -144,15 +158,17 @@
     {
       "ruler_id": "RULER-FD-LI-YU",
       "ruler_name": "李煜",
-      "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_grade": "G0",
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "ADMINISTRATION"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -169,17 +185,18 @@
     {
       "ruler_id": "RULER-FD-LIU-YAN",
       "ruler_name": "刘龑",
-      "published_grade": "G1",
+      "published_grade": "G2",
       "published_position": "MID",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-6994D8E0279F"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -189,17 +206,18 @@
     {
       "ruler_id": "RULER-FD-MENG-CHANG",
       "ruler_name": "孟昶",
-      "published_grade": "G1",
-      "published_position": "MID",
-      "parent_count": 1,
+      "published_grade": "G2",
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-5E7C4D6B6E28"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -217,14 +235,18 @@
       "ruler_id": "RULER-FD-SHI-JINGTANG",
       "ruler_name": "石敬瑭",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -235,14 +257,15 @@
       "ruler_id": "RULER-FD-WANG-JIAN",
       "ruler_name": "王建",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "MID",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -260,16 +283,15 @@
       "ruler_id": "RULER-FD-ZHU-WEN",
       "ruler_name": "朱温",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-6E31307CB8CF"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -287,16 +309,16 @@
       "ruler_id": "RULER-FD-ZHU-YOUZHEN",
       "ruler_name": "朱友贞",
       "published_grade": "G1",
-      "published_position": "MID",
-      "parent_count": 1,
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-9834991A35D1"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -314,16 +336,16 @@
       "ruler_id": "RULER-HAN-DENGSUI",
       "ruler_name": "邓绥",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
         "CROSS_DOMAIN_PERSONNEL"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-3DF27B95AB21"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -333,17 +355,18 @@
     {
       "ruler_id": "RULER-HAN-LIANGNA",
       "ruler_name": "梁妠",
-      "published_grade": "G1",
-      "published_position": "HIGH",
-      "parent_count": 1,
+      "published_grade": "G2",
+      "published_position": "MID",
+      "parent_count": 2,
       "major_task_domains": [
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS",
         "CROSS_DOMAIN_PERSONNEL"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-040F900D5B9E"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -361,16 +384,16 @@
       "ruler_id": "RULER-HAN-LIUAO",
       "ruler_name": "刘骜",
       "published_grade": "G1",
-      "published_position": "MID",
-      "parent_count": 1,
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS",
         "CROSS_DOMAIN_PERSONNEL"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-A563D7F28B5B"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -382,18 +405,25 @@
       "ruler_name": "刘邦",
       "published_grade": "G5",
       "published_position": "LOW",
-      "parent_count": 3,
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
         "ADMINISTRATION",
-        "SUCCESSION_AND_POWER_RELATIONS",
-        "MILITARY"
+        "JUDICIAL_OVERSIGHT",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
         "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": null,
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-HAN-LIUBANG",
+        "ruler_name": "刘邦",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G5-LOW：识人、异质配置和真实放权达到历史级；统一后对高威胁强臣的退出、降权和安全管理明显不如创业期稳定，但不能把韩信、彭越、英布、卢绾机械合并为“错误清洗”。"
+      },
       "c5_boundary_semantic_decisions": [
         {
           "ruler_id": "RULER-HAN-LIUBANG",
@@ -408,16 +438,17 @@
       "ruler_id": "RULER-HAN-LIUBAO",
       "ruler_name": "刘保",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS",
         "CROSS_DOMAIN_PERSONNEL"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-70E7AA1C18FA"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -427,36 +458,46 @@
     {
       "ruler_id": "RULER-HAN-LIUCHE",
       "ruler_name": "刘彻",
-      "published_grade": "G3",
+      "published_grade": "G5",
       "published_position": "LOW",
       "parent_count": 2,
       "major_task_domains": [
         "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "DIPLOMATIC_COALITION",
         "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": null,
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-HAN-LIUCHE",
+        "ruler_name": "刘彻",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G5-LOW：刘彻在军事、外交、财政法政、技术文化和交班上形成多个高度异质、长期验证的责任中心，人才配置宽度本身达到历史级。李广利的外戚偏置和江充的晚年信任灾难又都是高强度负证，因此只能处于G5下沿。"
+      },
       "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
+      "review_status": "SEMANTIC_HIT_REVIEWED"
     },
     {
       "ruler_id": "RULER-HAN-LIUDA",
       "ruler_name": "刘炟",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "DIPLOMATIC_COALITION",
         "CROSS_DOMAIN_PERSONNEL"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-489B338AABF0"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -466,35 +507,44 @@
     {
       "ruler_id": "RULER-HAN-LIUHENG",
       "ruler_name": "刘恒",
-      "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_grade": "G4",
+      "published_position": "MID",
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
         "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": null,
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-HAN-LIUHENG",
+        "ruler_name": "刘恒",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-MID：C3核心落在张释之司法专业链、周亚夫军事识别链，以及袁盎等谏议人才提供的长期反馈；贾谊的早期外放和部分亲属处理说明其识人上沿并非无缺，综合应在G4中位。"
+      },
       "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
+      "review_status": "SEMANTIC_HIT_REVIEWED"
     },
     {
       "ruler_id": "RULER-HAN-LIUHONG",
       "ruler_name": "刘宏",
-      "published_grade": "G1",
-      "published_position": "MID",
-      "parent_count": 1,
+      "published_grade": "G2",
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
         "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-7DAE5BAF2CD2"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -505,16 +555,17 @@
       "ruler_id": "RULER-HAN-LIUHU",
       "ruler_name": "刘祜",
       "published_grade": "G1",
-      "published_position": "MID",
-      "parent_count": 1,
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS",
         "CROSS_DOMAIN_PERSONNEL"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-E3AA4912CECB"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -531,17 +582,18 @@
     {
       "ruler_id": "RULER-HAN-LIUQI",
       "ruler_name": "刘启",
-      "published_grade": "G2",
+      "published_grade": "G3",
       "published_position": "MID",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS",
         "CROSS_DOMAIN_PERSONNEL"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-E145AEE68AEC"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -553,15 +605,16 @@
       "ruler_name": "刘奭",
       "published_grade": "G1",
       "published_position": "HIGH",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS",
         "CROSS_DOMAIN_PERSONNEL"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-B1F5538A6277"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -573,15 +626,17 @@
       "ruler_name": "刘欣",
       "published_grade": "G1",
       "published_position": "MID",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS",
         "CROSS_DOMAIN_PERSONNEL"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-AFA777ACD720"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -596,7 +651,88 @@
       "parent_count": 2,
       "major_task_domains": [
         "MILITARY",
-        "ADMINISTRATION"
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT"
+      ],
+      "mechanical_recall": {
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
+      },
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-HAN-LIUXIU",
+        "ruler_name": "刘秀",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-MID：方面军识别、接替和授权长期稳定，且对失败将领多能重配而非机械清洗；行政用人亦有正面基础。晚期马援事件显示谗言环境下判断下沿，但不足构成全期反转。"
+      },
+      "c5_boundary_semantic_decisions": [],
+      "review_status": "SEMANTIC_HIT_REVIEWED"
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUXUN",
+      "ruler_name": "刘询",
+      "published_grade": "G4",
+      "published_position": "HIGH",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
+      "mechanical_recall": {
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
+      },
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-HAN-LIUXUN",
+        "ruler_name": "刘询",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-HIGH：军事、地方治理、中枢行政与专业司法均有高度具体的人才责任中心，而且多次表现出“允许专业判断反对多数意见”的配置能力。整体接近历史级，但主要强链仍以成熟官僚体系中的识别与扩用为主，极端跨域与高风险放权不及G5锚点。"
+      },
+      "c5_boundary_semantic_decisions": [],
+      "review_status": "SEMANTIC_HIT_REVIEWED"
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUZHAO",
+      "ruler_name": "刘肇",
+      "published_grade": "G4",
+      "published_position": "LOW",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS",
+        "CROSS_DOMAIN_PERSONNEL"
+      ],
+      "mechanical_recall": {
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
+      },
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-HAN-LIUZHAO",
+        "ruler_name": "刘肇",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-LOW：G4门槛复核：郑众高压权力转换、班超西域军政外交、蔡伦技术管理三类责任中心可分立，满足第三类高承载复验。"
+      },
+      "c5_boundary_semantic_decisions": [],
+      "review_status": "SEMANTIC_HIT_REVIEWED"
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUZHI",
+      "ruler_name": "刘志",
+      "published_grade": "G2",
+      "published_position": "HIGH",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
@@ -608,99 +744,49 @@
       "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
     },
     {
-      "ruler_id": "RULER-HAN-LIUXUN",
-      "ruler_name": "刘询",
-      "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
-      "major_task_domains": [
-        "MILITARY"
-      ],
-      "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-507009EBA601"
-        ],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": false
-      },
-      "high_gate_semantic_decision": null,
-      "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
-    },
-    {
-      "ruler_id": "RULER-HAN-LIUZHAO",
-      "ruler_name": "刘肇",
-      "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
-      "major_task_domains": [
-        "CROSS_DOMAIN_PERSONNEL"
-      ],
-      "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-58245DEE1294"
-        ],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": false
-      },
-      "high_gate_semantic_decision": null,
-      "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
-    },
-    {
-      "ruler_id": "RULER-HAN-LIUZHI",
-      "ruler_name": "刘志",
-      "published_grade": "G1",
-      "published_position": "MID",
-      "parent_count": 1,
-      "major_task_domains": [
-        "MILITARY"
-      ],
-      "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-64A8BC0F4080"
-        ],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": false
-      },
-      "high_gate_semantic_decision": null,
-      "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
-    },
-    {
       "ruler_id": "RULER-HAN-LIUZHUANG",
       "ruler_name": "刘庄",
-      "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_grade": "G4",
+      "published_position": "MID",
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "DIPLOMATIC_COALITION",
         "CROSS_DOMAIN_PERSONNEL"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-6EDEC0D12122"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": null,
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-HAN-LIUZHUANG",
+        "ruler_name": "刘庄",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-MID：军事外交之外，王景治河构成完全异质、且高度专业化的国家级责任中心。军事外交与工程治理都能闭合，且没有发现足以形成全期反转的同构误用。"
+      },
       "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
+      "review_status": "SEMANTIC_HIT_REVIEWED"
     },
     {
       "ruler_id": "RULER-HAN-LUYU",
       "ruler_name": "吕雉",
-      "published_grade": "G1",
+      "published_grade": "G2",
       "published_position": "HIGH",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS",
         "CROSS_DOMAIN_PERSONNEL"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-403697ECB295"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -710,13 +796,18 @@
     {
       "ruler_id": "RULER-JIN-AIZONG",
       "ruler_name": "完颜守绪",
-      "published_grade": "G2",
-      "published_position": "HIGH",
-      "parent_count": 0,
-      "major_task_domains": [],
+      "published_grade": "G3",
+      "published_position": "MID",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -726,17 +817,18 @@
     {
       "ruler_id": "RULER-JIN-HAILING",
       "ruler_name": "完颜亮",
-      "published_grade": "G0",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_grade": "G2",
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS",
         "CROSS_DOMAIN_PERSONNEL"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-68E91D0E4411"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -753,31 +845,45 @@
     {
       "ruler_id": "RULER-JIN-SHIZONG",
       "ruler_name": "完颜雍",
-      "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_grade": "G4",
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": null,
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-JIN-SHIZONG",
+        "ruler_name": "完颜雍",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-HIGH：完颜雍在二十八年统治中的中央宰执、地方守令选择、反裙带检查和稳定交班均形成闭环，在“选人—授权—监督—纠偏”全过程存在长期跨对象复验，接近历史级，但人才类型和国家任务的极端宽度仍不及G5样本。"
+      },
       "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
+      "review_status": "SEMANTIC_HIT_REVIEWED"
     },
     {
       "ruler_id": "RULER-JIN-TAIZONG",
       "ruler_name": "完颜晟",
-      "published_grade": "G2",
+      "published_grade": "G3",
       "published_position": "HIGH",
-      "parent_count": 0,
-      "major_task_domains": [],
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -788,16 +894,16 @@
       "ruler_id": "RULER-JIN-WEISHAOWANG",
       "ruler_name": "完颜永济",
       "published_grade": "G1",
-      "published_position": "MID",
-      "parent_count": 1,
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-56FC2F2CECD4"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -807,17 +913,19 @@
     {
       "ruler_id": "RULER-JIN-XIZONG",
       "ruler_name": "完颜亶",
-      "published_grade": "G1",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_grade": "G3",
+      "published_position": "MID",
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS",
         "CROSS_DOMAIN_PERSONNEL"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-A48EB0FA9016"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -828,12 +936,17 @@
       "ruler_id": "RULER-JIN-XUANZONG",
       "ruler_name": "完颜珣",
       "published_grade": "G2",
-      "published_position": "MID",
-      "parent_count": 0,
-      "major_task_domains": [],
+      "published_position": "HIGH",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -843,17 +956,19 @@
     {
       "ruler_id": "RULER-JIN-ZHANGZONG",
       "ruler_name": "完颜璟",
-      "published_grade": "G2",
+      "published_grade": "G3",
       "published_position": "HIGH",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS",
         "CROSS_DOMAIN_PERSONNEL"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-535818737E35"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -872,13 +987,14 @@
       "ruler_name": "耶律大石",
       "published_grade": "G3",
       "published_position": "LOW",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -889,16 +1005,18 @@
       "ruler_id": "RULER-LIAO-YELU-DEGUANG",
       "ruler_name": "耶律德光",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "MID",
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS",
         "CROSS_DOMAIN_PERSONNEL"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-B1557AE4765B"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -908,15 +1026,18 @@
     {
       "ruler_id": "RULER-LIAO-YELU-HONGJI",
       "ruler_name": "耶律洪基",
-      "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_grade": "G1",
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -933,37 +1054,44 @@
     {
       "ruler_id": "RULER-LIAO-YELU-LONGXU",
       "ruler_name": "耶律隆绪",
-      "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_grade": "G4",
+      "published_position": "MID",
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS",
         "ADMINISTRATION_AND_OVERSIGHT"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-41B4B6800917"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": null,
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-LIAO-YELU-LONGXU",
+        "ruler_name": "耶律隆绪",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-MID：这一链证明核心团队能跨摄政—亲政阶段保持连续性。"
+      },
       "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
+      "review_status": "SEMANTIC_HIT_REVIEWED"
     },
     {
       "ruler_id": "RULER-LIAO-YELU-RUAN",
       "ruler_name": "耶律阮",
-      "published_grade": "G1",
+      "published_grade": "G2",
       "published_position": "HIGH",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "SUCCESSION_AND_POWER_RELATIONS",
         "CROSS_DOMAIN_PERSONNEL"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-316C63059631"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -980,33 +1108,46 @@
     {
       "ruler_id": "RULER-LIAO-YELU-XIAN",
       "ruler_name": "耶律贤",
-      "published_grade": "G3",
+      "published_grade": "G4",
       "published_position": "LOW",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS",
         "CROSS_DOMAIN_PERSONNEL"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-6E1809B3A374"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": null,
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-LIAO-YELU-XIAN",
+        "ruler_name": "耶律贤",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-LOW：G4门槛复核：耶律斜轸军事、室昉行政、韩德让/萧绰中枢与交班形成多类责任中心，且覆盖十三年，不是两链偶合。"
+      },
       "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
+      "review_status": "SEMANTIC_HIT_REVIEWED"
     },
     {
       "ruler_id": "RULER-LIAO-YELU-YANXI",
       "ruler_name": "耶律延禧",
-      "published_grade": "G2",
-      "published_position": "LOW",
-      "parent_count": 0,
-      "major_task_domains": [],
+      "published_grade": "G1",
+      "published_position": "HIGH",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -1016,13 +1157,19 @@
     {
       "ruler_id": "RULER-LIAO-YELU-ZONGZHEN",
       "ruler_name": "耶律宗真",
-      "published_grade": "G2",
-      "published_position": "LOW",
-      "parent_count": 0,
-      "major_task_domains": [],
+      "published_grade": "G3",
+      "published_position": "HIGH",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -1034,15 +1181,16 @@
       "ruler_name": "朱棣",
       "published_grade": "G3",
       "published_position": "HIGH",
-      "parent_count": 3,
+      "parent_count": 2,
       "major_task_domains": [
-        "JUDICIAL_OVERSIGHT",
         "MILITARY",
-        "ADMINISTRATION"
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -1052,16 +1200,18 @@
     {
       "ruler_id": "RULER-MING-ZHU-HOUCONG",
       "ruler_name": "朱厚熜",
-      "published_grade": "G2",
-      "published_position": "HIGH",
+      "published_grade": "G3",
+      "published_position": "MID",
       "parent_count": 2,
       "major_task_domains": [
-        "SUCCESSION_AND_POWER_RELATIONS",
-        "ADMINISTRATION"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -1071,15 +1221,18 @@
     {
       "ruler_id": "RULER-MING-ZHU-HOUZHAO",
       "ruler_name": "朱厚照",
-      "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_grade": "G2",
+      "published_position": "MID",
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
         "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -1089,15 +1242,17 @@
     {
       "ruler_id": "RULER-MING-ZHU-JIANSHEN",
       "ruler_name": "朱见深",
-      "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_grade": "G2",
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
         "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -1109,36 +1264,36 @@
       "ruler_name": "朱祁钰",
       "published_grade": "G3",
       "published_position": "HIGH",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
         "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": {
-        "ruler_id": "RULER-MING-ZHU-QIYU",
-        "ruler_name": "朱祁钰",
-        "outcome": "RETAIN_G3_HIGH",
-        "reason": "于谦北京保卫链完整且强，但只有一个重大任务父链，未通过G4复验门。"
-      },
+      "high_gate_semantic_decision": null,
       "c5_boundary_semantic_decisions": [],
       "review_status": "SEMANTIC_HIT_REVIEWED"
     },
     {
       "ruler_id": "RULER-MING-ZHU-QIZHEN",
       "ruler_name": "朱祁镇",
-      "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_grade": "G2",
+      "published_position": "MID",
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
         "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -1149,14 +1304,18 @@
       "ruler_id": "RULER-MING-ZHU-YIJUN",
       "ruler_name": "朱翊钧",
       "published_grade": "G2",
-      "published_position": "LOW",
+      "published_position": "HIGH",
       "parent_count": 2,
       "major_task_domains": [
-        "ADMINISTRATION"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -1166,24 +1325,25 @@
     {
       "ruler_id": "RULER-MING-ZHU-YOUCHENG",
       "ruler_name": "朱祐樘",
-      "published_grade": "G3",
-      "published_position": "HIGH",
-      "parent_count": 1,
+      "published_grade": "G4",
+      "published_position": "MID",
+      "parent_count": 2,
       "major_task_domains": [
-        "ADMINISTRATION"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-D960032A8EDC"
-        ],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": true
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": {
         "ruler_id": "RULER-MING-ZHU-YOUCHENG",
         "ruler_name": "朱祐樘",
-        "outcome": "RETAIN_G3_HIGH",
-        "reason": "刘健李东阳谢迁内阁链跨年但仍属同一行政责任中心组合，不能按成员与议题数量拆成G4。"
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-MID：不仅有刘健、李东阳、谢迁的中枢组合，还长期使用马文升处理军政、刘大夏处理河工与兵政，跨专业、跨阶段的责任中心足够稳定。李广受宠和何鼎案说明亲近/宫廷反馈环境存在真实下沿，因此止于G4-MID。"
       },
       "c5_boundary_semantic_decisions": [],
       "review_status": "SEMANTIC_HIT_REVIEWED"
@@ -1191,16 +1351,18 @@
     {
       "ruler_id": "RULER-MING-ZHU-YOUJIAN",
       "ruler_name": "朱由检",
-      "published_grade": "G1",
-      "published_position": "HIGH",
+      "published_grade": "G2",
+      "published_position": "LOW",
       "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
         "ADMINISTRATION",
-        "MILITARY"
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -1210,17 +1372,18 @@
     {
       "ruler_id": "RULER-MING-ZHU-YOUJIAO",
       "ruler_name": "朱由校",
-      "published_grade": "G0",
-      "published_position": "MID",
-      "parent_count": 1,
+      "published_grade": "G1",
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
         "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-905A9DC1F566"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -1232,13 +1395,15 @@
       "ruler_name": "朱由榔",
       "published_grade": "G3",
       "published_position": "LOW",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
         "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -1253,6 +1418,8 @@
       "parent_count": 2,
       "major_task_domains": [
         "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
         "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
@@ -1260,29 +1427,25 @@
         "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": {
-        "ruler_id": "RULER-MING-ZHU-YUANZHANG",
-        "ruler_name": "朱元璋",
-        "outcome": "RETAIN_G3_HIGH_EXCEPTIONAL_MILITARY_CHAIN",
-        "reason": "军事授权链覆盖平吴、北伐、伐蜀、云南、北元等相互可区分的责任中心交付，达到极强链；与李渊的跨任务正链、忽必烈的强文武正链及其各自反证比较后，胡惟庸预警后误用与集中式纠偏仍阻断G4，但不足把该跨阶段正链压为G3-LOW。"
-      },
+      "high_gate_semantic_decision": null,
       "c5_boundary_semantic_decisions": [],
       "review_status": "SEMANTIC_HIT_REVIEWED"
     },
     {
       "ruler_id": "RULER-MING-ZHU-YUNWEN",
       "ruler_name": "朱允炆",
-      "published_grade": "G1",
-      "published_position": "MID",
-      "parent_count": 1,
+      "published_grade": "G2",
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-B48CAE2403A5"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -1292,20 +1455,29 @@
     {
       "ruler_id": "RULER-MING-ZHU-ZAIHOU",
       "ruler_name": "朱载坖",
-      "published_grade": "G3",
+      "published_grade": "G4",
       "published_position": "LOW",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "ADMINISTRATION"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": null,
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-MING-ZHU-ZAIHOU",
+        "ruler_name": "朱载坖",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-LOW：G4门槛复核：高拱—张居正中枢、王崇古—方逢时边疆外交、谭纶—戚继光边防军事至少三种专业接口；并有反多数意见下采纳一线专业方案的验证。"
+      },
       "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
+      "review_status": "SEMANTIC_HIT_REVIEWED"
     },
     {
       "ruler_id": "RULER-MING-ZHU-ZHANJI",
@@ -1314,32 +1486,38 @@
       "published_position": "LOW",
       "parent_count": 2,
       "major_task_domains": [
+        "ADMINISTRATION",
         "JUDICIAL_OVERSIGHT",
-        "ADMINISTRATION"
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
         "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": null,
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-MING-ZHU-ZHANJI",
+        "ruler_name": "朱瞻基",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-LOW：G4门槛复核：三杨中枢之外，况钟、于谦、周忱等在不同地区反复出现本人识别、破格配置和长期交付；第二任务域不是单个名臣或单项目。"
+      },
       "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
+      "review_status": "SEMANTIC_HIT_REVIEWED"
     },
     {
       "ruler_id": "RULER-NS-GAO-TAOTAO",
       "ruler_name": "高滔滔",
       "published_grade": "G3",
       "published_position": "HIGH",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-B46E412911EA"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -1350,47 +1528,14 @@
       "ruler_id": "RULER-NS-LIU-E",
       "ruler_name": "刘娥",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
-      "major_task_domains": [
-        "MILITARY"
-      ],
-      "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-CF49BEEDFA63"
-        ],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": false
-      },
-      "high_gate_semantic_decision": null,
-      "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
-    },
-    {
-      "ruler_id": "RULER-NS-ZHAO-GUANGYI",
-      "ruler_name": "赵光义",
-      "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
-      "major_task_domains": [
-        "MILITARY"
-      ],
-      "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": false
-      },
-      "high_gate_semantic_decision": null,
-      "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
-    },
-    {
-      "ruler_id": "RULER-NS-ZHAO-HENG",
-      "ruler_name": "赵恒",
-      "published_grade": "G2",
       "published_position": "HIGH",
-      "parent_count": 0,
-      "major_task_domains": [],
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
         "generic_count_basis": false,
@@ -1401,20 +1546,71 @@
       "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
     },
     {
-      "ruler_id": "RULER-NS-ZHAO-JI",
-      "ruler_name": "赵佶",
-      "published_grade": "G0",
+      "ruler_id": "RULER-NS-ZHAO-GUANGYI",
+      "ruler_name": "赵光义",
+      "published_grade": "G4",
+      "published_position": "MID",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
+      "mechanical_recall": {
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
+      },
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-NS-ZHAO-GUANGYI",
+        "ruler_name": "赵光义",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-MID：赵普、吕蒙正、吕端、李昉、张齐贤等构成多轮中枢责任中心，曹彬等军事人才又形成独立复验；更重要的是，弭德超谗毁曹彬后，赵光义能在赵普反证到达时明确认错、清除错误信息源并恢复曹彬，纠偏质量较高。"
+      },
+      "c5_boundary_semantic_decisions": [],
+      "review_status": "SEMANTIC_HIT_REVIEWED"
+    },
+    {
+      "ruler_id": "RULER-NS-ZHAO-HENG",
+      "ruler_name": "赵恒",
+      "published_grade": "G4",
       "published_position": "LOW",
       "parent_count": 2,
       "major_task_domains": [
         "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "DIPLOMATIC_COALITION",
         "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-B62516A1EC0F"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
+      },
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-NS-ZHAO-HENG",
+        "ruler_name": "赵恒",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-LOW：G4门槛复核：李沆—王旦形成跨阶段中枢接续，寇准承担异质国家危机责任；晚期丁谓反转主要处于病弱低归责窗口，不推翻前中期稳定性。"
+      },
+      "c5_boundary_semantic_decisions": [],
+      "review_status": "SEMANTIC_HIT_REVIEWED"
+    },
+    {
+      "ruler_id": "RULER-NS-ZHAO-JI",
+      "ruler_name": "赵佶",
+      "published_grade": "G0",
+      "published_position": "HIGH",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
+      "mechanical_recall": {
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -1432,11 +1628,38 @@
       "ruler_id": "RULER-NS-ZHAO-KUANGYIN",
       "ruler_name": "赵匡胤",
       "published_grade": "G4",
+      "published_position": "MID",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
+      "mechanical_recall": {
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
+      },
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-NS-ZHAO-KUANGYIN",
+        "ruler_name": "赵匡胤",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-MID：不仅有赵普、曹彬等强正例，更重要的是在西蜀平定后的军纪灾难中，能够根据多源反馈区分将领责任、降惩失职者、奖励约束较好的责任人，并把曹彬进一步配置到更高承载任务。反馈后用人质量明显高于G4下沿。"
+      },
+      "c5_boundary_semantic_decisions": [],
+      "review_status": "SEMANTIC_HIT_REVIEWED"
+    },
+    {
+      "ruler_id": "RULER-NS-ZHAO-SHU",
+      "ruler_name": "赵曙",
+      "published_grade": "G3",
       "published_position": "LOW",
       "parent_count": 2,
       "major_task_domains": [
         "ADMINISTRATION",
-        "MILITARY"
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
@@ -1448,55 +1671,46 @@
       "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
     },
     {
-      "ruler_id": "RULER-NS-ZHAO-SHU",
-      "ruler_name": "赵曙",
-      "published_grade": "G2",
-      "published_position": "LOW",
-      "parent_count": 0,
-      "major_task_domains": [],
-      "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": false
-      },
-      "high_gate_semantic_decision": null,
-      "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
-    },
-    {
       "ruler_id": "RULER-NS-ZHAO-XU",
       "ruler_name": "赵顼",
-      "published_grade": "G1",
+      "published_grade": "G4",
       "published_position": "MID",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-CC27E615AEA3"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": null,
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-NS-ZHAO-XU",
+        "ruler_name": "赵顼",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-MID：王安石改革中枢与王韶熙河军事责任中心是两条高度独立、真实授权链；沈括等专业技术人才又提供额外复验。政策成败、党争激烈本身不等于人才配置失败。真正限制上沿的是改革集团内部权力摩擦和对异议人才的保护不足。"
+      },
       "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
+      "review_status": "SEMANTIC_HIT_REVIEWED"
     },
     {
       "ruler_id": "RULER-NS-ZHAO-XU-ZHEZONG",
       "ruler_name": "赵煦",
       "published_grade": "G3",
       "published_position": "HIGH",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-C7A26DC38D74"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -1506,13 +1720,14 @@
     {
       "ruler_id": "RULER-NS-ZHAO-ZHEN",
       "ruler_name": "赵祯",
-      "published_grade": "G4",
-      "published_position": "LOW",
-      "parent_count": 3,
+      "published_grade": "G3",
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "SUCCESSION_AND_POWER_RELATIONS",
+        "MILITARY",
         "ADMINISTRATION",
-        "MILITARY"
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
@@ -1527,50 +1742,14 @@
       "ruler_id": "RULER-PUBLIC-310D1C92CEE1924D",
       "ruler_name": "奕詝",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
-      "major_task_domains": [
-        "MILITARY"
-      ],
-      "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": false
-      },
-      "high_gate_semantic_decision": null,
-      "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
-    },
-    {
-      "ruler_id": "RULER-PUBLIC-4EB7AC987FECC59F",
-      "ruler_name": "胤禛",
-      "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 2,
-      "major_task_domains": [
-        "ADMINISTRATION",
-        "SUCCESSION_AND_POWER_RELATIONS"
-      ],
-      "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-1376D2449097"
-        ],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": false
-      },
-      "high_gate_semantic_decision": null,
-      "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
-    },
-    {
-      "ruler_id": "RULER-PUBLIC-5B02E75C191C9829",
-      "ruler_name": "玄烨",
-      "published_grade": "G4",
-      "published_position": "MID",
+      "published_position": "HIGH",
       "parent_count": 2,
       "major_task_domains": [
         "MILITARY",
-        "ADMINISTRATION"
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
@@ -1582,14 +1761,68 @@
       "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
     },
     {
-      "ruler_id": "RULER-PUBLIC-6339E33979E7CCF5",
-      "ruler_name": "皇太极",
+      "ruler_id": "RULER-PUBLIC-4EB7AC987FECC59F",
+      "ruler_name": "胤禛",
       "published_grade": "G4",
-      "published_position": "LOW",
+      "published_position": "HIGH",
       "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
         "ADMINISTRATION",
-        "MILITARY"
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
+      "mechanical_recall": {
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
+      },
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-PUBLIC-4EB7AC987FECC59F",
+        "ruler_name": "胤禛",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-HIGH：鄂尔泰、李卫、田文镜、张廷玉及年羹尧等分别覆盖西南改土归流、盐政治盗、地方财政、中枢机务和西北军事；人物来源、能力类型和岗位高度异质。更重要的是，对年羹尧、隆科多等高权责任人出现越界反馈后能够逐级收权，没有让同类型捕获长期复发。整体接近历史级。"
+      },
+      "c5_boundary_semantic_decisions": [],
+      "review_status": "SEMANTIC_HIT_REVIEWED"
+    },
+    {
+      "ruler_id": "RULER-PUBLIC-5B02E75C191C9829",
+      "ruler_name": "玄烨",
+      "published_grade": "G4",
+      "published_position": "MID",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
+      "mechanical_recall": {
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
+      },
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-PUBLIC-5B02E75C191C9829",
+        "ruler_name": "玄烨",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-MID：能在军事、海疆、河工等高度异质领域识别专业责任人，并在争议或失败后重新核验、复权或换轨；失误不少，但反馈后的二次配置能力很强。"
+      },
+      "c5_boundary_semantic_decisions": [],
+      "review_status": "SEMANTIC_HIT_REVIEWED"
+    },
+    {
+      "ruler_id": "RULER-PUBLIC-6339E33979E7CCF5",
+      "ruler_name": "皇太极",
+      "published_grade": "G3",
+      "published_position": "HIGH",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
@@ -1603,44 +1836,48 @@
     {
       "ruler_id": "RULER-PUBLIC-6DACD59C17927ECA",
       "ruler_name": "弘历",
-      "published_grade": "G2",
-      "published_position": "HIGH",
+      "published_grade": "G4",
+      "published_position": "MID",
       "parent_count": 2,
       "major_task_domains": [
-        "SUCCESSION_AND_POWER_RELATIONS",
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": null,
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-PUBLIC-6DACD59C17927ECA",
+        "ruler_name": "弘历",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-MID：阿桂、傅恒、兆惠等形成跨数十年的军事—边疆人才体系，刘统勋等又承担监察、河工和中枢专业责任；而且对讷亲、张广泗、和珅军务失配等并非完全不能纠正。真正压住HIGH的是和珅在晚期长期无界扩权、关系化和腐败反馈没有被根本收束。"
+      },
       "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
+      "review_status": "SEMANTIC_HIT_REVIEWED"
     },
     {
       "ruler_id": "RULER-PUBLIC-6E925E92C6F5ECA5",
       "ruler_name": "努尔哈赤",
       "published_grade": "G3",
       "published_position": "HIGH",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-99A4AC53E4F1"
-        ],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": true
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": {
-        "ruler_id": "RULER-PUBLIC-6E925E92C6F5ECA5",
-        "ruler_name": "努尔哈赤",
-        "outcome": "RETAIN_G3_HIGH",
-        "reason": "创业军事团队有重复交付，但主要材料仍集中于同一军事任务域，褚英处置也不足闭合另一C3父链。"
-      },
+      "high_gate_semantic_decision": null,
       "c5_boundary_semantic_decisions": [
         {
           "ruler_id": "RULER-PUBLIC-6E925E92C6F5ECA5",
@@ -1655,12 +1892,15 @@
       "ruler_id": "RULER-PUBLIC-79839092B61C3D74",
       "ruler_name": "载湉",
       "published_grade": "G2",
-      "published_position": "LOW",
-      "parent_count": 0,
-      "major_task_domains": [],
+      "published_position": "HIGH",
+      "parent_count": 2,
+      "major_task_domains": [
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -1671,16 +1911,16 @@
       "ruler_id": "RULER-PUBLIC-7C4ED87E9C80BF8A",
       "ruler_name": "旻宁",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "ADMINISTRATION"
+        "MILITARY",
+        "ADMINISTRATION",
+        "DIPLOMATIC_COALITION"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-80E7F32730E9"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -1690,33 +1930,43 @@
     {
       "ruler_id": "RULER-PUBLIC-93F6E8CA07BBD59F",
       "ruler_name": "颙琰",
-      "published_grade": "G3",
+      "published_grade": "G4",
       "published_position": "LOW",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
         "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": null,
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-PUBLIC-93F6E8CA07BBD59F",
+        "ruler_name": "颙琰",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-LOW：G4门槛复核：军务与松筠行政—边疆链之外，还闭合了比较性评估、第三方复核、撤换不适任者和再用合适责任人的反馈重排。"
+      },
       "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
+      "review_status": "SEMANTIC_HIT_REVIEWED"
     },
     {
       "ruler_id": "RULER-PUBLIC-AD29E67DF9E98569",
       "ruler_name": "福临",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
         "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -1726,13 +1976,17 @@
     {
       "ruler_id": "RULER-QIN-HUHAI",
       "ruler_name": "胡亥",
-      "published_grade": "G2",
-      "published_position": "LOW",
-      "parent_count": 0,
-      "major_task_domains": [],
+      "published_grade": "G0",
+      "published_position": "HIGH",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT"
+      ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -1754,7 +2008,112 @@
       "parent_count": 2,
       "major_task_domains": [
         "MILITARY",
-        "ADMINISTRATION"
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
+      "mechanical_recall": {
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
+      },
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-QIN-YINGZHENG",
+        "ruler_name": "嬴政",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-LOW：G4门槛复核：王翦复起与逐客令撤回分属军事、行政，两条链都不是单纯成功，而是“原判断被证伪—接受反馈—重配责任与资源”的完整纠偏。"
+      },
+      "c5_boundary_semantic_decisions": [],
+      "review_status": "SEMANTIC_HIT_REVIEWED"
+    },
+    {
+      "ruler_id": "RULER-ROSTER-0F3BA2C535371D66",
+      "ruler_name": "萧绰",
+      "published_grade": "G4",
+      "published_position": "HIGH",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
+      "mechanical_recall": {
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
+      },
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-ROSTER-0F3BA2C535371D66",
+        "ruler_name": "萧绰",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-HIGH：萧绰在二十余年实际主政中同时维持高水平文政、枢密和军事用人，韩德让、室昉、耶律斜轸等具名责任中心长期共同运作，并能跨族群、跨专业持续授权，已接近历史级。"
+      },
+      "c5_boundary_semantic_decisions": [],
+      "review_status": "SEMANTIC_HIT_REVIEWED"
+    },
+    {
+      "ruler_id": "RULER-ROSTER-2035C039E3532021",
+      "ruler_name": "耶律阿保机",
+      "published_grade": "G4",
+      "published_position": "LOW",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
+      "mechanical_recall": {
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
+      },
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-ROSTER-2035C039E3532021",
+        "ruler_name": "耶律阿保机",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-LOW：G4门槛复核：康默记由法律、蕃汉事务扩展到建都行政，另有韩延徽、韩知古等异来源汉臣复验；非军事侧并非单一第二名臣。"
+      },
+      "c5_boundary_semantic_decisions": [],
+      "review_status": "SEMANTIC_HIT_REVIEWED"
+    },
+    {
+      "ruler_id": "RULER-ROSTER-323631DDD7CB22F6",
+      "ruler_name": "完颜阿骨打",
+      "published_grade": "G4",
+      "published_position": "LOW",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "DIPLOMATIC_COALITION"
+      ],
+      "mechanical_recall": {
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
+      },
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-ROSTER-323631DDD7CB22F6",
+        "ruler_name": "完颜阿骨打",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-LOW：G4门槛复核：灭辽方面军与女真文字建设跨任务成立，且斡鲁古问题在反馈到达后发生换帅、审问和降职，另有真实纠偏验证。"
+      },
+      "c5_boundary_semantic_decisions": [],
+      "review_status": "SEMANTIC_HIT_REVIEWED"
+    },
+    {
+      "ruler_id": "RULER-ROSTER-B32BFAF97E1D9690",
+      "ruler_name": "多尔衮",
+      "published_grade": "G3",
+      "published_position": "HIGH",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
@@ -1766,106 +2125,21 @@
       "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
     },
     {
-      "ruler_id": "RULER-ROSTER-0F3BA2C535371D66",
-      "ruler_name": "萧绰",
-      "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
-      "major_task_domains": [
-        "MILITARY"
-      ],
-      "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": true
-      },
-      "high_gate_semantic_decision": {
-        "ruler_id": "RULER-ROSTER-0F3BA2C535371D66",
-        "ruler_name": "萧绰",
-        "outcome": "RETAIN_G3_LOW",
-        "reason": "两次宋辽国家级结果与乌惹纠错可见，但现有条目没有分别闭合具名人选、岗位和权限，不能把战役条数拆作G4父链。"
-      },
-      "c5_boundary_semantic_decisions": [],
-      "review_status": "SEMANTIC_HIT_REVIEWED"
-    },
-    {
-      "ruler_id": "RULER-ROSTER-2035C039E3532021",
-      "ruler_name": "耶律阿保机",
-      "published_grade": "G3",
-      "published_position": "HIGH",
-      "parent_count": 1,
-      "major_task_domains": [
-        "MILITARY"
-      ],
-      "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-EC1B23EDAEA2"
-        ],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": true
-      },
-      "high_gate_semantic_decision": {
-        "ruler_id": "RULER-ROSTER-2035C039E3532021",
-        "ruler_name": "耶律阿保机",
-        "outcome": "RETAIN_G3_HIGH",
-        "reason": "后方与外线组合强，但仍是创业军事组织的一条综合父链，非跨任务独立复验。"
-      },
-      "c5_boundary_semantic_decisions": [],
-      "review_status": "SEMANTIC_HIT_REVIEWED"
-    },
-    {
-      "ruler_id": "RULER-ROSTER-323631DDD7CB22F6",
-      "ruler_name": "完颜阿骨打",
-      "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
-      "major_task_domains": [
-        "MILITARY"
-      ],
-      "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": true
-      },
-      "high_gate_semantic_decision": {
-        "ruler_id": "RULER-ROSTER-323631DDD7CB22F6",
-        "ruler_name": "完颜阿骨打",
-        "outcome": "RETAIN_G3_LOW",
-        "reason": "灭辽多战区链和斡鲁古纠偏在同一军事组合内闭合，不能按战区数量升G4。"
-      },
-      "c5_boundary_semantic_decisions": [],
-      "review_status": "SEMANTIC_HIT_REVIEWED"
-    },
-    {
-      "ruler_id": "RULER-ROSTER-B32BFAF97E1D9690",
-      "ruler_name": "多尔衮",
-      "published_grade": "G3",
-      "published_position": "HIGH",
-      "parent_count": 1,
-      "major_task_domains": [
-        "ADMINISTRATION"
-      ],
-      "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-0F1F0D9780FD"
-        ],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": false
-      },
-      "high_gate_semantic_decision": null,
-      "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
-    },
-    {
       "ruler_id": "RULER-ROSTER-D4955237564AB2D6",
       "ruler_name": "慈禧",
-      "published_grade": "G2",
-      "published_position": "LOW",
-      "parent_count": 0,
-      "major_task_domains": [],
+      "published_grade": "G3",
+      "published_position": "HIGH",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -1884,15 +2158,16 @@
       "ruler_name": "元恪",
       "published_grade": "G3",
       "published_position": "LOW",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-C1E96A351CA1"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -1911,15 +2186,14 @@
       "ruler_name": "冯太后",
       "published_grade": "G3",
       "published_position": "HIGH",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "ADMINISTRATION"
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-A8ABB2A62585"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -1929,13 +2203,18 @@
     {
       "ruler_id": "RULER-SHADOW-冯跋",
       "ruler_name": "冯跋",
-      "published_grade": "G2",
-      "published_position": "LOW",
-      "parent_count": 0,
-      "major_task_domains": [],
+      "published_grade": "G3",
+      "published_position": "MID",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -1953,16 +2232,17 @@
       "ruler_id": "RULER-SHADOW-刘义隆",
       "ruler_name": "刘义隆",
       "published_grade": "G3",
-      "published_position": "HIGH",
-      "parent_count": 1,
+      "published_position": "MID",
+      "parent_count": 2,
       "major_task_domains": [
-        "ADMINISTRATION"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-7A7C7348CC96"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -1972,17 +2252,17 @@
     {
       "ruler_id": "RULER-SHADOW-刘崇",
       "ruler_name": "刘崇",
-      "published_grade": "G1",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_grade": "G2",
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
         "CROSS_DOMAIN_PERSONNEL"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-DE814AD8EF79"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -1992,17 +2272,17 @@
     {
       "ruler_id": "RULER-SHADOW-刘彧",
       "ruler_name": "刘彧",
-      "published_grade": "G1",
-      "published_position": "MID",
-      "parent_count": 1,
+      "published_grade": "G2",
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-693AF53D75B2"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2013,16 +2293,16 @@
       "ruler_id": "RULER-SHADOW-刘渊",
       "ruler_name": "刘渊",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "MID",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-D051639F42A9"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2034,9 +2314,12 @@
       "ruler_name": "刘聪",
       "published_grade": "G2",
       "published_position": "HIGH",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
@@ -2059,40 +2342,36 @@
       "ruler_name": "刘裕",
       "published_grade": "G3",
       "published_position": "HIGH",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-21F68617EE7B"
-        ],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": true
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": {
-        "ruler_id": "RULER-SHADOW-刘裕",
-        "ruler_name": "刘裕",
-        "outcome": "RETAIN_G3_HIGH",
-        "reason": "刘穆之后勤与诸将战区任务有跨域线索，但现有父链是合并摘要，缺少两条可独立反查的完整授权生命周期。"
-      },
+      "high_gate_semantic_decision": null,
       "c5_boundary_semantic_decisions": [],
       "review_status": "SEMANTIC_HIT_REVIEWED"
     },
     {
       "ruler_id": "RULER-SHADOW-刘骏",
       "ruler_name": "刘骏",
-      "published_grade": "G1",
+      "published_grade": "G3",
       "published_position": "MID",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-95B89339D9F4"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2109,13 +2388,18 @@
     {
       "ruler_id": "RULER-SHADOW-司马曜",
       "ruler_name": "司马曜",
-      "published_grade": "G2",
-      "published_position": "LOW",
-      "parent_count": 0,
-      "major_task_domains": [],
+      "published_grade": "G3",
+      "published_position": "MID",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2125,19 +2409,17 @@
     {
       "ruler_id": "RULER-SHADOW-司马炎",
       "ruler_name": "司马炎",
-      "published_grade": "G2",
-      "published_position": "HIGH",
+      "published_grade": "G3",
+      "published_position": "MID",
       "parent_count": 2,
       "major_task_domains": [
         "MILITARY",
+        "ADMINISTRATION",
         "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-8126BDAC0373",
-          "C3P-6818E3D27BC4"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2147,13 +2429,16 @@
     {
       "ruler_id": "RULER-SHADOW-司马睿",
       "ruler_name": "司马睿",
-      "published_grade": "G2",
-      "published_position": "LOW",
-      "parent_count": 0,
-      "major_task_domains": [],
+      "published_grade": "G3",
+      "published_position": "HIGH",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION"
+      ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2163,13 +2448,17 @@
     {
       "ruler_id": "RULER-SHADOW-吕光",
       "ruler_name": "吕光",
-      "published_grade": "G2",
-      "published_position": "LOW",
-      "parent_count": 0,
-      "major_task_domains": [],
+      "published_grade": "G1",
+      "published_position": "HIGH",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2186,13 +2475,16 @@
     {
       "ruler_id": "RULER-SHADOW-姚兴",
       "ruler_name": "姚兴",
-      "published_grade": "G2",
-      "published_position": "LOW",
-      "parent_count": 0,
-      "major_task_domains": [],
+      "published_grade": "G3",
+      "published_position": "HIGH",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2202,33 +2494,44 @@
     {
       "ruler_id": "RULER-SHADOW-姚苌",
       "ruler_name": "姚苌",
-      "published_grade": "G2",
+      "published_grade": "G4",
       "published_position": "LOW",
-      "parent_count": 0,
-      "major_task_domains": [],
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": null,
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-SHADOW-姚苌",
+        "ruler_name": "姚苌",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-LOW：G4门槛复核：创业军政、太子实战培养、临终顾命保护三层结构成立，并能对太子错杀名将作明确边界纠正，具备额外稳定验证。"
+      },
       "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
+      "review_status": "SEMANTIC_HIT_REVIEWED"
     },
     {
       "ruler_id": "RULER-SHADOW-孟知祥",
       "ruler_name": "孟知祥",
       "published_grade": "G3",
       "published_position": "HIGH",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-56923601FE27"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2238,24 +2541,24 @@
     {
       "ruler_id": "RULER-SHADOW-宇文泰",
       "ruler_name": "宇文泰",
-      "published_grade": "G3",
-      "published_position": "HIGH",
-      "parent_count": 1,
+      "published_grade": "G4",
+      "published_position": "MID",
+      "parent_count": 2,
       "major_task_domains": [
-        "ADMINISTRATION"
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-E0850D8C8AC4"
-        ],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": true
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": {
         "ruler_id": "RULER-SHADOW-宇文泰",
         "ruler_name": "宇文泰",
-        "outcome": "RETAIN_G3_HIGH",
-        "reason": "六条诏书相关接口属于同一行政改革组合，制度环节数量不等于独立任务复验。"
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-MID：苏绰的发现—试用—持续扩权是一条极高质量文政人才生命周期；李弼、于谨、独孤信等军事责任中心又形成独立复验，文政与军事人物配置本身均形成强链。"
       },
       "c5_boundary_semantic_decisions": [],
       "review_status": "SEMANTIC_HIT_REVIEWED"
@@ -2263,42 +2566,41 @@
     {
       "ruler_id": "RULER-SHADOW-宇文邕",
       "ruler_name": "宇文邕",
-      "published_grade": "G2",
-      "published_position": "LOW",
-      "parent_count": 0,
-      "major_task_domains": [],
+      "published_grade": "G3",
+      "published_position": "HIGH",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": true
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": {
-        "ruler_id": "RULER-SHADOW-宇文邕",
-        "ruler_name": "宇文邕",
-        "outcome": "RETAIN_G2_LOW",
-        "reason": "规范入口未闭合C3父链，C5咨询与宗教强制不能反向补成授权能力。"
-      },
+      "high_gate_semantic_decision": null,
       "c5_boundary_semantic_decisions": [],
       "review_status": "SEMANTIC_HIT_REVIEWED"
     },
     {
       "ruler_id": "RULER-SHADOW-慕容垂",
       "ruler_name": "慕容垂",
-      "published_grade": "G2",
-      "published_position": "LOW",
-      "parent_count": 0,
-      "major_task_domains": [],
+      "published_grade": "G3",
+      "published_position": "HIGH",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": true
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": {
-        "ruler_id": "RULER-SHADOW-慕容垂",
-        "ruler_name": "慕容垂",
-        "outcome": "RETAIN_G2_LOW",
-        "reason": "罢免反对重大授权者涉及反馈安全，但对象任务、交付与替代后果不足，不能独立形成C3高档或负链。"
-      },
+      "high_gate_semantic_decision": null,
       "c5_boundary_semantic_decisions": [
         {
           "ruler_id": "RULER-SHADOW-慕容垂",
@@ -2313,16 +2615,17 @@
       "ruler_id": "RULER-SHADOW-慕容德",
       "ruler_name": "慕容德",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-FF7E4D8760F6"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2333,16 +2636,17 @@
       "ruler_id": "RULER-SHADOW-拓跋嗣",
       "ruler_name": "拓跋嗣",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-59690809F9C0"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2354,36 +2658,35 @@
       "ruler_name": "拓跋宏",
       "published_grade": "G3",
       "published_position": "HIGH",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "ADMINISTRATION"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-3C030EEBE122"
-        ],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": true
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": {
-        "ruler_id": "RULER-SHADOW-拓跋宏",
-        "ruler_name": "拓跋宏",
-        "outcome": "RETAIN_G3_HIGH",
-        "reason": "考课黜陟跨官署持续运行但仍属单一行政机制，军事反证未闭合第二父链。"
-      },
+      "high_gate_semantic_decision": null,
       "c5_boundary_semantic_decisions": [],
       "review_status": "SEMANTIC_HIT_REVIEWED"
     },
     {
       "ruler_id": "RULER-SHADOW-拓跋弘",
       "ruler_name": "拓跋弘",
-      "published_grade": "G2",
-      "published_position": "LOW",
-      "parent_count": 0,
-      "major_task_domains": [],
+      "published_grade": "G3",
+      "published_position": "MID",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2393,21 +2696,21 @@
     {
       "ruler_id": "RULER-SHADOW-拓跋焘",
       "ruler_name": "拓跋焘",
-      "published_grade": "G2",
-      "published_position": "LOW",
-      "parent_count": 0,
-      "major_task_domains": [],
+      "published_grade": "G3",
+      "published_position": "HIGH",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": true
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": {
-        "ruler_id": "RULER-SHADOW-拓跋焘",
-        "ruler_name": "拓跋焘",
-        "outcome": "RETAIN_G2_LOW",
-        "reason": "东宫与崔浩案显示错误清洗风险，但现有C5材料未完整绑定原岗位权限和可替代处置，作为C3背景不机械降档。"
-      },
+      "high_gate_semantic_decision": null,
       "c5_boundary_semantic_decisions": [
         {
           "ruler_id": "RULER-SHADOW-拓跋焘",
@@ -2427,58 +2730,64 @@
     {
       "ruler_id": "RULER-SHADOW-拓跋珪",
       "ruler_name": "拓跋珪",
-      "published_grade": "G2",
-      "published_position": "LOW",
-      "parent_count": 0,
-      "major_task_domains": [],
+      "published_grade": "G3",
+      "published_position": "HIGH",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": true
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": {
-        "ruler_id": "RULER-SHADOW-拓跋珪",
-        "ruler_name": "拓跋珪",
-        "outcome": "RETAIN_G2_LOW",
-        "reason": "晚年猜忌诛臣方向不利，但缺少逐案任务—权限—交付链，不能由C5概括直接换算C3。"
-      },
+      "high_gate_semantic_decision": null,
       "c5_boundary_semantic_decisions": [],
       "review_status": "SEMANTIC_HIT_REVIEWED"
     },
     {
       "ruler_id": "RULER-SHADOW-李克用",
       "ruler_name": "李克用",
-      "published_grade": "G3",
+      "published_grade": "G4",
       "published_position": "LOW",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-A0ED33453B9B"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": null,
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-SHADOW-李克用",
+        "ruler_name": "李克用",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-LOW：G4门槛复核：多方面军在长窗口内跨对象接续，张承业又长期承担后方财政与交班；存在跨阶段稳定复验，不靠两名人才机械过门。；河东政权能长期在多方向战争中保持多个独立责任中心，不是李克用本人逐项现场包办。"
+      },
       "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
+      "review_status": "SEMANTIC_HIT_REVIEWED"
     },
     {
       "ruler_id": "RULER-SHADOW-李暠",
       "ruler_name": "李暠",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-DBD9F480491D"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2488,13 +2797,17 @@
     {
       "ruler_id": "RULER-SHADOW-李雄",
       "ruler_name": "李雄",
-      "published_grade": "G2",
-      "published_position": "LOW",
-      "parent_count": 0,
-      "major_task_domains": [],
+      "published_grade": "G3",
+      "published_position": "MID",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2505,15 +2818,17 @@
       "ruler_id": "RULER-SHADOW-杨坚",
       "ruler_name": "杨坚",
       "published_grade": "G3",
-      "published_position": "LOW",
+      "published_position": "HIGH",
       "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
         "JUDICIAL_OVERSIGHT",
-        "MILITARY"
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2523,15 +2838,18 @@
     {
       "ruler_id": "RULER-SHADOW-杨广",
       "ruler_name": "杨广",
-      "published_grade": "G0",
-      "published_position": "MID",
-      "parent_count": 1,
+      "published_grade": "G1",
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "DIPLOMATIC_COALITION"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2542,16 +2860,16 @@
       "ruler_id": "RULER-SHADOW-杨行密",
       "ruler_name": "杨行密",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "DIPLOMATIC_COALITION"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-925751091E6E"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2561,58 +2879,62 @@
     {
       "ruler_id": "RULER-SHADOW-沮渠蒙逊",
       "ruler_name": "沮渠蒙逊",
-      "published_grade": "G2",
+      "published_grade": "G4",
       "published_position": "LOW",
-      "parent_count": 0,
-      "major_task_domains": [],
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT"
+      ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": null,
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-SHADOW-沮渠蒙逊",
+        "ruler_name": "沮渠蒙逊",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-LOW：G4门槛复核：三十余年中军事、地方、文政人才整合跨阶段持续，且人才来源、宗族约束和降附者配置均有复验，远超两链最低门。"
+      },
       "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
+      "review_status": "SEMANTIC_HIT_REVIEWED"
     },
     {
       "ruler_id": "RULER-SHADOW-石勒",
       "ruler_name": "石勒",
       "published_grade": "G3",
       "published_position": "HIGH",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-FE9678957972"
-        ],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": true
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": {
-        "ruler_id": "RULER-SHADOW-石勒",
-        "ruler_name": "石勒",
-        "outcome": "RETAIN_G3_HIGH",
-        "reason": "张宾战略与诸将扩张在当前材料中仍合为创业任务组合，不能按人物和地域数量拆成G4。"
-      },
+      "high_gate_semantic_decision": null,
       "c5_boundary_semantic_decisions": [],
       "review_status": "SEMANTIC_HIT_REVIEWED"
     },
     {
       "ruler_id": "RULER-SHADOW-石虎",
       "ruler_name": "石虎",
-      "published_grade": "G3",
+      "published_grade": "G2",
       "published_position": "HIGH",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-EE162037829F"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2623,12 +2945,16 @@
       "ruler_id": "RULER-SHADOW-苻健",
       "ruler_name": "苻健",
       "published_grade": "G2",
-      "published_position": "LOW",
-      "parent_count": 0,
-      "major_task_domains": [],
+      "published_position": "HIGH",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2639,41 +2965,37 @@
       "ruler_id": "RULER-SHADOW-苻坚",
       "ruler_name": "苻坚",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "ADMINISTRATION"
+        "MILITARY",
+        "ADMINISTRATION",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-22886A28D138"
-        ],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": true
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": {
-        "ruler_id": "RULER-SHADOW-苻坚",
-        "ruler_name": "苻坚",
-        "outcome": "RETAIN_G3_LOW",
-        "reason": "王猛行政链完整，但继任结构没有闭合第二个强生命周期。"
-      },
+      "high_gate_semantic_decision": null,
       "c5_boundary_semantic_decisions": [],
       "review_status": "SEMANTIC_HIT_REVIEWED"
     },
     {
       "ruler_id": "RULER-SHADOW-萧衍",
       "ruler_name": "萧衍",
-      "published_grade": "G1",
+      "published_grade": "G3",
       "published_position": "MID",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-2CDEAFC19F76"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2683,13 +3005,17 @@
     {
       "ruler_id": "RULER-SHADOW-萧道成",
       "ruler_name": "萧道成",
-      "published_grade": "G2",
-      "published_position": "LOW",
-      "parent_count": 0,
-      "major_task_domains": [],
+      "published_grade": "G3",
+      "published_position": "HIGH",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2699,17 +3025,17 @@
     {
       "ruler_id": "RULER-SHADOW-萧鸾",
       "ruler_name": "萧鸾",
-      "published_grade": "G1",
-      "published_position": "MID",
-      "parent_count": 1,
+      "published_grade": "G2",
+      "published_position": "LOW",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-5937619AE1F6"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2727,12 +3053,16 @@
       "ruler_id": "RULER-SHADOW-赫连勃勃",
       "ruler_name": "赫连勃勃",
       "published_grade": "G2",
-      "published_position": "LOW",
-      "parent_count": 0,
-      "major_task_domains": [],
+      "published_position": "HIGH",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT"
+      ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2744,23 +3074,18 @@
       "ruler_name": "钱镠",
       "published_grade": "G3",
       "published_position": "HIGH",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "DIPLOMATIC_COALITION"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-81123F4AFF11"
-        ],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": true
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": {
-        "ruler_id": "RULER-SHADOW-钱镠",
-        "ruler_name": "钱镠",
-        "outcome": "RETAIN_G3_HIGH",
-        "reason": "多次军事结果仍属同一创业防御组合，不能按战役回报条数换算G4。"
-      },
+      "high_gate_semantic_decision": null,
       "c5_boundary_semantic_decisions": [],
       "review_status": "SEMANTIC_HIT_REVIEWED"
     },
@@ -2769,15 +3094,17 @@
       "ruler_name": "陈叔宝",
       "published_grade": "G1",
       "published_position": "MID",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-67CE4668FE19"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2789,15 +3116,16 @@
       "ruler_name": "陈蒨",
       "published_grade": "G3",
       "published_position": "HIGH",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "ADMINISTRATION"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-9A375BE0B9F3"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2808,16 +3136,17 @@
       "ruler_id": "RULER-SHADOW-陈顼",
       "ruler_name": "陈顼",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-ED1BDA7C7219"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2827,20 +3156,26 @@
     {
       "ruler_id": "RULER-SHADOW-马殷",
       "ruler_name": "马殷",
-      "published_grade": "G3",
-      "published_position": "HIGH",
-      "parent_count": 1,
+      "published_grade": "G4",
+      "published_position": "LOW",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-F86CA5BC0857"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": null,
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-SHADOW-马殷",
+        "ruler_name": "马殷",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-LOW：G4门槛复核：军事创业与高郁财政经济链长期跨阶段并行，持续时间和反复交付明显高于“两条链凑数”；晚年控制衰弱只压低档内。"
+      },
       "c5_boundary_semantic_decisions": [
         {
           "ruler_id": "RULER-SHADOW-马殷",
@@ -2856,15 +3191,13 @@
       "ruler_name": "高季兴",
       "published_grade": "G3",
       "published_position": "LOW",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
         "MILITARY"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-C292DF598CA6"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2874,21 +3207,21 @@
     {
       "ruler_id": "RULER-SHADOW-高欢",
       "ruler_name": "高欢",
-      "published_grade": "G2",
-      "published_position": "LOW",
-      "parent_count": 0,
-      "major_task_domains": [],
+      "published_grade": "G3",
+      "published_position": "HIGH",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": true
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": {
-        "ruler_id": "RULER-SHADOW-高欢",
-        "ruler_name": "高欢",
-        "outcome": "RETAIN_G2_LOW",
-        "reason": "名义中枢被实际权力控制属于C5/M4主命题，未闭合具体C3责任中心生命周期。"
-      },
+      "high_gate_semantic_decision": null,
       "c5_boundary_semantic_decisions": [
         {
           "ruler_id": "RULER-SHADOW-高欢",
@@ -2903,16 +3236,17 @@
       "ruler_id": "RULER-SHADOW-高洋",
       "ruler_name": "高洋",
       "published_grade": "G3",
-      "published_position": "HIGH",
-      "parent_count": 1,
+      "published_position": "MID",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-DD34DFA2169E"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2923,12 +3257,17 @@
       "ruler_id": "RULER-SHADOW-高湛",
       "ruler_name": "高湛",
       "published_grade": "G2",
-      "published_position": "LOW",
-      "parent_count": 0,
-      "major_task_domains": [],
+      "published_position": "HIGH",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2947,15 +3286,15 @@
       "ruler_name": "高纬",
       "published_grade": "G1",
       "published_position": "MID",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-1D04DC4C660C"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2977,11 +3316,14 @@
       "parent_count": 2,
       "major_task_domains": [
         "MILITARY",
-        "ADMINISTRATION"
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -2992,16 +3334,17 @@
       "ruler_id": "RULER-SHU-LIUSHAN",
       "ruler_name": "刘禅",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "MID",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-F517B0E52850"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3012,16 +3355,15 @@
       "ruler_id": "RULER-SS-ZHAO-DUN",
       "ruler_name": "赵惇",
       "published_grade": "G2",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
+        "ADMINISTRATION",
         "CROSS_DOMAIN_PERSONNEL"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-84D964FED16B"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3031,16 +3373,18 @@
     {
       "ruler_id": "RULER-SS-ZHAO-GOU",
       "ruler_name": "赵构",
-      "published_grade": "G2",
-      "published_position": "HIGH",
+      "published_grade": "G3",
+      "published_position": "MID",
       "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
         "JUDICIAL_OVERSIGHT",
-        "MILITARY"
+        "DIPLOMATIC_COALITION"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3050,15 +3394,18 @@
     {
       "ruler_id": "RULER-SS-ZHAO-KUO",
       "ruler_name": "赵扩",
-      "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_grade": "G2",
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
         "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3068,37 +3415,43 @@
     {
       "ruler_id": "RULER-SS-ZHAO-SHEN",
       "ruler_name": "赵昚",
-      "published_grade": "G3",
-      "published_position": "HIGH",
-      "parent_count": 1,
+      "published_grade": "G4",
+      "published_position": "MID",
+      "parent_count": 2,
       "major_task_domains": [
-        "JUDICIAL_OVERSIGHT"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-9B875B5AF815"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": null,
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-SS-ZHAO-SHEN",
+        "ruler_name": "赵昚",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-MID：虞允文、陈俊卿、周必大等形成持续中枢责任中心，军事恢复任务又有张浚、虞允文等独立配置；既能在失败后调整，也能保护部分逆耳专业人才。潜邸近习和张浚早期错配限制上沿，但整体明显达到稳定G4。"
+      },
       "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
+      "review_status": "SEMANTIC_HIT_REVIEWED"
     },
     {
       "ruler_id": "RULER-SS-ZHAO-YUN",
       "ruler_name": "赵昀",
-      "published_grade": "G1",
-      "published_position": "MID",
-      "parent_count": 1,
+      "published_grade": "G3",
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-0FCCBB7D1B81"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3108,32 +3461,40 @@
     {
       "ruler_id": "RULER-TANG-LICHEN",
       "ruler_name": "李忱",
-      "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
-      "major_task_domains": [
-        "MILITARY"
-      ],
-      "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-90825E650218"
-        ],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": false
-      },
-      "high_gate_semantic_decision": null,
-      "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
-    },
-    {
-      "ruler_id": "RULER-TANG-LICHUN",
-      "ruler_name": "李纯",
       "published_grade": "G4",
       "published_position": "LOW",
       "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
         "ADMINISTRATION",
-        "MILITARY"
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
+      "mechanical_recall": {
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
+      },
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-TANG-LICHEN",
+        "ruler_name": "李忱",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-LOW：G4门槛复核：中枢、财政专业责任中心不止一人，张议潮又形成边疆高承载责任重构；整体实际超过“两条独立链”的最低形状。"
+      },
+      "c5_boundary_semantic_decisions": [],
+      "review_status": "SEMANTIC_HIT_REVIEWED"
+    },
+    {
+      "ruler_id": "RULER-TANG-LICHUN",
+      "ruler_name": "李纯",
+      "published_grade": "G3",
+      "published_position": "HIGH",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
@@ -3148,16 +3509,17 @@
       "ruler_id": "RULER-TANG-LIHENG",
       "ruler_name": "李亨",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "MID",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-352C75C08618"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3167,19 +3529,18 @@
     {
       "ruler_id": "RULER-TANG-LILONGJI",
       "ruler_name": "李隆基",
-      "published_grade": "G0",
+      "published_grade": "G3",
       "published_position": "HIGH",
-      "parent_count": 3,
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
         "ADMINISTRATION",
-        "SUCCESSION_AND_POWER_RELATIONS",
-        "MILITARY"
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-5D5644065C75"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3197,16 +3558,17 @@
       "ruler_id": "RULER-TANG-LISHI",
       "ruler_name": "李适",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-93A822EC400F"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3218,10 +3580,36 @@
       "ruler_name": "李世民",
       "published_grade": "G5",
       "published_position": "MID",
-      "parent_count": 4,
+      "parent_count": 2,
       "major_task_domains": [
         "MILITARY",
+        "ADMINISTRATION",
         "JUDICIAL_OVERSIGHT",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS"
+      ],
+      "mechanical_recall": {
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
+      },
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-TANG-LISHIMIN",
+        "ruler_name": "李世民",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G5-MID：为什么是G5：行政、军事、专业监督、交班等异质责任中心均有高质量闭环，能力宽度和迁移性历史罕见。；为什么是MID而不是HIGH：卢祖尚处罚过度、张亮军事岗位错配、侯君集等若干复杂负例说明其下沿并非极纯；晚年猜疑也限制上沿。"
+      },
+      "c5_boundary_semantic_decisions": [],
+      "review_status": "SEMANTIC_HIT_REVIEWED"
+    },
+    {
+      "ruler_id": "RULER-TANG-LIXIAN",
+      "ruler_name": "李显",
+      "published_grade": "G1",
+      "published_position": "HIGH",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
         "ADMINISTRATION",
         "SUCCESSION_AND_POWER_RELATIONS"
       ],
@@ -3235,39 +3623,19 @@
       "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
     },
     {
-      "ruler_id": "RULER-TANG-LIXIAN",
-      "ruler_name": "李显",
-      "published_grade": "G1",
-      "published_position": "MID",
-      "parent_count": 1,
-      "major_task_domains": [
-        "MILITARY"
-      ],
-      "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-59658D23A9C1"
-        ],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": false
-      },
-      "high_gate_semantic_decision": null,
-      "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
-    },
-    {
       "ruler_id": "RULER-TANG-LIXUAN",
       "ruler_name": "李儇",
       "published_grade": "G1",
-      "published_position": "MID",
-      "parent_count": 1,
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-A2200D42BFB8"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3277,17 +3645,19 @@
     {
       "ruler_id": "RULER-TANG-LIYU",
       "ruler_name": "李豫",
-      "published_grade": "G1",
+      "published_grade": "G3",
       "published_position": "MID",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-D4E03EE19B94"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3304,12 +3674,14 @@
     {
       "ruler_id": "RULER-TANG-LIYUAN",
       "ruler_name": "李渊",
-      "published_grade": "G4",
-      "published_position": "LOW",
-      "parent_count": 3,
+      "published_grade": "G3",
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "DIPLOMATIC_COALITION",
         "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "DIPLOMATIC_COALITION",
         "TALENT_RETENTION_AND_CORRECTION"
       ],
       "mechanical_recall": {
@@ -3317,12 +3689,7 @@
         "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": {
-        "ruler_id": "RULER-TANG-LIYUAN",
-        "ruler_name": "李渊",
-        "outcome": "UPGRADE_G4_LOW",
-        "reason": "唐初多方向军事授权与刘文静突厥议约—军政续用形成跨任务独立复验；错误清洗刘文静压低至LOW。"
-      },
+      "high_gate_semantic_decision": null,
       "c5_boundary_semantic_decisions": [
         {
           "ruler_id": "RULER-TANG-LIYUAN",
@@ -3336,21 +3703,27 @@
     {
       "ruler_id": "RULER-TANG-LIZHI",
       "ruler_name": "李治",
-      "published_grade": "G3",
-      "published_position": "LOW",
+      "published_grade": "G4",
+      "published_position": "MID",
       "parent_count": 2,
       "major_task_domains": [
         "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "DIPLOMATIC_COALITION",
         "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-C48CE2F5C104"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": null,
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-TANG-LIZHI",
+        "ruler_name": "李治",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-MID：刘仁轨从海外统帅扩展到安抚、行政和中枢，裴行俭同时长期典选、经营安西并承担大军统帅；苏定方、李勣等又形成独立军事复验。李义府等高权近臣是明显下沿，但高宗最终能完成现实收权，未形成同类型长期复发。"
+      },
       "c5_boundary_semantic_decisions": [
         {
           "ruler_id": "RULER-TANG-LIZHI",
@@ -3365,32 +3738,13 @@
       "ruler_id": "RULER-TANG-WUZETIAN",
       "ruler_name": "武则天",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 2,
-      "major_task_domains": [
-        "ADMINISTRATION",
-        "JUDICIAL_OVERSIGHT"
-      ],
-      "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-85DCCC600735"
-        ],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": false
-      },
-      "high_gate_semantic_decision": null,
-      "c5_boundary_semantic_decisions": [],
-      "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
-    },
-    {
-      "ruler_id": "RULER-WEI-CAOCAO",
-      "ruler_name": "曹操",
-      "published_grade": "G4",
-      "published_position": "LOW",
+      "published_position": "HIGH",
       "parent_count": 2,
       "major_task_domains": [
         "MILITARY",
-        "ADMINISTRATION"
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
@@ -3402,19 +3756,45 @@
       "review_status": "MECHANICAL_SCREEN_NO_SEMANTIC_HIT"
     },
     {
+      "ruler_id": "RULER-WEI-CAOCAO",
+      "ruler_name": "曹操",
+      "published_grade": "G4",
+      "published_position": "MID",
+      "parent_count": 2,
+      "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT"
+      ],
+      "mechanical_recall": {
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
+      },
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-WEI-CAOCAO",
+        "ruler_name": "曹操",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-MID：军事、后方、屯田、选官、谋略等人才配置宽度明显高于普通G4下沿；但晚期崔琰、毛玠等事件说明政治敏感和谗言环境会伤害已经验证的专业人才，阻止其进入G4-HIGH/G5。"
+      },
+      "c5_boundary_semantic_decisions": [],
+      "review_status": "SEMANTIC_HIT_REVIEWED"
+    },
+    {
       "ruler_id": "RULER-WEI-CAOPI",
       "ruler_name": "曹丕",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-13558FB5F15F"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3425,16 +3805,17 @@
       "ruler_id": "RULER-WEI-CAORUI",
       "ruler_name": "曹叡",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-9F3CFC7252A9"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3445,16 +3826,16 @@
       "ruler_id": "RULER-WEI-SIMASHI",
       "ruler_name": "司马师",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-15EE7DE51CD7"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3465,16 +3846,16 @@
       "ruler_id": "RULER-WEI-SIMAZHAO",
       "ruler_name": "司马昭",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-6D25173A90C7"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3492,16 +3873,16 @@
       "ruler_id": "RULER-WU-SUNHAO",
       "ruler_name": "孙皓",
       "published_grade": "G1",
-      "published_position": "MID",
-      "parent_count": 1,
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-E974753503F0"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3516,19 +3897,16 @@
       "parent_count": 2,
       "major_task_domains": [
         "MILITARY",
+        "ADMINISTRATION",
+        "DIPLOMATIC_COALITION",
         "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": true
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": {
-        "ruler_id": "RULER-WU-SUNQUAN",
-        "ruler_name": "孙权",
-        "outcome": "RETAIN_G3_HIGH",
-        "reason": "早中期将帅接续强，晚年二宫并立造成不可逆人才损失；跨阶段正负相抵，不升G4。"
-      },
+      "high_gate_semantic_decision": null,
       "c5_boundary_semantic_decisions": [],
       "review_status": "SEMANTIC_HIT_REVIEWED"
     },
@@ -3537,15 +3915,16 @@
       "ruler_name": "孙休",
       "published_grade": "G3",
       "published_position": "LOW",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS",
         "CROSS_DOMAIN_PERSONNEL"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-64F6E8519C13"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3557,15 +3936,14 @@
       "ruler_name": "王莽",
       "published_grade": "G1",
       "published_position": "MID",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-B3379F8CDCB6"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3576,16 +3954,16 @@
       "ruler_id": "RULER-XIXIA-LIANQUAN",
       "ruler_name": "李安全",
       "published_grade": "G1",
-      "published_position": "MID",
-      "parent_count": 1,
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-23AFF1652F22"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3595,17 +3973,17 @@
     {
       "ruler_id": "RULER-XIXIA-LIBINGCHANG",
       "ruler_name": "李秉常",
-      "published_grade": "G3",
-      "published_position": "HIGH",
-      "parent_count": 1,
+      "published_grade": "G2",
+      "published_position": "LOW",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-34924AC36D75"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3615,17 +3993,18 @@
     {
       "ruler_id": "RULER-XIXIA-LIDEMING",
       "ruler_name": "李德明",
-      "published_grade": "G1",
-      "published_position": "MID",
-      "parent_count": 1,
+      "published_grade": "G3",
+      "published_position": "LOW",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-9FE1DE4393B3"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3635,17 +4014,18 @@
     {
       "ruler_id": "RULER-XIXIA-LIDEWANG",
       "ruler_name": "李德旺",
-      "published_grade": "G1",
-      "published_position": "MID",
-      "parent_count": 1,
+      "published_grade": "G2",
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-6C87790372E2"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3657,15 +4037,16 @@
       "ruler_name": "李谅祚",
       "published_grade": "G3",
       "published_position": "LOW",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "DIPLOMATIC_COALITION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-8E5BFDAA5AC5"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3675,17 +4056,17 @@
     {
       "ruler_id": "RULER-XIXIA-LIQIANSHUN",
       "ruler_name": "李乾顺",
-      "published_grade": "G1",
-      "published_position": "MID",
-      "parent_count": 1,
+      "published_grade": "G3",
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-BAA00794643B"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3696,14 +4077,17 @@
       "ruler_id": "RULER-XIXIA-LIRENXIAO",
       "ruler_name": "李仁孝",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "MID",
+      "parent_count": 2,
       "major_task_domains": [
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
         "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
         "duplicate_lifecycle_state_parent_ids": [],
-        "generic_count_basis": true,
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3715,15 +4099,15 @@
       "ruler_name": "李元昊",
       "published_grade": "G3",
       "published_position": "HIGH",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "DIPLOMATIC_COALITION"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-BBDEAE8762A3"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3734,16 +4118,17 @@
       "ruler_id": "RULER-YUAN-AYURBARWADA",
       "ruler_name": "爱育黎拔力八达",
       "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_position": "MID",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-7D471C971FA7"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3762,42 +4147,37 @@
       "ruler_name": "忽必烈",
       "published_grade": "G3",
       "published_position": "HIGH",
-      "parent_count": 3,
+      "parent_count": 2,
       "major_task_domains": [
         "MILITARY",
         "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
         "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-F616F6D7C94B"
-        ],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": true
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": {
-        "ruler_id": "RULER-YUAN-KUBLAI",
-        "ruler_name": "忽必烈",
-        "outcome": "RETAIN_G3_HIGH",
-        "reason": "文武两端正链达到强复验，但阿合马、桑哥同类权臣配置错误复发，不能发布G4。"
-      },
+      "high_gate_semantic_decision": null,
       "c5_boundary_semantic_decisions": [],
       "review_status": "SEMANTIC_HIT_REVIEWED"
     },
     {
       "ruler_id": "RULER-YUAN-KULUG",
       "ruler_name": "海山",
-      "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_grade": "G2",
+      "published_position": "HIGH",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-16DF7609D6EF"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3807,20 +4187,26 @@
     {
       "ruler_id": "RULER-YUAN-MONGKE",
       "ruler_name": "蒙哥",
-      "published_grade": "G3",
-      "published_position": "HIGH",
-      "parent_count": 1,
+      "published_grade": "G4",
+      "published_position": "LOW",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-04E2C1B09FB9"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": null,
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-YUAN-MONGKE",
+        "ruler_name": "蒙哥",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-LOW：G4门槛复核：军事、忙哥撒儿司法/断事、刘敏汉地行政构成三类责任中心；即使部分为续认，仍超过两链最低形状。"
+      },
       "c5_boundary_semantic_decisions": [
         {
           "ruler_id": "RULER-YUAN-MONGKE",
@@ -3836,15 +4222,16 @@
       "ruler_name": "窝阔台",
       "published_grade": "G3",
       "published_position": "HIGH",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-9CE6CA213D96"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,
@@ -3854,24 +4241,24 @@
     {
       "ruler_id": "RULER-YUAN-TEMUJI",
       "ruler_name": "铁木真",
-      "published_grade": "G3",
+      "published_grade": "G4",
       "published_position": "HIGH",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-7658E2DAB9FD"
-        ],
-        "generic_count_basis": true,
-        "open_latent_high_hypothesis": true
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
+        "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": {
         "ruler_id": "RULER-YUAN-TEMUJI",
         "ruler_name": "铁木真",
-        "outcome": "RETAIN_G3_HIGH",
-        "reason": "创业军事责任中心重复交付明确，帝国期非军事任务与后期窗口不足，不能升G4。"
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-HIGH：为什么是G4-HIGH而非G5：G5要求主要机制和主要适用阶段都呈历史罕见上沿。铁木真在军事人才体系上达到这一点，但财政、常态行政、专业监督等领域的人员配置厚度仍有限，不能用军事光环补齐。"
       },
       "c5_boundary_semantic_decisions": [],
       "review_status": "SEMANTIC_HIT_REVIEWED"
@@ -3879,20 +4266,26 @@
     {
       "ruler_id": "RULER-YUAN-TEMUR",
       "ruler_name": "铁穆耳",
-      "published_grade": "G3",
-      "published_position": "LOW",
-      "parent_count": 1,
+      "published_grade": "G4",
+      "published_position": "MID",
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-5E93C82E6D9C"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
-      "high_gate_semantic_decision": null,
+      "high_gate_semantic_decision": {
+        "ruler_id": "RULER-YUAN-TEMUR",
+        "ruler_name": "铁穆耳",
+        "outcome": "SEMANTIC_REASSESSMENT_HIGH_GATE_SUPPORTED",
+        "reason": "G4-MID：哈剌哈孙长期中枢责任链与海山北边方面军完全独立，且两条都包含真实反馈与扩权。成宗不是只“继承世祖班底”：他主动把备边不力的阔阔出换成海山，也长期让哈剌哈孙在中枢压制聚敛、纠正选官。正负复验足够G4-MID。"
+      },
       "c5_boundary_semantic_decisions": [
         {
           "ruler_id": "RULER-YUAN-TEMUR",
@@ -3906,17 +4299,18 @@
     {
       "ruler_id": "RULER-YUAN-TOGHON-TEMUR",
       "ruler_name": "妥懽帖睦尔",
-      "published_grade": "G1",
+      "published_grade": "G3",
       "published_position": "MID",
-      "parent_count": 1,
+      "parent_count": 2,
       "major_task_domains": [
-        "MILITARY"
+        "MILITARY",
+        "ADMINISTRATION",
+        "JUDICIAL_OVERSIGHT",
+        "SUCCESSION_AND_POWER_RELATIONS"
       ],
       "mechanical_recall": {
-        "duplicate_lifecycle_state_parent_ids": [
-          "C3P-AFFAE3F96266"
-        ],
-        "generic_count_basis": true,
+        "duplicate_lifecycle_state_parent_ids": [],
+        "generic_count_basis": false,
         "open_latent_high_hypothesis": false
       },
       "high_gate_semantic_decision": null,

@@ -89,11 +89,11 @@
           "evidence_mode": "DIRECT_DAMAGE_CONSTRAINED_INFERENCE",
           "main_band": "C1-2",
           "material_limitations": [
-            "建德元年至四年的连续危机簇只消费一次：用于确定主态C1-2，不再整体二次进入K。"
+            "建德元年至四年的连续危机簇只消费一次：用于确定主态C1-2，不再整体二次进入低谷修正。"
           ],
           "peak_band": null,
           "polity": "北周",
-          "rank": 121,
+          "rank": 122,
           "reign_range": [
             572,
             578
@@ -104,6 +104,7 @@
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C1-2",
+            "S_main": "C1-2",
             "S_avg": "C1-2",
             "S_end": "C1-2"
           },
@@ -116,48 +117,11 @@
             "excluded_orphan_candidate_ids": [],
             "applied_orphan_candidate_supplements": []
           },
-          "review_remediation": {
-            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
-            "status": "APPLIED",
-            "problem": "当前 C1-3→2→2 把572年独掌权起点写高，并把“半数夏人军事化、持续军费”当作主2重要证据。建德元年刚亲揽万机时的诏已回顾此前“兴造无度、征发不已、农亩废业、年谷不登、民有散亡、家空杼轴”，应视为接手盘面；建德三年又有“往岁年谷不登，民多乏绝”并迁蒲州饥民就食，建德四年关中/岐宁继续民饥。",
-            "directive": "S0 C1-3→C1-2；主档/S_avg与S_end维持C1-2，score 17.1；K=K2；曲线改 C1-2→2→2。 主2改由接手失业散亡及亲政后573—575连续饥乏闭合，不再用军事化比例、统一战争或货币失败本身压C1。K2消费573—575这一持续危机段；577后的恢复措施不足以把578交班抬3，继位后仍见“山东流民新复业者”需给复。"
-          },
           "raw_state_band": "C1-2",
           "formal_band": "C1-2",
           "raw_peak_band": null,
           "formal_peak_band": null,
           "lane_axis_coverage": [],
-          "stability_stage_review": {
-            "status": "COMPLETE",
-            "stages": [
-              {
-                "stage_band": "C1-1",
-                "depth_from_raw_main": 1,
-                "scope_class": "MATERIAL_REGION_OR_DEPTH",
-                "duration_class": "MATERIAL",
-                "repeat_group": "ATTACHED_REVIEW_CONSOLIDATED_CHAIN",
-                "recovery_confirmed": true,
-                "evidence_strength": "ATTACHED_REVIEW_WITH_FORMAL_SOURCE_ENTRIES",
-                "counts_toward_k": true,
-                "exclusion_reason": null,
-                "basis": "S0 C1-3→C1-2；主档/S_avg与S_end维持C1-2，score 17.1；K=K2；曲线改 C1-2→2→2。 主2改由接手失业散亡及亲政后573—575连续饥乏闭合，不再用军事化比例、统一战争或货币失败本身压C1。K2消费573—575这一持续危机段；577后的恢复措施不足以把578交班抬3，继位后仍见“山东流民新复业者”需给复。"
-              }
-            ]
-          },
-          "persistence_review": {
-            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
-          },
-          "dynasty_curve_review": {
-            "status": "COMPLETE",
-            "handoff_continuity_checked": true,
-            "basis": "S0 C1-3→C1-2；主档/S_avg与S_end维持C1-2，score 17.1；K=K2；曲线改 C1-2→2→2。 主2改由接手失业散亡及亲政后573—575连续饥乏闭合，不再用军事化比例、统一战争或货币失败本身压C1。K2消费573—575这一持续危机段；577后的恢复措施不足以把578交班抬3，继位后仍见“山东流民新复业者”需给复。"
-          },
-          "inference_review": {
-            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
-            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
-            "inference_hops": 1,
-            "inference_basis": "S0 C1-3→C1-2；主档/S_avg与S_end维持C1-2，score 17.1；K=K2；曲线改 C1-2→2→2。 主2改由接手失业散亡及亲政后573—575连续饥乏闭合，不再用军事化比例、统一战争或货币失败本身压C1。K2消费573—575这一持续危机段；577后的恢复措施不足以把578交班抬3，继位后仍见“山东流民新复业者”需给复。"
-          },
           "material_basis": [
             {
               "book": "《周书·武帝纪》",
@@ -168,7 +132,31 @@
               "original_text": "往岁年谷不登，民多乏绝。"
             }
           ],
-          "stability_basis": "旧K2把建德元年至四年的同一饥乏—役负危机簇既用于确定主态2，又整体再次作为低谷消费，违反主态—K去重。现未确认独立于该主态证据之外、明显低于C1-2的阶段，故K2→K4。"
+          "stability_basis": "连续农亩废业饥乏已构成二档，未另证独立更深阶段。",
+          "loss_grade": "L0",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-宇文邕",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "连续农亩废业饥乏已构成二档，未另证独立更深阶段。",
+              "strong_dimensions": [],
+              "main_representativeness": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。建德初史书已直接闭合频岁师旅、农亩废业、年谷不登、民有散亡、家空杼轴，建德三年又称民多乏绝；这些连续压力本身构成C1-2主态。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-宇文邕",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-宇文邕",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-宇文邕",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-宇文邕",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/northern_zhou.json#material_id=I2-NZHOU-YUWENYONG-AGRICULTURE-RELIEF-M2-AUDIT",
+                "https://zh.wikisource.org/w/index.php?title=周書/卷06&oldid=2589015"
+              ]
+            },
+            "score": 17.1
+          }
         }
       ]
     }

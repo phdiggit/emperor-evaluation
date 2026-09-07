@@ -172,10 +172,11 @@
           "reign_range": "57—75",
           "ruler_id": "RULER-HAN-LIUZHUANG",
           "ruler_name": "刘庄",
-          "score": 65.4,
+          "score": 68.7,
           "stability_class_diagnostic_only": "K0",
           "state_anchors": {
             "S0": "C1-4",
+            "S_main": "C1-5",
             "S_avg": "C1-5",
             "S_end": "C1-3"
           },
@@ -207,12 +208,6 @@
             "excluded_orphan_candidate_ids": [],
             "applied_orphan_candidate_supplements": []
           },
-          "review_remediation": {
-            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
-            "status": "APPLIED",
-            "problem": "主档/曲线复核维持，但持续性与K结构字段需补齐",
-            "directive": "维持 C1-4→5→3；补 K=K0；persistence=REPEATED_PHASES_CONFIRMED。 永平末实际跌破主态并传给刘炟S0。"
-          },
           "raw_state_band": "C1-5",
           "formal_band": "C1-5",
           "raw_peak_band": null,
@@ -222,37 +217,6 @@
             "HOUSEHOLD_SUBSISTENCE_SURPLUS",
             "NET_TAX_LABOR_BURDEN"
           ],
-          "stability_stage_review": {
-            "status": "COMPLETE",
-            "stages": [
-              {
-                "stage_band": "C1-3",
-                "depth_from_raw_main": 2,
-                "scope_class": "TERMINAL_SCOPE",
-                "duration_class": "TERMINAL",
-                "repeat_group": "ATTACHED_REVIEW_CONSOLIDATED_CHAIN",
-                "recovery_confirmed": false,
-                "evidence_strength": "ATTACHED_REVIEW_WITH_FORMAL_SOURCE_ENTRIES",
-                "counts_toward_k": true,
-                "exclusion_reason": null,
-                "basis": "维持 C1-4→5→3；补 K=K0；persistence=REPEATED_PHASES_CONFIRMED。 永平末实际跌破主态并传给刘炟S0。"
-              }
-            ]
-          },
-          "persistence_review": {
-            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
-          },
-          "dynasty_curve_review": {
-            "status": "COMPLETE",
-            "handoff_continuity_checked": true,
-            "basis": "维持 C1-4→5→3；补 K=K0；persistence=REPEATED_PHASES_CONFIRMED。 永平末实际跌破主态并传给刘炟S0。"
-          },
-          "inference_review": {
-            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
-            "inference_source_anchor": null,
-            "inference_hops": 0,
-            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
-          },
           "material_basis": [
             {
               "book": "《资治通鉴》",
@@ -267,19 +231,34 @@
               "original_text": "比年牛多疾疫，垦田减少，谷价颇贵，人以流亡。"
             }
           ],
-          "stability_basis": "末期出现未恢复的家庭生计下坠，故K0。需要纠正时间归属：“比年牛多疾疫，垦田减少，谷价颇贵，人以流亡”见《后汉书·章帝纪》建初元年，是明帝去世后的继任初反向交班锚，不是明帝末年诏语；它与永平末牛疫、旱情相接，能够确认交班时已出现谷贵、流亡这一家庭端低态，因此S_end=C1-3维持。",
-          "military_cost_c1_review": {
-            "D_cost_band": "C4",
-            "D_cost_basis": "永平初羌乱失利后四万人再动员；62—73年北匈奴长期多轮响应；73—75年西域前推驻屯。",
-            "household_closure": "未单独闭合战争导致的普通家庭破产、缺粮或流亡。",
-            "c1_disposition": "BACKGROUND_ONLY_TERMINAL_LOW_KEPT_ON_HANDOFF_EVIDENCE"
-          },
-          "c1_reaudit": {
-            "review_date": "2026-08-30",
-            "status": "REVIEWED_CUMULATIVE",
-            "rating_change": "NONE",
-            "k_final": "K0",
-            "summary": "第一批高档复核：主档/分数维持；强化纯C1证据与第三项军事成本的家庭端闭合。"
+          "stability_basis": "永平末与继任初相接的牛疫谷贵流亡支持实质交班低谷；只使用明确前接部分。",
+          "loss_grade": "L2",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-HAN-LIUZHUANG",
+            "loss_review": {
+              "grade": "L2",
+              "basis": "永平末与继任初相接的牛疫谷贵流亡支持实质交班低谷；只使用明确前接部分。",
+              "strong_dimensions": [],
+              "main_representativeness": "任内主要阶段达到广域富足。《资治通鉴》永平十二年直接记“百姓殷富”，可承担家庭高位主锚；连续丰年、户口垦田增长仅作生产与连续性支持，不单独抬档。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-HAN-LIUZHUANG",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-HAN-LIUZHUANG",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-HAN-LIUZHUANG",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-HAN-LIUZHUANG",
+                "东汉会要卷二十八户口",
+                "东汉会要卷三十一田租",
+                "东汉财政专题总结",
+                "《后汉书》卷二《显宗孝明帝纪》",
+                "《资治通鉴》卷四十五",
+                "《后汉书》卷三《肃宗孝章帝纪》"
+              ]
+            },
+            "score": 68.7
           }
         },
         {
@@ -347,18 +326,19 @@
           "evidence_mode": "DIRECT_MACRO_ANCHOR",
           "main_band": "C1-4",
           "material_limitations": [
-            "第三项军事成本C5中位主要来自西域长期重复行动和驻屯。“百姓频年服役、转输烦费”是重要负向奏议与纠偏触发，但尚缺同尺度普通家庭破产、缺粮、卖产、流亡等实现后果，不能据军事投入直接把K3升档或否定后期C1-5。"
+            "第三项军事成本C5中位主要来自西域长期重复行动和驻屯。“百姓频年服役、转输烦费”是重要负向奏议与纠偏触发，但尚缺同尺度普通家庭破产、缺粮、卖产、流亡等实现后果，不能据军事投入直接把历史低谷标签升档或否定后期C1-5。"
           ],
           "peak_band": "C1-5",
           "polity": "东汉",
-          "rank": 7,
+          "rank": 10,
           "reign_range": "75—88",
           "ruler_id": "RULER-HAN-LIUDA",
           "ruler_name": "刘炟",
-          "score": 54.1,
+          "score": 52.5,
           "stability_class_diagnostic_only": "K3",
           "state_anchors": {
             "S0": "C1-3",
+            "S_main": "C1-4",
             "S_avg": "C1-4",
             "S_end": "C1-5"
           },
@@ -390,12 +370,6 @@
             "excluded_orphan_candidate_ids": [],
             "applied_orphan_candidate_supplements": []
           },
-          "review_remediation": {
-            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
-            "status": "APPLIED",
-            "problem": "原C1-4结论基本正确，但漏掉了章帝后期达到更高绝对状态的证据",
-            "directive": "主档C1-4维持，score 54.9；S0=C1-3、S_avg=C1-4不变；S_end C1-4→C1-5；登记 peak_band=C1-5；K=K3。 《后汉书》总评“平徭简赋，而人赖其庆”，赞语又直接到“宪平人富”，足以确认章帝后期出现formal=C1-5；但建初—元和前半期饥馑、谷食连少占据较长阶段，因此不把全任主态升5。早期低位属于从S0=3恢复，不压K；章和元年广陵“谷贵民饥”是一个可定位局部低谷，故K3。联动刘肇S0。"
-          },
           "raw_state_band": "C1-4",
           "formal_band": "C1-4",
           "raw_peak_band": "C1-5",
@@ -404,41 +378,6 @@
             "HOUSEHOLD_FORMATION_REPRODUCTION",
             "HOUSEHOLD_SUBSISTENCE_SURPLUS"
           ],
-          "stability_stage_review": {
-            "status": "COMPLETE",
-            "stages": [
-              {
-                "stage_band": "C1-3",
-                "depth_from_raw_main": 1,
-                "scope_class": "LOCAL_OR_BOUNDED",
-                "duration_class": "SHORT_OR_BOUNDED",
-                "repeat_group": "C1_REAUDIT_CONSOLIDATED_LOW",
-                "recovery_confirmed": true,
-                "evidence_strength": "REAUDIT_WITH_FORMAL_SOURCE_AND_LEDGER",
-                "counts_toward_k": true,
-                "exclusion_reason": null,
-                "basis": "早期旱疫、谷贵与流亡主要属于S0=C1-3向主4恢复过程，不降低K；章和元年广陵“谷贵民饥”是恢复后的一个可定位局部家庭低谷，因此K3。后期“平徭简赋，而人赖其庆”“宪平人富”支持终点/峰值C1-5。"
-              }
-            ]
-          },
-          "persistence_review": {
-            "status": "COMPLETE",
-            "persistence_class": "SINGLE_PHASE_CONFIRMED",
-            "from_band": "C1-3",
-            "to_band": "C1-5",
-            "basis": "主档C1-4维持，score 54.9；S0=C1-3、S_avg=C1-4不变；S_end C1-4→C1-5；登记 peak_band=C1-5；K=K3。 《后汉书》总评“平徭简赋，而人赖其庆”，赞语又直接到“宪平人富”，足以确认章帝后期出现formal=C1-5；但建初—元和前半期饥馑、谷食连少占据较长阶段，因此不把全任主态升5。早期低位属于从S0=3恢复，不压K；章和元年广陵“谷贵民饥”是一个可定位局部低谷，故K3。联动刘肇S0。"
-          },
-          "dynasty_curve_review": {
-            "status": "COMPLETE",
-            "handoff_continuity_checked": true,
-            "basis": "主档C1-4、终点/峰值C1-5维持；章和元年广陵“谷贵民饥”为局部实际低谷，早期恢复不压K。"
-          },
-          "inference_review": {
-            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
-            "inference_source_anchor": null,
-            "inference_hops": 0,
-            "inference_basis": "主档C1-4、终点/峰值C1-5维持；章和元年广陵“谷贵民饥”为局部实际低谷，早期恢复不压K。"
-          },
           "material_basis": [
             {
               "book": "《后汉书》",
@@ -457,21 +396,30 @@
               "original_text": "间者北征匈奴，西开三十六国，百姓频年服役，转输烦费……"
             }
           ],
-          "stability_basis": "早期牛疫、谷贵、流亡属于S0=C1-3向主4恢复过程，不压K；恢复后章和元年广陵“谷贵民饥”是一个可定位局部家庭低谷，故K3。",
-          "military_cost_c1_review": {
-            "D_cost_band": "C5",
-            "D_cost_position": "MID",
-            "D_status": "CONFIRMED",
-            "D_cost_basis": "西域同链长期重复行动与驻屯负担准入C5；不与羌战等跨链拼最大值。",
-            "household_closure": "“百姓频年服役、转输烦费”属于奏议/纠偏触发，尚缺同尺度普通家庭破产、缺粮、流亡等实现结果。",
-            "c1_disposition": "BACKGROUND_AND_WARNING_ONLY_K3_AND_END5_UNCHANGED"
-          },
-          "c1_reaudit": {
-            "review_date": "2026-08-30",
-            "status": "REVIEWED_CUMULATIVE",
-            "rating_change": "NONE",
-            "k_final": "K3",
-            "summary": "主档C1-4、终点/峰值C1-5维持；章和元年广陵“谷贵民饥”为局部实际低谷，早期恢复不压K。"
+          "stability_basis": "建初元和前段偏弱已参与主态四档，另计章和广陵民饥局部低谷。",
+          "loss_grade": "L1",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-HAN-LIUDA",
+            "loss_review": {
+              "grade": "L1",
+              "basis": "建初元和前段偏弱已参与主态四档，另计章和广陵民饥局部低谷。",
+              "strong_dimensions": [],
+              "main_representativeness": "章帝后期《后汉书》总评“平徭简赋，而人赖其庆”，赞语又有“宪平人富”，可确认后期达到C1-5；但建初—元和前半期饥馑与谷食连续偏弱，故全任主态仍C1-4。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-HAN-LIUDA",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-HAN-LIUDA",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-HAN-LIUDA",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-HAN-LIUDA",
+                "《后汉书》卷二《显宗孝明帝纪》",
+                "《后汉书》卷三《肃宗孝章帝纪》"
+              ]
+            },
+            "score": 52.5
           }
         },
         {
@@ -529,18 +477,19 @@
           "evidence_mode": "DIRECT_MACRO_PLUS_CONSTRAINED_INFERENCE",
           "main_band": "C1-4",
           "material_limitations": [
-            "第三项军事成本C5高位下界包含武陵同链刘尚万余军悉没、马援四万余军疫死过半等两次重损，但这些首先是军队组织/人员口径；没有自动闭合为主要统治区普通家庭的独立C1低谷，故不再追加K或降主档。"
+            "第三项军事成本C5高位下界包含武陵同链刘尚万余军悉没、马援四万余军疫死过半等两次重损，但这些首先是军队组织/人员口径；没有自动闭合为主要统治区普通家庭的独立C1低谷，故不再追加低谷修正或降主档。"
           ],
           "peak_band": null,
           "polity": "东汉",
-          "rank": 7,
+          "rank": 20,
           "reign_range": "25—57",
           "ruler_id": "RULER-HAN-LIUXIU",
           "ruler_name": "刘秀",
-          "score": 52.7,
+          "score": 45.3,
           "stability_class_diagnostic_only": "K2",
           "state_anchors": {
             "S0": "C1-1",
+            "S_main": "C1-4",
             "S_avg": "C1-4",
             "S_end": "C1-4"
           },
@@ -553,12 +502,6 @@
             "excluded_orphan_candidate_ids": [],
             "applied_orphan_candidate_supplements": []
           },
-          "review_remediation": {
-            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
-            "status": "APPLIED",
-            "problem": "现主档C1-4本身可保，且不能因“光武中兴”名望升5。上一轮把创业恢复期也拿来强化K1，与合同“低S0/恢复过程不降K”冲突；应撤回。建武十五至十六年度田执行出现侵弱、百姓遮道哭诉；建武二十至二十一年北边五郡受损并有人口流亡，属于两个可定位实质低谷，但现证尚不足证明低位已成为与全任4档竞争的次级主态。",
-            "directive": "主档与三锚维持 C1-1→4→4，score 54.9；K恢复/维持 K2，撤销上一轮K1。 S0=1及统一战争后的长期恢复完全不参与K。度田侵弱与北边多郡流亡足以超过单一轻波动，故不回K3；但按R19收紧门，两个阶段本身不自动构成K1。C1-5仍因缺直接广域家庭粮储/明显余量强锚而不成立。"
-          },
           "raw_state_band": "C1-4",
           "formal_band": "C1-4",
           "raw_peak_band": null,
@@ -568,41 +511,6 @@
             "HOUSEHOLD_SUBSISTENCE_SURPLUS",
             "NET_TAX_LABOR_BURDEN"
           ],
-          "stability_stage_review": {
-            "status": "COMPLETE",
-            "stages": [
-              {
-                "stage_band": "C1-3",
-                "depth_from_raw_main": 1,
-                "scope_class": "MATERIAL_REGION_OR_DEPTH",
-                "duration_class": "MULTIPLE_BOUNDED_STAGES",
-                "repeat_group": "C1_REAUDIT_CONSOLIDATED_LOW",
-                "recovery_confirmed": true,
-                "evidence_strength": "REAUDIT_WITH_FORMAL_SOURCE_AND_LEDGER",
-                "counts_toward_k": true,
-                "exclusion_reason": null,
-                "basis": "S0=C1-1以及统一战争后的恢复过程完全不参与K。建武十五至十六年度田执行出现侵弱、百姓遮道哭诉；建武二十至二十一年北边五郡受损并有人口流亡，两个阶段足以超过K3轻波动，但现证不足证明低位在范围、持续/重复、深度中至少两项达到强门并成为主4的次级竞争状态，故K2。"
-              }
-            ]
-          },
-          "persistence_review": {
-            "status": "COMPLETE",
-            "persistence_class": "SINGLE_PHASE_CONFIRMED",
-            "from_band": "C1-1",
-            "to_band": "C1-4",
-            "basis": "主档与三锚维持 C1-1→4→4，score 54.9；K恢复/维持 K2，撤销上一轮K1。 S0=1及统一战争后的长期恢复完全不参与K。度田侵弱与北边多郡流亡足以超过单一轻波动，故不回K3；但按R19收紧门，两个阶段本身不自动构成K1。C1-5仍因缺直接广域家庭粮储/明显余量强锚而不成立。"
-          },
-          "dynasty_curve_review": {
-            "status": "COMPLETE",
-            "handoff_continuity_checked": true,
-            "basis": "主档C1-4、曲线1→4→4维持；S0战乱低位及统一恢复完全排除出K；度田侵弱与北边多郡流亡形成两个实质低谷，但不足K1。"
-          },
-          "inference_review": {
-            "status": "STRUCTURED_CONSTRAINED_INFERENCE",
-            "inference_source_anchor": "state_anchors.S0 plus current eligible evidence",
-            "inference_hops": 1,
-            "inference_basis": "主档C1-4、曲线1→4→4维持；S0战乱低位及统一恢复完全排除出K；度田侵弱与北边多郡流亡形成两个实质低谷，但不足K1。"
-          },
           "material_basis": [
             {
               "book": "《东汉会要》",
@@ -613,21 +521,36 @@
               "original_text": "今軍士屯田糧儲差積，其令郡國收見田租三十稅一如舊制……及得隴望蜀，黎民安堵。"
             }
           ],
-          "stability_basis": "S0=C1-1及统一战争后的长期恢复完全不参与K。建武十五至十六年度田执行出现侵弱、百姓遮道哭诉；建武二十至二十一年北边五郡受损并有人口流亡。两个实质低谷足以超过K3，但现证不足证明低位在范围、持续/重复、深度至少两项达到强门并成为主4的次级竞争状态，故K2。",
-          "military_cost_c1_review": {
-            "D_cost_band": "C5",
-            "D_cost_position": "HIGH",
-            "D_status": "LOWER_BOUND",
-            "D_cost_basis": "武陵同一战略链闭合刘尚万余军悉没、马援四万余军疫死过半等两次F3级战区主力重损；另有多条长期边疆链。",
-            "household_closure": "上述主要是本方军队组织与人员损失，未自动闭合为主要统治区普通家庭的独立C1低态。",
-            "c1_disposition": "NO_ADDITIONAL_C1_LOW_K2_REMAINS_NONMILITARY_HOUSEHOLD_DRIVEN"
-          },
-          "c1_reaudit": {
-            "review_date": "2026-08-30",
-            "status": "REVIEWED_CUMULATIVE",
-            "rating_change": "NONE",
-            "k_final": "K2",
-            "summary": "主档C1-4、曲线1→4→4维持；S0战乱低位及统一恢复完全排除出K；度田侵弱与北边多郡流亡形成两个实质低谷，但不足K1。"
+          "stability_basis": "统一前后长期家庭失保与后续度田侵弱、边郡流亡一并审，恢复期不豁免；广域及持续强。",
+          "loss_grade": "L3",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-HAN-LIUXIU",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "统一前后长期家庭失保与后续度田侵弱、边郡流亡一并审，恢复期不豁免；广域及持续强。",
+              "strong_dimensions": [
+                "scope",
+                "duration",
+                "severity"
+              ],
+              "main_representativeness": "新莽末、更始赤眉战争造成极低起点；建武中后期恢复三十税一、屯田粮储并在统一后出现“黎民安堵”，足以闭合主要统治区普遍温饱。缺少“家给人足/家庭粮储余量”等广域强锚，不升C1-5。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-HAN-LIUXIU",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-HAN-LIUXIU",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-HAN-LIUXIU",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-HAN-LIUXIU",
+                "东汉会要卷二十八引帝王世记、郡国志注",
+                "东汉会要卷二十八户口",
+                "东汉会要卷三十一田租",
+                "东汉财政专题总结"
+              ]
+            },
+            "score": 45.3
           }
         },
         {
@@ -667,18 +590,19 @@
           "evidence_mode": "DIRECT_MACRO_ANCHOR",
           "main_band": "C1-4",
           "material_limitations": [
-            "第三项军事成本C5低位由羌乱同链十年高承载与反复再动员准入，但未闭合F3且统治者重大错误较弱。C1的K1已经由家庭端流冗、凶馑、不能自存、流离独立闭合，不再用军事规模重复加重。"
+            "第三项军事成本C5低位由羌乱同链十年高承载与反复再动员准入，但未闭合F3且统治者重大错误较弱。C1的历史低谷标签已经由家庭端流冗、凶馑、不能自存、流离独立闭合，不再用军事规模重复加重。"
           ],
           "peak_band": null,
           "polity": "东汉",
-          "rank": 7,
+          "rank": 20,
           "reign_range": "92—105",
           "ruler_id": "RULER-HAN-LIUZHAO",
           "ruler_name": "刘肇",
-          "score": 50.5,
+          "score": 45.3,
           "stability_class_diagnostic_only": "K1",
           "state_anchors": {
             "S0": "C1-5",
+            "S_main": "C1-4",
             "S_avg": "C1-4",
             "S_end": "C1-4"
           },
@@ -691,12 +615,6 @@
             "excluded_orphan_candidate_ids": [],
             "applied_orphan_candidate_supplements": []
           },
-          "review_remediation": {
-            "review_id": "SECOND-ITEM-C1-REVIEW-2026-08-30",
-            "status": "APPLIED",
-            "problem": "原C1-4主要靠人口/垦田与救济解释，需补纯C1宏观锚并重算K；本轮另发现旧理由把樊准传“永初之初，郡国多被饥困”误挂到和帝永元，须纠正年代",
-            "directive": "主档C1-4维持，score 54.9；S0 C1-4→C1-5；S_end=C1-4维持；K=K1，通过新门。 《续汉书/东观汉记》对和帝总结“民安职业”“黎元宁康”“屡获丰年”，足以保4。K只消费实际家庭结果：永元五年已“举实流冗、开仓赈禀三十余郡”；六年三河、兖冀青贫民赈贷，并由诏书明确“济河之域，凶馑流亡”；十一年被灾者已到“不能自存”；十二年又有“比年不登、百姓虚匮、黎民流离困于道路”；十三、十四年继续出现多地贫民、流民赈贷。对92—105约13年有效窗口而言，93—94与99—102两组广域低态占比很高，且范围强+持续/重复强，足以成为主4的次级竞争状态，故K1保留。旧“郡国多被饥困”证据撤销，不影响结论。缺“家给人足/民富”级余量锚，不升5。"
-          },
           "raw_state_band": "C1-4",
           "formal_band": "C1-4",
           "raw_peak_band": null,
@@ -705,37 +623,6 @@
             "HOUSEHOLD_FORMATION_REPRODUCTION",
             "HOUSEHOLD_SUBSISTENCE_SURPLUS"
           ],
-          "stability_stage_review": {
-            "status": "COMPLETE",
-            "stages": [
-              {
-                "stage_band": "C1-3",
-                "depth_from_raw_main": 1,
-                "scope_class": "MULTI_MAJOR_REGION",
-                "duration_class": "REPEATED_OR_LONG_RELATIVE_TO_WINDOW",
-                "repeat_group": "C1_REAUDIT_CONSOLIDATED_LOW",
-                "recovery_confirmed": true,
-                "evidence_strength": "REAUDIT_WITH_FORMAL_SOURCE_AND_LEDGER",
-                "counts_toward_k": true,
-                "exclusion_reason": null,
-                "basis": "K只消费和帝本人窗口的实际家庭结果：永元五年三十余郡流冗赈廪；六年“济河之域，凶馑流亡”；十一年被灾者“不能自存”；十二年“比年不登，百姓虚匮，黎民流离困于道路”，十三、十四年仍见多地贫民、流民赈贷。93—94与99—102两组广域低态在约13年窗口内范围强且持续/重复强，足以成为主4的次级竞争状态，故K1。旧樊准“永初之初”材料属安帝朝，撤销。"
-              }
-            ]
-          },
-          "persistence_review": {
-            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
-          },
-          "dynasty_curve_review": {
-            "status": "COMPLETE",
-            "handoff_continuity_checked": true,
-            "basis": "主档C1-4、曲线5→4→4维持；撤销误属安帝的“永初之初”材料，以和帝本人永元五六年及十一至十四年的家庭低态独立保K1。"
-          },
-          "inference_review": {
-            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
-            "inference_source_anchor": null,
-            "inference_hops": 0,
-            "inference_basis": "主档C1-4、曲线5→4→4维持；撤销误属安帝的“永初之初”材料，以和帝本人永元五六年及十一至十四年的家庭低态独立保K1。"
-          },
           "material_basis": [
             {
               "book": "《续汉书／东观汉记》",
@@ -754,21 +641,32 @@
               "original_text": "比年不登，百姓虚匮，黎民流离困于道路。"
             }
           ],
-          "stability_basis": "撤销旧误引的樊准传“永初之初，郡国多被饥困”，该句属于安帝朝。K1改由和帝本人窗口闭合：永元五年三十余郡流冗赈廪，六年“济河之域，凶馑流亡”；十一年被灾者“不能自存”，十二年“比年不登，百姓虚匮，黎民流离困于道路”，十三、十四年又续见多地贫民、流民赈贷。93—94与99—102两组低态范围强、持续/重复强，在约13年窗口内足以成为主4次级竞争状态，故K1。",
-          "military_cost_c1_review": {
-            "D_cost_band": "C5",
-            "D_cost_position": "LOW",
-            "D_status": "CONFIRMED",
-            "D_cost_basis": "羌乱同链十年高承载与反复再动员准入C5；未声称F3，统治者本人重大错误较弱。",
-            "household_closure": "军队承载本身不另造C1低谷；K1已经由本人窗口多轮流冗、凶馑、不能自存与流离的家庭结果独立闭合。",
-            "c1_disposition": "NO_DOUBLE_COUNT_K1_INDEPENDENTLY_HOUSEHOLD_CLOSED"
-          },
-          "c1_reaudit": {
-            "review_date": "2026-08-30",
-            "status": "REVIEWED_CUMULATIVE",
-            "rating_change": "NONE",
-            "k_final": "K1",
-            "summary": "主档C1-4、曲线5→4→4维持；撤销误属安帝的“永初之初”材料，以和帝本人永元五六年及十一至十四年的家庭低态独立保K1。"
+          "stability_basis": "三十余郡流冗及多阶段虚匮流离，在本人短窗口内范围与持续强。",
+          "loss_grade": "L3",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-HAN-LIUZHAO",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "三十余郡流冗及多阶段虚匮流离，在本人短窗口内范围与持续强。",
+              "strong_dimensions": [
+                "duration",
+                "severity"
+              ],
+              "main_representativeness": "《续汉书/东观汉记》对和帝有“民安职业”“黎元宁康”“屡获丰年”等广域正证，足以维持C1-4；但缺“家给人足/民富”级家庭余量锚，不升C1-5。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-HAN-LIUZHAO",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-HAN-LIUZHAO",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-HAN-LIUZHAO",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-HAN-LIUZHAO",
+                "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+              ]
+            },
+            "score": 45.3
           }
         },
         {
@@ -817,14 +715,15 @@
           ],
           "peak_band": null,
           "polity": "东汉",
-          "rank": 121,
+          "rank": 155,
           "reign_range": "106—121",
           "ruler_id": "RULER-HAN-DENGSUI",
           "ruler_name": "邓绥",
-          "score": 16.4,
+          "score": 11.5,
           "stability_class_diagnostic_only": "K2",
           "state_anchors": {
             "S0": "C1-4",
+            "S_main": "C1-2",
             "S_avg": "C1-2",
             "S_end": "C1-3"
           },
@@ -864,38 +763,6 @@
             "HOUSEHOLD_FORMATION_REPRODUCTION",
             "HOUSEHOLD_SUBSISTENCE_SURPLUS"
           ],
-          "stability_stage_review": {
-            "status": "COMPLETE",
-            "stages": [
-              {
-                "stage_band": "C1-1",
-                "depth_from_raw_main": 1,
-                "scope_class": "MATERIAL_REGION_OR_DEPTH",
-                "duration_class": "MATERIAL_OR_MULTIPLE_BOUNDED",
-                "repeat_group": "C1_REAUDIT_2026_08_31_BATCH8",
-                "recovery_confirmed": true,
-                "evidence_strength": "REAUDIT_WITH_PRIMARY_SOURCE_OR_EXISTING_FORMAL_MATERIAL",
-                "counts_toward_k": true,
-                "exclusion_reason": null,
-                "basis": "永初长期兵饥是C1-2主态的重要组成，不再整体二次消费K。其中特别深的永初三年京师“大饥，民相食”可独立识别为低于主态的C1-1阶段；随后终至“天下复平，岁还丰穰”，故一个实质深低谷按K2结算。"
-              }
-            ],
-            "basis": "永初长期兵饥是C1-2主态的重要组成，不再整体二次消费K。其中特别深的永初三年京师“大饥，民相食”可独立识别为低于主态的C1-1阶段；随后终至“天下复平，岁还丰穰”，故一个实质深低谷按K2结算。"
-          },
-          "persistence_review": {
-            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
-          },
-          "dynasty_curve_review": {
-            "status": "COMPLETE",
-            "handoff_continuity_checked": true,
-            "basis": "永初长期兵饥是C1-2主态的重要组成，不再整体二次消费K。其中特别深的永初三年京师“大饥，民相食”可独立识别为低于主态的C1-1阶段；随后终至“天下复平，岁还丰穰”，故一个实质深低谷按K2结算。"
-          },
-          "inference_review": {
-            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
-            "inference_source_anchor": null,
-            "inference_hops": 0,
-            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
-          },
           "material_basis": [
             {
               "book": "《东汉会要》",
@@ -906,13 +773,34 @@
               "original_text": "永初三年三月，京师大饥，民相食。"
             }
           ],
-          "stability_basis": "永初长期兵饥是C1-2主态的重要组成，不再整体二次消费K。其中特别深的永初三年京师“大饥，民相食”可独立识别为低于主态的C1-1阶段；随后终至“天下复平，岁还丰穰”，故一个实质深低谷按K2结算。",
-          "c1_reaudit": {
-            "review_date": "2026-08-31",
-            "status": "REVIEWED_CUMULATIVE",
-            "rating_change": "K_ONLY",
-            "k_final": "K2",
-            "summary": "永初长期兵饥是C1-2主态的重要组成，不再整体二次消费K。其中特别深的永初三年京师“大饥，民相食”可独立识别为低于主态的C1-1阶段；随后终至“天下复平，岁还丰穰”，故一个实质深低谷按K2结算。"
+          "stability_basis": "长期兵饥已进入二档，另计京师民相食这一独立深谷，范围受限取实质。",
+          "loss_grade": "L2",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-HAN-DENGSUI",
+            "loss_review": {
+              "grade": "L2",
+              "basis": "长期兵饥已进入二档，另计京师民相食这一独立深谷，范围受限取实质。",
+              "strong_dimensions": [],
+              "main_representativeness": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。前期人口生产高点后，兵灾饥荒使人口与垦田回落，京师及多地流亡、储积不足；邓绥临朝末史家明确记载天下复平、岁还丰穰，证明其交班点已恢复基本运行，但持续时长与家庭供给高位未证。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-HAN-DENGSUI",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-HAN-DENGSUI",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-HAN-DENGSUI",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-HAN-DENGSUI",
+                "东汉会要卷二十八户口垦田",
+                "东汉会要卷二十九安帝诏",
+                "东汉荒政总结",
+                "后汉书·陈宠附陈忠传",
+                "资治通鉴卷五十财政民生卡",
+                "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+              ]
+            },
+            "score": 11.5
           }
         },
         {
@@ -957,14 +845,15 @@
           ],
           "peak_band": null,
           "polity": "东汉",
-          "rank": 121,
+          "rank": 151,
           "reign_range": "144—150",
           "ruler_id": "RULER-HAN-LIANGNA",
           "ruler_name": "梁妠",
-          "score": 16.8,
+          "score": 14.7,
           "stability_class_diagnostic_only": "K3",
           "state_anchors": {
             "S0": "C1-2",
+            "S_main": "C1-2",
             "S_avg": "C1-2",
             "S_end": "C1-2"
           },
@@ -985,38 +874,6 @@
             "HOUSEHOLD_FORMATION_REPRODUCTION",
             "HOUSEHOLD_SUBSISTENCE_SURPLUS"
           ],
-          "stability_stage_review": {
-            "status": "COMPLETE",
-            "stages": [
-              {
-                "stage_band": "C1-1",
-                "depth_from_raw_main": 1,
-                "scope_class": "LOCAL_OR_BOUNDED",
-                "duration_class": "SHORT_OR_BOUNDED",
-                "repeat_group": "C1_REAUDIT_2026_08_31_BATCH8",
-                "recovery_confirmed": true,
-                "evidence_strength": "REAUDIT_WITH_PRIMARY_SOURCE_OR_EXISTING_FORMAL_MATERIAL",
-                "counts_toward_k": true,
-                "exclusion_reason": null,
-                "basis": "主态本已是C1-2，跨顺、质、桓初的长期流亡材料不能再整体消费K。本人临朝窗口内本初元年乐安、北海海溢“溺杀人物”可确认一个局部短时深低谷，但范围不足K2聚合，故K3。"
-              }
-            ],
-            "basis": "主态本已是C1-2，跨顺、质、桓初的长期流亡材料不能再整体消费K。本人临朝窗口内本初元年乐安、北海海溢“溺杀人物”可确认一个局部短时深低谷，但范围不足K2聚合，故K3。"
-          },
-          "persistence_review": {
-            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
-          },
-          "dynasty_curve_review": {
-            "status": "COMPLETE",
-            "handoff_continuity_checked": true,
-            "basis": "主态本已是C1-2，跨顺、质、桓初的长期流亡材料不能再整体消费K。本人临朝窗口内本初元年乐安、北海海溢“溺杀人物”可确认一个局部短时深低谷，但范围不足K2聚合，故K3。"
-          },
-          "inference_review": {
-            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
-            "inference_source_anchor": null,
-            "inference_hops": 0,
-            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
-          },
           "material_basis": [
             {
               "book": "《东汉会要》",
@@ -1027,13 +884,31 @@
               "original_text": "质帝本初元年五月，海水溢乐安、北海，溺杀人物，是时帝幼，梁太后专政。"
             }
           ],
-          "stability_basis": "主态本已是C1-2，跨顺、质、桓初的长期流亡材料不能再整体消费K。本人临朝窗口内本初元年乐安、北海海溢“溺杀人物”可确认一个局部短时深低谷，但范围不足K2聚合，故K3。",
-          "c1_reaudit": {
-            "review_date": "2026-08-31",
-            "status": "REVIEWED_CUMULATIVE",
-            "rating_change": "K_ONLY",
-            "k_final": "K3",
-            "summary": "主态本已是C1-2，跨顺、质、桓初的长期流亡材料不能再整体消费K。本人临朝窗口内本初元年乐安、北海海溢“溺杀人物”可确认一个局部短时深低谷，但范围不足K2聚合，故K3。"
+          "stability_basis": "长期弃业流亡已在二档，另计本初乐安北海海溢溺杀的局部深谷。",
+          "loss_grade": "L1",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-HAN-LIANGNA",
+            "loss_review": {
+              "grade": "L1",
+              "basis": "长期弃业流亡已在二档，另计本初乐安北海海溢溺杀的局部深谷。",
+              "strong_dimensions": [],
+              "main_representativeness": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。人口垦田仍有较大存量，但灾区弃业流亡持续，中央已承认既有减免赈恤未有效传导；至梁太后、桓帝初京师与郡县贫死问题显现。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-HAN-LIANGNA",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-HAN-LIANGNA",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-HAN-LIANGNA",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-HAN-LIANGNA",
+                "东汉会要卷三十顺帝诏",
+                "东汉会要卷二十八户口垦田",
+                "东汉会要卷三十桓帝建和三年诏"
+              ]
+            },
+            "score": 14.7
           }
         },
         {
@@ -1079,7 +954,7 @@
           ],
           "peak_band": null,
           "polity": "东汉",
-          "rank": 121,
+          "rank": 122,
           "reign_range": "125—144",
           "ruler_id": "RULER-HAN-LIUBAO",
           "ruler_name": "刘保",
@@ -1087,6 +962,7 @@
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C1-2",
+            "S_main": "C1-2",
             "S_avg": "C1-2",
             "S_end": "C1-2"
           },
@@ -1107,38 +983,37 @@
             "HOUSEHOLD_FORMATION_REPRODUCTION",
             "HOUSEHOLD_SUBSISTENCE_SURPLUS"
           ],
-          "stability_stage_review": {
-            "status": "COMPLETE",
-            "stages": [],
-            "basis": "冀州连年灾潦、弃业流亡等材料参与C1-2主态本身的确定，不能再整体二次消费K；现有材料未能从本人窗口中独立切出明确低于C1-2的家庭状态阶段，故K4。"
-          },
-          "persistence_review": {
-            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
-          },
-          "dynasty_curve_review": {
-            "status": "COMPLETE",
-            "handoff_continuity_checked": true,
-            "basis": "冀州连年灾潦、弃业流亡等材料参与C1-2主态本身的确定，不能再整体二次消费K；现有材料未能从本人窗口中独立切出明确低于C1-2的家庭状态阶段，故K4。"
-          },
-          "inference_review": {
-            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
-            "inference_source_anchor": null,
-            "inference_hops": 0,
-            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
-          },
           "material_basis": [
             {
               "book": "《东汉会要》",
               "original_text": "連年災潦冀部尤甚，比蠲除實傷、贍恤窮匱，而百姓猶有棄業流亡不絕，疑郡縣吏用心怠惰，恩澤不宣……質帝本初元年口四千七百五十六萬六千七百七十二。"
             }
           ],
-          "stability_basis": "冀州连年灾潦、弃业流亡等材料参与C1-2主态本身的确定，不能再整体二次消费K；现有材料未能从本人窗口中独立切出明确低于C1-2的家庭状态阶段，故K4。",
-          "c1_reaudit": {
-            "review_date": "2026-08-31",
-            "status": "REVIEWED_CUMULATIVE",
-            "rating_change": "K_ONLY",
-            "k_final": "K4",
-            "summary": "冀州连年灾潦、弃业流亡等材料参与C1-2主态本身的确定，不能再整体二次消费K；现有材料未能从本人窗口中独立切出明确低于C1-2的家庭状态阶段，故K4。"
+          "stability_basis": "灾潦弃业流亡已构成二档，不再整体重复低谷。",
+          "loss_grade": "L0",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-HAN-LIUBAO",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "灾潦弃业流亡已构成二档，不再整体重复低谷。",
+              "strong_dimensions": [],
+              "main_representativeness": "任内普通家庭长期承受沉重生计压力，多数地区未能稳定恢复基本生活。人口垦田仍有较大存量，但灾区弃业流亡持续，中央已承认既有减免赈恤未有效传导；至梁太后、桓帝初京师与郡县贫死问题显现。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-HAN-LIUBAO",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-HAN-LIUBAO",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-HAN-LIUBAO",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-HAN-LIUBAO",
+                "东汉会要卷三十顺帝诏",
+                "东汉会要卷二十八户口垦田",
+                "东汉会要卷三十桓帝建和三年诏"
+              ]
+            },
+            "score": 17.1
           }
         },
         {
@@ -1185,7 +1060,7 @@
           ],
           "peak_band": null,
           "polity": "东汉",
-          "rank": 121,
+          "rank": 122,
           "reign_range": "121—125",
           "ruler_id": "RULER-HAN-LIUHU",
           "ruler_name": "刘祜",
@@ -1193,6 +1068,7 @@
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C1-3",
+            "S_main": "C1-2",
             "S_avg": "C1-2",
             "S_end": "C1-2"
           },
@@ -1213,24 +1089,6 @@
             "HOUSEHOLD_SUBSISTENCE_SURPLUS",
             "NET_TAX_LABOR_BURDEN"
           ],
-          "stability_stage_review": {
-            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
-            "stages": []
-          },
-          "persistence_review": {
-            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
-          },
-          "dynasty_curve_review": {
-            "status": "PRESERVED",
-            "handoff_continuity_checked": false,
-            "basis": "当前附件未要求改变本人物交班锚。"
-          },
-          "inference_review": {
-            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
-            "inference_source_anchor": null,
-            "inference_hops": 0,
-            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
-          },
           "material_basis": [
             {
               "book": "《东汉会要》",
@@ -1241,7 +1099,34 @@
               "original_text": "青、冀之域，淫雨漏河……加以百姓不足，府帑虚匮……征役无度，老弱相随，动有万计。"
             }
           ],
-          "stability_basis": "S0及从3跌入主态2的形成过程已经用于确定主态，不再二次压K。现有“百姓不足”“老弱相随，动有万计”仍未独立闭合出明显低于C1-2的C1-1阶段，故K4。"
+          "stability_basis": "短任征役与灾害已构成二档，未另证独立更深阶段。",
+          "loss_grade": "L0",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-HAN-LIUHU",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "短任征役与灾害已构成二档，未另证独立更深阶段。",
+              "strong_dimensions": [],
+              "main_representativeness": "邓绥交班已恢复到C1-3，故刘祜亲政起点硬承接3而非旧4。延光元年前后青冀淫雨、徐岱海水、兖豫蝗、荆扬歉收，并叠加使者供亿与“征役无度”，本人短短四年亲政窗内家庭承受重新落入广泛困顿，主态2维持。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-HAN-LIUHU",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-HAN-LIUHU",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-HAN-LIUHU",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-HAN-LIUHU",
+                "东汉会要卷二十八户口垦田",
+                "东汉会要卷二十九安帝诏",
+                "东汉荒政总结",
+                "后汉书·陈宠附陈忠传",
+                "资治通鉴卷五十财政民生卡"
+              ]
+            },
+            "score": 17.1
+          }
         },
         {
           "adjudication_reason": "任内多区域长期出现饥穷、流冗与高死亡低态，广泛困顿C1-2维持。",
@@ -1281,14 +1166,15 @@
           ],
           "peak_band": null,
           "polity": "东汉",
-          "rank": 121,
+          "rank": 164,
           "reign_range": "150—168",
           "ruler_id": "RULER-HAN-LIUZHI",
           "ruler_name": "刘志",
-          "score": 16.4,
+          "score": 7.5,
           "stability_class_diagnostic_only": "K2",
           "state_anchors": {
             "S0": "C1-2",
+            "S_main": "C1-2",
             "S_avg": "C1-2",
             "S_end": "C1-2"
           },
@@ -1309,31 +1195,40 @@
             "HOUSEHOLD_FORMATION_REPRODUCTION",
             "HOUSEHOLD_SUBSISTENCE_SURPLUS"
           ],
-          "stability_stage_review": {
-            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
-            "stages": []
-          },
-          "persistence_review": {
-            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
-          },
-          "dynasty_curve_review": {
-            "status": "PRESERVED",
-            "handoff_continuity_checked": false,
-            "basis": "当前附件未要求改变本人物交班锚。"
-          },
-          "inference_review": {
-            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
-            "inference_source_anchor": null,
-            "inference_hops": 0,
-            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
-          },
           "material_basis": [
             {
               "book": "《东汉会要》",
               "original_text": "郡国三十二蝗，河水溢，百姓饥穷，流冗道路，至有数十万户……司隶、冀州饥，人相食……司隶、豫州饥死者什四五，至有灭户者。"
             }
           ],
-          "stability_basis": "长期饥困簇本身已经是主态2的重要组成，不整体二次消费。其下仍可独立识别永寿元年司隶、冀州“人相食”及延熹九年司隶、豫州“饥死者什四五，至有灭户者”等C1-1式深低点，故高于K3；但这些深低点分散且未形成独立宏观次级状态，取K2。"
+          "stability_basis": "司隶冀州相食及司隶豫州大量饥死是较二档更深结果，重要区域覆盖与严重度强。",
+          "loss_grade": "L3",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-HAN-LIUZHI",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "司隶冀州相食及司隶豫州大量饥死是较二档更深结果，重要区域覆盖与严重度强。",
+              "strong_dimensions": [
+                "scope",
+                "severity"
+              ],
+              "main_representativeness": "任内多区域长期出现饥穷、流冗与高死亡低态，广泛困顿C1-2维持。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-HAN-LIUZHI",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-HAN-LIUZHI",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-HAN-LIUZHI",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-HAN-LIUZHI",
+                "东汉会要卷三十桓帝荒政",
+                "东汉荒政总结"
+              ]
+            },
+            "score": 7.5
+          }
         },
         {
           "adjudication_reason": "任内普通家庭的基本生计普遍失保，主要统治区长期处于严重破坏状态。权宦侵占良田、产业与山泽资源，使民庶困穷、州郡受压；党锢长期破坏政治反馈与社会精英网络，黄巾兴起后朝野秩序崩离。卖官、田亩加征、任官议价、贡献导行费和公帑私藏连成系统性财政转嫁，百姓与州郡承受持续额外成本；黄巾战争进一步破坏运行。",
@@ -1406,6 +1301,7 @@
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C1-2",
+            "S_main": "C1-1",
             "S_avg": "C1-1",
             "S_end": "C1-1"
           },
@@ -1450,24 +1346,6 @@
           "lane_axis_coverage": [
             "HOUSEHOLD_SUBSISTENCE_SURPLUS"
           ],
-          "stability_stage_review": {
-            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
-            "stages": []
-          },
-          "persistence_review": {
-            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
-          },
-          "dynasty_curve_review": {
-            "status": "PRESERVED",
-            "handoff_continuity_checked": false,
-            "basis": "当前附件未要求改变本人物交班锚。"
-          },
-          "inference_review": {
-            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
-            "inference_source_anchor": null,
-            "inference_hops": 0,
-            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
-          },
           "material_basis": [
             {
               "book": "《后汉书》",
@@ -1478,7 +1356,37 @@
               "original_text": "初開西邸賣官……斂天下田畝十錢以修宮室……刺史二千石及茂才孝廉遷除皆責助軍修宮錢……又造萬金堂於西園，引司農金錢繒帛仞積其中……調廣民困、費多獻少、姦吏因其利、百姓受其敝。"
             }
           ],
-          "stability_basis": "S_main已处C1-1最低档，状态体系不存在可继续“跌破主态”的更低档位，因此K按定义取K4。这里的K4只表示K指标在底档没有向下分辨空间，不代表民生稳定、韧性良好或可在C4领取高位稳定承压信用；S0→C1-1的恶化及底档持续由绝对状态与C4归责处理，不在K重复消费。"
+          "stability_basis": "广域生计失保已在最低主态中全部消费。",
+          "loss_grade": "L0",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-HAN-LIUHONG",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "广域生计失保已在最低主态中全部消费。",
+              "strong_dimensions": [],
+              "main_representativeness": "任内普通家庭的基本生计普遍失保，主要统治区长期处于严重破坏状态。权宦侵占良田、产业与山泽资源，使民庶困穷、州郡受压；党锢长期破坏政治反馈与社会精英网络，黄巾兴起后朝野秩序崩离。卖官、田亩加征、任官议价、贡献导行费和公帑私藏连成系统性财政转嫁，百姓与州郡承受持续额外成本；黄巾战争进一步破坏运行。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-HAN-LIUHONG",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-HAN-LIUHONG",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-HAN-LIUHONG",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-HAN-LIUHONG",
+                "后汉书·党锢列传",
+                "后汉书·党锢列传序",
+                "东汉会要卷三十一灵帝财政",
+                "东汉会要卷二十八东汉末人口序",
+                "docs/史料通读产物/唐以前编年/汉/卷057-通读总结.md#L22-L24",
+                "docs/史料通读产物/唐以前编年/汉/卷057-通读总结.md#L102-L108",
+                "docs/史料通读产物/唐以前编年/汉/卷057-通读总结.md#L104-L108",
+                "docs/史料通读产物/唐以前编年/汉/卷058-通读总结.md#L152-L158"
+              ]
+            },
+            "score": 5.7
+          }
         },
         {
           "adjudication_reason": "任内普通家庭的基本生计普遍失保，主要统治区长期处于严重破坏状态。生产受到禁令和徭役压制，俸禄失常引发私征腐败，流民、战争、饥疫和救济克扣共同造成系统性人口社会崩解。新莽末与更始赤眉战争后，人口、生产和行政登记处于极重耗损状态。",
@@ -1551,7 +1459,6 @@
           "ruler_id": "RULER-HAN-LIUXUAN",
           "ruler_name": "刘玄",
           "score": 5.7,
-          "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C1-1",
             "S_avg": "C1-1",
@@ -1566,24 +1473,6 @@
             "HOUSEHOLD_SUBSISTENCE_SURPLUS",
             "NET_TAX_LABOR_BURDEN"
           ],
-          "stability_stage_review": {
-            "status": "NOT_ADJUDICATED_BY_ATTACHED_FIX",
-            "stages": []
-          },
-          "persistence_review": {
-            "status": "NOT_APPLICABLE_NO_UPGRADE_OR_PEAK"
-          },
-          "dynasty_curve_review": {
-            "status": "PRESERVED",
-            "handoff_continuity_checked": false,
-            "basis": "当前附件未要求改变本人物交班锚。"
-          },
-          "inference_review": {
-            "status": "NOT_APPLICABLE_DIRECT_ANCHOR",
-            "inference_source_anchor": null,
-            "inference_hops": 0,
-            "inference_basis": "本人窗口直接宏观锚承担主档，连续性材料只作交班或背景校验。"
-          },
           "material_basis": [
             {
               "book": "《汉书》",
@@ -1594,7 +1483,7 @@
               "original_text": "及王莽簒位續以更始赤眉之亂至光武中興百姓虚耗十有二存。"
             }
           ],
-          "stability_basis": "S_main已处C1-1最低档，状态体系不存在可继续“跌破主态”的更低档位，因此K按定义取K4。这里的K4只表示K指标在底档没有向下分辨空间，不代表民生稳定、韧性良好或可在C4领取高位稳定承压信用；S0→C1-1的恶化及底档持续由绝对状态与C4归责处理，不在K重复消费。"
+          "stability_basis": "池外既有记录；当前规范池未启用新的低谷修正裁决。"
         }
       ]
     }

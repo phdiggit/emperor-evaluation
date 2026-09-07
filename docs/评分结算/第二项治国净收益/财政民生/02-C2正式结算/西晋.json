@@ -64,17 +64,18 @@
           ],
           "peak_band": null,
           "polity": "西晋",
-          "rank": 12,
+          "rank": 28,
           "reign_range": [
             265,
             290
           ],
           "ruler_id": "RULER-SHADOW-司马炎",
           "ruler_name": "司马炎",
-          "score": 23.6,
+          "score": 21.2,
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C2-3",
+            "S_main": "C2-4",
             "S_avg": "C2-4",
             "S_end": "C2-4"
           },
@@ -94,14 +95,29 @@
             "cost_position": "LOW",
             "usage": "PRESSURE_FACT_ONLY_NO_MECHANICAL_C2_BAND_EFFECT"
           },
-          "old_settlement": {
-            "main_band": "C2-4",
-            "score": 23.6,
-            "state_anchors": {
-              "S0": "C2-3",
-              "S_avg": "C2-4",
-              "S_end": "C2-4"
-            }
+          "loss_grade": "L2",
+          "stability_basis": "太康后段多郡连续农业损害为实质生产低谷，恢复初期同审；财政警告不当已失效。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-司马炎",
+            "loss_review": {
+              "grade": "L2",
+              "basis": "太康后段多郡连续农业损害为实质生产低谷，恢复初期同审；财政警告不当已失效。",
+              "strong_dimensions": [],
+              "main_representativeness": "太康阶段生产与仓府均达到较高绝对状态，《晋书》又直接记“赋税平均”，公共财政至少健康；统一后大量土地重新进入耕作，物资持续流入仓府。另一方面，本人窗口缺少强市场货币面的独立闭合，且当时已有官冗、不农人口和“暂有灾患便不继赡”的结构性警告，因此不能把太康富盛直接升成双柱强态，主档四档。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-司马炎",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-司马炎",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-司马炎",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-司马炎",
+                "https://zh.wikisource.org/wiki/資治通鑑/卷081"
+              ]
+            },
+            "score": 21.2
           }
         }
       ]

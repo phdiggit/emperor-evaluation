@@ -1120,57 +1120,6 @@
       "rank_status": "GLOBAL_CURRENT_READY_POOL"
     },
     {
-      "ruler_id": "RULER-SHADOW-李雄",
-      "ruler_name": "李雄",
-      "polity": "成汉",
-      "reign_range": [
-        304,
-        334
-      ],
-      "A120_score_points": 67.2,
-      "B80_score_points": 40.22,
-      "C50_score_points": 34.2,
-      "D_local_cost_profile": {
-        "cost_band": "C0",
-        "position": "LOW",
-        "status": "CONFIRMED",
-        "basis": "C0仅表示D项无独立成本链：仇池F3及南中M3均随第三项C“两项任务”消费者整链去重，不表示其真实战争成本低。"
-      },
-      "global_cost_credit_profile": {
-        "cost_band": "C5",
-        "position": "LOW",
-        "status": "CONFIRMED_GLOBAL_COST_VIEW",
-        "basis": "仇池两路进攻中一路成建制被围歼，数千人死亡；对成汉属于主要/核心野战兵团重大毁损，但尚非国家主力灾难。",
-        "source": "D_LOCAL_PLUS_RESTORED_THIRD_ITEM_C_CHAINS",
-        "restored_third_item_c_chain_ids": [
-          "LX-QIUCHI-323-C_DEDUP",
-          "LX-NANZHONG-332-C_DEDUP"
-        ]
-      },
-      "cost_credit_factor": 0.7975,
-      "cost_debit_points": 16.2,
-      "score_formula": "A120 + B80 + C50 - max(cost_debit, abs(military_net_loss_penalty))",
-      "military_net_loss_grade": "ML0",
-      "military_net_loss_attribution": "NONE",
-      "military_net_loss_penalty": 0.0,
-      "military_net_loss_basis": "未同时通过EN2/EN3、C5以上本方成本和本人责任门，不生成负向尾部。",
-      "applied_military_debit_points": 16.2,
-      "applied_military_debit_source": "COST",
-      "third_item_score_points": 125.42,
-      "third_item_score_rate": 50.17,
-      "coverage_status": {
-        "AB": "FORMAL_CURRENT",
-        "C": "DIRECT_EVENTS",
-        "D": "CONFIRMED",
-        "result_credit": "FORMAL_CURRENT"
-      },
-      "component_join_status": "READY",
-      "formal_score_write": true,
-      "pending_reason": null,
-      "rank": 24,
-      "rank_status": "GLOBAL_CURRENT_READY_POOL"
-    },
-    {
       "ruler_id": "RULER-SHADOW-杨坚",
       "ruler_name": "杨坚",
       "polity": "隋",
@@ -1215,7 +1164,7 @@
       "component_join_status": "READY",
       "formal_score_write": true,
       "pending_reason": null,
-      "rank": 25,
+      "rank": 24,
       "rank_status": "GLOBAL_CURRENT_READY_POOL"
     },
     {
@@ -1254,6 +1203,57 @@
       "coverage_status": {
         "AB": "FORMAL_CURRENT",
         "C": "FULL_REIGN_WAR_EVENT_BINDING",
+        "D": "CONFIRMED",
+        "result_credit": "FORMAL_CURRENT"
+      },
+      "component_join_status": "READY",
+      "formal_score_write": true,
+      "pending_reason": null,
+      "rank": 25,
+      "rank_status": "GLOBAL_CURRENT_READY_POOL"
+    },
+    {
+      "ruler_id": "RULER-SHADOW-李雄",
+      "ruler_name": "李雄",
+      "polity": "成汉",
+      "reign_range": [
+        304,
+        334
+      ],
+      "A120_score_points": 67.2,
+      "B80_score_points": 39.18,
+      "C50_score_points": 34.2,
+      "D_local_cost_profile": {
+        "cost_band": "C0",
+        "position": "LOW",
+        "status": "CONFIRMED",
+        "basis": "C0仅表示D项无独立成本链：仇池F3及南中M3均随第三项C“两项任务”消费者整链去重，不表示其真实战争成本低。"
+      },
+      "global_cost_credit_profile": {
+        "cost_band": "C5",
+        "position": "LOW",
+        "status": "CONFIRMED_GLOBAL_COST_VIEW",
+        "basis": "仇池两路进攻中一路成建制被围歼，数千人死亡；对成汉属于主要/核心野战兵团重大毁损，但尚非国家主力灾难。",
+        "source": "D_LOCAL_PLUS_RESTORED_THIRD_ITEM_C_CHAINS",
+        "restored_third_item_c_chain_ids": [
+          "LX-QIUCHI-323-C_DEDUP",
+          "LX-NANZHONG-332-C_DEDUP"
+        ]
+      },
+      "cost_credit_factor": 0.7975,
+      "cost_debit_points": 16.2,
+      "score_formula": "A120 + B80 + C50 - max(cost_debit, abs(military_net_loss_penalty))",
+      "military_net_loss_grade": "ML0",
+      "military_net_loss_attribution": "NONE",
+      "military_net_loss_penalty": 0.0,
+      "military_net_loss_basis": "未同时通过EN2/EN3、C5以上本方成本和本人责任门，不生成负向尾部。",
+      "applied_military_debit_points": 16.2,
+      "applied_military_debit_source": "COST",
+      "third_item_score_points": 124.38,
+      "third_item_score_rate": 49.75,
+      "coverage_status": {
+        "AB": "FORMAL_CURRENT",
+        "C": "DIRECT_EVENTS",
         "D": "CONFIRMED",
         "result_credit": "FORMAL_CURRENT"
       },

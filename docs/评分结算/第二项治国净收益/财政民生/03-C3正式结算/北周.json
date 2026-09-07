@@ -8,7 +8,7 @@
       ],
       "records": [
         {
-          "adjudication_reason": "本人实际亲政窗口内国家与基层秩序总体仍可运行；现有“夏人半为兵”、货币与军费材料均非纯C3，应退出主档依据。北周律令和统一后安置只能证明制度与秩序可运行，尚不足闭合四档；也未发现独立跌破三档的普通社会低谷，故K4。",
+          "adjudication_reason": "本人实际亲政窗口内国家与基层秩序总体仍可运行；现有“夏人半为兵”、货币与军费材料均非纯C3，应退出主档依据。北周律令和统一后安置只能证明制度与秩序可运行，尚不足闭合四档；",
           "authority_attribution": "572—578本人剪除宇文护后的实际最高权力窗口；征发、财政和统一战果不直接改变C3。",
           "confidence": "MEDIUM",
           "evidence": [
@@ -38,6 +38,7 @@
           "state_anchors": {
             "S0": "C3-3",
             "S_main": "C3-3",
+            "S_avg": "C3-3",
             "S_end": "C3-3"
           },
           "m3_supplement_review": {
@@ -57,7 +58,32 @@
               "book": "《隋书·刑法志》",
               "original_text": "北周武帝时法律持续运行，破齐后又释放杂户为百姓；仅作基本秩序背景，不直接抬高档位。"
             }
-          ]
+          ],
+          "loss_grade": "L0",
+          "stability_basis": "军事规模与户籍政策不直接证明本轴低谷。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-宇文邕",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "军事规模与户籍政策不直接证明本轴低谷。",
+              "strong_dimensions": [],
+              "main_representativeness": "本人实际亲政窗口内国家与基层秩序总体仍可运行；现有“夏人半为兵”、货币与军费材料均非纯C3，应退出主档依据。北周律令和统一后安置只能证明制度与秩序可运行，尚不足闭合四档；",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-宇文邕",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-宇文邕",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-宇文邕",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-宇文邕",
+                "docs/公共成果/制度行政/01-制度行政计分材料登记/northern_zhou.json#material_id=I2-NZHOU-YUWENYONG-AGRICULTURE-RELIEF-M2-AUDIT",
+                "https://zh.wikisource.org/w/index.php?title=周書/卷06&oldid=2589015"
+              ]
+            },
+            "score": 28.0
+          }
         }
       ]
     }

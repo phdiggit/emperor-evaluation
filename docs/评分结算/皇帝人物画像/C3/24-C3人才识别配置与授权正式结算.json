@@ -1,7 +1,7 @@
 {
   "schema_version": "formal-json-polity-router-v1",
   "route_key": "polity",
-  "content_schema_version": "profile-c3-formal-settlement-v1",
+  "content_schema_version": "profile-c3-formal-settlement-v2",
   "payload_key_order": [
     "schema_version",
     "canonical_status",
@@ -22,7 +22,7 @@
     "authority_mode"
   ],
   "payload_metadata": {
-    "schema_version": "profile-c3-formal-settlement-v1",
+    "schema_version": "profile-c3-formal-settlement-v2",
     "canonical_status": "FORMAL_CURRENT",
     "contract_version": "FORMAL-V1.0",
     "axis_code": "C3",
@@ -43,38 +43,36 @@
     "method": "MAJOR_TASK_PORTFOLIO_EXPLICIT_LIFECYCLE_ADJUDICATION",
     "summary": {
       "grade_distribution": {
-        "G0": 5,
-        "G1": 36,
-        "G2": 37,
-        "G3": 93,
-        "G4": 11,
-        "G5": 2
+        "G0": 3,
+        "G1": 18,
+        "G2": 29,
+        "G3": 95,
+        "G4": 36,
+        "G5": 3
       },
       "position_distribution": {
-        "HIGH": 45,
-        "LOW": 103,
-        "MID": 36
+        "HIGH": 106,
+        "LOW": 29,
+        "MID": 49
       },
       "evidence_level_distribution": {
-        "E1": 28,
-        "E2": 134,
-        "E3": 22
+        "E2": 2,
+        "E3": 182
       },
       "score_status_distribution": {
-        "EVIDENCE_LIMITED": 162,
-        "FINAL": 22
+        "EVIDENCE_LIMITED": 2,
+        "FINAL": 182
       },
       "output_mode_distribution": {
-        "BOUNDED_PROFILE": 134,
-        "EPISODE_TAG": 28,
-        "FULL_GRADE": 22
+        "BOUNDED_PROFILE": 2,
+        "FULL_GRADE": 182
       },
-      "parent_count": 195,
-      "parentless_count": 28,
+      "parent_count": 368,
+      "parentless_count": 0,
       "unresolved_count": 0,
-      "high_grade_count": 13,
+      "high_grade_count": 39,
       "latent_high_candidate_count": 0,
-      "systemic_grade_change_count": 3
+      "systemic_grade_change_count": 174
     },
     "authority_mode": "FORMAL_SETTLEMENT_PATCH_SOURCE"
   },

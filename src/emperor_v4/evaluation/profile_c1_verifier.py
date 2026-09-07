@@ -108,6 +108,27 @@ def _audit_source_ref_is_traceable(root: Path, ref: str, cache: dict[Path, str])
     return fragment in text
 
 
+def _parent_chains(record: dict) -> list[dict]:
+    """Return C1's canonical parent chains and reject the legacy duplicate shape."""
+
+    if "parents" in record or "representative_parent_contexts" in record:
+        raise ValueError(f"C1仍使用兼容父链字段: {record.get('ruler_id', 'UNKNOWN')}")
+    chains = record.get("parent_chains")
+    representative_ids = record.get("representative_parent_ids")
+    if not isinstance(chains, list) or not isinstance(representative_ids, list):
+        raise ValueError(f"C1父链schema不完整: {record.get('ruler_id', 'UNKNOWN')}")
+    if any(not isinstance(parent, dict) or not parent.get("parent_id") for parent in chains):
+        raise ValueError(f"C1父链对象缺少parent_id: {record.get('ruler_id', 'UNKNOWN')}")
+    chain_ids = [str(parent["parent_id"]) for parent in chains]
+    if len(set(chain_ids)) != len(chain_ids):
+        raise ValueError(f"C1人物内父链ID重复: {record.get('ruler_id', 'UNKNOWN')}")
+    if any(not isinstance(parent_id, str) or not parent_id for parent_id in representative_ids):
+        raise ValueError(f"C1代表父链ID非法: {record.get('ruler_id', 'UNKNOWN')}")
+    if len(set(representative_ids)) != len(representative_ids) or not set(representative_ids) <= set(chain_ids):
+        raise ValueError(f"C1代表父链ID无法回指完整父链: {record.get('ruler_id', 'UNKNOWN')}")
+    return chains
+
+
 def verify(root: Path) -> dict[str, object]:
     profile_root = root / "docs" / "评分结算" / "皇帝人物画像"
     contract = root / "docs" / "项目总纲" / "皇帝人物画像评估体系合同.md"
@@ -178,7 +199,8 @@ def verify(root: Path) -> dict[str, object]:
             low_ids.add(record["ruler_id"])
             if record["reviews"]["low_grade_gate"]["status"] != "CLOSED":
                 raise ValueError(f"low-grade bidirectional gate failed: {record['ruler_id']}")
-        for parent in record["parents"]:
+        parents = _parent_chains(record)
+        for parent in parents:
             parent_id = parent["parent_id"]
             if parent_id in parent_ids:
                 raise ValueError(f"duplicate parent ID: {parent_id}")
@@ -226,9 +248,10 @@ def verify(root: Path) -> dict[str, object]:
         if record["sequence"] not in profile_sequences:
             continue
         profile = next(profile for profile in profiles if profile["sequence"] == record["sequence"])
+        parents = _parent_chains(record)
         direct_refs = {
             ref
-            for parent in record["parents"]
+            for parent in parents
             if parent["consumption_status"] == "SCORING_PARENT"
             and parent["direction"] in {"POSITIVE", "MIXED_POSITIVE"}
             for ref in parent["direct_process_refs"]
@@ -237,7 +260,7 @@ def verify(root: Path) -> dict[str, object]:
             raise ValueError(f"cycle anchor aggregation mismatch: {record['ruler_id']}")
         if len(direct_refs) < profile["independent_cycles"]:
             raise ValueError(f"independent cycle lacks stable event anchor: {record['ruler_id']}")
-        for parent in record["parents"]:
+        for parent in parents:
             role = parent.get("diagnostic_role")
             if role is None:
                 raise ValueError(f"reaudited parent lacks PS/DW diagnosis: {parent['parent_id']}")
@@ -251,7 +274,7 @@ def verify(root: Path) -> dict[str, object]:
                 if parent.get("counter_diagnostic_role") != profile["dw"]:
                     raise ValueError(f"mixed parent lacks separate DW diagnosis: {parent['parent_id']}")
         negative_parents = [
-            parent for parent in record["parents"]
+            parent for parent in parents
             if parent["consumption_status"] == "SCORING_PARENT"
             and parent["direction"] in {"NEGATIVE", "MIXED_NEGATIVE"}
         ]

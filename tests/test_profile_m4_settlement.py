@@ -40,7 +40,7 @@ def test_profile_m4_rejects_open_lifecycle_and_source_grade_conversion() -> None
     review = _load(FULL_POOL_REVIEW)
 
     broken = copy.deepcopy(settlement)
-    broken["records"][0]["parents"][0]["exit_result"] = ""
+    broken["records"][0]["parent_chains"][0]["exit_result"] = ""
     with pytest.raises(AssertionError, match="open M4 lifecycle"):
         verify_payloads(broken, audit, high, review)
 

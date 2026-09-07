@@ -3,6 +3,9 @@ from __future__ import annotations
 import re
 from pathlib import Path
 from typing import Any
+from emperor_v4.evaluation.first_item_weights import (
+    A_MAX, B1_MAX, B2_MAX, C_MAX, C_POINTS as _C_POINTS,
+)
 
 
 SETTLEMENT_DIRECTORY = "docs/评分结算/第一项政权奠基与统一贡献及能力"
@@ -31,16 +34,6 @@ _C_ROW = re.compile(
     re.MULTILINE,
 )
 
-_C_POINTS = {
-    "C-0": 0.0,
-    "C-1-LOW": 6.0, "C-1-MID": 10.5, "C-1-HIGH": 15.0,
-    "C-2-LOW": 18.0, "C-2-MID": 22.5, "C-2-HIGH": 27.0,
-    "C-3-LOW": 30.0, "C-3-MID": 34.5, "C-3-HIGH": 39.0,
-    "C-4-LOW": 42.0, "C-4-MID": 46.5, "C-4-HIGH": 51.0,
-    "C-5-LOW": 54.0, "C-5-MID": 57.0, "C-5-HIGH": 60.0,
-}
-
-
 def load_first_item_markdown_settlement(workspace_root: Path, *, validate_cost: bool = True) -> list[dict[str, Any]]:
     path = workspace_root / TOTAL_SETTLEMENT
     text = path.read_text(encoding="utf-8-sig")
@@ -62,6 +55,9 @@ def load_first_item_markdown_settlement(workspace_root: Path, *, validate_cost: 
             raise ValueError(f"第一项Markdown成本扣除与净分不一致：{row['name']}")
         if not 0 <= row["total"] <= 240:
             raise ValueError(f"第一项Markdown总分越界：{row['name']}")
+        if any(not 0 <= row[key] <= cap for key, cap in
+               (("a", A_MAX), ("b1", B1_MAX), ("b2", B2_MAX), ("c", C_MAX))):
+            raise ValueError(f"第一项Markdown分轴超过合同上限：{row['name']}")
     if [row["total"] for row in rows] != sorted((row["total"] for row in rows), reverse=True):
         raise ValueError("第一项Markdown未按总分降序排列")
     if validate_cost:
@@ -87,6 +83,19 @@ def verify_first_item_markdown_settlement(workspace_root: Path) -> dict[str, Any
     if len(c_rows) != len(rows) or len(c_by_name) != len(c_rows):
         raise ValueError("第一项C正式结算人数为空、缺失或重复")
     totals_by_name = {row["name"]: row for row in rows}
+    a_text = (workspace_root / COMPONENT_SETTLEMENTS[0]).read_text(encoding="utf-8-sig")
+    a_rows = {}
+    for line in a_text.splitlines():
+        cells = [cell.strip() for cell in line.split("|")[1:-1]]
+        if len(cells) == 7 and cells[0].isdigit():
+            if cells[1] in a_rows:
+                raise ValueError("第一项A人物重复")
+            a_rows[cells[1]] = float(cells[-1].strip("*"))
+    if set(a_rows) != set(totals_by_name):
+        raise ValueError("第一项A与总表人物集合不一致")
+    for name, points in a_rows.items():
+        if points != totals_by_name[name]["a"]:
+            raise ValueError(f"第一项A与总表分值不一致：{name}")
     if set(c_by_name) != set(totals_by_name):
         raise ValueError("第一项C与总表人物集合不一致")
     for name, c_row in c_by_name.items():

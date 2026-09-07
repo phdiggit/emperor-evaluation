@@ -10,7 +10,7 @@
       ],
       "records": [
         {
-          "adjudication_reason": "太元后期有“天下无事”的广域安定总评，说明主要统治区至少维持基本秩序；但现有材料仍缺少司法救济与人身财产安全多轴强锚，不能升四档。末年宫廷弑君与继承风险属于中枢政治危机，不能据此另造普通社会低谷，故K4。",
+          "adjudication_reason": "太元后期有“天下无事”的广域安定总评，说明主要统治区至少维持基本秩序；但现有材料仍缺少司法救济与人身财产安全多轴强锚，不能升四档。",
           "authority_attribution": "376—396本人最高权力；“百姓乐业”等民生内容不直接抬C3，宫廷弑君只作交接政治背景。",
           "confidence": "MEDIUM",
           "evidence": [
@@ -41,6 +41,7 @@
           "state_anchors": {
             "S0": "C3-3",
             "S_main": "C3-3",
+            "S_avg": "C3-3",
             "S_end": "C3-3"
           },
           "m3_supplement_review": {
@@ -60,10 +61,33 @@
               "book": "《晋书·食货志》",
               "original_text": "太元末年记“天下无事”；仅作为广域秩序直接锚，不消费其谷帛、家给人足内容。"
             }
-          ]
+          ],
+          "loss_grade": "L0",
+          "stability_basis": "宫廷弑君不证明普通社会低谷，基本秩序维持。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-司马曜",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "宫廷弑君不证明普通社会低谷，基本秩序维持。",
+              "strong_dimensions": [],
+              "main_representativeness": "太元后期有“天下无事”的广域安定总评，说明主要统治区至少维持基本秩序；但现有材料仍缺少司法救济与人身财产安全多轴强锚，不能升四档。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-司马曜",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-司马曜",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-司马曜",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-司马曜"
+              ]
+            },
+            "score": 28.0
+          }
         },
         {
-          "adjudication_reason": "南渡草创后江东形成基本可运行秩序，主态三档；322年王敦攻入建康，史载其拥兵不朝、放士卒劫掠、宫省奔散，皇帝亦直言“何至害民如此”，构成交班前真实末期逆转，故S_end降二档、K0。",
+          "adjudication_reason": "南渡草创后江东形成基本可运行秩序，主态三档；",
           "authority_attribution": "317—322本人最高权力；王敦胜负本身不计C3，但入都后的士卒劫掠和宫省保护崩解属于直接社会安全后果。",
           "confidence": "MEDIUM",
           "evidence": [
@@ -82,18 +106,19 @@
           ],
           "main_band": "C3-3",
           "polity": "东晋",
-          "rank": 122,
+          "rank": 114,
           "reign_range": [
             317,
             322
           ],
           "ruler_id": "RULER-SHADOW-司马睿",
           "ruler_name": "司马睿",
-          "score": 25.8,
+          "score": 20.8,
           "stability_class_diagnostic_only": "K0",
           "state_anchors": {
             "S0": "C3-2",
             "S_main": "C3-3",
+            "S_avg": "C3-3",
             "S_end": "C3-2"
           },
           "m3_supplement_review": {
@@ -113,11 +138,38 @@
               "book": "《资治通鉴》卷92",
               "original_text": "王敦据石头后“放士卒劫掠，宫省奔散”，并有“何至害民如此”。"
             }
-          ]
+          ],
+          "loss_grade": "L3",
+          "stability_basis": "王敦放卒劫掠、宫省奔散及明确害民，核心区域严重低谷，不仅政变标签。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-司马睿",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "王敦放卒劫掠、宫省奔散及明确害民，核心区域严重低谷，不仅政变标签。",
+              "strong_dimensions": [
+                "scope",
+                "severity"
+              ],
+              "main_representativeness": "南渡草创后江东形成基本可运行秩序，主态三档；",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-SHADOW-司马睿",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-SHADOW-司马睿",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-SHADOW-司马睿",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-SHADOW-司马睿",
+                "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json"
+              ]
+            },
+            "score": 20.8
+          }
         },
         {
-          "adjudication_reason": "起点承接元帝末王敦入都后的二档低位。本人窗口内继续处理同一王敦危机并最终剪除逆臣、恢复中枢与基本秩序，终点回三档；起点低位及其恢复过程按合同不得降低K，现无独立跌破三档的后续阶段，故K4。",
-          "authority_attribution": "322—325本人最高权力；王敦危机视为从S0延续的同一恢复簇，不二次消费K。",
+          "adjudication_reason": "起点承接元帝末王敦入都后的二档低位。本人窗口内继续处理同一王敦危机并最终剪除逆臣、恢复中枢与基本秩序，终点回三档；起点低位及其恢复过程按合同不得降低低谷修正，现无独立跌破三档的后续阶段，故历史低谷标签。",
+          "authority_attribution": "322—325本人最高权力；王敦危机视为从S0延续的同一恢复簇，不二次消费低谷修正。",
           "confidence": "MEDIUM",
           "evidence": [
             {
@@ -143,7 +195,6 @@
           "ruler_id": "RULER-SHADOW-司马绍",
           "ruler_name": "司马绍",
           "score": 28.0,
-          "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C3-2",
             "S_main": "C3-3",

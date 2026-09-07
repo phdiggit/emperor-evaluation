@@ -20,7 +20,7 @@
       ],
       "records": [
         {
-          "adjudication_reason": "开元五档可以由纯C3材料独立闭合，无需消费米价、财政收入等C1/C2信息。《新唐书》直接记“良吏布州县，民获安乐；二十年间号称治平，人罕犯法”，并有“行千里不持尺兵”和天下死罪五十八人的长期结果，满足基层秩序、行旅人身安全和司法三轴高位。后期李林甫大狱、盗贼与狱讼繁起已形成下滑，安史之乱则使两京陷没、百姓“残于兵盗”，交班降至C3-1；S_end低于主态且属明确末期系统逆转，故K0。",
+          "adjudication_reason": "开元五档可以由纯C3材料独立闭合，无需消费米价、财政收入等C1/C2信息。《新唐书》直接记“良吏布州县，民获安乐；二十年间号称治平，人罕犯法”，并有“行千里不持尺兵”和天下死罪五十八人的长期结果，满足基层秩序、行旅人身安全和司法三轴高位。后期李林甫大狱、盗贼与狱讼繁起已形成下滑，安史之乱则使两京陷没、百姓“残于兵盗”，交班降至C3-1；",
           "authority_attribution": "712—756年本人最高权力；战争胜负本身不计C3，安史材料只消费已经发生的两京失陷、兵盗侵害和普通社会安全崩解结果。",
           "confidence": "HIGH",
           "evidence": [
@@ -51,15 +51,16 @@
           ],
           "main_band": "C3-5",
           "polity": "唐",
-          "rank": 9,
+          "rank": 8,
           "reign_range": "712-756",
           "ruler_id": "RULER-TANG-LILONGJI",
           "ruler_name": "李隆基",
-          "score": 41.6,
+          "score": 44.8,
           "stability_class_diagnostic_only": "K0",
           "state_anchors": {
             "S0": "C3-3",
             "S_main": "C3-5",
+            "S_avg": "C3-5",
             "S_end": "C3-1"
           },
           "m3_supplement_review": {
@@ -87,10 +88,42 @@
               "book": "《新唐书》卷五十一",
               "original_text": "“自两京陷没，民物耗弊，天下萧然。”又曰：“百姓残于兵盗……民行乞食者属路。”"
             }
-          ]
+          ],
+          "loss_grade": "L3",
+          "stability_basis": "长期司法下滑与失权前兵盗残民为广泛严重低谷，不按终点状态单独加重低谷修正。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-TANG-LILONGJI",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "长期司法下滑与失权前兵盗残民为广泛严重低谷，不按终点状态单独加重低谷修正。",
+              "strong_dimensions": [
+                "duration",
+                "severity"
+              ],
+              "main_representativeness": "开元五档可以由纯C3材料独立闭合，无需消费米价、财政收入等C1/C2信息。《新唐书》直接记“良吏布州县，民获安乐；二十年间号称治平，人罕犯法”，并有“行千里不持尺兵”和天下死罪五十八人的长期结果，满足基层秩序、行旅人身安全和司法三轴高位。后期李林甫大狱、盗贼与狱讼繁起已形成下滑，安史之乱则使两京陷没、百姓“残于兵盗”，交班降至C3-1；",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-TANG-LILONGJI",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-TANG-LILONGJI",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-TANG-LILONGJI",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-TANG-LILONGJI",
+                "《通典》卷七《食货》",
+                "《新唐书》卷五十一《食货志》",
+                "《资治通鉴》财政民生卡",
+                "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7210",
+                "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7211",
+                "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7216"
+              ]
+            },
+            "score": 44.8
+          }
         },
         {
-          "adjudication_reason": "贞观五档同样可由纯C3结果独立闭合。《新唐书》记“外户不闭者数月”“人行数千里不赍粮”及天下死罪二十九人、号称太平；《贞观政要》又记权贵豪猾“无敢侵欺细人”，《旧唐书》记录死刑覆奏后“全活者甚众”。这些分别覆盖行旅与财产安全、基层秩序和司法救济。S0低位及恢复过程不降低K，现有材料未识别恢复完成后的有效低谷，故K4。",
+          "adjudication_reason": "贞观五档同样可由纯C3结果独立闭合。《新唐书》记“外户不闭者数月”“人行数千里不赍粮”及天下死罪二十九人、号称太平；《贞观政要》又记权贵豪猾“无敢侵欺细人”，《旧唐书》记录死刑覆奏后“全活者甚众”。这些分别覆盖行旅与财产安全、基层秩序和司法救济。",
           "authority_attribution": "626—649年本人最高权力；S0与李渊S_end同步为C3-2，S_end保持C3-5。玄武门政变与突厥压力只用于起点背景，不作为五档正向材料。",
           "confidence": "HIGH",
           "evidence": [
@@ -110,15 +143,16 @@
           ],
           "main_band": "C3-5",
           "polity": "唐",
-          "rank": 1,
+          "rank": 4,
           "reign_range": "626-649",
           "ruler_id": "RULER-TANG-LISHIMIN",
           "ruler_name": "李世民",
-          "score": 52.0,
+          "score": 50.2,
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C3-2",
             "S_main": "C3-5",
+            "S_avg": "C3-5",
             "S_end": "C3-5"
           },
           "m3_supplement_review": {
@@ -146,10 +180,42 @@
               "book": "《旧唐书》卷五十",
               "original_text": "死刑覆奏、复理实行后，“自是全活者甚众。”"
             }
-          ]
+          ],
+          "loss_grade": "L1",
+          "stability_basis": "贞观初青州支党被广泛收系后，经崔仁师复按仅留首领、释放其余，为已实现的有界司法低谷及修复；不以恢复后太平抹去此段，也不把谋反名称当居民后果。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-TANG-LISHIMIN",
+            "loss_review": {
+              "grade": "L1",
+              "basis": "贞观初青州支党被广泛收系后，经崔仁师复按仅留首领、释放其余，为已实现的有界司法低谷及修复；不以恢复后太平抹去此段，也不把谋反名称当居民后果。",
+              "strong_dimensions": [],
+              "main_representativeness": "贞观五档同样可由纯C3结果独立闭合。《新唐书》记“外户不闭者数月”“人行数千里不赍粮”及天下死罪二十九人、号称太平；《贞观政要》又记权贵豪猾“无敢侵欺细人”，《旧唐书》记录死刑覆奏后“全活者甚众”。这些分别覆盖行旅与财产安全、基层秩序和司法救济。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-TANG-LISHIMIN",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-TANG-LISHIMIN",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-TANG-LISHIMIN",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-TANG-LISHIMIN",
+                "《旧唐书》卷四十九《食货志》所载戴胄奏议",
+                "《资治通鉴》财政民生卡",
+                "《贞观政要》卷六编纂者总评",
+                "《新唐书》卷五十一《食货志》",
+                "《通典》卷七《食货》",
+                "《贞观政要》卷九编纂者叙述",
+                "《资治通鉴》卷一百九十八",
+                "docs/史料通读产物/唐以前编年/唐/卷196-通读总结.md#L104-L115",
+                "https://zh.wikisource.org/wiki/資治通鑑/卷192"
+              ]
+            },
+            "score": 50.2
+          }
         },
         {
-          "adjudication_reason": "名单省略826—846多任皇帝，起点三档仅作共享政权桥。大中时期“权豪敛迹、奸臣畏法、刑政不滥”并持续十余年，属于直接覆盖司法与社会可预期性的广域结果，足以闭合四档主态。本人又承认一度“刑罚颇峻，盗贼益烦”，构成可定位的阶段裂缝，故K3；现有材料不足证明末年普通社会广域跌到二档，终点保四档。",
+          "adjudication_reason": "名单省略826—846多任皇帝，起点三档仅作共享政权桥。大中时期“权豪敛迹、奸臣畏法、刑政不滥”并持续十余年，属于直接覆盖司法与社会可预期性的广域结果，足以闭合四档主态。现有材料不足证明末年普通社会广域跌到二档，终点保四档。",
           "authority_attribution": "847—859年本人最高权力；名单前段缺任只以共享政权状态锚定S0，不把会昌以前材料直接归本人。",
           "confidence": "MEDIUM_HIGH",
           "evidence": [
@@ -170,15 +236,16 @@
           ],
           "main_band": "C3-4",
           "polity": "唐",
-          "rank": 21,
+          "rank": 26,
           "reign_range": "846-859",
           "ruler_id": "RULER-TANG-LICHEN",
           "ruler_name": "李忱",
-          "score": 39.4,
+          "score": 35.8,
           "stability_class_diagnostic_only": "K3",
           "state_anchors": {
             "S0": "C3-3",
             "S_main": "C3-4",
+            "S_avg": "C3-4",
             "S_end": "C3-4"
           },
           "m3_supplement_review": {
@@ -202,10 +269,37 @@
               "book": "《全唐文》卷八十《令详定盗贼赃罪诏》",
               "original_text": "攘窃之兴，起于不足。近日刑罚颇峻，盗贼益烦……轻人性命，重彼货财。"
             }
-          ]
+          ],
+          "loss_grade": "L2",
+          "stability_basis": "一度刑罚颇峻盗贼益烦为实质司法治安低谷，未因主态高而忽略。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-TANG-LICHEN",
+            "loss_review": {
+              "grade": "L2",
+              "basis": "一度刑罚颇峻盗贼益烦为实质司法治安低谷，未因主态高而忽略。",
+              "strong_dimensions": [],
+              "main_representativeness": "名单省略826—846多任皇帝，起点三档仅作共享政权桥。大中时期“权豪敛迹、奸臣畏法、刑政不滥”并持续十余年，属于直接覆盖司法与社会可预期性的广域结果，足以闭合四档主态。现有材料不足证明末年普通社会广域跌到二档，终点保四档。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-TANG-LICHEN",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-TANG-LICHEN",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-TANG-LICHEN",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-TANG-LICHEN",
+                "《新唐书》卷五十二《食货志》",
+                "《旧唐书》卷四十九《食货志》",
+                "《资治通鉴》卷二百四十九",
+                "《旧唐书》卷十八下《宣宗本纪》论"
+              ]
+            },
+            "score": 35.8
+          }
         },
         {
-          "adjudication_reason": "起点承接贞观五档。高宗中后期法吏“以惨酷为能”，甚至不释枷而笞棰致死，已经构成司法高压反证；永淳元年又明确出现“道路多草窃”，说明基层治安在交班前同步恶化。饥馑、疫病和人相食本身改作C1背景，不再直接用于C3降档；但司法与基层秩序两面同时脆弱仍足以支持S_end二档。主态仍取四档，真实末期逆转满足K0，故K由K2改K0。",
+          "adjudication_reason": "前中期本人可运行秩序及永徽阜安支持四档；后段法吏惨酷为实质司法低谷。《通鉴》永淳道路风险同段又记魏元忠处置后扈从无失，不能截取风险句证明普遍持续治安二档。交班按司法弱面与基本秩序并存取三档，不回抬五档。",
           "authority_attribution": "649—683年本人最高权力；贞观五档只固定S0，高丽等对外战争胜负不进入C3。",
           "confidence": "MEDIUM_HIGH",
           "evidence": [
@@ -233,16 +327,17 @@
           ],
           "main_band": "C3-4",
           "polity": "唐",
-          "rank": 40,
+          "rank": 26,
           "reign_range": "649-683",
           "ruler_id": "RULER-TANG-LIZHI",
           "ruler_name": "李治",
-          "score": 35.2,
+          "score": 35.8,
           "stability_class_diagnostic_only": "K0",
           "state_anchors": {
             "S0": "C3-5",
             "S_main": "C3-4",
-            "S_end": "C3-2"
+            "S_avg": "C3-4",
+            "S_end": "C3-3"
           },
           "m3_supplement_review": {
             "disposition": "REVIEWED_NO_APPLICABLE_SCORE_OR_EVIDENCE_CHANGE",
@@ -265,10 +360,41 @@
               "book": "《资治通鉴》卷203",
               "original_text": "上虑道路多草窃，命监察御史魏元忠检校车驾前后。"
             }
-          ]
+          ],
+          "loss_grade": "L2",
+          "stability_basis": "长期法吏惨酷为实质司法低谷；道路担忧与护送无失结果同读，交班已按司法弱面与基本秩序并存改三档。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-TANG-LIZHI",
+            "loss_review": {
+              "grade": "L2",
+              "basis": "长期法吏惨酷为实质司法低谷；道路担忧与护送无失结果同读，交班已按司法弱面与基本秩序并存改三档。",
+              "strong_dimensions": [],
+              "main_representativeness": "前中期本人可运行秩序及永徽阜安支持四档；后段法吏惨酷为实质司法低谷。《通鉴》永淳道路风险同段又记魏元忠处置后扈从无失，不能截取风险句证明普遍持续治安二档。交班按司法弱面与基本秩序并存取三档，不回抬五档。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-TANG-LIZHI",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-TANG-LIZHI",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-TANG-LIZHI",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-TANG-LIZHI",
+                "《通典》卷七《食货》",
+                "《资治通鉴》财政民生卡",
+                "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7200",
+                "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7201",
+                "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7202",
+                "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7203",
+                "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json",
+                "https://zh.wikisource.org/wiki/資治通鑑/卷203"
+              ]
+            },
+            "score": 35.8
+          }
         },
         {
-          "adjudication_reason": "全国层面仍只能闭合基本可运行秩序。淮西长期出现“禁人偶语于涂、夜不然烛、以酒食相过从者罪死”的区域高压，属于一处实质性社会安全低谷；平定后蔡州仅禁盗贼斗杀、昼夜往来自由，百姓“始知有生民之乐”，证明该区域恢复，但单一区域恢复不足把全国主态推到四档，故3/3/3、K2。",
+          "adjudication_reason": "全国层面仍只能闭合基本可运行秩序。淮西长期出现“禁人偶语于涂、夜不然烛、以酒食相过从者罪死”的区域高压，属于一处实质性社会安全低谷；",
           "authority_attribution": "805—820年本人最高权力；淮西战争胜负不计C3，只消费战区内已经实现的日常安全压制与战后秩序恢复。",
           "confidence": "MEDIUM",
           "evidence": [
@@ -299,15 +425,16 @@
           ],
           "main_band": "C3-3",
           "polity": "唐",
-          "rank": 97,
+          "rank": 114,
           "reign_range": "805-820",
           "ruler_id": "RULER-TANG-LICHUN",
           "ruler_name": "李纯",
-          "score": 26.9,
+          "score": 20.8,
           "stability_class_diagnostic_only": "K2",
           "state_anchors": {
             "S0": "C3-3",
             "S_main": "C3-3",
+            "S_avg": "C3-3",
             "S_end": "C3-3"
           },
           "m3_supplement_review": {
@@ -331,10 +458,38 @@
               "book": "《资治通鉴》卷二百四十",
               "original_text": "度既视事，下令惟禁盗贼斗杀，馀皆不问，往来者不限昼夜，蔡人始知有生民之乐。"
             }
-          ]
+          ],
+          "loss_grade": "L3",
+          "stability_basis": "淮西长期禁偶语夜烛并罪死，持续且严重的群体安全低谷，平定后恢复不抹去。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-TANG-LICHUN",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "淮西长期禁偶语夜烛并罪死，持续且严重的群体安全低谷，平定后恢复不抹去。",
+              "strong_dimensions": [
+                "duration",
+                "severity"
+              ],
+              "main_representativeness": "全国层面仍只能闭合基本可运行秩序。淮西长期出现“禁人偶语于涂、夜不然烛、以酒食相过从者罪死”的区域高压，属于一处实质性社会安全低谷；",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-TANG-LICHUN",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-TANG-LICHUN",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-TANG-LICHUN",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-TANG-LICHUN",
+                "《新唐书》卷五十二《食货志》所载齐抗奏议",
+                "《新唐书》卷五十二《食货志》"
+              ]
+            },
+            "score": 20.8
+          }
         },
         {
-          "adjudication_reason": "短任期主要统治区仍维持基本秩序，但万骑恃功暴横使长安受苦，公主及近幸逼夺民居民产，且史载“纲纪紊乱，复如景龙之世”，说明司法财产与基层可预期性存在明显裂缝。其范围和持续度不足形成次级主态，故主态三档、K3。",
+          "adjudication_reason": "短任期主要统治区仍维持基本秩序，但万骑恃功暴横使长安受苦，公主及近幸逼夺民居民产，且史载“纲纪紊乱，复如景龙之世”，说明司法财产与基层可预期性存在明显裂缝。其范围和持续度不足形成次级主态，故主态三档、历史低谷标签。",
           "authority_attribution": "710—712年本人最高权力；只消费本人窗口内已经实现的京畿暴横、侵产与秩序结果。",
           "confidence": "MEDIUM",
           "evidence": [
@@ -354,12 +509,11 @@
           ],
           "main_band": "C3-3",
           "polity": "唐",
-          "rank": 91,
+          "rank": 74,
           "reign_range": "710-712",
           "ruler_id": "RULER-TANG-LIDAN",
           "ruler_name": "李旦",
           "score": 27.6,
-          "stability_class_diagnostic_only": "K3",
           "state_anchors": {
             "S0": "C3-3",
             "S_main": "C3-3",
@@ -388,7 +542,7 @@
           ]
         },
         {
-          "adjudication_reason": "承接武周末三档。神龙以后权贵依势受赇、斜封用事并直接夺取民田，普通人的财产安全和规则可预期性长期受损，因此只能闭合三档；这些裂缝本身就是主要状态组成，并未另证一个实际低于三档的独立阶段，故K4。",
+          "adjudication_reason": "承接武周末三档。神龙以后权贵依势受赇、斜封用事并直接夺取民田，普通人的财产安全和规则可预期性长期受损，因此只能闭合三档；",
           "authority_attribution": "705—710年本人最高权力；武周晚期纠偏不足证明四档交班，S0与武则天S_end同步取三档。",
           "confidence": "MEDIUM_HIGH",
           "evidence": [
@@ -427,6 +581,7 @@
           "state_anchors": {
             "S0": "C3-3",
             "S_main": "C3-3",
+            "S_avg": "C3-3",
             "S_end": "C3-3"
           },
           "m3_supplement_review": {
@@ -450,10 +605,36 @@
               "book": "《资治通鉴》卷二百九",
               "original_text": "安乐公主尤骄横……乃更夺民田作定昆池。"
             }
-          ]
+          ],
+          "loss_grade": "L0",
+          "stability_basis": "夺民田受赇已构成三档，不重复同一财产裂缝。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-TANG-LIXIAN",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "夺民田受赇已构成三档，不重复同一财产裂缝。",
+              "strong_dimensions": [],
+              "main_representativeness": "承接武周末三档。神龙以后权贵依势受赇、斜封用事并直接夺取民田，普通人的财产安全和规则可预期性长期受损，因此只能闭合三档；",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-TANG-LIXIAN",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-TANG-LIXIAN",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-TANG-LIXIAN",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-TANG-LIXIAN",
+                "《旧唐书》卷四十八《食货志》",
+                "《通典》卷九《食货·钱币》",
+                "《资治通鉴》财政民生卡"
+              ]
+            },
+            "score": 28.0
+          }
         },
         {
-          "adjudication_reason": "起点承接高宗末低位。垂拱、天授以后告密与酷吏形成系统性司法恐怖，“一人被讼，百人满狱”，宗室贵戚、大臣及刺史郎将以下受诛不可胜数，足以构成一处实质性低于三档的阶段；徐有功等纠冤和晚期限制告密确有修复，但现有材料只能证明回到基本可运行秩序，不能闭合广域四档，故2/3/3、K2。",
+          "adjudication_reason": "起点承接高宗末低位。垂拱、天授以后告密与酷吏形成系统性司法恐怖，“一人被讼，百人满狱”，宗室贵戚、大臣及刺史郎将以下受诛不可胜数，足以构成一处实质性低于三档的阶段；起点随李治交班修为三档；共享期不重复独占恢复。",
           "authority_attribution": "684—705年实际最高权力窗口；高宗末危机只固定S0，酷吏告密与后期纠偏按本人窗口结算。",
           "confidence": "MEDIUM_HIGH",
           "evidence": [
@@ -480,15 +661,16 @@
           ],
           "main_band": "C3-3",
           "polity": "唐",
-          "rank": 97,
+          "rank": 114,
           "reign_range": "684-705",
           "ruler_id": "RULER-TANG-WUZETIAN",
           "ruler_name": "武则天",
-          "score": 26.9,
+          "score": 20.8,
           "stability_class_diagnostic_only": "K2",
           "state_anchors": {
-            "S0": "C3-2",
+            "S0": "C3-3",
             "S_main": "C3-3",
+            "S_avg": "C3-3",
             "S_end": "C3-3"
           },
           "m3_supplement_review": {
@@ -516,10 +698,44 @@
               "book": "《资治通鉴》卷二百四",
               "original_text": "时法官竞为深酷……酷吏所诬构者，有功皆为直之，前后所活数十百家。"
             }
-          ]
+          ],
+          "loss_grade": "L3",
+          "stability_basis": "告密酷吏扩大系狱为持续且严重司法低谷，受害不止单一宫廷案件。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-TANG-WUZETIAN",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "告密酷吏扩大系狱为持续且严重司法低谷，受害不止单一宫廷案件。",
+              "strong_dimensions": [
+                "duration",
+                "severity"
+              ],
+              "main_representativeness": "起点承接高宗末低位。垂拱、天授以后告密与酷吏形成系统性司法恐怖，“一人被讼，百人满狱”，宗室贵戚、大臣及刺史郎将以下受诛不可胜数，足以构成一处实质性低于三档的阶段；起点随李治交班修为三档；共享期不重复独占恢复。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-TANG-WUZETIAN",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-TANG-WUZETIAN",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-TANG-WUZETIAN",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-TANG-WUZETIAN",
+                "《通典》卷七《食货》",
+                "《资治通鉴》财政民生卡",
+                "《资治通鉴》卷二百六所录狄仁杰奏疏",
+                "《旧唐书》卷四十八《食货志》",
+                "《通典》卷九《食货·钱币》",
+                "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7204",
+                "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7205",
+                "https://zh.wikisource.org/wiki/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7206"
+              ]
+            },
+            "score": 20.8
+          }
         },
         {
-          "adjudication_reason": "德宗前中期多次出现叛军掠境、东都士民震骇逃入山谷以及泾原兵变、朱泚据长安等直接基层安全危机，因此主要状态仍为C3-2。后期核心区秩序已有一定恢复，交班可回C3-3。泾原—朱泚阶段构成明显低于主态的实质性低谷，故K2。",
+          "adjudication_reason": "德宗前中期多次出现叛军掠境、东都士民震骇逃入山谷以及泾原兵变、朱泚据长安等直接基层安全危机，因此主要状态仍为C3-2。后期核心区秩序已有一定恢复，交班可回C3-3。",
           "authority_attribution": "779—805年本人最高权力；藩镇战争胜负不直接计C3，掠夺、逃散、首都秩序失控等实际普通社会后果计入。",
           "confidence": "MEDIUM_HIGH",
           "evidence": [
@@ -540,15 +756,16 @@
           ],
           "main_band": "C3-2",
           "polity": "唐",
-          "rank": 156,
+          "rank": 163,
           "reign_range": "779-805",
           "ruler_id": "RULER-TANG-LISHI",
           "ruler_name": "李适",
-          "score": 15.4,
+          "score": 8.8,
           "stability_class_diagnostic_only": "K2",
           "state_anchors": {
             "S0": "C3-2",
             "S_main": "C3-2",
+            "S_avg": "C3-2",
             "S_end": "C3-3"
           },
           "m3_supplement_review": {
@@ -572,10 +789,38 @@
               "book": "《资治通鉴》卷228",
               "original_text": "泾原兵变及朱泚据长安造成京畿与多地军民秩序严重失控。"
             }
-          ]
+          ],
+          "loss_grade": "L3",
+          "stability_basis": "泾原朱泚阶段核心区掠境逃难为广泛严重深谷，后期恢复不抹去。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-TANG-LISHI",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "泾原朱泚阶段核心区掠境逃难为广泛严重深谷，后期恢复不抹去。",
+              "strong_dimensions": [
+                "scope",
+                "severity"
+              ],
+              "main_representativeness": "德宗前中期多次出现叛军掠境、东都士民震骇逃入山谷以及泾原兵变、朱泚据长安等直接基层安全危机，因此主要状态仍为C3-2。后期核心区秩序已有一定恢复，交班可回C3-3。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-TANG-LISHI",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-TANG-LISHI",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-TANG-LISHI",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-TANG-LISHI",
+                "《新唐书》卷五十二《食货志》",
+                "《新唐书》卷五十二《食货志》所载齐抗奏议"
+              ]
+            },
+            "score": 8.8
+          }
         },
         {
-          "adjudication_reason": "从安史战争的一档崩解起步，任内核心社会逐步恢复到广泛不安全以上，但长安仍出现“白昼椎剽、吏不敢诘、民不敢诉”的直接基层控制失灵，吐蕃入京等阶段又发生大量掳掠、焚毁和人口逃散，因此全任主态与交班仅C3-2。恢复后的重大入侵阶段构成独立低谷，记K2。",
+          "adjudication_reason": "从安史战争的一档崩解起步，任内核心社会逐步恢复到广泛不安全以上，但长安仍出现“白昼椎剽、吏不敢诘、民不敢诉”的直接基层控制失灵，吐蕃入京等阶段又发生大量掳掠、焚毁和人口逃散，因此全任主态与交班仅C3-2。",
           "authority_attribution": "762—779年本人最高权力；战争战果不加减C3，只消费长安治安失灵、掳掠焚毁和居民逃亡等实现后果。",
           "confidence": "MEDIUM_HIGH",
           "evidence": [
@@ -596,15 +841,16 @@
           ],
           "main_band": "C3-2",
           "polity": "唐",
-          "rank": 156,
+          "rank": 163,
           "reign_range": "762-779",
           "ruler_id": "RULER-TANG-LIYU",
           "ruler_name": "李豫",
-          "score": 15.4,
+          "score": 8.8,
           "stability_class_diagnostic_only": "K2",
           "state_anchors": {
             "S0": "C3-1",
             "S_main": "C3-2",
+            "S_avg": "C3-2",
             "S_end": "C3-2"
           },
           "m3_supplement_review": {
@@ -628,10 +874,36 @@
               "book": "《资治通鉴》卷223",
               "original_text": "吐蕃入京及相关战争阶段有大掠男女、焚毁庐舍和居民逃散。"
             }
-          ]
+          ],
+          "loss_grade": "L3",
+          "stability_basis": "吐蕃入京大量掳掠焚毁逃散为核心区域严重独立低谷，恢复阶段同审。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-TANG-LIYU",
+            "loss_review": {
+              "grade": "L3",
+              "basis": "吐蕃入京大量掳掠焚毁逃散为核心区域严重独立低谷，恢复阶段同审。",
+              "strong_dimensions": [
+                "scope",
+                "severity"
+              ],
+              "main_representativeness": "从安史战争的一档崩解起步，任内核心社会逐步恢复到广泛不安全以上，但长安仍出现“白昼椎剽、吏不敢诘、民不敢诉”的直接基层控制失灵，吐蕃入京等阶段又发生大量掳掠、焚毁和人口逃散，因此全任主态与交班仅C3-2。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-TANG-LIYU",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-TANG-LIYU",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-TANG-LIYU",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-TANG-LIYU"
+              ]
+            },
+            "score": 8.8
+          }
         },
         {
-          "adjudication_reason": "武德窗口从全国性内战崩解起步，至末年多数内地割据虽已平定，但626年原州、灵州、凉州等仍反复受寇，梁师都又陷静难镇；现有纯C3材料只能证明由崩解恢复到广泛不安全，而不足闭合主要统治区稳定可预期的三档。S0低位及恢复过程不得降低K，且未另证主态形成后再跌至一档，故K4。",
+          "adjudication_reason": "武德窗口从全国性内战崩解起步，至末年多数内地割据虽已平定，但626年原州、灵州、凉州等仍反复受寇，梁师都又陷静难镇；现有纯C3材料只能证明由崩解恢复到广泛不安全，而不足闭合主要统治区稳定可预期的三档。",
           "authority_attribution": "618—626年本人最高权力；统一战争战果不计C3，只消费已实现的境内安全与司法运行结果。",
           "confidence": "HIGH",
           "evidence": [
@@ -651,15 +923,16 @@
           ],
           "main_band": "C3-2",
           "polity": "唐",
-          "rank": 131,
+          "rank": 156,
           "reign_range": "618-626",
           "ruler_id": "RULER-TANG-LIYUAN",
           "ruler_name": "李渊",
-          "score": 16.0,
+          "score": 11.8,
           "stability_class_diagnostic_only": "K4",
           "state_anchors": {
             "S0": "C3-1",
             "S_main": "C3-2",
+            "S_avg": "C3-2",
             "S_end": "C3-2"
           },
           "m3_supplement_review": {
@@ -683,10 +956,35 @@
               "book": "《资治通鉴》卷191",
               "original_text": "武德九年突厥先后寇原州、灵州、凉州，梁师都寇边并陷静难镇，说明交班前边缘控制和居民安全仍反复受冲击。"
             }
-          ]
+          ],
+          "loss_grade": "L2",
+          "stability_basis": "统一窗口实际多地侵扰与基层恢复为实质安全阶段，不豁免初期。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-TANG-LIYUAN",
+            "loss_review": {
+              "grade": "L2",
+              "basis": "统一窗口实际多地侵扰与基层恢复为实质安全阶段，不豁免初期。",
+              "strong_dimensions": [],
+              "main_representativeness": "武德窗口从全国性内战崩解起步，至末年多数内地割据虽已平定，但626年原州、灵州、凉州等仍反复受寇，梁师都又陷静难镇；现有纯C3材料只能证明由崩解恢复到广泛不安全，而不足闭合主要统治区稳定可预期的三档。",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-TANG-LIYUAN",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-TANG-LIYUAN",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-TANG-LIYUAN",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-TANG-LIYUAN",
+                "《隋书》卷二十四《食货志》",
+                "《旧唐书》卷四十九《食货志》所载戴胄奏议"
+              ]
+            },
+            "score": 11.8
+          }
         },
         {
-          "adjudication_reason": "肃宗全任处在安史战争主阶段，两京及河北、河南多次失陷或争夺，城市与基层保护长期被战争和军队控制替代；短暂收复并未结束广域冲突，直到本人去世安史战争仍未闭合，故1/1/1、K4。",
+          "adjudication_reason": "肃宗全任处在安史战争主阶段，两京及河北、河南多次失陷或争夺，城市与基层保护长期被战争和军队控制替代；",
           "authority_attribution": "按本人实际最高权力窗口和政权共享曲线归责。",
           "confidence": "HIGH",
           "evidence": [
@@ -727,6 +1025,7 @@
           "state_anchors": {
             "S0": "C3-1",
             "S_main": "C3-1",
+            "S_avg": "C3-1",
             "S_end": "C3-1"
           },
           "m3_supplement_review": {
@@ -754,10 +1053,36 @@
               "book": "《资治通鉴》卷221",
               "original_text": "河北、河南战线在肃宗后期继续反复，安史主战争并未在本人窗口结束。"
             }
-          ]
+          ],
+          "loss_grade": "L0",
+          "stability_basis": "全任广域战争保护失效已由最低主态消费。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-TANG-LIHENG",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "全任广域战争保护失效已由最低主态消费。",
+              "strong_dimensions": [],
+              "main_representativeness": "肃宗全任处在安史战争主阶段，两京及河北、河南多次失陷或争夺，城市与基层保护长期被战争和军队控制替代；",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-TANG-LIHENG",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-TANG-LIHENG",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-TANG-LIHENG",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-TANG-LIHENG",
+                "《新唐书》卷五十一《食货志》",
+                "《通典》卷七《食货》",
+                "《资治通鉴》财政民生卡"
+              ]
+            },
+            "score": 5.0
+          }
         },
         {
-          "adjudication_reason": "僖宗即位后不久即进入王仙芝、黄巢等全国性叛乱，长安失守、军阀与叛军反复掠杀，收复后又迅速转入藩镇混战；主要阶段和终点均缺乏最低安全预期，故2→1→1、K4。",
+          "adjudication_reason": "僖宗即位后不久即进入王仙芝、黄巢等全国性叛乱，长安失守、军阀与叛军反复掠杀，收复后又迅速转入藩镇混战；",
           "authority_attribution": "按本人实际最高权力窗口和政权共享曲线归责。",
           "confidence": "HIGH",
           "evidence": [
@@ -785,6 +1110,7 @@
           "state_anchors": {
             "S0": "C3-2",
             "S_main": "C3-1",
+            "S_avg": "C3-1",
             "S_end": "C3-1"
           },
           "m3_supplement_review": {
@@ -812,7 +1138,31 @@
               "book": "《资治通鉴》卷254",
               "original_text": "长安失陷后中央与地方武装并起，关中和多道基层控制长期不能恢复。"
             }
-          ]
+          ],
+          "loss_grade": "L0",
+          "stability_basis": "全任广域掠杀保护失灵已在最低主态消费。",
+          "state_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE",
+          "state_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-TANG-LIXUAN",
+            "loss_review": {
+              "grade": "L0",
+              "basis": "全任广域掠杀保护失灵已在最低主态消费。",
+              "strong_dimensions": [],
+              "main_representativeness": "僖宗即位后不久即进入王仙芝、黄巢等全国性叛乱，长安失守、军阀与叛军反复掠杀，收复后又迅速转入藩镇混战；",
+              "full_window_reviewed": true,
+              "deduplication": "低于既定主态的独立结果才进入L；已用于主态的同一后果、跨轴错引和本人失权后的结果排除。具体取舍见本轴basis。",
+              "evidence_refs": [
+                "docs/评分结算/第二项治国净收益/财政民生/01-C1正式结算.json#ruler_id=RULER-TANG-LIXUAN",
+                "docs/评分结算/第二项治国净收益/财政民生/02-C2正式结算.json#ruler_id=RULER-TANG-LIXUAN",
+                "docs/评分结算/第二项治国净收益/财政民生/03-C3正式结算.json#ruler_id=RULER-TANG-LIXUAN",
+                "docs/评分结算/第二项治国净收益/财政民生/04-C4正式结算.json#ruler_id=RULER-TANG-LIXUAN",
+                "《新唐书》卷五十二《食货志》"
+              ]
+            },
+            "score": 5.0
+          }
         }
       ]
     }

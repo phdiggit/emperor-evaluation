@@ -8,7 +8,7 @@
       ],
       "records": [
         {
-          "adjudication_reason": "正向保留16.0分；宿州、鄂州可选择进攻支持额外家庭供役下限；粮运不继及士卒饥色不作为第二份军事成本。 去重：田頵等内乱和交班财政回落已在C2/C3消费，不算新残余。 最终DA1扣4.5分；可归责恶化另扣0.0分。 C4净分11.5。",
+          "adjudication_reason": "正向保留14.0分；宿州、鄂州可选择进攻支持额外家庭供役下限；粮运不继及士卒饥色不作为第二份军事成本。 去重：田頵等内乱和交班财政回落已在C2/C3消费，不算新残余。 最终DA1扣4.5分；可归责恶化另扣0.0分。 C4净分9.5。",
           "attribution_factor": 0.0,
           "closed_recovery_axes": [
             "C1",
@@ -24,20 +24,20 @@
           "negative_tail_adjudication_reason": "宿州、鄂州可选择进攻支持额外家庭供役下限；粮运不继及士卒饥色不作为第二份军事成本。 去重：田頵等内乱和交班财政回落已在C2/C3消费，不算新残余。 最终DA1扣4.5分；可归责恶化另扣0.0分。",
           "period": "post_tang",
           "polity": "唐末吴政权",
-          "positive_score_retained": 16.0,
-          "rank": 9,
-          "raw_score": 11.5,
-          "recovery_score": 16.0,
+          "positive_score_retained": 14.0,
+          "rank": 16,
+          "raw_score": 9.5,
+          "recovery_score": 14.0,
           "reign_range": "883—905年淮南实际主政",
           "ruler_id": "RULER-SHADOW-杨行密",
           "ruler_name": "杨行密",
-          "score": 11.5,
+          "score": 9.5,
           "terminal_band": "C4T-3",
           "terminal_cap": 24.9,
           "terminal_cap_applied": false,
           "terminal_reason": "交班raw锚点为民生3档、经济财政3档、社会安全3档；终局层级C4T-3，正向上限24.9。",
           "weighted_attributable_deterioration": 0.0,
-          "weighted_net_recovery_delta": 2.2,
+          "weighted_net_recovery_delta": 1.4,
           "m3_supplement_review": {
             "disposition": "REVIEWED_C4_ATTRIBUTION_RETAINED",
             "applied_parent_ids": [],
@@ -69,17 +69,17 @@
           },
           "public_basis_version": "C4-CIVILIAN-COST-V1",
           "starting_context": "接手三轴为C1-1/C2-1/C3-1；交班三轴为C1-3/C2-3/C3-3。",
-          "recovery_and_absorption": "恢复原值16.0；归责FULL（100%）；可归责恢复16.0/27；交班上限24.9；正向保留16.0。",
+          "recovery_and_absorption": "按可比基线至交班保留增量计算净恢复14.0/27；未保留峰值不计分。",
           "behavior_and_attribution": "宿州、鄂州可选择进攻支持额外家庭供役下限；粮运不继及士卒饥色不作为第二份军事成本。 去重：田頵等内乱和交班财政回落已在C2/C3消费，不算新残余。 最终DA1扣4.5分；可归责恶化另扣0.0分。",
-          "handoff_state": "交班raw锚点为民生3档、经济财政3档、社会安全3档；终局层级C4T-3，正向上限24.9。",
+          "handoff_state": "交班锚点为C1-3/C2-3/C3-3；终局C4T-3，正向上限24.9。",
           "public_source_refs": [
             "《新五代史·吴世家》：城中仓廪空虚，饥民相杀而食……轻徭薄赋，招抚流移，未及数载，几复承平之旧。",
             "《通鉴纪事本末》卷三十七：招抚流散，轻徭薄敛，未及数年，公私富庶，几复承平之旧。",
             "《资治通鉴》卷二百六十四：行密既定淮南，欲保境息民，每抑止之，頵不从。",
             "《新五代史》卷六十一：天祐二年，遣刘存攻鄂州……是日城破，执杜洪，斩于广陵。"
           ],
-          "public_adjudication": "正向保留16.0分；宿州、鄂州可选择进攻支持额外家庭供役下限；粮运不继及士卒饥色不作为第二份军事成本。 去重：田頵等内乱和交班财政回落已在C2/C3消费，不算新残余。 最终DA1扣4.5分；可归责恶化另扣0.0分。 C4净分11.5。",
-          "recovery_formula_version": "C4-CONTRACT-2026-08-31-C1_FORMAL_RECOVERY-DA_COST_MAGNITUDE",
+          "public_adjudication": "正向保留14.0分；宿州、鄂州可选择进攻支持额外家庭供役下限；粮运不继及士卒饥色不作为第二份军事成本。 去重：田頵等内乱和交班财政回落已在C2/C3消费，不算新残余。 最终DA1扣4.5分；可归责恶化另扣0.0分。 C4净分9.5。",
+          "recovery_formula_version": "GOVERNANCE-STATE-RECOVERY-V3",
           "recovery_boundary_difficulty": {
             "1_TO_2": 0.6,
             "2_TO_3": 0.8,
@@ -94,15 +94,19 @@
               "linear_delta": 2,
               "boundary_difficulty_credit": 1.4,
               "axis_weight": 0.5,
-              "weighted_difficulty_credit": 0.7
+              "attribution_factor": 1.0,
+              "weighted_difficulty_credit": 0.7,
+              "retained_increment": true
             },
             "C2": {
               "start_band": "C2-1",
-              "highest_achieved_band": "C2-4",
-              "linear_delta": 3,
-              "boundary_difficulty_credit": 2.4,
+              "highest_achieved_band": "C2-3",
+              "linear_delta": 2,
+              "boundary_difficulty_credit": 1.4,
               "axis_weight": 0.2,
-              "weighted_difficulty_credit": 0.48
+              "attribution_factor": 1.0,
+              "weighted_difficulty_credit": 0.28,
+              "retained_increment": true
             },
             "C3": {
               "start_band": "C3-1",
@@ -110,11 +114,13 @@
               "linear_delta": 2,
               "boundary_difficulty_credit": 1.4,
               "axis_weight": 0.3,
-              "weighted_difficulty_credit": 0.42
+              "attribution_factor": 1.0,
+              "weighted_difficulty_credit": 0.42,
+              "retained_increment": true
             }
           },
-          "difficulty_weighted_recovery_credit": 1.6,
-          "uncapped_positive_score": 16.0,
+          "difficulty_weighted_recovery_credit": 1.4,
+          "uncapped_positive_score": 14.0,
           "source_basis_format": "BOOK_PLUS_VERBATIM_EXCERPTS",
           "input_sync_status": "CURRENT_C1_C2_C3_AND_FINAL_DA_CHECKLIST",
           "batch_review_status": "FORMAL_C4_DA_READJUDICATED_2026-09-03",
@@ -124,7 +130,6 @@
               "reference_band": "C1-1",
               "end_band": "C1-3",
               "raw_drop": 0,
-              "attribution": "NONE",
               "attribution_factor": 0.0,
               "attributable_drop": 0.0,
               "axis_weight": 0.5
@@ -133,7 +138,6 @@
               "reference_band": "C2-1",
               "end_band": "C2-3",
               "raw_drop": 0,
-              "attribution": "NONE",
               "attribution_factor": 0.0,
               "attributable_drop": 0.0,
               "axis_weight": 0.2
@@ -142,7 +146,6 @@
               "reference_band": "C3-1",
               "end_band": "C3-3",
               "raw_drop": 0,
-              "attribution": "NONE",
               "attribution_factor": 0.0,
               "attributable_drop": 0.0,
               "axis_weight": 0.3
@@ -190,7 +193,7 @@
               "C3"
             ]
           },
-          "gross_recovery_score": 16.0,
+          "gross_recovery_score": 14.0,
           "recovery_attribution": {
             "grade": "FULL",
             "factor": 1.0,
@@ -223,7 +226,7 @@
             "status": "REVIEWED",
             "evidence_mode": "INFERRED",
             "choice_and_civilian_basis": "宿州、鄂州可选择进攻支持额外家庭供役下限；粮运不继及士卒饥色不作为第二份军事成本。",
-            "absorbed_and_excluded_basis": "田頵等内乱和交班财政回落已在C2/C3消费，不算新残余。",
+            "absorbed_and_excluded_basis": "田頵等内乱和交班财政回落已在C2/C3消费，不算新残余。 V3消费核对：C1 早期相食与强迁家庭断裂纳入本人恢复阶段，覆盖与严重度强，不豁免成功者。；C2 初期仓储空虚到数年富庶为持续严重财政经济低谷，后期压力合审不累扣。；C3 早期强迁流散及后期内部武装反复为持续严重安全低谷，不仅按叛乱名称。 既有DA只保留本审计所列独立供役、机会成本或其他残余对象；不按L扣分大小另加成本。",
             "inference_limit": "仅用于额外家庭离业、生产机会与民间供役，不估造人数或损害事实；纯军事规模推断最高为保守下限。",
             "military_input_double_charge": false,
             "source_refs": [
@@ -237,7 +240,106 @@
             ],
             "military_context_ref": "docs/评分结算/第三项军事与边疆净收益/军事成本收益比/01-皇帝D项正式结算.json#ruler_id=RULER-SHADOW-杨行密",
             "audit_ref": "docs/评分结算/第二项治国净收益/财政民生/06-主动民力成本去重审计.json#task_code=DA-REVIEW-RULER-SHADOW-杨行密"
-          }
+          },
+          "state_recovery_adjudication": {
+            "version": "GOVERNANCE-STATE-RECOVERY-V3",
+            "review_ref": "config/second-item/governance-state-recovery-adjudications.json#ruler_id=RULER-SHADOW-杨行密",
+            "baseline": {
+              "C1": {
+                "band": 1,
+                "label": "C1-1",
+                "source": "S0",
+                "status": "RECHECKED_RETAIN_S0",
+                "decision": "RETAIN_S0_NO_PREWINDOW_GATE",
+                "basis": "当前C4恢复路径以S0为起点；本轮没有闭合本人在正式窗口前直接制造同区重大损害且存在可比前置高基线的独立证据，故按现行基线规则保留S0，不使用0.5代理。"
+              },
+              "C2": {
+                "band": 1,
+                "label": "C2-1",
+                "source": "S0",
+                "status": "RECHECKED_RETAIN_S0",
+                "decision": "RETAIN_S0_NO_PREWINDOW_GATE",
+                "basis": "当前C4恢复路径以S0为起点；本轮没有闭合本人在正式窗口前直接制造同区重大损害且存在可比前置高基线的独立证据，故按现行基线规则保留S0，不使用0.5代理。"
+              },
+              "C3": {
+                "band": 1,
+                "label": "C3-1",
+                "source": "S0",
+                "status": "RECHECKED_RETAIN_S0",
+                "decision": "RETAIN_S0_NO_PREWINDOW_GATE",
+                "basis": "当前C4恢复路径以S0为起点；本轮没有闭合本人在正式窗口前直接制造同区重大损害且存在可比前置高基线的独立证据，故按现行基线规则保留S0，不使用0.5代理。"
+              }
+            },
+            "terminal": {
+              "C1": {
+                "band": 3,
+                "label": "C1-3",
+                "source": "S_end"
+              },
+              "C2": {
+                "band": 3,
+                "label": "C2-3",
+                "source": "S_end"
+              },
+              "C3": {
+                "band": 3,
+                "label": "C3-3",
+                "source": "S_end"
+              }
+            },
+            "attribution": {
+              "C1": {
+                "factor": 1.0,
+                "grade": "FULL",
+                "basis": "交班仍高于可比恢复基线；沿用已裁实施责任FULL，只保留实际净增档界。"
+              },
+              "C2": {
+                "factor": 1.0,
+                "grade": "FULL",
+                "basis": "交班仍高于可比恢复基线；沿用已裁实施责任FULL，只保留实际净增档界。"
+              },
+              "C3": {
+                "factor": 1.0,
+                "grade": "FULL",
+                "basis": "交班仍高于可比恢复基线；沿用已裁实施责任FULL，只保留实际净增档界。"
+              }
+            },
+            "calculation": {
+              "raw_recovery": 14.0,
+              "recovery_score": 14.0,
+              "terminal_band": 3,
+              "terminal_cap": 24.9,
+              "positive_retained": 14.0,
+              "axis_details": {
+                "C1": {
+                  "baseline_band": 1,
+                  "end_band": 3,
+                  "attribution_factor": 1.0,
+                  "boundary_credit": 1.4,
+                  "weighted_credit": 0.7,
+                  "retained_increment": true
+                },
+                "C2": {
+                  "baseline_band": 1,
+                  "end_band": 3,
+                  "attribution_factor": 1.0,
+                  "boundary_credit": 1.4,
+                  "weighted_credit": 0.28,
+                  "retained_increment": true
+                },
+                "C3": {
+                  "baseline_band": 1,
+                  "end_band": 3,
+                  "attribution_factor": 1.0,
+                  "boundary_credit": 1.4,
+                  "weighted_credit": 0.42,
+                  "retained_increment": true
+                }
+              }
+            }
+          },
+          "attribution_factor_role": "LEGACY_SUMMARY_USE_AXIS_SPECIFIC_PATH",
+          "stability_diagnostic_role": "M3_DIAGNOSTIC_ONLY_NOT_SCORE_ACTIVE"
         }
       ]
     }
