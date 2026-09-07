@@ -5,7 +5,7 @@
     "records": {
       "positions": [
         79,
-        111
+        113
       ],
       "records": [
         {
@@ -98,7 +98,9 @@
             "density": "DIRECT_PROCESS_REVIEWED"
           },
           "limitations": [],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 102,
@@ -109,21 +111,21 @@
           "actual_power_window": "317—323年",
           "axis_code": "M2",
           "axis_name": "外交博弈与对外联盟能力",
-          "score_status": "FINAL",
+          "score_status": "EVIDENCE_LIMITED",
           "axis_grade": "G3",
           "position": "LOW",
           "score_100": 58,
           "radar_value": 58,
-          "axis_evidence_level": "E3",
-          "output_mode": "FULL_GRADE",
-          "confidence": "HIGH",
+          "axis_evidence_level": "E1",
+          "output_mode": "EPISODE_TAG",
+          "confidence": "LOW",
           "adjudication_ref": "M2-FULL-POOL-ADJ-RULER-SHADOW-司马睿",
           "parent_chains": [
             {
               "parent_id": "M2-P102-DUTAO-SURRENDER",
               "direction": "MIXED_NEGATIVE",
               "intensity": "MI3",
-              "consumption_status": "SCORING_PARENT",
+              "consumption_status": "AXIS_OUT_WITH_REASON",
               "source_support": "DIRECT_TERMS_EXECUTION_BREAKDOWN_AND_CORRECTION",
               "adversity_origin": "SELF_CAUSED",
               "source_refs": [
@@ -141,25 +143,59 @@
                 "source_support": "DIRECT_TERMS_EXECUTION_BREAKDOWN_AND_CORRECTION",
                 "disposition": "RETAIN_AFTER_SEMANTIC_REVIEW",
                 "basis": "现有直接过程能够支持当前生命周期跨度；强度不由成果规模、对象枚举或父链数量推出。"
-              }
+              },
+              "axis_out_reason": "杜弢流民/叛乱集团的招抚、授官、己方将领破坏停战与再叛属于晋内部集团整合及执行信用。",
+              "route_handoff": {
+                "status": "ROUTED",
+                "target_axis": "M4",
+                "target_parent_ref": "M4-PENDING-DUTAO",
+                "reason": "杜弢流民/叛乱集团的招抚、授官、己方将领破坏停战与再叛属于晋内部集团整合及执行信用。"
+              },
+              "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
+              "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
+              "membership_relative_to_evaluated_ruler": "INTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "NOT_APPLICABLE_AXIS_OUT"
+            },
+            {
+              "parent_id": "M2-REVIEW-司马睿-MURONG-POLITICAL-RECOGNITION",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "source_support": "DIRECT_EXTERNAL_POLITICAL_RECOGNITION",
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/两晋/卷090-通读总结.md#DEF-LEAD-COALITION-317"
+              ],
+              "cycle_basis": "317年刘琨、段匹磾与慕容廆仍处晋统治共同体之外；北方劝进与遣使奉晋形成外部政治承认，司马睿接受并授慕容廆都督等名位。主动议价主要由刘琨、段匹磾、慕容廆承担，司马睿本人归责有限。",
+              "intensity_grade_review": {
+                "scope": "M2_INTENSITY_ATTRIBUTION_EFFECT_SEPARATION",
+                "before_intensity": "MI3",
+                "after_intensity": "MI3",
+                "source_support": "DIRECT_TERMS_EXECUTION_BREAKDOWN_AND_CORRECTION",
+                "disposition": "RETAIN_AFTER_SEMANTIC_REVIEW",
+                "basis": "现有直接过程能够支持当前生命周期跨度；强度不由成果规模、对象枚举或父链数量推出。"
+              },
+              "relationship_phase": "EXTERNAL_POLITY",
+              "political_membership_at_cycle_start": "EXTERNAL_SOVEREIGN_OR_DE_FACTO_INDEPENDENT",
+              "membership_relative_to_evaluated_ruler": "EXTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL"
             }
           ],
           "representative_parent_ids": [
-            "M2-P102-DUTAO-SURRENDER"
+            "M2-REVIEW-司马睿-MURONG-POLITICAL-RECOGNITION"
           ],
           "typical_pattern": "能提出宽赦受降条件，却不能稳定约束执行者，纠错晚且代价已发生。",
           "counterpattern": {
-            "positive_parent_refs": [],
-            "counter_parent_refs": [
-              "M2-P102-DUTAO-SURRENDER"
-            ]
+            "positive_parent_refs": [
+              "M2-REVIEW-司马睿-MURONG-POLITICAL-RECOGNITION"
+            ],
+            "counter_parent_refs": []
           },
-          "grade_basis": "同一周期有有效受降与明显执行失信，负面略占，置G3下沿。",
-          "position_basis": "置G3-LOW。",
+          "grade_basis": "杜弢内部链退出M2；北方劝进—慕容廆奉晋的真实外部承认周期提供窄MI2，司马睿主要承担接受与授予承认的归责。",
+          "position_basis": "单一窄周期、本人原创议价有限，置G3-LOW/E1；不再用杜弢链的正负相抵解释58。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "M2-P102-DUTAO-SURRENDER"
+              "M2-REVIEW-司马睿-MURONG-POLITICAL-RECOGNITION"
             ],
             "result_nonconversion": true
           },
@@ -172,7 +208,9 @@
             "density": "COUNTEREVIDENCE_FOUND"
           },
           "limitations": [],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         }
       ]
     }

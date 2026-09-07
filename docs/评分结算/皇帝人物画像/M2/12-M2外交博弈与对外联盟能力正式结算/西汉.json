@@ -4,15 +4,15 @@
   "collections": {
     "records": {
       "positions": [
-        3,
-        11,
-        30,
-        32,
+        1,
+        10,
+        29,
+        31,
         61,
         62,
         64,
-        98,
         99,
+        100,
         183
       ],
       "records": [
@@ -68,8 +68,7 @@
             }
           ],
           "representative_parent_ids": [
-            "M2-P027-HUHANYE-ALLIANCE",
-            "M2-P027-ZHIZHI-LIMIT"
+            "M2-P027-HUHANYE-ALLIANCE"
           ],
           "typical_pattern": "以保护、册立和资源交换稳定组织匈奴与西域多方秩序。",
           "counterpattern": {
@@ -106,7 +105,9 @@
           "limitations": [
             "现场执行大量依赖常惠、郑吉等。"
           ],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 16,
@@ -117,21 +118,21 @@
           "actual_power_window": "前206—前195年",
           "axis_code": "M2",
           "axis_name": "外交博弈与对外联盟能力",
-          "score_status": "FINAL",
+          "score_status": "EVIDENCE_LIMITED",
           "axis_grade": "G4",
           "position": "LOW",
           "score_100": 77,
           "radar_value": 77,
-          "axis_evidence_level": "E3",
-          "output_mode": "FULL_GRADE",
-          "confidence": "HIGH",
+          "axis_evidence_level": "E2",
+          "output_mode": "BOUNDED_PROFILE",
+          "confidence": "MEDIUM",
           "adjudication_ref": "M2-FULL-POOL-ADJ-RULER-HAN-LIUBANG",
           "parent_chains": [
             {
               "parent_id": "M2-P016-HAN-PENG-ALLIANCE",
               "direction": "MIXED_POSITIVE",
               "intensity": "MI3",
-              "consumption_status": "SCORING_PARENT",
+              "consumption_status": "AXIS_OUT_WITH_REASON",
               "source_support": "DIRECT_PROCESS_AND_EXECUTION",
               "adversity_origin": "SELF_CAUSED",
               "source_refs": [
@@ -146,13 +147,24 @@
                 "source_support": "DIRECT_PROCESS_AND_EXECUTION",
                 "disposition": "RETAIN_AFTER_SEMANTIC_REVIEW",
                 "basis": "现有直接过程能够支持当前生命周期跨度；强度不由成果规模、对象枚举或父链数量推出。"
-              }
+              },
+              "axis_out_reason": "韩信、彭越的封地—会师—夺兵权生命周期属于创业内部军事集团。",
+              "route_handoff": {
+                "status": "HANDOFF_PENDING",
+                "target_axis": "M4",
+                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "reason": "韩信、彭越的封地—会师—夺兵权生命周期属于创业内部军事集团。"
+              },
+              "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
+              "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
+              "membership_relative_to_evaluated_ruler": "INTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "NOT_APPLICABLE_AXIS_OUT"
             },
             {
               "parent_id": "M2-P016-XIONGNU-BAIDENG",
               "direction": "MIXED_NEGATIVE",
               "intensity": "MI3",
-              "consumption_status": "SCORING_PARENT",
+              "consumption_status": "AXIS_OUT_WITH_REASON",
               "source_support": "DIRECT_PROCESS_AND_CORRECTION",
               "adversity_origin": "SELF_CAUSED",
               "source_refs": [
@@ -177,7 +189,18 @@
                 "source_support": "DIRECT_PROCESS_AND_CORRECTION",
                 "disposition": "RETAIN_AFTER_SEMANTIC_REVIEW",
                 "basis": "现有直接过程能够支持当前生命周期跨度；强度不由成果规模、对象枚举或父链数量推出。"
-              }
+              },
+              "axis_out_reason": "白登核心是军事示弱识别、深入与被围的自致战略误判；现材料不足以分离出独立M2条件链。",
+              "route_handoff": {
+                "status": "HANDOFF_PENDING",
+                "target_axis": "M1/C1",
+                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "reason": "白登核心是军事示弱识别、深入与被围的自致战略误判；现材料不足以分离出独立M2条件链。"
+              },
+              "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
+              "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
+              "membership_relative_to_evaluated_ruler": "INTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "NOT_APPLICABLE_AXIS_OUT"
             },
             {
               "parent_id": "M2-P016-NANYUE-RECOGNITION",
@@ -202,27 +225,20 @@
             }
           ],
           "representative_parent_ids": [
-            "M2-P016-HAN-PENG-ALLIANCE",
-            "M2-P016-XIONGNU-BAIDENG",
             "M2-P016-NANYUE-RECOGNITION"
           ],
           "typical_pattern": "创业期善用封地、承认与和亲重组联盟；但成功后信用维护不稳，白登又显示本人可避免的对象误判。",
           "counterpattern": {
             "positive_parent_refs": [
-              "M2-P016-HAN-PENG-ALLIANCE",
               "M2-P016-NANYUE-RECOGNITION"
             ],
-            "counter_parent_refs": [
-              "M2-P016-XIONGNU-BAIDENG"
-            ]
+            "counter_parent_refs": []
           },
-          "grade_basis": "刘邦在创业关键压力下能用明确封地重新对齐韩信、彭越的利益，又能以名位与不战承认换取南越称臣，显示其可在军事盟友和独立政权两类对象间迁移条件设计。其战后信用维护不稳，白登误判及其后未能阻止侵扰的和亲安排又构成清晰下沿，因此整体是强长板但只能置G4下沿。",
-          "position_basis": "跨对象工具可复验，但信用下沿和白登自致危机明确，置G4-LOW。",
+          "grade_basis": "当前不发布新的M2实裁；旧G4-LOW仅作为整改前显示点保留。内部韩信/彭越链与白登军事误判已退出；楚廷反间、说齐、鸿沟等新外部候选尚未全部闭合。",
+          "position_basis": "待补证后重新裁档；旧值不作为合格下沿、当前雷达值或新结论。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "M2-P016-HAN-PENG-ALLIANCE",
-              "M2-P016-XIONGNU-BAIDENG",
               "M2-P016-NANYUE-RECOGNITION"
             ],
             "result_nonconversion": true
@@ -243,8 +259,16 @@
             ],
             "high_grade_gate": "PASSED"
           },
-          "limitations": [],
-          "formal_status": "FORMAL_CURRENT"
+          "limitations": [
+            "待补证：完成新外部父链的条件、反馈、授权与执行定位，再重算G4位置。"
+          ],
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "UNRESOLVED_EVIDENCE_GAP",
+          "display_point_only": true,
+          "display_point_reason": "内部韩信/彭越链与白登军事误判已退出；楚廷反间、说齐、鸿沟等新外部候选尚未全部闭合。",
+          "pending_reopen_condition": "完成新外部父链的条件、反馈、授权与执行定位，再重算G4位置。",
+          "historical_display_grade": "G4-LOW",
+          "historical_display_radar_value": 77
         },
         {
           "sequence": 24,
@@ -255,7 +279,7 @@
           "actual_power_window": "前49—前33年",
           "axis_code": "M2",
           "axis_name": "外交博弈与对外联盟能力",
-          "score_status": "FINAL",
+          "score_status": "EVIDENCE_LIMITED",
           "axis_grade": "G3",
           "position": "HIGH",
           "score_100": 71,
@@ -323,7 +347,9 @@
           "limitations": [
             "郅支战果主要由甘延寿、陈汤且含矫制，不换算为本人外交分。"
           ],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 31,
@@ -428,7 +454,9 @@
             "density": "COUNTEREVIDENCE_FOUND"
           },
           "limitations": [],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 15,
@@ -439,7 +467,7 @@
           "actual_power_window": "前33—前7年",
           "axis_code": "M2",
           "axis_name": "外交博弈与对外联盟能力",
-          "score_status": "FINAL",
+          "score_status": "EVIDENCE_LIMITED",
           "axis_grade": "G3",
           "position": "MID",
           "score_100": 65,
@@ -525,7 +553,9 @@
           "limitations": [
             "乌孙具体处置主要由段会宗及当地势力完成。"
           ],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 18,
@@ -621,7 +651,9 @@
             "density": "COUNTEREVIDENCE_FOUND"
           },
           "limitations": [],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 20,
@@ -728,7 +760,9 @@
             "density": "COUNTEREVIDENCE_FOUND"
           },
           "limitations": [],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 23,
@@ -772,7 +806,7 @@
               "parent_id": "M2-P023-SEVEN-KINGDOMS",
               "direction": "MIXED_POSITIVE",
               "intensity": "MI2",
-              "consumption_status": "SCORING_PARENT",
+              "consumption_status": "AXIS_OUT_WITH_REASON",
               "source_support": "DIRECT_PROCESS_AND_OUTCOME",
               "source_refs": [
                 "docs/史料通读产物/唐以前编年/汉/卷016-通读总结.md#L56"
@@ -785,27 +819,31 @@
                 "source_support": "DIRECT_PROCESS_AND_OUTCOME",
                 "disposition": "RETAIN_AFTER_SEMANTIC_REVIEW",
                 "basis": "现有直接过程能够支持当前生命周期跨度；强度不由成果规模、对象枚举或父链数量推出。"
-              }
+              },
+              "axis_out_reason": "七国之乱是本朝宗室/诸侯危机；和亲材料未通过结果门与因果门。",
+              "route_handoff": {
+                "status": "HANDOFF_PENDING",
+                "target_axis": "M4/M1/C1",
+                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "reason": "七国之乱是本朝宗室/诸侯危机；和亲材料未通过结果门与因果门。"
+              },
+              "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
+              "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
+              "membership_relative_to_evaluated_ruler": "INTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "NOT_APPLICABLE_AXIS_OUT"
             }
           ],
-          "representative_parent_ids": [
-            "M2-P023-XIONGNU-HEQIN",
-            "M2-P023-SEVEN-KINGDOMS"
-          ],
+          "representative_parent_ids": [],
           "typical_pattern": "和亲后仍连续受侵，婚姻退出正负计分；仅余七国分化的一条归责受限混合正链。",
           "counterpattern": {
-            "positive_parent_refs": [
-              "M2-P023-SEVEN-KINGDOMS"
-            ],
+            "positive_parent_refs": [],
             "counter_parent_refs": []
           },
-          "grade_basis": "旧结算把持续失效和亲作为负链不符合新合同；移除后不再支持G2，单一有限正链只发布G3下沿。",
-          "position_basis": "置G3-LOW并标记证据受限。",
+          "grade_basis": "当前不发布新的M2实裁；旧G3-LOW仅作为整改前显示点保留。七国之乱已转M4；和亲未通过结果门/因果门，不能以连续入侵自动造负链。",
+          "position_basis": "待补证后重新裁档；旧值不作为合格下沿、当前雷达值或新结论。",
           "axis_relevance_check": {
             "status": "CLOSED",
-            "scoring_parent_refs": [
-              "M2-P023-SEVEN-KINGDOMS"
-            ],
+            "scoring_parent_refs": [],
             "result_nonconversion": true
           },
           "reviews": {
@@ -817,9 +855,16 @@
             "density": "MATERIAL_DENSITY_LIMITED"
           },
           "limitations": [
-            "七国父链的外交条件与本人归责仍薄，纯军事结果已剥离。"
+            "七国父链的外交条件与本人归责仍薄，纯军事结果已剥离。",
+            "待补证：补齐景帝朝匈奴方向的使节、边市、停战、交换或反馈重谈周期。"
           ],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "UNRESOLVED_EVIDENCE_GAP",
+          "display_point_only": true,
+          "display_point_reason": "七国之乱已转M4；和亲未通过结果门/因果门，不能以连续入侵自动造负链。",
+          "pending_reopen_condition": "补齐景帝朝匈奴方向的使节、边市、停战、交换或反馈重谈周期。",
+          "historical_display_grade": "G3-LOW",
+          "historical_display_radar_value": 58
         },
         {
           "sequence": 25,
@@ -891,7 +936,9 @@
           "limitations": [
             "EVIDENCE_LIMITED：未闭合本人主导的新外交生命周期。"
           ],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 168,
@@ -908,7 +955,7 @@
           "score_100": 18,
           "radar_value": 18,
           "axis_evidence_level": "E2",
-          "output_mode": "EPISODE_TAG",
+          "output_mode": "BOUNDED_PROFILE",
           "confidence": "MEDIUM",
           "adjudication_ref": "M2-FULL-POOL-ADJ-RULER-XIN-WANGMANG",
           "parent_chains": [
@@ -990,7 +1037,9 @@
             "现有计分父链仍依赖有界摘要或分项汇总，缺少完整直接过程定位；本档位为低或中置信度显示点。"
           ],
           "formal_status": "FORMAL_CURRENT",
-          "grade_numeric": 1
+          "grade_numeric": 1,
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         }
       ]
     }

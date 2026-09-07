@@ -37,29 +37,63 @@
     },
     "method": {
       "unit": "COMPLETE_DIPLOMATIC_PARENT_CYCLE",
-      "counterparty_boundary": "NON_SELF_FORCE_WITH_INDEPENDENT_CHOICE_OR_REFUSAL_AT_CYCLE_START",
+      "counterparty_boundary": "EXTERNAL_POLITY_OR_EXTERNAL_AUTONOMOUS_ACTOR_WITH_RELATIONSHIP_TYPE_AND_MEMBERSHIP_AT_CYCLE_START",
       "result_nonconversion": true,
       "unresolved_count": 0,
-      "calibration_review_count": 1
+      "calibration_review_count": 1,
+      "relationship_classification": [
+        "EXTERNAL_POLITY_OR_EXTERNAL_AUTONOMOUS_ACTOR",
+        "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
+        "DUAL_IDENTITY_SPLIT_AT_IDENTITY_TRANSITION_POINT"
+      ],
+      "membership_fields": [
+        "political_membership_at_cycle_start",
+        "membership_relative_to_evaluated_ruler",
+        "relationship_phase",
+        "identity_transition_point"
+      ],
+      "counterparty_condition_authenticity": "VERIFIED_EXTERNAL_ONLY",
+      "terminal_execution_policy": "TERMINAL_EXECUTION_OR_TERMINAL_BREACH_MAY_VERIFY_A_PRE_EXISTING_EXTERNAL_PROMISE_ONLY",
+      "state_projection": {
+        "E1": [
+          "EPISODE_TAG",
+          "LOW",
+          "EVIDENCE_LIMITED"
+        ],
+        "E2": [
+          "BOUNDED_PROFILE",
+          "MEDIUM",
+          "EVIDENCE_LIMITED"
+        ],
+        "E3": [
+          "FULL_GRADE",
+          "HIGH",
+          "FINAL"
+        ]
+      },
+      "pending_reassessment_count": 17
     },
     "summary": {
       "grade_distribution": {
         "G0": 0,
         "G1": 15,
         "G2": 28,
-        "G3": 114,
-        "G4": 26,
+        "G3": 115,
+        "G4": 25,
         "G5": 1
       },
       "parent_count_distribution": {
-        "1": 52,
-        "2": 108,
-        "3": 22,
-        "4": 1,
+        "1": 51,
+        "2": 105,
+        "3": 25,
+        "4": 2,
         "5": 1
       },
-      "evidence_limited_count": 62,
-      "unresolved_count": 0
+      "evidence_limited_count": 94,
+      "unresolved_count": 0,
+      "record_count": 184,
+      "pending_reassessment_count": 17,
+      "display_point_only_count": 17
     }
   },
   "collections": {

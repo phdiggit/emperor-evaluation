@@ -4,7 +4,7 @@
   "collections": {
     "records": {
       "positions": [
-        16,
+        15,
         177
       ],
       "records": [
@@ -118,7 +118,9 @@
           "limitations": [
             "燕杀太子丹求和后秦仍进兵，现有材料不足判断其是否错失更优条件，仅作高档反查限制，不另造负链。"
           ],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 83,
@@ -129,21 +131,21 @@
           "actual_power_window": "前210—前207年",
           "axis_code": "M2",
           "axis_name": "外交博弈与对外联盟能力",
-          "score_status": "FINAL",
+          "score_status": "EVIDENCE_LIMITED",
           "axis_grade": "G1",
           "position": "MID",
           "score_100": 25,
           "radar_value": 25,
-          "axis_evidence_level": "E3",
-          "output_mode": "FULL_GRADE",
-          "confidence": "HIGH",
+          "axis_evidence_level": "E1",
+          "output_mode": "EPISODE_TAG",
+          "confidence": "LOW",
           "adjudication_ref": "M2-FULL-POOL-ADJ-RULER-QIN-HUHAI",
           "parent_chains": [
             {
               "parent_id": "M2-P083-REBELS-EXIT",
               "direction": "NEGATIVE",
               "intensity": "MI3",
-              "consumption_status": "SCORING_PARENT",
+              "consumption_status": "AXIS_OUT_WITH_REASON",
               "source_support": "DIRECT_FAILURE_TO_AUTHORIZE_EXIT",
               "adversity_origin": "MIXED",
               "source_refs": [
@@ -162,26 +164,31 @@
                 "source_support": "DIRECT_FAILURE_TO_AUTHORIZE_EXIT",
                 "disposition": "RETAIN_AFTER_SEMANTIC_REVIEW",
                 "basis": "现有直接过程能够支持当前生命周期跨度；强度不由成果规模、对象枚举或父链数量推出。"
-              }
+              },
+              "axis_out_reason": "章邯—司马欣集团的反馈、授权与退出是本方军政集团关系，不因对手为项羽而成为M2。",
+              "route_handoff": {
+                "status": "ROUTED",
+                "target_axis": "M4/C3/C2",
+                "target_parent_ref": "M4P-RULER-QIN-HUHAI-QH-P2",
+                "reason": "章邯—司马欣集团的反馈、授权与退出是本方军政集团关系，不因对手为项羽而成为M2。"
+              },
+              "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
+              "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
+              "membership_relative_to_evaluated_ruler": "INTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "NOT_APPLICABLE_AXIS_OUT"
             }
           ],
-          "representative_parent_ids": [
-            "M2-P083-REBELS-EXIT"
-          ],
+          "representative_parent_ids": [],
           "typical_pattern": "面对自主反秦联盟，只会加压己方执行者，无法授权战谈转换或保全退出。",
           "counterpattern": {
             "positive_parent_refs": [],
-            "counter_parent_refs": [
-              "M2-P083-REBELS-EXIT"
-            ]
+            "counter_parent_refs": []
           },
-          "grade_basis": "一项跨阶段MI3真实负链支持G1；责任与赵高共有且对象仅一组，置中位不进G0。",
-          "position_basis": "置G1-MID。",
+          "grade_basis": "当前不发布新的M2实裁；旧G1-MID仅作为整改前显示点保留。章邯—司马欣反馈/退出链已转M4/C3/C2，秦二世窗口暂无本人外部条件链。",
+          "position_basis": "待补证后重新裁档；旧值不作为合格下沿、当前雷达值或新结论。",
           "axis_relevance_check": {
             "status": "CLOSED",
-            "scoring_parent_refs": [
-              "M2-P083-REBELS-EXIT"
-            ],
+            "scoring_parent_refs": [],
             "result_nonconversion": true
           },
           "reviews": {
@@ -192,8 +199,16 @@
             "bidirectional": "NOT_TRIGGERED",
             "density": "COUNTEREVIDENCE_FOUND"
           },
-          "limitations": [],
-          "formal_status": "FORMAL_CURRENT"
+          "limitations": [
+            "待补证：补齐匈奴、南越或其他外部政治体的可归责交涉。"
+          ],
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "UNRESOLVED_EVIDENCE_GAP",
+          "display_point_only": true,
+          "display_point_reason": "章邯—司马欣反馈/退出链已转M4/C3/C2，秦二世窗口暂无本人外部条件链。",
+          "pending_reopen_condition": "补齐匈奴、南越或其他外部政治体的可归责交涉。",
+          "historical_display_grade": "G1-MID",
+          "historical_display_radar_value": 25
         }
       ]
     }

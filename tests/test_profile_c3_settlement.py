@@ -41,7 +41,8 @@ def test_profile_c3_rejects_keyword_or_count_adjudicators(payloads) -> None:
 
 def test_profile_c3_rejects_parentless_full_or_high_publication(payloads) -> None:
     settlement, audit, high, systemic = copy.deepcopy(payloads)
-    record = next(row for row in settlement["records"] if not parent_chains(row))
+    record = next(row for row in settlement["records"] if row["score_status"] == "EVIDENCE_LIMITED")
+    record["parent_chains"] = []
     record.update({"score_status": "FINAL", "axis_evidence_level": "E3", "output_mode": "FULL_GRADE"})
     with pytest.raises(AssertionError):
         verify_payloads(settlement, audit, high, systemic)
@@ -120,7 +121,16 @@ def test_profile_c3_rejects_unbound_scoring_units(payloads) -> None:
 
 def test_profile_c3_rejects_unreviewed_latent_high(payloads) -> None:
     settlement, audit, high, systemic = copy.deepcopy(payloads)
-    record = next(row for row in settlement["records"] if not row.get("latent_high_grade_hypothesis"))
+    reviewed_high_ids = {
+        row["ruler_id"]
+        for row in systemic["records"]
+        if row.get("high_gate_semantic_decision")
+    }
+    record = next(
+        row
+        for row in settlement["records"]
+        if row["ruler_id"] not in reviewed_high_ids and not row.get("latent_high_grade_hypothesis")
+    )
     record["latent_high_grade_hypothesis"] = {"axis_grade": "G4", "position": "LOW", "status": "MATERIAL_DENSITY_LIMITED"}
     with pytest.raises(AssertionError, match="person-specific decision"):
         verify_payloads(settlement, audit, high, systemic)

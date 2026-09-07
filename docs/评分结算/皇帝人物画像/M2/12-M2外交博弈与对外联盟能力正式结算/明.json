@@ -4,19 +4,19 @@
   "collections": {
     "records": {
       "positions": [
+        3,
         13,
-        14,
-        34,
         35,
         36,
+        37,
+        68,
         69,
         70,
-        71,
-        106,
         107,
-        157,
+        108,
         158,
-        163,
+        159,
+        164,
         170,
         175
       ],
@@ -32,9 +32,9 @@
           "axis_name": "外交博弈与对外联盟能力",
           "score_status": "FINAL",
           "axis_grade": "G4",
-          "position": "LOW",
-          "score_100": 77,
-          "radar_value": 77,
+          "position": "MID",
+          "score_100": 82,
+          "radar_value": 82,
           "axis_evidence_level": "E3",
           "output_mode": "FULL_GRADE",
           "confidence": "HIGH",
@@ -87,9 +87,9 @@
             },
             {
               "parent_id": "M2-P048-ANNAM-ANNEXATION",
-              "direction": "NEGATIVE",
-              "intensity": "MI3",
-              "consumption_status": "SCORING_PARENT",
+              "direction": "LIMITATION",
+              "intensity": "MI1",
+              "consumption_status": "BACKGROUND_VALIDATION",
               "source_support": "DIRECT_MULTI_STAGE_FEEDBACK",
               "source_refs": [
                 "docs/史料通读产物/明/明通鉴/volume-018.source-summary.md#L54",
@@ -97,15 +97,25 @@
                 "docs/史料通读产物/明/明通鉴/volume-019.source-summary.md#L89",
                 "docs/史料通读产物/明/明通鉴/volume-021.source-summary.md#L53"
               ],
-              "cycle_basis": "胡氏先以伪造表文骗取册封，又承诺归还陈天平和土地，却在护送途中伏杀。朱棣有充分理由介入，但在胡氏覆亡后把恢复陈氏的有限目标升级为直接设郡县；大军班师后立即复乱，中官马骐采办又激化反抗，黎利在多年打击后仍可转入山地和老挝。对象欺骗是外生起点，吞并与迟迟不退出则是本人可归责选择，按负向MI3。",
-              "adversity_origin": "MIXED"
+              "cycle_basis": "胡氏独立阶段的欺骗与吞并选择保留为M2/C1边界限制；郡县化后的采办、治理失信、反乱和长期镇压不再延长原M2父链。黎利只有在形成事实独立政治中心并出现闭合条件交换后才能另起M2。",
+              "adversity_origin": "MIXED",
+              "axis_out_reason": "胡氏独立政权阶段可保留外部欺骗/介入背景；正式设交趾郡县后的采办、地方治理失信、反乱与镇压属于内部领土治理。",
+              "route_handoff": {
+                "status": "HANDOFF_PENDING",
+                "target_axis": "M4/M1/C1/C5",
+                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "reason": "胡氏独立政权阶段可保留外部欺骗/介入背景；正式设交趾郡县后的采办、地方治理失信、反乱与镇压属于内部领土治理。"
+              },
+              "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
+              "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
+              "membership_relative_to_evaluated_ruler": "INTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "NOT_APPLICABLE_AXIS_OUT"
             }
           ],
           "representative_parent_ids": [
             "M2-P048-MALACCA-SAFETY-ORDER",
             "M2-P048-CROSS-REGION-ENVOY-NETWORK",
-            "M2-P048-NORTHERN-POLITY-BALANCING",
-            "M2-P048-ANNAM-ANNEXATION"
+            "M2-P048-NORTHERN-POLITY-BALANCING"
           ],
           "typical_pattern": "能够以反复使团、册封、互市和安全承认建立跨海陆关系网络，并在满剌加等对象上把承认落实为跨继承保护；对蒙古诸部也能利用多方竞争，但稳定性有限。安南则显示其会把正当介入升级为不可持续吞并，并在反复反馈后迟于退出。",
           "counterpattern": {
@@ -114,19 +124,17 @@
               "M2-P048-CROSS-REGION-ENVOY-NETWORK"
             ],
             "counter_parent_refs": [
-              "M2-P048-NORTHERN-POLITY-BALANCING",
-              "M2-P048-ANNAM-ANNEXATION"
+              "M2-P048-NORTHERN-POLITY-BALANCING"
             ]
           },
-          "grade_basis": "满剌加安全—承认链与跨海陆使团网络分别提供高诊断性正向复验，说明朱棣不是只有外交规模和名望，而是能持续设计并运转关系工具，达到G4强长板。安南吞并—复乱是同构念强反证，蒙古封授也反复失稳；加上关键谈判大量由郑和、尹庆、陈诚等执行，整体只能置G4下沿，不到玄烨G4上沿，更不具李世民G5所要求的本人高压决断与全生涯稳定性。",
-          "position_basis": "强正向架构具有跨对象和跨阶段复验，但有安南强反证、北方失稳及使团归责限制，置G4-LOW / 77。",
+          "grade_basis": "满剌加安全承认、跨海陆使团网络与蒙古多方平衡三组干净外部证据支撑G4；安南吞并后内部治理不再作为M2强负。",
+          "position_basis": "强正向架构跨对象、跨区域，但现场执行归责和蒙古失稳限制上沿，置G4-MID。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
               "M2-P048-MALACCA-SAFETY-ORDER",
               "M2-P048-CROSS-REGION-ENVOY-NETWORK",
-              "M2-P048-NORTHERN-POLITY-BALANCING",
-              "M2-P048-ANNAM-ANNEXATION"
+              "M2-P048-NORTHERN-POLITY-BALANCING"
             ],
             "result_nonconversion": true
           },
@@ -150,7 +158,9 @@
             "郑和、尹庆、陈诚等承担主要现场执行；朝贡数量、船队规模和后来外交名望均未换算为M2分值。",
             "安南直接统治在反复反馈后仍长期延续，北方封授关系也多次转回战争，限制全生涯稳定性。"
           ],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 59,
@@ -277,7 +287,14 @@
           "limitations": [
             "创业链现有定位只直接支持方国珍往复与先陈后张次序，不再外推全部归降条款。"
           ],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "actual_power_window_adjudication": {
+            "status": "FOUNDING_PRIMARY_ANCHOR_REVIEW",
+            "basis": "建明前成为独立军政集团最高责任中心的阶段应进入画像窗口；不能以1368国号作为机械起点。",
+            "formal_window_field_unchanged": true
+          },
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 52,
@@ -288,7 +305,7 @@
           "actual_power_window": "1449—1457年",
           "axis_code": "M2",
           "axis_name": "外交博弈与对外联盟能力",
-          "score_status": "FINAL",
+          "score_status": "EVIDENCE_LIMITED",
           "axis_grade": "G3",
           "position": "HIGH",
           "score_100": 71,
@@ -351,7 +368,9 @@
           "limitations": [
             "于谦军事贡献及杨善说服能力均未换算给本人。"
           ],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 61,
@@ -424,7 +443,9 @@
           "limitations": [
             "主要方案由臣子提出，且仅一个核心对象周期。"
           ],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 62,
@@ -496,7 +517,9 @@
             "density": "COUNTEREVIDENCE_FOUND"
           },
           "limitations": [],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 51,
@@ -507,7 +530,7 @@
           "actual_power_window": "1464—1487年",
           "axis_code": "M2",
           "axis_name": "外交博弈与对外联盟能力",
-          "score_status": "FINAL",
+          "score_status": "EVIDENCE_LIMITED",
           "axis_grade": "G3",
           "position": "MID",
           "score_100": 65,
@@ -552,7 +575,6 @@
             }
           ],
           "representative_parent_ids": [
-            "M2-P051-JURCHEN-DIVIDE",
             "M2-P051-HAMI"
           ],
           "typical_pattern": "能调整贡使成本并保存哈密复国基础，但未在窗口内形成稳定缓冲。",
@@ -582,7 +604,9 @@
           "limitations": [
             "建州女真父链无直接来源；哈密具体执行主要由边臣完成。"
           ],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 55,
@@ -593,7 +617,7 @@
           "actual_power_window": "1487—1505年",
           "axis_code": "M2",
           "axis_name": "外交博弈与对外联盟能力",
-          "score_status": "FINAL",
+          "score_status": "EVIDENCE_LIMITED",
           "axis_grade": "G3",
           "position": "MID",
           "score_100": 65,
@@ -641,8 +665,7 @@
             }
           ],
           "representative_parent_ids": [
-            "M2-P055-HAMI-TURFAN",
-            "M2-P055-MONGOL-TRIBUTE"
+            "M2-P055-HAMI-TURFAN"
           ],
           "typical_pattern": "持续使用册封、断贡与复业援助修复哈密缓冲，但代理治理和继承安排不稳。",
           "counterpattern": {
@@ -671,7 +694,9 @@
           "limitations": [
             "哈密执行大量依赖边臣；蒙古贡市未找到本人可分离周期。"
           ],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 57,
@@ -688,7 +713,7 @@
           "score_100": 65,
           "radar_value": 65,
           "axis_evidence_level": "E2",
-          "output_mode": "EPISODE_TAG",
+          "output_mode": "BOUNDED_PROFILE",
           "confidence": "MEDIUM",
           "adjudication_ref": "M2-FULL-POOL-ADJ-RULER-MING-ZHU-YOUJIAO",
           "parent_chains": [
@@ -767,7 +792,9 @@
           "limitations": [
             "已完成有界史料复查，但本人条件设计、反馈选择或执行终局仍不足以发布能力终值。"
           ],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 50,
@@ -840,7 +867,9 @@
           "limitations": [
             "EVIDENCE_LIMITED：本人条件设计与反馈纠正无法从中枢、大臣执行中分离。"
           ],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 58,
@@ -851,20 +880,20 @@
           "actual_power_window": "1646—1662年",
           "axis_code": "M2",
           "axis_name": "外交博弈与对外联盟能力",
-          "score_status": "FINAL",
+          "score_status": "EVIDENCE_LIMITED",
           "axis_grade": "G3",
           "position": "LOW",
           "score_100": 58,
           "radar_value": 58,
-          "axis_evidence_level": "E3",
-          "output_mode": "FULL_GRADE",
-          "confidence": "HIGH",
+          "axis_evidence_level": "E1",
+          "output_mode": "EPISODE_TAG",
+          "confidence": "LOW",
           "adjudication_ref": "M2-FULL-POOL-ADJ-RULER-MING-ZHU-YOULANG",
           "parent_chains": [
             {
               "parent_id": "M2-REVIEW-朱由榔-01",
               "direction": "MIXED_NEGATIVE",
-              "intensity": "MI4",
+              "intensity": "MI2",
               "consumption_status": "SCORING_PARENT",
               "source_support": "DIRECT_HISTORICAL_PROCESS_REVIEW",
               "source_refs": [
@@ -872,7 +901,7 @@
                 "《永历实录》永历三年至五年相关记载：孙可望继续索取王号、对朝廷施压及联盟关系恶化。",
                 "《明史》卷120《诸王列传·桂王由榔》：孙可望控制永历朝廷、安龙时期及后续关系。"
               ],
-              "cycle_basis": "永历三年前后，孙可望、李定国等大西余部仍是具有独立军力、可以拒绝甚至威胁南明朝廷的外部条件势力。；孙可望主动请求明廷政治承认，并表示可出兵抗清；朝廷内部对是否给予高爵有强烈争论。；朱由榔最终封孙可望景国公，李定国等授侯爵，试图用名位把这支独立武装纳入抗清联盟。；孙可望很快继续索取“王”号乃至专制权。朱由榔没有完全屈从，曾限制其王号，不愿按其全部要求授予最高政治地位。；但孙可望依靠军力不断加码，扣压使者、逼迫朝廷迁徙，甚至杀害反对其要求的永历大臣；政治承认没有转化成稳定、对等、可预测的联盟规则。；这一坏牌主要由孙可望掌握军力和南明极弱造成，不能把其所有强迫都算朱由榔失能；但从 M2 看，朱由榔也没有在长周期内建立足以约束孙可望的可执行交换。；整链因此是高强度混合负向，而不是单纯“联合大西抗清”的正向高光。",
+              "cycle_basis": "孙可望仍为外部大西余部时首次请求南明政治承认和抗清合作的入场谈判留M2；受封后索王号、控制朝廷与长期军政冲突转M4。",
               "adversity_origin": "EXTERNAL",
               "intensity_grade_review": {
                 "scope": "M2_INTENSITY_ATTRIBUTION_EFFECT_SEPARATION",
@@ -881,13 +910,18 @@
                 "source_support": "DIRECT_HISTORICAL_PROCESS_REVIEW",
                 "disposition": "RETAIN_AFTER_SEMANTIC_REVIEW",
                 "basis": "现有直接过程能够支持当前生命周期跨度；强度不由成果规模、对象枚举或父链数量推出。"
-              }
+              },
+              "relationship_phase": "EXTERNAL_TO_INTERNAL_TRANSITION",
+              "political_membership_at_cycle_start": "TRANSITIONING_SURRENDER_OR_VASSALIZATION",
+              "membership_relative_to_evaluated_ruler": "EXTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL",
+              "identity_transition_point": "孙可望受封并进入永历政治体系后"
             },
             {
               "parent_id": "M2-REVIEW-朱由榔-02",
               "direction": "POSITIVE",
               "intensity": "MI3",
-              "consumption_status": "SCORING_PARENT",
+              "consumption_status": "AXIS_OUT_WITH_REASON",
               "source_support": "DIRECT_HISTORICAL_PROCESS_REVIEW",
               "source_refs": [
                 "《永历实录》永历八年：“遣兵部侍郎萧尹赍血诏命李定国迎驾，封定国晋王”。",
@@ -902,7 +936,18 @@
                 "source_support": "DIRECT_HISTORICAL_PROCESS_REVIEW",
                 "disposition": "RETAIN_AFTER_SEMANTIC_REVIEW",
                 "basis": "现有直接过程能够支持当前生命周期跨度；强度不由成果规模、对象枚举或父链数量推出。"
-              }
+              },
+              "axis_out_reason": "李定国已进入永历封授体系；血诏、晋王与迎驾保护是内部军政集团重新接线。",
+              "route_handoff": {
+                "status": "ROUTED",
+                "target_axis": "M4",
+                "target_parent_ref": "M4-YL-P4",
+                "reason": "李定国已进入永历封授体系；血诏、晋王与迎驾保护是内部军政集团重新接线。"
+              },
+              "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
+              "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
+              "membership_relative_to_evaluated_ruler": "INTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "NOT_APPLICABLE_AXIS_OUT"
             },
             {
               "parent_id": "M2-REVIEW-朱由榔-03",
@@ -918,26 +963,21 @@
             }
           ],
           "representative_parent_ids": [
-            "M2-REVIEW-朱由榔-01",
-            "M2-REVIEW-朱由榔-02",
-            "M2-REVIEW-朱由榔-03"
+            "M2-REVIEW-朱由榔-01"
           ],
           "typical_pattern": "极端坏牌下能够利用大西余部这一自主军事集团，也会对孙可望过度索取政治名分设置边界，并最终通过秘密血诏转向李定国重建保护关系；但对孙可望的联盟长期处于被胁迫、失去议价主动的状态，整体只是合格下沿。原58可保留，但不再是默认值。",
           "counterpattern": {
-            "positive_parent_refs": [
-              "M2-REVIEW-朱由榔-02"
-            ],
+            "positive_parent_refs": [],
             "counter_parent_refs": [
               "M2-REVIEW-朱由榔-01"
             ]
           },
-          "grade_basis": "极端劣势下仍能利用大西余部，并通过秘密血诏转向李定国重建保护关系；但对孙可望的联盟长期被胁迫，政治名分交换也未恢复议价主动。能力达到合格线，稳定性只在下沿。",
-          "position_basis": "依据坏牌下的关系重建能力及孙可望方向的持续失控，置G3-LOW / 58。",
+          "grade_basis": "当前不发布新的M2实裁；旧G3-LOW仅作为整改前显示点保留。李定国主链已转M4，孙可望只保留首次入场谈判，缅甸庇护条件仍未闭合。",
+          "position_basis": "待补证后重新裁档；旧值不作为合格下沿、当前雷达值或新结论。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "M2-REVIEW-朱由榔-01",
-              "M2-REVIEW-朱由榔-02"
+              "M2-REVIEW-朱由榔-01"
             ],
             "result_nonconversion": true
           },
@@ -949,8 +989,16 @@
             "bidirectional": "CLOSED",
             "density": "COUNTEREVIDENCE_FOUND"
           },
-          "limitations": [],
-          "formal_status": "FORMAL_CURRENT"
+          "limitations": [
+            "待补证：补齐孙可望首次请封条件、本人角色及入缅安全/缴械/庇护反馈。"
+          ],
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "UNRESOLVED_EVIDENCE_GAP",
+          "display_point_only": true,
+          "display_point_reason": "李定国主链已转M4，孙可望只保留首次入场谈判，缅甸庇护条件仍未闭合。",
+          "pending_reopen_condition": "补齐孙可望首次请封条件、本人角色及入缅安全/缴械/庇护反馈。",
+          "historical_display_grade": "G3-LOW",
+          "historical_display_radar_value": 58
         },
         {
           "sequence": 49,
@@ -1041,7 +1089,9 @@
             "density": "COUNTEREVIDENCE_FOUND"
           },
           "limitations": [],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 54,
@@ -1098,8 +1148,7 @@
             }
           ],
           "representative_parent_ids": [
-            "M2-P054-JAPAN-KOREA-NEGOTIATION",
-            "M2-P054-MONGOL-TRIBUTE"
+            "M2-P054-JAPAN-KOREA-NEGOTIATION"
           ],
           "typical_pattern": "在援朝重大新谈判中容忍使臣欺瞒和条件错位；成熟封贡仅属继承背景。",
           "counterpattern": {
@@ -1128,7 +1177,9 @@
           "limitations": [
             "蒙古贡市后效不作为本人新正链。"
           ],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 53,
@@ -1183,8 +1234,7 @@
             }
           ],
           "representative_parent_ids": [
-            "M2-P053-TUMU-MISREAD",
-            "M2-P053-CAPTIVE-EXIT"
+            "M2-P053-TUMU-MISREAD"
           ],
           "typical_pattern": "好牌下误读贡赏冲突并在军事反馈后继续升级；俘虏期退出不能据现有材料归为本人能力。",
           "counterpattern": {
@@ -1213,7 +1263,9 @@
           "limitations": [
             "被俘期本人谈判归责材料不足。"
           ],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 56,
@@ -1306,7 +1358,9 @@
             "density": "COUNTEREVIDENCE_FOUND"
           },
           "limitations": [],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 60,
@@ -1317,21 +1371,21 @@
           "actual_power_window": "1398—1402年",
           "axis_code": "M2",
           "axis_name": "外交博弈与对外联盟能力",
-          "score_status": "FINAL",
+          "score_status": "EVIDENCE_LIMITED",
           "axis_grade": "G1",
           "position": "MID",
           "score_100": 25,
           "radar_value": 25,
-          "axis_evidence_level": "E3",
-          "output_mode": "FULL_GRADE",
-          "confidence": "HIGH",
+          "axis_evidence_level": "E1",
+          "output_mode": "EPISODE_TAG",
+          "confidence": "LOW",
           "adjudication_ref": "M2-FULL-POOL-ADJ-RULER-MING-ZHU-YUNWEN",
           "parent_chains": [
             {
               "parent_id": "M2-P060-YAN",
               "direction": "NEGATIVE",
               "intensity": "MI3",
-              "consumption_status": "SCORING_PARENT",
+              "consumption_status": "AXIS_OUT_WITH_REASON",
               "source_support": "DIRECT_PROCESS_AND_FEEDBACK",
               "source_refs": [
                 "docs/史料通读产物/明/明通鉴/volume-016.source-summary.md#L24",
@@ -1349,26 +1403,31 @@
                 "source_support": "DIRECT_PROCESS_AND_FEEDBACK",
                 "disposition": "RETAIN_AFTER_SEMANTIC_REVIEW",
                 "basis": "现有直接过程能够支持当前生命周期跨度；强度不由成果规模、对象枚举或父链数量推出。"
-              }
+              },
+              "axis_out_reason": "削藩、宗室安全预期与靖难期赦降属于本朝宗室/内战政治；同一核心生命周期已由M4消费。",
+              "route_handoff": {
+                "status": "ROUTED",
+                "target_axis": "M4",
+                "target_parent_ref": "M4P-RULER-MING-ZHU-YUNWEN-JW-P1",
+                "reason": "削藩、宗室安全预期与靖难期赦降属于本朝宗室/内战政治；同一核心生命周期已由M4消费。"
+              },
+              "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
+              "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
+              "membership_relative_to_evaluated_ruler": "INTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "NOT_APPLICABLE_AXIS_OUT"
             }
           ],
-          "representative_parent_ids": [
-            "M2-P060-YAN"
-          ],
+          "representative_parent_ids": [],
           "typical_pattern": "好牌下把可分化的藩王推成死敌，反馈后才以不一致的赦降和离间补救。",
           "counterpattern": {
             "positive_parent_refs": [],
-            "counter_parent_refs": [
-              "M2-P060-YAN"
-            ]
+            "counter_parent_refs": []
           },
-          "grade_basis": "真实好牌低产和持续不纠正支持G1；仅一条父链，不夸为MI4或G0。",
-          "position_basis": "尚有赦降姿态，置MID。",
+          "grade_basis": "当前不发布新的M2实裁；旧G1-MID仅作为整改前显示点保留。燕王链已转M4，定向补搜仍未找到建文帝本人闭合外部周期。",
+          "position_basis": "待补证后重新裁档；旧值不作为合格下沿、当前雷达值或新结论。",
           "axis_relevance_check": {
             "status": "CLOSED",
-            "scoring_parent_refs": [
-              "M2-P060-YAN"
-            ],
+            "scoring_parent_refs": [],
             "result_nonconversion": true
           },
           "reviews": {
@@ -1379,8 +1438,16 @@
             "bidirectional": "CLOSED",
             "density": "COUNTEREVIDENCE_FOUND"
           },
-          "limitations": [],
-          "formal_status": "FORMAL_CURRENT"
+          "limitations": [
+            "待补证：补齐建文朝对朝鲜、安南、蒙古/鞑靼或琉球的本人可归责条件链。"
+          ],
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "UNRESOLVED_EVIDENCE_GAP",
+          "display_point_only": true,
+          "display_point_reason": "燕王链已转M4，定向补搜仍未找到建文帝本人闭合外部周期。",
+          "pending_reopen_condition": "补齐建文朝对朝鲜、安南、蒙古/鞑靼或琉球的本人可归责条件链。",
+          "historical_display_grade": "G1-MID",
+          "historical_display_radar_value": 25
         }
       ]
     }

@@ -4,16 +4,16 @@
   "collections": {
     "records": {
       "positions": [
-        2,
-        31,
+        11,
+        30,
         60,
         63,
         65,
-        96,
         97,
-        100,
-        155,
-        156
+        98,
+        101,
+        156,
+        157
       ],
       "records": [
         {
@@ -27,9 +27,9 @@
           "axis_name": "外交博弈与对外联盟能力",
           "score_status": "FINAL",
           "axis_grade": "G4",
-          "position": "MID",
-          "score_100": 82,
-          "radar_value": 82,
+          "position": "LOW",
+          "score_100": 77,
+          "radar_value": 77,
           "axis_evidence_level": "E3",
           "output_mode": "FULL_GRADE",
           "confidence": "HIGH",
@@ -38,7 +38,7 @@
             {
               "parent_id": "M2-P026-FOUNDING-RIVALS",
               "direction": "POSITIVE",
-              "intensity": "MI3",
+              "intensity": "MI2",
               "consumption_status": "SCORING_PARENT",
               "source_support": "DIRECT_SETTLEMENT_AND_FEEDBACK",
               "source_refs": [
@@ -46,7 +46,7 @@
                 "docs/史料通读产物/唐以前编年/汉/卷041-通读总结.md#L32",
                 "docs/史料通读产物/唐以前编年/汉/卷042-通读总结.md#L45"
               ],
-              "cycle_basis": "赤眉与隗嚣在各周期起点均有自主军政。刘秀在邓禹强战失败后亲自以六军威慑承接赤眉整体投降，立即给食并以田宅安置渠帅家属；对名义归汉却拒绝协攻蜀的隗嚣，则先遣来歙持书、后在反叛与己方后勤失败反馈中调整为再征。定位支持受降执行和一条由交涉转战的混合反馈，但不支持原稿对更始、窦融、公孙述全部封爵婚姻条件的概括，故降为MI3。",
+              "cycle_basis": "赤眉、隗嚣在外部/半独立阶段的受降前交涉与关系转换留M2；赤眉降后田宅、家属与长期安置转M4。",
               "marriage_policy_review": {
                 "scan_hit": true,
                 "disposition": "BACKGROUND_COMPONENT_PARENT_RETAINS_OTHER_MECHANISM",
@@ -61,12 +61,17 @@
                 "source_support": "DIRECT_SETTLEMENT_AND_FEEDBACK",
                 "disposition": "RETAIN_AFTER_SEMANTIC_REVIEW",
                 "basis": "现有直接过程能够支持当前生命周期跨度；强度不由成果规模、对象枚举或父链数量推出。"
-              }
+              },
+              "relationship_phase": "EXTERNAL_TO_INTERNAL_TRANSITION",
+              "political_membership_at_cycle_start": "TRANSITIONING_SURRENDER_OR_VASSALIZATION",
+              "membership_relative_to_evaluated_ruler": "EXTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL",
+              "identity_transition_point": "赤眉正式受降并进入东汉安置体系后"
             },
             {
               "parent_id": "M2-P026-XIONGNU-XIYU",
               "direction": "MIXED_POSITIVE",
-              "intensity": "MI3",
+              "intensity": "MI2",
               "consumption_status": "SCORING_PARENT",
               "source_support": "DIRECT_CROSS_OBJECT_POLICY",
               "source_refs": [
@@ -75,7 +80,7 @@
                 "docs/史料通读产物/唐以前编年/汉/卷044-通读总结.md#L47",
                 "docs/史料通读产物/唐以前编年/汉/卷044-通读总结.md#L50"
               ],
-              "cycle_basis": "南匈奴与西域诸国均能拒绝汉廷。匈奴分裂后，刘秀接受南单于以藩蔽换保护，设置中郎将、骑兵与分部守边并持续供给；西域十八国送子求都护时，他以国内初定、北边未服拒绝超额承诺，随后部分诸国转附匈奴。前者形成执行中的缓冲，后者是有成本依据但带盟友流失的克制选择，故跨对象裁混合正向。",
+              "cycle_basis": "南匈奴仍为外部自主对象时，刘秀接受其以藩蔽换保护并设计缓冲；正式内附后的中郎将、驻地、供给和八郡分驻转M4。西域拒绝超额承诺保留为同一外部边界选择。",
               "intensity_grade_review": {
                 "scope": "M2_INTENSITY_ATTRIBUTION_EFFECT_SEPARATION",
                 "before_intensity": "MI3",
@@ -83,7 +88,12 @@
                 "source_support": "DIRECT_CROSS_OBJECT_POLICY",
                 "disposition": "RETAIN_AFTER_SEMANTIC_REVIEW",
                 "basis": "现有直接过程能够支持当前生命周期跨度；强度不由成果规模、对象枚举或父链数量推出。"
-              }
+              },
+              "relationship_phase": "EXTERNAL_TO_INTERNAL_TRANSITION",
+              "political_membership_at_cycle_start": "TRANSITIONING_SURRENDER_OR_VASSALIZATION",
+              "membership_relative_to_evaluated_ruler": "EXTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL",
+              "identity_transition_point": "南匈奴正式内附并进入汉常设监督/供给体系后"
             }
           ],
           "representative_parent_ids": [
@@ -98,8 +108,8 @@
             ],
             "counter_parent_refs": []
           },
-          "grade_basis": "跨创业、匈奴和西域有直接复验，仍达G4；原创业链概括被缩写且西域拒援产生真实损失，置中位。",
-          "position_basis": "置G4-MID。",
+          "grade_basis": "创业对手、南匈奴外部转附与西域边界选择仍形成跨情境复验；内附后的长期治理不再抬高M2。",
+          "position_basis": "剥离长期内附执行厚度后仍达G4，但置G4-LOW。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
@@ -127,7 +137,9 @@
           "limitations": [
             "创业链不再以纯统一战果或未被定位支持的封爵婚姻概括抬强度。"
           ],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 28,
@@ -190,7 +202,9 @@
                 "source_support": "DIRECT_MULTI_STAGE_FEEDBACK",
                 "disposition": "RETAIN_AFTER_SEMANTIC_REVIEW",
                 "basis": "现有直接过程能够支持当前生命周期跨度；强度不由成果规模、对象枚举或父链数量推出。"
-              }
+              },
+              "relationship_boundary_review": "POLITICAL_MEMBERSHIP_BOUNDARY_REVIEW",
+              "identity_transition_point": "迷唐是否形成稳定郡县内政治参与尚待补证"
             }
           ],
           "representative_parent_ids": [
@@ -206,8 +220,8 @@
               "M2-P028-QIANG-CORRECTION"
             ]
           },
-          "grade_basis": "西域正链与羌部混合负链并存，归责拆分后仍为G3上沿而非强长板。",
-          "position_basis": "置G3-HIGH。",
+          "grade_basis": "班超经营的西域多国体系仍是外部M2主链；迷唐是否长期属于内附体系保留边界复核，不以族名机械迁轴。",
+          "position_basis": "暂保留G3-HIGH候选，待迷唐政治成员身份切点复核。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
@@ -227,7 +241,9 @@
           "limitations": [
             "班超现场能力不全额换算给皇帝；羌部收束高度依赖军事压力。"
           ],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 13,
@@ -238,21 +254,21 @@
           "actual_power_window": "105—121年临朝主政",
           "axis_code": "M2",
           "axis_name": "外交博弈与对外联盟能力",
-          "score_status": "FINAL",
+          "score_status": "EVIDENCE_LIMITED",
           "axis_grade": "G3",
           "position": "MID",
           "score_100": 65,
           "radar_value": 65,
-          "axis_evidence_level": "E2",
-          "output_mode": "BOUNDED_PROFILE",
-          "confidence": "MEDIUM",
+          "axis_evidence_level": "E1",
+          "output_mode": "EPISODE_TAG",
+          "confidence": "LOW",
           "adjudication_ref": "M2-FULL-POOL-ADJ-RULER-HAN-DENGSUI",
           "parent_chains": [
             {
               "parent_id": "M2-P013-QIANG-107-118",
               "direction": "MIXED_BALANCED",
               "intensity": "MI3",
-              "consumption_status": "SCORING_PARENT",
+              "consumption_status": "AXIS_OUT_WITH_REASON",
               "source_support": "DIRECT_PROCESS_AND_CORRECTION",
               "source_refs": [
                 "docs/史料通读产物/唐以前编年/汉/卷049-通读总结.md#L61",
@@ -267,7 +283,18 @@
                 "source_support": "DIRECT_PROCESS_AND_CORRECTION",
                 "disposition": "RETAIN_AFTER_SEMANTIC_REVIEW",
                 "basis": "现有直接过程能够支持当前生命周期跨度；强度不由成果规模、对象枚举或父链数量推出。"
-              }
+              },
+              "axis_out_reason": "金城等羌长期居郡县、受徭役与地方行政支配；强征、边吏压迫、战争与招降不能整体当作外部外交。",
+              "route_handoff": {
+                "status": "HANDOFF_PENDING",
+                "target_axis": "M4/C5/M1/C3/C2",
+                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "reason": "金城等羌长期居郡县、受徭役与地方行政支配；强征、边吏压迫、战争与招降不能整体当作外部外交。"
+              },
+              "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
+              "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
+              "membership_relative_to_evaluated_ruler": "INTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "NOT_APPLICABLE_AXIS_OUT"
             },
             {
               "parent_id": "M2-P013-SOUTH-XIONGNU-109-110",
@@ -281,24 +308,17 @@
               "cycle_basis": "南单于109年仍能自主反叛并围美稷；邓绥摄政中枢由军事施压转入受降，110年接受其退出并归还被掳汉民万余，使关系恢复为可合作的南庭。现有总结能闭合战谈转换与结果，但具体谈判条件和本人逐项授权较简。"
             }
           ],
-          "representative_parent_ids": [
-            "M2-P013-QIANG-107-118",
-            "M2-P013-SOUTH-XIONGNU-109-110"
-          ],
+          "representative_parent_ids": [],
           "typical_pattern": "早期对部族底线识别失误造成升级，随后能借条件合作、受降和责任追究完成纠正。",
           "counterpattern": {
             "positive_parent_refs": [],
-            "counter_parent_refs": [
-              "M2-P013-QIANG-107-118"
-            ]
+            "counter_parent_refs": []
           },
-          "grade_basis": "跨羌与南匈奴两个周期显示失误和真实修正并存，整体合格而非稳定强长板。",
-          "position_basis": "纠错有效但前期代价大、本人细节归责有限，置G3-MID。",
+          "grade_basis": "当前不发布新的M2实裁；旧G3-MID仅作为整改前显示点保留。原羌链已确认属于长期内附体系，南匈奴现有材料也不足形成稳定外部周期。",
+          "position_basis": "待补证后重新裁档；旧值不作为合格下沿、当前雷达值或新结论。",
           "axis_relevance_check": {
             "status": "CLOSED",
-            "scoring_parent_refs": [
-              "M2-P013-QIANG-107-118"
-            ],
+            "scoring_parent_refs": [],
             "result_nonconversion": true
           },
           "reviews": {
@@ -310,9 +330,16 @@
             "density": "COUNTEREVIDENCE_FOUND"
           },
           "limitations": [
-            "部分工具由邓遵、任尚等执行，已限制本人归责强度。"
+            "部分工具由邓遵、任尚等执行，已限制本人归责强度。",
+            "待补证：补齐滇零另立后的招降条件、南单于受降条款及真正外部对象复验。"
           ],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "UNRESOLVED_EVIDENCE_GAP",
+          "display_point_only": true,
+          "display_point_reason": "原羌链已确认属于长期内附体系，南匈奴现有材料也不足形成稳定外部周期。",
+          "pending_reopen_condition": "补齐滇零另立后的招降条件、南单于受降条款及真正外部对象复验。",
+          "historical_display_grade": "G3-MID",
+          "historical_display_radar_value": 65
         },
         {
           "sequence": 19,
@@ -323,7 +350,7 @@
           "actual_power_window": "75—88年",
           "axis_code": "M2",
           "axis_name": "外交博弈与对外联盟能力",
-          "score_status": "FINAL",
+          "score_status": "EVIDENCE_LIMITED",
           "axis_grade": "G3",
           "position": "MID",
           "score_100": 65,
@@ -386,7 +413,9 @@
           "limitations": [
             "西域交涉的主要现场能力属于班超，已剥离名将成果。"
           ],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 30,
@@ -443,7 +472,6 @@
             }
           ],
           "representative_parent_ids": [
-            "M2-P030-SOUTH-XIONGNU",
             "M2-P030-WESTERN-REGIONS-OPENING"
           ],
           "typical_pattern": "能授权重开西域关系，但体系在交班前已遭重大反噬；南匈奴现有材料只验证安保建制。",
@@ -473,7 +501,9 @@
           "limitations": [
             "EVIDENCE_LIMITED：使臣与将领的现场外交能力不可全额归皇帝；南匈奴贡赐交换缺直接定位。"
           ],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 14,
@@ -490,7 +520,7 @@
           "score_100": 58,
           "radar_value": 58,
           "axis_evidence_level": "E2",
-          "output_mode": "EPISODE_TAG",
+          "output_mode": "BOUNDED_PROFILE",
           "confidence": "MEDIUM",
           "adjudication_ref": "M2-FULL-POOL-ADJ-RULER-HAN-LIANGNA",
           "parent_chains": [
@@ -517,10 +547,7 @@
               "cycle_basis": "梁妠本传确认其摄政期同时存在西羌、鲜卑和日南蛮夷外部/边缘自主势力的严重冲突。；但现存本传给出的处理方式是“委任李固等”“分兵讨伐”，属于军事与行政授权。；没有闭合受降条件、利益交换、使节、盟友分化或战谈转换，因此不能为了让人物“有M2材料”而把这段军事治理强行消费。"
             }
           ],
-          "representative_parent_ids": [
-            "M2-REVIEW-梁妠-01",
-            "M2-REVIEW-梁妠-02"
-          ],
+          "representative_parent_ids": [],
           "typical_pattern": "见闭合外交父链。",
           "counterpattern": {
             "positive_parent_refs": [],
@@ -544,7 +571,9 @@
           "limitations": [
             "已完成有界史料复查，但本人条件设计、反馈选择或执行终局仍不足以发布能力终值。"
           ],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 22,
@@ -615,7 +644,9 @@
           "limitations": [
             "EVIDENCE_LIMITED：邓绥临朝阶段已剥离，刘祜本人仅121年后材料可计。"
           ],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         },
         {
           "sequence": 29,
@@ -632,7 +663,7 @@
           "score_100": 58,
           "radar_value": 58,
           "axis_evidence_level": "E2",
-          "output_mode": "EPISODE_TAG",
+          "output_mode": "BOUNDED_PROFILE",
           "confidence": "MEDIUM",
           "adjudication_ref": "M2-FULL-POOL-ADJ-RULER-HAN-LIUZHI",
           "parent_chains": [
@@ -648,7 +679,7 @@
                 "docs/史料通读产物/唐以前编年/汉/卷054-通读总结.md#L46",
                 "docs/史料通读产物/唐以前编年/汉/卷054-通读总结.md#L48"
               ],
-              "cycle_basis": "158—159年南匈奴、乌桓、鲜卑联合入寇时，各部仍可改变站队。朝廷更换不良边吏、免幽并租赋，张奂潜诱乌桓倒戈，种暠归还质子并招抚不服者，联合阵营被拆且边方一度无警；次年鲜卑再入，说明成效是一次短周期而非跨期稳定机制。具体设计执行主要归边将，按正向MI2。",
+              "cycle_basis": "乌桓、鲜卑在起点仍具外部自主站队能力，边吏更换、返还质子与拆解联合入寇留M2；南匈奴既有内附体系前段与边吏治理不再拼入。",
               "intensity_grade_review": {
                 "scope": "M2_INTENSITY_ATTRIBUTION_EFFECT_SEPARATION",
                 "before_intensity": "MI3",
@@ -656,12 +687,16 @@
                 "source_support": "DIRECT_CAUSE_SPLIT_AND_EXECUTION",
                 "disposition": "DOWNGRADE_OVERAGGREGATED_MULTI_OBJECT_CHAIN",
                 "basis": "拆除跨族群、跨臣僚和跨阶段拼接后，只剩一个对象周期内的条件、反馈与短期执行。"
-              }
+              },
+              "relationship_phase": "EXTERNAL_POLITY",
+              "political_membership_at_cycle_start": "EXTERNAL_AUTONOMOUS_POLITY_OR_TRIBE",
+              "membership_relative_to_evaluated_ruler": "EXTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL"
             },
             {
               "parent_id": "M2-P029-QIANG-CYCLE",
               "direction": "MIXED_BALANCED",
-              "intensity": "MI2",
+              "intensity": "MI1",
               "consumption_status": "SCORING_PARENT",
               "source_support": "DIRECT_MULTI_STAGE_PROCESS",
               "source_refs": [
@@ -670,7 +705,7 @@
                 "docs/史料通读产物/唐以前编年/汉/卷054-通读总结.md#L73",
                 "docs/史料通读产物/唐以前编年/汉/卷054-通读总结.md#L75"
               ],
-              "cycle_basis": "159—163年西羌仍有降附或复叛选择。边吏贪暴、多杀降羌和扣军先破坏信用；朝廷授权皇甫规、张奂等清理贪吏、招降和分化，形成大规模归附，但西羌很快复盛。该链闭合信用破坏—修复—复发，同时显示本人主要通过授权臣僚处置，按混合MI2；南匈奴、乌桓、鲜卑及和亲被拒不再拼入本链。",
+              "cycle_basis": "西羌只有在公开脱离后形成事实独立主体的招降/战谈切片可留M2；边吏贪暴、多杀降羌与内部信用破坏前段转M4/C5，旧链强度不再代表跨对象系统性。",
               "marriage_policy_review": {
                 "scan_hit": true,
                 "disposition": "BACKGROUND_COMPONENT_PARENT_RETAINS_OTHER_MECHANISM",
@@ -685,7 +720,11 @@
                 "source_support": "DIRECT_MULTI_STAGE_PROCESS",
                 "disposition": "DOWNGRADE_OVERAGGREGATED_MULTI_OBJECT_CHAIN",
                 "basis": "拆除跨族群、跨臣僚和跨阶段拼接后，只剩一个对象周期内的条件、反馈与短期执行。"
-              }
+              },
+              "relationship_phase": "OPEN_SECESSION_TO_EXTERNAL_NEGOTIATION",
+              "political_membership_at_cycle_start": "OPEN_SECESSION_OR_DE_FACTO_INDEPENDENT_BELLIGERENT",
+              "membership_relative_to_evaluated_ruler": "EXTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL"
             }
           ],
           "representative_parent_ids": [
@@ -701,8 +740,8 @@
               "M2-P029-QIANG-CYCLE"
             ]
           },
-          "grade_basis": "北方拆盟只闭合158—159年的一次短周期；西羌链也只闭合159—163年间信用破坏、修复和复发的单对象周期。两链均为MI2，不能把南匈奴、乌桓、鲜卑和多名边将拼接成系统性MI3复验。",
-          "position_basis": "能力可用但本人归责和稳定性均受限，置G3-LOW / 58。",
+          "grade_basis": "纯M2只支持一次短周期拆盟与一条窄招降切片；旧南匈奴/边吏内部治理厚度已剥离。",
+          "position_basis": "暂以G3-LOW/58作有界显示点，不能解释为完整全生涯档位。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
@@ -722,7 +761,13 @@
           "limitations": [
             "具体设计执行主要由张奂、种暠、皇甫规等完成；现有材料只支持两个短周期MI2，不能证明跨期稳定机制。"
           ],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "REASSESSMENT_REQUIRED",
+          "display_point_only": true,
+          "display_point_reason": "纯M2只剩拆盟与有限招降工具，尚不足发布完整全生涯外交画像。",
+          "pending_reopen_condition": "补闭乌桓/鲜卑具体条件、西羌关系翻转后的招降条件，并完成本人归责复核。",
+          "historical_display_grade": "G3-LOW",
+          "historical_display_radar_value": 58
         },
         {
           "sequence": 17,
@@ -733,21 +778,21 @@
           "actual_power_window": "125—144年",
           "axis_code": "M2",
           "axis_name": "外交博弈与对外联盟能力",
-          "score_status": "FINAL",
+          "score_status": "EVIDENCE_LIMITED",
           "axis_grade": "G2",
           "position": "MID",
           "score_100": 45,
           "radar_value": 45,
-          "axis_evidence_level": "E2",
-          "output_mode": "BOUNDED_PROFILE",
-          "confidence": "MEDIUM",
+          "axis_evidence_level": "E1",
+          "output_mode": "EPISODE_TAG",
+          "confidence": "LOW",
           "adjudication_ref": "M2-FULL-POOL-ADJ-RULER-HAN-LIUBAO",
           "parent_chains": [
             {
               "parent_id": "M2-P017-QIANG-140-144",
               "direction": "NEGATIVE",
               "intensity": "MI3",
-              "consumption_status": "SCORING_PARENT",
+              "consumption_status": "AXIS_OUT_WITH_REASON",
               "source_support": "DIRECT_PROCESS_AND_FEEDBACK",
               "source_refs": [
                 "docs/史料通读产物/唐以前编年/汉/卷052-通读总结.md#L109",
@@ -762,19 +807,30 @@
                 "source_support": "DIRECT_PROCESS_AND_FEEDBACK",
                 "disposition": "RETAIN_AFTER_SEMANTIC_REVIEW",
                 "basis": "现有直接过程能够支持当前生命周期跨度；强度不由成果规模、对象枚举或父链数量推出。"
-              }
+              },
+              "axis_out_reason": "西羌父链起点是并凉刺史虐扰与边地内部关系，选将、军事反馈和败战不能包装为外交。",
+              "route_handoff": {
+                "status": "HANDOFF_PENDING",
+                "target_axis": "M4/M1/C3/C2",
+                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "reason": "西羌父链起点是并凉刺史虐扰与边地内部关系，选将、军事反馈和败战不能包装为外交。"
+              },
+              "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
+              "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
+              "membership_relative_to_evaluated_ruler": "INTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "NOT_APPLICABLE_AXIS_OUT"
             },
             {
               "parent_id": "M2-P017-SOUTH-XIONGNU-140-144",
               "direction": "MIXED_POSITIVE",
-              "intensity": "MI2",
+              "intensity": "MI1",
               "consumption_status": "SCORING_PARENT",
               "source_support": "DIRECT_PROCESS_AND_OUTCOME",
               "source_refs": [
                 "docs/史料通读产物/唐以前编年/汉/卷052-通读总结.md#L22",
                 "docs/史料通读产物/唐以前编年/汉/卷052-通读总结.md#L177"
               ],
-              "cycle_basis": "南匈奴及协同乌桓羌胡在周期开始时能自主围城与转盟；汉廷由强攻转为深沟、招降，至144年多方投降。能闭合一次战谈转换，但本人具体条件授权较简，不能抵消西羌长期不纠正。",
+              "cycle_basis": "南匈奴既有内附体系前段转M4；车纽公开称单于、联乌桓羌胡并形成事实独立战争主体后，汉廷招降/受降才保留为窄M2战谈转换候选。",
               "intensity_grade_review": {
                 "scope": "M2_INTENSITY_ATTRIBUTION_EFFECT_SEPARATION",
                 "before_intensity": "MI2",
@@ -782,11 +838,14 @@
                 "source_support": "DIRECT_PROCESS_AND_OUTCOME",
                 "disposition": "RETAIN_AFTER_SEMANTIC_REVIEW",
                 "basis": "现有直接过程能够支持当前生命周期跨度；强度不由成果规模、对象枚举或父链数量推出。"
-              }
+              },
+              "relationship_phase": "OPEN_SECESSION_TO_EXTERNAL_NEGOTIATION",
+              "political_membership_at_cycle_start": "OPEN_SECESSION_OR_DE_FACTO_INDEPENDENT_BELLIGERENT",
+              "membership_relative_to_evaluated_ruler": "EXTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL"
             }
           ],
           "representative_parent_ids": [
-            "M2-P017-QIANG-140-144",
             "M2-P017-SOUTH-XIONGNU-140-144"
           ],
           "typical_pattern": "有受降止战工具，但对部族底线和将帅反馈长期迟钝。",
@@ -794,16 +853,13 @@
             "positive_parent_refs": [
               "M2-P017-SOUTH-XIONGNU-140-144"
             ],
-            "counter_parent_refs": [
-              "M2-P017-QIANG-140-144"
-            ]
+            "counter_parent_refs": []
           },
-          "grade_basis": "真实负向生命周期占主导，仍有一次可用转换，符合G2。",
-          "position_basis": "并非全面失能，置G2-MID。",
+          "grade_basis": "当前不发布新的M2实裁；旧G2-MID仅作为整改前显示点保留。纯M2目前只剩归责受限的车纽关系翻转后窄链，原G2-MID不能原样保留。",
+          "position_basis": "待补证后重新裁档；旧值不作为合格下沿、当前雷达值或新结论。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "M2-P017-QIANG-140-144",
               "M2-P017-SOUTH-XIONGNU-140-144"
             ],
             "result_nonconversion": true
@@ -817,9 +873,16 @@
             "density": "COUNTEREVIDENCE_FOUND"
           },
           "limitations": [
-            "南匈奴收束的本人逐项授权记载较简。"
+            "南匈奴收束的本人逐项授权记载较简。",
+            "待补证：补齐车纽降服条件及北匈奴、西域、乌桓/鲜卑方向外部承诺链。"
           ],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "UNRESOLVED_EVIDENCE_GAP",
+          "display_point_only": true,
+          "display_point_reason": "纯M2目前只剩归责受限的车纽关系翻转后窄链，原G2-MID不能原样保留。",
+          "pending_reopen_condition": "补齐车纽降服条件及北匈奴、西域、乌桓/鲜卑方向外部承诺链。",
+          "historical_display_grade": "G2-MID",
+          "historical_display_radar_value": 45
         },
         {
           "sequence": 21,
@@ -830,7 +893,7 @@
           "actual_power_window": "168—189年",
           "axis_code": "M2",
           "axis_name": "外交博弈与对外联盟能力",
-          "score_status": "FINAL",
+          "score_status": "EVIDENCE_LIMITED",
           "axis_grade": "G2",
           "position": "MID",
           "score_100": 45,
@@ -925,7 +988,9 @@
           "limitations": [
             "部分羌降链主要由边将执行。"
           ],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         }
       ]
     }

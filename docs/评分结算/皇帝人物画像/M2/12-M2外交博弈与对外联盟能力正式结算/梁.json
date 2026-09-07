@@ -4,7 +4,7 @@
   "collections": {
     "records": {
       "positions": [
-        166
+        151
       ],
       "records": [
         {
@@ -18,9 +18,9 @@
           "axis_name": "外交博弈与对外联盟能力",
           "score_status": "FINAL",
           "axis_grade": "G2",
-          "position": "LOW",
-          "score_100": 38,
-          "radar_value": 38,
+          "position": "HIGH",
+          "score_100": 51,
+          "radar_value": 51,
           "axis_evidence_level": "E3",
           "output_mode": "FULL_GRADE",
           "confidence": "HIGH",
@@ -48,15 +48,17 @@
             {
               "parent_id": "M2-P127-HOUJING",
               "direction": "NEGATIVE",
-              "intensity": "MI4",
+              "intensity": "MI2",
               "consumption_status": "SCORING_PARENT",
               "source_support": "DIRECT_SELF_CAUSED_ALLIANCE_FAILURE",
               "adversity_origin": "SELF_CAUSED",
               "source_refs": [
                 "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/163",
-                "docs/史料通读产物/唐以前编年/00-战争卡审计索引.md#L655"
+                "docs/史料通读产物/唐以前编年/00-战争卡审计索引.md#L655",
+                "docs/史料通读产物/唐以前编年/南北朝/卷160-通读总结.md#侯景投梁与梁魏和议",
+                "docs/史料通读产物/唐以前编年/南北朝/卷161-通读总结.md#侯景反梁前后"
               ],
-              "cycle_basis": "侯景投梁时仍是拥有军力和独立选择权的外部条件势力。萧衍在明显风险下接纳并处理条件失当，反馈到达后未能及时隔离或退出，最终反噬台城。",
+              "cycle_basis": "侯景投梁前提出十三州等外部转附条件，萧衍在和平仍可维持的情况下接受高风险资产并投入军粮；548年真实梁—东魏和议又提供战争退出/关系修复。侯景入梁后的高爵、军权、内部疑惧、叛乱与台城后果转M4/M1/C1/C5；伪造的换侯景条件不作为外部对手反馈。",
               "intensity_grade_review": {
                 "scope": "M2_INTENSITY_ATTRIBUTION_EFFECT_SEPARATION",
                 "before_intensity": "MI4",
@@ -64,7 +66,11 @@
                 "source_support": "DIRECT_SELF_CAUSED_ALLIANCE_FAILURE",
                 "disposition": "RETAIN_AFTER_SEMANTIC_REVIEW",
                 "basis": "现有直接过程能够支持当前生命周期跨度；强度不由成果规模、对象枚举或父链数量推出。"
-              }
+              },
+              "relationship_phase": "EXTERNAL_TO_INTERNAL_TRANSITION",
+              "political_membership_at_cycle_start": "TRANSITIONING_SURRENDER_OR_VASSALIZATION",
+              "membership_relative_to_evaluated_ruler": "EXTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL"
             }
           ],
           "representative_parent_ids": [
@@ -80,8 +86,8 @@
               "M2-P127-HOUJING"
             ]
           },
-          "grade_basis": "侯景MI4自致反噬主导，早期吸纳只构成有限反证，定G2下沿。",
-          "position_basis": "置G2-LOW。",
+          "grade_basis": "纯M2保留侯景投梁前的高风险条件失衡与梁—东魏真实和议；内附后的军权、内部安全信用与台城反噬已移出M2。",
+          "position_basis": "高风险条件核验明显失误，但仍具战争退出与关系修复工具，置G2-HIGH而非G2-LOW。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
@@ -99,7 +105,9 @@
             "density": "COUNTEREVIDENCE_FOUND"
           },
           "limitations": [],
-          "formal_status": "FORMAL_CURRENT"
+          "formal_status": "FORMAL_CURRENT",
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false
         }
       ]
     }
