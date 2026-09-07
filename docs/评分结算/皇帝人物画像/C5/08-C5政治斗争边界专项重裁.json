@@ -1,0 +1,278 @@
+{
+  "schema_version": "emperor-profile-c5-political-conflict-boundary-review-v1",
+  "canonical_status": "FORMAL_CURRENT_AUDIT",
+  "axis_code": "C5",
+  "axis_name": "权力运用风格与克制",
+  "contract_version": "FORMAL-V1.1",
+  "rule_commit": "fe8d1d890254bf3b5019ad1af11ad497fbb595c5",
+  "base_formal_settlement": "02-C5权力运用风格与克制正式结算.json",
+  "review_reason": "旧裁决部分记录把‘现实政敌/叛乱者’当作对象级自动豁免，未稳定区分威胁仍在持续、已受控制与威胁已经结束三个处分时点；本轮按FORMAL-V1.1重新执行对象—证据—比例审查。",
+  "review_rule": {
+    "threat_states": ["ACTIVE", "CONTROLLED", "ENDED", "UNCERTAIN"],
+    "active": "正在交战、刺杀、举兵、政变或仍实际控制武装/权力资源；必要战斗、制伏、缴械、拘捕不因敌对身份本身计负。",
+    "controlled": "已经被捕、缴械、失去即时行动能力但既有谋逆事实或残余组织仍可核实；重刑不得自动计负，也不得自动退出C5，继续审证据、程序、比例、酷刑、报复和替代方案。",
+    "ended": "投降、长期羁押、退位、解除武装、失去现实组织能力或战争结束；安全豁免终止，后续法外处死、酷刑、羞辱、报复和扩大处分重新进入C5。",
+    "family_rule": "家属、宗族、旧部和普通人口不继承首谋者豁免；须逐人证明直接参与现实威胁。",
+    "symmetry_rule": "拒绝秘密暗杀/法外报复只有在确有便利且主动选择更可复核、更合比例路径时才是正证；相应负证是采用秘密暗杀、报复或扩大处分，不是公开战斗本身。"
+  },
+  "summary": {
+    "priority_screened_count": 21,
+    "grade_or_position_change_count": 4,
+    "grade_unchanged_parent_or_narrative_change_count": 3,
+    "grade_unchanged_boundary_confirmed_count": 14,
+    "formal_settlement_sync_status": "PENDING_SHARD_AND_MD_SYNC",
+    "note": "本文件保存本轮专项重裁的裁决覆盖；列入change_decisions者在语义上取代旧聊天复核值，待正式分片JSON和MD阅读视图同步后关闭PENDING。"
+  },
+  "change_decisions": [
+    {
+      "ruler_id": "RULER-MING-ZHU-ZHANJI",
+      "ruler_name": "朱瞻基",
+      "before": "G4-LOW/77/E3",
+      "after": "G3-HIGH/71/E3",
+      "decision": "GRADE_CHANGE",
+      "case": "汉王朱高煦叛乱及被俘后处置",
+      "threat_state_slices": [
+        {
+          "state": "ACTIVE",
+          "slice": "宣德元年高煦公开举兵，亲征、围城、受降、解除其军事能力。",
+          "c5_effect": "NEUTRAL_SECURITY_RESPONSE"
+        },
+        {
+          "state": "ENDED",
+          "slice": "高煦投降后被废为庶人并长期锢于京师；后因伸足绊倒宣宗，宣宗命以重铜缸覆盖并积炭焚烧致死。",
+          "c5_effect": "NEGATIVE_MI2_DEEP_FLOOR"
+        },
+        {
+          "state": "ENDED",
+          "slice": "高煦诸子随后并死；《明史·诸王世表》又记韦妃及九子俱从死。",
+          "c5_effect": "NEGATIVE_FAMILY_EXPANSION_SAME_LIFECYCLE"
+        }
+      ],
+      "parent_change": "C5-P062-GAOXU由MI1单案改为NEGATIVE / MI2_LIFECYCLE；核心从‘现实叛乱者本人原则退出’改为‘叛乱解除后的私人盛怒酷刑与家属扩大’。",
+      "grade_basis": "C5-P062-REVIEW的MI3司法复核正链仍成立；但枷号御史MI2与高煦威胁解除后的酷刑—家属扩大MI2共同形成两个独立深下沿。现有结构不足以继续定义为全生涯强长板，降为G3-HIGH；E3仍成立。",
+      "source_refs": [
+        "《明史》卷九《宣宗本纪》",
+        "《明史》卷一百零三《诸王世表》",
+        "《明通鉴》卷二十四：高煦被锢后绊倒宣宗，铜缸积炭焚死，诸子伏诛",
+        "https://zh.wikisource.org/zh-hans/明通鑑/卷024"
+      ]
+    },
+    {
+      "ruler_id": "RULER-PUBLIC-6339E33979E7CCF5",
+      "ruler_name": "皇太极",
+      "before": "G4-LOW/77/E3",
+      "after": "G3-HIGH/71/E3",
+      "decision": "GRADE_CHANGE",
+      "case": "莽古尔泰—莽古济谋逆案及亲族扩大",
+      "threat_state_slices": [
+        {
+          "state": "CONTROLLED",
+          "slice": "莽古尔泰、德格类已经病死；莽古济、琐诺木及同谋被告发后由贝勒大臣复审，存在焚誓谋逆、额必伦明确欲刃皇帝等直接责任材料。",
+          "c5_effect": "PRINCIPAL_PUNISHMENT_NOT_AUTOMATIC_NEGATIVE"
+        },
+        {
+          "state": "ENDED",
+          "slice": "屯布禄、爱巴礼除本人受刑外，其亲支兄弟子侄一并磔于市；非逐人闭合直接参与者不能继承首谋豁免。",
+          "c5_effect": "NEGATIVE_MI2_EXTENDED_KIN_PUNISHMENT"
+        },
+        {
+          "state": "ENDED",
+          "slice": "莽古尔泰、德格类诸子被黜为庶人，属人、庄田和财产重新分配；与征服期人口身份强制共同限制C5上沿。",
+          "c5_effect": "NEGATIVE_IDENTITY_AND_PROPERTY_EXPANSION"
+        }
+      ],
+      "parent_change": "保留C5-P076-CENSOR POSITIVE/MI3；保留C5-P076-IDENTITY负链；新增MANGGULTAI-PLOT同案NEGATIVE/MI2亲族扩大切片。",
+      "grade_basis": "都察院自缚与阿敏案追责仍是高质量正证，但一条MI3正链同时面对征服期人口身份强制及谋逆案亲族扩大两个独立下沿，不足继续定义为稳定强长板；改G3-HIGH，E3不变。",
+      "source_refs": [
+        "《清太宗实录》天聪九年莽古济等谋逆案",
+        "《清史稿》卷二百十七《诸王六·莽古尔泰》",
+        "清实录相关条：屯布禄、爱巴礼并其亲支兄弟子侄俱磔于市；莽古尔泰、德格类诸子黜为庶人"
+      ]
+    },
+    {
+      "ruler_id": "RULER-FD-GUO-WEI",
+      "ruler_name": "郭威",
+      "before": "G3-HIGH/71/E2",
+      "after": "G3-MID/65/E2",
+      "decision": "GRADE_CHANGE",
+      "case": "王殷被疑—拘捕—流放—处死",
+      "threat_state_slices": [
+        {
+          "state": "ACTIVE",
+          "slice": "王殷长期掌亲军与河北军政，入朝时出入多以兵从并求兵甲，足以构成现实安全风险。",
+          "c5_effect": "SECURITY_CONCERN_VALID"
+        },
+        {
+          "state": "CONTROLLED",
+          "slice": "郭威因怀疑王殷有异志，在朝见时将其拘捕、削官并长流登州；此后王殷已失去即时军事控制。",
+          "c5_effect": "PROPORTIONALITY_REVIEW_REQUIRED"
+        },
+        {
+          "state": "ENDED",
+          "slice": "《新五代史》在‘长流登州’之后另记‘已而杀之’，未闭合新的现实举兵或谋逆行为；家属仅徙登州。",
+          "c5_effect": "NEGATIVE_MI2_PREEMPTIVE_POST_CONTROL_KILLING"
+        }
+      ],
+      "parent_change": "C5-P002-WANGYIN继续保留NEGATIVE/MI2，但删除错误的‘追加其子’，改为‘基于疑惧拘捕流放后再杀本人；家属仅徙’。",
+      "grade_basis": "一条对胁从者在反馈后赦免的MI2正链，与王殷受控制后被杀的深MI2负链并存；司法收缩背景不足单独抬档。G3-HIGH偏高，改G3-MID，E2不变。",
+      "source_refs": [
+        "《新五代史》卷五十《王殷传》：疑有异志，执之、长流登州，已而杀之；徙家属登州",
+        "https://zh.wikisource.org/zh-hans/新五代史/卷50"
+      ]
+    },
+    {
+      "ruler_id": "RULER-SHADOW-姚苌",
+      "ruler_name": "姚苌",
+      "before": "G3-HIGH/71/E2",
+      "after": "G3-MID/65/E2",
+      "decision": "GRADE_CHANGE",
+      "case": "苻坚死后掘尸鞭辱与强制边界",
+      "threat_state_slices": [
+        {
+          "state": "ACTIVE",
+          "slice": "姚苌与前秦、苻登集团的军事政权竞争本身属于现实战争，正常战斗与对仍在作战首领的制伏不直接扣C5。",
+          "c5_effect": "NEUTRAL_SECURITY_RESPONSE"
+        },
+        {
+          "state": "ENDED",
+          "slice": "苻坚已经死亡后，姚苌又掘其尸，反复鞭挞、裸剥衣裳并以荆棘覆埋。死亡后的尸体显然不存在现实安全威胁。",
+          "c5_effect": "NEGATIVE_MI1_DEEP_REVENGE_CASE"
+        }
+      ],
+      "parent_change": "撤销‘掘苻坚尸体、鞭尸退出C5主评分’；恢复为威胁结束后的私人报复/羞辱深下沿。",
+      "grade_basis": "权翼直谏后自我纠正、反对姚兴擅杀将领两条MI2正证仍保留；但‘复私仇者皆诛’的比例过重规则与苻坚死后报复性鞭尸共同显示强制权边界并非明显上沿。由G3-HIGH调至G3-MID，E2不变。",
+      "source_refs": [
+        "《晋书》卷一百十六《姚苌载记》：掘苻坚尸，鞭挞无数，裸剥衣裳，荐之以棘而埋",
+        "https://zh.wikisource.org/zh-hans/晉書/卷116"
+      ]
+    }
+  ],
+  "unchanged_but_record_change": [
+    {
+      "ruler_id": "RULER-TANG-LISHIMIN",
+      "ruler_name": "李世民",
+      "before": "G5-LOW/91/E3",
+      "after": "G5-LOW/91/E3",
+      "decision": "GRADE_UNCHANGED_ADD_NEGATIVE_PARENT",
+      "case": "玄武门之变后的建成、元吉诸子并坐诛",
+      "threat_state": "ENDED",
+      "parent_effect": "新增同一玄武门生命周期的NEGATIVE/MI2 EXTENDED_FAMILY_PURGE切片；建成、元吉本人及当日东宫齐府军战斗属ACTIVE，不因此扣C5；其十名存活诸子在胜负已决后按亲属身份并坐诛，重新进入C5。",
+      "grade_basis": "该负链显著加深G5下沿，但不能按一个MI2政治清算生命周期机械覆盖两条MI4自缚/复核长链及MI3权贵约束链；G5-LOW已是高档下沿位置，暂不跨档。后续高档密度复核必须把本案列为正式反证。",
+      "source_refs": [
+        "《旧唐书》卷六十四《隐太子建成传》",
+        "《新唐书》卷七十九《隐太子建成传》",
+        "《资治通鉴》卷一百九十一：建成、元吉诸子皆坐诛；同日又明令其余党与一无所问",
+        "https://zh.wikisource.org/zh-hans/資治通鑑/卷191"
+      ]
+    },
+    {
+      "ruler_id": "RULER-SHADOW-孟知祥",
+      "ruler_name": "孟知祥",
+      "before": "G3-HIGH/71/E2",
+      "after": "G3-HIGH/71/E2",
+      "decision": "GRADE_UNCHANGED_FIX_INTERNAL_CONTRADICTION",
+      "case": "李严案与拒绝趁机暗杀董璋",
+      "threat_state": "CONTROLLED",
+      "parent_effect": "结构化父链C5-P106-LIYAN原已标NEGATIVE/MI1，应保留；删除阅读叙述中‘李严作为现实权力对手故不再作为C5负证’。李严奉中央之命来蜀制衡孟知祥，但到成都时并未以武装攻击；孟知祥斩之并随后以不实罪名上奏，仍命中程序与比例边界。另一方面，拒绝赵廷隐趁董璋留营时秘密杀之，可作为独立正向MI2，因为本人主动放弃法外暗杀便利。",
+      "grade_basis": "两条正向MI2与一条单案负向MI1构成偏正但有下沿的有限画像，G3-HIGH/E2仍可维持。",
+      "source_refs": [
+        "《资治通鉴》卷二百七十五：李严奉命入蜀，孟知祥斩之并上奏其矫制",
+        "《资治通鉴》卷二百七十七：赵廷隐建议趁机杀董璋，孟知祥不许"
+      ]
+    },
+    {
+      "ruler_id": "RULER-FD-LI-SIYUAN",
+      "ruler_name": "李嗣源",
+      "before": "G3-LOW/58/E3",
+      "after": "G3-LOW/58/E3",
+      "decision": "GRADE_UNCHANGED_FIX_PUBLIC_BOUNDARY",
+      "case": "安重诲被罢、致仕后遭杀及二子并杀",
+      "threat_state": "ENDED",
+      "parent_effect": "结构化C5-P005-PURGES原已把安重诲、任圜列为NEGATIVE/MI2，应维持；删除公开说明中‘安重诲本人之死属于现实最高权力竞争、退出C5’的过宽表述。安重诲已被召还、改河中节度使、再告老致仕，并主动械送奔父的二子回京；其后仍被发兵围第，夫妇遭击杀，两子亦杀，属于威胁结束后的不可逆处分。",
+      "grade_basis": "原G3-LOW已经包含盛怒死命倾向、安重诲/任圜负链与外部复奏多次救人的正向制动，新增边界澄清主要修正叙述而非改变整体位置。",
+      "source_refs": [
+        "《新五代史》卷二十四《安重诲传》：罢职、致仕、围第击杀夫妇并杀二子",
+        "https://zh.wikisource.org/zh-hans/新五代史/卷24"
+      ]
+    }
+  ],
+  "boundary_confirmed_no_grade_change": [
+    {
+      "ruler_name": "司马师",
+      "current": "G2-HIGH/51/E2",
+      "reason": "曹芳—李丰—张缉等现实夺权谋划者本人按CONTROLLED逐案审责任；‘夷三族’的亲属扩大仍是强负链，现档无需改变。"
+    },
+    {
+      "ruler_name": "司马昭",
+      "current": "G3-LOW/58/E3",
+      "reason": "曹髦持兵直接攻击、毌丘俭/诸葛诞公开军事叛乱仍属ACTIVE；嵇康、吕安等非武装异议处置继续作为C5负证，边界方向正确。"
+    },
+    {
+      "ruler_name": "李昪",
+      "current": "G3-HIGH/71/E2",
+      "reason": "杨濛杀守者逃亡时为ACTIVE；其本人被捕后的处分未见家属扩大。拒绝秘密毒杀、周宗减死属于真实主动自限，维持。"
+    },
+    {
+      "ruler_name": "刘义隆",
+      "current": "G2-HIGH/51/E2",
+      "reason": "檀道济未发动现实叛乱却遭预防性清除并扩大至子嗣腹心；刘义康另有现实拥立网络，现有高低归责拆分符合新规则。"
+    },
+    {
+      "ruler_name": "刘裕",
+      "current": "G2-HIGH/51/E3",
+      "reason": "晋恭帝退位后已失军政能力，后续谋杀及持续清除男嗣被明确计入；这是ENDED边界的正确锚点。"
+    },
+    {
+      "ruler_name": "刘骏",
+      "current": "G1-LOW/18/E3",
+      "reason": "刘诞公开叛乱本人处置与战后广陵平民大杀已分开；战后向普通人口扩大被计为高覆盖负链，符合新规则。"
+    },
+    {
+      "ruler_name": "李仁孝",
+      "current": "G2-HIGH/51/E3",
+      "reason": "慕洧、慕濬及任得敬本人的现实叛离/夺权责任，与两个案件中的家族扩大已分开消费；后者继续扣C5。"
+    },
+    {
+      "ruler_name": "李谅祚",
+      "current": "G2-MID/45/E2",
+      "reason": "讹庞父子伏兵弑君属于ACTIVE/CONTROLLED安全案件；首谋被控制后仍夷及弟、侄、外任族人已经单独作为扩大负证。"
+    },
+    {
+      "ruler_name": "王莽",
+      "current": "G1-HIGH/31/E3",
+      "reason": "翟义公开起兵本人处置不决定档位；西海郡强制迁徙与身份刑罚等非战斗人口强制才是主要负链。"
+    },
+    {
+      "ruler_name": "朱棣",
+      "current": "G0-HIGH/12/E3",
+      "reason": "靖难核心决策者的战争终局不作为主负链；南京失守后的方孝孺等强制与扩大已足以构成历史级负面，边界重裁不改档。"
+    },
+    {
+      "ruler_name": "武则天",
+      "current": "G1-MID/25/E3",
+      "reason": "徐敬业、李贞公开举兵属于ACTIVE；告密入口、制狱与非战斗对象的系统性强制才决定G1。"
+    },
+    {
+      "ruler_name": "多尔衮",
+      "current": "G1-MID/25/E3",
+      "reason": "豪格继承竞争需按时点拆分，但剃发、身份强制等独立负链足以维持强短板；本轮未发现足以跨档的新事实。"
+    },
+    {
+      "ruler_name": "拓跋嗣",
+      "current": "G3-MID/65/E2",
+      "reason": "清河王绍弑父后仍处直接生死权力冲突；诛绍不因对象本身扣C5，政变后大赦与未扩大清洗作为正向背景，维持。"
+    },
+    {
+      "ruler_name": "石勒",
+      "current": "G1-HIGH/31/E3",
+      "reason": "已请降对象与降卒大规模坑杀继续直接计负；这是投降后安全豁免结束的正确低档锚点。"
+    }
+  ],
+  "sync_requirements": [
+    "将4名改档者同步至对应分片JSON、顶层索引summary分布与MD全池表/逐人条目。",
+    "将李世民、孟知祥、李嗣源三人的新增/修正父链与公开依据同步至分片JSON和MD。",
+    "重跑05-C5高档材料密度复核中李世民、朱瞻基、皇太极三人条目；其中李世民维持G5-LOW但必须补玄武门家属扩大反证，朱瞻基与皇太极退出G4高档复核集合。",
+    "更新07-C5高档与证据门结构复核的before/after和统计计数，禁止旧审计继续作为当前档位来源。",
+    "同步完成前，02正式结算仍含旧值；本审计文件是本轮裁决依据而不是机器正式结算入口。"
+  ]
+}
