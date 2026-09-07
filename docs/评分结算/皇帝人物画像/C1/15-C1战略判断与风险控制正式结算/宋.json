@@ -10,12 +10,12 @@
         59,
         60,
         61,
-        83,
         84,
         85,
         86,
-        110,
-        151,
+        87,
+        111,
+        152,
         158,
         167,
         176
@@ -114,7 +114,7 @@
             "counter_parent_refs": []
           },
           "grade_basis": "赵匡胤已满足PS4，但适用窗口只有十六年，继承风险未闭，且赵普等在部分制度设计中有重要贡献；所以只能进入`G5-LOW`，不宜MID。",
-          "position_basis": "具体战役解题归将领；PS3覆盖充分，但决策窗口和约束类型尚不足PS4。",
+          "position_basis": "正式C1能力达到PS4；具体战役解题归将领、决策窗口较短且继承风险未闭，取G5-LOW，不进入G5-MID。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
@@ -315,7 +315,8 @@
                 "docs/史料通读产物/南宋/续资治通鉴/volume-137.source-summary.md#L27"
               ],
               "cycle_basis": "北伐、试探或守约可选；班师诏触发德顺撤退，随后转谈以叔侄名分、减岁币换停战。",
-              "diagnostic_role": "PS2"
+              "diagnostic_role": "PS2",
+              "counter_diagnostic_role": "DW2"
             },
             {
               "ruler_name": "赵昚",
@@ -339,22 +340,52 @@
               ],
               "cycle_basis": "对近幸接口完成降权并以生前参政、主动禅位训练继承人，形成与隆兴战争退出不同的中枢和交班周期。",
               "diagnostic_role": "PS2"
+            },
+            {
+              "parent_id": "C1-P146-LONGXING-SETBACK",
+              "direction": "NEGATIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P146-POSITIVE"
+              ],
+              "direct_process_refs": [
+                "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/114",
+                "docs/史料通读产物/南宋/续资治通鉴/volume-137.source-summary.md#L27"
+              ],
+              "cycle_basis": "隆兴初期在目标、资源与退出条件尚未闭合时发动北伐，班师及损失反馈到达后才转谈；该次重大失配构成独立DW2下沿，后续战争退出正证不能只留在混合父链 prose 中。",
+              "diagnostic_role": "DW2"
             }
           ],
           "representative_parent_ids": [
             "C1-P146-WAR-PEACE",
-            "C1-P146-SUCCESSION-AND-COURT-RECONFIG"
+            "C1-P146-SUCCESSION-AND-COURT-RECONFIG",
+            "C1-P146-LONGXING-SETBACK"
           ],
           "typical_pattern": "初期恢复目标偏高且班师造成损失，随后迅速转谈、减岁币并长期守约。",
           "counterpattern": {
-            "positive_parent_refs": "C1-P146-WAR-PEACE C1-P146-SUCCESSION-AND-COURT-RECONFIG",
-            "counter_parent_refs": ""
+            "positive_parent_refs": [
+              "C1-P146-WAR-PEACE",
+              "C1-P146-SUCCESSION-AND-COURT-RECONFIG"
+            ],
+            "counter_parent_refs": [
+              "C1-P146-LONGXING-SETBACK"
+            ]
           },
           "grade_basis": "战争退出、近幸降权、继承训练三类不同约束均有闭环，整体PS3明确。 但隆兴初期重大DW2、近幸纠偏迟缓和臣下设计份额阻止更高。 由`G3-HIGH / 71`上调为**`G4-LOW / 77`**。",
           "position_basis": "谈判由臣子推动，初期损失阻断G4。",
           "axis_relevance_check": {
             "status": "CLOSED",
-            "scoring_parent_refs": "C1-P146-WAR-PEACE C1-P146-SUCCESSION-AND-COURT-RECONFIG",
+            "scoring_parent_refs": [
+              "C1-P146-WAR-PEACE",
+              "C1-P146-SUCCESSION-AND-COURT-RECONFIG",
+              "C1-P146-LONGXING-SETBACK"
+            ],
             "result_nonconversion": true
           },
           "reviews": {
@@ -1429,14 +1460,41 @@
                 "docs/评分结算/第五项统治者政治素质/04-第五项统治者政治素质正式结算.json#records/61"
               ],
               "cycle_basis": "维持和约、先建联盟或直接北伐均可；本人授权准备不足战争，失败后被动议和并交首级。"
+            },
+            {
+              "parent_id": "C1-P145-RECOVERY-REOPEN",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-SS-ZHAO-KUO-NZ-P2",
+                "https://zh.wikisource.org/zh-hans/宋史全文_(四庫全書本)/卷30",
+                "https://zh.wikisource.org/zh-hans/宋史/卷39",
+                "https://zh.wikisource.org/zh-hans/宋史/卷414"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/zh-hans/宋史全文_(四庫全書本)/卷30",
+                "https://zh.wikisource.org/zh-hans/宋史/卷39",
+                "https://zh.wikisource.org/zh-hans/宋史/卷414"
+              ],
+              "cycle_basis": "开禧失败后从单一韩集团切换至更宽外廷参与，形成真实但有限期的中枢恢复与风险换路PS2；其后退出信用负链另行消费。",
+              "secondary_projection_reason": "M4父链只提供集团或中枢配置事实；本C1父链只消费本人对目标、资源、风险或反馈重配的战略选择，不重复计算M4集团整合。"
             }
           ],
           "representative_parent_ids": [
-            "C1-P145-KAIXI"
+            "C1-P145-KAIXI",
+            "C1-P145-RECOVERY-REOPEN"
           ],
           "typical_pattern": "稳定好牌下缺盟友启开禧北伐，败后以韩侂胄首级换和，退出信用低。",
           "counterpattern": {
-            "positive_parent_refs": [],
+            "positive_parent_refs": [
+              "C1-P145-RECOVERY-REOPEN"
+            ],
             "counter_parent_refs": [
               "C1-P145-KAIXI"
             ]
@@ -1446,7 +1504,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P145-KAIXI"
+              "C1-P145-KAIXI",
+              "C1-P145-RECOVERY-REOPEN"
             ],
             "result_nonconversion": true
           },
@@ -1510,14 +1569,39 @@
                 "docs/评分结算/第五项统治者政治素质/04-第五项统治者政治素质正式结算.json#records/165"
               ],
               "cycle_basis": "灭金后可守界或入洛；本人未备退出结构而端平入洛，此后多线失地反馈中仍缺战略重组。"
+            },
+            {
+              "parent_id": "C1-P147-CENTRAL-REOPENING",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-SS-ZHAO-YUN-LY-P2",
+                "https://zh.wikisource.org/zh-hans/宋史/卷414",
+                "https://zh.wikisource.org/zh-hant/宋史/卷41"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/zh-hans/宋史/卷414",
+                "https://zh.wikisource.org/zh-hant/宋史/卷41"
+              ],
+              "cycle_basis": "史弥远死后没有简单扶植同型私人代理，而是扩大参与范围、重新打开中枢入口，形成一次本人可归责的国家级恢复PS2；后续史嵩之与丁大全结构再度失控由负链处理。",
+              "secondary_projection_reason": "M4父链只提供集团或中枢配置事实；本C1父链只消费本人对目标、资源、风险或反馈重配的战略选择，不重复计算M4集团整合。"
             }
           ],
           "representative_parent_ids": [
-            "C1-P147-MONGOL-BUFFER"
+            "C1-P147-MONGOL-BUFFER",
+            "C1-P147-CENTRAL-REOPENING"
           ],
           "typical_pattern": "联蒙灭金取短期利益却未设计缓冲退出，端平入洛破坏信用并放大蒙古压力。",
           "counterpattern": {
-            "positive_parent_refs": [],
+            "positive_parent_refs": [
+              "C1-P147-CENTRAL-REOPENING"
+            ],
             "counter_parent_refs": [
               "C1-P147-MONGOL-BUFFER"
             ]
@@ -1527,7 +1611,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P147-MONGOL-BUFFER"
+              "C1-P147-MONGOL-BUFFER",
+              "C1-P147-CENTRAL-REOPENING"
             ],
             "result_nonconversion": true
           },

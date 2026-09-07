@@ -8,7 +8,7 @@
         9,
         10,
         24,
-        44,
+        35,
         71,
         72,
         104,
@@ -824,19 +824,19 @@
           "axis_name": "信息处理、学习与纠错",
           "axis_grade": "G3",
           "grade_numeric": 3,
-          "position": "LOW",
-          "radar_value": 58,
-          "score_100": 58,
+          "position": "MID",
+          "radar_value": 65,
+          "score_100": 65,
           "axis_evidence_level": "E2",
           "output_mode": "BOUNDED_PROFILE",
           "confidence": "MEDIUM",
           "score_status": "EVIDENCE_LIMITED",
           "formal_status": "FORMAL_CURRENT",
           "adjudication_ref": "C2-CHAT-REVIEW-V2-ROUND2#RULER-RULER-PUBLIC-6DACD59C17927ECA",
-          "typical_pattern": "正负混合、具备迁移能力型：已有真实纠错，也保留信源误判或复发窗口。",
-          "counterpattern": "乌什起事后追查发现办事大臣素诚“贪淫激变”，和阗办事大臣和诚亦因婪索回人被查办，说明乾隆并未只把边疆反乱解释为“民叛”，而能追到本方官员激变这一因果层。可计 MIXED_POSITIVE / MI2，但调查执行主要由下级责任中心完成，且镇压本身极严，不把它作为主要升档链。；连续前线失利后，乾隆公开承认用兵“轻敌致衄”并引为己过，说明有认知更新；但此后对进剿、停战、称臣、贡表等判断仍反复，战争多次追加投入。同一问题中虽认错却未迅速形成稳定新模型，整体裁 ERROR_CORRECTION / MIXED_NEGATIVE / MI2，不因持续多年自动升MI3。",
-          "grade_basis": "弘历：当前把“战争失败后重估、地方治理纠偏、缅甸反复、晚年信源收窄”全部压进一个 纠错链，使完全不同的信息对象彼此抵消，也无法判断本人认知份额；福康安在奏报中压低柴大纪、蔡攀龙战功，乾隆没有直接沿用统帅评价，而是根据坚守、奋战事实指出不应因礼节或个人嫌隙“没其功”。这是对评价信源偏差本身的识别，较纯的 主动求真链；其价值不在奖功，而在识别报告者存在利益/情绪偏置后纠正人物判断",
-          "position_basis": "弘历：G3-LOW档内定位：已有可复核的个人求真或纠错生命周期；档内位置主要受跨阶段迁移和上沿稳定性限制；包含主动取证或冲突信源辨析；保留真实负向下沿；仍受当前阶段覆盖和史料密度边界限制。",
+          "typical_pattern": "能够识别部分信源偏差并在安南失败后重估成本、停止再战；但缅甸在承认、停战、贡表之间反复，认错未稳定迁移为同构新模型。",
+          "counterpattern": "福康安奏报偏差中能辨析报告者利益并纠正人物评价，安南失败后能重估瘴疠、投入与收益并停止再战；但缅甸失败后仍在禁市、暂缓与密议进剿之间反复，边疆官员纠偏也有下级执行归责限制。",
+          "grade_basis": "弘历：已有信源偏差识别、安南失败后的因果重估与目标改变等独立正链；缅甸反复显示同构问题上的更新不稳定，晚年信源收窄限制上沿。由G3-LOW上调至G3-MID，不进入G4。",
+          "position_basis": "弘历：G3-MID：至少两条独立正向纠错链可迁移，且保留缅甸复发负链；正负对称后高于G3下沿，但不足G4。",
           "axis_relevance_check": {
             "status": "C2_RELEVANT",
             "scoring_parent_refs": [
@@ -847,7 +847,7 @@
             ]
           },
           "limitations": [
-            "证据完成度为E2，当前仍是有界画像；新增跨阶段或同构复验可能改变档内位置。"
+            "E2有界画像；正向纠错对象跨军事评价、外交目标与地方治理，但缅甸复发和晚年信源收窄仍限制迁移性。"
           ],
           "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
           "representative_parent_ids": [
@@ -862,13 +862,13 @@
               "cycle_type": "ERROR_CORRECTION",
               "direction": "MIXED",
               "intensity": "MI2",
-              "basis": "当前把“战争失败后重估、地方治理纠偏、缅甸反复、晚年信源收窄”全部压进一个 ，使完全不同的信息对象彼此抵消，也无法判断本人认知份额。",
+              "basis": "战争失败重估、地方治理纠偏、缅甸反复与晚年信源收窄原被压进一个链；本轮拆分后保留为混合下沿，不单独决定档内位置。",
               "cycle_anchor_refs": [
                 "https://zh.wikisource.org/zh-hans/清史稿/卷12",
                 "https://zh.wikisource.org/zh-hans/清史稿/卷13"
               ],
               "source_parent_refs": [],
-              "lifecycle_review": "按C2二轮生命周期核对：当前把“战争失败后重估、地方治理纠偏、缅甸反复、晚年信源收窄”全部压进一个 ，使完全不同的信息对象彼此抵消，也无法判断本人认知份额。 只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "lifecycle_review": "该混合父链只消费战争/治理信息到达、本人辨别或更新、同构复发与信源收窄；其正负部分由其他独立父链分别承接，不重复计分。",
               "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
               "material_intensity": "MI2",
               "feedback_suppression_review": {
@@ -886,13 +886,13 @@
               "cycle_type": "TRUTH_ACQUISITION",
               "direction": "POSITIVE",
               "intensity": "MI2",
-              "basis": "福康安在奏报中压低柴大纪、蔡攀龙战功，乾隆没有直接沿用统帅评价，而是根据坚守、奋战事实指出不应因礼节或个人嫌隙“没其功”。这是对评价信源偏差本身的识别，属于较纯的 ；其价值不在奖功，而在识别报告者存在利益/情绪偏置后纠正人物判断。",
+              "basis": "福康安奏报压低柴大纪、蔡攀龙战功，弘历依据坚守和奋战事实纠正报告者的利益/情绪偏置，构成信源辨析正链。",
               "cycle_anchor_refs": [
                 "https://zh.wikisource.org/zh-hans/清史稿/卷12",
                 "https://zh.wikisource.org/zh-hans/清史稿/卷13"
               ],
               "source_parent_refs": [],
-              "lifecycle_review": "按C2二轮生命周期核对：福康安在奏报中压低柴大纪、蔡攀龙战功，乾隆没有直接沿用统帅评价，而是根据坚守、奋战事实指出不应因礼节或个人嫌隙“没其功”。这是对评价信源偏差本身的识别，属于较纯的 ；其价值不在奖功，而在识别报告者存在利益/情绪偏置后纠正人物判断。 只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "lifecycle_review": "本人取得偏置报告，辨别报告者动机与事实层差异，并据事实修正评价；该链消费C2求真，不消费C5处罚。",
               "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
               "material_intensity": "MI2",
               "feedback_suppression_review": {
@@ -904,13 +904,13 @@
               "cycle_type": "ERROR_CORRECTION",
               "direction": "POSITIVE",
               "intensity": "MI2",
-              "basis": "军事介入失败后，乾隆重新评价地理、疾病与投入条件，明确称安南“瘴疠炎荒，不值用兵”，继而表态“决计不复用兵”，从继续扶黎转为接受阮惠请降、入觐、册封。失败反馈—因果重估—改变目标—外交正常化较完整，可计 。",
+              "basis": "安南军事介入失败后，弘历重新评价瘴疠、投入与收益，明确不复用兵，转为接受阮惠请降、入觐与册封，形成因果重估—目标改变—执行周期。",
               "cycle_anchor_refs": [
                 "https://zh.wikisource.org/zh-hans/清史稿/卷12",
                 "https://zh.wikisource.org/zh-hans/清史稿/卷13"
               ],
               "source_parent_refs": [],
-              "lifecycle_review": "按C2二轮生命周期核对：军事介入失败后，乾隆重新评价地理、疾病与投入条件，明确称安南“瘴疠炎荒，不值用兵”，继而表态“决计不复用兵”，从继续扶黎转为接受阮惠请降、入觐、册封。失败反馈—因果重估—改变目标—外交正常化较完整，可计 。 只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "lifecycle_review": "失败反馈到达本人，完成成本与环境重估并改变目标和行动；该链是可迁移的主动纠错正证。",
               "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
               "material_intensity": "MI2",
               "feedback_suppression_review": {
@@ -922,13 +922,13 @@
               "cycle_type": "ERROR_CORRECTION",
               "direction": "MIXED_NEGATIVE",
               "intensity": "MI2",
-              "basis": "连续前线失利后，乾隆公开承认用兵“轻敌致衄”并引为己过，说明有认知更新；但此后对进剿、停战、称臣、贡表等判断仍反复，战争多次追加投入。同一问题中虽认错却未迅速形成稳定新模型，整体裁 ，不因持续多年自动升MI3。",
+              "basis": "缅甸连续失利后弘历承认轻敌，但随后仍在进剿、停战、称臣和贡表之间反复追加投入，说明认错没有稳定转化为同构新模型。",
               "cycle_anchor_refs": [
                 "https://zh.wikisource.org/zh-hans/清史稿/卷12",
                 "https://zh.wikisource.org/zh-hans/清史稿/卷13"
               ],
               "source_parent_refs": [],
-              "lifecycle_review": "按C2二轮生命周期核对：连续前线失利后，乾隆公开承认用兵“轻敌致衄”并引为己过，说明有认知更新；但此后对进剿、停战、称臣、贡表等判断仍反复，战争多次追加投入。同一问题中虽认错却未迅速形成稳定新模型，整体裁 ，不因持续多年自动升MI3。 只消费新信息或反证到达、本人辨别或理解、判断更新或拒绝更新、执行及复验或复发。",
+              "lifecycle_review": "反馈到达并触发局部认错，但同一问题持续复发；按混合负链计入C2，不把长期持续机械升级为MI3。",
               "secondary_projection_reason": "C2只消费本人取得信息、理解反证或更新判断的切片；异议者安全、处罚比例与权力程序仍留C5。",
               "material_intensity": "MI2",
               "feedback_suppression_review": {

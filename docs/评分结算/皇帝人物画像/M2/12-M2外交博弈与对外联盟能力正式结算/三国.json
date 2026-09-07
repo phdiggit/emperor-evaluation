@@ -7,11 +7,11 @@
         8,
         23,
         56,
-        89,
-        127,
-        132,
+        90,
+        128,
         133,
         134,
+        135,
         163,
         179
       ],
@@ -502,20 +502,23 @@
               "direction": "POSITIVE",
               "intensity": "MI2",
               "consumption_status": "SCORING_PARENT",
-              "source_support": "BOUNDED_LOCAL_SUPPORT",
+              "source_support": "DIRECT_PROCESS_AND_EXECUTION",
               "source_refs": [
-                "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/178",
-                "docs/史料通读产物/唐以前编年/三国/卷070-通读总结.md#L21"
+                "docs/史料通读产物/唐以前编年/三国/卷070-通读总结.md#L23",
+                "https://zh.wikisource.org/wiki/資治通鑑/卷70"
               ],
-              "cycle_basis": "起手弱蜀依赖吴盟；识别联吴为生存底线，诸葛亮死后仍长期履约，战争与使节安排持续执行。",
+              "cycle_basis": "223冬—224年邓芝使吴，孙权判断联蜀利害后绝魏；吴蜀互派使者，陆逊参与审核国书，联盟恢复并实际运行。现有直接过程只闭合该早期MI2周期，不把后续结果或臣下长期执行扩写为全生涯系统能力。",
               "intensity_grade_review": {
                 "scope": "M2_INTENSITY_ATTRIBUTION_EFFECT_SEPARATION",
-                "before_intensity": "MI3",
+                "before_intensity": "MI2",
                 "after_intensity": "MI2",
-                "source_support": "BOUNDED_LOCAL_SUPPORT",
-                "disposition": "DOWNGRADE_HIGH_MI_WEAK_SOURCE",
-                "basis": "有界材料可保留单一生命周期方向，但不足以证明跨期复现或系统性MI3。"
-              }
+                "source_support": "DIRECT_PROCESS_AND_EXECUTION",
+                "disposition": "PROMOTE_DIRECT_PROCESS_RETAIN_BOUNDED_INTENSITY",
+                "basis": "卷070直接记录使节、共同敌判断与联盟运行；本人长期设计及第二独立周期仍不足。"
+              },
+              "direct_process_refs": [
+                "docs/史料通读产物/唐以前编年/三国/卷070-通读总结.md#L23"
+              ]
             },
             {
               "parent_id": "M2-P142-COUNTER",
@@ -540,7 +543,7 @@
             ],
             "counter_parent_refs": []
           },
-          "grade_basis": "223—224年的关系修复构成单一MI2，足以排除无能力；主要设计执行归诸葛亮、邓芝，且缺第二独立周期，不能维持G3中位。",
+          "grade_basis": "223—224吴蜀复盟有直接过程，构成单一MI2；主要设计执行仍由诸葛亮、邓芝等承担，缺第二独立周期，维持G3-LOW / 58。",
           "position_basis": "置G3-LOW / 58。",
           "axis_relevance_check": {
             "status": "CLOSED",
@@ -558,8 +561,8 @@
             "density": "MATERIAL_DENSITY_LIMITED"
           },
           "limitations": [
-            "臣子贡献大",
-            "现有计分父链仍依赖有界摘要或分项汇总，缺少完整直接过程定位；本档位为低或中置信度显示点。"
+            "223—224复盟已具直接使节与共同敌判断定位；后续全生涯持续复验及本人独立外交设计仍不足。",
+            "臣子贡献大，现有材料不足以发布全生涯高置信度M2能力终值。"
           ],
           "formal_status": "FORMAL_CURRENT",
           "adjudication_state": "FORMAL_CURRENT",
@@ -677,15 +680,18 @@
               },
               "axis_out_reason": "灭蜀后刘禅/蜀臣的保全、封爵与安置是征服后的国内整合，不能继续作为M2正链。",
               "route_handoff": {
-                "status": "ROUTED",
+                "status": "CLOSED",
                 "target_axis": "M4",
-                "target_parent_ref": "M4-SZ-P1",
-                "reason": "灭蜀后刘禅/蜀臣的保全、封爵与安置是征服后的国内整合，不能继续作为M2正链。"
+                "target_parent_ref": "M4P-RULER-WEI-SIMAZHAO-SZ-P1",
+                "reason": "灭蜀后刘禅/蜀臣的保全、封爵与安置是征服后的国内整合，不能继续作为M2正链。",
+                "original_target_parent_ref": "M4-SZ-P1",
+                "closure_basis": "NORMALIZED_TARGET_PARENT_ALIAS"
               },
-              "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
-              "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
-              "membership_relative_to_evaluated_ruler": "INTERNAL_TO_EVALUATED_RULER",
-              "counterparty_condition_authenticity": "NOT_APPLICABLE_AXIS_OUT"
+              "relationship_phase": "EXTERNAL_TO_INTERNAL_TRANSITION",
+              "political_membership_at_cycle_start": "TRANSITIONING_SURRENDER_OR_VASSALIZATION",
+              "membership_relative_to_evaluated_ruler": "EXTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL",
+              "identity_transition_point": "蜀汉正式受降并进入魏晋封爵安置体系后"
             },
             {
               "parent_id": "M2-REVIEW-司马昭-TUOBA-LIWEI-TRIBUTE",
@@ -925,8 +931,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "M2-P161-POSITIVE",
-              "M2-P161-COUNTER"
+              "M2-P161-COUNTER",
+              "M2-P161-POSITIVE"
             ],
             "result_nonconversion": true
           },
@@ -1023,8 +1029,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "M2-P165-POSITIVE",
-              "M2-P165-COUNTER"
+              "M2-P165-COUNTER",
+              "M2-P165-POSITIVE"
             ],
             "result_nonconversion": true
           },

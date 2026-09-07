@@ -6,11 +6,11 @@
       "positions": [
         52,
         53,
-        73,
-        93,
-        132,
-        144,
+        74,
+        94,
+        133,
         145,
+        146,
         168
       ],
       "records": [
@@ -165,8 +165,11 @@
           ],
           "typical_pattern": "李仁孝原C1只靠长期维持对金臣属、宋边互市和低风险守成，材料又是E2，因此停在G3-MID。M4里的任得敬生命周期则提供了一个完全不同、而且更高压的内部强制资源周期。",
           "counterpattern": {
-            "positive_parent_refs": "C1-P175-LONG-MAINTENANCE C1-P175-STRONGMAN-RECONFIG",
-            "counter_parent_refs": ""
+            "positive_parent_refs": [
+              "C1-P175-LONG-MAINTENANCE",
+              "C1-P175-STRONGMAN-RECONFIG"
+            ],
+            "counter_parent_refs": []
           },
           "grade_basis": "外部低风险守成与内部高资源强人处置是两个完全不同的国家级约束；后者又经历了“合理高授权—风险坐大—保留替代接口—最终收束”的完整压力复验。两者合起来足以形成弱PS3并进入G4。 任氏几乎发展到分国要求，且材料相当部分来自后出西夏编年，阻止MID。由`G3-MID`升为`G4-LOW / 77`。",
           "position_basis": "汇总父链封顶MI2，E2中置信度。",
@@ -375,14 +378,39 @@
                 "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/151"
               ],
               "cycle_basis": "多轮战和切换取得喘息，随后毁约用兵使条件恶化；反馈纠正存在但不稳定。"
+            },
+            {
+              "parent_id": "C1-P173-INTERNAL-POWER-RECONFIG",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-XIXIA-LILIANGZUO-LZ-P1",
+                "https://zh.wikisource.org/zh-hans/西夏书事/20",
+                "https://zh.wikisource.org/zh-hans/宋史/卷485"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/zh-hans/西夏书事/20",
+                "https://zh.wikisource.org/zh-hans/宋史/卷485"
+              ],
+              "cycle_basis": "1061年在没藏集团控制下识别最高权力接口风险，联合另一军政强人完成强制资源重组并亲政；本人目标、关键资源与反馈后的换路闭合，随后梁氏高配风险另作下沿。",
+              "secondary_projection_reason": "M4父链只提供集团或中枢配置事实；本C1父链只消费本人对目标、资源、风险或反馈重配的战略选择，不重复计算M4集团整合。"
             }
           ],
           "representative_parent_ids": [
-            "C1-P173-WAR-PEACE-SWINGS"
+            "C1-P173-WAR-PEACE-SWINGS",
+            "C1-P173-INTERNAL-POWER-RECONFIG"
           ],
           "typical_pattern": "李谅祚原C1只有宋辽之间的战和反复，因此长期停在G2。补入内部政治资源后，1061年从没藏讹庞控制下夺回最高权力，是一条非常清楚的非储位C1周期；但随后把新资源高度集中给梁氏，又显示“拆旧单点—造新单点”的风险。",
           "counterpattern": {
-            "positive_parent_refs": [],
+            "positive_parent_refs": [
+              "C1-P173-INTERNAL-POWER-RECONFIG"
+            ],
             "counter_parent_refs": [
               "C1-P173-WAR-PEACE-SWINGS"
             ]
@@ -392,7 +420,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P173-WAR-PEACE-SWINGS"
+              "C1-P173-WAR-PEACE-SWINGS",
+              "C1-P173-INTERNAL-POWER-RECONFIG"
             ],
             "result_nonconversion": true
           },

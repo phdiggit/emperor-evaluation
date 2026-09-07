@@ -5,7 +5,7 @@
     "records": {
       "positions": [
         42,
-        139,
+        140,
         157
       ],
       "records": [
@@ -104,8 +104,13 @@
           ],
           "typical_pattern": "战后凋敝中优先减军粮、安流民与恢复征收承载，并以有限外部均势保政权；强国用约束限制高档。",
           "counterpattern": {
-            "positive_parent_refs": "C1-P133-RECOVERY-PRIORITY C1-P133-LOCAL-GROUP-RECONFIG",
-            "counter_parent_refs": "C1-RR-166-NEGATIVE-MATERIALS"
+            "positive_parent_refs": [
+              "C1-P133-RECOVERY-PRIORITY",
+              "C1-P133-LOCAL-GROUP-RECONFIG"
+            ],
+            "counter_parent_refs": [
+              "C1-RR-166-NEGATIVE-MATERIALS"
+            ]
           },
           "grade_basis": "恢复承载、地方半自治集团、中央高功强制中心，至少三类不同问题中均出现完整资源—风险处置，整体达到PS3。 七年短窗、侯安都处置争议和继承不对称阻止G4中高位。 由`G3-HIGH / 71`上调为**`G4-LOW / 77`**。",
           "position_basis": "通使过程概括且短任，不入G4。",
@@ -178,14 +183,39 @@
               ],
               "cycle_basis": "安民保境、结好或继续北伐均可；蔡景历、毛喜提出师老将骄与寝兵结好，本人外放惩处仍推进。失败后承认意见、召回蔡氏是真纠正，但资源与控制损害已成且交班困顿。",
               "diagnostic_role": "DW3"
+            },
+            {
+              "parent_id": "C1-P134-INTERNAL-RECOVERY",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-SHADOW-陈顼-CX-P2",
+                "https://zh.wikisource.org/zh/陳書/卷16",
+                "https://zh.wikisource.org/wiki/資治通鑑/卷173"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/zh/陳書/卷16",
+                "https://zh.wikisource.org/wiki/資治通鑑/卷173"
+              ],
+              "cycle_basis": "北周压力与内部失利反馈到达后，陈顼承认预警、召回蔡景历并同步重组防务，形成负反馈—改判—恢复信息源的C1正向周期。",
+              "secondary_projection_reason": "M4父链只提供集团或中枢配置事实；本C1父链只消费本人对目标、资源、风险或反馈重配的战略选择，不重复计算M4集团整合。"
             }
           ],
           "representative_parent_ids": [
-            "C1-P134-NORTHERN-REVERSAL"
+            "C1-P134-NORTHERN-REVERSAL",
+            "C1-P134-INTERNAL-RECOVERY"
           ],
           "typical_pattern": "前期能处理内部叛乱，后期不纳师老将骄预警继续北进；失败后承认并召回谏臣，但淮南所得已反转。",
           "counterpattern": {
-            "positive_parent_refs": [],
+            "positive_parent_refs": [
+              "C1-P134-INTERNAL-RECOVERY"
+            ],
             "counter_parent_refs": [
               "C1-P134-NORTHERN-REVERSAL"
             ]
@@ -195,7 +225,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P134-NORTHERN-REVERSAL"
+              "C1-P134-NORTHERN-REVERSAL",
+              "C1-P134-INTERNAL-RECOVERY"
             ],
             "result_nonconversion": true
           },

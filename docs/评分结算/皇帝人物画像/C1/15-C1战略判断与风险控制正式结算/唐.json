@@ -6,14 +6,14 @@
       "positions": [
         0,
         47,
-        72,
-        92,
-        111,
-        129,
+        73,
+        93,
+        112,
         130,
         131,
-        140,
+        132,
         141,
+        142,
         159,
         160
       ],
@@ -564,24 +564,50 @@
                 "WAR-LEAD-249-01"
               ],
               "cycle_basis": "党项可续战或镇抚；戍馈无功、国用困乏反馈后改策，吐蕃衰落又以归附互市恢复边地。"
+            },
+            {
+              "parent_id": "C1-P148-SUCCESSION-RISK",
+              "direction": "NEGATIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-TANG-LICHEN-LC-P2",
+                "https://zh.wikisource.org/zh/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91_%28%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC%29/%E5%8D%B7249",
+                "https://zh.wikisource.org/wiki/%E6%96%B0%E5%94%90%E6%9B%B8/%E5%8D%B7009"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/zh/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91_%28%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC%29/%E5%8D%B7249",
+                "https://zh.wikisource.org/wiki/%E6%96%B0%E5%94%90%E6%9B%B8/%E5%8D%B7009"
+              ],
+              "cycle_basis": "交班与宦官接口风险已反馈到达，渐进减员未完成结构性收权，秘密计划泄露后南北司转为敌对，形成交班DW2负链。",
+              "secondary_projection_reason": "M4父链只提供集团或中枢配置事实；本C1父链只消费本人对目标、资源、风险或反馈重配的战略选择，不重复计算M4集团整合。"
             }
           ],
           "representative_parent_ids": [
-            "C1-P148-DANGXIANG-SWITCH"
+            "C1-P148-DANGXIANG-SWITCH",
+            "C1-P148-SUCCESSION-RISK"
           ],
           "typical_pattern": "在党项连年用兵无功后转镇抚，目标调整可用；宦官结构未解除。",
           "counterpattern": {
             "positive_parent_refs": [
               "C1-P148-DANGXIANG-SWITCH"
             ],
-            "counter_parent_refs": []
+            "counter_parent_refs": [
+              "C1-P148-SUCCESSION-RISK"
+            ]
           },
           "grade_basis": "一条混合PS2 + 一条交班DW2，且正向军事执行多由将臣承担，缺第二同强C1周期。 原G3-HIGH略高。 由`G3-HIGH / 71`下调为**`G3-MID / 65`**。",
           "position_basis": "执行多归将臣，逆风复验不足。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P148-DANGXIANG-SWITCH"
+              "C1-P148-DANGXIANG-SWITCH",
+              "C1-P148-SUCCESSION-RISK"
             ],
             "result_nonconversion": true
           },
@@ -1021,14 +1047,41 @@
                 "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/92"
               ],
               "cycle_basis": "吐蕃攻吐谷浑后可救援、分化或有限退出；连续分屯用兵仍失故地四镇，娄师德出使仅暂息，跨年反馈未形成持久结构。共同权力限制归责。"
+            },
+            {
+              "parent_id": "C1-P158-CENTRAL-RECONFIGURATION",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-TANG-LIZHI-LZ-P1",
+                "https://zh.wikisource.org/zh-hans/舊唐書/卷5",
+                "https://zh.wikisource.org/zh-hans/資治通鑑/卷200",
+                "https://zh.wikisource.org/zh-hans/舊唐書/卷80"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/zh-hans/舊唐書/卷5",
+                "https://zh.wikisource.org/zh-hans/資治通鑑/卷200",
+                "https://zh.wikisource.org/zh-hans/舊唐書/卷80"
+              ],
+              "cycle_basis": "655—659年重排长孙无忌旧辅政集团与新宫廷—中枢集团，废王立武及相关资源配置由李治主动拍板；以最高中枢的重构和风险配置形成完整C1正向周期，664年控制失效另作下沿。",
+              "secondary_projection_reason": "M4父链只提供集团或中枢配置事实；本C1父链只消费本人对目标、资源、风险或反馈重配的战略选择，不重复计算M4集团整合。"
             }
           ],
           "representative_parent_ids": [
-            "C1-P158-TUYUHUN-FAILURE"
+            "C1-P158-TUYUHUN-FAILURE",
+            "C1-P158-CENTRAL-RECONFIGURATION"
           ],
           "typical_pattern": "李治原正式C1几乎全部由吐谷浑—吐蕃长期失配承担。补入M4后，可以确认其前中期并非完全缺少最高层资源重构能力：655—659年对贞观旧辅政集团与新宫廷—中枢集团的重新配置，是一次真实的最高权力资源重组；但664年本人主动试图限制武后时，正式中书接口迅速失效，说明新结构的风险隔离同样不足。 因此本轮不简单“加一条正证”，而把655—664视为一条完整的**先重构、后暴露控制下沿**的混合C1生命周期。",
           "counterpattern": {
-            "positive_parent_refs": [],
+            "positive_parent_refs": [
+              "C1-P158-CENTRAL-RECONFIGURATION"
+            ],
             "counter_parent_refs": [
               "C1-P158-TUYUHUN-FAILURE"
             ]
@@ -1038,7 +1091,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P158-TUYUHUN-FAILURE"
+              "C1-P158-TUYUHUN-FAILURE",
+              "C1-P158-CENTRAL-RECONFIGURATION"
             ],
             "result_nonconversion": true
           },
@@ -1261,24 +1315,50 @@
                 "docs/史料通读产物/唐以前编年/唐/卷191-通读总结.md"
               ],
               "cycle_basis": "太原弱势下借马援先取关中并兑现封爵；其后将晋阳交李元吉、裴寂致河东失控，又杀窦建德召旧将激成河北复叛。路径强但风险隔离不稳。"
+            },
+            {
+              "parent_id": "C1-P157-FOUNDING-RISK-FAILURES",
+              "direction": "NEGATIVE",
+              "intensity": "MI3",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-TANG-LIYUAN-LYA-P3",
+                "https://zh.wikisource.org/zh-hans/資治通鑑/卷191",
+                "https://zh.wikisource.org/zh-hans/舊唐書/卷1"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/zh-hans/資治通鑑/卷191",
+                "https://zh.wikisource.org/zh-hans/舊唐書/卷1"
+              ],
+              "cycle_basis": "河东留守与河北降附处置分别造成国家级返工，且最高权力交接中未建立可执行的武装隔离；反馈到达后仍依赖临时平衡，形成独立的风险—反馈—后果负向链，创业正向选择保留在原父链。",
+              "secondary_projection_reason": "M4父链只提供集团或中枢配置事实；本C1父链只消费本人对目标、资源、风险或反馈重配的战略选择，不重复计算M4集团整合。"
             }
           ],
           "representative_parent_ids": [
-            "C1-P157-FOUNDING-MIXED"
+            "C1-P157-FOUNDING-MIXED",
+            "C1-P157-FOUNDING-RISK-FAILURES"
           ],
           "typical_pattern": "联突厥抢关中并建立联盟有效，但河东留守和河北降附处置两次造成重大返工。",
           "counterpattern": {
             "positive_parent_refs": [
               "C1-P157-FOUNDING-MIXED"
             ],
-            "counter_parent_refs": []
+            "counter_parent_refs": [
+              "C1-P157-FOUNDING-RISK-FAILURES"
+            ]
           },
           "grade_basis": "一条高质量创业PS2无法覆盖： - 两次国家级返工； - 最高权力交接中的在世武装失控。 但创业成功的过程证据真实，继承结构又具有极高客观难度，故不降G1。 由`G3-HIGH / 71`下调为**`G2-MID / 45`**。",
           "position_basis": "李世民等执行贡献大，强正负并存。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P157-FOUNDING-MIXED"
+              "C1-P157-FOUNDING-MIXED",
+              "C1-P157-FOUNDING-RISK-FAILURES"
             ],
             "result_nonconversion": true
           },
@@ -1346,14 +1426,39 @@
               ],
               "cycle_basis": "王忠嗣明确指出石堡伤亡收益失配仍被强攻治罪；安史时多将主张固守潼关，本人反复强令出关，灵宝崩溃后无可行重组。前期和亲册封为正证。",
               "diagnostic_role": "DW3"
+            },
+            {
+              "parent_id": "C1-P151-EARLY-CENTRAL-COORDINATION",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-TANG-LILONGJI-LLJ-P1",
+                "https://zh.wikisource.org/zh/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B796",
+                "https://zh.wikisource.org/zh-hans/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7214"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/zh/%E8%88%8A%E5%94%90%E6%9B%B8/%E5%8D%B796",
+                "https://zh.wikisource.org/zh-hans/%E8%B3%87%E6%B2%BB%E9%80%9A%E9%91%91/%E5%8D%B7214"
+              ],
+              "cycle_basis": "前中期重组中枢并保留姚崇、宋璟、张九龄等可公开反馈的政策渠道，面对重大政策争议能调整或停止；形成独立于晚期军镇与潼关负链的本人目标—资源—反馈闭环。",
+              "secondary_projection_reason": "M4父链只提供集团或中枢配置事实；本C1父链只消费本人对目标、资源、风险或反馈重配的战略选择，不重复计算M4集团整合。"
             }
           ],
           "representative_parent_ids": [
-            "C1-P151-LATE-DEGRADATION"
+            "C1-P151-LATE-DEGRADATION",
+            "C1-P151-EARLY-CENTRAL-COORDINATION"
           ],
           "typical_pattern": "前期能分化外部对象并形成高承载，后期在石堡、潼关等明确预警下持续加码，晚期退化压过早期。",
           "counterpattern": {
-            "positive_parent_refs": [],
+            "positive_parent_refs": [
+              "C1-P151-EARLY-CENTRAL-COORDINATION"
+            ],
             "counter_parent_refs": [
               "C1-P151-LATE-DEGRADATION"
             ]
@@ -1363,7 +1468,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P151-LATE-DEGRADATION"
+              "C1-P151-LATE-DEGRADATION",
+              "C1-P151-EARLY-CENTRAL-COORDINATION"
             ],
             "result_nonconversion": true
           },
@@ -1429,14 +1535,38 @@
                 "docs/史料通读产物/唐以前编年/唐/卷252-通读总结.md"
               ],
               "cycle_basis": "可分散授权藩镇、整合禁军或继续私人控制；田令孜旁路铨选与误政反馈明确，本人仍长期委任，复京后又致播迁。"
+            },
+            {
+              "parent_id": "C1-P155-CRISIS-INTERFACE-SWITCH",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-TANG-LIXUAN-LXU-P2",
+                "https://zh.wikisource.org/zh-hans/舊唐書/卷19下",
+                "https://zh.wikisource.org/zh-hans/資治通鑑/卷256"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/zh-hans/舊唐書/卷19下",
+                "https://zh.wikisource.org/zh-hans/資治通鑑/卷256"
+              ],
+              "cycle_basis": "田令孜退出、改用杨复恭并重新接通反田军镇，虽在军事压力下被动发生，仍形成可反查的危机接口换路和返京条件；这是独立于长期中介依赖负链的弱PS2。",
+              "secondary_projection_reason": "M4父链只提供集团或中枢配置事实；本C1父链只消费本人对目标、资源、风险或反馈重配的战略选择，不重复计算M4集团整合。"
             }
           ],
           "representative_parent_ids": [
-            "C1-P155-CRISIS-CAPTURE"
+            "C1-P155-CRISIS-CAPTURE",
+            "C1-P155-CRISIS-INTERFACE-SWITCH"
           ],
           "typical_pattern": "李儇必须继续大幅折扣归责：少年即位、黄巢战争、藩镇碎片化和出奔使可选空间远差于多数皇帝。 但原C1只写“长期委田令孜、反馈入口不重构”，漏掉了885—886以后一次真实但被动的国家级资源换路。",
           "counterpattern": {
-            "positive_parent_refs": [],
+            "positive_parent_refs": [
+              "C1-P155-CRISIS-INTERFACE-SWITCH"
+            ],
             "counter_parent_refs": [
               "C1-P155-CRISIS-CAPTURE"
             ]
@@ -1446,7 +1576,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P155-CRISIS-CAPTURE"
+              "C1-P155-CRISIS-CAPTURE",
+              "C1-P155-CRISIS-INTERFACE-SWITCH"
             ],
             "result_nonconversion": true
           },

@@ -9,9 +9,9 @@
         34,
         41,
         67,
-        104,
         105,
         106,
+        107,
         146,
         181
       ],
@@ -120,8 +120,8 @@
             "status": "CLOSED",
             "scoring_parent_refs": [
               "M2-P043-CHANYUAN-CO-RULE",
-              "M2-P043-POST-1009-SONG-EXECUTION",
-              "M2-P043-GORYEO"
+              "M2-P043-GORYEO",
+              "M2-P043-POST-1009-SONG-EXECUTION"
             ],
             "result_nonconversion": true
           },
@@ -188,15 +188,17 @@
               },
               "axis_out_reason": "可敦城七州十八部集结、置官排甲并组成复辽/建国共同体，是创业联盟而非外部外交。",
               "route_handoff": {
-                "status": "ROUTED",
+                "status": "CLOSED",
                 "target_axis": "M4",
                 "target_parent_ref": "M4P-RULER-LIAO-YELU-DASHI-DS-P1",
-                "reason": "可敦城七州十八部集结、置官排甲并组成复辽/建国共同体，是创业联盟而非外部外交。"
+                "reason": "可敦城七州十八部集结、置官排甲并组成复辽/建国共同体，是创业联盟而非外部外交。",
+                "closure_basis": "EXACT_TARGET_PARENT"
               },
-              "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
-              "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
-              "membership_relative_to_evaluated_ruler": "INTERNAL_TO_EVALUATED_RULER",
-              "counterparty_condition_authenticity": "NOT_APPLICABLE_AXIS_OUT"
+              "relationship_phase": "EXTERNAL_TO_INTERNAL_TRANSITION",
+              "political_membership_at_cycle_start": "EXTERNAL_AUTONOMOUS_POLITY_OR_TRIBE",
+              "membership_relative_to_evaluated_ruler": "EXTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL",
+              "identity_transition_point": "七州十八部集结并进入复辽/建国共同体后"
             },
             {
               "parent_id": "M2-REVIEW-耶律大石-02",
@@ -319,10 +321,12 @@
               },
               "axis_out_reason": "灭晋后对中原官僚、藩镇与居民的占领、搜括和治理失败属于被征服共同体的内部整合。",
               "route_handoff": {
-                "status": "ROUTED",
+                "status": "CLOSED",
                 "target_axis": "M4",
-                "target_parent_ref": "M4-DG-P3",
-                "reason": "灭晋后对中原官僚、藩镇与居民的占领、搜括和治理失败属于被征服共同体的内部整合。"
+                "target_parent_ref": "M4P-RULER-LIAO-YELU-DEGUANG-DG-P3",
+                "reason": "灭晋后对中原官僚、藩镇与居民的占领、搜括和治理失败属于被征服共同体的内部整合。",
+                "original_target_parent_ref": "M4-DG-P3",
+                "closure_basis": "NORMALIZED_TARGET_PARENT_ALIAS"
               },
               "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
               "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
@@ -577,10 +581,12 @@
               },
               "axis_out_reason": "述律太后、李胡、南北院与拥立军是继承/军贵内部集团；‘能拒绝’不足以使继承危机成为M2。",
               "route_handoff": {
-                "status": "ROUTED",
+                "status": "CLOSED",
                 "target_axis": "M4/C5",
-                "target_parent_ref": "M4-RU-P1",
-                "reason": "述律太后、李胡、南北院与拥立军是继承/军贵内部集团；‘能拒绝’不足以使继承危机成为M2。"
+                "target_parent_ref": "M4P-RULER-LIAO-YELU-RUAN-RU-P1",
+                "reason": "述律太后、李胡、南北院与拥立军是继承/军贵内部集团；‘能拒绝’不足以使继承危机成为M2。",
+                "original_target_parent_ref": "M4-RU-P1",
+                "closure_basis": "NORMALIZED_TARGET_PARENT_ALIAS"
               },
               "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
               "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",

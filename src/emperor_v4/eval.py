@@ -53,6 +53,33 @@ def _parser() -> argparse.ArgumentParser:
     profile_c3.add_argument("--write", action="store_true")
     commands.add_parser("profile-c3-verify")
     commands.add_parser("profile-c2-c5-cross-axis-audit")
+    profile_a03 = commands.add_parser("profile-a03-route-audit", help="落实A03跨轴路由闭环并生成全池审计")
+    profile_a03.add_argument("--write", action="store_true")
+    commands.add_parser("profile-a03-route-audit-verify")
+    profile_a03_reaudit = commands.add_parser("profile-a03-rereadjudication", help="生成A03整改后的受影响人物复裁包")
+    profile_a03_reaudit.add_argument("--write", action="store_true")
+    commands.add_parser("profile-a03-rereadjudication-verify")
+    profile_a04 = commands.add_parser("profile-a04-identity-audit", help="落实A04对象身份与主路由解耦")
+    profile_a04.add_argument("--write", action="store_true")
+    commands.add_parser("profile-a04-identity-audit-verify")
+    profile_a05 = commands.add_parser("profile-a05-cross-axis-audit", help="落实A05跨轴重复消费审计")
+    profile_a05.add_argument("--write", action="store_true")
+    commands.add_parser("profile-a05-cross-axis-audit-verify")
+    profile_a06 = commands.add_parser("profile-a06-field-consistency", help="落实A06裁决字段自洽审计")
+    profile_a06.add_argument("--write", action="store_true")
+    commands.add_parser("profile-a06-field-consistency-verify")
+    profile_a08 = commands.add_parser("profile-a08-window-sync", help="落实A08实际权力窗口合同与全池同步")
+    profile_a08.add_argument("--write", action="store_true")
+    commands.add_parser("profile-a08-window-sync-verify")
+    profile_b = commands.add_parser("profile-b-remediation-audit", help="核对清单B人物级整改当前状态")
+    profile_b.add_argument("--write", action="store_true")
+    commands.add_parser("profile-b-remediation-audit-verify")
+    profile_b_m2 = commands.add_parser("profile-b-m2-evidence-close", help="闭合清单B中刘邦、刘启M2待补证状态")
+    profile_b_m2.add_argument("--write", action="store_true")
+    commands.add_parser("profile-b-m2-evidence-close-verify")
+    profile_a07 = commands.add_parser("profile-a07-display-point-audit", help="落实A07历史显示点发布同步审计")
+    profile_a07.add_argument("--write", action="store_true")
+    commands.add_parser("profile-a07-display-point-audit-verify")
     profile_m3 = commands.add_parser("profile-m3-settlement")
     profile_m3.add_argument("--write", action="store_true")
     commands.add_parser("profile-m3-verify")
@@ -294,6 +321,126 @@ def _dispatch(args: argparse.Namespace) -> int:
         return 0
     if args.command == "profile-c2-c5-cross-axis-audit":
         print(json.dumps(inspect_profile_c2_c5_cross_axis_drift(), ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "profile-a03-route-audit":
+        if not args.write:
+            raise SystemExit("profile-a03-route-audit 必须显式传入 --write")
+        from emperor_v4.evaluation.profile_a03_route_audit import write as write_profile_a03_route_audit
+        from emperor_v4.evaluation.profile_registry import write_profile_manifest
+
+        report = write_profile_a03_route_audit(Path(".").resolve())
+        report["manifest"] = write_profile_manifest(("M2",)).relative_to(Path(".").resolve()).as_posix()
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "profile-a03-route-audit-verify":
+        from emperor_v4.evaluation.profile_a03_route_audit import verify as verify_profile_a03_route_audit
+
+        print(json.dumps(verify_profile_a03_route_audit(Path(".").resolve()), ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "profile-a03-rereadjudication":
+        if not args.write:
+            raise SystemExit("profile-a03-rereadjudication 必须显式传入 --write")
+        from emperor_v4.evaluation.profile_a03_rereadjudication import write as write_profile_a03_rereadjudication
+        from emperor_v4.evaluation.profile_registry import write_profile_manifest
+
+        report = write_profile_a03_rereadjudication(Path(".").resolve())
+        report["manifest"] = write_profile_manifest(("M2",)).relative_to(Path(".").resolve()).as_posix()
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "profile-a03-rereadjudication-verify":
+        from emperor_v4.evaluation.profile_a03_rereadjudication import verify as verify_profile_a03_rereadjudication
+
+        print(json.dumps(verify_profile_a03_rereadjudication(Path(".").resolve()), ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "profile-a04-identity-audit":
+        if not args.write:
+            raise SystemExit("profile-a04-identity-audit 必须显式传入 --write")
+        from emperor_v4.evaluation.profile_a04_identity_audit import write as write_profile_a04_identity_audit
+        from emperor_v4.evaluation.profile_registry import write_profile_manifest
+
+        report = write_profile_a04_identity_audit(Path(".").resolve())
+        report["manifest"] = write_profile_manifest(("M2",)).relative_to(Path(".").resolve()).as_posix()
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "profile-a04-identity-audit-verify":
+        from emperor_v4.evaluation.profile_a04_identity_audit import verify as verify_profile_a04_identity_audit
+
+        print(json.dumps(verify_profile_a04_identity_audit(Path(".").resolve()), ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "profile-a05-cross-axis-audit":
+        if not args.write:
+            raise SystemExit("profile-a05-cross-axis-audit 必须显式传入 --write")
+        from emperor_v4.evaluation.profile_a05_cross_axis_audit import write as write_profile_a05_cross_axis_audit
+        from emperor_v4.evaluation.profile_registry import write_profile_manifest
+
+        report = write_profile_a05_cross_axis_audit(Path(".").resolve())
+        report["manifest"] = write_profile_manifest(("M1",)).relative_to(Path(".").resolve()).as_posix()
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "profile-a05-cross-axis-audit-verify":
+        from emperor_v4.evaluation.profile_a05_cross_axis_audit import verify as verify_profile_a05_cross_axis_audit
+
+        print(json.dumps(verify_profile_a05_cross_axis_audit(Path(".").resolve()), ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "profile-a06-field-consistency":
+        from emperor_v4.evaluation.profile_a06_field_consistency import write as write_profile_a06_field_consistency
+
+        if not args.write:
+            raise SystemExit("profile-a06-field-consistency 必须显式传入 --write")
+        print(json.dumps(write_profile_a06_field_consistency(Path(".").resolve()), ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "profile-a06-field-consistency-verify":
+        from emperor_v4.evaluation.profile_a06_field_consistency import verify as verify_profile_a06_field_consistency
+
+        print(json.dumps(verify_profile_a06_field_consistency(Path(".").resolve()), ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "profile-a07-display-point-audit":
+        from emperor_v4.evaluation.profile_a07_display_point_audit import write as write_profile_a07_display_point_audit
+
+        if not args.write:
+            raise SystemExit("profile-a07-display-point-audit 必须显式传入 --write")
+        print(json.dumps(write_profile_a07_display_point_audit(Path(".").resolve()), ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "profile-a07-display-point-audit-verify":
+        from emperor_v4.evaluation.profile_a07_display_point_audit import verify as verify_profile_a07_display_point_audit
+
+        print(json.dumps(verify_profile_a07_display_point_audit(Path(".").resolve()), ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "profile-a08-window-sync":
+        from emperor_v4.evaluation.profile_a08_window_sync import write as write_profile_a08_window_sync
+
+        if not args.write:
+            raise SystemExit("profile-a08-window-sync 必须显式传入 --write")
+        print(json.dumps(write_profile_a08_window_sync(Path(".").resolve()), ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "profile-a08-window-sync-verify":
+        from emperor_v4.evaluation.profile_a08_window_sync import verify as verify_profile_a08_window_sync
+
+        print(json.dumps(verify_profile_a08_window_sync(Path(".").resolve()), ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "profile-b-remediation-audit":
+        from emperor_v4.evaluation.profile_b_remediation_audit import write as write_profile_b_remediation_audit
+
+        if not args.write:
+            raise SystemExit("profile-b-remediation-audit 必须显式传入 --write")
+        print(json.dumps(write_profile_b_remediation_audit(), ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "profile-b-remediation-audit-verify":
+        from emperor_v4.evaluation.profile_b_remediation_audit import verify as verify_profile_b_remediation_audit
+
+        print(json.dumps(verify_profile_b_remediation_audit(), ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "profile-b-m2-evidence-close":
+        from emperor_v4.evaluation.profile_b_m2_evidence_closure import write as write_profile_b_m2_evidence_closure
+
+        if not args.write:
+            raise SystemExit("profile-b-m2-evidence-close 必须显式传入 --write")
+        print(json.dumps(write_profile_b_m2_evidence_closure(), ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "profile-b-m2-evidence-close-verify":
+        from emperor_v4.evaluation.profile_b_m2_evidence_closure import verify as verify_profile_b_m2_evidence_closure
+
+        print(json.dumps(verify_profile_b_m2_evidence_closure(), ensure_ascii=False, indent=2))
         return 0
     if args.command == "profile-m3-settlement":
         payload = build_profile_m3_settlement(write=args.write)["settlement"]

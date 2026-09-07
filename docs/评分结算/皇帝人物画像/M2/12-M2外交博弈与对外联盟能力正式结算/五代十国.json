@@ -11,15 +11,15 @@
         42,
         44,
         59,
-        94,
         95,
         96,
-        116,
-        121,
+        97,
+        117,
         122,
-        141,
+        123,
         142,
         143,
+        144,
         154,
         155
       ],
@@ -597,10 +597,14 @@
               },
               "axis_out_reason": "慕容彦超在该阶段属于后周统治共同体内的军镇/强藩；拥兵、伪降与反叛不因事实强势自动成为M2。",
               "route_handoff": {
-                "status": "HANDOFF_PENDING",
+                "status": "EXPLICITLY_FROZEN",
                 "target_axis": "M4/M1/C1",
-                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
-                "reason": "慕容彦超在该阶段属于后周统治共同体内的军镇/强藩；拥兵、伪降与反叛不因事实强势自动成为M2。"
+                "target_parent_ref": null,
+                "reason": "慕容彦超在该阶段属于后周统治共同体内的军镇/强藩；拥兵、伪降与反叛不因事实强势自动成为M2。",
+                "original_target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "freeze_reason": "A03整改：当前正式快照没有可稳定反查的目标父链；本次不自动代开目标轴父链，也不把该事实继续计入原轴之外的档位。",
+                "reopen_condition": "目标轴正式JSON登记与本事实同一事件的稳定parent_id后，补填target_parent_ref并重新运行A03闭环校验；在此之前保持轴外冻结。",
+                "freeze_basis": "原路由状态=EXPLICITLY_FROZEN；目标父链未在当前正式入口闭合"
               },
               "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
               "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
@@ -1111,7 +1115,9 @@
               "source_support": "DIRECT_MULTI_POLITY_SWITCH_AND_COUNTERPARTY_REFUSAL",
               "source_refs": [
                 "docs/史料通读产物/五代十国/资治通鉴/volume-266.source-summary.md#荆南恢复与后唐关系",
-                "docs/史料通读产物/五代十国/资治通鉴/volume-270.source-summary.md#楚吴荆南关系"
+                "docs/史料通读产物/五代十国/资治通鉴/volume-270.source-summary.md#楚吴荆南关系",
+                "https://zh.wikisource.org/zh-hans/新五代史/卷69",
+                "https://zh.wikisource.org/zh-hans/資治通鑑/卷270"
               ],
               "cycle_basis": "高季兴在后唐、吴、楚之间切换时，真实遭遇宗主安全与地缘可执行性反馈；请求吴接受整镇归附却因‘唐近而吴远’被拒，显示宗主转换并非单纯多方套利。继任者转向不倒算为高季兴成绩。",
               "intensity_grade_review": {
@@ -1125,7 +1131,11 @@
               "relationship_phase": "EXTERNAL_POLITY",
               "political_membership_at_cycle_start": "EXTERNAL_SOVEREIGN_OR_DE_FACTO_INDEPENDENT",
               "membership_relative_to_evaluated_ruler": "EXTERNAL_TO_EVALUATED_RULER",
-              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL"
+              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL",
+              "direct_process_refs": [
+                "https://zh.wikisource.org/zh-hans/新五代史/卷69",
+                "https://zh.wikisource.org/zh-hans/資治通鑑/卷270"
+              ]
             },
             {
               "parent_id": "M2-P136-COUNTER",
@@ -1147,10 +1157,14 @@
               },
               "axis_out_reason": "原泛化‘频繁改盟’不再单独作为负链；其负向含义已合并到直接吴向选择生命周期。",
               "route_handoff": {
-                "status": "HANDOFF_PENDING",
+                "status": "EXPLICITLY_FROZEN",
                 "target_axis": "BACKGROUND",
-                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
-                "reason": "原泛化‘频繁改盟’不再单独作为负链；其负向含义已合并到直接吴向选择生命周期。"
+                "target_parent_ref": null,
+                "reason": "原泛化‘频繁改盟’不再单独作为负链；其负向含义已合并到直接吴向选择生命周期。",
+                "original_target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "freeze_reason": "A03整改：当前正式快照没有可稳定反查的目标父链；本次不自动代开目标轴父链，也不把该事实继续计入原轴之外的档位。",
+                "reopen_condition": "目标轴正式JSON登记与本事实同一事件的稳定parent_id后，补填target_parent_ref并重新运行A03闭环校验；在此之前保持轴外冻结。",
+                "freeze_basis": "原路由状态=EXPLICITLY_FROZEN；目标父链未在当前正式入口闭合"
               },
               "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
               "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
@@ -1448,8 +1462,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "M2-P011-WANG-SHIFAN-SURRENDER",
               "M2-P011-LIU-XUN-SURRENDER",
+              "M2-P011-WANG-SHIFAN-SURRENDER",
               "M2-P011-YANG-XINGMI-PEACE-DEMAND"
             ],
             "result_nonconversion": true
@@ -1473,7 +1487,7 @@
           "task_code": "PROFILE-M2-RULER-FD-LI-CUNXU",
           "ruler_name": "李存勖",
           "polity": "五代十国",
-          "actual_power_window": "923-926",
+          "actual_power_window": "908—926年",
           "axis_code": "M2",
           "axis_name": "外交博弈与对外联盟能力",
           "score_status": "FINAL",
@@ -1570,8 +1584,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "M2-P004-QI-SUBMISSION",
               "M2-P004-FORMER-SHU-SURRENDER",
+              "M2-P004-QI-SUBMISSION",
               "M2-P004-SOUTHERN-HAN-CONTACT"
             ],
             "result_nonconversion": true
@@ -1665,8 +1679,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "M2-P008-NORTHERN-HAN-ALLIANCE",
-              "M2-P008-LATER-ZHOU-SONG-EXIT"
+              "M2-P008-LATER-ZHOU-SONG-EXIT",
+              "M2-P008-NORTHERN-HAN-ALLIANCE"
             ],
             "result_nonconversion": true
           },

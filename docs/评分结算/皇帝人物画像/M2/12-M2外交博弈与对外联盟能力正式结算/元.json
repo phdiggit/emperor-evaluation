@@ -6,12 +6,12 @@
       "positions": [
         25,
         58,
-        91,
         92,
         93,
-        138,
+        94,
         139,
-        140
+        140,
+        141
       ],
       "records": [
         {
@@ -507,10 +507,14 @@
               },
               "axis_out_reason": "忽里勒台、诸王分工与继承安排是帝国统治共同体内部权力配置，不能因诸王拥有军政资源而成为M2。",
               "route_handoff": {
-                "status": "HANDOFF_PENDING",
+                "status": "EXPLICITLY_FROZEN",
                 "target_axis": "M4",
-                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
-                "reason": "忽里勒台、诸王分工与继承安排是帝国统治共同体内部权力配置，不能因诸王拥有军政资源而成为M2。"
+                "target_parent_ref": null,
+                "reason": "忽里勒台、诸王分工与继承安排是帝国统治共同体内部权力配置，不能因诸王拥有军政资源而成为M2。",
+                "original_target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "freeze_reason": "A03整改：当前正式快照没有可稳定反查的目标父链；本次不自动代开目标轴父链，也不把该事实继续计入原轴之外的档位。",
+                "reopen_condition": "目标轴正式JSON登记与本事实同一事件的稳定parent_id后，补填target_parent_ref并重新运行A03闭环校验；在此之前保持轴外冻结。",
+                "freeze_basis": "原路由状态=EXPLICITLY_FROZEN；目标父链未在当前正式入口闭合"
               },
               "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
               "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
@@ -537,10 +541,14 @@
               },
               "axis_out_reason": "酒政与继承安排造成的内部联盟信用后果不属于外部外交父链；对外使节威压仍待直接过程补证。",
               "route_handoff": {
-                "status": "HANDOFF_PENDING",
+                "status": "EXPLICITLY_FROZEN",
                 "target_axis": "M4/C5",
-                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
-                "reason": "酒政与继承安排造成的内部联盟信用后果不属于外部外交父链；对外使节威压仍待直接过程补证。"
+                "target_parent_ref": null,
+                "reason": "酒政与继承安排造成的内部联盟信用后果不属于外部外交父链；对外使节威压仍待直接过程补证。",
+                "original_target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "freeze_reason": "A03整改：当前正式快照没有可稳定反查的目标父链；本次不自动代开目标轴父链，也不把该事实继续计入原轴之外的档位。",
+                "reopen_condition": "目标轴正式JSON登记与本事实同一事件的稳定parent_id后，补填target_parent_ref并重新运行A03闭环校验；在此之前保持轴外冻结。",
+                "freeze_basis": "原路由状态=EXPLICITLY_FROZEN；目标父链未在当前正式入口闭合"
               },
               "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
               "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
@@ -768,9 +776,9 @@
           "position": "LOW",
           "score_100": 58,
           "radar_value": 58,
-          "axis_evidence_level": "E1",
-          "output_mode": "EPISODE_TAG",
-          "confidence": "LOW",
+          "axis_evidence_level": "E2",
+          "output_mode": "BOUNDED_PROFILE",
+          "confidence": "MEDIUM",
           "adjudication_ref": "M2-FULL-POOL-ADJ-RULER-YUAN-TOGHON-TEMUR",
           "parent_chains": [
             {
@@ -793,10 +801,14 @@
               },
               "axis_out_reason": "红巾、元廷地方军阀与内部授权/派系承诺首先是元统治共同体内部关系。",
               "route_handoff": {
-                "status": "HANDOFF_PENDING",
+                "status": "EXPLICITLY_FROZEN",
                 "target_axis": "M4",
-                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
-                "reason": "红巾、元廷地方军阀与内部授权/派系承诺首先是元统治共同体内部关系。"
+                "target_parent_ref": null,
+                "reason": "红巾、元廷地方军阀与内部授权/派系承诺首先是元统治共同体内部关系。",
+                "original_target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "freeze_reason": "A03整改：当前正式快照没有可稳定反查的目标父链；本次不自动代开目标轴父链，也不把该事实继续计入原轴之外的档位。",
+                "reopen_condition": "目标轴正式JSON登记与本事实同一事件的稳定parent_id后，补填target_parent_ref并重新运行A03闭环校验；在此之前保持轴外冻结。",
+                "freeze_basis": "原路由状态=EXPLICITLY_FROZEN；目标父链未在当前正式入口闭合"
               },
               "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
               "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
@@ -816,28 +828,64 @@
               "cycle_basis": "派系承诺、授权失控和无法联合内部力量属于本方政治整合，不是周期起点具有独立拒绝权的非己方势力；整条退出M2计分。",
               "axis_out_reason": "原反证同样评价内部派系与授权失控，不作为外部M2反证。",
               "route_handoff": {
-                "status": "HANDOFF_PENDING",
+                "status": "EXPLICITLY_FROZEN",
                 "target_axis": "M4",
-                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
-                "reason": "原反证同样评价内部派系与授权失控，不作为外部M2反证。"
+                "target_parent_ref": null,
+                "reason": "原反证同样评价内部派系与授权失控，不作为外部M2反证。",
+                "original_target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "freeze_reason": "A03整改：当前正式快照没有可稳定反查的目标父链；本次不自动代开目标轴父链，也不把该事实继续计入原轴之外的档位。",
+                "reopen_condition": "目标轴正式JSON登记与本事实同一事件的稳定parent_id后，补填target_parent_ref并重新运行A03闭环校验；在此之前保持轴外冻结。",
+                "freeze_basis": "原路由状态=EXPLICITLY_FROZEN；目标父链未在当前正式入口闭合"
               },
               "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
               "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
               "membership_relative_to_evaluated_ruler": "INTERNAL_TO_EVALUATED_RULER",
               "counterparty_condition_authenticity": "NOT_APPLICABLE_AXIS_OUT"
+            },
+            {
+              "parent_id": "M2-P184-KORYO-ROYAL-RECOGNITION",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "source_support": "DIRECT_PROCESS_AND_EXECUTION",
+              "source_refs": [
+                "https://zh.wikisource.org/zh-hans/高麗史/卷三十八"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/zh-hans/高麗史/卷三十八"
+              ],
+              "cycle_basis": "高丽史卷三十八直接记载：元顺帝召高丽王子入朝宿卫；高丽王位更替后，元廷先留其宿卫，随后在高丽臣僚请求下册封为国王并遣使收国玺，原王退位、妥懽帖睦尔返国。这是元—高丽外部政权关系中的召入、反馈、政治承认与执行闭环；不把高丽国内行政、倭寇战争或婚姻后效重复计入M2。",
+              "relationship_phase": "EXTERNAL_POLITY",
+              "political_membership_at_cycle_start": "EXTERNAL_SOVEREIGN_OR_DE_FACTO_INDEPENDENT",
+              "membership_relative_to_evaluated_ruler": "EXTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL",
+              "intensity_grade_review": {
+                "scope": "M2_INTENSITY_ATTRIBUTION_EFFECT_SEPARATION",
+                "before_intensity": "MI2",
+                "after_intensity": "MI2",
+                "source_support": "DIRECT_PROCESS_AND_EXECUTION",
+                "disposition": "PROMOTE_DIRECT_PROCESS_RETAIN_BOUNDED_INTENSITY",
+                "basis": "仅闭合一条元—高丽王位承认周期，尚无第二独立对象复验，不抬高MI2或档位。"
+              }
             }
           ],
-          "representative_parent_ids": [],
+          "representative_parent_ids": [
+            "M2-P184-KORYO-ROYAL-RECOGNITION"
+          ],
           "typical_pattern": "零散招抚被系统联盟瓦解压倒。",
           "counterpattern": {
-            "positive_parent_refs": [],
+            "positive_parent_refs": [
+              "M2-P184-KORYO-ROYAL-RECOGNITION"
+            ],
             "counter_parent_refs": []
           },
-          "grade_basis": "当前不发布新的M2实裁；旧G3-LOW仅作为整改前显示点保留。红巾与元廷地方军阀招抚/授权失控属于M4，北退结果不构成外交正证。",
-          "position_basis": "待补证后重新裁档；旧值不作为合格下沿、当前雷达值或新结论。",
+          "grade_basis": "补出元—高丽独立政权的召入、册封、收玺与复位执行链，形成单一MI2正向周期；无第二对象复验，维持G3-LOW / 58。",
+          "position_basis": "按单一直接外部周期与全生涯材料密度置G3-LOW / 58；不以内部派系或北退结果抬档。",
           "axis_relevance_check": {
             "status": "CLOSED",
-            "scoring_parent_refs": [],
+            "scoring_parent_refs": [
+              "M2-P184-KORYO-ROYAL-RECOGNITION"
+            ],
             "result_nonconversion": true
           },
           "reviews": {
@@ -849,13 +897,11 @@
             "density": "MATERIAL_DENSITY_LIMITED"
           },
           "limitations": [
-            "强度复核仅有别轴汇总结算，缺少可反查的条件—反馈—选择—结果直接过程定位；相关父链只保留MI2，不据结果表宣称MI3/MI4。",
-            "现有计分父链仍依赖有界摘要或分项汇总，缺少完整直接过程定位；本档位为低或中置信度显示点。",
-            "待补证：补齐高丽、察合台/其他汗国、吐蕃/西域或明军之间的独立政权外交过程。"
+            "已补出元—高丽直接外交周期；仍缺察合台、其他汗国、吐蕃/西域或明军等第二独立外部对象复验，维持E2与G3-LOW。"
           ],
           "formal_status": "FORMAL_CURRENT",
-          "adjudication_state": "UNRESOLVED_EVIDENCE_GAP",
-          "display_point_only": true,
+          "adjudication_state": "FORMAL_CURRENT",
+          "display_point_only": false,
           "display_point_reason": "红巾与元廷地方军阀招抚/授权失控属于M4，北退结果不构成外交正证。",
           "pending_reopen_condition": "补齐高丽、察合台/其他汗国、吐蕃/西域或明军之间的独立政权外交过程。",
           "historical_display_grade": "G3-LOW",

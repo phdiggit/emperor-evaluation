@@ -9,11 +9,11 @@
         50,
         51,
         53,
-        81,
         82,
-        84,
-        115,
-        117,
+        83,
+        85,
+        116,
+        118,
         148,
         149,
         150,
@@ -194,15 +194,18 @@
               },
               "axis_out_reason": "慕容垂投秦后的授官、待遇、安全信用、组织资源与集团退出属于降附集团的内部政治整合；仅投秦前安全信号可作背景。",
               "route_handoff": {
-                "status": "ROUTED",
+                "status": "CLOSED",
                 "target_axis": "M4",
-                "target_parent_ref": "M4-FJIAN2-P2",
-                "reason": "慕容垂投秦后的授官、待遇、安全信用、组织资源与集团退出属于降附集团的内部政治整合；仅投秦前安全信号可作背景。"
+                "target_parent_ref": "M4P-RULER-SHADOW-苻坚-FJIAN2-P2",
+                "reason": "慕容垂投秦后的授官、待遇、安全信用、组织资源与集团退出属于降附集团的内部政治整合；仅投秦前安全信号可作背景。",
+                "original_target_parent_ref": "M4-FJIAN2-P2",
+                "closure_basis": "NORMALIZED_TARGET_PARENT_ALIAS"
               },
-              "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
-              "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
-              "membership_relative_to_evaluated_ruler": "INTERNAL_TO_EVALUATED_RULER",
-              "counterparty_condition_authenticity": "NOT_APPLICABLE_AXIS_OUT"
+              "relationship_phase": "EXTERNAL_TO_INTERNAL_TRANSITION",
+              "political_membership_at_cycle_start": "TRANSITIONING_SURRENDER_OR_VASSALIZATION",
+              "membership_relative_to_evaluated_ruler": "EXTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL",
+              "identity_transition_point": "慕容垂正式投秦、授官并进入前秦政治体系后"
             },
             {
               "parent_id": "M2-REVIEW-苻坚-03",
@@ -793,20 +796,31 @@
               "direction": "MIXED_BALANCED",
               "intensity": "MI2",
               "consumption_status": "SCORING_PARENT",
-              "source_support": "FORMAL_MULTIPOLAR_RESULTS_PROCESS_THIN",
+              "source_support": "DIRECT_PROCESS_AND_EXECUTION",
               "source_refs": [
                 "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/69",
-                "docs/史料通读产物/唐以前编年/00-战争卡审计索引.md#L377"
+                "docs/史料通读产物/唐以前编年/00-战争卡审计索引.md#L377",
+                "docs/史料通读产物/唐以前编年/两晋/卷115-通读总结.md#L230-L236",
+                "docs/史料通读产物/唐以前编年/两晋/卷115-通读总结.md#L371-L377",
+                "docs/史料通读产物/唐以前编年/两晋/卷116-通读总结.md#L91-L97",
+                "docs/史料通读产物/唐以前编年/两晋/卷116-通读总结.md#L132-L135",
+                "docs/史料通读产物/唐以前编年/两晋/卷118-通读总结.md#L151-L157"
               ],
-              "cycle_basis": "后凉、西凉、南凉与北魏均有独立选择权；多边通使、诈降和改盟帮助北凉生存，但具体条件与履约过程薄，且毁约杀降形成同链反证。",
+              "cycle_basis": "补查在同一多边河西生命周期内定位到多组直接过程：南凉以质子求和并换取撤围，西凉以金银赎将换取放还与结盟撤军，后续又有背盟、守城待粮和撤退反馈。这些过程证明条件交换与执行并非只有结果汇总，但来源仍为战争通读总结，且军事控制、人口与外交执行交织；本父链继续按MIXED_BALANCED/MI2，不把战果或对象数量转成更高M2强度。",
               "intensity_grade_review": {
                 "scope": "M2_INTENSITY_ATTRIBUTION_EFFECT_SEPARATION",
                 "before_intensity": "MI2",
                 "after_intensity": "MI2",
-                "source_support": "FORMAL_MULTIPOLAR_RESULTS_PROCESS_THIN",
-                "disposition": "RETAIN_AFTER_SEMANTIC_REVIEW",
-                "basis": "现有直接过程能够支持当前生命周期跨度；强度不由成果规模、对象枚举或父链数量推出。"
-              }
+                "source_support": "DIRECT_PROCESS_AND_EXECUTION",
+                "disposition": "PROMOTE_DIRECT_PROCESS_RETAIN_BOUNDED_INTENSITY",
+                "basis": "补查闭合了部分条件、反馈与执行过程，但多边或本人归责边界仍不足以抬高强度、档位或证据级别。"
+              },
+              "direct_process_refs": [
+                "docs/史料通读产物/唐以前编年/两晋/卷115-通读总结.md#L235-L236",
+                "docs/史料通读产物/唐以前编年/两晋/卷115-通读总结.md#L374-L377",
+                "docs/史料通读产物/唐以前编年/两晋/卷116-通读总结.md#L94-L97",
+                "docs/史料通读产物/唐以前编年/两晋/卷116-通读总结.md#L132-L135"
+              ]
             }
           ],
           "representative_parent_ids": [
@@ -819,7 +833,7 @@
               "M2-P122-HEXI-MULTIPOLAR"
             ]
           },
-          "grade_basis": "一条多边混合周期只支持G3中位；旧G4把战果和机会主义次数当成复验，证据不足。",
+          "grade_basis": "补查确认河西多边周期存在若干直接条件—反馈—执行节点；但同一网络内的混合机制、毁盟反证与战争结果交织，仍只支持G3-MID。",
           "position_basis": "置G3-MID。",
           "axis_relevance_check": {
             "status": "CLOSED",
@@ -837,7 +851,7 @@
             "density": "MATERIAL_DENSITY_LIMITED"
           },
           "limitations": [
-            "EVIDENCE_LIMITED：主要条件往返缺直接正文。"
+            "EVIDENCE_LIMITED：已补出赎将、质子求和、撤围与背盟等直接过程摘要，但多边条件往返、本人归责和外交结果与战争结果的切分仍不足，维持E2。"
           ],
           "formal_status": "FORMAL_CURRENT",
           "adjudication_state": "FORMAL_CURRENT",
@@ -1083,10 +1097,14 @@
               },
               "axis_out_reason": "援司马颖、招集五部胡、建国动员与归附军头授爵是从属/创业内部组织，不是已闭合的外部外交链。",
               "route_handoff": {
-                "status": "HANDOFF_PENDING",
+                "status": "EXPLICITLY_FROZEN",
                 "target_axis": "M4",
-                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
-                "reason": "援司马颖、招集五部胡、建国动员与归附军头授爵是从属/创业内部组织，不是已闭合的外部外交链。"
+                "target_parent_ref": null,
+                "reason": "援司马颖、招集五部胡、建国动员与归附军头授爵是从属/创业内部组织，不是已闭合的外部外交链。",
+                "original_target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "freeze_reason": "A03整改：当前正式快照没有可稳定反查的目标父链；本次不自动代开目标轴父链，也不把该事实继续计入原轴之外的档位。",
+                "reopen_condition": "目标轴正式JSON登记与本事实同一事件的稳定parent_id后，补填target_parent_ref并重新运行A03闭环校验；在此之前保持轴外冻结。",
+                "freeze_basis": "原路由状态=EXPLICITLY_FROZEN；目标父链未在当前正式入口闭合"
               },
               "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
               "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
@@ -1167,10 +1185,14 @@
               },
               "axis_out_reason": "石勒、曹嶷在授官—奉诏—军政集团关系阶段的拒命、强藩制衡与内部并吞风险属于M4；事实自治不追溯改写此前关系。",
               "route_handoff": {
-                "status": "HANDOFF_PENDING",
+                "status": "EXPLICITLY_FROZEN",
                 "target_axis": "M4",
-                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
-                "reason": "石勒、曹嶷在授官—奉诏—军政集团关系阶段的拒命、强藩制衡与内部并吞风险属于M4；事实自治不追溯改写此前关系。"
+                "target_parent_ref": null,
+                "reason": "石勒、曹嶷在授官—奉诏—军政集团关系阶段的拒命、强藩制衡与内部并吞风险属于M4；事实自治不追溯改写此前关系。",
+                "original_target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "freeze_reason": "A03整改：当前正式快照没有可稳定反查的目标父链；本次不自动代开目标轴父链，也不把该事实继续计入原轴之外的档位。",
+                "reopen_condition": "目标轴正式JSON登记与本事实同一事件的稳定parent_id后，补填target_parent_ref并重新运行A03闭环校验；在此之前保持轴外冻结。",
+                "freeze_basis": "原路由状态=EXPLICITLY_FROZEN；目标父链未在当前正式入口闭合"
               },
               "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
               "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
@@ -1197,10 +1219,14 @@
               },
               "axis_out_reason": "刘聪对石勒/曹嶷的问责、授权与军头制衡是内部集团治理。",
               "route_handoff": {
-                "status": "HANDOFF_PENDING",
+                "status": "EXPLICITLY_FROZEN",
                 "target_axis": "M4",
-                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
-                "reason": "刘聪对石勒/曹嶷的问责、授权与军头制衡是内部集团治理。"
+                "target_parent_ref": null,
+                "reason": "刘聪对石勒/曹嶷的问责、授权与军头制衡是内部集团治理。",
+                "original_target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "freeze_reason": "A03整改：当前正式快照没有可稳定反查的目标父链；本次不自动代开目标轴父链，也不把该事实继续计入原轴之外的档位。",
+                "reopen_condition": "目标轴正式JSON登记与本事实同一事件的稳定parent_id后，补填target_parent_ref并重新运行A03闭环校验；在此之前保持轴外冻结。",
+                "freeze_basis": "原路由状态=EXPLICITLY_FROZEN；目标父链未在当前正式入口闭合"
               },
               "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
               "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import re
+from urllib.parse import parse_qs, unquote, urlparse
 from pathlib import Path
 from typing import Any
 
@@ -78,6 +79,12 @@ IMPORTANT_INSTITUTION_REGISTRY = (
     "docs/公共成果/制度行政/03-重要制度发展节点链.json"
 )
 
+A_MATERIAL_REGISTRY_ROOT = "docs/公共成果/制度行政/01-制度行政计分材料登记"
+A_READER_BACKGROUND_MARKERS = (
+    "检索范围（未形成A计分节点）",
+    "补充背景（不作为上述节点的直接计分依据）",
+)
+
 
 def _competition_rank(sorted_scores: list[float], index: int) -> int:
     return sorted_scores.index(sorted_scores[index]) + 1
@@ -86,6 +93,180 @@ def _competition_rank(sorted_scores: list[float], index: int) -> int:
 def _records_by_id(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
     records = payload.get("records") or payload.get("scores") or []
     return {str(row["ruler_id"]): row for row in records}
+
+
+def _load_a_material_registry(workspace_root: Path) -> dict[str, dict[str, Any]]:
+    registry: dict[str, dict[str, Any]] = {}
+    root = workspace_root / A_MATERIAL_REGISTRY_ROOT
+    for path in sorted(root.glob("*.json")):
+        payload = load_json(path)
+        for material in payload.get("records") or []:
+            material_id = str(material.get("material_id") or "").strip()
+            if not material_id:
+                continue
+            if material_id in registry:
+                raise ValueError(f"第二项A公共材料ID重复：{material_id}")
+            registry[material_id] = material
+    return registry
+
+
+def _a_reader_source_label(source_title: object) -> str:
+    source = str(source_title or "").strip()
+    if not source:
+        return "《史源摘要》"
+    if source.startswith("http://") or source.startswith("https://"):
+        parsed = urlparse(source)
+        query_title = parse_qs(parsed.query).get("title", [""])[0]
+        source = unquote(query_title or parsed.path).strip("/")
+        if source.endswith("index.php"):
+            return "《相关史源》"
+    if source.startswith("docs/"):
+        parts = source.split("/")
+        volume = next((part for part in reversed(parts) if part.startswith("volume-")), "")
+        if volume:
+            number = re.search(r"volume-(\d+)", volume)
+            parent = next((part for part in reversed(parts[:-1]) if part), "史料通读产物")
+            source = f"{parent}·卷{int(number.group(1))}" if number else parent
+        else:
+            source = parts[-1]
+        source = re.sub(r"\.(?:source-summary|summary)\.(?:md|txt)$", "", source)
+        if "·卷" not in source and any(token in source for token in ("法律", "刑法", "底账", "登记")):
+            return "《法律史源》"
+        if "·卷" not in source and source.endswith((".md", ".txt")):
+            return "《相关史源》"
+    if any(token in source for token in ("底账", "登记", "index.php")):
+        return "《法律史源》" if "法" in source else "《相关史源》"
+    source = re.sub(r"/卷0+(\d+)", r"·卷\1", source).replace("/", "·")
+    if source.startswith("《"):
+        return source
+    return f"《{source}》"
+
+
+def _a_profile_material_label(row: dict[str, Any], material_id: str) -> str:
+    for profile_key in ("M_positive_profile", "M_mixed_profile", "M_negative_profile"):
+        for profile in row.get(profile_key) or []:
+            if material_id in {str(value) for value in profile.get("material_ids") or []}:
+                return str(profile.get("label_zh") or profile.get("mechanism") or material_id)
+    for institution in row.get("important_institutions") or []:
+        linked_ids = set()
+        for key in (
+            "material_ids",
+            "construction_operation_material_ids",
+            "durability_material_ids",
+        ):
+            linked_ids.update(str(value) for value in institution.get(key) or [])
+        if material_id in linked_ids:
+            return str(institution.get("label_zh") or institution.get("reason") or material_id)
+    return material_id
+
+
+def _a_material_line(row: dict[str, Any], material_id: str, registry: dict[str, dict[str, Any]]) -> str:
+    material = registry.get(material_id)
+    if material is None:
+        if not material_id.startswith("CL-"):
+            raise ValueError(f"第二项A材料未登记：{row.get('ruler_name')}={material_id}")
+        return (
+            "  - 《法律史源》："
+            f"{_a_profile_material_label(row, material_id)}（保留法制底账归责材料）"
+        )
+    evidence = next(
+        (
+            item
+            for item in material.get("evidence") or []
+            if isinstance(item, dict)
+            and str(item.get("exact_quote") or "").strip()
+            and str(item.get("source_title") or "").strip()
+        ),
+        None,
+    )
+    if evidence is not None:
+        source = _a_reader_source_label(evidence["source_title"])
+        quote = str(evidence["exact_quote"]).strip()
+        quote = re.sub(r"\s*<BR>\s*", " ", quote)
+        quote = re.sub(r"\s*\n\s*", " ", quote)
+    else:
+        source = "《史源摘要》"
+        quote = str(
+            material.get("title")
+            or material.get("operation")
+            or material.get("result")
+            or material_id
+        ).strip()
+    return f"  - {source}：{quote}"
+
+
+def _a_expected_registered_material_lines(
+    row: dict[str, Any], registry: dict[str, dict[str, Any]]
+) -> list[str]:
+    lines: list[str] = []
+    seen: set[str] = set()
+    for material_id in (str(value) for value in row.get("direct_material_ids") or []):
+        line = _a_material_line(row, material_id, registry)
+        if line not in seen:
+            seen.add(line)
+            lines.append(line)
+    return lines
+
+
+def _a_markdown_sections(markdown: str) -> dict[str, str]:
+    starts = list(re.finditer(r"^### (?P<name>.+?)（.*?）$", markdown, flags=re.M))
+    return {
+        match.group("name"): markdown[
+            match.start() : starts[index + 1].start() if index + 1 < len(starts) else len(markdown)
+        ]
+        for index, match in enumerate(starts)
+    }
+
+
+def _a_section_material_lines(section: str) -> list[str]:
+    match = re.search(
+        r"^- 材料依据：\n(?P<lines>(?:  - .*\n?)+)",
+        section,
+        flags=re.M,
+    )
+    if not match:
+        return []
+    return [line for line in match.group("lines").splitlines() if line.startswith("  - ")]
+
+
+def verify_second_item_a_reader_material_binding(
+    workspace_root: Path,
+    records: list[dict[str, Any]],
+    markdown: str,
+) -> dict[str, Any]:
+    registry = _load_a_material_registry(workspace_root)
+    sections = _a_markdown_sections(markdown)
+    if set(sections) != {str(row.get("ruler_name")) for row in records}:
+        raise ValueError("第二项A材料绑定校验的逐人章节集合不一致")
+    checked_registered = 0
+    checked_background = 0
+    for row in records:
+        name = str(row["ruler_name"])
+        lines = _a_section_material_lines(sections[name])
+        direct_ids = [str(value) for value in row.get("direct_material_ids") or []]
+        registered_ids = [value for value in direct_ids if value in registry]
+        if registered_ids:
+            expected = _a_expected_registered_material_lines(row, registry)
+            if lines != expected:
+                raise ValueError(f"第二项A Markdown材料未按direct_material_ids绑定：{name}")
+            checked_registered += len(registered_ids)
+            continue
+        if direct_ids:
+            expected = _a_expected_registered_material_lines(row, registry)
+            if lines != expected:
+                raise ValueError(f"第二项A法制底账材料未按direct_material_ids绑定：{name}")
+            checked_registered += len(direct_ids)
+            continue
+        if not lines:
+            raise ValueError(f"第二项A无direct材料的人物缺少非计分材料范围：{name}")
+        if any(not any(marker in line for marker in A_READER_BACKGROUND_MARKERS) for line in lines):
+            raise ValueError(f"第二项A无direct材料的人物存在未标记材料：{name}")
+        checked_background += 1
+    return {
+        "record_count": len(records),
+        "registered_material_reference_count": checked_registered,
+        "background_only_record_count": checked_background,
+    }
 
 
 def verify_second_item_a_snapshot(workspace_root: Path) -> dict[str, Any]:
@@ -222,6 +403,11 @@ def verify_second_item_a_snapshot(workspace_root: Path) -> dict[str, Any]:
         material_lines = [line for line in markdown.splitlines() if line.startswith("  - ")]
         if not material_lines or any(not line.startswith("  - 《") for line in material_lines):
             raise ValueError("第二项A材料依据仍含无书名条目")
+        material_binding = verify_second_item_a_reader_material_binding(
+            workspace_root,
+            records,
+            markdown,
+        )
         for row in records:
             if row.get("v2_explicit_patch") is not True:
                 continue
@@ -260,6 +446,7 @@ def verify_second_item_a_snapshot(workspace_root: Path) -> dict[str, Any]:
             "reference_node_count": len(nodes) - len(active_node_ids),
             "explicit_patch_count": explicit_patch_count,
             "extreme_delta_reopen_count": reopen_count,
+            **material_binding,
         }
 
 

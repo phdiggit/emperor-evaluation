@@ -7,10 +7,10 @@
         31,
         38,
         39,
-        65,
-        88,
-        105,
-        137
+        66,
+        89,
+        106,
+        138
       ],
       "records": [
         {
@@ -170,8 +170,11 @@
           ],
           "typical_pattern": "拓跋嗣原C1把灾荒恢复和刘裕伐秦时的边防判断压在一个混合父链里，只够G3。跨轴后可以补出一条很完整、而且与战争无关的继承风险预置。",
           "counterpattern": {
-            "positive_parent_refs": "C1-P111-FAMINE-RECOVERY-AND-BORDER C1-P111-SUCCESSION-PRESET",
-            "counter_parent_refs": ""
+            "positive_parent_refs": [
+              "C1-P111-FAMINE-RECOVERY-AND-BORDER",
+              "C1-P111-SUCCESSION-PRESET"
+            ],
+            "counter_parent_refs": []
           },
           "grade_basis": "灾荒承载与继承预置是两个完全不同约束下的国家级周期，达到G4准入；军事边界争议和正证强度均未达到HIGH/MID。改为`G4-LOW / 77`。",
           "position_basis": "战役执行归将领，柔然过程缺条件，不入G4。",
@@ -277,7 +280,7 @@
             ]
           },
           "grade_basis": "迁洛与继承重构虽处同一改革大背景，但对应的是两个独立国家级问题：一个是国家空间—集团资源重组，一个是最高权力转移。两个PS2足以进G4；南征DW2和九年亲政窗口把位置压在`G4-LOW / 77`。",
-          "position_basis": "扣除冯太后继承基础与财政专业设计后，只确认一个本人可归责的完整正向周期；南征为DW2，故由G4-LOW降至G3-HIGH。",
+          "position_basis": "迁洛的国家空间—集团重组与继承资源重构是两个独立PS2，构成G4门；南征DW2和九年亲政窗口压在LOW，取G4-LOW。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
@@ -576,24 +579,48 @@
                 "docs/史料通读产物/唐以前编年/两晋/卷109-通读总结.md#L80"
               ],
               "cycle_basis": "复国后先务农息民、重建官制；后燕扣亲属索马时拒绝并断交转西燕，避免过量条件。内乱后求和被拒属坏牌。参合陂后坑杀降军与晚年猜忌诛臣显示信用、反馈风险跨阶段退化。"
+            },
+            {
+              "parent_id": "C1-P115-LATE-INTERNAL-COLLAPSE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-SHADOW-拓跋珪-DW-P2",
+                "https://zh.wikisource.org/wiki/資治通鑑/卷111"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/wiki/資治通鑑/卷111"
+              ],
+              "cycle_basis": "晚年对中枢、近侍与宫廷集团的安全预期持续破坏，反馈接口失灵，最终以内部联盟弑杀和国家级秩序崩坏收束；该负向风险链独立于前中期复国与中枢重建正链。",
+              "secondary_projection_reason": "M4父链只提供集团或中枢配置事实；本C1父链只消费本人对目标、资源、风险或反馈重配的战略选择，不重复计算M4集团整合。"
             }
           ],
           "representative_parent_ids": [
-            "C1-P115-RESTORATION-AND-RELATION"
+            "C1-P115-RESTORATION-AND-RELATION",
+            "C1-P115-LATE-INTERNAL-COLLAPSE"
           ],
           "typical_pattern": "拓跋珪前中期确有很强的建国与外部风险判断，但晚年内部安全结构持续恶化。清理轴边界后，不把“猜忌”这种人格/认知问题直接当C1扣分，而只消费它最终造成的国家级风险结构。",
           "counterpattern": {
             "positive_parent_refs": [
               "C1-P115-RESTORATION-AND-RELATION"
             ],
-            "counter_parent_refs": []
+            "counter_parent_refs": [
+              "C1-P115-LATE-INTERNAL-COLLAPSE"
+            ]
           },
           "grade_basis": "前中期创业与外部边界足以维持G3主体，但晚期国家内部风险结构发生实际崩盘且无本人恢复。由原G3-HIGH压到`G3-LOW / 58`。",
           "position_basis": "晚期退化显著，不能因复国战果入G4。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P115-RESTORATION-AND-RELATION"
+              "C1-P115-RESTORATION-AND-RELATION",
+              "C1-P115-LATE-INTERNAL-COLLAPSE"
             ],
             "result_nonconversion": true
           },

@@ -47,7 +47,11 @@ COMPARISONS = (
 class Profile:
     ruler_id: str
     ruler_name: str
-    values: tuple[int, ...]
+    values: tuple[int | None, ...]
+    display_point_axes: tuple[str, ...] = ()
+
+
+DISPLAY_POINT_STATES = {"UNRESOLVED_EVIDENCE_GAP", "REASSESSMENT_REQUIRED"}
 
 
 def _read_json(path: Path) -> dict[str, Any]:
@@ -115,10 +119,20 @@ def load_profiles() -> dict[str, Profile]:
         names = {per_axis[axis_code][ruler_id]["ruler_name"] for axis_code in AXIS_ORDER}
         if len(names) != 1:
             raise ValueError(f"八轴人物名称不一致：{ruler_id}")
+        values: list[int | None] = []
+        display_point_axes: list[str] = []
+        for axis_code in AXIS_ORDER:
+            row = per_axis[axis_code][ruler_id]
+            if row.get("display_point_only") or row.get("adjudication_state") in DISPLAY_POINT_STATES:
+                values.append(None)
+                display_point_axes.append(axis_code)
+            else:
+                values.append(row["radar_value"])
         profiles[ruler_id] = Profile(
             ruler_id=ruler_id,
             ruler_name=names.pop(),
-            values=tuple(per_axis[axis_code][ruler_id]["radar_value"] for axis_code in AXIS_ORDER),
+            values=tuple(values),
+            display_point_axes=tuple(display_point_axes),
         )
     return profiles
 
@@ -127,7 +141,11 @@ def sample_profiles(profiles: dict[str, Profile]) -> list[Profile]:
     missing = set(SAMPLE_RULER_IDS) - set(profiles)
     if missing:
         raise ValueError(f"小样稳定人物ID不在正式池：{sorted(missing)}")
-    return [profiles[ruler_id] for ruler_id in SAMPLE_RULER_IDS]
+    return [
+        profiles[ruler_id]
+        for ruler_id in SAMPLE_RULER_IDS
+        if not profiles[ruler_id].display_point_axes
+    ]
 
 
 def _matplotlib() -> Any:
@@ -196,6 +214,8 @@ def _save(figure: Any, path: Path) -> None:
 
 
 def render_single(profile: Profile, output_path: Path) -> None:
+    if any(value is None for value in profile.values):
+        raise ValueError(f"未决显示点不得生成雷达图：{profile.ruler_id}")
     plt = _matplotlib()
     figure, axis, angles = _radar_axes(plt)
     values = list(profile.values) + [profile.values[0]]
@@ -208,6 +228,8 @@ def render_single(profile: Profile, output_path: Path) -> None:
 
 
 def render_comparison(left: Profile, right: Profile, output_path: Path) -> None:
+    if any(value is None for value in left.values + right.values):
+        raise ValueError(f"未决显示点不得生成雷达对比图：{left.ruler_id}/{right.ruler_id}")
     plt = _matplotlib()
     figure, axis, angles = _radar_axes(plt)
     styles = ((left, "#3D4C9E", "o", "-"), (right, "#E76F51", "s", "--"))
@@ -224,7 +246,18 @@ def write_samples(output_dir: Path | None = None) -> dict[str, Any]:
     profiles = load_profiles()
     config = _project_profile_config()["radar_samples"]
     output_dir = output_dir or ROOT / config["output_dir"]
+    output_dir.mkdir(parents=True, exist_ok=True)
+    omitted = [
+        profiles[ruler_id]
+        for ruler_id in SAMPLE_RULER_IDS
+        if profiles[ruler_id].display_point_axes
+    ]
     selected = sample_profiles(profiles)
+    for profile in omitted:
+        for suffix in (".svg", ".png"):
+            stale = output_dir / f"single-{profile.ruler_id}{suffix}"
+            if stale.is_file():
+                stale.unlink()
     written: list[str] = []
     for profile in selected:
         stem = f"single-{profile.ruler_id}"
@@ -246,6 +279,15 @@ def write_samples(output_dir: Path | None = None) -> dict[str, Any]:
         "profile_ranking_enabled": False,
         "composite_ranking_write": False,
         "samples": [{"ruler_id": row.ruler_id, "ruler_name": row.ruler_name, "values": list(row.values)} for row in selected],
+        "omitted_samples": [
+            {
+                "ruler_id": row.ruler_id,
+                "ruler_name": row.ruler_name,
+                "reason": "UNRESOLVED_EVIDENCE_GAP_DISPLAY_POINT",
+                "display_point_axes": list(row.display_point_axes),
+            }
+            for row in omitted
+        ],
         "comparisons": [{"left": left, "right": right} for left, right in COMPARISONS],
         "files": sorted(written),
     }
@@ -254,12 +296,19 @@ def write_samples(output_dir: Path | None = None) -> dict[str, Any]:
         f"- `{row.ruler_id}`：{row.ruler_name}（八轴值：{' / '.join(map(str, row.values))}）"
         for row in selected
     )
+    omitted_note = ""
+    if omitted:
+        omitted_note = "\n\n## 未生成候选\n\n" + "\n".join(
+            f"- `{row.ruler_id}`：{row.ruler_name}（{','.join(row.display_point_axes)}为待补证显示点，未绘制旧雷达值）"
+            for row in omitted
+        )
     (output_dir / "00-雷达图小样说明.md").write_text(
         "# 八轴人物画像雷达图小样\n\n"
         "固定八轴顺序为 M1、M2、M3、M4、C1、C2、C3、C5，刻度统一为 0—100。SVG 保留可编辑文本；PNG 以 240 DPI 输出。"
         "八个四字轴标题向外留白，使用多色标签与淡色扇区；对比线继续以线型、标记和颜色共同区分。\n\n"
         "## 候选人物\n\n" + rationale + "\n\n"
-        "候选覆盖秦、汉、唐、元、明、清、北宋，并包含高位、低位和明显不均衡画像；选择只服务图表可读性测试，非总分或排名。\n",
+        "候选覆盖秦、汉、唐、元、明、清、北宋，并包含高位、低位和明显不均衡画像；选择只服务图表可读性测试，非总分或排名。"
+        + omitted_note + "\n",
         encoding="utf-8",
     )
     return index

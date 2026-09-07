@@ -7,10 +7,10 @@
         1,
         18,
         54,
-        74,
-        94,
-        112,
+        75,
+        95,
         113,
+        114,
         161
       ],
       "records": [
@@ -345,8 +345,12 @@
           ],
           "typical_pattern": "争位与灭宋阶段资源组织强，统一后日本安南占城爪哇多次投送失常，好牌低产和反馈加码显著。",
           "counterpattern": {
-            "positive_parent_refs": "C1-P178-FOUNDING-AND-CONQUEST-PORTFOLIO",
-            "counter_parent_refs": "C1-P178-EXPANSION-OVERREACH"
+            "positive_parent_refs": [
+              "C1-P178-FOUNDING-AND-CONQUEST-PORTFOLIO"
+            ],
+            "counter_parent_refs": [
+              "C1-P178-EXPANSION-OVERREACH"
+            ]
           },
           "grade_basis": "忽必烈至少有争位、灭宋总体架构、乃颜三条国家级独立正周期，主体稳定达到PS3；统一后远征又形成很重的跨对象DW3。 这种结构不是G2，而是典型“强战略能力 + 晚期目标扩张失控”。 由`G2-MID / 45`上调为**`G4-MID / 82`**。",
           "position_basis": "早期联盟招降和灭宋统筹强正证保留，不因帝国版图抬档。",
@@ -436,7 +440,7 @@
             "counter_parent_refs": []
           },
           "grade_basis": "两个独立重大周期形成PS3；晚年信息旁路、继承未闭合及臣下/宗王设计份额压住上沿。 由`G3-HIGH / 71`上调为**`G4-LOW / 77`**。",
-          "position_basis": "只确认PS2；国家扩张、忽里勒台名义和臣下治理成果不换算为本人跨领域PS3。",
+          "position_basis": "灭金与西征分工形成两个独立重大周期并达到G4下沿；晚年信息旁路、继承未闭合及臣下/宗王设计份额限制上沿，取G4-LOW。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
@@ -610,24 +614,50 @@
                 "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/78"
               ],
               "cycle_basis": "诸汗分裂下可续冲突或以宗族承认贸易修复；本人授权1304多方和议并执行，雪灾救济又全活数万。两个领域但重大周期厚度仍不足G4。"
+            },
+            {
+              "parent_id": "C1-P183-SUCCESSION-RISK",
+              "direction": "NEGATIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-YUAN-TEMUR-TE-P2",
+                "https://ctext.org/wiki.pl?chapter=658564&if=gb",
+                "https://www.cambridge.org/core/books/abs/cambridge-history-of-china/midyuan-politics/9C7C8A16013A3A874B2E8FDE57C44686"
+              ],
+              "direct_process_refs": [
+                "https://ctext.org/wiki.pl?chapter=658564&if=gb",
+                "https://www.cambridge.org/core/books/abs/cambridge-history-of-china/midyuan-politics/9C7C8A16013A3A874B2E8FDE57C44686"
+              ],
+              "cycle_basis": "无嗣与中宫权力扩大形成强反馈，但未重建主要宗支共同接受的后继协议，构成交班共享DW2下沿。",
+              "secondary_projection_reason": "M4父链只提供集团或中枢配置事实；本C1父链只消费本人对目标、资源、风险或反馈重配的战略选择，不重复计算M4集团整合。"
             }
           ],
           "representative_parent_ids": [
-            "C1-P183-KHANATE-PEACE"
+            "C1-P183-KHANATE-PEACE",
+            "C1-P183-SUCCESSION-RISK"
           ],
           "typical_pattern": "以1304和议修复诸汗国关系并维持帝国主线，灾害救济有兑现；个人逆风博弈厚度有限。",
           "counterpattern": {
             "positive_parent_refs": [
               "C1-P183-KHANATE-PEACE"
             ],
-            "counter_parent_refs": []
+            "counter_parent_refs": [
+              "C1-P183-SUCCESSION-RISK"
+            ]
           },
           "grade_basis": "一条强PS2、一个薄正向背景、一条共享DW2；个人逆风复验不足。 由`G3-HIGH / 71`下调为**`G3-MID / 65`**。",
           "position_basis": "多由前代结构和臣子推动，止G3高位。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P183-KHANATE-PEACE"
+              "C1-P183-KHANATE-PEACE",
+              "C1-P183-SUCCESSION-RISK"
             ],
             "result_nonconversion": true
           },
@@ -952,14 +982,41 @@
                 "MTJ-YUAN-BOLOR-COUP-1364-1365"
               ],
               "cycle_basis": "高邮主攻可维持脱脱责任线或临阵罢相；皇后太子御史构陷到达，本人仍削官，罢后未及时纠正或重建指挥，多军阀授权与战争方向持续失控。北退保汗廷是有限止损。"
+            },
+            {
+              "parent_id": "C1-P184-1340-CENTRAL-RESET",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-YUAN-TOGHON-TEMUR-TT-P1",
+                "https://ctext.org/wiki.pl?chapter=739394&if=gb&remap=gb",
+                "https://www.cambridge.org/core/books/abs/cambridge-history-of-china/shunti-and-the-end-of-yuan-rule-in-china/9103B8F5F75E8F19C5D17D9221CFCB10",
+                "https://ctext.org/wiki.pl?chapter=262114&if=gb&remap=gb"
+              ],
+              "direct_process_refs": [
+                "https://ctext.org/wiki.pl?chapter=739394&if=gb&remap=gb",
+                "https://www.cambridge.org/core/books/abs/cambridge-history-of-china/shunti-and-the-end-of-yuan-rule-in-china/9103B8F5F75E8F19C5D17D9221CFCB10",
+                "https://ctext.org/wiki.pl?chapter=262114&if=gb&remap=gb"
+              ],
+              "cycle_basis": "1340年借脱脱集团摆脱伯颜并重新打开中枢入口，承担诏命与替代集团配置，形成一次完整的最高权力资源重构PS2；1354年后协调崩解另作DW3。",
+              "secondary_projection_reason": "M4父链只提供集团或中枢配置事实；本C1父链只消费本人对目标、资源、风险或反馈重配的战略选择，不重复计算M4集团整合。"
             }
           ],
           "representative_parent_ids": [
-            "C1-P184-TOGHTO-REMOVAL"
+            "C1-P184-TOGHTO-REMOVAL",
+            "C1-P184-1340-CENTRAL-RESET"
           ],
           "typical_pattern": "原C1低档方向仍然成立，但“曾用脱脱形成局部重组”被写得过轻。M4补证可以确认：1340年借脱脱集团摆脱伯颜并重新打开中枢入口，已经是一条完整的最高权力资源重构PS2，而不是普通“换了一个权臣”。",
           "counterpattern": {
-            "positive_parent_refs": [],
+            "positive_parent_refs": [
+              "C1-P184-1340-CENTRAL-RESET"
+            ],
             "counter_parent_refs": [
               "C1-P184-TOGHTO-REMOVAL"
             ]
@@ -969,7 +1026,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P184-TOGHTO-REMOVAL"
+              "C1-P184-TOGHTO-REMOVAL",
+              "C1-P184-1340-CENTRAL-RESET"
             ],
             "result_nonconversion": true
           },

@@ -6,12 +6,12 @@
       "positions": [
         0,
         22,
-        86,
         87,
         88,
-        129,
+        89,
         130,
         131,
+        132,
         152,
         153,
         167,
@@ -176,11 +176,11 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "M2-P153-WEISHUI-EXIT",
+              "M2-P153-COUNTER",
               "M2-P153-EASTERN-TURK-REORDER",
-              "M2-P153-TUYUHUN-SETTLEMENT",
               "M2-P153-TIBET-WARTALK-MARRIAGE",
-              "M2-P153-COUNTER"
+              "M2-P153-TUYUHUN-SETTLEMENT",
+              "M2-P153-WEISHUI-EXIT"
             ],
             "result_nonconversion": true
           },
@@ -468,15 +468,19 @@
               },
               "axis_out_reason": "两京战果与盟军掳掠成本已作为同一M2生命周期的反馈边界，不另保留结果汇总负链。",
               "route_handoff": {
-                "status": "HANDOFF_PENDING",
+                "status": "EXPLICITLY_FROZEN",
                 "target_axis": "M1/C1",
-                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
-                "reason": "两京战果与盟军掳掠成本已作为同一M2生命周期的反馈边界，不另保留结果汇总负链。"
+                "target_parent_ref": null,
+                "reason": "两京战果与盟军掳掠成本已作为同一M2生命周期的反馈边界，不另保留结果汇总负链。",
+                "original_target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "freeze_reason": "A03整改：当前正式快照没有可稳定反查的目标父链；本次不自动代开目标轴父链，也不把该事实继续计入原轴之外的档位。",
+                "reopen_condition": "目标轴正式JSON登记与本事实同一事件的稳定parent_id后，补填target_parent_ref并重新运行A03闭环校验；在此之前保持轴外冻结。",
+                "freeze_basis": "原路由状态=EXPLICITLY_FROZEN；目标父链未在当前正式入口闭合"
               },
-              "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
-              "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
-              "membership_relative_to_evaluated_ruler": "INTERNAL_TO_EVALUATED_RULER",
-              "counterparty_condition_authenticity": "NOT_APPLICABLE_AXIS_OUT"
+              "relationship_phase": "EXTERNAL_POLITY",
+              "political_membership_at_cycle_start": "EXTERNAL_SOVEREIGN_OR_DE_FACTO_INDEPENDENT",
+              "membership_relative_to_evaluated_ruler": "EXTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL"
             }
           ],
           "representative_parent_ids": [
@@ -652,10 +656,11 @@
               },
               "axis_out_reason": "魏博等藩镇的赦免、官爵、分化与持续归朝属于国内藩镇整合。",
               "route_handoff": {
-                "status": "ROUTED",
+                "status": "CLOSED",
                 "target_axis": "M4",
                 "target_parent_ref": "M4P-RULER-TANG-LICHUN-LCH-P2",
-                "reason": "魏博等藩镇的赦免、官爵、分化与持续归朝属于国内藩镇整合。"
+                "reason": "魏博等藩镇的赦免、官爵、分化与持续归朝属于国内藩镇整合。",
+                "closure_basis": "EXACT_TARGET_PARENT"
               },
               "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
               "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
@@ -746,9 +751,9 @@
           "axis_name": "外交博弈与对外联盟能力",
           "score_status": "EVIDENCE_LIMITED",
           "axis_grade": "G3",
-          "position": "LOW",
-          "score_100": 58,
-          "radar_value": 58,
+          "position": "MID",
+          "score_100": 65,
+          "radar_value": 65,
           "axis_evidence_level": "E2",
           "output_mode": "BOUNDED_PROFILE",
           "confidence": "MEDIUM",
@@ -759,13 +764,14 @@
               "direction": "POSITIVE",
               "intensity": "MI2",
               "consumption_status": "SCORING_PARENT",
-              "source_support": "BOUNDED_LOCAL_SUPPORT",
+              "source_support": "DIRECT_PROCESS_AND_EXECUTION",
               "source_refs": [
                 "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/164",
                 "docs/评分结算/第一项政权奠基与统一贡献及能力/政治整合能力/01-第一项B政治整合能力结算.json#records/155",
-                "docs/史料通读产物/唐以前编年/唐/卷209-通读总结.md#L11"
+                "docs/史料通读产物/唐以前编年/唐/卷209-通读总结.md#L11",
+                "https://zh.wikisource.org/zh-hans/資治通鑑/卷212"
               ],
-              "cycle_basis": "前期对突厥、吐蕃及西域使用册封、互市等工具并有多轮执行；现有材料没有把和亲与独立的安全或外交形式改善连起来，婚姻成分剥离为背景，剩余过程只支持MI2。",
+              "cycle_basis": "补查确认早期已有直接外交过程：开元六年吐蕃奉表请和，要求以舅甥关系互署誓文；中期另有730—733年和议、互市与界碑执行。早期册封、互市与部分边境关系仍需按窗口细拆，741—756年晚期本人外交条件、反馈与执行仍不足；因此只升级正向来源，不抬全生涯档位。",
               "marriage_policy_review": {
                 "scan_hit": true,
                 "disposition": "BACKGROUND_COMPONENT_PARENT_RETAINS_OTHER_MECHANISM",
@@ -777,10 +783,14 @@
                 "scope": "M2_INTENSITY_ATTRIBUTION_EFFECT_SEPARATION",
                 "before_intensity": "MI2",
                 "after_intensity": "MI2",
-                "source_support": "BOUNDED_LOCAL_SUPPORT",
-                "disposition": "RETAIN_LIMITED_CASE_OR_LIFECYCLE",
-                "basis": "强度未超出现有有界材料上限，但来源不足以发布高置信度能力终值。"
-              }
+                "source_support": "DIRECT_PROCESS_AND_EXECUTION",
+                "disposition": "PROMOTE_DIRECT_PROCESS_RETAIN_BOUNDED_INTENSITY",
+                "basis": "卷212直接记录吐蕃请和与誓文条件，卷213补足中期执行；晚期窗口不完整，仍保留MI2/E2。"
+              },
+              "direct_process_refs": [
+                "https://zh.wikisource.org/zh-hans/資治通鑑/卷212",
+                "https://zh.wikisource.org/zh-hans/資治通鑑/卷213"
+              ]
             },
             {
               "parent_id": "M2-P151-COUNTER",
@@ -801,28 +811,64 @@
                 "disposition": "DOWNGRADE_LIFECYCLE_TO_DIRECTIONAL_CASE",
                 "basis": "材料只有结果汇总，未闭合条件、对方反馈和本人调整，最多作为单次方向性案例。"
               }
+            },
+            {
+              "parent_id": "M2-P151-TIBET-PEACE-TRADE",
+              "direction": "POSITIVE",
+              "intensity": "MI3",
+              "consumption_status": "SCORING_PARENT",
+              "source_support": "DIRECT_PROCESS_AND_EXECUTION",
+              "source_refs": [
+                "docs/史料通读产物/唐以前编年/唐/卷213-通读总结.md#L142",
+                "docs/史料通读产物/唐以前编年/唐/卷213-通读总结.md#L143",
+                "docs/史料通读产物/唐以前编年/唐/卷213-通读总结.md#L144",
+                "docs/史料通读产物/唐以前编年/唐/卷213-通读总结.md#L145",
+                "https://zh.wikisource.org/wiki/資治通鑑/卷213"
+              ],
+              "direct_process_refs": [
+                "docs/史料通读产物/唐以前编年/唐/卷213-通读总结.md#L143",
+                "docs/史料通读产物/唐以前编年/唐/卷213-通读总结.md#L144",
+                "docs/史料通读产物/唐以前编年/唐/卷213-通读总结.md#L145"
+              ],
+              "cycle_basis": "玄宗先因吐蕃书辞悖慢拒和，后改派使节赴吐蕃；吐蕃出示旧敕并遣论名悉猎入贡，关系恢复。731准赤岭互市，733准立界碑，条件、对方反馈与后续执行跨年闭合，构成独立于早期册封互市摘要的直接MI3正向外交周期。",
+              "adversity_origin": "EXTERNAL",
+              "relationship_phase": "EXTERNAL_POLITY",
+              "political_membership_at_cycle_start": "EXTERNAL_SOVEREIGN_OR_DE_FACTO_INDEPENDENT",
+              "membership_relative_to_evaluated_ruler": "EXTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL",
+              "intensity_grade_review": {
+                "scope": "M2_INTENSITY_ATTRIBUTION_EFFECT_SEPARATION",
+                "before_intensity": "MI3",
+                "after_intensity": "MI3",
+                "source_support": "DIRECT_PROCESS_AND_EXECUTION",
+                "disposition": "PROMOTE_DIRECT_PROCESS",
+                "basis": "卷213直接记录拒和转和、使节反馈、互市与立界碑的连续执行；不由结果规模或战果抬强度。"
+              }
             }
           ],
           "representative_parent_ids": [
             "M2-P151-POSITIVE",
-            "M2-P151-COUNTER"
+            "M2-P151-COUNTER",
+            "M2-P151-TIBET-PEACE-TRADE"
           ],
           "typical_pattern": "前期册封、互市尚可见多轮使用，但和亲后效未被独立验证；晚期利益与信用判断存在反证。",
           "counterpattern": {
             "positive_parent_refs": [
-              "M2-P151-POSITIVE"
+              "M2-P151-POSITIVE",
+              "M2-P151-TIBET-PEACE-TRADE"
             ],
             "counter_parent_refs": [
               "M2-P151-COUNTER"
             ]
           },
-          "grade_basis": "剥离和亲贡献后，正反两链均只到MI2且直接过程定位有限，不足G3中位。",
-          "position_basis": "置G3-LOW并维持证据受限。",
+          "grade_basis": "718年吐蕃请和与730—733年拒和转和、互市、界碑执行构成同一对象跨阶段的直接正向生命周期，足以把G3档内位置从LOW提升至MID；但晚期利益与信用判断仍有反证且直接过程不足，早晚窗口不对称，不能升G4。",
+          "position_basis": "按典型表现、下沿、阶段一致性和归责确定。新增早期及中期直接正链后，正向机制不再是单一中期孤立高光，但晚期反证与材料缺口仍阻止G3-HIGH及G4，置G3-MID / 65。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
+              "M2-P151-COUNTER",
               "M2-P151-POSITIVE",
-              "M2-P151-COUNTER"
+              "M2-P151-TIBET-PEACE-TRADE"
             ],
             "result_nonconversion": true
           },
@@ -835,8 +881,8 @@
             "density": "MATERIAL_DENSITY_LIMITED"
           },
           "limitations": [
-            "和亲安全后效及前期册封、互市的条件—反馈—执行仍缺直接过程定位。",
-            "现有计分父链仍依赖有界摘要或分项汇总，缺少完整直接过程定位；本档位为低或中置信度显示点。"
+            "718年吐蕃请和与730—733年吐蕃关系已有直接条件—反馈—执行定位；712—717早期剩余阶段与741—756晚期仍缺同等直接M2定位。",
+            "现有计分父链仍包含有界摘要或汇总负链；本档位维持证据受限，不发布全生涯高置信度结论。"
           ],
           "formal_status": "FORMAL_CURRENT",
           "adjudication_state": "FORMAL_CURRENT",
@@ -905,15 +951,19 @@
               },
               "axis_out_reason": "吐蕃/回纥战损与盟军纪律成本已作为M2反馈边界，不保留结果汇总负链。",
               "route_handoff": {
-                "status": "HANDOFF_PENDING",
+                "status": "EXPLICITLY_FROZEN",
                 "target_axis": "M1/C1",
-                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
-                "reason": "吐蕃/回纥战损与盟军纪律成本已作为M2反馈边界，不保留结果汇总负链。"
+                "target_parent_ref": null,
+                "reason": "吐蕃/回纥战损与盟军纪律成本已作为M2反馈边界，不保留结果汇总负链。",
+                "original_target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "freeze_reason": "A03整改：当前正式快照没有可稳定反查的目标父链；本次不自动代开目标轴父链，也不把该事实继续计入原轴之外的档位。",
+                "reopen_condition": "目标轴正式JSON登记与本事实同一事件的稳定parent_id后，补填target_parent_ref并重新运行A03闭环校验；在此之前保持轴外冻结。",
+                "freeze_basis": "原路由状态=EXPLICITLY_FROZEN；目标父链未在当前正式入口闭合"
               },
-              "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
-              "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
-              "membership_relative_to_evaluated_ruler": "INTERNAL_TO_EVALUATED_RULER",
-              "counterparty_condition_authenticity": "NOT_APPLICABLE_AXIS_OUT"
+              "relationship_phase": "EXTERNAL_POLITY",
+              "political_membership_at_cycle_start": "EXTERNAL_SOVEREIGN_OR_DE_FACTO_INDEPENDENT",
+              "membership_relative_to_evaluated_ruler": "EXTERNAL_TO_EVALUATED_RULER",
+              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL"
             }
           ],
           "representative_parent_ids": [
@@ -1002,10 +1052,14 @@
               "cycle_basis": "本人受韦后武氏集团牵制，授权和承诺主导性弱，多方纠错不可见。",
               "axis_out_reason": "旧泛化限制被直接突骑施外部周期替代。",
               "route_handoff": {
-                "status": "HANDOFF_PENDING",
+                "status": "EXPLICITLY_FROZEN",
                 "target_axis": "BACKGROUND",
-                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
-                "reason": "旧泛化限制被直接突骑施外部周期替代。"
+                "target_parent_ref": null,
+                "reason": "旧泛化限制被直接突骑施外部周期替代。",
+                "original_target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "freeze_reason": "A03整改：当前正式快照没有可稳定反查的目标父链；本次不自动代开目标轴父链，也不把该事实继续计入原轴之外的档位。",
+                "reopen_condition": "目标轴正式JSON登记与本事实同一事件的稳定parent_id后，补填target_parent_ref并重新运行A03闭环校验；在此之前保持轴外冻结。",
+                "freeze_basis": "原路由状态=EXPLICITLY_FROZEN；目标父链未在当前正式入口闭合"
               },
               "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
               "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
@@ -1019,13 +1073,17 @@
               "consumption_status": "SCORING_PARENT",
               "source_support": "DIRECT_EXTERNAL_CONFLICT_AND_TERMINAL_RECOGNITION",
               "source_refs": [
-                "docs/史料通读产物/唐以前编年/唐/卷209-通读总结.md#WAR-LEAD-TANG-ANXI-708"
+                "docs/史料通读产物/唐以前编年/唐/卷209-通读总结.md#WAR-LEAD-TANG-ANXI-708",
+                "https://zh.wikisource.org/zh-hans/資治通鑑/卷209"
               ],
               "cycle_basis": "突骑施娑葛—阙啜忠节为外部竞争集团；中宗中枢无视郭元振成本预警仍推进干预，导致娑葛进攻，后又接受其请降并册封，形成‘高风险干预—直接反馈—有限收束’的MI2周期。婚姻事实不计分。",
               "relationship_phase": "EXTERNAL_POLITY",
               "political_membership_at_cycle_start": "EXTERNAL_SOVEREIGN_OR_DE_FACTO_INDEPENDENT",
               "membership_relative_to_evaluated_ruler": "EXTERNAL_TO_EVALUATED_RULER",
-              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL"
+              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL",
+              "direct_process_refs": [
+                "https://zh.wikisource.org/zh-hans/資治通鑑/卷209"
+              ]
             }
           ],
           "representative_parent_ids": [
@@ -1088,7 +1146,8 @@
               "consumption_status": "BACKGROUND_VALIDATION",
               "source_support": "DIRECT_HISTORICAL_PROCESS_REVIEW",
               "source_refs": [
-                "《资治通鉴》卷205：吐蕃请和亲、论钦陵要求罢四镇及十姓地；郭元振提出条件反制，武则天采纳。"
+                "《资治通鉴》卷205：吐蕃请和亲、论钦陵要求罢四镇及十姓地；郭元振提出条件反制，武则天采纳。",
+                "https://zh.wikisource.org/zh-hans/資治通鑑/卷205"
               ],
               "cycle_basis": "吐蕃以和亲同时索取四镇与十姓利益，郭元振提出归还吐谷浑诸部及青海故地的反向条件，武则天采纳。该方案体现风险识别，但和亲没有落地，也未闭合由此造成的安全或关系形式改善，按新合同只作背景。",
               "marriage_policy_review": {
@@ -1097,7 +1156,10 @@
                 "result_gate": "FAIL",
                 "causal_gate": "FAIL",
                 "basis": "只形成反向条件设计，没有和亲落地，也未闭合由该方案造成的关系改善。"
-              }
+              },
+              "direct_process_refs": [
+                "https://zh.wikisource.org/zh-hans/資治通鑑/卷205"
+              ]
             },
             {
               "parent_id": "M2-REVIEW-武则天-02",
@@ -1106,7 +1168,8 @@
               "consumption_status": "SCORING_PARENT",
               "source_support": "DIRECT_HISTORICAL_PROCESS_REVIEW",
               "source_refs": [
-                "《资治通鉴》卷206：默啜提出六州降户及资源要求；武则天由拒绝转为接受；李峤、田归道提出风险警告；资源交付及后续默啜势力增强。"
+                "《资治通鉴》卷206：默啜提出六州降户及资源要求；武则天由拒绝转为接受；李峤、田归道提出风险警告；资源交付及后续默啜势力增强。",
+                "https://zh.wikisource.org/zh-hans/資治通鑑/卷206"
               ],
               "cycle_basis": "契丹危机期间，默啜利用唐廷压力，索取六州降户、土地、谷种、绢帛、农器、铁及婚姻。；武则天最初拒绝，李峤也明确警告默啜贪而无信，不能用这些资源增强潜在对手。；姚璹、杨再思以契丹未平为由主张满足要求，武则天最终接受，大量人口和物资实际交付。；随后田归道再次警告默啜必负约，《资治通鉴》紧接着记载默啜实力增强并继续入侵。；外部契丹压力可以解释为何需要临时妥协，但不能消除条件比例失衡和风险判断问题。",
               "adversity_origin": "EXTERNAL",
@@ -1124,7 +1187,10 @@
                 "source_support": "DIRECT_HISTORICAL_PROCESS_REVIEW",
                 "disposition": "RETAIN_AFTER_SEMANTIC_REVIEW",
                 "basis": "现有直接过程能够支持当前生命周期跨度；强度不由成果规模、对象枚举或父链数量推出。"
-              }
+              },
+              "direct_process_refs": [
+                "https://zh.wikisource.org/zh-hans/資治通鑑/卷206"
+              ]
             }
           ],
           "representative_parent_ids": [
@@ -1198,10 +1264,14 @@
               },
               "axis_out_reason": "奉天后藩镇赦免、归附与国内重新接线属于唐内部军镇关系；吐蕃/平凉会盟另待纯外部过程复核。",
               "route_handoff": {
-                "status": "HANDOFF_PENDING",
+                "status": "EXPLICITLY_FROZEN",
                 "target_axis": "M4",
-                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
-                "reason": "奉天后藩镇赦免、归附与国内重新接线属于唐内部军镇关系；吐蕃/平凉会盟另待纯外部过程复核。"
+                "target_parent_ref": null,
+                "reason": "奉天后藩镇赦免、归附与国内重新接线属于唐内部军镇关系；吐蕃/平凉会盟另待纯外部过程复核。",
+                "original_target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "freeze_reason": "A03整改：当前正式快照没有可稳定反查的目标父链；本次不自动代开目标轴父链，也不把该事实继续计入原轴之外的档位。",
+                "reopen_condition": "目标轴正式JSON登记与本事实同一事件的稳定parent_id后，补填target_parent_ref并重新运行A03闭环校验；在此之前保持轴外冻结。",
+                "freeze_basis": "原路由状态=EXPLICITLY_FROZEN；目标父链未在当前正式入口闭合"
               },
               "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
               "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",
@@ -1213,23 +1283,29 @@
               "direction": "NEGATIVE",
               "intensity": "MI1",
               "consumption_status": "SCORING_PARENT",
-              "source_support": "FORMAL_AGGREGATE_RESULT_WITHOUT_DIRECT_PROCESS",
+              "source_support": "DIRECT_PROCESS_BOUNDED_ATTRIBUTION",
               "source_refs": [
-                "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/145"
+                "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/145",
+                "https://zh.wikisource.org/zh-hans/資治通鑑_%28四庫全書本%29/卷231",
+                "https://zh.wikisource.org/zh-hans/資治通鑑/卷232"
               ],
-              "cycle_basis": "吐蕃/平凉会盟的防范失误与信用误判保留为窄外部候选；现有材料尚未闭合完整条件—反馈—执行周期。",
+              "cycle_basis": "网络扩搜补出奉天—泾原危机中的唐蕃往来、平凉会盟与吐蕃劫盟后反馈，可直接定位德宗对继续借吐蕃、重开和议及将帅授权的判断边界；但当前仍缺完整条款执行链和本人每一阶段授权归责，保留MI1/E1与待补证状态，不把内部藩镇链倒灌M2。",
               "intensity_grade_review": {
                 "scope": "M2_INTENSITY_ATTRIBUTION_EFFECT_SEPARATION",
-                "before_intensity": "MI2",
+                "before_intensity": "MI1",
                 "after_intensity": "MI1",
-                "source_support": "FORMAL_AGGREGATE_RESULT_WITHOUT_DIRECT_PROCESS",
-                "disposition": "DOWNGRADE_LIFECYCLE_TO_DIRECTIONAL_CASE",
-                "basis": "材料只有结果汇总，未闭合条件、对方反馈和本人调整，最多作为单次方向性案例。"
+                "source_support": "DIRECT_PROCESS_BOUNDED_ATTRIBUTION",
+                "disposition": "PROMOTE_DIRECT_SOURCE_RETAIN_LIMITATION",
+                "basis": "原始编年补出危机外交过程，但条件条款、反馈后授权和全周期本人归责仍不足以发布E2或MI2。"
               },
               "relationship_phase": "EXTERNAL_POLITY",
               "political_membership_at_cycle_start": "EXTERNAL_SOVEREIGN_OR_DE_FACTO_INDEPENDENT",
               "membership_relative_to_evaluated_ruler": "EXTERNAL_TO_EVALUATED_RULER",
-              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL"
+              "counterparty_condition_authenticity": "VERIFIED_EXTERNAL",
+              "direct_process_refs": [
+                "https://zh.wikisource.org/zh-hans/資治通鑑_%28四庫全書本%29/卷231",
+                "https://zh.wikisource.org/zh-hans/資治通鑑/卷232"
+              ]
             }
           ],
           "representative_parent_ids": [
@@ -1260,9 +1336,8 @@
             "density": "MATERIAL_DENSITY_LIMITED"
           },
           "limitations": [
-            "强度复核仅有别轴汇总结算，缺少可反查的条件—反馈—选择—结果直接过程定位；相关父链只保留MI2，不据结果表宣称MI3/MI4。",
-            "现有计分父链仍依赖有界摘要或分项汇总，缺少完整直接过程定位；本档位为低或中置信度显示点。",
-            "待补证：补齐奉天—泾原危机中的唐蕃使节、会盟条款、反馈与德宗授权边界。"
+            "已补出奉天—平凉唐蕃危机的原始过程入口；仍缺完整会盟条款、反馈后本人授权与正向复验，维持E1/G2-LOW的待补证边界。",
+            "现有计分父链仍不足以发布全生涯高置信度M2能力终值。"
           ],
           "formal_status": "FORMAL_CURRENT",
           "adjudication_state": "UNRESOLVED_EVIDENCE_GAP",
@@ -1311,10 +1386,14 @@
               },
               "axis_out_reason": "流亡招抚藩镇与黄巢/藩镇战争属于内部关系；不能把内部招抚正链留在M2。",
               "route_handoff": {
-                "status": "HANDOFF_PENDING",
+                "status": "EXPLICITLY_FROZEN",
                 "target_axis": "M4",
-                "target_parent_ref": "PENDING_FORMAL_HANDOFF",
-                "reason": "流亡招抚藩镇与黄巢/藩镇战争属于内部关系；不能把内部招抚正链留在M2。"
+                "target_parent_ref": null,
+                "reason": "流亡招抚藩镇与黄巢/藩镇战争属于内部关系；不能把内部招抚正链留在M2。",
+                "original_target_parent_ref": "PENDING_FORMAL_HANDOFF",
+                "freeze_reason": "A03整改：当前正式快照没有可稳定反查的目标父链；本次不自动代开目标轴父链，也不把该事实继续计入原轴之外的档位。",
+                "reopen_condition": "目标轴正式JSON登记与本事实同一事件的稳定parent_id后，补填target_parent_ref并重新运行A03闭环校验；在此之前保持轴外冻结。",
+                "freeze_basis": "原路由状态=EXPLICITLY_FROZEN；目标父链未在当前正式入口闭合"
               },
               "relationship_phase": "INTERNAL_RULING_COALITION_OR_DOMESTIC_POLITICAL_GROUP",
               "political_membership_at_cycle_start": "INTERNAL_CLIENT_OR_INCORPORATED_GROUP",

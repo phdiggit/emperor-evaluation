@@ -7,15 +7,15 @@
         4,
         13,
         58,
-        81,
         82,
-        99,
+        83,
         100,
-        122,
-        136,
-        148,
+        101,
+        123,
+        137,
         149,
         150,
+        151,
         164,
         174,
         175
@@ -760,14 +760,41 @@
                 "docs/史料通读产物/明/明通鉴/volume-044.source-summary.md#L48"
               ],
               "cycle_basis": "哈密反复失而复立、善巴失众心，河套又出现外敌广域穿透；朱晖远征投入高却无安全收益并损边储。本人能提供册封、安置和资助，但未把反馈转为更稳定边界结构。"
+            },
+            {
+              "parent_id": "C1-P055-INTERNAL-FEEDBACK-RECONFIG",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-MING-ZHU-YOUCHENG-HZ-P1",
+                "https://zh.wikisource.org/zh-hans/明史/卷15",
+                "https://zh.wikisource.org/wiki/明史/卷181",
+                "https://www.dpm.org.cn/court/lineage/226266.html"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/zh-hans/明史/卷15",
+                "https://zh.wikisource.org/wiki/明史/卷181",
+                "https://www.dpm.org.cn/court/lineage/226266.html"
+              ],
+              "cycle_basis": "盐政、宦官与用人等多个中枢议题中，朱祐樘允许正式官僚提出反对并据反馈调整，首辅更替后仍维持多来源协商接口；这是一条独立于哈密低产负链的内部资源与信息重构正证。",
+              "secondary_projection_reason": "M4父链只提供集团或中枢配置事实；本C1父链只消费本人对目标、资源、风险或反馈重配的战略选择，不重复计算M4集团整合。"
             }
           ],
           "representative_parent_ids": [
-            "C1-P055-FRONTIER-LOW-YIELD"
+            "C1-P055-FRONTIER-LOW-YIELD",
+            "C1-P055-INTERNAL-FEEDBACK-RECONFIG"
           ],
           "typical_pattern": "内政治理较稳，但资源优势下哈密与河套方向持续低产，高投入远征和边储损害反馈未转成强战略修正。",
           "counterpattern": {
-            "positive_parent_refs": [],
+            "positive_parent_refs": [
+              "C1-P055-INTERNAL-FEEDBACK-RECONFIG"
+            ],
             "counter_parent_refs": [
               "C1-P055-FRONTIER-LOW-YIELD"
             ]
@@ -777,7 +804,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P055-FRONTIER-LOW-YIELD"
+              "C1-P055-FRONTIER-LOW-YIELD",
+              "C1-P055-INTERNAL-FEEDBACK-RECONFIG"
             ],
             "result_nonconversion": true
           },
@@ -1064,14 +1092,41 @@
                 "WAR-POST-5DD6A783BC19B4EA8733"
               ],
               "cycle_basis": "瓦剌压力可由边将、防线和有限亲征多种方式处理，群臣已有反对；本人仍在王振主导下仓促大动员，撤退路线反馈不断却无有效退出，土木主力覆没。复辟后又杀于谦，未保留已验证的安全责任中心。"
+            },
+            {
+              "parent_id": "C1-P053-RESTORATION-RECONFIG",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-MING-ZHU-QIZHEN-YZ-P3",
+                "https://zh.wikisource.org/zh-hant/明史/卷12",
+                "https://zh.wikisource.org/zh-hans/明史/卷176",
+                "https://www.dpm.org.cn/court/lineage/226253.html"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/zh-hant/明史/卷12",
+                "https://zh.wikisource.org/zh-hans/明史/卷176",
+                "https://www.dpm.org.cn/court/lineage/226253.html"
+              ],
+              "cycle_basis": "复辟后处理冒功、石亨与曹吉祥并恢复李贤，接受持续反馈，拆散夺门集团并重建正式中枢；构成独立于土木前后风险链的恢复型PS2。",
+              "secondary_projection_reason": "M4父链只提供集团或中枢配置事实；本C1父链只消费本人对目标、资源、风险或反馈重配的战略选择，不重复计算M4集团整合。"
             }
           ],
           "representative_parent_ids": [
-            "C1-P053-TUMU-RESTORATION"
+            "C1-P053-TUMU-RESTORATION",
+            "C1-P053-RESTORATION-RECONFIG"
           ],
           "typical_pattern": "资源和预警均较充足时仍亲征土木，路线与指挥风险暴露；复辟后杀于谦又破坏危机中形成的安全资产。",
           "counterpattern": {
-            "positive_parent_refs": [],
+            "positive_parent_refs": [
+              "C1-P053-RESTORATION-RECONFIG"
+            ],
             "counter_parent_refs": [
               "C1-P053-TUMU-RESTORATION"
             ]
@@ -1081,7 +1136,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P053-TUMU-RESTORATION"
+              "C1-P053-TUMU-RESTORATION",
+              "C1-P053-RESTORATION-RECONFIG"
             ],
             "result_nonconversion": true
           },
@@ -1151,14 +1207,39 @@
                 "docs/史料通读产物/明/明通鉴/volume-092.source-summary.md#L28"
               ],
               "cycle_basis": "削减三十六家部族岁赏且拒饥荒求粮使其转清；松锦后秘密授权议和，消息泄露又拒担责并处死陈新甲，摧毁退出信用。内外失败反馈下仍频繁换将和分散资源。坏牌限制归责，低档来自自致放大。"
+            },
+            {
+              "parent_id": "C1-P056-EARLY-CENTRAL-RESET",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-MING-ZHU-YOUJIAN-CJ-P1",
+                "https://zh.wikisource.org/zh-hans/明史/卷23",
+                "https://www.dpm.org.cn/court/lineage/226246.html"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/zh-hans/明史/卷23",
+                "https://www.dpm.org.cn/court/lineage/226246.html"
+              ],
+              "cycle_basis": "即位初拆除魏忠贤集团并持续寻找新的中枢代理，完成一次真实的最高权力资源重置；其后个人化换人与退出信用崩解另由DW3负链消费。",
+              "secondary_projection_reason": "M4父链只提供集团或中枢配置事实；本C1父链只消费本人对目标、资源、风险或反馈重配的战略选择，不重复计算M4集团整合。"
             }
           ],
           "representative_parent_ids": [
-            "C1-P056-FAILED-EXIT"
+            "C1-P056-FAILED-EXIT",
+            "C1-P056-EARLY-CENTRAL-RESET"
           ],
           "typical_pattern": "继承财政、辽东与民变多重坏牌，但停赏破盟、秘密议和后否认授权、频繁换将与两线资源分散均属本人可避免放大。",
           "counterpattern": {
-            "positive_parent_refs": [],
+            "positive_parent_refs": [
+              "C1-P056-EARLY-CENTRAL-RESET"
+            ],
             "counter_parent_refs": [
               "C1-P056-FAILED-EXIT"
             ]
@@ -1168,7 +1249,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P056-FAILED-EXIT"
+              "C1-P056-FAILED-EXIT",
+              "C1-P056-EARLY-CENTRAL-RESET"
             ],
             "result_nonconversion": true
           },

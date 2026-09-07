@@ -416,10 +416,15 @@ def _parent_lines(
             yield "  - 直接定位：" + "；".join(refs)
         else:
             yield "  - 来源：" + "；".join(refs)
+    projection_reason = str(parent.get("secondary_projection_reason") or "").strip()
+    if projection_reason:
+        yield "  - 跨轴投影边界：" + projection_reason
     handoff = parent.get("route_handoff")
     if show_routing and handoff:
         if isinstance(handoff, dict):
-            target = f"{handoff.get('target_axis', '—')} / {handoff.get('target_parent_ref', '—')}"
+            target_axis = handoff.get("target_axis") or "—"
+            target_parent_ref = handoff.get("target_parent_ref") or "—"
+            target = f"{target_axis} / {target_parent_ref}"
             status = str(handoff.get("status") or "—")
             reason = str(handoff.get("reason") or "").strip()
             suffix = f"；{reason}" if reason else ""
@@ -719,7 +724,26 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
             "- 不按目标分布放宽G档门槛，不用跨轴组合链、结果倒推或无父链默认落点代替裁决。",
             "",
         ])
-    lines.extend(["## 全池结算表", ""])
+    cross_axis_note = [
+        "## 跨轴计分边界",
+        "",
+        "- 同一史料或事件出现在多个轴，不等于同一能力被重复计分；正式计分以各轴独立构念、父链命题和归责边界为准。",
+        "- A05审计把同源材料分为合法辅助投影、独立构念投影和需复核候选；审计是边界说明，不是第二份档位来源。",
+    ]
+    axis_boundary_note = {
+        "M1": "- M1只消费战役、战区、统帅与作战操作；战略目标、风险选择和退出留在C1，外交条件交换留在M2。",
+        "M2": "- M2只消费外部对象的条件、承诺、反馈和执行；战略目标与风险取舍留在C1，内部集团整合留在M4。",
+        "C1": "- C1只消费战略目标、优先级、风险、资源与退出；具体战役解题留在M1，外部条件交换留在M2。",
+        "C2": "- C2只消费信息取得、反证理解与认知更新；战略选择、外交条件和权力程序不因共享史料转入C2。",
+        "C3": "- C3只消费人才识别、配置、授权与交付反馈；集团生命周期和外交对象关系分别留在M4/M2。",
+        "C5": "- C5只消费权力边界、异议安全、惩罚程序与比例；军事、外交和人才成果不因共享史料转入C5。",
+        "M3": "- M3只消费财政民生与治理结果及其过程；上游轴事实只作已声明输入，不把上游档位重复换算。",
+        "M4": "- M4只消费内部政治集团、藩镇、继承与权力整合；外部外交、军事操作和个人用人不因共享史料重复计入。",
+    }.get(axis)
+    if axis_boundary_note:
+        cross_axis_note.insert(2, axis_boundary_note)
+    lines.extend(cross_axis_note)
+    lines.extend(["", "## 全池结算表", ""])
     lines.extend(_overview_table(axis, records, labels))
     lines.extend(["", "## 逐人裁决依据", ""])
     for display, row in enumerate(records, 1):
@@ -769,6 +793,16 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
             paired = projection.get("paired_result_difficulty_campaign_roles_display")
             lines.append("- 武将登记逐项（成果等级/难度｜战役群名称/武将角色）：")
             lines.append(f"  {paired or '—'}")
+            projection_reasons = list(
+                dict.fromkeys(
+                    str(context.get("secondary_projection_reason") or "").strip()
+                    for context in row.get("representative_parent_contexts") or []
+                    if str(context.get("secondary_projection_reason") or "").strip()
+                )
+            )
+            if projection_reasons:
+                lines.append("- **跨轴投影边界**：")
+                lines.extend(f"  - {reason}" for reason in projection_reasons)
         parents = _parent_chains(row)
         if axis in {"C1", "C2"}:
             parents = _representative_parent_chains(row)

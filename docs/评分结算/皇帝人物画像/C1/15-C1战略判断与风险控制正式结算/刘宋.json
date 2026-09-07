@@ -5,7 +5,7 @@
     "records": {
       "positions": [
         32,
-        138,
+        139,
         156,
         165
       ],
@@ -186,24 +186,49 @@
                 "docs/史料通读产物/唐以前编年/南北朝/卷127-通读总结.md#L157"
               ],
               "cycle_basis": "刘劭弑立后各州镇可拒绝；讨劭号召得到响应并恢复中央，但本人途中重病、代理贡献大，刘义宣与臧质旋即反叛，说明短期联合未转为稳定风险隔离。"
+            },
+            {
+              "parent_id": "C1-P099-COALITION-COLLAPSE",
+              "direction": "NEGATIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "RISK_OPTIONALITY"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json#parent_id=M2-P099-REGIONAL-COALITION"
+              ],
+              "direct_process_refs": [
+                "docs/史料通读产物/唐以前编年/南北朝/卷127-通读总结.md#L69",
+                "docs/史料通读产物/唐以前编年/南北朝/卷127-通读总结.md#L73",
+                "docs/史料通读产物/唐以前编年/南北朝/卷127-通读总结.md#L80",
+                "docs/史料通读产物/唐以前编年/南北朝/卷127-通读总结.md#L157"
+              ],
+              "cycle_basis": "讨刘劭联盟建政后未形成分权、监督与强藩安全隔离，重病与代理份额又使控制进一步失配；联盟不到一年转为内战并清除，构成独立DW2负向周期。",
+              "diagnostic_role": "DW2"
             }
           ],
           "representative_parent_ids": [
-            "C1-P099-COALITION-FRAGILITY"
+            "C1-P099-COALITION-FRAGILITY",
+            "C1-P099-COALITION-COLLAPSE"
           ],
           "typical_pattern": "刘骏原C1只写“讨刘劭联盟成功但旋即反叛”，且因其途中重病、颜竣代理份额高而保持E2。M4补证使内部资源链更清晰：强藩联盟在建政不到一年即转为大规模内战；随后又把信息、人事和奖惩入口高度集中到戴法兴等私人近侍。两条都命中C1，不只是M4关系质量。",
           "counterpattern": {
             "positive_parent_refs": [
               "C1-P099-COALITION-FRAGILITY"
             ],
-            "counter_parent_refs": []
+            "counter_parent_refs": [
+              "C1-P099-COALITION-COLLAPSE"
+            ]
           },
           "grade_basis": "有一次真实危机PS2，但战后强制资源隔离和长期信息接口都出现独立DW2；本人直接归责仍有代理与强藩自身异志限制。较原G2-HIGH应下修一档内位置，但不进G1。 由`G2-HIGH`下调为**`G2-MID / 45`**。",
           "position_basis": "本人直接归责和长期过程不足，E2中置信度。",
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P099-COALITION-FRAGILITY"
+              "C1-P099-COALITION-FRAGILITY",
+              "C1-P099-COALITION-COLLAPSE"
             ],
             "result_nonconversion": true
           },
@@ -269,14 +294,39 @@
               ],
               "cycle_basis": "泰始内战后保存淮北、安抚地方或强攻均可选；本人先逼反薛安都，粮运不继时又无视沈攸之七次拒绝强遣北进，彭城孤军、焦墟再败和淮北丧失闭合。",
               "diagnostic_role": "DW2"
+            },
+            {
+              "parent_id": "C1-P095-EARLY-CRISIS-COORDINATION",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-SHADOW-刘彧-LYU-P1",
+                "https://zh.wikisource.org/zh-hant/宋書/卷94",
+                "https://zh.wikisource.org/wiki/資治通鑑/卷130"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/zh-hant/宋書/卷94",
+                "https://zh.wikisource.org/wiki/資治通鑑/卷130"
+              ],
+              "cycle_basis": "泰始政变危机中，刘彧参与密使侦察并在即位后完成宫廷—宿卫接管与初始资源配置；共同目标、本人参与、强制资源转接和建政结果构成可闭合的C1正向危机统筹周期，晚期近习失控另作下沿。",
+              "secondary_projection_reason": "M4父链只提供集团或中枢配置事实；本C1父链只消费本人对目标、资源、风险或反馈重配的战略选择，不重复计算M4集团整合。"
             }
           ],
           "representative_parent_ids": [
-            "C1-P095-HUAI-NORTH-COLLAPSE"
+            "C1-P095-HUAI-NORTH-COLLAPSE",
+            "C1-P095-EARLY-CRISIS-COORDINATION"
           ],
           "typical_pattern": "内战后可休整或稳淮北，却逼反薛安都，并在粮运不继、主将七拒的反馈下强遣北进，造成连锁失守。",
           "counterpattern": {
-            "positive_parent_refs": [],
+            "positive_parent_refs": [
+              "C1-P095-EARLY-CRISIS-COORDINATION"
+            ],
             "counter_parent_refs": [
               "C1-P095-HUAI-NORTH-COLLAPSE"
             ]
@@ -286,7 +336,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P095-HUAI-NORTH-COLLAPSE"
+              "C1-P095-HUAI-NORTH-COLLAPSE",
+              "C1-P095-EARLY-CRISIS-COORDINATION"
             ],
             "result_nonconversion": true
           },
@@ -357,14 +408,40 @@
                 "LYL-NORTHERN-EXPEDITION-430-431"
               ],
               "cycle_basis": "休养、有限边防或大举北伐均可选；沈庆之、太子、萧思话反复指出步骑与准备劣势，本人组织辩论后仍拒谏。430与450两轮失败及财力衰耗反馈后模式复发。"
+            },
+            {
+              "parent_id": "C1-P093-EARLY-CENTRAL-REBALANCE",
+              "direction": "POSITIVE",
+              "intensity": "MI2",
+              "consumption_status": "SCORING_PARENT",
+              "mechanisms": [
+                "PROBLEM_PRIORITY",
+                "GOAL_RESOURCE_FIT",
+                "RISK_OPTIONALITY",
+                "FEEDBACK_RECOURSE"
+              ],
+              "source_refs": [
+                "docs/评分结算/皇帝人物画像/M4/34-M4政治联盟与内部联盟管理正式结算.json#parent_id=M4P-RULER-SHADOW-刘义隆-LYL-P1",
+                "https://zh.wikisource.org/zh-hant/宋書/卷63",
+                "https://zh.wikisource.org/zh-hant/資治通鑑/卷121"
+              ],
+              "direct_process_refs": [
+                "https://zh.wikisource.org/zh-hant/宋書/卷63",
+                "https://zh.wikisource.org/zh-hant/資治通鑑/卷121"
+              ],
+              "cycle_basis": "元嘉初中枢权重过满时，刘义隆接受王弘降挹并引入刘义康共参，完成一次本人批准、资源再配置和反馈后重组的完整周期；后续义康权力过度集中另由负链处理。",
+              "secondary_projection_reason": "M4父链只提供集团或中枢配置事实；本C1父链只消费本人对目标、资源、风险或反馈重配的战略选择，不重复计算M4集团整合。"
             }
           ],
           "representative_parent_ids": [
-            "C1-P093-REPEATED-NORTHERN-EXPEDITIONS"
+            "C1-P093-REPEATED-NORTHERN-EXPEDITIONS",
+            "C1-P093-EARLY-CENTRAL-REBALANCE"
           ],
           "typical_pattern": "元嘉前中期积累好牌，却在沈庆之等多方明确反对下反复发动准备不足北伐，失败后再犯并耗尽承载。",
           "counterpattern": {
-            "positive_parent_refs": [],
+            "positive_parent_refs": [
+              "C1-P093-EARLY-CENTRAL-REBALANCE"
+            ],
             "counter_parent_refs": [
               "C1-P093-REPEATED-NORTHERN-EXPEDITIONS"
             ]
@@ -374,7 +451,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "C1-P093-REPEATED-NORTHERN-EXPEDITIONS"
+              "C1-P093-REPEATED-NORTHERN-EXPEDITIONS",
+              "C1-P093-EARLY-CENTRAL-REBALANCE"
             ],
             "result_nonconversion": true
           },

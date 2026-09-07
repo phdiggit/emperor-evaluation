@@ -7,10 +7,10 @@
         9,
         24,
         57,
-        90,
-        135,
+        91,
         136,
         137,
+        138,
         180
       ],
       "records": [
@@ -598,8 +598,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "M2-P173-POSITIVE",
-              "M2-P173-COUNTER"
+              "M2-P173-COUNTER",
+              "M2-P173-POSITIVE"
             ],
             "result_nonconversion": true
           },
@@ -643,20 +643,28 @@
               "direction": "POSITIVE",
               "intensity": "MI2",
               "consumption_status": "SCORING_PARENT",
-              "source_support": "BOUNDED_LOCAL_SUPPORT",
+              "source_support": "DIRECT_PROCESS_AND_EXECUTION",
               "source_refs": [
                 "docs/评分结算/第三项军事与边疆净收益/02-第三项正式结算.json#records/127",
-                "docs/史料通读产物/金/金史/volume-006.source-summary.md#L57"
+                "docs/史料通读产物/金/金史/volume-006.source-summary.md#L57",
+                "https://zh.wikisource.org/zh-hans/金史/卷134",
+                "https://contents.nahf.or.kr/id/NAHF.jo.d_0022_0134_0010_0140",
+                "https://zh.wikisource.org/zh-hant/西夏紀/24"
               ],
-              "cycle_basis": "起手金强蒙古未兴；长期维持对金臣属、宋边互市和部族关系，承诺执行稳定。",
+              "cycle_basis": "补查确认李仁孝与金的关系不只有战争结果：金册立后，西夏主动请求设置榷场并持续遣使；任得敬分国时，李仁孝确实提出分地并请金册封，金廷识别其受权臣逼迫而拒绝承认，后续又以金方支持完成权臣清除。该材料闭合了本人请求、外部反馈与政治执行，但主要关系仍集中在金—西夏单一对象，维持MI2/E2/G3-LOW。",
               "intensity_grade_review": {
                 "scope": "M2_INTENSITY_ATTRIBUTION_EFFECT_SEPARATION",
-                "before_intensity": "MI3",
+                "before_intensity": "MI2",
                 "after_intensity": "MI2",
-                "source_support": "BOUNDED_LOCAL_SUPPORT",
-                "disposition": "DOWNGRADE_HIGH_MI_WEAK_SOURCE",
-                "basis": "有界材料可保留单一生命周期方向，但不足以证明跨期复现或系统性MI3。"
-              }
+                "source_support": "DIRECT_PROCESS_AND_EXECUTION",
+                "disposition": "PROMOTE_DIRECT_PROCESS_RETAIN_BOUNDED_INTENSITY",
+                "basis": "扩搜补出金册立、榷场请求、分国请封与金方拒绝/支持的直接过程，但单一对象与长周期复验仍不足以抬高强度或档位。"
+              },
+              "direct_process_refs": [
+                "https://zh.wikisource.org/zh-hans/金史/卷134",
+                "https://contents.nahf.or.kr/id/NAHF.jo.d_0022_0134_0010_0140",
+                "https://zh.wikisource.org/zh-hant/西夏紀/24"
+              ]
             },
             {
               "parent_id": "M2-P175-COUNTER",
@@ -680,7 +688,7 @@
             ],
             "counter_parent_refs": []
           },
-          "grade_basis": "有界材料至多闭合单一MI2方向，且所引直接史料锚与本人物不匹配；可保留合格显示点，但不能据此宣称长期系统能力。",
+          "grade_basis": "金册立、榷场请求与任得敬分国危机的本人请求—外部反馈—执行已有直接史料；但对象单一、复验不足，维持G3-LOW / 58。",
           "position_basis": "按证据下沿置G3-LOW / 58。",
           "axis_relevance_check": {
             "status": "CLOSED",
@@ -698,7 +706,7 @@
             "density": "MATERIAL_DENSITY_LIMITED"
           },
           "limitations": [
-            "现有计分父链仍依赖有界摘要或分项汇总，缺少完整直接过程定位；本档位为低或中置信度显示点。"
+            "已补出李仁孝—金/西夏关系的直接条件、反馈与执行；仍缺第二独立外部对象及全生涯对负向复验，维持E2/G3-LOW。"
           ],
           "formal_status": "FORMAL_CURRENT",
           "adjudication_state": "FORMAL_CURRENT",
@@ -781,8 +789,8 @@
           "axis_relevance_check": {
             "status": "CLOSED",
             "scoring_parent_refs": [
-              "M2-P169-POSITIVE",
-              "M2-P169-COUNTER"
+              "M2-P169-COUNTER",
+              "M2-P169-POSITIVE"
             ],
             "result_nonconversion": true
           },

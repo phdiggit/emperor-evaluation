@@ -313,6 +313,57 @@ def test_c2_c5_cross_axis_drift_is_report_only() -> None:
     assert result["status_mismatch_count"] == len(result["status_mismatches"])
 
 
+def test_a03_cross_axis_route_closure_is_dynamic_and_score_neutral() -> None:
+    from emperor_v4.evaluation.profile_a03_route_audit import verify
+
+    result = verify()
+    assert result["status"] == "PASS"
+    assert result["closed_count"] + result["explicitly_frozen_count"] == result["route_handoff_count"]
+    assert result["score_write"] is False
+
+
+def test_a03_post_route_rereadjudication_is_current_and_score_neutral() -> None:
+    from emperor_v4.evaluation.profile_a03_rereadjudication import verify
+
+    result = verify()
+    assert result["status"] == "PASS"
+    assert result["affected_ruler_count"] > 0
+    assert result["grade_changed_count"] == 0
+    assert result["formal_score_write"] is False
+
+
+def test_a04_identity_route_decoupling_is_score_neutral() -> None:
+    from emperor_v4.evaluation.profile_a04_identity_audit import verify
+
+    result = verify()
+    assert result["status"] == "PASS"
+    assert result["repaired_parent_count"] > 0
+    assert result["grade_changed_count"] == 0
+    assert result["formal_score_write"] is False
+
+
+def test_a05_cross_axis_duplicate_consumption_is_score_neutral() -> None:
+    from emperor_v4.evaluation.profile_a05_cross_axis_audit import verify
+
+    result = verify()
+    assert result["status"] in {"PASS", "REVIEW_REQUIRED"}
+    assert result["duplicate_primary_consumption_confirmed_count"] == 0
+    assert result["unresolved_candidate_count"] >= 0
+    assert result["formal_score_write"] is False
+
+
+def test_cross_axis_reader_views_explain_shared_source_boundaries() -> None:
+    for axis in ("M1", "M2", "C1", "C2", "C3", "C5", "M3", "M4"):
+        text = next(
+            path.read_text(encoding="utf-8")
+            for path in (PROFILE_ROOT / axis).glob("*.md")
+            if "正式结算" in path.name
+        )
+        assert "跨轴计分边界" in text
+    m1 = (PROFILE_ROOT / "M1/01-M1军事判断与统帅能力正式结算.md").read_text(encoding="utf-8")
+    assert "M1只消费本人作战方向" in m1
+
+
 def test_profile_audit_sidecars_match_current_axis_grades() -> None:
     c5 = _load(PROFILE_ROOT / "C5/02-C5权力运用风格与克制正式结算.json")
     c5_by_id = {record["ruler_id"]: record for record in c5["records"]}

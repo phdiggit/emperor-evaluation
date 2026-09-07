@@ -111,7 +111,7 @@ adjudication_sensitivity:
 profile_assessment:
   status: eight_axes_formally_settled
   role: independent_non_composite_profile
-  contract_version: FORMAL-V2.0
+  contract_version: FORMAL-V2.1
   contract: docs/项目总纲/皇帝人物画像评估体系合同.md
   data_contract: docs/分项规则/人物画像轴/00-共同数据与发布合同.md
   axis_order: [M1, M2, M3, M4, C1, C2, C3, C5]
@@ -163,7 +163,11 @@ profile_assessment:
       verify_command: profile-m1-verify
       json: docs/评分结算/皇帝人物画像/M1/01-M1军事判断与统帅能力正式结算.json
       markdown: docs/评分结算/皇帝人物画像/M1/01-M1军事判断与统帅能力正式结算.md
-      audit_jsons: []
+      audit_jsons:
+        - audit_kind: A05_CROSS_AXIS_DUPLICATE_CONSUMPTION
+          path: M1/03-M1-A05跨轴重复消费审计.json
+        - audit_kind: A05_POST_CROSS_AXIS_READJUDICATION
+          path: M1/04-M1-A05整改后复裁.json
     M2:
       name: 外交博弈与对外联盟能力
       contract: docs/分项规则/人物画像轴/M2-外交博弈与对外联盟能力.md
@@ -175,7 +179,17 @@ profile_assessment:
       verify_command: profile-current-verify --axis M2
       json: docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.json
       markdown: docs/评分结算/皇帝人物画像/M2/12-M2外交博弈与对外联盟能力正式结算.md
-      audit_jsons: []
+      audit_jsons:
+        - audit_kind: A02_BATCH_01_COVERAGE_REVIEW
+          path: M2/13-M2-A02第一批覆盖复核.json
+        - audit_kind: A03_CROSS_AXIS_ROUTE_CLOSURE
+          path: M2/14-M2-A03跨轴路由闭环审计.json
+        - audit_kind: A03_POST_ROUTE_READJUDICATION
+          path: M2/15-M2-A03整改后复裁.json
+        - audit_kind: A04_OBJECT_IDENTITY_ROUTE_REVIEW
+          path: M2/16-M2-A04对象身份与主路由解耦审计.json
+        - audit_kind: A04_POST_IDENTITY_READJUDICATION
+          path: M2/17-M2-A04整改后复裁.json
     M3:
       name: 民生财政建设
       axis_contract_version: FORMAL-V3.6
@@ -225,6 +239,8 @@ profile_assessment:
           path: C1/16-C1主要入口单元处置审计.json
         - audit_kind: HIGH_GRADE_CAPABILITY
           path: C1/17-C1高档能力剖面复核.json
+        - audit_kind: A01_POST_STRUCTURAL_READJUDICATION
+          path: C1/18-C1-A01正负证结构整改后复裁.json
     C2:
       name: 信息处理、学习与纠错
       contract: docs/分项规则/人物画像轴/C2-信息处理、学习与纠错.md
