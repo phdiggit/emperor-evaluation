@@ -1,0 +1,188 @@
+{
+  "schema_version": "emperor-profile-c5-full-political-conflict-coverage-audit-v1",
+  "canonical_status": "WORKING_AUDIT",
+  "axis_code": "C5",
+  "axis_name": "权力运用风格与克制",
+  "contract_version": "FORMAL-V1.2",
+  "rule_commit": "295e97c185e9eca3daeafa311d30e805f69930a0",
+  "population_scope": {
+    "canonical_included_count": 184,
+    "target_coverage_count": 184,
+    "coverage_unit": "RULER_POLITICAL_CONFLICT_LIFECYCLE",
+    "completion_rule": "每个正式对象必须得到NO_MAJOR_CONFLICT或CONFLICTS_REVIEWED；旧C5无命中不等于无政治斗争。"
+  },
+  "audit_design": {
+    "candidate_sources": [
+      "当前C5全部父链与04/05/07/08审计",
+      "第五项03-C轴强制权力伦理正式结算全部事实",
+      "M4政治联盟与内部联盟管理全部父链",
+      "第一项建国、夺权与主要政治安全事实",
+      "第二项制度行政中的政治司法、反馈与清洗事实",
+      "必要时补编年、本纪、列传等可定位史源"
+    ],
+    "mandatory_conflict_types": [
+      "夺位/篡位/宫廷政变",
+      "摄政权争夺",
+      "继承/储位/宗室竞争",
+      "叛乱/谋反/平叛善后",
+      "王朝取代及前朝皇族旧臣处置",
+      "功臣/权臣/外戚/近幸/军事集团清洗",
+      "受降/投降/被俘/解除武装后的政治处置"
+    ],
+    "mandatory_disposition_fields": [
+      "principal_threat_state",
+      "principal_disposition",
+      "family_disposition",
+      "clan_disposition",
+      "old_subordinate_or_party_disposition",
+      "civilian_disposition",
+      "property_or_identity_disposition",
+      "feedback_and_later_expansion_or_restraint",
+      "personal_attribution",
+      "source_refs",
+      "c5_consumption_status"
+    ],
+    "anti_omission_checks": [
+      "首谋遮蔽",
+      "战争遮蔽",
+      "低档遮蔽",
+      "入口遮蔽"
+    ]
+  },
+  "status": {
+    "previous_narrow_audit": "08-C5政治斗争边界专项重裁.json",
+    "previous_scope_assessment": "SUPERSEDED_AS_COMPLETE_SCOPE; RETAINED_AS_FIRST_PASS_DECISIONS",
+    "full_pool_matrix_status": "BUILDING",
+    "formal_settlement_sync_status": "BLOCKED_UNTIL_FULL_POOL_CONFLICT_GATE_CLOSES",
+    "note": "08的22人不是本专项总候选数，只是旧裁决显式使用政敌豁免者。09从实际生涯政治斗争正向建池。"
+  },
+  "seed_candidate_names": {
+    "count": 79,
+    "selection_basis": "第一轮由第五项强制权力事实与M4中的夺位、叛乱、宗室/功臣退出、清洗、废立、受降等显式线索合并；仅为高召回种子，不代表其最终均有C5负证。",
+    "names": [
+      "刘恒", "刘邦", "刘启", "刘询", "刘肇", "刘庄", "刘志", "吕雉", "王莽",
+      "曹操", "司马师", "司马昭", "孙权", "孙休",
+      "刘裕", "刘义隆", "刘骏", "刘彧", "萧道成", "萧鸾", "高洋", "高湛",
+      "拓跋嗣", "拓跋宏", "拓跋焘", "冯太后", "宇文邕", "杨坚", "杨广",
+      "李渊", "李世民", "李治", "武则天", "李显", "李隆基",
+      "李存勖", "李嗣源", "郭威", "王建", "李昪", "赵匡胤", "赵光义",
+      "朱元璋", "朱棣", "朱瞻基", "朱祁镇", "朱祁钰", "朱由检",
+      "耶律阿保机", "耶律阮", "耶律宗真", "耶律洪基", "萧绰",
+      "完颜晟", "完颜亶", "完颜亮", "完颜雍",
+      "努尔哈赤", "皇太极", "福临", "玄烨", "多尔衮", "胤禛", "慈禧",
+      "铁木真", "窝阔台", "蒙哥", "忽必烈", "海山",
+      "李元昊", "李谅祚", "李仁孝", "李安全",
+      "姚苌", "苻健", "冯跋", "慕容德", "石勒", "石虎"
+    ]
+  },
+  "priority_reopen_cases": [
+    {
+      "ruler_id": "RULER-SHADOW-杨坚",
+      "ruler_name": "杨坚",
+      "current_c5": "G1-HIGH/31/E3",
+      "status": "CONFIRMED_MAJOR_OMISSION_REOPEN",
+      "conflict": "580年北周末夺权与宇文宗室清洗",
+      "why_reopen": "当前C5虽已有晚期律外用刑与人事清洗父链，但没有把夺权期对北周宇文皇族多支、诸子和宗室整体清除单列为政治斗争生命周期。",
+      "known_evidence": [
+        "尉迟迥等反杨失败后，史料概括‘于是尽诛宇文氏’",
+        "赵王招谋刺杨坚失败后，赵王招、越王盛及其诸子被杀",
+        "其后陈王纯、代王达、滕王逌等及诸子继续被杀，处分跨数月、跨多支宗室"
+      ],
+      "working_c5_effect": "至少新增NEGATIVE/MI3_SUSTAINED_SYSTEMIC政治宗室清洗父链；是否由G1-HIGH下调至G1-MID待与既有MI4-LATE-BREACH去重后正式裁档。",
+      "source_refs": [
+        "《资治通鉴》北周大象二年杨坚执政条",
+        "《隋书》相关周末宗室与尉迟迥叛乱条",
+        "《资治通鉴纲目》：杨坚杀赵王招、越王盛及诸子，后续杀陈王纯、代王达、滕王逌"
+      ]
+    },
+    {
+      "ruler_id": "RULER-TANG-WUZETIAN",
+      "ruler_name": "武则天",
+      "current_c5": "G1-MID/25/E3",
+      "status": "CONFIRMED_MAJOR_OMISSION_REOPEN",
+      "conflict": "垂拱四年李唐宗室举兵及其后宗室清算",
+      "why_reopen": "当前C5明确写‘若存在无关家属、普通党附扩大，则另行消费’，但该检查并未闭合。现有正史材料已明确显示李唐宗室多支、子嗣与关联者在叛乱失败后被杀、流放、改氏和长期禁锢。",
+      "known_evidence": [
+        "越王李贞、琅邪王李冲为ACTIVE叛乱者，其战斗失败本身不直接扣C5",
+        "《新唐书·宗室世系/诸王传》概括武氏之乱中宗室贤者多遭株翦，并记多支宗室及子嗣坐死、流岭南、改氏",
+        "同一时期告密—制狱酷吏体系又长期制造坐族千余家的系统恐惧，须裁政治清洗父链与既有TERROR父链是否同机制去重"
+      ],
+      "working_c5_effect": "确认必须重裁；优先检验G1-MID是否应下调至G1-LOW，但不得把同一酷吏/告密机制重复计算。",
+      "source_refs": [
+        "《新唐书》卷八十越王贞等宗室传",
+        "《旧唐书》相关宗室与酷吏传",
+        "现有C5-P159-TERROR（NEGATIVE/MI4_CROSS_PHASE_SYSTEMIC）"
+      ]
+    },
+    {
+      "ruler_id": "RULER-HAN-LIUBANG",
+      "ruler_name": "刘邦",
+      "status": "UPSTREAM_STRONG_TRIGGER",
+      "conflict": "建国后异姓诸侯王收权与彭越案",
+      "trigger": "第五项C已明确登记刘邦批准彭越改判诛杀并夷三族；应与韩信、英布、卢绾等独立军事集团退出按政治斗争生命周期复核。"
+    },
+    {
+      "ruler_id": "RULER-WEI-SIMASHI",
+      "ruler_name": "司马师",
+      "status": "UPSTREAM_STRONG_TRIGGER",
+      "conflict": "李丰—夏侯玄—张缉案",
+      "trigger": "第五项C已明确登记击杀李丰、收捕多人并夷三族；当前C5已计家属扩大，但须按CONTROLLED/ENDED重新完整闭合。"
+    },
+    {
+      "ruler_id": "RULER-XIN-WANGMANG",
+      "ruler_name": "王莽",
+      "status": "UPSTREAM_STRONG_TRIGGER",
+      "conflict": "翟义反莽失败后的清算",
+      "trigger": "第五项C已登记平定翟义后灭族、掘墓、陈尸并扩张至家属与死者。"
+    },
+    {
+      "ruler_id": "RULER-MING-ZHU-DI",
+      "ruler_name": "朱棣",
+      "status": "UPSTREAM_STRONG_TRIGGER",
+      "conflict": "靖难胜利后的建文旧臣清算",
+      "trigger": "第五项C已登记南京控制后大索齐泰、黄子澄、方孝孺，夷族并使大量所谓奸党坐死，后又处死已被控制的铁铉。"
+    },
+    {
+      "ruler_id": "RULER-MING-ZHU-YUANZHANG",
+      "ruler_name": "朱元璋",
+      "status": "UPSTREAM_STRONG_TRIGGER",
+      "conflict": "胡蓝及开国功臣集团清洗",
+      "trigger": "第五项C与M4均已登记蓝玉案坐党夷灭万余、胡蓝案导致功臣集团安全承诺系统崩解；C5必须核对完整政治清洗父链而非只以低档概括。"
+    },
+    {
+      "ruler_id": "RULER-FD-LI-CUNXU",
+      "ruler_name": "李存勖",
+      "status": "UPSTREAM_STRONG_TRIGGER",
+      "conflict": "前蜀王衍受降后宗族尽杀",
+      "trigger": "第五项C已登记王衍受降并获释罪后，庄宗下敕集体杀戮，王衍宗族仍被尽杀。"
+    },
+    {
+      "ruler_id": "RULER-MING-ZHU-QIZHEN",
+      "ruler_name": "朱祁镇",
+      "status": "UPSTREAM_STRONG_TRIGGER",
+      "conflict": "夺门复辟后的于谦—王文及所谓党人清算",
+      "trigger": "第五项C已登记于谦、王文处死籍家、党人榜示与跨月追加处刑。"
+    },
+    {
+      "ruler_id": "RULER-YUAN-MONGKE",
+      "ruler_name": "蒙哥",
+      "status": "UPSTREAM_STRONG_TRIGGER",
+      "conflict": "1251年即位后的竞争宗支清洗",
+      "trigger": "M4已明确把1251清洗列为皇族信用支系化的核心负链；需转入C5检查首谋、宗支、家属、财产处分范围。"
+    },
+    {
+      "ruler_id": "RULER-XIXIA-LILIANGZUO",
+      "ruler_name": "李谅祚",
+      "status": "UPSTREAM_STRONG_TRIGGER",
+      "conflict": "没藏/讹庞摄政后族夺权与灭族",
+      "trigger": "第五项C与现C5均已有首谋受控后继续扩大到弟、侄、外任族人等线索；需在全池门下重闭合。"
+    }
+  ],
+  "next_execution_order": [
+    "先关闭priority_reopen_cases中的杨坚、武则天，并给出正式档位影响",
+    "按第五项C强负向政治处分批量转入候选矩阵",
+    "按M4的清洗/退出/废立/叛乱父链补齐第五项未覆盖人物",
+    "对剩余184人逐人给NO_MAJOR_CONFLICT或CONFLICTS_REVIEWED",
+    "覆盖门关闭后才同步02正式分片JSON、MD、05/07与总分布"
+  ]
+}
