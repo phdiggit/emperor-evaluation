@@ -5,16 +5,16 @@
     "records": {
       "positions": [
         2,
+        31,
         32,
-        33,
-        55,
-        71,
+        54,
+        70,
+        91,
         92,
-        93,
+        121,
         122,
         123,
-        124,
-        149,
+        148,
         161
       ],
       "records": [
@@ -27,9 +27,9 @@
           "confidence": "HIGH",
           "output_mode": "FULL_GRADE",
           "score_status": "FINAL",
-          "typical_pattern": "张蕴古案存在徇私嫌疑基础，真正问题是盛怒下复核不足、直接处死；此后又触发程序性纠偏；戴胄依法抗旨、魏征等长期犯颜、权贵案件中的规则运行，不只证明“能听劝”，而是反复证明最高决定可以在对皇帝不利时被复核、驳回或改变。",
-          "grade_basis": "张蕴古案存在徇私嫌疑基础，真正问题是盛怒下复核不足、直接处死；此后又触发程序性纠偏；卢祖尚明确拒命、反复承诺后反悔，行为本身有责任基础；太宗盛怒处死仍明显过度，但不是“正常直言者因履职被杀”；两案均应定为 NEGATIVE / MI2_LIFECYCLE，个案烈度中高，不能因不可逆性拔成MI3；戴胄依法抗旨、魏征等长期犯颜、权贵案件中的规则运行，不只证明“能听劝”，而是反复证明最高决定可以在对皇帝不利时被复核、驳回或改变。",
-          "position_basis": "张蕴古、卢祖尚继续仅作深MI2。",
+          "typical_pattern": "张蕴古案存在徇私嫌疑基础，真正问题是盛怒下复核不足、直接处死；此后又触发程序性纠偏；戴胄依法抗旨、魏征等长期犯颜、权贵案件中的规则运行，不只证明“能听劝”，而是反复证明最高决定可以在对皇帝不利时被复核、驳回或改变。玄武门后建成、元吉诸子尽诛，构成单一继承危机的R2家属扩大下沿",
+          "grade_basis": "张蕴古案存在徇私嫌疑基础，真正问题是盛怒下复核不足、直接处死；此后又触发程序性纠偏；卢祖尚明确拒命、反复承诺后反悔，行为本身有责任基础；太宗盛怒处死仍明显过度，但不是“正常直言者因履职被杀”；两案均应定为 NEGATIVE / MI2_LIFECYCLE，个案烈度中高，不能因不可逆性拔成MI3；戴胄依法抗旨、魏征等长期犯颜、权贵案件中的规则运行，不只证明“能听劝”，而是反复证明最高决定可以在对皇帝不利时被复核、驳回或改变。全池政治斗争复核：玄武门直接生死冲突本身不计；建成、元吉诸子尽诛补为R2/MI2深下沿，单一继承危机不能机械推翻两条MI4长期自缚正链，G5-LOW维持",
+          "position_basis": "张蕴古、卢祖尚继续仅作深MI2。玄武门家属扩大仅作单一R2下沿，不改变G5-LOW定位",
           "limitations": [],
           "parent_chains": [
             {
@@ -55,6 +55,12 @@
               "direction": "NEGATIVE",
               "intensity": "MI2_LIFECYCLE",
               "basis": "张蕴古案有徇私指控但复核不足，卢祖尚构成拒命欺君而处死比例过重；两案不可逆但不构成持久广域失控，且前案后续触发制度纠偏。"
+            },
+            {
+              "parent_id": "C5-P153-XUANWU-FAMILY-PURGE",
+              "direction": "NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "玄武门直接生死冲突退出C5；建成、元吉诸子在继承冲突后整组被诛，属于一次R2/MI2家属扩大，不与两条长期MI4正向机制等权。"
             }
           ],
           "unit_groups": [
@@ -136,14 +142,16 @@
             "C5-P153-REMONSTRANCE",
             "C5-P153-LEGAL-REVIEW",
             "C5-P153-POWERFUL",
-            "C5-P153-IRREVERSIBLE"
+            "C5-P153-IRREVERSIBLE",
+            "C5-P153-XUANWU-FAMILY-PURGE"
           ],
           "counterpattern": {
             "positive_parent_refs": [
               "C5-P153-POWERFUL"
             ],
             "negative_parent_refs": [
-              "C5-P153-IRREVERSIBLE"
+              "C5-P153-IRREVERSIBLE",
+              "C5-P153-XUANWU-FAMILY-PURGE"
             ],
             "mixed_parent_refs": [
               "C5-P153-REMONSTRANCE",
@@ -160,14 +168,16 @@
               "C5-P153-REMONSTRANCE",
               "C5-P153-LEGAL-REVIEW",
               "C5-P153-POWERFUL",
-              "C5-P153-IRREVERSIBLE"
+              "C5-P153-IRREVERSIBLE",
+              "C5-P153-XUANWU-FAMILY-PURGE"
             ]
           },
           "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED",
           "source_refs": [
             "《旧唐书·太宗本纪》。",
             "《旧唐书·魏征传》《戴胄传》。",
-            "《资治通鉴》贞观年间张蕴古、卢祖尚条目。"
+            "《资治通鉴》贞观年间张蕴古、卢祖尚条目。",
+            "《资治通鉴》卷一百九十一：玄武门之变后李建成、李元吉诸子处置"
           ],
           "public_evidence_points": [
             {
@@ -184,15 +194,36 @@
                 "戴胄依法抗旨、魏征等长期犯颜、权贵案件中的规则运行，不只证明“能听劝”，而是反复证明最高决定可以在对皇帝不利时被复核、驳回或改变。",
                 "晚年纳谏退化继续作为真实阶段反证。"
               ]
+            },
+            {
+              "title": "C. 玄武门善后：直接冲突与家属扩大分开",
+              "details": [
+                "玄武门直接生死冲突本身不计C5。",
+                "建成、元吉诸子尽诛，属于直接继承竞争家属的整组清除，补为R2/MI2深下沿。",
+                "单一继承危机不能机械推翻两条MI4长期自缚正链，G5-LOW维持。"
+              ]
             }
           ],
           "source_quality": {
-            "named_source_count": 3,
-            "locator_count": 3,
+            "named_source_count": 4,
+            "locator_count": 4,
             "linked_source_count": 0,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "VALIDATED"
+          "review_status": "RECALIBRATED",
+          "political_conflict_scope_status": "CONFLICTS_REVIEWED",
+          "political_conflict_review": {
+            "audit_sequence": 31,
+            "audit_review_status": "NEW_CHAIN_NO_GRADE_CHANGE",
+            "decision": "KEEP",
+            "current_c5_before_audit": "G5-LOW",
+            "final_c5_after_audit": "G5-LOW",
+            "expansion_radius_code": "R2_BOUNDED",
+            "expansion_radius_level": 2,
+            "semantic_adjudication": "玄武门直接生死冲突本身不计；建成、元吉诸子尽诛属于直接继承竞争家属的整组清除，应补为一次R2/MI2深下沿。它仍是单一继承危机，不能机械推翻两条MI4长期自缚正链，G5-LOW维持。",
+            "dedup_instruction": "玄武门本人战斗切片退出；建成、元吉诸子处置补为R2/MI2反例；不改变G5-LOW。"
+          },
+          "person_type": "制度自限与继承清算并存型"
         },
         {
           "sequence": 148,
@@ -352,7 +383,15 @@
             "linked_source_count": 0,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "RECALIBRATED"
+          "review_status": "RECALIBRATED",
+          "political_conflict_scope_status": "NO_MAJOR_CONFLICT",
+          "political_conflict_review": {
+            "audit_review_status": "NONSEED_SCREENED_NO_TRIGGER",
+            "expansion_radius_code": "NA_NO_TRIGGER",
+            "expansion_radius_level": null,
+            "semantic_adjudication": "未在C5、第五项C、M4及主要政治安全入口命中需重开的强触发；未来新增上游事实仍可重开。"
+          },
+          "person_type": "高压下主动克制型"
         },
         {
           "sequence": 149,
@@ -504,7 +543,15 @@
             "linked_source_count": 2,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "VALIDATED"
+          "review_status": "VALIDATED",
+          "political_conflict_scope_status": "NO_MAJOR_CONFLICT",
+          "political_conflict_review": {
+            "audit_review_status": "NONSEED_SCREENED_NO_TRIGGER",
+            "expansion_radius_code": "NA_NO_TRIGGER",
+            "expansion_radius_level": null,
+            "semantic_adjudication": "未在C5、第五项C、M4及主要政治安全入口命中需重开的强触发；未来新增上游事实仍可重开。"
+          },
+          "person_type": "反馈失灵与局部纠偏并存型"
         },
         {
           "sequence": 157,
@@ -665,7 +712,19 @@
             "linked_source_count": 2,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "VALIDATED"
+          "review_status": "VALIDATED",
+          "political_conflict_scope_status": "CONFLICTS_REVIEWED",
+          "political_conflict_review": {
+            "audit_sequence": 30,
+            "audit_review_status": "ALREADY_COVERED",
+            "decision": "KEEP",
+            "current_c5_before_audit": "G3-MID",
+            "final_c5_after_audit": "G3-MID",
+            "expansion_radius_code": "R0_NO_EXPANSION",
+            "expansion_radius_level": 0,
+            "semantic_adjudication": "刘文静案是深本人处分；李靖等场景反而出现收束。未闭合大规模家属党附清算。"
+          },
+          "person_type": "克制与越界并存型"
         },
         {
           "sequence": 156,
@@ -808,7 +867,15 @@
             "linked_source_count": 3,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "RECALIBRATED"
+          "review_status": "RECALIBRATED",
+          "political_conflict_scope_status": "NO_MAJOR_CONFLICT",
+          "political_conflict_review": {
+            "audit_review_status": "NONSEED_SCREENED_NO_TRIGGER",
+            "expansion_radius_code": "NA_NO_TRIGGER",
+            "expansion_radius_level": null,
+            "semantic_adjudication": "未在C5、第五项C、M4及主要政治安全入口命中需重开的强触发；未来新增上游事实仍可重开。"
+          },
+          "person_type": "反馈失灵与局部纠偏并存型"
         },
         {
           "sequence": 150,
@@ -963,7 +1030,15 @@
             "linked_source_count": 2,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "RECALIBRATED"
+          "review_status": "RECALIBRATED",
+          "political_conflict_scope_status": "NO_MAJOR_CONFLICT",
+          "political_conflict_review": {
+            "audit_review_status": "NONSEED_SCREENED_NO_TRIGGER",
+            "expansion_radius_code": "NA_NO_TRIGGER",
+            "expansion_radius_level": null,
+            "semantic_adjudication": "未在C5、第五项C、M4及主要政治安全入口命中需重开的强触发；未来新增上游事实仍可重开。"
+          },
+          "person_type": "克制与越界并存型"
         },
         {
           "sequence": 152,
@@ -1123,7 +1198,15 @@
             "linked_source_count": 1,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "RECALIBRATED"
+          "review_status": "RECALIBRATED",
+          "political_conflict_scope_status": "NO_MAJOR_CONFLICT",
+          "political_conflict_review": {
+            "audit_review_status": "NONSEED_SCREENED_NO_TRIGGER",
+            "expansion_radius_code": "NA_NO_TRIGGER",
+            "expansion_radius_level": null,
+            "semantic_adjudication": "未在C5、第五项C、M4及主要政治安全入口命中需重开的强触发；未来新增上游事实仍可重开。"
+          },
+          "person_type": "反馈失灵与局部纠偏并存型"
         },
         {
           "sequence": 151,
@@ -1283,7 +1366,19 @@
             "linked_source_count": 2,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "RECALIBRATED"
+          "review_status": "RECALIBRATED",
+          "political_conflict_scope_status": "CONFLICTS_REVIEWED",
+          "political_conflict_review": {
+            "audit_sequence": 35,
+            "audit_review_status": "ALREADY_COVERED",
+            "decision": "KEEP",
+            "current_c5_before_audit": "G2-MID",
+            "final_c5_after_audit": "G2-MID",
+            "expansion_radius_code": "R3_BROAD",
+            "expansion_radius_level": 3,
+            "semantic_adjudication": "李林甫体系的诏狱、构陷与官僚恐惧已是持续政治司法扩张；具体案件归责已被现C5分层，不再以党争名义重复。"
+          },
+          "person_type": "广域强制与局部收束并存型"
         },
         {
           "sequence": 155,
@@ -1398,7 +1493,15 @@
             "linked_source_count": 1,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "RECALIBRATED"
+          "review_status": "RECALIBRATED",
+          "political_conflict_scope_status": "NO_MAJOR_CONFLICT",
+          "political_conflict_review": {
+            "audit_review_status": "NONSEED_SCREENED_NO_TRIGGER",
+            "expansion_radius_code": "NA_NO_TRIGGER",
+            "expansion_radius_level": null,
+            "semantic_adjudication": "未在C5、第五项C、M4及主要政治安全入口命中需重开的强触发；未来新增上游事实仍可重开。"
+          },
+          "person_type": "政治清算与强制扩张型"
         },
         {
           "sequence": 158,
@@ -1598,7 +1701,19 @@
             "linked_source_count": 2,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "RECALIBRATED"
+          "review_status": "RECALIBRATED",
+          "political_conflict_scope_status": "CONFLICTS_REVIEWED",
+          "political_conflict_review": {
+            "audit_sequence": 32,
+            "audit_review_status": "ALREADY_COVERED",
+            "decision": "KEEP",
+            "current_c5_before_audit": "G2-MID",
+            "final_c5_after_audit": "G2-MID",
+            "expansion_radius_code": "R3_BROAD",
+            "expansion_radius_level": 3,
+            "semantic_adjudication": "立武后后的长孙无忌—褚遂良等政治重组已跨多人、跨家属形成集团清洗，现C5明确据此定G2-MID。"
+          },
+          "person_type": "广域强制与局部收束并存型"
         },
         {
           "sequence": 154,
@@ -1763,7 +1878,19 @@
             "linked_source_count": 2,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "RECALIBRATED"
+          "review_status": "RECALIBRATED",
+          "political_conflict_scope_status": "CONFLICTS_REVIEWED",
+          "political_conflict_review": {
+            "audit_sequence": 34,
+            "audit_review_status": "NO_MATERIAL_EXPANSION",
+            "decision": "KEEP",
+            "current_c5_before_audit": "G1-HIGH",
+            "final_c5_after_audit": "G1-HIGH",
+            "expansion_radius_code": "R0_NO_MAJOR_CONFLICT_EXPANSION",
+            "expansion_radius_level": 0,
+            "semantic_adjudication": "主要短板是韦武近亲特权、斜封墨敕与私人强制，并非政变胜利后的广域清算；无新增政治斗争负链。"
+          },
+          "person_type": "克制与越界并存型"
         },
         {
           "sequence": 159,
@@ -1964,7 +2091,20 @@
             "linked_source_count": 2,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "VALIDATED"
+          "review_status": "VALIDATED",
+          "political_conflict_scope_status": "CONFLICTS_REVIEWED",
+          "political_conflict_review": {
+            "audit_sequence": 33,
+            "audit_review_status": "DEDUP_ABSORBED_NO_CHANGE",
+            "decision": "KEEP",
+            "current_c5_before_audit": "G1-MID",
+            "final_c5_after_audit": "G1-MID",
+            "expansion_radius_code": "R4_SYSTEMIC_EXTREME",
+            "expansion_radius_level": 4,
+            "semantic_adjudication": "李唐宗室多支在举兵失败后确有杀、流、改氏等广泛清算，但现C5-P159-TERROR本就以告密—制狱—坐族千余家的MI4系统作为主负链。宗室清算应补入该父链的POLITICAL_CLAN_EXPANSION切片，而非另立等权MI3重复扣分；维持G1-MID。",
+            "dedup_instruction": "李唐宗室清算补入C5-P159-TERROR的POLITICAL_CLAN_EXPANSION切片，不新建等权父链，不重复增加MI。"
+          },
+          "person_type": "广域强制与局部收束并存型"
         }
       ]
     }

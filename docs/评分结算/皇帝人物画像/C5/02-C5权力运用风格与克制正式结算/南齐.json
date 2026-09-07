@@ -4,7 +4,7 @@
   "collections": {
     "records": {
       "positions": [
-        29,
+        130,
         159
       ],
       "records": [
@@ -12,16 +12,16 @@
           "sequence": 128,
           "ruler_id": "RULER-SHADOW-萧道成",
           "ruler_name": "萧道成",
-          "axis_grade": "G3",
-          "position": "HIGH",
-          "confidence": "MEDIUM",
-          "output_mode": "BOUNDED_PROFILE",
-          "score_status": "EVIDENCE_LIMITED",
-          "typical_pattern": "原“政策止损”父链不足，但扩检后直接 C5 材料更强。",
-          "grade_basis": "裁决：维持 G3-HIGH / E2；原“政策止损”父链不足，但扩检后直接 C5 材料更强；刘休范叛乱后，数千士民因恐惧向叛军投名。萧道成取得名单后随得随烧，并公开告知姓名已毁，主动放弃大规模追查报复。",
-          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G3-HIGH。",
+          "axis_grade": "G2",
+          "position": "LOW",
+          "confidence": "HIGH",
+          "output_mode": "FULL_GRADE",
+          "score_status": "FINAL",
+          "typical_pattern": "刘休范叛乱后焚毁数千投名名单、对谋反从属区分责任；但477—479王朝更替期连续清除多支刘宋王侯，顺帝禅让后仍被杀，正负链并存。",
+          "grade_basis": "保留刘休范案后焚毁数千投名名单的强收束与其他责任区分正证；但补入477—479掌权期对刘宋多支王侯跨月清除，以及禅让后顺帝被监兵杀且行凶者获赏。该MI3链范围广但主要集中王朝取代生命周期，故由G3-HIGH下调为G2-LOW；E3成立。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G2-LOW。",
           "limitations": [
-            "反例暴露和跨阶段复验不足。"
+            "政治清算主要集中王朝取代生命周期，跨阶段系统性持续性不据此外推。"
           ],
           "parent_chains": [
             {
@@ -29,6 +29,12 @@
               "direction": "POSITIVE",
               "intensity": "MI2_LIFECYCLE",
               "basis": "谏议采纳并产生政策止损。"
+            },
+            {
+              "parent_id": "C5-P128-DYNASTIC-PURGE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "477—479掌权期对刘宋多支王侯的跨月清除；禅让后顺帝被监兵杀且行凶者获赏，超出有限善后。"
             }
           ],
           "unit_groups": [
@@ -54,26 +60,29 @@
           "task_code": "PROFILE-C5-RULER-SHADOW-萧道成",
           "axis_code": "C5",
           "axis_name": "权力运用风格与克制",
-          "radar_value": 71,
-          "score_100": 71,
+          "radar_value": 38,
+          "score_100": 38,
           "current_entry_unit_count": 5,
           "current_entry_disposition_counts": {
             "BACKGROUND_VALIDATION": 3,
             "SCORING_PARENT": 2
           },
-          "axis_evidence_level": "E2",
-          "grade_numeric": 3,
+          "axis_evidence_level": "E3",
+          "grade_numeric": 2,
           "formal_status": "FORMAL_CURRENT",
           "adjudication_ref": "C5-CHAT-REVIEW-V2#RULER-SHADOW-萧道成",
           "actual_power_window": "477—482年实际掌权至齐帝",
           "representative_parent_ids": [
-            "C5-P128-STOPLOSS"
+            "C5-P128-STOPLOSS",
+            "C5-P128-DYNASTIC-PURGE"
           ],
           "counterpattern": {
             "positive_parent_refs": [
               "C5-P128-STOPLOSS"
             ],
-            "negative_parent_refs": [],
+            "negative_parent_refs": [
+              "C5-P128-DYNASTIC-PURGE"
+            ],
             "mixed_parent_refs": []
           },
           "phase_profile": {
@@ -83,35 +92,49 @@
           "axis_relevance_check": {
             "status": "C5_RELEVANT",
             "scoring_parent_refs": [
-              "C5-P128-STOPLOSS"
+              "C5-P128-STOPLOSS",
+              "C5-P128-DYNASTIC-PURGE"
             ]
           },
           "same_chain_semantic_conflict_review_status": "NO_TRIGGER",
           "source_refs": [
             "《南齐书》卷一《高帝纪上》。",
-            "维基文库：https://zh.wikisource.org/zh-hans/南齊書/卷1"
+            "维基文库：https://zh.wikisource.org/zh-hans/南齊書/卷1",
+            "《南史》卷三《宋本纪下》：临川王绰被诛；宋顺帝禅位后被杀，记“宋之王侯无少长皆幽死矣”",
+            "《资治通鉴》宋齐易代相关卷次"
           ],
           "public_evidence_points": [
             {
-              "title": "补充事实与边界",
+              "title": "政治斗争与王朝更替清算复核",
               "details": [
-                "原“政策止损”父链不足，但扩检后直接 C5 材料更强。",
-                "刘休范叛乱后，数千士民因恐惧向叛军投名。萧道成取得名单后随得随烧，并公开告知姓名已毁，主动放弃大规模追查报复。",
-                "袁粲等谋反失败后，莫嗣祖知谋而不告、张承伯藏匿王蕴，萧道成审问后均赦免并任用，体现政治高压场景下区分责任。",
+                "刘休范叛乱后，数千士民因恐惧向叛军投名；萧道成取得名单后随得随烧，并公开告知姓名已毁，主动放弃大规模追查报复。",
+                "477—479掌权期连续清除刘宋多支王侯；禅让后顺帝被监兵杀，行凶者获赏。范围跨多支皇族、跨月推进，明显不是有限善后。",
+                "袁粲等谋反失败后，莫嗣祖知谋而不告、张承伯藏匿王蕴，萧道成审问后均赦免并任用，仍保留政治高压下区分责任的正向证据。",
                 "反证包括废立过程中对袁粲、刘秉等施压，以及黄回最终被诛。",
-                "以“焚投名册”“谋反从属人员区分责任”作为主要正向父链。",
-                "原普通政策止损降为背景或移出。",
-                "《南齐书》卷一《高帝纪上》。"
+                "焚投名册与谋反从属责任区分仍是正向链；普通政策止损不作为独立扩展证据。",
+                "实际举兵者的安全处置与威胁解除后的扩大清算分开；新增C5-P128-DYNASTIC-PURGE为MI3负链，STOPLOSS正链继续保留。"
               ]
             }
           ],
           "source_quality": {
-            "named_source_count": 1,
-            "locator_count": 2,
+            "named_source_count": 3,
+            "locator_count": 4,
             "linked_source_count": 1,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "VALIDATED"
+          "review_status": "RECALIBRATED",
+          "political_conflict_scope_status": "CONFLICTS_REVIEWED",
+          "political_conflict_review": {
+            "audit_sequence": 19,
+            "audit_review_status": "NEW_GRADE_CHANGE",
+            "decision": "GRADE_CHANGE",
+            "current_c5_before_audit": "G3-HIGH",
+            "final_c5_after_audit": "G2-LOW",
+            "expansion_radius_code": "R3_BROAD_MULTI_BRANCH",
+            "expansion_radius_level": 3,
+            "semantic_adjudication": "现C5只抓到刘休范案后焚毁数千投名名单的强收束，却漏掉477—479掌权期连续清除刘宋多支王侯、禅让后顺帝被监兵杀且行凶者获赏。范围跨多支皇族、跨月推进，明显不是有限善后；但主要集中一次王朝取代生命周期，不按全国系统恐怖计R4。"
+          },
+          "person_type": "政治清算与快速收束并存型"
         },
         {
           "sequence": 129,
@@ -252,7 +275,19 @@
             "linked_source_count": 1,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "VALIDATED"
+          "review_status": "VALIDATED",
+          "political_conflict_scope_status": "CONFLICTS_REVIEWED",
+          "political_conflict_review": {
+            "audit_sequence": 20,
+            "audit_review_status": "ALREADY_COVERED",
+            "decision": "KEEP",
+            "current_c5_before_audit": "G1-MID",
+            "final_c5_after_audit": "G1-MID",
+            "expansion_radius_code": "R4_SYSTEMIC_EXTREME",
+            "expansion_radius_level": 4,
+            "semantic_adjudication": "实际举兵者本人退出后，现C5评分核心已保留对未叛宗室的预防性群体清除及向制衡者扩展；G1-MID已体现持续宗室恐怖。"
+          },
+          "person_type": "广域强制扩张型"
         }
       ]
     }

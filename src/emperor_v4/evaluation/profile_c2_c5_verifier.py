@@ -53,7 +53,7 @@ def _md_rows() -> list[tuple[int, str, str, str, str, str]]:
     for line in _read(C5_MD).decode("utf-8").splitlines():
         if line.startswith("| ") and not line.startswith("|---") and "展示序" not in line:
             cells = [cell.strip().replace("\\|", "|") for cell in line[1:-1].split("|")]
-            rows.append((int(cells[5]), cells[3], cells[2], cells[6], cells[7], cells[8]))
+            rows.append((int(cells[4]), cells[3], cells[2], cells[5], cells[6], cells[7]))
     return rows
 
 
@@ -70,8 +70,22 @@ def verify() -> dict[str, object]:
     c5_statuses = {row["same_chain_semantic_conflict_review_status"] for row in c5["records"]}
     assert c5_statuses <= allowed_same_chain
 
+    scope_counts: dict[str, int] = {}
     c5_parent_ids = set()
     for row in c5["records"]:
+        scope_status = str(row.get("political_conflict_scope_status") or "")
+        assert scope_status in {"CONFLICTS_REVIEWED", "NO_MAJOR_CONFLICT"}
+        scope_counts[scope_status] = scope_counts.get(scope_status, 0) + 1
+        assert str(row.get("person_type") or "").strip()
+        political_review = row.get("political_conflict_review") or {}
+        assert political_review.get("audit_review_status")
+        assert political_review.get("semantic_adjudication")
+        if scope_status == "CONFLICTS_REVIEWED":
+            assert isinstance(political_review.get("audit_sequence"), int)
+            assert political_review.get("current_c5_before_audit")
+            assert political_review.get("final_c5_after_audit")
+        else:
+            assert political_review["audit_review_status"] == "NONSEED_SCREENED_NO_TRIGGER"
         parent_rows = parent_chains(row)
         assert row["grade_numeric"] == int(row["axis_grade"][1])
         assert row["radar_value"] == row["score_100"] == GRADE_POINTS[row["axis_grade"]][row["position"]]
@@ -115,6 +129,10 @@ def verify() -> dict[str, object]:
         )
         for row in c5["records"]
     ]
+    assert c5["summary"]["political_conflict_scope_distribution"] == {
+        key: scope_counts.get(key, 0)
+        for key in ("CONFLICTS_REVIEWED", "NO_MAJOR_CONFLICT")
+    }
     manifest = _load(MANIFEST)
     axis = next(item for item in manifest["axes"] if item["axis_code"] == "C5")
 
@@ -125,6 +143,7 @@ def verify() -> dict[str, object]:
         "c5_unit_count": len(units),
         "grade_distribution": c5["summary"]["grade_distribution"],
         "evidence_distribution": c5["summary"]["axis_evidence_distribution"],
+        "political_conflict_scope_distribution": c5["summary"]["political_conflict_scope_distribution"],
     }
 
 

@@ -31,6 +31,10 @@ def test_completed_c_axes_use_deterministic_reading_views() -> None:
             assert markdown.count("**档内定位**") == len(payload["records"])
             assert "**主模式**" not in markdown
             assert "**裁档理由**" not in markdown
+        elif axis == "C5":
+            assert "| 展示序 | 池序 | 人物 | 档位 | 雷达值 | 证据 | 置信度 | 输出模式 | 人物类型 |" in markdown
+            assert "| 展示序 | 池序 | 人物 | 档位 | 潜在高档假设 |" not in markdown
+            assert markdown.count("**政治斗争复核**") == len(payload["records"])
         else:
             assert markdown.count("**主模式**") == len(payload["records"])
             assert markdown.count("**裁档理由**") == len(payload["records"])

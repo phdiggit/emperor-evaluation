@@ -55,6 +55,30 @@ def _limitations(record: dict[str, Any], labels: dict[str, str]) -> str:
     return "；".join(values) or "无"
 
 
+def _c5_person_type(record: dict[str, Any]) -> str:
+    value = str(record.get("person_type") or "").strip()
+    return value or "综合权力边界型"
+
+
+def _c5_political_review_lines(record: dict[str, Any]) -> list[str]:
+    review = record.get("political_conflict_review") or {}
+    if not review:
+        return []
+    scope_status = {
+        "CONFLICTS_REVIEWED": "已识别冲突已逐案复核",
+        "NO_MAJOR_CONFLICT": "未命中需重开的重大冲突触发",
+    }.get(
+        str(record.get("political_conflict_scope_status") or ""),
+        str(record.get("political_conflict_scope_status") or "—"),
+    )
+    radius = str(review.get("expansion_radius_code") or "—")
+    adjudication = str(review.get("semantic_adjudication") or "").strip()
+    lines = [f"- **政治斗争复核**：{scope_status}；{radius}。{adjudication}"]
+    if review.get("dedup_instruction"):
+        lines.append(f"- **政治斗争去重**：{review['dedup_instruction']}")
+    return lines
+
+
 def _parent_basis(parent: dict[str, Any]) -> str:
     for key in ("lifecycle_narrative", "cycle_basis", "constraint_and_task", "coalition_task", "basis", "lifecycle_review"):
         if parent.get(key):
@@ -336,6 +360,25 @@ def _overview_table(axis: str, records: list[dict[str, Any]], labels: dict[str, 
             cells = [row["sequence"], row["ruler_name"], row["polity"], row["actual_power_window"], row["axis_grade"], row["position"], row["radar_value"], row["axis_evidence_level"], row["output_mode"], row["score_status"], len(_parent_chains(row)), row["typical_pattern"], _limitations(row, labels)]
             lines.append("| " + " | ".join(_escape(cell) for cell in cells) + " |")
         return lines
+    if axis == "C5":
+        lines = [
+            "| 展示序 | 池序 | 人物 | 档位 | 雷达值 | 证据 | 置信度 | 输出模式 | 人物类型 |",
+            "|---:|---:|---|---|---:|---|---|---|---|",
+        ]
+        for display, row in enumerate(records, 1):
+            cells = [
+                display,
+                row["sequence"],
+                row["ruler_name"],
+                _grade(row),
+                row["radar_value"],
+                row["axis_evidence_level"],
+                row["confidence"],
+                row["output_mode"],
+                _c5_person_type(row),
+            ]
+            lines.append("| " + " | ".join(_escape(cell) for cell in cells) + " |")
+        return lines
     lines = [
         "| 展示序 | 池序 | 人物 | 档位 | 潜在高档假设 | 雷达值 | 证据 | 置信度 | 输出模式 | 典型模式 |",
         "|---:|---:|---|---|---|---:|---|---|---|---|",
@@ -366,6 +409,8 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
         reading_source_note = f"- 全池表的‘典型模式’为人物类型摘要，‘限制’只显示最强计分负证档位；逐人条目展开完整主模式、裁档理由、限制和代表父链，每条父链最多列{C1_DISPLAY_REF_LIMIT}条直接过程定位，完整来源集合保留在正式JSON。"
     elif axis == "C2":
         reading_source_note = f"- 逐人条目只展开核心依据、档内定位、限制和代表父链；每条父链最多列{C2_DISPLAY_REF_LIMIT}条直接过程定位，完整来源集合与关联父链保留在正式JSON。"
+    elif axis == "C5":
+        reading_source_note = "- 全池表用人物类型浓缩主模式，不展示潜在高档假设；逐人条目展开主模式、裁档理由、政治斗争复核、限制和代表父链，完整证据与去重结论保留在正式JSON。"
     else:
         reading_source_note = "- 逐人条目只展开主模式、裁档理由、限制和代表父链；来源紧随父链，避免重复整段口径。"
     lines = [
@@ -444,6 +489,8 @@ def render_profile_markdown(settlement: dict[str, Any]) -> str:
             f"- **{'档内定位' if axis == 'C2' else '档内位置'}**：{row.get('position_basis') or '由同档材料强度与反例共同确定。'}",
             f"- **限制**：{_limitations(row, labels)}",
         ])
+        if axis == "C5":
+            lines.extend(_c5_political_review_lines(row))
         if axis == "C5" and row.get("public_evidence_points"):
             lines.append("- **关键事实与边界**：")
             for point in row["public_evidence_points"]:

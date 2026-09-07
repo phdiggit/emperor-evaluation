@@ -4,7 +4,7 @@
   "collections": {
     "records": {
       "positions": [
-        146,
+        158,
         181
       ],
       "records": [
@@ -13,13 +13,13 @@
           "ruler_id": "RULER-SHADOW-杨坚",
           "ruler_name": "杨坚",
           "axis_grade": "G1",
-          "position": "HIGH",
+          "position": "MID",
           "confidence": "HIGH",
           "output_mode": "FULL_GRADE",
           "score_status": "FINAL",
-          "typical_pattern": "赵绰任大理少卿，多次直接阻止杨坚法外杀人；《隋书·刑法志》直接概括。",
-          "grade_basis": "杨坚不是“没有制度克制”的人物，赵绰长期抗命且安全恰恰是强正证；但本人同样反复以盛怒、猜忌、诱捕和法外肉刑突破自己建立的法律，并在纠正后复发致死；G1-HIGH / E3维持。",
-          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G1-HIGH。",
+          "typical_pattern": "赵绰任大理少卿，多次直接阻止杨坚法外杀人；但夺权初期又对北周宇文宗室多支及诸子跨月清除，晚期律外用刑复发。",
+          "grade_basis": "原C5已有中期司法自缚MI3正链，同时有晚期律外用刑MI4、权力俘获MI3等强负链。新增夺权初期宇文宗室清洗MI3后，强制权短板从取得最高权力之初延续至晚年；仍有真实中期司法约束，故由G1-HIGH下调至G1-MID，而非G1-LOW/G0。",
+          "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G1-MID。",
           "limitations": [],
           "parent_chains": [
             {
@@ -45,6 +45,12 @@
               "direction": "MIXED_NEGATIVE",
               "intensity": "MI3_SUSTAINED_SYSTEMIC",
               "basis": "长期节用与仁寿宫大规模役死未纠正并存。"
+            },
+            {
+              "parent_id": "C5-P119-YUWEN-PURGE",
+              "direction": "NEGATIVE",
+              "intensity": "MI3_SUSTAINED_SYSTEMIC",
+              "basis": "夺权初期对北周宇文宗室多支及诸子的跨月清除；直接安全威胁与亲属扩大拆分后，扩大部分仍稳定成立。"
             }
           ],
           "unit_groups": [
@@ -115,8 +121,8 @@
           "task_code": "PROFILE-C5-RULER-SHADOW-杨坚",
           "axis_code": "C5",
           "axis_name": "权力运用风格与克制",
-          "radar_value": 31,
-          "score_100": 31,
+          "radar_value": 25,
+          "score_100": 25,
           "current_entry_unit_count": 30,
           "current_entry_disposition_counts": {
             "BACKGROUND_VALIDATION": 13,
@@ -136,7 +142,8 @@
             "C5-P119-EARLY-LAW",
             "C5-P119-LATE-BREACH",
             "C5-P119-CAPTURE",
-            "C5-P119-RESOURCE"
+            "C5-P119-RESOURCE",
+            "C5-P119-YUWEN-PURGE"
           ],
           "counterpattern": {
             "positive_parent_refs": [
@@ -144,7 +151,8 @@
             ],
             "negative_parent_refs": [
               "C5-P119-LATE-BREACH",
-              "C5-P119-CAPTURE"
+              "C5-P119-CAPTURE",
+              "C5-P119-YUWEN-PURGE"
             ],
             "mixed_parent_refs": [
               "C5-P119-RESOURCE"
@@ -160,7 +168,8 @@
               "C5-P119-EARLY-LAW",
               "C5-P119-LATE-BREACH",
               "C5-P119-CAPTURE",
-              "C5-P119-RESOURCE"
+              "C5-P119-RESOURCE",
+              "C5-P119-YUWEN-PURGE"
             ]
           },
           "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED",
@@ -168,7 +177,9 @@
             "《隋书》卷六十二《赵绰传》。",
             "https://zh.wikisource.org/zh-hant/隋書/卷62",
             "《隋书·刑法志》所载殿廷决杖、李君才被鞭死、复置杖。",
-            "可参：https://zh.wikisource.org/zh-hans/欽定古今圖書集成/經濟彙編/祥刑典/第147卷"
+            "可参：https://zh.wikisource.org/zh-hans/欽定古今圖書集成/經濟彙編/祥刑典/第147卷",
+            "《资治通鉴》卷一百七十四：杨坚恐诸王在外生变，征赵、陈、越、代、滕五王入朝；赵王招案后与越王盛及诸子被杀",
+            "《资治通鉴》北周大象二年后续：陈王纯、代王达、滕王逌等宗室继续被处置"
           ],
           "public_evidence_points": [
             {
@@ -201,21 +212,41 @@
               ]
             },
             {
-              "title": "D. 继承与杨素父链可以撤弱，不影响主档",
+              "title": "D. 杨素与继承材料不替代新增宗室清洗链",
               "details": [
-                "杨素贵幸、废立太子等首先涉及用人、继承政治和控制问题。",
-                "按新口径，不再需要靠这些材料增强C5。",
-                "杨坚的档位完全可以由“强司法自缚 + 本人反复突破司法边界”这一对更纯父链决定。"
+                "杨素贵幸、废立太子等首先涉及用人、继承政治和控制问题，不把它们与本次宗室清洗混为一案。",
+                "新增宇文宗室清洗是独立的夺权期政治斗争父链，与晚期律外用刑分阶段、分对象。",
+                "强司法自缚仍是重要正证，但新增MI3负链使最终位置由G1-HIGH下调为G1-MID。"
+              ]
+            },
+            {
+              "title": "E. 580年前后北周宇文宗室多支清除",
+              "details": [
+                "尉迟迥等实际武装叛乱者的战斗镇压按ACTIVE切片不直接扣C5；赵王宇文招确有刺杀杨坚行动，其本人处分安全动机真实。",
+                "赵王招、越王盛等处分扩大到诸子；赵、越、陈、代、滕等北周宗室多支在数月内连续被清除，超出单一首谋处置。",
+                "该链足以把G1从HIGH压到MID，但不因一次王朝取代清算直接进G0。"
               ]
             }
           ],
           "source_quality": {
-            "named_source_count": 2,
-            "locator_count": 4,
+            "named_source_count": 4,
+            "locator_count": 6,
             "linked_source_count": 2,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "VALIDATED"
+          "review_status": "RECALIBRATED",
+          "political_conflict_scope_status": "CONFLICTS_REVIEWED",
+          "political_conflict_review": {
+            "audit_sequence": 28,
+            "audit_review_status": "NEW_GRADE_CHANGE",
+            "decision": "POSITION_DOWN",
+            "current_c5_before_audit": "G1-HIGH",
+            "final_c5_after_audit": "G1-MID",
+            "expansion_radius_code": "R3_BROAD_MULTI_BRANCH",
+            "expansion_radius_level": 3,
+            "semantic_adjudication": "现C5人事清洗父链主要是高颎、朋党和晚期噤声，漏掉580年前后对北周宇文宗室多支及诸子的跨月清除。该链与晚期律外用刑属不同阶段/对象，新增后足以把G1从HIGH压到MID，但不因一次王朝取代清算直接进G0。"
+          },
+          "person_type": "司法自缚与多阶段强制并存型"
         },
         {
           "sequence": 120,
@@ -368,7 +399,19 @@
             "linked_source_count": 2,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "VALIDATED"
+          "review_status": "VALIDATED",
+          "political_conflict_scope_status": "CONFLICTS_REVIEWED",
+          "political_conflict_review": {
+            "audit_sequence": 29,
+            "audit_review_status": "COVERAGE_ONLY_NO_CHANGE",
+            "decision": "KEEP",
+            "current_c5_before_audit": "G0-LOW",
+            "final_c5_after_audit": "G0-LOW",
+            "expansion_radius_code": "R3_BROAD",
+            "expansion_radius_level": 3,
+            "semantic_adjudication": "高层政治处置可补充，但人物已因反馈后继续极端征役、法外强制等多机制落G0-LOW；政治斗争事实只完善画像，不再重复下压。"
+          },
+          "person_type": "广域强制扩张型"
         }
       ]
     }

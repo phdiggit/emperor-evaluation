@@ -9,16 +9,16 @@
         11,
         19,
         20,
-        42,
-        54,
-        66,
-        80,
+        41,
+        53,
+        65,
+        79,
+        89,
         90,
-        91,
+        111,
         112,
-        113,
-        121,
-        155
+        120,
+        154
       ],
       "records": [
         {
@@ -179,7 +179,15 @@
             "linked_source_count": 0,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "VALIDATED"
+          "review_status": "VALIDATED",
+          "political_conflict_scope_status": "NO_MAJOR_CONFLICT",
+          "political_conflict_review": {
+            "audit_review_status": "NONSEED_SCREENED_NO_TRIGGER",
+            "expansion_radius_code": "NA_NO_TRIGGER",
+            "expansion_radius_level": null,
+            "semantic_adjudication": "未在C5、第五项C、M4及主要政治安全入口命中需重开的强触发；未来新增上游事实仍可重开。"
+          },
+          "person_type": "制度自限型"
         },
         {
           "sequence": 68,
@@ -190,8 +198,8 @@
           "confidence": "HIGH",
           "output_mode": "FULL_GRADE",
           "score_status": "FINAL",
-          "typical_pattern": "张琼曾有救驾之功，后被石汉卿等告发，赵匡胤盛怒并亲自殴击，张琼最终死于狱中；陈桥受禅后明确约束军队不得伤害后周帝后、臣民与府库；多类疑案又见核验后限缩惩罚。",
-          "grade_basis": "张琼曾有救驾之功，后被石汉卿等告发，赵匡胤盛怒并亲自殴击，张琼最终死于狱中；后来发现其家贫、并无所谓巨额不法财产，赵匡胤明确悔恨、责告发者并抚恤其家；陈桥受禅后明确约束军队不得伤害后周帝后、臣民与府库；多类疑案又见核验后限缩惩罚；这些不是单纯“仁慈名声”，而是在拥有压倒性武力便利时主动限制己方强制。",
+          "typical_pattern": "张琼曾有救驾之功，后被石汉卿等告发，赵匡胤盛怒并亲自殴击，张琼最终死于狱中；陈桥受禅后明确约束军队不得伤害后周帝后、臣民与府库；多类疑案又见核验后限缩惩罚。李重进平叛后少量亲属和直接同谋被处死，次日释放其余家属部曲胁从，有限扩大后快速收束",
+          "grade_basis": "张琼曾有救驾之功，后被石汉卿等告发，赵匡胤盛怒并亲自殴击，张琼最终死于狱中；后来发现其家贫、并无所谓巨额不法财产，赵匡胤明确悔恨、责告发者并抚恤其家；陈桥受禅后明确约束军队不得伤害后周帝后、臣民与府库；多类疑案又见核验后限缩惩罚；这些不是单纯“仁慈名声”，而是在拥有压倒性武力便利时主动限制己方强制。全池政治斗争复核：李重进平叛后少量亲属和直接同谋被处死，次日释放其余家属、部曲及胁从者；这是R1有限扩大后迅速收束的MI2生命周期，不改变G4-MID",
           "position_basis": "按逐案覆盖、复发强度、程序与反馈后收束综合定位为G4-MID。",
           "limitations": [],
           "parent_chains": [
@@ -206,6 +214,12 @@
               "direction": "MIXED_POSITIVE",
               "intensity": "MI3_SUSTAINED_SYSTEMIC",
               "basis": "跨敌对阵营保护忠直者反复出现，最初击伤或报复风险构成同机制反证。"
+            },
+            {
+              "parent_id": "C5-P068-LICHONGJIN-AFTERMATH",
+              "direction": "MIXED_NEGATIVE",
+              "intensity": "MI2_LIFECYCLE",
+              "basis": "扬州胜负已定后处死李重进弟与子及数百同谋，随后释放其余家属、部曲和胁从者；亲属扩大构成深下沿，快速区分收束阻止升级为系统清洗。"
             }
           ],
           "unit_groups": [
@@ -269,14 +283,16 @@
           "actual_power_window": "960-976",
           "representative_parent_ids": [
             "C5-P068-PUNISHMENT-REVIEW",
-            "C5-P068-DISSENT-PROTECTION"
+            "C5-P068-DISSENT-PROTECTION",
+            "C5-P068-LICHONGJIN-AFTERMATH"
           ],
           "counterpattern": {
             "positive_parent_refs": [],
             "negative_parent_refs": [],
             "mixed_parent_refs": [
               "C5-P068-PUNISHMENT-REVIEW",
-              "C5-P068-DISSENT-PROTECTION"
+              "C5-P068-DISSENT-PROTECTION",
+              "C5-P068-LICHONGJIN-AFTERMATH"
             ]
           },
           "phase_profile": {
@@ -287,13 +303,17 @@
             "status": "C5_RELEVANT",
             "scoring_parent_refs": [
               "C5-P068-PUNISHMENT-REVIEW",
-              "C5-P068-DISSENT-PROTECTION"
+              "C5-P068-DISSENT-PROTECTION",
+              "C5-P068-LICHONGJIN-AFTERMATH"
             ]
           },
           "same_chain_semantic_conflict_review_status": "CONSTRUCT_SEPARATED",
           "source_refs": [
             "《宋史·太祖本纪》。",
-            "《宋史·张琼传》。"
+            "《宋史·张琼传》。",
+            "《宋史》卷四百八十四《李重进传》",
+            "《资治通鉴后编》卷一：入扬州戮同谋数百，重赞及延福并戮于市；次日释重进家属部曲",
+            "《续资治通鉴》卷一：同谋、亲属处分及赦胁从者"
           ],
           "public_evidence_points": [
             {
@@ -317,15 +337,36 @@
                 "张琼案说明盛怒下仍可能突破程序；宋初政治军事结构又使部分约束具有创业期特殊性。",
                 "正向覆盖足够G4中位，反证也足够锁住上沿。"
               ]
+            },
+            {
+              "title": "D. 李重进善后：有限扩大后迅速收束",
+              "details": [
+                "李重进公开起兵、据扬州拒宋，亲征攻城属于ACTIVE安全处置；城破后少量亲属和直接同谋被处死。",
+                "次日下诏释放其余家属、部曲及胁从者，并赈扬州民；这是R1有限扩大后迅速收束的MI2生命周期。",
+                "新增链不改变G4-MID；不能把有限善后扩大为系统清洗。"
+              ]
             }
           ],
           "source_quality": {
-            "named_source_count": 2,
-            "locator_count": 2,
+            "named_source_count": 5,
+            "locator_count": 5,
             "linked_source_count": 0,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "VALIDATED"
+          "review_status": "RECALIBRATED",
+          "political_conflict_scope_status": "CONFLICTS_REVIEWED",
+          "political_conflict_review": {
+            "audit_sequence": 41,
+            "audit_review_status": "NEW_CHAIN_NO_GRADE_CHANGE",
+            "decision": "KEEP",
+            "current_c5_before_audit": "G4-MID",
+            "final_c5_after_audit": "G4-MID",
+            "expansion_radius_code": "R1_LIMITED_WITH_RAPID_RESTRAINT",
+            "expansion_radius_level": 1,
+            "semantic_adjudication": "李重进平叛后有少量亲属/直接同谋被处死，但很快下诏释放其余家属、部曲及胁从者；属于有限扩大后迅速收束，只记轻下沿，不足从G4-MID降档。",
+            "dedup_instruction": "李重进善后记作R1轻下沿，与随后释放其余家属、部曲、胁从者合并为同一MI2生命周期；不降G4-MID。"
+          },
+          "person_type": "高压下主动克制与有限善后并存型"
         },
         {
           "sequence": 146,
@@ -496,7 +537,15 @@
             "linked_source_count": 1,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "RECALIBRATED"
+          "review_status": "RECALIBRATED",
+          "political_conflict_scope_status": "NO_MAJOR_CONFLICT",
+          "political_conflict_review": {
+            "audit_review_status": "NONSEED_SCREENED_NO_TRIGGER",
+            "expansion_radius_code": "NA_NO_TRIGGER",
+            "expansion_radius_level": null,
+            "semantic_adjudication": "未在C5、第五项C、M4及主要政治安全入口命中需重开的强触发；未来新增上游事实仍可重开。"
+          },
+          "person_type": "反馈失灵与局部纠偏并存型"
         },
         {
           "sequence": 63,
@@ -637,7 +686,15 @@
             "linked_source_count": 1,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "RECALIBRATED"
+          "review_status": "RECALIBRATED",
+          "political_conflict_scope_status": "NO_MAJOR_CONFLICT",
+          "political_conflict_review": {
+            "audit_review_status": "NONSEED_SCREENED_NO_TRIGGER",
+            "expansion_radius_code": "NA_NO_TRIGGER",
+            "expansion_radius_level": null,
+            "semantic_adjudication": "未在C5、第五项C、M4及主要政治安全入口命中需重开的强触发；未来新增上游事实仍可重开。"
+          },
+          "person_type": "克制与越界并存型"
         },
         {
           "sequence": 66,
@@ -779,7 +836,15 @@
             "linked_source_count": 4,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "RECALIBRATED"
+          "review_status": "RECALIBRATED",
+          "political_conflict_scope_status": "NO_MAJOR_CONFLICT",
+          "political_conflict_review": {
+            "audit_review_status": "NONSEED_SCREENED_NO_TRIGGER",
+            "expansion_radius_code": "NA_NO_TRIGGER",
+            "expansion_radius_level": null,
+            "semantic_adjudication": "未在C5、第五项C、M4及主要政治安全入口命中需重开的强触发；未来新增上游事实仍可重开。"
+          },
+          "person_type": "政治清算与强制扩张型"
         },
         {
           "sequence": 65,
@@ -916,7 +981,19 @@
             "linked_source_count": 2,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "RECALIBRATED"
+          "review_status": "RECALIBRATED",
+          "political_conflict_scope_status": "CONFLICTS_REVIEWED",
+          "political_conflict_review": {
+            "audit_sequence": 42,
+            "audit_review_status": "ALREADY_COVERED",
+            "decision": "KEEP",
+            "current_c5_before_audit": "G3-MID",
+            "final_c5_after_audit": "G3-MID",
+            "expansion_radius_code": "R2_BOUNDED",
+            "expansion_radius_level": 2,
+            "semantic_adjudication": "元僖案等存在向不知情亲属扩大，但范围有限；同时长期司法复核和减刑正链已消费，维持G3-MID。"
+          },
+          "person_type": "制度自限型"
         },
         {
           "sequence": 143,
@@ -1080,7 +1157,15 @@
             "linked_source_count": 2,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "RECALIBRATED"
+          "review_status": "RECALIBRATED",
+          "political_conflict_scope_status": "NO_MAJOR_CONFLICT",
+          "political_conflict_review": {
+            "audit_review_status": "NONSEED_SCREENED_NO_TRIGGER",
+            "expansion_radius_code": "NA_NO_TRIGGER",
+            "expansion_radius_level": null,
+            "semantic_adjudication": "未在C5、第五项C、M4及主要政治安全入口命中需重开的强触发；未来新增上游事实仍可重开。"
+          },
+          "person_type": "反馈失灵与局部纠偏并存型"
         },
         {
           "sequence": 69,
@@ -1224,7 +1309,15 @@
             "linked_source_count": 1,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "RECALIBRATED"
+          "review_status": "RECALIBRATED",
+          "political_conflict_scope_status": "NO_MAJOR_CONFLICT",
+          "political_conflict_review": {
+            "audit_review_status": "NONSEED_SCREENED_NO_TRIGGER",
+            "expansion_radius_code": "NA_NO_TRIGGER",
+            "expansion_radius_level": null,
+            "semantic_adjudication": "未在C5、第五项C、M4及主要政治安全入口命中需重开的强触发；未来新增上游事实仍可重开。"
+          },
+          "person_type": "克制与越界并存型"
         },
         {
           "sequence": 70,
@@ -1396,7 +1489,15 @@
             "linked_source_count": 3,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "RECALIBRATED"
+          "review_status": "RECALIBRATED",
+          "political_conflict_scope_status": "NO_MAJOR_CONFLICT",
+          "political_conflict_review": {
+            "audit_review_status": "NONSEED_SCREENED_NO_TRIGGER",
+            "expansion_radius_code": "NA_NO_TRIGGER",
+            "expansion_radius_level": null,
+            "semantic_adjudication": "未在C5、第五项C、M4及主要政治安全入口命中需重开的强触发；未来新增上游事实仍可重开。"
+          },
+          "person_type": "政治清算与强制扩张型"
         },
         {
           "sequence": 144,
@@ -1583,7 +1684,15 @@
             "linked_source_count": 3,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "RECALIBRATED"
+          "review_status": "RECALIBRATED",
+          "political_conflict_scope_status": "NO_MAJOR_CONFLICT",
+          "political_conflict_review": {
+            "audit_review_status": "NONSEED_SCREENED_NO_TRIGGER",
+            "expansion_radius_code": "NA_NO_TRIGGER",
+            "expansion_radius_level": null,
+            "semantic_adjudication": "未在C5、第五项C、M4及主要政治安全入口命中需重开的强触发；未来新增上游事实仍可重开。"
+          },
+          "person_type": "反馈失灵与局部纠偏并存型"
         },
         {
           "sequence": 145,
@@ -1777,7 +1886,15 @@
             "linked_source_count": 2,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "RECALIBRATED"
+          "review_status": "RECALIBRATED",
+          "political_conflict_scope_status": "NO_MAJOR_CONFLICT",
+          "political_conflict_review": {
+            "audit_review_status": "NONSEED_SCREENED_NO_TRIGGER",
+            "expansion_radius_code": "NA_NO_TRIGGER",
+            "expansion_radius_level": null,
+            "semantic_adjudication": "未在C5、第五项C、M4及主要政治安全入口命中需重开的强触发；未来新增上游事实仍可重开。"
+          },
+          "person_type": "反馈失灵与局部纠偏并存型"
         },
         {
           "sequence": 64,
@@ -1943,7 +2060,15 @@
             "linked_source_count": 3,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "VALIDATED"
+          "review_status": "VALIDATED",
+          "political_conflict_scope_status": "NO_MAJOR_CONFLICT",
+          "political_conflict_review": {
+            "audit_review_status": "NONSEED_SCREENED_NO_TRIGGER",
+            "expansion_radius_code": "NA_NO_TRIGGER",
+            "expansion_radius_level": null,
+            "semantic_adjudication": "未在C5、第五项C、M4及主要政治安全入口命中需重开的强触发；未来新增上游事实仍可重开。"
+          },
+          "person_type": "政治清算与强制扩张型"
         },
         {
           "sequence": 71,
@@ -2095,7 +2220,15 @@
             "linked_source_count": 3,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "RECALIBRATED"
+          "review_status": "RECALIBRATED",
+          "political_conflict_scope_status": "NO_MAJOR_CONFLICT",
+          "political_conflict_review": {
+            "audit_review_status": "NONSEED_SCREENED_NO_TRIGGER",
+            "expansion_radius_code": "NA_NO_TRIGGER",
+            "expansion_radius_level": null,
+            "semantic_adjudication": "未在C5、第五项C、M4及主要政治安全入口命中需重开的强触发；未来新增上游事实仍可重开。"
+          },
+          "person_type": "政治清算与强制扩张型"
         },
         {
           "sequence": 147,
@@ -2274,7 +2407,15 @@
             "linked_source_count": 4,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "RECALIBRATED"
+          "review_status": "RECALIBRATED",
+          "political_conflict_scope_status": "NO_MAJOR_CONFLICT",
+          "political_conflict_review": {
+            "audit_review_status": "NONSEED_SCREENED_NO_TRIGGER",
+            "expansion_radius_code": "NA_NO_TRIGGER",
+            "expansion_radius_level": null,
+            "semantic_adjudication": "未在C5、第五项C、M4及主要政治安全入口命中需重开的强触发；未来新增上游事实仍可重开。"
+          },
+          "person_type": "反馈失灵与局部纠偏并存型"
         },
         {
           "sequence": 67,
@@ -2427,7 +2568,15 @@
             "linked_source_count": 3,
             "status": "NAMED_HISTORICAL_SOURCE_PRESENT"
           },
-          "review_status": "RECALIBRATED"
+          "review_status": "RECALIBRATED",
+          "political_conflict_scope_status": "NO_MAJOR_CONFLICT",
+          "political_conflict_review": {
+            "audit_review_status": "NONSEED_SCREENED_NO_TRIGGER",
+            "expansion_radius_code": "NA_NO_TRIGGER",
+            "expansion_radius_level": null,
+            "semantic_adjudication": "未在C5、第五项C、M4及主要政治安全入口命中需重开的强触发；未来新增上游事实仍可重开。"
+          },
+          "person_type": "政治清算与强制扩张型"
         }
       ]
     }
