@@ -1,5 +1,5 @@
 {
-  "schema_version": "emperor-profile-c5-political-conflict-boundary-review-v1",
+  "schema_version": "emperor-profile-c5-political-conflict-boundary-review-v2",
   "canonical_status": "FORMAL_CURRENT_AUDIT",
   "axis_code": "C5",
   "axis_name": "权力运用风格与克制",
@@ -16,11 +16,24 @@
     "symmetry_rule": "拒绝秘密暗杀/法外报复只有在确有便利且主动选择更可复核、更合比例路径时才是正证；相应负证是采用秘密暗杀、报复或扩大处分，不是公开战斗本身。"
   },
   "summary": {
-    "priority_screened_count": 21,
+    "priority_screened_count": 22,
     "grade_or_position_change_count": 4,
-    "grade_unchanged_parent_or_narrative_change_count": 3,
+    "grade_unchanged_parent_or_narrative_change_count": 4,
     "grade_unchanged_boundary_confirmed_count": 14,
     "formal_settlement_sync_status": "PENDING_SHARD_AND_MD_SYNC",
+    "post_review_grade_distribution_if_synced": {
+      "G0": 17,
+      "G1": 34,
+      "G2": 59,
+      "G3": 63,
+      "G4": 8,
+      "G5": 3
+    },
+    "post_review_position_distribution_if_synced": {
+      "HIGH": 74,
+      "LOW": 36,
+      "MID": 74
+    },
     "note": "本文件保存本轮专项重裁的裁决覆盖；列入change_decisions者在语义上取代旧聊天复核值，待正式分片JSON和MD阅读视图同步后关闭PENDING。"
   },
   "change_decisions": [
@@ -126,7 +139,7 @@
       "before": "G3-HIGH/71/E2",
       "after": "G3-MID/65/E2",
       "decision": "GRADE_CHANGE",
-      "case": "苻坚死后掘尸鞭辱与强制边界",
+      "case": "苻坚被俘—逼禅—缢死—死后掘尸鞭辱",
       "threat_state_slices": [
         {
           "state": "ACTIVE",
@@ -134,14 +147,21 @@
           "c5_effect": "NEUTRAL_SECURITY_RESPONSE"
         },
         {
+          "state": "CONTROLLED",
+          "slice": "苻坚在五将山众散后仅余侍御十数人，被吴忠执送新平并幽于别室；姚苌向其索传国玺，又令尹纬劝其禅代，苻坚拒绝后被缢死于新平佛寺。",
+          "c5_effect": "NEGATIVE_MI2_POST_CAPTURE_COERCIVE_EXECUTION"
+        },
+        {
           "state": "ENDED",
-          "slice": "苻坚已经死亡后，姚苌又掘其尸，反复鞭挞、裸剥衣裳并以荆棘覆埋。死亡后的尸体显然不存在现实安全威胁。",
-          "c5_effect": "NEGATIVE_MI1_DEEP_REVENGE_CASE"
+          "slice": "苻坚死亡后，姚苌又掘其尸，反复鞭挞、裸剥衣裳并以荆棘覆埋。死亡后的尸体不存在现实安全威胁。",
+          "c5_effect": "NEGATIVE_REVENGE_AND_HUMILIATION_SAME_LIFECYCLE"
         }
       ],
-      "parent_change": "撤销‘掘苻坚尸体、鞭尸退出C5主评分’；恢复为威胁结束后的私人报复/羞辱深下沿。",
-      "grade_basis": "权翼直谏后自我纠正、反对姚兴擅杀将领两条MI2正证仍保留；但‘复私仇者皆诛’的比例过重规则与苻坚死后报复性鞭尸共同显示强制权边界并非明显上沿。由G3-HIGH调至G3-MID，E2不变。",
+      "parent_change": "撤销‘掘苻坚尸体、鞭尸退出C5主评分’；将苻坚案恢复为NEGATIVE / MI2_LIFECYCLE：战争阶段不扣，俘后逼禅与处死进入比例审查，死后掘尸鞭辱进一步坐实报复性下沿。",
+      "grade_basis": "权翼直谏后自我纠正、反对姚兴擅杀将领两条MI2正证仍保留；但‘复私仇者皆诛’的比例过重规则与苻坚俘后处死—死后报复共同显示强制权边界并非明显上沿。由G3-HIGH调至G3-MID，E2不变。",
       "source_refs": [
+        "《晋书》卷一百十四《苻坚载记》：苻坚被执、幽禁、拒绝交玺与禅代后被缢死于新平佛寺",
+        "https://zh.wikisource.org/zh-hans/晉書/卷114",
         "《晋书》卷一百十六《姚苌载记》：掘苻坚尸，鞭挞无数，裸剥衣裳，荐之以棘而埋",
         "https://zh.wikisource.org/zh-hans/晉書/卷116"
       ]
@@ -193,6 +213,23 @@
       "source_refs": [
         "《新五代史》卷二十四《安重诲传》：罢职、致仕、围第击杀夫妇并杀二子",
         "https://zh.wikisource.org/zh-hans/新五代史/卷24"
+      ]
+    },
+    {
+      "ruler_id": "RULER-QING-DORGON",
+      "ruler_name": "多尔衮",
+      "before": "G1-MID/25/E3",
+      "after": "G1-MID/25/E3",
+      "decision": "GRADE_UNCHANGED_RESTORE_CONTROLLED_RIVAL_COUNTEREVIDENCE",
+      "case": "豪格凯旋后被反复议罪、幽系并死狱中",
+      "threat_state": "CONTROLLED",
+      "parent_effect": "删除‘豪格本人处置先退出C5’的对象级豁免。豪格确曾是继承竞争者并长期掌兵，但顺治五年从四川凯旋后已经回京；《清史稿》记多尔衮与豪格有夙隙，以徇隐部将冒功等罪系狱，次月豪格死；《清史纪事本末》进一步记多尔衮心忌豪格、反复令诸王大臣奏争后幽系，旋毙狱中。 exact death mechanism仍不闭合，不写成多尔衮亲令杀害；但政治私怨推动受控制竞争者不可逆入狱死亡，属于MIXED_NEGATIVE/MI2级反证。",
+      "grade_basis": "即便恢复豪格案反证，剃发、逃人、土地与人口身份强制等MI3/MI4负链本已把多尔衮稳定在G1-MID；本案加深下沿但不足再跨到G1-LOW。",
+      "source_refs": [
+        "《清史稿》卷二百十九《肃武亲王豪格传》：多尔衮与豪格有夙隙，豪格凯旋后系狱，次月薨",
+        "https://zh.wikisource.org/zh-hans/清史稿/卷219",
+        "《清史纪事本末》卷七：多尔衮心忌豪格，反复奏争后幽系，寻毙于狱",
+        "https://zh.wikisource.org/zh-hans/清史紀事本末/卷七"
       ]
     }
   ],
@@ -253,24 +290,24 @@
       "reason": "徐敬业、李贞公开举兵属于ACTIVE；告密入口、制狱与非战斗对象的系统性强制才决定G1。"
     },
     {
-      "ruler_name": "多尔衮",
-      "current": "G1-MID/25/E3",
-      "reason": "豪格继承竞争需按时点拆分，但剃发、身份强制等独立负链足以维持强短板；本轮未发现足以跨档的新事实。"
-    },
-    {
       "ruler_name": "拓跋嗣",
       "current": "G3-MID/65/E2",
-      "reason": "清河王绍弑父后仍处直接生死权力冲突；诛绍不因对象本身扣C5，政变后大赦与未扩大清洗作为正向背景，维持。"
+      "reason": "清河王绍弑道武帝后仍处直接生死权力冲突；诛绍不因对象本身扣C5，政变后大赦与未扩大清洗作为正向背景，维持。"
     },
     {
       "ruler_name": "石勒",
       "current": "G1-HIGH/31/E3",
       "reason": "已请降对象与降卒大规模坑杀继续直接计负；这是投降后安全豁免结束的正确低档锚点。"
+    },
+    {
+      "ruler_name": "李安全",
+      "current": "G3-MID/65/E1",
+      "reason": "与纯佑争夺最高权力及废立本身不自动扣C5；现有史料只闭合纯佑被废后约两月死于废所，未闭合李安全下令杀害，也未闭合其对纯佑家属、旧党或普通人员扩大清洗，维持低置信度常模。"
     }
   ],
   "sync_requirements": [
     "将4名改档者同步至对应分片JSON、顶层索引summary分布与MD全池表/逐人条目。",
-    "将李世民、孟知祥、李嗣源三人的新增/修正父链与公开依据同步至分片JSON和MD。",
+    "将李世民、孟知祥、李嗣源、多尔衮四人的新增/修正父链与公开依据同步至分片JSON和MD。",
     "重跑05-C5高档材料密度复核中李世民、朱瞻基、皇太极三人条目；其中李世民维持G5-LOW但必须补玄武门家属扩大反证，朱瞻基与皇太极退出G4高档复核集合。",
     "更新07-C5高档与证据门结构复核的before/after和统计计数，禁止旧审计继续作为当前档位来源。",
     "同步完成前，02正式结算仍含旧值；本审计文件是本轮裁决依据而不是机器正式结算入口。"
